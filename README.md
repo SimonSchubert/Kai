@@ -7,9 +7,11 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 ### Supported services and models:
 
 ### Gemini
+
 Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Flash-8B
 
 ### GroqCloud
+
 LLama 3.3, Mixtral, Gemma2...
 
 ## Screenshots
@@ -29,5 +31,7 @@ LLama 3.3, Mixtral, Gemma2...
 ## Credits
 
 Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
+
 GroqCloud: https://groq.com
+
 Gemini: https://gemini.google.com
