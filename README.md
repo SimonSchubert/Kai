@@ -14,6 +14,12 @@ Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Flash-8B
 
 LLama 3.3, Mixtral, Gemma2...
 
+### TODO list:
+
+- [] Dark mode
+- [] Chat histories
+- [] Voice chat
+
 ## Screenshots
 
 ### Desktop
