@@ -300,9 +300,11 @@ private fun QuestionInput(ask: (String) -> Unit) {
 
     fun submitQuestion() {
         val text = textState.text
-        textState = TextFieldValue("")
-        focusManager.clearFocus()
-        ask(text.trim())
+        if (text.isNotBlank()) {
+            ask(text.trim())
+            focusManager.clearFocus()
+            textState = TextFieldValue("")
+        }
     }
 
     val trailingIconView = @Composable {
@@ -331,9 +333,7 @@ private fun QuestionInput(ask: (String) -> Unit) {
     TextField(
         value = textState,
         onValueChange = {
-            if (textState.text != it.text) {
-                textState = it
-            }
+            textState = it
         },
         modifier = Modifier
             .focusRequester(focusRequester)
