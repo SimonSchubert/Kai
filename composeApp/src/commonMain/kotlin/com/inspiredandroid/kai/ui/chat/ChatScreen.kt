@@ -29,13 +29,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -66,6 +65,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.outlineTextFieldColors
 import com.mikepenz.markdown.m3.Markdown
 import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
@@ -91,7 +91,7 @@ fun ChatScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
 
-    Column(Modifier.fillMaxSize().navigationBarsPadding().statusBarsPadding().imePadding()) {
+    Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
             textToSpeech = textToSpeech,
             isLoading = uiState.isLoading,
@@ -170,7 +170,8 @@ private fun TopBar(
             ) {
                 Icon(
                     imageVector = vectorResource(Res.drawable.ic_delete_forever),
-                    contentDescription = "",
+                    contentDescription = "Clear chat",
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
             }
         }
@@ -189,7 +190,8 @@ private fun TopBar(
                     } else {
                         vectorResource(Res.drawable.ic_volume_off)
                     },
-                    contentDescription = "",
+                    contentDescription = "Toggle speech output",
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
             }
         }
@@ -200,7 +202,8 @@ private fun TopBar(
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_settings),
-                contentDescription = "",
+                contentDescription = "Settings",
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -225,11 +228,12 @@ private fun UserMessage(
         Text(
             modifier = Modifier
                 .background(
-                    Color.LightGray,
+                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f),
                     RoundedCornerShape(8.dp),
                 )
                 .padding(16.dp),
             text = message,
+            color = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
@@ -248,11 +252,13 @@ private fun Error(
         )
         Spacer(Modifier.height(16.dp))
         IconButton(
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             onClick = retry,
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_refresh),
                 contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -282,12 +288,14 @@ private fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
         Text(
             text = "Welcome to Kai",
             style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         if (isUsingSharedKey) {
             Text(
                 text = "You are using a limited and shared api key. Go to settings to change it.",
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -366,12 +374,13 @@ private fun QuestionInput(ask: (String) -> Unit) {
                     false
                 }
             },
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-        ),
-        placeholder = { Text("Ask a question") },
+        colors = outlineTextFieldColors(),
+        placeholder = {
+            Text(
+                "Ask a question",
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
         trailingIcon = if (textState.text.isNotBlank()) trailingIconView else null,
         keyboardActions = KeyboardActions(onSend = {
             submitQuestion()

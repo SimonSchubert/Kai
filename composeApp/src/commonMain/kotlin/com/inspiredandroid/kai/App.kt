@@ -1,7 +1,6 @@
 
 package com.inspiredandroid.kai
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -48,7 +47,7 @@ fun App(
             modules(appModule)
         },
     ) {
-        MaterialTheme {
+        Theme {
             val navController = rememberNavController()
 
             NavHost(navController, startDestination = Screen.Home.route) {
