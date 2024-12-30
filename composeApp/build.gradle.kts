@@ -72,7 +72,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -130,7 +129,7 @@ android {
         applicationId = "com.inspiredandroid.kai"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
+        versionCode = 2
         versionName = appVersion
     }
     packaging {

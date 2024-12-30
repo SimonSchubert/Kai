@@ -2,6 +2,7 @@
 
 package com.inspiredandroid.kai.ui.settings
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
@@ -25,18 +26,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -66,6 +67,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.outlineTextFieldColors
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
@@ -82,7 +84,7 @@ fun SettingsScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
 
-    Column(Modifier.fillMaxSize().navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
+    Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
         TopBar(onNavigateBack = onNavigateBack)
 
         ServiceSelection(uiState.services, uiState.onClickService)
@@ -118,6 +120,7 @@ private fun TopBar(onNavigateBack: () -> Unit) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_arrow_back),
                 contentDescription = null,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
         Spacer(Modifier.weight(1f))
@@ -128,8 +131,9 @@ private fun TopBar(onNavigateBack: () -> Unit) {
 private fun BottomInfo() {
     Text(
         text = "AI makes mistakes, double check and don't share sensitive information.",
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.bodySmall,
         textAlign = TextAlign.Center,
+        color = MaterialTheme.colorScheme.onBackground,
     )
 
     Spacer(Modifier.height(8.dp))
@@ -149,11 +153,17 @@ private fun BottomInfo() {
                     modifier = Modifier.fillMaxSize(),
                     painter = painterResource(Res.drawable.github_mark),
                     contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
             },
         )
 
-        Text(annotatedString, inlineContent = inlineContentMap, style = MaterialTheme.typography.body1)
+        Text(
+            annotatedString,
+            inlineContent = inlineContentMap,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
     }
 }
 
@@ -163,7 +173,13 @@ private fun GeminiSettings(uiState: SettingsUiState) {
         modifier = Modifier.fillMaxWidth(),
         value = uiState.geminiApiKey,
         onValueChange = uiState.onChangeGeminiApiKey,
-        label = { Text("API Key") },
+        label = {
+            Text(
+                "API Key",
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
+        colors = outlineTextFieldColors(),
     )
 
     Spacer(Modifier.height(8.dp))
@@ -179,7 +195,10 @@ private fun GeminiSettings(uiState: SettingsUiState) {
             append(" for free of charge requests.")
         }
     }
-    Text(annotatedString)
+    Text(
+        annotatedString,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
 
     Spacer(Modifier.height(16.dp))
 
@@ -192,7 +211,13 @@ private fun GroqSettings(uiState: SettingsUiState) {
         modifier = Modifier.fillMaxWidth(),
         value = uiState.groqApiKey,
         onValueChange = uiState.onChangeGroqApiKey,
-        label = { Text("API Key") },
+        label = {
+            Text(
+                "API Key",
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
+        colors = outlineTextFieldColors(),
     )
 
     Spacer(Modifier.height(8.dp))
@@ -211,6 +236,7 @@ private fun GroqSettings(uiState: SettingsUiState) {
     Text(
         annotatedString,
         modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onBackground,
     )
 
     Spacer(Modifier.height(16.dp))
@@ -229,13 +255,20 @@ private fun ModelSelection(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value = currentSelectedModel?.id ?: "",
+            colors = outlineTextFieldColors(),
             onValueChange = {},
-            label = { Text("Model") },
+            label = {
+                Text(
+                    "Model",
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            },
             trailingIcon = {
                 androidx.compose.material3.Icon(
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
                     contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
             },
             readOnly = true,
@@ -291,19 +324,22 @@ private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
         ) {
             Text(
                 text = model.id,
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.titleMedium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             Text(
                 text = model.subtitle,
                 maxLines = 1,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             Text(
                 text = model.description,
                 maxLines = 1,
-                style = MaterialTheme.typography.body2,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -321,7 +357,12 @@ private fun ServiceSelection(services: List<SettingsUiState.Service>, onChanged:
                 ),
                 onClick = { onChanged(service.id) },
                 selected = service.isSelected,
-                label = { Text(service.name) },
+                label = {
+                    Text(
+                        service.name,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                },
             )
         }
     }
