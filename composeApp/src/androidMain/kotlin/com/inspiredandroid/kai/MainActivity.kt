@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
+import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,9 @@ class MainActivity : ComponentActivity() {
             val textToSpeech = rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
             App(
                 textToSpeech = textToSpeech,
+                koinApplication = {
+                    androidContext(this@MainActivity)
+                },
             )
         }
     }

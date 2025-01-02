@@ -12,6 +12,7 @@ import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.authProviders
 import io.ktor.client.plugins.auth.providers.BearerAuthProvider
@@ -43,6 +44,9 @@ class Requests(private val settings: Settings) {
                 },
             )
         }
+        install(HttpTimeout) {
+            requestTimeoutMillis = 30_000 // 30 seconds
+        }
         install(Logging) {
             logger = DebugKtorLogger()
             level = LogLevel.BODY
@@ -73,7 +77,7 @@ class Requests(private val settings: Settings) {
 
     class DebugKtorLogger : Logger {
         override fun log(message: String) {
-            // println("[KTOR] $message")
+            println("[KTOR] $message")
         }
     }
 
@@ -128,11 +132,9 @@ class Requests(private val settings: Settings) {
     suspend fun getGroqModels(): Result<GroqModelResponseDto> {
         return try {
             val response: HttpResponse =
-                groqClient.get("https://api.groq.com/openai/v1/models") {
-                    contentType(ContentType.Application.Json)
-                }
+                groqClient.get("https://api.groq.com/openai/v1/models")
             Result.success(response.body())
-        } catch (exception: Exception) {
+        } catch (exception: Throwable) {
             Result.failure(exception)
         }
     }
