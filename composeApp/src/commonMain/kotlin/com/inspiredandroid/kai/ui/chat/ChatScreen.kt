@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalResourceApi::class)
+@file:OptIn(ExperimentalResourceApi::class, ExperimentalVoiceApi::class)
 
 package com.inspiredandroid.kai.ui.chat
 
@@ -41,6 +41,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -59,12 +60,16 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.openUrl
 import com.inspiredandroid.kai.outlineTextFieldColors
 import com.mikepenz.markdown.m3.Markdown
 import io.github.alexzhirkevich.compottie.Compottie
@@ -72,14 +77,21 @@ import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_delete_forever
+import kai.composeapp.generated.resources.ic_flag
 import kai.composeapp.generated.resources.ic_refresh
 import kai.composeapp.generated.resources.ic_settings
+import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_up
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
+import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
+import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -96,6 +108,8 @@ fun ChatScreen(
             textToSpeech = textToSpeech,
             isLoading = uiState.isLoading,
             isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
+            isSpeaking = uiState.isSpeaking,
+            setIsSpeaking = uiState.setIsSpeaking,
             isChatHistoryEmpty = uiState.history.isEmpty(),
             clearHistory = uiState.clearHistory,
             toggleSpeechOutput = uiState.toggleSpeechOutput,
@@ -107,6 +121,7 @@ fun ChatScreen(
                 if (uiState.history.isEmpty()) {
                     EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.isUsingSharedKey)
                 } else {
+                    val componentScope = rememberCoroutineScope()
                     LazyColumn(
                         modifier = Modifier.fillMaxWidth().weight(1f),
                         state = rememberLazyListState().apply {
@@ -114,10 +129,13 @@ fun ChatScreen(
                                 if (uiState.history.isNotEmpty()) {
                                     animateScrollToItem(uiState.history.lastIndex)
                                     if (uiState.isSpeechOutputEnabled && uiState.history.last().role == History.Role.ASSISTANT) {
-                                        textToSpeech?.enqueue(
-                                            uiState.history.last().content,
-                                            clearQueue = true,
-                                        )
+                                        val contentId = uiState.history.last().id
+                                        val content = uiState.history.last().content
+                                        componentScope.launch(getBackgroundDispatcher()) {
+                                            textToSpeech?.stop()
+                                            uiState.setIsSpeaking(true, contentId)
+                                            textToSpeech?.say(content)
+                                        }
                                     }
                                 }
                             }
@@ -127,7 +145,14 @@ fun ChatScreen(
                         items(uiState.history, key = { it.id }) { history ->
                             when (history.role) {
                                 History.Role.USER -> UserMessage(history.content)
-                                History.Role.ASSISTANT -> BotMessage(history.content)
+                                History.Role.ASSISTANT -> BotMessage(
+                                    message = history.content,
+                                    textToSpeech = textToSpeech,
+                                    isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
+                                    setIsSpeaking = {
+                                        uiState.setIsSpeaking(it, history.id)
+                                    },
+                                )
                             }
                         }
                         if (uiState.isLoading) {
@@ -156,6 +181,8 @@ private fun TopBar(
     textToSpeech: TextToSpeechInstance? = null,
     isLoading: Boolean,
     isSpeechOutputEnabled: Boolean,
+    isSpeaking: Boolean,
+    setIsSpeaking: (Boolean, String) -> Unit,
     isChatHistoryEmpty: Boolean,
     clearHistory: () -> Unit,
     toggleSpeechOutput: () -> Unit,
@@ -181,7 +208,13 @@ private fun TopBar(
         if (textToSpeech != null) {
             IconButton(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                onClick = toggleSpeechOutput,
+                onClick = {
+                    if (isSpeechOutputEnabled && isSpeaking) {
+                        setIsSpeaking(false, "")
+                        textToSpeech.stop()
+                    }
+                    toggleSpeechOutput()
+                },
             ) {
                 Icon(
                     imageVector =
@@ -210,13 +243,72 @@ private fun TopBar(
 }
 
 @Composable
-private fun BotMessage(message: String) {
-    MaterialTheme.typography.displayLarge
+private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isSpeaking: Boolean, setIsSpeaking: (Boolean) -> Unit) {
     Markdown(
         message,
         modifier = Modifier.fillMaxWidth()
-            .padding(16.dp),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 8.dp)
+            .padding(top = 16.dp),
     )
+    Row(Modifier.padding(horizontal = 8.dp)) {
+        if (textToSpeech != null) {
+            val componentScope = rememberCoroutineScope()
+            SmallIconButton(
+                iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
+                onClick = {
+                    componentScope.launch(getBackgroundDispatcher()) {
+                        textToSpeech.stop()
+                        if (isSpeaking) {
+                            setIsSpeaking(false)
+                        } else {
+                            setIsSpeaking(true)
+                            textToSpeech.say(
+                                text = message,
+                            )
+                            setIsSpeaking(false)
+                        }
+                    }
+                },
+            )
+        }
+        val clipboardManager = LocalClipboardManager.current
+        SmallIconButton(
+            iconResource = Res.drawable.ic_copy,
+            onClick = {
+                clipboardManager.setText(
+                    annotatedString = buildAnnotatedString {
+                        append(message)
+                    },
+                )
+            },
+        )
+        SmallIconButton(
+            iconResource = Res.drawable.ic_flag,
+            onClick = {
+                openUrl("https://form.jotform.com/250014908169355")
+            },
+        )
+        Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+fun SmallIconButton(
+    iconResource: DrawableResource,
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand).size(36.dp).clip(CircleShape).clickable { onClick() },
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            modifier = Modifier.size(20.dp),
+            painter = painterResource(iconResource),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onBackground,
+        )
+    }
 }
 
 @Composable

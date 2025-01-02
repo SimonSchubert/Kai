@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,8 +16,8 @@ import kotlinx.coroutines.launch
 class SettingsViewModel(settings: Settings, private val dataRepository: RemoteDataRepository) : ViewModel() {
 
     init {
-        viewModelScope.launch {
-            dataRepository.fetchGroqModels()
+        if (settings.getString(Key.GROQ_API_KEY, "").isNotBlank()) {
+            updateGroqModels()
         }
     }
 
@@ -74,6 +75,12 @@ class SettingsViewModel(settings: Settings, private val dataRepository: RemoteDa
         dataRepository.changeGeminiApiKey(apiKey)
         _state.update {
             it.copy(geminiApiKey = apiKey)
+        }
+    }
+
+    fun updateGroqModels() {
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            dataRepository.fetchGroqModels()
         }
     }
 }

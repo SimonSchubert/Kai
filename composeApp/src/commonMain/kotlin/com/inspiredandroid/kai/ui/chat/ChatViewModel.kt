@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.chat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.UnauthorizedException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,6 +21,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
             toggleSpeechOutput = ::toggleSpeechOutput,
             clearHistory = ::clearHistory,
             isUsingSharedKey = dataRepository.isUsingSharedKey(),
+            setIsSpeaking = ::setIsSpeaking,
         ),
     )
 
@@ -37,7 +39,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
     )
 
     private fun ask(question: String?) {
-        viewModelScope.launch {
+        viewModelScope.launch(getBackgroundDispatcher()) {
             _state.update {
                 it.copy(
                     isLoading = true,
@@ -70,13 +72,28 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         }
     }
 
+    private fun setIsSpeaking(isSpeaking: Boolean, contentId: String) {
+        _state.update {
+            it.copy(
+                isSpeaking = isSpeaking,
+                isSpeakingContentId = if (isSpeaking) {
+                    contentId
+                } else {
+                    it.isSpeakingContentId
+                },
+            )
+        }
+    }
+
     private fun retry() {
         ask(null)
     }
 
     private fun toggleSpeechOutput() {
         _state.update {
-            it.copy(isSpeechOutputEnabled = !it.isSpeechOutputEnabled)
+            it.copy(
+                isSpeechOutputEnabled = !it.isSpeechOutputEnabled,
+            )
         }
     }
 }

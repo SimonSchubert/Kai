@@ -15,6 +15,7 @@ import com.russhwolf.settings.Settings
 import nl.marc_apps.tts.TextToSpeechInstance
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
+import org.koin.core.KoinApplication
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -41,9 +42,11 @@ val appModule = module {
 @Preview
 fun App(
     textToSpeech: TextToSpeechInstance? = null,
+    koinApplication: (KoinApplication.() -> Unit)? = null,
 ) {
     KoinApplication(
         application = {
+            koinApplication?.let { koinApplication() }
             modules(appModule)
         },
     ) {

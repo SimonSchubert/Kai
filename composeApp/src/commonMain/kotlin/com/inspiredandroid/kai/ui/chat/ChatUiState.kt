@@ -17,6 +17,9 @@ data class ChatUiState(
     val error: String? = null,
     val clearHistory: () -> Unit,
     val isUsingSharedKey: Boolean = false,
+    val isSpeaking: Boolean = false,
+    val isSpeakingContentId: String = "",
+    val setIsSpeaking: (Boolean, String) -> Unit,
 )
 
 data class History(val id: String = Uuid.random().toString(), val role: Role, val content: String) {
