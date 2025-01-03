@@ -3,7 +3,6 @@ package com.inspiredandroid.kai
 class Value {
     companion object {
         const val DEFAULT_SERVICE = "groqcloud"
-        const val DEFAULT_GROQ_API_KEY = "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"
         const val DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
         const val SERVICE_GROQ = "groqcloud"
         const val DEFAULT_GEMINI_MODEL = "gemini-2.0-flash-exp"

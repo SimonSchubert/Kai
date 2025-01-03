@@ -62,10 +62,10 @@ class Requests(private val settings: Settings) {
         install(Auth) {
             bearer {
                 loadTokens {
-                    BearerTokens(settings.getString(Key.GROQ_API_KEY, Value.DEFAULT_GROQ_API_KEY), null)
+                    BearerTokens(settings.getString(Key.GROQ_API_KEY, ""), null)
                 }
                 refreshTokens {
-                    BearerTokens(settings.getString(Key.GROQ_API_KEY, Value.DEFAULT_GROQ_API_KEY), null)
+                    BearerTokens(settings.getString(Key.GROQ_API_KEY, ""), null)
                 }
             }
         }
@@ -107,10 +107,15 @@ class Requests(private val settings: Settings) {
     }
 
     suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> {
+        val url = if (settings.getString(Key.GROQ_API_KEY, "").isEmpty()) {
+            "https://proxy-api-amber.vercel.app/chat"
+        } else {
+            "https://api.groq.com/openai/v1/chat/completions"
+        }
         val selectedModelId = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
         return try {
             val response: HttpResponse =
-                groqClient.post("https://api.groq.com/openai/v1/chat/completions") {
+                groqClient.post(url) {
                     contentType(ContentType.Application.Json)
                     setBody(
                         GroqChatRequestDto(
