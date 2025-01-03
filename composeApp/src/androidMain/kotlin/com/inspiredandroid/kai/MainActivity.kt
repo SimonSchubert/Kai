@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import nl.marc_apps.tts.TextToSpeechEngine
@@ -16,10 +18,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        WindowCompat.getInsetsController(window, window.decorView)
-            .isAppearanceLightStatusBars = true
-
         setContent {
+            val isDarkTheme = isSystemInDarkTheme()
+            LaunchedEffect(isDarkTheme) {
+                WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
+                    !isDarkTheme
+            }
             val textToSpeech = rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
             App(
                 textToSpeech = textToSpeech,
