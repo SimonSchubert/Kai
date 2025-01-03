@@ -1,5 +1,7 @@
 [versions]
 agp = "8.7.3"
+appVersion = "1.0.2"
+android-versionCode = "4"
 android-compileSdk = "35"
 android-minSdk = "26"
 android-targetSdk = "35"
@@ -12,6 +14,7 @@ kotlin = "2.1.0"
 kotlinx-coroutines = "1.9.0"
 kotlinxSerializationJson = "1.8.0-RC"
 ktor = "3.0.3"
+material = "1.12.0"
 multiplatformMarkdownRenderer = "0.26.0"
 multiplatformSettings = "1.2.0"
 navigationComposeVersion = "2.8.0-alpha11"
@@ -42,6 +45,7 @@ ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 multiplatform-markdown-renderer = { module = "com.mikepenz:multiplatform-markdown-renderer", version.ref = "multiplatformMarkdownRenderer" }
 multiplatform-markdown-renderer-coil3 = { module = "com.mikepenz:multiplatform-markdown-renderer-coil3", version.ref = "multiplatformMarkdownRenderer" }
 multiplatform-markdown-renderer-m3 = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version.ref = "multiplatformMarkdownRenderer" }
@@ -56,4 +60,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
