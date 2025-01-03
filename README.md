@@ -16,9 +16,8 @@ LLama 3.3, Mixtral, Gemma2...
 
 ### TODO list:
 
-- [] Dark mode
-- [] Chat histories
-- [] Voice chat
+- [ ] Chat histories
+- [ ] Voice chat
 
 ## Screenshots
 

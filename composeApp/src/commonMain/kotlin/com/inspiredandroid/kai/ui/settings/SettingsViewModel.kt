@@ -78,7 +78,7 @@ class SettingsViewModel(settings: Settings, private val dataRepository: RemoteDa
         }
     }
 
-    fun updateGroqModels() {
+    private fun updateGroqModels() {
         viewModelScope.launch(context = getBackgroundDispatcher()) {
             dataRepository.fetchGroqModels()
         }
