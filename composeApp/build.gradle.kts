@@ -8,10 +8,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    kotlin("plugin.serialization") version "2.1.0"
+    alias(libs.plugins.kotlinSerialization)
 }
-
-val appVersion = project.properties["appVersion"] as String? ?: "1.0.0"
 
 kotlin {
     androidTarget {
@@ -58,7 +56,7 @@ kotlin {
     sourceSets {
         val desktopMain by getting
         val commonMain by getting {
-            kotlin.srcDir(file("${project.buildDir}/generated/src/commonMain/kotlin"))
+            kotlin.srcDir(layout.buildDirectory.dir("generated/src/commonMain/kotlin"))
         }
 
         androidMain.dependencies {
@@ -67,6 +65,7 @@ kotlin {
             implementation(libs.ktor.client.android)
             implementation(libs.ktor.client.cio)
             implementation(libs.koin.android)
+            implementation(libs.material)
         }
         commonMain.dependencies {
             implementation(compose.material3)
@@ -129,8 +128,8 @@ android {
         applicationId = "com.inspiredandroid.kai"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 3
-        versionName = appVersion
+        versionCode = libs.versions.android.versionCode.get().toInt()
+        versionName = libs.versions.appVersion.get()
     }
     packaging {
         resources {
@@ -160,7 +159,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.inspiredandroid.kai"
-            packageVersion = appVersion
+            packageVersion = libs.versions.appVersion.get()
 
             macOS {
                 iconFile.set(project.file("icon.icns"))
@@ -177,26 +176,18 @@ compose.desktop {
 
 class VersionGeneratorPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        val appVersion = project.properties["appVersion"] as String? ?: "1.0.0"
-
         project.afterEvaluate {
-            val versionFile = File(project.buildDir, "generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt")
+            val versionFile = layout.buildDirectory.file("generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt").get().asFile
             versionFile.parentFile.mkdirs()
             versionFile.writeText(
                 """
                 package com.inspiredandroid.kai
 
                 object Version {
-                    const val appVersion = "$appVersion"
+                    const val appVersion = "${libs.versions.appVersion.get()}"
                 }
                 """.trimIndent(),
             )
-
-            project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).configureEach {
-                kotlinOptions {
-                    freeCompilerArgs += "-Xinclude-runtime-annotations=true"
-                }
-            }
         }
     }
 }
