@@ -88,6 +88,7 @@ import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
+import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
 import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -134,7 +135,9 @@ fun ChatScreen(
                                         componentScope.launch(getBackgroundDispatcher()) {
                                             textToSpeech?.stop()
                                             uiState.setIsSpeaking(true, contentId)
-                                            textToSpeech?.say(content)
+                                            try {
+                                                textToSpeech?.say(content)
+                                            } catch (ignore: TextToSpeechSynthesisInterruptedError) { }
                                         }
                                     }
                                 }
@@ -256,6 +259,7 @@ private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isS
             val componentScope = rememberCoroutineScope()
             SmallIconButton(
                 iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
+                contentDescription = "Speech",
                 onClick = {
                     componentScope.launch(getBackgroundDispatcher()) {
                         textToSpeech.stop()
@@ -263,9 +267,11 @@ private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isS
                             setIsSpeaking(false)
                         } else {
                             setIsSpeaking(true)
-                            textToSpeech.say(
-                                text = message,
-                            )
+                            try {
+                                textToSpeech.say(
+                                    text = message,
+                                )
+                            } catch (ignore: TextToSpeechSynthesisInterruptedError) { }
                             setIsSpeaking(false)
                         }
                     }
@@ -275,6 +281,7 @@ private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isS
         val clipboardManager = LocalClipboardManager.current
         SmallIconButton(
             iconResource = Res.drawable.ic_copy,
+            contentDescription = "Copy",
             onClick = {
                 clipboardManager.setText(
                     annotatedString = buildAnnotatedString {
@@ -285,6 +292,7 @@ private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isS
         )
         SmallIconButton(
             iconResource = Res.drawable.ic_flag,
+            contentDescription = "Flag content",
             onClick = {
                 openUrl("https://form.jotform.com/250014908169355")
             },
@@ -296,6 +304,7 @@ private fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isS
 @Composable
 fun SmallIconButton(
     iconResource: DrawableResource,
+    contentDescription: String? = null,
     onClick: () -> Unit,
 ) {
     Box(
@@ -305,7 +314,7 @@ fun SmallIconButton(
         Icon(
             modifier = Modifier.size(20.dp),
             painter = painterResource(iconResource),
-            contentDescription = null,
+            contentDescription = contentDescription,
             tint = MaterialTheme.colorScheme.onBackground,
         )
     }
