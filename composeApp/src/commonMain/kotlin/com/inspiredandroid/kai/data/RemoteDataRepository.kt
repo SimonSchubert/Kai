@@ -17,7 +17,16 @@ class RemoteDataRepository(
     private val settings: Settings,
 ) : DataRepository {
 
-    val groqModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(emptyList())
+    val groqModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
+        listOf(
+            SettingsModel(
+                id = "llama-3.3-70b-versatile",
+                subtitle = "Meta",
+                description = "Context window: 128000",
+                isSelected = true,
+            ),
+        ),
+    )
     val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
         listOf(
             SettingsModel(
