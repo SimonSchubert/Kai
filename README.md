@@ -4,6 +4,12 @@
 
 A **cross-platform open-source AI interface** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
+https://simonschubert.github.io/Kai
+
+<a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200">
+</a>
+
 ### Supported services and models:
 
 ### Gemini
