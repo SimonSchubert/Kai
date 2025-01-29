@@ -134,14 +134,12 @@ class Requests(private val settings: Settings) {
         }
     }
 
-    suspend fun getGroqModels(): Result<GroqModelResponseDto> {
-        return try {
-            val response: HttpResponse =
-                groqClient.get("https://api.groq.com/openai/v1/models")
-            Result.success(response.body())
-        } catch (exception: Throwable) {
-            Result.failure(exception)
-        }
+    suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
+        val response: HttpResponse =
+            groqClient.get("https://api.groq.com/openai/v1/models")
+        Result.success(response.body())
+    } catch (exception: Throwable) {
+        Result.failure(exception)
     }
 }
 

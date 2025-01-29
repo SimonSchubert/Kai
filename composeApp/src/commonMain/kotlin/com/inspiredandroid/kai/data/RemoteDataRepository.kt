@@ -159,8 +159,6 @@ class RemoteDataRepository(
         }
     }
 
-    override fun isUsingSharedKey(): Boolean {
-        return settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE) == Value.SERVICE_GROQ &&
-            settings.getStringOrNull(Key.GROQ_API_KEY) == null
-    }
+    override fun isUsingSharedKey(): Boolean = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE) == Value.SERVICE_GROQ &&
+        settings.getStringOrNull(Key.GROQ_API_KEY) == null
 }

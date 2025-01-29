@@ -122,13 +122,25 @@ kotlin {
 
 android {
     namespace = "com.inspiredandroid.kai"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.android.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = "com.inspiredandroid.kai"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = libs.versions.android.versionCode.get().toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.android.targetSdk
+                .get()
+                .toInt()
+        versionCode =
+            libs.versions.android.versionCode
+                .get()
+                .toInt()
         versionName = libs.versions.appVersion.get()
     }
     packaging {
@@ -177,7 +189,11 @@ compose.desktop {
 class VersionGeneratorPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.afterEvaluate {
-            val versionFile = layout.buildDirectory.file("generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt").get().asFile
+            val versionFile =
+                layout.buildDirectory
+                    .file("generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt")
+                    .get()
+                    .asFile
             versionFile.parentFile.mkdirs()
             versionFile.writeText(
                 """
