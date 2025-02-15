@@ -105,6 +105,9 @@ kotlin {
             implementation(libs.compottie)
             implementation(libs.compottie.dot)
             implementation(libs.compottie.resources)
+
+            implementation(libs.filekit.core)
+            implementation(libs.filekit.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -181,6 +184,7 @@ compose.desktop {
             }
             linux {
                 iconFile.set(project.file("icon.png"))
+                modules("jdk.security.auth")
             }
         }
     }

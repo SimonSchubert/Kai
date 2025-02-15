@@ -1,7 +1,7 @@
 [versions]
 agp = "8.8.1"
-appVersion = "1.0.4"
-android-versionCode = "7"
+appVersion = "1.1.0"
+android-versionCode = "8"
 android-compileSdk = "35"
 android-minSdk = "26"
 android-targetSdk = "35"
@@ -9,6 +9,7 @@ androidx-activityCompose = "1.10.0"
 androidx-lifecycle = "2.8.4"
 compose-multiplatform = "1.7.3"
 compottieDot = "2.0.0-rc04"
+filekitCore = "0.8.8"
 koinCompose = "4.0.2"
 kotlin = "2.1.10"
 kotlinx-coroutines = "1.10.1"
@@ -25,6 +26,8 @@ tts = "2.5.0"
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottieDot" }
 compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottieDot" }
 compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottieDot" }
+filekit-compose = { module = "io.github.vinceglb:filekit-compose", version.ref = "filekitCore" }
+filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekitCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCompose" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinCompose" }

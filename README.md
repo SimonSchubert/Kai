@@ -14,7 +14,7 @@ https://simonschubert.github.io/Kai
 
 ### Gemini
 
-Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Flash-8B
+Gemini 2.0 Flash, Gemini 1.5 Flash, Gemini 1.5 Pro
 
 ### GroqCloud
 
@@ -24,6 +24,7 @@ LLama 3.3, Mixtral, Gemma2...
 
 - [ ] Chat histories
 - [ ] Voice chat
+- [ ] File drag and drop support
 
 ## Screenshots
 
