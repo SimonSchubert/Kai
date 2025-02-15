@@ -14,6 +14,13 @@ data class GeminiChatRequestDto(
 
     @Serializable
     data class Part(
-        val text: String,
+        val text: String? = null,
+        val inline_data: InlineData? = null,
+    )
+
+    @Serializable
+    data class InlineData(
+        val mime_type: String,
+        val data: String,
     )
 }

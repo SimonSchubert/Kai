@@ -241,7 +241,7 @@ private fun GroqSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(16.dp))
 
-    ModelSelection(uiState.growSelectedModel, uiState.groqModels, uiState.onClickGroqModel)
+    ModelSelection(uiState.groqSelectedModel, uiState.groqModels, uiState.onClickGroqModel)
 }
 
 @Composable
@@ -264,7 +264,7 @@ private fun ModelSelection(
                 )
             },
             trailingIcon = {
-                androidx.compose.material3.Icon(
+                Icon(
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
                     contentDescription = null,
@@ -332,12 +332,14 @@ private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
             Text(
                 text = model.subtitle,
                 maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Text(
                 text = model.description,
                 maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackground,
             )

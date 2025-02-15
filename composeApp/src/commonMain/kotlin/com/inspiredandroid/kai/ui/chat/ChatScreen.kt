@@ -33,6 +33,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -76,7 +77,12 @@ import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
+import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
+import io.github.vinceglb.filekit.core.PickerMode
+import io.github.vinceglb.filekit.core.PickerType
+import io.github.vinceglb.filekit.core.PlatformFile
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_delete_forever
 import kai.composeapp.generated.resources.ic_flag
@@ -173,7 +179,10 @@ fun ChatScreen(
                     }
                 }
 
-                QuestionInput(ask = uiState.ask)
+                QuestionInput(
+                    ask = uiState.ask,
+                    allowFileAttachment = uiState.allowFileAttachment,
+                )
             }
         }
     }
@@ -403,17 +412,39 @@ private fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
 }
 
 @Composable
-private fun QuestionInput(ask: (String) -> Unit) {
+private fun QuestionInput(
+    ask: (String, file: PlatformFile?) -> Unit,
+    allowFileAttachment: Boolean,
+) {
     val focusManager = LocalFocusManager.current
+
+    var file by remember { mutableStateOf<PlatformFile?>(null) }
+
+    if (file != null) {
+        SuggestionChip(
+            modifier = Modifier
+                .pointerHoverIcon(PointerIcon.Hand)
+                .padding(start = 16.dp),
+            onClick = { file = null },
+            label = {
+                Text(
+                    modifier = Modifier
+                        .pointerHoverIcon(PointerIcon.Hand),
+                    text = "${file?.name}",
+                )
+            },
+        )
+    }
 
     var textState by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
 
     fun submitQuestion() {
         val text = textState.text
         if (text.isNotBlank()) {
-            ask(text.trim())
+            ask(text.trim(), file)
             focusManager.clearFocus()
             textState = TextFieldValue("")
+            file = null
         }
     }
 
@@ -435,6 +466,33 @@ private fun QuestionInput(ask: (String) -> Unit) {
                 modifier = Modifier.size(32.dp),
                 contentDescription = null,
                 tint = Color.White,
+            )
+        }
+    }
+    val launcher = rememberFilePickerLauncher(
+        type = PickerType.ImageAndVideo,
+        mode = PickerMode.Single,
+        title = "Pick a media",
+    ) {
+        file = it
+    }
+    val leadingIconView = @Composable {
+        Box(
+            modifier = Modifier
+                .padding(start = 6.dp)
+                .size(42.dp)
+                .pointerHoverIcon(PointerIcon.Hand)
+                .clip(CircleShape)
+                .clickable {
+                    launcher.launch()
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                vectorResource(Res.drawable.ic_add),
+                modifier = Modifier.size(32.dp),
+                contentDescription = null,
+                tint = Color.Black,
             )
         }
     }
@@ -486,6 +544,7 @@ private fun QuestionInput(ask: (String) -> Unit) {
         keyboardActions = KeyboardActions(onSend = {
             submitQuestion()
         }),
+        leadingIcon = if (allowFileAttachment) leadingIconView else null,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
     )
     LaunchedEffect(Unit) {

@@ -4,7 +4,7 @@ data class SettingsUiState(
     val groqApiKey: String = "",
     val geminiApiKey: String = "",
     val groqModels: List<SettingsModel> = emptyList(),
-    val growSelectedModel: SettingsModel? = null,
+    val groqSelectedModel: SettingsModel? = null,
     val geminiModels: List<SettingsModel> = emptyList(),
     val geminiSelectedModel: SettingsModel? = null,
     val onClickGroqModel: (String) -> Unit = {},

@@ -1,5 +1,9 @@
+@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class)
+
 package com.inspiredandroid.kai.data
 
+import coil3.annotation.InternalCoilApi
+import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.network.Requests
@@ -9,8 +13,12 @@ import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.Service
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
+import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.core.extension
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 class RemoteDataRepository(
     private val requests: Requests,
@@ -30,7 +38,7 @@ class RemoteDataRepository(
     val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
         listOf(
             SettingsModel(
-                id = "gemini-2.0-flash-exp",
+                id = "gemini-2.0-flash",
                 subtitle = "Gemini 2.0 Flash",
                 description = "Next generation features, speed, and multimodal generation for a diverse variety of tasks",
             ),
@@ -40,9 +48,9 @@ class RemoteDataRepository(
                 description = "Fast and versatile performance across a diverse variety of tasks",
             ),
             SettingsModel(
-                id = "gemini-1.5-flash-8b",
-                subtitle = "Gemini 1.5 Flash-8B",
-                description = "High volume and lower intelligence tasks",
+                id = "gemini-1.5-pro",
+                subtitle = "Gemini 1.5 Pro",
+                description = "Complex reasoning tasks requiring more intelligence",
             ),
         ),
     )
@@ -62,7 +70,10 @@ class RemoteDataRepository(
     private fun updateServices() {
         val currentServiceId = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
         services.update {
-            listOf(Service(Value.SERVICE_GROQ, "GroqCloud"), Service(Value.SERVICE_GEMINI, "Gemini")).map { it.copy(isSelected = it.id == currentServiceId) }
+            listOf(
+                Service(Value.SERVICE_GEMINI, "Gemini"),
+                Service(Value.SERVICE_GROQ, "GroqCloud"),
+            ).map { it.copy(isSelected = it.id == currentServiceId) }
         }
     }
 
@@ -99,10 +110,15 @@ class RemoteDataRepository(
         settings.putString(Key.GEMINI_API_KEY, apiKey)
     }
 
-    override suspend fun ask(question: String?): Result<Any> {
+    override suspend fun ask(question: String?, file: PlatformFile?): Result<Any> {
         if (question != null) {
             chatHistory.update {
-                it + History(role = History.Role.USER, content = question)
+                it + History(
+                    role = History.Role.USER,
+                    content = question,
+                    mimeType = file?.extension?.let { MimeTypeMap.getMimeTypeFromExtension(it) },
+                    data = file?.readBytes()?.let { Base64.encode(it) },
+                )
             }
         }
         return if (settings.getString(
@@ -161,4 +177,6 @@ class RemoteDataRepository(
 
     override fun isUsingSharedKey(): Boolean = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE) == Value.SERVICE_GROQ &&
         settings.getStringOrNull(Key.GROQ_API_KEY) == null
+
+    override fun currentService(): String = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
 }

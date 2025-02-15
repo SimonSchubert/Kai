@@ -2,9 +2,11 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.UnauthorizedException
+import io.github.vinceglb.filekit.core.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -31,6 +33,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
     ) { state, history ->
         state.copy(
             history = history,
+            allowFileAttachment = dataRepository.currentService() == Value.SERVICE_GEMINI,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -38,7 +41,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         initialValue = _state.value,
     )
 
-    private fun ask(question: String?) {
+    private fun ask(question: String?, file: PlatformFile? = null) {
         viewModelScope.launch(getBackgroundDispatcher()) {
             _state.update {
                 it.copy(
@@ -46,7 +49,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                     error = null,
                 )
             }
-            dataRepository.ask(question).onSuccess {
+            dataRepository.ask(question, file).onSuccess {
                 _state.update {
                     it.copy(isLoading = false)
                 }
