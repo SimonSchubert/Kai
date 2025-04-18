@@ -24,6 +24,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
             clearHistory = ::clearHistory,
             isUsingSharedKey = dataRepository.isUsingSharedKey(),
             setIsSpeaking = ::setIsSpeaking,
+            setFile = ::setFile,
         ),
     )
 
@@ -41,7 +42,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         initialValue = _state.value,
     )
 
-    private fun ask(question: String?, file: PlatformFile? = null) {
+    private fun ask(question: String?) {
         viewModelScope.launch(getBackgroundDispatcher()) {
             _state.update {
                 it.copy(
@@ -49,7 +50,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                     error = null,
                 )
             }
-            dataRepository.ask(question, file).onSuccess {
+            dataRepository.ask(question, _state.value.file).onSuccess {
                 _state.update {
                     it.copy(isLoading = false)
                 }
@@ -84,6 +85,14 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                 } else {
                     it.isSpeakingContentId
                 },
+            )
+        }
+    }
+
+    private fun setFile(file: PlatformFile?) {
+        _state.update {
+            it.copy(
+                file = file,
             )
         }
     }

@@ -1,12 +1,18 @@
-@file:OptIn(ExperimentalResourceApi::class, ExperimentalVoiceApi::class)
+@file:OptIn(
+    ExperimentalResourceApi::class,
+    ExperimentalVoiceApi::class,
+    ExperimentalFoundationApi::class,
+)
 
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +34,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.DisableSelection
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -48,6 +55,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.draganddrop.DragAndDropTarget
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -70,6 +81,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.openUrl
 import com.inspiredandroid.kai.outlineTextFieldColors
 import com.mikepenz.markdown.m3.Markdown
@@ -81,11 +93,14 @@ import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.core.PickerMode
 import io.github.vinceglb.filekit.core.PickerType
 import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.core.extension
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_delete_forever
+import kai.composeapp.generated.resources.ic_file
 import kai.composeapp.generated.resources.ic_flag
+import kai.composeapp.generated.resources.ic_image
 import kai.composeapp.generated.resources.ic_refresh
 import kai.composeapp.generated.resources.ic_settings
 import kai.composeapp.generated.resources.ic_stop
@@ -124,7 +139,34 @@ fun ChatScreen(
         )
 
         SelectionContainer {
-            Column {
+            var isDropping by remember {
+                mutableStateOf(false)
+            }
+            Column(
+                Modifier
+                    .blur(radius = if (isDropping) 4.dp else 0.dp)
+                    .dragAndDropTarget(
+                        shouldStartDragAndDrop = { uiState.allowFileAttachment },
+                        target = remember {
+                            object : DragAndDropTarget {
+                                override fun onEntered(event: DragAndDropEvent) {
+                                    super.onEntered(event)
+                                    isDropping = true
+                                }
+                                override fun onExited(event: DragAndDropEvent) {
+                                    super.onExited(event)
+                                    isDropping = false
+                                }
+                                override fun onDrop(event: DragAndDropEvent): Boolean {
+                                    val file = onDragAndDropEventDropped(event)
+                                    uiState.setFile(file)
+                                    isDropping = false
+                                    return file != null
+                                }
+                            }
+                        },
+                    ),
+            ) {
                 if (uiState.history.isEmpty()) {
                     EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.isUsingSharedKey)
                 } else {
@@ -180,6 +222,8 @@ fun ChatScreen(
                 }
 
                 QuestionInput(
+                    file = uiState.file,
+                    setFile = uiState.setFile,
                     ask = uiState.ask,
                     allowFileAttachment = uiState.allowFileAttachment,
                 )
@@ -413,25 +457,39 @@ private fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
 
 @Composable
 private fun QuestionInput(
-    ask: (String, file: PlatformFile?) -> Unit,
+    file: PlatformFile?,
+    setFile: (PlatformFile?) -> Unit,
+    ask: (String) -> Unit,
     allowFileAttachment: Boolean,
 ) {
     val focusManager = LocalFocusManager.current
 
-    var file by remember { mutableStateOf<PlatformFile?>(null) }
-
     if (file != null) {
+        val icon = when (file.extension) {
+            "jpg", "jpeg", "png", "gif" -> Res.drawable.ic_image
+            else -> Res.drawable.ic_file
+        }
         SuggestionChip(
             modifier = Modifier
                 .pointerHoverIcon(PointerIcon.Hand)
                 .padding(start = 16.dp),
-            onClick = { file = null },
-            label = {
-                Text(
-                    modifier = Modifier
-                        .pointerHoverIcon(PointerIcon.Hand),
-                    text = "${file?.name}",
+            onClick = { setFile(null) },
+            icon = {
+                Icon(
+                    modifier = Modifier.size(16.dp),
+                    painter = painterResource(icon),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
+            },
+            label = {
+                DisableSelection {
+                    Text(
+                        modifier = Modifier
+                            .pointerHoverIcon(PointerIcon.Hand),
+                        text = file.name,
+                    )
+                }
             },
         )
     }
@@ -441,10 +499,10 @@ private fun QuestionInput(
     fun submitQuestion() {
         val text = textState.text
         if (text.isNotBlank()) {
-            ask(text.trim(), file)
+            ask(text.trim())
             focusManager.clearFocus()
             textState = TextFieldValue("")
-            file = null
+            setFile(null)
         }
     }
 
@@ -472,9 +530,9 @@ private fun QuestionInput(
     val launcher = rememberFilePickerLauncher(
         type = PickerType.ImageAndVideo,
         mode = PickerMode.Single,
-        title = "Pick a media",
+        title = "Pick media",
     ) {
-        file = it
+        setFile(it)
     }
     val leadingIconView = @Composable {
         Box(
@@ -492,7 +550,7 @@ private fun QuestionInput(
                 vectorResource(Res.drawable.ic_add),
                 modifier = Modifier.size(32.dp),
                 contentDescription = null,
-                tint = Color.Black,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
     }
@@ -512,7 +570,8 @@ private fun QuestionInput(
             .border(
                 BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(Color(0xff6200ee), Color(0xff8063C5)))),
                 shape = RoundedCornerShape(28.dp),
-            ).onKeyEvent {
+            )
+            .onKeyEvent {
                 return@onKeyEvent if (it.key.keyCode == Key.Enter.keyCode && it.type == KeyEventType.KeyUp) {
                     if (it.isShiftPressed) {
                         try {

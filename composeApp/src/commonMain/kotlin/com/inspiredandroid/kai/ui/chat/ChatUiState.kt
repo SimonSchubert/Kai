@@ -9,7 +9,7 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 data class ChatUiState(
-    val ask: (String, file: PlatformFile?) -> Unit,
+    val ask: (String) -> Unit,
     val history: List<History> = emptyList(),
     val isSpeechOutputEnabled: Boolean = false,
     val toggleSpeechOutput: () -> Unit,
@@ -22,6 +22,8 @@ data class ChatUiState(
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
     val setIsSpeaking: (Boolean, String) -> Unit,
+    val file: PlatformFile? = null,
+    val setFile: (PlatformFile?) -> Unit,
 )
 
 data class History(

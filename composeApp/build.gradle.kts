@@ -33,7 +33,7 @@ kotlin {
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
-        moduleName = "composeApp"
+        outputModuleName = "composeApp"
         browser {
             val rootDirPath = project.rootDir.path
             val projectDirPath = project.projectDir.path
@@ -164,6 +164,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.foundation.android)
     debugImplementation(compose.uiTooling)
 }
 
@@ -198,7 +199,7 @@ class VersionGeneratorPlugin : Plugin<Project> {
                     .file("generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt")
                     .get()
                     .asFile
-            versionFile.parentFile.mkdirs()
+            versionFile.parentFile?.mkdirs()
             versionFile.writeText(
                 """
                 package com.inspiredandroid.kai
