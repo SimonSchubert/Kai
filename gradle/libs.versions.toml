@@ -1,7 +1,7 @@
 [versions]
 agp = "8.9.1"
-appVersion = "1.1.0"
-android-versionCode = "8"
+appVersion = "1.1.1"
+android-versionCode = "9"
 android-compileSdk = "35"
 android-minSdk = "26"
 android-targetSdk = "35"
@@ -19,8 +19,9 @@ material = "1.12.0"
 multiplatformMarkdownRenderer = "0.26.0"
 multiplatformSettings = "1.2.0"
 navigationComposeVersion = "2.8.0-alpha11"
-spotless = "7.0.2"
+spotless = "7.0.3"
 tts = "2.5.0"
+foundationAndroid = "1.7.8"
 
 [libraries]
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottieDot" }
@@ -56,6 +57,7 @@ multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", vers
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 tts = { module = "nl.marc-apps:tts", version.ref = "tts" }
 tts-compose = { module = "nl.marc-apps:tts-compose", version.ref = "tts" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

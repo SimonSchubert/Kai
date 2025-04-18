@@ -77,7 +77,7 @@ class Requests(private val settings: Settings) {
 
     class DebugKtorLogger : Logger {
         override fun log(message: String) {
-            println("[KTOR] $message")
+            // println("[KTOR] $message")
         }
     }
 

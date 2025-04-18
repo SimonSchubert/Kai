@@ -192,7 +192,6 @@ private fun GeminiSettings(uiState: SettingsUiState) {
                     append("aistudio.google.com/apikey")
                 }
             }
-            append(" for free of charge requests.")
         }
     }
     Text(
