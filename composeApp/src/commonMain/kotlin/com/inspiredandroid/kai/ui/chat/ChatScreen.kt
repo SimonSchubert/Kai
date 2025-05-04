@@ -57,7 +57,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
@@ -248,7 +247,13 @@ private fun TopBar(
         if (!isChatHistoryEmpty) {
             IconButton(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                onClick = clearHistory,
+                onClick = {
+                    if (isSpeechOutputEnabled && isSpeaking) {
+                        setIsSpeaking(false, "")
+                        textToSpeech?.stop()
+                    }
+                    clearHistory()
+                },
                 enabled = !isLoading,
             ) {
                 Icon(
