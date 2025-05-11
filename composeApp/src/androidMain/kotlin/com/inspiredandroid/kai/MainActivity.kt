@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.navigation.compose.rememberNavController
 import io.github.vinceglb.filekit.core.FileKit
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
@@ -26,8 +27,10 @@ class MainActivity : ComponentActivity() {
                 WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
                     !isDarkTheme
             }
+            val navController = rememberNavController()
             val textToSpeech = rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
             App(
+                navController = navController,
                 textToSpeech = textToSpeech,
                 koinApplication = {
                     androidContext(this@MainActivity)
@@ -40,5 +43,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+    App(navController = rememberNavController())
 }

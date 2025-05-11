@@ -1,6 +1,4 @@
 @file:OptIn(
-    ExperimentalResourceApi::class,
-    ExperimentalVoiceApi::class,
     ExperimentalFoundationApi::class,
 )
 
@@ -109,9 +107,7 @@ import kai.composeapp.generated.resources.ic_volume_up
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
-import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel

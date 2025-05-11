@@ -5,6 +5,7 @@ package com.inspiredandroid.kai
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import androidx.navigation.compose.rememberNavController
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.logo
 import nl.marc_apps.tts.TextToSpeechEngine
@@ -20,7 +21,9 @@ fun main() = application {
         title = "Kai",
         icon = painterResource(Res.drawable.logo),
     ) {
+        val navController = rememberNavController()
         App(
+            navController = navController,
             textToSpeech = textToSpeech,
         )
     }
