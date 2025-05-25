@@ -12,8 +12,6 @@ import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.client.statement.bodyAsText
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.authProviders
@@ -28,8 +26,10 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -79,7 +79,7 @@ class Requests(private val settings: Settings) {
 
     class DebugKtorLogger : Logger {
         override fun log(message: String) {
-            // println("[KTOR] $message")
+            println("[KTOR] $message")
         }
     }
 
@@ -98,21 +98,23 @@ class Requests(private val settings: Settings) {
                         ),
                     )
                 }
-            Result.success(response.body())
-        } catch (exception: Exception) {
-            if (exception is ClientRequestException) {
-                val response = exception.response
+            if (response.status.isSuccess()) {
+                Result.success(response.body())
+            } else {
                 when (response.status.value) {
-                    429 -> return Result.failure(GeminiRateLimitExceededException("Rate limit exceeded. Please try again later.", exception))
-                    403 -> return Result.failure(GeminiInvalidApiKeyException("Invalid API key or insufficient permissions.", exception))
-                    400 -> {
+                    429 -> Result.failure(GeminiRateLimitExceededException("Rate limit exceeded. Please try again later."))
+                    403 -> Result.failure(GeminiInvalidApiKeyException("Invalid API key or insufficient permissions."))
+                    else -> {
                         val responseBody = response.bodyAsText()
                         if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {
-                            return Result.failure(GeminiInvalidApiKeyException("Invalid API key.", exception))
+                            Result.failure(GeminiInvalidApiKeyException("Invalid API key."))
+                        } else {
+                            Result.failure(Exception())
                         }
                     }
                 }
             }
+        } catch (exception: Exception) {
             Result.failure(exception)
         }
     }
@@ -153,3 +155,5 @@ class Requests(private val settings: Settings) {
         Result.failure(exception)
     }
 }
+
+object UnauthorizedException : Exception()

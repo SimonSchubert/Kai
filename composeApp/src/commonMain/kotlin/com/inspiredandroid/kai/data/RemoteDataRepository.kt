@@ -16,14 +16,14 @@ import com.inspiredandroid.kai.ui.settings.SettingsUiState.Service
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.core.extension
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_gemini_invalid_api_key
 import kai.composeapp.generated.resources.error_gemini_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_gemini_unexpected
-import org.jetbrains.compose.resources.getString
-import io.github.vinceglb.filekit.core.extension
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
@@ -45,6 +45,11 @@ class RemoteDataRepository(
     val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
         listOf(
             SettingsModel(
+                id = "gemini-2.5-flash-preview-05-20",
+                subtitle = "Gemini 2.5 Flash Preview",
+                description = "Our best model in terms of price-performance, offering well-rounded capabilities.",
+            ),
+            SettingsModel(
                 id = "gemini-2.0-flash",
                 subtitle = "Gemini 2.0 Flash",
                 description = "Next generation features, speed, and multimodal generation for a diverse variety of tasks",
@@ -58,16 +63,6 @@ class RemoteDataRepository(
                 id = "gemini-1.5-pro",
                 subtitle = "Gemini 1.5 Pro",
                 description = "Complex reasoning tasks requiring more intelligence",
-            ),
-            SettingsModel(
-                id = "gemini-2.5-flash-preview-05-20",
-                subtitle = "Gemini 2.5 Flash Preview",
-                description = "Our best model in terms of price-performance, offering well-rounded capabilities.",
-            ),
-            SettingsModel(
-                id = "gemini-2.5-pro-preview-05-06",
-                subtitle = "Gemini 2.5 Pro Preview",
-                description = "Our state-of-the-art thinking model, capable of reasoning over complex problems.",
             ),
         ),
     )
