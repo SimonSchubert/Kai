@@ -52,6 +52,16 @@ class RemoteDataRepository(
                 subtitle = "Gemini 1.5 Pro",
                 description = "Complex reasoning tasks requiring more intelligence",
             ),
+            SettingsModel(
+                id = "gemini-2.5-flash-preview-05-20",
+                subtitle = "Gemini 2.5 Flash Preview",
+                description = "Our best model in terms of price-performance, offering well-rounded capabilities.",
+            ),
+            SettingsModel(
+                id = "gemini-2.5-pro-preview-05-06",
+                subtitle = "Gemini 2.5 Pro Preview",
+                description = "Our state-of-the-art thinking model, capable of reasoning over complex problems.",
+            ),
         ),
     )
     val services: MutableStateFlow<List<Service>> = MutableStateFlow(emptyList())
