@@ -60,7 +60,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                         error = if (exception == UnauthorizedException) {
                             "Invalid API Key"
                         } else {
-                            "Something went wrong"
+                            "Try again"
                         },
                         isLoading = false,
                     )

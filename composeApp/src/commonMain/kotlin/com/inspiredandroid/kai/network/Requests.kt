@@ -26,8 +26,10 @@ import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -77,14 +79,14 @@ class Requests(private val settings: Settings) {
 
     class DebugKtorLogger : Logger {
         override fun log(message: String) {
-            // println("[KTOR] $message")
+            println("[KTOR] $message")
         }
     }
 
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> {
         return try {
             val apiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
-                ?: return Result.failure(UnauthorizedException)
+                ?: return Result.failure(GeminiInvalidApiKeyException("API key is missing."))
             val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
 
             val response: HttpResponse =
@@ -96,10 +98,21 @@ class Requests(private val settings: Settings) {
                         ),
                     )
                 }
-            if (response.status.value == 403) {
-                Result.failure(UnauthorizedException)
-            } else {
+            if (response.status.isSuccess()) {
                 Result.success(response.body())
+            } else {
+                when (response.status.value) {
+                    429 -> Result.failure(GeminiRateLimitExceededException("Rate limit exceeded. Please try again later."))
+                    403 -> Result.failure(GeminiInvalidApiKeyException("Invalid API key or insufficient permissions."))
+                    else -> {
+                        val responseBody = response.bodyAsText()
+                        if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {
+                            Result.failure(GeminiInvalidApiKeyException("Invalid API key."))
+                        } else {
+                            Result.failure(Exception())
+                        }
+                    }
+                }
             }
         } catch (exception: Exception) {
             Result.failure(exception)
