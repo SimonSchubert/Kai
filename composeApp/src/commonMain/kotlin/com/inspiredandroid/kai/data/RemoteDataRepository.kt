@@ -6,6 +6,8 @@ import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
+import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
+import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
@@ -14,6 +16,11 @@ import com.inspiredandroid.kai.ui.settings.SettingsUiState.Service
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.core.PlatformFile
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_gemini_invalid_api_key
+import kai.composeapp.generated.resources.error_gemini_rate_limit_exceeded
+import kai.composeapp.generated.resources.error_gemini_unexpected
+import org.jetbrains.compose.resources.getString
 import io.github.vinceglb.filekit.core.extension
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -160,6 +167,24 @@ class RemoteDataRepository(
                             part.text ?: ""
                         } ?: ""
                     it + History(role = History.Role.ASSISTANT, content = text)
+                }
+            }.onFailure { exception ->
+                when (exception) {
+                    is GeminiRateLimitExceededException -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_rate_limit_exceeded))
+                        }
+                    }
+                    is GeminiInvalidApiKeyException -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_invalid_api_key))
+                        }
+                    }
+                    else -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_unexpected))
+                        }
+                    }
                 }
             }
         }
