@@ -6,6 +6,8 @@ import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
+import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
+import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
@@ -15,8 +17,13 @@ import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.github.vinceglb.filekit.core.extension
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_gemini_invalid_api_key
+import kai.composeapp.generated.resources.error_gemini_rate_limit_exceeded
+import kai.composeapp.generated.resources.error_gemini_unexpected
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
@@ -37,6 +44,11 @@ class RemoteDataRepository(
     )
     val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
         listOf(
+            SettingsModel(
+                id = "gemini-2.5-flash-preview-05-20",
+                subtitle = "Gemini 2.5 Flash Preview",
+                description = "Our best model in terms of price-performance, offering well-rounded capabilities.",
+            ),
             SettingsModel(
                 id = "gemini-2.0-flash",
                 subtitle = "Gemini 2.0 Flash",
@@ -150,6 +162,24 @@ class RemoteDataRepository(
                             part.text ?: ""
                         } ?: ""
                     it + History(role = History.Role.ASSISTANT, content = text)
+                }
+            }.onFailure { exception ->
+                when (exception) {
+                    is GeminiRateLimitExceededException -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_rate_limit_exceeded))
+                        }
+                    }
+                    is GeminiInvalidApiKeyException -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_invalid_api_key))
+                        }
+                    }
+                    else -> {
+                        chatHistory.update {
+                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_unexpected))
+                        }
+                    }
                 }
             }
         }

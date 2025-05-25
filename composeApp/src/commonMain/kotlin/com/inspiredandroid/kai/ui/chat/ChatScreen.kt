@@ -405,7 +405,7 @@ private fun Error(
         Text(
             text = error,
         )
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(8.dp))
         IconButton(
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             onClick = retry,
