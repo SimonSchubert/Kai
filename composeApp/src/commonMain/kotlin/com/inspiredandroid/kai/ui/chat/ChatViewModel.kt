@@ -5,12 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.getBackgroundDispatcher
-import com.inspiredandroid.kai.network.GenericNetworkException
-import com.inspiredandroid.kai.network.GeminiApiException
 import com.inspiredandroid.kai.network.GeminiGenericException
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
-import com.inspiredandroid.kai.network.GroqApiException
+import com.inspiredandroid.kai.network.GenericNetworkException
 import com.inspiredandroid.kai.network.GroqGenericException
 import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
 import com.inspiredandroid.kai.network.GroqRateLimitExceededException
@@ -21,12 +19,12 @@ import kai.composeapp.generated.resources.error_invalid_api_key
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.jetbrains.compose.resources.getString
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 
 class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewModel() {
 
@@ -74,7 +72,6 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                     is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
                     is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
                     is GeminiGenericException, is GroqGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
-                    // Removed UnauthorizedException case as it no longer exists
                     else -> getString(Res.string.error_unknown)
                 }
                 _state.update {
