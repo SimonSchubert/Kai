@@ -4,11 +4,8 @@
 
 A **cross-platform open-source AI interface** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
-https://simonschubert.github.io/Kai
-
-<a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai">
-  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200">
-</a>
+[![Play Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/play_store_badge.png)](https://play.google.com/store/apps/details?id=com.inspiredandroid.kai)
+[![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
 ### Supported services and models:
 
