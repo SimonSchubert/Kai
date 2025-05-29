@@ -191,7 +191,7 @@ internal fun QuestionInput(
                         val newText = currentText.replaceRange(start, end, textToInsert)
                         textState = TextFieldValue(
                             text = newText,
-                            selection = TextRange(start + textToInsert.length)
+                            selection = TextRange(start + textToInsert.length),
                         )
                     } else {
                         submitQuestion()
