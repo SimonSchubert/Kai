@@ -5,9 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.getBackgroundDispatcher
-import com.inspiredandroid.kai.network.UnauthorizedException
+import com.inspiredandroid.kai.network.GenericNetworkException
+import com.inspiredandroid.kai.network.GeminiApiException
+import com.inspiredandroid.kai.network.GeminiGenericException
+import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
+import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
+import com.inspiredandroid.kai.network.GroqApiException
+import com.inspiredandroid.kai.network.GroqGenericException
+import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
+import com.inspiredandroid.kai.network.GroqRateLimitExceededException
 import io.github.vinceglb.filekit.core.PlatformFile
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_generic
+import kai.composeapp.generated.resources.error_invalid_api_key
+import kai.composeapp.generated.resources.error_rate_limit_exceeded
+import kai.composeapp.generated.resources.error_unknown
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.jetbrains.compose.resources.getString
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
@@ -50,18 +64,22 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                     error = null,
                 )
             }
-            dataRepository.ask(question, _state.value.file).onSuccess {
+            try {
+                dataRepository.ask(question, _state.value.file)
                 _state.update {
                     it.copy(isLoading = false)
                 }
-            }.onFailure { exception ->
+            } catch (exception: Exception) {
+                val errorMessage = when (exception) {
+                    is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
+                    is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
+                    is GeminiGenericException, is GroqGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
+                    // Removed UnauthorizedException case as it no longer exists
+                    else -> getString(Res.string.error_unknown)
+                }
                 _state.update {
                     it.copy(
-                        error = if (exception == UnauthorizedException) {
-                            "Invalid API Key"
-                        } else {
-                            "Try again"
-                        },
+                        error = errorMessage,
                         isLoading = false,
                     )
                 }

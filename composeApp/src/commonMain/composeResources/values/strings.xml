@@ -2,4 +2,9 @@
     <string name="error_gemini_rate_limit_exceeded">Error: You have exceeded your Gemini API request limit. Please try again later or check your quota.</string>
     <string name="error_gemini_invalid_api_key">Error: Your Gemini API key is invalid or missing. Please check your settings.</string>
     <string name="error_gemini_unexpected">An unexpected error occurred with the Gemini request. Please try again.</string>
+    <string name="error_invalid_api_key">Invalid API Key. Please check your settings.</string>
+    <string name="error_rate_limit_exceeded">Rate limit exceeded. Please try again later.</string>
+    <string name="error_generic">An unexpected error occurred. Please try again.</string>
+    <string name="error_unknown">An unknown error occurred.</string>
+    <string name="info_using_shared_key">You are using a limited and shared API key. Please go to settings to add your own key for a better experience.</string>
 </resources>

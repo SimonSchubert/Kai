@@ -2,6 +2,14 @@ package com.inspiredandroid.kai.network
 
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
+import com.inspiredandroid.kai.isDebugBuild
+import com.inspiredandroid.kai.network.NetworkConstants.GEMINI_BASE_URL
+import com.inspiredandroid.kai.network.NetworkConstants.GEMINI_GENERATE_CONTENT_PATH
+import com.inspiredandroid.kai.network.NetworkConstants.GROQ_BASE_URL
+import com.inspiredandroid.kai.network.NetworkConstants.GROQ_CHAT_COMPLETIONS_PATH
+import com.inspiredandroid.kai.network.NetworkConstants.GROQ_MODELS_PATH
+import com.inspiredandroid.kai.network.NetworkConstants.PROXY_BASE_URL
+import com.inspiredandroid.kai.network.NetworkConstants.PROXY_CHAT_PATH
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
@@ -50,8 +58,13 @@ class Requests(private val settings: Settings) {
             requestTimeoutMillis = 30_000 // 30 seconds
         }
         install(Logging) {
-            logger = DebugKtorLogger()
-            level = LogLevel.BODY
+            if (isDebugBuild) {
+                logger = DebugKtorLogger()
+                level = LogLevel.BODY
+            } else {
+                logger = Logger.EMPTY
+                level = LogLevel.NONE
+            }
         }
     }
 
@@ -86,11 +99,11 @@ class Requests(private val settings: Settings) {
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> {
         return try {
             val apiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
-                ?: return Result.failure(GeminiInvalidApiKeyException("API key is missing."))
+                ?: throw GeminiInvalidApiKeyException("API key is missing.")
             val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
 
             val response: HttpResponse =
-                geminiClient.post("https://generativelanguage.googleapis.com/v1beta/models/$selectedModelId:generateContent?key=$apiKey") {
+                geminiClient.post("$GEMINI_BASE_URL$selectedModelId$GEMINI_GENERATE_CONTENT_PATH?key=$apiKey") {
                     contentType(ContentType.Application.Json)
                     setBody(
                         GeminiChatRequestDto(
@@ -102,28 +115,30 @@ class Requests(private val settings: Settings) {
                 Result.success(response.body())
             } else {
                 when (response.status.value) {
-                    429 -> Result.failure(GeminiRateLimitExceededException("Rate limit exceeded. Please try again later."))
-                    403 -> Result.failure(GeminiInvalidApiKeyException("Invalid API key or insufficient permissions."))
+                    429 -> throw GeminiRateLimitExceededException("Rate limit exceeded. Please try again later.")
+                    403 -> throw GeminiInvalidApiKeyException("Invalid API key or insufficient permissions.")
                     else -> {
                         val responseBody = response.bodyAsText()
                         if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {
-                            Result.failure(GeminiInvalidApiKeyException("Invalid API key."))
+                            throw GeminiInvalidApiKeyException("Invalid API key.")
                         } else {
-                            Result.failure(Exception())
+                            throw GeminiGenericException("An unexpected error occurred with the Gemini API: ${response.status.value} ${response.bodyAsText()}")
                         }
                     }
                 }
             }
-        } catch (exception: Exception) {
-            Result.failure(exception)
+        } catch (e: GeminiApiException) {
+            Result.failure(e)
+        } catch (e: Exception) {
+            Result.failure(GeminiGenericException("An unexpected error occurred with the Gemini API.", e))
         }
     }
 
     suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> {
         val url = if (settings.getString(Key.GROQ_API_KEY, "").isEmpty()) {
-            "https://proxy-api-amber.vercel.app/chat"
+            "$PROXY_BASE_URL$PROXY_CHAT_PATH"
         } else {
-            "https://api.groq.com/openai/v1/chat/completions"
+            "$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH"
         }
         val selectedModelId = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
         return try {
@@ -137,23 +152,37 @@ class Requests(private val settings: Settings) {
                         ),
                     )
                 }
-            if (response.status.value == 401) {
-                Result.failure(UnauthorizedException)
-            } else {
+            if (response.status.isSuccess()) {
                 Result.success(response.body())
+            } else {
+                when (response.status.value) {
+                    401 -> throw GroqInvalidApiKeyException("Invalid API key for Groq.")
+                    429 -> throw GroqRateLimitExceededException("Rate limit exceeded for Groq.")
+                    else -> throw GroqGenericException("An unexpected error occurred with the Groq API: ${response.status.value} ${response.bodyAsText()}")
+                }
             }
-        } catch (exception: Exception) {
-            Result.failure(exception)
+        } catch (e: GroqApiException) {
+            Result.failure(e)
+        } catch (e: Exception) {
+            Result.failure(GroqGenericException("An unexpected error occurred with the Groq API.", e))
         }
     }
 
     suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
         val response: HttpResponse =
-            groqClient.get("https://api.groq.com/openai/v1/models")
-        Result.success(response.body())
-    } catch (exception: Throwable) {
-        Result.failure(exception)
+            groqClient.get("$GROQ_BASE_URL$GROQ_MODELS_PATH")
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            // Assuming getGroqModels can also throw GroqApiExceptions if that's desired,
+            // or a more generic one if it's not specific to Groq's chat API.
+            // For now, using GroqGenericException as an example.
+            throw GroqGenericException("Failed to get Groq models: ${response.status.value} ${response.bodyAsText()}")
+        }
+    } catch (e: GroqApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        // Using GenericNetworkException for non-Groq specific errors during model fetching
+        Result.failure(GenericNetworkException("Failed to fetch Groq models due to a network error.", e))
     }
 }
-
-object UnauthorizedException : Exception()
