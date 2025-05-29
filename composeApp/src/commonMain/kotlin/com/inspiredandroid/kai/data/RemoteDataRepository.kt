@@ -6,8 +6,6 @@ import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
-import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
-import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
@@ -17,10 +15,6 @@ import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.github.vinceglb.filekit.core.extension
-import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.error_gemini_invalid_api_key
-import kai.composeapp.generated.resources.error_gemini_rate_limit_exceeded
-import kai.composeapp.generated.resources.error_gemini_unexpected
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import org.jetbrains.compose.resources.getString

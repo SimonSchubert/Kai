@@ -92,7 +92,6 @@ import io.github.vinceglb.filekit.core.PickerType
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.github.vinceglb.filekit.core.extension
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.info_using_shared_key
 import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_delete_forever
@@ -105,11 +104,13 @@ import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_up
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
+import kai.composeapp.generated.resources.info_using_shared_key
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -448,7 +449,7 @@ private fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
         )
         if (isUsingSharedKey) {
             Text(
-                text = getString(Res.string.info_using_shared_key),
+                text = stringResource(Res.string.info_using_shared_key),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -573,7 +574,8 @@ private fun QuestionInput(
                 BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(Color(0xff6200ee), Color(0xff8063C5)))),
                 shape = RoundedCornerShape(28.dp),
             )
-            .onKeyEvent { event -> // Explicitly name 'event' for clarity
+            .onKeyEvent { event ->
+                // Explicitly name 'event' for clarity
                 if (event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyUp) {
                     if (event.isShiftPressed) {
                         val currentText = textState.text
@@ -584,17 +586,17 @@ private fun QuestionInput(
                         // This handles cases like selection being out of bounds, though TextFieldValue should typically prevent this.
                         val safeSelectionStart = selection.start.coerceIn(0, currentText.length)
                         val safeSelectionEnd = selection.end.coerceIn(0, currentText.length)
-                        
+
                         // Ensure start is not after end
                         val actualStart = if (safeSelectionStart > safeSelectionEnd) safeSelectionEnd else safeSelectionStart
                         val actualEnd = if (safeSelectionStart > safeSelectionEnd) safeSelectionStart else safeSelectionEnd
 
                         val newText = currentText.substring(0, actualStart) +
-                                      textToInsert +
-                                      currentText.substring(actualEnd)
+                            textToInsert +
+                            currentText.substring(actualEnd)
                         textState = textState.copy(
                             text = newText,
-                            selection = TextRange(actualStart + textToInsert.length)
+                            selection = TextRange(actualStart + textToInsert.length),
                         )
                     } else {
                         submitQuestion()
