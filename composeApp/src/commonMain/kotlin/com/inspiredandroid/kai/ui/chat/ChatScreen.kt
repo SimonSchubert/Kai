@@ -92,6 +92,7 @@ import io.github.vinceglb.filekit.core.PickerType
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.github.vinceglb.filekit.core.extension
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.info_using_shared_key
 import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_delete_forever
@@ -447,7 +448,7 @@ private fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
         )
         if (isUsingSharedKey) {
             Text(
-                text = "You are using a limited and shared api key. Go to settings to change it.",
+                text = getString(Res.string.info_using_shared_key),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -572,26 +573,35 @@ private fun QuestionInput(
                 BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(Color(0xff6200ee), Color(0xff8063C5)))),
                 shape = RoundedCornerShape(28.dp),
             )
-            .onKeyEvent {
-                return@onKeyEvent if (it.key.keyCode == Key.Enter.keyCode && it.type == KeyEventType.KeyUp) {
-                    if (it.isShiftPressed) {
-                        try {
-                            val textToInsert = "\n"
-                            val newText = textState.text.substring(0, textState.selection.start) +
-                                textToInsert +
-                                textState.text.substring(textState.selection.end)
-                            textState = textState.copy(
-                                text = newText,
-                                selection = TextRange(textState.selection.start + textToInsert.length),
-                            )
-                        } catch (ignore: Exception) {}
+            .onKeyEvent { event -> // Explicitly name 'event' for clarity
+                if (event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyUp) {
+                    if (event.isShiftPressed) {
+                        val currentText = textState.text
+                        val selection = textState.selection
+                        val textToInsert = "\n"
+
+                        // Ensure selection is valid before attempting to create substrings
+                        // This handles cases like selection being out of bounds, though TextFieldValue should typically prevent this.
+                        val safeSelectionStart = selection.start.coerceIn(0, currentText.length)
+                        val safeSelectionEnd = selection.end.coerceIn(0, currentText.length)
+                        
+                        // Ensure start is not after end
+                        val actualStart = if (safeSelectionStart > safeSelectionEnd) safeSelectionEnd else safeSelectionStart
+                        val actualEnd = if (safeSelectionStart > safeSelectionEnd) safeSelectionStart else safeSelectionEnd
+
+                        val newText = currentText.substring(0, actualStart) +
+                                      textToInsert +
+                                      currentText.substring(actualEnd)
+                        textState = textState.copy(
+                            text = newText,
+                            selection = TextRange(actualStart + textToInsert.length)
+                        )
                     } else {
                         submitQuestion()
                     }
-                    true
-                } else {
-                    false
+                    return@onKeyEvent true
                 }
+                return@onKeyEvent false
             },
         colors = outlineTextFieldColors(),
         placeholder = {
