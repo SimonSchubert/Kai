@@ -6,8 +6,6 @@ import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
 import com.inspiredandroid.kai.Value
-import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
-import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
@@ -17,10 +15,6 @@ import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.github.vinceglb.filekit.core.extension
-import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.error_gemini_invalid_api_key
-import kai.composeapp.generated.resources.error_gemini_rate_limit_exceeded
-import kai.composeapp.generated.resources.error_gemini_unexpected
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import org.jetbrains.compose.resources.getString
@@ -122,7 +116,7 @@ class RemoteDataRepository(
         settings.putString(Key.GEMINI_API_KEY, apiKey)
     }
 
-    override suspend fun ask(question: String?, file: PlatformFile?): Result<Any> {
+    override suspend fun ask(question: String?, file: PlatformFile?) {
         if (question != null) {
             chatHistory.update {
                 it + History(
@@ -133,7 +127,7 @@ class RemoteDataRepository(
                 )
             }
         }
-        return if (settings.getString(
+        if (settings.getString(
                 Key.CURRENT_SERVICE_ID,
                 Value.DEFAULT_SERVICE,
             ) == Value.SERVICE_GROQ
@@ -141,46 +135,26 @@ class RemoteDataRepository(
             val messages = chatHistory.value.map {
                 it.toGroqMessageDto()
             }
-            requests.groqChat(
+            val response = requests.groqChat( // Will throw on failure
                 messages = messages,
-            ).onSuccess { response ->
-                val text = response.choices.firstOrNull()?.message?.content ?: ""
-                chatHistory.update {
-                    it + History(role = History.Role.ASSISTANT, content = text)
-                }
+            ).getOrThrow() // Propagate exceptions
+            val text = response.choices.firstOrNull()?.message?.content ?: ""
+            chatHistory.update {
+                it + History(role = History.Role.ASSISTANT, content = text)
             }
         } else {
             val messages = chatHistory.value.map {
                 it.toGeminiMessageDto()
             }
-            requests.geminiChat(
+            val response = requests.geminiChat( // Will throw on failure
                 messages,
-            ).onSuccess { response ->
-                chatHistory.update {
-                    val text =
-                        response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                            part.text ?: ""
-                        } ?: ""
-                    it + History(role = History.Role.ASSISTANT, content = text)
-                }
-            }.onFailure { exception ->
-                when (exception) {
-                    is GeminiRateLimitExceededException -> {
-                        chatHistory.update {
-                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_rate_limit_exceeded))
-                        }
-                    }
-                    is GeminiInvalidApiKeyException -> {
-                        chatHistory.update {
-                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_invalid_api_key))
-                        }
-                    }
-                    else -> {
-                        chatHistory.update {
-                            it + History(role = History.Role.ASSISTANT, content = getString(Res.string.error_gemini_unexpected))
-                        }
-                    }
-                }
+            ).getOrThrow() // Propagate exceptions
+            chatHistory.update {
+                val text =
+                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                        part.text ?: ""
+                    } ?: ""
+                it + History(role = History.Role.ASSISTANT, content = text)
             }
         }
     }
