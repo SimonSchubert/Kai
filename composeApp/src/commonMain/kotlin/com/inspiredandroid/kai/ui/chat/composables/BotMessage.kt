@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ClipEntry
 import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.openUrl
@@ -54,15 +54,14 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
                 },
             )
         }
-        val clipboardManager = LocalClipboard.current
-        val scope = rememberCoroutineScope()
+        val clipboardManager = androidx.compose.ui.platform.LocalClipboard.current
         SmallIconButton( // This is now imported from the composables directory
             iconResource = Res.drawable.ic_copy,
             contentDescription = "Copy",
             onClick = {
-                scope.launch {
-                    clipboardManager.setText(
-                        annotatedString = AnnotatedString(message),
+                componentScope.launch { // Reuse componentScope
+                    clipboardManager.setClipEntry(
+                        androidx.compose.ui.platform.ClipEntry(androidx.compose.ui.text.AnnotatedString(message))
                     )
                 }
             },
