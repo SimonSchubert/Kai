@@ -7,12 +7,12 @@ import androidx.core.net.toUri
 import io.github.vinceglb.filekit.core.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.android.Android
 import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.coroutines.CoroutineContext
 
-actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(CIO) {
+actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Android) {
     config(this)
 }
 
