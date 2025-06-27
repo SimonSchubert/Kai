@@ -39,24 +39,14 @@ class RemoteDataRepository(
     val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
         listOf(
             SettingsModel(
-                id = "gemini-2.5-flash-preview-05-20",
-                subtitle = "Gemini 2.5 Flash Preview",
-                description = "Our best model in terms of price-performance, offering well-rounded capabilities.",
+                id = "gemini-2.5-flash",
+                subtitle = "Gemini 2.5 Flash",
+                description = "Best model in terms of price-performance, offering well-rounded capabilities",
             ),
             SettingsModel(
-                id = "gemini-2.0-flash",
-                subtitle = "Gemini 2.0 Flash",
-                description = "Next generation features, speed, and multimodal generation for a diverse variety of tasks",
-            ),
-            SettingsModel(
-                id = "gemini-1.5-flash",
-                subtitle = "Gemini 1.5 Flash",
-                description = "Fast and versatile performance across a diverse variety of tasks",
-            ),
-            SettingsModel(
-                id = "gemini-1.5-pro",
-                subtitle = "Gemini 1.5 Pro",
-                description = "Complex reasoning tasks requiring more intelligence",
+                id = "gemini-2.5-pro",
+                subtitle = "Gemini 2.5 Pro",
+                description = "State-of-the-art thinking model, capable of reasoning over complex problems",
             ),
         ),
     )
