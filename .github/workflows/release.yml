@@ -3,29 +3,54 @@ name: Create Release
 on:
   push:
     tags:
-      - 'v*.*.*' # Trigger on tags like v1.0.0
+      - 'v*.*.*' # Trigger on tags like v1.0.0 (e.g. v1.0.0, v0.1.0)
 
 jobs:
-  build:
+  build_and_sign_apk:
+    name: Build and Sign APK
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
           cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        # Consider adding specific build-tools version if needed, e.g.
+        # with:
+        #   build-tools: "33.0.2"
+        # However, often the default included with setup-android is sufficient.
+
+      # Optional: Explicitly install build tools if a very specific version is needed
+      # - name: Install Android Build Tools
+      #   run: sdkmanager "build-tools;29.0.3" # Using 29.0.3 from your example, adjust if needed
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew assembleRelease
+      - name: Build Unsigned Release APK
+        run: ./gradlew :composeApp:assembleRelease --stacktrace
+        # For KMP, it's good practice to specify the module :composeApp:assembleRelease
 
-      - name: Create Release
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_apk # Give an id to the step to reference its outputs
+        with:
+          releaseDirectory: composeApp/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEYSTORE_PASSWORD }} # Assuming key password is same as keystore password as in your example
+        # This action outputs the path to the signed APK: steps.sign_apk.outputs.signedReleaseFile
+        # And the directory: steps.sign_apk.outputs.releaseDirectory
+
+      - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -36,13 +61,12 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload Signed APK to GitHub Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./app/build/outputs/apk/release/app-release.apk
-          asset_name: app-release.apk
+          asset_path: ${{ steps.sign_apk.outputs.signedReleaseFile }} # Use output from signing step
+          asset_name: kai_v${{ github.ref_name }}.apk # Example: kai_v1.0.1.apk (ref_name gives tag without refs/tags/)
           asset_content_type: application/vnd.android.package-archive
