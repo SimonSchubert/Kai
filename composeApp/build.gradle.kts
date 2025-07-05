@@ -153,7 +153,7 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("debug")
+            // signingConfig = signingConfigs.getByName("debug") // Or remove this line if you don't want it signed with debug by default
         }
     }
     buildFeatures {

@@ -22,14 +22,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-        # Consider adding specific build-tools version if needed, e.g.
-        # with:
-        #   build-tools: "33.0.2"
-        # However, often the default included with setup-android is sufficient.
-
-      # Optional: Explicitly install build tools if a very specific version is needed
-      # - name: Install Android Build Tools
-      #   run: sdkmanager "build-tools;29.0.3" # Using 29.0.3 from your example, adjust if needed
+        with:
+          build-tools: "29.0.3" # Explicitly install build-tools version required by signing action
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
