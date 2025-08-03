@@ -1,6 +1,6 @@
 package com.inspiredandroid.kai.data
 
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
 
 interface DataRepository {
 

@@ -1,7 +1,7 @@
 package com.inspiredandroid.kai
 
 import androidx.compose.ui.draganddrop.DragAndDropEvent
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.darwin.Darwin

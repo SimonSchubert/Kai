@@ -12,7 +12,7 @@ import com.inspiredandroid.kai.network.GenericNetworkException
 import com.inspiredandroid.kai.network.GroqGenericException
 import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
 import com.inspiredandroid.kai.network.GroqRateLimitExceededException
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_generic
 import kai.composeapp.generated.resources.error_invalid_api_key
