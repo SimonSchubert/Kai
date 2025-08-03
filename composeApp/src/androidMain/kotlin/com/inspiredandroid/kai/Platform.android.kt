@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.core.net.toUri
-import io.github.vinceglb.filekit.core.PlatformFile
+import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.android.Android

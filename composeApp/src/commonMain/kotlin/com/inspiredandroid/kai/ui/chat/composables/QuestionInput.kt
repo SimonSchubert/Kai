@@ -47,11 +47,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.outlineTextFieldColors
-import io.github.vinceglb.filekit.compose.rememberFilePickerLauncher
-import io.github.vinceglb.filekit.core.PickerMode
-import io.github.vinceglb.filekit.core.PickerType
-import io.github.vinceglb.filekit.core.PlatformFile
-import io.github.vinceglb.filekit.core.extension
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.FileKitMode
+import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
+import io.github.vinceglb.filekit.extension
+import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_file
@@ -133,8 +134,8 @@ internal fun QuestionInput(
         }
     }
     val launcher = rememberFilePickerLauncher(
-        type = PickerType.ImageAndVideo,
-        mode = PickerMode.Single,
+        type = FileKitType.ImageAndVideo,
+        mode = FileKitMode.Single,
         title = "Pick media",
     ) {
         setFile(it)
