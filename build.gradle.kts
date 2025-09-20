@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.spotless)
-    id("com.github.ben-manes.versions") version "0.52.0"
+    alias(libs.plugins.ben.manes.versions)
 }
 
 configure<com.diffplug.gradle.spotless.SpotlessExtension> {

@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
@@ -207,7 +208,7 @@ private fun GeminiSettings(uiState: SettingsUiState) {
 @Composable
 private fun GroqSettings(uiState: SettingsUiState) {
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().testTag("api_key"),
         value = uiState.groqApiKey,
         onValueChange = uiState.onChangeGroqApiKey,
         label = {
