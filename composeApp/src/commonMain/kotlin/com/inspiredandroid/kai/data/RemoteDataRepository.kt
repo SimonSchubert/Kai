@@ -45,9 +45,19 @@ class RemoteDataRepository(
                 description = "Best model in terms of price-performance, offering well-rounded capabilities",
             ),
             SettingsModel(
+                id = "gemini-2.5-flash-lite",
+                subtitle = "Gemini 2.5 Flash Lite",
+                description = "Fastest flash model optimized for cost-efficiency and high throughput",
+            ),
+            SettingsModel(
                 id = "gemini-2.5-pro",
                 subtitle = "Gemini 2.5 Pro",
                 description = "State-of-the-art thinking model, capable of reasoning over complex problems",
+            ),
+            SettingsModel(
+                id = "gemini-3-pro-preview",
+                subtitle = "Gemini 3 Pro",
+                description = "Best model in the world for multimodal understanding",
             ),
         ),
     )
