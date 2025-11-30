@@ -128,35 +128,31 @@ class RemoteDataRepository(
                 )
             }
         }
-        if (settings.getString(
-                Key.CURRENT_SERVICE_ID,
-                Value.DEFAULT_SERVICE,
-            ) == Value.SERVICE_GROQ
-        ) {
-            val messages = chatHistory.value.map {
-                it.toGroqMessageDto()
-            }
-            val response = requests.groqChat( // Will throw on failure
-                messages = messages,
-            ).getOrThrow() // Propagate exceptions
-            val text = response.choices.firstOrNull()?.message?.content ?: ""
-            chatHistory.update {
-                it + History(role = History.Role.ASSISTANT, content = text)
-            }
+        val currentService = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
+        val groqApiKey = settings.getStringOrNull(Key.GROQ_API_KEY)
+        val geminiApiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
+
+        val useGroq = currentService == Value.SERVICE_GROQ || geminiApiKey.isNullOrBlank()
+        val messages = chatHistory.value
+
+        val responseText = if (useGroq) {
+            val groqMessages = messages.map { it.toGroqMessageDto() }
+            val response = if (groqApiKey.isNullOrBlank()) {
+                requests.groqChatFree(messages = groqMessages)
+            } else {
+                requests.groqChat(messages = groqMessages)
+            }.getOrThrow()
+            response.choices.firstOrNull()?.message?.content ?: ""
         } else {
-            val messages = chatHistory.value.map {
-                it.toGeminiMessageDto()
-            }
-            val response = requests.geminiChat( // Will throw on failure
-                messages,
-            ).getOrThrow() // Propagate exceptions
-            chatHistory.update {
-                val text =
-                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                        part.text ?: ""
-                    } ?: ""
-                it + History(role = History.Role.ASSISTANT, content = text)
-            }
+            val geminiMessages = messages.map { it.toGeminiMessageDto() }
+            val response = requests.geminiChat(geminiMessages).getOrThrow()
+            response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                part.text ?: ""
+            } ?: ""
+        }
+
+        chatHistory.update {
+            it + History(role = History.Role.ASSISTANT, content = responseText)
         }
     }
 

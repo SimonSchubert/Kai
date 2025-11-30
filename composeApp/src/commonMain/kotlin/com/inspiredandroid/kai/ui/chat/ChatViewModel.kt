@@ -68,7 +68,6 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
                     it.copy(isLoading = false)
                 }
             } catch (exception: Exception) {
-                println("exception: $exception")
                 val errorMessage = when (exception) {
                     is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
                     is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)

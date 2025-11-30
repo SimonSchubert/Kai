@@ -101,6 +101,7 @@ class Requests(private val settings: Settings) {
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> = try {
         val apiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
             ?: throw GeminiInvalidApiKeyException("API key is missing.")
+
         val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
 
         val response: HttpResponse =
@@ -135,37 +136,44 @@ class Requests(private val settings: Settings) {
     }
 
     suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> {
-        val url = if (settings.getString(Key.GROQ_API_KEY, "").isEmpty()) {
-            "$PROXY_BASE_URL$PROXY_CHAT_PATH"
-        } else {
-            "$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH"
-        }
         val selectedModelId = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
-        return try {
-            val response: HttpResponse =
-                groqClient.post(url) {
-                    contentType(ContentType.Application.Json)
-                    setBody(
-                        GroqChatRequestDto(
-                            messages = messages,
-                            model = selectedModelId,
-                        ),
-                    )
-                }
-            if (response.status.isSuccess()) {
-                Result.success(response.body())
-            } else {
-                when (response.status.value) {
-                    401 -> throw GroqInvalidApiKeyException("Invalid API key for Groq.")
-                    429 -> throw GroqRateLimitExceededException("Rate limit exceeded for Groq.")
-                    else -> throw GroqGenericException("An unexpected error occurred with the Groq API: ${response.status.value} ${response.bodyAsText()}")
-                }
+        return groqChatShared(
+            url = "$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH",
+            model = selectedModelId,
+            messages = messages,
+        )
+    }
+
+    suspend fun groqChatFree(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = groqChatShared(
+        url = "$PROXY_BASE_URL$PROXY_CHAT_PATH",
+        model = Value.DEFAULT_GROQ_MODEL,
+        messages = messages,
+    )
+
+    private suspend fun groqChatShared(url: String, model: String, messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+        val response: HttpResponse =
+            groqClient.post(url) {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    GroqChatRequestDto(
+                        messages = messages,
+                        model = model,
+                    ),
+                )
             }
-        } catch (e: GroqApiException) {
-            Result.failure(e)
-        } catch (e: Exception) {
-            Result.failure(GroqGenericException("An unexpected error occurred with the Groq API.", e))
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw GroqInvalidApiKeyException("Invalid API key for Groq.")
+                429 -> throw GroqRateLimitExceededException("Rate limit exceeded for Groq.")
+                else -> throw GroqGenericException("An unexpected error occurred with the Groq API: ${response.status.value} ${response.bodyAsText()}")
+            }
         }
+    } catch (e: GroqApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(GroqGenericException("An unexpected error occurred with the Groq API.", e))
     }
 
     suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
