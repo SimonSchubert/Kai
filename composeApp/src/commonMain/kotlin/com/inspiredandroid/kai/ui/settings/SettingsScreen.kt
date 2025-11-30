@@ -298,7 +298,7 @@ private fun ModelSelection(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(models) { model ->
+                    items(models, key = { it.id }) { model ->
                         GroqModelCard(
                             model = model,
                             onClick = {

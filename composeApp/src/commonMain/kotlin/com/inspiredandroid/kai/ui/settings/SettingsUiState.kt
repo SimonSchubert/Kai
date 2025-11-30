@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.ui.settings
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class SettingsUiState(
     val groqApiKey: String = "",
     val geminiApiKey: String = "",
@@ -14,11 +17,15 @@ data class SettingsUiState(
     val onChangeGroqApiKey: (String) -> Unit = {},
     val onChangeGeminiApiKey: (String) -> Unit = {},
 ) {
+
+    @Immutable
     data class Service(
         val id: String,
         val name: String,
         val isSelected: Boolean = false,
     )
+
+    @Immutable
     data class SettingsModel(
         val id: String,
         val subtitle: String,

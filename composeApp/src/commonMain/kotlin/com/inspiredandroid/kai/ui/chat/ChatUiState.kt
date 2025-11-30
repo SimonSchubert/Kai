@@ -9,6 +9,7 @@ import io.github.vinceglb.filekit.PlatformFile
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+@Immutable
 data class ChatUiState(
     val ask: (String) -> Unit,
     val history: List<History> = emptyList(),
