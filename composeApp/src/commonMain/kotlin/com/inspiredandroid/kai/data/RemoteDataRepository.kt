@@ -1,4 +1,4 @@
-@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class)
+@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class, ExperimentalTime::class)
 
 package com.inspiredandroid.kai.data
 
@@ -18,9 +18,18 @@ import io.github.vinceglb.filekit.extension
 import io.github.vinceglb.filekit.readBytes
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.datetime.YearMonth
+import kotlinx.datetime.format
+import kotlinx.datetime.format.DateTimeComponents
+import kotlinx.datetime.format.DateTimeComponents.Companion.Format
+import kotlinx.datetime.format.DayOfWeekNames.Companion.ENGLISH_FULL
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 class RemoteDataRepository(
     private val requests: Requests,
@@ -91,7 +100,20 @@ class RemoteDataRepository(
                     SettingsModel(
                         id = it.id,
                         subtitle = it.owned_by ?: "",
-                        description = "Context window: ${it.context_window}",
+                        description = if (it.created != null) {
+                            Instant.fromEpochSeconds(it.created).format(
+                                Format {
+                                    day()
+                                    char(' ')
+                                    monthName(MonthNames.ENGLISH_FULL)
+                                    char(' ')
+                                    year()
+                                },
+                            )
+                        } else {
+                            "Context window: ${it.context_window}"
+                        },
+                        createdAt = it.created ?: 0L,
                     )
                 },
             )

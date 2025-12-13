@@ -31,5 +31,6 @@ data class SettingsUiState(
         val subtitle: String,
         val description: String,
         val isSelected: Boolean = false,
+        val createdAt: Long = 0,
     )
 }

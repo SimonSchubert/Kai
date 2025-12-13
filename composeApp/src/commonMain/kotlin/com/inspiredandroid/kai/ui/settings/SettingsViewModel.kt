@@ -41,7 +41,7 @@ class SettingsViewModel(settings: Settings, private val dataRepository: RemoteDa
     ) { state, groqModels, geminiModels, services ->
         state.copy(
             services = services,
-            groqModels = groqModels,
+            groqModels = groqModels.sortedByDescending { it.createdAt },
             groqSelectedModel = groqModels.firstOrNull { it.isSelected },
             geminiModels = geminiModels,
             geminiSelectedModel = geminiModels.firstOrNull { it.isSelected },
