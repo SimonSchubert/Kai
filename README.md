@@ -11,11 +11,18 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 
 ### Gemini
 
-Gemini 2.5 Flash, Gemini 1.5 Pro...
+Gemini 2.5 Flash, Gemini 3 Pro...
 
-### GroqCloud
+### Supported Groq Models
 
-LLama 3.3, Mixtral, Gemma2...
+Kai leverages the Groq API for ultra-fast AI inference, supporting a variety of high-performance models including:
+
+- Llama series (e.g., fast and versatile general-purpose models)
+- GPT-OSS series (advanced reasoning with tool support)
+- Groq Compound (built-in tools like web search and code execution)
+- And more
+
+For the complete, up-to-date list of available models, see: https://console.groq.com/docs/models
 
 ### TODO list:
 
