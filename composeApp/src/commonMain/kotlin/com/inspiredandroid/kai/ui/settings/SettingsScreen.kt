@@ -17,12 +17,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
@@ -54,6 +57,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.Placeholder
@@ -140,30 +144,22 @@ private fun BottomInfo() {
     Spacer(Modifier.height(8.dp))
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        val annotatedString = buildAnnotatedString {
-            append("Version: ${Version.appVersion} ")
-            withLink(LinkAnnotation.Url(url = "https://github.com/SimonSchubert/Kai")) {
-                appendInlineContent(id = "imageId")
-            }
-        }
-        val inlineContentMap = mapOf(
-            "imageId" to InlineTextContent(
-                Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.TextCenter),
-            ) {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painterResource(Res.drawable.github_mark),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            },
-        )
-
         Text(
-            annotatedString,
-            inlineContent = inlineContentMap,
+            "Version: ${Version.appVersion}",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
+        )
+
+        Spacer(Modifier.width(8.dp))
+
+        val uriHandler = LocalUriHandler.current
+        Icon(
+            modifier = Modifier.clip(CircleShape).size(20.dp).clickable(onClick = {
+                uriHandler.openUri("https://github.com/SimonSchubert/Kai")
+            }),
+            painter = painterResource(Res.drawable.github_mark),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onBackground,
         )
     }
 }
