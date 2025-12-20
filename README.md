@@ -5,6 +5,7 @@
 A **cross-platform open-source AI interface** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
 [![Play Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/play_store_badge.png)](https://play.google.com/store/apps/details?id=com.inspiredandroid.kai)
+[![F-Droid](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/fdroid_badge.png)](https://f-droid.org/en/packages/com.inspiredandroid.kai/)
 [![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
 ### Supported services and models:
