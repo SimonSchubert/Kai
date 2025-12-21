@@ -16,7 +16,7 @@
     <string name="error_unknown">एक अज्ञात त्रुटि हुई।</string>
     <string name="info_using_shared_key">आप एक सीमित और साझा API कुंजी का उपयोग कर रहे हैं। बेहतर अनुभव के लिए सेटिंग्स में अपनी खुद की कुंजी जोड़ें।</string>
     <string name="settings_ai_mistakes_warning">AI गलतियाँ कर सकती है, जवाबों की दोबारा जाँच करें और संवेदनशील जानकारी साझा न करें।</string>
-    <string name="settings_version">संस्करण: %s</string>
+    <string name="settings_version">संस्करण: %1$s</string>
     <string name="settings_api_key_label">API कुंजी</string>
     <string name="settings_sign_in_copy_api_key_from">साइन इन करें और अपनी API कुंजी यहाँ से कॉपी करें</string>
     <string name="settings_model_label">मॉडल</string>

@@ -16,7 +16,7 @@
     <string name="error_unknown">Terjadi kesalahan yang tidak diketahui.</string>
     <string name="info_using_shared_key">Anda menggunakan kunci API yang terbatas dan dibagikan. Buka pengaturan untuk menambahkan kunci Anda sendiri agar pengalaman lebih baik.</string>
     <string name="settings_ai_mistakes_warning">AI bisa membuat kesalahan, periksa kembali jawaban dan jangan bagikan informasi sensitif.</string>
-    <string name="settings_version">Versi: %s</string>
+    <string name="settings_version">Versi: %1$s</string>
     <string name="settings_api_key_label">Kunci API</string>
     <string name="settings_sign_in_copy_api_key_from">Masuk dan salin kunci API Anda dari</string>
     <string name="settings_model_label">Model</string>

@@ -16,7 +16,7 @@
     <string name="error_unknown">Ocurrió un error desconocido.</string>
     <string name="info_using_shared_key">Estás usando una clave API limitada y compartida. Ve a configuración para agregar tu propia clave y tener una mejor experiencia.</string>
     <string name="settings_ai_mistakes_warning">La IA puede cometer errores, verifica las respuestas y no compartas información sensible.</string>
-    <string name="settings_version">Versión: %s</string>
+    <string name="settings_version">Versión: %1$s</string>
     <string name="settings_api_key_label">Clave API</string>
     <string name="settings_sign_in_copy_api_key_from">Inicia sesión y copia tu clave API desde</string>
     <string name="settings_model_label">Modelo</string>

@@ -16,7 +16,7 @@
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten.</string>
     <string name="info_using_shared_key">Du verwendest einen begrenzten, gemeinschaftlich genutzten API-Schlüssel. Gehe in die Einstellungen, um deinen eigenen Schlüssel für eine bessere Erfahrung hinzuzufügen.</string>
     <string name="settings_ai_mistakes_warning">KI macht Fehler – bitte überprüfe die Antworten und teile keine sensiblen Informationen.</string>
-    <string name="settings_version">Version: %s</string>
+    <string name="settings_version">Version: %1$s</string>
     <string name="settings_api_key_label">API-Schlüssel</string>
     <string name="settings_sign_in_copy_api_key_from">Melde dich an und kopiere deinen API-Schlüssel von</string>
     <string name="settings_model_label">Modell</string>

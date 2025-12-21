@@ -16,7 +16,7 @@
     <string name="error_unknown">حدث خطأ غير معروف.</string>
     <string name="info_using_shared_key">أنت تستخدم مفتاح API محدود ومشترك. انتقل إلى الإعدادات لإضافة مفتاحك الخاص لتجربة أفضل.</string>
     <string name="settings_ai_mistakes_warning">الذكاء الاصطناعي قد يرتكب أخطاء، تحقق من الإجابات ولا تشارك معلومات حساسة.</string>
-    <string name="settings_version">الإصدار: %s</string>
+    <string name="settings_version">الإصدار: %1$s</string>
     <string name="settings_api_key_label">مفتاح API</string>
     <string name="settings_sign_in_copy_api_key_from">قم بتسجيل الدخول وانسخ مفتاح API الخاص بك من</string>
     <string name="settings_model_label">النموذج</string>

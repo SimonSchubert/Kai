@@ -16,7 +16,7 @@
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="info_using_shared_key">You are using a limited and shared API key. Please go to settings to add your own key for a better experience.</string>
     <string name="settings_ai_mistakes_warning">AI makes mistakes, double check and don't share sensitive information.</string>
-    <string name="settings_version">Version: %s</string>
+    <string name="settings_version">Version: %1$s</string>
     <string name="settings_api_key_label">API Key</string>
     <string name="settings_sign_in_copy_api_key_from">Sign in and copy your API key from</string>
     <string name="settings_model_label">Model</string>

@@ -16,7 +16,7 @@
     <string name="error_unknown">Une erreur inconnue s’est produite.</string>
     <string name="info_using_shared_key">Vous utilisez une clé API limitée et partagée. Rendez-vous dans les paramètres pour ajouter votre propre clé et bénéficier d’une meilleure expérience.</string>
     <string name="settings_ai_mistakes_warning">L’IA peut faire des erreurs, vérifiez les réponses et ne partagez pas d’informations sensibles.</string>
-    <string name="settings_version">Version : %s</string>
+    <string name="settings_version">Version : %1$s</string>
     <string name="settings_api_key_label">Clé API</string>
     <string name="settings_sign_in_copy_api_key_from">Connectez-vous et copiez votre clé API depuis</string>
     <string name="settings_model_label">Modèle</string>
