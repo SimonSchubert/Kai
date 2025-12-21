@@ -46,6 +46,8 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.darkPurple
+import com.inspiredandroid.kai.lightPurple
 import com.inspiredandroid.kai.outlineTextFieldColors
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitMode
@@ -112,53 +114,12 @@ internal fun QuestionInput(
         }
     }
 
-    val trailingIconView = @Composable {
-        Box(
-            modifier = Modifier
-                .padding(end = 6.dp)
-                .size(42.dp)
-                .clip(CircleShape)
-                .background(brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary)), CircleShape)
-                .pointerHoverIcon(PointerIcon.Hand)
-                .clickable {
-                    submitQuestion()
-                },
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                vectorResource(Res.drawable.ic_up),
-                modifier = Modifier.size(32.dp),
-                contentDescription = null,
-                tint = Color.White,
-            )
-        }
-    }
-    val launcher = rememberFilePickerLauncher(
+    val filePickerLauncher = rememberFilePickerLauncher(
         type = FileKitType.ImageAndVideo,
         mode = FileKitMode.Single,
         title = "Pick media",
     ) {
         setFile(it)
-    }
-    val leadingIconView = @Composable {
-        Box(
-            modifier = Modifier
-                .padding(start = 6.dp)
-                .size(42.dp)
-                .clip(CircleShape)
-                .pointerHoverIcon(PointerIcon.Hand)
-                .clickable {
-                    launcher.launch()
-                },
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                vectorResource(Res.drawable.ic_add),
-                modifier = Modifier.size(32.dp),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onBackground,
-            )
-        }
     }
 
     val focusRequester = remember { FocusRequester() }
@@ -174,7 +135,7 @@ internal fun QuestionInput(
             .fillMaxWidth()
             .clip(RoundedCornerShape(28.dp))
             .border(
-                BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary))),
+                BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))),
                 shape = RoundedCornerShape(28.dp),
             )
             .onKeyEvent { event ->
@@ -208,14 +169,75 @@ internal fun QuestionInput(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
-        trailingIcon = if (textState.text.isNotBlank()) trailingIconView else null,
+        trailingIcon = if (textState.text.isNotBlank()) {
+            { TrailingIcon(onClick = { submitQuestion() }) }
+        } else {
+            null
+        },
         keyboardActions = KeyboardActions(onSend = {
             submitQuestion()
         }),
-        leadingIcon = if (allowFileAttachment) leadingIconView else null,
+        leadingIcon = if (allowFileAttachment) {
+            {
+                LeadingIcon(onClick = {
+                    filePickerLauncher.launch()
+                })
+            }
+        } else {
+            null
+        },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
     )
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
+    }
+}
+
+@Composable
+fun TrailingIcon(
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .padding(end = 6.dp)
+            .size(42.dp)
+            .clip(CircleShape)
+            .background(brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple)), CircleShape)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .clickable {
+                onClick()
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            vectorResource(Res.drawable.ic_up),
+            modifier = Modifier.size(32.dp),
+            contentDescription = null,
+            tint = Color.White,
+        )
+    }
+}
+
+@Composable
+fun LeadingIcon(
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .padding(start = 6.dp)
+            .size(42.dp)
+            .clip(CircleShape)
+            .pointerHoverIcon(PointerIcon.Hand)
+            .clickable {
+                onClick()
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            vectorResource(Res.drawable.ic_add),
+            modifier = Modifier.size(32.dp),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onBackground,
+        )
     }
 }

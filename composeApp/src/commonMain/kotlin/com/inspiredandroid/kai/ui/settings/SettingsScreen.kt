@@ -154,9 +154,13 @@ private fun BottomInfo() {
 
         val uriHandler = LocalUriHandler.current
         Icon(
-            modifier = Modifier.clip(CircleShape).size(20.dp).clickable(onClick = {
-                uriHandler.openUri("https://github.com/SimonSchubert/Kai")
-            }),
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(20.dp)
+                .clickable(onClick = {
+                    uriHandler.openUri("https://github.com/SimonSchubert/Kai")
+                })
+                .pointerHoverIcon(PointerIcon.Hand),
             painter = painterResource(Res.drawable.github_mark),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onBackground,

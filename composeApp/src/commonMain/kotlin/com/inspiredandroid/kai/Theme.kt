@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.darkColorScheme
@@ -9,7 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-private val DarkColorScheme = darkColorScheme(
+val darkPurple = Color(0xFF6200EE)
+val lightPurple = Color(0xff8063C5)
+
+val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     onPrimary = Color(0xFF000000),
     surface = Color(0xFF1E1E1E),
@@ -18,8 +22,8 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = Color(0xFFFFFFFF),
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF6200EE),
+val LightColorScheme = lightColorScheme(
+    primary = darkPurple,
     onPrimary = Color(0xFFFFFFFF),
     surface = Color(0xFFF2F2F2),
     background = Color(0xFFFFFFFF),
@@ -33,14 +37,9 @@ fun outlineTextFieldColors() = OutlinedTextFieldDefaults.colors()
 @Composable
 @Preview
 fun Theme(
+    colorScheme: ColorScheme,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (isSystemInDarkTheme()) {
-        DarkColorScheme
-    } else {
-        LightColorScheme
-    }
-
     MaterialTheme(
         colorScheme = colorScheme,
     ) {

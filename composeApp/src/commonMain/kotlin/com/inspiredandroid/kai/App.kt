@@ -1,6 +1,8 @@
 
 package com.inspiredandroid.kai
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -46,6 +48,11 @@ val appModule = module {
 @Preview
 fun App(
     navController: NavHostController,
+    colorScheme: ColorScheme = if (isSystemInDarkTheme()) {
+        DarkColorScheme
+    } else {
+        LightColorScheme
+    },
     textToSpeech: TextToSpeechInstance? = null,
     koinApplication: (KoinApplication.() -> Unit)? = null,
 ) {
@@ -55,7 +62,7 @@ fun App(
             modules(appModule)
         },
     ) {
-        Theme {
+        Theme(colorScheme = colorScheme) {
             NavHost(navController, startDestination = Home) {
                 composable<Home> {
                     ChatScreen(
