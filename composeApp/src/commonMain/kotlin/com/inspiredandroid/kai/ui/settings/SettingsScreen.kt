@@ -80,7 +80,6 @@ import kai.composeapp.generated.resources.ic_arrow_back
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
-import kai.composeapp.generated.resources.settings_for_free_daily_requests
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_version

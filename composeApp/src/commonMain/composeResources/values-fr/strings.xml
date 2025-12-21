@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Bienvenue sur Kai</string>
+    <string name="prompt_ask_question">Poser une question</string>
+    <string name="prompt_pick_media">Sélectionner un média</string>
+    <string name="gemini_model_2_5_flash_description">Meilleur modèle en termes de rapport qualité-prix, avec des capacités équilibrées</string>
+    <string name="gemini_model_2_5_flash_lite_description">Modèle flash le plus rapide, optimisé pour l’efficacité des coûts et un haut débit</string>
+    <string name="gemini_model_2_5_pro_description">Modèle de raisonnement de pointe, capable de résoudre des problèmes complexes</string>
+    <string name="gemini_model_3_pro_preview_description">Meilleur modèle au monde pour la compréhension multimodale</string>
+    <string name="gemini_model_3_flash_description">Meilleur modèle en termes de rapport qualité-prix, avec des capacités équilibrées</string>
+    <string name="error_gemini_rate_limit_exceeded">Erreur : Vous avez dépassé la limite de requêtes de l’API Gemini. Veuillez réessayer plus tard ou vérifier votre quota.</string>
+    <string name="error_gemini_invalid_api_key">Erreur : Votre clé API Gemini est invalide ou absente. Veuillez vérifier vos paramètres.</string>
+    <string name="error_gemini_unexpected">Une erreur inattendue s’est produite avec la requête Gemini. Veuillez réessayer.</string>
+    <string name="error_invalid_api_key">Clé API invalide. Veuillez vérifier vos paramètres.</string>
+    <string name="error_rate_limit_exceeded">Limite de taux dépassée. Veuillez réessayer plus tard.</string>
+    <string name="error_generic">Une erreur inattendue s’est produite. Veuillez réessayer.</string>
+    <string name="error_unknown">Une erreur inconnue s’est produite.</string>
+    <string name="info_using_shared_key">Vous utilisez une clé API limitée et partagée. Rendez-vous dans les paramètres pour ajouter votre propre clé et bénéficier d’une meilleure expérience.</string>
+    <string name="settings_ai_mistakes_warning">L’IA peut faire des erreurs, vérifiez les réponses et ne partagez pas d’informations sensibles.</string>
+    <string name="settings_version">Version : %s</string>
+    <string name="settings_api_key_label">Clé API</string>
+    <string name="settings_sign_in_copy_api_key_from">Connectez-vous et copiez votre clé API depuis</string>
+    <string name="settings_model_label">Modèle</string>
+    <string name="clear_chat_content_description">Effacer la conversation</string>
+    <string name="toggle_speech_output_content_description">Activer/désactiver la sortie vocale</string>
+    <string name="settings_content_description">Paramètres</string>
+    <string name="bot_message_speech_content_description">Voix</string>
+    <string name="bot_message_copy_content_description">Copier</string>
+    <string name="bot_message_flag_content_description">Signaler le contenu</string>
+</resources>

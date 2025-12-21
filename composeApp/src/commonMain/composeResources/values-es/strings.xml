@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Bienvenido a Kai</string>
+    <string name="prompt_ask_question">Haz una pregunta</string>
+    <string name="prompt_pick_media">Seleccionar multimedia</string>
+    <string name="gemini_model_2_5_flash_description">El mejor modelo en relación calidad-precio, con capacidades equilibradas</string>
+    <string name="gemini_model_2_5_flash_lite_description">El modelo flash más rápido, optimizado para eficiencia de costos y alto rendimiento</string>
+    <string name="gemini_model_2_5_pro_description">Modelo de razonamiento de última generación, capaz de resolver problemas complejos</string>
+    <string name="gemini_model_3_pro_preview_description">El mejor modelo del mundo para comprensión multimodal</string>
+    <string name="gemini_model_3_flash_description">El mejor modelo en relación calidad-precio, con capacidades equilibradas</string>
+    <string name="error_gemini_rate_limit_exceeded">Error: Has superado el límite de solicitudes de la API de Gemini. Inténtalo de nuevo más tarde o revisa tu cuota.</string>
+    <string name="error_gemini_invalid_api_key">Error: Tu clave de API de Gemini es inválida o no está presente. Revisa tu configuración.</string>
+    <string name="error_gemini_unexpected">Ocurrió un error inesperado con la solicitud a Gemini. Por favor, inténtalo de nuevo.</string>
+    <string name="error_invalid_api_key">Clave API inválida. Por favor, revisa tu configuración.</string>
+    <string name="error_rate_limit_exceeded">Límite de tasa excedido. Inténtalo de nuevo más tarde.</string>
+    <string name="error_generic">Ocurrió un error inesperado. Por favor, inténtalo de nuevo.</string>
+    <string name="error_unknown">Ocurrió un error desconocido.</string>
+    <string name="info_using_shared_key">Estás usando una clave API limitada y compartida. Ve a configuración para agregar tu propia clave y tener una mejor experiencia.</string>
+    <string name="settings_ai_mistakes_warning">La IA puede cometer errores, verifica las respuestas y no compartas información sensible.</string>
+    <string name="settings_version">Versión: %s</string>
+    <string name="settings_api_key_label">Clave API</string>
+    <string name="settings_sign_in_copy_api_key_from">Inicia sesión y copia tu clave API desde</string>
+    <string name="settings_model_label">Modelo</string>
+    <string name="clear_chat_content_description">Limpiar chat</string>
+    <string name="toggle_speech_output_content_description">Activar/desactivar salida de voz</string>
+    <string name="settings_content_description">Configuración</string>
+    <string name="bot_message_speech_content_description">Voz</string>
+    <string name="bot_message_copy_content_description">Copiar</string>
+    <string name="bot_message_flag_content_description">Reportar contenido</string>
+</resources>

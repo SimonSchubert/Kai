@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Willkommen bei Kai</string>
+    <string name="prompt_ask_question">Stelle eine Frage</string>
+    <string name="prompt_pick_media">Medien auswählen</string>
+    <string name="gemini_model_2_5_flash_description">Bestes Modell im Preis-Leistungs-Verhältnis mit ausgewogenen Fähigkeiten</string>
+    <string name="gemini_model_2_5_flash_lite_description">Schnellstes Flash-Modell, optimiert für Kosteneffizienz und hohen Durchsatz</string>
+    <string name="gemini_model_2_5_pro_description">Modernstes Denkmodell, fähig zur Lösung komplexer Probleme</string>
+    <string name="gemini_model_3_pro_preview_description">Bestes Modell der Welt für multimodales Verständnis</string>
+    <string name="gemini_model_3_flash_description">Bestes Modell im Preis-Leistungs-Verhältnis mit ausgewogenen Fähigkeiten</string>
+    <string name="error_gemini_rate_limit_exceeded">Fehler: Du hast das Anfragelimit der Gemini API überschritten. Bitte versuche es später erneut oder überprüfe dein Kontingent.</string>
+    <string name="error_gemini_invalid_api_key">Fehler: Dein Gemini API-Schlüssel ist ungültig oder fehlt. Bitte überprüfe deine Einstellungen.</string>
+    <string name="error_gemini_unexpected">Ein unerwarteter Fehler ist bei der Gemini-Anfrage aufgetreten. Bitte versuche es erneut.</string>
+    <string name="error_invalid_api_key">Ungültiger API-Schlüssel. Bitte überprüfe deine Einstellungen.</string>
+    <string name="error_rate_limit_exceeded">Rate-Limit überschritten. Bitte versuche es später erneut.</string>
+    <string name="error_generic">Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.</string>
+    <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten.</string>
+    <string name="info_using_shared_key">Du verwendest einen begrenzten, gemeinschaftlich genutzten API-Schlüssel. Gehe in die Einstellungen, um deinen eigenen Schlüssel für eine bessere Erfahrung hinzuzufügen.</string>
+    <string name="settings_ai_mistakes_warning">KI macht Fehler – bitte überprüfe die Antworten und teile keine sensiblen Informationen.</string>
+    <string name="settings_version">Version: %s</string>
+    <string name="settings_api_key_label">API-Schlüssel</string>
+    <string name="settings_sign_in_copy_api_key_from">Melde dich an und kopiere deinen API-Schlüssel von</string>
+    <string name="settings_model_label">Modell</string>
+    <string name="clear_chat_content_description">Chat leeren</string>
+    <string name="toggle_speech_output_content_description">Sprachausgabe umschalten</string>
+    <string name="settings_content_description">Einstellungen</string>
+    <string name="bot_message_speech_content_description">Sprache</string>
+    <string name="bot_message_copy_content_description">Kopieren</string>
+    <string name="bot_message_flag_content_description">Inhalt melden</string>
+</resources>

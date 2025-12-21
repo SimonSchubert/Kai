@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">مرحبًا بك في كاي</string>
+    <string name="prompt_ask_question">اطرح سؤالًا</string>
+    <string name="prompt_pick_media">اختر وسائط</string>
+    <string name="gemini_model_2_5_flash_description">أفضل نموذج من حيث السعر مقابل الأداء، يقدم قدرات متوازنة</string>
+    <string name="gemini_model_2_5_flash_lite_description">أسرع نموذج فلاش، مُحسّن للكفاءة في التكلفة والإنتاجية العالية</string>
+    <string name="gemini_model_2_5_pro_description">نموذج تفكير متطور للغاية، قادر على حل المشكلات المعقدة</string>
+    <string name="gemini_model_3_pro_preview_description">أفضل نموذج في العالم للفهم متعدد الوسائط</string>
+    <string name="gemini_model_3_flash_description">أفضل نموذج من حيث السعر مقابل الأداء، يقدم قدرات متوازنة</string>
+    <string name="error_gemini_rate_limit_exceeded">خطأ: لقد تجاوزت الحد الأقصى للطلبات في واجهة برمجة Gemini. يرجى المحاولة لاحقًا أو التحقق من حصتك.</string>
+    <string name="error_gemini_invalid_api_key">خطأ: مفتاح واجهة برمجة Gemini الخاص بك غير صالح أو مفقود. يرجى التحقق من إعداداتك.</string>
+    <string name="error_gemini_unexpected">حدث خطأ غير متوقع أثناء طلب Gemini. يرجى المحاولة مرة أخرى.</string>
+    <string name="error_invalid_api_key">مفتاح API غير صالح. يرجى التحقق من إعداداتك.</string>
+    <string name="error_rate_limit_exceeded">تم تجاوز حد المعدل. يرجى المحاولة لاحقًا.</string>
+    <string name="error_generic">حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</string>
+    <string name="error_unknown">حدث خطأ غير معروف.</string>
+    <string name="info_using_shared_key">أنت تستخدم مفتاح API محدود ومشترك. انتقل إلى الإعدادات لإضافة مفتاحك الخاص لتجربة أفضل.</string>
+    <string name="settings_ai_mistakes_warning">الذكاء الاصطناعي قد يرتكب أخطاء، تحقق من الإجابات ولا تشارك معلومات حساسة.</string>
+    <string name="settings_version">الإصدار: %s</string>
+    <string name="settings_api_key_label">مفتاح API</string>
+    <string name="settings_sign_in_copy_api_key_from">قم بتسجيل الدخول وانسخ مفتاح API الخاص بك من</string>
+    <string name="settings_model_label">النموذج</string>
+    <string name="clear_chat_content_description">مسح المحادثة</string>
+    <string name="toggle_speech_output_content_description">تبديل الإخراج الصوتي</string>
+    <string name="settings_content_description">الإعدادات</string>
+    <string name="bot_message_speech_content_description">صوت</string>
+    <string name="bot_message_copy_content_description">نسخ</string>
+    <string name="bot_message_flag_content_description">الإبلاغ عن المحتوى</string>
+</resources>

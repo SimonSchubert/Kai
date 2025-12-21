@@ -19,7 +19,6 @@
     <string name="settings_version">Version: %s</string>
     <string name="settings_api_key_label">API Key</string>
     <string name="settings_sign_in_copy_api_key_from">Sign in and copy your API key from</string>
-    <string name="settings_for_free_daily_requests"> for 1000s of free daily requests.</string>
     <string name="settings_model_label">Model</string>
     <string name="clear_chat_content_description">Clear chat</string>
     <string name="toggle_speech_output_content_description">Toggle speech output</string>
