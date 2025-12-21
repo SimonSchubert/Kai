@@ -14,6 +14,9 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.openUrl
 import com.mikepenz.markdown.m3.Markdown
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.bot_message_copy_content_description
+import kai.composeapp.generated.resources.bot_message_flag_content_description
+import kai.composeapp.generated.resources.bot_message_speech_content_description
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_flag
 import kai.composeapp.generated.resources.ic_stop
@@ -21,6 +24,7 @@ import kai.composeapp.generated.resources.ic_volume_up
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isSpeaking: Boolean, setIsSpeaking: (Boolean) -> Unit) {
@@ -34,7 +38,7 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
             val componentScope = rememberCoroutineScope()
             SmallIconButton( // This is now imported from the composables directory
                 iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
-                contentDescription = "Speech",
+                contentDescription = stringResource(Res.string.bot_message_speech_content_description),
                 onClick = {
                     componentScope.launch(getBackgroundDispatcher()) {
                         textToSpeech.stop()
@@ -54,9 +58,9 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
             )
         }
         val clipboardManager = LocalClipboardManager.current
-        SmallIconButton( // This is now imported from the composables directory
+        SmallIconButton(
             iconResource = Res.drawable.ic_copy,
-            contentDescription = "Copy",
+            contentDescription = stringResource(Res.string.bot_message_copy_content_description),
             onClick = {
                 clipboardManager.setText(
                     annotatedString = buildAnnotatedString {
@@ -65,9 +69,9 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
                 )
             },
         )
-        SmallIconButton( // This is now imported from the composables directory
+        SmallIconButton(
             iconResource = Res.drawable.ic_flag,
-            contentDescription = "Flag content",
+            contentDescription = stringResource(Res.string.bot_message_flag_content_description),
             onClick = {
                 openUrl("https://form.jotform.com/250014908169355")
             },

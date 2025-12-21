@@ -19,6 +19,7 @@ import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.info_using_shared_key
+import kai.composeapp.generated.resources.welcome_message
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -43,7 +44,7 @@ internal fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
             contentDescription = null,
         )
         Text(
-            text = "Welcome to Kai",
+            text = stringResource(Res.string.welcome_message),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onBackground,
         )

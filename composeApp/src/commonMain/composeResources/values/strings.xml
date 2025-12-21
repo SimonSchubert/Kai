@@ -1,4 +1,12 @@
 <resources>
+    <string name="welcome_message">Welcome to Kai</string>
+    <string name="prompt_ask_question">Ask a question</string>
+    <string name="prompt_pick_media">Pick media</string>
+    <string name="gemini_model_2_5_flash_description">Best model in terms of price-performance, offering well-rounded capabilities</string>
+    <string name="gemini_model_2_5_flash_lite_description">Fastest flash model optimized for cost-efficiency and high throughput</string>
+    <string name="gemini_model_2_5_pro_description">State-of-the-art thinking model, capable of reasoning over complex problems</string>
+    <string name="gemini_model_3_pro_preview_description">Best model in the world for multimodal understanding</string>
+    <string name="gemini_model_3_flash_description">Best model in terms of price-performance, offering well-rounded capabilities</string>
     <string name="error_gemini_rate_limit_exceeded">Error: You have exceeded your Gemini API request limit. Please try again later or check your quota.</string>
     <string name="error_gemini_invalid_api_key">Error: Your Gemini API key is invalid or missing. Please check your settings.</string>
     <string name="error_gemini_unexpected">An unexpected error occurred with the Gemini request. Please try again.</string>
@@ -7,4 +15,16 @@
     <string name="error_generic">An unexpected error occurred. Please try again.</string>
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="info_using_shared_key">You are using a limited and shared API key. Please go to settings to add your own key for a better experience.</string>
+    <string name="settings_ai_mistakes_warning">AI makes mistakes, double check and don't share sensitive information.</string>
+    <string name="settings_version">Version: %s</string>
+    <string name="settings_api_key_label">API Key</string>
+    <string name="settings_sign_in_copy_api_key_from">Sign in and copy your API key from</string>
+    <string name="settings_for_free_daily_requests"> for 1000s of free daily requests.</string>
+    <string name="settings_model_label">Model</string>
+    <string name="clear_chat_content_description">Clear chat</string>
+    <string name="toggle_speech_output_content_description">Toggle speech output</string>
+    <string name="settings_content_description">Settings</string>
+    <string name="bot_message_speech_content_description">Speech</string>
+    <string name="bot_message_copy_content_description">Copy</string>
+    <string name="bot_message_flag_content_description">Flag content</string>
 </resources>

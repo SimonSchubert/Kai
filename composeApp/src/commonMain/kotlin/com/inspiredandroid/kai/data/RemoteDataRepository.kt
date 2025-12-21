@@ -2,6 +2,7 @@
 
 package com.inspiredandroid.kai.data
 
+import androidx.compose.runtime.mutableStateOf
 import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.Key
@@ -16,8 +17,17 @@ import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.extension
 import io.github.vinceglb.filekit.readBytes
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.gemini_model_2_5_flash_description
+import kai.composeapp.generated.resources.gemini_model_2_5_flash_lite_description
+import kai.composeapp.generated.resources.gemini_model_2_5_pro_description
+import kai.composeapp.generated.resources.gemini_model_3_flash_description
+import kai.composeapp.generated.resources.gemini_model_3_pro_preview_description
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.datetime.YearMonth
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents
@@ -41,41 +51,47 @@ class RemoteDataRepository(
             SettingsModel(
                 id = "llama-3.3-70b-versatile",
                 subtitle = "Meta",
-                description = "Context window: 128000",
+                description = "Open source llama 3.3 model",
                 isSelected = true,
             ),
         ),
     )
-    val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(
-        listOf(
-            SettingsModel(
-                id = "gemini-2.5-flash",
-                subtitle = "Gemini 2.5 Flash",
-                description = "Best model in terms of price-performance, offering well-rounded capabilities",
-            ),
-            SettingsModel(
-                id = "gemini-2.5-flash-lite",
-                subtitle = "Gemini 2.5 Flash Lite",
-                description = "Fastest flash model optimized for cost-efficiency and high throughput",
-            ),
-            SettingsModel(
-                id = "gemini-2.5-pro",
-                subtitle = "Gemini 2.5 Pro",
-                description = "State-of-the-art thinking model, capable of reasoning over complex problems",
-            ),
-            SettingsModel(
-                id = "gemini-3-pro-preview",
-                subtitle = "Gemini 3 Pro",
-                description = "Best model in the world for multimodal understanding",
-            ),
-        ),
-    )
+    val geminiModels: MutableStateFlow<List<SettingsModel>> = MutableStateFlow(emptyList())
     val services: MutableStateFlow<List<Service>> = MutableStateFlow(emptyList())
     val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
 
     init {
         updateServices()
-        updateGeminiModels()
+        CoroutineScope(Dispatchers.Default).launch {
+            geminiModels.value = listOf(
+                SettingsModel(
+                    id = "gemini-3-pro-preview",
+                    subtitle = "Gemini 3 Pro",
+                    description = getString(Res.string.gemini_model_3_pro_preview_description),
+                ),
+                SettingsModel(
+                    id = "gemini-3-flash-preview",
+                    subtitle = "Gemini 3 Flash",
+                    description = getString(Res.string.gemini_model_3_flash_description),
+                ),
+                SettingsModel(
+                    id = "gemini-2.5-flash",
+                    subtitle = "Gemini 2.5 Flash",
+                    description = getString(Res.string.gemini_model_2_5_flash_description),
+                ),
+                SettingsModel(
+                    id = "gemini-2.5-flash-lite",
+                    subtitle = "Gemini 2.5 Flash Lite",
+                    description = getString(Res.string.gemini_model_2_5_flash_lite_description),
+                ),
+                SettingsModel(
+                    id = "gemini-2.5-pro",
+                    subtitle = "Gemini 2.5 Pro",
+                    description = getString(Res.string.gemini_model_2_5_pro_description),
+                ),
+            )
+            updateGeminiModels()
+        }
     }
 
     override fun updateSelectedService(id: String) {
@@ -111,7 +127,7 @@ class RemoteDataRepository(
                                 },
                             )
                         } else {
-                            "Context window: ${it.context_window}"
+                            null
                         },
                         createdAt = it.created ?: 0L,
                     )

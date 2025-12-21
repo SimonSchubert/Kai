@@ -100,7 +100,7 @@ class Requests(private val settings: Settings) {
 
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> = try {
         val apiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
-            ?: throw GeminiInvalidApiKeyException("API key is missing.")
+            ?: throw GeminiInvalidApiKeyException()
 
         val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
 
@@ -117,22 +117,20 @@ class Requests(private val settings: Settings) {
             Result.success(response.body())
         } else {
             when (response.status.value) {
-                429 -> throw GeminiRateLimitExceededException("Rate limit exceeded. Please try again later.")
-                403 -> throw GeminiInvalidApiKeyException("Invalid API key or insufficient permissions.")
+                429 -> throw GeminiRateLimitExceededException()
+                403 -> throw GeminiInvalidApiKeyException()
                 else -> {
                     val responseBody = response.bodyAsText()
                     if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {
-                        throw GeminiInvalidApiKeyException("Invalid API key.")
+                        throw GeminiInvalidApiKeyException()
                     } else {
-                        throw GeminiGenericException("An unexpected error occurred with the Gemini API: ${response.status.value} ${response.bodyAsText()}")
+                        throw Exception()
                     }
                 }
             }
         }
-    } catch (e: GeminiApiException) {
-        Result.failure(e)
     } catch (e: Exception) {
-        Result.failure(GeminiGenericException("An unexpected error occurred with the Gemini API.", e))
+        Result.failure(e)
     }
 
     suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> {
@@ -165,15 +163,13 @@ class Requests(private val settings: Settings) {
             Result.success(response.body())
         } else {
             when (response.status.value) {
-                401 -> throw GroqInvalidApiKeyException("Invalid API key for Groq.")
-                429 -> throw GroqRateLimitExceededException("Rate limit exceeded for Groq.")
-                else -> throw GroqGenericException("An unexpected error occurred with the Groq API: ${response.status.value} ${response.bodyAsText()}")
+                401 -> throw GroqInvalidApiKeyException()
+                429 -> throw GroqRateLimitExceededException()
+                else -> throw Exception()
             }
         }
-    } catch (e: GroqApiException) {
-        Result.failure(e)
     } catch (e: Exception) {
-        Result.failure(GroqGenericException("An unexpected error occurred with the Groq API.", e))
+        Result.failure(e)
     }
 
     suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
@@ -182,11 +178,9 @@ class Requests(private val settings: Settings) {
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            throw GroqGenericException("Failed to get Groq models: ${response.status.value} ${response.bodyAsText()}")
+            throw Exception()
         }
-    } catch (e: GroqApiException) {
-        Result.failure(e)
     } catch (e: Exception) {
-        Result.failure(GenericNetworkException("Failed to fetch Groq models due to a network error.", e))
+        Result.failure(e)
     }
 }

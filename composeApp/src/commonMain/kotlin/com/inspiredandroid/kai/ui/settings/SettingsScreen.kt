@@ -78,7 +78,14 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_back
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.settings_ai_mistakes_warning
+import kai.composeapp.generated.resources.settings_api_key_label
+import kai.composeapp.generated.resources.settings_for_free_daily_requests
+import kai.composeapp.generated.resources.settings_model_label
+import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
+import kai.composeapp.generated.resources.settings_version
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -135,7 +142,7 @@ private fun TopBar(onNavigateBack: () -> Unit) {
 @Composable
 private fun BottomInfo() {
     Text(
-        text = "AI makes mistakes, double check and don't share sensitive information.",
+        text = stringResource(Res.string.settings_ai_mistakes_warning),
         style = MaterialTheme.typography.bodySmall,
         textAlign = TextAlign.Center,
         color = MaterialTheme.colorScheme.onBackground,
@@ -145,7 +152,7 @@ private fun BottomInfo() {
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
-            "Version: ${Version.appVersion}",
+            stringResource(Res.string.settings_version, Version.appVersion),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground,
         )
@@ -176,7 +183,7 @@ private fun GeminiSettings(uiState: SettingsUiState) {
         onValueChange = uiState.onChangeGeminiApiKey,
         label = {
             Text(
-                "API Key",
+                stringResource(Res.string.settings_api_key_label),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
@@ -185,9 +192,11 @@ private fun GeminiSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(8.dp))
 
+    val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
     val annotatedString = remember {
         buildAnnotatedString {
-            append("Sign in and copy your API key from ")
+            append(copyApiKeyPromptString)
+            append(" ")
             withLink(LinkAnnotation.Url(url = "https://aistudio.google.com/apikey")) {
                 withStyle(style = SpanStyle(color = Color.Blue)) {
                     append("aistudio.google.com/apikey")
@@ -213,7 +222,7 @@ private fun GroqSettings(uiState: SettingsUiState) {
         onValueChange = uiState.onChangeGroqApiKey,
         label = {
             Text(
-                "API Key",
+                stringResource(Res.string.settings_api_key_label),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
@@ -222,15 +231,16 @@ private fun GroqSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(8.dp))
 
+    val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
     val annotatedString = remember {
         buildAnnotatedString {
-            append("Sign in and copy your API key from ")
+            append(copyApiKeyPromptString)
+            append(" ")
             withLink(LinkAnnotation.Url(url = "https://console.groq.com/keys")) {
                 withStyle(style = SpanStyle(color = Color.Blue)) {
                     append("console.groq.com/keys")
                 }
             }
-            append(" for 1000s of free daily requests.")
         }
     }
     Text(
@@ -259,7 +269,7 @@ private fun ModelSelection(
             onValueChange = {},
             label = {
                 Text(
-                    "Model",
+                    stringResource(Res.string.settings_model_label),
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             },
@@ -336,13 +346,15 @@ private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            Text(
-                text = model.description,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            model.description?.let {
+                Text(
+                    text = model.description,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
         }
     }
 }

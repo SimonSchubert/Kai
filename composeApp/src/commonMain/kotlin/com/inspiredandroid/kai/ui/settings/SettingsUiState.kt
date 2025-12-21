@@ -29,7 +29,7 @@ data class SettingsUiState(
     data class SettingsModel(
         val id: String,
         val subtitle: String,
-        val description: String,
+        val description: String?,
         val isSelected: Boolean = false,
         val createdAt: Long = 0,
     )

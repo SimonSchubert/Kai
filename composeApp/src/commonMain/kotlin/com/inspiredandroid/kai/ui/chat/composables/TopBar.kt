@@ -9,12 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import com.inspiredandroid.kai.Version
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.clear_chat_content_description
 import kai.composeapp.generated.resources.ic_delete_forever
 import kai.composeapp.generated.resources.ic_settings
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
+import kai.composeapp.generated.resources.settings_content_description
+import kai.composeapp.generated.resources.toggle_speech_output_content_description
 import nl.marc_apps.tts.TextToSpeechInstance
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -44,7 +49,7 @@ internal fun TopBar(
             ) {
                 Icon(
                     imageVector = vectorResource(Res.drawable.ic_delete_forever),
-                    contentDescription = "Clear chat",
+                    contentDescription = stringResource(Res.string.clear_chat_content_description),
                     tint = MaterialTheme.colorScheme.onBackground,
                 )
             }
@@ -70,7 +75,7 @@ internal fun TopBar(
                     } else {
                         vectorResource(Res.drawable.ic_volume_off)
                     },
-                    contentDescription = "Toggle speech output",
+                    contentDescription = stringResource(Res.string.toggle_speech_output_content_description),
                     tint = MaterialTheme.colorScheme.onBackground,
                 )
             }
@@ -82,7 +87,7 @@ internal fun TopBar(
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_settings),
-                contentDescription = "Settings",
+                contentDescription = stringResource(Res.string.settings_content_description),
                 tint = MaterialTheme.colorScheme.onBackground,
             )
         }

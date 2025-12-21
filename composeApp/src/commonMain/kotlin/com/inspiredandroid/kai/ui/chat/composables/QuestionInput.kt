@@ -60,11 +60,14 @@ import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_file
 import kai.composeapp.generated.resources.ic_image
 import kai.composeapp.generated.resources.ic_up
+import kai.composeapp.generated.resources.prompt_ask_question
+import kai.composeapp.generated.resources.prompt_pick_media
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-internal fun QuestionInput(
+fun QuestionInput(
     file: PlatformFile?,
     setFile: (PlatformFile?) -> Unit,
     ask: (String) -> Unit,
@@ -117,7 +120,7 @@ internal fun QuestionInput(
     val filePickerLauncher = rememberFilePickerLauncher(
         type = FileKitType.ImageAndVideo,
         mode = FileKitMode.Single,
-        title = "Pick media",
+        title = stringResource(Res.string.prompt_pick_media),
     ) {
         setFile(it)
     }
@@ -165,7 +168,7 @@ internal fun QuestionInput(
         colors = outlineTextFieldColors(),
         placeholder = {
             Text(
-                "Ask a question",
+                stringResource(Res.string.prompt_ask_question),
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
@@ -194,7 +197,7 @@ internal fun QuestionInput(
 }
 
 @Composable
-fun TrailingIcon(
+private fun TrailingIcon(
     onClick: () -> Unit,
 ) {
     Box(
@@ -219,7 +222,7 @@ fun TrailingIcon(
 }
 
 @Composable
-fun LeadingIcon(
+private fun LeadingIcon(
     onClick: () -> Unit,
 ) {
     Box(
