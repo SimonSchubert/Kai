@@ -1,0 +1,2 @@
+Add dynamic theme
+Add localizations
