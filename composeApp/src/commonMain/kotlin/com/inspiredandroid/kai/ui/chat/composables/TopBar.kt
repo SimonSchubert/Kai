@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.Version
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.clear_chat_content_description
@@ -29,8 +28,10 @@ internal fun TopBar(
     isLoading: Boolean,
     isSpeechOutputEnabled: Boolean,
     isSpeaking: Boolean,
-    actions: ChatActions,
+    setIsSpeaking: (Boolean, String) -> Unit,
     isChatHistoryEmpty: Boolean,
+    clearHistory: () -> Unit,
+    toggleSpeechOutput: () -> Unit,
     onNavigateToSettings: () -> Unit,
 ) {
     Row {
@@ -39,10 +40,10 @@ internal fun TopBar(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 onClick = {
                     if (isSpeechOutputEnabled && isSpeaking) {
-                        actions.setIsSpeaking(false, "")
+                        setIsSpeaking(false, "")
                         textToSpeech?.stop()
                     }
-                    actions.clearHistory()
+                    clearHistory()
                 },
                 enabled = !isLoading,
             ) {
@@ -61,10 +62,10 @@ internal fun TopBar(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 onClick = {
                     if (isSpeechOutputEnabled && isSpeaking) {
-                        actions.setIsSpeaking(false, "")
+                        setIsSpeaking(false, "")
                         textToSpeech.stop()
                     }
-                    actions.toggleSpeechOutput()
+                    toggleSpeechOutput()
                 },
             ) {
                 Icon(

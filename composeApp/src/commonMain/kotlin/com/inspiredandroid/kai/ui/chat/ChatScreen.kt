@@ -61,8 +61,10 @@ fun ChatScreen(
             isLoading = uiState.isLoading,
             isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
             isSpeaking = uiState.isSpeaking,
-            actions = uiState.actions,
+            setIsSpeaking = viewModel::setIsSpeaking,
             isChatHistoryEmpty = uiState.history.isEmpty(),
+            clearHistory = viewModel::clearHistory,
+            toggleSpeechOutput = viewModel::toggleSpeechOutput,
             onNavigateToSettings = onNavigateToSettings,
         )
 
@@ -87,7 +89,7 @@ fun ChatScreen(
                                 }
                                 override fun onDrop(event: DragAndDropEvent): Boolean {
                                     val file = onDragAndDropEventDropped(event)
-                                    uiState.actions.setFile(file)
+                                    viewModel.setFile(file)
                                     isDropping = false
                                     return file != null
                                 }
@@ -109,7 +111,7 @@ fun ChatScreen(
                                 val content = uiState.history.last().content
                                 componentScope.launch(getBackgroundDispatcher()) {
                                     textToSpeech?.stop()
-                                    uiState.actions.setIsSpeaking(true, contentId)
+                                    viewModel.setIsSpeaking(true, contentId)
                                     try {
                                         textToSpeech?.say(content)
                                     } catch (ignore: TextToSpeechSynthesisInterruptedError) {
@@ -118,7 +120,6 @@ fun ChatScreen(
                             }
                         }
                     }
-
                     LazyColumn(
                         modifier = Modifier.fillMaxWidth().weight(1f),
                         state = listState,
@@ -132,7 +133,7 @@ fun ChatScreen(
                                     textToSpeech = textToSpeech,
                                     isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
                                     setIsSpeaking = {
-                                        uiState.actions.setIsSpeaking(it, history.id)
+                                        viewModel.setIsSpeaking(it, history.id)
                                     },
                                 )
                             }
@@ -146,7 +147,7 @@ fun ChatScreen(
                         }
                         uiState.error?.let { error ->
                             item(key = "error") {
-                                ErrorMessage(error = error, retry = uiState.actions.retry)
+                                ErrorMessage(error = error, retry = viewModel::retry)
                             }
                         }
                     }
@@ -154,8 +155,8 @@ fun ChatScreen(
 
                 QuestionInput(
                     file = uiState.file,
-                    setFile = uiState.actions.setFile,
-                    ask = uiState.actions.ask,
+                    setFile = viewModel::setFile,
+                    ask = viewModel::ask,
                     allowFileAttachment = uiState.allowFileAttachment,
                 )
             }

@@ -11,7 +11,6 @@ import kotlin.uuid.Uuid
 
 @Immutable
 data class ChatUiState(
-    val actions: ChatActions,
     val history: List<History> = emptyList(),
     val isSpeechOutputEnabled: Boolean = false,
     val isLoading: Boolean = false,
