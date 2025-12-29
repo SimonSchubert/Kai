@@ -85,6 +85,10 @@ jobs:
         id: dmg
         run: echo "file=$(ls *.dmg | head -n1)" >> $GITHUB_OUTPUT
 
+      - name: Get version
+        id: get_version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
       - name: Create Github Release
         id: create_release
         uses: actions/create-release@v1
@@ -101,7 +105,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: composeApp-release-signed.apk
-          asset_name: Kai.apk
+          asset_name: Kai-${{ steps.get_version.outputs.version }}-android.apk
           asset_content_type: application/zip
 
       - name: Upload DMG to Github Release
@@ -111,5 +115,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.dmg.outputs.file }}
-          asset_name: Kai.dmg
+          asset_name: Kai-${{ steps.get_version.outputs.version }}-macos.dmg
           asset_content_type: application/octet-stream
