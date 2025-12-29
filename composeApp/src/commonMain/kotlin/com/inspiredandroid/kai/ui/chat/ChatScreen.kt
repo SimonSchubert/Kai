@@ -100,27 +100,30 @@ fun ChatScreen(
                 if (uiState.history.isEmpty()) {
                     EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.isUsingSharedKey)
                 } else {
+                    val listState = rememberLazyListState()
                     val componentScope = rememberCoroutineScope()
-                    LazyColumn(
-                        modifier = Modifier.fillMaxWidth().weight(1f),
-                        state = rememberLazyListState().apply {
-                            LaunchedEffect(uiState.history.size) {
-                                if (uiState.history.isNotEmpty()) {
-                                    animateScrollToItem(uiState.history.lastIndex)
-                                    if (uiState.isSpeechOutputEnabled && uiState.history.last().role == History.Role.ASSISTANT) {
-                                        val contentId = uiState.history.last().id
-                                        val content = uiState.history.last().content
-                                        componentScope.launch(getBackgroundDispatcher()) {
-                                            textToSpeech?.stop()
-                                            uiState.setIsSpeaking(true, contentId)
-                                            try {
-                                                textToSpeech?.say(content)
-                                            } catch (ignore: TextToSpeechSynthesisInterruptedError) { }
-                                        }
+
+                    LaunchedEffect(uiState.history.size) {
+                        if (uiState.history.isNotEmpty()) {
+                            listState.animateScrollToItem(uiState.history.lastIndex)
+                            if (uiState.isSpeechOutputEnabled && uiState.history.last().role == History.Role.ASSISTANT) {
+                                val contentId = uiState.history.last().id
+                                val content = uiState.history.last().content
+                                componentScope.launch(getBackgroundDispatcher()) {
+                                    textToSpeech?.stop()
+                                    uiState.setIsSpeaking(true, contentId)
+                                    try {
+                                        textToSpeech?.say(content)
+                                    } catch (ignore: TextToSpeechSynthesisInterruptedError) {
                                     }
                                 }
                             }
-                        },
+                        }
+                    }
+
+                    LazyColumn(
+                        modifier = Modifier.fillMaxWidth().weight(1f),
+                        state = listState,
                         horizontalAlignment = CenterHorizontally,
                     ) {
                         items(uiState.history, key = { it.id }) { history ->
