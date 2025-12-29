@@ -61,20 +61,30 @@ jobs:
           path: composeApp/build/compose/binaries/main/dmg/*.dmg
 
   release:
-    name: Release APK and JAR
+    name: Release APK and DMG
     needs: [apk, dmg]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0
+
       - name: Download APK Artifact
         uses: actions/download-artifact@v4.1.7
         with:
           name: signed-apk
+
       - name: Download DMG Artifact
         uses: actions/download-artifact@v4.1.7
         with:
           name: dmg-package
+
+      - name: List downloaded files (for debugging)
+        run: ls -la
+
+      - name: Get DMG filename
+        id: dmg
+        run: echo "file=$(ls *.dmg | head -n1)" >> $GITHUB_OUTPUT
+
       - name: Create Github Release
         id: create_release
         uses: actions/create-release@v1
@@ -83,8 +93,8 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+
       - name: Upload APK to Github Release
-        id: upload_apk
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -93,13 +103,13 @@ jobs:
           asset_path: composeApp-release-signed.apk
           asset_name: Kai.apk
           asset_content_type: application/zip
+
       - name: Upload DMG to Github Release
-        id: upload_dmg
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./*.dmg  # Since the artifact downloads to the current directory
+          asset_path: ${{ steps.dmg.outputs.file }}
           asset_name: Kai.dmg
           asset_content_type: application/octet-stream
