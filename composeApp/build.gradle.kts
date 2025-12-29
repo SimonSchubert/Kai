@@ -177,7 +177,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.inspiredandroid.kai"
+            packageName = "Kai"
             packageVersion = libs.versions.appVersion.get()
 
             macOS {

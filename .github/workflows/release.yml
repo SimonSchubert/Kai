@@ -39,9 +39,30 @@ jobs:
           name: signed-apk
           path: composeApp/build/outputs/apk/release/composeApp-release-signed.apk
 
+  dmg:
+    name: Generate DMG
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Build DMG
+        run: bash ./gradlew packageDmg --stacktrace
+      - name: Upload DMG Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmg-package
+          path: composeApp/build/compose/binaries/main/dmg/*.dmg
+
   release:
     name: Release APK and JAR
-    needs: apk
+    needs: [apk, dmg]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,6 +71,10 @@ jobs:
         uses: actions/download-artifact@v4.1.7
         with:
           name: signed-apk
+      - name: Download DMG Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: dmg-package
       - name: Create Github Release
         id: create_release
         uses: actions/create-release@v1
@@ -68,3 +93,13 @@ jobs:
           asset_path: composeApp-release-signed.apk
           asset_name: Kai.apk
           asset_content_type: application/zip
+      - name: Upload DMG to Github Release
+        id: upload_dmg
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./*.dmg  # Since the artifact downloads to the current directory
+          asset_name: Kai.dmg
+          asset_content_type: application/octet-stream
