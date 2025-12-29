@@ -12,6 +12,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.openUrl
+import com.mikepenz.markdown.compose.components.MarkdownComponent
+import com.mikepenz.markdown.compose.components.markdownComponents
+import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
+import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeFence
 import com.mikepenz.markdown.m3.Markdown
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
@@ -30,6 +34,10 @@ import org.jetbrains.compose.resources.stringResource
 internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isSpeaking: Boolean, setIsSpeaking: (Boolean) -> Unit) {
     Markdown(
         message,
+        components = markdownComponents(
+            codeBlock = highlightedCodeBlock,
+            codeFence = highlightedCodeFence,
+        ),
         modifier = Modifier.fillMaxWidth()
             .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
     )
@@ -78,4 +86,12 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
         )
         Spacer(Modifier.weight(1f))
     }
+}
+
+val highlightedCodeFence: MarkdownComponent = {
+    MarkdownHighlightedCodeFence(content = it.content, node = it.node, style = it.typography.code, showHeader = true)
+}
+
+val highlightedCodeBlock: MarkdownComponent = {
+    MarkdownHighlightedCodeBlock(content = it.content, node = it.node, style = it.typography.code, showHeader = true)
 }

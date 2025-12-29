@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.ui.chat.ChatActions
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.clear_chat_content_description
 import kai.composeapp.generated.resources.ic_delete_forever
