@@ -11,21 +11,16 @@ import kotlin.uuid.Uuid
 
 @Immutable
 data class ChatUiState(
-    val ask: (String) -> Unit,
+    val actions: ChatActions,
     val history: List<History> = emptyList(),
     val isSpeechOutputEnabled: Boolean = false,
-    val toggleSpeechOutput: () -> Unit,
-    val retry: () -> Unit,
     val isLoading: Boolean = false,
     val error: String? = null,
-    val clearHistory: () -> Unit,
     val isUsingSharedKey: Boolean = false,
     val allowFileAttachment: Boolean = false,
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
-    val setIsSpeaking: (Boolean, String) -> Unit,
     val file: PlatformFile? = null,
-    val setFile: (PlatformFile?) -> Unit,
 )
 
 @Immutable
