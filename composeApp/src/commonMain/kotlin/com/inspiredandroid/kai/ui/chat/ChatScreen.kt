@@ -95,10 +95,10 @@ fun ChatScreen(
                         },
                     ),
             ) {
+                val listState = rememberLazyListState()
                 if (uiState.history.isEmpty()) {
                     EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.isUsingSharedKey)
                 } else {
-                    val listState = rememberLazyListState()
                     val componentScope = rememberCoroutineScope()
 
                     LaunchedEffect(uiState.history.size) {
