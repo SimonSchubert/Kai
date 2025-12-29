@@ -178,6 +178,7 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.inspiredandroid.kai"
             packageVersion = libs.versions.appVersion.get()
+            javaHome = System.getenv("JAVA_HOME")
 
             macOS {
                 iconFile.set(project.file("icon.icns"))
