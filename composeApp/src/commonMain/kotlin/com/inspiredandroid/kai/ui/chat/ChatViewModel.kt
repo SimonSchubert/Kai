@@ -28,8 +28,17 @@ import org.jetbrains.compose.resources.getString
 
 class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewModel() {
 
+    private val actions = ChatActions(
+        ask = ::ask,
+        retry = ::retry,
+        toggleSpeechOutput = ::toggleSpeechOutput,
+        clearHistory = ::clearHistory,
+        setIsSpeaking = ::setIsSpeaking,
+        setFile = ::setFile,
+    )
     private val _state = MutableStateFlow(
         ChatUiState(
+            actions = actions,
             isUsingSharedKey = dataRepository.isUsingSharedKey(),
         ),
     )
@@ -48,7 +57,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         initialValue = _state.value,
     )
 
-    fun ask(question: String?) {
+    private fun ask(question: String?) {
         viewModelScope.launch(getBackgroundDispatcher()) {
             _state.update {
                 it.copy(
@@ -78,14 +87,14 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         }
     }
 
-    fun clearHistory() {
+    private fun clearHistory() {
         dataRepository.clearHistory()
         _state.update {
             it.copy(error = null)
         }
     }
 
-    fun setIsSpeaking(isSpeaking: Boolean, contentId: String) {
+    private fun setIsSpeaking(isSpeaking: Boolean, contentId: String) {
         _state.update {
             it.copy(
                 isSpeaking = isSpeaking,
@@ -98,7 +107,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         }
     }
 
-    fun setFile(file: PlatformFile?) {
+    private fun setFile(file: PlatformFile?) {
         _state.update {
             it.copy(
                 file = file,
@@ -106,11 +115,11 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
         }
     }
 
-    fun retry() {
+    private fun retry() {
         ask(null)
     }
 
-    fun toggleSpeechOutput() {
+    private fun toggleSpeechOutput() {
         _state.update {
             it.copy(
                 isSpeechOutputEnabled = !it.isSpeechOutputEnabled,
