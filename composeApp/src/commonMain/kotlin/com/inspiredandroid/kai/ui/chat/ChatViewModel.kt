@@ -28,15 +28,18 @@ import org.jetbrains.compose.resources.getString
 
 class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewModel() {
 
+    private val actions = ChatActions(
+        ask = ::ask,
+        retry = ::retry,
+        toggleSpeechOutput = ::toggleSpeechOutput,
+        clearHistory = ::clearHistory,
+        setIsSpeaking = ::setIsSpeaking,
+        setFile = ::setFile,
+    )
     private val _state = MutableStateFlow(
         ChatUiState(
-            ask = ::ask,
-            retry = ::retry,
-            toggleSpeechOutput = ::toggleSpeechOutput,
-            clearHistory = ::clearHistory,
+            actions = actions,
             isUsingSharedKey = dataRepository.isUsingSharedKey(),
-            setIsSpeaking = ::setIsSpeaking,
-            setFile = ::setFile,
         ),
     )
 

@@ -61,10 +61,8 @@ fun ChatScreen(
             isLoading = uiState.isLoading,
             isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
             isSpeaking = uiState.isSpeaking,
-            setIsSpeaking = uiState.setIsSpeaking,
+            actions = uiState.actions,
             isChatHistoryEmpty = uiState.history.isEmpty(),
-            clearHistory = uiState.clearHistory,
-            toggleSpeechOutput = uiState.toggleSpeechOutput,
             onNavigateToSettings = onNavigateToSettings,
         )
 
@@ -89,7 +87,7 @@ fun ChatScreen(
                                 }
                                 override fun onDrop(event: DragAndDropEvent): Boolean {
                                     val file = onDragAndDropEventDropped(event)
-                                    uiState.setFile(file)
+                                    uiState.actions.setFile(file)
                                     isDropping = false
                                     return file != null
                                 }
@@ -111,7 +109,7 @@ fun ChatScreen(
                                 val content = uiState.history.last().content
                                 componentScope.launch(getBackgroundDispatcher()) {
                                     textToSpeech?.stop()
-                                    uiState.setIsSpeaking(true, contentId)
+                                    uiState.actions.setIsSpeaking(true, contentId)
                                     try {
                                         textToSpeech?.say(content)
                                     } catch (ignore: TextToSpeechSynthesisInterruptedError) {
@@ -134,7 +132,7 @@ fun ChatScreen(
                                     textToSpeech = textToSpeech,
                                     isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
                                     setIsSpeaking = {
-                                        uiState.setIsSpeaking(it, history.id)
+                                        uiState.actions.setIsSpeaking(it, history.id)
                                     },
                                 )
                             }
@@ -148,7 +146,7 @@ fun ChatScreen(
                         }
                         uiState.error?.let { error ->
                             item(key = "error") {
-                                ErrorMessage(error = error, retry = uiState.retry)
+                                ErrorMessage(error = error, retry = uiState.actions.retry)
                             }
                         }
                     }
@@ -156,8 +154,8 @@ fun ChatScreen(
 
                 QuestionInput(
                     file = uiState.file,
-                    setFile = uiState.setFile,
-                    ask = uiState.ask,
+                    setFile = uiState.actions.setFile,
+                    ask = uiState.actions.ask,
                     allowFileAttachment = uiState.allowFileAttachment,
                 )
             }
