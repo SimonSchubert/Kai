@@ -60,9 +60,49 @@ jobs:
           name: dmg-package
           path: composeApp/build/compose/binaries/main/dmg/*.dmg
 
+  msi:
+    name: Generate MSI
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Build MSI
+        run: ./gradlew packageMsi --stacktrace
+      - name: Upload MSI Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: msi-package
+          path: composeApp/build/compose/binaries/main/msi/*.msi
+
+  deb:
+    name: Generate DEB
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Build DEB
+        run: ./gradlew packageDeb --stacktrace
+      - name: Upload DEB Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package
+          path: composeApp/build/compose/binaries/main/deb/*.deb
+
   release:
-    name: Release APK and DMG
-    needs: [apk, dmg]
+    name: Release APK, DMG, MSI and DEB
+    needs: [apk, dmg, msi, deb]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -78,12 +118,30 @@ jobs:
         with:
           name: dmg-package
 
+      - name: Download MSI Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: msi-package
+
+      - name: Download DEB Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: deb-package
+
       - name: List downloaded files (for debugging)
         run: ls -la
 
       - name: Get DMG filename
         id: dmg
         run: echo "file=$(ls *.dmg | head -n1)" >> $GITHUB_OUTPUT
+
+      - name: Get MSI filename
+        id: msi
+        run: echo "file=$(ls *.msi | head -n1)" >> $GITHUB_OUTPUT
+
+      - name: Get DEB filename
+        id: deb
+        run: echo "file=$(ls *.deb | head -n1)" >> $GITHUB_OUTPUT
 
       - name: Get version
         id: get_version
@@ -116,4 +174,24 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ steps.dmg.outputs.file }}
           asset_name: Kai-${{ steps.get_version.outputs.version }}-macos.dmg
+          asset_content_type: application/octet-stream
+
+      - name: Upload MSI to Github Release
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.msi.outputs.file }}
+          asset_name: Kai-${{ steps.get_version.outputs.version }}-windows.msi
+          asset_content_type: application/octet-stream
+
+      - name: Upload DEB to Github Release
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.deb.outputs.file }}
+          asset_name: Kai-${{ steps.get_version.outputs.version }}-linux.deb
           asset_content_type: application/octet-stream
