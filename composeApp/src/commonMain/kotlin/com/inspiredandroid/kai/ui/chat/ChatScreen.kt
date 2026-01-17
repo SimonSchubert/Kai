@@ -50,8 +50,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ChatScreen(
     viewModel: ChatViewModel = koinViewModel(),
-    textToSpeech: TextToSpeechInstance? = null,
-    onNavigateToSettings: () -> Unit = {},
+    textToSpeech: TextToSpeechInstance?,
+    onNavigateToSettings: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -104,15 +104,17 @@ fun ChatScreen(
                     LaunchedEffect(uiState.history.size) {
                         if (uiState.history.isNotEmpty()) {
                             listState.animateScrollToItem(uiState.history.lastIndex)
-                            if (uiState.isSpeechOutputEnabled && uiState.history.last().role == History.Role.ASSISTANT) {
-                                val contentId = uiState.history.last().id
-                                val content = uiState.history.last().content
+                            val lastMessage = uiState.history.last()
+                            if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
                                 componentScope.launch(getBackgroundDispatcher()) {
                                     textToSpeech?.stop()
-                                    uiState.actions.setIsSpeaking(true, contentId)
+                                    uiState.actions.setIsSpeaking(true, lastMessage.id)
                                     try {
-                                        textToSpeech?.say(content)
-                                    } catch (ignore: TextToSpeechSynthesisInterruptedError) {
+                                        textToSpeech?.say(lastMessage.content)
+                                    } catch (_: TextToSpeechSynthesisInterruptedError) {
+                                        // Speech was interrupted by user
+                                    } finally {
+                                        uiState.actions.setIsSpeaking(false, lastMessage.id)
                                     }
                                 }
                             }

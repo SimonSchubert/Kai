@@ -89,7 +89,7 @@ class Requests(private val settings: Settings) {
     }
 
     fun clearBearerToken() {
-        groqClient.authProviders.filterIsInstance<BearerAuthProvider>().first().clearToken()
+        groqClient.authProviders.filterIsInstance<BearerAuthProvider>().firstOrNull()?.clearToken()
     }
 
     class DebugKtorLogger : Logger {

@@ -133,6 +133,8 @@ class RemoteDataRepository(
                     )
                 },
             )
+        }.onFailure {
+            // Network error - models remain at default values
         }
     }
 

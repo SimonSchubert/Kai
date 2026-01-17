@@ -91,7 +91,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = koinViewModel(),
-    onNavigateBack: () -> Unit = {},
+    onNavigateBack: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
 
