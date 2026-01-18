@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
             implementation(libs.material)
+            implementation(libs.play.review)
         }
         commonMain.dependencies {
             implementation(compose.material3)

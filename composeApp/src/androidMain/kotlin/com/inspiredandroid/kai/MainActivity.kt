@@ -14,6 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
@@ -21,10 +23,18 @@ import nl.marc_apps.tts.rememberTextToSpeechOrNull
 import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
+
+    private val appOpenTracker by lazy { AppOpenTracker(Settings()) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         FileKit.init(this)
+
+        val appOpens = appOpenTracker.trackAppOpen()
+        if (appOpens == 5) {
+            requestReview()
+        }
 
         val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         setContent {
@@ -49,6 +59,17 @@ class MainActivity : ComponentActivity() {
                     androidContext(this@MainActivity)
                 },
             )
+        }
+    }
+
+    private fun requestReview() {
+        val manager = ReviewManagerFactory.create(this)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val reviewInfo = task.result
+                manager.launchReviewFlow(this, reviewInfo)
+            }
         }
     }
 }

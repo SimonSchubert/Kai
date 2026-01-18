@@ -17,5 +17,6 @@ class Key {
         const val GEMINI_API_KEY = "service_gemini_api_key"
         const val GEMINI_MODEL_ID = "service_gemini_model_id"
         const val CURRENT_SERVICE_ID = "current_service_id"
+        const val APP_OPENS = "app_opens"
     }
 }

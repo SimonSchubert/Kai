@@ -34,6 +34,9 @@ val appModule = module {
     single<com.russhwolf.settings.Settings> {
         com.russhwolf.settings.Settings()
     }
+    single<AppOpenTracker> {
+        AppOpenTracker(get())
+    }
     single<Requests> {
         Requests(get())
     }
