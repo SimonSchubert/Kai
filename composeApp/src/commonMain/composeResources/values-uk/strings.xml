@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Ласкаво просимо до Kai</string>
+    <string name="prompt_ask_question">Задати питання</string>
+    <string name="prompt_pick_media">Вибрати медіа</string>
+    <string name="gemini_model_2_5_flash_description">Найкраща модель за співвідношенням ціна-якість із збалансованими можливостями</string>
+    <string name="gemini_model_2_5_flash_lite_description">Найшвидша модель Flash, оптимізована для економічності та високої пропускної здатності</string>
+    <string name="gemini_model_2_5_pro_description">Найсучасніша мисляча модель, здатна міркувати над складними проблемами</string>
+    <string name="gemini_model_3_pro_preview_description">Найкраща у світі модель для мультимодального розуміння</string>
+    <string name="gemini_model_3_flash_description">Найкраща модель за співвідношенням ціна-якість із збалансованими можливостями</string>
+    <string name="error_gemini_rate_limit_exceeded">Помилка: Ви перевищили ліміт запитів API Gemini. Будь ласка, спробуйте пізніше або перевірте свою квоту.</string>
+    <string name="error_gemini_invalid_api_key">Помилка: Ваш ключ API Gemini недійсний або відсутній. Будь ласка, перевірте налаштування.</string>
+    <string name="error_gemini_unexpected">Сталася неочікувана помилка із запитом Gemini. Будь ласка, спробуйте знову.</string>
+    <string name="error_invalid_api_key">Недійсний ключ API. Будь ласка, перевірте налаштування.</string>
+    <string name="error_rate_limit_exceeded">Перевищено ліміт запитів. Будь ласка, спробуйте пізніше.</string>
+    <string name="error_generic">Сталася неочікувана помилка. Будь ласка, спробуйте знову.</string>
+    <string name="error_unknown">Сталася невідома помилка.</string>
+    <string name="info_using_shared_key">Ви використовуєте обмежений спільний ключ API. Будь ласка, перейдіть до налаштувань, щоб додати власний ключ для кращого досвіду.</string>
+    <string name="settings_ai_mistakes_warning">ШІ може помилятися, перевіряйте двічі та не діліться конфіденційною інформацією.</string>
+    <string name="settings_version">Версія: %1$s</string>
+    <string name="settings_api_key_label">Ключ API</string>
+    <string name="settings_sign_in_copy_api_key_from">Увійдіть і скопіюйте свій ключ API з</string>
+    <string name="settings_model_label">Модель</string>
+    <string name="clear_chat_content_description">Очистити чат</string>
+    <string name="toggle_speech_output_content_description">Перемкнути голосовий вивід</string>
+    <string name="settings_content_description">Налаштування</string>
+    <string name="bot_message_speech_content_description">Мовлення</string>
+    <string name="bot_message_copy_content_description">Копіювати</string>
+    <string name="bot_message_flag_content_description">Позначити контент</string>
+</resources>

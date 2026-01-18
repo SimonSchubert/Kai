@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai-তে স্বাগতম</string>
+    <string name="prompt_ask_question">একটি প্রশ্ন করুন</string>
+    <string name="prompt_pick_media">মিডিয়া নির্বাচন করুন</string>
+    <string name="gemini_model_2_5_flash_description">মূল্য-কার্যক্ষমতার দিক থেকে সেরা মডেল, সুষম ক্ষমতা প্রদান করে</string>
+    <string name="gemini_model_2_5_flash_lite_description">সবচেয়ে দ্রুত ফ্ল্যাশ মডেল, খরচ-দক্ষতা এবং উচ্চ থ্রুপুটের জন্য অপ্টিমাইজড</string>
+    <string name="gemini_model_2_5_pro_description">অত্যাধুনিক চিন্তাশীল মডেল, জটিল সমস্যার যুক্তি বিশ্লেষণে সক্ষম</string>
+    <string name="gemini_model_3_pro_preview_description">মাল্টিমোডাল বোঝাপড়ার জন্য বিশ্বের সেরা মডেল</string>
+    <string name="gemini_model_3_flash_description">মূল্য-কার্যক্ষমতার দিক থেকে সেরা মডেল, সুষম ক্ষমতা প্রদান করে</string>
+    <string name="error_gemini_rate_limit_exceeded">ত্রুটি: আপনি আপনার Gemini API অনুরোধের সীমা অতিক্রম করেছেন। অনুগ্রহ করে পরে আবার চেষ্টা করুন বা আপনার কোটা পরীক্ষা করুন।</string>
+    <string name="error_gemini_invalid_api_key">ত্রুটি: আপনার Gemini API কী অবৈধ বা অনুপস্থিত। অনুগ্রহ করে আপনার সেটিংস পরীক্ষা করুন।</string>
+    <string name="error_gemini_unexpected">Gemini অনুরোধে একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="error_invalid_api_key">অবৈধ API কী। অনুগ্রহ করে আপনার সেটিংস পরীক্ষা করুন।</string>
+    <string name="error_rate_limit_exceeded">রেট সীমা অতিক্রম করা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</string>
+    <string name="error_generic">একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="error_unknown">একটি অজানা ত্রুটি ঘটেছে।</string>
+    <string name="info_using_shared_key">আপনি একটি সীমিত এবং শেয়ারড API কী ব্যবহার করছেন। আরও ভালো অভিজ্ঞতার জন্য অনুগ্রহ করে সেটিংসে গিয়ে আপনার নিজের কী যোগ করুন।</string>
+    <string name="settings_ai_mistakes_warning">AI ভুল করতে পারে, দুবার যাচাই করুন এবং সংবেদনশীল তথ্য শেয়ার করবেন না।</string>
+    <string name="settings_version">সংস্করণ: %1$s</string>
+    <string name="settings_api_key_label">API কী</string>
+    <string name="settings_sign_in_copy_api_key_from">সাইন ইন করুন এবং এখান থেকে আপনার API কী কপি করুন</string>
+    <string name="settings_model_label">মডেল</string>
+    <string name="clear_chat_content_description">চ্যাট মুছুন</string>
+    <string name="toggle_speech_output_content_description">স্পিচ আউটপুট টগল করুন</string>
+    <string name="settings_content_description">সেটিংস</string>
+    <string name="bot_message_speech_content_description">স্পিচ</string>
+    <string name="bot_message_copy_content_description">কপি</string>
+    <string name="bot_message_flag_content_description">কন্টেন্ট ফ্ল্যাগ করুন</string>
+</resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Chào mừng đến với Kai</string>
+    <string name="prompt_ask_question">Đặt câu hỏi</string>
+    <string name="prompt_pick_media">Chọn phương tiện</string>
+    <string name="gemini_model_2_5_flash_description">Mô hình tốt nhất về hiệu suất giá, cung cấp khả năng cân bằng toàn diện</string>
+    <string name="gemini_model_2_5_flash_lite_description">Mô hình Flash nhanh nhất được tối ưu hóa cho hiệu quả chi phí và thông lượng cao</string>
+    <string name="gemini_model_2_5_pro_description">Mô hình tư duy tiên tiến nhất, có khả năng suy luận các vấn đề phức tạp</string>
+    <string name="gemini_model_3_pro_preview_description">Mô hình tốt nhất thế giới về hiểu đa phương thức</string>
+    <string name="gemini_model_3_flash_description">Mô hình tốt nhất về hiệu suất giá, cung cấp khả năng cân bằng toàn diện</string>
+    <string name="error_gemini_rate_limit_exceeded">Lỗi: Bạn đã vượt quá giới hạn yêu cầu API Gemini. Vui lòng thử lại sau hoặc kiểm tra hạn mức của bạn.</string>
+    <string name="error_gemini_invalid_api_key">Lỗi: Khóa API Gemini của bạn không hợp lệ hoặc bị thiếu. Vui lòng kiểm tra cài đặt của bạn.</string>
+    <string name="error_gemini_unexpected">Đã xảy ra lỗi không mong muốn với yêu cầu Gemini. Vui lòng thử lại.</string>
+    <string name="error_invalid_api_key">Khóa API không hợp lệ. Vui lòng kiểm tra cài đặt của bạn.</string>
+    <string name="error_rate_limit_exceeded">Đã vượt quá giới hạn tốc độ. Vui lòng thử lại sau.</string>
+    <string name="error_generic">Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.</string>
+    <string name="error_unknown">Đã xảy ra lỗi không xác định.</string>
+    <string name="info_using_shared_key">Bạn đang sử dụng khóa API dùng chung có giới hạn. Vui lòng vào cài đặt để thêm khóa riêng của bạn để có trải nghiệm tốt hơn.</string>
+    <string name="settings_ai_mistakes_warning">AI có thể mắc lỗi, hãy kiểm tra kỹ và không chia sẻ thông tin nhạy cảm.</string>
+    <string name="settings_version">Phiên bản: %1$s</string>
+    <string name="settings_api_key_label">Khóa API</string>
+    <string name="settings_sign_in_copy_api_key_from">Đăng nhập và sao chép khóa API của bạn từ</string>
+    <string name="settings_model_label">Mô hình</string>
+    <string name="clear_chat_content_description">Xóa cuộc trò chuyện</string>
+    <string name="toggle_speech_output_content_description">Bật/tắt đầu ra giọng nói</string>
+    <string name="settings_content_description">Cài đặt</string>
+    <string name="bot_message_speech_content_description">Giọng nói</string>
+    <string name="bot_message_copy_content_description">Sao chép</string>
+    <string name="bot_message_flag_content_description">Gắn cờ nội dung</string>
+</resources>

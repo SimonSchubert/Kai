@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Karibu kwenye Kai</string>
+    <string name="prompt_ask_question">Uliza swali</string>
+    <string name="prompt_pick_media">Chagua midia</string>
+    <string name="gemini_model_2_5_flash_description">Modeli bora zaidi kwa bei na utendaji, inatoa uwezo wa usawa</string>
+    <string name="gemini_model_2_5_flash_lite_description">Modeli ya Flash ya haraka zaidi, imeandaliwa kwa ufanisi wa gharama na upitishaji wa juu</string>
+    <string name="gemini_model_2_5_pro_description">Modeli ya kisasa ya kufikiri, yenye uwezo wa kufanya mantiki juu ya matatizo changamano</string>
+    <string name="gemini_model_3_pro_preview_description">Modeli bora zaidi duniani kwa uelewa wa multimodal</string>
+    <string name="gemini_model_3_flash_description">Modeli bora zaidi kwa bei na utendaji, inatoa uwezo wa usawa</string>
+    <string name="error_gemini_rate_limit_exceeded">Hitilafu: Umezidi kikomo chako cha ombi la API ya Gemini. Tafadhali jaribu tena baadaye au angalia kiwango chako.</string>
+    <string name="error_gemini_invalid_api_key">Hitilafu: Ufunguo wako wa API ya Gemini si sahihi au haupo. Tafadhali angalia mipangilio yako.</string>
+    <string name="error_gemini_unexpected">Hitilafu isiyotarajiwa imetokea na ombi la Gemini. Tafadhali jaribu tena.</string>
+    <string name="error_invalid_api_key">Ufunguo wa API si sahihi. Tafadhali angalia mipangilio yako.</string>
+    <string name="error_rate_limit_exceeded">Kikomo cha kiwango kimezidishwa. Tafadhali jaribu tena baadaye.</string>
+    <string name="error_generic">Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena.</string>
+    <string name="error_unknown">Hitilafu isiyojulikana imetokea.</string>
+    <string name="info_using_shared_key">Unatumia ufunguo wa API ulioshirikiwa na mdogo. Tafadhali nenda kwenye mipangilio kuongeza ufunguo wako mwenyewe kwa uzoefu bora.</string>
+    <string name="settings_ai_mistakes_warning">AI inaweza kufanya makosa, angalia mara mbili na usishiriki taarifa nyeti.</string>
+    <string name="settings_version">Toleo: %1$s</string>
+    <string name="settings_api_key_label">Ufunguo wa API</string>
+    <string name="settings_sign_in_copy_api_key_from">Ingia na unakili ufunguo wako wa API kutoka</string>
+    <string name="settings_model_label">Modeli</string>
+    <string name="clear_chat_content_description">Futa mazungumzo</string>
+    <string name="toggle_speech_output_content_description">Washa/Zima matokeo ya sauti</string>
+    <string name="settings_content_description">Mipangilio</string>
+    <string name="bot_message_speech_content_description">Hotuba</string>
+    <string name="bot_message_copy_content_description">Nakili</string>
+    <string name="bot_message_flag_content_description">Weka alama maudhui</string>
+</resources>

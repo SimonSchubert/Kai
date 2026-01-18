@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kaiへようこそ</string>
+    <string name="prompt_ask_question">質問する</string>
+    <string name="prompt_pick_media">メディアを選択</string>
+    <string name="gemini_model_2_5_flash_description">コストパフォーマンスに優れ、バランスの取れた機能を提供するモデル</string>
+    <string name="gemini_model_2_5_flash_lite_description">コスト効率と高スループットに最適化された最速のFlashモデル</string>
+    <string name="gemini_model_2_5_pro_description">複雑な問題を推論できる最先端の思考モデル</string>
+    <string name="gemini_model_3_pro_preview_description">マルチモーダル理解において世界最高のモデル</string>
+    <string name="gemini_model_3_flash_description">コストパフォーマンスに優れ、バランスの取れた機能を提供するモデル</string>
+    <string name="error_gemini_rate_limit_exceeded">エラー：Gemini APIのリクエスト制限を超えました。後でもう一度お試しいただくか、クォータをご確認ください。</string>
+    <string name="error_gemini_invalid_api_key">エラー：Gemini APIキーが無効または不足しています。設定をご確認ください。</string>
+    <string name="error_gemini_unexpected">Geminiリクエストで予期しないエラーが発生しました。もう一度お試しください。</string>
+    <string name="error_invalid_api_key">無効なAPIキーです。設定をご確認ください。</string>
+    <string name="error_rate_limit_exceeded">レート制限を超えました。後でもう一度お試しください。</string>
+    <string name="error_generic">予期しないエラーが発生しました。もう一度お試しください。</string>
+    <string name="error_unknown">不明なエラーが発生しました。</string>
+    <string name="info_using_shared_key">制限付きの共有APIキーを使用しています。より良い体験のために、設定から独自のキーを追加してください。</string>
+    <string name="settings_ai_mistakes_warning">AIは間違えることがあります。必ず再確認し、機密情報は共有しないでください。</string>
+    <string name="settings_version">バージョン：%1$s</string>
+    <string name="settings_api_key_label">APIキー</string>
+    <string name="settings_sign_in_copy_api_key_from">サインインして、こちらからAPIキーをコピーしてください</string>
+    <string name="settings_model_label">モデル</string>
+    <string name="clear_chat_content_description">チャットをクリア</string>
+    <string name="toggle_speech_output_content_description">音声出力を切り替え</string>
+    <string name="settings_content_description">設定</string>
+    <string name="bot_message_speech_content_description">音声</string>
+    <string name="bot_message_copy_content_description">コピー</string>
+    <string name="bot_message_flag_content_description">コンテンツを報告</string>
+</resources>

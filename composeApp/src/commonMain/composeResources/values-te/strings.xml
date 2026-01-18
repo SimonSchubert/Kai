@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kaiకి స్వాగతం</string>
+    <string name="prompt_ask_question">ప్రశ్న అడగండి</string>
+    <string name="prompt_pick_media">మీడియా ఎంచుకోండి</string>
+    <string name="gemini_model_2_5_flash_description">ధర-పనితీరు పరంగా ఉత్తమ మోడల్, సమతుల్య సామర్థ్యాలను అందిస్తుంది</string>
+    <string name="gemini_model_2_5_flash_lite_description">వ్యయ-సామర్థ్యం మరియు అధిక థ్రూపుట్ కోసం ఆప్టిమైజ్ చేయబడిన వేగవంతమైన ఫ్లాష్ మోడల్</string>
+    <string name="gemini_model_2_5_pro_description">సంక్లిష్ట సమస్యలపై తర్కించగల అత్యాధునిక ఆలోచనా మోడల్</string>
+    <string name="gemini_model_3_pro_preview_description">మల్టీమోడల్ అవగాహన కోసం ప్రపంచంలోనే అత్యుత్తమ మోడల్</string>
+    <string name="gemini_model_3_flash_description">ధర-పనితీరు పరంగా ఉత్తమ మోడల్, సమతుల్య సామర్థ్యాలను అందిస్తుంది</string>
+    <string name="error_gemini_rate_limit_exceeded">లోపం: మీరు మీ Gemini API అభ్యర్థన పరిమితిని మించిపోయారు. దయచేసి తర్వాత మళ్ళీ ప్రయత్నించండి లేదా మీ కోటాను తనిఖీ చేయండి.</string>
+    <string name="error_gemini_invalid_api_key">లోపం: మీ Gemini API కీ చెల్లదు లేదా లేదు. దయచేసి మీ సెట్టింగ్‌లను తనిఖీ చేయండి.</string>
+    <string name="error_gemini_unexpected">Gemini అభ్యర్థనతో ఊహించని లోపం సంభవించింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="error_invalid_api_key">చెల్లని API కీ. దయచేసి మీ సెట్టింగ్‌లను తనిఖీ చేయండి.</string>
+    <string name="error_rate_limit_exceeded">రేట్ పరిమితి మించిపోయింది. దయచేసి తర్వాత మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="error_generic">ఊహించని లోపం సంభవించింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="error_unknown">తెలియని లోపం సంభవించింది.</string>
+    <string name="info_using_shared_key">మీరు పరిమిత మరియు భాగస్వామ్య API కీని ఉపయోగిస్తున్నారు. మెరుగైన అనుభవం కోసం దయచేసి సెట్టింగ్‌లకు వెళ్లి మీ స్వంత కీని జోడించండి.</string>
+    <string name="settings_ai_mistakes_warning">AI తప్పులు చేస్తుంది, మళ్ళీ తనిఖీ చేయండి మరియు సున్నితమైన సమాచారాన్ని భాగస్వామ్యం చేయకండి.</string>
+    <string name="settings_version">వెర్షన్: %1$s</string>
+    <string name="settings_api_key_label">API కీ</string>
+    <string name="settings_sign_in_copy_api_key_from">సైన్ ఇన్ చేసి ఇక్కడ నుండి మీ API కీని కాపీ చేయండి</string>
+    <string name="settings_model_label">మోడల్</string>
+    <string name="clear_chat_content_description">చాట్ క్లియర్ చేయండి</string>
+    <string name="toggle_speech_output_content_description">స్పీచ్ అవుట్‌పుట్ టోగుల్ చేయండి</string>
+    <string name="settings_content_description">సెట్టింగ్‌లు</string>
+    <string name="bot_message_speech_content_description">స్పీచ్</string>
+    <string name="bot_message_copy_content_description">కాపీ</string>
+    <string name="bot_message_flag_content_description">కంటెంట్‌ను ఫ్లాగ్ చేయండి</string>
+</resources>

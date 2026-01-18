@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai\'ye Hoş Geldiniz</string>
+    <string name="prompt_ask_question">Soru sorun</string>
+    <string name="prompt_pick_media">Medya seçin</string>
+    <string name="gemini_model_2_5_flash_description">Fiyat-performans açısından en iyi model, dengeli yetenekler sunar</string>
+    <string name="gemini_model_2_5_flash_lite_description">Maliyet verimliliği ve yüksek işlem hacmi için optimize edilmiş en hızlı Flash modeli</string>
+    <string name="gemini_model_2_5_pro_description">Karmaşık problemler üzerinde akıl yürütebilen son teknoloji düşünme modeli</string>
+    <string name="gemini_model_3_pro_preview_description">Çok modlu anlama için dünyanın en iyi modeli</string>
+    <string name="gemini_model_3_flash_description">Fiyat-performans açısından en iyi model, dengeli yetenekler sunar</string>
+    <string name="error_gemini_rate_limit_exceeded">Hata: Gemini API istek limitinizi aştınız. Lütfen daha sonra tekrar deneyin veya kotanızı kontrol edin.</string>
+    <string name="error_gemini_invalid_api_key">Hata: Gemini API anahtarınız geçersiz veya eksik. Lütfen ayarlarınızı kontrol edin.</string>
+    <string name="error_gemini_unexpected">Gemini isteğinde beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.</string>
+    <string name="error_invalid_api_key">Geçersiz API Anahtarı. Lütfen ayarlarınızı kontrol edin.</string>
+    <string name="error_rate_limit_exceeded">İstek limiti aşıldı. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_generic">Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.</string>
+    <string name="error_unknown">Bilinmeyen bir hata oluştu.</string>
+    <string name="info_using_shared_key">Sınırlı ve paylaşımlı bir API anahtarı kullanıyorsunuz. Daha iyi bir deneyim için lütfen ayarlara gidip kendi anahtarınızı ekleyin.</string>
+    <string name="settings_ai_mistakes_warning">Yapay zeka hata yapabilir, tekrar kontrol edin ve hassas bilgileri paylaşmayın.</string>
+    <string name="settings_version">Sürüm: %1$s</string>
+    <string name="settings_api_key_label">API Anahtarı</string>
+    <string name="settings_sign_in_copy_api_key_from">Giriş yapın ve API anahtarınızı buradan kopyalayın</string>
+    <string name="settings_model_label">Model</string>
+    <string name="clear_chat_content_description">Sohbeti temizle</string>
+    <string name="toggle_speech_output_content_description">Sesli çıktıyı aç/kapat</string>
+    <string name="settings_content_description">Ayarlar</string>
+    <string name="bot_message_speech_content_description">Konuşma</string>
+    <string name="bot_message_copy_content_description">Kopyala</string>
+    <string name="bot_message_flag_content_description">İçeriği işaretle</string>
+</resources>

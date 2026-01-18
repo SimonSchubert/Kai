@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Selamat datang ke Kai</string>
+    <string name="prompt_ask_question">Tanya soalan</string>
+    <string name="prompt_pick_media">Pilih media</string>
+    <string name="gemini_model_2_5_flash_description">Model terbaik dari segi harga-prestasi, menawarkan keupayaan seimbang</string>
+    <string name="gemini_model_2_5_flash_lite_description">Model Flash terpantas yang dioptimumkan untuk kecekapan kos dan daya pengeluaran tinggi</string>
+    <string name="gemini_model_2_5_pro_description">Model pemikiran canggih, mampu menaakul masalah yang kompleks</string>
+    <string name="gemini_model_3_pro_preview_description">Model terbaik di dunia untuk pemahaman multimodal</string>
+    <string name="gemini_model_3_flash_description">Model terbaik dari segi harga-prestasi, menawarkan keupayaan seimbang</string>
+    <string name="error_gemini_rate_limit_exceeded">Ralat: Anda telah melebihi had permintaan API Gemini. Sila cuba lagi kemudian atau semak kuota anda.</string>
+    <string name="error_gemini_invalid_api_key">Ralat: Kunci API Gemini anda tidak sah atau tiada. Sila semak tetapan anda.</string>
+    <string name="error_gemini_unexpected">Ralat tidak dijangka berlaku dengan permintaan Gemini. Sila cuba lagi.</string>
+    <string name="error_invalid_api_key">Kunci API tidak sah. Sila semak tetapan anda.</string>
+    <string name="error_rate_limit_exceeded">Had kadar melebihi. Sila cuba lagi kemudian.</string>
+    <string name="error_generic">Ralat tidak dijangka berlaku. Sila cuba lagi.</string>
+    <string name="error_unknown">Ralat tidak diketahui berlaku.</string>
+    <string name="info_using_shared_key">Anda menggunakan kunci API terhad dan dikongsi. Sila pergi ke tetapan untuk menambah kunci anda sendiri bagi pengalaman yang lebih baik.</string>
+    <string name="settings_ai_mistakes_warning">AI boleh membuat kesilapan, semak semula dan jangan kongsi maklumat sensitif.</string>
+    <string name="settings_version">Versi: %1$s</string>
+    <string name="settings_api_key_label">Kunci API</string>
+    <string name="settings_sign_in_copy_api_key_from">Log masuk dan salin kunci API anda dari</string>
+    <string name="settings_model_label">Model</string>
+    <string name="clear_chat_content_description">Kosongkan sembang</string>
+    <string name="toggle_speech_output_content_description">Togol output suara</string>
+    <string name="settings_content_description">Tetapan</string>
+    <string name="bot_message_speech_content_description">Pertuturan</string>
+    <string name="bot_message_copy_content_description">Salin</string>
+    <string name="bot_message_flag_content_description">Tandai kandungan</string>
+</resources>

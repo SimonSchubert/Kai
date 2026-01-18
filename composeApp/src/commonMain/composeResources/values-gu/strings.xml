@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai માં આપનું સ્વાગત છે</string>
+    <string name="prompt_ask_question">પ્રશ્ન પૂછો</string>
+    <string name="prompt_pick_media">મીડિયા પસંદ કરો</string>
+    <string name="gemini_model_2_5_flash_description">કિંમત-કાર્યક્ષમતાની દ્રષ્ટિએ શ્રેષ્ઠ મોડેલ, સંતુલિત ક્ષમતાઓ આપે છે</string>
+    <string name="gemini_model_2_5_flash_lite_description">ખર્ચ-કાર્યક્ષમતા અને ઉચ્ચ થ્રુપુટ માટે ઓપ્ટિમાઇઝ કરેલ સૌથી ઝડપી Flash મોડેલ</string>
+    <string name="gemini_model_2_5_pro_description">અત્યાધુનિક વિચારશીલ મોડેલ, જટિલ સમસ્યાઓ પર તર્ક કરવા સક્ષમ</string>
+    <string name="gemini_model_3_pro_preview_description">મલ્ટિમોડલ સમજણ માટે વિશ્વનું શ્રેષ્ઠ મોડેલ</string>
+    <string name="gemini_model_3_flash_description">કિંમત-કાર્યક્ષમતાની દ્રષ્ટિએ શ્રેષ્ઠ મોડેલ, સંતુલિત ક્ષમતાઓ આપે છે</string>
+    <string name="error_gemini_rate_limit_exceeded">ભૂલ: તમે તમારી Gemini API વિનંતી મર્યાદા વટાવી છે. કૃપા કરીને પછી ફરી પ્રયાસ કરો અથવા તમારો ક્વોટા તપાસો.</string>
+    <string name="error_gemini_invalid_api_key">ભૂલ: તમારી Gemini API કી અમાન્ય અથવા ખૂટે છે. કૃપા કરીને તમારી સેટિંગ્સ તપાસો.</string>
+    <string name="error_gemini_unexpected">Gemini વિનંતી સાથે અણધારી ભૂલ થઈ. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="error_invalid_api_key">અમાન્ય API કી. કૃપા કરીને તમારી સેટિંગ્સ તપાસો.</string>
+    <string name="error_rate_limit_exceeded">દર મર્યાદા વટાવી ગઈ. કૃપા કરીને પછી ફરી પ્રયાસ કરો.</string>
+    <string name="error_generic">અણધારી ભૂલ થઈ. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
+    <string name="error_unknown">અજાણી ભૂલ થઈ.</string>
+    <string name="info_using_shared_key">તમે મર્યાદિત અને શેર કરેલી API કી વાપરી રહ્યા છો. વધુ સારા અનુભવ માટે કૃપા કરીને સેટિંગ્સમાં જઈને તમારી પોતાની કી ઉમેરો.</string>
+    <string name="settings_ai_mistakes_warning">AI ભૂલો કરી શકે છે, ફરીથી તપાસો અને સંવેદનશીલ માહિતી શેર ન કરો.</string>
+    <string name="settings_version">વર્ઝન: %1$s</string>
+    <string name="settings_api_key_label">API કી</string>
+    <string name="settings_sign_in_copy_api_key_from">સાઇન ઇન કરો અને અહીંથી તમારી API કી કૉપિ કરો</string>
+    <string name="settings_model_label">મોડેલ</string>
+    <string name="clear_chat_content_description">ચેટ સાફ કરો</string>
+    <string name="toggle_speech_output_content_description">સ્પીચ આઉટપુટ ટૉગલ કરો</string>
+    <string name="settings_content_description">સેટિંગ્સ</string>
+    <string name="bot_message_speech_content_description">સ્પીચ</string>
+    <string name="bot_message_copy_content_description">કૉપિ</string>
+    <string name="bot_message_flag_content_description">સામગ્રી ફ્લેગ કરો</string>
+</resources>

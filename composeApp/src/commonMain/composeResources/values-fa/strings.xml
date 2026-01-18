@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">به Kai خوش آمدید</string>
+    <string name="prompt_ask_question">سوال بپرسید</string>
+    <string name="prompt_pick_media">انتخاب رسانه</string>
+    <string name="gemini_model_2_5_flash_description">بهترین مدل از نظر قیمت-عملکرد، با قابلیت‌های متعادل</string>
+    <string name="gemini_model_2_5_flash_lite_description">سریع‌ترین مدل Flash، بهینه‌سازی شده برای کارایی هزینه و توان عملیاتی بالا</string>
+    <string name="gemini_model_2_5_pro_description">مدل تفکر پیشرفته، قادر به استدلال در مورد مسائل پیچیده</string>
+    <string name="gemini_model_3_pro_preview_description">بهترین مدل جهان برای درک چندوجهی</string>
+    <string name="gemini_model_3_flash_description">بهترین مدل از نظر قیمت-عملکرد، با قابلیت‌های متعادل</string>
+    <string name="error_gemini_rate_limit_exceeded">خطا: شما از حد مجاز درخواست API Gemini فراتر رفته‌اید. لطفاً بعداً دوباره امتحان کنید یا سهمیه خود را بررسی کنید.</string>
+    <string name="error_gemini_invalid_api_key">خطا: کلید API Gemini شما نامعتبر یا گم شده است. لطفاً تنظیمات خود را بررسی کنید.</string>
+    <string name="error_gemini_unexpected">خطای غیرمنتظره‌ای در درخواست Gemini رخ داد. لطفاً دوباره امتحان کنید.</string>
+    <string name="error_invalid_api_key">کلید API نامعتبر است. لطفاً تنظیمات خود را بررسی کنید.</string>
+    <string name="error_rate_limit_exceeded">از حد مجاز نرخ فراتر رفته‌اید. لطفاً بعداً دوباره امتحان کنید.</string>
+    <string name="error_generic">خطای غیرمنتظره‌ای رخ داد. لطفاً دوباره امتحان کنید.</string>
+    <string name="error_unknown">خطای ناشناخته‌ای رخ داد.</string>
+    <string name="info_using_shared_key">شما از کلید API محدود و مشترک استفاده می‌کنید. برای تجربه بهتر، لطفاً به تنظیمات بروید و کلید خود را اضافه کنید.</string>
+    <string name="settings_ai_mistakes_warning">هوش مصنوعی اشتباه می‌کند، دوباره بررسی کنید و اطلاعات حساس را به اشتراک نگذارید.</string>
+    <string name="settings_version">نسخه: %1$s</string>
+    <string name="settings_api_key_label">کلید API</string>
+    <string name="settings_sign_in_copy_api_key_from">وارد شوید و کلید API خود را از اینجا کپی کنید</string>
+    <string name="settings_model_label">مدل</string>
+    <string name="clear_chat_content_description">پاک کردن گفتگو</string>
+    <string name="toggle_speech_output_content_description">تغییر خروجی صوتی</string>
+    <string name="settings_content_description">تنظیمات</string>
+    <string name="bot_message_speech_content_description">گفتار</string>
+    <string name="bot_message_copy_content_description">کپی</string>
+    <string name="bot_message_flag_content_description">پرچم‌گذاری محتوا</string>
+</resources>

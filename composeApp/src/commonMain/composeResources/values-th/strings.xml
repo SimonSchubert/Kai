@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">ยินดีต้อนรับสู่ Kai</string>
+    <string name="prompt_ask_question">ถามคำถาม</string>
+    <string name="prompt_pick_media">เลือกสื่อ</string>
+    <string name="gemini_model_2_5_flash_description">โมเดลที่ดีที่สุดในแง่ของราคาต่อประสิทธิภาพ มีความสามารถที่สมดุล</string>
+    <string name="gemini_model_2_5_flash_lite_description">โมเดล Flash ที่เร็วที่สุด ปรับให้เหมาะสมสำหรับความคุ้มค่าและปริมาณงานสูง</string>
+    <string name="gemini_model_2_5_pro_description">โมเดลคิดวิเคราะห์ล้ำสมัย สามารถใช้เหตุผลกับปัญหาที่ซับซ้อนได้</string>
+    <string name="gemini_model_3_pro_preview_description">โมเดลที่ดีที่สุดในโลกสำหรับการทำความเข้าใจแบบหลายโหมด</string>
+    <string name="gemini_model_3_flash_description">โมเดลที่ดีที่สุดในแง่ของราคาต่อประสิทธิภาพ มีความสามารถที่สมดุล</string>
+    <string name="error_gemini_rate_limit_exceeded">ข้อผิดพลาด: คุณใช้งานเกินขีดจำกัดคำขอ Gemini API กรุณาลองอีกครั้งในภายหลังหรือตรวจสอบโควต้าของคุณ</string>
+    <string name="error_gemini_invalid_api_key">ข้อผิดพลาด: คีย์ Gemini API ของคุณไม่ถูกต้องหรือหายไป กรุณาตรวจสอบการตั้งค่าของคุณ</string>
+    <string name="error_gemini_unexpected">เกิดข้อผิดพลาดที่ไม่คาดคิดกับคำขอ Gemini กรุณาลองอีกครั้ง</string>
+    <string name="error_invalid_api_key">คีย์ API ไม่ถูกต้อง กรุณาตรวจสอบการตั้งค่าของคุณ</string>
+    <string name="error_rate_limit_exceeded">เกินขีดจำกัดอัตรา กรุณาลองอีกครั้งในภายหลัง</string>
+    <string name="error_generic">เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองอีกครั้ง</string>
+    <string name="error_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
+    <string name="info_using_shared_key">คุณกำลังใช้คีย์ API ที่จำกัดและใช้ร่วมกัน กรุณาไปที่การตั้งค่าเพื่อเพิ่มคีย์ของคุณเองเพื่อประสบการณ์ที่ดีขึ้น</string>
+    <string name="settings_ai_mistakes_warning">AI อาจทำผิดพลาด ตรวจสอบอีกครั้งและอย่าแชร์ข้อมูลที่ละเอียดอ่อน</string>
+    <string name="settings_version">เวอร์ชัน: %1$s</string>
+    <string name="settings_api_key_label">คีย์ API</string>
+    <string name="settings_sign_in_copy_api_key_from">ลงชื่อเข้าใช้และคัดลอกคีย์ API ของคุณจาก</string>
+    <string name="settings_model_label">โมเดล</string>
+    <string name="clear_chat_content_description">ล้างแชท</string>
+    <string name="toggle_speech_output_content_description">สลับเอาต์พุตเสียง</string>
+    <string name="settings_content_description">การตั้งค่า</string>
+    <string name="bot_message_speech_content_description">เสียงพูด</string>
+    <string name="bot_message_copy_content_description">คัดลอก</string>
+    <string name="bot_message_flag_content_description">แจ้งเนื้อหา</string>
+</resources>

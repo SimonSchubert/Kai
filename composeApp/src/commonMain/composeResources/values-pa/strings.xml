@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ</string>
+    <string name="prompt_ask_question">ਸਵਾਲ ਪੁੱਛੋ</string>
+    <string name="prompt_pick_media">ਮੀਡੀਆ ਚੁਣੋ</string>
+    <string name="gemini_model_2_5_flash_description">ਕੀਮਤ-ਕਾਰਗੁਜ਼ਾਰੀ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ, ਸੰਤੁਲਿਤ ਸਮਰੱਥਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ</string>
+    <string name="gemini_model_2_5_flash_lite_description">ਸਭ ਤੋਂ ਤੇਜ਼ ਫਲੈਸ਼ ਮਾਡਲ, ਲਾਗਤ-ਕੁਸ਼ਲਤਾ ਅਤੇ ਉੱਚ ਥ੍ਰੂਪੁੱਟ ਲਈ ਅਨੁਕੂਲਿਤ</string>
+    <string name="gemini_model_2_5_pro_description">ਅਤਿ-ਆਧੁਨਿਕ ਸੋਚ ਵਾਲਾ ਮਾਡਲ, ਗੁੰਝਲਦਾਰ ਸਮੱਸਿਆਵਾਂ \'ਤੇ ਤਰਕ ਕਰਨ ਦੇ ਸਮਰੱਥ</string>
+    <string name="gemini_model_3_pro_preview_description">ਮਲਟੀਮੋਡਲ ਸਮਝ ਲਈ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ</string>
+    <string name="gemini_model_3_flash_description">ਕੀਮਤ-ਕਾਰਗੁਜ਼ਾਰੀ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ, ਸੰਤੁਲਿਤ ਸਮਰੱਥਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ</string>
+    <string name="error_gemini_rate_limit_exceeded">ਗਲਤੀ: ਤੁਸੀਂ ਆਪਣੀ Gemini API ਬੇਨਤੀ ਸੀਮਾ ਤੋਂ ਵੱਧ ਗਏ ਹੋ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਆਪਣਾ ਕੋਟਾ ਚੈੱਕ ਕਰੋ।</string>
+    <string name="error_gemini_invalid_api_key">ਗਲਤੀ: ਤੁਹਾਡੀ Gemini API ਕੁੰਜੀ ਅਵੈਧ ਜਾਂ ਗੁੰਮ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਚੈੱਕ ਕਰੋ।</string>
+    <string name="error_gemini_unexpected">Gemini ਬੇਨਤੀ ਨਾਲ ਅਚਾਨਕ ਗਲਤੀ ਹੋਈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="error_invalid_api_key">ਅਵੈਧ API ਕੁੰਜੀ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਚੈੱਕ ਕਰੋ।</string>
+    <string name="error_rate_limit_exceeded">ਦਰ ਸੀਮਾ ਪਾਰ ਹੋ ਗਈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="error_generic">ਅਚਾਨਕ ਗਲਤੀ ਹੋਈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="error_unknown">ਅਣਜਾਣ ਗਲਤੀ ਹੋਈ।</string>
+    <string name="info_using_shared_key">ਤੁਸੀਂ ਸੀਮਤ ਅਤੇ ਸਾਂਝੀ API ਕੁੰਜੀ ਵਰਤ ਰਹੇ ਹੋ। ਬਿਹਤਰ ਅਨੁਭਵ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਜਾ ਕੇ ਆਪਣੀ ਕੁੰਜੀ ਜੋੜੋ।</string>
+    <string name="settings_ai_mistakes_warning">AI ਗਲਤੀਆਂ ਕਰਦਾ ਹੈ, ਦੁਬਾਰਾ ਜਾਂਚ ਕਰੋ ਅਤੇ ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਨਾ ਕਰੋ।</string>
+    <string name="settings_version">ਸੰਸਕਰਣ: %1$s</string>
+    <string name="settings_api_key_label">API ਕੁੰਜੀ</string>
+    <string name="settings_sign_in_copy_api_key_from">ਸਾਈਨ ਇਨ ਕਰੋ ਅਤੇ ਇੱਥੋਂ ਆਪਣੀ API ਕੁੰਜੀ ਕਾਪੀ ਕਰੋ</string>
+    <string name="settings_model_label">ਮਾਡਲ</string>
+    <string name="clear_chat_content_description">ਚੈਟ ਸਾਫ਼ ਕਰੋ</string>
+    <string name="toggle_speech_output_content_description">ਬੋਲੀ ਆਉਟਪੁੱਟ ਟੌਗਲ ਕਰੋ</string>
+    <string name="settings_content_description">ਸੈਟਿੰਗਾਂ</string>
+    <string name="bot_message_speech_content_description">ਬੋਲੀ</string>
+    <string name="bot_message_copy_content_description">ਕਾਪੀ</string>
+    <string name="bot_message_flag_content_description">ਸਮੱਗਰੀ ਫਲੈਗ ਕਰੋ</string>
+</resources>

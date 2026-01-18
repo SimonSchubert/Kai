@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai मध्ये आपले स्वागत आहे</string>
+    <string name="prompt_ask_question">प्रश्न विचारा</string>
+    <string name="prompt_pick_media">मीडिया निवडा</string>
+    <string name="gemini_model_2_5_flash_description">किंमत-कार्यक्षमतेच्या बाबतीत सर्वोत्तम मॉडेल, संतुलित क्षमता प्रदान करते</string>
+    <string name="gemini_model_2_5_flash_lite_description">खर्च-कार्यक्षमता आणि उच्च थ्रूपुटसाठी अनुकूलित सर्वात वेगवान फ्लॅश मॉडेल</string>
+    <string name="gemini_model_2_5_pro_description">जटिल समस्यांवर तर्क करण्यास सक्षम अत्याधुनिक विचार मॉडेल</string>
+    <string name="gemini_model_3_pro_preview_description">मल्टीमोडल समजण्यासाठी जगातील सर्वोत्तम मॉडेल</string>
+    <string name="gemini_model_3_flash_description">किंमत-कार्यक्षमतेच्या बाबतीत सर्वोत्तम मॉडेल, संतुलित क्षमता प्रदान करते</string>
+    <string name="error_gemini_rate_limit_exceeded">त्रुटी: तुम्ही तुमची Gemini API विनंती मर्यादा ओलांडली आहे. कृपया नंतर पुन्हा प्रयत्न करा किंवा तुमचा कोटा तपासा.</string>
+    <string name="error_gemini_invalid_api_key">त्रुटी: तुमची Gemini API की अवैध किंवा गहाळ आहे. कृपया तुमची सेटिंग्ज तपासा.</string>
+    <string name="error_gemini_unexpected">Gemini विनंतीमध्ये अनपेक्षित त्रुटी आली. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="error_invalid_api_key">अवैध API की. कृपया तुमची सेटिंग्ज तपासा.</string>
+    <string name="error_rate_limit_exceeded">दर मर्यादा ओलांडली. कृपया नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="error_generic">अनपेक्षित त्रुटी आली. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="error_unknown">अज्ञात त्रुटी आली.</string>
+    <string name="info_using_shared_key">तुम्ही मर्यादित आणि सामायिक API की वापरत आहात. चांगल्या अनुभवासाठी कृपया सेटिंग्जमध्ये जाऊन तुमची स्वतःची की जोडा.</string>
+    <string name="settings_ai_mistakes_warning">AI चुका करतो, पुन्हा तपासा आणि संवेदनशील माहिती शेअर करू नका.</string>
+    <string name="settings_version">आवृत्ती: %1$s</string>
+    <string name="settings_api_key_label">API की</string>
+    <string name="settings_sign_in_copy_api_key_from">साइन इन करा आणि येथून तुमची API की कॉपी करा</string>
+    <string name="settings_model_label">मॉडेल</string>
+    <string name="clear_chat_content_description">चॅट साफ करा</string>
+    <string name="toggle_speech_output_content_description">स्पीच आउटपुट टॉगल करा</string>
+    <string name="settings_content_description">सेटिंग्ज</string>
+    <string name="bot_message_speech_content_description">स्पीच</string>
+    <string name="bot_message_copy_content_description">कॉपी</string>
+    <string name="bot_message_flag_content_description">सामग्री फ्लॅग करा</string>
+</resources>

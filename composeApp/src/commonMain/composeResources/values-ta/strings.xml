@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai-க்கு வரவேற்கிறோம்</string>
+    <string name="prompt_ask_question">கேள்வி கேளுங்கள்</string>
+    <string name="prompt_pick_media">மீடியாவைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="gemini_model_2_5_flash_description">விலை-செயல்திறன் அடிப்படையில் சிறந்த மாடல், சமநிலையான திறன்களை வழங்குகிறது</string>
+    <string name="gemini_model_2_5_flash_lite_description">செலவு-திறன் மற்றும் அதிக செயல்திறனுக்கு உகந்ததாக்கப்பட்ட வேகமான ஃப்ளாஷ் மாடல்</string>
+    <string name="gemini_model_2_5_pro_description">சிக்கலான பிரச்சனைகளை பகுத்தறியும் திறன் கொண்ட நவீன சிந்தனை மாடல்</string>
+    <string name="gemini_model_3_pro_preview_description">பன்முக புரிதலுக்கான உலகின் சிறந்த மாடல்</string>
+    <string name="gemini_model_3_flash_description">விலை-செயல்திறன் அடிப்படையில் சிறந்த மாடல், சமநிலையான திறன்களை வழங்குகிறது</string>
+    <string name="error_gemini_rate_limit_exceeded">பிழை: உங்கள் Gemini API கோரிக்கை வரம்பை மீறிவிட்டீர்கள். பின்னர் மீண்டும் முயற்சிக்கவும் அல்லது உங்கள் ஒதுக்கீட்டைச் சரிபார்க்கவும்.</string>
+    <string name="error_gemini_invalid_api_key">பிழை: உங்கள் Gemini API விசை தவறானது அல்லது காணவில்லை. உங்கள் அமைப்புகளைச் சரிபார்க்கவும்.</string>
+    <string name="error_gemini_unexpected">Gemini கோரிக்கையில் எதிர்பாராத பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_invalid_api_key">தவறான API விசை. உங்கள் அமைப்புகளைச் சரிபார்க்கவும்.</string>
+    <string name="error_rate_limit_exceeded">விகித வரம்பு மீறப்பட்டது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_generic">எதிர்பாராத பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_unknown">அறியப்படாத பிழை ஏற்பட்டது.</string>
+    <string name="info_using_shared_key">நீங்கள் வரையறுக்கப்பட்ட மற்றும் பகிரப்பட்ட API விசையைப் பயன்படுத்துகிறீர்கள். சிறந்த அனுபவத்திற்கு அமைப்புகளுக்குச் சென்று உங்கள் சொந்த விசையைச் சேர்க்கவும்.</string>
+    <string name="settings_ai_mistakes_warning">AI தவறுகள் செய்யும், மீண்டும் சரிபார்த்து முக்கியமான தகவல்களைப் பகிர வேண்டாம்.</string>
+    <string name="settings_version">பதிப்பு: %1$s</string>
+    <string name="settings_api_key_label">API விசை</string>
+    <string name="settings_sign_in_copy_api_key_from">உள்நுழைந்து இங்கிருந்து உங்கள் API விசையை நகலெடுக்கவும்</string>
+    <string name="settings_model_label">மாடல்</string>
+    <string name="clear_chat_content_description">அரட்டையை அழிக்கவும்</string>
+    <string name="toggle_speech_output_content_description">பேச்சு வெளியீட்டை மாற்றவும்</string>
+    <string name="settings_content_description">அமைப்புகள்</string>
+    <string name="bot_message_speech_content_description">பேச்சு</string>
+    <string name="bot_message_copy_content_description">நகலெடு</string>
+    <string name="bot_message_flag_content_description">உள்ளடக்கத்தைக் கொடியிடவும்</string>
+</resources>

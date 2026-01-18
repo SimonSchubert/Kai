@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Welkom bij Kai</string>
+    <string name="prompt_ask_question">Stel een vraag</string>
+    <string name="prompt_pick_media">Kies media</string>
+    <string name="gemini_model_2_5_flash_description">Beste model qua prijs-prestatie, met evenwichtige mogelijkheden</string>
+    <string name="gemini_model_2_5_flash_lite_description">Snelste Flash-model, geoptimaliseerd voor kostenefficiëntie en hoge doorvoer</string>
+    <string name="gemini_model_2_5_pro_description">State-of-the-art denkmodel dat complexe problemen kan beredeneren</string>
+    <string name="gemini_model_3_pro_preview_description">Beste model ter wereld voor multimodaal begrip</string>
+    <string name="gemini_model_3_flash_description">Beste model qua prijs-prestatie, met evenwichtige mogelijkheden</string>
+    <string name="error_gemini_rate_limit_exceeded">Fout: U hebt uw Gemini API-aanvraaglimiet overschreden. Probeer het later opnieuw of controleer uw quotum.</string>
+    <string name="error_gemini_invalid_api_key">Fout: Uw Gemini API-sleutel is ongeldig of ontbreekt. Controleer uw instellingen.</string>
+    <string name="error_gemini_unexpected">Er is een onverwachte fout opgetreden met het Gemini-verzoek. Probeer het opnieuw.</string>
+    <string name="error_invalid_api_key">Ongeldige API-sleutel. Controleer uw instellingen.</string>
+    <string name="error_rate_limit_exceeded">Aanvraaglimiet overschreden. Probeer het later opnieuw.</string>
+    <string name="error_generic">Er is een onverwachte fout opgetreden. Probeer het opnieuw.</string>
+    <string name="error_unknown">Er is een onbekende fout opgetreden.</string>
+    <string name="info_using_shared_key">U gebruikt een beperkte, gedeelde API-sleutel. Ga naar instellingen om uw eigen sleutel toe te voegen voor een betere ervaring.</string>
+    <string name="settings_ai_mistakes_warning">AI kan fouten maken, controleer opnieuw en deel geen gevoelige informatie.</string>
+    <string name="settings_version">Versie: %1$s</string>
+    <string name="settings_api_key_label">API-sleutel</string>
+    <string name="settings_sign_in_copy_api_key_from">Log in en kopieer uw API-sleutel van</string>
+    <string name="settings_model_label">Model</string>
+    <string name="clear_chat_content_description">Chat wissen</string>
+    <string name="toggle_speech_output_content_description">Spraakuitvoer in-/uitschakelen</string>
+    <string name="settings_content_description">Instellingen</string>
+    <string name="bot_message_speech_content_description">Spraak</string>
+    <string name="bot_message_copy_content_description">Kopiëren</string>
+    <string name="bot_message_flag_content_description">Inhoud markeren</string>
+</resources>

@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">欢迎使用 Kai</string>
+    <string name="prompt_ask_question">提问</string>
+    <string name="prompt_pick_media">选择媒体</string>
+    <string name="gemini_model_2_5_flash_description">性价比最高的模型，提供全面均衡的功能</string>
+    <string name="gemini_model_2_5_flash_lite_description">最快的 Flash 模型，针对成本效益和高吞吐量进行了优化</string>
+    <string name="gemini_model_2_5_pro_description">最先进的思维模型，能够推理复杂问题</string>
+    <string name="gemini_model_3_pro_preview_description">全球最佳多模态理解模型</string>
+    <string name="gemini_model_3_flash_description">性价比最高的模型，提供全面均衡的功能</string>
+    <string name="error_gemini_rate_limit_exceeded">错误：您已超出 Gemini API 请求限制。请稍后重试或检查您的配额。</string>
+    <string name="error_gemini_invalid_api_key">错误：您的 Gemini API 密钥无效或缺失。请检查您的设置。</string>
+    <string name="error_gemini_unexpected">Gemini 请求发生意外错误。请重试。</string>
+    <string name="error_invalid_api_key">API 密钥无效。请检查您的设置。</string>
+    <string name="error_rate_limit_exceeded">超出速率限制。请稍后重试。</string>
+    <string name="error_generic">发生意外错误。请重试。</string>
+    <string name="error_unknown">发生未知错误。</string>
+    <string name="info_using_shared_key">您正在使用有限的共享 API 密钥。请前往设置添加您自己的密钥以获得更好的体验。</string>
+    <string name="settings_ai_mistakes_warning">AI 可能会出错，请仔细核对，不要分享敏感信息。</string>
+    <string name="settings_version">版本：%1$s</string>
+    <string name="settings_api_key_label">API 密钥</string>
+    <string name="settings_sign_in_copy_api_key_from">登录并从以下位置复制您的 API 密钥</string>
+    <string name="settings_model_label">模型</string>
+    <string name="clear_chat_content_description">清除聊天</string>
+    <string name="toggle_speech_output_content_description">切换语音输出</string>
+    <string name="settings_content_description">设置</string>
+    <string name="bot_message_speech_content_description">语音</string>
+    <string name="bot_message_copy_content_description">复制</string>
+    <string name="bot_message_flag_content_description">标记内容</string>
+</resources>

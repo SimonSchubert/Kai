@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Witamy w Kai</string>
+    <string name="prompt_ask_question">Zadaj pytanie</string>
+    <string name="prompt_pick_media">Wybierz media</string>
+    <string name="gemini_model_2_5_flash_description">Najlepszy model pod względem ceny i wydajności, oferujący zrównoważone możliwości</string>
+    <string name="gemini_model_2_5_flash_lite_description">Najszybszy model Flash, zoptymalizowany pod kątem efektywności kosztowej i wysokiej przepustowości</string>
+    <string name="gemini_model_2_5_pro_description">Najnowocześniejszy model myślący, zdolny do rozumowania nad złożonymi problemami</string>
+    <string name="gemini_model_3_pro_preview_description">Najlepszy model na świecie do rozumienia multimodalnego</string>
+    <string name="gemini_model_3_flash_description">Najlepszy model pod względem ceny i wydajności, oferujący zrównoważone możliwości</string>
+    <string name="error_gemini_rate_limit_exceeded">Błąd: Przekroczono limit żądań API Gemini. Spróbuj ponownie później lub sprawdź swój limit.</string>
+    <string name="error_gemini_invalid_api_key">Błąd: Twój klucz API Gemini jest nieprawidłowy lub brakuje go. Sprawdź ustawienia.</string>
+    <string name="error_gemini_unexpected">Wystąpił nieoczekiwany błąd z żądaniem Gemini. Spróbuj ponownie.</string>
+    <string name="error_invalid_api_key">Nieprawidłowy klucz API. Sprawdź ustawienia.</string>
+    <string name="error_rate_limit_exceeded">Przekroczono limit żądań. Spróbuj ponownie później.</string>
+    <string name="error_generic">Wystąpił nieoczekiwany błąd. Spróbuj ponownie.</string>
+    <string name="error_unknown">Wystąpił nieznany błąd.</string>
+    <string name="info_using_shared_key">Używasz ograniczonego, współdzielonego klucza API. Przejdź do ustawień, aby dodać własny klucz dla lepszego doświadczenia.</string>
+    <string name="settings_ai_mistakes_warning">AI może popełniać błędy, sprawdzaj dwukrotnie i nie udostępniaj wrażliwych informacji.</string>
+    <string name="settings_version">Wersja: %1$s</string>
+    <string name="settings_api_key_label">Klucz API</string>
+    <string name="settings_sign_in_copy_api_key_from">Zaloguj się i skopiuj swój klucz API z</string>
+    <string name="settings_model_label">Model</string>
+    <string name="clear_chat_content_description">Wyczyść czat</string>
+    <string name="toggle_speech_output_content_description">Przełącz wyjście głosowe</string>
+    <string name="settings_content_description">Ustawienia</string>
+    <string name="bot_message_speech_content_description">Mowa</string>
+    <string name="bot_message_copy_content_description">Kopiuj</string>
+    <string name="bot_message_flag_content_description">Zgłoś treść</string>
+</resources>

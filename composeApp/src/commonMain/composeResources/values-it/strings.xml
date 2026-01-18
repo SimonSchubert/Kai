@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Benvenuto in Kai</string>
+    <string name="prompt_ask_question">Fai una domanda</string>
+    <string name="prompt_pick_media">Seleziona media</string>
+    <string name="gemini_model_2_5_flash_description">Il miglior modello in termini di rapporto qualità-prezzo, con capacità equilibrate</string>
+    <string name="gemini_model_2_5_flash_lite_description">Il modello Flash più veloce, ottimizzato per efficienza dei costi e alto throughput</string>
+    <string name="gemini_model_2_5_pro_description">Modello di ragionamento all\'avanguardia, capace di elaborare problemi complessi</string>
+    <string name="gemini_model_3_pro_preview_description">Il miglior modello al mondo per la comprensione multimodale</string>
+    <string name="gemini_model_3_flash_description">Il miglior modello in termini di rapporto qualità-prezzo, con capacità equilibrate</string>
+    <string name="error_gemini_rate_limit_exceeded">Errore: Hai superato il limite di richieste API Gemini. Riprova più tardi o controlla la tua quota.</string>
+    <string name="error_gemini_invalid_api_key">Errore: La tua chiave API Gemini non è valida o mancante. Controlla le impostazioni.</string>
+    <string name="error_gemini_unexpected">Si è verificato un errore imprevisto con la richiesta Gemini. Riprova.</string>
+    <string name="error_invalid_api_key">Chiave API non valida. Controlla le impostazioni.</string>
+    <string name="error_rate_limit_exceeded">Limite di richieste superato. Riprova più tardi.</string>
+    <string name="error_generic">Si è verificato un errore imprevisto. Riprova.</string>
+    <string name="error_unknown">Si è verificato un errore sconosciuto.</string>
+    <string name="info_using_shared_key">Stai usando una chiave API condivisa e limitata. Vai nelle impostazioni per aggiungere la tua chiave personale per un\'esperienza migliore.</string>
+    <string name="settings_ai_mistakes_warning">L\'IA può commettere errori, ricontrolla e non condividere informazioni sensibili.</string>
+    <string name="settings_version">Versione: %1$s</string>
+    <string name="settings_api_key_label">Chiave API</string>
+    <string name="settings_sign_in_copy_api_key_from">Accedi e copia la tua chiave API da</string>
+    <string name="settings_model_label">Modello</string>
+    <string name="clear_chat_content_description">Cancella chat</string>
+    <string name="toggle_speech_output_content_description">Attiva/disattiva output vocale</string>
+    <string name="settings_content_description">Impostazioni</string>
+    <string name="bot_message_speech_content_description">Voce</string>
+    <string name="bot_message_copy_content_description">Copia</string>
+    <string name="bot_message_flag_content_description">Segnala contenuto</string>
+</resources>

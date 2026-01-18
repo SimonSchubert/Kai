@@ -1,0 +1,29 @@
+<resources>
+    <string name="welcome_message">Kai میں خوش آمدید</string>
+    <string name="prompt_ask_question">سوال پوچھیں</string>
+    <string name="prompt_pick_media">میڈیا منتخب کریں</string>
+    <string name="gemini_model_2_5_flash_description">قیمت اور کارکردگی کے لحاظ سے بہترین ماڈل، متوازن صلاحیتیں فراہم کرتا ہے</string>
+    <string name="gemini_model_2_5_flash_lite_description">سب سے تیز فلیش ماڈل، لاگت کی کارکردگی اور زیادہ تھروپٹ کے لیے بہتر بنایا گیا</string>
+    <string name="gemini_model_2_5_pro_description">جدید ترین سوچ والا ماڈل، پیچیدہ مسائل پر استدلال کرنے کی صلاحیت رکھتا ہے</string>
+    <string name="gemini_model_3_pro_preview_description">ملٹی موڈل سمجھ کے لیے دنیا کا بہترین ماڈل</string>
+    <string name="gemini_model_3_flash_description">قیمت اور کارکردگی کے لحاظ سے بہترین ماڈل، متوازن صلاحیتیں فراہم کرتا ہے</string>
+    <string name="error_gemini_rate_limit_exceeded">خرابی: آپ نے اپنی Gemini API درخواست کی حد سے تجاوز کر لیا ہے۔ براہ کرم بعد میں دوبارہ کوشش کریں یا اپنا کوٹہ چیک کریں۔</string>
+    <string name="error_gemini_invalid_api_key">خرابی: آپ کی Gemini API کلید غلط یا غائب ہے۔ براہ کرم اپنی ترتیبات چیک کریں۔</string>
+    <string name="error_gemini_unexpected">Gemini درخواست میں غیر متوقع خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="error_invalid_api_key">غلط API کلید۔ براہ کرم اپنی ترتیبات چیک کریں۔</string>
+    <string name="error_rate_limit_exceeded">شرح کی حد سے تجاوز ہو گیا۔ براہ کرم بعد میں دوبارہ کوشش کریں۔</string>
+    <string name="error_generic">غیر متوقع خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="error_unknown">نامعلوم خرابی پیش آئی۔</string>
+    <string name="info_using_shared_key">آپ ایک محدود اور مشترکہ API کلید استعمال کر رہے ہیں۔ بہتر تجربے کے لیے براہ کرم ترتیبات میں جا کر اپنی کلید شامل کریں۔</string>
+    <string name="settings_ai_mistakes_warning">AI غلطیاں کر سکتا ہے، دوبارہ جانچ کریں اور حساس معلومات شیئر نہ کریں۔</string>
+    <string name="settings_version">ورژن: %1$s</string>
+    <string name="settings_api_key_label">API کلید</string>
+    <string name="settings_sign_in_copy_api_key_from">سائن ان کریں اور یہاں سے اپنی API کلید کاپی کریں</string>
+    <string name="settings_model_label">ماڈل</string>
+    <string name="clear_chat_content_description">چیٹ صاف کریں</string>
+    <string name="toggle_speech_output_content_description">آواز کی آؤٹ پٹ ٹوگل کریں</string>
+    <string name="settings_content_description">ترتیبات</string>
+    <string name="bot_message_speech_content_description">تقریر</string>
+    <string name="bot_message_copy_content_description">کاپی</string>
+    <string name="bot_message_flag_content_description">مواد کو نشان زد کریں</string>
+</resources>
