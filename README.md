@@ -8,6 +8,17 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 [![F-Droid](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/fdroid_badge.png)](https://f-droid.org/en/packages/com.inspiredandroid.kai/)
 [![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
+### Downloads
+
+| Platform | Format | Download |
+|----------|--------|----------|
+| Android | APK | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| macOS | DMG | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Windows | MSI | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Linux | DEB | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Linux | RPM | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+| Linux | AppImage | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
+
 ### Supported services and models:
 
 - Gemini 2.5 Flash, Gemini 3 Pro...

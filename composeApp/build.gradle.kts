@@ -176,7 +176,7 @@ compose.desktop {
         mainClass = "com.inspiredandroid.kai.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Rpm, TargetFormat.AppImage)
             packageName = "Kai"
             packageVersion = libs.versions.appVersion.get()
 
