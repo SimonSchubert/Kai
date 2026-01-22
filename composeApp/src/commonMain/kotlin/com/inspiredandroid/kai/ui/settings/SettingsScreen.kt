@@ -70,6 +70,7 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.outlineTextFieldColors
@@ -129,7 +130,7 @@ private fun TopBar(onNavigateBack: () -> Unit) {
             onClick = onNavigateBack,
         ) {
             Icon(
-                imageVector = vectorResource(Res.drawable.ic_arrow_back),
+                imageVector = BackIcon,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onBackground,
             )

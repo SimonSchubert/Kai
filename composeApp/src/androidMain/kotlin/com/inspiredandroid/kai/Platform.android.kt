@@ -2,7 +2,10 @@ package com.inspiredandroid.kai
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.core.net.toUri
 import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
@@ -25,3 +28,5 @@ actual fun openUrl(url: String) {
 }
 
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = null
+
+actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack

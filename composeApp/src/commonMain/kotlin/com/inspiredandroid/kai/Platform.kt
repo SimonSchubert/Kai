@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai
 
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -13,3 +14,5 @@ expect fun getBackgroundDispatcher(): CoroutineContext
 expect fun openUrl(url: String)
 
 expect fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile?
+
+expect val BackIcon: ImageVector
