@@ -222,7 +222,9 @@ private fun FreeSettings() {
                 onClick = {
                     uriHandler.openUri("https://github.com/sponsors/SimonSchubert")
                 },
-                Modifier.align(CenterHorizontally),
+                Modifier
+                    .align(CenterHorizontally)
+                    .pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Icon(Icons.Default.Favorite, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
@@ -249,7 +251,8 @@ private fun FreeSettings() {
                 onClick = {
                     uriHandler.openUri("https://schubert-simon.de")
                 },
-                contentPadding = PaddingValues(0.dp),
+                Modifier
+                    .pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Text(stringResource(Res.string.settings_contact_sponsorship))
             }
