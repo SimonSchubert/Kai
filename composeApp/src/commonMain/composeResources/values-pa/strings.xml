@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">ਬੋਲੀ</string>
     <string name="bot_message_copy_content_description">ਕਾਪੀ</string>
     <string name="bot_message_flag_content_description">ਸਮੱਗਰੀ ਫਲੈਗ ਕਰੋ</string>
+    <string name="settings_free_tier_title">ਮੁਫ਼ਤ ਪੱਧਰ</string>
+    <string name="settings_free_tier_description">ਜਿਵੇਂ-ਜਿਵੇਂ ਉਪਭੋਗਤਾ ਅਧਾਰ ਵਧਦਾ ਹੈ, ਸਪਾਂਸਰਸ਼ਿਪ ਬੁਨਿਆਦੀ ਢਾਂਚੇ ਨੂੰ ਵਧਾਉਣ, ਸਭ ਲਈ ਦਰ ਸੀਮਾਵਾਂ ਵਧਾਉਣ ਅਤੇ ਵਿਕਾਸ ਨੂੰ ਸਰਗਰਮ ਰੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ।</string>
+    <string name="settings_become_sponsor">GitHub ਸਪਾਂਸਰ ਬਣੋ</string>
+    <string name="settings_business_partnerships">ਵਪਾਰਕ ਭਾਈਵਾਲੀ</string>
+    <string name="settings_business_partnerships_description">ਆਪਣੀ ਕੰਪਨੀ ਦਾ ਲੋਗੋ ਦਿਖਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਰਣਨੀਤਕ ਭਾਈਵਾਲੀ ਬਾਰੇ ਚਰਚਾ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
+    <string name="settings_contact_sponsorship">ਰਣਨੀਤਕ ਸਪਾਂਸਰਸ਼ਿਪ ਲਈ ਸੰਪਰਕ ਕਰੋ</string>
 </resources>

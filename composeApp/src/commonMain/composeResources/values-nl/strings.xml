@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Spraak</string>
     <string name="bot_message_copy_content_description">Kopiëren</string>
     <string name="bot_message_flag_content_description">Inhoud markeren</string>
+    <string name="settings_free_tier_title">Gratis Niveau</string>
+    <string name="settings_free_tier_description">Naarmate het gebruikersbestand groeit, helpt sponsoring om de infrastructuur op te schalen, de aanvraaglimieten voor iedereen te verhogen en de ontwikkeling actief te houden.</string>
+    <string name="settings_become_sponsor">Word een GitHub-sponsor</string>
+    <string name="settings_business_partnerships">Zakelijke Partnerschappen</string>
+    <string name="settings_business_partnerships_description">Wilt u uw bedrijfslogo tonen of een strategisch partnerschap bespreken?</string>
+    <string name="settings_contact_sponsorship">Contact voor strategische sponsoring</string>
 </resources>

@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">صوت</string>
     <string name="bot_message_copy_content_description">نسخ</string>
     <string name="bot_message_flag_content_description">الإبلاغ عن المحتوى</string>
+    <string name="settings_free_tier_title">الباقة المجانية</string>
+    <string name="settings_free_tier_description">مع نمو قاعدة المستخدمين، يساعد الرعاية في توسيع البنية التحتية وزيادة حدود الطلبات للجميع والحفاظ على نشاط التطوير.</string>
+    <string name="settings_become_sponsor">كن راعياً على GitHub</string>
+    <string name="settings_business_partnerships">شراكات الأعمال</string>
+    <string name="settings_business_partnerships_description">هل ترغب في عرض شعار شركتك أو مناقشة شراكة استراتيجية؟</string>
+    <string name="settings_contact_sponsorship">تواصل للرعاية الاستراتيجية</string>
 </resources>

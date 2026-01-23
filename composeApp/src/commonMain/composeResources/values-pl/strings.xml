@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Mowa</string>
     <string name="bot_message_copy_content_description">Kopiuj</string>
     <string name="bot_message_flag_content_description">Zgłoś treść</string>
+    <string name="settings_free_tier_title">Poziom Darmowy</string>
+    <string name="settings_free_tier_description">Wraz ze wzrostem bazy użytkowników, sponsoring pomaga skalować infrastrukturę, zwiększać limity żądań dla wszystkich i utrzymywać aktywny rozwój.</string>
+    <string name="settings_become_sponsor">Zostań sponsorem GitHub</string>
+    <string name="settings_business_partnerships">Partnerstwa Biznesowe</string>
+    <string name="settings_business_partnerships_description">Chcesz wyświetlić logo swojej firmy lub omówić partnerstwo strategiczne?</string>
+    <string name="settings_contact_sponsorship">Kontakt w sprawie sponsoringu strategicznego</string>
 </resources>

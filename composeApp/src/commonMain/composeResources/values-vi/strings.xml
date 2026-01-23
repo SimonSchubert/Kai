@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Giọng nói</string>
     <string name="bot_message_copy_content_description">Sao chép</string>
     <string name="bot_message_flag_content_description">Gắn cờ nội dung</string>
+    <string name="settings_free_tier_title">Gói Miễn Phí</string>
+    <string name="settings_free_tier_description">Khi cơ sở người dùng phát triển, tài trợ giúp mở rộng cơ sở hạ tầng, tăng giới hạn yêu cầu cho tất cả mọi người và duy trì hoạt động phát triển.</string>
+    <string name="settings_become_sponsor">Trở thành Nhà tài trợ GitHub</string>
+    <string name="settings_business_partnerships">Quan hệ Đối tác Kinh doanh</string>
+    <string name="settings_business_partnerships_description">Bạn muốn hiển thị logo công ty hoặc thảo luận về quan hệ đối tác chiến lược?</string>
+    <string name="settings_contact_sponsorship">Liên hệ Tài trợ Chiến lược</string>
 </resources>

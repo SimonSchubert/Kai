@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Hotuba</string>
     <string name="bot_message_copy_content_description">Nakili</string>
     <string name="bot_message_flag_content_description">Weka alama maudhui</string>
+    <string name="settings_free_tier_title">Kiwango cha Bure</string>
+    <string name="settings_free_tier_description">Kadri msingi wa watumiaji unavyokua, udhamini husaidia kupanua miundombinu, kuongeza vikomo vya maombi kwa kila mtu, na kuweka maendeleo yakiendelea.</string>
+    <string name="settings_become_sponsor">Kuwa Mdhamini wa GitHub</string>
+    <string name="settings_business_partnerships">Ushirikiano wa Biashara</string>
+    <string name="settings_business_partnerships_description">Ungependa kuonyesha nembo ya kampuni yako au kujadili ushirikiano wa kimkakati?</string>
+    <string name="settings_contact_sponsorship">Wasiliana kwa Udhamini wa Kimkakati</string>
 </resources>

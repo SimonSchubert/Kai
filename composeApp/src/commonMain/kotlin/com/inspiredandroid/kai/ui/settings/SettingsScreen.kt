@@ -29,9 +29,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +45,7 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -81,6 +86,12 @@ import kai.composeapp.generated.resources.ic_arrow_back
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
+import kai.composeapp.generated.resources.settings_become_sponsor
+import kai.composeapp.generated.resources.settings_business_partnerships
+import kai.composeapp.generated.resources.settings_business_partnerships_description
+import kai.composeapp.generated.resources.settings_contact_sponsorship
+import kai.composeapp.generated.resources.settings_free_tier_description
+import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_version
@@ -107,10 +118,16 @@ fun SettingsScreen(
         ) {
             Spacer(Modifier.height(16.dp))
 
-            if (uiState.services.find { it.isSelected }?.id == Value.SERVICE_GROQ) {
-                GroqSettings(uiState)
-            } else {
-                GeminiSettings(uiState)
+            when (uiState.services.find { it.isSelected }?.id) {
+                Value.SERVICE_FREE -> {
+                    FreeSettings()
+                }
+                Value.SERVICE_GEMINI -> {
+                    GeminiSettings(uiState)
+                }
+                Value.SERVICE_GROQ -> {
+                    GroqSettings(uiState)
+                }
             }
 
             Spacer(Modifier.height(16.dp))
@@ -176,6 +193,71 @@ private fun BottomInfo() {
 }
 
 @Composable
+private fun FreeSettings() {
+    Card(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        ),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(Res.string.settings_free_tier_title),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+            )
+
+            Spacer(Modifier.height(6.dp))
+
+            Text(
+                text = stringResource(Res.string.settings_free_tier_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+
+            Spacer(Modifier.height(12.dp))
+
+            val uriHandler = LocalUriHandler.current
+            Button(
+                onClick = {
+                    uriHandler.openUri("https://github.com/sponsors/SimonSchubert")
+                },
+                Modifier.align(CenterHorizontally),
+            ) {
+                Icon(Icons.Default.Favorite, contentDescription = null)
+                Spacer(Modifier.width(8.dp))
+                Text(stringResource(Res.string.settings_become_sponsor))
+            }
+
+            Spacer(Modifier.height(16.dp))
+            HorizontalDivider(thickness = 0.5.dp)
+            Spacer(Modifier.height(16.dp))
+
+            Text(
+                text = stringResource(Res.string.settings_business_partnerships),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Spacer(Modifier.height(6.dp))
+            Text(
+                text = stringResource(Res.string.settings_business_partnerships_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+
+            TextButton(
+                onClick = {
+                    uriHandler.openUri("https://schubert-simon.de")
+                },
+                contentPadding = PaddingValues(0.dp),
+            ) {
+                Text(stringResource(Res.string.settings_contact_sponsorship))
+            }
+        }
+    }
+}
+
+@Composable
 private fun GeminiSettings(uiState: SettingsUiState) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
@@ -192,13 +274,15 @@ private fun GeminiSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(8.dp))
 
+    val linkColor = MaterialTheme.colorScheme.primary
+
     val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
     val annotatedString = remember {
         buildAnnotatedString {
             append(copyApiKeyPromptString)
             append(" ")
             withLink(LinkAnnotation.Url(url = "https://aistudio.google.com/apikey")) {
-                withStyle(style = SpanStyle(color = Color.Blue)) {
+                withStyle(style = SpanStyle(color = linkColor)) {
                     append("aistudio.google.com/apikey")
                 }
             }
@@ -231,13 +315,14 @@ private fun GroqSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(8.dp))
 
+    val linkColor = MaterialTheme.colorScheme.primary
     val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
     val annotatedString = remember {
         buildAnnotatedString {
             append(copyApiKeyPromptString)
             append(" ")
             withLink(LinkAnnotation.Url(url = "https://console.groq.com/keys")) {
-                withStyle(style = SpanStyle(color = Color.Blue)) {
+                withStyle(style = SpanStyle(color = linkColor)) {
                     append("console.groq.com/keys")
                 }
             }

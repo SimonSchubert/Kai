@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">பேச்சு</string>
     <string name="bot_message_copy_content_description">நகலெடு</string>
     <string name="bot_message_flag_content_description">உள்ளடக்கத்தைக் கொடியிடவும்</string>
+    <string name="settings_free_tier_title">இலவச நிலை</string>
+    <string name="settings_free_tier_description">பயனர் தளம் வளரும்போது, நிதியுதவி உள்கட்டமைப்பை விரிவாக்க, அனைவருக்கும் வீத வரம்புகளை அதிகரிக்க, மற்றும் மேம்பாட்டை செயலில் வைத்திருக்க உதவுகிறது.</string>
+    <string name="settings_become_sponsor">GitHub ஆதரவாளராக மாறுங்கள்</string>
+    <string name="settings_business_partnerships">வணிக கூட்டாண்மைகள்</string>
+    <string name="settings_business_partnerships_description">உங்கள் நிறுவன லோகோவைக் காட்ட விரும்புகிறீர்களா அல்லது மூலோபாய கூட்டாண்மை பற்றி விவாதிக்க விரும்புகிறீர்களா?</string>
+    <string name="settings_contact_sponsorship">மூலோபாய நிதியுதவிக்கு தொடர்பு கொள்ளவும்</string>
 </resources>

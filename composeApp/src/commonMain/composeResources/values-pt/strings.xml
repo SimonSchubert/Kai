@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Fala</string>
     <string name="bot_message_copy_content_description">Copiar</string>
     <string name="bot_message_flag_content_description">Sinalizar conteúdo</string>
+    <string name="settings_free_tier_title">Nível Gratuito</string>
+    <string name="settings_free_tier_description">À medida que a base de usuários cresce, o patrocínio ajuda a escalar a infraestrutura, aumentar os limites de requisições para todos e manter o desenvolvimento ativo.</string>
+    <string name="settings_become_sponsor">Torne-se um patrocinador do GitHub</string>
+    <string name="settings_business_partnerships">Parcerias Empresariais</string>
+    <string name="settings_business_partnerships_description">Quer exibir o logo da sua empresa ou discutir uma parceria estratégica?</string>
+    <string name="settings_contact_sponsorship">Contato para patrocínio estratégico</string>
 </resources>

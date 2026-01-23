@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">స్పీచ్</string>
     <string name="bot_message_copy_content_description">కాపీ</string>
     <string name="bot_message_flag_content_description">కంటెంట్‌ను ఫ్లాగ్ చేయండి</string>
+    <string name="settings_free_tier_title">ఉచిత స్థాయి</string>
+    <string name="settings_free_tier_description">వినియోగదారు బేస్ పెరుగుతున్నప్పుడు, స్పాన్సర్‌షిప్ మౌలిక సదుపాయాలను పెంచడానికి, అందరికీ రేట్ పరిమితులను పెంచడానికి మరియు అభివృద్ధిని చురుగ్గా ఉంచడానికి సహాయపడుతుంది.</string>
+    <string name="settings_become_sponsor">GitHub స్పాన్సర్ అవ్వండి</string>
+    <string name="settings_business_partnerships">వ్యాపార భాగస్వామ్యాలు</string>
+    <string name="settings_business_partnerships_description">మీ కంపెనీ లోగోను ప్రదర్శించాలనుకుంటున్నారా లేదా వ్యూహాత్మక భాగస్వామ్యం గురించి చర్చించాలనుకుంటున్నారా?</string>
+    <string name="settings_contact_sponsorship">వ్యూహాత్మక స్పాన్సర్‌షిప్ కోసం సంప్రదించండి</string>
 </resources>

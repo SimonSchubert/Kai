@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">સ્પીચ</string>
     <string name="bot_message_copy_content_description">કૉપિ</string>
     <string name="bot_message_flag_content_description">સામગ્રી ફ્લેગ કરો</string>
+    <string name="settings_free_tier_title">મફત સ્તર</string>
+    <string name="settings_free_tier_description">વપરાશકર્તા આધાર વધવાની સાથે, પ્રાયોજકતા ઈન્ફ્રાસ્ટ્રક્ચરને સ્કેલ કરવામાં, બધા માટે રેટ લિમિટ્સ વધારવામાં અને વિકાસને સક્રિય રાખવામાં મદદ કરે છે.</string>
+    <string name="settings_become_sponsor">GitHub સ્પોન્સર બનો</string>
+    <string name="settings_business_partnerships">વ્યવસાયિક ભાગીદારી</string>
+    <string name="settings_business_partnerships_description">તમારી કંપનીનો લોગો પ્રદર્શિત કરવા અથવા વ્યૂહાત્મક ભાગીદારીની ચર્ચા કરવા માંગો છો?</string>
+    <string name="settings_contact_sponsorship">વ્યૂહાત્મક પ્રાયોજકતા માટે સંપર્ક કરો</string>
 </resources>

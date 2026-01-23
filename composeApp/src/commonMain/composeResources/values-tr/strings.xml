@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Konuşma</string>
     <string name="bot_message_copy_content_description">Kopyala</string>
     <string name="bot_message_flag_content_description">İçeriği işaretle</string>
+    <string name="settings_free_tier_title">Ücretsiz Katman</string>
+    <string name="settings_free_tier_description">Kullanıcı tabanı büyüdükçe, sponsorluk altyapıyı ölçeklendirmeye, herkes için istek limitlerini artırmaya ve geliştirmeyi aktif tutmaya yardımcı olur.</string>
+    <string name="settings_become_sponsor">GitHub Sponsoru Olun</string>
+    <string name="settings_business_partnerships">İş Ortaklıkları</string>
+    <string name="settings_business_partnerships_description">Şirketinizin logosunu göstermek veya stratejik bir ortaklık görüşmek ister misiniz?</string>
+    <string name="settings_contact_sponsorship">Stratejik Sponsorluk için İletişime Geçin</string>
 </resources>

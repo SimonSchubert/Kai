@@ -8,6 +8,5 @@ internal object NetworkConstants {
     const val GROQ_CHAT_COMPLETIONS_PATH = "chat/completions"
     const val GROQ_MODELS_PATH = "models"
 
-    const val PROXY_BASE_URL = "https://proxy-api-amber.vercel.app/"
-    const val PROXY_CHAT_PATH = "chat"
+    const val PROXY_BASE_URL = "https://proxy-api-amber.vercel.app/chat"
 }

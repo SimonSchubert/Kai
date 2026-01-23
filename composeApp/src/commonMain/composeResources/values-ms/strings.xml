@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Pertuturan</string>
     <string name="bot_message_copy_content_description">Salin</string>
     <string name="bot_message_flag_content_description">Tandai kandungan</string>
+    <string name="settings_free_tier_title">Peringkat Percuma</string>
+    <string name="settings_free_tier_description">Apabila pangkalan pengguna berkembang, penajaan membantu meningkatkan infrastruktur, menambah had kadar untuk semua orang, dan mengekalkan pembangunan aktif.</string>
+    <string name="settings_become_sponsor">Jadilah Penaja GitHub</string>
+    <string name="settings_business_partnerships">Perkongsian Perniagaan</string>
+    <string name="settings_business_partnerships_description">Ingin memaparkan logo syarikat anda atau membincangkan perkongsian strategik?</string>
+    <string name="settings_contact_sponsorship">Hubungi untuk Penajaan Strategik</string>
 </resources>

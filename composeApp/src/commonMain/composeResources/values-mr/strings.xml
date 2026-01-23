@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">स्पीच</string>
     <string name="bot_message_copy_content_description">कॉपी</string>
     <string name="bot_message_flag_content_description">सामग्री फ्लॅग करा</string>
+    <string name="settings_free_tier_title">मोफत स्तर</string>
+    <string name="settings_free_tier_description">वापरकर्त्यांची संख्या वाढत असताना, प्रायोजकत्व पायाभूत सुविधा वाढवण्यात, सर्वांसाठी दर मर्यादा वाढवण्यात आणि विकास सक्रिय ठेवण्यात मदत करते.</string>
+    <string name="settings_become_sponsor">GitHub प्रायोजक व्हा</string>
+    <string name="settings_business_partnerships">व्यावसायिक भागीदारी</string>
+    <string name="settings_business_partnerships_description">तुमच्या कंपनीचा लोगो प्रदर्शित करायचा आहे किंवा धोरणात्मक भागीदारीवर चर्चा करायची आहे?</string>
+    <string name="settings_contact_sponsorship">धोरणात्मक प्रायोजकत्वासाठी संपर्क साधा</string>
 </resources>

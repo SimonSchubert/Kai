@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">স্পিচ</string>
     <string name="bot_message_copy_content_description">কপি</string>
     <string name="bot_message_flag_content_description">কন্টেন্ট ফ্ল্যাগ করুন</string>
+    <string name="settings_free_tier_title">বিনামূল্যে স্তর</string>
+    <string name="settings_free_tier_description">ব্যবহারকারী বাড়ার সাথে সাথে, স্পনসরশিপ অবকাঠামো স্কেল করতে, সবার জন্য রেট লিমিট বাড়াতে এবং উন্নয়ন সক্রিয় রাখতে সাহায্য করে।</string>
+    <string name="settings_become_sponsor">GitHub স্পনসর হন</string>
+    <string name="settings_business_partnerships">ব্যবসায়িক অংশীদারিত্ব</string>
+    <string name="settings_business_partnerships_description">আপনার কোম্পানির লোগো প্রদর্শন করতে বা কৌশলগত অংশীদারিত্ব নিয়ে আলোচনা করতে চান?</string>
+    <string name="settings_contact_sponsorship">কৌশলগত স্পনসরশিপের জন্য যোগাযোগ করুন</string>
 </resources>

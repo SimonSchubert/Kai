@@ -2,11 +2,12 @@ package com.inspiredandroid.kai
 
 class Value {
     companion object {
-        const val DEFAULT_SERVICE = "gemini"
+        const val DEFAULT_SERVICE = "free"
         const val DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
         const val SERVICE_GROQ = "groqcloud"
-        const val DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
+        const val DEFAULT_GEMINI_MODEL = "gemini-3-pro-preview"
         const val SERVICE_GEMINI = "gemini"
+        const val SERVICE_FREE = "free"
     }
 }
 

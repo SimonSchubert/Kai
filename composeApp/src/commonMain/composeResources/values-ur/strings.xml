@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">تقریر</string>
     <string name="bot_message_copy_content_description">کاپی</string>
     <string name="bot_message_flag_content_description">مواد کو نشان زد کریں</string>
+    <string name="settings_free_tier_title">مفت درجہ</string>
+    <string name="settings_free_tier_description">جیسے جیسے صارفین کی تعداد بڑھتی ہے، سرپرستی بنیادی ڈھانچے کو بڑھانے، سب کے لیے شرح کی حدود بڑھانے اور ترقی کو فعال رکھنے میں مدد کرتی ہے۔</string>
+    <string name="settings_become_sponsor">GitHub سرپرست بنیں</string>
+    <string name="settings_business_partnerships">کاروباری شراکت داری</string>
+    <string name="settings_business_partnerships_description">اپنی کمپنی کا لوگو دکھانا چاہتے ہیں یا اسٹریٹجک شراکت داری پر بات کرنا چاہتے ہیں؟</string>
+    <string name="settings_contact_sponsorship">اسٹریٹجک سرپرستی کے لیے رابطہ کریں</string>
 </resources>

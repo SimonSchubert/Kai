@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Speech</string>
     <string name="bot_message_copy_content_description">Copy</string>
     <string name="bot_message_flag_content_description">Flag content</string>
+    <string name="settings_free_tier_title">Free Tier</string>
+    <string name="settings_free_tier_description">As the user base grows, sponsorship helps to scale infrastructure, increase rate limits for everyone, and keep development active.</string>
+    <string name="settings_become_sponsor">Become a GitHub Sponsor</string>
+    <string name="settings_business_partnerships">Business Partnerships</string>
+    <string name="settings_business_partnerships_description">Want to feature your company logo or discuss a strategic partnership?</string>
+    <string name="settings_contact_sponsorship">Contact for Strategic Sponsorship</string>
 </resources>

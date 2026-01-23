@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Речь</string>
     <string name="bot_message_copy_content_description">Копировать</string>
     <string name="bot_message_flag_content_description">Отметить контент</string>
+    <string name="settings_free_tier_title">Бесплатный уровень</string>
+    <string name="settings_free_tier_description">По мере роста базы пользователей спонсорство помогает масштабировать инфраструктуру, увеличивать лимиты запросов для всех и поддерживать активную разработку.</string>
+    <string name="settings_become_sponsor">Стать спонсором GitHub</string>
+    <string name="settings_business_partnerships">Бизнес-партнёрство</string>
+    <string name="settings_business_partnerships_description">Хотите разместить логотип своей компании или обсудить стратегическое партнёрство?</string>
+    <string name="settings_contact_sponsorship">Связаться для стратегического спонсорства</string>
 </resources>

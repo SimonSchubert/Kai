@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">Voix</string>
     <string name="bot_message_copy_content_description">Copier</string>
     <string name="bot_message_flag_content_description">Signaler le contenu</string>
+    <string name="settings_free_tier_title">Niveau Gratuit</string>
+    <string name="settings_free_tier_description">À mesure que la base d\'utilisateurs grandit, le parrainage aide à mettre à l\'échelle l\'infrastructure, à augmenter les limites de requêtes pour tous et à maintenir le développement actif.</string>
+    <string name="settings_become_sponsor">Devenir sponsor GitHub</string>
+    <string name="settings_business_partnerships">Partenariats Commerciaux</string>
+    <string name="settings_business_partnerships_description">Vous souhaitez afficher le logo de votre entreprise ou discuter d\'un partenariat stratégique ?</string>
+    <string name="settings_contact_sponsorship">Contact pour parrainage stratégique</string>
 </resources>

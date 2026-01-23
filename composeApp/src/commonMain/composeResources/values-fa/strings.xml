@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">گفتار</string>
     <string name="bot_message_copy_content_description">کپی</string>
     <string name="bot_message_flag_content_description">پرچم‌گذاری محتوا</string>
+    <string name="settings_free_tier_title">سطح رایگان</string>
+    <string name="settings_free_tier_description">با رشد پایگاه کاربران، حمایت مالی به مقیاس‌پذیری زیرساخت، افزایش محدودیت‌های نرخ برای همه و فعال نگه داشتن توسعه کمک می‌کند.</string>
+    <string name="settings_become_sponsor">حامی GitHub شوید</string>
+    <string name="settings_business_partnerships">شراکت‌های تجاری</string>
+    <string name="settings_business_partnerships_description">می‌خواهید لوگوی شرکت خود را نمایش دهید یا درباره یک شراکت استراتژیک گفتگو کنید؟</string>
+    <string name="settings_contact_sponsorship">تماس برای حمایت استراتژیک</string>
 </resources>

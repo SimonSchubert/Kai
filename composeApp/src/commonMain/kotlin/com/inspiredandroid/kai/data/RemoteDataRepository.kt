@@ -103,6 +103,7 @@ class RemoteDataRepository(
         val currentServiceId = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
         services.update {
             listOf(
+                Service(Value.SERVICE_FREE, "Free"),
                 Service(Value.SERVICE_GEMINI, "Gemini"),
                 Service(Value.SERVICE_GROQ, "GroqCloud"),
             ).map { it.copy(isSelected = it.id == currentServiceId) }
@@ -169,26 +170,30 @@ class RemoteDataRepository(
             }
         }
         val currentService = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
-        val groqApiKey = settings.getStringOrNull(Key.GROQ_API_KEY)
-        val geminiApiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
 
-        val useGroq = currentService == Value.SERVICE_GROQ || geminiApiKey.isNullOrBlank()
         val messages = chatHistory.value
 
-        val responseText = if (useGroq) {
-            val groqMessages = messages.map { it.toGroqMessageDto() }
-            val response = if (groqApiKey.isNullOrBlank()) {
-                requests.groqChatFree(messages = groqMessages)
-            } else {
-                requests.groqChat(messages = groqMessages)
-            }.getOrThrow()
-            response.choices.firstOrNull()?.message?.content ?: ""
-        } else {
-            val geminiMessages = messages.map { it.toGeminiMessageDto() }
-            val response = requests.geminiChat(geminiMessages).getOrThrow()
-            response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                part.text ?: ""
-            } ?: ""
+        val responseText = when (currentService) {
+            Value.SERVICE_FREE -> {
+                val freeMessages = messages.map { it.toGroqMessageDto() }
+                val response = requests.freeChat(messages = freeMessages).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
+            }
+            Value.SERVICE_GROQ -> {
+                val groqMessages = messages.map { it.toGroqMessageDto() }
+                val response = requests.groqChat(messages = groqMessages).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
+            }
+            Value.SERVICE_GEMINI -> {
+                val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                val response = requests.geminiChat(geminiMessages).getOrThrow()
+                response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                    part.text ?: ""
+                } ?: ""
+            }
+            else -> {
+                ""
+            }
         }
 
         chatHistory.update {

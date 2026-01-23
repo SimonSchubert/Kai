@@ -10,7 +10,6 @@ import com.inspiredandroid.kai.network.NetworkConstants.GROQ_BASE_URL
 import com.inspiredandroid.kai.network.NetworkConstants.GROQ_CHAT_COMPLETIONS_PATH
 import com.inspiredandroid.kai.network.NetworkConstants.GROQ_MODELS_PATH
 import com.inspiredandroid.kai.network.NetworkConstants.PROXY_BASE_URL
-import com.inspiredandroid.kai.network.NetworkConstants.PROXY_CHAT_PATH
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
@@ -40,6 +39,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.seconds
 
@@ -70,7 +70,7 @@ class Requests(private val settings: Settings) {
         }
     }
 
-    private val geminiClient = httpClient {
+    private val defaultClient = httpClient {
         commonConfig()
     }
 
@@ -105,7 +105,7 @@ class Requests(private val settings: Settings) {
         val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
 
         val response: HttpResponse =
-            geminiClient.post("$GEMINI_BASE_URL$selectedModelId$GEMINI_GENERATE_CONTENT_PATH?key=$apiKey") {
+            defaultClient.post("$GEMINI_BASE_URL$selectedModelId$GEMINI_GENERATE_CONTENT_PATH?key=$apiKey") {
                 contentType(ContentType.Application.Json)
                 setBody(
                     GeminiChatRequestDto(
@@ -133,24 +133,34 @@ class Requests(private val settings: Settings) {
         Result.failure(e)
     }
 
-    suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> {
-        val selectedModelId = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
-        return groqChatShared(
-            url = "$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH",
-            model = selectedModelId,
-            messages = messages,
-        )
+    suspend fun freeChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+        val response: HttpResponse =
+            defaultClient.post(PROXY_BASE_URL) {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    GroqChatRequestDto(
+                        messages = messages,
+                        model = "",
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw GroqInvalidApiKeyException()
+                429 -> throw GroqRateLimitExceededException()
+                else -> throw Exception()
+            }
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
     }
 
-    suspend fun groqChatFree(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = groqChatShared(
-        url = "$PROXY_BASE_URL$PROXY_CHAT_PATH",
-        model = Value.DEFAULT_GROQ_MODEL,
-        messages = messages,
-    )
-
-    private suspend fun groqChatShared(url: String, model: String, messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+    suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+        val model = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
         val response: HttpResponse =
-            groqClient.post(url) {
+            groqClient.post("$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH") {
                 contentType(ContentType.Application.Json)
                 setBody(
                     GroqChatRequestDto(

@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">語音</string>
     <string name="bot_message_copy_content_description">複製</string>
     <string name="bot_message_flag_content_description">標記內容</string>
+    <string name="settings_free_tier_title">免費版</string>
+    <string name="settings_free_tier_description">隨著使用者群的成長，贊助有助於擴展基礎設施、提高所有人的請求限制並保持開發活躍。</string>
+    <string name="settings_become_sponsor">成為 GitHub 贊助者</string>
+    <string name="settings_business_partnerships">商業合作</string>
+    <string name="settings_business_partnerships_description">想展示您的公司標誌或討論策略合作夥伴關係？</string>
+    <string name="settings_contact_sponsorship">聯繫策略贊助</string>
 </resources>

@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">음성</string>
     <string name="bot_message_copy_content_description">복사</string>
     <string name="bot_message_flag_content_description">콘텐츠 신고</string>
+    <string name="settings_free_tier_title">무료 티어</string>
+    <string name="settings_free_tier_description">사용자 기반이 성장함에 따라 후원은 인프라 확장, 모든 사용자의 요청 한도 증가, 개발 활동 유지에 도움이 됩니다.</string>
+    <string name="settings_become_sponsor">GitHub 스폰서 되기</string>
+    <string name="settings_business_partnerships">비즈니스 파트너십</string>
+    <string name="settings_business_partnerships_description">회사 로고를 표시하거나 전략적 파트너십에 대해 논의하고 싶으신가요?</string>
+    <string name="settings_contact_sponsorship">전략적 후원 문의</string>
 </resources>

@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile

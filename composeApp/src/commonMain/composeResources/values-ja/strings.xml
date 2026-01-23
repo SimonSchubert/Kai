@@ -26,4 +26,10 @@
     <string name="bot_message_speech_content_description">音声</string>
     <string name="bot_message_copy_content_description">コピー</string>
     <string name="bot_message_flag_content_description">コンテンツを報告</string>
+    <string name="settings_free_tier_title">無料プラン</string>
+    <string name="settings_free_tier_description">ユーザー数の増加に伴い、スポンサーシップはインフラの拡張、全員のレート制限の引き上げ、開発の継続に役立ちます。</string>
+    <string name="settings_become_sponsor">GitHubスポンサーになる</string>
+    <string name="settings_business_partnerships">ビジネスパートナーシップ</string>
+    <string name="settings_business_partnerships_description">会社のロゴを掲載したい、または戦略的パートナーシップについて相談したいですか？</string>
+    <string name="settings_contact_sponsorship">戦略的スポンサーシップのお問い合わせ</string>
 </resources>
