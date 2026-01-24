@@ -3,6 +3,7 @@ package com.inspiredandroid.kai
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -12,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.russhwolf.settings.Settings
@@ -40,8 +40,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             val isDarkTheme = isSystemInDarkTheme()
             LaunchedEffect(isDarkTheme) {
-                WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
-                    !isDarkTheme
+                enableEdgeToEdge(
+                    statusBarStyle = if (isDarkTheme) {
+                        SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+                    } else {
+                        SystemBarStyle.light(
+                            android.graphics.Color.TRANSPARENT,
+                            android.graphics.Color.TRANSPARENT,
+                        )
+                    },
+                    navigationBarStyle = if (isDarkTheme) {
+                        SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
+                    } else {
+                        SystemBarStyle.light(
+                            android.graphics.Color.TRANSPARENT,
+                            android.graphics.Color.TRANSPARENT,
+                        )
+                    },
+                )
             }
             val colorScheme = when {
                 dynamicColor && isDarkTheme -> dynamicDarkColorScheme(LocalContext.current)
