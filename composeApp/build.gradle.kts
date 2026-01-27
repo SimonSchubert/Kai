@@ -199,6 +199,9 @@ compose.desktop {
 class VersionGeneratorPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.afterEvaluate {
+            val appVersion = libs.versions.appVersion.get()
+
+            // Generate Kotlin version file
             val versionFile =
                 layout.buildDirectory
                     .file("generated/src/commonMain/kotlin/com/inspiredandroid/kai/Version.kt")
@@ -210,10 +213,23 @@ class VersionGeneratorPlugin : Plugin<Project> {
                 package com.inspiredandroid.kai
 
                 object Version {
-                    const val appVersion = "${libs.versions.appVersion.get()}"
+                    const val appVersion = "$appVersion"
                 }
                 """.trimIndent(),
             )
+
+            // Update iOS Config.xcconfig with version
+            val xcConfigFile = rootProject.file("iosApp/Configuration/Config.xcconfig")
+            if (xcConfigFile.exists()) {
+                val content = xcConfigFile.readText()
+                val updatedContent =
+                    if (content.contains("APP_VERSION=")) {
+                        content.replace(Regex("APP_VERSION=.*"), "APP_VERSION=$appVersion")
+                    } else {
+                        content.trimEnd() + "\nAPP_VERSION=$appVersion\n"
+                    }
+                xcConfigFile.writeText(updatedContent)
+            }
         }
     }
 }
