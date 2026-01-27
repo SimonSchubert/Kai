@@ -1,10 +1,13 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.StateFlow
 
 interface DataRepository {
+    val chatHistory: StateFlow<List<History>>
+
     fun selectService(service: Service)
     fun updateApiKey(service: Service, apiKey: String)
     fun getApiKey(service: Service): String

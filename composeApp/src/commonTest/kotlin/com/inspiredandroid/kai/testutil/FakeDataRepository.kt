@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +16,15 @@ class FakeDataRepository : DataRepository {
     private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
         Service.all.associateWith { MutableStateFlow(emptyList()) }
 
+    override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+
     val selectServiceCalls = mutableListOf<Service>()
     val updateApiKeyCalls = mutableListOf<Pair<Service, String>>()
     val updateSelectedModelCalls = mutableListOf<Pair<Service, String>>()
     val fetchModelsCalls = mutableListOf<Service>()
+    val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
+    var clearHistoryCalls = 0
+    var askException: Exception? = null
 
     fun setCurrentService(service: Service) {
         _currentService = service
@@ -59,11 +65,21 @@ class FakeDataRepository : DataRepository {
     }
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
-        // Not needed for SettingsViewModel tests
+        askCalls.add(question to file)
+        askException?.let { throw it }
+        if (question != null) {
+            chatHistory.update { history ->
+                history + History(role = History.Role.USER, content = question)
+            }
+        }
+        chatHistory.update { history ->
+            history + History(role = History.Role.ASSISTANT, content = "Test response")
+        }
     }
 
     override fun clearHistory() {
-        // Not needed for SettingsViewModel tests
+        clearHistoryCalls++
+        chatHistory.value = emptyList()
     }
 
     override fun currentService(): Service = _currentService

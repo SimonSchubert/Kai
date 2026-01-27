@@ -2,7 +2,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.GeminiGenericException
@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 
-class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewModel() {
+class ChatViewModel(private val dataRepository: DataRepository) : ViewModel() {
 
     private val actions = ChatActions(
         ask = ::ask,

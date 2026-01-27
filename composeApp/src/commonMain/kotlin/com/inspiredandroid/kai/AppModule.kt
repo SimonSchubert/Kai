@@ -22,5 +22,5 @@ val appModule = module {
     }
     single<DataRepository> { get<RemoteDataRepository>() }
     viewModel { SettingsViewModel(get<DataRepository>()) }
-    viewModel { ChatViewModel(get()) }
+    viewModel { ChatViewModel(get<DataRepository>()) }
 }

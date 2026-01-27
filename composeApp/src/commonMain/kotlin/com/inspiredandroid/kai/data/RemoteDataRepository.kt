@@ -30,7 +30,7 @@ class RemoteDataRepository(
             MutableStateFlow(service.defaultModels.toSettingsModels(service))
         }
 
-    val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+    override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
 
     override fun selectService(service: Service) {
         appSettings.selectService(service)
