@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 import androidx.navigation.ExperimentalBrowserHistoryApi
+import androidx.navigation.bindToBrowserNavigation
 import androidx.navigation.bindToNavigation
 import androidx.navigation.compose.rememberNavController
 import kotlinx.browser.document
@@ -35,7 +36,7 @@ fun main() {
                     navController.navigate(Home)
                 }
             }
-            window.bindToNavigation(navController) { entry ->
+            navController.bindToBrowserNavigation { entry ->
                 val route = entry.destination.route.orEmpty()
                 when {
                     route.startsWith(Settings.serializer().descriptor.serialName) -> {

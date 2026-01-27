@@ -1,5 +1,6 @@
 [versions]
 agp = "8.11.1"
+turbine = "1.2.0"
 appVersion = "1.4.1"
 android-versionCode = "39"
 android-compileSdk = "36"
@@ -62,6 +63,8 @@ multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings
 tts = { module = "nl.marc-apps:tts", version.ref = "tts" }
 tts-compose = { module = "nl.marc-apps:tts-compose", version.ref = "tts" }
 androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

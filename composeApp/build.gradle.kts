@@ -59,6 +59,13 @@ kotlin {
         val commonMain by getting {
             kotlin.srcDir(layout.buildDirectory.dir("generated/src/commonMain/kotlin"))
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.turbine)
+            }
+        }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

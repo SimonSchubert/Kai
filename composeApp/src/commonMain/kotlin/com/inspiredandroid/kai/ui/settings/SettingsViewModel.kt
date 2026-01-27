@@ -2,7 +2,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SettingsViewModel(private val dataRepository: RemoteDataRepository) : ViewModel() {
+class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel() {
 
     private val currentService = MutableStateFlow(dataRepository.currentService())
 

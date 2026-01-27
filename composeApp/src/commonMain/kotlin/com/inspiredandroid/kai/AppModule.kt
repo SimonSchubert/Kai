@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai
 
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
@@ -19,6 +20,7 @@ val appModule = module {
     single<RemoteDataRepository> {
         RemoteDataRepository(get(), get())
     }
-    viewModel { SettingsViewModel(get()) }
+    single<DataRepository> { get<RemoteDataRepository>() }
+    viewModel { SettingsViewModel(get<DataRepository>()) }
     viewModel { ChatViewModel(get()) }
 }
