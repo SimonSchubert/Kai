@@ -25,20 +25,6 @@ actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = Http
 
 actual fun getBackgroundDispatcher(): CoroutineContext = Dispatchers.IO
 
-actual fun openUrl(url: String) {
-    if (Desktop.isDesktopSupported()) {
-        val desktop = Desktop.getDesktop()
-        try {
-            val uri = URI(url)
-            if (desktop.isSupported(Desktop.Action.BROWSE)) {
-                desktop.browse(uri)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-}
-
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? {
     if (event.dragData() is DragData.FilesList) {
         val dragData = event.dragData() as DragData.FilesList

@@ -70,10 +70,9 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
-import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
-import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
@@ -103,7 +102,7 @@ fun SettingsScreen(
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
         TopBar(onNavigateBack = onNavigateBack)
 
-        ServiceSelection(uiState.services, uiState.onClickService)
+        ServiceSelection(uiState.services, uiState.currentService, uiState.onSelectService)
 
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp).widthIn(max = 500.dp),
@@ -111,17 +110,34 @@ fun SettingsScreen(
         ) {
             Spacer(Modifier.height(16.dp))
 
-            when (uiState.services.find { it.isSelected }?.id) {
-                Value.SERVICE_FREE -> {
+            when (uiState.currentService) {
+                Service.Free -> {
                     FreeSettings()
                 }
 
-                Value.SERVICE_GEMINI -> {
-                    GeminiSettings(uiState)
+                Service.Gemini -> {
+                    ServiceSettings(
+                        apiKey = uiState.apiKey,
+                        onChangeApiKey = uiState.onChangeApiKey,
+                        apiKeyUrl = "https://aistudio.google.com/apikey",
+                        apiKeyUrlDisplay = "aistudio.google.com/apikey",
+                        selectedModel = uiState.selectedModel,
+                        models = uiState.models,
+                        onSelectModel = uiState.onSelectModel,
+                    )
                 }
 
-                Value.SERVICE_GROQ -> {
-                    GroqSettings(uiState)
+                Service.Groq -> {
+                    ServiceSettings(
+                        apiKey = uiState.apiKey,
+                        onChangeApiKey = uiState.onChangeApiKey,
+                        apiKeyUrl = "https://console.groq.com/keys",
+                        apiKeyUrlDisplay = "console.groq.com/keys",
+                        selectedModel = uiState.selectedModel,
+                        models = uiState.models,
+                        onSelectModel = uiState.onSelectModel,
+                        testTag = "api_key",
+                    )
                 }
             }
 
@@ -256,11 +272,20 @@ private fun FreeSettings() {
 }
 
 @Composable
-private fun GeminiSettings(uiState: SettingsUiState) {
+private fun ServiceSettings(
+    apiKey: String,
+    onChangeApiKey: (String) -> Unit,
+    apiKeyUrl: String,
+    apiKeyUrlDisplay: String,
+    selectedModel: SettingsModel?,
+    models: List<SettingsModel>,
+    onSelectModel: (String) -> Unit,
+    testTag: String? = null,
+) {
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = uiState.geminiApiKey,
-        onValueChange = uiState.onChangeGeminiApiKey,
+        modifier = Modifier.fillMaxWidth().let { if (testTag != null) it.testTag(testTag) else it },
+        value = apiKey,
+        onValueChange = onChangeApiKey,
         label = {
             Text(
                 stringResource(Res.string.settings_api_key_label),
@@ -275,53 +300,13 @@ private fun GeminiSettings(uiState: SettingsUiState) {
     val linkColor = MaterialTheme.colorScheme.primary
 
     val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
-    val annotatedString = remember {
+    val annotatedString = remember(apiKeyUrl, apiKeyUrlDisplay) {
         buildAnnotatedString {
             append(copyApiKeyPromptString)
             append(" ")
-            withLink(LinkAnnotation.Url(url = "https://aistudio.google.com/apikey")) {
+            withLink(LinkAnnotation.Url(url = apiKeyUrl)) {
                 withStyle(style = SpanStyle(color = linkColor)) {
-                    append("aistudio.google.com/apikey")
-                }
-            }
-        }
-    }
-    Text(
-        annotatedString,
-        color = MaterialTheme.colorScheme.onBackground,
-    )
-
-    Spacer(Modifier.height(16.dp))
-
-    ModelSelection(uiState.geminiSelectedModel, uiState.geminiModels, uiState.onClickGeminiModel)
-}
-
-@Composable
-private fun GroqSettings(uiState: SettingsUiState) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth().testTag("api_key"),
-        value = uiState.groqApiKey,
-        onValueChange = uiState.onChangeGroqApiKey,
-        label = {
-            Text(
-                stringResource(Res.string.settings_api_key_label),
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        },
-        colors = outlineTextFieldColors(),
-    )
-
-    Spacer(Modifier.height(8.dp))
-
-    val linkColor = MaterialTheme.colorScheme.primary
-    val copyApiKeyPromptString = stringResource(Res.string.settings_sign_in_copy_api_key_from)
-    val annotatedString = remember {
-        buildAnnotatedString {
-            append(copyApiKeyPromptString)
-            append(" ")
-            withLink(LinkAnnotation.Url(url = "https://console.groq.com/keys")) {
-                withStyle(style = SpanStyle(color = linkColor)) {
-                    append("console.groq.com/keys")
+                    append(apiKeyUrlDisplay)
                 }
             }
         }
@@ -334,7 +319,7 @@ private fun GroqSettings(uiState: SettingsUiState) {
 
     Spacer(Modifier.height(16.dp))
 
-    ModelSelection(uiState.groqSelectedModel, uiState.groqModels, uiState.onClickGroqModel)
+    ModelSelection(selectedModel, models, onSelectModel)
 }
 
 @Composable
@@ -392,7 +377,7 @@ private fun ModelSelection(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(models, key = { it.id }) { model ->
-                        GroqModelCard(
+                        ModelCard(
                             model = model,
                             onClick = {
                                 onClick(model.id)
@@ -407,7 +392,8 @@ private fun ModelSelection(
 }
 
 @Composable
-private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
+private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
+    val description = model.descriptionRes?.let { stringResource(it) } ?: model.description
     Card(
         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand).clip(CardDefaults.shape).clickable { onClick() },
         shape = CardDefaults.shape,
@@ -429,9 +415,9 @@ private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            model.description?.let {
+            description?.let {
                 Text(
-                    text = model.description,
+                    text = it,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodySmall,
@@ -443,7 +429,7 @@ private fun GroqModelCard(model: SettingsModel, onClick: () -> Unit) {
 }
 
 @Composable
-private fun ServiceSelection(services: List<SettingsUiState.Service>, onChanged: (String) -> Unit) {
+private fun ServiceSelection(services: List<Service>, currentService: Service, onChanged: (Service) -> Unit) {
     SingleChoiceSegmentedButtonRow {
         services.forEachIndexed { index, service ->
             SegmentedButton(
@@ -452,11 +438,11 @@ private fun ServiceSelection(services: List<SettingsUiState.Service>, onChanged:
                     index = index,
                     count = services.size,
                 ),
-                onClick = { onChanged(service.id) },
-                selected = service.isSelected,
+                onClick = { onChanged(service) },
+                selected = service == currentService,
                 label = {
                     Text(
-                        service.name,
+                        service.displayName,
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                 },

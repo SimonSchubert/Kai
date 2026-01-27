@@ -15,25 +15,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
-import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
+import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
 
-    private val appOpenTracker by lazy { AppOpenTracker(Settings()) }
+    private val appSettings: AppSettings by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         FileKit.init(this)
 
-        val appOpens = appOpenTracker.trackAppOpen()
+        val appOpens = appSettings.trackAppOpen()
         if (appOpens == 5) {
             requestReview()
         }

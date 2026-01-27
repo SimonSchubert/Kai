@@ -1,21 +1,14 @@
 package com.inspiredandroid.kai.network
 
-import com.inspiredandroid.kai.Key
-import com.inspiredandroid.kai.Value
+import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
-import com.inspiredandroid.kai.network.NetworkConstants.GEMINI_BASE_URL
-import com.inspiredandroid.kai.network.NetworkConstants.GEMINI_GENERATE_CONTENT_PATH
-import com.inspiredandroid.kai.network.NetworkConstants.GROQ_BASE_URL
-import com.inspiredandroid.kai.network.NetworkConstants.GROQ_CHAT_COMPLETIONS_PATH
-import com.inspiredandroid.kai.network.NetworkConstants.GROQ_MODELS_PATH
-import com.inspiredandroid.kai.network.NetworkConstants.PROXY_BASE_URL
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatResponseDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqModelResponseDto
-import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
@@ -39,11 +32,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.seconds
 
-class Requests(private val settings: Settings) {
+class Requests(private val appSettings: AppSettings) {
 
     private fun <T : HttpClientEngineConfig> HttpClientConfig<T>.commonConfig() {
         install(ContentNegotiation) {
@@ -79,10 +71,10 @@ class Requests(private val settings: Settings) {
         install(Auth) {
             bearer {
                 loadTokens {
-                    BearerTokens(settings.getString(Key.GROQ_API_KEY, ""), null)
+                    BearerTokens(appSettings.getApiKey(Service.Groq), null)
                 }
                 refreshTokens {
-                    BearerTokens(settings.getString(Key.GROQ_API_KEY, ""), null)
+                    BearerTokens(appSettings.getApiKey(Service.Groq), null)
                 }
             }
         }
@@ -99,13 +91,11 @@ class Requests(private val settings: Settings) {
     }
 
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> = try {
-        val apiKey = settings.getStringOrNull(Key.GEMINI_API_KEY)
-            ?: throw GeminiInvalidApiKeyException()
-
-        val selectedModelId = settings.getString(Key.GEMINI_MODEL_ID, Value.DEFAULT_GEMINI_MODEL)
+        val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
+        val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
 
         val response: HttpResponse =
-            defaultClient.post("$GEMINI_BASE_URL$selectedModelId$GEMINI_GENERATE_CONTENT_PATH?key=$apiKey") {
+            defaultClient.post("${Service.Gemini.chatUrl}$selectedModelId:generateContent?key=$apiKey") {
                 contentType(ContentType.Application.Json)
                 setBody(
                     GeminiChatRequestDto(
@@ -137,7 +127,7 @@ class Requests(private val settings: Settings) {
 
     suspend fun freeChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
         val response: HttpResponse =
-            defaultClient.post(PROXY_BASE_URL) {
+            defaultClient.post(Service.Free.chatUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     GroqChatRequestDto(
@@ -160,9 +150,9 @@ class Requests(private val settings: Settings) {
     }
 
     suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
-        val model = settings.getString(Key.GROQ_MODEL_ID, Value.DEFAULT_GROQ_MODEL)
+        val model = appSettings.getSelectedModelId(Service.Groq)
         val response: HttpResponse =
-            groqClient.post("$GROQ_BASE_URL$GROQ_CHAT_COMPLETIONS_PATH") {
+            groqClient.post(Service.Groq.chatUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     GroqChatRequestDto(
@@ -186,7 +176,7 @@ class Requests(private val settings: Settings) {
 
     suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
         val response: HttpResponse =
-            groqClient.get("$GROQ_BASE_URL$GROQ_MODELS_PATH")
+            groqClient.get(Service.Groq.modelsUrl!!)
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {

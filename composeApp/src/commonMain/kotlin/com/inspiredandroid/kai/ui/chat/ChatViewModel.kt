@@ -2,8 +2,8 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.GeminiGenericException
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
@@ -49,7 +49,7 @@ class ChatViewModel(private val dataRepository: RemoteDataRepository) : ViewMode
     ) { state, history ->
         state.copy(
             history = history,
-            allowFileAttachment = dataRepository.currentService() == Value.SERVICE_GEMINI,
+            allowFileAttachment = dataRepository.currentService() == Service.Gemini,
         )
     }.stateIn(
         scope = viewModelScope,

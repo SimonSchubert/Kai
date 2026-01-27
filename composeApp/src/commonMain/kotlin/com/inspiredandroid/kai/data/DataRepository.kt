@@ -1,17 +1,19 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.coroutines.flow.StateFlow
 
 interface DataRepository {
+    fun selectService(service: Service)
+    fun updateApiKey(service: Service, apiKey: String)
+    fun getApiKey(service: Service): String
+    fun updateSelectedModel(service: Service, modelId: String)
+    fun getModels(service: Service): StateFlow<List<SettingsModel>>
+    suspend fun fetchModels(service: Service)
 
-    suspend fun fetchGroqModels()
-    fun updateSelectedService(id: String)
-    fun updateGroqModel(id: String)
-    fun changeGroqApiKey(apiKey: String)
     suspend fun ask(question: String?, file: PlatformFile?)
-    fun changeGeminiApiKey(apiKey: String)
     fun clearHistory()
+    fun currentService(): Service
     fun isUsingSharedKey(): Boolean
-    fun updateGeminiModel(id: String)
-    fun currentService(): String
 }
