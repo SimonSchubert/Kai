@@ -160,6 +160,11 @@ class RemoteDataRepository(
                 )
             }
         modelsByService[Service.Groq]?.update { models }
+        // Auto-select first model if none selected or selected model not in list
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
+            appSettings.setSelectedModelId(Service.Groq, models.first().id)
+            updateModelsSelection(Service.Groq)
+        }
     }
 
     private suspend fun fetchOpenAICompatibleModels() {
@@ -177,8 +182,8 @@ class RemoteDataRepository(
                 )
             }
         modelsByService[Service.OpenAICompatible]?.update { models }
-        // Auto-select first model if none selected
-        if (selectedModelId.isEmpty() && models.isNotEmpty()) {
+        // Auto-select first model if none selected or selected model not in list
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
             appSettings.setSelectedModelId(Service.OpenAICompatible, models.first().id)
             updateModelsSelection(Service.OpenAICompatible)
         }

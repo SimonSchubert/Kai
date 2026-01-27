@@ -4,8 +4,6 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,7 +61,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.LinkAnnotation
@@ -519,43 +516,42 @@ private fun ModelSelection(
 ) {
     var expanded by remember { mutableStateOf(false) }
     if (models.isNotEmpty()) {
-        OutlinedTextField(
+        Box(
             modifier = Modifier.fillMaxWidth(),
-            value = currentSelectedModel?.id ?: "",
-            colors = outlineTextFieldColors(),
-            onValueChange = {},
-            label = {
-                Text(
-                    stringResource(Res.string.settings_model_label),
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            },
-            trailingIcon = {
-                Icon(
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            },
-            readOnly = true,
-            interactionSource = remember { MutableInteractionSource() }
-                .also { interactionSource ->
-                    LaunchedEffect(interactionSource) {
-                        interactionSource.interactions.collect {
-                            if (it is PressInteraction.Release) {
-                                expanded = true
-                            }
-                        }
-                    }
+        ) {
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = currentSelectedModel?.id ?: "",
+                colors = outlineTextFieldColors(),
+                onValueChange = {},
+                readOnly = true,
+                label = {
+                    Text(
+                        stringResource(Res.string.settings_model_label),
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
                 },
-        )
-        val focusManager = LocalFocusManager.current
+                trailingIcon = {
+                    Icon(
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                },
+            )
+            // Transparent overlay to capture clicks reliably on all platforms
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .clickable { expanded = true },
+            )
+        }
         if (expanded) {
             ModalBottomSheet(
                 sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
                 onDismissRequest = {
-                    focusManager.clearFocus()
                     expanded = false
                 },
             ) {
