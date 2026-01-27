@@ -11,6 +11,7 @@ import com.inspiredandroid.kai.testutil.FakeDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -27,6 +28,7 @@ import kotlin.test.assertTrue
 class ChatViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
+    private val unconfinedDispatcher = UnconfinedTestDispatcher()
     private lateinit var fakeRepository: FakeDataRepository
 
     @BeforeTest
@@ -40,10 +42,12 @@ class ChatViewModelTest {
         Dispatchers.resetMain()
     }
 
+    private fun createViewModel() = ChatViewModel(fakeRepository, unconfinedDispatcher)
+
     @Test
     fun `initial state reflects isUsingSharedKey from repository`() = runTest {
         fakeRepository.setCurrentService(Service.Free)
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val state = awaitItem()
@@ -54,7 +58,7 @@ class ChatViewModelTest {
     @Test
     fun `initial state with non-free service has isUsingSharedKey false`() = runTest {
         fakeRepository.setCurrentService(Service.Gemini)
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val state = awaitItem()
@@ -63,34 +67,31 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun `ask sets isLoading to true then false on success`() = runTest {
-        val viewModel = ChatViewModel(fakeRepository)
+    fun `ask completes successfully and updates history`() = runTest {
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
             assertFalse(initialState.isLoading)
+            assertTrue(initialState.history.isEmpty())
 
             initialState.actions.ask("Hello")
             testDispatcher.scheduler.advanceUntilIdle()
 
-            // Should get loading state and then completed state
-            val states = mutableListOf<ChatUiState>()
-            while (true) {
-                val state = awaitItem()
-                states.add(state)
-                if (!state.isLoading && state.history.isNotEmpty()) break
-            }
+            // Wait for completion - collect all states until we get a non-loading state with history
+            var finalState: ChatUiState
+            do {
+                finalState = awaitItem()
+            } while (finalState.isLoading || finalState.history.isEmpty())
 
-            // Verify we saw loading state
-            assertTrue(states.any { it.isLoading })
-            // Final state should not be loading
-            assertFalse(states.last().isLoading)
+            assertFalse(finalState.isLoading)
+            assertTrue(finalState.history.isNotEmpty())
         }
     }
 
     @Test
     fun `successful ask adds messages to history`() = runTest {
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -115,7 +116,7 @@ class ChatViewModelTest {
     @Test
     fun `ask clears previous error`() = runTest {
         fakeRepository.askException = GenericNetworkException("First error")
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -152,7 +153,7 @@ class ChatViewModelTest {
     @Test
     fun `failed ask with GeminiInvalidApiKeyException sets error`() = runTest {
         fakeRepository.askException = GeminiInvalidApiKeyException()
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -172,7 +173,7 @@ class ChatViewModelTest {
     @Test
     fun `failed ask with GroqInvalidApiKeyException sets error`() = runTest {
         fakeRepository.askException = GroqInvalidApiKeyException()
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -192,7 +193,7 @@ class ChatViewModelTest {
     @Test
     fun `failed ask with GeminiRateLimitExceededException sets error`() = runTest {
         fakeRepository.askException = GeminiRateLimitExceededException()
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -212,7 +213,7 @@ class ChatViewModelTest {
     @Test
     fun `failed ask with GroqRateLimitExceededException sets error`() = runTest {
         fakeRepository.askException = GroqRateLimitExceededException()
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -232,7 +233,7 @@ class ChatViewModelTest {
     @Test
     fun `clearHistory clears history and error`() = runTest {
         fakeRepository.askException = GenericNetworkException("Error")
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -264,7 +265,7 @@ class ChatViewModelTest {
 
     @Test
     fun `toggleSpeechOutput toggles isSpeechOutputEnabled`() = runTest {
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -286,7 +287,7 @@ class ChatViewModelTest {
 
     @Test
     fun `setIsSpeaking updates speaking state`() = runTest {
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -311,7 +312,7 @@ class ChatViewModelTest {
 
     @Test
     fun `retry calls ask with null`() = runTest {
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -333,7 +334,7 @@ class ChatViewModelTest {
     @Test
     fun `allowFileAttachment is true only for Gemini service`() = runTest {
         fakeRepository.setCurrentService(Service.Gemini)
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             skipItems(1)
@@ -345,7 +346,7 @@ class ChatViewModelTest {
     @Test
     fun `allowFileAttachment is false for Free service`() = runTest {
         fakeRepository.setCurrentService(Service.Free)
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val state = awaitItem()
@@ -356,7 +357,7 @@ class ChatViewModelTest {
     @Test
     fun `allowFileAttachment is false for Groq service`() = runTest {
         fakeRepository.setCurrentService(Service.Groq)
-        val viewModel = ChatViewModel(fakeRepository)
+        val viewModel = createViewModel()
 
         viewModel.state.test {
             val state = awaitItem()

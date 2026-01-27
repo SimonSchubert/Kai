@@ -20,12 +20,12 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 | Linux | RPM | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 | Linux | AppImage | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 
-### Supported services and models:
+### Supported services:
 
-- Gemini 2.5 Flash, Gemini 3 Pro...
-- Groq: Llama series, GPT-OSS series, Groq Compound and more
-
-For the complete, up-to-date list of available models, see: https://console.groq.com/docs/models
+- Ollama: https://github.com/ollama/ollama
+- Gemini: https://aistudio.google.com
+- Groq: https://groq.com
+- Free tier based on Mistral AI: https://mistral.ai
 
 ## Screenshots
 
@@ -54,3 +54,5 @@ GroqCloud: https://groq.com
 Gemini: https://gemini.google.com
 
 Mistral: https://mistral.ai/
+
+Ollama: https://github.com/ollama/ollama

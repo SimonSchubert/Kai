@@ -111,6 +111,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 // Free tier always works
                 _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
             }
+
             Service.Gemini, Service.Groq -> {
                 // These services require an API key
                 val hasApiKey = dataRepository.getApiKey(service).isNotBlank()
@@ -120,6 +121,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                     _state.update { it.copy(connectionStatus = ConnectionStatus.Unknown) }
                 }
             }
+
             Service.Ollama -> {
                 // Ollama doesn't need an API key, just validate connection
                 validateConnectionWithStatus(service)

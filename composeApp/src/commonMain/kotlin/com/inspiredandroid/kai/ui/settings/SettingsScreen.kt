@@ -35,8 +35,8 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -83,6 +83,7 @@ import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
+import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
@@ -91,7 +92,6 @@ import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
-import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
@@ -321,7 +321,7 @@ private fun ServiceSettings(
         },
         colors = outlineTextFieldColors(),
     )
-    
+
     Spacer(Modifier.height(8.dp))
 
     ConnectionStatusIndicator(connectionStatus)
@@ -411,7 +411,9 @@ private fun OllamaSettings(
 @Composable
 private fun ConnectionStatusIndicator(status: ConnectionStatus) {
     when (status) {
-        ConnectionStatus.Unknown -> return // Don't show anything
+        ConnectionStatus.Unknown -> return
+
+        // Don't show anything
         ConnectionStatus.Checking -> {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -430,6 +432,7 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
                 )
             }
         }
+
         ConnectionStatus.Connected -> {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -449,6 +452,7 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
                 )
             }
         }
+
         ConnectionStatus.Error -> {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -580,34 +584,28 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
 @Composable
 private fun ServiceSelection(services: List<Service>, currentService: Service, onChanged: (Service) -> Unit) {
     val selectedIndex = services.indexOf(currentService).coerceAtLeast(0)
-    Box(
-        modifier = Modifier.fillMaxWidth().background(Color.White),
-        contentAlignment = Alignment.Center,
+    PrimaryScrollableTabRow(
+        selectedTabIndex = selectedIndex,
+        edgePadding = 0.dp,
+        containerColor = MaterialTheme.colorScheme.background,
+        divider = {},
     ) {
-        PrimaryScrollableTabRow(
-            selectedTabIndex = selectedIndex,
-            modifier = Modifier.wrapContentWidth(),
-            edgePadding = 0.dp,
-            containerColor = Color.White,
-            divider = {},
-        ) {
-            services.forEach { service ->
-                Tab(
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    selected = service == currentService,
-                    onClick = { onChanged(service) },
-                    text = {
-                        Text(
-                            service.displayName,
-                            color = if (service == currentService) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.onSurface
-                            },
-                        )
-                    },
-                )
-            }
+        services.forEach { service ->
+            Tab(
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                selected = service == currentService,
+                onClick = { onChanged(service) },
+                text = {
+                    Text(
+                        service.displayName,
+                        color = if (service == currentService) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurface
+                        },
+                    )
+                },
+            )
         }
     }
 }

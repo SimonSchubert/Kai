@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.update
 
 class FakeDataRepository : DataRepository {
 
-    private var _currentService: Service = Service.Free
+    private var currentService: Service = Service.Free
     private val apiKeys = mutableMapOf<Service, String>()
     private val baseUrls = mutableMapOf<Service, String>()
     private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
@@ -28,7 +28,7 @@ class FakeDataRepository : DataRepository {
     var askException: Exception? = null
 
     fun setCurrentService(service: Service) {
-        _currentService = service
+        currentService = service
     }
 
     fun setApiKey(service: Service, apiKey: String) {
@@ -41,7 +41,7 @@ class FakeDataRepository : DataRepository {
 
     override fun selectService(service: Service) {
         selectServiceCalls.add(service)
-        _currentService = service
+        currentService = service
     }
 
     override fun updateApiKey(service: Service, apiKey: String) {
@@ -58,8 +58,7 @@ class FakeDataRepository : DataRepository {
         }
     }
 
-    override fun getModels(service: Service): StateFlow<List<SettingsModel>> =
-        modelsByService[service] ?: MutableStateFlow(emptyList())
+    override fun getModels(service: Service): StateFlow<List<SettingsModel>> = modelsByService[service] ?: MutableStateFlow(emptyList())
 
     override fun clearModels(service: Service) {
         modelsByService[service]?.value = emptyList()
@@ -97,7 +96,7 @@ class FakeDataRepository : DataRepository {
         chatHistory.value = emptyList()
     }
 
-    override fun currentService(): Service = _currentService
+    override fun currentService(): Service = currentService
 
-    override fun isUsingSharedKey(): Boolean = _currentService == Service.Free
+    override fun isUsingSharedKey(): Boolean = currentService == Service.Free
 }

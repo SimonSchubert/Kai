@@ -30,8 +30,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
+import kotlin.coroutines.CoroutineContext
 
-class ChatViewModel(private val dataRepository: DataRepository) : ViewModel() {
+class ChatViewModel(
+    private val dataRepository: DataRepository,
+    private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
+) : ViewModel() {
 
     private val actions = ChatActions(
         ask = ::ask,
@@ -63,7 +67,7 @@ class ChatViewModel(private val dataRepository: DataRepository) : ViewModel() {
     )
 
     private fun ask(question: String?) {
-        viewModelScope.launch(getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
                     isLoading = true,
@@ -76,13 +80,17 @@ class ChatViewModel(private val dataRepository: DataRepository) : ViewModel() {
                     it.copy(isLoading = false)
                 }
             } catch (exception: Exception) {
-                val errorMessage = when (exception) {
-                    is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
-                    is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
-                    is OllamaConnectionException -> getString(Res.string.error_ollama_connection)
-                    is OllamaModelNotFoundException -> getString(Res.string.error_ollama_model_not_found)
-                    is GeminiGenericException, is GroqGenericException, is OllamaGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
-                    else -> getString(Res.string.error_unknown)
+                val errorMessage = try {
+                    when (exception) {
+                        is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
+                        is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
+                        is OllamaConnectionException -> getString(Res.string.error_ollama_connection)
+                        is OllamaModelNotFoundException -> getString(Res.string.error_ollama_model_not_found)
+                        is GeminiGenericException, is GroqGenericException, is OllamaGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
+                        else -> getString(Res.string.error_unknown)
+                    }
+                } catch (_: Exception) {
+                    exception.message ?: "An error occurred"
                 }
                 _state.update {
                     it.copy(

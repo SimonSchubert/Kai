@@ -8,12 +8,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
-import com.inspiredandroid.kai.data.AppSettings
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nl.marc_apps.tts.TextToSpeechInstance
