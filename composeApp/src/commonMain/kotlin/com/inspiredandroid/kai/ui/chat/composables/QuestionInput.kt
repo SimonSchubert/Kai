@@ -41,7 +41,6 @@ import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -73,8 +72,6 @@ fun QuestionInput(
     ask: (String) -> Unit,
     allowFileAttachment: Boolean,
 ) {
-    val focusManager = LocalFocusManager.current
-
     if (file != null) {
         val icon = when (file.extension) {
             "jpg", "jpeg", "png", "gif" -> Res.drawable.ic_image
@@ -111,7 +108,6 @@ fun QuestionInput(
         val text = textState.text
         if (text.isNotBlank()) {
             ask(text.trim())
-            focusManager.clearFocus()
             textState = TextFieldValue("")
             setFile(null)
         }

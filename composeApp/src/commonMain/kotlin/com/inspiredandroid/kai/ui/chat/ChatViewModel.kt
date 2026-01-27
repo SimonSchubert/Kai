@@ -22,6 +22,7 @@ import kai.composeapp.generated.resources.error_openai_compatible_connection
 import kai.composeapp.generated.resources.error_openai_compatible_model_not_found
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -66,6 +67,9 @@ class ChatViewModel(
     )
 
     private fun ask(question: String?) {
+        // Prevent concurrent requests
+        if (_state.value.isLoading) return
+
         viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
@@ -79,6 +83,9 @@ class ChatViewModel(
                     it.copy(isLoading = false)
                 }
             } catch (exception: Exception) {
+                // CancellationException must be re-thrown to properly propagate coroutine cancellation
+                if (exception is CancellationException) throw exception
+
                 val errorMessage = try {
                     when (exception) {
                         is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)

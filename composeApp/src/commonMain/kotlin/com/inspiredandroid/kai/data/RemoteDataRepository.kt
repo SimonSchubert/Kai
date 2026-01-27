@@ -98,7 +98,7 @@ class RemoteDataRepository(
     override fun getModels(service: Service): StateFlow<List<SettingsModel>> = modelsByService[service] ?: MutableStateFlow(emptyList())
 
     override fun clearModels(service: Service) {
-        modelsByService[service]?.value = emptyList()
+        modelsByService[service]?.update { emptyList() }
     }
 
     override suspend fun fetchModels(service: Service) {
@@ -135,7 +135,7 @@ class RemoteDataRepository(
                 )
             }
             .sortedWith(geminiModelComparator)
-        modelsByService[Service.Gemini]?.value = models
+        modelsByService[Service.Gemini]?.update { models }
         // Auto-select first model if none selected or selected model not in list
         // The list is already sorted with the best models at the top
         if (models.isNotEmpty() && models.none { it.isSelected }) {
@@ -159,7 +159,7 @@ class RemoteDataRepository(
                     isSelected = it.id == selectedModelId,
                 )
             }
-        modelsByService[Service.Groq]?.value = models
+        modelsByService[Service.Groq]?.update { models }
     }
 
     private suspend fun fetchOpenAICompatibleModels() {
@@ -176,7 +176,7 @@ class RemoteDataRepository(
                     isSelected = it.name == selectedModelId,
                 )
             }
-        modelsByService[Service.OpenAICompatible]?.value = models
+        modelsByService[Service.OpenAICompatible]?.update { models }
         // Auto-select first model if none selected
         if (selectedModelId.isEmpty() && models.isNotEmpty()) {
             appSettings.setSelectedModelId(Service.OpenAICompatible, models.first().id)

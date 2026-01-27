@@ -137,7 +137,7 @@ class Requests(private val appSettings: AppSettings) {
                     if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {
                         throw GeminiInvalidApiKeyException()
                     } else {
-                        throw Exception()
+                        throw GeminiGenericException("Chat request failed: ${response.status}")
                     }
                 }
             }
@@ -163,7 +163,7 @@ class Requests(private val appSettings: AppSettings) {
             when (response.status.value) {
                 401 -> throw OpenAICompatibleInvalidApiKeyException()
                 429 -> throw OpenAICompatibleRateLimitExceededException()
-                else -> throw Exception()
+                else -> throw GenericNetworkException("Free tier request failed: ${response.status}")
             }
         }
     } catch (e: Exception) {
@@ -188,7 +188,7 @@ class Requests(private val appSettings: AppSettings) {
             when (response.status.value) {
                 401 -> throw OpenAICompatibleInvalidApiKeyException()
                 429 -> throw OpenAICompatibleRateLimitExceededException()
-                else -> throw Exception()
+                else -> throw OpenAICompatibleGenericException("Groq request failed: ${response.status}")
             }
         }
     } catch (e: Exception) {
@@ -196,15 +196,18 @@ class Requests(private val appSettings: AppSettings) {
     }
 
     suspend fun getGroqModels(): Result<OpenAICompatibleModelResponseDto> = try {
-        val response: HttpResponse =
-            groqClient.get(Service.Groq.modelsUrl!!)
+        val modelsUrl = Service.Groq.modelsUrl
+            ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for Groq"))
+        val response: HttpResponse = groqClient.get(modelsUrl)
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            throw Exception()
+            throw OpenAICompatibleGenericException("Failed to fetch Groq models: ${response.status}")
         }
-    } catch (e: Exception) {
+    } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
     }
 
     suspend fun openAICompatibleChat(

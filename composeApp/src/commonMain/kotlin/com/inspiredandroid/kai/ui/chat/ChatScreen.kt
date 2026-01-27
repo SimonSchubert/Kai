@@ -102,9 +102,11 @@ fun ChatScreen(
                     val componentScope = rememberCoroutineScope()
 
                     LaunchedEffect(uiState.history.size) {
-                        if (uiState.history.isNotEmpty()) {
-                            listState.animateScrollToItem(uiState.history.lastIndex)
-                            val lastMessage = uiState.history.last()
+                        // Capture history at effect start to prevent race conditions
+                        val history = uiState.history
+                        if (history.isNotEmpty()) {
+                            listState.animateScrollToItem(history.lastIndex)
+                            val lastMessage = history.last()
                             if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
                                 componentScope.launch(getBackgroundDispatcher()) {
                                     textToSpeech?.stop()
