@@ -9,6 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.network.Requests
+import com.inspiredandroid.kai.ui.DarkColorScheme
+import com.inspiredandroid.kai.ui.LightColorScheme
+import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsScreen

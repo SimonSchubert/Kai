@@ -18,10 +18,6 @@ actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = Http
 
 actual fun getBackgroundDispatcher(): CoroutineContext = EmptyCoroutineContext
 
-actual fun openUrl(url: String) {
-    window.open(url, "_blank")
-}
-
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = null
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack

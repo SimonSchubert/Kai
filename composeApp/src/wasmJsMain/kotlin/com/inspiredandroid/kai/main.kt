@@ -30,6 +30,7 @@ fun main() {
                 initRoute.endsWith("settings") -> {
                     navController.navigate(Settings)
                 }
+
                 else -> {
                     navController.navigate(Home)
                 }
@@ -40,6 +41,7 @@ fun main() {
                     route.startsWith(Settings.serializer().descriptor.serialName) -> {
                         "#settings"
                     }
+
                     else -> ""
                 }
             }

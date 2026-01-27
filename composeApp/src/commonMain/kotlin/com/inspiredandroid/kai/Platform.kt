@@ -11,8 +11,6 @@ expect fun httpClient(config: HttpClientConfig<*>.() -> Unit = {}): HttpClient
 
 expect fun getBackgroundDispatcher(): CoroutineContext
 
-expect fun openUrl(url: String)
-
 expect fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile?
 
 expect val BackIcon: ImageVector

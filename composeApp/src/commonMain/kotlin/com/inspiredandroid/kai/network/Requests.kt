@@ -118,7 +118,9 @@ class Requests(private val settings: Settings) {
         } else {
             when (response.status.value) {
                 429 -> throw GeminiRateLimitExceededException()
+
                 403 -> throw GeminiInvalidApiKeyException()
+
                 else -> {
                     val responseBody = response.bodyAsText()
                     if (responseBody.contains("API_KEY_INVALID", ignoreCase = true)) {

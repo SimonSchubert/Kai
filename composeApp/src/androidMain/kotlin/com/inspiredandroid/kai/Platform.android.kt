@@ -21,12 +21,6 @@ actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = Http
 
 actual fun getBackgroundDispatcher(): CoroutineContext = Dispatchers.IO
 
-actual fun openUrl(url: String) {
-    val context: Context by inject(Context::class.java)
-    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
-    context.startActivity(intent)
-}
-
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = null
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack

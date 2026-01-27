@@ -179,11 +179,13 @@ class RemoteDataRepository(
                 val response = requests.freeChat(messages = freeMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
+
             Value.SERVICE_GROQ -> {
                 val groqMessages = messages.map { it.toGroqMessageDto() }
                 val response = requests.groqChat(messages = groqMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
+
             Value.SERVICE_GEMINI -> {
                 val geminiMessages = messages.map { it.toGeminiMessageDto() }
                 val response = requests.geminiChat(geminiMessages).getOrThrow()
@@ -191,6 +193,7 @@ class RemoteDataRepository(
                     part.text ?: ""
                 } ?: ""
             }
+
             else -> {
                 ""
             }
@@ -221,8 +224,7 @@ class RemoteDataRepository(
         }
     }
 
-    override fun isUsingSharedKey(): Boolean = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE) == Value.SERVICE_GROQ &&
-        settings.getStringOrNull(Key.GROQ_API_KEY) == null
+    override fun isUsingSharedKey(): Boolean = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE) == Value.SERVICE_FREE
 
     override fun currentService(): String = settings.getString(Key.CURRENT_SERVICE_ID, Value.DEFAULT_SERVICE)
 }

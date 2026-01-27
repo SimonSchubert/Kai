@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
-import com.inspiredandroid.kai.openUrl
 import com.mikepenz.markdown.compose.components.MarkdownComponent
 import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
@@ -77,11 +77,12 @@ internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, is
                 )
             },
         )
+        val uriHandler = LocalUriHandler.current
         SmallIconButton(
             iconResource = Res.drawable.ic_flag,
             contentDescription = stringResource(Res.string.bot_message_flag_content_description),
             onClick = {
-                openUrl("https://form.jotform.com/250014908169355")
+                uriHandler.openUri("https://form.jotform.com/250014908169355")
             },
         )
         Spacer(Modifier.weight(1f))

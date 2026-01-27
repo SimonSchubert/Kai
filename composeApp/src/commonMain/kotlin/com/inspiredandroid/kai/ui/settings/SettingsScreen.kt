@@ -26,8 +26,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -58,15 +56,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
@@ -74,15 +69,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Value
 import com.inspiredandroid.kai.Version
-import com.inspiredandroid.kai.outlineTextFieldColors
+import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import com.inspiredandroid.kai.ui.settings.SettingsUiState.SettingsModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
-import kai.composeapp.generated.resources.ic_arrow_back
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -122,9 +115,11 @@ fun SettingsScreen(
                 Value.SERVICE_FREE -> {
                     FreeSettings()
                 }
+
                 Value.SERVICE_GEMINI -> {
                     GeminiSettings(uiState)
                 }
+
                 Value.SERVICE_GROQ -> {
                     GroqSettings(uiState)
                 }

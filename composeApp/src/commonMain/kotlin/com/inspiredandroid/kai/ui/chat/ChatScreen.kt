@@ -129,6 +129,7 @@ fun ChatScreen(
                         items(uiState.history, key = { it.id }) { history ->
                             when (history.role) {
                                 History.Role.USER -> UserMessage(history.content)
+
                                 History.Role.ASSISTANT -> BotMessage(
                                     message = history.content,
                                     textToSpeech = textToSpeech,

@@ -20,10 +20,6 @@ actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = Http
 
 actual fun getBackgroundDispatcher(): CoroutineContext = Dispatchers.IO
 
-actual fun openUrl(url: String) {
-    UIApplication.sharedApplication.openURL(NSURL(string = url))
-}
-
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = null
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos

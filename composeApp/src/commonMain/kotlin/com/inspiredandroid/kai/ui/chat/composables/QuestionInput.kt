@@ -46,9 +46,9 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.inspiredandroid.kai.darkPurple
-import com.inspiredandroid.kai.lightPurple
-import com.inspiredandroid.kai.outlineTextFieldColors
+import com.inspiredandroid.kai.ui.darkPurple
+import com.inspiredandroid.kai.ui.lightPurple
+import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.FileKitType
