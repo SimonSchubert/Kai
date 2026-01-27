@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -28,9 +30,12 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -39,9 +44,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.PrimaryScrollableTabRow
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -56,6 +60,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalFocusManager
@@ -86,6 +91,10 @@ import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
+import kai.composeapp.generated.resources.settings_base_url_label
+import kai.composeapp.generated.resources.settings_status_checking
+import kai.composeapp.generated.resources.settings_status_connected
+import kai.composeapp.generated.resources.settings_status_error
 import kai.composeapp.generated.resources.settings_version
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -98,6 +107,10 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.onScreenVisible()
+    }
 
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
         TopBar(onNavigateBack = onNavigateBack)
@@ -124,6 +137,7 @@ fun SettingsScreen(
                         selectedModel = uiState.selectedModel,
                         models = uiState.models,
                         onSelectModel = uiState.onSelectModel,
+                        connectionStatus = uiState.connectionStatus,
                     )
                 }
 
@@ -136,7 +150,19 @@ fun SettingsScreen(
                         selectedModel = uiState.selectedModel,
                         models = uiState.models,
                         onSelectModel = uiState.onSelectModel,
+                        connectionStatus = uiState.connectionStatus,
                         testTag = "api_key",
+                    )
+                }
+
+                Service.Ollama -> {
+                    OllamaSettings(
+                        baseUrl = uiState.baseUrl,
+                        onChangeBaseUrl = uiState.onChangeBaseUrl,
+                        selectedModel = uiState.selectedModel,
+                        models = uiState.models,
+                        onSelectModel = uiState.onSelectModel,
+                        connectionStatus = uiState.connectionStatus,
                     )
                 }
             }
@@ -280,6 +306,7 @@ private fun ServiceSettings(
     selectedModel: SettingsModel?,
     models: List<SettingsModel>,
     onSelectModel: (String) -> Unit,
+    connectionStatus: ConnectionStatus,
     testTag: String? = null,
 ) {
     OutlinedTextField(
@@ -294,6 +321,10 @@ private fun ServiceSettings(
         },
         colors = outlineTextFieldColors(),
     )
+    
+    Spacer(Modifier.height(8.dp))
+
+    ConnectionStatusIndicator(connectionStatus)
 
     Spacer(Modifier.height(8.dp))
 
@@ -319,7 +350,125 @@ private fun ServiceSettings(
 
     Spacer(Modifier.height(16.dp))
 
-    ModelSelection(selectedModel, models, onSelectModel)
+    if (connectionStatus == ConnectionStatus.Connected) {
+        ModelSelection(selectedModel, models, onSelectModel)
+    }
+}
+
+@Composable
+private fun OllamaSettings(
+    baseUrl: String,
+    onChangeBaseUrl: (String) -> Unit,
+    selectedModel: SettingsModel?,
+    models: List<SettingsModel>,
+    onSelectModel: (String) -> Unit,
+    connectionStatus: ConnectionStatus,
+) {
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = baseUrl,
+        onValueChange = onChangeBaseUrl,
+        label = {
+            Text(
+                stringResource(Res.string.settings_base_url_label),
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
+        colors = outlineTextFieldColors(),
+        singleLine = true,
+    )
+
+    Spacer(Modifier.height(8.dp))
+
+    ConnectionStatusIndicator(connectionStatus)
+
+    Spacer(Modifier.height(8.dp))
+
+    val linkColor = MaterialTheme.colorScheme.primary
+    val annotatedString = remember {
+        buildAnnotatedString {
+            append("Setup your local Ollama instance: ")
+            withLink(LinkAnnotation.Url(url = "https://github.com/ollama/ollama")) {
+                withStyle(style = SpanStyle(color = linkColor)) {
+                    append("github.com/ollama/ollama")
+                }
+            }
+        }
+    }
+    Text(
+        annotatedString,
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+
+    Spacer(Modifier.height(16.dp))
+
+    if (connectionStatus == ConnectionStatus.Connected) {
+        ModelSelection(selectedModel, models, onSelectModel)
+    }
+}
+
+@Composable
+private fun ConnectionStatusIndicator(status: ConnectionStatus) {
+    when (status) {
+        ConnectionStatus.Unknown -> return // Don't show anything
+        ConnectionStatus.Checking -> {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(16.dp),
+                    strokeWidth = 2.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.settings_status_checking),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+        ConnectionStatus.Connected -> {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.primary,
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.settings_status_connected),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+        }
+        ConnectionStatus.Error -> {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.error,
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.settings_status_error),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -430,23 +579,35 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
 
 @Composable
 private fun ServiceSelection(services: List<Service>, currentService: Service, onChanged: (Service) -> Unit) {
-    SingleChoiceSegmentedButtonRow {
-        services.forEachIndexed { index, service ->
-            SegmentedButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                shape = SegmentedButtonDefaults.itemShape(
-                    index = index,
-                    count = services.size,
-                ),
-                onClick = { onChanged(service) },
-                selected = service == currentService,
-                label = {
-                    Text(
-                        service.displayName,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-            )
+    val selectedIndex = services.indexOf(currentService).coerceAtLeast(0)
+    Box(
+        modifier = Modifier.fillMaxWidth().background(Color.White),
+        contentAlignment = Alignment.Center,
+    ) {
+        PrimaryScrollableTabRow(
+            selectedTabIndex = selectedIndex,
+            modifier = Modifier.wrapContentWidth(),
+            edgePadding = 0.dp,
+            containerColor = Color.White,
+            divider = {},
+        ) {
+            services.forEach { service ->
+                Tab(
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    selected = service == currentService,
+                    onClick = { onChanged(service) },
+                    text = {
+                        Text(
+                            service.displayName,
+                            color = if (service == currentService) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
+                        )
+                    },
+                )
+            }
         }
     }
 }

@@ -32,4 +32,10 @@
     <string name="settings_business_partnerships">Business Partnerships</string>
     <string name="settings_business_partnerships_description">Want to feature your company logo or discuss a strategic partnership?</string>
     <string name="settings_contact_sponsorship">Contact for Strategic Sponsorship</string>
+    <string name="settings_base_url_label">Server URL</string>
+    <string name="settings_status_checking">Checking connection...</string>
+    <string name="settings_status_connected">Connected</string>
+    <string name="settings_status_error">Connection failed</string>
+    <string name="error_ollama_connection">Cannot connect to Ollama server. Make sure Ollama is running.</string>
+    <string name="error_ollama_model_not_found">Model not found. Please select a different model.</string>
 </resources>

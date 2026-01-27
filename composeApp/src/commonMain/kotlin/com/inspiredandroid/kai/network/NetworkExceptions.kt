@@ -13,3 +13,8 @@ sealed class GroqApiException(message: String? = null, cause: Throwable? = null)
 class GroqGenericException(message: String, cause: Throwable? = null) : GroqApiException(message, cause)
 class GroqInvalidApiKeyException : GroqApiException()
 class GroqRateLimitExceededException : GroqApiException()
+
+sealed class OllamaApiException(message: String? = null, cause: Throwable? = null) : ApiException(message, cause)
+class OllamaGenericException(message: String, cause: Throwable? = null) : OllamaApiException(message, cause)
+class OllamaConnectionException : OllamaApiException("Cannot connect to Ollama server")
+class OllamaModelNotFoundException(model: String) : OllamaApiException("Model not found: $model")

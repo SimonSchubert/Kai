@@ -22,22 +22,14 @@ import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
-
-    private val appSettings: AppSettings by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         FileKit.init(this)
-
-        val appOpens = appSettings.trackAppOpen()
-        if (appOpens == 5) {
-            requestReview()
-        }
 
         val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         setContent {
@@ -76,6 +68,11 @@ class MainActivity : ComponentActivity() {
                 textToSpeech = textToSpeech,
                 koinApplication = {
                     androidContext(this@MainActivity)
+                },
+                onAppOpens = { appOpens ->
+                    if (appOpens == 5) {
+                        requestReview()
+                    }
                 },
             )
         }

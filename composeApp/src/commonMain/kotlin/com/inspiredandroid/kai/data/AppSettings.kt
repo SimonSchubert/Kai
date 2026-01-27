@@ -31,8 +31,20 @@ class AppSettings(private val settings: Settings) {
     fun getSelectedModelId(service: Service): String = settings.getString(service.modelIdKey, service.defaultModel ?: "")
 
     fun setSelectedModelId(service: Service, modelId: String) {
-        if (service.requiresApiKey && service.modelIdKey.isNotEmpty()) {
+        if (service.modelIdKey.isNotEmpty()) {
             settings.putString(service.modelIdKey, modelId)
+        }
+    }
+
+    // Base URL (for self-hosted services like Ollama)
+    fun getBaseUrl(service: Service): String = when (service) {
+        Service.Ollama -> settings.getString(service.baseUrlKey, Service.DEFAULT_OLLAMA_BASE_URL)
+        else -> ""
+    }
+
+    fun setBaseUrl(service: Service, baseUrl: String) {
+        if (service == Service.Ollama) {
+            settings.putString(service.baseUrlKey, baseUrl)
         }
     }
 

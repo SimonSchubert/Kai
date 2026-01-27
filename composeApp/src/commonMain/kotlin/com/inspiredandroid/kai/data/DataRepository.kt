@@ -13,7 +13,11 @@ interface DataRepository {
     fun getApiKey(service: Service): String
     fun updateSelectedModel(service: Service, modelId: String)
     fun getModels(service: Service): StateFlow<List<SettingsModel>>
+    fun clearModels(service: Service)
     suspend fun fetchModels(service: Service)
+    suspend fun validateConnection(service: Service)
+    fun updateBaseUrl(service: Service, baseUrl: String)
+    fun getBaseUrl(service: Service): String
 
     suspend fun ask(question: String?, file: PlatformFile?)
     fun clearHistory()

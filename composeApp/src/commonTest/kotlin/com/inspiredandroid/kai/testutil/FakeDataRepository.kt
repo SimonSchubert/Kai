@@ -13,6 +13,7 @@ class FakeDataRepository : DataRepository {
 
     private var _currentService: Service = Service.Free
     private val apiKeys = mutableMapOf<Service, String>()
+    private val baseUrls = mutableMapOf<Service, String>()
     private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
         Service.all.associateWith { MutableStateFlow(emptyList()) }
 
@@ -60,9 +61,23 @@ class FakeDataRepository : DataRepository {
     override fun getModels(service: Service): StateFlow<List<SettingsModel>> =
         modelsByService[service] ?: MutableStateFlow(emptyList())
 
+    override fun clearModels(service: Service) {
+        modelsByService[service]?.value = emptyList()
+    }
+
     override suspend fun fetchModels(service: Service) {
         fetchModelsCalls.add(service)
     }
+
+    override suspend fun validateConnection(service: Service) {
+        // No-op in tests
+    }
+
+    override fun updateBaseUrl(service: Service, baseUrl: String) {
+        baseUrls[service] = baseUrl
+    }
+
+    override fun getBaseUrl(service: Service): String = baseUrls[service] ?: Service.DEFAULT_OLLAMA_BASE_URL
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
         askCalls.add(question to file)

@@ -4,15 +4,25 @@ import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.Service
 import org.jetbrains.compose.resources.StringResource
 
+enum class ConnectionStatus {
+    Unknown,
+    Checking,
+    Connected,
+    Error,
+}
+
 @Immutable
 data class SettingsUiState(
     val currentService: Service = Service.Free,
     val services: List<Service> = Service.all,
     val apiKey: String = "",
+    val baseUrl: String = "",
     val models: List<SettingsModel> = emptyList(),
     val selectedModel: SettingsModel? = null,
+    val connectionStatus: ConnectionStatus = ConnectionStatus.Unknown,
     val onSelectService: (Service) -> Unit = {},
     val onChangeApiKey: (String) -> Unit = {},
+    val onChangeBaseUrl: (String) -> Unit = {},
     val onSelectModel: (String) -> Unit = {},
 )
 

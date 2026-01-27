@@ -1,11 +1,5 @@
 package com.inspiredandroid.kai.data
 
-import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.gemini_model_2_5_flash_description
-import kai.composeapp.generated.resources.gemini_model_2_5_flash_lite_description
-import kai.composeapp.generated.resources.gemini_model_2_5_pro_description
-import kai.composeapp.generated.resources.gemini_model_3_flash_description
-import kai.composeapp.generated.resources.gemini_model_3_pro_preview_description
 import org.jetbrains.compose.resources.StringResource
 
 data class ModelDefinition(
@@ -38,14 +32,9 @@ sealed class Service(
         id = "groqcloud",
         displayName = "GroqCloud",
         requiresApiKey = true,
-        defaultModel = "llama-3.3-70b-versatile",
+        defaultModel = null,
         settingsKeyPrefix = "groq",
-        defaultModels = listOf(
-            ModelDefinition(
-                id = "llama-3.3-70b-versatile",
-                subtitle = "Meta",
-            ),
-        ),
+        defaultModels = emptyList(),
         chatUrl = "https://api.groq.com/openai/v1/chat/completions",
         modelsUrl = "https://api.groq.com/openai/v1/models",
     )
@@ -54,45 +43,32 @@ sealed class Service(
         id = "gemini",
         displayName = "Gemini",
         requiresApiKey = true,
-        defaultModel = "gemini-3-pro-preview",
+        defaultModel = null,
         settingsKeyPrefix = "gemini",
         chatUrl = "https://generativelanguage.googleapis.com/v1beta/models/",
         modelsUrl = null,
-        defaultModels = listOf(
-            ModelDefinition(
-                id = "gemini-3-pro-preview",
-                subtitle = "Gemini 3 Pro",
-                descriptionRes = Res.string.gemini_model_3_pro_preview_description,
-            ),
-            ModelDefinition(
-                id = "gemini-3-flash-preview",
-                subtitle = "Gemini 3 Flash",
-                descriptionRes = Res.string.gemini_model_3_flash_description,
-            ),
-            ModelDefinition(
-                id = "gemini-2.5-flash",
-                subtitle = "Gemini 2.5 Flash",
-                descriptionRes = Res.string.gemini_model_2_5_flash_description,
-            ),
-            ModelDefinition(
-                id = "gemini-2.5-flash-lite",
-                subtitle = "Gemini 2.5 Flash Lite",
-                descriptionRes = Res.string.gemini_model_2_5_flash_lite_description,
-            ),
-            ModelDefinition(
-                id = "gemini-2.5-pro",
-                subtitle = "Gemini 2.5 Pro",
-                descriptionRes = Res.string.gemini_model_2_5_pro_description,
-            ),
-        ),
+        defaultModels = emptyList(),
+    )
+
+    data object Ollama : Service(
+        id = "ollama",
+        displayName = "Ollama",
+        requiresApiKey = false,
+        defaultModel = null,
+        settingsKeyPrefix = "ollama",
+        chatUrl = "/v1/chat/completions",
+        modelsUrl = "/api/tags",
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Groq)
+        val all: List<Service> get() = listOf(Free, Gemini, Groq, Ollama)
+
+        const val DEFAULT_OLLAMA_BASE_URL = "http://localhost:11434"
 
         fun fromId(id: String): Service = all.find { it.id == id } ?: Free
     }
 
     val apiKeyKey: String get() = "service_${settingsKeyPrefix}_api_key"
     val modelIdKey: String get() = "service_${settingsKeyPrefix}_model_id"
+    val baseUrlKey: String get() = "service_${settingsKeyPrefix}_base_url"
 }

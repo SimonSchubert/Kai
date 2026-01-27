@@ -12,10 +12,15 @@ import com.inspiredandroid.kai.network.GenericNetworkException
 import com.inspiredandroid.kai.network.GroqGenericException
 import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
 import com.inspiredandroid.kai.network.GroqRateLimitExceededException
+import com.inspiredandroid.kai.network.OllamaConnectionException
+import com.inspiredandroid.kai.network.OllamaGenericException
+import com.inspiredandroid.kai.network.OllamaModelNotFoundException
 import io.github.vinceglb.filekit.PlatformFile
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_generic
 import kai.composeapp.generated.resources.error_invalid_api_key
+import kai.composeapp.generated.resources.error_ollama_connection
+import kai.composeapp.generated.resources.error_ollama_model_not_found
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -74,7 +79,9 @@ class ChatViewModel(private val dataRepository: DataRepository) : ViewModel() {
                 val errorMessage = when (exception) {
                     is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
                     is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
-                    is GeminiGenericException, is GroqGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
+                    is OllamaConnectionException -> getString(Res.string.error_ollama_connection)
+                    is OllamaModelNotFoundException -> getString(Res.string.error_ollama_model_not_found)
+                    is GeminiGenericException, is GroqGenericException, is OllamaGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
                     else -> getString(Res.string.error_unknown)
                 }
                 _state.update {

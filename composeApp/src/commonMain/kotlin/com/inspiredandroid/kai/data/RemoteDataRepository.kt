@@ -25,6 +25,41 @@ class RemoteDataRepository(
     private val appSettings: AppSettings,
 ) : DataRepository {
 
+    /**
+     * Comparator for Gemini models that sorts by:
+     * 1. Version number (descending) - e.g., 2.5 > 2.0 > 1.5
+     * 2. Model type priority: pro > flash > others
+     */
+    private val geminiModelComparator = Comparator<SettingsModel> { a, b ->
+        val versionA = extractGeminiVersion(a.id)
+        val versionB = extractGeminiVersion(b.id)
+
+        // Compare versions (descending - higher versions first)
+        val versionCompare = versionB.compareTo(versionA)
+        if (versionCompare != 0) return@Comparator versionCompare
+
+        // Same version, compare by model type priority
+        val priorityA = getGeminiModelPriority(a.id)
+        val priorityB = getGeminiModelPriority(b.id)
+        priorityA.compareTo(priorityB)
+    }
+
+    private fun extractGeminiVersion(modelId: String): Double {
+        // Match patterns like "gemini-2.5-pro", "gemini-1.5-flash-8b"
+        val versionRegex = Regex("""gemini-(\d+\.?\d*)""")
+        val match = versionRegex.find(modelId)
+        return match?.groupValues?.get(1)?.toDoubleOrNull() ?: 0.0
+    }
+
+    private fun getGeminiModelPriority(modelId: String): Int {
+        val lowerId = modelId.lowercase()
+        return when {
+            lowerId.contains("pro") && !lowerId.contains("flash") -> 0
+            lowerId.contains("flash") -> 1
+            else -> 2
+        }
+    }
+
     private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
         Service.all.associateWith { service ->
             MutableStateFlow(service.defaultModels.toSettingsModels(service))
@@ -48,40 +83,104 @@ class RemoteDataRepository(
     override fun getApiKey(service: Service): String = appSettings.getApiKey(service)
 
     override fun updateSelectedModel(service: Service, modelId: String) {
-        if (service.requiresApiKey && service.modelIdKey.isNotEmpty()) {
+        if (service.modelIdKey.isNotEmpty()) {
             appSettings.setSelectedModelId(service, modelId)
             updateModelsSelection(service)
         }
     }
 
+    override fun updateBaseUrl(service: Service, baseUrl: String) {
+        appSettings.setBaseUrl(service, baseUrl)
+    }
+
+    override fun getBaseUrl(service: Service): String = appSettings.getBaseUrl(service)
+
     override fun getModels(service: Service): StateFlow<List<SettingsModel>> = modelsByService[service] ?: MutableStateFlow(emptyList())
+
+    override fun clearModels(service: Service) {
+        modelsByService[service]?.value = emptyList()
+    }
 
     override suspend fun fetchModels(service: Service) {
         when (service) {
             Service.Groq -> fetchGroqModels()
+            Service.Ollama -> fetchOllamaModels()
+            Service.Gemini -> fetchGeminiModels()
+            Service.Free -> { /* Free has no models */ }
+        }
+    }
 
-            Service.Gemini, Service.Free -> {
-                // Gemini models are static, Free has no models
+    override suspend fun validateConnection(service: Service) {
+        when (service) {
+            Service.Gemini -> fetchGeminiModels()
+            Service.Groq -> fetchGroqModels()
+            Service.Ollama -> fetchOllamaModels()
+            Service.Free -> { /* Always valid */ }
+        }
+    }
+
+    private suspend fun fetchGeminiModels() {
+        val response = requests.getGeminiModels().getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
+        val models = response.models
+            .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
+            .map {
+                // Convert "models/gemini-1.5-pro" to "gemini-1.5-pro"
+                val modelId = it.name.removePrefix("models/")
+                SettingsModel(
+                    id = modelId,
+                    subtitle = it.displayName ?: modelId,
+                    description = it.description,
+                    isSelected = modelId == selectedModelId,
+                )
             }
+            .sortedWith(geminiModelComparator)
+        modelsByService[Service.Gemini]?.value = models
+        // Auto-select first model if none selected or selected model not in list
+        // The list is already sorted with the best models at the top
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
+            appSettings.setSelectedModelId(Service.Gemini, models.first().id)
+            updateModelsSelection(Service.Gemini)
         }
     }
 
     private suspend fun fetchGroqModels() {
-        requests.getGroqModels().onSuccess { response ->
-            val selectedModelId = appSettings.getSelectedModelId(Service.Groq)
-            val models = response.data
-                .filter { it.isActive == true }
-                .sortedByDescending { it.context_window }
-                .map {
-                    SettingsModel(
-                        id = it.id,
-                        subtitle = it.owned_by ?: "",
-                        description = it.created?.toHumanReadableDate(),
-                        createdAt = it.created ?: 0L,
-                        isSelected = it.id == selectedModelId,
-                    )
-                }
-            modelsByService[Service.Groq]?.value = models
+        val response = requests.getGroqModels().getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.Groq)
+        val models = response.data
+            .filter { it.isActive == true }
+            .sortedByDescending { it.context_window }
+            .map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.owned_by ?: "",
+                    description = it.created?.toHumanReadableDate(),
+                    createdAt = it.created ?: 0L,
+                    isSelected = it.id == selectedModelId,
+                )
+            }
+        modelsByService[Service.Groq]?.value = models
+    }
+
+    private suspend fun fetchOllamaModels() {
+        val baseUrl = appSettings.getBaseUrl(Service.Ollama)
+        val response = requests.getOllamaModels(baseUrl).getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.Ollama)
+        val models = response.models
+            .sortedBy { it.name }
+            .map {
+                SettingsModel(
+                    id = it.name,
+                    subtitle = it.details?.family ?: "",
+                    description = it.details?.parameter_size,
+                    isSelected = it.name == selectedModelId,
+                )
+            }
+        modelsByService[Service.Ollama]?.value = models
+        // Auto-select first model if none selected
+        if (selectedModelId.isEmpty() && models.isNotEmpty()) {
+            appSettings.setSelectedModelId(Service.Ollama, models.first().id)
+            updateModelsSelection(Service.Ollama)
         }
     }
 
@@ -137,6 +236,13 @@ class RemoteDataRepository(
                 response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
                     part.text ?: ""
                 } ?: ""
+            }
+
+            Service.Ollama -> {
+                val ollamaMessages = messages.map { it.toGroqMessageDto() }
+                val baseUrl = appSettings.getBaseUrl(Service.Ollama)
+                val response = requests.ollamaChat(messages = ollamaMessages, baseUrl = baseUrl).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
             }
         }
 

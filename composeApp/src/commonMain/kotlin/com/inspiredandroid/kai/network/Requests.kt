@@ -6,9 +6,11 @@ import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
+import com.inspiredandroid.kai.network.dtos.gemini.GeminiModelsResponseDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqChatResponseDto
 import com.inspiredandroid.kai.network.dtos.groq.GroqModelResponseDto
+import com.inspiredandroid.kai.network.dtos.ollama.OllamaModelsResponseDto
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
@@ -88,6 +90,24 @@ class Requests(private val appSettings: AppSettings) {
         override fun log(message: String) {
             println("[KTOR] $message")
         }
+    }
+
+    suspend fun getGeminiModels(): Result<GeminiModelsResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
+        val response: HttpResponse =
+            defaultClient.get("https://generativelanguage.googleapis.com/v1beta/models?key=$apiKey")
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                400, 403 -> throw GeminiInvalidApiKeyException()
+                else -> throw GeminiGenericException("Failed to fetch models: ${response.status}")
+            }
+        }
+    } catch (e: GeminiApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(GeminiGenericException("Connection failed", e))
     }
 
     suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> = try {
@@ -184,5 +204,51 @@ class Requests(private val appSettings: AppSettings) {
         }
     } catch (e: Exception) {
         Result.failure(e)
+    }
+
+    suspend fun ollamaChat(
+        messages: List<GroqChatRequestDto.Message>,
+        baseUrl: String,
+    ): Result<GroqChatResponseDto> = try {
+        val model = appSettings.getSelectedModelId(Service.Ollama)
+        if (model.isEmpty()) {
+            throw OllamaModelNotFoundException("No model selected")
+        }
+        val response: HttpResponse =
+            defaultClient.post("$baseUrl${Service.Ollama.chatUrl}") {
+                contentType(ContentType.Application.Json)
+                setBody(
+                    GroqChatRequestDto(
+                        messages = messages,
+                        model = model,
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                404 -> throw OllamaModelNotFoundException(model)
+                else -> throw OllamaGenericException("Ollama request failed: ${response.status}")
+            }
+        }
+    } catch (e: OllamaApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OllamaConnectionException())
+    }
+
+    suspend fun getOllamaModels(baseUrl: String): Result<OllamaModelsResponseDto> = try {
+        val response: HttpResponse =
+            defaultClient.get("$baseUrl${Service.Ollama.modelsUrl}")
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            throw OllamaGenericException("Failed to fetch models: ${response.status}")
+        }
+    } catch (e: OllamaApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OllamaConnectionException())
     }
 }

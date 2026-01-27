@@ -97,11 +97,13 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
 
             initialState.onChangeApiKey("new-api-key")
-            testDispatcher.scheduler.advanceUntilIdle()
 
+            // Wait for state update (may have multiple emissions due to connection check)
             val updatedState = awaitItem()
             assertEquals("new-api-key", updatedState.apiKey)
             assertTrue(fakeRepository.updateApiKeyCalls.contains(Service.Groq to "new-api-key"))
+
+            cancelAndIgnoreRemainingEvents()
         }
     }
 
@@ -160,10 +162,11 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val state = awaitItem()
-            assertEquals(3, state.services.size)
+            assertEquals(4, state.services.size)
             assertTrue(state.services.contains(Service.Free))
             assertTrue(state.services.contains(Service.Gemini))
             assertTrue(state.services.contains(Service.Groq))
+            assertTrue(state.services.contains(Service.Ollama))
         }
     }
 }
