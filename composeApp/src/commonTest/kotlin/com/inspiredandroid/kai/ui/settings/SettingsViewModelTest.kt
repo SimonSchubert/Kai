@@ -166,7 +166,7 @@ class SettingsViewModelTest {
             assertTrue(state.services.contains(Service.Free))
             assertTrue(state.services.contains(Service.Gemini))
             assertTrue(state.services.contains(Service.Groq))
-            assertTrue(state.services.contains(Service.Ollama))
+            assertTrue(state.services.contains(Service.OpenAICompatible))
         }
     }
 }

@@ -15,14 +15,14 @@ class AppSettings(private val settings: Settings) {
     }
 
     // API Keys
-    fun getApiKey(service: Service): String = if (service.requiresApiKey) {
+    fun getApiKey(service: Service): String = if (service.requiresApiKey || service.supportsOptionalApiKey) {
         settings.getString(service.apiKeyKey, "")
     } else {
         ""
     }
 
     fun setApiKey(service: Service, apiKey: String) {
-        if (service.requiresApiKey) {
+        if (service.requiresApiKey || service.supportsOptionalApiKey) {
             settings.putString(service.apiKeyKey, apiKey)
         }
     }
@@ -36,14 +36,14 @@ class AppSettings(private val settings: Settings) {
         }
     }
 
-    // Base URL (for self-hosted services like Ollama)
+    // Base URL (for self-hosted services like OpenAI-compatible APIs)
     fun getBaseUrl(service: Service): String = when (service) {
-        Service.Ollama -> settings.getString(service.baseUrlKey, Service.DEFAULT_OLLAMA_BASE_URL)
+        Service.OpenAICompatible -> settings.getString(service.baseUrlKey, Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL)
         else -> ""
     }
 
     fun setBaseUrl(service: Service, baseUrl: String) {
-        if (service == Service.Ollama) {
+        if (service == Service.OpenAICompatible) {
             settings.putString(service.baseUrlKey, baseUrl)
         }
     }

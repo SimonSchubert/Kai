@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI चुका करतो, पुन्हा तपासा आणि संवेदनशील माहिती शेअर करू नका.</string>
     <string name="settings_version">आवृत्ती: %1$s</string>
     <string name="settings_api_key_label">API की</string>
+    <string name="settings_api_key_optional_label">API की (वैकल्पिक)</string>
     <string name="settings_sign_in_copy_api_key_from">साइन इन करा आणि येथून तुमची API की कॉपी करा</string>
     <string name="settings_model_label">मॉडेल</string>
     <string name="clear_chat_content_description">चॅट साफ करा</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">व्यावसायिक भागीदारी</string>
     <string name="settings_business_partnerships_description">तुमच्या कंपनीचा लोगो प्रदर्शित करायचा आहे किंवा धोरणात्मक भागीदारीवर चर्चा करायची आहे?</string>
     <string name="settings_contact_sponsorship">धोरणात्मक प्रायोजकत्वासाठी संपर्क साधा</string>
+    <string name="settings_openai_compatible_setup_ollama">तुमचे स्थानिक Ollama इन्स्टन्स सेटअप करा:</string>
+    <string name="settings_openai_compatible_or_other_service">किंवा इतर कोणतीही सुसंगत सेवा:</string>
+    <string name="settings_openai_compatible_providers">प्रदाते</string>
 </resources>

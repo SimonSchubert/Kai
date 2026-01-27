@@ -9,18 +9,17 @@ import com.inspiredandroid.kai.network.GeminiGenericException
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.GenericNetworkException
-import com.inspiredandroid.kai.network.GroqGenericException
-import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
-import com.inspiredandroid.kai.network.GroqRateLimitExceededException
-import com.inspiredandroid.kai.network.OllamaConnectionException
-import com.inspiredandroid.kai.network.OllamaGenericException
-import com.inspiredandroid.kai.network.OllamaModelNotFoundException
+import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
+import com.inspiredandroid.kai.network.OpenAICompatibleGenericException
+import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
+import com.inspiredandroid.kai.network.OpenAICompatibleModelNotFoundException
+import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import io.github.vinceglb.filekit.PlatformFile
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_generic
 import kai.composeapp.generated.resources.error_invalid_api_key
-import kai.composeapp.generated.resources.error_ollama_connection
-import kai.composeapp.generated.resources.error_ollama_model_not_found
+import kai.composeapp.generated.resources.error_openai_compatible_connection
+import kai.composeapp.generated.resources.error_openai_compatible_model_not_found
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -82,11 +81,11 @@ class ChatViewModel(
             } catch (exception: Exception) {
                 val errorMessage = try {
                     when (exception) {
-                        is GeminiInvalidApiKeyException, is GroqInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
-                        is GeminiRateLimitExceededException, is GroqRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
-                        is OllamaConnectionException -> getString(Res.string.error_ollama_connection)
-                        is OllamaModelNotFoundException -> getString(Res.string.error_ollama_model_not_found)
-                        is GeminiGenericException, is GroqGenericException, is OllamaGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
+                        is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
+                        is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
+                        is OpenAICompatibleConnectionException -> getString(Res.string.error_openai_compatible_connection)
+                        is OpenAICompatibleModelNotFoundException -> getString(Res.string.error_openai_compatible_model_not_found)
+                        is GeminiGenericException, is OpenAICompatibleGenericException, is GenericNetworkException -> exception.message ?: getString(Res.string.error_generic)
                         else -> getString(Res.string.error_unknown)
                     }
                 } catch (_: Exception) {

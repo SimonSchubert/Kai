@@ -1,9 +1,9 @@
-package com.inspiredandroid.kai.network.dtos.groq
+package com.inspiredandroid.kai.network.dtos.openaicompatible
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GroqChatResponseDto(
+data class OpenAICompatibleChatResponseDto(
     val choices: List<Choice>,
 ) {
     @Serializable

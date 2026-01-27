@@ -5,8 +5,8 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.GenericNetworkException
-import com.inspiredandroid.kai.network.GroqInvalidApiKeyException
-import com.inspiredandroid.kai.network.GroqRateLimitExceededException
+import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
+import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.testutil.FakeDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -172,7 +172,7 @@ class ChatViewModelTest {
 
     @Test
     fun `failed ask with GroqInvalidApiKeyException sets error`() = runTest {
-        fakeRepository.askException = GroqInvalidApiKeyException()
+        fakeRepository.askException = OpenAICompatibleInvalidApiKeyException()
         val viewModel = createViewModel()
 
         viewModel.state.test {
@@ -212,7 +212,7 @@ class ChatViewModelTest {
 
     @Test
     fun `failed ask with GroqRateLimitExceededException sets error`() = runTest {
-        fakeRepository.askException = GroqRateLimitExceededException()
+        fakeRepository.askException = OpenAICompatibleRateLimitExceededException()
         val viewModel = createViewModel()
 
         viewModel.state.test {

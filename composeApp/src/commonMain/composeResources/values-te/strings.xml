@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI తప్పులు చేస్తుంది, మళ్ళీ తనిఖీ చేయండి మరియు సున్నితమైన సమాచారాన్ని భాగస్వామ్యం చేయకండి.</string>
     <string name="settings_version">వెర్షన్: %1$s</string>
     <string name="settings_api_key_label">API కీ</string>
+    <string name="settings_api_key_optional_label">API కీ (ఐచ్ఛికం)</string>
     <string name="settings_sign_in_copy_api_key_from">సైన్ ఇన్ చేసి ఇక్కడ నుండి మీ API కీని కాపీ చేయండి</string>
     <string name="settings_model_label">మోడల్</string>
     <string name="clear_chat_content_description">చాట్ క్లియర్ చేయండి</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">వ్యాపార భాగస్వామ్యాలు</string>
     <string name="settings_business_partnerships_description">మీ కంపెనీ లోగోను ప్రదర్శించాలనుకుంటున్నారా లేదా వ్యూహాత్మక భాగస్వామ్యం గురించి చర్చించాలనుకుంటున్నారా?</string>
     <string name="settings_contact_sponsorship">వ్యూహాత్మక స్పాన్సర్‌షిప్ కోసం సంప్రదించండి</string>
+    <string name="settings_openai_compatible_setup_ollama">మీ స్థానిక Ollama ఇన్‌స్టెన్స్‌ను సెటప్ చేయండి:</string>
+    <string name="settings_openai_compatible_or_other_service">లేదా ఇతర అనుకూల సేవ:</string>
+    <string name="settings_openai_compatible_providers">ప్రొవైడర్లు</string>
 </resources>

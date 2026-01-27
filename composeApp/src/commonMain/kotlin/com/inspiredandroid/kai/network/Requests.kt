@@ -7,10 +7,10 @@ import com.inspiredandroid.kai.isDebugBuild
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiModelsResponseDto
-import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
-import com.inspiredandroid.kai.network.dtos.groq.GroqChatResponseDto
-import com.inspiredandroid.kai.network.dtos.groq.GroqModelResponseDto
-import com.inspiredandroid.kai.network.dtos.ollama.OllamaModelsResponseDto
+import com.inspiredandroid.kai.network.dtos.openai.OpenAICompatibleModelsResponseDto
+import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
+import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
+import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
@@ -25,6 +25,7 @@ import io.ktor.client.plugins.logging.EMPTY
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -145,12 +146,12 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
-    suspend fun freeChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+    suspend fun freeChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
         val response: HttpResponse =
             defaultClient.post(Service.Free.chatUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(
-                    GroqChatRequestDto(
+                    OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = "",
                     ),
@@ -160,8 +161,8 @@ class Requests(private val appSettings: AppSettings) {
             Result.success(response.body())
         } else {
             when (response.status.value) {
-                401 -> throw GroqInvalidApiKeyException()
-                429 -> throw GroqRateLimitExceededException()
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                429 -> throw OpenAICompatibleRateLimitExceededException()
                 else -> throw Exception()
             }
         }
@@ -169,13 +170,13 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
-    suspend fun groqChat(messages: List<GroqChatRequestDto.Message>): Result<GroqChatResponseDto> = try {
+    suspend fun groqChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
         val model = appSettings.getSelectedModelId(Service.Groq)
         val response: HttpResponse =
             groqClient.post(Service.Groq.chatUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(
-                    GroqChatRequestDto(
+                    OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
                     ),
@@ -185,8 +186,8 @@ class Requests(private val appSettings: AppSettings) {
             Result.success(response.body())
         } else {
             when (response.status.value) {
-                401 -> throw GroqInvalidApiKeyException()
-                429 -> throw GroqRateLimitExceededException()
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                429 -> throw OpenAICompatibleRateLimitExceededException()
                 else -> throw Exception()
             }
         }
@@ -194,7 +195,7 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
-    suspend fun getGroqModels(): Result<GroqModelResponseDto> = try {
+    suspend fun getGroqModels(): Result<OpenAICompatibleModelResponseDto> = try {
         val response: HttpResponse =
             groqClient.get(Service.Groq.modelsUrl!!)
         if (response.status.isSuccess()) {
@@ -206,19 +207,23 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
-    suspend fun ollamaChat(
-        messages: List<GroqChatRequestDto.Message>,
+    suspend fun openAICompatibleChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
         baseUrl: String,
-    ): Result<GroqChatResponseDto> = try {
-        val model = appSettings.getSelectedModelId(Service.Ollama)
+    ): Result<OpenAICompatibleChatResponseDto> = try {
+        val model = appSettings.getSelectedModelId(Service.OpenAICompatible)
         if (model.isEmpty()) {
-            throw OllamaModelNotFoundException("No model selected")
+            throw OpenAICompatibleModelNotFoundException("No model selected")
         }
+        val apiKey = appSettings.getApiKey(Service.OpenAICompatible)
         val response: HttpResponse =
-            defaultClient.post("$baseUrl${Service.Ollama.chatUrl}") {
+            defaultClient.post("$baseUrl${Service.OpenAICompatible.chatUrl}") {
                 contentType(ContentType.Application.Json)
+                if (apiKey.isNotBlank()) {
+                    bearerAuth(apiKey)
+                }
                 setBody(
-                    GroqChatRequestDto(
+                    OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
                     ),
@@ -228,27 +233,36 @@ class Requests(private val appSettings: AppSettings) {
             Result.success(response.body())
         } else {
             when (response.status.value) {
-                404 -> throw OllamaModelNotFoundException(model)
-                else -> throw OllamaGenericException("Ollama request failed: ${response.status}")
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                404 -> throw OpenAICompatibleModelNotFoundException(model)
+                else -> throw OpenAICompatibleGenericException("Request failed: ${response.status}")
             }
         }
-    } catch (e: OllamaApiException) {
+    } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
     } catch (e: Exception) {
-        Result.failure(OllamaConnectionException())
+        Result.failure(OpenAICompatibleConnectionException())
     }
 
-    suspend fun getOllamaModels(baseUrl: String): Result<OllamaModelsResponseDto> = try {
+    suspend fun getOpenAICompatibleModels(baseUrl: String): Result<OpenAICompatibleModelsResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.OpenAICompatible)
         val response: HttpResponse =
-            defaultClient.get("$baseUrl${Service.Ollama.modelsUrl}")
+            defaultClient.get("$baseUrl${Service.OpenAICompatible.modelsUrl}") {
+                if (apiKey.isNotBlank()) {
+                    bearerAuth(apiKey)
+                }
+            }
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            throw OllamaGenericException("Failed to fetch models: ${response.status}")
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                else -> throw OpenAICompatibleGenericException("Failed to fetch models: ${response.status}")
+            }
         }
-    } catch (e: OllamaApiException) {
+    } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
     } catch (e: Exception) {
-        Result.failure(OllamaConnectionException())
+        Result.failure(OpenAICompatibleConnectionException())
     }
 }

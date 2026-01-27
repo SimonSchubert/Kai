@@ -3,9 +3,8 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
-import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
-import com.inspiredandroid.kai.network.dtos.groq.GroqChatRequestDto
+import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -38,12 +37,12 @@ data class History(
     }
 }
 
-fun History.toGroqMessageDto(): GroqChatRequestDto.Message {
+fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message {
     val role = when (role) {
         History.Role.USER -> "user"
         History.Role.ASSISTANT -> "assistant"
     }
-    return GroqChatRequestDto.Message(role = role, content = content)
+    return OpenAICompatibleChatRequestDto.Message(role = role, content = content)
 }
 
 fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {

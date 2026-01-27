@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AIは間違えることがあります。必ず再確認し、機密情報は共有しないでください。</string>
     <string name="settings_version">バージョン：%1$s</string>
     <string name="settings_api_key_label">APIキー</string>
+    <string name="settings_api_key_optional_label">APIキー（任意）</string>
     <string name="settings_sign_in_copy_api_key_from">サインインして、こちらからAPIキーをコピーしてください</string>
     <string name="settings_model_label">モデル</string>
     <string name="clear_chat_content_description">チャットをクリア</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">ビジネスパートナーシップ</string>
     <string name="settings_business_partnerships_description">会社のロゴを掲載したい、または戦略的パートナーシップについて相談したいですか？</string>
     <string name="settings_contact_sponsorship">戦略的スポンサーシップのお問い合わせ</string>
+    <string name="settings_openai_compatible_setup_ollama">ローカルのOllamaインスタンスをセットアップ：</string>
+    <string name="settings_openai_compatible_or_other_service">または他の互換サービス：</string>
+    <string name="settings_openai_compatible_providers">プロバイダー</string>
 </resources>

@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI தவறுகள் செய்யும், மீண்டும் சரிபார்த்து முக்கியமான தகவல்களைப் பகிர வேண்டாம்.</string>
     <string name="settings_version">பதிப்பு: %1$s</string>
     <string name="settings_api_key_label">API விசை</string>
+    <string name="settings_api_key_optional_label">API விசை (விருப்பத்திற்கு)</string>
     <string name="settings_sign_in_copy_api_key_from">உள்நுழைந்து இங்கிருந்து உங்கள் API விசையை நகலெடுக்கவும்</string>
     <string name="settings_model_label">மாடல்</string>
     <string name="clear_chat_content_description">அரட்டையை அழிக்கவும்</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">வணிக கூட்டாண்மைகள்</string>
     <string name="settings_business_partnerships_description">உங்கள் நிறுவன லோகோவைக் காட்ட விரும்புகிறீர்களா அல்லது மூலோபாய கூட்டாண்மை பற்றி விவாதிக்க விரும்புகிறீர்களா?</string>
     <string name="settings_contact_sponsorship">மூலோபாய நிதியுதவிக்கு தொடர்பு கொள்ளவும்</string>
+    <string name="settings_openai_compatible_setup_ollama">உங்கள் உள்ளூர் Ollama நிகழ்வை அமைக்கவும்:</string>
+    <string name="settings_openai_compatible_or_other_service">அல்லது வேறு இணக்கமான சேவை:</string>
+    <string name="settings_openai_compatible_providers">வழங்குநர்கள்</string>
 </resources>

@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">هوش مصنوعی اشتباه می‌کند، دوباره بررسی کنید و اطلاعات حساس را به اشتراک نگذارید.</string>
     <string name="settings_version">نسخه: %1$s</string>
     <string name="settings_api_key_label">کلید API</string>
+    <string name="settings_api_key_optional_label">کلید API (اختیاری)</string>
     <string name="settings_sign_in_copy_api_key_from">وارد شوید و کلید API خود را از اینجا کپی کنید</string>
     <string name="settings_model_label">مدل</string>
     <string name="clear_chat_content_description">پاک کردن گفتگو</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">شراکت‌های تجاری</string>
     <string name="settings_business_partnerships_description">می‌خواهید لوگوی شرکت خود را نمایش دهید یا درباره یک شراکت استراتژیک گفتگو کنید؟</string>
     <string name="settings_contact_sponsorship">تماس برای حمایت استراتژیک</string>
+    <string name="settings_openai_compatible_setup_ollama">نمونه محلی Ollama خود را راه‌اندازی کنید:</string>
+    <string name="settings_openai_compatible_or_other_service">یا هر سرویس سازگار دیگری:</string>
+    <string name="settings_openai_compatible_providers">ارائه‌دهندگان</string>
 </resources>

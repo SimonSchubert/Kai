@@ -122,8 +122,8 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 }
             }
 
-            Service.Ollama -> {
-                // Ollama doesn't need an API key, just validate connection
+            Service.OpenAICompatible -> {
+                // OpenAI-compatible APIs don't always need an API key, just validate connection
                 validateConnectionWithStatus(service)
             }
         }

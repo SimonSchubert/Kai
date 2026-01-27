@@ -76,7 +76,7 @@ class FakeDataRepository : DataRepository {
         baseUrls[service] = baseUrl
     }
 
-    override fun getBaseUrl(service: Service): String = baseUrls[service] ?: Service.DEFAULT_OLLAMA_BASE_URL
+    override fun getBaseUrl(service: Service): String = baseUrls[service] ?: Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
         askCalls.add(question to file)

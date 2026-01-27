@@ -1,9 +1,9 @@
-package com.inspiredandroid.kai.network.dtos.ollama
+package com.inspiredandroid.kai.network.dtos.openai
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OllamaModelsResponseDto(
+data class OpenAICompatibleModelsResponseDto(
     val models: List<Model>,
 ) {
     @Serializable

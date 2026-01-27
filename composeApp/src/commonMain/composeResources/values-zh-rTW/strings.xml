@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI 可能會出錯，請仔細核對，不要分享敏感資訊。</string>
     <string name="settings_version">版本：%1$s</string>
     <string name="settings_api_key_label">API 金鑰</string>
+    <string name="settings_api_key_optional_label">API 金鑰（可選）</string>
     <string name="settings_sign_in_copy_api_key_from">登入並從以下位置複製您的 API 金鑰</string>
     <string name="settings_model_label">模型</string>
     <string name="clear_chat_content_description">清除聊天</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">商業合作</string>
     <string name="settings_business_partnerships_description">想展示您的公司標誌或討論策略合作夥伴關係？</string>
     <string name="settings_contact_sponsorship">聯繫策略贊助</string>
+    <string name="settings_openai_compatible_setup_ollama">設定您的本機 Ollama 執行個體：</string>
+    <string name="settings_openai_compatible_or_other_service">或其他相容服務：</string>
+    <string name="settings_openai_compatible_providers">提供者</string>
 </resources>

@@ -9,12 +9,9 @@ class GeminiGenericException(message: String, cause: Throwable? = null) : Gemini
 class GeminiRateLimitExceededException : GeminiApiException()
 class GeminiInvalidApiKeyException : GeminiApiException()
 
-sealed class GroqApiException(message: String? = null, cause: Throwable? = null) : ApiException(message, cause)
-class GroqGenericException(message: String, cause: Throwable? = null) : GroqApiException(message, cause)
-class GroqInvalidApiKeyException : GroqApiException()
-class GroqRateLimitExceededException : GroqApiException()
-
-sealed class OllamaApiException(message: String? = null, cause: Throwable? = null) : ApiException(message, cause)
-class OllamaGenericException(message: String, cause: Throwable? = null) : OllamaApiException(message, cause)
-class OllamaConnectionException : OllamaApiException("Cannot connect to Ollama server")
-class OllamaModelNotFoundException(model: String) : OllamaApiException("Model not found: $model")
+sealed class OpenAICompatibleApiException(message: String? = null, cause: Throwable? = null) : ApiException(message, cause)
+class OpenAICompatibleGenericException(message: String, cause: Throwable? = null) : OpenAICompatibleApiException(message, cause)
+class OpenAICompatibleInvalidApiKeyException : OpenAICompatibleApiException()
+class OpenAICompatibleRateLimitExceededException : OpenAICompatibleApiException()
+class OpenAICompatibleConnectionException : OpenAICompatibleApiException("Cannot connect to server")
+class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")

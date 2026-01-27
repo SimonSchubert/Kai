@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">L’IA peut faire des erreurs, vérifiez les réponses et ne partagez pas d’informations sensibles.</string>
     <string name="settings_version">Version : %1$s</string>
     <string name="settings_api_key_label">Clé API</string>
+    <string name="settings_api_key_optional_label">Clé API (optionnel)</string>
     <string name="settings_sign_in_copy_api_key_from">Connectez-vous et copiez votre clé API depuis</string>
     <string name="settings_model_label">Modèle</string>
     <string name="clear_chat_content_description">Effacer la conversation</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">Partenariats Commerciaux</string>
     <string name="settings_business_partnerships_description">Vous souhaitez afficher le logo de votre entreprise ou discuter d\'un partenariat stratégique ?</string>
     <string name="settings_contact_sponsorship">Contact pour parrainage stratégique</string>
+    <string name="settings_openai_compatible_setup_ollama">Configurez votre instance Ollama locale :</string>
+    <string name="settings_openai_compatible_or_other_service">ou tout autre service compatible :</string>
+    <string name="settings_openai_compatible_providers">fournisseurs</string>
 </resources>

@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">Yapay zeka hata yapabilir, tekrar kontrol edin ve hassas bilgileri paylaşmayın.</string>
     <string name="settings_version">Sürüm: %1$s</string>
     <string name="settings_api_key_label">API Anahtarı</string>
+    <string name="settings_api_key_optional_label">API Anahtarı (isteğe bağlı)</string>
     <string name="settings_sign_in_copy_api_key_from">Giriş yapın ve API anahtarınızı buradan kopyalayın</string>
     <string name="settings_model_label">Model</string>
     <string name="clear_chat_content_description">Sohbeti temizle</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">İş Ortaklıkları</string>
     <string name="settings_business_partnerships_description">Şirketinizin logosunu göstermek veya stratejik bir ortaklık görüşmek ister misiniz?</string>
     <string name="settings_contact_sponsorship">Stratejik Sponsorluk için İletişime Geçin</string>
+    <string name="settings_openai_compatible_setup_ollama">Yerel Ollama örneğinizi kurun:</string>
+    <string name="settings_openai_compatible_or_other_service">veya diğer uyumlu hizmetler:</string>
+    <string name="settings_openai_compatible_providers">sağlayıcılar</string>
 </resources>

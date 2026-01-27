@@ -12,6 +12,7 @@ sealed class Service(
     val id: String,
     val displayName: String,
     val requiresApiKey: Boolean,
+    val supportsOptionalApiKey: Boolean = false,
     val defaultModel: String?,
     val settingsKeyPrefix: String,
     val defaultModels: List<ModelDefinition> = emptyList(),
@@ -50,20 +51,21 @@ sealed class Service(
         defaultModels = emptyList(),
     )
 
-    data object Ollama : Service(
-        id = "ollama",
-        displayName = "Ollama",
+    data object OpenAICompatible : Service(
+        id = "openai-compatible",
+        displayName = "OpenAI-Compatible API",
         requiresApiKey = false,
+        supportsOptionalApiKey = true,
         defaultModel = null,
-        settingsKeyPrefix = "ollama",
+        settingsKeyPrefix = "openai-compatible",
         chatUrl = "/v1/chat/completions",
         modelsUrl = "/api/tags",
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Groq, Ollama)
+        val all: List<Service> get() = listOf(Free, Gemini, Groq, OpenAICompatible)
 
-        const val DEFAULT_OLLAMA_BASE_URL = "http://localhost:11434"
+        const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 
         fun fromId(id: String): Service = all.find { it.id == id } ?: Free
     }

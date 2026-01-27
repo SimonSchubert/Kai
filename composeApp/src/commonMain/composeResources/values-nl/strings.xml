@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI kan fouten maken, controleer opnieuw en deel geen gevoelige informatie.</string>
     <string name="settings_version">Versie: %1$s</string>
     <string name="settings_api_key_label">API-sleutel</string>
+    <string name="settings_api_key_optional_label">API-sleutel (optioneel)</string>
     <string name="settings_sign_in_copy_api_key_from">Log in en kopieer uw API-sleutel van</string>
     <string name="settings_model_label">Model</string>
     <string name="clear_chat_content_description">Chat wissen</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">Zakelijke Partnerschappen</string>
     <string name="settings_business_partnerships_description">Wilt u uw bedrijfslogo tonen of een strategisch partnerschap bespreken?</string>
     <string name="settings_contact_sponsorship">Contact voor strategische sponsoring</string>
+    <string name="settings_openai_compatible_setup_ollama">Stel uw lokale Ollama-instantie in:</string>
+    <string name="settings_openai_compatible_or_other_service">of een andere compatibele service:</string>
+    <string name="settings_openai_compatible_providers">providers</string>
 </resources>

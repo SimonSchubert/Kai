@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI có thể mắc lỗi, hãy kiểm tra kỹ và không chia sẻ thông tin nhạy cảm.</string>
     <string name="settings_version">Phiên bản: %1$s</string>
     <string name="settings_api_key_label">Khóa API</string>
+    <string name="settings_api_key_optional_label">Khóa API (tùy chọn)</string>
     <string name="settings_sign_in_copy_api_key_from">Đăng nhập và sao chép khóa API của bạn từ</string>
     <string name="settings_model_label">Mô hình</string>
     <string name="clear_chat_content_description">Xóa cuộc trò chuyện</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">Quan hệ Đối tác Kinh doanh</string>
     <string name="settings_business_partnerships_description">Bạn muốn hiển thị logo công ty hoặc thảo luận về quan hệ đối tác chiến lược?</string>
     <string name="settings_contact_sponsorship">Liên hệ Tài trợ Chiến lược</string>
+    <string name="settings_openai_compatible_setup_ollama">Thiết lập phiên bản Ollama cục bộ của bạn:</string>
+    <string name="settings_openai_compatible_or_other_service">hoặc bất kỳ dịch vụ tương thích nào khác:</string>
+    <string name="settings_openai_compatible_providers">nhà cung cấp</string>
 </resources>

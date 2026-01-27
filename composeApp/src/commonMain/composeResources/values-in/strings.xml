@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI bisa membuat kesalahan, periksa kembali jawaban dan jangan bagikan informasi sensitif.</string>
     <string name="settings_version">Versi: %1$s</string>
     <string name="settings_api_key_label">Kunci API</string>
+    <string name="settings_api_key_optional_label">Kunci API (opsional)</string>
     <string name="settings_sign_in_copy_api_key_from">Masuk dan salin kunci API Anda dari</string>
     <string name="settings_model_label">Model</string>
     <string name="clear_chat_content_description">Hapus obrolan</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">Kemitraan Bisnis</string>
     <string name="settings_business_partnerships_description">Ingin menampilkan logo perusahaan Anda atau mendiskusikan kemitraan strategis?</string>
     <string name="settings_contact_sponsorship">Hubungi untuk Sponsor Strategis</string>
+    <string name="settings_openai_compatible_setup_ollama">Siapkan instans Ollama lokal Anda:</string>
+    <string name="settings_openai_compatible_or_other_service">atau layanan kompatibel lainnya:</string>
+    <string name="settings_openai_compatible_providers">penyedia</string>
 </resources>

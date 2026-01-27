@@ -72,7 +72,7 @@ class RemoteDataRepository(
     }
 
     override fun updateApiKey(service: Service, apiKey: String) {
-        if (service.requiresApiKey) {
+        if (service.requiresApiKey || service.supportsOptionalApiKey) {
             appSettings.setApiKey(service, apiKey)
             if (service == Service.Groq) {
                 requests.clearBearerToken()
@@ -104,7 +104,7 @@ class RemoteDataRepository(
     override suspend fun fetchModels(service: Service) {
         when (service) {
             Service.Groq -> fetchGroqModels()
-            Service.Ollama -> fetchOllamaModels()
+            Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Gemini -> fetchGeminiModels()
             Service.Free -> { /* Free has no models */ }
         }
@@ -114,7 +114,7 @@ class RemoteDataRepository(
         when (service) {
             Service.Gemini -> fetchGeminiModels()
             Service.Groq -> fetchGroqModels()
-            Service.Ollama -> fetchOllamaModels()
+            Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Free -> { /* Always valid */ }
         }
     }
@@ -162,10 +162,10 @@ class RemoteDataRepository(
         modelsByService[Service.Groq]?.value = models
     }
 
-    private suspend fun fetchOllamaModels() {
-        val baseUrl = appSettings.getBaseUrl(Service.Ollama)
-        val response = requests.getOllamaModels(baseUrl).getOrThrow()
-        val selectedModelId = appSettings.getSelectedModelId(Service.Ollama)
+    private suspend fun fetchOpenAICompatibleModels() {
+        val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
+        val response = requests.getOpenAICompatibleModels(baseUrl).getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.OpenAICompatible)
         val models = response.models
             .sortedBy { it.name }
             .map {
@@ -176,11 +176,11 @@ class RemoteDataRepository(
                     isSelected = it.name == selectedModelId,
                 )
             }
-        modelsByService[Service.Ollama]?.value = models
+        modelsByService[Service.OpenAICompatible]?.value = models
         // Auto-select first model if none selected
         if (selectedModelId.isEmpty() && models.isNotEmpty()) {
-            appSettings.setSelectedModelId(Service.Ollama, models.first().id)
-            updateModelsSelection(Service.Ollama)
+            appSettings.setSelectedModelId(Service.OpenAICompatible, models.first().id)
+            updateModelsSelection(Service.OpenAICompatible)
         }
     }
 
@@ -238,10 +238,10 @@ class RemoteDataRepository(
                 } ?: ""
             }
 
-            Service.Ollama -> {
-                val ollamaMessages = messages.map { it.toGroqMessageDto() }
-                val baseUrl = appSettings.getBaseUrl(Service.Ollama)
-                val response = requests.ollamaChat(messages = ollamaMessages, baseUrl = baseUrl).getOrThrow()
+            Service.OpenAICompatible -> {
+                val openAIMessages = messages.map { it.toGroqMessageDto() }
+                val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
+                val response = requests.openAICompatibleChat(messages = openAIMessages, baseUrl = baseUrl).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
         }

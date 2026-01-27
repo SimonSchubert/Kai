@@ -83,6 +83,7 @@ import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
+import kai.composeapp.generated.resources.settings_api_key_optional_label
 import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
@@ -91,6 +92,9 @@ import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_model_label
+import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
+import kai.composeapp.generated.resources.settings_openai_compatible_providers
+import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
@@ -155,10 +159,12 @@ fun SettingsScreen(
                     )
                 }
 
-                Service.Ollama -> {
-                    OllamaSettings(
+                Service.OpenAICompatible -> {
+                    OpenAICompatibleSettings(
                         baseUrl = uiState.baseUrl,
                         onChangeBaseUrl = uiState.onChangeBaseUrl,
+                        apiKey = uiState.apiKey,
+                        onChangeApiKey = uiState.onChangeApiKey,
                         selectedModel = uiState.selectedModel,
                         models = uiState.models,
                         onSelectModel = uiState.onSelectModel,
@@ -356,9 +362,11 @@ private fun ServiceSettings(
 }
 
 @Composable
-private fun OllamaSettings(
+private fun OpenAICompatibleSettings(
     baseUrl: String,
     onChangeBaseUrl: (String) -> Unit,
+    apiKey: String,
+    onChangeApiKey: (String) -> Unit,
     selectedModel: SettingsModel?,
     models: List<SettingsModel>,
     onSelectModel: (String) -> Unit,
@@ -380,17 +388,45 @@ private fun OllamaSettings(
 
     Spacer(Modifier.height(8.dp))
 
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = apiKey,
+        onValueChange = onChangeApiKey,
+        label = {
+            Text(
+                stringResource(Res.string.settings_api_key_optional_label),
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
+        colors = outlineTextFieldColors(),
+        singleLine = true,
+    )
+
+    Spacer(Modifier.height(8.dp))
+
     ConnectionStatusIndicator(connectionStatus)
 
     Spacer(Modifier.height(8.dp))
 
     val linkColor = MaterialTheme.colorScheme.primary
-    val annotatedString = remember {
+    val setupOllamaText = stringResource(Res.string.settings_openai_compatible_setup_ollama)
+    val orOtherServiceText = stringResource(Res.string.settings_openai_compatible_or_other_service)
+    val providersText = stringResource(Res.string.settings_openai_compatible_providers)
+    val annotatedString = remember(setupOllamaText, orOtherServiceText, providersText, linkColor) {
         buildAnnotatedString {
-            append("Setup your local Ollama instance: ")
+            append(setupOllamaText)
+            append(" ")
             withLink(LinkAnnotation.Url(url = "https://github.com/ollama/ollama")) {
                 withStyle(style = SpanStyle(color = linkColor)) {
                     append("github.com/ollama/ollama")
+                }
+            }
+            append(" ")
+            append(orOtherServiceText)
+            append(" ")
+            withLink(LinkAnnotation.Url(url = "https://docs.litellm.ai/docs/providers")) {
+                withStyle(style = SpanStyle(color = linkColor)) {
+                    append(providersText)
                 }
             }
         }

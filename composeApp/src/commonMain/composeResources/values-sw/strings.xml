@@ -18,6 +18,7 @@
     <string name="settings_ai_mistakes_warning">AI inaweza kufanya makosa, angalia mara mbili na usishiriki taarifa nyeti.</string>
     <string name="settings_version">Toleo: %1$s</string>
     <string name="settings_api_key_label">Ufunguo wa API</string>
+    <string name="settings_api_key_optional_label">Ufunguo wa API (si lazima)</string>
     <string name="settings_sign_in_copy_api_key_from">Ingia na unakili ufunguo wako wa API kutoka</string>
     <string name="settings_model_label">Modeli</string>
     <string name="clear_chat_content_description">Futa mazungumzo</string>
@@ -32,4 +33,7 @@
     <string name="settings_business_partnerships">Ushirikiano wa Biashara</string>
     <string name="settings_business_partnerships_description">Ungependa kuonyesha nembo ya kampuni yako au kujadili ushirikiano wa kimkakati?</string>
     <string name="settings_contact_sponsorship">Wasiliana kwa Udhamini wa Kimkakati</string>
+    <string name="settings_openai_compatible_setup_ollama">Weka mfumo wako wa ndani wa Ollama:</string>
+    <string name="settings_openai_compatible_or_other_service">au huduma nyingine yoyote inayooana:</string>
+    <string name="settings_openai_compatible_providers">watoa huduma</string>
 </resources>
