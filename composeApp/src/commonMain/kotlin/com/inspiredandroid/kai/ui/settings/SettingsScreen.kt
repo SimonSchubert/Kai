@@ -113,6 +113,17 @@ fun SettingsScreen(
         viewModel.onScreenVisible()
     }
 
+    SettingsScreenContent(
+        uiState = uiState,
+        onNavigateBack = onNavigateBack,
+    )
+}
+
+@Composable
+fun SettingsScreenContent(
+    uiState: SettingsUiState,
+    onNavigateBack: () -> Unit = {},
+) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
         TopBar(onNavigateBack = onNavigateBack)
 

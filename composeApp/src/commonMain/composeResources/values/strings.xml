@@ -14,7 +14,7 @@
     <string name="error_rate_limit_exceeded">Rate limit exceeded. Please try again later.</string>
     <string name="error_generic">An unexpected error occurred. Please try again.</string>
     <string name="error_unknown">An unknown error occurred.</string>
-    <string name="info_using_shared_key">You are using the free tie.</string>
+    <string name="info_using_shared_key">You are using the free tier</string>
     <string name="settings_ai_mistakes_warning">AI makes mistakes, double check and don't share sensitive information.</string>
     <string name="settings_version">Version: %1$s</string>
     <string name="settings_api_key_label">API Key</string>

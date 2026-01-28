@@ -55,6 +55,19 @@ fun ChatScreen(
 ) {
     val uiState by viewModel.state.collectAsState()
 
+    ChatScreenContent(
+        uiState = uiState,
+        textToSpeech = textToSpeech,
+        onNavigateToSettings = onNavigateToSettings,
+    )
+}
+
+@Composable
+fun ChatScreenContent(
+    uiState: ChatUiState,
+    textToSpeech: TextToSpeechInstance? = null,
+    onNavigateToSettings: () -> Unit = {},
+) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
             textToSpeech = textToSpeech,

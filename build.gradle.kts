@@ -15,6 +15,7 @@ plugins {
 configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     kotlin {
         target("**/*.kt")
+        targetExclude("**/build/**")
         ktlint()
             .editorConfigOverride(
                 mapOf(

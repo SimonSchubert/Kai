@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
@@ -17,6 +18,7 @@ import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeFence
 import com.mikepenz.markdown.m3.Markdown
+import com.mikepenz.markdown.model.rememberMarkdownState
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kai.composeapp.generated.resources.bot_message_flag_content_description
@@ -31,9 +33,16 @@ import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun BotMessage(message: String, textToSpeech: TextToSpeechInstance?, isSpeaking: Boolean, setIsSpeaking: (Boolean) -> Unit) {
+internal fun BotMessage(
+    message: String,
+    textToSpeech: TextToSpeechInstance?,
+    isSpeaking: Boolean,
+    setIsSpeaking: (Boolean) -> Unit,
+) {
+    val isInspectionMode = LocalInspectionMode.current
+    val markdownState = rememberMarkdownState(message, immediate = isInspectionMode)
     Markdown(
-        message,
+        markdownState,
         components = markdownComponents(
             codeBlock = highlightedCodeBlock,
             codeFence = highlightedCodeFence,
