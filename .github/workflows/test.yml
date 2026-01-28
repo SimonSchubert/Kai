@@ -36,14 +36,14 @@ jobs:
             echo "is_fork=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
@@ -58,14 +58,19 @@ jobs:
       - name: Set execution flag for gradlew
         run: chmod +x gradlew
 
+      - name: Verify Java version
+        run: |
+          echo "JAVA_HOME: $JAVA_HOME"
+          java -version
+
       - name: Run spotlessApply
-        run: ./gradlew spotlessApply --stacktrace
+        run: ./gradlew spotlessApply --no-daemon --stacktrace
 
       - name: Run updateScreenshots
-        run: ./gradlew :screenshotTests:updateScreenshots --stacktrace
+        run: ./gradlew :screenshotTests:updateScreenshots --no-daemon --stacktrace
 
       - name: Run desktop tests
-        run: ./gradlew :composeApp:desktopTest --stacktrace
+        run: ./gradlew :composeApp:desktopTest --no-daemon --stacktrace
 
       - name: Check for changes
         id: changes
