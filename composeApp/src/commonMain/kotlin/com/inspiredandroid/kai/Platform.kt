@@ -14,3 +14,5 @@ expect fun getBackgroundDispatcher(): CoroutineContext
 expect fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile?
 
 expect val BackIcon: ImageVector
+
+expect val isMobilePlatform: Boolean

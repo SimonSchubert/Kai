@@ -24,3 +24,5 @@ actual fun getBackgroundDispatcher(): CoroutineContext = Dispatchers.IO
 actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = null
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
+
+actual val isMobilePlatform: Boolean = true

@@ -38,6 +38,7 @@ import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -45,6 +46,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.darkPurple
 import com.inspiredandroid.kai.ui.lightPurple
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
@@ -137,29 +139,29 @@ fun QuestionInput(
                 BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))),
                 shape = RoundedCornerShape(28.dp),
             )
-            .onKeyEvent { event ->
-                // Explicitly name 'event' for clarity
-                if (event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyUp) {
+            .onPreviewKeyEvent { event ->
+                // Only handle hardware keyboard on desktop/web platforms
+                if (!isMobilePlatform && event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyDown) {
                     if (event.isShiftPressed) {
+                        // Shift+Enter -> manually insert newline
                         val currentText = textState.text
                         val selection = textState.selection
-                        val textToInsert = "\n"
-
-                        // Ensure selection is valid and ordered
                         val start = minOf(selection.start, selection.end).coerceIn(0, currentText.length)
                         val end = maxOf(selection.start, selection.end).coerceIn(0, currentText.length)
 
-                        val newText = currentText.replaceRange(start, end, textToInsert)
+                        val newText = currentText.replaceRange(start, end, "\n")
                         textState = TextFieldValue(
                             text = newText,
-                            selection = TextRange(start + textToInsert.length),
+                            selection = TextRange(start + 1),
                         )
+                        return@onPreviewKeyEvent true
                     } else {
+                        // Enter without Shift -> send message and consume event
                         submitQuestion()
+                        return@onPreviewKeyEvent true
                     }
-                    return@onKeyEvent true
                 }
-                return@onKeyEvent false
+                return@onPreviewKeyEvent false
             },
         colors = outlineTextFieldColors(),
         placeholder = {
@@ -173,9 +175,11 @@ fun QuestionInput(
         } else {
             null
         },
-        keyboardActions = KeyboardActions(onSend = {
-            submitQuestion()
-        }),
+        keyboardActions = if (!isMobilePlatform) {
+            KeyboardActions(onSend = { submitQuestion() })
+        } else {
+            KeyboardActions() // No keyboard send action on mobile
+        },
         leadingIcon = if (allowFileAttachment) {
             {
                 LeadingIcon(onClick = {
@@ -185,7 +189,9 @@ fun QuestionInput(
         } else {
             null
         },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+        keyboardOptions = KeyboardOptions(
+            imeAction = if (isMobilePlatform) ImeAction.Default else ImeAction.Send,
+        ),
     )
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()

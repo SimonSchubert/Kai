@@ -48,3 +48,5 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? {
 }
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
+
+actual val isMobilePlatform: Boolean = false
