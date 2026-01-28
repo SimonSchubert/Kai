@@ -41,6 +41,12 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 
 <img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300">
 
+## Screenshot automatisation
+
+Integrated in github actions to update mobile screenshots for fastlane and this readme. To run manually:
+
+```./gradlew updateScreenshots```
+
 ## Sponsors
 
 This project is open-source and maintained by a single developer. If you find this app useful, please consider sponsoring to help take it to the next level with more features and faster updates.
