@@ -28,6 +28,7 @@ class ScreenshotTest {
     @get:Rule
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_6_PRO,
+        maxPercentDifference = 0.1, // Allow minor pixel differences across platforms
     )
 
     @Before

@@ -11,8 +11,7 @@ kotlin {
 
 android {
     namespace = "com.inspiredandroid.kai.screenshots"
-    // Use SDK 34 for Paparazzi compatibility (1.3.4 doesn't support SDK 36 yet)
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk =
