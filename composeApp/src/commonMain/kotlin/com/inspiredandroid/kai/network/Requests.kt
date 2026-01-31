@@ -15,11 +15,6 @@ import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
 import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.authProviders
-import io.ktor.client.plugins.auth.providers.BearerAuthProvider
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.EMPTY
 import io.ktor.client.plugins.logging.LogLevel
@@ -40,7 +35,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class Requests(private val appSettings: AppSettings) {
 
-    private fun <T : HttpClientEngineConfig> HttpClientConfig<T>.commonConfig() {
+    private val defaultClient = httpClient {
         install(ContentNegotiation) {
             json(
                 Json {
@@ -63,28 +58,6 @@ class Requests(private val appSettings: AppSettings) {
                 level = LogLevel.NONE
             }
         }
-    }
-
-    private val defaultClient = httpClient {
-        commonConfig()
-    }
-
-    private val groqClient = httpClient {
-        commonConfig()
-        install(Auth) {
-            bearer {
-                loadTokens {
-                    BearerTokens(appSettings.getApiKey(Service.Groq), null)
-                }
-                refreshTokens {
-                    BearerTokens(appSettings.getApiKey(Service.Groq), null)
-                }
-            }
-        }
-    }
-
-    fun clearBearerToken() {
-        groqClient.authProviders.filterIsInstance<BearerAuthProvider>().firstOrNull()?.clearToken()
     }
 
     class DebugKtorLogger : Logger {
@@ -171,10 +144,12 @@ class Requests(private val appSettings: AppSettings) {
     }
 
     suspend fun groqChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.Groq).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val model = appSettings.getSelectedModelId(Service.Groq)
         val response: HttpResponse =
-            groqClient.post(Service.Groq.chatUrl) {
+            defaultClient.post(Service.Groq.chatUrl) {
                 contentType(ContentType.Application.Json)
+                bearerAuth(apiKey)
                 setBody(
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
@@ -196,13 +171,19 @@ class Requests(private val appSettings: AppSettings) {
     }
 
     suspend fun getGroqModels(): Result<OpenAICompatibleModelResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.Groq).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val modelsUrl = Service.Groq.modelsUrl
             ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for Groq"))
-        val response: HttpResponse = groqClient.get(modelsUrl)
+        val response: HttpResponse = defaultClient.get(modelsUrl) {
+            bearerAuth(apiKey)
+        }
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            throw OpenAICompatibleGenericException("Failed to fetch Groq models: ${response.status}")
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                else -> throw OpenAICompatibleGenericException("Failed to fetch Groq models: ${response.status}")
+            }
         }
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)

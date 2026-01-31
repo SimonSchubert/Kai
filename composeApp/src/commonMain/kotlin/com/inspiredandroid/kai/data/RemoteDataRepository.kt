@@ -74,9 +74,6 @@ class RemoteDataRepository(
     override fun updateApiKey(service: Service, apiKey: String) {
         if (service.requiresApiKey || service.supportsOptionalApiKey) {
             appSettings.setApiKey(service, apiKey)
-            if (service == Service.Groq) {
-                requests.clearBearerToken()
-            }
         }
     }
 
