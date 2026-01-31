@@ -27,8 +27,9 @@ class ScreenshotTest {
 
     @get:Rule
     val paparazzi = Paparazzi(
-        deviceConfig = DeviceConfig.PIXEL_6_PRO,
-        maxPercentDifference = 0.1, // Allow minor pixel differences across platforms
+        deviceConfig = DeviceConfig.PIXEL_9A.copy(softButtons = false),
+        showSystemUi = true,
+        maxPercentDifference = 0.1,
     )
 
     @Before
@@ -40,6 +41,13 @@ class ScreenshotTest {
         colorScheme: ColorScheme,
         content: @Composable () -> Unit,
     ) {
+        val theme = if (colorScheme == DarkColorScheme) {
+            "android:Theme.Material.NoActionBar"
+        } else {
+            "android:Theme.Material.Light.NoActionBar"
+        }
+        unsafeUpdateConfig(theme = theme)
+
         snapshot {
             CompositionLocalProvider(LocalInspectionMode provides true) {
                 Theme(colorScheme = colorScheme) {
