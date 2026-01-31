@@ -105,6 +105,7 @@ class RemoteDataRepository(
         when (service) {
             Service.Groq -> fetchGroqModels()
             Service.XAI -> fetchXaiModels()
+            Service.OpenRouter -> fetchOpenRouterModels()
             Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Gemini -> fetchGeminiModels()
             Service.Free -> { /* Free has no models */ }
@@ -114,9 +115,19 @@ class RemoteDataRepository(
     override suspend fun validateConnection(service: Service) {
         when (service) {
             Service.Gemini -> fetchGeminiModels()
+
             Service.Groq -> fetchGroqModels()
+
             Service.XAI -> fetchXaiModels()
+
+            Service.OpenRouter -> {
+                // Validate API key first, then fetch models
+                requests.validateOpenRouterApiKey().getOrThrow()
+                fetchOpenRouterModels()
+            }
+
             Service.OpenAICompatible -> fetchOpenAICompatibleModels()
+
             Service.Free -> { /* Always valid */ }
         }
     }
@@ -192,6 +203,29 @@ class RemoteDataRepository(
         }
     }
 
+    private suspend fun fetchOpenRouterModels() {
+        val response = requests.getOpenRouterModels().getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.OpenRouter)
+        val models = response.data
+            .filter { it.isActive != false }
+            .sortedByDescending { it.context_window }
+            .map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.owned_by ?: "",
+                    description = it.created?.toHumanReadableDate(),
+                    createdAt = it.created ?: 0L,
+                    isSelected = it.id == selectedModelId,
+                )
+            }
+        modelsByService[Service.OpenRouter]?.update { models }
+        // Auto-select first model if none selected or selected model not in list
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
+            appSettings.setSelectedModelId(Service.OpenRouter, models.first().id)
+            updateModelsSelection(Service.OpenRouter)
+        }
+    }
+
     private suspend fun fetchOpenAICompatibleModels() {
         val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
         val response = requests.getOpenAICompatibleModels(baseUrl).getOrThrow()
@@ -263,6 +297,12 @@ class RemoteDataRepository(
             Service.XAI -> {
                 val xaiMessages = messages.map { it.toGroqMessageDto() }
                 val response = requests.xaiChat(messages = xaiMessages).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
+            }
+
+            Service.OpenRouter -> {
+                val openRouterMessages = messages.map { it.toGroqMessageDto() }
+                val response = requests.openRouterChat(messages = openRouterMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
 

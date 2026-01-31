@@ -270,6 +270,68 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
+    suspend fun openRouterChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.OpenRouter).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val model = appSettings.getSelectedModelId(Service.OpenRouter)
+        val response: HttpResponse =
+            defaultClient.post(Service.OpenRouter.chatUrl) {
+                contentType(ContentType.Application.Json)
+                bearerAuth(apiKey)
+                setBody(
+                    OpenAICompatibleChatRequestDto(
+                        messages = messages,
+                        model = model,
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                429 -> throw OpenAICompatibleRateLimitExceededException()
+                else -> throw OpenAICompatibleGenericException("OpenRouter request failed: ${response.status}")
+            }
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    suspend fun getOpenRouterModels(): Result<OpenAICompatibleModelResponseDto> = try {
+        val modelsUrl = Service.OpenRouter.modelsUrl
+            ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for OpenRouter"))
+        // OpenRouter's models endpoint is public, no auth needed
+        val response: HttpResponse = defaultClient.get(modelsUrl)
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            throw OpenAICompatibleGenericException("Failed to fetch OpenRouter models: ${response.status}")
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
+    }
+
+    suspend fun validateOpenRouterApiKey(): Result<Unit> = try {
+        val apiKey = appSettings.getApiKey(Service.OpenRouter).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val response: HttpResponse = defaultClient.get("https://openrouter.ai/api/v1/auth/key") {
+            bearerAuth(apiKey)
+        }
+        if (response.status.isSuccess()) {
+            Result.success(Unit)
+        } else {
+            when (response.status.value) {
+                401, 403 -> throw OpenAICompatibleInvalidApiKeyException()
+                else -> throw OpenAICompatibleGenericException("Failed to validate OpenRouter API key: ${response.status}")
+            }
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
+    }
+
     suspend fun openAICompatibleChat(
         messages: List<OpenAICompatibleChatRequestDto.Message>,
         baseUrl: String,

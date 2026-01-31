@@ -48,7 +48,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
         ) { localState, models ->
             localState.copy(
                 currentService = service,
-                models = if (service == Service.Groq || service == Service.XAI) models.sortedByDescending { it.createdAt } else models,
+                models = if (service == Service.Groq || service == Service.XAI || service == Service.OpenRouter) models.sortedByDescending { it.createdAt } else models,
                 selectedModel = models.firstOrNull { it.isSelected },
             )
         }
@@ -118,7 +118,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
             }
 
-            Service.Gemini, Service.Groq, Service.XAI -> {
+            Service.Gemini, Service.Groq, Service.XAI, Service.OpenRouter -> {
                 // These services require an API key
                 val hasApiKey = dataRepository.getApiKey(service).isNotBlank()
                 if (hasApiKey) {

@@ -184,6 +184,19 @@ fun SettingsScreenContent(
                     )
                 }
 
+                Service.OpenRouter -> {
+                    ServiceSettings(
+                        apiKey = uiState.apiKey,
+                        onChangeApiKey = uiState.onChangeApiKey,
+                        apiKeyUrl = "https://openrouter.ai/settings/keys",
+                        apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+                        selectedModel = uiState.selectedModel,
+                        models = uiState.models,
+                        onSelectModel = uiState.onSelectModel,
+                        connectionStatus = uiState.connectionStatus,
+                    )
+                }
+
                 Service.OpenAICompatible -> {
                     OpenAICompatibleSettings(
                         baseUrl = uiState.baseUrl,

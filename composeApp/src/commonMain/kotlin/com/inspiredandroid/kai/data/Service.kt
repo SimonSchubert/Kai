@@ -51,6 +51,17 @@ sealed class Service(
         modelsUrl = "https://api.x.ai/v1/models",
     )
 
+    data object OpenRouter : Service(
+        id = "openrouter",
+        displayName = "OpenRouter",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "openrouter",
+        defaultModels = emptyList(),
+        chatUrl = "https://openrouter.ai/api/v1/chat/completions",
+        modelsUrl = "https://openrouter.ai/api/v1/models",
+    )
+
     data object Gemini : Service(
         id = "gemini",
         displayName = "Gemini",
@@ -74,7 +85,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, XAI, Groq, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, XAI, OpenRouter, Groq, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 
