@@ -128,6 +128,8 @@ fun ChatScreenContent(
                                         textToSpeech?.say(lastMessage.content)
                                     } catch (_: TextToSpeechSynthesisInterruptedError) {
                                         // Speech was interrupted by user
+                                    } catch (_: Exception) {
+                                        // Handle TTS errors gracefully (service failure, audio issues, etc.)
                                     } finally {
                                         uiState.actions.setIsSpeaking(false, lastMessage.id)
                                     }

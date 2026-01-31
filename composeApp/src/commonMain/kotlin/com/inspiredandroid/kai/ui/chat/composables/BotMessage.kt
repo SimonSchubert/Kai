@@ -67,7 +67,11 @@ internal fun BotMessage(
                                 textToSpeech.say(
                                     text = message,
                                 )
-                            } catch (ignore: TextToSpeechSynthesisInterruptedError) { }
+                            } catch (ignore: TextToSpeechSynthesisInterruptedError) {
+                                // Expected interruption - no action needed
+                            } catch (e: Exception) {
+                                // Handle TTS errors gracefully (service failure, audio issues, etc.)
+                            }
                             setIsSpeaking(false)
                         }
                     }
