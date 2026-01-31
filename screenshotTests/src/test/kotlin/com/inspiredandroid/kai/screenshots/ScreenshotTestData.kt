@@ -17,6 +17,8 @@ object ScreenshotTestData {
         clearHistory = {},
         setIsSpeaking = { _, _ -> },
         setFile = { _ -> },
+        startNewChat = { },
+        resetScrollFlag = {},
     )
 
     val chatEmptyState = ChatUiState(
@@ -64,6 +66,7 @@ object ScreenshotTestData {
                     "Note: \"Biggest\" depends on the metric—length (F60), weight (Bagger 293), self-powered mobility (NASA Crawler), or payload (BelAZ). These are primarily land-based industrial/mining/transport vehicles rather than ships, aircraft, or trains.",
             ),
         ),
+        hasSavedConversations = true,
     )
 
     val chatWithCodeExample = ChatUiState(
@@ -110,6 +113,7 @@ JavaScript
 ```""",
             ),
         ),
+        hasSavedConversations = true,
     )
 
     val freeConnected = SettingsUiState(

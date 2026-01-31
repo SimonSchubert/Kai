@@ -4,14 +4,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.russhwolf.settings.ExperimentalSettingsImplementation
+import com.russhwolf.settings.KeychainSettings
+import com.russhwolf.settings.NSUserDefaultsSettings
+import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import platform.Foundation.NSURL
-import platform.UIKit.UIApplication
 import kotlin.coroutines.CoroutineContext
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Darwin) {
@@ -25,3 +27,26 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = n
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos
 
 actual val isMobilePlatform: Boolean = true
+
+actual fun getAppFilesDirectory(): String {
+    val paths = platform.Foundation.NSSearchPathForDirectoriesInDomains(
+        platform.Foundation.NSDocumentDirectory,
+        platform.Foundation.NSUserDomainMask,
+        true,
+    )
+    return paths.first() as String
+}
+
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+actual fun currentTimeMillis(): Long {
+    // CFAbsoluteTimeGetCurrent returns seconds since Jan 1, 2001
+    // kCFAbsoluteTimeIntervalSince1970 = 978307200.0
+    val cfTime = platform.CoreFoundation.CFAbsoluteTimeGetCurrent()
+    val secondsSince1970 = cfTime + 978307200.0
+    return (secondsSince1970 * 1000).toLong()
+}
+
+@OptIn(ExperimentalSettingsImplementation::class)
+actual fun createSecureSettings(): Settings = KeychainSettings(service = "com.inspiredandroid.kai")
+
+actual fun createLegacySettings(): Settings? = NSUserDefaultsSettings(platform.Foundation.NSUserDefaults.standardUserDefaults)

@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface DataRepository {
     val chatHistory: StateFlow<List<History>>
+    val currentConversationId: StateFlow<String?>
+    val savedConversations: StateFlow<List<Conversation>>
 
     fun selectService(service: Service)
     fun updateApiKey(service: Service, apiKey: String)
@@ -23,4 +25,11 @@ interface DataRepository {
     fun clearHistory()
     fun currentService(): Service
     fun isUsingSharedKey(): Boolean
+
+    // Conversation management
+    suspend fun loadConversations()
+    suspend fun loadConversation(id: String)
+    suspend fun deleteConversation(id: String)
+    suspend fun deleteAllConversations()
+    fun startNewChat()
 }

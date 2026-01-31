@@ -28,6 +28,13 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 - Groq: https://groq.com
 - Free tier based on Mistral AI: https://mistral.ai
 
+### Features
+
+- Encrypted local history storage
+- Text to speech output
+- Seamless switch between services
+- File attachments (Gemini)
+
 ## Screenshots
 
 ### Desktop

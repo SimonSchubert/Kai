@@ -1,9 +1,10 @@
-@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class, ExperimentalTime::class)
+@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class, ExperimentalTime::class, ExperimentalUuidApi::class)
 
 package com.inspiredandroid.kai.data
 
 import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
+import com.inspiredandroid.kai.currentTimeMillis
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.toHumanReadableDate
 import com.inspiredandroid.kai.ui.chat.History
@@ -19,10 +20,13 @@ import kotlinx.coroutines.flow.update
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.time.ExperimentalTime
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class RemoteDataRepository(
     private val requests: Requests,
     private val appSettings: AppSettings,
+    private val conversationStorage: ConversationStorage,
 ) : DataRepository {
 
     /**
@@ -66,6 +70,11 @@ class RemoteDataRepository(
         }
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+
+    private val _currentConversationId = MutableStateFlow<String?>(null)
+    override val currentConversationId: StateFlow<String?> = _currentConversationId
+
+    override val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
 
     override fun selectService(service: Service) {
         appSettings.selectService(service)
@@ -322,6 +331,46 @@ class RemoteDataRepository(
         chatHistory.update {
             it + History(role = History.Role.ASSISTANT, content = responseText)
         }
+
+        // Auto-save conversation after each message
+        saveCurrentConversation()
+    }
+
+    private suspend fun saveCurrentConversation() {
+        val history = chatHistory.value
+        if (history.isEmpty()) return
+
+        val now = currentTimeMillis()
+        val conversationId = _currentConversationId.value ?: Uuid.random().toString().also {
+            _currentConversationId.value = it
+        }
+
+        val firstUserMessage = history.firstOrNull { it.role == History.Role.USER }
+        val title = firstUserMessage?.content?.take(50) ?: "New conversation"
+
+        val existingConversation = savedConversations.value.find { it.id == conversationId }
+
+        val conversation = Conversation(
+            id = conversationId,
+            title = title,
+            messages = history.map { h ->
+                Conversation.Message(
+                    id = h.id,
+                    role = when (h.role) {
+                        History.Role.USER -> "user"
+                        History.Role.ASSISTANT -> "assistant"
+                    },
+                    content = h.content,
+                    mimeType = h.mimeType,
+                    data = h.data,
+                )
+            },
+            createdAt = existingConversation?.createdAt ?: now,
+            updatedAt = now,
+            serviceId = currentService().id,
+        )
+
+        conversationStorage.saveConversation(conversation)
     }
 
     override fun clearHistory() {
@@ -333,4 +382,44 @@ class RemoteDataRepository(
     override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
 
     override fun currentService(): Service = appSettings.currentService()
+
+    // Conversation management
+    override suspend fun loadConversations() {
+        conversationStorage.loadConversations()
+    }
+
+    override suspend fun loadConversation(id: String) {
+        val conversation = savedConversations.value.find { it.id == id } ?: return
+
+        _currentConversationId.value = id
+        chatHistory.value = conversation.messages.map { m ->
+            History(
+                id = m.id,
+                role = when (m.role) {
+                    "user" -> History.Role.USER
+                    else -> History.Role.ASSISTANT
+                },
+                content = m.content,
+                mimeType = m.mimeType,
+                data = m.data,
+            )
+        }
+    }
+
+    override suspend fun deleteConversation(id: String) {
+        conversationStorage.deleteConversation(id)
+        if (_currentConversationId.value == id) {
+            startNewChat()
+        }
+    }
+
+    override suspend fun deleteAllConversations() {
+        conversationStorage.deleteAllConversations()
+        startNewChat()
+    }
+
+    override fun startNewChat() {
+        _currentConversationId.value = null
+        chatHistory.value = emptyList()
+    }
 }

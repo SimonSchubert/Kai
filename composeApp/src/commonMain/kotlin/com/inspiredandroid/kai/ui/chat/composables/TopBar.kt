@@ -9,14 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.clear_chat_content_description
-import kai.composeapp.generated.resources.ic_delete_forever
+import kai.composeapp.generated.resources.history_content_description
+import kai.composeapp.generated.resources.ic_add
+import kai.composeapp.generated.resources.ic_history
 import kai.composeapp.generated.resources.ic_settings
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
+import kai.composeapp.generated.resources.new_chat_content_description
 import kai.composeapp.generated.resources.settings_content_description
 import kai.composeapp.generated.resources.toggle_speech_output_content_description
 import nl.marc_apps.tts.TextToSpeechInstance
@@ -31,9 +32,25 @@ internal fun TopBar(
     isSpeaking: Boolean,
     actions: ChatActions,
     isChatHistoryEmpty: Boolean,
+    hasSavedConversations: Boolean,
     onNavigateToSettings: () -> Unit,
+    onNavigateToHistory: () -> Unit,
 ) {
     Row {
+        if (hasSavedConversations) {
+            IconButton(
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                onClick = onNavigateToHistory,
+                enabled = !isLoading,
+            ) {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_history),
+                    contentDescription = stringResource(Res.string.history_content_description),
+                    tint = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+        }
+
         if (!isChatHistoryEmpty) {
             IconButton(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
@@ -42,13 +59,13 @@ internal fun TopBar(
                         actions.setIsSpeaking(false, "")
                         textToSpeech?.stop()
                     }
-                    actions.clearHistory()
+                    actions.startNewChat()
                 },
                 enabled = !isLoading,
             ) {
                 Icon(
-                    imageVector = vectorResource(Res.drawable.ic_delete_forever),
-                    contentDescription = stringResource(Res.string.clear_chat_content_description),
+                    imageVector = vectorResource(Res.drawable.ic_add),
+                    contentDescription = stringResource(Res.string.new_chat_content_description),
                     tint = MaterialTheme.colorScheme.onBackground,
                 )
             }

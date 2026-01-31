@@ -13,6 +13,8 @@ import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
+import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.history.HistoryScreen
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -20,6 +22,7 @@ import nl.marc_apps.tts.TextToSpeechInstance
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.KoinApplication
 
 @Serializable
@@ -29,6 +32,10 @@ object Home
 @Serializable
 @SerialName("settings")
 object Settings
+
+@Serializable
+@SerialName("history")
+object History
 
 @Composable
 @Preview
@@ -58,18 +65,35 @@ fun App(
         }
 
         Theme(colorScheme = colorScheme) {
+            val chatViewModel: ChatViewModel = koinViewModel()
+
             NavHost(navController, startDestination = Home) {
                 composable<Home> {
                     ChatScreen(
+                        viewModel = chatViewModel,
                         textToSpeech = textToSpeech,
                         onNavigateToSettings = {
                             navController.navigate(Settings)
+                        },
+                        onNavigateToHistory = {
+                            navController.navigate(History)
                         },
                     )
                 }
                 composable<Settings> {
                     SettingsScreen(
                         onNavigateBack = {
+                            navController.navigateUp()
+                        },
+                    )
+                }
+                composable<History> {
+                    HistoryScreen(
+                        onNavigateBack = {
+                            navController.navigateUp()
+                        },
+                        onSelectConversation = { id ->
+                            chatViewModel.loadConversation(id)
                             navController.navigateUp()
                         },
                     )

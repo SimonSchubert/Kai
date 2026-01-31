@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.testutil
 
+import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.ui.chat.History
@@ -18,6 +19,8 @@ class FakeDataRepository : DataRepository {
         Service.all.associateWith { MutableStateFlow(emptyList()) }
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
+    override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
+    override val savedConversations: MutableStateFlow<List<Conversation>> = MutableStateFlow(emptyList())
 
     val selectServiceCalls = mutableListOf<Service>()
     val updateApiKeyCalls = mutableListOf<Pair<Service, String>>()
@@ -99,4 +102,42 @@ class FakeDataRepository : DataRepository {
     override fun currentService(): Service = currentService
 
     override fun isUsingSharedKey(): Boolean = currentService == Service.Free
+
+    // Conversation management
+    override suspend fun loadConversations() {
+        // No-op in tests
+    }
+
+    override suspend fun loadConversation(id: String) {
+        val conversation = savedConversations.value.find { it.id == id } ?: return
+        currentConversationId.value = id
+        chatHistory.value = conversation.messages.map { m ->
+            History(
+                id = m.id,
+                role = when (m.role) {
+                    "user" -> History.Role.USER
+                    else -> History.Role.ASSISTANT
+                },
+                content = m.content,
+                mimeType = m.mimeType,
+                data = m.data,
+            )
+        }
+    }
+
+    override suspend fun deleteConversation(id: String) {
+        savedConversations.update { current ->
+            current.filter { it.id != id }
+        }
+    }
+
+    override suspend fun deleteAllConversations() {
+        savedConversations.value = emptyList()
+        startNewChat()
+    }
+
+    override fun startNewChat() {
+        currentConversationId.value = null
+        chatHistory.value = emptyList()
+    }
 }

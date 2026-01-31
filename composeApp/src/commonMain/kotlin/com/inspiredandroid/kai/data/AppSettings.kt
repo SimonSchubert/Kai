@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.data
 
 import com.russhwolf.settings.Settings
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 class AppSettings(private val settings: Settings) {
 
@@ -56,8 +58,61 @@ class AppSettings(private val settings: Settings) {
         return newCount
     }
 
+    // Encryption key for conversation storage
+    @OptIn(ExperimentalEncodingApi::class)
+    fun getEncryptionKey(): ByteArray? {
+        val encoded = settings.getStringOrNull(KEY_ENCRYPTION_KEY) ?: return null
+        return try {
+            Base64.decode(encoded)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    @OptIn(ExperimentalEncodingApi::class)
+    fun setEncryptionKey(key: ByteArray) {
+        settings.putString(KEY_ENCRYPTION_KEY, Base64.encode(key))
+    }
+
+    // Migration from legacy unencrypted settings
+    fun migrateFromLegacyIfNeeded(legacySettings: Settings?) {
+        if (legacySettings == null) return
+        if (settings.getBoolean(KEY_MIGRATION_COMPLETE, false)) return
+
+        // Migrate general settings
+        migrateString(legacySettings, KEY_CURRENT_SERVICE_ID)
+        migrateInt(legacySettings, KEY_APP_OPENS)
+        migrateString(legacySettings, KEY_ENCRYPTION_KEY)
+
+        // Migrate per-service settings
+        for (service in Service.all) {
+            if (service.settingsKeyPrefix.isNotEmpty()) {
+                migrateString(legacySettings, service.apiKeyKey)
+                migrateString(legacySettings, service.modelIdKey)
+            }
+        }
+        migrateString(legacySettings, Service.OpenAICompatible.baseUrlKey)
+
+        settings.putBoolean(KEY_MIGRATION_COMPLETE, true)
+    }
+
+    private fun migrateString(legacy: Settings, key: String) {
+        val value = legacy.getStringOrNull(key)
+        if (value != null && settings.getStringOrNull(key) == null) {
+            settings.putString(key, value)
+        }
+    }
+
+    private fun migrateInt(legacy: Settings, key: String) {
+        if (legacy.hasKey(key) && !settings.hasKey(key)) {
+            settings.putInt(key, legacy.getInt(key, 0))
+        }
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
+        const val KEY_ENCRYPTION_KEY = "encryption_key"
+        const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
     }
 }

@@ -44,6 +44,8 @@ class ChatViewModel(
         clearHistory = ::clearHistory,
         setIsSpeaking = ::setIsSpeaking,
         setFile = ::setFile,
+        startNewChat = ::startNewChat,
+        resetScrollFlag = ::resetScrollFlag,
     )
     private val _state = MutableStateFlow(
         ChatUiState(
@@ -52,13 +54,21 @@ class ChatViewModel(
         ),
     )
 
+    init {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.loadConversations()
+        }
+    }
+
     val state = combine(
         _state,
         dataRepository.chatHistory,
-    ) { state, history ->
+        dataRepository.savedConversations,
+    ) { state, history, savedConversations ->
         state.copy(
             history = history,
             allowFileAttachment = dataRepository.currentService() == Service.Gemini,
+            hasSavedConversations = savedConversations.isNotEmpty(),
         )
     }.stateIn(
         scope = viewModelScope,
@@ -145,6 +155,28 @@ class ChatViewModel(
             it.copy(
                 isSpeechOutputEnabled = !it.isSpeechOutputEnabled,
             )
+        }
+    }
+
+    private fun startNewChat() {
+        dataRepository.startNewChat()
+        _state.update {
+            it.copy(error = null)
+        }
+    }
+
+    fun loadConversation(id: String) {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.loadConversation(id)
+            _state.update {
+                it.copy(shouldScrollToBottom = true)
+            }
+        }
+    }
+
+    private fun resetScrollFlag() {
+        _state.update {
+            it.copy(shouldScrollToBottom = false)
         }
     }
 }

@@ -46,4 +46,15 @@
     <string name="settings_openai_compatible_setup_ollama">Setup your local Ollama instance:</string>
     <string name="settings_openai_compatible_or_other_service">or any other compatible service:</string>
     <string name="settings_openai_compatible_providers">providers</string>
+    <string name="history_content_description">Chat history</string>
+    <string name="new_chat_content_description">New chat</string>
+    <string name="history_title">History</string>
+    <string name="history_empty">No saved conversations</string>
+    <string name="history_delete_all">Delete all</string>
+    <string name="history_delete_all_confirm">Delete all conversations?</string>
+    <string name="history_delete_all_message">This will permanently delete all saved conversations. This action cannot be undone.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="history_deleted">Conversation deleted</string>
+    <string name="undo">Undo</string>
 </resources>

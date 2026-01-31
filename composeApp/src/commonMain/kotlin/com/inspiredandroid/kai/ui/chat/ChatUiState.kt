@@ -21,6 +21,8 @@ data class ChatUiState(
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
     val file: PlatformFile? = null,
+    val hasSavedConversations: Boolean = false,
+    val shouldScrollToBottom: Boolean = false,
 )
 
 @Immutable

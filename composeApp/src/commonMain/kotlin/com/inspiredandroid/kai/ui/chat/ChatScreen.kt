@@ -52,6 +52,7 @@ fun ChatScreen(
     viewModel: ChatViewModel = koinViewModel(),
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
+    onNavigateToHistory: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -59,6 +60,7 @@ fun ChatScreen(
         uiState = uiState,
         textToSpeech = textToSpeech,
         onNavigateToSettings = onNavigateToSettings,
+        onNavigateToHistory = onNavigateToHistory,
     )
 }
 
@@ -67,6 +69,7 @@ fun ChatScreenContent(
     uiState: ChatUiState,
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
+    onNavigateToHistory: () -> Unit = {},
 ) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
@@ -76,7 +79,9 @@ fun ChatScreenContent(
             isSpeaking = uiState.isSpeaking,
             actions = uiState.actions,
             isChatHistoryEmpty = uiState.history.isEmpty(),
+            hasSavedConversations = uiState.hasSavedConversations,
             onNavigateToSettings = onNavigateToSettings,
+            onNavigateToHistory = onNavigateToHistory,
         )
 
         SelectionContainer {
@@ -113,6 +118,13 @@ fun ChatScreenContent(
                 } else {
                     val listState = rememberLazyListState()
                     val componentScope = rememberCoroutineScope()
+
+                    LaunchedEffect(uiState.shouldScrollToBottom) {
+                        if (uiState.shouldScrollToBottom && uiState.history.isNotEmpty()) {
+                            listState.animateScrollToItem(uiState.history.lastIndex)
+                            uiState.actions.resetScrollFlag()
+                        }
+                    }
 
                     LaunchedEffect(uiState.history.size) {
                         // Capture history at effect start to prevent race conditions
