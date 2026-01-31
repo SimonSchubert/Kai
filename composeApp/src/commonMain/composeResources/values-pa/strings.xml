@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">ਵਪਾਰਕ ਭਾਈਵਾਲੀ</string>
     <string name="settings_business_partnerships_description">ਆਪਣੀ ਕੰਪਨੀ ਦਾ ਲੋਗੋ ਦਿਖਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਰਣਨੀਤਕ ਭਾਈਵਾਲੀ ਬਾਰੇ ਚਰਚਾ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <string name="settings_contact_sponsorship">ਰਣਨੀਤਕ ਸਪਾਂਸਰਸ਼ਿਪ ਲਈ ਸੰਪਰਕ ਕਰੋ</string>
+    <string name="settings_status_error_invalid_key">ਅਵੈਧ API ਕੁੰਜੀ</string>
+    <string name="settings_status_error_quota_exhausted">ਕੋਟਾ ਖਤਮ</string>
+    <string name="settings_status_error_rate_limited">ਦਰ ਸੀਮਾ ਪਾਰ</string>
+    <string name="settings_status_error_connection_failed">ਕਨੈਕਸ਼ਨ ਅਸਫਲ</string>
     <string name="settings_openai_compatible_setup_ollama">ਆਪਣਾ ਸਥਾਨਕ Ollama ਇੰਸਟੈਂਸ ਸੈਟਅੱਪ ਕਰੋ:</string>
     <string name="settings_openai_compatible_or_other_service">ਜਾਂ ਕੋਈ ਹੋਰ ਅਨੁਕੂਲ ਸੇਵਾ:</string>
     <string name="settings_openai_compatible_providers">ਪ੍ਰਦਾਤਾ</string>

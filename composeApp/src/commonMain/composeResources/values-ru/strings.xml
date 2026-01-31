@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Бизнес-партнёрство</string>
     <string name="settings_business_partnerships_description">Хотите разместить логотип своей компании или обсудить стратегическое партнёрство?</string>
     <string name="settings_contact_sponsorship">Связаться для стратегического спонсорства</string>
+    <string name="settings_status_error_invalid_key">Недействительный ключ API</string>
+    <string name="settings_status_error_quota_exhausted">Квота исчерпана</string>
+    <string name="settings_status_error_rate_limited">Превышен лимит запросов</string>
+    <string name="settings_status_error_connection_failed">Ошибка подключения</string>
     <string name="settings_openai_compatible_setup_ollama">Настройте локальный экземпляр Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">или любой другой совместимый сервис:</string>
     <string name="settings_openai_compatible_providers">провайдеры</string>

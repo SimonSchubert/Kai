@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">ビジネスパートナーシップ</string>
     <string name="settings_business_partnerships_description">会社のロゴを掲載したい、または戦略的パートナーシップについて相談したいですか？</string>
     <string name="settings_contact_sponsorship">戦略的スポンサーシップのお問い合わせ</string>
+    <string name="settings_status_error_invalid_key">無効なAPIキー</string>
+    <string name="settings_status_error_quota_exhausted">クォータ超過</string>
+    <string name="settings_status_error_rate_limited">レート制限中</string>
+    <string name="settings_status_error_connection_failed">接続失敗</string>
     <string name="settings_openai_compatible_setup_ollama">ローカルのOllamaインスタンスをセットアップ：</string>
     <string name="settings_openai_compatible_or_other_service">または他の互換サービス：</string>
     <string name="settings_openai_compatible_providers">プロバイダー</string>

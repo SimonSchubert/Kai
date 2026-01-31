@@ -5,6 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
+import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
+import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
+import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
+import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
+import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -42,7 +48,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
         ) { localState, models ->
             localState.copy(
                 currentService = service,
-                models = if (service == Service.Groq) models.sortedByDescending { it.createdAt } else models,
+                models = if (service == Service.Groq || service == Service.XAI) models.sortedByDescending { it.createdAt } else models,
                 selectedModel = models.firstOrNull { it.isSelected },
             )
         }
@@ -112,7 +118,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
             }
 
-            Service.Gemini, Service.Groq -> {
+            Service.Gemini, Service.Groq, Service.XAI -> {
                 // These services require an API key
                 val hasApiKey = dataRepository.getApiKey(service).isNotBlank()
                 if (hasApiKey) {
@@ -135,8 +141,23 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             try {
                 dataRepository.validateConnection(service)
                 _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
-            } catch (_: Exception) {
-                _state.update { it.copy(connectionStatus = ConnectionStatus.Error) }
+            } catch (e: Exception) {
+                val status = when (e) {
+                    is OpenAICompatibleInvalidApiKeyException, is GeminiInvalidApiKeyException ->
+                        ConnectionStatus.ErrorInvalidKey
+
+                    is OpenAICompatibleQuotaExhaustedException ->
+                        ConnectionStatus.ErrorQuotaExhausted
+
+                    is OpenAICompatibleRateLimitExceededException, is GeminiRateLimitExceededException ->
+                        ConnectionStatus.ErrorRateLimited
+
+                    is OpenAICompatibleConnectionException ->
+                        ConnectionStatus.ErrorConnectionFailed
+
+                    else -> ConnectionStatus.Error
+                }
+                _state.update { it.copy(connectionStatus = status) }
             }
         }
     }

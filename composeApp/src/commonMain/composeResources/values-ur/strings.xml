@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">کاروباری شراکت داری</string>
     <string name="settings_business_partnerships_description">اپنی کمپنی کا لوگو دکھانا چاہتے ہیں یا اسٹریٹجک شراکت داری پر بات کرنا چاہتے ہیں؟</string>
     <string name="settings_contact_sponsorship">اسٹریٹجک سرپرستی کے لیے رابطہ کریں</string>
+    <string name="settings_status_error_invalid_key">غلط API کلید</string>
+    <string name="settings_status_error_quota_exhausted">کوٹہ ختم ہو گیا</string>
+    <string name="settings_status_error_rate_limited">شرح کی حد تک پہنچ گئی</string>
+    <string name="settings_status_error_connection_failed">کنکشن ناکام ہو گیا</string>
     <string name="settings_openai_compatible_setup_ollama">اپنا مقامی Ollama انسٹینس سیٹ اپ کریں:</string>
     <string name="settings_openai_compatible_or_other_service">یا کوئی اور موافق سروس:</string>
     <string name="settings_openai_compatible_providers">فراہم کنندگان</string>

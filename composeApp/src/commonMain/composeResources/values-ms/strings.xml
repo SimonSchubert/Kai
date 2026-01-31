@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Perkongsian Perniagaan</string>
     <string name="settings_business_partnerships_description">Ingin memaparkan logo syarikat anda atau membincangkan perkongsian strategik?</string>
     <string name="settings_contact_sponsorship">Hubungi untuk Penajaan Strategik</string>
+    <string name="settings_status_error_invalid_key">Kunci API tidak sah</string>
+    <string name="settings_status_error_quota_exhausted">Kuota habis</string>
+    <string name="settings_status_error_rate_limited">Had kadar tercapai</string>
+    <string name="settings_status_error_connection_failed">Sambungan gagal</string>
     <string name="settings_openai_compatible_setup_ollama">Sediakan instans Ollama tempatan anda:</string>
     <string name="settings_openai_compatible_or_other_service">atau mana-mana perkhidmatan serasi lain:</string>
     <string name="settings_openai_compatible_providers">penyedia</string>

@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Quan hệ Đối tác Kinh doanh</string>
     <string name="settings_business_partnerships_description">Bạn muốn hiển thị logo công ty hoặc thảo luận về quan hệ đối tác chiến lược?</string>
     <string name="settings_contact_sponsorship">Liên hệ Tài trợ Chiến lược</string>
+    <string name="settings_status_error_invalid_key">Khóa API không hợp lệ</string>
+    <string name="settings_status_error_quota_exhausted">Đã hết hạn mức</string>
+    <string name="settings_status_error_rate_limited">Đạt giới hạn tốc độ</string>
+    <string name="settings_status_error_connection_failed">Kết nối thất bại</string>
     <string name="settings_openai_compatible_setup_ollama">Thiết lập phiên bản Ollama cục bộ của bạn:</string>
     <string name="settings_openai_compatible_or_other_service">hoặc bất kỳ dịch vụ tương thích nào khác:</string>
     <string name="settings_openai_compatible_providers">nhà cung cấp</string>

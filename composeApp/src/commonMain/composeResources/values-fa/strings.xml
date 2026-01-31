@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">شراکت‌های تجاری</string>
     <string name="settings_business_partnerships_description">می‌خواهید لوگوی شرکت خود را نمایش دهید یا درباره یک شراکت استراتژیک گفتگو کنید؟</string>
     <string name="settings_contact_sponsorship">تماس برای حمایت استراتژیک</string>
+    <string name="settings_status_error_invalid_key">کلید API نامعتبر</string>
+    <string name="settings_status_error_quota_exhausted">سهمیه تمام شد</string>
+    <string name="settings_status_error_rate_limited">به حد نرخ رسید</string>
+    <string name="settings_status_error_connection_failed">اتصال ناموفق</string>
     <string name="settings_openai_compatible_setup_ollama">نمونه محلی Ollama خود را راه‌اندازی کنید:</string>
     <string name="settings_openai_compatible_or_other_service">یا هر سرویس سازگار دیگری:</string>
     <string name="settings_openai_compatible_providers">ارائه‌دهندگان</string>

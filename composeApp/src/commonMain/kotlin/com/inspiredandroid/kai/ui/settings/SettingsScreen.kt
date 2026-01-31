@@ -96,6 +96,10 @@ import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
+import kai.composeapp.generated.resources.settings_status_error_connection_failed
+import kai.composeapp.generated.resources.settings_status_error_invalid_key
+import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
+import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kai.composeapp.generated.resources.settings_version
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -164,6 +168,19 @@ fun SettingsScreenContent(
                         onSelectModel = uiState.onSelectModel,
                         connectionStatus = uiState.connectionStatus,
                         testTag = "api_key",
+                    )
+                }
+
+                Service.XAI -> {
+                    ServiceSettings(
+                        apiKey = uiState.apiKey,
+                        onChangeApiKey = uiState.onChangeApiKey,
+                        apiKeyUrl = "https://console.x.ai",
+                        apiKeyUrlDisplay = "console.x.ai",
+                        selectedModel = uiState.selectedModel,
+                        models = uiState.models,
+                        onSelectModel = uiState.onSelectModel,
+                        connectionStatus = uiState.connectionStatus,
                     )
                 }
 
@@ -457,7 +474,6 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
     when (status) {
         ConnectionStatus.Unknown -> return
 
-        // Don't show anything
         ConnectionStatus.Checking -> {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -497,7 +513,38 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
             }
         }
 
-        ConnectionStatus.Error -> {
+        ConnectionStatus.ErrorQuotaExhausted -> {
+            val warningColor = Color(0xFFFF9800)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = warningColor,
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.settings_status_error_quota_exhausted),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = warningColor,
+                )
+            }
+        }
+
+        ConnectionStatus.ErrorInvalidKey,
+        ConnectionStatus.ErrorRateLimited,
+        ConnectionStatus.ErrorConnectionFailed,
+        ConnectionStatus.Error,
+        -> {
+            val errorMessage = when (status) {
+                ConnectionStatus.ErrorInvalidKey -> stringResource(Res.string.settings_status_error_invalid_key)
+                ConnectionStatus.ErrorRateLimited -> stringResource(Res.string.settings_status_error_rate_limited)
+                ConnectionStatus.ErrorConnectionFailed -> stringResource(Res.string.settings_status_error_connection_failed)
+                else -> stringResource(Res.string.settings_status_error)
+            }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -510,7 +557,7 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = stringResource(Res.string.settings_status_error),
+                    text = errorMessage,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error,
                 )

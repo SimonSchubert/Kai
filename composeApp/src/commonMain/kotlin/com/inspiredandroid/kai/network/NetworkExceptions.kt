@@ -13,5 +13,6 @@ sealed class OpenAICompatibleApiException(message: String? = null, cause: Throwa
 class OpenAICompatibleGenericException(message: String, cause: Throwable? = null) : OpenAICompatibleApiException(message, cause)
 class OpenAICompatibleInvalidApiKeyException : OpenAICompatibleApiException()
 class OpenAICompatibleRateLimitExceededException : OpenAICompatibleApiException()
+class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException("Quota exhausted")
 class OpenAICompatibleConnectionException : OpenAICompatibleApiException("Cannot connect to server")
 class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")

@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Zakelijke Partnerschappen</string>
     <string name="settings_business_partnerships_description">Wilt u uw bedrijfslogo tonen of een strategisch partnerschap bespreken?</string>
     <string name="settings_contact_sponsorship">Contact voor strategische sponsoring</string>
+    <string name="settings_status_error_invalid_key">Ongeldige API-sleutel</string>
+    <string name="settings_status_error_quota_exhausted">Quotum uitgeput</string>
+    <string name="settings_status_error_rate_limited">Aanvraaglimiet bereikt</string>
+    <string name="settings_status_error_connection_failed">Verbinding mislukt</string>
     <string name="settings_openai_compatible_setup_ollama">Stel uw lokale Ollama-instantie in:</string>
     <string name="settings_openai_compatible_or_other_service">of een andere compatibele service:</string>
     <string name="settings_openai_compatible_providers">providers</string>

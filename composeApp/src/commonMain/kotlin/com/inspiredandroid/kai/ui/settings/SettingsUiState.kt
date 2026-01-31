@@ -8,6 +8,10 @@ enum class ConnectionStatus {
     Unknown,
     Checking,
     Connected,
+    ErrorInvalidKey,
+    ErrorQuotaExhausted,
+    ErrorRateLimited,
+    ErrorConnectionFailed,
     Error,
 }
 

@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">İş Ortaklıkları</string>
     <string name="settings_business_partnerships_description">Şirketinizin logosunu göstermek veya stratejik bir ortaklık görüşmek ister misiniz?</string>
     <string name="settings_contact_sponsorship">Stratejik Sponsorluk için İletişime Geçin</string>
+    <string name="settings_status_error_invalid_key">Geçersiz API anahtarı</string>
+    <string name="settings_status_error_quota_exhausted">Kota tükendi</string>
+    <string name="settings_status_error_rate_limited">İstek limiti aşıldı</string>
+    <string name="settings_status_error_connection_failed">Bağlantı başarısız</string>
     <string name="settings_openai_compatible_setup_ollama">Yerel Ollama örneğinizi kurun:</string>
     <string name="settings_openai_compatible_or_other_service">veya diğer uyumlu hizmetler:</string>
     <string name="settings_openai_compatible_providers">sağlayıcılar</string>

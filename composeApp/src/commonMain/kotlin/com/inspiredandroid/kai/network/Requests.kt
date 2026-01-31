@@ -210,6 +210,66 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
+    suspend fun xaiChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.XAI).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val model = appSettings.getSelectedModelId(Service.XAI)
+        val response: HttpResponse =
+            defaultClient.post(Service.XAI.chatUrl) {
+                contentType(ContentType.Application.Json)
+                bearerAuth(apiKey)
+                setBody(
+                    OpenAICompatibleChatRequestDto(
+                        messages = messages,
+                        model = model,
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                429 -> throw OpenAICompatibleRateLimitExceededException()
+                else -> throw OpenAICompatibleGenericException("xAI request failed: ${response.status}")
+            }
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    suspend fun getXaiModels(): Result<OpenAICompatibleModelResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.XAI).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val modelsUrl = Service.XAI.modelsUrl
+            ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for xAI"))
+        val response: HttpResponse = defaultClient.get(modelsUrl) {
+            bearerAuth(apiKey)
+        }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+
+                402 -> throw OpenAICompatibleQuotaExhaustedException()
+
+                else -> {
+                    val responseBody = response.bodyAsText()
+                    if (responseBody.contains("exhausted", ignoreCase = true) ||
+                        responseBody.contains("credits", ignoreCase = true) ||
+                        responseBody.contains("spending limit", ignoreCase = true)
+                    ) {
+                        throw OpenAICompatibleQuotaExhaustedException()
+                    }
+                    throw OpenAICompatibleGenericException("Failed to fetch xAI models: ${response.status}")
+                }
+            }
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
+    }
+
     suspend fun openAICompatibleChat(
         messages: List<OpenAICompatibleChatRequestDto.Message>,
         baseUrl: String,

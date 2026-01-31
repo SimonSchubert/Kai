@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Бізнес-партнерство</string>
     <string name="settings_business_partnerships_description">Хочете розмістити логотип своєї компанії або обговорити стратегічне партнерство?</string>
     <string name="settings_contact_sponsorship">Зв\'язатися щодо стратегічного спонсорства</string>
+    <string name="settings_status_error_invalid_key">Недійсний ключ API</string>
+    <string name="settings_status_error_quota_exhausted">Квоту вичерпано</string>
+    <string name="settings_status_error_rate_limited">Перевищено ліміт запитів</string>
+    <string name="settings_status_error_connection_failed">Помилка підключення</string>
     <string name="settings_openai_compatible_setup_ollama">Налаштуйте локальний екземпляр Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">або будь-який інший сумісний сервіс:</string>
     <string name="settings_openai_compatible_providers">провайдери</string>

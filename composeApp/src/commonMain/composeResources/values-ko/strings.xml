@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">비즈니스 파트너십</string>
     <string name="settings_business_partnerships_description">회사 로고를 표시하거나 전략적 파트너십에 대해 논의하고 싶으신가요?</string>
     <string name="settings_contact_sponsorship">전략적 후원 문의</string>
+    <string name="settings_status_error_invalid_key">유효하지 않은 API 키</string>
+    <string name="settings_status_error_quota_exhausted">할당량 소진</string>
+    <string name="settings_status_error_rate_limited">요청 한도 초과</string>
+    <string name="settings_status_error_connection_failed">연결 실패</string>
     <string name="settings_openai_compatible_setup_ollama">로컬 Ollama 인스턴스 설정:</string>
     <string name="settings_openai_compatible_or_other_service">또는 다른 호환 서비스:</string>
     <string name="settings_openai_compatible_providers">제공업체</string>

@@ -24,6 +24,7 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 
 - Ollama: https://github.com/ollama/ollama
 - Gemini: https://aistudio.google.com
+- xAI: https://x.ai
 - Groq: https://groq.com
 - Free tier based on Mistral AI: https://mistral.ai
 

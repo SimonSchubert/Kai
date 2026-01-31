@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Kemitraan Bisnis</string>
     <string name="settings_business_partnerships_description">Ingin menampilkan logo perusahaan Anda atau mendiskusikan kemitraan strategis?</string>
     <string name="settings_contact_sponsorship">Hubungi untuk Sponsor Strategis</string>
+    <string name="settings_status_error_invalid_key">Kunci API tidak valid</string>
+    <string name="settings_status_error_quota_exhausted">Kuota habis</string>
+    <string name="settings_status_error_rate_limited">Batas kecepatan tercapai</string>
+    <string name="settings_status_error_connection_failed">Koneksi gagal</string>
     <string name="settings_openai_compatible_setup_ollama">Siapkan instans Ollama lokal Anda:</string>
     <string name="settings_openai_compatible_or_other_service">atau layanan kompatibel lainnya:</string>
     <string name="settings_openai_compatible_providers">penyedia</string>

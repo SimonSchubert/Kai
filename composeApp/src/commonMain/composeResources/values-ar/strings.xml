@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">شراكات الأعمال</string>
     <string name="settings_business_partnerships_description">هل ترغب في عرض شعار شركتك أو مناقشة شراكة استراتيجية؟</string>
     <string name="settings_contact_sponsorship">تواصل للرعاية الاستراتيجية</string>
+    <string name="settings_status_error_invalid_key">مفتاح API غير صالح</string>
+    <string name="settings_status_error_quota_exhausted">نفدت الحصة</string>
+    <string name="settings_status_error_rate_limited">تم الوصول لحد المعدل</string>
+    <string name="settings_status_error_connection_failed">فشل الاتصال</string>
     <string name="settings_openai_compatible_setup_ollama">قم بإعداد نسخة Ollama المحلية الخاصة بك:</string>
     <string name="settings_openai_compatible_or_other_service">أو أي خدمة متوافقة أخرى:</string>
     <string name="settings_openai_compatible_providers">المزودون</string>

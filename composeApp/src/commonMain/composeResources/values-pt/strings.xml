@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Parcerias Empresariais</string>
     <string name="settings_business_partnerships_description">Quer exibir o logo da sua empresa ou discutir uma parceria estratégica?</string>
     <string name="settings_contact_sponsorship">Contato para patrocínio estratégico</string>
+    <string name="settings_status_error_invalid_key">Chave de API inválida</string>
+    <string name="settings_status_error_quota_exhausted">Cota esgotada</string>
+    <string name="settings_status_error_rate_limited">Limite de taxa atingido</string>
+    <string name="settings_status_error_connection_failed">Conexão falhou</string>
     <string name="settings_openai_compatible_setup_ollama">Configure sua instância Ollama local:</string>
     <string name="settings_openai_compatible_or_other_service">ou qualquer outro serviço compatível:</string>
     <string name="settings_openai_compatible_providers">provedores</string>

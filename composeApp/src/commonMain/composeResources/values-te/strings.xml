@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">వ్యాపార భాగస్వామ్యాలు</string>
     <string name="settings_business_partnerships_description">మీ కంపెనీ లోగోను ప్రదర్శించాలనుకుంటున్నారా లేదా వ్యూహాత్మక భాగస్వామ్యం గురించి చర్చించాలనుకుంటున్నారా?</string>
     <string name="settings_contact_sponsorship">వ్యూహాత్మక స్పాన్సర్‌షిప్ కోసం సంప్రదించండి</string>
+    <string name="settings_status_error_invalid_key">చెల్లని API కీ</string>
+    <string name="settings_status_error_quota_exhausted">కోటా అయిపోయింది</string>
+    <string name="settings_status_error_rate_limited">రేట్ పరిమితి చేరుకుంది</string>
+    <string name="settings_status_error_connection_failed">కనెక్షన్ విఫలమైంది</string>
     <string name="settings_openai_compatible_setup_ollama">మీ స్థానిక Ollama ఇన్‌స్టెన్స్‌ను సెటప్ చేయండి:</string>
     <string name="settings_openai_compatible_or_other_service">లేదా ఇతర అనుకూల సేవ:</string>
     <string name="settings_openai_compatible_providers">ప్రొవైడర్లు</string>

@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">商業合作</string>
     <string name="settings_business_partnerships_description">想展示您的公司標誌或討論策略合作夥伴關係？</string>
     <string name="settings_contact_sponsorship">聯繫策略贊助</string>
+    <string name="settings_status_error_invalid_key">API 金鑰無效</string>
+    <string name="settings_status_error_quota_exhausted">配額已用完</string>
+    <string name="settings_status_error_rate_limited">達到速率限制</string>
+    <string name="settings_status_error_connection_failed">連線失敗</string>
     <string name="settings_openai_compatible_setup_ollama">設定您的本機 Ollama 執行個體：</string>
     <string name="settings_openai_compatible_or_other_service">或其他相容服務：</string>
     <string name="settings_openai_compatible_providers">提供者</string>

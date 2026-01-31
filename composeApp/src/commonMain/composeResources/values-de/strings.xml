@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Geschäftspartnerschaften</string>
     <string name="settings_business_partnerships_description">Möchten Sie Ihr Firmenlogo präsentieren oder eine strategische Partnerschaft besprechen?</string>
     <string name="settings_contact_sponsorship">Kontakt für strategisches Sponsoring</string>
+    <string name="settings_status_error_invalid_key">Ungültiger API-Schlüssel</string>
+    <string name="settings_status_error_quota_exhausted">Kontingent erschöpft</string>
+    <string name="settings_status_error_rate_limited">Rate-Limit erreicht</string>
+    <string name="settings_status_error_connection_failed">Verbindung fehlgeschlagen</string>
     <string name="settings_openai_compatible_setup_ollama">Richte deine lokale Ollama-Instanz ein:</string>
     <string name="settings_openai_compatible_or_other_service">oder einen anderen kompatiblen Dienst:</string>
     <string name="settings_openai_compatible_providers">Anbieter</string>

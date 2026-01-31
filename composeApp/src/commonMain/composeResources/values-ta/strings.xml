@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">வணிக கூட்டாண்மைகள்</string>
     <string name="settings_business_partnerships_description">உங்கள் நிறுவன லோகோவைக் காட்ட விரும்புகிறீர்களா அல்லது மூலோபாய கூட்டாண்மை பற்றி விவாதிக்க விரும்புகிறீர்களா?</string>
     <string name="settings_contact_sponsorship">மூலோபாய நிதியுதவிக்கு தொடர்பு கொள்ளவும்</string>
+    <string name="settings_status_error_invalid_key">தவறான API விசை</string>
+    <string name="settings_status_error_quota_exhausted">ஒதுக்கீடு தீர்ந்தது</string>
+    <string name="settings_status_error_rate_limited">விகித வரம்பு எட்டப்பட்டது</string>
+    <string name="settings_status_error_connection_failed">இணைப்பு தோல்வி</string>
     <string name="settings_openai_compatible_setup_ollama">உங்கள் உள்ளூர் Ollama நிகழ்வை அமைக்கவும்:</string>
     <string name="settings_openai_compatible_or_other_service">அல்லது வேறு இணக்கமான சேவை:</string>
     <string name="settings_openai_compatible_providers">வழங்குநர்கள்</string>

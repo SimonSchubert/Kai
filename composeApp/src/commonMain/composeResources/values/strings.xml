@@ -37,6 +37,10 @@
     <string name="settings_status_checking">Checking connection...</string>
     <string name="settings_status_connected">Connected</string>
     <string name="settings_status_error">Connection failed</string>
+    <string name="settings_status_error_invalid_key">Invalid API key</string>
+    <string name="settings_status_error_quota_exhausted">Quota exhausted</string>
+    <string name="settings_status_error_rate_limited">Rate limited</string>
+    <string name="settings_status_error_connection_failed">Connection failed</string>
     <string name="error_openai_compatible_connection">Cannot connect to server. Make sure the server is running.</string>
     <string name="error_openai_compatible_model_not_found">Model not found. Please select a different model.</string>
     <string name="settings_openai_compatible_setup_ollama">Setup your local Ollama instance:</string>

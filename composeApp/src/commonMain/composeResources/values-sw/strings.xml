@@ -33,6 +33,10 @@
     <string name="settings_business_partnerships">Ushirikiano wa Biashara</string>
     <string name="settings_business_partnerships_description">Ungependa kuonyesha nembo ya kampuni yako au kujadili ushirikiano wa kimkakati?</string>
     <string name="settings_contact_sponsorship">Wasiliana kwa Udhamini wa Kimkakati</string>
+    <string name="settings_status_error_invalid_key">Ufunguo wa API si sahihi</string>
+    <string name="settings_status_error_quota_exhausted">Kiwango kimeisha</string>
+    <string name="settings_status_error_rate_limited">Kikomo cha kiwango kimefikiwa</string>
+    <string name="settings_status_error_connection_failed">Muunganisho umeshindwa</string>
     <string name="settings_openai_compatible_setup_ollama">Weka mfumo wako wa ndani wa Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">au huduma nyingine yoyote inayooana:</string>
     <string name="settings_openai_compatible_providers">watoa huduma</string>

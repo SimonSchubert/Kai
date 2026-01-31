@@ -104,6 +104,7 @@ class RemoteDataRepository(
     override suspend fun fetchModels(service: Service) {
         when (service) {
             Service.Groq -> fetchGroqModels()
+            Service.XAI -> fetchXaiModels()
             Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Gemini -> fetchGeminiModels()
             Service.Free -> { /* Free has no models */ }
@@ -114,6 +115,7 @@ class RemoteDataRepository(
         when (service) {
             Service.Gemini -> fetchGeminiModels()
             Service.Groq -> fetchGroqModels()
+            Service.XAI -> fetchXaiModels()
             Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Free -> { /* Always valid */ }
         }
@@ -164,6 +166,29 @@ class RemoteDataRepository(
         if (models.isNotEmpty() && models.none { it.isSelected }) {
             appSettings.setSelectedModelId(Service.Groq, models.first().id)
             updateModelsSelection(Service.Groq)
+        }
+    }
+
+    private suspend fun fetchXaiModels() {
+        val response = requests.getXaiModels().getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.XAI)
+        val models = response.data
+            .filter { it.isActive != false }
+            .sortedByDescending { it.context_window }
+            .map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.owned_by ?: "",
+                    description = it.created?.toHumanReadableDate(),
+                    createdAt = it.created ?: 0L,
+                    isSelected = it.id == selectedModelId,
+                )
+            }
+        modelsByService[Service.XAI]?.update { models }
+        // Auto-select first model if none selected or selected model not in list
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
+            appSettings.setSelectedModelId(Service.XAI, models.first().id)
+            updateModelsSelection(Service.XAI)
         }
     }
 
@@ -232,6 +257,12 @@ class RemoteDataRepository(
             Service.Groq -> {
                 val groqMessages = messages.map { it.toGroqMessageDto() }
                 val response = requests.groqChat(messages = groqMessages).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
+            }
+
+            Service.XAI -> {
+                val xaiMessages = messages.map { it.toGroqMessageDto() }
+                val response = requests.xaiChat(messages = xaiMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
 
