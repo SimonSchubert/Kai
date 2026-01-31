@@ -67,7 +67,9 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
 
     private fun onSelectService(service: Service) {
         dataRepository.selectService(service)
-        currentService.value = service
+        // Update _state BEFORE currentService to avoid race condition:
+        // flatMapLatest triggers on currentService change, so _state must have
+        // the correct apiKey/baseUrl before that happens
         _state.update {
             it.copy(
                 currentService = service,
@@ -76,6 +78,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 connectionStatus = ConnectionStatus.Unknown,
             )
         }
+        currentService.value = service
         checkConnection(service)
     }
 
