@@ -57,4 +57,17 @@
     <string name="no">No</string>
     <string name="history_deleted">Conversation deleted</string>
     <string name="undo">Undo</string>
+    <string name="settings_tools_title">Tools</string>
+    <string name="settings_tools_description">Enable or disable AI tools that can perform actions on your behalf.</string>
+    <string name="settings_tools_none_available">No tools available on this platform.</string>
+    <string name="settings_tab_services">Services</string>
+    <string name="settings_tab_tools">Tools</string>
+    <string name="tool_get_local_time_name">Get Local Time</string>
+    <string name="tool_get_local_time_description">Get the current local date and time for interpreting relative dates</string>
+    <string name="tool_get_location_name">Get Location</string>
+    <string name="tool_get_location_description">Get estimated location from IP address</string>
+    <string name="tool_send_notification_name">Send Notification</string>
+    <string name="tool_send_notification_description">Send a push notification to the device</string>
+    <string name="tool_create_calendar_event_name">Create Calendar Event</string>
+    <string name="tool_create_calendar_event_description">Create a calendar event on the user\'s device</string>
 </resources>

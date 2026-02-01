@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">ตั้งค่า Ollama ในเครื่องของคุณ:</string>
     <string name="settings_openai_compatible_or_other_service">หรือบริการที่เข้ากันได้อื่นๆ:</string>
     <string name="settings_openai_compatible_providers">ผู้ให้บริการ</string>
+    <string name="tool_get_local_time_name">รับเวลาท้องถิ่น</string>
+    <string name="tool_get_local_time_description">รับวันที่และเวลาท้องถิ่นปัจจุบันสำหรับตีความวันที่สัมพัทธ์</string>
+    <string name="tool_get_location_name">รับตำแหน่งที่ตั้ง</string>
+    <string name="tool_get_location_description">รับตำแหน่งที่ตั้งโดยประมาณจากที่อยู่ IP</string>
+    <string name="tool_send_notification_name">ส่งการแจ้งเตือน</string>
+    <string name="tool_send_notification_description">ส่งการแจ้งเตือนแบบพุชไปยังอุปกรณ์</string>
+    <string name="tool_create_calendar_event_name">สร้างกิจกรรมปฏิทิน</string>
+    <string name="tool_create_calendar_event_description">สร้างกิจกรรมปฏิทินบนอุปกรณ์ของผู้ใช้</string>
 </resources>

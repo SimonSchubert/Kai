@@ -9,6 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.tools.CalendarPermissionController
+import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
+import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -63,6 +67,13 @@ fun App(
                 callback(appSettings.trackAppOpen())
             }
         }
+
+        // Set up permission handlers
+        val calendarPermissionController = koinInject<CalendarPermissionController>()
+        SetupCalendarPermissionHandler(calendarPermissionController)
+
+        val notificationPermissionController = koinInject<NotificationPermissionController>()
+        SetupNotificationPermissionHandler(notificationPermissionController)
 
         Theme(colorScheme = colorScheme) {
             val chatViewModel: ChatViewModel = koinViewModel()

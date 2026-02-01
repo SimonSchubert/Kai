@@ -58,6 +58,15 @@ class AppSettings(private val settings: Settings) {
         return newCount
     }
 
+    // Tool enable/disable settings
+    fun isToolEnabled(toolId: String): Boolean {
+        return settings.getBoolean("$KEY_TOOL_PREFIX$toolId", true) // Enabled by default
+    }
+
+    fun setToolEnabled(toolId: String, enabled: Boolean) {
+        settings.putBoolean("$KEY_TOOL_PREFIX$toolId", enabled)
+    }
+
     // Encryption key for conversation storage
     @OptIn(ExperimentalEncodingApi::class)
     fun getEncryptionKey(): ByteArray? {
@@ -114,5 +123,6 @@ class AppSettings(private val settings: Settings) {
         const val KEY_APP_OPENS = "app_opens"
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
+        const val KEY_TOOL_PREFIX = "tool_enabled_"
     }
 }

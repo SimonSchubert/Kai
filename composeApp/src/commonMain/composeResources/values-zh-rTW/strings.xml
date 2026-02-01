@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">設定您的本機 Ollama 執行個體：</string>
     <string name="settings_openai_compatible_or_other_service">或其他相容服務：</string>
     <string name="settings_openai_compatible_providers">提供者</string>
+    <string name="tool_get_local_time_name">取得本地時間</string>
+    <string name="tool_get_local_time_description">取得目前本地日期和時間以解釋相對日期</string>
+    <string name="tool_get_location_name">取得位置</string>
+    <string name="tool_get_location_description">根據 IP 位址取得估計位置</string>
+    <string name="tool_send_notification_name">傳送通知</string>
+    <string name="tool_send_notification_description">向裝置傳送推播通知</string>
+    <string name="tool_create_calendar_event_name">建立行事曆事件</string>
+    <string name="tool_create_calendar_event_description">在使用者裝置上建立行事曆事件</string>
 </resources>

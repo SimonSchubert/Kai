@@ -3,6 +3,8 @@ package com.inspiredandroid.kai.testutil
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
@@ -139,5 +141,10 @@ class FakeDataRepository : DataRepository {
     override fun startNewChat() {
         currentConversationId.value = null
         chatHistory.value = emptyList()
+    }
+
+    override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
+
+    override fun setToolEnabled(toolId: String, enabled: Boolean) {
     }
 }

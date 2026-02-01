@@ -40,6 +40,7 @@ import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
+import com.inspiredandroid.kai.ui.chat.composables.ToolExecutingMessage
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import kotlinx.coroutines.launch
@@ -159,14 +160,27 @@ fun ChatScreenContent(
                             when (history.role) {
                                 History.Role.USER -> UserMessage(history.content)
 
-                                History.Role.ASSISTANT -> BotMessage(
-                                    message = history.content,
-                                    textToSpeech = textToSpeech,
-                                    isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
-                                    setIsSpeaking = {
-                                        uiState.actions.setIsSpeaking(it, history.id)
-                                    },
+                                History.Role.ASSISTANT -> {
+                                    // Only show assistant message if it has content (not just tool calls)
+                                    if (history.content.isNotEmpty()) {
+                                        BotMessage(
+                                            message = history.content,
+                                            textToSpeech = textToSpeech,
+                                            isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
+                                            setIsSpeaking = {
+                                                uiState.actions.setIsSpeaking(it, history.id)
+                                            },
+                                        )
+                                    }
+                                }
+
+                                History.Role.TOOL_EXECUTING -> ToolExecutingMessage(
+                                    toolName = history.toolName ?: "tool",
                                 )
+
+                                History.Role.TOOL -> {
+                                    // Don't show completed tool results in UI
+                                }
                             }
                         }
                         if (uiState.isLoading) {

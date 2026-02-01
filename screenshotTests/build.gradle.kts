@@ -75,6 +75,7 @@ tasks.register("updateScreenshots") {
                 "chatWithMessages_dark" to "2.png",
                 "chatWithCodeExample_light" to "3.png",
                 "settingsFree_dark" to "4.png",
+                "settingsTools_light" to "5.png",
             )
 
         // Copy to fastlane

@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">ローカルのOllamaインスタンスをセットアップ：</string>
     <string name="settings_openai_compatible_or_other_service">または他の互換サービス：</string>
     <string name="settings_openai_compatible_providers">プロバイダー</string>
+    <string name="tool_get_local_time_name">現地時刻を取得</string>
+    <string name="tool_get_local_time_description">相対日付を解釈するために現在の現地日時を取得</string>
+    <string name="tool_get_location_name">位置情報を取得</string>
+    <string name="tool_get_location_description">IPアドレスから推定位置を取得</string>
+    <string name="tool_send_notification_name">通知を送信</string>
+    <string name="tool_send_notification_description">デバイスにプッシュ通知を送信</string>
+    <string name="tool_create_calendar_event_name">カレンダーイベントを作成</string>
+    <string name="tool_create_calendar_event_description">ユーザーのデバイスにカレンダーイベントを作成</string>
 </resources>

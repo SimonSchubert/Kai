@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Configura tu instancia local de Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">o cualquier otro servicio compatible:</string>
     <string name="settings_openai_compatible_providers">proveedores</string>
+    <string name="tool_get_local_time_name">Obtener hora local</string>
+    <string name="tool_get_local_time_description">Obtener la fecha y hora local actual para interpretar fechas relativas</string>
+    <string name="tool_get_location_name">Obtener ubicación</string>
+    <string name="tool_get_location_description">Obtener ubicación estimada a partir de la dirección IP</string>
+    <string name="tool_send_notification_name">Enviar notificación</string>
+    <string name="tool_send_notification_description">Enviar una notificación push al dispositivo</string>
+    <string name="tool_create_calendar_event_name">Crear evento de calendario</string>
+    <string name="tool_create_calendar_event_description">Crear un evento de calendario en el dispositivo del usuario</string>
 </resources>

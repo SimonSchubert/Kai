@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">మీ స్థానిక Ollama ఇన్‌స్టెన్స్‌ను సెటప్ చేయండి:</string>
     <string name="settings_openai_compatible_or_other_service">లేదా ఇతర అనుకూల సేవ:</string>
     <string name="settings_openai_compatible_providers">ప్రొవైడర్లు</string>
+    <string name="tool_get_local_time_name">స్థానిక సమయం పొందండి</string>
+    <string name="tool_get_local_time_description">సంబంధిత తేదీలను అర్థం చేసుకోవడానికి ప్రస్తుత స్థానిక తేదీ మరియు సమయం పొందండి</string>
+    <string name="tool_get_location_name">స్థానం పొందండి</string>
+    <string name="tool_get_location_description">IP చిరునామా నుండి అంచనా స్థానం పొందండి</string>
+    <string name="tool_send_notification_name">నోటిఫికేషన్ పంపండి</string>
+    <string name="tool_send_notification_description">పరికరానికి పుష్ నోటిఫికేషన్ పంపండి</string>
+    <string name="tool_create_calendar_event_name">క్యాలెండర్ ఈవెంట్ సృష్టించండి</string>
+    <string name="tool_create_calendar_event_description">వినియోగదారు పరికరంలో క్యాలెండర్ ఈవెంట్ సృష్టించండి</string>
 </resources>

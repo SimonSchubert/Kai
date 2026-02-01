@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Настройте локальный экземпляр Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">или любой другой совместимый сервис:</string>
     <string name="settings_openai_compatible_providers">провайдеры</string>
+    <string name="tool_get_local_time_name">Получить местное время</string>
+    <string name="tool_get_local_time_description">Получить текущую местную дату и время для интерпретации относительных дат</string>
+    <string name="tool_get_location_name">Получить местоположение</string>
+    <string name="tool_get_location_description">Получить приблизительное местоположение по IP-адресу</string>
+    <string name="tool_send_notification_name">Отправить уведомление</string>
+    <string name="tool_send_notification_description">Отправить push-уведомление на устройство</string>
+    <string name="tool_create_calendar_event_name">Создать событие календаря</string>
+    <string name="tool_create_calendar_event_description">Создать событие календаря на устройстве пользователя</string>
 </resources>

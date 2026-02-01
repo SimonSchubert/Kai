@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.network.tools.ToolInfo
 import org.jetbrains.compose.resources.StringResource
 
 enum class ConnectionStatus {
@@ -15,8 +16,14 @@ enum class ConnectionStatus {
     Error,
 }
 
+enum class SettingsTab {
+    Services,
+    Tools,
+}
+
 @Immutable
 data class SettingsUiState(
+    val currentTab: SettingsTab = SettingsTab.Services,
     val currentService: Service = Service.Free,
     val services: List<Service> = Service.all,
     val apiKey: String = "",
@@ -24,10 +31,13 @@ data class SettingsUiState(
     val models: List<SettingsModel> = emptyList(),
     val selectedModel: SettingsModel? = null,
     val connectionStatus: ConnectionStatus = ConnectionStatus.Unknown,
+    val tools: List<ToolInfo> = emptyList(),
+    val onSelectTab: (SettingsTab) -> Unit = {},
     val onSelectService: (Service) -> Unit = {},
     val onChangeApiKey: (String) -> Unit = {},
     val onChangeBaseUrl: (String) -> Unit = {},
     val onSelectModel: (String) -> Unit = {},
+    val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
 )
 
 @Immutable

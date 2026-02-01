@@ -34,10 +34,13 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             currentService = currentService.value,
             apiKey = dataRepository.getApiKey(currentService.value),
             baseUrl = dataRepository.getBaseUrl(currentService.value),
+            tools = dataRepository.getToolDefinitions(),
+            onSelectTab = ::onSelectTab,
             onSelectService = ::onSelectService,
             onSelectModel = ::onSelectModel,
             onChangeApiKey = ::onChangeApiKey,
             onChangeBaseUrl = ::onChangeBaseUrl,
+            onToggleTool = ::onToggleTool,
         ),
     )
 
@@ -63,6 +66,10 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             hasCheckedInitialConnection = true
             checkConnection(currentService.value)
         }
+    }
+
+    private fun onSelectTab(tab: SettingsTab) {
+        _state.update { it.copy(currentTab = tab) }
     }
 
     private fun onSelectService(service: Service) {
@@ -104,6 +111,18 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             it.copy(baseUrl = baseUrl, connectionStatus = ConnectionStatus.Unknown)
         }
         checkConnectionDebounced(service)
+    }
+
+    private fun onToggleTool(toolId: String, enabled: Boolean) {
+        dataRepository.setToolEnabled(toolId, enabled)
+        // Update the tools list to reflect the change
+        _state.update { state ->
+            state.copy(
+                tools = state.tools.map { tool ->
+                    if (tool.id == toolId) tool.copy(isEnabled = enabled) else tool
+                },
+            )
+        }
     }
 
     private fun checkConnectionDebounced(service: Service) {

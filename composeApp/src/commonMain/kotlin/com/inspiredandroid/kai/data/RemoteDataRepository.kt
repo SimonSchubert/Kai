@@ -5,18 +5,39 @@ package com.inspiredandroid.kai.data
 import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.currentTimeMillis
+import com.inspiredandroid.kai.getAvailableTools
+import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.Requests
+import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
+import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
+import com.inspiredandroid.kai.network.tools.Tool
+import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.toHumanReadableDate
 import com.inspiredandroid.kai.ui.chat.History
+import com.inspiredandroid.kai.ui.chat.ToolCallInfo
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
 import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.extension
 import io.github.vinceglb.filekit.readBytes
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.boolean
+import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.double
+import kotlinx.serialization.json.doubleOrNull
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.intOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.time.ExperimentalTime
@@ -286,45 +307,30 @@ class RemoteDataRepository(
         }
         val service = currentService()
         val messages = chatHistory.value
+        val tools = getAvailableTools()
 
         val responseText = when (service) {
-            Service.Free -> {
-                val freeMessages = messages.map { it.toGroqMessageDto() }
-                val response = requests.freeChat(messages = freeMessages).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
-            }
-
-            Service.Groq -> {
-                val groqMessages = messages.map { it.toGroqMessageDto() }
-                val response = requests.groqChat(messages = groqMessages).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
-            }
-
-            Service.XAI -> {
-                val xaiMessages = messages.map { it.toGroqMessageDto() }
-                val response = requests.xaiChat(messages = xaiMessages).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
-            }
-
-            Service.OpenRouter -> {
-                val openRouterMessages = messages.map { it.toGroqMessageDto() }
-                val response = requests.openRouterChat(messages = openRouterMessages).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
-            }
-
             Service.Gemini -> {
-                val geminiMessages = messages.map { it.toGeminiMessageDto() }
-                val response = requests.geminiChat(geminiMessages).getOrThrow()
-                response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                    part.text ?: ""
-                } ?: ""
+                if (tools.isNotEmpty()) {
+                    handleGeminiChatWithTools(messages, tools)
+                } else {
+                    val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                    val response = requests.geminiChat(geminiMessages).getOrThrow()
+                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                        part.text ?: ""
+                    } ?: ""
+                }
             }
 
-            Service.OpenAICompatible -> {
-                val openAIMessages = messages.map { it.toGroqMessageDto() }
-                val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
-                val response = requests.openAICompatibleChat(messages = openAIMessages, baseUrl = baseUrl).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
+            else -> {
+                // All OpenAI-compatible services (Free, Groq, XAI, OpenRouter, OpenAICompatible)
+                if (tools.isNotEmpty()) {
+                    handleOpenAICompatibleChatWithTools(service, messages, tools)
+                } else {
+                    val openAIMessages = messages.map { it.toGroqMessageDto() }
+                    val response = sendOpenAICompatibleRequest(service, openAIMessages, emptyList()).getOrThrow()
+                    response.choices.firstOrNull()?.message?.content ?: ""
+                }
             }
         }
 
@@ -334,6 +340,240 @@ class RemoteDataRepository(
 
         // Auto-save conversation after each message
         saveCurrentConversation()
+    }
+
+    private suspend fun sendOpenAICompatibleRequest(
+        service: Service,
+        messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool>,
+    ): Result<OpenAICompatibleChatResponseDto> = when (service) {
+        Service.Free -> requests.freeChat(messages = messages, tools = tools)
+
+        Service.Groq -> requests.groqChat(messages = messages, tools = tools)
+
+        Service.XAI -> requests.xaiChat(messages = messages, tools = tools)
+
+        Service.OpenRouter -> requests.openRouterChat(messages = messages, tools = tools)
+
+        Service.OpenAICompatible -> {
+            val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
+            requests.openAICompatibleChat(messages = messages, baseUrl = baseUrl, tools = tools)
+        }
+
+        Service.Gemini -> throw IllegalArgumentException("Gemini should not use OpenAI-compatible request")
+    }
+
+    private suspend fun handleOpenAICompatibleChatWithTools(
+        service: Service,
+        messages: List<History>,
+        tools: List<Tool>,
+    ): String {
+        var currentMessages = messages.filter { it.role != History.Role.TOOL_EXECUTING }.map { it.toGroqMessageDto() }
+
+        // Loop until AI returns a final response (no more tool calls)
+        while (true) {
+            val response = sendOpenAICompatibleRequest(service, currentMessages, tools).getOrThrow()
+            val message = response.choices.firstOrNull()?.message ?: return ""
+
+            val toolCalls = message.toolCalls
+            if (toolCalls.isNullOrEmpty()) {
+                // No more tool calls - return the final response
+                return message.content ?: ""
+            }
+
+            // Add assistant message with tool calls to history
+            chatHistory.update {
+                it + History(
+                    role = History.Role.ASSISTANT,
+                    content = message.content ?: "",
+                    toolCalls = toolCalls.map { tc ->
+                        ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
+                    },
+                )
+            }
+
+            // Process each tool call
+            for (toolCall in toolCalls) {
+                val toolExecutingId = Uuid.random().toString()
+                val toolDisplayName = getToolDisplayName(toolCall.function.name)
+
+                // Add tool executing message to show in UI
+                chatHistory.update {
+                    it + History(
+                        id = toolExecutingId,
+                        role = History.Role.TOOL_EXECUTING,
+                        content = toolCall.function.name,
+                        toolName = toolDisplayName,
+                    )
+                }
+
+                // Execute the tool
+                val toolResult = executeTool(toolCall.function.name, toolCall.function.arguments)
+
+                // Remove tool executing message and add tool result
+                chatHistory.update { history ->
+                    history.filter { it.id != toolExecutingId } + History(
+                        role = History.Role.TOOL,
+                        content = toolResult,
+                        toolCallId = toolCall.id,
+                        toolName = toolCall.function.name,
+                    )
+                }
+            }
+
+            // Update messages for next iteration
+            currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }.map { it.toGroqMessageDto() }
+        }
+    }
+
+    private suspend fun handleGeminiChatWithTools(messages: List<History>, tools: List<Tool>): String {
+        // Loop until AI returns a final response (no more function calls)
+        while (true) {
+            val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+            val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
+
+            val response = requests.geminiChat(messages = geminiMessages, tools = tools).getOrThrow()
+            val parts = response.candidates.firstOrNull()?.content?.parts ?: return ""
+
+            // Check for function calls in the response (parts that have functionCall)
+            val partsWithFunctionCalls = parts.filter { it.functionCall != null }
+            if (partsWithFunctionCalls.isEmpty()) {
+                // No function calls - return the text response
+                return parts.joinToString("\n") { it.text ?: "" }
+            }
+
+            // Convert Gemini function calls to ToolCallInfo with synthetic IDs
+            // Include thoughtSignature from the Part (required for Gemini 3 models)
+            val toolCallInfos = partsWithFunctionCalls.map { part ->
+                val fc = part.functionCall!!
+                val argsJson = fc.args?.let { args ->
+                    args.entries.joinToString(", ", "{", "}") { (k, v) ->
+                        "\"$k\": ${formatJsonElement(v)}"
+                    }
+                } ?: "{}"
+                ToolCallInfo(
+                    id = "gemini-${Uuid.random()}",
+                    name = fc.name,
+                    arguments = argsJson,
+                    thoughtSignature = part.thoughtSignature,
+                )
+            }
+
+            // Add assistant message with tool calls to history
+            val textContent = parts.mapNotNull { it.text }.joinToString("\n")
+            chatHistory.update {
+                it + History(
+                    role = History.Role.ASSISTANT,
+                    content = textContent,
+                    toolCalls = toolCallInfos,
+                )
+            }
+
+            // Process each function call
+            for (toolCallInfo in toolCallInfos) {
+                val toolExecutingId = Uuid.random().toString()
+                val toolDisplayName = getToolDisplayName(toolCallInfo.name)
+
+                // Add tool executing message to show in UI
+                chatHistory.update {
+                    it + History(
+                        id = toolExecutingId,
+                        role = History.Role.TOOL_EXECUTING,
+                        content = toolCallInfo.name,
+                        toolName = toolDisplayName,
+                    )
+                }
+
+                // Execute the tool
+                val toolResult = executeTool(toolCallInfo.name, toolCallInfo.arguments)
+
+                // Remove tool executing message and add tool result
+                chatHistory.update { history ->
+                    history.filter { it.id != toolExecutingId } + History(
+                        role = History.Role.TOOL,
+                        content = toolResult,
+                        toolCallId = toolCallInfo.id,
+                        toolName = toolCallInfo.name,
+                    )
+                }
+            }
+        }
+    }
+
+    private fun formatJsonElement(element: JsonElement): String = when {
+        element is JsonNull -> "null"
+        element is kotlinx.serialization.json.JsonPrimitive && element.isString -> "\"${element.content}\""
+        element is kotlinx.serialization.json.JsonPrimitive -> element.content
+        else -> element.toString()
+    }
+
+    private val jsonParser = Json { ignoreUnknownKeys = true }
+
+    private suspend fun executeTool(name: String, arguments: String): String {
+        println("[Tool] executeTool called: name=$name, arguments=$arguments")
+
+        // Find the tool in available tools
+        val tools = getAvailableTools()
+        println("[Tool] Available tools: ${tools.map { it.schema.name }}")
+        val tool = tools.find { it.schema.name == name }
+        if (tool == null) {
+            println("[Tool] Tool not found: $name")
+            return """{"success": false, "error": "Unknown tool: $name"}"""
+        }
+
+        // Parse JSON arguments to Map
+        val args = try {
+            parseJsonToMap(arguments)
+        } catch (e: Exception) {
+            println("[Tool] Failed to parse arguments: ${e.message}")
+            return """{"success": false, "error": "Failed to parse arguments: ${e.message}"}"""
+        }
+        println("[Tool] Parsed arguments: $args")
+
+        // Execute the tool
+        return try {
+            println("[Tool] Executing tool...")
+            val result = tool.execute(args)
+            println("[Tool] Tool execution result: $result")
+            when (result) {
+                is Map<*, *> -> {
+                    // Convert map to JSON string
+                    val jsonEntries = result.entries.joinToString(", ") { (k, v) ->
+                        val valueStr = when (v) {
+                            is String -> "\"$v\""
+                            is Boolean, is Number -> v.toString()
+                            else -> "\"$v\""
+                        }
+                        "\"$k\": $valueStr"
+                    }
+                    "{$jsonEntries}"
+                }
+
+                is String -> result
+
+                else -> """{"result": "$result"}"""
+            }
+        } catch (e: Exception) {
+            println("[Tool] Tool execution failed: ${e.message}")
+            e.printStackTrace()
+            """{"success": false, "error": "Tool execution failed: ${e.message}"}"""
+        }
+    }
+
+    private fun parseJsonToMap(json: String): Map<String, Any> {
+        val jsonObject = jsonParser.parseToJsonElement(json).jsonObject
+        return jsonObject.toMap()
+    }
+
+    private fun JsonObject.toMap(): Map<String, Any> = entries.associate { (key, value) ->
+        key to when {
+            value is JsonPrimitive && value.isString -> value.content
+            value is JsonPrimitive && value.booleanOrNull != null -> value.boolean
+            value is JsonPrimitive && value.intOrNull != null -> value.int
+            value is JsonPrimitive && value.doubleOrNull != null -> value.double
+            value is JsonObject -> value.toMap()
+            else -> value.toString()
+        }
     }
 
     private suspend fun saveCurrentConversation() {
@@ -353,18 +593,22 @@ class RemoteDataRepository(
         val conversation = Conversation(
             id = conversationId,
             title = title,
-            messages = history.map { h ->
-                Conversation.Message(
-                    id = h.id,
-                    role = when (h.role) {
-                        History.Role.USER -> "user"
-                        History.Role.ASSISTANT -> "assistant"
-                    },
-                    content = h.content,
-                    mimeType = h.mimeType,
-                    data = h.data,
-                )
-            },
+            messages = history
+                .filter { it.role != History.Role.TOOL_EXECUTING }
+                .map { h ->
+                    Conversation.Message(
+                        id = h.id,
+                        role = when (h.role) {
+                            History.Role.USER -> "user"
+                            History.Role.ASSISTANT -> "assistant"
+                            History.Role.TOOL -> "tool"
+                            History.Role.TOOL_EXECUTING -> "tool" // Should not happen due to filter
+                        },
+                        content = h.content,
+                        mimeType = h.mimeType,
+                        data = h.data,
+                    )
+                },
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
             serviceId = currentService().id,
@@ -397,6 +641,7 @@ class RemoteDataRepository(
                 id = m.id,
                 role = when (m.role) {
                     "user" -> History.Role.USER
+                    "tool" -> History.Role.TOOL
                     else -> History.Role.ASSISTANT
                 },
                 content = m.content,
@@ -421,5 +666,18 @@ class RemoteDataRepository(
     override fun startNewChat() {
         _currentConversationId.value = null
         chatHistory.value = emptyList()
+    }
+
+    // Tool management
+    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id)) }
+
+    /**
+     * Gets the human-readable display name for a tool given its ID.
+     * Falls back to the ID if not found.
+     */
+    private fun getToolDisplayName(toolId: String): String = getPlatformToolDefinitions().find { it.id == toolId }?.name ?: toolId
+
+    override fun setToolEnabled(toolId: String, enabled: Boolean) {
+        appSettings.setToolEnabled(toolId, enabled)
     }
 }

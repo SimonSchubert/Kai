@@ -1,11 +1,13 @@
 package com.inspiredandroid.kai.screenshots
 
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.ConnectionStatus
 import com.inspiredandroid.kai.ui.settings.SettingsModel
+import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
 
 object ScreenshotTestData {
@@ -117,8 +119,14 @@ JavaScript
     )
 
     val freeConnected = SettingsUiState(
+        currentTab = SettingsTab.Services,
         currentService = Service.Free,
         services = Service.all,
         connectionStatus = ConnectionStatus.Connected,
+    )
+
+    val settingsTools = SettingsUiState(
+        currentTab = SettingsTab.Tools,
+        tools = getPlatformToolDefinitions(),
     )
 }

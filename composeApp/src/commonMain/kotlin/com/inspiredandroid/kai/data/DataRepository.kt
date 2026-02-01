@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
@@ -32,4 +33,8 @@ interface DataRepository {
     suspend fun deleteConversation(id: String)
     suspend fun deleteAllConversations()
     fun startNewChat()
+
+    // Tool management
+    fun getToolDefinitions(): List<ToolInfo>
+    fun setToolEnabled(toolId: String, enabled: Boolean)
 }

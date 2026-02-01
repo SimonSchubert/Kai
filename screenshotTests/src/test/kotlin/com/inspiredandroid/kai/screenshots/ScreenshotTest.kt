@@ -93,4 +93,11 @@ class ScreenshotTest {
             SettingsScreenContent(uiState = ScreenshotTestData.freeConnected)
         }
     }
+
+    @Test
+    fun settingsTools_light() {
+        paparazzi.snap(LightColorScheme) {
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsTools)
+        }
+    }
 }

@@ -9,6 +9,10 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragData
 import androidx.compose.ui.draganddrop.dragData
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.network.tools.Tool
+import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.tools.CommonTools
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.PlatformFile
@@ -16,6 +20,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.cio.CIO
 import kotlinx.coroutines.Dispatchers
+import org.koin.java.KoinJavaComponent.inject
 import java.io.File
 import java.net.URI
 import java.util.prefs.Preferences
@@ -39,8 +44,7 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? {
                 if (file.exists()) {
                     return PlatformFile(file)
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (_: Exception) {
             }
         }
         return null
@@ -71,3 +75,10 @@ actual fun createSecureSettings(): Settings {
 }
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
+
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
+
+actual fun getAvailableTools(): List<Tool> {
+    val appSettings: AppSettings by inject(AppSettings::class.java)
+    return CommonTools.getCommonTools(appSettings)
+}

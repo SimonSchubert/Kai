@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">உங்கள் உள்ளூர் Ollama நிகழ்வை அமைக்கவும்:</string>
     <string name="settings_openai_compatible_or_other_service">அல்லது வேறு இணக்கமான சேவை:</string>
     <string name="settings_openai_compatible_providers">வழங்குநர்கள்</string>
+    <string name="tool_get_local_time_name">உள்ளூர் நேரத்தைப் பெறு</string>
+    <string name="tool_get_local_time_description">தொடர்புடைய தேதிகளை விளக்க தற்போதைய உள்ளூர் தேதி மற்றும் நேரத்தைப் பெறு</string>
+    <string name="tool_get_location_name">இருப்பிடத்தைப் பெறு</string>
+    <string name="tool_get_location_description">IP முகவரியிலிருந்து மதிப்பிடப்பட்ட இருப்பிடத்தைப் பெறு</string>
+    <string name="tool_send_notification_name">அறிவிப்பு அனுப்பு</string>
+    <string name="tool_send_notification_description">சாதனத்திற்கு புஷ் அறிவிப்பை அனுப்பு</string>
+    <string name="tool_create_calendar_event_name">நாள்காட்டி நிகழ்வை உருவாக்கு</string>
+    <string name="tool_create_calendar_event_description">பயனரின் சாதனத்தில் நாள்காட்டி நிகழ்வை உருவாக்கு</string>
 </resources>

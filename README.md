@@ -35,6 +35,15 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 - Seamless switch between services
 - File attachments (Gemini)
 
+### Tools
+
+All tools can be enabled or disabled in settings.
+
+- **Get Local Time** - Provides the current date and time
+- **Get Location** - Estimates location based on IP address for location-aware responses
+- **Send Notification** - Sends push notifications to the device (Android only)
+- **Create Calendar Event** - Creates calendar events directly from the chat (Android only)
+
 ## Screenshots
 
 ### Desktop
@@ -47,7 +56,7 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 
 ### Mobile
 
-<img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300">
+<img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300"> <img src="screenshots/mobile-5.png" alt="Mobile Screenshot 5" height="300">
 
 ## Screenshot automatisation
 

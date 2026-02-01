@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">نمونه محلی Ollama خود را راه‌اندازی کنید:</string>
     <string name="settings_openai_compatible_or_other_service">یا هر سرویس سازگار دیگری:</string>
     <string name="settings_openai_compatible_providers">ارائه‌دهندگان</string>
+    <string name="tool_get_local_time_name">دریافت زمان محلی</string>
+    <string name="tool_get_local_time_description">دریافت تاریخ و زمان محلی فعلی برای تفسیر تاریخ‌های نسبی</string>
+    <string name="tool_get_location_name">دریافت موقعیت</string>
+    <string name="tool_get_location_description">دریافت موقعیت تخمینی از آدرس IP</string>
+    <string name="tool_send_notification_name">ارسال اعلان</string>
+    <string name="tool_send_notification_description">ارسال یک اعلان فوری به دستگاه</string>
+    <string name="tool_create_calendar_event_name">ایجاد رویداد تقویم</string>
+    <string name="tool_create_calendar_event_description">ایجاد یک رویداد تقویم در دستگاه کاربر</string>
 </resources>

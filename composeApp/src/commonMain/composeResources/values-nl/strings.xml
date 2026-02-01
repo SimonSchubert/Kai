@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Stel uw lokale Ollama-instantie in:</string>
     <string name="settings_openai_compatible_or_other_service">of een andere compatibele service:</string>
     <string name="settings_openai_compatible_providers">providers</string>
+    <string name="tool_get_local_time_name">Lokale tijd ophalen</string>
+    <string name="tool_get_local_time_description">Huidige lokale datum en tijd ophalen voor het interpreteren van relatieve datums</string>
+    <string name="tool_get_location_name">Locatie ophalen</string>
+    <string name="tool_get_location_description">Geschatte locatie ophalen op basis van IP-adres</string>
+    <string name="tool_send_notification_name">Melding verzenden</string>
+    <string name="tool_send_notification_description">Een pushmelding naar het apparaat verzenden</string>
+    <string name="tool_create_calendar_event_name">Agenda-afspraak maken</string>
+    <string name="tool_create_calendar_event_description">Een agenda-afspraak maken op het apparaat van de gebruiker</string>
 </resources>

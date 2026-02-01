@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">로컬 Ollama 인스턴스 설정:</string>
     <string name="settings_openai_compatible_or_other_service">또는 다른 호환 서비스:</string>
     <string name="settings_openai_compatible_providers">제공업체</string>
+    <string name="tool_get_local_time_name">현지 시간 가져오기</string>
+    <string name="tool_get_local_time_description">상대 날짜 해석을 위한 현재 현지 날짜 및 시간 가져오기</string>
+    <string name="tool_get_location_name">위치 가져오기</string>
+    <string name="tool_get_location_description">IP 주소로부터 추정 위치 가져오기</string>
+    <string name="tool_send_notification_name">알림 보내기</string>
+    <string name="tool_send_notification_description">기기에 푸시 알림 보내기</string>
+    <string name="tool_create_calendar_event_name">캘린더 이벤트 만들기</string>
+    <string name="tool_create_calendar_event_description">사용자의 기기에 캘린더 이벤트 만들기</string>
 </resources>

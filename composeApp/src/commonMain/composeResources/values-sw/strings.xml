@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Weka mfumo wako wa ndani wa Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">au huduma nyingine yoyote inayooana:</string>
     <string name="settings_openai_compatible_providers">watoa huduma</string>
+    <string name="tool_get_local_time_name">Pata Wakati wa Ndani</string>
+    <string name="tool_get_local_time_description">Pata tarehe na wakati wa sasa wa ndani kwa kutafsiri tarehe za jamaa</string>
+    <string name="tool_get_location_name">Pata Mahali</string>
+    <string name="tool_get_location_description">Pata mahali palipokadiriwa kutoka anwani ya IP</string>
+    <string name="tool_send_notification_name">Tuma Arifa</string>
+    <string name="tool_send_notification_description">Tuma arifa ya kusukuma kwenye kifaa</string>
+    <string name="tool_create_calendar_event_name">Unda Tukio la Kalenda</string>
+    <string name="tool_create_calendar_event_description">Unda tukio la kalenda kwenye kifaa cha mtumiaji</string>
 </resources>

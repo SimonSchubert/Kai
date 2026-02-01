@@ -4,13 +4,18 @@ import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
+import com.inspiredandroid.kai.network.dtos.gemini.FunctionDeclaration
+import com.inspiredandroid.kai.network.dtos.gemini.FunctionParameters
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatResponseDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiModelsResponseDto
+import com.inspiredandroid.kai.network.dtos.gemini.GeminiTool
+import com.inspiredandroid.kai.network.dtos.gemini.PropertySchema
 import com.inspiredandroid.kai.network.dtos.openai.OpenAICompatibleModelsResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
+import com.inspiredandroid.kai.network.tools.Tool
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngineConfig
@@ -43,6 +48,7 @@ class Requests(private val appSettings: AppSettings) {
                     isLenient = true
                     ignoreUnknownKeys = true
                     encodeDefaults = true
+                    explicitNulls = false
                 },
             )
         }
@@ -84,7 +90,10 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(GeminiGenericException("Connection failed", e))
     }
 
-    suspend fun geminiChat(messages: List<GeminiChatRequestDto.Content>): Result<GeminiChatResponseDto> = try {
+    suspend fun geminiChat(
+        messages: List<GeminiChatRequestDto.Content>,
+        tools: List<Tool> = emptyList(),
+    ): Result<GeminiChatResponseDto> = try {
         val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
         val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
 
@@ -94,6 +103,7 @@ class Requests(private val appSettings: AppSettings) {
                 setBody(
                     GeminiChatRequestDto(
                         contents = messages,
+                        tools = tools.map { it.toGeminiTool() }.ifEmpty { null },
                     ),
                 )
             }
@@ -119,31 +129,79 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
-    suspend fun freeChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+    suspend fun freeChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool>,
+    ): Result<OpenAICompatibleChatResponseDto> = try {
         val response: HttpResponse =
-            defaultClient.post(Service.Free.chatUrl) {
+            defaultClient.post("https://api.mistral.ai/v1/chat/completions") {
                 contentType(ContentType.Application.Json)
+                bearerAuth("AiWjVJKaxB6eakLpeOMEXDhhqzPzcEi6")
                 setBody(
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
-                        model = "",
+                        model = "mistral-medium-latest",
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }
         if (response.status.isSuccess()) {
+            println("response: ${response.bodyAsText()}")
             Result.success(response.body())
         } else {
             when (response.status.value) {
                 401 -> throw OpenAICompatibleInvalidApiKeyException()
+
                 429 -> throw OpenAICompatibleRateLimitExceededException()
-                else -> throw GenericNetworkException("Free tier request failed: ${response.status}")
+
+                else -> {
+                    println("Error response: ${response.bodyAsText()}")
+                    throw GenericNetworkException("Free tier request failed: ${response.status}")
+                }
             }
         }
     } catch (e: Exception) {
         Result.failure(e)
     }
 
-    suspend fun groqChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+    private fun Tool.toRequestTool(): OpenAICompatibleChatRequestDto.Tool = OpenAICompatibleChatRequestDto.Tool(
+        function = OpenAICompatibleChatRequestDto.Function(
+            name = schema.name,
+            description = schema.description,
+            parameters = OpenAICompatibleChatRequestDto.Parameters(
+                properties = schema.parameters.mapValues { (_, param) ->
+                    OpenAICompatibleChatRequestDto.PropertySchema(
+                        type = param.type,
+                        description = param.description,
+                    )
+                },
+                required = schema.parameters.filter { it.value.required }.keys.toList(),
+            ),
+        ),
+    )
+
+    private fun Tool.toGeminiTool(): GeminiTool = GeminiTool(
+        functionDeclarations = listOf(
+            FunctionDeclaration(
+                name = schema.name,
+                description = schema.description,
+                parameters = FunctionParameters(
+                    properties = schema.parameters.mapValues { (_, param) ->
+                        PropertySchema(
+                            type = param.type,
+                            description = param.description,
+                        )
+                    },
+                    required = schema.parameters.filter { it.value.required }.keys.toList(),
+                ),
+            ),
+        ),
+    )
+
+    suspend fun groqChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+    ): Result<OpenAICompatibleChatResponseDto> = try {
         val apiKey = appSettings.getApiKey(Service.Groq).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val model = appSettings.getSelectedModelId(Service.Groq)
         val response: HttpResponse =
@@ -154,6 +212,7 @@ class Requests(private val appSettings: AppSettings) {
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }
@@ -191,7 +250,10 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
-    suspend fun xaiChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+    suspend fun xaiChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+    ): Result<OpenAICompatibleChatResponseDto> = try {
         val apiKey = appSettings.getApiKey(Service.XAI).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val model = appSettings.getSelectedModelId(Service.XAI)
         val response: HttpResponse =
@@ -202,6 +264,7 @@ class Requests(private val appSettings: AppSettings) {
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }
@@ -251,7 +314,10 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
-    suspend fun openRouterChat(messages: List<OpenAICompatibleChatRequestDto.Message>): Result<OpenAICompatibleChatResponseDto> = try {
+    suspend fun openRouterChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+    ): Result<OpenAICompatibleChatResponseDto> = try {
         val apiKey = appSettings.getApiKey(Service.OpenRouter).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val model = appSettings.getSelectedModelId(Service.OpenRouter)
         val response: HttpResponse =
@@ -262,6 +328,7 @@ class Requests(private val appSettings: AppSettings) {
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }
@@ -316,6 +383,7 @@ class Requests(private val appSettings: AppSettings) {
     suspend fun openAICompatibleChat(
         messages: List<OpenAICompatibleChatRequestDto.Message>,
         baseUrl: String,
+        tools: List<Tool> = emptyList(),
     ): Result<OpenAICompatibleChatResponseDto> = try {
         val model = appSettings.getSelectedModelId(Service.OpenAICompatible)
         if (model.isEmpty()) {
@@ -332,6 +400,7 @@ class Requests(private val appSettings: AppSettings) {
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }

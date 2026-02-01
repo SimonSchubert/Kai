@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">اپنا مقامی Ollama انسٹینس سیٹ اپ کریں:</string>
     <string name="settings_openai_compatible_or_other_service">یا کوئی اور موافق سروس:</string>
     <string name="settings_openai_compatible_providers">فراہم کنندگان</string>
+    <string name="tool_get_local_time_name">مقامی وقت حاصل کریں</string>
+    <string name="tool_get_local_time_description">متعلقہ تاریخوں کی تشریح کے لیے موجودہ مقامی تاریخ اور وقت حاصل کریں</string>
+    <string name="tool_get_location_name">مقام حاصل کریں</string>
+    <string name="tool_get_location_description">IP پتے سے تخمینی مقام حاصل کریں</string>
+    <string name="tool_send_notification_name">اطلاع بھیجیں</string>
+    <string name="tool_send_notification_description">ڈیوائس کو پش نوٹیفکیشن بھیجیں</string>
+    <string name="tool_create_calendar_event_name">کیلنڈر ایونٹ بنائیں</string>
+    <string name="tool_create_calendar_event_description">صارف کی ڈیوائس پر کیلنڈر ایونٹ بنائیں</string>
 </resources>

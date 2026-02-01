@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Yerel Ollama örneğinizi kurun:</string>
     <string name="settings_openai_compatible_or_other_service">veya diğer uyumlu hizmetler:</string>
     <string name="settings_openai_compatible_providers">sağlayıcılar</string>
+    <string name="tool_get_local_time_name">Yerel Saati Al</string>
+    <string name="tool_get_local_time_description">Göreceli tarihleri yorumlamak için mevcut yerel tarih ve saati al</string>
+    <string name="tool_get_location_name">Konum Al</string>
+    <string name="tool_get_location_description">IP adresinden tahmini konum al</string>
+    <string name="tool_send_notification_name">Bildirim Gönder</string>
+    <string name="tool_send_notification_description">Cihaza anlık bildirim gönder</string>
+    <string name="tool_create_calendar_event_name">Takvim Etkinliği Oluştur</string>
+    <string name="tool_create_calendar_event_description">Kullanıcının cihazında takvim etkinliği oluştur</string>
 </resources>

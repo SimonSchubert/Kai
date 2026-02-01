@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Thiết lập phiên bản Ollama cục bộ của bạn:</string>
     <string name="settings_openai_compatible_or_other_service">hoặc bất kỳ dịch vụ tương thích nào khác:</string>
     <string name="settings_openai_compatible_providers">nhà cung cấp</string>
+    <string name="tool_get_local_time_name">Lấy giờ địa phương</string>
+    <string name="tool_get_local_time_description">Lấy ngày và giờ địa phương hiện tại để giải thích ngày tương đối</string>
+    <string name="tool_get_location_name">Lấy vị trí</string>
+    <string name="tool_get_location_description">Lấy vị trí ước tính từ địa chỉ IP</string>
+    <string name="tool_send_notification_name">Gửi thông báo</string>
+    <string name="tool_send_notification_description">Gửi thông báo đẩy đến thiết bị</string>
+    <string name="tool_create_calendar_event_name">Tạo sự kiện lịch</string>
+    <string name="tool_create_calendar_event_description">Tạo sự kiện lịch trên thiết bị của người dùng</string>
 </resources>

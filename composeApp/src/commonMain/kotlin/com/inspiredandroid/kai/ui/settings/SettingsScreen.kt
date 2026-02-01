@@ -43,6 +43,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.PrimaryScrollableTabRow
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -74,6 +78,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
@@ -100,6 +105,11 @@ import kai.composeapp.generated.resources.settings_status_error_connection_faile
 import kai.composeapp.generated.resources.settings_status_error_invalid_key
 import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
+import kai.composeapp.generated.resources.settings_tab_services
+import kai.composeapp.generated.resources.settings_tab_tools
+import kai.composeapp.generated.resources.settings_tools_description
+import kai.composeapp.generated.resources.settings_tools_none_available
+import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_version
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -131,7 +141,14 @@ fun SettingsScreenContent(
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
         TopBar(onNavigateBack = onNavigateBack)
 
-        ServiceSelection(uiState.services, uiState.currentService, uiState.onSelectService)
+        SettingsTabSelector(
+            currentTab = uiState.currentTab,
+            onSelectTab = uiState.onSelectTab,
+        )
+
+        if (uiState.currentTab == SettingsTab.Services) {
+            ServiceSelection(uiState.services, uiState.currentService, uiState.onSelectService)
+        }
 
         Column(
             Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp).widthIn(max = 500.dp),
@@ -139,79 +156,88 @@ fun SettingsScreenContent(
         ) {
             Spacer(Modifier.height(16.dp))
 
-            when (uiState.currentService) {
-                Service.Free -> {
-                    FreeSettings()
+            when (uiState.currentTab) {
+                SettingsTab.Services -> {
+                    when (uiState.currentService) {
+                        Service.Free -> {
+                            FreeSettings()
+                        }
+
+                        Service.Gemini -> {
+                            ServiceSettings(
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                apiKeyUrl = "https://aistudio.google.com/apikey",
+                                apiKeyUrlDisplay = "aistudio.google.com/apikey",
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                            )
+                        }
+
+                        Service.Groq -> {
+                            ServiceSettings(
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                apiKeyUrl = "https://console.groq.com/keys",
+                                apiKeyUrlDisplay = "console.groq.com/keys",
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                                testTag = "api_key",
+                            )
+                        }
+
+                        Service.XAI -> {
+                            ServiceSettings(
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                apiKeyUrl = "https://console.x.ai",
+                                apiKeyUrlDisplay = "console.x.ai",
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                            )
+                        }
+
+                        Service.OpenRouter -> {
+                            ServiceSettings(
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                apiKeyUrl = "https://openrouter.ai/settings/keys",
+                                apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                            )
+                        }
+
+                        Service.OpenAICompatible -> {
+                            OpenAICompatibleSettings(
+                                baseUrl = uiState.baseUrl,
+                                onChangeBaseUrl = uiState.onChangeBaseUrl,
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                            )
+                        }
+                    }
                 }
 
-                Service.Gemini -> {
-                    ServiceSettings(
-                        apiKey = uiState.apiKey,
-                        onChangeApiKey = uiState.onChangeApiKey,
-                        apiKeyUrl = "https://aistudio.google.com/apikey",
-                        apiKeyUrlDisplay = "aistudio.google.com/apikey",
-                        selectedModel = uiState.selectedModel,
-                        models = uiState.models,
-                        onSelectModel = uiState.onSelectModel,
-                        connectionStatus = uiState.connectionStatus,
-                    )
-                }
-
-                Service.Groq -> {
-                    ServiceSettings(
-                        apiKey = uiState.apiKey,
-                        onChangeApiKey = uiState.onChangeApiKey,
-                        apiKeyUrl = "https://console.groq.com/keys",
-                        apiKeyUrlDisplay = "console.groq.com/keys",
-                        selectedModel = uiState.selectedModel,
-                        models = uiState.models,
-                        onSelectModel = uiState.onSelectModel,
-                        connectionStatus = uiState.connectionStatus,
-                        testTag = "api_key",
-                    )
-                }
-
-                Service.XAI -> {
-                    ServiceSettings(
-                        apiKey = uiState.apiKey,
-                        onChangeApiKey = uiState.onChangeApiKey,
-                        apiKeyUrl = "https://console.x.ai",
-                        apiKeyUrlDisplay = "console.x.ai",
-                        selectedModel = uiState.selectedModel,
-                        models = uiState.models,
-                        onSelectModel = uiState.onSelectModel,
-                        connectionStatus = uiState.connectionStatus,
-                    )
-                }
-
-                Service.OpenRouter -> {
-                    ServiceSettings(
-                        apiKey = uiState.apiKey,
-                        onChangeApiKey = uiState.onChangeApiKey,
-                        apiKeyUrl = "https://openrouter.ai/settings/keys",
-                        apiKeyUrlDisplay = "openrouter.ai/settings/keys",
-                        selectedModel = uiState.selectedModel,
-                        models = uiState.models,
-                        onSelectModel = uiState.onSelectModel,
-                        connectionStatus = uiState.connectionStatus,
-                    )
-                }
-
-                Service.OpenAICompatible -> {
-                    OpenAICompatibleSettings(
-                        baseUrl = uiState.baseUrl,
-                        onChangeBaseUrl = uiState.onChangeBaseUrl,
-                        apiKey = uiState.apiKey,
-                        onChangeApiKey = uiState.onChangeApiKey,
-                        selectedModel = uiState.selectedModel,
-                        models = uiState.models,
-                        onSelectModel = uiState.onSelectModel,
-                        connectionStatus = uiState.connectionStatus,
+                SettingsTab.Tools -> {
+                    ToolsContent(
+                        tools = uiState.tools,
+                        onToggleTool = uiState.onToggleTool,
                     )
                 }
             }
-
-            Spacer(Modifier.height(16.dp))
 
             Spacer(Modifier.weight(1f))
 
@@ -234,6 +260,33 @@ private fun TopBar(onNavigateBack: () -> Unit) {
             )
         }
         Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun SettingsTabSelector(
+    currentTab: SettingsTab,
+    onSelectTab: (SettingsTab) -> Unit,
+) {
+    SingleChoiceSegmentedButtonRow(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        SegmentedButton(
+            selected = currentTab == SettingsTab.Services,
+            onClick = { onSelectTab(SettingsTab.Services) },
+            shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        ) {
+            Text(stringResource(Res.string.settings_tab_services))
+        }
+        SegmentedButton(
+            selected = currentTab == SettingsTab.Tools,
+            onClick = { onSelectTab(SettingsTab.Tools) },
+            shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        ) {
+            Text(stringResource(Res.string.settings_tab_tools))
+        }
     }
 }
 
@@ -710,5 +763,70 @@ private fun ServiceSelection(services: List<Service>, currentService: Service, o
                 },
             )
         }
+    }
+}
+
+@Composable
+private fun ToolsContent(
+    tools: List<ToolInfo>,
+    onToggleTool: (String, Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.settings_tools_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+        if (tools.isEmpty()) {
+            Text(
+                text = stringResource(Res.string.settings_tools_none_available),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        } else {
+            tools.forEach { tool ->
+                ToolItem(
+                    tool = tool,
+                    onToggle = { enabled -> onToggleTool(tool.id, enabled) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ToolItem(
+    tool: ToolInfo,
+    onToggle: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = tool.name,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = tool.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        Spacer(Modifier.width(16.dp))
+
+        Switch(
+            checked = tool.isEnabled,
+            onCheckedChange = onToggle,
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        )
     }
 }

@@ -40,4 +40,12 @@
     <string name="settings_openai_compatible_setup_ollama">Siapkan instans Ollama lokal Anda:</string>
     <string name="settings_openai_compatible_or_other_service">atau layanan kompatibel lainnya:</string>
     <string name="settings_openai_compatible_providers">penyedia</string>
+    <string name="tool_get_local_time_name">Dapatkan Waktu Lokal</string>
+    <string name="tool_get_local_time_description">Dapatkan tanggal dan waktu lokal saat ini untuk menafsirkan tanggal relatif</string>
+    <string name="tool_get_location_name">Dapatkan Lokasi</string>
+    <string name="tool_get_location_description">Dapatkan perkiraan lokasi dari alamat IP</string>
+    <string name="tool_send_notification_name">Kirim Notifikasi</string>
+    <string name="tool_send_notification_description">Kirim notifikasi push ke perangkat</string>
+    <string name="tool_create_calendar_event_name">Buat Acara Kalender</string>
+    <string name="tool_create_calendar_event_description">Buat acara kalender di perangkat pengguna</string>
 </resources>
