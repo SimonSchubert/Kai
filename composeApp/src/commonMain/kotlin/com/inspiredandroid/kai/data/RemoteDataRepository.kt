@@ -4,7 +4,6 @@ package com.inspiredandroid.kai.data
 
 import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
-import com.inspiredandroid.kai.currentTimeMillis
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.Requests
@@ -40,6 +39,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -580,7 +580,7 @@ class RemoteDataRepository(
         val history = chatHistory.value
         if (history.isEmpty()) return
 
-        val now = currentTimeMillis()
+        val now = Clock.System.now().toEpochMilliseconds()
         val conversationId = _currentConversationId.value ?: Uuid.random().toString().also {
             _currentConversationId.value = it
         }

@@ -66,8 +66,6 @@ actual fun getAppFilesDirectory(): String {
     return kaiDir.absolutePath
 }
 
-actual fun currentTimeMillis(): Long = System.currentTimeMillis()
-
 actual fun createSecureSettings(): Settings {
     // Desktop has no built-in secure storage - using standard Preferences
     val preferences = Preferences.userRoot().node("com.inspiredandroid.kai")

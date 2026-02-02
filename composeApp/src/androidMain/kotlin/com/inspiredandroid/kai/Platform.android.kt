@@ -46,8 +46,6 @@ actual fun getAppFilesDirectory(): String {
     return context.filesDir.absolutePath
 }
 
-actual fun currentTimeMillis(): Long = System.currentTimeMillis()
-
 actual fun createSecureSettings(): Settings {
     val context: Context by inject(Context::class.java)
     val masterKey = MasterKey.Builder(context)

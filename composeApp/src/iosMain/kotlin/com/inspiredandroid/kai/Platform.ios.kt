@@ -43,15 +43,6 @@ actual fun getAppFilesDirectory(): String {
     return paths.first() as String
 }
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
-actual fun currentTimeMillis(): Long {
-    // CFAbsoluteTimeGetCurrent returns seconds since Jan 1, 2001
-    // kCFAbsoluteTimeIntervalSince1970 = 978307200.0
-    val cfTime = platform.CoreFoundation.CFAbsoluteTimeGetCurrent()
-    val secondsSince1970 = cfTime + 978307200.0
-    return (secondsSince1970 * 1000).toLong()
-}
-
 @OptIn(ExperimentalSettingsImplementation::class)
 actual fun createSecureSettings(): Settings = KeychainSettings(service = "com.inspiredandroid.kai")
 

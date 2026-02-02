@@ -36,11 +36,6 @@ actual fun getAppFilesDirectory(): String {
     return ""
 }
 
-@OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
-private fun dateNow(): Double = js("Date.now()")
-
-actual fun currentTimeMillis(): Long = dateNow().toLong()
-
 actual fun createSecureSettings(): Settings {
     // Web has no secure storage - using localStorage
     return StorageSettings()

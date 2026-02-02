@@ -26,8 +26,6 @@ expect val isMobilePlatform: Boolean
 
 expect fun getAppFilesDirectory(): String
 
-expect fun currentTimeMillis(): Long
-
 expect fun getAvailableTools(): List<Tool>
 
 /**

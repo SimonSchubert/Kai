@@ -44,6 +44,7 @@ import kai.composeapp.generated.resources.no
 import kai.composeapp.generated.resources.yes
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import kotlin.time.Clock
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -259,7 +260,7 @@ private fun ConversationCard(
 
 private fun formatDate(timestamp: Long): String {
     // Simple date formatting - shows relative time or date
-    val now = com.inspiredandroid.kai.currentTimeMillis()
+    val now = Clock.System.now().toEpochMilliseconds()
     val diff = now - timestamp
 
     val seconds = diff / 1000
