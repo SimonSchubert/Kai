@@ -1,11 +1,26 @@
-Kai is designed to provide you with access to powerful, state-of-the-art conversational AI models. Through a simple and intuitive chat interface, you can engage with models like Llama and Google's Gemini, exploring their capabilities for various tasks. Whether you need help brainstorming, summarizing, writing, learning, or just want to have an engaging conversation, Chat AI provides a versatile platform.
+Kai is a cross-platform open-source AI interface that connects you to powerful conversational AI models. Through a simple and intuitive chat interface, you can engage with models from Gemini, xAI, Groq, Mistral, and self-hosted Ollama. Whether you need help brainstorming, summarizing, writing, learning, or just want to have an engaging conversation, Kai provides a versatile platform.
 
-Important Note: This application requires an internet connection, as all requests are processed on a remote server. Please be aware that using these cloud-based models involves sending your inputs to a remote server. This may have some privacy considerations, so be mindful of the information you provide to the AI. While the app itself does not store chat history, and user inputs are sent to the models for processing, no data or user IDs are stored by the application.
+Supported AI Services
+• Ollama - Connect to your self-hosted local AI models
+• Gemini - Google's powerful AI with file attachment support
+• xAI - Access Grok models
+• Groq - Ultra-fast AI inference
+• Mistral AI - Free tier available
 
 Key Features
-Cloud-Based AI: Access powerful conversational AI models hosted on a remote server. You can explore a variety of cutting-edge models, continually updated and improved.
-Choice of AI Models: Select your preferred model (e.g., Llama or Gemini) based on your needs and preferences. This feature allows you to experiment with various AI capabilities and performance.
-Multi-Turn Conversations: Engage in natural and flowing, multi-turn conversations. This means the AI can remember previous turns in the conversation, enabling more complex and nuanced interactions.
-Versatile Assistance: Utilize the AI for various tasks such as writing, brainstorming, summarizing, learning, and more. You can use Chat AI for anything from quick questions to in-depth explorations.
-Simple Chat Interface: Easily interact with the AI through an intuitive and straightforward chat interface, designed for ease of use for any user.
-Accessible to All: Designed to be easy to use for both technical and non-technical users alike. You don't need prior experience with AI to benefit from Chat AI.
+• Encrypted Local Storage: Your chat history is securely stored with encryption on your device
+• Text to Speech: Listen to AI responses with built-in text-to-speech output
+• File Attachments: Attach files to your conversations (Gemini)
+• Seamless Service Switching: Easily switch between different AI providers
+• Multi-Turn Conversations: Natural flowing conversations where the AI remembers context
+• Simple Chat Interface: Intuitive design for both technical and non-technical users
+
+AI Tools (can be enabled in settings)
+• Get Local Time - AI can access current date and time
+• Get Location - Location-aware responses based on IP
+• Send Notification - Receive push notifications from AI
+• Create Calendar Event - Create events directly from chat
+• Check Recent SMS - View your SMS conversations
+• Send SMS - Reply to SMS through the AI
+
+Privacy Note: Kai stores your chat history locally with encryption. When using cloud-based AI services, your inputs are sent to the respective providers for processing. No data is collected by the app itself.
