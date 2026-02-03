@@ -119,6 +119,9 @@ kotlin {
 
             implementation(libs.filekit.core)
             implementation(libs.filekit.compose)
+
+            implementation(libs.coil.svg)
+            implementation(libs.coil.network.ktor3)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

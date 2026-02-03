@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.components.MarkdownComponent
 import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
@@ -43,6 +44,7 @@ internal fun BotMessage(
     val markdownState = rememberMarkdownState(message, immediate = isInspectionMode)
     Markdown(
         markdownState,
+        imageTransformer = Coil3ImageTransformerImpl,
         components = markdownComponents(
             codeBlock = highlightedCodeBlock,
             codeFence = highlightedCodeFence,

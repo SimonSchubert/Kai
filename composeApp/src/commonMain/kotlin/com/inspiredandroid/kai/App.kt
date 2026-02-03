@@ -8,6 +8,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import coil3.ImageLoader
+import coil3.PlatformContext
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.svg.SvgDecoder
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
@@ -56,6 +61,15 @@ fun App(
     koinApplication: (KoinApplication.() -> Unit)? = null,
     onAppOpens: ((Int) -> Unit)? = null,
 ) {
+    setSingletonImageLoaderFactory { context: PlatformContext ->
+        ImageLoader.Builder(context)
+            .components {
+                add(KtorNetworkFetcherFactory())
+                add(SvgDecoder.Factory())
+            }
+            .build()
+    }
+
     KoinApplication(
         application = {
             koinApplication?.let { koinApplication() }
