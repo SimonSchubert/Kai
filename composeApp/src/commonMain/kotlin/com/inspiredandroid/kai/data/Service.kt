@@ -25,7 +25,7 @@ sealed class Service(
         requiresApiKey = false,
         defaultModel = null,
         settingsKeyPrefix = "",
-        chatUrl = "https://proxy-api-amber.vercel.app/chat",
+        chatUrl = "https://proxy-api-amber.vercel.app/chat/completions",
         modelsUrl = null,
     )
 

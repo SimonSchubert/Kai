@@ -43,6 +43,8 @@ All tools can be enabled or disabled in settings.
 - **Get Location** - Estimates location based on IP address for location-aware responses
 - **Send Notification** - Sends push notifications to the device (Android only)
 - **Create Calendar Event** - Creates calendar events directly from the chat (Android only)
+- **Check Recent SMS** - View recent SMS conversations (Android only)
+- **Send SMS** - Reply to existing SMS conversations (Android only)
 
 ## Screenshots
 
@@ -63,6 +65,10 @@ All tools can be enabled or disabled in settings.
 Integrated in github actions to update mobile screenshots for fastlane and this readme. To run manually:
 
 ```./gradlew updateScreenshots```
+
+### Supported Languages
+
+Arabic, Bengali, Chinese (Simplified), Chinese (Traditional), Dutch, English, French, German, Gujarati, Hindi, Indonesian, Italian, Japanese, Korean, Malay, Marathi, Persian, Polish, Portuguese, Punjabi, Russian, Spanish, Swahili, Tamil, Telugu, Thai, Turkish, Ukrainian, Urdu, Vietnamese
 
 ## Sponsors
 

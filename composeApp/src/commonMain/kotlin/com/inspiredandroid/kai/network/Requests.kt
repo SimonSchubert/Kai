@@ -134,19 +134,16 @@ class Requests(private val appSettings: AppSettings) {
         tools: List<Tool>,
     ): Result<OpenAICompatibleChatResponseDto> = try {
         val response: HttpResponse =
-            defaultClient.post("https://api.mistral.ai/v1/chat/completions") {
+            defaultClient.post(Service.Free.chatUrl) {
                 contentType(ContentType.Application.Json)
-                bearerAuth("AiWjVJKaxB6eakLpeOMEXDhhqzPzcEi6")
                 setBody(
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
-                        model = "mistral-medium-latest",
                         tools = tools.map { it.toRequestTool() }.ifEmpty { null },
                     ),
                 )
             }
         if (response.status.isSuccess()) {
-            println("response: ${response.bodyAsText()}")
             Result.success(response.body())
         } else {
             when (response.status.value) {
@@ -155,7 +152,6 @@ class Requests(private val appSettings: AppSettings) {
                 429 -> throw OpenAICompatibleRateLimitExceededException()
 
                 else -> {
-                    println("Error response: ${response.bodyAsText()}")
                     throw GenericNetworkException("Free tier request failed: ${response.status}")
                 }
             }

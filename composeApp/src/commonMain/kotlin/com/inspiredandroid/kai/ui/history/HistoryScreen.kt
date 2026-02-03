@@ -44,8 +44,8 @@ import kai.composeapp.generated.resources.no
 import kai.composeapp.generated.resources.yes
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import kotlin.time.Clock
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.time.Clock
 
 @Composable
 fun HistoryScreen(

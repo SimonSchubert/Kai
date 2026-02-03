@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.history.HistoryViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
@@ -16,6 +17,7 @@ import org.koin.dsl.module
 val appModule = module {
     single<CalendarPermissionController> { CalendarPermissionController() }
     single<NotificationPermissionController> { NotificationPermissionController() }
+    single<SmsPermissionController> { SmsPermissionController() }
     single<AppSettings> {
         val secureSettings = createSecureSettings()
         val legacySettings = createLegacySettings()

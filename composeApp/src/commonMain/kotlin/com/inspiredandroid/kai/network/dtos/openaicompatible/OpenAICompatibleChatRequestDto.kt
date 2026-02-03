@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class OpenAICompatibleChatRequestDto(
     val messages: List<Message>,
-    val model: String,
+    val model: String? = null,
     val tools: List<Tool>? = null, // Optional: list of tools the model can call
     // You can add more fields as needed, e.g.:
     // val tool_choice: String? = null,           // "auto" | "none" | "required" | { "type": "function", "function": { "name": "..." } }

@@ -19,6 +19,10 @@ import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.SmsPermissionController
+import com.inspiredandroid.kai.tools.SmsRepository
+import com.inspiredandroid.kai.tools.SmsResult
+import com.inspiredandroid.kai.tools.SmsSendResult
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import io.github.vinceglb.filekit.PlatformFile
@@ -31,6 +35,13 @@ import kotlin.coroutines.CoroutineContext
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Android) {
     config(this)
+}
+
+// Singleton SmsRepository to maintain conversation ID mapping across tool calls
+private val smsRepositorySingleton: SmsRepository by lazy {
+    val context: Context by inject(Context::class.java)
+    val smsPermissionController: SmsPermissionController by inject(SmsPermissionController::class.java)
+    SmsRepository(context, smsPermissionController)
 }
 
 actual fun getBackgroundDispatcher(): CoroutineContext = Dispatchers.IO
@@ -80,6 +91,16 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
         id = "create_calendar_event",
         name = "Create Calendar Event",
         description = "Create a calendar event on the user's device",
+    ),
+    ToolInfo(
+        id = "get_recent_sms",
+        name = "Check Recent SMS",
+        description = "Get recent SMS conversations with the last few messages from each",
+    ),
+    ToolInfo(
+        id = "send_sms",
+        name = "Send SMS",
+        description = "Reply to an existing SMS conversation",
     ),
 )
 
@@ -183,6 +204,77 @@ actual fun getAvailableTools(): List<Tool> {
                             )
 
                             is CalendarResult.Error -> mapOf(
+                                "success" to false,
+                                "error" to result.message,
+                            )
+                        }
+                    }
+                },
+            )
+        }
+
+        // SMS tools share a singleton SmsRepository to maintain conversation ID mapping across tool calls
+        if (appSettings.isToolEnabled("get_recent_sms")) {
+            add(
+                object : Tool {
+                    override val schema = ToolSchema(
+                        "get_recent_sms",
+                        "Get recent SMS conversations with the last few messages from each. Returns conversation_id for each conversation which can be used with send_sms to reply.",
+                        emptyMap(),
+                    )
+
+                    override suspend fun execute(args: Map<String, Any>): Any = when (val result = smsRepositorySingleton.getRecentConversations()) {
+                        is SmsResult.Success -> mapOf(
+                            "success" to true,
+                            "conversations" to result.conversations.map { conversation ->
+                                mapOf(
+                                    "conversation_id" to conversation.conversationId,
+                                    "contact_name" to (conversation.contactName ?: "Unknown"),
+                                    "messages" to conversation.messages.map { message ->
+                                        mapOf(
+                                            "body" to message.body,
+                                            "timestamp" to message.timestamp,
+                                            "from_me" to message.isFromMe,
+                                        )
+                                    },
+                                )
+                            },
+                        )
+
+                        is SmsResult.Error -> mapOf(
+                            "success" to false,
+                            "error" to result.message,
+                        )
+                    }
+                },
+            )
+        }
+
+        if (appSettings.isToolEnabled("send_sms")) {
+            add(
+                object : Tool {
+                    override val schema = ToolSchema(
+                        "send_sms",
+                        "Reply to an existing SMS conversation. Can only send to conversations retrieved from get_recent_sms.",
+                        mapOf(
+                            "conversation_id" to ParameterSchema("string", "Conversation ID from recent SMS list (required - can only reply to existing conversations)", true),
+                            "message" to ParameterSchema("string", "Message text to send", true),
+                        ),
+                    )
+
+                    override suspend fun execute(args: Map<String, Any>): Any {
+                        val conversationId = args["conversation_id"] as? String
+                            ?: return mapOf("success" to false, "error" to "Conversation ID is required")
+                        val message = args["message"] as? String
+                            ?: return mapOf("success" to false, "error" to "Message is required")
+
+                        return when (val result = smsRepositorySingleton.sendSms(conversationId, message)) {
+                            is SmsSendResult.Success -> mapOf(
+                                "success" to true,
+                                "message" to "SMS sent successfully to conversation ${result.conversationId}",
+                            )
+
+                            is SmsSendResult.Error -> mapOf(
                                 "success" to false,
                                 "error" to result.message,
                             )

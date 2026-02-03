@@ -70,4 +70,8 @@
     <string name="tool_send_notification_description">Send a push notification to the device</string>
     <string name="tool_create_calendar_event_name">Create Calendar Event</string>
     <string name="tool_create_calendar_event_description">Create a calendar event on the user\'s device</string>
+    <string name="tool_get_recent_sms_name">Check Recent SMS</string>
+    <string name="tool_get_recent_sms_description">Get recent SMS conversations with the last few messages from each</string>
+    <string name="tool_send_sms_name">Send SMS</string>
+    <string name="tool_send_sms_description">Reply to an existing SMS conversation</string>
 </resources>

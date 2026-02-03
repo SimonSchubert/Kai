@@ -13,6 +13,8 @@ import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
 import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
+import com.inspiredandroid.kai.tools.SetupSmsPermissionHandler
+import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -74,6 +76,9 @@ fun App(
 
         val notificationPermissionController = koinInject<NotificationPermissionController>()
         SetupNotificationPermissionHandler(notificationPermissionController)
+
+        val smsPermissionController = koinInject<SmsPermissionController>()
+        SetupSmsPermissionHandler(smsPermissionController)
 
         Theme(colorScheme = colorScheme) {
             val chatViewModel: ChatViewModel = koinViewModel()
