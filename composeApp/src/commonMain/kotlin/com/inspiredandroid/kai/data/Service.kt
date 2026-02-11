@@ -62,6 +62,17 @@ sealed class Service(
         modelsUrl = "https://openrouter.ai/api/v1/models",
     )
 
+    data object Nvidia : Service(
+        id = "nvidia",
+        displayName = "NVIDIA",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "nvidia",
+        defaultModels = emptyList(),
+        chatUrl = "https://integrate.api.nvidia.com/v1/chat/completions",
+        modelsUrl = "https://integrate.api.nvidia.com/v1/models",
+    )
+
     data object Gemini : Service(
         id = "gemini",
         displayName = "Gemini",
@@ -85,7 +96,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, XAI, OpenRouter, Groq, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 

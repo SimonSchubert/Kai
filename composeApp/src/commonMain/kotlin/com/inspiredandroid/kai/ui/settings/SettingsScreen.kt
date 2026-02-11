@@ -216,6 +216,19 @@ fun SettingsScreenContent(
                             )
                         }
 
+                        Service.Nvidia -> {
+                            ServiceSettings(
+                                apiKey = uiState.apiKey,
+                                onChangeApiKey = uiState.onChangeApiKey,
+                                apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
+                                apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
+                                selectedModel = uiState.selectedModel,
+                                models = uiState.models,
+                                onSelectModel = uiState.onSelectModel,
+                                connectionStatus = uiState.connectionStatus,
+                            )
+                        }
+
                         Service.OpenAICompatible -> {
                             OpenAICompatibleSettings(
                                 baseUrl = uiState.baseUrl,

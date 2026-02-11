@@ -133,6 +133,7 @@ class RemoteDataRepository(
             Service.Groq -> fetchGroqModels()
             Service.XAI -> fetchXaiModels()
             Service.OpenRouter -> fetchOpenRouterModels()
+            Service.Nvidia -> fetchNvidiaModels()
             Service.OpenAICompatible -> fetchOpenAICompatibleModels()
             Service.Gemini -> fetchGeminiModels()
             Service.Free -> { /* Free has no models */ }
@@ -146,6 +147,8 @@ class RemoteDataRepository(
             Service.Groq -> fetchGroqModels()
 
             Service.XAI -> fetchXaiModels()
+
+            Service.Nvidia -> fetchNvidiaModels()
 
             Service.OpenRouter -> {
                 // Validate API key first, then fetch models
@@ -253,6 +256,28 @@ class RemoteDataRepository(
         }
     }
 
+    private suspend fun fetchNvidiaModels() {
+        val response = requests.getNvidiaModels().getOrThrow()
+        val selectedModelId = appSettings.getSelectedModelId(Service.Nvidia)
+        val models = response.data
+            .filter { it.isActive != false }
+            .sortedBy { it.id }
+            .map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.owned_by ?: "",
+                    description = null,
+                    isSelected = it.id == selectedModelId,
+                )
+            }
+        modelsByService[Service.Nvidia]?.update { models }
+        // Auto-select first model if none selected or selected model not in list
+        if (models.isNotEmpty() && models.none { it.isSelected }) {
+            appSettings.setSelectedModelId(Service.Nvidia, models.first().id)
+            updateModelsSelection(Service.Nvidia)
+        }
+    }
+
     private suspend fun fetchOpenAICompatibleModels() {
         val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)
         val response = requests.getOpenAICompatibleModels(baseUrl).getOrThrow()
@@ -354,6 +379,8 @@ class RemoteDataRepository(
         Service.XAI -> requests.xaiChat(messages = messages, tools = tools)
 
         Service.OpenRouter -> requests.openRouterChat(messages = messages, tools = tools)
+
+        Service.Nvidia -> requests.nvidiaChat(messages = messages, tools = tools)
 
         Service.OpenAICompatible -> {
             val baseUrl = appSettings.getBaseUrl(Service.OpenAICompatible)

@@ -341,6 +341,58 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(e)
     }
 
+    suspend fun nvidiaChat(
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+    ): Result<OpenAICompatibleChatResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.Nvidia).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val model = appSettings.getSelectedModelId(Service.Nvidia)
+        val response: HttpResponse =
+            defaultClient.post(Service.Nvidia.chatUrl) {
+                contentType(ContentType.Application.Json)
+                bearerAuth(apiKey)
+                setBody(
+                    OpenAICompatibleChatRequestDto(
+                        messages = messages,
+                        model = model,
+                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
+                    ),
+                )
+            }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                429 -> throw OpenAICompatibleRateLimitExceededException()
+                else -> throw OpenAICompatibleGenericException("NVIDIA request failed: ${response.status}")
+            }
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    suspend fun getNvidiaModels(): Result<OpenAICompatibleModelResponseDto> = try {
+        val apiKey = appSettings.getApiKey(Service.Nvidia).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val modelsUrl = Service.Nvidia.modelsUrl
+            ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for NVIDIA"))
+        val response: HttpResponse = defaultClient.get(modelsUrl) {
+            bearerAuth(apiKey)
+        }
+        if (response.status.isSuccess()) {
+            Result.success(response.body())
+        } else {
+            when (response.status.value) {
+                401 -> throw OpenAICompatibleInvalidApiKeyException()
+                else -> throw OpenAICompatibleGenericException("Failed to fetch NVIDIA models: ${response.status}")
+            }
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
+    }
+
     suspend fun getOpenRouterModels(): Result<OpenAICompatibleModelResponseDto> = try {
         val modelsUrl = Service.OpenRouter.modelsUrl
             ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for OpenRouter"))
