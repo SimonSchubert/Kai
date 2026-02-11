@@ -6,7 +6,6 @@ import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.ConnectionStatus
-import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
 
@@ -26,7 +25,7 @@ object ScreenshotTestData {
     val chatEmptyState = ChatUiState(
         actions = noOpChatActions,
         history = emptyList(),
-        isUsingSharedKey = false,
+        showPrivacyInfo = false,
     )
 
     val chatWithMessages = ChatUiState(

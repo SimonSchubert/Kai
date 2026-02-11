@@ -20,7 +20,7 @@ data class ChatUiState(
     val isSpeechOutputEnabled: Boolean = false,
     val isLoading: Boolean = false,
     val error: String? = null,
-    val isUsingSharedKey: Boolean = false,
+    val showPrivacyInfo: Boolean = false,
     val allowFileAttachment: Boolean = false,
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",

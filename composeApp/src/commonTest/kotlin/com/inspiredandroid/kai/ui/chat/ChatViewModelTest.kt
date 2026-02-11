@@ -51,18 +51,7 @@ class ChatViewModelTest {
 
         viewModel.state.test {
             val state = awaitItem()
-            assertTrue(state.isUsingSharedKey)
-        }
-    }
-
-    @Test
-    fun `initial state with non-free service has isUsingSharedKey false`() = runTest {
-        fakeRepository.setCurrentService(Service.Gemini)
-        val viewModel = createViewModel()
-
-        viewModel.state.test {
-            val state = awaitItem()
-            assertFalse(state.isUsingSharedKey)
+            assertTrue(state.showPrivacyInfo)
         }
     }
 

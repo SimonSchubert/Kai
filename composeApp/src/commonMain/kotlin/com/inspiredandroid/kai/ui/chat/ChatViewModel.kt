@@ -50,7 +50,7 @@ class ChatViewModel(
     private val _state = MutableStateFlow(
         ChatUiState(
             actions = actions,
-            isUsingSharedKey = dataRepository.isUsingSharedKey(),
+            showPrivacyInfo = true,
         ),
     )
 
