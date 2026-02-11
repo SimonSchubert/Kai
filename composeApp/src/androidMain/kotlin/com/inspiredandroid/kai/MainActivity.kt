@@ -14,7 +14,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
@@ -71,23 +70,13 @@ class MainActivity : ComponentActivity() {
                 },
                 onAppOpens = { appOpens ->
                     if (appOpens == 5) {
-                        requestReview()
+                        requestReview(this@MainActivity)
                     }
                 },
             )
         }
     }
 
-    private fun requestReview() {
-        val manager = ReviewManagerFactory.create(this)
-        val request = manager.requestReviewFlow()
-        request.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val reviewInfo = task.result
-                manager.launchReviewFlow(this, reviewInfo)
-            }
-        }
-    }
 }
 
 @Preview

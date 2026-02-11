@@ -73,7 +73,6 @@ kotlin {
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
             implementation(libs.material)
-            implementation(libs.play.review)
         }
         commonMain.dependencies {
             implementation(compose.material3)
@@ -160,6 +159,16 @@ android {
                 .toInt()
         versionName = libs.versions.appVersion.get()
     }
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("playStore") {
+            dimension = "distribution"
+        }
+        create("foss") {
+            dimension = "distribution"
+            isDefault = true
+        }
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -183,6 +192,7 @@ android {
 dependencies {
     implementation(libs.androidx.foundation.android)
     debugImplementation(compose.uiTooling)
+    "playStoreImplementation"(libs.play.review)
 }
 
 compose.desktop {

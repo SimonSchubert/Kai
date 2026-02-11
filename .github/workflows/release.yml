@@ -24,11 +24,11 @@ jobs:
       - name: Install Android Build Tools
         run: sdkmanager "build-tools;29.0.3"
       - name: Build APK
-        run: bash ./gradlew assembleRelease --stacktrace
+        run: bash ./gradlew assembleFossRelease --stacktrace
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: composeApp/build/outputs/apk/release
+          releaseDirectory: composeApp/build/outputs/apk/foss/release
           signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: signed-apk
-          path: composeApp/build/outputs/apk/release/composeApp-release-signed.apk
+          path: composeApp/build/outputs/apk/foss/release/composeApp-foss-release-signed.apk
 
   dmg:
     name: Generate DMG
@@ -270,7 +270,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: composeApp-release-signed.apk
+          asset_path: composeApp-foss-release-signed.apk
           asset_name: Kai-${{ steps.get_version.outputs.version }}-android.apk
           asset_content_type: application/zip
 

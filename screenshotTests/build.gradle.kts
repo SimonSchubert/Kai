@@ -18,6 +18,7 @@ android {
             libs.versions.android.minSdk
                 .get()
                 .toInt()
+        missingDimensionStrategy("distribution", "foss")
     }
 
     compileOptions {
@@ -33,7 +34,7 @@ android {
     sourceSets {
         getByName("main") {
             assets.srcDirs(
-                project(":composeApp").file("build/generated/assets/copyDebugComposeResourcesToAndroidAssets"),
+                project(":composeApp").file("build/generated/assets/copyFossDebugComposeResourcesToAndroidAssets"),
             )
         }
     }
@@ -52,7 +53,7 @@ dependencies {
 
 // Ensure composeApp resources are generated before screenshot tests
 tasks.matching { it.name.contains("preparePaparazzi") }.configureEach {
-    dependsOn(":composeApp:copyDebugComposeResourcesToAndroidAssets")
+    dependsOn(":composeApp:copyFossDebugComposeResourcesToAndroidAssets")
 }
 
 // Task to copy screenshots to fastlane and README locations
