@@ -33,15 +33,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.ui.chat.composables.highlightedCodeBlock
-import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.explore_related_topics
-import kai.composeapp.generated.resources.explore_retry
-import org.jetbrains.compose.resources.stringResource
 import com.inspiredandroid.kai.ui.chat.composables.highlightedCodeFence
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.model.rememberMarkdownState
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.explore_related_topics
+import kai.composeapp.generated.resources.explore_retry
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
