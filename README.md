@@ -9,7 +9,10 @@ A **cross-platform open-source AI interface** that runs on **Android, iOS, Windo
 [![F-Droid](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/fdroid_badge.png)](https://f-droid.org/en/packages/com.inspiredandroid.kai/)
 [![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
-### Downloads
+Homebrew:
+```brew install --cask simonschubert/tap/kai```
+
+### Direct downloads
 
 | Platform | Format | Download |
 |----------|--------|----------|
