@@ -53,7 +53,7 @@ class Requests(private val appSettings: AppSettings) {
             )
         }
         install(HttpTimeout) {
-            requestTimeoutMillis = 30.seconds.inWholeMilliseconds
+            requestTimeoutMillis = 60.seconds.inWholeMilliseconds
         }
         install(Logging) {
             if (isDebugBuild) {

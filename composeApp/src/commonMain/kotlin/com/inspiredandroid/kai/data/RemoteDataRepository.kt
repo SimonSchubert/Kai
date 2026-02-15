@@ -695,6 +695,33 @@ class RemoteDataRepository(
         chatHistory.value = emptyList()
     }
 
+    // Explore
+    override suspend fun askExplore(prompt: String): String = when (val service = currentService()) {
+        Service.Gemini -> {
+            val messages = listOf(
+                com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto.Content(
+                    parts = listOf(
+                        com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto.Part(text = prompt),
+                    ),
+                    role = "user",
+                ),
+            )
+            val response = requests.geminiChat(messages).getOrThrow()
+            response.candidates.firstOrNull()?.content?.parts?.joinToString("") { it.text ?: "" } ?: ""
+        }
+
+        else -> {
+            val messages = listOf(
+                com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
+                    role = "user",
+                    content = prompt,
+                ),
+            )
+            val response = sendOpenAICompatibleRequest(service, messages, emptyList()).getOrThrow()
+            response.choices.firstOrNull()?.message?.content ?: ""
+        }
+    }
+
     // Tool management
     override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id)) }
 

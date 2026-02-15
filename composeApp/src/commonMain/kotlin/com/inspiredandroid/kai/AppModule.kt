@@ -9,6 +9,8 @@ import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.explore.ExploreDetailViewModel
+import com.inspiredandroid.kai.ui.explore.ExploreViewModel
 import com.inspiredandroid.kai.ui.history.HistoryViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
 import org.koin.core.module.dsl.viewModel
@@ -38,4 +40,6 @@ val appModule = module {
     viewModel { SettingsViewModel(get<DataRepository>()) }
     viewModel { ChatViewModel(get<DataRepository>()) }
     viewModel { HistoryViewModel(get<DataRepository>()) }
+    viewModel { ExploreViewModel(get<DataRepository>()) }
+    viewModel { ExploreDetailViewModel(get<DataRepository>()) }
 }

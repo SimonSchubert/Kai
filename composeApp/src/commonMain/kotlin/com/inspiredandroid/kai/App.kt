@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.compose.setSingletonImageLoaderFactory
@@ -25,6 +26,8 @@ import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.explore.ExploreDetailScreen
+import com.inspiredandroid.kai.ui.explore.ExploreScreen
 import com.inspiredandroid.kai.ui.history.HistoryScreen
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
 import kotlinx.serialization.SerialName
@@ -47,6 +50,14 @@ object Settings
 @Serializable
 @SerialName("history")
 object History
+
+@Serializable
+@SerialName("explore")
+data class Explore(val topic: String)
+
+@Serializable
+@SerialName("explore_detail")
+data class ExploreDetail(val itemName: String)
 
 @Composable
 @Preview
@@ -108,6 +119,9 @@ fun App(
                         onNavigateToHistory = {
                             navController.navigate(History)
                         },
+                        onNavigateToExplore = { topic ->
+                            navController.navigate(Explore(topic))
+                        },
                     )
                 }
                 composable<Settings> {
@@ -125,6 +139,30 @@ fun App(
                         onSelectConversation = { id ->
                             chatViewModel.loadConversation(id)
                             navController.navigateUp()
+                        },
+                    )
+                }
+                composable<Explore> { backStackEntry ->
+                    val route = backStackEntry.toRoute<Explore>()
+                    ExploreScreen(
+                        topic = route.topic,
+                        onNavigateBack = {
+                            navController.navigateUp()
+                        },
+                        onNavigateToDetail = { itemName ->
+                            navController.navigate(ExploreDetail(itemName))
+                        },
+                    )
+                }
+                composable<ExploreDetail> { backStackEntry ->
+                    val route = backStackEntry.toRoute<ExploreDetail>()
+                    ExploreDetailScreen(
+                        itemName = route.itemName,
+                        onNavigateBack = {
+                            navController.navigateUp()
+                        },
+                        onNavigateToDetail = { itemName ->
+                            navController.navigate(ExploreDetail(itemName))
                         },
                     )
                 }

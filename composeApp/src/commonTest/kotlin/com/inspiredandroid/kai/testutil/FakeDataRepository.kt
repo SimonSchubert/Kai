@@ -31,6 +31,9 @@ class FakeDataRepository : DataRepository {
     val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
     var clearHistoryCalls = 0
     var askException: Exception? = null
+    var askExploreResponse: String = ""
+    var askExploreException: Exception? = null
+    val askExploreCalls = mutableListOf<String>()
 
     fun setCurrentService(service: Service) {
         currentService = service
@@ -141,6 +144,12 @@ class FakeDataRepository : DataRepository {
     override fun startNewChat() {
         currentConversationId.value = null
         chatHistory.value = emptyList()
+    }
+
+    override suspend fun askExplore(prompt: String): String {
+        askExploreCalls.add(prompt)
+        askExploreException?.let { throw it }
+        return askExploreResponse
     }
 
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions

@@ -34,6 +34,9 @@ interface DataRepository {
     suspend fun deleteAllConversations()
     fun startNewChat()
 
+    // Explore
+    suspend fun askExplore(prompt: String): String
+
     // Tool management
     fun getToolDefinitions(): List<ToolInfo>
     fun setToolEnabled(toolId: String, enabled: Boolean)

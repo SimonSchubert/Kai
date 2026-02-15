@@ -62,6 +62,8 @@
     <string name="settings_tools_none_available">No tools available on this platform.</string>
     <string name="settings_tab_services">Services</string>
     <string name="settings_tab_tools">Tools</string>
+    <string name="explore_retry">Retry</string>
+    <string name="explore_related_topics">Related Topics</string>
     <string name="tool_get_local_time_name">Get Local Time</string>
     <string name="tool_get_local_time_description">Get the current local date and time for interpreting relative dates</string>
     <string name="tool_get_location_name">Get Location</string>
