@@ -85,6 +85,11 @@ string|tool_send_notification_description|5ZCR6KOd572u5YKz6YCB5o6o5pKt6YCa55+l
 string|tool_send_notification_name|5YKz6YCB6YCa55+l
 string|tool_send_sms_description|5Zue6KaG54++5pyJ55qE57Ch6KiK5bCN6Kmx
 string|tool_send_sms_name|5YKz6YCB57Ch6KiK
+string|topic_countries|5ZyL5a62
+string|topic_people|5Lq654mp
+string|topic_space|5aSq56m6
+string|topic_sport|6auU6IKy
+string|topic_technology|56eR5oqA
 string|undo|5b6p5Y6f
 string|welcome_message|5q2h6L+O5L2/55SoIEthaQ==
 string|yes|5piv

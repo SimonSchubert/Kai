@@ -85,6 +85,11 @@ string|tool_send_notification_description|S2lyaW0gbm90aWZpa2FzaSBwdXNoIGtlIHBlcm
 string|tool_send_notification_name|S2lyaW0gTm90aWZpa2FzaQ==
 string|tool_send_sms_description|QmFsYXMgcGVyY2FrYXBhbiBTTVMgeWFuZyBhZGE=
 string|tool_send_sms_name|S2lyaW0gU01T
+string|topic_countries|TmVnYXJh
+string|topic_people|T3Jhbmc=
+string|topic_space|THVhciBBbmdrYXNh
+string|topic_sport|T2xhaHJhZ2E=
+string|topic_technology|VGVrbm9sb2dp
 string|undo|VXJ1bmdrYW4=
 string|welcome_message|U2VsYW1hdCBkYXRhbmcgZGkgS2Fp
 string|yes|WWE=

@@ -85,6 +85,11 @@ string|tool_send_notification_description|VHVtYSBhcmlmYSB5YSBrdXN1a3VtYSBrd2VueW
 string|tool_send_notification_name|VHVtYSBBcmlmYQ==
 string|tool_send_sms_description|SmlidSBtYXp1bmd1bXpvIHlhIFNNUyB5YWxpeW9wbw==
 string|tool_send_sms_name|VHVtYSBTTVM=
+string|topic_countries|TmNoaQ==
+string|topic_people|V2F0dQ==
+string|topic_space|QW5nYQ==
+string|topic_sport|TWljaGV6bw==
+string|topic_technology|VGVrbm9sb2ppYQ==
 string|undo|VGVuZHVh
 string|welcome_message|S2FyaWJ1IGt3ZW55ZSBLYWk=
 string|yes|TmRpeW8=
