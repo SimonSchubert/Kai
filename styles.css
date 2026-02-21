@@ -4,4 +4,12 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    color-scheme: light dark;
+    background-color: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background-color: #121212;
+    }
 }
