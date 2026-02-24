@@ -54,6 +54,8 @@ string|settings_model_label|5qih5Z6L
 string|settings_openai_compatible_or_other_service|5oiW5YW25LuW5YW85a655pyN5Yqh77ya
 string|settings_openai_compatible_providers|5o+Q5L6b5ZWG
 string|settings_openai_compatible_setup_ollama|6K6+572u5oKo55qE5pys5ZywIE9sbGFtYSDlrp7kvovvvJo=
+string|settings_show_topics_description|5Zyo56m66IGK5aSp55WM6Z2i5pi+56S65Li76aKY5bu66K6u
+string|settings_show_topics|5pi+56S65Li76aKY
 string|settings_sign_in_copy_api_key_from|55m75b2V5bm25LuO5Lul5LiL5L2N572u5aSN5Yi25oKo55qEIEFQSSDlr4bpkqU=
 string|settings_status_checking|5q2j5Zyo5qOA5p+l6L+e5o6lLi4u
 string|settings_status_connected|5bey6L+e5o6l
@@ -62,6 +64,7 @@ string|settings_status_error_invalid_key|QVBJIOWvhumSpeaXoOaViA==
 string|settings_status_error_quota_exhausted|6YWN6aKd5bey55So5a6M
 string|settings_status_error_rate_limited|6L6+5Yiw6YCf546H6ZmQ5Yi2
 string|settings_status_error|6L+e5o6l5aSx6LSl
+string|settings_tab_general|6YCa55So
 string|settings_tab_services|5pyN5Yqh
 string|settings_tab_tools|5bel5YW3
 string|settings_tools_description|5ZCv55So5oiW56aB55So5Y+v5Lul5Luj6KGo5oKo5omn6KGM5pON5L2c55qEIEFJIOW3peWFt+OAgg==
@@ -85,6 +88,8 @@ string|tool_send_notification_description|5ZCR6K6+5aSH5Y+R6YCB5o6o6YCB6YCa55+l
 string|tool_send_notification_name|5Y+R6YCB6YCa55+l
 string|tool_send_sms_description|5Zue5aSN546w5pyJ55qE55+t5L+h5Lya6K+d
 string|tool_send_sms_name|5Y+R6YCB55+t5L+h
+string|tool_set_alarm_description|5Zyo6K6+5aSH5LiK6K6+572u6Ze56ZKf5oiW5YCS6K6h5pe25Zmo
+string|tool_set_alarm_name|6K6+572u6Ze56ZKf
 string|topic_countries|5Zu95a62
 string|topic_people|5Lq654mp
 string|topic_space|5aSq56m6
