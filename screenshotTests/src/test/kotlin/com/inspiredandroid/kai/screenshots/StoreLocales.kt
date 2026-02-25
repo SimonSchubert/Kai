@@ -1,0 +1,29 @@
+package com.inspiredandroid.kai.screenshots
+
+object StoreLocales {
+    val all = listOf(
+        arrayOf("ar", "ar"),
+        arrayOf("bn", "bn-BD"),
+        arrayOf("de", "de-DE"),
+        arrayOf("en", "en-US"),
+        arrayOf("es", "es-ES"),
+        arrayOf("fa", "fa"),
+        arrayOf("fr", "fr-FR"),
+        arrayOf("hi", "hi-IN"),
+        arrayOf("in", "id"),
+        arrayOf("it", "it-IT"),
+        arrayOf("ja", "ja-JP"),
+        arrayOf("ko", "ko-KR"),
+        arrayOf("ms", "ms-MY"),
+        arrayOf("nl", "nl-NL"),
+        arrayOf("pl", "pl-PL"),
+        arrayOf("pt", "pt-BR"),
+        arrayOf("ru", "ru-RU"),
+        arrayOf("th", "th"),
+        arrayOf("tr", "tr-TR"),
+        arrayOf("uk", "uk"),
+        arrayOf("vi", "vi"),
+        arrayOf("zh", "zh-CN"),
+        arrayOf("zh-TW", "zh-TW"),
+    )
+}

@@ -57,11 +57,12 @@ tasks.matching { it.name.contains("preparePaparazzi") }.configureEach {
     dependsOn(":composeApp:copyFossDebugComposeResourcesToAndroidAssets")
 }
 
-// Only run StoreScreenshotTest when generating store screenshots
+// Only run store screenshot tests when generating store screenshots
 tasks.matching { it.name == "testDebugUnitTest" }.configureEach {
     val task = this as Test
     if (gradle.startParameter.taskNames.any { it.contains("generateStoreScreenshots") }) {
         task.filter.includeTestsMatching("*.StoreScreenshotTest")
+        task.filter.includeTestsMatching("*.TabletStoreScreenshotTest")
     }
 }
 
@@ -71,15 +72,15 @@ tasks.register("updateScreenshots") {
 
     doLast {
         val snapshotsDir = file("src/test/snapshots/images")
-        val fastlaneDir = rootProject.file("fastlane/metadata/android/en-US/images/phoneScreenshots")
+        val phoneDir = rootProject.file("fastlane/metadata/android/en-US/images/phoneScreenshots")
         val readmeDir = rootProject.file("screenshots")
 
         // Ensure destination directories exist
-        fastlaneDir.mkdirs()
+        phoneDir.mkdirs()
         readmeDir.mkdirs()
 
-        // Mapping for fastlane (light theme screenshots for Play Store)
-        val fastlaneMapping =
+        // Mapping for fastlane screenshots
+        val screenshotMapping =
             mapOf(
                 "chatEmptyState_light" to "1.png",
                 "chatWithMessages_dark" to "2.png",
@@ -90,12 +91,12 @@ tasks.register("updateScreenshots") {
                 "settingsGeneral_light" to "7.png",
             )
 
-        // Copy to fastlane
-        snapshotsDir.listFiles()?.forEach { file ->
-            fastlaneMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
-                file.copyTo(fastlaneDir.resolve("0$destName"), overwrite = true)
+        // Copy phone screenshots (from ScreenshotTest)
+        snapshotsDir.listFiles()?.filter { it.name.startsWith("com.inspiredandroid.kai.screenshots_ScreenshotTest_") }?.forEach { file ->
+            screenshotMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
+                file.copyTo(phoneDir.resolve("0$destName"), overwrite = true)
                 file.copyTo(readmeDir.resolve("mobile-$destName"), overwrite = true)
-                println("Copied ${file.name} -> fastlane/$destName")
+                println("Copied ${file.name} -> phoneScreenshots/0$destName")
             }
         }
     }
@@ -109,27 +110,47 @@ tasks.register("generateStoreScreenshots") {
         val snapshotsDir = file("src/test/snapshots/images")
         val fastlaneDir = rootProject.file("fastlane/metadata/android")
 
-        val regex = Regex("""StoreScreenshotTest_\w+\[([^\]]+)\]_store_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
-        val snapshots =
+        // Phone screenshots
+        val phoneRegex = Regex("""StoreScreenshotTest_\w+\[([^\]]+)\]_store_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
+        val phoneSnapshots =
             snapshotsDir.listFiles()?.filter {
-                it.name.contains("StoreScreenshotTest_") && it.name.contains("_store_") && it.extension == "png"
+                it.name.contains("StoreScreenshotTest_") && !it.name.contains("Tablet") && it.name.contains("_store_") && it.extension == "png"
             } ?: emptyList()
 
-        if (snapshots.isEmpty()) {
-            println("No store screenshots found.")
-            return@doLast
-        }
-
-        snapshots.forEach { file ->
-            val match = regex.find(file.name)
+        phoneSnapshots.forEach { file ->
+            val match = phoneRegex.find(file.name)
             if (match != null) {
                 val (locale, name) = match.destructured
                 val targetDir = File(fastlaneDir, "$locale/images/phoneScreenshots")
                 targetDir.mkdirs()
                 val targetFile = File(targetDir, "$name.png")
                 file.copyTo(targetFile, overwrite = true)
-                println("Copied -> $locale/$name.png")
+                println("Copied -> $locale/phoneScreenshots/$name.png")
             }
+        }
+
+        // Tablet screenshots - locale comes from [paramName] in test class name
+        val tabletRegex = Regex("""TabletStoreScreenshotTest_\w+\[([^\]]+)\]_tablet_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
+        val tabletSnapshots =
+            snapshotsDir.listFiles()?.filter {
+                it.name.contains("TabletStoreScreenshotTest_") && it.name.contains("_tablet_") && it.extension == "png"
+            } ?: emptyList()
+
+        tabletSnapshots.forEach { file ->
+            val match = tabletRegex.find(file.name)
+            if (match != null) {
+                val (locale, name) = match.destructured
+                // locale comes from parameterized [name] e.g. "en-US", "ar", "de-DE"
+                val targetDir = File(fastlaneDir, "$locale/images/tenInchScreenshots")
+                targetDir.mkdirs()
+                val targetFile = File(targetDir, "$name.png")
+                file.copyTo(targetFile, overwrite = true)
+                println("Copied -> $locale/tenInchScreenshots/$name.png")
+            }
+        }
+
+        if (phoneSnapshots.isEmpty() && tabletSnapshots.isEmpty()) {
+            println("No store screenshots found.")
         }
     }
 }
