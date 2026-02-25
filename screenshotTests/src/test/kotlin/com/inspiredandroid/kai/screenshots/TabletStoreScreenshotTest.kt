@@ -40,6 +40,7 @@ class TabletStoreScreenshotTest(
     val paparazzi = Paparazzi(
         deviceConfig = DeviceConfig.PIXEL_TABLET.copy(softButtons = false),
         showSystemUi = true,
+        useDeviceResolution = true,
     )
 
     private lateinit var originalLocale: Locale
