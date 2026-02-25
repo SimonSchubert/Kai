@@ -91,6 +91,12 @@ import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.identity_creative_writer_name
+import kai.composeapp.generated.resources.identity_creative_writer_prompt
+import kai.composeapp.generated.resources.identity_short_and_direct_name
+import kai.composeapp.generated.resources.identity_short_and_direct_prompt
+import kai.composeapp.generated.resources.identity_tutor_name
+import kai.composeapp.generated.resources.identity_tutor_prompt
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
 import kai.composeapp.generated.resources.settings_api_key_optional_label
@@ -101,12 +107,6 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
-import kai.composeapp.generated.resources.identity_creative_writer_name
-import kai.composeapp.generated.resources.identity_creative_writer_prompt
-import kai.composeapp.generated.resources.identity_short_and_direct_name
-import kai.composeapp.generated.resources.identity_short_and_direct_prompt
-import kai.composeapp.generated.resources.identity_tutor_name
-import kai.composeapp.generated.resources.identity_tutor_prompt
 import kai.composeapp.generated.resources.settings_identity
 import kai.composeapp.generated.resources.settings_identity_add_custom
 import kai.composeapp.generated.resources.settings_identity_create
