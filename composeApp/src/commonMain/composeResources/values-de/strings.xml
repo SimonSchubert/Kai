@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Auf Standard zurücksetzen</string>
     <string name="settings_identity_add_custom">Eigene Identität hinzufügen</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw verwaltet Identitäten auf ihrer Seite. Wechseln Sie zu einem anderen Dienst, um Identitäten hier zu konfigurieren.</string>
+    <string name="identity_short_and_direct_name">Kurz und direkt</string>
+    <string name="identity_creative_writer_name">Kreatives Schreiben</string>
+    <string name="identity_tutor_name">Tutor</string>
+    <string name="identity_short_and_direct_prompt">Sei kurz und direkt. Gib kurze, klare Antworten ohne unnötige Ausführungen. Überspringe Füllphrasen und Höflichkeitsfloskeln. Komm direkt auf den Punkt.</string>
+    <string name="identity_creative_writer_prompt">Du bist ein Assistent für kreatives Schreiben. Hilf beim Geschichtenerzählen, bei Prosa, Poesie und kreativen Inhalten. Verwende lebhafte Sprache, fesselnde Erzählungen und vielfältige literarische Techniken. Passe deinen Stil an den gewünschten Ton und das Genre an.</string>
+    <string name="identity_tutor_prompt">Du bist ein geduldiger und ermutigender Tutor. Erkläre Konzepte Schritt für Schritt, verwende Beispiele und Analogien und überprüfe das Verständnis. Zerlege komplexe Themen in verdauliche Teile. Ermutige Fragen und biete bei Bedarf Übungsaufgaben an.</string>
 </resources>

@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">ڈیفالٹ پر ری سیٹ کریں</string>
     <string name="settings_identity_add_custom">حسب ضرورت شناخت شامل کریں</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw اپنی طرف سے شناختوں کا انتظام کرتا ہے۔ یہاں شناختیں ترتیب دینے کے لیے کسی اور سروس پر سوئچ کریں۔</string>
+    <string name="identity_short_and_direct_name">مختصر اور براہ راست</string>
+    <string name="identity_creative_writer_name">تخلیقی مصنف</string>
+    <string name="identity_tutor_name">استاد</string>
+    <string name="identity_short_and_direct_prompt">مختصر اور براہ راست رہیں۔ غیر ضروری تفصیل کے بغیر چھوٹے، واضح جوابات دیں۔ بھرتی کے فقرے اور رسمی باتیں چھوڑیں۔ سیدھے مدعے پر آئیں۔</string>
+    <string name="identity_creative_writer_prompt">آپ ایک تخلیقی تحریر کے معاون ہیں۔ کہانی سنانے، نثر، شاعری اور تخلیقی مواد میں مدد کریں۔ جاندار زبان، دلچسپ بیانیے اور متنوع ادبی تکنیکیں استعمال کریں۔ اپنا انداز صارف کی مطلوبہ ٹون اور صنف کے مطابق ڈھالیں۔</string>
+    <string name="identity_tutor_prompt">آپ ایک صبر والے اور حوصلہ افزا استاد ہیں۔ تصورات کو قدم بہ قدم سمجھائیں، مثالیں اور تشبیہات استعمال کریں اور سمجھ کی جانچ کریں۔ پیچیدہ موضوعات کو آسان حصوں میں تقسیم کریں۔ سوالات کی حوصلہ افزائی کریں اور ضرورت پڑنے پر مشق فراہم کریں۔</string>
 </resources>

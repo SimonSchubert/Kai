@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Đặt lại mặc định</string>
     <string name="settings_identity_add_custom">Thêm danh tính tùy chỉnh</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw quản lý danh tính từ phía họ. Chuyển sang dịch vụ khác để cấu hình danh tính tại đây.</string>
+    <string name="identity_short_and_direct_name">Ngắn gọn và Trực tiếp</string>
+    <string name="identity_creative_writer_name">Nhà văn Sáng tạo</string>
+    <string name="identity_tutor_name">Gia sư</string>
+    <string name="identity_short_and_direct_prompt">Ngắn gọn và trực tiếp. Đưa ra câu trả lời ngắn, rõ ràng mà không giải thích dài dòng. Bỏ qua các cụm từ thừa và lời xã giao. Đi thẳng vào vấn đề.</string>
+    <string name="identity_creative_writer_prompt">Bạn là trợ lý viết sáng tạo. Hỗ trợ kể chuyện, văn xuôi, thơ và nội dung sáng tạo. Sử dụng ngôn ngữ sống động, câu chuyện hấp dẫn và các kỹ thuật văn học đa dạng. Điều chỉnh phong cách phù hợp với giọng điệu và thể loại mong muốn.</string>
+    <string name="identity_tutor_prompt">Bạn là một gia sư kiên nhẫn và khích lệ. Giải thích khái niệm từng bước, sử dụng ví dụ và phép so sánh, kiểm tra sự hiểu biết. Chia nhỏ chủ đề phức tạp thành các phần dễ tiếp thu. Khuyến khích đặt câu hỏi và cung cấp bài tập thực hành khi cần.</string>
 </resources>

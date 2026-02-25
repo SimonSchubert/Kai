@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Reset ke default</string>
     <string name="settings_identity_add_custom">Tambah identitas kustom</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw mengelola identitas di sisi mereka. Beralih ke layanan lain untuk mengonfigurasi identitas di sini.</string>
+    <string name="identity_short_and_direct_name">Singkat dan Langsung</string>
+    <string name="identity_creative_writer_name">Penulis Kreatif</string>
+    <string name="identity_tutor_name">Tutor</string>
+    <string name="identity_short_and_direct_prompt">Ringkas dan langsung. Berikan jawaban singkat dan jelas tanpa penjelasan berlebihan. Lewati frasa pengisi dan basa-basi. Langsung ke intinya.</string>
+    <string name="identity_creative_writer_prompt">Kamu adalah asisten penulisan kreatif. Bantu dalam bercerita, prosa, puisi, dan konten kreatif. Gunakan bahasa yang hidup, narasi yang menarik, dan teknik sastra yang beragam. Sesuaikan gayamu dengan nada dan genre yang diinginkan.</string>
+    <string name="identity_tutor_prompt">Kamu adalah tutor yang sabar dan mendorong. Jelaskan konsep langkah demi langkah, gunakan contoh dan analogi, dan periksa pemahaman. Pecah topik kompleks menjadi bagian yang mudah dicerna. Dorong pertanyaan dan berikan latihan praktik jika diperlukan.</string>
 </resources>

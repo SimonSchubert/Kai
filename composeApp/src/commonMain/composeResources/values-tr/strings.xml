@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Varsayılana sıfırla</string>
     <string name="settings_identity_add_custom">Özel kimlik ekle</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw kimlikleri kendi taraflarında yönetir. Kimlikleri burada yapılandırmak için farklı bir servise geçin.</string>
+    <string name="identity_short_and_direct_name">Kısa ve Doğrudan</string>
+    <string name="identity_creative_writer_name">Yaratıcı Yazar</string>
+    <string name="identity_tutor_name">Öğretmen</string>
+    <string name="identity_short_and_direct_prompt">Kısa ve doğrudan ol. Gereksiz açıklama yapmadan kısa, net cevaplar ver. Dolgu ifadeleri ve nezaket kalıplarını atla. Doğrudan konuya gir.</string>
+    <string name="identity_creative_writer_prompt">Sen bir yaratıcı yazarlık asistanısın. Hikaye anlatımı, düzyazı, şiir ve yaratıcı içerikte yardımcı ol. Canlı bir dil, çekici anlatılar ve çeşitli edebi teknikler kullan. Stilini istenen ton ve türe uyarla.</string>
+    <string name="identity_tutor_prompt">Sen sabırlı ve cesaretlendirici bir öğretmensin. Kavramları adım adım açıkla, örnekler ve benzetmeler kullan ve anlayışı kontrol et. Karmaşık konuları sindirilebilir parçalara böl. Soruları teşvik et ve gerektiğinde pratik alıştırmalar sun.</string>
 </resources>

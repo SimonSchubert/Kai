@@ -101,6 +101,12 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
+import kai.composeapp.generated.resources.identity_creative_writer_name
+import kai.composeapp.generated.resources.identity_creative_writer_prompt
+import kai.composeapp.generated.resources.identity_short_and_direct_name
+import kai.composeapp.generated.resources.identity_short_and_direct_prompt
+import kai.composeapp.generated.resources.identity_tutor_name
+import kai.composeapp.generated.resources.identity_tutor_prompt
 import kai.composeapp.generated.resources.settings_identity
 import kai.composeapp.generated.resources.settings_identity_add_custom
 import kai.composeapp.generated.resources.settings_identity_create
@@ -108,6 +114,7 @@ import kai.composeapp.generated.resources.settings_identity_delete
 import kai.composeapp.generated.resources.settings_identity_description
 import kai.composeapp.generated.resources.settings_identity_edit
 import kai.composeapp.generated.resources.settings_identity_name
+import kai.composeapp.generated.resources.settings_identity_none
 import kai.composeapp.generated.resources.settings_identity_openclaw_disabled
 import kai.composeapp.generated.resources.settings_identity_reset
 import kai.composeapp.generated.resources.settings_identity_save
@@ -1224,6 +1231,23 @@ private fun IdentitySection(
 }
 
 @Composable
+private fun localizedIdentityName(identity: Identity): String = when (identity.id) {
+    "none" -> stringResource(Res.string.settings_identity_none)
+    "short_and_direct" -> stringResource(Res.string.identity_short_and_direct_name)
+    "creative_writer" -> stringResource(Res.string.identity_creative_writer_name)
+    "tutor" -> stringResource(Res.string.identity_tutor_name)
+    else -> identity.name
+}
+
+@Composable
+private fun localizedIdentityPrompt(identity: Identity): String = when (identity.id) {
+    "short_and_direct" -> stringResource(Res.string.identity_short_and_direct_prompt)
+    "creative_writer" -> stringResource(Res.string.identity_creative_writer_prompt)
+    "tutor" -> stringResource(Res.string.identity_tutor_prompt)
+    else -> identity.systemPrompt
+}
+
+@Composable
 private fun IdentityItem(
     identity: Identity,
     isSelected: Boolean,
@@ -1273,13 +1297,14 @@ private fun IdentityItem(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = identity.name,
+                text = localizedIdentityName(identity),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            if (identity.systemPrompt.isNotEmpty()) {
+            val prompt = localizedIdentityPrompt(identity)
+            if (prompt.isNotEmpty()) {
                 Text(
-                    text = identity.systemPrompt,
+                    text = prompt,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -1314,8 +1339,10 @@ private fun IdentityEditSheet(
 ) {
     val isCreating = identity == null
     val isPredefined = identity?.isPredefined == true
-    var name by remember { mutableStateOf(identity?.name ?: "") }
-    var systemPrompt by remember { mutableStateOf(identity?.systemPrompt ?: "") }
+    val displayName = if (identity != null) localizedIdentityName(identity) else ""
+    val displayPrompt = if (identity != null) localizedIdentityPrompt(identity) else ""
+    var name by remember { mutableStateOf(displayName) }
+    var systemPrompt by remember { mutableStateOf(displayPrompt) }
     val maxChars = 2000
 
     ModalBottomSheet(
@@ -1386,8 +1413,7 @@ private fun IdentityEditSheet(
             ) {
                 if (!isCreating) {
                     if (isPredefined) {
-                        val defaultPrompt = PredefinedIdentities.defaultPromptForId(identity.id)
-                        if (defaultPrompt != null && defaultPrompt != systemPrompt) {
+                        if (displayPrompt != systemPrompt) {
                             TextButton(
                                 onClick = { onReset(identity.id) },
                                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),

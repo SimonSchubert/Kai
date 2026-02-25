@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Rejesha chaguo-msingi</string>
     <string name="settings_identity_add_custom">Ongeza utambulisho maalum</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw inasimamia utambulisho upande wao. Badilisha huduma nyingine ili kusanidi utambulisho hapa.</string>
+    <string name="identity_short_and_direct_name">Fupi na Moja kwa Moja</string>
+    <string name="identity_creative_writer_name">Mwandishi wa Ubunifu</string>
+    <string name="identity_tutor_name">Mwalimu</string>
+    <string name="identity_short_and_direct_prompt">Kuwa mfupi na wa moja kwa moja. Toa majibu mafupi na wazi bila maelezo yasiyo ya lazima. Acha maneno ya kujaza na heshima za kawaida. Nenda moja kwa moja kwenye jambo kuu.</string>
+    <string name="identity_creative_writer_prompt">Wewe ni msaidizi wa uandishi wa ubunifu. Saidia katika kusimulia hadithi, nathari, ushairi na maudhui ya ubunifu. Tumia lugha hai, simulizi za kuvutia na mbinu mbalimbali za fasihi. Badilisha mtindo wako kulingana na sauti na aina inayotakiwa.</string>
+    <string name="identity_tutor_prompt">Wewe ni mwalimu mvumilivu na wa kutia moyo. Eleza dhana hatua kwa hatua, tumia mifano na mlinganisho, na angalia uelewa. Gawanya mada ngumu kuwa sehemu rahisi kuelewa. Himiza maswali na toa mazoezi ya vitendo inapohitajika.</string>
 </resources>

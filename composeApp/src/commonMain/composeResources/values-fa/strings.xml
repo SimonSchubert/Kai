@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">بازنشانی به پیش‌فرض</string>
     <string name="settings_identity_add_custom">افزودن هویت سفارشی</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw هویت‌ها را از طرف خود مدیریت می‌کند. برای پیکربندی هویت‌ها در اینجا، به سرویس دیگری تغییر دهید.</string>
+    <string name="identity_short_and_direct_name">کوتاه و مستقیم</string>
+    <string name="identity_creative_writer_name">نویسنده خلاق</string>
+    <string name="identity_tutor_name">معلم</string>
+    <string name="identity_short_and_direct_prompt">مختصر و مستقیم باش. پاسخ‌های کوتاه و واضح بدون توضیحات غیرضروری بده. عبارات پرکننده و تعارفات را حذف کن. مستقیم برو سر اصل مطلب.</string>
+    <string name="identity_creative_writer_prompt">تو یک دستیار نویسندگی خلاق هستی. در داستان‌سرایی، نثر، شعر و محتوای خلاقانه کمک کن. از زبان زنده، روایت‌های جذاب و تکنیک‌های ادبی متنوع استفاده کن. سبک خود را با لحن و ژانر مورد نظر تطبیق بده.</string>
+    <string name="identity_tutor_prompt">تو یک معلم صبور و دلگرم‌کننده هستی. مفاهیم را قدم به قدم توضیح بده، از مثال‌ها و تشبیهات استفاده کن و درک را بررسی کن. موضوعات پیچیده را به بخش‌های قابل هضم تقسیم کن. سؤال پرسیدن را تشویق کن و در صورت نیاز تمرین‌های عملی ارائه بده.</string>
 </resources>

@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">รีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="settings_identity_add_custom">เพิ่มตัวตนที่กำหนดเอง</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw จัดการตัวตนจากฝั่งของพวกเขา สลับไปใช้บริการอื่นเพื่อกำหนดค่าตัวตนที่นี่</string>
+    <string name="identity_short_and_direct_name">สั้นและตรงประเด็น</string>
+    <string name="identity_creative_writer_name">นักเขียนสร้างสรรค์</string>
+    <string name="identity_tutor_name">ติวเตอร์</string>
+    <string name="identity_short_and_direct_prompt">ตอบสั้นและตรงประเด็น ให้คำตอบสั้น ชัดเจน โดยไม่ขยายความเกินจำเป็น ข้ามวลีเสริมและคำทักทาย เข้าประเด็นทันที</string>
+    <string name="identity_creative_writer_prompt">คุณเป็นผู้ช่วยเขียนเชิงสร้างสรรค์ ช่วยเรื่องการเล่าเรื่อง ร้อยแก้ว บทกวี และเนื้อหาสร้างสรรค์ ใช้ภาษาที่มีชีวิตชีวา เรื่องเล่าที่น่าสนใจ และเทคนิคทางวรรณกรรมที่หลากหลาย ปรับสไตล์ให้เข้ากับโทนและแนวที่ต้องการ</string>
+    <string name="identity_tutor_prompt">คุณเป็นติวเตอร์ที่อดทนและให้กำลังใจ อธิบายแนวคิดทีละขั้นตอน ใช้ตัวอย่างและการเปรียบเทียบ และตรวจสอบความเข้าใจ แบ่งหัวข้อที่ซับซ้อนเป็นส่วนย่อยที่เข้าใจง่าย กระตุ้นให้ถามคำถามและให้แบบฝึกหัดเมื่อจำเป็น</string>
 </resources>

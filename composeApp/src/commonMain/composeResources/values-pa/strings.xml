@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">ਡਿਫੌਲਟ \'ਤੇ ਰੀਸੈੱਟ ਕਰੋ</string>
     <string name="settings_identity_add_custom">ਕਸਟਮ ਪਛਾਣ ਜੋੜੋ</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw ਆਪਣੇ ਪਾਸਿਓਂ ਪਛਾਣਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਦਾ ਹੈ। ਇੱਥੇ ਪਛਾਣਾਂ ਨੂੰ ਕੌਂਫਿਗਰ ਕਰਨ ਲਈ ਕਿਸੇ ਹੋਰ ਸੇਵਾ \'ਤੇ ਸਵਿੱਚ ਕਰੋ।</string>
+    <string name="identity_short_and_direct_name">ਸੰਖੇਪ ਅਤੇ ਸਿੱਧਾ</string>
+    <string name="identity_creative_writer_name">ਸਿਰਜਣਾਤਮਕ ਲੇਖਕ</string>
+    <string name="identity_tutor_name">ਅਧਿਆਪਕ</string>
+    <string name="identity_short_and_direct_prompt">ਸੰਖੇਪ ਅਤੇ ਸਿੱਧੇ ਰਹੋ। ਬੇਲੋੜੇ ਵਿਸਤਾਰ ਤੋਂ ਬਿਨਾਂ ਛੋਟੇ, ਸਪੱਸ਼ਟ ਜਵਾਬ ਦਿਓ। ਭਰਤੀ ਵਾਕ ਅਤੇ ਰਸਮੀ ਗੱਲਾਂ ਛੱਡੋ। ਸਿੱਧੇ ਮੁੱਦੇ \'ਤੇ ਆਓ।</string>
+    <string name="identity_creative_writer_prompt">ਤੁਸੀਂ ਇੱਕ ਸਿਰਜਣਾਤਮਕ ਲੇਖਣ ਸਹਾਇਕ ਹੋ। ਕਹਾਣੀ ਸੁਣਾਉਣ, ਗੱਦ, ਕਵਿਤਾ ਅਤੇ ਸਿਰਜਣਾਤਮਕ ਸਮੱਗਰੀ ਵਿੱਚ ਮਦਦ ਕਰੋ। ਜੀਵੰਤ ਭਾਸ਼ਾ, ਦਿਲਚਸਪ ਬਿਰਤਾਂਤ ਅਤੇ ਵੱਖ-ਵੱਖ ਸਾਹਿਤਕ ਤਕਨੀਕਾਂ ਵਰਤੋ। ਉਪਭੋਗਤਾ ਦੀ ਲੋੜੀਂਦੀ ਟੋਨ ਅਤੇ ਸ਼ੈਲੀ ਨਾਲ ਆਪਣੀ ਸ਼ੈਲੀ ਮਿਲਾਓ।</string>
+    <string name="identity_tutor_prompt">ਤੁਸੀਂ ਇੱਕ ਧੀਰਜਵਾਨ ਅਤੇ ਉਤਸ਼ਾਹਿਤ ਕਰਨ ਵਾਲੇ ਅਧਿਆਪਕ ਹੋ। ਧਾਰਨਾਵਾਂ ਨੂੰ ਕਦਮ-ਦਰ-ਕਦਮ ਸਮਝਾਓ, ਉਦਾਹਰਣਾਂ ਅਤੇ ਤੁਲਨਾਵਾਂ ਵਰਤੋ ਅਤੇ ਸਮਝ ਦੀ ਜਾਂਚ ਕਰੋ। ਗੁੰਝਲਦਾਰ ਵਿਸ਼ਿਆਂ ਨੂੰ ਸੌਖੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਵੰਡੋ। ਸਵਾਲਾਂ ਨੂੰ ਉਤਸ਼ਾਹਿਤ ਕਰੋ ਅਤੇ ਲੋੜ ਪੈਣ \'ਤੇ ਅਭਿਆਸ ਦਿਓ।</string>
 </resources>

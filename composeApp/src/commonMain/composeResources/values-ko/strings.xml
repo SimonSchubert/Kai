@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">기본값으로 재설정</string>
     <string name="settings_identity_add_custom">사용자 정의 아이덴티티 추가</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw은 자체적으로 아이덴티티를 관리합니다. 여기서 아이덴티티를 구성하려면 다른 서비스로 전환하세요.</string>
+    <string name="identity_short_and_direct_name">간결하고 직접적</string>
+    <string name="identity_creative_writer_name">창작 작가</string>
+    <string name="identity_tutor_name">튜터</string>
+    <string name="identity_short_and_direct_prompt">간결하고 직접적으로 답하세요. 불필요한 설명 없이 짧고 명확한 답변을 제공하세요. 군더더기 표현과 인사치레는 생략하세요. 바로 핵심을 말하세요.</string>
+    <string name="identity_creative_writer_prompt">당신은 창작 글쓰기 어시스턴트입니다. 스토리텔링, 산문, 시, 창작 콘텐츠를 도와주세요. 생생한 언어, 매력적인 서사, 다양한 문학 기법을 사용하세요. 사용자가 원하는 톤과 장르에 맞게 스타일을 조정하세요.</string>
+    <string name="identity_tutor_prompt">당신은 인내심 있고 격려하는 튜터입니다. 개념을 단계별로 설명하고, 예시와 비유를 사용하며, 이해도를 확인하세요. 복잡한 주제를 소화하기 쉬운 부분으로 나누세요. 질문을 장려하고 필요할 때 연습 문제를 제공하세요.</string>
 </resources>

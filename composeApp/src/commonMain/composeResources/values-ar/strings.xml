@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">إعادة التعيين إلى الافتراضي</string>
     <string name="settings_identity_add_custom">إضافة هوية مخصصة</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw يدير الهويات من جانبهم. قم بالتبديل إلى خدمة مختلفة لتكوين الهويات هنا.</string>
+    <string name="identity_short_and_direct_name">مختصر ومباشر</string>
+    <string name="identity_creative_writer_name">كاتب إبداعي</string>
+    <string name="identity_tutor_name">مُعلّم</string>
+    <string name="identity_short_and_direct_prompt">كن مختصراً ومباشراً. قدّم إجابات قصيرة وواضحة دون إسهاب غير ضروري. تجاوز العبارات الحشو والمجاملات. ادخل في صلب الموضوع.</string>
+    <string name="identity_creative_writer_prompt">أنت مساعد كتابة إبداعية. ساعد في سرد القصص والنثر والشعر والمحتوى الإبداعي. استخدم لغة حية وسرديات مقنعة وتقنيات أدبية متنوعة. كيّف أسلوبك ليتناسب مع النبرة والنوع الأدبي المطلوب.</string>
+    <string name="identity_tutor_prompt">أنت معلّم صبور ومشجّع. اشرح المفاهيم خطوة بخطوة، واستخدم الأمثلة والتشبيهات، وتحقق من الفهم. قسّم المواضيع المعقدة إلى أجزاء سهلة الاستيعاب. شجّع الأسئلة وقدّم تمارين تطبيقية عند الحاجة.</string>
 </resources>

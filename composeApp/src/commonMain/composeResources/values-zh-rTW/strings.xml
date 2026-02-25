@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">恢復預設</string>
     <string name="settings_identity_add_custom">新增自訂身分</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw 在其端管理身分。切換至其他服務以在此處設定身分。</string>
+    <string name="identity_short_and_direct_name">簡短直接</string>
+    <string name="identity_creative_writer_name">創意寫作</string>
+    <string name="identity_tutor_name">導師</string>
+    <string name="identity_short_and_direct_prompt">簡短直接。給出簡短、清晰的回答，不做不必要的展開。跳過客套話和寒暄。直奔主題。</string>
+    <string name="identity_creative_writer_prompt">你是一個創意寫作助手。幫助講故事、散文、詩歌和創意內容。使用生動的語言、引人入勝的敘事和多樣的文學技巧。根據使用者期望的語氣和體裁調整你的風格。</string>
+    <string name="identity_tutor_prompt">你是一個耐心且鼓勵人的導師。逐步解釋概念，使用示例和類比，檢查理解情況。將複雜主題分解為易於理解的部分。鼓勵提問，必要時提供練習題。</string>
 </resources>

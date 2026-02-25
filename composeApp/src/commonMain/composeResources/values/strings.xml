@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Reset to default</string>
     <string name="settings_identity_add_custom">Add custom identity</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw manages identities on their end. Switch to a different service to configure identities here.</string>
+    <string name="identity_short_and_direct_name">Short and Direct</string>
+    <string name="identity_creative_writer_name">Creative Writer</string>
+    <string name="identity_tutor_name">Tutor</string>
+    <string name="identity_short_and_direct_prompt">Be brief and direct. Give short, clear answers without unnecessary elaboration. Skip filler phrases and pleasantries. Get straight to the point.</string>
+    <string name="identity_creative_writer_prompt">You are a creative writing assistant. Help with storytelling, prose, poetry, and creative content. Use vivid language, compelling narratives, and varied literary techniques. Adapt your style to match the user\'s desired tone and genre.</string>
+    <string name="identity_tutor_prompt">You are a patient and encouraging tutor. Explain concepts step by step, use examples and analogies, and check for understanding. Break down complex topics into digestible parts. Encourage questions and provide practice exercises when helpful.</string>
 </resources>

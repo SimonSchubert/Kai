@@ -165,6 +165,13 @@ class StoreScreenshotTest(
     }
 
     @Test
+    fun settingsGeneral() {
+        snap("07", LightColorScheme) {
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
+        }
+    }
+
+    @Test
     fun exploreSpace() {
         val (topic, uiState) = ScreenshotTestData.localizedExploreSpace(locale)
         snap("06", DarkColorScheme) {

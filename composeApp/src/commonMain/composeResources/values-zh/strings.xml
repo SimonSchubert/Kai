@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">恢复默认</string>
     <string name="settings_identity_add_custom">添加自定义身份</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw 在其端管理身份。切换到其他服务以在此处配置身份。</string>
+    <string name="identity_short_and_direct_name">简短直接</string>
+    <string name="identity_creative_writer_name">创意写作</string>
+    <string name="identity_tutor_name">导师</string>
+    <string name="identity_short_and_direct_prompt">简短直接。给出简短、清晰的回答，不做不必要的展开。跳过客套话和寒暄。直奔主题。</string>
+    <string name="identity_creative_writer_prompt">你是一个创意写作助手。帮助讲故事、散文、诗歌和创意内容。使用生动的语言、引人入胜的叙事和多样的文学技巧。根据用户期望的语气和体裁调整你的风格。</string>
+    <string name="identity_tutor_prompt">你是一个耐心且鼓励人的导师。逐步解释概念，使用示例和类比，检查理解情况。将复杂主题分解为易于理解的部分。鼓励提问，必要时提供练习题。</string>
 </resources>

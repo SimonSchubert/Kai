@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Сбросить по умолчанию</string>
     <string name="settings_identity_add_custom">Добавить свою личность</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw управляет личностями на своей стороне. Переключитесь на другой сервис, чтобы настроить личности здесь.</string>
+    <string name="identity_short_and_direct_name">Кратко и по делу</string>
+    <string name="identity_creative_writer_name">Творческий писатель</string>
+    <string name="identity_tutor_name">Репетитор</string>
+    <string name="identity_short_and_direct_prompt">Будь краток и прямолинеен. Давай короткие, чёткие ответы без лишних подробностей. Пропускай вводные фразы и любезности. Переходи сразу к сути.</string>
+    <string name="identity_creative_writer_prompt">Ты — ассистент по творческому письму. Помогай с повествованием, прозой, поэзией и творческим контентом. Используй яркий язык, увлекательные повествования и разнообразные литературные приёмы. Адаптируй свой стиль к желаемому тону и жанру.</string>
+    <string name="identity_tutor_prompt">Ты — терпеливый и ободряющий репетитор. Объясняй концепции шаг за шагом, используй примеры и аналогии, проверяй понимание. Разбивай сложные темы на усваиваемые части. Поощряй вопросы и предлагай практические упражнения при необходимости.</string>
 </resources>

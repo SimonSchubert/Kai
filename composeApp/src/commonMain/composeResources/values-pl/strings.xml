@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">Przywróć domyślne</string>
     <string name="settings_identity_add_custom">Dodaj własną tożsamość</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw zarządza tożsamościami po swojej stronie. Przełącz na inną usługę, aby konfigurować tożsamości tutaj.</string>
+    <string name="identity_short_and_direct_name">Krótko i na temat</string>
+    <string name="identity_creative_writer_name">Kreatywny pisarz</string>
+    <string name="identity_tutor_name">Korepetytor</string>
+    <string name="identity_short_and_direct_prompt">Bądź zwięzły i bezpośredni. Dawaj krótkie, jasne odpowiedzi bez zbędnego rozwijania. Pomijaj wypełniacze i uprzejmości. Przejdź od razu do sedna.</string>
+    <string name="identity_creative_writer_prompt">Jesteś asystentem kreatywnego pisania. Pomagaj w opowiadaniu historii, prozie, poezji i treściach kreatywnych. Używaj żywego języka, wciągających narracji i różnorodnych technik literackich. Dostosuj swój styl do pożądanego tonu i gatunku.</string>
+    <string name="identity_tutor_prompt">Jesteś cierpliwym i zachęcającym korepetytorem. Wyjaśniaj pojęcia krok po kroku, używaj przykładów i analogii oraz sprawdzaj zrozumienie. Rozkładaj złożone tematy na przyswajalne części. Zachęcaj do pytań i oferuj ćwiczenia praktyczne w razie potrzeby.</string>
 </resources>

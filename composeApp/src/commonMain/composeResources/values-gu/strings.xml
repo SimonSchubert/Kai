@@ -110,4 +110,10 @@
     <string name="settings_identity_reset">ડિફોલ્ટ પર રીસેટ કરો</string>
     <string name="settings_identity_add_custom">કસ્ટમ ઓળખ ઉમેરો</string>
     <string name="settings_identity_openclaw_disabled">OpenClaw તેમના તરફથી ઓળખ વ્યવસ્થાપન કરે છે. અહીં ઓળખ ગોઠવવા માટે અન્ય સેવા પર સ્વિચ કરો.</string>
+    <string name="identity_short_and_direct_name">ટૂંકું અને સીધું</string>
+    <string name="identity_creative_writer_name">સર્જનાત્મક લેખક</string>
+    <string name="identity_tutor_name">શિક્ષક</string>
+    <string name="identity_short_and_direct_prompt">ટૂંકા અને સીધા રહો. બિનજરૂરી વિસ્તાર વિના ટૂંકા, સ્પષ્ટ જવાબો આપો. ફિલર વાક્યો અને શિષ્ટાચાર છોડો. સીધા મુદ્દા પર આવો.</string>
+    <string name="identity_creative_writer_prompt">તમે સર્જનાત્મક લેખન સહાયક છો. વાર્તા કહેવા, ગદ્ય, કવિતા અને સર્જનાત્મક સામગ્રીમાં મદદ કરો. જીવંત ભાષા, આકર્ષક કથાઓ અને વિવિધ સાહિત્યિક તકનીકોનો ઉપયોગ કરો. વપરાશકર્તાની ઇચ્છિત ટોન અને શૈલી સાથે તમારી શૈલી અનુકૂળ કરો.</string>
+    <string name="identity_tutor_prompt">તમે ધીરજવાન અને પ્રોત્સાહક શિક્ષક છો. ખ્યાલો પગલે પગલે સમજાવો, ઉદાહરણો અને સાદ્રશ્યોનો ઉપયોગ કરો અને સમજણ ચકાસો. જટિલ વિષયોને સરળ ભાગોમાં વિભાજિત કરો. પ્રશ્નોને પ્રોત્સાહિત કરો અને જરૂર પડે ત્યારે અભ્યાસ કસરતો આપો.</string>
 </resources>

@@ -87,6 +87,7 @@ tasks.register("updateScreenshots") {
                 "settingsFree_dark" to "4.png",
                 "settingsTools_light" to "5.png",
                 "exploreSpace_dark" to "6.png",
+                "settingsGeneral_light" to "7.png",
             )
 
         // Copy to fastlane
