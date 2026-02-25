@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">在空聊天界面显示主题建议</string>
     <string name="tool_set_alarm_name">设置闹钟</string>
     <string name="tool_set_alarm_description">在设备上设置闹钟或倒计时器</string>
+    <string name="settings_identity">身份</string>
+    <string name="settings_identity_description">设置系统提示词来定义 AI 的行为方式</string>
+    <string name="settings_identity_none">无</string>
+    <string name="settings_identity_edit">编辑身份</string>
+    <string name="settings_identity_create">创建身份</string>
+    <string name="settings_identity_name">名称</string>
+    <string name="settings_identity_system_prompt">系统提示词</string>
+    <string name="settings_identity_save">保存</string>
+    <string name="settings_identity_delete">删除</string>
+    <string name="settings_identity_reset">恢复默认</string>
+    <string name="settings_identity_add_custom">添加自定义身份</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw 在其端管理身份。切换到其他服务以在此处配置身份。</string>
 </resources>

@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">空のチャット画面にトピックの提案を表示</string>
     <string name="tool_set_alarm_name">アラームを設定</string>
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
+    <string name="settings_identity">アイデンティティ</string>
+    <string name="settings_identity_description">AIの振る舞いを定義するシステムプロンプトを設定</string>
+    <string name="settings_identity_none">なし</string>
+    <string name="settings_identity_edit">アイデンティティを編集</string>
+    <string name="settings_identity_create">アイデンティティを作成</string>
+    <string name="settings_identity_name">名前</string>
+    <string name="settings_identity_system_prompt">システムプロンプト</string>
+    <string name="settings_identity_save">保存</string>
+    <string name="settings_identity_delete">削除</string>
+    <string name="settings_identity_reset">デフォルトにリセット</string>
+    <string name="settings_identity_add_custom">カスタムアイデンティティを追加</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw はアイデンティティを独自に管理しています。ここでアイデンティティを設定するには、別のサービスに切り替えてください。</string>
 </resources>

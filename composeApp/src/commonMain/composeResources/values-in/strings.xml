@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Tampilkan saran topik di layar obrolan kosong</string>
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
+    <string name="settings_identity">Identitas</string>
+    <string name="settings_identity_description">Atur prompt sistem yang menentukan perilaku AI</string>
+    <string name="settings_identity_none">Tidak ada</string>
+    <string name="settings_identity_edit">Edit Identitas</string>
+    <string name="settings_identity_create">Buat Identitas</string>
+    <string name="settings_identity_name">Nama</string>
+    <string name="settings_identity_system_prompt">Prompt Sistem</string>
+    <string name="settings_identity_save">Simpan</string>
+    <string name="settings_identity_delete">Hapus</string>
+    <string name="settings_identity_reset">Reset ke default</string>
+    <string name="settings_identity_add_custom">Tambah identitas kustom</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw mengelola identitas di sisi mereka. Beralih ke layanan lain untuk mengonfigurasi identitas di sini.</string>
 </resources>

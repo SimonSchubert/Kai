@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">빈 채팅 화면에 주제 제안 표시</string>
     <string name="tool_set_alarm_name">알람 설정</string>
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
+    <string name="settings_identity">아이덴티티</string>
+    <string name="settings_identity_description">AI의 동작을 정의하는 시스템 프롬프트를 설정하세요</string>
+    <string name="settings_identity_none">없음</string>
+    <string name="settings_identity_edit">아이덴티티 편집</string>
+    <string name="settings_identity_create">아이덴티티 만들기</string>
+    <string name="settings_identity_name">이름</string>
+    <string name="settings_identity_system_prompt">시스템 프롬프트</string>
+    <string name="settings_identity_save">저장</string>
+    <string name="settings_identity_delete">삭제</string>
+    <string name="settings_identity_reset">기본값으로 재설정</string>
+    <string name="settings_identity_add_custom">사용자 정의 아이덴티티 추가</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw은 자체적으로 아이덴티티를 관리합니다. 여기서 아이덴티티를 구성하려면 다른 서비스로 전환하세요.</string>
 </resources>

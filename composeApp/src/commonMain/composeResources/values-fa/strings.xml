@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">نمایش پیشنهادات موضوعی در صفحه چت خالی</string>
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
+    <string name="settings_identity">هویت</string>
+    <string name="settings_identity_description">یک دستور سیستمی تنظیم کنید که رفتار هوش مصنوعی را مشخص کند</string>
+    <string name="settings_identity_none">هیچکدام</string>
+    <string name="settings_identity_edit">ویرایش هویت</string>
+    <string name="settings_identity_create">ایجاد هویت</string>
+    <string name="settings_identity_name">نام</string>
+    <string name="settings_identity_system_prompt">دستور سیستمی</string>
+    <string name="settings_identity_save">ذخیره</string>
+    <string name="settings_identity_delete">حذف</string>
+    <string name="settings_identity_reset">بازنشانی به پیش‌فرض</string>
+    <string name="settings_identity_add_custom">افزودن هویت سفارشی</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw هویت‌ها را از طرف خود مدیریت می‌کند. برای پیکربندی هویت‌ها در اینجا، به سرویس دیگری تغییر دهید.</string>
 </resources>

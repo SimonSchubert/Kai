@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">แสดงคำแนะนำหัวข้อบนหน้าจอแชทว่าง</string>
     <string name="tool_set_alarm_name">ตั้งปลุก</string>
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
+    <string name="settings_identity">ตัวตน</string>
+    <string name="settings_identity_description">ตั้งค่าพรอมต์ระบบที่กำหนดพฤติกรรมของ AI</string>
+    <string name="settings_identity_none">ไม่มี</string>
+    <string name="settings_identity_edit">แก้ไขตัวตน</string>
+    <string name="settings_identity_create">สร้างตัวตน</string>
+    <string name="settings_identity_name">ชื่อ</string>
+    <string name="settings_identity_system_prompt">พรอมต์ระบบ</string>
+    <string name="settings_identity_save">บันทึก</string>
+    <string name="settings_identity_delete">ลบ</string>
+    <string name="settings_identity_reset">รีเซ็ตเป็นค่าเริ่มต้น</string>
+    <string name="settings_identity_add_custom">เพิ่มตัวตนที่กำหนดเอง</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw จัดการตัวตนจากฝั่งของพวกเขา สลับไปใช้บริการอื่นเพื่อกำหนดค่าตัวตนที่นี่</string>
 </resources>

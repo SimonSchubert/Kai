@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">रिकाम्या चॅट स्क्रीनवर विषय सूचना दाखवा</string>
     <string name="tool_set_alarm_name">अलार्म सेट करा</string>
     <string name="tool_set_alarm_description">डिव्हाइसवर अलार्म किंवा काउंटडाउन टायमर सेट करा</string>
+    <string name="settings_identity">ओळख</string>
+    <string name="settings_identity_description">AI कसे वागेल हे ठरवणारा सिस्टम प्रॉम्प्ट सेट करा</string>
+    <string name="settings_identity_none">काहीही नाही</string>
+    <string name="settings_identity_edit">ओळख संपादित करा</string>
+    <string name="settings_identity_create">ओळख तयार करा</string>
+    <string name="settings_identity_name">नाव</string>
+    <string name="settings_identity_system_prompt">सिस्टम प्रॉम्प्ट</string>
+    <string name="settings_identity_save">जतन करा</string>
+    <string name="settings_identity_delete">हटवा</string>
+    <string name="settings_identity_reset">डीफॉल्टवर रीसेट करा</string>
+    <string name="settings_identity_add_custom">कस्टम ओळख जोडा</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw त्यांच्या बाजूने ओळख व्यवस्थापित करते. येथे ओळख कॉन्फिगर करण्यासाठी वेगळ्या सेवेवर स्विच करा.</string>
 </resources>

@@ -89,6 +89,13 @@ class ScreenshotTest {
     }
 
     @Test
+    fun settingsGeneral_light() {
+        paparazzi.snap(LightColorScheme) {
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
+        }
+    }
+
+    @Test
     fun settingsFree_dark() {
         paparazzi.snap(DarkColorScheme) {
             SettingsScreenContent(uiState = ScreenshotTestData.freeConnected)

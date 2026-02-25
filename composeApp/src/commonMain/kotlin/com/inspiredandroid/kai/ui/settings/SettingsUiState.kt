@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.Identity
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import org.jetbrains.compose.resources.StringResource
@@ -41,6 +42,12 @@ data class SettingsUiState(
     val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
     val showTopics: Boolean = true,
     val onToggleShowTopics: (Boolean) -> Unit = {},
+    val identities: List<Identity> = emptyList(),
+    val selectedIdentity: Identity? = null,
+    val onSelectIdentity: (String) -> Unit = {},
+    val onSaveIdentity: (Identity) -> Unit = {},
+    val onDeleteIdentity: (String) -> Unit = {},
+    val onResetIdentity: (String) -> Unit = {},
 )
 
 @Immutable

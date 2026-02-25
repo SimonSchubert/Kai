@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Hiển thị gợi ý chủ đề trên màn hình trò chuyện trống</string>
     <string name="tool_set_alarm_name">Đặt báo thức</string>
     <string name="tool_set_alarm_description">Đặt báo thức hoặc hẹn giờ đếm ngược trên thiết bị</string>
+    <string name="settings_identity">Danh tính</string>
+    <string name="settings_identity_description">Đặt lời nhắc hệ thống xác định cách AI hoạt động</string>
+    <string name="settings_identity_none">Không có</string>
+    <string name="settings_identity_edit">Chỉnh sửa danh tính</string>
+    <string name="settings_identity_create">Tạo danh tính</string>
+    <string name="settings_identity_name">Tên</string>
+    <string name="settings_identity_system_prompt">Lời nhắc hệ thống</string>
+    <string name="settings_identity_save">Lưu</string>
+    <string name="settings_identity_delete">Xóa</string>
+    <string name="settings_identity_reset">Đặt lại mặc định</string>
+    <string name="settings_identity_add_custom">Thêm danh tính tùy chỉnh</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw quản lý danh tính từ phía họ. Chuyển sang dịch vụ khác để cấu hình danh tính tại đây.</string>
 </resources>

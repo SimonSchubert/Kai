@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Tunjukkan cadangan topik pada skrin sembang kosong</string>
     <string name="tool_set_alarm_name">Tetapkan Penggera</string>
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
+    <string name="settings_identity">Identiti</string>
+    <string name="settings_identity_description">Tetapkan prompt sistem yang menentukan tingkah laku AI</string>
+    <string name="settings_identity_none">Tiada</string>
+    <string name="settings_identity_edit">Edit Identiti</string>
+    <string name="settings_identity_create">Cipta Identiti</string>
+    <string name="settings_identity_name">Nama</string>
+    <string name="settings_identity_system_prompt">Prompt Sistem</string>
+    <string name="settings_identity_save">Simpan</string>
+    <string name="settings_identity_delete">Padam</string>
+    <string name="settings_identity_reset">Set semula ke lalai</string>
+    <string name="settings_identity_add_custom">Tambah identiti tersuai</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw mengurus identiti di pihak mereka. Tukar ke perkhidmatan lain untuk mengkonfigurasi identiti di sini.</string>
 </resources>

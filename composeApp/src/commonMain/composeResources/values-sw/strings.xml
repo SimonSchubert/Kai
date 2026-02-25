@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Onyesha mapendekezo ya mada kwenye skrini tupu ya mazungumzo</string>
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
+    <string name="settings_identity">Utambulisho</string>
+    <string name="settings_identity_description">Weka prompt ya mfumo inayoamua jinsi AI inavyofanya kazi</string>
+    <string name="settings_identity_none">Hakuna</string>
+    <string name="settings_identity_edit">Hariri Utambulisho</string>
+    <string name="settings_identity_create">Unda Utambulisho</string>
+    <string name="settings_identity_name">Jina</string>
+    <string name="settings_identity_system_prompt">Prompt ya Mfumo</string>
+    <string name="settings_identity_save">Hifadhi</string>
+    <string name="settings_identity_delete">Futa</string>
+    <string name="settings_identity_reset">Rejesha chaguo-msingi</string>
+    <string name="settings_identity_add_custom">Ongeza utambulisho maalum</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw inasimamia utambulisho upande wao. Badilisha huduma nyingine ili kusanidi utambulisho hapa.</string>
 </resources>

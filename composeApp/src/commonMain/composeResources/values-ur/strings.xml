@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">خالی چیٹ اسکرین پر موضوعات کی تجاویز دکھائیں</string>
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
+    <string name="settings_identity">شناخت</string>
+    <string name="settings_identity_description">ایک سسٹم پرامپٹ سیٹ کریں جو AI کے رویے کی وضاحت کرے</string>
+    <string name="settings_identity_none">کوئی نہیں</string>
+    <string name="settings_identity_edit">شناخت ترمیم کریں</string>
+    <string name="settings_identity_create">شناخت بنائیں</string>
+    <string name="settings_identity_name">نام</string>
+    <string name="settings_identity_system_prompt">سسٹم پرامپٹ</string>
+    <string name="settings_identity_save">محفوظ کریں</string>
+    <string name="settings_identity_delete">حذف کریں</string>
+    <string name="settings_identity_reset">ڈیفالٹ پر ری سیٹ کریں</string>
+    <string name="settings_identity_add_custom">حسب ضرورت شناخت شامل کریں</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw اپنی طرف سے شناختوں کا انتظام کرتا ہے۔ یہاں شناختیں ترتیب دینے کے لیے کسی اور سروس پر سوئچ کریں۔</string>
 </resources>

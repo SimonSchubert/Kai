@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Pokaż sugestie tematów na pustym ekranie czatu</string>
     <string name="tool_set_alarm_name">Ustaw alarm</string>
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
+    <string name="settings_identity">Tożsamość</string>
+    <string name="settings_identity_description">Ustaw prompt systemowy określający zachowanie AI</string>
+    <string name="settings_identity_none">Brak</string>
+    <string name="settings_identity_edit">Edytuj tożsamość</string>
+    <string name="settings_identity_create">Utwórz tożsamość</string>
+    <string name="settings_identity_name">Nazwa</string>
+    <string name="settings_identity_system_prompt">Prompt systemowy</string>
+    <string name="settings_identity_save">Zapisz</string>
+    <string name="settings_identity_delete">Usuń</string>
+    <string name="settings_identity_reset">Przywróć domyślne</string>
+    <string name="settings_identity_add_custom">Dodaj własną tożsamość</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw zarządza tożsamościami po swojej stronie. Przełącz na inną usługę, aby konfigurować tożsamości tutaj.</string>
 </resources>

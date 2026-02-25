@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Mostrar sugerencias de temas en la pantalla de chat vacía</string>
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
+    <string name="settings_identity">Identidad</string>
+    <string name="settings_identity_description">Define un prompt de sistema que determine el comportamiento de la IA</string>
+    <string name="settings_identity_none">Ninguna</string>
+    <string name="settings_identity_edit">Editar identidad</string>
+    <string name="settings_identity_create">Crear identidad</string>
+    <string name="settings_identity_name">Nombre</string>
+    <string name="settings_identity_system_prompt">Prompt de sistema</string>
+    <string name="settings_identity_save">Guardar</string>
+    <string name="settings_identity_delete">Eliminar</string>
+    <string name="settings_identity_reset">Restablecer predeterminado</string>
+    <string name="settings_identity_add_custom">Agregar identidad personalizada</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw gestiona las identidades por su parte. Cambia a otro servicio para configurar identidades aquí.</string>
 </resources>

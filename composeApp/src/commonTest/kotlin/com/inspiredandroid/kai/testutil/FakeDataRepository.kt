@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.Identity
+import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -169,5 +171,38 @@ class FakeDataRepository : DataRepository {
     override fun isShowTopicsEnabled(): Boolean = true
 
     override fun setShowTopicsEnabled(enabled: Boolean) {
+    }
+
+    // Identity management
+    private var selectedIdentityId = "none"
+    private val customIdentities = mutableListOf<Identity>()
+
+    override fun getIdentities(): List<Identity> = PredefinedIdentities.all + customIdentities
+
+    override fun getSelectedIdentity(): Identity = getIdentities().find { it.id == selectedIdentityId } ?: PredefinedIdentities.none
+
+    override fun setSelectedIdentity(id: String) {
+        selectedIdentityId = id
+    }
+
+    override fun saveIdentity(identity: Identity) {
+        if (!identity.isPredefined) {
+            val index = customIdentities.indexOfFirst { it.id == identity.id }
+            if (index >= 0) customIdentities[index] = identity else customIdentities.add(identity)
+        }
+    }
+
+    override fun deleteIdentity(id: String) {
+        customIdentities.removeAll { it.id == id }
+        if (selectedIdentityId == id) selectedIdentityId = "none"
+    }
+
+    override fun getActiveSystemPrompt(): String? {
+        val identity = getSelectedIdentity()
+        return identity.systemPrompt.ifEmpty { null }
+    }
+
+    override fun resetIdentityToDefault(id: String) {
+        // No-op for tests
     }
 }

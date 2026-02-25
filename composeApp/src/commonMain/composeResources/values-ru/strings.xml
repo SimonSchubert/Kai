@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Показывать предложения тем на пустом экране чата</string>
     <string name="tool_set_alarm_name">Установить будильник</string>
     <string name="tool_set_alarm_description">Установить будильник или таймер обратного отсчёта на устройстве</string>
+    <string name="settings_identity">Личность</string>
+    <string name="settings_identity_description">Задайте системный промпт, определяющий поведение ИИ</string>
+    <string name="settings_identity_none">Нет</string>
+    <string name="settings_identity_edit">Редактировать личность</string>
+    <string name="settings_identity_create">Создать личность</string>
+    <string name="settings_identity_name">Название</string>
+    <string name="settings_identity_system_prompt">Системный промпт</string>
+    <string name="settings_identity_save">Сохранить</string>
+    <string name="settings_identity_delete">Удалить</string>
+    <string name="settings_identity_reset">Сбросить по умолчанию</string>
+    <string name="settings_identity_add_custom">Добавить свою личность</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw управляет личностями на своей стороне. Переключитесь на другой сервис, чтобы настроить личности здесь.</string>
 </resources>

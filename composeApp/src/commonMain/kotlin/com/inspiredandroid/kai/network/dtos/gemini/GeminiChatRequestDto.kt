@@ -7,11 +7,12 @@ import kotlinx.serialization.json.JsonElement
 data class GeminiChatRequestDto(
     val contents: List<Content>,
     val tools: List<GeminiTool>? = null,
+    val systemInstruction: Content? = null,
 ) {
     @Serializable
     data class Content(
         val parts: List<Part>,
-        val role: String,
+        val role: String? = null,
     )
 
     @Serializable

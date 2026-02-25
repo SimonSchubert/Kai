@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">ਖਾਲੀ ਚੈਟ ਸਕ੍ਰੀਨ \'ਤੇ ਵਿਸ਼ੇ ਦੇ ਸੁਝਾਅ ਦਿਖਾਓ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ \'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
+    <string name="settings_identity">ਪਛਾਣ</string>
+    <string name="settings_identity_description">ਇੱਕ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਸੈੱਟ ਕਰੋ ਜੋ AI ਦੇ ਵਿਵਹਾਰ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰੇ</string>
+    <string name="settings_identity_none">ਕੋਈ ਨਹੀਂ</string>
+    <string name="settings_identity_edit">ਪਛਾਣ ਸੰਪਾਦਿਤ ਕਰੋ</string>
+    <string name="settings_identity_create">ਪਛਾਣ ਬਣਾਓ</string>
+    <string name="settings_identity_name">ਨਾਮ</string>
+    <string name="settings_identity_system_prompt">ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ</string>
+    <string name="settings_identity_save">ਸੰਭਾਲੋ</string>
+    <string name="settings_identity_delete">ਮਿਟਾਓ</string>
+    <string name="settings_identity_reset">ਡਿਫੌਲਟ \'ਤੇ ਰੀਸੈੱਟ ਕਰੋ</string>
+    <string name="settings_identity_add_custom">ਕਸਟਮ ਪਛਾਣ ਜੋੜੋ</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw ਆਪਣੇ ਪਾਸਿਓਂ ਪਛਾਣਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਦਾ ਹੈ। ਇੱਥੇ ਪਛਾਣਾਂ ਨੂੰ ਕੌਂਫਿਗਰ ਕਰਨ ਲਈ ਕਿਸੇ ਹੋਰ ਸੇਵਾ \'ਤੇ ਸਵਿੱਚ ਕਰੋ।</string>
 </resources>

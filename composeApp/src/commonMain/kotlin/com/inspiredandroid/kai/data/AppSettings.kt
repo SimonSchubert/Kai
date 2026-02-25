@@ -127,6 +127,25 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean(KEY_SHOW_TOPICS, enabled)
     }
 
+    // Identity settings
+    fun getSelectedIdentityId(): String = settings.getString(KEY_SELECTED_IDENTITY_ID, "none")
+
+    fun setSelectedIdentityId(id: String) {
+        settings.putString(KEY_SELECTED_IDENTITY_ID, id)
+    }
+
+    fun getCustomIdentitiesJson(): String = settings.getString(KEY_CUSTOM_IDENTITIES, "[]")
+
+    fun setCustomIdentitiesJson(json: String) {
+        settings.putString(KEY_CUSTOM_IDENTITIES, json)
+    }
+
+    fun getIdentityOverrideJson(): String = settings.getString(KEY_IDENTITY_OVERRIDES, "{}")
+
+    fun setIdentityOverrideJson(json: String) {
+        settings.putString(KEY_IDENTITY_OVERRIDES, json)
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
@@ -134,5 +153,8 @@ class AppSettings(private val settings: Settings) {
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"
         const val KEY_SHOW_TOPICS = "show_topics"
+        const val KEY_SELECTED_IDENTITY_ID = "selected_identity_id"
+        const val KEY_CUSTOM_IDENTITIES = "custom_identities"
+        const val KEY_IDENTITY_OVERRIDES = "identity_overrides"
     }
 }

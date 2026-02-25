@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Themenvorschläge auf dem leeren Chat-Bildschirm anzeigen</string>
     <string name="tool_set_alarm_name">Wecker stellen</string>
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
+    <string name="settings_identity">Identität</string>
+    <string name="settings_identity_description">Lege einen System-Prompt fest, der das Verhalten der KI bestimmt</string>
+    <string name="settings_identity_none">Keine</string>
+    <string name="settings_identity_edit">Identität bearbeiten</string>
+    <string name="settings_identity_create">Identität erstellen</string>
+    <string name="settings_identity_name">Name</string>
+    <string name="settings_identity_system_prompt">System-Prompt</string>
+    <string name="settings_identity_save">Speichern</string>
+    <string name="settings_identity_delete">Löschen</string>
+    <string name="settings_identity_reset">Auf Standard zurücksetzen</string>
+    <string name="settings_identity_add_custom">Eigene Identität hinzufügen</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw verwaltet Identitäten auf ihrer Seite. Wechseln Sie zu einem anderen Dienst, um Identitäten hier zu konfigurieren.</string>
 </resources>

@@ -99,9 +99,16 @@ class Requests(private val appSettings: AppSettings) {
     suspend fun geminiChat(
         messages: List<GeminiChatRequestDto.Content>,
         tools: List<Tool> = emptyList(),
+        systemInstruction: String? = null,
     ): Result<GeminiChatResponseDto> = try {
         val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
         val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
+
+        val systemContent = systemInstruction?.let {
+            GeminiChatRequestDto.Content(
+                parts = listOf(GeminiChatRequestDto.Part(text = it)),
+            )
+        }
 
         val response: HttpResponse =
             defaultClient.post("${Service.Gemini.chatUrl}$selectedModelId:generateContent?key=$apiKey") {
@@ -110,6 +117,7 @@ class Requests(private val appSettings: AppSettings) {
                     GeminiChatRequestDto(
                         contents = messages,
                         tools = tools.map { it.toGeminiTool() }.ifEmpty { null },
+                        systemInstruction = systemContent,
                     ),
                 )
             }

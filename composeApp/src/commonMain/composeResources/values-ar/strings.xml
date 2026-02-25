@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">عرض اقتراحات المواضيع على شاشة الدردشة الفارغة</string>
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
+    <string name="settings_identity">الهوية</string>
+    <string name="settings_identity_description">تعيين توجيه نظام يحدد سلوك الذكاء الاصطناعي</string>
+    <string name="settings_identity_none">بدون</string>
+    <string name="settings_identity_edit">تعديل الهوية</string>
+    <string name="settings_identity_create">إنشاء هوية</string>
+    <string name="settings_identity_name">الاسم</string>
+    <string name="settings_identity_system_prompt">توجيه النظام</string>
+    <string name="settings_identity_save">حفظ</string>
+    <string name="settings_identity_delete">حذف</string>
+    <string name="settings_identity_reset">إعادة التعيين إلى الافتراضي</string>
+    <string name="settings_identity_add_custom">إضافة هوية مخصصة</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw يدير الهويات من جانبهم. قم بالتبديل إلى خدمة مختلفة لتكوين الهويات هنا.</string>
 </resources>

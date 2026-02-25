@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Показувати пропозиції тем на порожньому екрані чату</string>
     <string name="tool_set_alarm_name">Встановити будильник</string>
     <string name="tool_set_alarm_description">Встановити будильник або таймер зворотного відліку на пристрої</string>
+    <string name="settings_identity">Особистість</string>
+    <string name="settings_identity_description">Встановіть системний промпт, який визначає поведінку ШІ</string>
+    <string name="settings_identity_none">Немає</string>
+    <string name="settings_identity_edit">Редагувати особистість</string>
+    <string name="settings_identity_create">Створити особистість</string>
+    <string name="settings_identity_name">Назва</string>
+    <string name="settings_identity_system_prompt">Системний промпт</string>
+    <string name="settings_identity_save">Зберегти</string>
+    <string name="settings_identity_delete">Видалити</string>
+    <string name="settings_identity_reset">Скинути до типового</string>
+    <string name="settings_identity_add_custom">Додати власну особистість</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw керує особистостями зі свого боку. Перейдіть на інший сервіс, щоб налаштувати особистості тут.</string>
 </resources>

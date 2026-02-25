@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Boş sohbet ekranında konu önerileri göster</string>
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
+    <string name="settings_identity">Kimlik</string>
+    <string name="settings_identity_description">AI\'nin davranışını belirleyen bir sistem istemi ayarlayın</string>
+    <string name="settings_identity_none">Yok</string>
+    <string name="settings_identity_edit">Kimliği Düzenle</string>
+    <string name="settings_identity_create">Kimlik Oluştur</string>
+    <string name="settings_identity_name">Ad</string>
+    <string name="settings_identity_system_prompt">Sistem İstemi</string>
+    <string name="settings_identity_save">Kaydet</string>
+    <string name="settings_identity_delete">Sil</string>
+    <string name="settings_identity_reset">Varsayılana sıfırla</string>
+    <string name="settings_identity_add_custom">Özel kimlik ekle</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw kimlikleri kendi taraflarında yönetir. Kimlikleri burada yapılandırmak için farklı bir servise geçin.</string>
 </resources>

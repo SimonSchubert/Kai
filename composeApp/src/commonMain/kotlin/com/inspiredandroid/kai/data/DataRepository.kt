@@ -50,4 +50,13 @@ interface DataRepository {
     // General settings
     fun isShowTopicsEnabled(): Boolean
     fun setShowTopicsEnabled(enabled: Boolean)
+
+    // Identity management
+    fun getIdentities(): List<Identity>
+    fun getSelectedIdentity(): Identity
+    fun setSelectedIdentity(id: String)
+    fun saveIdentity(identity: Identity)
+    fun deleteIdentity(id: String)
+    fun getActiveSystemPrompt(): String?
+    fun resetIdentityToDefault(id: String)
 }

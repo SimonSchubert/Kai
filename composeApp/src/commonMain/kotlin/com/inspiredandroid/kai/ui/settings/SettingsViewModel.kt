@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.Identity
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
@@ -43,6 +44,12 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             onChangeBaseUrl = ::onChangeBaseUrl,
             onToggleTool = ::onToggleTool,
             onToggleShowTopics = ::onToggleShowTopics,
+            identities = dataRepository.getIdentities(),
+            selectedIdentity = dataRepository.getSelectedIdentity(),
+            onSelectIdentity = ::onSelectIdentity,
+            onSaveIdentity = ::onSaveIdentity,
+            onDeleteIdentity = ::onDeleteIdentity,
+            onResetIdentity = ::onResetIdentity,
         ),
     )
 
@@ -117,6 +124,35 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
     private fun onToggleShowTopics(enabled: Boolean) {
         dataRepository.setShowTopicsEnabled(enabled)
         _state.update { it.copy(showTopics = enabled) }
+    }
+
+    private fun onSelectIdentity(id: String) {
+        dataRepository.setSelectedIdentity(id)
+        refreshIdentities()
+    }
+
+    private fun onSaveIdentity(identity: Identity) {
+        dataRepository.saveIdentity(identity)
+        refreshIdentities()
+    }
+
+    private fun onDeleteIdentity(id: String) {
+        dataRepository.deleteIdentity(id)
+        refreshIdentities()
+    }
+
+    private fun onResetIdentity(id: String) {
+        dataRepository.resetIdentityToDefault(id)
+        refreshIdentities()
+    }
+
+    private fun refreshIdentities() {
+        _state.update {
+            it.copy(
+                identities = dataRepository.getIdentities(),
+                selectedIdentity = dataRepository.getSelectedIdentity(),
+            )
+        }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

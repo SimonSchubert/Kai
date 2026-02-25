@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.data
 
 import coil3.annotation.InternalCoilApi
 import coil3.util.MimeTypeMap
+import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.Requests
@@ -24,6 +25,7 @@ import kai.composeapp.generated.resources.new_conversation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -258,13 +260,15 @@ class RemoteDataRepository(
         val modelId = appSettings.getSelectedModelId(service)
         val tools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
 
+        val systemPrompt = if (service == Service.OpenClaw) null else getActiveSystemPrompt()
+
         val responseText = when (service) {
             Service.Gemini -> {
                 if (tools.isNotEmpty()) {
-                    handleGeminiChatWithTools(messages, tools)
+                    handleGeminiChatWithTools(messages, tools, systemPrompt)
                 } else {
                     val geminiMessages = messages.map { it.toGeminiMessageDto() }
-                    val response = requests.geminiChat(geminiMessages).getOrThrow()
+                    val response = requests.geminiChat(geminiMessages, systemInstruction = systemPrompt).getOrThrow()
                     response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
                         part.text ?: ""
                     } ?: ""
@@ -274,9 +278,9 @@ class RemoteDataRepository(
             else -> {
                 // All OpenAI-compatible services (Free, Groq, XAI, OpenRouter, Nvidia, OpenAICompatible)
                 if (tools.isNotEmpty()) {
-                    handleOpenAICompatibleChatWithTools(service, messages, tools)
+                    handleOpenAICompatibleChatWithTools(service, messages, tools, systemPrompt)
                 } else {
-                    val openAIMessages = messages.map { it.toGroqMessageDto() }
+                    val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
                     val response = requests.openAICompatibleChat(service, openAIMessages).getOrThrow()
                     response.choices.firstOrNull()?.message?.content ?: ""
                 }
@@ -295,8 +299,12 @@ class RemoteDataRepository(
         service: Service,
         messages: List<History>,
         tools: List<Tool>,
+        systemPrompt: String? = null,
     ): String {
-        var currentMessages = messages.filter { it.role != History.Role.TOOL_EXECUTING }.map { it.toGroqMessageDto() }
+        var currentMessages = buildOpenAIMessages(
+            messages.filter { it.role != History.Role.TOOL_EXECUTING },
+            systemPrompt,
+        )
 
         // Loop until AI returns a final response (no more tool calls)
         while (true) {
@@ -350,17 +358,20 @@ class RemoteDataRepository(
             }
 
             // Update messages for next iteration
-            currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }.map { it.toGroqMessageDto() }
+            currentMessages = buildOpenAIMessages(
+                chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
+                systemPrompt,
+            )
         }
     }
 
-    private suspend fun handleGeminiChatWithTools(messages: List<History>, tools: List<Tool>): String {
+    private suspend fun handleGeminiChatWithTools(messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
         // Loop until AI returns a final response (no more function calls)
         while (true) {
             val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
             val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
 
-            val response = requests.geminiChat(messages = geminiMessages, tools = tools).getOrThrow()
+            val response = requests.geminiChat(messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
             val parts = response.candidates.firstOrNull()?.content?.parts ?: return ""
 
             // Check for function calls in the response (parts that have functionCall)
@@ -428,6 +439,21 @@ class RemoteDataRepository(
         }
     }
 
+    private fun buildOpenAIMessages(
+        messages: List<History>,
+        systemPrompt: String?,
+    ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> = buildList {
+        if (!systemPrompt.isNullOrEmpty()) {
+            add(
+                com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
+                    role = "system",
+                    content = systemPrompt,
+                ),
+            )
+        }
+        addAll(messages.map { it.toGroqMessageDto() })
+    }
+
     private fun trimToRecentExchanges(history: List<History>, maxExchanges: Int): List<History> {
         val userIndices = history.mapIndexedNotNull { index, h ->
             if (h.role == History.Role.USER) index else null
@@ -473,6 +499,7 @@ class RemoteDataRepository(
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
             serviceId = currentService().id,
+            identityId = appSettings.getSelectedIdentityId().takeIf { it != "none" },
         )
 
         conversationStorage.saveConversation(conversation)
@@ -598,5 +625,84 @@ class RemoteDataRepository(
 
     override fun setShowTopicsEnabled(enabled: Boolean) {
         appSettings.setShowTopicsEnabled(enabled)
+    }
+
+    // Identity management
+    private val identityJson = Json { ignoreUnknownKeys = true }
+
+    private fun getCustomIdentities(): List<Identity> = try {
+        identityJson.decodeFromString<List<Identity>>(appSettings.getCustomIdentitiesJson())
+    } catch (e: Exception) {
+        emptyList()
+    }
+
+    private fun saveCustomIdentities(identities: List<Identity>) {
+        appSettings.setCustomIdentitiesJson(identityJson.encodeToString(identities))
+    }
+
+    private fun getIdentityOverrides(): Map<String, String> = try {
+        identityJson.decodeFromString<Map<String, String>>(appSettings.getIdentityOverrideJson())
+    } catch (e: Exception) {
+        emptyMap()
+    }
+
+    private fun saveIdentityOverrides(overrides: Map<String, String>) {
+        appSettings.setIdentityOverrideJson(identityJson.encodeToString(overrides))
+    }
+
+    override fun getIdentities(): List<Identity> {
+        val overrides = getIdentityOverrides()
+        val predefined = PredefinedIdentities.all.map { identity ->
+            val override = overrides[identity.id]
+            if (override != null) identity.copy(systemPrompt = override) else identity
+        }
+        return predefined + getCustomIdentities()
+    }
+
+    override fun getSelectedIdentity(): Identity {
+        val selectedId = appSettings.getSelectedIdentityId()
+        return getIdentities().find { it.id == selectedId } ?: PredefinedIdentities.none
+    }
+
+    override fun setSelectedIdentity(id: String) {
+        appSettings.setSelectedIdentityId(id)
+    }
+
+    override fun saveIdentity(identity: Identity) {
+        if (identity.isPredefined) {
+            // Store as an override for predefined identities
+            val overrides = getIdentityOverrides().toMutableMap()
+            overrides[identity.id] = identity.systemPrompt
+            saveIdentityOverrides(overrides)
+        } else {
+            val custom = getCustomIdentities().toMutableList()
+            val index = custom.indexOfFirst { it.id == identity.id }
+            if (index >= 0) {
+                custom[index] = identity
+            } else {
+                custom.add(identity)
+            }
+            saveCustomIdentities(custom)
+        }
+    }
+
+    override fun deleteIdentity(id: String) {
+        val custom = getCustomIdentities().toMutableList()
+        custom.removeAll { it.id == id }
+        saveCustomIdentities(custom)
+        if (appSettings.getSelectedIdentityId() == id) {
+            appSettings.setSelectedIdentityId("none")
+        }
+    }
+
+    override fun getActiveSystemPrompt(): String? {
+        val identity = getSelectedIdentity()
+        return identity.systemPrompt.ifEmpty { null }
+    }
+
+    override fun resetIdentityToDefault(id: String) {
+        val overrides = getIdentityOverrides().toMutableMap()
+        overrides.remove(id)
+        saveIdentityOverrides(overrides)
     }
 }

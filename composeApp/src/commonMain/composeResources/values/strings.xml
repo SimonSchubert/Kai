@@ -98,4 +98,16 @@
     <string name="topic_technology">Technology</string>
     <string name="topic_countries">Countries</string>
     <string name="topic_space">Space</string>
+    <string name="settings_identity">Identity</string>
+    <string name="settings_identity_description">Set a system prompt that defines how the AI behaves</string>
+    <string name="settings_identity_none">None</string>
+    <string name="settings_identity_edit">Edit Identity</string>
+    <string name="settings_identity_create">Create Identity</string>
+    <string name="settings_identity_name">Name</string>
+    <string name="settings_identity_system_prompt">System Prompt</string>
+    <string name="settings_identity_save">Save</string>
+    <string name="settings_identity_delete">Delete</string>
+    <string name="settings_identity_reset">Reset to default</string>
+    <string name="settings_identity_add_custom">Add custom identity</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw manages identities on their end. Switch to a different service to configure identities here.</string>
 </resources>

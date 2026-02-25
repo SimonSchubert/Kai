@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">ఖాళీ చాట్ స్క్రీన్‌లో అంశ సూచనలు చూపించు</string>
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
+    <string name="settings_identity">గుర్తింపు</string>
+    <string name="settings_identity_description">AI ఎలా ప్రవర్తిస్తుందో నిర్వచించే సిస్టమ్ ప్రాంప్ట్ సెట్ చేయండి</string>
+    <string name="settings_identity_none">ఏదీ లేదు</string>
+    <string name="settings_identity_edit">గుర్తింపు సవరించు</string>
+    <string name="settings_identity_create">గుర్తింపు సృష్టించు</string>
+    <string name="settings_identity_name">పేరు</string>
+    <string name="settings_identity_system_prompt">సిస్టమ్ ప్రాంప్ట్</string>
+    <string name="settings_identity_save">సేవ్ చేయి</string>
+    <string name="settings_identity_delete">తొలగించు</string>
+    <string name="settings_identity_reset">డిఫాల్ట్‌కు రీసెట్ చేయి</string>
+    <string name="settings_identity_add_custom">అనుకూల గుర్తింపు జోడించు</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw వారి వైపు గుర్తింపులను నిర్వహిస్తుంది. ఇక్కడ గుర్తింపులను కాన్ఫిగర్ చేయడానికి వేరే సేవకు మారండి.</string>
 </resources>

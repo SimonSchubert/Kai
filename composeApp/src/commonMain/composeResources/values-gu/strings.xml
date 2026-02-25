@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">ખાલી ચેટ સ્ક્રીન પર વિષયના સૂચનો બતાવો</string>
     <string name="tool_set_alarm_name">એલાર્મ સેટ કરો</string>
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
+    <string name="settings_identity">ઓળખ</string>
+    <string name="settings_identity_description">AI કેવી રીતે વર્તે તે નક્કી કરતો સિસ્ટમ પ્રોમ્પ્ટ સેટ કરો</string>
+    <string name="settings_identity_none">કંઈ નહીં</string>
+    <string name="settings_identity_edit">ઓળખ સંપાદિત કરો</string>
+    <string name="settings_identity_create">ઓળખ બનાવો</string>
+    <string name="settings_identity_name">નામ</string>
+    <string name="settings_identity_system_prompt">સિસ્ટમ પ્રોમ્પ્ટ</string>
+    <string name="settings_identity_save">સાચવો</string>
+    <string name="settings_identity_delete">કાઢી નાખો</string>
+    <string name="settings_identity_reset">ડિફોલ્ટ પર રીસેટ કરો</string>
+    <string name="settings_identity_add_custom">કસ્ટમ ઓળખ ઉમેરો</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw તેમના તરફથી ઓળખ વ્યવસ્થાપન કરે છે. અહીં ઓળખ ગોઠવવા માટે અન્ય સેવા પર સ્વિચ કરો.</string>
 </resources>

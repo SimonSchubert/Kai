@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.screenshots
 
+import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.ui.chat.ChatActions
@@ -132,6 +133,12 @@ JavaScript
         currentService = Service.Free,
         services = Service.all,
         connectionStatus = ConnectionStatus.Connected,
+    )
+
+    val settingsGeneral = SettingsUiState(
+        currentTab = SettingsTab.General,
+        identities = PredefinedIdentities.all,
+        selectedIdentity = PredefinedIdentities.shortAndDirect,
     )
 
     val settingsTools = SettingsUiState(

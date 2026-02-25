@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">Toon onderwerpensuggesties op het lege chatscherm</string>
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
+    <string name="settings_identity">Identiteit</string>
+    <string name="settings_identity_description">Stel een systeemprompt in die het gedrag van de AI bepaalt</string>
+    <string name="settings_identity_none">Geen</string>
+    <string name="settings_identity_edit">Identiteit bewerken</string>
+    <string name="settings_identity_create">Identiteit aanmaken</string>
+    <string name="settings_identity_name">Naam</string>
+    <string name="settings_identity_system_prompt">Systeemprompt</string>
+    <string name="settings_identity_save">Opslaan</string>
+    <string name="settings_identity_delete">Verwijderen</string>
+    <string name="settings_identity_reset">Standaard herstellen</string>
+    <string name="settings_identity_add_custom">Aangepaste identiteit toevoegen</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw beheert identiteiten aan hun kant. Schakel over naar een andere service om identiteiten hier te configureren.</string>
 </resources>

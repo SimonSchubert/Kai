@@ -98,4 +98,16 @@
     <string name="settings_show_topics_description">খালি চ্যাট স্ক্রিনে বিষয়ের পরামর্শ দেখান</string>
     <string name="tool_set_alarm_name">অ্যালার্ম সেট করুন</string>
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
+    <string name="settings_identity">পরিচয়</string>
+    <string name="settings_identity_description">একটি সিস্টেম প্রম্পট সেট করুন যা AI-এর আচরণ নির্ধারণ করে</string>
+    <string name="settings_identity_none">কিছু নয়</string>
+    <string name="settings_identity_edit">পরিচয় সম্পাদনা</string>
+    <string name="settings_identity_create">পরিচয় তৈরি</string>
+    <string name="settings_identity_name">নাম</string>
+    <string name="settings_identity_system_prompt">সিস্টেম প্রম্পট</string>
+    <string name="settings_identity_save">সংরক্ষণ</string>
+    <string name="settings_identity_delete">মুছুন</string>
+    <string name="settings_identity_reset">ডিফল্টে রিসেট করুন</string>
+    <string name="settings_identity_add_custom">কাস্টম পরিচয় যোগ করুন</string>
+    <string name="settings_identity_openclaw_disabled">OpenClaw তাদের দিক থেকে পরিচয় পরিচালনা করে। এখানে পরিচয় কনফিগার করতে অন্য পরিষেবায় স্যুইচ করুন।</string>
 </resources>
