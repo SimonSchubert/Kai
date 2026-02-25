@@ -83,9 +83,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
 
     private fun onSelectService(service: Service) {
         dataRepository.selectService(service)
-        // Update currentService FIRST to trigger flatMapLatest
-        currentService.value = service
-        // THEN update _state - this ensures the flatMapLatest will pick up the new values
+        // Update _state FIRST so flatMapLatest picks up the new values immediately
         _state.update {
             it.copy(
                 currentService = service,
@@ -94,6 +92,8 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 connectionStatus = ConnectionStatus.Unknown,
             )
         }
+        // THEN trigger flatMapLatest to resubscribe to models
+        currentService.value = service
         checkConnection(service)
     }
 
