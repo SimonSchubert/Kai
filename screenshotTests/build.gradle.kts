@@ -114,7 +114,8 @@ tasks.register("generateStoreScreenshots") {
         val phoneRegex = Regex("""StoreScreenshotTest_\w+\[([^\]]+)\]_store_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
         val phoneSnapshots =
             snapshotsDir.listFiles()?.filter {
-                it.name.contains("StoreScreenshotTest_") && !it.name.contains("Tablet") && it.name.contains("_store_") && it.extension == "png"
+                it.name.contains("StoreScreenshotTest_") && !it.name.contains("Tablet") && it.name.contains("_store_") &&
+                    it.extension == "png"
             } ?: emptyList()
 
         phoneSnapshots.forEach { file ->
