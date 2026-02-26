@@ -112,8 +112,16 @@ tasks.register("generateStoreScreenshots") {
 
         // Clear existing screenshots first
         fastlaneDir.listFiles()?.forEach { localeDir ->
-            localeDir.resolve("images/phoneScreenshots").listFiles()?.filter { it.extension == "png" }?.forEach { it.delete() }
-            localeDir.resolve("images/tenInchScreenshots").listFiles()?.filter { it.extension == "png" }?.forEach { it.delete() }
+            localeDir
+                .resolve("images/phoneScreenshots")
+                .listFiles()
+                ?.filter { it.extension == "png" }
+                ?.forEach { it.delete() }
+            localeDir
+                .resolve("images/tenInchScreenshots")
+                .listFiles()
+                ?.filter { it.extension == "png" }
+                ?.forEach { it.delete() }
         }
 
         // Phone screenshots
