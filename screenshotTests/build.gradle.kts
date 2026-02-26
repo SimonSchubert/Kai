@@ -72,11 +72,9 @@ tasks.register("updateScreenshots") {
 
     doLast {
         val snapshotsDir = file("src/test/snapshots/images")
-        val phoneDir = rootProject.file("fastlane/metadata/android/en-US/images/phoneScreenshots")
         val readmeDir = rootProject.file("screenshots")
 
         // Ensure destination directories exist
-        phoneDir.mkdirs()
         readmeDir.mkdirs()
 
         // Mapping for fastlane screenshots
@@ -94,7 +92,6 @@ tasks.register("updateScreenshots") {
         // Copy phone screenshots (from ScreenshotTest)
         snapshotsDir.listFiles()?.filter { it.name.startsWith("com.inspiredandroid.kai.screenshots_ScreenshotTest_") }?.forEach { file ->
             screenshotMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
-                file.copyTo(phoneDir.resolve("0$destName"), overwrite = true)
                 file.copyTo(readmeDir.resolve("mobile-$destName"), overwrite = true)
                 println("Copied ${file.name} -> phoneScreenshots/0$destName")
             }
