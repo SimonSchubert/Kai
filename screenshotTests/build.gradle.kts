@@ -110,8 +110,14 @@ tasks.register("generateStoreScreenshots") {
         val snapshotsDir = file("src/test/snapshots/images")
         val fastlaneDir = rootProject.file("fastlane/metadata/android")
 
+        // Clear existing screenshots first
+        fastlaneDir.listFiles()?.forEach { localeDir ->
+            localeDir.resolve("images/phoneScreenshots").listFiles()?.filter { it.extension == "png" }?.forEach { it.delete() }
+            localeDir.resolve("images/tenInchScreenshots").listFiles()?.filter { it.extension == "png" }?.forEach { it.delete() }
+        }
+
         // Phone screenshots
-        val phoneRegex = Regex("""StoreScreenshotTest_\w+\[([^\]]+)\]_store_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
+        val phoneRegex = Regex("""StoreScreenshotTest_\w+\[([^\]]+)\]_store_[a-zA-Z0-9-]+_(\d+(?:_\w+)?)\.png""")
         val phoneSnapshots =
             snapshotsDir.listFiles()?.filter {
                 it.name.contains("StoreScreenshotTest_") && !it.name.contains("Tablet") && it.name.contains("_store_") &&
@@ -124,14 +130,15 @@ tasks.register("generateStoreScreenshots") {
                 val (locale, name) = match.destructured
                 val targetDir = File(fastlaneDir, "$locale/images/phoneScreenshots")
                 targetDir.mkdirs()
-                val targetFile = File(targetDir, "$name.png")
+                val index = name.trimStart('0')
+                val targetFile = File(targetDir, "${index}_$locale.png")
                 file.copyTo(targetFile, overwrite = true)
-                println("Copied -> $locale/phoneScreenshots/$name.png")
+                println("Copied -> $locale/phoneScreenshots/${index}_$locale.png")
             }
         }
 
         // Tablet screenshots - locale comes from [paramName] in test class name
-        val tabletRegex = Regex("""TabletStoreScreenshotTest_\w+\[([^\]]+)\]_tablet_[a-zA-Z-]+_(\d+(?:_\w+)?)\.png""")
+        val tabletRegex = Regex("""TabletStoreScreenshotTest_\w+\[([^\]]+)\]_tablet_[a-zA-Z0-9-]+_(\d+(?:_\w+)?)\.png""")
         val tabletSnapshots =
             snapshotsDir.listFiles()?.filter {
                 it.name.contains("TabletStoreScreenshotTest_") && it.name.contains("_tablet_") && it.extension == "png"
@@ -141,12 +148,12 @@ tasks.register("generateStoreScreenshots") {
             val match = tabletRegex.find(file.name)
             if (match != null) {
                 val (locale, name) = match.destructured
-                // locale comes from parameterized [name] e.g. "en-US", "ar", "de-DE"
                 val targetDir = File(fastlaneDir, "$locale/images/tenInchScreenshots")
                 targetDir.mkdirs()
-                val targetFile = File(targetDir, "$name.png")
+                val index = name.trimStart('0')
+                val targetFile = File(targetDir, "${index}_$locale.png")
                 file.copyTo(targetFile, overwrite = true)
-                println("Copied -> $locale/tenInchScreenshots/$name.png")
+                println("Copied -> $locale/tenInchScreenshots/${index}_$locale.png")
             }
         }
 

@@ -1,2 +1,0 @@
-Add tools support
-Add markdown image support

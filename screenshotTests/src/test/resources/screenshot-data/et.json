@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "anna nimekiri suurimatest kunagi ehitatud liikuvatest sõidukitest",
+    "assistantMessage": "Siin on nimekiri **suurimatest kunagi ehitatud liikuvatest sõidukitest** (keskendudes massiivsetele mobiilsetele/iseliikuvatele maapealsetele masinatele, ligikaudu järjestatud füüsilise suuruse, pikkuse, kaalu ja ajaloolise/kuulsuse tunnustuse kombinatsiooni alusel):\n\n- **Overburden Conveyor Bridge F60**  \n  Suurim üldiste füüsiliste mõõtmete / pikkuse poolest. Pikkus: ~502 m, Kõrgus: ~80 m, Kaal: ~13 600 tonni. Ehitatud Ida-Saksamaal (1988–1991) pruunsöekaevanduse katendi eemaldamiseks; liigub väga aeglaselt rööbastel.\n\n- **Bagger 293** (rootorpuuriga ekskavaator)  \n  Raskeim kunagi ehitatud maapealne sõiduk (~14 200–14 196 tonni). Kõrgus: ~96 m, Pikkus: ~225 m. Ehitatud 1995. aastal TAKRAF-i poolt; Guinnessi rekordi hoidja suurima/raskima maapealse ekskavaatorina; eemaldab kuni ~240 000 tonni materjali päevas.\n\n- **Bagger 288** (rootorpuuriga ekskavaator)  \n  Endine raskima maapealse sõiduki rekordi hoidja. Kõrgus: ~96 m, Pikkus: ~220 m, Kaal: ~13 500 tonni. Ehitatud 1978. aastal Krupp/TAKRAF-i poolt; kuulus oma 22 km ümberpaigutamise poolest, ületades teid, jõgesid ja kiirteid.\n\n- **NASA Crawler-Transporter** (CT-1 ja CT-2)  \n  Raskeim iseliikuv maapealne sõiduk (Guinnessi rekord pärast uuendamist). Kaal: ~2 721–3 016 tonni, Mõõtmed: 40 m x 35 m. Ehitatud 1965. aastal; transpordib rakette/kosmoseaparaate Kennedy Space Center-is (maksimaalne kiirus ~1–2 miili/h).\n\n- **BelAZ-75710** (kaevanduse kallurveok)  \n  Suurim veok kandevõime poolest (~450 tonni). Tühikaal: ~360 tonni, Pikkus: ~20,6 m. Kaasaegne ultraklassi veok; üks suurimaid ratastega liikuvaid sõidukeid.\n\n- **LeTourneau L-2350** (rataslaadur / frontaallaadur)  \n  Suurim maaparandusmasin/laadur Guinnessi rekordite järgi. Massiivne kopamaht; rehvi läbimõõt ~4 m. Kasutatakse raskes kaevanduses; üks suurimaid rataslaadureid.\n\nTeised tähelepanuväärsed suured liikuvad masinad hõlmavad:\n- Big Muskie (ajalooline pinnakoorimiskopp, ~13 500 tonni, demonteeritud)\n- Marion 6360 (\"The Captain\", hiiglaslik pinnakoorimiskopp, ~12 700 tonni, lammutatud)\n- Erinevad hiiglaslikud tunnelipuurimismasinad (nt Herrenknecht mudelid kuni ~17–20 m läbimõõduga lõikepea, kuigi sageli mitte täielikult iseliikuvad samas mõttes)\n\nMärkus: \"Suurim\" sõltub mõõdikust—pikkus (F60), kaal (Bagger 293), iseliikuv mobiilsus (NASA Crawler) või kandevõime (BelAZ). Need on peamiselt maapealsed tööstus-/kaevandus-/transpordisõidukid, mitte laevad, lennukid ega rongid."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "näita mulle ilusaid üherealiseid koode kotlin, swift, c, python, js keeltes",
+    "codeIntro": "Siin on mõned lühikesed, ilusad üherealiseid koodid igas keeles (2025. aasta väljaanne 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Kosmose uurimine",
+    "items": [
+      {"title": "Marss", "description": "Punane planeet, neljas Päikesest ja peamine sihtmärk inimeste uurimiseks."},
+      {"title": "Mustad augud", "description": "Aegruumi piirkonnad, kus gravitatsioon on nii tugev, et miski ei pääse."},
+      {"title": "Apollo 11", "description": "Esimene mehitatud missioon, mis maandus Kuul 1969. aastal, pardal kolm astronauti."},
+      {"title": "Saturni rõngad", "description": "Vaatemängu pakkuvad jää- ja kivimirõngad, mis ümbritsevad gaasihiidu Saturni."},
+      {"title": "Programm Voyager", "description": "Kaksikkosmoseaparaadid, mis starditi 1977. aastal, nüüd tähtedevahelises ruumis."},
+      {"title": "Linnutee", "description": "Meie kodugalaktika, mis sisaldab üle 100 miljardi tähe ja loendamatuid planeete."},
+      {"title": "Päikesevarjutused", "description": "Kui Kuu liigub Päikese ja Maa vahele, heites varju."},
+      {"title": "Neutrontähed", "description": "Ülitihedad massiivsete tähtede jäänused, mis on kokku surutud pisikeseks keraks."}
+    ]
+  }
+}

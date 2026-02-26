@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "nikeze uhlu lwezithuthi ezinkulu kunazo zonke ezake zakhiwa ezihambayo",
+    "assistantMessage": "Nalu uhlu **lwezithuthi ezinkulu kunazo zonke ezake zakhiwa ezihambayo** (kugxilwe emishini emikhulu ehambayo/ezihamba ngokwayo yasemhlabeni, ihlelwe ngokuhlangana kobukhulu bomzimba, ubude, isisindo nokuhlonishwa):\n\n- **Overburden Conveyor Bridge F60**  \n  Enkulu kunazo zonke ngobukhulu bomzimba / ubude. Ubude: ~502 m, Ukuphakama: ~80 m, Isisindo: ~13,600 amathani. Yakhiwe eMpumalanga Jalimane (1988–1991) ukususa umhlabathi ongaphezulu emayini e-lignite; ihamba kancane kakhulu emareylini.\n\n- **Bagger 293** (umshini womba onezindishi ezijikelezayo)  \n  Isithuthi esisindayo kunazo zonke emhlabeni esake sakhiwa (~14,200–14,196 amathani). Ukuphakama: ~96 m, Ubude: ~225 m. Yakhiwe ngo-1995 yi-TAKRAF; inerekhodi le-Guinness njengomshini womba omkhulu/osindayo kunawo wonke emhlabeni; isusa kufinyelela ku-~240,000 amathani ezinto ngosuku.\n\n- **Bagger 288** (umshini womba onezindishi ezijikelezayo)  \n  Ngaphambilini yayinerekhodi lesithuthi esisindayo kunazo zonke emhlabeni. Ukuphakama: ~96 m, Ubude: ~220 m, Isisindo: ~13,500 amathani. Yakhiwe ngo-1978 yi-Krupp/TAKRAF; idume ngokuthuthwa kwayo kwama-km angama-22 kwelula imigwaqo, imifula namabhulohwe.\n\n- **NASA Crawler-Transporter** (CT-1 ne-CT-2)  \n  Isithuthi esisindayo kunazo zonke esizihambela emhlabeni (irekhodi le-Guinness ngemva kokuthuthukiswa). Isisindo: ~2,721–3,016 amathani, Ubukhulu: 40 m × 35 m. Yakhiwe ngo-1965; ithwala amarokhethi/izithuthi zasemkhathini e-Kennedy Space Center (isivinini esikhulu ~1–2 mph).\n\n- **BelAZ-75710** (iloli lasemayini)  \n  Iloli elikhulu kunawo wonke ngomthwalo (~450 amathani). Isisindo singenalutho: ~360 amathani, Ubude: ~20.6 m. Iloli lesimanje le-ultra-class; enye yezithuthi ezinkulu kunazo zonke ezinamasondo ezihambayo.\n\n- **LeTourneau L-2350** (umlayishi wamasondo)  \n  Umshini omkhulu kunawo wonke wokumba/ukulayisha ngokwamarekhodi e-Guinness. Umthamo omkhulu wendishi; usayizi wamathayi ~4 m. Isetshenziswa emayini esindayo; omunye wabelayishi abakhulu kunawo wonke bamasondo.\n\nEminye imishini emikhulu ehambayo ebalulekile:\n- Big Muskie (ishavela yokuhlikihla yomlando, ~13,500 amathani, yadilizwa)\n- Marion 6360 (\"The Captain\", ishavela yokuhlikihla enkulu, ~12,700 amathani, yaqedwa)\n- Imishini ehlukahlukene emikhulu yokumba imigede (isib. amamodeli e-Herrenknecht afinyelela ku-~17–20 m usayizi wesikali, nakuba ngokuvamile ingezihambeli ngokuphelele ngendlela efanayo)\n\nQaphela: \"Biggest\" kuncike esilinganisweni—ubude (F60), isisindo (Bagger 293), ukuzihambela (NASA Crawler), noma umthwalo (BelAZ). Lezi ngokuyinhloko yizithuthi zasemhlabeni zezimboni/zasemayini/zokuthutha hhayi imikhumbi, izindiza noma izitimela."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "ngikhombise one-liners ezinhle ze-kotlin, swift, c, python, js",
+    "codeIntro": "Nazi ezinye one-liners ezimfushane nezinhle ngolimi ngalunye (isishicilelo sika-2025 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Ukuhlola umkhathi",
+    "items": [
+      {"title": "Mars", "description": "Umhlaba Obomvu, owesine ukusuka eLangeni futhi uyinto ebalulekile ekuhlolweni kwabantu."},
+      {"title": "Black Holes", "description": "Izindawo zesikhathi-nendawo lapho amandla adonsayo enamandla kakhulu ukuthi akukho okungaphunyuka."},
+      {"title": "Apollo 11", "description": "Umsebenzi wokuqala onabantu owahlala eNyangeni ngo-1969, uthwele izigibeli zasemkhathini ezintathu."},
+      {"title": "Saturn's Rings", "description": "Amasongo amangalisayo eqhwa namatshe azungeze inkanyezi enkulu yegesi Saturn."},
+      {"title": "Voyager Program", "description": "Izithuthi ezimbili zasemkhathini ezafana ezathunyelwa ngo-1977, manje zisemkhathini ophakathi kwezinkanyezi."},
+      {"title": "Milky Way", "description": "Igalaksi yakithi equkethe izinkanyezi ezingaphezu kwezigidigidi eziyikhulu namaplanethi angenakubalwa."},
+      {"title": "Solar Eclipses", "description": "Lapho iNyanga idlula phakathi kweLanga noMhlaba, iphonsa isithunzi."},
+      {"title": "Neutron Stars", "description": "Izinsalela ezisindayo kakhulu zezinkanyezi ezinkulu ezishuthekwe esigqini esincane."}
+    ]
+  }
+}

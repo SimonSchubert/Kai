@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "verskaf 'n lys van die grootste bewegende voertuie wat ooit gebou is",
+    "assistantMessage": "Hier is 'n lys van die **grootste bewegende voertuie wat ooit gebou is** (met fokus op massiewe mobiele/selfaangedrewe landmasjiene, losweg gerangskik volgens 'n kombinasie van fisiese grootte, lengte, gewig en historiese/bekendheidsherkenning):\n\n- **Overburden Conveyor Bridge F60**  \n  Grootste volgens algehele fisiese afmetings / lengte. Lengte: ~502 m, Hoogte: ~80 m, Gewig: ~13 600 ton. Gebou in Oos-Duitsland (1988–1991) vir bruinkoolmyn-deklaagverwydering; beweeg baie stadig op spore.\n\n- **Bagger 293** (emmerwielgraafmasjien)  \n  Swaarste landvoertuig ooit gebou (~14 200–14 196 ton). Hoogte: ~96 m, Lengte: ~225 m. Gebou in 1995 deur TAKRAF; Guinness-rekordhouer vir grootste/swaarste landgraafmasjien; verwyder tot ~240 000 ton materiaal per dag.\n\n- **Bagger 288** (emmerwielgraafmasjien)  \n  Voorheen die rekordhouer vir swaarste landvoertuig. Hoogte: ~96 m, Lengte: ~220 m, Gewig: ~13 500 ton. Gebou in 1978 deur Krupp/TAKRAF; beroemd vir sy 22 km-hervestiging wat paaie, riviere en snelwee gekruis het.\n\n- **NASA Crawler-Transporter** (CT-1 en CT-2)  \n  Swaarste selfaangedrewe landvoertuig (Guinness-rekord na opgraderings). Gewig: ~2 721–3 016 ton, Afmetings: 40 m x 35 m. Gebou in 1965; vervoer vuurpyle/ruimtetuie by Kennedy Space Center (maksimum spoed ~1–2 myl/h).\n\n- **BelAZ-75710** (mynbou-stortwa)  \n  Grootste vragmotor volgens vragkapasiteit (~450 ton). Lee gewig: ~360 ton, Lengte: ~20,6 m. Moderne ultraklasvervoerwa; een van die grootste wielbewegende voertuie.\n\n- **LeTourneau L-2350** (wiellaaier / voorlaaier)  \n  Grootste grondverskuiwer/laaier volgens Guinness-rekords. Massiewe bakkapasiteit; banddeursnee ~4 m. Gebruik in swaar mynbou; een van die grootste wiellaaiers.\n\nAnder noemenswaardige groot bewegende masjiene sluit in:\n- Big Muskie (historiese strookskop, ~13 500 ton, ontmantel)\n- Marion 6360 (\"The Captain\", reuse strookskop, ~12 700 ton, geskrap)\n- Verskeie reuse tonnelboordermasjiene (bv. Herrenknecht-modelle met tot ~17–20 m deursnee-snyers, hoewel dikwels nie ten volle selfaangedrewe op dieselfde manier nie)\n\nLet wel: \"Grootste\" hang af van die maatstaf—lengte (F60), gewig (Bagger 293), selfaangedrewe mobiliteit (NASA Crawler), of vragkapasiteit (BelAZ). Hierdie is hoofsaaklik landgebaseerde industriele/mynbou-/vervoervoertuie eerder as skepe, vliegtuie of treine."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "wys vir my mooi eenlynkodes vir kotlin, swift, c, python, js",
+    "codeIntro": "Hier is 'n paar kort, mooi eenlynkodes in elke taal (2025-uitgawe 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Ruimteverkenning",
+    "items": [
+      {"title": "Mars", "description": "Die Rooi Planeet, vierde vanaf die Son en 'n hoofteiken vir menslike verkenning."},
+      {"title": "Swart Gate", "description": "Gebiede van ruimtetyd waar swaartekrag so sterk is dat niks kan ontsnap nie."},
+      {"title": "Apollo 11", "description": "Die eerste bemande sending wat in 1969 op die Maan geland het, met drie ruimtevaarders."},
+      {"title": "Saturnus se Ringe", "description": "Skouspelagtige ys- en rotsringe wat die gasreus Saturnus omring."},
+      {"title": "Voyager-program", "description": "Tweeling-ruimtetuie wat in 1977 gelanseer is, nou in interstellere ruimte."},
+      {"title": "Melkweg", "description": "Ons tuisgalaksie wat meer as 100 miljard sterre en talle planete bevat."},
+      {"title": "Sonsverduisterings", "description": "Wanneer die Maan tussen die Son en Aarde beweeg en 'n skaduwee werp."},
+      {"title": "Neutronsterre", "description": "Ultradigte oorblyfsels van massiewe sterre wat in 'n klein sfeer saamgepak is."}
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "navedite popis najvecih ikad izgradenih pokretnih vozila",
+    "assistantMessage": "Evo popisa **najvecih ikad izgradenih pokretnih vozila** (s naglaskom na masivne mobilne/samohodne kopnene strojeve, otprilike rangirane kombinacijom fizicke velicine, duljine, tezine i povijesne/prepoznatljivosti):\n\n- **Overburden Conveyor Bridge F60**  \n  Najveci po ukupnim fizickim dimenzijama / duljini. Duljina: ~502 m, Visina: ~80 m, Tezina: ~13,600 tona. Izgraden u Istocnoj Njemackoj (1988.–1991.) za uklanjanje otkrivke u rudarenju lignita; krece se vrlo sporo po tracnicama.\n\n- **Bagger 293** (rotorni bager)  \n  Najteze kopneno vozilo ikad izgradeno (~14,200–14,196 tona). Visina: ~96 m, Duljina: ~225 m. Izgraden 1995. od strane TAKRAF-a; drzatelj Guinnessovog rekorda za najveci/najtezi kopneni bager; uklanja do ~240,000 tona materijala dnevno.\n\n- **Bagger 288** (rotorni bager)  \n  Prethodni drzatelj rekorda za najteze kopneno vozilo. Visina: ~96 m, Duljina: ~220 m, Tezina: ~13,500 tona. Izgraden 1978. od strane Krupp/TAKRAF; poznat po svom premjestanju od 22 km preko cesta, rijeka i autocesta.\n\n- **NASA Crawler-Transporter** (CT-1 i CT-2)  \n  Najteze samohodne kopneno vozilo (Guinnessov rekord nakon nadogradnji). Tezina: ~2,721–3,016 tona, Dimenzije: 40 m × 35 m. Izgraden 1965.; prevozi rakete/svemirske letjelice u Kennedy Space Centeru (maks. brzina ~1–2 mph).\n\n- **BelAZ-75710** (rudarski damper)  \n  Najveci kamion po nosivosti (~450 tona). Prazna tezina: ~360 tona, Duljina: ~20.6 m. Moderni ultra-klasa teretni kamion; jedno od najvecih pokretnih vozila na kotacima.\n\n- **LeTourneau L-2350** (utovarivac na kotacima / prednji utovarivac)  \n  Najveci utovarivac/stroj za iskop prema Guinnessovim rekordima. Ogroman kapacitet lopate; promjer guma ~4 m. Koristi se u teskom rudarstvu; jedan od najvecih utovarivaca na kotacima.\n\nOstali znacajni ogromni pokretni strojevi ukljucuju:\n- Big Muskie (povijesna lopata za skidanje, ~13,500 tona, rashodovana)\n- Marion 6360 (\"The Captain\", ogromna lopata za skidanje, ~12,700 tona, rashodovana)\n- Razliciti ogromni strojevi za busenje tunela (npr. Herrenknecht modeli s rezacima do ~17–20 m promjera, iako cesto nisu potpuno samohodna na isti nacin)\n\nNapomena: \"Najveci\" ovisi o mjerilu—duljina (F60), tezina (Bagger 293), samohodna pokretljivost (NASA Crawler) ili nosivost (BelAZ). Ovo su primarno kopnena industrijska/rudarska/transportna vozila, a ne brodovi, zrakoplovi ili vlakovi."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "pokazi mi lijepe jednolinijske primjere za kotlin, swift, c, python, js",
+    "codeIntro": "Evo nekih kratkih, lijepih jednolinijskih primjera u svakom jeziku (izdanje 2025. 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Istrazivanje svemira",
+    "items": [
+      {"title": "Mars", "description": "Crveni planet, cetvrti od Sunca i glavni cilj za ljudsko istrazivanje."},
+      {"title": "Black Holes", "description": "Podrucja prostor-vremena gdje je gravitacija toliko jaka da nista ne moze pobjeci."},
+      {"title": "Apollo 11", "description": "Prva posadena misija koja je sletjela na Mjesec 1969., s tri astronauta."},
+      {"title": "Saturn's Rings", "description": "Spektakularni prstenovi leda i stijena koji okruzuju plinovitog diva Saturn."},
+      {"title": "Voyager Program", "description": "Dvije svemirske letjelice lansirane 1977., sada u meduzvjezdanom prostoru."},
+      {"title": "Milky Way", "description": "Nasa maticna galaksija koja sadrzi preko 100 milijardi zvijezda i bezbroj planeta."},
+      {"title": "Solar Eclipses", "description": "Kada Mjesec prode izmedu Sunca i Zemlje, bacajuci sjenu."},
+      {"title": "Neutron Stars", "description": "Ultra-gusti ostaci masivnih zvijezda sabijeni u malu sferu."}
+    ]
+  }
+}

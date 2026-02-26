@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "furnì ina glista dals pli gronds vehichels movibels mai construids",
+    "assistantMessage": "Qua è ina glista dals **pli gronds vehichels movibels mai construids** (cun focus sin massivas maschinas mobilas/autopropulsadas da terra, classifitgadas tenor ina cumbinaziun da dimensiun fisica, lunghezza, paisa e renconuschientscha):\n\n- **Overburden Conveyor Bridge F60**  \n  Il pli grond tenor dimensiuns fisicas / lunghezza. Lunghezza: ~502 m, Autezza: ~80 m, Paisa: ~13,600 tonnas. Construì en la Germania da l'Ost (1988–1991) per l'allontanament da surchargia en minieras da lignit; sa mova fitg plaun sin rodaglias.\n\n- **Bagger 293** (excavatur a roda da tschuppins)  \n  Il vehichel da terra il pli grev mai construì (~14,200–14,196 tonnas). Autezza: ~96 m, Lunghezza: ~225 m. Construì il 1995 da TAKRAF; recordist da Guinness sco il pli grond/grev excavatur terrestric; allontanescha fin a ~240,000 tonnas da material per di.\n\n- **Bagger 288** (excavatur a roda da tschuppins)  \n  Precedentamain il detegnider dal record dal vehichel da terra il pli grev. Autezza: ~96 m, Lunghezza: ~220 m, Paisa: ~13,500 tonnas. Construì il 1978 da Krupp/TAKRAF; enconuschent per sia translocaziun da 22 km sur vias, flums e autostradas.\n\n- **NASA Crawler-Transporter** (CT-1 e CT-2)  \n  Il vehichel da terra autopropulsà il pli grev (record Guinness suenter upgrades). Paisa: ~2,721–3,016 tonnas, Dimensiuns: 40 m × 35 m. Construì il 1965; transportescha raghettas/navs spazialas al Kennedy Space Center (sveltezza max. ~1–2 mph).\n\n- **BelAZ-75710** (camiun da miniera)  \n  Il pli grond camiun tenor capacitad da chargia (~450 tonnas). Paisa vid: ~360 tonnas, Lunghezza: ~20,6 m. Camiun ultra-classa modern; in dals pli gronds vehichels movibels sin rodas.\n\n- **LeTourneau L-2350** (chargiadur sin rodas)  \n  Il pli grond chargiadur/excavatur tenor records da Guinness. Capacitad massiva da tschuppins; diameter da pneus ~4 m. Utilisà en minieras grevas; in dals pli gronds chargiadurs sin rodas.\n\nAutras notablas grondas maschinas moviblas:\n- Big Muskie (pala da dismantlar istorica, ~13,500 tonnas, demolida)\n- Marion 6360 (\"The Captain\", pala giganta, ~12,700 tonnas, demolida)\n- Differentas grondas maschinas da tunnel boring (p.ex. models Herrenknecht fin a ~17–20 m diameter, schebain savens betg cumplettamain autopropulsadas en il medem senn)\n\nNota: \"Biggest\" dependa da la mesira—lunghezza (F60), paisa (Bagger 293), mobilitad autopropulsada (NASA Crawler), u capacitad da chargia (BelAZ). Quests èn principalmain vehichels industrials/da miniera/da transport terrestrics e betg bastiments, aviuns u trens."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "mussa'm bels one-liners per kotlin, swift, c, python, js",
+    "codeIntro": "Qua èn intgins curts e bels one-liners en mintga lingua (ediziun 2025 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Exploraziun dal spazi",
+    "items": [
+      {"title": "Mars", "description": "Il planet cotschen, il quart dal sulegl e ina destinaziun principala per l'exploraziun umana."},
+      {"title": "Black Holes", "description": "Regiuns dal spazi-temp nua che la gravitaziun è uschè ferma che nagut po scappar."},
+      {"title": "Apollo 11", "description": "L'emprima missiun cun equipadi ch'è atterrada sin la Glina il 1969, cun trais astronauts."},
+      {"title": "Saturn's Rings", "description": "Anels spectaculars da glatsch e crappa che circumdattan il gigant da gas Saturn."},
+      {"title": "Voyager Program", "description": "Duas navs spazialas gemelladas, lantschadas il 1977, ussa en il spazi interstellar."},
+      {"title": "Milky Way", "description": "Nossa galaxia che cuntegna sur 100 milliardas stailas e innombraivels planets."},
+      {"title": "Solar Eclipses", "description": "Cura che la Glina passa tranter il Sulegl e la Terra, stgirond ina sumbriva."},
+      {"title": "Neutron Stars", "description": "Rests ultra-densas da stailas massivas cumprimidas en ina pitschna sfera."}
+    ]
+  }
+}

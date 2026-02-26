@@ -1,2 +1,0 @@
-Add localizations
-Add app review sdk
