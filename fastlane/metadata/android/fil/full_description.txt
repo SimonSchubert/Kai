@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Kailangan ng mabilis na sagot mula sa AI nang walang kalat? Ang Kai ay ang iyong napakabilis, open-source na kasama, pinapagana ng mga modelo tulad ng Llama at Gemini ng Google. Sumabak sa maayos na mga chat para sa brainstorming, pagsulat, pagbubuod, pag-aaral, o kaswal na usapan – lahat sa isang minimalistang interface na naglo-load sa ilang segundo.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Mga Sinusuportahang Serbisyo ng AI
+• Ollama: Kumonekta sa iyong self-hosted na lokal na mga modelo ng AI para sa mga chat na nakatuon sa privacy
+• Gemini: Advanced na AI ng Google na may built-in na suporta sa pag-attach ng file
+• xAI: I-access ang mga makabagong modelo ng Grok para sa malikhain at makatotohanang mga sagot
+• Groq: Maranasan ang napakabilis na AI inference para sa mabilis na mga tugon
+• Mistral AI: Gamitin ang libreng tier para sa cost-effective na mga interaksyon sa AI
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Mga Pangunahing Feature
+• Naka-encrypt na Lokal na Storage: Ligtas na iimbak ang iyong kasaysayan ng chat sa iyong device na may end-to-end encryption
+• Text-to-Speech: Pakinggan ang mga sagot ng AI nang malakas gamit ang natural na tunog ng boses
+• Mga File Attachment: Madaling mag-upload ng mga file para mapahusay ang iyong mga pag-uusap (sinusuportahan sa Gemini)
+• Maayos na Paglipat ng Serbisyo: Lumipat sa pagitan ng mga AI provider nang walang kahirap-hirap sa gitna ng usapan
+• Multi-Turn na Pag-uusap: Mag-enjoy ng mga chat na may kamalayan sa konteksto kung saan natatandaan ng AI ang mga nakaraang mensahe
+• Simpleng Chat Interface: Disenyo na madaling gamitin para sa mga baguhan at eksperto
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+Mga Tool ng AI (I-enable sa Settings)
+• Kunin ang Lokal na Oras: Nagbibigay ang AI ng tumpak na kasalukuyang petsa at oras
+• Kunin ang Lokasyon: Makatanggap ng mga sagot batay sa lokasyon gamit ang IP detection
+• Magpadala ng Notification: Makatanggap ng push notification na na-trigger ng AI
+• Gumawa ng Calendar Event: Magdagdag ng mga event sa iyong kalendaryo mula mismo sa chat
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Privacy Muna
+Inuuna ng Kai ang iyong privacy: Lahat ng kasaysayan ng chat ay naka-imbak nang lokal na may matibay na encryption. Kapag gumagamit ng cloud AI na mga serbisyo, ang iyong data ay direktang ipinapadala sa mga provider para sa pagproseso – walang data collection mula sa app mismo. Manatiling may kontrol gamit ang open-source na AI chat app na ito.

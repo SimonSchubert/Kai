@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Unahitaji majibu ya haraka ya AI bila usumbufu? Kai ni mwandamani wako wa haraka kama umeme, wa chanzo huria, unaotumia modeli kama Llama na Gemini ya Google. Ingia katika mazungumzo laini ya kutafakari, kuandika, kufupisha, kujifunza, au mazungumzo ya kawaida – yote katika muundo rahisi unaopakia kwa sekunde.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Huduma za AI Zinazoungwa Mkono
+• Ollama: Unganisha na modeli zako za AI za ndani kwa mazungumzo yanayolinda faragha
+• Gemini: AI ya hali ya juu ya Google yenye msaada wa kuambatanisha faili
+• xAI: Fikia modeli bunifu za Grok kwa majibu ya ubunifu na yenye maarifa
+• Groq: Pata uchakataji wa AI wa kasi ya hali ya juu kwa majibu ya haraka
+• Mistral AI: Tumia ngazi ya bure kwa mwingiliano wa AI wenye gharama nafuu
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Vipengele Muhimu
+• Hifadhi ya Ndani Iliyosimbwa: Hifadhi historia yako ya mazungumzo kwenye kifaa chako kwa usalama na usimbaji wa mwisho hadi mwisho
+• Maandishi-kwa-Sauti: Sikia majibu ya AI kwa sauti ya asili
+• Viambatanisho vya Faili: Pakia faili kwa urahisi kuimarisha mazungumzo yako (inasaidia kwenye Gemini)
+• Kubadilisha Huduma Kwa Urahisi: Badilisha kati ya watoa huduma za AI bila shida katikati ya mazungumzo
+• Mazungumzo ya Zamu Nyingi: Furahia mazungumzo yenye muktadha ambapo AI inakumbuka ujumbe uliopita
+• Muundo Rahisi wa Mazungumzo: Muundo rafiki kwa watumiaji wa kiwango chochote
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+Zana za AI (Washa katika Mipangilio)
+• Pata Wakati wa Eneo: AI inatoa taarifa sahihi za tarehe na wakati wa sasa
+• Pata Eneo: Pokea majibu yanayotegemea eneo kwa kutumia utambuzi wa IP
+• Tuma Arifa: Pata arifa za push zinazochochewa na AI
+• Unda Tukio la Kalenda: Ongeza matukio kwenye kalenda yako moja kwa moja kutoka mazungumzoni
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Faragha Kwanza
+Kai inatanguliza faragha yako: Historia yote ya mazungumzo huhifadhiwa ndani ya kifaa na usimbaji imara. Unapotumia huduma za AI za wingu, data yako hutumwa moja kwa moja kwa watoa huduma kwa uchakataji – hakuna ukusanyaji wa data na programu yenyewe. Dhibiti data yako na programu hii ya mazungumzo ya AI ya chanzo huria.

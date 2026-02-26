@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Vajad kiireid AI vastuseid ilma üleliigse ballastita? Kai on sinu välkkiire avatud lähtekoodiga kaaslane, mida toetavad mudelid nagu Llama ja Google'i Gemini. Sukeldu sujuvatesse vestlustesse ajurünnakuks, kirjutamiseks, kokkuvõtete tegemiseks, õppimiseks või vabaks jutuajamiseks – kõik minimalistlikus liideses, mis laadib sekunditega.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Toetatud AI teenused
+• Ollama: Ühenda oma kohalike AI mudelitega privaatsusele keskendunud vestlusteks
+• Gemini: Google'i täiustatud AI sisseehitatud failide manustamise toega
+• xAI: Juurdepääs uuenduslikele Grok mudelitele loovate ja arusaadavate vastuste saamiseks
+• Groq: Koge ülikiire AI järeldamist kiirete vastuste saamiseks
+• Mistral AI: Kasuta tasuta taset kulutõhusateks AI suhtlusteks
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Põhifunktsioonid
+• Krüpteeritud kohalik salvestus: Salvesta oma vestlusajalugu turvaliselt oma seadmes otsast otsani krüpteeritult
+• Tekst kõneks: Kuula AI vastuseid loomulikult kõlava häälväljundiga
+• Failide manused: Laadi hõlpsalt faile üles oma vestluste täiustamiseks (toetatud Gemini puhul)
+• Sujuv teenuste vahetamine: Vaheta AI pakkujate vahel vaevata keset vestlust
+• Mitme vooruga vestlused: Naudi kontekstiteadlikke vestlusi, kus AI mäletab varasemaid sõnumeid
+• Lihtne vestlusliides: Kasutajasõbralik disain nii algajatele kui ka ekspertidele
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+AI tööriistad (Luba seadetes)
+• Kohaliku aja päring: AI pakub täpset praegust kuupäeva ja kellaaega
+• Asukoha päring: Saa asukohapõhiseid vastuseid IP-tuvastuse abil
+• Teavituse saatmine: Saa AI käivitatud tõuketeatisi
+• Kalendrisündmuse loomine: Lisa sündmusi oma kalendrisse otse vestlusest
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Privaatsus ennekõike
+Kai seab sinu privaatsuse esikohale: kogu vestlusajalugu salvestatakse kohalikult tugeva krüpteerimisega. Pilve-AI teenuste kasutamisel saadetakse sinu andmed töötlemiseks otse pakkujatele – rakendus ise ei kogu mingeid andmeid. Hoia kontroll oma käes selle avatud lähtekoodiga AI vestlusrakendusega.

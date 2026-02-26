@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+ያለ ብዥታ ፈጣን የ AI መልሶች ይፈልጋሉ? Kai እንደ Llama እና የ Google Gemini ባሉ ሞዴሎች የሚሰራ በጣም ፈጣን፣ ክፍት ምንጭ ረዳትዎ ነው። ለአዲስ ሃሳቦች፣ ለጽሑፍ፣ ለማጠቃለል፣ ለመማር ወይም ለተራ ወይይቶች ያለችግር ወደ ውይይቶች ይግቡ – ሁሉም በሰከንዶች ውስጥ በሚጫን ቀላል በይነገጽ።
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+የሚደገፉ የ AI አገልግሎቶች
+• Ollama: ለግላዊነት ላይ ያተኮሩ ውይይቶች ከራስ-አስተናጋጅ የአካባቢ AI ሞዴሎችዎ ጋር ይገናኙ
+• Gemini: የ Google የላቀ AI ከአብሮ የተሰራ ፋይል ማያያዝ ድጋፍ ጋር
+• xAI: ለፈጠራ እና ግንዛቤ የተሞሉ ምላሾች አዳዲስ Grok ሞዴሎችን ይድረሱ
+• Groq: ለፈጣን ምላሾች እጅግ ፈጣን የ AI ግምገማ ይለማመዱ
+• Mistral AI: ለወጪ ቆጣቢ AI መስተጋብሮች ነጻውን ደረጃ ይጠቀሙ
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+ዋና ባህሪያት
+• የተመሰጠረ የአካባቢ ማከማቻ: የውይይት ታሪክዎን ከጫፍ-እስከ-ጫፍ ምስጠራ ጋር በመሳሪያዎ ላይ በደህንነት ያከማቹ
+• ጽሑፍ-ወደ-ንግግር: የ AI ምላሾችን በተፈጥሯዊ ድምጽ ውጤት ጮክ ብለው ያዳምጡ
+• ፋይል ማያያዣዎች: ውይይቶችዎን ለማሻሻል ፋይሎችን በቀላሉ ይስቀሉ (በ Gemini ላይ ይደገፋል)
+• ያለችግር አገልግሎት መቀየር: በውይይት መካከል በ AI አቅራቢዎች መካከል ያለችግር ይቀያይሩ
+• ባለብዙ-ዙር ውይይቶች: AI ቀደም ያሉ መልዕክቶችን የሚያስታውስበት ዐውድ-ንቃት ውይይቶችን ይደሰቱ
+• ቀላል የውይይት በይነገጽ: ለጀማሪዎች እና ለባለሙያዎች ተስማሚ ተጠቃሚ-ወዳጅ ንድፍ
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+የ AI መሳሪያዎች (በቅንብሮች ውስጥ ያንቁ)
+• የአካባቢ ሰዓት ያግኙ: AI ትክክለኛ የአሁኑን ቀን እና ሰዓት መረጃ ያቀርባል
+• ቦታ ያግኙ: የ IP ማወቂያን በመጠቀም በቦታ ላይ የተመሰረቱ ምላሾችን ይቀበሉ
+• ማሳወቂያ ይላኩ: በ AI የሚነቃ የግፋ ማሳወቂያዎችን ያግኙ
+• የቀን መቁጠሪያ ክስተት ይፍጠሩ: ከውይይቱ በቀጥታ ወደ ቀን መቁጠሪያዎ ክስተቶችን ያክሉ
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+ግላዊነት በቅድሚያ
+Kai ግላዊነትዎን ቅድሚያ ይሰጣል: ሁሉም የውይይት ታሪክ በጠንካራ ምስጠራ በአካባቢ ይከማቻል። የደመና AI አገልግሎቶችን ሲጠቀሙ ውሂብዎ ለማስኬድ በቀጥታ ወደ አቅራቢዎች ይላካል – በመተግበሪያው ራሱ ምንም ውሂብ አይሰበሰብም። በዚህ ክፍት ምንጭ AI የውይይት መተግበሪያ ቁጥጥር ያድርጉ።

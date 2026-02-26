@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Требају вам брзи AI одговори без непотребних компликација? Kai је ваш муњевито брз пратилац отвореног кода, покретан моделима као што су Llama и Google Gemini. Уроните у беспрекорне ћаскање за браинсторминг, писање, сумирање, учење или обичне разговоре – све у минималистичком интерфејсу који се учитава за секунде.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Подржани AI сервиси
+• Ollama: Повежите се са локално хостованим AI моделима за ћаскање усмерено на приватност
+• Gemini: Напредни AI од Google са уграђеном подршком за прилагање фајлова
+• xAI: Приступите иновативним Grok моделима за креативне и проницљиве одговоре
+• Groq: Искусите ултрабрзу AI обраду за брзе одговоре
+• Mistral AI: Користите бесплатни ниво за економичне AI интеракције
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Кључне функције
+• Шифровано локално складиштење: Безбедно чувајте историју ћаскања на уређају са end-to-end шифровањем
+• Текст у говор: Слушајте AI одговоре наглас са природним гласовним излазом
+• Прилагање фајлова: Лако отпремајте фајлове да обогатите разговоре (подржано на Gemini)
+• Беспрекорна промена сервиса: Мењајте AI провајдере без напора усред разговора
+• Вишеструки разговори: Уживајте у ћаскању са контекстом где AI памти претходне поруке
+• Једноставан интерфејс за ћаскање: Кориснички дизајн за почетнике и стручњаке подједнако
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+AI алати (Омогућите у Подешавањима)
+• Преузми локално време: AI пружа тачне информације о тренутном датуму и времену
+• Преузми локацију: Примајте одговоре засноване на локацији помоћу IP детекције
+• Пошаљи обавештење: Добијајте push обавештења покренута од стране AI
+• Креирај календарски догађај: Додајте догађаје у календар директно из ћаскања
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Приватност на првом месту
+Kai ставља вашу приватност на прво место: Сва историја ћаскања се чува локално са јаким шифровањем. Када користите AI сервисе у облаку, ваши подаци се шаљу директно провајдерима на обраду – апликација не прикупља никакве податке. Останите под контролом са овом AI апликацијом за ћаскање отвореног кода.

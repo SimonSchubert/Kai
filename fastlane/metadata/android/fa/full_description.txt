@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+به پاسخ‌های سریع AI بدون پیچیدگی نیاز دارید؟ Kai همراه سبک و متن‌باز شماست که با مدل‌هایی مانند Llama و Gemini از Google کار می‌کند. به گفتگوهای روان برای طوفان فکری، نوشتن، خلاصه‌سازی، یادگیری یا صحبت‌های روزمره بپردازید – همه در یک رابط کاربری مینیمال که در چند ثانیه بارگذاری می‌شود.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+سرویس‌های AI پشتیبانی‌شده
+• Ollama: اتصال به مدل‌های AI محلی خودمیزبان برای گفتگوهای متمرکز بر حریم خصوصی
+• Gemini: AI پیشرفته Google با پشتیبانی داخلی از پیوست فایل
+• xAI: دسترسی به مدل‌های نوآورانه Grok برای پاسخ‌های خلاقانه و روشنگرانه
+• Groq: تجربه استنتاج فوق‌سریع AI برای پاسخ‌های آنی
+• Mistral AI: استفاده از سطح رایگان برای تعاملات AI مقرون‌به‌صرفه
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+ویژگی‌های کلیدی
+• ذخیره‌سازی محلی رمزنگاری‌شده: ذخیره امن تاریخچه گفتگو روی دستگاه شما با رمزنگاری سرتاسری
+• تبدیل متن به گفتار: شنیدن پاسخ‌های AI با صدای طبیعی
+• پیوست فایل: آپلود آسان فایل‌ها برای بهبود مکالمات شما (پشتیبانی در Gemini)
+• تغییر بی‌وقفه سرویس: جابه‌جایی بین ارائه‌دهندگان AI بدون زحمت در میان مکالمه
+• مکالمات چندنوبتی: گفتگوهای آگاه از زمینه که AI پیام‌های قبلی را به خاطر می‌سپارد
+• رابط گفتگوی ساده: طراحی کاربرپسند برای مبتدیان و متخصصان
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+ابزارهای AI (فعال‌سازی در تنظیمات)
+• دریافت زمان محلی: AI اطلاعات دقیق تاریخ و ساعت فعلی را ارائه می‌دهد
+• دریافت موقعیت مکانی: دریافت پاسخ‌های مبتنی بر مکان با استفاده از تشخیص IP
+• ارسال اعلان: دریافت اعلان‌های فوری فعال‌شده توسط AI
+• ایجاد رویداد تقویم: افزودن رویدادها به تقویم مستقیماً از گفتگو
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+حریم خصوصی در اولویت
+Kai حریم خصوصی شما را در اولویت قرار می‌دهد: تمام تاریخچه گفتگو به صورت محلی با رمزنگاری قوی ذخیره می‌شود. هنگام استفاده از سرویس‌های AI ابری، داده‌های شما مستقیماً برای پردازش به ارائه‌دهندگان ارسال می‌شود – هیچ جمع‌آوری داده‌ای توسط خود برنامه انجام نمی‌شود. با این برنامه چت AI متن‌باز کنترل را در دست خود نگه دارید.

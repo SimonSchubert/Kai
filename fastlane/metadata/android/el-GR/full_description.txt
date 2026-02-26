@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Χρειάζεστε γρήγορες απαντήσεις AI χωρίς περιττά; Το Kai είναι ο αστραπιαίος, ανοιχτού κώδικα σύντροφός σας, που τροφοδοτείται από μοντέλα όπως το Llama και το Gemini της Google. Βουτήξτε σε απρόσκοπτες συνομιλίες για καταιγισμό ιδεών, γραφή, σύνοψη, μάθηση ή καθημερινές κουβέντες – όλα σε μια μινιμαλιστική διεπαφή που φορτώνει σε δευτερόλεπτα.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Υποστηριζόμενες Υπηρεσίες AI
+• Ollama: Συνδεθείτε στα τοπικά σας μοντέλα AI για συνομιλίες με έμφαση στην ιδιωτικότητα
+• Gemini: Προηγμένη AI της Google με ενσωματωμένη υποστήριξη επισύναψης αρχείων
+• xAI: Πρόσβαση σε καινοτόμα μοντέλα Grok για δημιουργικές και διορατικές απαντήσεις
+• Groq: Εξαιρετικά γρήγορη εξαγωγή συμπερασμάτων AI για άμεσες απαντήσεις
+• Mistral AI: Χρησιμοποιήστε τη δωρεάν βαθμίδα για οικονομικές αλληλεπιδράσεις AI
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Βασικά Χαρακτηριστικά
+• Κρυπτογραφημένη Τοπική Αποθήκευση: Αποθηκεύστε με ασφάλεια το ιστορικό συνομιλιών στη συσκευή σας με κρυπτογράφηση από άκρο σε άκρο
+• Μετατροπή Κειμένου σε Ομιλία: Ακούστε τις απαντήσεις AI με φυσική φωνητική έξοδο
+• Επισυνάψεις Αρχείων: Ανεβάστε εύκολα αρχεία για να βελτιώσετε τις συνομιλίες σας (υποστηρίζεται στο Gemini)
+• Απρόσκοπτη Εναλλαγή Υπηρεσιών: Εναλλαγή μεταξύ παρόχων AI χωρίς κόπο κατά τη διάρκεια της συνομιλίας
+• Συνομιλίες Πολλαπλών Γύρων: Απολαύστε συνομιλίες με επίγνωση πλαισίου όπου η AI θυμάται προηγούμενα μηνύματα
+• Απλή Διεπαφή Συνομιλίας: Φιλικός σχεδιασμός για αρχάριους και ειδικούς
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+Εργαλεία AI (Ενεργοποίηση στις Ρυθμίσεις)
+• Λήψη Τοπικής Ώρας: Η AI παρέχει ακριβείς πληροφορίες τρέχουσας ημερομηνίας και ώρας
+• Λήψη Τοποθεσίας: Λάβετε απαντήσεις βάσει τοποθεσίας μέσω ανίχνευσης IP
+• Αποστολή Ειδοποίησης: Λάβετε ειδοποιήσεις push που ενεργοποιούνται από την AI
+• Δημιουργία Συμβάντος Ημερολογίου: Προσθέστε συμβάντα στο ημερολόγιό σας απευθείας από τη συνομιλία
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Προτεραιότητα στην Ιδιωτικότητα
+Το Kai δίνει προτεραιότητα στην ιδιωτικότητά σας: Όλο το ιστορικό συνομιλιών αποθηκεύεται τοπικά με ισχυρή κρυπτογράφηση. Όταν χρησιμοποιείτε υπηρεσίες AI στο cloud, τα δεδομένα σας αποστέλλονται απευθείας στους παρόχους για επεξεργασία – καμία συλλογή δεδομένων από την ίδια την εφαρμογή. Διατηρήστε τον έλεγχο με αυτή την εφαρμογή συνομιλίας AI ανοιχτού κώδικα.

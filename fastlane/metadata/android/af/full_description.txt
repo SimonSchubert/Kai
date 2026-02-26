@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Het jy vinnige AI-antwoorde nodig sonder die oortollige rommel? Kai is jou blitsvinnige, oopbron-metgesel, aangedryf deur modelle soos Llama en Google se Gemini. Duik in naatlose gesprekke vir dinkskrums, skryfwerk, opsommings, leer of informele geselsies – alles in 'n minimalistiese koppelvlak wat binne sekondes laai.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Ondersteunde AI-dienste
+• Ollama: Koppel aan jou selfgehuisvestigde plaaslike AI-modelle vir privaatheidsgerigte gesprekke
+• Gemini: Google se gevorderde AI met ingeboude lêeraanhegtingondersteuning
+• xAI: Kry toegang tot innoverende Grok-modelle vir kreatiewe en insiggewende antwoorde
+• Groq: Ervaar ultravinnigeAI-inferensie vir vinnige antwoorde
+• Mistral AI: Gebruik die gratis vlak vir kostedoeltreffende AI-interaksies
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Sleutelkenmerke
+• Geënkripteerde Plaaslike Berging: Berg jou kletsrekord veilig op jou toestel met end-tot-end-enkripsie
+• Teks-na-Spraak: Luister na AI-antwoorde hardop met natuurlik klinkende stemuitvoer
+• Lêeraanhegtings: Laai maklik lêers op om jou gesprekke te verbeter (ondersteun op Gemini)
+• Naatlose Dienswisseling: Wissel moeiteloos tussen AI-verskaffers midde-in 'n gesprek
+• Meervoudige Gesprekke: Geniet konteksbewuste gesprekke waar AI vorige boodskappe onthou
+• Eenvoudige Kletskoppelvlak: Gebruikersvriendelike ontwerp vir beginners en kenners
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+AI-gereedskap (Aktiveer in Instellings)
+• Kry Plaaslike Tyd: AI verskaf akkurate huidige datum- en tydinligting
+• Kry Ligging: Ontvang ligginggebaseerde antwoorde met IP-opsporing
+• Stuur Kennisgewing: Kry stootkennisgewings wat deur AI geaktiveer word
+• Skep Kalendergebeurtenis: Voeg gebeurtenisse by jou kalender direk vanuit die klets
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Privaatheid Eerste
+Kai prioritiseer jou privaatheid: Alle kletsrekord word plaaslik gestoor met sterk enkripsie. Wanneer jy wolk-AI-dienste gebruik, word jou data direk na die verskaffers gestuur vir verwerking – geen dataversameling deur die toepassing self nie. Bly in beheer met hierdie oopbron AI-kletstoepassing.

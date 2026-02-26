@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Perlukan jawapan AI pantas tanpa yang berlebihan? Kai ialah teman sumber terbuka anda yang sepantas kilat, dikuasakan oleh model seperti Llama dan Gemini daripada Google. Selami sembang lancar untuk sumbang saran, penulisan, ringkasan, pembelajaran atau perbualan santai – semuanya dalam antara muka minimalis yang dimuatkan dalam beberapa saat.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+Perkhidmatan AI yang Disokong
+• Ollama: Sambung ke model AI tempatan anda sendiri untuk sembang yang mengutamakan privasi
+• Gemini: AI canggih Google dengan sokongan lampiran fail terbina dalam
+• xAI: Akses model Grok inovatif untuk respons kreatif dan berwawasan
+• Groq: Alami inferens AI ultra-pantas untuk balasan segera
+• Mistral AI: Gunakan peringkat percuma untuk interaksi AI yang menjimatkan kos
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+Ciri-ciri Utama
+• Storan Tempatan Disulitkan: Simpan sejarah sembang anda dengan selamat pada peranti anda dengan penyulitan hujung-ke-hujung
+• Teks-ke-Pertuturan: Dengar respons AI dengan output suara yang berbunyi semula jadi
+• Lampiran Fail: Muat naik fail dengan mudah untuk meningkatkan perbualan anda (disokong pada Gemini)
+• Penukaran Perkhidmatan Lancar: Tukar antara penyedia AI dengan mudah semasa perbualan
+• Perbualan Pelbagai Pusingan: Nikmati sembang sedar konteks di mana AI mengingati mesej sebelumnya
+• Antara Muka Sembang Ringkas: Reka bentuk mesra pengguna untuk pemula dan pakar
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+Alat AI (Dayakan dalam Tetapan)
+• Dapatkan Waktu Tempatan: AI memberikan maklumat tarikh dan masa semasa yang tepat
+• Dapatkan Lokasi: Terima respons berasaskan lokasi menggunakan pengesanan IP
+• Hantar Pemberitahuan: Dapatkan pemberitahuan tolak yang dicetuskan oleh AI
+• Cipta Acara Kalendar: Tambah acara ke kalendar anda terus dari sembang
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Privasi Diutamakan
+Kai mengutamakan privasi anda: Semua sejarah sembang disimpan secara tempatan dengan penyulitan yang kukuh. Apabila menggunakan perkhidmatan AI awan, data anda dihantar terus kepada penyedia untuk pemprosesan – tiada pengumpulan data oleh aplikasi itu sendiri. Kekal terkawal dengan aplikasi sembang AI sumber terbuka ini.

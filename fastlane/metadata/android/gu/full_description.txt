@@ -1,25 +1,25 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+બિનજરૂરી જટિલતા વિના ઝડપી AI જવાબો જોઈએ છે? Kai તમારો વીજળી-ઝડપી, ઓપન-સોર્સ સાથી છે, જે Llama અને Google ના Gemini જેવા મોડેલ્સ દ્વારા સંચાલિત છે. વિચારમંથન, લેખન, સારાંશ, શીખવા અથવા રોજિંદી વાતચીત માટે સરળ ચેટ્સમાં જોડાઓ – બધું એક મિનિમલિસ્ટ ઈન્ટરફેસમાં જે સેકંડોમાં લોડ થાય છે.
 
-Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
-• Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+સમર્થિત AI સેવાઓ
+• Ollama: ગોપનીયતા-કેન્દ્રિત ચેટ્સ માટે તમારા સ્વ-હોસ્ટેડ સ્થાનિક AI મોડેલ્સ સાથે જોડાઓ
+• Gemini: બિલ્ટ-ઇન ફાઈલ જોડાણ સમર્થન સાથે Google ની અદ્યતન AI
+• xAI: સર્જનાત્મક અને સૂઝભરા જવાબો માટે નવીન Grok મોડેલ્સ ઍક્સેસ કરો
+• Groq: ઝડપી જવાબો માટે અતિ-ઝડપી AI ઇન્ફરન્સનો અનુભવ કરો
+• Mistral AI: ખર્ચ-અસરકારક AI ક્રિયાપ્રતિક્રિયાઓ માટે મફત ટિયરનો ઉપયોગ કરો
 
-Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+મુખ્ય વિશેષતાઓ
+• એન્ક્રિપ્ટેડ સ્થાનિક સંગ્રહ: એન્ડ-ટુ-એન્ડ એન્ક્રિપ્શન સાથે તમારા ઉપકરણ પર તમારો ચેટ ઇતિહાસ સુરક્ષિત રીતે સંગ્રહિત કરો
+• ટેક્સ્ટ-ટુ-સ્પીચ: કુદરતી-અવાજવાળા વૉઇસ આઉટપુટ સાથે AI જવાબો સાંભળો
+• ફાઈલ જોડાણો: તમારી વાતચીતને વધારવા માટે સરળતાથી ફાઈલો અપલોડ કરો (Gemini પર સમર્થિત)
+• સરળ સેવા સ્વિચિંગ: વાતચીત વચ્ચે સહજ રીતે AI પ્રદાતાઓ વચ્ચે બદલો
+• મલ્ટી-ટર્ન વાતચીત: સંદર્ભ-જાગૃત ચેટ્સનો આનંદ લો જ્યાં AI અગાઉના સંદેશાઓ યાદ રાખે છે
+• સરળ ચેટ ઈન્ટરફેસ: શરૂઆતકર્તાઓ અને નિષ્ણાતો બંને માટે વપરાશકર્તા-મૈત્રીપૂર્ણ ડિઝાઇન
 
-AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+AI ટૂલ્સ (સેટિંગ્સમાં સક્ષમ કરો)
+• સ્થાનિક સમય મેળવો: AI ચોક્કસ વર્તમાન તારીખ અને સમયની માહિતી પ્રદાન કરે છે
+• સ્થાન મેળવો: IP શોધનો ઉપયોગ કરીને સ્થાન-આધારિત જવાબો મેળવો
+• સૂચના મોકલો: AI દ્વારા ટ્રિગર થયેલ પુશ સૂચનાઓ મેળવો
+• કૅલેન્ડર ઇવેન્ટ બનાવો: ચેટમાંથી સીધા જ તમારા કૅલેન્ડરમાં ઇવેન્ટ્સ ઉમેરો
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+ગોપનીયતા પ્રથમ
+Kai તમારી ગોપનીયતાને પ્રાથમિકતા આપે છે: તમામ ચેટ ઇતિહાસ મજબૂત એન્ક્રિપ્શન સાથે સ્થાનિક રીતે સંગ્રહિત થાય છે. ક્લાઉડ AI સેવાઓનો ઉપયોગ કરતી વખતે, તમારો ડેટા પ્રોસેસિંગ માટે સીધો પ્રદાતાઓને મોકલવામાં આવે છે – એપ્લિકેશન દ્વારા કોઈ ડેટા સંગ્રહ નહીં. આ ઓપન-સોર્સ AI ચેટ એપ્લિકેશન સાથે નિયંત્રણમાં રહો.
