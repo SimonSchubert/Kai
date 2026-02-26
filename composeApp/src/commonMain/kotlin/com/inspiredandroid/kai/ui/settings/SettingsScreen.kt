@@ -69,6 +69,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
@@ -338,13 +340,15 @@ private fun SettingsTabSelector(
     currentTab: SettingsTab,
     onSelectTab: (SettingsTab) -> Unit,
 ) {
+    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+    val count = 3
     SingleChoiceSegmentedButtonRow(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         SegmentedButton(
             selected = currentTab == SettingsTab.General,
             onClick = { onSelectTab(SettingsTab.General) },
-            shape = SegmentedButtonDefaults.itemShape(index = 0, count = 3),
+            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
         ) {
             Text(stringResource(Res.string.settings_tab_general))
@@ -352,7 +356,7 @@ private fun SettingsTabSelector(
         SegmentedButton(
             selected = currentTab == SettingsTab.Services,
             onClick = { onSelectTab(SettingsTab.Services) },
-            shape = SegmentedButtonDefaults.itemShape(index = 1, count = 3),
+            shape = SegmentedButtonDefaults.itemShape(index = 1, count = count),
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
         ) {
             Text(stringResource(Res.string.settings_tab_services))
@@ -360,7 +364,7 @@ private fun SettingsTabSelector(
         SegmentedButton(
             selected = currentTab == SettingsTab.Tools,
             onClick = { onSelectTab(SettingsTab.Tools) },
-            shape = SegmentedButtonDefaults.itemShape(index = 2, count = 3),
+            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
         ) {
             Text(stringResource(Res.string.settings_tab_tools))
