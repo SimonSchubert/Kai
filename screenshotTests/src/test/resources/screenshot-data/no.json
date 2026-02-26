@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "gi meg en liste over de største bevegelige kjøretøyene som noensinne er bygget",
+    "assistantMessage": "Her er en liste over de **største bevegelige kjøretøyene som noensinne er bygget** (med fokus på massive mobile/selvdrevne landmaskiner, rangert omtrentlig etter en kombinasjon av fysisk størrelse, lengde, vekt og historisk/berømmelsesmessig anerkjennelse):\n\n- **Overburden Conveyor Bridge F60**  \n  Størst etter totale fysiske dimensjoner / lengde. Lengde: ~502 m, Høyde: ~80 m, Vekt: ~13 600 tonn. Bygget i Øst-Tyskland (1988–1991) for fjerning av overliggende masser i brunkullgruver; beveger seg svært sakte på skinner.\n\n- **Bagger 293** (bøttehjulsgravemaskin)  \n  Tyngste landkjøretøy noensinne bygget (~14 200–14 196 tonn). Høyde: ~96 m, Lengde: ~225 m. Bygget i 1995 av TAKRAF; Guinness-rekordholder for største/tyngste terrestre gravemaskin; fjerner opptil ~240 000 tonn materiale per dag.\n\n- **Bagger 288** (bøttehjulsgravemaskin)  \n  Tidligere rekordholder for tyngste landkjøretøy. Høyde: ~96 m, Lengde: ~220 m, Vekt: ~13 500 tonn. Bygget i 1978 av Krupp/TAKRAF; berømt for sin 22 km lange forflytning over veier, elver og motorveier.\n\n- **NASA Crawler-Transporter** (CT-1 og CT-2)  \n  Tyngste selvdrevne landkjøretøy (Guinness-rekord etter oppgraderinger). Vekt: ~2 721–3 016 tonn, Dimensjoner: 40 m × 35 m. Bygget i 1965; transporterer raketter/romfartøy ved Kennedy Space Center (maksfart ~1–2 mph).\n\n- **BelAZ-75710** (gruve-dumper)  \n  Største lastebil etter nyttelastkapasitet (~450 tonn). Egenvekt: ~360 tonn, Lengde: ~20,6 m. Moderne ultraklasse transportkjøretøy; ett av de største hjuldrevne bevegelige kjøretøyene.\n\n- **LeTourneau L-2350** (hjullaster / frontlaster)  \n  Største jordflytter/laster ifølge Guinness-rekorder. Massiv skuffekapasitet; dekkdiameter ~4 m. Brukes i tungt gruvearbeid; en av de største hjullasterne.\n\nAndre bemerkelsesverdige enorme bevegelige maskiner inkluderer:\n- Big Muskie (historisk avdekkingsgravemaskin, ~13 500 tonn, demontert)\n- Marion 6360 (\"The Captain\", kjempe-avdekkingsgravemaskin, ~12 700 tonn, skrapet)\n- Diverse gigantiske tunnelboremaskiner (f.eks. Herrenknecht-modeller med opptil ~17–20 m diameter på kutterne, selv om de ofte ikke er fullt selvdrevne på samme måte)\n\nMerk: «Størst» avhenger av målekriteriet – lengde (F60), vekt (Bagger 293), selvdrevet mobilitet (NASA Crawler), eller nyttelast (BelAZ). Dette er primært landbaserte industri-/gruve-/transportkjøretøy, ikke skip, fly eller tog."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "vis meg vakre one-liners for kotlin, swift, c, python, js",
+    "codeIntro": "Her er noen korte, vakre one-liners i hvert språk (2025-utgaven 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Utforskning av verdensrommet",
+    "items": [
+      {"title": "Mars", "description": "Den røde planeten, fjerde fra solen og et hovedmål for menneskelig utforskning."},
+      {"title": "Sorte hull", "description": "Områder i romtiden der tyngdekraften er så sterk at ingenting kan unnslippe."},
+      {"title": "Apollo 11", "description": "Det første bemannede oppdraget som landet på månen i 1969, med tre astronauter om bord."},
+      {"title": "Saturns ringer", "description": "Spektakulære is- og steinringer som omgir gasskjempen Saturn."},
+      {"title": "Voyager-programmet", "description": "To tvillingromfartøy skutt opp i 1977, nå i det interstellare rommet."},
+      {"title": "Melkeveien", "description": "Vår hjemmegalakse som inneholder over 100 milliarder stjerner og utallige planeter."},
+      {"title": "Solformørkelser", "description": "Når månen passerer mellom solen og jorden og kaster en skygge."},
+      {"title": "Nøytronstjerner", "description": "Ultratette rester av massive stjerner pakket inn i en liten kule."}
+    ]
+  }
+}

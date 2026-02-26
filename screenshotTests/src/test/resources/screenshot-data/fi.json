@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "listaa suurimmat koskaan rakennetut liikkuvat ajoneuvot",
+    "assistantMessage": "Tässä on lista **suurimmista koskaan rakennetuista liikkuvista ajoneuvoista** (keskittyen massiivisiin liikkuviin/itsekulkeviin maakoineisiin, järjestettynä karkeasti fyysisen koon, pituuden, painon ja tunnettavuuden perusteella):\n\n- **Overburden Conveyor Bridge F60**  \n  Suurin fyysisiltä mitoiltaan / pituudeltaan. Pituus: ~502 m, Korkeus: ~80 m, Paino: ~13 600 tonnia. Rakennettu Itä-Saksassa (1988–1991) ruskohiilen louhinnan pintamaan poistoon; liikkuu hyvin hitaasti kiskoilla.\n\n- **Bagger 293** (kauhapyöräkaivinkone)  \n  Raskain koskaan rakennettu maa-ajoneuvo (~14 200–14 196 tonnia). Korkeus: ~96 m, Pituus: ~225 m. Rakennettu 1995 TAKRAFin toimesta; Guinnessin ennätysten haltija suurimpana/raskaimpana maakaivinkoneena; poistaa jopa ~240 000 tonnia materiaalia päivässä.\n\n- **Bagger 288** (kauhapyöräkaivinkone)  \n  Aiempi raskaimman maa-ajoneuvon ennätyksenhaltija. Korkeus: ~96 m, Pituus: ~220 m, Paino: ~13 500 tonnia. Rakennettu 1978 Krupp/TAKRAFin toimesta; kuuluisa 22 km:n siirrosta teiden, jokien ja moottoriteiden yli.\n\n- **NASA Crawler-Transporter** (CT-1 ja CT-2)  \n  Raskain omalla voimalla liikkuva maa-ajoneuvo (Guinnessin ennätys päivitysten jälkeen). Paino: ~2 721–3 016 tonnia, Mitat: 40 m × 35 m. Rakennettu 1965; kuljettaa raketteja/avaruusaluksia Kennedyn avaruuskeskuksessa (maksiminopeus ~1–2 mph).\n\n- **BelAZ-75710** (kaivoskuorma-auto)  \n  Suurin kuorma-auto kantavuudeltaan (~450 tonnia). Tyhjäpaino: ~360 tonnia, Pituus: ~20,6 m. Moderni ultraluokan kuljetusauto; yksi suurimmista pyörillä liikkuvista ajoneuvoista.\n\n- **LeTourneau L-2350** (pyöräkuormaaja / etukuormaaja)  \n  Suurin maansiirtokone/kuormaaja Guinnessin ennätysten mukaan. Massiivinen kauhan tilavuus; renkaan halkaisija ~4 m. Käytetään raskaassa kaivostoiminnassa; yksi suurimmista pyöräkuormaajista.\n\nMuita merkittäviä valtavia liikkuvia koneita ovat:\n- Big Muskie (historiallinen pintamaakauha, ~13 500 tonnia, purettu)\n- Marion 6360 (\"The Captain\", jättiläismäinen pintamaakauha, ~12 700 tonnia, romutettu)\n- Erilaiset jättimäiset tunnelinporauskoneet (esim. Herrenknecht-mallit jopa ~17–20 m halkaisijan leikkuupäillä, vaikkakaan eivät usein ole täysin itsekulkevia samalla tavalla)\n\nHuomaa: \"Suurin\" riippuu mittarista — pituus (F60), paino (Bagger 293), omalla voimalla liikkuva (NASA Crawler) tai kantavuus (BelAZ). Nämä ovat pääasiassa maalla toimivia teollisuus-/kaivos-/kuljetusajoneuvoja, eivät laivoja, lentokoneita tai junia."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "näytä kauniita yksirivisiä esimerkkejä kielille kotlin, swift, c, python, js",
+    "codeIntro": "Tässä muutamia lyhyitä ja kauniita yksirivisiä jokaisella kielellä (2025-editio 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Avaruuden tutkimus",
+    "items": [
+      {"title": "Mars", "description": "Punainen planeetta, neljäs Auringosta ja ensisijainen kohde ihmisen avaruustutkimukselle."},
+      {"title": "Mustat aukot", "description": "Aika-avaruuden alueita, joissa painovoima on niin voimakas, ettei mikään pääse pakenemaan."},
+      {"title": "Apollo 11", "description": "Ensimmäinen miehitetty lento Kuun pinnalle vuonna 1969, kyydissään kolme astronauttia."},
+      {"title": "Saturnuksen renkaat", "description": "Upeat jää- ja kivirenkaat, jotka ympäröivät kaasujättiläinen Saturnusta."},
+      {"title": "Voyager-ohjelma", "description": "Kaksi vuonna 1977 laukaistua avaruusluotainta, jotka ovat nyt tähtienvälisessä avaruudessa."},
+      {"title": "Linnunrata", "description": "Kotigalaksimme, jossa on yli 100 miljardia tähteä ja lukemattomia planeettoja."},
+      {"title": "Auringonpimennykset", "description": "Kun Kuu kulkee Auringon ja Maan väliin ja heittää varjon."},
+      {"title": "Neutronitähdet", "description": "Massiivisten tähtien erittäin tiheitä jäänteitä, jotka ovat pakkautuneet pieneen palloon."}
+    ]
+  }
+}

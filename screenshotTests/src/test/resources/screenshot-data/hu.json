@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "sorold fel a valaha épített legnagyobb mozgó járműveket",
+    "assistantMessage": "Íme a **valaha épített legnagyobb mozgó járművek** listája (hatalmas mobil/önjáró szárazföldi gépekre összpontosítva, nagyjából a fizikai méret, hossz, tömeg és történelmi jelentőség kombinációja szerint rangsorolva):\n\n- **Overburden Conveyor Bridge F60**  \n  A legnagyobb összesített fizikai méretei / hossza alapján. Hossz: ~502 m, Magasság: ~80 m, Tömeg: ~13 600 tonna. Kelet-Németországban épült (1988–1991) lignitbányászati fedőréteg-eltávolításra; nagyon lassan mozog síneken.\n\n- **Bagger 293** (marótárcsás kotrógép)  \n  A valaha épített legnehezebb szárazföldi jármű (~14 200–14 196 tonna). Magasság: ~96 m, Hossz: ~225 m. 1995-ben építette a TAKRAF; Guinness-rekordtartó a legnagyobb/legnehezebb szárazföldi kotrógép kategóriában; naponta akár ~240 000 tonna anyagot képes eltávolítani.\n\n- **Bagger 288** (marótárcsás kotrógép)  \n  Korábban a legnehezebb szárazföldi jármű rekordtartója. Magasság: ~96 m, Hossz: ~220 m, Tömeg: ~13 500 tonna. 1978-ban építette a Krupp/TAKRAF; híres 22 km-es áthelyezéséről, amely során utakat, folyókat és autópályákat keresztezett.\n\n- **NASA Crawler-Transporter** (CT-1 és CT-2)  \n  A legnehezebb önjáró szárazföldi jármű (Guinness-rekord a fejlesztések után). Tömeg: ~2 721–3 016 tonna, Méretek: 40 m × 35 m. 1965-ben épült; rakétákat/űrhajókat szállít a Kennedy Űrközpontban (max sebesség ~1–2 mph).\n\n- **BelAZ-75710** (bányászati dömper)  \n  A legnagyobb teherautó hasznos teherbírás alapján (~450 tonna). Üres tömeg: ~360 tonna, Hossz: ~20,6 m. Modern ultraméretű szállítójármű; az egyik legnagyobb kerekes mozgó jármű.\n\n- **LeTourneau L-2350** (kerekes rakodó / homlokrakodó)  \n  A legnagyobb földmunkagép/rakodó a Guinness-rekordok szerint. Hatalmas kanálkapacitás; gumiátmérő ~4 m. Nehéz bányászatban használják; az egyik legnagyobb kerekes rakodó.\n\nEgyéb említésre méltó hatalmas mozgó gépek:\n- Big Muskie (történelmi külfejtéses kotrógép, ~13 500 tonna, szétszerelve)\n- Marion 6360 (\"The Captain\", óriási külfejtéses kotrógép, ~12 700 tonna, leselejtezve)\n- Különböző óriási alagútfúró gépek (pl. Herrenknecht modellek akár ~17–20 m átmérőjű vágófejjel, bár ezek gyakran nem teljesen önjáróak a hagyományos értelemben)\n\nMegjegyzés: A \"legnagyobb\" a mérőszámtól függ – hossz (F60), tömeg (Bagger 293), önjáró mobilitás (NASA Crawler) vagy hasznos teherbírás (BelAZ). Ezek elsősorban szárazföldi ipari/bányászati/szállítójárművek, nem pedig hajók, repülőgépek vagy vonatok."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "mutass szép egysoros kódrészleteket Kotlin, Swift, C, Python és JS nyelveken",
+    "codeIntro": "Íme néhány rövid, elegáns egysoros kódrészlet minden nyelvhez (2025-ös kiadás 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Űrkutatás",
+    "items": [
+      {"title": "Mars", "description": "A Vörös Bolygó, a Naptól számítva a negyedik, és az emberi felfedezés egyik fő célpontja."},
+      {"title": "Fekete lyukak", "description": "A téridő olyan területei, ahol a gravitáció olyan erős, hogy semmi sem képes elmenekülni."},
+      {"title": "Apollo 11", "description": "Az első emberes küldetés, amely 1969-ben leszállt a Holdra, három űrhajóssal a fedélzetén."},
+      {"title": "Szaturnusz gyűrűi", "description": "Látványos jég- és kőzetgyűrűk, amelyek a Szaturnusz gázóriást övezik."},
+      {"title": "Voyager-program", "description": "1977-ben indított ikerűrszondák, amelyek ma már a csillagközi térben haladnak."},
+      {"title": "Tejútrendszer", "description": "Saját galaxisunk, amely több mint 100 milliárd csillagot és számtalan bolygót tartalmaz."},
+      {"title": "Napfogyatkozások", "description": "Amikor a Hold a Nap és a Föld közé kerül, és árnyékot vet."},
+      {"title": "Neutroncsillagok", "description": "Hatalmas csillagok ultra-sűrű maradványai, amelyek egy apró gömbben koncentrálódnak."}
+    ]
+  }
+}

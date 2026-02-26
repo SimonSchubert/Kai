@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "giv en liste over de storste bevagelige kortojer nogensinde bygget",
+    "assistantMessage": "Her er en liste over de **storste bevagelige kortojer nogensinde bygget** (med fokus pa massive mobile/selvkoerende landmaskiner, rangeret loseligt efter en kombination af fysisk storrelse, laengde, vaegt og historisk/berommelsesmaessig anerkendelse):\n\n- **Overburden Conveyor Bridge F60**  \n  Storst efter samlede fysiske dimensioner / laengde. Laengde: ~502 m, Hojde: ~80 m, Vaegt: ~13.600 tons. Bygget i Osttyskland (1988–1991) til fjernelse af overliggende lag ved brunkulminedrift; bevaeger sig meget langsomt pa skinner.\n\n- **Bagger 293** (skovlhjulsgraver)  \n  Tungeste landkortoj nogensinde bygget (~14.200–14.196 tons). Hojde: ~96 m, Laengde: ~225 m. Bygget i 1995 af TAKRAF; Guinness-rekordholder for storste/tungeste jordbaserede gravemaskine; fjerner op til ~240.000 tons materiale om dagen.\n\n- **Bagger 288** (skovlhjulsgraver)  \n  Tidligere indehaver af rekorden som tungeste landkortoj. Hojde: ~96 m, Laengde: ~220 m, Vaegt: ~13.500 tons. Bygget i 1978 af Krupp/TAKRAF; beromt for sin 22 km flytning pa tvaers af veje, floder og motorveje.\n\n- **NASA Crawler-Transporter** (CT-1 og CT-2)  \n  Tungeste selvdrevne landkortoj (Guinness-rekord efter opgraderinger). Vaegt: ~2.721–3.016 tons, Dimensioner: 40 m x 35 m. Bygget i 1965; transporterer raketter/rumfarttojer pa Kennedy Space Center (maks. hastighed ~1–2 mph).\n\n- **BelAZ-75710** (minedumper)  \n  Storste lastbil efter nyttelastkapacitet (~450 tons). Egenvagt: ~360 tons, Laengde: ~20,6 m. Moderne ultrastor transportlastbil; et af de storste hjulbaserede bevagelige kortojer.\n\n- **LeTourneau L-2350** (hjullaesser / frontlaesser)  \n  Storste jordflytter/laesser ifoolge Guinness-rekorder. Massiv skovlkapacitet; daekdiameter ~4 m. Bruges i tung minedrift; en af de storste hjullaessere.\n\nAndre bemaerkelsesvaerdige store bevagelige maskiner inkluderer:\n- Big Muskie (historisk afskrabningsskovl, ~13.500 tons, demonteret)\n- Marion 6360 (\"The Captain\", kaempemaessig afskrabningsskovl, ~12.700 tons, skrottet)\n- Diverse kaempestore tunnelboremaskiner (f.eks. Herrenknecht-modeller med op til ~17–20 m diameter skaerehoved, selvom de ofte ikke er fuldt selvdrevne pa samme made)\n\nBemaerk: \"Storst\" afhaenger af malestokken—laengde (F60), vaegt (Bagger 293), selvdreven mobilitet (NASA Crawler) eller nyttelast (BelAZ). Disse er primaert landbaserede industri-/mine-/transportkortojer snarere end skibe, fly eller tog."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "vis mig smukke one-liners til kotlin, swift, c, python, js",
+    "codeIntro": "Her er nogle korte, smukke one-liners i hvert sprog (2025-udgaven):"
+  },
+  "exploreSpace": {
+    "topic": "Udforskning af rummet",
+    "items": [
+      {"title": "Mars", "description": "Den rode planet, den fjerde fra Solen og et primaert mal for menneskelig udforskning."},
+      {"title": "Sorte huller", "description": "Omrader af rumtiden, hvor tyngdekraften er sa staerk, at intet kan undslippe."},
+      {"title": "Apollo 11", "description": "Den forste bemandede mission, der landede pa Manen i 1969, med tre astronauter ombord."},
+      {"title": "Saturns ringe", "description": "Spektakulaere is- og klipperinge, der omgiver gasgiganten Saturn."},
+      {"title": "Voyager-programmet", "description": "To tvillingerumsonder opsendt i 1977, nu i det interstellare rum."},
+      {"title": "Maelkevejen", "description": "Vores hjemmegalakse med over 100 milliarder stjerner og utallige planeter."},
+      {"title": "Solformorkelser", "description": "Nar Manen passerer mellem Solen og Jorden og kaster en skygge."},
+      {"title": "Neutronstjerner", "description": "Ultrataette rester af massive stjerner pakket i en lille kugle."}
+    ]
+  }
+}

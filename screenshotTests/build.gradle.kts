@@ -11,7 +11,9 @@ kotlin {
 
 android {
     namespace = "com.inspiredandroid.kai.screenshots"
-    compileSdk = 36
+    compileSdk = libs.versions.android.compileSdk
+        .get()
+        .toInt()
 
     defaultConfig {
         minSdk =

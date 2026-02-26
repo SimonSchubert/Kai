@@ -1,0 +1,23 @@
+{
+  "chatWithMessages": {
+    "userMessage": "uveď zoznam najväčších pohyblivých vozidiel, aké boli kedy postavené",
+    "assistantMessage": "Tu je zoznam **najväčších pohyblivých vozidiel, aké boli kedy postavené** (so zameraním na masívne mobilné/samohybné pozemné stroje, zoradené približne podľa kombinácie fyzických rozmerov, dĺžky, hmotnosti a historického/spoločenského uznania):\n\n- **Overburden Conveyor Bridge F60**  \n  Najväčší podľa celkových fyzických rozmerov / dĺžky. Dĺžka: ~502 m, Výška: ~80 m, Hmotnosť: ~13 600 ton. Postavený vo Východnom Nemecku (1988–1991) na odstraňovanie nadložia pri ťažbe lignitu; pohybuje sa veľmi pomaly po koľajniciach.\n\n- **Bagger 293** (kolesové rýpadlo)  \n  Najťažšie pozemné vozidlo, aké bolo kedy postavené (~14 200–14 196 ton). Výška: ~96 m, Dĺžka: ~225 m. Postavený v roku 1995 spoločnosťou TAKRAF; držiteľ Guinnessovho rekordu za najväčší/najťažší pozemný bager; odstráni až ~240 000 ton materiálu denne.\n\n- **Bagger 288** (kolesové rýpadlo)  \n  Predtým držiteľ rekordu najťažšieho pozemného vozidla. Výška: ~96 m, Dĺžka: ~220 m, Hmotnosť: ~13 500 ton. Postavený v roku 1978 spoločnosťou Krupp/TAKRAF; známy svojím 22 km presúvaním cez cesty, rieky a diaľnice.\n\n- **NASA Crawler-Transporter** (CT-1 a CT-2)  \n  Najťažšie samohybné pozemné vozidlo (Guinnessov rekord po vylepšeniach). Hmotnosť: ~2 721–3 016 ton, Rozmery: 40 m × 35 m. Postavený v roku 1965; prepravuje rakety/kozmické lode v Kennedyho vesmírnom stredisku (max. rýchlosť ~1–2 mph).\n\n- **BelAZ-75710** (banský sklápač)  \n  Najväčší nákladný automobil podľa nosnosti (~450 ton). Vlastná hmotnosť: ~360 ton, Dĺžka: ~20,6 m. Moderný ultratriedny ťažobný nákladiak; jedno z najväčších kolesových pohyblivých vozidiel.\n\n- **LeTourneau L-2350** (kolesový nakladač / čelný nakladač)  \n  Najväčší zemný stroj/nakladač podľa Guinnessových rekordov. Masívna kapacita lyžice; priemer pneumatík ~4 m. Používa sa v ťažkom baníctve; jeden z najväčších kolesových nakladačov.\n\nĎalšie pozoruhodné obrovské pohyblivé stroje zahŕňajú:\n- Big Muskie (historická odkrývacia lopatka, ~13 500 ton, demontovaná)\n- Marion 6360 (\"The Captain\", obrovská odkrývacia lopatka, ~12 700 ton, zošrotovaná)\n- Rôzne obrovské tunelovacie stroje (napr. modely Herrenknecht s priemerom rezačky až ~17–20 m, hoci často nie sú plne samohybné rovnakým spôsobom)\n\nPoznámka: \"Najväčší\" závisí od metriky — dĺžka (F60), hmotnosť (Bagger 293), samohybnosť (NASA Crawler) alebo nosnosť (BelAZ). Ide predovšetkým o pozemné priemyselné/ťažobné/dopravné vozidlá, nie o lode, lietadlá alebo vlaky."
+  },
+  "chatWithCodeExample": {
+    "userMessage": "ukáž mi pekné jednoriadkové príklady pre kotlin, swift, c, python, js",
+    "codeIntro": "Tu sú krátke, elegantné jednoriadkové príklady v každom jazyku (edícia 2025 😄):"
+  },
+  "exploreSpace": {
+    "topic": "Výskum vesmíru",
+    "items": [
+      {"title": "Mars", "description": "Červená planéta, štvrtá od Slnka a hlavný cieľ ľudského prieskumu."},
+      {"title": "Čierne diery", "description": "Oblasti časopriestoru, kde je gravitácia taká silná, že nič nemôže uniknúť."},
+      {"title": "Apollo 11", "description": "Prvá posádková misia, ktorá pristála na Mesiaci v roku 1969, s tromi astronautmi na palube."},
+      {"title": "Prstence Saturna", "description": "Veľkolepé prstence z ľadu a hornín obklopujúce plynného obra Saturn."},
+      {"title": "Program Voyager", "description": "Dvojica sond vypustených v roku 1977, teraz v medzihviezdnom priestore."},
+      {"title": "Mliečna dráha", "description": "Naša domovská galaxia obsahujúca viac ako 100 miliárd hviezd a nespočetné množstvo planét."},
+      {"title": "Zatmenia Slnka", "description": "Keď Mesiac prejde medzi Slnkom a Zemou a vrhá tieň."},
+      {"title": "Neutrónové hviezdy", "description": "Ultrahusto zbytky masívnych hviezd stlačené do maličkej gule."}
+    ]
+  }
+}
