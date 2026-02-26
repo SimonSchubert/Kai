@@ -25,7 +25,6 @@ import kai.composeapp.generated.resources.new_conversation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -49,8 +48,9 @@ private val modelsWithoutToolSupport = listOf(
     "deepseek-coder:6.7b",
 )
 
-private fun supportsTools(modelId: String): Boolean = modelsWithoutToolSupport.none { pattern ->
-    modelId.lowercase().startsWith(pattern.lowercase())
+private fun supportsTools(modelId: String): Boolean {
+    val lower = modelId.lowercase()
+    return modelsWithoutToolSupport.none { lower.startsWith(it) }
 }
 
 class RemoteDataRepository(
@@ -247,12 +247,16 @@ class RemoteDataRepository(
     override suspend fun ask(question: String?, file: PlatformFile?) {
         if (question != null) {
             chatHistory.update {
-                it + History(
-                    role = History.Role.USER,
-                    content = question,
-                    mimeType = file?.extension?.let { MimeTypeMap.getMimeTypeFromExtension(it) },
-                    data = file?.readBytes()?.let { Base64.encode(it) },
-                )
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.USER,
+                            content = question,
+                            mimeType = file?.extension?.let { MimeTypeMap.getMimeTypeFromExtension(it) },
+                            data = file?.readBytes()?.let { Base64.encode(it) },
+                        ),
+                    )
+                }
             }
         }
         val service = currentService()
@@ -288,7 +292,9 @@ class RemoteDataRepository(
         }
 
         chatHistory.update {
-            it + History(role = History.Role.ASSISTANT, content = responseText)
+            it.toMutableList().apply {
+                add(History(role = History.Role.ASSISTANT, content = responseText))
+            }
         }
 
         // Auto-save conversation after each message
@@ -319,13 +325,17 @@ class RemoteDataRepository(
 
             // Add assistant message with tool calls to history
             chatHistory.update {
-                it + History(
-                    role = History.Role.ASSISTANT,
-                    content = message.content ?: "",
-                    toolCalls = toolCalls.map { tc ->
-                        ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
-                    },
-                )
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.ASSISTANT,
+                            content = message.content ?: "",
+                            toolCalls = toolCalls.map { tc ->
+                                ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
+                            },
+                        ),
+                    )
+                }
             }
 
             // Process each tool call
@@ -335,12 +345,16 @@ class RemoteDataRepository(
 
                 // Add tool executing message to show in UI
                 chatHistory.update {
-                    it + History(
-                        id = toolExecutingId,
-                        role = History.Role.TOOL_EXECUTING,
-                        content = toolCall.function.name,
-                        toolName = toolDisplayName,
-                    )
+                    it.toMutableList().apply {
+                        add(
+                            History(
+                                id = toolExecutingId,
+                                role = History.Role.TOOL_EXECUTING,
+                                content = toolCall.function.name,
+                                toolName = toolDisplayName,
+                            ),
+                        )
+                    }
                 }
 
                 // Execute the tool
@@ -348,12 +362,19 @@ class RemoteDataRepository(
 
                 // Remove tool executing message and add tool result
                 chatHistory.update { history ->
-                    history.filter { it.id != toolExecutingId } + History(
-                        role = History.Role.TOOL,
-                        content = toolResult,
-                        toolCallId = toolCall.id,
-                        toolName = toolCall.function.name,
-                    )
+                    buildList(history.size) {
+                        for (h in history) {
+                            if (h.id != toolExecutingId) add(h)
+                        }
+                        add(
+                            History(
+                                role = History.Role.TOOL,
+                                content = toolResult,
+                                toolCallId = toolCall.id,
+                                toolName = toolCall.function.name,
+                            ),
+                        )
+                    }
                 }
             }
 
@@ -401,11 +422,15 @@ class RemoteDataRepository(
             // Add assistant message with tool calls to history
             val textContent = parts.mapNotNull { it.text }.joinToString("\n")
             chatHistory.update {
-                it + History(
-                    role = History.Role.ASSISTANT,
-                    content = textContent,
-                    toolCalls = toolCallInfos,
-                )
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.ASSISTANT,
+                            content = textContent,
+                            toolCalls = toolCallInfos,
+                        ),
+                    )
+                }
             }
 
             // Process each function call
@@ -415,12 +440,16 @@ class RemoteDataRepository(
 
                 // Add tool executing message to show in UI
                 chatHistory.update {
-                    it + History(
-                        id = toolExecutingId,
-                        role = History.Role.TOOL_EXECUTING,
-                        content = toolCallInfo.name,
-                        toolName = toolDisplayName,
-                    )
+                    it.toMutableList().apply {
+                        add(
+                            History(
+                                id = toolExecutingId,
+                                role = History.Role.TOOL_EXECUTING,
+                                content = toolCallInfo.name,
+                                toolName = toolDisplayName,
+                            ),
+                        )
+                    }
                 }
 
                 // Execute the tool
@@ -428,12 +457,19 @@ class RemoteDataRepository(
 
                 // Remove tool executing message and add tool result
                 chatHistory.update { history ->
-                    history.filter { it.id != toolExecutingId } + History(
-                        role = History.Role.TOOL,
-                        content = toolResult,
-                        toolCallId = toolCallInfo.id,
-                        toolName = toolCallInfo.name,
-                    )
+                    buildList(history.size) {
+                        for (h in history) {
+                            if (h.id != toolExecutingId) add(h)
+                        }
+                        add(
+                            History(
+                                role = History.Role.TOOL,
+                                content = toolResult,
+                                toolCallId = toolCallInfo.id,
+                                toolName = toolCallInfo.name,
+                            ),
+                        )
+                    }
                 }
             }
         }
@@ -628,7 +664,7 @@ class RemoteDataRepository(
     }
 
     // Identity management
-    private val identityJson = Json { ignoreUnknownKeys = true }
+    private val identityJson = SharedJson
 
     private fun getCustomIdentities(): List<Identity> = try {
         identityJson.decodeFromString<List<Identity>>(appSettings.getCustomIdentitiesJson())

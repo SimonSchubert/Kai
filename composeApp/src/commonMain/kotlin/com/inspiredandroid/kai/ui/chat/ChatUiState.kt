@@ -3,10 +3,10 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -90,7 +90,7 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
     History.Role.TOOL_EXECUTING -> OpenAICompatibleChatRequestDto.Message(role = "assistant", content = content)
 }
 
-private val geminiJsonParser = Json { ignoreUnknownKeys = true }
+private val geminiJsonParser = SharedJson
 
 fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
     // Gemini uses "user" for tool responses (functionResponse), not "tool"

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.getDeviceLanguage
 import com.inspiredandroid.kai.network.toUserMessage
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -76,8 +76,7 @@ Return ONLY the JSON array, no markdown, no explanation."""
 
     private fun parseItemsFromJson(response: String): List<ExploreItem> {
         val jsonText = extractJson(response)
-        val json = Json { ignoreUnknownKeys = true }
-        val array = json.parseToJsonElement(jsonText).jsonArray
+        val array = SharedJson.parseToJsonElement(jsonText).jsonArray
         return array.map { element ->
             val obj = element.jsonObject
             ExploreItem(
@@ -106,6 +105,12 @@ internal fun extractJson(response: String): String {
 /**
  * Fixes unescaped double quotes inside JSON string values that LLMs sometimes produce.
  */
+private fun String.nextNonWhitespace(from: Int): Char? {
+    var idx = from
+    while (idx < length && this[idx].isWhitespace()) idx++
+    return if (idx < length) this[idx] else null
+}
+
 private fun sanitizeJsonQuotes(json: String): String = buildString(json.length) {
     var i = 0
     while (i < json.length) {
@@ -125,7 +130,7 @@ private fun sanitizeJsonQuotes(json: String): String = buildString(json.length) 
                 append(json[i++])
                 continue
             }
-            val next = json.substring(i + 1).trimStart().firstOrNull()
+            val next = json.nextNonWhitespace(i + 1)
             if (next == null || next in ",]}:") {
                 append(json[i++])
                 break
