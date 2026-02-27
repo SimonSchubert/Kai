@@ -51,7 +51,6 @@ import com.inspiredandroid.kai.ui.darkPurple
 import com.inspiredandroid.kai.ui.lightPurple
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import io.github.vinceglb.filekit.PlatformFile
-import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.extension
@@ -62,7 +61,6 @@ import kai.composeapp.generated.resources.ic_file
 import kai.composeapp.generated.resources.ic_image
 import kai.composeapp.generated.resources.ic_up
 import kai.composeapp.generated.resources.prompt_ask_question
-import kai.composeapp.generated.resources.prompt_pick_media
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -117,10 +115,8 @@ fun QuestionInput(
 
     val filePickerLauncher = rememberFilePickerLauncher(
         type = FileKitType.ImageAndVideo,
-        mode = FileKitMode.Single,
-        title = stringResource(Res.string.prompt_pick_media),
-    ) {
-        setFile(it)
+    ) { file ->
+        setFile(file)
     }
 
     val focusRequester = remember { FocusRequester() }

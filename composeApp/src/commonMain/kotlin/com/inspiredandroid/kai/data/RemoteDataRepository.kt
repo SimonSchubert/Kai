@@ -1,9 +1,7 @@
-@file:OptIn(InternalCoilApi::class, ExperimentalEncodingApi::class, ExperimentalTime::class, ExperimentalUuidApi::class)
+@file:OptIn(ExperimentalEncodingApi::class, ExperimentalTime::class, ExperimentalUuidApi::class)
 
 package com.inspiredandroid.kai.data
 
-import coil3.annotation.InternalCoilApi
-import coil3.util.MimeTypeMap
 import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
@@ -18,7 +16,7 @@ import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
 import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
-import io.github.vinceglb.filekit.extension
+import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.new_conversation
@@ -252,7 +250,7 @@ class RemoteDataRepository(
                         History(
                             role = History.Role.USER,
                             content = question,
-                            mimeType = file?.extension?.let { MimeTypeMap.getMimeTypeFromExtension(it) },
+                            mimeType = file?.mimeType()?.toString(),
                             data = file?.readBytes()?.let { Base64.encode(it) },
                         ),
                     )
