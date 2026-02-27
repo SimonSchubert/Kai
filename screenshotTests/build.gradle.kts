@@ -66,6 +66,9 @@ tasks.matching { it.name == "testDebugUnitTest" }.configureEach {
     if (gradle.startParameter.taskNames.any { it.contains("generateStoreScreenshots") }) {
         task.filter.includeTestsMatching("*.StoreScreenshotTest")
         task.filter.includeTestsMatching("*.TabletStoreScreenshotTest")
+    } else {
+        task.filter.excludeTestsMatching("*.StoreScreenshotTest")
+        task.filter.excludeTestsMatching("*.TabletStoreScreenshotTest")
     }
 }
 

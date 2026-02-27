@@ -113,10 +113,14 @@ fun QuestionInput(
         }
     }
 
-    val filePickerLauncher = rememberFilePickerLauncher(
-        type = FileKitType.ImageAndVideo,
-    ) { file ->
-        setFile(file)
+    val filePickerLauncher = if (allowFileAttachment) {
+        rememberFilePickerLauncher(
+            type = FileKitType.ImageAndVideo,
+        ) { file ->
+            setFile(file)
+        }
+    } else {
+        null
     }
 
     val focusRequester = remember { FocusRequester() }
@@ -176,7 +180,7 @@ fun QuestionInput(
         } else {
             KeyboardActions() // No keyboard send action on mobile
         },
-        leadingIcon = if (allowFileAttachment) {
+        leadingIcon = if (filePickerLauncher != null) {
             {
                 LeadingIcon(onClick = {
                     filePickerLauncher.launch()
