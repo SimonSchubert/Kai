@@ -28,6 +28,7 @@ object ScreenshotTestData {
         setFile = { _ -> },
         startNewChat = { },
         resetScrollFlag = {},
+        regenerate = {},
     )
 
     val chatEmptyState = ChatUiState(
