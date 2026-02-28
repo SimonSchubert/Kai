@@ -31,6 +31,7 @@ class ChatViewModel(
         setFile = ::setFile,
         startNewChat = ::startNewChat,
         resetScrollFlag = ::resetScrollFlag,
+        regenerate = ::regenerate,
     )
     private val _state = MutableStateFlow(
         ChatUiState(
@@ -137,6 +138,11 @@ class ChatViewModel(
                 isSpeechOutputEnabled = !it.isSpeechOutputEnabled,
             )
         }
+    }
+
+    private fun regenerate() {
+        dataRepository.regenerate()
+        ask(null)
     }
 
     private fun startNewChat() {

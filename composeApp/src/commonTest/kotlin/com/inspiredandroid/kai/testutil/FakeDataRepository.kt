@@ -143,6 +143,17 @@ class FakeDataRepository : DataRepository {
         startNewChat()
     }
 
+    override fun regenerate() {
+        chatHistory.update { history ->
+            val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+            if (lastUserIndex >= 0) {
+                history.subList(0, lastUserIndex + 1)
+            } else {
+                history
+            }
+        }
+    }
+
     override fun startNewChat() {
         currentConversationId.value = null
         chatHistory.value = emptyList()

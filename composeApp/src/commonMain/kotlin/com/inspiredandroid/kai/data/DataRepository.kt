@@ -33,6 +33,7 @@ interface DataRepository {
     suspend fun deleteConversation(id: String)
     suspend fun deleteAllConversations()
     fun startNewChat()
+    fun regenerate()
     suspend fun restoreLatestConversation()
 
     // Explore

@@ -25,9 +25,11 @@ import com.mikepenz.markdown.model.rememberMarkdownState
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kai.composeapp.generated.resources.bot_message_flag_content_description
+import kai.composeapp.generated.resources.bot_message_regenerate_content_description
 import kai.composeapp.generated.resources.bot_message_speech_content_description
 import kai.composeapp.generated.resources.ic_copy
 import kai.composeapp.generated.resources.ic_flag
+import kai.composeapp.generated.resources.ic_refresh
 import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_volume_up
 import kotlinx.coroutines.launch
@@ -42,6 +44,7 @@ internal fun BotMessage(
     isSpeaking: Boolean,
     setIsSpeaking: (Boolean) -> Unit,
     isOpenClaw: Boolean = false,
+    onRegenerate: (() -> Unit)? = null,
 ) {
     val isInspectionMode = LocalInspectionMode.current
     val markdownState = rememberMarkdownState(message, immediate = isInspectionMode)
@@ -104,6 +107,13 @@ internal fun BotMessage(
                 onClick = {
                     uriHandler.openUri("https://form.jotform.com/250014908169355")
                 },
+            )
+        }
+        if (onRegenerate != null) {
+            SmallIconButton(
+                iconResource = Res.drawable.ic_refresh,
+                contentDescription = stringResource(Res.string.bot_message_regenerate_content_description),
+                onClick = onRegenerate,
             )
         }
         Spacer(Modifier.weight(1f))

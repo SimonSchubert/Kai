@@ -167,6 +167,8 @@ fun ChatScreenContent(
                                 History.Role.ASSISTANT -> {
                                     // Only show assistant message if it has content (not just tool calls)
                                     if (history.content.isNotEmpty()) {
+                                        val isLastAssistant = !uiState.isLoading &&
+                                            history.id == uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() }?.id
                                         BotMessage(
                                             message = history.content,
                                             textToSpeech = textToSpeech,
@@ -175,6 +177,7 @@ fun ChatScreenContent(
                                                 uiState.actions.setIsSpeaking(it, history.id)
                                             },
                                             isOpenClaw = uiState.isOpenClaw,
+                                            onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
                                         )
                                     }
                                 }
