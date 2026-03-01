@@ -91,7 +91,7 @@ tasks.register("updateScreenshots") {
                 "chatWithCodeExample_light" to "3.png",
                 "settingsFree_dark" to "4.png",
                 "settingsTools_light" to "5.png",
-                "settingsGeneral_light" to "7.png",
+                "settingsGeneral_light" to "6.png",
             )
 
         // Copy phone screenshots (from ScreenshotTest)
