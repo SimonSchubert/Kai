@@ -163,9 +163,8 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val state = awaitItem()
-            assertEquals(8, state.services.size)
+            assertEquals(7, state.services.size)
             assertTrue(state.services.contains(Service.Free))
-            assertTrue(state.services.contains(Service.OpenClaw))
             assertTrue(state.services.contains(Service.Gemini))
             assertTrue(state.services.contains(Service.XAI))
             assertTrue(state.services.contains(Service.OpenRouter))

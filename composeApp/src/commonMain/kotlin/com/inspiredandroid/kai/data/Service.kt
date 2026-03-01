@@ -103,21 +103,10 @@ sealed class Service(
         includeModelDate = false,
     )
 
-    data object OpenClaw : Service(
-        id = "openclaw",
-        displayName = "OpenClaw",
-        requiresApiKey = true,
-        defaultModel = "openclaw:main",
-        settingsKeyPrefix = "openclaw",
-        chatUrl = "/v1/chat/completions",
-        modelsUrl = null,
-    )
-
     companion object {
-        val all: List<Service> get() = listOf(Free, OpenClaw, Gemini, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
-        const val DEFAULT_OPENCLAW_GATEWAY_URL = "http://localhost:18789"
 
         fun fromId(id: String): Service = all.find { it.id == id } ?: Free
     }

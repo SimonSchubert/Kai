@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
@@ -43,11 +42,9 @@ internal fun BotMessage(
     textToSpeech: TextToSpeechInstance?,
     isSpeaking: Boolean,
     setIsSpeaking: (Boolean) -> Unit,
-    isOpenClaw: Boolean = false,
     onRegenerate: (() -> Unit)? = null,
 ) {
-    val isInspectionMode = LocalInspectionMode.current
-    val markdownState = rememberMarkdownState(message, immediate = isInspectionMode)
+    val markdownState = rememberMarkdownState(message, immediate = true)
     Markdown(
         markdownState,
         imageTransformer = Coil3ImageTransformerImpl,
@@ -99,7 +96,7 @@ internal fun BotMessage(
                 )
             },
         )
-        if (!isOpenClaw) {
+        run {
             val uriHandler = LocalUriHandler.current
             SmallIconButton(
                 iconResource = Res.drawable.ic_flag,

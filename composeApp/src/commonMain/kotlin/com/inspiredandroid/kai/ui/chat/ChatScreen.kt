@@ -53,7 +53,6 @@ fun ChatScreen(
     viewModel: ChatViewModel = koinViewModel(),
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
-    onNavigateToHistory: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -61,7 +60,6 @@ fun ChatScreen(
         uiState = uiState,
         textToSpeech = textToSpeech,
         onNavigateToSettings = onNavigateToSettings,
-        onNavigateToHistory = onNavigateToHistory,
     )
 }
 
@@ -70,7 +68,6 @@ fun ChatScreenContent(
     uiState: ChatUiState,
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
-    onNavigateToHistory: () -> Unit = {},
 ) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
@@ -80,10 +77,7 @@ fun ChatScreenContent(
             isSpeaking = uiState.isSpeaking,
             actions = uiState.actions,
             isChatHistoryEmpty = uiState.history.isEmpty(),
-            hasSavedConversations = uiState.hasSavedConversations,
-            isOpenClaw = uiState.isOpenClaw,
             onNavigateToSettings = onNavigateToSettings,
-            onNavigateToHistory = onNavigateToHistory,
         )
 
         SelectionContainer {
@@ -132,7 +126,7 @@ fun ChatScreenContent(
                         // Capture history at effect start to prevent race conditions
                         val history = uiState.history
                         if (history.isNotEmpty()) {
-                            listState.animateScrollToItem(history.lastIndex)
+                            listState.scrollToItem(history.lastIndex)
                             val lastMessage = history.last()
                             if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
                                 componentScope.launch(getBackgroundDispatcher()) {
@@ -173,7 +167,6 @@ fun ChatScreenContent(
                                             setIsSpeaking = {
                                                 uiState.actions.setIsSpeaking(it, history.id)
                                             },
-                                            isOpenClaw = uiState.isOpenClaw,
                                             onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
                                         )
                                     }

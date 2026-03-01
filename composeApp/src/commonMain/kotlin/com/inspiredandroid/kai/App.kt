@@ -25,7 +25,6 @@ import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
-import com.inspiredandroid.kai.ui.history.HistoryScreen
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -43,10 +42,6 @@ object Home
 @Serializable
 @SerialName("settings")
 object Settings
-
-@Serializable
-@SerialName("history")
-object History
 
 @Composable
 @Preview
@@ -105,26 +100,12 @@ fun App(
                         onNavigateToSettings = {
                             navController.navigate(Settings)
                         },
-                        onNavigateToHistory = {
-                            navController.navigate(History)
-                        },
                     )
                 }
                 composable<Settings> {
                     SettingsScreen(
                         onNavigateBack = {
                             chatViewModel.refreshSettings()
-                            navController.navigateUp()
-                        },
-                    )
-                }
-                composable<History> {
-                    HistoryScreen(
-                        onNavigateBack = {
-                            navController.navigateUp()
-                        },
-                        onSelectConversation = { id ->
-                            chatViewModel.loadConversation(id)
                             navController.navigateUp()
                         },
                     )

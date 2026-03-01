@@ -37,7 +37,6 @@ class ChatViewModel(
         ChatUiState(
             actions = actions,
             showPrivacyInfo = true,
-            isOpenClaw = dataRepository.currentService() == Service.OpenClaw,
         ),
     )
 
@@ -51,16 +50,10 @@ class ChatViewModel(
     val state = combine(
         _state,
         dataRepository.chatHistory,
-        dataRepository.savedConversations,
-    ) { state, history, savedConversations ->
+    ) { state, history ->
         state.copy(
             history = history,
             allowFileAttachment = dataRepository.currentService() == Service.Gemini,
-            hasSavedConversations = if (state.isOpenClaw) {
-                savedConversations.isNotEmpty()
-            } else {
-                savedConversations.any { it.serviceId != Service.OpenClaw.id }
-            },
         )
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
@@ -152,28 +145,8 @@ class ChatViewModel(
     }
 
     fun refreshSettings() {
-        val wasOpenClaw = _state.value.isOpenClaw
-        val isNowOpenClaw = dataRepository.currentService() == Service.OpenClaw
-        _state.update {
-            it.copy(
-                isOpenClaw = isNowOpenClaw,
-            )
-        }
-        if (isNowOpenClaw) {
-            viewModelScope.launch(backgroundDispatcher) {
-                dataRepository.restoreLatestConversation()
-            }
-        } else if (wasOpenClaw) {
-            dataRepository.startNewChat()
-        }
-    }
-
-    fun loadConversation(id: String) {
         viewModelScope.launch(backgroundDispatcher) {
-            dataRepository.loadConversation(id)
-            _state.update {
-                it.copy(shouldScrollToBottom = true)
-            }
+            dataRepository.restoreLatestConversation()
         }
     }
 

@@ -1,7 +1,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
-import com.inspiredandroid.kai.data.Identity
+import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import org.jetbrains.compose.resources.StringResource
@@ -40,12 +40,12 @@ data class SettingsUiState(
     val onChangeBaseUrl: (String) -> Unit = {},
     val onSelectModel: (String) -> Unit = {},
     val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
-    val identities: List<Identity> = emptyList(),
-    val selectedIdentity: Identity? = null,
-    val onSelectIdentity: (String) -> Unit = {},
-    val onSaveIdentity: (Identity) -> Unit = {},
-    val onDeleteIdentity: (String) -> Unit = {},
-    val onResetIdentity: (String) -> Unit = {},
+    val soulText: String = "",
+    val onSaveSoul: (String) -> Unit = {},
+    val memoryInstructions: String = "",
+    val onSaveMemoryInstructions: (String) -> Unit = {},
+    val memories: List<MemoryEntry> = emptyList(),
+    val onDeleteMemory: (String) -> Unit = {},
 )
 
 @Immutable

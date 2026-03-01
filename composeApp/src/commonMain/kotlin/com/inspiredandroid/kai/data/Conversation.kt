@@ -10,7 +10,6 @@ data class Conversation(
     val createdAt: Long,
     val updatedAt: Long,
     val serviceId: String,
-    val identityId: String? = null,
 ) {
     @Serializable
     data class Message(

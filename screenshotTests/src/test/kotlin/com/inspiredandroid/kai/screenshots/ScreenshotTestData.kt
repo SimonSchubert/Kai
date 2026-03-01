@@ -1,6 +1,5 @@
 package com.inspiredandroid.kai.screenshots
 
-import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.ui.chat.ChatActions
@@ -73,7 +72,6 @@ object ScreenshotTestData {
                     "Note: \"Biggest\" depends on the metric—length (F60), weight (Bagger 293), self-powered mobility (NASA Crawler), or payload (BelAZ). These are primarily land-based industrial/mining/transport vehicles rather than ships, aircraft, or trains.",
             ),
         ),
-        hasSavedConversations = true,
     )
 
     private val codeBlocks = """
@@ -122,7 +120,6 @@ JavaScript
                 content = "Here are some short, beautiful one-liners in each language (2025 edition 😄):" + codeBlocks,
             ),
         ),
-        hasSavedConversations = true,
     )
 
     val freeConnected = SettingsUiState(
@@ -134,8 +131,7 @@ JavaScript
 
     val settingsGeneral = SettingsUiState(
         currentTab = SettingsTab.General,
-        identities = PredefinedIdentities.all,
-        selectedIdentity = PredefinedIdentities.shortAndDirect,
+        soulText = "You are a helpful AI assistant with persistent memory.",
     )
 
     val settingsTools = SettingsUiState(
@@ -169,7 +165,6 @@ JavaScript
                     content = chat["assistantMessage"]!!.jsonPrimitive.content,
                 ),
             ),
-            hasSavedConversations = true,
         )
     }
 
@@ -190,7 +185,6 @@ JavaScript
                     content = chat["codeIntro"]!!.jsonPrimitive.content + codeBlocks,
                 ),
             ),
-            hasSavedConversations = true,
         )
     }
 }

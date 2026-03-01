@@ -10,6 +10,7 @@ import androidx.compose.ui.draganddrop.DragData
 import androidx.compose.ui.draganddrop.dragData
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -83,8 +84,10 @@ actual fun getDeviceLanguage(): String = java.util.Locale.getDefault().language
 
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
+    val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     return buildList {
         addAll(CommonTools.getCommonTools(appSettings))
+        addAll(CommonTools.getMemoryTools(memoryStore))
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)
         }

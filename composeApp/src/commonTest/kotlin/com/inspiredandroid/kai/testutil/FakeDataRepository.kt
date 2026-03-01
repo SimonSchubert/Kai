@@ -1,9 +1,7 @@
 package com.inspiredandroid.kai.testutil
 
-import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.data.Identity
-import com.inspiredandroid.kai.data.PredefinedIdentities
+import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -24,7 +22,6 @@ class FakeDataRepository : DataRepository {
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
     override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
-    override val savedConversations: MutableStateFlow<List<Conversation>> = MutableStateFlow(emptyList())
 
     val selectServiceCalls = mutableListOf<Service>()
     val updateApiKeyCalls = mutableListOf<Pair<Service, String>>()
@@ -112,34 +109,6 @@ class FakeDataRepository : DataRepository {
         // No-op in tests
     }
 
-    override suspend fun loadConversation(id: String) {
-        val conversation = savedConversations.value.find { it.id == id } ?: return
-        currentConversationId.value = id
-        chatHistory.value = conversation.messages.map { m ->
-            History(
-                id = m.id,
-                role = when (m.role) {
-                    "user" -> History.Role.USER
-                    else -> History.Role.ASSISTANT
-                },
-                content = m.content,
-                mimeType = m.mimeType,
-                data = m.data,
-            )
-        }
-    }
-
-    override suspend fun deleteConversation(id: String) {
-        savedConversations.update { current ->
-            current.filter { it.id != id }
-        }
-    }
-
-    override suspend fun deleteAllConversations() {
-        savedConversations.value = emptyList()
-        startNewChat()
-    }
-
     override fun regenerate() {
         chatHistory.update { history ->
             val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
@@ -165,36 +134,27 @@ class FakeDataRepository : DataRepository {
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
     }
 
-    // Identity management
-    private var selectedIdentityId = "none"
-    private val customIdentities = mutableListOf<Identity>()
+    // Soul (system prompt)
+    private var soulText = ""
 
-    override fun getIdentities(): List<Identity> = PredefinedIdentities.all + customIdentities
+    override fun getSoulText(): String = soulText
 
-    override fun getSelectedIdentity(): Identity = getIdentities().find { it.id == selectedIdentityId } ?: PredefinedIdentities.none
-
-    override fun setSelectedIdentity(id: String) {
-        selectedIdentityId = id
+    override fun setSoulText(text: String) {
+        soulText = text
     }
 
-    override fun saveIdentity(identity: Identity) {
-        if (!identity.isPredefined) {
-            val index = customIdentities.indexOfFirst { it.id == identity.id }
-            if (index >= 0) customIdentities[index] = identity else customIdentities.add(identity)
-        }
-    }
+    override fun getMemoryInstructions(): String = ""
 
-    override fun deleteIdentity(id: String) {
-        customIdentities.removeAll { it.id == id }
-        if (selectedIdentityId == id) selectedIdentityId = "none"
-    }
+    override fun setMemoryInstructions(text: String) {}
 
-    override fun getActiveSystemPrompt(): String? {
-        val identity = getSelectedIdentity()
-        return identity.systemPrompt.ifEmpty { null }
-    }
+    override fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
 
-    override fun resetIdentityToDefault(id: String) {
-        // No-op for tests
+    // Memory management
+    private val memories = mutableListOf<MemoryEntry>()
+
+    override fun getMemories(): List<MemoryEntry> = memories.toList()
+
+    override fun deleteMemory(key: String) {
+        memories.removeAll { it.key == key }
     }
 }

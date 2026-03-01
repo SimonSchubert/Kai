@@ -2,7 +2,6 @@
 
 package com.inspiredandroid.kai.data
 
-import com.inspiredandroid.kai.data.PredefinedIdentities
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.Requests
@@ -56,6 +55,7 @@ class RemoteDataRepository(
     private val appSettings: AppSettings,
     private val conversationStorage: ConversationStorage,
     private val toolExecutor: ToolExecutor,
+    private val memoryStore: MemoryStore,
 ) : DataRepository {
 
     /**
@@ -103,7 +103,7 @@ class RemoteDataRepository(
     private val _currentConversationId = MutableStateFlow<String?>(null)
     override val currentConversationId: StateFlow<String?> = _currentConversationId
 
-    override val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
+    private val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
 
     override fun selectService(service: Service) {
         appSettings.selectService(service)
@@ -151,17 +151,6 @@ class RemoteDataRepository(
             Service.OpenRouter -> {
                 requests.validateOpenRouterApiKey().getOrThrow()
                 fetchModels(service)
-            }
-
-            Service.OpenClaw -> {
-                // OpenClaw has no models endpoint — just test the chat endpoint
-                val testMessages = listOf(
-                    com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
-                        role = "user",
-                        content = "hi",
-                    ),
-                )
-                requests.openAICompatibleChat(service, testMessages).getOrThrow()
             }
 
             else -> fetchModels(service)
@@ -262,7 +251,7 @@ class RemoteDataRepository(
         val modelId = appSettings.getSelectedModelId(service)
         val tools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
 
-        val systemPrompt = if (service == Service.OpenClaw) null else getActiveSystemPrompt()
+        val systemPrompt = getActiveSystemPrompt()
 
         val responseText = when (service) {
             Service.Gemini -> {
@@ -533,7 +522,6 @@ class RemoteDataRepository(
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
             serviceId = currentService().id,
-            identityId = appSettings.getSelectedIdentityId().takeIf { it != "none" },
         )
 
         conversationStorage.saveConversation(conversation)
@@ -554,7 +542,7 @@ class RemoteDataRepository(
         conversationStorage.loadConversations()
     }
 
-    override suspend fun loadConversation(id: String) {
+    private suspend fun loadConversation(id: String) {
         val conversation = savedConversations.value.find { it.id == id } ?: return
 
         _currentConversationId.value = id
@@ -571,18 +559,6 @@ class RemoteDataRepository(
                 data = m.data,
             )
         }
-    }
-
-    override suspend fun deleteConversation(id: String) {
-        conversationStorage.deleteConversation(id)
-        if (_currentConversationId.value == id) {
-            startNewChat()
-        }
-    }
-
-    override suspend fun deleteAllConversations() {
-        conversationStorage.deleteAllConversations()
-        startNewChat()
     }
 
     override fun regenerate() {
@@ -602,18 +578,18 @@ class RemoteDataRepository(
     }
 
     override suspend fun restoreLatestConversation() {
-        if (currentService() != Service.OpenClaw) return
+        val service = currentService()
 
         // Already have a loaded conversation with messages — nothing to do
         val currentId = _currentConversationId.value
         if (currentId != null && chatHistory.value.isNotEmpty() &&
-            savedConversations.value.any { it.id == currentId && it.serviceId == Service.OpenClaw.id }
+            savedConversations.value.any { it.id == currentId && it.serviceId == service.id }
         ) {
             return
         }
 
         val latest = savedConversations.value
-            .filter { it.serviceId == Service.OpenClaw.id }
+            .filter { it.serviceId == service.id }
             .maxByOrNull { it.updatedAt }
             ?: return
 
@@ -627,82 +603,41 @@ class RemoteDataRepository(
         appSettings.setToolEnabled(toolId, enabled)
     }
 
-    // Identity management
-    private val identityJson = SharedJson
+    // Soul (system prompt)
+    override fun getSoulText(): String = appSettings.getSoulText()
 
-    private fun getCustomIdentities(): List<Identity> = try {
-        identityJson.decodeFromString<List<Identity>>(appSettings.getCustomIdentitiesJson())
-    } catch (e: Exception) {
-        emptyList()
+    override fun setSoulText(text: String) {
+        appSettings.setSoulText(text)
     }
 
-    private fun saveCustomIdentities(identities: List<Identity>) {
-        appSettings.setCustomIdentitiesJson(identityJson.encodeToString(identities))
-    }
+    override fun getMemoryInstructions(): String = appSettings.getMemoryInstructions()
 
-    private fun getIdentityOverrides(): Map<String, String> = try {
-        identityJson.decodeFromString<Map<String, String>>(appSettings.getIdentityOverrideJson())
-    } catch (e: Exception) {
-        emptyMap()
-    }
-
-    private fun saveIdentityOverrides(overrides: Map<String, String>) {
-        appSettings.setIdentityOverrideJson(identityJson.encodeToString(overrides))
-    }
-
-    override fun getIdentities(): List<Identity> {
-        val overrides = getIdentityOverrides()
-        val predefined = PredefinedIdentities.all.map { identity ->
-            val override = overrides[identity.id]
-            if (override != null) identity.copy(systemPrompt = override) else identity
-        }
-        return predefined + getCustomIdentities()
-    }
-
-    override fun getSelectedIdentity(): Identity {
-        val selectedId = appSettings.getSelectedIdentityId()
-        return getIdentities().find { it.id == selectedId } ?: PredefinedIdentities.none
-    }
-
-    override fun setSelectedIdentity(id: String) {
-        appSettings.setSelectedIdentityId(id)
-    }
-
-    override fun saveIdentity(identity: Identity) {
-        if (identity.isPredefined) {
-            // Store as an override for predefined identities
-            val overrides = getIdentityOverrides().toMutableMap()
-            overrides[identity.id] = identity.systemPrompt
-            saveIdentityOverrides(overrides)
-        } else {
-            val custom = getCustomIdentities().toMutableList()
-            val index = custom.indexOfFirst { it.id == identity.id }
-            if (index >= 0) {
-                custom[index] = identity
-            } else {
-                custom.add(identity)
-            }
-            saveCustomIdentities(custom)
-        }
-    }
-
-    override fun deleteIdentity(id: String) {
-        val custom = getCustomIdentities().toMutableList()
-        custom.removeAll { it.id == id }
-        saveCustomIdentities(custom)
-        if (appSettings.getSelectedIdentityId() == id) {
-            appSettings.setSelectedIdentityId("none")
-        }
+    override fun setMemoryInstructions(text: String) {
+        appSettings.setMemoryInstructions(text)
     }
 
     override fun getActiveSystemPrompt(): String? {
-        val identity = getSelectedIdentity()
-        return identity.systemPrompt.ifEmpty { null }
+        val soul = appSettings.getSoulText()
+        val memoryInstructions = appSettings.getMemoryInstructions()
+        val memories = memoryStore.getAllMemories()
+        return buildString {
+            if (soul.isNotEmpty()) append(soul)
+            if (memoryInstructions.isNotEmpty()) {
+                if (isNotEmpty()) append("\n\n")
+                append(memoryInstructions)
+            }
+            if (memories.isNotEmpty()) {
+                append("\n\n## Your Memories\n")
+                for (m in memories) {
+                    append("- **${m.key}**: ${m.content}\n")
+                }
+            }
+        }.ifEmpty { null }
     }
 
-    override fun resetIdentityToDefault(id: String) {
-        val overrides = getIdentityOverrides().toMutableMap()
-        overrides.remove(id)
-        saveIdentityOverrides(overrides)
+    override fun getMemories(): List<MemoryEntry> = memoryStore.getAllMemories()
+
+    override fun deleteMemory(key: String) {
+        memoryStore.forget(key)
     }
 }

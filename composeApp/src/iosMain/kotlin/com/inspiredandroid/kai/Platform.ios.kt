@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -56,8 +57,9 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonTool
 
 private object IosKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
+    val memoryStore: MemoryStore by inject()
 }
 
 actual fun getDeviceLanguage(): String = platform.Foundation.NSLocale.currentLocale.languageCode
 
-actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(IosKoinHelper.appSettings)
+actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(IosKoinHelper.appSettings) + CommonTools.getMemoryTools(IosKoinHelper.memoryStore)

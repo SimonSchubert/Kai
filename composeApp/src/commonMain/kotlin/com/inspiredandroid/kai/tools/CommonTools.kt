@@ -1,7 +1,9 @@
 package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.httpClient
+import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
@@ -15,6 +17,10 @@ import kai.composeapp.generated.resources.tool_get_local_time_description
 import kai.composeapp.generated.resources.tool_get_local_time_name
 import kai.composeapp.generated.resources.tool_get_location_description
 import kai.composeapp.generated.resources.tool_get_location_name
+import kai.composeapp.generated.resources.tool_memory_forget_description
+import kai.composeapp.generated.resources.tool_memory_forget_name
+import kai.composeapp.generated.resources.tool_memory_store_description
+import kai.composeapp.generated.resources.tool_memory_store_name
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -152,4 +158,62 @@ object CommonTools {
             add(ipLocationTool)
         }
     }
+
+    // Memory tools - always enabled, core agent functionality
+
+    fun memoryStoreTool(memoryStore: MemoryStore) = object : Tool {
+        override val schema = ToolSchema(
+            name = "memory_store",
+            description = "Store or update a memory with a descriptive key. Use this proactively to remember user preferences, facts, and important information across conversations.",
+            parameters = mapOf(
+                "key" to ParameterSchema(type = "string", description = "Descriptive key for the memory (e.g. user_name, preferred_language, project_details)", required = true),
+                "content" to ParameterSchema(type = "string", description = "The content to store", required = true),
+            ),
+        )
+
+        override suspend fun execute(args: Map<String, Any>): Any {
+            val key = args["key"]?.toString() ?: return mapOf("success" to false, "error" to "Missing key")
+            val content = args["content"]?.toString() ?: return mapOf("success" to false, "error" to "Missing content")
+            val entry = memoryStore.store(key, content)
+            return mapOf("success" to true, "key" to entry.key, "content" to entry.content)
+        }
+    }
+
+    fun memoryForgetTool(memoryStore: MemoryStore) = object : Tool {
+        override val schema = ToolSchema(
+            name = "memory_forget",
+            description = "Delete a stored memory by its exact key.",
+            parameters = mapOf(
+                "key" to ParameterSchema(type = "string", description = "The exact key of the memory to delete", required = true),
+            ),
+        )
+
+        override suspend fun execute(args: Map<String, Any>): Any {
+            val key = args["key"]?.toString() ?: return mapOf("success" to false, "error" to "Missing key")
+            val removed = memoryStore.forget(key)
+            return mapOf("success" to removed, "key" to key)
+        }
+    }
+
+    val memoryToolDefinitions = listOf(
+        ToolInfo(
+            id = "memory_store",
+            name = "Store Memory",
+            description = "Store or update a memory for cross-conversation recall",
+            nameRes = Res.string.tool_memory_store_name,
+            descriptionRes = Res.string.tool_memory_store_description,
+        ),
+        ToolInfo(
+            id = "memory_forget",
+            name = "Forget Memory",
+            description = "Delete a stored memory",
+            nameRes = Res.string.tool_memory_forget_name,
+            descriptionRes = Res.string.tool_memory_forget_description,
+        ),
+    )
+
+    fun getMemoryTools(memoryStore: MemoryStore): List<Tool> = listOf(
+        memoryStoreTool(memoryStore),
+        memoryForgetTool(memoryStore),
+    )
 }

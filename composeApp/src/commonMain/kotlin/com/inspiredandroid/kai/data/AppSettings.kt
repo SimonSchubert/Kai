@@ -41,12 +41,11 @@ class AppSettings(private val settings: Settings) {
     // Base URL (for self-hosted services like OpenAI-compatible APIs)
     fun getBaseUrl(service: Service): String = when (service) {
         Service.OpenAICompatible -> settings.getString(service.baseUrlKey, Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL)
-        Service.OpenClaw -> settings.getString(service.baseUrlKey, Service.DEFAULT_OPENCLAW_GATEWAY_URL)
         else -> ""
     }
 
     fun setBaseUrl(service: Service, baseUrl: String) {
-        if (service == Service.OpenAICompatible || service == Service.OpenClaw) {
+        if (service == Service.OpenAICompatible) {
             settings.putString(service.baseUrlKey, baseUrl)
         }
     }
@@ -100,7 +99,6 @@ class AppSettings(private val settings: Settings) {
             }
         }
         migrateString(legacySettings, Service.OpenAICompatible.baseUrlKey)
-        migrateString(legacySettings, Service.OpenClaw.baseUrlKey)
 
         settings.putBoolean(KEY_MIGRATION_COMPLETE, true)
     }
@@ -118,23 +116,25 @@ class AppSettings(private val settings: Settings) {
         }
     }
 
-    // Identity settings
-    fun getSelectedIdentityId(): String = settings.getString(KEY_SELECTED_IDENTITY_ID, "none")
+    // Soul (system prompt)
+    fun getSoulText(): String = settings.getString(KEY_SOUL, DEFAULT_SOUL)
 
-    fun setSelectedIdentityId(id: String) {
-        settings.putString(KEY_SELECTED_IDENTITY_ID, id)
+    fun setSoulText(text: String) {
+        settings.putString(KEY_SOUL, text)
     }
 
-    fun getCustomIdentitiesJson(): String = settings.getString(KEY_CUSTOM_IDENTITIES, "[]")
+    // Memory instructions
+    fun getMemoryInstructions(): String = settings.getString(KEY_MEMORY_INSTRUCTIONS, DEFAULT_MEMORY_INSTRUCTIONS)
 
-    fun setCustomIdentitiesJson(json: String) {
-        settings.putString(KEY_CUSTOM_IDENTITIES, json)
+    fun setMemoryInstructions(text: String) {
+        settings.putString(KEY_MEMORY_INSTRUCTIONS, text)
     }
 
-    fun getIdentityOverrideJson(): String = settings.getString(KEY_IDENTITY_OVERRIDES, "{}")
+    // Agent memories
+    fun getMemoriesJson(): String = settings.getString(KEY_AGENT_MEMORIES, "[]")
 
-    fun setIdentityOverrideJson(json: String) {
-        settings.putString(KEY_IDENTITY_OVERRIDES, json)
+    fun setMemoriesJson(json: String) {
+        settings.putString(KEY_AGENT_MEMORIES, json)
     }
 
     companion object {
@@ -143,8 +143,31 @@ class AppSettings(private val settings: Settings) {
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"
-        const val KEY_SELECTED_IDENTITY_ID = "selected_identity_id"
-        const val KEY_CUSTOM_IDENTITIES = "custom_identities"
-        const val KEY_IDENTITY_OVERRIDES = "identity_overrides"
+        const val KEY_SOUL = "soul_text"
+        const val KEY_MEMORY_INSTRUCTIONS = "memory_instructions"
+        const val KEY_AGENT_MEMORIES = "agent_memories"
+
+        const val DEFAULT_SOUL =
+            "You're not a chatbot. You're a personal assistant who grows with your user.\n\n" +
+                "## How to Be\n\n" +
+                "**Be genuinely helpful.** Skip the \"Great question!\" and \"I'd be happy to help!\" — just help. " +
+                "Actions speak louder than filler words.\n\n" +
+                "**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. " +
+                "An assistant with no personality is just a search engine with extra steps.\n\n" +
+                "**Be resourceful.** Try to figure it out from context and your memories before asking. " +
+                "Come back with answers, not questions.\n\n" +
+                "**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n" +
+                "## Boundaries\n\n" +
+                "- Respect privacy. Don't repeat sensitive information unnecessarily.\n" +
+                "- When in doubt about an action, ask first.\n" +
+                "- Be honest when you don't know something."
+
+        const val DEFAULT_MEMORY_INSTRUCTIONS =
+            "You have persistent memory across conversations. " +
+                "All your stored memories are listed in the system prompt under '## Your Memories'.\n\n" +
+                "When you learn important information about the user (name, preferences, projects, goals, etc.), " +
+                "proactively use the memory_store tool to save it.\n" +
+                "Use the memory_forget tool to remove outdated or incorrect memories.\n" +
+                "Do not store trivial or transient information."
     }
 }

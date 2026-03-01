@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.data.Identity
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
@@ -42,12 +41,12 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             onChangeApiKey = ::onChangeApiKey,
             onChangeBaseUrl = ::onChangeBaseUrl,
             onToggleTool = ::onToggleTool,
-            identities = dataRepository.getIdentities(),
-            selectedIdentity = dataRepository.getSelectedIdentity(),
-            onSelectIdentity = ::onSelectIdentity,
-            onSaveIdentity = ::onSaveIdentity,
-            onDeleteIdentity = ::onDeleteIdentity,
-            onResetIdentity = ::onResetIdentity,
+            soulText = dataRepository.getSoulText(),
+            onSaveSoul = ::onSaveSoul,
+            memoryInstructions = dataRepository.getMemoryInstructions(),
+            onSaveMemoryInstructions = ::onSaveMemoryInstructions,
+            memories = dataRepository.getMemories(),
+            onDeleteMemory = ::onDeleteMemory,
         ),
     )
 
@@ -81,7 +80,6 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
 
     private fun onSelectService(service: Service) {
         dataRepository.selectService(service)
-        // Update _state FIRST so flatMapLatest picks up the new values immediately
         _state.update {
             it.copy(
                 currentService = service,
@@ -90,7 +88,6 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
                 connectionStatus = ConnectionStatus.Unknown,
             )
         }
-        // THEN trigger flatMapLatest to resubscribe to models
         currentService.value = service
         checkConnection(service)
     }
@@ -119,38 +116,23 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
         checkConnectionDebounced(service)
     }
 
-    private fun onSelectIdentity(id: String) {
-        dataRepository.setSelectedIdentity(id)
-        refreshIdentities()
+    private fun onSaveSoul(text: String) {
+        dataRepository.setSoulText(text)
+        _state.update { it.copy(soulText = text) }
     }
 
-    private fun onSaveIdentity(identity: Identity) {
-        dataRepository.saveIdentity(identity)
-        refreshIdentities()
+    private fun onSaveMemoryInstructions(text: String) {
+        dataRepository.setMemoryInstructions(text)
+        _state.update { it.copy(memoryInstructions = text) }
     }
 
-    private fun onDeleteIdentity(id: String) {
-        dataRepository.deleteIdentity(id)
-        refreshIdentities()
-    }
-
-    private fun onResetIdentity(id: String) {
-        dataRepository.resetIdentityToDefault(id)
-        refreshIdentities()
-    }
-
-    private fun refreshIdentities() {
-        _state.update {
-            it.copy(
-                identities = dataRepository.getIdentities(),
-                selectedIdentity = dataRepository.getSelectedIdentity(),
-            )
-        }
+    private fun onDeleteMemory(key: String) {
+        dataRepository.deleteMemory(key)
+        _state.update { it.copy(memories = dataRepository.getMemories()) }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {
         dataRepository.setToolEnabled(toolId, enabled)
-        // Update the tools list to reflect the change
         _state.update { state ->
             state.copy(
                 tools = state.tools.map { tool ->
@@ -163,7 +145,7 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
     private fun checkConnectionDebounced(service: Service) {
         connectionCheckJob?.cancel()
         connectionCheckJob = viewModelScope.launch {
-            delay(800) // Debounce to avoid checking on every keystroke
+            delay(800)
             checkConnection(service)
         }
     }

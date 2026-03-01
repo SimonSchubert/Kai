@@ -5,6 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -49,8 +50,9 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonTool
 
 private object WebKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
+    val memoryStore: MemoryStore by inject()
 }
 
 actual fun getDeviceLanguage(): String = kotlinx.browser.window.navigator.language.substringBefore("-")
 
-actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(WebKoinHelper.appSettings)
+actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(WebKoinHelper.appSettings) + CommonTools.getMemoryTools(WebKoinHelper.memoryStore)

@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.StateFlow
 interface DataRepository {
     val chatHistory: StateFlow<List<History>>
     val currentConversationId: StateFlow<String?>
-    val savedConversations: StateFlow<List<Conversation>>
 
     fun selectService(service: Service)
     fun updateApiKey(service: Service, apiKey: String)
@@ -29,9 +28,6 @@ interface DataRepository {
 
     // Conversation management
     suspend fun loadConversations()
-    suspend fun loadConversation(id: String)
-    suspend fun deleteConversation(id: String)
-    suspend fun deleteAllConversations()
     fun startNewChat()
     fun regenerate()
     suspend fun restoreLatestConversation()
@@ -40,12 +36,14 @@ interface DataRepository {
     fun getToolDefinitions(): List<ToolInfo>
     fun setToolEnabled(toolId: String, enabled: Boolean)
 
-    // Identity management
-    fun getIdentities(): List<Identity>
-    fun getSelectedIdentity(): Identity
-    fun setSelectedIdentity(id: String)
-    fun saveIdentity(identity: Identity)
-    fun deleteIdentity(id: String)
+    // Soul (system prompt)
+    fun getSoulText(): String
+    fun setSoulText(text: String)
+    fun getMemoryInstructions(): String
+    fun setMemoryInstructions(text: String)
     fun getActiveSystemPrompt(): String?
-    fun resetIdentityToDefault(id: String)
+
+    // Memory management
+    fun getMemories(): List<MemoryEntry>
+    fun deleteMemory(key: String)
 }

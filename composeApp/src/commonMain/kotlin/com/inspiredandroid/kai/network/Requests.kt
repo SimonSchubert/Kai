@@ -222,7 +222,7 @@ class Requests(private val appSettings: AppSettings) {
 
     // region Helpers
 
-    private fun resolveUrl(service: Service, path: String): String = if (service == Service.OpenAICompatible || service == Service.OpenClaw) {
+    private fun resolveUrl(service: Service, path: String): String = if (service == Service.OpenAICompatible) {
         "${appSettings.getBaseUrl(service)}$path"
     } else {
         path

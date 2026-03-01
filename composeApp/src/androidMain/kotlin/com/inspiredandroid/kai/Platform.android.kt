@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -123,10 +124,12 @@ actual fun getDeviceLanguage(): String = java.util.Locale.getDefault().language
 actual fun getAvailableTools(): List<Tool> {
     val context: Context by inject(Context::class.java)
     val appSettings: AppSettings by inject(AppSettings::class.java)
+    val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val calendarPermissionController: CalendarPermissionController by inject(CalendarPermissionController::class.java)
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
 
     return buildList {
+        addAll(CommonTools.getMemoryTools(memoryStore))
         if (appSettings.isToolEnabled(CommonTools.localTimeTool.schema.name)) {
             add(CommonTools.localTimeTool)
         }

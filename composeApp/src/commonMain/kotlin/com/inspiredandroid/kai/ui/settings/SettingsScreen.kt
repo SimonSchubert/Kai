@@ -32,6 +32,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -85,20 +86,13 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
-import com.inspiredandroid.kai.data.Identity
-import com.inspiredandroid.kai.data.PredefinedIdentities
+import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
-import kai.composeapp.generated.resources.identity_creative_writer_name
-import kai.composeapp.generated.resources.identity_creative_writer_prompt
-import kai.composeapp.generated.resources.identity_short_and_direct_name
-import kai.composeapp.generated.resources.identity_short_and_direct_prompt
-import kai.composeapp.generated.resources.identity_tutor_name
-import kai.composeapp.generated.resources.identity_tutor_prompt
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
 import kai.composeapp.generated.resources.settings_api_key_optional_label
@@ -109,23 +103,20 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
-import kai.composeapp.generated.resources.settings_identity
-import kai.composeapp.generated.resources.settings_identity_add_custom
-import kai.composeapp.generated.resources.settings_identity_create
-import kai.composeapp.generated.resources.settings_identity_delete
-import kai.composeapp.generated.resources.settings_identity_description
-import kai.composeapp.generated.resources.settings_identity_edit
-import kai.composeapp.generated.resources.settings_identity_name
-import kai.composeapp.generated.resources.settings_identity_none
-import kai.composeapp.generated.resources.settings_identity_openclaw_disabled
-import kai.composeapp.generated.resources.settings_identity_reset
-import kai.composeapp.generated.resources.settings_identity_save
-import kai.composeapp.generated.resources.settings_identity_system_prompt
+import kai.composeapp.generated.resources.settings_memories
+import kai.composeapp.generated.resources.settings_memories_delete
+import kai.composeapp.generated.resources.settings_memories_description
+import kai.composeapp.generated.resources.settings_memories_empty
+import kai.composeapp.generated.resources.settings_memory_instructions
+import kai.composeapp.generated.resources.settings_memory_instructions_description
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
+import kai.composeapp.generated.resources.settings_soul
+import kai.composeapp.generated.resources.settings_soul_description
+import kai.composeapp.generated.resources.settings_soul_save
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
@@ -144,8 +135,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 @Composable
 fun SettingsScreen(
@@ -189,14 +178,16 @@ fun SettingsScreenContent(
 
             when (uiState.currentTab) {
                 SettingsTab.General -> {
-                    GeneralContent(
-                        identities = uiState.identities,
-                        selectedIdentity = uiState.selectedIdentity,
-                        onSelectIdentity = uiState.onSelectIdentity,
-                        onSaveIdentity = uiState.onSaveIdentity,
-                        onDeleteIdentity = uiState.onDeleteIdentity,
-                        onResetIdentity = uiState.onResetIdentity,
-                        isOpenClaw = uiState.currentService == Service.OpenClaw,
+                    SoulEditor(
+                        soulText = uiState.soulText,
+                        onSaveSoul = uiState.onSaveSoul,
+                    )
+                    Spacer(Modifier.height(24.dp))
+                    MemoryList(
+                        memories = uiState.memories,
+                        onDeleteMemory = uiState.onDeleteMemory,
+                        memoryInstructions = uiState.memoryInstructions,
+                        onSaveMemoryInstructions = uiState.onSaveMemoryInstructions,
                     )
                 }
 
@@ -281,16 +272,6 @@ fun SettingsScreenContent(
                                 selectedModel = uiState.selectedModel,
                                 models = uiState.models,
                                 onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
-
-                        Service.OpenClaw -> {
-                            OpenClawSettings(
-                                gatewayUrl = uiState.baseUrl,
-                                onChangeGatewayUrl = uiState.onChangeBaseUrl,
-                                token = uiState.apiKey,
-                                onChangeToken = uiState.onChangeApiKey,
                                 connectionStatus = uiState.connectionStatus,
                             )
                         }
@@ -667,133 +648,6 @@ private fun OpenAICompatibleSettings(
 }
 
 @Composable
-private fun OpenClawSettings(
-    gatewayUrl: String,
-    onChangeGatewayUrl: (String) -> Unit,
-    token: String,
-    onChangeToken: (String) -> Unit,
-    connectionStatus: ConnectionStatus,
-) {
-    var baseUrlFocused by remember { mutableStateOf(false) }
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth().onFocusChanged { baseUrlFocused = it.isFocused },
-        value = gatewayUrl,
-        onValueChange = onChangeGatewayUrl,
-        label = {
-            Text(
-                "Gateway URL",
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        },
-        colors = outlineTextFieldColors(),
-        singleLine = true,
-        trailingIcon = if (baseUrlFocused && gatewayUrl.isNotEmpty()) {
-            {
-                IconButton(
-                    onClick = { onChangeGatewayUrl("") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-        } else {
-            null
-        },
-    )
-
-    Spacer(Modifier.height(8.dp))
-
-    var tokenFocused by remember { mutableStateOf(false) }
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth().onFocusChanged { tokenFocused = it.isFocused },
-        value = token,
-        onValueChange = onChangeToken,
-        label = {
-            Text(
-                "Token",
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        },
-        colors = outlineTextFieldColors(),
-        singleLine = true,
-        trailingIcon = if (tokenFocused && token.isNotEmpty()) {
-            {
-                IconButton(
-                    onClick = { onChangeToken("") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-        } else {
-            null
-        },
-    )
-
-    Spacer(Modifier.height(8.dp))
-
-    ConnectionStatusIndicator(connectionStatus)
-
-    Spacer(Modifier.height(12.dp))
-
-    val linkColor = MaterialTheme.colorScheme.primary
-    val setupText = remember(linkColor) {
-        buildAnnotatedString {
-            append("1. Setup Tailscale (")
-            withLink(LinkAnnotation.Url(url = "https://tailscale.com")) {
-                withStyle(style = SpanStyle(color = linkColor)) {
-                    append("tailscale.com")
-                }
-            }
-            append(") on both your openclaw server and this device.\n\n")
-            append("2. Add the following to ~/.openclaw/openclaw.json to enable the HTTP chat endpoint:\n")
-        }
-    }
-    Text(
-        setupText,
-        modifier = Modifier.fillMaxWidth(),
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-
-    Spacer(Modifier.height(8.dp))
-
-    SelectionContainer {
-        Surface(
-            shape = RoundedCornerShape(8.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(
-                text = "\"gateway\": {\n  \"http\": {\n    \"endpoints\": {\n      \"chatCompletions\": {\n        \"enabled\": true\n      }\n    }\n  }\n}",
-                modifier = Modifier.padding(12.dp),
-                style = MaterialTheme.typography.bodySmall,
-                fontFamily = FontFamily.Monospace,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-    }
-
-    Spacer(Modifier.height(8.dp))
-
-    Text(
-        text = "3. Use your server\u2019s Tailscale IP as the Gateway URL (e.g. http://<tailscale-ip>:18789).\n\n" +
-            "4. Copy your token from gateway.auth.token in ~/.openclaw/openclaw.json and paste it above.",
-        modifier = Modifier.fillMaxWidth(),
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-}
-
-@Composable
 private fun ConnectionStatusIndicator(status: ConnectionStatus) {
     when (status) {
         ConnectionStatus.Unknown -> return
@@ -1090,341 +944,188 @@ private fun ToolItem(
 }
 
 @Composable
-private fun GeneralContent(
-    identities: List<Identity>,
-    selectedIdentity: Identity?,
-    onSelectIdentity: (String) -> Unit,
-    onSaveIdentity: (Identity) -> Unit,
-    onDeleteIdentity: (String) -> Unit,
-    onResetIdentity: (String) -> Unit,
-    isOpenClaw: Boolean = false,
+private fun SoulEditor(
+    soulText: String,
+    onSaveSoul: (String) -> Unit,
 ) {
+    var editedText by remember(soulText) { mutableStateOf(soulText) }
+    val hasChanges = editedText != soulText
+    val maxChars = 4000
+
     Column(modifier = Modifier.fillMaxWidth()) {
-        // Identity section
-        if (isOpenClaw) {
+        Text(
+            text = stringResource(Res.string.settings_soul),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            text = stringResource(Res.string.settings_soul_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(12.dp))
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth().height(250.dp),
+            value = editedText,
+            onValueChange = { if (it.length <= maxChars) editedText = it },
+            label = {
+                Text(
+                    stringResource(Res.string.settings_soul),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            },
+            colors = outlineTextFieldColors(),
+        )
+
+        Text(
+            text = "${editedText.length}/$maxChars",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.End,
+        )
+
+        Spacer(Modifier.height(8.dp))
+
+        if (hasChanges) {
+            Button(
+                onClick = { onSaveSoul(editedText.trim()) },
+                modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
+            ) {
+                Text(stringResource(Res.string.settings_soul_save))
+            }
+        }
+    }
+}
+
+@Composable
+private fun MemoryList(
+    memories: List<MemoryEntry>,
+    onDeleteMemory: (String) -> Unit,
+    memoryInstructions: String,
+    onSaveMemoryInstructions: (String) -> Unit,
+) {
+    var showInstructions by remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text(
-                text = stringResource(Res.string.settings_identity),
+                text = stringResource(Res.string.settings_memories),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
             )
-            Spacer(Modifier.height(8.dp))
-            Text(
-                text = stringResource(Res.string.settings_identity_openclaw_disabled),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        } else {
-            IdentitySection(
-                identities = identities,
-                selectedIdentity = selectedIdentity,
-                onSelectIdentity = onSelectIdentity,
-                onSaveIdentity = onSaveIdentity,
-                onDeleteIdentity = onDeleteIdentity,
-                onResetIdentity = onResetIdentity,
-            )
-        }
-    }
-}
-
-@Composable
-private fun IdentitySection(
-    identities: List<Identity>,
-    selectedIdentity: Identity?,
-    onSelectIdentity: (String) -> Unit,
-    onSaveIdentity: (Identity) -> Unit,
-    onDeleteIdentity: (String) -> Unit,
-    onResetIdentity: (String) -> Unit,
-) {
-    var showEditSheet by remember { mutableStateOf(false) }
-    var editingIdentity by remember { mutableStateOf<Identity?>(null) }
-
-    Text(
-        text = stringResource(Res.string.settings_identity),
-        style = MaterialTheme.typography.titleMedium,
-        color = MaterialTheme.colorScheme.onBackground,
-    )
-    Spacer(Modifier.height(4.dp))
-    Text(
-        text = stringResource(Res.string.settings_identity_description),
-        style = MaterialTheme.typography.bodySmall,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
-    Spacer(Modifier.height(12.dp))
-
-    identities.forEach { identity ->
-        IdentityItem(
-            identity = identity,
-            isSelected = identity.id == selectedIdentity?.id,
-            onClick = { onSelectIdentity(identity.id) },
-            onEdit = {
-                editingIdentity = identity
-                showEditSheet = true
-            },
-        )
-    }
-
-    Spacer(Modifier.height(8.dp))
-
-    TextButton(
-        onClick = {
-            editingIdentity = null
-            showEditSheet = true
-        },
-        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-    ) {
-        Text(stringResource(Res.string.settings_identity_add_custom))
-    }
-
-    if (showEditSheet) {
-        IdentityEditSheet(
-            identity = editingIdentity,
-            onDismiss = { showEditSheet = false },
-            onSave = { identity ->
-                onSaveIdentity(identity)
-                showEditSheet = false
-            },
-            onDelete = { id ->
-                onDeleteIdentity(id)
-                showEditSheet = false
-            },
-            onReset = { id ->
-                onResetIdentity(id)
-                showEditSheet = false
-            },
-        )
-    }
-}
-
-@Composable
-private fun localizedIdentityName(identity: Identity): String = when (identity.id) {
-    "none" -> stringResource(Res.string.settings_identity_none)
-    "short_and_direct" -> stringResource(Res.string.identity_short_and_direct_name)
-    "creative_writer" -> stringResource(Res.string.identity_creative_writer_name)
-    "tutor" -> stringResource(Res.string.identity_tutor_name)
-    else -> identity.name
-}
-
-@Composable
-private fun localizedIdentityPrompt(identity: Identity): String = when (identity.id) {
-    "short_and_direct" -> stringResource(Res.string.identity_short_and_direct_prompt)
-    "creative_writer" -> stringResource(Res.string.identity_creative_writer_prompt)
-    "tutor" -> stringResource(Res.string.identity_tutor_prompt)
-    else -> identity.systemPrompt
-}
-
-@Composable
-private fun IdentityItem(
-    identity: Identity,
-    isSelected: Boolean,
-    onClick: () -> Unit,
-    onEdit: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .padding(horizontal = 8.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Box(
-            modifier = Modifier
-                .size(20.dp)
-                .clip(CircleShape)
-                .background(
-                    if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
-                    CircleShape,
-                )
-                .then(
-                    if (!isSelected) {
-                        Modifier.background(
-                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f),
-                            CircleShape,
-                        )
-                    } else {
-                        Modifier
-                    },
-                ),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (isSelected) {
-                Icon(
-                    imageVector = Icons.Default.CheckCircle,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp),
-                    tint = MaterialTheme.colorScheme.primary,
-                )
-            }
-        }
-
-        Spacer(Modifier.width(12.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = localizedIdentityName(identity),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            val prompt = localizedIdentityPrompt(identity)
-            if (prompt.isNotEmpty()) {
-                Text(
-                    text = prompt,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-        }
-
-        if (identity.id != "none") {
             IconButton(
-                onClick = onEdit,
+                onClick = { showInstructions = !showInstructions },
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Icon(
-                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                    contentDescription = null,
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(Res.string.settings_memory_instructions),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp),
                 )
             }
+        }
+        Text(
+            text = stringResource(Res.string.settings_memories_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(12.dp))
+
+        memories.forEach { memory ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                    .padding(12.dp),
+                verticalAlignment = Alignment.Top,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = memory.key,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = memory.content,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                IconButton(
+                    onClick = { onDeleteMemory(memory.key) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = stringResource(Res.string.settings_memories_delete),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            Spacer(Modifier.height(8.dp))
+        }
+
+        if (showInstructions) {
+            Spacer(Modifier.height(8.dp))
+            MemoryInstructionsEditor(
+                memoryInstructions = memoryInstructions,
+                onSave = onSaveMemoryInstructions,
+            )
         }
     }
 }
 
-@OptIn(ExperimentalTime::class)
 @Composable
-private fun IdentityEditSheet(
-    identity: Identity?,
-    onDismiss: () -> Unit,
-    onSave: (Identity) -> Unit,
-    onDelete: (String) -> Unit,
-    onReset: (String) -> Unit,
+private fun MemoryInstructionsEditor(
+    memoryInstructions: String,
+    onSave: (String) -> Unit,
 ) {
-    val isCreating = identity == null
-    val isPredefined = identity?.isPredefined == true
-    val displayName = if (identity != null) localizedIdentityName(identity) else ""
-    val displayPrompt = if (identity != null) localizedIdentityPrompt(identity) else ""
-    var name by remember { mutableStateOf(displayName) }
-    var systemPrompt by remember { mutableStateOf(displayPrompt) }
+    var editedText by remember(memoryInstructions) { mutableStateOf(memoryInstructions) }
+    val hasChanges = editedText != memoryInstructions
     val maxChars = 2000
 
-    ModalBottomSheet(
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        onDismissRequest = onDismiss,
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 16.dp)
-                .navigationBarsPadding(),
-        ) {
-            Text(
-                text = if (isCreating) {
-                    stringResource(Res.string.settings_identity_create)
-                } else {
-                    stringResource(Res.string.settings_identity_edit)
-                },
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.settings_memory_instructions_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(8.dp))
 
-            Spacer(Modifier.height(16.dp))
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth().height(180.dp),
+            value = editedText,
+            onValueChange = { if (it.length <= maxChars) editedText = it },
+            colors = outlineTextFieldColors(),
+        )
 
-            if (!isPredefined) {
-                OutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = name,
-                    onValueChange = { name = it },
-                    label = {
-                        Text(
-                            stringResource(Res.string.settings_identity_name),
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                    },
-                    colors = outlineTextFieldColors(),
-                    singleLine = true,
-                )
-                Spacer(Modifier.height(12.dp))
-            }
+        Text(
+            text = "${editedText.length}/$maxChars",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.End,
+        )
 
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth().height(200.dp),
-                value = systemPrompt,
-                onValueChange = { if (it.length <= maxChars) systemPrompt = it },
-                label = {
-                    Text(
-                        stringResource(Res.string.settings_identity_system_prompt),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-                colors = outlineTextFieldColors(),
-            )
+        Spacer(Modifier.height(8.dp))
 
-            Text(
-                text = "${systemPrompt.length}/$maxChars",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.End,
-            )
-
-            Spacer(Modifier.height(16.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+        if (hasChanges) {
+            Button(
+                onClick = { onSave(editedText.trim()) },
+                modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
             ) {
-                if (!isCreating) {
-                    if (isPredefined) {
-                        if (displayPrompt != systemPrompt) {
-                            TextButton(
-                                onClick = { onReset(identity.id) },
-                                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                            ) {
-                                Text(stringResource(Res.string.settings_identity_reset))
-                            }
-                        } else {
-                            Spacer(Modifier.width(1.dp))
-                        }
-                    } else {
-                        TextButton(
-                            onClick = { onDelete(identity.id) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                        ) {
-                            Text(
-                                stringResource(Res.string.settings_identity_delete),
-                                color = MaterialTheme.colorScheme.error,
-                            )
-                        }
-                    }
-                } else {
-                    Spacer(Modifier.width(1.dp))
-                }
-
-                Button(
-                    onClick = {
-                        val savedIdentity = if (isCreating) {
-                            Identity(
-                                id = "custom_${name.lowercase().replace(" ", "_")}_${Clock.System.now().toEpochMilliseconds()}",
-                                name = name.trim(),
-                                systemPrompt = systemPrompt.trim(),
-                                isPredefined = false,
-                            )
-                        } else {
-                            identity.copy(
-                                name = if (isPredefined) identity.name else name.trim(),
-                                systemPrompt = systemPrompt.trim(),
-                            )
-                        }
-                        onSave(savedIdentity)
-                    },
-                    enabled = systemPrompt.isNotBlank() && (isPredefined || name.isNotBlank()),
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Text(stringResource(Res.string.settings_identity_save))
-                }
+                Text(stringResource(Res.string.settings_soul_save))
             }
         }
     }

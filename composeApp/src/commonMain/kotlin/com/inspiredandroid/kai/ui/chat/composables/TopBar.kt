@@ -11,9 +11,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.history_content_description
 import kai.composeapp.generated.resources.ic_add
-import kai.composeapp.generated.resources.ic_history
 import kai.composeapp.generated.resources.ic_settings
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
@@ -32,27 +30,10 @@ internal fun TopBar(
     isSpeaking: Boolean,
     actions: ChatActions,
     isChatHistoryEmpty: Boolean,
-    hasSavedConversations: Boolean,
-    isOpenClaw: Boolean = false,
     onNavigateToSettings: () -> Unit,
-    onNavigateToHistory: () -> Unit,
 ) {
     Row {
-        if (hasSavedConversations && !isOpenClaw) {
-            IconButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                onClick = onNavigateToHistory,
-                enabled = !isLoading,
-            ) {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_history),
-                    contentDescription = stringResource(Res.string.history_content_description),
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-        }
-
-        if (!isChatHistoryEmpty && !isOpenClaw) {
+        if (!isChatHistoryEmpty) {
             IconButton(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 onClick = {
