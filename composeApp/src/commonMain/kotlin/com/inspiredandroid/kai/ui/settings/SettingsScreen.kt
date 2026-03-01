@@ -171,12 +171,16 @@ fun SettingsScreenContent(
         }
 
         Column(
-            Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp).widthIn(max = 500.dp),
+            Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = CenterHorizontally,
         ) {
             Spacer(Modifier.height(16.dp))
 
-            when (uiState.currentTab) {
+            Column(
+                Modifier.widthIn(max = 500.dp).fillMaxWidth().padding(horizontal = 16.dp),
+                horizontalAlignment = CenterHorizontally,
+            ) {
+                when (uiState.currentTab) {
                 SettingsTab.General -> {
                     SoulEditor(
                         soulText = uiState.soulText,
@@ -286,7 +290,8 @@ fun SettingsScreenContent(
                 }
             }
 
-            Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.height(16.dp))
+            }
 
             Spacer(Modifier.weight(1f))
 
