@@ -46,8 +46,7 @@ All tools can be enabled or disabled in settings.
 - **Get Location** - Estimates location based on IP address for location-aware responses
 - **Send Notification** - Sends push notifications to the device (Android only)
 - **Create Calendar Event** - Creates calendar events directly from the chat (Android only)
-- **Check Recent SMS** - View recent SMS conversations (Android only)
-- **Send SMS** - Reply to existing SMS conversations (Android only)
+- **Run Shell Command** - Execute shell commands on the device (Desktop and Android)
 
 ## Screenshots
 
