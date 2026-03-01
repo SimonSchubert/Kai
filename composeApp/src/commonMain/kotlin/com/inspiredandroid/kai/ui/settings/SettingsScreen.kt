@@ -1123,7 +1123,6 @@ private fun GeneralContent(
                 onResetIdentity = onResetIdentity,
             )
         }
-
     }
 }
 
