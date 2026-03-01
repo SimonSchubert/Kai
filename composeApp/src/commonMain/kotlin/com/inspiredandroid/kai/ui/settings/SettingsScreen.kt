@@ -181,114 +181,114 @@ fun SettingsScreenContent(
                 horizontalAlignment = CenterHorizontally,
             ) {
                 when (uiState.currentTab) {
-                SettingsTab.General -> {
-                    SoulEditor(
-                        soulText = uiState.soulText,
-                        onSaveSoul = uiState.onSaveSoul,
-                    )
-                    Spacer(Modifier.height(24.dp))
-                    MemoryList(
-                        memories = uiState.memories,
-                        onDeleteMemory = uiState.onDeleteMemory,
-                        memoryInstructions = uiState.memoryInstructions,
-                        onSaveMemoryInstructions = uiState.onSaveMemoryInstructions,
-                    )
-                }
+                    SettingsTab.General -> {
+                        SoulEditor(
+                            soulText = uiState.soulText,
+                            onSaveSoul = uiState.onSaveSoul,
+                        )
+                        Spacer(Modifier.height(24.dp))
+                        MemoryList(
+                            memories = uiState.memories,
+                            onDeleteMemory = uiState.onDeleteMemory,
+                            memoryInstructions = uiState.memoryInstructions,
+                            onSaveMemoryInstructions = uiState.onSaveMemoryInstructions,
+                        )
+                    }
 
-                SettingsTab.Services -> {
-                    when (uiState.currentService) {
-                        Service.Free -> {
-                            FreeSettings()
-                        }
+                    SettingsTab.Services -> {
+                        when (uiState.currentService) {
+                            Service.Free -> {
+                                FreeSettings()
+                            }
 
-                        Service.Gemini -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://aistudio.google.com/apikey",
-                                apiKeyUrlDisplay = "aistudio.google.com/apikey",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.Gemini -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://aistudio.google.com/apikey",
+                                    apiKeyUrlDisplay = "aistudio.google.com/apikey",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.Groq -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://console.groq.com/keys",
-                                apiKeyUrlDisplay = "console.groq.com/keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                                testTag = "api_key",
-                            )
-                        }
+                            Service.Groq -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://console.groq.com/keys",
+                                    apiKeyUrlDisplay = "console.groq.com/keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                    testTag = "api_key",
+                                )
+                            }
 
-                        Service.XAI -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://console.x.ai",
-                                apiKeyUrlDisplay = "console.x.ai",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.XAI -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://console.x.ai",
+                                    apiKeyUrlDisplay = "console.x.ai",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.OpenRouter -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://openrouter.ai/settings/keys",
-                                apiKeyUrlDisplay = "openrouter.ai/settings/keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.OpenRouter -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://openrouter.ai/settings/keys",
+                                    apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.Nvidia -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
-                                apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.Nvidia -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
+                                    apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.OpenAICompatible -> {
-                            OpenAICompatibleSettings(
-                                baseUrl = uiState.baseUrl,
-                                onChangeBaseUrl = uiState.onChangeBaseUrl,
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
+                            Service.OpenAICompatible -> {
+                                OpenAICompatibleSettings(
+                                    baseUrl = uiState.baseUrl,
+                                    onChangeBaseUrl = uiState.onChangeBaseUrl,
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
                         }
                     }
-                }
 
-                SettingsTab.Tools -> {
-                    ToolsContent(
-                        tools = uiState.tools,
-                        onToggleTool = uiState.onToggleTool,
-                    )
+                    SettingsTab.Tools -> {
+                        ToolsContent(
+                            tools = uiState.tools,
+                            onToggleTool = uiState.onToggleTool,
+                        )
+                    }
                 }
-            }
 
                 Spacer(Modifier.height(16.dp))
             }
