@@ -33,9 +33,6 @@ class FakeDataRepository : DataRepository {
     val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
     var clearHistoryCalls = 0
     var askException: Exception? = null
-    var askExploreResponse: String = ""
-    var askExploreException: Exception? = null
-    val askExploreCalls = mutableListOf<String>()
 
     fun setCurrentService(service: Service) {
         currentService = service
@@ -163,25 +160,9 @@ class FakeDataRepository : DataRepository {
         // No-op in tests
     }
 
-    override suspend fun askExplore(
-        prompt: String,
-        topic: String?,
-        topicDetail: String?,
-        language: String?,
-    ): String {
-        askExploreCalls.add(prompt)
-        askExploreException?.let { throw it }
-        return askExploreResponse
-    }
-
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
-    }
-
-    override fun isShowTopicsEnabled(): Boolean = true
-
-    override fun setShowTopicsEnabled(enabled: Boolean) {
     }
 
     // Identity management
