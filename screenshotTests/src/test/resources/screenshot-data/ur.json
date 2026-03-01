@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "مجھے kotlin, swift, c, python, js کے خوبصورت ون لائنرز دکھائیں",
     "codeIntro": "یہ ہیں ہر زبان میں چند مختصر، خوبصورت ون لائنرز (2025 ایڈیشن 😄):"
-  },
-  "exploreSpace": {
-    "topic": "خلائی تحقیق",
-    "items": [
-      {"title": "Mars", "description": "سرخ سیارہ، سورج سے چوتھا اور انسانی تحقیق کا اہم ہدف۔"},
-      {"title": "Black Holes", "description": "زمان و مکان کے وہ علاقے جہاں کشش ثقل اتنی مضبوط ہے کہ کچھ بھی فرار نہیں ہو سکتا۔"},
-      {"title": "Apollo 11", "description": "1969 میں چاند پر اترنے والا پہلا عملے والا مشن، جس میں تین خلاباز تھے۔"},
-      {"title": "Saturn's Rings", "description": "گیسی دیو Saturn کے گرد برف اور چٹان کے شاندار حلقے۔"},
-      {"title": "Voyager Program", "description": "1977 میں لانچ کیے گئے جڑواں خلائی جہاز، اب بین النجوم خلا میں۔"},
-      {"title": "Milky Way", "description": "ہماری اپنی کہکشاں جس میں 100 ارب سے زیادہ ستارے اور بے شمار سیارے ہیں۔"},
-      {"title": "Solar Eclipses", "description": "جب چاند سورج اور زمین کے درمیان سے گزرتا ہے، سایہ ڈالتے ہوئے۔"},
-      {"title": "Neutron Stars", "description": "بڑے ستاروں کی انتہائی کثیف باقیات جو ایک چھوٹے کرے میں سمٹی ہوئی ہیں۔"}
-    ]
   }
 }

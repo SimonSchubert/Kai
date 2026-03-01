@@ -63,10 +63,6 @@
     <string name="settings_tab_general">ጠቅላላ</string>
     <string name="settings_tab_services">አገልግሎቶች</string>
     <string name="settings_tab_tools">መሳሪያዎች</string>
-    <string name="settings_show_topics">ርዕሶችን አሳይ</string>
-    <string name="settings_show_topics_description">በባዶ ውይይት ማያ ገጽ ላይ የርዕስ ጥቆማዎችን አሳይ</string>
-    <string name="explore_retry">እንደገና ሞክር</string>
-    <string name="explore_related_topics">ተዛማጅ ርዕሶች</string>
     <string name="history_just_now">አሁን</string>
     <string name="history_minutes_ago">ከ%1$dm በፊት</string>
     <string name="history_hours_ago">ከ%1$dh በፊት</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">በመሳሪያው ላይ ማንቂያ ወይም የቆጠራ ሰዓት ቆጣሪ ያዘጋጁ</string>
     <string name="tool_execute_shell_command_name">የሼል ትዕዛዝ አስፈጽም</string>
     <string name="tool_execute_shell_command_description">በመሣሪያው ላይ የሼል ትዕዛዝ አስፈጽም</string>
-    <string name="topic_people">ሰዎች</string>
-    <string name="topic_sport">ስፖርት</string>
-    <string name="topic_technology">ቴክኖሎጂ</string>
-    <string name="topic_countries">አገሮች</string>
-    <string name="topic_space">ጠፈር</string>
     <string name="settings_identity">ማንነት</string>
     <string name="settings_identity_description">AI እንዴት እንደሚሰራ የሚገልጽ የስርዓት ጥያቄ ያዘጋጁ</string>
     <string name="settings_identity_none">ምንም</string>

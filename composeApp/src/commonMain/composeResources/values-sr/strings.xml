@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Опште</string>
     <string name="settings_tab_services">Сервиси</string>
     <string name="settings_tab_tools">Алатке</string>
-    <string name="settings_show_topics">Прикажи теме</string>
-    <string name="settings_show_topics_description">Прикажи предлоге тема на празном екрану за разговор</string>
-    <string name="explore_retry">Покушај поново</string>
-    <string name="explore_related_topics">Повезане теме</string>
     <string name="history_just_now">Управо сада</string>
     <string name="history_minutes_ago">пре %1$dm</string>
     <string name="history_hours_ago">пре %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Постави аларм или тајмер за одбројавање на уређају</string>
     <string name="tool_execute_shell_command_name">Покрени команду</string>
     <string name="tool_execute_shell_command_description">Покрени команду љуске на уређају</string>
-    <string name="topic_people">Људи</string>
-    <string name="topic_sport">Спорт</string>
-    <string name="topic_technology">Технологија</string>
-    <string name="topic_countries">Државе</string>
-    <string name="topic_space">Свемир</string>
     <string name="settings_identity">Идентитет</string>
     <string name="settings_identity_description">Поставите системски промпт који дефинише како се АИ понаша</string>
     <string name="settings_identity_none">Ниједан</string>

@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "më trego one-liners të bukura për kotlin, swift, c, python, js",
     "codeIntro": "Ja disa one-liners të shkurtra e të bukura në secilën gjuhë (edicioni 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Eksplorimi i hapësirës",
-    "items": [
-      {"title": "Mars", "description": "Planeti i Kuq, i katërti nga Dielli dhe një objektiv kryesor për eksplorimin njerëzor."},
-      {"title": "Black Holes", "description": "Zona të hapësirë-kohës ku graviteti është aq i fortë sa asgjë nuk mund të shpëtojë."},
-      {"title": "Apollo 11", "description": "Misioni i parë me ekuipazh që u ul në Hënë në 1969, me tre astronautë."},
-      {"title": "Saturn's Rings", "description": "Unaza spektakolare akulli dhe shkëmbi që rrethojnë gjiganten e gazit Saturn."},
-      {"title": "Voyager Program", "description": "Dy anije kozmike binjake të lëshuara në 1977, tani në hapësirën ndëryjore."},
-      {"title": "Milky Way", "description": "Galaktika jonë e shtëpisë që përmban mbi 100 miliardë yje dhe planete të panumërta."},
-      {"title": "Solar Eclipses", "description": "Kur Hëna kalon midis Diellit dhe Tokës, duke hedhur një hije."},
-      {"title": "Neutron Stars", "description": "Mbetje ultra të dendura të yjeve masivë të ngjeshura në një sferë të vogël."}
-    ]
   }
 }

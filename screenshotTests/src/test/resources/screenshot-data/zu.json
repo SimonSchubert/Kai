@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "ngikhombise one-liners ezinhle ze-kotlin, swift, c, python, js",
     "codeIntro": "Nazi ezinye one-liners ezimfushane nezinhle ngolimi ngalunye (isishicilelo sika-2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Ukuhlola umkhathi",
-    "items": [
-      {"title": "Mars", "description": "Umhlaba Obomvu, owesine ukusuka eLangeni futhi uyinto ebalulekile ekuhlolweni kwabantu."},
-      {"title": "Black Holes", "description": "Izindawo zesikhathi-nendawo lapho amandla adonsayo enamandla kakhulu ukuthi akukho okungaphunyuka."},
-      {"title": "Apollo 11", "description": "Umsebenzi wokuqala onabantu owahlala eNyangeni ngo-1969, uthwele izigibeli zasemkhathini ezintathu."},
-      {"title": "Saturn's Rings", "description": "Amasongo amangalisayo eqhwa namatshe azungeze inkanyezi enkulu yegesi Saturn."},
-      {"title": "Voyager Program", "description": "Izithuthi ezimbili zasemkhathini ezafana ezathunyelwa ngo-1977, manje zisemkhathini ophakathi kwezinkanyezi."},
-      {"title": "Milky Way", "description": "Igalaksi yakithi equkethe izinkanyezi ezingaphezu kwezigidigidi eziyikhulu namaplanethi angenakubalwa."},
-      {"title": "Solar Eclipses", "description": "Lapho iNyanga idlula phakathi kweLanga noMhlaba, iphonsa isithunzi."},
-      {"title": "Neutron Stars", "description": "Izinsalela ezisindayo kakhulu zezinkanyezi ezinkulu ezishuthekwe esigqini esincane."}
-    ]
   }
 }

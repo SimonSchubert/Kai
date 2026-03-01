@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "näytä kauniita yksirivisiä esimerkkejä kielille kotlin, swift, c, python, js",
     "codeIntro": "Tässä muutamia lyhyitä ja kauniita yksirivisiä jokaisella kielellä (2025-editio 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Avaruuden tutkimus",
-    "items": [
-      {"title": "Mars", "description": "Punainen planeetta, neljäs Auringosta ja ensisijainen kohde ihmisen avaruustutkimukselle."},
-      {"title": "Mustat aukot", "description": "Aika-avaruuden alueita, joissa painovoima on niin voimakas, ettei mikään pääse pakenemaan."},
-      {"title": "Apollo 11", "description": "Ensimmäinen miehitetty lento Kuun pinnalle vuonna 1969, kyydissään kolme astronauttia."},
-      {"title": "Saturnuksen renkaat", "description": "Upeat jää- ja kivirenkaat, jotka ympäröivät kaasujättiläinen Saturnusta."},
-      {"title": "Voyager-ohjelma", "description": "Kaksi vuonna 1977 laukaistua avaruusluotainta, jotka ovat nyt tähtienvälisessä avaruudessa."},
-      {"title": "Linnunrata", "description": "Kotigalaksimme, jossa on yli 100 miljardia tähteä ja lukemattomia planeettoja."},
-      {"title": "Auringonpimennykset", "description": "Kun Kuu kulkee Auringon ja Maan väliin ja heittää varjon."},
-      {"title": "Neutronitähdet", "description": "Massiivisten tähtien erittäin tiheitä jäänteitä, jotka ovat pakkautuneet pieneen palloon."}
-    ]
   }
 }

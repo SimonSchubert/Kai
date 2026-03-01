@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "me mostre one-liners bonitos para kotlin, swift, c, python, js",
     "codeIntro": "Aqui estão alguns one-liners curtos e bonitos em cada linguagem (edição 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Exploração Espacial",
-    "items": [
-      {"title": "Marte", "description": "O Planeta Vermelho, quarto a partir do Sol e alvo principal para a exploração humana."},
-      {"title": "Buracos Negros", "description": "Regiões do espaço-tempo onde a gravidade é tão forte que nada consegue escapar."},
-      {"title": "Apollo 11", "description": "A primeira missão tripulada a pousar na Lua em 1969, levando três astronautas."},
-      {"title": "Anéis de Saturno", "description": "Espetaculares anéis de gelo e rocha ao redor do gigante gasoso Saturno."},
-      {"title": "Programa Voyager", "description": "Duas espaçonaves gêmeas lançadas em 1977, agora no espaço interestelar."},
-      {"title": "Via Láctea", "description": "Nossa galáxia natal contendo mais de 100 bilhões de estrelas e incontáveis planetas."},
-      {"title": "Eclipses Solares", "description": "Quando a Lua passa entre o Sol e a Terra, projetando uma sombra."},
-      {"title": "Estrelas de Nêutrons", "description": "Remanescentes ultradensos de estrelas massivas compactados em uma pequena esfera."}
-    ]
   }
 }

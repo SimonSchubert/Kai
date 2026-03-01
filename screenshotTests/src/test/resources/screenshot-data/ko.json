@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "kotlin, swift, c, python, js의 아름다운 원라이너를 보여줘",
     "codeIntro": "각 언어별 짧고 아름다운 원라이너를 소개합니다 (2025년 에디션 😄):"
-  },
-  "exploreSpace": {
-    "topic": "우주 탐사",
-    "items": [
-      {"title": "화성", "description": "붉은 행성. 태양에서 네 번째 행성이며 인류 탐사의 주요 목표입니다."},
-      {"title": "블랙홀", "description": "중력이 너무 강해서 아무것도 탈출할 수 없는 시공간의 영역입니다."},
-      {"title": "Apollo 11", "description": "1969년 달에 착륙한 최초의 유인 임무로, 세 명의 우주 비행사가 탑승했습니다."},
-      {"title": "토성의 고리", "description": "거대 가스 행성 토성을 둘러싼 장관을 이루는 얼음과 암석의 고리입니다."},
-      {"title": "Voyager 프로그램", "description": "1977년에 발사된 쌍둥이 우주선으로, 현재 성간 우주에 있습니다."},
-      {"title": "은하수", "description": "1000억 개 이상의 별과 셀 수 없는 행성을 포함하는 우리의 고향 은하입니다."},
-      {"title": "일식", "description": "달이 태양과 지구 사이를 지나면서 그림자를 드리우는 현상입니다."},
-      {"title": "중성자별", "description": "거대한 별의 초고밀도 잔해가 작은 구체로 압축된 것입니다."}
-    ]
   }
 }

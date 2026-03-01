@@ -1,29 +1,13 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.DisableSelection
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Computer
-import androidx.compose.material.icons.filled.Group
-import androidx.compose.material.icons.filled.Public
-import androidx.compose.material.icons.filled.RocketLaunch
-import androidx.compose.material.icons.filled.SportsSoccer
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,16 +15,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
@@ -53,31 +31,13 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.logo
 import kai.composeapp.generated.resources.privacy_agree_prefix
 import kai.composeapp.generated.resources.privacy_policy
-import kai.composeapp.generated.resources.topic_countries
-import kai.composeapp.generated.resources.topic_people
-import kai.composeapp.generated.resources.topic_space
-import kai.composeapp.generated.resources.topic_sport
-import kai.composeapp.generated.resources.topic_technology
 import kai.composeapp.generated.resources.welcome_message
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
-private data class ExploreTopic(
-    val title: String,
-    val icon: ImageVector,
-    val color: Color,
-    val promptTitle: String? = null,
-)
-
 @Composable
-internal fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean, showTopics: Boolean = true, onNavigateToExplore: (String) -> Unit = {}) {
+internal fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean) {
     val isInspectionMode = LocalInspectionMode.current
-    val topics = listOf(
-        ExploreTopic(stringResource(Res.string.topic_space), Icons.Default.RocketLaunch, Color(0xFFBA68C8), "Space Exploration"),
-        ExploreTopic(stringResource(Res.string.topic_technology), Icons.Default.Computer, Color(0xFFFFB74D), "Technology"),
-        ExploreTopic(stringResource(Res.string.topic_people), Icons.Default.Group, Color(0xFFE57373), "People"),
-        ExploreTopic(stringResource(Res.string.topic_sport), Icons.Default.SportsSoccer, Color(0xFF81C784), "Sport"),
-    )
 
     DisableSelection {
         Column(
@@ -136,59 +96,6 @@ internal fun EmptyState(modifier: Modifier, isUsingSharedKey: Boolean, showTopic
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-            Spacer(Modifier.height(24.dp))
-            if (showTopics) {
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    items(topics) { topic ->
-                        TopicCard(
-                            topic = topic,
-                            onClick = {
-                                onNavigateToExplore(topic.promptTitle ?: topic.title)
-                            },
-                        )
-                    }
-                }
-            }
         }
-    }
-}
-
-@Composable
-private fun TopicCard(topic: ExploreTopic, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(100.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(topic.color.copy(alpha = 0.15f))
-            .clickable(onClick = onClick)
-            .pointerHoverIcon(PointerIcon.Hand)
-            .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(topic.color.copy(alpha = 0.3f)),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                imageVector = topic.icon,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp),
-                tint = topic.color,
-            )
-        }
-        Spacer(Modifier.height(8.dp))
-        Text(
-            text = topic.title,
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onBackground,
-            textAlign = TextAlign.Center,
-        )
     }
 }

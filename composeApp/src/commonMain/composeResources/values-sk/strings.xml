@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Všeobecné</string>
     <string name="settings_tab_services">Služby</string>
     <string name="settings_tab_tools">Nástroje</string>
-    <string name="settings_show_topics">Zobraziť témy</string>
-    <string name="settings_show_topics_description">Zobraziť návrhy tém na prázdnej obrazovke chatu</string>
-    <string name="explore_retry">Skúsiť znova</string>
-    <string name="explore_related_topics">Súvisiace témy</string>
     <string name="history_just_now">Práve teraz</string>
     <string name="history_minutes_ago">pred %1$dm</string>
     <string name="history_hours_ago">pred %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Nastaviť budík alebo odpočítavací časovač na zariadení</string>
     <string name="tool_execute_shell_command_name">Spustiť príkaz</string>
     <string name="tool_execute_shell_command_description">Spustiť príkaz shellu na zariadení</string>
-    <string name="topic_people">Ľudia</string>
-    <string name="topic_sport">Šport</string>
-    <string name="topic_technology">Technológie</string>
-    <string name="topic_countries">Krajiny</string>
-    <string name="topic_space">Vesmír</string>
     <string name="settings_identity">Identita</string>
     <string name="settings_identity_description">Nastavte systémový prompt, ktorý definuje správanie AI</string>
     <string name="settings_identity_none">Žiadna</string>

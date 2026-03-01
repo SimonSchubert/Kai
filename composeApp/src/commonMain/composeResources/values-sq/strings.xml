@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Të përgjithshme</string>
     <string name="settings_tab_services">Shërbimet</string>
     <string name="settings_tab_tools">Mjetet</string>
-    <string name="settings_show_topics">Shfaq temat</string>
-    <string name="settings_show_topics_description">Shfaq sugjerime temash në ekranin bosh të bisedës</string>
-    <string name="explore_retry">Provo përsëri</string>
-    <string name="explore_related_topics">Tema të ngjashme</string>
     <string name="history_just_now">Tani</string>
     <string name="history_minutes_ago">para %1$dm</string>
     <string name="history_hours_ago">para %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Vendos një alarm ose kohëmatës në pajisje</string>
     <string name="tool_execute_shell_command_name">Ekzekuto komandën</string>
     <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në pajisje</string>
-    <string name="topic_people">Njerëzit</string>
-    <string name="topic_sport">Sporti</string>
-    <string name="topic_technology">Teknologjia</string>
-    <string name="topic_countries">Vendet</string>
-    <string name="topic_space">Hapësira</string>
     <string name="settings_identity">Identiteti</string>
     <string name="settings_identity_description">Vendosni një prompt sistemi që përcakton si sillet AI</string>
     <string name="settings_identity_none">Asnjë</string>

@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "laat me mooie oneliners zien voor kotlin, swift, c, python, js",
     "codeIntro": "Hier zijn enkele korte, mooie oneliners in elke taal (2025-editie 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Ruimteverkenning",
-    "items": [
-      {"title": "Mars", "description": "De Rode Planeet, vierde vanaf de Zon en een belangrijk doel voor menselijke verkenning."},
-      {"title": "Zwarte gaten", "description": "Gebieden in de ruimtetijd waar de zwaartekracht zo sterk is dat niets kan ontsnappen."},
-      {"title": "Apollo 11", "description": "De eerste bemande missie die in 1969 op de Maan landde, met drie astronauten aan boord."},
-      {"title": "Ringen van Saturnus", "description": "Spectaculaire ijs- en rotsringen rond de gasreus Saturnus."},
-      {"title": "Voyager-programma", "description": "Twee ruimtevaartuigen gelanceerd in 1977, nu in de interstellaire ruimte."},
-      {"title": "Melkweg", "description": "Ons thuissterrenstelsel met meer dan 100 miljard sterren en ontelbare planeten."},
-      {"title": "Zonsverduisteringen", "description": "Wanneer de Maan tussen de Zon en de Aarde door beweegt en een schaduw werpt."},
-      {"title": "Neutronensterren", "description": "Ultradichte overblijfselen van zware sterren, samengeperst in een kleine bol."}
-    ]
   }
 }

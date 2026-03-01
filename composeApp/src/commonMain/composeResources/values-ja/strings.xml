@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">このプラットフォームでは利用可能なツールがありません。</string>
     <string name="settings_tab_services">サービス</string>
     <string name="settings_tab_tools">ツール</string>
-    <string name="explore_retry">再試行</string>
-    <string name="explore_related_topics">関連トピック</string>
     <string name="history_just_now">たった今</string>
     <string name="history_minutes_ago">%1$d分前</string>
     <string name="history_hours_ago">%1$d時間前</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">サービスを利用することで、</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="new_conversation">新しい会話</string>
-    <string name="topic_people">人物</string>
-    <string name="topic_sport">スポーツ</string>
-    <string name="topic_technology">テクノロジー</string>
-    <string name="topic_countries">国</string>
-    <string name="topic_space">宇宙</string>
     <string name="settings_tab_general">一般</string>
-    <string name="settings_show_topics">トピックを表示</string>
-    <string name="settings_show_topics_description">空のチャット画面にトピックの提案を表示</string>
     <string name="tool_set_alarm_name">アラームを設定</string>
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
     <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>

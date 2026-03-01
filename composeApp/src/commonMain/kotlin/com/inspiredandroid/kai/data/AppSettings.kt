@@ -118,13 +118,6 @@ class AppSettings(private val settings: Settings) {
         }
     }
 
-    // Show topics setting
-    fun isShowTopicsEnabled(): Boolean = settings.getBoolean(KEY_SHOW_TOPICS, false)
-
-    fun setShowTopicsEnabled(enabled: Boolean) {
-        settings.putBoolean(KEY_SHOW_TOPICS, enabled)
-    }
-
     // Identity settings
     fun getSelectedIdentityId(): String = settings.getString(KEY_SELECTED_IDENTITY_ID, "none")
 
@@ -150,7 +143,6 @@ class AppSettings(private val settings: Settings) {
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"
-        const val KEY_SHOW_TOPICS = "show_topics"
         const val KEY_SELECTED_IDENTITY_ID = "selected_identity_id"
         const val KEY_CUSTOM_IDENTITIES = "custom_identities"
         const val KEY_IDENTITY_OVERRIDES = "identity_overrides"

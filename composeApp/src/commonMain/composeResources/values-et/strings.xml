@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Üldine</string>
     <string name="settings_tab_services">Teenused</string>
     <string name="settings_tab_tools">Tööriistad</string>
-    <string name="settings_show_topics">Kuva teemasid</string>
-    <string name="settings_show_topics_description">Kuva teemasoovitusi tühjal vestlusekraanil</string>
-    <string name="explore_retry">Proovi uuesti</string>
-    <string name="explore_related_topics">Seotud teemad</string>
     <string name="history_just_now">Just praegu</string>
     <string name="history_minutes_ago">%1$dm tagasi</string>
     <string name="history_hours_ago">%1$dh tagasi</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Seadista äratus või taimer seadmes</string>
     <string name="tool_execute_shell_command_name">Käivita käsk</string>
     <string name="tool_execute_shell_command_description">Käivita shell-käsk seadmes</string>
-    <string name="topic_people">Inimesed</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Tehnoloogia</string>
-    <string name="topic_countries">Riigid</string>
-    <string name="topic_space">Kosmos</string>
     <string name="settings_identity">Identiteet</string>
     <string name="settings_identity_description">Määrake süsteemijuhis, mis määratleb tehisintellekti käitumise</string>
     <string name="settings_identity_none">Puudub</string>

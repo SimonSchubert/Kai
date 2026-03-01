@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">इस प्लेटफॉर्म पर कोई उपकरण उपलब्ध नहीं है।</string>
     <string name="settings_tab_services">सेवाएं</string>
     <string name="settings_tab_tools">उपकरण</string>
-    <string name="explore_retry">पुनः प्रयास करें</string>
-    <string name="explore_related_topics">संबंधित विषय</string>
     <string name="history_just_now">अभी अभी</string>
     <string name="history_minutes_ago">%1$d मि पहले</string>
     <string name="history_hours_ago">%1$d घं पहले</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">सेवा का उपयोग करके, आप सहमत होते हैं </string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="new_conversation">नई बातचीत</string>
-    <string name="topic_people">लोग</string>
-    <string name="topic_sport">खेल</string>
-    <string name="topic_technology">प्रौद्योगिकी</string>
-    <string name="topic_countries">देश</string>
-    <string name="topic_space">अंतरिक्ष</string>
     <string name="settings_tab_general">सामान्य</string>
-    <string name="settings_show_topics">विषय दिखाएं</string>
-    <string name="settings_show_topics_description">खाली चैट स्क्रीन पर विषय सुझाव दिखाएं</string>
     <string name="tool_set_alarm_name">अलार्म सेट करें</string>
     <string name="tool_set_alarm_description">डिवाइस पर अलार्म या काउंटडाउन टाइमर सेट करें</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चलाएँ</string>

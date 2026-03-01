@@ -620,56 +620,11 @@ class RemoteDataRepository(
         loadConversation(latest.id)
     }
 
-    // Explore
-    override suspend fun askExplore(
-        prompt: String,
-        topic: String?,
-        topicDetail: String?,
-        language: String?,
-    ): String = when (val service = currentService()) {
-        Service.Gemini -> {
-            val messages = listOf(
-                com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto.Content(
-                    parts = listOf(
-                        com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto.Part(text = prompt),
-                    ),
-                    role = "user",
-                ),
-            )
-            val response = requests.geminiChat(messages).getOrThrow()
-            response.candidates.firstOrNull()?.content?.parts?.joinToString("") { it.text ?: "" } ?: ""
-        }
-
-        else -> {
-            val messages = listOf(
-                com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
-                    role = "user",
-                    content = prompt,
-                ),
-            )
-            val customHeaders = buildMap {
-                put("X-Request-Source", "explore")
-                topic?.let { put("X-Explore-Topic", it) }
-                topicDetail?.let { put("X-Explore-Detail", it) }
-                language?.let { put("X-Explore-Language", it) }
-            }
-            val response = requests.openAICompatibleChat(service, messages, customHeaders = customHeaders).getOrThrow()
-            response.choices.firstOrNull()?.message?.content ?: ""
-        }
-    }
-
     // Tool management
     override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
         appSettings.setToolEnabled(toolId, enabled)
-    }
-
-    // General settings
-    override fun isShowTopicsEnabled(): Boolean = appSettings.isShowTopicsEnabled()
-
-    override fun setShowTopicsEnabled(enabled: Boolean) {
-        appSettings.setShowTopicsEnabled(enabled)
     }
 
     // Identity management

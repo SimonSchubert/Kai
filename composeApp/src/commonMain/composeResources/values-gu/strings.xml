@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">આ પ્લેટફોર્મ પર કોઈ ટૂલ્સ ઉપલબ્ધ નથી.</string>
     <string name="settings_tab_services">સેવાઓ</string>
     <string name="settings_tab_tools">ટૂલ્સ</string>
-    <string name="explore_retry">ફરી પ્રયાસ કરો</string>
-    <string name="explore_related_topics">સંબંધિત વિષયો</string>
     <string name="history_just_now">હમણાં જ</string>
     <string name="history_minutes_ago">%1$d મિ પહેલાં</string>
     <string name="history_hours_ago">%1$d ક પહેલાં</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">સેવાનો ઉપયોગ કરીને, તમે સંમત થાઓ છો </string>
     <string name="privacy_policy">ગોપનીયતા નીતિ</string>
     <string name="new_conversation">નવી વાતચીત</string>
-    <string name="topic_people">લોકો</string>
-    <string name="topic_sport">રમતગમત</string>
-    <string name="topic_technology">ટેકનોલોજી</string>
-    <string name="topic_countries">દેશો</string>
-    <string name="topic_space">અવકાશ</string>
     <string name="settings_tab_general">સામાન્ય</string>
-    <string name="settings_show_topics">વિષયો બતાવો</string>
-    <string name="settings_show_topics_description">ખાલી ચેટ સ્ક્રીન પર વિષયના સૂચનો બતાવો</string>
     <string name="tool_set_alarm_name">એલાર્મ સેટ કરો</string>
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
     <string name="tool_execute_shell_command_name">શેલ કમાન્ડ ચલાવો</string>

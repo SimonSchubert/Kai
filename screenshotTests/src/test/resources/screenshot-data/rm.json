@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "mussa'm bels one-liners per kotlin, swift, c, python, js",
     "codeIntro": "Qua èn intgins curts e bels one-liners en mintga lingua (ediziun 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Exploraziun dal spazi",
-    "items": [
-      {"title": "Mars", "description": "Il planet cotschen, il quart dal sulegl e ina destinaziun principala per l'exploraziun umana."},
-      {"title": "Black Holes", "description": "Regiuns dal spazi-temp nua che la gravitaziun è uschè ferma che nagut po scappar."},
-      {"title": "Apollo 11", "description": "L'emprima missiun cun equipadi ch'è atterrada sin la Glina il 1969, cun trais astronauts."},
-      {"title": "Saturn's Rings", "description": "Anels spectaculars da glatsch e crappa che circumdattan il gigant da gas Saturn."},
-      {"title": "Voyager Program", "description": "Duas navs spazialas gemelladas, lantschadas il 1977, ussa en il spazi interstellar."},
-      {"title": "Milky Way", "description": "Nossa galaxia che cuntegna sur 100 milliardas stailas e innombraivels planets."},
-      {"title": "Solar Eclipses", "description": "Cura che la Glina passa tranter il Sulegl e la Terra, stgirond ina sumbriva."},
-      {"title": "Neutron Stars", "description": "Rests ultra-densas da stailas massivas cumprimidas en ina pitschna sfera."}
-    ]
   }
 }

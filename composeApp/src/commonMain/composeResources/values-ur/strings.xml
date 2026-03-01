@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">اس پلیٹ فارم پر کوئی ٹولز دستیاب نہیں ہیں۔</string>
     <string name="settings_tab_services">خدمات</string>
     <string name="settings_tab_tools">ٹولز</string>
-    <string name="explore_retry">دوبارہ کوشش کریں</string>
-    <string name="explore_related_topics">متعلقہ موضوعات</string>
     <string name="history_just_now">ابھی</string>
     <string name="history_minutes_ago">%1$d منٹ پہلے</string>
     <string name="history_hours_ago">%1$d گھنٹے پہلے</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">سروس استعمال کرکے، آپ اتفاق کرتے ہیں </string>
     <string name="privacy_policy">رازداری کی پالیسی</string>
     <string name="new_conversation">نئی گفتگو</string>
-    <string name="topic_people">لوگ</string>
-    <string name="topic_sport">کھیل</string>
-    <string name="topic_technology">ٹیکنالوجی</string>
-    <string name="topic_countries">ممالک</string>
-    <string name="topic_space">خلا</string>
     <string name="settings_tab_general">عمومی</string>
-    <string name="settings_show_topics">موضوعات دکھائیں</string>
-    <string name="settings_show_topics_description">خالی چیٹ اسکرین پر موضوعات کی تجاویز دکھائیں</string>
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
     <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>

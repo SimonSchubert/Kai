@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">لا توجد أدوات متاحة على هذه المنصة.</string>
     <string name="settings_tab_services">الخدمات</string>
     <string name="settings_tab_tools">الأدوات</string>
-    <string name="explore_retry">إعادة المحاولة</string>
-    <string name="explore_related_topics">مواضيع ذات صلة</string>
     <string name="history_just_now">الآن</string>
     <string name="history_minutes_ago">قبل %1$d د</string>
     <string name="history_hours_ago">قبل %1$d س</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="new_conversation">محادثة جديدة</string>
-    <string name="topic_people">أشخاص</string>
-    <string name="topic_sport">رياضة</string>
-    <string name="topic_technology">تكنولوجيا</string>
-    <string name="topic_countries">دول</string>
-    <string name="topic_space">فضاء</string>
     <string name="settings_tab_general">عام</string>
-    <string name="settings_show_topics">إظهار المواضيع</string>
-    <string name="settings_show_topics_description">عرض اقتراحات المواضيع على شاشة الدردشة الفارغة</string>
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
     <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>

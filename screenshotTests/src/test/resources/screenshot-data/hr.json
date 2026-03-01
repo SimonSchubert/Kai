@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "pokazi mi lijepe jednolinijske primjere za kotlin, swift, c, python, js",
     "codeIntro": "Evo nekih kratkih, lijepih jednolinijskih primjera u svakom jeziku (izdanje 2025. 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Istrazivanje svemira",
-    "items": [
-      {"title": "Mars", "description": "Crveni planet, cetvrti od Sunca i glavni cilj za ljudsko istrazivanje."},
-      {"title": "Black Holes", "description": "Podrucja prostor-vremena gdje je gravitacija toliko jaka da nista ne moze pobjeci."},
-      {"title": "Apollo 11", "description": "Prva posadena misija koja je sletjela na Mjesec 1969., s tri astronauta."},
-      {"title": "Saturn's Rings", "description": "Spektakularni prstenovi leda i stijena koji okruzuju plinovitog diva Saturn."},
-      {"title": "Voyager Program", "description": "Dvije svemirske letjelice lansirane 1977., sada u meduzvjezdanom prostoru."},
-      {"title": "Milky Way", "description": "Nasa maticna galaksija koja sadrzi preko 100 milijardi zvijezda i bezbroj planeta."},
-      {"title": "Solar Eclipses", "description": "Kada Mjesec prode izmedu Sunca i Zemlje, bacajuci sjenu."},
-      {"title": "Neutron Stars", "description": "Ultra-gusti ostaci masivnih zvijezda sabijeni u malu sferu."}
-    ]
   }
 }

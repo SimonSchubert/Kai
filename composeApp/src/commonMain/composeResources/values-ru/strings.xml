@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">На этой платформе нет доступных инструментов.</string>
     <string name="settings_tab_services">Сервисы</string>
     <string name="settings_tab_tools">Инструменты</string>
-    <string name="explore_retry">Повторить</string>
-    <string name="explore_related_topics">Похожие темы</string>
     <string name="history_just_now">Только что</string>
     <string name="history_minutes_ago">%1$d мин назад</string>
     <string name="history_hours_ago">%1$d ч назад</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Используя сервис, вы соглашаетесь с </string>
     <string name="privacy_policy">Политикой конфиденциальности</string>
     <string name="new_conversation">Новый разговор</string>
-    <string name="topic_people">Люди</string>
-    <string name="topic_sport">Спорт</string>
-    <string name="topic_technology">Технологии</string>
-    <string name="topic_countries">Страны</string>
-    <string name="topic_space">Космос</string>
     <string name="settings_tab_general">Общие</string>
-    <string name="settings_show_topics">Показать темы</string>
-    <string name="settings_show_topics_description">Показывать предложения тем на пустом экране чата</string>
     <string name="tool_set_alarm_name">Установить будильник</string>
     <string name="tool_set_alarm_description">Установить будильник или таймер обратного отсчёта на устройстве</string>
     <string name="tool_execute_shell_command_name">Выполнить команду</string>

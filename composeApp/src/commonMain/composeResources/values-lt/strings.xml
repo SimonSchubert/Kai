@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Bendra</string>
     <string name="settings_tab_services">Paslaugos</string>
     <string name="settings_tab_tools">Įrankiai</string>
-    <string name="settings_show_topics">Rodyti temas</string>
-    <string name="settings_show_topics_description">Rodyti temų pasiūlymus tuščiame pokalbio ekrane</string>
-    <string name="explore_retry">Bandyti dar kartą</string>
-    <string name="explore_related_topics">Susijusios temos</string>
     <string name="history_just_now">Ką tik</string>
     <string name="history_minutes_ago">prieš %1$d min</string>
     <string name="history_hours_ago">prieš %1$d val</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Nustatyti žadintuvą arba atgalinį laikmatį įrenginyje</string>
     <string name="tool_execute_shell_command_name">Vykdyti komandą</string>
     <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą įrenginyje</string>
-    <string name="topic_people">Žmonės</string>
-    <string name="topic_sport">Sportas</string>
-    <string name="topic_technology">Technologijos</string>
-    <string name="topic_countries">Šalys</string>
-    <string name="topic_space">Kosmosas</string>
     <string name="settings_identity">Tapatybė</string>
     <string name="settings_identity_description">Nustatykite sisteminį raginimą, apibrėžiantį AI elgesį</string>
     <string name="settings_identity_none">Nėra</string>

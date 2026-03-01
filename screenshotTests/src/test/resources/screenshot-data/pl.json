@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "pokaż mi piękne jednolinijkowce dla kotlin, swift, c, python, js",
     "codeIntro": "Oto kilka krótkich, pięknych jednolinijkowców w każdym języku (edycja 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Eksploracja kosmosu",
-    "items": [
-      {"title": "Mars", "description": "Czerwona Planeta, czwarta od Słońca i główny cel eksploracji załogowej."},
-      {"title": "Czarne dziury", "description": "Obszary czasoprzestrzeni, w których grawitacja jest tak silna, że nic nie może uciec."},
-      {"title": "Apollo 11", "description": "Pierwsza załogowa misja, która wylądowała na Księżycu w 1969 roku, z trzema astronautami na pokładzie."},
-      {"title": "Pierścienie Saturna", "description": "Spektakularne pierścienie z lodu i skał otaczające gazowego olbrzyma Saturna."},
-      {"title": "Program Voyager", "description": "Dwie sondy kosmiczne wystrzelone w 1977 roku, obecnie w przestrzeni międzygwiezdnej."},
-      {"title": "Droga Mleczna", "description": "Nasza galaktyka macierzysta zawierająca ponad 100 miliardów gwiazd i niezliczone planety."},
-      {"title": "Zaćmienia Słońca", "description": "Gdy Księżyc przechodzi między Słońcem a Ziemią, rzucając cień."},
-      {"title": "Gwiazdy neutronowe", "description": "Ultragęste pozostałości masywnych gwiazd ściśnięte w maleńką kulę."}
-    ]
   }
 }

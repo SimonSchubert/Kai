@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "ukáž mi pekné jednoriadkové príklady pre kotlin, swift, c, python, js",
     "codeIntro": "Tu sú krátke, elegantné jednoriadkové príklady v každom jazyku (edícia 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Výskum vesmíru",
-    "items": [
-      {"title": "Mars", "description": "Červená planéta, štvrtá od Slnka a hlavný cieľ ľudského prieskumu."},
-      {"title": "Čierne diery", "description": "Oblasti časopriestoru, kde je gravitácia taká silná, že nič nemôže uniknúť."},
-      {"title": "Apollo 11", "description": "Prvá posádková misia, ktorá pristála na Mesiaci v roku 1969, s tromi astronautmi na palube."},
-      {"title": "Prstence Saturna", "description": "Veľkolepé prstence z ľadu a hornín obklopujúce plynného obra Saturn."},
-      {"title": "Program Voyager", "description": "Dvojica sond vypustených v roku 1977, teraz v medzihviezdnom priestore."},
-      {"title": "Mliečna dráha", "description": "Naša domovská galaxia obsahujúca viac ako 100 miliárd hviezd a nespočetné množstvo planét."},
-      {"title": "Zatmenia Slnka", "description": "Keď Mesiac prejde medzi Slnkom a Zemou a vrhá tieň."},
-      {"title": "Neutrónové hviezdy", "description": "Ultrahusto zbytky masívnych hviezd stlačené do maličkej gule."}
-    ]
   }
 }

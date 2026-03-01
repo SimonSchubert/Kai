@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "tunjukkan satu baris kod cantik untuk kotlin, swift, c, python, js",
     "codeIntro": "Berikut ialah beberapa satu baris kod pendek dan cantik dalam setiap bahasa (edisi 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Penerokaan Angkasa",
-    "items": [
-      {"title": "Mars", "description": "Planet Merah, keempat dari Matahari dan sasaran utama untuk penerokaan manusia."},
-      {"title": "Black Holes", "description": "Kawasan ruang-masa di mana graviti begitu kuat sehingga tiada apa yang boleh melepaskan diri."},
-      {"title": "Apollo 11", "description": "Misi berawak pertama yang mendarat di Bulan pada 1969, membawa tiga angkasawan."},
-      {"title": "Saturn's Rings", "description": "Gelang ais dan batu yang menakjubkan mengelilingi gergasi gas Saturn."},
-      {"title": "Voyager Program", "description": "Kapal angkasa kembar yang dilancarkan pada 1977, kini berada di angkasa antara bintang."},
-      {"title": "Milky Way", "description": "Galaksi rumah kita yang mengandungi lebih 100 bilion bintang dan planet yang tidak terkira."},
-      {"title": "Solar Eclipses", "description": "Apabila Bulan melalui antara Matahari dan Bumi, menghasilkan bayang."},
-      {"title": "Neutron Stars", "description": "Sisa ultra-padat bintang besar yang dimampatkan ke dalam sfera kecil."}
-    ]
   }
 }

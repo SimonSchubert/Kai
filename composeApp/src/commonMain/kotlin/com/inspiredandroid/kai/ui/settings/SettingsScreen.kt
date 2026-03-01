@@ -125,8 +125,6 @@ import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
-import kai.composeapp.generated.resources.settings_show_topics
-import kai.composeapp.generated.resources.settings_show_topics_description
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
@@ -192,8 +190,6 @@ fun SettingsScreenContent(
             when (uiState.currentTab) {
                 SettingsTab.General -> {
                     GeneralContent(
-                        showTopics = uiState.showTopics,
-                        onToggleShowTopics = uiState.onToggleShowTopics,
                         identities = uiState.identities,
                         selectedIdentity = uiState.selectedIdentity,
                         onSelectIdentity = uiState.onSelectIdentity,
@@ -1095,8 +1091,6 @@ private fun ToolItem(
 
 @Composable
 private fun GeneralContent(
-    showTopics: Boolean,
-    onToggleShowTopics: (Boolean) -> Unit,
     identities: List<Identity>,
     selectedIdentity: Identity?,
     onSelectIdentity: (String) -> Unit,
@@ -1130,38 +1124,6 @@ private fun GeneralContent(
             )
         }
 
-        Spacer(Modifier.height(24.dp))
-        HorizontalDivider(thickness = 0.5.dp)
-        Spacer(Modifier.height(16.dp))
-
-        // Show topics toggle
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(Res.string.settings_show_topics),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Text(
-                    text = stringResource(Res.string.settings_show_topics_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-
-            Spacer(Modifier.width(16.dp))
-
-            Switch(
-                checked = showTopics,
-                onCheckedChange = onToggleShowTopics,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-            )
-        }
     }
 }
 

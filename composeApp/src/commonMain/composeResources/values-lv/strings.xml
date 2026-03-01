@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Vispārīgi</string>
     <string name="settings_tab_services">Pakalpojumi</string>
     <string name="settings_tab_tools">Rīki</string>
-    <string name="settings_show_topics">Rādīt tēmas</string>
-    <string name="settings_show_topics_description">Rādīt tēmu ieteikumus tukšajā tērzēšanas ekrānā</string>
-    <string name="explore_retry">Mēģināt vēlreiz</string>
-    <string name="explore_related_topics">Saistītās tēmas</string>
     <string name="history_just_now">Tikko</string>
     <string name="history_minutes_ago">pirms %1$d min</string>
     <string name="history_hours_ago">pirms %1$d st</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Iestatīt modinātāju vai atpakaļskaitīšanas taimeri ierīcē</string>
     <string name="tool_execute_shell_command_name">Izpildīt komandu</string>
     <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu ierīcē</string>
-    <string name="topic_people">Cilvēki</string>
-    <string name="topic_sport">Sports</string>
-    <string name="topic_technology">Tehnoloģijas</string>
-    <string name="topic_countries">Valstis</string>
-    <string name="topic_space">Kosmoss</string>
     <string name="settings_identity">Identitāte</string>
     <string name="settings_identity_description">Iestatiet sistēmas uzvedni, kas nosaka AI uzvedību</string>
     <string name="settings_identity_none">Nav</string>

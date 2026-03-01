@@ -63,10 +63,6 @@
     <string name="settings_tab_general">General</string>
     <string name="settings_tab_services">Servetschs</string>
     <string name="settings_tab_tools">Utensils</string>
-    <string name="settings_show_topics">Mussar temas</string>
-    <string name="settings_show_topics_description">Mussar propostas da temas sin la pagina da chat vida</string>
-    <string name="explore_retry">Empruvar anc ina giada</string>
-    <string name="explore_related_topics">Temas apparentadas</string>
     <string name="history_just_now">Ussa</string>
     <string name="history_minutes_ago">avant %1$d min</string>
     <string name="history_hours_ago">avant %1$d uras</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Metter ina sveglia u in countdown timer sin l\'apparat</string>
     <string name="tool_execute_shell_command_name">Exequir cumand</string>
     <string name="tool_execute_shell_command_description">Exequir in cumand shell sin l\'apparat</string>
-    <string name="topic_people">Persunas</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Tecnologia</string>
-    <string name="topic_countries">Pajais</string>
-    <string name="topic_space">Spazi</string>
     <string name="settings_identity">Identitad</string>
     <string name="settings_identity_description">Definir ina prompt da sistem che definescha il cumportament da l\'AI</string>
     <string name="settings_identity_none">Nagin</string>

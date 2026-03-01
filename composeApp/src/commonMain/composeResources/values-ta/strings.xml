@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">இந்த தளத்தில் கருவிகள் எதுவும் கிடைக்கவில்லை.</string>
     <string name="settings_tab_services">சேவைகள்</string>
     <string name="settings_tab_tools">கருவிகள்</string>
-    <string name="explore_retry">மீண்டும் முயற்சிக்கவும்</string>
-    <string name="explore_related_topics">தொடர்புடைய தலைப்புகள்</string>
     <string name="history_just_now">இப்போது</string>
     <string name="history_minutes_ago">%1$d நி முன்</string>
     <string name="history_hours_ago">%1$d ம முன்</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">சேவையைப் பயன்படுத்துவதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள் </string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="new_conversation">புதிய உரையாடல்</string>
-    <string name="topic_people">மக்கள்</string>
-    <string name="topic_sport">விளையாட்டு</string>
-    <string name="topic_technology">தொழில்நுட்பம்</string>
-    <string name="topic_countries">நாடுகள்</string>
-    <string name="topic_space">விண்வெளி</string>
     <string name="settings_tab_general">பொது</string>
-    <string name="settings_show_topics">தலைப்புகளைக் காட்டு</string>
-    <string name="settings_show_topics_description">காலி அரட்டைத் திரையில் தலைப்பு பரிந்துரைகளைக் காட்டு</string>
     <string name="tool_set_alarm_name">அலாரம் அமை</string>
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
     <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>

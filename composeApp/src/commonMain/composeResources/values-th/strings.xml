@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">ไม่มีเครื่องมือที่พร้อมใช้งานบนแพลตฟอร์มนี้</string>
     <string name="settings_tab_services">บริการ</string>
     <string name="settings_tab_tools">เครื่องมือ</string>
-    <string name="explore_retry">ลองอีกครั้ง</string>
-    <string name="explore_related_topics">หัวข้อที่เกี่ยวข้อง</string>
     <string name="history_just_now">เมื่อกี้</string>
     <string name="history_minutes_ago">%1$d นาทีที่แล้ว</string>
     <string name="history_hours_ago">%1$d ชม.ที่แล้ว</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">การใช้บริการถือว่าคุณยอมรับ</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="new_conversation">บทสนทนาใหม่</string>
-    <string name="topic_people">บุคคล</string>
-    <string name="topic_sport">กีฬา</string>
-    <string name="topic_technology">เทคโนโลยี</string>
-    <string name="topic_countries">ประเทศ</string>
-    <string name="topic_space">อวกาศ</string>
     <string name="settings_tab_general">ทั่วไป</string>
-    <string name="settings_show_topics">แสดงหัวข้อ</string>
-    <string name="settings_show_topics_description">แสดงคำแนะนำหัวข้อบนหน้าจอแชทว่าง</string>
     <string name="tool_set_alarm_name">ตั้งปลุก</string>
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
     <string name="tool_execute_shell_command_name">รันคำสั่งเชลล์</string>

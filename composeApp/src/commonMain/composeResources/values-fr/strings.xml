@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Aucun outil disponible sur cette plateforme.</string>
     <string name="settings_tab_services">Services</string>
     <string name="settings_tab_tools">Outils</string>
-    <string name="explore_retry">Réessayer</string>
-    <string name="explore_related_topics">Sujets connexes</string>
     <string name="history_just_now">À l\'instant</string>
     <string name="history_minutes_ago">il y a %1$d min</string>
     <string name="history_hours_ago">il y a %1$d h</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">En utilisant le service, vous acceptez la </string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="new_conversation">Nouvelle conversation</string>
-    <string name="topic_people">Personnalités</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technologie</string>
-    <string name="topic_countries">Pays</string>
-    <string name="topic_space">Espace</string>
     <string name="settings_tab_general">Général</string>
-    <string name="settings_show_topics">Afficher les sujets</string>
-    <string name="settings_show_topics_description">Afficher les suggestions de sujets sur l&#39;écran de chat vide</string>
     <string name="tool_set_alarm_name">Régler une alarme</string>
     <string name="tool_set_alarm_description">Régler une alarme ou un minuteur sur l&#39;appareil</string>
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>

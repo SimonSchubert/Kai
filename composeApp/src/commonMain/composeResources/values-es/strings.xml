@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">No hay herramientas disponibles en esta plataforma.</string>
     <string name="settings_tab_services">Servicios</string>
     <string name="settings_tab_tools">Herramientas</string>
-    <string name="explore_retry">Reintentar</string>
-    <string name="explore_related_topics">Temas relacionados</string>
     <string name="history_just_now">Ahora mismo</string>
     <string name="history_minutes_ago">hace %1$d min</string>
     <string name="history_hours_ago">hace %1$d h</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Al usar el servicio, aceptas la </string>
     <string name="privacy_policy">Política de privacidad</string>
     <string name="new_conversation">Nueva conversación</string>
-    <string name="topic_people">Personas</string>
-    <string name="topic_sport">Deporte</string>
-    <string name="topic_technology">Tecnología</string>
-    <string name="topic_countries">Países</string>
-    <string name="topic_space">Espacio</string>
     <string name="settings_tab_general">General</string>
-    <string name="settings_show_topics">Mostrar temas</string>
-    <string name="settings_show_topics_description">Mostrar sugerencias de temas en la pantalla de chat vacía</string>
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
     <string name="tool_execute_shell_command_name">Ejecutar comando</string>

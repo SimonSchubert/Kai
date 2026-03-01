@@ -40,8 +40,6 @@ data class SettingsUiState(
     val onChangeBaseUrl: (String) -> Unit = {},
     val onSelectModel: (String) -> Unit = {},
     val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
-    val showTopics: Boolean = true,
-    val onToggleShowTopics: (Boolean) -> Unit = {},
     val identities: List<Identity> = emptyList(),
     val selectedIdentity: Identity? = null,
     val onSelectIdentity: (String) -> Unit = {},

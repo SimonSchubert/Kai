@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "ukaž mi krásné jednořádkové ukázky pro kotlin, swift, c, python, js",
     "codeIntro": "Zde jsou krátké, elegantní jednořádkové ukázky v každém jazyce (edice 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Průzkum vesmíru",
-    "items": [
-      {"title": "Mars", "description": "Rudá planeta, čtvrtá od Slunce a hlavní cíl lidského průzkumu."},
-      {"title": "Černé díry", "description": "Oblasti časoprostoru, kde je gravitace tak silná, že nic nemůže uniknout."},
-      {"title": "Apollo 11", "description": "První pilotovaná mise, která přistála na Měsíci v roce 1969 se třemi astronauty."},
-      {"title": "Saturnovy prstence", "description": "Velkolepé prstence z ledu a hornin obklopující plynného obra Saturn."},
-      {"title": "Program Voyager", "description": "Dvojice sond vypuštěných v roce 1977, nyní v mezihvězdném prostoru."},
-      {"title": "Mléčná dráha", "description": "Naše domovská galaxie obsahující přes 100 miliard hvězd a nespočet planet."},
-      {"title": "Zatmění Slunce", "description": "Jev, kdy Měsíc prochází mezi Sluncem a Zemí a vrhá stín."},
-      {"title": "Neutronové hvězdy", "description": "Extrémně husté pozůstatky masivních hvězd stlačené do malé koule."}
-    ]
   }
 }

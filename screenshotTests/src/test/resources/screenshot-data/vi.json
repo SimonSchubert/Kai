@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "cho tôi xem những dòng code đẹp cho kotlin, swift, c, python, js",
     "codeIntro": "Dưới đây là một số dòng code ngắn gọn, đẹp mắt trong mỗi ngôn ngữ (phiên bản 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Khám phá vũ trụ",
-    "items": [
-      {"title": "Sao Hỏa", "description": "Hành tinh Đỏ, hành tinh thứ tư tính từ Mặt Trời và mục tiêu hàng đầu cho việc khám phá của con người."},
-      {"title": "Hố đen", "description": "Vùng không-thời gian nơi lực hấp dẫn mạnh đến mức không gì có thể thoát ra."},
-      {"title": "Apollo 11", "description": "Sứ mệnh có phi hành đoàn đầu tiên đổ bộ lên Mặt Trăng vào năm 1969, mang theo ba phi hành gia."},
-      {"title": "Vành đai Sao Thổ", "description": "Những vành đai ngoạn mục bằng băng và đá bao quanh hành tinh khí khổng lồ Sao Thổ."},
-      {"title": "Chương trình Voyager", "description": "Hai tàu vũ trụ song sinh được phóng năm 1977, hiện đang ở trong không gian liên sao."},
-      {"title": "Dải Ngân Hà", "description": "Thiên hà quê hương của chúng ta chứa hơn 100 tỷ ngôi sao và vô số hành tinh."},
-      {"title": "Nhật thực", "description": "Khi Mặt Trăng đi qua giữa Mặt Trời và Trái Đất, tạo ra bóng tối."},
-      {"title": "Sao neutron", "description": "Tàn dư siêu đặc của các ngôi sao lớn được nén vào một quả cầu nhỏ bé."}
-    ]
   }
 }

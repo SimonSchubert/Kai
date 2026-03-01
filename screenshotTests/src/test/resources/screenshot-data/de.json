@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "zeig mir schöne Einzeiler für Kotlin, Swift, C, Python, JS",
     "codeIntro": "Hier sind einige kurze, schöne Einzeiler in jeder Sprache (2025er Ausgabe 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Weltraumforschung",
-    "items": [
-      {"title": "Mars", "description": "Der Rote Planet, vierter von der Sonne und ein Hauptziel der bemannten Erforschung."},
-      {"title": "Schwarze Löcher", "description": "Regionen der Raumzeit, in denen die Gravitation so stark ist, dass nichts entkommen kann."},
-      {"title": "Apollo 11", "description": "Die erste bemannte Mission, die 1969 auf dem Mond landete, mit drei Astronauten an Bord."},
-      {"title": "Saturnringe", "description": "Spektakuläre Eis- und Gesteinsringe, die den Gasriesen Saturn umgeben."},
-      {"title": "Voyager-Programm", "description": "Zwei Zwillings-Raumsonden, die 1977 gestartet wurden und sich jetzt im interstellaren Raum befinden."},
-      {"title": "Milchstraße", "description": "Unsere Heimatgalaxie mit über 100 Milliarden Sternen und unzähligen Planeten."},
-      {"title": "Sonnenfinsternisse", "description": "Wenn der Mond zwischen Sonne und Erde hindurchzieht und einen Schatten wirft."},
-      {"title": "Neutronensterne", "description": "Ultradichte Überreste massereicher Sterne, zusammengepresst in einer winzigen Kugel."}
-    ]
   }
 }

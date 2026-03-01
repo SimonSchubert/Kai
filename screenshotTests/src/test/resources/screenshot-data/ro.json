@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "arată-mi one-linere elegante pentru kotlin, swift, c, python, js",
     "codeIntro": "Iată câteva one-linere scurte și elegante în fiecare limbaj (ediția 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Explorarea spațiului",
-    "items": [
-      {"title": "Marte", "description": "Planeta Roșie, a patra de la Soare și o țintă principală pentru explorarea umană."},
-      {"title": "Găurile negre", "description": "Regiuni ale spațiu-timpului unde gravitația este atât de puternică încât nimic nu poate scăpa."},
-      {"title": "Apollo 11", "description": "Prima misiune cu echipaj uman care a aterizat pe Lună în 1969, transportând trei astronauți."},
-      {"title": "Inelele lui Saturn", "description": "Inele spectaculoase de gheață și roci care înconjoară gigantul gazos Saturn."},
-      {"title": "Programul Voyager", "description": "Două nave spațiale gemene lansate în 1977, aflate acum în spațiul interstelar."},
-      {"title": "Calea Lactee", "description": "Galaxia noastră gazdă, care conține peste 100 de miliarde de stele și nenumărate planete."},
-      {"title": "Eclipsele solare", "description": "Când Luna trece între Soare și Pământ, proiectând o umbră."},
-      {"title": "Stelele neutronice", "description": "Rămășițe ultra-dense ale stelelor masive, comprimate într-o sferă minusculă."}
-    ]
   }
 }

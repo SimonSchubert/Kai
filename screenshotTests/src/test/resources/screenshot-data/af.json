@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "wys vir my mooi eenlynkodes vir kotlin, swift, c, python, js",
     "codeIntro": "Hier is 'n paar kort, mooi eenlynkodes in elke taal (2025-uitgawe 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Ruimteverkenning",
-    "items": [
-      {"title": "Mars", "description": "Die Rooi Planeet, vierde vanaf die Son en 'n hoofteiken vir menslike verkenning."},
-      {"title": "Swart Gate", "description": "Gebiede van ruimtetyd waar swaartekrag so sterk is dat niks kan ontsnap nie."},
-      {"title": "Apollo 11", "description": "Die eerste bemande sending wat in 1969 op die Maan geland het, met drie ruimtevaarders."},
-      {"title": "Saturnus se Ringe", "description": "Skouspelagtige ys- en rotsringe wat die gasreus Saturnus omring."},
-      {"title": "Voyager-program", "description": "Tweeling-ruimtetuie wat in 1977 gelanseer is, nou in interstellere ruimte."},
-      {"title": "Melkweg", "description": "Ons tuisgalaksie wat meer as 100 miljard sterre en talle planete bevat."},
-      {"title": "Sonsverduisterings", "description": "Wanneer die Maan tussen die Son en Aarde beweeg en 'n skaduwee werp."},
-      {"title": "Neutronsterre", "description": "Ultradigte oorblyfsels van massiewe sterre wat in 'n klein sfeer saamgepak is."}
-    ]
   }
 }

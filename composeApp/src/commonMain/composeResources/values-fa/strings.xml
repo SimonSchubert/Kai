@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">هیچ ابزاری در این پلتفرم موجود نیست.</string>
     <string name="settings_tab_services">سرویس‌ها</string>
     <string name="settings_tab_tools">ابزارها</string>
-    <string name="explore_retry">تلاش مجدد</string>
-    <string name="explore_related_topics">موضوعات مرتبط</string>
     <string name="history_just_now">همین الان</string>
     <string name="history_minutes_ago">%1$d دقیقه پیش</string>
     <string name="history_hours_ago">%1$d ساعت پیش</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">با استفاده از سرویس، شما با </string>
     <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
     <string name="new_conversation">مکالمه جدید</string>
-    <string name="topic_people">افراد</string>
-    <string name="topic_sport">ورزش</string>
-    <string name="topic_technology">فناوری</string>
-    <string name="topic_countries">کشورها</string>
-    <string name="topic_space">فضا</string>
     <string name="settings_tab_general">عمومی</string>
-    <string name="settings_show_topics">نمایش موضوعات</string>
-    <string name="settings_show_topics_description">نمایش پیشنهادات موضوعی در صفحه چت خالی</string>
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
     <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>

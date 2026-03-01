@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Obecn\u00e9</string>
     <string name="settings_tab_services">Slu\u017eby</string>
     <string name="settings_tab_tools">N\u00e1stroje</string>
-    <string name="settings_show_topics">Zobrazit t\u00e9mata</string>
-    <string name="settings_show_topics_description">Zobrazit n\u00e1vrhy t\u00e9mat na pr\u00e1zdn\u00e9 obrazovce chatu</string>
-    <string name="explore_retry">Zkusit znovu</string>
-    <string name="explore_related_topics">Souvisej\u00edc\u00ed t\u00e9mata</string>
     <string name="history_just_now">Pr\u00e1v\u011b te\u010f</string>
     <string name="history_minutes_ago">p\u0159ed %1$dm</string>
     <string name="history_hours_ago">p\u0159ed %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Nastavit bud\u00edk nebo odpo\u010d\u00edtavac\u00ed \u010dasova\u010d na za\u0159\u00edzen\u00ed</string>
     <string name="tool_execute_shell_command_name">Spustit příkaz</string>
     <string name="tool_execute_shell_command_description">Spustit příkaz shellu na zařízení</string>
-    <string name="topic_people">Lid\u00e9</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technologie</string>
-    <string name="topic_countries">Zem\u011b</string>
-    <string name="topic_space">Vesm\u00edr</string>
     <string name="settings_identity">Identita</string>
     <string name="settings_identity_description">Nastavte syst\u00e9movou v\u00fdzvu, kter\u00e1 definuje chov\u00e1n\u00ed AI</string>
     <string name="settings_identity_none">\u017d\u00e1dn\u00e1</string>

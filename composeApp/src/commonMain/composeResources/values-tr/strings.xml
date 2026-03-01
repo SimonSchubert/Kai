@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Bu platformda kullanılabilir araç yok.</string>
     <string name="settings_tab_services">Hizmetler</string>
     <string name="settings_tab_tools">Araçlar</string>
-    <string name="explore_retry">Tekrar dene</string>
-    <string name="explore_related_topics">İlgili konular</string>
     <string name="history_just_now">Az önce</string>
     <string name="history_minutes_ago">%1$d dk önce</string>
     <string name="history_hours_ago">%1$d sa önce</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Hizmeti kullanarak </string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="new_conversation">Yeni sohbet</string>
-    <string name="topic_people">İnsanlar</string>
-    <string name="topic_sport">Spor</string>
-    <string name="topic_technology">Teknoloji</string>
-    <string name="topic_countries">Ülkeler</string>
-    <string name="topic_space">Uzay</string>
     <string name="settings_tab_general">Genel</string>
-    <string name="settings_show_topics">Konuları Göster</string>
-    <string name="settings_show_topics_description">Boş sohbet ekranında konu önerileri göster</string>
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
     <string name="tool_execute_shell_command_name">Kabuk komutu çalıştır</string>

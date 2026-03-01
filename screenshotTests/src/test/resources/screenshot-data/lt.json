@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "parodyk man grazius vienos eilutes pavyzdzius kotlin, swift, c, python, js kalbomis",
     "codeIntro": "Stai keletas trumpu, graziu vienos eilutes pavyzdziu kiekvienoje kalboje (2025 m. leidimas 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Kosmoso tyrinejimas",
-    "items": [
-      {"title": "Mars", "description": "Raudonoji planeta, ketvirta nuo Saules ir pagrindinis zmoniu tyrinejimo tikslas."},
-      {"title": "Black Holes", "description": "Erdvelaikio sritys, kur gravitacija tokia stipri, kad niekas negali pasalinti."},
-      {"title": "Apollo 11", "description": "Pirmoji igulos misija, nusileidusi ant Menulio 1969 m., su trimis astronautais."},
-      {"title": "Saturn's Rings", "description": "Isspudingi ledo ir uolienu ziedai, supantys duju milzina Saturn."},
-      {"title": "Voyager Program", "description": "Du dvyniu erdvelaiuviai, paleisti 1977 m., dabar tarpzvaigzdineje erdveje."},
-      {"title": "Milky Way", "description": "Musu namu galaktika, turinti daugiau nei 100 milijardu zvaigzdziu ir nesuskaiciuojama daugybe planetu."},
-      {"title": "Solar Eclipses", "description": "Kai Menulis praeina tarp Saules ir Zemes, mesdamas seseli."},
-      {"title": "Neutron Stars", "description": "Itin tankus masyviu zvaigzdziu liekanos, suspaustos i mazyte sfera."}
-    ]
   }
 }

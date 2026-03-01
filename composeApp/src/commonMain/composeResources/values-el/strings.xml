@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Γενικά</string>
     <string name="settings_tab_services">Υπηρεσίες</string>
     <string name="settings_tab_tools">Εργαλεία</string>
-    <string name="settings_show_topics">Εμφάνιση Θεμάτων</string>
-    <string name="settings_show_topics_description">Εμφάνιση προτάσεων θεμάτων στην κενή οθόνη συνομιλίας</string>
-    <string name="explore_retry">Επανάληψη</string>
-    <string name="explore_related_topics">Σχετικά Θέματα</string>
     <string name="history_just_now">Μόλις τώρα</string>
     <string name="history_minutes_ago">%1$dm πριν</string>
     <string name="history_hours_ago">%1$dh πριν</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Ρύθμιση ξυπνητηριού ή χρονομέτρου αντίστροφης μέτρησης στη συσκευή</string>
     <string name="tool_execute_shell_command_name">Εκτέλεση εντολής</string>
     <string name="tool_execute_shell_command_description">Εκτέλεση εντολής φλοιού στη συσκευή</string>
-    <string name="topic_people">Άνθρωποι</string>
-    <string name="topic_sport">Αθλητισμός</string>
-    <string name="topic_technology">Τεχνολογία</string>
-    <string name="topic_countries">Χώρες</string>
-    <string name="topic_space">Διάστημα</string>
     <string name="settings_identity">Ταυτότητα</string>
     <string name="settings_identity_description">Ορίστε ένα μήνυμα συστήματος που καθορίζει τη συμπεριφορά της τεχνητής νοημοσύνης</string>
     <string name="settings_identity_none">Κανένα</string>

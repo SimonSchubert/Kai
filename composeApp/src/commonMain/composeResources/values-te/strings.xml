@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">ఈ ప్లాట్‌ఫారమ్‌లో టూల్స్ అందుబాటులో లేవు.</string>
     <string name="settings_tab_services">సేవలు</string>
     <string name="settings_tab_tools">టూల్స్</string>
-    <string name="explore_retry">మళ్ళీ ప్రయత్నించండి</string>
-    <string name="explore_related_topics">సంబంధిత అంశాలు</string>
     <string name="history_just_now">ఇప్పుడే</string>
     <string name="history_minutes_ago">%1$d ని క్రితం</string>
     <string name="history_hours_ago">%1$d గం క్రితం</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">సేవను ఉపయోగించడం ద్వారా, మీరు అంగీకరిస్తారు </string>
     <string name="privacy_policy">గోప్యతా విధానం</string>
     <string name="new_conversation">కొత్త సంభాషణ</string>
-    <string name="topic_people">వ్యక్తులు</string>
-    <string name="topic_sport">క్రీడ</string>
-    <string name="topic_technology">సాంకేతికత</string>
-    <string name="topic_countries">దేశాలు</string>
-    <string name="topic_space">అంతరిక్షం</string>
     <string name="settings_tab_general">సాధారణ</string>
-    <string name="settings_show_topics">అంశాలు చూపించు</string>
-    <string name="settings_show_topics_description">ఖాళీ చాట్ స్క్రీన్‌లో అంశ సూచనలు చూపించు</string>
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
     <string name="tool_execute_shell_command_name">షెల్ కమాండ్ అమలు చేయండి</string>

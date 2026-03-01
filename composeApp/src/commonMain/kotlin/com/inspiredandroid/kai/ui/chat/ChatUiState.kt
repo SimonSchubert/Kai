@@ -27,7 +27,6 @@ data class ChatUiState(
     val file: PlatformFile? = null,
     val hasSavedConversations: Boolean = false,
     val shouldScrollToBottom: Boolean = false,
-    val showTopics: Boolean = true,
     val isOpenClaw: Boolean = false,
 )
 

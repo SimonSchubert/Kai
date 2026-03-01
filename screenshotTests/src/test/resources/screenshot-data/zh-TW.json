@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "展示 kotlin、swift、c、python、js 的漂亮單行程式碼",
     "codeIntro": "以下是各語言的一些簡短、優美的單行程式碼（2025 版 😄）："
-  },
-  "exploreSpace": {
-    "topic": "太空探索",
-    "items": [
-      {"title": "火星", "description": "紅色星球，距太陽第四近的行星，也是人類探索的首要目標。"},
-      {"title": "黑洞", "description": "時空中引力強大到任何東西都無法逃逸的區域。"},
-      {"title": "阿波羅11號", "description": "1969 年首次載人登月任務，搭載三名太空人。"},
-      {"title": "土星環", "description": "環繞氣態巨行星土星的壯觀冰石環。"},
-      {"title": "乘者計畫", "description": "1977 年發射的雙胞胎太空船，現已進入星際空間。"},
-      {"title": "銀河系", "description": "我們的家園星系，包含超過 1000 億顆恆星和無數行星。"},
-      {"title": "日食", "description": "當月球經過太陽和地球之間時，投下陰影。"},
-      {"title": "中子星", "description": "大質量恆星的超緻密殘骸，被壓縮成一個微小的球體。"}
-    ]
   }
 }

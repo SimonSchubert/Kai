@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Không có công cụ nào khả dụng trên nền tảng này.</string>
     <string name="settings_tab_services">Dịch vụ</string>
     <string name="settings_tab_tools">Công cụ</string>
-    <string name="explore_retry">Thử lại</string>
-    <string name="explore_related_topics">Chủ đề liên quan</string>
     <string name="history_just_now">Vừa xong</string>
     <string name="history_minutes_ago">%1$d phút trước</string>
     <string name="history_hours_ago">%1$d giờ trước</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Bằng cách sử dụng dịch vụ, bạn đồng ý với </string>
     <string name="privacy_policy">Chính sách quyền riêng tư</string>
     <string name="new_conversation">Cuộc trò chuyện mới</string>
-    <string name="topic_people">Con người</string>
-    <string name="topic_sport">Thể thao</string>
-    <string name="topic_technology">Công nghệ</string>
-    <string name="topic_countries">Quốc gia</string>
-    <string name="topic_space">Vũ trụ</string>
     <string name="settings_tab_general">Chung</string>
-    <string name="settings_show_topics">Hiển thị chủ đề</string>
-    <string name="settings_show_topics_description">Hiển thị gợi ý chủ đề trên màn hình trò chuyện trống</string>
     <string name="tool_set_alarm_name">Đặt báo thức</string>
     <string name="tool_set_alarm_description">Đặt báo thức hoặc hẹn giờ đếm ngược trên thiết bị</string>
     <string name="tool_execute_shell_command_name">Chạy lệnh shell</string>

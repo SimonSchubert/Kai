@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Nessuno strumento disponibile su questa piattaforma.</string>
     <string name="settings_tab_services">Servizi</string>
     <string name="settings_tab_tools">Strumenti</string>
-    <string name="explore_retry">Riprova</string>
-    <string name="explore_related_topics">Argomenti correlati</string>
     <string name="history_just_now">Proprio ora</string>
     <string name="history_minutes_ago">%1$d min fa</string>
     <string name="history_hours_ago">%1$d ore fa</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Utilizzando il servizio, accetti la </string>
     <string name="privacy_policy">Informativa sulla privacy</string>
     <string name="new_conversation">Nuova conversazione</string>
-    <string name="topic_people">Persone</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Tecnologia</string>
-    <string name="topic_countries">Paesi</string>
-    <string name="topic_space">Spazio</string>
     <string name="settings_tab_general">Generali</string>
-    <string name="settings_show_topics">Mostra argomenti</string>
-    <string name="settings_show_topics_description">Mostra suggerimenti di argomenti nella schermata chat vuota</string>
     <string name="tool_set_alarm_name">Imposta sveglia</string>
     <string name="tool_set_alarm_description">Imposta una sveglia o un timer sul dispositivo</string>
     <string name="tool_execute_shell_command_name">Esegui comando</string>

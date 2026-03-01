@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "nionyeshe one-liners nzuri za kotlin, swift, c, python, js",
     "codeIntro": "Hizi ni one-liners fupi na nzuri katika kila lugha (toleo la 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Uchunguzi wa anga",
-    "items": [
-      {"title": "Mars", "description": "Sayari Nyekundu, ya nne kutoka Jua na lengo kuu la uchunguzi wa binadamu."},
-      {"title": "Black Holes", "description": "Maeneo ya muda-nafasi ambapo mvuto ni mkubwa sana hadi hakuna kinachoweza kutoroka."},
-      {"title": "Apollo 11", "description": "Misheni ya kwanza yenye wafanyakazi kutua Mwezini mwaka 1969, ikiwa na wanaanga watatu."},
-      {"title": "Saturn's Rings", "description": "Pete za ajabu za barafu na miamba zinazozunguka jitu la gesi Saturn."},
-      {"title": "Voyager Program", "description": "Vyombo viwili pacha vya anga vilivyozinduliwa 1977, sasa katika anga ya nyota."},
-      {"title": "Milky Way", "description": "Galaksi yetu yenye zaidi ya bilioni 100 za nyota na sayari zisizohesabika."},
-      {"title": "Solar Eclipses", "description": "Wakati Mwezi unapita kati ya Jua na Dunia, ukitupa kivuli."},
-      {"title": "Neutron Stars", "description": "Mabaki mazito sana ya nyota kubwa yaliyobanwa kwenye tufe ndogo."}
-    ]
   }
 }

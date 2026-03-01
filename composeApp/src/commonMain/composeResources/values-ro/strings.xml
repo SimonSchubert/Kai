@@ -63,10 +63,6 @@
     <string name="settings_tab_general">General</string>
     <string name="settings_tab_services">Servicii</string>
     <string name="settings_tab_tools">Instrumente</string>
-    <string name="settings_show_topics">Afișează subiecte</string>
-    <string name="settings_show_topics_description">Afișează sugestii de subiecte pe ecranul de conversație gol</string>
-    <string name="explore_retry">Reîncearcă</string>
-    <string name="explore_related_topics">Subiecte conexe</string>
     <string name="history_just_now">Chiar acum</string>
     <string name="history_minutes_ago">acum %1$dm</string>
     <string name="history_hours_ago">acum %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Setează o alarmă sau un cronometru pe dispozitiv</string>
     <string name="tool_execute_shell_command_name">Execută comandă</string>
     <string name="tool_execute_shell_command_description">Execută o comandă shell pe dispozitiv</string>
-    <string name="topic_people">Oameni</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Tehnologie</string>
-    <string name="topic_countries">Țări</string>
-    <string name="topic_space">Spațiu</string>
     <string name="settings_identity">Identitate</string>
     <string name="settings_identity_description">Setați un prompt de sistem care definește comportamentul inteligenței artificiale</string>
     <string name="settings_identity_none">Niciunul</string>

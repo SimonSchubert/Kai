@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "kotlin、swift、c、python、jsの美しいワンライナーを見せて",
     "codeIntro": "各言語の短くて美しいワンライナーをご紹介します（2025年版 😄）："
-  },
-  "exploreSpace": {
-    "topic": "宇宙探査",
-    "items": [
-      {"title": "火星", "description": "赤い惑星。太陽から4番目の惑星で、人類の探査の主要な目標です。"},
-      {"title": "ブラックホール", "description": "重力が非常に強く、何も脱出できない時空の領域です。"},
-      {"title": "Apollo 11", "description": "1969年に月面に着陸した初の有人ミッション。3人の宇宙飛行士が搭乗しました。"},
-      {"title": "土星の環", "description": "巨大ガス惑星・土星を取り囲む壮大な氷と岩石の環です。"},
-      {"title": "Voyager計画", "description": "1977年に打ち上げられた双子の宇宙探査機。現在は星間空間にあります。"},
-      {"title": "天の川銀河", "description": "1000億以上の星と無数の惑星を含む私たちの母銀河です。"},
-      {"title": "日食", "description": "月が太陽と地球の間を通過し、影を落とす現象です。"},
-      {"title": "中性子星", "description": "巨大な星の超高密度な残骸が小さな球体に凝縮されたものです。"}
-    ]
   }
 }

@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Общи</string>
     <string name="settings_tab_services">Услуги</string>
     <string name="settings_tab_tools">Инструменти</string>
-    <string name="settings_show_topics">Покажи теми</string>
-    <string name="settings_show_topics_description">Показвай предложения за теми на празния екран за чат</string>
-    <string name="explore_retry">Опитай отново</string>
-    <string name="explore_related_topics">Свързани теми</string>
     <string name="history_just_now">Току-що</string>
     <string name="history_minutes_ago">преди %1$dm</string>
     <string name="history_hours_ago">преди %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
     <string name="tool_execute_shell_command_name">Изпълни команда</string>
     <string name="tool_execute_shell_command_description">Изпълни команда на устройството</string>
-    <string name="topic_people">Хора</string>
-    <string name="topic_sport">Спорт</string>
-    <string name="topic_technology">Технологии</string>
-    <string name="topic_countries">Държави</string>
-    <string name="topic_space">Космос</string>
     <string name="settings_identity">Идентичност</string>
     <string name="settings_identity_description">Задайте системен промпт, който определя как AI се държи</string>
     <string name="settings_identity_none">Няма</string>

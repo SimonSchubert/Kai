@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Brak dostępnych narzędzi na tej platformie.</string>
     <string name="settings_tab_services">Usługi</string>
     <string name="settings_tab_tools">Narzędzia</string>
-    <string name="explore_retry">Ponów</string>
-    <string name="explore_related_topics">Powiązane tematy</string>
     <string name="history_just_now">Właśnie teraz</string>
     <string name="history_minutes_ago">%1$d min temu</string>
     <string name="history_hours_ago">%1$d godz. temu</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Korzystając z usługi, zgadzasz się z </string>
     <string name="privacy_policy">Polityką prywatności</string>
     <string name="new_conversation">Nowa rozmowa</string>
-    <string name="topic_people">Ludzie</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technologia</string>
-    <string name="topic_countries">Kraje</string>
-    <string name="topic_space">Kosmos</string>
     <string name="settings_tab_general">Ogólne</string>
-    <string name="settings_show_topics">Pokaż tematy</string>
-    <string name="settings_show_topics_description">Pokaż sugestie tematów na pustym ekranie czatu</string>
     <string name="tool_set_alarm_name">Ustaw alarm</string>
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
     <string name="tool_execute_shell_command_name">Wykonaj polecenie</string>

@@ -37,7 +37,6 @@ class ChatViewModel(
         ChatUiState(
             actions = actions,
             showPrivacyInfo = true,
-            showTopics = dataRepository.isShowTopicsEnabled(),
             isOpenClaw = dataRepository.currentService() == Service.OpenClaw,
         ),
     )
@@ -157,7 +156,6 @@ class ChatViewModel(
         val isNowOpenClaw = dataRepository.currentService() == Service.OpenClaw
         _state.update {
             it.copy(
-                showTopics = dataRepository.isShowTopicsEnabled(),
                 isOpenClaw = isNowOpenClaw,
             )
         }

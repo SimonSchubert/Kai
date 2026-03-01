@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Tiada alat tersedia pada platform ini.</string>
     <string name="settings_tab_services">Perkhidmatan</string>
     <string name="settings_tab_tools">Alat</string>
-    <string name="explore_retry">Cuba semula</string>
-    <string name="explore_related_topics">Topik berkaitan</string>
     <string name="history_just_now">Baru sahaja</string>
     <string name="history_minutes_ago">%1$d min lalu</string>
     <string name="history_hours_ago">%1$d jam lalu</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Dengan menggunakan perkhidmatan, anda bersetuju dengan </string>
     <string name="privacy_policy">Dasar Privasi</string>
     <string name="new_conversation">Perbualan baharu</string>
-    <string name="topic_people">Orang</string>
-    <string name="topic_sport">Sukan</string>
-    <string name="topic_technology">Teknologi</string>
-    <string name="topic_countries">Negara</string>
-    <string name="topic_space">Angkasa</string>
     <string name="settings_tab_general">Umum</string>
-    <string name="settings_show_topics">Tunjukkan Topik</string>
-    <string name="settings_show_topics_description">Tunjukkan cadangan topik pada skrin sembang kosong</string>
     <string name="tool_set_alarm_name">Tetapkan Penggera</string>
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
     <string name="tool_execute_shell_command_name">Jalankan arahan</string>

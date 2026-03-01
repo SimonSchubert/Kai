@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "ipakita mo sa akin ang magagandang one-liner para sa kotlin, swift, c, python, js",
     "codeIntro": "Narito ang ilang maikli, magagandang one-liner sa bawat wika (edisyon 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Pag-explore sa Kalawakan",
-    "items": [
-      {"title": "Mars", "description": "Ang Pulang Planeta, pang-apat mula sa Araw at pangunahing target para sa pagsaliksik ng tao."},
-      {"title": "Mga Black Hole", "description": "Mga rehiyon ng spacetime kung saan napakalakas ng grabidad na walang makakatkas."},
-      {"title": "Apollo 11", "description": "Ang unang crewed mission na lumapag sa Buwan noong 1969, na may tatlong astronaut."},
-      {"title": "Mga Singsing ng Saturn", "description": "Kahanga-hangang mga singsing ng yelo at bato na nakapaligid sa gas giant na Saturn."},
-      {"title": "Programang Voyager", "description": "Mga kambal na spacecraft na inilunsad noong 1977, ngayon ay nasa interstellar space na."},
-      {"title": "Milky Way", "description": "Ang ating tahanan na galaksiya na naglalaman ng mahigit 100 bilyong bituin at napakaraming planeta."},
-      {"title": "Mga Eklipse ng Araw", "description": "Kapag dumadaan ang Buwan sa pagitan ng Araw at Lupa, na nagtatakip ng anino."},
-      {"title": "Mga Neutron Star", "description": "Sobrang siksik na labi ng malalaking bituin na nakasiksik sa napakaliit na esfera."}
-    ]
   }
 }

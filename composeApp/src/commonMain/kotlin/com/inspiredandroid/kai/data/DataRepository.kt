@@ -36,21 +36,9 @@ interface DataRepository {
     fun regenerate()
     suspend fun restoreLatestConversation()
 
-    // Explore
-    suspend fun askExplore(
-        prompt: String,
-        topic: String? = null,
-        topicDetail: String? = null,
-        language: String? = null,
-    ): String
-
     // Tool management
     fun getToolDefinitions(): List<ToolInfo>
     fun setToolEnabled(toolId: String, enabled: Boolean)
-
-    // General settings
-    fun isShowTopicsEnabled(): Boolean
-    fun setShowTopicsEnabled(enabled: Boolean)
 
     // Identity management
     fun getIdentities(): List<Identity>

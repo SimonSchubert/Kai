@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Yleiset</string>
     <string name="settings_tab_services">Palvelut</string>
     <string name="settings_tab_tools">Ty\u00f6kalut</string>
-    <string name="settings_show_topics">N\u00e4yt\u00e4 aiheet</string>
-    <string name="settings_show_topics_description">N\u00e4yt\u00e4 aiheehdotukset tyhj\u00e4ll\u00e4 keskusteluruudulla</string>
-    <string name="explore_retry">Yrit\u00e4 uudelleen</string>
-    <string name="explore_related_topics">Aiheeseen liittyv\u00e4t</string>
     <string name="history_just_now">Juuri nyt</string>
     <string name="history_minutes_ago">%1$dm sitten</string>
     <string name="history_hours_ago">%1$dh sitten</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Aseta h\u00e4lytys tai ajastin laitteelle</string>
     <string name="tool_execute_shell_command_name">Suorita komento</string>
     <string name="tool_execute_shell_command_description">Suorita komentotulkin komento laitteella</string>
-    <string name="topic_people">Ihmiset</string>
-    <string name="topic_sport">Urheilu</string>
-    <string name="topic_technology">Teknologia</string>
-    <string name="topic_countries">Maat</string>
-    <string name="topic_space">Avaruus</string>
     <string name="settings_identity">Identiteetti</string>
     <string name="settings_identity_description">Aseta j\u00e4rjestelm\u00e4kehote, joka m\u00e4\u00e4ritt\u00e4\u00e4 teko\u00e4lyn k\u00e4ytt\u00e4ytymisen</string>
     <string name="settings_identity_none">Ei mit\u00e4\u00e4n</string>

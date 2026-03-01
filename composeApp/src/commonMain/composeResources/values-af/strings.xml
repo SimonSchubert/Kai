@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Algemeen</string>
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Gereedskap</string>
-    <string name="settings_show_topics">Wys Onderwerpe</string>
-    <string name="settings_show_topics_description">Wys onderwerpvoorstelle op die leë kletsskerm</string>
-    <string name="explore_retry">Probeer weer</string>
-    <string name="explore_related_topics">Verwante Onderwerpe</string>
     <string name="history_just_now">Sopas</string>
     <string name="history_minutes_ago">%1$dm gelede</string>
     <string name="history_hours_ago">%1$dh gelede</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Stel \'n alarm of afteltydhouer op die toestel</string>
     <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
     <string name="tool_execute_shell_command_description">Voer 'n skelopdrag op die toestel uit</string>
-    <string name="topic_people">Mense</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Tegnologie</string>
-    <string name="topic_countries">Lande</string>
-    <string name="topic_space">Ruimte</string>
     <string name="settings_identity">Identiteit</string>
     <string name="settings_identity_description">Stel \'n stelselaanwysing wat definieer hoe die KI optree</string>
     <string name="settings_identity_none">Geen</string>

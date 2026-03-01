@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "paradiet man skaistas vienrindu piemeros kotlin, swift, c, python, js vaodas",
     "codeIntro": "Seit ir dazi isi, skaisti vienrindu piemeri katra valoda (2025. gada izdevums 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Kosmosa izpete",
-    "items": [
-      {"title": "Mars", "description": "Sarkana planeta, ceturta no Saules un galvenais merkis cilveku izpetei."},
-      {"title": "Black Holes", "description": "Telpas-laika regioni, kur gravitacija ir tik stipra, ka nekas nevar izkluut."},
-      {"title": "Apollo 11", "description": "Pirma apkalpes misija, kas nosedas uz Meness 1969. gada, ar trim astronautiem."},
-      {"title": "Saturn's Rings", "description": "Iespaidigiakie ledus un iežu gredzeni, kas ieskaus gazu milzeni Saturn."},
-      {"title": "Voyager Program", "description": "Dvinu kosmosa kugi, kas palaisti 1977. gada, tagad starpzvaigznu telpa."},
-      {"title": "Milky Way", "description": "Musu majas galaktika, kas satur vairak neka 100 miljardus zvaigznu un neskaitamas planetas."},
-      {"title": "Solar Eclipses", "description": "Kad Meness paiet starp Sauli un Zemi, metot enu."},
-      {"title": "Neutron Stars", "description": "Ultra blivi masivu zvaigznu palikas, saspiesti maza sfera."}
-    ]
   }
 }

@@ -54,7 +54,6 @@ fun ChatScreen(
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
     onNavigateToHistory: () -> Unit,
-    onNavigateToExplore: (String) -> Unit = {},
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -63,7 +62,6 @@ fun ChatScreen(
         textToSpeech = textToSpeech,
         onNavigateToSettings = onNavigateToSettings,
         onNavigateToHistory = onNavigateToHistory,
-        onNavigateToExplore = onNavigateToExplore,
     )
 }
 
@@ -73,7 +71,6 @@ fun ChatScreenContent(
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
     onNavigateToHistory: () -> Unit = {},
-    onNavigateToExplore: (String) -> Unit = {},
 ) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
@@ -119,7 +116,7 @@ fun ChatScreenContent(
                     ),
             ) {
                 if (uiState.history.isEmpty()) {
-                    EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.showPrivacyInfo, uiState.showTopics, onNavigateToExplore)
+                    EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.showPrivacyInfo)
                 } else {
                     val listState = rememberLazyListState()
                     val componentScope = rememberCoroutineScope()

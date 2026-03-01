@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Pangkalahatan</string>
     <string name="settings_tab_services">Mga Serbisyo</string>
     <string name="settings_tab_tools">Mga Tool</string>
-    <string name="settings_show_topics">Ipakita ang mga Paksa</string>
-    <string name="settings_show_topics_description">Ipakita ang mga suhestiyon ng paksa sa walang laman na screen ng chat</string>
-    <string name="explore_retry">Subukan muli</string>
-    <string name="explore_related_topics">Mga Kaugnay na Paksa</string>
     <string name="history_just_now">Ngayon lang</string>
     <string name="history_minutes_ago">%1$dm ang nakalipas</string>
     <string name="history_hours_ago">%1$dh ang nakalipas</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Mag-set ng alarm o countdown timer sa device</string>
     <string name="tool_execute_shell_command_name">Magpatakbo ng utos</string>
     <string name="tool_execute_shell_command_description">Magpatakbo ng shell command sa device</string>
-    <string name="topic_people">Mga Tao</string>
-    <string name="topic_sport">Isport</string>
-    <string name="topic_technology">Teknolohiya</string>
-    <string name="topic_countries">Mga Bansa</string>
-    <string name="topic_space">Kalawakan</string>
     <string name="settings_identity">Pagkakakilanlan</string>
     <string name="settings_identity_description">Magtakda ng system prompt na tumutukoy kung paano kumilos ang AI</string>
     <string name="settings_identity_none">Wala</string>

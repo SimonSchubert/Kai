@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "visa mig vackra enradare för kotlin, swift, c, python, js",
     "codeIntro": "Här är några korta, vackra enradare i varje språk (2025 års upplaga 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Utforskning av rymden",
-    "items": [
-      {"title": "Mars", "description": "Den röda planeten, fjärde från solen och ett främsta mål för mänsklig utforskning."},
-      {"title": "Svarta hål", "description": "Områden i rumtiden där gravitationen är så stark att ingenting kan undkomma."},
-      {"title": "Apollo 11", "description": "Det första bemannade uppdraget att landa på månen 1969, med tre astronauter ombord."},
-      {"title": "Saturnus ringar", "description": "Spektakulära ringar av is och sten som omger gasjätten Saturnus."},
-      {"title": "Voyagerprogrammet", "description": "Tvillingrymdfarkoster uppskjutna 1977, nu i interstellär rymd."},
-      {"title": "Vintergatan", "description": "Vår hemgalax som innehåller över 100 miljarder stjärnor och otaliga planeter."},
-      {"title": "Solförmörkelser", "description": "När månen passerar mellan solen och jorden och kastar en skugga."},
-      {"title": "Neutronstjärnor", "description": "Ultratäta rester av massiva stjärnor packade i en liten sfär."}
-    ]
   }
 }

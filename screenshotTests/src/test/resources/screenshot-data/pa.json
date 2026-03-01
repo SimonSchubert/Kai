@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "kotlin, swift, c, python, js ਲਈ ਸੁੰਦਰ ਇੱਕ ਲਾਈਨ ਦੇ ਕੋਡ ਦਿਖਾਓ",
     "codeIntro": "ਇੱਥੇ ਹਰ ਭਾਸ਼ਾ ਵਿੱਚ ਕੁਝ ਛੋਟੇ, ਸੁੰਦਰ ਇੱਕ-ਲਾਈਨਰ ਹਨ (2025 ਐਡੀਸ਼ਨ 😄):"
-  },
-  "exploreSpace": {
-    "topic": "ਪੁਲਾੜ ਖੋਜ",
-    "items": [
-      {"title": "Mars", "description": "ਲਾਲ ਗ੍ਰਹਿ, ਸੂਰਜ ਤੋਂ ਚੌਥਾ ਅਤੇ ਮਨੁੱਖੀ ਖੋਜ ਲਈ ਮੁੱਖ ਟੀਚਾ।"},
-      {"title": "Black Holes", "description": "ਸਪੇਸ-ਟਾਈਮ ਦੇ ਖੇਤਰ ਜਿੱਥੇ ਗੁਰੂਤਾ ਇੰਨੀ ਮਜ਼ਬੂਤ ਹੈ ਕਿ ਕੁਝ ਵੀ ਬਚ ਨਹੀਂ ਸਕਦਾ।"},
-      {"title": "Apollo 11", "description": "1969 ਵਿੱਚ ਚੰਦਰਮਾ 'ਤੇ ਉਤਰਨ ਵਾਲਾ ਪਹਿਲਾ ਅਮਲੇ ਵਾਲਾ ਮਿਸ਼ਨ, ਤਿੰਨ ਪੁਲਾੜ ਯਾਤਰੀਆਂ ਨੂੰ ਲੈ ਕੇ।"},
-      {"title": "Saturn's Rings", "description": "ਗੈਸ ਦੈਂਤ Saturn ਦੁਆਲੇ ਸ਼ਾਨਦਾਰ ਬਰਫ਼ ਅਤੇ ਚੱਟਾਨ ਦੇ ਛੱਲੇ।"},
-      {"title": "Voyager Program", "description": "1977 ਵਿੱਚ ਲਾਂਚ ਕੀਤੇ ਗਏ ਜੁੜਵਾਂ ਪੁਲਾੜ ਯਾਨ, ਹੁਣ ਅੰਤਰ-ਤਾਰਾ ਪੁਲਾੜ ਵਿੱਚ।"},
-      {"title": "Milky Way", "description": "ਸਾਡੀ ਘਰੇਲੂ ਗਲੈਕਸੀ ਜਿਸ ਵਿੱਚ 100 ਅਰਬ ਤੋਂ ਵੱਧ ਤਾਰੇ ਅਤੇ ਅਣਗਿਣਤ ਗ੍ਰਹਿ ਹਨ।"},
-      {"title": "Solar Eclipses", "description": "ਜਦੋਂ ਚੰਦਰਮਾ ਸੂਰਜ ਅਤੇ ਧਰਤੀ ਵਿਚਕਾਰੋਂ ਲੰਘਦਾ ਹੈ, ਪਰਛਾਵਾਂ ਪਾਉਂਦਾ ਹੈ।"},
-      {"title": "Neutron Stars", "description": "ਵੱਡੇ ਤਾਰਿਆਂ ਦੇ ਅਲਟਰਾ-ਸੰਘਣੇ ਅਵਸ਼ੇਸ਼ ਇੱਕ ਛੋਟੇ ਗੋਲੇ ਵਿੱਚ ਪੈਕ ਕੀਤੇ।"}
-    ]
   }
 }

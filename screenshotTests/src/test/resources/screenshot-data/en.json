@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "show me beautiful one liners for kotlin, swift, c, python, js",
     "codeIntro": "Here are some short, beautiful one-liners in each language (2025 edition 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Space Exploration",
-    "items": [
-      {"title": "Mars", "description": "The Red Planet, fourth from the Sun and a prime target for human exploration."},
-      {"title": "Black Holes", "description": "Regions of spacetime where gravity is so strong nothing can escape."},
-      {"title": "Apollo 11", "description": "The first crewed mission to land on the Moon in 1969, carrying three astronauts."},
-      {"title": "Saturn's Rings", "description": "Spectacular ice and rock rings encircling the gas giant Saturn."},
-      {"title": "Voyager Program", "description": "Twin spacecraft launched in 1977, now in interstellar space."},
-      {"title": "Milky Way", "description": "Our home galaxy containing over 100 billion stars and countless planets."},
-      {"title": "Solar Eclipses", "description": "When the Moon passes between the Sun and Earth, casting a shadow."},
-      {"title": "Neutron Stars", "description": "Ultra-dense remnants of massive stars packed into a tiny sphere."}
-    ]
   }
 }

@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "kotlin, swift, c, python, js için güzel tek satırlık kodlar göster",
     "codeIntro": "İşte her dilde kısa ve güzel tek satırlık kodlar (2025 sürümü 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Uzay Keşfi",
-    "items": [
-      {"title": "Mars", "description": "Kızıl Gezegen, Güneş'ten dördüncü sırada ve insanlı keşif için başlıca hedef."},
-      {"title": "Kara Delikler", "description": "Yerçekiminin o kadar güçlü olduğu uzay-zaman bölgeleri ki hiçbir şey kaçamaz."},
-      {"title": "Apollo 11", "description": "1969'da Ay'a inen, üç astronot taşıyan ilk mürettebatlı görev."},
-      {"title": "Satürn'ün Halkaları", "description": "Gaz devi Satürn'ü çevreleyen muhteşem buz ve kaya halkaları."},
-      {"title": "Voyager Programı", "description": "1977'de fırlatılan ikiz uzay aracı, şu anda yıldızlararası uzayda."},
-      {"title": "Samanyolu", "description": "100 milyardan fazla yıldız ve sayısız gezegen barındıran ana galaksimiz."},
-      {"title": "Güneş Tutulmaları", "description": "Ay, Güneş ile Dünya arasından geçerek bir gölge oluşturduğunda gerçekleşir."},
-      {"title": "Nötron Yıldızları", "description": "Büyük kütleli yıldızların küçücük bir küreye sıkıştırılmış ultra yoğun kalıntıları."}
-    ]
   }
 }

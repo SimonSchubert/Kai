@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Geen hulpmiddelen beschikbaar op dit platform.</string>
     <string name="settings_tab_services">Diensten</string>
     <string name="settings_tab_tools">Hulpmiddelen</string>
-    <string name="explore_retry">Opnieuw proberen</string>
-    <string name="explore_related_topics">Gerelateerde onderwerpen</string>
     <string name="history_just_now">Zojuist</string>
     <string name="history_minutes_ago">%1$d min geleden</string>
     <string name="history_hours_ago">%1$d uur geleden</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Door de service te gebruiken, gaat u akkoord met het </string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="new_conversation">Nieuw gesprek</string>
-    <string name="topic_people">Mensen</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technologie</string>
-    <string name="topic_countries">Landen</string>
-    <string name="topic_space">Ruimte</string>
     <string name="settings_tab_general">Algemeen</string>
-    <string name="settings_show_topics">Onderwerpen tonen</string>
-    <string name="settings_show_topics_description">Toon onderwerpensuggesties op het lege chatscherm</string>
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
     <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>

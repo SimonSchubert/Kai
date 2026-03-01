@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "näita mulle ilusaid üherealiseid koode kotlin, swift, c, python, js keeltes",
     "codeIntro": "Siin on mõned lühikesed, ilusad üherealiseid koodid igas keeles (2025. aasta väljaanne 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Kosmose uurimine",
-    "items": [
-      {"title": "Marss", "description": "Punane planeet, neljas Päikesest ja peamine sihtmärk inimeste uurimiseks."},
-      {"title": "Mustad augud", "description": "Aegruumi piirkonnad, kus gravitatsioon on nii tugev, et miski ei pääse."},
-      {"title": "Apollo 11", "description": "Esimene mehitatud missioon, mis maandus Kuul 1969. aastal, pardal kolm astronauti."},
-      {"title": "Saturni rõngad", "description": "Vaatemängu pakkuvad jää- ja kivimirõngad, mis ümbritsevad gaasihiidu Saturni."},
-      {"title": "Programm Voyager", "description": "Kaksikkosmoseaparaadid, mis starditi 1977. aastal, nüüd tähtedevahelises ruumis."},
-      {"title": "Linnutee", "description": "Meie kodugalaktika, mis sisaldab üle 100 miljardi tähe ja loendamatuid planeete."},
-      {"title": "Päikesevarjutused", "description": "Kui Kuu liigub Päikese ja Maa vahele, heites varju."},
-      {"title": "Neutrontähed", "description": "Ülitihedad massiivsete tähtede jäänused, mis on kokku surutud pisikeseks keraks."}
-    ]
   }
 }

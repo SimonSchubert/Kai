@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Tidak ada alat yang tersedia di platform ini.</string>
     <string name="settings_tab_services">Layanan</string>
     <string name="settings_tab_tools">Alat</string>
-    <string name="explore_retry">Coba lagi</string>
-    <string name="explore_related_topics">Topik terkait</string>
     <string name="history_just_now">Baru saja</string>
     <string name="history_minutes_ago">%1$d mnt lalu</string>
     <string name="history_hours_ago">%1$d jam lalu</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Dengan menggunakan layanan, Anda menyetujui </string>
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="new_conversation">Percakapan baru</string>
-    <string name="topic_people">Orang</string>
-    <string name="topic_sport">Olahraga</string>
-    <string name="topic_technology">Teknologi</string>
-    <string name="topic_countries">Negara</string>
-    <string name="topic_space">Luar Angkasa</string>
     <string name="settings_tab_general">Umum</string>
-    <string name="settings_show_topics">Tampilkan Topik</string>
-    <string name="settings_show_topics_description">Tampilkan saran topik di layar obrolan kosong</string>
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
     <string name="tool_execute_shell_command_name">Jalankan perintah</string>

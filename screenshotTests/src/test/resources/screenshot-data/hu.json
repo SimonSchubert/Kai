@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "mutass szép egysoros kódrészleteket Kotlin, Swift, C, Python és JS nyelveken",
     "codeIntro": "Íme néhány rövid, elegáns egysoros kódrészlet minden nyelvhez (2025-ös kiadás 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Űrkutatás",
-    "items": [
-      {"title": "Mars", "description": "A Vörös Bolygó, a Naptól számítva a negyedik, és az emberi felfedezés egyik fő célpontja."},
-      {"title": "Fekete lyukak", "description": "A téridő olyan területei, ahol a gravitáció olyan erős, hogy semmi sem képes elmenekülni."},
-      {"title": "Apollo 11", "description": "Az első emberes küldetés, amely 1969-ben leszállt a Holdra, három űrhajóssal a fedélzetén."},
-      {"title": "Szaturnusz gyűrűi", "description": "Látványos jég- és kőzetgyűrűk, amelyek a Szaturnusz gázóriást övezik."},
-      {"title": "Voyager-program", "description": "1977-ben indított ikerűrszondák, amelyek ma már a csillagközi térben haladnak."},
-      {"title": "Tejútrendszer", "description": "Saját galaxisunk, amely több mint 100 milliárd csillagot és számtalan bolygót tartalmaz."},
-      {"title": "Napfogyatkozások", "description": "Amikor a Hold a Nap és a Föld közé kerül, és árnyékot vet."},
-      {"title": "Neutroncsillagok", "description": "Hatalmas csillagok ultra-sűrű maradványai, amelyek egy apró gömbben koncentrálódnak."}
-    ]
   }
 }

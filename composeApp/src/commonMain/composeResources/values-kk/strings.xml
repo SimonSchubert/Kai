@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Жалпы</string>
     <string name="settings_tab_services">Қызметтер</string>
     <string name="settings_tab_tools">Құралдар</string>
-    <string name="settings_show_topics">Тақырыптарды көрсету</string>
-    <string name="settings_show_topics_description">Бос чат экранында тақырып ұсыныстарын көрсету</string>
-    <string name="explore_retry">Қайталау</string>
-    <string name="explore_related_topics">Қатысты тақырыптар</string>
     <string name="history_just_now">Дәл қазір</string>
     <string name="history_minutes_ago">%1$d мин бұрын</string>
     <string name="history_hours_ago">%1$d сағ бұрын</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
     <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
     <string name="tool_execute_shell_command_description">Құрылғыда shell пәрменін орындау</string>
-    <string name="topic_people">Адамдар</string>
-    <string name="topic_sport">Спорт</string>
-    <string name="topic_technology">Технология</string>
-    <string name="topic_countries">Елдер</string>
-    <string name="topic_space">Ғарыш</string>
     <string name="settings_identity">Жеке бейне</string>
     <string name="settings_identity_description">AI-дың қалай әрекет ететінін анықтайтын жүйелік нұсқау орнатыңыз</string>
     <string name="settings_identity_none">Ешқайсысы</string>

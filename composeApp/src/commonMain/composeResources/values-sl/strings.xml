@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Splošno</string>
     <string name="settings_tab_services">Storitve</string>
     <string name="settings_tab_tools">Orodja</string>
-    <string name="settings_show_topics">Prikaži teme</string>
-    <string name="settings_show_topics_description">Prikaži predloge tem na praznem zaslonu pogovora</string>
-    <string name="explore_retry">Poskusi znova</string>
-    <string name="explore_related_topics">Povezane teme</string>
     <string name="history_just_now">Pravkar</string>
     <string name="history_minutes_ago">pred %1$dm</string>
     <string name="history_hours_ago">pred %1$dh</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Nastavi alarm ali odštevalnik na napravi</string>
     <string name="tool_execute_shell_command_name">Zaženi ukaz</string>
     <string name="tool_execute_shell_command_description">Zaženi ukaz lupine na napravi</string>
-    <string name="topic_people">Ljudje</string>
-    <string name="topic_sport">Šport</string>
-    <string name="topic_technology">Tehnologija</string>
-    <string name="topic_countries">Države</string>
-    <string name="topic_space">Vesolje</string>
     <string name="settings_identity">Identiteta</string>
     <string name="settings_identity_description">Nastavite sistemski poziv, ki določa, kako se UI obnaša</string>
     <string name="settings_identity_none">Brez</string>

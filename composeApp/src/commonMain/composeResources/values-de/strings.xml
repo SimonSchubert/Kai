@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Keine Werkzeuge auf dieser Plattform verfügbar.</string>
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Werkzeuge</string>
-    <string name="explore_retry">Wiederholen</string>
-    <string name="explore_related_topics">Verwandte Themen</string>
     <string name="history_just_now">Gerade eben</string>
     <string name="history_minutes_ago">vor %1$d Min.</string>
     <string name="history_hours_ago">vor %1$d Std.</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Mit der Nutzung des Dienstes stimmen Sie der </string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="new_conversation">Neues Gespräch</string>
-    <string name="topic_people">Menschen</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technologie</string>
-    <string name="topic_countries">Länder</string>
-    <string name="topic_space">Weltraum</string>
     <string name="settings_tab_general">Allgemein</string>
-    <string name="settings_show_topics">Themen anzeigen</string>
-    <string name="settings_show_topics_description">Themenvorschläge auf dem leeren Chat-Bildschirm anzeigen</string>
     <string name="tool_set_alarm_name">Wecker stellen</string>
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
     <string name="tool_execute_shell_command_name">Shell-Befehl ausführen</string>

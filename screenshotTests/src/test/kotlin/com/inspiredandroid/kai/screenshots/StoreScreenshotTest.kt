@@ -12,7 +12,6 @@ import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreenContent
-import com.inspiredandroid.kai.ui.explore.ExploreScreenContent
 import com.inspiredandroid.kai.ui.settings.SettingsScreenContent
 import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -145,17 +144,6 @@ class StoreScreenshotTest(
     fun settingsGeneral() {
         snap("07", LightColorScheme) {
             SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
-        }
-    }
-
-    @Test
-    fun exploreSpace() {
-        val (topic, uiState) = ScreenshotTestData.localizedExploreSpace(locale)
-        snap("06", DarkColorScheme) {
-            ExploreScreenContent(
-                uiState = uiState,
-                topic = topic,
-            )
         }
     }
 }

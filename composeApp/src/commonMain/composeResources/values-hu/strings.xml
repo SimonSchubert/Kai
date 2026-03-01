@@ -63,10 +63,6 @@
     <string name="settings_tab_general">Általános</string>
     <string name="settings_tab_services">Szolgáltatások</string>
     <string name="settings_tab_tools">Eszközök</string>
-    <string name="settings_show_topics">Témák megjelenítése</string>
-    <string name="settings_show_topics_description">Témajavaslatok megjelenítése az üres csevegőképernyőn</string>
-    <string name="explore_retry">Újrapróbálás</string>
-    <string name="explore_related_topics">Kapcsolódó témák</string>
     <string name="history_just_now">Most</string>
     <string name="history_minutes_ago">%1$dp perce</string>
     <string name="history_hours_ago">%1$d órája</string>
@@ -95,11 +91,6 @@
     <string name="tool_set_alarm_description">Ébresztő vagy visszaszámláló beállítása az eszközön</string>
     <string name="tool_execute_shell_command_name">Parancs futtatása</string>
     <string name="tool_execute_shell_command_description">Shell parancs futtatása az eszközön</string>
-    <string name="topic_people">Emberek</string>
-    <string name="topic_sport">Sport</string>
-    <string name="topic_technology">Technológia</string>
-    <string name="topic_countries">Országok</string>
-    <string name="topic_space">Űr</string>
     <string name="settings_identity">Identitás</string>
     <string name="settings_identity_description">Állíts be egy rendszerüzenetet, amely meghatározza, hogyan viselkedjen az AI</string>
     <string name="settings_identity_none">Nincs</string>

@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">Hakuna zana zinazopatikana kwenye jukwaa hili.</string>
     <string name="settings_tab_services">Huduma</string>
     <string name="settings_tab_tools">Zana</string>
-    <string name="explore_retry">Jaribu tena</string>
-    <string name="explore_related_topics">Mada zinazohusiana</string>
     <string name="history_just_now">Sasa hivi</string>
     <string name="history_minutes_ago">dakika %1$d zilizopita</string>
     <string name="history_hours_ago">saa %1$d zilizopita</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>
     <string name="new_conversation">Mazungumzo mapya</string>
-    <string name="topic_people">Watu</string>
-    <string name="topic_sport">Michezo</string>
-    <string name="topic_technology">Teknolojia</string>
-    <string name="topic_countries">Nchi</string>
-    <string name="topic_space">Anga</string>
     <string name="settings_tab_general">Jumla</string>
-    <string name="settings_show_topics">Onyesha Mada</string>
-    <string name="settings_show_topics_description">Onyesha mapendekezo ya mada kwenye skrini tupu ya mazungumzo</string>
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
     <string name="tool_execute_shell_command_name">Tekeleza amri</string>

@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "pokaži mi lepe enozapise za kotlin, swift, c, python, js",
     "codeIntro": "Tukaj je nekaj kratkih, lepih enozapisov v vsakem jeziku (izdaja 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Raziskovanje vesolja",
-    "items": [
-      {"title": "Mars", "description": "Rdeči planet, četrti od Sonca in glavni cilj za človeško raziskovanje."},
-      {"title": "Black Holes", "description": "Področja časoprostora, kjer je gravitacija tako močna, da nič ne more pobegniti."},
-      {"title": "Apollo 11", "description": "Prva posadka, ki je pristala na Luni leta 1969, s tremi astronavti."},
-      {"title": "Saturn's Rings", "description": "Veličastni obroči iz ledu in kamenja, ki obkrožajo plinastega velikana Saturn."},
-      {"title": "Voyager Program", "description": "Dvojni vesoljski plovili, izstreljeni leta 1977, zdaj v medzvezdnem prostoru."},
-      {"title": "Milky Way", "description": "Naša domača galaksija, ki vsebuje več kot 100 milijard zvezd in nešteto planetov."},
-      {"title": "Solar Eclipses", "description": "Ko Luna preide med Soncem in Zemljo ter vrže senco."},
-      {"title": "Neutron Stars", "description": "Ultragoste ostaline masivnih zvezd, stisnjene v drobno kroglo."}
-    ]
   }
 }

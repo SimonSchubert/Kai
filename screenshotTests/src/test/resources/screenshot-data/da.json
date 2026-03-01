@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "vis mig smukke one-liners til kotlin, swift, c, python, js",
     "codeIntro": "Her er nogle korte, smukke one-liners i hvert sprog (2025-udgaven):"
-  },
-  "exploreSpace": {
-    "topic": "Udforskning af rummet",
-    "items": [
-      {"title": "Mars", "description": "Den rode planet, den fjerde fra Solen og et primaert mal for menneskelig udforskning."},
-      {"title": "Sorte huller", "description": "Omrader af rumtiden, hvor tyngdekraften er sa staerk, at intet kan undslippe."},
-      {"title": "Apollo 11", "description": "Den forste bemandede mission, der landede pa Manen i 1969, med tre astronauter ombord."},
-      {"title": "Saturns ringe", "description": "Spektakulaere is- og klipperinge, der omgiver gasgiganten Saturn."},
-      {"title": "Voyager-programmet", "description": "To tvillingerumsonder opsendt i 1977, nu i det interstellare rum."},
-      {"title": "Maelkevejen", "description": "Vores hjemmegalakse med over 100 milliarder stjerner og utallige planeter."},
-      {"title": "Solformorkelser", "description": "Nar Manen passerer mellem Solen og Jorden og kaster en skygge."},
-      {"title": "Neutronstjerner", "description": "Ultrataette rester af massive stjerner pakket i en lille kugle."}
-    ]
   }
 }

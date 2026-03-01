@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">На цій платформі немає доступних інструментів.</string>
     <string name="settings_tab_services">Сервіси</string>
     <string name="settings_tab_tools">Інструменти</string>
-    <string name="explore_retry">Повторити</string>
-    <string name="explore_related_topics">Пов'язані теми</string>
     <string name="history_just_now">Щойно</string>
     <string name="history_minutes_ago">%1$d хв тому</string>
     <string name="history_hours_ago">%1$d год тому</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">Використовуючи сервіс, ви погоджуєтесь з </string>
     <string name="privacy_policy">Політикою конфіденційності</string>
     <string name="new_conversation">Нова розмова</string>
-    <string name="topic_people">Люди</string>
-    <string name="topic_sport">Спорт</string>
-    <string name="topic_technology">Технології</string>
-    <string name="topic_countries">Країни</string>
-    <string name="topic_space">Космос</string>
     <string name="settings_tab_general">Загальне</string>
-    <string name="settings_show_topics">Показати теми</string>
-    <string name="settings_show_topics_description">Показувати пропозиції тем на порожньому екрані чату</string>
     <string name="tool_set_alarm_name">Встановити будильник</string>
     <string name="tool_set_alarm_description">Встановити будильник або таймер зворотного відліку на пристрої</string>
     <string name="tool_execute_shell_command_name">Виконати команду</string>

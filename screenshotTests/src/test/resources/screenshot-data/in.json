@@ -6,18 +6,5 @@
   "chatWithCodeExample": {
     "userMessage": "tunjukkan one-liner indah untuk kotlin, swift, c, python, js",
     "codeIntro": "Berikut beberapa one-liner pendek dan indah dalam setiap bahasa (edisi 2025 😄):"
-  },
-  "exploreSpace": {
-    "topic": "Eksplorasi Luar Angkasa",
-    "items": [
-      {"title": "Mars", "description": "Planet Merah, keempat dari Matahari dan target utama untuk eksplorasi manusia."},
-      {"title": "Lubang Hitam", "description": "Wilayah ruang-waktu di mana gravitasi begitu kuat sehingga tidak ada yang bisa lolos."},
-      {"title": "Apollo 11", "description": "Misi berawak pertama yang mendarat di Bulan pada 1969, membawa tiga astronaut."},
-      {"title": "Cincin Saturnus", "description": "Cincin es dan batuan spektakuler yang mengelilingi raksasa gas Saturnus."},
-      {"title": "Program Voyager", "description": "Dua pesawat ruang angkasa kembar yang diluncurkan pada 1977, kini berada di ruang antarbintang."},
-      {"title": "Bima Sakti", "description": "Galaksi rumah kita yang mengandung lebih dari 100 miliar bintang dan planet yang tak terhitung."},
-      {"title": "Gerhana Matahari", "description": "Ketika Bulan melintas di antara Matahari dan Bumi, menjatuhkan bayangan."},
-      {"title": "Bintang Neutron", "description": "Sisa-sisa ultra-padat dari bintang masif yang terkemas dalam bola kecil."}
-    ]
   }
 }

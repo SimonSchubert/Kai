@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">ਇਸ ਪਲੇਟਫਾਰਮ \'ਤੇ ਕੋਈ ਟੂਲ ਉਪਲਬਧ ਨਹੀਂ ਹਨ।</string>
     <string name="settings_tab_services">ਸੇਵਾਵਾਂ</string>
     <string name="settings_tab_tools">ਟੂਲ</string>
-    <string name="explore_retry">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
-    <string name="explore_related_topics">ਸੰਬੰਧਿਤ ਵਿਸ਼ੇ</string>
     <string name="history_just_now">ਹੁਣੇ</string>
     <string name="history_minutes_ago">%1$d ਮਿ ਪਹਿਲਾਂ</string>
     <string name="history_hours_ago">%1$d ਘੰ ਪਹਿਲਾਂ</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ, ਤੁਸੀਂ ਸਹਿਮਤ ਹੋ </string>
     <string name="privacy_policy">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
     <string name="new_conversation">ਨਵੀਂ ਗੱਲਬਾਤ</string>
-    <string name="topic_people">ਲੋਕ</string>
-    <string name="topic_sport">ਖੇਡ</string>
-    <string name="topic_technology">ਤਕਨਾਲੋਜੀ</string>
-    <string name="topic_countries">ਦੇਸ਼</string>
-    <string name="topic_space">ਪੁਲਾੜ</string>
     <string name="settings_tab_general">ਸਧਾਰਨ</string>
-    <string name="settings_show_topics">ਵਿਸ਼ੇ ਦਿਖਾਓ</string>
-    <string name="settings_show_topics_description">ਖਾਲੀ ਚੈਟ ਸਕ੍ਰੀਨ \'ਤੇ ਵਿਸ਼ੇ ਦੇ ਸੁਝਾਅ ਦਿਖਾਓ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ \'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>

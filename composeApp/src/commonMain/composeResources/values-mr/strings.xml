@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">या प्लॅटफॉर्मवर कोणतीही साधने उपलब्ध नाहीत.</string>
     <string name="settings_tab_services">सेवा</string>
     <string name="settings_tab_tools">साधने</string>
-    <string name="explore_retry">पुन्हा प्रयत्न करा</string>
-    <string name="explore_related_topics">संबंधित विषय</string>
     <string name="history_just_now">आत्ताच</string>
     <string name="history_minutes_ago">%1$d मि पूर्वी</string>
     <string name="history_hours_ago">%1$d तां पूर्वी</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">सेवा वापरून, तुम्ही सहमत आहात </string>
     <string name="privacy_policy">गोपनीयता धोरण</string>
     <string name="new_conversation">नवीन संभाषण</string>
-    <string name="topic_people">लोक</string>
-    <string name="topic_sport">खेळ</string>
-    <string name="topic_technology">तंत्रज्ञान</string>
-    <string name="topic_countries">देश</string>
-    <string name="topic_space">अंतराळ</string>
     <string name="settings_tab_general">सामान्य</string>
-    <string name="settings_show_topics">विषय दाखवा</string>
-    <string name="settings_show_topics_description">रिकाम्या चॅट स्क्रीनवर विषय सूचना दाखवा</string>
     <string name="tool_set_alarm_name">अलार्म सेट करा</string>
     <string name="tool_set_alarm_description">डिव्हाइसवर अलार्म किंवा काउंटडाउन टायमर सेट करा</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चालवा</string>

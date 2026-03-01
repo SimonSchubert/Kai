@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">此平台上沒有可用的工具。</string>
     <string name="settings_tab_services">服務</string>
     <string name="settings_tab_tools">工具</string>
-    <string name="explore_retry">重試</string>
-    <string name="explore_related_topics">相關主題</string>
     <string name="history_just_now">剛剛</string>
     <string name="history_minutes_ago">%1$d分鐘前</string>
     <string name="history_hours_ago">%1$d小時前</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">使用本服務即表示您同意</string>
     <string name="privacy_policy">隱私權政策</string>
     <string name="new_conversation">新對話</string>
-    <string name="topic_people">人物</string>
-    <string name="topic_sport">體育</string>
-    <string name="topic_technology">科技</string>
-    <string name="topic_countries">國家</string>
-    <string name="topic_space">太空</string>
     <string name="settings_tab_general">一般</string>
-    <string name="settings_show_topics">顯示主題</string>
-    <string name="settings_show_topics_description">在空白聊天畫面顯示主題建議</string>
     <string name="tool_set_alarm_name">設定鬧鐘</string>
     <string name="tool_set_alarm_description">在裝置上設定鬧鐘或倒數計時器</string>
     <string name="tool_execute_shell_command_name">執行命令</string>

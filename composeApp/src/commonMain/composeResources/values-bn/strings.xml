@@ -74,8 +74,6 @@
     <string name="settings_tools_none_available">এই প্ল্যাটফর্মে কোনো টুল উপলব্ধ নেই।</string>
     <string name="settings_tab_services">সেবাসমূহ</string>
     <string name="settings_tab_tools">টুলস</string>
-    <string name="explore_retry">পুনরায় চেষ্টা করুন</string>
-    <string name="explore_related_topics">সম্পর্কিত বিষয়</string>
     <string name="history_just_now">এইমাত্র</string>
     <string name="history_minutes_ago">%1$d মি আগে</string>
     <string name="history_hours_ago">%1$d ঘ আগে</string>
@@ -88,14 +86,7 @@
     <string name="privacy_agree_prefix">পরিষেবা ব্যবহার করে, আপনি সম্মত হচ্ছেন </string>
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="new_conversation">নতুন কথোপকথন</string>
-    <string name="topic_people">জনগণ</string>
-    <string name="topic_sport">খেলাধুলা</string>
-    <string name="topic_technology">প্রযুক্তি</string>
-    <string name="topic_countries">দেশসমূহ</string>
-    <string name="topic_space">মহাকাশ</string>
     <string name="settings_tab_general">সাধারণ</string>
-    <string name="settings_show_topics">বিষয় দেখান</string>
-    <string name="settings_show_topics_description">খালি চ্যাট স্ক্রিনে বিষয়ের পরামর্শ দেখান</string>
     <string name="tool_set_alarm_name">অ্যালার্ম সেট করুন</string>
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
     <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
