@@ -249,7 +249,9 @@ class RemoteDataRepository(
         val service = currentService()
         val messages = chatHistory.value
         val modelId = appSettings.getSelectedModelId(service)
-        val tools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
+        val memoryToolNames = setOf("memory_store", "memory_forget")
+        val allTools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
+        val tools = if (appSettings.isMemoryEnabled()) allTools else allTools.filter { it.schema.name !in memoryToolNames }
 
         val systemPrompt = getActiveSystemPrompt()
 
@@ -610,29 +612,32 @@ class RemoteDataRepository(
         appSettings.setSoulText(text)
     }
 
-    override fun getMemoryInstructions(): String = appSettings.getMemoryInstructions()
-
-    override fun setMemoryInstructions(text: String) {
-        appSettings.setMemoryInstructions(text)
-    }
-
     override fun getActiveSystemPrompt(): String? {
         val soul = appSettings.getSoulText()
-        val memoryInstructions = appSettings.getMemoryInstructions()
-        val memories = memoryStore.getAllMemories()
+        val memoryEnabled = appSettings.isMemoryEnabled()
         return buildString {
             if (soul.isNotEmpty()) append(soul)
-            if (memoryInstructions.isNotEmpty()) {
-                if (isNotEmpty()) append("\n\n")
-                append(memoryInstructions)
-            }
-            if (memories.isNotEmpty()) {
-                append("\n\n## Your Memories\n")
-                for (m in memories) {
-                    append("- **${m.key}**: ${m.content}\n")
+            if (memoryEnabled) {
+                val memoryInstructions = appSettings.getMemoryInstructions()
+                if (memoryInstructions.isNotEmpty()) {
+                    if (isNotEmpty()) append("\n\n")
+                    append(memoryInstructions)
+                }
+                val memories = memoryStore.getAllMemories()
+                if (memories.isNotEmpty()) {
+                    append("\n\n## Your Memories\n")
+                    for (m in memories) {
+                        append("- **${m.key}**: ${m.content}\n")
+                    }
                 }
             }
         }.ifEmpty { null }
+    }
+
+    override fun isMemoryEnabled(): Boolean = appSettings.isMemoryEnabled()
+
+    override fun setMemoryEnabled(enabled: Boolean) {
+        appSettings.setMemoryEnabled(enabled)
     }
 
     override fun getMemories(): List<MemoryEntry> = memoryStore.getAllMemories()

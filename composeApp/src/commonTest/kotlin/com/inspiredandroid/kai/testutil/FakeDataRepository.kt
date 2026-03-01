@@ -143,14 +143,17 @@ class FakeDataRepository : DataRepository {
         soulText = text
     }
 
-    override fun getMemoryInstructions(): String = ""
-
-    override fun setMemoryInstructions(text: String) {}
-
     override fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
 
     // Memory management
+    private var memoryEnabled = true
     private val memories = mutableListOf<MemoryEntry>()
+
+    override fun isMemoryEnabled(): Boolean = memoryEnabled
+
+    override fun setMemoryEnabled(enabled: Boolean) {
+        memoryEnabled = enabled
+    }
 
     override fun getMemories(): List<MemoryEntry> = memories.toList()
 

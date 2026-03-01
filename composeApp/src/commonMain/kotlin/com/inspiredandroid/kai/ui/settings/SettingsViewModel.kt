@@ -43,8 +43,8 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             onToggleTool = ::onToggleTool,
             soulText = dataRepository.getSoulText(),
             onSaveSoul = ::onSaveSoul,
-            memoryInstructions = dataRepository.getMemoryInstructions(),
-            onSaveMemoryInstructions = ::onSaveMemoryInstructions,
+            isMemoryEnabled = dataRepository.isMemoryEnabled(),
+            onToggleMemory = ::onToggleMemory,
             memories = dataRepository.getMemories(),
             onDeleteMemory = ::onDeleteMemory,
         ),
@@ -121,9 +121,9 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
         _state.update { it.copy(soulText = text) }
     }
 
-    private fun onSaveMemoryInstructions(text: String) {
-        dataRepository.setMemoryInstructions(text)
-        _state.update { it.copy(memoryInstructions = text) }
+    private fun onToggleMemory(enabled: Boolean) {
+        dataRepository.setMemoryEnabled(enabled)
+        _state.update { it.copy(isMemoryEnabled = enabled) }
     }
 
     private fun onDeleteMemory(key: String) {

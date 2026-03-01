@@ -32,7 +32,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -106,9 +105,6 @@ import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
-import kai.composeapp.generated.resources.settings_memories_empty
-import kai.composeapp.generated.resources.settings_memory_instructions
-import kai.composeapp.generated.resources.settings_memory_instructions_description
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -181,114 +177,114 @@ fun SettingsScreenContent(
                 horizontalAlignment = CenterHorizontally,
             ) {
                 when (uiState.currentTab) {
-                SettingsTab.General -> {
-                    SoulEditor(
-                        soulText = uiState.soulText,
-                        onSaveSoul = uiState.onSaveSoul,
-                    )
-                    Spacer(Modifier.height(24.dp))
-                    MemoryList(
-                        memories = uiState.memories,
-                        onDeleteMemory = uiState.onDeleteMemory,
-                        memoryInstructions = uiState.memoryInstructions,
-                        onSaveMemoryInstructions = uiState.onSaveMemoryInstructions,
-                    )
-                }
+                    SettingsTab.General -> {
+                        SoulEditor(
+                            soulText = uiState.soulText,
+                            onSaveSoul = uiState.onSaveSoul,
+                        )
+                        Spacer(Modifier.height(24.dp))
+                        MemoryList(
+                            memories = uiState.memories,
+                            onDeleteMemory = uiState.onDeleteMemory,
+                            isMemoryEnabled = uiState.isMemoryEnabled,
+                            onToggleMemory = uiState.onToggleMemory,
+                        )
+                    }
 
-                SettingsTab.Services -> {
-                    when (uiState.currentService) {
-                        Service.Free -> {
-                            FreeSettings()
-                        }
+                    SettingsTab.Services -> {
+                        when (uiState.currentService) {
+                            Service.Free -> {
+                                FreeSettings()
+                            }
 
-                        Service.Gemini -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://aistudio.google.com/apikey",
-                                apiKeyUrlDisplay = "aistudio.google.com/apikey",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.Gemini -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://aistudio.google.com/apikey",
+                                    apiKeyUrlDisplay = "aistudio.google.com/apikey",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.Groq -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://console.groq.com/keys",
-                                apiKeyUrlDisplay = "console.groq.com/keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                                testTag = "api_key",
-                            )
-                        }
+                            Service.Groq -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://console.groq.com/keys",
+                                    apiKeyUrlDisplay = "console.groq.com/keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                    testTag = "api_key",
+                                )
+                            }
 
-                        Service.XAI -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://console.x.ai",
-                                apiKeyUrlDisplay = "console.x.ai",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.XAI -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://console.x.ai",
+                                    apiKeyUrlDisplay = "console.x.ai",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.OpenRouter -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://openrouter.ai/settings/keys",
-                                apiKeyUrlDisplay = "openrouter.ai/settings/keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.OpenRouter -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://openrouter.ai/settings/keys",
+                                    apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.Nvidia -> {
-                            ServiceSettings(
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
-                                apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
-                        }
+                            Service.Nvidia -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
+                                    apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
 
-                        Service.OpenAICompatible -> {
-                            OpenAICompatibleSettings(
-                                baseUrl = uiState.baseUrl,
-                                onChangeBaseUrl = uiState.onChangeBaseUrl,
-                                apiKey = uiState.apiKey,
-                                onChangeApiKey = uiState.onChangeApiKey,
-                                selectedModel = uiState.selectedModel,
-                                models = uiState.models,
-                                onSelectModel = uiState.onSelectModel,
-                                connectionStatus = uiState.connectionStatus,
-                            )
+                            Service.OpenAICompatible -> {
+                                OpenAICompatibleSettings(
+                                    baseUrl = uiState.baseUrl,
+                                    onChangeBaseUrl = uiState.onChangeBaseUrl,
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
                         }
                     }
-                }
 
-                SettingsTab.Tools -> {
-                    ToolsContent(
-                        tools = uiState.tools,
-                        onToggleTool = uiState.onToggleTool,
-                    )
+                    SettingsTab.Tools -> {
+                        ToolsContent(
+                            tools = uiState.tools,
+                            onToggleTool = uiState.onToggleTool,
+                        )
+                    }
                 }
-            }
 
                 Spacer(Modifier.height(16.dp))
             }
@@ -1009,11 +1005,9 @@ private fun SoulEditor(
 private fun MemoryList(
     memories: List<MemoryEntry>,
     onDeleteMemory: (String) -> Unit,
-    memoryInstructions: String,
-    onSaveMemoryInstructions: (String) -> Unit,
+    isMemoryEnabled: Boolean,
+    onToggleMemory: (Boolean) -> Unit,
 ) {
-    var showInstructions by remember { mutableStateOf(false) }
-
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -1025,17 +1019,11 @@ private fun MemoryList(
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f),
             )
-            IconButton(
-                onClick = { showInstructions = !showInstructions },
+            Switch(
+                checked = isMemoryEnabled,
+                onCheckedChange = onToggleMemory,
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(Res.string.settings_memory_instructions),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.size(20.dp),
-                )
-            }
+            )
         }
         Text(
             text = stringResource(Res.string.settings_memories_description),
@@ -1044,93 +1032,42 @@ private fun MemoryList(
         )
         Spacer(Modifier.height(12.dp))
 
-        memories.forEach { memory ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                    .padding(12.dp),
-                verticalAlignment = Alignment.Top,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = memory.key,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = memory.content,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-                IconButton(
-                    onClick = { onDeleteMemory(memory.key) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        if (isMemoryEnabled) {
+            memories.forEach { memory ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.Top,
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = stringResource(Res.string.settings_memories_delete),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = memory.key,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Text(
+                            text = memory.content,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                    IconButton(
+                        onClick = { onDeleteMemory(memory.key) },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = stringResource(Res.string.settings_memories_delete),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
-            }
-            Spacer(Modifier.height(8.dp))
-        }
-
-        if (showInstructions) {
-            Spacer(Modifier.height(8.dp))
-            MemoryInstructionsEditor(
-                memoryInstructions = memoryInstructions,
-                onSave = onSaveMemoryInstructions,
-            )
-        }
-    }
-}
-
-@Composable
-private fun MemoryInstructionsEditor(
-    memoryInstructions: String,
-    onSave: (String) -> Unit,
-) {
-    var editedText by remember(memoryInstructions) { mutableStateOf(memoryInstructions) }
-    val hasChanges = editedText != memoryInstructions
-    val maxChars = 2000
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(Res.string.settings_memory_instructions_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(8.dp))
-
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth().height(180.dp),
-            value = editedText,
-            onValueChange = { if (it.length <= maxChars) editedText = it },
-            colors = outlineTextFieldColors(),
-        )
-
-        Text(
-            text = "${editedText.length}/$maxChars",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.End,
-        )
-
-        Spacer(Modifier.height(8.dp))
-
-        if (hasChanges) {
-            Button(
-                onClick = { onSave(editedText.trim()) },
-                modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
-            ) {
-                Text(stringResource(Res.string.settings_soul_save))
+                Spacer(Modifier.height(8.dp))
             }
         }
     }

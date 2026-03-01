@@ -42,8 +42,8 @@ data class SettingsUiState(
     val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
     val soulText: String = "",
     val onSaveSoul: (String) -> Unit = {},
-    val memoryInstructions: String = "",
-    val onSaveMemoryInstructions: (String) -> Unit = {},
+    val isMemoryEnabled: Boolean = true,
+    val onToggleMemory: (Boolean) -> Unit = {},
     val memories: List<MemoryEntry> = emptyList(),
     val onDeleteMemory: (String) -> Unit = {},
 )
