@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Одговори на постојећи SMS разговор</string>
     <string name="tool_set_alarm_name">Постави аларм</string>
     <string name="tool_set_alarm_description">Постави аларм или тајмер за одбројавање на уређају</string>
+    <string name="tool_execute_shell_command_name">Покрени команду</string>
+    <string name="tool_execute_shell_command_description">Покрени команду љуске на уређају</string>
     <string name="topic_people">Људи</string>
     <string name="topic_sport">Спорт</string>
     <string name="topic_technology">Технологија</string>

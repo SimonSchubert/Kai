@@ -94,6 +94,8 @@
     <string name="tool_send_sms_description">Reply to an existing SMS conversation</string>
     <string name="tool_set_alarm_name">Set Alarm</string>
     <string name="tool_set_alarm_description">Set an alarm or countdown timer on the device</string>
+    <string name="tool_execute_shell_command_name">Execute Shell Command</string>
+    <string name="tool_execute_shell_command_description">Execute a shell command on the device</string>
     <string name="topic_people">People</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Technology</string>

@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Svar på en eksisterende SMS-samtale</string>
     <string name="tool_set_alarm_name">Sett alarm</string>
     <string name="tool_set_alarm_description">Sett en alarm eller nedtellingstimer på enheten</string>
+    <string name="tool_execute_shell_command_name">Kjør kommando</string>
+    <string name="tool_execute_shell_command_description">Kjør en shell-kommando på enheten</string>
     <string name="topic_people">Mennesker</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Teknologi</string>

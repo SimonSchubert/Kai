@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">عرض اقتراحات المواضيع على شاشة الدردشة الفارغة</string>
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
+    <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>
+    <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية على الجهاز</string>
     <string name="settings_identity">الهوية</string>
     <string name="settings_identity_description">تعيين توجيه نظام يحدد سلوك الذكاء الاصطناعي</string>
     <string name="settings_identity_none">بدون</string>

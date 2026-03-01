@@ -60,9 +60,7 @@ class AppSettings(private val settings: Settings) {
     }
 
     // Tool enable/disable settings
-    fun isToolEnabled(toolId: String): Boolean {
-        return settings.getBoolean("$KEY_TOOL_PREFIX$toolId", true) // Enabled by default
-    }
+    fun isToolEnabled(toolId: String, defaultEnabled: Boolean = true): Boolean = settings.getBoolean("$KEY_TOOL_PREFIX$toolId", defaultEnabled)
 
     fun setToolEnabled(toolId: String, enabled: Boolean) {
         settings.putBoolean("$KEY_TOOL_PREFIX$toolId", enabled)

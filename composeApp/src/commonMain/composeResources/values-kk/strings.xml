@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Бар SMS сұхбатқа жауап беру</string>
     <string name="tool_set_alarm_name">Оятқыш орнату</string>
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
+    <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
+    <string name="tool_execute_shell_command_description">Құрылғыда shell пәрменін орындау</string>
     <string name="topic_people">Адамдар</string>
     <string name="topic_sport">Спорт</string>
     <string name="topic_technology">Технология</string>

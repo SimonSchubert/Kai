@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">在空聊天界面显示主题建议</string>
     <string name="tool_set_alarm_name">设置闹钟</string>
     <string name="tool_set_alarm_description">在设备上设置闹钟或倒计时器</string>
+    <string name="tool_execute_shell_command_name">执行命令</string>
+    <string name="tool_execute_shell_command_description">在设备上执行 Shell 命令</string>
     <string name="settings_identity">身份</string>
     <string name="settings_identity_description">设置系统提示词来定义 AI 的行为方式</string>
     <string name="settings_identity_none">无</string>

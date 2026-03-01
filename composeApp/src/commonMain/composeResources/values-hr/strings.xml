@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Odgovorite na postojeći SMS razgovor</string>
     <string name="tool_set_alarm_name">Postavi alarm</string>
     <string name="tool_set_alarm_description">Postavite alarm ili odbrojavanje na uređaju</string>
+    <string name="tool_execute_shell_command_name">Izvrši naredbu</string>
+    <string name="tool_execute_shell_command_description">Izvrši naredbu ljuske na uređaju</string>
     <string name="topic_people">Ljudi</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Tehnologija</string>

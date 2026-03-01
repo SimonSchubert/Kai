@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">แสดงคำแนะนำหัวข้อบนหน้าจอแชทว่าง</string>
     <string name="tool_set_alarm_name">ตั้งปลุก</string>
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
+    <string name="tool_execute_shell_command_name">รันคำสั่งเชลล์</string>
+    <string name="tool_execute_shell_command_description">รันคำสั่งเชลล์บนอุปกรณ์</string>
     <string name="settings_identity">ตัวตน</string>
     <string name="settings_identity_description">ตั้งค่าพรอมต์ระบบที่กำหนดพฤติกรรมของ AI</string>
     <string name="settings_identity_none">ไม่มี</string>

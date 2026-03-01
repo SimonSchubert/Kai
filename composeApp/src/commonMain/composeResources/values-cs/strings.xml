@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Odpov\u011bd\u011bt na existuj\u00edc\u00ed SMS konverzaci</string>
     <string name="tool_set_alarm_name">Nastavit bud\u00edk</string>
     <string name="tool_set_alarm_description">Nastavit bud\u00edk nebo odpo\u010d\u00edtavac\u00ed \u010dasova\u010d na za\u0159\u00edzen\u00ed</string>
+    <string name="tool_execute_shell_command_name">Spustit příkaz</string>
+    <string name="tool_execute_shell_command_description">Spustit příkaz shellu na zařízení</string>
     <string name="topic_people">Lid\u00e9</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Technologie</string>

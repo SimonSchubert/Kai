@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Vasta olemasolevale SMS-vestlusele</string>
     <string name="tool_set_alarm_name">Seadista äratus</string>
     <string name="tool_set_alarm_description">Seadista äratus või taimer seadmes</string>
+    <string name="tool_execute_shell_command_name">Käivita käsk</string>
+    <string name="tool_execute_shell_command_description">Käivita shell-käsk seadmes</string>
     <string name="topic_people">Inimesed</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Tehnoloogia</string>

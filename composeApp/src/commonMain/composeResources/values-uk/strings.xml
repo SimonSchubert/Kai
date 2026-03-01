@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Показувати пропозиції тем на порожньому екрані чату</string>
     <string name="tool_set_alarm_name">Встановити будильник</string>
     <string name="tool_set_alarm_description">Встановити будильник або таймер зворотного відліку на пристрої</string>
+    <string name="tool_execute_shell_command_name">Виконати команду</string>
+    <string name="tool_execute_shell_command_description">Виконати команду оболонки на пристрої</string>
     <string name="settings_identity">Особистість</string>
     <string name="settings_identity_description">Встановіть системний промпт, який визначає поведінку ШІ</string>
     <string name="settings_identity_none">Немає</string>

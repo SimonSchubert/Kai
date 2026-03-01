@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">रिकाम्या चॅट स्क्रीनवर विषय सूचना दाखवा</string>
     <string name="tool_set_alarm_name">अलार्म सेट करा</string>
     <string name="tool_set_alarm_description">डिव्हाइसवर अलार्म किंवा काउंटडाउन टायमर सेट करा</string>
+    <string name="tool_execute_shell_command_name">शेल कमांड चालवा</string>
+    <string name="tool_execute_shell_command_description">डिव्हाइसवर शेल कमांड चालवा</string>
     <string name="settings_identity">ओळख</string>
     <string name="settings_identity_description">AI कसे वागेल हे ठरवणारा सिस्टम प्रॉम्प्ट सेट करा</string>
     <string name="settings_identity_none">काहीही नाही</string>

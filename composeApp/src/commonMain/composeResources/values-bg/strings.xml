@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Отговори на съществуващ SMS разговор</string>
     <string name="tool_set_alarm_name">Задай аларма</string>
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
+    <string name="tool_execute_shell_command_name">Изпълни команда</string>
+    <string name="tool_execute_shell_command_description">Изпълни команда на устройството</string>
     <string name="topic_people">Хора</string>
     <string name="topic_sport">Спорт</string>
     <string name="topic_technology">Технологии</string>

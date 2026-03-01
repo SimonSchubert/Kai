@@ -13,6 +13,7 @@ import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.PlatformFile
@@ -76,11 +77,16 @@ actual fun createSecureSettings(): Settings {
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + ShellCommandTool.toolInfo
 
 actual fun getDeviceLanguage(): String = java.util.Locale.getDefault().language
 
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
-    return CommonTools.getCommonTools(appSettings)
+    return buildList {
+        addAll(CommonTools.getCommonTools(appSettings))
+        if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
+            add(ShellCommandTool)
+        }
+    }
 }

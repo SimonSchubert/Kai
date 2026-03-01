@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">빈 채팅 화면에 주제 제안 표시</string>
     <string name="tool_set_alarm_name">알람 설정</string>
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
+    <string name="tool_execute_shell_command_name">셸 명령 실행</string>
+    <string name="tool_execute_shell_command_description">기기에서 셸 명령 실행</string>
     <string name="settings_identity">아이덴티티</string>
     <string name="settings_identity_description">AI의 동작을 정의하는 시스템 프롬프트를 설정하세요</string>
     <string name="settings_identity_none">없음</string>

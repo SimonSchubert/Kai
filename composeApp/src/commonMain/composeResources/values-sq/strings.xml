@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Përgjigju në një bisedë ekzistuese SMS</string>
     <string name="tool_set_alarm_name">Vendos alarm</string>
     <string name="tool_set_alarm_description">Vendos një alarm ose kohëmatës në pajisje</string>
+    <string name="tool_execute_shell_command_name">Ekzekuto komandën</string>
+    <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në pajisje</string>
     <string name="topic_people">Njerëzit</string>
     <string name="topic_sport">Sporti</string>
     <string name="topic_technology">Teknologjia</string>

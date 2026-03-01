@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Mostra suggerimenti di argomenti nella schermata chat vuota</string>
     <string name="tool_set_alarm_name">Imposta sveglia</string>
     <string name="tool_set_alarm_description">Imposta una sveglia o un timer sul dispositivo</string>
+    <string name="tool_execute_shell_command_name">Esegui comando</string>
+    <string name="tool_execute_shell_command_description">Esegui un comando shell sul dispositivo</string>
     <string name="settings_identity">Identità</string>
     <string name="settings_identity_description">Imposta un prompt di sistema che definisce il comportamento dell&#39;IA</string>
     <string name="settings_identity_none">Nessuna</string>

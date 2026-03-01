@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Mostrar sugerencias de temas en la pantalla de chat vacía</string>
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
+    <string name="tool_execute_shell_command_name">Ejecutar comando</string>
+    <string name="tool_execute_shell_command_description">Ejecutar un comando de shell en el dispositivo</string>
     <string name="settings_identity">Identidad</string>
     <string name="settings_identity_description">Define un prompt de sistema que determine el comportamiento de la IA</string>
     <string name="settings_identity_none">Ninguna</string>

@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">காலி அரட்டைத் திரையில் தலைப்பு பரிந்துரைகளைக் காட்டு</string>
     <string name="tool_set_alarm_name">அலாரம் அமை</string>
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
+    <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>
+    <string name="tool_execute_shell_command_description">சாதனத்தில் ஷெல் கட்டளையை இயக்கு</string>
     <string name="settings_identity">அடையாளம்</string>
     <string name="settings_identity_description">AI எவ்வாறு செயல்படும் என்பதை வரையறுக்கும் கணினி ப்ராம்ப்ட் அமைக்கவும்</string>
     <string name="settings_identity_none">எதுவுமில்லை</string>

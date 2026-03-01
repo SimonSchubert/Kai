@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Onyesha mapendekezo ya mada kwenye skrini tupu ya mazungumzo</string>
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
+    <string name="tool_execute_shell_command_name">Tekeleza amri</string>
+    <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye kifaa</string>
     <string name="settings_identity">Utambulisho</string>
     <string name="settings_identity_description">Weka prompt ya mfumo inayoamua jinsi AI inavyofanya kazi</string>
     <string name="settings_identity_none">Hakuna</string>

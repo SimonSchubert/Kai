@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Hiển thị gợi ý chủ đề trên màn hình trò chuyện trống</string>
     <string name="tool_set_alarm_name">Đặt báo thức</string>
     <string name="tool_set_alarm_description">Đặt báo thức hoặc hẹn giờ đếm ngược trên thiết bị</string>
+    <string name="tool_execute_shell_command_name">Chạy lệnh shell</string>
+    <string name="tool_execute_shell_command_description">Chạy lệnh shell trên thiết bị</string>
     <string name="settings_identity">Danh tính</string>
     <string name="settings_identity_description">Đặt lời nhắc hệ thống xác định cách AI hoạt động</string>
     <string name="settings_identity_none">Không có</string>

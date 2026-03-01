@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">खाली चैट स्क्रीन पर विषय सुझाव दिखाएं</string>
     <string name="tool_set_alarm_name">अलार्म सेट करें</string>
     <string name="tool_set_alarm_description">डिवाइस पर अलार्म या काउंटडाउन टाइमर सेट करें</string>
+    <string name="tool_execute_shell_command_name">शेल कमांड चलाएँ</string>
+    <string name="tool_execute_shell_command_description">डिवाइस पर शेल कमांड चलाएँ</string>
     <string name="settings_identity">पहचान</string>
     <string name="settings_identity_description">एक सिस्टम प्रॉम्प्ट सेट करें जो AI के व्यवहार को परिभाषित करे</string>
     <string name="settings_identity_none">कोई नहीं</string>

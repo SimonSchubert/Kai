@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Pokaż sugestie tematów na pustym ekranie czatu</string>
     <string name="tool_set_alarm_name">Ustaw alarm</string>
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
+    <string name="tool_execute_shell_command_name">Wykonaj polecenie</string>
+    <string name="tool_execute_shell_command_description">Wykonaj polecenie powłoki na urządzeniu</string>
     <string name="settings_identity">Tożsamość</string>
     <string name="settings_identity_description">Ustaw prompt systemowy określający zachowanie AI</string>
     <string name="settings_identity_none">Brak</string>

@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">খালি চ্যাট স্ক্রিনে বিষয়ের পরামর্শ দেখান</string>
     <string name="tool_set_alarm_name">অ্যালার্ম সেট করুন</string>
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
+    <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
+    <string name="tool_execute_shell_command_description">ডিভাইসে শেল কমান্ড চালান</string>
     <string name="settings_identity">পরিচয়</string>
     <string name="settings_identity_description">একটি সিস্টেম প্রম্পট সেট করুন যা AI-এর আচরণ নির্ধারণ করে</string>
     <string name="settings_identity_none">কিছু নয়</string>

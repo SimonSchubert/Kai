@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">ਖਾਲੀ ਚੈਟ ਸਕ੍ਰੀਨ \'ਤੇ ਵਿਸ਼ੇ ਦੇ ਸੁਝਾਅ ਦਿਖਾਓ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ \'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
+    <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
+    <string name="tool_execute_shell_command_description">ਡਿਵਾਈਸ ਤੇ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="settings_identity">ਪਛਾਣ</string>
     <string name="settings_identity_description">ਇੱਕ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਸੈੱਟ ਕਰੋ ਜੋ AI ਦੇ ਵਿਵਹਾਰ ਨੂੰ ਪਰਿਭਾਸ਼ਿਤ ਕਰੇ</string>
     <string name="settings_identity_none">ਕੋਈ ਨਹੀਂ</string>

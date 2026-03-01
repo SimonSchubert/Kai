@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Válasz egy meglévő SMS beszélgetésre</string>
     <string name="tool_set_alarm_name">Ébresztő beállítása</string>
     <string name="tool_set_alarm_description">Ébresztő vagy visszaszámláló beállítása az eszközön</string>
+    <string name="tool_execute_shell_command_name">Parancs futtatása</string>
+    <string name="tool_execute_shell_command_description">Shell parancs futtatása az eszközön</string>
     <string name="topic_people">Emberek</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Technológia</string>

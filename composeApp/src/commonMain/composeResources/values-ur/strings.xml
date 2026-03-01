@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">خالی چیٹ اسکرین پر موضوعات کی تجاویز دکھائیں</string>
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
+    <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>
+    <string name="tool_execute_shell_command_description">ڈیوائس پر شیل کمانڈ چلائیں</string>
     <string name="settings_identity">شناخت</string>
     <string name="settings_identity_description">ایک سسٹم پرامپٹ سیٹ کریں جو AI کے رویے کی وضاحت کرے</string>
     <string name="settings_identity_none">کوئی نہیں</string>

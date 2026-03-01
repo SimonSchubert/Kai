@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Phendula ingxoxo ye-SMS ekhona</string>
     <string name="tool_set_alarm_name">Setha i-alamu</string>
     <string name="tool_set_alarm_description">Setha i-alamu noma isibali sesikhathi edivaysini</string>
+    <string name="tool_execute_shell_command_name">Sebenzisa umyalo</string>
+    <string name="tool_execute_shell_command_description">Sebenzisa umyalo we-shell kudivayisi</string>
     <string name="topic_people">Abantu</string>
     <string name="topic_sport">Ezemidlalo</string>
     <string name="topic_technology">Ubuchwepheshe</string>

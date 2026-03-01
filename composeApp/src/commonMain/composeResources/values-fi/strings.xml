@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Vastaa olemassa olevaan SMS-keskusteluun</string>
     <string name="tool_set_alarm_name">Aseta h\u00e4lytys</string>
     <string name="tool_set_alarm_description">Aseta h\u00e4lytys tai ajastin laitteelle</string>
+    <string name="tool_execute_shell_command_name">Suorita komento</string>
+    <string name="tool_execute_shell_command_description">Suorita komentotulkin komento laitteella</string>
     <string name="topic_people">Ihmiset</string>
     <string name="topic_sport">Urheilu</string>
     <string name="topic_technology">Teknologia</string>

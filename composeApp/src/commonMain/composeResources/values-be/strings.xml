@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Адказаць на існуючую SMS-размову</string>
     <string name="tool_set_alarm_name">Усталяваць будзільнік</string>
     <string name="tool_set_alarm_description">Усталяваць будзільнік або таймер зваротнага адліку на прыладзе</string>
+    <string name="tool_execute_shell_command_name">Выканаць каманду абалонкі</string>
+    <string name="tool_execute_shell_command_description">Выканаць каманду абалонкі на прыладзе</string>
     <string name="topic_people">Людзі</string>
     <string name="topic_sport">Спорт</string>
     <string name="topic_technology">Тэхналогіі</string>

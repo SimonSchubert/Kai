@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Atbildēt uz esošu SMS sarunu</string>
     <string name="tool_set_alarm_name">Iestatīt modinātāju</string>
     <string name="tool_set_alarm_description">Iestatīt modinātāju vai atpakaļskaitīšanas taimeri ierīcē</string>
+    <string name="tool_execute_shell_command_name">Izpildīt komandu</string>
+    <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu ierīcē</string>
     <string name="topic_people">Cilvēki</string>
     <string name="topic_sport">Sports</string>
     <string name="topic_technology">Tehnoloģijas</string>

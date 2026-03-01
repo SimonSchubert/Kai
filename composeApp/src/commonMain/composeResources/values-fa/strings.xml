@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">نمایش پیشنهادات موضوعی در صفحه چت خالی</string>
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
+    <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>
+    <string name="tool_execute_shell_command_description">اجرای یک فرمان شل در دستگاه</string>
     <string name="settings_identity">هویت</string>
     <string name="settings_identity_description">یک دستور سیستمی تنظیم کنید که رفتار هوش مصنوعی را مشخص کند</string>
     <string name="settings_identity_none">هیچکدام</string>

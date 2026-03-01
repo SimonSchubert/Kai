@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Respunder ad ina conversaziun SMS existenta</string>
     <string name="tool_set_alarm_name">Metter ina sveglia</string>
     <string name="tool_set_alarm_description">Metter ina sveglia u in countdown timer sin l\'apparat</string>
+    <string name="tool_execute_shell_command_name">Exequir cumand</string>
+    <string name="tool_execute_shell_command_description">Exequir in cumand shell sin l\'apparat</string>
     <string name="topic_people">Persunas</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Tecnologia</string>

@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Antwoord op \'n bestaande SMS-gesprek</string>
     <string name="tool_set_alarm_name">Stel Alarm</string>
     <string name="tool_set_alarm_description">Stel \'n alarm of afteltydhouer op die toestel</string>
+    <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
+    <string name="tool_execute_shell_command_description">Voer 'n skelopdrag op die toestel uit</string>
     <string name="topic_people">Mense</string>
     <string name="topic_sport">Sport</string>
     <string name="topic_technology">Tegnologie</string>

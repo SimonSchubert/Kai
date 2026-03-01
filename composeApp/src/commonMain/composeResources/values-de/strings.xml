@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Themenvorschläge auf dem leeren Chat-Bildschirm anzeigen</string>
     <string name="tool_set_alarm_name">Wecker stellen</string>
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
+    <string name="tool_execute_shell_command_name">Shell-Befehl ausführen</string>
+    <string name="tool_execute_shell_command_description">Einen Shell-Befehl auf dem Gerät ausführen</string>
     <string name="settings_identity">Identität</string>
     <string name="settings_identity_description">Lege einen System-Prompt fest, der das Verhalten der KI bestimmt</string>
     <string name="settings_identity_none">Keine</string>

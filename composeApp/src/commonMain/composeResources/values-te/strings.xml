@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">ఖాళీ చాట్ స్క్రీన్‌లో అంశ సూచనలు చూపించు</string>
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
+    <string name="tool_execute_shell_command_name">షెల్ కమాండ్ అమలు చేయండి</string>
+    <string name="tool_execute_shell_command_description">పరికరంలో షెల్ కమాండ్ అమలు చేయండి</string>
     <string name="settings_identity">గుర్తింపు</string>
     <string name="settings_identity_description">AI ఎలా ప్రవర్తిస్తుందో నిర్వచించే సిస్టమ్ ప్రాంప్ట్ సెట్ చేయండి</string>
     <string name="settings_identity_none">ఏదీ లేదు</string>

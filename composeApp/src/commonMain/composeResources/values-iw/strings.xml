@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">השב לשיחת SMS קיימת</string>
     <string name="tool_set_alarm_name">הגדר התראה</string>
     <string name="tool_set_alarm_description">הגדר שעון מעורר או טיימר ספירה לאחור במכשיר</string>
+    <string name="tool_execute_shell_command_name">הפעל פקודת מעטפת</string>
+    <string name="tool_execute_shell_command_description">הפעל פקודת מעטפת במכשיר</string>
     <string name="topic_people">אנשים</string>
     <string name="topic_sport">ספורט</string>
     <string name="topic_technology">טכנולוגיה</string>

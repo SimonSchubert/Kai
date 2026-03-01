@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Tumugon sa isang umiiral na pag-uusap sa SMS</string>
     <string name="tool_set_alarm_name">Mag-set ng Alarm</string>
     <string name="tool_set_alarm_description">Mag-set ng alarm o countdown timer sa device</string>
+    <string name="tool_execute_shell_command_name">Magpatakbo ng utos</string>
+    <string name="tool_execute_shell_command_description">Magpatakbo ng shell command sa device</string>
     <string name="topic_people">Mga Tao</string>
     <string name="topic_sport">Isport</string>
     <string name="topic_technology">Teknolohiya</string>

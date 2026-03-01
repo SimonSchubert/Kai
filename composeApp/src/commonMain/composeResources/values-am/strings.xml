@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">ላለ SMS ውይይት ምላሽ ይስጡ</string>
     <string name="tool_set_alarm_name">ማንቂያ አዘጋጅ</string>
     <string name="tool_set_alarm_description">በመሳሪያው ላይ ማንቂያ ወይም የቆጠራ ሰዓት ቆጣሪ ያዘጋጁ</string>
+    <string name="tool_execute_shell_command_name">የሼል ትዕዛዝ አስፈጽም</string>
+    <string name="tool_execute_shell_command_description">በመሣሪያው ላይ የሼል ትዕዛዝ አስፈጽም</string>
     <string name="topic_people">ሰዎች</string>
     <string name="topic_sport">ስፖርት</string>
     <string name="topic_technology">ቴክኖሎጂ</string>

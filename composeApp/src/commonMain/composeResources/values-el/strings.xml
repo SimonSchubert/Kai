@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Απάντηση σε υπάρχουσα συνομιλία SMS</string>
     <string name="tool_set_alarm_name">Ρύθμιση Ξυπνητηριού</string>
     <string name="tool_set_alarm_description">Ρύθμιση ξυπνητηριού ή χρονομέτρου αντίστροφης μέτρησης στη συσκευή</string>
+    <string name="tool_execute_shell_command_name">Εκτέλεση εντολής</string>
+    <string name="tool_execute_shell_command_description">Εκτέλεση εντολής φλοιού στη συσκευή</string>
     <string name="topic_people">Άνθρωποι</string>
     <string name="topic_sport">Αθλητισμός</string>
     <string name="topic_technology">Τεχνολογία</string>

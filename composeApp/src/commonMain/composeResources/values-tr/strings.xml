@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Boş sohbet ekranında konu önerileri göster</string>
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
+    <string name="tool_execute_shell_command_name">Kabuk komutu çalıştır</string>
+    <string name="tool_execute_shell_command_description">Cihazda bir kabuk komutu çalıştır</string>
     <string name="settings_identity">Kimlik</string>
     <string name="settings_identity_description">AI\'nin davranışını belirleyen bir sistem istemi ayarlayın</string>
     <string name="settings_identity_none">Yok</string>

@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">空のチャット画面にトピックの提案を表示</string>
     <string name="tool_set_alarm_name">アラームを設定</string>
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
+    <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>
+    <string name="tool_execute_shell_command_description">デバイスでシェルコマンドを実行する</string>
     <string name="settings_identity">アイデンティティ</string>
     <string name="settings_identity_description">AIの振る舞いを定義するシステムプロンプトを設定</string>
     <string name="settings_identity_none">なし</string>

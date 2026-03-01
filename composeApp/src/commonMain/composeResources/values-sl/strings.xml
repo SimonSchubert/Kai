@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Odgovori na obstoječi SMS pogovor</string>
     <string name="tool_set_alarm_name">Nastavi alarm</string>
     <string name="tool_set_alarm_description">Nastavi alarm ali odštevalnik na napravi</string>
+    <string name="tool_execute_shell_command_name">Zaženi ukaz</string>
+    <string name="tool_execute_shell_command_description">Zaženi ukaz lupine na napravi</string>
     <string name="topic_people">Ljudje</string>
     <string name="topic_sport">Šport</string>
     <string name="topic_technology">Tehnologija</string>

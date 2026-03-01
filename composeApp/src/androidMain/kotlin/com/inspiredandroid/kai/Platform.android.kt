@@ -21,6 +21,7 @@ import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsRepository
 import com.inspiredandroid.kai.tools.SmsResult
@@ -114,6 +115,7 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
         nameRes = Res.string.tool_set_alarm_name,
         descriptionRes = Res.string.tool_set_alarm_description,
     ),
+    ShellCommandTool.toolInfo,
 )
 
 actual fun getDeviceLanguage(): String = java.util.Locale.getDefault().language
@@ -298,7 +300,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
 
         // SMS tools share a singleton SmsRepository to maintain conversation ID mapping across tool calls
-        if (appSettings.isToolEnabled("get_recent_sms")) {
+        if (false) { // appSettings.isToolEnabled("get_recent_sms")) {
             add(
                 object : Tool {
                     override val schema = ToolSchema(
@@ -334,7 +336,7 @@ actual fun getAvailableTools(): List<Tool> {
             )
         }
 
-        if (appSettings.isToolEnabled("send_sms")) {
+        if (false) { // appSettings.isToolEnabled("send_sms")) {
             add(
                 object : Tool {
                     override val schema = ToolSchema(
@@ -366,6 +368,10 @@ actual fun getAvailableTools(): List<Tool> {
                     }
                 },
             )
+        }
+
+        if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
+            add(ShellCommandTool)
         }
     }
 }

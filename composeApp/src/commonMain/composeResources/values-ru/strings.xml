@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Показывать предложения тем на пустом экране чата</string>
     <string name="tool_set_alarm_name">Установить будильник</string>
     <string name="tool_set_alarm_description">Установить будильник или таймер обратного отсчёта на устройстве</string>
+    <string name="tool_execute_shell_command_name">Выполнить команду</string>
+    <string name="tool_execute_shell_command_description">Выполнить команду оболочки на устройстве</string>
     <string name="settings_identity">Личность</string>
     <string name="settings_identity_description">Задайте системный промпт, определяющий поведение ИИ</string>
     <string name="settings_identity_none">Нет</string>

@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Toon onderwerpensuggesties op het lege chatscherm</string>
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
+    <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>
+    <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren op het apparaat</string>
     <string name="settings_identity">Identiteit</string>
     <string name="settings_identity_description">Stel een systeemprompt in die het gedrag van de AI bepaalt</string>
     <string name="settings_identity_none">Geen</string>

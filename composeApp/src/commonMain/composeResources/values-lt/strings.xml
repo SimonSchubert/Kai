@@ -93,6 +93,8 @@
     <string name="tool_send_sms_description">Atsakyti į esamą SMS pokalbį</string>
     <string name="tool_set_alarm_name">Nustatyti žadintuvą</string>
     <string name="tool_set_alarm_description">Nustatyti žadintuvą arba atgalinį laikmatį įrenginyje</string>
+    <string name="tool_execute_shell_command_name">Vykdyti komandą</string>
+    <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą įrenginyje</string>
     <string name="topic_people">Žmonės</string>
     <string name="topic_sport">Sportas</string>
     <string name="topic_technology">Technologijos</string>

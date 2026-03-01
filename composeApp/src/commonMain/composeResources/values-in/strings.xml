@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Tampilkan saran topik di layar obrolan kosong</string>
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
+    <string name="tool_execute_shell_command_name">Jalankan perintah</string>
+    <string name="tool_execute_shell_command_description">Jalankan perintah shell di perangkat</string>
     <string name="settings_identity">Identitas</string>
     <string name="settings_identity_description">Atur prompt sistem yang menentukan perilaku AI</string>
     <string name="settings_identity_none">Tidak ada</string>

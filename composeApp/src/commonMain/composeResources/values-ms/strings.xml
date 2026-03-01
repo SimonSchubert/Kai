@@ -98,6 +98,8 @@
     <string name="settings_show_topics_description">Tunjukkan cadangan topik pada skrin sembang kosong</string>
     <string name="tool_set_alarm_name">Tetapkan Penggera</string>
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
+    <string name="tool_execute_shell_command_name">Jalankan arahan</string>
+    <string name="tool_execute_shell_command_description">Jalankan arahan shell pada peranti</string>
     <string name="settings_identity">Identiti</string>
     <string name="settings_identity_description">Tetapkan prompt sistem yang menentukan tingkah laku AI</string>
     <string name="settings_identity_none">Tiada</string>
