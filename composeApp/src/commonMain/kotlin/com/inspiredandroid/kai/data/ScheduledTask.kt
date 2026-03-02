@@ -15,4 +15,4 @@ data class ScheduledTask(
 )
 
 @Serializable
-enum class TaskStatus { PENDING, COMPLETED, CANCELLED }
+enum class TaskStatus { PENDING, COMPLETED }

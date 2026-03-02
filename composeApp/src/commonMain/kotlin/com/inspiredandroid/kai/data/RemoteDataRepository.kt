@@ -688,8 +688,7 @@ class RemoteDataRepository(
     override fun getScheduledTasks(): List<ScheduledTask> = taskStore.getAllTasks()
 
     override fun cancelScheduledTask(id: String) {
-        val task = taskStore.getTask(id) ?: return
-        taskStore.updateTask(task.copy(status = TaskStatus.CANCELLED))
+        taskStore.removeTask(id)
     }
 
     override fun isDaemonEnabled(): Boolean = appSettings.isDaemonEnabled()

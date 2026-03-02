@@ -84,17 +84,9 @@ object SchedulingTools {
             val taskId = args["task_id"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing task_id")
 
-            val task = taskStore.getTask(taskId)
-                ?: return mapOf("success" to false, "error" to "Task not found: $taskId")
-
-            val updated = task.copy(status = TaskStatus.CANCELLED)
-            taskStore.updateTask(updated)
-
-            return mapOf(
-                "success" to true,
-                "task_id" to taskId,
-                "status" to "CANCELLED",
-            )
+            val removed = taskStore.removeTask(taskId)
+            return if (removed) mapOf("success" to true, "task_id" to taskId, "status" to "REMOVED")
+            else mapOf("success" to false, "error" to "Task not found: $taskId")
         }
     }
 
@@ -103,7 +95,7 @@ object SchedulingTools {
             name = "list_tasks",
             description = "List all scheduled tasks with their IDs, descriptions, and status. Call this before cancel_task if you need to find a task ID. Optionally filter by status.",
             parameters = mapOf(
-                "status" to ParameterSchema(type = "string", description = "Filter by status: PENDING, COMPLETED, or CANCELLED", required = false),
+                "status" to ParameterSchema(type = "string", description = "Filter by status: PENDING or COMPLETED", required = false),
             ),
         )
 
@@ -115,7 +107,7 @@ object SchedulingTools {
                 val status = try {
                     TaskStatus.valueOf(statusFilter)
                 } catch (e: Exception) {
-                    return mapOf("success" to false, "error" to "Invalid status: $statusFilter. Use PENDING, COMPLETED, or CANCELLED")
+                    return mapOf("success" to false, "error" to "Invalid status: $statusFilter. Use PENDING or COMPLETED")
                 }
                 allTasks.filter { it.status == status }
             } else {

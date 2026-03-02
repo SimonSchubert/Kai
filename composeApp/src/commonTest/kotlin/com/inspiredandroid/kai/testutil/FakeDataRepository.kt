@@ -176,10 +176,7 @@ class FakeDataRepository : DataRepository {
     override fun getScheduledTasks(): List<ScheduledTask> = scheduledTasks.toList()
 
     override fun cancelScheduledTask(id: String) {
-        val index = scheduledTasks.indexOfFirst { it.id == id }
-        if (index >= 0) {
-            scheduledTasks[index] = scheduledTasks[index].copy(status = TaskStatus.CANCELLED)
-        }
+        scheduledTasks.removeAll { it.id == id }
     }
 
     // Daemon mode
