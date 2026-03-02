@@ -85,8 +85,11 @@ object SchedulingTools {
                 ?: return mapOf("success" to false, "error" to "Missing task_id")
 
             val removed = taskStore.removeTask(taskId)
-            return if (removed) mapOf("success" to true, "task_id" to taskId, "status" to "REMOVED")
-            else mapOf("success" to false, "error" to "Task not found: $taskId")
+            return if (removed) {
+                mapOf("success" to true, "task_id" to taskId, "status" to "REMOVED")
+            } else {
+                mapOf("success" to false, "error" to "Task not found: $taskId")
+            }
         }
     }
 
