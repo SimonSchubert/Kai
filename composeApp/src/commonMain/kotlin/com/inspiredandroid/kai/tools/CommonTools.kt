@@ -148,7 +148,7 @@ object CommonTools {
         descriptionRes = Res.string.tool_get_local_time_description,
     )
 
-    val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo) + SchedulingTools.schedulingToolDefinitions
+    val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo, WebSearchTool.toolInfo) + SchedulingTools.schedulingToolDefinitions
 
     fun getCommonTools(appSettings: AppSettings): List<Tool> = buildList {
         if (appSettings.isToolEnabled(localTimeTool.schema.name)) {
@@ -156,6 +156,9 @@ object CommonTools {
         }
         if (appSettings.isToolEnabled(ipLocationTool.schema.name)) {
             add(ipLocationTool)
+        }
+        if (appSettings.isToolEnabled(WebSearchTool.schema.name)) {
+            add(WebSearchTool)
         }
     }
 

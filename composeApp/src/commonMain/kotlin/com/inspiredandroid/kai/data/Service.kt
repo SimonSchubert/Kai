@@ -90,6 +90,36 @@ sealed class Service(
         defaultModels = emptyList(),
     )
 
+    data object OpenAI : Service(
+        id = "openai",
+        displayName = "OpenAI",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "openai",
+        chatUrl = "https://api.openai.com/v1/chat/completions",
+        modelsUrl = "https://api.openai.com/v1/models",
+    )
+
+    data object DeepSeek : Service(
+        id = "deepseek",
+        displayName = "DeepSeek",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "deepseek",
+        chatUrl = "https://api.deepseek.com/chat/completions",
+        modelsUrl = "https://api.deepseek.com/models",
+    )
+
+    data object Mistral : Service(
+        id = "mistral",
+        displayName = "Mistral",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "mistral",
+        chatUrl = "https://api.mistral.ai/v1/chat/completions",
+        modelsUrl = "https://api.mistral.ai/v1/models",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -104,7 +134,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 

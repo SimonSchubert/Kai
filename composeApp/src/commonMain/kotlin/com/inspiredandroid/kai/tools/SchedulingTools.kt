@@ -23,7 +23,7 @@ object SchedulingTools {
     fun scheduleTaskTool(taskStore: TaskStore) = object : Tool {
         override val schema = ToolSchema(
             name = "schedule_task",
-            description = "Schedule a task to be executed at a specific date/time or on a recurring basis. At least one of execute_at or cron must be provided.",
+            description = "Schedule a task for future or recurring execution. Use this for reminders, delayed sends, or recurring jobs. When scheduling a reminder, write the prompt as the actual reminder text the user will see. Include recent context if appropriate. At least one of execute_at or cron must be provided.",
             parameters = mapOf(
                 "description" to ParameterSchema(type = "string", description = "Human-readable description of the task", required = true),
                 "prompt" to ParameterSchema(type = "string", description = "The prompt to send to the AI when the task fires", required = true),
@@ -74,7 +74,7 @@ object SchedulingTools {
     fun cancelTaskTool(taskStore: TaskStore) = object : Tool {
         override val schema = ToolSchema(
             name = "cancel_task",
-            description = "Cancel a scheduled task by its ID. Sets the task status to CANCELLED.",
+            description = "Cancel a scheduled task by its ID. When the user asks to stop, cancel, or remove any scheduled or recurring task, call this tool with the matching task ID from the Scheduled Tasks list. If unsure which task, call list_tasks first.",
             parameters = mapOf(
                 "task_id" to ParameterSchema(type = "string", description = "The ID of the task to cancel", required = true),
             ),
@@ -101,7 +101,7 @@ object SchedulingTools {
     fun listTasksTool(taskStore: TaskStore) = object : Tool {
         override val schema = ToolSchema(
             name = "list_tasks",
-            description = "List all scheduled tasks. Optionally filter by status.",
+            description = "List all scheduled tasks with their IDs, descriptions, and status. Call this before cancel_task if you need to find a task ID. Optionally filter by status.",
             parameters = mapOf(
                 "status" to ParameterSchema(type = "string", description = "Filter by status: PENDING, COMPLETED, or CANCELLED", required = false),
             ),

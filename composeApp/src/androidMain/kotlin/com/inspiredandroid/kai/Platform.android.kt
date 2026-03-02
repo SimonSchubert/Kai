@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsRepository
 import com.inspiredandroid.kai.tools.SmsResult
 import com.inspiredandroid.kai.tools.SmsSendResult
+import com.inspiredandroid.kai.tools.WebSearchTool
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import io.github.vinceglb.filekit.PlatformFile
@@ -97,6 +98,7 @@ actual fun createLegacySettings(): Settings? {
 actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
     CommonTools.localTimeToolInfo,
     CommonTools.ipLocationToolInfo,
+    WebSearchTool.toolInfo,
 ) + SchedulingTools.schedulingToolDefinitions + listOf(
     ToolInfo(
         id = "send_notification",
@@ -143,6 +145,10 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isToolEnabled(CommonTools.ipLocationTool.schema.name)) {
             add(CommonTools.ipLocationTool)
+        }
+
+        if (appSettings.isToolEnabled(WebSearchTool.schema.name)) {
+            add(WebSearchTool)
         }
 
         if (appSettings.isToolEnabled("send_notification")) {

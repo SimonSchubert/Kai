@@ -239,6 +239,45 @@ fun SettingsScreenContent(
                                 )
                             }
 
+                            Service.OpenAI -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://platform.openai.com/api-keys",
+                                    apiKeyUrlDisplay = "platform.openai.com/api-keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
+
+                            Service.DeepSeek -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://platform.deepseek.com/api_keys",
+                                    apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
+
+                            Service.Mistral -> {
+                                ServiceSettings(
+                                    apiKey = uiState.apiKey,
+                                    onChangeApiKey = uiState.onChangeApiKey,
+                                    apiKeyUrl = "https://console.mistral.ai/api-keys",
+                                    apiKeyUrlDisplay = "console.mistral.ai/api-keys",
+                                    selectedModel = uiState.selectedModel,
+                                    models = uiState.models,
+                                    onSelectModel = uiState.onSelectModel,
+                                    connectionStatus = uiState.connectionStatus,
+                                )
+                            }
+
                             Service.Groq -> {
                                 ServiceSettings(
                                     apiKey = uiState.apiKey,

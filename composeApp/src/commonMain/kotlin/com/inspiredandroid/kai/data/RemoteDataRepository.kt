@@ -189,10 +189,16 @@ class RemoteDataRepository(
     private suspend fun fetchOpenAICompatibleModels(service: Service) {
         val response = requests.getOpenAICompatibleModels(service).getOrThrow()
         val selectedModelId = appSettings.getSelectedModelId(service)
-        val filtered = if (service.filterActiveStrictly) {
+        val activeFiltered = if (service.filterActiveStrictly) {
             response.data.filter { it.isActive == true }
         } else {
             response.data.filter { it.isActive != false }
+        }
+        val filtered = if (service is Service.OpenAI) {
+            val chatPrefixes = listOf("gpt-", "o1", "o3", "o4", "chatgpt-")
+            activeFiltered.filter { model -> chatPrefixes.any { model.id.startsWith(it) } }
+        } else {
+            activeFiltered
         }
         val sorted = if (service.sortModelsById) {
             filtered.sortedBy { it.id }
