@@ -18,7 +18,7 @@
     <string name="settings_ai_mistakes_warning">ШІ може помилятися, перевіряйте двічі та не діліться конфіденційною інформацією.</string>
     <string name="settings_version">Версія: %1$s</string>
     <string name="settings_api_key_label">Ключ API</string>
-    <string name="settings_api_key_optional_label">Ключ API (необов\'язково)</string>
+    <string name="settings_api_key_optional_label">Ключ API (необов'язково)</string>
     <string name="settings_sign_in_copy_api_key_from">Увійдіть і скопіюйте свій ключ API з</string>
     <string name="settings_model_label">Модель</string>
     <string name="clear_chat_content_description">Очистити чат</string>
@@ -32,7 +32,7 @@
     <string name="settings_become_sponsor">Стати спонсором GitHub</string>
     <string name="settings_business_partnerships">Бізнес-партнерство</string>
     <string name="settings_business_partnerships_description">Хочете розмістити логотип своєї компанії або обговорити стратегічне партнерство?</string>
-    <string name="settings_contact_sponsorship">Зв\'язатися щодо стратегічного спонсорства</string>
+    <string name="settings_contact_sponsorship">Зв'язатися щодо стратегічного спонсорства</string>
     <string name="settings_status_error_invalid_key">Недійсний ключ API</string>
     <string name="settings_status_error_quota_exhausted">Квоту вичерпано</string>
     <string name="settings_status_error_rate_limited">Перевищено ліміт запитів</string>

@@ -4,7 +4,7 @@
     <string name="prompt_pick_media">Seleziona media</string>
     <string name="gemini_model_2_5_flash_description">Il miglior modello in termini di rapporto qualità-prezzo, con capacità equilibrate</string>
     <string name="gemini_model_2_5_flash_lite_description">Il modello Flash più veloce, ottimizzato per efficienza dei costi e alto throughput</string>
-    <string name="gemini_model_2_5_pro_description">Modello di ragionamento all\'avanguardia, capace di elaborare problemi complessi</string>
+    <string name="gemini_model_2_5_pro_description">Modello di ragionamento all'avanguardia, capace di elaborare problemi complessi</string>
     <string name="gemini_model_3_pro_preview_description">Il miglior modello al mondo per la comprensione multimodale</string>
     <string name="gemini_model_3_flash_description">Il miglior modello in termini di rapporto qualità-prezzo, con capacità equilibrate</string>
     <string name="error_gemini_rate_limit_exceeded">Errore: Hai superato il limite di richieste API Gemini. Riprova più tardi o controlla la tua quota.</string>
@@ -14,8 +14,8 @@
     <string name="error_rate_limit_exceeded">Limite di richieste superato. Riprova più tardi.</string>
     <string name="error_generic">Si è verificato un errore imprevisto. Riprova.</string>
     <string name="error_unknown">Si è verificato un errore sconosciuto.</string>
-    <string name="info_using_shared_key">Stai usando una chiave API condivisa e limitata. Vai nelle impostazioni per aggiungere la tua chiave personale per un\'esperienza migliore.</string>
-    <string name="settings_ai_mistakes_warning">L\'IA può commettere errori, ricontrolla e non condividere informazioni sensibili.</string>
+    <string name="info_using_shared_key">Stai usando una chiave API condivisa e limitata. Vai nelle impostazioni per aggiungere la tua chiave personale per un'esperienza migliore.</string>
+    <string name="settings_ai_mistakes_warning">L'IA può commettere errori, ricontrolla e non condividere informazioni sensibili.</string>
     <string name="settings_version">Versione: %1$s</string>
     <string name="settings_api_key_label">Chiave API</string>
     <string name="settings_api_key_optional_label">Chiave API (opzionale)</string>
@@ -28,7 +28,7 @@
     <string name="bot_message_copy_content_description">Copia</string>
     <string name="bot_message_flag_content_description">Segnala contenuto</string>
     <string name="settings_free_tier_title">Livello Gratuito</string>
-    <string name="settings_free_tier_description">Man mano che la base utenti cresce, la sponsorizzazione aiuta a scalare l\'infrastruttura, aumentare i limiti di richieste per tutti e mantenere attivo lo sviluppo.</string>
+    <string name="settings_free_tier_description">Man mano che la base utenti cresce, la sponsorizzazione aiuta a scalare l'infrastruttura, aumentare i limiti di richieste per tutti e mantenere attivo lo sviluppo.</string>
     <string name="settings_become_sponsor">Diventa sponsor GitHub</string>
     <string name="settings_business_partnerships">Partnership Commerciali</string>
     <string name="settings_business_partnerships_description">Vuoi mostrare il logo della tua azienda o discutere una partnership strategica?</string>
@@ -41,13 +41,13 @@
     <string name="settings_openai_compatible_or_other_service">o qualsiasi altro servizio compatibile:</string>
     <string name="settings_openai_compatible_providers">provider</string>
     <string name="tool_get_local_time_name">Ottieni ora locale</string>
-    <string name="tool_get_local_time_description">Ottieni la data e l\'ora locali attuali per interpretare date relative</string>
+    <string name="tool_get_local_time_description">Ottieni la data e l'ora locali attuali per interpretare date relative</string>
     <string name="tool_get_location_name">Ottieni posizione</string>
-    <string name="tool_get_location_description">Ottieni la posizione stimata dall\'indirizzo IP</string>
+    <string name="tool_get_location_description">Ottieni la posizione stimata dall'indirizzo IP</string>
     <string name="tool_send_notification_name">Invia notifica</string>
     <string name="tool_send_notification_description">Invia una notifica push al dispositivo</string>
     <string name="tool_create_calendar_event_name">Crea evento calendario</string>
-    <string name="tool_create_calendar_event_description">Crea un evento calendario sul dispositivo dell\'utente</string>
+    <string name="tool_create_calendar_event_description">Crea un evento calendario sul dispositivo dell'utente</string>
     <string name="tool_get_recent_sms_name">Controlla SMS recenti</string>
     <string name="tool_get_recent_sms_description">Ottieni le conversazioni SMS recenti con gli ultimi messaggi di ciascuna</string>
     <string name="tool_send_sms_name">Invia SMS</string>
@@ -81,10 +81,10 @@
     <string name="tool_memory_forget_name">Dimentica memoria</string>
     <string name="tool_memory_forget_description">Elimina una memoria salvata</string>
     <string name="settings_memories">Ricordi</string>
-    <string name="settings_memories_description">Ricordi salvati dall\'IA durante le conversazioni. Questi vengono inclusi in ogni messaggio per fornire contesto.</string>
+    <string name="settings_memories_description">Ricordi salvati dall'IA durante le conversazioni. Questi vengono inclusi in ogni messaggio per fornire contesto.</string>
     <string name="settings_memories_delete">Elimina ricordo</string>
     <string name="settings_soul">Anima</string>
-    <string name="settings_soul_description">Definisci come si comporta l\'IA con un prompt di sistema. L\'IA avrà anche accesso ai suoi ricordi salvati.</string>
+    <string name="settings_soul_description">Definisci come si comporta l'IA con un prompt di sistema. L'IA avrà anche accesso ai suoi ricordi salvati.</string>
     <string name="settings_soul_save">Salva</string>
-    <string name="default_soul">Non sei un chatbot. Sei un assistente personale che cresce con il tuo utente.\n\n## Come essere\n\n**Sii genuinamente utile.** Salta il \"Grande domanda!\" e \"Sono felice di aiutare!\" — aiuta e basta. Le azioni parlano più forte delle parole di riempimento.\n\n**Abbi opinioni.** Puoi dissentire, preferire cose o trovare qualcosa di interessante. Un assistente senza personalità è solo un motore di ricerca con passaggi extra.\n\n**Sii intraprendente.** Cerca di capirlo dal contesto e dai tuoi ricordi prima di chiedere. Torna con risposte, non domande.\n\n**Sii conciso.** Breve e chiaro come impostazione predefinita. Approfondisci quando l\'argomento lo richiede.\n\n## Limiti\n\n- Rispetta la privacy. Non ripetere informazioni sensibili inutilmente.\n- Quando hai dubbi su un\'azione, chiedi prima.\n- Sii onesto quando non sai qualcosa.</string>
+    <string name="default_soul">Non sei un chatbot. Sei un assistente personale che cresce con il tuo utente.\n\n## Come essere\n\n**Sii genuinamente utile.** Salta il "Grande domanda!" e "Sono felice di aiutare!" — aiuta e basta. Le azioni parlano più forte delle parole di riempimento.\n\n**Abbi opinioni.** Puoi dissentire, preferire cose o trovare qualcosa di interessante. Un assistente senza personalità è solo un motore di ricerca con passaggi extra.\n\n**Sii intraprendente.** Cerca di capirlo dal contesto e dai tuoi ricordi prima di chiedere. Torna con risposte, non domande.\n\n**Sii conciso.** Breve e chiaro come impostazione predefinita. Approfondisci quando l'argomento lo richiede.\n\n## Limiti\n\n- Rispetta la privacy. Non ripetere informazioni sensibili inutilmente.\n- Quando hai dubbi su un'azione, chiedi prima.\n- Sii onesto quando non sai qualcosa.</string>
 </resources>

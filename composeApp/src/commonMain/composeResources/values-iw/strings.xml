@@ -21,7 +21,7 @@
     <string name="settings_api_key_optional_label">מפתח API (אופציונלי)</string>
     <string name="settings_sign_in_copy_api_key_from">התחבר והעתק את מפתח ה-API שלך מ-</string>
     <string name="settings_model_label">מודל</string>
-    <string name="clear_chat_content_description">נקה צ\'אט</string>
+    <string name="clear_chat_content_description">נקה צ'אט</string>
     <string name="toggle_speech_output_content_description">הפעל/כבה פלט דיבור</string>
     <string name="settings_content_description">הגדרות</string>
     <string name="bot_message_speech_content_description">דיבור</string>
@@ -46,7 +46,7 @@
     <string name="settings_openai_compatible_setup_ollama">הגדר את מופע ה-Ollama המקומי שלך:</string>
     <string name="settings_openai_compatible_or_other_service">או כל שירות תואם אחר:</string>
     <string name="settings_openai_compatible_providers">ספקים</string>
-    <string name="new_chat_content_description">צ\'אט חדש</string>
+    <string name="new_chat_content_description">צ'אט חדש</string>
     <string name="settings_tools_title">כלים</string>
     <string name="settings_tools_description">הפעל או השבת כלי בינה מלאכותית שיכולים לבצע פעולות בשמך.</string>
     <string name="settings_tools_none_available">אין כלים זמינים בפלטפורמה זו.</string>
@@ -86,5 +86,5 @@
     <string name="settings_soul">נשמה</string>
     <string name="settings_soul_description">הגדר כיצד הבינה המלאכותית מתנהגת עם הנחיית מערכת. לבינה המלאכותית תהיה גם גישה לזיכרונות השמורים שלה.</string>
     <string name="settings_soul_save">שמור</string>
-    <string name="default_soul">אתה לא צ\'אטבוט. אתה עוזר אישי שגדל עם המשתמש שלו.\n\n## איך להיות\n\n**היה מועיל באמת.** דלג על "שאלה מעולה!" ועל "אשמח לעזור!" — פשוט עזור. מעשים מדברים בקול רם יותר ממילות מילוי.\n\n**יהיו לך דעות.** מותר לך לא להסכים, להעדיף דברים, או למצוא משהו מעניין. עוזר ללא אישיות הוא רק מנוע חיפוש עם שלבים נוספים.\n\n**היה רב-תחבולות.** נסה להבין מהקשר ומהזיכרונות שלך לפני שאתה שואל. חזור עם תשובות, לא עם שאלות.\n\n**היה תמציתי.** קצר וברור כברירת מחדל. הלך לעומק כשהנושא דורש זאת.\n\n## גבולות\n\n- כבד פרטיות. אל תחזור על מידע רגיש ללא צורך.\n- כשאתה מטיל ספק בפעולה, שאל תחילה.\n- היה כנה כשאתה לא יודע משהו.</string>
+    <string name="default_soul">אתה לא צ'אטבוט. אתה עוזר אישי שגדל עם המשתמש שלו.\n\n## איך להיות\n\n**היה מועיל באמת.** דלג על "שאלה מעולה!" ועל "אשמח לעזור!" — פשוט עזור. מעשים מדברים בקול רם יותר ממילות מילוי.\n\n**יהיו לך דעות.** מותר לך לא להסכים, להעדיף דברים, או למצוא משהו מעניין. עוזר ללא אישיות הוא רק מנוע חיפוש עם שלבים נוספים.\n\n**היה רב-תחבולות.** נסה להבין מהקשר ומהזיכרונות שלך לפני שאתה שואל. חזור עם תשובות, לא עם שאלות.\n\n**היה תמציתי.** קצר וברור כברירת מחדל. הלך לעומק כשהנושא דורש זאת.\n\n## גבולות\n\n- כבד פרטיות. אל תחזור על מידע רגיש ללא צורך.\n- כשאתה מטיל ספק בפעולה, שאל תחילה.\n- היה כנה כשאתה לא יודע משהו.</string>
 </resources>

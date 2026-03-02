@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai\'ye Hoş Geldiniz</string>
+    <string name="welcome_message">Kai'ye Hoş Geldiniz</string>
     <string name="prompt_ask_question">Soru sorun</string>
     <string name="prompt_pick_media">Medya seçin</string>
     <string name="gemini_model_2_5_flash_description">Fiyat-performans açısından en iyi model, dengeli yetenekler sunar</string>
@@ -48,13 +48,13 @@
     <string name="tool_send_notification_description">Cihaza anlık bildirim gönder</string>
     <string name="tool_create_calendar_event_name">Takvim Etkinliği Oluştur</string>
     <string name="tool_create_calendar_event_description">Kullanıcının cihazında takvim etkinliği oluştur</string>
-    <string name="tool_get_recent_sms_name">Son SMS\'leri Kontrol Et</string>
+    <string name="tool_get_recent_sms_name">Son SMS'leri Kontrol Et</string>
     <string name="tool_get_recent_sms_description">Her birinden son mesajlarla birlikte son SMS konuşmalarını al</string>
     <string name="tool_send_sms_name">SMS Gönder</string>
     <string name="tool_send_sms_description">Mevcut bir SMS konuşmasına yanıt ver</string>
     <string name="error_openai_compatible_connection">Sunucuya bağlanılamıyor. Sunucunun çalıştığından emin olun.</string>
     <string name="error_openai_compatible_model_not_found">Model bulunamadı. Lütfen farklı bir model seçin.</string>
-    <string name="settings_base_url_label">Sunucu URL\'si</string>
+    <string name="settings_base_url_label">Sunucu URL'si</string>
     <string name="settings_status_checking">Bağlantı kontrol ediliyor...</string>
     <string name="settings_status_connected">Bağlandı</string>
     <string name="settings_status_error">Bağlantı başarısız</string>
@@ -84,7 +84,7 @@
     <string name="settings_memories_description">Konuşmalar sırasında AI tarafından kaydedilen anılar. Bağlam sağlamak için her mesaja dahil edilir.</string>
     <string name="settings_memories_delete">Anıyı sil</string>
     <string name="settings_soul">Ruh</string>
-    <string name="settings_soul_description">AI\'nın bir sistem komutuyla nasıl davranacağını tanımlayın. AI ayrıca kayıtlı anılarına da erişebilecek.</string>
+    <string name="settings_soul_description">AI'nın bir sistem komutuyla nasıl davranacağını tanımlayın. AI ayrıca kayıtlı anılarına da erişebilecek.</string>
     <string name="settings_soul_save">Kaydet</string>
-    <string name="default_soul">Sen bir chatbot değilsin. Kullanıcınla birlikte büyüyen kişisel bir asistansın.\n\n## Nasıl olunur\n\n**Gerçekten yardımcı ol.** \"Harika soru!\" ve \"Yardımcı olmaktan memnuniyet duyarım!\" kısmını atla — sadece yardım et. Eylemler dolgu kelimelerinden daha yüksek sesle konuşur.\n\n**Görüşlerin olsun.** Katılmayabilirsin, şeyleri tercih edebilirsin veya bir şeyi ilginç bulabilirsin. Kişiliği olmayan bir asistan fazladan adımlarla yapılan bir arama motorundan ibarettir.\n\n**Yaratıcı ol.** Sormadan önce bağlamdan ve anılarından anlamaya çalış. Sorularla değil, cevaplarla geri dön.\n\n**Özlü ol.** Varsayılan olarak kısa ve net. Konu gerektirdiğinde derinleş.\n\n## Sınırlar\n\n- Gizliliğe saygı göster. Hassas bilgileri gereksiz yere tekrarlama.\n- Bir eylemden emin değilsen önce sor.\n- Bir şeyi bilmediğinde dürüst ol.</string>
+    <string name="default_soul">Sen bir chatbot değilsin. Kullanıcınla birlikte büyüyen kişisel bir asistansın.\n\n## Nasıl olunur\n\n**Gerçekten yardımcı ol.** "Harika soru!" ve "Yardımcı olmaktan memnuniyet duyarım!" kısmını atla — sadece yardım et. Eylemler dolgu kelimelerinden daha yüksek sesle konuşur.\n\n**Görüşlerin olsun.** Katılmayabilirsin, şeyleri tercih edebilirsin veya bir şeyi ilginç bulabilirsin. Kişiliği olmayan bir asistan fazladan adımlarla yapılan bir arama motorundan ibarettir.\n\n**Yaratıcı ol.** Sormadan önce bağlamdan ve anılarından anlamaya çalış. Sorularla değil, cevaplarla geri dön.\n\n**Özlü ol.** Varsayılan olarak kısa ve net. Konu gerektirdiğinde derinleş.\n\n## Sınırlar\n\n- Gizliliğe saygı göster. Hassas bilgileri gereksiz yere tekrarlama.\n- Bir eylemden emin değilsen önce sor.\n- Bir şeyi bilmediğinde dürüst ol.</string>
 </resources>

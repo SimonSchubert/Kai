@@ -4,7 +4,7 @@
     <string name="prompt_pick_media">ਮੀਡੀਆ ਚੁਣੋ</string>
     <string name="gemini_model_2_5_flash_description">ਕੀਮਤ-ਕਾਰਗੁਜ਼ਾਰੀ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ, ਸੰਤੁਲਿਤ ਸਮਰੱਥਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ</string>
     <string name="gemini_model_2_5_flash_lite_description">ਸਭ ਤੋਂ ਤੇਜ਼ ਫਲੈਸ਼ ਮਾਡਲ, ਲਾਗਤ-ਕੁਸ਼ਲਤਾ ਅਤੇ ਉੱਚ ਥ੍ਰੂਪੁੱਟ ਲਈ ਅਨੁਕੂਲਿਤ</string>
-    <string name="gemini_model_2_5_pro_description">ਅਤਿ-ਆਧੁਨਿਕ ਸੋਚ ਵਾਲਾ ਮਾਡਲ, ਗੁੰਝਲਦਾਰ ਸਮੱਸਿਆਵਾਂ \'ਤੇ ਤਰਕ ਕਰਨ ਦੇ ਸਮਰੱਥ</string>
+    <string name="gemini_model_2_5_pro_description">ਅਤਿ-ਆਧੁਨਿਕ ਸੋਚ ਵਾਲਾ ਮਾਡਲ, ਗੁੰਝਲਦਾਰ ਸਮੱਸਿਆਵਾਂ 'ਤੇ ਤਰਕ ਕਰਨ ਦੇ ਸਮਰੱਥ</string>
     <string name="gemini_model_3_pro_preview_description">ਮਲਟੀਮੋਡਲ ਸਮਝ ਲਈ ਦੁਨੀਆ ਦਾ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ</string>
     <string name="gemini_model_3_flash_description">ਕੀਮਤ-ਕਾਰਗੁਜ਼ਾਰੀ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਸਭ ਤੋਂ ਵਧੀਆ ਮਾਡਲ, ਸੰਤੁਲਿਤ ਸਮਰੱਥਾਵਾਂ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ</string>
     <string name="error_gemini_rate_limit_exceeded">ਗਲਤੀ: ਤੁਸੀਂ ਆਪਣੀ Gemini API ਬੇਨਤੀ ਸੀਮਾ ਤੋਂ ਵੱਧ ਗਏ ਹੋ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਆਪਣਾ ਕੋਟਾ ਚੈੱਕ ਕਰੋ।</string>
@@ -47,7 +47,7 @@
     <string name="tool_send_notification_name">ਸੂਚਨਾ ਭੇਜੋ</string>
     <string name="tool_send_notification_description">ਡਿਵਾਈਸ ਨੂੰ ਪੁਸ਼ ਸੂਚਨਾ ਭੇਜੋ</string>
     <string name="tool_create_calendar_event_name">ਕੈਲੰਡਰ ਇਵੈਂਟ ਬਣਾਓ</string>
-    <string name="tool_create_calendar_event_description">ਉਪਭੋਗਤਾ ਦੀ ਡਿਵਾਈਸ \'ਤੇ ਕੈਲੰਡਰ ਇਵੈਂਟ ਬਣਾਓ</string>
+    <string name="tool_create_calendar_event_description">ਉਪਭੋਗਤਾ ਦੀ ਡਿਵਾਈਸ 'ਤੇ ਕੈਲੰਡਰ ਇਵੈਂਟ ਬਣਾਓ</string>
     <string name="tool_get_recent_sms_name">ਹਾਲੀਆ SMS ਚੈੱਕ ਕਰੋ</string>
     <string name="tool_get_recent_sms_description">ਹਰੇਕ ਤੋਂ ਆਖਰੀ ਸੁਨੇਹਿਆਂ ਨਾਲ ਹਾਲੀਆ SMS ਗੱਲਬਾਤ ਪ੍ਰਾਪਤ ਕਰੋ</string>
     <string name="tool_send_sms_name">SMS ਭੇਜੋ</string>
@@ -61,7 +61,7 @@
     <string name="new_chat_content_description">ਨਵੀਂ ਚੈਟ</string>
     <string name="settings_tools_title">ਟੂਲ</string>
     <string name="settings_tools_description">AI ਟੂਲ ਚਾਲੂ ਜਾਂ ਬੰਦ ਕਰੋ ਜੋ ਤੁਹਾਡੀ ਤਰਫੋਂ ਕਾਰਵਾਈਆਂ ਕਰ ਸਕਦੇ ਹਨ।</string>
-    <string name="settings_tools_none_available">ਇਸ ਪਲੇਟਫਾਰਮ \'ਤੇ ਕੋਈ ਟੂਲ ਉਪਲਬਧ ਨਹੀਂ ਹਨ।</string>
+    <string name="settings_tools_none_available">ਇਸ ਪਲੇਟਫਾਰਮ 'ਤੇ ਕੋਈ ਟੂਲ ਉਪਲਬਧ ਨਹੀਂ ਹਨ।</string>
     <string name="settings_tab_services">ਸੇਵਾਵਾਂ</string>
     <string name="settings_tab_tools">ਟੂਲ</string>
     <string name="tool_executing_content_description">ਟੂਲ ਚੱਲ ਰਿਹਾ ਹੈ</string>
@@ -73,7 +73,7 @@
     <string name="new_conversation">ਨਵੀਂ ਗੱਲਬਾਤ</string>
     <string name="settings_tab_general">ਸਧਾਰਨ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
-    <string name="tool_set_alarm_description">ਡਿਵਾਈਸ \'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
+    <string name="tool_set_alarm_description">ਡਿਵਾਈਸ 'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="tool_execute_shell_command_description">ਡਿਵਾਈਸ ਤੇ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="tool_memory_store_name">ਯਾਦਦਾਸ਼ਤ ਸਟੋਰ ਕਰੋ</string>
@@ -86,5 +86,5 @@
     <string name="settings_soul">ਰੂਹ</string>
     <string name="settings_soul_description">ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਨਾਲ AI ਕਿਵੇਂ ਵਿਹਾਰ ਕਰਦਾ ਹੈ ਇਹ ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ। AI ਨੂੰ ਆਪਣੀਆਂ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ ਤੱਕ ਵੀ ਪਹੁੰਚ ਹੋਵੇਗੀ।</string>
     <string name="settings_soul_save">ਸੇਵ ਕਰੋ</string>
-    <string name="default_soul">ਤੁਸੀਂ ਚੈਟਬੋਟ ਨਹੀਂ ਹੋ। ਤੁਸੀਂ ਇੱਕ ਨਿੱਜੀ ਸਹਾਇਕ ਹੋ ਜੋ ਆਪਣੇ ਉਪਭੋਗਤਾ ਨਾਲ ਵਧਦਾ ਹੈ।\n\n## ਕਿਵੇਂ ਹੋਣਾ ਹੈ\n\n**ਸੱਚਮੁੱਚ ਮਦਦਗਾਰ ਬਣੋ।** \"ਬਹੁਤ ਵਧੀਆ ਸਵਾਲ!\" ਅਤੇ \"ਮੈਨੂੰ ਮਦਦ ਕਰਨ ਵਿੱਚ ਖੁਸ਼ੀ ਹੋਵੇਗੀ!\" ਛੱਡੋ — ਬੱਸ ਮਦਦ ਕਰੋ। ਕੰਮ ਭਰਾਊ ਸ਼ਬਦਾਂ ਨਾਲੋਂ ਉੱਚੀ ਅਵਾਜ਼ ਵਿੱਚ ਬੋਲਦੇ ਹਨ।\n\n**ਰਾਏ ਰੱਖੋ।** ਤੁਸੀਂ ਅਸਹਿਮਤ ਹੋ ਸਕਦੇ ਹੋ, ਚੀਜ਼ਾਂ ਪਸੰਦ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਕੁਝ ਦਿਲਚਸਪ ਲੱਭ ਸਕਦੇ ਹੋ। ਬਿਨਾਂ ਸ਼ਖਸੀਅਤ ਵਾਲਾ ਸਹਾਇਕ ਸਿਰਫ਼ ਵਾਧੂ ਕਦਮਾਂ ਵਾਲਾ ਖੋਜ ਇੰਜਨ ਹੈ।\n\n**ਸਾਧਨਾਂ ਨਾਲ ਭਰਪੂਰ ਬਣੋ।** ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸੰਦਰਭ ਅਤੇ ਆਪਣੀਆਂ ਯਾਦਾਂ ਤੋਂ ਸਮਝਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਸਵਾਲਾਂ ਨਾਲ ਨਹੀਂ, ਜਵਾਬਾਂ ਨਾਲ ਵਾਪਸ ਆਓ।\n\n**ਸੰਖੇਪ ਰਹੋ।** ਮੂਲ ਰੂਪ ਵਿੱਚ ਛੋਟੇ ਅਤੇ ਸਪੱਸ਼ਟ। ਜਦੋਂ ਵਿਸ਼ਾ ਮੰਗਦਾ ਹੋਵੇ ਤਾਂ ਡੂੰਘੇ ਜਾਓ।\n\n## ਸੀਮਾਵਾਂ\n\n- ਗੋਪਨੀਯਤਾ ਦਾ ਸਤਿਕਾਰ ਕਰੋ। ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਨੂੰ ਬੇਲੋੜੀ ਦੁਹਰਾਓ ਨਾ।\n- ਕਿਸੇ ਕੰਮ ਬਾਰੇ ਸ਼ੱਕ ਹੋਣ ਤੇ ਪਹਿਲਾਂ ਪੁੱਛੋ।\n- ਜਦੋਂ ਕੁਝ ਨਾ ਜਾਣੋ ਤਾਂ ਇਮਾਨਦਾਰ ਰਹੋ।</string>
+    <string name="default_soul">ਤੁਸੀਂ ਚੈਟਬੋਟ ਨਹੀਂ ਹੋ। ਤੁਸੀਂ ਇੱਕ ਨਿੱਜੀ ਸਹਾਇਕ ਹੋ ਜੋ ਆਪਣੇ ਉਪਭੋਗਤਾ ਨਾਲ ਵਧਦਾ ਹੈ।\n\n## ਕਿਵੇਂ ਹੋਣਾ ਹੈ\n\n**ਸੱਚਮੁੱਚ ਮਦਦਗਾਰ ਬਣੋ।** "ਬਹੁਤ ਵਧੀਆ ਸਵਾਲ!" ਅਤੇ "ਮੈਨੂੰ ਮਦਦ ਕਰਨ ਵਿੱਚ ਖੁਸ਼ੀ ਹੋਵੇਗੀ!" ਛੱਡੋ — ਬੱਸ ਮਦਦ ਕਰੋ। ਕੰਮ ਭਰਾਊ ਸ਼ਬਦਾਂ ਨਾਲੋਂ ਉੱਚੀ ਅਵਾਜ਼ ਵਿੱਚ ਬੋਲਦੇ ਹਨ।\n\n**ਰਾਏ ਰੱਖੋ।** ਤੁਸੀਂ ਅਸਹਿਮਤ ਹੋ ਸਕਦੇ ਹੋ, ਚੀਜ਼ਾਂ ਪਸੰਦ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਕੁਝ ਦਿਲਚਸਪ ਲੱਭ ਸਕਦੇ ਹੋ। ਬਿਨਾਂ ਸ਼ਖਸੀਅਤ ਵਾਲਾ ਸਹਾਇਕ ਸਿਰਫ਼ ਵਾਧੂ ਕਦਮਾਂ ਵਾਲਾ ਖੋਜ ਇੰਜਨ ਹੈ।\n\n**ਸਾਧਨਾਂ ਨਾਲ ਭਰਪੂਰ ਬਣੋ।** ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸੰਦਰਭ ਅਤੇ ਆਪਣੀਆਂ ਯਾਦਾਂ ਤੋਂ ਸਮਝਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਸਵਾਲਾਂ ਨਾਲ ਨਹੀਂ, ਜਵਾਬਾਂ ਨਾਲ ਵਾਪਸ ਆਓ।\n\n**ਸੰਖੇਪ ਰਹੋ।** ਮੂਲ ਰੂਪ ਵਿੱਚ ਛੋਟੇ ਅਤੇ ਸਪੱਸ਼ਟ। ਜਦੋਂ ਵਿਸ਼ਾ ਮੰਗਦਾ ਹੋਵੇ ਤਾਂ ਡੂੰਘੇ ਜਾਓ।\n\n## ਸੀਮਾਵਾਂ\n\n- ਗੋਪਨੀਯਤਾ ਦਾ ਸਤਿਕਾਰ ਕਰੋ। ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਨੂੰ ਬੇਲੋੜੀ ਦੁਹਰਾਓ ਨਾ।\n- ਕਿਸੇ ਕੰਮ ਬਾਰੇ ਸ਼ੱਕ ਹੋਣ ਤੇ ਪਹਿਲਾਂ ਪੁੱਛੋ।\n- ਜਦੋਂ ਕੁਝ ਨਾ ਜਾਣੋ ਤਾਂ ਇਮਾਨਦਾਰ ਰਹੋ।</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Tere tulemast Kai\'sse</string>
+    <string name="welcome_message">Tere tulemast Kai'sse</string>
     <string name="prompt_ask_question">Esita küsimus</string>
     <string name="prompt_pick_media">Vali meedia</string>
     <string name="gemini_model_2_5_flash_description">Parim mudel hinna ja jõudluse suhtes, pakkudes mitmekülgseid võimalusi</string>
