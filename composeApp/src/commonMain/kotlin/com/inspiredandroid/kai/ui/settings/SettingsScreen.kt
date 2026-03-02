@@ -1283,7 +1283,7 @@ private fun describeCron(cron: String): String {
 private fun formatCronTime(hour: String, minute: String): String? {
     val h = hour.toIntOrNull() ?: return null
     val m = minute.toIntOrNull() ?: return null
-    return "%d:%02d".format(h, m)
+    return "$h:${m.toString().padStart(2, '0')}"
 }
 
 private fun dayName(day: String): String? = when (day) {
