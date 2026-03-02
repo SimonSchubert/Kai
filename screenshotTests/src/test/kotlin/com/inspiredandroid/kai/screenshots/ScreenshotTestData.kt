@@ -146,13 +146,7 @@ JavaScript
                 content = "Prefers Kotlin for app development",
                 createdAt = 1709310000000,
                 updatedAt = 1709310000000,
-            ),
-            MemoryEntry(
-                key = "project_kai",
-                content = "Working on Kai, a Kotlin Multiplatform AI assistant app",
-                createdAt = 1709320000000,
-                updatedAt = 1709350000000,
-            ),
+            )
         ),
     )
 
