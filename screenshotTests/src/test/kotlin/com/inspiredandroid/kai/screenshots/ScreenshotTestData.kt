@@ -146,7 +146,7 @@ JavaScript
                 content = "Prefers Kotlin for app development",
                 createdAt = 1709310000000,
                 updatedAt = 1709310000000,
-            )
+            ),
         ),
     )
 
