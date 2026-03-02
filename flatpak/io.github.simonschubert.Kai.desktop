@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Kai
 Comment=AI assistant powered by Ollama, Gemini, ChatGPT and more
-Exec=Kai
+Exec=kai-wrapper
 Icon=io.github.simonschubert.Kai
 Type=Application
 Categories=Utility;Network;
