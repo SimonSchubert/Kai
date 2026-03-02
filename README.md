@@ -25,11 +25,15 @@ Homebrew:
 
 ### Supported services:
 
-- Ollama: https://github.com/ollama/ollama
+- OpenAI: https://openai.com
 - Gemini: https://aistudio.google.com
+- DeepSeek: https://www.deepseek.com
+- Mistral: https://mistral.ai
 - xAI: https://x.ai
+- OpenRouter: https://openrouter.ai
 - Groq: https://groq.com
-- Free tier based on Mistral AI: https://mistral.ai
+- NVIDIA: https://developer.nvidia.com
+- OpenAI-Compatible API (Ollama, LM Studio, etc.)
 
 ### Features
 
@@ -51,6 +55,10 @@ Tools can be enabled or disabled in settings. Memory tools are always available 
 - **Send Notification** - Sends push notifications to the device (Android only)
 - **Create Calendar Event** - Creates calendar events directly from the chat (Android only)
 - **Run Shell Command** - Execute shell commands on the device (Desktop and Android)
+- **Web Search** - Search the web for current information
+- **Schedule Task** - Schedule tasks to run at a specific time or on a recurring cron schedule
+- **Cancel Task** - Cancel a scheduled task
+- **List Tasks** - List all scheduled tasks
 
 ## Screenshots
 
@@ -74,7 +82,7 @@ Integrated in github actions to update mobile screenshots for fastlane and this 
 
 ### Supported Languages
 
-Arabic, Bengali, Chinese (Simplified), Chinese (Traditional), Dutch, English, French, German, Gujarati, Hindi, Indonesian, Italian, Japanese, Korean, Malay, Marathi, Persian, Polish, Portuguese, Punjabi, Russian, Spanish, Swahili, Tamil, Telugu, Thai, Turkish, Ukrainian, Urdu, Vietnamese
+Afrikaans, Albanian, Amharic, Arabic, Belarusian, Bengali, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Czech, Danish, Dutch, English, Estonian, Filipino, Finnish, French, German, Greek, Gujarati, Hebrew, Hindi, Hungarian, Indonesian, Italian, Japanese, Kazakh, Korean, Latvian, Lithuanian, Malay, Marathi, Norwegian, Persian, Polish, Portuguese, Punjabi, Romanian, Romansh, Russian, Serbian, Slovak, Slovenian, Spanish, Swahili, Swedish, Tamil, Telugu, Thai, Turkish, Ukrainian, Urdu, Vietnamese, Zulu
 
 ## Sponsors
 
@@ -84,10 +92,4 @@ This project is open-source and maintained by a single developer. If you find th
 
 Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
 
-GroqCloud: https://groq.com
-
-Gemini: https://gemini.google.com
-
 Mistral: https://mistral.ai/
-
-Ollama: https://github.com/ollama/ollama
