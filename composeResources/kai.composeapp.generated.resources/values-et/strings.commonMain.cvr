@@ -86,4 +86,4 @@ string|tool_send_sms_description|VmFzdGEgb2xlbWFzb2xldmFsZSBTTVMtdmVzdGx1c2VsZQ=
 string|tool_send_sms_name|U2FhZGEgU01T
 string|tool_set_alarm_description|U2VhZGlzdGEgw6RyYXR1cyB2w7VpIHRhaW1lciBzZWFkbWVz
 string|tool_set_alarm_name|U2VhZGlzdGEgw6RyYXR1cw==
-string|welcome_message|VGVyZSB0dWxlbWFzdCBLYWlcJ3NzZQ==
+string|welcome_message|VGVyZSB0dWxlbWFzdCBLYWknc3Nl
