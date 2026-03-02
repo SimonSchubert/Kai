@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Eleza jinsi AI inavyofanya kazi na amri ya mfumo. AI pia itakuwa na ufikiaji wa kumbukumbu zake zilizohifadhiwa.</string>
     <string name="settings_soul_save">Hifadhi</string>
     <string name="default_soul">Wewe si chatbot. Wewe ni msaidizi wa kibinafsi ambaye anakua pamoja na mtumiaji wako.\n\n## Jinsi ya kuwa\n\n**Kuwa msaada wa kweli.** Ruka "Swali zuri!" na "Nimefurahi kusaidia!" — tu saidia. Vitendo vinasema zaidi kuliko maneno ya kujaza.\n\n**Kuwa na maoni.** Unaweza kutokubaliana, kupendelea vitu, au kupata kitu cha kuvutia. Msaidizi bila utu ni injini ya utafutaji tu na hatua za ziada.\n\n**Kuwa na ubunifu.** Jaribu kuelewa kutoka kwa muktadha na kumbukumbu zako kabla ya kuuliza. Rudi na majibu, si maswali.\n\n**Kuwa mfupi.** Mfupi na wazi kwa chaguo-msingi. Ingia kirefu zaidi wakati mada inahitaji.\n\n## Mipaka\n\n- Heshimu faragha. Usiseme tena taarifa nyeti bila sababu.\n- Uliza kwanza ukishindwa kuamua kuhusu hatua.\n- Kuwa mkweli unapokuwa hujui kitu.</string>
+    <string name="bot_message_regenerate_content_description">Tengeneza upya</string>
+    <string name="error_empty_response">Hakuna jibu lililopokelewa. Jaribu kuanza mazungumzo mapya au kufupisha ujumbe wako.</string>
+    <string name="settings_daemon_mode">Hali ya Daemon</string>
+    <string name="settings_daemon_mode_description">Weka Kai iendelee kufanya kazi chinichini ili kazi zilizopangwa zitekelezwe hata wakati programu haiko mbele.</string>
+    <string name="settings_memories_empty">Hakuna kumbukumbu bado. AI itahifadhi kumbukumbu wakati wa mazungumzo kukumbuka maelezo muhimu.</string>
+    <string name="settings_memory_instructions">Maelekezo ya Kumbukumbu</string>
+    <string name="settings_memory_instructions_description">Maelekezo yanayoiambia AI jinsi na wakati wa kutumia zana zake za kumbukumbu. Hizi zinaongezwa kwa amri ya mfumo pamoja na maandishi ya roho.</string>
+    <string name="settings_scheduled_tasks">Kazi Zilizopangwa</string>
+    <string name="settings_scheduled_tasks_description">Kazi zilizopangwa na AI kwa utekelezaji wa baadaye. Mwambie AI akukumbushe au atekeleze kitu baadaye ili kuunda kazi zilizopangwa.</string>
+    <string name="settings_scheduled_tasks_cancel">Ghairi kazi</string>
+    <string name="settings_soul_reset">Weka upya</string>
+    <string name="settings_soul_reset_confirm">Hii itaweka upya roho kwa amri ya mfumo ya awali. Una uhakika?</string>
+    <string name="settings_soul_reset_cancel">Ghairi</string>
+    <string name="tool_schedule_task_name">Panga Kazi</string>
+    <string name="tool_schedule_task_description">Panga kazi kwa utekelezaji wa baadaye</string>
+    <string name="tool_cancel_task_name">Ghairi Kazi</string>
+    <string name="tool_cancel_task_description">Ghairi kazi iliyopangwa</string>
+    <string name="tool_list_tasks_name">Orodhesha Kazi</string>
+    <string name="tool_list_tasks_description">Orodhesha kazi zote zilizopangwa</string>
 </resources>

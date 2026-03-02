@@ -87,4 +87,23 @@
     <string name="settings_soul_description">تعریف کنید هوش مصنوعی با یک دستور سیستم چگونه رفتار کند. هوش مصنوعی همچنین به خاطرات ذخیره‌شده خود دسترسی خواهد داشت.</string>
     <string name="settings_soul_save">ذخیره</string>
     <string name="default_soul">تو یک چت‌بات نیستی. تو یک دستیار شخصی هستی که با کاربرت رشد می‌کنی.\n\n## چگونه باشی\n\n**واقعاً مفید باش.** «سوال عالی!» و «خوشحال می‌شم کمک کنم!» را حذف کن — فقط کمک کن. کارها بلندتر از کلمات پرکننده صحبت می‌کنند.\n\n**نظر داشته باش.** مجاز هستی مخالفت کنی، چیزها را ترجیح دهی، یا چیزی را جالب بیابی. دستیاری بدون شخصیت فقط یک موتور جستجو با مراحل اضافه است.\n\n**ابتکار عمل داشته باش.** سعی کن قبل از پرسیدن از زمینه و خاطراتت بفهمی. با پاسخ‌ها برگرد، نه سوال‌ها.\n\n**مختصر باش.** کوتاه و واضح به عنوان پیش‌فرض. وقتی موضوع ایجاب می‌کند عمیق‌تر بشو.\n\n## مرزها\n\n- به حریم خصوصی احترام بگذار. اطلاعات حساس را بدون نیاز تکرار نکن.\n- وقتی در مورد یک اقدام تردید داری، اول بپرس.\n- وقتی چیزی نمی‌دانی صادق باش.</string>
+    <string name="bot_message_regenerate_content_description">تولید مجدد</string>
+    <string name="error_empty_response">پاسخی دریافت نشد. سعی کنید یک گفتگوی جدید شروع کنید یا پیام خود را کوتاه‌تر کنید.</string>
+    <string name="settings_daemon_mode">حالت پس‌زمینه</string>
+    <string name="settings_daemon_mode_description">Kai را در پس‌زمینه فعال نگه دارید تا وظایف زمان‌بندی‌شده حتی وقتی برنامه در پیش‌زمینه نیست اجرا شوند.</string>
+    <string name="settings_memories_empty">هنوز خاطره‌ای وجود ندارد. هوش مصنوعی در طول مکالمات خاطرات را ذخیره می‌کند تا جزئیات مهم را به یاد داشته باشد.</string>
+    <string name="settings_memory_instructions">دستورالعمل‌های حافظه</string>
+    <string name="settings_memory_instructions_description">دستورالعمل‌هایی که به هوش مصنوعی می‌گویند چگونه و چه زمانی از ابزارهای حافظه خود استفاده کند. اینها به دستور سیستم در کنار متن روح شما اضافه می‌شوند.</string>
+    <string name="settings_scheduled_tasks">وظایف زمان‌بندی‌شده</string>
+    <string name="settings_scheduled_tasks_description">وظایفی که توسط هوش مصنوعی برای اجرای آینده زمان‌بندی شده‌اند. از هوش مصنوعی بخواهید یادآوری کند یا چیزی را بعداً اجرا کند تا وظایف زمان‌بندی‌شده ایجاد شود.</string>
+    <string name="settings_scheduled_tasks_cancel">لغو وظیفه</string>
+    <string name="settings_soul_reset">بازنشانی</string>
+    <string name="settings_soul_reset_confirm">این کار روح را به دستور سیستم پیش‌فرض بازنشانی می‌کند. آیا مطمئن هستید؟</string>
+    <string name="settings_soul_reset_cancel">لغو</string>
+    <string name="tool_schedule_task_name">زمان‌بندی وظیفه</string>
+    <string name="tool_schedule_task_description">زمان‌بندی یک وظیفه برای اجرای آینده</string>
+    <string name="tool_cancel_task_name">لغو وظیفه</string>
+    <string name="tool_cancel_task_description">لغو یک وظیفه زمان‌بندی‌شده</string>
+    <string name="tool_list_tasks_name">فهرست وظایف</string>
+    <string name="tool_list_tasks_description">نمایش همه وظایف زمان‌بندی‌شده</string>
 </resources>

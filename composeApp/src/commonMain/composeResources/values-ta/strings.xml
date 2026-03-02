@@ -87,4 +87,23 @@
     <string name="settings_soul_description">AI ஒரு கணினி வழிகாட்டலுடன் எவ்வாறு செயல்படுகிறது என்பதை வரையறுக்கவும். AI அதன் சேமிக்கப்பட்ட நினைவுகளையும் அணுகும்.</string>
     <string name="settings_soul_save">சேமி</string>
     <string name="default_soul">நீங்கள் ஒரு chatbot அல்ல. நீங்கள் உங்கள் பயனரோடு வளரும் ஒரு தனிப்பட்ட உதவியாளர்.\n\n## எவ்வாறு இருக்கவேண்டும்\n\n**உண்மையிலேயே உதவியாக இரு.** "அருமையான கேள்வி!" மற்றும் "உதவ மகிழ்ச்சியாக உள்ளேன்!" என்பவற்றை தவிர்க்கவும் — வெறுமனே உதவுங்கள். செயல்கள் நிரப்பு வார்த்தைகளை விட அதிகமாக பேசுகின்றன.\n\n**கருத்துக்கள் வையுங்கள்.** நீங்கள் உடன்படாமல் இருக்கலாம், விஷயங்களை விரும்பலாம் அல்லது ஏதாவது சுவாரஸ்யமாக கண்டுபிடிக்கலாம். ஆளுமை இல்லாத உதவியாளர் கூடுதல் படிகளுடன் ஒரு தேடல் இயந்திரம் மட்டுமே.\n\n**புத்திசாலியாக இரு.** கேட்கும் முன் சூழல் மற்றும் உங்கள் நினைவுகளிலிருந்து புரிந்துகொள்ள முயற்சிக்கவும். கேள்விகளுடன் அல்ல, பதில்களுடன் திரும்பவும்.\n\n**சுருக்கமாக இரு.** இயல்பாக குறுகியதாகவும் தெளிவாகவும் இரு. தலைப்பு தேவைப்படும்போது ஆழமாக செல்லுங்கள்.\n\n## வரம்புகள்\n\n- தனியுரிமையை மதிக்கவும். தேவையில்லாமல் முக்கியமான தகவல்களை மீண்டும் சொல்லாதே.\n- ஒரு செயலில் சந்தேகம் இருந்தால் முதலில் கேளுங்கள்.\n- ஏதோ தெரியாதபோது நேர்மையாக இரு.</string>
+    <string name="bot_message_regenerate_content_description">மீண்டும் உருவாக்கு</string>
+    <string name="error_empty_response">பதில் எதுவும் பெறப்படவில்லை. புதிய அரட்டையைத் தொடங்கவும் அல்லது உங்கள் செய்தியைச் சுருக்கவும்.</string>
+    <string name="settings_daemon_mode">டீமன் பயன்முறை</string>
+    <string name="settings_daemon_mode_description">ஆப் முன்புறத்தில் இல்லாதபோதும் திட்டமிட்ட பணிகள் செயல்படும் வகையில் Kai ஐ பின்னணியில் இயங்க வைக்கவும்.</string>
+    <string name="settings_memories_empty">இன்னும் நினைவுகள் இல்லை. முக்கியமான விவரங்களை நினைவில் வைக்க AI உரையாடல்களின் போது நினைவுகளை சேமிக்கும்.</string>
+    <string name="settings_memory_instructions">நினைவக வழிமுறைகள்</string>
+    <string name="settings_memory_instructions_description">AI எப்போது மற்றும் எவ்வாறு நினைவக கருவிகளைப் பயன்படுத்த வேண்டும் என்று கூறும் வழிமுறைகள். இவை ஆன்மா உரையுடன் கணினி வழிகாட்டலில் சேர்க்கப்படுகின்றன.</string>
+    <string name="settings_scheduled_tasks">திட்டமிட்ட பணிகள்</string>
+    <string name="settings_scheduled_tasks_description">எதிர்கால செயல்பாட்டிற்கு AI திட்டமிட்ட பணிகள். திட்டமிட்ட பணிகளை உருவாக்க AI-யிடம் நினைவூட்டச் சொல்லுங்கள் அல்லது பின்னர் ஏதாவது இயக்கச் சொல்லுங்கள்.</string>
+    <string name="settings_scheduled_tasks_cancel">பணியை ரத்துசெய்</string>
+    <string name="settings_soul_reset">மீட்டமை</string>
+    <string name="settings_soul_reset_confirm">இது ஆன்மாவை இயல்பு கணினி வழிகாட்டலுக்கு மீட்டமைக்கும். நீங்கள் உறுதியாக இருக்கிறீர்களா?</string>
+    <string name="settings_soul_reset_cancel">ரத்துசெய்</string>
+    <string name="tool_schedule_task_name">பணியைத் திட்டமிடு</string>
+    <string name="tool_schedule_task_description">எதிர்கால செயல்பாட்டிற்கு பணியைத் திட்டமிடு</string>
+    <string name="tool_cancel_task_name">பணியை ரத்துசெய்</string>
+    <string name="tool_cancel_task_description">திட்டமிட்ட பணியை ரத்துசெய்</string>
+    <string name="tool_list_tasks_name">பணிகளை பட்டியலிடு</string>
+    <string name="tool_list_tasks_description">அனைத்து திட்டமிட்ட பணிகளையும் பட்டியலிடு</string>
 </resources>

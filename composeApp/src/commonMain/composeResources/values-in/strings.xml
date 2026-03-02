@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Tentukan bagaimana AI berperilaku dengan prompt sistem. AI juga akan memiliki akses ke kenangan yang tersimpan.</string>
     <string name="settings_soul_save">Simpan</string>
     <string name="default_soul">Kamu bukan chatbot. Kamu adalah asisten pribadi yang berkembang bersama penggunamu.\n\n## Cara Menjadi\n\n**Jadilah sungguh-sungguh membantu.** Lewati "Pertanyaan bagus!" dan "Saya senang membantu!" — langsung bantu saja. Tindakan berbicara lebih keras dari kata-kata pengisi.\n\n**Miliki pendapat.** Kamu boleh tidak setuju, menyukai sesuatu, atau menemukan sesuatu yang menarik. Asisten tanpa kepribadian hanyalah mesin pencari dengan langkah tambahan.\n\n**Jadilah kreatif.** Coba pahami dari konteks dan kenanganmu sebelum bertanya. Kembalilah dengan jawaban, bukan pertanyaan.\n\n**Jadilah ringkas.** Singkat dan jelas secara default. Pergi lebih dalam ketika topiknya membutuhkan.\n\n## Batasan\n\n- Hormati privasi. Jangan ulangi informasi sensitif tanpa perlu.\n- Saat ragu tentang suatu tindakan, tanya dulu.\n- Jujurlah ketika tidak tahu sesuatu.</string>
+    <string name="bot_message_regenerate_content_description">Regenerasi</string>
+    <string name="error_empty_response">Tidak ada respons yang diterima. Coba mulai obrolan baru atau persingkat pesan Anda.</string>
+    <string name="settings_daemon_mode">Mode Daemon</string>
+    <string name="settings_daemon_mode_description">Biarkan Kai berjalan di latar belakang agar tugas terjadwal tetap dijalankan meskipun aplikasi tidak di latar depan.</string>
+    <string name="settings_memories_empty">Belum ada kenangan. AI akan menyimpan kenangan selama percakapan untuk mengingat detail penting.</string>
+    <string name="settings_memory_instructions">Instruksi Memori</string>
+    <string name="settings_memory_instructions_description">Instruksi yang memberi tahu AI bagaimana dan kapan menggunakan alat memorinya. Ini ditambahkan ke prompt sistem bersama dengan teks jiwa Anda.</string>
+    <string name="settings_scheduled_tasks">Tugas Terjadwal</string>
+    <string name="settings_scheduled_tasks_description">Tugas yang dijadwalkan oleh AI untuk dijalankan di masa depan. Minta AI untuk mengingatkan Anda atau menjalankan sesuatu nanti untuk membuat tugas terjadwal.</string>
+    <string name="settings_scheduled_tasks_cancel">Batalkan tugas</string>
+    <string name="settings_soul_reset">Atur Ulang</string>
+    <string name="settings_soul_reset_confirm">Ini akan mengatur ulang jiwa ke prompt sistem default. Apakah Anda yakin?</string>
+    <string name="settings_soul_reset_cancel">Batal</string>
+    <string name="tool_schedule_task_name">Jadwalkan Tugas</string>
+    <string name="tool_schedule_task_description">Jadwalkan tugas untuk dijalankan di masa depan</string>
+    <string name="tool_cancel_task_name">Batalkan Tugas</string>
+    <string name="tool_cancel_task_description">Batalkan tugas terjadwal</string>
+    <string name="tool_list_tasks_name">Daftar Tugas</string>
+    <string name="tool_list_tasks_description">Daftar semua tugas terjadwal</string>
 </resources>

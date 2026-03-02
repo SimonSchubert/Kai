@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Tukuyin kung paano kumikilos ang AI gamit ang isang system prompt. Magkakaroon din ang AI ng access sa mga nakaimbak nitong alaala.</string>
     <string name="settings_soul_save">I-save</string>
     <string name="default_soul">Hindi ka chatbot. Ikaw ay isang personal na katulong na lumalaki kasama ang iyong gumagamit.\n\n## Paano Maging\n\n**Maging tunay na makatutulong.** Iwasan ang "Magandang tanong!" at "Masaya akong tumulong!" — tumulong lang. Ang mga kilos ay nagsasalita nang mas malakas kaysa sa mga salitang panpalaman.\n\n**Magkaroon ng mga opinyon.** Pinapayagan kang hindi sumang-ayon, mas gusto ang mga bagay, o mahanap ang isang bagay na kawili-wili. Ang katulong na walang personalidad ay isang search engine lamang na may karagdagang hakbang.\n\n**Maging mapagkukunan.** Subukang alamin mula sa konteksto at sa iyong mga alaala bago magtanong. Bumalik na may mga sagot, hindi mga tanong.\n\n**Maging maigsi.** Maikli at malinaw bilang default. Pumunta nang mas malalim kapag kinakailangan ng paksa.\n\n## Mga Hangganan\n\n- Igalang ang privacy. Huwag ulitin ang sensitibong impormasyon nang walang dahilan.\n- Kapag nag-aalangan tungkol sa isang aksyon, magtanong muna.\n- Maging tapat kapag hindi mo alam ang isang bagay.</string>
+    <string name="bot_message_regenerate_content_description">Muling buuin</string>
+    <string name="error_empty_response">Walang natanggap na sagot. Subukang magsimula ng bagong chat o paikliin ang iyong mensahe.</string>
+    <string name="settings_daemon_mode">Daemon Mode</string>
+    <string name="settings_daemon_mode_description">Panatilihing tumatakbo ang Kai sa background para maisagawa ang mga naka-schedule na gawain kahit wala sa harapan ang app.</string>
+    <string name="settings_memories_empty">Wala pang mga alaala. Mag-iimbak ang AI ng mga alaala sa panahon ng mga pag-uusap upang matandaan ang mga mahahalagang detalye.</string>
+    <string name="settings_memory_instructions">Mga Tagubilin sa Memorya</string>
+    <string name="settings_memory_instructions_description">Mga tagubilin na nagsasabi sa AI kung paano at kailan gamitin ang mga tool ng memorya nito. Idinadagdag ang mga ito sa system prompt kasama ng iyong kaluluwa na teksto.</string>
+    <string name="settings_scheduled_tasks">Mga Naka-schedule na Gawain</string>
+    <string name="settings_scheduled_tasks_description">Mga gawain na naka-schedule ng AI para sa hinaharap na pagsasagawa. Hilingin sa AI na ipaalala sa iyo o magpatakbo ng isang bagay sa ibang pagkakataon upang lumikha ng mga naka-schedule na gawain.</string>
+    <string name="settings_scheduled_tasks_cancel">Kanselahin ang gawain</string>
+    <string name="settings_soul_reset">I-reset</string>
+    <string name="settings_soul_reset_confirm">Ire-reset nito ang kaluluwa sa default na system prompt. Sigurado ka ba?</string>
+    <string name="settings_soul_reset_cancel">Kanselahin</string>
+    <string name="tool_schedule_task_name">Mag-schedule ng Gawain</string>
+    <string name="tool_schedule_task_description">Mag-schedule ng gawain para sa hinaharap na pagsasagawa</string>
+    <string name="tool_cancel_task_name">Kanselahin ang Gawain</string>
+    <string name="tool_cancel_task_description">Kanselahin ang isang naka-schedule na gawain</string>
+    <string name="tool_list_tasks_name">Listahan ng mga Gawain</string>
+    <string name="tool_list_tasks_description">Ilista ang lahat ng naka-schedule na gawain</string>
 </resources>

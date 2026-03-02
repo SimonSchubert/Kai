@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.MemoryEntry
+import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import org.jetbrains.compose.resources.StringResource
@@ -46,6 +47,13 @@ data class SettingsUiState(
     val onToggleMemory: (Boolean) -> Unit = {},
     val memories: List<MemoryEntry> = emptyList(),
     val onDeleteMemory: (String) -> Unit = {},
+    val isSchedulingEnabled: Boolean = true,
+    val onToggleScheduling: (Boolean) -> Unit = {},
+    val scheduledTasks: List<ScheduledTask> = emptyList(),
+    val onCancelTask: (String) -> Unit = {},
+    val isDaemonEnabled: Boolean = false,
+    val onToggleDaemon: (Boolean) -> Unit = {},
+    val showDaemonToggle: Boolean = false,
 )
 
 @Immutable

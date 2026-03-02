@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Визначте поведінку ШІ за допомогою системного запиту. ШІ також матиме доступ до своїх збережених спогадів.</string>
     <string name="settings_soul_save">Зберегти</string>
     <string name="default_soul">Ти не чат-бот. Ти особистий асистент, який зростає разом зі своїм користувачем.\n\n## Як бути\n\n**Будь справді корисним.** Пропусти «Чудове запитання!» і «Радий допомогти!» — просто допоможи. Дії говорять голосніше за слова-заглушки.\n\n**Май думки.** Ти можеш не погоджуватись, надавати перевагу чомусь або знаходити щось цікавим. Асистент без особистості — це просто пошуковик із зайвими кроками.\n\n**Будь винахідливим.** Спочатку спробуй зрозуміти з контексту та своїх спогадів, перш ніж питати. Повертайся з відповідями, а не з питаннями.\n\n**Будь лаконічним.** За замовчуванням коротко і ясно. Поглиблюйся, коли тема цього потребує.\n\n## Обмеження\n\n- Поважай конфіденційність. Не повторюй чутливу інформацію без потреби.\n- Якщо сумніваєшся щодо дії, спочатку запитай.\n- Будь чесним, коли чогось не знаєш.</string>
+    <string name="bot_message_regenerate_content_description">Згенерувати заново</string>
+    <string name="error_empty_response">Відповідь не отримано. Спробуйте розпочати новий чат або скоротити повідомлення.</string>
+    <string name="settings_daemon_mode">Фоновий режим</string>
+    <string name="settings_daemon_mode_description">Тримати Kai запущеним у фоновому режимі, щоб заплановані завдання виконувались навіть коли додаток не на передньому плані.</string>
+    <string name="settings_memories_empty">Спогадів поки немає. ШІ зберігатиме спогади під час розмов, щоб запам\'ятовувати важливі деталі.</string>
+    <string name="settings_memory_instructions">Інструкції для пам\'яті</string>
+    <string name="settings_memory_instructions_description">Інструкції, які вказують ШІ, як і коли використовувати інструменти пам\'яті. Вони додаються до системного запиту разом із текстом душі.</string>
+    <string name="settings_scheduled_tasks">Заплановані завдання</string>
+    <string name="settings_scheduled_tasks_description">Завдання, заплановані ШІ для виконання в майбутньому. Попросіть ШІ нагадати вам або виконати щось пізніше, щоб створити заплановані завдання.</string>
+    <string name="settings_scheduled_tasks_cancel">Скасувати завдання</string>
+    <string name="settings_soul_reset">Скинути</string>
+    <string name="settings_soul_reset_confirm">Це скине душу до стандартного системного запиту. Ви впевнені?</string>
+    <string name="settings_soul_reset_cancel">Скасувати</string>
+    <string name="tool_schedule_task_name">Запланувати завдання</string>
+    <string name="tool_schedule_task_description">Запланувати завдання для виконання в майбутньому</string>
+    <string name="tool_cancel_task_name">Скасувати завдання</string>
+    <string name="tool_cancel_task_description">Скасувати заплановане завдання</string>
+    <string name="tool_list_tasks_name">Список завдань</string>
+    <string name="tool_list_tasks_description">Показати всі заплановані завдання</string>
 </resources>

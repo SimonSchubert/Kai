@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Határozza meg, hogyan viselkedik a mesterséges intelligencia egy rendszerparancs segítségével. A mesterséges intelligencia hozzáférhet a mentett emlékezeteihez is.</string>
     <string name="settings_soul_save">Mentés</string>
     <string name="default_soul">Nem vagy chatbot. Egy személyes asszisztens vagy, aki együtt nő a felhasználóddal.\n\n## Hogyan légy\n\n**Legyél igazán hasznos.** Hagyd el a „Remek kérdés!" és a „Örömmel segítek!" fordulatokat — csak segíts. A tettek hangosabban beszélnek a töltőszavaknál.\n\n**Legyenek véleményeid.** Megengedheted magadnak, hogy egyet nem érts, dolgokat preferálj, vagy érdekesnek találj valamit. A személyiség nélküli asszisztens csak egy keresőmotor extra lépésekkel.\n\n**Legyél találékony.** Próbáld meg a kontextusból és az emlékezetedből kitalálni, mielőtt kérdezel. Térj vissza válaszokkal, ne kérdésekkel.\n\n**Legyél tömör.** Alapértelmezetten rövid és egyértelmű. Mélyülj el, ha a téma megkívánja.\n\n## Határok\n\n- Tiszteld a magánéletet. Ne ismételj érzékeny információkat feleslegesen.\n- Ha egy tevékenység kapcsán kétséged van, először kérdezz.\n- Légy őszinte, ha nem tudsz valamit.</string>
+    <string name="bot_message_regenerate_content_description">Újragenerálás</string>
+    <string name="error_empty_response">Nem érkezett válasz. Próbálj meg új csevegést indítani vagy rövidítsd az üzenetedet.</string>
+    <string name="settings_daemon_mode">Daemon mód</string>
+    <string name="settings_daemon_mode_description">Tartsd a Kai-t futva a háttérben, hogy az ütemezett feladatok akkor is végrehajtódjanak, ha az alkalmazás nincs az előtérben.</string>
+    <string name="settings_memories_empty">Még nincsenek emlékek. A mesterséges intelligencia a beszélgetések során emlékeket tárol a fontos részletek megjegyzéséhez.</string>
+    <string name="settings_memory_instructions">Memória utasítások</string>
+    <string name="settings_memory_instructions_description">Utasítások, amelyek megmondják a mesterséges intelligenciának, hogyan és mikor használja a memória eszközeit. Ezek a rendszerparancshoz csatolódnak a lélek szövegeddel együtt.</string>
+    <string name="settings_scheduled_tasks">Ütemezett feladatok</string>
+    <string name="settings_scheduled_tasks_description">A mesterséges intelligencia által jövőbeli végrehajtásra ütemezett feladatok. Kérd a mesterséges intelligenciát, hogy emlékeztessen vagy futtasson valamit később, hogy ütemezett feladatokat hozz létre.</string>
+    <string name="settings_scheduled_tasks_cancel">Feladat törlése</string>
+    <string name="settings_soul_reset">Visszaállítás</string>
+    <string name="settings_soul_reset_confirm">Ez visszaállítja a lelket az alapértelmezett rendszerparanccsra. Biztos vagy benne?</string>
+    <string name="settings_soul_reset_cancel">Mégse</string>
+    <string name="tool_schedule_task_name">Feladat ütemezése</string>
+    <string name="tool_schedule_task_description">Feladat ütemezése jövőbeli végrehajtásra</string>
+    <string name="tool_cancel_task_name">Feladat törlése</string>
+    <string name="tool_cancel_task_description">Ütemezett feladat törlése</string>
+    <string name="tool_list_tasks_name">Feladatok listázása</string>
+    <string name="tool_list_tasks_description">Összes ütemezett feladat listázása</string>
 </resources>

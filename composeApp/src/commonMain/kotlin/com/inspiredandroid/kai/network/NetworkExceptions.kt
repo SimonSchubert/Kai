@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.network
 
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_empty_response
 import kai.composeapp.generated.resources.error_generic
 import kai.composeapp.generated.resources.error_invalid_api_key
 import kai.composeapp.generated.resources.error_openai_compatible_connection
@@ -25,6 +26,7 @@ class OpenAICompatibleRateLimitExceededException : OpenAICompatibleApiException(
 class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException("Quota exhausted")
 class OpenAICompatibleConnectionException : OpenAICompatibleApiException("Cannot connect to server")
 class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")
+class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
 
 suspend fun Exception.toUserMessage(): String = try {
     when (this) {
@@ -32,6 +34,7 @@ suspend fun Exception.toUserMessage(): String = try {
         is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
         is OpenAICompatibleConnectionException -> getString(Res.string.error_openai_compatible_connection)
         is OpenAICompatibleModelNotFoundException -> getString(Res.string.error_openai_compatible_model_not_found)
+        is OpenAICompatibleEmptyResponseException -> getString(Res.string.error_empty_response)
         is GeminiGenericException, is OpenAICompatibleGenericException, is GenericNetworkException -> message ?: getString(Res.string.error_generic)
         else -> getString(Res.string.error_unknown)
     }

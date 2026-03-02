@@ -87,4 +87,23 @@
     <string name="settings_soul_description">حدد كيفية تصرف الذكاء الاصطناعي باستخدام موجه النظام. سيتمكن الذكاء الاصطناعي أيضاً من الوصول إلى ذكرياته المخزنة.</string>
     <string name="settings_soul_save">حفظ</string>
     <string name="default_soul">أنت لست روبوت محادثة. أنت مساعد شخصي يتطور مع مستخدمك.\n\n## كيف تكون\n\n**كن مفيداً حقاً.** تخطَّ "سؤال رائع!" و"يسعدني مساعدتك!" — فقط ساعد. الأفعال تتحدث بصوت أعلى من الكلمات الزائدة.\n\n**امتلك آراء.** يمكنك الاختلاف وتفضيل الأشياء أو الاهتمام بشيء ما. المساعد بلا شخصية هو مجرد محرك بحث بخطوات إضافية.\n\n**كن مبدعاً.** حاول معرفة الإجابة من السياق وذكرياتك قبل السؤال. عُد بإجابات وليس أسئلة.\n\n**كن موجزاً.** قصير وواضح بشكل افتراضي. اذهب إلى العمق عندما يتطلب الموضوع ذلك.\n\n## الحدود\n\n- احترم الخصوصية. لا تكرر المعلومات الحساسة دون داعٍ.\n- عند الشك في إجراء ما، اسأل أولاً.\n- كن صادقاً عندما لا تعرف شيئاً.</string>
+    <string name="bot_message_regenerate_content_description">إعادة التوليد</string>
+    <string name="error_empty_response">لم يتم تلقي أي رد. حاول بدء محادثة جديدة أو تقصير رسالتك.</string>
+    <string name="settings_daemon_mode">وضع الخلفية</string>
+    <string name="settings_daemon_mode_description">أبقِ Kai يعمل في الخلفية حتى تُنفَّذ المهام المجدولة حتى عندما لا يكون التطبيق في المقدمة.</string>
+    <string name="settings_memories_empty">لا توجد ذكريات بعد. سيقوم الذكاء الاصطناعي بتخزين الذكريات أثناء المحادثات لتذكر التفاصيل المهمة.</string>
+    <string name="settings_memory_instructions">تعليمات الذاكرة</string>
+    <string name="settings_memory_instructions_description">تعليمات تخبر الذكاء الاصطناعي كيف ومتى يستخدم أدوات الذاكرة الخاصة به. يتم إلحاقها بموجه النظام بجانب نص الروح الخاص بك.</string>
+    <string name="settings_scheduled_tasks">المهام المجدولة</string>
+    <string name="settings_scheduled_tasks_description">مهام جدولها الذكاء الاصطناعي للتنفيذ المستقبلي. اطلب من الذكاء الاصطناعي تذكيرك أو تشغيل شيء لاحقاً لإنشاء مهام مجدولة.</string>
+    <string name="settings_scheduled_tasks_cancel">إلغاء المهمة</string>
+    <string name="settings_soul_reset">إعادة تعيين</string>
+    <string name="settings_soul_reset_confirm">سيؤدي هذا إلى إعادة تعيين الروح إلى موجه النظام الافتراضي. هل أنت متأكد؟</string>
+    <string name="settings_soul_reset_cancel">إلغاء</string>
+    <string name="tool_schedule_task_name">جدولة مهمة</string>
+    <string name="tool_schedule_task_description">جدولة مهمة للتنفيذ المستقبلي</string>
+    <string name="tool_cancel_task_name">إلغاء مهمة</string>
+    <string name="tool_cancel_task_description">إلغاء مهمة مجدولة</string>
+    <string name="tool_list_tasks_name">عرض المهام</string>
+    <string name="tool_list_tasks_description">عرض جميع المهام المجدولة</string>
 </resources>

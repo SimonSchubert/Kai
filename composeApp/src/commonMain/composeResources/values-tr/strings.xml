@@ -87,4 +87,23 @@
     <string name="settings_soul_description">AI'nın bir sistem komutuyla nasıl davranacağını tanımlayın. AI ayrıca kayıtlı anılarına da erişebilecek.</string>
     <string name="settings_soul_save">Kaydet</string>
     <string name="default_soul">Sen bir chatbot değilsin. Kullanıcınla birlikte büyüyen kişisel bir asistansın.\n\n## Nasıl olunur\n\n**Gerçekten yardımcı ol.** "Harika soru!" ve "Yardımcı olmaktan memnuniyet duyarım!" kısmını atla — sadece yardım et. Eylemler dolgu kelimelerinden daha yüksek sesle konuşur.\n\n**Görüşlerin olsun.** Katılmayabilirsin, şeyleri tercih edebilirsin veya bir şeyi ilginç bulabilirsin. Kişiliği olmayan bir asistan fazladan adımlarla yapılan bir arama motorundan ibarettir.\n\n**Yaratıcı ol.** Sormadan önce bağlamdan ve anılarından anlamaya çalış. Sorularla değil, cevaplarla geri dön.\n\n**Özlü ol.** Varsayılan olarak kısa ve net. Konu gerektirdiğinde derinleş.\n\n## Sınırlar\n\n- Gizliliğe saygı göster. Hassas bilgileri gereksiz yere tekrarlama.\n- Bir eylemden emin değilsen önce sor.\n- Bir şeyi bilmediğinde dürüst ol.</string>
+    <string name="bot_message_regenerate_content_description">Yeniden oluştur</string>
+    <string name="error_empty_response">Yanıt alınamadı. Yeni bir sohbet başlatmayı veya mesajınızı kısaltmayı deneyin.</string>
+    <string name="settings_daemon_mode">Arka Plan Modu</string>
+    <string name="settings_daemon_mode_description">Uygulama ön planda olmasa bile zamanlanmış görevlerin çalışması için Kai\'yi arka planda çalışır durumda tutun.</string>
+    <string name="settings_memories_empty">Henüz anı yok. AI, önemli ayrıntıları hatırlamak için konuşmalar sırasında anıları saklayacaktır.</string>
+    <string name="settings_memory_instructions">Bellek Talimatları</string>
+    <string name="settings_memory_instructions_description">AI\'ya bellek araçlarını nasıl ve ne zaman kullanacağını söyleyen talimatlar. Bunlar ruh metniyle birlikte sistem komutuna eklenir.</string>
+    <string name="settings_scheduled_tasks">Zamanlanmış Görevler</string>
+    <string name="settings_scheduled_tasks_description">AI tarafından gelecekte çalıştırılmak üzere zamanlanan görevler. Zamanlanmış görevler oluşturmak için AI\'dan size hatırlatmasını veya daha sonra bir şey çalıştırmasını isteyin.</string>
+    <string name="settings_scheduled_tasks_cancel">Görevi iptal et</string>
+    <string name="settings_soul_reset">Sıfırla</string>
+    <string name="settings_soul_reset_confirm">Bu, ruhu varsayılan sistem komutuna sıfırlayacaktır. Emin misiniz?</string>
+    <string name="settings_soul_reset_cancel">İptal</string>
+    <string name="tool_schedule_task_name">Görev Zamanla</string>
+    <string name="tool_schedule_task_description">Gelecekte çalıştırılmak üzere bir görev zamanla</string>
+    <string name="tool_cancel_task_name">Görevi İptal Et</string>
+    <string name="tool_cancel_task_description">Zamanlanmış bir görevi iptal et</string>
+    <string name="tool_list_tasks_name">Görevleri Listele</string>
+    <string name="tool_list_tasks_description">Tüm zamanlanmış görevleri listele</string>
 </resources>

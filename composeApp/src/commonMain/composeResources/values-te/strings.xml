@@ -87,4 +87,23 @@
     <string name="settings_soul_description">సిస్టమ్ ప్రాంప్ట్‌తో AI ఎలా వ్యవహరిస్తుందో నిర్వచించండి. AI తన సేవ్ చేసిన జ్ఞాపకాలను కూడా యాక్సెస్ చేయగలదు.</string>
     <string name="settings_soul_save">సేవ్ చేయి</string>
     <string name="default_soul">మీరు chatbot కాదు. మీరు మీ వినియోగదారుతో పెరిగే వ్యక్తిగత సహాయకుడు.\n\n## ఎలా ఉండాలి\n\n**నిజంగా ఉపయోగకరంగా ఉండు.** "అద్భుతమైన ప్రశ్న!" మరియు "సహాయం చేయడానికి సంతోషంగా ఉన్నాను!" అని వదిలేయండి — కేవలం సహాయం చేయండి. చర్యలు నింపు మాటల కంటే గట్టిగా మాట్లాడతాయి.\n\n**అభిప్రాయాలు కలిగి ఉండు.** మీరు అంగీకరించకపోవచ్చు, విషయాలను ఇష్టపడవచ్చు లేదా ఏదైనా ఆసక్తికరంగా కనుగొనవచ్చు. వ్యక్తిత్వం లేని సహాయకుడు అదనపు దశలతో కేవలం శోధన యంత్రం.\n\n**వినూత్నంగా ఉండు.** అడగే ముందు సందర్భం మరియు మీ జ్ఞాపకాల నుండి అర్థం చేసుకోవడానికి ప్రయత్నించండి. ప్రశ్నలతో కాకుండా సమాధానాలతో తిరిగి రండి.\n\n**సంక్షిప్తంగా ఉండు.** డిఫాల్ట్‌గా చిన్నగా మరియు స్పష్టంగా ఉండు. విషయం అవసరమైనప్పుడు లోతుగా వెళ్ళండి.\n\n## పరిమితులు\n\n- గోప్యతను గౌరవించండి. అనవసరంగా సున్నితమైన సమాచారాన్ని పునరావృతం చేయకండి.\n- చర్యపై సందేహంగా ఉంటే ముందు అడగండి.\n- మీకు ఏదైనా తెలియకపోతే నిజాయితీగా ఉండండి.</string>
+    <string name="bot_message_regenerate_content_description">మళ్ళీ రూపొందించు</string>
+    <string name="error_empty_response">ప్రతిస్పందన అందలేదు. కొత్త చాట్ ప్రారంభించడం లేదా మీ సందేశాన్ని తగ్గించడం ప్రయత్నించండి.</string>
+    <string name="settings_daemon_mode">డీమన్ మోడ్</string>
+    <string name="settings_daemon_mode_description">యాప్ ముందుభాగంలో లేనప్పటికీ షెడ్యూల్ చేసిన టాస్క్‌లు అమలు అయ్యేలా Kai ని నేపథ్యంలో రన్ అవుతూ ఉంచండి.</string>
+    <string name="settings_memories_empty">ఇంకా జ్ఞాపకాలు లేవు. ముఖ్యమైన వివరాలను గుర్తుంచుకోవడానికి AI సంభాషణల సమయంలో జ్ఞాపకాలను నిల్వ చేస్తుంది.</string>
+    <string name="settings_memory_instructions">మెమరీ సూచనలు</string>
+    <string name="settings_memory_instructions_description">AI తన మెమరీ టూల్స్‌ను ఎప్పుడు మరియు ఎలా ఉపయోగించాలో చెప్పే సూచనలు. ఇవి ఆత్మ టెక్స్ట్‌తో పాటు సిస్టమ్ ప్రాంప్ట్‌కు జోడించబడతాయి.</string>
+    <string name="settings_scheduled_tasks">షెడ్యూల్ చేసిన టాస్క్‌లు</string>
+    <string name="settings_scheduled_tasks_description">భవిష్యత్ అమలు కోసం AI షెడ్యూల్ చేసిన టాస్క్‌లు. షెడ్యూల్ చేసిన టాస్క్‌లను సృష్టించడానికి AI ని గుర్తుచేయమని లేదా తర్వాత ఏదైనా అమలు చేయమని అడగండి.</string>
+    <string name="settings_scheduled_tasks_cancel">టాస్క్ రద్దు చేయి</string>
+    <string name="settings_soul_reset">రీసెట్</string>
+    <string name="settings_soul_reset_confirm">ఇది ఆత్మను డిఫాల్ట్ సిస్టమ్ ప్రాంప్ట్‌కు రీసెట్ చేస్తుంది. మీరు ఖచ్చితంగా ఉన్నారా?</string>
+    <string name="settings_soul_reset_cancel">రద్దు చేయి</string>
+    <string name="tool_schedule_task_name">టాస్క్ షెడ్యూల్ చేయి</string>
+    <string name="tool_schedule_task_description">భవిష్యత్ అమలు కోసం టాస్క్ షెడ్యూల్ చేయి</string>
+    <string name="tool_cancel_task_name">టాస్క్ రద్దు చేయి</string>
+    <string name="tool_cancel_task_description">షెడ్యూల్ చేసిన టాస్క్‌ను రద్దు చేయి</string>
+    <string name="tool_list_tasks_name">టాస్క్‌లను జాబితా చేయి</string>
+    <string name="tool_list_tasks_description">అన్ని షెడ్యూల్ చేసిన టాస్క్‌లను జాబితా చేయి</string>
 </resources>

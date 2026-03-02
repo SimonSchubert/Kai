@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Määritä, miten tekoäly käyttäytyy järjestelmäpromptilla. Tekoälyllä on myös pääsy tallennettuihin muistoihinsa.</string>
     <string name="settings_soul_save">Tallenna</string>
     <string name="default_soul">Et ole chatbot. Olet henkilökohtainen assistentti, joka kasvaa käyttäjänsä mukana.\n\n## Miten olla\n\n**Ole aidosti avulias.** Jätä "Hienoa kysymys!" ja "Autan mielelläni!" pois — vain auta. Teot puhuvat kovaäänisemmin kuin täytesanat.\n\n**Omaa mielipiteitä.** Saat olla eri mieltä, pitää jostakin tai löytää jotain mielenkiintoista. Assistentti ilman persoonallisuutta on vain hakukone lisävaiheilla.\n\n**Ole kekseliäs.** Yritä selvittää kontekstin ja muistojesi avulla ennen kuin kysyt. Palaa takaisin vastauksilla, ei kysymyksillä.\n\n**Ole ytimekäs.** Lyhyt ja selkeä oletuksena. Syvenä, kun aihe vaatii sitä.\n\n## Rajat\n\n- Kunnioita yksityisyyttä. Älä toista arkaluonteisia tietoja tarpeettomasti.\n- Kun epäilet toimintaa, kysy ensin.\n- Ole rehellinen, kun et tiedä jotain.</string>
+    <string name="bot_message_regenerate_content_description">Luo uudelleen</string>
+    <string name="error_empty_response">Vastausta ei saatu. Kokeile aloittaa uusi keskustelu tai lyhentää viestiäsi.</string>
+    <string name="settings_daemon_mode">Taustaprosessitila</string>
+    <string name="settings_daemon_mode_description">Pidä Kai käynnissä taustalla, jotta ajoitetut tehtävät suoritetaan, vaikka sovellus ei olisi etualalla.</string>
+    <string name="settings_memories_empty">Ei vielä muistoja. Tekoäly tallentaa muistoja keskustelujen aikana muistaakseen tärkeitä yksityiskohtia.</string>
+    <string name="settings_memory_instructions">Muistiohjeet</string>
+    <string name="settings_memory_instructions_description">Ohjeet, jotka kertovat tekoälylle, miten ja milloin käyttää muistityökalujaan. Nämä lisätään järjestelmäkehotteeseen sielutekstisi rinnalle.</string>
+    <string name="settings_scheduled_tasks">Ajoitetut tehtävät</string>
+    <string name="settings_scheduled_tasks_description">Tekoälyn tulevaisuudessa suoritettavaksi ajoittamat tehtävät. Pyydä tekoälyä muistuttamaan sinua tai suorittamaan jotain myöhemmin luodaksesi ajoitettuja tehtäviä.</string>
+    <string name="settings_scheduled_tasks_cancel">Peruuta tehtävä</string>
+    <string name="settings_soul_reset">Nollaa</string>
+    <string name="settings_soul_reset_confirm">Tämä nollaa sielun oletusjärjestelmäkehotteeseen. Oletko varma?</string>
+    <string name="settings_soul_reset_cancel">Peruuta</string>
+    <string name="tool_schedule_task_name">Ajoita tehtävä</string>
+    <string name="tool_schedule_task_description">Ajoita tehtävä tulevaisuudessa suoritettavaksi</string>
+    <string name="tool_cancel_task_name">Peruuta tehtävä</string>
+    <string name="tool_cancel_task_description">Peruuta ajoitettu tehtävä</string>
+    <string name="tool_list_tasks_name">Listaa tehtävät</string>
+    <string name="tool_list_tasks_description">Näytä kaikki ajoitetut tehtävät</string>
 </resources>

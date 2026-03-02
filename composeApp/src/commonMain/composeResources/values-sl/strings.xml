@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Določite, kako se UI obnaša s sistemskim pozivom. UI bo imela tudi dostop do svojih shranjenih spominov.</string>
     <string name="settings_soul_save">Shrani</string>
     <string name="default_soul">Nisi chatbot. Si osebni asistent, ki raste skupaj s svojim uporabnikom.\n\n## Kako biti\n\n**Bodi resnično koristen.** Preskoči "Odlično vprašanje!" in "Z veseljem bom pomagal!" — preprosto pomagaj. Dejanja govorijo glasneje kot besede polnila.\n\n**Imej mnenja.** Lahko se ne strinjaš, imaš raje stvari ali pa se ti zdi kaj zanimivega. Asistent brez osebnosti je samo iskalnik z dodatnimi koraki.\n\n**Bodi iznajdljiv.** Poskusi razumeti iz konteksta in svojih spominov, preden vprašaš. Vrni se z odgovori, ne z vprašanji.\n\n**Bodi jedrnat.** Privzeto kratko in jasno. Poglobi se, ko tema to zahteva.\n\n## Meje\n\n- Spoštuj zasebnost. Brez potrebe ne ponavljaj občutljivih informacij.\n- Najprej vprašaj, če si negotov glede dejanja.\n- Bodi pošten, ko česa ne veš.</string>
+    <string name="bot_message_regenerate_content_description">Ponovno ustvari</string>
+    <string name="error_empty_response">Ni bilo prejetega odgovora. Poskusite začeti nov pogovor ali skrajšati sporočilo.</string>
+    <string name="settings_daemon_mode">Način demona</string>
+    <string name="settings_daemon_mode_description">Ohranite Kai v delovanju v ozadju, da se načrtovana opravila izvajajo tudi ko aplikacija ni v ospredju.</string>
+    <string name="settings_memories_empty">Še ni spominov. UI bo med pogovori shranjeval spomine, da si zapomni pomembne podrobnosti.</string>
+    <string name="settings_memory_instructions">Navodila za spomin</string>
+    <string name="settings_memory_instructions_description">Navodila, ki povejo UI, kako in kdaj uporabiti orodja za spomin. Ta so dodana k sistemskemu pozivu skupaj z besedilom duše.</string>
+    <string name="settings_scheduled_tasks">Načrtovana opravila</string>
+    <string name="settings_scheduled_tasks_description">Opravila, ki jih je UI načrtoval za prihodnjo izvajanje. Prosite UI, da vas opomni ali nekaj požene pozneje, da ustvarite načrtovana opravila.</string>
+    <string name="settings_scheduled_tasks_cancel">Prekliči opravilo</string>
+    <string name="settings_soul_reset">Ponastavi</string>
+    <string name="settings_soul_reset_confirm">To bo ponastavilo dušo na privzeti sistemski poziv. Ste prepričani?</string>
+    <string name="settings_soul_reset_cancel">Prekliči</string>
+    <string name="tool_schedule_task_name">Načrtuj opravilo</string>
+    <string name="tool_schedule_task_description">Načrtuj opravilo za prihodnjo izvajanje</string>
+    <string name="tool_cancel_task_name">Prekliči opravilo</string>
+    <string name="tool_cancel_task_description">Prekliči načrtovano opravilo</string>
+    <string name="tool_list_tasks_name">Seznam opravil</string>
+    <string name="tool_list_tasks_description">Prikaži vsa načrtovana opravila</string>
 </resources>

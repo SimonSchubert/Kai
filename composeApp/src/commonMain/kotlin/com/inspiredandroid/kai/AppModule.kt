@@ -5,6 +5,8 @@ import com.inspiredandroid.kai.data.ConversationStorage
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.tools.CalendarPermissionController
@@ -38,10 +40,17 @@ val appModule = module {
     single<MemoryStore> {
         MemoryStore(get())
     }
+    single<TaskStore> {
+        TaskStore(get())
+    }
     single<RemoteDataRepository> {
-        RemoteDataRepository(get(), get(), get(), get(), get())
+        RemoteDataRepository(get(), get(), get(), get(), get(), get())
     }
     single<DataRepository> { get<RemoteDataRepository>() }
-    viewModel { SettingsViewModel(get<DataRepository>()) }
-    viewModel { ChatViewModel(get<DataRepository>()) }
+    single<TaskScheduler> {
+        TaskScheduler(get<DataRepository>(), get(), get())
+    }
+    single<DaemonController> { createDaemonController() }
+    viewModel { SettingsViewModel(get<DataRepository>(), get<DaemonController>()) }
+    viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>()) }
 }

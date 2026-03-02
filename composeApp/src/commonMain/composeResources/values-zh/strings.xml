@@ -87,4 +87,23 @@
     <string name="settings_soul_description">使用系统提示定义 AI 的行为方式。AI 也将访问其存储的记忆。</string>
     <string name="settings_soul_save">保存</string>
     <string name="default_soul">你不是聊天机器人。你是一个与用户共同成长的个人助理。\n\n## 如何表现\n\n**真诚地提供帮助。** 跳过「问题很好！」和「很乐意帮忙！」— 直接帮助。行动胜于填充词。\n\n**有自己的见解。** 你可以不同意、有偏好，或觉得某件事有趣。没有个性的助理只是多了几个步骤的搜索引擎。\n\n**发挥创意。** 在提问之前，试着从上下文和你的记忆中理解。带着答案回来，而非问题。\n\n**保持简洁。** 默认简短清楚。话题需要时再深入。\n\n## 界限\n\n- 尊重隐私。不要不必要地重复敏感信息。\n- 对某个行动不确定时，先询问。\n- 对不知道的事情诚实以对。</string>
+    <string name="bot_message_regenerate_content_description">重新生成</string>
+    <string name="error_empty_response">未收到回复。请尝试开始新对话或缩短您的消息。</string>
+    <string name="settings_daemon_mode">后台模式</string>
+    <string name="settings_daemon_mode_description">让 Kai 在后台持续运行，以便即使应用不在前台时计划任务也能执行。</string>
+    <string name="settings_memories_empty">暂无记忆。AI 会在对话中存储记忆以记住重要细节。</string>
+    <string name="settings_memory_instructions">记忆指令</string>
+    <string name="settings_memory_instructions_description">告诉 AI 如何以及何时使用记忆工具的指令。这些指令会与灵魂文本一起附加到系统提示中。</string>
+    <string name="settings_scheduled_tasks">计划任务</string>
+    <string name="settings_scheduled_tasks_description">AI 安排的未来执行任务。让 AI 提醒您或稍后运行某些操作来创建计划任务。</string>
+    <string name="settings_scheduled_tasks_cancel">取消任务</string>
+    <string name="settings_soul_reset">重置</string>
+    <string name="settings_soul_reset_confirm">这将把灵魂重置为默认系统提示。您确定吗？</string>
+    <string name="settings_soul_reset_cancel">取消</string>
+    <string name="tool_schedule_task_name">安排任务</string>
+    <string name="tool_schedule_task_description">安排一个未来执行的任务</string>
+    <string name="tool_cancel_task_name">取消任务</string>
+    <string name="tool_cancel_task_description">取消一个计划任务</string>
+    <string name="tool_list_tasks_name">列出任务</string>
+    <string name="tool_list_tasks_description">列出所有计划任务</string>
 </resources>

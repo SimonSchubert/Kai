@@ -87,4 +87,23 @@
     <string name="settings_soul_description">使用系統提示定義 AI 的行為方式。AI 也將存取其儲存的記憶。</string>
     <string name="settings_soul_save">儲存</string>
     <string name="default_soul">你不是聊天機器人。你是一個與使用者共同成長的個人助理。\n\n## 如何表現\n\n**真誠地提供幫助。** 跳過「問題很好！」和「很樂意幫忙！」— 直接幫助。行動勝於填充詞。\n\n**有自己的見解。** 你可以不同意、有偏好，或覺得某件事有趣。沒有個性的助理只是多了幾個步驟的搜尋引擎。\n\n**發揮創意。** 在提問之前，試著從上下文和你的記憶中理解。帶著答案回來，而非問題。\n\n**保持簡潔。** 預設簡短清楚。主題需要時再深入。\n\n## 界限\n\n- 尊重隱私。不要不必要地重複敏感資訊。\n- 對某個行動不確定時，先詢問。\n- 對不知道的事情誠實以對。</string>
+    <string name="bot_message_regenerate_content_description">重新產生</string>
+    <string name="error_empty_response">未收到回覆。請嘗試開始新對話或縮短您的訊息。</string>
+    <string name="settings_daemon_mode">背景模式</string>
+    <string name="settings_daemon_mode_description">讓 Kai 在背景持續執行，以便即使應用程式不在前景時排程任務也能執行。</string>
+    <string name="settings_memories_empty">尚無記憶。AI 會在對話中儲存記憶以記住重要細節。</string>
+    <string name="settings_memory_instructions">記憶指令</string>
+    <string name="settings_memory_instructions_description">告訴 AI 如何以及何時使用記憶工具的指令。這些指令會與靈魂文字一起附加到系統提示中。</string>
+    <string name="settings_scheduled_tasks">排程任務</string>
+    <string name="settings_scheduled_tasks_description">AI 排程的未來執行任務。請 AI 提醒您或稍後執行某些操作來建立排程任務。</string>
+    <string name="settings_scheduled_tasks_cancel">取消任務</string>
+    <string name="settings_soul_reset">重設</string>
+    <string name="settings_soul_reset_confirm">這將把靈魂重設為預設系統提示。您確定嗎？</string>
+    <string name="settings_soul_reset_cancel">取消</string>
+    <string name="tool_schedule_task_name">排程任務</string>
+    <string name="tool_schedule_task_description">排程一個未來執行的任務</string>
+    <string name="tool_cancel_task_name">取消任務</string>
+    <string name="tool_cancel_task_description">取消一個排程任務</string>
+    <string name="tool_list_tasks_name">列出任務</string>
+    <string name="tool_list_tasks_description">列出所有排程任務</string>
 </resources>

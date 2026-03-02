@@ -87,4 +87,23 @@
     <string name="settings_soul_description">AI እንዴት እንደሚሠራ በስርዓት ፕሮምፕት ይወስኑ። AI ያከማቻቸው ትውስታዎቹንም ማግኘት ይችላል።</string>
     <string name="settings_soul_save">አስቀምጥ</string>
     <string name="default_soul">አንተ ቻትቦት አይደለህም። ከተጠቃሚህ ጋር የሚያድግ የግል ረዳት ነህ።\n\n## እንዴት መሆን እንዳለብህ\n\n**እውነተኛ ረዳት ሁን።** "ጥሩ ጥያቄ!" እና "በደስታ እረዳለሁ!" ዓይነት ቃላትን ዝለል – ረዳ። ድርጊቶች ከሙላ ቃላት ይበልጣሉ።\n\n**አስተያየት ይኑርህ።** ልትቃወም፣ ነገሮችን ልትወድ ወይም አስደሳች ልታገኛቸው ትችላለህ። ስብዕና የሌለው ረዳት ተጨማሪ እርምጃዎች ያሉት የፍለጋ ሞተር ብቻ ነው።\n\n**ፈጠራ ሁን።** ከመጠየቅህ በፊት ከአውዱ እና ትውስታዎችህ ለማወቅ ሞክር። ጥያቄዎችን ሳይሆን መልሶችን ይዘህ ተመለስ።\n\n**አጭር ሁን።** ነባሪው አጭርና ግልፅ ነው። ርዕሱ ሲጠይቅ ጠለቅ ያለ ሁን።\n\n## ድንበሮች\n\n- ግላዊነትን አክብር። ሚስጥራዊ መረጃን ያለ አስፈላጊነት አትድገም።\n- ስለ ድርጊት ሲጠራጠሩ ፣ መጀመሪያ ጠይቅ።\n- ነገርን ሳታውቅ ሐቀኛ ሁን።</string>
+    <string name="bot_message_regenerate_content_description">እንደገና አፍርት</string>
+    <string name="error_empty_response">ምላሽ አልተቀበለም። አዲስ ውይይት ለመጀመር ወይም መልዕክትዎን ለማሳጠር ይሞክሩ።</string>
+    <string name="settings_daemon_mode">የዳይሞን ሁነታ</string>
+    <string name="settings_daemon_mode_description">Kai ከበስተጀርባ እንዲሰራ ያቆዩ ስለዚህ የተያዙ ተግባራት ምንም እንኳን መተግበሪያው በፊት ላይ ባይሆንም ይፈጸማሉ።</string>
+    <string name="settings_memories_empty">እስካሁን ምንም ትውስታዎች የሉም። AI ውይይቶች ወቅት አስፈላጊ ዝርዝሮችን ለማስታወስ ትውስታዎችን ያስቀምጣል።</string>
+    <string name="settings_memory_instructions">የትውስታ መመሪያዎች</string>
+    <string name="settings_memory_instructions_description">AI የትውስታ መሳሪያዎቹን እንዴት እና መቼ እንደሚጠቀም የሚነግሩ መመሪያዎች። እነዚህ ከነፍስ ጽሑፍዎ ጋር ወደ ስርዓት ፕሮምፕቱ ይጨመራሉ።</string>
+    <string name="settings_scheduled_tasks">የተያዙ ተግባራት</string>
+    <string name="settings_scheduled_tasks_description">ለወደፊት ማስፈጸሚያ በ AI የተያዙ ተግባራት። የተያዙ ተግባራትን ለመፍጠር AI ን ያስታውሱኝ ወይም ነገር በኋላ ያሂዱ ይበሉት።</string>
+    <string name="settings_scheduled_tasks_cancel">ተግባር ሰርዝ</string>
+    <string name="settings_soul_reset">ዳግም አስጀምር</string>
+    <string name="settings_soul_reset_confirm">ይህ ነፍስን ወደ ነባሪ ስርዓት ፕሮምፕት ይመልሳል። እርግጠኛ ነዎት?</string>
+    <string name="settings_soul_reset_cancel">ሰርዝ</string>
+    <string name="tool_schedule_task_name">ተግባር አያዝ</string>
+    <string name="tool_schedule_task_description">ለወደፊት ማስፈጸሚያ ተግባር ያያዙ</string>
+    <string name="tool_cancel_task_name">ተግባር ሰርዝ</string>
+    <string name="tool_cancel_task_description">የተያዘ ተግባር ሰርዝ</string>
+    <string name="tool_list_tasks_name">ተግባራት ዘርዝር</string>
+    <string name="tool_list_tasks_description">ሁሉንም የተያዙ ተግባራት ዘርዝር</string>
 </resources>

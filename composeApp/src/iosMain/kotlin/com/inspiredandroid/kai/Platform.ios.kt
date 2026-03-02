@@ -6,9 +6,11 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.MemoryStore
+import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.SchedulingTools
 import com.russhwolf.settings.ExperimentalSettingsImplementation
 import com.russhwolf.settings.KeychainSettings
 import com.russhwolf.settings.NSUserDefaultsSettings
@@ -58,8 +60,15 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonTool
 private object IosKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
     val memoryStore: MemoryStore by inject()
+    val taskStore: TaskStore by inject()
 }
 
 actual fun getDeviceLanguage(): String = platform.Foundation.NSLocale.currentLocale.languageCode
 
-actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(IosKoinHelper.appSettings) + CommonTools.getMemoryTools(IosKoinHelper.memoryStore)
+actual fun getAvailableTools(): List<Tool> = buildList {
+    addAll(CommonTools.getCommonTools(IosKoinHelper.appSettings))
+    addAll(CommonTools.getMemoryTools(IosKoinHelper.memoryStore))
+    if (IosKoinHelper.appSettings.isSchedulingEnabled()) {
+        addAll(SchedulingTools.getSchedulingTools(IosKoinHelper.taskStore))
+    }
+}

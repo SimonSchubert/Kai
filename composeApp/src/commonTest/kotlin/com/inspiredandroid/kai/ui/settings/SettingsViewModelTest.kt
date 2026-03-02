@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import app.cash.turbine.test
+import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.testutil.FakeDataRepository
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,10 @@ class SettingsViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
     private lateinit var fakeRepository: FakeDataRepository
+    private val fakeDaemonController = object : DaemonController {
+        override fun start() {}
+        override fun stop() {}
+    }
 
     @BeforeTest
     fun setup() {
@@ -36,7 +41,7 @@ class SettingsViewModelTest {
     fun `initial state reflects current service`() = runTest {
         fakeRepository.setCurrentService(Service.Gemini)
 
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -47,7 +52,7 @@ class SettingsViewModelTest {
     @Test
     fun `onSelectService updates current service`() = runTest {
         fakeRepository.setCurrentService(Service.Free)
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -68,7 +73,7 @@ class SettingsViewModelTest {
         fakeRepository.setApiKey(Service.Groq, "groq-api-key")
         fakeRepository.setApiKey(Service.Gemini, "gemini-api-key")
 
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -91,7 +96,7 @@ class SettingsViewModelTest {
     @Test
     fun `onChangeApiKey updates API key in repository`() = runTest {
         fakeRepository.setCurrentService(Service.Groq)
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -116,7 +121,7 @@ class SettingsViewModelTest {
         fakeRepository.setModels(Service.Gemini, models)
         fakeRepository.setCurrentService(Service.Gemini)
 
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             // Skip initial value from stateIn, wait for flatMapLatest to emit
@@ -143,7 +148,7 @@ class SettingsViewModelTest {
         fakeRepository.setModels(Service.Groq, models)
         fakeRepository.setCurrentService(Service.Groq)
 
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             // Skip initial value from stateIn, wait for flatMapLatest to emit
@@ -159,7 +164,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `services list contains all available services`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val state = awaitItem()

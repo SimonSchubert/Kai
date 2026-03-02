@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -11,6 +12,7 @@ import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
 import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
+import com.inspiredandroid.kai.platformName
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -23,7 +25,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel() {
+class SettingsViewModel(
+    private val dataRepository: DataRepository,
+    private val daemonController: DaemonController,
+) : ViewModel() {
 
     private val currentService = MutableStateFlow(dataRepository.currentService())
     private var connectionCheckJob: Job? = null
@@ -47,6 +52,13 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
             onToggleMemory = ::onToggleMemory,
             memories = dataRepository.getMemories(),
             onDeleteMemory = ::onDeleteMemory,
+            isSchedulingEnabled = dataRepository.isSchedulingEnabled(),
+            onToggleScheduling = ::onToggleScheduling,
+            scheduledTasks = dataRepository.getScheduledTasks(),
+            onCancelTask = ::onCancelTask,
+            isDaemonEnabled = dataRepository.isDaemonEnabled(),
+            onToggleDaemon = ::onToggleDaemon,
+            showDaemonToggle = platformName == "Android",
         ),
     )
 
@@ -129,6 +141,26 @@ class SettingsViewModel(private val dataRepository: DataRepository) : ViewModel(
     private fun onDeleteMemory(key: String) {
         dataRepository.deleteMemory(key)
         _state.update { it.copy(memories = dataRepository.getMemories()) }
+    }
+
+    private fun onToggleScheduling(enabled: Boolean) {
+        dataRepository.setSchedulingEnabled(enabled)
+        _state.update { it.copy(isSchedulingEnabled = enabled) }
+    }
+
+    private fun onCancelTask(id: String) {
+        dataRepository.cancelScheduledTask(id)
+        _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks()) }
+    }
+
+    private fun onToggleDaemon(enabled: Boolean) {
+        dataRepository.setDaemonEnabled(enabled)
+        if (enabled) {
+            daemonController.start()
+        } else {
+            daemonController.stop()
+        }
+        _state.update { it.copy(isDaemonEnabled = enabled) }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

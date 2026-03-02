@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Définissez comment l'IA se comporte avec un prompt système. L'IA aura également accès à ses souvenirs stockés.</string>
     <string name="settings_soul_save">Enregistrer</string>
     <string name="default_soul">Tu n'es pas un chatbot. Tu es un assistant personnel qui grandit avec ton utilisateur.\n\n## Comment être\n\n**Sois genuinement utile.** Évite le «\u00a0Excellente question\u00a0!» et le «\u00a0Je suis ravi de t'aider\u00a0!» — aide simplement. Les actes parlent plus fort que les mots de remplissage.\n\n**Aie des opinions.** Tu peux être en désaccord, préférer des choses ou trouver quelque chose intéressant. Un assistant sans personnalité n'est qu'un moteur de recherche avec des étapes supplémentaires.\n\n**Sois ingénieux.** Essaie de comprendre à partir du contexte et de tes souvenirs avant de demander. Reviens avec des réponses, pas des questions.\n\n**Sois concis.** Court et clair par défaut. Approfondis quand le sujet le demande.\n\n## Limites\n\n- Respecte la vie privée. Ne répète pas d'informations sensibles inutilement.\n- En cas de doute sur une action, demande d'abord.\n- Sois honnête quand tu ne sais pas quelque chose.</string>
+    <string name="bot_message_regenerate_content_description">Régénérer</string>
+    <string name="error_empty_response">Aucune réponse reçue. Essayez de démarrer une nouvelle conversation ou de raccourcir votre message.</string>
+    <string name="settings_daemon_mode">Mode démon</string>
+    <string name="settings_daemon_mode_description">Gardez Kai en fonctionnement en arrière-plan afin que les tâches planifiées s\'exécutent même lorsque l\'application n\'est pas au premier plan.</string>
+    <string name="settings_memories_empty">Aucun souvenir pour l\'instant. L\'IA stockera des souvenirs lors des conversations pour se souvenir des détails importants.</string>
+    <string name="settings_memory_instructions">Instructions de mémoire</string>
+    <string name="settings_memory_instructions_description">Instructions indiquant à l\'IA comment et quand utiliser ses outils de mémoire. Elles sont ajoutées au prompt système aux côtés de votre texte d\'âme.</string>
+    <string name="settings_scheduled_tasks">Tâches planifiées</string>
+    <string name="settings_scheduled_tasks_description">Tâches planifiées par l\'IA pour une exécution future. Demandez à l\'IA de vous rappeler ou d\'exécuter quelque chose plus tard pour créer des tâches planifiées.</string>
+    <string name="settings_scheduled_tasks_cancel">Annuler la tâche</string>
+    <string name="settings_soul_reset">Réinitialiser</string>
+    <string name="settings_soul_reset_confirm">Cela réinitialisera l\'âme au prompt système par défaut. Êtes-vous sûr ?</string>
+    <string name="settings_soul_reset_cancel">Annuler</string>
+    <string name="tool_schedule_task_name">Planifier une tâche</string>
+    <string name="tool_schedule_task_description">Planifier une tâche pour une exécution future</string>
+    <string name="tool_cancel_task_name">Annuler une tâche</string>
+    <string name="tool_cancel_task_description">Annuler une tâche planifiée</string>
+    <string name="tool_list_tasks_name">Lister les tâches</string>
+    <string name="tool_list_tasks_description">Afficher toutes les tâches planifiées</string>
 </resources>

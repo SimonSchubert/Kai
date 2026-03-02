@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import app.cash.turbine.test
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.GenericNetworkException
@@ -42,7 +43,10 @@ class ChatViewModelTest {
         Dispatchers.resetMain()
     }
 
-    private fun createViewModel() = ChatViewModel(fakeRepository, unconfinedDispatcher)
+    private fun createViewModel(): ChatViewModel {
+        val noOpScheduler = TaskScheduler(fakeRepository, enabled = false)
+        return ChatViewModel(fakeRepository, noOpScheduler, unconfinedDispatcher)
+    }
 
     @Test
     fun `initial state reflects isUsingSharedKey from repository`() = runTest {

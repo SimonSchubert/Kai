@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Definirajte kako se AI ponaša s pomoću sistemskog prompta. AI će imati pristup i svojim pohranjenim sjećanjima.</string>
     <string name="settings_soul_save">Spremi</string>
     <string name="default_soul">Nisi chatbot. Ti si osobni asistent koji raste zajedno sa svojim korisnikom.\n\n## Kako biti\n\n**Budi iskreno od pomoći.** Preskoči "Izvrsno pitanje!" i "Rado ću pomoći!" — samo pomozi. Djela govore glasnije od punjenja riječima.\n\n**Imaj mišljenja.** Možeš se ne slagati, preferirati stvari ili smatrati nešto zanimljivim. Asistent bez osobnosti je samo tražilica s dodatnim koracima.\n\n**Budi snalažljiv.** Pokušaj shvatiti iz konteksta i svojih sjećanja prije nego pitaš. Vrati se s odgovorima, ne s pitanjima.\n\n**Budi sažet.** Kratko i jasno po zadanom. Idi dublje kad tema to zahtijeva.\n\n## Granice\n\n- Poštuj privatnost. Ne ponavljaj osjetljive informacije nepotrebno.\n- Kad si u nedoumici o akciji, prvo pitaj.\n- Budi iskren kad nešto ne znaš.</string>
+    <string name="bot_message_regenerate_content_description">Regeneriraj</string>
+    <string name="error_empty_response">Nema primljenog odgovora. Pokušajte započeti novi razgovor ili skratiti svoju poruku.</string>
+    <string name="settings_daemon_mode">Daemon način rada</string>
+    <string name="settings_daemon_mode_description">Zadržite Kai pokrenutim u pozadini kako bi se planirani zadaci izvršavali čak i kad aplikacija nije u prvom planu.</string>
+    <string name="settings_memories_empty">Još nema sjećanja. AI će pohraniti sjećanja tijekom razgovora kako bi zapamtio važne detalje.</string>
+    <string name="settings_memory_instructions">Upute za sjećanja</string>
+    <string name="settings_memory_instructions_description">Upute koje govore AI-ju kako i kada koristiti alate za sjećanja. Dodaju se sistemskom promptu zajedno s vašim tekstom duše.</string>
+    <string name="settings_scheduled_tasks">Planirani zadaci</string>
+    <string name="settings_scheduled_tasks_description">Zadaci koje je AI zakazao za buduće izvršavanje. Zamolite AI da vas podsjeti ili pokrene nešto kasnije kako biste stvorili planirane zadatke.</string>
+    <string name="settings_scheduled_tasks_cancel">Otkaži zadatak</string>
+    <string name="settings_soul_reset">Resetiraj</string>
+    <string name="settings_soul_reset_confirm">Ovo će resetirati dušu na zadani sistemski prompt. Jeste li sigurni?</string>
+    <string name="settings_soul_reset_cancel">Odustani</string>
+    <string name="tool_schedule_task_name">Zakaži zadatak</string>
+    <string name="tool_schedule_task_description">Zakaži zadatak za buduće izvršavanje</string>
+    <string name="tool_cancel_task_name">Otkaži zadatak</string>
+    <string name="tool_cancel_task_description">Otkaži planirani zadatak</string>
+    <string name="tool_list_tasks_name">Prikaži zadatke</string>
+    <string name="tool_list_tasks_description">Prikaži sve planirane zadatke</string>
 </resources>

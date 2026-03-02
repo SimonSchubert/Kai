@@ -2,7 +2,9 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.MemoryEntry
+import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.ui.chat.History
@@ -159,5 +161,33 @@ class FakeDataRepository : DataRepository {
 
     override fun deleteMemory(key: String) {
         memories.removeAll { it.key == key }
+    }
+
+    // Scheduling management
+    private var schedulingEnabled = true
+    private val scheduledTasks = mutableListOf<ScheduledTask>()
+
+    override fun isSchedulingEnabled(): Boolean = schedulingEnabled
+
+    override fun setSchedulingEnabled(enabled: Boolean) {
+        schedulingEnabled = enabled
+    }
+
+    override fun getScheduledTasks(): List<ScheduledTask> = scheduledTasks.toList()
+
+    override fun cancelScheduledTask(id: String) {
+        val index = scheduledTasks.indexOfFirst { it.id == id }
+        if (index >= 0) {
+            scheduledTasks[index] = scheduledTasks[index].copy(status = TaskStatus.CANCELLED)
+        }
+    }
+
+    // Daemon mode
+    private var daemonEnabled = false
+
+    override fun isDaemonEnabled(): Boolean = daemonEnabled
+
+    override fun setDaemonEnabled(enabled: Boolean) {
+        daemonEnabled = enabled
     }
 }

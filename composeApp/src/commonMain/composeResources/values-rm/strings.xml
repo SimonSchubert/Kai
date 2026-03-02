@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Definescha co l'IA sa cumporta cun in prompt da sistem. L'IA avrà er access a sias memorias memorisadas.</string>
     <string name="settings_soul_save">Memorisar</string>
     <string name="default_soul">Ti n'es betg in chatbot. Ti es in assistent personal che crescha cun tia utilisader.\n\n## Co esser\n\n**Sii gienünaineter utils.** Saltar il "Buna dumonda!" ed il "Sun cuntent da gidar!" — simplamain gida. Acziuns dischan pli ferm che pleds da rempliment.\n\n**Ha opiniuns.** Ti pos betg esser d'accord, preferir chaussas u chattar insatge interessant. In assistent senza persunalitad è mo in motor da tschertga cun pass supplementars.\n\n**Sii inventiv.** Prova da chapir dal context e da tias memorias avant da dummandar. Turna cun respostas, betg cun dumondas.\n\n**Sii concis.** Curt e cler sco standard. Va pli a fund sch'il tema lu exigi.\n\n## Cunfins\n\n- Resguarda la protecziun da datas. Na repeta betg infurmaziuns sensiblas innutilmain.\n- Dumonda emprim sch'ti dubitas d'ina acziun.\n- Sii onest sch'ti na sas betg insatge.</string>
+    <string name="bot_message_regenerate_content_description">Regenerar</string>
+    <string name="error_empty_response">Nagina resposta retschavida. Empruvai da cumenzar in nov chat u da scursanir Voss messadi.</string>
+    <string name="settings_daemon_mode">Modus daemon</string>
+    <string name="settings_daemon_mode_description">Laschar Kai ir en il fund per che incumbensas planisadas vegnan exequidas era sche l\'app n\'è betg en il prim plan.</string>
+    <string name="settings_memories_empty">Anc naginas memorias. L\'AI vegn a memorisar memorias durant las conversaziuns per s\'enregurdar da detagls impurtants.</string>
+    <string name="settings_memory_instructions">Instrucziuns da memoria</string>
+    <string name="settings_memory_instructions_description">Instrucziuns che dian a l\'AI co e cura utilisar ses utensils da memoria. Quellas vegnan agiuntadas al prompt da sistem ensemen cun Voss text d\'olma.</string>
+    <string name="settings_scheduled_tasks">Incumbensas planisadas</string>
+    <string name="settings_scheduled_tasks_description">Incumbensas planisadas da l\'AI per l\'execuziun futura. Dumandai a l\'AI da s\'enregurdar u da lantschar insatge pli tard per crear incumbensas planisadas.</string>
+    <string name="settings_scheduled_tasks_cancel">Annullar incumbensa</string>
+    <string name="settings_soul_reset">Reposar</string>
+    <string name="settings_soul_reset_confirm">Quai reposescha l\'olma al prompt da sistem da standard. Essas Vus segirs?</string>
+    <string name="settings_soul_reset_cancel">Annullar</string>
+    <string name="tool_schedule_task_name">Planisar incumbensa</string>
+    <string name="tool_schedule_task_description">Planisar ina incumbensa per l\'execuziun futura</string>
+    <string name="tool_cancel_task_name">Annullar incumbensa</string>
+    <string name="tool_cancel_task_description">Annullar ina incumbensa planisada</string>
+    <string name="tool_list_tasks_name">Glista d\'incumbensas</string>
+    <string name="tool_list_tasks_description">Mussar tut las incumbensas planisadas</string>
 </resources>

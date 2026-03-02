@@ -33,6 +33,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -86,7 +87,9 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.MemoryEntry
+import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
@@ -101,6 +104,8 @@ import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
 import kai.composeapp.generated.resources.settings_contact_sponsorship
+import kai.composeapp.generated.resources.settings_daemon_mode
+import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_memories
@@ -110,9 +115,15 @@ import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
+import kai.composeapp.generated.resources.settings_scheduled_tasks
+import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
+import kai.composeapp.generated.resources.settings_scheduled_tasks_description
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_soul
 import kai.composeapp.generated.resources.settings_soul_description
+import kai.composeapp.generated.resources.settings_soul_reset
+import kai.composeapp.generated.resources.settings_soul_reset_cancel
+import kai.composeapp.generated.resources.settings_soul_reset_confirm
 import kai.composeapp.generated.resources.settings_soul_save
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
@@ -128,6 +139,9 @@ import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_version
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -179,6 +193,13 @@ fun SettingsScreenContent(
             ) {
                 when (uiState.currentTab) {
                     SettingsTab.General -> {
+                        if (uiState.showDaemonToggle) {
+                            DaemonModeToggle(
+                                isDaemonEnabled = uiState.isDaemonEnabled,
+                                onToggleDaemon = uiState.onToggleDaemon,
+                            )
+                            Spacer(Modifier.height(24.dp))
+                        }
                         SoulEditor(
                             soulText = uiState.soulText,
                             onSaveSoul = uiState.onSaveSoul,
@@ -189,6 +210,13 @@ fun SettingsScreenContent(
                             onDeleteMemory = uiState.onDeleteMemory,
                             isMemoryEnabled = uiState.isMemoryEnabled,
                             onToggleMemory = uiState.onToggleMemory,
+                        )
+                        Spacer(Modifier.height(24.dp))
+                        ScheduledTaskList(
+                            tasks = uiState.scheduledTasks,
+                            onCancelTask = uiState.onCancelTask,
+                            isSchedulingEnabled = uiState.isSchedulingEnabled,
+                            onToggleScheduling = uiState.onToggleScheduling,
                         )
                     }
 
@@ -956,13 +984,32 @@ private fun SoulEditor(
     val hasChanges = editedText != displayText
     val maxChars = 4000
 
+    var showResetDialog by remember { mutableStateOf(false) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(Res.string.settings_soul),
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-        Spacer(Modifier.height(4.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_soul),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            if (soulText.isNotEmpty()) {
+                IconButton(
+                    onClick = { showResetDialog = true },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Replay,
+                        contentDescription = stringResource(Res.string.settings_soul_reset),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+        }
         Text(
             text = stringResource(Res.string.settings_soul_description),
             style = MaterialTheme.typography.bodySmall,
@@ -991,9 +1038,8 @@ private fun SoulEditor(
             textAlign = TextAlign.End,
         )
 
-        Spacer(Modifier.height(8.dp))
-
         if (hasChanges) {
+            Spacer(Modifier.height(8.dp))
             Button(
                 onClick = { onSaveSoul(editedText.trim()) },
                 modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
@@ -1001,6 +1047,28 @@ private fun SoulEditor(
                 Text(stringResource(Res.string.settings_soul_save))
             }
         }
+    }
+
+    if (showResetDialog) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showResetDialog = false },
+            title = { Text(stringResource(Res.string.settings_soul_reset)) },
+            text = { Text(stringResource(Res.string.settings_soul_reset_confirm)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showResetDialog = false
+                    onSaveSoul("")
+                    editedText = localizedDefault
+                }) {
+                    Text(stringResource(Res.string.settings_soul_reset))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showResetDialog = false }) {
+                    Text(stringResource(Res.string.settings_soul_reset_cancel))
+                }
+            },
+        )
     }
 }
 
@@ -1074,4 +1142,164 @@ private fun MemoryList(
             }
         }
     }
+}
+
+@Composable
+private fun ScheduledTaskList(
+    tasks: List<ScheduledTask>,
+    onCancelTask: (String) -> Unit,
+    isSchedulingEnabled: Boolean,
+    onToggleScheduling: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_scheduled_tasks),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = isSchedulingEnabled,
+                onCheckedChange = onToggleScheduling,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            )
+        }
+        Text(
+            text = stringResource(Res.string.settings_scheduled_tasks_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(12.dp))
+
+        if (isSchedulingEnabled && tasks.isNotEmpty()) {
+            tasks.forEach { task ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        .padding(12.dp),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = task.description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        val subtitle = if (task.cron != null) {
+                            "${task.status} - ${describeCron(task.cron)}"
+                        } else {
+                            val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
+                                .toLocalDateTime(TimeZone.currentSystemDefault())
+                            "${task.status} - $scheduledTime"
+                        }
+                        Text(
+                            text = subtitle,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                    if (task.status == TaskStatus.PENDING) {
+                        IconButton(
+                            onClick = { onCancelTask(task.id) },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun DaemonModeToggle(
+    isDaemonEnabled: Boolean,
+    onToggleDaemon: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_daemon_mode),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = isDaemonEnabled,
+                onCheckedChange = onToggleDaemon,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            )
+        }
+        Text(
+            text = stringResource(Res.string.settings_daemon_mode_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+private fun describeCron(cron: String): String {
+    val parts = cron.trim().split("\\s+".toRegex())
+    if (parts.size != 5) return cron
+
+    val (minute, hour, dayOfMonth, month, dayOfWeek) = parts
+    val isEveryDay = dayOfMonth == "*" && month == "*" && dayOfWeek == "*"
+    val isEveryWeekday = dayOfMonth == "*" && month == "*" && dayOfWeek != "*"
+    val isEveryMonth = dayOfMonth != "*" && month == "*" && dayOfWeek == "*"
+
+    val timeStr = formatCronTime(hour, minute) ?: return cron
+
+    return when {
+        isEveryDay -> "Daily at $timeStr"
+
+        isEveryWeekday -> {
+            val days = dayOfWeek.split(",").mapNotNull { dayName(it.trim()) }
+            if (days.isNotEmpty()) "Every ${days.joinToString(", ")} at $timeStr" else cron
+        }
+
+        isEveryMonth -> "Monthly on day $dayOfMonth at $timeStr"
+
+        else -> cron
+    }
+}
+
+private fun formatCronTime(hour: String, minute: String): String? {
+    val h = hour.toIntOrNull() ?: return null
+    val m = minute.toIntOrNull() ?: return null
+    return "%d:%02d".format(h, m)
+}
+
+private fun dayName(day: String): String? = when (day) {
+    "0", "7" -> "Sun"
+    "1" -> "Mon"
+    "2" -> "Tue"
+    "3" -> "Wed"
+    "4" -> "Thu"
+    "5" -> "Fri"
+    "6" -> "Sat"
+    "MON" -> "Mon"
+    "TUE" -> "Tue"
+    "WED" -> "Wed"
+    "THU" -> "Thu"
+    "FRI" -> "Fri"
+    "SAT" -> "Sat"
+    "SUN" -> "Sun"
+    else -> null
 }

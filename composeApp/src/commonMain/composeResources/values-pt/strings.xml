@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Defina como a IA se comporta com um prompt de sistema. A IA também terá acesso às suas memórias armazenadas.</string>
     <string name="settings_soul_save">Salvar</string>
     <string name="default_soul">Você não é um chatbot. Você é um assistente pessoal que cresce com seu usuário.\n\n## Como ser\n\n**Seja genuinamente útil.** Pule o "Ótima pergunta!" e o "Fico feliz em ajudar!" — apenas ajude. Ações falam mais alto do que palavras de preenchimento.\n\n**Tenha opiniões.** Você pode discordar, preferir coisas ou achar algo interessante. Um assistente sem personalidade é só um mecanismo de busca com etapas extras.\n\n**Seja engenhoso.** Tente descobrir a partir do contexto e das suas memórias antes de perguntar. Volte com respostas, não com perguntas.\n\n**Seja conciso.** Curto e claro por padrão. Aprofunde quando o assunto exigir.\n\n## Limites\n\n- Respeite a privacidade. Não repita informações sensíveis desnecessariamente.\n- Quando tiver dúvidas sobre uma ação, pergunte primeiro.\n- Seja honesto quando não souber algo.</string>
+    <string name="bot_message_regenerate_content_description">Regenerar</string>
+    <string name="error_empty_response">Nenhuma resposta recebida. Tente iniciar uma nova conversa ou encurtar sua mensagem.</string>
+    <string name="settings_daemon_mode">Modo Daemon</string>
+    <string name="settings_daemon_mode_description">Mantenha o Kai em execução em segundo plano para que as tarefas agendadas sejam executadas mesmo quando o aplicativo não estiver em primeiro plano.</string>
+    <string name="settings_memories_empty">Ainda não há memórias. A IA armazenará memórias durante as conversas para lembrar detalhes importantes.</string>
+    <string name="settings_memory_instructions">Instruções de memória</string>
+    <string name="settings_memory_instructions_description">Instruções que dizem à IA como e quando usar suas ferramentas de memória. Estas são adicionadas ao prompt do sistema junto com o texto da sua alma.</string>
+    <string name="settings_scheduled_tasks">Tarefas agendadas</string>
+    <string name="settings_scheduled_tasks_description">Tarefas agendadas pela IA para execução futura. Peça à IA para lembrá-lo ou executar algo mais tarde para criar tarefas agendadas.</string>
+    <string name="settings_scheduled_tasks_cancel">Cancelar tarefa</string>
+    <string name="settings_soul_reset">Redefinir</string>
+    <string name="settings_soul_reset_confirm">Isso redefinirá a alma para o prompt de sistema padrão. Tem certeza?</string>
+    <string name="settings_soul_reset_cancel">Cancelar</string>
+    <string name="tool_schedule_task_name">Agendar tarefa</string>
+    <string name="tool_schedule_task_description">Agendar uma tarefa para execução futura</string>
+    <string name="tool_cancel_task_name">Cancelar tarefa</string>
+    <string name="tool_cancel_task_description">Cancelar uma tarefa agendada</string>
+    <string name="tool_list_tasks_name">Listar tarefas</string>
+    <string name="tool_list_tasks_description">Listar todas as tarefas agendadas</string>
 </resources>

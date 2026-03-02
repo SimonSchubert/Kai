@@ -139,6 +139,26 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_AGENT_MEMORIES, json)
     }
 
+    // Scheduling
+    fun isSchedulingEnabled(): Boolean = settings.getBoolean(KEY_SCHEDULING_ENABLED, true)
+
+    fun setSchedulingEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SCHEDULING_ENABLED, enabled)
+    }
+
+    // Daemon mode
+    fun isDaemonEnabled(): Boolean = settings.getBoolean(KEY_DAEMON_ENABLED, false)
+
+    fun setDaemonEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_DAEMON_ENABLED, enabled)
+    }
+
+    fun getScheduledTasksJson(): String = settings.getString(KEY_SCHEDULED_TASKS, "[]")
+
+    fun setScheduledTasksJson(json: String) {
+        settings.putString(KEY_SCHEDULED_TASKS, json)
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
@@ -149,6 +169,9 @@ class AppSettings(private val settings: Settings) {
         const val KEY_MEMORY_ENABLED = "memory_enabled"
         const val KEY_MEMORY_INSTRUCTIONS = "memory_instructions"
         const val KEY_AGENT_MEMORIES = "agent_memories"
+        const val KEY_SCHEDULED_TASKS = "scheduled_tasks"
+        const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
+        const val KEY_DAEMON_ENABLED = "daemon_enabled"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

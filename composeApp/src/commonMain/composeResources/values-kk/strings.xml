@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Жүйелік нұсқаулықпен AI қалай әрекет ететінін анықтаңыз. AI сақталған жадтарына да қол жеткізе алады.</string>
     <string name="settings_soul_save">Сақтау</string>
     <string name="default_soul">Сіз чатбот емессіз. Сіз пайдаланушыңызбен бірге өсетін жеке көмекшісіз.\n\n## Қалай болу керек\n\n**Шынымен пайдалы болыңыз.** «Тамаша сұрақ!» және «Көмектесуге қуаныштымын!» деген сөздерді өткізіп жіберіңіз — жай ғана көмектесіңіз. Іс-әрекеттер толтырушы сөздерден жоғары дауыспен сөйлейді.\n\n**Пікіріңіз болсын.** Сізге қарсы болуға, нәрселерді жақсы көруге немесе бірдеңені қызықты деп табуға рұқсат берілген. Тұлғасыз көмекші — бұл тек қосымша қадамдары бар іздеу жүйесі.\n\n**Тапқыр болыңыз.** Сұрамас бұрын мәтінмән мен жадтарыңыздан түсінуге тырысыңыз. Сұрақтармен емес, жауаптармен оралыңыз.\n\n**Қысқа болыңыз.** Әдепкі ретінде қысқа және нақты. Тақырып талап еткенде тереңірек кіріңіз.\n\n## Шекаралар\n\n- Жеке өмірді құрметтеңіз. Құпия ақпаратты қажетсіз қайталамаңыз.\n- Әрекет туралы күмән туса, алдымен сұраңыз.\n- Бірдеңені білмесеңіз, шынайы болыңыз.</string>
+    <string name="bot_message_regenerate_content_description">Қайта жасау</string>
+    <string name="error_empty_response">Жауап алынбады. Жаңа чат бастаңыз немесе хабарламаңызды қысқартыңыз.</string>
+    <string name="settings_daemon_mode">Daemon режимі</string>
+    <string name="settings_daemon_mode_description">Қолданба алдыңғы жақта болмаса да, жоспарланған тапсырмалар орындалуы үшін Kai-ды фонда жұмыс істетіп ұстаңыз.</string>
+    <string name="settings_memories_empty">Әлі жадтар жоқ. AI маңызды мәліметтерді есте сақтау үшін сұхбаттар кезінде жадтарды сақтайды.</string>
+    <string name="settings_memory_instructions">Жад нұсқаулары</string>
+    <string name="settings_memory_instructions_description">AI-ға жад құралдарын қалай және қашан пайдалану керектігін айтатын нұсқаулар. Олар сіздің жан мәтініңізбен бірге жүйелік нұсқаулыққа қосылады.</string>
+    <string name="settings_scheduled_tasks">Жоспарланған тапсырмалар</string>
+    <string name="settings_scheduled_tasks_description">AI болашақта орындау үшін жоспарлаған тапсырмалар. Жоспарланған тапсырмалар жасау үшін AI-дан есіңізге салуды немесе кейінірек бірдеңе орындауды сұраңыз.</string>
+    <string name="settings_scheduled_tasks_cancel">Тапсырманы болдырмау</string>
+    <string name="settings_soul_reset">Қалпына келтіру</string>
+    <string name="settings_soul_reset_confirm">Бұл жанды әдепкі жүйелік нұсқаулыққа қалпына келтіреді. Сенімдісіз бе?</string>
+    <string name="settings_soul_reset_cancel">Болдырмау</string>
+    <string name="tool_schedule_task_name">Тапсырма жоспарлау</string>
+    <string name="tool_schedule_task_description">Болашақта орындау үшін тапсырма жоспарлау</string>
+    <string name="tool_cancel_task_name">Тапсырманы болдырмау</string>
+    <string name="tool_cancel_task_description">Жоспарланған тапсырманы болдырмау</string>
+    <string name="tool_list_tasks_name">Тапсырмалар тізімі</string>
+    <string name="tool_list_tasks_description">Барлық жоспарланған тапсырмаларды тізімдеу</string>
 </resources>

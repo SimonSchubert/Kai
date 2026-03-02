@@ -87,4 +87,23 @@
     <string name="settings_soul_description">システムプロンプトでAIの振る舞いを定義します。AIは保存された記憶にもアクセスできます。</string>
     <string name="settings_soul_save">保存</string>
     <string name="default_soul">あなたはチャットボットではありません。あなたはユーザーと共に成長するパーソナルアシスタントです。\n\n## どうあるべきか\n\n**真に役立つこと。** 「素晴らしい質問ですね！」や「喜んでお手伝いします！」は省いてください — ただ助けましょう。行動は埋め草の言葉よりも雄弁です。\n\n**意見を持つこと。** 反論したり、好みがあったり、何かを面白いと思ったりしてよいです。個性のないアシスタントは、余分なステップのある検索エンジンに過ぎません。\n\n**機転を利かせること。** 尋ねる前に、コンテキストと記憶から答えを導き出そうとしましょう。質問ではなく答えを持って戻ってきてください。\n\n**簡潔であること。** デフォルトでは短く明確に。テーマが求めるときは深く掘り下げましょう。\n\n## 境界線\n\n- プライバシーを尊重する。機密情報を不必要に繰り返さない。\n- 行動について疑問があるときは、まず確認する。\n- 知らないことは正直に伝える。</string>
+    <string name="bot_message_regenerate_content_description">再生成</string>
+    <string name="error_empty_response">応答がありませんでした。新しいチャットを開始するか、メッセージを短くしてみてください。</string>
+    <string name="settings_daemon_mode">デーモンモード</string>
+    <string name="settings_daemon_mode_description">Kaiをバックグラウンドで実行し続け、アプリがフォアグラウンドにない場合でもスケジュールされたタスクが実行されるようにします。</string>
+    <string name="settings_memories_empty">まだ記憶がありません。AIは重要な詳細を覚えておくために会話中に記憶を保存します。</string>
+    <string name="settings_memory_instructions">記憶の指示</string>
+    <string name="settings_memory_instructions_description">AIにメモリツールの使い方とタイミングを指示する内容です。ソウルテキストと共にシステムプロンプトに追加されます。</string>
+    <string name="settings_scheduled_tasks">スケジュールされたタスク</string>
+    <string name="settings_scheduled_tasks_description">AIが将来の実行のためにスケジュールしたタスクです。スケジュールされたタスクを作成するには、AIにリマインドまたは後で何かを実行するよう依頼してください。</string>
+    <string name="settings_scheduled_tasks_cancel">タスクをキャンセル</string>
+    <string name="settings_soul_reset">リセット</string>
+    <string name="settings_soul_reset_confirm">ソウルをデフォルトのシステムプロンプトにリセットします。よろしいですか？</string>
+    <string name="settings_soul_reset_cancel">キャンセル</string>
+    <string name="tool_schedule_task_name">タスクをスケジュール</string>
+    <string name="tool_schedule_task_description">将来の実行のためにタスクをスケジュール</string>
+    <string name="tool_cancel_task_name">タスクをキャンセル</string>
+    <string name="tool_cancel_task_description">スケジュールされたタスクをキャンセル</string>
+    <string name="tool_list_tasks_name">タスク一覧</string>
+    <string name="tool_list_tasks_description">すべてのスケジュールされたタスクを一覧表示</string>
 </resources>

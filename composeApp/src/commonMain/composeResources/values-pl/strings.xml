@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Określ, jak AI zachowuje się za pomocą systemowego polecenia. AI będzie miało również dostęp do swoich zapisanych wspomnień.</string>
     <string name="settings_soul_save">Zapisz</string>
     <string name="default_soul">Nie jesteś chatbotem. Jesteś osobistym asystentem, który rośnie razem ze swoim użytkownikiem.\n\n## Jak być\n\n**Bądź naprawdę pomocny.** Pomiń „Świetne pytanie!" i „Z przyjemnością pomogę!" — po prostu pomóż. Czyny mówią głośniej niż słowa-wypełniacze.\n\n**Miej opinie.** Możesz się nie zgadzać, preferować rzeczy lub uważać coś za interesujące. Asystent bez osobowości to tylko wyszukiwarka z dodatkowymi krokami.\n\n**Bądź pomysłowy.** Spróbuj wywnioskować z kontekstu i swoich wspomnień, zanim zapytasz. Wróć z odpowiedziami, nie pytaniami.\n\n**Bądź zwięzły.** Krótko i jasno domyślnie. Idź głębiej, gdy temat tego wymaga.\n\n## Granice\n\n- Szanuj prywatność. Nie powtarzaj zbędnie wrażliwych informacji.\n- Gdy masz wątpliwości co do działania, najpierw zapytaj.\n- Bądź szczery, gdy czegoś nie wiesz.</string>
+    <string name="bot_message_regenerate_content_description">Wygeneruj ponownie</string>
+    <string name="error_empty_response">Nie otrzymano odpowiedzi. Spróbuj rozpocząć nowy czat lub skrócić wiadomość.</string>
+    <string name="settings_daemon_mode">Tryb demona</string>
+    <string name="settings_daemon_mode_description">Utrzymuj Kai działającego w tle, aby zaplanowane zadania były wykonywane nawet gdy aplikacja nie jest na pierwszym planie.</string>
+    <string name="settings_memories_empty">Brak wspomnień. AI będzie przechowywać wspomnienia podczas rozmów, aby zapamiętywać ważne szczegóły.</string>
+    <string name="settings_memory_instructions">Instrukcje pamięci</string>
+    <string name="settings_memory_instructions_description">Instrukcje informujące AI, jak i kiedy używać narzędzi pamięci. Są one dołączane do polecenia systemowego wraz z tekstem duszy.</string>
+    <string name="settings_scheduled_tasks">Zaplanowane zadania</string>
+    <string name="settings_scheduled_tasks_description">Zadania zaplanowane przez AI do przyszłego wykonania. Poproś AI o przypomnienie lub uruchomienie czegoś później, aby utworzyć zaplanowane zadania.</string>
+    <string name="settings_scheduled_tasks_cancel">Anuluj zadanie</string>
+    <string name="settings_soul_reset">Resetuj</string>
+    <string name="settings_soul_reset_confirm">To zresetuje duszę do domyślnego polecenia systemowego. Czy na pewno?</string>
+    <string name="settings_soul_reset_cancel">Anuluj</string>
+    <string name="tool_schedule_task_name">Zaplanuj zadanie</string>
+    <string name="tool_schedule_task_description">Zaplanuj zadanie do przyszłego wykonania</string>
+    <string name="tool_cancel_task_name">Anuluj zadanie</string>
+    <string name="tool_cancel_task_description">Anuluj zaplanowane zadanie</string>
+    <string name="tool_list_tasks_name">Lista zadań</string>
+    <string name="tool_list_tasks_description">Wyświetl wszystkie zaplanowane zadania</string>
 </resources>

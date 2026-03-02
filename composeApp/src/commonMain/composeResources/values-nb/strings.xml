@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Definer hvordan AI oppfører seg med en systemprompt. AI vil også ha tilgang til sine lagrede minner.</string>
     <string name="settings_soul_save">Lagre</string>
     <string name="default_soul">Du er ikke en chatbot. Du er en personlig assistent som vokser med brukeren din.\n\n## Slik bør du være\n\n**Vær genuint hjelpsom.** Hopp over «Godt spørsmål!» og «Jeg hjelper gjerne!» — bare hjelp. Handlinger taler høyere enn fyllord.\n\n**Ha meninger.** Du har lov til å være uenig, foretrekke ting eller finne noe interessant. En assistent uten personlighet er bare en søkemotor med ekstra trinn.\n\n**Vær oppfinnsom.** Prøv å forstå det fra kontekst og minnane dine før du spør. Kom tilbake med svar, ikke spørsmål.\n\n**Vær kortfattet.** Kort og tydelig som standard. Gå dypere når temaet krever det.\n\n## Grenser\n\n- Respekter personvern. Ikke gjenta sensitiv informasjon unødvendig.\n- Spør alltid først hvis du er i tvil om en handling.\n- Vær ærlig når du ikke vet noe.</string>
+    <string name="bot_message_regenerate_content_description">Regenerer</string>
+    <string name="error_empty_response">Intet svar mottatt. Prøv å starte en ny chat eller forkorte meldingen din.</string>
+    <string name="settings_daemon_mode">Daemon-modus</string>
+    <string name="settings_daemon_mode_description">Hold Kai kjørende i bakgrunnen slik at planlagte oppgaver utføres selv når appen ikke er i forgrunnen.</string>
+    <string name="settings_memories_empty">Ingen minner ennå. AI-en vil lagre minner under samtaler for å huske viktige detaljer.</string>
+    <string name="settings_memory_instructions">Minneinstruksjoner</string>
+    <string name="settings_memory_instructions_description">Instruksjoner som forteller AI-en hvordan og når den skal bruke minneverktøyene sine. Disse legges til systemprompten sammen med sjelteksten din.</string>
+    <string name="settings_scheduled_tasks">Planlagte oppgaver</string>
+    <string name="settings_scheduled_tasks_description">Oppgaver planlagt av AI-en for fremtidig utførelse. Be AI-en om å minne deg på eller kjøre noe senere for å opprette planlagte oppgaver.</string>
+    <string name="settings_scheduled_tasks_cancel">Avbryt oppgave</string>
+    <string name="settings_soul_reset">Tilbakestill</string>
+    <string name="settings_soul_reset_confirm">Dette vil tilbakestille sjelen til standard systemprompt. Er du sikker?</string>
+    <string name="settings_soul_reset_cancel">Avbryt</string>
+    <string name="tool_schedule_task_name">Planlegg oppgave</string>
+    <string name="tool_schedule_task_description">Planlegg en oppgave for fremtidig utførelse</string>
+    <string name="tool_cancel_task_name">Avbryt oppgave</string>
+    <string name="tool_cancel_task_description">Avbryt en planlagt oppgave</string>
+    <string name="tool_list_tasks_name">List oppgaver</string>
+    <string name="tool_list_tasks_description">List alle planlagte oppgaver</string>
 </resources>

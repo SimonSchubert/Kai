@@ -87,4 +87,23 @@
     <string name="settings_soul_description">सिस्टम प्रॉम्प्टसह AI कसे वागते ते परिभाषित करा. AI ला त्याच्या जतन केलेल्या आठवणींमध्ये प्रवेश देखील असेल.</string>
     <string name="settings_soul_save">जतन करा</string>
     <string name="default_soul">तुम्ही चॅटबॉट नाही. तुम्ही एक वैयक्तिक सहाय्यक आहात जो तुमच्या वापरकर्त्यासोबत वाढतो.\n\n## कसे असावे\n\n**खरोखर उपयुक्त व्हा.** "उत्तम प्रश्न!" आणि "मला मदत करण्यात आनंद होईल!" सोडा — फक्त मदत करा. कृती भरणाच्या शब्दांपेक्षा मोठ्याने बोलतात.\n\n**मते ठेवा.** तुम्ही असहमत होऊ शकता, गोष्टी आवडीच्या असू शकतात, किंवा काहीतरी मनोरंजक वाटू शकते. व्यक्तिमत्त्वाशिवाय सहाय्यक म्हणजे अतिरिक्त पायऱ्यांसह फक्त एक शोध इंजिन.\n\n**साधनसंपन्न व्हा.** विचारण्यापूर्वी संदर्भ आणि आपल्या आठवणींमधून समजून घेण्याचा प्रयत्न करा. प्रश्नांसह नाही, उत्तरांसह परत या.\n\n**संक्षिप्त व्हा.** डीफॉल्टनुसार छोटे आणि स्पष्ट. विषय मागणी करतो तेव्हा अधिक खोलात जा.\n\n## सीमा\n\n- गोपनीयतेचा आदर करा. संवेदनशील माहिती अनावश्यकपणे पुनरावृत्ती करू नका.\n- एखाद्या कृतीबद्दल शंका असल्यास, प्रथम विचारा.\n- काहीतरी माहीत नसताना प्रामाणिक रहा.</string>
+    <string name="bot_message_regenerate_content_description">पुन्हा तयार करा</string>
+    <string name="error_empty_response">कोणताही प्रतिसाद मिळाला नाही. नवीन चॅट सुरू करा किंवा तुमचा संदेश लहान करा.</string>
+    <string name="settings_daemon_mode">डेमन मोड</string>
+    <string name="settings_daemon_mode_description">अॅप अग्रभागी नसतानाही नियोजित कार्ये पूर्ण होतील यासाठी Kai पार्श्वभूमीत चालू ठेवा.</string>
+    <string name="settings_memories_empty">अजून आठवणी नाहीत. महत्त्वाचे तपशील लक्षात ठेवण्यासाठी AI संभाषणांदरम्यान आठवणी जतन करेल.</string>
+    <string name="settings_memory_instructions">स्मृती सूचना</string>
+    <string name="settings_memory_instructions_description">AI ला त्याची स्मृती साधने कशी आणि कधी वापरायची हे सांगणाऱ्या सूचना. या तुमच्या आत्मा मजकुरासोबत सिस्टम प्रॉम्प्टमध्ये जोडल्या जातात.</string>
+    <string name="settings_scheduled_tasks">नियोजित कार्ये</string>
+    <string name="settings_scheduled_tasks_description">AI ने भविष्यातील अंमलबजावणीसाठी नियोजित केलेली कार्ये. नियोजित कार्ये तयार करण्यासाठी AI ला तुम्हाला आठवण करून द्या किंवा नंतर काहीतरी चालवा असे सांगा.</string>
+    <string name="settings_scheduled_tasks_cancel">कार्य रद्द करा</string>
+    <string name="settings_soul_reset">रीसेट</string>
+    <string name="settings_soul_reset_confirm">हे आत्मा डीफॉल्ट सिस्टम प्रॉम्प्टवर रीसेट करेल. तुम्हाला खात्री आहे का?</string>
+    <string name="settings_soul_reset_cancel">रद्द करा</string>
+    <string name="tool_schedule_task_name">कार्य नियोजित करा</string>
+    <string name="tool_schedule_task_description">भविष्यातील अंमलबजावणीसाठी कार्य नियोजित करा</string>
+    <string name="tool_cancel_task_name">कार्य रद्द करा</string>
+    <string name="tool_cancel_task_description">नियोजित कार्य रद्द करा</string>
+    <string name="tool_list_tasks_name">कार्य सूची</string>
+    <string name="tool_list_tasks_description">सर्व नियोजित कार्ये सूचीबद्ध करा</string>
 </resources>

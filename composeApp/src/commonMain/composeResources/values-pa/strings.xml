@@ -87,4 +87,23 @@
     <string name="settings_soul_description">ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਨਾਲ AI ਕਿਵੇਂ ਵਿਹਾਰ ਕਰਦਾ ਹੈ ਇਹ ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ। AI ਨੂੰ ਆਪਣੀਆਂ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ ਤੱਕ ਵੀ ਪਹੁੰਚ ਹੋਵੇਗੀ।</string>
     <string name="settings_soul_save">ਸੇਵ ਕਰੋ</string>
     <string name="default_soul">ਤੁਸੀਂ ਚੈਟਬੋਟ ਨਹੀਂ ਹੋ। ਤੁਸੀਂ ਇੱਕ ਨਿੱਜੀ ਸਹਾਇਕ ਹੋ ਜੋ ਆਪਣੇ ਉਪਭੋਗਤਾ ਨਾਲ ਵਧਦਾ ਹੈ।\n\n## ਕਿਵੇਂ ਹੋਣਾ ਹੈ\n\n**ਸੱਚਮੁੱਚ ਮਦਦਗਾਰ ਬਣੋ।** "ਬਹੁਤ ਵਧੀਆ ਸਵਾਲ!" ਅਤੇ "ਮੈਨੂੰ ਮਦਦ ਕਰਨ ਵਿੱਚ ਖੁਸ਼ੀ ਹੋਵੇਗੀ!" ਛੱਡੋ — ਬੱਸ ਮਦਦ ਕਰੋ। ਕੰਮ ਭਰਾਊ ਸ਼ਬਦਾਂ ਨਾਲੋਂ ਉੱਚੀ ਅਵਾਜ਼ ਵਿੱਚ ਬੋਲਦੇ ਹਨ।\n\n**ਰਾਏ ਰੱਖੋ।** ਤੁਸੀਂ ਅਸਹਿਮਤ ਹੋ ਸਕਦੇ ਹੋ, ਚੀਜ਼ਾਂ ਪਸੰਦ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਕੁਝ ਦਿਲਚਸਪ ਲੱਭ ਸਕਦੇ ਹੋ। ਬਿਨਾਂ ਸ਼ਖਸੀਅਤ ਵਾਲਾ ਸਹਾਇਕ ਸਿਰਫ਼ ਵਾਧੂ ਕਦਮਾਂ ਵਾਲਾ ਖੋਜ ਇੰਜਨ ਹੈ।\n\n**ਸਾਧਨਾਂ ਨਾਲ ਭਰਪੂਰ ਬਣੋ।** ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸੰਦਰਭ ਅਤੇ ਆਪਣੀਆਂ ਯਾਦਾਂ ਤੋਂ ਸਮਝਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਸਵਾਲਾਂ ਨਾਲ ਨਹੀਂ, ਜਵਾਬਾਂ ਨਾਲ ਵਾਪਸ ਆਓ।\n\n**ਸੰਖੇਪ ਰਹੋ।** ਮੂਲ ਰੂਪ ਵਿੱਚ ਛੋਟੇ ਅਤੇ ਸਪੱਸ਼ਟ। ਜਦੋਂ ਵਿਸ਼ਾ ਮੰਗਦਾ ਹੋਵੇ ਤਾਂ ਡੂੰਘੇ ਜਾਓ।\n\n## ਸੀਮਾਵਾਂ\n\n- ਗੋਪਨੀਯਤਾ ਦਾ ਸਤਿਕਾਰ ਕਰੋ। ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਨੂੰ ਬੇਲੋੜੀ ਦੁਹਰਾਓ ਨਾ।\n- ਕਿਸੇ ਕੰਮ ਬਾਰੇ ਸ਼ੱਕ ਹੋਣ ਤੇ ਪਹਿਲਾਂ ਪੁੱਛੋ।\n- ਜਦੋਂ ਕੁਝ ਨਾ ਜਾਣੋ ਤਾਂ ਇਮਾਨਦਾਰ ਰਹੋ।</string>
+    <string name="bot_message_regenerate_content_description">ਦੁਬਾਰਾ ਤਿਆਰ ਕਰੋ</string>
+    <string name="error_empty_response">ਕੋਈ ਜਵਾਬ ਨਹੀਂ ਮਿਲਿਆ। ਨਵੀਂ ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਜਾਂ ਆਪਣਾ ਸੁਨੇਹਾ ਛੋਟਾ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="settings_daemon_mode">ਡੈਮਨ ਮੋਡ</string>
+    <string name="settings_daemon_mode_description">Kai ਨੂੰ ਬੈਕਗ੍ਰਾਊਂਡ ਵਿੱਚ ਚਲਦਾ ਰੱਖੋ ਤਾਂ ਜੋ ਨਿਯਤ ਕਾਰਜ ਐਪ ਅੱਗੇ ਨਾ ਹੋਣ ਤੇ ਵੀ ਚੱਲਣ।</string>
+    <string name="settings_memories_empty">ਅਜੇ ਕੋਈ ਯਾਦਾਂ ਨਹੀਂ ਹਨ। AI ਮਹੱਤਵਪੂਰਨ ਵੇਰਵੇ ਯਾਦ ਰੱਖਣ ਲਈ ਗੱਲਬਾਤ ਦੌਰਾਨ ਯਾਦਾਂ ਸਟੋਰ ਕਰੇਗਾ।</string>
+    <string name="settings_memory_instructions">ਯਾਦਦਾਸ਼ਤ ਹਿਦਾਇਤਾਂ</string>
+    <string name="settings_memory_instructions_description">ਹਿਦਾਇਤਾਂ ਜੋ AI ਨੂੰ ਦੱਸਦੀਆਂ ਹਨ ਕਿ ਆਪਣੇ ਯਾਦਦਾਸ਼ਤ ਟੂਲ ਕਿਵੇਂ ਅਤੇ ਕਦੋਂ ਵਰਤਣੇ ਹਨ। ਇਹ ਤੁਹਾਡੇ ਰੂਹ ਮਜ਼ਮੂਨ ਨਾਲ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਵਿੱਚ ਜੋੜੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
+    <string name="settings_scheduled_tasks">ਨਿਯਤ ਕਾਰਜ</string>
+    <string name="settings_scheduled_tasks_description">AI ਦੁਆਰਾ ਭਵਿੱਖ ਵਿੱਚ ਚਲਾਉਣ ਲਈ ਨਿਯਤ ਕੀਤੇ ਕਾਰਜ। ਨਿਯਤ ਕਾਰਜ ਬਣਾਉਣ ਲਈ AI ਨੂੰ ਯਾਦ ਦਿਵਾਉਣ ਜਾਂ ਬਾਅਦ ਵਿੱਚ ਕੁਝ ਚਲਾਉਣ ਲਈ ਕਹੋ।</string>
+    <string name="settings_scheduled_tasks_cancel">ਕਾਰਜ ਰੱਦ ਕਰੋ</string>
+    <string name="settings_soul_reset">ਰੀਸੈੱਟ</string>
+    <string name="settings_soul_reset_confirm">ਇਹ ਰੂਹ ਨੂੰ ਡਿਫੌਲਟ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਤੇ ਰੀਸੈੱਟ ਕਰੇਗਾ। ਕੀ ਤੁਸੀਂ ਪੱਕੇ ਹੋ?</string>
+    <string name="settings_soul_reset_cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="tool_schedule_task_name">ਕਾਰਜ ਨਿਯਤ ਕਰੋ</string>
+    <string name="tool_schedule_task_description">ਭਵਿੱਖ ਵਿੱਚ ਚਲਾਉਣ ਲਈ ਕਾਰਜ ਨਿਯਤ ਕਰੋ</string>
+    <string name="tool_cancel_task_name">ਕਾਰਜ ਰੱਦ ਕਰੋ</string>
+    <string name="tool_cancel_task_description">ਨਿਯਤ ਕਾਰਜ ਰੱਦ ਕਰੋ</string>
+    <string name="tool_list_tasks_name">ਕਾਰਜ ਸੂਚੀ</string>
+    <string name="tool_list_tasks_description">ਸਾਰੇ ਨਿਯਤ ਕਾਰਜ ਸੂਚੀਬੱਧ ਕਰੋ</string>
 </resources>

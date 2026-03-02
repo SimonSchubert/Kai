@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUserMessage
 import io.github.vinceglb.filekit.PlatformFile
@@ -19,6 +20,7 @@ import kotlin.coroutines.CoroutineContext
 
 class ChatViewModel(
     private val dataRepository: DataRepository,
+    private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) : ViewModel() {
 
@@ -45,6 +47,7 @@ class ChatViewModel(
             dataRepository.loadConversations()
             dataRepository.restoreLatestConversation()
         }
+        taskScheduler.start(viewModelScope) { _state.value.isLoading }
     }
 
     val state = combine(

@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Määrake, kuidas AI süsteemi promptiga käitub. AI-l on juurdepääs ka oma salvestatud mälestustele.</string>
     <string name="settings_soul_save">Salvesta</string>
     <string name="default_soul">Sa ei ole chatbot. Sa oled isiklik assistent, kes kasvab koos oma kasutajaga.\n\n## Kuidas olla\n\n**Ole tõeliselt abivalmis.** Jäta ära «Suurepärane küsimus!» ja «Aitan hea meelega!» — lihtsalt aita. Teod kõnelevad täitesõnadest valjemini.\n\n**Oma arvamusi.** Sul on õigus mitte nõustuda, eelistada asju või leida midagi huvitavat. Assistent ilma isiksuseta on lihtsalt otsingumootor lisasammudega.\n\n**Ole leidlik.** Proovi kontekstist ja mälestustest aru saada enne küsimist. Tule tagasi vastustega, mitte küsimustega.\n\n**Ole lühidalt.** Vaikimisi lühike ja selge. Mine sügavamale, kui teema seda nõuab.\n\n## Piirid\n\n- Austa privaatsust. Ära korda tundlikku teavet tarbetult.\n- Kui kahtled tegude puhul, küsi esmalt.\n- Ole aus, kui midagi ei tea.</string>
+    <string name="bot_message_regenerate_content_description">Genereeri uuesti</string>
+    <string name="error_empty_response">Vastust ei saadud. Proovige alustada uut vestlust või lühendada oma sõnumit.</string>
+    <string name="settings_daemon_mode">Taustarežiim</string>
+    <string name="settings_daemon_mode_description">Hoidke Kai taustal töötamas, et ajastatud ülesanded täidetaks isegi siis, kui rakendus pole esiplaanil.</string>
+    <string name="settings_memories_empty">Mälestusi pole veel. AI salvestab vestluste ajal mälestusi, et olulisi üksikasju meeles pidada.</string>
+    <string name="settings_memory_instructions">Mälu juhised</string>
+    <string name="settings_memory_instructions_description">Juhised, mis ütlevad AI-le, kuidas ja millal oma mälutööriistu kasutada. Need lisatakse süsteemiviibale koos teie hingetekstiga.</string>
+    <string name="settings_scheduled_tasks">Ajastatud ülesanded</string>
+    <string name="settings_scheduled_tasks_description">AI poolt tulevikus täitmiseks ajastatud ülesanded. Paluge AI-l teid meelde tuletada või midagi hiljem käivitada, et luua ajastatud ülesandeid.</string>
+    <string name="settings_scheduled_tasks_cancel">Tühista ülesanne</string>
+    <string name="settings_soul_reset">Lähtesta</string>
+    <string name="settings_soul_reset_confirm">See lähtestab hinge vaikimisi süsteemiviibale. Kas olete kindel?</string>
+    <string name="settings_soul_reset_cancel">Tühista</string>
+    <string name="tool_schedule_task_name">Ajasta ülesanne</string>
+    <string name="tool_schedule_task_description">Ajasta ülesanne tulevikus täitmiseks</string>
+    <string name="tool_cancel_task_name">Tühista ülesanne</string>
+    <string name="tool_cancel_task_description">Tühista ajastatud ülesanne</string>
+    <string name="tool_list_tasks_name">Ülesannete loend</string>
+    <string name="tool_list_tasks_description">Kuva kõik ajastatud ülesanded</string>
 </resources>

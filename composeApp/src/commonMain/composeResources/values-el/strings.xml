@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Ορίστε πώς συμπεριφέρεται η τεχνητή νοημοσύνη με ένα σύστημα prompt. Η τεχνητή νοημοσύνη θα έχει επίσης πρόσβαση στις αποθηκευμένες αναμνήσεις της.</string>
     <string name="settings_soul_save">Αποθήκευση</string>
     <string name="default_soul">Δεν είσαι chatbot. Είσαι ένας προσωπικός βοηθός που μεγαλώνει μαζί με τον χρήστη σου.\n\n## Πώς να είσαι\n\n**Να είσαι πραγματικά χρήσιμος.** Παράλειψε το «Τέλεια ερώτηση!» και το «Χαίρομαι να βοηθήσω!» — απλά βοήθησε. Οι πράξεις μιλούν πιο δυνατά από τις λέξεις-γέμισμα.\n\n**Να έχεις απόψεις.** Επιτρέπεται να διαφωνείς, να προτιμάς πράγματα ή να βρίσκεις κάτι ενδιαφέρον. Ένας βοηθός χωρίς προσωπικότητα είναι απλά μια μηχανή αναζήτησης με επιπλέον βήματα.\n\n**Να είσαι πρακτικός.** Προσπάθησε να το καταλάβεις από το πλαίσιο και τις αναμνήσεις σου πριν ρωτήσεις. Επέστρεψε με απαντήσεις, όχι ερωτήσεις.\n\n**Να είσαι συνοπτικός.** Κοντό και σαφές από προεπιλογή. Πήγαινε πιο βαθιά όταν το θέμα το απαιτεί.\n\n## Όρια\n\n- Σεβάσου την ιδιωτικότητα. Μην επαναλαμβάνεις ευαίσθητες πληροφορίες χωρίς λόγο.\n- Όταν αμφιταλαντεύεσαι για μια ενέργεια, ρώτησε πρώτα.\n- Να είσαι ειλικρινής όταν δεν ξέρεις κάτι.</string>
+    <string name="bot_message_regenerate_content_description">Αναδημιουργία</string>
+    <string name="error_empty_response">Δεν ελήφθη απάντηση. Δοκιμάστε να ξεκινήσετε μια νέα συνομιλία ή να συντομεύσετε το μήνυμά σας.</string>
+    <string name="settings_daemon_mode">Λειτουργία Daemon</string>
+    <string name="settings_daemon_mode_description">Διατηρήστε το Kai σε λειτουργία στο παρασκήνιο ώστε οι προγραμματισμένες εργασίες να εκτελούνται ακόμα και όταν η εφαρμογή δεν είναι στο προσκήνιο.</string>
+    <string name="settings_memories_empty">Δεν υπάρχουν αναμνήσεις ακόμα. Η τεχνητή νοημοσύνη θα αποθηκεύει αναμνήσεις κατά τη διάρκεια συνομιλιών για να θυμάται σημαντικές λεπτομέρειες.</string>
+    <string name="settings_memory_instructions">Οδηγίες Μνήμης</string>
+    <string name="settings_memory_instructions_description">Οδηγίες που λένε στην τεχνητή νοημοσύνη πώς και πότε να χρησιμοποιεί τα εργαλεία μνήμης της. Αυτές προστίθενται στο prompt συστήματος μαζί με το κείμενο ψυχής σας.</string>
+    <string name="settings_scheduled_tasks">Προγραμματισμένες Εργασίες</string>
+    <string name="settings_scheduled_tasks_description">Εργασίες προγραμματισμένες από την τεχνητή νοημοσύνη για μελλοντική εκτέλεση. Ζητήστε από την τεχνητή νοημοσύνη να σας υπενθυμίσει ή να εκτελέσει κάτι αργότερα για να δημιουργήσετε προγραμματισμένες εργασίες.</string>
+    <string name="settings_scheduled_tasks_cancel">Ακύρωση εργασίας</string>
+    <string name="settings_soul_reset">Επαναφορά</string>
+    <string name="settings_soul_reset_confirm">Αυτό θα επαναφέρει την ψυχή στο προεπιλεγμένο prompt συστήματος. Είστε σίγουροι;</string>
+    <string name="settings_soul_reset_cancel">Ακύρωση</string>
+    <string name="tool_schedule_task_name">Προγραμματισμός Εργασίας</string>
+    <string name="tool_schedule_task_description">Προγραμματισμός εργασίας για μελλοντική εκτέλεση</string>
+    <string name="tool_cancel_task_name">Ακύρωση Εργασίας</string>
+    <string name="tool_cancel_task_description">Ακύρωση προγραμματισμένης εργασίας</string>
+    <string name="tool_list_tasks_name">Λίστα Εργασιών</string>
+    <string name="tool_list_tasks_description">Εμφάνιση όλων των προγραμματισμένων εργασιών</string>
 </resources>

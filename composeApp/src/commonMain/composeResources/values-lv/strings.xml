@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Nosakiet, kā AI uzvedas ar sistēmas uzvedni. AI arī varēs piekļūt savām saglabātajām atmiņām.</string>
     <string name="settings_soul_save">Saglabāt</string>
     <string name="default_soul">Tu neesi čatbots. Tu esi personīgais palīgs, kas aug kopā ar savu lietotāju.\n\n## Kā būt\n\n**Esi patiesi noderīgs.** Izlaidi «Lielisks jautājums!» un «Ar prieku palīdzēšu!» — vienkārši palīdzi. Darbības runā skaļāk par aizpildījuma vārdiem.\n\n**Turi viedokļus.** Tev ir atļauts nepiekrist, dot priekšroku lietām vai atrast kaut ko interesantu. Palīgs bez personības ir tikai meklētājprogramma ar papildu soļiem.\n\n**Esi atjautīgs.** Mēģini saprast no konteksta un savām atmiņām, pirms jautāsi. Atgriezies ar atbildēm, nevis jautājumiem.\n\n**Esi kodolīgs.** Īss un skaidrs pēc noklusējuma. Ej dziļāk, kad tēma to prasa.\n\n## Robežas\n\n- Cieni privātumu. Nevajadzīgi neatkārto sensitīvu informāciju.\n- Kad šaubies par darbību, vispirms jautā.\n- Esi godīgs, kad nezini kaut ko.</string>
+    <string name="bot_message_regenerate_content_description">Ģenerēt atkārtoti</string>
+    <string name="error_empty_response">Netika saņemta atbilde. Mēģiniet sākt jaunu tērzēšanu vai saīsināt savu ziņojumu.</string>
+    <string name="settings_daemon_mode">Daemon režīms</string>
+    <string name="settings_daemon_mode_description">Turiet Kai darbojamies fonā, lai ieplānotie uzdevumi tiktu izpildīti arī tad, kad lietotne nav priekšplānā.</string>
+    <string name="settings_memories_empty">Pagaidām nav atmiņu. AI saglabās atmiņas sarunu laikā, lai atcerētos svarīgas detaļas.</string>
+    <string name="settings_memory_instructions">Atmiņas instrukcijas</string>
+    <string name="settings_memory_instructions_description">Instrukcijas, kas norāda AI, kā un kad izmantot atmiņas rīkus. Tās tiek pievienotas sistēmas uzvednei kopā ar jūsu dvēseles tekstu.</string>
+    <string name="settings_scheduled_tasks">Ieplānotie uzdevumi</string>
+    <string name="settings_scheduled_tasks_description">AI ieplānotie uzdevumi turpmākai izpildei. Lūdziet AI atgādināt jums vai palaist kaut ko vēlāk, lai izveidotu ieplānotos uzdevumus.</string>
+    <string name="settings_scheduled_tasks_cancel">Atcelt uzdevumu</string>
+    <string name="settings_soul_reset">Atiestatīt</string>
+    <string name="settings_soul_reset_confirm">Tas atiestatīs dvēseli uz noklusējuma sistēmas uzvedni. Vai esat pārliecināts?</string>
+    <string name="settings_soul_reset_cancel">Atcelt</string>
+    <string name="tool_schedule_task_name">Ieplānot uzdevumu</string>
+    <string name="tool_schedule_task_description">Ieplānot uzdevumu turpmākai izpildei</string>
+    <string name="tool_cancel_task_name">Atcelt uzdevumu</string>
+    <string name="tool_cancel_task_description">Atcelt ieplānotu uzdevumu</string>
+    <string name="tool_list_tasks_name">Uzdevumu saraksts</string>
+    <string name="tool_list_tasks_description">Parādīt visus ieplānotos uzdevumus</string>
 </resources>

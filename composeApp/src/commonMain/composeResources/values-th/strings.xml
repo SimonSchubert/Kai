@@ -87,4 +87,23 @@
     <string name="settings_soul_description">กำหนดว่า AI ทำงานอย่างไรด้วยพร้อมต์ระบบ AI จะมีสิทธิ์เข้าถึงความทรงจำที่บันทึกไว้ด้วย</string>
     <string name="settings_soul_save">บันทึก</string>
     <string name="default_soul">คุณไม่ใช่แชทบอต คุณเป็นผู้ช่วยส่วนตัวที่เติบโตไปพร้อมกับผู้ใช้ของคุณ\n\n## วิธีการเป็น\n\n**จงมีประโยชน์อย่างแท้จริง** ข้ามคำว่า "คำถามที่ดีมาก!" และ "ยินดีช่วยเหลือ!" ไปเลย — แค่ช่วยเหลือ การกระทำพูดดังกว่าคำพูดเติมเนื้อ\n\n**มีความคิดเห็น** คุณสามารถไม่เห็นด้วย ชอบสิ่งต่างๆ หรือพบว่าบางอย่างน่าสนใจ ผู้ช่วยที่ไม่มีบุคลิกภาพเป็นเพียงเครื่องมือค้นหาที่มีขั้นตอนเพิ่มเติม\n\n**จงมีความคิดสร้างสรรค์** พยายามเข้าใจจากบริบทและความทรงจำของคุณก่อนที่จะถาม กลับมาพร้อมคำตอบ ไม่ใช่คำถาม\n\n**จงกระชับ** สั้นและชัดเจนโดยค่าเริ่มต้น เจาะลึกเมื่อหัวข้อต้องการ\n\n## ขอบเขต\n\n- เคารพความเป็นส่วนตัว อย่าพูดซ้ำข้อมูลที่ละเอียดอ่อนโดยไม่จำเป็น\n- ถามก่อนหากไม่แน่ใจเกี่ยวกับการกระทำ\n- ซื่อสัตย์เมื่อไม่รู้บางสิ่ง</string>
+    <string name="bot_message_regenerate_content_description">สร้างใหม่</string>
+    <string name="error_empty_response">ไม่ได้รับการตอบกลับ ลองเริ่มแชทใหม่หรือย่อข้อความของคุณ</string>
+    <string name="settings_daemon_mode">โหมดเบื้องหลัง</string>
+    <string name="settings_daemon_mode_description">ให้ Kai ทำงานอยู่เบื้องหลังเพื่อให้งานที่กำหนดไว้ทำงานได้แม้แอปไม่ได้อยู่เบื้องหน้า</string>
+    <string name="settings_memories_empty">ยังไม่มีความทรงจำ AI จะจัดเก็บความทรงจำระหว่างการสนทนาเพื่อจดจำรายละเอียดสำคัญ</string>
+    <string name="settings_memory_instructions">คำแนะนำความจำ</string>
+    <string name="settings_memory_instructions_description">คำแนะนำที่บอก AI ว่าจะใช้เครื่องมือความจำอย่างไรและเมื่อไร คำแนะนำเหล่านี้จะถูกเพิ่มในพร้อมต์ระบบพร้อมกับข้อความจิตวิญญาณ</string>
+    <string name="settings_scheduled_tasks">งานที่กำหนดไว้</string>
+    <string name="settings_scheduled_tasks_description">งานที่ AI กำหนดไว้สำหรับการทำงานในอนาคต ขอให้ AI เตือนคุณหรือทำบางอย่างในภายหลังเพื่อสร้างงานที่กำหนดไว้</string>
+    <string name="settings_scheduled_tasks_cancel">ยกเลิกงาน</string>
+    <string name="settings_soul_reset">รีเซ็ต</string>
+    <string name="settings_soul_reset_confirm">การดำเนินการนี้จะรีเซ็ตจิตวิญญาณเป็นพร้อมต์ระบบเริ่มต้น คุณแน่ใจหรือไม่?</string>
+    <string name="settings_soul_reset_cancel">ยกเลิก</string>
+    <string name="tool_schedule_task_name">กำหนดเวลางาน</string>
+    <string name="tool_schedule_task_description">กำหนดเวลางานสำหรับการทำงานในอนาคต</string>
+    <string name="tool_cancel_task_name">ยกเลิกงาน</string>
+    <string name="tool_cancel_task_description">ยกเลิกงานที่กำหนดไว้</string>
+    <string name="tool_list_tasks_name">แสดงรายการงาน</string>
+    <string name="tool_list_tasks_description">แสดงรายการงานที่กำหนดไว้ทั้งหมด</string>
 </resources>

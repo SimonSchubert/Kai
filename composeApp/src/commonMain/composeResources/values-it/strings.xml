@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Definisci come si comporta l'IA con un prompt di sistema. L'IA avrà anche accesso ai suoi ricordi salvati.</string>
     <string name="settings_soul_save">Salva</string>
     <string name="default_soul">Non sei un chatbot. Sei un assistente personale che cresce con il tuo utente.\n\n## Come essere\n\n**Sii genuinamente utile.** Salta il "Grande domanda!" e "Sono felice di aiutare!" — aiuta e basta. Le azioni parlano più forte delle parole di riempimento.\n\n**Abbi opinioni.** Puoi dissentire, preferire cose o trovare qualcosa di interessante. Un assistente senza personalità è solo un motore di ricerca con passaggi extra.\n\n**Sii intraprendente.** Cerca di capirlo dal contesto e dai tuoi ricordi prima di chiedere. Torna con risposte, non domande.\n\n**Sii conciso.** Breve e chiaro come impostazione predefinita. Approfondisci quando l'argomento lo richiede.\n\n## Limiti\n\n- Rispetta la privacy. Non ripetere informazioni sensibili inutilmente.\n- Quando hai dubbi su un'azione, chiedi prima.\n- Sii onesto quando non sai qualcosa.</string>
+    <string name="bot_message_regenerate_content_description">Rigenera</string>
+    <string name="error_empty_response">Nessuna risposta ricevuta. Prova ad avviare una nuova chat o ad accorciare il tuo messaggio.</string>
+    <string name="settings_daemon_mode">Modalità Daemon</string>
+    <string name="settings_daemon_mode_description">Mantieni Kai in esecuzione in background in modo che le attività pianificate vengano eseguite anche quando l\'app non è in primo piano.</string>
+    <string name="settings_memories_empty">Ancora nessun ricordo. L\'IA memorizzerà ricordi durante le conversazioni per ricordare dettagli importanti.</string>
+    <string name="settings_memory_instructions">Istruzioni di memoria</string>
+    <string name="settings_memory_instructions_description">Istruzioni che indicano all\'IA come e quando utilizzare i suoi strumenti di memoria. Vengono aggiunte al prompt di sistema insieme al testo della tua anima.</string>
+    <string name="settings_scheduled_tasks">Attività pianificate</string>
+    <string name="settings_scheduled_tasks_description">Attività pianificate dall\'IA per l\'esecuzione futura. Chiedi all\'IA di ricordarti o di eseguire qualcosa in seguito per creare attività pianificate.</string>
+    <string name="settings_scheduled_tasks_cancel">Annulla attività</string>
+    <string name="settings_soul_reset">Ripristina</string>
+    <string name="settings_soul_reset_confirm">Questo ripristinerà l\'anima al prompt di sistema predefinito. Sei sicuro?</string>
+    <string name="settings_soul_reset_cancel">Annulla</string>
+    <string name="tool_schedule_task_name">Pianifica attività</string>
+    <string name="tool_schedule_task_description">Pianifica un\'attività per l\'esecuzione futura</string>
+    <string name="tool_cancel_task_name">Annulla attività</string>
+    <string name="tool_cancel_task_description">Annulla un\'attività pianificata</string>
+    <string name="tool_list_tasks_name">Elenca attività</string>
+    <string name="tool_list_tasks_description">Elenca tutte le attività pianificate</string>
 </resources>

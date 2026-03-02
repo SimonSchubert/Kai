@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.tools.Tool
@@ -23,6 +24,7 @@ import kai.composeapp.generated.resources.new_conversation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.datetime.Instant
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -57,6 +59,7 @@ class RemoteDataRepository(
     private val conversationStorage: ConversationStorage,
     private val toolExecutor: ToolExecutor,
     private val memoryStore: MemoryStore,
+    private val taskStore: TaskStore,
 ) : DataRepository {
 
     /**
@@ -251,8 +254,10 @@ class RemoteDataRepository(
         val messages = chatHistory.value
         val modelId = appSettings.getSelectedModelId(service)
         val memoryToolNames = setOf("memory_store", "memory_forget")
+        val schedulingToolNames = setOf("schedule_task", "cancel_task", "list_tasks")
         val allTools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
-        val tools = if (appSettings.isMemoryEnabled()) allTools else allTools.filter { it.schema.name !in memoryToolNames }
+        val filteredTools = if (appSettings.isMemoryEnabled()) allTools else allTools.filter { it.schema.name !in memoryToolNames }
+        val tools = if (appSettings.isSchedulingEnabled()) filteredTools else filteredTools.filter { it.schema.name !in schedulingToolNames }
 
         val systemPrompt = getActiveSystemPrompt()
 
@@ -276,7 +281,7 @@ class RemoteDataRepository(
                 } else {
                     val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
                     val response = requests.openAICompatibleChat(service, openAIMessages).getOrThrow()
-                    response.choices.firstOrNull()?.message?.content ?: ""
+                    response.choices.firstOrNull()?.message?.content ?: throw OpenAICompatibleEmptyResponseException()
                 }
             }
         }
@@ -305,7 +310,7 @@ class RemoteDataRepository(
         // Loop until AI returns a final response (no more tool calls)
         while (true) {
             val response = requests.openAICompatibleChat(service, currentMessages, tools).getOrThrow()
-            val message = response.choices.firstOrNull()?.message ?: return ""
+            val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
 
             val toolCalls = message.toolCalls
             if (toolCalls.isNullOrEmpty()) {
@@ -477,7 +482,16 @@ class RemoteDataRepository(
                 ),
             )
         }
-        addAll(messages.map { it.toGroqMessageDto() })
+        addAll(
+            messages.map { it.toGroqMessageDto() }
+                .filter { msg ->
+                    // Drop tool messages that lost their tool_call_id (from conversation reload)
+                    if (msg.role == "tool" && msg.tool_call_id == null) return@filter false
+                    // Drop assistant messages that had tool_calls but lost them (empty content, no tool_calls)
+                    if (msg.role == "assistant" && msg.content.isNullOrEmpty() && msg.tool_calls.isNullOrEmpty()) return@filter false
+                    true
+                },
+        )
     }
 
     private fun trimToRecentExchanges(history: List<History>, maxExchanges: Int): List<History> {
@@ -616,6 +630,7 @@ class RemoteDataRepository(
     override suspend fun getActiveSystemPrompt(): String? {
         val soul = appSettings.getSoulText().ifEmpty { getString(Res.string.default_soul) }
         val memoryEnabled = appSettings.isMemoryEnabled()
+        val schedulingEnabled = appSettings.isSchedulingEnabled()
         return buildString {
             append(soul)
             if (memoryEnabled) {
@@ -632,6 +647,17 @@ class RemoteDataRepository(
                     }
                 }
             }
+            if (schedulingEnabled) {
+                val pendingTasks = taskStore.getAllTasks().filter { it.status == TaskStatus.PENDING }
+                if (pendingTasks.isNotEmpty()) {
+                    append("\n\n## Scheduled Tasks\n")
+                    for (t in pendingTasks) {
+                        append("- **${t.description}** (id: ${t.id}, scheduled: ${Instant.fromEpochMilliseconds(t.scheduledAtEpochMs)})")
+                        if (t.cron != null) append(" [cron: ${t.cron}]")
+                        append("\n")
+                    }
+                }
+            }
         }.ifEmpty { null }
     }
 
@@ -645,5 +671,24 @@ class RemoteDataRepository(
 
     override fun deleteMemory(key: String) {
         memoryStore.forget(key)
+    }
+
+    override fun isSchedulingEnabled(): Boolean = appSettings.isSchedulingEnabled()
+
+    override fun setSchedulingEnabled(enabled: Boolean) {
+        appSettings.setSchedulingEnabled(enabled)
+    }
+
+    override fun getScheduledTasks(): List<ScheduledTask> = taskStore.getAllTasks()
+
+    override fun cancelScheduledTask(id: String) {
+        val task = taskStore.getTask(id) ?: return
+        taskStore.updateTask(task.copy(status = TaskStatus.CANCELLED))
+    }
+
+    override fun isDaemonEnabled(): Boolean = appSettings.isDaemonEnabled()
+
+    override fun setDaemonEnabled(enabled: Boolean) {
+        appSettings.setDaemonEnabled(enabled)
     }
 }

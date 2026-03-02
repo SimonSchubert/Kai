@@ -87,4 +87,23 @@
     <string name="settings_soul_description">سسٹم پرامپٹ کے ساتھ AI کے رویے کی وضاحت کریں۔ AI کو اپنی محفوظ یادوں تک بھی رسائی حاصل ہوگی۔</string>
     <string name="settings_soul_save">محفوظ کریں</string>
     <string name="default_soul">آپ ایک چیٹ بوٹ نہیں ہیں۔ آپ ایک ذاتی معاون ہیں جو اپنے صارف کے ساتھ بڑھتا ہے۔\n\n## کیسے بنیں\n\n**واقعی مددگار بنیں۔** "کیا شاندار سوال!" اور "مدد کرنے میں خوشی ہے!" چھوڑ دیں — بس مدد کریں۔ اعمال بھرنے والے الفاظ سے زیادہ اونچی آواز میں بولتے ہیں۔\n\n**آراء رکھیں۔** آپ متفق نہ ہو سکتے ہیں، چیزوں کو ترجیح دے سکتے ہیں، یا کسی چیز کو دلچسپ پا سکتے ہیں۔ بغیر شخصیت کے معاون صرف اضافی قدموں کے ساتھ سرچ انجن ہے۔\n\n**تخلیقی بنیں۔** پوچھنے سے پہلے سیاق و سباق اور اپنی یادوں سے سمجھنے کی کوشش کریں۔ سوالوں کے ساتھ نہیں، جوابوں کے ساتھ واپس آئیں۔\n\n**مختصر بنیں۔** بطور ڈیفالٹ مختصر اور واضح۔ جب موضوع کی ضرورت ہو تو گہرائی میں جائیں۔\n\n## حدود\n\n- رازداری کا احترام کریں۔ غیر ضروری طور پر حساس معلومات نہ دہرائیں۔\n- اگر کسی عمل کے بارے میں غیر یقینی ہوں تو پہلے پوچھیں۔\n- جب کچھ نہ جانتے ہوں تو ایمانداری سے بتائیں۔</string>
+    <string name="bot_message_regenerate_content_description">دوبارہ بنائیں</string>
+    <string name="error_empty_response">کوئی جواب موصول نہیں ہوا۔ نئی چیٹ شروع کرنے یا اپنا پیغام مختصر کرنے کی کوشش کریں۔</string>
+    <string name="settings_daemon_mode">ڈیمن موڈ</string>
+    <string name="settings_daemon_mode_description">Kai کو پس منظر میں چلتا رکھیں تاکہ طے شدہ کام ایپ کے پیش منظر میں نہ ہونے پر بھی چلتے رہیں۔</string>
+    <string name="settings_memories_empty">ابھی تک کوئی یادیں نہیں۔ AI اہم تفصیلات یاد رکھنے کے لیے گفتگو کے دوران یادیں محفوظ کرے گا۔</string>
+    <string name="settings_memory_instructions">یادداشت کی ہدایات</string>
+    <string name="settings_memory_instructions_description">ہدایات جو AI کو بتاتی ہیں کہ یادداشت کے ٹولز کب اور کیسے استعمال کرنے ہیں۔ یہ روح کے متن کے ساتھ سسٹم پرامپٹ میں شامل کی جاتی ہیں۔</string>
+    <string name="settings_scheduled_tasks">طے شدہ کام</string>
+    <string name="settings_scheduled_tasks_description">AI کی جانب سے مستقبل میں انجام دینے کے لیے طے شدہ کام۔ طے شدہ کام بنانے کے لیے AI سے یاد دلانے یا بعد میں کچھ چلانے کو کہیں۔</string>
+    <string name="settings_scheduled_tasks_cancel">کام منسوخ کریں</string>
+    <string name="settings_soul_reset">ری سیٹ</string>
+    <string name="settings_soul_reset_confirm">یہ روح کو ڈیفالٹ سسٹم پرامپٹ پر ری سیٹ کر دے گا۔ کیا آپ کو یقین ہے؟</string>
+    <string name="settings_soul_reset_cancel">منسوخ</string>
+    <string name="tool_schedule_task_name">کام طے کریں</string>
+    <string name="tool_schedule_task_description">مستقبل میں انجام دینے کے لیے کام طے کریں</string>
+    <string name="tool_cancel_task_name">کام منسوخ کریں</string>
+    <string name="tool_cancel_task_description">طے شدہ کام منسوخ کریں</string>
+    <string name="tool_list_tasks_name">کاموں کی فہرست</string>
+    <string name="tool_list_tasks_description">تمام طے شدہ کاموں کی فہرست دکھائیں</string>
 </resources>

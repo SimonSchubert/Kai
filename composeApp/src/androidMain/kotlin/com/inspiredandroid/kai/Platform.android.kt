@@ -11,6 +11,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.MemoryStore
+import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -22,6 +23,7 @@ import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsRepository
@@ -95,6 +97,7 @@ actual fun createLegacySettings(): Settings? {
 actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
     CommonTools.localTimeToolInfo,
     CommonTools.ipLocationToolInfo,
+) + SchedulingTools.schedulingToolDefinitions + listOf(
     ToolInfo(
         id = "send_notification",
         name = "Send Notification",
@@ -125,11 +128,15 @@ actual fun getAvailableTools(): List<Tool> {
     val context: Context by inject(Context::class.java)
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
+    val taskStore: TaskStore by inject(TaskStore::class.java)
     val calendarPermissionController: CalendarPermissionController by inject(CalendarPermissionController::class.java)
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
 
     return buildList {
         addAll(CommonTools.getMemoryTools(memoryStore))
+        if (appSettings.isSchedulingEnabled()) {
+            addAll(SchedulingTools.getSchedulingTools(taskStore))
+        }
         if (appSettings.isToolEnabled(CommonTools.localTimeTool.schema.name)) {
             add(CommonTools.localTimeTool)
         }

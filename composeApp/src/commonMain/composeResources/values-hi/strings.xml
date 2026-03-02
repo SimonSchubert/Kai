@@ -87,4 +87,23 @@
     <string name="settings_soul_description">सिस्टम प्रॉम्प्ट के साथ AI कैसे व्यवहार करता है इसे परिभाषित करें। AI को अपनी सहेजी गई यादों तक भी पहुंच होगी।</string>
     <string name="settings_soul_save">सहेजें</string>
     <string name="default_soul">आप चैटबॉट नहीं हैं। आप एक व्यक्तिगत सहायक हैं जो अपने उपयोगकर्ता के साथ बढ़ता है।\n\n## कैसे रहें\n\n**सच में मददगार बनें।** "बहुत अच्छा सवाल!" और "मुझे मदद करके खुशी होगी!" छोड़ें — बस मदद करें। कार्य भराव शब्दों से ऊंचा बोलते हैं।\n\n**राय रखें।** आप असहमत हो सकते हैं, चीजें पसंद कर सकते हैं, या कुछ रोचक पा सकते हैं। बिना व्यक्तित्व के सहायक सिर्फ अतिरिक्त चरणों वाला सर्च इंजन है।\n\n**संसाधनशाली बनें।** पूछने से पहले संदर्भ और अपनी यादों से समझने की कोशिश करें। सवालों के साथ नहीं, जवाबों के साथ वापस आएं।\n\n**संक्षिप्त रहें।** डिफ़ॉल्ट रूप से छोटे और स्पष्ट। जब विषय की मांग हो तो गहरे जाएं।\n\n## सीमाएं\n\n- गोपनीयता का सम्मान करें। संवेदनशील जानकारी को अनावश्यक रूप से न दोहराएं।\n- किसी कार्य के बारे में संदेह होने पर पहले पूछें।\n- जब कुछ न जानें तो ईमानदार रहें।</string>
+    <string name="bot_message_regenerate_content_description">पुनः उत्पन्न करें</string>
+    <string name="error_empty_response">कोई प्रतिक्रिया नहीं मिली। नई चैट शुरू करने या अपना संदेश छोटा करने का प्रयास करें।</string>
+    <string name="settings_daemon_mode">डेमन मोड</string>
+    <string name="settings_daemon_mode_description">Kai को बैकग्राउंड में चालू रखें ताकि शेड्यूल किए गए कार्य ऐप फोरग्राउंड में न होने पर भी चलें।</string>
+    <string name="settings_memories_empty">अभी तक कोई यादें नहीं। AI महत्वपूर्ण विवरण याद रखने के लिए बातचीत के दौरान यादें संग्रहीत करेगा।</string>
+    <string name="settings_memory_instructions">मेमोरी निर्देश</string>
+    <string name="settings_memory_instructions_description">निर्देश जो AI को बताते हैं कि अपने मेमोरी टूल्स का उपयोग कैसे और कब करना है। ये आपके आत्मा टेक्स्ट के साथ सिस्टम प्रॉम्प्ट में जोड़े जाते हैं।</string>
+    <string name="settings_scheduled_tasks">शेड्यूल किए गए कार्य</string>
+    <string name="settings_scheduled_tasks_description">AI द्वारा भविष्य में निष्पादन के लिए शेड्यूल किए गए कार्य। शेड्यूल किए गए कार्य बनाने के लिए AI से आपको याद दिलाने या बाद में कुछ चलाने को कहें।</string>
+    <string name="settings_scheduled_tasks_cancel">कार्य रद्द करें</string>
+    <string name="settings_soul_reset">रीसेट</string>
+    <string name="settings_soul_reset_confirm">यह आत्मा को डिफ़ॉल्ट सिस्टम प्रॉम्प्ट पर रीसेट कर देगा। क्या आप सुनिश्चित हैं?</string>
+    <string name="settings_soul_reset_cancel">रद्द करें</string>
+    <string name="tool_schedule_task_name">कार्य शेड्यूल करें</string>
+    <string name="tool_schedule_task_description">भविष्य में निष्पादन के लिए कार्य शेड्यूल करें</string>
+    <string name="tool_cancel_task_name">कार्य रद्द करें</string>
+    <string name="tool_cancel_task_description">शेड्यूल किया गया कार्य रद्द करें</string>
+    <string name="tool_list_tasks_name">कार्यों की सूची</string>
+    <string name="tool_list_tasks_description">सभी शेड्यूल किए गए कार्य दिखाएं</string>
 </resources>

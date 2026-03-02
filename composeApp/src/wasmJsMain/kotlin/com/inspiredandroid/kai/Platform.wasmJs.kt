@@ -6,9 +6,11 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.MemoryStore
+import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.SchedulingTools
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.StorageSettings
 import io.github.vinceglb.filekit.PlatformFile
@@ -51,8 +53,15 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonTool
 private object WebKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
     val memoryStore: MemoryStore by inject()
+    val taskStore: TaskStore by inject()
 }
 
 actual fun getDeviceLanguage(): String = kotlinx.browser.window.navigator.language.substringBefore("-")
 
-actual fun getAvailableTools(): List<Tool> = CommonTools.getCommonTools(WebKoinHelper.appSettings) + CommonTools.getMemoryTools(WebKoinHelper.memoryStore)
+actual fun getAvailableTools(): List<Tool> = buildList {
+    addAll(CommonTools.getCommonTools(WebKoinHelper.appSettings))
+    addAll(CommonTools.getMemoryTools(WebKoinHelper.memoryStore))
+    if (WebKoinHelper.appSettings.isSchedulingEnabled()) {
+        addAll(SchedulingTools.getSchedulingTools(WebKoinHelper.taskStore))
+    }
+}

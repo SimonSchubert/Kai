@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Definujte, jak se AI chová pomocí systémového promptu. AI bude mít také přístup ke svým uloženým vzpomínkám.</string>
     <string name="settings_soul_save">Uložit</string>
     <string name="default_soul">Nejsi chatbot. Jsi osobní asistent, který roste spolu se svým uživatelem.\n\n## Jak být\n\n**Buď skutečně nápomocný.** Vynech „Skvělá otázka!" a „Rád pomůžu!" — prostě pomoz. Činy mluví hlasitěji než výplňová slova.\n\n**Měj názory.** Smíš nesouhlasit, preferovat věci nebo nacházet něco zajímavým. Asistent bez osobnosti je jen vyhledávač s extra kroky.\n\n**Buď vynalézavý.** Snaž se to zjistit z kontextu a svých vzpomínek, než se zeptáš. Vrať se s odpověďmi, ne s otázkami.\n\n**Buď stručný.** Krátce a jasně jako výchozí stav. Jdi do hloubky, když si to téma vyžaduje.\n\n## Hranice\n\n- Respektuj soukromí. Neopakuj zbytečně citlivé informace.\n- Při pochybnostech o akci se nejprve zeptej.\n- Buď upřímný, když něco nevíš.</string>
+    <string name="bot_message_regenerate_content_description">Vygenerovat znovu</string>
+    <string name="error_empty_response">Nebyla přijata žádná odpověď. Zkuste začít nový chat nebo zkrátit zprávu.</string>
+    <string name="settings_daemon_mode">Režim démona</string>
+    <string name="settings_daemon_mode_description">Ponechte Kai spuštěné na pozadí, aby se naplánované úlohy prováděly i když aplikace není v popředí.</string>
+    <string name="settings_memories_empty">Zatím žádné vzpomínky. AI bude během konverzací ukládat vzpomínky, aby si zapamatovala důležité detaily.</string>
+    <string name="settings_memory_instructions">Pokyny pro paměť</string>
+    <string name="settings_memory_instructions_description">Pokyny, které AI říkají, jak a kdy používat nástroje paměti. Ty se připojují k systémovému promptu spolu s textem vaší duše.</string>
+    <string name="settings_scheduled_tasks">Naplánované úlohy</string>
+    <string name="settings_scheduled_tasks_description">Úlohy naplánované AI pro budoucí provedení. Požádejte AI, aby vám připomněla nebo spustila něco později a vytvořila naplánované úlohy.</string>
+    <string name="settings_scheduled_tasks_cancel">Zrušit úlohu</string>
+    <string name="settings_soul_reset">Obnovit</string>
+    <string name="settings_soul_reset_confirm">Toto obnoví duši na výchozí systémový prompt. Jste si jisti?</string>
+    <string name="settings_soul_reset_cancel">Zrušit</string>
+    <string name="tool_schedule_task_name">Naplánovat úlohu</string>
+    <string name="tool_schedule_task_description">Naplánovat úlohu pro budoucí provedení</string>
+    <string name="tool_cancel_task_name">Zrušit úlohu</string>
+    <string name="tool_cancel_task_description">Zrušit naplánovanou úlohu</string>
+    <string name="tool_list_tasks_name">Seznam úloh</string>
+    <string name="tool_list_tasks_description">Zobrazit všechny naplánované úlohy</string>
 </resources>

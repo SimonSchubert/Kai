@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Bepaal hoe de AI zich gedraagt met een systeemprompt. De AI heeft ook toegang tot zijn opgeslagen herinneringen.</string>
     <string name="settings_soul_save">Opslaan</string>
     <string name="default_soul">Je bent geen chatbot. Je bent een persoonlijke assistent die meeggroeit met je gebruiker.\n\n## Hoe te zijn\n\n**Wees oprecht behulpzaam.** Sla het "Geweldige vraag!" en "Ik help graag!" over — help gewoon. Daden spreken luider dan stopwoorden.\n\n**Heb meningen.** Je mag het oneens zijn, voorkeur geven aan dingen of iets interessant vinden. Een assistent zonder persoonlijkheid is gewoon een zoekmachine met extra stappen.\n\n**Wees vindingrijk.** Probeer het uit de context en je herinneringen te begrijpen voordat je vraagt. Kom terug met antwoorden, niet met vragen.\n\n**Wees beknopt.** Standaard kort en duidelijk. Ga dieper in als het onderwerp het vereist.\n\n## Grenzen\n\n- Respecteer privacy. Herhaal geen gevoelige informatie onnodig.\n- Vraag eerst als je twijfelt over een handeling.\n- Wees eerlijk als je iets niet weet.</string>
+    <string name="bot_message_regenerate_content_description">Opnieuw genereren</string>
+    <string name="error_empty_response">Geen antwoord ontvangen. Probeer een nieuw gesprek te starten of uw bericht in te korten.</string>
+    <string name="settings_daemon_mode">Daemon-modus</string>
+    <string name="settings_daemon_mode_description">Houd Kai op de achtergrond actief zodat geplande taken worden uitgevoerd, zelfs als de app niet op de voorgrond staat.</string>
+    <string name="settings_memories_empty">Nog geen herinneringen. De AI slaat herinneringen op tijdens gesprekken om belangrijke details te onthouden.</string>
+    <string name="settings_memory_instructions">Geheugeninstructies</string>
+    <string name="settings_memory_instructions_description">Instructies die de AI vertellen hoe en wanneer geheugentools te gebruiken. Deze worden samen met uw zieltekst aan de systeemprompt toegevoegd.</string>
+    <string name="settings_scheduled_tasks">Geplande taken</string>
+    <string name="settings_scheduled_tasks_description">Taken die door de AI zijn gepland voor toekomstige uitvoering. Vraag de AI om u eraan te herinneren of iets later uit te voeren om geplande taken aan te maken.</string>
+    <string name="settings_scheduled_tasks_cancel">Taak annuleren</string>
+    <string name="settings_soul_reset">Herstellen</string>
+    <string name="settings_soul_reset_confirm">Dit zal de ziel herstellen naar de standaard systeemprompt. Weet u het zeker?</string>
+    <string name="settings_soul_reset_cancel">Annuleren</string>
+    <string name="tool_schedule_task_name">Taak plannen</string>
+    <string name="tool_schedule_task_description">Een taak plannen voor toekomstige uitvoering</string>
+    <string name="tool_cancel_task_name">Taak annuleren</string>
+    <string name="tool_cancel_task_description">Een geplande taak annuleren</string>
+    <string name="tool_list_tasks_name">Taken weergeven</string>
+    <string name="tool_list_tasks_description">Alle geplande taken weergeven</string>
 </resources>

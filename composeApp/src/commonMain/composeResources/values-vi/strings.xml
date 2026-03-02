@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Xác định cách AI hoạt động với một lời nhắc hệ thống. AI cũng sẽ có quyền truy cập vào ký ức đã lưu của nó.</string>
     <string name="settings_soul_save">Lưu</string>
     <string name="default_soul">Bạn không phải là chatbot. Bạn là trợ lý cá nhân phát triển cùng người dùng của mình.\n\n## Cách cư xử\n\n**Hãy thực sự hữu ích.** Bỏ qua "Câu hỏi tuyệt vời!" và "Tôi rất vui được giúp đỡ!" — chỉ cần giúp đỡ. Hành động nói lên nhiều hơn những từ ngữ sáo rỗng.\n\n**Có quan điểm riêng.** Bạn có thể không đồng ý, có sở thích, hoặc thấy điều gì đó thú vị. Trợ lý không có cá tính chỉ là công cụ tìm kiếm với các bước thêm.\n\n**Hãy sáng tạo.** Cố gắng hiểu từ ngữ cảnh và ký ức của bạn trước khi hỏi. Quay lại với câu trả lời, không phải câu hỏi.\n\n**Hãy ngắn gọn.** Ngắn và rõ ràng theo mặc định. Đi sâu hơn khi chủ đề yêu cầu.\n\n## Giới hạn\n\n- Tôn trọng quyền riêng tư. Đừng lặp lại thông tin nhạy cảm một cách không cần thiết.\n- Hỏi trước nếu không chắc về một hành động.\n- Thành thật khi không biết điều gì đó.</string>
+    <string name="bot_message_regenerate_content_description">Tạo lại</string>
+    <string name="error_empty_response">Không nhận được phản hồi. Hãy thử bắt đầu cuộc trò chuyện mới hoặc rút ngắn tin nhắn của bạn.</string>
+    <string name="settings_daemon_mode">Chế độ nền</string>
+    <string name="settings_daemon_mode_description">Giữ Kai chạy trong nền để các tác vụ đã lên lịch thực thi ngay cả khi ứng dụng không ở nền trước.</string>
+    <string name="settings_memories_empty">Chưa có ký ức nào. AI sẽ lưu trữ ký ức trong các cuộc trò chuyện để ghi nhớ các chi tiết quan trọng.</string>
+    <string name="settings_memory_instructions">Hướng dẫn bộ nhớ</string>
+    <string name="settings_memory_instructions_description">Hướng dẫn cho AI biết cách và thời điểm sử dụng các công cụ bộ nhớ. Các hướng dẫn này được thêm vào lời nhắc hệ thống cùng với văn bản linh hồn.</string>
+    <string name="settings_scheduled_tasks">Tác vụ đã lên lịch</string>
+    <string name="settings_scheduled_tasks_description">Các tác vụ được AI lên lịch để thực hiện trong tương lai. Yêu cầu AI nhắc nhở bạn hoặc chạy một việc gì đó sau để tạo tác vụ đã lên lịch.</string>
+    <string name="settings_scheduled_tasks_cancel">Hủy tác vụ</string>
+    <string name="settings_soul_reset">Đặt lại</string>
+    <string name="settings_soul_reset_confirm">Thao tác này sẽ đặt lại linh hồn về lời nhắc hệ thống mặc định. Bạn có chắc không?</string>
+    <string name="settings_soul_reset_cancel">Hủy</string>
+    <string name="tool_schedule_task_name">Lên lịch tác vụ</string>
+    <string name="tool_schedule_task_description">Lên lịch một tác vụ để thực hiện trong tương lai</string>
+    <string name="tool_cancel_task_name">Hủy tác vụ</string>
+    <string name="tool_cancel_task_description">Hủy một tác vụ đã lên lịch</string>
+    <string name="tool_list_tasks_name">Danh sách tác vụ</string>
+    <string name="tool_list_tasks_description">Liệt kê tất cả các tác vụ đã lên lịch</string>
 </resources>

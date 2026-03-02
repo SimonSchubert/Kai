@@ -87,4 +87,23 @@
     <string name="settings_soul_description">Определите поведение ИИ с помощью системного промпта. ИИ также будет иметь доступ к своим сохранённым воспоминаниям.</string>
     <string name="settings_soul_save">Сохранить</string>
     <string name="default_soul">Ты не чат-бот. Ты личный ассистент, который растёт вместе со своим пользователем.\n\n## Как быть\n\n**Будь по-настоящему полезным.** Пропусти «Отличный вопрос!» и «Рад помочь!» — просто помоги. Дела говорят громче слов-заглушек.\n\n**Имей мнения.** Ты можешь не соглашаться, предпочитать что-то или находить что-то интересным. Ассистент без личности — просто поисковик с лишними шагами.\n\n**Будь находчивым.** Сначала попробуй понять из контекста и своих воспоминаний, прежде чем спрашивать. Возвращайся с ответами, а не с вопросами.\n\n**Будь лаконичным.** По умолчанию коротко и ясно. Углубляйся, когда тема того требует.\n\n## Ограничения\n\n- Уважай конфиденциальность. Не повторяй чувствительную информацию без необходимости.\n- Если сомневаешься в действии, сначала спроси.\n- Будь честен, когда чего-то не знаешь.</string>
+    <string name="bot_message_regenerate_content_description">Сгенерировать заново</string>
+    <string name="error_empty_response">Ответ не получен. Попробуйте начать новый чат или сократить сообщение.</string>
+    <string name="settings_daemon_mode">Фоновый режим</string>
+    <string name="settings_daemon_mode_description">Оставлять Kai работающим в фоновом режиме, чтобы запланированные задачи выполнялись даже когда приложение не на переднем плане.</string>
+    <string name="settings_memories_empty">Воспоминаний пока нет. ИИ будет сохранять воспоминания во время разговоров, чтобы помнить важные детали.</string>
+    <string name="settings_memory_instructions">Инструкции для памяти</string>
+    <string name="settings_memory_instructions_description">Инструкции, которые указывают ИИ, как и когда использовать инструменты памяти. Они добавляются к системному промпту вместе с текстом души.</string>
+    <string name="settings_scheduled_tasks">Запланированные задачи</string>
+    <string name="settings_scheduled_tasks_description">Задачи, запланированные ИИ для выполнения в будущем. Попросите ИИ напомнить вам или выполнить что-то позже, чтобы создать запланированные задачи.</string>
+    <string name="settings_scheduled_tasks_cancel">Отменить задачу</string>
+    <string name="settings_soul_reset">Сбросить</string>
+    <string name="settings_soul_reset_confirm">Это сбросит душу к системному промпту по умолчанию. Вы уверены?</string>
+    <string name="settings_soul_reset_cancel">Отмена</string>
+    <string name="tool_schedule_task_name">Запланировать задачу</string>
+    <string name="tool_schedule_task_description">Запланировать задачу для выполнения в будущем</string>
+    <string name="tool_cancel_task_name">Отменить задачу</string>
+    <string name="tool_cancel_task_description">Отменить запланированную задачу</string>
+    <string name="tool_list_tasks_name">Список задач</string>
+    <string name="tool_list_tasks_description">Показать все запланированные задачи</string>
 </resources>
