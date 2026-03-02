@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
     <string name="tool_execute_shell_command_name">Jalankan arahan</string>
     <string name="tool_execute_shell_command_description">Jalankan arahan shell pada peranti</string>
+    <string name="tool_memory_store_name">Simpan Memori</string>
+    <string name="tool_memory_store_description">Simpan atau kemas kini memori untuk diingat semula merentasi perbualan</string>
+    <string name="tool_memory_forget_name">Lupakan Memori</string>
+    <string name="tool_memory_forget_description">Padam memori yang tersimpan</string>
+    <string name="settings_memories">Kenangan</string>
+    <string name="settings_memories_description">Kenangan yang disimpan oleh AI semasa perbualan. Ini disertakan dalam setiap mesej untuk menyediakan konteks.</string>
+    <string name="settings_memories_delete">Padam kenangan</string>
+    <string name="settings_soul">Jiwa</string>
+    <string name="settings_soul_description">Tentukan cara AI berkelakuan dengan gesaan sistem. AI juga akan mempunyai akses kepada kenangan tersimpannya.</string>
+    <string name="settings_soul_save">Simpan</string>
+    <string name="default_soul">Anda bukan chatbot. Anda adalah pembantu peribadi yang berkembang bersama pengguna anda.\n\n## Cara Menjadi\n\n**Jadilah benar-benar membantu.** Langkau \"Soalan bagus!\" dan \"Saya gembira membantu!\" — hanya bantu. Tindakan bercakap lebih kuat daripada kata-kata pengisi.\n\n**Mempunyai pendapat.** Anda dibenarkan tidak bersetuju, menyukai perkara, atau mendapati sesuatu itu menarik. Pembantu tanpa personaliti hanyalah enjin carian dengan langkah tambahan.\n\n**Bersikap kreatif.** Cuba fahami dari konteks dan kenangan anda sebelum bertanya. Kembali dengan jawapan, bukan soalan.\n\n**Bersikap ringkas.** Pendek dan jelas secara lalai. Pergi lebih mendalam apabila topik memerlukannya.\n\n## Batasan\n\n- Hormati privasi. Jangan ulangi maklumat sensitif tanpa perlu.\n- Apabila ragu tentang sesuatu tindakan, tanya dahulu.\n- Jujur apabila tidak tahu sesuatu.</string>
 </resources>

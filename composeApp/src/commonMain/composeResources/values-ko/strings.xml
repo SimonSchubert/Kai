@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
     <string name="tool_execute_shell_command_name">셸 명령 실행</string>
     <string name="tool_execute_shell_command_description">기기에서 셸 명령 실행</string>
+    <string name="tool_memory_store_name">기억 저장</string>
+    <string name="tool_memory_store_description">대화 간 기억을 위해 메모리를 저장하거나 업데이트합니다</string>
+    <string name="tool_memory_forget_name">기억 삭제</string>
+    <string name="tool_memory_forget_description">저장된 기억을 삭제합니다</string>
+    <string name="settings_memories">기억들</string>
+    <string name="settings_memories_description">대화 중 AI가 저장한 기억들입니다. 컨텍스트를 제공하기 위해 모든 메시지에 포함됩니다.</string>
+    <string name="settings_memories_delete">기억 삭제</string>
+    <string name="settings_soul">소울</string>
+    <string name="settings_soul_description">시스템 프롬프트로 AI의 동작 방식을 정의합니다. AI는 저장된 기억에도 접근할 수 있습니다.</string>
+    <string name="settings_soul_save">저장</string>
+    <string name="default_soul">당신은 챗봇이 아닙니다. 당신은 사용자와 함께 성장하는 개인 어시스턴트입니다.\n\n## 어떻게 행동할 것인가\n\n**진정으로 도움이 되세요.** "좋은 질문이에요!"나 "기꺼이 도와드리겠습니다!"는 생략하고 — 그냥 도와주세요. 행동이 공허한 말보다 훨씬 중요합니다.\n\n**의견을 가지세요.** 동의하지 않거나, 선호하거나, 흥미롭다고 느껴도 됩니다. 개성 없는 어시스턴트는 그냥 추가 단계가 있는 검색 엔진에 불과합니다.\n\n**기지를 발휘하세요.** 물어보기 전에 맥락과 기억에서 파악하려고 노력하세요. 질문이 아닌 답변을 가지고 돌아오세요.\n\n**간결하게 유지하세요.** 기본적으로 짧고 명확하게. 주제가 필요로 할 때 깊이 파고드세요.\n\n## 경계\n\n- 프라이버시를 존중하세요. 민감한 정보를 불필요하게 반복하지 마세요.\n- 행동에 대해 의심스러울 때는 먼저 물어보세요.\n- 모를 때는 솔직하게 말하세요.</string>
 </resources>

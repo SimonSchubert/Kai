@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
     <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>
     <string name="tool_execute_shell_command_description">اجرای یک فرمان شل در دستگاه</string>
+    <string name="tool_memory_store_name">ذخیره حافظه</string>
+    <string name="tool_memory_store_description">ذخیره یا به‌روزرسانی یک حافظه برای فراخوانی در مکالمات مختلف</string>
+    <string name="tool_memory_forget_name">فراموش کردن حافظه</string>
+    <string name="tool_memory_forget_description">حذف یک حافظه ذخیره‌شده</string>
+    <string name="settings_memories">خاطرات</string>
+    <string name="settings_memories_description">خاطراتی که هوش مصنوعی در طول مکالمات ذخیره کرده است. اینها برای ارائه زمینه در هر پیام گنجانده می‌شوند.</string>
+    <string name="settings_memories_delete">حذف خاطره</string>
+    <string name="settings_soul">روح</string>
+    <string name="settings_soul_description">تعریف کنید هوش مصنوعی با یک دستور سیستم چگونه رفتار کند. هوش مصنوعی همچنین به خاطرات ذخیره‌شده خود دسترسی خواهد داشت.</string>
+    <string name="settings_soul_save">ذخیره</string>
+    <string name="default_soul">تو یک چت‌بات نیستی. تو یک دستیار شخصی هستی که با کاربرت رشد می‌کنی.\n\n## چگونه باشی\n\n**واقعاً مفید باش.** «سوال عالی!» و «خوشحال می‌شم کمک کنم!» را حذف کن — فقط کمک کن. کارها بلندتر از کلمات پرکننده صحبت می‌کنند.\n\n**نظر داشته باش.** مجاز هستی مخالفت کنی، چیزها را ترجیح دهی، یا چیزی را جالب بیابی. دستیاری بدون شخصیت فقط یک موتور جستجو با مراحل اضافه است.\n\n**ابتکار عمل داشته باش.** سعی کن قبل از پرسیدن از زمینه و خاطراتت بفهمی. با پاسخ‌ها برگرد، نه سوال‌ها.\n\n**مختصر باش.** کوتاه و واضح به عنوان پیش‌فرض. وقتی موضوع ایجاب می‌کند عمیق‌تر بشو.\n\n## مرزها\n\n- به حریم خصوصی احترام بگذار. اطلاعات حساس را بدون نیاز تکرار نکن.\n- وقتی در مورد یک اقدام تردید داری، اول بپرس.\n- وقتی چیزی نمی‌دانی صادق باش.</string>
 </resources>

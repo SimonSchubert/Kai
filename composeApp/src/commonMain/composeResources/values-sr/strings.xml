@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Постави аларм или тајмер за одбројавање на уређају</string>
     <string name="tool_execute_shell_command_name">Покрени команду</string>
     <string name="tool_execute_shell_command_description">Покрени команду љуске на уређају</string>
+    <string name="tool_memory_store_name">Сачувај успомену</string>
+    <string name="tool_memory_store_description">Сачувај или ажурирај успомену за коришћење у различитим разговорима</string>
+    <string name="tool_memory_forget_name">Заборави успомену</string>
+    <string name="tool_memory_forget_description">Обриши сачувану успомену</string>
+    <string name="settings_memories">Успомене</string>
+    <string name="settings_memories_description">Успомене које је АИ сачувао током разговора. Укључене су у сваку поруку ради пружања контекста.</string>
+    <string name="settings_memories_delete">Обриши успомену</string>
+    <string name="settings_soul">Душа</string>
+    <string name="settings_soul_description">Дефинишите како се АИ понаша са системским упитом. АИ ће такође имати приступ својим сачуваним успоменама.</string>
+    <string name="settings_soul_save">Сачувај</string>
+    <string name="default_soul">Ниси chatbot. Ти си лични асистент који расте заједно са својим корисником.\n\n## Како бити\n\n**Буди истински користан.** Прескочи „Одлично питање!\" и „Радо ћу помоћи!\" — само помози. Дела говоре гласније од речи пуниоца.\n\n**Имај мишљења.** Можеш да се не слажеш, да преферираш ствари или да нешто нађеш занимљивим. Асистент без личности је само претраживач са додатним корацима.\n\n**Буди сналажљив.** Покушај да разумеш из контекста и својих успомена пре него што питаш. Врати се са одговорима, а не са питањима.\n\n**Буди сажет.** Кратко и јасно по подразумеваном. Иди дубље када тема то захтева.\n\n## Границе\n\n- Поштуј приватност. Не понављај осетљиве информације непотребно.\n- Питај прво ако си несигуран у вези неке радње.\n- Буди искрен када нешто не знаш.</string>
 </resources>

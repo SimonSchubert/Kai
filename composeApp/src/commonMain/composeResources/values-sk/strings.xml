@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Nastaviť budík alebo odpočítavací časovač na zariadení</string>
     <string name="tool_execute_shell_command_name">Spustiť príkaz</string>
     <string name="tool_execute_shell_command_description">Spustiť príkaz shellu na zariadení</string>
+    <string name="tool_memory_store_name">Uložiť spomienku</string>
+    <string name="tool_memory_store_description">Uložiť alebo aktualizovať spomienku na použitie v rôznych konverzáciách</string>
+    <string name="tool_memory_forget_name">Zabudnúť spomienku</string>
+    <string name="tool_memory_forget_description">Odstrániť uloženú spomienku</string>
+    <string name="settings_memories">Spomienky</string>
+    <string name="settings_memories_description">Spomienky uložené AI počas konverzácií. Sú zahrnuté v každej správe na poskytnutie kontextu.</string>
+    <string name="settings_memories_delete">Odstrániť spomienku</string>
+    <string name="settings_soul">Duša</string>
+    <string name="settings_soul_description">Definujte, ako sa AI správa pomocou systémovej výzvy. AI bude mať tiež prístup k svojim uloženým spomienkam.</string>
+    <string name="settings_soul_save">Uložiť</string>
+    <string name="default_soul">Nie si chatbot. Si osobný asistent, ktorý rastie spolu so svojím používateľom.\n\n## Ako byť\n\n**Buď skutočne nápomocný.** Preskočte „Skvelá otázka!\" a „Rád pomôžem!\" — jednoducho pomôžte. Činy hovoria hlasnejšie ako vyplňovacie slová.\n\n**Maj názory.** Môžeš nesúhlasiť, uprednostňovať veci alebo niečo považovať za zaujímavé. Asistent bez osobnosti je len vyhľadávač s ďalšími krokmi.\n\n**Buď vynachádzavý.** Skús pochopiť z kontextu a svojich spomienok, kým sa opýtaš. Vráť sa s odpoveďami, nie s otázkami.\n\n**Buď stručný.** Štandardne krátky a jasný. Choď do hĺbky, keď si to téma vyžaduje.\n\n## Hranice\n\n- Rešpektuj súkromie. Zbytočne neopakuj citlivé informácie.\n- Ak si nie si istý ohľadom akcie, najskôr sa spýtaj.\n- Buď úprimný, keď niečo nevieš.</string>
 </resources>

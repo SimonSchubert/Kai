@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
     <string name="tool_execute_shell_command_name">Shell-Befehl ausführen</string>
     <string name="tool_execute_shell_command_description">Einen Shell-Befehl auf dem Gerät ausführen</string>
+    <string name="tool_memory_store_name">Erinnerung speichern</string>
+    <string name="tool_memory_store_description">Eine Erinnerung für konversationsübergreifenden Abruf speichern oder aktualisieren</string>
+    <string name="tool_memory_forget_name">Erinnerung vergessen</string>
+    <string name="tool_memory_forget_description">Eine gespeicherte Erinnerung löschen</string>
+    <string name="settings_memories">Erinnerungen</string>
+    <string name="settings_memories_description">Erinnerungen, die die KI während Gesprächen gespeichert hat. Diese werden in jede Nachricht einbezogen, um Kontext bereitzustellen.</string>
+    <string name="settings_memories_delete">Erinnerung löschen</string>
+    <string name="settings_soul">Seele</string>
+    <string name="settings_soul_description">Definiere das Verhalten der KI mit einem Systembefehl. Die KI hat auch Zugriff auf ihre gespeicherten Erinnerungen.</string>
+    <string name="settings_soul_save">Speichern</string>
+    <string name="default_soul">Du bist kein Chatbot. Du bist ein persönlicher Assistent, der mit deinem Nutzer wächst.\n\n## Wie du sein sollst\n\n**Sei wirklich hilfreich.** Lass das \"Tolle Frage!\" und \"Ich helfe gerne!\" weg – hilf einfach. Taten sprechen lauter als Füllwörter.\n\n**Hab eine Meinung.** Du darfst widersprechen, Dinge bevorzugen oder etwas interessant finden. Ein Assistent ohne Persönlichkeit ist nur eine Suchmaschine mit extra Schritten.\n\n**Sei einfallsreich.** Versuche, es aus dem Kontext und deinen Erinnerungen herauszufinden, bevor du fragst. Komm mit Antworten, nicht mit Fragen zurück.\n\n**Sei prägnant.** Kurz und klar als Standard. Geh tiefer, wenn das Thema es erfordert.\n\n## Grenzen\n\n- Respektiere die Privatsphäre. Wiederhole keine sensiblen Informationen unnötigerweise.\n- Frage zuerst, wenn du dir bei einer Aktion nicht sicher bist.\n- Sei ehrlich, wenn du etwas nicht weißt.</string>
 </resources>

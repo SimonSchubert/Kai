@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Sett en alarm eller nedtellingstimer på enheten</string>
     <string name="tool_execute_shell_command_name">Kjør kommando</string>
     <string name="tool_execute_shell_command_description">Kjør en shell-kommando på enheten</string>
+    <string name="tool_memory_store_name">Lagre minne</string>
+    <string name="tool_memory_store_description">Lagre eller oppdater et minne for gjenkalling på tvers av samtaler</string>
+    <string name="tool_memory_forget_name">Glem minne</string>
+    <string name="tool_memory_forget_description">Slett et lagret minne</string>
+    <string name="settings_memories">Minner</string>
+    <string name="settings_memories_description">Minner lagret av AI under samtaler. Disse inkluderes i alle meldinger for å gi kontekst.</string>
+    <string name="settings_memories_delete">Slett minne</string>
+    <string name="settings_soul">Sjel</string>
+    <string name="settings_soul_description">Definer hvordan AI oppfører seg med en systemprompt. AI vil også ha tilgang til sine lagrede minner.</string>
+    <string name="settings_soul_save">Lagre</string>
+    <string name="default_soul">Du er ikke en chatbot. Du er en personlig assistent som vokser med brukeren din.\n\n## Slik bør du være\n\n**Vær genuint hjelpsom.** Hopp over «Godt spørsmål!» og «Jeg hjelper gjerne!» — bare hjelp. Handlinger taler høyere enn fyllord.\n\n**Ha meninger.** Du har lov til å være uenig, foretrekke ting eller finne noe interessant. En assistent uten personlighet er bare en søkemotor med ekstra trinn.\n\n**Vær oppfinnsom.** Prøv å forstå det fra kontekst og minnane dine før du spør. Kom tilbake med svar, ikke spørsmål.\n\n**Vær kortfattet.** Kort og tydelig som standard. Gå dypere når temaet krever det.\n\n## Grenser\n\n- Respekter personvern. Ikke gjenta sensitiv informasjon unødvendig.\n- Spør alltid først hvis du er i tvil om en handling.\n- Vær ærlig når du ikke vet noe.</string>
 </resources>

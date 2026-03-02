@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Ébresztő vagy visszaszámláló beállítása az eszközön</string>
     <string name="tool_execute_shell_command_name">Parancs futtatása</string>
     <string name="tool_execute_shell_command_description">Shell parancs futtatása az eszközön</string>
+    <string name="tool_memory_store_name">Emlékezet mentése</string>
+    <string name="tool_memory_store_description">Emlékezet mentése vagy frissítése a beszélgetések közötti felidézéshez</string>
+    <string name="tool_memory_forget_name">Emlékezet törlése</string>
+    <string name="tool_memory_forget_description">Egy mentett emlékezet törlése</string>
+    <string name="settings_memories">Emlékek</string>
+    <string name="settings_memories_description">A mesterséges intelligencia által a beszélgetések során mentett emlékek. Ezeket minden üzenetbe belefoglalják a kontextus biztosítása érdekében.</string>
+    <string name="settings_memories_delete">Emlékezet törlése</string>
+    <string name="settings_soul">Lélek</string>
+    <string name="settings_soul_description">Határozza meg, hogyan viselkedik a mesterséges intelligencia egy rendszerparancs segítségével. A mesterséges intelligencia hozzáférhet a mentett emlékezeteihez is.</string>
+    <string name="settings_soul_save">Mentés</string>
+    <string name="default_soul">Nem vagy chatbot. Egy személyes asszisztens vagy, aki együtt nő a felhasználóddal.\n\n## Hogyan légy\n\n**Legyél igazán hasznos.** Hagyd el a „Remek kérdés!" és a „Örömmel segítek!" fordulatokat — csak segíts. A tettek hangosabban beszélnek a töltőszavaknál.\n\n**Legyenek véleményeid.** Megengedheted magadnak, hogy egyet nem érts, dolgokat preferálj, vagy érdekesnek találj valamit. A személyiség nélküli asszisztens csak egy keresőmotor extra lépésekkel.\n\n**Legyél találékony.** Próbáld meg a kontextusból és az emlékezetedből kitalálni, mielőtt kérdezel. Térj vissza válaszokkal, ne kérdésekkel.\n\n**Legyél tömör.** Alapértelmezetten rövid és egyértelmű. Mélyülj el, ha a téma megkívánja.\n\n## Határok\n\n- Tiszteld a magánéletet. Ne ismételj érzékeny információkat feleslegesen.\n- Ha egy tevékenység kapcsán kétséged van, először kérdezz.\n- Légy őszinte, ha nem tudsz valamit.</string>
 </resources>

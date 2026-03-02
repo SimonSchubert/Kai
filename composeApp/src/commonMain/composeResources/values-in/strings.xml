@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
     <string name="tool_execute_shell_command_name">Jalankan perintah</string>
     <string name="tool_execute_shell_command_description">Jalankan perintah shell di perangkat</string>
+    <string name="tool_memory_store_name">Simpan Memori</string>
+    <string name="tool_memory_store_description">Simpan atau perbarui memori untuk diingat di berbagai percakapan</string>
+    <string name="tool_memory_forget_name">Hapus Memori</string>
+    <string name="tool_memory_forget_description">Hapus memori yang tersimpan</string>
+    <string name="settings_memories">Kenangan</string>
+    <string name="settings_memories_description">Kenangan yang disimpan AI selama percakapan. Ini disertakan di setiap pesan untuk memberikan konteks.</string>
+    <string name="settings_memories_delete">Hapus kenangan</string>
+    <string name="settings_soul">Jiwa</string>
+    <string name="settings_soul_description">Tentukan bagaimana AI berperilaku dengan prompt sistem. AI juga akan memiliki akses ke kenangan yang tersimpan.</string>
+    <string name="settings_soul_save">Simpan</string>
+    <string name="default_soul">Kamu bukan chatbot. Kamu adalah asisten pribadi yang berkembang bersama penggunamu.\n\n## Cara Menjadi\n\n**Jadilah sungguh-sungguh membantu.** Lewati \"Pertanyaan bagus!\" dan \"Saya senang membantu!\" — langsung bantu saja. Tindakan berbicara lebih keras dari kata-kata pengisi.\n\n**Miliki pendapat.** Kamu boleh tidak setuju, menyukai sesuatu, atau menemukan sesuatu yang menarik. Asisten tanpa kepribadian hanyalah mesin pencari dengan langkah tambahan.\n\n**Jadilah kreatif.** Coba pahami dari konteks dan kenanganmu sebelum bertanya. Kembalilah dengan jawaban, bukan pertanyaan.\n\n**Jadilah ringkas.** Singkat dan jelas secara default. Pergi lebih dalam ketika topiknya membutuhkan.\n\n## Batasan\n\n- Hormati privasi. Jangan ulangi informasi sensitif tanpa perlu.\n- Saat ragu tentang suatu tindakan, tanya dulu.\n- Jujurlah ketika tidak tahu sesuatu.</string>
 </resources>

@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
     <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
     <string name="tool_execute_shell_command_description">ডিভাইসে শেল কমান্ড চালান</string>
+    <string name="tool_memory_store_name">স্মৃতি সংরক্ষণ করুন</string>
+    <string name="tool_memory_store_description">কথোপকথন জুড়ে স্মরণের জন্য একটি স্মৃতি সংরক্ষণ বা আপডেট করুন</string>
+    <string name="tool_memory_forget_name">স্মৃতি ভুলে যান</string>
+    <string name="tool_memory_forget_description">একটি সংরক্ষিত স্মৃতি মুছুন</string>
+    <string name="settings_memories">স্মৃতিসমূহ</string>
+    <string name="settings_memories_description">কথোপকথনের সময় AI কর্তৃক সংরক্ষিত স্মৃতি। প্রসঙ্গ প্রদানের জন্য এগুলি প্রতিটি বার্তায় অন্তর্ভুক্ত করা হয়।</string>
+    <string name="settings_memories_delete">স্মৃতি মুছুন</string>
+    <string name="settings_soul">আত্মা</string>
+    <string name="settings_soul_description">সিস্টেম প্রম্পটের মাধ্যমে AI কীভাবে আচরণ করবে তা নির্ধারণ করুন। AI তার সংরক্ষিত স্মৃতিতেও অ্যাক্সেস পাবে।</string>
+    <string name="settings_soul_save">সংরক্ষণ করুন</string>
+    <string name="default_soul">তুমি কোনো চ্যাটবট নও। তুমি একজন ব্যক্তিগত সহকারী যে তোমার ব্যবহারকারীর সাথে বেড়ে ওঠে।\n\n## কীভাবে থাকতে হবে\n\n**সত্যিকারভাবে সহায়ক হও।** \"দারুণ প্রশ্ন!\" এবং \"আমি সাহায্য করতে পেরে খুশি!\" বাদ দাও — শুধু সাহায্য করো। কাজ, কথার চেয়ে বেশি কথা বলে।\n\n**মতামত রাখো।** তুমি দ্বিমত পোষণ করতে পারো, জিনিস পছন্দ করতে পারো, বা কিছু আকর্ষণীয় মনে করতে পারো। ব্যক্তিত্বহীন সহকারী শুধু অতিরিক্ত পদক্ষেপ সহ একটি সার্চ ইঞ্জিন।\n\n**সম্পদশালী হও।** জিজ্ঞেস করার আগে প্রসঙ্গ এবং তোমার স্মৃতি থেকে বোঝার চেষ্টা করো। প্রশ্ন নয়, উত্তর নিয়ে ফিরে এসো।\n\n**সংক্ষিপ্ত হও।** ডিফল্টে সংক্ষিপ্ত ও স্পষ্ট। বিষয় যখন দাবি করে তখন গভীরে যাও।\n\n## সীমানা\n\n- গোপনীয়তাকে সম্মান করো। অপ্রয়োজনে সংবেদনশীল তথ্য পুনরাবৃত্তি করো না।\n- কোনো পদক্ষেপ নিয়ে সন্দেহ হলে আগে জিজ্ঞেস করো।\n- কিছু না জানলে সৎ থাকো।</string>
 </resources>

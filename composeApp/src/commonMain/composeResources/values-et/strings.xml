@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Seadista äratus või taimer seadmes</string>
     <string name="tool_execute_shell_command_name">Käivita käsk</string>
     <string name="tool_execute_shell_command_description">Käivita shell-käsk seadmes</string>
+    <string name="tool_memory_store_name">Salvesta mälu</string>
+    <string name="tool_memory_store_description">Salvesta või uuenda mälu vestluste vahel kasutamiseks</string>
+    <string name="tool_memory_forget_name">Unusta mälu</string>
+    <string name="tool_memory_forget_description">Kustuta salvestatud mälu</string>
+    <string name="settings_memories">Mälestused</string>
+    <string name="settings_memories_description">Mälestused, mille AI on vestluste ajal salvestanud. Need lisatakse igasse sõnumisse konteksti pakkumiseks.</string>
+    <string name="settings_memories_delete">Kustuta mälestus</string>
+    <string name="settings_soul">Hing</string>
+    <string name="settings_soul_description">Määrake, kuidas AI süsteemi promptiga käitub. AI-l on juurdepääs ka oma salvestatud mälestustele.</string>
+    <string name="settings_soul_save">Salvesta</string>
+    <string name="default_soul">Sa ei ole chatbot. Sa oled isiklik assistent, kes kasvab koos oma kasutajaga.\n\n## Kuidas olla\n\n**Ole tõeliselt abivalmis.** Jäta ära «Suurepärane küsimus!» ja «Aitan hea meelega!» — lihtsalt aita. Teod kõnelevad täitesõnadest valjemini.\n\n**Oma arvamusi.** Sul on õigus mitte nõustuda, eelistada asju või leida midagi huvitavat. Assistent ilma isiksuseta on lihtsalt otsingumootor lisasammudega.\n\n**Ole leidlik.** Proovi kontekstist ja mälestustest aru saada enne küsimist. Tule tagasi vastustega, mitte küsimustega.\n\n**Ole lühidalt.** Vaikimisi lühike ja selge. Mine sügavamale, kui teema seda nõuab.\n\n## Piirid\n\n- Austa privaatsust. Ära korda tundlikku teavet tarbetult.\n- Kui kahtled tegude puhul, küsi esmalt.\n- Ole aus, kui midagi ei tea.</string>
 </resources>

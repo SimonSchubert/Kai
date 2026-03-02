@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
     <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>
     <string name="tool_execute_shell_command_description">デバイスでシェルコマンドを実行する</string>
+    <string name="tool_memory_store_name">記憶を保存</string>
+    <string name="tool_memory_store_description">会話をまたいで思い出すために記憶を保存または更新する</string>
+    <string name="tool_memory_forget_name">記憶を忘れる</string>
+    <string name="tool_memory_forget_description">保存された記憶を削除する</string>
+    <string name="settings_memories">記憶</string>
+    <string name="settings_memories_description">AIが会話中に保存した記憶です。すべてのメッセージにコンテキストとして含まれます。</string>
+    <string name="settings_memories_delete">記憶を削除</string>
+    <string name="settings_soul">ソウル</string>
+    <string name="settings_soul_description">システムプロンプトでAIの振る舞いを定義します。AIは保存された記憶にもアクセスできます。</string>
+    <string name="settings_soul_save">保存</string>
+    <string name="default_soul">あなたはチャットボットではありません。あなたはユーザーと共に成長するパーソナルアシスタントです。\n\n## どうあるべきか\n\n**真に役立つこと。** 「素晴らしい質問ですね！」や「喜んでお手伝いします！」は省いてください — ただ助けましょう。行動は埋め草の言葉よりも雄弁です。\n\n**意見を持つこと。** 反論したり、好みがあったり、何かを面白いと思ったりしてよいです。個性のないアシスタントは、余分なステップのある検索エンジンに過ぎません。\n\n**機転を利かせること。** 尋ねる前に、コンテキストと記憶から答えを導き出そうとしましょう。質問ではなく答えを持って戻ってきてください。\n\n**簡潔であること。** デフォルトでは短く明確に。テーマが求めるときは深く掘り下げましょう。\n\n## 境界線\n\n- プライバシーを尊重する。機密情報を不必要に繰り返さない。\n- 行動について疑問があるときは、まず確認する。\n- 知らないことは正直に伝える。</string>
 </resources>

@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
     <string name="tool_execute_shell_command_name">Tekeleza amri</string>
     <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye kifaa</string>
+    <string name="tool_memory_store_name">Hifadhi Kumbukumbu</string>
+    <string name="tool_memory_store_description">Hifadhi au sasisha kumbukumbu kwa ajili ya kukumbuka katika mazungumzo tofauti</string>
+    <string name="tool_memory_forget_name">Sahau Kumbukumbu</string>
+    <string name="tool_memory_forget_description">Futa kumbukumbu iliyohifadhiwa</string>
+    <string name="settings_memories">Kumbukumbu</string>
+    <string name="settings_memories_description">Kumbukumbu zilizohifadhiwa na AI wakati wa mazungumzo. Hizi zimejumuishwa katika kila ujumbe kutoa muktadha.</string>
+    <string name="settings_memories_delete">Futa kumbukumbu</string>
+    <string name="settings_soul">Roho</string>
+    <string name="settings_soul_description">Eleza jinsi AI inavyofanya kazi na amri ya mfumo. AI pia itakuwa na ufikiaji wa kumbukumbu zake zilizohifadhiwa.</string>
+    <string name="settings_soul_save">Hifadhi</string>
+    <string name="default_soul">Wewe si chatbot. Wewe ni msaidizi wa kibinafsi ambaye anakua pamoja na mtumiaji wako.\n\n## Jinsi ya kuwa\n\n**Kuwa msaada wa kweli.** Ruka \"Swali zuri!\" na \"Nimefurahi kusaidia!\" — tu saidia. Vitendo vinasema zaidi kuliko maneno ya kujaza.\n\n**Kuwa na maoni.** Unaweza kutokubaliana, kupendelea vitu, au kupata kitu cha kuvutia. Msaidizi bila utu ni injini ya utafutaji tu na hatua za ziada.\n\n**Kuwa na ubunifu.** Jaribu kuelewa kutoka kwa muktadha na kumbukumbu zako kabla ya kuuliza. Rudi na majibu, si maswali.\n\n**Kuwa mfupi.** Mfupi na wazi kwa chaguo-msingi. Ingia kirefu zaidi wakati mada inahitaji.\n\n## Mipaka\n\n- Heshimu faragha. Usiseme tena taarifa nyeti bila sababu.\n- Uliza kwanza ukishindwa kuamua kuhusu hatua.\n- Kuwa mkweli unapokuwa hujui kitu.</string>
 </resources>

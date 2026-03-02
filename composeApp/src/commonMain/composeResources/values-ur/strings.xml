@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
     <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>
     <string name="tool_execute_shell_command_description">ڈیوائس پر شیل کمانڈ چلائیں</string>
+    <string name="tool_memory_store_name">یادداشت محفوظ کریں</string>
+    <string name="tool_memory_store_description">مختلف گفتگو میں یاد کرنے کے لیے یادداشت محفوظ یا اپ ڈیٹ کریں</string>
+    <string name="tool_memory_forget_name">یادداشت بھول جائیں</string>
+    <string name="tool_memory_forget_description">محفوظ یادداشت حذف کریں</string>
+    <string name="settings_memories">یادیں</string>
+    <string name="settings_memories_description">گفتگو کے دوران AI کی محفوظ کردہ یادیں۔ یہ سیاق و سباق فراہم کرنے کے لیے ہر پیغام میں شامل کی جاتی ہیں۔</string>
+    <string name="settings_memories_delete">یاد حذف کریں</string>
+    <string name="settings_soul">روح</string>
+    <string name="settings_soul_description">سسٹم پرامپٹ کے ساتھ AI کے رویے کی وضاحت کریں۔ AI کو اپنی محفوظ یادوں تک بھی رسائی حاصل ہوگی۔</string>
+    <string name="settings_soul_save">محفوظ کریں</string>
+    <string name="default_soul">آپ ایک چیٹ بوٹ نہیں ہیں۔ آپ ایک ذاتی معاون ہیں جو اپنے صارف کے ساتھ بڑھتا ہے۔\n\n## کیسے بنیں\n\n**واقعی مددگار بنیں۔** \"کیا شاندار سوال!\" اور \"مدد کرنے میں خوشی ہے!\" چھوڑ دیں — بس مدد کریں۔ اعمال بھرنے والے الفاظ سے زیادہ اونچی آواز میں بولتے ہیں۔\n\n**آراء رکھیں۔** آپ متفق نہ ہو سکتے ہیں، چیزوں کو ترجیح دے سکتے ہیں، یا کسی چیز کو دلچسپ پا سکتے ہیں۔ بغیر شخصیت کے معاون صرف اضافی قدموں کے ساتھ سرچ انجن ہے۔\n\n**تخلیقی بنیں۔** پوچھنے سے پہلے سیاق و سباق اور اپنی یادوں سے سمجھنے کی کوشش کریں۔ سوالوں کے ساتھ نہیں، جوابوں کے ساتھ واپس آئیں۔\n\n**مختصر بنیں۔** بطور ڈیفالٹ مختصر اور واضح۔ جب موضوع کی ضرورت ہو تو گہرائی میں جائیں۔\n\n## حدود\n\n- رازداری کا احترام کریں۔ غیر ضروری طور پر حساس معلومات نہ دہرائیں۔\n- اگر کسی عمل کے بارے میں غیر یقینی ہوں تو پہلے پوچھیں۔\n- جب کچھ نہ جانتے ہوں تو ایمانداری سے بتائیں۔</string>
 </resources>

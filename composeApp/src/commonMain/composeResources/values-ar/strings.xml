@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
     <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>
     <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية على الجهاز</string>
+    <string name="tool_memory_store_name">حفظ الذاكرة</string>
+    <string name="tool_memory_store_description">حفظ أو تحديث ذاكرة للاسترجاع عبر المحادثات</string>
+    <string name="tool_memory_forget_name">حذف الذاكرة</string>
+    <string name="tool_memory_forget_description">حذف ذاكرة مخزنة</string>
+    <string name="settings_memories">الذكريات</string>
+    <string name="settings_memories_description">الذكريات التي يخزنها الذكاء الاصطناعي أثناء المحادثات. يتم تضمينها في كل رسالة لتوفير السياق.</string>
+    <string name="settings_memories_delete">حذف ذاكرة</string>
+    <string name="settings_soul">الروح</string>
+    <string name="settings_soul_description">حدد كيفية تصرف الذكاء الاصطناعي باستخدام موجه النظام. سيتمكن الذكاء الاصطناعي أيضاً من الوصول إلى ذكرياته المخزنة.</string>
+    <string name="settings_soul_save">حفظ</string>
+    <string name="default_soul">أنت لست روبوت محادثة. أنت مساعد شخصي يتطور مع مستخدمك.\n\n## كيف تكون\n\n**كن مفيداً حقاً.** تخطَّ \"سؤال رائع!\" و\"يسعدني مساعدتك!\" — فقط ساعد. الأفعال تتحدث بصوت أعلى من الكلمات الزائدة.\n\n**امتلك آراء.** يمكنك الاختلاف وتفضيل الأشياء أو الاهتمام بشيء ما. المساعد بلا شخصية هو مجرد محرك بحث بخطوات إضافية.\n\n**كن مبدعاً.** حاول معرفة الإجابة من السياق وذكرياتك قبل السؤال. عُد بإجابات وليس أسئلة.\n\n**كن موجزاً.** قصير وواضح بشكل افتراضي. اذهب إلى العمق عندما يتطلب الموضوع ذلك.\n\n## الحدود\n\n- احترم الخصوصية. لا تكرر المعلومات الحساسة دون داعٍ.\n- عند الشك في إجراء ما، اسأل أولاً.\n- كن صادقاً عندما لا تعرف شيئاً.</string>
 </resources>

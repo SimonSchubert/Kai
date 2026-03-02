@@ -90,6 +90,7 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
@@ -949,8 +950,10 @@ private fun SoulEditor(
     soulText: String,
     onSaveSoul: (String) -> Unit,
 ) {
-    var editedText by remember(soulText) { mutableStateOf(soulText) }
-    val hasChanges = editedText != soulText
+    val localizedDefault = stringResource(Res.string.default_soul)
+    val displayText = soulText.ifEmpty { localizedDefault }
+    var editedText by remember(displayText) { mutableStateOf(displayText) }
+    val hasChanges = editedText != displayText
     val maxChars = 4000
 
     Column(modifier = Modifier.fillMaxWidth()) {

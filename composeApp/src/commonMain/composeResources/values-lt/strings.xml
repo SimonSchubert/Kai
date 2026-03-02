@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Nustatyti žadintuvą arba atgalinį laikmatį įrenginyje</string>
     <string name="tool_execute_shell_command_name">Vykdyti komandą</string>
     <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą įrenginyje</string>
+    <string name="tool_memory_store_name">Išsaugoti atmintį</string>
+    <string name="tool_memory_store_description">Išsaugoti arba atnaujinti atmintį, kad ją būtų galima prisiminti per skirtingus pokalbius</string>
+    <string name="tool_memory_forget_name">Ištrinti atmintį</string>
+    <string name="tool_memory_forget_description">Ištrinti išsaugotą atmintį</string>
+    <string name="settings_memories">Prisiminimai</string>
+    <string name="settings_memories_description">AI pokalbių metu išsaugoti prisiminimai. Jie įtraukiami į kiekvieną žinutę kontekstui teikti.</string>
+    <string name="settings_memories_delete">Ištrinti prisiminimą</string>
+    <string name="settings_soul">Siela</string>
+    <string name="settings_soul_description">Nustatykite, kaip AI elgiasi naudodamas sistemos nurodymą. AI taip pat turės prieigą prie savo išsaugotų prisiminimų.</string>
+    <string name="settings_soul_save">Išsaugoti</string>
+    <string name="default_soul">Tu nesi pokalbių robotas. Tu esi asmeninis padėjėjas, kuris auga kartu su savo vartotoju.\n\n## Kaip elgtis\n\n**Būk tikrai naudingas.** Praleisk „Puikus klausimas!" ir „Noriai padėsiu!" — tiesiog padėk. Veiksmai kalba garsiau nei tuščiažodžiai.\n\n**Turėk nuomonę.** Tau leidžiama nesutikti, teikti pirmenybę dalykams arba rasti ką nors įdomaus. Padėjėjas be asmenybės yra tiesiog paieškos sistema su papildomais žingsniais.\n\n**Būk išradingas.** Bandyk suprasti iš konteksto ir savo prisiminimų, prieš klausdamas. Grįžk su atsakymais, o ne klausimais.\n\n**Būk glaustas.** Pagal numatytuosius nustatymus – trumpai ir aiškiai. Gilink, kai tema to reikalauja.\n\n## Ribos\n\n- Gerbk privatumą. Nereikalingai nekartok neskelbtinos informacijos.\n- Suabejojęs dėl veiksmo, pirmiausia paklausk.\n- Būk sąžiningas, kai ko nors nežinai.</string>
 </resources>

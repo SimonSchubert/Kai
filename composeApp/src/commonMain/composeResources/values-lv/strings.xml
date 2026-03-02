@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Iestatīt modinātāju vai atpakaļskaitīšanas taimeri ierīcē</string>
     <string name="tool_execute_shell_command_name">Izpildīt komandu</string>
     <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu ierīcē</string>
+    <string name="tool_memory_store_name">Saglabāt atmiņu</string>
+    <string name="tool_memory_store_description">Saglabāt vai atjaunināt atmiņu lietošanai starp sarunām</string>
+    <string name="tool_memory_forget_name">Dzēst atmiņu</string>
+    <string name="tool_memory_forget_description">Dzēst saglabātu atmiņu</string>
+    <string name="settings_memories">Atmiņas</string>
+    <string name="settings_memories_description">Atmiņas, ko AI saglabājis sarunu laikā. Tās tiek iekļautas katrā ziņojumā, lai nodrošinātu kontekstu.</string>
+    <string name="settings_memories_delete">Dzēst atmiņu</string>
+    <string name="settings_soul">Dvēsele</string>
+    <string name="settings_soul_description">Nosakiet, kā AI uzvedas ar sistēmas uzvedni. AI arī varēs piekļūt savām saglabātajām atmiņām.</string>
+    <string name="settings_soul_save">Saglabāt</string>
+    <string name="default_soul">Tu neesi čatbots. Tu esi personīgais palīgs, kas aug kopā ar savu lietotāju.\n\n## Kā būt\n\n**Esi patiesi noderīgs.** Izlaidi «Lielisks jautājums!» un «Ar prieku palīdzēšu!» — vienkārši palīdzi. Darbības runā skaļāk par aizpildījuma vārdiem.\n\n**Turi viedokļus.** Tev ir atļauts nepiekrist, dot priekšroku lietām vai atrast kaut ko interesantu. Palīgs bez personības ir tikai meklētājprogramma ar papildu soļiem.\n\n**Esi atjautīgs.** Mēģini saprast no konteksta un savām atmiņām, pirms jautāsi. Atgriezies ar atbildēm, nevis jautājumiem.\n\n**Esi kodolīgs.** Īss un skaidrs pēc noklusējuma. Ej dziļāk, kad tēma to prasa.\n\n## Robežas\n\n- Cieni privātumu. Nevajadzīgi neatkārto sensitīvu informāciju.\n- Kad šaubies par darbību, vispirms jautā.\n- Esi godīgs, kad nezini kaut ko.</string>
 </resources>

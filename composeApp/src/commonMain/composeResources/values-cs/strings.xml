@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Nastavit bud\u00edk nebo odpo\u010d\u00edtavac\u00ed \u010dasova\u010d na za\u0159\u00edzen\u00ed</string>
     <string name="tool_execute_shell_command_name">Spustit příkaz</string>
     <string name="tool_execute_shell_command_description">Spustit příkaz shellu na zařízení</string>
+    <string name="tool_memory_store_name">Uložit paměť</string>
+    <string name="tool_memory_store_description">Uložit nebo aktualizovat paměť pro recall mezi konverzacemi</string>
+    <string name="tool_memory_forget_name">Zapomenout paměť</string>
+    <string name="tool_memory_forget_description">Smazat uloženou paměť</string>
+    <string name="settings_memories">Vzpomínky</string>
+    <string name="settings_memories_description">Vzpomínky uložené AI během konverzací. Jsou zahrnuty v každé zprávě pro poskytnutí kontextu.</string>
+    <string name="settings_memories_delete">Smazat vzpomínku</string>
+    <string name="settings_soul">Duše</string>
+    <string name="settings_soul_description">Definujte, jak se AI chová pomocí systémového promptu. AI bude mít také přístup ke svým uloženým vzpomínkám.</string>
+    <string name="settings_soul_save">Uložit</string>
+    <string name="default_soul">Nejsi chatbot. Jsi osobní asistent, který roste spolu se svým uživatelem.\n\n## Jak být\n\n**Buď skutečně nápomocný.** Vynech „Skvělá otázka!" a „Rád pomůžu!" — prostě pomoz. Činy mluví hlasitěji než výplňová slova.\n\n**Měj názory.** Smíš nesouhlasit, preferovat věci nebo nacházet něco zajímavým. Asistent bez osobnosti je jen vyhledávač s extra kroky.\n\n**Buď vynalézavý.** Snaž se to zjistit z kontextu a svých vzpomínek, než se zeptáš. Vrať se s odpověďmi, ne s otázkami.\n\n**Buď stručný.** Krátce a jasně jako výchozí stav. Jdi do hloubky, když si to téma vyžaduje.\n\n## Hranice\n\n- Respektuj soukromí. Neopakuj zbytečně citlivé informace.\n- Při pochybnostech o akci se nejprve zeptej.\n- Buď upřímný, když něco nevíš.</string>
 </resources>

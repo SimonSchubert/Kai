@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Setează o alarmă sau un cronometru pe dispozitiv</string>
     <string name="tool_execute_shell_command_name">Execută comandă</string>
     <string name="tool_execute_shell_command_description">Execută o comandă shell pe dispozitiv</string>
+    <string name="tool_memory_store_name">Salvează memorie</string>
+    <string name="tool_memory_store_description">Salvează sau actualizează o memorie pentru recuperare în conversații diferite</string>
+    <string name="tool_memory_forget_name">Uită memorie</string>
+    <string name="tool_memory_forget_description">Șterge o memorie salvată</string>
+    <string name="settings_memories">Amintiri</string>
+    <string name="settings_memories_description">Amintiri salvate de IA în timpul conversațiilor. Acestea sunt incluse în fiecare mesaj pentru a oferi context.</string>
+    <string name="settings_memories_delete">Șterge amintire</string>
+    <string name="settings_soul">Suflet</string>
+    <string name="settings_soul_description">Definește cum se comportă IA cu un prompt de sistem. IA va avea și acces la amintirile sale salvate.</string>
+    <string name="settings_soul_save">Salvează</string>
+    <string name="default_soul">Nu ești un chatbot. Ești un asistent personal care crește împreună cu utilizatorul tău.\n\n## Cum să fii\n\n**Fii cu adevărat util.** Sari peste „Întrebare grozavă!\" și „Îmi face plăcere să ajut!\" — ajută pur și simplu. Faptele vorbesc mai tare decât cuvintele de umplutură.\n\n**Ai opinii.** Poți să nu fii de acord, să preferi lucruri sau să găsești ceva interesant. Un asistent fără personalitate este doar un motor de căutare cu pași suplimentari.\n\n**Fii ingenios.** Încearcă să înțelegi din context și din amintirile tale înainte de a întreba. Întoarce-te cu răspunsuri, nu cu întrebări.\n\n**Fii concis.** Scurt și clar implicit. Aprofundează când subiectul o cere.\n\n## Limite\n\n- Respectă confidențialitatea. Nu repeta informații sensibile inutil.\n- Întreabă mai întâi dacă ești nesigur cu privire la o acțiune.\n- Fii sincer când nu știi ceva.</string>
 </resources>

@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
     <string name="tool_execute_shell_command_name">Изпълни команда</string>
     <string name="tool_execute_shell_command_description">Изпълни команда на устройството</string>
+    <string name="tool_memory_store_name">Запази памет</string>
+    <string name="tool_memory_store_description">Запазете или актуализирайте памет за извикване между разговори</string>
+    <string name="tool_memory_forget_name">Забрави памет</string>
+    <string name="tool_memory_forget_description">Изтрий запазена памет</string>
+    <string name="settings_memories">Спомени</string>
+    <string name="settings_memories_description">Спомени, запазени от AI по време на разговори. Те се включват в всяко съобщение за осигуряване на контекст.</string>
+    <string name="settings_memories_delete">Изтрий памет</string>
+    <string name="settings_soul">Душа</string>
+    <string name="settings_soul_description">Определете как се държи AI чрез системен промпт. AI ще има достъп и до своите запазени спомени.</string>
+    <string name="settings_soul_save">Запази</string>
+    <string name="default_soul">Ти не си чатбот. Ти си личен асистент, който расте заедно с твоя потребител.\n\n## Как да бъдеш\n\n**Бъди искрено полезен.** Пропусни „Страхотен въпрос!" и „Ще се радвам да помогна!" — просто помагай. Действията говорят по-силно от думите-запълнители.\n\n**Имай мнения.** Позволено ти е да не се съгласяваш, да предпочиташ неща или да намираш нещо интересно. Асистент без личност е просто търсачка с допълнителни стъпки.\n\n**Бъди находчив.** Опитай се да разбереш от контекста и спомените си, преди да питаш. Върни се с отговори, а не с въпроси.\n\n**Бъди кратък.** Кратко и ясно по подразбиране. Задълбочи се, когато темата го изисква.\n\n## Граници\n\n- Уважавай личното пространство. Не повтаряй чувствителна информация без нужда.\n- При съмнение относно дадено действие, първо попитай.\n- Бъди честен, когато не знаеш нещо.</string>
 </resources>

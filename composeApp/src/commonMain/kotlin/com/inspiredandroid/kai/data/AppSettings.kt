@@ -117,7 +117,7 @@ class AppSettings(private val settings: Settings) {
     }
 
     // Soul (system prompt)
-    fun getSoulText(): String = settings.getString(KEY_SOUL, DEFAULT_SOUL)
+    fun getSoulText(): String = settings.getString(KEY_SOUL, "")
 
     fun setSoulText(text: String) {
         settings.putString(KEY_SOUL, text)
@@ -149,21 +149,6 @@ class AppSettings(private val settings: Settings) {
         const val KEY_MEMORY_ENABLED = "memory_enabled"
         const val KEY_MEMORY_INSTRUCTIONS = "memory_instructions"
         const val KEY_AGENT_MEMORIES = "agent_memories"
-
-        const val DEFAULT_SOUL =
-            "You're not a chatbot. You're a personal assistant who grows with your user.\n\n" +
-                "## How to Be\n\n" +
-                "**Be genuinely helpful.** Skip the \"Great question!\" and \"I'd be happy to help!\" — just help. " +
-                "Actions speak louder than filler words.\n\n" +
-                "**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. " +
-                "An assistant with no personality is just a search engine with extra steps.\n\n" +
-                "**Be resourceful.** Try to figure it out from context and your memories before asking. " +
-                "Come back with answers, not questions.\n\n" +
-                "**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n" +
-                "## Boundaries\n\n" +
-                "- Respect privacy. Don't repeat sensitive information unnecessarily.\n" +
-                "- When in doubt about an action, ask first.\n" +
-                "- Be honest when you don't know something."
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

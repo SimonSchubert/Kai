@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
     <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
     <string name="tool_execute_shell_command_description">Құрылғыда shell пәрменін орындау</string>
+    <string name="tool_memory_store_name">Жадты сақтау</string>
+    <string name="tool_memory_store_description">Сұхбаттар арасында еске алу үшін жадты сақтау немесе жаңарту</string>
+    <string name="tool_memory_forget_name">Жадты ұмыту</string>
+    <string name="tool_memory_forget_description">Сақталған жадты жою</string>
+    <string name="settings_memories">Жадтар</string>
+    <string name="settings_memories_description">AI сұхбаттар барысында сақтаған жадтар. Контекст беру үшін әр хабарламаға қосылады.</string>
+    <string name="settings_memories_delete">Жадты жою</string>
+    <string name="settings_soul">Жан</string>
+    <string name="settings_soul_description">Жүйелік нұсқаулықпен AI қалай әрекет ететінін анықтаңыз. AI сақталған жадтарына да қол жеткізе алады.</string>
+    <string name="settings_soul_save">Сақтау</string>
+    <string name="default_soul">Сіз чатбот емессіз. Сіз пайдаланушыңызбен бірге өсетін жеке көмекшісіз.\n\n## Қалай болу керек\n\n**Шынымен пайдалы болыңыз.** «Тамаша сұрақ!» және «Көмектесуге қуаныштымын!» деген сөздерді өткізіп жіберіңіз — жай ғана көмектесіңіз. Іс-әрекеттер толтырушы сөздерден жоғары дауыспен сөйлейді.\n\n**Пікіріңіз болсын.** Сізге қарсы болуға, нәрселерді жақсы көруге немесе бірдеңені қызықты деп табуға рұқсат берілген. Тұлғасыз көмекші — бұл тек қосымша қадамдары бар іздеу жүйесі.\n\n**Тапқыр болыңыз.** Сұрамас бұрын мәтінмән мен жадтарыңыздан түсінуге тырысыңыз. Сұрақтармен емес, жауаптармен оралыңыз.\n\n**Қысқа болыңыз.** Әдепкі ретінде қысқа және нақты. Тақырып талап еткенде тереңірек кіріңіз.\n\n## Шекаралар\n\n- Жеке өмірді құрметтеңіз. Құпия ақпаратты қажетсіз қайталамаңыз.\n- Әрекет туралы күмән туса, алдымен сұраңыз.\n- Бірдеңені білмесеңіз, шынайы болыңыз.</string>
 </resources>

@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
     <string name="tool_execute_shell_command_name">Wykonaj polecenie</string>
     <string name="tool_execute_shell_command_description">Wykonaj polecenie powłoki na urządzeniu</string>
+    <string name="tool_memory_store_name">Zapisz pamięć</string>
+    <string name="tool_memory_store_description">Zapisz lub zaktualizuj pamięć do przywołania w różnych rozmowach</string>
+    <string name="tool_memory_forget_name">Zapomnij pamięć</string>
+    <string name="tool_memory_forget_description">Usuń zapisaną pamięć</string>
+    <string name="settings_memories">Wspomnienia</string>
+    <string name="settings_memories_description">Wspomnienia zapisane przez AI podczas rozmów. Są one dołączane do każdej wiadomości w celu zapewnienia kontekstu.</string>
+    <string name="settings_memories_delete">Usuń wspomnienie</string>
+    <string name="settings_soul">Dusza</string>
+    <string name="settings_soul_description">Określ, jak AI zachowuje się za pomocą systemowego polecenia. AI będzie miało również dostęp do swoich zapisanych wspomnień.</string>
+    <string name="settings_soul_save">Zapisz</string>
+    <string name="default_soul">Nie jesteś chatbotem. Jesteś osobistym asystentem, który rośnie razem ze swoim użytkownikiem.\n\n## Jak być\n\n**Bądź naprawdę pomocny.** Pomiń „Świetne pytanie!" i „Z przyjemnością pomogę!" — po prostu pomóż. Czyny mówią głośniej niż słowa-wypełniacze.\n\n**Miej opinie.** Możesz się nie zgadzać, preferować rzeczy lub uważać coś za interesujące. Asystent bez osobowości to tylko wyszukiwarka z dodatkowymi krokami.\n\n**Bądź pomysłowy.** Spróbuj wywnioskować z kontekstu i swoich wspomnień, zanim zapytasz. Wróć z odpowiedziami, nie pytaniami.\n\n**Bądź zwięzły.** Krótko i jasno domyślnie. Idź głębiej, gdy temat tego wymaga.\n\n## Granice\n\n- Szanuj prywatność. Nie powtarzaj zbędnie wrażliwych informacji.\n- Gdy masz wątpliwości co do działania, najpierw zapytaj.\n- Bądź szczery, gdy czegoś nie wiesz.</string>
 </resources>

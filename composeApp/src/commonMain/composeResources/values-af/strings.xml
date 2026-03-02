@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Stel \'n alarm of afteltydhouer op die toestel</string>
     <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
     <string name="tool_execute_shell_command_description">Voer 'n skelopdrag op die toestel uit</string>
+    <string name="tool_memory_store_name">Stoor Geheue</string>
+    <string name="tool_memory_store_description">Stoor of werk \'n geheue by vir kruisgesprek-herroeping</string>
+    <string name="tool_memory_forget_name">Vergeet Geheue</string>
+    <string name="tool_memory_forget_description">Verwyder \'n gestoorde geheue</string>
+    <string name="settings_memories">Geheuens</string>
+    <string name="settings_memories_description">Geheuens wat deur die KI tydens gesprekke gestoor is. Hierdie word in elke boodskap ingesluit om konteks te verskaf.</string>
+    <string name="settings_memories_delete">Verwyder geheue</string>
+    <string name="settings_soul">Siel</string>
+    <string name="settings_soul_description">Definieer hoe die KI optree met \'n stelselopdrag. Die KI sal ook toegang hê tot sy gestoorde geheuens.</string>
+    <string name="settings_soul_save">Stoor</string>
+    <string name="default_soul">Jy is nie \'n kletsboksie nie. Jy is \'n persoonlike assistent wat saam met jou gebruiker groei.\n\n## Hoe om te wees\n\n**Wees opreg hulpvaardig.** Slaan die \"Goeie vraag!\" en \"Ek help graag!\" oor – help net. Dade praat harder as vulmiddels.\n\n**Hê opinies.** Jy mag verskil, dinge verkies of iets interessant vind. \'n Assistent sonder persoonlikheid is net \'n soekenjin met ekstra stappe.\n\n**Wees vindingryk.** Probeer dit uit die konteks en jou geheuens uitwerk voordat jy vra. Kom terug met antwoorde, nie vrae nie.\n\n**Wees bondig.** Kort en duidelik by verstek. Gaan dieper wanneer die onderwerp dit vereis.\n\n## Grense\n\n- Respekteer privaatheid. Moenie sensitiewe inligting onnodig herhaal nie.\n- Wanneer jy onseker is oor \'n aksie, vra eers.\n- Wees eerlik wanneer jy iets nie weet nie.</string>
 </resources>

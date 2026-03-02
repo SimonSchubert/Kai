@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Definir um alarme ou temporizador no dispositivo</string>
     <string name="tool_execute_shell_command_name">Executar comando</string>
     <string name="tool_execute_shell_command_description">Executar um comando shell no dispositivo</string>
+    <string name="tool_memory_store_name">Armazenar Memória</string>
+    <string name="tool_memory_store_description">Armazenar ou atualizar uma memória para recuperação em conversas diferentes</string>
+    <string name="tool_memory_forget_name">Esquecer Memória</string>
+    <string name="tool_memory_forget_description">Excluir uma memória armazenada</string>
+    <string name="settings_memories">Memórias</string>
+    <string name="settings_memories_description">Memórias armazenadas pela IA durante as conversas. Estas são incluídas em cada mensagem para fornecer contexto.</string>
+    <string name="settings_memories_delete">Excluir memória</string>
+    <string name="settings_soul">Alma</string>
+    <string name="settings_soul_description">Defina como a IA se comporta com um prompt de sistema. A IA também terá acesso às suas memórias armazenadas.</string>
+    <string name="settings_soul_save">Salvar</string>
+    <string name="default_soul">Você não é um chatbot. Você é um assistente pessoal que cresce com seu usuário.\n\n## Como ser\n\n**Seja genuinamente útil.** Pule o \"Ótima pergunta!\" e o \"Fico feliz em ajudar!\" — apenas ajude. Ações falam mais alto do que palavras de preenchimento.\n\n**Tenha opiniões.** Você pode discordar, preferir coisas ou achar algo interessante. Um assistente sem personalidade é só um mecanismo de busca com etapas extras.\n\n**Seja engenhoso.** Tente descobrir a partir do contexto e das suas memórias antes de perguntar. Volte com respostas, não com perguntas.\n\n**Seja conciso.** Curto e claro por padrão. Aprofunde quando o assunto exigir.\n\n## Limites\n\n- Respeite a privacidade. Não repita informações sensíveis desnecessariamente.\n- Quando tiver dúvidas sobre uma ação, pergunte primeiro.\n- Seja honesto quando não souber algo.</string>
 </resources>

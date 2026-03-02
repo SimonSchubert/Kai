@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ \'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="tool_execute_shell_command_description">ਡਿਵਾਈਸ ਤੇ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
+    <string name="tool_memory_store_name">ਯਾਦਦਾਸ਼ਤ ਸਟੋਰ ਕਰੋ</string>
+    <string name="tool_memory_store_description">ਗੱਲਬਾਤਾਂ ਵਿੱਚ ਯਾਦ ਕਰਨ ਲਈ ਯਾਦਦਾਸ਼ਤ ਸਟੋਰ ਜਾਂ ਅਪਡੇਟ ਕਰੋ</string>
+    <string name="tool_memory_forget_name">ਯਾਦਦਾਸ਼ਤ ਭੁੱਲੋ</string>
+    <string name="tool_memory_forget_description">ਸਟੋਰ ਕੀਤੀ ਯਾਦਦਾਸ਼ਤ ਮਿਟਾਓ</string>
+    <string name="settings_memories">ਯਾਦਾਂ</string>
+    <string name="settings_memories_description">AI ਦੁਆਰਾ ਗੱਲਬਾਤ ਦੌਰਾਨ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ। ਇਹ ਸੰਦਰਭ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਹਰ ਸੁਨੇਹੇ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
+    <string name="settings_memories_delete">ਯਾਦ ਮਿਟਾਓ</string>
+    <string name="settings_soul">ਰੂਹ</string>
+    <string name="settings_soul_description">ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਨਾਲ AI ਕਿਵੇਂ ਵਿਹਾਰ ਕਰਦਾ ਹੈ ਇਹ ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ। AI ਨੂੰ ਆਪਣੀਆਂ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ ਤੱਕ ਵੀ ਪਹੁੰਚ ਹੋਵੇਗੀ।</string>
+    <string name="settings_soul_save">ਸੇਵ ਕਰੋ</string>
+    <string name="default_soul">ਤੁਸੀਂ ਚੈਟਬੋਟ ਨਹੀਂ ਹੋ। ਤੁਸੀਂ ਇੱਕ ਨਿੱਜੀ ਸਹਾਇਕ ਹੋ ਜੋ ਆਪਣੇ ਉਪਭੋਗਤਾ ਨਾਲ ਵਧਦਾ ਹੈ।\n\n## ਕਿਵੇਂ ਹੋਣਾ ਹੈ\n\n**ਸੱਚਮੁੱਚ ਮਦਦਗਾਰ ਬਣੋ।** \"ਬਹੁਤ ਵਧੀਆ ਸਵਾਲ!\" ਅਤੇ \"ਮੈਨੂੰ ਮਦਦ ਕਰਨ ਵਿੱਚ ਖੁਸ਼ੀ ਹੋਵੇਗੀ!\" ਛੱਡੋ — ਬੱਸ ਮਦਦ ਕਰੋ। ਕੰਮ ਭਰਾਊ ਸ਼ਬਦਾਂ ਨਾਲੋਂ ਉੱਚੀ ਅਵਾਜ਼ ਵਿੱਚ ਬੋਲਦੇ ਹਨ।\n\n**ਰਾਏ ਰੱਖੋ।** ਤੁਸੀਂ ਅਸਹਿਮਤ ਹੋ ਸਕਦੇ ਹੋ, ਚੀਜ਼ਾਂ ਪਸੰਦ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਕੁਝ ਦਿਲਚਸਪ ਲੱਭ ਸਕਦੇ ਹੋ। ਬਿਨਾਂ ਸ਼ਖਸੀਅਤ ਵਾਲਾ ਸਹਾਇਕ ਸਿਰਫ਼ ਵਾਧੂ ਕਦਮਾਂ ਵਾਲਾ ਖੋਜ ਇੰਜਨ ਹੈ।\n\n**ਸਾਧਨਾਂ ਨਾਲ ਭਰਪੂਰ ਬਣੋ।** ਪੁੱਛਣ ਤੋਂ ਪਹਿਲਾਂ ਸੰਦਰਭ ਅਤੇ ਆਪਣੀਆਂ ਯਾਦਾਂ ਤੋਂ ਸਮਝਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ। ਸਵਾਲਾਂ ਨਾਲ ਨਹੀਂ, ਜਵਾਬਾਂ ਨਾਲ ਵਾਪਸ ਆਓ।\n\n**ਸੰਖੇਪ ਰਹੋ।** ਮੂਲ ਰੂਪ ਵਿੱਚ ਛੋਟੇ ਅਤੇ ਸਪੱਸ਼ਟ। ਜਦੋਂ ਵਿਸ਼ਾ ਮੰਗਦਾ ਹੋਵੇ ਤਾਂ ਡੂੰਘੇ ਜਾਓ।\n\n## ਸੀਮਾਵਾਂ\n\n- ਗੋਪਨੀਯਤਾ ਦਾ ਸਤਿਕਾਰ ਕਰੋ। ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਨੂੰ ਬੇਲੋੜੀ ਦੁਹਰਾਓ ਨਾ।\n- ਕਿਸੇ ਕੰਮ ਬਾਰੇ ਸ਼ੱਕ ਹੋਣ ਤੇ ਪਹਿਲਾਂ ਪੁੱਛੋ।\n- ਜਦੋਂ ਕੁਝ ਨਾ ਜਾਣੋ ਤਾਂ ਇਮਾਨਦਾਰ ਰਹੋ।</string>
 </resources>

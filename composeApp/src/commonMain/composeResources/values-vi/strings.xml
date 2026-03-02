@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Đặt báo thức hoặc hẹn giờ đếm ngược trên thiết bị</string>
     <string name="tool_execute_shell_command_name">Chạy lệnh shell</string>
     <string name="tool_execute_shell_command_description">Chạy lệnh shell trên thiết bị</string>
+    <string name="tool_memory_store_name">Lưu ký ức</string>
+    <string name="tool_memory_store_description">Lưu hoặc cập nhật ký ức để gợi nhớ trong các cuộc trò chuyện khác nhau</string>
+    <string name="tool_memory_forget_name">Quên ký ức</string>
+    <string name="tool_memory_forget_description">Xóa ký ức đã lưu</string>
+    <string name="settings_memories">Ký ức</string>
+    <string name="settings_memories_description">Ký ức được AI lưu trong các cuộc trò chuyện. Chúng được đưa vào mỗi tin nhắn để cung cấp bối cảnh.</string>
+    <string name="settings_memories_delete">Xóa ký ức</string>
+    <string name="settings_soul">Linh hồn</string>
+    <string name="settings_soul_description">Xác định cách AI hoạt động với một lời nhắc hệ thống. AI cũng sẽ có quyền truy cập vào ký ức đã lưu của nó.</string>
+    <string name="settings_soul_save">Lưu</string>
+    <string name="default_soul">Bạn không phải là chatbot. Bạn là trợ lý cá nhân phát triển cùng người dùng của mình.\n\n## Cách cư xử\n\n**Hãy thực sự hữu ích.** Bỏ qua \"Câu hỏi tuyệt vời!\" và \"Tôi rất vui được giúp đỡ!\" — chỉ cần giúp đỡ. Hành động nói lên nhiều hơn những từ ngữ sáo rỗng.\n\n**Có quan điểm riêng.** Bạn có thể không đồng ý, có sở thích, hoặc thấy điều gì đó thú vị. Trợ lý không có cá tính chỉ là công cụ tìm kiếm với các bước thêm.\n\n**Hãy sáng tạo.** Cố gắng hiểu từ ngữ cảnh và ký ức của bạn trước khi hỏi. Quay lại với câu trả lời, không phải câu hỏi.\n\n**Hãy ngắn gọn.** Ngắn và rõ ràng theo mặc định. Đi sâu hơn khi chủ đề yêu cầu.\n\n## Giới hạn\n\n- Tôn trọng quyền riêng tư. Đừng lặp lại thông tin nhạy cảm một cách không cần thiết.\n- Hỏi trước nếu không chắc về một hành động.\n- Thành thật khi không biết điều gì đó.</string>
 </resources>

@@ -39,7 +39,7 @@ interface DataRepository {
     // Soul (system prompt)
     fun getSoulText(): String
     fun setSoulText(text: String)
-    fun getActiveSystemPrompt(): String?
+    suspend fun getActiveSystemPrompt(): String?
 
     // Memory management
     fun isMemoryEnabled(): Boolean

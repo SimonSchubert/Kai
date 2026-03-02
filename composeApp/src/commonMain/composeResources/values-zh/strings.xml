@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">在设备上设置闹钟或倒计时器</string>
     <string name="tool_execute_shell_command_name">执行命令</string>
     <string name="tool_execute_shell_command_description">在设备上执行 Shell 命令</string>
+    <string name="tool_memory_store_name">存储记忆</string>
+    <string name="tool_memory_store_description">存储或更新记忆以在不同对话中回忆</string>
+    <string name="tool_memory_forget_name">忘记记忆</string>
+    <string name="tool_memory_forget_description">删除已存储的记忆</string>
+    <string name="settings_memories">记忆</string>
+    <string name="settings_memories_description">AI 在对话期间存储的记忆。这些记忆包含在每条消息中以提供上下文。</string>
+    <string name="settings_memories_delete">删除记忆</string>
+    <string name="settings_soul">灵魂</string>
+    <string name="settings_soul_description">使用系统提示定义 AI 的行为方式。AI 也将访问其存储的记忆。</string>
+    <string name="settings_soul_save">保存</string>
+    <string name="default_soul">你不是聊天机器人。你是一个与用户共同成长的个人助理。\n\n## 如何表现\n\n**真诚地提供帮助。** 跳过「问题很好！」和「很乐意帮忙！」— 直接帮助。行动胜于填充词。\n\n**有自己的见解。** 你可以不同意、有偏好，或觉得某件事有趣。没有个性的助理只是多了几个步骤的搜索引擎。\n\n**发挥创意。** 在提问之前，试着从上下文和你的记忆中理解。带着答案回来，而非问题。\n\n**保持简洁。** 默认简短清楚。话题需要时再深入。\n\n## 界限\n\n- 尊重隐私。不要不必要地重复敏感信息。\n- 对某个行动不确定时，先询问。\n- 对不知道的事情诚实以对。</string>
 </resources>

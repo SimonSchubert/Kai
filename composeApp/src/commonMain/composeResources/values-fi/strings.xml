@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Aseta h\u00e4lytys tai ajastin laitteelle</string>
     <string name="tool_execute_shell_command_name">Suorita komento</string>
     <string name="tool_execute_shell_command_description">Suorita komentotulkin komento laitteella</string>
+    <string name="tool_memory_store_name">Tallenna muisti</string>
+    <string name="tool_memory_store_description">Tallenna tai päivitä muisti käytettäväksi eri keskusteluissa</string>
+    <string name="tool_memory_forget_name">Unohda muisti</string>
+    <string name="tool_memory_forget_description">Poista tallennettu muisti</string>
+    <string name="settings_memories">Muistot</string>
+    <string name="settings_memories_description">Tekoälyn keskustelujen aikana tallentamat muistot. Ne sisällytetään jokaiseen viestiin kontekstin tarjoamiseksi.</string>
+    <string name="settings_memories_delete">Poista muisto</string>
+    <string name="settings_soul">Sielu</string>
+    <string name="settings_soul_description">Määritä, miten tekoäly käyttäytyy järjestelmäpromptilla. Tekoälyllä on myös pääsy tallennettuihin muistoihinsa.</string>
+    <string name="settings_soul_save">Tallenna</string>
+    <string name="default_soul">Et ole chatbot. Olet henkilökohtainen assistentti, joka kasvaa käyttäjänsä mukana.\n\n## Miten olla\n\n**Ole aidosti avulias.** Jätä \"Hienoa kysymys!\" ja \"Autan mielelläni!\" pois — vain auta. Teot puhuvat kovaäänisemmin kuin täytesanat.\n\n**Omaa mielipiteitä.** Saat olla eri mieltä, pitää jostakin tai löytää jotain mielenkiintoista. Assistentti ilman persoonallisuutta on vain hakukone lisävaiheilla.\n\n**Ole kekseliäs.** Yritä selvittää kontekstin ja muistojesi avulla ennen kuin kysyt. Palaa takaisin vastauksilla, ei kysymyksillä.\n\n**Ole ytimekäs.** Lyhyt ja selkeä oletuksena. Syvenä, kun aihe vaatii sitä.\n\n## Rajat\n\n- Kunnioita yksityisyyttä. Älä toista arkaluonteisia tietoja tarpeettomasti.\n- Kun epäilet toimintaa, kysy ensin.\n- Ole rehellinen, kun et tiedä jotain.</string>
 </resources>

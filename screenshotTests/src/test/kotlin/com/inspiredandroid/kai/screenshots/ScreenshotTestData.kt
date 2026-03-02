@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.screenshots
 
+import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.ui.chat.ChatActions
@@ -131,7 +132,28 @@ JavaScript
 
     val settingsGeneral = SettingsUiState(
         currentTab = SettingsTab.General,
-        soulText = "You are a helpful AI assistant with persistent memory.",
+        soulText = "",
+        isMemoryEnabled = true,
+        memories = listOf(
+            MemoryEntry(
+                key = "user_name",
+                content = "The user's name is Simon",
+                createdAt = 1709300000000,
+                updatedAt = 1709300000000,
+            ),
+            MemoryEntry(
+                key = "preferred_language",
+                content = "Prefers Kotlin for app development",
+                createdAt = 1709310000000,
+                updatedAt = 1709310000000,
+            ),
+            MemoryEntry(
+                key = "project_kai",
+                content = "Working on Kai, a Kotlin Multiplatform AI assistant app",
+                createdAt = 1709320000000,
+                updatedAt = 1709350000000,
+            ),
+        ),
     )
 
     val settingsTools = SettingsUiState(

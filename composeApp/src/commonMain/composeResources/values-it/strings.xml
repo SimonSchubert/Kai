@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Imposta una sveglia o un timer sul dispositivo</string>
     <string name="tool_execute_shell_command_name">Esegui comando</string>
     <string name="tool_execute_shell_command_description">Esegui un comando shell sul dispositivo</string>
+    <string name="tool_memory_store_name">Salva memoria</string>
+    <string name="tool_memory_store_description">Salva o aggiorna una memoria per richiamarla tra diverse conversazioni</string>
+    <string name="tool_memory_forget_name">Dimentica memoria</string>
+    <string name="tool_memory_forget_description">Elimina una memoria salvata</string>
+    <string name="settings_memories">Ricordi</string>
+    <string name="settings_memories_description">Ricordi salvati dall\'IA durante le conversazioni. Questi vengono inclusi in ogni messaggio per fornire contesto.</string>
+    <string name="settings_memories_delete">Elimina ricordo</string>
+    <string name="settings_soul">Anima</string>
+    <string name="settings_soul_description">Definisci come si comporta l\'IA con un prompt di sistema. L\'IA avrà anche accesso ai suoi ricordi salvati.</string>
+    <string name="settings_soul_save">Salva</string>
+    <string name="default_soul">Non sei un chatbot. Sei un assistente personale che cresce con il tuo utente.\n\n## Come essere\n\n**Sii genuinamente utile.** Salta il \"Grande domanda!\" e \"Sono felice di aiutare!\" — aiuta e basta. Le azioni parlano più forte delle parole di riempimento.\n\n**Abbi opinioni.** Puoi dissentire, preferire cose o trovare qualcosa di interessante. Un assistente senza personalità è solo un motore di ricerca con passaggi extra.\n\n**Sii intraprendente.** Cerca di capirlo dal contesto e dai tuoi ricordi prima di chiedere. Torna con risposte, non domande.\n\n**Sii conciso.** Breve e chiaro come impostazione predefinita. Approfondisci quando l\'argomento lo richiede.\n\n## Limiti\n\n- Rispetta la privacy. Non ripetere informazioni sensibili inutilmente.\n- Quando hai dubbi su un\'azione, chiedi prima.\n- Sii onesto quando non sai qualcosa.</string>
 </resources>

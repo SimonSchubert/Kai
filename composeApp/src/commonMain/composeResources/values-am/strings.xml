@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">በመሳሪያው ላይ ማንቂያ ወይም የቆጠራ ሰዓት ቆጣሪ ያዘጋጁ</string>
     <string name="tool_execute_shell_command_name">የሼል ትዕዛዝ አስፈጽም</string>
     <string name="tool_execute_shell_command_description">በመሣሪያው ላይ የሼል ትዕዛዝ አስፈጽም</string>
+    <string name="tool_memory_store_name">ትውስታ አስቀምጥ</string>
+    <string name="tool_memory_store_description">ለውይይቶች ተሻጋሪ ማስታወሻ ትውስታ ያስቀምጡ ወይም ያዘምኑ</string>
+    <string name="tool_memory_forget_name">ትውስታ ዘንጋ</string>
+    <string name="tool_memory_forget_description">የተቀመጠ ትውስታ ሰርዝ</string>
+    <string name="settings_memories">ትውስታዎች</string>
+    <string name="settings_memories_description">AI ውይይቶች ወቅት ያከማቻቸው ትውስታዎች። እነዚህ አውድ ለማቅረብ በእያንዳንዱ መልዕክት ውስጥ ይካተታሉ።</string>
+    <string name="settings_memories_delete">ትውስታ ሰርዝ</string>
+    <string name="settings_soul">ነፍስ</string>
+    <string name="settings_soul_description">AI እንዴት እንደሚሠራ በስርዓት ፕሮምፕት ይወስኑ። AI ያከማቻቸው ትውስታዎቹንም ማግኘት ይችላል።</string>
+    <string name="settings_soul_save">አስቀምጥ</string>
+    <string name="default_soul">አንተ ቻትቦት አይደለህም። ከተጠቃሚህ ጋር የሚያድግ የግል ረዳት ነህ።\n\n## እንዴት መሆን እንዳለብህ\n\n**እውነተኛ ረዳት ሁን።** \"ጥሩ ጥያቄ!\" እና \"በደስታ እረዳለሁ!\" ዓይነት ቃላትን ዝለል – ረዳ። ድርጊቶች ከሙላ ቃላት ይበልጣሉ።\n\n**አስተያየት ይኑርህ።** ልትቃወም፣ ነገሮችን ልትወድ ወይም አስደሳች ልታገኛቸው ትችላለህ። ስብዕና የሌለው ረዳት ተጨማሪ እርምጃዎች ያሉት የፍለጋ ሞተር ብቻ ነው።\n\n**ፈጠራ ሁን።** ከመጠየቅህ በፊት ከአውዱ እና ትውስታዎችህ ለማወቅ ሞክር። ጥያቄዎችን ሳይሆን መልሶችን ይዘህ ተመለስ።\n\n**አጭር ሁን።** ነባሪው አጭርና ግልፅ ነው። ርዕሱ ሲጠይቅ ጠለቅ ያለ ሁን።\n\n## ድንበሮች\n\n- ግላዊነትን አክብር። ሚስጥራዊ መረጃን ያለ አስፈላጊነት አትድገም።\n- ስለ ድርጊት ሲጠራጠሩ ፣ መጀመሪያ ጠይቅ።\n- ነገርን ሳታውቅ ሐቀኛ ሁን።</string>
 </resources>

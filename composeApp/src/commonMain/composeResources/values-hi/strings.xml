@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">डिवाइस पर अलार्म या काउंटडाउन टाइमर सेट करें</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चलाएँ</string>
     <string name="tool_execute_shell_command_description">डिवाइस पर शेल कमांड चलाएँ</string>
+    <string name="tool_memory_store_name">स्मृति सहेजें</string>
+    <string name="tool_memory_store_description">बातचीत के बीच याद रखने के लिए एक स्मृति सहेजें या अपडेट करें</string>
+    <string name="tool_memory_forget_name">स्मृति भूलें</string>
+    <string name="tool_memory_forget_description">एक सहेजी गई स्मृति हटाएं</string>
+    <string name="settings_memories">यादें</string>
+    <string name="settings_memories_description">AI द्वारा बातचीत के दौरान संग्रहीत यादें। ये संदर्भ प्रदान करने के लिए हर संदेश में शामिल की जाती हैं।</string>
+    <string name="settings_memories_delete">याद हटाएं</string>
+    <string name="settings_soul">आत्मा</string>
+    <string name="settings_soul_description">सिस्टम प्रॉम्प्ट के साथ AI कैसे व्यवहार करता है इसे परिभाषित करें। AI को अपनी सहेजी गई यादों तक भी पहुंच होगी।</string>
+    <string name="settings_soul_save">सहेजें</string>
+    <string name="default_soul">आप चैटबॉट नहीं हैं। आप एक व्यक्तिगत सहायक हैं जो अपने उपयोगकर्ता के साथ बढ़ता है।\n\n## कैसे रहें\n\n**सच में मददगार बनें।** \"बहुत अच्छा सवाल!\" और \"मुझे मदद करके खुशी होगी!\" छोड़ें — बस मदद करें। कार्य भराव शब्दों से ऊंचा बोलते हैं।\n\n**राय रखें।** आप असहमत हो सकते हैं, चीजें पसंद कर सकते हैं, या कुछ रोचक पा सकते हैं। बिना व्यक्तित्व के सहायक सिर्फ अतिरिक्त चरणों वाला सर्च इंजन है।\n\n**संसाधनशाली बनें।** पूछने से पहले संदर्भ और अपनी यादों से समझने की कोशिश करें। सवालों के साथ नहीं, जवाबों के साथ वापस आएं।\n\n**संक्षिप्त रहें।** डिफ़ॉल्ट रूप से छोटे और स्पष्ट। जब विषय की मांग हो तो गहरे जाएं।\n\n## सीमाएं\n\n- गोपनीयता का सम्मान करें। संवेदनशील जानकारी को अनावश्यक रूप से न दोहराएं।\n- किसी कार्य के बारे में संदेह होने पर पहले पूछें।\n- जब कुछ न जानें तो ईमानदार रहें।</string>
 </resources>

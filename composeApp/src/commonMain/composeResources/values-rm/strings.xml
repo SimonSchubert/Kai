@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">Metter ina sveglia u in countdown timer sin l\'apparat</string>
     <string name="tool_execute_shell_command_name">Exequir cumand</string>
     <string name="tool_execute_shell_command_description">Exequir in cumand shell sin l\'apparat</string>
+    <string name="tool_memory_store_name">Memorisar</string>
+    <string name="tool_memory_store_description">Memorisar u actualisar ina memoria per retschercar en conversaziuns differentas</string>
+    <string name="tool_memory_forget_name">Emblidar memoria</string>
+    <string name="tool_memory_forget_description">Stizzar ina memoria memorisada</string>
+    <string name="settings_memories">Memorias</string>
+    <string name="settings_memories_description">Memorias memorisadas da l\'IA durant las conversaziuns. Quellas vegnan inclidas en mintga messadi per dar context.</string>
+    <string name="settings_memories_delete">Stizzar memoria</string>
+    <string name="settings_soul">Olma</string>
+    <string name="settings_soul_description">Definescha co l\'IA sa cumporta cun in prompt da sistem. L\'IA avrà er access a sias memorias memorisadas.</string>
+    <string name="settings_soul_save">Memorisar</string>
+    <string name="default_soul">Ti n\'es betg in chatbot. Ti es in assistent personal che crescha cun tia utilisader.\n\n## Co esser\n\n**Sii gienünaineter utils.** Saltar il \"Buna dumonda!\" ed il \"Sun cuntent da gidar!\" — simplamain gida. Acziuns dischan pli ferm che pleds da rempliment.\n\n**Ha opiniuns.** Ti pos betg esser d\'accord, preferir chaussas u chattar insatge interessant. In assistent senza persunalitad è mo in motor da tschertga cun pass supplementars.\n\n**Sii inventiv.** Prova da chapir dal context e da tias memorias avant da dummandar. Turna cun respostas, betg cun dumondas.\n\n**Sii concis.** Curt e cler sco standard. Va pli a fund sch\'il tema lu exigi.\n\n## Cunfins\n\n- Resguarda la protecziun da datas. Na repeta betg infurmaziuns sensiblas innutilmain.\n- Dumonda emprim sch\'ti dubitas d\'ina acziun.\n- Sii onest sch\'ti na sas betg insatge.</string>
 </resources>

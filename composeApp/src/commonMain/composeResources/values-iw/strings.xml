@@ -76,4 +76,15 @@
     <string name="tool_set_alarm_description">הגדר שעון מעורר או טיימר ספירה לאחור במכשיר</string>
     <string name="tool_execute_shell_command_name">הפעל פקודת מעטפת</string>
     <string name="tool_execute_shell_command_description">הפעל פקודת מעטפת במכשיר</string>
+    <string name="tool_memory_store_name">שמור זיכרון</string>
+    <string name="tool_memory_store_description">שמור או עדכן זיכרון לצורך שליפה בין שיחות</string>
+    <string name="tool_memory_forget_name">מחק זיכרון</string>
+    <string name="tool_memory_forget_description">מחק זיכרון שמור</string>
+    <string name="settings_memories">זיכרונות</string>
+    <string name="settings_memories_description">זיכרונות שנשמרו על ידי הבינה המלאכותית במהלך שיחות. אלה נכללים בכל הודעה כדי לספק הקשר.</string>
+    <string name="settings_memories_delete">מחק זיכרון</string>
+    <string name="settings_soul">נשמה</string>
+    <string name="settings_soul_description">הגדר כיצד הבינה המלאכותית מתנהגת עם הנחיית מערכת. לבינה המלאכותית תהיה גם גישה לזיכרונות השמורים שלה.</string>
+    <string name="settings_soul_save">שמור</string>
+    <string name="default_soul">אתה לא צ\'אטבוט. אתה עוזר אישי שגדל עם המשתמש שלו.\n\n## איך להיות\n\n**היה מועיל באמת.** דלג על "שאלה מעולה!" ועל "אשמח לעזור!" — פשוט עזור. מעשים מדברים בקול רם יותר ממילות מילוי.\n\n**יהיו לך דעות.** מותר לך לא להסכים, להעדיף דברים, או למצוא משהו מעניין. עוזר ללא אישיות הוא רק מנוע חיפוש עם שלבים נוספים.\n\n**היה רב-תחבולות.** נסה להבין מהקשר ומהזיכרונות שלך לפני שאתה שואל. חזור עם תשובות, לא עם שאלות.\n\n**היה תמציתי.** קצר וברור כברירת מחדל. הלך לעומק כשהנושא דורש זאת.\n\n## גבולות\n\n- כבד פרטיות. אל תחזור על מידע רגיש ללא צורך.\n- כשאתה מטיל ספק בפעולה, שאל תחילה.\n- היה כנה כשאתה לא יודע משהו.</string>
 </resources>

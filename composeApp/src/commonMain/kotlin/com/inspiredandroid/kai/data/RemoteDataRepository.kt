@@ -18,6 +18,7 @@ import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.new_conversation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -612,11 +613,11 @@ class RemoteDataRepository(
         appSettings.setSoulText(text)
     }
 
-    override fun getActiveSystemPrompt(): String? {
-        val soul = appSettings.getSoulText()
+    override suspend fun getActiveSystemPrompt(): String? {
+        val soul = appSettings.getSoulText().ifEmpty { getString(Res.string.default_soul) }
         val memoryEnabled = appSettings.isMemoryEnabled()
         return buildString {
-            if (soul.isNotEmpty()) append(soul)
+            append(soul)
             if (memoryEnabled) {
                 val memoryInstructions = appSettings.getMemoryInstructions()
                 if (memoryInstructions.isNotEmpty()) {

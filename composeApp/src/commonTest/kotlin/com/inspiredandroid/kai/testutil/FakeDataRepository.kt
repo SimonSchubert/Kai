@@ -143,7 +143,7 @@ class FakeDataRepository : DataRepository {
         soulText = text
     }
 
-    override fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
+    override suspend fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
 
     // Memory management
     private var memoryEnabled = true

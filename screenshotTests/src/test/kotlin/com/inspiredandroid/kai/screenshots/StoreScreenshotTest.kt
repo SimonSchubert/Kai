@@ -142,7 +142,7 @@ class StoreScreenshotTest(
 
     @Test
     fun settingsGeneral() {
-        snap("06", LightColorScheme) {
+        snap("06", DarkColorScheme) {
             SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
         }
     }

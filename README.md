@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/Platform-Web-f7df1c?logo=javascript" alt="Web"> <img src="https://img.shields.io/badge/Platform-Android-34a853.svg?logo=android" alt="Android" /> <img src="https://img.shields.io/badge/Platform-iOS-lightgrey.svg?logo=apple" alt="iOS" /> <img src="https://img.shields.io/badge/Platform-Windows/macOS/Linux-e10707.svg?logo=openjdk" alt="Platform JVM" />
 
-A **cross-platform open-source AI interface** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
+An **open-source AI assistant with persistent memory** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
 [![App Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/app_store_badge.png)](https://apps.apple.com/us/app/kai-ai/id6758148023)
 [![Play Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/play_store_badge.png)](https://play.google.com/store/apps/details?id=com.inspiredandroid.kai)
@@ -33,15 +33,19 @@ Homebrew:
 
 ### Features
 
-- Encrypted local history storage
+- **Persistent memory** — Kai remembers important details across conversations and uses them automatically
+- **Customizable soul** — Define the AI's personality and behavior with an editable system prompt
+- Encrypted local conversation storage
 - Text to speech output
 - Seamless switch between services
 - File attachments (Gemini)
 
 ### Tools
 
-All tools can be enabled or disabled in settings.
+Tools can be enabled or disabled in settings. Memory tools are always available when memory is enabled.
 
+- **Store Memory** - Saves important information for future conversations
+- **Forget Memory** - Removes outdated or incorrect memories
 - **Get Local Time** - Provides the current date and time
 - **Get Location** - Estimates location based on IP address for location-aware responses
 - **Send Notification** - Sends push notifications to the device (Android only)
