@@ -258,11 +258,7 @@ class RemoteDataRepository(
         val service = currentService()
         val messages = chatHistory.value
         val modelId = appSettings.getSelectedModelId(service)
-        val memoryToolNames = setOf("memory_store", "memory_forget")
-        val schedulingToolNames = setOf("schedule_task", "cancel_task", "list_tasks")
-        val allTools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
-        val filteredTools = if (appSettings.isMemoryEnabled()) allTools else allTools.filter { it.schema.name !in memoryToolNames }
-        val tools = if (appSettings.isSchedulingEnabled()) filteredTools else filteredTools.filter { it.schema.name !in schedulingToolNames }
+        val tools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
 
         val systemPrompt = getActiveSystemPrompt()
 

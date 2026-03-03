@@ -95,7 +95,9 @@ actual fun getAvailableTools(): List<Tool> {
     val taskStore: TaskStore by inject(TaskStore::class.java)
     return buildList {
         addAll(CommonTools.getCommonTools(appSettings))
-        addAll(CommonTools.getMemoryTools(memoryStore))
+        if (appSettings.isMemoryEnabled()) {
+            addAll(CommonTools.getMemoryTools(memoryStore))
+        }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
         }

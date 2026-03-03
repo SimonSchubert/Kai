@@ -84,11 +84,7 @@ actual fun createLegacySettings(): Settings? {
 }
 
 // Tool definitions for Android platform
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
-    CommonTools.localTimeToolInfo,
-    CommonTools.ipLocationToolInfo,
-    WebSearchTool.toolInfo,
-) + SchedulingTools.schedulingToolDefinitions + listOf(
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + listOf(
     ToolInfo(
         id = "send_notification",
         name = "Send Notification",
@@ -122,7 +118,9 @@ actual fun getAvailableTools(): List<Tool> {
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
 
     return buildList {
-        addAll(CommonTools.getMemoryTools(memoryStore))
+        if (appSettings.isMemoryEnabled()) {
+            addAll(CommonTools.getMemoryTools(memoryStore))
+        }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
         }

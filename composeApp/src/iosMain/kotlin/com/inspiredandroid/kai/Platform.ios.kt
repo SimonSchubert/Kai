@@ -63,7 +63,9 @@ private object IosKoinHelper : KoinComponent {
 
 actual fun getAvailableTools(): List<Tool> = buildList {
     addAll(CommonTools.getCommonTools(IosKoinHelper.appSettings))
-    addAll(CommonTools.getMemoryTools(IosKoinHelper.memoryStore))
+    if (IosKoinHelper.appSettings.isMemoryEnabled()) {
+        addAll(CommonTools.getMemoryTools(IosKoinHelper.memoryStore))
+    }
     if (IosKoinHelper.appSettings.isSchedulingEnabled()) {
         addAll(SchedulingTools.getSchedulingTools(IosKoinHelper.taskStore))
     }

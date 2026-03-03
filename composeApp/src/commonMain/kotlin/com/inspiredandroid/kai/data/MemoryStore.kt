@@ -47,15 +47,6 @@ class MemoryStore(private val appSettings: AppSettings) {
         entry
     }
 
-    fun recall(query: String?): List<MemoryEntry> {
-        val memories = loadMemories()
-        if (query.isNullOrBlank()) return memories
-        val lowerQuery = query.lowercase()
-        return memories.filter {
-            it.key.lowercase().contains(lowerQuery) || it.content.lowercase().contains(lowerQuery)
-        }
-    }
-
     suspend fun forget(key: String): Boolean = mutex.withLock {
         val memories = loadMemories()
         val removed = memories.removeAll { it.key == key }

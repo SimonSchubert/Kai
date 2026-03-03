@@ -17,10 +17,6 @@ import kai.composeapp.generated.resources.tool_get_local_time_description
 import kai.composeapp.generated.resources.tool_get_local_time_name
 import kai.composeapp.generated.resources.tool_get_location_description
 import kai.composeapp.generated.resources.tool_get_location_name
-import kai.composeapp.generated.resources.tool_memory_forget_description
-import kai.composeapp.generated.resources.tool_memory_forget_name
-import kai.composeapp.generated.resources.tool_memory_store_description
-import kai.composeapp.generated.resources.tool_memory_store_name
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -197,23 +193,6 @@ object CommonTools {
             return mapOf("success" to removed, "key" to key)
         }
     }
-
-    val memoryToolDefinitions = listOf(
-        ToolInfo(
-            id = "memory_store",
-            name = "Store Memory",
-            description = "Store or update a memory for cross-conversation recall",
-            nameRes = Res.string.tool_memory_store_name,
-            descriptionRes = Res.string.tool_memory_store_description,
-        ),
-        ToolInfo(
-            id = "memory_forget",
-            name = "Forget Memory",
-            description = "Delete a stored memory",
-            nameRes = Res.string.tool_memory_forget_name,
-            descriptionRes = Res.string.tool_memory_forget_description,
-        ),
-    )
 
     fun getMemoryTools(memoryStore: MemoryStore): List<Tool> = listOf(
         memoryStoreTool(memoryStore),
