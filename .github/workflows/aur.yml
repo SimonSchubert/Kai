@@ -1,4 +1,4 @@
-name: Validate AUR Package
+name: AUR Package
 
 on:
   push:
@@ -7,10 +7,13 @@ on:
   pull_request:
     paths:
       - 'aur/**'
+  release:
+    types: [published]
 
 jobs:
   validate:
     name: Validate PKGBUILD
+    if: github.event_name != 'release'
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     steps:
@@ -34,3 +37,91 @@ jobs:
         run: |
           su builder -c "makepkg --printsrcinfo" > .SRCINFO.generated
           diff -u .SRCINFO .SRCINFO.generated
+
+  publish:
+    name: Publish to AUR
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup build user
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+      - name: Install dependencies
+        run: pacman -Sy --noconfirm openssh git
+
+      - name: Get version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Update PKGBUILD version and checksum
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          TARBALL_URL="https://github.com/SimonSchubert/Kai/releases/download/v${VERSION}/Kai-${VERSION}-linux-x86_64.tar.gz"
+
+          # Download tarball and compute SHA256
+          curl -L -o tarball.tar.gz "$TARBALL_URL"
+          SHA256=$(sha256sum tarball.tar.gz | cut -d' ' -f1)
+          rm tarball.tar.gz
+
+          # Update PKGBUILD
+          cd aur
+          sed -i "s|^pkgver=.*|pkgver=${VERSION}|" PKGBUILD
+          sed -i "s|^pkgrel=.*|pkgrel=1|" PKGBUILD
+          sed -i "s|^sha256sums=.*|sha256sums=('${SHA256}')|" PKGBUILD
+
+          # Regenerate .SRCINFO
+          chown -R builder:builder .
+          su builder -c "makepkg --printsrcinfo" > .SRCINFO
+
+          echo "Updated to version ${VERSION} with sha256 ${SHA256}"
+          cat PKGBUILD
+          cat .SRCINFO
+
+      - name: Push to AUR
+        env:
+          AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
+        run: |
+          # Setup SSH
+          mkdir -p ~/.ssh
+          echo "$AUR_SSH_KEY" > ~/.ssh/aur
+          chmod 600 ~/.ssh/aur
+          echo "Host aur.archlinux.org" > ~/.ssh/config
+          echo "  IdentityFile ~/.ssh/aur" >> ~/.ssh/config
+          echo "  User aur" >> ~/.ssh/config
+          ssh-keyscan aur.archlinux.org >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Configure git
+          git config --global user.name "Simon Schubert"
+          git config --global user.email "sschubert89@gmail.com"
+
+          # Clone AUR repo, update files, push
+          cd /tmp
+          git clone ssh://aur@aur.archlinux.org/kai-bin.git
+          cp $GITHUB_WORKSPACE/aur/PKGBUILD kai-bin/
+          cp $GITHUB_WORKSPACE/aur/.SRCINFO kai-bin/
+          cd kai-bin
+          git add PKGBUILD .SRCINFO
+          git commit -m "Update to ${{ steps.version.outputs.version }}"
+          git push
+
+      - name: Update repo PKGBUILD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          cd $GITHUB_WORKSPACE
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+          git checkout main
+          git add aur/PKGBUILD aur/.SRCINFO
+          git commit -m "Update AUR package to ${VERSION}" || exit 0
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/SimonSchubert/Kai.git main

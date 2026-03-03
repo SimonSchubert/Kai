@@ -10,9 +10,11 @@ An **open-source AI assistant with persistent memory** that runs on **Android, i
 [![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
 Homebrew (macOS):
+
 ```brew install --cask simonschubert/tap/kai```
 
 AUR (Arch Linux):
+
 ```yay -S kai-bin```
 
 ### Direct downloads
