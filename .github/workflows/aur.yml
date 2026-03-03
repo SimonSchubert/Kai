@@ -89,14 +89,17 @@ jobs:
         env:
           AUR_SSH_KEY: ${{ secrets.AUR_SSH_KEY }}
         run: |
-          # Setup SSH
-          mkdir -p ~/.ssh
-          echo "$AUR_SSH_KEY" > ~/.ssh/aur
-          chmod 600 ~/.ssh/aur
-          echo "Host aur.archlinux.org" > ~/.ssh/config
-          echo "  IdentityFile ~/.ssh/aur" >> ~/.ssh/config
-          echo "  User aur" >> ~/.ssh/config
-          echo "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN" >> ~/.ssh/known_hosts
+          # Setup SSH - use system-wide known_hosts to avoid HOME mismatch in containers
+          # GitHub Actions overrides HOME to /github/home, but SSH reads from /root
+          echo "aur.archlinux.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEuBKrPzbawxA/k2g6NcyV5jmqwJ2s+zpgZGZ7tpLIcN" >> /etc/ssh/ssh_known_hosts
+          for dir in "$HOME" "/root"; do
+            mkdir -p "$dir/.ssh"
+            echo "$AUR_SSH_KEY" > "$dir/.ssh/aur"
+            chmod 600 "$dir/.ssh/aur"
+            printf "Host aur.archlinux.org\n  IdentityFile %s/.ssh/aur\n  User aur\n" "$dir" > "$dir/.ssh/config"
+            chmod 700 "$dir/.ssh"
+            chmod 600 "$dir/.ssh/config"
+          done
 
           # Configure git
           git config --global user.name "Simon Schubert"
