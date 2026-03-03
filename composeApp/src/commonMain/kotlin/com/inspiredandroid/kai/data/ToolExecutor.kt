@@ -62,12 +62,17 @@ class ToolExecutor {
 
     private fun anyToJsonElement(value: Any?): JsonElement = when (value) {
         null -> JsonNull
+
         is String -> JsonPrimitive(value)
+
         is Boolean -> JsonPrimitive(value)
+
         is Number -> JsonPrimitive(value)
+
         is Map<*, *> -> JsonObject(
             value.entries.associate { (k, v) -> k.toString() to anyToJsonElement(v) },
         )
+
         else -> JsonPrimitive(value.toString())
     }
 
