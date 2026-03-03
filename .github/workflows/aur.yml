@@ -7,13 +7,14 @@ on:
   pull_request:
     paths:
       - 'aur/**'
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Build and Release"]
+    types: [completed]
 
 jobs:
   validate:
     name: Validate PKGBUILD
-    if: github.event_name != 'release'
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     steps:
@@ -24,6 +25,7 @@ jobs:
         run: |
           useradd -m builder
           echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder:builder .
 
       - name: Install namcap
         run: pacman -Sy --noconfirm namcap
@@ -40,7 +42,7 @@ jobs:
 
   publish:
     name: Publish to AUR
-    if: github.event_name == 'release'
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     container: archlinux:base-devel
     steps:
@@ -55,9 +57,9 @@ jobs:
       - name: Install dependencies
         run: pacman -Sy --noconfirm openssh git
 
-      - name: Get version
+      - name: Get version from release
         id: version
-        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+        run: echo "version=$(echo '${{ github.event.workflow_run.head_branch }}' | sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: Update PKGBUILD version and checksum
         run: |
