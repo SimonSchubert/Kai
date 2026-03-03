@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.data
 
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
@@ -34,11 +36,10 @@ class CronExpression(expression: String) {
      * Searches up to ~2 years ahead, returns null if no match found.
      */
     fun nextAfter(after: kotlin.time.Instant, timeZone: TimeZone = TimeZone.currentSystemDefault()): kotlin.time.Instant? {
-        val afterKx = kotlinx.datetime.Instant.fromEpochMilliseconds(after.toEpochMilliseconds())
+        val afterKx = kotlin.time.Instant.fromEpochMilliseconds(after.toEpochMilliseconds())
         var dt = afterKx.toLocalDateTime(timeZone)
         // Start from the next minute
-        @Suppress("DEPRECATION")
-        dt = LocalDateTime(dt.year, dt.month, dt.dayOfMonth, dt.hour, dt.minute, 0, 0)
+        dt = LocalDateTime(dt.date, LocalTime(dt.hour, dt.minute, 0, 0))
         dt = advanceMinute(dt, timeZone)
 
         // Search limit: ~2 years of minutes (enough for any cron)
@@ -48,14 +49,12 @@ class CronExpression(expression: String) {
         while (iterations < maxIterations) {
             iterations++
 
-            @Suppress("DEPRECATION")
-            if (dt.monthNumber !in months) {
+            if (dt.date.month.ordinal + 1 !in months) {
                 dt = nextMonth(dt) ?: return null
                 continue
             }
 
-            @Suppress("DEPRECATION")
-            if (dt.dayOfMonth !in daysOfMonth || toCronDayOfWeek(dt) !in daysOfWeek) {
+            if (dt.date.day !in daysOfMonth || toCronDayOfWeek(dt) !in daysOfWeek) {
                 dt = nextDay(dt, timeZone)
                 continue
             }
@@ -77,36 +76,33 @@ class CronExpression(expression: String) {
 
     private fun advanceMinute(dt: LocalDateTime, tz: TimeZone): LocalDateTime {
         val instant = dt.toInstant(tz)
-        val next = kotlinx.datetime.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 60_000L)
+        val next = kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 60_000L)
         return next.toLocalDateTime(tz)
     }
 
-    @Suppress("DEPRECATION")
-    private fun nextHour(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.year, dt.month, dt.dayOfMonth, dt.hour, 0, 0, 0)
+    private fun nextHour(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.date, LocalTime(dt.hour, 0, 0, 0))
         .let {
             val instant = it.toInstant(tz)
-            kotlinx.datetime.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 3_600_000L)
+            kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 3_600_000L)
                 .toLocalDateTime(tz)
         }
 
-    @Suppress("DEPRECATION")
-    private fun nextDay(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.year, dt.month, dt.dayOfMonth, 0, 0, 0, 0)
+    private fun nextDay(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.date, LocalTime(0, 0, 0, 0))
         .let {
             val instant = it.toInstant(tz)
-            kotlinx.datetime.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 86_400_000L)
+            kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 86_400_000L)
                 .toLocalDateTime(tz)
         }
 
-    @Suppress("DEPRECATION")
     private fun nextMonth(dt: LocalDateTime): LocalDateTime? {
         var year = dt.year
-        var month = dt.monthNumber + 1
+        var month = dt.date.month.ordinal + 2 // ordinal is 0-based, +1 for 1-based, +1 for next month
         if (month > 12) {
             month = 1
             year++
         }
         if (year > dt.year + 2) return null
-        return LocalDateTime(year, month, 1, 0, 0, 0, 0)
+        return LocalDateTime(LocalDate(year, month, 1), LocalTime(0, 0, 0, 0))
     }
 
     /** Convert kotlinx.datetime DayOfWeek (MONDAY=1..SUNDAY=7) to cron convention (0=Sunday..6=Saturday) */

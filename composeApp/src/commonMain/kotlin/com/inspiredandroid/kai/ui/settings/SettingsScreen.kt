@@ -139,13 +139,13 @@ import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_version
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.time.Instant
 
 @Composable
 fun SettingsScreen(

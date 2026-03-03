@@ -13,10 +13,10 @@ import kai.composeapp.generated.resources.tool_list_tasks_description
 import kai.composeapp.generated.resources.tool_list_tasks_name
 import kai.composeapp.generated.resources.tool_schedule_task_description
 import kai.composeapp.generated.resources.tool_schedule_task_name
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Instant
 
 object SchedulingTools {
 
