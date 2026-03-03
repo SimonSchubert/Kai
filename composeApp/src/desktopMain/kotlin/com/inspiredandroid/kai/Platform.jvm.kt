@@ -61,7 +61,14 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
 actual val isMobilePlatform: Boolean = false
 
-actual val platformName: String = "Desktop"
+actual val platformName: String = run {
+    val osName = System.getProperty("os.name", "").lowercase()
+    when {
+        "mac" in osName || "darwin" in osName -> "macOS"
+        "win" in osName -> "Windows"
+        else -> "Linux"
+    }
+}
 
 actual fun getAppFilesDirectory(): String {
     val userHome = System.getProperty("user.home")
