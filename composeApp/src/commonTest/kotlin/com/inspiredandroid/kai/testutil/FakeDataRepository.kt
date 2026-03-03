@@ -159,7 +159,7 @@ class FakeDataRepository : DataRepository {
 
     override fun getMemories(): List<MemoryEntry> = memories.toList()
 
-    override fun deleteMemory(key: String) {
+    override suspend fun deleteMemory(key: String) {
         memories.removeAll { it.key == key }
     }
 
@@ -175,7 +175,7 @@ class FakeDataRepository : DataRepository {
 
     override fun getScheduledTasks(): List<ScheduledTask> = scheduledTasks.toList()
 
-    override fun cancelScheduledTask(id: String) {
+    override suspend fun cancelScheduledTask(id: String) {
         scheduledTasks.removeAll { it.id == id }
     }
 

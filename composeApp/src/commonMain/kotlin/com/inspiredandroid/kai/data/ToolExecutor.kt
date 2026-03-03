@@ -29,39 +29,26 @@ class ToolExecutor {
     }
 
     suspend fun executeTool(name: String, arguments: String): String {
-        println("[Tool] executeTool called: name=$name, arguments=$arguments")
-
         val tools = getAvailableTools()
-        println("[Tool] Available tools: ${tools.map { it.schema.name }}")
         val tool = tools.find { it.schema.name == name }
-        if (tool == null) {
-            println("[Tool] Tool not found: $name")
-            return """{"success": false, "error": "Unknown tool: $name"}"""
-        }
+            ?: return """{"success": false, "error": "Unknown tool: $name"}"""
 
         val args = try {
             parseJsonToMap(arguments)
         } catch (e: Exception) {
-            println("[Tool] Failed to parse arguments: ${e.message}")
             return """{"success": false, "error": "Failed to parse arguments: ${e.message}"}"""
         }
-        println("[Tool] Parsed arguments: $args")
 
         return try {
-            println("[Tool] Executing tool...")
             val result = tool.execute(args)
-            println("[Tool] Tool execution result: $result")
             when (result) {
                 is Map<*, *> -> {
-                    val jsonEntries = result.entries.joinToString(", ") { (k, v) ->
-                        val valueStr = when (v) {
-                            is String -> "\"$v\""
-                            is Boolean, is Number -> v.toString()
-                            else -> "\"$v\""
-                        }
-                        "\"$k\": $valueStr"
-                    }
-                    "{$jsonEntries}"
+                    val jsonObject = JsonObject(
+                        result.entries.associate { (k, v) ->
+                            k.toString() to anyToJsonElement(v)
+                        },
+                    )
+                    jsonParser.encodeToString(JsonElement.serializer(), jsonObject)
                 }
 
                 is String -> result
@@ -69,10 +56,19 @@ class ToolExecutor {
                 else -> """{"result": "$result"}"""
             }
         } catch (e: Exception) {
-            println("[Tool] Tool execution failed: ${e.message}")
-            e.printStackTrace()
             """{"success": false, "error": "Tool execution failed: ${e.message}"}"""
         }
+    }
+
+    private fun anyToJsonElement(value: Any?): JsonElement = when (value) {
+        null -> JsonNull
+        is String -> JsonPrimitive(value)
+        is Boolean -> JsonPrimitive(value)
+        is Number -> JsonPrimitive(value)
+        is Map<*, *> -> JsonObject(
+            value.entries.associate { (k, v) -> k.toString() to anyToJsonElement(v) },
+        )
+        else -> JsonPrimitive(value.toString())
     }
 
     private fun parseJsonToMap(json: String): Map<String, Any> {

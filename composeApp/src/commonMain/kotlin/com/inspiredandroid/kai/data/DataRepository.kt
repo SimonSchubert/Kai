@@ -45,13 +45,13 @@ interface DataRepository {
     fun isMemoryEnabled(): Boolean
     fun setMemoryEnabled(enabled: Boolean)
     fun getMemories(): List<MemoryEntry>
-    fun deleteMemory(key: String)
+    suspend fun deleteMemory(key: String)
 
     // Scheduling management
     fun isSchedulingEnabled(): Boolean
     fun setSchedulingEnabled(enabled: Boolean)
     fun getScheduledTasks(): List<ScheduledTask>
-    fun cancelScheduledTask(id: String)
+    suspend fun cancelScheduledTask(id: String)
 
     // Daemon mode
     fun isDaemonEnabled(): Boolean

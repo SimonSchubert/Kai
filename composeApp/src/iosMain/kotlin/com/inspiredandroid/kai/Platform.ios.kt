@@ -23,8 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import platform.Foundation.currentLocale
-import platform.Foundation.languageCode
 import kotlin.coroutines.CoroutineContext
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Darwin) {
@@ -62,8 +60,6 @@ private object IosKoinHelper : KoinComponent {
     val memoryStore: MemoryStore by inject()
     val taskStore: TaskStore by inject()
 }
-
-actual fun getDeviceLanguage(): String = platform.Foundation.NSLocale.currentLocale.languageCode
 
 actual fun getAvailableTools(): List<Tool> = buildList {
     addAll(CommonTools.getCommonTools(IosKoinHelper.appSettings))

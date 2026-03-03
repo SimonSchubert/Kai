@@ -63,5 +63,4 @@ data class SettingsModel(
     val description: String? = null,
     val descriptionRes: StringResource? = null,
     val isSelected: Boolean = false,
-    val createdAt: Long = 0,
 )

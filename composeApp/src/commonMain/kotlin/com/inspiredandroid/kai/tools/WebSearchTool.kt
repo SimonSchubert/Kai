@@ -16,6 +16,13 @@ import kai.composeapp.generated.resources.tool_web_search_name
 private const val MAX_RESULTS = 5
 
 object WebSearchTool : Tool {
+    private val linkRegex = Regex("""<a[^>]+class=['"]result-link['"][^>]*>(.*?)</a>""", RegexOption.DOT_MATCHES_ALL)
+    private val hrefRegex = Regex("""href=['"]([^'"]*?)['"]""")
+    private val snippetRegex = Regex("""<td[^>]+class=['"]result-snippet['"][^>]*>(.*?)</td>""", RegexOption.DOT_MATCHES_ALL)
+    private val fullLinkRegex = Regex("""<a\s[^>]*class=['"]result-link['"][^>]*>""", RegexOption.DOT_MATCHES_ALL)
+    private val uddgRegex = Regex("""uddg=([^&]+)""")
+    private val htmlTagRegex = Regex("<[^>]*>")
+
     override val schema = ToolSchema(
         name = "web_search",
         description = "Search the web for current information. Returns titles, URLs, and snippets. Before answering questions about recent events, news, current prices, weather, or anything time-sensitive, search first. Also use this when you're unsure about facts or the user asks you to look something up.",
@@ -58,12 +65,6 @@ object WebSearchTool : Tool {
         // DuckDuckGo Lite returns results in a table structure
         // Links: <a rel="nofollow" href="//duckduckgo.com/l/?uddg=URL" class='result-link'>Title</a>
         // Snippets: <td class='result-snippet'>...</td>
-        val linkRegex = Regex("""<a[^>]+class=['"]result-link['"][^>]*>(.*?)</a>""", RegexOption.DOT_MATCHES_ALL)
-        val hrefRegex = Regex("""href=['"]([^'"]*?)['"]""")
-        val snippetRegex = Regex("""<td[^>]+class=['"]result-snippet['"][^>]*>(.*?)</td>""", RegexOption.DOT_MATCHES_ALL)
-
-        // Find all result-link anchors by scanning for the class anywhere in the tag
-        val fullLinkRegex = Regex("""<a\s[^>]*class=['"]result-link['"][^>]*>""", RegexOption.DOT_MATCHES_ALL)
         val linkTags = fullLinkRegex.findAll(html).toList()
         val links = linkRegex.findAll(html).toList()
         val snippets = snippetRegex.findAll(html).toList()
@@ -93,7 +94,7 @@ object WebSearchTool : Tool {
     }
 
     private fun extractUrlFromRedirect(href: String): String {
-        val uddgParam = Regex("""uddg=([^&]+)""").find(href)?.groupValues?.get(1)
+        val uddgParam = uddgRegex.find(href)?.groupValues?.get(1)
         if (uddgParam != null) {
             return decodeURLComponent(uddgParam)
         }
@@ -130,7 +131,7 @@ object WebSearchTool : Tool {
         }
     }
 
-    private fun String.stripHtml(): String = replace(Regex("<[^>]*>"), "")
+    private fun String.stripHtml(): String = replace(htmlTagRegex, "")
         .replace("&amp;", "&")
         .replace("&lt;", "<")
         .replace("&gt;", ">")

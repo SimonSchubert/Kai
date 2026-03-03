@@ -43,7 +43,7 @@ class TaskScheduler(
         }
     }
 
-    private fun handleTaskCompletion(task: ScheduledTask) {
+    private suspend fun handleTaskCompletion(task: ScheduledTask) {
         val now = Clock.System.now()
         if (task.cron != null) {
             // Recurring task — compute next execution time

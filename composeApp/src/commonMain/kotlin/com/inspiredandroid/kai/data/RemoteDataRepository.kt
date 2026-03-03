@@ -210,7 +210,6 @@ class RemoteDataRepository(
                 id = it.id,
                 subtitle = it.owned_by ?: "",
                 description = if (service.includeModelDate) it.created?.toHumanReadableDate() else null,
-                createdAt = if (service.includeModelDate) it.created ?: 0L else 0L,
                 isSelected = it.id == selectedModelId,
             )
         }
@@ -675,7 +674,7 @@ class RemoteDataRepository(
 
     override fun getMemories(): List<MemoryEntry> = memoryStore.getAllMemories()
 
-    override fun deleteMemory(key: String) {
+    override suspend fun deleteMemory(key: String) {
         memoryStore.forget(key)
     }
 
@@ -687,7 +686,7 @@ class RemoteDataRepository(
 
     override fun getScheduledTasks(): List<ScheduledTask> = taskStore.getAllTasks()
 
-    override fun cancelScheduledTask(id: String) {
+    override suspend fun cancelScheduledTask(id: String) {
         taskStore.removeTask(id)
     }
 

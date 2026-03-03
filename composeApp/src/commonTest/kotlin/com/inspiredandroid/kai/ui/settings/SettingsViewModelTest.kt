@@ -141,9 +141,9 @@ class SettingsViewModelTest {
     @Test
     fun `models are passed through in data layer order`() = runTest {
         val models = listOf(
-            SettingsModel(id = "model-old", subtitle = "Old Model", createdAt = 1000L),
-            SettingsModel(id = "model-new", subtitle = "New Model", createdAt = 3000L),
-            SettingsModel(id = "model-mid", subtitle = "Mid Model", createdAt = 2000L),
+            SettingsModel(id = "model-old", subtitle = "Old Model"),
+            SettingsModel(id = "model-new", subtitle = "New Model"),
+            SettingsModel(id = "model-mid", subtitle = "Mid Model"),
         )
         fakeRepository.setModels(Service.Groq, models)
         fakeRepository.setCurrentService(Service.Groq)

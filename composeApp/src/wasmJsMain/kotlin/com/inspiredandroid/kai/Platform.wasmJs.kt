@@ -56,8 +56,6 @@ private object WebKoinHelper : KoinComponent {
     val taskStore: TaskStore by inject()
 }
 
-actual fun getDeviceLanguage(): String = kotlinx.browser.window.navigator.language.substringBefore("-")
-
 actual fun getAvailableTools(): List<Tool> = buildList {
     addAll(CommonTools.getCommonTools(WebKoinHelper.appSettings))
     addAll(CommonTools.getMemoryTools(WebKoinHelper.memoryStore))

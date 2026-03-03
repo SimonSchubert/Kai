@@ -1,5 +1,7 @@
 package com.inspiredandroid.kai.data
 
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -16,6 +18,7 @@ data class MemoryEntry(
 class MemoryStore(private val appSettings: AppSettings) {
 
     private val json = SharedJson
+    private val mutex = Mutex()
 
     private fun loadMemories(): MutableList<MemoryEntry> = try {
         json.decodeFromString<List<MemoryEntry>>(appSettings.getMemoriesJson()).toMutableList()
@@ -27,7 +30,7 @@ class MemoryStore(private val appSettings: AppSettings) {
         appSettings.setMemoriesJson(json.encodeToString(memories))
     }
 
-    fun store(key: String, content: String): MemoryEntry {
+    suspend fun store(key: String, content: String): MemoryEntry = mutex.withLock {
         val memories = loadMemories()
         val now = Clock.System.now().toEpochMilliseconds()
         val existing = memories.indexOfFirst { it.key == key }
@@ -41,7 +44,7 @@ class MemoryStore(private val appSettings: AppSettings) {
             newEntry
         }
         saveMemories(memories)
-        return entry
+        entry
     }
 
     fun recall(query: String?): List<MemoryEntry> {
@@ -53,11 +56,11 @@ class MemoryStore(private val appSettings: AppSettings) {
         }
     }
 
-    fun forget(key: String): Boolean {
+    suspend fun forget(key: String): Boolean = mutex.withLock {
         val memories = loadMemories()
         val removed = memories.removeAll { it.key == key }
         if (removed) saveMemories(memories)
-        return removed
+        removed
     }
 
     fun getAllMemories(): List<MemoryEntry> = loadMemories()

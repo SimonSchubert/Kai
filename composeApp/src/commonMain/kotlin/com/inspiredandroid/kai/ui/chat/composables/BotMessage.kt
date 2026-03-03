@@ -6,11 +6,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
@@ -19,7 +26,8 @@ import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
 import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeFence
 import com.mikepenz.markdown.m3.Markdown
-import com.mikepenz.markdown.m3.markdownTypography
+import com.mikepenz.markdown.model.DefaultMarkdownTypography
+import com.mikepenz.markdown.model.MarkdownTypography
 import com.mikepenz.markdown.model.rememberMarkdownState
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
@@ -118,14 +126,34 @@ internal fun BotMessage(
 }
 
 @Composable
-fun smallerMarkdownTypography() = markdownTypography(
-    h1 = MaterialTheme.typography.headlineSmall,
-    h2 = MaterialTheme.typography.titleLarge,
-    h3 = MaterialTheme.typography.titleMedium,
-    h4 = MaterialTheme.typography.titleSmall,
-    h5 = MaterialTheme.typography.bodyLarge,
-    h6 = MaterialTheme.typography.bodyMedium,
-)
+fun smallerMarkdownTypography(): MarkdownTypography {
+    val typography = MaterialTheme.typography
+    return remember(typography) {
+        DefaultMarkdownTypography(
+            h1 = typography.headlineSmall,
+            h2 = typography.titleLarge,
+            h3 = typography.titleMedium,
+            h4 = typography.titleSmall,
+            h5 = typography.bodyLarge,
+            h6 = typography.bodyMedium,
+            text = typography.bodyLarge,
+            code = typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+            inlineCode = typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
+            quote = typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
+            paragraph = typography.bodyLarge,
+            ordered = typography.bodyLarge,
+            bullet = typography.bodyLarge,
+            list = typography.bodyLarge,
+            textLink = TextLinkStyles(
+                style = typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    textDecoration = TextDecoration.Underline,
+                ).toSpanStyle(),
+            ),
+            table = typography.bodyLarge,
+        )
+    }
+}
 
 val highlightedCodeFence: MarkdownComponent = {
     MarkdownHighlightedCodeFence(content = it.content, node = it.node, style = it.typography.code, showHeader = true)

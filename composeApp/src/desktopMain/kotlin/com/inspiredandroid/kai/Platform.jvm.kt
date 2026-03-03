@@ -82,8 +82,6 @@ actual fun createLegacySettings(): Settings? = null // Same storage location, no
 
 actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + ShellCommandTool.toolInfo
 
-actual fun getDeviceLanguage(): String = java.util.Locale.getDefault().language
-
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)

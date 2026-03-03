@@ -139,8 +139,10 @@ class SettingsViewModel(
     }
 
     private fun onDeleteMemory(key: String) {
-        dataRepository.deleteMemory(key)
-        _state.update { it.copy(memories = dataRepository.getMemories()) }
+        viewModelScope.launch {
+            dataRepository.deleteMemory(key)
+            _state.update { it.copy(memories = dataRepository.getMemories()) }
+        }
     }
 
     private fun onToggleScheduling(enabled: Boolean) {
@@ -149,8 +151,10 @@ class SettingsViewModel(
     }
 
     private fun onCancelTask(id: String) {
-        dataRepository.cancelScheduledTask(id)
-        _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks()) }
+        viewModelScope.launch {
+            dataRepository.cancelScheduledTask(id)
+            _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks()) }
+        }
     }
 
     private fun onToggleDaemon(enabled: Boolean) {
