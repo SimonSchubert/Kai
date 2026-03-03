@@ -1,0 +1,36 @@
+name: Validate AUR Package
+
+on:
+  push:
+    paths:
+      - 'aur/**'
+  pull_request:
+    paths:
+      - 'aur/**'
+
+jobs:
+  validate:
+    name: Validate PKGBUILD
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup build user
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+      - name: Install namcap
+        run: pacman -Sy --noconfirm namcap
+
+      - name: Lint PKGBUILD
+        working-directory: aur
+        run: namcap PKGBUILD
+
+      - name: Validate .SRCINFO
+        working-directory: aur
+        run: |
+          su builder -c "makepkg --printsrcinfo" > .SRCINFO.generated
+          diff -u .SRCINFO .SRCINFO.generated

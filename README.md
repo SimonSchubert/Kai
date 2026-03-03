@@ -9,8 +9,11 @@ An **open-source AI assistant with persistent memory** that runs on **Android, i
 [![F-Droid](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/fdroid_badge.png)](https://f-droid.org/en/packages/com.inspiredandroid.kai/)
 [![Web](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/web_badge.png)](https://simonschubert.github.io/Kai)
 
-Homebrew:
+Homebrew (macOS):
 ```brew install --cask simonschubert/tap/kai```
+
+AUR (Arch Linux):
+```yay -S kai-bin```
 
 ### Direct downloads
 
