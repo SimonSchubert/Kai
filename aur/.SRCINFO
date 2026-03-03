@@ -1,0 +1,15 @@
+pkgbase = kai-bin
+	pkgdesc = AI assistant powered by Ollama, Gemini, ChatGPT and more
+	pkgver = 1.7.9
+	pkgrel = 1
+	url = https://github.com/SimonSchubert/Kai
+	arch = x86_64
+	license = Apache-2.0
+	depends = hicolor-icon-theme
+	options = !strip
+	provides = kai
+	conflicts = kai
+	source = Kai-1.7.9-linux-x86_64.tar.gz::https://github.com/SimonSchubert/Kai/releases/download/v1.7.9/Kai-1.7.9-linux-x86_64.tar.gz
+	sha256sums = 74aac32ff00c2d061caa15a6977cb75afc53b8f9de5d3c208ff3de188397ca29
+
+pkgname = kai-bin

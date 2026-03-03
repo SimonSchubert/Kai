@@ -1,0 +1,54 @@
+name: Publish Snap
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  snap:
+    name: Build and Publish Snap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Update snapcraft.yaml version and source
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          sed -i "s|^version:.*|version: '${VERSION}'|" snap/snapcraft.yaml
+          sed -i "s|source:.*linux-x86_64\.tar\.gz|source: https://github.com/SimonSchubert/Kai/releases/download/v${VERSION}/Kai-${VERSION}-linux-x86_64.tar.gz|" snap/snapcraft.yaml
+          cat snap/snapcraft.yaml
+
+      - name: Build Snap
+        uses: snapcore/action-build@v1
+        id: build
+
+      - name: Upload Snap to GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            "${{ steps.build.outputs.snap }}" \
+            --clobber
+
+      - name: Check for Snap Store credentials
+        id: check-creds
+        run: |
+          if [ -n "$SNAP_STORE_LOGIN" ]; then
+            echo "has_creds=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          SNAP_STORE_LOGIN: ${{ secrets.SNAP_STORE_LOGIN }}
+
+      - name: Publish to Snap Store
+        if: steps.check-creds.outputs.has_creds == 'true'
+        uses: snapcore/action-publish@v1
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAP_STORE_LOGIN }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: stable
