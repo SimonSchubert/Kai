@@ -120,13 +120,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          cd $GITHUB_WORKSPACE
 
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # Clone fresh repo inside container - actions/checkout's .git
+          # is not usable from within containers (host/container boundary)
+          cd /tmp
+          git clone --depth 1 https://x-access-token:${GITHUB_TOKEN}@github.com/SimonSchubert/Kai.git kai-repo
+          cd kai-repo
 
-          git checkout main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          cp $GITHUB_WORKSPACE/aur/PKGBUILD aur/PKGBUILD
+          cp $GITHUB_WORKSPACE/aur/.SRCINFO aur/.SRCINFO
+
           git add aur/PKGBUILD aur/.SRCINFO
           git commit -m "Update AUR package to ${VERSION}" || exit 0
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/SimonSchubert/Kai.git main
+          git push
