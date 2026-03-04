@@ -461,6 +461,8 @@ private fun BottomInfo() {
             tint = MaterialTheme.colorScheme.onBackground,
         )
     }
+
+    Spacer(Modifier.height(8.dp))
 }
 
 @Composable
@@ -1134,7 +1136,10 @@ private fun ToolItem(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .clip(CardDefaults.shape)
+            .clickable { onToggle(!tool.isEnabled) }
+            .pointerHoverIcon(PointerIcon.Hand),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -1161,7 +1166,6 @@ private fun ToolItem(
             Switch(
                 checked = tool.isEnabled,
                 onCheckedChange = onToggle,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
     }
@@ -1275,7 +1279,10 @@ private fun MemoryList(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggleMemory(!isMemoryEnabled) }
+                .pointerHoverIcon(PointerIcon.Hand),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -1287,7 +1294,6 @@ private fun MemoryList(
             Switch(
                 checked = isMemoryEnabled,
                 onCheckedChange = onToggleMemory,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
         Text(
@@ -1347,7 +1353,10 @@ private fun ScheduledTaskList(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggleScheduling(!isSchedulingEnabled) }
+                .pointerHoverIcon(PointerIcon.Hand),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -1359,7 +1368,6 @@ private fun ScheduledTaskList(
             Switch(
                 checked = isSchedulingEnabled,
                 onCheckedChange = onToggleScheduling,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
         Text(
@@ -1426,7 +1434,10 @@ private fun DaemonModeToggle(
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggleDaemon(!isDaemonEnabled) }
+                .pointerHoverIcon(PointerIcon.Hand),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -1438,7 +1449,6 @@ private fun DaemonModeToggle(
             Switch(
                 checked = isDaemonEnabled,
                 onCheckedChange = onToggleDaemon,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
         Text(
@@ -1466,7 +1476,10 @@ private fun HeartbeatSection(
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggleHeartbeat(!isHeartbeatEnabled) }
+                .pointerHoverIcon(PointerIcon.Hand),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -1478,7 +1491,6 @@ private fun HeartbeatSection(
             Switch(
                 checked = isHeartbeatEnabled,
                 onCheckedChange = onToggleHeartbeat,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
         Text(
