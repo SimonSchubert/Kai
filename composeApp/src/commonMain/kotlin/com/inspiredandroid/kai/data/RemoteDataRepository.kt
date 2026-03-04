@@ -733,21 +733,35 @@ class RemoteDataRepository(
 
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = heartbeatManager.getHeartbeatLog()
 
-    override fun removeLastExchange() {
-        chatHistory.update { history ->
-            if (history.size < 2) return@update history
-            val lastAssistant = history.lastOrNull { it.role == History.Role.ASSISTANT }
-            if (lastAssistant?.content?.trim() == "HEARTBEAT_OK") {
-                // Remove the last user + assistant pair
-                val lastAssistantIndex = history.indexOfLast { it.role == History.Role.ASSISTANT }
-                val lastUserIndex = history.subList(0, lastAssistantIndex).indexOfLast { it.role == History.Role.USER }
-                if (lastUserIndex >= 0) {
-                    history.filterIndexed { index, _ -> index < lastUserIndex || index > lastAssistantIndex }
-                } else {
-                    history.subList(0, lastAssistantIndex)
-                }
-            } else {
-                history
+    override suspend fun askSilently(question: String): String {
+        val service = currentService()
+        val messages = chatHistory.value + History(role = History.Role.USER, content = question)
+        val modelId = appSettings.getSelectedModelId(service)
+        val systemPrompt = getActiveSystemPrompt()
+
+        val responseText = when (service) {
+            Service.Gemini -> {
+                val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                val response = requests.geminiChat(geminiMessages, systemInstruction = systemPrompt).getOrThrow()
+                response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                    part.text ?: ""
+                } ?: ""
+            }
+
+            else -> {
+                val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
+                val response = requests.openAICompatibleChat(service, openAIMessages).getOrThrow()
+                response.choices.firstOrNull()?.message?.content ?: ""
+            }
+        }
+
+        return responseText
+    }
+
+    override fun addAssistantMessage(content: String) {
+        chatHistory.update {
+            it.toMutableList().apply {
+                add(History(role = History.Role.ASSISTANT, content = content))
             }
         }
     }

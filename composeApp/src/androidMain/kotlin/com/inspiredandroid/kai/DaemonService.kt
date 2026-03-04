@@ -3,10 +3,17 @@ package com.inspiredandroid.kai
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import com.inspiredandroid.kai.data.TaskScheduler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import org.koin.android.ext.android.inject
 
 class DaemonService : Service() {
 
@@ -15,11 +22,15 @@ class DaemonService : Service() {
         private const val NOTIFICATION_ID = 9001
     }
 
+    private val taskScheduler: TaskScheduler by inject()
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         val notification = buildNotification()
         startForeground(NOTIFICATION_ID, notification)
+        taskScheduler.start(serviceScope)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = START_STICKY
@@ -27,6 +38,7 @@ class DaemonService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
+        serviceScope.cancel()
         super.onDestroy()
         stopForeground(STOP_FOREGROUND_REMOVE)
     }
@@ -52,10 +64,21 @@ class DaemonService : Service() {
             @Suppress("DEPRECATION")
             Notification.Builder(this)
         }
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+
         return builder
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.daemon_notification_text))
             .setSmallIcon(android.R.drawable.ic_popup_sync)
+            .setContentIntent(pendingIntent)
             .setOngoing(true)
             .build()
     }

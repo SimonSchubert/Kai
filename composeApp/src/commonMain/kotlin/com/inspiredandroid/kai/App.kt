@@ -29,9 +29,9 @@ import kotlinx.serialization.Serializable
 import nl.marc_apps.tts.TextToSpeechInstance
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
+import org.koin.compose.KoinContext
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.KoinApplication
 
 @Serializable
 @SerialName("home")
@@ -51,7 +51,7 @@ fun App(
         LightColorScheme
     },
     textToSpeech: TextToSpeechInstance? = null,
-    koinApplication: (KoinApplication.() -> Unit)? = null,
+    isKoinStarted: Boolean = false,
     onAppOpens: ((Int) -> Unit)? = null,
 ) {
     setSingletonImageLoaderFactory { context: PlatformContext ->
@@ -63,48 +63,65 @@ fun App(
             .build()
     }
 
-    KoinApplication(
-        application = {
-            koinApplication?.let { koinApplication() }
-            modules(appModule)
-        },
-    ) {
-        // Track app opens after Koin is initialized
-        onAppOpens?.let { callback ->
-            val appSettings = koinInject<AppSettings>()
-            LaunchedEffect(Unit) {
-                callback(appSettings.trackAppOpen())
-            }
+    // Reuse global Koin if already started (Android Application class),
+    // otherwise create a new instance (iOS, Desktop, Wasm).
+    if (isKoinStarted) {
+        KoinContext {
+            AppContent(navController, colorScheme, textToSpeech, onAppOpens)
         }
+    } else {
+        KoinApplication(
+            application = {
+                modules(appModule)
+            },
+        ) {
+            AppContent(navController, colorScheme, textToSpeech, onAppOpens)
+        }
+    }
+}
 
-        // Set up permission handlers
-        val calendarPermissionController = koinInject<CalendarPermissionController>()
-        SetupCalendarPermissionHandler(calendarPermissionController)
+@Composable
+private fun AppContent(
+    navController: NavHostController,
+    colorScheme: ColorScheme,
+    textToSpeech: TextToSpeechInstance?,
+    onAppOpens: ((Int) -> Unit)?,
+) {
+    // Track app opens after Koin is initialized
+    onAppOpens?.let { callback ->
+        val appSettings = koinInject<AppSettings>()
+        LaunchedEffect(Unit) {
+            callback(appSettings.trackAppOpen())
+        }
+    }
 
-        val notificationPermissionController = koinInject<NotificationPermissionController>()
-        SetupNotificationPermissionHandler(notificationPermissionController)
+    // Set up permission handlers
+    val calendarPermissionController = koinInject<CalendarPermissionController>()
+    SetupCalendarPermissionHandler(calendarPermissionController)
 
-        Theme(colorScheme = colorScheme) {
-            val chatViewModel: ChatViewModel = koinViewModel()
+    val notificationPermissionController = koinInject<NotificationPermissionController>()
+    SetupNotificationPermissionHandler(notificationPermissionController)
 
-            NavHost(navController, startDestination = Home) {
-                composable<Home> {
-                    ChatScreen(
-                        viewModel = chatViewModel,
-                        textToSpeech = textToSpeech,
-                        onNavigateToSettings = {
-                            navController.navigate(Settings)
-                        },
-                    )
-                }
-                composable<Settings> {
-                    SettingsScreen(
-                        onNavigateBack = {
-                            chatViewModel.refreshSettings()
-                            navController.navigateUp()
-                        },
-                    )
-                }
+    Theme(colorScheme = colorScheme) {
+        val chatViewModel: ChatViewModel = koinViewModel()
+
+        NavHost(navController, startDestination = Home) {
+            composable<Home> {
+                ChatScreen(
+                    viewModel = chatViewModel,
+                    textToSpeech = textToSpeech,
+                    onNavigateToSettings = {
+                        navController.navigate(Settings)
+                    },
+                )
+            }
+            composable<Settings> {
+                SettingsScreen(
+                    onNavigateBack = {
+                        chatViewModel.refreshSettings()
+                        navController.navigateUp()
+                    },
+                )
             }
         }
     }

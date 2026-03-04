@@ -64,6 +64,7 @@ interface DataRepository {
     fun setHeartbeatPrompt(text: String)
     fun getHeartbeatLog(): List<HeartbeatLogEntry>
 
-    // Heartbeat support
-    fun removeLastExchange()
+    // Silent ask (no chat history update, used for heartbeats)
+    suspend fun askSilently(question: String): String
+    fun addAssistantMessage(content: String)
 }

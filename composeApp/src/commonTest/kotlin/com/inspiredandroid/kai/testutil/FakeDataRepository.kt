@@ -202,6 +202,6 @@ class FakeDataRepository : DataRepository {
 
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = emptyList()
 
-    override fun removeLastExchange() {
-    }
+    override suspend fun askSilently(question: String): String = ""
+    override fun addAssistantMessage(content: String) {}
 }

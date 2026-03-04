@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Clock
@@ -18,13 +19,18 @@ class TaskScheduler(
         const val POLL_INTERVAL_MS = 60_000L
     }
 
+    private var activeJob: Job? = null
+
     /**
      * Starts the scheduler loop in the given scope.
      * [isLoading] is checked before executing a task to avoid concurrent API calls.
+     * Safe to call multiple times — only one loop will run at a time.
      */
-    fun start(scope: CoroutineScope, isLoading: () -> Boolean) {
+    fun start(scope: CoroutineScope, isLoading: () -> Boolean = { false }) {
         if (!enabled || taskStore == null || appSettings == null) return
-        scope.launch {
+        // If a loop is already running, don't start another
+        if (activeJob?.isActive == true) return
+        activeJob = scope.launch {
             while (true) {
                 delay(POLL_INTERVAL_MS)
                 if (!appSettings.isSchedulingEnabled()) continue
@@ -45,10 +51,12 @@ class TaskScheduler(
                 if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
                     try {
                         val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt()
-                        dataRepository.ask(heartbeatPrompt, null)
+                        val response = dataRepository.askSilently(heartbeatPrompt)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
-                        dataRepository.removeLastExchange()
+                        if (response.trim() != "HEARTBEAT_OK") {
+                            dataRepository.addAssistantMessage(response)
+                        }
                     } catch (_: Exception) {
                         heartbeatManager.recordHeartbeat(success = false)
                     }

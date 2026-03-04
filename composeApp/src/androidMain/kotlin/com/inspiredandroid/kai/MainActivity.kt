@@ -14,14 +14,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
-import org.koin.android.ext.koin.androidContext
 
 class MainActivity : ComponentActivity() {
 
@@ -65,9 +63,7 @@ class MainActivity : ComponentActivity() {
                 navController = navController,
                 colorScheme = colorScheme,
                 textToSpeech = textToSpeech,
-                koinApplication = {
-                    androidContext(this@MainActivity)
-                },
+                isKoinStarted = true,
                 onAppOpens = { appOpens ->
                     if (appOpens == 5) {
                         requestReview(this@MainActivity)
