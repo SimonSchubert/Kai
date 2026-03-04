@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.ui.draw.alpha
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -563,21 +564,19 @@ private fun ServiceSettings(
             )
         },
         colors = outlineTextFieldColors(),
-        trailingIcon = if (apiKeyFocused && apiKey.isNotEmpty()) {
-            {
-                IconButton(
-                    onClick = { onChangeApiKey("") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+        trailingIcon = {
+            IconButton(
+                onClick = { onChangeApiKey("") },
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    .alpha(if (apiKeyFocused && apiKey.isNotEmpty()) 1f else 0f),
+                enabled = apiKey.isNotEmpty(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Clear,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
-        } else {
-            null
         },
     )
 
@@ -638,21 +637,19 @@ private fun OpenAICompatibleSettings(
         },
         colors = outlineTextFieldColors(),
         singleLine = true,
-        trailingIcon = if (baseUrlFocused && baseUrl.isNotEmpty()) {
-            {
-                IconButton(
-                    onClick = { onChangeBaseUrl("") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+        trailingIcon = {
+            IconButton(
+                onClick = { onChangeBaseUrl("") },
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    .alpha(if (baseUrlFocused && baseUrl.isNotEmpty()) 1f else 0f),
+                enabled = baseUrl.isNotEmpty(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Clear,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
-        } else {
-            null
         },
     )
 
@@ -671,21 +668,19 @@ private fun OpenAICompatibleSettings(
         },
         colors = outlineTextFieldColors(),
         singleLine = true,
-        trailingIcon = if (apiKeyFocused && apiKey.isNotEmpty()) {
-            {
-                IconButton(
-                    onClick = { onChangeApiKey("") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+        trailingIcon = {
+            IconButton(
+                onClick = { onChangeApiKey("") },
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    .alpha(if (apiKeyFocused && apiKey.isNotEmpty()) 1f else 0f),
+                enabled = apiKey.isNotEmpty(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Clear,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
-        } else {
-            null
         },
     )
 
