@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.HeartbeatConfig
+import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
@@ -186,5 +188,21 @@ class FakeDataRepository : DataRepository {
 
     override fun setDaemonEnabled(enabled: Boolean) {
         daemonEnabled = enabled
+    }
+
+    override fun getHeartbeatConfig(): HeartbeatConfig = HeartbeatConfig()
+
+    override fun setHeartbeatEnabled(enabled: Boolean) {
+    }
+
+    override fun getHeartbeatPrompt(): String = ""
+
+    override fun setHeartbeatPrompt(text: String) {
+    }
+
+    override fun getHeartbeatLog(): List<HeartbeatLogEntry>  = emptyList()
+
+
+    override fun removeLastExchange() {
     }
 }
