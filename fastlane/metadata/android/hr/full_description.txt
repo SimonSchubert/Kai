@@ -1,25 +1,34 @@
-Trebate brze AI odgovore bez nepotrebnih dodataka? Kai je vaš munjevito brz pratitelj otvorenog koda, pokretan modelima poput Llama i Googleovog Gemini. Uronite u besprijekorne razgovore za razmjenu ideja, pisanje, sažimanje, učenje ili neformalne razgovore – sve u minimalističkom sučelju koje se učitava u sekundi.
+Upoznajte Kai — vašu lokalnu OpenClaw alternativu u džepu. Brza, open-source AI chat aplikacija pokretana modelima poput Llama, Gemini, GPT i DeepSeek. Uronite u besprijekorne razgovore za brainstorming, pisanje, sažimanje, učenje ili neformalne razgovore — sve u minimalističkom sučelju koje se učitava u sekundi.
 
 Podržane AI usluge
-• Ollama: Povežite se sa svojim lokalno hostiranim AI modelima za razgovore usmjerene na privatnost
+• Ollama / LM Studio: Povežite se sa svojim lokalno hostiranim AI modelima (OpenAI-kompatibilno)
+• OpenAI: Pristupite GPT modelima za moćne razgovore
 • Gemini: Googleov napredni AI s ugrađenom podrškom za privitke datoteka
-• xAI: Pristupite inovativnim Grok modelima za kreativne i pronicljive odgovore
-• Groq: Iskusite ultrabrzo AI zaključivanje za brze odgovore
-• Mistral AI: Koristite besplatnu razinu za isplative AI interakcije
+• DeepSeek: Visokoučinkoviti modeli za zaključivanje
+• xAI: Inovativni Grok modeli za kreativne i pronicljive odgovore
+• Mistral AI: Učinkoviti višejezični modeli
+• Groq: Ultrabrza AI inferencija za brze odgovore
+• OpenRouter: Pristupite stotinama modela putem jednog API-ja
+• NVIDIA: Pokrenite NVIDIA-hostirane modele
+• Bilo koji OpenAI-kompatibilni API: Koristite vlastitu krajnju točku
 
 Ključne značajke
-• Šifrirana lokalna pohrana: Sigurno pohranite povijest razgovora na svom uređaju s end-to-end enkripcijom
-• Pretvaranje teksta u govor: Slušajte AI odgovore naglas s prirodnim glasovnim izlazom
-• Privici datoteka: Jednostavno prenesite datoteke kako biste obogatili svoje razgovore (podržano na Gemini)
+• Trajna memorija: AI pamti važne detalje između razgovora
+• Šifrirano lokalno spremište: Sigurno pohranite povijest razgovora na svom uređaju
+• Pretvaranje teksta u govor: Slušajte AI odgovore prirodnim glasom
+• Privici datoteka: Učitajte datoteke za poboljšanje razgovora (podržano na Gemini)
 • Besprijekorno prebacivanje usluga: Prebacujte se između AI pružatelja bez napora usred razgovora
-• Višestruki razgovori: Uživajte u razgovorima svjesnim konteksta gdje AI pamti prethodne poruke
-• Jednostavno sučelje za chat: Dizajn prilagođen korisnicima, jednako za početnike i stručnjake
+• Višestruki razgovori: Kontekstualno svjesni razgovori gdje AI pamti prethodne poruke
+• Pozadinski daemon i zakazivanje zadataka: Zakažite zadatke s cron izrazima ili heartbeat intervalima
 
-AI alati (Omogućite u Postavkama)
-• Dohvati lokalno vrijeme: AI pruža točne informacije o trenutnom datumu i vremenu
-• Dohvati lokaciju: Primajte odgovore temeljene na lokaciji koristeći IP detekciju
-• Pošalji obavijest: Primajte push obavijesti koje pokreće AI
-• Stvori kalendarski događaj: Dodajte događaje u svoj kalendar izravno iz chata
+AI alati (Omogućite u postavkama)
+• Dohvati lokalno vrijeme: Točan trenutni datum i vrijeme
+• Dohvati lokaciju: Odgovori temeljeni na lokaciji pomoću IP detekcije
+• Pošalji obavijest: Push obavijesti koje pokreće AI
+• Stvori kalendarski događaj: Dodajte događaje u svoj kalendar iz razgovora
+• Web pretraživanje: Pustite AI da pretražuje web za aktualne odgovore
+• Pokreni shell naredbu: Izvršite naredbe na svom uređaju putem AI-ja
+• Zakaži / Otkaži / Prikaži zadatke: Upravljajte ponavljajućim AI zadacima
 
 Privatnost na prvom mjestu
-Kai stavlja vašu privatnost na prvo mjesto: Sva povijest razgovora pohranjuje se lokalno s jakom enkripcijom. Kada koristite AI usluge u oblaku, vaši se podaci šalju izravno pružateljima na obradu – aplikacija sama ne prikuplja podatke. Zadržite kontrolu s ovom AI chat aplikacijom otvorenog koda.
+Kai stavlja vašu privatnost na prvo mjesto: sva povijest razgovora pohranjuje se lokalno s jakom enkripcijom. Kada koristite AI usluge u oblaku, vaši podaci šalju se izravno pružateljima na obradu — aplikacija sama ne prikuplja podatke. Zadržite kontrolu s ovom open-source AI chat aplikacijom.

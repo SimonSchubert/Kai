@@ -1,25 +1,34 @@
-Keni nevojë për përgjigje të shpejta AI pa komplikime? Kai është shoqëruesi juaj i shpejtë si vetëtima, me burim të hapur, i mundësuar nga modele si Llama dhe Gemini i Google. Zhytuni në biseda të qetë për stuhi mendimesh, shkrim, përmbledhje, mësim ose biseda të rastësishme – të gjitha në një ndërfaqe minimaliste që ngarkohet në sekonda.
+Njihuni Kai — alternativa juaj lokale e OpenClaw ne xhepin tuaj. Nje aplikacion i shpejte dhe me burim te hapur per chat me AI, i mundesuar nga modele si Llama, Gemini, GPT dhe DeepSeek. Zhytuni ne biseda te qeta per stuhi mendimesh, shkrim, permbledhje, mesim ose biseda te rastesishme — te gjitha ne nje nderfaqe minimaliste qe ngarkohet ne sekonda.
 
-Shërbimet AI të Mbështetura
-• Ollama: Lidhuni me modelet tuaja lokale AI të vetë-strehuar për biseda me fokus në privatësi
-• Gemini: AI i avancuar i Google me mbështetje të integruar për bashkëngjitje skedarësh
-• xAI: Qasje në modelet inovative Grok për përgjigje kreative dhe plot njohuri
-• Groq: Përjetoni përpunim AI ultra të shpejtë për përgjigje të menjëhershme
-• Mistral AI: Përdorni nivelin falas për ndërveprime AI me kosto efektive
+Sherbimet AI te Mbeshtetura
+• Ollama / LM Studio: Lidhuni me modelet tuaja lokale AI te vete-strehuar (te pajtueshme me OpenAI)
+• OpenAI: Qasje ne modelet GPT per biseda te fuqishme
+• Gemini: AI i avancuar i Google me mbeshtetje te integruar per bashkengjitje skedaresh
+• DeepSeek: Modele arsyetimi me performance te larte
+• xAI: Modele Grok inovative per pergjigje kreative dhe plot njohuri
+• Mistral AI: Modele shumëgjuhëshe efikase
+• Groq: Perpunim AI ultra i shpejte per pergjigje te menjehershme
+• OpenRouter: Qasje ne qindra modele permes nje API te vetme
+• NVIDIA: Ekzekutoni modele te strehuara nga NVIDIA
+• Cdo API e pajtueshme me OpenAI: Sillni endpointin tuaj
 
-Veçoritë Kryesore
-• Ruajtje Lokale e Enkriptuar: Ruani në mënyrë të sigurt historinë e bisedave në pajisjen tuaj me enkriptim nga skaji në skaj
-• Tekst-në-Zë: Dëgjoni përgjigjet AI me zë me tingull natyral
-• Bashkëngjitje Skedarësh: Ngarkoni lehtësisht skedarë për të pasuruar bisedat tuaja (mbështetur në Gemini)
-• Ndërrim i Lehtë Shërbimesh: Ndërroni mes ofruesve AI pa mundim gjatë bisedës
-• Biseda me Shumë Kthesa: Shijoni biseda me kontekst ku AI kujton mesazhet e mëparshme
-• Ndërfaqe e Thjeshtë Bisede: Dizajn miqësor për fillestarë dhe ekspertë njëlloj
+Vecorite Kryesore
+• Kujtese e Vazhdueshme: AI kujton detaje te rendesishme mes bisedave
+• Ruajtje Lokale e Enkriptuar: Ruani ne menyre te sigurt historine e bisedave ne pajisjen tuaj
+• Tekst-ne-Ze: Degjoni pergjigjet AI me ze me tingull natyral
+• Bashkengjitje Skedaresh: Ngarkoni skedare per te pasuruar bisedat tuaja (mbeshtetut ne Gemini)
+• Nderrim i Lehte Sherbimesh: Nderroni mes ofruesve AI pa mundim gjate bisedes
+• Biseda me Shume Kthesa: Chaturi me kontekst ku AI kujton mesazhet e meparshme
+• Daemon ne Sfond dhe Programim Detyrash: Programoni detyra me shprehje cron ose intervale heartbeat
 
-Mjetet AI (Aktivizoni në Cilësimet)
-• Merr Orën Lokale: AI ofron informacion të saktë të datës dhe orës aktuale
-• Merr Vendndodhjen: Merrni përgjigje të bazuara në vendndodhje duke përdorur zbulimin IP
-• Dërgo Njoftim: Merrni njoftime push të aktivizuara nga AI
-• Krijo Ngjarje Kalendari: Shtoni ngjarje në kalendarin tuaj direkt nga biseda
+Mjetet AI (Aktivizoni ne Cilesimet)
+• Merr Oren Lokale: Informacion i sakte i dates dhe ores aktuale
+• Merr Vendndodhjen: Pergjigje te bazuara ne vendndodhje duke perdorur zbulimin IP
+• Dergo Njoftim: Njoftime push te aktivizuara nga AI
+• Krijo Ngjarje Kalendari: Shtoni ngjarje ne kalendarin tuaj direkt nga biseda
+• Kerkim ne Web: Lejoni AI te kerkoje ne web per pergjigje te perditësuara
+• Ekzekuto Komande Shell: Ekzekutoni komanda ne pajisjen tuaj permes AI
+• Programo / Anulo / Listo Detyra: Menaxhoni detyra te perseritura te AI
 
-Privatësia e Para
-Kai i jep përparësi privatësisë suaj: E gjithë historia e bisedave ruhet lokalisht me enkriptim të fortë. Kur përdorni shërbime AI në re, të dhënat tuaja dërgohen direkt te ofruesit për përpunim – asnjë mbledhje të dhënash nga vetë aplikacioni. Qëndroni në kontroll me këtë aplikacion bisede AI me burim të hapur.
+Privatesia e Para
+Kai i jep perparesi privatësise suaj: E gjithe historia e bisedave ruhet lokalisht me enkriptim te forte. Kur perdorni sherbime AI ne re, te dhenat tuaja dergohen direkt te ofruesit per perpunim — asnje mbledhje te dhenash nga vete aplikacioni. Qendroni ne kontroll me kete aplikacion bisede AI me burim te hapur.

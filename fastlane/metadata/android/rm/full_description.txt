@@ -1,25 +1,34 @@
-Dovrai respostas AI sveltas senza ballast? Kai è tes cumpogn open-source svelt sco il tschaler, alimentà da models sco Llama e Gemini da Google. Cumenza chats fluids per brainstorming, scriver, resumar, emprender u discurrer – tut en ina interfatscha minimalista che sa chargia en seconds.
+Enconuscha Kai — tia alternativa locala ad OpenClaw en tia tasca. Ina app da chat AI svelta e open-source, alimentada da models sco Llama, Gemini, GPT e DeepSeek. Cumenza conversaziuns fluidas per brainstorming, scriver, resumar, emprender u discurrer — tut en ina interfatscha minimalista che sa chargia en seconds.
 
 Servetschs AI sustegnids
-• Ollama: Connectescha tai cun tes agens models AI locals per chats protegids
+• Ollama / LM Studio: Connectescha tai cun tes agens models AI locals (cumpatibels cun OpenAI)
+• OpenAI: Access a models GPT per conversaziuns potentas
 • Gemini: L'AI avanzà da Google cun sustegn integrà per annexas da datotecas
-• xAI: Acceda a models Grok innovativs per respostas creativas ed approfundidas
-• Groq: Fai l'experientscha dad inferenza AI ultra-svelta per respostas rapidas
-• Mistral AI: Utilisescha il nivel gratuit per interacziuns AI a bun pretsch
+• DeepSeek: Models da raschunament cun auta prestaziun
+• xAI: Models Grok innovativs per respostas creativas ed approfundidas
+• Mistral AI: Models multilings effizients
+• Groq: Inferenza AI ultra-svelta per respostas rapidissimas
+• OpenRouter: Access a tschientaneras da models tras ina singula API
+• NVIDIA: Executa models ospitads da NVIDIA
+• Tge API cumpatibla cun OpenAI: Porta tes agen endpoint
 
 Funcziuns principalas
-• Memoria locala criptada: Memorisescha tes historical da chat segir sin tes apparat cun criptaziun end-to-end
+• Memoria persistenta: L'AI sa regorda da detagls impurtants tranter conversaziuns
+• Memoria locala criptada: Memorisescha tes historical da chat segir sin tes apparat
 • Text-to-Speech: Taidla las respostas AI cun ina vusch che tuna natirala
 • Annexas da datotecas: Chargia si datotecas per meglierar tias conversaziuns (sustegnì sin Gemini)
 • Midar da servetsch senza interrupziun: Mida tranter purschiders AI senza problems durant la conversaziun
-• Conversaziuns a plirs tocs: Giauda chats cun context nua che l'AI sa regorda da messadis precedents
-• Interfatscha da chat simpla: Design amiaivel per cumenzaders ed experts
+• Conversaziuns a plirs tocs: Chats cun context nua che l'AI sa regorda da messadis precedents
+• Daemon en il fund e planisaziun da tasks: Planisescha tasks cun expressiuns cron u intervals da heartbeat
 
 Utensils AI (Activescha en ils parameters)
-• Retschaiver l'ura locala: L'AI dat infurmaziuns exactas davart la data e l'ura actuala
-• Retschaiver la posiziun: Retschaiva respostas basadas sin la posiziun cun detecziun IP
-• Trametter notificaziun: Retschaiva push-notificaziuns activadas da l'AI
-• Crear eveniment da chalender: Agiunta eveniments a tes chalender directamain dal chat
+• Retschaiver l'ura locala: Infurmaziuns exactas davart la data e l'ura actuala
+• Retschaiver la posiziun: Respostas basadas sin la posiziun cun detecziun IP
+• Trametter notificaziun: Push-notificaziuns activadas da l'AI
+• Crear eveniment da chalender: Agiunta eveniments a tes chalender dal chat
+• Tschertga en il web: Lascha l'AI tschertgar en il web per respostas actualas
+• Execuar cumonds shell: Execua cumonds sin tes apparat via AI
+• Planischar / Annullar / Listar tasks: Administrescha tasks repetitivas da l'AI
 
 Protecziun da datas en emprim lieu
-Kai dat prioritad a tia protecziun da datas: Tut l'historical da chat vegn memorisà localmain cun criptaziun ferma. Sche ti utiliseschas servetschs AI en il cloud, vegnan tes datas tramessas directamain als purschiders per elavuraziun – nagina collecziun da datas tras l'app sezza. Resta en controlla cun questa app da chat AI open-source.
+Kai dat prioritad a tia protecziun da datas: Tut l'historical da chat vegn memorisà localmain cun criptaziun ferma. Sche ti utiliseschas servetschs AI en il cloud, vegnan tes datas tramessas directamain als purschiders per elavuraziun — nagina collecziun da datas tras l'app sezza. Resta en controlla cun questa app da chat AI open-source.

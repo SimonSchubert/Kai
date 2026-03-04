@@ -1,25 +1,34 @@
-Du möchtest schnelle KI-Antworten ohne unnötigen Ballast? Kai ist dein blitzschneller Open-Source-Begleiter, betrieben von Modellen wie Llama und Googles Gemini. Tauche ein in reibungslose Chats zum Brainstormen, Schreiben, Zusammenfassen, Lernen oder einfach für lockere Gespräche – alles in einer minimalistischen Oberfläche, die in Sekundenschnelle lädt.
+Lerne Kai kennen — deine lokale OpenClaw-Alternative für die Hosentasche. Eine schnelle, quelloffene AI-Chat-App, betrieben von Modellen wie Llama, Gemini, GPT und DeepSeek. Tauche ein in reibungslose Chats zum Brainstormen, Schreiben, Zusammenfassen, Lernen oder für lockere Gespräche – alles in einer minimalistischen Oberfläche, die in Sekundenschnelle lädt.
 
-Unterstützte KI-Dienste
-• Ollama: Verbinde dich mit deinen selbst gehosteten lokalen KI-Modellen für datenschutzorientierte Chats
-• Gemini: Googles fortschrittliche KI mit integrierter Dateianhang-Unterstützung
-• xAI: Greife auf innovative Grok-Modelle für kreative und aufschlussreiche Antworten zu
-• Groq: Erlebe ultraschnelle KI-Inferenz für blitzschnelle Antworten
-• Mistral AI: Nutze den kostenlosen Tarif für günstige KI-Interaktionen
+Unterstützte AI-Dienste
+• Ollama / LM Studio: Verbinde dich mit deinen selbst gehosteten lokalen AI-Modellen (OpenAI-kompatibel)
+• OpenAI: Zugriff auf GPT-Modelle für leistungsstarke Unterhaltungen
+• Gemini: Googles fortschrittliche AI mit integrierter Dateianhang-Unterstützung
+• DeepSeek: Hochleistungs-Reasoning-Modelle
+• xAI: Innovative Grok-Modelle für kreative und aufschlussreiche Antworten
+• Mistral AI: Effiziente mehrsprachige Modelle
+• Groq: Ultraschnelle AI-Inferenz für blitzschnelle Antworten
+• OpenRouter: Zugriff auf Hunderte von Modellen über eine API
+• NVIDIA: NVIDIA-gehostete Modelle ausführen
+• Jede OpenAI-kompatible API: Verwende deinen eigenen Endpunkt
 
 Hauptfunktionen
-• Verschlüsselter lokaler Speicher: Speichere deinen Chatverlauf sicher auf deinem Gerät mit Ende-zu-Ende-Verschlüsselung
-• Text-to-Speech: Lass KI-Antworten mit natürlich klingender Stimme vorlesen
-• Dateianhänge: Lade Dateien einfach hoch, um deine Gespräche zu bereichern (unterstützt bei Gemini)
-• Nahtloser Dienst-Wechsel: Wechsle während eines Gesprächs mühelos zwischen KI-Anbietern
-• Mehrstufige Unterhaltungen: Genieße kontextbewusste Chats, bei denen die KI vorherige Nachrichten berücksichtigt
-• Einfache Chat-Oberfläche: Benutzerfreundliches Design für Einsteiger und Experten gleichermaßen
+• Dauerhaftes Gedächtnis: AI merkt sich wichtige Details über Gespräche hinweg
+• Verschlüsselter lokaler Speicher: Speichere deinen Chatverlauf sicher auf deinem Gerät
+• Text-to-Speech: Lass dir AI-Antworten mit natürlich klingender Stimme vorlesen
+• Dateianhänge: Lade Dateien hoch, um deine Gespräche zu bereichern (unterstützt bei Gemini)
+• Nahtloser Dienst-Wechsel: Wechsle mühelos zwischen AI-Anbietern mitten im Gespräch
+• Mehrstufige Unterhaltungen: Kontextbewusste Chats, bei denen die AI vorherige Nachrichten berücksichtigt
+• Hintergrund-Daemon und Aufgabenplanung: Plane Aufgaben mit cron-Ausdrücken oder Heartbeat-Intervallen
 
-KI-Tools (in den Einstellungen aktivierbar)
-• Aktuelle Uhrzeit abrufen: Die KI liefert genaue Informationen zu Datum und Uhrzeit
-• Standort abrufen: Erhalte standortbezogene Antworten per IP-Erkennung
-• Benachrichtigung senden: Erhalte Push-Benachrichtigungen, die von der KI ausgelöst werden
+AI-Tools (in den Einstellungen aktivierbar)
+• Aktuelle Uhrzeit abrufen: Präzise Datums- und Uhrzeitinformationen
+• Standort abrufen: Standortbezogene Antworten per IP-Erkennung
+• Benachrichtigung senden: Push-Benachrichtigungen, die von der AI ausgelöst werden
 • Kalenderereignis erstellen: Füge Termine direkt aus dem Chat zu deinem Kalender hinzu
+• Websuche: Lass die AI im Internet nach aktuellen Antworten suchen
+• Shell-Befehl ausführen: Führe Befehle auf deinem Gerät über AI aus
+• Aufgaben planen / abbrechen / auflisten: Verwalte wiederkehrende AI-Aufgaben
 
 Datenschutz an erster Stelle
-Kai stellt deinen Datenschutz in den Vordergrund: Der gesamte Chatverlauf wird lokal mit starker Verschlüsselung gespeichert. Bei der Nutzung von Cloud-KI-Diensten werden deine Daten direkt zur Verarbeitung an die Anbieter übertragen – die App selbst sammelt keine Daten. Behalte die Kontrolle mit dieser Open-Source-KI-Chat-App.
+Kai stellt deinen Datenschutz in den Vordergrund: Der gesamte Chatverlauf wird lokal mit starker Verschlüsselung gespeichert. Bei der Nutzung von Cloud-AI-Diensten werden deine Daten direkt zur Verarbeitung an die Anbieter übertragen – die App selbst sammelt keine Daten. Behalte die Kontrolle mit dieser quelloffenen AI-Chat-App.

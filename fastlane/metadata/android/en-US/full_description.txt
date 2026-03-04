@@ -1,25 +1,34 @@
-Need quick AI answers without the bloat? Kai is your lightning-fast, open-source companion, powered by models like Llama and Google's Gemini. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks – all in a minimalist interface that loads in seconds.
+Meet Kai — your local OpenClaw alternative in your pocket. A fast, open-source AI chat app powered by models like Llama, Gemini, GPT, and DeepSeek. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks — all in a minimalist interface that loads in seconds.
 
 Supported AI Services
-• Ollama: Connect to your self-hosted local AI models for privacy-focused chats
+• Ollama / LM Studio: Connect to your self-hosted local AI models (OpenAI-compatible)
+• OpenAI: Access GPT models for powerful conversations
 • Gemini: Google's advanced AI with built-in file attachment support
-• xAI: Access innovative Grok models for creative and insightful responses
-• Groq: Experience ultra-fast AI inference for quick replies
-• Mistral AI: Utilize the free tier for cost-effective AI interactions
+• DeepSeek: High-performance reasoning models
+• xAI: Innovative Grok models for creative and insightful responses
+• Mistral AI: Efficient multilingual models
+• Groq: Ultra-fast AI inference for quick replies
+• OpenRouter: Access hundreds of models through one API
+• NVIDIA: Run NVIDIA-hosted models
+• Any OpenAI-compatible API: Bring your own endpoint
 
 Key Features
-• Encrypted Local Storage: Securely store your chat history on your device with end-to-end encryption
+• Persistent Memory: AI remembers important details across conversations
+• Encrypted Local Storage: Securely store your chat history on your device
 • Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Easily upload files to enhance your conversations (supported on Gemini)
+• File Attachments: Upload files to enhance your conversations (supported on Gemini)
 • Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Enjoy context-aware chats where AI remembers previous messages
-• Simple Chat Interface: User-friendly design for beginners and experts alike
+• Multi-Turn Conversations: Context-aware chats where AI remembers previous messages
+• Background Daemon & Task Scheduling: Schedule tasks with cron expressions or heartbeat intervals
 
 AI Tools (Enable in Settings)
-• Get Local Time: AI provides accurate current date and time info
-• Get Location: Receive location-based responses using IP detection
-• Send Notification: Get push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar straight from the chat
+• Get Local Time: Accurate current date and time info
+• Get Location: Location-based responses using IP detection
+• Send Notification: Push notifications triggered by AI
+• Create Calendar Event: Add events to your calendar from chat
+• Web Search: Let AI search the web for up-to-date answers
+• Run Shell Command: Execute commands on your device via AI
+• Schedule / Cancel / List Tasks: Manage recurring AI tasks
 
 Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing – no data collection by the app itself. Stay in control with this open-source AI chat app.
+Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing — no data collection by the app itself. Stay in control with this open-source AI chat app.

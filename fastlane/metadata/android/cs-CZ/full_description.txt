@@ -1,25 +1,34 @@
-Potřebujete rychlé odpovědi od AI bez zbytečného balastu? Kai je váš bleskurychlý open-source společník poháněný modely jako Llama nebo Google Gemini. Ponořte se do plynulých konverzací pro brainstorming, psaní, shrnování, učení nebo jen tak pro povídání – vše v minimalistickém rozhraní, které se načte během okamžiku.
+Seznamte se s Kai — vaší lokální alternativou OpenClaw v kapse. Rychlá open-source AI chatovací aplikace poháněná modely jako Llama, Gemini, GPT a DeepSeek. Ponořte se do plynulých konverzací pro brainstorming, psaní, shrnutí, učení nebo běžné povídání — to vše v minimalistickém rozhraní, které se načte za vteřiny.
 
 Podporované AI služby
-• Ollama: Připojte se k vlastním lokálně hostovaným modelům AI pro konverzace zaměřené na soukromí
-• Gemini: Pokročilá AI od Googlu s vestavěnou podporou příloh souborů
-• xAI: Přístup k inovativním modelům Grok pro kreativní a podnětné odpovědi
-• Groq: Zažijte bleskurychlé zpracování AI pro okamžité odpovědi
-• Mistral AI: Využijte bezplatný tarif pro cenově dostupné interakce s AI
+• Ollama / LM Studio: Připojte se k vlastním lokálním AI modelům (kompatibilní s OpenAI)
+• OpenAI: Přístup k modelům GPT pro výkonné konverzace
+• Gemini: Pokročilé AI od Google s vestavěnou podporou příloh
+• DeepSeek: Vysoce výkonné modely pro uvažování
+• xAI: Inovativní modely Grok pro kreativní a zasvěcené odpovědi
+• Mistral AI: Efektivní vícejazyčné modely
+• Groq: Ultrarychlá AI inference pro bleskové odpovědi
+• OpenRouter: Přístup ke stovkám modelů přes jedno API
+• NVIDIA: Spouštějte modely hostované na NVIDIA
+• Jakékoliv API kompatibilní s OpenAI: Použijte vlastní koncový bod
 
 Klíčové funkce
-• Šifrované lokální úložiště: Bezpečně ukládejte historii chatu v zařízení s end-to-end šifrováním
-• Převod textu na řeč: Nechte si odpovědi AI přečíst nahlas přirozeně znějícím hlasem
-• Přílohy souborů: Snadno nahrávejte soubory pro obohacení konverzací (podporováno v Gemini)
-• Plynulé přepínání služeb: Přepínejte mezi poskytovateli AI bez námahy i uprostřed konverzace
-• Vícekolové konverzace: Užívejte si konverzace zohledňující kontext, kde si AI pamatuje předchozí zprávy
-• Jednoduché rozhraní chatu: Uživatelsky přívětivý design vhodný pro začátečníky i pokročilé
+• Trvalá paměť: AI si pamatuje důležité detaily napříč konverzacemi
+• Šifrované lokální úložiště: Bezpečně ukládejte historii chatů na svém zařízení
+• Převod textu na řeč: Poslechněte si odpovědi AI přirozeně znějícím hlasem
+• Přílohy souborů: Nahrajte soubory pro obohacení konverzací (podporováno v Gemini)
+• Plynulé přepínání služeb: Snadno přepínejte mezi poskytovateli AI uprostřed konverzace
+• Vícestupňové konverzace: Kontextově uvědomělé chaty, kde si AI pamatuje předchozí zprávy
+• Daemon na pozadí a plánování úloh: Plánujte úlohy pomocí výrazů cron nebo intervalů heartbeat
 
-Nástroje AI (zapnutí v Nastavení)
-• Zjistit místní čas: AI poskytne přesné informace o aktuálním datu a čase
-• Zjistit polohu: Dostávejte odpovědi zohledňující polohu pomocí detekce IP adresy
-• Odeslat oznámení: Dostávejte push notifikace spouštěné AI
-• Vytvořit událost v kalendáři: Přidávejte události do kalendáře přímo z chatu
+AI nástroje (Aktivujte v Nastavení)
+• Zjistit místní čas: Přesné informace o aktuálním datu a čase
+• Zjistit polohu: Odpovědi na základě polohy pomocí detekce IP
+• Odeslat oznámení: Push oznámení spouštěná AI
+• Vytvořit událost v kalendáři: Přidejte události do kalendáře přímo z chatu
+• Vyhledávání na webu: Nechte AI vyhledávat na webu aktuální odpovědi
+• Spustit příkaz Shell: Spouštějte příkazy na zařízení prostřednictvím AI
+• Plánovat / Zrušit / Zobrazit úlohy: Spravujte opakující se AI úlohy
 
 Soukromí na prvním místě
-Kai dává vaše soukromí na první místo: Veškerá historie chatu je uložena lokálně se silným šifrováním. Při používání cloudových AI služeb jsou vaše data odesílána přímo poskytovatelům ke zpracování – samotná aplikace žádná data neshromažďuje. Zůstaňte v kontrole s touto open-source aplikací pro chat s AI.
+Kai klade vaše soukromí na první místo: Veškerá historie chatů je uložena lokálně se silným šifrováním. Při používání cloudových AI služeb jsou vaše data odesílána přímo poskytovatelům ke zpracování — aplikace sama žádná data neshromažďuje. Mějte vše pod kontrolou s touto open-source AI chatovací aplikací.

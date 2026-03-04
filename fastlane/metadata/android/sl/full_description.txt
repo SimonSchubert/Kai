@@ -1,25 +1,34 @@
-Potrebujete hitre odgovore AI brez nepotrebne napihnjenosti? Kai je vaš bliskovit odprtokodni spremljevalec, ki ga poganjajo modeli, kot sta Llama in Gemini od Google. Potopite se v tekoče klepete za brainstorming, pisanje, povzemanje, učenje ali sproščene pogovore – vse v minimalističnem vmesniku, ki se naloži v nekaj sekundah.
+Spoznajte Kai — vašo lokalno alternativo za OpenClaw kar v žepu. Hitra odprtokodna aplikacija za AI klepet, ki jo poganjajo modeli kot so Llama, Gemini, GPT in DeepSeek. Potopite se v tekoče pogovore za brainstorming, pisanje, povzemanje, učenje ali sproščene klepete — vse v minimalističnem vmesniku, ki se naloži v nekaj sekundah.
 
 Podprte storitve AI
-• Ollama: Povežite se s svojimi lokalno gostovanimi modeli AI za klepete, osredotočene na zasebnost
+• Ollama / LM Studio: Povežite se s svojimi lokalno gostovanimi modeli AI (združljivimi z OpenAI)
+• OpenAI: Dostop do modelov GPT za zmogljive pogovore
 • Gemini: Napredna AI od Google z vgrajeno podporo za priponke datotek
-• xAI: Dostopajte do inovativnih modelov Grok za ustvarjalne in pronicljive odgovore
-• Groq: Izkusite izjemno hitro sklepanje AI za takojšnje odgovore
-• Mistral AI: Izkoristite brezplačno raven za stroškovno učinkovite interakcije z AI
+• DeepSeek: Visoko zmogljivi modeli za sklepanje
+• xAI: Inovativni modeli Grok za ustvarjalne in pronicljive odgovore
+• Mistral AI: Učinkoviti večjezični modeli
+• Groq: Izjemno hitro sklepanje AI za takojšnje odgovore
+• OpenRouter: Dostop do več sto modelov prek enega API
+• NVIDIA: Poganjajte modele, ki jih gosti NVIDIA
+• Katera koli API, združljiva z OpenAI: Uporabite lastno končno točko
 
 Ključne funkcije
-• Šifrirano lokalno shranjevanje: Varno shranjujte zgodovino klepetov na svoji napravi s šifriranjem od konca do konca
+• Trajni spomin: AI si zapomni pomembne podrobnosti med pogovori
+• Šifrirano lokalno shranjevanje: Varno shranjujte zgodovino klepetov na svoji napravi
 • Pretvorba besedila v govor: Poslušajte odgovore AI z naravno zvenečim glasovnim izhodom
-• Priponke datotek: Preprosto naložite datoteke za izboljšanje pogovorov (podprto na Gemini)
+• Priponke datotek: Naložite datoteke za izboljšanje pogovorov (podprto na Gemini)
 • Brezhibno preklapljanje storitev: Med pogovorom brez truda preklapljajte med ponudniki AI
-• Večkrožni pogovori: Uživajte v kontekstno ozaveščenih klepetih, kjer si AI zapomni prejšnja sporočila
-• Preprost vmesnik za klepet: Uporabniku prijazen dizajn za začetnike in strokovnjake
+• Večkrožni pogovori: Kontekstno ozaveščeni klepeti, kjer si AI zapomni prejšnja sporočila
+• Ozadnji daemon in razporejanje opravil: Razporejajte opravila z izrazi cron ali intervali heartbeat
 
 Orodja AI (Omogočite v nastavitvah)
-• Pridobi lokalni čas: AI zagotovi natančne informacije o trenutnem datumu in času
-• Pridobi lokacijo: Prejemajte odgovore na podlagi lokacije z zaznavanjem IP
-• Pošlji obvestilo: Prejemajte potisna obvestila, ki jih sproži AI
+• Pridobi lokalni čas: Natančne informacije o trenutnem datumu in času
+• Pridobi lokacijo: Odgovori na podlagi lokacije z zaznavanjem IP
+• Pošlji obvestilo: Potisna obvestila, ki jih sproži AI
 • Ustvari koledarski dogodek: Dodajte dogodke v koledar neposredno iz klepeta
+• Spletno iskanje: Pustite AI, da poišče po spletu aktualne odgovore
+• Zaženi ukaz lupine: Izvajajte ukaze na svoji napravi prek AI
+• Razporedi / Prekliči / Prikaži opravila: Upravljajte ponavljajoča se opravila AI
 
 Zasebnost na prvem mestu
-Kai daje prednost vaši zasebnosti: Vsa zgodovina klepetov je shranjena lokalno z močnim šifriranjem. Pri uporabi storitev AI v oblaku se vaši podatki pošljejo neposredno ponudnikom za obdelavo – aplikacija sama ne zbira nobenih podatkov. Ohranite nadzor s to odprtokodno aplikacijo za AI klepet.
+Kai daje prednost vaši zasebnosti: Vsa zgodovina klepetov je shranjena lokalno z močnim šifriranjem. Pri uporabi storitev AI v oblaku se vaši podatki pošljejo neposredno ponudnikom za obdelavo — aplikacija sama ne zbira nobenih podatkov. Ohranite nadzor s to odprtokodno aplikacijo za AI klepet.

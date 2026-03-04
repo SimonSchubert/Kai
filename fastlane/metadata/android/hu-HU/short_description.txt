@@ -1,1 +1,1 @@
-Gyors, egyszerű nyílt forráskódú AI csevegő
+OpenClaw alternatíva a zsebedben

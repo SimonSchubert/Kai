@@ -1,25 +1,34 @@
-Potrzebujesz szybkich odpowiedzi AI bez zbędnych dodatków? Kai to błyskawiczny towarzysz open source, działający w oparciu o modele takie jak Llama i Gemini od Google. Zanurz się w płynne rozmowy – do burzy mózgów, pisania, streszczania, nauki czy luźnych pogawędek – wszystko w minimalistycznym interfejsie, który ładuje się w kilka sekund.
+Poznaj Kai — Twoją lokalną alternatywę OpenClaw w kieszeni. Szybka, otwartoźródłowa aplikacja czatu AI zasilana modelami takimi jak Llama, Gemini, GPT i DeepSeek. Zanurz się w płynnych rozmowach na potrzeby burzy mózgów, pisania, podsumowywania, nauki lub luźnych pogaduszek — wszystko w minimalistycznym interfejsie, który ładuje się w sekundy.
 
 Obsługiwane usługi AI
-• Ollama: Połącz się z własnymi lokalnymi modelami AI dla rozmów z zachowaniem prywatności
-• Gemini: Zaawansowane AI od Google z wbudowaną obsługą załączników plików
-• xAI: Uzyskaj dostęp do innowacyjnych modeli Grok dla kreatywnych i trafnych odpowiedzi
-• Groq: Skorzystaj z ultraszybkiego wnioskowania AI dla błyskawicznych odpowiedzi
-• Mistral AI: Wykorzystaj bezpłatny poziom do ekonomicznych interakcji z AI
+• Ollama / LM Studio: Połącz się ze swoimi lokalnymi modelami AI (kompatybilnymi z OpenAI)
+• OpenAI: Dostęp do modeli GPT do zaawansowanych rozmów
+• Gemini: Zaawansowane AI od Google z wbudowaną obsługą załączników
+• DeepSeek: Wydajne modele rozumowania
+• xAI: Innowacyjne modele Grok do kreatywnych i wnikliwych odpowiedzi
+• Mistral AI: Wydajne modele wielojęzyczne
+• Groq: Ultraszybkie wnioskowanie AI do błyskawicznych odpowiedzi
+• OpenRouter: Dostęp do setek modeli przez jedno API
+• NVIDIA: Uruchamiaj modele hostowane przez NVIDIA
+• Dowolne API kompatybilne z OpenAI: Użyj własnego punktu końcowego
 
 Kluczowe funkcje
-• Szyfrowany lokalny magazyn: Bezpiecznie przechowuj historię czatów na urządzeniu z szyfrowaniem end-to-end
-• Zamiana tekstu na mowę: Słuchaj odpowiedzi AI na głos z naturalnie brzmiącym głosem
-• Załączniki plików: Łatwo przesyłaj pliki, aby wzbogacić rozmowy (obsługiwane przez Gemini)
-• Płynne przełączanie usług: Zmieniaj dostawców AI bez wysiłku w trakcie rozmowy
-• Rozmowy wieloetapowe: Ciesz się czatem świadomym kontekstu, w którym AI pamięta poprzednie wiadomości
-• Prosty interfejs czatu: Przyjazny dla użytkownika design odpowiedni zarówno dla początkujących, jak i zaawansowanych
+• Trwała pamięć: AI zapamiętuje ważne szczegóły między rozmowami
+• Szyfrowana pamięć lokalna: Bezpiecznie przechowuj historię czatów na swoim urządzeniu
+• Tekst na mowę: Słuchaj odpowiedzi AI z naturalnie brzmiącym głosem
+• Załączniki plików: Przesyłaj pliki, aby wzbogacić rozmowy (obsługiwane w Gemini)
+• Płynne przełączanie usług: Bezproblemowo zmieniaj dostawców AI w trakcie rozmowy
+• Rozmowy wieloetapowe: Czaty uwzględniające kontekst, w których AI pamięta poprzednie wiadomości
+• Demon w tle i planowanie zadań: Planuj zadania za pomocą wyrażeń cron lub interwałów heartbeat
 
-Narzędzia AI (włącz w ustawieniach)
-• Pobierz lokalny czas: AI podaje dokładną aktualną datę i godzinę
-• Pobierz lokalizację: Otrzymuj odpowiedzi oparte na lokalizacji za pomocą wykrywania IP
-• Wyślij powiadomienie: Odbieraj powiadomienia push wyzwalane przez AI
-• Utwórz wydarzenie w kalendarzu: Dodawaj wydarzenia do kalendarza bezpośrednio z czatu
+Narzędzia AI (Włącz w Ustawieniach)
+• Pobierz czas lokalny: Dokładna informacja o bieżącej dacie i godzinie
+• Pobierz lokalizację: Odpowiedzi oparte na lokalizacji z wykorzystaniem wykrywania IP
+• Wyślij powiadomienie: Powiadomienia push wywoływane przez AI
+• Utwórz wydarzenie w kalendarzu: Dodawaj wydarzenia do kalendarza z poziomu czatu
+• Wyszukiwanie w sieci: Pozwól AI przeszukać sieć w poszukiwaniu aktualnych odpowiedzi
+• Uruchom polecenie shell: Wykonuj polecenia na urządzeniu przez AI
+• Zaplanuj / Anuluj / Wyświetl zadania: Zarządzaj powtarzalnymi zadaniami AI
 
 Prywatność przede wszystkim
-Kai stawia Twoją prywatność na pierwszym miejscu: cała historia czatów jest przechowywana lokalnie z silnym szyfrowaniem. Korzystając z chmurowych usług AI, Twoje dane są wysyłane bezpośrednio do dostawców w celu przetworzenia – aplikacja sama w sobie nie zbiera żadnych danych. Zachowaj kontrolę dzięki tej aplikacji czatu AI o otwartym kodzie źródłowym.
+Kai stawia Twoją prywatność na pierwszym miejscu: Cała historia czatów jest przechowywana lokalnie z silnym szyfrowaniem. Korzystając z usług AI w chmurze, Twoje dane są wysyłane bezpośrednio do dostawców w celu przetworzenia — sama aplikacja nie zbiera żadnych danych. Zachowaj kontrolę dzięki tej otwartoźródłowej aplikacji czatu AI.

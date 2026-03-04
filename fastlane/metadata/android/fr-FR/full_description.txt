@@ -1,25 +1,34 @@
-Besoin de réponses IA rapides sans le superflu ? Kai est votre compagnon open source ultra-rapide, propulsé par des modèles comme Llama et Gemini de Google. Plongez dans des conversations fluides pour brainstormer, écrire, résumer, apprendre ou simplement discuter – le tout dans une interface minimaliste qui se charge en quelques secondes.
+Découvrez Kai — votre alternative locale à OpenClaw dans votre poche. Une application de chat AI rapide et open source, propulsée par des modèles comme Llama, Gemini, GPT et DeepSeek. Plongez dans des conversations fluides pour du brainstorming, de l'écriture, des résumés, de l'apprentissage ou des discussions informelles — le tout dans une interface minimaliste qui se charge en quelques secondes.
 
-Services IA pris en charge
-• Ollama : Connectez-vous à vos modèles IA locaux auto-hébergés pour des conversations respectueuses de votre vie privée
-• Gemini : L'IA avancée de Google avec prise en charge native des pièces jointes
-• xAI : Accédez aux modèles Grok innovants pour des réponses créatives et pertinentes
-• Groq : Profitez d'une inférence IA ultra-rapide pour des réponses instantanées
-• Mistral AI : Exploitez le niveau gratuit pour des interactions IA économiques
+Services AI pris en charge
+• Ollama / LM Studio : Connectez-vous à vos modèles AI locaux auto-hébergés (compatible OpenAI)
+• OpenAI : Accédez aux modèles GPT pour des conversations puissantes
+• Gemini : L'AI avancée de Google avec prise en charge intégrée des pièces jointes
+• DeepSeek : Modèles de raisonnement haute performance
+• xAI : Modèles Grok innovants pour des réponses créatives et perspicaces
+• Mistral AI : Modèles multilingues efficaces
+• Groq : Inférence AI ultra-rapide pour des réponses instantanées
+• OpenRouter : Accédez à des centaines de modèles via une seule API
+• NVIDIA : Exécutez des modèles hébergés par NVIDIA
+• Toute API compatible OpenAI : Utilisez votre propre point de terminaison
 
-Fonctionnalités principales
-• Stockage local chiffré : Conservez votre historique de conversations sur votre appareil en toute sécurité grâce au chiffrement de bout en bout
-• Synthèse vocale : Écoutez les réponses de l'IA à voix haute avec une sortie vocale naturelle
-• Pièces jointes : Importez facilement des fichiers pour enrichir vos conversations (compatible avec Gemini)
-• Changement de service fluide : Passez d'un fournisseur IA à l'autre sans effort, même en cours de conversation
-• Conversations multi-tours : Profitez de discussions contextuelles où l'IA se souvient des messages précédents
-• Interface de chat simple : Un design intuitif adapté aussi bien aux débutants qu'aux utilisateurs avancés
+Fonctionnalités clés
+• Mémoire persistante : L'AI retient les détails importants entre les conversations
+• Stockage local chiffré : Conservez votre historique de chat en toute sécurité sur votre appareil
+• Synthèse vocale : Écoutez les réponses de l'AI avec une voix naturelle
+• Pièces jointes : Téléversez des fichiers pour enrichir vos conversations (pris en charge sur Gemini)
+• Changement de service fluide : Basculez entre les fournisseurs AI sans effort en pleine conversation
+• Conversations multi-tours : Discussions contextuelles où l'AI se souvient des messages précédents
+• Daemon en arrière-plan et planification de tâches : Planifiez des tâches avec des expressions cron ou des intervalles de battement
 
-Outils IA (à activer dans les paramètres)
-• Heure locale : L'IA vous fournit la date et l'heure actuelles avec précision
-• Localisation : Recevez des réponses géolocalisées grâce à la détection par IP
-• Envoyer une notification : Recevez des notifications push déclenchées par l'IA
-• Créer un événement calendrier : Ajoutez des événements à votre agenda directement depuis le chat
+Outils AI (Activer dans les paramètres)
+• Heure locale : Date et heure actuelles précises
+• Localisation : Réponses basées sur la localisation par détection IP
+• Envoyer une notification : Notifications push déclenchées par l'AI
+• Créer un événement : Ajoutez des événements à votre calendrier depuis le chat
+• Recherche web : Laissez l'AI chercher sur le web des réponses à jour
+• Exécuter une commande shell : Exécutez des commandes sur votre appareil via l'AI
+• Planifier / Annuler / Lister les tâches : Gérez les tâches AI récurrentes
 
-La confidentialité avant tout
-Kai fait de votre vie privée une priorité : tout l'historique de chat est stocké localement avec un chiffrement robuste. Lorsque vous utilisez des services IA en ligne, vos données sont envoyées directement aux fournisseurs pour traitement – aucune collecte de données par l'application elle-même. Gardez le contrôle avec cette application de chat IA open source.
+Confidentialité avant tout
+Kai privilégie votre confidentialité : tout l'historique de chat est stocké localement avec un chiffrement robuste. Lors de l'utilisation de services AI cloud, vos données sont envoyées directement aux fournisseurs pour traitement — aucune collecte de données par l'application elle-même. Gardez le contrôle avec cette application de chat AI open source.

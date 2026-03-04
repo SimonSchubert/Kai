@@ -1,25 +1,34 @@
-Reikia greitų AI atsakymų be nereikalingo balasto? Kai yra jūsų žaibiškai greitas atvirojo kodo pagalbininkas, veikiantis su tokiais modeliais kaip Llama ir Google Gemini. Pasinerkite į sklandžius pokalbius idėjų generavimui, rašymui, apibendrinimui, mokymuisi ar laisviems pokalbiams – visa tai minimalistinėje sąsajoje, kuri įsikrauna per sekundes.
+Susipažinkite su Kai — jūsų vietine OpenClaw alternatyva kišenėje. Greita, atvirojo kodo AI pokalbių programa, veikianti su tokiais modeliais kaip Llama, Gemini, GPT ir DeepSeek. Mėgaukitės sklandžiais pokalbiais minčių lietui, rašymui, apibendrinimui, mokymuisi ar laisviems pokalbiams — visa tai minimalistinėje sąsajoje, kuri užsikrauna per kelias sekundes.
 
 Palaikomos AI paslaugos
-• Ollama: Prisijunkite prie savo vietinių AI modelių privatumui orientuotiems pokalbiams
-• Gemini: Pažangus Google AI su integruotu failų priedų palaikymu
-• xAI: Pasiekite inovatyvius Grok modelius kūrybiškiems ir įžvalgiems atsakymams
-• Groq: Patirkite itin greitą AI išvedimą gretiems atsakymams
-• Mistral AI: Naudokite nemokamą lygį ekonomiškai efektyviems AI pokalbiams
+• Ollama / LM Studio: Prisijunkite prie savo lokaliai talpinamų AI modelių (suderinami su OpenAI)
+• OpenAI: Pasiekite GPT modelius galingiems pokalbiams
+• Gemini: Pažangi „Google" AI su integruotu failų priedų palaikymu
+• DeepSeek: Didelio našumo samprotavimo modeliai
+• xAI: Novatoriški Grok modeliai kūrybiškiems ir įžvalgiems atsakymams
+• Mistral AI: Efektyvūs daugiakalbiai modeliai
+• Groq: Itin greita AI išvada greitiems atsakymams
+• OpenRouter: Pasiekite šimtus modelių per vieną API
+• NVIDIA: Paleiskite NVIDIA talpinamų modelius
+• Bet kuri su OpenAI suderinama API: Naudokite savo galutinį tašką
 
 Pagrindinės funkcijos
-• Šifruota vietinė saugykla: Saugiai saugokite pokalbių istoriją savo įrenginyje su ištisiniu šifravimu
-• Teksto vertimas į kalbą: Klausykite AI atsakymų garsiai su natūraliai skambančiu balsu
-• Failų priedai: Lengvai įkelkite failus, kad praturtintumėte savo pokalbius (palaikoma Gemini)
-• Sklandus paslaugų perjungimas: Be pastangų perjunkite AI teikėjus pokalbio metu
-• Daugiapakopiai pokalbiai: Mėgaukitės kontekstą suvokiančiais pokalbiais, kuriuose AI prisimena ankstesnes žinutes
-• Paprasta pokalbių sąsaja: Patogus dizainas tiek pradedantiesiems, tiek ekspertams
+• Nuolatinė atmintis: AI prisimena svarbias detales tarp pokalbių
+• Šifruota vietinė saugykla: Saugiai saugokite pokalbių istoriją savo įrenginyje
+• Teksto vertimas į kalbą: Klausykitės AI atsakymų natūraliu balsu
+• Failų priedai: Įkelkite failus pokalbių praturtinimui (palaikoma Gemini)
+• Sklandus paslaugų perjungimas: Lengvai keiskite AI teikėjus pokalbio metu
+• Daugiažingsniai pokalbiai: Kontekstą suvokiantys pokalbiai, kuriuose AI prisimena ankstesnius pranešimus
+• Foninis procesas ir užduočių planavimas: Planuokite užduotis naudodami cron išraiškas arba heartbeat intervalus
 
-AI įrankiai (Įjunkite Nustatymuose)
-• Gauti vietinį laiką: AI pateikia tikslią dabartinės datos ir laiko informaciją
-• Gauti vietovę: Gaukite vietove pagrįstus atsakymus naudojant IP aptikimą
-• Siųsti pranešimą: Gaukite AI inicijuotus push pranešimus
-• Sukurti kalendoriaus įvykį: Pridėkite įvykius į savo kalendorių tiesiai iš pokalbio
+AI įrankiai (Įjunkite nustatymuose)
+• Gauti vietinį laiką: Tiksli dabartinė datos ir laiko informacija
+• Gauti vietovę: Atsakymai pagal vietovę naudojant IP aptikimą
+• Siųsti pranešimą: AI suaktyvinami push pranešimai
+• Sukurti kalendoriaus įvykį: Pridėkite įvykius į kalendorių iš pokalbio
+• Paieška internete: Leiskite AI ieškoti naujausių atsakymų internete
+• Paleisti Shell komandą: Vykdykite komandas savo įrenginyje per AI
+• Planuoti / atšaukti / peržiūrėti užduotis: Tvarkykite pasikartojančias AI užduotis
 
 Privatumas pirmiausia
-Kai teikia pirmenybę jūsų privatumui: Visa pokalbių istorija saugoma vietoje su stipriu šifravimu. Naudojant debesies AI paslaugas, jūsų duomenys siunčiami tiesiogiai teikėjams apdoroti – pati programėlė duomenų nerenka. Išlaikykite kontrolę su šia atvirojo kodo AI pokalbių programėle.
+Kai teikia pirmenybę jūsų privatumui: visa pokalbių istorija saugoma vietiniame įrenginyje su stipriu šifravimu. Naudojant debesijos AI paslaugas, jūsų duomenys siunčiami tiesiogiai teikėjams apdorojimui — pati programa nerenka jokių duomenų. Kontroliuokite savo duomenis su šia atvirojo kodo AI pokalbių programa.

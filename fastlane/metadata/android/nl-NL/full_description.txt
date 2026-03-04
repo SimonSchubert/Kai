@@ -1,25 +1,34 @@
-Behoefte aan snelle AI-antwoorden zonder alle fratsen? Kai is jouw razendsnelle, open-source gesprekspartner, aangedreven door modellen zoals Llama en Google's Gemini. Duik in vloeiende gesprekken voor brainstormen, schrijven, samenvatten, leren of een gewoon praatje – allemaal in een minimalistische interface die in een paar seconden laadt.
+Maak kennis met Kai — je lokale OpenClaw-alternatief in je broekzak. Een snelle, open-source AI-chatapp aangedreven door modellen zoals Llama, Gemini, GPT en DeepSeek. Duik in naadloze gesprekken voor brainstormen, schrijven, samenvatten, leren of gewoon kletsen — allemaal in een minimalistische interface die in seconden laadt.
 
 Ondersteunde AI-diensten
-• Ollama: Verbind met je zelfgehoste lokale AI-modellen voor privacygerichte gesprekken
+• Ollama / LM Studio: Verbind met je zelfgehoste lokale AI-modellen (OpenAI-compatibel)
+• OpenAI: Toegang tot GPT-modellen voor krachtige gesprekken
 • Gemini: Google's geavanceerde AI met ingebouwde ondersteuning voor bestandsbijlagen
-• xAI: Toegang tot innovatieve Grok-modellen voor creatieve en inzichtelijke antwoorden
-• Groq: Ervaar ultrasnelle AI-inferentie voor razendsnelle reacties
-• Mistral AI: Maak gebruik van de gratis laag voor kosteneffectieve AI-interacties
+• DeepSeek: Hoogwaardige redeneermodellen
+• xAI: Innovatieve Grok-modellen voor creatieve en inzichtelijke antwoorden
+• Mistral AI: Efficiënte meertalige modellen
+• Groq: Ultrasnelle AI-inferentie voor snelle antwoorden
+• OpenRouter: Toegang tot honderden modellen via één API
+• NVIDIA: Draai door NVIDIA gehoste modellen
+• Elke OpenAI-compatibele API: Gebruik je eigen eindpunt
 
 Belangrijkste functies
-• Versleutelde lokale opslag: Bewaar je chatgeschiedenis veilig op je apparaat met end-to-end-versleuteling
-• Tekst-naar-spraak: Hoor AI-antwoorden hardop met natuurlijk klinkende stemuitvoer
-• Bestandsbijlagen: Upload eenvoudig bestanden om je gesprekken te verrijken (ondersteund bij Gemini)
-• Naadloos wisselen van dienst: Schakel moeiteloos tussen AI-aanbieders, ook midden in een gesprek
-• Meerbeurtige gesprekken: Geniet van contextbewuste chats waarbij de AI eerdere berichten onthoudt
-• Eenvoudige chatinterface: Gebruiksvriendelijk ontwerp voor zowel beginners als gevorderden
+• Blijvend geheugen: AI onthoudt belangrijke details over gesprekken heen
+• Versleutelde lokale opslag: Sla je chatgeschiedenis veilig op je apparaat op
+• Tekst-naar-spraak: Luister naar AI-antwoorden met natuurlijk klinkende spraakuitvoer
+• Bestandsbijlagen: Upload bestanden om je gesprekken te verrijken (ondersteund op Gemini)
+• Naadloos wisselen van dienst: Schakel moeiteloos tussen AI-aanbieders midden in een gesprek
+• Meervoudige gespreksrondes: Contextbewuste chats waarbij AI eerdere berichten onthoudt
+• Achtergronddaemon & taakplanning: Plan taken met cron-expressies of heartbeat-intervallen
 
-AI-tools (in te schakelen via Instellingen)
-• Lokale tijd opvragen: AI geeft nauwkeurige informatie over de huidige datum en tijd
-• Locatie opvragen: Ontvang locatiegerichte antwoorden via IP-detectie
-• Melding versturen: Ontvang pushmeldingen die door de AI worden geactiveerd
-• Agenda-afspraak aanmaken: Voeg afspraken rechtstreeks vanuit de chat toe aan je agenda
+AI-tools (Inschakelen via Instellingen)
+• Lokale tijd ophalen: Nauwkeurige huidige datum- en tijdinformatie
+• Locatie ophalen: Locatiegebaseerde antwoorden via IP-detectie
+• Melding versturen: Pushmeldingen geactiveerd door AI
+• Agenda-afspraak maken: Voeg evenementen toe aan je agenda vanuit de chat
+• Webzoeken: Laat AI het web doorzoeken voor actuele antwoorden
+• Shell-opdracht uitvoeren: Voer opdrachten uit op je apparaat via AI
+• Taken plannen / annuleren / weergeven: Beheer terugkerende AI-taken
 
 Privacy voorop
-Kai stelt jouw privacy centraal: alle chatgeschiedenis wordt lokaal opgeslagen met sterke versleuteling. Bij gebruik van cloud-AI-diensten worden je gegevens rechtstreeks naar de aanbieders verstuurd voor verwerking – de app zelf verzamelt geen gegevens. Blijf in controle met deze open-source AI-chatapp.
+Kai geeft prioriteit aan je privacy: Alle chatgeschiedenis wordt lokaal opgeslagen met sterke versleuteling. Bij gebruik van cloud-AI-diensten worden je gegevens rechtstreeks naar de aanbieders gestuurd voor verwerking — de app zelf verzamelt geen gegevens. Behoud de controle met deze open-source AI-chatapp.

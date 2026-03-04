@@ -1,25 +1,34 @@
-Butuh jawaban AI cepat tanpa aplikasi yang berat? Kai adalah pendamping open-source Anda yang super cepat, didukung oleh model seperti Llama dan Gemini dari Google. Nikmati obrolan yang lancar untuk brainstorming, menulis, meringkas, belajar, atau sekadar ngobrol santai – semuanya dalam antarmuka minimalis yang langsung terbuka dalam hitungan detik.
+Kenalkan Kai — alternatif OpenClaw lokal di saku Anda. Aplikasi chat AI yang cepat dan open-source, didukung oleh model seperti Llama, Gemini, GPT, dan DeepSeek. Nikmati obrolan lancar untuk brainstorming, menulis, merangkum, belajar, atau ngobrol santai — semuanya dalam antarmuka minimalis yang dimuat dalam hitungan detik.
 
 Layanan AI yang Didukung
-• Ollama: Hubungkan ke model AI lokal yang Anda host sendiri untuk obrolan yang mengutamakan privasi
+• Ollama / LM Studio: Hubungkan ke model AI lokal yang Anda hosting sendiri (kompatibel OpenAI)
+• OpenAI: Akses model GPT untuk percakapan yang powerful
 • Gemini: AI canggih dari Google dengan dukungan lampiran file bawaan
-• xAI: Akses model Grok yang inovatif untuk respons yang kreatif dan penuh wawasan
-• Groq: Rasakan inferensi AI yang sangat cepat untuk balasan yang instan
-• Mistral AI: Manfaatkan tingkat gratis untuk interaksi AI yang hemat biaya
+• DeepSeek: Model penalaran berperforma tinggi
+• xAI: Model Grok inovatif untuk respons kreatif dan mendalam
+• Mistral AI: Model multibahasa yang efisien
+• Groq: Inferensi AI ultra-cepat untuk balasan instan
+• OpenRouter: Akses ratusan model melalui satu API
+• NVIDIA: Jalankan model yang di-hosting oleh NVIDIA
+• API apa pun yang kompatibel dengan OpenAI: Gunakan endpoint Anda sendiri
 
 Fitur Utama
-• Penyimpanan Lokal Terenkripsi: Simpan riwayat obrolan Anda di perangkat dengan aman menggunakan enkripsi end-to-end
-• Teks-ke-Ucapan: Dengarkan respons AI secara langsung dengan keluaran suara yang terdengar alami
-• Lampiran File: Unggah file dengan mudah untuk memperkaya percakapan Anda (didukung di Gemini)
-• Pergantian Layanan yang Mulus: Ganti antara penyedia AI dengan mudah di tengah percakapan
-• Percakapan Multi-Giliran: Nikmati obrolan yang sadar konteks di mana AI mengingat pesan sebelumnya
-• Antarmuka Obrolan Sederhana: Desain yang ramah pengguna untuk pemula maupun pengguna berpengalaman
+• Memori Persisten: AI mengingat detail penting lintas percakapan
+• Penyimpanan Lokal Terenkripsi: Simpan riwayat obrolan Anda dengan aman di perangkat
+• Text-to-Speech: Dengarkan respons AI dengan suara yang alami
+• Lampiran File: Unggah file untuk memperkaya percakapan Anda (didukung di Gemini)
+• Pergantian Layanan Mulus: Beralih antar penyedia AI dengan mudah di tengah percakapan
+• Percakapan Multi-Giliran: Obrolan sadar konteks di mana AI mengingat pesan sebelumnya
+• Daemon Latar Belakang & Penjadwalan Tugas: Jadwalkan tugas dengan ekspresi cron atau interval heartbeat
 
 Alat AI (Aktifkan di Pengaturan)
-• Dapatkan Waktu Lokal: AI memberikan informasi tanggal dan waktu saat ini yang akurat
-• Dapatkan Lokasi: Terima respons berbasis lokasi menggunakan deteksi IP
-• Kirim Notifikasi: Dapatkan notifikasi push yang dipicu oleh AI
-• Buat Acara Kalender: Tambahkan acara ke kalender Anda langsung dari obrolan
+• Dapatkan Waktu Lokal: Info tanggal dan waktu terkini yang akurat
+• Dapatkan Lokasi: Respons berbasis lokasi menggunakan deteksi IP
+• Kirim Notifikasi: Notifikasi push yang dipicu oleh AI
+• Buat Acara Kalender: Tambahkan acara ke kalender Anda dari obrolan
+• Pencarian Web: Biarkan AI mencari di web untuk jawaban terkini
+• Jalankan Perintah Shell: Eksekusi perintah di perangkat Anda melalui AI
+• Jadwalkan / Batalkan / Daftar Tugas: Kelola tugas AI berulang
 
-Privasi sebagai Prioritas
-Kai mengutamakan privasi Anda: Semua riwayat obrolan disimpan secara lokal dengan enkripsi yang kuat. Saat menggunakan layanan AI berbasis cloud, data Anda dikirim langsung ke penyedia layanan untuk diproses – tidak ada pengumpulan data oleh aplikasi itu sendiri. Tetap kendalikan privasi Anda dengan aplikasi obrolan AI open-source ini.
+Privasi Utama
+Kai mengutamakan privasi Anda: Semua riwayat obrolan disimpan secara lokal dengan enkripsi kuat. Saat menggunakan layanan AI cloud, data Anda dikirim langsung ke penyedia untuk diproses — tidak ada pengumpulan data oleh aplikasi itu sendiri. Tetap pegang kendali dengan aplikasi chat AI open-source ini.

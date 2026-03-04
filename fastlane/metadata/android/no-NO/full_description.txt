@@ -1,25 +1,34 @@
-Trenger du raske AI-svar uten unødvendig bagasje? Kai er din lynraske AI-kompanjong med åpen kildekode, drevet av modeller som Llama og Googles Gemini. Kast deg ut i sømløse samtaler for idémyldring, skriving, oppsummering, læring eller uformell prat – alt i et minimalistisk grensesnitt som lastes på sekunder.
+Møt Kai — ditt lokale OpenClaw-alternativ i lomma. En rask, åpen kildekode AI-chatapp drevet av modeller som Llama, Gemini, GPT og DeepSeek. Dykk inn i sømløse samtaler for idémyldring, skriving, oppsummering, læring eller uformelle samtaler — alt i et minimalistisk grensesnitt som lastes på sekunder.
 
 Støttede AI-tjenester
-• Ollama: Koble til dine selvhostede lokale AI-modeller for personvernfokuserte samtaler
-• Gemini: Googles avanserte AI med innebygd støtte for filopplasting
-• xAI: Tilgang til innovative Grok-modeller for kreative og innsiktsfulle svar
-• Groq: Opplev ultraraskt AI-inferens for lynraske svar
-• Mistral AI: Bruk gratisnivået for kostnadseffektive AI-samtaler
+• Ollama / LM Studio: Koble til dine selvhostede lokale AI-modeller (OpenAI-kompatible)
+• OpenAI: Tilgang til GPT-modeller for kraftige samtaler
+• Gemini: Googles avanserte AI med innebygd støtte for filvedlegg
+• DeepSeek: Høyytelsesmodeller for resonnering
+• xAI: Innovative Grok-modeller for kreative og innsiktsfulle svar
+• Mistral AI: Effektive flerspråklige modeller
+• Groq: Ultraraskt AI-inferens for raske svar
+• OpenRouter: Tilgang til hundrevis av modeller gjennom én API
+• NVIDIA: Kjør NVIDIA-hostede modeller
+• Hvilken som helst OpenAI-kompatibel API: Bruk ditt eget endepunkt
 
-Hovedfunksjoner
-• Kryptert lokal lagring: Lagre samtalehistorikken din sikkert på enheten med ende-til-ende-kryptering
-• Tekst-til-tale: Hør AI-svar høyt med naturlig lydlig stemme
-• Filopplastinger: Last enkelt opp filer for å berike samtalene dine (støttet i Gemini)
-• Sømløs tjenestebytting: Bytt mellom AI-leverandører uten problemer midt i en samtale
-• Flerturnssamtaler: Nyt kontekstbevisste samtaler der AI husker tidligere meldinger
-• Enkelt samtaledesign: Brukervennlig design for nybegynnere og eksperter alike
+Nøkkelfunksjoner
+• Vedvarende minne: AI husker viktige detaljer på tvers av samtaler
+• Kryptert lokal lagring: Lagre chathistorikken din trygt på enheten din
+• Tekst-til-tale: Hør AI-svar med naturlig klingende stemme
+• Filvedlegg: Last opp filer for å berike samtalene dine (støttet på Gemini)
+• Sømløst tjenestebytte: Bytt mellom AI-leverandører uanstrengt midt i samtalen
+• Flertrinnsamtaler: Kontekstbevisste chatter der AI husker tidligere meldinger
+• Bakgrunnsdaemon og oppgaveplanlegging: Planlegg oppgaver med cron-uttrykk eller hjerterytmeintervaller
 
-AI-verktøy (aktiver i innstillinger)
-• Hent lokal tid: AI gir nøyaktig informasjon om gjeldende dato og klokkeslett
-• Hent plassering: Motta stedbaserte svar via IP-deteksjon
-• Send varsling: Motta push-varsler utløst av AI
-• Opprett kalenderhendelse: Legg til hendelser i kalenderen din direkte fra chatten
+AI-verktøy (Aktiver i Innstillinger)
+• Hent lokal tid: Nøyaktig informasjon om gjeldende dato og klokkeslett
+• Hent posisjon: Lokasjonsbaserte svar ved hjelp av IP-deteksjon
+• Send varsling: Push-varsler utløst av AI
+• Opprett kalenderbegivenhet: Legg til hendelser i kalenderen din fra chatten
+• Websøk: La AI søke på nettet etter oppdaterte svar
+• Kjør shell-kommando: Utfør kommandoer på enheten din via AI
+• Planlegg / Avbryt / List oppgaver: Administrer gjentakende AI-oppgaver
 
 Personvern først
-Kai prioriterer personvernet ditt: All samtalehistorikk lagres lokalt med sterk kryptering. Når du bruker skybaserte AI-tjenester, sendes dataene dine direkte til leverandørene for behandling – appen selv samler ikke inn data. Behold kontrollen med denne AI-chat-appen med åpen kildekode.
+Kai prioriterer personvernet ditt: All chathistorikk lagres lokalt med sterk kryptering. Når du bruker sky-AI-tjenester, sendes dataene dine direkte til leverandørene for behandling — ingen datainnsamling av appen selv. Behold kontrollen med denne åpen kildekode AI-chatappen.

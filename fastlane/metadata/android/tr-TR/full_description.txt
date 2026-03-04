@@ -1,25 +1,34 @@
-Gereksiz karmaşıklık olmadan hızlı yapay zeka yanıtlarına mı ihtiyacınız var? Kai, Llama ve Google'ın Gemini gibi modellerle desteklenen, şimşek hızında açık kaynaklı yardımcınızdır. Beyin fırtınası, yazarlık, özetleme, öğrenme veya gündelik sohbet için kesintisiz konuşmalara dalın – hepsi saniyeler içinde yüklenen minimalist bir arayüzde.
+Kai ile tanışın — cebinizdeki yerel OpenClaw alternatifi. Llama, Gemini, GPT ve DeepSeek gibi modellerle çalışan hızlı, açık kaynaklı bir AI sohbet uygulaması. Beyin fırtınası, yazma, özetleme, öğrenme veya günlük sohbetler için akıcı konuşmalara dalın — saniyeler içinde yüklenen minimalist bir arayüzde.
 
-Desteklenen Yapay Zeka Servisleri
-• Ollama: Gizlilik odaklı sohbetler için kendi barındırdığınız yerel yapay zeka modellerine bağlanın
-• Gemini: Yerleşik dosya eki desteğiyle Google'ın gelişmiş yapay zekası
-• xAI: Yaratıcı ve özgün yanıtlar için yenilikçi Grok modellerine erişin
-• Groq: Hızlı yanıtlar için son derece hızlı yapay zeka çıkarımı deneyimi
-• Mistral AI: Uygun maliyetli yapay zeka etkileşimleri için ücretsiz katmanı kullanın
+Desteklenen AI Hizmetleri
+• Ollama / LM Studio: Kendi sunucunuzdaki yerel AI modellerinize bağlanın (OpenAI uyumlu)
+• OpenAI: Güçlü konuşmalar için GPT modellerine erişin
+• Gemini: Yerleşik dosya ekleme desteğine sahip Google'ın gelişmiş AI'ı
+• DeepSeek: Yüksek performanslı muhakeme modelleri
+• xAI: Yaratıcı ve içgörülü yanıtlar için yenilikçi Grok modelleri
+• Mistral AI: Verimli çok dilli modeller
+• Groq: Hızlı yanıtlar için ultra hızlı AI çıkarımı
+• OpenRouter: Tek bir API üzerinden yüzlerce modele erişin
+• NVIDIA: NVIDIA tarafından barındırılan modelleri çalıştırın
+• Herhangi bir OpenAI uyumlu API: Kendi endpoint'inizi ekleyin
 
 Temel Özellikler
-• Şifreli Yerel Depolama: Sohbet geçmişinizi uçtan uca şifreleme ile cihazınızda güvenle saklayın
-• Metinden Sese: Yapay zeka yanıtlarını doğal sesli çıkışla yüksek sesten dinleyin
-• Dosya Ekleri: Konuşmalarınızı zenginleştirmek için kolayca dosya yükleyin (Gemini'de desteklenir)
-• Kesintisiz Servis Değiştirme: Konuşma ortasında yapay zeka sağlayıcıları arasında zahmetsizce geçiş yapın
-• Çok Turlu Konuşmalar: Yapay zekanın önceki mesajları hatırladığı bağlam duyarlı sohbetlerin tadını çıkarın
-• Sade Sohbet Arayüzü: Hem yeni başlayanlar hem de uzmanlar için kullanıcı dostu tasarım
+• Kalıcı Bellek: AI, konuşmalar arasında önemli ayrıntıları hatırlar
+• Şifreli Yerel Depolama: Sohbet geçmişinizi cihazınızda güvenle saklayın
+• Metinden Konuşmaya: AI yanıtlarını doğal ses çıkışıyla sesli dinleyin
+• Dosya Ekleri: Konuşmalarınızı geliştirmek için dosya yükleyin (Gemini'de desteklenir)
+• Sorunsuz Hizmet Geçişi: Konuşma ortasında AI sağlayıcıları arasında zahmetsizce geçiş yapın
+• Çok Turlu Konuşmalar: AI'ın önceki mesajları hatırladığı bağlam farkındalıklı sohbetler
+• Arka Plan Daemon'u ve Görev Zamanlama: cron ifadeleri veya heartbeat aralıklarıyla görev zamanlayın
 
-Yapay Zeka Araçları (Ayarlardan Etkinleştirin)
-• Yerel Saati Al: Yapay zeka doğru güncel tarih ve saat bilgisi sağlar
-• Konum Al: IP tespiti kullanarak konuma dayalı yanıtlar alın
-• Bildirim Gönder: Yapay zeka tarafından tetiklenen anlık bildirimler alın
-• Takvim Etkinliği Oluştur: Sohbetten doğrudan takviminize etkinlik ekleyin
+AI Araçları (Ayarlardan Etkinleştirin)
+• Yerel Saati Al: Doğru güncel tarih ve saat bilgisi
+• Konum Al: IP tespiti kullanarak konuma dayalı yanıtlar
+• Bildirim Gönder: AI tarafından tetiklenen push bildirimleri
+• Takvim Etkinliği Oluştur: Sohbetten takviminize etkinlik ekleyin
+• Web Araması: AI'ın güncel yanıtlar için web araması yapmasına izin verin
+• Shell Komutu Çalıştır: AI aracılığıyla cihazınızda komut çalıştırın
+• Görev Zamanla / İptal Et / Listele: Tekrarlayan AI görevlerini yönetin
 
 Önce Gizlilik
-Kai gizliliğinizi ön planda tutar: Tüm sohbet geçmişi güçlü şifreleme ile yerel olarak saklanır. Bulut tabanlı yapay zeka servisleri kullanılırken verileriniz işlenmek üzere doğrudan sağlayıcılara iletilir – uygulama tarafından herhangi bir veri toplanmaz. Bu açık kaynaklı yapay zeka sohbet uygulamasıyla kontrolü elinizde tutun.
+Kai gizliliğinizi ön planda tutar: Tüm sohbet geçmişi güçlü şifrelemeyle yerel olarak saklanır. Bulut AI hizmetlerini kullanırken verileriniz işlenmek üzere doğrudan sağlayıcılara gönderilir — uygulama tarafından herhangi bir veri toplanmaz. Bu açık kaynaklı AI sohbet uygulamasıyla kontrolü elinizde tutun.

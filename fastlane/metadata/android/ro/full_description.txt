@@ -1,25 +1,34 @@
-Ai nevoie de răspunsuri AI rapide, fără complicații? Kai este companionul tău open-source, rapid ca fulgerul, bazat pe modele precum Llama și Gemini de la Google. Intră în conversații fluente pentru brainstorming, scris, rezumare, învățare sau discuții relaxate – totul într-o interfață minimalistă care se încarcă în câteva secunde.
+Fa cunostinta cu Kai — alternativa ta locala la OpenClaw, direct in buzunar. O aplicatie de chat AI rapida si open-source, alimentata de modele precum Llama, Gemini, GPT si DeepSeek. Intra in conversatii fluente pentru brainstorming, scris, rezumare, invatare sau discutii relaxate — totul intr-o interfata minimalista care se incarca in secunde.
 
 Servicii AI suportate
-• Ollama: Conectează-te la modelele AI locale auto-găzduite pentru conversații axate pe confidențialitate
-• Gemini: AI-ul avansat de la Google cu suport integrat pentru atașarea fișierelor
-• xAI: Accesează modelele inovatoare Grok pentru răspunsuri creative și perspicace
-• Groq: Beneficiază de inferență AI ultra-rapidă pentru răspunsuri instantanee
-• Mistral AI: Folosește nivelul gratuit pentru interacțiuni AI rentabile
+• Ollama / LM Studio: Conecteaza-te la modelele tale AI locale auto-gazduite (compatibile cu OpenAI)
+• OpenAI: Acceseaza modele GPT pentru conversatii puternice
+• Gemini: AI-ul avansat de la Google cu suport integrat pentru atasarea fisierelor
+• DeepSeek: Modele de rationament de inalta performanta
+• xAI: Modele Grok inovatoare pentru raspunsuri creative si perspicace
+• Mistral AI: Modele multilingve eficiente
+• Groq: Inferenta AI ultra-rapida pentru raspunsuri instantanee
+• OpenRouter: Acceseaza sute de modele printr-o singura API
+• NVIDIA: Ruleaza modele gazduite de NVIDIA
+• Orice API compatibila cu OpenAI: Adauga propriul tau endpoint
 
-Funcționalități principale
-• Stocare locală criptată: Păstrează în siguranță istoricul conversațiilor pe dispozitivul tău cu criptare end-to-end
-• Text-to-Speech: Ascultă răspunsurile AI cu ieșire vocală naturală
-• Atașamente de fișiere: Încarcă ușor fișiere pentru a îmbogăți conversațiile (disponibil pe Gemini)
-• Schimbare ușoară între servicii: Treci de la un furnizor AI la altul fără efort, chiar în mijlocul conversației
-• Conversații cu mai multe runde: Bucură-te de discuții care țin cont de context, unde AI-ul își amintește mesajele anterioare
-• Interfață simplă de chat: Design intuitiv, potrivit atât pentru începători, cât și pentru experți
+Functionalitati principale
+• Memorie persistenta: AI-ul retine detalii importante intre conversatii
+• Stocare locala criptata: Pastreaza in siguranta istoricul conversatiilor pe dispozitivul tau
+• Text-to-Speech: Asculta raspunsurile AI cu iesire vocala naturala
+• Atasamente de fisiere: Incarca fisiere pentru a imbogati conversatiile (disponibil pe Gemini)
+• Schimbare usoara intre servicii: Treci de la un furnizor AI la altul fara efort, chiar in mijlocul conversatiei
+• Conversatii cu mai multe runde: Chaturi care tin cont de context, unde AI-ul isi aminteste mesajele anterioare
+• Daemon in fundal si programare de sarcini: Programeaza sarcini cu expresii cron sau intervale de heartbeat
 
-Instrumente AI (Activează din Setări)
-• Obține ora locală: AI-ul furnizează informații precise despre data și ora curentă
-• Obține locația: Primește răspunsuri bazate pe locație prin detecție IP
-• Trimite notificare: Primește notificări push declanșate de AI
-• Creează eveniment în calendar: Adaugă evenimente în calendar direct din conversație
+Instrumente AI (Activeaza din Setari)
+• Obtine ora locala: Informatii precise despre data si ora curenta
+• Obtine locatia: Raspunsuri bazate pe locatie prin detectie IP
+• Trimite notificare: Notificari push declansate de AI
+• Creeaza eveniment in calendar: Adauga evenimente in calendar direct din conversatie
+• Cautare pe web: Lasa AI-ul sa caute pe web pentru raspunsuri actualizate
+• Executa comanda shell: Executa comenzi pe dispozitivul tau prin AI
+• Programeaza / Anuleaza / Listeaza sarcini: Gestioneaza sarcini AI recurente
 
-Confidențialitate pe primul loc
-Kai pune confidențialitatea ta pe primul loc: Întreg istoricul conversațiilor este stocat local cu criptare puternică. La utilizarea serviciilor AI din cloud, datele tale sunt trimise direct la furnizori pentru procesare – aplicația în sine nu colectează niciun fel de date. Rămâi în control cu această aplicație open-source de chat AI.
+Confidentialitate pe primul loc
+Kai pune confidentialitatea ta pe primul loc: Intreg istoricul conversatiilor este stocat local cu criptare puternica. La utilizarea serviciilor AI din cloud, datele tale sunt trimise direct la furnizori pentru procesare — aplicatia in sine nu colecteaza niciun fel de date. Ramai in control cu aceasta aplicatie open-source de chat AI.

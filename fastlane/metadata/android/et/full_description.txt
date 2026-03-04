@@ -1,25 +1,34 @@
-Vajad kiireid AI vastuseid ilma üleliigse ballastita? Kai on sinu välkkiire avatud lähtekoodiga kaaslane, mida toetavad mudelid nagu Llama ja Google'i Gemini. Sukeldu sujuvatesse vestlustesse ajurünnakuks, kirjutamiseks, kokkuvõtete tegemiseks, õppimiseks või vabaks jutuajamiseks – kõik minimalistlikus liideses, mis laadib sekunditega.
+Tutvu Kai-ga — sinu kohalik OpenClaw alternatiiv taskus. Kiire avatud lähtekoodiga AI vestlusrakendus, mida toetavad mudelid nagu Llama, Gemini, GPT ja DeepSeek. Sukeldu sujuvatesse vestlustesse ajurünnakuks, kirjutamiseks, kokkuvõtete tegemiseks, õppimiseks või vabaks jutuajamiseks — kõik minimalistlikus liideses, mis laadib sekunditega.
 
 Toetatud AI teenused
-• Ollama: Ühenda oma kohalike AI mudelitega privaatsusele keskendunud vestlusteks
+• Ollama / LM Studio: Ühenda oma isemajutatud kohalike AI mudelitega (OpenAI-ühilduvad)
+• OpenAI: Juurdepääs GPT mudelitele võimsateks vestlusteks
 • Gemini: Google'i täiustatud AI sisseehitatud failide manustamise toega
-• xAI: Juurdepääs uuenduslikele Grok mudelitele loovate ja arusaadavate vastuste saamiseks
-• Groq: Koge ülikiire AI järeldamist kiirete vastuste saamiseks
-• Mistral AI: Kasuta tasuta taset kulutõhusateks AI suhtlusteks
+• DeepSeek: Suure jõudlusega arutlusmudelid
+• xAI: Uuenduslikud Grok mudelid loovate ja arusaadavate vastuste jaoks
+• Mistral AI: Tõhusad mitmekeelsed mudelid
+• Groq: Ülikiire AI järeldamine kiirete vastuste saamiseks
+• OpenRouter: Juurdepääs sadadele mudelitele ühe API kaudu
+• NVIDIA: Käivita NVIDIA majutatud mudeleid
+• Ükskõik milline OpenAI-ühilduv API: Kasuta oma lõpp-punkti
 
 Põhifunktsioonid
-• Krüpteeritud kohalik salvestus: Salvesta oma vestlusajalugu turvaliselt oma seadmes otsast otsani krüpteeritult
-• Tekst kõneks: Kuula AI vastuseid loomulikult kõlava häälväljundiga
-• Failide manused: Laadi hõlpsalt faile üles oma vestluste täiustamiseks (toetatud Gemini puhul)
+• Püsimälu: AI jätab meelde olulised üksikasjad vestluste vahel
+• Krüpteeritud kohalik salvestus: Salvesta oma vestlusajalugu turvaliselt oma seadmes
+• Tekst kõneks: Kuula AI vastuseid loomulikult kõlava häälega
+• Failide manused: Laadi faile üles oma vestluste täiustamiseks (toetatud Gemini puhul)
 • Sujuv teenuste vahetamine: Vaheta AI pakkujate vahel vaevata keset vestlust
-• Mitme vooruga vestlused: Naudi kontekstiteadlikke vestlusi, kus AI mäletab varasemaid sõnumeid
-• Lihtne vestlusliides: Kasutajasõbralik disain nii algajatele kui ka ekspertidele
+• Mitme vooruga vestlused: Kontekstiteadlikud vestlused, kus AI mäletab varasemaid sõnumeid
+• Taustadeemon ja ülesannete ajastamine: Ajasta ülesandeid cron-avaldiste või südamelöögi intervallidega
 
-AI tööriistad (Luba seadetes)
-• Kohaliku aja päring: AI pakub täpset praegust kuupäeva ja kellaaega
-• Asukoha päring: Saa asukohapõhiseid vastuseid IP-tuvastuse abil
-• Teavituse saatmine: Saa AI käivitatud tõuketeatisi
+AI tööriistad (luba seadetes)
+• Kohaliku aja päring: Täpne praegune kuupäeva ja kellaaja teave
+• Asukoha päring: Asukohapõhised vastused IP-tuvastuse abil
+• Teavituse saatmine: AI käivitatud tõuketeatised
 • Kalendrisündmuse loomine: Lisa sündmusi oma kalendrisse otse vestlusest
+• Veebiotsing: Lase AI-l otsida veebist ajakohaseid vastuseid
+• Shellikäsu käivitamine: Käivita käsklusi oma seadmes AI kaudu
+• Ülesannete ajastamine / tühistamine / loetlemine: Halda korduvaid AI ülesandeid
 
 Privaatsus ennekõike
-Kai seab sinu privaatsuse esikohale: kogu vestlusajalugu salvestatakse kohalikult tugeva krüpteerimisega. Pilve-AI teenuste kasutamisel saadetakse sinu andmed töötlemiseks otse pakkujatele – rakendus ise ei kogu mingeid andmeid. Hoia kontroll oma käes selle avatud lähtekoodiga AI vestlusrakendusega.
+Kai seab sinu privaatsuse esikohale: kogu vestlusajalugu salvestatakse kohalikult tugeva krüpteerimisega. Pilve-AI teenuste kasutamisel saadetakse sinu andmed töötlemiseks otse pakkujatele — rakendus ise ei kogu mingeid andmeid. Hoia kontroll oma käes selle avatud lähtekoodiga AI vestlusrakendusega.

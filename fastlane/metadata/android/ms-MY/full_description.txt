@@ -1,25 +1,34 @@
-Perlukan jawapan AI pantas tanpa yang berlebihan? Kai ialah teman sumber terbuka anda yang sepantas kilat, dikuasakan oleh model seperti Llama dan Gemini daripada Google. Selami sembang lancar untuk sumbang saran, penulisan, ringkasan, pembelajaran atau perbualan santai – semuanya dalam antara muka minimalis yang dimuatkan dalam beberapa saat.
+Perkenalkan Kai — alternatif OpenClaw setempat dalam poket anda. Aplikasi sembang AI sumber terbuka yang pantas, dikuasakan oleh model seperti Llama, Gemini, GPT dan DeepSeek. Selami sembang lancar untuk sumbang saran, penulisan, ringkasan, pembelajaran atau perbualan santai — semuanya dalam antara muka minimalis yang dimuatkan dalam beberapa saat.
 
 Perkhidmatan AI yang Disokong
-• Ollama: Sambung ke model AI tempatan anda sendiri untuk sembang yang mengutamakan privasi
+• Ollama / LM Studio: Sambung ke model AI setempat yang dihoskan sendiri (serasi OpenAI)
+• OpenAI: Akses model GPT untuk perbualan berkuasa
 • Gemini: AI canggih Google dengan sokongan lampiran fail terbina dalam
-• xAI: Akses model Grok inovatif untuk respons kreatif dan berwawasan
-• Groq: Alami inferens AI ultra-pantas untuk balasan segera
-• Mistral AI: Gunakan peringkat percuma untuk interaksi AI yang menjimatkan kos
+• DeepSeek: Model penaakulan berprestasi tinggi
+• xAI: Model Grok inovatif untuk respons kreatif dan berwawasan
+• Mistral AI: Model berbilang bahasa yang cekap
+• Groq: Inferens AI ultra-pantas untuk balasan segera
+• OpenRouter: Akses ratusan model melalui satu API
+• NVIDIA: Jalankan model yang dihoskan NVIDIA
+• Mana-mana API serasi OpenAI: Gunakan titik akhir anda sendiri
 
-Ciri-ciri Utama
-• Storan Tempatan Disulitkan: Simpan sejarah sembang anda dengan selamat pada peranti anda dengan penyulitan hujung-ke-hujung
-• Teks-ke-Pertuturan: Dengar respons AI dengan output suara yang berbunyi semula jadi
-• Lampiran Fail: Muat naik fail dengan mudah untuk meningkatkan perbualan anda (disokong pada Gemini)
+Ciri Utama
+• Memori Berterusan: AI mengingati butiran penting merentas perbualan
+• Storan Setempat Tersulit: Simpan sejarah sembang anda dengan selamat pada peranti anda
+• Teks-ke-Pertuturan: Dengar respons AI dengan suara yang kedengaran semula jadi
+• Lampiran Fail: Muat naik fail untuk meningkatkan perbualan anda (disokong pada Gemini)
 • Penukaran Perkhidmatan Lancar: Tukar antara penyedia AI dengan mudah semasa perbualan
-• Perbualan Pelbagai Pusingan: Nikmati sembang sedar konteks di mana AI mengingati mesej sebelumnya
-• Antara Muka Sembang Ringkas: Reka bentuk mesra pengguna untuk pemula dan pakar
+• Perbualan Berbilang Giliran: Sembang sedar konteks di mana AI mengingati mesej sebelumnya
+• Daemon Latar Belakang & Penjadualan Tugas: Jadualkan tugas dengan ungkapan cron atau selang degupan
 
-Alat AI (Dayakan dalam Tetapan)
-• Dapatkan Waktu Tempatan: AI memberikan maklumat tarikh dan masa semasa yang tepat
-• Dapatkan Lokasi: Terima respons berasaskan lokasi menggunakan pengesanan IP
-• Hantar Pemberitahuan: Dapatkan pemberitahuan tolak yang dicetuskan oleh AI
-• Cipta Acara Kalendar: Tambah acara ke kalendar anda terus dari sembang
+Alat AI (Aktifkan dalam Tetapan)
+• Dapatkan Masa Setempat: Maklumat tarikh dan masa semasa yang tepat
+• Dapatkan Lokasi: Respons berdasarkan lokasi menggunakan pengesanan IP
+• Hantar Pemberitahuan: Pemberitahuan tolak yang dicetuskan oleh AI
+• Cipta Acara Kalendar: Tambah acara ke kalendar anda daripada sembang
+• Carian Web: Biarkan AI mencari web untuk jawapan terkini
+• Jalankan Perintah Shell: Laksanakan perintah pada peranti anda melalui AI
+• Jadual / Batal / Senarai Tugas: Urus tugas AI berulang
 
 Privasi Diutamakan
-Kai mengutamakan privasi anda: Semua sejarah sembang disimpan secara tempatan dengan penyulitan yang kukuh. Apabila menggunakan perkhidmatan AI awan, data anda dihantar terus kepada penyedia untuk pemprosesan – tiada pengumpulan data oleh aplikasi itu sendiri. Kekal terkawal dengan aplikasi sembang AI sumber terbuka ini.
+Kai mengutamakan privasi anda: Semua sejarah sembang disimpan secara setempat dengan penyulitan yang kukuh. Apabila menggunakan perkhidmatan AI awan, data anda dihantar terus kepada penyedia untuk pemprosesan — tiada pengumpulan data oleh aplikasi itu sendiri. Kekal dalam kawalan dengan aplikasi sembang AI sumber terbuka ini.

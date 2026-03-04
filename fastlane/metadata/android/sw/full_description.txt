@@ -1,25 +1,34 @@
-Unahitaji majibu ya haraka ya AI bila usumbufu? Kai ni mwandamani wako wa haraka kama umeme, wa chanzo huria, unaotumia modeli kama Llama na Gemini ya Google. Ingia katika mazungumzo laini ya kutafakari, kuandika, kufupisha, kujifunza, au mazungumzo ya kawaida – yote katika muundo rahisi unaopakia kwa sekunde.
+Kutana na Kai — mbadala wako wa OpenClaw mfukoni mwako. Programu ya haraka ya mazungumzo ya AI yenye msimbo wazi, inayoendeshwa na modeli kama Llama, Gemini, GPT, na DeepSeek. Ingia katika mazungumzo laini ya kutafakari, kuandika, kufupisha, kujifunza, au mazungumzo ya kawaida — yote katika muundo rahisi unaopakia kwa sekunde.
 
-Huduma za AI Zinazoungwa Mkono
-• Ollama: Unganisha na modeli zako za AI za ndani kwa mazungumzo yanayolinda faragha
-• Gemini: AI ya hali ya juu ya Google yenye msaada wa kuambatanisha faili
-• xAI: Fikia modeli bunifu za Grok kwa majibu ya ubunifu na yenye maarifa
-• Groq: Pata uchakataji wa AI wa kasi ya hali ya juu kwa majibu ya haraka
-• Mistral AI: Tumia ngazi ya bure kwa mwingiliano wa AI wenye gharama nafuu
+Huduma za AI Zinazotumika
+• Ollama / LM Studio: Unganisha na modeli zako za AI zinazohifadhiwa ndani (zinazooana na OpenAI)
+• OpenAI: Fikia modeli za GPT kwa mazungumzo yenye nguvu
+• Gemini: AI ya hali ya juu ya Google yenye msaada wa kuambatisha faili
+• DeepSeek: Modeli za ufasaha wa juu za kufikiri
+• xAI: Modeli bunifu za Grok kwa majibu ya ubunifu na maarifa
+• Mistral AI: Modeli bora za lugha nyingi
+• Groq: Uchanganuzi wa AI wa kasi sana kwa majibu ya haraka
+• OpenRouter: Fikia mamia ya modeli kupitia API moja
+• NVIDIA: Endesha modeli zinazohifadhiwa na NVIDIA
+• API yoyote inayooana na OpenAI: Weka endpoint yako mwenyewe
 
 Vipengele Muhimu
-• Hifadhi ya Ndani Iliyosimbwa: Hifadhi historia yako ya mazungumzo kwenye kifaa chako kwa usalama na usimbaji wa mwisho hadi mwisho
+• Kumbukumbu ya Kudumu: AI inakumbuka maelezo muhimu kati ya mazungumzo
+• Hifadhi ya Ndani Iliyosimbwa: Hifadhi historia yako ya mazungumzo kwa usalama kwenye kifaa chako
 • Maandishi-kwa-Sauti: Sikia majibu ya AI kwa sauti ya asili
-• Viambatanisho vya Faili: Pakia faili kwa urahisi kuimarisha mazungumzo yako (inasaidia kwenye Gemini)
-• Kubadilisha Huduma Kwa Urahisi: Badilisha kati ya watoa huduma za AI bila shida katikati ya mazungumzo
-• Mazungumzo ya Zamu Nyingi: Furahia mazungumzo yenye muktadha ambapo AI inakumbuka ujumbe uliopita
-• Muundo Rahisi wa Mazungumzo: Muundo rafiki kwa watumiaji wa kiwango chochote
+• Viambatisho vya Faili: Pakia faili ili kuboresha mazungumzo yako (inapatikana kwenye Gemini)
+• Kubadilisha Huduma kwa Urahisi: Badilisha kati ya watoa huduma za AI bila shida katikati ya mazungumzo
+• Mazungumzo ya Hatua Nyingi: Mazungumzo yanayofahamu muktadha ambapo AI inakumbuka ujumbe uliotangulia
+• Daemon ya Nyuma na Kupanga Kazi: Panga kazi kwa kutumia misemo ya cron au muda wa heartbeat
 
-Zana za AI (Washa katika Mipangilio)
-• Pata Wakati wa Eneo: AI inatoa taarifa sahihi za tarehe na wakati wa sasa
-• Pata Eneo: Pokea majibu yanayotegemea eneo kwa kutumia utambuzi wa IP
-• Tuma Arifa: Pata arifa za push zinazochochewa na AI
-• Unda Tukio la Kalenda: Ongeza matukio kwenye kalenda yako moja kwa moja kutoka mazungumzoni
+Zana za AI (Wezesha katika Mipangilio)
+• Pata Saa ya Mahali: Taarifa sahihi ya tarehe na saa ya sasa
+• Pata Eneo: Majibu yanayotegemea eneo kwa kutumia utambuzi wa IP
+• Tuma Arifa: Arifa za push zinazozinduliwa na AI
+• Unda Tukio la Kalenda: Ongeza matukio kwenye kalenda yako kutoka mazungumzoni
+• Utafutaji wa Wavuti: Ruhusu AI kutafuta wavuti kwa majibu ya kisasa
+• Endesha Amri ya Shell: Tekeleza amri kwenye kifaa chako kupitia AI
+• Panga / Sitisha / Orodhesha Kazi: Simamia kazi za AI zinazojirudia
 
 Faragha Kwanza
-Kai inatanguliza faragha yako: Historia yote ya mazungumzo huhifadhiwa ndani ya kifaa na usimbaji imara. Unapotumia huduma za AI za wingu, data yako hutumwa moja kwa moja kwa watoa huduma kwa uchakataji – hakuna ukusanyaji wa data na programu yenyewe. Dhibiti data yako na programu hii ya mazungumzo ya AI ya chanzo huria.
+Kai inatanguliza faragha yako: Historia yote ya mazungumzo huhifadhiwa ndani ya kifaa kwa usimbaji imara. Unapotumia huduma za AI za wingu, data yako hutumwa moja kwa moja kwa watoa huduma kwa uchakataji — hakuna ukusanyaji wa data na programu yenyewe. Dhibiti kwa programu hii ya mazungumzo ya AI yenye msimbo wazi.

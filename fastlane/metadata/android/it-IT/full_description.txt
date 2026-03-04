@@ -1,25 +1,34 @@
-Hai bisogno di risposte rapide dall'IA senza fronzoli? Kai è il tuo assistente open source fulmineo, basato su modelli come Llama e Gemini di Google. Immergiti in conversazioni fluide per fare brainstorming, scrivere, riassumere, imparare o chiacchierare – il tutto con un'interfaccia minimalista che si carica in pochi secondi.
+Scopri Kai — la tua alternativa locale a OpenClaw, sempre in tasca. Un'app di chat AI veloce e open-source, alimentata da modelli come Llama, Gemini, GPT e DeepSeek. Immergiti in conversazioni fluide per brainstorming, scrittura, riassunti, apprendimento o chiacchiere informali — il tutto in un'interfaccia minimalista che si carica in pochi secondi.
 
-Servizi AI supportati
-• Ollama: Connettiti ai tuoi modelli AI locali self-hosted per conversazioni orientate alla privacy
-• Gemini: L'IA avanzata di Google con supporto integrato per gli allegati
-• xAI: Accedi ai modelli innovativi Grok per risposte creative e perspicaci
-• Groq: Sperimenta un'inferenza AI ultra-rapida per risposte immediate
-• Mistral AI: Sfrutta il piano gratuito per interazioni AI convenienti
+Servizi AI Supportati
+• Ollama / LM Studio: Connettiti ai tuoi modelli AI locali self-hosted (compatibili OpenAI)
+• OpenAI: Accedi ai modelli GPT per conversazioni potenti
+• Gemini: L'AI avanzata di Google con supporto integrato per allegati
+• DeepSeek: Modelli di ragionamento ad alte prestazioni
+• xAI: Modelli Grok innovativi per risposte creative e approfondite
+• Mistral AI: Modelli multilingue efficienti
+• Groq: Inferenza AI ultraveloce per risposte rapide
+• OpenRouter: Accedi a centinaia di modelli tramite un'unica API
+• NVIDIA: Esegui modelli ospitati da NVIDIA
+• Qualsiasi API compatibile con OpenAI: Usa il tuo endpoint personalizzato
 
-Funzionalità principali
-• Archiviazione locale cifrata: Conserva in modo sicuro la cronologia delle chat sul dispositivo con crittografia end-to-end
-• Sintesi vocale: Ascolta le risposte dell'IA con una voce dal suono naturale
-• Allegati: Carica facilmente file per arricchire le tue conversazioni (supportato su Gemini)
-• Cambio servizio immediato: Passa da un provider AI all'altro senza interruzioni, anche a metà conversazione
-• Conversazioni multi-turno: Chat consapevoli del contesto in cui l'IA ricorda i messaggi precedenti
-• Interfaccia chat semplice: Design intuitivo adatto sia ai principianti che agli utenti esperti
+Funzionalità Principali
+• Memoria Persistente: L'AI ricorda i dettagli importanti tra le conversazioni
+• Archiviazione Locale Crittografata: Conserva la cronologia chat in modo sicuro sul tuo dispositivo
+• Text-to-Speech: Ascolta le risposte dell'AI con una voce dal suono naturale
+• Allegati: Carica file per arricchire le tue conversazioni (supportato su Gemini)
+• Cambio Servizio Senza Interruzioni: Passa da un fornitore AI all'altro durante la conversazione
+• Conversazioni Multi-Turno: Chat contestuali in cui l'AI ricorda i messaggi precedenti
+• Daemon in Background e Pianificazione Attività: Pianifica attività con espressioni cron o intervalli heartbeat
 
-Strumenti AI (attivabili nelle Impostazioni)
-• Ora locale: L'IA fornisce data e ora corrente con precisione
-• Posizione: Ricevi risposte basate sulla tua posizione tramite rilevamento IP
-• Invia notifica: Ricevi notifiche push attivate dall'IA
-• Crea evento nel calendario: Aggiungi eventi al tuo calendario direttamente dalla chat
+Strumenti AI (Attiva nelle Impostazioni)
+• Ottieni Ora Locale: Data e ora correnti precise
+• Ottieni Posizione: Risposte basate sulla posizione tramite rilevamento IP
+• Invia Notifica: Notifiche push attivate dall'AI
+• Crea Evento Calendario: Aggiungi eventi al calendario dalla chat
+• Ricerca Web: Lascia che l'AI cerchi sul web risposte aggiornate
+• Esegui Comando Shell: Esegui comandi sul tuo dispositivo tramite AI
+• Pianifica / Annulla / Elenca Attività: Gestisci attività AI ricorrenti
 
-La privacy prima di tutto
-Kai mette la tua privacy al primo posto: tutta la cronologia delle chat viene archiviata localmente con una crittografia robusta. Quando si utilizzano servizi AI cloud, i tuoi dati vengono inviati direttamente ai provider per l'elaborazione – l'app stessa non raccoglie alcun dato. Mantieni il controllo con questa app di chat AI open source.
+Privacy al Primo Posto
+Kai dà priorità alla tua privacy: tutta la cronologia delle chat è archiviata localmente con crittografia robusta. Quando utilizzi servizi AI cloud, i tuoi dati vengono inviati direttamente ai fornitori per l'elaborazione — nessuna raccolta dati da parte dell'app. Mantieni il controllo con questa app di chat AI open-source.

@@ -1,25 +1,34 @@
-Potrebujete rýchle AI odpovede bez zbytočného balastu? Kai je váš bleskovo rýchly, open-source spoločník poháňaný modelmi ako Llama alebo Google Gemini. Ponorte sa do plynulých chatov na brainstorming, písanie, sumarizovanie, učenie alebo len tak pre zábavu – všetko v minimalistickom rozhraní, ktoré sa načíta za pár sekúnd.
+Spoznajte Kai — vašu lokálnu alternatívu k OpenClaw priamo vo vrecku. Rýchla open-source aplikácia na AI chat poháňaná modelmi ako Llama, Gemini, GPT a DeepSeek. Ponorte sa do plynulých konverzácií na brainstorming, písanie, sumarizovanie, učenie alebo len tak pre zábavu — všetko v minimalistickom rozhraní, ktoré sa načíta za pár sekúnd.
 
 Podporované AI služby
-• Ollama: Pripojte sa k vlastným lokálne hostovaným AI modelom pre chaty zamerané na súkromie
+• Ollama / LM Studio: Pripojte sa k vlastným lokálne hostovaným AI modelom (kompatibilným s OpenAI)
+• OpenAI: Prístup k modelom GPT pre výkonné konverzácie
 • Gemini: Pokročilá AI od Googlu s vstavanou podporou príloh súborov
-• xAI: Prístup k inovatívnym modelom Grok pre kreatívne a podnetné odpovede
-• Groq: Zažite ultrarýchle spracovanie AI pre okamžité odpovede
-• Mistral AI: Využite bezplatný tarif pre cenovo dostupné interakcie s AI
+• DeepSeek: Vysoko výkonné modely na logické uvažovanie
+• xAI: Inovatívne modely Grok pre kreatívne a podnetné odpovede
+• Mistral AI: Efektívne viacjazyčné modely
+• Groq: Ultrarýchle spracovanie AI pre okamžité odpovede
+• OpenRouter: Prístup k stovkám modelov cez jedno API
+• NVIDIA: Spúšťajte modely hostované u NVIDIA
+• Akékoľvek API kompatibilné s OpenAI: Pripojte vlastný endpoint
 
 Kľúčové funkcie
-• Šifrované lokálne úložisko: Bezpečne ukladajte históriu chatu v zariadení pomocou šifrovania end-to-end
+• Trvalá pamäť: AI si pamätá dôležité detaily medzi konverzáciami
+• Šifrované lokálne úložisko: Bezpečne ukladajte históriu chatu na zariadení
 • Prevod textu na reč: Nechajte si odpovede AI prečítať nahlas prirodzene znejúcim hlasom
-• Prílohy súborov: Jednoducho nahrávajte súbory na obohatenie konverzácií (podporované cez Gemini)
+• Prílohy súborov: Nahrávajte súbory na obohatenie konverzácií (podporované cez Gemini)
 • Plynulé prepínanie služieb: Prepínajte medzi poskytovateľmi AI bez námahy aj uprostred konverzácie
-• Viackolové konverzácie: Užívajte si konverzácie zohľadňujúce kontext, kde si AI pamätá predchádzajúce správy
-• Jednoduché rozhranie chatu: Používateľsky prívetivý dizajn vhodný pre začiatočníkov aj skúsených
+• Viackolové konverzácie: Kontextové chaty, kde si AI pamätá predchádzajúce správy
+• Daemon na pozadí a plánovanie úloh: Plánujte úlohy pomocou výrazov cron alebo intervalov heartbeat
 
-Nástroje AI (zapnúť v Nastaveniach)
-• Získať miestny čas: AI poskytne presné informácie o aktuálnom dátume a čase
-• Získať polohu: Dostávajte odpovede zohľadňujúce polohu pomocou detekcie IP adresy
-• Odoslať upozornenie: Dostávajte push notifikácie spustené AI
+Nástroje AI (Zapnúť v Nastaveniach)
+• Získať miestny čas: Presné informácie o aktuálnom dátume a čase
+• Získať polohu: Odpovede zohľadňujúce polohu pomocou detekcie IP adresy
+• Odoslať upozornenie: Push notifikácie spustené AI
 • Vytvoriť udalosť v kalendári: Pridávajte udalosti do kalendára priamo z chatu
+• Vyhľadávanie na webe: Nechajte AI vyhľadať na webe aktuálne odpovede
+• Spustiť príkaz shellu: Vykonávajte príkazy na zariadení cez AI
+• Naplánovať / Zrušiť / Zobraziť úlohy: Spravujte opakujúce sa AI úlohy
 
 Súkromie na prvom mieste
-Kai kladie vaše súkromie na prvé miesto: Celá história chatu je uložená lokálne so silným šifrovaním. Pri používaní cloudových AI služieb sú vaše dáta odosielané priamo poskytovateľom na spracovanie – samotná aplikácia žiadne dáta nezbiera. Zostante v kontrole s touto open-source aplikáciou pre chat s AI.
+Kai kladie vaše súkromie na prvé miesto: Celá história chatu je uložená lokálne so silným šifrovaním. Pri používaní cloudových AI služieb sú vaše dáta odosielané priamo poskytovateľom na spracovanie — samotná aplikácia žiadne dáta nezbiera. Zostaňte v kontrole s touto open-source aplikáciou na AI chat.

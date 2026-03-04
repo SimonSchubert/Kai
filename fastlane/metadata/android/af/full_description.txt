@@ -1,25 +1,34 @@
-Het jy vinnige AI-antwoorde nodig sonder die oortollige rommel? Kai is jou blitsvinnige, oopbron-metgesel, aangedryf deur modelle soos Llama en Google se Gemini. Duik in naatlose gesprekke vir dinkskrums, skryfwerk, opsommings, leer of informele geselsies – alles in 'n minimalistiese koppelvlak wat binne sekondes laai.
+Ontmoet Kai — jou plaaslike OpenClaw-alternatief in jou sak. 'n Vinnige, oopbron AI-kletstoepassing aangedryf deur modelle soos Llama, Gemini, GPT en DeepSeek. Duik in naatlose gesprekke vir dinkskrums, skryfwerk, opsommings, leer of informele geselsies — alles in 'n minimalistiese koppelvlak wat binne sekondes laai.
 
 Ondersteunde AI-dienste
-• Ollama: Koppel aan jou selfgehuisvestigde plaaslike AI-modelle vir privaatheidsgerigte gesprekke
+• Ollama / LM Studio: Koppel aan jou selfgehuisvestigde plaaslike AI-modelle (OpenAI-versoenbaar)
+• OpenAI: Kry toegang tot GPT-modelle vir kragtige gesprekke
 • Gemini: Google se gevorderde AI met ingeboude lêeraanhegtingondersteuning
-• xAI: Kry toegang tot innoverende Grok-modelle vir kreatiewe en insiggewende antwoorde
-• Groq: Ervaar ultravinnigeAI-inferensie vir vinnige antwoorde
-• Mistral AI: Gebruik die gratis vlak vir kostedoeltreffende AI-interaksies
+• DeepSeek: Hoëprestasie-redeneringsmodelle
+• xAI: Innoverende Grok-modelle vir kreatiewe en insiggewende antwoorde
+• Mistral AI: Doeltreffende meertalige modelle
+• Groq: Ultravinnige AI-inferensie vir vinnige antwoorde
+• OpenRouter: Toegang tot honderde modelle deur een API
+• NVIDIA: Gebruik NVIDIA-gehuisvestigde modelle
+• Enige OpenAI-versoenbare API: Bring jou eie eindpunt
 
 Sleutelkenmerke
-• Geënkripteerde Plaaslike Berging: Berg jou kletsrekord veilig op jou toestel met end-tot-end-enkripsie
+• Blywende Geheue: AI onthou belangrike besonderhede oor gesprekke heen
+• Geënkripteerde Plaaslike Berging: Berg jou kletsrekord veilig op jou toestel
 • Teks-na-Spraak: Luister na AI-antwoorde hardop met natuurlik klinkende stemuitvoer
-• Lêeraanhegtings: Laai maklik lêers op om jou gesprekke te verbeter (ondersteun op Gemini)
+• Lêeraanhegtings: Laai lêers op om jou gesprekke te verbeter (ondersteun op Gemini)
 • Naatlose Dienswisseling: Wissel moeiteloos tussen AI-verskaffers midde-in 'n gesprek
-• Meervoudige Gesprekke: Geniet konteksbewuste gesprekke waar AI vorige boodskappe onthou
-• Eenvoudige Kletskoppelvlak: Gebruikersvriendelike ontwerp vir beginners en kenners
+• Meervoudige Gesprekke: Konteksbewuste gesprekke waar AI vorige boodskappe onthou
+• Agtergronddaemon en Taakskedulering: Skeduleer take met cron-uitdrukkings of hartklopintervalle
 
 AI-gereedskap (Aktiveer in Instellings)
-• Kry Plaaslike Tyd: AI verskaf akkurate huidige datum- en tydinligting
-• Kry Ligging: Ontvang ligginggebaseerde antwoorde met IP-opsporing
-• Stuur Kennisgewing: Kry stootkennisgewings wat deur AI geaktiveer word
-• Skep Kalendergebeurtenis: Voeg gebeurtenisse by jou kalender direk vanuit die klets
+• Kry Plaaslike Tyd: Akkurate huidige datum- en tydinligting
+• Kry Ligging: Ligginggebaseerde antwoorde met IP-opsporing
+• Stuur Kennisgewing: Stootkennisgewings wat deur AI geaktiveer word
+• Skep Kalendergebeurtenis: Voeg gebeurtenisse by jou kalender vanuit die klets
+• Websoektog: Laat AI die web deursoek vir bygewerkte antwoorde
+• Voer Skalopdrag Uit: Voer opdragte op jou toestel uit via AI
+• Skeduleer / Kanselleer / Lys Take: Bestuur herhalende AI-take
 
 Privaatheid Eerste
-Kai prioritiseer jou privaatheid: Alle kletsrekord word plaaslik gestoor met sterk enkripsie. Wanneer jy wolk-AI-dienste gebruik, word jou data direk na die verskaffers gestuur vir verwerking – geen dataversameling deur die toepassing self nie. Bly in beheer met hierdie oopbron AI-kletstoepassing.
+Kai prioritiseer jou privaatheid: Alle kletsrekord word plaaslik gestoor met sterk enkripsie. Wanneer jy wolk-AI-dienste gebruik, word jou data direk na die verskaffers gestuur vir verwerking — geen dataversameling deur die toepassing self nie. Bly in beheer met hierdie oopbron AI-kletstoepassing.

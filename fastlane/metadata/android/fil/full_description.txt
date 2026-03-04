@@ -1,25 +1,34 @@
-Kailangan ng mabilis na sagot mula sa AI nang walang kalat? Ang Kai ay ang iyong napakabilis, open-source na kasama, pinapagana ng mga modelo tulad ng Llama at Gemini ng Google. Sumabak sa maayos na mga chat para sa brainstorming, pagsulat, pagbubuod, pag-aaral, o kaswal na usapan – lahat sa isang minimalistang interface na naglo-load sa ilang segundo.
+Kilalanin si Kai — ang iyong lokal na OpenClaw na alternatibo sa iyong bulsa. Isang mabilis at open-source na AI chat app na pinapagana ng mga modelo tulad ng Llama, Gemini, GPT, at DeepSeek. Sumabak sa maayos na mga pag-uusap para sa brainstorming, pagsusulat, pagbubuod, pag-aaral, o kaswal na usapan — lahat sa isang minimalistang interface na naglo-load sa ilang segundo.
 
-Mga Sinusuportahang Serbisyo ng AI
-• Ollama: Kumonekta sa iyong self-hosted na lokal na mga modelo ng AI para sa mga chat na nakatuon sa privacy
-• Gemini: Advanced na AI ng Google na may built-in na suporta sa pag-attach ng file
-• xAI: I-access ang mga makabagong modelo ng Grok para sa malikhain at makatotohanang mga sagot
-• Groq: Maranasan ang napakabilis na AI inference para sa mabilis na mga tugon
-• Mistral AI: Gamitin ang libreng tier para sa cost-effective na mga interaksyon sa AI
+Mga Sinusuportahang AI na Serbisyo
+• Ollama / LM Studio: Kumonekta sa iyong self-hosted na lokal na AI na mga modelo (OpenAI-compatible)
+• OpenAI: I-access ang mga GPT na modelo para sa makapangyarihang pag-uusap
+• Gemini: Advanced na AI ng Google na may built-in na suporta sa file attachment
+• DeepSeek: Mga high-performance na reasoning modelo
+• xAI: Mga makabagong Grok na modelo para sa malikhain at makatotohanang mga sagot
+• Mistral AI: Mga mahusay na multilingual na modelo
+• Groq: Napakabilis na AI inference para sa mabilis na sagot
+• OpenRouter: I-access ang daan-daang modelo sa isang API
+• NVIDIA: Magpatakbo ng mga NVIDIA-hosted na modelo
+• Anumang OpenAI-compatible na API: Magdala ng sarili mong endpoint
 
-Mga Pangunahing Feature
-• Naka-encrypt na Lokal na Storage: Ligtas na iimbak ang iyong kasaysayan ng chat sa iyong device na may end-to-end encryption
-• Text-to-Speech: Pakinggan ang mga sagot ng AI nang malakas gamit ang natural na tunog ng boses
-• Mga File Attachment: Madaling mag-upload ng mga file para mapahusay ang iyong mga pag-uusap (sinusuportahan sa Gemini)
-• Maayos na Paglipat ng Serbisyo: Lumipat sa pagitan ng mga AI provider nang walang kahirap-hirap sa gitna ng usapan
-• Multi-Turn na Pag-uusap: Mag-enjoy ng mga chat na may kamalayan sa konteksto kung saan natatandaan ng AI ang mga nakaraang mensahe
-• Simpleng Chat Interface: Disenyo na madaling gamitin para sa mga baguhan at eksperto
+Mga Pangunahing Tampok
+• Persistent Memory: Natatandaan ng AI ang mahahalagang detalye sa mga pag-uusap
+• Naka-encrypt na Lokal na Storage: Ligtas na i-store ang iyong chat history sa iyong device
+• Text-to-Speech: Pakinggan ang mga sagot ng AI na may natural na boses
+• Mga File Attachment: Mag-upload ng mga file para mapahusay ang iyong mga pag-uusap (sinusuportahan sa Gemini)
+• Seamless na Pagpapalit ng Serbisyo: Magpalit ng AI provider nang walang kahirap-hirap sa gitna ng pag-uusap
+• Multi-Turn na Pag-uusap: Context-aware na mga chat kung saan natatandaan ng AI ang mga nakaraang mensahe
+• Background Daemon at Task Scheduling: Mag-iskedyul ng mga gawain gamit ang cron expression o heartbeat interval
 
-Mga Tool ng AI (I-enable sa Settings)
-• Kunin ang Lokal na Oras: Nagbibigay ang AI ng tumpak na kasalukuyang petsa at oras
-• Kunin ang Lokasyon: Makatanggap ng mga sagot batay sa lokasyon gamit ang IP detection
-• Magpadala ng Notification: Makatanggap ng push notification na na-trigger ng AI
-• Gumawa ng Calendar Event: Magdagdag ng mga event sa iyong kalendaryo mula mismo sa chat
+Mga AI Tool (I-enable sa Settings)
+• Kunin ang Lokal na Oras: Tumpak na kasalukuyang petsa at oras
+• Kunin ang Lokasyon: Mga sagot batay sa lokasyon gamit ang IP detection
+• Magpadala ng Notification: Mga push notification na triggered ng AI
+• Gumawa ng Calendar Event: Magdagdag ng mga event sa iyong kalendaryo mula sa chat
+• Web Search: Hayaan ang AI na maghanap sa web para sa pinakabagong mga sagot
+• Magpatakbo ng Shell Command: Mag-execute ng mga command sa iyong device gamit ang AI
+• Mag-iskedyul / Kanselahin / Ilista ang mga Gawain: Pamahalaan ang mga paulit-ulit na AI na gawain
 
 Privacy Muna
-Inuuna ng Kai ang iyong privacy: Lahat ng kasaysayan ng chat ay naka-imbak nang lokal na may matibay na encryption. Kapag gumagamit ng cloud AI na mga serbisyo, ang iyong data ay direktang ipinapadala sa mga provider para sa pagproseso – walang data collection mula sa app mismo. Manatiling may kontrol gamit ang open-source na AI chat app na ito.
+Inuuna ng Kai ang iyong privacy: lahat ng chat history ay naka-store nang lokal na may matibay na encryption. Kapag gumagamit ng cloud AI na mga serbisyo, ang iyong data ay direktang ipinapadala sa mga provider para sa pagproseso — walang data collection mula sa app mismo. Manatiling may kontrol gamit ang open-source na AI chat app na ito.

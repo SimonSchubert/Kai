@@ -1,25 +1,34 @@
-Tarvitsetko nopeita tekoälyvastauksia ilman turhaa monimutkaisuutta? Kai on salamannopea, avoimen lähdekoodin kumppanisi, jota käyttävät Llama- ja Googlen Gemini-mallit. Sukella sujuviin keskusteluihin ideointia, kirjoittamista, tiivistämistä, oppimista tai rentoa jutustelua varten – kaikki minimalistisessa käyttöliittymässä, joka latautuu sekunneissa.
+Tutustu Kai:hin — paikallinen OpenClaw-vaihtoehto taskussasi. Nopea, avoimen lähdekoodin AI-chat-sovellus, joka hyödyntää malleja kuten Llama, Gemini, GPT ja DeepSeek. Sukella sujuviin keskusteluihin ideointia, kirjoittamista, tiivistämistä, oppimista tai rentoa jutustelua varten — kaikki minimalistisessa käyttöliittymässä, joka latautuu sekunneissa.
 
-Tuetut tekoälypalvelut
-• Ollama: Yhdistä itse isännöityihin paikallisiin tekoälymalleihin yksityisyyttä arvostaviin keskusteluihin
-• Gemini: Googlen kehittynyt tekoäly sisäänrakennetulla tiedostoliitetoiminnolla
-• xAI: Käytä innovatiivisia Grok-malleja luoviin ja oivaltaviin vastauksiin
-• Groq: Koe ultranopea tekoälyn päättely nopeita vastauksia varten
-• Mistral AI: Hyödynnä ilmaistasoa kustannustehokkaisiin tekoälyvuorovaikutuksiin
+Tuetut AI-palvelut
+• Ollama / LM Studio: Yhdistä omiin paikallisiin AI-malleihisi (OpenAI-yhteensopiva)
+• OpenAI: Käytä GPT-malleja tehokkaisiin keskusteluihin
+• Gemini: Googlen edistynyt AI sisäänrakennetulla tiedostoliitetuella
+• DeepSeek: Suorituskykyiset päättelymallit
+• xAI: Innovatiiviset Grok-mallit luoviin ja oivaltaviin vastauksiin
+• Mistral AI: Tehokkaat monikieliset mallit
+• Groq: Ultranopea AI-päättely nopeisiin vastauksiin
+• OpenRouter: Pääsy satoihin malleihin yhden API:n kautta
+• NVIDIA: Suorita NVIDIA-isännöityjä malleja
+• Mikä tahansa OpenAI-yhteensopiva API: Käytä omaa päätepistettäsi
 
-Tärkeimmät ominaisuudet
-• Salattu paikallinen tallennus: Tallenna chat-historia turvallisesti laitteellesi päästä päähän -salauksella
-• Tekstistä puheeksi: Kuuntele tekoälyvastaukset ääneen luonnollisella äänellä
-• Tiedostoliitteet: Lataa tiedostoja helposti keskustelujesi rikastamiseksi (tuettu Geminissä)
-• Saumaton palvelunvaihto: Vaihda tekoälypalveluiden välillä vaivattomasti kesken keskustelun
-• Monivaiheiset keskustelut: Nauti asiayhteyden huomioivista chateista, joissa tekoäly muistaa aiemmat viestit
-• Yksinkertainen chat-käyttöliittymä: Käyttäjäystävällinen muotoilu niin aloittelijoille kuin asiantuntijoillekin
+Keskeiset ominaisuudet
+• Pysyvä muisti: AI muistaa tärkeät yksityiskohdat keskustelujen välillä
+• Salattu paikallinen tallennus: Tallenna keskusteluhistoriasi turvallisesti laitteellesi
+• Tekstistä puheeksi: Kuuntele AI-vastauksia luonnollisella puheäänellä
+• Tiedostoliitteet: Lataa tiedostoja keskustelujesi tueksi (tuettu Gemini-palvelussa)
+• Saumaton palvelunvaihto: Vaihda AI-palveluntarjoajien välillä vaivattomasti kesken keskustelun
+• Monivuoroiset keskustelut: Kontekstitietoiset keskustelut, joissa AI muistaa aiemmat viestit
+• Taustadaemon ja tehtävien ajastus: Ajasta tehtäviä cron-lausekkeilla tai sykevälein
 
-Tekoälytyökalut (ota käyttöön asetuksissa)
-• Hae paikallinen aika: Tekoäly tarjoaa tarkan nykyisen päivämäärän ja kellonajan
-• Hae sijainti: Vastaanota sijaintiin perustuvat vastaukset IP-tunnistuksen avulla
-• Lähetä ilmoitus: Saa tekoälyn käynnistämiä push-ilmoituksia
-• Luo kalenteritapahtuma: Lisää tapahtumia kalenteriisi suoraan chatista
+AI-työkalut (Ota käyttöön asetuksista)
+• Paikallinen aika: Tarkka päivämäärä- ja aikatieto
+• Sijainnin haku: Sijaintiin perustuvat vastaukset IP-tunnistuksella
+• Ilmoituksen lähetys: AI:n käynnistämät push-ilmoitukset
+• Kalenteritapahtuman luonti: Lisää tapahtumia kalenteriisi chatista
+• Verkkohaku: Anna AI:n hakea verkosta ajantasaisia vastauksia
+• Komentojen suoritus: Suorita komentoja laitteellasi AI:n kautta
+• Tehtävien ajastus / peruutus / listaus: Hallitse toistuvia AI-tehtäviä
 
-Yksityisyys etusijalla
-Kai asettaa yksityisyytesi etusijalle: Kaikki chat-historia tallennetaan paikallisesti vahvalla salauksella. Pilvi-tekoälypalveluita käytettäessä tietosi lähetetään suoraan palveluntarjoajille käsittelyä varten – sovellus itse ei kerää tietoja. Pysy hallinnassa tämän avoimen lähdekoodin tekoäly-chat-sovelluksen avulla.
+Yksityisyys ensin
+Kai asettaa yksityisyytesi etusijalle: kaikki keskusteluhistoria tallennetaan paikallisesti vahvalla salauksella. Pilvi-AI-palveluita käytettäessä tietosi lähetetään suoraan palveluntarjoajille käsiteltäviksi — sovellus itse ei kerää tietoja. Pidä kontrolli itsellläsi tällä avoimen lähdekoodin AI-chat-sovelluksella.

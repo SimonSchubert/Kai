@@ -1,25 +1,34 @@
-Vajadzīgas ātras AI atbildes bez liekā apjoma? Kai ir jūsu zibensātrs atvērtā koda palīgs, ko darbina tādi modeļi kā Llama un Google Gemini. Ienirstiet nevainojamās sarunās ideju ģenerēšanai, rakstīšanai, apkopošanai, mācībām vai ikdienišķām sarunām – viss minimālistiskā saskarnē, kas ielādējas sekundēs.
+Iepazīstieties ar Kai — jūsu lokālā OpenClaw alternatīva kabatā. Ātra, atvērtā koda AI čata lietotne, ko darbina tādi modeļi kā Llama, Gemini, GPT un DeepSeek. Ienirstiet netraucētās sarunās prāta vētrai, rakstīšanai, apkopošanai, mācībām vai ikdienas sarunām — tas viss minimālistiskā saskarnē, kas ielādējas sekundēs.
 
 Atbalstītie AI pakalpojumi
-• Ollama: Savienojieties ar saviem lokāli izvietotajiem AI modeļiem privātumam orientētām sarunām
+• Ollama / LM Studio: Savienojieties ar pašmitinātiem lokāliem AI modeļiem (OpenAI-saderīgi)
+• OpenAI: Piekļūstiet GPT modeļiem jaudīgām sarunām
 • Gemini: Google uzlabotais AI ar iebūvētu failu pielikumu atbalstu
-• xAI: Piekļūstiet inovatīvajiem Grok modeļiem radošām un ieskatpilnām atbildēm
-• Groq: Izbaudiet īpaši ātru AI izvadi ātrām atbildēm
-• Mistral AI: Izmantojiet bezmaksas līmeni rentablām AI mijiedarbībām
+• DeepSeek: Augstas veiktspējas spriešanas modeļi
+• xAI: Inovatīvi Grok modeļi radošām un iedvesmojošām atbildēm
+• Mistral AI: Efektīvi daudzvalodu modeļi
+• Groq: Īpaši ātra AI izpilde ātrai atbildei
+• OpenRouter: Piekļūstiet simtiem modeļu caur vienu API
+• NVIDIA: Palaidiet NVIDIA mitinātus modeļus
+• Jebkurš OpenAI-saderīgs API: Izmantojiet savu galapunktu
 
 Galvenās funkcijas
-• Šifrēta lokālā glabātuve: Droši glabājiet savu sarunu vēsturi savā ierīcē ar pilnīgu šifrēšanu
-• Teksta pārvēršana runā: Klausieties AI atbildes skaļi ar dabīgi skanošu balss izvadi
-• Failu pielikumi: Viegli augšupielādējiet failus, lai uzlabotu savas sarunas (atbalstīts Gemini)
-• Nemanāma pakalpojumu pārslēgšana: Bez piepūles pārslēdzieties starp AI pakalpojumu sniedzējiem sarunas laikā
-• Daudzpakāpju sarunas: Baudiet kontekstu apzinošas sarunas, kurās AI atceras iepriekšējās ziņas
-• Vienkārša tērzēšanas saskarne: Lietotājam draudzīgs dizains gan iesācējiem, gan ekspertiem
+• Noturīgā atmiņa: AI atceras svarīgas detaļas dažādās sarunās
+• Šifrēta lokālā krātuve: Droši glabājiet čata vēsturi savā ierīcē
+• Teksta pārvēršana runā: Klausieties AI atbildes dabīgi skanošā balss izvadē
+• Failu pielikumi: Augšupielādējiet failus, lai uzlabotu sarunas (atbalstīts Gemini)
+• Nemanāma pakalpojumu maiņa: Pārslēdzieties starp AI pakalpojumu sniedzējiem sarunas laikā
+• Daudzpakāpju sarunas: Kontekstapzinīgas sarunas, kur AI atceras iepriekšējos ziņojumus
+• Fona dēmons un uzdevumu plānošana: Plānojiet uzdevumus ar cron izteiksmēm vai sirdspukstu intervāliem
 
-AI rīki (Iespējojiet Iestatījumos)
-• Iegūt vietējo laiku: AI sniedz precīzu pašreizējā datuma un laika informāciju
-• Iegūt atrašanās vietu: Saņemiet uz atrašanās vietu balstītas atbildes, izmantojot IP noteikšanu
-• Sūtīt paziņojumu: Saņemiet AI aktivizētus push paziņojumus
-• Izveidot kalendāra notikumu: Pievienojiet notikumus savam kalendāram tieši no tērzēšanas
+AI rīki (iespējojiet iestatījumos)
+• Iegūt lokālo laiku: Precīza pašreizējā datuma un laika informācija
+• Iegūt atrašanās vietu: Atbildes, kas balstītas uz atrašanās vietu, izmantojot IP noteikšanu
+• Sūtīt paziņojumu: AI aktivizēti push paziņojumi
+• Izveidot kalendāra notikumu: Pievienojiet notikumus kalendāram no čata
+• Meklēšana tīmeklī: Ļaujiet AI meklēt tīmeklī aktuālas atbildes
+• Palaist čaulas komandu: Izpildiet komandas savā ierīcē caur AI
+• Plānot / Atcelt / Uzskaitīt uzdevumus: Pārvaldiet atkārtotus AI uzdevumus
 
 Privātums vispirms
-Kai izvirza jūsu privātumu pirmajā vietā: Visa sarunu vēsture tiek glabāta lokāli ar spēcīgu šifrēšanu. Izmantojot mākoņa AI pakalpojumus, jūsu dati tiek nosūtīti tieši pakalpojumu sniedzējiem apstrādei – pati lietotne datus nevāc. Saglabājiet kontroli ar šo atvērtā koda AI tērzēšanas lietotni.
+Kai prioritizē jūsu privātumu: Visa čata vēsture tiek glabāta lokāli ar spēcīgu šifrēšanu. Izmantojot mākoņa AI pakalpojumus, jūsu dati tiek sūtīti tieši pakalpojumu sniedzējiem apstrādei — lietotne pati neveic datu vākšanu. Saglabājiet kontroli ar šo atvērtā koda AI čata lietotni.

@@ -1,25 +1,34 @@
-Gyors AI válaszokra vágysz felesleges bonyodalmak nélkül? A Kai a villámgyors, nyílt forráskódú társad, amelyet olyan modellek hajtanak meg, mint a Llama és a Google Gemini. Merülj el a zökkenőmentes csevegésekben ötleteléshez, íráshoz, összefoglaláshoz, tanuláshoz vagy kötetlen beszélgetéshez – mindezt egy minimalista felületen, amely másodpercek alatt betölt.
+Ismerd meg Kai-t — a helyi OpenClaw alternatívát a zsebedben. Egy gyors, nyílt forráskódú AI csevegőalkalmazás, amelyet olyan modellek hajtanak, mint a Llama, Gemini, GPT és DeepSeek. Merülj el a gördülékeny beszélgetésekben ötleteléshez, íráshoz, összefoglaláshoz, tanuláshoz vagy kötetlen csevegéshez — mindezt egy minimalista felületen, amely másodpercek alatt betölt.
 
-Támogatott AI-szolgáltatások
-• Ollama: Csatlakozz saját, helyi AI-modelleidhez adatvédelmet szem előtt tartó csevegésekhez
-• Gemini: A Google fejlett AI-ja, beépített fájlmellékletek támogatásával
-• xAI: Érd el az innovatív Grok modelleket kreatív és mélyenszántó válaszokért
-• Groq: Tapasztald meg az ultragyors AI-következtetést a villámgyors válaszokhoz
-• Mistral AI: Használd az ingyenes szintet költséghatékony AI-interakciókhoz
+Támogatott AI szolgáltatások
+• Ollama / LM Studio: Csatlakozz saját helyi AI modelljeidhez (OpenAI-kompatibilis)
+• OpenAI: Hozzáférés GPT modellekhez hatékony beszélgetésekhez
+• Gemini: A Google fejlett AI-ja beépített fájlmelléklet-támogatással
+• DeepSeek: Nagy teljesítményű következtetési modellek
+• xAI: Innovatív Grok modellek kreatív és éleslátó válaszokhoz
+• Mistral AI: Hatékony többnyelvű modellek
+• Groq: Ultragyors AI következtetés villámgyors válaszokhoz
+• OpenRouter: Hozzáférés több száz modellhez egyetlen API-n keresztül
+• NVIDIA: NVIDIA által hosztolt modellek futtatása
+• Bármely OpenAI-kompatibilis API: Használd a saját végpontodat
 
 Főbb funkciók
-• Titkosított helyi tárolás: Biztonságosan tárold csevegési előzményeidet az eszközödön végponttól végpontig terjedő titkosítással
-• Szövegfelolvasás: Halld az AI válaszait hangosan, természetes hangzású beszéddel
-• Fájlmellékletek: Könnyedén tölts fel fájlokat a beszélgetések gazdagításához (Gemini esetén támogatott)
-• Zökkenőmentes szolgáltatásváltás: Válts AI-szolgáltatók között erőfeszítés nélkül, akár csevegés közben is
-• Többfordulós beszélgetések: Élvezd a kontextustudatos csevegést, ahol az AI emlékszik a korábbi üzenetekre
-• Egyszerű csevegőfelület: Felhasználóbarát kialakítás kezdők és haladók számára egyaránt
+• Tartós memória: Az AI megjegyzi a fontos részleteket a beszélgetések között
+• Titkosított helyi tárhely: Csevegési előzményeid biztonságosan tárolódnak az eszközödön
+• Szövegfelolvasás: Hallgasd meg az AI válaszait természetes hangon
+• Fájlmellékletek: Tölts fel fájlokat a beszélgetéseid gazdagításához (Gemini-n támogatott)
+• Zökkenőmentes szolgáltatásváltás: Válts AI szolgáltatók között könnyedén a beszélgetés közben
+• Többfordulós beszélgetések: Kontextustudatos csevegések, ahol az AI emlékszik a korábbi üzenetekre
+• Háttérdémon és feladatütemezés: Ütemezz feladatokat cron kifejezésekkel vagy heartbeat intervallumokkal
 
-AI-eszközök (a beállításokban engedélyezhető)
-• Helyi idő lekérése: Az AI pontos aktuális dátum- és időinformációt ad
-• Helyzet lekérése: Kapj helyszínalapú válaszokat IP-észlelés segítségével
-• Értesítés küldése: Fogadj AI által indított leküldéses értesítéseket
-• Naptáresemény létrehozása: Adj hozzá eseményeket a naptáradhoz közvetlenül a csevegőből
+AI eszközök (Beállításokban engedélyezhető)
+• Helyi idő lekérése: Pontos aktuális dátum és idő
+• Helymeghatározás: Helyalapú válaszok IP-felismeréssel
+• Értesítés küldése: AI által kiváltott push értesítések
+• Naptáresemény létrehozása: Események hozzáadása a naptáradhoz csevegésből
+• Webes keresés: Engedd az AI-t a weben keresni naprakész válaszokért
+• Shell parancs futtatása: Parancsok végrehajtása az eszközödön AI segítségével
+• Feladatok ütemezése / törlése / listázása: Ismétlődő AI feladatok kezelése
 
-Az adatvédelem az első
-A Kai az adatvédelmedet helyezi előtérbe: minden csevegési előzmény helyileg, erős titkosítással tárolódik. Felhőalapú AI-szolgáltatások használatakor az adataid közvetlenül a szolgáltatókhoz kerülnek feldolgozásra – maga az alkalmazás nem gyűjt adatokat. Maradj kézben tartva ezzel a nyílt forráskódú AI-csevegő alkalmazással.
+Adatvédelem az első
+Kai az adatvédelmedet helyezi előtérbe: minden csevegési előzmény erős titkosítással, helyben tárolódik. Felhőalapú AI szolgáltatások használatakor adataid közvetlenül a szolgáltatókhoz kerülnek feldolgozásra — az alkalmazás maga nem gyűjt adatokat. Tartsd kézben az irányítást ezzel a nyílt forráskódú AI csevegőalkalmazással.

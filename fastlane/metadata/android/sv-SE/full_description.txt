@@ -1,25 +1,34 @@
-Vill du ha snabba AI-svar utan onödig komplexitet? Kai är din blixtsnabba följeslagare med öppen källkod, driven av modeller som Llama och Googles Gemini. Dyk in i smidiga chattar för brainstorming, skrivande, sammanfattningar, lärande eller avslappnade samtal – allt i ett minimalistiskt gränssnitt som laddas på sekunder.
+Möt Kai — ditt lokala OpenClaw-alternativ i fickan. En snabb AI-chattapp med öppen källkod, driven av modeller som Llama, Gemini, GPT och DeepSeek. Dyk in i smidiga chattar för brainstorming, skrivande, sammanfattning, lärande eller vardagliga samtal — allt i ett minimalistiskt gränssnitt som laddas på sekunder.
 
 AI-tjänster som stöds
-• Ollama: Anslut till dina egna lokalt driftsatta AI-modeller för integritetsfokuserade chattar
-• Gemini: Googles avancerade AI med inbyggt stöd för bifogade filer
-• xAI: Få tillgång till innovativa Grok-modeller för kreativa och insiktsfulla svar
-• Groq: Upplev ultrasnabb AI-inferens för omedelbara svar
-• Mistral AI: Använd gratisversionen för kostnadseffektiva AI-interaktioner
+• Ollama / LM Studio: Anslut till dina lokalt hostade AI-modeller (OpenAI-kompatibla)
+• OpenAI: Få tillgång till GPT-modeller för kraftfulla konversationer
+• Gemini: Googles avancerade AI med inbyggt stöd för filbilagor
+• DeepSeek: Högpresterande resonemangsmodeller
+• xAI: Innovativa Grok-modeller för kreativa och insiktsfulla svar
+• Mistral AI: Effektiva flerspråkiga modeller
+• Groq: Ultrasnabb AI-inferens för snabba svar
+• OpenRouter: Få tillgång till hundratals modeller via ett API
+• NVIDIA: Kör NVIDIA-hostade modeller
+• Alla OpenAI-kompatibla API:er: Anslut din egen endpoint
 
-Viktiga funktioner
-• Krypterad lokal lagring: Lagra din chatthistorik säkert på din enhet med end-to-end-kryptering
-• Text till tal: Lyssna på AI-svar med naturligt klingande röstuppläsning
-• Bifoga filer: Ladda enkelt upp filer för att berika dina konversationer (stöds i Gemini)
-• Smidig tjänstväxling: Byt AI-leverantör utan avbrott mitt i en konversation
+Nyckelfunktioner
+• Beständigt minne: AI kommer ihåg viktiga detaljer mellan konversationer
+• Krypterad lokal lagring: Lagra din chatthistorik säkert på din enhet
+• Text-till-tal: Lyssna på AI-svar med naturligt klingande röstutmatning
+• Filbilagor: Ladda upp filer för att förbättra dina konversationer (stöds på Gemini)
+• Smidig tjänstväxling: Byt mellan AI-leverantörer utan ansträngning mitt i konversationen
 • Flerstegskonversationer: Kontextmedvetna chattar där AI minns tidigare meddelanden
-• Enkelt chattgränssnitt: Användarvänlig design för både nybörjare och erfarna användare
+• Bakgrundsdemon och schemaläggning: Schemalägg uppgifter med cron-uttryck eller heartbeat-intervall
 
-AI-verktyg (aktiveras i inställningar)
-• Hämta lokal tid: AI anger korrekt aktuellt datum och klockslag
-• Hämta plats: Få platsbaserade svar via IP-detektering
-• Skicka avisering: Ta emot push-aviseringar utlösta av AI
-• Skapa kalenderhändelse: Lägg till händelser i din kalender direkt från chatten
+AI-verktyg (Aktivera i Inställningar)
+• Hämta lokal tid: Exakt information om aktuellt datum och tid
+• Hämta plats: Platsbaserade svar med IP-detektering
+• Skicka avisering: Push-aviseringar utlösta av AI
+• Skapa kalenderhändelse: Lägg till händelser i din kalender från chatten
+• Webbsökning: Låt AI söka på webben efter aktuella svar
+• Kör Shell-kommando: Exekvera kommandon på din enhet via AI
+• Schemalägg / Avbryt / Lista uppgifter: Hantera återkommande AI-uppgifter
 
-Integritet i fokus
-Kai prioriterar din integritet: All chatthistorik lagras lokalt med stark kryptering. När du använder molnbaserade AI-tjänster skickas din data direkt till respektive leverantör för bearbetning – ingen data samlas in av appen själv. Behåll kontrollen med denna AI-chattapp med öppen källkod.
+Integritet först
+Kai prioriterar din integritet: All chatthistorik lagras lokalt med stark kryptering. När du använder molnbaserade AI-tjänster skickas dina data direkt till leverantörerna för bearbetning — ingen datainsamling av appen själv. Behåll kontrollen med denna AI-chattapp med öppen källkod.
