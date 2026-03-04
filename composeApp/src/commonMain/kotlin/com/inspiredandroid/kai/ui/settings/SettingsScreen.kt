@@ -6,10 +6,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -194,46 +197,18 @@ fun SettingsScreenContent(
         ) {
             Spacer(Modifier.height(16.dp))
 
+            val maxContentWidth = when (uiState.currentTab) {
+                SettingsTab.Tools -> 900.dp
+                SettingsTab.General -> 900.dp
+                else -> 500.dp
+            }
             Column(
-                Modifier.widthIn(max = 500.dp).fillMaxWidth().padding(horizontal = 16.dp),
+                Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
                 horizontalAlignment = CenterHorizontally,
             ) {
                 when (uiState.currentTab) {
                     SettingsTab.General -> {
-                        if (uiState.showDaemonToggle) {
-                            DaemonModeToggle(
-                                isDaemonEnabled = uiState.isDaemonEnabled,
-                                onToggleDaemon = uiState.onToggleDaemon,
-                            )
-                            Spacer(Modifier.height(24.dp))
-                        }
-                        SoulEditor(
-                            soulText = uiState.soulText,
-                            onSaveSoul = uiState.onSaveSoul,
-                        )
-                        Spacer(Modifier.height(24.dp))
-                        MemoryList(
-                            memories = uiState.memories,
-                            onDeleteMemory = uiState.onDeleteMemory,
-                            isMemoryEnabled = uiState.isMemoryEnabled,
-                            onToggleMemory = uiState.onToggleMemory,
-                        )
-                        Spacer(Modifier.height(24.dp))
-                        ScheduledTaskList(
-                            tasks = uiState.scheduledTasks,
-                            onCancelTask = uiState.onCancelTask,
-                            isSchedulingEnabled = uiState.isSchedulingEnabled,
-                            onToggleScheduling = uiState.onToggleScheduling,
-                        )
-                        Spacer(Modifier.height(24.dp))
-                        HeartbeatSection(
-                            isHeartbeatEnabled = uiState.isHeartbeatEnabled,
-                            heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
-                            heartbeatPrompt = uiState.heartbeatPrompt,
-                            heartbeatLog = uiState.heartbeatLog,
-                            onToggleHeartbeat = uiState.onToggleHeartbeat,
-                            onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
-                        )
+                        GeneralContent(uiState = uiState)
                     }
 
                     SettingsTab.Services -> {
@@ -243,121 +218,139 @@ fun SettingsScreenContent(
                             }
 
                             Service.Gemini -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://aistudio.google.com/apikey",
-                                    apiKeyUrlDisplay = "aistudio.google.com/apikey",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://aistudio.google.com/apikey",
+                                        apiKeyUrlDisplay = "aistudio.google.com/apikey",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.OpenAI -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://platform.openai.com/api-keys",
-                                    apiKeyUrlDisplay = "platform.openai.com/api-keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://platform.openai.com/api-keys",
+                                        apiKeyUrlDisplay = "platform.openai.com/api-keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.DeepSeek -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://platform.deepseek.com/api_keys",
-                                    apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://platform.deepseek.com/api_keys",
+                                        apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.Mistral -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://console.mistral.ai/api-keys",
-                                    apiKeyUrlDisplay = "console.mistral.ai/api-keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://console.mistral.ai/api-keys",
+                                        apiKeyUrlDisplay = "console.mistral.ai/api-keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.Groq -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://console.groq.com/keys",
-                                    apiKeyUrlDisplay = "console.groq.com/keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                    testTag = "api_key",
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://console.groq.com/keys",
+                                        apiKeyUrlDisplay = "console.groq.com/keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                        testTag = "api_key",
+                                    )
+                                }
                             }
 
                             Service.XAI -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://console.x.ai",
-                                    apiKeyUrlDisplay = "console.x.ai",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://console.x.ai",
+                                        apiKeyUrlDisplay = "console.x.ai",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.OpenRouter -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://openrouter.ai/settings/keys",
-                                    apiKeyUrlDisplay = "openrouter.ai/settings/keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://openrouter.ai/settings/keys",
+                                        apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.Nvidia -> {
-                                ServiceSettings(
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
-                                    apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    ServiceSettings(
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
+                                        apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
 
                             Service.OpenAICompatible -> {
-                                OpenAICompatibleSettings(
-                                    baseUrl = uiState.baseUrl,
-                                    onChangeBaseUrl = uiState.onChangeBaseUrl,
-                                    apiKey = uiState.apiKey,
-                                    onChangeApiKey = uiState.onChangeApiKey,
-                                    selectedModel = uiState.selectedModel,
-                                    models = uiState.models,
-                                    onSelectModel = uiState.onSelectModel,
-                                    connectionStatus = uiState.connectionStatus,
-                                )
+                                SettingsCard {
+                                    OpenAICompatibleSettings(
+                                        baseUrl = uiState.baseUrl,
+                                        onChangeBaseUrl = uiState.onChangeBaseUrl,
+                                        apiKey = uiState.apiKey,
+                                        onChangeApiKey = uiState.onChangeApiKey,
+                                        selectedModel = uiState.selectedModel,
+                                        models = uiState.models,
+                                        onSelectModel = uiState.onSelectModel,
+                                        connectionStatus = uiState.connectionStatus,
+                                    )
+                                }
                             }
                         }
                     }
@@ -958,6 +951,130 @@ private fun ServiceSelection(services: List<Service>, currentService: Service, o
 }
 
 @Composable
+private fun SettingsCard(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        ),
+    ) {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+            content()
+        }
+    }
+}
+
+@Composable
+private fun GeneralContent(uiState: SettingsUiState) {
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val useStaggered = maxWidth >= 600.dp
+        if (useStaggered) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    SettingsCard {
+                        SoulEditor(
+                            soulText = uiState.soulText,
+                            onSaveSoul = uiState.onSaveSoul,
+                        )
+                    }
+                    SettingsCard {
+                        ScheduledTaskList(
+                            tasks = uiState.scheduledTasks,
+                            onCancelTask = uiState.onCancelTask,
+                            isSchedulingEnabled = uiState.isSchedulingEnabled,
+                            onToggleScheduling = uiState.onToggleScheduling,
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    if (uiState.showDaemonToggle) {
+                        SettingsCard {
+                            DaemonModeToggle(
+                                isDaemonEnabled = uiState.isDaemonEnabled,
+                                onToggleDaemon = uiState.onToggleDaemon,
+                            )
+                        }
+                    }
+                    SettingsCard {
+                        MemoryList(
+                            memories = uiState.memories,
+                            onDeleteMemory = uiState.onDeleteMemory,
+                            isMemoryEnabled = uiState.isMemoryEnabled,
+                            onToggleMemory = uiState.onToggleMemory,
+                        )
+                    }
+                    SettingsCard {
+                        HeartbeatSection(
+                            isHeartbeatEnabled = uiState.isHeartbeatEnabled,
+                            heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
+                            heartbeatPrompt = uiState.heartbeatPrompt,
+                            heartbeatLog = uiState.heartbeatLog,
+                            onToggleHeartbeat = uiState.onToggleHeartbeat,
+                            onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
+                        )
+                    }
+                }
+            }
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                if (uiState.showDaemonToggle) {
+                    SettingsCard {
+                        DaemonModeToggle(
+                            isDaemonEnabled = uiState.isDaemonEnabled,
+                            onToggleDaemon = uiState.onToggleDaemon,
+                        )
+                    }
+                }
+                SettingsCard {
+                    SoulEditor(
+                        soulText = uiState.soulText,
+                        onSaveSoul = uiState.onSaveSoul,
+                    )
+                }
+                SettingsCard {
+                    MemoryList(
+                        memories = uiState.memories,
+                        onDeleteMemory = uiState.onDeleteMemory,
+                        isMemoryEnabled = uiState.isMemoryEnabled,
+                        onToggleMemory = uiState.onToggleMemory,
+                    )
+                }
+                SettingsCard {
+                    ScheduledTaskList(
+                        tasks = uiState.scheduledTasks,
+                        onCancelTask = uiState.onCancelTask,
+                        isSchedulingEnabled = uiState.isSchedulingEnabled,
+                        onToggleScheduling = uiState.onToggleScheduling,
+                    )
+                }
+                SettingsCard {
+                    HeartbeatSection(
+                        isHeartbeatEnabled = uiState.isHeartbeatEnabled,
+                        heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
+                        heartbeatPrompt = uiState.heartbeatPrompt,
+                        heartbeatLog = uiState.heartbeatLog,
+                        onToggleHeartbeat = uiState.onToggleHeartbeat,
+                        onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun ToolsContent(
     tools: List<ToolInfo>,
     onToggleTool: (String, Boolean) -> Unit,
@@ -978,11 +1095,33 @@ private fun ToolsContent(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         } else {
-            tools.forEach { tool ->
-                ToolItem(
-                    tool = tool,
-                    onToggle = { enabled -> onToggleTool(tool.id, enabled) },
-                )
+            BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+                val columns = when {
+                    maxWidth >= 800.dp -> 3
+                    maxWidth >= 500.dp -> 2
+                    else -> 1
+                }
+                val rows = tools.chunked(columns)
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    rows.forEach { rowTools ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        ) {
+                            rowTools.forEach { tool ->
+                                ToolItem(
+                                    modifier = Modifier.weight(1f).fillMaxHeight(),
+                                    tool = tool,
+                                    onToggle = { enabled -> onToggleTool(tool.id, enabled) },
+                                )
+                            }
+                            // Fill empty slots so last row items don't stretch
+                            repeat(columns - rowTools.size) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -992,33 +1131,39 @@ private fun ToolsContent(
 private fun ToolItem(
     tool: ToolInfo,
     onToggle: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        ),
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = tool.nameRes?.let { stringResource(it) } ?: tool.name,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            Text(
-                text = tool.descriptionRes?.let { stringResource(it) } ?: tool.description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = tool.nameRes?.let { stringResource(it) } ?: tool.name,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Text(
+                    text = tool.descriptionRes?.let { stringResource(it) } ?: tool.description,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            Spacer(Modifier.width(16.dp))
+
+            Switch(
+                checked = tool.isEnabled,
+                onCheckedChange = onToggle,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             )
         }
-
-        Spacer(Modifier.width(16.dp))
-
-        Switch(
-            checked = tool.isEnabled,
-            onCheckedChange = onToggle,
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-        )
     }
 }
 
