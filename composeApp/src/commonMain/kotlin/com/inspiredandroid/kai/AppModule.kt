@@ -3,6 +3,7 @@ package com.inspiredandroid.kai
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.ConversationStorage
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
@@ -41,6 +42,9 @@ val appModule = module {
     single<TaskStore> {
         TaskStore(get())
     }
+    single<HeartbeatManager> {
+        HeartbeatManager(get(), get(), get())
+    }
     single<RemoteDataRepository> {
         RemoteDataRepository(
             requests = get(),
@@ -49,11 +53,12 @@ val appModule = module {
             toolExecutor = get(),
             memoryStore = get(),
             taskStore = get(),
+            heartbeatManager = get(),
         )
     }
     single<DataRepository> { get<RemoteDataRepository>() }
     single<TaskScheduler> {
-        TaskScheduler(get<DataRepository>(), get(), get())
+        TaskScheduler(get<DataRepository>(), get(), get(), get())
     }
     single<DaemonController> { createDaemonController() }
     viewModel { SettingsViewModel(get<DataRepository>(), get<DaemonController>()) }

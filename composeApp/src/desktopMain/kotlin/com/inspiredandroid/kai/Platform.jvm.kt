@@ -10,11 +10,13 @@ import androidx.compose.ui.draganddrop.DragData
 import androidx.compose.ui.draganddrop.dragData
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.russhwolf.settings.PreferencesSettings
@@ -93,6 +95,7 @@ actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
+    val heartbeatManager: HeartbeatManager by inject(HeartbeatManager::class.java)
     return buildList {
         addAll(CommonTools.getCommonTools(appSettings))
         if (appSettings.isMemoryEnabled()) {
@@ -100,6 +103,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
+            addAll(HeartbeatTools.getHeartbeatTools(heartbeatManager, memoryStore, appSettings))
         }
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)

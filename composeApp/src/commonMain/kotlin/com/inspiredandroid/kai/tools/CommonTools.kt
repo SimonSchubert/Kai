@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.MemoryCategory
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.network.tools.ParameterSchema
@@ -17,6 +18,10 @@ import kai.composeapp.generated.resources.tool_get_local_time_description
 import kai.composeapp.generated.resources.tool_get_local_time_name
 import kai.composeapp.generated.resources.tool_get_location_description
 import kai.composeapp.generated.resources.tool_get_location_name
+import kai.composeapp.generated.resources.tool_memory_learn_description
+import kai.composeapp.generated.resources.tool_memory_learn_name
+import kai.composeapp.generated.resources.tool_memory_reinforce_description
+import kai.composeapp.generated.resources.tool_memory_reinforce_name
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -144,7 +149,25 @@ object CommonTools {
         descriptionRes = Res.string.tool_get_local_time_description,
     )
 
-    val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo, WebSearchTool.toolInfo) + SchedulingTools.schedulingToolDefinitions
+    val memoryLearnToolInfo = ToolInfo(
+        id = "memory_learn",
+        name = "Learn Memory",
+        description = "Store a categorized learning, error resolution, or preference",
+        nameRes = Res.string.tool_memory_learn_name,
+        descriptionRes = Res.string.tool_memory_learn_description,
+    )
+
+    val memoryReinforceToolInfo = ToolInfo(
+        id = "memory_reinforce",
+        name = "Reinforce Memory",
+        description = "Reinforce a memory that produced a good outcome",
+        nameRes = Res.string.tool_memory_reinforce_name,
+        descriptionRes = Res.string.tool_memory_reinforce_description,
+    )
+
+    val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo, WebSearchTool.toolInfo) +
+        SchedulingTools.schedulingToolDefinitions +
+        HeartbeatTools.heartbeatToolDefinitions
 
     fun getCommonTools(appSettings: AppSettings): List<Tool> = buildList {
         if (appSettings.isToolEnabled(localTimeTool.schema.name)) {
@@ -194,8 +217,60 @@ object CommonTools {
         }
     }
 
+    fun memoryLearnTool(memoryStore: MemoryStore) = object : Tool {
+        override val schema = ToolSchema(
+            name = "memory_learn",
+            description = "Store a structured learning with a category. Use LEARNING for things that worked, ERROR for error resolutions, PREFERENCE for user corrections/preferences.",
+            parameters = mapOf(
+                "key" to ParameterSchema(type = "string", description = "Descriptive key for the learning", required = true),
+                "content" to ParameterSchema(type = "string", description = "What was learned", required = true),
+                "category" to ParameterSchema(type = "string", description = "Category: LEARNING, ERROR, or PREFERENCE", required = true),
+                "source" to ParameterSchema(type = "string", description = "How this was learned: user_correction, observation, or error_resolution", required = false),
+            ),
+        )
+
+        override suspend fun execute(args: Map<String, Any>): Any {
+            val key = args["key"]?.toString() ?: return mapOf("success" to false, "error" to "Missing key")
+            val content = args["content"]?.toString() ?: return mapOf("success" to false, "error" to "Missing content")
+            val categoryStr = args["category"]?.toString()?.uppercase() ?: return mapOf("success" to false, "error" to "Missing category")
+            val source = args["source"]?.toString()
+
+            val category = try {
+                MemoryCategory.valueOf(categoryStr)
+            } catch (_: Exception) {
+                return mapOf("success" to false, "error" to "Invalid category: $categoryStr. Use LEARNING, ERROR, or PREFERENCE")
+            }
+
+            if (category == MemoryCategory.GENERAL) {
+                return mapOf("success" to false, "error" to "Use memory_store for GENERAL memories. memory_learn is for LEARNING, ERROR, or PREFERENCE")
+            }
+
+            val entry = memoryStore.store(key, content, category, source)
+            return mapOf("success" to true, "key" to entry.key, "category" to entry.category.name, "content" to entry.content)
+        }
+    }
+
+    fun memoryReinforceTool(memoryStore: MemoryStore) = object : Tool {
+        override val schema = ToolSchema(
+            name = "memory_reinforce",
+            description = "Reinforce a stored memory by incrementing its hit count. Use this when a stored learning or preference produced a good outcome.",
+            parameters = mapOf(
+                "key" to ParameterSchema(type = "string", description = "The exact key of the memory to reinforce", required = true),
+            ),
+        )
+
+        override suspend fun execute(args: Map<String, Any>): Any {
+            val key = args["key"]?.toString() ?: return mapOf("success" to false, "error" to "Missing key")
+            val entry = memoryStore.reinforceMemory(key)
+                ?: return mapOf("success" to false, "error" to "Memory not found: $key")
+            return mapOf("success" to true, "key" to entry.key, "hit_count" to entry.hitCount)
+        }
+    }
+
     fun getMemoryTools(memoryStore: MemoryStore): List<Tool> = listOf(
         memoryStoreTool(memoryStore),
         memoryForgetTool(memoryStore),
+        memoryLearnTool(memoryStore),
+        memoryReinforceTool(memoryStore),
     )
 }

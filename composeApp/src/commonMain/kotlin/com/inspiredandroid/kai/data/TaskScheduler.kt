@@ -11,6 +11,7 @@ class TaskScheduler(
     private val dataRepository: DataRepository,
     private val taskStore: TaskStore? = null,
     private val appSettings: AppSettings? = null,
+    private val heartbeatManager: HeartbeatManager? = null,
     private val enabled: Boolean = true,
 ) {
     private companion object {
@@ -37,6 +38,19 @@ class TaskScheduler(
                         handleTaskCompletion(task)
                     } catch (_: Exception) {
                         // Task failed — leave it pending so it retries next cycle
+                    }
+                }
+
+                // Heartbeat check
+                if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
+                    try {
+                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt()
+                        dataRepository.ask(heartbeatPrompt, null)
+                        heartbeatManager.markHeartbeatExecuted()
+                        heartbeatManager.recordHeartbeat(success = true)
+                        dataRepository.removeLastExchange()
+                    } catch (_: Exception) {
+                        heartbeatManager.recordHeartbeat(success = false)
                     }
                 }
             }

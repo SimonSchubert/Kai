@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
@@ -54,6 +55,12 @@ data class SettingsUiState(
     val isDaemonEnabled: Boolean = false,
     val onToggleDaemon: (Boolean) -> Unit = {},
     val showDaemonToggle: Boolean = false,
+    val isHeartbeatEnabled: Boolean = true,
+    val heartbeatIntervalMinutes: Int = 30,
+    val heartbeatPrompt: String = "",
+    val heartbeatLog: List<HeartbeatLogEntry> = emptyList(),
+    val onToggleHeartbeat: (Boolean) -> Unit = {},
+    val onSaveHeartbeatPrompt: (String) -> Unit = {},
 )
 
 @Immutable

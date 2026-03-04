@@ -56,4 +56,14 @@ interface DataRepository {
     // Daemon mode
     fun isDaemonEnabled(): Boolean
     fun setDaemonEnabled(enabled: Boolean)
+
+    // Heartbeat
+    fun getHeartbeatConfig(): HeartbeatConfig
+    fun setHeartbeatEnabled(enabled: Boolean)
+    fun getHeartbeatPrompt(): String
+    fun setHeartbeatPrompt(text: String)
+    fun getHeartbeatLog(): List<HeartbeatLogEntry>
+
+    // Heartbeat support
+    fun removeLastExchange()
 }

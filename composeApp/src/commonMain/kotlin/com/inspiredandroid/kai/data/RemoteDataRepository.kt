@@ -60,6 +60,7 @@ class RemoteDataRepository(
     private val toolExecutor: ToolExecutor,
     private val memoryStore: MemoryStore,
     private val taskStore: TaskStore,
+    private val heartbeatManager: HeartbeatManager,
 ) : DataRepository {
 
     /**
@@ -642,9 +643,34 @@ class RemoteDataRepository(
                 }
                 val memories = memoryStore.getAllMemories()
                 if (memories.isNotEmpty()) {
-                    append("\n\n## Your Memories\n")
-                    for (m in memories) {
-                        append("- **${m.key}**: ${m.content}\n")
+                    val general = memories.filter { it.category == MemoryCategory.GENERAL }
+                    val preferences = memories.filter { it.category == MemoryCategory.PREFERENCE }
+                    val learnings = memories.filter { it.category == MemoryCategory.LEARNING }
+                    val errors = memories.filter { it.category == MemoryCategory.ERROR }
+
+                    if (general.isNotEmpty()) {
+                        append("\n\n## Your Memories\n")
+                        for (m in general) {
+                            append("- **${m.key}**: ${m.content}\n")
+                        }
+                    }
+                    if (preferences.isNotEmpty()) {
+                        append("\n\n## User Preferences\n")
+                        for (m in preferences) {
+                            append("- **${m.key}**: ${m.content}\n")
+                        }
+                    }
+                    if (learnings.isNotEmpty()) {
+                        append("\n\n## Learnings\n")
+                        for (m in learnings) {
+                            append("- **${m.key}** (reinforced ${m.hitCount}x): ${m.content}\n")
+                        }
+                    }
+                    if (errors.isNotEmpty()) {
+                        append("\n\n## Known Issues & Resolutions\n")
+                        for (m in errors) {
+                            append("- **${m.key}**: ${m.content}\n")
+                        }
                     }
                 }
             }
@@ -690,5 +716,39 @@ class RemoteDataRepository(
 
     override fun setDaemonEnabled(enabled: Boolean) {
         appSettings.setDaemonEnabled(enabled)
+    }
+
+    override fun getHeartbeatConfig(): HeartbeatConfig = heartbeatManager.getConfig()
+
+    override fun setHeartbeatEnabled(enabled: Boolean) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(enabled = enabled))
+    }
+
+    override fun getHeartbeatPrompt(): String = appSettings.getHeartbeatPrompt()
+
+    override fun setHeartbeatPrompt(text: String) {
+        appSettings.setHeartbeatPrompt(text)
+    }
+
+    override fun getHeartbeatLog(): List<HeartbeatLogEntry> = heartbeatManager.getHeartbeatLog()
+
+    override fun removeLastExchange() {
+        chatHistory.update { history ->
+            if (history.size < 2) return@update history
+            val lastAssistant = history.lastOrNull { it.role == History.Role.ASSISTANT }
+            if (lastAssistant?.content?.trim() == "HEARTBEAT_OK") {
+                // Remove the last user + assistant pair
+                val lastAssistantIndex = history.indexOfLast { it.role == History.Role.ASSISTANT }
+                val lastUserIndex = history.subList(0, lastAssistantIndex).indexOfLast { it.role == History.Role.USER }
+                if (lastUserIndex >= 0) {
+                    history.filterIndexed { index, _ -> index < lastUserIndex || index > lastAssistantIndex }
+                } else {
+                    history.subList(0, lastAssistantIndex)
+                }
+            } else {
+                history
+            }
+        }
     }
 }

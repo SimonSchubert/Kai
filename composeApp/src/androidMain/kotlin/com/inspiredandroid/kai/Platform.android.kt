@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.ParameterSchema
@@ -20,6 +21,7 @@ import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.CalendarRepository
 import com.inspiredandroid.kai.tools.CalendarResult
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
@@ -114,6 +116,7 @@ actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
+    val heartbeatManager: HeartbeatManager by inject(HeartbeatManager::class.java)
     val calendarPermissionController: CalendarPermissionController by inject(CalendarPermissionController::class.java)
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
 
@@ -123,6 +126,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
+            addAll(HeartbeatTools.getHeartbeatTools(heartbeatManager, memoryStore, appSettings))
         }
         if (appSettings.isToolEnabled(CommonTools.localTimeTool.schema.name)) {
             add(CommonTools.localTimeTool)

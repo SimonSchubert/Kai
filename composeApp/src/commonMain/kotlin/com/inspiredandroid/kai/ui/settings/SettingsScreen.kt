@@ -86,6 +86,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
@@ -107,6 +108,11 @@ import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_free_tier_description
+import kai.composeapp.generated.resources.settings_heartbeat
+import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
+import kai.composeapp.generated.resources.settings_heartbeat_description
+import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
+import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
@@ -217,6 +223,15 @@ fun SettingsScreenContent(
                             onCancelTask = uiState.onCancelTask,
                             isSchedulingEnabled = uiState.isSchedulingEnabled,
                             onToggleScheduling = uiState.onToggleScheduling,
+                        )
+                        Spacer(Modifier.height(24.dp))
+                        HeartbeatSection(
+                            isHeartbeatEnabled = uiState.isHeartbeatEnabled,
+                            heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
+                            heartbeatPrompt = uiState.heartbeatPrompt,
+                            heartbeatLog = uiState.heartbeatLog,
+                            onToggleHeartbeat = uiState.onToggleHeartbeat,
+                            onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
                         )
                     }
 
@@ -1292,6 +1307,119 @@ private fun DaemonModeToggle(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
+}
+
+@Composable
+private fun HeartbeatSection(
+    isHeartbeatEnabled: Boolean,
+    heartbeatIntervalMinutes: Int,
+    heartbeatPrompt: String,
+    heartbeatLog: List<HeartbeatLogEntry>,
+    onToggleHeartbeat: (Boolean) -> Unit,
+    onSaveHeartbeatPrompt: (String) -> Unit,
+) {
+    val defaultPrompt = stringResource(Res.string.settings_heartbeat_default_prompt)
+    val displayText = heartbeatPrompt.ifEmpty { defaultPrompt }
+    var editedText by remember(displayText) { mutableStateOf(displayText) }
+    val hasChanges = editedText != displayText
+    val maxChars = 4000
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_heartbeat),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = isHeartbeatEnabled,
+                onCheckedChange = onToggleHeartbeat,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            )
+        }
+        Text(
+            text = stringResource(Res.string.settings_heartbeat_description, heartbeatIntervalMinutes),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        if (isHeartbeatEnabled) {
+            Spacer(Modifier.height(12.dp))
+
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth().height(200.dp),
+                value = editedText,
+                onValueChange = { if (it.length <= maxChars) editedText = it },
+                label = {
+                    Text(
+                        stringResource(Res.string.settings_heartbeat_prompt_label),
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                },
+                colors = outlineTextFieldColors(),
+            )
+
+            Text(
+                text = "${editedText.length}/$maxChars",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.End,
+            )
+
+            if (hasChanges) {
+                Spacer(Modifier.height(8.dp))
+                Button(
+                    onClick = { onSaveHeartbeatPrompt(editedText.trim()) },
+                    modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Text(stringResource(Res.string.settings_soul_save))
+                }
+            }
+
+            if (heartbeatLog.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(Res.string.settings_heartbeat_recent),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+                for (entry in heartbeatLog) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = if (entry.success) "OK" else "FAIL",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (entry.success) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.error
+                            },
+                            modifier = Modifier.width(36.dp),
+                        )
+                        Text(
+                            text = formatHeartbeatTime(entry.timestampEpochMs),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun formatHeartbeatTime(epochMs: Long): String {
+    val instant = kotlinx.datetime.Instant.fromEpochMilliseconds(epochMs)
+    val local = instant.toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
+    return "${local.dayOfMonth} ${local.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }} ${local.hour}:${local.minute.toString().padStart(2, '0')}"
 }
 
 private fun describeCron(cron: String): String {

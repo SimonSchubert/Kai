@@ -59,6 +59,12 @@ class SettingsViewModel(
             isDaemonEnabled = dataRepository.isDaemonEnabled(),
             onToggleDaemon = ::onToggleDaemon,
             showDaemonToggle = platformName == "Android",
+            isHeartbeatEnabled = dataRepository.getHeartbeatConfig().enabled,
+            heartbeatIntervalMinutes = dataRepository.getHeartbeatConfig().intervalMinutes,
+            heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
+            heartbeatLog = dataRepository.getHeartbeatLog(),
+            onToggleHeartbeat = ::onToggleHeartbeat,
+            onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
         ),
     )
 
@@ -165,6 +171,16 @@ class SettingsViewModel(
             daemonController.stop()
         }
         _state.update { it.copy(isDaemonEnabled = enabled) }
+    }
+
+    private fun onToggleHeartbeat(enabled: Boolean) {
+        dataRepository.setHeartbeatEnabled(enabled)
+        _state.update { it.copy(isHeartbeatEnabled = enabled) }
+    }
+
+    private fun onSaveHeartbeatPrompt(text: String) {
+        dataRepository.setHeartbeatPrompt(text)
+        _state.update { it.copy(heartbeatPrompt = text) }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

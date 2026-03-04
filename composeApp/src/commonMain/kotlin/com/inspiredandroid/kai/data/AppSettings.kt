@@ -159,6 +159,27 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_SCHEDULED_TASKS, json)
     }
 
+    // Heartbeat config
+    fun getHeartbeatConfigJson(): String = settings.getString(KEY_HEARTBEAT_CONFIG, "")
+
+    fun setHeartbeatConfigJson(json: String) {
+        settings.putString(KEY_HEARTBEAT_CONFIG, json)
+    }
+
+    // Heartbeat log
+    fun getHeartbeatLogJson(): String = settings.getString(KEY_HEARTBEAT_LOG, "")
+
+    fun setHeartbeatLogJson(json: String) {
+        settings.putString(KEY_HEARTBEAT_LOG, json)
+    }
+
+    // Heartbeat prompt
+    fun getHeartbeatPrompt(): String = settings.getString(KEY_HEARTBEAT_PROMPT, "")
+
+    fun setHeartbeatPrompt(text: String) {
+        settings.putString(KEY_HEARTBEAT_PROMPT, text)
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
@@ -172,13 +193,22 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SCHEDULED_TASKS = "scheduled_tasks"
         const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
         const val KEY_DAEMON_ENABLED = "daemon_enabled"
+        const val KEY_HEARTBEAT_CONFIG = "heartbeat_config"
+        const val KEY_HEARTBEAT_PROMPT = "heartbeat_prompt"
+        const val KEY_HEARTBEAT_LOG = "heartbeat_log"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +
-                "All your stored memories are listed in the system prompt under '## Your Memories'.\n\n" +
+                "All your stored memories are listed in the system prompt grouped by category.\n\n" +
                 "When you learn important information about the user (name, preferences, projects, goals, etc.), " +
                 "proactively use the memory_store tool to save it.\n" +
                 "Use the memory_forget tool to remove outdated or incorrect memories.\n" +
-                "Do not store trivial or transient information."
+                "Do not store trivial or transient information.\n\n" +
+                "## Structured Learning\n" +
+                "Use memory_learn to record categorized learnings:\n" +
+                "- Record user corrections and preferences as PREFERENCE entries\n" +
+                "- Record things that worked well as LEARNING entries\n" +
+                "- Record error resolutions as ERROR entries\n" +
+                "Use memory_reinforce when a stored learning produced a good outcome."
     }
 }

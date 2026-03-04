@@ -1,0 +1,122 @@
+package com.inspiredandroid.kai.data
+
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+
+@Serializable
+data class HeartbeatLogEntry(
+    val timestampEpochMs: Long,
+    val success: Boolean,
+)
+
+@Serializable
+data class HeartbeatConfig(
+    val enabled: Boolean = true,
+    val intervalMinutes: Int = 30,
+    val activeHoursStart: Int = 8,
+    val activeHoursEnd: Int = 22,
+    val lastHeartbeatEpochMs: Long = 0L,
+)
+
+@OptIn(ExperimentalTime::class)
+class HeartbeatManager(private val appSettings: AppSettings, private val memoryStore: MemoryStore, private val taskStore: TaskStore) {
+
+    private val json = SharedJson
+
+    fun getConfig(): HeartbeatConfig {
+        val raw = appSettings.getHeartbeatConfigJson()
+        if (raw.isEmpty()) return HeartbeatConfig()
+        return try {
+            json.decodeFromString<HeartbeatConfig>(raw)
+        } catch (_: Exception) {
+            HeartbeatConfig()
+        }
+    }
+
+    fun saveConfig(config: HeartbeatConfig) {
+        appSettings.setHeartbeatConfigJson(json.encodeToString(config))
+    }
+
+    fun isHeartbeatDue(): Boolean {
+        val config = getConfig()
+        if (!config.enabled) return false
+
+        val now = Clock.System.now()
+        val localNow = now.toLocalDateTime(TimeZone.currentSystemDefault())
+        val currentHour = localNow.hour
+
+        // Check active hours
+        if (currentHour < config.activeHoursStart || currentHour >= config.activeHoursEnd) return false
+
+        // Check elapsed time
+        val elapsedMs = now.toEpochMilliseconds() - config.lastHeartbeatEpochMs
+        val intervalMs = config.intervalMinutes * 60_000L
+        return elapsedMs >= intervalMs
+    }
+
+    fun buildHeartbeatPrompt(): String = buildString {
+        val customPrompt = appSettings.getHeartbeatPrompt()
+        append(customPrompt.ifEmpty { DEFAULT_HEARTBEAT_PROMPT })
+        append("\n")
+
+        // Append pending tasks
+        val pendingTasks = taskStore.getAllTasks().filter { it.status == TaskStatus.PENDING }
+        if (pendingTasks.isNotEmpty()) {
+            append("\n## Pending Tasks\n")
+            for (t in pendingTasks) {
+                append("- **${t.description}** (id: ${t.id}, scheduled: ${Instant.fromEpochMilliseconds(t.scheduledAtEpochMs)})")
+                if (t.cron != null) append(" [cron: ${t.cron}]")
+                append("\n")
+            }
+        }
+
+        // Append promotion candidates
+        val candidates = memoryStore.getPromotionCandidates()
+        if (candidates.isNotEmpty()) {
+            append("\n## Promotion Candidates\n")
+            append("These memories have been reinforced ${candidates.first().hitCount}+ times. ")
+            append("Consider using the promote_learning tool to add well-established patterns to your soul/system prompt:\n")
+            for (entry in candidates) {
+                append("- **${entry.key}** (hits: ${entry.hitCount}, category: ${entry.category}): ${entry.content}\n")
+            }
+        }
+    }
+
+    fun recordHeartbeat(success: Boolean) {
+        val entry = HeartbeatLogEntry(
+            timestampEpochMs = Clock.System.now().toEpochMilliseconds(),
+            success = success,
+        )
+        val log = getHeartbeatLog().toMutableList()
+        log.add(0, entry)
+        val trimmed = log.take(MAX_LOG_ENTRIES)
+        appSettings.setHeartbeatLogJson(json.encodeToString(trimmed))
+    }
+
+    fun getHeartbeatLog(): List<HeartbeatLogEntry> {
+        val raw = appSettings.getHeartbeatLogJson()
+        if (raw.isEmpty()) return emptyList()
+        return try {
+            json.decodeFromString<List<HeartbeatLogEntry>>(raw)
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    companion object {
+        private const val MAX_LOG_ENTRIES = 5
+        const val DEFAULT_HEARTBEAT_PROMPT =
+            "[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. " +
+                "If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\n" +
+                "If something needs attention (stale memories, due tasks, user follow-ups), address it."
+    }
+
+    fun markHeartbeatExecuted() {
+        val config = getConfig()
+        saveConfig(config.copy(lastHeartbeatEpochMs = Clock.System.now().toEpochMilliseconds()))
+    }
+}

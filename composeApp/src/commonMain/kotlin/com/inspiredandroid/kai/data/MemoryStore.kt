@@ -7,11 +7,22 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @Serializable
+enum class MemoryCategory {
+    GENERAL,
+    LEARNING,
+    ERROR,
+    PREFERENCE,
+}
+
+@Serializable
 data class MemoryEntry(
     val key: String,
     val content: String,
     val createdAt: Long,
     val updatedAt: Long,
+    val category: MemoryCategory = MemoryCategory.GENERAL,
+    val hitCount: Int = 1,
+    val source: String? = null,
 )
 
 @OptIn(ExperimentalTime::class)
@@ -30,22 +41,42 @@ class MemoryStore(private val appSettings: AppSettings) {
         appSettings.setMemoriesJson(json.encodeToString(memories))
     }
 
-    suspend fun store(key: String, content: String): MemoryEntry = mutex.withLock {
+    suspend fun store(
+        key: String,
+        content: String,
+        category: MemoryCategory = MemoryCategory.GENERAL,
+        source: String? = null,
+    ): MemoryEntry = mutex.withLock {
         val memories = loadMemories()
         val now = Clock.System.now().toEpochMilliseconds()
         val existing = memories.indexOfFirst { it.key == key }
         val entry = if (existing >= 0) {
-            val updated = memories[existing].copy(content = content, updatedAt = now)
+            val updated = memories[existing].copy(content = content, updatedAt = now, category = category, source = source ?: memories[existing].source)
             memories[existing] = updated
             updated
         } else {
-            val newEntry = MemoryEntry(key = key, content = content, createdAt = now, updatedAt = now)
+            val newEntry = MemoryEntry(key = key, content = content, createdAt = now, updatedAt = now, category = category, source = source)
             memories.add(newEntry)
             newEntry
         }
         saveMemories(memories)
         entry
     }
+
+    suspend fun reinforceMemory(key: String): MemoryEntry? = mutex.withLock {
+        val memories = loadMemories()
+        val index = memories.indexOfFirst { it.key == key }
+        if (index < 0) return@withLock null
+        val now = Clock.System.now().toEpochMilliseconds()
+        val updated = memories[index].copy(hitCount = memories[index].hitCount + 1, updatedAt = now)
+        memories[index] = updated
+        saveMemories(memories)
+        updated
+    }
+
+    fun getMemoriesByCategory(category: MemoryCategory): List<MemoryEntry> = loadMemories().filter { it.category == category }
+
+    fun getPromotionCandidates(minHits: Int = 5): List<MemoryEntry> = loadMemories().filter { it.hitCount >= minHits }
 
     suspend fun forget(key: String): Boolean = mutex.withLock {
         val memories = loadMemories()
