@@ -200,8 +200,7 @@ class FakeDataRepository : DataRepository {
     override fun setHeartbeatPrompt(text: String) {
     }
 
-    override fun getHeartbeatLog(): List<HeartbeatLogEntry>  = emptyList()
-
+    override fun getHeartbeatLog(): List<HeartbeatLogEntry> = emptyList()
 
     override fun removeLastExchange() {
     }
