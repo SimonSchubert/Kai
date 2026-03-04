@@ -109,12 +109,12 @@ import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_free_tier_description
+import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_heartbeat
 import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
 import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
-import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
