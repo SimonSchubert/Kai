@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
+import com.inspiredandroid.kai.stripMarkdownForTts
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
@@ -133,7 +134,7 @@ fun ChatScreenContent(
                                     textToSpeech?.stop()
                                     uiState.actions.setIsSpeaking(true, lastMessage.id)
                                     try {
-                                        textToSpeech?.say(lastMessage.content)
+                                        textToSpeech?.say(lastMessage.content.stripMarkdownForTts())
                                     } catch (_: TextToSpeechSynthesisInterruptedError) {
                                         // Speech was interrupted by user
                                     } catch (_: Exception) {

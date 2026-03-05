@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.stripMarkdownForTts
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.components.MarkdownComponent
 import com.mikepenz.markdown.compose.components.markdownComponents
@@ -79,7 +80,7 @@ internal fun BotMessage(
                             setIsSpeaking(true)
                             try {
                                 textToSpeech.say(
-                                    text = message,
+                                    text = message.stripMarkdownForTts(),
                                 )
                             } catch (ignore: TextToSpeechSynthesisInterruptedError) {
                                 // Expected interruption - no action needed
