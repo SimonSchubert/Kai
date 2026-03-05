@@ -33,9 +33,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -48,14 +52,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
-import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -109,6 +112,7 @@ import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
+import kai.composeapp.generated.resources.settings_connect_server
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
@@ -119,6 +123,7 @@ import kai.composeapp.generated.resources.settings_email_poll_interval
 import kai.composeapp.generated.resources.settings_email_poll_never
 import kai.composeapp.generated.resources.settings_email_poll_never_description
 import kai.composeapp.generated.resources.settings_email_remove
+import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_heartbeat
@@ -130,9 +135,12 @@ import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
 import kai.composeapp.generated.resources.settings_model_label
+import kai.composeapp.generated.resources.settings_move_down
+import kai.composeapp.generated.resources.settings_move_up
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
+import kai.composeapp.generated.resources.settings_remove_service
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
@@ -195,10 +203,6 @@ fun SettingsScreenContent(
             onSelectTab = uiState.onSelectTab,
         )
 
-        if (uiState.currentTab == SettingsTab.Services) {
-            ServiceSelection(uiState.services, uiState.currentService, uiState.onSelectService)
-        }
-
         Column(
             Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = CenterHorizontally,
@@ -220,147 +224,7 @@ fun SettingsScreenContent(
                     }
 
                     SettingsTab.Services -> {
-                        when (uiState.currentService) {
-                            Service.Free -> {
-                                FreeSettings()
-                            }
-
-                            Service.Gemini -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://aistudio.google.com/apikey",
-                                        apiKeyUrlDisplay = "aistudio.google.com/apikey",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.OpenAI -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://platform.openai.com/api-keys",
-                                        apiKeyUrlDisplay = "platform.openai.com/api-keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.DeepSeek -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://platform.deepseek.com/api_keys",
-                                        apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.Mistral -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://console.mistral.ai/api-keys",
-                                        apiKeyUrlDisplay = "console.mistral.ai/api-keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.Groq -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://console.groq.com/keys",
-                                        apiKeyUrlDisplay = "console.groq.com/keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                        testTag = "api_key",
-                                    )
-                                }
-                            }
-
-                            Service.XAI -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://console.x.ai",
-                                        apiKeyUrlDisplay = "console.x.ai",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.OpenRouter -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://openrouter.ai/settings/keys",
-                                        apiKeyUrlDisplay = "openrouter.ai/settings/keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.Nvidia -> {
-                                SettingsCard {
-                                    ServiceSettings(
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
-                                        apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-
-                            Service.OpenAICompatible -> {
-                                SettingsCard {
-                                    OpenAICompatibleSettings(
-                                        baseUrl = uiState.baseUrl,
-                                        onChangeBaseUrl = uiState.onChangeBaseUrl,
-                                        apiKey = uiState.apiKey,
-                                        onChangeApiKey = uiState.onChangeApiKey,
-                                        selectedModel = uiState.selectedModel,
-                                        models = uiState.models,
-                                        onSelectModel = uiState.onSelectModel,
-                                        connectionStatus = uiState.connectionStatus,
-                                    )
-                                }
-                            }
-                        }
+                        ServicesContent(uiState = uiState)
                     }
 
                     SettingsTab.Tools -> {
@@ -474,9 +338,13 @@ private fun BottomInfo() {
 }
 
 @Composable
-private fun FreeSettings() {
+private fun FreeSettings(
+    showFallbackToggle: Boolean = false,
+    isFreeFallbackEnabled: Boolean = true,
+    onToggleFreeFallback: (Boolean) -> Unit = {},
+) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -487,6 +355,29 @@ private fun FreeSettings() {
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
+
+            if (showFallbackToggle) {
+                Spacer(Modifier.height(6.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable { onToggleFreeFallback(!isFreeFallbackEnabled) }
+                        .pointerHoverIcon(PointerIcon.Hand),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.settings_free_fallback),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = isFreeFallbackEnabled,
+                        onCheckedChange = onToggleFreeFallback,
+                    )
+                }
+                Spacer(Modifier.height(6.dp))
+            }
 
             Spacer(Modifier.height(6.dp))
 
@@ -536,6 +427,232 @@ private fun FreeSettings() {
                     .pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Text(stringResource(Res.string.settings_contact_sponsorship))
+            }
+        }
+    }
+}
+
+@Composable
+private fun ServicesContent(uiState: SettingsUiState) {
+    var showAddServiceSheet by remember { mutableStateOf(false) }
+
+    // Connect Server button
+    OutlinedButton(
+        onClick = { showAddServiceSheet = true },
+        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+    ) {
+        Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(stringResource(Res.string.settings_connect_server))
+    }
+
+    Spacer(Modifier.height(16.dp))
+
+    // Configured services list
+    val entries = uiState.configuredServices
+    entries.forEachIndexed { index, entry ->
+        ConfiguredServiceCard(
+            entry = entry,
+            isExpanded = uiState.expandedServiceId == entry.instanceId,
+            onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+            onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
+            onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
+            onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
+            onRemove = { uiState.onRemoveService(entry.instanceId) },
+            onMoveUp = if (index > 0) {
+                {
+                    val ids = entries.map { it.instanceId }.toMutableList()
+                    ids.removeAt(index)
+                    ids.add(index - 1, entry.instanceId)
+                    uiState.onReorderServices(ids)
+                }
+            } else {
+                null
+            },
+            onMoveDown = if (index < entries.lastIndex) {
+                {
+                    val ids = entries.map { it.instanceId }.toMutableList()
+                    ids.removeAt(index)
+                    ids.add(index + 1, entry.instanceId)
+                    uiState.onReorderServices(ids)
+                }
+            } else {
+                null
+            },
+        )
+        Spacer(Modifier.height(8.dp))
+    }
+
+    // Free tier card (always at bottom)
+    Spacer(Modifier.height(8.dp))
+    FreeSettings(
+        showFallbackToggle = entries.isNotEmpty(),
+        isFreeFallbackEnabled = uiState.isFreeFallbackEnabled,
+        onToggleFreeFallback = uiState.onToggleFreeFallback,
+    )
+
+    // Add service bottom sheet
+    if (showAddServiceSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showAddServiceSheet = false },
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                uiState.availableServicesToAdd.forEach { service ->
+                    Surface(
+                        onClick = {
+                            uiState.onAddService(service)
+                            showAddServiceSheet = false
+                        },
+                        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
+                        shape = RoundedCornerShape(8.dp),
+                    ) {
+                        Text(
+                            text = service.displayName,
+                            modifier = Modifier.padding(16.dp),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                }
+                Spacer(Modifier.height(16.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun ConfiguredServiceCard(
+    entry: ConfiguredServiceEntry,
+    isExpanded: Boolean,
+    onExpand: () -> Unit,
+    onChangeApiKey: (String) -> Unit,
+    onChangeBaseUrl: (String) -> Unit,
+    onSelectModel: (String) -> Unit,
+    onRemove: () -> Unit,
+    onMoveUp: (() -> Unit)?,
+    onMoveDown: (() -> Unit)?,
+) {
+    SettingsCard(innerPadding = false) {
+        // Header row — clickable area spans full card width
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { onExpand() }
+                .pointerHoverIcon(PointerIcon.Hand)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            // Connection status dot
+            val dotColor = when (entry.connectionStatus) {
+                ConnectionStatus.Connected -> Color(0xFF4CAF50)
+                ConnectionStatus.Checking -> Color(0xFFFF9800)
+                ConnectionStatus.Unknown -> Color(0xFF9E9E9E)
+                else -> Color(0xFFF44336)
+            }
+            Box(
+                modifier = Modifier
+                    .size(10.dp)
+                    .clip(CircleShape)
+                    .background(dotColor),
+            )
+
+            Spacer(Modifier.width(12.dp))
+
+            // Service name
+            Text(
+                text = entry.service.displayName,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+
+            // Expand/collapse chevron
+            Icon(
+                imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        // Expanded content
+        if (isExpanded) {
+            HorizontalDivider(thickness = 0.5.dp)
+
+            Column(modifier = Modifier.padding(16.dp)) {
+                if (entry.service is Service.OpenAICompatible) {
+                    OpenAICompatibleSettings(
+                        baseUrl = entry.baseUrl,
+                        onChangeBaseUrl = onChangeBaseUrl,
+                        apiKey = entry.apiKey,
+                        onChangeApiKey = onChangeApiKey,
+                        selectedModel = entry.selectedModel,
+                        models = entry.models,
+                        onSelectModel = onSelectModel,
+                        connectionStatus = entry.connectionStatus,
+                    )
+                } else {
+                    ServiceSettings(
+                        apiKey = entry.apiKey,
+                        onChangeApiKey = onChangeApiKey,
+                        apiKeyUrl = entry.service.apiKeyUrl ?: "",
+                        apiKeyUrlDisplay = entry.service.apiKeyUrlDisplay ?: "",
+                        selectedModel = entry.selectedModel,
+                        models = entry.models,
+                        onSelectModel = onSelectModel,
+                        connectionStatus = entry.connectionStatus,
+                    )
+                }
+
+                Spacer(Modifier.height(12.dp))
+            }
+
+            // Reorder + Remove actions
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                if (onMoveUp != null) {
+                    IconButton(
+                        onClick = onMoveUp,
+                        modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowUp,
+                            contentDescription = stringResource(Res.string.settings_move_up),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+                if (onMoveDown != null) {
+                    IconButton(
+                        onClick = onMoveDown,
+                        modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = stringResource(Res.string.settings_move_down),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+
+                // Remove button
+                TextButton(
+                    onClick = onRemove,
+                    modifier = Modifier.fillMaxWidth().wrapContentWidth(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        tint = MaterialTheme.colorScheme.error,
+                    )
+                    Spacer(Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(Res.string.settings_remove_service),
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
             }
         }
     }
@@ -940,37 +1057,9 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
 }
 
 @Composable
-private fun ServiceSelection(services: List<Service>, currentService: Service, onChanged: (Service) -> Unit) {
-    val selectedIndex = services.indexOf(currentService).coerceAtLeast(0)
-    PrimaryScrollableTabRow(
-        selectedTabIndex = selectedIndex,
-        edgePadding = 0.dp,
-        containerColor = MaterialTheme.colorScheme.background,
-        divider = {},
-    ) {
-        services.forEach { service ->
-            Tab(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                selected = service == currentService,
-                onClick = { onChanged(service) },
-                text = {
-                    Text(
-                        service.displayName,
-                        color = if (service == currentService) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.onSurface
-                        },
-                    )
-                },
-            )
-        }
-    }
-}
-
-@Composable
 private fun SettingsCard(
     modifier: Modifier = Modifier,
+    innerPadding: Boolean = true,
     content: @Composable () -> Unit,
 ) {
     Card(
@@ -979,7 +1068,7 @@ private fun SettingsCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
     ) {
-        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Column(modifier = Modifier.fillMaxWidth().then(if (innerPadding) Modifier.padding(16.dp) else Modifier)) {
             content()
         }
     }

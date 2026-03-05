@@ -6,7 +6,9 @@ import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
+import com.inspiredandroid.kai.ui.settings.ConfiguredServiceEntry
 import com.inspiredandroid.kai.ui.settings.ConnectionStatus
+import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
 import kotlinx.serialization.json.Json
@@ -125,9 +127,22 @@ JavaScript
 
     val freeConnected = SettingsUiState(
         currentTab = SettingsTab.Services,
-        currentService = Service.Free,
-        services = Service.all,
-        connectionStatus = ConnectionStatus.Connected,
+        configuredServices = listOf(
+            ConfiguredServiceEntry(
+                instanceId = "gemini",
+                service = Service.Gemini,
+                connectionStatus = ConnectionStatus.Connected,
+                apiKey = "AIza••••••••••••••••••••••••••••••••••••",
+                selectedModel = SettingsModel(id = "gemini-2.5-flash", subtitle = "Gemini 2.5 Flash", isSelected = true),
+            ),
+            ConfiguredServiceEntry(
+                instanceId = "openai-compatible",
+                service = Service.OpenAICompatible,
+                connectionStatus = ConnectionStatus.Connected,
+                baseUrl = "http://localhost:11434",
+                selectedModel = SettingsModel(id = "llama3.2:3b", subtitle = "llama3.2:3b", isSelected = true),
+            ),
+        ),
     )
 
     val settingsGeneral = SettingsUiState(

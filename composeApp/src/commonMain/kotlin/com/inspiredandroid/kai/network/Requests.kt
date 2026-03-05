@@ -1,7 +1,6 @@
 package com.inspiredandroid.kai.network
 
 import com.inspiredandroid.kai.Version
-import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
@@ -39,7 +38,13 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.seconds
 
-class Requests(private val appSettings: AppSettings) {
+data class ServiceCredentials(
+    val apiKey: String = "",
+    val modelId: String = "",
+    val baseUrl: String = "",
+)
+
+class Requests {
 
     private val defaultClient = httpClient {
         install(ContentNegotiation) {
@@ -78,8 +83,8 @@ class Requests(private val appSettings: AppSettings) {
 
     // region Gemini
 
-    suspend fun getGeminiModels(): Result<GeminiModelsResponseDto> = try {
-        val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
+    suspend fun getGeminiModels(credentials: ServiceCredentials): Result<GeminiModelsResponseDto> = try {
+        val apiKey = credentials.apiKey.ifEmpty { throw GeminiInvalidApiKeyException() }
         val response: HttpResponse =
             defaultClient.get("https://generativelanguage.googleapis.com/v1beta/models?key=$apiKey")
         if (response.status.isSuccess()) {
@@ -97,12 +102,13 @@ class Requests(private val appSettings: AppSettings) {
     }
 
     suspend fun geminiChat(
+        credentials: ServiceCredentials,
         messages: List<GeminiChatRequestDto.Content>,
         tools: List<Tool> = emptyList(),
         systemInstruction: String? = null,
     ): Result<GeminiChatResponseDto> = try {
-        val apiKey = appSettings.getApiKey(Service.Gemini).ifEmpty { throw GeminiInvalidApiKeyException() }
-        val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
+        val apiKey = credentials.apiKey.ifEmpty { throw GeminiInvalidApiKeyException() }
+        val selectedModelId = credentials.modelId
 
         val systemContent = systemInstruction?.let {
             GeminiChatRequestDto.Content(
@@ -149,13 +155,14 @@ class Requests(private val appSettings: AppSettings) {
 
     suspend fun openAICompatibleChat(
         service: Service,
+        credentials: ServiceCredentials,
         messages: List<OpenAICompatibleChatRequestDto.Message>,
         tools: List<Tool> = emptyList(),
         customHeaders: Map<String, String> = emptyMap(),
     ): Result<OpenAICompatibleChatResponseDto> = try {
-        val apiKey = getApiKeyOrThrow(service)
-        val model = if (service == Service.Free) null else appSettings.getSelectedModelId(service)
-        val url = resolveUrl(service, service.chatUrl)
+        val apiKey = getApiKeyOrThrow(service, credentials)
+        val model = if (service == Service.Free) null else credentials.modelId.ifEmpty { null }
+        val url = resolveUrl(service, credentials, service.chatUrl)
         val response: HttpResponse =
             defaultClient.post(url) {
                 contentType(ContentType.Application.Json)
@@ -172,7 +179,7 @@ class Requests(private val appSettings: AppSettings) {
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            handleOpenAICompatibleError(service, response)
+            handleOpenAICompatibleError(service, credentials, response)
         }
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
@@ -180,18 +187,21 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
-    suspend fun getOpenAICompatibleModels(service: Service): Result<OpenAICompatibleModelResponseDto> = try {
+    suspend fun getOpenAICompatibleModels(
+        service: Service,
+        credentials: ServiceCredentials,
+    ): Result<OpenAICompatibleModelResponseDto> = try {
         val modelsUrl = service.modelsUrl
             ?: return Result.failure(OpenAICompatibleGenericException("Models URL not configured for ${service.displayName}"))
-        val url = resolveUrl(service, modelsUrl)
-        val apiKey = getOptionalApiKey(service)
+        val url = resolveUrl(service, credentials, modelsUrl)
+        val apiKey = getOptionalApiKey(service, credentials)
         val response: HttpResponse = defaultClient.get(url) {
             apiKey?.let { bearerAuth(it) }
         }
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
-            handleOpenAICompatibleError(service, response)
+            handleOpenAICompatibleError(service, credentials, response)
         }
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
@@ -199,8 +209,8 @@ class Requests(private val appSettings: AppSettings) {
         Result.failure(OpenAICompatibleConnectionException())
     }
 
-    suspend fun validateOpenRouterApiKey(): Result<Unit> = try {
-        val apiKey = appSettings.getApiKey(Service.OpenRouter).ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+    suspend fun validateOpenRouterApiKey(credentials: ServiceCredentials): Result<Unit> = try {
+        val apiKey = credentials.apiKey.ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
         val response: HttpResponse = defaultClient.get("https://openrouter.ai/api/v1/auth/key") {
             bearerAuth(apiKey)
         }
@@ -222,26 +232,27 @@ class Requests(private val appSettings: AppSettings) {
 
     // region Helpers
 
-    private fun resolveUrl(service: Service, path: String): String = if (service == Service.OpenAICompatible) {
-        "${appSettings.getBaseUrl(service)}$path"
+    private fun resolveUrl(service: Service, credentials: ServiceCredentials, path: String): String = if (service == Service.OpenAICompatible) {
+        "${credentials.baseUrl.ifEmpty { Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL }}$path"
     } else {
         path
     }
 
-    private fun getApiKeyOrThrow(service: Service): String? {
+    private fun getApiKeyOrThrow(service: Service, credentials: ServiceCredentials): String? {
         if (!service.requiresApiKey && !service.supportsOptionalApiKey) return null
-        val key = appSettings.getApiKey(service)
+        val key = credentials.apiKey
         if (service.requiresApiKey && key.isEmpty()) throw OpenAICompatibleInvalidApiKeyException()
         return key.ifEmpty { null }
     }
 
-    private fun getOptionalApiKey(service: Service): String? {
+    private fun getOptionalApiKey(service: Service, credentials: ServiceCredentials): String? {
         if (!service.requiresApiKey && !service.supportsOptionalApiKey) return null
-        return appSettings.getApiKey(service).ifEmpty { null }
+        return credentials.apiKey.ifEmpty { null }
     }
 
     private suspend fun handleOpenAICompatibleError(
         service: Service,
+        credentials: ServiceCredentials,
         response: HttpResponse,
     ): Nothing {
         when (response.status.value) {
@@ -249,7 +260,7 @@ class Requests(private val appSettings: AppSettings) {
 
             402 -> throw OpenAICompatibleQuotaExhaustedException()
 
-            404 -> throw OpenAICompatibleModelNotFoundException(appSettings.getSelectedModelId(service))
+            404 -> throw OpenAICompatibleModelNotFoundException(credentials.modelId)
 
             413 -> throw OpenAICompatibleRequestTooLargeException()
 

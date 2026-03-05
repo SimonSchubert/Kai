@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">الاستطلاع كل %1$d دقيقة</string>
     <string name="settings_email_poll_never">أبداً</string>
     <string name="settings_email_poll_never_description">يدوي فقط — استخدم "تحقق من بريدي الإلكتروني" في المحادثة</string>
+    <string name="settings_connect_server">ربط الخدمة</string>
+    <string name="settings_free_fallback">استخدام كاحتياطي</string>
+    <string name="settings_heartbeat">نبض القلب</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] هذا فحص ذاتي تلقائي. راجع ذكرياتك والمهام المعلقة. إذا كان كل شيء على ما يرام ولا شيء يحتاج اهتمامًا، أجب بالضبط: HEARTBEAT_OK
+إذا كان شيء ما يحتاج اهتمامًا (ذكريات قديمة، مهام مستحقة، متابعات المستخدم)، عالجه.</string>
+    <string name="settings_heartbeat_description">فحوصات ذاتية دورية تسمح للذكاء الاصطناعي بمراجعة الذكريات والمهام بدون إدخال المستخدم. تعمل كل %1$d دقيقة خلال الساعات النشطة.</string>
+    <string name="settings_heartbeat_prompt_label">موجه نبض القلب</string>
+    <string name="settings_heartbeat_recent">النشاط الأخير</string>
+    <string name="settings_move_down">تحريك لأسفل</string>
+    <string name="settings_move_up">تحريك لأعلى</string>
+    <string name="settings_remove_service">إزالة</string>
+    <string name="tool_configure_heartbeat_description">تكوين سلوك الفحص الذاتي الدوري</string>
+    <string name="tool_configure_heartbeat_name">تكوين نبض القلب</string>
+    <string name="tool_memory_learn_description">تخزين تعلم مصنف أو حل خطأ أو تفضيل</string>
+    <string name="tool_memory_learn_name">تعلم الذاكرة</string>
+    <string name="tool_memory_reinforce_description">تعزيز ذاكرة أنتجت نتيجة جيدة</string>
+    <string name="tool_memory_reinforce_name">تعزيز الذاكرة</string>
+    <string name="tool_promote_learning_description">ترقية تعلم معزز إلى موجه النظام</string>
+    <string name="tool_promote_learning_name">ترقية التعلم</string>
+    <string name="tool_trigger_heartbeat_description">تشغيل نبض القلب في الدورة التالية</string>
+    <string name="tool_trigger_heartbeat_name">تشغيل نبض القلب</string>
+    <string name="tool_web_search_description">البحث في الويب عن معلومات حالية</string>
+    <string name="tool_web_search_name">بحث الويب</string>
 </resources>

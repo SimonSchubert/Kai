@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">%1$d分ごとに確認</string>
     <string name="settings_email_poll_never">しない</string>
     <string name="settings_email_poll_never_description">手動のみ — チャットで「メールを確認して」を使用</string>
+    <string name="settings_connect_server">サービスを接続</string>
+    <string name="settings_free_fallback">フォールバックとして使用</string>
+    <string name="settings_heartbeat">ハートビート</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] これは自動セルフチェックです。記憶と保留中のタスクを確認してください。すべて問題なく何も注意を必要としない場合は、正確に次のように応答してください: HEARTBEAT_OK
+何かが注意を必要とする場合（古い記憶、期限のタスク、ユーザーフォローアップ）、対処してください。</string>
+    <string name="settings_heartbeat_description">ユーザー入力なしでAIが記憶とタスクを確認できる定期的なセルフチェック。アクティブ時間中に%1$d分ごとに実行されます。</string>
+    <string name="settings_heartbeat_prompt_label">ハートビートプロンプト</string>
+    <string name="settings_heartbeat_recent">最近のアクティビティ</string>
+    <string name="settings_move_down">下に移動</string>
+    <string name="settings_move_up">上に移動</string>
+    <string name="settings_remove_service">削除</string>
+    <string name="tool_configure_heartbeat_description">定期的なセルフチェックの動作を設定</string>
+    <string name="tool_configure_heartbeat_name">ハートビートを設定</string>
+    <string name="tool_memory_learn_description">分類された学習、エラー解決、または設定を保存</string>
+    <string name="tool_memory_learn_name">記憶を学習</string>
+    <string name="tool_memory_reinforce_description">良い結果を生んだ記憶を強化</string>
+    <string name="tool_memory_reinforce_name">記憶を強化</string>
+    <string name="tool_promote_learning_description">強化された学習をシステムプロンプトに昇格</string>
+    <string name="tool_promote_learning_name">学習を昇格</string>
+    <string name="tool_trigger_heartbeat_description">次のサイクルでハートビートをトリガー</string>
+    <string name="tool_trigger_heartbeat_name">ハートビートをトリガー</string>
+    <string name="tool_web_search_description">最新の情報をウェブで検索</string>
+    <string name="tool_web_search_name">ウェブ検索</string>
 </resources>

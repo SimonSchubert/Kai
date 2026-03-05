@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Hae %1$d minuutin välein</string>
     <string name="settings_email_poll_never">Ei koskaan</string>
     <string name="settings_email_poll_never_description">Vain manuaalisesti — käytä "tarkista sähköpostini" chatissa</string>
+    <string name="settings_connect_server">Yhdistä palvelu</string>
+    <string name="settings_free_fallback">Käytä varavaihtoehtona</string>
+    <string name="settings_heartbeat">Syke</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Tämä on automaattinen itsetarkistus. Tarkista muistisi ja odottavat tehtävät. Jos kaikki näyttää hyvältä eikä mikään vaadi huomiota, vastaa tarkasti: HEARTBEAT_OK
+Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyttäjän seurannat), hoida se.</string>
+    <string name="settings_heartbeat_description">Jaksolliset itsetarkistukset, jotka antavat tekoälyn tarkistaa muistot ja tehtävät ilman käyttäjän syötettä. Suoritetaan %1$d minuutin välein aktiivisina tunteina.</string>
+    <string name="settings_heartbeat_prompt_label">Sykekehote</string>
+    <string name="settings_heartbeat_recent">Viimeaikainen toiminta</string>
+    <string name="settings_move_down">Siirrä alas</string>
+    <string name="settings_move_up">Siirrä ylös</string>
+    <string name="settings_remove_service">Poista</string>
+    <string name="tool_configure_heartbeat_description">Määritä jaksollinen itsetarkistuskäyttäytyminen</string>
+    <string name="tool_configure_heartbeat_name">Määritä syke</string>
+    <string name="tool_memory_learn_description">Tallenna luokiteltu oppiminen, virheenratkaisu tai mieltymys</string>
+    <string name="tool_memory_learn_name">Opi muisti</string>
+    <string name="tool_memory_reinforce_description">Vahvista muisto, joka tuotti hyvän tuloksen</string>
+    <string name="tool_memory_reinforce_name">Vahvista muisti</string>
+    <string name="tool_promote_learning_description">Ylennä vahvistettu oppiminen järjestelmäkehotteeseen</string>
+    <string name="tool_promote_learning_name">Ylennä oppiminen</string>
+    <string name="tool_trigger_heartbeat_description">Laukaise syke seuraavassa jaksossa</string>
+    <string name="tool_trigger_heartbeat_name">Laukaise syke</string>
+    <string name="tool_web_search_description">Hae verkosta ajankohtaista tietoa</string>
+    <string name="tool_web_search_name">Verkkohaku</string>
 </resources>

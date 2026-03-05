@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Alle %1$d Minuten abrufen</string>
     <string name="settings_email_poll_never">Nie</string>
     <string name="settings_email_poll_never_description">Nur manuell — nutze „Prüfe meine E-Mails" im Chat</string>
+    <string name="settings_connect_server">Dienst verbinden</string>
+    <string name="settings_free_fallback">Als Fallback verwenden</string>
+    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dies ist eine automatische Selbstprüfung. Überprüfe deine Erinnerungen und ausstehenden Aufgaben. Wenn alles in Ordnung ist und nichts Aufmerksamkeit erfordert, antworte mit genau: HEARTBEAT_OK
+Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, Benutzer-Nachfragen), kümmere dich darum.</string>
+    <string name="settings_heartbeat_description">Periodische Selbstprüfungen, die der KI ermöglichen, Erinnerungen und Aufgaben ohne Benutzereingabe zu überprüfen. Läuft alle %1$d Minuten während aktiver Stunden.</string>
+    <string name="settings_heartbeat_prompt_label">Heartbeat-Prompt</string>
+    <string name="settings_heartbeat_recent">Letzte Aktivität</string>
+    <string name="settings_move_down">Nach unten</string>
+    <string name="settings_move_up">Nach oben</string>
+    <string name="settings_remove_service">Entfernen</string>
+    <string name="tool_configure_heartbeat_description">Periodisches Selbstprüfungsverhalten konfigurieren</string>
+    <string name="tool_configure_heartbeat_name">Heartbeat konfigurieren</string>
+    <string name="tool_memory_learn_description">Ein kategorisiertes Lernergebnis, eine Fehlerbehebung oder eine Präferenz speichern</string>
+    <string name="tool_memory_learn_name">Erinnerung lernen</string>
+    <string name="tool_memory_reinforce_description">Eine Erinnerung verstärken, die ein gutes Ergebnis erzielt hat</string>
+    <string name="tool_memory_reinforce_name">Erinnerung verstärken</string>
+    <string name="tool_promote_learning_description">Ein verstärktes Lernergebnis in den Systemprompt befördern</string>
+    <string name="tool_promote_learning_name">Lernergebnis befördern</string>
+    <string name="tool_trigger_heartbeat_description">Einen Heartbeat im nächsten Zyklus auslösen</string>
+    <string name="tool_trigger_heartbeat_name">Heartbeat auslösen</string>
+    <string name="tool_web_search_description">Das Web nach aktuellen Informationen durchsuchen</string>
+    <string name="tool_web_search_name">Websuche</string>
 </resources>

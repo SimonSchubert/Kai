@@ -14,38 +14,35 @@ import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.platformName
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsViewModel(
     private val dataRepository: DataRepository,
     private val daemonController: DaemonController,
 ) : ViewModel() {
 
-    private val currentService = MutableStateFlow(dataRepository.currentService())
-    private var connectionCheckJob: Job? = null
+    private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()
     private var hasCheckedInitialConnection = false
 
     private val _state = MutableStateFlow(
         SettingsUiState(
-            currentService = currentService.value,
-            apiKey = dataRepository.getApiKey(currentService.value),
-            baseUrl = dataRepository.getBaseUrl(currentService.value),
+            configuredServices = buildConfiguredServiceEntries(),
+            availableServicesToAdd = computeAvailableServices(),
             tools = dataRepository.getToolDefinitions(),
             onSelectTab = ::onSelectTab,
-            onSelectService = ::onSelectService,
-            onSelectModel = ::onSelectModel,
+            onAddService = ::onAddService,
+            onRemoveService = ::onRemoveService,
+            onReorderServices = ::onReorderServices,
+            onExpandService = ::onExpandService,
             onChangeApiKey = ::onChangeApiKey,
             onChangeBaseUrl = ::onChangeBaseUrl,
+            onSelectModel = ::onSelectModel,
             onToggleTool = ::onToggleTool,
             soulText = dataRepository.getSoulText(),
             onSaveSoul = ::onSaveSoul,
@@ -73,21 +70,12 @@ class SettingsViewModel(
             onToggleEmail = ::onToggleEmail,
             onRemoveEmailAccount = ::onRemoveEmailAccount,
             onChangeEmailPollInterval = ::onChangeEmailPollInterval,
+            isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
+            onToggleFreeFallback = ::onToggleFreeFallback,
         ),
     )
 
-    val state = currentService.flatMapLatest { service ->
-        combine(
-            _state,
-            dataRepository.getModels(service),
-        ) { localState, models ->
-            localState.copy(
-                currentService = service,
-                models = models,
-                selectedModel = models.firstOrNull { it.isSelected },
-            )
-        }
-    }.stateIn(
+    val state = _state.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = _state.value,
@@ -96,7 +84,39 @@ class SettingsViewModel(
     fun onScreenVisible() {
         if (!hasCheckedInitialConnection) {
             hasCheckedInitialConnection = true
-            checkConnection(currentService.value)
+            checkAllConnections()
+        }
+    }
+
+    private fun buildConfiguredServiceEntries(): List<ConfiguredServiceEntry> = dataRepository.getConfiguredServiceInstances().map { instance ->
+        val service = Service.fromId(instance.serviceId)
+        val models = dataRepository.getInstanceModels(instance.instanceId, service).value
+        ConfiguredServiceEntry(
+            instanceId = instance.instanceId,
+            service = service,
+            apiKey = dataRepository.getInstanceApiKey(instance.instanceId),
+            baseUrl = dataRepository.getInstanceBaseUrl(instance.instanceId, service),
+            selectedModel = models.firstOrNull { it.isSelected },
+            models = models,
+        )
+    }
+
+    private fun computeAvailableServices(): List<Service> {
+        // Allow all non-Free services (multiple instances of same type are allowed)
+        return Service.all.filter { it != Service.Free }
+    }
+
+    private fun refreshServiceList() {
+        _state.update { current ->
+            val existingStatuses = current.configuredServices.associate { it.instanceId to it.connectionStatus }
+            val newEntries = buildConfiguredServiceEntries().map { entry ->
+                val preservedStatus = existingStatuses[entry.instanceId]
+                if (preservedStatus != null) entry.copy(connectionStatus = preservedStatus) else entry
+            }
+            current.copy(
+                configuredServices = newEntries,
+                availableServicesToAdd = computeAvailableServices(),
+            )
         }
     }
 
@@ -104,42 +124,94 @@ class SettingsViewModel(
         _state.update { it.copy(currentTab = tab) }
     }
 
-    private fun onSelectService(service: Service) {
-        dataRepository.selectService(service)
+    private fun onAddService(service: Service) {
+        val instance = dataRepository.addConfiguredService(service.id)
+        refreshServiceList()
+        _state.update { it.copy(expandedServiceId = instance.instanceId) }
+        checkConnection(instance.instanceId, service)
+    }
+
+    private fun onRemoveService(instanceId: String) {
+        dataRepository.removeConfiguredService(instanceId)
         _state.update {
             it.copy(
-                currentService = service,
-                apiKey = dataRepository.getApiKey(service),
-                baseUrl = dataRepository.getBaseUrl(service),
-                connectionStatus = ConnectionStatus.Unknown,
+                expandedServiceId = if (it.expandedServiceId == instanceId) null else it.expandedServiceId,
             )
         }
-        currentService.value = service
-        checkConnection(service)
+        refreshServiceList()
     }
 
-    private fun onSelectModel(modelId: String) {
-        dataRepository.updateSelectedModel(currentService.value, modelId)
+    private fun onReorderServices(orderedIds: List<String>) {
+        dataRepository.reorderConfiguredServices(orderedIds)
+        refreshServiceList()
     }
 
-    private fun onChangeApiKey(apiKey: String) {
-        val service = currentService.value
-        dataRepository.updateApiKey(service, apiKey)
-        dataRepository.clearModels(service)
-        _state.update {
-            it.copy(apiKey = apiKey, connectionStatus = ConnectionStatus.Unknown)
+    private fun onExpandService(instanceId: String?) {
+        _state.update { it.copy(expandedServiceId = instanceId) }
+        if (instanceId != null) {
+            refreshInstanceModels(instanceId)
         }
-        checkConnectionDebounced(service)
     }
 
-    private fun onChangeBaseUrl(baseUrl: String) {
-        val service = currentService.value
-        dataRepository.updateBaseUrl(service, baseUrl)
-        dataRepository.clearModels(service)
-        _state.update {
-            it.copy(baseUrl = baseUrl, connectionStatus = ConnectionStatus.Unknown)
+    private fun refreshInstanceModels(instanceId: String) {
+        val entry = _state.value.configuredServices.find { it.instanceId == instanceId } ?: return
+        val models = dataRepository.getInstanceModels(instanceId, entry.service).value
+        _state.update { state ->
+            state.copy(
+                configuredServices = state.configuredServices.map { e ->
+                    if (e.instanceId == instanceId) {
+                        e.copy(
+                            models = models,
+                            selectedModel = models.firstOrNull { it.isSelected },
+                        )
+                    } else {
+                        e
+                    }
+                },
+            )
         }
-        checkConnectionDebounced(service)
+    }
+
+    private fun onChangeApiKey(instanceId: String, apiKey: String) {
+        val entry = _state.value.configuredServices.find { it.instanceId == instanceId } ?: return
+        dataRepository.updateInstanceApiKey(instanceId, apiKey)
+        dataRepository.clearInstanceModels(instanceId, entry.service)
+        _state.update { state ->
+            state.copy(
+                configuredServices = state.configuredServices.map { e ->
+                    if (e.instanceId == instanceId) {
+                        e.copy(apiKey = apiKey, connectionStatus = ConnectionStatus.Unknown)
+                    } else {
+                        e
+                    }
+                },
+            )
+        }
+        checkConnectionDebounced(instanceId, entry.service)
+    }
+
+    private fun onChangeBaseUrl(instanceId: String, baseUrl: String) {
+        val entry = _state.value.configuredServices.find { it.instanceId == instanceId } ?: return
+        dataRepository.updateInstanceBaseUrl(instanceId, baseUrl)
+        dataRepository.clearInstanceModels(instanceId, entry.service)
+        _state.update { state ->
+            state.copy(
+                configuredServices = state.configuredServices.map { e ->
+                    if (e.instanceId == instanceId) {
+                        e.copy(baseUrl = baseUrl, connectionStatus = ConnectionStatus.Unknown)
+                    } else {
+                        e
+                    }
+                },
+            )
+        }
+        checkConnectionDebounced(instanceId, entry.service)
+    }
+
+    private fun onSelectModel(instanceId: String, modelId: String) {
+        val entry = _state.value.configuredServices.find { it.instanceId == instanceId } ?: return
+        dataRepository.updateInstanceSelectedModel(instanceId, entry.service, modelId)
+        refreshInstanceModels(instanceId)
     }
 
     private fun onSaveSoul(text: String) {
@@ -208,6 +280,11 @@ class SettingsViewModel(
         _state.update { it.copy(emailPollIntervalMinutes = minutes) }
     }
 
+    private fun onToggleFreeFallback(enabled: Boolean) {
+        dataRepository.setFreeFallbackEnabled(enabled)
+        _state.update { it.copy(isFreeFallbackEnabled = enabled) }
+    }
+
     private fun onToggleTool(toolId: String, enabled: Boolean) {
         dataRepository.setToolEnabled(toolId, enabled)
         _state.update { state ->
@@ -219,32 +296,53 @@ class SettingsViewModel(
         }
     }
 
-    private fun checkConnectionDebounced(service: Service) {
-        connectionCheckJob?.cancel()
-        connectionCheckJob = viewModelScope.launch {
+    private fun checkAllConnections() {
+        for (entry in _state.value.configuredServices) {
+            checkConnection(entry.instanceId, entry.service)
+        }
+    }
+
+    private fun checkConnectionDebounced(instanceId: String, service: Service) {
+        connectionCheckJobs[instanceId]?.cancel()
+        connectionCheckJobs[instanceId] = viewModelScope.launch {
             delay(800)
-            checkConnection(service)
+            checkConnection(instanceId, service)
         }
     }
 
-    private fun checkConnection(service: Service) {
+    private fun checkConnection(instanceId: String, service: Service) {
         if (service == Service.Free) {
-            _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
+            updateConnectionStatus(instanceId, ConnectionStatus.Connected)
             return
         }
-        if (service.requiresApiKey && dataRepository.getApiKey(service).isBlank()) {
-            _state.update { it.copy(connectionStatus = ConnectionStatus.Unknown) }
+        if (service.requiresApiKey && dataRepository.getInstanceApiKey(instanceId).isBlank()) {
+            updateConnectionStatus(instanceId, ConnectionStatus.Unknown)
             return
         }
-        validateConnectionWithStatus(service)
+        validateConnectionWithStatus(instanceId, service)
     }
 
-    private fun validateConnectionWithStatus(service: Service) {
-        _state.update { it.copy(connectionStatus = ConnectionStatus.Checking) }
+    private fun updateConnectionStatus(instanceId: String, status: ConnectionStatus) {
+        _state.update { state ->
+            state.copy(
+                configuredServices = state.configuredServices.map { entry ->
+                    if (entry.instanceId == instanceId) {
+                        entry.copy(connectionStatus = status)
+                    } else {
+                        entry
+                    }
+                },
+            )
+        }
+    }
+
+    private fun validateConnectionWithStatus(instanceId: String, service: Service) {
+        updateConnectionStatus(instanceId, ConnectionStatus.Checking)
         viewModelScope.launch(context = getBackgroundDispatcher()) {
             try {
-                dataRepository.validateConnection(service)
-                _state.update { it.copy(connectionStatus = ConnectionStatus.Connected) }
+                dataRepository.validateConnection(service, instanceId)
+                updateConnectionStatus(instanceId, ConnectionStatus.Connected)
+                refreshInstanceModels(instanceId)
             } catch (e: Exception) {
                 val status = when (e) {
                     is OpenAICompatibleInvalidApiKeyException, is GeminiInvalidApiKeyException ->
@@ -261,7 +359,7 @@ class SettingsViewModel(
 
                     else -> ConnectionStatus.Error
                 }
-                _state.update { it.copy(connectionStatus = status) }
+                updateConnectionStatus(instanceId, status)
             }
         }
     }

@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Verificar a cada %1$d minutos</string>
     <string name="settings_email_poll_never">Nunca</string>
     <string name="settings_email_poll_never_description">Somente manual — use «verificar meu e-mail» no chat</string>
+    <string name="settings_connect_server">Conectar Serviço</string>
+    <string name="settings_free_fallback">Usar como reserva</string>
+    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Esta é uma verificação automática. Revise suas memórias e tarefas pendentes. Se tudo estiver bem e nada precisar de atenção, responda exatamente: HEARTBEAT_OK
+Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acompanhamentos do usuário), trate disso.</string>
+    <string name="settings_heartbeat_description">Verificações periódicas que permitem à IA revisar memórias e tarefas sem entrada do usuário. Executa a cada %1$d minutos durante horas ativas.</string>
+    <string name="settings_heartbeat_prompt_label">Prompt de Heartbeat</string>
+    <string name="settings_heartbeat_recent">Atividade Recente</string>
+    <string name="settings_move_down">Mover para baixo</string>
+    <string name="settings_move_up">Mover para cima</string>
+    <string name="settings_remove_service">Remover</string>
+    <string name="tool_configure_heartbeat_description">Configurar comportamento de verificação periódica</string>
+    <string name="tool_configure_heartbeat_name">Configurar Heartbeat</string>
+    <string name="tool_memory_learn_description">Armazenar um aprendizado categorizado, resolução de erro ou preferência</string>
+    <string name="tool_memory_learn_name">Aprender Memória</string>
+    <string name="tool_memory_reinforce_description">Reforçar uma memória que produziu um bom resultado</string>
+    <string name="tool_memory_reinforce_name">Reforçar Memória</string>
+    <string name="tool_promote_learning_description">Promover um aprendizado reforçado para o prompt do sistema</string>
+    <string name="tool_promote_learning_name">Promover Aprendizado</string>
+    <string name="tool_trigger_heartbeat_description">Acionar um heartbeat no próximo ciclo</string>
+    <string name="tool_trigger_heartbeat_name">Acionar Heartbeat</string>
+    <string name="tool_web_search_description">Pesquisar na web por informações atuais</string>
+    <string name="tool_web_search_name">Pesquisa Web</string>
 </resources>

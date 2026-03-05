@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.Requests
+import com.inspiredandroid.kai.network.ServiceCredentials
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.platformName
@@ -132,10 +133,15 @@ class RemoteDataRepository(
         }
     }
 
-    private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
-        Service.all.associateWith { service ->
-            MutableStateFlow(service.defaultModels.toSettingsModels(service))
-        }
+    // Per-instance model storage: instanceId -> models flow
+    private val modelsByInstance: MutableMap<String, MutableStateFlow<List<SettingsModel>>> = mutableMapOf()
+
+    /** Build credentials from per-instance settings */
+    private fun instanceCredentials(instanceId: String, service: Service): ServiceCredentials = ServiceCredentials(
+        apiKey = appSettings.getInstanceApiKey(instanceId),
+        modelId = appSettings.getInstanceModelId(instanceId).ifEmpty { appSettings.getSelectedModelId(service) },
+        baseUrl = appSettings.getInstanceBaseUrl(instanceId).ifEmpty { appSettings.getBaseUrl(service) },
+    )
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
 
@@ -144,65 +150,120 @@ class RemoteDataRepository(
 
     private val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
 
-    override fun selectService(service: Service) {
-        appSettings.selectService(service)
+    override fun getConfiguredServiceInstances(): List<ServiceInstance> = appSettings.getConfiguredServiceInstances().filter { Service.fromId(it.serviceId) != Service.Free }
+
+    override fun addConfiguredService(serviceId: String): ServiceInstance {
+        val instanceId = appSettings.generateInstanceId(serviceId)
+        val instance = ServiceInstance(instanceId = instanceId, serviceId = serviceId)
+        val current = appSettings.getConfiguredServiceInstances().toMutableList()
+        current.add(instance)
+        appSettings.setConfiguredServiceInstances(current)
+        return instance
     }
 
-    override fun updateApiKey(service: Service, apiKey: String) {
-        if (service.requiresApiKey || service.supportsOptionalApiKey) {
-            appSettings.setApiKey(service, apiKey)
+    override fun removeConfiguredService(instanceId: String) {
+        val current = appSettings.getConfiguredServiceInstances().toMutableList()
+        current.removeAll { it.instanceId == instanceId }
+        appSettings.setConfiguredServiceInstances(current)
+        appSettings.removeInstanceSettings(instanceId)
+        modelsByInstance.remove(instanceId)
+    }
+
+    override fun reorderConfiguredServices(orderedInstanceIds: List<String>) {
+        val current = appSettings.getConfiguredServiceInstances()
+        val byId = current.associateBy { it.instanceId }
+        val reordered = orderedInstanceIds.mapNotNull { byId[it] }
+        appSettings.setConfiguredServiceInstances(reordered)
+    }
+
+    override fun getOrderedServicesForFallback(): List<Service> {
+        val instances = getConfiguredServiceInstances()
+        val services = instances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }
+        return if (services.isEmpty()) {
+            listOf(Service.Free)
+        } else if (appSettings.isFreeFallbackEnabled()) {
+            services + Service.Free
+        } else {
+            services
         }
     }
 
-    override fun getApiKey(service: Service): String = appSettings.getApiKey(service)
+    override fun isFreeFallbackEnabled(): Boolean = appSettings.isFreeFallbackEnabled()
 
-    override fun updateSelectedModel(service: Service, modelId: String) {
-        if (service.modelIdKey.isNotEmpty()) {
-            appSettings.setSelectedModelId(service, modelId)
-            updateModelsSelection(service)
+    override fun setFreeFallbackEnabled(enabled: Boolean) {
+        appSettings.setFreeFallbackEnabled(enabled)
+    }
+
+    // Per-instance settings
+    override fun getInstanceApiKey(instanceId: String): String = appSettings.getInstanceApiKey(instanceId)
+
+    override fun updateInstanceApiKey(instanceId: String, apiKey: String) {
+        appSettings.setInstanceApiKey(instanceId, apiKey)
+    }
+
+    override fun getInstanceBaseUrl(instanceId: String, service: Service): String {
+        val url = appSettings.getInstanceBaseUrl(instanceId)
+        return url.ifBlank { if (service is Service.OpenAICompatible) Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL else "" }
+    }
+
+    override fun updateInstanceBaseUrl(instanceId: String, baseUrl: String) {
+        appSettings.setInstanceBaseUrl(instanceId, baseUrl)
+    }
+
+    override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = modelsByInstance.getOrPut(instanceId) {
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
+        MutableStateFlow(
+            service.defaultModels.map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.subtitle,
+                    descriptionRes = it.descriptionRes,
+                    isSelected = it.id == selectedModelId,
+                )
+            },
+        )
+    }
+
+    override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
+        appSettings.setInstanceModelId(instanceId, modelId)
+        modelsByInstance[instanceId]?.update { models ->
+            models.map { it.copy(isSelected = it.id == modelId) }
         }
     }
 
-    override fun updateBaseUrl(service: Service, baseUrl: String) {
-        appSettings.setBaseUrl(service, baseUrl)
+    override fun clearInstanceModels(instanceId: String, service: Service) {
+        modelsByInstance[instanceId]?.update { emptyList() }
     }
 
-    override fun getBaseUrl(service: Service): String = appSettings.getBaseUrl(service)
-
-    override fun getModels(service: Service): StateFlow<List<SettingsModel>> = modelsByService[service] ?: MutableStateFlow(emptyList())
-
-    override fun clearModels(service: Service) {
-        modelsByService[service]?.update { emptyList() }
-    }
-
-    override suspend fun fetchModels(service: Service) {
-        when (service) {
-            Service.Gemini -> fetchGeminiModels()
-            Service.Free -> { /* No model listing */ }
-            else -> fetchOpenAICompatibleModels(service)
-        }
-    }
-
-    override suspend fun validateConnection(service: Service) {
+    override suspend fun validateConnection(service: Service, instanceId: String) {
+        val creds = instanceCredentials(instanceId, service)
         when (service) {
             Service.Free -> { /* Always valid */ }
 
             Service.OpenRouter -> {
-                requests.validateOpenRouterApiKey().getOrThrow()
-                fetchModels(service)
+                requests.validateOpenRouterApiKey(creds).getOrThrow()
+                fetchInstanceModels(service, instanceId)
             }
 
-            else -> fetchModels(service)
+            else -> fetchInstanceModels(service, instanceId)
         }
     }
 
-    private suspend fun fetchGeminiModels() {
-        val response = requests.getGeminiModels().getOrThrow()
-        val selectedModelId = appSettings.getSelectedModelId(Service.Gemini)
+    private suspend fun fetchInstanceModels(service: Service, instanceId: String) {
+        when (service) {
+            Service.Gemini -> fetchGeminiModelsForInstance(instanceId)
+            Service.Free -> { /* No model listing */ }
+            else -> fetchOpenAICompatibleModelsForInstance(service, instanceId)
+        }
+    }
+
+    private suspend fun fetchGeminiModelsForInstance(instanceId: String) {
+        val creds = instanceCredentials(instanceId, Service.Gemini)
+        val response = requests.getGeminiModels(creds).getOrThrow()
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
         val models = response.models
             .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
             .map {
-                // Convert "models/gemini-1.5-pro" to "gemini-1.5-pro"
                 val modelId = it.name.removePrefix("models/")
                 SettingsModel(
                     id = modelId,
@@ -212,18 +273,18 @@ class RemoteDataRepository(
                 )
             }
             .sortedWith(geminiModelComparator)
-        modelsByService[Service.Gemini]?.update { models }
-        // Auto-select first model if none selected or selected model not in list
-        // The list is already sorted with the best models at the top
+        val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
+        flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
-            appSettings.setSelectedModelId(Service.Gemini, models.first().id)
-            updateModelsSelection(Service.Gemini)
+            appSettings.setInstanceModelId(instanceId, models.first().id)
+            flow.update { m -> m.map { it.copy(isSelected = it.id == models.first().id) } }
         }
     }
 
-    private suspend fun fetchOpenAICompatibleModels(service: Service) {
-        val response = requests.getOpenAICompatibleModels(service).getOrThrow()
-        val selectedModelId = appSettings.getSelectedModelId(service)
+    private suspend fun fetchOpenAICompatibleModelsForInstance(service: Service, instanceId: String) {
+        val creds = instanceCredentials(instanceId, service)
+        val response = requests.getOpenAICompatibleModels(service, creds).getOrThrow()
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
         val activeFiltered = if (service.filterActiveStrictly) {
             response.data.filter { it.isActive == true }
         } else {
@@ -248,30 +309,67 @@ class RemoteDataRepository(
                 isSelected = it.id == selectedModelId,
             )
         }
-        modelsByService[service]?.update { models }
-        // Auto-select first model if none selected or selected model not in list
+        val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
+        flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
-            appSettings.setSelectedModelId(service, models.first().id)
-            updateModelsSelection(service)
+            appSettings.setInstanceModelId(instanceId, models.first().id)
+            flow.update { m -> m.map { it.copy(isSelected = it.id == models.first().id) } }
         }
     }
 
-    private fun List<ModelDefinition>.toSettingsModels(service: Service): List<SettingsModel> {
-        val selectedModelId = appSettings.getSelectedModelId(service)
-        return map {
-            SettingsModel(
-                id = it.id,
-                subtitle = it.subtitle,
-                descriptionRes = it.descriptionRes,
-                isSelected = it.id == selectedModelId,
-            )
+    private suspend fun askWithService(
+        service: Service,
+        messages: List<History>,
+        systemPrompt: String?,
+        instanceId: String,
+    ): String {
+        val creds = instanceCredentials(instanceId, service)
+        val tools = if (supportsTools(creds.modelId)) getAvailableTools() else emptyList()
+
+        return when (service) {
+            Service.Gemini -> {
+                if (tools.isNotEmpty()) {
+                    handleGeminiChatWithTools(creds, messages, tools, systemPrompt)
+                } else {
+                    val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                    val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
+                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
+                        part.text ?: ""
+                    } ?: ""
+                }
+            }
+
+            else -> {
+                if (tools.isNotEmpty()) {
+                    handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt)
+                } else {
+                    val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
+                    val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
+                    response.choices.firstOrNull()?.message?.content ?: throw OpenAICompatibleEmptyResponseException()
+                }
+            }
         }
     }
 
-    private fun updateModelsSelection(service: Service) {
-        val selectedModelId = appSettings.getSelectedModelId(service)
-        modelsByService[service]?.update { models ->
-            models.map { it.copy(isSelected = it.id == selectedModelId) }
+    private fun hasValidInstanceApiKey(instanceId: String, service: Service): Boolean {
+        if (service == Service.Free) return true
+        if (!service.requiresApiKey && !service.supportsOptionalApiKey) return true
+        if (service.requiresApiKey) return appSettings.getInstanceApiKey(instanceId).isNotBlank()
+        return true // Optional API key services are always valid
+    }
+
+    private data class FallbackEntry(val instanceId: String, val service: Service)
+
+    private fun getOrderedFallbackEntries(): List<FallbackEntry> {
+        val instances = getConfiguredServiceInstances()
+        val entries = instances.map { FallbackEntry(instanceId = it.instanceId, service = Service.fromId(it.serviceId)) }
+            .filter { it.service != Service.Free }
+        return if (entries.isEmpty()) {
+            listOf(FallbackEntry(instanceId = "free", service = Service.Free))
+        } else if (appSettings.isFreeFallbackEnabled()) {
+            entries + FallbackEntry(instanceId = "free", service = Service.Free)
+        } else {
+            entries
         }
     }
 
@@ -299,50 +397,43 @@ class RemoteDataRepository(
                 }
             }
         }
-        val service = currentService()
-        val messages = chatHistory.value
-        val modelId = appSettings.getSelectedModelId(service)
-        val tools = if (supportsTools(modelId)) getAvailableTools() else emptyList()
 
+        val messages = chatHistory.value
         val systemPrompt = getActiveSystemPrompt()
 
-        val responseText = when (service) {
-            Service.Gemini -> {
-                if (tools.isNotEmpty()) {
-                    handleGeminiChatWithTools(messages, tools, systemPrompt)
-                } else {
-                    val geminiMessages = messages.map { it.toGeminiMessageDto() }
-                    val response = requests.geminiChat(geminiMessages, systemInstruction = systemPrompt).getOrThrow()
-                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                        part.text ?: ""
-                    } ?: ""
-                }
-            }
+        val fallbackEntries = getOrderedFallbackEntries().filter { hasValidInstanceApiKey(it.instanceId, it.service) }
 
-            else -> {
-                // All OpenAI-compatible services (Free, Groq, XAI, OpenRouter, Nvidia, OpenAICompatible)
-                if (tools.isNotEmpty()) {
-                    handleOpenAICompatibleChatWithTools(service, messages, tools, systemPrompt)
-                } else {
-                    val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
-                    val response = requests.openAICompatibleChat(service, openAIMessages).getOrThrow()
-                    response.choices.firstOrNull()?.message?.content ?: throw OpenAICompatibleEmptyResponseException()
+        var lastException: Exception? = null
+        var fallbackServiceName: String? = null
+
+        for ((index, entry) in fallbackEntries.withIndex()) {
+            try {
+                val responseText = retryApiCall {
+                    askWithService(entry.service, messages, systemPrompt, entry.instanceId)
                 }
+                if (index > 0) {
+                    fallbackServiceName = entry.service.displayName
+                }
+                chatHistory.update {
+                    it.toMutableList().apply {
+                        add(History(role = History.Role.ASSISTANT, content = responseText, fallbackServiceName = fallbackServiceName))
+                    }
+                }
+                saveCurrentConversation()
+                return
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                lastException = e
+                // Try next service
             }
         }
 
-        chatHistory.update {
-            it.toMutableList().apply {
-                add(History(role = History.Role.ASSISTANT, content = responseText))
-            }
-        }
-
-        // Auto-save conversation after each message
-        saveCurrentConversation()
+        throw lastException ?: OpenAICompatibleEmptyResponseException()
     }
 
     private suspend fun handleOpenAICompatibleChatWithTools(
         service: Service,
+        credentials: ServiceCredentials,
         messages: List<History>,
         tools: List<Tool>,
         systemPrompt: String? = null,
@@ -363,11 +454,11 @@ class RemoteDataRepository(
 
             // Bail out if too many iterations
             if (iteration > MAX_TOOL_ITERATIONS) {
-                return makeFinalCallWithoutTools(service, currentMessages)
+                return makeFinalCallWithoutTools(service, credentials, currentMessages)
             }
 
             val response = retryApiCall {
-                requests.openAICompatibleChat(service, currentMessages, tools).getOrThrow()
+                requests.openAICompatibleChat(service, credentials, currentMessages, tools).getOrThrow()
             }
             val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
 
@@ -380,7 +471,7 @@ class RemoteDataRepository(
             // Check for repetition
             val signatures = toolCalls.map { "${it.function.name}:${it.function.arguments.hashCode()}" }
             if (isRepeatingToolCalls(recentSignatures, signatures)) {
-                return makeFinalCallWithoutTools(service, currentMessages)
+                return makeFinalCallWithoutTools(service, credentials, currentMessages)
             }
             recentSignatures.addAll(signatures)
 
@@ -432,7 +523,7 @@ class RemoteDataRepository(
         }
     }
 
-    private suspend fun handleGeminiChatWithTools(messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
+    private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
 
@@ -446,6 +537,7 @@ class RemoteDataRepository(
                 val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
                 val bailoutResponse = retryApiCall {
                     requests.geminiChat(
+                        credentials = credentials,
                         messages = geminiMessages,
                         systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
                     ).getOrThrow()
@@ -457,7 +549,7 @@ class RemoteDataRepository(
             val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
 
             val response = retryApiCall {
-                requests.geminiChat(messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
+                requests.geminiChat(credentials = credentials, messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
             }
             val parts = response.candidates.firstOrNull()?.content?.parts ?: return ""
 
@@ -491,6 +583,7 @@ class RemoteDataRepository(
                 val bailoutMessages = currentMessages.map { it.toGeminiMessageDto() }
                 val bailoutResponse = retryApiCall {
                     requests.geminiChat(
+                        credentials = credentials,
                         messages = bailoutMessages,
                         systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
                     ).getOrThrow()
@@ -588,6 +681,7 @@ class RemoteDataRepository(
      */
     private suspend fun makeFinalCallWithoutTools(
         service: Service,
+        credentials: ServiceCredentials,
         messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
     ): String {
         val bailoutMessages = messages.toMutableList().apply {
@@ -599,7 +693,7 @@ class RemoteDataRepository(
             )
         }
         val response = retryApiCall {
-            requests.openAICompatibleChat(service, bailoutMessages).getOrThrow()
+            requests.openAICompatibleChat(service, credentials, bailoutMessages).getOrThrow()
         }
         return response.choices.firstOrNull()?.message?.content ?: ""
     }
@@ -784,7 +878,10 @@ class RemoteDataRepository(
         return supportsImageAttachment(modelId)
     }
 
-    override fun currentService(): Service = appSettings.currentService()
+    override fun currentService(): Service {
+        val instances = getConfiguredServiceInstances()
+        return instances.firstOrNull()?.let { Service.fromId(it.serviceId) } ?: Service.Free
+    }
 
     // Conversation management
     override suspend fun loadConversations() {
@@ -827,18 +924,15 @@ class RemoteDataRepository(
     }
 
     override suspend fun restoreLatestConversation() {
-        val service = currentService()
-
         // Already have a loaded conversation with messages — nothing to do
         val currentId = _currentConversationId.value
         if (currentId != null && chatHistory.value.isNotEmpty() &&
-            savedConversations.value.any { it.id == currentId && it.serviceId == service.id }
+            savedConversations.value.any { it.id == currentId }
         ) {
             return
         }
 
         val latest = savedConversations.value
-            .filter { it.serviceId == service.id }
             .maxByOrNull { it.updatedAt }
             ?: return
 
@@ -991,14 +1085,15 @@ class RemoteDataRepository(
 
     override suspend fun askSilently(question: String): String {
         val service = currentService()
+        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val creds = instanceCredentials(firstInstance.instanceId, service)
         val messages = chatHistory.value + History(role = History.Role.USER, content = question)
-        val modelId = appSettings.getSelectedModelId(service)
         val systemPrompt = getActiveSystemPrompt()
 
         val responseText = when (service) {
             Service.Gemini -> {
                 val geminiMessages = messages.map { it.toGeminiMessageDto() }
-                val response = requests.geminiChat(geminiMessages, systemInstruction = systemPrompt).getOrThrow()
+                val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
                 response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
                     part.text ?: ""
                 } ?: ""
@@ -1006,7 +1101,7 @@ class RemoteDataRepository(
 
             else -> {
                 val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
-                val response = requests.openAICompatibleChat(service, openAIMessages).getOrThrow()
+                val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.content ?: ""
             }
         }

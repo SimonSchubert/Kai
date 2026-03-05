@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Sprawdzaj co %1$d minut</string>
     <string name="settings_email_poll_never">Nigdy</string>
     <string name="settings_email_poll_never_description">Tylko ręcznie — użyj „sprawdź mój e-mail" na czacie</string>
+    <string name="settings_connect_server">Połącz usługę</string>
+    <string name="settings_free_fallback">Użyj jako zapasowy</string>
+    <string name="settings_heartbeat">Puls</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] To jest automatyczna samokontrola. Przejrzyj swoje wspomnienia i oczekujące zadania. Jeśli wszystko wygląda dobrze i nic nie wymaga uwagi, odpowiedz dokładnie: HEARTBEAT_OK
+Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze działania użytkownika), zajmij się tym.</string>
+    <string name="settings_heartbeat_description">Okresowe samokontrole pozwalające AI przeglądać wspomnienia i zadania bez udziału użytkownika. Uruchamiane co %1$d minut w aktywnych godzinach.</string>
+    <string name="settings_heartbeat_prompt_label">Prompt pulsu</string>
+    <string name="settings_heartbeat_recent">Ostatnia aktywność</string>
+    <string name="settings_move_down">Przenieś w dół</string>
+    <string name="settings_move_up">Przenieś w górę</string>
+    <string name="settings_remove_service">Usuń</string>
+    <string name="tool_configure_heartbeat_description">Skonfiguruj zachowanie okresowej samokontroli</string>
+    <string name="tool_configure_heartbeat_name">Skonfiguruj puls</string>
+    <string name="tool_memory_learn_description">Zapisz skategoryzowaną naukę, rozwiązanie błędu lub preferencję</string>
+    <string name="tool_memory_learn_name">Ucz pamięć</string>
+    <string name="tool_memory_reinforce_description">Wzmocnij wspomnienie, które przyniosło dobry wynik</string>
+    <string name="tool_memory_reinforce_name">Wzmocnij pamięć</string>
+    <string name="tool_promote_learning_description">Promuj wzmocnioną naukę do promptu systemowego</string>
+    <string name="tool_promote_learning_name">Promuj naukę</string>
+    <string name="tool_trigger_heartbeat_description">Wyzwól puls w następnym cyklu</string>
+    <string name="tool_trigger_heartbeat_name">Wyzwól puls</string>
+    <string name="tool_web_search_description">Przeszukaj internet w poszukiwaniu aktualnych informacji</string>
+    <string name="tool_web_search_name">Wyszukiwanie w sieci</string>
 </resources>

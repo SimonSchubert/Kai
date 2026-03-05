@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Vérifier toutes les %1$d minutes</string>
     <string name="settings_email_poll_never">Jamais</string>
     <string name="settings_email_poll_never_description">Manuel uniquement — utilisez « vérifie mes e-mails » dans le chat</string>
+    <string name="settings_connect_server">Connecter le Service</string>
+    <string name="settings_free_fallback">Utiliser comme secours</string>
+    <string name="settings_heartbeat">Battement de cœur</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ceci est une vérification automatique. Passez en revue vos souvenirs et tâches en attente. Si tout semble correct et rien ne nécessite d'attention, répondez exactement : HEARTBEAT_OK
+Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échues, suivis utilisateur), traitez-le.</string>
+    <string name="settings_heartbeat_description">Vérifications périodiques permettant à l'IA de revoir les souvenirs et les tâches sans intervention de l'utilisateur. S'exécute toutes les %1$d minutes pendant les heures actives.</string>
+    <string name="settings_heartbeat_prompt_label">Prompt de battement</string>
+    <string name="settings_heartbeat_recent">Activité Récente</string>
+    <string name="settings_move_down">Déplacer vers le bas</string>
+    <string name="settings_move_up">Déplacer vers le haut</string>
+    <string name="settings_remove_service">Supprimer</string>
+    <string name="tool_configure_heartbeat_description">Configurer le comportement de vérification périodique</string>
+    <string name="tool_configure_heartbeat_name">Configurer le battement</string>
+    <string name="tool_memory_learn_description">Stocker un apprentissage catégorisé, une résolution d'erreur ou une préférence</string>
+    <string name="tool_memory_learn_name">Apprendre Mémoire</string>
+    <string name="tool_memory_reinforce_description">Renforcer un souvenir qui a produit un bon résultat</string>
+    <string name="tool_memory_reinforce_name">Renforcer Mémoire</string>
+    <string name="tool_promote_learning_description">Promouvoir un apprentissage renforcé vers le prompt système</string>
+    <string name="tool_promote_learning_name">Promouvoir Apprentissage</string>
+    <string name="tool_trigger_heartbeat_description">Déclencher un battement au prochain cycle</string>
+    <string name="tool_trigger_heartbeat_name">Déclencher le battement</string>
+    <string name="tool_web_search_description">Rechercher sur le web des informations actuelles</string>
+    <string name="tool_web_search_name">Recherche Web</string>
 </resources>

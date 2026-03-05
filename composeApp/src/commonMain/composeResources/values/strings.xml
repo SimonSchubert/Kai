@@ -135,6 +135,11 @@
     <string name="settings_email_poll_interval">Poll every %1$d minutes</string>
     <string name="settings_email_poll_never">Never</string>
     <string name="settings_email_poll_never_description">Manual only — use "check my email" in chat</string>
+    <string name="settings_connect_server">Connect Service</string>
+    <string name="settings_remove_service">Remove</string>
+    <string name="settings_move_up">Move up</string>
+    <string name="settings_move_down">Move down</string>
+    <string name="settings_free_fallback">Use as fallback</string>
     <string name="settings_soul">Soul</string>
     <string name="settings_soul_description">Define how the AI behaves with a system prompt. The AI will also have access to its stored memories.</string>
     <string name="settings_soul_save">Save</string>

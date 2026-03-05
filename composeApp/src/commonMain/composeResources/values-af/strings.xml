@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Peul elke %1$d minute</string>
     <string name="settings_email_poll_never">Nooit</string>
     <string name="settings_email_poll_never_description">Slegs handmatig — gebruik "kontroleer my e-pos" in die klets</string>
+    <string name="settings_connect_server">Koppel Diens</string>
+    <string name="settings_free_fallback">Gebruik as terugval</string>
+    <string name="settings_heartbeat">Hartklop</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dit is 'n outomatiese selfkontrole. Hersien jou herinneringe en hangende take. As alles goed lyk en niks aandag nodig het nie, antwoord met presies: HEARTBEAT_OK
+As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-opvolgings), spreek dit aan.</string>
+    <string name="settings_heartbeat_description">Periodieke selfkontroles wat die KI toelaat om herinneringe en take te hersien sonder gebruikerinvoer. Loop elke %1$d minute tydens aktiewe ure.</string>
+    <string name="settings_heartbeat_prompt_label">Hartklop-opdrag</string>
+    <string name="settings_heartbeat_recent">Onlangse Aktiwiteit</string>
+    <string name="settings_move_down">Skuif af</string>
+    <string name="settings_move_up">Skuif op</string>
+    <string name="settings_remove_service">Verwyder</string>
+    <string name="tool_configure_heartbeat_description">Stel periodieke selfkontrole-gedrag op</string>
+    <string name="tool_configure_heartbeat_name">Stel Hartklop Op</string>
+    <string name="tool_memory_learn_description">Stoor 'n gekategoriseerde leerervaring, foutoplossing of voorkeur</string>
+    <string name="tool_memory_learn_name">Leer Geheue</string>
+    <string name="tool_memory_reinforce_description">Versterk 'n herinnering wat 'n goeie uitkoms gelewer het</string>
+    <string name="tool_memory_reinforce_name">Versterk Geheue</string>
+    <string name="tool_promote_learning_description">Bevorder 'n versterkte leerervaring na die stelselprompt</string>
+    <string name="tool_promote_learning_name">Bevorder Leerervaring</string>
+    <string name="tool_trigger_heartbeat_description">Aktiveer 'n hartklop op die volgende siklus</string>
+    <string name="tool_trigger_heartbeat_name">Aktiveer Hartklop</string>
+    <string name="tool_web_search_description">Soek die web vir huidige inligting</string>
+    <string name="tool_web_search_name">Websoektog</string>
 </resources>

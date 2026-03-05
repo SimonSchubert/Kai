@@ -10,16 +10,24 @@ interface DataRepository {
     val chatHistory: StateFlow<List<History>>
     val currentConversationId: StateFlow<String?>
 
-    fun selectService(service: Service)
-    fun updateApiKey(service: Service, apiKey: String)
-    fun getApiKey(service: Service): String
-    fun updateSelectedModel(service: Service, modelId: String)
-    fun getModels(service: Service): StateFlow<List<SettingsModel>>
-    fun clearModels(service: Service)
-    suspend fun fetchModels(service: Service)
-    suspend fun validateConnection(service: Service)
-    fun updateBaseUrl(service: Service, baseUrl: String)
-    fun getBaseUrl(service: Service): String
+    // Configured services management
+    fun getConfiguredServiceInstances(): List<ServiceInstance>
+    fun addConfiguredService(serviceId: String): ServiceInstance
+    fun removeConfiguredService(instanceId: String)
+    fun reorderConfiguredServices(orderedInstanceIds: List<String>)
+    fun getOrderedServicesForFallback(): List<Service>
+    fun isFreeFallbackEnabled(): Boolean
+    fun setFreeFallbackEnabled(enabled: Boolean)
+
+    // Per-instance settings
+    fun getInstanceApiKey(instanceId: String): String
+    fun updateInstanceApiKey(instanceId: String, apiKey: String)
+    fun getInstanceBaseUrl(instanceId: String, service: Service): String
+    fun updateInstanceBaseUrl(instanceId: String, baseUrl: String)
+    fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>>
+    fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String)
+    fun clearInstanceModels(instanceId: String, service: Service)
+    suspend fun validateConnection(service: Service, instanceId: String)
 
     suspend fun ask(question: String?, file: PlatformFile?)
     fun clearHistory()

@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Hämta var %1$d:e minut</string>
     <string name="settings_email_poll_never">Aldrig</string>
     <string name="settings_email_poll_never_description">Endast manuellt — använd "kontrollera min e-post" i chatten</string>
+    <string name="settings_connect_server">Anslut tjänst</string>
+    <string name="settings_free_fallback">Använd som reserv</string>
+    <string name="settings_heartbeat">Hjärtslag</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Detta är en automatisk självkontroll. Granska dina minnen och väntande uppgifter. Om allt ser bra ut och inget behöver uppmärksamhet, svara exakt: HEARTBEAT_OK
+Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, användaruppföljningar), åtgärda det.</string>
+    <string name="settings_heartbeat_description">Periodiska självkontroller som låter AI granska minnen och uppgifter utan användarinmatning. Körs var %1$d minut under aktiva timmar.</string>
+    <string name="settings_heartbeat_prompt_label">Hjärtslagsprompt</string>
+    <string name="settings_heartbeat_recent">Senaste aktivitet</string>
+    <string name="settings_move_down">Flytta ner</string>
+    <string name="settings_move_up">Flytta upp</string>
+    <string name="settings_remove_service">Ta bort</string>
+    <string name="tool_configure_heartbeat_description">Konfigurera periodiskt självkontrollbeteende</string>
+    <string name="tool_configure_heartbeat_name">Konfigurera hjärtslag</string>
+    <string name="tool_memory_learn_description">Lagra en kategoriserad lärdom, fellösning eller preferens</string>
+    <string name="tool_memory_learn_name">Lär minne</string>
+    <string name="tool_memory_reinforce_description">Förstärk ett minne som gav ett bra resultat</string>
+    <string name="tool_memory_reinforce_name">Förstärk minne</string>
+    <string name="tool_promote_learning_description">Befordra en förstärkt lärdom till systemprompten</string>
+    <string name="tool_promote_learning_name">Befordra lärdom</string>
+    <string name="tool_trigger_heartbeat_description">Utlös ett hjärtslag i nästa cykel</string>
+    <string name="tool_trigger_heartbeat_name">Utlös hjärtslag</string>
+    <string name="tool_web_search_description">Sök på webben efter aktuell information</string>
+    <string name="tool_web_search_name">Webbsökning</string>
 </resources>

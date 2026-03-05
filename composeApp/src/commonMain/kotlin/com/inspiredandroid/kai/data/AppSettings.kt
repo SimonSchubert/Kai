@@ -1,8 +1,19 @@
 package com.inspiredandroid.kai.data
 
 import com.russhwolf.settings.Settings
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+
+data class ServiceInstance(
+    val instanceId: String,
+    val serviceId: String,
+)
 
 class AppSettings(private val settings: Settings) {
 
@@ -48,6 +59,139 @@ class AppSettings(private val settings: Settings) {
         if (service == Service.OpenAICompatible) {
             settings.putString(service.baseUrlKey, baseUrl)
         }
+    }
+
+    // Configured services (ordered list of service instances)
+    fun getConfiguredServiceInstances(): List<ServiceInstance> {
+        val json = settings.getString(KEY_CONFIGURED_SERVICES, "")
+        if (json.isBlank()) return emptyList()
+        return try {
+            val array = Json.parseToJsonElement(json).jsonArray
+            array.map { element ->
+                if (element is kotlinx.serialization.json.JsonObject) {
+                    // New format: {"instanceId":"openai","serviceId":"openai"}
+                    ServiceInstance(
+                        instanceId = element["instanceId"]?.jsonPrimitive?.content ?: "",
+                        serviceId = element["serviceId"]?.jsonPrimitive?.content ?: "",
+                    )
+                } else {
+                    // Legacy format: plain string "openai" — instanceId == serviceId
+                    val id = element.jsonPrimitive.content
+                    ServiceInstance(instanceId = id, serviceId = id)
+                }
+            }.filter { it.instanceId.isNotBlank() && it.serviceId.isNotBlank() }
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    fun setConfiguredServiceInstances(instances: List<ServiceInstance>) {
+        val jsonArray = kotlinx.serialization.json.JsonArray(
+            instances.map { instance ->
+                JsonObject(
+                    mapOf(
+                        "instanceId" to JsonPrimitive(instance.instanceId),
+                        "serviceId" to JsonPrimitive(instance.serviceId),
+                    ),
+                )
+            },
+        )
+        settings.putString(KEY_CONFIGURED_SERVICES, jsonArray.toString())
+    }
+
+    fun migrateConfiguredServicesIfNeeded() {
+        val existing = getConfiguredServiceInstances()
+        val existingServiceIds = existing.map { it.serviceId }.toSet()
+        val instances = existing.toMutableList()
+
+        // Add the current service if not already present
+        val currentServiceId = settings.getString(KEY_CURRENT_SERVICE_ID, Service.Free.id)
+        val currentService = Service.fromId(currentServiceId)
+        if (currentService != Service.Free && currentService.id !in existingServiceIds) {
+            instances.add(ServiceInstance(instanceId = currentService.id, serviceId = currentService.id))
+        }
+
+        // Also add any service that has a legacy API key configured
+        for (service in Service.all) {
+            if (service == Service.Free) continue
+            if (service.id in existingServiceIds) continue
+            if (instances.any { it.serviceId == service.id }) continue
+            val apiKey = getApiKey(service)
+            if (apiKey.isNotBlank()) {
+                instances.add(ServiceInstance(instanceId = service.id, serviceId = service.id))
+            }
+        }
+
+        if (instances.size > existing.size) {
+            setConfiguredServiceInstances(instances)
+        }
+    }
+
+    // Per-instance settings (API key, model, base URL)
+    fun getInstanceApiKey(instanceId: String): String = settings.getString("instance_${instanceId}_api_key", "")
+
+    fun setInstanceApiKey(instanceId: String, apiKey: String) {
+        settings.putString("instance_${instanceId}_api_key", apiKey)
+    }
+
+    fun getInstanceModelId(instanceId: String): String = settings.getString("instance_${instanceId}_model_id", "")
+
+    fun setInstanceModelId(instanceId: String, modelId: String) {
+        settings.putString("instance_${instanceId}_model_id", modelId)
+    }
+
+    fun getInstanceBaseUrl(instanceId: String): String = settings.getString("instance_${instanceId}_base_url", "")
+
+    fun setInstanceBaseUrl(instanceId: String, baseUrl: String) {
+        settings.putString("instance_${instanceId}_base_url", baseUrl)
+    }
+
+    fun removeInstanceSettings(instanceId: String) {
+        settings.remove("instance_${instanceId}_api_key")
+        settings.remove("instance_${instanceId}_model_id")
+        settings.remove("instance_${instanceId}_base_url")
+    }
+
+    /**
+     * Migrate per-service settings to per-instance settings.
+     * For existing users, the first instance of each service type uses the service's
+     * legacy key prefix. This copies those values to the new instance_ keys.
+     * Runs every time (idempotent) to catch instances added by repair migrations.
+     */
+    fun migrateInstanceSettingsIfNeeded() {
+        val instances = getConfiguredServiceInstances()
+        for (instance in instances) {
+            val service = Service.fromId(instance.serviceId)
+            if (service == Service.Free) continue
+            // Copy legacy per-service API key to per-instance key
+            val legacyApiKey = getApiKey(service)
+            if (legacyApiKey.isNotBlank() && getInstanceApiKey(instance.instanceId).isBlank()) {
+                setInstanceApiKey(instance.instanceId, legacyApiKey)
+            }
+            // Copy legacy model
+            val legacyModel = getSelectedModelId(service)
+            if (legacyModel.isNotBlank() && getInstanceModelId(instance.instanceId).isBlank()) {
+                setInstanceModelId(instance.instanceId, legacyModel)
+            }
+            // Copy legacy base URL for OpenAI-Compatible
+            if (service == Service.OpenAICompatible) {
+                val legacyBaseUrl = getBaseUrl(service)
+                if (legacyBaseUrl.isNotBlank() && getInstanceBaseUrl(instance.instanceId).isBlank()) {
+                    setInstanceBaseUrl(instance.instanceId, legacyBaseUrl)
+                }
+            }
+        }
+    }
+
+    fun generateInstanceId(serviceId: String): String {
+        val existing = getConfiguredServiceInstances()
+        val existingIds = existing.map { it.instanceId }.toSet()
+        // First instance of a type: use serviceId directly
+        if (serviceId !in existingIds) return serviceId
+        // Subsequent: serviceId_2, serviceId_3, etc.
+        var counter = 2
+        while ("${serviceId}_$counter" in existingIds) counter++
+        return "${serviceId}_$counter"
     }
 
     // App open tracking
@@ -114,6 +258,13 @@ class AppSettings(private val settings: Settings) {
         if (legacy.hasKey(key) && !settings.hasKey(key)) {
             settings.putInt(key, legacy.getInt(key, 0))
         }
+    }
+
+    // Free fallback
+    fun isFreeFallbackEnabled(): Boolean = settings.getBoolean(KEY_FREE_FALLBACK_ENABLED, true)
+
+    fun setFreeFallbackEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, enabled)
     }
 
     // Soul (system prompt)
@@ -237,6 +388,8 @@ class AppSettings(private val settings: Settings) {
         const val KEY_EMAIL_PASSWORD_PREFIX = "email_password_"
         const val KEY_EMAIL_SYNC_PREFIX = "email_sync_"
         const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
+        const val KEY_CONFIGURED_SERVICES = "configured_services"
+        const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

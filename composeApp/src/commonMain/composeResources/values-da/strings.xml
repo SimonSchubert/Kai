@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Hent hvert %1$d. minut</string>
     <string name="settings_email_poll_never">Aldrig</string>
     <string name="settings_email_poll_never_description">Kun manuelt — brug "tjek min e-mail" i chatten</string>
+    <string name="settings_connect_server">Forbind tjeneste</string>
+    <string name="settings_free_fallback">Brug som reserve</string>
+    <string name="settings_heartbeat">Hjerteslag</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dette er et automatisk selvtjek. Gennemgå dine erindringer og ventende opgaver. Hvis alt ser godt ud og intet kræver opmærksomhed, svar præcist: HEARTBEAT_OK
+Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, brugeropfølgninger), tag dig af det.</string>
+    <string name="settings_heartbeat_description">Periodiske selvtjek der lader AI gennemgå erindringer og opgaver uden brugerinput. Kører hver %1$d minut i aktive timer.</string>
+    <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
+    <string name="settings_heartbeat_recent">Seneste aktivitet</string>
+    <string name="settings_move_down">Flyt ned</string>
+    <string name="settings_move_up">Flyt op</string>
+    <string name="settings_remove_service">Fjern</string>
+    <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvtjek-adfærd</string>
+    <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
+    <string name="tool_memory_learn_description">Gem en kategoriseret lærdom, fejlløsning eller præference</string>
+    <string name="tool_memory_learn_name">Lær hukommelse</string>
+    <string name="tool_memory_reinforce_description">Forstærk en erindring der gav et godt resultat</string>
+    <string name="tool_memory_reinforce_name">Forstærk hukommelse</string>
+    <string name="tool_promote_learning_description">Forfrem en forstærket lærdom til systemprompt</string>
+    <string name="tool_promote_learning_name">Forfrem lærdom</string>
+    <string name="tool_trigger_heartbeat_description">Udløs et hjerteslag i næste cyklus</string>
+    <string name="tool_trigger_heartbeat_name">Udløs hjerteslag</string>
+    <string name="tool_web_search_description">Søg på nettet efter aktuel information</string>
+    <string name="tool_web_search_name">Websøgning</string>
 </resources>

@@ -26,10 +26,12 @@ val appModule = module {
         val legacySettings = createLegacySettings()
         AppSettings(secureSettings).also {
             it.migrateFromLegacyIfNeeded(legacySettings)
+            it.migrateConfiguredServicesIfNeeded()
+            it.migrateInstanceSettingsIfNeeded()
         }
     }
     single<Requests> {
-        Requests(get())
+        Requests()
     }
     single<ConversationStorage> {
         ConversationStorage(get())

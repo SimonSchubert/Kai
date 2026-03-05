@@ -21,6 +21,8 @@ sealed class Service(
     val filterActiveStrictly: Boolean = false,
     val sortModelsById: Boolean = false,
     val includeModelDate: Boolean = true,
+    val apiKeyUrl: String? = null,
+    val apiKeyUrlDisplay: String? = null,
 ) {
     data object Free : Service(
         id = "free",
@@ -42,6 +44,8 @@ sealed class Service(
         chatUrl = "https://api.groq.com/openai/v1/chat/completions",
         modelsUrl = "https://api.groq.com/openai/v1/models",
         filterActiveStrictly = true,
+        apiKeyUrl = "https://console.groq.com/keys",
+        apiKeyUrlDisplay = "console.groq.com/keys",
     )
 
     data object XAI : Service(
@@ -53,6 +57,8 @@ sealed class Service(
         defaultModels = emptyList(),
         chatUrl = "https://api.x.ai/v1/chat/completions",
         modelsUrl = "https://api.x.ai/v1/models",
+        apiKeyUrl = "https://console.x.ai",
+        apiKeyUrlDisplay = "console.x.ai",
     )
 
     data object OpenRouter : Service(
@@ -64,6 +70,8 @@ sealed class Service(
         defaultModels = emptyList(),
         chatUrl = "https://openrouter.ai/api/v1/chat/completions",
         modelsUrl = "https://openrouter.ai/api/v1/models",
+        apiKeyUrl = "https://openrouter.ai/settings/keys",
+        apiKeyUrlDisplay = "openrouter.ai/settings/keys",
     )
 
     data object Nvidia : Service(
@@ -77,6 +85,8 @@ sealed class Service(
         modelsUrl = "https://integrate.api.nvidia.com/v1/models",
         sortModelsById = true,
         includeModelDate = false,
+        apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
+        apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
     )
 
     data object Gemini : Service(
@@ -88,6 +98,8 @@ sealed class Service(
         chatUrl = "https://generativelanguage.googleapis.com/v1beta/models/",
         modelsUrl = null,
         defaultModels = emptyList(),
+        apiKeyUrl = "https://aistudio.google.com/apikey",
+        apiKeyUrlDisplay = "aistudio.google.com/apikey",
     )
 
     data object OpenAI : Service(
@@ -98,6 +110,8 @@ sealed class Service(
         settingsKeyPrefix = "openai",
         chatUrl = "https://api.openai.com/v1/chat/completions",
         modelsUrl = "https://api.openai.com/v1/models",
+        apiKeyUrl = "https://platform.openai.com/api-keys",
+        apiKeyUrlDisplay = "platform.openai.com/api-keys",
     )
 
     data object DeepSeek : Service(
@@ -108,6 +122,8 @@ sealed class Service(
         settingsKeyPrefix = "deepseek",
         chatUrl = "https://api.deepseek.com/chat/completions",
         modelsUrl = "https://api.deepseek.com/models",
+        apiKeyUrl = "https://platform.deepseek.com/api_keys",
+        apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
     )
 
     data object Mistral : Service(
@@ -118,6 +134,8 @@ sealed class Service(
         settingsKeyPrefix = "mistral",
         chatUrl = "https://api.mistral.ai/v1/chat/completions",
         modelsUrl = "https://api.mistral.ai/v1/models",
+        apiKeyUrl = "https://console.mistral.ai/api-keys",
+        apiKeyUrlDisplay = "console.mistral.ai/api-keys",
     )
 
     data object OpenAICompatible : Service(

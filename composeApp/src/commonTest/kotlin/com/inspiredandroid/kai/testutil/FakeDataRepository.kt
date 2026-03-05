@@ -7,7 +7,7 @@ import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
-import com.inspiredandroid.kai.data.TaskStatus
+import com.inspiredandroid.kai.data.ServiceInstance
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.ui.chat.History
@@ -20,18 +20,10 @@ import kotlinx.coroutines.flow.update
 class FakeDataRepository : DataRepository {
 
     private var currentService: Service = Service.Free
-    private val apiKeys = mutableMapOf<Service, String>()
-    private val baseUrls = mutableMapOf<Service, String>()
-    private val modelsByService: Map<Service, MutableStateFlow<List<SettingsModel>>> =
-        Service.all.associateWith { MutableStateFlow(emptyList()) }
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
     override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    val selectServiceCalls = mutableListOf<Service>()
-    val updateApiKeyCalls = mutableListOf<Pair<Service, String>>()
-    val updateSelectedModelCalls = mutableListOf<Pair<Service, String>>()
-    val fetchModelsCalls = mutableListOf<Service>()
     val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
     var clearHistoryCalls = 0
     var askException: Exception? = null
@@ -40,52 +32,114 @@ class FakeDataRepository : DataRepository {
         currentService = service
     }
 
-    fun setApiKey(service: Service, apiKey: String) {
-        apiKeys[service] = apiKey
+    // Configured services management (instance-based)
+    private val configuredInstances = mutableListOf<ServiceInstance>()
+    private val instanceApiKeys = mutableMapOf<String, String>()
+    private val instanceBaseUrls = mutableMapOf<String, String>()
+    private val instanceModels = mutableMapOf<String, MutableStateFlow<List<SettingsModel>>>()
+    private var instanceCounter = 0
+
+    override fun getConfiguredServiceInstances(): List<ServiceInstance> = configuredInstances.toList()
+
+    override fun addConfiguredService(serviceId: String): ServiceInstance {
+        val existingIds = configuredInstances.map { it.instanceId }.toSet()
+        val instanceId = if (serviceId !in existingIds) {
+            serviceId
+        } else {
+            var counter = 2
+            while ("${serviceId}_$counter" in existingIds) counter++
+            "${serviceId}_$counter"
+        }
+        val instance = ServiceInstance(instanceId = instanceId, serviceId = serviceId)
+        configuredInstances.add(instance)
+        return instance
     }
 
-    fun setModels(service: Service, models: List<SettingsModel>) {
-        modelsByService[service]?.value = models
+    override fun removeConfiguredService(instanceId: String) {
+        configuredInstances.removeAll { it.instanceId == instanceId }
+        instanceApiKeys.remove(instanceId)
+        instanceBaseUrls.remove(instanceId)
+        instanceModels.remove(instanceId)
     }
 
-    override fun selectService(service: Service) {
-        selectServiceCalls.add(service)
-        currentService = service
+    override fun reorderConfiguredServices(orderedInstanceIds: List<String>) {
+        val byId = configuredInstances.associateBy { it.instanceId }
+        val reordered = orderedInstanceIds.mapNotNull { byId[it] }
+        configuredInstances.clear()
+        configuredInstances.addAll(reordered)
     }
 
-    override fun updateApiKey(service: Service, apiKey: String) {
-        updateApiKeyCalls.add(service to apiKey)
-        apiKeys[service] = apiKey
+    override fun getOrderedServicesForFallback(): List<Service> {
+        val services = configuredInstances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }
+        return if (services.isEmpty()) {
+            listOf(Service.Free)
+        } else if (freeFallbackEnabled) {
+            services + Service.Free
+        } else {
+            services
+        }
     }
 
-    override fun getApiKey(service: Service): String = apiKeys[service] ?: ""
+    private var freeFallbackEnabled = true
 
-    override fun updateSelectedModel(service: Service, modelId: String) {
-        updateSelectedModelCalls.add(service to modelId)
-        modelsByService[service]?.update { models ->
+    override fun isFreeFallbackEnabled(): Boolean = freeFallbackEnabled
+
+    override fun setFreeFallbackEnabled(enabled: Boolean) {
+        freeFallbackEnabled = enabled
+    }
+
+    // Per-instance settings
+    override fun getInstanceApiKey(instanceId: String): String = instanceApiKeys[instanceId] ?: ""
+
+    override fun updateInstanceApiKey(instanceId: String, apiKey: String) {
+        instanceApiKeys[instanceId] = apiKey
+    }
+
+    override fun getInstanceBaseUrl(instanceId: String, service: Service): String = instanceBaseUrls[instanceId] ?: if (service is Service.OpenAICompatible) Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL else ""
+
+    override fun updateInstanceBaseUrl(instanceId: String, baseUrl: String) {
+        instanceBaseUrls[instanceId] = baseUrl
+    }
+
+    override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
+
+    override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
+        instanceModels[instanceId]?.update { models ->
             models.map { it.copy(isSelected = it.id == modelId) }
         }
     }
 
-    override fun getModels(service: Service): StateFlow<List<SettingsModel>> = modelsByService[service] ?: MutableStateFlow(emptyList())
-
-    override fun clearModels(service: Service) {
-        modelsByService[service]?.value = emptyList()
+    override fun clearInstanceModels(instanceId: String, service: Service) {
+        instanceModels[instanceId]?.value = emptyList()
     }
 
-    override suspend fun fetchModels(service: Service) {
-        fetchModelsCalls.add(service)
-    }
-
-    override suspend fun validateConnection(service: Service) {
+    override suspend fun validateConnection(service: Service, instanceId: String) {
         // No-op in tests
     }
 
-    override fun updateBaseUrl(service: Service, baseUrl: String) {
-        baseUrls[service] = baseUrl
+    fun setConfiguredServices(vararg services: Service) {
+        configuredInstances.clear()
+        val usedIds = mutableSetOf<String>()
+        for (service in services) {
+            val instanceId = if (service.id !in usedIds) {
+                service.id
+            } else {
+                var counter = 2
+                while ("${service.id}_$counter" in usedIds) counter++
+                "${service.id}_$counter"
+            }
+            usedIds.add(instanceId)
+            configuredInstances.add(ServiceInstance(instanceId = instanceId, serviceId = service.id))
+        }
     }
 
-    override fun getBaseUrl(service: Service): String = baseUrls[service] ?: Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL
+    fun setInstanceApiKey(instanceId: String, apiKey: String) {
+        instanceApiKeys[instanceId] = apiKey
+    }
+
+    fun setInstanceModels(instanceId: String, models: List<SettingsModel>) {
+        instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }.value = models
+    }
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
         askCalls.add(question to file)

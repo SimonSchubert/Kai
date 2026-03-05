@@ -170,6 +170,14 @@ fun ChatScreenContent(
                                             },
                                             onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
                                         )
+                                        if (history.fallbackServiceName != null) {
+                                            androidx.compose.material3.Text(
+                                                text = "Answered by ${history.fallbackServiceName} (fallback)",
+                                                style = MaterialTheme.typography.labelSmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                                            )
+                                        }
                                     }
                                 }
 

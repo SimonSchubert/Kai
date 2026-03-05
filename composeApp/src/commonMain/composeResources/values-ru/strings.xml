@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Проверять каждые %1$d мин.</string>
     <string name="settings_email_poll_never">Никогда</string>
     <string name="settings_email_poll_never_description">Только вручную — напишите «проверить мою почту» в чате</string>
+    <string name="settings_connect_server">Подключить сервис</string>
+    <string name="settings_free_fallback">Использовать как запасной</string>
+    <string name="settings_heartbeat">Пульс</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Это автоматическая самопроверка. Просмотрите свои воспоминания и ожидающие задачи. Если всё в порядке и ничто не требует внимания, ответьте точно: HEARTBEAT_OK
+Если что-то требует внимания (устаревшие воспоминания, просроченные задачи, пользовательские запросы), займитесь этим.</string>
+    <string name="settings_heartbeat_description">Периодические самопроверки, позволяющие ИИ просматривать воспоминания и задачи без ввода пользователя. Запускается каждые %1$d минут в активные часы.</string>
+    <string name="settings_heartbeat_prompt_label">Промпт пульса</string>
+    <string name="settings_heartbeat_recent">Недавняя активность</string>
+    <string name="settings_move_down">Переместить вниз</string>
+    <string name="settings_move_up">Переместить вверх</string>
+    <string name="settings_remove_service">Удалить</string>
+    <string name="tool_configure_heartbeat_description">Настроить поведение периодической самопроверки</string>
+    <string name="tool_configure_heartbeat_name">Настроить пульс</string>
+    <string name="tool_memory_learn_description">Сохранить категоризированное знание, решение ошибки или предпочтение</string>
+    <string name="tool_memory_learn_name">Изучить память</string>
+    <string name="tool_memory_reinforce_description">Укрепить воспоминание, давшее хороший результат</string>
+    <string name="tool_memory_reinforce_name">Укрепить память</string>
+    <string name="tool_promote_learning_description">Продвинуть укреплённое знание в системный промпт</string>
+    <string name="tool_promote_learning_name">Продвинуть знание</string>
+    <string name="tool_trigger_heartbeat_description">Запустить пульс в следующем цикле</string>
+    <string name="tool_trigger_heartbeat_name">Запустить пульс</string>
+    <string name="tool_web_search_description">Искать в интернете актуальную информацию</string>
+    <string name="tool_web_search_name">Веб-поиск</string>
 </resources>

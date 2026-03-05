@@ -38,147 +38,126 @@ class SettingsViewModelTest {
     }
 
     @Test
-    fun `initial state reflects current service`() = runTest {
-        fakeRepository.setCurrentService(Service.Gemini)
+    fun `initial state has empty configured services when none configured`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val state = awaitItem()
+            assertTrue(state.configuredServices.isEmpty())
+        }
+    }
+
+    @Test
+    fun `initial state reflects configured services`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI)
 
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val state = awaitItem()
-            assertEquals(Service.Gemini, state.currentService)
+            assertEquals(2, state.configuredServices.size)
+            assertEquals(Service.Gemini, state.configuredServices[0].service)
+            assertEquals("gemini", state.configuredServices[0].instanceId)
+            assertEquals(Service.OpenAI, state.configuredServices[1].service)
+            assertEquals("openai", state.configuredServices[1].instanceId)
         }
     }
 
     @Test
-    fun `onSelectService updates current service`() = runTest {
-        fakeRepository.setCurrentService(Service.Free)
+    fun `onAddService adds a new configured service`() = runTest {
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
             val initialState = awaitItem()
-            assertEquals(Service.Free, initialState.currentService)
+            assertTrue(initialState.configuredServices.isEmpty())
 
-            initialState.onSelectService(Service.Groq)
+            initialState.onAddService(Service.Groq)
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updatedState = awaitItem()
-            assertEquals(Service.Groq, updatedState.currentService)
-            assertTrue(fakeRepository.selectServiceCalls.contains(Service.Groq))
-        }
-    }
-
-    @Test
-    fun `onSelectService updates API key for selected service`() = runTest {
-        fakeRepository.setCurrentService(Service.Free)
-        fakeRepository.setApiKey(Service.Groq, "groq-api-key")
-        fakeRepository.setApiKey(Service.Gemini, "gemini-api-key")
-
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
-
-        viewModel.state.test {
-            val initialState = awaitItem()
-            assertEquals("", initialState.apiKey)
-
-            initialState.onSelectService(Service.Groq)
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val groqState = awaitItem()
-            assertEquals("groq-api-key", groqState.apiKey)
-
-            groqState.onSelectService(Service.Gemini)
-            testDispatcher.scheduler.advanceUntilIdle()
-
-            val geminiState = awaitItem()
-            assertEquals("gemini-api-key", geminiState.apiKey)
-        }
-    }
-
-    @Test
-    fun `onChangeApiKey updates API key in repository`() = runTest {
-        fakeRepository.setCurrentService(Service.Groq)
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
-
-        viewModel.state.test {
-            val initialState = awaitItem()
-
-            initialState.onChangeApiKey("new-api-key")
-
-            // Wait for state update (may have multiple emissions due to connection check)
-            val updatedState = awaitItem()
-            assertEquals("new-api-key", updatedState.apiKey)
-            assertTrue(fakeRepository.updateApiKeyCalls.contains(Service.Groq to "new-api-key"))
+            assertEquals(1, updatedState.configuredServices.size)
+            assertEquals(Service.Groq, updatedState.configuredServices[0].service)
+            assertEquals("groqcloud", updatedState.expandedServiceId)
 
             cancelAndIgnoreRemainingEvents()
         }
     }
 
     @Test
-    fun `onSelectModel updates selected model`() = runTest {
-        val models = listOf(
-            SettingsModel(id = "model-1", subtitle = "Model 1", isSelected = true),
-            SettingsModel(id = "model-2", subtitle = "Model 2", isSelected = false),
-        )
-        fakeRepository.setModels(Service.Gemini, models)
-        fakeRepository.setCurrentService(Service.Gemini)
-
+    fun `onRemoveService removes a configured service by instanceId`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI)
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
-            // Skip initial value from stateIn, wait for flatMapLatest to emit
-            skipItems(1)
             val initialState = awaitItem()
-            assertEquals("model-1", initialState.selectedModel?.id)
+            assertEquals(2, initialState.configuredServices.size)
 
-            initialState.onSelectModel("model-2")
+            // Remove by instanceId (which equals serviceId for first instances)
+            initialState.onRemoveService("gemini")
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updatedState = awaitItem()
-            assertEquals("model-2", updatedState.selectedModel?.id)
-            assertTrue(fakeRepository.updateSelectedModelCalls.contains(Service.Gemini to "model-2"))
+            assertEquals(1, updatedState.configuredServices.size)
+            assertEquals(Service.OpenAI, updatedState.configuredServices[0].service)
         }
     }
 
     @Test
-    fun `models are passed through in data layer order`() = runTest {
-        val models = listOf(
-            SettingsModel(id = "model-old", subtitle = "Old Model"),
-            SettingsModel(id = "model-new", subtitle = "New Model"),
-            SettingsModel(id = "model-mid", subtitle = "Mid Model"),
-        )
-        fakeRepository.setModels(Service.Groq, models)
-        fakeRepository.setCurrentService(Service.Groq)
+    fun `availableServicesToAdd contains all non-Free services`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini)
 
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
-            // Skip initial value from stateIn, wait for flatMapLatest to emit
-            skipItems(1)
             val state = awaitItem()
-            assertEquals(3, state.models.size)
-            // Models are now sorted in the data layer, not the ViewModel
-            assertEquals("model-old", state.models[0].id)
-            assertEquals("model-new", state.models[1].id)
-            assertEquals("model-mid", state.models[2].id)
+            // Should not contain Free
+            assertTrue(state.availableServicesToAdd.none { it == Service.Free })
+            // Should contain all other services including already-configured ones (multi-instance)
+            assertTrue(state.availableServicesToAdd.contains(Service.Gemini))
+            assertTrue(state.availableServicesToAdd.contains(Service.OpenAI))
+            assertTrue(state.availableServicesToAdd.contains(Service.DeepSeek))
         }
     }
 
     @Test
-    fun `services list contains all available services`() = runTest {
+    fun `adding same service type twice creates unique instanceIds`() = runTest {
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
 
         viewModel.state.test {
-            val state = awaitItem()
-            assertEquals(10, state.services.size)
-            assertTrue(state.services.contains(Service.Free))
-            assertTrue(state.services.contains(Service.Gemini))
-            assertTrue(state.services.contains(Service.OpenAI))
-            assertTrue(state.services.contains(Service.DeepSeek))
-            assertTrue(state.services.contains(Service.Mistral))
-            assertTrue(state.services.contains(Service.XAI))
-            assertTrue(state.services.contains(Service.OpenRouter))
-            assertTrue(state.services.contains(Service.Groq))
-            assertTrue(state.services.contains(Service.Nvidia))
-            assertTrue(state.services.contains(Service.OpenAICompatible))
+            val initialState = awaitItem()
+
+            initialState.onAddService(Service.OpenAI)
+            testDispatcher.scheduler.advanceUntilIdle()
+            val afterFirst = awaitItem()
+            assertEquals(1, afterFirst.configuredServices.size)
+            assertEquals("openai", afterFirst.configuredServices[0].instanceId)
+
+            afterFirst.onAddService(Service.OpenAI)
+            testDispatcher.scheduler.advanceUntilIdle()
+            val afterSecond = awaitItem()
+            assertEquals(2, afterSecond.configuredServices.size)
+            assertEquals("openai", afterSecond.configuredServices[0].instanceId)
+            assertEquals("openai_2", afterSecond.configuredServices[1].instanceId)
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeApiKey updates API key for specific instance`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Groq)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+
+            // Use instanceId instead of Service
+            initialState.onChangeApiKey("groqcloud", "new-api-key")
+
+            val updatedState = awaitItem()
+            assertEquals("new-api-key", updatedState.configuredServices[0].apiKey)
+
+            cancelAndIgnoreRemainingEvents()
         }
     }
 }

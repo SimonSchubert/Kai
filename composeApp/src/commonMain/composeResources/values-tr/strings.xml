@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">Her %1$d dakikada bir kontrol et</string>
     <string name="settings_email_poll_never">Hiçbir zaman</string>
     <string name="settings_email_poll_never_description">Yalnızca manuel — sohbette "e-postamı kontrol et" kullanın</string>
+    <string name="settings_connect_server">Hizmeti Bağla</string>
+    <string name="settings_free_fallback">Yedek olarak kullan</string>
+    <string name="settings_heartbeat">Kalp Atışı</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Bu otomatik bir öz kontroldür. Anılarınızı ve bekleyen görevleri gözden geçirin. Her şey yolunda görünüyorsa ve hiçbir şey dikkat gerektirmiyorsa, tam olarak şunu yanıtlayın: HEARTBEAT_OK
+Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullanıcı takipleri), bununla ilgilenin.</string>
+    <string name="settings_heartbeat_description">Yapay zekanın kullanıcı girişi olmadan anıları ve görevleri gözden geçirmesine olanak tanıyan periyodik öz kontroller. Aktif saatlerde her %1$d dakikada bir çalışır.</string>
+    <string name="settings_heartbeat_prompt_label">Kalp Atışı İstemi</string>
+    <string name="settings_heartbeat_recent">Son Etkinlik</string>
+    <string name="settings_move_down">Aşağı taşı</string>
+    <string name="settings_move_up">Yukarı taşı</string>
+    <string name="settings_remove_service">Kaldır</string>
+    <string name="tool_configure_heartbeat_description">Periyodik öz kontrol davranışını yapılandır</string>
+    <string name="tool_configure_heartbeat_name">Kalp Atışını Yapılandır</string>
+    <string name="tool_memory_learn_description">Kategorize edilmiş bir öğrenme, hata çözümü veya tercih kaydet</string>
+    <string name="tool_memory_learn_name">Hafıza Öğren</string>
+    <string name="tool_memory_reinforce_description">İyi sonuç veren bir anıyı güçlendir</string>
+    <string name="tool_memory_reinforce_name">Hafıza Güçlendir</string>
+    <string name="tool_promote_learning_description">Güçlendirilmiş bir öğrenmeyi sistem istemine yükselt</string>
+    <string name="tool_promote_learning_name">Öğrenmeyi Yükselt</string>
+    <string name="tool_trigger_heartbeat_description">Sonraki döngüde bir kalp atışı tetikle</string>
+    <string name="tool_trigger_heartbeat_name">Kalp Atışı Tetikle</string>
+    <string name="tool_web_search_description">Güncel bilgiler için web'de ara</string>
+    <string name="tool_web_search_name">Web Araması</string>
 </resources>

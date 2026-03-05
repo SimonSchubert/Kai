@@ -41,6 +41,7 @@ data class History(
     val toolCallId: String? = null,
     val toolName: String? = null,
     val toolCalls: List<ToolCallInfo>? = null,
+    val fallbackServiceName: String? = null,
 ) {
     enum class Role {
         USER,

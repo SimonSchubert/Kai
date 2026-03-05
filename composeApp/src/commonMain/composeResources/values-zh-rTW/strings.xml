@@ -125,4 +125,27 @@
     <string name="settings_email_poll_interval">每 %1$d 分鐘檢查一次</string>
     <string name="settings_email_poll_never">從不</string>
     <string name="settings_email_poll_never_description">僅手動 — 在聊天中使用「檢查我的郵件」</string>
+    <string name="settings_connect_server">連線服務</string>
+    <string name="settings_free_fallback">用作備選</string>
+    <string name="settings_heartbeat">心跳</string>
+    <string name="settings_heartbeat_default_prompt">[HEARTBEAT] 這是一次自動自我檢查。檢查你的記憶和待處理任務。如果一切正常且無需關注，請準確回覆：HEARTBEAT_OK
+如果有需要關注的事項（過時的記憶、到期的任務、使用者跟進），請處理。</string>
+    <string name="settings_heartbeat_description">定期自我檢查，允許AI在無使用者輸入的情況下檢查記憶和任務。在活躍時段每 %1$d 分鐘執行一次。</string>
+    <string name="settings_heartbeat_prompt_label">心跳提示詞</string>
+    <string name="settings_heartbeat_recent">最近活動</string>
+    <string name="settings_move_down">下移</string>
+    <string name="settings_move_up">上移</string>
+    <string name="settings_remove_service">移除</string>
+    <string name="tool_configure_heartbeat_description">設定定期自我檢查行為</string>
+    <string name="tool_configure_heartbeat_name">設定心跳</string>
+    <string name="tool_memory_learn_description">儲存分類學習、錯誤解決方案或偏好</string>
+    <string name="tool_memory_learn_name">學習記憶</string>
+    <string name="tool_memory_reinforce_description">強化產生良好結果的記憶</string>
+    <string name="tool_memory_reinforce_name">強化記憶</string>
+    <string name="tool_promote_learning_description">將強化學習提升到系統提示詞</string>
+    <string name="tool_promote_learning_name">提升學習</string>
+    <string name="tool_trigger_heartbeat_description">在下一個週期觸發心跳</string>
+    <string name="tool_trigger_heartbeat_name">觸發心跳</string>
+    <string name="tool_web_search_description">在網路上搜尋當前資訊</string>
+    <string name="tool_web_search_name">網頁搜尋</string>
 </resources>
