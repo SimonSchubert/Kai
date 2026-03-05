@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Hủy một tác vụ đã lên lịch</string>
     <string name="tool_list_tasks_name">Danh sách tác vụ</string>
     <string name="tool_list_tasks_description">Liệt kê tất cả các tác vụ đã lên lịch</string>
+    <string name="tool_setup_email_name">Thiết lập email</string>
+    <string name="tool_setup_email_description">Kết nối tài khoản email để đọc và gửi</string>
+    <string name="tool_check_email_name">Kiểm tra email</string>
+    <string name="tool_check_email_description">Kiểm tra các email chưa đọc</string>
+    <string name="tool_read_email_name">Đọc email</string>
+    <string name="tool_read_email_description">Đọc toàn bộ nội dung của một email</string>
+    <string name="tool_reply_email_name">Trả lời email</string>
+    <string name="tool_reply_email_description">Gửi phản hồi email</string>
+    <string name="tool_compose_email_name">Soạn email</string>
+    <string name="tool_compose_email_description">Soạn và gửi email mới</string>
+    <string name="tool_search_email_name">Tìm kiếm email</string>
+    <string name="tool_search_email_description">Tìm kiếm email theo người gửi, chủ đề hoặc ngày</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Kết nối tài khoản email để đọc và trả lời. Nói "kết nối email của tôi" trong chat hoặc thêm tài khoản tại đây. Email được kiểm tra định kỳ ở nền và được AI phân loại.</string>
+    <string name="settings_email_empty">Chưa có tài khoản email nào được kết nối. Nói "kết nối email của tôi" trong chat để bắt đầu.</string>
+    <string name="settings_email_remove">Xóa tài khoản</string>
+    <string name="settings_email_poll_interval">Kiểm tra mỗi %1$d phút</string>
+    <string name="settings_email_poll_never">Không bao giờ</string>
+    <string name="settings_email_poll_never_description">Chỉ thủ công — dùng "kiểm tra email của tôi" trong chat</string>
 </resources>

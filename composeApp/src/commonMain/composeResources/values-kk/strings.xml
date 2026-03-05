@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Жоспарланған тапсырманы болдырмау</string>
     <string name="tool_list_tasks_name">Тапсырмалар тізімі</string>
     <string name="tool_list_tasks_description">Барлық жоспарланған тапсырмаларды тізімдеу</string>
+    <string name="tool_setup_email_name">Электрондық поштаны орнату</string>
+    <string name="tool_setup_email_description">Оқу және жіберу үшін электрондық пошта тіркелгісін қосу</string>
+    <string name="tool_check_email_name">Электрондық поштаны тексеру</string>
+    <string name="tool_check_email_description">Оқылмаған хаттарды тексеру</string>
+    <string name="tool_read_email_name">Электрондық хатты оқу</string>
+    <string name="tool_read_email_description">Электрондық хаттың толық мазмұнын оқу</string>
+    <string name="tool_reply_email_name">Электрондық хатқа жауап беру</string>
+    <string name="tool_reply_email_description">Электрондық хат жауабын жіберу</string>
+    <string name="tool_compose_email_name">Электрондық хат жазу</string>
+    <string name="tool_compose_email_description">Жаңа электрондық хат жазу және жіберу</string>
+    <string name="tool_search_email_name">Электрондық поштаны іздеу</string>
+    <string name="tool_search_email_description">Жіберуші, тақырып немесе күні бойынша хаттарды іздеу</string>
+    <string name="settings_email">Электрондық пошта</string>
+    <string name="settings_email_description">Оқу және жауап беру үшін электрондық пошта тіркелгілерін қосыңыз. Чатта "электрондық поштамды қос" деп айтыңыз немесе тіркелгілерді осында қосыңыз. Хаттар фонда тексеріледі және AI арқылы сұрыпталады.</string>
+    <string name="settings_email_empty">Электрондық пошта тіркелгілері қосылмаған. Бастау үшін чатта "электрондық поштамды қос" деп айтыңыз.</string>
+    <string name="settings_email_remove">Тіркелгіні жою</string>
+    <string name="settings_email_poll_interval">Әр %1$d минут сайын тексеру</string>
+    <string name="settings_email_poll_never">Ешқашан</string>
+    <string name="settings_email_poll_never_description">Тек қолмен — чатта "электрондық поштамды тексер" деп айтыңыз</string>
 </resources>

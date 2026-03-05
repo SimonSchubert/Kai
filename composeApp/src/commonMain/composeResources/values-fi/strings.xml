@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Peruuta ajoitettu tehtävä</string>
     <string name="tool_list_tasks_name">Listaa tehtävät</string>
     <string name="tool_list_tasks_description">Näytä kaikki ajoitetut tehtävät</string>
+    <string name="tool_setup_email_name">Määritä sähköposti</string>
+    <string name="tool_setup_email_description">Yhdistä sähköpostitili lukemista ja lähettämistä varten</string>
+    <string name="tool_check_email_name">Tarkista sähköposti</string>
+    <string name="tool_check_email_description">Tarkista lukemattomat sähköpostit</string>
+    <string name="tool_read_email_name">Lue sähköposti</string>
+    <string name="tool_read_email_description">Lue sähköpostiviestin koko sisältö</string>
+    <string name="tool_reply_email_name">Vastaa sähköpostiin</string>
+    <string name="tool_reply_email_description">Lähetä sähköpostivastaus</string>
+    <string name="tool_compose_email_name">Kirjoita sähköposti</string>
+    <string name="tool_compose_email_description">Kirjoita ja lähetä uusi sähköpostiviesti</string>
+    <string name="tool_search_email_name">Hae sähköpostia</string>
+    <string name="tool_search_email_description">Hae sähköposteja lähettäjän, aiheen tai päivämäärän mukaan</string>
+    <string name="settings_email">Sähköposti</string>
+    <string name="settings_email_description">Yhdistä sähköpostitilit lukemista ja vastaamisesta varten. Käytä chattia sanomalla "yhdistä sähköpostini" tai lisää tilit täällä. Sähköpostit haetaan taustalla ja tekoäly lajittelee ne.</string>
+    <string name="settings_email_empty">Ei yhdistettyjä sähköpostitilejä. Sano "yhdistä sähköpostini" chatissa päästäksesi alkuun.</string>
+    <string name="settings_email_remove">Poista tili</string>
+    <string name="settings_email_poll_interval">Hae %1$d minuutin välein</string>
+    <string name="settings_email_poll_never">Ei koskaan</string>
+    <string name="settings_email_poll_never_description">Vain manuaalisesti — käytä "tarkista sähköpostini" chatissa</string>
 </resources>

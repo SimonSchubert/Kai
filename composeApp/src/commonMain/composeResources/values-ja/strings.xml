@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">スケジュールされたタスクをキャンセル</string>
     <string name="tool_list_tasks_name">タスク一覧</string>
     <string name="tool_list_tasks_description">すべてのスケジュールされたタスクを一覧表示</string>
+    <string name="tool_setup_email_name">メールを設定</string>
+    <string name="tool_setup_email_description">メールの読み取りと送信のためにメールアカウントを接続</string>
+    <string name="tool_check_email_name">メールを確認</string>
+    <string name="tool_check_email_description">未読メールを確認</string>
+    <string name="tool_read_email_name">メールを読む</string>
+    <string name="tool_read_email_description">メールの本文全体を読む</string>
+    <string name="tool_reply_email_name">メールに返信</string>
+    <string name="tool_reply_email_description">メールの返信を送信</string>
+    <string name="tool_compose_email_name">メールを作成</string>
+    <string name="tool_compose_email_description">新しいメールを作成して送信</string>
+    <string name="tool_search_email_name">メールを検索</string>
+    <string name="tool_search_email_description">送信者、件名、または日付でメールを検索</string>
+    <string name="settings_email">メール</string>
+    <string name="settings_email_description">メールの読み取りと返信のためにメールアカウントを接続します。チャットで「メールを接続して」と言うか、ここでアカウントを追加してください。メールはバックグラウンドで定期確認され、AIによって整理されます。</string>
+    <string name="settings_email_empty">メールアカウントが接続されていません。チャットで「メールを接続して」と言って始めてください。</string>
+    <string name="settings_email_remove">アカウントを削除</string>
+    <string name="settings_email_poll_interval">%1$d分ごとに確認</string>
+    <string name="settings_email_poll_never">しない</string>
+    <string name="settings_email_poll_never_description">手動のみ — チャットで「メールを確認して」を使用</string>
 </resources>

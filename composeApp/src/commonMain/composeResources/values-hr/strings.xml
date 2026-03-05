@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Otkaži planirani zadatak</string>
     <string name="tool_list_tasks_name">Prikaži zadatke</string>
     <string name="tool_list_tasks_description">Prikaži sve planirane zadatke</string>
+    <string name="tool_setup_email_name">Postavi e-poštu</string>
+    <string name="tool_setup_email_description">Poveži račun e-pošte za čitanje i slanje</string>
+    <string name="tool_check_email_name">Provjeri e-poštu</string>
+    <string name="tool_check_email_description">Provjeri nepročitane e-poruke</string>
+    <string name="tool_read_email_name">Pročitaj e-poruku</string>
+    <string name="tool_read_email_description">Pročitaj cijeli sadržaj e-poruke</string>
+    <string name="tool_reply_email_name">Odgovori na e-poruku</string>
+    <string name="tool_reply_email_description">Pošalji odgovor na e-poruku</string>
+    <string name="tool_compose_email_name">Napiši e-poruku</string>
+    <string name="tool_compose_email_description">Sastavi i pošalji novu e-poruku</string>
+    <string name="tool_search_email_name">Pretraži e-poštu</string>
+    <string name="tool_search_email_description">Pretraži e-poruke po pošiljatelju, predmetu ili datumu</string>
+    <string name="settings_email">E-pošta</string>
+    <string name="settings_email_description">Povežite račune e-pošte za čitanje i odgovaranje. Recite u chatu „poveži moju e-poštu" ili dodajte račune ovdje. E-poruke se dohvaćaju u pozadini i sortira ih AI.</string>
+    <string name="settings_email_empty">Nema povezanih računa e-pošte. Recite „poveži moju e-poštu" u chatu za početak.</string>
+    <string name="settings_email_remove">Ukloni račun</string>
+    <string name="settings_email_poll_interval">Provjeri svakih %1$d min.</string>
+    <string name="settings_email_poll_never">Nikad</string>
+    <string name="settings_email_poll_never_description">Samo ručno — recite „provjeri moju e-poštu" u chatu</string>
 </resources>

@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">திட்டமிட்ட பணியை ரத்துசெய்</string>
     <string name="tool_list_tasks_name">பணிகளை பட்டியலிடு</string>
     <string name="tool_list_tasks_description">அனைத்து திட்டமிட்ட பணிகளையும் பட்டியலிடு</string>
+    <string name="tool_setup_email_name">மின்னஞ்சலை அமை</string>
+    <string name="tool_setup_email_description">படிக்கவும் அனுப்பவும் மின்னஞ்சல் கணக்கை இணை</string>
+    <string name="tool_check_email_name">மின்னஞ்சலை சரிபார்</string>
+    <string name="tool_check_email_description">படிக்கப்படாத மின்னஞ்சல்களை சரிபார்க்கவும்</string>
+    <string name="tool_read_email_name">மின்னஞ்சலை படி</string>
+    <string name="tool_read_email_description">மின்னஞ்சலின் முழு உள்ளடக்கத்தை படிக்கவும்</string>
+    <string name="tool_reply_email_name">மின்னஞ்சலுக்கு பதில் அனுப்பு</string>
+    <string name="tool_reply_email_description">மின்னஞ்சல் பதில் அனுப்பு</string>
+    <string name="tool_compose_email_name">மின்னஞ்சல் எழுது</string>
+    <string name="tool_compose_email_description">புதிய மின்னஞ்சலை இயற்றி அனுப்பு</string>
+    <string name="tool_search_email_name">மின்னஞ்சலை தேடு</string>
+    <string name="tool_search_email_description">அனுப்பியவர், தலைப்பு அல்லது தேதி மூலம் மின்னஞ்சல்களை தேடு</string>
+    <string name="settings_email">மின்னஞ்சல்</string>
+    <string name="settings_email_description">படிக்கவும் பதில் அனுப்பவும் மின்னஞ்சல் கணக்குகளை இணைக்கவும். "என் மின்னஞ்சலை இணை" என்று அரட்டையில் சொல்லவும் அல்லது இங்கே கணக்குகளை சேர்க்கவும். மின்னஞ்சல்கள் பின்னணியில் சேகரிக்கப்பட்டு AI ஆல் வகைப்படுத்தப்படும்.</string>
+    <string name="settings_email_empty">மின்னஞ்சல் கணக்குகள் எதுவும் இணைக்கப்படவில்லை. தொடங்க அரட்டையில் "என் மின்னஞ்சலை இணை" என்று சொல்லவும்.</string>
+    <string name="settings_email_remove">கணக்கை அகற்று</string>
+    <string name="settings_email_poll_interval">ஒவ்வொரு %1$d நிமிடங்களுக்கும் சரிபார்க்கவும்</string>
+    <string name="settings_email_poll_never">ஒருபோதும் இல்லை</string>
+    <string name="settings_email_poll_never_description">கைமுறையாக மட்டும் — அரட்டையில் "என் மின்னஞ்சலை சரிபார்" என்று சொல்லவும்</string>
 </resources>

@@ -64,6 +64,14 @@ interface DataRepository {
     fun setHeartbeatPrompt(text: String)
     fun getHeartbeatLog(): List<HeartbeatLogEntry>
 
+    // Email
+    fun isEmailEnabled(): Boolean
+    fun setEmailEnabled(enabled: Boolean)
+    fun getEmailAccounts(): List<EmailAccount>
+    suspend fun removeEmailAccount(id: String)
+    fun getEmailPollIntervalMinutes(): Int
+    fun setEmailPollIntervalMinutes(minutes: Int)
+
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String
     fun addAssistantMessage(content: String)

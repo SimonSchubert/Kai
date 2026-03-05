@@ -90,6 +90,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
@@ -111,6 +112,13 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
+import kai.composeapp.generated.resources.settings_email
+import kai.composeapp.generated.resources.settings_email_description
+import kai.composeapp.generated.resources.settings_email_empty
+import kai.composeapp.generated.resources.settings_email_poll_interval
+import kai.composeapp.generated.resources.settings_email_poll_never
+import kai.composeapp.generated.resources.settings_email_poll_never_description
+import kai.composeapp.generated.resources.settings_email_remove
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_heartbeat
@@ -1035,6 +1043,18 @@ private fun GeneralContent(uiState: SettingsUiState) {
                             onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
                         )
                     }
+                    if (uiState.showEmailToggle) {
+                        SettingsCard {
+                            EmailSection(
+                                isEmailEnabled = uiState.isEmailEnabled,
+                                emailAccounts = uiState.emailAccounts,
+                                pollIntervalMinutes = uiState.emailPollIntervalMinutes,
+                                onToggleEmail = uiState.onToggleEmail,
+                                onRemoveAccount = uiState.onRemoveEmailAccount,
+                                onChangePollInterval = uiState.onChangeEmailPollInterval,
+                            )
+                        }
+                    }
                 }
             }
         } else {
@@ -1078,6 +1098,18 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         onToggleHeartbeat = uiState.onToggleHeartbeat,
                         onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
                     )
+                }
+                if (uiState.showEmailToggle) {
+                    SettingsCard {
+                        EmailSection(
+                            isEmailEnabled = uiState.isEmailEnabled,
+                            emailAccounts = uiState.emailAccounts,
+                            pollIntervalMinutes = uiState.emailPollIntervalMinutes,
+                            onToggleEmail = uiState.onToggleEmail,
+                            onRemoveAccount = uiState.onRemoveEmailAccount,
+                            onChangePollInterval = uiState.onChangeEmailPollInterval,
+                        )
+                    }
                 }
             }
         }
@@ -1569,6 +1601,126 @@ private fun HeartbeatSection(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmailSection(
+    isEmailEnabled: Boolean,
+    emailAccounts: List<EmailAccount>,
+    pollIntervalMinutes: Int,
+    onToggleEmail: (Boolean) -> Unit,
+    onRemoveAccount: (String) -> Unit,
+    onChangePollInterval: (Int) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onToggleEmail(!isEmailEnabled) }
+                .pointerHoverIcon(PointerIcon.Hand),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_email),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+            )
+            Switch(
+                checked = isEmailEnabled,
+                onCheckedChange = onToggleEmail,
+            )
+        }
+        Text(
+            text = stringResource(Res.string.settings_email_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        if (isEmailEnabled) {
+            Spacer(Modifier.height(12.dp))
+
+            if (emailAccounts.isEmpty()) {
+                Text(
+                    text = stringResource(Res.string.settings_email_empty),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            } else {
+                Text(
+                    text = if (pollIntervalMinutes <= 0) {
+                        stringResource(Res.string.settings_email_poll_never_description)
+                    } else {
+                        stringResource(Res.string.settings_email_poll_interval, pollIntervalMinutes)
+                    },
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    listOf(0, 5, 15, 30, 60).forEach { minutes ->
+                        val selected = pollIntervalMinutes == minutes
+                        Surface(
+                            onClick = { onChangePollInterval(minutes) },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (selected) {
+                                MaterialTheme.colorScheme.primaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.surfaceVariant
+                            },
+                        ) {
+                            Text(
+                                text = if (minutes == 0) stringResource(Res.string.settings_email_poll_never) else "${minutes}m",
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = if (selected) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                            )
+                        }
+                    }
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                for (account in emailAccounts) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = account.email,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onBackground,
+                            )
+                            Text(
+                                text = "${account.imapHost}:${account.imapPort}",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        IconButton(
+                            onClick = { onRemoveAccount(account.id) },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = stringResource(Res.string.settings_email_remove),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
                     }
                 }
             }

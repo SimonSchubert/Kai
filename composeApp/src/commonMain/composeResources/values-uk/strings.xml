@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Скасувати заплановане завдання</string>
     <string name="tool_list_tasks_name">Список завдань</string>
     <string name="tool_list_tasks_description">Показати всі заплановані завдання</string>
+    <string name="tool_setup_email_name">Налаштувати електронну пошту</string>
+    <string name="tool_setup_email_description">Підключити обліковий запис електронної пошти для читання та надсилання</string>
+    <string name="tool_check_email_name">Перевірити пошту</string>
+    <string name="tool_check_email_description">Перевірити непрочитані листи</string>
+    <string name="tool_read_email_name">Прочитати лист</string>
+    <string name="tool_read_email_description">Прочитати повний вміст листа</string>
+    <string name="tool_reply_email_name">Відповісти на лист</string>
+    <string name="tool_reply_email_description">Надіслати відповідь на лист</string>
+    <string name="tool_compose_email_name">Написати лист</string>
+    <string name="tool_compose_email_description">Скласти та надіслати новий лист</string>
+    <string name="tool_search_email_name">Пошук по пошті</string>
+    <string name="tool_search_email_description">Пошук листів за відправником, темою або датою</string>
+    <string name="settings_email">Електронна пошта</string>
+    <string name="settings_email_description">Підключіть облікові записи електронної пошти для читання та відповіді. Напишіть у чаті «підключити мою пошту» або додайте акаунти тут. Пошта перевіряється у фоновому режимі та сортується ШІ.</string>
+    <string name="settings_email_empty">Немає підключених облікових записів. Напишіть «підключити мою пошту» в чаті, щоб розпочати.</string>
+    <string name="settings_email_remove">Видалити акаунт</string>
+    <string name="settings_email_poll_interval">Перевіряти кожні %1$d хв.</string>
+    <string name="settings_email_poll_never">Ніколи</string>
+    <string name="settings_email_poll_never_description">Лише вручну — напишіть «перевірити мою пошту» в чаті</string>
 </resources>

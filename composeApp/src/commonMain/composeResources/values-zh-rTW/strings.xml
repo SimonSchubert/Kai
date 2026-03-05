@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">取消一個排程任務</string>
     <string name="tool_list_tasks_name">列出任務</string>
     <string name="tool_list_tasks_description">列出所有排程任務</string>
+    <string name="tool_setup_email_name">設定郵件</string>
+    <string name="tool_setup_email_description">連結郵件帳戶以進行讀取和傳送</string>
+    <string name="tool_check_email_name">檢查郵件</string>
+    <string name="tool_check_email_description">檢查未讀郵件</string>
+    <string name="tool_read_email_name">閱讀郵件</string>
+    <string name="tool_read_email_description">閱讀郵件的完整內文</string>
+    <string name="tool_reply_email_name">回覆郵件</string>
+    <string name="tool_reply_email_description">傳送郵件回覆</string>
+    <string name="tool_compose_email_name">撰寫郵件</string>
+    <string name="tool_compose_email_description">撰寫並傳送新郵件</string>
+    <string name="tool_search_email_name">搜尋郵件</string>
+    <string name="tool_search_email_description">依寄件者、主旨或日期搜尋郵件</string>
+    <string name="settings_email">郵件</string>
+    <string name="settings_email_description">連結郵件帳戶以進行讀取和回覆。在聊天中說「連結我的郵件」或在此處新增帳戶。郵件將在背景定期檢查並由 AI 自動整理。</string>
+    <string name="settings_email_empty">未連結任何郵件帳戶。在聊天中說「連結我的郵件」即可開始。</string>
+    <string name="settings_email_remove">移除帳戶</string>
+    <string name="settings_email_poll_interval">每 %1$d 分鐘檢查一次</string>
+    <string name="settings_email_poll_never">從不</string>
+    <string name="settings_email_poll_never_description">僅手動 — 在聊天中使用「檢查我的郵件」</string>
 </resources>

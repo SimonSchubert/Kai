@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
@@ -61,6 +62,13 @@ data class SettingsUiState(
     val heartbeatLog: List<HeartbeatLogEntry> = emptyList(),
     val onToggleHeartbeat: (Boolean) -> Unit = {},
     val onSaveHeartbeatPrompt: (String) -> Unit = {},
+    val isEmailEnabled: Boolean = true,
+    val showEmailToggle: Boolean = false,
+    val emailAccounts: List<EmailAccount> = emptyList(),
+    val emailPollIntervalMinutes: Int = 15,
+    val onToggleEmail: (Boolean) -> Unit = {},
+    val onRemoveEmailAccount: (String) -> Unit = {},
+    val onChangeEmailPollInterval: (Int) -> Unit = {},
 )
 
 @Immutable

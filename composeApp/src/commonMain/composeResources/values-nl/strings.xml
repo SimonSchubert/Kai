@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Een geplande taak annuleren</string>
     <string name="tool_list_tasks_name">Taken weergeven</string>
     <string name="tool_list_tasks_description">Alle geplande taken weergeven</string>
+    <string name="tool_setup_email_name">E-mail instellen</string>
+    <string name="tool_setup_email_description">Een e-mailaccount verbinden voor lezen en verzenden</string>
+    <string name="tool_check_email_name">E-mail controleren</string>
+    <string name="tool_check_email_description">Controleren op ongelezen e-mails</string>
+    <string name="tool_read_email_name">E-mail lezen</string>
+    <string name="tool_read_email_description">De volledige inhoud van een e-mail lezen</string>
+    <string name="tool_reply_email_name">E-mail beantwoorden</string>
+    <string name="tool_reply_email_description">Een e-mailantwoord verzenden</string>
+    <string name="tool_compose_email_name">E-mail opstellen</string>
+    <string name="tool_compose_email_description">Een nieuwe e-mail opstellen en verzenden</string>
+    <string name="tool_search_email_name">E-mail zoeken</string>
+    <string name="tool_search_email_description">E-mails zoeken op afzender, onderwerp of datum</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Verbind e-mailaccounts voor lezen en beantwoorden. Zeg «verbind mijn e-mail» in de chat of voeg accounts hier toe. E-mails worden op de achtergrond opgehaald en door de AI gesorteerd.</string>
+    <string name="settings_email_empty">Geen e-mailaccounts verbonden. Zeg «verbind mijn e-mail» in de chat om te beginnen.</string>
+    <string name="settings_email_remove">Account verwijderen</string>
+    <string name="settings_email_poll_interval">Elke %1$d minuten controleren</string>
+    <string name="settings_email_poll_never">Nooit</string>
+    <string name="settings_email_poll_never_description">Alleen handmatig — gebruik «controleer mijn e-mail» in de chat</string>
 </resources>

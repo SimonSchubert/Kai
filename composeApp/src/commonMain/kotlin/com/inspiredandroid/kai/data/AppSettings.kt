@@ -180,6 +180,41 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_HEARTBEAT_PROMPT, text)
     }
 
+    // Email
+    fun isEmailEnabled(): Boolean = settings.getBoolean(KEY_EMAIL_ENABLED, true)
+
+    fun setEmailEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_EMAIL_ENABLED, enabled)
+    }
+
+    fun getEmailAccountsJson(): String = settings.getString(KEY_EMAIL_ACCOUNTS, "")
+
+    fun setEmailAccountsJson(json: String) {
+        settings.putString(KEY_EMAIL_ACCOUNTS, json)
+    }
+
+    fun getEmailPassword(accountId: String): String = settings.getString("${KEY_EMAIL_PASSWORD_PREFIX}$accountId", "")
+
+    fun setEmailPassword(accountId: String, password: String) {
+        settings.putString("${KEY_EMAIL_PASSWORD_PREFIX}$accountId", password)
+    }
+
+    fun removeEmailPassword(accountId: String) {
+        settings.remove("${KEY_EMAIL_PASSWORD_PREFIX}$accountId")
+    }
+
+    fun getEmailSyncStateJson(accountId: String): String = settings.getString("${KEY_EMAIL_SYNC_PREFIX}$accountId", "")
+
+    fun setEmailSyncStateJson(accountId: String, json: String) {
+        settings.putString("${KEY_EMAIL_SYNC_PREFIX}$accountId", json)
+    }
+
+    fun getEmailPollIntervalMinutes(): Int = settings.getInt(KEY_EMAIL_POLL_INTERVAL, 15)
+
+    fun setEmailPollIntervalMinutes(minutes: Int) {
+        settings.putInt(KEY_EMAIL_POLL_INTERVAL, minutes)
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
@@ -196,6 +231,12 @@ class AppSettings(private val settings: Settings) {
         const val KEY_HEARTBEAT_CONFIG = "heartbeat_config"
         const val KEY_HEARTBEAT_PROMPT = "heartbeat_prompt"
         const val KEY_HEARTBEAT_LOG = "heartbeat_log"
+
+        const val KEY_EMAIL_ENABLED = "email_enabled"
+        const val KEY_EMAIL_ACCOUNTS = "email_accounts"
+        const val KEY_EMAIL_PASSWORD_PREFIX = "email_password_"
+        const val KEY_EMAIL_SYNC_PREFIX = "email_sync_"
+        const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

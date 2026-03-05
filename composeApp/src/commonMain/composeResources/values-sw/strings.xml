@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Ghairi kazi iliyopangwa</string>
     <string name="tool_list_tasks_name">Orodhesha Kazi</string>
     <string name="tool_list_tasks_description">Orodhesha kazi zote zilizopangwa</string>
+    <string name="tool_setup_email_name">Sanidi Barua Pepe</string>
+    <string name="tool_setup_email_description">Unganisha akaunti ya barua pepe kwa kusoma na kutuma</string>
+    <string name="tool_check_email_name">Angalia Barua Pepe</string>
+    <string name="tool_check_email_description">Angalia barua pepe ambazo hazijasomwa</string>
+    <string name="tool_read_email_name">Soma Barua Pepe</string>
+    <string name="tool_read_email_description">Soma mwili wote wa barua pepe</string>
+    <string name="tool_reply_email_name">Jibu Barua Pepe</string>
+    <string name="tool_reply_email_description">Tuma jibu la barua pepe</string>
+    <string name="tool_compose_email_name">Tunga Barua Pepe</string>
+    <string name="tool_compose_email_description">Tunga na utume barua pepe mpya</string>
+    <string name="tool_search_email_name">Tafuta Barua Pepe</string>
+    <string name="tool_search_email_description">Tafuta barua pepe kwa mtumaji, mada, au tarehe</string>
+    <string name="settings_email">Barua Pepe</string>
+    <string name="settings_email_description">Unganisha akaunti za barua pepe kwa kusoma na kujibu. Tumia mazungumzo kusema "unganisha barua pepe yangu" au ongeza akaunti hapa. Barua pepe zinachunguzwa chinichini na kupangwa na AI.</string>
+    <string name="settings_email_empty">Hakuna akaunti za barua pepe zilizounganishwa. Sema "unganisha barua pepe yangu" kwenye mazungumzo kuanza.</string>
+    <string name="settings_email_remove">Ondoa akaunti</string>
+    <string name="settings_email_poll_interval">Chunguza kila dakika %1$d</string>
+    <string name="settings_email_poll_never">Kamwe</string>
+    <string name="settings_email_poll_never_description">Mwongozo tu — tumia "angalia barua pepe yangu" kwenye mazungumzo</string>
 </resources>

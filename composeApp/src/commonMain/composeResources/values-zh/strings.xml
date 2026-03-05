@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">取消一个计划任务</string>
     <string name="tool_list_tasks_name">列出任务</string>
     <string name="tool_list_tasks_description">列出所有计划任务</string>
+    <string name="tool_setup_email_name">设置邮件</string>
+    <string name="tool_setup_email_description">连接邮件账户以进行读取和发送</string>
+    <string name="tool_check_email_name">检查邮件</string>
+    <string name="tool_check_email_description">检查未读邮件</string>
+    <string name="tool_read_email_name">阅读邮件</string>
+    <string name="tool_read_email_description">阅读邮件的完整正文</string>
+    <string name="tool_reply_email_name">回复邮件</string>
+    <string name="tool_reply_email_description">发送邮件回复</string>
+    <string name="tool_compose_email_name">撰写邮件</string>
+    <string name="tool_compose_email_description">撰写并发送新邮件</string>
+    <string name="tool_search_email_name">搜索邮件</string>
+    <string name="tool_search_email_description">按发件人、主题或日期搜索邮件</string>
+    <string name="settings_email">邮件</string>
+    <string name="settings_email_description">连接邮件账户以进行读取和回复。在聊天中说"连接我的邮件"或在此处添加账户。邮件将在后台定期检查并由 AI 自动整理。</string>
+    <string name="settings_email_empty">未连接任何邮件账户。在聊天中说"连接我的邮件"即可开始。</string>
+    <string name="settings_email_remove">移除账户</string>
+    <string name="settings_email_poll_interval">每 %1$d 分钟检查一次</string>
+    <string name="settings_email_poll_never">从不</string>
+    <string name="settings_email_poll_never_description">仅手动 — 在聊天中使用"检查我的邮件"</string>
 </resources>

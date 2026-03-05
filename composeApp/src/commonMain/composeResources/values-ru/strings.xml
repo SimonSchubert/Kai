@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Отменить запланированную задачу</string>
     <string name="tool_list_tasks_name">Список задач</string>
     <string name="tool_list_tasks_description">Показать все запланированные задачи</string>
+    <string name="tool_setup_email_name">Настроить электронную почту</string>
+    <string name="tool_setup_email_description">Подключить учётную запись электронной почты для чтения и отправки</string>
+    <string name="tool_check_email_name">Проверить почту</string>
+    <string name="tool_check_email_description">Проверить непрочитанные письма</string>
+    <string name="tool_read_email_name">Прочитать письмо</string>
+    <string name="tool_read_email_description">Прочитать полное содержимое письма</string>
+    <string name="tool_reply_email_name">Ответить на письмо</string>
+    <string name="tool_reply_email_description">Отправить ответ на письмо</string>
+    <string name="tool_compose_email_name">Написать письмо</string>
+    <string name="tool_compose_email_description">Составить и отправить новое письмо</string>
+    <string name="tool_search_email_name">Поиск по почте</string>
+    <string name="tool_search_email_description">Поиск писем по отправителю, теме или дате</string>
+    <string name="settings_email">Электронная почта</string>
+    <string name="settings_email_description">Подключите учётные записи электронной почты для чтения и ответа. Напишите в чат «подключить мою почту» или добавьте аккаунты здесь. Почта проверяется в фоновом режиме и сортируется с помощью ИИ.</string>
+    <string name="settings_email_empty">Нет подключённых учётных записей. Напишите «подключить мою почту» в чате, чтобы начать.</string>
+    <string name="settings_email_remove">Удалить аккаунт</string>
+    <string name="settings_email_poll_interval">Проверять каждые %1$d мин.</string>
+    <string name="settings_email_poll_never">Никогда</string>
+    <string name="settings_email_poll_never_description">Только вручную — напишите «проверить мою почту» в чате</string>
 </resources>

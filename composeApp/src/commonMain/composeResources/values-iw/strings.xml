@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">בטל משימה מתוזמנת</string>
     <string name="tool_list_tasks_name">רשימת משימות</string>
     <string name="tool_list_tasks_description">הצג את כל המשימות המתוזמנות</string>
+    <string name="tool_setup_email_name">הגדר דוא"ל</string>
+    <string name="tool_setup_email_description">חבר חשבון דוא"ל לקריאה ושליחה</string>
+    <string name="tool_check_email_name">בדוק דוא"ל</string>
+    <string name="tool_check_email_description">בדוק הודעות דוא"ל שלא נקראו</string>
+    <string name="tool_read_email_name">קרא דוא"ל</string>
+    <string name="tool_read_email_description">קרא את גוף הדוא"ל המלא</string>
+    <string name="tool_reply_email_name">השב לדוא"ל</string>
+    <string name="tool_reply_email_description">שלח תשובה לדוא"ל</string>
+    <string name="tool_compose_email_name">כתוב דוא"ל</string>
+    <string name="tool_compose_email_description">כתוב ושלח דוא"ל חדש</string>
+    <string name="tool_search_email_name">חפש דוא"ל</string>
+    <string name="tool_search_email_description">חפש הודעות לפי שולח, נושא או תאריך</string>
+    <string name="settings_email">דוא"ל</string>
+    <string name="settings_email_description">חבר חשבונות דוא"ל לקריאה ומענה. השתמש בצ\'אט ואמור "חבר את הדוא"ל שלי" או הוסף חשבונות כאן. הדוא"ל נבדק ברקע וממויין על ידי בינה מלאכותית.</string>
+    <string name="settings_email_empty">אין חשבונות דוא"ל מחוברים. אמור "חבר את הדוא"ל שלי" בצ\'אט כדי להתחיל.</string>
+    <string name="settings_email_remove">הסר חשבון</string>
+    <string name="settings_email_poll_interval">בדיקה כל %1$d דקות</string>
+    <string name="settings_email_poll_never">אף פעם</string>
+    <string name="settings_email_poll_never_description">ידני בלבד — השתמש ב"בדוק את הדוא"ל שלי" בצ\'אט</string>
 </resources>

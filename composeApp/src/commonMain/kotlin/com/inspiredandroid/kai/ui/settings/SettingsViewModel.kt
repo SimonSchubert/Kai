@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
@@ -65,6 +66,13 @@ class SettingsViewModel(
             heartbeatLog = dataRepository.getHeartbeatLog(),
             onToggleHeartbeat = ::onToggleHeartbeat,
             onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
+            isEmailEnabled = dataRepository.isEmailEnabled(),
+            showEmailToggle = isEmailSupported,
+            emailAccounts = dataRepository.getEmailAccounts(),
+            emailPollIntervalMinutes = dataRepository.getEmailPollIntervalMinutes(),
+            onToggleEmail = ::onToggleEmail,
+            onRemoveEmailAccount = ::onRemoveEmailAccount,
+            onChangeEmailPollInterval = ::onChangeEmailPollInterval,
         ),
     )
 
@@ -181,6 +189,23 @@ class SettingsViewModel(
     private fun onSaveHeartbeatPrompt(text: String) {
         dataRepository.setHeartbeatPrompt(text)
         _state.update { it.copy(heartbeatPrompt = text) }
+    }
+
+    private fun onToggleEmail(enabled: Boolean) {
+        dataRepository.setEmailEnabled(enabled)
+        _state.update { it.copy(isEmailEnabled = enabled) }
+    }
+
+    private fun onRemoveEmailAccount(id: String) {
+        viewModelScope.launch {
+            dataRepository.removeEmailAccount(id)
+            _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts()) }
+        }
+    }
+
+    private fun onChangeEmailPollInterval(minutes: Int) {
+        dataRepository.setEmailPollIntervalMinutes(minutes)
+        _state.update { it.copy(emailPollIntervalMinutes = minutes) }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

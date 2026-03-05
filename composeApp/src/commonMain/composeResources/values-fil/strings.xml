@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Kanselahin ang isang naka-schedule na gawain</string>
     <string name="tool_list_tasks_name">Listahan ng mga Gawain</string>
     <string name="tool_list_tasks_description">Ilista ang lahat ng naka-schedule na gawain</string>
+    <string name="tool_setup_email_name">I-setup ang Email</string>
+    <string name="tool_setup_email_description">Ikonekta ang isang email account para sa pagbabasa at pagpapadala</string>
+    <string name="tool_check_email_name">Suriin ang Email</string>
+    <string name="tool_check_email_description">Suriin ang mga hindi pa nababasang email</string>
+    <string name="tool_read_email_name">Basahin ang Email</string>
+    <string name="tool_read_email_description">Basahin ang buong katawan ng isang email</string>
+    <string name="tool_reply_email_name">Sumagot sa Email</string>
+    <string name="tool_reply_email_description">Magpadala ng tugon sa email</string>
+    <string name="tool_compose_email_name">Bumuo ng Email</string>
+    <string name="tool_compose_email_description">Bumuo at magpadala ng bagong email</string>
+    <string name="tool_search_email_name">Maghanap ng Email</string>
+    <string name="tool_search_email_description">Maghanap ng mga email ayon sa nagpadala, paksa, o petsa</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Ikonekta ang mga email account para sa pagbabasa at pagsagot. Gamitin ang chat para sabihing "ikonekta ang aking email" o magdagdag ng mga account dito. Ang mga email ay ina-poll sa background at inuuri ng AI.</string>
+    <string name="settings_email_empty">Walang nakakonektang email account. Sabihing "ikonekta ang aking email" sa chat para magsimula.</string>
+    <string name="settings_email_remove">Alisin ang account</string>
+    <string name="settings_email_poll_interval">Mag-poll tuwing %1$d minuto</string>
+    <string name="settings_email_poll_never">Hindi kailanman</string>
+    <string name="settings_email_poll_never_description">Manu-mano lamang — gamitin ang "suriin ang aking email" sa chat</string>
 </resources>

@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">একটি নির্ধারিত কাজ বাতিল করুন</string>
     <string name="tool_list_tasks_name">কাজের তালিকা</string>
     <string name="tool_list_tasks_description">সমস্ত নির্ধারিত কাজ দেখুন</string>
+    <string name="tool_setup_email_name">ইমেইল সেটআপ করুন</string>
+    <string name="tool_setup_email_description">পড়া এবং পাঠানোর জন্য একটি ইমেইল অ্যাকাউন্ট সংযুক্ত করুন</string>
+    <string name="tool_check_email_name">ইমেইল চেক করুন</string>
+    <string name="tool_check_email_description">অপঠিত ইমেইল চেক করুন</string>
+    <string name="tool_read_email_name">ইমেইল পড়ুন</string>
+    <string name="tool_read_email_description">একটি ইমেইলের পূর্ণ বিষয়বস্তু পড়ুন</string>
+    <string name="tool_reply_email_name">ইমেইলে উত্তর দিন</string>
+    <string name="tool_reply_email_description">ইমেইল উত্তর পাঠান</string>
+    <string name="tool_compose_email_name">ইমেইল লিখুন</string>
+    <string name="tool_compose_email_description">নতুন ইমেইল লিখুন এবং পাঠান</string>
+    <string name="tool_search_email_name">ইমেইল অনুসন্ধান করুন</string>
+    <string name="tool_search_email_description">প্রেরক, বিষয় বা তারিখ অনুযায়ী ইমেইল অনুসন্ধান করুন</string>
+    <string name="settings_email">ইমেইল</string>
+    <string name="settings_email_description">পড়া এবং উত্তর দেওয়ার জন্য ইমেইল অ্যাকাউন্ট সংযুক্ত করুন। চ্যাটে "আমার ইমেইল সংযুক্ত করো" বলুন বা এখানে অ্যাকাউন্ট যোগ করুন। ইমেইলগুলি ব্যাকগ্রাউন্ডে পোল করা হয় এবং AI দ্বারা বাছাই করা হয়।</string>
+    <string name="settings_email_empty">কোনো ইমেইল অ্যাকাউন্ট সংযুক্ত নেই। শুরু করতে চ্যাটে "আমার ইমেইল সংযুক্ত করো" বলুন।</string>
+    <string name="settings_email_remove">অ্যাকাউন্ট সরান</string>
+    <string name="settings_email_poll_interval">প্রতি %1$d মিনিটে পোল করুন</string>
+    <string name="settings_email_poll_never">কখনো না</string>
+    <string name="settings_email_poll_never_description">শুধুমাত্র ম্যানুয়াল — চ্যাটে "আমার ইমেইল চেক করো" ব্যবহার করুন</string>
 </resources>

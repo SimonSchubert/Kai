@@ -129,6 +129,8 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+            implementation(libs.ktor.network)
+            implementation(libs.ktor.network.tls)
         }
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)

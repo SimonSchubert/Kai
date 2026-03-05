@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Khansela umsebenzi ohleliwe</string>
     <string name="tool_list_tasks_name">Uhlu Lwemisebenzi</string>
     <string name="tool_list_tasks_description">Bonisa yonke imisebenzi ehleliwe</string>
+    <string name="tool_setup_email_name">Lungiselela I-imeyili</string>
+    <string name="tool_setup_email_description">Xhuma i-akhawunti ye-imeyili ukuze ufunde futhi uthumele</string>
+    <string name="tool_check_email_name">Hlola I-imeyili</string>
+    <string name="tool_check_email_description">Hlola ama-imeyili angafundwanga</string>
+    <string name="tool_read_email_name">Funda I-imeyili</string>
+    <string name="tool_read_email_description">Funda umzimba ophelele we-imeyili</string>
+    <string name="tool_reply_email_name">Phendula I-imeyili</string>
+    <string name="tool_reply_email_description">Thumela impendulo ye-imeyili</string>
+    <string name="tool_compose_email_name">Bhala I-imeyili</string>
+    <string name="tool_compose_email_description">Bhala futhi uthumele i-imeyili entsha</string>
+    <string name="tool_search_email_name">Sesha I-imeyili</string>
+    <string name="tool_search_email_description">Sesha ama-imeyili ngomthumeli, isihloko, noma usuku</string>
+    <string name="settings_email">I-imeyili</string>
+    <string name="settings_email_description">Xhuma ama-akhawunti e-imeyili ukuze ufunde uphendule. Sebenzisa ingxoxo ukusho "xhuma i-imeyili yami" noma engeza ama-akhawunti lapha. Ama-imeyili ahlolwa ngemuva futhi ahlukaniswe yi-AI.</string>
+    <string name="settings_email_empty">Awekho ama-akhawunti e-imeyili axhunyiwe. Sho "xhuma i-imeyili yami" engxoxweni ukuze uqale.</string>
+    <string name="settings_email_remove">Susa i-akhawunti</string>
+    <string name="settings_email_poll_interval">Hlola njalo ngemizuzu engu-%1$d</string>
+    <string name="settings_email_poll_never">Never</string>
+    <string name="settings_email_poll_never_description">Ngesandla kuphela — sebenzisa "hlola i-imeyili yami" engxoxweni</string>
 </resources>

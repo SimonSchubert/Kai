@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Eine geplante Aufgabe abbrechen</string>
     <string name="tool_list_tasks_name">Aufgaben auflisten</string>
     <string name="tool_list_tasks_description">Alle geplanten Aufgaben anzeigen</string>
+    <string name="tool_setup_email_name">E-Mail einrichten</string>
+    <string name="tool_setup_email_description">Ein E-Mail-Konto zum Lesen und Senden verbinden</string>
+    <string name="tool_check_email_name">E-Mails abrufen</string>
+    <string name="tool_check_email_description">Ungelesene E-Mails prüfen</string>
+    <string name="tool_read_email_name">E-Mail lesen</string>
+    <string name="tool_read_email_description">Den vollständigen Inhalt einer E-Mail lesen</string>
+    <string name="tool_reply_email_name">E-Mail beantworten</string>
+    <string name="tool_reply_email_description">Eine E-Mail-Antwort senden</string>
+    <string name="tool_compose_email_name">E-Mail verfassen</string>
+    <string name="tool_compose_email_description">Eine neue E-Mail verfassen und senden</string>
+    <string name="tool_search_email_name">E-Mail suchen</string>
+    <string name="tool_search_email_description">E-Mails nach Absender, Betreff oder Datum suchen</string>
+    <string name="settings_email">E-Mail</string>
+    <string name="settings_email_description">E-Mail-Konten zum Lesen und Beantworten verbinden. Sage im Chat „Verbinde meine E-Mail" oder füge Konten hier hinzu. E-Mails werden im Hintergrund abgerufen und von der KI priorisiert.</string>
+    <string name="settings_email_empty">Keine E-Mail-Konten verbunden. Sage im Chat „Verbinde meine E-Mail", um loszulegen.</string>
+    <string name="settings_email_remove">Konto entfernen</string>
+    <string name="settings_email_poll_interval">Alle %1$d Minuten abrufen</string>
+    <string name="settings_email_poll_never">Nie</string>
+    <string name="settings_email_poll_never_description">Nur manuell — nutze „Prüfe meine E-Mails" im Chat</string>
 </resources>

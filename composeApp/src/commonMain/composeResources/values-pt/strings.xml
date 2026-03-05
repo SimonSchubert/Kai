@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Cancelar uma tarefa agendada</string>
     <string name="tool_list_tasks_name">Listar tarefas</string>
     <string name="tool_list_tasks_description">Listar todas as tarefas agendadas</string>
+    <string name="tool_setup_email_name">Configurar e-mail</string>
+    <string name="tool_setup_email_description">Conectar uma conta de e-mail para leitura e envio</string>
+    <string name="tool_check_email_name">Verificar e-mail</string>
+    <string name="tool_check_email_description">Verificar e-mails não lidos</string>
+    <string name="tool_read_email_name">Ler e-mail</string>
+    <string name="tool_read_email_description">Ler o corpo completo de um e-mail</string>
+    <string name="tool_reply_email_name">Responder e-mail</string>
+    <string name="tool_reply_email_description">Enviar uma resposta de e-mail</string>
+    <string name="tool_compose_email_name">Redigir e-mail</string>
+    <string name="tool_compose_email_description">Redigir e enviar um novo e-mail</string>
+    <string name="tool_search_email_name">Pesquisar e-mail</string>
+    <string name="tool_search_email_description">Pesquisar e-mails por remetente, assunto ou data</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Conecte contas de e-mail para leitura e resposta. Diga «conectar meu e-mail» no chat ou adicione contas aqui. Os e-mails são verificados em segundo plano e triados pela IA.</string>
+    <string name="settings_email_empty">Nenhuma conta de e-mail conectada. Diga «conectar meu e-mail» no chat para começar.</string>
+    <string name="settings_email_remove">Remover conta</string>
+    <string name="settings_email_poll_interval">Verificar a cada %1$d minutos</string>
+    <string name="settings_email_poll_never">Nunca</string>
+    <string name="settings_email_poll_never_description">Somente manual — use «verificar meu e-mail» no chat</string>
 </resources>

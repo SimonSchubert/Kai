@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Zrušiť naplánovanú úlohu</string>
     <string name="tool_list_tasks_name">Zoznam úloh</string>
     <string name="tool_list_tasks_description">Zobraziť všetky naplánované úlohy</string>
+    <string name="tool_setup_email_name">Nastaviť e-mail</string>
+    <string name="tool_setup_email_description">Pripojiť e-mailový účet na čítanie a odosielanie</string>
+    <string name="tool_check_email_name">Skontrolovať e-mail</string>
+    <string name="tool_check_email_description">Skontrolovať neprečítané e-maily</string>
+    <string name="tool_read_email_name">Prečítať e-mail</string>
+    <string name="tool_read_email_description">Prečítať celý obsah e-mailu</string>
+    <string name="tool_reply_email_name">Odpovedať na e-mail</string>
+    <string name="tool_reply_email_description">Odoslať odpoveď na e-mail</string>
+    <string name="tool_compose_email_name">Napísať e-mail</string>
+    <string name="tool_compose_email_description">Zostaviť a odoslať nový e-mail</string>
+    <string name="tool_search_email_name">Hľadať v e-mailoch</string>
+    <string name="tool_search_email_description">Hľadať e-maily podľa odosielateľa, predmetu alebo dátumu</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Pripojte e-mailové účty na čítanie a odpovedanie. V chate povedzte „pripojiť môj e-mail" alebo pridajte účty tu. E-maily sú kontrolované na pozadí a triedené pomocou AI.</string>
+    <string name="settings_email_empty">Žiadne pripojené e-mailové účty. Povedzte „pripojiť môj e-mail" v chate pre začatie.</string>
+    <string name="settings_email_remove">Odstrániť účet</string>
+    <string name="settings_email_poll_interval">Kontrolovať každých %1$d min.</string>
+    <string name="settings_email_poll_never">Nikdy</string>
+    <string name="settings_email_poll_never_description">Iba ručne — povedzte „skontrolovať môj e-mail" v chate</string>
 </resources>

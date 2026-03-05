@@ -61,6 +61,7 @@ class RemoteDataRepository(
     private val memoryStore: MemoryStore,
     private val taskStore: TaskStore,
     private val heartbeatManager: HeartbeatManager,
+    private val emailStore: EmailStore,
 ) : DataRepository {
 
     /**
@@ -732,6 +733,24 @@ class RemoteDataRepository(
     }
 
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = heartbeatManager.getHeartbeatLog()
+
+    override fun isEmailEnabled(): Boolean = appSettings.isEmailEnabled()
+
+    override fun setEmailEnabled(enabled: Boolean) {
+        appSettings.setEmailEnabled(enabled)
+    }
+
+    override fun getEmailAccounts(): List<EmailAccount> = emailStore.getAccounts()
+
+    override suspend fun removeEmailAccount(id: String) {
+        emailStore.removeAccount(id)
+    }
+
+    override fun getEmailPollIntervalMinutes(): Int = appSettings.getEmailPollIntervalMinutes()
+
+    override fun setEmailPollIntervalMinutes(minutes: Int) {
+        appSettings.setEmailPollIntervalMinutes(minutes)
+    }
 
     override suspend fun askSilently(question: String): String {
         val service = currentService()

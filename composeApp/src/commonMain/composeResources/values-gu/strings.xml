@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">શેડ્યૂલ કરેલ કાર્ય રદ કરો</string>
     <string name="tool_list_tasks_name">કાર્યોની સૂચિ</string>
     <string name="tool_list_tasks_description">બધા શેડ્યૂલ કરેલ કાર્યો બતાવો</string>
+    <string name="tool_setup_email_name">ઇમેઇલ સેટઅપ કરો</string>
+    <string name="tool_setup_email_description">વાંચવા અને મોકલવા માટે ઇમેઇલ ખાતું કનેક્ટ કરો</string>
+    <string name="tool_check_email_name">ઇમેઇલ તપાસો</string>
+    <string name="tool_check_email_description">ન વાંચેલ ઇમેઇલ તપાસો</string>
+    <string name="tool_read_email_name">ઇમેઇલ વાંચો</string>
+    <string name="tool_read_email_description">ઇમેઇલનો સંપૂર્ણ મુખ્ય ભાગ વાંચો</string>
+    <string name="tool_reply_email_name">ઇમેઇલ જવાબ આપો</string>
+    <string name="tool_reply_email_description">ઇમેઇલ જવાબ મોકલો</string>
+    <string name="tool_compose_email_name">ઇમેઇલ લખો</string>
+    <string name="tool_compose_email_description">નવો ઇમેઇલ લખો અને મોકલો</string>
+    <string name="tool_search_email_name">ઇમેઇલ શોધો</string>
+    <string name="tool_search_email_description">મોકલનાર, વિષય અથવા તારીખ દ્વારા ઇમેઇલ શોધો</string>
+    <string name="settings_email">ઇમેઇલ</string>
+    <string name="settings_email_description">વાંચવા અને જવાબ આપવા માટે ઇમેઇલ ખાતાઓ કનેક્ટ કરો. ચેટમાં "મારો ઇમેઇલ કનેક્ટ કરો" કહો અથવા અહીં ખાતાઓ ઉમેરો. ઇમેઇલ પૃષ્ઠભૂમિમાં તપાસવામાં આવે છે અને AI દ્વારા વર્ગીકૃત કરવામાં આવે છે.</string>
+    <string name="settings_email_empty">કોઈ ઇમેઇલ ખાતાઓ કનેક્ટ નથી. શરૂ કરવા માટે ચેટમાં "મારો ઇમેઇલ કનેક્ટ કરો" કહો.</string>
+    <string name="settings_email_remove">ખાતું દૂર કરો</string>
+    <string name="settings_email_poll_interval">દર %1$d મિનિટે તપાસો</string>
+    <string name="settings_email_poll_never">ક્યારેય નહીં</string>
+    <string name="settings_email_poll_never_description">ફક્ત મેન્યુઅલ — ચેટમાં "મારો ઇમેઇલ તપાસો" કહો</string>
 </resources>

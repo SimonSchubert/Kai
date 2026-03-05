@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Atšaukti suplanuotą užduotį</string>
     <string name="tool_list_tasks_name">Užduočių sąrašas</string>
     <string name="tool_list_tasks_description">Rodyti visas suplanuotas užduotis</string>
+    <string name="tool_setup_email_name">Nustatyti el. paštą</string>
+    <string name="tool_setup_email_description">Prijungti el. pašto paskyrą skaitymui ir siuntimui</string>
+    <string name="tool_check_email_name">Tikrinti el. paštą</string>
+    <string name="tool_check_email_description">Tikrinti neperskaitytus el. laiškus</string>
+    <string name="tool_read_email_name">Skaityti el. laišką</string>
+    <string name="tool_read_email_description">Skaityti visą el. laiško turinį</string>
+    <string name="tool_reply_email_name">Atsakyti į el. laišką</string>
+    <string name="tool_reply_email_description">Siųsti el. pašto atsakymą</string>
+    <string name="tool_compose_email_name">Rašyti el. laišką</string>
+    <string name="tool_compose_email_description">Parašyti ir išsiųsti naują el. laišką</string>
+    <string name="tool_search_email_name">Ieškoti el. pašte</string>
+    <string name="tool_search_email_description">Ieškoti el. laiškų pagal siuntėją, temą arba datą</string>
+    <string name="settings_email">El. paštas</string>
+    <string name="settings_email_description">Prijunkite el. pašto paskyras skaitymui ir atsakymui. Naudokite pokalbį ir pasakykite „prijungti mano el. paštą" arba pridėkite paskyras čia. El. laiškai tikrinami fone ir rūšiuojami AI.</string>
+    <string name="settings_email_empty">Nėra prijungtų el. pašto paskyrų. Pasakykite „prijungti mano el. paštą" pokalbyje, kad pradėtumėte.</string>
+    <string name="settings_email_remove">Pašalinti paskyrą</string>
+    <string name="settings_email_poll_interval">Tikrinti kas %1$d minučių</string>
+    <string name="settings_email_poll_never">Niekada</string>
+    <string name="settings_email_poll_never_description">Tik rankiniu būdu — naudokite „patikrinti mano el. paštą" pokalbyje</string>
 </resources>

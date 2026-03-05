@@ -23,7 +23,7 @@ data class HeartbeatConfig(
 )
 
 @OptIn(ExperimentalTime::class)
-class HeartbeatManager(private val appSettings: AppSettings, private val memoryStore: MemoryStore, private val taskStore: TaskStore) {
+class HeartbeatManager(private val appSettings: AppSettings, private val memoryStore: MemoryStore, private val taskStore: TaskStore, private val emailStore: EmailStore? = null) {
 
     private val json = SharedJson
 
@@ -71,6 +71,22 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
                 append("- **${t.description}** (id: ${t.id}, scheduled: ${Instant.fromEpochMilliseconds(t.scheduledAtEpochMs)})")
                 if (t.cron != null) append(" [cron: ${t.cron}]")
                 append("\n")
+            }
+        }
+
+        // Append email status
+        if (emailStore != null && appSettings.isEmailEnabled()) {
+            val accounts = emailStore.getAccounts()
+            if (accounts.isNotEmpty()) {
+                append("\n## Email Status\n")
+                for (account in accounts) {
+                    val syncState = emailStore.getSyncState(account.id)
+                    append("- **${account.email}**: ${syncState.unreadCount} unread")
+                    if (syncState.lastSyncEpochMs > 0) {
+                        append(" (last sync: ${Instant.fromEpochMilliseconds(syncState.lastSyncEpochMs)})")
+                    }
+                    append("\n")
+                }
             }
         }
 

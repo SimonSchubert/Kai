@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Ütemezett feladat törlése</string>
     <string name="tool_list_tasks_name">Feladatok listázása</string>
     <string name="tool_list_tasks_description">Összes ütemezett feladat listázása</string>
+    <string name="tool_setup_email_name">E-mail beállítása</string>
+    <string name="tool_setup_email_description">E-mail fiók csatlakoztatása olvasáshoz és küldéshez</string>
+    <string name="tool_check_email_name">E-mail ellenőrzése</string>
+    <string name="tool_check_email_description">Olvasatlan e-mailek ellenőrzése</string>
+    <string name="tool_read_email_name">E-mail olvasása</string>
+    <string name="tool_read_email_description">Egy e-mail teljes szövegének olvasása</string>
+    <string name="tool_reply_email_name">E-mail megválaszolása</string>
+    <string name="tool_reply_email_description">E-mail válasz küldése</string>
+    <string name="tool_compose_email_name">E-mail írása</string>
+    <string name="tool_compose_email_description">Új e-mail megírása és elküldése</string>
+    <string name="tool_search_email_name">E-mail keresése</string>
+    <string name="tool_search_email_description">E-mailek keresése feladó, tárgy vagy dátum szerint</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Csatlakoztass e-mail fiókokat olvasáshoz és válaszadáshoz. Használd a chatet, és mondd: „csatlakoztasd az e-mailem", vagy adj hozzá fiókokat itt. Az e-maileket a háttérben lekéri és az AI feldolgozza.</string>
+    <string name="settings_email_empty">Nincs csatlakoztatott e-mail fiók. Mondd a chatben: „csatlakoztasd az e-mailem" a kezdéshez.</string>
+    <string name="settings_email_remove">Fiók eltávolítása</string>
+    <string name="settings_email_poll_interval">Lekérdezés minden %1$d percben</string>
+    <string name="settings_email_poll_never">Soha</string>
+    <string name="settings_email_poll_never_description">Csak manuálisan — használd a chatben: „ellenőrizd az e-mailem"</string>
 </resources>

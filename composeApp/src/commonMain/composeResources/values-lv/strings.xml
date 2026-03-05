@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Atcelt ieplānotu uzdevumu</string>
     <string name="tool_list_tasks_name">Uzdevumu saraksts</string>
     <string name="tool_list_tasks_description">Parādīt visus ieplānotos uzdevumus</string>
+    <string name="tool_setup_email_name">Iestatīt e-pastu</string>
+    <string name="tool_setup_email_description">Pievienot e-pasta kontu lasīšanai un sūtīšanai</string>
+    <string name="tool_check_email_name">Pārbaudīt e-pastu</string>
+    <string name="tool_check_email_description">Pārbaudīt nelasītos e-pastus</string>
+    <string name="tool_read_email_name">Lasīt e-pastu</string>
+    <string name="tool_read_email_description">Lasīt e-pasta vēstules pilno saturu</string>
+    <string name="tool_reply_email_name">Atbildēt uz e-pastu</string>
+    <string name="tool_reply_email_description">Sūtīt e-pasta atbildi</string>
+    <string name="tool_compose_email_name">Rakstīt e-pastu</string>
+    <string name="tool_compose_email_description">Rakstīt un nosūtīt jaunu e-pasta vēstuli</string>
+    <string name="tool_search_email_name">Meklēt e-pastā</string>
+    <string name="tool_search_email_description">Meklēt e-pastus pēc sūtītāja, temata vai datuma</string>
+    <string name="settings_email">E-pasts</string>
+    <string name="settings_email_description">Pievienojiet e-pasta kontus lasīšanai un atbildēšanai. Izmantojiet tērzēšanu un sakiet "pievienot manu e-pastu" vai pievienojiet kontus šeit. E-pasti tiek aptaujāti fonā un kārtoti ar AI.</string>
+    <string name="settings_email_empty">Nav pievienotu e-pasta kontu. Sakiet "pievienot manu e-pastu" tērzēšanā, lai sāktu.</string>
+    <string name="settings_email_remove">Noņemt kontu</string>
+    <string name="settings_email_poll_interval">Aptaujāt ik pēc %1$d minūtēm</string>
+    <string name="settings_email_poll_never">Nekad</string>
+    <string name="settings_email_poll_never_description">Tikai manuāli — izmantojiet "pārbaudīt manu e-pastu" tērzēšanā</string>
 </resources>

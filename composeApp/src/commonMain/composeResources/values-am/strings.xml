@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">የተያዘ ተግባር ሰርዝ</string>
     <string name="tool_list_tasks_name">ተግባራት ዘርዝር</string>
     <string name="tool_list_tasks_description">ሁሉንም የተያዙ ተግባራት ዘርዝር</string>
+    <string name="tool_setup_email_name">ኢሜይል አዘጋጅ</string>
+    <string name="tool_setup_email_description">ለማንበብ እና ለመላክ የኢሜይል መለያ ያያይዙ</string>
+    <string name="tool_check_email_name">ኢሜይል ይፈትሹ</string>
+    <string name="tool_check_email_description">ያልተነበቡ ኢሜይሎችን ይፈትሹ</string>
+    <string name="tool_read_email_name">ኢሜይል ያንብቡ</string>
+    <string name="tool_read_email_description">የኢሜይሉን ሙሉ ይዘት ያንብቡ</string>
+    <string name="tool_reply_email_name">ለኢሜይል ምላሽ ይስጡ</string>
+    <string name="tool_reply_email_description">የኢሜይል ምላሽ ይላኩ</string>
+    <string name="tool_compose_email_name">ኢሜይል ይጻፉ</string>
+    <string name="tool_compose_email_description">አዲስ ኢሜይል ይጻፉ እና ይላኩ</string>
+    <string name="tool_search_email_name">ኢሜይል ይፈልጉ</string>
+    <string name="tool_search_email_description">ኢሜይሎችን በላኪ፣ በርዕስ ወይም በቀን ይፈልጉ</string>
+    <string name="settings_email">ኢሜይል</string>
+    <string name="settings_email_description">ለማንበብ እና ለምላሽ የኢሜይል መለያዎችን ያያይዙ። "ኢሜይሌን አያይዝ" ለማለት ውይይቱን ይጠቀሙ ወይም እዚህ መለያዎችን ያክሉ። ኢሜይሎች ከበስተጀርባ ይፈለጋሉ እና በ AI ይለዩ።</string>
+    <string name="settings_email_empty">ምንም የኢሜይል መለያዎች አልተያያዙም። ለመጀመር በውይይቱ ውስጥ "ኢሜይሌን አያይዝ" ይበሉ።</string>
+    <string name="settings_email_remove">መለያ ሰርዝ</string>
+    <string name="settings_email_poll_interval">በእያንዳንዱ %1$d ደቂቃ ይፈልጋል</string>
+    <string name="settings_email_poll_never">በፍጹም</string>
+    <string name="settings_email_poll_never_description">በእጅ ብቻ — በውይይቱ ውስጥ "ኢሜይሌን ፈትሽ" ይጠቀሙ</string>
 </resources>

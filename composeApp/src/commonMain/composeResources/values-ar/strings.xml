@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">إلغاء مهمة مجدولة</string>
     <string name="tool_list_tasks_name">عرض المهام</string>
     <string name="tool_list_tasks_description">عرض جميع المهام المجدولة</string>
+    <string name="tool_setup_email_name">إعداد البريد الإلكتروني</string>
+    <string name="tool_setup_email_description">ربط حساب بريد إلكتروني للقراءة والإرسال</string>
+    <string name="tool_check_email_name">التحقق من البريد الإلكتروني</string>
+    <string name="tool_check_email_description">التحقق من الرسائل غير المقروءة</string>
+    <string name="tool_read_email_name">قراءة البريد الإلكتروني</string>
+    <string name="tool_read_email_description">قراءة النص الكامل للبريد الإلكتروني</string>
+    <string name="tool_reply_email_name">الرد على البريد الإلكتروني</string>
+    <string name="tool_reply_email_description">إرسال رد بريد إلكتروني</string>
+    <string name="tool_compose_email_name">إنشاء بريد إلكتروني</string>
+    <string name="tool_compose_email_description">إنشاء وإرسال بريد إلكتروني جديد</string>
+    <string name="tool_search_email_name">البحث في البريد الإلكتروني</string>
+    <string name="tool_search_email_description">البحث في الرسائل حسب المرسل أو الموضوع أو التاريخ</string>
+    <string name="settings_email">البريد الإلكتروني</string>
+    <string name="settings_email_description">ربط حسابات البريد الإلكتروني للقراءة والرد. استخدم المحادثة وقل "اربط بريدي الإلكتروني" أو أضف حسابات هنا. يتم استطلاع الرسائل في الخلفية وفرزها بواسطة الذكاء الاصطناعي.</string>
+    <string name="settings_email_empty">لا توجد حسابات بريد إلكتروني متصلة. قل "اربط بريدي الإلكتروني" في المحادثة للبدء.</string>
+    <string name="settings_email_remove">إزالة الحساب</string>
+    <string name="settings_email_poll_interval">الاستطلاع كل %1$d دقيقة</string>
+    <string name="settings_email_poll_never">أبداً</string>
+    <string name="settings_email_poll_never_description">يدوي فقط — استخدم "تحقق من بريدي الإلكتروني" في المحادثة</string>
 </resources>

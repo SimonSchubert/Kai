@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Ακύρωση προγραμματισμένης εργασίας</string>
     <string name="tool_list_tasks_name">Λίστα Εργασιών</string>
     <string name="tool_list_tasks_description">Εμφάνιση όλων των προγραμματισμένων εργασιών</string>
+    <string name="tool_setup_email_name">Ρύθμιση Email</string>
+    <string name="tool_setup_email_description">Σύνδεση λογαριασμού email για ανάγνωση και αποστολή</string>
+    <string name="tool_check_email_name">Έλεγχος Email</string>
+    <string name="tool_check_email_description">Έλεγχος για αδιάβαστα email</string>
+    <string name="tool_read_email_name">Ανάγνωση Email</string>
+    <string name="tool_read_email_description">Ανάγνωση του πλήρους περιεχομένου ενός email</string>
+    <string name="tool_reply_email_name">Απάντηση Email</string>
+    <string name="tool_reply_email_description">Αποστολή απάντησης email</string>
+    <string name="tool_compose_email_name">Σύνταξη Email</string>
+    <string name="tool_compose_email_description">Σύνταξη και αποστολή νέου email</string>
+    <string name="tool_search_email_name">Αναζήτηση Email</string>
+    <string name="tool_search_email_description">Αναζήτηση email κατά αποστολέα, θέμα ή ημερομηνία</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Συνδέστε λογαριασμούς email για ανάγνωση και απάντηση. Χρησιμοποιήστε τη συνομιλία για να πείτε «σύνδεσε το email μου» ή προσθέστε λογαριασμούς εδώ. Τα email ελέγχονται στο παρασκήνιο και ταξινομούνται από την τεχνητή νοημοσύνη.</string>
+    <string name="settings_email_empty">Δεν υπάρχουν συνδεδεμένοι λογαριασμοί email. Πείτε «σύνδεσε το email μου» στη συνομιλία για να ξεκινήσετε.</string>
+    <string name="settings_email_remove">Αφαίρεση λογαριασμού</string>
+    <string name="settings_email_poll_interval">Έλεγχος κάθε %1$d λεπτά</string>
+    <string name="settings_email_poll_never">Ποτέ</string>
+    <string name="settings_email_poll_never_description">Μόνο χειροκίνητα — χρησιμοποιήστε «έλεγξε το email μου» στη συνομιλία</string>
 </resources>

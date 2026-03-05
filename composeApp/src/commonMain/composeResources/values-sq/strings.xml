@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Anulo një detyrë të programuar</string>
     <string name="tool_list_tasks_name">Listo detyrat</string>
     <string name="tool_list_tasks_description">Listo të gjitha detyrat e programuara</string>
+    <string name="tool_setup_email_name">Konfiguro emailin</string>
+    <string name="tool_setup_email_description">Lidhni një llogari emaili për lexim dhe dërgim</string>
+    <string name="tool_check_email_name">Kontrollo emailin</string>
+    <string name="tool_check_email_description">Kontrolloni për emaile të palexuara</string>
+    <string name="tool_read_email_name">Lexo emailin</string>
+    <string name="tool_read_email_description">Lexoni trupin e plotë të një emaili</string>
+    <string name="tool_reply_email_name">Përgjigju emailit</string>
+    <string name="tool_reply_email_description">Dërgoni një përgjigje emaili</string>
+    <string name="tool_compose_email_name">Shkruaj email</string>
+    <string name="tool_compose_email_description">Shkruani dhe dërgoni një email të ri</string>
+    <string name="tool_search_email_name">Kërko email</string>
+    <string name="tool_search_email_description">Kërkoni emaile sipas dërguesit, subjektit ose datës</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Lidhni llogaritë e emailit për lexim dhe përgjigje. Përdorni chat-in për të thënë "lidh emailin tim" ose shtoni llogaritë këtu. Emailet kontrollohen në sfond dhe renditen nga AI.</string>
+    <string name="settings_email_empty">Nuk ka llogari emaili të lidhura. Thoni "lidh emailin tim" në chat për të filluar.</string>
+    <string name="settings_email_remove">Hiq llogarinë</string>
+    <string name="settings_email_poll_interval">Kontrollo çdo %1$d minuta</string>
+    <string name="settings_email_poll_never">Kurrë</string>
+    <string name="settings_email_poll_never_description">Vetëm manualisht — përdorni "kontrollo emailin tim" në chat</string>
 </resources>

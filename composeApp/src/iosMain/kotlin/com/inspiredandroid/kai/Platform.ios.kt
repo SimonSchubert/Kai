@@ -5,12 +5,14 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.russhwolf.settings.ExperimentalSettingsImplementation
@@ -39,6 +41,8 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos
 
 actual val isMobilePlatform: Boolean = true
 
+actual val isEmailSupported: Boolean = true
+
 actual val platformName: String = "iOS"
 
 actual fun getAppFilesDirectory(): String {
@@ -62,6 +66,7 @@ private object IosKoinHelper : KoinComponent {
     val memoryStore: MemoryStore by inject()
     val taskStore: TaskStore by inject()
     val heartbeatManager: HeartbeatManager by inject()
+    val emailStore: EmailStore by inject()
 }
 
 actual fun getAvailableTools(): List<Tool> = buildList {
@@ -72,5 +77,8 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     if (IosKoinHelper.appSettings.isSchedulingEnabled()) {
         addAll(SchedulingTools.getSchedulingTools(IosKoinHelper.taskStore))
         addAll(HeartbeatTools.getHeartbeatTools(IosKoinHelper.heartbeatManager, IosKoinHelper.memoryStore, IosKoinHelper.appSettings))
+    }
+    if (IosKoinHelper.appSettings.isEmailEnabled()) {
+        addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))
     }
 }

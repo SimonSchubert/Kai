@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">ਨਿਯਤ ਕਾਰਜ ਰੱਦ ਕਰੋ</string>
     <string name="tool_list_tasks_name">ਕਾਰਜ ਸੂਚੀ</string>
     <string name="tool_list_tasks_description">ਸਾਰੇ ਨਿਯਤ ਕਾਰਜ ਸੂਚੀਬੱਧ ਕਰੋ</string>
+    <string name="tool_setup_email_name">ਈਮੇਲ ਸੈੱਟਅੱਪ ਕਰੋ</string>
+    <string name="tool_setup_email_description">ਪੜ੍ਹਨ ਅਤੇ ਭੇਜਣ ਲਈ ਈਮੇਲ ਖਾਤਾ ਜੋੜੋ</string>
+    <string name="tool_check_email_name">ਈਮੇਲ ਚੈੱਕ ਕਰੋ</string>
+    <string name="tool_check_email_description">ਨਾ ਪੜ੍ਹੇ ਈਮੇਲ ਚੈੱਕ ਕਰੋ</string>
+    <string name="tool_read_email_name">ਈਮੇਲ ਪੜ੍ਹੋ</string>
+    <string name="tool_read_email_description">ਈਮੇਲ ਦਾ ਪੂਰਾ ਮੁੱਖ ਭਾਗ ਪੜ੍ਹੋ</string>
+    <string name="tool_reply_email_name">ਈਮੇਲ ਦਾ ਜਵਾਬ ਦਿਓ</string>
+    <string name="tool_reply_email_description">ਈਮੇਲ ਜਵਾਬ ਭੇਜੋ</string>
+    <string name="tool_compose_email_name">ਈਮੇਲ ਲਿਖੋ</string>
+    <string name="tool_compose_email_description">ਨਵਾਂ ਈਮੇਲ ਲਿਖੋ ਅਤੇ ਭੇਜੋ</string>
+    <string name="tool_search_email_name">ਈਮੇਲ ਖੋਜੋ</string>
+    <string name="tool_search_email_description">ਭੇਜਣ ਵਾਲੇ, ਵਿਸ਼ੇ ਜਾਂ ਤਾਰੀਖ਼ ਅਨੁਸਾਰ ਈਮੇਲ ਖੋਜੋ</string>
+    <string name="settings_email">ਈਮੇਲ</string>
+    <string name="settings_email_description">ਪੜ੍ਹਨ ਅਤੇ ਜਵਾਬ ਦੇਣ ਲਈ ਈਮੇਲ ਖਾਤੇ ਜੋੜੋ। ਚੈਟ ਵਿੱਚ "ਮੇਰਾ ਈਮੇਲ ਕਨੈਕਟ ਕਰੋ" ਕਹੋ ਜਾਂ ਇੱਥੇ ਖਾਤੇ ਜੋੜੋ। ਈਮੇਲ ਪਿਛੋਕੜ ਵਿੱਚ ਚੈੱਕ ਕੀਤੇ ਜਾਂਦੇ ਹਨ ਅਤੇ AI ਦੁਆਰਾ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।</string>
+    <string name="settings_email_empty">ਕੋਈ ਈਮੇਲ ਖਾਤੇ ਕਨੈਕਟ ਨਹੀਂ ਹਨ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਚੈਟ ਵਿੱਚ "ਮੇਰਾ ਈਮੇਲ ਕਨੈਕਟ ਕਰੋ" ਕਹੋ।</string>
+    <string name="settings_email_remove">ਖਾਤਾ ਹਟਾਓ</string>
+    <string name="settings_email_poll_interval">ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੈੱਕ ਕਰੋ</string>
+    <string name="settings_email_poll_never">ਕਦੇ ਨਹੀਂ</string>
+    <string name="settings_email_poll_never_description">ਸਿਰਫ਼ ਮੈਨੂਅਲ — ਚੈਟ ਵਿੱਚ "ਮੇਰਾ ਈਮੇਲ ਚੈੱਕ ਕਰੋ" ਕਹੋ</string>
 </resources>

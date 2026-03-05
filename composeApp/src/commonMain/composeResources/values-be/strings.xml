@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Скасаваць запланаваную задачу</string>
     <string name="tool_list_tasks_name">Спіс задач</string>
     <string name="tool_list_tasks_description">Паказаць усе запланаваныя задачы</string>
+    <string name="tool_setup_email_name">Наладзіць электронную пошту</string>
+    <string name="tool_setup_email_description">Падключыць уліковы запіс электроннай пошты для чытання і адпраўкі</string>
+    <string name="tool_check_email_name">Праверыць пошту</string>
+    <string name="tool_check_email_description">Праверыць непрачытаныя лісты</string>
+    <string name="tool_read_email_name">Прачытаць ліст</string>
+    <string name="tool_read_email_description">Прачытаць поўны змест ліста</string>
+    <string name="tool_reply_email_name">Адказаць на ліст</string>
+    <string name="tool_reply_email_description">Адправіць адказ на ліст</string>
+    <string name="tool_compose_email_name">Напісаць ліст</string>
+    <string name="tool_compose_email_description">Скласці і адправіць новы ліст</string>
+    <string name="tool_search_email_name">Пошук па пошце</string>
+    <string name="tool_search_email_description">Пошук лістоў па адпраўніку, тэме або даце</string>
+    <string name="settings_email">Электронная пошта</string>
+    <string name="settings_email_description">Падключыце ўліковыя запісы электроннай пошты для чытання і адказу. Напішыце ў чат «падключыць маю пошту» або дадайце акаўнты тут. Пошта правяраецца ў фонавым рэжыме і сартуецца з дапамогай AI.</string>
+    <string name="settings_email_empty">Няма падключаных уліковых запісаў. Напішыце «падключыць маю пошту» ў чаце, каб пачаць.</string>
+    <string name="settings_email_remove">Выдаліць акаўнт</string>
+    <string name="settings_email_poll_interval">Правяраць кожныя %1$d хв.</string>
+    <string name="settings_email_poll_never">Ніколі</string>
+    <string name="settings_email_poll_never_description">Толькі ўручную — напішыце «праверыць маю пошту» ў чаце</string>
 </resources>

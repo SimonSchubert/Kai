@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">예약된 작업 취소</string>
     <string name="tool_list_tasks_name">작업 목록</string>
     <string name="tool_list_tasks_description">모든 예약된 작업 나열</string>
+    <string name="tool_setup_email_name">이메일 설정</string>
+    <string name="tool_setup_email_description">읽기 및 보내기를 위한 이메일 계정 연결</string>
+    <string name="tool_check_email_name">이메일 확인</string>
+    <string name="tool_check_email_description">읽지 않은 이메일 확인</string>
+    <string name="tool_read_email_name">이메일 읽기</string>
+    <string name="tool_read_email_description">이메일 본문 전체 읽기</string>
+    <string name="tool_reply_email_name">이메일 답장</string>
+    <string name="tool_reply_email_description">이메일 답장 보내기</string>
+    <string name="tool_compose_email_name">이메일 작성</string>
+    <string name="tool_compose_email_description">새 이메일 작성 및 보내기</string>
+    <string name="tool_search_email_name">이메일 검색</string>
+    <string name="tool_search_email_description">발신자, 제목 또는 날짜로 이메일 검색</string>
+    <string name="settings_email">이메일</string>
+    <string name="settings_email_description">이메일 읽기 및 답장을 위한 이메일 계정을 연결합니다. 채팅에서 "내 이메일 연결"이라고 하거나 여기서 계정을 추가하세요. 이메일은 백그라운드에서 주기적으로 확인되고 AI가 분류합니다.</string>
+    <string name="settings_email_empty">연결된 이메일 계정이 없습니다. 채팅에서 "내 이메일 연결"이라고 하여 시작하세요.</string>
+    <string name="settings_email_remove">계정 제거</string>
+    <string name="settings_email_poll_interval">%1$d분마다 확인</string>
+    <string name="settings_email_poll_never">안 함</string>
+    <string name="settings_email_poll_never_description">수동 전용 — 채팅에서 "내 이메일 확인"을 사용하세요</string>
 </resources>

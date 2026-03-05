@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Annulla un\'attività pianificata</string>
     <string name="tool_list_tasks_name">Elenca attività</string>
     <string name="tool_list_tasks_description">Elenca tutte le attività pianificate</string>
+    <string name="tool_setup_email_name">Configura e-mail</string>
+    <string name="tool_setup_email_description">Connetti un account e-mail per la lettura e l'invio</string>
+    <string name="tool_check_email_name">Controlla e-mail</string>
+    <string name="tool_check_email_description">Controlla le e-mail non lette</string>
+    <string name="tool_read_email_name">Leggi e-mail</string>
+    <string name="tool_read_email_description">Leggi il corpo completo di un'e-mail</string>
+    <string name="tool_reply_email_name">Rispondi e-mail</string>
+    <string name="tool_reply_email_description">Invia una risposta e-mail</string>
+    <string name="tool_compose_email_name">Scrivi e-mail</string>
+    <string name="tool_compose_email_description">Scrivi e invia una nuova e-mail</string>
+    <string name="tool_search_email_name">Cerca e-mail</string>
+    <string name="tool_search_email_description">Cerca e-mail per mittente, oggetto o data</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Connetti account e-mail per leggere e rispondere. Di\' «connetti la mia e-mail» nella chat o aggiungi account qui. Le e-mail vengono controllate in background e classificate dall\'IA.</string>
+    <string name="settings_email_empty">Nessun account e-mail connesso. Di\' «connetti la mia e-mail» nella chat per iniziare.</string>
+    <string name="settings_email_remove">Rimuovi account</string>
+    <string name="settings_email_poll_interval">Controlla ogni %1$d minuti</string>
+    <string name="settings_email_poll_never">Mai</string>
+    <string name="settings_email_poll_never_description">Solo manuale — usa «controlla la mia e-mail» nella chat</string>
 </resources>

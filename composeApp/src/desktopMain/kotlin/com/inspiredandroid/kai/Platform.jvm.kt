@@ -10,12 +10,14 @@ import androidx.compose.ui.draganddrop.DragData
 import androidx.compose.ui.draganddrop.dragData
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
@@ -63,6 +65,8 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
 actual val isMobilePlatform: Boolean = false
 
+actual val isEmailSupported: Boolean = true
+
 actual val platformName: String = run {
     val osName = System.getProperty("os.name", "").lowercase()
     when {
@@ -96,6 +100,7 @@ actual fun getAvailableTools(): List<Tool> {
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
     val heartbeatManager: HeartbeatManager by inject(HeartbeatManager::class.java)
+    val emailStore: EmailStore by inject(EmailStore::class.java)
     return buildList {
         addAll(CommonTools.getCommonTools(appSettings))
         if (appSettings.isMemoryEnabled()) {
@@ -107,6 +112,9 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)
+        }
+        if (appSettings.isEmailEnabled()) {
+            addAll(EmailTools.getEmailTools(emailStore))
         }
     }
 }

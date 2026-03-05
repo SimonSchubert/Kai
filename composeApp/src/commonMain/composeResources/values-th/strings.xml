@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">ยกเลิกงานที่กำหนดไว้</string>
     <string name="tool_list_tasks_name">แสดงรายการงาน</string>
     <string name="tool_list_tasks_description">แสดงรายการงานที่กำหนดไว้ทั้งหมด</string>
+    <string name="tool_setup_email_name">ตั้งค่าอีเมล</string>
+    <string name="tool_setup_email_description">เชื่อมต่อบัญชีอีเมลสำหรับการอ่านและส่ง</string>
+    <string name="tool_check_email_name">ตรวจสอบอีเมล</string>
+    <string name="tool_check_email_description">ตรวจสอบอีเมลที่ยังไม่ได้อ่าน</string>
+    <string name="tool_read_email_name">อ่านอีเมล</string>
+    <string name="tool_read_email_description">อ่านเนื้อหาเต็มของอีเมล</string>
+    <string name="tool_reply_email_name">ตอบกลับอีเมล</string>
+    <string name="tool_reply_email_description">ส่งการตอบกลับอีเมล</string>
+    <string name="tool_compose_email_name">เขียนอีเมล</string>
+    <string name="tool_compose_email_description">เขียนและส่งอีเมลใหม่</string>
+    <string name="tool_search_email_name">ค้นหาอีเมล</string>
+    <string name="tool_search_email_description">ค้นหาอีเมลตามผู้ส่ง หัวเรื่อง หรือวันที่</string>
+    <string name="settings_email">อีเมล</string>
+    <string name="settings_email_description">เชื่อมต่อบัญชีอีเมลสำหรับการอ่านและตอบกลับ พูดว่า "เชื่อมต่ออีเมลของฉัน" ในแชทหรือเพิ่มบัญชีที่นี่ อีเมลจะถูกตรวจสอบในเบื้องหลังและจัดเรียงโดย AI</string>
+    <string name="settings_email_empty">ไม่มีบัญชีอีเมลที่เชื่อมต่อ พูดว่า "เชื่อมต่ออีเมลของฉัน" ในแชทเพื่อเริ่มต้น</string>
+    <string name="settings_email_remove">ลบบัญชี</string>
+    <string name="settings_email_poll_interval">ตรวจสอบทุก %1$d นาที</string>
+    <string name="settings_email_poll_never">ไม่ตรวจสอบ</string>
+    <string name="settings_email_poll_never_description">ด้วยตนเองเท่านั้น — ใช้ "ตรวจสอบอีเมลของฉัน" ในแชท</string>
 </resources>

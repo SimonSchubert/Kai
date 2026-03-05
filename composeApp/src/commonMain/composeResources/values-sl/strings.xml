@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Prekliči načrtovano opravilo</string>
     <string name="tool_list_tasks_name">Seznam opravil</string>
     <string name="tool_list_tasks_description">Prikaži vsa načrtovana opravila</string>
+    <string name="tool_setup_email_name">Nastavi e-pošto</string>
+    <string name="tool_setup_email_description">Poveži e-poštni račun za branje in pošiljanje</string>
+    <string name="tool_check_email_name">Preveri e-pošto</string>
+    <string name="tool_check_email_description">Preveri neprebrana e-poštna sporočila</string>
+    <string name="tool_read_email_name">Preberi e-pošto</string>
+    <string name="tool_read_email_description">Preberi celotno vsebino e-poštnega sporočila</string>
+    <string name="tool_reply_email_name">Odgovori na e-pošto</string>
+    <string name="tool_reply_email_description">Pošlji odgovor na e-poštno sporočilo</string>
+    <string name="tool_compose_email_name">Sestavi e-pošto</string>
+    <string name="tool_compose_email_description">Sestavi in pošlji novo e-poštno sporočilo</string>
+    <string name="tool_search_email_name">Išči e-pošto</string>
+    <string name="tool_search_email_description">Išči e-poštna sporočila po pošiljatelju, zadevi ali datumu</string>
+    <string name="settings_email">E-pošta</string>
+    <string name="settings_email_description">Povežite e-poštne račune za branje in odgovarjanje. V klepetu recite »poveži mojo e-pošto« ali dodajte račune tukaj. E-pošta se preverja v ozadju in jo razvršča UI.</string>
+    <string name="settings_email_empty">Ni povezanih e-poštnih računov. V klepetu recite »poveži mojo e-pošto« za začetek.</string>
+    <string name="settings_email_remove">Odstrani račun</string>
+    <string name="settings_email_poll_interval">Preverjanje vsakih %1$d minut</string>
+    <string name="settings_email_poll_never">Nikoli</string>
+    <string name="settings_email_poll_never_description">Samo ročno — v klepetu uporabite »preveri mojo e-pošto«</string>
 </resources>

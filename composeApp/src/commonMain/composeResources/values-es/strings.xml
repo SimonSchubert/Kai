@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Cancelar una tarea programada</string>
     <string name="tool_list_tasks_name">Listar Tareas</string>
     <string name="tool_list_tasks_description">Listar todas las tareas programadas</string>
+    <string name="tool_setup_email_name">Configurar correo</string>
+    <string name="tool_setup_email_description">Conectar una cuenta de correo para leer y enviar mensajes</string>
+    <string name="tool_check_email_name">Revisar correo</string>
+    <string name="tool_check_email_description">Revisar los correos no leídos</string>
+    <string name="tool_read_email_name">Leer correo</string>
+    <string name="tool_read_email_description">Leer el cuerpo completo de un correo electrónico</string>
+    <string name="tool_reply_email_name">Responder correo</string>
+    <string name="tool_reply_email_description">Enviar una respuesta de correo electrónico</string>
+    <string name="tool_compose_email_name">Redactar correo</string>
+    <string name="tool_compose_email_description">Redactar y enviar un nuevo correo electrónico</string>
+    <string name="tool_search_email_name">Buscar correo</string>
+    <string name="tool_search_email_description">Buscar correos por remitente, asunto o fecha</string>
+    <string name="settings_email">Correo</string>
+    <string name="settings_email_description">Conecta cuentas de correo para leer y responder. Di «conecta mi correo» en el chat o agrega cuentas aquí. Los correos se consultan en segundo plano y son priorizados por la IA.</string>
+    <string name="settings_email_empty">No hay cuentas de correo conectadas. Di «conecta mi correo» en el chat para comenzar.</string>
+    <string name="settings_email_remove">Eliminar cuenta</string>
+    <string name="settings_email_poll_interval">Consultar cada %1$d minutos</string>
+    <string name="settings_email_poll_never">Nunca</string>
+    <string name="settings_email_poll_never_description">Solo manual — usa «revisa mi correo» en el chat</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
@@ -204,4 +205,27 @@ class FakeDataRepository : DataRepository {
 
     override suspend fun askSilently(question: String): String = ""
     override fun addAssistantMessage(content: String) {}
+
+    // Email management
+    private var emailEnabled = true
+    private val emailAccounts = mutableListOf<EmailAccount>()
+    private var emailPollIntervalMinutes = 15
+
+    override fun isEmailEnabled(): Boolean = emailEnabled
+
+    override fun setEmailEnabled(enabled: Boolean) {
+        emailEnabled = enabled
+    }
+
+    override fun getEmailAccounts(): List<EmailAccount> = emailAccounts.toList()
+
+    override suspend fun removeEmailAccount(id: String) {
+        emailAccounts.removeAll { it.id == id }
+    }
+
+    override fun getEmailPollIntervalMinutes(): Int = emailPollIntervalMinutes
+
+    override fun setEmailPollIntervalMinutes(minutes: Int) {
+        emailPollIntervalMinutes = minutes
+    }
 }

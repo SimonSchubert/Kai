@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Anulează o sarcină programată</string>
     <string name="tool_list_tasks_name">Listează sarcini</string>
     <string name="tool_list_tasks_description">Listează toate sarcinile programate</string>
+    <string name="tool_setup_email_name">Configurare email</string>
+    <string name="tool_setup_email_description">Conectați un cont de email pentru citire și trimitere</string>
+    <string name="tool_check_email_name">Verificare email</string>
+    <string name="tool_check_email_description">Verificați emailurile necitite</string>
+    <string name="tool_read_email_name">Citire email</string>
+    <string name="tool_read_email_description">Citiți conținutul complet al unui email</string>
+    <string name="tool_reply_email_name">Răspunde la email</string>
+    <string name="tool_reply_email_description">Trimiteți un răspuns la un email</string>
+    <string name="tool_compose_email_name">Compune email</string>
+    <string name="tool_compose_email_description">Compuneți și trimiteți un email nou</string>
+    <string name="tool_search_email_name">Caută email</string>
+    <string name="tool_search_email_description">Căutați emailuri după expeditor, subiect sau dată</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Conectați conturi de email pentru citire și răspuns. Folosiți chat-ul pentru a spune „conectează emailul meu" sau adăugați conturi aici. Emailurile sunt verificate în fundal și sortate de IA.</string>
+    <string name="settings_email_empty">Niciun cont de email conectat. Spuneți „conectează emailul meu" în chat pentru a începe.</string>
+    <string name="settings_email_remove">Eliminați contul</string>
+    <string name="settings_email_poll_interval">Verificare la fiecare %1$d minute</string>
+    <string name="settings_email_poll_never">Niciodată</string>
+    <string name="settings_email_poll_never_description">Doar manual — folosiți „verifică emailul meu" în chat</string>
 </resources>

@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Annullar ina incumbensa planisada</string>
     <string name="tool_list_tasks_name">Glista d\'incumbensas</string>
     <string name="tool_list_tasks_description">Mussar tut las incumbensas planisadas</string>
+    <string name="tool_setup_email_name">Configurar e-mail</string>
+    <string name="tool_setup_email_description">Connectar in conto d\'e-mail per legier e trametter</string>
+    <string name="tool_check_email_name">Controllar e-mail</string>
+    <string name="tool_check_email_description">Controllar per e-mails betg legidas</string>
+    <string name="tool_read_email_name">Legier e-mail</string>
+    <string name="tool_read_email_description">Legier il cuntegn cumplain d\'in e-mail</string>
+    <string name="tool_reply_email_name">Respunder a e-mail</string>
+    <string name="tool_reply_email_description">Trametter ina resposta da e-mail</string>
+    <string name="tool_compose_email_name">Scriver e-mail</string>
+    <string name="tool_compose_email_description">Scriver e trametter in nov e-mail</string>
+    <string name="tool_search_email_name">Tschertgar e-mail</string>
+    <string name="tool_search_email_description">Tschertgar e-mails tenor spedider, object u data</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Connectar contos d\'e-mail per legier e respunder. Utilisai il chat per dir "connectar mes e-mail" u agiuntar contos qua. Els e-mails vegnan interrogads en il fund e classifitgads da l\'IA.</string>
+    <string name="settings_email_empty">Nagins contos d\'e-mail connectads. Dii "connectar mes e-mail" en il chat per cumenzar.</string>
+    <string name="settings_email_remove">Stizzar conto</string>
+    <string name="settings_email_poll_interval">Interrogar mintga %1$d minutas</string>
+    <string name="settings_email_poll_never">Mai</string>
+    <string name="settings_email_poll_never_description">Mo manualmain — utilisai "controllar mes e-mail" en il chat</string>
 </resources>

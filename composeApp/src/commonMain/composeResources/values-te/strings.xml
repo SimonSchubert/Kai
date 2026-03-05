@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">షెడ్యూల్ చేసిన టాస్క్‌ను రద్దు చేయి</string>
     <string name="tool_list_tasks_name">టాస్క్‌లను జాబితా చేయి</string>
     <string name="tool_list_tasks_description">అన్ని షెడ్యూల్ చేసిన టాస్క్‌లను జాబితా చేయి</string>
+    <string name="tool_setup_email_name">ఇమెయిల్ సెటప్ చేయి</string>
+    <string name="tool_setup_email_description">చదవడానికి మరియు పంపడానికి ఇమెయిల్ ఖాతాను కనెక్ట్ చేయి</string>
+    <string name="tool_check_email_name">ఇమెయిల్ తనిఖీ చేయి</string>
+    <string name="tool_check_email_description">చదవని ఇమెయిల్‌లను తనిఖీ చేయి</string>
+    <string name="tool_read_email_name">ఇమెయిల్ చదవు</string>
+    <string name="tool_read_email_description">ఇమెయిల్ పూర్తి బాడీని చదవు</string>
+    <string name="tool_reply_email_name">ఇమెయిల్‌కు రిప్లై చేయి</string>
+    <string name="tool_reply_email_description">ఇమెయిల్ రిప్లై పంపండి</string>
+    <string name="tool_compose_email_name">ఇమెయిల్ రచించు</string>
+    <string name="tool_compose_email_description">కొత్త ఇమెయిల్‌ను రచించి పంపండి</string>
+    <string name="tool_search_email_name">ఇమెయిల్ వెతుకు</string>
+    <string name="tool_search_email_description">పంపినవారు, విషయం లేదా తేదీ ద్వారా ఇమెయిల్‌లను వెతుకు</string>
+    <string name="settings_email">ఇమెయిల్</string>
+    <string name="settings_email_description">చదవడానికి మరియు రిప్లై చేయడానికి ఇమెయిల్ ఖాతాలను కనెక్ట్ చేయండి. చాట్‌లో "నా ఇమెయిల్ కనెక్ట్ చేయి" అని చెప్పండి లేదా ఇక్కడ ఖాతాలను జోడించండి. ఇమెయిల్‌లు నేపథ్యంలో పోల్ చేయబడి AI చేత వర్గీకరించబడతాయి.</string>
+    <string name="settings_email_empty">ఇమెయిల్ ఖాతాలు కనెక్ట్ కాలేదు. ప్రారంభించడానికి చాట్‌లో "నా ఇమెయిల్ కనెక్ట్ చేయి" అని చెప్పండి.</string>
+    <string name="settings_email_remove">ఖాతా తొలగించు</string>
+    <string name="settings_email_poll_interval">ప్రతి %1$d నిమిషాలకు పోల్ చేయి</string>
+    <string name="settings_email_poll_never">ఎప్పుడూ వద్దు</string>
+    <string name="settings_email_poll_never_description">మాన్యువల్ మాత్రమే — చాట్‌లో "నా ఇమెయిల్ తనిఖీ చేయి" అని చెప్పండి</string>
 </resources>

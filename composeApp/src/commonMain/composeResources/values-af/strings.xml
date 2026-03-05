@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Kanselleer \'n geskeduleerde taak</string>
     <string name="tool_list_tasks_name">Lys Take</string>
     <string name="tool_list_tasks_description">Lys alle geskeduleerde take</string>
+    <string name="tool_setup_email_name">Stel E-pos op</string>
+    <string name="tool_setup_email_description">Koppel \'n e-posrekening vir lees en stuur</string>
+    <string name="tool_check_email_name">Kontroleer E-pos</string>
+    <string name="tool_check_email_description">Kyk vir ongelese e-posse</string>
+    <string name="tool_read_email_name">Lees E-pos</string>
+    <string name="tool_read_email_description">Lees die volledige inhoud van \'n e-pos</string>
+    <string name="tool_reply_email_name">Beantwoord E-pos</string>
+    <string name="tool_reply_email_description">Stuur \'n e-posantwoord</string>
+    <string name="tool_compose_email_name">Stel E-pos Op</string>
+    <string name="tool_compose_email_description">Stel \'n nuwe e-pos op en stuur dit</string>
+    <string name="tool_search_email_name">Soek E-pos</string>
+    <string name="tool_search_email_description">Soek e-posse volgens afstuurder, onderwerp of datum</string>
+    <string name="settings_email">E-pos</string>
+    <string name="settings_email_description">Koppel e-posrekeninge vir lees en beantwoord. Gebruik die klets om "koppel my e-pos" te sê of voeg rekeninge hier by. E-posse word op die agtergrond gepeul en deur KI gesorteer.</string>
+    <string name="settings_email_empty">Geen e-posrekeninge gekoppel nie. Sê "koppel my e-pos" in die klets om te begin.</string>
+    <string name="settings_email_remove">Verwyder rekening</string>
+    <string name="settings_email_poll_interval">Peul elke %1$d minute</string>
+    <string name="settings_email_poll_never">Nooit</string>
+    <string name="settings_email_poll_never_description">Slegs handmatig — gebruik "kontroleer my e-pos" in die klets</string>
 </resources>

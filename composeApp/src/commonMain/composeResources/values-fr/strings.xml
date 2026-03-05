@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Annuler une tâche planifiée</string>
     <string name="tool_list_tasks_name">Lister les tâches</string>
     <string name="tool_list_tasks_description">Afficher toutes les tâches planifiées</string>
+    <string name="tool_setup_email_name">Configurer la messagerie</string>
+    <string name="tool_setup_email_description">Connecter un compte e-mail pour la lecture et l'envoi</string>
+    <string name="tool_check_email_name">Vérifier les e-mails</string>
+    <string name="tool_check_email_description">Vérifier les e-mails non lus</string>
+    <string name="tool_read_email_name">Lire un e-mail</string>
+    <string name="tool_read_email_description">Lire le contenu complet d'un e-mail</string>
+    <string name="tool_reply_email_name">Répondre à un e-mail</string>
+    <string name="tool_reply_email_description">Envoyer une réponse par e-mail</string>
+    <string name="tool_compose_email_name">Rédiger un e-mail</string>
+    <string name="tool_compose_email_description">Rédiger et envoyer un nouvel e-mail</string>
+    <string name="tool_search_email_name">Rechercher des e-mails</string>
+    <string name="tool_search_email_description">Rechercher des e-mails par expéditeur, objet ou date</string>
+    <string name="settings_email">E-mail</string>
+    <string name="settings_email_description">Connectez des comptes e-mail pour la lecture et les réponses. Dites « connecte mon e-mail » dans le chat ou ajoutez des comptes ici. Les e-mails sont récupérés en arrière-plan et triés par l'IA.</string>
+    <string name="settings_email_empty">Aucun compte e-mail connecté. Dites « connecte mon e-mail » dans le chat pour commencer.</string>
+    <string name="settings_email_remove">Supprimer le compte</string>
+    <string name="settings_email_poll_interval">Vérifier toutes les %1$d minutes</string>
+    <string name="settings_email_poll_never">Jamais</string>
+    <string name="settings_email_poll_never_description">Manuel uniquement — utilisez « vérifie mes e-mails » dans le chat</string>
 </resources>

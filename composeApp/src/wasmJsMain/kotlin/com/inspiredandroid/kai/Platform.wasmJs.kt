@@ -36,6 +36,8 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
 actual val isMobilePlatform: Boolean = false
 
+actual val isEmailSupported: Boolean = false
+
 actual val platformName: String = "Web"
 
 actual fun getAppFilesDirectory(): String {

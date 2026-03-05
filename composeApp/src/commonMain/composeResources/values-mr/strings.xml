@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">नियोजित कार्य रद्द करा</string>
     <string name="tool_list_tasks_name">कार्य सूची</string>
     <string name="tool_list_tasks_description">सर्व नियोजित कार्ये सूचीबद्ध करा</string>
+    <string name="tool_setup_email_name">ईमेल सेटअप करा</string>
+    <string name="tool_setup_email_description">वाचण्यासाठी आणि पाठवण्यासाठी ईमेल खाते जोडा</string>
+    <string name="tool_check_email_name">ईमेल तपासा</string>
+    <string name="tool_check_email_description">न वाचलेले ईमेल तपासा</string>
+    <string name="tool_read_email_name">ईमेल वाचा</string>
+    <string name="tool_read_email_description">ईमेलचा संपूर्ण मजकूर वाचा</string>
+    <string name="tool_reply_email_name">ईमेलला उत्तर द्या</string>
+    <string name="tool_reply_email_description">ईमेल उत्तर पाठवा</string>
+    <string name="tool_compose_email_name">ईमेल लिहा</string>
+    <string name="tool_compose_email_description">नवीन ईमेल लिहा आणि पाठवा</string>
+    <string name="tool_search_email_name">ईमेल शोधा</string>
+    <string name="tool_search_email_description">प्रेषक, विषय किंवा तारखेनुसार ईमेल शोधा</string>
+    <string name="settings_email">ईमेल</string>
+    <string name="settings_email_description">वाचण्यासाठी आणि उत्तर देण्यासाठी ईमेल खाती जोडा. "माझा ईमेल कनेक्ट करा" असे चॅटमध्ये सांगा किंवा येथे खाती जोडा. ईमेल पार्श्वभूमीत तपासले जातात आणि AI द्वारे वर्गीकृत केले जातात.</string>
+    <string name="settings_email_empty">कोणतीही ईमेल खाती जोडलेली नाहीत. सुरू करण्यासाठी चॅटमध्ये "माझा ईमेल कनेक्ट करा" असे सांगा.</string>
+    <string name="settings_email_remove">खाते काढा</string>
+    <string name="settings_email_poll_interval">दर %1$d मिनिटांनी तपासा</string>
+    <string name="settings_email_poll_never">कधीच नाही</string>
+    <string name="settings_email_poll_never_description">केवळ मॅन्युअल — चॅटमध्ये "माझा ईमेल तपासा" असे सांगा</string>
 </resources>

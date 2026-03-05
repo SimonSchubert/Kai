@@ -36,3 +36,5 @@ expect fun getAvailableTools(): List<Tool>
 expect fun getPlatformToolDefinitions(): List<ToolInfo>
 
 expect val platformName: String
+
+expect val isEmailSupported: Boolean

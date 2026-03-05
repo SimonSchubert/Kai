@@ -167,7 +167,8 @@ object CommonTools {
 
     val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo, WebSearchTool.toolInfo) +
         SchedulingTools.schedulingToolDefinitions +
-        HeartbeatTools.heartbeatToolDefinitions
+        HeartbeatTools.heartbeatToolDefinitions +
+        EmailTools.emailToolDefinitions
 
     fun getCommonTools(appSettings: AppSettings): List<Tool> = buildList {
         if (appSettings.isToolEnabled(localTimeTool.schema.name)) {

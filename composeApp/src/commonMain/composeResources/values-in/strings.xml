@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">Batalkan tugas terjadwal</string>
     <string name="tool_list_tasks_name">Daftar Tugas</string>
     <string name="tool_list_tasks_description">Daftar semua tugas terjadwal</string>
+    <string name="tool_setup_email_name">Siapkan Email</string>
+    <string name="tool_setup_email_description">Hubungkan akun email untuk membaca dan mengirim</string>
+    <string name="tool_check_email_name">Periksa Email</string>
+    <string name="tool_check_email_description">Periksa email yang belum dibaca</string>
+    <string name="tool_read_email_name">Baca Email</string>
+    <string name="tool_read_email_description">Baca isi lengkap sebuah email</string>
+    <string name="tool_reply_email_name">Balas Email</string>
+    <string name="tool_reply_email_description">Kirim balasan email</string>
+    <string name="tool_compose_email_name">Tulis Email</string>
+    <string name="tool_compose_email_description">Tulis dan kirim email baru</string>
+    <string name="tool_search_email_name">Cari Email</string>
+    <string name="tool_search_email_description">Cari email berdasarkan pengirim, subjek, atau tanggal</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_email_description">Hubungkan akun email untuk membaca dan membalas. Gunakan chat untuk mengatakan "hubungkan email saya" atau tambahkan akun di sini. Email diambil di latar belakang dan diurutkan oleh AI.</string>
+    <string name="settings_email_empty">Tidak ada akun email yang terhubung. Katakan "hubungkan email saya" di chat untuk memulai.</string>
+    <string name="settings_email_remove">Hapus akun</string>
+    <string name="settings_email_poll_interval">Periksa setiap %1$d menit</string>
+    <string name="settings_email_poll_never">Jangan pernah</string>
+    <string name="settings_email_poll_never_description">Manual saja — gunakan "periksa email saya" di chat</string>
 </resources>

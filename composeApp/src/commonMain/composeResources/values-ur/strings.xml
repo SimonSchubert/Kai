@@ -106,4 +106,23 @@
     <string name="tool_cancel_task_description">طے شدہ کام منسوخ کریں</string>
     <string name="tool_list_tasks_name">کاموں کی فہرست</string>
     <string name="tool_list_tasks_description">تمام طے شدہ کاموں کی فہرست دکھائیں</string>
+    <string name="tool_setup_email_name">ای میل سیٹ اپ کریں</string>
+    <string name="tool_setup_email_description">پڑھنے اور بھیجنے کے لیے ایک ای میل اکاؤنٹ جوڑیں</string>
+    <string name="tool_check_email_name">ای میل چیک کریں</string>
+    <string name="tool_check_email_description">نہ پڑھے گئے ای میلز چیک کریں</string>
+    <string name="tool_read_email_name">ای میل پڑھیں</string>
+    <string name="tool_read_email_description">ای میل کا مکمل متن پڑھیں</string>
+    <string name="tool_reply_email_name">ای میل کا جواب دیں</string>
+    <string name="tool_reply_email_description">ای میل جواب بھیجیں</string>
+    <string name="tool_compose_email_name">ای میل لکھیں</string>
+    <string name="tool_compose_email_description">نئی ای میل لکھیں اور بھیجیں</string>
+    <string name="tool_search_email_name">ای میل تلاش کریں</string>
+    <string name="tool_search_email_description">بھیجنے والے، موضوع یا تاریخ کے مطابق ای میلز تلاش کریں</string>
+    <string name="settings_email">ای میل</string>
+    <string name="settings_email_description">پڑھنے اور جواب دینے کے لیے ای میل اکاؤنٹس جوڑیں۔ چیٹ میں "میری ای میل جوڑیں" کہیں یا یہاں اکاؤنٹس شامل کریں۔ ای میلز پس منظر میں چیک کیے جاتے ہیں اور AI کے ذریعے ترتیب دیے جاتے ہیں۔</string>
+    <string name="settings_email_empty">کوئی ای میل اکاؤنٹ جڑا نہیں ہے۔ شروع کرنے کے لیے چیٹ میں "میری ای میل جوڑیں" کہیں۔</string>
+    <string name="settings_email_remove">اکاؤنٹ ہٹائیں</string>
+    <string name="settings_email_poll_interval">ہر %1$d منٹ بعد چیک کریں</string>
+    <string name="settings_email_poll_never">کبھی نہیں</string>
+    <string name="settings_email_poll_never_description">صرف دستی — چیٹ میں "میری ای میل چیک کرو" استعمال کریں</string>
 </resources>
