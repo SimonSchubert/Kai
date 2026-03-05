@@ -25,6 +25,7 @@ interface DataRepository {
     fun clearHistory()
     fun currentService(): Service
     fun isUsingSharedKey(): Boolean
+    fun supportsFileAttachment(): Boolean
 
     // Conversation management
     suspend fun loadConversations()

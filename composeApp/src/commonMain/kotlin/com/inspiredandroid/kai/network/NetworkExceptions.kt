@@ -27,6 +27,7 @@ class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException("Qu
 class OpenAICompatibleConnectionException : OpenAICompatibleApiException("Cannot connect to server")
 class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")
 class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
+class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException("Image is too large. Try a smaller image.")
 
 suspend fun Exception.toUserMessage(): String = try {
     when (this) {

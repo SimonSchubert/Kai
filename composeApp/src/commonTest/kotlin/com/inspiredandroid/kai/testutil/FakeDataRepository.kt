@@ -109,6 +109,10 @@ class FakeDataRepository : DataRepository {
 
     override fun isUsingSharedKey(): Boolean = currentService == Service.Free
 
+    var fileAttachmentSupported = true
+
+    override fun supportsFileAttachment(): Boolean = fileAttachmentSupported
+
     // Conversation management
     override suspend fun loadConversations() {
         // No-op in tests

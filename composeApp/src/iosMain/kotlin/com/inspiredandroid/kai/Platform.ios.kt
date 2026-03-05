@@ -23,6 +23,8 @@ import io.github.vinceglb.filekit.PlatformFile
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.darwin.Darwin
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.usePinned
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.component.KoinComponent
@@ -42,6 +44,56 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos
 actual val isMobilePlatform: Boolean = true
 
 actual val isEmailSupported: Boolean = true
+
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class, kotlinx.cinterop.BetaInteropApi::class)
+actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {
+    if (!mimeType.startsWith("image/")) return bytes
+    return try {
+        val nsData = bytes.usePinned { pinned ->
+            platform.Foundation.NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
+        }
+        val image = platform.UIKit.UIImage(data = nsData) ?: return bytes
+        val maxDim = 1024.0
+        val scaled = if (image.size.useContents { width > maxDim || height > maxDim }) {
+            val scale = image.size.useContents { maxDim / maxOf(width, height) }
+            val newWidth = image.size.useContents { width * scale }
+            val newHeight = image.size.useContents { height * scale }
+            val newSize = kotlinx.cinterop.cValue<platform.CoreGraphics.CGSize> {
+                width = newWidth
+                height = newHeight
+            }
+            platform.UIKit.UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+            image.drawInRect(
+                kotlinx.cinterop.cValue<platform.CoreGraphics.CGRect> {
+                    origin.x = 0.0
+                    origin.y = 0.0
+                    size.width = newWidth
+                    size.height = newHeight
+                },
+            )
+            val resized = platform.UIKit.UIGraphicsGetImageFromCurrentImageContext()
+            platform.UIKit.UIGraphicsEndImageContext()
+            resized ?: image
+        } else {
+            image
+        }
+        val jpegData = platform.UIKit.UIImageJPEGRepresentation(scaled, 0.8) ?: return bytes
+        jpegData.toByteArray()
+    } catch (_: Exception) {
+        bytes
+    }
+}
+
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+private fun platform.Foundation.NSData.toByteArray(): ByteArray {
+    val size = length.toInt()
+    if (size == 0) return ByteArray(0)
+    val result = ByteArray(size)
+    result.usePinned { pinned ->
+        platform.posix.memcpy(pinned.addressOf(0), bytes, length)
+    }
+    return result
+}
 
 actual val platformName: String = "iOS"
 

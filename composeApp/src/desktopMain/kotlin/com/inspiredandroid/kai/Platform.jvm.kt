@@ -67,6 +67,38 @@ actual val isMobilePlatform: Boolean = false
 
 actual val isEmailSupported: Boolean = true
 
+actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {
+    if (!mimeType.startsWith("image/")) return bytes
+    return try {
+        val inputStream = java.io.ByteArrayInputStream(bytes)
+        val image = javax.imageio.ImageIO.read(inputStream) ?: return bytes
+        val maxDim = 1024
+        val scaled = if (image.width > maxDim || image.height > maxDim) {
+            val scale = maxDim.toDouble() / maxOf(image.width, image.height)
+            val newWidth = (image.width * scale).toInt()
+            val newHeight = (image.height * scale).toInt()
+            val resized = java.awt.image.BufferedImage(newWidth, newHeight, java.awt.image.BufferedImage.TYPE_INT_RGB)
+            val g2d = resized.createGraphics()
+            g2d.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR)
+            g2d.drawImage(image, 0, 0, newWidth, newHeight, null)
+            g2d.dispose()
+            resized
+        } else {
+            // Still need to convert to RGB for JPEG encoding (original might have alpha)
+            val rgb = java.awt.image.BufferedImage(image.width, image.height, java.awt.image.BufferedImage.TYPE_INT_RGB)
+            val g2d = rgb.createGraphics()
+            g2d.drawImage(image, 0, 0, null)
+            g2d.dispose()
+            rgb
+        }
+        val outputStream = java.io.ByteArrayOutputStream()
+        javax.imageio.ImageIO.write(scaled, "jpg", outputStream)
+        outputStream.toByteArray()
+    } catch (_: Exception) {
+        bytes
+    }
+}
+
 actual val platformName: String = run {
     val osName = System.getProperty("os.name", "").lowercase()
     when {

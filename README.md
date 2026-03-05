@@ -47,7 +47,7 @@ AUR (Arch Linux):
 - Encrypted local conversation storage
 - Text to speech output
 - Seamless switch between services
-- File attachments (Gemini)
+- Image attachments (all services)
 
 ### Tools
 

@@ -63,6 +63,29 @@ actual val platformName: String = "Android"
 
 actual val isEmailSupported: Boolean = true
 
+actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {
+    if (!mimeType.startsWith("image/")) return bytes
+    return try {
+        val bitmap = android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size) ?: return bytes
+        val maxDim = 1024
+        val scaled = if (bitmap.width > maxDim || bitmap.height > maxDim) {
+            val scale = maxDim.toFloat() / maxOf(bitmap.width, bitmap.height)
+            val newWidth = (bitmap.width * scale).toInt()
+            val newHeight = (bitmap.height * scale).toInt()
+            android.graphics.Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } else {
+            bitmap
+        }
+        val outputStream = java.io.ByteArrayOutputStream()
+        scaled.compress(android.graphics.Bitmap.CompressFormat.JPEG, 80, outputStream)
+        if (scaled !== bitmap) scaled.recycle()
+        bitmap.recycle()
+        outputStream.toByteArray()
+    } catch (_: Exception) {
+        bytes
+    }
+}
+
 actual fun getAppFilesDirectory(): String {
     val context: Context by inject(Context::class.java)
     return context.filesDir.absolutePath

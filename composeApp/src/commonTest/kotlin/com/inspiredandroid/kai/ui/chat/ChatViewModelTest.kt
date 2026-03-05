@@ -325,8 +325,8 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun `allowFileAttachment is true only for Gemini service`() = runTest {
-        fakeRepository.setCurrentService(Service.Gemini)
+    fun `allowFileAttachment is true when repository supports it`() = runTest {
+        fakeRepository.fileAttachmentSupported = true
         val viewModel = createViewModel()
 
         viewModel.state.test {
@@ -337,19 +337,8 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun `allowFileAttachment is false for Free service`() = runTest {
-        fakeRepository.setCurrentService(Service.Free)
-        val viewModel = createViewModel()
-
-        viewModel.state.test {
-            val state = awaitItem()
-            assertFalse(state.allowFileAttachment)
-        }
-    }
-
-    @Test
-    fun `allowFileAttachment is false for Groq service`() = runTest {
-        fakeRepository.setCurrentService(Service.Groq)
+    fun `allowFileAttachment is false when repository does not support it`() = runTest {
+        fakeRepository.fileAttachmentSupported = false
         val viewModel = createViewModel()
 
         viewModel.state.test {

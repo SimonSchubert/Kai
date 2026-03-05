@@ -7,9 +7,12 @@ import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -56,13 +59,36 @@ data class ToolCallInfo(
 )
 
 fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (role) {
-    History.Role.USER -> OpenAICompatibleChatRequestDto.Message(role = "user", content = content)
+    History.Role.USER -> {
+        val messageContent: JsonElement = if (data != null && mimeType != null) {
+            JsonArray(
+                listOf(
+                    buildJsonObject {
+                        put("type", "text")
+                        put("text", content)
+                    },
+                    buildJsonObject {
+                        put("type", "image_url")
+                        put(
+                            "image_url",
+                            buildJsonObject {
+                                put("url", "data:$mimeType;base64,$data")
+                            },
+                        )
+                    },
+                ),
+            )
+        } else {
+            JsonPrimitive(content)
+        }
+        OpenAICompatibleChatRequestDto.Message(role = "user", content = messageContent)
+    }
 
     History.Role.ASSISTANT -> {
         if (toolCalls != null) {
             OpenAICompatibleChatRequestDto.Message(
                 role = "assistant",
-                content = content.ifEmpty { null },
+                content = if (content.isEmpty()) null else JsonPrimitive(content),
                 tool_calls = toolCalls.map { tc ->
                     OpenAICompatibleChatRequestDto.ToolCall(
                         id = tc.id,
@@ -74,17 +100,17 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
                 },
             )
         } else {
-            OpenAICompatibleChatRequestDto.Message(role = "assistant", content = content)
+            OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))
         }
     }
 
     History.Role.TOOL -> OpenAICompatibleChatRequestDto.Message(
         role = "tool",
-        content = content,
+        content = JsonPrimitive(content),
         tool_call_id = toolCallId,
     )
 
-    History.Role.TOOL_EXECUTING -> OpenAICompatibleChatRequestDto.Message(role = "assistant", content = content)
+    History.Role.TOOL_EXECUTING -> OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))
 }
 
 private val geminiJsonParser = SharedJson

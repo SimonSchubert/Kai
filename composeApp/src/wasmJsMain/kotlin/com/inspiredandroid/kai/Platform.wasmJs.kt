@@ -38,6 +38,8 @@ actual val isMobilePlatform: Boolean = false
 
 actual val isEmailSupported: Boolean = false
 
+actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray = bytes
+
 actual val platformName: String = "Web"
 
 actual fun getAppFilesDirectory(): String {

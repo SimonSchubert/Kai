@@ -251,6 +251,8 @@ class Requests(private val appSettings: AppSettings) {
 
             404 -> throw OpenAICompatibleModelNotFoundException(appSettings.getSelectedModelId(service))
 
+            413 -> throw OpenAICompatibleRequestTooLargeException()
+
             429 -> throw OpenAICompatibleRateLimitExceededException()
 
             else -> {

@@ -38,3 +38,5 @@ expect fun getPlatformToolDefinitions(): List<ToolInfo>
 expect val platformName: String
 
 expect val isEmailSupported: Boolean
+
+expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray

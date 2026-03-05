@@ -2,6 +2,7 @@
 
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
@@ -27,6 +28,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -35,6 +39,21 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+
+private val modelsWithoutImageSupport = listOf(
+    "llama3.2:1b",
+    "llama3.2:3b",
+    "llama3.1:8b",
+    "gemma2",
+    "gemma:2b",
+    "gemma:7b",
+    "phi3:mini",
+    "tinyllama",
+    "stablelm",
+    "codellama",
+    "deepseek-coder:1.3b",
+    "deepseek-coder:6.7b",
+)
 
 private val modelsWithoutToolSupport = listOf(
     "llama3.2:1b",
@@ -60,6 +79,11 @@ private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 private fun supportsTools(modelId: String): Boolean {
     val lower = modelId.lowercase()
     return modelsWithoutToolSupport.none { lower.startsWith(it) }
+}
+
+private fun supportsImageAttachment(modelId: String): Boolean {
+    val lower = modelId.lowercase()
+    return modelsWithoutImageSupport.none { lower.startsWith(it) }
 }
 
 class RemoteDataRepository(
@@ -252,6 +276,15 @@ class RemoteDataRepository(
     }
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
+        // Read file bytes outside of StateFlow.update (readBytes is suspend)
+        val rawBytes = file?.readBytes()
+        val fileMimeType = file?.mimeType()?.toString()
+        val fileData = rawBytes?.let { bytes ->
+            val compressed = compressImageBytes(bytes, fileMimeType ?: "image/jpeg")
+            Base64.encode(compressed)
+        }
+        val effectiveMimeType = if (rawBytes != null && fileMimeType?.startsWith("image/") == true) "image/jpeg" else fileMimeType
+
         if (question != null) {
             chatHistory.update {
                 it.toMutableList().apply {
@@ -259,8 +292,8 @@ class RemoteDataRepository(
                         History(
                             role = History.Role.USER,
                             content = question,
-                            mimeType = file?.mimeType()?.toString(),
-                            data = file?.readBytes()?.let { Base64.encode(it) },
+                            mimeType = effectiveMimeType,
+                            data = fileData,
                         ),
                     )
                 }
@@ -512,7 +545,7 @@ class RemoteDataRepository(
             add(
                 com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
                     role = "system",
-                    content = systemPrompt,
+                    content = JsonPrimitive(systemPrompt),
                 ),
             )
         }
@@ -522,7 +555,7 @@ class RemoteDataRepository(
                     // Drop tool messages that lost their tool_call_id (from conversation reload)
                     if (msg.role == "tool" && msg.tool_call_id == null) return@filter false
                     // Drop assistant messages that had tool_calls but lost them (empty content, no tool_calls)
-                    if (msg.role == "assistant" && msg.content.isNullOrEmpty() && msg.tool_calls.isNullOrEmpty()) return@filter false
+                    if (msg.role == "assistant" && msg.content == null && msg.tool_calls.isNullOrEmpty()) return@filter false
                     true
                 },
         )
@@ -561,7 +594,7 @@ class RemoteDataRepository(
             add(
                 com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
                     role = "user",
-                    content = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered.",
+                    content = JsonPrimitive("You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered."),
                 ),
             )
         }
@@ -633,6 +666,28 @@ class RemoteDataRepository(
         throw lastException!!
     }
 
+    private fun estimateMessageChars(msg: com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message): Int {
+        val contentChars = when (val content = msg.content) {
+            is JsonArray -> {
+                // Vision messages: only count text parts, not base64 image data
+                content.sumOf { element ->
+                    val obj = element as? JsonObject
+                    val type = (obj?.get("type") as? JsonPrimitive)?.content
+                    if (type == "text") {
+                        (obj["text"] as? JsonPrimitive)?.content?.length ?: 0
+                    } else {
+                        100 // Fixed small cost for image references
+                    }
+                }
+            }
+
+            is JsonPrimitive -> content.content.length
+
+            else -> content?.toString()?.length ?: 0
+        }
+        return contentChars + msg.role.length
+    }
+
     /**
      * Trims messages to fit within the estimated context window by dropping oldest messages
      * (keeping the system prompt and most recent messages).
@@ -641,21 +696,21 @@ class RemoteDataRepository(
         messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
     ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> {
         val maxChars = DEFAULT_CONTEXT_WINDOW_TOKENS * ESTIMATED_CHARS_PER_TOKEN
-        val totalChars = messages.sumOf { (it.content?.length ?: 0) + (it.role.length) }
+        val totalChars = messages.sumOf { estimateMessageChars(it) }
         if (totalChars <= maxChars) return messages
 
         // Keep system prompt (first message if role is "system") and trim from oldest non-system
         val systemMessages = messages.takeWhile { it.role == "system" }
         val nonSystemMessages = messages.drop(systemMessages.size)
 
-        val systemChars = systemMessages.sumOf { (it.content?.length ?: 0) + it.role.length }
+        val systemChars = systemMessages.sumOf { estimateMessageChars(it) }
         val availableChars = maxChars - systemChars
 
         // Keep messages from the end until we exceed the budget
         val kept = mutableListOf<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>()
         var usedChars = 0
         for (msg in nonSystemMessages.reversed()) {
-            val msgChars = (msg.content?.length ?: 0) + msg.role.length
+            val msgChars = estimateMessageChars(msg)
             if (usedChars + msgChars > availableChars) break
             kept.add(0, msg)
             usedChars += msgChars
@@ -721,6 +776,13 @@ class RemoteDataRepository(
     }
 
     override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
+
+    override fun supportsFileAttachment(): Boolean {
+        val service = currentService()
+        if (service == Service.Free) return true
+        val modelId = appSettings.getSelectedModelId(service)
+        return supportsImageAttachment(modelId)
+    }
 
     override fun currentService(): Service = appSettings.currentService()
 

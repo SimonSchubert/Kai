@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.ui.chat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUserMessage
@@ -56,7 +55,7 @@ class ChatViewModel(
     ) { state, history ->
         state.copy(
             history = history,
-            allowFileAttachment = dataRepository.currentService() == Service.Gemini,
+            allowFileAttachment = dataRepository.supportsFileAttachment(),
         )
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
@@ -68,6 +67,9 @@ class ChatViewModel(
         // Prevent concurrent requests
         if (_state.value.isLoading) return
 
+        // Capture file before launching coroutine to avoid race with setFile(null)
+        val file = _state.value.file
+
         viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
@@ -76,7 +78,7 @@ class ChatViewModel(
                 )
             }
             try {
-                dataRepository.ask(question, _state.value.file)
+                dataRepository.ask(question, file)
                 _state.update {
                     it.copy(isLoading = false)
                 }

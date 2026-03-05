@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.network.dtos.openaicompatible
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class OpenAICompatibleChatRequestDto(
@@ -16,7 +17,7 @@ data class OpenAICompatibleChatRequestDto(
     @Serializable
     data class Message(
         val role: String, // "system", "user", "assistant", "tool"
-        val content: String? = null, // Can be null for tool messages sometimes
+        val content: JsonElement? = null, // String or array of content parts (for vision)
         val tool_calls: List<ToolCall>? = null,
         val tool_call_id: String? = null, // Required for "tool" role messages
     )
