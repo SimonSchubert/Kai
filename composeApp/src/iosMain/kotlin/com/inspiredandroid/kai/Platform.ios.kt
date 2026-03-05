@@ -24,7 +24,10 @@ import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.useContents
 import kotlinx.cinterop.usePinned
+import platform.Foundation.NSData
+import platform.Foundation.dataWithBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.component.KoinComponent
@@ -50,14 +53,16 @@ actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
     if (!mimeType.startsWith("image/")) return bytes
     return try {
         val nsData = bytes.usePinned { pinned ->
-            platform.Foundation.NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
+            NSData.dataWithBytes(pinned.addressOf(0), bytes.size.toULong())
         }
-        val image = platform.UIKit.UIImage(data = nsData) ?: return bytes
+        val image = platform.UIKit.UIImage(data = nsData)
         val maxDim = 1024.0
-        val scaled = if (image.size.useContents { width > maxDim || height > maxDim }) {
-            val scale = image.size.useContents { maxDim / maxOf(width, height) }
-            val newWidth = image.size.useContents { width * scale }
-            val newHeight = image.size.useContents { height * scale }
+        val imgWidth = image.size.useContents { width }
+        val imgHeight = image.size.useContents { height }
+        val scaled = if (imgWidth > maxDim || imgHeight > maxDim) {
+            val scale = maxDim / maxOf(imgWidth, imgHeight)
+            val newWidth = imgWidth * scale
+            val newHeight = imgHeight * scale
             val newSize = kotlinx.cinterop.cValue<platform.CoreGraphics.CGSize> {
                 width = newWidth
                 height = newHeight
@@ -85,7 +90,7 @@ actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
 }
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
-private fun platform.Foundation.NSData.toByteArray(): ByteArray {
+private fun NSData.toByteArray(): ByteArray {
     val size = length.toInt()
     if (size == 0) return ByteArray(0)
     val result = ByteArray(size)
