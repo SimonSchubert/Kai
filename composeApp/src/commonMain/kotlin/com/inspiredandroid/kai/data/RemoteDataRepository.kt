@@ -4,9 +4,9 @@ package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.platformName
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.Requests
-import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.toHumanReadableDate
@@ -21,6 +21,9 @@ import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.new_conversation
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -47,6 +50,12 @@ private val modelsWithoutToolSupport = listOf(
     "deepseek-coder:1.3b",
     "deepseek-coder:6.7b",
 )
+
+private const val MAX_TOOL_ITERATIONS = 15
+private const val MAX_REPEATED_TOOL_CALLS = 3
+private const val MAX_API_RETRIES = 2
+private const val ESTIMATED_CHARS_PER_TOKEN = 4
+private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 
 private fun supportsTools(modelId: String): Boolean {
     val lower = modelId.lowercase()
@@ -305,14 +314,28 @@ class RemoteDataRepository(
         tools: List<Tool>,
         systemPrompt: String? = null,
     ): String {
-        var currentMessages = buildOpenAIMessages(
-            messages.filter { it.role != History.Role.TOOL_EXECUTING },
-            systemPrompt,
+        var currentMessages = trimMessagesForContext(
+            buildOpenAIMessages(
+                messages.filter { it.role != History.Role.TOOL_EXECUTING },
+                systemPrompt,
+            ),
         )
+
+        var iteration = 0
+        val recentSignatures = mutableListOf<String>()
 
         // Loop until AI returns a final response (no more tool calls)
         while (true) {
-            val response = requests.openAICompatibleChat(service, currentMessages, tools).getOrThrow()
+            iteration++
+
+            // Bail out if too many iterations
+            if (iteration > MAX_TOOL_ITERATIONS) {
+                return makeFinalCallWithoutTools(service, currentMessages)
+            }
+
+            val response = retryApiCall {
+                requests.openAICompatibleChat(service, currentMessages, tools).getOrThrow()
+            }
             val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
 
             val toolCalls = message.toolCalls
@@ -320,6 +343,13 @@ class RemoteDataRepository(
                 // No more tool calls - return the final response
                 return message.content ?: ""
             }
+
+            // Check for repetition
+            val signatures = toolCalls.map { "${it.function.name}:${it.function.arguments.hashCode()}" }
+            if (isRepeatingToolCalls(recentSignatures, signatures)) {
+                return makeFinalCallWithoutTools(service, currentMessages)
+            }
+            recentSignatures.addAll(signatures)
 
             // Add assistant message with tool calls to history
             chatHistory.update {
@@ -336,61 +366,66 @@ class RemoteDataRepository(
                 }
             }
 
-            // Process each tool call
-            for (toolCall in toolCalls) {
-                val toolExecutingId = Uuid.random().toString()
-                val toolDisplayName = toolExecutor.getToolDisplayName(toolCall.function.name)
+            // Execute all tool calls in parallel
+            val toolResults = executeToolCallsInParallel(toolCalls.map { Triple(it.id, it.function.name, it.function.arguments) })
 
-                // Add tool executing message to show in UI
-                chatHistory.update {
-                    it.toMutableList().apply {
-                        add(
-                            History(
-                                id = toolExecutingId,
-                                role = History.Role.TOOL_EXECUTING,
-                                content = toolCall.function.name,
-                                toolName = toolDisplayName,
-                            ),
-                        )
+            // Add all tool results to history
+            chatHistory.update { history ->
+                buildList(history.size + toolResults.size) {
+                    // Remove any TOOL_EXECUTING entries
+                    for (h in history) {
+                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
                     }
-                }
-
-                // Execute the tool
-                val toolResult = toolExecutor.executeTool(toolCall.function.name, toolCall.function.arguments)
-
-                // Remove tool executing message and add tool result
-                chatHistory.update { history ->
-                    buildList(history.size) {
-                        for (h in history) {
-                            if (h.id != toolExecutingId) add(h)
-                        }
+                    for ((callId, name, result) in toolResults) {
                         add(
                             History(
                                 role = History.Role.TOOL,
-                                content = toolResult,
-                                toolCallId = toolCall.id,
-                                toolName = toolCall.function.name,
+                                content = result,
+                                toolCallId = callId,
+                                toolName = name,
                             ),
                         )
                     }
                 }
             }
 
-            // Update messages for next iteration
-            currentMessages = buildOpenAIMessages(
-                chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
-                systemPrompt,
+            // Update messages for next iteration with context trimming
+            currentMessages = trimMessagesForContext(
+                buildOpenAIMessages(
+                    chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
+                    systemPrompt,
+                ),
             )
         }
     }
 
     private suspend fun handleGeminiChatWithTools(messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
+        var iteration = 0
+        val recentSignatures = mutableListOf<String>()
+
         // Loop until AI returns a final response (no more function calls)
         while (true) {
+            iteration++
+
+            if (iteration > MAX_TOOL_ITERATIONS) {
+                // Bail out: make a final Gemini call without tools
+                val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+                val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
+                val bailoutResponse = retryApiCall {
+                    requests.geminiChat(
+                        messages = geminiMessages,
+                        systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
+                    ).getOrThrow()
+                }
+                return bailoutResponse.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""
+            }
+
             val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
             val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
 
-            val response = requests.geminiChat(messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
+            val response = retryApiCall {
+                requests.geminiChat(messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
+            }
             val parts = response.candidates.firstOrNull()?.content?.parts ?: return ""
 
             // Check for function calls in the response (parts that have functionCall)
@@ -417,6 +452,20 @@ class RemoteDataRepository(
                 )
             }
 
+            // Check for repetition
+            val signatures = toolCallInfos.map { "${it.name}:${it.arguments.hashCode()}" }
+            if (isRepeatingToolCalls(recentSignatures, signatures)) {
+                val bailoutMessages = currentMessages.map { it.toGeminiMessageDto() }
+                val bailoutResponse = retryApiCall {
+                    requests.geminiChat(
+                        messages = bailoutMessages,
+                        systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
+                    ).getOrThrow()
+                }
+                return bailoutResponse.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""
+            }
+            recentSignatures.addAll(signatures)
+
             // Add assistant message with tool calls to history
             val textContent = parts.mapNotNull { it.text }.joinToString("\n")
             chatHistory.update {
@@ -431,40 +480,22 @@ class RemoteDataRepository(
                 }
             }
 
-            // Process each function call
-            for (toolCallInfo in toolCallInfos) {
-                val toolExecutingId = Uuid.random().toString()
-                val toolDisplayName = toolExecutor.getToolDisplayName(toolCallInfo.name)
+            // Execute all tool calls in parallel
+            val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
 
-                // Add tool executing message to show in UI
-                chatHistory.update {
-                    it.toMutableList().apply {
-                        add(
-                            History(
-                                id = toolExecutingId,
-                                role = History.Role.TOOL_EXECUTING,
-                                content = toolCallInfo.name,
-                                toolName = toolDisplayName,
-                            ),
-                        )
+            // Add all tool results to history
+            chatHistory.update { history ->
+                buildList(history.size + toolResults.size) {
+                    for (h in history) {
+                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
                     }
-                }
-
-                // Execute the tool
-                val toolResult = toolExecutor.executeTool(toolCallInfo.name, toolCallInfo.arguments)
-
-                // Remove tool executing message and add tool result
-                chatHistory.update { history ->
-                    buildList(history.size) {
-                        for (h in history) {
-                            if (h.id != toolExecutingId) add(h)
-                        }
+                    for ((callId, name, result) in toolResults) {
                         add(
                             History(
                                 role = History.Role.TOOL,
-                                content = toolResult,
-                                toolCallId = toolCallInfo.id,
-                                toolName = toolCallInfo.name,
+                                content = result,
+                                toolCallId = callId,
+                                toolName = name,
                             ),
                         )
                     }
@@ -495,6 +526,142 @@ class RemoteDataRepository(
                     true
                 },
         )
+    }
+
+    /**
+     * Detects if the current batch of tool calls is repeating a recent pattern.
+     */
+    private fun isRepeatingToolCalls(recentSignatures: List<String>, currentSignatures: List<String>): Boolean {
+        if (currentSignatures.isEmpty()) return false
+        // Count how many consecutive times the same signature set appeared at the tail
+        val batchSize = currentSignatures.size
+        var consecutiveCount = 0
+        var i = recentSignatures.size - batchSize
+        while (i >= 0) {
+            val slice = recentSignatures.subList(i, i + batchSize)
+            if (slice == currentSignatures) {
+                consecutiveCount++
+                i -= batchSize
+            } else {
+                break
+            }
+        }
+        // +1 for the current batch that's about to be executed
+        return consecutiveCount + 1 >= MAX_REPEATED_TOOL_CALLS
+    }
+
+    /**
+     * Makes a final OpenAI-compatible API call without tools, asking the model to summarize.
+     */
+    private suspend fun makeFinalCallWithoutTools(
+        service: Service,
+        messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+    ): String {
+        val bailoutMessages = messages.toMutableList().apply {
+            add(
+                com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
+                    role = "user",
+                    content = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered.",
+                ),
+            )
+        }
+        val response = retryApiCall {
+            requests.openAICompatibleChat(service, bailoutMessages).getOrThrow()
+        }
+        return response.choices.firstOrNull()?.message?.content ?: ""
+    }
+
+    /**
+     * Executes tool calls in parallel, showing TOOL_EXECUTING indicators in the UI.
+     * Returns a list of (callId, toolName, result).
+     */
+    private suspend fun executeToolCallsInParallel(
+        toolCalls: List<Triple<String, String, String>>,
+    ): List<Triple<String, String, String>> {
+        // Add all TOOL_EXECUTING indicators first
+        val executingIds = toolCalls.map { Uuid.random().toString() }
+        for ((index, toolCall) in toolCalls.withIndex()) {
+            val (_, name, _) = toolCall
+            val toolDisplayName = toolExecutor.getToolDisplayName(name)
+            chatHistory.update {
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            id = executingIds[index],
+                            role = History.Role.TOOL_EXECUTING,
+                            content = name,
+                            toolName = toolDisplayName,
+                        ),
+                    )
+                }
+            }
+        }
+
+        // Execute all tools concurrently
+        val results = coroutineScope {
+            toolCalls.map { (callId, name, arguments) ->
+                async {
+                    val result = toolExecutor.executeTool(name, arguments)
+                    Triple(callId, name, result)
+                }
+            }.map { it.await() }
+        }
+
+        // Remove all TOOL_EXECUTING indicators
+        chatHistory.update { history ->
+            history.filter { h -> h.id !in executingIds }
+        }
+
+        return results
+    }
+
+    /**
+     * Retries an API call with simple exponential backoff.
+     */
+    private suspend fun <T> retryApiCall(block: suspend () -> T): T {
+        var lastException: Exception? = null
+        for (attempt in 0..MAX_API_RETRIES) {
+            try {
+                return block()
+            } catch (e: Exception) {
+                lastException = e
+                if (attempt < MAX_API_RETRIES) {
+                    delay(1000L * (attempt + 1))
+                }
+            }
+        }
+        throw lastException!!
+    }
+
+    /**
+     * Trims messages to fit within the estimated context window by dropping oldest messages
+     * (keeping the system prompt and most recent messages).
+     */
+    private fun trimMessagesForContext(
+        messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+    ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> {
+        val maxChars = DEFAULT_CONTEXT_WINDOW_TOKENS * ESTIMATED_CHARS_PER_TOKEN
+        val totalChars = messages.sumOf { (it.content?.length ?: 0) + (it.role.length) }
+        if (totalChars <= maxChars) return messages
+
+        // Keep system prompt (first message if role is "system") and trim from oldest non-system
+        val systemMessages = messages.takeWhile { it.role == "system" }
+        val nonSystemMessages = messages.drop(systemMessages.size)
+
+        val systemChars = systemMessages.sumOf { (it.content?.length ?: 0) + it.role.length }
+        val availableChars = maxChars - systemChars
+
+        // Keep messages from the end until we exceed the budget
+        val kept = mutableListOf<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>()
+        var usedChars = 0
+        for (msg in nonSystemMessages.reversed()) {
+            val msgChars = (msg.content?.length ?: 0) + msg.role.length
+            if (usedChars + msgChars > availableChars) break
+            kept.add(0, msg)
+            usedChars += msgChars
+        }
+
+        return systemMessages + kept
     }
 
     private fun trimToRecentExchanges(history: List<History>, maxExchanges: Int): List<History> {
@@ -686,6 +853,14 @@ class RemoteDataRepository(
                     }
                 }
             }
+            // Runtime context
+            val service = currentService()
+            val modelId = appSettings.getSelectedModelId(service)
+            append("\n\n## Context\n")
+            append("- Date: ${Clock.System.now()}\n")
+            append("- Platform: $platformName\n")
+            append("- Model: $modelId\n")
+            append("- Provider: ${service.displayName}\n")
         }.ifEmpty { null }
     }
 
