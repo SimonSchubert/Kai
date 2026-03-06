@@ -26,12 +26,12 @@ import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.useContents
 import kotlinx.cinterop.usePinned
-import platform.Foundation.NSData
-import platform.Foundation.dataWithBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import platform.Foundation.NSData
+import platform.Foundation.dataWithBytes
 import kotlin.coroutines.CoroutineContext
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Darwin) {
