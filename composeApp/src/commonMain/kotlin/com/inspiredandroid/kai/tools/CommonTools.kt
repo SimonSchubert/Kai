@@ -165,7 +165,7 @@ object CommonTools {
         descriptionRes = Res.string.tool_memory_reinforce_description,
     )
 
-    val commonToolDefinitions = listOf(localTimeToolInfo, ipLocationToolInfo, WebSearchTool.toolInfo) +
+    val commonToolDefinitions = listOf(WebSearchTool.toolInfo, localTimeToolInfo, ipLocationToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
         HeartbeatTools.heartbeatToolDefinitions +
         EmailTools.emailToolDefinitions
