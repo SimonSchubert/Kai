@@ -495,6 +495,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
     if (showAddServiceSheet) {
         ModalBottomSheet(
             onDismissRequest = { showAddServiceSheet = false },
+            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 uiState.availableServicesToAdd.forEach { service ->

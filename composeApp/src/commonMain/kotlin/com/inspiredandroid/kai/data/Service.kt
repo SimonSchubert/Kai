@@ -138,6 +138,30 @@ sealed class Service(
         apiKeyUrlDisplay = "console.mistral.ai/api-keys",
     )
 
+    data object Cerebras : Service(
+        id = "cerebras",
+        displayName = "Cerebras",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "cerebras",
+        chatUrl = "https://api.cerebras.ai/v1/chat/completions",
+        modelsUrl = "https://api.cerebras.ai/v1/models",
+        apiKeyUrl = "https://cloud.cerebras.ai/",
+        apiKeyUrlDisplay = "cloud.cerebras.ai",
+    )
+
+    data object OllamaCloud : Service(
+        id = "ollamacloud",
+        displayName = "Ollama Cloud",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "ollamacloud",
+        chatUrl = "https://ollama.com/v1/chat/completions",
+        modelsUrl = "https://ollama.com/v1/models",
+        apiKeyUrl = "https://ollama.com/settings/keys",
+        apiKeyUrlDisplay = "ollama.com/settings/keys",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -152,7 +176,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 
