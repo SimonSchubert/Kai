@@ -276,8 +276,11 @@ class RemoteDataRepository(
         val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
         flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
-            appSettings.setInstanceModelId(instanceId, models.first().id)
-            flow.update { m -> m.map { it.copy(isSelected = it.id == models.first().id) } }
+            val default = pickDefaultModel(models)
+            if (default != null) {
+                appSettings.setInstanceModelId(instanceId, default.id)
+                flow.update { m -> m.map { it.copy(isSelected = it.id == default.id) } }
+            }
         }
     }
 
@@ -312,9 +315,17 @@ class RemoteDataRepository(
         val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
         flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
-            appSettings.setInstanceModelId(instanceId, models.first().id)
-            flow.update { m -> m.map { it.copy(isSelected = it.id == models.first().id) } }
+            val default = pickDefaultModel(models)
+            if (default != null) {
+                appSettings.setInstanceModelId(instanceId, default.id)
+                flow.update { m -> m.map { it.copy(isSelected = it.id == default.id) } }
+            }
         }
+    }
+
+    private fun pickDefaultModel(models: List<SettingsModel>): SettingsModel? {
+        return models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
+            ?: models.firstOrNull()
     }
 
     private suspend fun askWithService(
