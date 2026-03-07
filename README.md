@@ -134,6 +134,8 @@ Tools can be enabled or disabled in settings. Memory tools are always available 
 - OpenRouter: https://openrouter.ai
 - Groq: https://groq.com
 - NVIDIA: https://developer.nvidia.com
+- Cerebras: https://cerebras.ai
+- Ollama Cloud: https://ollama.com
 - OpenAI-Compatible API (Ollama, LM Studio, etc.)
 
 ## Screenshot automatisation
