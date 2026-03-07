@@ -26,7 +26,6 @@ object ScreenshotTestData {
         setIsSpeaking = { _, _ -> },
         setFile = { _ -> },
         startNewChat = { },
-        resetScrollFlag = {},
         regenerate = {},
     )
 

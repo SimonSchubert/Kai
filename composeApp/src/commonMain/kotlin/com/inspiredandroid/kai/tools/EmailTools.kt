@@ -27,6 +27,46 @@ import kotlin.uuid.Uuid
 
 object EmailTools {
 
+    private suspend fun <T> withImapSession(
+        account: EmailAccount,
+        emailStore: EmailStore,
+        block: suspend (ImapClient) -> T,
+    ): T {
+        val imap = ImapClient(account.imapHost, account.imapPort)
+        try {
+            val password = emailStore.getPassword(account.id)
+            imap.connect()
+            imap.login(account.username.ifEmpty { account.email }, password)
+            imap.selectInbox()
+            return block(imap)
+        } finally {
+            imap.logout()
+        }
+    }
+
+    private suspend fun withSmtpSession(
+        account: EmailAccount,
+        emailStore: EmailStore,
+        block: suspend (SmtpClient, String) -> Map<String, Any>,
+    ): Map<String, Any> {
+        val smtp = SmtpClient(account.smtpHost, account.smtpPort, account.useStartTls)
+        val password = emailStore.getPassword(account.id)
+        smtp.connect()
+        smtp.ehlo()
+        if (account.useStartTls) smtp.startTls()
+        smtp.authenticate(account.username.ifEmpty { account.email }, password)
+        val from = if (account.displayName.isNotEmpty()) {
+            "${account.displayName} <${account.email}>"
+        } else {
+            account.email
+        }
+        try {
+            return block(smtp, from)
+        } finally {
+            smtp.quit()
+        }
+    }
+
     @OptIn(ExperimentalUuidApi::class)
     fun setupEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
@@ -132,28 +172,23 @@ object EmailTools {
             val errors = mutableListOf<String>()
 
             for (account in accounts) {
-                val imap = ImapClient(account.imapHost, account.imapPort)
                 try {
-                    val password = emailStore.getPassword(account.id)
-                    imap.connect()
-                    imap.login(account.username.ifEmpty { account.email }, password)
-                    imap.selectInbox()
-                    val unseenUids = imap.searchUnseen()
-                    val messages = imap.fetchHeaders(unseenUids.takeLast(20), account.id)
-                    imap.logout()
-
-                    for (msg in messages) {
-                        allEmails.add(
-                            mapOf(
-                                "uid" to msg.uid,
-                                "account_id" to account.id,
-                                "account_email" to account.email,
-                                "from" to msg.from,
-                                "subject" to msg.subject,
-                                "date" to msg.date,
-                                "preview" to msg.preview,
-                            ),
-                        )
+                    withImapSession(account, emailStore) { imap ->
+                        val unseenUids = imap.searchUnseen()
+                        val messages = imap.fetchHeaders(unseenUids.takeLast(20), account.id)
+                        for (msg in messages) {
+                            allEmails.add(
+                                mapOf(
+                                    "uid" to msg.uid,
+                                    "account_id" to account.id,
+                                    "account_email" to account.email,
+                                    "from" to msg.from,
+                                    "subject" to msg.subject,
+                                    "date" to msg.date,
+                                    "preview" to msg.preview,
+                                ),
+                            )
+                        }
                     }
                 } catch (e: Exception) {
                     errors.add("${account.email}: ${e.message}")
@@ -190,29 +225,24 @@ object EmailTools {
             val account = emailStore.getAccount(accountId)
                 ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
 
-            val imap = ImapClient(account.imapHost, account.imapPort)
             return try {
-                val password = emailStore.getPassword(account.id)
-                imap.connect()
-                imap.login(account.username.ifEmpty { account.email }, password)
-                imap.selectInbox()
-                val msg = imap.fetchBody(uid, account.id)
-                if (markRead) imap.markAsRead(uid)
-                imap.logout()
-
-                if (msg != null) {
-                    mapOf(
-                        "success" to true,
-                        "uid" to msg.uid,
-                        "from" to msg.from,
-                        "to" to msg.to,
-                        "subject" to msg.subject,
-                        "date" to msg.date,
-                        "body" to msg.body,
-                        "message_id" to msg.messageId,
-                    )
-                } else {
-                    mapOf("success" to false, "error" to "Email not found with UID $uid")
+                withImapSession(account, emailStore) { imap ->
+                    val msg = imap.fetchBody(uid, account.id)
+                    if (markRead) imap.markAsRead(uid)
+                    if (msg != null) {
+                        mapOf(
+                            "success" to true,
+                            "uid" to msg.uid,
+                            "from" to msg.from,
+                            "to" to msg.to,
+                            "subject" to msg.subject,
+                            "date" to msg.date,
+                            "body" to msg.body,
+                            "message_id" to msg.messageId,
+                        )
+                    } else {
+                        mapOf("success" to false, "error" to "Email not found with UID $uid")
+                    }
                 }
             } catch (e: Exception) {
                 mapOf("success" to false, "error" to "Failed to read email: ${e.message}")
@@ -247,39 +277,26 @@ object EmailTools {
             val account = emailStore.getAccount(accountId)
                 ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
 
-            val smtp = SmtpClient(account.smtpHost, account.smtpPort, account.useStartTls)
             return try {
-                val password = emailStore.getPassword(account.id)
-                smtp.connect()
-                smtp.ehlo()
-                if (account.useStartTls) smtp.startTls()
-                smtp.authenticate(account.username.ifEmpty { account.email }, password)
-
-                val from = if (account.displayName.isNotEmpty()) {
-                    "${account.displayName} <${account.email}>"
-                } else {
-                    account.email
-                }
-
-                val success = smtp.sendReply(
-                    from = account.email,
-                    to = to,
-                    subject = subject,
-                    body = body,
-                    inReplyTo = inReplyTo,
-                )
-                smtp.quit()
-
-                if (success) {
-                    mapOf(
-                        "success" to true,
-                        "message" to "Reply sent successfully to $to",
-                        "from" to from,
-                        "to" to to,
-                        "subject" to subject,
+                withSmtpSession(account, emailStore) { smtp, from ->
+                    val success = smtp.sendReply(
+                        from = account.email,
+                        to = to,
+                        subject = subject,
+                        body = body,
+                        inReplyTo = inReplyTo,
                     )
-                } else {
-                    mapOf("success" to false, "error" to "SMTP server rejected the message")
+                    if (success) {
+                        mapOf(
+                            "success" to true,
+                            "message" to "Reply sent successfully to $to",
+                            "from" to from,
+                            "to" to to,
+                            "subject" to subject,
+                        )
+                    } else {
+                        mapOf("success" to false, "error" to "SMTP server rejected the message")
+                    }
                 }
             } catch (e: Exception) {
                 mapOf("success" to false, "error" to "Failed to send reply: ${e.message}")
@@ -312,39 +329,26 @@ object EmailTools {
             val account = emailStore.getAccount(accountId)
                 ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
 
-            val smtp = SmtpClient(account.smtpHost, account.smtpPort, account.useStartTls)
             return try {
-                val password = emailStore.getPassword(account.id)
-                smtp.connect()
-                smtp.ehlo()
-                if (account.useStartTls) smtp.startTls()
-                smtp.authenticate(account.username.ifEmpty { account.email }, password)
-
-                val from = if (account.displayName.isNotEmpty()) {
-                    "${account.displayName} <${account.email}>"
-                } else {
-                    account.email
-                }
-
-                val success = smtp.sendReply(
-                    from = account.email,
-                    to = to,
-                    subject = subject,
-                    body = body,
-                    inReplyTo = null,
-                )
-                smtp.quit()
-
-                if (success) {
-                    mapOf(
-                        "success" to true,
-                        "message" to "Email sent successfully to $to",
-                        "from" to from,
-                        "to" to to,
-                        "subject" to subject,
+                withSmtpSession(account, emailStore) { smtp, from ->
+                    val success = smtp.sendReply(
+                        from = account.email,
+                        to = to,
+                        subject = subject,
+                        body = body,
+                        inReplyTo = null,
                     )
-                } else {
-                    mapOf("success" to false, "error" to "SMTP server rejected the message")
+                    if (success) {
+                        mapOf(
+                            "success" to true,
+                            "message" to "Email sent successfully to $to",
+                            "from" to from,
+                            "to" to to,
+                            "subject" to subject,
+                        )
+                    } else {
+                        mapOf("success" to false, "error" to "SMTP server rejected the message")
+                    }
                 }
             } catch (e: Exception) {
                 mapOf("success" to false, "error" to "Failed to send email: ${e.message}")
@@ -378,37 +382,30 @@ object EmailTools {
             val account = emailStore.getAccount(accountId)
                 ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
 
-            val imap = ImapClient(account.imapHost, account.imapPort)
             return try {
-                val password = emailStore.getPassword(account.id)
-                imap.connect()
-                imap.login(account.username.ifEmpty { account.email }, password)
-                imap.selectInbox()
-
-                val uids = when {
-                    fromQuery != null -> imap.searchByFrom(fromQuery)
-                    subjectQuery != null -> imap.searchBySubject(subjectQuery)
-                    sinceDate != null -> imap.searchSince(sinceDate)
-                    else -> emptyList()
+                withImapSession(account, emailStore) { imap ->
+                    val uids = when {
+                        fromQuery != null -> imap.searchByFrom(fromQuery)
+                        subjectQuery != null -> imap.searchBySubject(subjectQuery)
+                        sinceDate != null -> imap.searchSince(sinceDate)
+                        else -> emptyList()
+                    }
+                    val messages = imap.fetchHeaders(uids.takeLast(20), account.id)
+                    mapOf(
+                        "success" to true,
+                        "count" to messages.size,
+                        "emails" to messages.map { msg ->
+                            mapOf(
+                                "uid" to msg.uid,
+                                "from" to msg.from,
+                                "subject" to msg.subject,
+                                "date" to msg.date,
+                                "preview" to msg.preview,
+                                "is_read" to msg.isRead,
+                            )
+                        },
+                    )
                 }
-
-                val messages = imap.fetchHeaders(uids.takeLast(20), account.id)
-                imap.logout()
-
-                mapOf(
-                    "success" to true,
-                    "count" to messages.size,
-                    "emails" to messages.map { msg ->
-                        mapOf(
-                            "uid" to msg.uid,
-                            "from" to msg.from,
-                            "subject" to msg.subject,
-                            "date" to msg.date,
-                            "preview" to msg.preview,
-                            "is_read" to msg.isRead,
-                        )
-                    },
-                )
             } catch (e: Exception) {
                 mapOf("success" to false, "error" to "Search failed: ${e.message}")
             }

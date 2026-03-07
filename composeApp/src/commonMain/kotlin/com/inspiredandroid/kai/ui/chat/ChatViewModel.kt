@@ -31,7 +31,6 @@ class ChatViewModel(
         setIsSpeaking = ::setIsSpeaking,
         setFile = ::setFile,
         startNewChat = ::startNewChat,
-        resetScrollFlag = ::resetScrollFlag,
         regenerate = ::regenerate,
     )
     private val _state = MutableStateFlow(
@@ -152,12 +151,6 @@ class ChatViewModel(
     fun refreshSettings() {
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.restoreLatestConversation()
-        }
-    }
-
-    private fun resetScrollFlag() {
-        _state.update {
-            it.copy(shouldScrollToBottom = false)
         }
     }
 }

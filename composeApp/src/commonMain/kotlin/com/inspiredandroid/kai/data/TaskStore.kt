@@ -58,6 +58,8 @@ class TaskStore(private val appSettings: AppSettings) {
 
     fun getAllTasks(): List<ScheduledTask> = loadTasks()
 
+    fun getPendingTasks(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING }
+
     suspend fun updateTask(task: ScheduledTask): ScheduledTask = mutex.withLock {
         val tasks = loadTasks()
         val index = tasks.indexOfFirst { it.id == task.id }

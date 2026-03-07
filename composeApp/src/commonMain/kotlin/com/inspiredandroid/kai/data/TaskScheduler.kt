@@ -88,50 +88,52 @@ class TaskScheduler(
             try {
                 val password = emailStore.getPassword(account.id)
                 val imap = ImapClient(account.imapHost, account.imapPort)
-                imap.connect()
-                imap.login(account.username.ifEmpty { account.email }, password)
-                imap.selectInbox()
-                val unseenUids = imap.searchUnseen()
-                // Only process UIDs newer than what we've seen
-                val newUids = unseenUids.filter { it > syncState.lastSeenUid }
+                try {
+                    imap.connect()
+                    imap.login(account.username.ifEmpty { account.email }, password)
+                    imap.selectInbox()
+                    val unseenUids = imap.searchUnseen()
+                    // Only process UIDs newer than what we've seen
+                    val newUids = unseenUids.filter { it > syncState.lastSeenUid }
 
-                if (newUids.isNotEmpty()) {
-                    val messages = imap.fetchHeaders(newUids.takeLast(10), account.id)
-                    imap.logout()
+                    if (newUids.isNotEmpty()) {
+                        val messages = imap.fetchHeaders(newUids.takeLast(10), account.id)
 
-                    // Build triage prompt for AI to score relevance
-                    val triagePrompt = buildString {
-                        appendLine("[EMAIL_TRIAGE] New emails arrived for ${account.email}. Score each email's relevance from 1-5 based on the user's memories and preferences.")
-                        appendLine("Only surface emails rated 4-5 by adding a brief notification message. For lower-rated emails, respond with exactly: EMAIL_TRIAGE_OK")
-                        appendLine()
-                        for (msg in messages) {
-                            appendLine("- From: ${msg.from} | Subject: ${msg.subject} | Preview: ${msg.preview}")
+                        // Build triage prompt for AI to score relevance
+                        val triagePrompt = buildString {
+                            appendLine("[EMAIL_TRIAGE] New emails arrived for ${account.email}. Score each email's relevance from 1-5 based on the user's memories and preferences.")
+                            appendLine("Only surface emails rated 4-5 by adding a brief notification message. For lower-rated emails, respond with exactly: EMAIL_TRIAGE_OK")
+                            appendLine()
+                            for (msg in messages) {
+                                appendLine("- From: ${msg.from} | Subject: ${msg.subject} | Preview: ${msg.preview}")
+                            }
                         }
-                    }
 
-                    if (!isLoading()) {
-                        val response = dataRepository.askSilently(triagePrompt)
-                        if (response.trim() != "EMAIL_TRIAGE_OK") {
-                            dataRepository.addAssistantMessage(response)
+                        if (!isLoading()) {
+                            val response = dataRepository.askSilently(triagePrompt)
+                            if (response.trim() != "EMAIL_TRIAGE_OK") {
+                                dataRepository.addAssistantMessage(response)
+                            }
                         }
-                    }
 
-                    // Update sync state
-                    emailStore.updateSyncState(
-                        syncState.copy(
-                            lastSeenUid = newUids.max(),
-                            lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
-                            unreadCount = unseenUids.size,
-                        ),
-                    )
-                } else {
+                        // Update sync state
+                        emailStore.updateSyncState(
+                            syncState.copy(
+                                lastSeenUid = newUids.max(),
+                                lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
+                                unreadCount = unseenUids.size,
+                            ),
+                        )
+                    } else {
+                        emailStore.updateSyncState(
+                            syncState.copy(
+                                lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
+                                unreadCount = unseenUids.size,
+                            ),
+                        )
+                    }
+                } finally {
                     imap.logout()
-                    emailStore.updateSyncState(
-                        syncState.copy(
-                            lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
-                            unreadCount = unseenUids.size,
-                        ),
-                    )
                 }
             } catch (_: Exception) {
                 // Email check failed — skip and retry next cycle

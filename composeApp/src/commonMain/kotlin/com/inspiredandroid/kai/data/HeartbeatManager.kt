@@ -64,7 +64,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         append("\n")
 
         // Append pending tasks
-        val pendingTasks = taskStore.getAllTasks().filter { it.status == TaskStatus.PENDING }
+        val pendingTasks = taskStore.getPendingTasks()
         if (pendingTasks.isNotEmpty()) {
             append("\n## Pending Tasks\n")
             for (t in pendingTasks) {
@@ -131,8 +131,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
                 "If something needs attention (stale memories, due tasks, user follow-ups), address it."
     }
 
-    fun markHeartbeatExecuted() {
-        val config = getConfig()
+    fun markHeartbeatExecuted(config: HeartbeatConfig = getConfig()) {
         saveConfig(config.copy(lastHeartbeatEpochMs = Clock.System.now().toEpochMilliseconds()))
     }
 }

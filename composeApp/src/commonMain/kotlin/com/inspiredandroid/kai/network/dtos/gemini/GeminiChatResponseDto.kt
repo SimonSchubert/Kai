@@ -26,3 +26,5 @@ data class GeminiChatResponseDto(
         val args: Map<String, JsonElement>? = null,
     )
 }
+
+fun GeminiChatResponseDto.extractText(): String = candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""

@@ -40,45 +40,18 @@ class ImapClient(
         return existsMatch?.groupValues?.get(1)?.toIntOrNull() ?: 0
     }
 
-    suspend fun searchUnseen(): List<Long> {
-        val tag = nextTag()
-        val conn = connection ?: throw IllegalStateException("Not connected")
-        conn.writeLine("$tag SEARCH UNSEEN")
-        val response = readUntilTaggedOrGreeting(tag)
-        // Parse "* SEARCH 1 2 3 4"
-        val searchLine = response.lines().find { it.startsWith("* SEARCH") } ?: return emptyList()
-        return searchLine.removePrefix("* SEARCH").trim().split(" ")
-            .filter { it.isNotBlank() }
-            .mapNotNull { it.toLongOrNull() }
-    }
+    suspend fun searchUnseen(): List<Long> = search("SEARCH UNSEEN")
 
-    suspend fun searchSince(date: String): List<Long> {
-        val tag = nextTag()
-        val conn = connection ?: throw IllegalStateException("Not connected")
-        // date format: "01-Jan-2025"
-        conn.writeLine("$tag SEARCH SINCE $date")
-        val response = readUntilTaggedOrGreeting(tag)
-        val searchLine = response.lines().find { it.startsWith("* SEARCH") } ?: return emptyList()
-        return searchLine.removePrefix("* SEARCH").trim().split(" ")
-            .filter { it.isNotBlank() }
-            .mapNotNull { it.toLongOrNull() }
-    }
+    suspend fun searchSince(date: String): List<Long> = search("SEARCH SINCE $date")
 
-    suspend fun searchByFrom(sender: String): List<Long> {
-        val tag = nextTag()
-        val conn = connection ?: throw IllegalStateException("Not connected")
-        conn.writeLine("$tag SEARCH FROM \"${escapeQuoted(sender)}\"")
-        val response = readUntilTaggedOrGreeting(tag)
-        val searchLine = response.lines().find { it.startsWith("* SEARCH") } ?: return emptyList()
-        return searchLine.removePrefix("* SEARCH").trim().split(" ")
-            .filter { it.isNotBlank() }
-            .mapNotNull { it.toLongOrNull() }
-    }
+    suspend fun searchByFrom(sender: String): List<Long> = search("SEARCH FROM \"${escapeQuoted(sender)}\"")
 
-    suspend fun searchBySubject(subject: String): List<Long> {
+    suspend fun searchBySubject(subject: String): List<Long> = search("SEARCH SUBJECT \"${escapeQuoted(subject)}\"")
+
+    private suspend fun search(command: String): List<Long> {
         val tag = nextTag()
         val conn = connection ?: throw IllegalStateException("Not connected")
-        conn.writeLine("$tag SEARCH SUBJECT \"${escapeQuoted(subject)}\"")
+        conn.writeLine("$tag $command")
         val response = readUntilTaggedOrGreeting(tag)
         val searchLine = response.lines().find { it.startsWith("* SEARCH") } ?: return emptyList()
         return searchLine.removePrefix("* SEARCH").trim().split(" ")

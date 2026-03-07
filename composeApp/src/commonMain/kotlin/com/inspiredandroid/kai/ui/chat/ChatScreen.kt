@@ -123,13 +123,6 @@ fun ChatScreenContent(
                     val listState = rememberLazyListState()
                     val componentScope = rememberCoroutineScope()
 
-                    LaunchedEffect(uiState.shouldScrollToBottom) {
-                        if (uiState.shouldScrollToBottom && uiState.history.isNotEmpty()) {
-                            listState.animateScrollToItem(uiState.history.lastIndex)
-                            uiState.actions.resetScrollFlag()
-                        }
-                    }
-
                     LaunchedEffect(uiState.history.size) {
                         // Capture history at effect start to prevent race conditions
                         val history = uiState.history

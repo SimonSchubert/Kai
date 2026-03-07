@@ -12,6 +12,5 @@ data class ChatActions(
     val setIsSpeaking: (Boolean, String) -> Unit,
     val setFile: (PlatformFile?) -> Unit,
     val startNewChat: () -> Unit,
-    val resetScrollFlag: () -> Unit,
     val regenerate: () -> Unit,
 )

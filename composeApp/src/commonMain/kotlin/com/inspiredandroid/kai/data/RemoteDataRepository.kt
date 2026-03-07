@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
+import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.platformName
@@ -40,22 +41,7 @@ import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-private val modelsWithoutImageSupport = listOf(
-    "llama3.2:1b",
-    "llama3.2:3b",
-    "llama3.1:8b",
-    "gemma2",
-    "gemma:2b",
-    "gemma:7b",
-    "phi3:mini",
-    "tinyllama",
-    "stablelm",
-    "codellama",
-    "deepseek-coder:1.3b",
-    "deepseek-coder:6.7b",
-)
-
-private val modelsWithoutToolSupport = listOf(
+private val limitedModels = listOf(
     "llama3.2:1b",
     "llama3.2:3b",
     "llama3.1:8b",
@@ -78,12 +64,12 @@ private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 
 private fun supportsTools(modelId: String): Boolean {
     val lower = modelId.lowercase()
-    return modelsWithoutToolSupport.none { lower.startsWith(it) }
+    return limitedModels.none { lower.startsWith(it) }
 }
 
 private fun supportsImageAttachment(modelId: String): Boolean {
     val lower = modelId.lowercase()
-    return modelsWithoutImageSupport.none { lower.startsWith(it) }
+    return limitedModels.none { lower.startsWith(it) }
 }
 
 class RemoteDataRepository(
@@ -272,15 +258,7 @@ class RemoteDataRepository(
                 )
             }
             .sortedWith(geminiModelComparator)
-        val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
-        flow.update { models }
-        if (models.isNotEmpty() && models.none { it.isSelected }) {
-            val default = pickDefaultModel(models)
-            if (default != null) {
-                appSettings.setInstanceModelId(instanceId, default.id)
-                flow.update { m -> m.map { it.copy(isSelected = it.id == default.id) } }
-            }
-        }
+        updateModelsForInstance(instanceId, models)
     }
 
     private suspend fun fetchOpenAICompatibleModelsForInstance(service: Service, instanceId: String) {
@@ -311,6 +289,10 @@ class RemoteDataRepository(
                 isSelected = it.id == selectedModelId,
             )
         }
+        updateModelsForInstance(instanceId, models)
+    }
+
+    private fun updateModelsForInstance(instanceId: String, models: List<SettingsModel>) {
         val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
         flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
@@ -341,9 +323,7 @@ class RemoteDataRepository(
                 } else {
                     val geminiMessages = messages.map { it.toGeminiMessageDto() }
                     val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
-                    response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                        part.text ?: ""
-                    } ?: ""
+                    response.extractText()
                 }
             }
 
@@ -550,7 +530,7 @@ class RemoteDataRepository(
                         systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
                     ).getOrThrow()
                 }
-                return bailoutResponse.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""
+                return bailoutResponse.extractText()
             }
 
             val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
@@ -596,7 +576,7 @@ class RemoteDataRepository(
                         systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
                     ).getOrThrow()
                 }
-                return bailoutResponse.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""
+                return bailoutResponse.extractText()
             }
             recentSignatures.addAll(signatures)
 
@@ -1002,7 +982,7 @@ class RemoteDataRepository(
                 }
             }
             if (schedulingEnabled) {
-                val pendingTasks = taskStore.getAllTasks().filter { it.status == TaskStatus.PENDING }
+                val pendingTasks = taskStore.getPendingTasks()
                 if (pendingTasks.isNotEmpty()) {
                     append("\n\n## Scheduled Tasks\n")
                     for (t in pendingTasks) {
@@ -1113,9 +1093,7 @@ class RemoteDataRepository(
             Service.Gemini -> {
                 val geminiMessages = messages.map { it.toGeminiMessageDto() }
                 val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
-                response.candidates.firstOrNull()?.content?.parts?.joinToString("\n") { part ->
-                    part.text ?: ""
-                } ?: ""
+                response.extractText()
             }
 
             else -> {
