@@ -609,7 +609,7 @@ private fun ConfiguredServiceCard(
             // Reorder + Remove actions
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 if (onMoveUp != null) {
@@ -640,7 +640,7 @@ private fun ConfiguredServiceCard(
                 // Remove button
                 TextButton(
                     onClick = onRemove,
-                    modifier = Modifier.fillMaxWidth().wrapContentWidth(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,

@@ -100,6 +100,8 @@ class AppSettings(private val settings: Settings) {
     }
 
     fun migrateConfiguredServicesIfNeeded() {
+        if (settings.getBoolean(KEY_SERVICES_MIGRATION_COMPLETE, false)) return
+
         val existing = getConfiguredServiceInstances()
         val existingServiceIds = existing.map { it.serviceId }.toSet()
         val instances = existing.toMutableList()
@@ -125,6 +127,8 @@ class AppSettings(private val settings: Settings) {
         if (instances.size > existing.size) {
             setConfiguredServiceInstances(instances)
         }
+
+        settings.putBoolean(KEY_SERVICES_MIGRATION_COMPLETE, true)
     }
 
     // Per-instance settings (API key, model, base URL)
@@ -390,6 +394,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
         const val KEY_CONFIGURED_SERVICES = "configured_services"
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
+        const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +
