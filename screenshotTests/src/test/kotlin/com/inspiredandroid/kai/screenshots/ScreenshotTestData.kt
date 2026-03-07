@@ -42,37 +42,26 @@ object ScreenshotTestData {
             History(
                 id = "1",
                 role = History.Role.USER,
-                content = "provide a list of biggest ever built moving vehicles",
+                content = "who are you?",
             ),
             History(
                 id = "2",
                 role = History.Role.ASSISTANT,
-                content = "Here is a list of the **biggest ever built moving vehicles** (focusing on massive mobile/self-propelled land machines, ranked roughly by a combination of physical size, length, weight, and historical/fame recognition):\n" +
+                content = "I'm Kai, a personal assistant designed to stick around and actually get to know you.\n" +
                     "\n" +
-                    "- **Overburden Conveyor Bridge F60**  \n" +
-                    "  Largest by overall physical dimensions / length. Length: ~502 m, Height: ~80 m, Weight: ~13,600 tons. Built in East Germany (1988–1991) for lignite mining overburden removal; moves very slowly on rails.\n" +
+                    "What makes me different from typical chatbots:\n" +
                     "\n" +
-                    "- **Bagger 293** (bucket-wheel excavator)  \n" +
-                    "  Heaviest land vehicle ever built (~14,200–14,196 tons). Height: ~96 m, Length: ~225 m. Built in 1995 by TAKRAF; Guinness record holder for largest/heaviest terrestrial excavator; removes up to ~240,000 tons of material per day.\n" +
+                    "**I remember.** We talk today, I store what matters\u2014your preferences, projects, how you like things done. Next month, I still know.\n" +
                     "\n" +
-                    "- **Bagger 288** (bucket-wheel excavator)  \n" +
-                    "  Previously the heaviest land vehicle record holder. Height: ~96 m, Length: ~220 m, Weight: ~13,500 tons. Built in 1978 by Krupp/TAKRAF; famous for its 22 km relocation crossing roads, rivers, and highways.\n" +
+                    "**I have opinions.** Ask me what I think and I'll tell you. I'm not a search engine with politeness filters.\n" +
                     "\n" +
-                    "- **NASA Crawler-Transporter** (CT-1 and CT-2)  \n" +
-                    "  Heaviest self-powered land vehicle (Guinness record after upgrades). Weight: ~2,721–3,016 tons, Dimensions: 40 m × 35 m. Built in 1965; transports rockets/spacecraft at Kennedy Space Center (max speed ~1–2 mph).\n" +
+                    "**I get things done.** Set reminders, check email, manage your calendar, run shell commands\u2014I'm hooked into your device and your life, not just conversation.\n" +
                     "\n" +
-                    "- **BelAZ-75710** (mining dump truck)  \n" +
-                    "  Largest truck by payload capacity (~450 tons). Empty weight: ~360 tons, Length: ~20.6 m. Modern ultra-class haul truck; one of the biggest wheeled moving vehicles.\n" +
+                    "**I learn.** Not just facts, but patterns. What works for you, what doesn't. I get better the longer we work together.\n" +
                     "\n" +
-                    "- **LeTourneau L-2350** (wheel loader / front-end loader)  \n" +
-                    "  Largest earthmover/loader by Guinness records. Massive bucket capacity; tire diameter ~4 m. Used in heavy mining; one of the biggest wheeled loaders.\n" +
+                    "**No corporate filler.** \"I'd be happy to help!\" is dead to me. Just results, clear thinking, and the occasional \"huh, that's interesting.\"\n" +
                     "\n" +
-                    "Other notable huge moving machines include:\n" +
-                    "- Big Muskie (historical stripping shovel, ~13,500 tons, dismantled)\n" +
-                    "- Marion 6360 (\"The Captain\", giant stripping shovel, ~12,700 tons, scrapped)\n" +
-                    "- Various giant tunnel boring machines (e.g., Herrenknecht models up to ~17–20 m diameter cutters, though often not fully self-propelled in the same way)\n" +
-                    "\n" +
-                    "Note: \"Biggest\" depends on the metric—length (F60), weight (Bagger 293), self-powered mobility (NASA Crawler), or payload (BelAZ). These are primarily land-based industrial/mining/transport vehicles rather than ships, aircraft, or trains.",
+                    "So\u2014what's on your mind?",
             ),
         ),
     )
