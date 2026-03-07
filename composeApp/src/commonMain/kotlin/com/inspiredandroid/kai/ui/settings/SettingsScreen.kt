@@ -121,6 +121,7 @@ import kai.composeapp.generated.resources.settings_connect_server
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
+import kai.composeapp.generated.resources.settings_documentation
 import kai.composeapp.generated.resources.settings_email
 import kai.composeapp.generated.resources.settings_email_description
 import kai.composeapp.generated.resources.settings_email_empty
@@ -332,6 +333,8 @@ private fun BottomInfo() {
 
     Spacer(Modifier.height(8.dp))
 
+    val uriHandler = LocalUriHandler.current
+
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
             stringResource(Res.string.settings_version, Version.appVersion),
@@ -341,11 +344,10 @@ private fun BottomInfo() {
 
         Spacer(Modifier.width(8.dp))
 
-        val uriHandler = LocalUriHandler.current
         Icon(
             modifier = Modifier
                 .clip(CircleShape)
-                .size(20.dp)
+                .size(24.dp)
                 .clickable(onClick = {
                     uriHandler.openUri("https://github.com/SimonSchubert/Kai")
                 })
@@ -353,6 +355,17 @@ private fun BottomInfo() {
             painter = painterResource(Res.drawable.github_mark),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onBackground,
+        )
+
+        Spacer(Modifier.width(12.dp))
+
+        Text(
+            text = stringResource(Res.string.settings_documentation),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier
+                .clickable { uriHandler.openUri("https://simonschubert.github.io/Kai/docs/") }
+                .pointerHoverIcon(PointerIcon.Hand),
         )
     }
 
