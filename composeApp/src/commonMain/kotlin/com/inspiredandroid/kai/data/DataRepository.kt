@@ -81,6 +81,10 @@ interface DataRepository {
     fun getEmailPollIntervalMinutes(): Int
     fun setEmailPollIntervalMinutes(minutes: Int)
 
+    // UI Scale
+    fun getUiScale(): Float
+    fun setUiScale(scale: Float)
+
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String
     fun addAssistantMessage(content: String)

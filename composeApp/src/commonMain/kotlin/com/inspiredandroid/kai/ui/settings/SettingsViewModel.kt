@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
@@ -72,6 +73,9 @@ class SettingsViewModel(
             onChangeEmailPollInterval = ::onChangeEmailPollInterval,
             isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
             onToggleFreeFallback = ::onToggleFreeFallback,
+            uiScale = dataRepository.getUiScale(),
+            onChangeUiScale = ::onChangeUiScale,
+            showUiScale = isDesktopPlatform,
         ),
     )
 
@@ -283,6 +287,11 @@ class SettingsViewModel(
     private fun onToggleFreeFallback(enabled: Boolean) {
         dataRepository.setFreeFallbackEnabled(enabled)
         _state.update { it.copy(isFreeFallbackEnabled = enabled) }
+    }
+
+    private fun onChangeUiScale(scale: Float) {
+        dataRepository.setUiScale(scale)
+        _state.update { it.copy(uiScale = scale) }
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

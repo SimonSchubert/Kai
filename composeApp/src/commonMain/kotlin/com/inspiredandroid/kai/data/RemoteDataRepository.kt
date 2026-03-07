@@ -1083,6 +1083,12 @@ class RemoteDataRepository(
         appSettings.setEmailPollIntervalMinutes(minutes)
     }
 
+    override fun getUiScale(): Float = appSettings.getUiScale()
+
+    override fun setUiScale(scale: Float) {
+        appSettings.setUiScale(scale)
+    }
+
     override suspend fun askSilently(question: String): String {
         val service = currentService()
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""

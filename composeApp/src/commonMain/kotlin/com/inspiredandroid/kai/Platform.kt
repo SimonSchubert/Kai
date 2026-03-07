@@ -24,6 +24,8 @@ expect val BackIcon: ImageVector
 
 expect val isMobilePlatform: Boolean
 
+expect val isDesktopPlatform: Boolean
+
 expect fun getAppFilesDirectory(): String
 
 expect fun getAvailableTools(): List<Tool>

@@ -46,6 +46,8 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos
 
 actual val isMobilePlatform: Boolean = true
 
+actual val isDesktopPlatform: Boolean = false
+
 actual val isEmailSupported: Boolean = true
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class, kotlinx.cinterop.BetaInteropApi::class)

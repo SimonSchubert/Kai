@@ -81,6 +81,9 @@ data class SettingsUiState(
     val onChangeEmailPollInterval: (Int) -> Unit = {},
     val isFreeFallbackEnabled: Boolean = true,
     val onToggleFreeFallback: (Boolean) -> Unit = {},
+    val uiScale: Float = 1.0f,
+    val onChangeUiScale: (Float) -> Unit = {},
+    val showUiScale: Boolean = false,
 )
 
 @Immutable

@@ -57,6 +57,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -164,6 +166,7 @@ import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_tools_title
+import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -1088,6 +1091,14 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
+                    if (uiState.showUiScale) {
+                        SettingsCard {
+                            UiScaleSection(
+                                uiScale = uiState.uiScale,
+                                onChangeUiScale = uiState.onChangeUiScale,
+                            )
+                        }
+                    }
                     SettingsCard {
                         SoulEditor(
                             soulText = uiState.soulText,
@@ -1149,6 +1160,14 @@ private fun GeneralContent(uiState: SettingsUiState) {
             }
         } else {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                if (uiState.showUiScale) {
+                    SettingsCard {
+                        UiScaleSection(
+                            uiScale = uiState.uiScale,
+                            onChangeUiScale = uiState.onChangeUiScale,
+                        )
+                    }
+                }
                 if (uiState.showDaemonToggle) {
                     SettingsCard {
                         DaemonModeToggle(
@@ -1871,4 +1890,64 @@ private fun dayName(day: String): String? = when (day) {
     "SAT" -> "Sat"
     "SUN" -> "Sun"
     else -> null
+}
+
+@Composable
+private fun UiScaleSection(
+    uiScale: Float,
+    onChangeUiScale: (Float) -> Unit,
+) {
+    var sliderValue by remember(uiScale) { mutableStateOf(uiScale) }
+    val steps = ((2.0f - 0.5f) / 0.1f).toInt() - 1 // 10% steps between 50% and 200%
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_ui_scale),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = "${(sliderValue * 100).toInt()}%",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
+        Slider(
+            value = sliderValue,
+            onValueChange = { sliderValue = it },
+            onValueChangeFinished = { onChangeUiScale(sliderValue) },
+            valueRange = 0.5f..2.0f,
+            steps = steps,
+            colors = SliderDefaults.colors(
+                thumbColor = MaterialTheme.colorScheme.primary,
+                activeTrackColor = MaterialTheme.colorScheme.primary,
+                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                activeTickColor = Color.Transparent,
+                inactiveTickColor = Color.Transparent,
+            ),
+            thumb = {
+                Box(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .background(MaterialTheme.colorScheme.primary, CircleShape),
+                )
+            },
+            track = { sliderState ->
+                SliderDefaults.Track(
+                    sliderState = sliderState,
+                    colors = SliderDefaults.colors(
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    ),
+                    drawStopIndicator = null,
+                    drawTick = { _, _ -> },
+                )
+            },
+        )
+    }
 }

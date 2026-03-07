@@ -65,6 +65,8 @@ actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
 actual val isMobilePlatform: Boolean = false
 
+actual val isDesktopPlatform: Boolean = true
+
 actual val isEmailSupported: Boolean = true
 
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {

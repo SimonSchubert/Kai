@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.data
 
 import com.russhwolf.settings.Settings
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -335,6 +337,17 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_HEARTBEAT_PROMPT, text)
     }
 
+    // UI Scale
+    private val _uiScaleFlow = MutableStateFlow(settings.getFloat(KEY_UI_SCALE, 1.0f))
+    val uiScaleFlow: StateFlow<Float> = _uiScaleFlow
+
+    fun getUiScale(): Float = _uiScaleFlow.value
+
+    fun setUiScale(scale: Float) {
+        settings.putFloat(KEY_UI_SCALE, scale)
+        _uiScaleFlow.value = scale
+    }
+
     // Email
     fun isEmailEnabled(): Boolean = settings.getBoolean(KEY_EMAIL_ENABLED, true)
 
@@ -395,6 +408,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_CONFIGURED_SERVICES = "configured_services"
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
+        const val KEY_UI_SCALE = "ui_scale"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

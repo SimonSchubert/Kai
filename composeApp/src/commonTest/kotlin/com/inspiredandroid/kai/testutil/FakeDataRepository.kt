@@ -286,4 +286,12 @@ class FakeDataRepository : DataRepository {
     override fun setEmailPollIntervalMinutes(minutes: Int) {
         emailPollIntervalMinutes = minutes
     }
+
+    private var uiScale: Float = 1.0f
+
+    override fun getUiScale(): Float = uiScale
+
+    override fun setUiScale(scale: Float) {
+        uiScale = scale
+    }
 }

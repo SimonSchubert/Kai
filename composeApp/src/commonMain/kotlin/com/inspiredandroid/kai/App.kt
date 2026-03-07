@@ -4,7 +4,13 @@ package com.inspiredandroid.kai
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -102,26 +108,35 @@ private fun AppContent(
     val notificationPermissionController = koinInject<NotificationPermissionController>()
     SetupNotificationPermissionHandler(notificationPermissionController)
 
-    Theme(colorScheme = colorScheme) {
-        val chatViewModel: ChatViewModel = koinViewModel()
+    val appSettingsForScale = koinInject<AppSettings>()
+    val uiScale by appSettingsForScale.uiScaleFlow.collectAsState()
+    val defaultDensity = LocalDensity.current
+    val scaledDensity = remember(defaultDensity, uiScale) {
+        Density(defaultDensity.density * uiScale, defaultDensity.fontScale)
+    }
 
-        NavHost(navController, startDestination = Home) {
-            composable<Home> {
-                ChatScreen(
-                    viewModel = chatViewModel,
-                    textToSpeech = textToSpeech,
-                    onNavigateToSettings = {
-                        navController.navigate(Settings)
-                    },
-                )
-            }
-            composable<Settings> {
-                SettingsScreen(
-                    onNavigateBack = {
-                        chatViewModel.refreshSettings()
-                        navController.navigateUp()
-                    },
-                )
+    CompositionLocalProvider(LocalDensity provides scaledDensity) {
+        Theme(colorScheme = colorScheme) {
+            val chatViewModel: ChatViewModel = koinViewModel()
+
+            NavHost(navController, startDestination = Home) {
+                composable<Home> {
+                    ChatScreen(
+                        viewModel = chatViewModel,
+                        textToSpeech = textToSpeech,
+                        onNavigateToSettings = {
+                            navController.navigate(Settings)
+                        },
+                    )
+                }
+                composable<Settings> {
+                    SettingsScreen(
+                        onNavigateBack = {
+                            chatViewModel.refreshSettings()
+                            navController.navigateUp()
+                        },
+                    )
+                }
             }
         }
     }
