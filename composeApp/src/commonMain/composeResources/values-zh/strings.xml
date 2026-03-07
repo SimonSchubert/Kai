@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">触发心跳</string>
     <string name="tool_web_search_description">在网络上搜索当前信息</string>
     <string name="tool_web_search_name">网页搜索</string>
+    <string name="settings_ui_scale">界面缩放</string>
+    <string name="tab_chat">聊天</string>
+    <string name="tab_settings">设置</string>
+    <string name="fallback_answered_by">由 %1$s 回答（备用）</string>
 </resources>

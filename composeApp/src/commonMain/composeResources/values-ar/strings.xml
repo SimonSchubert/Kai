@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">تشغيل نبض القلب</string>
     <string name="tool_web_search_description">البحث في الويب عن معلومات حالية</string>
     <string name="tool_web_search_name">بحث الويب</string>
+    <string name="settings_ui_scale">مقياس الواجهة</string>
+    <string name="tab_chat">محادثة</string>
+    <string name="tab_settings">الإعدادات</string>
+    <string name="fallback_answered_by">أجاب بواسطة %1$s (احتياطي)</string>
 </resources>

@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">ልብ ምት አነሳ</string>
     <string name="tool_web_search_description">ለወቅታዊ መረጃ ድሩን ፈልግ</string>
     <string name="tool_web_search_name">የድር ፍለጋ</string>
+    <string name="settings_ui_scale">UI ልኬት</string>
+    <string name="tab_chat">ውይይት</string>
+    <string name="tab_settings">ቅንብሮች</string>
+    <string name="fallback_answered_by">%1$s መልስ ሰጥቷል (ተተኪ)</string>
 </resources>

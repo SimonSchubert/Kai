@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">觸發心跳</string>
     <string name="tool_web_search_description">在網路上搜尋當前資訊</string>
     <string name="tool_web_search_name">網頁搜尋</string>
+    <string name="settings_ui_scale">介面縮放</string>
+    <string name="tab_chat">聊天</string>
+    <string name="tab_settings">設定</string>
+    <string name="fallback_answered_by">由 %1$s 回答（備用）</string>
 </resources>

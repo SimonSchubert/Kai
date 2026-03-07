@@ -148,4 +148,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tool_trigger_heartbeat_name">Aktiveer Hartklop</string>
     <string name="tool_web_search_description">Soek die web vir huidige inligting</string>
     <string name="tool_web_search_name">Websoektog</string>
+    <string name="settings_ui_scale">UI-skaal</string>
+    <string name="tab_chat">Klets</string>
+    <string name="tab_settings">Instellings</string>
+    <string name="fallback_answered_by">%1$s het geantwoord (terugval)</string>
 </resources>

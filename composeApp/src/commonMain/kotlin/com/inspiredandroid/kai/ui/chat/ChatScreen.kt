@@ -47,6 +47,9 @@ import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.fallback_answered_by
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -176,7 +179,7 @@ fun ChatScreenContent(
                                         )
                                         if (history.fallbackServiceName != null) {
                                             androidx.compose.material3.Text(
-                                                text = "Answered by ${history.fallbackServiceName} (fallback)",
+                                                text = stringResource(Res.string.fallback_answered_by, history.fallbackServiceName ?: ""),
                                                 style = MaterialTheme.typography.labelSmall,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                                 modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),

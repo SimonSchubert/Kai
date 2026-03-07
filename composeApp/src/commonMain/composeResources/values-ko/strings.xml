@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">하트비트 트리거</string>
     <string name="tool_web_search_description">최신 정보를 웹에서 검색</string>
     <string name="tool_web_search_name">웹 검색</string>
+    <string name="settings_ui_scale">UI 크기</string>
+    <string name="tab_chat">채팅</string>
+    <string name="tab_settings">설정</string>
+    <string name="fallback_answered_by">%1$s이(가) 응답함 (대체)</string>
 </resources>

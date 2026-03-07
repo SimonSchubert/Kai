@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">ハートビートをトリガー</string>
     <string name="tool_web_search_description">最新の情報をウェブで検索</string>
     <string name="tool_web_search_name">ウェブ検索</string>
+    <string name="settings_ui_scale">UIスケール</string>
+    <string name="tab_chat">チャット</string>
+    <string name="tab_settings">設定</string>
+    <string name="fallback_answered_by">%1$s が回答（フォールバック）</string>
 </resources>

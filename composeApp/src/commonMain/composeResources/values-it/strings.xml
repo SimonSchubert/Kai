@@ -148,4 +148,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="tool_trigger_heartbeat_name">Attiva Battito</string>
     <string name="tool_web_search_description">Cerca sul web informazioni attuali</string>
     <string name="tool_web_search_name">Ricerca Web</string>
+    <string name="settings_ui_scale">Scala interfaccia</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Impostazioni</string>
+    <string name="fallback_answered_by">Risposta di %1$s (riserva)</string>
 </resources>

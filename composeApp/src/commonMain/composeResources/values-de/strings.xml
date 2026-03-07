@@ -148,4 +148,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tool_trigger_heartbeat_name">Heartbeat auslösen</string>
     <string name="tool_web_search_description">Das Web nach aktuellen Informationen durchsuchen</string>
     <string name="tool_web_search_name">Websuche</string>
+    <string name="settings_ui_scale">UI-Skalierung</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Einstellungen</string>
+    <string name="fallback_answered_by">Beantwortet von %1$s (Ersatz)</string>
 </resources>

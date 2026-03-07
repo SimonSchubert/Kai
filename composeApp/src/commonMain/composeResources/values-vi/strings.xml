@@ -148,4 +148,8 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tool_trigger_heartbeat_name">Trigger Heartbeat</string>
     <string name="tool_web_search_description">Search the web for current information</string>
     <string name="tool_web_search_name">Web Search</string>
+    <string name="settings_ui_scale">Tỷ lệ giao diện</string>
+    <string name="tab_chat">Trò chuyện</string>
+    <string name="tab_settings">Cài đặt</string>
+    <string name="fallback_answered_by">Đã trả lời bởi %1$s (dự phòng)</string>
 </resources>

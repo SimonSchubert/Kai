@@ -26,6 +26,10 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.NavHostController
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.tab_chat
+import kai.composeapp.generated.resources.tab_settings
+import org.jetbrains.compose.resources.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -152,7 +156,7 @@ private fun AppContent(
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     ) {
-                        Text("Chat")
+                        Text(stringResource(Res.string.tab_chat))
                     }
                     SegmentedButton(
                         selected = !isHome,
@@ -165,7 +169,7 @@ private fun AppContent(
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     ) {
-                        Text("Settings")
+                        Text(stringResource(Res.string.tab_settings))
                     }
                 }
             }

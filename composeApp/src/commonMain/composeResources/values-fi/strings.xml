@@ -148,4 +148,8 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_trigger_heartbeat_name">Laukaise syke</string>
     <string name="tool_web_search_description">Hae verkosta ajankohtaista tietoa</string>
     <string name="tool_web_search_name">Verkkohaku</string>
+    <string name="settings_ui_scale">Käyttöliittymän skaalaus</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Asetukset</string>
+    <string name="fallback_answered_by">Vastannut %1$s (varajärjestelmä)</string>
 </resources>

@@ -148,4 +148,8 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tool_trigger_heartbeat_name">Trigger Heartbeat</string>
     <string name="tool_web_search_description">Search the web for current information</string>
     <string name="tool_web_search_name">Web Search</string>
+    <string name="settings_ui_scale">UI স্কেল</string>
+    <string name="tab_chat">চ্যাট</string>
+    <string name="tab_settings">সেটিংস</string>
+    <string name="fallback_answered_by">%1$s দ্বারা উত্তর দেওয়া হয়েছে (ফলব্যাক)</string>
 </resources>

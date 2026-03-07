@@ -148,4 +148,8 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tool_trigger_heartbeat_name">Trigger Heartbeat</string>
     <string name="tool_web_search_description">Search the web for current information</string>
     <string name="tool_web_search_name">Web Search</string>
+    <string name="settings_ui_scale">UI સ્કેલ</string>
+    <string name="tab_chat">ચેટ</string>
+    <string name="tab_settings">સેટિંગ્સ</string>
+    <string name="fallback_answered_by">%1$s દ્વારા જવાબ આપ્યો (ફોલબેક)</string>
 </resources>

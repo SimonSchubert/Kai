@@ -148,4 +148,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_trigger_heartbeat_name">Déclencher le battement</string>
     <string name="tool_web_search_description">Rechercher sur le web des informations actuelles</string>
     <string name="tool_web_search_name">Recherche Web</string>
+    <string name="settings_ui_scale">Échelle de l'interface</string>
+    <string name="tab_chat">Discussion</string>
+    <string name="tab_settings">Paramètres</string>
+    <string name="fallback_answered_by">Répondu par %1$s (secours)</string>
 </resources>

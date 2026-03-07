@@ -148,4 +148,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tool_trigger_heartbeat_name">Utløs hjerteslag</string>
     <string name="tool_web_search_description">Søk på nettet etter aktuell informasjon</string>
     <string name="tool_web_search_name">Nettsøk</string>
+    <string name="settings_ui_scale">UI-skala</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Innstillinger</string>
+    <string name="fallback_answered_by">Besvart av %1$s (reserve)</string>
 </resources>

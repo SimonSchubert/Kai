@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">Запустить пульс</string>
     <string name="tool_web_search_description">Искать в интернете актуальную информацию</string>
     <string name="tool_web_search_name">Веб-поиск</string>
+    <string name="settings_ui_scale">Масштаб интерфейса</string>
+    <string name="tab_chat">Чат</string>
+    <string name="tab_settings">Настройки</string>
+    <string name="fallback_answered_by">Ответил %1$s (резервный)</string>
 </resources>

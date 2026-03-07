@@ -148,4 +148,8 @@
     <string name="tool_trigger_heartbeat_name">हार्टबीट ट्रिगर करें</string>
     <string name="tool_web_search_description">वर्तमान जानकारी के लिए वेब पर खोजें</string>
     <string name="tool_web_search_name">वेब खोज</string>
+    <string name="settings_ui_scale">UI स्केल</string>
+    <string name="tab_chat">चैट</string>
+    <string name="tab_settings">सेटिंग्स</string>
+    <string name="fallback_answered_by">%1$s द्वारा उत्तर दिया गया (फ़ॉलबैक)</string>
 </resources>

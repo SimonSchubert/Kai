@@ -148,4 +148,8 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="tool_trigger_heartbeat_name">Udløs hjerteslag</string>
     <string name="tool_web_search_description">Søg på nettet efter aktuel information</string>
     <string name="tool_web_search_name">Websøgning</string>
+    <string name="settings_ui_scale">UI-skala</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Indstillinger</string>
+    <string name="fallback_answered_by">Besvaret af %1$s (reserve)</string>
 </resources>

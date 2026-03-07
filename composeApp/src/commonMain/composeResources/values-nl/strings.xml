@@ -148,4 +148,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tool_trigger_heartbeat_name">Hartslag activeren</string>
     <string name="tool_web_search_description">Het web doorzoeken naar actuele informatie</string>
     <string name="tool_web_search_name">Webzoeken</string>
+    <string name="settings_ui_scale">UI-schaal</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Instellingen</string>
+    <string name="fallback_answered_by">Beantwoord door %1$s (reserve)</string>
 </resources>

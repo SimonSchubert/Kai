@@ -148,4 +148,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tool_trigger_heartbeat_name">Utlös hjärtslag</string>
     <string name="tool_web_search_description">Sök på webben efter aktuell information</string>
     <string name="tool_web_search_name">Webbsökning</string>
+    <string name="settings_ui_scale">Gränssnittsskala</string>
+    <string name="tab_chat">Chatt</string>
+    <string name="tab_settings">Inställningar</string>
+    <string name="fallback_answered_by">Besvarad av %1$s (reserv)</string>
 </resources>

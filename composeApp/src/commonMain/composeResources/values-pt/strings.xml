@@ -148,4 +148,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="tool_trigger_heartbeat_name">Acionar Heartbeat</string>
     <string name="tool_web_search_description">Pesquisar na web por informações atuais</string>
     <string name="tool_web_search_name">Pesquisa Web</string>
+    <string name="settings_ui_scale">Escala da interface</string>
+    <string name="tab_chat">Chat</string>
+    <string name="tab_settings">Configurações</string>
+    <string name="fallback_answered_by">Respondido por %1$s (reserva)</string>
 </resources>
