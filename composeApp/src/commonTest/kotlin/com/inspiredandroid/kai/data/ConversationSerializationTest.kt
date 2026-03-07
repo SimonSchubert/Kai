@@ -18,7 +18,6 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-123",
-                "title": "Test Conversation",
                 "messages": [
                     {
                         "id": "msg-1",
@@ -29,15 +28,13 @@ class ConversationSerializationTest {
                     }
                 ],
                 "createdAt": 1000,
-                "updatedAt": 2000,
-                "serviceId": "gemini"
+                "updatedAt": 2000
             }
         """.trimIndent()
 
         val conversation = json.decodeFromString<Conversation>(jsonString)
 
         assertEquals("conv-123", conversation.id)
-        assertEquals("Test Conversation", conversation.title)
         assertEquals(1, conversation.messages.size)
         assertEquals("msg-1", conversation.messages[0].id)
         assertEquals("user", conversation.messages[0].role)
@@ -46,7 +43,6 @@ class ConversationSerializationTest {
         assertEquals("base64data", conversation.messages[0].data)
         assertEquals(1000L, conversation.createdAt)
         assertEquals(2000L, conversation.updatedAt)
-        assertEquals("gemini", conversation.serviceId)
     }
 
     @Test
@@ -54,7 +50,6 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-123",
-                "title": "Test",
                 "messages": [
                     {
                         "id": "msg-1",
@@ -63,8 +58,7 @@ class ConversationSerializationTest {
                     }
                 ],
                 "createdAt": 1000,
-                "updatedAt": 2000,
-                "serviceId": "free"
+                "updatedAt": 2000
             }
         """.trimIndent()
 
@@ -84,11 +78,9 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-123",
-                "title": "Test",
                 "messages": [],
                 "createdAt": 1000,
                 "updatedAt": 2000,
-                "serviceId": "gemini",
                 "unknownField": "should be ignored",
                 "anotherUnknown": 42
             }
@@ -97,7 +89,24 @@ class ConversationSerializationTest {
         val conversation = json.decodeFromString<Conversation>(jsonString)
 
         assertEquals("conv-123", conversation.id)
-        assertEquals("Test", conversation.title)
+    }
+
+    @Test
+    fun `deserialize conversation ignores legacy fields`() {
+        val jsonString = """
+            {
+                "id": "conv-123",
+                "title": "Old Title",
+                "messages": [],
+                "createdAt": 1000,
+                "updatedAt": 2000,
+                "serviceId": "gemini"
+            }
+        """.trimIndent()
+
+        val conversation = json.decodeFromString<Conversation>(jsonString)
+
+        assertEquals("conv-123", conversation.id)
     }
 
     @Test
@@ -105,7 +114,6 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-123",
-                "title": "Test",
                 "messages": [
                     {
                         "id": "msg-1",
@@ -115,8 +123,7 @@ class ConversationSerializationTest {
                     }
                 ],
                 "createdAt": 1000,
-                "updatedAt": 2000,
-                "serviceId": "gemini"
+                "updatedAt": 2000
             }
         """.trimIndent()
 
@@ -129,7 +136,6 @@ class ConversationSerializationTest {
     fun `serialize conversation includes all fields`() {
         val conversation = Conversation(
             id = "conv-456",
-            title = "My Chat",
             messages = listOf(
                 Conversation.Message(
                     id = "msg-1",
@@ -141,7 +147,6 @@ class ConversationSerializationTest {
             ),
             createdAt = 5000L,
             updatedAt = 6000L,
-            serviceId = "groq",
         )
 
         val jsonString = json.encodeToString(conversation)
@@ -154,7 +159,6 @@ class ConversationSerializationTest {
     fun `serialize conversation with null optional fields`() {
         val conversation = Conversation(
             id = "conv-789",
-            title = "Chat",
             messages = listOf(
                 Conversation.Message(
                     id = "msg-1",
@@ -166,7 +170,6 @@ class ConversationSerializationTest {
             ),
             createdAt = 1000L,
             updatedAt = 2000L,
-            serviceId = "free",
         )
 
         val jsonString = json.encodeToString(conversation)
@@ -185,19 +188,15 @@ class ConversationSerializationTest {
                 "conversations": [
                     {
                         "id": "conv-1",
-                        "title": "First",
                         "messages": [],
                         "createdAt": 1000,
-                        "updatedAt": 2000,
-                        "serviceId": "gemini"
+                        "updatedAt": 2000
                     },
                     {
                         "id": "conv-2",
-                        "title": "Second",
                         "messages": [],
                         "createdAt": 3000,
-                        "updatedAt": 4000,
-                        "serviceId": "groq"
+                        "updatedAt": 4000
                     }
                 ]
             }
@@ -221,22 +220,20 @@ class ConversationSerializationTest {
 
         val data = json.decodeFromString<ConversationsData>(jsonString)
 
-        assertEquals(1, data.version)
+        assertEquals(2, data.version)
         assertEquals(0, data.conversations.size)
     }
 
     @Test
     fun `serialize ConversationsData includes version`() {
         val data = ConversationsData(
-            version = 1,
+            version = 2,
             conversations = listOf(
                 Conversation(
                     id = "conv-1",
-                    title = "Test",
                     messages = emptyList(),
                     createdAt = 1000L,
                     updatedAt = 2000L,
-                    serviceId = "free",
                 ),
             ),
         )
@@ -251,7 +248,6 @@ class ConversationSerializationTest {
     fun `round trip conversation with multiple messages`() {
         val original = Conversation(
             id = "conv-full",
-            title = "Full Conversation",
             messages = listOf(
                 Conversation.Message(
                     id = "msg-1",
@@ -271,7 +267,6 @@ class ConversationSerializationTest {
             ),
             createdAt = 1000L,
             updatedAt = 3000L,
-            serviceId = "gemini",
         )
 
         val jsonString = json.encodeToString(original)
@@ -301,11 +296,9 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-empty",
-                "title": "Empty Chat",
                 "messages": [],
                 "createdAt": 1000,
-                "updatedAt": 1000,
-                "serviceId": "free"
+                "updatedAt": 1000
             }
         """.trimIndent()
 
@@ -320,7 +313,6 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-special",
-                "title": "Special \"Chars\" Test",
                 "messages": [
                     {
                         "id": "msg-1",
@@ -329,14 +321,12 @@ class ConversationSerializationTest {
                     }
                 ],
                 "createdAt": 1000,
-                "updatedAt": 2000,
-                "serviceId": "gemini"
+                "updatedAt": 2000
             }
         """.trimIndent()
 
         val conversation = json.decodeFromString<Conversation>(jsonString)
 
-        assertEquals("Special \"Chars\" Test", conversation.title)
         assertEquals("Line1\nLine2\tTabbed", conversation.messages[0].content)
     }
 
@@ -345,7 +335,6 @@ class ConversationSerializationTest {
         val jsonString = """
             {
                 "id": "conv-unicode",
-                "title": "日本語テスト",
                 "messages": [
                     {
                         "id": "msg-1",
@@ -354,14 +343,12 @@ class ConversationSerializationTest {
                     }
                 ],
                 "createdAt": 1000,
-                "updatedAt": 2000,
-                "serviceId": "gemini"
+                "updatedAt": 2000
             }
         """.trimIndent()
 
         val conversation = json.decodeFromString<Conversation>(jsonString)
 
-        assertEquals("日本語テスト", conversation.title)
         assertEquals("Hello 世界 🌍", conversation.messages[0].content)
     }
 }

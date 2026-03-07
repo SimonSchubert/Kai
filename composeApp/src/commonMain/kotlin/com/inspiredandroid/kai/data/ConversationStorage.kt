@@ -69,14 +69,7 @@ abstract class BaseConversationStorage(private val appSettings: AppSettings) {
     }
 
     fun updateConversation(conversation: Conversation) {
-        mutableConversations.update { current ->
-            val index = current.indexOfFirst { it.id == conversation.id }
-            if (index >= 0) {
-                current.toMutableList().apply { set(index, conversation) }
-            } else {
-                current + conversation
-            }
-        }
+        mutableConversations.value = listOf(conversation)
     }
 
     fun removeConversation(id: String) {

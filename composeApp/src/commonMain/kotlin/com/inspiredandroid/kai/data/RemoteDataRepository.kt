@@ -22,7 +22,6 @@ import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
-import kai.composeapp.generated.resources.new_conversation
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -840,14 +839,10 @@ class RemoteDataRepository(
             _currentConversationId.value = it
         }
 
-        val firstUserMessage = history.firstOrNull { it.role == History.Role.USER }
-        val title = firstUserMessage?.content?.take(50) ?: getString(Res.string.new_conversation)
-
         val existingConversation = savedConversations.value.find { it.id == conversationId }
 
         val conversation = Conversation(
             id = conversationId,
-            title = title,
             messages = history
                 .filter { it.role != History.Role.TOOL_EXECUTING }
                 .map { h ->
@@ -866,7 +861,6 @@ class RemoteDataRepository(
                 },
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
-            serviceId = currentService().id,
         )
 
         conversationStorage.saveConversation(conversation)

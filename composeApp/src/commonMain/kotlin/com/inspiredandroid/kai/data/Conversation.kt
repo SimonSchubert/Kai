@@ -5,11 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Conversation(
     val id: String,
-    val title: String,
     val messages: List<Message>,
     val createdAt: Long,
     val updatedAt: Long,
-    val serviceId: String,
 ) {
     @Serializable
     data class Message(
@@ -23,6 +21,6 @@ data class Conversation(
 
 @Serializable
 data class ConversationsData(
-    val version: Int = 1,
+    val version: Int = 2,
     val conversations: List<Conversation>,
 )
