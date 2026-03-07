@@ -1,0 +1,42 @@
+site_name: Kai Documentation
+site_url: https://simonschubert.github.io/Kai/docs/
+site_description: Documentation for Kai - AI Assistant App
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - content.tabs.link
+
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Features:
+    - Chat & Conversations: features/chat.md
+    - Multi-Service: features/multi-service.md
+    - Tools: features/tools.md
+    - Memories: features/memories.md
+    - Heartbeat: features/heartbeat.md

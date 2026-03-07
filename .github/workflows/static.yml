@@ -41,6 +41,16 @@ jobs:
       - name: Build WASM project
         run: ./gradlew :composeApp:wasmJsBrowserDistribution
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build documentation
+        run: |
+          pip install mkdocs-material
+          mkdocs build -d composeApp/build/dist/wasmJs/productionExecutable/docs
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
