@@ -44,11 +44,11 @@ import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.ToolExecutingMessage
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.fallback_answered_by
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
-import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.fallback_answered_by
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 

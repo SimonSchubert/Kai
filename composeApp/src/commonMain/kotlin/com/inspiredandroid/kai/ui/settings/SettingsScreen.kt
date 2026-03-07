@@ -515,7 +515,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
             onDismissRequest = { showAddServiceSheet = false },
             sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(16.dp)) {
                 uiState.availableServicesToAdd.forEach { service ->
                     Surface(
                         onClick = {
