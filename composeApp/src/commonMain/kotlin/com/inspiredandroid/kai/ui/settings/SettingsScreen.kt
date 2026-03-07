@@ -55,10 +55,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
@@ -173,13 +173,13 @@ import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
-import kotlin.math.roundToInt
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.math.roundToInt
 import kotlin.time.Instant
 
 @Composable
