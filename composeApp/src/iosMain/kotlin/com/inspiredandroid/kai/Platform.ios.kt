@@ -48,6 +48,8 @@ actual val isMobilePlatform: Boolean = true
 
 actual val isDesktopPlatform: Boolean = false
 
+actual val defaultUiScale: Float = 1.0f
+
 actual val isEmailSupported: Boolean = true
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class, kotlinx.cinterop.BetaInteropApi::class)

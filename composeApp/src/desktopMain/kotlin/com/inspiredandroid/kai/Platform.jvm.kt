@@ -67,6 +67,11 @@ actual val isMobilePlatform: Boolean = false
 
 actual val isDesktopPlatform: Boolean = true
 
+actual val defaultUiScale: Float = run {
+    val osName = System.getProperty("os.name", "").lowercase()
+    if ("linux" in osName) 1.1f else 1.0f
+}
+
 actual val isEmailSupported: Boolean = true
 
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {

@@ -26,6 +26,8 @@ expect val isMobilePlatform: Boolean
 
 expect val isDesktopPlatform: Boolean
 
+expect val defaultUiScale: Float
+
 expect fun getAppFilesDirectory(): String
 
 expect fun getAvailableTools(): List<Tool>

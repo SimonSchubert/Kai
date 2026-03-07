@@ -61,6 +61,8 @@ actual val isMobilePlatform: Boolean = true
 
 actual val isDesktopPlatform: Boolean = false
 
+actual val defaultUiScale: Float = 1.0f
+
 actual val platformName: String = "Android"
 
 actual val isEmailSupported: Boolean = true

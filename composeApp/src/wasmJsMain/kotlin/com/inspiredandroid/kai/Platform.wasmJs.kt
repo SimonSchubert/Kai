@@ -38,6 +38,8 @@ actual val isMobilePlatform: Boolean = false
 
 actual val isDesktopPlatform: Boolean = false
 
+actual val defaultUiScale: Float = 1.0f
+
 actual val isEmailSupported: Boolean = false
 
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray = bytes

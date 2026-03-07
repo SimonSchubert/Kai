@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.defaultUiScale
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -338,7 +339,7 @@ class AppSettings(private val settings: Settings) {
     }
 
     // UI Scale
-    private val _uiScaleFlow = MutableStateFlow(settings.getFloat(KEY_UI_SCALE, 1.0f))
+    private val _uiScaleFlow = MutableStateFlow(settings.getFloat(KEY_UI_SCALE, defaultUiScale))
     val uiScaleFlow: StateFlow<Float> = _uiScaleFlow
 
     fun getUiScale(): Float = _uiScaleFlow.value
