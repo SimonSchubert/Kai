@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Vestlus</string>
     <string name="tab_settings">Seaded</string>
     <string name="fallback_answered_by">Vastas %1$s (varuvariant)</string>
+    <string name="settings_heartbeat_interval">Intervall</string>
+    <string name="settings_heartbeat_active_hours">Aktiivsed tunnid</string>
 </resources>

@@ -152,4 +152,6 @@
     <string name="tab_chat">चैट</string>
     <string name="tab_settings">सेटिंग्स</string>
     <string name="fallback_answered_by">%1$s द्वारा उत्तर दिया गया (फ़ॉलबैक)</string>
+    <string name="settings_heartbeat_interval">अंतराल</string>
+    <string name="settings_heartbeat_active_hours">सक्रिय घंटे</string>
 </resources>

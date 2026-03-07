@@ -152,4 +152,6 @@
     <string name="tab_chat">채팅</string>
     <string name="tab_settings">설정</string>
     <string name="fallback_answered_by">%1$s이(가) 응답함 (대체)</string>
+    <string name="settings_heartbeat_interval">간격</string>
+    <string name="settings_heartbeat_active_hours">활성 시간</string>
 </resources>

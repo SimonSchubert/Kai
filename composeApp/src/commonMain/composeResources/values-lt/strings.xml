@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Pokalbis</string>
     <string name="tab_settings">Nustatymai</string>
     <string name="fallback_answered_by">Atsakė %1$s (atsarginis)</string>
+    <string name="settings_heartbeat_interval">Intervalas</string>
+    <string name="settings_heartbeat_active_hours">Aktyvios valandos</string>
 </resources>

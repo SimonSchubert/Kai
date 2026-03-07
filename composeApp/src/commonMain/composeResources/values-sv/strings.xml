@@ -152,4 +152,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tab_chat">Chatt</string>
     <string name="tab_settings">Inställningar</string>
     <string name="fallback_answered_by">Besvarad av %1$s (reserv)</string>
+    <string name="settings_heartbeat_interval">Intervall</string>
+    <string name="settings_heartbeat_active_hours">Aktiva timmar</string>
 </resources>

@@ -152,4 +152,6 @@
     <string name="tab_chat">チャット</string>
     <string name="tab_settings">設定</string>
     <string name="fallback_answered_by">%1$s が回答（フォールバック）</string>
+    <string name="settings_heartbeat_interval">間隔</string>
+    <string name="settings_heartbeat_active_hours">アクティブ時間</string>
 </resources>

@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">צ'אט</string>
     <string name="tab_settings">הגדרות</string>
     <string name="fallback_answered_by">נענה על ידי %1$s (חלופי)</string>
+    <string name="settings_heartbeat_interval">מרווח</string>
+    <string name="settings_heartbeat_active_hours">שעות פעילות</string>
 </resources>

@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Mga Setting</string>
     <string name="fallback_answered_by">Sinagot ng %1$s (fallback)</string>
+    <string name="settings_heartbeat_interval">Pagitan</string>
+    <string name="settings_heartbeat_active_hours">Mga Aktibong Oras</string>
 </resources>

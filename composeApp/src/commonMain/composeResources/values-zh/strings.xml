@@ -152,4 +152,6 @@
     <string name="tab_chat">聊天</string>
     <string name="tab_settings">设置</string>
     <string name="fallback_answered_by">由 %1$s 回答（备用）</string>
+    <string name="settings_heartbeat_interval">间隔</string>
+    <string name="settings_heartbeat_active_hours">活跃时段</string>
 </resources>

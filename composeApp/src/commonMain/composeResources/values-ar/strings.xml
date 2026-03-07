@@ -152,4 +152,6 @@
     <string name="tab_chat">محادثة</string>
     <string name="tab_settings">الإعدادات</string>
     <string name="fallback_answered_by">أجاب بواسطة %1$s (احتياطي)</string>
+    <string name="settings_heartbeat_interval">الفاصل الزمني</string>
+    <string name="settings_heartbeat_active_hours">ساعات النشاط</string>
 </resources>

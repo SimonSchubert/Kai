@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">ਚੈਟ</string>
     <string name="tab_settings">ਸੈਟਿੰਗਾਂ</string>
     <string name="fallback_answered_by">%1$s ਨੇ ਜਵਾਬ ਦਿੱਤਾ (ਫਾਲਬੈਕ)</string>
+    <string name="settings_heartbeat_interval">ਅੰਤਰਾਲ</string>
+    <string name="settings_heartbeat_active_hours">ਸਰਗਰਮ ਘੰਟੇ</string>
 </resources>

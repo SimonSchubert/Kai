@@ -152,4 +152,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tab_chat">Discussion</string>
     <string name="tab_settings">Paramètres</string>
     <string name="fallback_answered_by">Répondu par %1$s (secours)</string>
+    <string name="settings_heartbeat_interval">Intervalle</string>
+    <string name="settings_heartbeat_active_hours">Heures Actives</string>
 </resources>

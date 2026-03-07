@@ -152,4 +152,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf√
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Innstillinger</string>
     <string name="fallback_answered_by">Besvart av %1$s (reserve)</string>
+    <string name="settings_heartbeat_interval">Intervall</string>
+    <string name="settings_heartbeat_active_hours">Aktive timer</string>
 </resources>

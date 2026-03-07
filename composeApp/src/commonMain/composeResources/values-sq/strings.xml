@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Bisedë</string>
     <string name="tab_settings">Cilësimet</string>
     <string name="fallback_answered_by">Përgjigjur nga %1$s (rezervë)</string>
+    <string name="settings_heartbeat_interval">Intervali</string>
+    <string name="settings_heartbeat_active_hours">Orët Aktive</string>
 </resources>

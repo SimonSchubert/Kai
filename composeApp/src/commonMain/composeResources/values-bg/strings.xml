@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Чат</string>
     <string name="tab_settings">Настройки</string>
     <string name="fallback_answered_by">Отговорено от %1$s (резервен)</string>
+    <string name="settings_heartbeat_interval">Интервал</string>
+    <string name="settings_heartbeat_active_hours">Активни часове</string>
 </resources>

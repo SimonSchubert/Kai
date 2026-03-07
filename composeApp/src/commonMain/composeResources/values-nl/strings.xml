@@ -152,4 +152,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Instellingen</string>
     <string name="fallback_answered_by">Beantwoord door %1$s (reserve)</string>
+    <string name="settings_heartbeat_interval">Interval</string>
+    <string name="settings_heartbeat_active_hours">Actieve uren</string>
 </resources>

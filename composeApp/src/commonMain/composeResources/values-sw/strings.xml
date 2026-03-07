@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Mazungumzo</string>
     <string name="tab_settings">Mipangilio</string>
     <string name="fallback_answered_by">Imejibiwa na %1$s (mbadala)</string>
+    <string name="settings_heartbeat_interval">Muda</string>
+    <string name="settings_heartbeat_active_hours">Masaa ya Shughuli</string>
 </resources>

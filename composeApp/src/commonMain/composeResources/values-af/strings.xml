@@ -152,4 +152,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tab_chat">Klets</string>
     <string name="tab_settings">Instellings</string>
     <string name="fallback_answered_by">%1$s het geantwoord (terugval)</string>
+    <string name="settings_heartbeat_interval">Interval</string>
+    <string name="settings_heartbeat_active_hours">Aktiewe Ure</string>
 </resources>

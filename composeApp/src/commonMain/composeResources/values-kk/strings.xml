@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Чат</string>
     <string name="tab_settings">Параметрлер</string>
     <string name="fallback_answered_by">%1$s жауап берді (қосалқы)</string>
+    <string name="settings_heartbeat_interval">Аралық</string>
+    <string name="settings_heartbeat_active_hours">Белсенді сағаттар</string>
 </resources>

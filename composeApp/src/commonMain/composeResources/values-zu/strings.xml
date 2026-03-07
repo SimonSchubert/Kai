@@ -152,4 +152,6 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="tab_chat">Ingxoxo</string>
     <string name="tab_settings">Izilungiselelo</string>
     <string name="fallback_answered_by">Kuphendulwe ngu-%1$s (okungukuhlehla)</string>
+    <string name="settings_heartbeat_interval">Isikhathi</string>
+    <string name="settings_heartbeat_active_hours">Amahora Asebenzayo</string>
 </resources>

@@ -152,4 +152,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Ajustes</string>
     <string name="fallback_answered_by">Respondido por %1$s (respaldo)</string>
+    <string name="settings_heartbeat_interval">Intervalo</string>
+    <string name="settings_heartbeat_active_hours">Horas Activas</string>
 </resources>
