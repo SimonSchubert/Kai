@@ -4,6 +4,10 @@
 
 An **open-source AI assistant with persistent memory** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
+> **[Documentation](https://simonschubert.github.io/Kai/docs/)**
+
+## Installation
+
 [![App Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/app_store_badge.png)](https://apps.apple.com/us/app/kai-ai/id6758148023)
 [![Play Store](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/play_store_badge.png)](https://play.google.com/store/apps/details?id=com.inspiredandroid.kai)
 [![F-Droid](https://raw.githubusercontent.com/SimonSchubert/Kai/main/screenshots/fdroid_badge.png)](https://f-droid.org/en/packages/com.inspiredandroid.kai/)
@@ -11,13 +15,17 @@ An **open-source AI assistant with persistent memory** that runs on **Android, i
 
 Homebrew (macOS):
 
-```brew install --cask simonschubert/tap/kai```
+```
+brew install --cask simonschubert/tap/kai
+```
 
 AUR (Arch Linux):
 
-```yay -S kai-bin```
+```
+yay -S kai-bin
+```
 
-### Direct downloads
+### Direct Downloads
 
 | Platform | Format | Download |
 |----------|--------|----------|
@@ -28,31 +36,30 @@ AUR (Arch Linux):
 | Linux | RPM | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 | Linux | AppImage | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 
-
-### Features
+## Features
 
 - **Persistent memory** — Kai remembers important details across conversations and uses them automatically
 - **Customizable soul** — Define the AI's personality and behavior with an editable system prompt
-- Encrypted local conversation storage
-- Text to speech output
-- Seamless switch between services
-- Image attachments (all services)
+- **Multi-service fallback** — 11+ LLM providers with automatic failover
+- **Tool execution** — Web search, notifications, calendar events, shell commands, and more
+- **Autonomous heartbeat** — Periodic self-checks that surface anything needing attention
+- **Encrypted storage** — Conversations stored locally with encryption
+- **Text to speech** — Listen to AI responses
+- **Image attachments** — Attach images to any conversation
 
-### Tools
+## Screenshots
 
-Tools can be enabled or disabled in settings. Memory tools are always available when memory is enabled.
+### Desktop
 
-- **Store Memory** - Saves important information for future conversations
-- **Forget Memory** - Removes outdated or incorrect memories
-- **Get Local Time** - Provides the current date and time
-- **Get Location** - Estimates location based on IP address for location-aware responses
-- **Send Notification** - Sends push notifications to the device (Android only)
-- **Create Calendar Event** - Creates calendar events directly from the chat (Android only)
-- **Run Shell Command** - Execute shell commands on the device (Desktop and Android)
-- **Web Search** - Search the web for current information
-- **Schedule Task** - Schedule tasks to run at a specific time or on a recurring cron schedule
-- **Cancel Task** - Cancel a scheduled task
-- **List Tasks** - List all scheduled tasks
+<img src="screenshots/desktop-1.png" alt="Desktop App" height="300">
+
+### Web
+
+<img src="screenshots/web-1.png" alt="Web App" height="300">
+
+### Mobile
+
+<img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300"> <img src="screenshots/mobile-5.png" alt="Mobile Screenshot 5" height="300"> <img src="screenshots/mobile-6.png" alt="Mobile Screenshot 6" height="300">
 
 ## How It Works
 
@@ -110,43 +117,46 @@ Tools can be enabled or disabled in settings. Memory tools are always available 
 - **Memory** — The AI stores and recalls facts, preferences, and learnings. Memories that prove useful (5+ hits) can be promoted into the system prompt permanently.
 - **Heartbeat** — A background self-check runs every 30 minutes. It reviews memories, pending tasks, and emails. If something needs attention, it notifies the user. Otherwise, it stays silent.
 
-## Screenshots
+## Supported Services
 
-### Desktop
+| Service | Website |
+|---|---|
+| OpenAI | https://openai.com |
+| Gemini | https://aistudio.google.com |
+| DeepSeek | https://www.deepseek.com |
+| Mistral | https://mistral.ai |
+| xAI | https://x.ai |
+| OpenRouter | https://openrouter.ai |
+| Groq | https://groq.com |
+| NVIDIA | https://developer.nvidia.com |
+| Cerebras | https://cerebras.ai |
+| Ollama Cloud | https://ollama.com |
+| OpenAI-Compatible API | Ollama, LM Studio, etc. |
 
-<img src="screenshots/desktop-1.png" alt="Desktop App" height="300">
+Plus a built-in **Free** tier that requires no API key.
 
-### Web
-
-<img src="screenshots/web-1.png" alt="Web App" height="300">
-
-### Mobile
-
-<img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300"> <img src="screenshots/mobile-5.png" alt="Mobile Screenshot 5" height="300"> <img src="screenshots/mobile-6.png" alt="Mobile Screenshot 6" height="300">
-
-### Supported services:
-
-- OpenAI: https://openai.com
-- Gemini: https://aistudio.google.com
-- DeepSeek: https://www.deepseek.com
-- Mistral: https://mistral.ai
-- xAI: https://x.ai
-- OpenRouter: https://openrouter.ai
-- Groq: https://groq.com
-- NVIDIA: https://developer.nvidia.com
-- Cerebras: https://cerebras.ai
-- Ollama Cloud: https://ollama.com
-- OpenAI-Compatible API (Ollama, LM Studio, etc.)
-
-## Screenshot automatisation
-
-Integrated in github actions to update mobile screenshots for fastlane and this readme. To run manually:
-
-```./gradlew updateScreenshots```
-
-### Supported Languages
+## Supported Languages
 
 Afrikaans, Albanian, Amharic, Arabic, Belarusian, Bengali, Bulgarian, Chinese (Simplified), Chinese (Traditional), Croatian, Czech, Danish, Dutch, English, Estonian, Filipino, Finnish, French, German, Greek, Gujarati, Hebrew, Hindi, Hungarian, Indonesian, Italian, Japanese, Kazakh, Korean, Latvian, Lithuanian, Malay, Marathi, Norwegian, Persian, Polish, Portuguese, Punjabi, Romanian, Romansh, Russian, Serbian, Slovak, Slovenian, Spanish, Swahili, Swedish, Tamil, Telugu, Thai, Turkish, Ukrainian, Urdu, Vietnamese, Zulu
+
+## Contributing
+
+### Screenshot Automation
+
+Two separate screenshot pipelines exist, both using Compose screenshot tests:
+
+**README screenshots** — Used for this README. CI runs this automatically on every push and auto-commits any changes.
+
+```bash
+./gradlew :screenshotTests:updateScreenshots
+```
+
+**Store screenshots** — Generates localized screenshots for the Play Store in all supported locales. Upload via fastlane.
+
+```bash
+./gradlew :screenshotTests:generateStoreScreenshots
+bundle exec fastlane android upload_screenshots
+```
 
 ## Sponsors
 
@@ -154,6 +164,5 @@ This project is open-source and maintained by a single developer. If you find th
 
 ## Credits
 
-Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
-
-Mistral: https://mistral.ai/
+- Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
+- Mistral: https://mistral.ai/
