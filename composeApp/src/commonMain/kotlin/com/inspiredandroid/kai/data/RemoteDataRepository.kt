@@ -323,10 +323,8 @@ class RemoteDataRepository(
         }
     }
 
-    private fun pickDefaultModel(models: List<SettingsModel>): SettingsModel? {
-        return models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
-            ?: models.firstOrNull()
-    }
+    private fun pickDefaultModel(models: List<SettingsModel>): SettingsModel? = models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
+        ?: models.firstOrNull()
 
     private suspend fun askWithService(
         service: Service,
