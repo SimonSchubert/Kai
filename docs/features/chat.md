@@ -43,6 +43,7 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 - Images are compressed and Base64-encoded
 - Sent as `image_url` (OpenAI) or `inline_data` (Gemini)
 - The attachment button is only shown when the current model supports images
+- Attached images are shown as a preview thumbnail (max 200dp wide) inside the user message bubble
 
 ## Speech Output (TTS)
 
@@ -59,7 +60,7 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 ## UI Elements
 
 - **Top bar**: New Chat, TTS toggle, Settings
-- **Messages**: user (right-aligned), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry
+- **Messages**: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry
 - **Input**: text field, send button, attachment button, file chip
 - **Empty state**: animated logo + welcome message
 - **Drag-and-drop**: supported for file attachments

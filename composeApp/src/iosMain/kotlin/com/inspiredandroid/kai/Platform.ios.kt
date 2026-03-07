@@ -3,6 +3,8 @@ package com.inspiredandroid.kai
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
@@ -142,4 +144,10 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     if (IosKoinHelper.appSettings.isEmailEnabled()) {
         addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))
     }
+}
+
+actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
+    org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
+} catch (_: Exception) {
+    null
 }

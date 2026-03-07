@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai
 
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -44,3 +45,5 @@ expect val platformName: String
 expect val isEmailSupported: Boolean
 
 expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray
+
+expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?

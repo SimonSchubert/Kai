@@ -161,7 +161,10 @@ fun ChatScreenContent(
                     ) {
                         items(uiState.history, key = { it.id }) { history ->
                             when (history.role) {
-                                History.Role.USER -> UserMessage(history.content)
+                                History.Role.USER -> UserMessage(
+                                    message = history.content,
+                                    imageData = history.data,
+                                )
 
                                 History.Role.ASSISTANT -> {
                                     // Only show assistant message if it has content (not just tool calls)

@@ -3,6 +3,8 @@ package com.inspiredandroid.kai
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.HeartbeatManager
@@ -76,4 +78,10 @@ actual fun getAvailableTools(): List<Tool> = buildList {
         addAll(SchedulingTools.getSchedulingTools(WebKoinHelper.taskStore))
         addAll(HeartbeatTools.getHeartbeatTools(WebKoinHelper.heartbeatManager, WebKoinHelper.memoryStore, WebKoinHelper.appSettings))
     }
+}
+
+actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
+    org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
+} catch (_: Exception) {
+    null
 }

@@ -6,6 +6,8 @@ import android.provider.AlarmClock
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.draganddrop.DragAndDropEvent
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -349,4 +351,10 @@ actual fun getAvailableTools(): List<Tool> {
             addAll(EmailTools.getEmailTools(emailStore))
         }
     }
+}
+
+actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
+    android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.asImageBitmap()
+} catch (_: Exception) {
+    null
 }
