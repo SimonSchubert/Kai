@@ -254,6 +254,12 @@ class FakeDataRepository : DataRepository {
     override fun setHeartbeatEnabled(enabled: Boolean) {
     }
 
+    override fun setHeartbeatIntervalMinutes(minutes: Int) {
+    }
+
+    override fun setHeartbeatActiveHours(start: Int, end: Int) {
+    }
+
     override fun getHeartbeatPrompt(): String = ""
 
     override fun setHeartbeatPrompt(text: String) {

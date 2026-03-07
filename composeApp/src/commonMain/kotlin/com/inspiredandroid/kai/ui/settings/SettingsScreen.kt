@@ -58,6 +58,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
@@ -131,8 +132,10 @@ import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_heartbeat
+import kai.composeapp.generated.resources.settings_heartbeat_active_hours
 import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
 import kai.composeapp.generated.resources.settings_heartbeat_description
+import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_memories
@@ -170,6 +173,7 @@ import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
+import kotlin.math.roundToInt
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
@@ -1153,9 +1157,13 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         HeartbeatSection(
                             isHeartbeatEnabled = uiState.isHeartbeatEnabled,
                             heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
+                            activeHoursStart = uiState.heartbeatActiveHoursStart,
+                            activeHoursEnd = uiState.heartbeatActiveHoursEnd,
                             heartbeatPrompt = uiState.heartbeatPrompt,
                             heartbeatLog = uiState.heartbeatLog,
                             onToggleHeartbeat = uiState.onToggleHeartbeat,
+                            onChangeInterval = uiState.onChangeHeartbeatInterval,
+                            onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
                             onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
                         )
                     }
@@ -1217,9 +1225,13 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     HeartbeatSection(
                         isHeartbeatEnabled = uiState.isHeartbeatEnabled,
                         heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
+                        activeHoursStart = uiState.heartbeatActiveHoursStart,
+                        activeHoursEnd = uiState.heartbeatActiveHoursEnd,
                         heartbeatPrompt = uiState.heartbeatPrompt,
                         heartbeatLog = uiState.heartbeatLog,
                         onToggleHeartbeat = uiState.onToggleHeartbeat,
+                        onChangeInterval = uiState.onChangeHeartbeatInterval,
+                        onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
                         onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
                     )
                 }
@@ -1627,9 +1639,13 @@ private fun DaemonModeToggle(
 private fun HeartbeatSection(
     isHeartbeatEnabled: Boolean,
     heartbeatIntervalMinutes: Int,
+    activeHoursStart: Int,
+    activeHoursEnd: Int,
     heartbeatPrompt: String,
     heartbeatLog: List<HeartbeatLogEntry>,
     onToggleHeartbeat: (Boolean) -> Unit,
+    onChangeInterval: (Int) -> Unit,
+    onChangeActiveHours: (Int, Int) -> Unit,
     onSaveHeartbeatPrompt: (String) -> Unit,
 ) {
     val defaultPrompt = stringResource(Res.string.settings_heartbeat_default_prompt)
@@ -1664,6 +1680,135 @@ private fun HeartbeatSection(
         )
 
         if (isHeartbeatEnabled) {
+            Spacer(Modifier.height(12.dp))
+
+            val intervalPresets = listOf(5, 10, 15, 30, 45, 60, 90, 120, 240)
+            val initialSliderPos = intervalPresets.indexOf(heartbeatIntervalMinutes)
+                .takeIf { it >= 0 }?.toFloat() ?: 2f
+            var intervalSliderValue by remember(heartbeatIntervalMinutes) {
+                mutableStateOf(initialSliderPos)
+            }
+            val currentPresetMinutes = intervalPresets[intervalSliderValue.roundToInt()]
+            val intervalDisplay = if (currentPresetMinutes < 60) {
+                "${currentPresetMinutes}m"
+            } else {
+                "${currentPresetMinutes / 60}h"
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(Res.string.settings_heartbeat_interval),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Text(
+                    text = intervalDisplay,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+            Slider(
+                value = intervalSliderValue,
+                onValueChange = { intervalSliderValue = it },
+                onValueChangeFinished = {
+                    onChangeInterval(intervalPresets[intervalSliderValue.roundToInt()])
+                },
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                valueRange = 0f..(intervalPresets.size - 1).toFloat(),
+                steps = intervalPresets.size - 2,
+                colors = SliderDefaults.colors(
+                    thumbColor = MaterialTheme.colorScheme.primary,
+                    activeTrackColor = MaterialTheme.colorScheme.primary,
+                    inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    activeTickColor = Color.Transparent,
+                    inactiveTickColor = Color.Transparent,
+                ),
+                thumb = {
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(MaterialTheme.colorScheme.primary, CircleShape),
+                    )
+                },
+                track = { sliderState ->
+                    SliderDefaults.Track(
+                        sliderState = sliderState,
+                        colors = SliderDefaults.colors(
+                            activeTrackColor = MaterialTheme.colorScheme.primary,
+                            inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        ),
+                        drawStopIndicator = null,
+                        drawTick = { _, _ -> },
+                    )
+                },
+            )
+
+            Spacer(Modifier.height(12.dp))
+
+            var activeStart by remember(activeHoursStart) { mutableStateOf(activeHoursStart.toFloat()) }
+            var activeEnd by remember(activeHoursEnd) { mutableStateOf(activeHoursEnd.toFloat()) }
+            val startDisplay = "${activeStart.roundToInt()}:00"
+            val endDisplay = "${activeEnd.roundToInt()}:00"
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(Res.string.settings_heartbeat_active_hours),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Text(
+                    text = "$startDisplay – $endDisplay",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
+            RangeSlider(
+                value = activeStart..activeEnd,
+                onValueChange = { range ->
+                    activeStart = range.start
+                    activeEnd = range.endInclusive
+                },
+                onValueChangeFinished = {
+                    onChangeActiveHours(activeStart.roundToInt(), activeEnd.roundToInt())
+                },
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                valueRange = 0f..23f,
+                steps = 22,
+                startThumb = {
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(MaterialTheme.colorScheme.primary, CircleShape),
+                    )
+                },
+                endThumb = {
+                    Box(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(MaterialTheme.colorScheme.primary, CircleShape),
+                    )
+                },
+                track = { rangeSliderState ->
+                    SliderDefaults.Track(
+                        rangeSliderState = rangeSliderState,
+                        colors = SliderDefaults.colors(
+                            activeTrackColor = MaterialTheme.colorScheme.primary,
+                            inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        ),
+                        drawStopIndicator = null,
+                        drawTick = { _, _ -> },
+                    )
+                },
+            )
+
             Spacer(Modifier.height(12.dp))
 
             OutlinedTextField(
@@ -1776,45 +1921,67 @@ private fun EmailSection(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
-                Text(
-                    text = if (pollIntervalMinutes <= 0) {
-                        stringResource(Res.string.settings_email_poll_never_description)
-                    } else {
-                        stringResource(Res.string.settings_email_poll_interval, pollIntervalMinutes)
-                    },
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Spacer(Modifier.height(4.dp))
+                val emailPresets = listOf(0, 5, 15, 30, 60)
+                val neverLabel = stringResource(Res.string.settings_email_poll_never)
+                val initialEmailPos = emailPresets.indexOf(pollIntervalMinutes)
+                    .takeIf { it >= 0 }?.toFloat() ?: 0f
+                var emailSliderValue by remember(pollIntervalMinutes) {
+                    mutableStateOf(initialEmailPos)
+                }
+                val currentEmailMinutes = emailPresets[emailSliderValue.roundToInt()]
+                val emailDisplay = if (currentEmailMinutes == 0) neverLabel else "${currentEmailMinutes}m"
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    listOf(0, 5, 15, 30, 60).forEach { minutes ->
-                        val selected = pollIntervalMinutes == minutes
-                        Surface(
-                            onClick = { onChangePollInterval(minutes) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (selected) {
-                                MaterialTheme.colorScheme.primaryContainer
-                            } else {
-                                MaterialTheme.colorScheme.surfaceVariant
-                            },
-                        ) {
-                            Text(
-                                text = if (minutes == 0) stringResource(Res.string.settings_email_poll_never) else "${minutes}m",
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (selected) {
-                                    MaterialTheme.colorScheme.onPrimaryContainer
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                            )
-                        }
-                    }
+                    Text(
+                        text = stringResource(Res.string.settings_email_poll_interval, currentEmailMinutes),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = emailDisplay,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
                 }
+                Slider(
+                    value = emailSliderValue,
+                    onValueChange = { emailSliderValue = it },
+                    onValueChangeFinished = {
+                        onChangePollInterval(emailPresets[emailSliderValue.roundToInt()])
+                    },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    valueRange = 0f..(emailPresets.size - 1).toFloat(),
+                    steps = emailPresets.size - 2,
+                    colors = SliderDefaults.colors(
+                        thumbColor = MaterialTheme.colorScheme.primary,
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                        activeTickColor = Color.Transparent,
+                        inactiveTickColor = Color.Transparent,
+                    ),
+                    thumb = {
+                        Box(
+                            modifier = Modifier
+                                .size(20.dp)
+                                .background(MaterialTheme.colorScheme.primary, CircleShape),
+                        )
+                    },
+                    track = { sliderState ->
+                        SliderDefaults.Track(
+                            sliderState = sliderState,
+                            colors = SliderDefaults.colors(
+                                activeTrackColor = MaterialTheme.colorScheme.primary,
+                                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                            ),
+                            drawStopIndicator = null,
+                            drawTick = { _, _ -> },
+                        )
+                    },
+                )
 
                 Spacer(Modifier.height(12.dp))
 
@@ -1936,6 +2103,7 @@ private fun UiScaleSection(
             value = sliderValue,
             onValueChange = { sliderValue = it },
             onValueChangeFinished = { onChangeUiScale(sliderValue) },
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             valueRange = 0.5f..2.0f,
             steps = steps,
             colors = SliderDefaults.colors(

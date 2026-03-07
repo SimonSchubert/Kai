@@ -1060,6 +1060,16 @@ class RemoteDataRepository(
         heartbeatManager.saveConfig(config.copy(enabled = enabled))
     }
 
+    override fun setHeartbeatIntervalMinutes(minutes: Int) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(intervalMinutes = minutes))
+    }
+
+    override fun setHeartbeatActiveHours(start: Int, end: Int) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(activeHoursStart = start, activeHoursEnd = end))
+    }
+
     override fun getHeartbeatPrompt(): String = appSettings.getHeartbeatPrompt()
 
     override fun setHeartbeatPrompt(text: String) {

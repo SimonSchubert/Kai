@@ -69,6 +69,8 @@ interface DataRepository {
     // Heartbeat
     fun getHeartbeatConfig(): HeartbeatConfig
     fun setHeartbeatEnabled(enabled: Boolean)
+    fun setHeartbeatIntervalMinutes(minutes: Int)
+    fun setHeartbeatActiveHours(start: Int, end: Int)
     fun getHeartbeatPrompt(): String
     fun setHeartbeatPrompt(text: String)
     fun getHeartbeatLog(): List<HeartbeatLogEntry>

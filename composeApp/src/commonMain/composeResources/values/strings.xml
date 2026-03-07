@@ -125,6 +125,8 @@
     <string name="settings_daemon_mode_description">Keep Kai running in the background so scheduled tasks execute even when the app is not in the foreground.</string>
     <string name="settings_heartbeat">Heartbeat</string>
     <string name="settings_heartbeat_description">Periodic self-checks that let the AI review memories and tasks without user input. Runs every %1$d minutes during active hours.</string>
+    <string name="settings_heartbeat_interval">Interval</string>
+    <string name="settings_heartbeat_active_hours">Active Hours</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat Prompt</string>
     <string name="settings_heartbeat_recent">Recent Activity</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\nIf something needs attention (stale memories, due tasks, user follow-ups), address it.</string>

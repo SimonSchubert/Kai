@@ -60,9 +60,13 @@ class SettingsViewModel(
             showDaemonToggle = platformName == "Android",
             isHeartbeatEnabled = dataRepository.getHeartbeatConfig().enabled,
             heartbeatIntervalMinutes = dataRepository.getHeartbeatConfig().intervalMinutes,
+            heartbeatActiveHoursStart = dataRepository.getHeartbeatConfig().activeHoursStart,
+            heartbeatActiveHoursEnd = dataRepository.getHeartbeatConfig().activeHoursEnd,
             heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
             heartbeatLog = dataRepository.getHeartbeatLog(),
             onToggleHeartbeat = ::onToggleHeartbeat,
+            onChangeHeartbeatInterval = ::onChangeHeartbeatInterval,
+            onChangeHeartbeatActiveHours = ::onChangeHeartbeatActiveHours,
             onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
             isEmailEnabled = dataRepository.isEmailEnabled(),
             showEmailToggle = isEmailSupported,
@@ -260,6 +264,16 @@ class SettingsViewModel(
     private fun onToggleHeartbeat(enabled: Boolean) {
         dataRepository.setHeartbeatEnabled(enabled)
         _state.update { it.copy(isHeartbeatEnabled = enabled) }
+    }
+
+    private fun onChangeHeartbeatInterval(minutes: Int) {
+        dataRepository.setHeartbeatIntervalMinutes(minutes)
+        _state.update { it.copy(heartbeatIntervalMinutes = minutes) }
+    }
+
+    private fun onChangeHeartbeatActiveHours(start: Int, end: Int) {
+        dataRepository.setHeartbeatActiveHours(start, end)
+        _state.update { it.copy(heartbeatActiveHoursStart = start, heartbeatActiveHoursEnd = end) }
     }
 
     private fun onSaveHeartbeatPrompt(text: String) {
