@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">%1$s が回答（フォールバック）</string>
     <string name="settings_heartbeat_interval">間隔</string>
     <string name="settings_heartbeat_active_hours">アクティブ時間</string>
+    <string name="settings_documentation">ドキュメント</string>
 </resources>

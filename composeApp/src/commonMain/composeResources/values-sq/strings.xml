@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Përgjigjur nga %1$s (rezervë)</string>
     <string name="settings_heartbeat_interval">Intervali</string>
     <string name="settings_heartbeat_active_hours">Orët Aktive</string>
+    <string name="settings_documentation">Dokumentacioni</string>
 </resources>

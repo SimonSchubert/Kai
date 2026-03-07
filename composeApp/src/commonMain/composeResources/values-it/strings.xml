@@ -154,4 +154,5 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="fallback_answered_by">Risposta di %1$s (riserva)</string>
     <string name="settings_heartbeat_interval">Intervallo</string>
     <string name="settings_heartbeat_active_hours">Ore Attive</string>
+    <string name="settings_documentation">Documentazione</string>
 </resources>

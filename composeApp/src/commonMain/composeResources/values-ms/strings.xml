@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Dijawab oleh %1$s (sandaran)</string>
     <string name="settings_heartbeat_interval">Selang masa</string>
     <string name="settings_heartbeat_active_hours">Waktu Aktif</string>
+    <string name="settings_documentation">Dokumentasi</string>
 </resources>

@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Válaszolta: %1$s (tartalék)</string>
     <string name="settings_heartbeat_interval">Időköz</string>
     <string name="settings_heartbeat_active_hours">Aktív órák</string>
+    <string name="settings_documentation">Dokumentáció</string>
 </resources>

@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">%1$s መልስ ሰጥቷል (ተተኪ)</string>
     <string name="settings_heartbeat_interval">ክፍተት</string>
     <string name="settings_heartbeat_active_hours">ንቁ ሰዓቶች</string>
+    <string name="settings_documentation">ሰነድ</string>
 </resources>

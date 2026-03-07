@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">%1$s نے جواب دیا (فال بیک)</string>
     <string name="settings_heartbeat_interval">وقفہ</string>
     <string name="settings_heartbeat_active_hours">فعال اوقات</string>
+    <string name="settings_documentation">دستاویزات</string>
 </resources>

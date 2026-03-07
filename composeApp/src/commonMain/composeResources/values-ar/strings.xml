@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">أجاب بواسطة %1$s (احتياطي)</string>
     <string name="settings_heartbeat_interval">الفاصل الزمني</string>
     <string name="settings_heartbeat_active_hours">ساعات النشاط</string>
+    <string name="settings_documentation">التوثيق</string>
 </resources>

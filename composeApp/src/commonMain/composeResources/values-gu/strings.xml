@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">%1$s દ્વારા જવાબ આપ્યો (ફોલબેક)</string>
     <string name="settings_heartbeat_interval">અંતરાલ</string>
     <string name="settings_heartbeat_active_hours">સક્રિય કલાકો</string>
+    <string name="settings_documentation">દસ્તાવેજીકરણ</string>
 </resources>

@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">由 %1$s 回答（備用）</string>
     <string name="settings_heartbeat_interval">間隔</string>
     <string name="settings_heartbeat_active_hours">活躍時段</string>
+    <string name="settings_documentation">文件</string>
 </resources>

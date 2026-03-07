@@ -154,4 +154,5 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="fallback_answered_by">Besvaret af %1$s (reserve)</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktive timer</string>
+    <string name="settings_documentation">Dokumentation</string>
 </resources>

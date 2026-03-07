@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">%1$s மூலம் பதிலளிக்கப்பட்டது (மாற்று)</string>
     <string name="settings_heartbeat_interval">இடைவெளி</string>
     <string name="settings_heartbeat_active_hours">செயலில் உள்ள நேரம்</string>
+    <string name="settings_documentation">ஆவணமாக்கம்</string>
 </resources>

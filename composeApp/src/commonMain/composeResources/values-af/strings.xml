@@ -154,4 +154,5 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="fallback_answered_by">%1$s het geantwoord (terugval)</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktiewe Ure</string>
+    <string name="settings_documentation">Dokumentasie</string>
 </resources>

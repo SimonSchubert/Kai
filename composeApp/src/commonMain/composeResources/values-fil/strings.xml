@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Sinagot ng %1$s (fallback)</string>
     <string name="settings_heartbeat_interval">Pagitan</string>
     <string name="settings_heartbeat_active_hours">Mga Aktibong Oras</string>
+    <string name="settings_documentation">Dokumentasyon</string>
 </resources>

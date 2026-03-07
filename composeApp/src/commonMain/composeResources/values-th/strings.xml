@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">ตอบโดย %1$s (สำรอง)</string>
     <string name="settings_heartbeat_interval">ช่วงเวลา</string>
     <string name="settings_heartbeat_active_hours">ชั่วโมงที่ใช้งาน</string>
+    <string name="settings_documentation">เอกสาร</string>
 </resources>

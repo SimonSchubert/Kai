@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">پاسخ داده شده توسط %1$s (پشتیبان)</string>
     <string name="settings_heartbeat_interval">فاصله زمانی</string>
     <string name="settings_heartbeat_active_hours">ساعات فعال</string>
+    <string name="settings_documentation">مستندات</string>
 </resources>

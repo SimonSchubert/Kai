@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">%1$s দ্বারা উত্তর দেওয়া হয়েছে (ফলব্যাক)</string>
     <string name="settings_heartbeat_interval">ব্যবধান</string>
     <string name="settings_heartbeat_active_hours">সক্রিয় সময়</string>
+    <string name="settings_documentation">ডকুমেন্টেশন</string>
 </resources>

@@ -154,4 +154,5 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="fallback_answered_by">Beantwortet von %1$s (Ersatz)</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive Stunden</string>
+    <string name="settings_documentation">Dokumentation</string>
 </resources>

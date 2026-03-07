@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Odgovoril %1$s (nadomestni)</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktivne ure</string>
+    <string name="settings_documentation">Dokumentacija</string>
 </resources>

@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">%1$s이(가) 응답함 (대체)</string>
     <string name="settings_heartbeat_interval">간격</string>
     <string name="settings_heartbeat_active_hours">활성 시간</string>
+    <string name="settings_documentation">문서</string>
 </resources>

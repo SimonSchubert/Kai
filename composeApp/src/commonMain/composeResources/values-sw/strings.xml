@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Imejibiwa na %1$s (mbadala)</string>
     <string name="settings_heartbeat_interval">Muda</string>
     <string name="settings_heartbeat_active_hours">Masaa ya Shughuli</string>
+    <string name="settings_documentation">Nyaraka</string>
 </resources>

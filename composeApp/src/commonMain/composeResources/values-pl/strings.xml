@@ -154,4 +154,5 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="fallback_answered_by">Odpowiedziano przez %1$s (zapasowy)</string>
     <string name="settings_heartbeat_interval">Interwał</string>
     <string name="settings_heartbeat_active_hours">Aktywne godziny</string>
+    <string name="settings_documentation">Dokumentacja</string>
 </resources>

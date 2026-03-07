@@ -154,4 +154,5 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="fallback_answered_by">Respondido por %1$s (respaldo)</string>
     <string name="settings_heartbeat_interval">Intervalo</string>
     <string name="settings_heartbeat_active_hours">Horas Activas</string>
+    <string name="settings_documentation">Documentación</string>
 </resources>

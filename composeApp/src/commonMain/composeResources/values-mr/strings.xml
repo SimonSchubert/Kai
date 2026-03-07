@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">%1$s ने उत्तर दिले (फॉलबॅक)</string>
     <string name="settings_heartbeat_interval">मध्यांतर</string>
     <string name="settings_heartbeat_active_hours">सक्रिय तास</string>
+    <string name="settings_documentation">दस्तऐवजीकरण</string>
 </resources>

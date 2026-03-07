@@ -154,4 +154,5 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="fallback_answered_by">Vastannut %1$s (varajärjestelmä)</string>
     <string name="settings_heartbeat_interval">Väli</string>
     <string name="settings_heartbeat_active_hours">Aktiiviset tunnit</string>
+    <string name="settings_documentation">Dokumentaatio</string>
 </resources>

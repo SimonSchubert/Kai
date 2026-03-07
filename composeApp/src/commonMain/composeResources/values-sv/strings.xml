@@ -154,4 +154,5 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="fallback_answered_by">Besvarad av %1$s (reserv)</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiva timmar</string>
+    <string name="settings_documentation">Dokumentation</string>
 </resources>

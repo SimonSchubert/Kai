@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Απάντηση από %1$s (εφεδρικό)</string>
     <string name="settings_heartbeat_interval">Διάστημα</string>
     <string name="settings_heartbeat_active_hours">Ενεργές Ώρες</string>
+    <string name="settings_documentation">Τεκμηρίωση</string>
 </resources>

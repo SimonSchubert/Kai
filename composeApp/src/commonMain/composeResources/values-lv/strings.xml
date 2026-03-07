@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Atbildēja %1$s (rezerves)</string>
     <string name="settings_heartbeat_interval">Intervāls</string>
     <string name="settings_heartbeat_active_hours">Aktīvās stundas</string>
+    <string name="settings_documentation">Dokumentācija</string>
 </resources>

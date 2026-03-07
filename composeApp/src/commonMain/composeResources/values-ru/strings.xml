@@ -154,4 +154,5 @@
     <string name="fallback_answered_by">Ответил %1$s (резервный)</string>
     <string name="settings_heartbeat_interval">Интервал</string>
     <string name="settings_heartbeat_active_hours">Активные часы</string>
+    <string name="settings_documentation">Документация</string>
 </resources>

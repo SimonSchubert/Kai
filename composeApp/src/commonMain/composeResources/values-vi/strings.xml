@@ -154,4 +154,5 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="fallback_answered_by">Đã trả lời bởi %1$s (dự phòng)</string>
     <string name="settings_heartbeat_interval">Khoảng thời gian</string>
     <string name="settings_heartbeat_active_hours">Giờ hoạt động</string>
+    <string name="settings_documentation">Tài liệu</string>
 </resources>

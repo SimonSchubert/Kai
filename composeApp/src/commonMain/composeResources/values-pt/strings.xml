@@ -154,4 +154,5 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="fallback_answered_by">Respondido por %1$s (reserva)</string>
     <string name="settings_heartbeat_interval">Intervalo</string>
     <string name="settings_heartbeat_active_hours">Horas Ativas</string>
+    <string name="settings_documentation">Documentação</string>
 </resources>
