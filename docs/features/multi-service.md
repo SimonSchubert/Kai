@@ -69,7 +69,7 @@ When the user enters or changes an API key (or base URL), the app validates the 
 
 ## Model Selection
 
-When a connection is validated and models are fetched, the app auto-selects the first available model if none is chosen. Services filter their model lists:
+When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
 - OpenAI shows only chat-oriented models
 - GroqCloud shows only models marked as active
 - Other services show all non-retired models
