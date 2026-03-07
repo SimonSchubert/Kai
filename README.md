@@ -28,17 +28,6 @@ AUR (Arch Linux):
 | Linux | RPM | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 | Linux | AppImage | [GitHub Releases](https://github.com/SimonSchubert/Kai/releases) |
 
-### Supported services:
-
-- OpenAI: https://openai.com
-- Gemini: https://aistudio.google.com
-- DeepSeek: https://www.deepseek.com
-- Mistral: https://mistral.ai
-- xAI: https://x.ai
-- OpenRouter: https://openrouter.ai
-- Groq: https://groq.com
-- NVIDIA: https://developer.nvidia.com
-- OpenAI-Compatible API (Ollama, LM Studio, etc.)
 
 ### Features
 
@@ -65,6 +54,62 @@ Tools can be enabled or disabled in settings. Memory tools are always available 
 - **Cancel Task** - Cancel a scheduled task
 - **List Tasks** - List all scheduled tasks
 
+## How It Works
+
+```
+                        ┌────────┐
+                        │  User  │
+                        └───┬────┘
+                            │ message
+                            ▼
+               ┌─────────────────────────┐
+               │          Chat           │
+               │                         │
+               │  prompt + memories      │
+               │        │                │
+               │        ▼                │
+               │    ┌────────┐           │
+               │    │   AI   │◀─┐        │
+               │    └───┬────┘  │        │
+               │        │   tool calls   │
+               │        │   & results    │
+               │        ▼      │        │
+               │    ┌────────┐ │        │
+               │    │ Tools  │─┘        │
+               │    └───┬────┘          │
+               │        │               │
+               └────────┼───────────────┘
+                        │ store / recall
+                        ▼
+               ┌─────────────────┐    hitCount >= 5
+               │     Memory      │───────────────────┐
+               │                 │                   │
+               │  facts, prefs,  │                   ▼
+               │  learnings      │          ┌────────────────┐
+               │                 │◀─delete──│ Promote into   │
+               └─────────────────┘          │ System Prompt  │
+                        ▲                   └────────────────┘
+                        │ reviews
+                        │
+               ┌─────────────────┐
+               │    Heartbeat    │
+               │                 │
+               │  autonomous     │
+               │  self-check     │
+               │  every 30 min   │
+               │  (8am–10pm)     │
+               │                 │
+               │  all good?      │
+               │  → stays silent │
+               │  needs action?  │
+               │  → notifies user│
+               └─────────────────┘
+```
+
+- **Chat** — User sends a message. The AI responds, calling tools (memory, web search, shell, etc.) in a loop until it has a final answer.
+- **Memory** — The AI stores and recalls facts, preferences, and learnings. Memories that prove useful (5+ hits) can be promoted into the system prompt permanently.
+- **Heartbeat** — A background self-check runs every 30 minutes. It reviews memories, pending tasks, and emails. If something needs attention, it notifies the user. Otherwise, it stays silent.
+
 ## Screenshots
 
 ### Desktop
@@ -78,6 +123,18 @@ Tools can be enabled or disabled in settings. Memory tools are always available 
 ### Mobile
 
 <img src="screenshots/mobile-1.png" alt="Mobile Screenshot 1" height="300"> <img src="screenshots/mobile-2.png" alt="Mobile Screenshot 2" height="300"> <img src="screenshots/mobile-3.png" alt="Mobile Screenshot 3" height="300"> <img src="screenshots/mobile-4.png" alt="Mobile Screenshot 4" height="300"> <img src="screenshots/mobile-5.png" alt="Mobile Screenshot 5" height="300"> <img src="screenshots/mobile-6.png" alt="Mobile Screenshot 6" height="300">
+
+### Supported services:
+
+- OpenAI: https://openai.com
+- Gemini: https://aistudio.google.com
+- DeepSeek: https://www.deepseek.com
+- Mistral: https://mistral.ai
+- xAI: https://x.ai
+- OpenRouter: https://openrouter.ai
+- Groq: https://groq.com
+- NVIDIA: https://developer.nvidia.com
+- OpenAI-Compatible API (Ollama, LM Studio, etc.)
 
 ## Screenshot automatisation
 
