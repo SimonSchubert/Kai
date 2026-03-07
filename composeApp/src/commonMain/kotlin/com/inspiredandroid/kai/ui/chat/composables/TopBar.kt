@@ -1,7 +1,12 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,63 +36,120 @@ internal fun TopBar(
     actions: ChatActions,
     isChatHistoryEmpty: Boolean,
     onNavigateToSettings: () -> Unit,
+    navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
-    Row {
-        if (!isChatHistoryEmpty) {
-            IconButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                onClick = {
-                    if (isSpeechOutputEnabled && isSpeaking) {
-                        actions.setIsSpeaking(false, "")
-                        textToSpeech?.stop()
-                    }
-                    actions.startNewChat()
-                },
-                enabled = !isLoading,
-            ) {
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_add),
-                    contentDescription = stringResource(Res.string.new_chat_content_description),
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-        }
-
-        Spacer(Modifier.weight(1f))
-
-        if (textToSpeech != null) {
-            IconButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                onClick = {
-                    if (isSpeechOutputEnabled && isSpeaking) {
-                        actions.setIsSpeaking(false, "")
-                        textToSpeech.stop()
-                    }
-                    actions.toggleSpeechOutput()
-                },
-            ) {
-                Icon(
-                    imageVector =
-                    if (isSpeechOutputEnabled) {
-                        vectorResource(Res.drawable.ic_volume_up)
-                    } else {
-                        vectorResource(Res.drawable.ic_volume_off)
-                    },
-                    contentDescription = stringResource(Res.string.toggle_speech_output_content_description),
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-        }
-
-        IconButton(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-            onClick = onNavigateToSettings,
+    if (navigationTabBar != null) {
+        Box(
+            modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
         ) {
-            Icon(
-                imageVector = vectorResource(Res.drawable.ic_settings),
-                contentDescription = stringResource(Res.string.settings_content_description),
-                tint = MaterialTheme.colorScheme.onBackground,
-            )
+            if (!isChatHistoryEmpty) {
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterStart).pointerHoverIcon(PointerIcon.Hand),
+                    onClick = {
+                        if (isSpeechOutputEnabled && isSpeaking) {
+                            actions.setIsSpeaking(false, "")
+                            textToSpeech?.stop()
+                        }
+                        actions.startNewChat()
+                    },
+                    enabled = !isLoading,
+                ) {
+                    Icon(
+                        imageVector = vectorResource(Res.drawable.ic_add),
+                        contentDescription = stringResource(Res.string.new_chat_content_description),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+            }
+
+            Box(modifier = Modifier.align(Alignment.Center)) {
+                navigationTabBar()
+            }
+
+            Row(modifier = Modifier.align(Alignment.CenterEnd)) {
+                if (textToSpeech != null) {
+                    IconButton(
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        onClick = {
+                            if (isSpeechOutputEnabled && isSpeaking) {
+                                actions.setIsSpeaking(false, "")
+                                textToSpeech.stop()
+                            }
+                            actions.toggleSpeechOutput()
+                        },
+                    ) {
+                        Icon(
+                            imageVector =
+                            if (isSpeechOutputEnabled) {
+                                vectorResource(Res.drawable.ic_volume_up)
+                            } else {
+                                vectorResource(Res.drawable.ic_volume_off)
+                            },
+                            contentDescription = stringResource(Res.string.toggle_speech_output_content_description),
+                            tint = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        Row {
+            if (!isChatHistoryEmpty) {
+                IconButton(
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    onClick = {
+                        if (isSpeechOutputEnabled && isSpeaking) {
+                            actions.setIsSpeaking(false, "")
+                            textToSpeech?.stop()
+                        }
+                        actions.startNewChat()
+                    },
+                    enabled = !isLoading,
+                ) {
+                    Icon(
+                        imageVector = vectorResource(Res.drawable.ic_add),
+                        contentDescription = stringResource(Res.string.new_chat_content_description),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+            }
+
+            Spacer(Modifier.weight(1f))
+
+            if (textToSpeech != null) {
+                IconButton(
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    onClick = {
+                        if (isSpeechOutputEnabled && isSpeaking) {
+                            actions.setIsSpeaking(false, "")
+                            textToSpeech.stop()
+                        }
+                        actions.toggleSpeechOutput()
+                    },
+                ) {
+                    Icon(
+                        imageVector =
+                        if (isSpeechOutputEnabled) {
+                            vectorResource(Res.drawable.ic_volume_up)
+                        } else {
+                            vectorResource(Res.drawable.ic_volume_off)
+                        },
+                        contentDescription = stringResource(Res.string.toggle_speech_output_content_description),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+            }
+
+            IconButton(
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                onClick = onNavigateToSettings,
+            ) {
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_settings),
+                    contentDescription = stringResource(Res.string.settings_content_description),
+                    tint = MaterialTheme.colorScheme.onBackground,
+                )
+            }
         }
     }
 }

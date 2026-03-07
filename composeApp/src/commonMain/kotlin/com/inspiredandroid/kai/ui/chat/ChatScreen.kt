@@ -54,6 +54,7 @@ fun ChatScreen(
     viewModel: ChatViewModel = koinViewModel(),
     textToSpeech: TextToSpeechInstance?,
     onNavigateToSettings: () -> Unit,
+    navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -61,6 +62,7 @@ fun ChatScreen(
         uiState = uiState,
         textToSpeech = textToSpeech,
         onNavigateToSettings = onNavigateToSettings,
+        navigationTabBar = navigationTabBar,
     )
 }
 
@@ -69,6 +71,7 @@ fun ChatScreenContent(
     uiState: ChatUiState,
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
+    navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
@@ -79,6 +82,7 @@ fun ChatScreenContent(
             actions = uiState.actions,
             isChatHistoryEmpty = uiState.history.isEmpty(),
             onNavigateToSettings = onNavigateToSettings,
+            navigationTabBar = navigationTabBar,
         )
 
         SelectionContainer {

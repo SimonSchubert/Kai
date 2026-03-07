@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -73,6 +74,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -180,6 +182,7 @@ import kotlin.time.Instant
 fun SettingsScreen(
     viewModel: SettingsViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
+    navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsState()
 
@@ -190,6 +193,7 @@ fun SettingsScreen(
     SettingsScreenContent(
         uiState = uiState,
         onNavigateBack = onNavigateBack,
+        navigationTabBar = navigationTabBar,
     )
 }
 
@@ -197,9 +201,20 @@ fun SettingsScreen(
 fun SettingsScreenContent(
     uiState: SettingsUiState,
     onNavigateBack: () -> Unit = {},
+    navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
-        TopBar(onNavigateBack = onNavigateBack)
+        if (navigationTabBar != null) {
+            Row(
+                modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = CenterVertically,
+            ) {
+                navigationTabBar()
+            }
+        } else {
+            TopBar(onNavigateBack = onNavigateBack)
+        }
 
         SettingsTabSelector(
             currentTab = uiState.currentTab,
