@@ -80,6 +80,13 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     }
 }
 
+actual fun openUrl(url: String): Boolean = try {
+    kotlinx.browser.window.open(url, "_blank")
+    true
+} catch (_: Exception) {
+    false
+}
+
 actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
 } catch (_: Exception) {

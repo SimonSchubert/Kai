@@ -87,6 +87,8 @@
     <string name="tool_memory_store_description">Store or update a memory for cross-conversation recall</string>
     <string name="tool_memory_forget_name">Forget Memory</string>
     <string name="tool_memory_forget_description">Delete a stored memory</string>
+    <string name="tool_open_url_name">Open URL</string>
+    <string name="tool_open_url_description">Open a URL or link on the device</string>
     <string name="tool_web_search_name">Web Search</string>
     <string name="tool_web_search_description">Search the web for current information</string>
     <string name="tool_schedule_task_name">Schedule Task</string>

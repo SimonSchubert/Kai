@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">በሚቀጥለው ዙር ልብ ምት አነሳ</string>
     <string name="tool_trigger_heartbeat_name">ልብ ምት አነሳ</string>
     <string name="tool_web_search_description">ለወቅታዊ መረጃ ድሩን ፈልግ</string>
+    <string name="tool_open_url_name">URL ክፈት</string>
+    <string name="tool_open_url_description">በመሳሪያው ላይ URL ወይም አገናኝ ይክፈቱ</string>
     <string name="tool_web_search_name">የድር ፍለጋ</string>
     <string name="settings_ui_scale">UI ልኬት</string>
     <string name="tab_chat">ውይይት</string>

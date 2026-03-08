@@ -147,6 +147,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tool_trigger_heartbeat_description">Utløse et hjerteslag i neste syklus</string>
     <string name="tool_trigger_heartbeat_name">Utløs hjerteslag</string>
     <string name="tool_web_search_description">Søk på nettet etter aktuell informasjon</string>
+    <string name="tool_open_url_name">Åpne URL</string>
+    <string name="tool_open_url_description">Åpne en URL eller lenke på enheten</string>
     <string name="tool_web_search_name">Nettsøk</string>
     <string name="settings_ui_scale">UI-skala</string>
     <string name="tab_chat">Chat</string>

@@ -147,6 +147,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="tool_trigger_heartbeat_description">Acionar um heartbeat no próximo ciclo</string>
     <string name="tool_trigger_heartbeat_name">Acionar Heartbeat</string>
     <string name="tool_web_search_description">Pesquisar na web por informações atuais</string>
+    <string name="tool_open_url_name">Abrir URL</string>
+    <string name="tool_open_url_description">Abrir um URL ou link no dispositivo</string>
     <string name="tool_web_search_name">Pesquisa Web</string>
     <string name="settings_ui_scale">Escala da interface</string>
     <string name="tab_chat">Chat</string>

@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">次のサイクルでハートビートをトリガー</string>
     <string name="tool_trigger_heartbeat_name">ハートビートをトリガー</string>
     <string name="tool_web_search_description">最新の情報をウェブで検索</string>
+    <string name="tool_open_url_name">URLを開く</string>
+    <string name="tool_open_url_description">デバイスでURLやリンクを開く</string>
     <string name="tool_web_search_name">ウェブ検索</string>
     <string name="settings_ui_scale">UIスケール</string>
     <string name="tab_chat">チャット</string>

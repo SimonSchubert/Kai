@@ -4,6 +4,7 @@ import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.MemoryCategory
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.httpClient
+import com.inspiredandroid.kai.openUrl
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -22,6 +23,8 @@ import kai.composeapp.generated.resources.tool_memory_learn_description
 import kai.composeapp.generated.resources.tool_memory_learn_name
 import kai.composeapp.generated.resources.tool_memory_reinforce_description
 import kai.composeapp.generated.resources.tool_memory_reinforce_name
+import kai.composeapp.generated.resources.tool_open_url_description
+import kai.composeapp.generated.resources.tool_open_url_name
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -165,7 +168,40 @@ object CommonTools {
         descriptionRes = Res.string.tool_memory_reinforce_description,
     )
 
-    val commonToolDefinitions = listOf(WebSearchTool.toolInfo, localTimeToolInfo, ipLocationToolInfo) +
+    val openUrlTool = object : Tool {
+        override val schema = ToolSchema(
+            name = "open_url",
+            description = "Open a URL or link on the user's device. Use this to open web pages, deep links, or any URL the user wants to visit.",
+            parameters = mapOf(
+                "url" to ParameterSchema(type = "string", description = "The URL to open", required = true),
+            ),
+        )
+
+        override suspend fun execute(args: Map<String, Any>): Any {
+            val url = args["url"]?.toString()
+                ?: return mapOf("success" to false, "error" to "URL is required")
+            return try {
+                val opened = openUrl(url)
+                if (opened) {
+                    mapOf("success" to true, "url" to url, "message" to "URL opened successfully")
+                } else {
+                    mapOf("success" to false, "error" to "Failed to open URL")
+                }
+            } catch (e: Exception) {
+                mapOf("success" to false, "error" to "Failed to open URL: ${e.message}")
+            }
+        }
+    }
+
+    val openUrlToolInfo = ToolInfo(
+        id = "open_url",
+        name = "Open URL",
+        description = "Open a URL or link on the device",
+        nameRes = Res.string.tool_open_url_name,
+        descriptionRes = Res.string.tool_open_url_description,
+    )
+
+    val commonToolDefinitions = listOf(WebSearchTool.toolInfo, localTimeToolInfo, ipLocationToolInfo, openUrlToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
         HeartbeatTools.heartbeatToolDefinitions +
         EmailTools.emailToolDefinitions
@@ -179,6 +215,9 @@ object CommonTools {
         }
         if (appSettings.isToolEnabled(WebSearchTool.schema.name)) {
             add(WebSearchTool)
+        }
+        if (appSettings.isToolEnabled(openUrlTool.schema.name)) {
+            add(openUrlTool)
         }
     }
 

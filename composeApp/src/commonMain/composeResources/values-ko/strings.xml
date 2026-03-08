@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">다음 주기에 하트비트 트리거</string>
     <string name="tool_trigger_heartbeat_name">하트비트 트리거</string>
     <string name="tool_web_search_description">최신 정보를 웹에서 검색</string>
+    <string name="tool_open_url_name">URL 열기</string>
+    <string name="tool_open_url_description">기기에서 URL 또는 링크 열기</string>
     <string name="tool_web_search_name">웹 검색</string>
     <string name="settings_ui_scale">UI 크기</string>
     <string name="tab_chat">채팅</string>

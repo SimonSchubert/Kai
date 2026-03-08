@@ -147,6 +147,8 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="tool_trigger_heartbeat_description">Activar un latido en el próximo ciclo</string>
     <string name="tool_trigger_heartbeat_name">Activar Latido</string>
     <string name="tool_web_search_description">Buscar en la web información actual</string>
+    <string name="tool_open_url_name">Abrir URL</string>
+    <string name="tool_open_url_description">Abrir una URL o enlace en el dispositivo</string>
     <string name="tool_web_search_name">Búsqueda Web</string>
     <string name="settings_ui_scale">Escala de interfaz</string>
     <string name="tab_chat">Chat</string>

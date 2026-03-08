@@ -147,6 +147,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tool_trigger_heartbeat_description">Een hartslag activeren in de volgende cyclus</string>
     <string name="tool_trigger_heartbeat_name">Hartslag activeren</string>
     <string name="tool_web_search_description">Het web doorzoeken naar actuele informatie</string>
+    <string name="tool_open_url_name">URL openen</string>
+    <string name="tool_open_url_description">Een URL of link openen op het apparaat</string>
     <string name="tool_web_search_name">Webzoeken</string>
     <string name="settings_ui_scale">UI-schaal</string>
     <string name="tab_chat">Chat</string>

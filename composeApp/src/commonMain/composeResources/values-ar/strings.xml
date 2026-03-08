@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">تشغيل نبض القلب في الدورة التالية</string>
     <string name="tool_trigger_heartbeat_name">تشغيل نبض القلب</string>
     <string name="tool_web_search_description">البحث في الويب عن معلومات حالية</string>
+    <string name="tool_open_url_name">فتح رابط</string>
+    <string name="tool_open_url_description">فتح رابط أو عنوان URL على الجهاز</string>
     <string name="tool_web_search_name">بحث الويب</string>
     <string name="settings_ui_scale">مقياس الواجهة</string>
     <string name="tab_chat">محادثة</string>

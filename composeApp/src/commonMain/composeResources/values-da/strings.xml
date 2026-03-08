@@ -147,6 +147,8 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="tool_trigger_heartbeat_description">Udløs et hjerteslag i næste cyklus</string>
     <string name="tool_trigger_heartbeat_name">Udløs hjerteslag</string>
     <string name="tool_web_search_description">Søg på nettet efter aktuel information</string>
+    <string name="tool_open_url_name">Åbn URL</string>
+    <string name="tool_open_url_description">Åbn en URL eller et link på enheden</string>
     <string name="tool_web_search_name">Websøgning</string>
     <string name="settings_ui_scale">UI-skala</string>
     <string name="tab_chat">Chat</string>

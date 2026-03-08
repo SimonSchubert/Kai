@@ -146,6 +146,18 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     }
 }
 
+@Suppress("CAST_NEVER_SUCCEEDS")
+actual fun openUrl(url: String): Boolean = try {
+    val nsUrl = platform.Foundation.NSURL.URLWithString(url)
+    if (nsUrl != null) {
+        platform.UIKit.UIApplication.sharedApplication.openURL(nsUrl)
+    } else {
+        false
+    }
+} catch (_: Exception) {
+    false
+}
+
 actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
 } catch (_: Exception) {

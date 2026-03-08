@@ -147,6 +147,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tool_trigger_heartbeat_description">Utlös ett hjärtslag i nästa cykel</string>
     <string name="tool_trigger_heartbeat_name">Utlös hjärtslag</string>
     <string name="tool_web_search_description">Sök på webben efter aktuell information</string>
+    <string name="tool_open_url_name">Öppna URL</string>
+    <string name="tool_open_url_description">Öppna en URL eller länk på enheten</string>
     <string name="tool_web_search_name">Webbsökning</string>
     <string name="settings_ui_scale">Gränssnittsskala</string>
     <string name="tab_chat">Chatt</string>

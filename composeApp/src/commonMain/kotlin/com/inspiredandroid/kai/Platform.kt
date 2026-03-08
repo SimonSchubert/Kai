@@ -46,4 +46,6 @@ expect val isEmailSupported: Boolean
 
 expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray
 
+expect fun openUrl(url: String): Boolean
+
 expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?

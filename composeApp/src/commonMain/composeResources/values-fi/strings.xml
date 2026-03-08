@@ -147,6 +147,8 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_trigger_heartbeat_description">Laukaise syke seuraavassa jaksossa</string>
     <string name="tool_trigger_heartbeat_name">Laukaise syke</string>
     <string name="tool_web_search_description">Hae verkosta ajankohtaista tietoa</string>
+    <string name="tool_open_url_name">Avaa URL</string>
+    <string name="tool_open_url_description">Avaa URL tai linkki laitteella</string>
     <string name="tool_web_search_name">Verkkohaku</string>
     <string name="settings_ui_scale">Käyttöliittymän skaalaus</string>
     <string name="tab_chat">Chat</string>

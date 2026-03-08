@@ -147,6 +147,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tool_trigger_heartbeat_description">Einen Heartbeat im nächsten Zyklus auslösen</string>
     <string name="tool_trigger_heartbeat_name">Heartbeat auslösen</string>
     <string name="tool_web_search_description">Das Web nach aktuellen Informationen durchsuchen</string>
+    <string name="tool_open_url_name">URL öffnen</string>
+    <string name="tool_open_url_description">Eine URL oder einen Link auf dem Gerät öffnen</string>
     <string name="tool_web_search_name">Websuche</string>
     <string name="settings_ui_scale">UI-Skalierung</string>
     <string name="tab_chat">Chat</string>

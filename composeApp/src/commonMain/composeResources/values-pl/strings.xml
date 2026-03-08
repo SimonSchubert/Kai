@@ -147,6 +147,8 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="tool_trigger_heartbeat_description">Wyzwól puls w następnym cyklu</string>
     <string name="tool_trigger_heartbeat_name">Wyzwól puls</string>
     <string name="tool_web_search_description">Przeszukaj internet w poszukiwaniu aktualnych informacji</string>
+    <string name="tool_open_url_name">Otwórz URL</string>
+    <string name="tool_open_url_description">Otwórz URL lub link na urządzeniu</string>
     <string name="tool_web_search_name">Wyszukiwanie w sieci</string>
     <string name="settings_ui_scale">Skala interfejsu</string>
     <string name="tab_chat">Czat</string>

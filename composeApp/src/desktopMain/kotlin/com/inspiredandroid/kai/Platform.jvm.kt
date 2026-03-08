@@ -160,6 +160,13 @@ actual fun getAvailableTools(): List<Tool> {
     }
 }
 
+actual fun openUrl(url: String): Boolean = try {
+    java.awt.Desktop.getDesktop().browse(URI(url))
+    true
+} catch (_: Exception) {
+    false
+}
+
 actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
 } catch (_: Exception) {

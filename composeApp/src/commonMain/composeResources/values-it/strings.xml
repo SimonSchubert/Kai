@@ -147,6 +147,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="tool_trigger_heartbeat_description">Attiva un battito al prossimo ciclo</string>
     <string name="tool_trigger_heartbeat_name">Attiva Battito</string>
     <string name="tool_web_search_description">Cerca sul web informazioni attuali</string>
+    <string name="tool_open_url_name">Apri URL</string>
+    <string name="tool_open_url_description">Apri un URL o un link sul dispositivo</string>
     <string name="tool_web_search_name">Ricerca Web</string>
     <string name="settings_ui_scale">Scala interfaccia</string>
     <string name="tab_chat">Chat</string>

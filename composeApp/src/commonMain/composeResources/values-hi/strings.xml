@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">अगले चक्र में हार्टबीट ट्रिगर करें</string>
     <string name="tool_trigger_heartbeat_name">हार्टबीट ट्रिगर करें</string>
     <string name="tool_web_search_description">वर्तमान जानकारी के लिए वेब पर खोजें</string>
+    <string name="tool_open_url_name">URL खोलें</string>
+    <string name="tool_open_url_description">डिवाइस पर URL या लिंक खोलें</string>
     <string name="tool_web_search_name">वेब खोज</string>
     <string name="settings_ui_scale">UI स्केल</string>
     <string name="tab_chat">चैट</string>

@@ -124,6 +124,7 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
     WebSearchTool.toolInfo,
     CommonTools.localTimeToolInfo,
     CommonTools.ipLocationToolInfo,
+    CommonTools.openUrlToolInfo,
     ToolInfo(
         id = "send_notification",
         name = "Send Notification",
@@ -343,6 +344,10 @@ actual fun getAvailableTools(): List<Tool> {
             )
         }
 
+        if (appSettings.isToolEnabled(CommonTools.openUrlTool.schema.name)) {
+            add(CommonTools.openUrlTool)
+        }
+
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)
         }
@@ -351,6 +356,17 @@ actual fun getAvailableTools(): List<Tool> {
             addAll(EmailTools.getEmailTools(emailStore))
         }
     }
+}
+
+actual fun openUrl(url: String): Boolean = try {
+    val context: Context by inject(Context::class.java)
+    val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)).apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+    context.startActivity(intent)
+    true
+} catch (_: Exception) {
+    false
 }
 
 actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {

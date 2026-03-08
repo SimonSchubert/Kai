@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">Запустить пульс в следующем цикле</string>
     <string name="tool_trigger_heartbeat_name">Запустить пульс</string>
     <string name="tool_web_search_description">Искать в интернете актуальную информацию</string>
+    <string name="tool_open_url_name">Открыть URL</string>
+    <string name="tool_open_url_description">Открыть URL или ссылку на устройстве</string>
     <string name="tool_web_search_name">Веб-поиск</string>
     <string name="settings_ui_scale">Масштаб интерфейса</string>
     <string name="tab_chat">Чат</string>

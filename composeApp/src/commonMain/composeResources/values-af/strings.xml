@@ -147,6 +147,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tool_trigger_heartbeat_description">Aktiveer 'n hartklop op die volgende siklus</string>
     <string name="tool_trigger_heartbeat_name">Aktiveer Hartklop</string>
     <string name="tool_web_search_description">Soek die web vir huidige inligting</string>
+    <string name="tool_open_url_name">URL oopmaak</string>
+    <string name="tool_open_url_description">Maak 'n URL of skakel op die toestel oop</string>
     <string name="tool_web_search_name">Websoektog</string>
     <string name="settings_ui_scale">UI-skaal</string>
     <string name="tab_chat">Klets</string>

@@ -147,6 +147,8 @@
     <string name="tool_trigger_heartbeat_description">在下一个周期触发心跳</string>
     <string name="tool_trigger_heartbeat_name">触发心跳</string>
     <string name="tool_web_search_description">在网络上搜索当前信息</string>
+    <string name="tool_open_url_name">打开链接</string>
+    <string name="tool_open_url_description">在设备上打开 URL 或链接</string>
     <string name="tool_web_search_name">网页搜索</string>
     <string name="settings_ui_scale">界面缩放</string>
     <string name="tab_chat">聊天</string>
