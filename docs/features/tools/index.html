@@ -541,6 +541,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Common (cross-platform)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open_url-platform-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        open_url platform behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -801,6 +818,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daemon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -915,6 +988,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Common (cross-platform)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open_url-platform-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        open_url platform behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1173,6 +1263,14 @@
 </tr>
 </tbody>
 </table>
+<h4 id="open_url-platform-behavior">open_url platform behavior</h4>
+<p>The <code>open_url</code> tool accepts both web URLs and <code>file://</code> URIs. Each platform opens URLs using its native mechanism:</p>
+<ul>
+<li><strong>Android</strong> — Uses <code>ACTION_VIEW</code> intents. For <code>file://</code> URIs, converts to <code>content://</code> via FileProvider with MIME type detection so the file opens in the appropriate app (e.g. <code>.html</code> files open in the browser).</li>
+<li><strong>Desktop</strong> — Uses <code>java.awt.Desktop.browse()</code>.</li>
+<li><strong>iOS</strong> — Uses <code>UIApplication.openURL()</code>.</li>
+<li><strong>Web</strong> — Uses <code>window.open()</code> with <code>_blank</code> target.</li>
+</ul>
 <h3 id="memory-always-on">Memory (always on)</h3>
 <table>
 <thead>
