@@ -108,6 +108,8 @@ Plus a built-in **Free** tier that requires no API key.
 - **[Tools](features/tools.md)** — Available tools, execution flow, safety guards, and enablement
 - **[Memories](features/memories.md)** — Memory lifecycle, categories, reinforcement, and promotion
 - **[Heartbeat](features/heartbeat.md)** — Autonomous self-checks, active hours, and configuration
+- **[Tasks](features/tasks.md)** — Scheduled tasks, future execution, and task management
+- **[Daemon](features/daemon.md)** — Background service for scheduled tasks and heartbeat execution
 
 ## Links
 

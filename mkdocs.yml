@@ -40,3 +40,5 @@ nav:
     - Tools: features/tools.md
     - Memories: features/memories.md
     - Heartbeat: features/heartbeat.md
+    - Tasks: features/tasks.md
+    - Daemon: features/daemon.md

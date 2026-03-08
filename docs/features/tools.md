@@ -33,6 +33,15 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 | `get_location_from_ip` | Get estimated location from IP address | Enabled |
 | `open_url` | Open a URL, link, or local file on the device | Enabled |
 
+#### open_url platform behavior
+
+The `open_url` tool accepts both web URLs and `file://` URIs. Each platform opens URLs using its native mechanism:
+
+- **Android** — Uses `ACTION_VIEW` intents. For `file://` URIs, converts to `content://` via FileProvider with MIME type detection so the file opens in the appropriate app (e.g. `.html` files open in the browser).
+- **Desktop** — Uses `java.awt.Desktop.browse()`.
+- **iOS** — Uses `UIApplication.openURL()`.
+- **Web** — Uses `window.open()` with `_blank` target.
+
 ### Memory (always on)
 
 | Tool | Description |
