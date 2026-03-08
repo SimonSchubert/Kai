@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiivsed tunnid</string>
     <string name="settings_documentation">Dokumentatsioon</string>
+    <string name="waiting_thinking">Mõtlen…</string>
+    <string name="waiting_working">Töötan…</string>
+    <string name="waiting_brewing">Valmistan…</string>
 </resources>

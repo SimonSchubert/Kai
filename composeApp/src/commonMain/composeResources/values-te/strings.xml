@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">విరామం</string>
     <string name="settings_heartbeat_active_hours">క్రియాశీల గంటలు</string>
     <string name="settings_documentation">డాక్యుమెంటేషన్</string>
+    <string name="waiting_thinking">ఆలోచిస్తోంది…</string>
+    <string name="waiting_working">పని చేస్తోంది…</string>
+    <string name="waiting_brewing">తయారు చేస్తోంది…</string>
 </resources>

@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">અંતરાલ</string>
     <string name="settings_heartbeat_active_hours">સક્રિય કલાકો</string>
     <string name="settings_documentation">દસ્તાવેજીકરણ</string>
+    <string name="waiting_thinking">વિચારી રહ્યું છે…</string>
+    <string name="waiting_working">કામ કરી રહ્યું છે…</string>
+    <string name="waiting_brewing">તૈયાર કરી રહ્યું છે…</string>
 </resources>

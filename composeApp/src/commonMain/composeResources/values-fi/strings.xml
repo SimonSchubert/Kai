@@ -155,4 +155,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_heartbeat_interval">Väli</string>
     <string name="settings_heartbeat_active_hours">Aktiiviset tunnit</string>
     <string name="settings_documentation">Dokumentaatio</string>
+    <string name="waiting_thinking">Mietin…</string>
+    <string name="waiting_working">Työskentelen…</string>
+    <string name="waiting_brewing">Valmistelen…</string>
 </resources>

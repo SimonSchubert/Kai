@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Időköz</string>
     <string name="settings_heartbeat_active_hours">Aktív órák</string>
     <string name="settings_documentation">Dokumentáció</string>
+    <string name="waiting_thinking">Gondolkodom…</string>
+    <string name="waiting_working">Dolgozom…</string>
+    <string name="waiting_brewing">Készítem…</string>
 </resources>

@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">अंतराल</string>
     <string name="settings_heartbeat_active_hours">सक्रिय घंटे</string>
     <string name="settings_documentation">दस्तावेज़ीकरण</string>
+    <string name="waiting_thinking">सोच रहा हूँ…</string>
+    <string name="waiting_working">काम कर रहा हूँ…</string>
+    <string name="waiting_brewing">तैयार कर रहा हूँ…</string>
 </resources>

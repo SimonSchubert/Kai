@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Uras activas</string>
     <string name="settings_documentation">Documentaziun</string>
+    <string name="waiting_thinking">Pens…</string>
+    <string name="waiting_working">Lavur…</string>
+    <string name="waiting_brewing">Prepar…</string>
 </resources>

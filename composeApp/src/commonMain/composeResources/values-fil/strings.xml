@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Pagitan</string>
     <string name="settings_heartbeat_active_hours">Mga Aktibong Oras</string>
     <string name="settings_documentation">Dokumentasyon</string>
+    <string name="waiting_thinking">Nag-iisip…</string>
+    <string name="waiting_working">Nagtatrabaho…</string>
+    <string name="waiting_brewing">Naghahanda…</string>
 </resources>

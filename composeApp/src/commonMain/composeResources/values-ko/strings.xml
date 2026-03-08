@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">간격</string>
     <string name="settings_heartbeat_active_hours">활성 시간</string>
     <string name="settings_documentation">문서</string>
+    <string name="waiting_thinking">생각 중…</string>
+    <string name="waiting_working">작업 중…</string>
+    <string name="waiting_brewing">준비 중…</string>
 </resources>

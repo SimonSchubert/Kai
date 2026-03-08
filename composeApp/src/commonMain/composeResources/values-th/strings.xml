@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">ช่วงเวลา</string>
     <string name="settings_heartbeat_active_hours">ชั่วโมงที่ใช้งาน</string>
     <string name="settings_documentation">เอกสาร</string>
+    <string name="waiting_thinking">กำลังคิด…</string>
+    <string name="waiting_working">กำลังทำงาน…</string>
+    <string name="waiting_brewing">กำลังเตรียม…</string>
 </resources>

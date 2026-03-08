@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">ክፍተት</string>
     <string name="settings_heartbeat_active_hours">ንቁ ሰዓቶች</string>
     <string name="settings_documentation">ሰነድ</string>
+    <string name="waiting_thinking">እያሰበ…</string>
+    <string name="waiting_working">እየሰራ…</string>
+    <string name="waiting_brewing">እያዘጋጀ…</string>
 </resources>

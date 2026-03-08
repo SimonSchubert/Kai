@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">間隔</string>
     <string name="settings_heartbeat_active_hours">活躍時段</string>
     <string name="settings_documentation">文件</string>
+    <string name="waiting_thinking">思考中…</string>
+    <string name="waiting_working">處理中…</string>
+    <string name="waiting_brewing">準備中…</string>
 </resources>

@@ -155,4 +155,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive Stunden</string>
     <string name="settings_documentation">Dokumentation</string>
+    <string name="waiting_thinking">Denke nach…</string>
+    <string name="waiting_working">Arbeite…</string>
+    <string name="waiting_brewing">Braue…</string>
 </resources>

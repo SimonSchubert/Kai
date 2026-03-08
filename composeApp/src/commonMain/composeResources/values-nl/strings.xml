@@ -155,4 +155,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Actieve uren</string>
     <string name="settings_documentation">Documentatie</string>
+    <string name="waiting_thinking">Denken…</string>
+    <string name="waiting_working">Werken…</string>
+    <string name="waiting_brewing">Brouwen…</string>
 </resources>

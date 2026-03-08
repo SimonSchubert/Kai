@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Khoảng thời gian</string>
     <string name="settings_heartbeat_active_hours">Giờ hoạt động</string>
     <string name="settings_documentation">Tài liệu</string>
+    <string name="waiting_thinking">Đang suy nghĩ…</string>
+    <string name="waiting_working">Đang xử lý…</string>
+    <string name="waiting_brewing">Đang chuẩn bị…</string>
 </resources>

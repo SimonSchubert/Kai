@@ -155,4 +155,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktive timer</string>
     <string name="settings_documentation">Dokumentation</string>
+    <string name="waiting_thinking">Tænker…</string>
+    <string name="waiting_working">Arbejder…</string>
+    <string name="waiting_brewing">Brygger…</string>
 </resources>

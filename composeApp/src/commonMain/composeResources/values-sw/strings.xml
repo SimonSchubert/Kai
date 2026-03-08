@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Muda</string>
     <string name="settings_heartbeat_active_hours">Masaa ya Shughuli</string>
     <string name="settings_documentation">Nyaraka</string>
+    <string name="waiting_thinking">Nafikiri…</string>
+    <string name="waiting_working">Nafanya kazi…</string>
+    <string name="waiting_brewing">Naandaa…</string>
 </resources>

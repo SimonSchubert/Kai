@@ -155,4 +155,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive timer</string>
     <string name="settings_documentation">Dokumentasjon</string>
+    <string name="waiting_thinking">Tenker…</string>
+    <string name="waiting_working">Jobber…</string>
+    <string name="waiting_brewing">Brygger…</string>
 </resources>

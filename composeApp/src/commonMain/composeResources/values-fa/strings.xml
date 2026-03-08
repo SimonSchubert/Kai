@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">فاصله زمانی</string>
     <string name="settings_heartbeat_active_hours">ساعات فعال</string>
     <string name="settings_documentation">مستندات</string>
+    <string name="waiting_thinking">در حال فکر…</string>
+    <string name="waiting_working">در حال کار…</string>
+    <string name="waiting_brewing">در حال آماده‌سازی…</string>
 </resources>

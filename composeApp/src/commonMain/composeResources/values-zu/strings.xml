@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Isikhathi</string>
     <string name="settings_heartbeat_active_hours">Amahora Asebenzayo</string>
     <string name="settings_documentation">Ukubhaliwe</string>
+    <string name="waiting_thinking">Ngicabanga…</string>
+    <string name="waiting_working">Ngiyasebenza…</string>
+    <string name="waiting_brewing">Ngiyalungiselela…</string>
 </resources>

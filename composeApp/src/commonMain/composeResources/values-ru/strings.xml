@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">Интервал</string>
     <string name="settings_heartbeat_active_hours">Активные часы</string>
     <string name="settings_documentation">Документация</string>
+    <string name="waiting_thinking">Думаю…</string>
+    <string name="waiting_working">Работаю…</string>
+    <string name="waiting_brewing">Готовлю…</string>
 </resources>

@@ -60,6 +60,10 @@
     <string name="tool_running">Running %1$s…</string>
     <string name="tool_completed_content_description">Tool completed</string>
     <string name="tool_completed">%1$s completed</string>
+    <string name="waiting_thinking">Thinking…</string>
+    <string name="waiting_working">Working…</string>
+    <string name="waiting_brewing">Brewing…</string>
+    <string name="waiting_content_description">Waiting for response</string>
     <string name="privacy_agree_prefix">By using the service, you agree to the </string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="new_conversation">New conversation</string>

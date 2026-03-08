@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">Аралық</string>
     <string name="settings_heartbeat_active_hours">Белсенді сағаттар</string>
     <string name="settings_documentation">Құжаттама</string>
+    <string name="waiting_thinking">Ойланамын…</string>
+    <string name="waiting_working">Жұмыс істеймін…</string>
+    <string name="waiting_brewing">Дайындаймын…</string>
 </resources>

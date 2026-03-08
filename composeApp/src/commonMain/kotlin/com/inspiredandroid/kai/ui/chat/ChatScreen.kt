@@ -18,7 +18,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,9 +40,9 @@ import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
-import com.inspiredandroid.kai.ui.chat.composables.ToolExecutingMessage
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
+import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
 import kotlinx.coroutines.launch
@@ -184,9 +183,9 @@ fun ChatScreenContent(
                                     }
                                 }
 
-                                History.Role.TOOL_EXECUTING -> ToolExecutingMessage(
-                                    toolName = history.toolName ?: "tool",
-                                )
+                                History.Role.TOOL_EXECUTING -> {
+                                    // Rendered in WaitingResponseRow below
+                                }
 
                                 History.Role.TOOL -> {
                                     // Don't show completed tool results in UI
@@ -195,8 +194,10 @@ fun ChatScreenContent(
                         }
                         if (uiState.isLoading) {
                             item(key = "loading") {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.padding(16.dp),
+                                WaitingResponseRow(
+                                    executingTools = uiState.history
+                                        .filter { it.role == History.Role.TOOL_EXECUTING }
+                                        .map { it.id to (it.toolName ?: "tool") },
                                 )
                             }
                         }

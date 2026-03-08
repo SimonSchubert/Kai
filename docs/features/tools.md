@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-07
+**Last verified:** 2026-03-08
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -120,21 +120,15 @@ Only individually toggleable tools appear in the grid — always-on tools (memor
 
 ## Chat UI
 
-### Executing indicator
+### Waiting response row
 
-While a tool is running, a TOOL_EXECUTING message appears in the chat with:
-- A rotating wrench/build icon (360-degree rotation over 2 seconds, linear easing, infinite repeat)
-- "Running {toolName}" text
-- Primary container background color
-
-### Completed indicator
-
-After a tool finishes, a TOOL result message is shown with:
-- A static checkmark icon
-- "Completed {toolName}" text
-- Secondary container background color
-
-Tool names in both indicators use localized display names when available.
+When loading, a single composite row appears at the bottom of the chat list containing:
+- A **waiting chip** with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and "Waiting…" text, using surface variant colors
+- **Tool chips** for each currently executing tool, displayed in a FlowRow next to the waiting chip with build icon + tool name, using primary container colors
+- Tool chips animate in/out with `fadeIn + expandHorizontally` / `fadeOut + shrinkHorizontally` (300ms each)
+- The FlowRow layout prevents layout jumps when tools appear/disappear
+- TOOL_EXECUTING entries are no longer rendered as separate list items
+- Completed tool results (TOOL role) are not shown in the UI
 
 ## Key Files
 

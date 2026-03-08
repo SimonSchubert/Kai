@@ -155,4 +155,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_heartbeat_interval">Intervallo</string>
     <string name="settings_heartbeat_active_hours">Ore Attive</string>
     <string name="settings_documentation">Documentazione</string>
+    <string name="waiting_thinking">Penso…</string>
+    <string name="waiting_working">Lavoro…</string>
+    <string name="waiting_brewing">Preparo…</string>
 </resources>

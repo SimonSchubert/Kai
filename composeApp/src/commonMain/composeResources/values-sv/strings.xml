@@ -155,4 +155,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiva timmar</string>
     <string name="settings_documentation">Dokumentation</string>
+    <string name="waiting_thinking">Tänker…</string>
+    <string name="waiting_working">Arbetar…</string>
+    <string name="waiting_brewing">Brygger…</string>
 </resources>

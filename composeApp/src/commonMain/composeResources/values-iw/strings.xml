@@ -155,4 +155,7 @@ If something needs attention (stale memories, due tasks, user follow-ups), addre
     <string name="settings_heartbeat_interval">מרווח</string>
     <string name="settings_heartbeat_active_hours">שעות פעילות</string>
     <string name="settings_documentation">תיעוד</string>
+    <string name="waiting_thinking">חושב…</string>
+    <string name="waiting_working">עובד…</string>
+    <string name="waiting_brewing">מכין…</string>
 </resources>

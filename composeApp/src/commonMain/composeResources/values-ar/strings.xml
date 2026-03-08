@@ -155,4 +155,7 @@
     <string name="settings_heartbeat_interval">الفاصل الزمني</string>
     <string name="settings_heartbeat_active_hours">ساعات النشاط</string>
     <string name="settings_documentation">التوثيق</string>
+    <string name="waiting_thinking">يفكر…</string>
+    <string name="waiting_working">يعمل…</string>
+    <string name="waiting_brewing">يُحضّر…</string>
 </resources>

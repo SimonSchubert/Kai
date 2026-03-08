@@ -155,4 +155,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_heartbeat_interval">Interwał</string>
     <string name="settings_heartbeat_active_hours">Aktywne godziny</string>
     <string name="settings_documentation">Dokumentacja</string>
+    <string name="waiting_thinking">Myślę…</string>
+    <string name="waiting_working">Pracuję…</string>
+    <string name="waiting_brewing">Przygotowuję…</string>
 </resources>

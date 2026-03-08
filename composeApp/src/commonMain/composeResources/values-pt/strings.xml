@@ -155,4 +155,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_heartbeat_interval">Intervalo</string>
     <string name="settings_heartbeat_active_hours">Horas Ativas</string>
     <string name="settings_documentation">Documentação</string>
+    <string name="waiting_thinking">Pensando…</string>
+    <string name="waiting_working">Trabalhando…</string>
+    <string name="waiting_brewing">Preparando…</string>
 </resources>
