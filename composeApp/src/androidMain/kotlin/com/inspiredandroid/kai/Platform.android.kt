@@ -360,8 +360,24 @@ actual fun getAvailableTools(): List<Tool> {
 
 actual fun openUrl(url: String): Boolean = try {
     val context: Context by inject(Context::class.java)
-    val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url)).apply {
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    val parsedUri = android.net.Uri.parse(url)
+    val intent = if (parsedUri.scheme == "file") {
+        val file = java.io.File(parsedUri.path!!)
+        val contentUri = androidx.core.content.FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.fileprovider",
+            file,
+        )
+        val mimeType = android.webkit.MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(file.extension) ?: "*/*"
+        Intent(Intent.ACTION_VIEW, contentUri).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            setDataAndType(contentUri, mimeType)
+        }
+    } else {
+        Intent(Intent.ACTION_VIEW, parsedUri).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     }
     context.startActivity(intent)
     true

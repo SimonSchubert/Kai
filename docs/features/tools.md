@@ -31,6 +31,7 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 | `web_search` | Search the web for current information | Enabled |
 | `get_local_time` | Get the current local date and time | Enabled |
 | `get_location_from_ip` | Get estimated location from IP address | Enabled |
+| `open_url` | Open a URL, link, or local file on the device | Enabled |
 
 ### Memory (always on)
 
