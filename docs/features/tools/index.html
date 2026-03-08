@@ -710,21 +710,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#executing-indicator" class="md-nav__link">
+  <a href="#waiting-response-row" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executing indicator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#completed-indicator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Completed indicator
+        Waiting response row
       
     </span>
   </a>
@@ -1096,21 +1085,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#executing-indicator" class="md-nav__link">
+  <a href="#waiting-response-row" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Executing indicator
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#completed-indicator" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Completed indicator
+        Waiting response row
       
     </span>
   </a>
@@ -1151,7 +1129,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-03-07</p>
+<p><strong>Last verified:</strong> 2026-03-08</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1296,17 +1274,14 @@
 <p>Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.</p>
 <p>Only individually toggleable tools appear in the grid — always-on tools (memory) and feature-gated tool groups (scheduling, email) are controlled by their respective feature toggles elsewhere in settings.</p>
 <h2 id="chat-ui">Chat UI</h2>
-<h3 id="executing-indicator">Executing indicator</h3>
-<p>While a tool is running, a TOOL_EXECUTING message appears in the chat with:
-- A rotating wrench/build icon (360-degree rotation over 2 seconds, linear easing, infinite repeat)
-- "Running {toolName}" text
-- Primary container background color</p>
-<h3 id="completed-indicator">Completed indicator</h3>
-<p>After a tool finishes, a TOOL result message is shown with:
-- A static checkmark icon
-- "Completed {toolName}" text
-- Secondary container background color</p>
-<p>Tool names in both indicators use localized display names when available.</p>
+<h3 id="waiting-response-row">Waiting response row</h3>
+<p>When loading, a single composite row appears at the bottom of the chat list containing:
+- A <strong>waiting chip</strong> with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and "Waiting…" text, using surface variant colors
+- <strong>Tool chips</strong> for each currently executing tool, displayed in a FlowRow next to the waiting chip with build icon + tool name, using primary container colors
+- Tool chips animate in/out with <code>fadeIn + expandHorizontally</code> / <code>fadeOut + shrinkHorizontally</code> (300ms each)
+- The FlowRow layout prevents layout jumps when tools appear/disappear
+- TOOL_EXECUTING entries are no longer rendered as separate list items
+- Completed tool results (TOOL role) are not shown in the UI</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>

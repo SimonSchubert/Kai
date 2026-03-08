@@ -153,4 +153,7 @@ string|tool_trigger_heartbeat_description|VHJpZ2dlciBhIGhlYXJ0YmVhdCBvbiBuZXh0IG
 string|tool_trigger_heartbeat_name|VHJpZ2dlciBIZWFydGJlYXQ=
 string|tool_web_search_description|U2VhcmNoIHRoZSB3ZWIgZm9yIGN1cnJlbnQgaW5mb3JtYXRpb24=
 string|tool_web_search_name|V2ViIFNlYXJjaA==
+string|waiting_brewing|TmdpeWFsdW5naXNlbGVsYeKApg==
+string|waiting_thinking|TmdpY2FiYW5nYeKApg==
+string|waiting_working|TmdpeWFzZWJlbnph4oCm
 string|welcome_message|U2l5YWt3YW11a2VsYSBrdS1LYWk=
