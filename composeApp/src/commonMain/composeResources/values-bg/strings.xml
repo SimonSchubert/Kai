@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Мисля…</string>
     <string name="waiting_working">Работя…</string>
     <string name="waiting_brewing">Подготвям…</string>
+    <string name="settings_mcp_servers">MCP сървъри</string>
+    <string name="settings_mcp_servers_description">Свържете се с външни сървъри за инструменти чрез Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Добавяне на MCP сървър</string>
+    <string name="settings_mcp_server_name">Име на сървъра</string>
+    <string name="settings_mcp_server_url">URL на сървъра</string>
+    <string name="settings_mcp_auth_header">Заглавка за оторизация (по избор)</string>
+    <string name="settings_mcp_add">Добавяне</string>
+    <string name="settings_mcp_cancel">Отказ</string>
+    <string name="settings_mcp_remove">Премахване</string>
+    <string name="settings_mcp_refresh">Обновяване</string>
+    <string name="settings_mcp_status_connecting">Свързване…</string>
+    <string name="settings_mcp_status_connected">Свързан</string>
+    <string name="settings_mcp_status_error">Неуспешна връзка</string>
+    <string name="settings_mcp_no_tools">Не са открити инструменти</string>
+    <string name="settings_mcp_tools_count">%1$d инструмента</string>
+    <string name="settings_mcp_popular_servers">Популярни сървъри</string>
+    <string name="settings_mcp_web_cors_note">Забележка: MCP сървърите може да бъдат блокирани от CORS в уеб.</string>
 </resources>

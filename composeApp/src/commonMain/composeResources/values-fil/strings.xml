@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Nag-iisip…</string>
     <string name="waiting_working">Nagtatrabaho…</string>
     <string name="waiting_brewing">Naghahanda…</string>
+    <string name="settings_mcp_servers">Mga MCP Server</string>
+    <string name="settings_mcp_servers_description">Kumonekta sa mga external na tool server gamit ang Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Magdagdag ng MCP Server</string>
+    <string name="settings_mcp_server_name">Pangalan ng Server</string>
+    <string name="settings_mcp_server_url">URL ng Server</string>
+    <string name="settings_mcp_auth_header">Authorization Header (opsyonal)</string>
+    <string name="settings_mcp_add">Idagdag</string>
+    <string name="settings_mcp_cancel">Kanselahin</string>
+    <string name="settings_mcp_remove">Alisin</string>
+    <string name="settings_mcp_refresh">I-refresh</string>
+    <string name="settings_mcp_status_connecting">Kumokonekta…</string>
+    <string name="settings_mcp_status_connected">Konektado</string>
+    <string name="settings_mcp_status_error">Nabigo ang koneksyon</string>
+    <string name="settings_mcp_no_tools">Walang nahanap na tools</string>
+    <string name="settings_mcp_tools_count">%1$d tools</string>
+    <string name="settings_mcp_popular_servers">Mga Sikat na Server</string>
+    <string name="settings_mcp_web_cors_note">Paalala: Maaaring ma-block ng CORS ang mga MCP server sa web.</string>
 </resources>

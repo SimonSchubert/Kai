@@ -132,4 +132,21 @@
     <string name="waiting_thinking">考え中…</string>
     <string name="waiting_working">作業中…</string>
     <string name="waiting_brewing">準備中…</string>
+    <string name="settings_mcp_servers">MCPサーバー</string>
+    <string name="settings_mcp_servers_description">Model Context Protocolを使用して外部ツールサーバーに接続します。</string>
+    <string name="settings_mcp_add_server">MCPサーバーを追加</string>
+    <string name="settings_mcp_server_name">サーバー名</string>
+    <string name="settings_mcp_server_url">サーバーURL</string>
+    <string name="settings_mcp_auth_header">認証ヘッダー（任意）</string>
+    <string name="settings_mcp_add">追加</string>
+    <string name="settings_mcp_cancel">キャンセル</string>
+    <string name="settings_mcp_remove">削除</string>
+    <string name="settings_mcp_refresh">更新</string>
+    <string name="settings_mcp_status_connecting">接続中…</string>
+    <string name="settings_mcp_status_connected">接続済み</string>
+    <string name="settings_mcp_status_error">接続に失敗しました</string>
+    <string name="settings_mcp_no_tools">ツールが見つかりません</string>
+    <string name="settings_mcp_tools_count">%1$d個のツール</string>
+    <string name="settings_mcp_popular_servers">人気のサーバー</string>
+    <string name="settings_mcp_web_cors_note">注意: MCPサーバーはウェブ上でCORSによりブロックされる場合があります。</string>
 </resources>

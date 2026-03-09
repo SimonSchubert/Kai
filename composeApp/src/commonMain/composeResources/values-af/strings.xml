@@ -132,4 +132,21 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="waiting_thinking">Dink…</string>
     <string name="waiting_working">Werk…</string>
     <string name="waiting_brewing">Brou…</string>
+    <string name="settings_mcp_servers">MCP-bedieners</string>
+    <string name="settings_mcp_servers_description">Koppel aan eksterne gereedskapbedieners via die Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Voeg MCP-bediener by</string>
+    <string name="settings_mcp_server_name">Bedienernaam</string>
+    <string name="settings_mcp_server_url">Bediener-URL</string>
+    <string name="settings_mcp_auth_header">Magtigingskopstuk (opsioneel)</string>
+    <string name="settings_mcp_add">Voeg by</string>
+    <string name="settings_mcp_cancel">Kanselleer</string>
+    <string name="settings_mcp_remove">Verwyder</string>
+    <string name="settings_mcp_refresh">Herlaai</string>
+    <string name="settings_mcp_status_connecting">Koppel…</string>
+    <string name="settings_mcp_status_connected">Gekoppel</string>
+    <string name="settings_mcp_status_error">Koppeling het misluk</string>
+    <string name="settings_mcp_no_tools">Geen gereedskap gevind nie</string>
+    <string name="settings_mcp_tools_count">%1$d gereedskap</string>
+    <string name="settings_mcp_popular_servers">Gewilde bedieners</string>
+    <string name="settings_mcp_web_cors_note">Let wel: MCP-bedieners kan deur CORS op die web geblokkeer word.</string>
 </resources>

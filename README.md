@@ -42,6 +42,7 @@ yay -S kai-bin
 - **Customizable soul** — Define the AI's personality and behavior with an editable system prompt
 - **Multi-service fallback** — 11+ LLM providers with automatic failover
 - **Tool execution** — Web search, notifications, calendar events, shell commands, and more
+- **MCP server support** — Connect to remote tool servers via the Model Context Protocol
 - **Autonomous heartbeat** — Periodic self-checks that surface anything needing attention
 - **Encrypted storage** — Conversations stored locally with encryption
 - **Text to speech** — Listen to AI responses
@@ -134,6 +135,23 @@ yay -S kai-bin
 | OpenAI-Compatible API | Ollama, LM Studio, etc. |
 
 Plus a built-in **Free** tier that requires no API key.
+
+## MCP Servers
+
+Kai supports the [Model Context Protocol](https://modelcontextprotocol.io/) for connecting to external tool servers. Go to **Settings > Tools > Add MCP Server** to connect to any Streamable HTTP MCP endpoint, or pick from a curated list of popular free servers:
+
+| Server | Description |
+|--------|-------------|
+| Fetch | Fetch web content and convert HTML to markdown |
+| DeepWiki | AI-powered docs for any GitHub repo |
+| Sequential Thinking | Structured step-by-step problem-solving |
+| Context7 | Up-to-date library and framework docs |
+| Globalping | Ping, traceroute, DNS from global probes |
+| CoinGecko | Real-time crypto prices and market data |
+| Manifold Markets | Prediction market data and odds |
+| Find-A-Domain | Domain availability across 1,444+ TLDs |
+
+All popular servers are free and require no API key. MCP servers auto-reconnect on app startup.
 
 ## Supported Languages
 

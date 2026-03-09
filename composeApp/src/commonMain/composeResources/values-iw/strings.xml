@@ -131,4 +131,21 @@
     <string name="waiting_thinking">חושב…</string>
     <string name="waiting_working">עובד…</string>
     <string name="waiting_brewing">מכין…</string>
+    <string name="settings_mcp_servers">שרתי MCP</string>
+    <string name="settings_mcp_servers_description">התחבר לשרתי כלים חיצוניים באמצעות Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">הוסף שרת MCP</string>
+    <string name="settings_mcp_server_name">שם השרת</string>
+    <string name="settings_mcp_server_url">URL של השרת</string>
+    <string name="settings_mcp_auth_header">כותרת הרשאה (אופציונלי)</string>
+    <string name="settings_mcp_add">הוסף</string>
+    <string name="settings_mcp_cancel">ביטול</string>
+    <string name="settings_mcp_remove">הסר</string>
+    <string name="settings_mcp_refresh">רענן</string>
+    <string name="settings_mcp_status_connecting">מתחבר…</string>
+    <string name="settings_mcp_status_connected">מחובר</string>
+    <string name="settings_mcp_status_error">החיבור נכשל</string>
+    <string name="settings_mcp_no_tools">לא נמצאו כלים</string>
+    <string name="settings_mcp_tools_count">%1$d כלים</string>
+    <string name="settings_mcp_popular_servers">שרתים פופולריים</string>
+    <string name="settings_mcp_web_cors_note">הערה: שרתי MCP עלולים להיחסם על ידי CORS באינטרנט.</string>
 </resources>

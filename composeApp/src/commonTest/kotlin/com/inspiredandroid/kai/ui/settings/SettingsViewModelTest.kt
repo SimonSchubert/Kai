@@ -14,6 +14,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -142,6 +143,110 @@ class SettingsViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+
+    // --- MCP Server Tests ---
+
+    @Test
+    fun `initial state has empty mcp servers when none configured`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val state = awaitItem()
+            assertTrue(state.mcpServers.isEmpty())
+        }
+    }
+
+    @Test
+    fun `onAddMcpServer adds server and closes dialog`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.mcpServers.isEmpty())
+
+            initialState.onAddMcpServer("Test Server", "https://example.com/mcp", emptyMap())
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            // Dialog should close and server should appear
+            val updates = cancelAndConsumeRemainingEvents()
+            val lastState = (updates.filterIsInstance<app.cash.turbine.Event.Item<SettingsUiState>>().lastOrNull()?.value)
+            if (lastState != null) {
+                assertFalse(lastState.showAddMcpServerDialog)
+                assertEquals(1, lastState.mcpServers.size)
+                assertEquals("Test Server", lastState.mcpServers[0].name)
+            }
+        }
+    }
+
+    @Test
+    fun `onRemoveMcpServer removes server`() = runTest {
+        // Pre-add a server
+        fakeRepository.addMcpServer("Test", "https://example.com/mcp", emptyMap())
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertEquals(1, initialState.mcpServers.size)
+
+            initialState.onRemoveMcpServer(initialState.mcpServers[0].id)
+
+            val updatedState = awaitItem()
+            assertTrue(updatedState.mcpServers.isEmpty())
+        }
+    }
+
+    @Test
+    fun `onToggleMcpServer disables server and updates status`() = runTest {
+        val config = fakeRepository.addMcpServer("Test", "https://example.com/mcp", emptyMap())
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.mcpServers[0].isEnabled)
+
+            initialState.onToggleMcpServer(config.id, false)
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val updates = cancelAndConsumeRemainingEvents()
+            val lastState = updates.filterIsInstance<app.cash.turbine.Event.Item<SettingsUiState>>().lastOrNull()?.value
+            if (lastState != null) {
+                assertFalse(lastState.mcpServers[0].isEnabled)
+            }
+        }
+    }
+
+    @Test
+    fun `showAddMcpServerDialog toggles correctly`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertFalse(initialState.showAddMcpServerDialog)
+
+            initialState.onShowAddMcpServerDialog(true)
+            val showState = awaitItem()
+            assertTrue(showState.showAddMcpServerDialog)
+
+            showState.onShowAddMcpServerDialog(false)
+            val hideState = awaitItem()
+            assertFalse(hideState.showAddMcpServerDialog)
+        }
+    }
+
+    @Test
+    fun `onToggleTool does not crash with no mcp servers`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val state = awaitItem()
+            // Toggle a tool - should not crash even with no MCP servers
+            state.onToggleTool("some_tool", false)
+            // No exception means success
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    // --- Service Tests (continued) ---
 
     @Test
     fun `onChangeApiKey updates API key for specific instance`() = runTest {

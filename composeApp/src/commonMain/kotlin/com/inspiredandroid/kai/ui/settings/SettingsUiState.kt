@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import org.jetbrains.compose.resources.StringResource
 
@@ -88,7 +89,32 @@ data class SettingsUiState(
     val uiScale: Float = 1.0f,
     val onChangeUiScale: (Float) -> Unit = {},
     val showUiScale: Boolean = false,
+    val mcpServers: List<McpServerUiState> = emptyList(),
+    val onAddMcpServer: (String, String, Map<String, String>) -> Unit = { _, _, _ -> },
+    val onRemoveMcpServer: (String) -> Unit = {},
+    val onToggleMcpServer: (String, Boolean) -> Unit = { _, _ -> },
+    val onRefreshMcpServer: (String) -> Unit = {},
+    val showAddMcpServerDialog: Boolean = false,
+    val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
+    val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
 )
+
+@Immutable
+data class McpServerUiState(
+    val id: String,
+    val name: String,
+    val url: String,
+    val isEnabled: Boolean,
+    val connectionStatus: McpConnectionStatus,
+    val tools: List<ToolInfo>,
+)
+
+enum class McpConnectionStatus {
+    Unknown,
+    Connecting,
+    Connected,
+    Error,
+}
 
 @Immutable
 data class SettingsModel(

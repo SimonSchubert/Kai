@@ -132,4 +132,21 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="waiting_thinking">Réflexion…</string>
     <string name="waiting_working">En cours…</string>
     <string name="waiting_brewing">Préparation…</string>
+    <string name="settings_mcp_servers">Serveurs MCP</string>
+    <string name="settings_mcp_servers_description">Connectez-vous à des serveurs d\x27outils externes via le Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Ajouter un serveur MCP</string>
+    <string name="settings_mcp_server_name">Nom du serveur</string>
+    <string name="settings_mcp_server_url">URL du serveur</string>
+    <string name="settings_mcp_auth_header">En-tête d\x27autorisation (facultatif)</string>
+    <string name="settings_mcp_add">Ajouter</string>
+    <string name="settings_mcp_cancel">Annuler</string>
+    <string name="settings_mcp_remove">Supprimer</string>
+    <string name="settings_mcp_refresh">Actualiser</string>
+    <string name="settings_mcp_status_connecting">Connexion…</string>
+    <string name="settings_mcp_status_connected">Connecté</string>
+    <string name="settings_mcp_status_error">Échec de la connexion</string>
+    <string name="settings_mcp_no_tools">Aucun outil découvert</string>
+    <string name="settings_mcp_tools_count">%1$d outils</string>
+    <string name="settings_mcp_popular_servers">Serveurs populaires</string>
+    <string name="settings_mcp_web_cors_note">Remarque : les serveurs MCP peuvent être bloqués par CORS sur le web.</string>
 </resources>

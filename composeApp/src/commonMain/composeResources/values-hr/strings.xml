@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Razmišljam…</string>
     <string name="waiting_working">Radim…</string>
     <string name="waiting_brewing">Pripremam…</string>
+    <string name="settings_mcp_servers">MCP poslužitelji</string>
+    <string name="settings_mcp_servers_description">Povežite se s vanjskim poslužiteljima alata putem Model Context Protocola.</string>
+    <string name="settings_mcp_add_server">Dodaj MCP poslužitelj</string>
+    <string name="settings_mcp_server_name">Naziv poslužitelja</string>
+    <string name="settings_mcp_server_url">URL poslužitelja</string>
+    <string name="settings_mcp_auth_header">Zaglavlje autorizacije (neobavezno)</string>
+    <string name="settings_mcp_add">Dodaj</string>
+    <string name="settings_mcp_cancel">Odustani</string>
+    <string name="settings_mcp_remove">Ukloni</string>
+    <string name="settings_mcp_refresh">Osvježi</string>
+    <string name="settings_mcp_status_connecting">Povezivanje…</string>
+    <string name="settings_mcp_status_connected">Povezano</string>
+    <string name="settings_mcp_status_error">Povezivanje nije uspjelo</string>
+    <string name="settings_mcp_no_tools">Nisu pronađeni alati</string>
+    <string name="settings_mcp_tools_count">%1$d alata</string>
+    <string name="settings_mcp_popular_servers">Popularni poslužitelji</string>
+    <string name="settings_mcp_web_cors_note">Napomena: MCP poslužitelji mogu biti blokirani CORS-om na webu.</string>
 </resources>

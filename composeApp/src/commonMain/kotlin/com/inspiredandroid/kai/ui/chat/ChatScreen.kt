@@ -159,10 +159,11 @@ fun ChatScreenContent(
                                 )
 
                                 History.Role.ASSISTANT -> {
-                                    // Only show assistant message if it has content (not just tool calls)
-                                    if (history.content.isNotEmpty()) {
+                                    // Skip thinking messages unless it's the last assistant message
+                                    // (i.e. the model only returned reasoning with no content)
+                                    if (history.content.isNotEmpty() && !history.isThinking) {
                                         val isLastAssistant = !uiState.isLoading &&
-                                            history.id == uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() }?.id
+                                            history.id == uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
                                         BotMessage(
                                             message = history.content,
                                             textToSpeech = textToSpeech,

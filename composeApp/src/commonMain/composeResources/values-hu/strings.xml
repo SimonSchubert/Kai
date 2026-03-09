@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Gondolkodom…</string>
     <string name="waiting_working">Dolgozom…</string>
     <string name="waiting_brewing">Készítem…</string>
+    <string name="settings_mcp_servers">MCP-kiszolgálók</string>
+    <string name="settings_mcp_servers_description">Csatlakozás külső eszközkiszolgálókhoz a Model Context Protocol használatával.</string>
+    <string name="settings_mcp_add_server">MCP-kiszolgáló hozzáadása</string>
+    <string name="settings_mcp_server_name">Kiszolgáló neve</string>
+    <string name="settings_mcp_server_url">Kiszolgáló URL</string>
+    <string name="settings_mcp_auth_header">Engedélyezési fejléc (opcionális)</string>
+    <string name="settings_mcp_add">Hozzáadás</string>
+    <string name="settings_mcp_cancel">Mégse</string>
+    <string name="settings_mcp_remove">Eltávolítás</string>
+    <string name="settings_mcp_refresh">Frissítés</string>
+    <string name="settings_mcp_status_connecting">Csatlakozás…</string>
+    <string name="settings_mcp_status_connected">Csatlakoztatva</string>
+    <string name="settings_mcp_status_error">A csatlakozás sikertelen</string>
+    <string name="settings_mcp_no_tools">Nem találhatók eszközök</string>
+    <string name="settings_mcp_tools_count">%1$d eszköz</string>
+    <string name="settings_mcp_popular_servers">Népszerű kiszolgálók</string>
+    <string name="settings_mcp_web_cors_note">Megjegyzés: az MCP-kiszolgálókat a CORS blokkolhatja a weben.</string>
 </resources>

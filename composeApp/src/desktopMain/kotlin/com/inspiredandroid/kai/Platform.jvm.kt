@@ -16,6 +16,7 @@ import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
+import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -157,6 +158,9 @@ actual fun getAvailableTools(): List<Tool> {
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))
         }
+
+        val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)
+        addAll(mcpServerManager.getEnabledMcpTools())
     }
 }
 

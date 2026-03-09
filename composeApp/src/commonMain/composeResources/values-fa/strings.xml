@@ -131,4 +131,21 @@
     <string name="waiting_thinking">در حال فکر…</string>
     <string name="waiting_working">در حال کار…</string>
     <string name="waiting_brewing">در حال آماده‌سازی…</string>
+    <string name="settings_mcp_servers">سرورهای MCP</string>
+    <string name="settings_mcp_servers_description">با استفاده از Model Context Protocol به سرورهای ابزار خارجی متصل شوید.</string>
+    <string name="settings_mcp_add_server">افزودن سرور MCP</string>
+    <string name="settings_mcp_server_name">نام سرور</string>
+    <string name="settings_mcp_server_url">URL سرور</string>
+    <string name="settings_mcp_auth_header">سرآیند مجوز (اختیاری)</string>
+    <string name="settings_mcp_add">افزودن</string>
+    <string name="settings_mcp_cancel">لغو</string>
+    <string name="settings_mcp_remove">حذف</string>
+    <string name="settings_mcp_refresh">بازخوانی</string>
+    <string name="settings_mcp_status_connecting">در حال اتصال…</string>
+    <string name="settings_mcp_status_connected">متصل</string>
+    <string name="settings_mcp_status_error">اتصال ناموفق</string>
+    <string name="settings_mcp_no_tools">ابزاری یافت نشد</string>
+    <string name="settings_mcp_tools_count">%1$d ابزار</string>
+    <string name="settings_mcp_popular_servers">سرورهای محبوب</string>
+    <string name="settings_mcp_web_cors_note">توجه: سرورهای MCP ممکن است توسط CORS در وب مسدود شوند.</string>
 </resources>

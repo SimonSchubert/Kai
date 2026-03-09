@@ -132,4 +132,21 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="waiting_thinking">Denken…</string>
     <string name="waiting_working">Werken…</string>
     <string name="waiting_brewing">Brouwen…</string>
+    <string name="settings_mcp_servers">MCP-servers</string>
+    <string name="settings_mcp_servers_description">Verbind met externe toolservers via het Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">MCP-server toevoegen</string>
+    <string name="settings_mcp_server_name">Servernaam</string>
+    <string name="settings_mcp_server_url">Server-URL</string>
+    <string name="settings_mcp_auth_header">Autorisatieheader (optioneel)</string>
+    <string name="settings_mcp_add">Toevoegen</string>
+    <string name="settings_mcp_cancel">Annuleren</string>
+    <string name="settings_mcp_remove">Verwijderen</string>
+    <string name="settings_mcp_refresh">Vernieuwen</string>
+    <string name="settings_mcp_status_connecting">Verbinden…</string>
+    <string name="settings_mcp_status_connected">Verbonden</string>
+    <string name="settings_mcp_status_error">Verbinding mislukt</string>
+    <string name="settings_mcp_no_tools">Geen tools gevonden</string>
+    <string name="settings_mcp_tools_count">%1$d tools</string>
+    <string name="settings_mcp_popular_servers">Populaire servers</string>
+    <string name="settings_mcp_web_cors_note">Opmerking: MCP-servers kunnen geblokkeerd worden door CORS op het web.</string>
 </resources>

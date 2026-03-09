@@ -45,6 +45,9 @@ class ChatViewModel(
             dataRepository.loadConversations()
             dataRepository.restoreLatestConversation()
         }
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.connectEnabledMcpServers()
+        }
         taskScheduler.start(viewModelScope) { _state.value.isLoading }
     }
 

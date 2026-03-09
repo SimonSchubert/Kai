@@ -132,4 +132,21 @@
     <string name="waiting_thinking">يفكر…</string>
     <string name="waiting_working">يعمل…</string>
     <string name="waiting_brewing">يُحضّر…</string>
+    <string name="settings_mcp_servers">خوادم MCP</string>
+    <string name="settings_mcp_servers_description">اتصل بخوادم الأدوات الخارجية باستخدام Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">إضافة خادم MCP</string>
+    <string name="settings_mcp_server_name">اسم الخادم</string>
+    <string name="settings_mcp_server_url">URL الخادم</string>
+    <string name="settings_mcp_auth_header">رأس التفويض (اختياري)</string>
+    <string name="settings_mcp_add">إضافة</string>
+    <string name="settings_mcp_cancel">إلغاء</string>
+    <string name="settings_mcp_remove">إزالة</string>
+    <string name="settings_mcp_refresh">تحديث</string>
+    <string name="settings_mcp_status_connecting">جارٍ الاتصال…</string>
+    <string name="settings_mcp_status_connected">متصل</string>
+    <string name="settings_mcp_status_error">فشل الاتصال</string>
+    <string name="settings_mcp_no_tools">لم يتم اكتشاف أدوات</string>
+    <string name="settings_mcp_tools_count">%1$d أدوات</string>
+    <string name="settings_mcp_popular_servers">خوادم شائعة</string>
+    <string name="settings_mcp_web_cors_note">ملاحظة: قد يتم حظر خوادم MCP بواسطة CORS على الويب.</string>
 </resources>

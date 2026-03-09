@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
@@ -80,6 +81,13 @@ class SettingsViewModel(
             uiScale = dataRepository.getUiScale(),
             onChangeUiScale = ::onChangeUiScale,
             showUiScale = isDesktopPlatform,
+            mcpServers = buildMcpServerEntries(),
+            onAddMcpServer = ::onAddMcpServer,
+            onRemoveMcpServer = ::onRemoveMcpServer,
+            onToggleMcpServer = ::onToggleMcpServer,
+            onRefreshMcpServer = ::onRefreshMcpServer,
+            onShowAddMcpServerDialog = ::onShowAddMcpServerDialog,
+            onAddPopularMcpServer = ::onAddPopularMcpServer,
         ),
     )
 
@@ -93,6 +101,7 @@ class SettingsViewModel(
         if (!hasCheckedInitialConnection) {
             hasCheckedInitialConnection = true
             checkAllConnections()
+            connectEnabledMcpServers()
         }
     }
 
@@ -315,7 +324,115 @@ class SettingsViewModel(
                 tools = state.tools.map { tool ->
                     if (tool.id == toolId) tool.copy(isEnabled = enabled) else tool
                 },
+                mcpServers = state.mcpServers.map { server ->
+                    server.copy(
+                        tools = server.tools.map { tool ->
+                            if (tool.id == toolId) tool.copy(isEnabled = enabled) else tool
+                        },
+                    )
+                },
             )
+        }
+    }
+
+    // MCP server management
+    private fun buildMcpServerEntries(): List<McpServerUiState> = dataRepository.getMcpServers().map { config ->
+        McpServerUiState(
+            id = config.id,
+            name = config.name,
+            url = config.url,
+            isEnabled = config.isEnabled,
+            connectionStatus = if (dataRepository.isMcpServerConnected(config.id)) {
+                McpConnectionStatus.Connected
+            } else {
+                McpConnectionStatus.Unknown
+            },
+            tools = dataRepository.getMcpToolsForServer(config.id),
+        )
+    }
+
+    private fun refreshMcpServers() {
+        _state.update { current ->
+            val existingStatuses = current.mcpServers.associate { it.id to it.connectionStatus }
+            current.copy(
+                mcpServers = buildMcpServerEntries().map { entry ->
+                    val preservedStatus = existingStatuses[entry.id]
+                    // Only preserve transient statuses (Connecting/Error) — derive Connected/Unknown from actual state
+                    if (preservedStatus == McpConnectionStatus.Connecting || preservedStatus == McpConnectionStatus.Error) {
+                        entry.copy(connectionStatus = preservedStatus)
+                    } else {
+                        entry
+                    }
+                },
+            )
+        }
+    }
+
+    private fun onAddMcpServer(name: String, url: String, headers: Map<String, String>) {
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            val config = dataRepository.addMcpServer(name, url, headers)
+            refreshMcpServers()
+            connectMcpServerWithStatus(config.id)
+        }
+        _state.update { it.copy(showAddMcpServerDialog = false) }
+    }
+
+    private fun onRemoveMcpServer(serverId: String) {
+        dataRepository.removeMcpServer(serverId)
+        refreshMcpServers()
+    }
+
+    private fun onToggleMcpServer(serverId: String, enabled: Boolean) {
+        dataRepository.setMcpServerEnabled(serverId, enabled)
+        refreshMcpServers()
+        if (enabled) {
+            viewModelScope.launch(context = getBackgroundDispatcher()) {
+                connectMcpServerWithStatus(serverId)
+            }
+        }
+    }
+
+    private fun onRefreshMcpServer(serverId: String) {
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            connectMcpServerWithStatus(serverId)
+        }
+    }
+
+    private fun onShowAddMcpServerDialog(show: Boolean) {
+        _state.update { it.copy(showAddMcpServerDialog = show) }
+    }
+
+    private fun onAddPopularMcpServer(server: PopularMcpServer) {
+        onAddMcpServer(server.name, server.url, emptyMap())
+    }
+
+    private suspend fun connectMcpServerWithStatus(serverId: String) {
+        updateMcpConnectionStatus(serverId, McpConnectionStatus.Connecting)
+        val result = dataRepository.connectMcpServer(serverId)
+        if (result.isSuccess) {
+            updateMcpConnectionStatus(serverId, McpConnectionStatus.Connected)
+            refreshMcpServers()
+        } else {
+            updateMcpConnectionStatus(serverId, McpConnectionStatus.Error)
+        }
+    }
+
+    private fun updateMcpConnectionStatus(serverId: String, status: McpConnectionStatus) {
+        _state.update { state ->
+            state.copy(
+                mcpServers = state.mcpServers.map { entry ->
+                    if (entry.id == serverId) entry.copy(connectionStatus = status) else entry
+                },
+            )
+        }
+    }
+
+    private fun connectEnabledMcpServers() {
+        val enabledServers = _state.value.mcpServers.filter { it.isEnabled && it.connectionStatus != McpConnectionStatus.Connected }
+        for (server in enabledServers) {
+            viewModelScope.launch(context = getBackgroundDispatcher()) {
+                connectMcpServerWithStatus(server.id)
+            }
         }
     }
 

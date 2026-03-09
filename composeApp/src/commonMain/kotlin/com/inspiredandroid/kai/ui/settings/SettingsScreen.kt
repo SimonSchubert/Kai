@@ -43,6 +43,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -53,6 +54,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
@@ -103,6 +105,8 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskStatus
+import com.inspiredandroid.kai.mcp.PopularMcpServer
+import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import kai.composeapp.generated.resources.Res
@@ -137,6 +141,21 @@ import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
+import kai.composeapp.generated.resources.settings_mcp_add
+import kai.composeapp.generated.resources.settings_mcp_add_server
+import kai.composeapp.generated.resources.settings_mcp_auth_header
+import kai.composeapp.generated.resources.settings_mcp_cancel
+import kai.composeapp.generated.resources.settings_mcp_no_tools
+import kai.composeapp.generated.resources.settings_mcp_popular_servers
+import kai.composeapp.generated.resources.settings_mcp_refresh
+import kai.composeapp.generated.resources.settings_mcp_remove
+import kai.composeapp.generated.resources.settings_mcp_server_name
+import kai.composeapp.generated.resources.settings_mcp_server_url
+import kai.composeapp.generated.resources.settings_mcp_servers
+import kai.composeapp.generated.resources.settings_mcp_servers_description
+import kai.composeapp.generated.resources.settings_mcp_status_connected
+import kai.composeapp.generated.resources.settings_mcp_status_connecting
+import kai.composeapp.generated.resources.settings_mcp_status_error
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
@@ -179,6 +198,11 @@ import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.math.roundToInt
 import kotlin.time.Instant
+
+private val StatusColorConnected = Color(0xFF4CAF50)
+private val StatusColorChecking = Color(0xFFFF9800)
+private val StatusColorError = Color(0xFFF44336)
+private val StatusColorUnknown = Color(0xFF9E9E9E)
 
 @Composable
 fun SettingsScreen(
@@ -251,6 +275,14 @@ fun SettingsScreenContent(
                         ToolsContent(
                             tools = uiState.tools,
                             onToggleTool = uiState.onToggleTool,
+                            mcpServers = uiState.mcpServers,
+                            onAddMcpServer = uiState.onAddMcpServer,
+                            onRemoveMcpServer = uiState.onRemoveMcpServer,
+                            onToggleMcpServer = uiState.onToggleMcpServer,
+                            onRefreshMcpServer = uiState.onRefreshMcpServer,
+                            showAddMcpServerDialog = uiState.showAddMcpServerDialog,
+                            onShowAddMcpServerDialog = uiState.onShowAddMcpServerDialog,
+                            onAddPopularMcpServer = uiState.onAddPopularMcpServer,
                         )
                     }
                 }
@@ -470,59 +502,42 @@ private fun ServicesContent(uiState: SettingsUiState) {
 
     // Configured services list
     val entries = uiState.configuredServices
-    if (entries.isNotEmpty() || uiState.availableServicesToAdd.isNotEmpty()) {
-        SettingsCard(innerPadding = false) {
-            entries.forEachIndexed { index, entry ->
-                ConfiguredServiceCardContent(
-                    entry = entry,
-                    isExpanded = uiState.expandedServiceId == entry.instanceId,
-                    onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
-                    onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
-                    onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
-                    onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
-                    onRemove = { uiState.onRemoveService(entry.instanceId) },
-                    onMoveUp = if (index > 0) {
-                        {
-                            val ids = entries.map { it.instanceId }.toMutableList()
-                            ids.removeAt(index)
-                            ids.add(index - 1, entry.instanceId)
-                            uiState.onReorderServices(ids)
-                        }
-                    } else {
-                        null
-                    },
-                    onMoveDown = if (index < entries.lastIndex) {
-                        {
-                            val ids = entries.map { it.instanceId }.toMutableList()
-                            ids.removeAt(index)
-                            ids.add(index + 1, entry.instanceId)
-                            uiState.onReorderServices(ids)
-                        }
-                    } else {
-                        null
-                    },
-                )
-                if (index < entries.lastIndex || uiState.availableServicesToAdd.isNotEmpty()) {
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+    entries.forEachIndexed { index, entry ->
+        ConfiguredServiceCardContent(
+            entry = entry,
+            isExpanded = uiState.expandedServiceId == entry.instanceId,
+            onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+            onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
+            onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
+            onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
+            onRemove = { uiState.onRemoveService(entry.instanceId) },
+            onMoveUp = if (index > 0) {
+                {
+                    val ids = entries.map { it.instanceId }.toMutableList()
+                    ids.removeAt(index)
+                    ids.add(index - 1, entry.instanceId)
+                    uiState.onReorderServices(ids)
                 }
-            }
-            // Add service row
-            if (uiState.availableServicesToAdd.isNotEmpty()) {
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                        .clickable { showAddServiceSheet = true }
-                        .pointerHoverIcon(PointerIcon.Hand)
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.settings_add_service),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+            } else {
+                null
+            },
+            onMoveDown = if (index < entries.lastIndex) {
+                {
+                    val ids = entries.map { it.instanceId }.toMutableList()
+                    ids.removeAt(index)
+                    ids.add(index + 1, entry.instanceId)
+                    uiState.onReorderServices(ids)
                 }
-            }
+            } else {
+                null
+            },
+        )
+        Spacer(Modifier.height(8.dp))
+    }
+
+    if (uiState.availableServicesToAdd.isNotEmpty()) {
+        OutlinedButton(onClick = { showAddServiceSheet = true }) {
+            Text(stringResource(Res.string.settings_add_service))
         }
     }
 
@@ -576,125 +591,130 @@ private fun ConfiguredServiceCardContent(
     onMoveUp: (() -> Unit)?,
     onMoveDown: (() -> Unit)?,
 ) {
-    // Header row — clickable area spans full card width
-    Row(
-        modifier = Modifier.fillMaxWidth()
-            .clickable { onExpand() }
-            .pointerHoverIcon(PointerIcon.Hand)
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
+    Card(
+        onClick = onExpand,
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        ),
     ) {
-        // Connection status dot
-        val dotColor = when (entry.connectionStatus) {
-            ConnectionStatus.Connected -> Color(0xFF4CAF50)
-            ConnectionStatus.Checking -> Color(0xFFFF9800)
-            ConnectionStatus.Unknown -> Color(0xFF9E9E9E)
-            else -> Color(0xFFF44336)
-        }
-        Box(
-            modifier = Modifier
-                .size(10.dp)
-                .clip(CircleShape)
-                .background(dotColor),
-        )
-
-        Spacer(Modifier.width(12.dp))
-
-        // Service name
-        Text(
-            text = entry.service.displayName,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.weight(1f),
-        )
-
-        // Expand/collapse chevron
-        Icon(
-            imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-    }
-
-    // Expanded content
-    if (isExpanded) {
-        HorizontalDivider(thickness = 0.5.dp)
-
         Column(modifier = Modifier.padding(16.dp)) {
-            if (entry.service is Service.OpenAICompatible) {
-                OpenAICompatibleSettings(
-                    baseUrl = entry.baseUrl,
-                    onChangeBaseUrl = onChangeBaseUrl,
-                    apiKey = entry.apiKey,
-                    onChangeApiKey = onChangeApiKey,
-                    selectedModel = entry.selectedModel,
-                    models = entry.models,
-                    onSelectModel = onSelectModel,
-                    connectionStatus = entry.connectionStatus,
+            // Header row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                // Connection status dot
+                val dotColor = when (entry.connectionStatus) {
+                    ConnectionStatus.Connected -> StatusColorConnected
+                    ConnectionStatus.Checking -> StatusColorChecking
+                    ConnectionStatus.Unknown -> StatusColorUnknown
+                    else -> StatusColorError
+                }
+                Box(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .clip(CircleShape)
+                        .background(dotColor),
                 )
-            } else {
-                ServiceSettings(
-                    apiKey = entry.apiKey,
-                    onChangeApiKey = onChangeApiKey,
-                    apiKeyUrl = entry.service.apiKeyUrl ?: "",
-                    apiKeyUrlDisplay = entry.service.apiKeyUrlDisplay ?: "",
-                    selectedModel = entry.selectedModel,
-                    models = entry.models,
-                    onSelectModel = onSelectModel,
-                    connectionStatus = entry.connectionStatus,
+
+                Spacer(Modifier.width(12.dp))
+
+                // Service name
+                Text(
+                    text = entry.service.displayName,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.weight(1f),
+                )
+
+                // Expand/collapse chevron
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-
-            Spacer(Modifier.height(12.dp))
         }
 
-        // Reorder + Remove actions
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            if (onMoveUp != null) {
-                IconButton(
-                    onClick = onMoveUp,
-                    modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowUp,
-                        contentDescription = stringResource(Res.string.settings_move_up),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        // Expanded content
+        if (isExpanded) {
+            Column(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp)) {
+                if (entry.service is Service.OpenAICompatible) {
+                    OpenAICompatibleSettings(
+                        baseUrl = entry.baseUrl,
+                        onChangeBaseUrl = onChangeBaseUrl,
+                        apiKey = entry.apiKey,
+                        onChangeApiKey = onChangeApiKey,
+                        selectedModel = entry.selectedModel,
+                        models = entry.models,
+                        onSelectModel = onSelectModel,
+                        connectionStatus = entry.connectionStatus,
+                    )
+                } else {
+                    ServiceSettings(
+                        apiKey = entry.apiKey,
+                        onChangeApiKey = onChangeApiKey,
+                        apiKeyUrl = entry.service.apiKeyUrl ?: "",
+                        apiKeyUrlDisplay = entry.service.apiKeyUrlDisplay ?: "",
+                        selectedModel = entry.selectedModel,
+                        models = entry.models,
+                        onSelectModel = onSelectModel,
+                        connectionStatus = entry.connectionStatus,
                     )
                 }
-            }
-            if (onMoveDown != null) {
-                IconButton(
-                    onClick = onMoveDown,
-                    modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = stringResource(Res.string.settings_move_down),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
 
-            // Remove button
-            TextButton(
-                onClick = onRemove,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = null,
-                    modifier = Modifier.size(16.dp),
-                    tint = MaterialTheme.colorScheme.error,
-                )
-                Spacer(Modifier.width(4.dp))
-                Text(
-                    text = stringResource(Res.string.settings_remove_service),
-                    color = MaterialTheme.colorScheme.error,
-                )
+                Spacer(Modifier.height(12.dp))
+
+                // Reorder + Remove actions
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    if (onMoveUp != null) {
+                        IconButton(
+                            onClick = onMoveUp,
+                            modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.KeyboardArrowUp,
+                                contentDescription = stringResource(Res.string.settings_move_up),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    if (onMoveDown != null) {
+                        IconButton(
+                            onClick = onMoveDown,
+                            modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.KeyboardArrowDown,
+                                contentDescription = stringResource(Res.string.settings_move_down),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+
+                    // Remove button
+                    TextButton(
+                        onClick = onRemove,
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.error,
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Text(
+                            text = stringResource(Res.string.settings_remove_service),
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                }
             }
         }
     }
@@ -1275,8 +1295,32 @@ private fun GeneralContent(uiState: SettingsUiState) {
 private fun ToolsContent(
     tools: List<ToolInfo>,
     onToggleTool: (String, Boolean) -> Unit,
+    mcpServers: List<McpServerUiState>,
+    onAddMcpServer: (String, String, Map<String, String>) -> Unit,
+    onRemoveMcpServer: (String) -> Unit,
+    onToggleMcpServer: (String, Boolean) -> Unit,
+    onRefreshMcpServer: (String) -> Unit,
+    showAddMcpServerDialog: Boolean,
+    onShowAddMcpServerDialog: (Boolean) -> Unit,
+    onAddPopularMcpServer: (PopularMcpServer) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
+        // MCP Servers section
+        McpServersSection(
+            mcpServers = mcpServers,
+            onAddMcpServer = onAddMcpServer,
+            onRemoveMcpServer = onRemoveMcpServer,
+            onToggleMcpServer = onToggleMcpServer,
+            onRefreshMcpServer = onRefreshMcpServer,
+            onToggleTool = onToggleTool,
+            showAddDialog = showAddMcpServerDialog,
+            onShowAddDialog = onShowAddMcpServerDialog,
+            onAddPopularMcpServer = onAddPopularMcpServer,
+        )
+
+        Spacer(Modifier.height(24.dp))
+
+        // Native tools section
         Text(
             text = stringResource(Res.string.settings_tools_description),
             style = MaterialTheme.typography.bodySmall,
@@ -1320,6 +1364,309 @@ private fun ToolsContent(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun McpServersSection(
+    mcpServers: List<McpServerUiState>,
+    onAddMcpServer: (String, String, Map<String, String>) -> Unit,
+    onRemoveMcpServer: (String) -> Unit,
+    onToggleMcpServer: (String, Boolean) -> Unit,
+    onRefreshMcpServer: (String) -> Unit,
+    onToggleTool: (String, Boolean) -> Unit,
+    showAddDialog: Boolean,
+    onShowAddDialog: (Boolean) -> Unit,
+    onAddPopularMcpServer: (PopularMcpServer) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.settings_mcp_servers),
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            text = stringResource(Res.string.settings_mcp_servers_description),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+
+        Spacer(Modifier.height(12.dp))
+
+        for (server in mcpServers) {
+            McpServerCard(
+                server = server,
+                onToggle = { enabled -> onToggleMcpServer(server.id, enabled) },
+                onRemove = { onRemoveMcpServer(server.id) },
+                onRefresh = { onRefreshMcpServer(server.id) },
+                onToggleTool = onToggleTool,
+            )
+            Spacer(Modifier.height(8.dp))
+        }
+
+        OutlinedButton(
+            onClick = { onShowAddDialog(true) },
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+        ) {
+            Text(stringResource(Res.string.settings_mcp_add_server))
+        }
+    }
+
+    if (showAddDialog) {
+        AddMcpServerDialog(
+            onDismiss = { onShowAddDialog(false) },
+            onAdd = onAddMcpServer,
+            onAddPopular = onAddPopularMcpServer,
+        )
+    }
+}
+
+@Composable
+private fun McpServerCard(
+    server: McpServerUiState,
+    onToggle: (Boolean) -> Unit,
+    onRemove: () -> Unit,
+    onRefresh: () -> Unit,
+    onToggleTool: (String, Boolean) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Card(
+        onClick = { expanded = !expanded },
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        ),
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                // Status dot
+                val statusColor = when (server.connectionStatus) {
+                    McpConnectionStatus.Connected -> StatusColorConnected
+                    McpConnectionStatus.Connecting -> StatusColorChecking
+                    McpConnectionStatus.Error -> StatusColorError
+                    McpConnectionStatus.Unknown -> StatusColorUnknown
+                }
+                Box(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .clip(CircleShape)
+                        .background(statusColor),
+                )
+                Spacer(Modifier.width(12.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = server.name,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Text(
+                        text = server.url,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                    )
+                }
+
+                Switch(
+                    checked = server.isEnabled,
+                    onCheckedChange = onToggle,
+                )
+
+                Spacer(Modifier.width(8.dp))
+
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            if (expanded) {
+                Spacer(Modifier.height(12.dp))
+
+                // Status text
+                val statusText = when (server.connectionStatus) {
+                    McpConnectionStatus.Connected -> stringResource(Res.string.settings_mcp_status_connected)
+                    McpConnectionStatus.Connecting -> stringResource(Res.string.settings_mcp_status_connecting)
+                    McpConnectionStatus.Error -> stringResource(Res.string.settings_mcp_status_error)
+                    McpConnectionStatus.Unknown -> ""
+                }
+                if (statusText.isNotEmpty()) {
+                    Text(
+                        text = statusText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = when (server.connectionStatus) {
+                            McpConnectionStatus.Error -> MaterialTheme.colorScheme.error
+                            else -> MaterialTheme.colorScheme.onSurfaceVariant
+                        },
+                    )
+                    Spacer(Modifier.height(8.dp))
+                }
+
+                // Tools list
+                if (server.tools.isNotEmpty()) {
+                    for (tool in server.tools) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = tool.name,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                )
+                                if (tool.description.isNotEmpty()) {
+                                    Text(
+                                        text = tool.description,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            }
+                            Switch(
+                                checked = tool.isEnabled,
+                                onCheckedChange = { enabled -> onToggleTool(tool.id, enabled) },
+                            )
+                        }
+                    }
+                } else if (server.connectionStatus == McpConnectionStatus.Connected) {
+                    Text(
+                        text = stringResource(Res.string.settings_mcp_no_tools),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+
+                Spacer(Modifier.height(8.dp))
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    TextButton(onClick = onRefresh) {
+                        Text(stringResource(Res.string.settings_mcp_refresh))
+                    }
+                    TextButton(onClick = onRemove) {
+                        Text(
+                            text = stringResource(Res.string.settings_mcp_remove),
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AddMcpServerDialog(
+    onDismiss: () -> Unit,
+    onAdd: (String, String, Map<String, String>) -> Unit,
+    onAddPopular: (PopularMcpServer) -> Unit,
+) {
+    var name by remember { mutableStateOf("") }
+    var url by remember { mutableStateOf("") }
+    var authHeader by remember { mutableStateOf("") }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    ) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_mcp_add_server),
+                style = MaterialTheme.typography.headlineSmall,
+            )
+            Spacer(Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text(stringResource(Res.string.settings_mcp_server_name)) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(
+                value = url,
+                onValueChange = { url = it },
+                label = { Text(stringResource(Res.string.settings_mcp_server_url)) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            Spacer(Modifier.height(8.dp))
+            OutlinedTextField(
+                value = authHeader,
+                onValueChange = { authHeader = it },
+                label = { Text(stringResource(Res.string.settings_mcp_auth_header)) },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            Spacer(Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                TextButton(
+                    onClick = {
+                        val headers = if (authHeader.isNotBlank()) {
+                            mapOf("Authorization" to authHeader)
+                        } else {
+                            emptyMap()
+                        }
+                        onAdd(name, url, headers)
+                    },
+                    enabled = name.isNotBlank() && url.isNotBlank(),
+                ) {
+                    Text(stringResource(Res.string.settings_mcp_add))
+                }
+            }
+
+            if (popularMcpServers.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(Res.string.settings_mcp_popular_servers),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Spacer(Modifier.height(8.dp))
+                for (server in popularMcpServers) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(CardDefaults.shape)
+                            .clickable {
+                                onAddPopular(server)
+                            }
+                            .pointerHoverIcon(PointerIcon.Hand),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                        ),
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(
+                                text = server.name,
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            Text(
+                                text = server.description,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
         }
     }
 }

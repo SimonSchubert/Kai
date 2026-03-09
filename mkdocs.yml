@@ -38,6 +38,7 @@ nav:
     - Chat & Conversations: features/chat.md
     - Multi-Service: features/multi-service.md
     - Tools: features/tools.md
+    - MCP Servers: features/mcp.md
     - Memories: features/memories.md
     - Heartbeat: features/heartbeat.md
     - Tasks: features/tasks.md

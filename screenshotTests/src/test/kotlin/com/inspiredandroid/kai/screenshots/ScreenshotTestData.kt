@@ -8,6 +8,8 @@ import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.ConfiguredServiceEntry
 import com.inspiredandroid.kai.ui.settings.ConnectionStatus
+import com.inspiredandroid.kai.ui.settings.McpConnectionStatus
+import com.inspiredandroid.kai.ui.settings.McpServerUiState
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
@@ -157,6 +159,24 @@ JavaScript
     val settingsTools = SettingsUiState(
         currentTab = SettingsTab.Tools,
         tools = getPlatformToolDefinitions(),
+        mcpServers = listOf(
+            McpServerUiState(
+                id = "context7",
+                name = "Context7",
+                url = "https://context7.liam.sh/mcp",
+                isEnabled = true,
+                connectionStatus = McpConnectionStatus.Connected,
+                tools = emptyList(),
+            ),
+            McpServerUiState(
+                id = "manifold_markets",
+                name = "Manifold Markets",
+                url = "https://api.manifold.markets/v0/mcp",
+                isEnabled = true,
+                connectionStatus = McpConnectionStatus.Connected,
+                tools = emptyList(),
+            ),
+        ),
     )
 
     // --- Localized data loading for StoreScreenshotTest ---

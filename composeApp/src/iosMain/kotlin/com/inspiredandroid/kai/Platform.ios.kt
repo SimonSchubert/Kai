@@ -11,6 +11,7 @@ import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
+import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -130,6 +131,7 @@ private object IosKoinHelper : KoinComponent {
     val taskStore: TaskStore by inject()
     val heartbeatManager: HeartbeatManager by inject()
     val emailStore: EmailStore by inject()
+    val mcpServerManager: McpServerManager by inject()
 }
 
 actual fun getAvailableTools(): List<Tool> = buildList {
@@ -144,6 +146,7 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     if (IosKoinHelper.appSettings.isEmailEnabled()) {
         addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))
     }
+    addAll(IosKoinHelper.mcpServerManager.getEnabledMcpTools())
 }
 
 @Suppress("CAST_NEVER_SUCCEEDS")

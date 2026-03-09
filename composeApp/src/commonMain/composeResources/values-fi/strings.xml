@@ -132,4 +132,21 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="waiting_thinking">Mietin…</string>
     <string name="waiting_working">Työskentelen…</string>
     <string name="waiting_brewing">Valmistelen…</string>
+    <string name="settings_mcp_servers">MCP-palvelimet</string>
+    <string name="settings_mcp_servers_description">Yhdistä ulkoisiin työkalupalvelimiin Model Context Protocollin avulla.</string>
+    <string name="settings_mcp_add_server">Lisää MCP-palvelin</string>
+    <string name="settings_mcp_server_name">Palvelimen nimi</string>
+    <string name="settings_mcp_server_url">Palvelimen URL</string>
+    <string name="settings_mcp_auth_header">Valtuutus-otsikko (valinnainen)</string>
+    <string name="settings_mcp_add">Lisää</string>
+    <string name="settings_mcp_cancel">Peruuta</string>
+    <string name="settings_mcp_remove">Poista</string>
+    <string name="settings_mcp_refresh">Päivitä</string>
+    <string name="settings_mcp_status_connecting">Yhdistetään…</string>
+    <string name="settings_mcp_status_connected">Yhdistetty</string>
+    <string name="settings_mcp_status_error">Yhteys epäonnistui</string>
+    <string name="settings_mcp_no_tools">Työkaluja ei löytynyt</string>
+    <string name="settings_mcp_tools_count">%1$d työkalua</string>
+    <string name="settings_mcp_popular_servers">Suositut palvelimet</string>
+    <string name="settings_mcp_web_cors_note">Huomaa: MCP-palvelimet saattavat olla CORS-eston takana verkossa.</string>
 </resources>

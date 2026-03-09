@@ -338,6 +338,13 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_HEARTBEAT_PROMPT, text)
     }
 
+    // MCP Servers
+    fun getMcpServersJson(): String = settings.getString(KEY_MCP_SERVERS, "")
+
+    fun setMcpServersJson(json: String) {
+        settings.putString(KEY_MCP_SERVERS, json)
+    }
+
     // UI Scale
     private val _uiScaleFlow = MutableStateFlow(settings.getFloat(KEY_UI_SCALE, defaultUiScale))
     val uiScaleFlow: StateFlow<Float> = _uiScaleFlow
@@ -410,6 +417,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
         const val KEY_UI_SCALE = "ui_scale"
+        const val KEY_MCP_SERVERS = "mcp_servers"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

@@ -13,9 +13,18 @@ data class OpenAICompatibleChatResponseDto(
         data class Message(
             val role: String? = null,
             val content: String? = null,
+            val reasoning: String? = null,
             @SerialName("tool_calls")
             val toolCalls: List<ToolCall>? = null,
-        )
+        ) {
+            /** Returns [content] if non-blank, otherwise falls back to [reasoning]. */
+            val effectiveContent: String?
+                get() = content?.takeIf { it.isNotBlank() } ?: reasoning
+
+            /** True when the effective content comes from [reasoning] rather than [content]. */
+            val isContentFromReasoning: Boolean
+                get() = content.isNullOrBlank() && !reasoning.isNullOrBlank()
+        }
     }
 
     @Serializable

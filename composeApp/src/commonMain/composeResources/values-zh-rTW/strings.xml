@@ -132,4 +132,21 @@
     <string name="waiting_thinking">思考中…</string>
     <string name="waiting_working">處理中…</string>
     <string name="waiting_brewing">準備中…</string>
+    <string name="settings_mcp_servers">MCP 伺服器</string>
+    <string name="settings_mcp_servers_description">透過 Model Context Protocol 連接到外部工具伺服器。</string>
+    <string name="settings_mcp_add_server">新增 MCP 伺服器</string>
+    <string name="settings_mcp_server_name">伺服器名稱</string>
+    <string name="settings_mcp_server_url">伺服器 URL</string>
+    <string name="settings_mcp_auth_header">授權標頭（選填）</string>
+    <string name="settings_mcp_add">新增</string>
+    <string name="settings_mcp_cancel">取消</string>
+    <string name="settings_mcp_remove">移除</string>
+    <string name="settings_mcp_refresh">重新整理</string>
+    <string name="settings_mcp_status_connecting">連線中…</string>
+    <string name="settings_mcp_status_connected">已連線</string>
+    <string name="settings_mcp_status_error">連線失敗</string>
+    <string name="settings_mcp_no_tools">未發現工具</string>
+    <string name="settings_mcp_tools_count">%1$d 個工具</string>
+    <string name="settings_mcp_popular_servers">熱門伺服器</string>
+    <string name="settings_mcp_web_cors_note">注意：MCP 伺服器可能會被網頁上的 CORS 封鎖。</string>
 </resources>

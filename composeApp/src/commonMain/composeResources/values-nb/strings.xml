@@ -132,4 +132,21 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="waiting_thinking">Tenker…</string>
     <string name="waiting_working">Jobber…</string>
     <string name="waiting_brewing">Brygger…</string>
+    <string name="settings_mcp_servers">MCP-servere</string>
+    <string name="settings_mcp_servers_description">Koble til eksterne verktøyservere via Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Legg til MCP-server</string>
+    <string name="settings_mcp_server_name">Servernavn</string>
+    <string name="settings_mcp_server_url">Server-URL</string>
+    <string name="settings_mcp_auth_header">Autorisasjonshode (valgfritt)</string>
+    <string name="settings_mcp_add">Legg til</string>
+    <string name="settings_mcp_cancel">Avbryt</string>
+    <string name="settings_mcp_remove">Fjern</string>
+    <string name="settings_mcp_refresh">Oppdater</string>
+    <string name="settings_mcp_status_connecting">Kobler til…</string>
+    <string name="settings_mcp_status_connected">Tilkoblet</string>
+    <string name="settings_mcp_status_error">Tilkobling mislyktes</string>
+    <string name="settings_mcp_no_tools">Ingen verktøy funnet</string>
+    <string name="settings_mcp_tools_count">%1$d verktøy</string>
+    <string name="settings_mcp_popular_servers">Populære servere</string>
+    <string name="settings_mcp_web_cors_note">Merk: MCP-servere kan blokkeres av CORS på nett.</string>
 </resources>

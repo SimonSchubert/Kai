@@ -10,6 +10,7 @@ import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
+import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
@@ -51,6 +52,9 @@ val appModule = module {
     single<HeartbeatManager> {
         HeartbeatManager(get(), get(), get(), get())
     }
+    single<McpServerManager> {
+        McpServerManager(get())
+    }
     single<RemoteDataRepository> {
         RemoteDataRepository(
             requests = get(),
@@ -61,6 +65,7 @@ val appModule = module {
             taskStore = get(),
             heartbeatManager = get(),
             emailStore = get(),
+            mcpServerManager = get(),
         )
     }
     single<DataRepository> { get<RemoteDataRepository>() }

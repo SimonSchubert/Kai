@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Přemýšlím…</string>
     <string name="waiting_working">Pracuji…</string>
     <string name="waiting_brewing">Připravuji…</string>
+    <string name="settings_mcp_servers">MCP servery</string>
+    <string name="settings_mcp_servers_description">Připojte se k externím serverům nástrojů pomocí Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Přidat MCP server</string>
+    <string name="settings_mcp_server_name">Název serveru</string>
+    <string name="settings_mcp_server_url">URL serveru</string>
+    <string name="settings_mcp_auth_header">Autorizační hlavička (volitelné)</string>
+    <string name="settings_mcp_add">Přidat</string>
+    <string name="settings_mcp_cancel">Zrušit</string>
+    <string name="settings_mcp_remove">Odebrat</string>
+    <string name="settings_mcp_refresh">Obnovit</string>
+    <string name="settings_mcp_status_connecting">Připojování…</string>
+    <string name="settings_mcp_status_connected">Připojeno</string>
+    <string name="settings_mcp_status_error">Připojení selhalo</string>
+    <string name="settings_mcp_no_tools">Nebyly nalezeny žádné nástroje</string>
+    <string name="settings_mcp_tools_count">%1$d nástrojů</string>
+    <string name="settings_mcp_popular_servers">Oblíbené servery</string>
+    <string name="settings_mcp_web_cors_note">Poznámka: MCP servery mohou být na webu blokovány CORS.</string>
 </resources>

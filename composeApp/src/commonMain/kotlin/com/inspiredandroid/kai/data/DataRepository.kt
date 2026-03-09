@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
@@ -44,6 +45,17 @@ interface DataRepository {
     // Tool management
     fun getToolDefinitions(): List<ToolInfo>
     fun setToolEnabled(toolId: String, enabled: Boolean)
+
+    // MCP servers
+    fun getMcpServers(): List<McpServerConfig>
+    suspend fun addMcpServer(name: String, url: String, headers: Map<String, String>): McpServerConfig
+    fun removeMcpServer(serverId: String)
+    fun setMcpServerEnabled(serverId: String, enabled: Boolean)
+    suspend fun connectMcpServer(serverId: String): Result<List<ToolInfo>>
+    fun getMcpToolDefinitions(): List<ToolInfo>
+    fun getMcpToolsForServer(serverId: String): List<ToolInfo>
+    fun isMcpServerConnected(serverId: String): Boolean
+    suspend fun connectEnabledMcpServers()
 
     // Soul (system prompt)
     fun getSoulText(): String

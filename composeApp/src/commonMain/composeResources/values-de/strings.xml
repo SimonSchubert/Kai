@@ -132,4 +132,21 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="waiting_thinking">Denke nach…</string>
     <string name="waiting_working">Arbeite…</string>
     <string name="waiting_brewing">Braue…</string>
+    <string name="settings_mcp_servers">MCP-Server</string>
+    <string name="settings_mcp_servers_description">Verbinde dich mit externen Tool-Servern über das Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">MCP-Server hinzufügen</string>
+    <string name="settings_mcp_server_name">Servername</string>
+    <string name="settings_mcp_server_url">Server-URL</string>
+    <string name="settings_mcp_auth_header">Autorisierungs-Header (optional)</string>
+    <string name="settings_mcp_add">Hinzufügen</string>
+    <string name="settings_mcp_cancel">Abbrechen</string>
+    <string name="settings_mcp_remove">Entfernen</string>
+    <string name="settings_mcp_refresh">Aktualisieren</string>
+    <string name="settings_mcp_status_connecting">Verbinde…</string>
+    <string name="settings_mcp_status_connected">Verbunden</string>
+    <string name="settings_mcp_status_error">Verbindung fehlgeschlagen</string>
+    <string name="settings_mcp_no_tools">Keine Tools gefunden</string>
+    <string name="settings_mcp_tools_count">%1$d Tools</string>
+    <string name="settings_mcp_popular_servers">Beliebte Server</string>
+    <string name="settings_mcp_web_cors_note">Hinweis: MCP-Server können im Web durch CORS blockiert werden.</string>
 </resources>

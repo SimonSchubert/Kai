@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Σκέφτομαι…</string>
     <string name="waiting_working">Εργάζομαι…</string>
     <string name="waiting_brewing">Ετοιμάζω…</string>
+    <string name="settings_mcp_servers">Διακομιστές MCP</string>
+    <string name="settings_mcp_servers_description">Συνδεθείτε σε εξωτερικούς διακομιστές εργαλείων μέσω του Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Προσθήκη διακομιστή MCP</string>
+    <string name="settings_mcp_server_name">Όνομα διακομιστή</string>
+    <string name="settings_mcp_server_url">URL διακομιστή</string>
+    <string name="settings_mcp_auth_header">Κεφαλίδα εξουσιοδότησης (προαιρετικό)</string>
+    <string name="settings_mcp_add">Προσθήκη</string>
+    <string name="settings_mcp_cancel">Ακύρωση</string>
+    <string name="settings_mcp_remove">Αφαίρεση</string>
+    <string name="settings_mcp_refresh">Ανανέωση</string>
+    <string name="settings_mcp_status_connecting">Σύνδεση…</string>
+    <string name="settings_mcp_status_connected">Συνδεδεμένο</string>
+    <string name="settings_mcp_status_error">Αποτυχία σύνδεσης</string>
+    <string name="settings_mcp_no_tools">Δεν βρέθηκαν εργαλεία</string>
+    <string name="settings_mcp_tools_count">%1$d εργαλεία</string>
+    <string name="settings_mcp_popular_servers">Δημοφιλείς διακομιστές</string>
+    <string name="settings_mcp_web_cors_note">Σημείωση: Οι διακομιστές MCP ενδέχεται να αποκλείονται από το CORS στο web.</string>
 </resources>

@@ -132,4 +132,21 @@
     <string name="waiting_thinking">Думаю…</string>
     <string name="waiting_working">Працюю…</string>
     <string name="waiting_brewing">Готую…</string>
+    <string name="settings_mcp_servers">Сервери MCP</string>
+    <string name="settings_mcp_servers_description">Підключайтеся до зовнішніх серверів інструментів через Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Додати сервер MCP</string>
+    <string name="settings_mcp_server_name">Назва сервера</string>
+    <string name="settings_mcp_server_url">URL сервера</string>
+    <string name="settings_mcp_auth_header">Заголовок авторизації (необов\x27язково)</string>
+    <string name="settings_mcp_add">Додати</string>
+    <string name="settings_mcp_cancel">Скасувати</string>
+    <string name="settings_mcp_remove">Видалити</string>
+    <string name="settings_mcp_refresh">Оновити</string>
+    <string name="settings_mcp_status_connecting">Підключення…</string>
+    <string name="settings_mcp_status_connected">Підключено</string>
+    <string name="settings_mcp_status_error">Помилка підключення</string>
+    <string name="settings_mcp_no_tools">Інструменти не знайдено</string>
+    <string name="settings_mcp_tools_count">%1$d інструментів</string>
+    <string name="settings_mcp_popular_servers">Популярні сервери</string>
+    <string name="settings_mcp_web_cors_note">Примітка: сервери MCP можуть бути заблоковані CORS у вебі.</string>
 </resources>

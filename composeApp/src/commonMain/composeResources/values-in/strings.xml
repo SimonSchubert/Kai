@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Berpikir…</string>
     <string name="waiting_working">Bekerja…</string>
     <string name="waiting_brewing">Menyiapkan…</string>
+    <string name="settings_mcp_servers">Server MCP</string>
+    <string name="settings_mcp_servers_description">Hubungkan ke server alat eksternal menggunakan Model Context Protocol.</string>
+    <string name="settings_mcp_add_server">Tambah Server MCP</string>
+    <string name="settings_mcp_server_name">Nama Server</string>
+    <string name="settings_mcp_server_url">URL Server</string>
+    <string name="settings_mcp_auth_header">Header Otorisasi (opsional)</string>
+    <string name="settings_mcp_add">Tambah</string>
+    <string name="settings_mcp_cancel">Batal</string>
+    <string name="settings_mcp_remove">Hapus</string>
+    <string name="settings_mcp_refresh">Segarkan</string>
+    <string name="settings_mcp_status_connecting">Menghubungkan…</string>
+    <string name="settings_mcp_status_connected">Terhubung</string>
+    <string name="settings_mcp_status_error">Koneksi gagal</string>
+    <string name="settings_mcp_no_tools">Tidak ada alat ditemukan</string>
+    <string name="settings_mcp_tools_count">%1$d alat</string>
+    <string name="settings_mcp_popular_servers">Server Populer</string>
+    <string name="settings_mcp_web_cors_note">Catatan: Server MCP mungkin diblokir oleh CORS di web.</string>
 </resources>

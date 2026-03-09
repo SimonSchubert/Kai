@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Mõtlen…</string>
     <string name="waiting_working">Töötan…</string>
     <string name="waiting_brewing">Valmistan…</string>
+    <string name="settings_mcp_servers">MCP-serverid</string>
+    <string name="settings_mcp_servers_description">Ühenda väliste tööriistade serveritega Model Context Protocoli kaudu.</string>
+    <string name="settings_mcp_add_server">Lisa MCP-server</string>
+    <string name="settings_mcp_server_name">Serveri nimi</string>
+    <string name="settings_mcp_server_url">Serveri URL</string>
+    <string name="settings_mcp_auth_header">Autoriseerimispäis (valikuline)</string>
+    <string name="settings_mcp_add">Lisa</string>
+    <string name="settings_mcp_cancel">Tühista</string>
+    <string name="settings_mcp_remove">Eemalda</string>
+    <string name="settings_mcp_refresh">Värskenda</string>
+    <string name="settings_mcp_status_connecting">Ühendamine…</string>
+    <string name="settings_mcp_status_connected">Ühendatud</string>
+    <string name="settings_mcp_status_error">Ühendamine ebaõnnestus</string>
+    <string name="settings_mcp_no_tools">Tööriistu ei leitud</string>
+    <string name="settings_mcp_tools_count">%1$d tööriista</string>
+    <string name="settings_mcp_popular_servers">Populaarsed serverid</string>
+    <string name="settings_mcp_web_cors_note">Märkus: MCP-serverid võivad veebis olla CORS-i poolt blokeeritud.</string>
 </resources>

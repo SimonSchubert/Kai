@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.ui.chat.History
@@ -195,6 +196,52 @@ class FakeDataRepository : DataRepository {
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
+    }
+
+    // MCP servers
+    private val mcpServers = mutableListOf<McpServerConfig>()
+    private val mcpConnected = mutableSetOf<String>()
+    private val mcpTools = mutableMapOf<String, List<ToolInfo>>()
+
+    override fun getMcpServers(): List<McpServerConfig> = mcpServers.toList()
+
+    override suspend fun addMcpServer(name: String, url: String, headers: Map<String, String>): McpServerConfig {
+        val id = name.lowercase().replace(Regex("[^a-z0-9]"), "_").take(30)
+        val config = McpServerConfig(id = id, name = name, url = url, headers = headers)
+        mcpServers.add(config)
+        return config
+    }
+
+    override fun removeMcpServer(serverId: String) {
+        mcpServers.removeAll { it.id == serverId }
+        mcpConnected.remove(serverId)
+        mcpTools.remove(serverId)
+    }
+
+    override fun setMcpServerEnabled(serverId: String, enabled: Boolean) {
+        val index = mcpServers.indexOfFirst { it.id == serverId }
+        if (index >= 0) {
+            mcpServers[index] = mcpServers[index].copy(isEnabled = enabled)
+        }
+        if (!enabled) {
+            mcpConnected.remove(serverId)
+            mcpTools.remove(serverId)
+        }
+    }
+
+    override suspend fun connectMcpServer(serverId: String): Result<List<ToolInfo>> {
+        mcpConnected.add(serverId)
+        return Result.success(mcpTools[serverId] ?: emptyList())
+    }
+
+    override fun getMcpToolDefinitions(): List<ToolInfo> = mcpTools.values.flatten()
+
+    override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpTools[serverId] ?: emptyList()
+
+    override fun isMcpServerConnected(serverId: String): Boolean = serverId in mcpConnected
+
+    override suspend fun connectEnabledMcpServers() {
+        mcpServers.filter { it.isEnabled }.forEach { mcpConnected.add(it.id) }
     }
 
     // Soul (system prompt)

@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-08
+**Last verified:** 2026-03-09
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -104,6 +104,10 @@ Tool results longer than 8,000 characters are truncated with a note indicating t
 ### Context trimming
 
 Between iterations, the message history is trimmed to fit within the provider's context window before the next API call.
+
+## MCP Servers
+
+See [mcp.md](mcp.md) for the full MCP feature spec.
 
 ## Tool Enablement
 

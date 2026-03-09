@@ -5,6 +5,8 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.mcp.McpServerConfig
+import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
@@ -82,6 +84,7 @@ class RemoteDataRepository(
     private val taskStore: TaskStore,
     private val heartbeatManager: HeartbeatManager,
     private val emailStore: EmailStore,
+    private val mcpServerManager: McpServerManager,
 ) : DataRepository {
 
     /**
@@ -334,7 +337,7 @@ class RemoteDataRepository(
                 } else {
                     val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
                     val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
-                    response.choices.firstOrNull()?.message?.content ?: throw OpenAICompatibleEmptyResponseException()
+                    response.choices.firstOrNull()?.message?.effectiveContent ?: throw OpenAICompatibleEmptyResponseException()
                 }
             }
         }
@@ -454,7 +457,7 @@ class RemoteDataRepository(
             val toolCalls = message.toolCalls
             if (toolCalls.isNullOrEmpty()) {
                 // No more tool calls - return the final response
-                return message.content ?: ""
+                return message.effectiveContent ?: ""
             }
 
             // Check for repetition
@@ -470,7 +473,8 @@ class RemoteDataRepository(
                     add(
                         History(
                             role = History.Role.ASSISTANT,
-                            content = message.content ?: "",
+                            content = message.effectiveContent ?: "",
+                            isThinking = message.isContentFromReasoning,
                             toolCalls = toolCalls.map { tc ->
                                 ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
                             },
@@ -684,7 +688,7 @@ class RemoteDataRepository(
         val response = retryApiCall {
             requests.openAICompatibleChat(service, credentials, bailoutMessages).getOrThrow()
         }
-        return response.choices.firstOrNull()?.message?.content ?: ""
+        return response.choices.firstOrNull()?.message?.effectiveContent ?: ""
     }
 
     /**
@@ -929,10 +933,42 @@ class RemoteDataRepository(
     }
 
     // Tool management
-    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
+    override fun getToolDefinitions(): List<ToolInfo> {
+        val platformTools = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
+        val mcpTools = mcpServerManager.getMcpToolDefinitions()
+        return platformTools + mcpTools
+    }
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
         appSettings.setToolEnabled(toolId, enabled)
+    }
+
+    // MCP servers
+    override fun getMcpServers(): List<McpServerConfig> = mcpServerManager.getServers()
+
+    override suspend fun addMcpServer(name: String, url: String, headers: Map<String, String>): McpServerConfig = mcpServerManager.addServer(name, url, headers)
+
+    override fun removeMcpServer(serverId: String) {
+        mcpServerManager.removeServer(serverId)
+    }
+
+    override fun setMcpServerEnabled(serverId: String, enabled: Boolean) {
+        mcpServerManager.setServerEnabled(serverId, enabled)
+    }
+
+    override suspend fun connectMcpServer(serverId: String): Result<List<ToolInfo>> {
+        val result = mcpServerManager.connectAndDiscoverTools(serverId)
+        return result.map { mcpServerManager.getToolsForServer(serverId) }
+    }
+
+    override fun getMcpToolDefinitions(): List<ToolInfo> = mcpServerManager.getMcpToolDefinitions()
+
+    override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpServerManager.getToolsForServer(serverId)
+
+    override fun isMcpServerConnected(serverId: String): Boolean = mcpServerManager.isConnected(serverId)
+
+    override suspend fun connectEnabledMcpServers() {
+        mcpServerManager.connectEnabledServers()
     }
 
     // Soul (system prompt)
@@ -1105,7 +1141,7 @@ class RemoteDataRepository(
             else -> {
                 val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
                 val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
-                response.choices.firstOrNull()?.message?.content ?: ""
+                response.choices.firstOrNull()?.message?.effectiveContent ?: ""
             }
         }
 

@@ -131,4 +131,21 @@
     <string name="waiting_thinking">Ойланамын…</string>
     <string name="waiting_working">Жұмыс істеймін…</string>
     <string name="waiting_brewing">Дайындаймын…</string>
+    <string name="settings_mcp_servers">MCP серверлері</string>
+    <string name="settings_mcp_servers_description">Model Context Protocol арқылы сыртқы құрал серверлеріне қосылыңыз.</string>
+    <string name="settings_mcp_add_server">MCP сервер қосу</string>
+    <string name="settings_mcp_server_name">Сервер атауы</string>
+    <string name="settings_mcp_server_url">Сервер URL</string>
+    <string name="settings_mcp_auth_header">Авторизация тақырыбы (міндетті емес)</string>
+    <string name="settings_mcp_add">Қосу</string>
+    <string name="settings_mcp_cancel">Болдырмау</string>
+    <string name="settings_mcp_remove">Жою</string>
+    <string name="settings_mcp_refresh">Жаңарту</string>
+    <string name="settings_mcp_status_connecting">Қосылуда…</string>
+    <string name="settings_mcp_status_connected">Қосылған</string>
+    <string name="settings_mcp_status_error">Қосылу сәтсіз</string>
+    <string name="settings_mcp_no_tools">Құралдар табылмады</string>
+    <string name="settings_mcp_tools_count">%1$d құрал</string>
+    <string name="settings_mcp_popular_servers">Танымал серверлер</string>
+    <string name="settings_mcp_web_cors_note">Ескерту: MCP серверлері вебте CORS арқылы бұғатталуы мүмкін.</string>
 </resources>

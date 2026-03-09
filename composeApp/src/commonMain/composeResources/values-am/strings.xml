@@ -132,4 +132,21 @@
     <string name="waiting_thinking">እያሰበ…</string>
     <string name="waiting_working">እየሰራ…</string>
     <string name="waiting_brewing">እያዘጋጀ…</string>
+    <string name="settings_mcp_servers">MCP አገልጋዮች</string>
+    <string name="settings_mcp_servers_description">Model Context Protocol በመጠቀም ከውጪ መሳሪያ አገልጋዮች ጋር ይገናኙ።</string>
+    <string name="settings_mcp_add_server">MCP አገልጋይ ጨምር</string>
+    <string name="settings_mcp_server_name">የአገልጋይ ስም</string>
+    <string name="settings_mcp_server_url">የአገልጋይ URL</string>
+    <string name="settings_mcp_auth_header">የፍቃድ ራስጌ (አማራጭ)</string>
+    <string name="settings_mcp_add">ጨምር</string>
+    <string name="settings_mcp_cancel">ሰርዝ</string>
+    <string name="settings_mcp_remove">አስወግድ</string>
+    <string name="settings_mcp_refresh">አድስ</string>
+    <string name="settings_mcp_status_connecting">በመገናኘት ላይ…</string>
+    <string name="settings_mcp_status_connected">ተገናኝቷል</string>
+    <string name="settings_mcp_status_error">ግንኙነት አልተሳካም</string>
+    <string name="settings_mcp_no_tools">ምንም መሳሪያዎች አልተገኙም</string>
+    <string name="settings_mcp_tools_count">%1$d መሳሪያዎች</string>
+    <string name="settings_mcp_popular_servers">ታዋቂ አገልጋዮች</string>
+    <string name="settings_mcp_web_cors_note">ማስታወሻ: MCP አገልጋዮች በድረ-ገጽ ላይ በCORS ሊታገዱ ይችላሉ።</string>
 </resources>

@@ -131,4 +131,21 @@
     <string name="waiting_thinking">ভাবছি…</string>
     <string name="waiting_working">কাজ করছি…</string>
     <string name="waiting_brewing">তৈরি করছি…</string>
+    <string name="settings_mcp_servers">MCP সার্ভার</string>
+    <string name="settings_mcp_servers_description">Model Context Protocol ব্যবহার করে বাহ্যিক টুল সার্ভারে সংযোগ করুন।</string>
+    <string name="settings_mcp_add_server">MCP সার্ভার যোগ করুন</string>
+    <string name="settings_mcp_server_name">সার্ভারের নাম</string>
+    <string name="settings_mcp_server_url">সার্ভার URL</string>
+    <string name="settings_mcp_auth_header">অনুমোদন হেডার (ঐচ্ছিক)</string>
+    <string name="settings_mcp_add">যোগ করুন</string>
+    <string name="settings_mcp_cancel">বাতিল</string>
+    <string name="settings_mcp_remove">সরান</string>
+    <string name="settings_mcp_refresh">রিফ্রেশ</string>
+    <string name="settings_mcp_status_connecting">সংযোগ হচ্ছে…</string>
+    <string name="settings_mcp_status_connected">সংযুক্ত</string>
+    <string name="settings_mcp_status_error">সংযোগ ব্যর্থ</string>
+    <string name="settings_mcp_no_tools">কোনো টুল পাওয়া যায়নি</string>
+    <string name="settings_mcp_tools_count">%1$d টুল</string>
+    <string name="settings_mcp_popular_servers">জনপ্রিয় সার্ভার</string>
+    <string name="settings_mcp_web_cors_note">দ্রষ্টব্য: MCP সার্ভার ওয়েবে CORS দ্বারা ব্লক হতে পারে।</string>
 </resources>
