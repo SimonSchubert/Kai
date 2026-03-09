@@ -1384,6 +1384,7 @@ private fun McpServersSection(
         Text(
             text = stringResource(Res.string.settings_mcp_servers),
             style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(4.dp))
         Text(
@@ -1463,6 +1464,7 @@ private fun McpServerCard(
                     Text(
                         text = server.name,
                         style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
                     Text(
                         text = server.url,
@@ -1519,6 +1521,7 @@ private fun McpServerCard(
                                 Text(
                                     text = tool.name,
                                     style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onBackground,
                                 )
                                 if (tool.description.isNotEmpty()) {
                                     Text(
@@ -1540,6 +1543,7 @@ private fun McpServerCard(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+
                 }
 
                 Spacer(Modifier.height(8.dp))
@@ -1582,6 +1586,7 @@ private fun AddMcpServerDialog(
             Text(
                 text = stringResource(Res.string.settings_mcp_add_server),
                 style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(Modifier.height(16.dp))
 
@@ -1635,6 +1640,7 @@ private fun AddMcpServerDialog(
                 Text(
                     text = stringResource(Res.string.settings_mcp_popular_servers),
                     style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 Spacer(Modifier.height(8.dp))
                 for (server in popularMcpServers) {
@@ -1654,6 +1660,7 @@ private fun AddMcpServerDialog(
                             Text(
                                 text = server.name,
                                 style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface,
                             )
                             Text(
                                 text = server.description,
