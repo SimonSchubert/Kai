@@ -109,6 +109,7 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
 import kai.composeapp.generated.resources.settings_api_key_optional_label
@@ -116,7 +117,6 @@ import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
-import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
@@ -576,128 +576,128 @@ private fun ConfiguredServiceCardContent(
     onMoveUp: (() -> Unit)?,
     onMoveDown: (() -> Unit)?,
 ) {
-        // Header row — clickable area spans full card width
+    // Header row — clickable area spans full card width
+    Row(
+        modifier = Modifier.fillMaxWidth()
+            .clickable { onExpand() }
+            .pointerHoverIcon(PointerIcon.Hand)
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        // Connection status dot
+        val dotColor = when (entry.connectionStatus) {
+            ConnectionStatus.Connected -> Color(0xFF4CAF50)
+            ConnectionStatus.Checking -> Color(0xFFFF9800)
+            ConnectionStatus.Unknown -> Color(0xFF9E9E9E)
+            else -> Color(0xFFF44336)
+        }
+        Box(
+            modifier = Modifier
+                .size(10.dp)
+                .clip(CircleShape)
+                .background(dotColor),
+        )
+
+        Spacer(Modifier.width(12.dp))
+
+        // Service name
+        Text(
+            text = entry.service.displayName,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.weight(1f),
+        )
+
+        // Expand/collapse chevron
+        Icon(
+            imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+
+    // Expanded content
+    if (isExpanded) {
+        HorizontalDivider(thickness = 0.5.dp)
+
+        Column(modifier = Modifier.padding(16.dp)) {
+            if (entry.service is Service.OpenAICompatible) {
+                OpenAICompatibleSettings(
+                    baseUrl = entry.baseUrl,
+                    onChangeBaseUrl = onChangeBaseUrl,
+                    apiKey = entry.apiKey,
+                    onChangeApiKey = onChangeApiKey,
+                    selectedModel = entry.selectedModel,
+                    models = entry.models,
+                    onSelectModel = onSelectModel,
+                    connectionStatus = entry.connectionStatus,
+                )
+            } else {
+                ServiceSettings(
+                    apiKey = entry.apiKey,
+                    onChangeApiKey = onChangeApiKey,
+                    apiKeyUrl = entry.service.apiKeyUrl ?: "",
+                    apiKeyUrlDisplay = entry.service.apiKeyUrlDisplay ?: "",
+                    selectedModel = entry.selectedModel,
+                    models = entry.models,
+                    onSelectModel = onSelectModel,
+                    connectionStatus = entry.connectionStatus,
+                )
+            }
+
+            Spacer(Modifier.height(12.dp))
+        }
+
+        // Reorder + Remove actions
         Row(
-            modifier = Modifier.fillMaxWidth()
-                .clickable { onExpand() }
-                .pointerHoverIcon(PointerIcon.Hand)
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            // Connection status dot
-            val dotColor = when (entry.connectionStatus) {
-                ConnectionStatus.Connected -> Color(0xFF4CAF50)
-                ConnectionStatus.Checking -> Color(0xFFFF9800)
-                ConnectionStatus.Unknown -> Color(0xFF9E9E9E)
-                else -> Color(0xFFF44336)
-            }
-            Box(
-                modifier = Modifier
-                    .size(10.dp)
-                    .clip(CircleShape)
-                    .background(dotColor),
-            )
-
-            Spacer(Modifier.width(12.dp))
-
-            // Service name
-            Text(
-                text = entry.service.displayName,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-
-            // Expand/collapse chevron
-            Icon(
-                imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-
-        // Expanded content
-        if (isExpanded) {
-            HorizontalDivider(thickness = 0.5.dp)
-
-            Column(modifier = Modifier.padding(16.dp)) {
-                if (entry.service is Service.OpenAICompatible) {
-                    OpenAICompatibleSettings(
-                        baseUrl = entry.baseUrl,
-                        onChangeBaseUrl = onChangeBaseUrl,
-                        apiKey = entry.apiKey,
-                        onChangeApiKey = onChangeApiKey,
-                        selectedModel = entry.selectedModel,
-                        models = entry.models,
-                        onSelectModel = onSelectModel,
-                        connectionStatus = entry.connectionStatus,
-                    )
-                } else {
-                    ServiceSettings(
-                        apiKey = entry.apiKey,
-                        onChangeApiKey = onChangeApiKey,
-                        apiKeyUrl = entry.service.apiKeyUrl ?: "",
-                        apiKeyUrlDisplay = entry.service.apiKeyUrlDisplay ?: "",
-                        selectedModel = entry.selectedModel,
-                        models = entry.models,
-                        onSelectModel = onSelectModel,
-                        connectionStatus = entry.connectionStatus,
-                    )
-                }
-
-                Spacer(Modifier.height(12.dp))
-            }
-
-            // Reorder + Remove actions
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                if (onMoveUp != null) {
-                    IconButton(
-                        onClick = onMoveUp,
-                        modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowUp,
-                            contentDescription = stringResource(Res.string.settings_move_up),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-                if (onMoveDown != null) {
-                    IconButton(
-                        onClick = onMoveDown,
-                        modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowDown,
-                            contentDescription = stringResource(Res.string.settings_move_down),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-
-                // Remove button
-                TextButton(
-                    onClick = onRemove,
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            if (onMoveUp != null) {
+                IconButton(
+                    onClick = onMoveUp,
+                    modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp),
-                        tint = MaterialTheme.colorScheme.error,
-                    )
-                    Spacer(Modifier.width(4.dp))
-                    Text(
-                        text = stringResource(Res.string.settings_remove_service),
-                        color = MaterialTheme.colorScheme.error,
+                        imageVector = Icons.Default.KeyboardArrowUp,
+                        contentDescription = stringResource(Res.string.settings_move_up),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }
+            if (onMoveDown != null) {
+                IconButton(
+                    onClick = onMoveDown,
+                    modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowDown,
+                        contentDescription = stringResource(Res.string.settings_move_down),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+
+            // Remove button
+            TextButton(
+                onClick = onRemove,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.error,
+                )
+                Spacer(Modifier.width(4.dp))
+                Text(
+                    text = stringResource(Res.string.settings_remove_service),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
         }
+    }
 }
 
 @Composable
