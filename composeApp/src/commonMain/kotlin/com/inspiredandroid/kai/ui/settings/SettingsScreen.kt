@@ -117,7 +117,6 @@ import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
 import kai.composeapp.generated.resources.settings_add_service
-import kai.composeapp.generated.resources.settings_connect_server
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
@@ -127,7 +126,6 @@ import kai.composeapp.generated.resources.settings_email_description
 import kai.composeapp.generated.resources.settings_email_empty
 import kai.composeapp.generated.resources.settings_email_poll_interval
 import kai.composeapp.generated.resources.settings_email_poll_never
-import kai.composeapp.generated.resources.settings_email_poll_never_description
 import kai.composeapp.generated.resources.settings_email_remove
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
@@ -171,7 +169,6 @@ import kai.composeapp.generated.resources.settings_tab_services
 import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
-import kai.composeapp.generated.resources.settings_tools_title
 import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
 import kotlinx.datetime.TimeZone
