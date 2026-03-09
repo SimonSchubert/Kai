@@ -1543,7 +1543,6 @@ private fun McpServerCard(
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-
                 }
 
                 Spacer(Modifier.height(8.dp))
