@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-03-08
+**Last verified:** 2026-03-09
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -58,7 +58,7 @@ The scheduled tasks section in settings provides:
 Cron expressions are converted to readable descriptions in the UI:
 
 - `0 9 * * *` displays as "Daily at 9:00"
-- `0 14 * * 1,2,3` displays as "Every Mon, Tue, Wed at 14:30"
+- `0 14 * * 1,2,3` displays as "Every Mon, Tue, Wed at 14:00"
 - `0 8 15 * *` displays as "Monthly on day 15 at 8:00"
 - Complex expressions fall back to the raw cron string
 

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-03-07
+**Last verified:** 2026-03-09
 
 Kai supports 11 LLM providers (plus a built-in Free tier). Each provider uses either the **OpenAI-compatible** chat format (most services) or the **Gemini native** API. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -36,7 +36,7 @@ A built-in service that requires no API key. Free is never shown in the service 
 2. Only instances with valid API keys are considered
 3. If no instances are configured, the Free tier is used as the only service
 4. If instances exist and "Use as fallback" is enabled (default), the Free tier is appended as the last resort
-5. Each service attempt retries up to 3 times with increasing delays before moving to the next service in the chain
+5. Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain
 6. On failure, the next instance in the chain is tried; if all fail, the last error is shown
 7. If a fallback succeeds, the response indicates which service answered
 

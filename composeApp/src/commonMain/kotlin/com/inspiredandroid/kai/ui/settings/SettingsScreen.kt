@@ -91,6 +91,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
@@ -536,7 +537,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
     }
 
     if (uiState.availableServicesToAdd.isNotEmpty()) {
-        OutlinedButton(onClick = { showAddServiceSheet = true }) {
+        OutlinedButton(onClick = { showAddServiceSheet = true }, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)) {
             Text(stringResource(Res.string.settings_add_service))
         }
     }
@@ -593,7 +594,7 @@ private fun ConfiguredServiceCardContent(
 ) {
     Card(
         onClick = onExpand,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -1408,7 +1409,7 @@ private fun McpServersSection(
 
         OutlinedButton(
             onClick = { onShowAddDialog(true) },
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally).pointerHoverIcon(PointerIcon.Hand),
         ) {
             Text(stringResource(Res.string.settings_mcp_add_server))
         }
@@ -1435,7 +1436,7 @@ private fun McpServerCard(
 
     Card(
         onClick = { expanded = !expanded },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -1548,10 +1549,10 @@ private fun McpServerCard(
                 Spacer(Modifier.height(8.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = onRefresh) {
+                    TextButton(onClick = onRefresh, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)) {
                         Text(stringResource(Res.string.settings_mcp_refresh))
                     }
-                    TextButton(onClick = onRemove) {
+                    TextButton(onClick = onRemove, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)) {
                         Text(
                             text = stringResource(Res.string.settings_mcp_remove),
                             color = MaterialTheme.colorScheme.error,
@@ -1629,6 +1630,7 @@ private fun AddMcpServerDialog(
                         onAdd(name, url, headers)
                     },
                     enabled = name.isNotBlank() && url.isNotBlank(),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) {
                     Text(stringResource(Res.string.settings_mcp_add))
                 }
@@ -1864,7 +1866,7 @@ private fun MemoryList(
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = memory.key,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                             color = MaterialTheme.colorScheme.onBackground,
                         )
                         Text(
@@ -1880,7 +1882,7 @@ private fun MemoryList(
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Clear,
+                            imageVector = Icons.Default.Delete,
                             contentDescription = stringResource(Res.string.settings_memories_delete),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -2054,7 +2056,7 @@ private fun HeartbeatSection(
         if (isHeartbeatEnabled) {
             Spacer(Modifier.height(12.dp))
 
-            val intervalPresets = listOf(5, 10, 15, 30, 45, 60, 90, 120, 240)
+            val intervalPresets = listOf(5, 10, 15, 30, 45, 60, 120, 240)
             val initialSliderPos = intervalPresets.indexOf(heartbeatIntervalMinutes)
                 .takeIf { it >= 0 }?.toFloat() ?: 2f
             var intervalSliderValue by remember(heartbeatIntervalMinutes) {

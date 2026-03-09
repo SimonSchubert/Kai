@@ -1,6 +1,6 @@
 # Daemon Mode
 
-**Last verified:** 2026-03-08
+**Last verified:** 2026-03-09
 
 Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.
 
@@ -34,7 +34,7 @@ The daemon's task scheduler polls every 60 seconds and handles three types of ba
 - **Heartbeat checks** — periodic self-checks during active hours (see heartbeat doc)
 - **Email polling** — fetches new emails from configured accounts on a configurable interval
 
-Execution is skipped if the app is already processing an API call, preventing concurrent requests.
+
 
 ## Notification
 

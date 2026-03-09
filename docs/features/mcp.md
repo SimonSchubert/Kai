@@ -65,7 +65,7 @@ Custom headers (e.g., `Authorization: Bearer <token>`) can be configured per ser
 
 ## Integration with Tools
 
-MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's `getAvailableTools()` includes enabled MCP tools from the `McpServerManager`. MCP tools have a 60-second timeout (vs 30s default for native tools).
+MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's `getAvailableTools()` includes enabled MCP tools from the `McpServerManager`. MCP tools have a 60-second timeout (vs 30s default for native tools). MCP tools are only shown within their server's expanded card in settings, not in the native tools list.
 
 Tool calls to MCP servers go through the same execution pipeline as native tools: the tool executor finds the tool by name, the `McpTool` wrapper sends a `tools/call` JSON-RPC request to the server, and the result is returned to the AI.
 
@@ -74,19 +74,6 @@ Tool calls to MCP servers go through the same execution pipeline as native tools
 - HTTP/SSE transport only (no stdio)
 - CORS may block MCP server requests on the web platform
 - Tool parameters are converted from JSON Schema to flat property maps (top-level properties only)
-
-## Popular Servers List
-
-| Server | URL | Description |
-|--------|-----|-------------|
-| Fetch | `https://remote.mcpservers.org/fetch/mcp` | Fetch web content and convert HTML to markdown |
-| DeepWiki | `https://mcp.deepwiki.com/mcp` | AI-powered docs for any GitHub repo |
-| Sequential Thinking | `https://remote.mcpservers.org/sequentialthinking/mcp` | Structured step-by-step problem-solving |
-| Context7 | `https://context7.liam.sh/mcp` | Up-to-date library and framework docs |
-| Globalping | `https://mcp.globalping.dev/mcp` | Ping, traceroute, DNS from global probes |
-| CoinGecko | `https://mcp.api.coingecko.com/mcp` | Real-time crypto prices and market data |
-| Manifold Markets | `https://api.manifold.markets/v0/mcp` | Prediction market data and odds |
-| Find-A-Domain | `https://api.findadomain.dev/mcp` | Domain availability across 1,444+ TLDs |
 
 ## Key Files
 

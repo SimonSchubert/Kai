@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-03-07
+**Last verified:** 2026-03-09
 
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
@@ -23,7 +23,7 @@ A mechanism for graduating well-established memories into the permanent soul/sys
 Heartbeat configuration is stored as a serialized JSON object in app settings. All values are configurable from both the settings UI and via the `configure_heartbeat` AI tool:
 
 - **Enabled**: true
-- **Interval**: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 1.5h, 2h, 4h)
+- **Interval**: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)
 - **Active hours start**: 8 (hour, 24h format; UI range slider covers 0–23)
 - **Active hours end**: 22 (hour, 24h format; UI range slider covers 0–23)
 
@@ -78,7 +78,7 @@ The heartbeat section in settings contains:
 
 - **Toggle** — enables or disables heartbeat with a switch
 - **Interval display** — shows the current interval in minutes in the section description
-- **Interval slider** — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 1.5h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label
+- **Interval slider** — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label
 - **Active hours range slider** — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "HH:00 – HH:00" next to the label
 - **Custom prompt editor** — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set
 - **Log display** — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp

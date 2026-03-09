@@ -933,11 +933,7 @@ class RemoteDataRepository(
     }
 
     // Tool management
-    override fun getToolDefinitions(): List<ToolInfo> {
-        val platformTools = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
-        val mcpTools = mcpServerManager.getMcpToolDefinitions()
-        return platformTools + mcpTools
-    }
+    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
         appSettings.setToolEnabled(toolId, enabled)

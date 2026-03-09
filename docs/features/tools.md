@@ -137,10 +137,8 @@ Only individually toggleable tools appear in the grid — always-on tools (memor
 ### Waiting response row
 
 When loading, a single composite row appears at the bottom of the chat list containing:
-- A **waiting chip** with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and "Waiting…" text, using surface variant colors
-- **Tool chips** for each currently executing tool, displayed in a FlowRow next to the waiting chip with build icon + tool name, using primary container colors
-- Tool chips animate in/out with `fadeIn + expandHorizontally` / `fadeOut + shrinkHorizontally` (300ms each)
-- The FlowRow layout prevents layout jumps when tools appear/disappear
+- A **waiting chip** with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and cycling text ("Thinking…", "Working…", "Brewing…" rotating every 3 seconds with Crossfade animation), using surface variant colors. The chip uses `animateContentSize` (300ms) for smooth text transitions
+- **Tool chips** for each currently executing tool, displayed in a Row next to the waiting chip with build icon + tool name, using primary container colors
 - TOOL_EXECUTING entries are no longer rendered as separate list items
 - Completed tool results (TOOL role) are not shown in the UI
 

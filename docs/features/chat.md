@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-07
+**Last verified:** 2026-03-09
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored.
 
@@ -59,7 +59,7 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 
 ## UI Elements
 
-- **Top bar**: New Chat, TTS toggle, Settings
+- **Top bar**: New Chat, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
 - **Messages**: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry
 - **Input**: text field, send button, attachment button, file chip
 - **Empty state**: animated logo + welcome message
