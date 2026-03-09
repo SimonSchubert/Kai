@@ -1,0 +1,16 @@
+name: WinGet Package
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  publish:
+    name: Publish to WinGet
+    runs-on: windows-latest
+    steps:
+      - uses: vedantmgoyal9/winget-releaser@v2
+        with:
+          identifier: SimonSchubert.Kai
+          installers-regex: '\.msi$'
+          token: ${{ secrets.WINGET_TOKEN }}
