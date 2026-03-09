@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">በፍጹም</string>
     <string name="settings_email_poll_never_description">በእጅ ብቻ — በውይይቱ ውስጥ "ኢሜይሌን ፈትሽ" ይጠቀሙ</string>
     <string name="settings_connect_server">አገልግሎት አገናኝ</string>
+    <string name="settings_add_service">አገልግሎት ጨምር</string>
     <string name="settings_free_fallback">እንደ ተተኪ ተጠቀም</string>
     <string name="settings_heartbeat">ልብ ምት</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ይህ ራስ-ሰር ራስ-ምርመራ ነው። ትውስታዎችዎን እና በመጠባበቅ ላይ ያሉ ስራዎችን ይገምግሙ። ሁሉም ነገር ጥሩ ከሆነ እና ምንም ትኩረት ካልፈለገ በትክክል ይመልሱ: HEARTBEAT_OK

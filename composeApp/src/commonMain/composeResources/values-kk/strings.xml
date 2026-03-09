@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Ешқашан</string>
     <string name="settings_email_poll_never_description">Тек қолмен — чатта "электрондық поштамды тексер" деп айтыңыз</string>
     <string name="settings_connect_server">Connect Service</string>
+    <string name="settings_add_service">Қызметті қосу</string>
     <string name="settings_free_fallback">Use as fallback</string>
     <string name="settings_heartbeat">Heartbeat</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK

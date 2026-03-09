@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Aldrig</string>
     <string name="settings_email_poll_never_description">Kun manuelt — brug "tjek min e-mail" i chatten</string>
     <string name="settings_connect_server">Forbind tjeneste</string>
+    <string name="settings_add_service">Tilføj tjeneste</string>
     <string name="settings_free_fallback">Brug som reserve</string>
     <string name="settings_heartbeat">Hjerteslag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dette er et automatisk selvtjek. Gennemgå dine erindringer og ventende opgaver. Hvis alt ser godt ud og intet kræver opmærksomhed, svar præcist: HEARTBEAT_OK

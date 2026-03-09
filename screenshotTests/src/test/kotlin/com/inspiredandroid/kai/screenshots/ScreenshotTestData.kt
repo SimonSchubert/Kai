@@ -131,6 +131,7 @@ JavaScript
                 selectedModel = SettingsModel(id = "llama3.2:3b", subtitle = "llama3.2:3b", isSelected = true),
             ),
         ),
+        availableServicesToAdd = listOf(Service.OpenAI, Service.DeepSeek, Service.Mistral),
     )
 
     val settingsGeneral = SettingsUiState(

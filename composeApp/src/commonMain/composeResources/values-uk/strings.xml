@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Ніколи</string>
     <string name="settings_email_poll_never_description">Лише вручну — напишіть «перевірити мою пошту» в чаті</string>
     <string name="settings_connect_server">Підключити сервіс</string>
+    <string name="settings_add_service">Додати сервіс</string>
     <string name="settings_free_fallback">Використовувати як запасний</string>
     <string name="settings_heartbeat">Пульс</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Це автоматична самоперевірка. Перегляньте свої спогади та очікувані завдання. Якщо все гаразд і нічого не потребує уваги, відповідайте точно: HEARTBEAT_OK

@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">しない</string>
     <string name="settings_email_poll_never_description">手動のみ — チャットで「メールを確認して」を使用</string>
     <string name="settings_connect_server">サービスを接続</string>
+    <string name="settings_add_service">サービスを追加</string>
     <string name="settings_free_fallback">フォールバックとして使用</string>
     <string name="settings_heartbeat">ハートビート</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] これは自動セルフチェックです。記憶と保留中のタスクを確認してください。すべて問題なく何も注意を必要としない場合は、正確に次のように応答してください: HEARTBEAT_OK

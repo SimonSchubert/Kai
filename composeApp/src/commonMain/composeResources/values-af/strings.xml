@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Nooit</string>
     <string name="settings_email_poll_never_description">Slegs handmatig — gebruik "kontroleer my e-pos" in die klets</string>
     <string name="settings_connect_server">Koppel Diens</string>
+    <string name="settings_add_service">Voeg diens by</string>
     <string name="settings_free_fallback">Gebruik as terugval</string>
     <string name="settings_heartbeat">Hartklop</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dit is 'n outomatiese selfkontrole. Hersien jou herinneringe en hangende take. As alles goed lyk en niks aandag nodig het nie, antwoord met presies: HEARTBEAT_OK

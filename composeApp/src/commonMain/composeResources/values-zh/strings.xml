@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">从不</string>
     <string name="settings_email_poll_never_description">仅手动 — 在聊天中使用"检查我的邮件"</string>
     <string name="settings_connect_server">连接服务</string>
+    <string name="settings_add_service">添加服务</string>
     <string name="settings_free_fallback">用作备选</string>
     <string name="settings_heartbeat">心跳</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] 这是一次自动自检。检查你的记忆和待处理任务。如果一切正常且无需关注，请准确回复：HEARTBEAT_OK

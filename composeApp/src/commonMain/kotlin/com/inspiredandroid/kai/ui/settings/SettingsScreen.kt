@@ -53,7 +53,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
@@ -117,6 +116,7 @@ import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
 import kai.composeapp.generated.resources.settings_business_partnerships_description
+import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_connect_server
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
@@ -471,55 +471,66 @@ private fun FreeSettings(
 private fun ServicesContent(uiState: SettingsUiState) {
     var showAddServiceSheet by remember { mutableStateOf(false) }
 
-    // Connect Server button
-    OutlinedButton(
-        onClick = { showAddServiceSheet = true },
-        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-    ) {
-        Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
-        Spacer(Modifier.width(8.dp))
-        Text(stringResource(Res.string.settings_connect_server))
-    }
-
-    Spacer(Modifier.height(16.dp))
-
     // Configured services list
     val entries = uiState.configuredServices
-    entries.forEachIndexed { index, entry ->
-        ConfiguredServiceCard(
-            entry = entry,
-            isExpanded = uiState.expandedServiceId == entry.instanceId,
-            onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
-            onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
-            onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
-            onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
-            onRemove = { uiState.onRemoveService(entry.instanceId) },
-            onMoveUp = if (index > 0) {
-                {
-                    val ids = entries.map { it.instanceId }.toMutableList()
-                    ids.removeAt(index)
-                    ids.add(index - 1, entry.instanceId)
-                    uiState.onReorderServices(ids)
+    if (entries.isNotEmpty() || uiState.availableServicesToAdd.isNotEmpty()) {
+        SettingsCard(innerPadding = false) {
+            entries.forEachIndexed { index, entry ->
+                ConfiguredServiceCardContent(
+                    entry = entry,
+                    isExpanded = uiState.expandedServiceId == entry.instanceId,
+                    onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+                    onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
+                    onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
+                    onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
+                    onRemove = { uiState.onRemoveService(entry.instanceId) },
+                    onMoveUp = if (index > 0) {
+                        {
+                            val ids = entries.map { it.instanceId }.toMutableList()
+                            ids.removeAt(index)
+                            ids.add(index - 1, entry.instanceId)
+                            uiState.onReorderServices(ids)
+                        }
+                    } else {
+                        null
+                    },
+                    onMoveDown = if (index < entries.lastIndex) {
+                        {
+                            val ids = entries.map { it.instanceId }.toMutableList()
+                            ids.removeAt(index)
+                            ids.add(index + 1, entry.instanceId)
+                            uiState.onReorderServices(ids)
+                        }
+                    } else {
+                        null
+                    },
+                )
+                if (index < entries.lastIndex || uiState.availableServicesToAdd.isNotEmpty()) {
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
                 }
-            } else {
-                null
-            },
-            onMoveDown = if (index < entries.lastIndex) {
-                {
-                    val ids = entries.map { it.instanceId }.toMutableList()
-                    ids.removeAt(index)
-                    ids.add(index + 1, entry.instanceId)
-                    uiState.onReorderServices(ids)
+            }
+            // Add service row
+            if (uiState.availableServicesToAdd.isNotEmpty()) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                        .clickable { showAddServiceSheet = true }
+                        .pointerHoverIcon(PointerIcon.Hand)
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.settings_add_service),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
                 }
-            } else {
-                null
-            },
-        )
-        Spacer(Modifier.height(8.dp))
+            }
+        }
     }
 
     // Free tier card (always at bottom)
-    Spacer(Modifier.height(8.dp))
+    Spacer(Modifier.height(16.dp))
     FreeSettings(
         showFallbackToggle = entries.isNotEmpty(),
         isFreeFallbackEnabled = uiState.isFreeFallbackEnabled,
@@ -557,7 +568,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
 }
 
 @Composable
-private fun ConfiguredServiceCard(
+private fun ConfiguredServiceCardContent(
     entry: ConfiguredServiceEntry,
     isExpanded: Boolean,
     onExpand: () -> Unit,
@@ -568,7 +579,6 @@ private fun ConfiguredServiceCard(
     onMoveUp: (() -> Unit)?,
     onMoveDown: (() -> Unit)?,
 ) {
-    SettingsCard(innerPadding = false) {
         // Header row — clickable area spans full card width
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -691,7 +701,6 @@ private fun ConfiguredServiceCard(
                 }
             }
         }
-    }
 }
 
 @Composable

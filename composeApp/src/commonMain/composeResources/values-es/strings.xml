@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Nunca</string>
     <string name="settings_email_poll_never_description">Solo manual — usa «revisa mi correo» en el chat</string>
     <string name="settings_connect_server">Conectar Servicio</string>
+    <string name="settings_add_service">Añadir servicio</string>
     <string name="settings_free_fallback">Usar como respaldo</string>
     <string name="settings_heartbeat">Latido</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Esta es una autoverificación automática. Revisa tus memorias y tareas pendientes. Si todo se ve bien y nada necesita atención, responde exactamente: HEARTBEAT_OK

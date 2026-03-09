@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 textToSpeech = textToSpeech,
                 isKoinStarted = true,
                 onAppOpens = { appOpens ->
-                    if (appOpens == 5) {
+                    if (appOpens % 5 == 0) {
                         requestReview(this@MainActivity)
                     }
                 },

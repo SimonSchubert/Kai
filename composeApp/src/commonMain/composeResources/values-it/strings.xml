@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Mai</string>
     <string name="settings_email_poll_never_description">Solo manuale — usa «controlla la mia e-mail» nella chat</string>
     <string name="settings_connect_server">Connetti Servizio</string>
+    <string name="settings_add_service">Aggiungi servizio</string>
     <string name="settings_free_fallback">Usa come riserva</string>
     <string name="settings_heartbeat">Battito cardiaco</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Questo è un controllo automatico. Rivedi i tuoi ricordi e le attività in sospeso. Se tutto sembra a posto e nulla richiede attenzione, rispondi esattamente: HEARTBEAT_OK

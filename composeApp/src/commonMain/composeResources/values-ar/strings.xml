@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">أبداً</string>
     <string name="settings_email_poll_never_description">يدوي فقط — استخدم "تحقق من بريدي الإلكتروني" في المحادثة</string>
     <string name="settings_connect_server">ربط الخدمة</string>
+    <string name="settings_add_service">إضافة خدمة</string>
     <string name="settings_free_fallback">استخدام كاحتياطي</string>
     <string name="settings_heartbeat">نبض القلب</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] هذا فحص ذاتي تلقائي. راجع ذكرياتك والمهام المعلقة. إذا كان كل شيء على ما يرام ولا شيء يحتاج اهتمامًا، أجب بالضبط: HEARTBEAT_OK

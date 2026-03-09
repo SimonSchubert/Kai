@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Nooit</string>
     <string name="settings_email_poll_never_description">Alleen handmatig — gebruik «controleer mijn e-mail» in de chat</string>
     <string name="settings_connect_server">Service verbinden</string>
+    <string name="settings_add_service">Service toevoegen</string>
     <string name="settings_free_fallback">Gebruiken als terugval</string>
     <string name="settings_heartbeat">Hartslag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dit is een automatische zelfcontrole. Bekijk je herinneringen en openstaande taken. Als alles er goed uitziet en niets aandacht nodig heeft, antwoord dan precies: HEARTBEAT_OK

@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Aldrig</string>
     <string name="settings_email_poll_never_description">Endast manuellt — använd "kontrollera min e-post" i chatten</string>
     <string name="settings_connect_server">Anslut tjänst</string>
+    <string name="settings_add_service">Lägg till tjänst</string>
     <string name="settings_free_fallback">Använd som reserv</string>
     <string name="settings_heartbeat">Hjärtslag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Detta är en automatisk självkontroll. Granska dina minnen och väntande uppgifter. Om allt ser bra ut och inget behöver uppmärksamhet, svara exakt: HEARTBEAT_OK

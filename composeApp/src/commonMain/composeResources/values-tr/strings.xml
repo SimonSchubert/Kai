@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Hiçbir zaman</string>
     <string name="settings_email_poll_never_description">Yalnızca manuel — sohbette "e-postamı kontrol et" kullanın</string>
     <string name="settings_connect_server">Hizmeti Bağla</string>
+    <string name="settings_add_service">Hizmet ekle</string>
     <string name="settings_free_fallback">Yedek olarak kullan</string>
     <string name="settings_heartbeat">Kalp Atışı</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Bu otomatik bir öz kontroldür. Anılarınızı ve bekleyen görevleri gözden geçirin. Her şey yolunda görünüyorsa ve hiçbir şey dikkat gerektirmiyorsa, tam olarak şunu yanıtlayın: HEARTBEAT_OK

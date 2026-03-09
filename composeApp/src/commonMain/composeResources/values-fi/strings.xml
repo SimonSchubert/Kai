@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Ei koskaan</string>
     <string name="settings_email_poll_never_description">Vain manuaalisesti — käytä "tarkista sähköpostini" chatissa</string>
     <string name="settings_connect_server">Yhdistä palvelu</string>
+    <string name="settings_add_service">Lisää palvelu</string>
     <string name="settings_free_fallback">Käytä varavaihtoehtona</string>
     <string name="settings_heartbeat">Syke</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Tämä on automaattinen itsetarkistus. Tarkista muistisi ja odottavat tehtävät. Jos kaikki näyttää hyvältä eikä mikään vaadi huomiota, vastaa tarkasti: HEARTBEAT_OK

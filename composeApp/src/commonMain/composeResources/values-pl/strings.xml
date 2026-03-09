@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Nigdy</string>
     <string name="settings_email_poll_never_description">Tylko ręcznie — użyj „sprawdź mój e-mail" na czacie</string>
     <string name="settings_connect_server">Połącz usługę</string>
+    <string name="settings_add_service">Dodaj usługę</string>
     <string name="settings_free_fallback">Użyj jako zapasowy</string>
     <string name="settings_heartbeat">Puls</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] To jest automatyczna samokontrola. Przejrzyj swoje wspomnienia i oczekujące zadania. Jeśli wszystko wygląda dobrze i nic nie wymaga uwagi, odpowiedz dokładnie: HEARTBEAT_OK

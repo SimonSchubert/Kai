@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Jamais</string>
     <string name="settings_email_poll_never_description">Manuel uniquement — utilisez « vérifie mes e-mails » dans le chat</string>
     <string name="settings_connect_server">Connecter le Service</string>
+    <string name="settings_add_service">Ajouter un service</string>
     <string name="settings_free_fallback">Utiliser comme secours</string>
     <string name="settings_heartbeat">Battement de cœur</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ceci est une vérification automatique. Passez en revue vos souvenirs et tâches en attente. Si tout semble correct et rien ne nécessite d'attention, répondez exactement : HEARTBEAT_OK

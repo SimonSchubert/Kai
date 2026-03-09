@@ -126,6 +126,7 @@
     <string name="settings_email_poll_never">Никогда</string>
     <string name="settings_email_poll_never_description">Только вручную — напишите «проверить мою почту» в чате</string>
     <string name="settings_connect_server">Подключить сервис</string>
+    <string name="settings_add_service">Добавить сервис</string>
     <string name="settings_free_fallback">Использовать как запасной</string>
     <string name="settings_heartbeat">Пульс</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Это автоматическая самопроверка. Просмотрите свои воспоминания и ожидающие задачи. Если всё в порядке и ничто не требует внимания, ответьте точно: HEARTBEAT_OK
