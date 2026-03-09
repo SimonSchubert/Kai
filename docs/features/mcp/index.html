@@ -615,17 +615,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#popular-servers-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Popular Servers List
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#key-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -918,17 +907,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#popular-servers-list" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Popular Servers List
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#key-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1004,7 +982,7 @@
 <h2 id="authentication">Authentication</h2>
 <p>Custom headers (e.g., <code>Authorization: Bearer &lt;token&gt;</code>) can be configured per server and are sent with every request. The popular servers list contains only servers that require no authentication.</p>
 <h2 id="integration-with-tools">Integration with Tools</h2>
-<p>MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's <code>getAvailableTools()</code> includes enabled MCP tools from the <code>McpServerManager</code>. MCP tools have a 60-second timeout (vs 30s default for native tools).</p>
+<p>MCP tools are automatically available to the AI — no changes needed to the tool executor or request serialization. The platform layer's <code>getAvailableTools()</code> includes enabled MCP tools from the <code>McpServerManager</code>. MCP tools have a 60-second timeout (vs 30s default for native tools). MCP tools are only shown within their server's expanded card in settings, not in the native tools list.</p>
 <p>Tool calls to MCP servers go through the same execution pipeline as native tools: the tool executor finds the tool by name, the <code>McpTool</code> wrapper sends a <code>tools/call</code> JSON-RPC request to the server, and the result is returned to the AI.</p>
 <h2 id="limitations">Limitations</h2>
 <ul>
@@ -1012,58 +990,6 @@
 <li>CORS may block MCP server requests on the web platform</li>
 <li>Tool parameters are converted from JSON Schema to flat property maps (top-level properties only)</li>
 </ul>
-<h2 id="popular-servers-list">Popular Servers List</h2>
-<table>
-<thead>
-<tr>
-<th>Server</th>
-<th>URL</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Fetch</td>
-<td><code>https://remote.mcpservers.org/fetch/mcp</code></td>
-<td>Fetch web content and convert HTML to markdown</td>
-</tr>
-<tr>
-<td>DeepWiki</td>
-<td><code>https://mcp.deepwiki.com/mcp</code></td>
-<td>AI-powered docs for any GitHub repo</td>
-</tr>
-<tr>
-<td>Sequential Thinking</td>
-<td><code>https://remote.mcpservers.org/sequentialthinking/mcp</code></td>
-<td>Structured step-by-step problem-solving</td>
-</tr>
-<tr>
-<td>Context7</td>
-<td><code>https://context7.liam.sh/mcp</code></td>
-<td>Up-to-date library and framework docs</td>
-</tr>
-<tr>
-<td>Globalping</td>
-<td><code>https://mcp.globalping.dev/mcp</code></td>
-<td>Ping, traceroute, DNS from global probes</td>
-</tr>
-<tr>
-<td>CoinGecko</td>
-<td><code>https://mcp.api.coingecko.com/mcp</code></td>
-<td>Real-time crypto prices and market data</td>
-</tr>
-<tr>
-<td>Manifold Markets</td>
-<td><code>https://api.manifold.markets/v0/mcp</code></td>
-<td>Prediction market data and odds</td>
-</tr>
-<tr>
-<td>Find-A-Domain</td>
-<td><code>https://api.findadomain.dev/mcp</code></td>
-<td>Domain availability across 1,444+ TLDs</td>
-</tr>
-</tbody>
-</table>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>

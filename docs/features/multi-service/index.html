@@ -913,7 +913,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-03-07</p>
+<p><strong>Last verified:</strong> 2026-03-09</p>
 <p>Kai supports 11 LLM providers (plus a built-in Free tier). Each provider uses either the <strong>OpenAI-compatible</strong> chat format (most services) or the <strong>Gemini native</strong> API. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -943,7 +943,7 @@
 <li>Only instances with valid API keys are considered</li>
 <li>If no instances are configured, the Free tier is used as the only service</li>
 <li>If instances exist and "Use as fallback" is enabled (default), the Free tier is appended as the last resort</li>
-<li>Each service attempt retries up to 3 times with increasing delays before moving to the next service in the chain</li>
+<li>Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain</li>
 <li>On failure, the next instance in the chain is tried; if all fail, the last error is shown</li>
 <li>If a fallback succeeds, the response indicates which service answered</li>
 </ol>

@@ -957,7 +957,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-03-07</p>
+<p><strong>Last verified:</strong> 2026-03-09</p>
 <p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="heartbeat_1">Heartbeat</h3>
@@ -970,7 +970,7 @@
 <p>Heartbeat configuration is stored as a serialized JSON object in app settings. All values are configurable from both the settings UI and via the <code>configure_heartbeat</code> AI tool:</p>
 <ul>
 <li><strong>Enabled</strong>: true</li>
-<li><strong>Interval</strong>: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 1.5h, 2h, 4h)</li>
+<li><strong>Interval</strong>: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)</li>
 <li><strong>Active hours start</strong>: 8 (hour, 24h format; UI range slider covers 0–23)</li>
 <li><strong>Active hours end</strong>: 22 (hour, 24h format; UI range slider covers 0–23)</li>
 </ul>
@@ -1021,7 +1021,7 @@
 <ul>
 <li><strong>Toggle</strong> — enables or disables heartbeat with a switch</li>
 <li><strong>Interval display</strong> — shows the current interval in minutes in the section description</li>
-<li><strong>Interval slider</strong> — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 1.5h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label</li>
+<li><strong>Interval slider</strong> — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label</li>
 <li><strong>Active hours range slider</strong> — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "HH:00 – HH:00" next to the label</li>
 <li><strong>Custom prompt editor</strong> — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set</li>
 <li><strong>Log display</strong> — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp</li>

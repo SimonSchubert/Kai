@@ -1431,10 +1431,8 @@
 <h2 id="chat-ui">Chat UI</h2>
 <h3 id="waiting-response-row">Waiting response row</h3>
 <p>When loading, a single composite row appears at the bottom of the chat list containing:
-- A <strong>waiting chip</strong> with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and "Waiting…" text, using surface variant colors
-- <strong>Tool chips</strong> for each currently executing tool, displayed in a FlowRow next to the waiting chip with build icon + tool name, using primary container colors
-- Tool chips animate in/out with <code>fadeIn + expandHorizontally</code> / <code>fadeOut + shrinkHorizontally</code> (300ms each)
-- The FlowRow layout prevents layout jumps when tools appear/disappear
+- A <strong>waiting chip</strong> with a pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation) and cycling text ("Thinking…", "Working…", "Brewing…" rotating every 3 seconds with Crossfade animation), using surface variant colors. The chip uses <code>animateContentSize</code> (300ms) for smooth text transitions
+- <strong>Tool chips</strong> for each currently executing tool, displayed in a Row next to the waiting chip with build icon + tool name, using primary container colors
 - TOOL_EXECUTING entries are no longer rendered as separate list items
 - Completed tool results (TOOL role) are not shown in the UI</p>
 <h2 id="key-files">Key Files</h2>
