@@ -57,6 +57,7 @@ private val limitedModels = listOf(
 )
 
 private const val MAX_TOOL_ITERATIONS = 15
+private const val MIN_TOOL_DISPLAY_MS = 2000L
 private const val MAX_REPEATED_TOOL_CALLS = 3
 private const val MAX_API_RETRIES = 2
 private const val ESTIMATED_CHARS_PER_TOKEN = 4
@@ -712,7 +713,8 @@ class RemoteDataRepository(
             }
         }
 
-        // Execute all tools concurrently
+        // Execute all tools concurrently, ensuring indicators show for at least 2 seconds
+        val startTime = Clock.System.now().toEpochMilliseconds()
         val results = coroutineScope {
             toolCalls.map { (callId, name, arguments) ->
                 async {
@@ -720,6 +722,10 @@ class RemoteDataRepository(
                     Triple(callId, name, result)
                 }
             }.map { it.await() }
+        }
+        val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
+        if (elapsed < MIN_TOOL_DISPLAY_MS) {
+            delay(MIN_TOOL_DISPLAY_MS - elapsed)
         }
 
         // Remove all TOOL_EXECUTING indicators
