@@ -28,6 +28,7 @@ string|privacy_agree_prefix|VmVkIGF0IGJydWdlIHRqZW5lc3RlbiBhY2NlcHRlcmVyIGR1IA==
 string|privacy_policy|UHJpdmF0bGl2c3BvbGl0aWtrZW4=
 string|prompt_ask_question|U3RpbCBldCBzcMO4cmdzbcOlbA==
 string|prompt_pick_media|VsOmbGcgbWVkaWU=
+string|settings_add_service|VGlsZsO4aiB0amVuZXN0ZQ==
 string|settings_ai_mistakes_warning|QUkgbGF2ZXIgZmVqbCDigJMgZG9iYmVsdHRqZWsgb2cgZGVsIGlra2UgZsO4bHNvbW1lIG9wbHlzbmluZ2VyLg==
 string|settings_api_key_label|QVBJLW7DuGdsZQ==
 string|settings_api_key_optional_label|QVBJLW7DuGdsZSAodmFsZ2ZyaSk=
