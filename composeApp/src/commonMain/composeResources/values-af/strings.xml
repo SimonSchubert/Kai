@@ -153,4 +153,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_export_import_description">Die uitgevoerde lêer bevat sensitiewe data soos API-sleutels en wagwoorde.</string>
     <string name="settings_export">Uitvoer</string>
     <string name="settings_import">Invoer</string>
+    <string name="settings_import_success">Instellings suksesvol ingevoer.</string>
+    <string name="settings_import_error">Invoer het misluk. Die lêerformaat is ongeldig.</string>
 </resources>

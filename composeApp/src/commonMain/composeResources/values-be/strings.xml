@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Экспартаваны файл змяшчае канфідэнцыйныя даныя, такія як ключы API і паролі.</string>
     <string name="settings_export">Экспарт</string>
     <string name="settings_import">Імпарт</string>
+    <string name="settings_import_success">Налады паспяхова імпартаваны.</string>
+    <string name="settings_import_error">Памылка імпарту. Няправільны фармат файла.</string>
 </resources>

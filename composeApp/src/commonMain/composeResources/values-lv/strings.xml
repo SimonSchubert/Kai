@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Eksportētais fails satur sensitīvus datus, piemēram, API atslēgas un paroles.</string>
     <string name="settings_export">Eksports</string>
     <string name="settings_import">Imports</string>
+    <string name="settings_import_success">Iestatījumi veiksmīgi importēti.</string>
+    <string name="settings_import_error">Importēšana neizdevās. Faila formāts nav derīgs.</string>
 </resources>

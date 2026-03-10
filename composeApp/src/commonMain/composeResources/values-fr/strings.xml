@@ -153,4 +153,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_export_import_description">Le fichier exporté contient des données sensibles telles que des clés API et des mots de passe.</string>
     <string name="settings_export">Exporter</string>
     <string name="settings_import">Importer</string>
+    <string name="settings_import_success">Paramètres importés avec succès.</string>
+    <string name="settings_import_error">L\'importation a échoué. Le format du fichier est invalide.</string>
 </resources>

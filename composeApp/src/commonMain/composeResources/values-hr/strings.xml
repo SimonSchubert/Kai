@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Izvezena datoteka sadrži osjetljive podatke poput API ključeva i lozinki.</string>
     <string name="settings_export">Izvoz</string>
     <string name="settings_import">Uvoz</string>
+    <string name="settings_import_success">Postavke uspješno uvezene.</string>
+    <string name="settings_import_error">Uvoz nije uspio. Format datoteke je nevažeći.</string>
 </resources>

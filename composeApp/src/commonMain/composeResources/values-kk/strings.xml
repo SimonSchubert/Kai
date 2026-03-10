@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Экспортталған файлда API кілттері мен құпия сөздер сияқты құпия деректер бар.</string>
     <string name="settings_export">Экспорт</string>
     <string name="settings_import">Импорт</string>
+    <string name="settings_import_success">Параметрлер сәтті импортталды.</string>
+    <string name="settings_import_error">Импорт сәтсіз аяқталды. Файл пішімі жарамсыз.</string>
 </resources>

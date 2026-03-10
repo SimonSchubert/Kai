@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Eksporditud fail sisaldab tundlikke andmeid, nagu API-võtmed ja paroolid.</string>
     <string name="settings_export">Eksport</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Seaded edukalt imporditud.</string>
+    <string name="settings_import_error">Import ebaõnnestus. Failivorming on vigane.</string>
 </resources>

@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">エクスポートされたファイルにはAPIキーやパスワードなどの機密データが含まれています。</string>
     <string name="settings_export">エクスポート</string>
     <string name="settings_import">インポート</string>
+    <string name="settings_import_success">設定のインポートに成功しました。</string>
+    <string name="settings_import_error">インポートに失敗しました。ファイル形式が無効です。</string>
 </resources>

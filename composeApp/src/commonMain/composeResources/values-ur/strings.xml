@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">برآمد شدہ فائل میں API کیز اور پاس ورڈز جیسا حساس ڈیٹا ہوتا ہے۔</string>
     <string name="settings_export">برآمد</string>
     <string name="settings_import">درآمد</string>
+    <string name="settings_import_success">ترتیبات کامیابی سے درآمد ہو گئیں۔</string>
+    <string name="settings_import_error">درآمد ناکام۔ فائل فارمیٹ غلط ہے۔</string>
 </resources>

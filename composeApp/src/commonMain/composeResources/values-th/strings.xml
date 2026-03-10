@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">ไฟล์ที่ส่งออกมีข้อมูลที่ละเอียดอ่อน เช่น คีย์ API และรหัสผ่าน</string>
     <string name="settings_export">ส่งออก</string>
     <string name="settings_import">นำเข้า</string>
+    <string name="settings_import_success">นำเข้าการตั้งค่าสำเร็จ</string>
+    <string name="settings_import_error">การนำเข้าล้มเหลว รูปแบบไฟล์ไม่ถูกต้อง</string>
 </resources>

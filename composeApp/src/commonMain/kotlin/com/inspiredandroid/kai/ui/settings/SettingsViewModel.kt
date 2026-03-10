@@ -321,9 +321,15 @@ class SettingsViewModel(
 
     private fun onExportSettings(): String = dataRepository.exportSettingsToJson()
 
-    private fun onImportSettings(bytes: ByteArray) {
+    private fun onImportSettings(bytes: ByteArray): Boolean = try {
+        val currentTab = _state.value.currentTab
         dataRepository.importSettingsFromJson(bytes.decodeToString())
-        _state.value = buildFullState()
+        _state.value = buildFullState().copy(currentTab = currentTab)
+        checkAllConnections()
+        connectEnabledMcpServers()
+        true
+    } catch (_: Exception) {
+        false
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

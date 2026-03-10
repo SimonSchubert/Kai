@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Az exportált fájl érzékeny adatokat tartalmaz, például API-kulcsokat és jelszavakat.</string>
     <string name="settings_export">Exportálás</string>
     <string name="settings_import">Importálás</string>
+    <string name="settings_import_success">Beállítások sikeresen importálva.</string>
+    <string name="settings_import_error">Az importálás sikertelen. A fájlformátum érvénytelen.</string>
 </resources>

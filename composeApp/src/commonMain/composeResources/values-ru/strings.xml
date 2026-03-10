@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">Экспортированный файл содержит конфиденциальные данные, такие как ключи API и пароли.</string>
     <string name="settings_export">Экспорт</string>
     <string name="settings_import">Импорт</string>
+    <string name="settings_import_success">Настройки успешно импортированы.</string>
+    <string name="settings_import_error">Ошибка импорта. Неверный формат файла.</string>
 </resources>

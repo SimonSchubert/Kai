@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Skedari i eksportuar përmban të dhëna të ndjeshme si çelësa API dhe fjalëkalime.</string>
     <string name="settings_export">Eksporto</string>
     <string name="settings_import">Importo</string>
+    <string name="settings_import_success">Cilësimet u importuan me sukses.</string>
+    <string name="settings_import_error">Importimi dështoi. Formati i skedarit është i pavlefshëm.</string>
 </resources>

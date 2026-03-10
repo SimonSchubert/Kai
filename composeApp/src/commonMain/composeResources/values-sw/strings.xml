@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Faili iliyohamishwa ina data nyeti kama vile funguo za API na nywila.</string>
     <string name="settings_export">Hamisha</string>
     <string name="settings_import">Ingiza</string>
+    <string name="settings_import_success">Mipangilio imeingizwa kwa mafanikio.</string>
+    <string name="settings_import_error">Kuingiza kumeshindwa. Muundo wa faili si sahihi.</string>
 </resources>

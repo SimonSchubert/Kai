@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">નિકાસ કરેલ ફાઇલમાં API કી અને પાસવર્ડ જેવી સંવેદનશીલ માહિતી છે.</string>
     <string name="settings_export">નિકાસ</string>
     <string name="settings_import">આયાત</string>
+    <string name="settings_import_success">સેટિંગ્સ સફળતાપૂર્વક આયાત કરવામાં આવી.</string>
+    <string name="settings_import_error">આયાત નિષ્ફળ. ફાઇલ ફોર્મેટ અમાન્ય છે.</string>
 </resources>

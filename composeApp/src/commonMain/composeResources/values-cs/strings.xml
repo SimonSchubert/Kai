@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Exportovaný soubor obsahuje citlivé údaje, jako jsou klíče API a hesla.</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Nastavení úspěšně importována.</string>
+    <string name="settings_import_error">Import selhal. Formát souboru je neplatný.</string>
 </resources>

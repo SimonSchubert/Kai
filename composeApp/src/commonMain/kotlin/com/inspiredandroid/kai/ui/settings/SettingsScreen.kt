@@ -149,6 +149,8 @@ import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_import
+import kai.composeapp.generated.resources.settings_import_error
+import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_add
 import kai.composeapp.generated.resources.settings_mcp_add_server
 import kai.composeapp.generated.resources.settings_mcp_auth_header
@@ -1315,9 +1317,10 @@ private fun GeneralContent(uiState: SettingsUiState) {
 @Composable
 private fun ExportImportSection(
     onExportSettings: () -> String,
-    onImportSettings: (ByteArray) -> Unit,
+    onImportSettings: (ByteArray) -> Boolean,
 ) {
     val scope = rememberCoroutineScope()
+    var importResult by remember { mutableStateOf<Boolean?>(null) }
 
     val filePickerLauncher = rememberFilePickerLauncher(
         type = FileKitType.File(extensions = listOf("json")),
@@ -1325,7 +1328,7 @@ private fun ExportImportSection(
         if (file != null) {
             scope.launch {
                 val bytes = file.readBytes()
-                onImportSettings(bytes)
+                importResult = onImportSettings(bytes)
             }
         }
     }
@@ -1345,6 +1348,7 @@ private fun ExportImportSection(
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         OutlinedButton(
             onClick = {
+                importResult = null
                 val json = onExportSettings()
                 scope.launch {
                     saveFileToDevice(
@@ -1359,11 +1363,24 @@ private fun ExportImportSection(
             Text(stringResource(Res.string.settings_export))
         }
         OutlinedButton(
-            onClick = { filePickerLauncher.launch() },
+            onClick = {
+                importResult = null
+                filePickerLauncher.launch()
+            },
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
         ) {
             Text(stringResource(Res.string.settings_import))
         }
+    }
+    if (importResult != null) {
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = stringResource(
+                if (importResult == true) Res.string.settings_import_success else Res.string.settings_import_error,
+            ),
+            style = MaterialTheme.typography.bodySmall,
+            color = if (importResult == true) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+        )
     }
 }
 

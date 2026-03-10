@@ -153,4 +153,6 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_export_import_description">Wyeksportowany plik zawiera wrażliwe dane, takie jak klucze API i hasła.</string>
     <string name="settings_export">Eksport</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Ustawienia zaimportowane pomyślnie.</string>
+    <string name="settings_import_error">Import nie powiódł się. Format pliku jest nieprawidłowy.</string>
 </resources>

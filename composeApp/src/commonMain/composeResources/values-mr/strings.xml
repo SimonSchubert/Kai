@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">निर्यात केलेल्या फाइलमध्ये API की आणि पासवर्ड सारखी संवेदनशील माहिती आहे.</string>
     <string name="settings_export">निर्यात</string>
     <string name="settings_import">आयात</string>
+    <string name="settings_import_success">सेटिंग्ज यशस्वीरित्या आयात केल्या.</string>
+    <string name="settings_import_error">आयात अयशस्वी. फाइल फॉरमॅट अवैध आहे.</string>
 </resources>

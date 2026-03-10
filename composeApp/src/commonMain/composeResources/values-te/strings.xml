@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">ఎగుమతి చేసిన ఫైల్‌లో API కీలు మరియు పాస్‌వర్డ్‌ల వంటి సున్నితమైన డేటా ఉంటుంది.</string>
     <string name="settings_export">ఎగుమతి</string>
     <string name="settings_import">దిగుమతి</string>
+    <string name="settings_import_success">సెట్టింగ్‌లు విజయవంతంగా దిగుమతి చేయబడ్డాయి.</string>
+    <string name="settings_import_error">దిగుమతి విఫలమైంది. ఫైల్ ఫార్మాట్ చెల్లదు.</string>
 </resources>

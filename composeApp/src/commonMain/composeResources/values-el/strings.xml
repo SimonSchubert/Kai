@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Το εξαγόμενο αρχείο περιέχει ευαίσθητα δεδομένα όπως κλειδιά API και κωδικούς πρόσβασης.</string>
     <string name="settings_export">Εξαγωγή</string>
     <string name="settings_import">Εισαγωγή</string>
+    <string name="settings_import_success">Οι ρυθμίσεις εισήχθησαν επιτυχώς.</string>
+    <string name="settings_import_error">Η εισαγωγή απέτυχε. Η μορφή αρχείου δεν είναι έγκυρη.</string>
 </resources>

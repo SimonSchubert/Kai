@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Fișierul exportat conține date sensibile precum chei API și parole.</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Setările au fost importate cu succes.</string>
+    <string name="settings_import_error">Importul a eșuat. Formatul fișierului este invalid.</string>
 </resources>

@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">يحتوي الملف المُصدَّر على بيانات حساسة مثل مفاتيح API وكلمات المرور.</string>
     <string name="settings_export">تصدير</string>
     <string name="settings_import">استيراد</string>
+    <string name="settings_import_success">تم استيراد الإعدادات بنجاح.</string>
+    <string name="settings_import_error">فشل الاستيراد. تنسيق الملف غير صالح.</string>
 </resources>

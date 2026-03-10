@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Експортираният файл съдържа чувствителни данни като API ключове и пароли.</string>
     <string name="settings_export">Експорт</string>
     <string name="settings_import">Импорт</string>
+    <string name="settings_import_success">Настройките са импортирани успешно.</string>
+    <string name="settings_import_error">Импортирането не успя. Форматът на файла е невалиден.</string>
 </resources>

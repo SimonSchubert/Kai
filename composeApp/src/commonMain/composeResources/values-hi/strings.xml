@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">निर्यात की गई फ़ाइल में API कुंजियाँ और पासवर्ड जैसे संवेदनशील डेटा होते हैं।</string>
     <string name="settings_export">निर्यात</string>
     <string name="settings_import">आयात</string>
+    <string name="settings_import_success">सेटिंग्स सफलतापूर्वक आयात की गईं।</string>
+    <string name="settings_import_error">आयात विफल। फ़ाइल प्रारूप अमान्य है।</string>
 </resources>

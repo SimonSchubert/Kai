@@ -98,7 +98,7 @@ data class SettingsUiState(
     val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val onExportSettings: () -> String = { "" },
-    val onImportSettings: (ByteArray) -> Unit = {},
+    val onImportSettings: (ByteArray) -> Boolean = { false },
 )
 
 @Immutable

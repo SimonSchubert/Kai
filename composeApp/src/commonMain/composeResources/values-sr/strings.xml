@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Извезена датотека садржи осетљиве податке попут API кључева и лозинки.</string>
     <string name="settings_export">Извоз</string>
     <string name="settings_import">Увоз</string>
+    <string name="settings_import_success">Подешавања успешно увезена.</string>
+    <string name="settings_import_error">Увоз није успео. Формат датотеке је неважећи.</string>
 </resources>

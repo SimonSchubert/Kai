@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">匯出的檔案包含敏感資料，如 API 金鑰和密碼。</string>
     <string name="settings_export">匯出</string>
     <string name="settings_import">匯入</string>
+    <string name="settings_import_success">設定匯入成功。</string>
+    <string name="settings_import_error">匯入失敗。檔案格式無效。</string>
 </resources>

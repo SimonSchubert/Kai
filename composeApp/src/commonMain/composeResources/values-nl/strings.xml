@@ -153,4 +153,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_export_import_description">Het geëxporteerde bestand bevat gevoelige gegevens zoals API-sleutels en wachtwoorden.</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Instellingen succesvol geïmporteerd.</string>
+    <string name="settings_import_error">Import mislukt. Het bestandsformaat is ongeldig.</string>
 </resources>

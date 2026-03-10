@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Ang na-export na file ay naglalaman ng sensitibong data tulad ng mga API key at password.</string>
     <string name="settings_export">I-export</string>
     <string name="settings_import">I-import</string>
+    <string name="settings_import_success">Matagumpay na na-import ang mga setting.</string>
+    <string name="settings_import_error">Nabigo ang pag-import. Hindi wasto ang format ng file.</string>
 </resources>

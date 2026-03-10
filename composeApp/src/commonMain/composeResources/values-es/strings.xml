@@ -153,4 +153,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_export_import_description">El archivo exportado contiene datos sensibles como claves API y contraseñas.</string>
     <string name="settings_export">Exportar</string>
     <string name="settings_import">Importar</string>
+    <string name="settings_import_success">Configuración importada correctamente.</string>
+    <string name="settings_import_error">Error al importar. El formato del archivo no es válido.</string>
 </resources>

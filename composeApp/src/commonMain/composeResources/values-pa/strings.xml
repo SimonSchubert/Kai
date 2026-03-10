@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">ਨਿਰਯਾਤ ਕੀਤੀ ਫਾਈਲ ਵਿੱਚ API ਕੁੰਜੀਆਂ ਅਤੇ ਪਾਸਵਰਡ ਵਰਗੇ ਸੰਵੇਦਨਸ਼ੀਲ ਡੇਟਾ ਹੁੰਦੇ ਹਨ।</string>
     <string name="settings_export">ਨਿਰਯਾਤ</string>
     <string name="settings_import">ਆਯਾਤ</string>
+    <string name="settings_import_success">ਸੈਟਿੰਗਾਂ ਸਫਲਤਾਪੂਰਵਕ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
+    <string name="settings_import_error">ਆਯਾਤ ਅਸਫਲ। ਫਾਈਲ ਫਾਰਮੈਟ ਅਵੈਧ ਹੈ।</string>
 </resources>

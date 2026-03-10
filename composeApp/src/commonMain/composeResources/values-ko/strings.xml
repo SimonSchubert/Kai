@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">내보낸 파일에는 API 키 및 비밀번호와 같은 민감한 데이터가 포함되어 있습니다.</string>
     <string name="settings_export">내보내기</string>
     <string name="settings_import">가져오기</string>
+    <string name="settings_import_success">설정을 가져왔습니다.</string>
+    <string name="settings_import_error">가져오기에 실패했습니다. 파일 형식이 올바르지 않습니다.</string>
 </resources>

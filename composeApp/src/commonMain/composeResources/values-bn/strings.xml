@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">রপ্তানি করা ফাইলে API কী এবং পাসওয়ার্ডের মতো সংবেদনশীল তথ্য রয়েছে।</string>
     <string name="settings_export">রপ্তানি</string>
     <string name="settings_import">আমদানি</string>
+    <string name="settings_import_success">সেটিংস সফলভাবে আমদানি করা হয়েছে।</string>
+    <string name="settings_import_error">আমদানি ব্যর্থ। ফাইল ফরম্যাট অবৈধ।</string>
 </resources>

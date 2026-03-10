@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">File yang diekspor berisi data sensitif seperti kunci API dan kata sandi.</string>
     <string name="settings_export">Ekspor</string>
     <string name="settings_import">Impor</string>
+    <string name="settings_import_success">Pengaturan berhasil diimpor.</string>
+    <string name="settings_import_error">Impor gagal. Format file tidak valid.</string>
 </resources>

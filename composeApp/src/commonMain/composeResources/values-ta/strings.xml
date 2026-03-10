@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">ஏற்றுமதி செய்யப்பட்ட கோப்பில் API விசைகள் மற்றும் கடவுச்சொற்கள் போன்ற முக்கியமான தரவுகள் உள்ளன.</string>
     <string name="settings_export">ஏற்றுமதி</string>
     <string name="settings_import">இறக்குமதி</string>
+    <string name="settings_import_success">அமைப்புகள் வெற்றிகரமாக இறக்குமதி செய்யப்பட்டன.</string>
+    <string name="settings_import_error">இறக்குமதி தோல்வியடைந்தது. கோப்பு வடிவம் தவறானது.</string>
 </resources>

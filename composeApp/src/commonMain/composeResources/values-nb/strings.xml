@@ -153,4 +153,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf√
     <string name="settings_export_import_description">Den eksporterte filen inneholder sensitive data som API-n√∏kler og passord.</string>
     <string name="settings_export">Eksporter</string>
     <string name="settings_import">Importer</string>
+    <string name="settings_import_success">Innstillinger importert.</string>
+    <string name="settings_import_error">Importen mislyktes. Filformatet er ugyldig.</string>
 </resources>

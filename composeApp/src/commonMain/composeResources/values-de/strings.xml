@@ -153,4 +153,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_export_import_description">Die exportierte Datei enthält sensible Daten wie API-Schlüssel und Passwörter.</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Einstellungen erfolgreich importiert.</string>
+    <string name="settings_import_error">Import fehlgeschlagen. Das Dateiformat ist ungültig.</string>
 </resources>

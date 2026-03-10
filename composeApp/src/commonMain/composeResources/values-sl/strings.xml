@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Izvožena datoteka vsebuje občutljive podatke, kot so ključi API in gesla.</string>
     <string name="settings_export">Izvoz</string>
     <string name="settings_import">Uvoz</string>
+    <string name="settings_import_success">Nastavitve uspešno uvožene.</string>
+    <string name="settings_import_error">Uvoz ni uspel. Oblika datoteke ni veljavna.</string>
 </resources>

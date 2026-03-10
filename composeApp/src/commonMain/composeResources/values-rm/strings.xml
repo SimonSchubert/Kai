@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">La datoteca exportada cuntegna datas sensiblas sco clavs API e pleds-clav.</string>
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
+    <string name="settings_import_success">Configuraziuns importadas cun success.</string>
+    <string name="settings_import_error">L\'import n\'è betg reussì. Il format da la datoteca n\'è betg valid.</string>
 </resources>

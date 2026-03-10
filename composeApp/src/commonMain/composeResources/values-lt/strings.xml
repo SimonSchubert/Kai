@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Eksportuotas failas turi jautrių duomenų, tokių kaip API raktai ir slaptažodžiai.</string>
     <string name="settings_export">Eksportas</string>
     <string name="settings_import">Importas</string>
+    <string name="settings_import_success">Nustatymai sėkmingai importuoti.</string>
+    <string name="settings_import_error">Importas nepavyko. Failo formatas netinkamas.</string>
 </resources>

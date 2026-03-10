@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">הקובץ המיוצא מכיל נתונים רגישים כגון מפתחות API וסיסמאות.</string>
     <string name="settings_export">ייצוא</string>
     <string name="settings_import">ייבוא</string>
+    <string name="settings_import_success">ההגדרות יובאו בהצלחה.</string>
+    <string name="settings_import_error">הייבוא נכשל. פורמט הקובץ אינו תקין.</string>
 </resources>

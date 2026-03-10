@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Ifayela elithunyelwe liqukethe idatha ebucayi njengama-API key namaphasiwedi.</string>
     <string name="settings_export">Thumela</string>
     <string name="settings_import">Ngenisa</string>
+    <string name="settings_import_success">Izilungiselelo zingeniswe ngempumelelo.</string>
+    <string name="settings_import_error">Ukungenisa kuhlulekile. Ifomethi yefayela ayilungile.</string>
 </resources>

@@ -153,4 +153,6 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_export_import_description">Il file esportato contiene dati sensibili come chiavi API e password.</string>
     <string name="settings_export">Esporta</string>
     <string name="settings_import">Importa</string>
+    <string name="settings_import_success">Impostazioni importate con successo.</string>
+    <string name="settings_import_error">Importazione fallita. Il formato del file non è valido.</string>
 </resources>

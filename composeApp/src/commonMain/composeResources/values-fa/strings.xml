@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">فایل صادر شده حاوی داده‌های حساس مانند کلیدهای API و رمزهای عبور است.</string>
     <string name="settings_export">صادرات</string>
     <string name="settings_import">واردات</string>
+    <string name="settings_import_success">تنظیمات با موفقیت وارد شد.</string>
+    <string name="settings_import_error">واردات ناموفق بود. فرمت فایل نامعتبر است.</string>
 </resources>

@@ -153,4 +153,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_export_import_description">Den exporterade filen innehåller känsliga uppgifter som API-nycklar och lösenord.</string>
     <string name="settings_export">Exportera</string>
     <string name="settings_import">Importera</string>
+    <string name="settings_import_success">Inställningar importerades.</string>
+    <string name="settings_import_error">Importen misslyckades. Filformatet är ogiltigt.</string>
 </resources>

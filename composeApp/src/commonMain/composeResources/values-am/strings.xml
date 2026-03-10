@@ -153,4 +153,6 @@
     <string name="settings_export_import_description">የተላከው ፋይል እንደ API ቁልፎች እና የይለፍ ቃላት ያሉ ሚስጥራዊ መረጃዎችን ይዟል።</string>
     <string name="settings_export">ወደ ውጭ ላክ</string>
     <string name="settings_import">አስገባ</string>
+    <string name="settings_import_success">ቅንብሮች በተሳካ ሁኔታ ገብተዋል።</string>
+    <string name="settings_import_error">ማስገባት አልተሳካም። የፋይል ቅርጸት ልክ አይደለም።</string>
 </resources>

@@ -152,4 +152,6 @@
     <string name="settings_export_import_description">Tệp xuất chứa dữ liệu nhạy cảm như khóa API và mật khẩu.</string>
     <string name="settings_export">Xuất</string>
     <string name="settings_import">Nhập</string>
+    <string name="settings_import_success">Đã nhập cài đặt thành công.</string>
+    <string name="settings_import_error">Nhập thất bại. Định dạng tệp không hợp lệ.</string>
 </resources>
