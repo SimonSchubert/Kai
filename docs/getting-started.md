@@ -24,6 +24,12 @@ brew install --cask simonschubert/tap/kai
 yay -S kai-bin
 ```
 
+### Winget (Windows)
+
+```bash
+winget install SimonSchubert.Kai
+```
+
 ### Direct Downloads
 
 | Platform | Format | Download |

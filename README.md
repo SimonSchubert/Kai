@@ -25,6 +25,12 @@ AUR (Arch Linux):
 yay -S kai-bin
 ```
 
+Winget (Windows):
+
+```
+winget install SimonSchubert.Kai
+```
+
 ### Direct Downloads
 
 | Platform | Format | Download |
