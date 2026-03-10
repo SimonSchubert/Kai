@@ -102,7 +102,17 @@ class FakeDataRepository : DataRepository {
         instanceBaseUrls[instanceId] = baseUrl
     }
 
-    override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
+    override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = instanceModels.getOrPut(instanceId) {
+        MutableStateFlow(
+            service.defaultModels.map {
+                SettingsModel(
+                    id = it.id,
+                    subtitle = it.subtitle,
+                    descriptionRes = it.descriptionRes,
+                )
+            },
+        )
+    }
 
     override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
         instanceModels[instanceId]?.update { models ->

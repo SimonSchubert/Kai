@@ -7,9 +7,14 @@ import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
+import com.inspiredandroid.kai.network.AnthropicGenericException
+import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
+import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
+import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
+import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -17,6 +22,7 @@ import com.inspiredandroid.kai.platformName
 import com.inspiredandroid.kai.toHumanReadableDate
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
+import com.inspiredandroid.kai.ui.chat.toAnthropicContentBlocks
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
 import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
@@ -34,6 +40,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
@@ -246,9 +253,24 @@ class RemoteDataRepository(
     private suspend fun fetchInstanceModels(service: Service, instanceId: String) {
         when (service) {
             Service.Gemini -> fetchGeminiModelsForInstance(instanceId)
+            Service.Anthropic -> fetchAnthropicModelsForInstance(instanceId)
             Service.Free -> { /* No model listing */ }
             else -> fetchOpenAICompatibleModelsForInstance(service, instanceId)
         }
+    }
+
+    private suspend fun fetchAnthropicModelsForInstance(instanceId: String) {
+        val creds = instanceCredentials(instanceId, Service.Anthropic)
+        val response = requests.getAnthropicModels(creds).getOrThrow()
+        val selectedModelId = appSettings.getInstanceModelId(instanceId)
+        val models = response.data.map {
+            SettingsModel(
+                id = it.id,
+                subtitle = it.display_name ?: it.id,
+                isSelected = it.id == selectedModelId,
+            )
+        }
+        updateModelsForInstance(instanceId, models)
     }
 
     private suspend fun fetchGeminiModelsForInstance(instanceId: String) {
@@ -332,6 +354,16 @@ class RemoteDataRepository(
                 } else {
                     val geminiMessages = messages.map { it.toGeminiMessageDto() }
                     val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
+                    response.extractText()
+                }
+            }
+
+            Service.Anthropic -> {
+                if (tools.isNotEmpty()) {
+                    handleAnthropicChatWithTools(creds, messages, tools, systemPrompt)
+                } else {
+                    val anthropicMessages = buildAnthropicMessages(messages)
+                    val response = requests.anthropicChat(creds, anthropicMessages, systemInstruction = systemPrompt).getOrThrow()
                     response.extractText()
                 }
             }
@@ -420,6 +452,7 @@ class RemoteDataRepository(
                 return
             } catch (e: Exception) {
                 if (e is kotlinx.coroutines.CancellationException) throw e
+                if (isNonRetryableException(e)) throw e
                 lastException = e
                 // Try next service
             }
@@ -652,6 +685,156 @@ class RemoteDataRepository(
         )
     }
 
+    private fun buildAnthropicMessages(
+        messages: List<History>,
+    ): List<AnthropicChatRequestDto.Message> = buildList {
+        var pendingToolResults = mutableListOf<JsonElement>()
+
+        for (msg in messages) {
+            when (msg.role) {
+                History.Role.TOOL_EXECUTING -> { /* skip */ }
+
+                History.Role.TOOL -> {
+                    // Accumulate tool results; they'll be merged into a single user message
+                    val blocks = msg.toAnthropicContentBlocks()
+                    if (blocks is JsonArray) {
+                        pendingToolResults.addAll(blocks)
+                    }
+                }
+
+                else -> {
+                    // Flush any pending tool results as a single user message before the next message
+                    if (pendingToolResults.isNotEmpty()) {
+                        add(
+                            AnthropicChatRequestDto.Message(
+                                role = "user",
+                                content = JsonArray(pendingToolResults),
+                            ),
+                        )
+                        pendingToolResults = mutableListOf()
+                    }
+                    add(
+                        AnthropicChatRequestDto.Message(
+                            role = if (msg.role == History.Role.ASSISTANT) "assistant" else "user",
+                            content = msg.toAnthropicContentBlocks(),
+                        ),
+                    )
+                }
+            }
+        }
+        // Flush any trailing tool results
+        if (pendingToolResults.isNotEmpty()) {
+            add(
+                AnthropicChatRequestDto.Message(
+                    role = "user",
+                    content = JsonArray(pendingToolResults),
+                ),
+            )
+        }
+    }
+
+    private suspend fun handleAnthropicChatWithTools(
+        credentials: ServiceCredentials,
+        messages: List<History>,
+        tools: List<Tool>,
+        systemPrompt: String? = null,
+    ): String {
+        var iteration = 0
+        val recentSignatures = mutableListOf<String>()
+
+        while (true) {
+            iteration++
+
+            val currentMessages = buildAnthropicMessages(
+                chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
+            )
+
+            if (iteration > MAX_TOOL_ITERATIONS) {
+                val bailoutResponse = retryApiCall {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = currentMessages,
+                        systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
+                    ).getOrThrow()
+                }
+                return bailoutResponse.extractText()
+            }
+
+            val response = retryApiCall {
+                requests.anthropicChat(
+                    credentials = credentials,
+                    messages = currentMessages,
+                    tools = tools,
+                    systemInstruction = systemPrompt,
+                ).getOrThrow()
+            }
+
+            val toolUseBlocks = response.content.filter { it.type == "tool_use" }
+            if (toolUseBlocks.isEmpty()) {
+                return response.extractText()
+            }
+
+            val toolCallInfos = toolUseBlocks.map { block ->
+                val argsJson = block.input?.toString() ?: "{}"
+                ToolCallInfo(
+                    id = block.id ?: "anthropic-${Uuid.random()}",
+                    name = block.name ?: "unknown",
+                    arguments = argsJson,
+                )
+            }
+
+            // Check for repetition
+            val signatures = toolCallInfos.map { "${it.name}:${it.arguments.hashCode()}" }
+            if (isRepeatingToolCalls(recentSignatures, signatures)) {
+                val bailoutResponse = retryApiCall {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = currentMessages,
+                        systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
+                    ).getOrThrow()
+                }
+                return bailoutResponse.extractText()
+            }
+            recentSignatures.addAll(signatures)
+
+            // Add assistant message with tool calls to history
+            val textContent = response.content.filter { it.type == "text" }.mapNotNull { it.text }.joinToString("\n")
+            chatHistory.update {
+                it.toMutableList().apply {
+                    add(
+                        History(
+                            role = History.Role.ASSISTANT,
+                            content = textContent,
+                            toolCalls = toolCallInfos,
+                        ),
+                    )
+                }
+            }
+
+            // Execute all tool calls in parallel
+            val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
+
+            // Add all tool results to history
+            chatHistory.update { history ->
+                buildList(history.size + toolResults.size) {
+                    for (h in history) {
+                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
+                    }
+                    for ((callId, name, result) in toolResults) {
+                        add(
+                            History(
+                                role = History.Role.TOOL,
+                                content = result,
+                                toolCallId = callId,
+                                toolName = name,
+                            ),
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Detects if the current batch of tool calls is repeating a recent pattern.
      */
@@ -745,6 +928,9 @@ class RemoteDataRepository(
         return results
     }
 
+    private fun isNonRetryableException(e: Exception): Boolean =
+        e is AnthropicInsufficientCreditsException || e is OpenAICompatibleQuotaExhaustedException
+
     /**
      * Retries an API call with simple exponential backoff.
      */
@@ -754,6 +940,7 @@ class RemoteDataRepository(
             try {
                 return block()
             } catch (e: Exception) {
+                if (isNonRetryableException(e)) throw e
                 lastException = e
                 if (attempt < MAX_API_RETRIES) {
                     delay(1000L * (attempt + 1))
@@ -1148,6 +1335,12 @@ class RemoteDataRepository(
             Service.Gemini -> {
                 val geminiMessages = messages.map { it.toGeminiMessageDto() }
                 val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
+                response.extractText()
+            }
+
+            Service.Anthropic -> {
+                val anthropicMessages = buildAnthropicMessages(messages)
+                val response = requests.anthropicChat(creds, anthropicMessages, systemInstruction = systemPrompt).getOrThrow()
                 response.extractText()
             }
 

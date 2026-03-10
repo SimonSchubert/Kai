@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.SharedJson
+import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile
@@ -112,6 +113,77 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
     )
 
     History.Role.TOOL_EXECUTING -> OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))
+}
+
+fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
+    History.Role.USER -> {
+        if (data != null && mimeType != null) {
+            JsonArray(
+                listOf(
+                    buildJsonObject {
+                        put("type", "image")
+                        put(
+                            "source",
+                            buildJsonObject {
+                                put("type", "base64")
+                                put("media_type", mimeType)
+                                put("data", data)
+                            },
+                        )
+                    },
+                    buildJsonObject {
+                        put("type", "text")
+                        put("text", content)
+                    },
+                ),
+            )
+        } else {
+            JsonPrimitive(content)
+        }
+    }
+
+    History.Role.ASSISTANT -> {
+        if (toolCalls != null) {
+            JsonArray(
+                buildList {
+                    if (content.isNotEmpty()) {
+                        add(
+                            buildJsonObject {
+                                put("type", "text")
+                                put("text", content)
+                            },
+                        )
+                    }
+                    for (tc in toolCalls) {
+                        add(
+                            buildJsonObject {
+                                put("type", "tool_use")
+                                put("id", tc.id)
+                                put("name", tc.name)
+                                put("input", SharedJson.parseToJsonElement(tc.arguments))
+                            },
+                        )
+                    }
+                },
+            )
+        } else {
+            JsonPrimitive(content)
+        }
+    }
+
+    History.Role.TOOL -> {
+        JsonArray(
+            listOf(
+                buildJsonObject {
+                    put("type", "tool_result")
+                    put("tool_use_id", toolCallId ?: "")
+                    put("content", content)
+                },
+            ),
+        )
+    }
+
+    History.Role.TOOL_EXECUTING -> JsonPrimitive(content)
 }
 
 private val geminiJsonParser = SharedJson

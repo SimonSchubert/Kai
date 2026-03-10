@@ -4,6 +4,9 @@ import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
+import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
+import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatResponseDto
+import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicModelsResponseDto
 import com.inspiredandroid.kai.network.dtos.gemini.FunctionDeclaration
 import com.inspiredandroid.kai.network.dtos.gemini.FunctionParameters
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
@@ -36,6 +39,8 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import kotlin.time.Duration.Companion.seconds
 
 data class ServiceCredentials(
@@ -230,6 +235,91 @@ class Requests {
 
     // endregion
 
+    private val anthropicJson = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
+
+    // region Anthropic
+
+    suspend fun getAnthropicModels(credentials: ServiceCredentials): Result<AnthropicModelsResponseDto> = try {
+        val apiKey = credentials.apiKey.ifEmpty { throw AnthropicInvalidApiKeyException() }
+        val response: HttpResponse =
+            defaultClient.get("https://api.anthropic.com/v1/models") {
+                header("x-api-key", apiKey)
+                header("anthropic-version", "2023-06-01")
+            }
+        val responseBody = response.bodyAsText()
+        if (response.status.isSuccess()) {
+            val dto = anthropicJson.decodeFromString(AnthropicModelsResponseDto.serializer(), responseBody)
+            Result.success(dto)
+        } else {
+            throwAnthropicError(response.status.value, responseBody)
+        }
+    } catch (e: AnthropicApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(AnthropicGenericException("Anthropic: ${e.message}", e))
+    }
+
+    suspend fun anthropicChat(
+        credentials: ServiceCredentials,
+        messages: List<AnthropicChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+        systemInstruction: String? = null,
+    ): Result<AnthropicChatResponseDto> = try {
+        val apiKey = credentials.apiKey.ifEmpty { throw AnthropicInvalidApiKeyException() }
+        val response: HttpResponse =
+            defaultClient.post(Service.Anthropic.chatUrl) {
+                contentType(ContentType.Application.Json)
+                header("x-api-key", apiKey)
+                header("anthropic-version", "2023-06-01")
+                setBody(
+                    AnthropicChatRequestDto(
+                        model = credentials.modelId,
+                        messages = messages,
+                        max_tokens = 8192,
+                        system = systemInstruction,
+                        tools = tools.map { it.toAnthropicTool() }.ifEmpty { null },
+                    ),
+                )
+            }
+        val responseBody = response.bodyAsText()
+        if (response.status.isSuccess()) {
+            val dto = anthropicJson.decodeFromString(AnthropicChatResponseDto.serializer(), responseBody)
+            Result.success(dto)
+        } else {
+            throwAnthropicError(response.status.value, responseBody)
+        }
+    } catch (e: AnthropicApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(AnthropicGenericException("Anthropic: ${e.message}", e))
+    }
+
+    private fun throwAnthropicError(statusCode: Int, responseBody: String): Nothing {
+        when (statusCode) {
+            401, 403 -> throw AnthropicInvalidApiKeyException()
+            429 -> throw AnthropicRateLimitExceededException()
+            529 -> throw AnthropicOverloadedException()
+        }
+        val errorMessage = parseAnthropicErrorMessage(responseBody)
+        if (errorMessage != null && errorMessage.contains("credit balance", ignoreCase = true)) {
+            throw AnthropicInsufficientCreditsException()
+        }
+        throw AnthropicGenericException(errorMessage ?: "Anthropic: $statusCode $responseBody")
+    }
+
+    private fun parseAnthropicErrorMessage(responseBody: String): String? = try {
+        val json = anthropicJson.parseToJsonElement(responseBody)
+        val errorObj = json.jsonObject["error"]?.jsonObject
+        errorObj?.get("message")?.jsonPrimitive?.content
+    } catch (_: Exception) {
+        null
+    }
+
+    // endregion
+
     // region Helpers
 
     private fun resolveUrl(service: Service, credentials: ServiceCredentials, path: String): String = if (service == Service.OpenAICompatible) {
@@ -294,6 +384,20 @@ class Requests {
                 },
                 required = schema.parameters.filter { it.value.required }.keys.toList(),
             ),
+        ),
+    )
+
+    private fun Tool.toAnthropicTool(): AnthropicChatRequestDto.Tool = AnthropicChatRequestDto.Tool(
+        name = schema.name,
+        description = schema.description,
+        input_schema = AnthropicChatRequestDto.InputSchema(
+            properties = schema.parameters.mapValues { (_, param) ->
+                AnthropicChatRequestDto.PropertySchema(
+                    type = param.type,
+                    description = param.description,
+                )
+            },
+            required = schema.parameters.filter { it.value.required }.keys.toList(),
         ),
     )
 

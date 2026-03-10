@@ -125,6 +125,7 @@ yay -S kai-bin
 |---|---|
 | OpenAI | https://openai.com |
 | Gemini | https://aistudio.google.com |
+| Anthropic | https://console.anthropic.com |
 | DeepSeek | https://www.deepseek.com |
 | Mistral | https://mistral.ai |
 | xAI | https://x.ai |

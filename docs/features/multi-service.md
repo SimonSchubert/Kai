@@ -1,8 +1,8 @@
 # Multi-Service
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-10
 
-Kai supports 11 LLM providers (plus a built-in Free tier). Each provider uses either the **OpenAI-compatible** chat format (most services) or the **Gemini native** API. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -12,7 +12,7 @@ A supported LLM provider. Each service is defined by:
 
 - A unique name and ID
 - Whether it requires an API key
-- Which API format it uses (OpenAI-compatible or Gemini native)
+- Which API format it uses (OpenAI-compatible, Gemini native, or Anthropic native)
 - Links to the provider's API-key management page
 
 ### Service Instance
@@ -42,7 +42,7 @@ A built-in service that requires no API key. Free is never shown in the service 
 
 ## API Formats
 
-Most services use the **OpenAI-compatible** chat completions format. **Gemini** uses Google's native Generative Language API.
+Most services use the **OpenAI-compatible** chat completions format. **Gemini** uses Google's native Generative Language API. **Anthropic** uses its own Messages API with `x-api-key` header authentication and a different request/response structure.
 
 The **OpenAI-Compatible API** service supports a custom base URL, defaulting to `localhost:11434` for local Ollama setups.
 
@@ -52,6 +52,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 |---|---|---|---|
 | Free | `free` | No | OpenAI-compatible |
 | Gemini | `gemini` | Yes | Gemini native |
+| Anthropic | `anthropic` | Yes | Anthropic native |
 | OpenAI | `openai` | Yes | OpenAI-compatible |
 | DeepSeek | `deepseek` | Yes | OpenAI-compatible |
 | Mistral | `mistral` | Yes | OpenAI-compatible |
@@ -65,7 +66,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 
 ## Connection Validation
 
-When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. On a successful connection, the available model list is refreshed.
+When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. All services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. On a successful connection, the available model list is refreshed.
 
 ## Model Selection
 
@@ -90,5 +91,6 @@ Users manage services through the settings screen:
 | `composeApp/src/commonMain/.../data/Service.kt` | Service definitions, all provider metadata |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Service instance storage, credential persistence, migration |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Fallback chain, request orchestration |
-| `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for both API formats |
+| `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for all three API formats |
+| `composeApp/src/commonMain/.../network/dtos/anthropic/` | Anthropic Messages API DTOs |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | Connection validation, service management UI logic |

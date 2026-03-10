@@ -9,6 +9,10 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
+import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
+import com.inspiredandroid.kai.network.AnthropicInvalidApiKeyException
+import com.inspiredandroid.kai.network.AnthropicOverloadedException
+import com.inspiredandroid.kai.network.AnthropicRateLimitExceededException
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.OpenAICompatibleConnectionException
@@ -500,14 +504,17 @@ class SettingsViewModel(
                 refreshInstanceModels(instanceId)
             } catch (e: Exception) {
                 val status = when (e) {
-                    is OpenAICompatibleInvalidApiKeyException, is GeminiInvalidApiKeyException ->
+                    is OpenAICompatibleInvalidApiKeyException, is GeminiInvalidApiKeyException, is AnthropicInvalidApiKeyException ->
                         ConnectionStatus.ErrorInvalidKey
 
-                    is OpenAICompatibleQuotaExhaustedException ->
+                    is OpenAICompatibleQuotaExhaustedException, is AnthropicInsufficientCreditsException ->
                         ConnectionStatus.ErrorQuotaExhausted
 
-                    is OpenAICompatibleRateLimitExceededException, is GeminiRateLimitExceededException ->
+                    is OpenAICompatibleRateLimitExceededException, is GeminiRateLimitExceededException, is AnthropicRateLimitExceededException ->
                         ConnectionStatus.ErrorRateLimited
+
+                    is AnthropicOverloadedException ->
+                        ConnectionStatus.Error
 
                     is OpenAICompatibleConnectionException ->
                         ConnectionStatus.ErrorConnectionFailed

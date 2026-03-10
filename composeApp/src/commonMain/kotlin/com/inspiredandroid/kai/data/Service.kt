@@ -102,6 +102,18 @@ sealed class Service(
         apiKeyUrlDisplay = "aistudio.google.com/apikey",
     )
 
+    data object Anthropic : Service(
+        id = "anthropic",
+        displayName = "Anthropic",
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "anthropic",
+        chatUrl = "https://api.anthropic.com/v1/messages",
+        modelsUrl = "https://api.anthropic.com/v1/models",
+        apiKeyUrl = "https://console.anthropic.com/settings/keys",
+        apiKeyUrlDisplay = "console.anthropic.com/settings/keys",
+    )
+
     data object OpenAI : Service(
         id = "openai",
         displayName = "OpenAI",
@@ -176,7 +188,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
 

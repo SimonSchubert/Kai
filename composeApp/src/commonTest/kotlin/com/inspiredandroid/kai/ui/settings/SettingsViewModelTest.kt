@@ -265,4 +265,28 @@ class SettingsViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+
+    @Test
+    fun `adding Anthropic service shows no models before validation`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.configuredServices.isEmpty())
+
+            initialState.onAddService(Service.Anthropic)
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val updatedState = awaitItem()
+            assertEquals(1, updatedState.configuredServices.size)
+            assertEquals(Service.Anthropic, updatedState.configuredServices[0].service)
+            assertEquals("anthropic", updatedState.configuredServices[0].instanceId)
+
+            // Models should be empty until API key is validated and models are fetched
+            val models = fakeRepository.getInstanceModels("anthropic", Service.Anthropic).value
+            assertTrue(models.isEmpty())
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 }

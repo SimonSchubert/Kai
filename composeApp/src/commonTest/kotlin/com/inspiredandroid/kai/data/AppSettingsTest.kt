@@ -31,6 +31,21 @@ class AppSettingsTest {
     }
 
     @Test
+    fun `Anthropic credential persistence via instance settings`() {
+        val settings = MapSettings()
+        val appSettings = AppSettings(settings)
+
+        val instanceId = appSettings.generateInstanceId(Service.Anthropic.id)
+        assertEquals("anthropic", instanceId)
+
+        appSettings.setInstanceApiKey(instanceId, "sk-ant-test-key")
+        assertEquals("sk-ant-test-key", appSettings.getInstanceApiKey(instanceId))
+
+        appSettings.setInstanceModelId(instanceId, "claude-sonnet-4-20250514")
+        assertEquals("claude-sonnet-4-20250514", appSettings.getInstanceModelId(instanceId))
+    }
+
+    @Test
     fun `migration adds services with legacy API keys`() {
         val settings = MapSettings()
         val appSettings = AppSettings(settings)
