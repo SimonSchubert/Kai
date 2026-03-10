@@ -307,10 +307,11 @@ class RemoteDataRepository(
         } else {
             activeFiltered
         }
+        val unique = filtered.distinctBy { it.id }
         val sorted = if (service.sortModelsById) {
-            filtered.sortedBy { it.id }
+            unique.sortedBy { it.id }
         } else {
-            filtered.sortedByDescending { it.context_window }
+            unique.sortedByDescending { it.context_window }
         }
         val models = sorted.map {
             SettingsModel(
@@ -928,8 +929,7 @@ class RemoteDataRepository(
         return results
     }
 
-    private fun isNonRetryableException(e: Exception): Boolean =
-        e is AnthropicInsufficientCreditsException || e is OpenAICompatibleQuotaExhaustedException
+    private fun isNonRetryableException(e: Exception): Boolean = e is AnthropicInsufficientCreditsException || e is OpenAICompatibleQuotaExhaustedException
 
     /**
      * Retries an API call with simple exponential backoff.
