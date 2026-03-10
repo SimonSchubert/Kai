@@ -56,14 +56,22 @@ Format:
 (then a blank line before existing content)
 ```
 
-## 5. Update gradle/libs.versions.toml
+## 5. Write Play Store changelog
+
+Write a condensed, user-facing summary to `fastlane/metadata/android/en-US/changelogs/{newVersionCode}.txt`.
+
+- Plain text only — no markdown headers, no bullet markers, no blank lines
+- Must be under 500 characters (Play Store limit)
+- Combine the key changes into a brief description, similar in style to existing entries like "Add identity configurations" or "Support additional languages"
+
+## 6. Update gradle/libs.versions.toml
 
 - Set `appVersion` to the new version
 - Set `android-versionCode` to the incremented value
 
-## 6. Commit, tag, and push
+## 7. Commit, tag, and push
 
-- Stage `CHANGELOG.md` and `gradle/libs.versions.toml`
+- Stage `CHANGELOG.md`, `gradle/libs.versions.toml`, and `fastlane/metadata/android/en-US/changelogs/{newVersionCode}.txt`
 - Commit with message: `Release v{new}`
 - Create tag: `v{new}`
 - Push commit and tag to origin: `git push origin main --follow-tags`
