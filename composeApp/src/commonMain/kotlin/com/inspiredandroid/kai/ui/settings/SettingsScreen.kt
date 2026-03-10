@@ -82,6 +82,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalUriHandler
@@ -1319,18 +1320,23 @@ private fun ExportImportSection(
     onExportSettings: () -> String,
     onImportSettings: (ByteArray) -> Boolean,
 ) {
+    val isPreview = LocalInspectionMode.current
     val scope = rememberCoroutineScope()
     var importResult by remember { mutableStateOf<Boolean?>(null) }
 
-    val filePickerLauncher = rememberFilePickerLauncher(
-        type = FileKitType.File(extensions = listOf("json")),
-    ) { file ->
-        if (file != null) {
-            scope.launch {
-                val bytes = file.readBytes()
-                importResult = onImportSettings(bytes)
+    val filePickerLauncher = if (!isPreview) {
+        rememberFilePickerLauncher(
+            type = FileKitType.File(extensions = listOf("json")),
+        ) { file ->
+            if (file != null) {
+                scope.launch {
+                    val bytes = file.readBytes()
+                    importResult = onImportSettings(bytes)
+                }
             }
         }
+    } else {
+        null
     }
 
     Text(
@@ -1365,7 +1371,7 @@ private fun ExportImportSection(
         OutlinedButton(
             onClick = {
                 importResult = null
-                filePickerLauncher.launch()
+                filePickerLauncher?.launch()
             },
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
         ) {
