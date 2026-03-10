@@ -75,7 +75,7 @@ Write a condensed, user-facing summary to `fastlane/metadata/android/en-US/chang
 
 - Stage `CHANGELOG.md`, `gradle/libs.versions.toml`, and `fastlane/metadata/android/en-US/changelogs/{newVersionCode}.txt`
 - Commit with message: `Release v{new}`
-- Create tag: `v{new}`
+- Create annotated tag: `git tag -a v{new} -m "v{new}"`
 - Push commit and tag to origin: `git push origin main --follow-tags`
 
 ## Important
