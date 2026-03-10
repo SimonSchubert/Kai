@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Upload localized screenshots to Play Store
 
+### android deploy
+
+```sh
+[bundle exec] fastlane android deploy
+```
+
+Deploy AAB to Play Store production
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
