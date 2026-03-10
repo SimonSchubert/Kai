@@ -33,7 +33,7 @@ class MemoryStore(private val appSettings: AppSettings) {
 
     private fun loadMemories(): MutableList<MemoryEntry> = try {
         json.decodeFromString<List<MemoryEntry>>(appSettings.getMemoriesJson()).toMutableList()
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         mutableListOf()
     }
 

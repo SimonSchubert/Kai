@@ -28,7 +28,7 @@ actual class ConversationStorage actual constructor(
                     val loaded = deserializeConversations(decryptedJson)
                     mutableConversations.value = loaded
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 mutableConversations.value = emptyList()
             }
         }

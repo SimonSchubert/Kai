@@ -83,7 +83,7 @@ class AppSettings(private val settings: Settings) {
                     ServiceInstance(instanceId = id, serviceId = id)
                 }
             }.filter { it.instanceId.isNotBlank() && it.serviceId.isNotBlank() }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             emptyList()
         }
     }
@@ -222,7 +222,7 @@ class AppSettings(private val settings: Settings) {
         val encoded = settings.getStringOrNull(KEY_ENCRYPTION_KEY) ?: return null
         return try {
             Base64.decode(encoded)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }

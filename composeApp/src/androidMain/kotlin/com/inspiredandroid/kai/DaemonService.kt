@@ -32,7 +32,7 @@ class DaemonService : Service() {
         val notification = buildNotification()
         try {
             startForeground(NOTIFICATION_ID, notification)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             stopSelf()
             return
         }

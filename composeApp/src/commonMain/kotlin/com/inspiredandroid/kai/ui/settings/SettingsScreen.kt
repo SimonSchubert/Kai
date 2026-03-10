@@ -31,10 +31,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
@@ -2394,9 +2392,9 @@ private fun EmailSection(
 }
 
 private fun formatHeartbeatTime(epochMs: Long): String {
-    val instant = kotlinx.datetime.Instant.fromEpochMilliseconds(epochMs)
-    val local = instant.toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
-    return "${local.dayOfMonth} ${local.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }} ${local.hour}:${local.minute.toString().padStart(2, '0')}"
+    val instant = Instant.fromEpochMilliseconds(epochMs)
+    val local = instant.toLocalDateTime(TimeZone.currentSystemDefault())
+    return "${local.day} ${local.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }} ${local.hour}:${local.minute.toString().padStart(2, '0')}"
 }
 
 private fun describeCron(cron: String): String {

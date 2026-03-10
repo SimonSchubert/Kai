@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -7,6 +8,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Minimal cron parser for 5-field expressions: minute hour day-of-month month day-of-week.
@@ -35,8 +37,8 @@ class CronExpression(expression: String) {
      * Computes the next execution time strictly after [after].
      * Searches up to ~2 years ahead, returns null if no match found.
      */
-    fun nextAfter(after: kotlin.time.Instant, timeZone: TimeZone = TimeZone.currentSystemDefault()): kotlin.time.Instant? {
-        val afterKx = kotlin.time.Instant.fromEpochMilliseconds(after.toEpochMilliseconds())
+    fun nextAfter(after: Instant, timeZone: TimeZone = TimeZone.currentSystemDefault()): Instant? {
+        val afterKx = Instant.fromEpochMilliseconds(after.toEpochMilliseconds())
         var dt = afterKx.toLocalDateTime(timeZone)
         // Start from the next minute
         dt = LocalDateTime(dt.date, LocalTime(dt.hour, dt.minute, 0, 0))
@@ -69,28 +71,28 @@ class CronExpression(expression: String) {
                 continue
             }
 
-            return kotlin.time.Instant.fromEpochMilliseconds(dt.toInstant(timeZone).toEpochMilliseconds())
+            return Instant.fromEpochMilliseconds(dt.toInstant(timeZone).toEpochMilliseconds())
         }
         return null
     }
 
     private fun advanceMinute(dt: LocalDateTime, tz: TimeZone): LocalDateTime {
         val instant = dt.toInstant(tz)
-        val next = kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 60_000L)
+        val next = Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 60_000L)
         return next.toLocalDateTime(tz)
     }
 
     private fun nextHour(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.date, LocalTime(dt.hour, 0, 0, 0))
         .let {
             val instant = it.toInstant(tz)
-            kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 3_600_000L)
+            Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 3_600_000L)
                 .toLocalDateTime(tz)
         }
 
     private fun nextDay(dt: LocalDateTime, tz: TimeZone): LocalDateTime = LocalDateTime(dt.date, LocalTime(0, 0, 0, 0))
         .let {
             val instant = it.toInstant(tz)
-            kotlin.time.Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 86_400_000L)
+            Instant.fromEpochMilliseconds(instant.toEpochMilliseconds() + 86_400_000L)
                 .toLocalDateTime(tz)
         }
 
@@ -107,13 +109,13 @@ class CronExpression(expression: String) {
 
     /** Convert kotlinx.datetime DayOfWeek (MONDAY=1..SUNDAY=7) to cron convention (0=Sunday..6=Saturday) */
     private fun toCronDayOfWeek(dt: LocalDateTime): Int = when (dt.dayOfWeek) {
-        kotlinx.datetime.DayOfWeek.SUNDAY -> 0
-        kotlinx.datetime.DayOfWeek.MONDAY -> 1
-        kotlinx.datetime.DayOfWeek.TUESDAY -> 2
-        kotlinx.datetime.DayOfWeek.WEDNESDAY -> 3
-        kotlinx.datetime.DayOfWeek.THURSDAY -> 4
-        kotlinx.datetime.DayOfWeek.FRIDAY -> 5
-        kotlinx.datetime.DayOfWeek.SATURDAY -> 6
+        DayOfWeek.SUNDAY -> 0
+        DayOfWeek.MONDAY -> 1
+        DayOfWeek.TUESDAY -> 2
+        DayOfWeek.WEDNESDAY -> 3
+        DayOfWeek.THURSDAY -> 4
+        DayOfWeek.FRIDAY -> 5
+        DayOfWeek.SATURDAY -> 6
     }
 
     companion object {

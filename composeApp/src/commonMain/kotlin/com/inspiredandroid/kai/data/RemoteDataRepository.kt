@@ -26,6 +26,7 @@ import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -725,7 +726,7 @@ class RemoteDataRepository(
                     val result = toolExecutor.executeTool(name, arguments)
                     Triple(callId, name, result)
                 }
-            }.map { it.await() }
+            }.awaitAll()
         }
         val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
         if (elapsed < MIN_TOOL_DISPLAY_MS) {
@@ -881,7 +882,7 @@ class RemoteDataRepository(
         conversationStorage.loadConversations()
     }
 
-    private suspend fun loadConversation(id: String) {
+    private fun loadConversation(id: String) {
         val conversation = savedConversations.value.find { it.id == id } ?: return
 
         _currentConversationId.value = id

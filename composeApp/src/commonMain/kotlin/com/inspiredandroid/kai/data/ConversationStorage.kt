@@ -64,7 +64,7 @@ abstract class BaseConversationStorage(private val appSettings: AppSettings) {
 
     protected fun deserializeConversations(data: String): List<Conversation> = try {
         json.decodeFromString<ConversationsData>(data).conversations
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         emptyList()
     }
 
