@@ -48,6 +48,8 @@ string|settings_heartbeat_interval|SW50ZXJ2YWw=
 string|settings_heartbeat_prompt_label|SGVhcnRiZWF0IFByb21wdA==
 string|settings_heartbeat_recent|UmVjZW50IEFjdGl2aXR5
 string|settings_heartbeat|SGVhcnRiZWF0
+string|settings_import_error|SW1wb3J0IGZhaWxlZC4gVGhlIGZpbGUgZm9ybWF0IGlzIGludmFsaWQu
+string|settings_import_success|U2V0dGluZ3MgaW1wb3J0ZWQgc3VjY2Vzc2Z1bGx5Lg==
 string|settings_import|SW1wb3J0
 string|settings_mcp_add_server|QWRkIE1DUCBTZXJ2ZXI=
 string|settings_mcp_add|QWRk
