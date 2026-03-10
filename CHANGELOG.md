@@ -1,3 +1,11 @@
+## v1.9.2 — 2026-03-10
+
+### Features
+- Add Anthropic service support
+
+### Fixes
+- Fix duplicate model key crash in models modal
+
 ## v1.9.1 — 2026-03-10
 
 ### Features
