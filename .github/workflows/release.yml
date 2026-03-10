@@ -257,16 +257,16 @@ jobs:
         run: chmod +x gradlew
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-      - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 --decode > /tmp/keystore.jks
+      - name: Decode Play Store keystore
+        run: echo "${{ secrets.PLAY_STORE_KEYSTORE_B64 }}" | base64 --decode > /tmp/keystore.jks
       - name: Decode Play Store service account key
         run: echo "${{ secrets.PLAY_STORE_KEY_JSON }}" | base64 --decode > fastlane/play-store-key.json
       - name: Build signed AAB
         run: ./gradlew bundlePlayStoreRelease --stacktrace
         env:
           KEYSTORE_FILE: /tmp/keystore.jks
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.PLAY_STORE_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.PLAY_STORE_KEY_ALIAS }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
