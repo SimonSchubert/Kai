@@ -49,3 +49,5 @@ expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
 expect fun openUrl(url: String): Boolean
 
 expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?
+
+expect suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String)

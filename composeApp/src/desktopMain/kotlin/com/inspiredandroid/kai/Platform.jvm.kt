@@ -26,7 +26,10 @@ import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings
+import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.openFileSaver
+import io.github.vinceglb.filekit.write
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.cio.CIO
@@ -175,4 +178,9 @@ actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
 } catch (_: Exception) {
     null
+}
+
+actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
+    val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
+    file?.write(bytes)
 }

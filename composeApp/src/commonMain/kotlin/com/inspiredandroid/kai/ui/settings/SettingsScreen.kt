@@ -108,13 +108,11 @@ import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.saveFileToDevice
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
-import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
-import io.github.vinceglb.filekit.dialogs.openFileSaver
 import io.github.vinceglb.filekit.readBytes
-import io.github.vinceglb.filekit.write
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
@@ -1349,11 +1347,11 @@ private fun ExportImportSection(
             onClick = {
                 val json = onExportSettings()
                 scope.launch {
-                    val file = FileKit.openFileSaver(
-                        suggestedName = "kai-settings",
+                    saveFileToDevice(
+                        bytes = json.encodeToByteArray(),
+                        baseName = "kai-settings",
                         extension = "json",
                     )
-                    file?.write(json.encodeToByteArray())
                 }
             },
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),

@@ -18,7 +18,9 @@ import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.StorageSettings
+import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.download
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.js.Js
@@ -94,4 +96,8 @@ actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     org.jetbrains.skia.Image.makeFromEncoded(bytes).toComposeImageBitmap()
 } catch (_: Exception) {
     null
+}
+
+actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
+    FileKit.download(bytes = bytes, fileName = "$baseName.$extension")
 }
