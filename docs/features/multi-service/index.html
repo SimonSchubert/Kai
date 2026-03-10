@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
     
     
       
@@ -913,15 +913,15 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-03-09</p>
-<p>Kai supports 11 LLM providers (plus a built-in Free tier). Each provider uses either the <strong>OpenAI-compatible</strong> chat format (most services) or the <strong>Gemini native</strong> API. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p><strong>Last verified:</strong> 2026-03-10</p>
+<p>Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
 <ul>
 <li>A unique name and ID</li>
 <li>Whether it requires an API key</li>
-<li>Which API format it uses (OpenAI-compatible or Gemini native)</li>
+<li>Which API format it uses (OpenAI-compatible, Gemini native, or Anthropic native)</li>
 <li>Links to the provider's API-key management page</li>
 </ul>
 <h3 id="service-instance">Service Instance</h3>
@@ -948,7 +948,7 @@
 <li>If a fallback succeeds, the response indicates which service answered</li>
 </ol>
 <h2 id="api-formats">API Formats</h2>
-<p>Most services use the <strong>OpenAI-compatible</strong> chat completions format. <strong>Gemini</strong> uses Google's native Generative Language API.</p>
+<p>Most services use the <strong>OpenAI-compatible</strong> chat completions format. <strong>Gemini</strong> uses Google's native Generative Language API. <strong>Anthropic</strong> uses its own Messages API with <code>x-api-key</code> header authentication and a different request/response structure.</p>
 <p>The <strong>OpenAI-Compatible API</strong> service supports a custom base URL, defaulting to <code>localhost:11434</code> for local Ollama setups.</p>
 <h2 id="supported-services">Supported Services</h2>
 <table>
@@ -972,6 +972,12 @@
 <td><code>gemini</code></td>
 <td>Yes</td>
 <td>Gemini native</td>
+</tr>
+<tr>
+<td>Anthropic</td>
+<td><code>anthropic</code></td>
+<td>Yes</td>
+<td>Anthropic native</td>
 </tr>
 <tr>
 <td>OpenAI</td>
@@ -1036,7 +1042,7 @@
 </tbody>
 </table>
 <h2 id="connection-validation">Connection Validation</h2>
-<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, or <strong>connection failed</strong>. Validation also runs for all services when the settings screen opens. On a successful connection, the available model list is refreshed.</p>
+<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, or <strong>connection failed</strong>. Validation also runs for all services when the settings screen opens. All services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. On a successful connection, the available model list is refreshed.</p>
 <h2 id="model-selection">Model Selection</h2>
 <p>When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
 - OpenAI shows only chat-oriented models
@@ -1072,7 +1078,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../network/Requests.kt</code></td>
-<td>HTTP clients for both API formats</td>
+<td>HTTP clients for all three API formats</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/dtos/anthropic/</code></td>
+<td>Anthropic Messages API DTOs</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt</code></td>
