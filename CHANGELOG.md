@@ -1,3 +1,12 @@
+## v1.9.1 — 2026-03-10
+
+### Features
+- Add settings import and export
+
+### Fixes
+- Fix deprecated APIs and unused code
+- Gracefully catch daemon service exceptions
+
 ## v1.9.0 — 2026-03-09
 
 ### Features

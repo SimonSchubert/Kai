@@ -1,0 +1,1 @@
+Add settings import and export. Fix deprecated APIs and gracefully catch daemon service exceptions.

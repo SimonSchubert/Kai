@@ -32,6 +32,8 @@ Filter out lines matching any of:
 
 Only include changes that affect the app itself — code, UI, dependencies, build config that impacts the output artifact.
 
+Additionally, collapse fix-up commits into the feature they belong to. If a feature was added and then fixed before this release (i.e. both commits are in the same range), the fix is not a standalone changelog entry — it's part of shipping the feature. Only list the feature itself. Similarly, don't list follow-up tweaks (e.g. "Add success feedback for import") separately if they refine a new feature in the same release.
+
 From the remaining commits, write a **human-readable summary** grouped by category:
 - **Features** — new capabilities
 - **Fixes** — bug fixes
