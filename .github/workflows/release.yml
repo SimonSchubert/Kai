@@ -239,6 +239,42 @@ jobs:
           name: appimage-package
           path: Kai-*.AppImage
 
+  play-store:
+    name: Upload AAB to Play Store
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Set execution flag for gradlew
+        run: chmod +x gradlew
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 --decode > /tmp/keystore.jks
+      - name: Decode Play Store service account key
+        run: echo "${{ secrets.PLAY_STORE_KEY_JSON }}" | base64 --decode > fastlane/play-store-key.json
+      - name: Build signed AAB
+        run: ./gradlew bundlePlayStoreRelease --stacktrace
+        env:
+          KEYSTORE_FILE: /tmp/keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+      - name: Deploy to Play Store
+        run: bundle exec fastlane android deploy
+
   release:
     name: Release APK, DMG, MSI, DEB, RPM, AppImage and Tarball
     needs: [apk, dmg, msi, deb, rpm, appimage, linux-tar]

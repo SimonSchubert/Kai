@@ -12,4 +12,15 @@ platform :android do
       skip_upload_metadata: false,
     )
   end
+
+  desc "Deploy AAB to Play Store internal track"
+  lane :deploy do
+    upload_to_play_store(
+      track: 'internal',
+      aab: '../composeApp/build/outputs/bundle/playStoreRelease/composeApp-playStore-release.aab',
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+  end
 end
