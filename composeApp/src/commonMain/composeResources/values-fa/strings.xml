@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d ابزار</string>
     <string name="settings_mcp_popular_servers">سرورهای محبوب</string>
     <string name="settings_mcp_web_cors_note">توجه: سرورهای MCP ممکن است توسط CORS در وب مسدود شوند.</string>
+    <string name="settings_export_import_title">صادرات / واردات</string>
+    <string name="settings_export_import_description">فایل صادر شده حاوی داده‌های حساس مانند کلیدهای API و رمزهای عبور است.</string>
+    <string name="settings_export">صادرات</string>
+    <string name="settings_import">واردات</string>
 </resources>

@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Mga Sikat na Server</string>
     <string name="settings_mcp_web_cors_note">Paalala: Maaaring ma-block ng CORS ang mga MCP server sa web.</string>
+    <string name="settings_export_import_title">I-export / I-import</string>
+    <string name="settings_export_import_description">Ang na-export na file ay naglalaman ng sensitibong data tulad ng mga API key at password.</string>
+    <string name="settings_export">I-export</string>
+    <string name="settings_import">I-import</string>
 </resources>

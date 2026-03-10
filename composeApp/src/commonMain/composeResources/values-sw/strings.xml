@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">Hamisha / Ingiza</string>
+    <string name="settings_export_import_description">Faili iliyohamishwa ina data nyeti kama vile funguo za API na nywila.</string>
+    <string name="settings_export">Hamisha</string>
+    <string name="settings_import">Ingiza</string>
 </resources>

@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d инструментов</string>
     <string name="settings_mcp_popular_servers">Популярные серверы</string>
     <string name="settings_mcp_web_cors_note">Примечание: серверы MCP могут быть заблокированы CORS в вебе.</string>
+    <string name="settings_export_import_title">Экспорт / Импорт</string>
+    <string name="settings_export_import_description">Экспортированный файл содержит конфиденциальные данные, такие как ключи API и пароли.</string>
+    <string name="settings_export">Экспорт</string>
+    <string name="settings_import">Импорт</string>
 </resources>

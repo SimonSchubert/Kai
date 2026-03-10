@@ -149,4 +149,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_mcp_tools_count">%1$d verktøy</string>
     <string name="settings_mcp_popular_servers">Populære servere</string>
     <string name="settings_mcp_web_cors_note">Merk: MCP-servere kan blokkeres av CORS på nett.</string>
+    <string name="settings_export_import_title">Eksporter / Importer</string>
+    <string name="settings_export_import_description">Den eksporterte filen inneholder sensitive data som API-nøkler og passord.</string>
+    <string name="settings_export">Eksporter</string>
+    <string name="settings_import">Importer</string>
 </resources>

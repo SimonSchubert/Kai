@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d 個工具</string>
     <string name="settings_mcp_popular_servers">熱門伺服器</string>
     <string name="settings_mcp_web_cors_note">注意：MCP 伺服器可能會被網頁上的 CORS 封鎖。</string>
+    <string name="settings_export_import_title">匯出 / 匯入</string>
+    <string name="settings_export_import_description">匯出的檔案包含敏感資料，如 API 金鑰和密碼。</string>
+    <string name="settings_export">匯出</string>
+    <string name="settings_import">匯入</string>
 </resources>

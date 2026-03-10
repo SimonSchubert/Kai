@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d 个工具</string>
     <string name="settings_mcp_popular_servers">热门服务器</string>
     <string name="settings_mcp_web_cors_note">注意：MCP 服务器可能会被网页上的 CORS 阻止。</string>
+    <string name="settings_export_import_title">导出 / 导入</string>
+    <string name="settings_export_import_description">导出的文件包含敏感数据，如 API 密钥和密码。</string>
+    <string name="settings_export">导出</string>
+    <string name="settings_import">导入</string>
 </resources>

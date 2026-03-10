@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d εργαλεία</string>
     <string name="settings_mcp_popular_servers">Δημοφιλείς διακομιστές</string>
     <string name="settings_mcp_web_cors_note">Σημείωση: Οι διακομιστές MCP ενδέχεται να αποκλείονται από το CORS στο web.</string>
+    <string name="settings_export_import_title">Εξαγωγή / Εισαγωγή</string>
+    <string name="settings_export_import_description">Το εξαγόμενο αρχείο περιέχει ευαίσθητα δεδομένα όπως κλειδιά API και κωδικούς πρόσβασης.</string>
+    <string name="settings_export">Εξαγωγή</string>
+    <string name="settings_import">Εισαγωγή</string>
 </resources>

@@ -149,4 +149,8 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_mcp_tools_count">%1$d työkalua</string>
     <string name="settings_mcp_popular_servers">Suositut palvelimet</string>
     <string name="settings_mcp_web_cors_note">Huomaa: MCP-palvelimet saattavat olla CORS-eston takana verkossa.</string>
+    <string name="settings_export_import_title">Vie / Tuo</string>
+    <string name="settings_export_import_description">Viety tiedosto sisältää arkaluonteisia tietoja, kuten API-avaimia ja salasanoja.</string>
+    <string name="settings_export">Vie</string>
+    <string name="settings_import">Tuo</string>
 </resources>

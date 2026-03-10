@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d أدوات</string>
     <string name="settings_mcp_popular_servers">خوادم شائعة</string>
     <string name="settings_mcp_web_cors_note">ملاحظة: قد يتم حظر خوادم MCP بواسطة CORS على الويب.</string>
+    <string name="settings_export_import_title">تصدير / استيراد</string>
+    <string name="settings_export_import_description">يحتوي الملف المُصدَّر على بيانات حساسة مثل مفاتيح API وكلمات المرور.</string>
+    <string name="settings_export">تصدير</string>
+    <string name="settings_import">استيراد</string>
 </resources>

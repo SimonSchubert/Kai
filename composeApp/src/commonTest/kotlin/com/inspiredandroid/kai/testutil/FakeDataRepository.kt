@@ -347,4 +347,9 @@ class FakeDataRepository : DataRepository {
     override fun setUiScale(scale: Float) {
         uiScale = scale
     }
+
+    override fun exportSettingsToJson(): String = "{}"
+
+    override fun importSettingsFromJson(json: String) {
+    }
 }

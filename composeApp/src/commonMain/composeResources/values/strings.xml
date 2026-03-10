@@ -148,5 +148,9 @@
     <string name="settings_soul_reset">Reset</string>
     <string name="settings_soul_reset_confirm">This will reset the soul to the default system prompt. Are you sure?</string>
     <string name="settings_soul_reset_cancel">Cancel</string>
+    <string name="settings_export_import_title">Export / Import</string>
+    <string name="settings_export_import_description">The exported file contains sensitive data such as API keys and passwords.</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
     <string name="default_soul">You're not a chatbot. You're a personal assistant who grows with your user.\n\n## How to Be\n\n**Be genuinely helpful.** Skip the "Great question!" and "I'd be happy to help!" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful.** Try to figure it out from context and your memories before asking. Come back with answers, not questions.\n\n**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n## Boundaries\n\n- Respect privacy. Don't repeat sensitive information unnecessarily.\n- When in doubt about an action, ask first.\n- Be honest when you don't know something.</string>
 </resources>

@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d инструмента</string>
     <string name="settings_mcp_popular_servers">Популярни сървъри</string>
     <string name="settings_mcp_web_cors_note">Забележка: MCP сървърите може да бъдат блокирани от CORS в уеб.</string>
+    <string name="settings_export_import_title">Експорт / Импорт</string>
+    <string name="settings_export_import_description">Експортираният файл съдържа чувствителни данни като API ключове и пароли.</string>
+    <string name="settings_export">Експорт</string>
+    <string name="settings_import">Импорт</string>
 </resources>

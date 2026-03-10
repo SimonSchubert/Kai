@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">ਨਿਰਯਾਤ / ਆਯਾਤ</string>
+    <string name="settings_export_import_description">ਨਿਰਯਾਤ ਕੀਤੀ ਫਾਈਲ ਵਿੱਚ API ਕੁੰਜੀਆਂ ਅਤੇ ਪਾਸਵਰਡ ਵਰਗੇ ਸੰਵੇਦਨਸ਼ੀਲ ਡੇਟਾ ਹੁੰਦੇ ਹਨ।</string>
+    <string name="settings_export">ਨਿਰਯਾਤ</string>
+    <string name="settings_import">ਆਯਾਤ</string>
 </resources>

@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">Eksports / Imports</string>
+    <string name="settings_export_import_description">Eksportētais fails satur sensitīvus datus, piemēram, API atslēgas un paroles.</string>
+    <string name="settings_export">Eksports</string>
+    <string name="settings_import">Imports</string>
 </resources>

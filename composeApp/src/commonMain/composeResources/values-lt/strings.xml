@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">Eksportas / Importas</string>
+    <string name="settings_export_import_description">Eksportuotas failas turi jautrių duomenų, tokių kaip API raktai ir slaptažodžiai.</string>
+    <string name="settings_export">Eksportas</string>
+    <string name="settings_import">Importas</string>
 </resources>

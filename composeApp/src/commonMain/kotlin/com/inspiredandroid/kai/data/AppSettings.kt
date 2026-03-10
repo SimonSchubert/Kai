@@ -391,6 +391,190 @@ class AppSettings(private val settings: Settings) {
         settings.putInt(KEY_EMAIL_POLL_INTERVAL, minutes)
     }
 
+    fun exportToJson(toolIds: List<String>): JsonObject {
+        val map = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+        map["version"] = JsonPrimitive(1)
+
+        // Services
+        val configuredJson = settings.getString(KEY_CONFIGURED_SERVICES, "")
+        if (configuredJson.isNotBlank()) {
+            map["configured_services"] = Json.parseToJsonElement(configuredJson)
+        }
+        map["current_service_id"] = JsonPrimitive(settings.getString(KEY_CURRENT_SERVICE_ID, Service.Free.id))
+        map["free_fallback_enabled"] = JsonPrimitive(isFreeFallbackEnabled())
+
+        // Per-instance settings
+        val instances = getConfiguredServiceInstances()
+        if (instances.isNotEmpty()) {
+            val instanceSettings = kotlinx.serialization.json.JsonArray(
+                instances.map { instance ->
+                    JsonObject(
+                        buildMap {
+                            put("instanceId", JsonPrimitive(instance.instanceId))
+                            val apiKey = getInstanceApiKey(instance.instanceId)
+                            if (apiKey.isNotBlank()) put("api_key", JsonPrimitive(apiKey))
+                            val modelId = getInstanceModelId(instance.instanceId)
+                            if (modelId.isNotBlank()) put("model_id", JsonPrimitive(modelId))
+                            val baseUrl = getInstanceBaseUrl(instance.instanceId)
+                            if (baseUrl.isNotBlank()) put("base_url", JsonPrimitive(baseUrl))
+                        },
+                    )
+                },
+            )
+            map["instance_settings"] = instanceSettings
+        }
+
+        // Soul
+        val soul = getSoulText()
+        if (soul.isNotBlank()) map["soul_text"] = JsonPrimitive(soul)
+
+        // Memory
+        map["memory_enabled"] = JsonPrimitive(isMemoryEnabled())
+        val memoriesJson = getMemoriesJson()
+        if (memoriesJson.isNotBlank() && memoriesJson != "[]") {
+            map["agent_memories"] = Json.parseToJsonElement(memoriesJson)
+        }
+
+        // Scheduling
+        map["scheduling_enabled"] = JsonPrimitive(isSchedulingEnabled())
+        val tasksJson = getScheduledTasksJson()
+        if (tasksJson.isNotBlank() && tasksJson != "[]") {
+            map["scheduled_tasks"] = Json.parseToJsonElement(tasksJson)
+        }
+
+        // Heartbeat
+        val heartbeatConfig = getHeartbeatConfigJson()
+        if (heartbeatConfig.isNotBlank()) {
+            map["heartbeat_config"] = Json.parseToJsonElement(heartbeatConfig)
+        }
+        val heartbeatPrompt = getHeartbeatPrompt()
+        if (heartbeatPrompt.isNotBlank()) map["heartbeat_prompt"] = JsonPrimitive(heartbeatPrompt)
+        val heartbeatLog = getHeartbeatLogJson()
+        if (heartbeatLog.isNotBlank()) {
+            map["heartbeat_log"] = Json.parseToJsonElement(heartbeatLog)
+        }
+
+        // Email
+        map["email_enabled"] = JsonPrimitive(isEmailEnabled())
+        val emailAccountsJson = getEmailAccountsJson()
+        if (emailAccountsJson.isNotBlank()) {
+            map["email_accounts"] = Json.parseToJsonElement(emailAccountsJson)
+            // Export per-account passwords and sync state
+            try {
+                val accounts = Json.parseToJsonElement(emailAccountsJson).jsonArray
+                val passwords = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+                val syncStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+                for (account in accounts) {
+                    val id = account.jsonObject["id"]?.jsonPrimitive?.content ?: continue
+                    val password = getEmailPassword(id)
+                    if (password.isNotBlank()) passwords[id] = JsonPrimitive(password)
+                    val syncState = getEmailSyncStateJson(id)
+                    if (syncState.isNotBlank()) syncStates[id] = Json.parseToJsonElement(syncState)
+                }
+                if (passwords.isNotEmpty()) map["email_passwords"] = JsonObject(passwords)
+                if (syncStates.isNotEmpty()) map["email_sync_states"] = JsonObject(syncStates)
+            } catch (_: Exception) {
+            }
+        }
+        map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
+
+        // Tools
+        val toolOverrides = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+        for (toolId in toolIds) {
+            if (settings.hasKey("$KEY_TOOL_PREFIX$toolId")) {
+                toolOverrides[toolId] = JsonPrimitive(isToolEnabled(toolId))
+            }
+        }
+        if (toolOverrides.isNotEmpty()) map["tool_overrides"] = JsonObject(toolOverrides)
+
+        // MCP
+        val mcpJson = getMcpServersJson()
+        if (mcpJson.isNotBlank()) {
+            map["mcp_servers"] = Json.parseToJsonElement(mcpJson)
+        }
+
+        return JsonObject(map)
+    }
+
+    fun importFromJson(json: JsonObject, toolIds: List<String>) {
+        // Services
+        json["configured_services"]?.let {
+            settings.putString(KEY_CONFIGURED_SERVICES, it.toString())
+        }
+        json["current_service_id"]?.jsonPrimitive?.content?.let {
+            settings.putString(KEY_CURRENT_SERVICE_ID, it)
+        }
+        json["free_fallback_enabled"]?.jsonPrimitive?.let {
+            settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, it.content.toBoolean())
+        }
+
+        // Per-instance settings
+        json["instance_settings"]?.jsonArray?.forEach { element ->
+            val obj = element.jsonObject
+            val instanceId = obj["instanceId"]?.jsonPrimitive?.content ?: return@forEach
+            obj["api_key"]?.jsonPrimitive?.content?.let { setInstanceApiKey(instanceId, it) }
+            obj["model_id"]?.jsonPrimitive?.content?.let { setInstanceModelId(instanceId, it) }
+            obj["base_url"]?.jsonPrimitive?.content?.let { setInstanceBaseUrl(instanceId, it) }
+        }
+
+        // Soul
+        json["soul_text"]?.jsonPrimitive?.content?.let { setSoulText(it) }
+
+        // Memory
+        json["memory_enabled"]?.jsonPrimitive?.let {
+            setMemoryEnabled(it.content.toBoolean())
+        }
+        json["agent_memories"]?.let {
+            setMemoriesJson(it.toString())
+        }
+
+        // Scheduling
+        json["scheduling_enabled"]?.jsonPrimitive?.let {
+            setSchedulingEnabled(it.content.toBoolean())
+        }
+        json["scheduled_tasks"]?.let {
+            setScheduledTasksJson(it.toString())
+        }
+
+        // Heartbeat
+        json["heartbeat_config"]?.let {
+            setHeartbeatConfigJson(it.toString())
+        }
+        json["heartbeat_prompt"]?.jsonPrimitive?.content?.let {
+            setHeartbeatPrompt(it)
+        }
+        json["heartbeat_log"]?.let {
+            setHeartbeatLogJson(it.toString())
+        }
+
+        // Email
+        json["email_enabled"]?.jsonPrimitive?.let {
+            setEmailEnabled(it.content.toBoolean())
+        }
+        json["email_accounts"]?.let {
+            setEmailAccountsJson(it.toString())
+        }
+        json["email_passwords"]?.jsonObject?.forEach { (accountId, passwordElement) ->
+            setEmailPassword(accountId, passwordElement.jsonPrimitive.content)
+        }
+        json["email_sync_states"]?.jsonObject?.forEach { (accountId, syncElement) ->
+            setEmailSyncStateJson(accountId, syncElement.toString())
+        }
+        json["email_poll_interval"]?.jsonPrimitive?.let {
+            setEmailPollIntervalMinutes(it.content.toInt())
+        }
+
+        // Tools
+        json["tool_overrides"]?.jsonObject?.forEach { (toolId, enabledElement) ->
+            setToolEnabled(toolId, enabledElement.jsonPrimitive.content.toBoolean())
+        }
+
+        // MCP
+        json["mcp_servers"]?.let {
+            setMcpServersJson(it.toString())
+        }
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"

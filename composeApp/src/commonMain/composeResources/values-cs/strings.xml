@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d nástrojů</string>
     <string name="settings_mcp_popular_servers">Oblíbené servery</string>
     <string name="settings_mcp_web_cors_note">Poznámka: MCP servery mohou být na webu blokovány CORS.</string>
+    <string name="settings_export_import_title">Export / Import</string>
+    <string name="settings_export_import_description">Exportovaný soubor obsahuje citlivé údaje, jako jsou klíče API a hesla.</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
 </resources>

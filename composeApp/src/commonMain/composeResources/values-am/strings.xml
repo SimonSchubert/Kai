@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d መሳሪያዎች</string>
     <string name="settings_mcp_popular_servers">ታዋቂ አገልጋዮች</string>
     <string name="settings_mcp_web_cors_note">ማስታወሻ: MCP አገልጋዮች በድረ-ገጽ ላይ በCORS ሊታገዱ ይችላሉ።</string>
+    <string name="settings_export_import_title">ወደ ውጭ ላክ / አስገባ</string>
+    <string name="settings_export_import_description">የተላከው ፋይል እንደ API ቁልፎች እና የይለፍ ቃላት ያሉ ሚስጥራዊ መረጃዎችን ይዟል።</string>
+    <string name="settings_export">ወደ ውጭ ላክ</string>
+    <string name="settings_import">አስገባ</string>
 </resources>

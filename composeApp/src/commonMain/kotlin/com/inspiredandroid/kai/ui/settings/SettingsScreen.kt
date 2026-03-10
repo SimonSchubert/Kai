@@ -71,6 +71,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -108,6 +109,12 @@ import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
+import io.github.vinceglb.filekit.dialogs.openFileSaver
+import io.github.vinceglb.filekit.readBytes
+import io.github.vinceglb.filekit.write
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
@@ -130,6 +137,9 @@ import kai.composeapp.generated.resources.settings_email_empty
 import kai.composeapp.generated.resources.settings_email_poll_interval
 import kai.composeapp.generated.resources.settings_email_poll_never
 import kai.composeapp.generated.resources.settings_email_remove
+import kai.composeapp.generated.resources.settings_export
+import kai.composeapp.generated.resources.settings_export_import_description
+import kai.composeapp.generated.resources.settings_export_import_title
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
@@ -140,6 +150,7 @@ import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
+import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_mcp_add
 import kai.composeapp.generated.resources.settings_mcp_add_server
 import kai.composeapp.generated.resources.settings_mcp_auth_header
@@ -189,6 +200,7 @@ import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
+import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
@@ -1170,6 +1182,14 @@ private fun GeneralContent(uiState: SettingsUiState) {
                             onToggleScheduling = uiState.onToggleScheduling,
                         )
                     }
+                    SettingsCard {
+                        MemoryList(
+                            memories = uiState.memories,
+                            onDeleteMemory = uiState.onDeleteMemory,
+                            isMemoryEnabled = uiState.isMemoryEnabled,
+                            onToggleMemory = uiState.onToggleMemory,
+                        )
+                    }
                 }
                 Column(
                     modifier = Modifier.weight(1f),
@@ -1182,14 +1202,6 @@ private fun GeneralContent(uiState: SettingsUiState) {
                                 onToggleDaemon = uiState.onToggleDaemon,
                             )
                         }
-                    }
-                    SettingsCard {
-                        MemoryList(
-                            memories = uiState.memories,
-                            onDeleteMemory = uiState.onDeleteMemory,
-                            isMemoryEnabled = uiState.isMemoryEnabled,
-                            onToggleMemory = uiState.onToggleMemory,
-                        )
                     }
                     SettingsCard {
                         HeartbeatSection(
@@ -1216,6 +1228,12 @@ private fun GeneralContent(uiState: SettingsUiState) {
                                 onChangePollInterval = uiState.onChangeEmailPollInterval,
                             )
                         }
+                    }
+                    SettingsCard {
+                        ExportImportSection(
+                            onExportSettings = uiState.onExportSettings,
+                            onImportSettings = uiState.onImportSettings,
+                        )
                     }
                 }
             }
@@ -1285,7 +1303,68 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         )
                     }
                 }
+                SettingsCard {
+                    ExportImportSection(
+                        onExportSettings = uiState.onExportSettings,
+                        onImportSettings = uiState.onImportSettings,
+                    )
+                }
             }
+        }
+    }
+}
+
+@Composable
+private fun ExportImportSection(
+    onExportSettings: () -> String,
+    onImportSettings: (ByteArray) -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+
+    val filePickerLauncher = rememberFilePickerLauncher(
+        type = FileKitType.File(extensions = listOf("json")),
+    ) { file ->
+        if (file != null) {
+            scope.launch {
+                val bytes = file.readBytes()
+                onImportSettings(bytes)
+            }
+        }
+    }
+
+    Text(
+        text = stringResource(Res.string.settings_export_import_title),
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+    Spacer(Modifier.height(4.dp))
+    Text(
+        text = stringResource(Res.string.settings_export_import_description),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(Modifier.height(12.dp))
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        OutlinedButton(
+            onClick = {
+                val json = onExportSettings()
+                scope.launch {
+                    val file = FileKit.openFileSaver(
+                        suggestedName = "kai-settings",
+                        extension = "json",
+                    )
+                    file?.write(json.encodeToByteArray())
+                }
+            },
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        ) {
+            Text(stringResource(Res.string.settings_export))
+        }
+        OutlinedButton(
+            onClick = { filePickerLauncher.launch() },
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        ) {
+            Text(stringResource(Res.string.settings_import))
         }
     }
 }
@@ -1859,7 +1938,7 @@ private fun MemoryList(
                         .clip(RoundedCornerShape(8.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
                         .padding(12.dp),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
@@ -1933,7 +2012,7 @@ private fun ScheduledTaskList(
                         .clip(RoundedCornerShape(8.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
                         .padding(12.dp),
-                    verticalAlignment = Alignment.Top,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(

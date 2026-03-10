@@ -149,4 +149,8 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_mcp_tools_count">%1$d herramientas</string>
     <string name="settings_mcp_popular_servers">Servidores populares</string>
     <string name="settings_mcp_web_cors_note">Nota: los servidores MCP pueden estar bloqueados por CORS en la web.</string>
+    <string name="settings_export_import_title">Exportar / Importar</string>
+    <string name="settings_export_import_description">El archivo exportado contiene datos sensibles como claves API y contraseñas.</string>
+    <string name="settings_export">Exportar</string>
+    <string name="settings_import">Importar</string>
 </resources>

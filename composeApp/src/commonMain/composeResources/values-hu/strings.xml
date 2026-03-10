@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d eszköz</string>
     <string name="settings_mcp_popular_servers">Népszerű kiszolgálók</string>
     <string name="settings_mcp_web_cors_note">Megjegyzés: az MCP-kiszolgálókat a CORS blokkolhatja a weben.</string>
+    <string name="settings_export_import_title">Exportálás / Importálás</string>
+    <string name="settings_export_import_description">Az exportált fájl érzékeny adatokat tartalmaz, például API-kulcsokat és jelszavakat.</string>
+    <string name="settings_export">Exportálás</string>
+    <string name="settings_import">Importálás</string>
 </resources>

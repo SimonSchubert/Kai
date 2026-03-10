@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d ટૂલ્સ</string>
     <string name="settings_mcp_popular_servers">લોકપ્રિય સર્વર્સ</string>
     <string name="settings_mcp_web_cors_note">નોંધ: MCP સર્વર્સ વેબ પર CORS દ્વારા અવરોધિત થઈ શકે છે.</string>
+    <string name="settings_export_import_title">નિકાસ / આયાત</string>
+    <string name="settings_export_import_description">નિકાસ કરેલ ફાઇલમાં API કી અને પાસવર્ડ જેવી સંવેદનશીલ માહિતી છે.</string>
+    <string name="settings_export">નિકાસ</string>
+    <string name="settings_import">આયાત</string>
 </resources>

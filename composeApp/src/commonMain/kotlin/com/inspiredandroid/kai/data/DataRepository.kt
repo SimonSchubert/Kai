@@ -99,6 +99,10 @@ interface DataRepository {
     fun getUiScale(): Float
     fun setUiScale(scale: Float)
 
+    // Export/Import
+    fun exportSettingsToJson(): String
+    fun importSettingsFromJson(json: String)
+
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String
     fun addAssistantMessage(content: String)

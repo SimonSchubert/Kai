@@ -149,4 +149,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Populaire servers</string>
     <string name="settings_mcp_web_cors_note">Opmerking: MCP-servers kunnen geblokkeerd worden door CORS op het web.</string>
+    <string name="settings_export_import_title">Export / Import</string>
+    <string name="settings_export_import_description">Het geëxporteerde bestand bevat gevoelige gegevens zoals API-sleutels en wachtwoorden.</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
 </resources>

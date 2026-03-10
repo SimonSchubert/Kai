@@ -149,4 +149,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_mcp_tools_count">%1$d Tools</string>
     <string name="settings_mcp_popular_servers">Beliebte Server</string>
     <string name="settings_mcp_web_cors_note">Hinweis: MCP-Server können im Web durch CORS blockiert werden.</string>
+    <string name="settings_export_import_title">Export / Import</string>
+    <string name="settings_export_import_description">Die exportierte Datei enthält sensible Daten wie API-Schlüssel und Passwörter.</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
 </resources>

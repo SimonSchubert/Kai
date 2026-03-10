@@ -32,9 +32,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonObject
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -87,6 +89,8 @@ class RemoteDataRepository(
     private val emailStore: EmailStore,
     private val mcpServerManager: McpServerManager,
 ) : DataRepository {
+
+    private val prettyJson = Json { prettyPrint = true }
 
     /**
      * Comparator for Gemini models that sorts by:
@@ -1119,6 +1123,18 @@ class RemoteDataRepository(
 
     override fun setUiScale(scale: Float) {
         appSettings.setUiScale(scale)
+    }
+
+    override fun exportSettingsToJson(): String {
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        val jsonObject = appSettings.exportToJson(toolIds)
+        return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
+    }
+
+    override fun importSettingsFromJson(json: String) {
+        val jsonObject = SharedJson.parseToJsonElement(json).jsonObject
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        appSettings.importFromJson(jsonObject, toolIds)
     }
 
     override suspend fun askSilently(question: String): String {

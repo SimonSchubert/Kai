@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d כלים</string>
     <string name="settings_mcp_popular_servers">שרתים פופולריים</string>
     <string name="settings_mcp_web_cors_note">הערה: שרתי MCP עלולים להיחסם על ידי CORS באינטרנט.</string>
+    <string name="settings_export_import_title">ייצוא / ייבוא</string>
+    <string name="settings_export_import_description">הקובץ המיוצא מכיל נתונים רגישים כגון מפתחות API וסיסמאות.</string>
+    <string name="settings_export">ייצוא</string>
+    <string name="settings_import">ייבוא</string>
 </resources>

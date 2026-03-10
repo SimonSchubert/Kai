@@ -149,4 +149,8 @@
     <string name="settings_mcp_tools_count">%1$d個のツール</string>
     <string name="settings_mcp_popular_servers">人気のサーバー</string>
     <string name="settings_mcp_web_cors_note">注意: MCPサーバーはウェブ上でCORSによりブロックされる場合があります。</string>
+    <string name="settings_export_import_title">エクスポート / インポート</string>
+    <string name="settings_export_import_description">エクスポートされたファイルにはAPIキーやパスワードなどの機密データが含まれています。</string>
+    <string name="settings_export">エクスポート</string>
+    <string name="settings_import">インポート</string>
 </resources>

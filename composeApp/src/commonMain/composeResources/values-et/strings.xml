@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tööriista</string>
     <string name="settings_mcp_popular_servers">Populaarsed serverid</string>
     <string name="settings_mcp_web_cors_note">Märkus: MCP-serverid võivad veebis olla CORS-i poolt blokeeritud.</string>
+    <string name="settings_export_import_title">Eksport / Import</string>
+    <string name="settings_export_import_description">Eksporditud fail sisaldab tundlikke andmeid, nagu API-võtmed ja paroolid.</string>
+    <string name="settings_export">Eksport</string>
+    <string name="settings_import">Import</string>
 </resources>

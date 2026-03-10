@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">निर्यात / आयात</string>
+    <string name="settings_export_import_description">निर्यात केलेल्या फाइलमध्ये API की आणि पासवर्ड सारखी संवेदनशील माहिती आहे.</string>
+    <string name="settings_export">निर्यात</string>
+    <string name="settings_import">आयात</string>
 </resources>

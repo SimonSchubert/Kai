@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d құрал</string>
     <string name="settings_mcp_popular_servers">Танымал серверлер</string>
     <string name="settings_mcp_web_cors_note">Ескерту: MCP серверлері вебте CORS арқылы бұғатталуы мүмкін.</string>
+    <string name="settings_export_import_title">Экспорт / Импорт</string>
+    <string name="settings_export_import_description">Экспортталған файлда API кілттері мен құпия сөздер сияқты құпия деректер бар.</string>
+    <string name="settings_export">Экспорт</string>
+    <string name="settings_import">Импорт</string>
 </resources>

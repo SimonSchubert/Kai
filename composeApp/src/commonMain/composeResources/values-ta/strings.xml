@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">ஏற்றுமதி / இறக்குமதி</string>
+    <string name="settings_export_import_description">ஏற்றுமதி செய்யப்பட்ட கோப்பில் API விசைகள் மற்றும் கடவுச்சொற்கள் போன்ற முக்கியமான தரவுகள் உள்ளன.</string>
+    <string name="settings_export">ஏற்றுமதி</string>
+    <string name="settings_import">இறக்குமதி</string>
 </resources>

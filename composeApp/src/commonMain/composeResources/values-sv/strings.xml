@@ -149,4 +149,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_mcp_tools_count">%1$d verktyg</string>
     <string name="settings_mcp_popular_servers">Populära servrar</string>
     <string name="settings_mcp_web_cors_note">Obs: MCP-servrar kan blockeras av CORS på webben.</string>
+    <string name="settings_export_import_title">Exportera / Importera</string>
+    <string name="settings_export_import_description">Den exporterade filen innehåller känsliga uppgifter som API-nycklar och lösenord.</string>
+    <string name="settings_export">Exportera</string>
+    <string name="settings_import">Importera</string>
 </resources>

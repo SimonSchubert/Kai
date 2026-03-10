@@ -149,4 +149,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_mcp_tools_count">%1$d gereedskap</string>
     <string name="settings_mcp_popular_servers">Gewilde bedieners</string>
     <string name="settings_mcp_web_cors_note">Let wel: MCP-bedieners kan deur CORS op die web geblokkeer word.</string>
+    <string name="settings_export_import_title">Uitvoer / Invoer</string>
+    <string name="settings_export_import_description">Die uitgevoerde lêer bevat sensitiewe data soos API-sleutels en wagwoorde.</string>
+    <string name="settings_export">Uitvoer</string>
+    <string name="settings_import">Invoer</string>
 </resources>

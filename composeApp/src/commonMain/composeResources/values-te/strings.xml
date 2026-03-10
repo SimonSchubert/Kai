@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
     <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
+    <string name="settings_export_import_title">ఎగుమతి / దిగుమతి</string>
+    <string name="settings_export_import_description">ఎగుమతి చేసిన ఫైల్‌లో API కీలు మరియు పాస్‌వర్డ్‌ల వంటి సున్నితమైన డేటా ఉంటుంది.</string>
+    <string name="settings_export">ఎగుమతి</string>
+    <string name="settings_import">దిగుమతి</string>
 </resources>

@@ -148,4 +148,8 @@
     <string name="settings_mcp_tools_count">%1$d alata</string>
     <string name="settings_mcp_popular_servers">Popularni poslužitelji</string>
     <string name="settings_mcp_web_cors_note">Napomena: MCP poslužitelji mogu biti blokirani CORS-om na webu.</string>
+    <string name="settings_export_import_title">Izvoz / Uvoz</string>
+    <string name="settings_export_import_description">Izvezena datoteka sadrži osjetljive podatke poput API ključeva i lozinki.</string>
+    <string name="settings_export">Izvoz</string>
+    <string name="settings_import">Uvoz</string>
 </resources>

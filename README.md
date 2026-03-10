@@ -44,6 +44,7 @@ yay -S kai-bin
 - **Tool execution** — Web search, notifications, calendar events, shell commands, and more
 - **MCP server support** — Connect to remote tool servers via the Model Context Protocol
 - **Autonomous heartbeat** — Periodic self-checks that surface anything needing attention
+- **Settings export/import** — Backup and restore all settings as a JSON file
 - **Encrypted storage** — Conversations stored locally with encryption
 - **Text to speech** — Listen to AI responses
 - **Image attachments** — Attach images to any conversation
