@@ -13,10 +13,10 @@ platform :android do
     )
   end
 
-  desc "Deploy AAB to Play Store internal track"
+  desc "Deploy AAB to Play Store production"
   lane :deploy do
     upload_to_play_store(
-      track: 'internal',
+      track: 'production',
       aab: 'composeApp/build/outputs/bundle/playStoreRelease/composeApp-playStore-release.aab',
       skip_upload_metadata: true,
       skip_upload_images: true,
