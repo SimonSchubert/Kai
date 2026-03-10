@@ -928,8 +928,7 @@ class RemoteDataRepository(
         return results
     }
 
-    private fun isNonRetryableException(e: Exception): Boolean =
-        e is AnthropicInsufficientCreditsException || e is OpenAICompatibleQuotaExhaustedException
+    private fun isNonRetryableException(e: Exception): Boolean = e is AnthropicInsufficientCreditsException || e is OpenAICompatibleQuotaExhaustedException
 
     /**
      * Retries an API call with simple exponential backoff.
