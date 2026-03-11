@@ -215,6 +215,8 @@ fun ChatScreenContent(
                     setFile = uiState.actions.setFile,
                     ask = uiState.actions.ask,
                     allowFileAttachment = uiState.allowFileAttachment,
+                    isLoading = uiState.isLoading,
+                    cancel = uiState.actions.cancel,
                 )
             }
         }

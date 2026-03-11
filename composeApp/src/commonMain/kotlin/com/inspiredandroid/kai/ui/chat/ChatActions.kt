@@ -13,4 +13,5 @@ data class ChatActions(
     val setFile: (PlatformFile?) -> Unit,
     val startNewChat: () -> Unit,
     val regenerate: () -> Unit,
+    val cancel: () -> Unit,
 )

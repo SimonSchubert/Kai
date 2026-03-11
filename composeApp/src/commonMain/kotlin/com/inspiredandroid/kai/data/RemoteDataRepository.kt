@@ -940,6 +940,7 @@ class RemoteDataRepository(
             try {
                 return block()
             } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
                 if (isNonRetryableException(e)) throw e
                 lastException = e
                 if (attempt < MAX_API_RETRIES) {

@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUserMessage
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -32,7 +33,9 @@ class ChatViewModel(
         setFile = ::setFile,
         startNewChat = ::startNewChat,
         regenerate = ::regenerate,
+        cancel = ::cancel,
     )
+    private var currentJob: Job? = null
     private val _state = MutableStateFlow(
         ChatUiState(
             actions = actions,
@@ -72,7 +75,7 @@ class ChatViewModel(
         // Capture file before launching coroutine to avoid race with setFile(null)
         val file = _state.value.file
 
-        viewModelScope.launch(backgroundDispatcher) {
+        currentJob = viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
                     isLoading = true,
@@ -136,6 +139,14 @@ class ChatViewModel(
             it.copy(
                 isSpeechOutputEnabled = !it.isSpeechOutputEnabled,
             )
+        }
+    }
+
+    private fun cancel() {
+        currentJob?.cancel()
+        currentJob = null
+        _state.update {
+            it.copy(isLoading = false)
         }
     }
 

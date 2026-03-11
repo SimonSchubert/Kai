@@ -59,6 +59,7 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_add
 import kai.composeapp.generated.resources.ic_file
 import kai.composeapp.generated.resources.ic_image
+import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_up
 import kai.composeapp.generated.resources.prompt_ask_question
 import org.jetbrains.compose.resources.painterResource
@@ -71,6 +72,8 @@ fun QuestionInput(
     setFile: (PlatformFile?) -> Unit,
     ask: (String) -> Unit,
     allowFileAttachment: Boolean,
+    isLoading: Boolean = false,
+    cancel: () -> Unit = {},
 ) {
     if (file != null) {
         val icon = when (file.extension) {
@@ -170,8 +173,10 @@ fun QuestionInput(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
-        trailingIcon = if (textState.text.isNotBlank()) {
-            { TrailingIcon(onClick = { submitQuestion() }) }
+        trailingIcon = if (isLoading) {
+            { TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel) }
+        } else if (textState.text.isNotBlank()) {
+            { TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }) }
         } else {
             null
         },
@@ -200,6 +205,7 @@ fun QuestionInput(
 
 @Composable
 private fun TrailingIcon(
+    icon: org.jetbrains.compose.resources.DrawableResource = Res.drawable.ic_up,
     onClick: () -> Unit,
 ) {
     Box(
@@ -215,7 +221,7 @@ private fun TrailingIcon(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            vectorResource(Res.drawable.ic_up),
+            vectorResource(icon),
             modifier = Modifier.size(32.dp),
             contentDescription = null,
             tint = Color.White,

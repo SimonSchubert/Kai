@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-11
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored.
 
@@ -32,6 +32,12 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 - On success, the conversation is saved
 - On failure, an error is displayed with a retry button
 
+## Cancel
+
+- While a request is in progress, a stop button replaces the send button in the input field
+- Clicking stop cancels the ongoing API request and any in-flight tool executions
+- After cancellation, the loading state clears and the send button reappears when typing
+
 ## Retry & Regenerate
 
 - **Retry** resends the current prompt
@@ -61,7 +67,7 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 
 - **Top bar**: New Chat, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
 - **Messages**: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry
-- **Input**: text field, send button, attachment button, file chip
+- **Input**: text field, send/stop button, attachment button, file chip
 - **Empty state**: animated logo + welcome message
 - **Drag-and-drop**: supported for file attachments
 
@@ -72,5 +78,6 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 | `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes |
 | `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Encryption, serialization, file I/O |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore, message sending |
-| `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate actions |
+| `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel actions |
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables |
+| `composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt` | Text input with send/stop button |
