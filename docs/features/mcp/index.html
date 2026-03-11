@@ -935,7 +935,7 @@
 
 
 <h1 id="mcp-servers">MCP Servers</h1>
-<p><strong>Last verified:</strong> 2026-03-09</p>
+<p><strong>Last verified:</strong> 2026-03-11</p>
 <p>Kai supports external tool servers via the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="mcp-server">MCP Server</h3>
@@ -988,7 +988,7 @@
 <ul>
 <li>HTTP/SSE transport only (no stdio)</li>
 <li>CORS may block MCP server requests on the web platform</li>
-<li>Tool parameters are converted from JSON Schema to flat property maps (top-level properties only)</li>
+<li>MCP tool parameters preserve full JSON Schema (including nested <code>items</code>, <code>properties</code>, <code>enum</code>) for accurate API serialization</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
 <table>
