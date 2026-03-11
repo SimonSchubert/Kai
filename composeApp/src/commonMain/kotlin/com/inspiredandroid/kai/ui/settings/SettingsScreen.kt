@@ -2212,7 +2212,7 @@ private fun ScheduledTaskList(
                             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Clear,
+                                imageVector = Icons.Default.Delete,
                                 contentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -2629,7 +2629,7 @@ private fun EmailSection(
                             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                         ) {
                             Icon(
-                                imageVector = Icons.Default.Clear,
+                                imageVector = Icons.Default.Delete,
                                 contentDescription = stringResource(Res.string.settings_email_remove),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
