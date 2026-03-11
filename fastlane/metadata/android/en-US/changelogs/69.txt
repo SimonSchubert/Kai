@@ -1,0 +1,1 @@
+Add option to reset modified heartbeat, button to cancel ongoing requests, and search input to model modal. Fix settings import parsing and MCP server tool definitions.

@@ -1,3 +1,15 @@
+## v1.9.4 — 2026-03-11
+
+### Features
+- Add option to reset modified heartbeat
+- Add button to cancel ongoing requests
+- Add search input to model modal
+
+### Fixes
+- Fix settings import parsing
+- Fix MCP server tool definitions
+- Add missing UI pointer
+
 ## v1.9.3 — 2026-03-11
 
 ### Features
