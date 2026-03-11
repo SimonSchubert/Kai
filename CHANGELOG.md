@@ -1,3 +1,14 @@
+## v1.9.3 — 2026-03-11
+
+### Features
+- Add confirmation dialog for settings import
+
+### Fixes
+- Fix silent import error
+
+### Improvements
+- Replace tasks and email icons with trash can icon
+
 ## v1.9.2 — 2026-03-10
 
 ### Features

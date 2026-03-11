@@ -1,0 +1,1 @@
+Add confirmation dialog for settings import. Fix silent import error. Replace tasks and email icons with trash can icon.
