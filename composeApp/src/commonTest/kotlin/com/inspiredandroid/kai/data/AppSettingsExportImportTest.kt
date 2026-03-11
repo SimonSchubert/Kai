@@ -274,7 +274,7 @@ class AppSettingsExportImportTest {
             ],
             "soul_text": "Be helpful.",
             "memory_enabled": true,
-            "agent_memories": [{"key": "m1", "value": "User likes cats", "category": "PREFERENCE"}],
+            "agent_memories": [{"key": "m1", "content": "User likes cats", "category": "PREFERENCE"}],
             "scheduling_enabled": false,
             "scheduled_tasks": [{"id": "task1", "prompt": "Remind me"}],
             "heartbeat_config": {"enabled": true, "intervalMinutes": 45, "activeHoursStart": 9, "activeHoursEnd": 21},
@@ -510,5 +510,96 @@ class AppSettingsExportImportTest {
         assertNull(sections[ImportSection.SOUL]) // soul has no count
         assertEquals("2", sections[ImportSection.MCP])
         assertEquals("3", sections[ImportSection.MEMORY])
+    }
+
+    @Test
+    fun `import tasks with missing id field auto-generates ids`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "scheduling_enabled" to JsonPrimitive(true),
+                "scheduled_tasks" to Json.parseToJsonElement(
+                    """[
+                        {"prompt": "Remind me", "description": "test"},
+                        {"prompt": "Another task"}
+                    ]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        val errors = target.importFromJson(json, toolIds)
+        assertEquals(0, errors)
+
+        val tasksJson = target.getScheduledTasksJson()
+        val tasks = SharedJson.decodeFromString<List<ScheduledTask>>(tasksJson)
+        assertEquals(2, tasks.size)
+        assertTrue(tasks[0].id.isNotBlank())
+        assertTrue(tasks[1].id.isNotBlank())
+        assertTrue(tasks[0].id != tasks[1].id)
+        assertEquals("Remind me", tasks[0].prompt)
+    }
+
+    @Test
+    fun `import tasks with invalid status defaults to PENDING`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "scheduled_tasks" to Json.parseToJsonElement(
+                    """[{"id": "t1", "prompt": "test", "description": "d", "status": "INVALID_STATUS",
+                        "scheduledAtEpochMs": 1000, "createdAtEpochMs": 1000}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        val tasks = SharedJson.decodeFromString<List<ScheduledTask>>(target.getScheduledTasksJson())
+        assertEquals(1, tasks.size)
+        assertEquals(TaskStatus.PENDING, tasks[0].status)
+    }
+
+    @Test
+    fun `import memories with missing category defaults to GENERAL`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "memory_enabled" to JsonPrimitive(true),
+                "agent_memories" to Json.parseToJsonElement(
+                    """[{"key": "m1", "content": "User likes cats"}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        val memories = SharedJson.decodeFromString<List<MemoryEntry>>(target.getMemoriesJson())
+        assertEquals(1, memories.size)
+        assertEquals(MemoryCategory.GENERAL, memories[0].category)
+        assertEquals("User likes cats", memories[0].content)
+    }
+
+    @Test
+    fun `import valid tasks round-trips unchanged`() {
+        val appSettings = createAppSettings()
+        // Use the export from a settings instance with proper tasks
+        appSettings.setScheduledTasksJson(
+            """[{"id":"t1","description":"desc","prompt":"p","scheduledAtEpochMs":1000,"createdAtEpochMs":2000,"cron":null,"status":"COMPLETED","lastResult":"done"}]""",
+        )
+        appSettings.setSchedulingEnabled(true)
+
+        val exported = appSettings.exportToJson(toolIds)
+
+        val target = createAppSettings()
+        target.importFromJson(exported, toolIds)
+
+        val tasks = SharedJson.decodeFromString<List<ScheduledTask>>(target.getScheduledTasksJson())
+        assertEquals(1, tasks.size)
+        assertEquals("t1", tasks[0].id)
+        assertEquals("desc", tasks[0].description)
+        assertEquals("p", tasks[0].prompt)
+        assertEquals(1000L, tasks[0].scheduledAtEpochMs)
+        assertEquals(2000L, tasks[0].createdAtEpochMs)
+        assertEquals(TaskStatus.COMPLETED, tasks[0].status)
+        assertEquals("done", tasks[0].lastResult)
     }
 }

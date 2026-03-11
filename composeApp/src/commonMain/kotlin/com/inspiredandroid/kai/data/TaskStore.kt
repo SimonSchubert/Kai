@@ -15,7 +15,8 @@ class TaskStore(private val appSettings: AppSettings) {
 
     private fun loadTasks(): MutableList<ScheduledTask> = try {
         json.decodeFromString<List<ScheduledTask>>(appSettings.getScheduledTasksJson()).toMutableList()
-    } catch (_: Exception) {
+    } catch (e: Exception) {
+        println("TaskStore: failed to load tasks: ${e.message}")
         mutableListOf()
     }
 

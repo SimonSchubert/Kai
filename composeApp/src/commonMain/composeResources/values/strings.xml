@@ -154,6 +154,7 @@
     <string name="settings_export">Export</string>
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Settings imported successfully.</string>
+    <string name="settings_import_partial">Settings imported with %1$d section(s) that had errors.</string>
     <string name="settings_import_error">Import failed. The file format is invalid.</string>
     <string name="settings_import_preview_title">Import Settings</string>
     <string name="settings_import_replace_all">Replace all existing settings</string>

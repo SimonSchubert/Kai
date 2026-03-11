@@ -155,6 +155,7 @@ import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
+import kai.composeapp.generated.resources.settings_import_partial
 import kai.composeapp.generated.resources.settings_import_preview_title
 import kai.composeapp.generated.resources.settings_import_replace_all
 import kai.composeapp.generated.resources.settings_import_replace_all_description
@@ -1356,11 +1357,11 @@ private fun GeneralContent(uiState: SettingsUiState) {
 @Composable
 private fun ExportImportSection(
     onExportSettings: () -> String,
-    onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> Boolean,
+    onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult,
 ) {
     val isPreview = LocalInspectionMode.current
     val scope = rememberCoroutineScope()
-    var importResult by remember { mutableStateOf<Boolean?>(null) }
+    var importResult by remember { mutableStateOf<ImportResult?>(null) }
     var importPreview by remember { mutableStateOf<Pair<String, Map<ImportSection, String?>>?>(null) }
 
     val filePickerLauncher = if (!isPreview) {
@@ -1376,7 +1377,7 @@ private fun ExportImportSection(
                         val detectedSections = detectImportSections(jsonObject)
                         importPreview = jsonString to detectedSections
                     } catch (_: Exception) {
-                        importResult = false
+                        importResult = ImportResult.Failure
                     }
                 }
             }
@@ -1437,12 +1438,15 @@ private fun ExportImportSection(
     }
     if (importResult != null) {
         Spacer(Modifier.height(8.dp))
+        val (text, color) = when (val result = importResult!!) {
+            is ImportResult.Success -> stringResource(Res.string.settings_import_success) to MaterialTheme.colorScheme.primary
+            is ImportResult.PartialSuccess -> stringResource(Res.string.settings_import_partial, result.errorCount) to MaterialTheme.colorScheme.primary
+            is ImportResult.Failure -> stringResource(Res.string.settings_import_error) to MaterialTheme.colorScheme.error
+        }
         Text(
-            text = stringResource(
-                if (importResult == true) Res.string.settings_import_success else Res.string.settings_import_error,
-            ),
+            text = text,
             style = MaterialTheme.typography.bodySmall,
-            color = if (importResult == true) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+            color = color,
         )
     }
 }

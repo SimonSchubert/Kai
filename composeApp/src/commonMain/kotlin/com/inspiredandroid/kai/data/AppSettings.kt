@@ -5,6 +5,7 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
@@ -12,6 +13,10 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 enum class ImportSection {
     SERVICES,
@@ -606,7 +611,8 @@ class AppSettings(private val settings: Settings) {
         if (ImportSection.MEMORY in sections) {
             try {
                 setMemoryEnabled(json["memory_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: true)
-                setMemoriesJson(json["agent_memories"]?.toString() ?: "")
+                val memoriesElement = json["agent_memories"]
+                setMemoriesJson(if (memoriesElement != null) sanitizeMemories(memoriesElement) else "")
             } catch (_: Exception) {
                 errors++
             }
@@ -619,7 +625,8 @@ class AppSettings(private val settings: Settings) {
         if (ImportSection.SCHEDULING in sections) {
             try {
                 setSchedulingEnabled(json["scheduling_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
-                setScheduledTasksJson(json["scheduled_tasks"]?.toString() ?: "")
+                val tasksElement = json["scheduled_tasks"]
+                setScheduledTasksJson(if (tasksElement != null) sanitizeScheduledTasks(tasksElement) else "")
             } catch (_: Exception) {
                 errors++
             }
@@ -694,6 +701,59 @@ class AppSettings(private val settings: Settings) {
         }
 
         return errors
+    }
+
+    @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
+    private fun sanitizeScheduledTasks(element: JsonElement): String {
+        val array = try { element.jsonArray } catch (_: Exception) { return "[]" }
+        val now = Clock.System.now().toEpochMilliseconds()
+        val tasks = array.mapNotNull { item ->
+            try {
+                SharedJson.decodeFromString<ScheduledTask>(item.toString())
+            } catch (_: Exception) {
+                try {
+                    val obj = item.jsonObject
+                    ScheduledTask(
+                        id = obj["id"]?.jsonPrimitive?.content ?: Uuid.random().toString(),
+                        description = obj["description"]?.jsonPrimitive?.content ?: "",
+                        prompt = obj["prompt"]?.jsonPrimitive?.content ?: "",
+                        scheduledAtEpochMs = obj["scheduledAtEpochMs"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
+                        createdAtEpochMs = obj["createdAtEpochMs"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
+                        cron = obj["cron"]?.jsonPrimitive?.content,
+                        lastResult = obj["lastResult"]?.jsonPrimitive?.content,
+                    )
+                } catch (_: Exception) {
+                    null
+                }
+            }
+        }
+        return SharedJson.encodeToString(tasks)
+    }
+
+    @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
+    private fun sanitizeMemories(element: JsonElement): String {
+        val array = try { element.jsonArray } catch (_: Exception) { return "[]" }
+        val now = Clock.System.now().toEpochMilliseconds()
+        val memories = array.mapNotNull { item ->
+            try {
+                SharedJson.decodeFromString<MemoryEntry>(item.toString())
+            } catch (_: Exception) {
+                try {
+                    val obj = item.jsonObject
+                    MemoryEntry(
+                        key = obj["key"]?.jsonPrimitive?.content ?: Uuid.random().toString(),
+                        content = obj["content"]?.jsonPrimitive?.content ?: "",
+                        createdAt = obj["createdAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
+                        updatedAt = obj["updatedAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
+                        hitCount = obj["hitCount"]?.jsonPrimitive?.content?.toIntOrNull() ?: 1,
+                        source = obj["source"]?.jsonPrimitive?.content,
+                    )
+                } catch (_: Exception) {
+                    null
+                }
+            }
+        }
+        return SharedJson.encodeToString(memories)
     }
 
     companion object {

@@ -21,6 +21,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 - Clicking **Import** in the dialog applies the selected sections.
 - Each settings section is imported independently. If one section contains malformed data, the remaining sections are still imported and the error is counted.
 - Unknown keys are silently ignored, so older exports can be imported into newer app versions.
+- Scheduled tasks and memories with missing or invalid fields are auto-filled with sensible defaults (e.g. generated UUIDs for missing IDs, `PENDING` for invalid task status, `GENERAL` for invalid memory category). This ensures items are preserved even if the JSON was hand-edited or exported from a different version.
 
 ## Import Sections
 
@@ -60,7 +61,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 
 | File | Role |
 |------|------|
-| `composeApp/.../data/AppSettings.kt` | `ImportSection` enum, `detectImportSections()`, `exportToJson()` / `importFromJson()` core logic |
+| `composeApp/.../data/AppSettings.kt` | `ImportSection` enum, `detectImportSections()`, `exportToJson()` / `importFromJson()` core logic, `sanitizeScheduledTasks()` / `sanitizeMemories()` default-filling helpers |
 | `composeApp/.../data/DataRepository.kt` | Interface methods |
 | `composeApp/.../data/RemoteDataRepository.kt` | Wires AppSettings to platform tool IDs, serializes JSON |
 | `composeApp/.../ui/settings/SettingsUiState.kt` | Callbacks (`onExportSettings`, `onImportSettings`) |

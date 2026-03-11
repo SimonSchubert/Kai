@@ -326,15 +326,15 @@ class SettingsViewModel(
 
     private fun onExportSettings(): String = dataRepository.exportSettingsToJson()
 
-    private fun onImportSettings(bytes: ByteArray, sections: Set<ImportSection>, replace: Boolean): Boolean = try {
+    private fun onImportSettings(bytes: ByteArray, sections: Set<ImportSection>, replace: Boolean): ImportResult = try {
         val currentTab = _state.value.currentTab
-        dataRepository.importSettingsFromJson(bytes.decodeToString(), sections, replace)
+        val errors = dataRepository.importSettingsFromJson(bytes.decodeToString(), sections, replace)
         _state.value = buildFullState().copy(currentTab = currentTab)
         checkAllConnections()
         connectEnabledMcpServers()
-        true
+        if (errors == 0) ImportResult.Success else ImportResult.PartialSuccess(errors)
     } catch (_: Exception) {
-        false
+        ImportResult.Failure
     }
 
     private fun onToggleTool(toolId: String, enabled: Boolean) {

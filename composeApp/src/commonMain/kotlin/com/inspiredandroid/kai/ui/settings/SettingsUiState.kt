@@ -99,7 +99,7 @@ data class SettingsUiState(
     val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val onExportSettings: () -> String = { "" },
-    val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> Boolean = { _, _, _ -> false },
+    val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
 )
 
 @Immutable
@@ -117,6 +117,12 @@ enum class McpConnectionStatus {
     Connecting,
     Connected,
     Error,
+}
+
+sealed interface ImportResult {
+    data object Success : ImportResult
+    data class PartialSuccess(val errorCount: Int) : ImportResult
+    data object Failure : ImportResult
 }
 
 @Immutable
