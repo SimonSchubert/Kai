@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Mga Kasangkapan</string>
     <string name="settings_import_section_mcp">Mga MCP Server</string>
+    <string name="settings_heartbeat_reset_confirm">Ire-reset nito ang heartbeat prompt sa default. Sigurado ka ba?</string>
+    <string name="settings_import_partial">Na-import ang mga setting na may %1$d na seksyon na may mga error.</string>
+    <string name="settings_model_search">Maghanap ng mga modelo…</string>
+    <string name="waiting_content_description">Naghihintay ng tugon</string>
 </resources>

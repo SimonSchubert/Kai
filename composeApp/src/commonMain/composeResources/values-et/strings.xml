@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">E-post</string>
     <string name="settings_import_section_tools">Tööriistad</string>
     <string name="settings_import_section_mcp">MCP serverid</string>
+    <string name="settings_heartbeat_reset_confirm">See lähtestab südamelöögi viipa vaikeväärtusele. Kas oled kindel?</string>
+    <string name="settings_import_partial">Seaded imporditud %1$d vigase jaotisega.</string>
+    <string name="settings_model_search">Otsi mudeleid…</string>
+    <string name="waiting_content_description">Vastuse ootamine</string>
 </resources>

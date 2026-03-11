@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">ఇమెయిల్</string>
     <string name="settings_import_section_tools">సాధనాలు</string>
     <string name="settings_import_section_mcp">MCP సర్వర్‌లు</string>
+    <string name="settings_heartbeat_reset_confirm">ఇది హార్ట్‌బీట్ ప్రాంప్ట్‌ను డిఫాల్ట్‌కు రీసెట్ చేస్తుంది. మీరు ఖచ్చితంగా ఉన్నారా?</string>
+    <string name="settings_import_partial">%1$d విభాగం(లు) లోపాలతో సెట్టింగ్‌లు దిగుమతి చేయబడ్డాయి.</string>
+    <string name="settings_model_search">మోడల్‌లను శోధించండి…</string>
+    <string name="waiting_content_description">స్పందన కోసం వేచి ఉంది</string>
 </resources>

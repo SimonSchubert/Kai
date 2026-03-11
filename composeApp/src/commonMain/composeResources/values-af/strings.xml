@@ -166,4 +166,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import_section_email">E-pos</string>
     <string name="settings_import_section_tools">Gereedskap</string>
     <string name="settings_import_section_mcp">MCP-bedieners</string>
+    <string name="settings_heartbeat_reset_confirm">Dit sal die hartklopprompt na die verstek terugstel. Is jy seker?</string>
+    <string name="settings_import_partial">Instellings ingevoer met %1$d afdeling(e) wat foute gehad het.</string>
+    <string name="settings_model_search">Soek modelle…</string>
+    <string name="waiting_content_description">Wag vir antwoord</string>
 </resources>

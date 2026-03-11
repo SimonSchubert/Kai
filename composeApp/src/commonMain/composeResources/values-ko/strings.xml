@@ -166,4 +166,8 @@
     <string name="settings_import_section_email">이메일</string>
     <string name="settings_import_section_tools">도구</string>
     <string name="settings_import_section_mcp">MCP 서버</string>
+    <string name="settings_heartbeat_reset_confirm">하트비트 프롬프트를 기본값으로 재설정합니다. 계속하시겠습니까?</string>
+    <string name="settings_import_partial">%1$d개 섹션에 오류가 있는 상태로 설정을 가져왔습니다.</string>
+    <string name="settings_model_search">모델 검색…</string>
+    <string name="waiting_content_description">응답 대기 중</string>
 </resources>

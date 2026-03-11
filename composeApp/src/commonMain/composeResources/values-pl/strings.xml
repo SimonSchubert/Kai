@@ -166,4 +166,8 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Narzędzia</string>
     <string name="settings_import_section_mcp">Serwery MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Spowoduje to zresetowanie monitu heartbeat do wartości domyślnej. Czy na pewno?</string>
+    <string name="settings_import_partial">Ustawienia zaimportowane z %1$d sekcją(-ami) zawierającą(-ymi) błędy.</string>
+    <string name="settings_model_search">Szukaj modeli…</string>
+    <string name="waiting_content_description">Oczekiwanie na odpowiedź</string>
 </resources>

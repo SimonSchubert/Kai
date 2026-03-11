@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Eszközök</string>
     <string name="settings_import_section_mcp">MCP szerverek</string>
+    <string name="settings_heartbeat_reset_confirm">Ez visszaállítja a szívverés promptot az alapértelmezettre. Biztos vagy benne?</string>
+    <string name="settings_import_partial">Beállítások importálva %1$d hibás szakasszal.</string>
+    <string name="settings_model_search">Modellek keresése…</string>
+    <string name="waiting_content_description">Várakozás a válaszra</string>
 </resources>

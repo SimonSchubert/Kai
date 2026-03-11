@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Utensils</string>
     <string name="settings_import_section_mcp">Servers MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Quai reinizialisescha il prompt dal battament dal cor al standard. Es ti segir?</string>
+    <string name="settings_import_partial">Configuraziuns importadas cun %1$d secziun(s) cun errurs.</string>
+    <string name="settings_model_search">Tschertgar models…</string>
+    <string name="waiting_content_description">Spetgar sin resposta</string>
 </resources>

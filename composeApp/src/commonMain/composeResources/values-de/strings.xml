@@ -166,4 +166,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_import_section_email">E-Mail</string>
     <string name="settings_import_section_tools">Werkzeuge</string>
     <string name="settings_import_section_mcp">MCP-Server</string>
+    <string name="settings_heartbeat_reset_confirm">Dadurch wird der Heartbeat-Prompt auf den Standard zurückgesetzt. Bist du sicher?</string>
+    <string name="settings_import_partial">Einstellungen mit %1$d fehlerhaften Abschnitt(en) importiert.</string>
+    <string name="settings_model_search">Modelle suchen…</string>
+    <string name="waiting_content_description">Warte auf Antwort</string>
 </resources>

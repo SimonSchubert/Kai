@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">I-imeyili</string>
     <string name="settings_import_section_tools">Amathuluzi</string>
     <string name="settings_import_section_mcp">Amaseva e-MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Lokhu kuzosetha kabusha isikhumbuzi sokushaya kwenhliziyo kube okuzenzakalelayo. Uqinisekile?</string>
+    <string name="settings_import_partial">Izilungiselelo zingeniswe ngesigaba esingu-%1$d esineziphazamiso.</string>
+    <string name="settings_model_search">Sesha amamodeli…</string>
+    <string name="waiting_content_description">Ilinde impendulo</string>
 </resources>

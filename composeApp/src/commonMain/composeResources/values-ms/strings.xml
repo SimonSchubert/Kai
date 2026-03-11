@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">E-mel</string>
     <string name="settings_import_section_tools">Alatan</string>
     <string name="settings_import_section_mcp">Pelayan MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Ini akan menetapkan semula gesaan degupan jantung kepada lalai. Adakah anda pasti?</string>
+    <string name="settings_import_partial">Tetapan diimport dengan %1$d bahagian yang mempunyai ralat.</string>
+    <string name="settings_model_search">Cari model…</string>
+    <string name="waiting_content_description">Menunggu respons</string>
 </resources>

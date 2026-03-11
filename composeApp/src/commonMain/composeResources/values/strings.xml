@@ -110,6 +110,7 @@
     <string name="settings_heartbeat_active_hours">Active Hours</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat Prompt</string>
     <string name="settings_heartbeat_recent">Recent Activity</string>
+    <string name="settings_heartbeat_reset_confirm">This will reset the heartbeat prompt to the default. Are you sure?</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\nIf something needs attention (stale memories, due tasks, user follow-ups), address it.</string>
     <string name="settings_email">Email</string>
     <string name="settings_email_description">Connect email accounts for reading and replying. Use the chat to say "connect my email" or add accounts here. Emails are polled in the background and triaged by AI.</string>

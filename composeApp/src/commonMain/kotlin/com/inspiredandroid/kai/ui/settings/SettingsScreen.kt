@@ -152,6 +152,7 @@ import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
 import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
+import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
@@ -2302,6 +2303,8 @@ private fun HeartbeatSection(
     val hasChanges = editedText != displayText
     val maxChars = 4000
 
+    var showResetDialog by remember { mutableStateOf(false) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -2316,6 +2319,18 @@ private fun HeartbeatSection(
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f),
             )
+            if (heartbeatPrompt.isNotEmpty()) {
+                IconButton(
+                    onClick = { showResetDialog = true },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Replay,
+                        contentDescription = stringResource(Res.string.settings_soul_reset),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
             Switch(
                 checked = isHeartbeatEnabled,
                 onCheckedChange = onToggleHeartbeat,
@@ -2522,6 +2537,28 @@ private fun HeartbeatSection(
                 }
             }
         }
+    }
+
+    if (showResetDialog) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showResetDialog = false },
+            title = { Text(stringResource(Res.string.settings_soul_reset)) },
+            text = { Text(stringResource(Res.string.settings_heartbeat_reset_confirm)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showResetDialog = false
+                    onSaveHeartbeatPrompt("")
+                    editedText = defaultPrompt
+                }) {
+                    Text(stringResource(Res.string.settings_soul_reset))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showResetDialog = false }) {
+                    Text(stringResource(Res.string.settings_soul_reset_cancel))
+                }
+            },
+        )
     }
 }
 

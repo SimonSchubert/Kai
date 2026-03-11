@@ -166,4 +166,8 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import_section_email">Sähköposti</string>
     <string name="settings_import_section_tools">Työkalut</string>
     <string name="settings_import_section_mcp">MCP-palvelimet</string>
+    <string name="settings_heartbeat_reset_confirm">Tämä palauttaa sydämenlyöntikehoksen oletusarvoon. Oletko varma?</string>
+    <string name="settings_import_partial">Asetukset tuotu, %1$d osiossa oli virheitä.</string>
+    <string name="settings_model_search">Hae malleja…</string>
+    <string name="waiting_content_description">Odotetaan vastausta</string>
 </resources>

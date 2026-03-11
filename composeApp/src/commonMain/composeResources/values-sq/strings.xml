@@ -165,4 +165,8 @@
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Mjetet</string>
     <string name="settings_import_section_mcp">Serverët MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Kjo do të rivendosë mesazhin e rrahjeve të zemrës në parazgjedhje. Jeni i sigurt?</string>
+    <string name="settings_import_partial">Cilësimet u importuan me %1$d seksion(e) me gabime.</string>
+    <string name="settings_model_search">Kërko modele…</string>
+    <string name="waiting_content_description">Duke pritur për përgjigje</string>
 </resources>

@@ -166,4 +166,8 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_import_section_email">Correo electrónico</string>
     <string name="settings_import_section_tools">Herramientas</string>
     <string name="settings_import_section_mcp">Servidores MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Esto restablecerá el mensaje de latido al predeterminado. ¿Estás seguro?</string>
+    <string name="settings_import_partial">Configuración importada con %1$d sección(es) con errores.</string>
+    <string name="settings_model_search">Buscar modelos…</string>
+    <string name="waiting_content_description">Esperando respuesta</string>
 </resources>

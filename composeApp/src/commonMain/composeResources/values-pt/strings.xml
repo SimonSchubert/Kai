@@ -166,4 +166,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Ferramentas</string>
     <string name="settings_import_section_mcp">Servidores MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Isso redefinirá o prompt de heartbeat para o padrão. Tem certeza?</string>
+    <string name="settings_import_partial">Configurações importadas com %1$d seção(ões) com erros.</string>
+    <string name="settings_model_search">Pesquisar modelos…</string>
+    <string name="waiting_content_description">Aguardando resposta</string>
 </resources>

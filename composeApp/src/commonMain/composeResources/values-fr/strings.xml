@@ -166,4 +166,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Outils</string>
     <string name="settings_import_section_mcp">Serveurs MCP</string>
+    <string name="settings_heartbeat_reset_confirm">Cela réinitialisera l\'invite de battement de cœur par défaut. Êtes-vous sûr ?</string>
+    <string name="settings_import_partial">Paramètres importés avec %1$d section(s) contenant des erreurs.</string>
+    <string name="settings_model_search">Rechercher des modèles…</string>
+    <string name="waiting_content_description">En attente de réponse</string>
 </resources>

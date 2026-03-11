@@ -166,4 +166,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Hulpmiddelen</string>
     <string name="settings_import_section_mcp">MCP-servers</string>
+    <string name="settings_heartbeat_reset_confirm">Hiermee wordt de heartbeat-prompt teruggezet naar de standaard. Weet je het zeker?</string>
+    <string name="settings_import_partial">Instellingen geïmporteerd met %1$d sectie(s) met fouten.</string>
+    <string name="settings_model_search">Modellen zoeken…</string>
+    <string name="waiting_content_description">Wachten op antwoord</string>
 </resources>

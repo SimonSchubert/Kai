@@ -166,4 +166,8 @@
     <string name="settings_import_section_email">البريد الإلكتروني</string>
     <string name="settings_import_section_tools">الأدوات</string>
     <string name="settings_import_section_mcp">خوادم MCP</string>
+    <string name="settings_heartbeat_reset_confirm">سيؤدي هذا إلى إعادة تعيين رسالة نبض القلب إلى الافتراضية. هل أنت متأكد؟</string>
+    <string name="settings_import_partial">تم استيراد الإعدادات مع %1$d قسم/أقسام بها أخطاء.</string>
+    <string name="settings_model_search">البحث عن النماذج…</string>
+    <string name="waiting_content_description">في انتظار الرد</string>
 </resources>
