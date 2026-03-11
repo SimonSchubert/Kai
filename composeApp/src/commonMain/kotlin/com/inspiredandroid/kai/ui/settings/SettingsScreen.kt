@@ -186,6 +186,7 @@ import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
 import kai.composeapp.generated.resources.settings_model_label
+import kai.composeapp.generated.resources.settings_model_search
 import kai.composeapp.generated.resources.settings_move_down
 import kai.composeapp.generated.resources.settings_move_up
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
@@ -1088,13 +1089,34 @@ private fun ModelSelection(
                     expanded = false
                 },
             ) {
+                var searchQuery by remember { mutableStateOf("") }
+                val filteredModels = if (searchQuery.isBlank()) {
+                    models
+                } else {
+                    models.filter {
+                        it.id.contains(searchQuery, ignoreCase = true) ||
+                            it.subtitle.contains(searchQuery, ignoreCase = true)
+                    }
+                }
+                if (models.size > 6) {
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        placeholder = {
+                            Text(stringResource(Res.string.settings_model_search))
+                        },
+                        singleLine = true,
+                        colors = outlineTextFieldColors(),
+                    )
+                }
                 LazyVerticalGrid(
                     GridCells.Adaptive(300.dp),
                     contentPadding = PaddingValues(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    items(models, key = { it.id }) { model ->
+                    items(filteredModels, key = { it.id }) { model ->
                         ModelCard(
                             model = model,
                             onClick = {
