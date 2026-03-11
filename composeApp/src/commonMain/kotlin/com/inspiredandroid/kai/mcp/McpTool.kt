@@ -65,7 +65,7 @@ class McpTool(
                         val propObj = prop.jsonObject
                         val type = propObj["type"]?.jsonPrimitive?.content ?: "string"
                         val description = propObj["description"]?.jsonPrimitive?.content ?: ""
-                        put(name, ParameterSchema(type, description, name in required))
+                        put(name, ParameterSchema(type, description, name in required, rawSchema = propObj))
                     } catch (_: Exception) {
                         // Skip malformed properties
                     }

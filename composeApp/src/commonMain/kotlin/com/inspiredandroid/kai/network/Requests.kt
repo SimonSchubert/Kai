@@ -39,6 +39,8 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.time.Duration.Companion.seconds
@@ -377,10 +379,11 @@ class Requests {
             description = schema.description,
             parameters = OpenAICompatibleChatRequestDto.Parameters(
                 properties = schema.parameters.mapValues { (_, param) ->
-                    OpenAICompatibleChatRequestDto.PropertySchema(
-                        type = param.type,
-                        description = param.description,
-                    )
+                    param.rawSchema?.toOpenAIPropertySchema()
+                        ?: OpenAICompatibleChatRequestDto.PropertySchema(
+                            type = param.type,
+                            description = param.description,
+                        )
                 },
                 required = schema.parameters.filter { it.value.required }.keys.toList(),
             ),
@@ -392,10 +395,11 @@ class Requests {
         description = schema.description,
         input_schema = AnthropicChatRequestDto.InputSchema(
             properties = schema.parameters.mapValues { (_, param) ->
-                AnthropicChatRequestDto.PropertySchema(
-                    type = param.type,
-                    description = param.description,
-                )
+                param.rawSchema?.toAnthropicPropertySchema()
+                    ?: AnthropicChatRequestDto.PropertySchema(
+                        type = param.type,
+                        description = param.description,
+                    )
             },
             required = schema.parameters.filter { it.value.required }.keys.toList(),
         ),
@@ -408,10 +412,11 @@ class Requests {
                 description = schema.description,
                 parameters = FunctionParameters(
                     properties = schema.parameters.mapValues { (_, param) ->
-                        PropertySchema(
-                            type = param.type,
-                            description = param.description,
-                        )
+                        param.rawSchema?.toGeminiPropertySchema()
+                            ?: PropertySchema(
+                                type = param.type,
+                                description = param.description,
+                            )
                     },
                     required = schema.parameters.filter { it.value.required }.keys.toList(),
                 ),
@@ -420,4 +425,67 @@ class Requests {
     )
 
     // endregion
+}
+
+private val DEFAULT_OPENAI_STRING_ITEMS = OpenAICompatibleChatRequestDto.PropertySchema(type = "string")
+private val DEFAULT_ANTHROPIC_STRING_ITEMS = AnthropicChatRequestDto.PropertySchema(type = "string")
+private val DEFAULT_GEMINI_STRING_ITEMS = PropertySchema(type = "string")
+
+private fun JsonObject.toOpenAIPropertySchema(): OpenAICompatibleChatRequestDto.PropertySchema {
+    val type = this["type"]?.jsonPrimitive?.content ?: "string"
+    val description = this["description"]?.jsonPrimitive?.content
+    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val items = this["items"]?.jsonObject?.toOpenAIPropertySchema()
+    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
+        v.jsonObject.toOpenAIPropertySchema()
+    }
+    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val additionalProperties = this["additionalProperties"]?.jsonPrimitive?.content?.toBooleanStrictOrNull()
+    return OpenAICompatibleChatRequestDto.PropertySchema(
+        type = type,
+        description = description,
+        enum = enumValues,
+        items = items ?: if (type == "array") DEFAULT_OPENAI_STRING_ITEMS else null,
+        properties = properties,
+        required = required,
+        additionalProperties = additionalProperties,
+    )
+}
+
+private fun JsonObject.toAnthropicPropertySchema(): AnthropicChatRequestDto.PropertySchema {
+    val type = this["type"]?.jsonPrimitive?.content ?: "string"
+    val description = this["description"]?.jsonPrimitive?.content
+    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val items = this["items"]?.jsonObject?.toAnthropicPropertySchema()
+    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
+        v.jsonObject.toAnthropicPropertySchema()
+    }
+    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
+    return AnthropicChatRequestDto.PropertySchema(
+        type = type,
+        description = description,
+        enum = enumValues,
+        items = items ?: if (type == "array") DEFAULT_ANTHROPIC_STRING_ITEMS else null,
+        properties = properties,
+        required = required,
+    )
+}
+
+private fun JsonObject.toGeminiPropertySchema(): PropertySchema {
+    val type = this["type"]?.jsonPrimitive?.content ?: "string"
+    val description = this["description"]?.jsonPrimitive?.content
+    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val items = this["items"]?.jsonObject?.toGeminiPropertySchema()
+    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
+        v.jsonObject.toGeminiPropertySchema()
+    }
+    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
+    return PropertySchema(
+        type = type,
+        description = description,
+        enum = enumValues,
+        items = items ?: if (type == "array") DEFAULT_GEMINI_STRING_ITEMS else null,
+        properties = properties,
+        required = required,
+    )
 }

@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.network.tools
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -12,7 +13,12 @@ data class ToolSchema(
 )
 
 @Serializable
-data class ParameterSchema(val type: String, val description: String, val required: Boolean)
+data class ParameterSchema(
+    val type: String,
+    val description: String,
+    val required: Boolean,
+    val rawSchema: JsonObject? = null,
+)
 
 interface Tool {
     val schema: ToolSchema

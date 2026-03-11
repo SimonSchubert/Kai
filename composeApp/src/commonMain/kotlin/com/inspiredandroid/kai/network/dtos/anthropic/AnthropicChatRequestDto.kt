@@ -35,5 +35,9 @@ data class AnthropicChatRequestDto(
     data class PropertySchema(
         val type: String,
         val description: String? = null,
+        val enum: List<String>? = null,
+        val items: PropertySchema? = null,
+        val properties: Map<String, PropertySchema>? = null,
+        val required: List<String>? = null,
     )
 }

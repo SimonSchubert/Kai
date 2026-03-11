@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-11
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -73,7 +73,7 @@ Tool calls to MCP servers go through the same execution pipeline as native tools
 
 - HTTP/SSE transport only (no stdio)
 - CORS may block MCP server requests on the web platform
-- Tool parameters are converted from JSON Schema to flat property maps (top-level properties only)
+- MCP tool parameters preserve full JSON Schema (including nested `items`, `properties`, `enum`) for accurate API serialization
 
 ## Key Files
 

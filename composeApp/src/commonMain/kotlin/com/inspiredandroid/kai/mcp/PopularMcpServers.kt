@@ -9,7 +9,7 @@ data class PopularMcpServer(
 val popularMcpServers = listOf(
     PopularMcpServer(
         name = "Context7",
-        url = "https://context7.liam.sh/mcp",
+        url = "https://mcp.context7.com/mcp",
         description = "Up-to-date library and framework docs",
     ),
     PopularMcpServer(
