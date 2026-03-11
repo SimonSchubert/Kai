@@ -630,6 +630,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#import-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import Sections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings-included" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -680,7 +691,7 @@
 
 
 <h1 id="settings-export-import">Settings Export / Import</h1>
-<p><strong>Last verified:</strong> 2026-03-10</p>
+<p><strong>Last verified:</strong> 2026-03-11</p>
 <p>Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under <strong>Settings &gt; General</strong> at the bottom of the page.</p>
 <h2 id="behavior">Behavior</h2>
 <h3 id="export">Export</h3>
@@ -692,9 +703,67 @@
 <h3 id="import">Import</h3>
 <ul>
 <li>Tapping <strong>Import</strong> opens a native file picker filtered to <code>.json</code> files.</li>
-<li>All keys in the JSON are optional; missing keys leave the corresponding setting unchanged.</li>
+<li>After the file is selected and parsed, an <strong>Import Preview Dialog</strong> appears.</li>
+<li>The dialog detects which sections are present in the JSON and shows a checkbox for each one (all enabled by default), with item counts where applicable (e.g. "Services (2)", "Memory (5)").</li>
+<li>A Replace/Merge toggle controls what happens to unselected sections:</li>
+<li><strong>Replace</strong> (default): Unselected sections reset to their defaults.</li>
+<li><strong>Merge</strong>: Only apply selected sections; all other settings stay unchanged.</li>
+<li>Clicking <strong>Import</strong> in the dialog applies the selected sections.</li>
+<li>Each settings section is imported independently. If one section contains malformed data, the remaining sections are still imported and the error is counted.</li>
 <li>Unknown keys are silently ignored, so older exports can be imported into newer app versions.</li>
 </ul>
+<h2 id="import-sections">Import Sections</h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Display Name</th>
+<th>JSON keys detected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SERVICES</td>
+<td>Services</td>
+<td><code>configured_services</code>, <code>current_service_id</code>, <code>free_fallback_enabled</code>, <code>instance_settings</code></td>
+</tr>
+<tr>
+<td>SOUL</td>
+<td>Soul</td>
+<td><code>soul_text</code></td>
+</tr>
+<tr>
+<td>MEMORY</td>
+<td>Memory</td>
+<td><code>memory_enabled</code>, <code>agent_memories</code></td>
+</tr>
+<tr>
+<td>SCHEDULING</td>
+<td>Scheduling</td>
+<td><code>scheduling_enabled</code>, <code>scheduled_tasks</code></td>
+</tr>
+<tr>
+<td>HEARTBEAT</td>
+<td>Heartbeat</td>
+<td><code>heartbeat_config</code>, <code>heartbeat_prompt</code>, <code>heartbeat_log</code></td>
+</tr>
+<tr>
+<td>EMAIL</td>
+<td>Email</td>
+<td><code>email_enabled</code>, <code>email_accounts</code></td>
+</tr>
+<tr>
+<td>TOOLS</td>
+<td>Tools</td>
+<td><code>tool_overrides</code></td>
+</tr>
+<tr>
+<td>MCP</td>
+<td>MCP Servers</td>
+<td><code>mcp_servers</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="settings-included">Settings Included</h2>
 <table>
 <thead>
@@ -757,7 +826,7 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../data/AppSettings.kt</code></td>
-<td><code>exportToJson()</code> / <code>importFromJson()</code> core logic</td>
+<td><code>ImportSection</code> enum, <code>detectImportSections()</code>, <code>exportToJson()</code> / <code>importFromJson()</code> core logic</td>
 </tr>
 <tr>
 <td><code>composeApp/.../data/DataRepository.kt</code></td>
@@ -777,7 +846,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/settings/SettingsScreen.kt</code></td>
-<td>Export/Import card with FileKit dialogs</td>
+<td>Export/Import card with FileKit dialogs, <code>ImportPreviewDialog</code></td>
 </tr>
 <tr>
 <td><code>composeApp/.../testutil/FakeDataRepository.kt</code></td>
