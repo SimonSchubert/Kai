@@ -19,7 +19,16 @@ data class OpenAICompatibleChatResponseDto(
         ) {
             /** Returns [content] if non-blank, otherwise falls back to [reasoning]. */
             val effectiveContent: String?
-                get() = content?.takeIf { it.isNotBlank() } ?: reasoning
+                get() {
+                    val raw = content?.takeIf { it.isNotBlank() } ?: reasoning
+                    // Some providers (e.g. Ollama) embed tool calls as <TOOLCALL>[...] markers
+                    // in the content field alongside structured tool_calls — strip them.
+                    if (raw != null && !toolCalls.isNullOrEmpty()) {
+                        val stripped = raw.replace(Regex("<TOOLCALL>[\\s\\S]*?</TOOLCALL>|<TOOLCALL>[\\s\\S]*$"), "").trim()
+                        return stripped.takeIf { it.isNotBlank() }
+                    }
+                    return raw
+                }
 
             /** True when the effective content comes from [reasoning] rather than [content]. */
             val isContentFromReasoning: Boolean
