@@ -1,8 +1,7 @@
 name: WinGet Package
 
 on:
-  release:
-    types: [released]
+  workflow_dispatch:
 
 jobs:
   publish:
