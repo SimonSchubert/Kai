@@ -152,8 +152,8 @@ import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
 import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_interval
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
-import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
 import kai.composeapp.generated.resources.settings_heartbeat_recent
+import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
 import kai.composeapp.generated.resources.settings_import_partial
