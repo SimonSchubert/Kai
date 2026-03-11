@@ -465,6 +465,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retry-regenerate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -830,6 +841,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#retry-regenerate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -913,7 +935,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-09</p>
+<p><strong>Last verified:</strong> 2026-03-11</p>
 <p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -937,6 +959,12 @@
 <li>Tool calls are executed inline (TOOL_EXECUTING shown during execution, TOOL result stored after)</li>
 <li>On success, the conversation is saved</li>
 <li>On failure, an error is displayed with a retry button</li>
+</ul>
+<h2 id="cancel">Cancel</h2>
+<ul>
+<li>While a request is in progress, a stop button replaces the send button in the input field</li>
+<li>Clicking stop cancels the ongoing API request and any in-flight tool executions</li>
+<li>After cancellation, the loading state clears and the send button reappears when typing</li>
 </ul>
 <h2 id="retry-regenerate">Retry &amp; Regenerate</h2>
 <ul>
@@ -967,7 +995,7 @@
 <ul>
 <li><strong>Top bar</strong>: New Chat, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
 <li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry</li>
-<li><strong>Input</strong>: text field, send button, attachment button, file chip</li>
+<li><strong>Input</strong>: text field, send/stop button, attachment button, file chip</li>
 <li><strong>Empty state</strong>: animated logo + welcome message</li>
 <li><strong>Drag-and-drop</strong>: supported for file attachments</li>
 </ul>
@@ -994,11 +1022,15 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt</code></td>
-<td>Chat UI state, send/retry/regenerate actions</td>
+<td>Chat UI state, send/retry/regenerate/cancel actions</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/ChatScreen.kt</code></td>
 <td>Chat UI composables</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt</code></td>
+<td>Text input with send/stop button</td>
 </tr>
 </tbody>
 </table>
