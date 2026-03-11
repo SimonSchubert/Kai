@@ -11,6 +11,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
@@ -128,8 +129,8 @@ class AppSettingsExportImportTest {
         val json = appSettings.exportToJson(toolIds)
         assertEquals(false, json["tool_overrides"]?.jsonObject?.get("tool_a")?.jsonPrimitive?.boolean)
         assertEquals(true, json["tool_overrides"]?.jsonObject?.get("tool_b")?.jsonPrimitive?.boolean)
-        // tool_c has no override set, should not appear
-        assertNull(json["tool_overrides"]?.jsonObject?.get("tool_c"))
+        // tool_c has no explicit override, but is exported with its default (true)
+        assertEquals(true, json["tool_overrides"]?.jsonObject?.get("tool_c")?.jsonPrimitive?.boolean)
 
         val target = createAppSettings()
         target.importFromJson(json, toolIds)
@@ -203,18 +204,22 @@ class AppSettingsExportImportTest {
     }
 
     @Test
-    fun `import with missing keys does not overwrite existing settings`() {
+    fun `import resets missing settings to defaults`() {
         val target = createAppSettings()
         target.setSoulText("original")
         target.setMemoryEnabled(false)
+        target.setMcpServersJson("""[{"id":"srv1"}]""")
+        target.setMemoriesJson("""[{"key":"k1","value":"v1","category":"GENERAL"}]""")
 
-        // Import JSON that only has version - no soul_text or memory_enabled
+        // Import JSON that only has version — missing keys should reset to defaults
         val json = JsonObject(mapOf("version" to JsonPrimitive(1)))
-        target.importFromJson(json, toolIds)
+        val errors = target.importFromJson(json, toolIds)
 
-        // Existing values should be preserved
-        assertEquals("original", target.getSoulText())
-        assertFalse(target.isMemoryEnabled())
+        assertEquals(0, errors)
+        assertEquals("", target.getSoulText())
+        assertTrue(target.isMemoryEnabled())
+        assertEquals("", target.getMemoriesJson())
+        assertEquals("", target.getMcpServersJson())
     }
 
     @Test
@@ -287,7 +292,8 @@ class AppSettingsExportImportTest {
 
         val parsed = Json.parseToJsonElement(v1Json).jsonObject
         val target = createAppSettings()
-        target.importFromJson(parsed, toolIds)
+        val errors = target.importFromJson(parsed, toolIds)
+        assertEquals(0, errors)
 
         // Services
         val instances = target.getConfiguredServiceInstances()
@@ -331,5 +337,178 @@ class AppSettingsExportImportTest {
 
         // MCP
         assertTrue(target.getMcpServersJson().contains("mcp1"))
+    }
+
+    @Test
+    fun `import with malformed field does not block other sections`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "soul_text" to Json.parseToJsonElement("[1,2,3]"), // malformed: array instead of string
+                "memory_enabled" to JsonPrimitive(false),
+                "agent_memories" to Json.parseToJsonElement("""[{"key":"m1"}]"""),
+                "mcp_servers" to Json.parseToJsonElement("""[{"id":"srv1"}]"""),
+            ),
+        )
+        val target = createAppSettings()
+        val errors = target.importFromJson(json, toolIds)
+
+        assertEquals(1, errors) // soul_text section fails
+        assertFalse(target.isMemoryEnabled()) // memory section still imported
+        assertTrue(target.getMemoriesJson().contains("m1"))
+        assertTrue(target.getMcpServersJson().contains("srv1"))
+    }
+
+    @Test
+    fun `import with all valid fields returns zero errors`() {
+        val appSettings = createAppSettings()
+        appSettings.setSoulText("Test")
+        appSettings.setMemoryEnabled(false)
+        appSettings.setMcpServersJson("""[{"id":"srv1"}]""")
+
+        val json = appSettings.exportToJson(toolIds)
+        val target = createAppSettings()
+        val errors = target.importFromJson(json, toolIds)
+
+        assertEquals(0, errors)
+    }
+
+    @Test
+    fun `import clears old instance settings before applying new`() {
+        val target = createAppSettings()
+        target.setConfiguredServiceInstances(
+            listOf(ServiceInstance("old_instance", "openai")),
+        )
+        target.setInstanceApiKey("old_instance", "old-key")
+        target.setInstanceModelId("old_instance", "old-model")
+
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "configured_services" to Json.parseToJsonElement("""[{"instanceId":"new_instance","serviceId":"openai"}]"""),
+                "instance_settings" to Json.parseToJsonElement("""[{"instanceId":"new_instance","api_key":"new-key"}]"""),
+            ),
+        )
+        target.importFromJson(json, toolIds)
+
+        // Old instance keys should be cleared
+        assertEquals("", target.getInstanceApiKey("old_instance"))
+        assertEquals("", target.getInstanceModelId("old_instance"))
+        // New instance keys should be set
+        assertEquals("new-key", target.getInstanceApiKey("new_instance"))
+    }
+
+    @Test
+    fun `import resets tool overrides before applying new`() {
+        val target = createAppSettings()
+        target.setToolEnabled("tool_a", false)
+        target.setToolEnabled("tool_b", false)
+
+        // Import with only tool_a override — tool_b should be reset
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "tool_overrides" to Json.parseToJsonElement("""{"tool_a": false}"""),
+            ),
+        )
+        target.importFromJson(json, toolIds)
+
+        assertFalse(target.isToolEnabled("tool_a"))
+        assertTrue(target.isToolEnabled("tool_b")) // reset to default (true)
+    }
+
+    @Test
+    fun `import with sections filter only imports selected sections`() {
+        val appSettings = createAppSettings()
+        appSettings.setSoulText("New soul")
+        appSettings.setMcpServersJson("""[{"id":"srv1"}]""")
+        appSettings.setMemoryEnabled(false)
+
+        val json = appSettings.exportToJson(toolIds)
+
+        val target = createAppSettings()
+        target.setSoulText("Original soul")
+        target.setMemoryEnabled(true)
+        target.setMcpServersJson("""[{"id":"original"}]""")
+
+        // Only import SOUL section, merge mode (leave others unchanged)
+        target.importFromJson(json, toolIds, sections = setOf(ImportSection.SOUL), replace = false)
+
+        assertEquals("New soul", target.getSoulText())
+        // Memory and MCP should be unchanged (merge mode)
+        assertTrue(target.isMemoryEnabled())
+        assertTrue(target.getMcpServersJson().contains("original"))
+    }
+
+    @Test
+    fun `import with replace mode resets unselected sections`() {
+        val target = createAppSettings()
+        target.setSoulText("Original soul")
+        target.setMemoryEnabled(false)
+        target.setMcpServersJson("""[{"id":"srv1"}]""")
+
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "soul_text" to JsonPrimitive("New soul"),
+            ),
+        )
+
+        // Only import SOUL, replace mode — unselected sections reset to defaults
+        target.importFromJson(json, toolIds, sections = setOf(ImportSection.SOUL), replace = true)
+
+        assertEquals("New soul", target.getSoulText())
+        // Memory and MCP should be reset to defaults
+        assertTrue(target.isMemoryEnabled()) // default is true
+        assertEquals("", target.getMcpServersJson()) // default is empty
+    }
+
+    @Test
+    fun `import with merge mode preserves unselected sections`() {
+        val target = createAppSettings()
+        target.setSoulText("Original soul")
+        target.setMemoryEnabled(false)
+        target.setMcpServersJson("""[{"id":"srv1"}]""")
+
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "soul_text" to JsonPrimitive("New soul"),
+            ),
+        )
+
+        // Only import SOUL, merge mode — unselected sections stay unchanged
+        target.importFromJson(json, toolIds, sections = setOf(ImportSection.SOUL), replace = false)
+
+        assertEquals("New soul", target.getSoulText())
+        // Memory and MCP should be preserved
+        assertFalse(target.isMemoryEnabled())
+        assertTrue(target.getMcpServersJson().contains("srv1"))
+    }
+
+    @Test
+    fun `detectImportSections returns correct sections with counts`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "soul_text" to JsonPrimitive("hello"),
+                "mcp_servers" to Json.parseToJsonElement("""[{"id":"srv1"},{"id":"srv2"}]"""),
+                "memory_enabled" to JsonPrimitive(true),
+                "agent_memories" to Json.parseToJsonElement("""[{"key":"m1"},{"key":"m2"},{"key":"m3"}]"""),
+            ),
+        )
+        val sections = detectImportSections(json)
+        assertContains(sections.keys, ImportSection.SOUL)
+        assertContains(sections.keys, ImportSection.MCP)
+        assertContains(sections.keys, ImportSection.MEMORY)
+        assertFalse(ImportSection.SERVICES in sections)
+        assertFalse(ImportSection.SCHEDULING in sections)
+        assertFalse(ImportSection.HEARTBEAT in sections)
+        assertFalse(ImportSection.EMAIL in sections)
+        assertFalse(ImportSection.TOOLS in sections)
+        // Check counts
+        assertNull(sections[ImportSection.SOUL]) // soul has no count
+        assertEquals("2", sections[ImportSection.MCP])
+        assertEquals("3", sections[ImportSection.MEMORY])
     }
 }

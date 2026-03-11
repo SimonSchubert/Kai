@@ -154,4 +154,15 @@
     <string name="settings_import">Importas</string>
     <string name="settings_import_success">Nustatymai sėkmingai importuoti.</string>
     <string name="settings_import_error">Importas nepavyko. Failo formatas netinkamas.</string>
+    <string name="settings_import_preview_title">Importuoti nustatymus</string>
+    <string name="settings_import_replace_all">Pakeisti visus esamus nustatymus</string>
+    <string name="settings_import_replace_all_description">Nepažymėtos skiltys bus atstatytos į numatytąsias reikšmes.</string>
+    <string name="settings_import_section_services">Paslaugos</string>
+    <string name="settings_import_section_soul">Siela</string>
+    <string name="settings_import_section_memory">Atmintis</string>
+    <string name="settings_import_section_scheduling">Planavimas</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">El. paštas</string>
+    <string name="settings_import_section_tools">Įrankiai</string>
+    <string name="settings_import_section_mcp">MCP serveriai</string>
 </resources>

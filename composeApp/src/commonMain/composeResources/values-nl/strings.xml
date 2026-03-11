@@ -155,4 +155,15 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Instellingen succesvol geïmporteerd.</string>
     <string name="settings_import_error">Import mislukt. Het bestandsformaat is ongeldig.</string>
+    <string name="settings_import_preview_title">Instellingen importeren</string>
+    <string name="settings_import_replace_all">Alle bestaande instellingen vervangen</string>
+    <string name="settings_import_replace_all_description">Niet-geselecteerde secties worden teruggezet naar standaardwaarden.</string>
+    <string name="settings_import_section_services">Diensten</string>
+    <string name="settings_import_section_soul">Ziel</string>
+    <string name="settings_import_section_memory">Geheugen</string>
+    <string name="settings_import_section_scheduling">Planning</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Hulpmiddelen</string>
+    <string name="settings_import_section_mcp">MCP-servers</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Tetapan berjaya diimport.</string>
     <string name="settings_import_error">Import gagal. Format fail tidak sah.</string>
+    <string name="settings_import_preview_title">Import tetapan</string>
+    <string name="settings_import_replace_all">Ganti semua tetapan sedia ada</string>
+    <string name="settings_import_replace_all_description">Bahagian yang tidak dipilih akan ditetapkan semula kepada lalai.</string>
+    <string name="settings_import_section_services">Perkhidmatan</string>
+    <string name="settings_import_section_soul">Jiwa</string>
+    <string name="settings_import_section_memory">Memori</string>
+    <string name="settings_import_section_scheduling">Penjadualan</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mel</string>
+    <string name="settings_import_section_tools">Alatan</string>
+    <string name="settings_import_section_mcp">Pelayan MCP</string>
 </resources>

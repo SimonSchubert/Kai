@@ -154,4 +154,15 @@
     <string name="settings_import">Увоз</string>
     <string name="settings_import_success">Подешавања успешно увезена.</string>
     <string name="settings_import_error">Увоз није успео. Формат датотеке је неважећи.</string>
+    <string name="settings_import_preview_title">Увези подешавања</string>
+    <string name="settings_import_replace_all">Замени сва постојећа подешавања</string>
+    <string name="settings_import_replace_all_description">Неизабрани одељци биће враћени на подразумеване вредности.</string>
+    <string name="settings_import_section_services">Сервиси</string>
+    <string name="settings_import_section_soul">Душа</string>
+    <string name="settings_import_section_memory">Меморија</string>
+    <string name="settings_import_section_scheduling">Заказивање</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Имејл</string>
+    <string name="settings_import_section_tools">Алати</string>
+    <string name="settings_import_section_mcp">MCP сервери</string>
 </resources>

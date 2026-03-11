@@ -155,4 +155,15 @@
     <string name="settings_import">Импорт</string>
     <string name="settings_import_success">Настройки успешно импортированы.</string>
     <string name="settings_import_error">Ошибка импорта. Неверный формат файла.</string>
+    <string name="settings_import_preview_title">Импорт настроек</string>
+    <string name="settings_import_replace_all">Заменить все существующие настройки</string>
+    <string name="settings_import_replace_all_description">Невыбранные разделы будут сброшены к значениям по умолчанию.</string>
+    <string name="settings_import_section_services">Сервисы</string>
+    <string name="settings_import_section_soul">Душа</string>
+    <string name="settings_import_section_memory">Память</string>
+    <string name="settings_import_section_scheduling">Планирование</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Электронная почта</string>
+    <string name="settings_import_section_tools">Инструменты</string>
+    <string name="settings_import_section_mcp">Серверы MCP</string>
 </resources>

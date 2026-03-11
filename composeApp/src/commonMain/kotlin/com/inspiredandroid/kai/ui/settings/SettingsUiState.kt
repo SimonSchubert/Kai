@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
+import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
@@ -98,7 +99,7 @@ data class SettingsUiState(
     val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val onExportSettings: () -> String = { "" },
-    val onImportSettings: (ByteArray) -> Boolean = { false },
+    val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> Boolean = { _, _, _ -> false },
 )
 
 @Immutable

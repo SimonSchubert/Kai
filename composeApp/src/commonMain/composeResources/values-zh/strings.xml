@@ -155,4 +155,15 @@
     <string name="settings_import">导入</string>
     <string name="settings_import_success">设置导入成功。</string>
     <string name="settings_import_error">导入失败。文件格式无效。</string>
+    <string name="settings_import_preview_title">导入设置</string>
+    <string name="settings_import_replace_all">替换所有现有设置</string>
+    <string name="settings_import_replace_all_description">未选中的部分将被重置为默认值。</string>
+    <string name="settings_import_section_services">服务</string>
+    <string name="settings_import_section_soul">灵魂</string>
+    <string name="settings_import_section_memory">记忆</string>
+    <string name="settings_import_section_scheduling">定时任务</string>
+    <string name="settings_import_section_heartbeat">心跳</string>
+    <string name="settings_import_section_email">邮箱</string>
+    <string name="settings_import_section_tools">工具</string>
+    <string name="settings_import_section_mcp">MCP 服务器</string>
 </resources>

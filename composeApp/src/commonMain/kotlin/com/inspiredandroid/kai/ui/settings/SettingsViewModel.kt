@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isDesktopPlatform
@@ -325,9 +326,9 @@ class SettingsViewModel(
 
     private fun onExportSettings(): String = dataRepository.exportSettingsToJson()
 
-    private fun onImportSettings(bytes: ByteArray): Boolean = try {
+    private fun onImportSettings(bytes: ByteArray, sections: Set<ImportSection>, replace: Boolean): Boolean = try {
         val currentTab = _state.value.currentTab
-        dataRepository.importSettingsFromJson(bytes.decodeToString())
+        dataRepository.importSettingsFromJson(bytes.decodeToString(), sections, replace)
         _state.value = buildFullState().copy(currentTab = currentTab)
         checkAllConnections()
         connectEnabledMcpServers()

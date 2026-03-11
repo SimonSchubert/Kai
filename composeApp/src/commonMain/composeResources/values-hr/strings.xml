@@ -154,4 +154,15 @@
     <string name="settings_import">Uvoz</string>
     <string name="settings_import_success">Postavke uspješno uvezene.</string>
     <string name="settings_import_error">Uvoz nije uspio. Format datoteke je nevažeći.</string>
+    <string name="settings_import_preview_title">Uvezi postavke</string>
+    <string name="settings_import_replace_all">Zamijeni sve postojeće postavke</string>
+    <string name="settings_import_replace_all_description">Neodabrani odjeljci bit će vraćeni na zadane vrijednosti.</string>
+    <string name="settings_import_section_services">Usluge</string>
+    <string name="settings_import_section_soul">Duša</string>
+    <string name="settings_import_section_memory">Memorija</string>
+    <string name="settings_import_section_scheduling">Raspoređivanje</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-pošta</string>
+    <string name="settings_import_section_tools">Alati</string>
+    <string name="settings_import_section_mcp">MCP poslužitelji</string>
 </resources>

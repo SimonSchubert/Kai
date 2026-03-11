@@ -155,4 +155,15 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import">Tuo</string>
     <string name="settings_import_success">Asetukset tuotu onnistuneesti.</string>
     <string name="settings_import_error">Tuonti epäonnistui. Tiedostomuoto on virheellinen.</string>
+    <string name="settings_import_preview_title">Tuo asetukset</string>
+    <string name="settings_import_replace_all">Korvaa kaikki nykyiset asetukset</string>
+    <string name="settings_import_replace_all_description">Valitsemattomat osiot palautetaan oletusarvoihin.</string>
+    <string name="settings_import_section_services">Palvelut</string>
+    <string name="settings_import_section_soul">Sielu</string>
+    <string name="settings_import_section_memory">Muisti</string>
+    <string name="settings_import_section_scheduling">Ajastus</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Sähköposti</string>
+    <string name="settings_import_section_tools">Työkalut</string>
+    <string name="settings_import_section_mcp">MCP-palvelimet</string>
 </resources>

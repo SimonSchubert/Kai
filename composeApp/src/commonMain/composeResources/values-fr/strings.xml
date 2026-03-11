@@ -155,4 +155,15 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import">Importer</string>
     <string name="settings_import_success">Paramètres importés avec succès.</string>
     <string name="settings_import_error">L\'importation a échoué. Le format du fichier est invalide.</string>
+    <string name="settings_import_preview_title">Importer les paramètres</string>
+    <string name="settings_import_replace_all">Remplacer tous les paramètres existants</string>
+    <string name="settings_import_replace_all_description">Les sections non sélectionnées seront réinitialisées aux valeurs par défaut.</string>
+    <string name="settings_import_section_services">Services</string>
+    <string name="settings_import_section_soul">Âme</string>
+    <string name="settings_import_section_memory">Mémoire</string>
+    <string name="settings_import_section_scheduling">Planification</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Outils</string>
+    <string name="settings_import_section_mcp">Serveurs MCP</string>
 </resources>

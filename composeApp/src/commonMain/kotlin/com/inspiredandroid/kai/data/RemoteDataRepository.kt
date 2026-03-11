@@ -1318,10 +1318,10 @@ class RemoteDataRepository(
         return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
     }
 
-    override fun importSettingsFromJson(json: String) {
+    override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int {
         val jsonObject = SharedJson.parseToJsonElement(json).jsonObject
         val toolIds = getPlatformToolDefinitions().map { it.id }
-        appSettings.importFromJson(jsonObject, toolIds)
+        return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
     }
 
     override suspend fun askSilently(question: String): String {

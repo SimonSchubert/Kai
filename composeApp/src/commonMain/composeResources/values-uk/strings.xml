@@ -155,4 +155,15 @@
     <string name="settings_import">Імпорт</string>
     <string name="settings_import_success">Налаштування успішно імпортовано.</string>
     <string name="settings_import_error">Помилка імпорту. Недійсний формат файлу.</string>
+    <string name="settings_import_preview_title">Імпорт налаштувань</string>
+    <string name="settings_import_replace_all">Замінити всі наявні налаштування</string>
+    <string name="settings_import_replace_all_description">Невибрані розділи будуть скинуті до значень за замовчуванням.</string>
+    <string name="settings_import_section_services">Сервіси</string>
+    <string name="settings_import_section_soul">Душа</string>
+    <string name="settings_import_section_memory">Пам\'ять</string>
+    <string name="settings_import_section_scheduling">Планування</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Електронна пошта</string>
+    <string name="settings_import_section_tools">Інструменти</string>
+    <string name="settings_import_section_mcp">Сервери MCP</string>
 </resources>

@@ -155,4 +155,15 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Einstellungen erfolgreich importiert.</string>
     <string name="settings_import_error">Import fehlgeschlagen. Das Dateiformat ist ungültig.</string>
+    <string name="settings_import_preview_title">Einstellungen importieren</string>
+    <string name="settings_import_replace_all">Alle bestehenden Einstellungen ersetzen</string>
+    <string name="settings_import_replace_all_description">Nicht ausgewählte Bereiche werden auf Standardwerte zurückgesetzt.</string>
+    <string name="settings_import_section_services">Dienste</string>
+    <string name="settings_import_section_soul">Seele</string>
+    <string name="settings_import_section_memory">Erinnerungen</string>
+    <string name="settings_import_section_scheduling">Planung</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-Mail</string>
+    <string name="settings_import_section_tools">Werkzeuge</string>
+    <string name="settings_import_section_mcp">MCP-Server</string>
 </resources>

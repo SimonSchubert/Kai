@@ -154,4 +154,15 @@
     <string name="settings_import">Импорт</string>
     <string name="settings_import_success">Настройките са импортирани успешно.</string>
     <string name="settings_import_error">Импортирането не успя. Форматът на файла е невалиден.</string>
+    <string name="settings_import_preview_title">Импортиране на настройки</string>
+    <string name="settings_import_replace_all">Замяна на всички съществуващи настройки</string>
+    <string name="settings_import_replace_all_description">Неизбраните секции ще бъдат нулирани до стойности по подразбиране.</string>
+    <string name="settings_import_section_services">Услуги</string>
+    <string name="settings_import_section_soul">Душа</string>
+    <string name="settings_import_section_memory">Памет</string>
+    <string name="settings_import_section_scheduling">Планиране</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Имейл</string>
+    <string name="settings_import_section_tools">Инструменти</string>
+    <string name="settings_import_section_mcp">MCP сървъри</string>
 </resources>

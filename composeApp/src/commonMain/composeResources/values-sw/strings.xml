@@ -154,4 +154,15 @@
     <string name="settings_import">Ingiza</string>
     <string name="settings_import_success">Mipangilio imeingizwa kwa mafanikio.</string>
     <string name="settings_import_error">Kuingiza kumeshindwa. Muundo wa faili si sahihi.</string>
+    <string name="settings_import_preview_title">Ingiza mipangilio</string>
+    <string name="settings_import_replace_all">Badilisha mipangilio yote iliyopo</string>
+    <string name="settings_import_replace_all_description">Sehemu ambazo hazijachaguliwa zitarejeshwa kwa chaguomsingi.</string>
+    <string name="settings_import_section_services">Huduma</string>
+    <string name="settings_import_section_soul">Roho</string>
+    <string name="settings_import_section_memory">Kumbukumbu</string>
+    <string name="settings_import_section_scheduling">Ratiba</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Barua pepe</string>
+    <string name="settings_import_section_tools">Zana</string>
+    <string name="settings_import_section_mcp">Seva za MCP</string>
 </resources>

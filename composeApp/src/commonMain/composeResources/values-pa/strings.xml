@@ -154,4 +154,15 @@
     <string name="settings_import">ਆਯਾਤ</string>
     <string name="settings_import_success">ਸੈਟਿੰਗਾਂ ਸਫਲਤਾਪੂਰਵਕ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
     <string name="settings_import_error">ਆਯਾਤ ਅਸਫਲ। ਫਾਈਲ ਫਾਰਮੈਟ ਅਵੈਧ ਹੈ।</string>
+    <string name="settings_import_preview_title">ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕਰੋ</string>
+    <string name="settings_import_replace_all">ਸਾਰੀਆਂ ਮੌਜੂਦਾ ਸੈਟਿੰਗਾਂ ਬਦਲੋ</string>
+    <string name="settings_import_replace_all_description">ਅਣਚੁਣੇ ਭਾਗ ਡਿਫ਼ੌਲਟ ਤੇ ਰੀਸੈੱਟ ਹੋ ਜਾਣਗੇ।</string>
+    <string name="settings_import_section_services">ਸੇਵਾਵਾਂ</string>
+    <string name="settings_import_section_soul">ਰੂਹ</string>
+    <string name="settings_import_section_memory">ਯਾਦਦਾਸ਼ਤ</string>
+    <string name="settings_import_section_scheduling">ਸਮਾਂ-ਸੂਚੀ</string>
+    <string name="settings_import_section_heartbeat">ਹਾਰਟਬੀਟ</string>
+    <string name="settings_import_section_email">ਈਮੇਲ</string>
+    <string name="settings_import_section_tools">ਸੰਦ</string>
+    <string name="settings_import_section_mcp">MCP ਸਰਵਰ</string>
 </resources>

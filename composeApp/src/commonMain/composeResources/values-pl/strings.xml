@@ -155,4 +155,15 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Ustawienia zaimportowane pomyślnie.</string>
     <string name="settings_import_error">Import nie powiódł się. Format pliku jest nieprawidłowy.</string>
+    <string name="settings_import_preview_title">Importuj ustawienia</string>
+    <string name="settings_import_replace_all">Zastąp wszystkie istniejące ustawienia</string>
+    <string name="settings_import_replace_all_description">Niezaznaczone sekcje zostaną zresetowane do wartości domyślnych.</string>
+    <string name="settings_import_section_services">Usługi</string>
+    <string name="settings_import_section_soul">Dusza</string>
+    <string name="settings_import_section_memory">Pamięć</string>
+    <string name="settings_import_section_scheduling">Harmonogram</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Narzędzia</string>
+    <string name="settings_import_section_mcp">Serwery MCP</string>
 </resources>

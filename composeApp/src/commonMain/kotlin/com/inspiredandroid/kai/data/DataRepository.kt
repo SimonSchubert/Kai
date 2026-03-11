@@ -101,7 +101,7 @@ interface DataRepository {
 
     // Export/Import
     fun exportSettingsToJson(): String
-    fun importSettingsFromJson(json: String)
+    fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int
 
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String

@@ -154,4 +154,15 @@
     <string name="settings_import">Uvoz</string>
     <string name="settings_import_success">Nastavitve uspešno uvožene.</string>
     <string name="settings_import_error">Uvoz ni uspel. Oblika datoteke ni veljavna.</string>
+    <string name="settings_import_preview_title">Uvozi nastavitve</string>
+    <string name="settings_import_replace_all">Zamenjaj vse obstoječe nastavitve</string>
+    <string name="settings_import_replace_all_description">Neizbrani razdelki bodo ponastavljeni na privzete vrednosti.</string>
+    <string name="settings_import_section_services">Storitve</string>
+    <string name="settings_import_section_soul">Duša</string>
+    <string name="settings_import_section_memory">Spomin</string>
+    <string name="settings_import_section_scheduling">Razporejanje</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-pošta</string>
+    <string name="settings_import_section_tools">Orodja</string>
+    <string name="settings_import_section_mcp">Strežniki MCP</string>
 </resources>

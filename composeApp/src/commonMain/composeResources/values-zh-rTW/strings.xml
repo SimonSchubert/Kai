@@ -155,4 +155,15 @@
     <string name="settings_import">匯入</string>
     <string name="settings_import_success">設定匯入成功。</string>
     <string name="settings_import_error">匯入失敗。檔案格式無效。</string>
+    <string name="settings_import_preview_title">匯入設定</string>
+    <string name="settings_import_replace_all">取代所有現有設定</string>
+    <string name="settings_import_replace_all_description">未選取的區段將重設為預設值。</string>
+    <string name="settings_import_section_services">服務</string>
+    <string name="settings_import_section_soul">靈魂</string>
+    <string name="settings_import_section_memory">記憶</string>
+    <string name="settings_import_section_scheduling">排程</string>
+    <string name="settings_import_section_heartbeat">心跳</string>
+    <string name="settings_import_section_email">電子郵件</string>
+    <string name="settings_import_section_tools">工具</string>
+    <string name="settings_import_section_mcp">MCP 伺服器</string>
 </resources>

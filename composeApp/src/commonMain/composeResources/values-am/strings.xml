@@ -155,4 +155,15 @@
     <string name="settings_import">አስገባ</string>
     <string name="settings_import_success">ቅንብሮች በተሳካ ሁኔታ ገብተዋል።</string>
     <string name="settings_import_error">ማስገባት አልተሳካም። የፋይል ቅርጸት ልክ አይደለም።</string>
+    <string name="settings_import_preview_title">ቅንብሮችን አስመጣ</string>
+    <string name="settings_import_replace_all">ሁሉንም ነባር ቅንብሮች ተካ</string>
+    <string name="settings_import_replace_all_description">ያልተመረጡ ክፍሎች ወደ ነባሪ ዋጋዎች ይመለሳሉ።</string>
+    <string name="settings_import_section_services">አገልግሎቶች</string>
+    <string name="settings_import_section_soul">ነፍስ</string>
+    <string name="settings_import_section_memory">ማህደረ ትውስታ</string>
+    <string name="settings_import_section_scheduling">መርሐ ግብር</string>
+    <string name="settings_import_section_heartbeat">የልብ ምት</string>
+    <string name="settings_import_section_email">ኢሜይል</string>
+    <string name="settings_import_section_tools">መሣሪያዎች</string>
+    <string name="settings_import_section_mcp">MCP አገልጋዮች</string>
 </resources>

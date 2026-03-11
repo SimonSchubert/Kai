@@ -155,4 +155,15 @@
     <string name="settings_import">استيراد</string>
     <string name="settings_import_success">تم استيراد الإعدادات بنجاح.</string>
     <string name="settings_import_error">فشل الاستيراد. تنسيق الملف غير صالح.</string>
+    <string name="settings_import_preview_title">استيراد الإعدادات</string>
+    <string name="settings_import_replace_all">استبدال جميع الإعدادات الحالية</string>
+    <string name="settings_import_replace_all_description">سيتم إعادة تعيين الأقسام غير المحددة إلى القيم الافتراضية.</string>
+    <string name="settings_import_section_services">الخدمات</string>
+    <string name="settings_import_section_soul">الروح</string>
+    <string name="settings_import_section_memory">الذاكرة</string>
+    <string name="settings_import_section_scheduling">الجدولة</string>
+    <string name="settings_import_section_heartbeat">نبض القلب</string>
+    <string name="settings_import_section_email">البريد الإلكتروني</string>
+    <string name="settings_import_section_tools">الأدوات</string>
+    <string name="settings_import_section_mcp">خوادم MCP</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">درآمد</string>
     <string name="settings_import_success">ترتیبات کامیابی سے درآمد ہو گئیں۔</string>
     <string name="settings_import_error">درآمد ناکام۔ فائل فارمیٹ غلط ہے۔</string>
+    <string name="settings_import_preview_title">ترتیبات درآمد کریں</string>
+    <string name="settings_import_replace_all">تمام موجودہ ترتیبات کو تبدیل کریں</string>
+    <string name="settings_import_replace_all_description">غیر منتخب حصے ڈیفالٹ پر ری سیٹ ہو جائیں گے۔</string>
+    <string name="settings_import_section_services">خدمات</string>
+    <string name="settings_import_section_soul">روح</string>
+    <string name="settings_import_section_memory">یادداشت</string>
+    <string name="settings_import_section_scheduling">شیڈولنگ</string>
+    <string name="settings_import_section_heartbeat">دل کی دھڑکن</string>
+    <string name="settings_import_section_email">ای میل</string>
+    <string name="settings_import_section_tools">اوزار</string>
+    <string name="settings_import_section_mcp">MCP سرورز</string>
 </resources>

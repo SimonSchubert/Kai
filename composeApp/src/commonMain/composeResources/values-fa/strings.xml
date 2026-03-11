@@ -154,4 +154,15 @@
     <string name="settings_import">واردات</string>
     <string name="settings_import_success">تنظیمات با موفقیت وارد شد.</string>
     <string name="settings_import_error">واردات ناموفق بود. فرمت فایل نامعتبر است.</string>
+    <string name="settings_import_preview_title">وارد کردن تنظیمات</string>
+    <string name="settings_import_replace_all">جایگزینی همه تنظیمات موجود</string>
+    <string name="settings_import_replace_all_description">بخش‌های انتخاب‌نشده به مقادیر پیش‌فرض بازنشانی می‌شوند.</string>
+    <string name="settings_import_section_services">سرویس‌ها</string>
+    <string name="settings_import_section_soul">روح</string>
+    <string name="settings_import_section_memory">حافظه</string>
+    <string name="settings_import_section_scheduling">زمان‌بندی</string>
+    <string name="settings_import_section_heartbeat">ضربان قلب</string>
+    <string name="settings_import_section_email">ایمیل</string>
+    <string name="settings_import_section_tools">ابزارها</string>
+    <string name="settings_import_section_mcp">سرورهای MCP</string>
 </resources>

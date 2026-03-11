@@ -154,4 +154,15 @@
     <string name="settings_import">আমদানি</string>
     <string name="settings_import_success">সেটিংস সফলভাবে আমদানি করা হয়েছে।</string>
     <string name="settings_import_error">আমদানি ব্যর্থ। ফাইল ফরম্যাট অবৈধ।</string>
+    <string name="settings_import_preview_title">সেটিংস আমদানি করুন</string>
+    <string name="settings_import_replace_all">সমস্ত বিদ্যমান সেটিংস প্রতিস্থাপন করুন</string>
+    <string name="settings_import_replace_all_description">অনির্বাচিত বিভাগগুলি ডিফল্টে রিসেট হবে।</string>
+    <string name="settings_import_section_services">পরিষেবা</string>
+    <string name="settings_import_section_soul">আত্মা</string>
+    <string name="settings_import_section_memory">স্মৃতি</string>
+    <string name="settings_import_section_scheduling">সময়সূচী</string>
+    <string name="settings_import_section_heartbeat">হার্টবিট</string>
+    <string name="settings_import_section_email">ইমেইল</string>
+    <string name="settings_import_section_tools">সরঞ্জাম</string>
+    <string name="settings_import_section_mcp">MCP সার্ভার</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Nastavení úspěšně importována.</string>
     <string name="settings_import_error">Import selhal. Formát souboru je neplatný.</string>
+    <string name="settings_import_preview_title">Importovat nastavení</string>
+    <string name="settings_import_replace_all">Nahradit všechna stávající nastavení</string>
+    <string name="settings_import_replace_all_description">Nevybrané sekce budou obnoveny na výchozí hodnoty.</string>
+    <string name="settings_import_section_services">Služby</string>
+    <string name="settings_import_section_soul">Duše</string>
+    <string name="settings_import_section_memory">Paměť</string>
+    <string name="settings_import_section_scheduling">Plánování</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Nástroje</string>
+    <string name="settings_import_section_mcp">MCP servery</string>
 </resources>

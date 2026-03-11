@@ -154,4 +154,15 @@
     <string name="settings_import">ייבוא</string>
     <string name="settings_import_success">ההגדרות יובאו בהצלחה.</string>
     <string name="settings_import_error">הייבוא נכשל. פורמט הקובץ אינו תקין.</string>
+    <string name="settings_import_preview_title">ייבוא הגדרות</string>
+    <string name="settings_import_replace_all">החלף את כל ההגדרות הקיימות</string>
+    <string name="settings_import_replace_all_description">מקטעים שלא נבחרו יאופסו לברירות מחדל.</string>
+    <string name="settings_import_section_services">שירותים</string>
+    <string name="settings_import_section_soul">נשמה</string>
+    <string name="settings_import_section_memory">זיכרון</string>
+    <string name="settings_import_section_scheduling">תזמון</string>
+    <string name="settings_import_section_heartbeat">פעימת לב</string>
+    <string name="settings_import_section_email">דוא״ל</string>
+    <string name="settings_import_section_tools">כלים</string>
+    <string name="settings_import_section_mcp">שרתי MCP</string>
 </resources>

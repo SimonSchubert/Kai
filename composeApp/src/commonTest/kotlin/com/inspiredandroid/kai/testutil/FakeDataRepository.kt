@@ -4,6 +4,7 @@ import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
+import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
@@ -360,6 +361,5 @@ class FakeDataRepository : DataRepository {
 
     override fun exportSettingsToJson(): String = "{}"
 
-    override fun importSettingsFromJson(json: String) {
-    }
+    override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int = 0
 }

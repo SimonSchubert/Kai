@@ -45,6 +45,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -102,10 +103,13 @@ import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
+import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
+import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -151,6 +155,17 @@ import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
+import kai.composeapp.generated.resources.settings_import_preview_title
+import kai.composeapp.generated.resources.settings_import_replace_all
+import kai.composeapp.generated.resources.settings_import_replace_all_description
+import kai.composeapp.generated.resources.settings_import_section_email
+import kai.composeapp.generated.resources.settings_import_section_heartbeat
+import kai.composeapp.generated.resources.settings_import_section_mcp
+import kai.composeapp.generated.resources.settings_import_section_memory
+import kai.composeapp.generated.resources.settings_import_section_scheduling
+import kai.composeapp.generated.resources.settings_import_section_services
+import kai.composeapp.generated.resources.settings_import_section_soul
+import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_add
 import kai.composeapp.generated.resources.settings_mcp_add_server
@@ -204,6 +219,7 @@ import kai.composeapp.generated.resources.settings_version
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.json.jsonObject
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -1318,11 +1334,12 @@ private fun GeneralContent(uiState: SettingsUiState) {
 @Composable
 private fun ExportImportSection(
     onExportSettings: () -> String,
-    onImportSettings: (ByteArray) -> Boolean,
+    onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> Boolean,
 ) {
     val isPreview = LocalInspectionMode.current
     val scope = rememberCoroutineScope()
     var importResult by remember { mutableStateOf<Boolean?>(null) }
+    var importPreview by remember { mutableStateOf<Pair<String, Map<ImportSection, String?>>?>(null) }
 
     val filePickerLauncher = if (!isPreview) {
         rememberFilePickerLauncher(
@@ -1331,12 +1348,30 @@ private fun ExportImportSection(
             if (file != null) {
                 scope.launch {
                     val bytes = file.readBytes()
-                    importResult = onImportSettings(bytes)
+                    try {
+                        val jsonString = bytes.decodeToString()
+                        val jsonObject = SharedJson.parseToJsonElement(jsonString).jsonObject
+                        val detectedSections = detectImportSections(jsonObject)
+                        importPreview = jsonString to detectedSections
+                    } catch (_: Exception) {
+                        importResult = false
+                    }
                 }
             }
         }
     } else {
         null
+    }
+
+    importPreview?.let { (jsonString, sectionDetails) ->
+        ImportPreviewDialog(
+            sectionDetails = sectionDetails,
+            onConfirm = { selectedSections, replace ->
+                importResult = onImportSettings(jsonString.encodeToByteArray(), selectedSections, replace)
+                importPreview = null
+            },
+            onDismiss = { importPreview = null },
+        )
     }
 
     Text(
@@ -1388,6 +1423,121 @@ private fun ExportImportSection(
             color = if (importResult == true) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
         )
     }
+}
+
+@Composable
+private fun ImportPreviewDialog(
+    sectionDetails: Map<ImportSection, String?>,
+    onConfirm: (Set<ImportSection>, Boolean) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var replace by remember { mutableStateOf(true) }
+    var selectedSections by remember { mutableStateOf(sectionDetails.keys) }
+    val sortedEntries = remember(sectionDetails) { sectionDetails.entries.sortedBy { it.key } }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(stringResource(Res.string.settings_import_preview_title))
+        },
+        text = {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                Row(
+                    verticalAlignment = CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { replace = !replace }
+                        .pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(Res.string.settings_import_replace_all),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        if (replace) {
+                            Text(
+                                text = stringResource(Res.string.settings_import_replace_all_description),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    Spacer(Modifier.width(8.dp))
+                    Switch(
+                        checked = replace,
+                        onCheckedChange = { replace = it },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    )
+                }
+                Spacer(Modifier.height(12.dp))
+                for ((section, count) in sortedEntries) {
+                    Row(
+                        verticalAlignment = CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                selectedSections = if (section in selectedSections) {
+                                    selectedSections - section
+                                } else {
+                                    selectedSections + section
+                                }
+                            }
+                            .pointerHoverIcon(PointerIcon.Hand)
+                            .padding(vertical = 4.dp),
+                    ) {
+                        Checkbox(
+                            checked = section in selectedSections,
+                            onCheckedChange = { checked ->
+                                selectedSections = if (checked) selectedSections + section else selectedSections - section
+                            },
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = sectionDisplayName(section),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        if (count != null) {
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                text = "($count)",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onConfirm(selectedSections, replace) },
+                enabled = selectedSections.isNotEmpty(),
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) {
+                Text(stringResource(Res.string.settings_import))
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) {
+                Text(stringResource(Res.string.settings_mcp_cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun sectionDisplayName(section: ImportSection): String = when (section) {
+    ImportSection.SERVICES -> stringResource(Res.string.settings_import_section_services)
+    ImportSection.SOUL -> stringResource(Res.string.settings_import_section_soul)
+    ImportSection.MEMORY -> stringResource(Res.string.settings_import_section_memory)
+    ImportSection.SCHEDULING -> stringResource(Res.string.settings_import_section_scheduling)
+    ImportSection.HEARTBEAT -> stringResource(Res.string.settings_import_section_heartbeat)
+    ImportSection.EMAIL -> stringResource(Res.string.settings_import_section_email)
+    ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
+    ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)
 }
 
 @Composable

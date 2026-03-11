@@ -154,4 +154,15 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Nastavenia úspešne importované.</string>
     <string name="settings_import_error">Import zlyhal. Formát súboru je neplatný.</string>
+    <string name="settings_import_preview_title">Importovať nastavenia</string>
+    <string name="settings_import_replace_all">Nahradiť všetky existujúce nastavenia</string>
+    <string name="settings_import_replace_all_description">Nevybrané sekcie budú obnovené na predvolené hodnoty.</string>
+    <string name="settings_import_section_services">Služby</string>
+    <string name="settings_import_section_soul">Duša</string>
+    <string name="settings_import_section_memory">Pamäť</string>
+    <string name="settings_import_section_scheduling">Plánovanie</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Nástroje</string>
+    <string name="settings_import_section_mcp">MCP servery</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">Importo</string>
     <string name="settings_import_success">Cilësimet u importuan me sukses.</string>
     <string name="settings_import_error">Importimi dështoi. Formati i skedarit është i pavlefshëm.</string>
+    <string name="settings_import_preview_title">Importo cilësimet</string>
+    <string name="settings_import_replace_all">Zëvendëso të gjitha cilësimet ekzistuese</string>
+    <string name="settings_import_replace_all_description">Seksionet e pazgjedhura do të rivendosen në vlerat e paracaktuara.</string>
+    <string name="settings_import_section_services">Shërbimet</string>
+    <string name="settings_import_section_soul">Shpirti</string>
+    <string name="settings_import_section_memory">Kujtesa</string>
+    <string name="settings_import_section_scheduling">Planifikimi</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Email</string>
+    <string name="settings_import_section_tools">Mjetet</string>
+    <string name="settings_import_section_mcp">Serverët MCP</string>
 </resources>

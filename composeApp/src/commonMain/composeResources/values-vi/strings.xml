@@ -154,4 +154,15 @@
     <string name="settings_import">Nhập</string>
     <string name="settings_import_success">Đã nhập cài đặt thành công.</string>
     <string name="settings_import_error">Nhập thất bại. Định dạng tệp không hợp lệ.</string>
+    <string name="settings_import_preview_title">Nhập cài đặt</string>
+    <string name="settings_import_replace_all">Thay thế tất cả cài đặt hiện có</string>
+    <string name="settings_import_replace_all_description">Các mục không được chọn sẽ được đặt lại về mặc định.</string>
+    <string name="settings_import_section_services">Dịch vụ</string>
+    <string name="settings_import_section_soul">Linh hồn</string>
+    <string name="settings_import_section_memory">Bộ nhớ</string>
+    <string name="settings_import_section_scheduling">Lập lịch</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Email</string>
+    <string name="settings_import_section_tools">Công cụ</string>
+    <string name="settings_import_section_mcp">Máy chủ MCP</string>
 </resources>

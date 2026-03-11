@@ -154,4 +154,15 @@
     <string name="settings_import">I-import</string>
     <string name="settings_import_success">Matagumpay na na-import ang mga setting.</string>
     <string name="settings_import_error">Nabigo ang pag-import. Hindi wasto ang format ng file.</string>
+    <string name="settings_import_preview_title">I-import ang mga setting</string>
+    <string name="settings_import_replace_all">Palitan ang lahat ng kasalukuyang setting</string>
+    <string name="settings_import_replace_all_description">Ang mga hindi napiling seksyon ay ire-reset sa mga default.</string>
+    <string name="settings_import_section_services">Mga Serbisyo</string>
+    <string name="settings_import_section_soul">Kaluluwa</string>
+    <string name="settings_import_section_memory">Memorya</string>
+    <string name="settings_import_section_scheduling">Pag-iiskedyul</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Email</string>
+    <string name="settings_import_section_tools">Mga Kasangkapan</string>
+    <string name="settings_import_section_mcp">Mga MCP Server</string>
 </resources>

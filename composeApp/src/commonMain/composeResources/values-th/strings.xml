@@ -154,4 +154,15 @@
     <string name="settings_import">นำเข้า</string>
     <string name="settings_import_success">นำเข้าการตั้งค่าสำเร็จ</string>
     <string name="settings_import_error">การนำเข้าล้มเหลว รูปแบบไฟล์ไม่ถูกต้อง</string>
+    <string name="settings_import_preview_title">นำเข้าการตั้งค่า</string>
+    <string name="settings_import_replace_all">แทนที่การตั้งค่าที่มีอยู่ทั้งหมด</string>
+    <string name="settings_import_replace_all_description">ส่วนที่ไม่ได้เลือกจะถูกรีเซ็ตเป็นค่าเริ่มต้น</string>
+    <string name="settings_import_section_services">บริการ</string>
+    <string name="settings_import_section_soul">จิตวิญญาณ</string>
+    <string name="settings_import_section_memory">หน่วยความจำ</string>
+    <string name="settings_import_section_scheduling">การตั้งเวลา</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">อีเมล</string>
+    <string name="settings_import_section_tools">เครื่องมือ</string>
+    <string name="settings_import_section_mcp">เซิร์ฟเวอร์ MCP</string>
 </resources>

@@ -155,4 +155,15 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import">Invoer</string>
     <string name="settings_import_success">Instellings suksesvol ingevoer.</string>
     <string name="settings_import_error">Invoer het misluk. Die lêerformaat is ongeldig.</string>
+    <string name="settings_import_preview_title">Voer instellings in</string>
+    <string name="settings_import_replace_all">Vervang alle bestaande instellings</string>
+    <string name="settings_import_replace_all_description">Ongeselekteerde afdelings sal na verstekwaardes teruggestel word.</string>
+    <string name="settings_import_section_services">Dienste</string>
+    <string name="settings_import_section_soul">Siel</string>
+    <string name="settings_import_section_memory">Geheue</string>
+    <string name="settings_import_section_scheduling">Skedulering</string>
+    <string name="settings_import_section_heartbeat">Hartklop</string>
+    <string name="settings_import_section_email">E-pos</string>
+    <string name="settings_import_section_tools">Gereedskap</string>
+    <string name="settings_import_section_mcp">MCP-bedieners</string>
 </resources>

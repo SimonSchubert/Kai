@@ -155,4 +155,15 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_import">Importera</string>
     <string name="settings_import_success">Inställningar importerades.</string>
     <string name="settings_import_error">Importen misslyckades. Filformatet är ogiltigt.</string>
+    <string name="settings_import_preview_title">Importera inställningar</string>
+    <string name="settings_import_replace_all">Ersätt alla befintliga inställningar</string>
+    <string name="settings_import_replace_all_description">Omarkerade sektioner återställs till standardvärden.</string>
+    <string name="settings_import_section_services">Tjänster</string>
+    <string name="settings_import_section_soul">Själ</string>
+    <string name="settings_import_section_memory">Minne</string>
+    <string name="settings_import_section_scheduling">Schemaläggning</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-post</string>
+    <string name="settings_import_section_tools">Verktyg</string>
+    <string name="settings_import_section_mcp">MCP-servrar</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Setările au fost importate cu succes.</string>
     <string name="settings_import_error">Importul a eșuat. Formatul fișierului este invalid.</string>
+    <string name="settings_import_preview_title">Importă setările</string>
+    <string name="settings_import_replace_all">Înlocuiește toate setările existente</string>
+    <string name="settings_import_replace_all_description">Secțiunile neselectate vor fi resetate la valorile implicite.</string>
+    <string name="settings_import_section_services">Servicii</string>
+    <string name="settings_import_section_soul">Suflet</string>
+    <string name="settings_import_section_memory">Memorie</string>
+    <string name="settings_import_section_scheduling">Planificare</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Instrumente</string>
+    <string name="settings_import_section_mcp">Servere MCP</string>
 </resources>

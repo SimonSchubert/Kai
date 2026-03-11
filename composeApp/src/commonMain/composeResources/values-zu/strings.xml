@@ -154,4 +154,15 @@
     <string name="settings_import">Ngenisa</string>
     <string name="settings_import_success">Izilungiselelo zingeniswe ngempumelelo.</string>
     <string name="settings_import_error">Ukungenisa kuhlulekile. Ifomethi yefayela ayilungile.</string>
+    <string name="settings_import_preview_title">Ngenisa izilungiselelo</string>
+    <string name="settings_import_replace_all">Shintsha zonke izilungiselelo ezikhona</string>
+    <string name="settings_import_replace_all_description">Izigaba ezingakhethiwe zizosethwa kabusha zibe yizilungiselelo ezimisiwe.</string>
+    <string name="settings_import_section_services">Izinsizakalo</string>
+    <string name="settings_import_section_soul">Umphefumulo</string>
+    <string name="settings_import_section_memory">Inkumbulo</string>
+    <string name="settings_import_section_scheduling">Ukuhlela</string>
+    <string name="settings_import_section_heartbeat">Ukushaya kwenhliziyo</string>
+    <string name="settings_import_section_email">I-imeyili</string>
+    <string name="settings_import_section_tools">Amathuluzi</string>
+    <string name="settings_import_section_mcp">Amaseva e-MCP</string>
 </resources>

@@ -154,4 +154,15 @@
     <string name="settings_import">Imports</string>
     <string name="settings_import_success">Iestatījumi veiksmīgi importēti.</string>
     <string name="settings_import_error">Importēšana neizdevās. Faila formāts nav derīgs.</string>
+    <string name="settings_import_preview_title">Importēt iestatījumus</string>
+    <string name="settings_import_replace_all">Aizstāt visus esošos iestatījumus</string>
+    <string name="settings_import_replace_all_description">Neatlasītās sadaļas tiks atiestatītas uz noklusējuma vērtībām.</string>
+    <string name="settings_import_section_services">Pakalpojumi</string>
+    <string name="settings_import_section_soul">Dvēsele</string>
+    <string name="settings_import_section_memory">Atmiņa</string>
+    <string name="settings_import_section_scheduling">Plānošana</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-pasts</string>
+    <string name="settings_import_section_tools">Rīki</string>
+    <string name="settings_import_section_mcp">MCP serveri</string>
 </resources>

@@ -155,4 +155,15 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_import">Importa</string>
     <string name="settings_import_success">Impostazioni importate con successo.</string>
     <string name="settings_import_error">Importazione fallita. Il formato del file non è valido.</string>
+    <string name="settings_import_preview_title">Importa impostazioni</string>
+    <string name="settings_import_replace_all">Sostituisci tutte le impostazioni esistenti</string>
+    <string name="settings_import_replace_all_description">Le sezioni non selezionate verranno ripristinate ai valori predefiniti.</string>
+    <string name="settings_import_section_services">Servizi</string>
+    <string name="settings_import_section_soul">Anima</string>
+    <string name="settings_import_section_memory">Memoria</string>
+    <string name="settings_import_section_scheduling">Pianificazione</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-mail</string>
+    <string name="settings_import_section_tools">Strumenti</string>
+    <string name="settings_import_section_mcp">Server MCP</string>
 </resources>

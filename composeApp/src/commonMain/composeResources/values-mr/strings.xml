@@ -154,4 +154,15 @@
     <string name="settings_import">आयात</string>
     <string name="settings_import_success">सेटिंग्ज यशस्वीरित्या आयात केल्या.</string>
     <string name="settings_import_error">आयात अयशस्वी. फाइल फॉरमॅट अवैध आहे.</string>
+    <string name="settings_import_preview_title">सेटिंग्ज आयात करा</string>
+    <string name="settings_import_replace_all">सर्व विद्यमान सेटिंग्ज बदला</string>
+    <string name="settings_import_replace_all_description">निवडलेले नसलेले विभाग डीफॉल्टवर रीसेट होतील.</string>
+    <string name="settings_import_section_services">सेवा</string>
+    <string name="settings_import_section_soul">आत्मा</string>
+    <string name="settings_import_section_memory">स्मृती</string>
+    <string name="settings_import_section_scheduling">शेड्यूलिंग</string>
+    <string name="settings_import_section_heartbeat">हार्टबीट</string>
+    <string name="settings_import_section_email">ईमेल</string>
+    <string name="settings_import_section_tools">साधने</string>
+    <string name="settings_import_section_mcp">MCP सर्व्हर</string>
 </resources>

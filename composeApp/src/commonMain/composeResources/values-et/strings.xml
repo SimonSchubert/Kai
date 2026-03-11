@@ -154,4 +154,15 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Seaded edukalt imporditud.</string>
     <string name="settings_import_error">Import ebaõnnestus. Failivorming on vigane.</string>
+    <string name="settings_import_preview_title">Impordi seaded</string>
+    <string name="settings_import_replace_all">Asenda kõik olemasolevad seaded</string>
+    <string name="settings_import_replace_all_description">Valimata jaotised lähtestatakse vaikeväärtustele.</string>
+    <string name="settings_import_section_services">Teenused</string>
+    <string name="settings_import_section_soul">Hing</string>
+    <string name="settings_import_section_memory">Mälu</string>
+    <string name="settings_import_section_scheduling">Ajastamine</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-post</string>
+    <string name="settings_import_section_tools">Tööriistad</string>
+    <string name="settings_import_section_mcp">MCP serverid</string>
 </resources>

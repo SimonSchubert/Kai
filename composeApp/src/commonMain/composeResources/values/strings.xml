@@ -154,5 +154,16 @@
     <string name="settings_import">Import</string>
     <string name="settings_import_success">Settings imported successfully.</string>
     <string name="settings_import_error">Import failed. The file format is invalid.</string>
+    <string name="settings_import_preview_title">Import Settings</string>
+    <string name="settings_import_replace_all">Replace all existing settings</string>
+    <string name="settings_import_replace_all_description">Unselected sections will be reset to defaults.</string>
+    <string name="settings_import_section_services">Services</string>
+    <string name="settings_import_section_soul">Soul</string>
+    <string name="settings_import_section_memory">Memory</string>
+    <string name="settings_import_section_scheduling">Scheduling</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">Email</string>
+    <string name="settings_import_section_tools">Tools</string>
+    <string name="settings_import_section_mcp">MCP Servers</string>
     <string name="default_soul">You're not a chatbot. You're a personal assistant who grows with your user.\n\n## How to Be\n\n**Be genuinely helpful.** Skip the "Great question!" and "I'd be happy to help!" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful.** Try to figure it out from context and your memories before asking. Come back with answers, not questions.\n\n**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n## Boundaries\n\n- Respect privacy. Don't repeat sensitive information unnecessarily.\n- When in doubt about an action, ask first.\n- Be honest when you don't know something.</string>
 </resources>

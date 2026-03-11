@@ -13,6 +13,58 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
+enum class ImportSection {
+    SERVICES,
+    SOUL,
+    MEMORY,
+    SCHEDULING,
+    HEARTBEAT,
+    EMAIL,
+    TOOLS,
+    MCP,
+}
+
+fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
+    val sections = mutableMapOf<ImportSection, String?>()
+    if (json["configured_services"] != null || json["current_service_id"] != null || json["free_fallback_enabled"] != null || json["instance_settings"] != null) {
+        val count = json["configured_services"]?.jsonArray?.size
+        sections[ImportSection.SERVICES] = count?.let { "$it" }
+    }
+    if (json["soul_text"] != null) {
+        sections[ImportSection.SOUL] = null
+    }
+    if (json["memory_enabled"] != null || json["agent_memories"] != null) {
+        val count = json["agent_memories"]?.jsonArray?.size
+        sections[ImportSection.MEMORY] = count?.let { "$it" }
+    }
+    if (json["scheduling_enabled"] != null || json["scheduled_tasks"] != null) {
+        val count = json["scheduled_tasks"]?.jsonArray?.size
+        sections[ImportSection.SCHEDULING] = count?.let { "$it" }
+    }
+    if (json["heartbeat_config"] != null || json["heartbeat_prompt"] != null || json["heartbeat_log"] != null) {
+        sections[ImportSection.HEARTBEAT] = null
+    }
+    if (json["email_enabled"] != null || json["email_accounts"] != null) {
+        val count = json["email_accounts"]?.jsonArray?.size
+        sections[ImportSection.EMAIL] = count?.let { "$it" }
+    }
+    if (json["tool_overrides"] != null) {
+        val enabled = json["tool_overrides"]?.jsonObject?.count { (_, v) ->
+            try {
+                v.jsonPrimitive.content.toBoolean()
+            } catch (_: Exception) {
+                false
+            }
+        }
+        sections[ImportSection.TOOLS] = enabled?.let { "$it" }
+    }
+    if (json["mcp_servers"] != null) {
+        val count = json["mcp_servers"]?.jsonArray?.size
+        sections[ImportSection.MCP] = count?.let { "$it" }
+    }
+    return sections
+}
+
 data class ServiceInstance(
     val instanceId: String,
     val serviceId: String,
@@ -478,14 +530,12 @@ class AppSettings(private val settings: Settings) {
         }
         map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
 
-        // Tools
-        val toolOverrides = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+        // Tools — export enabled state for all known tools
+        val toolStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
         for (toolId in toolIds) {
-            if (settings.hasKey("$KEY_TOOL_PREFIX$toolId")) {
-                toolOverrides[toolId] = JsonPrimitive(isToolEnabled(toolId))
-            }
+            toolStates[toolId] = JsonPrimitive(isToolEnabled(toolId))
         }
-        if (toolOverrides.isNotEmpty()) map["tool_overrides"] = JsonObject(toolOverrides)
+        if (toolStates.isNotEmpty()) map["tool_overrides"] = JsonObject(toolStates)
 
         // MCP
         val mcpJson = getMcpServersJson()
@@ -496,83 +546,154 @@ class AppSettings(private val settings: Settings) {
         return JsonObject(map)
     }
 
-    fun importFromJson(json: JsonObject, toolIds: List<String>) {
-        // Services
-        json["configured_services"]?.let {
-            settings.putString(KEY_CONFIGURED_SERVICES, it.toString())
-        }
-        json["current_service_id"]?.jsonPrimitive?.content?.let {
-            settings.putString(KEY_CURRENT_SERVICE_ID, it)
-        }
-        json["free_fallback_enabled"]?.jsonPrimitive?.let {
-            settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, it.content.toBoolean())
+    fun importFromJson(
+        json: JsonObject,
+        toolIds: List<String>,
+        sections: Set<ImportSection> = ImportSection.entries.toSet(),
+        replace: Boolean = true,
+    ): Int {
+        var errors = 0
+
+        // Snapshot old instance IDs before overwriting configured_services
+        val oldInstances = try {
+            getConfiguredServiceInstances()
+        } catch (_: Exception) {
+            emptyList()
         }
 
-        // Per-instance settings
-        json["instance_settings"]?.jsonArray?.forEach { element ->
-            val obj = element.jsonObject
-            val instanceId = obj["instanceId"]?.jsonPrimitive?.content ?: return@forEach
-            obj["api_key"]?.jsonPrimitive?.content?.let { setInstanceApiKey(instanceId, it) }
-            obj["model_id"]?.jsonPrimitive?.content?.let { setInstanceModelId(instanceId, it) }
-            obj["base_url"]?.jsonPrimitive?.content?.let { setInstanceBaseUrl(instanceId, it) }
+        // Services
+        if (ImportSection.SERVICES in sections) {
+            try {
+                settings.putString(KEY_CONFIGURED_SERVICES, json["configured_services"]?.toString() ?: "")
+                settings.putString(KEY_CURRENT_SERVICE_ID, json["current_service_id"]?.jsonPrimitive?.content ?: Service.Free.id)
+                settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, json["free_fallback_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: true)
+            } catch (_: Exception) {
+                errors++
+            }
+
+            // Per-instance settings — clear old instance keys, then apply new
+            try {
+                oldInstances.forEach { removeInstanceSettings(it.instanceId) }
+                json["instance_settings"]?.jsonArray?.forEach { element ->
+                    val obj = element.jsonObject
+                    val instanceId = obj["instanceId"]?.jsonPrimitive?.content ?: return@forEach
+                    obj["api_key"]?.jsonPrimitive?.content?.let { setInstanceApiKey(instanceId, it) }
+                    obj["model_id"]?.jsonPrimitive?.content?.let { setInstanceModelId(instanceId, it) }
+                    obj["base_url"]?.jsonPrimitive?.content?.let { setInstanceBaseUrl(instanceId, it) }
+                }
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            settings.putString(KEY_CONFIGURED_SERVICES, "")
+            settings.putString(KEY_CURRENT_SERVICE_ID, Service.Free.id)
+            settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, true)
+            oldInstances.forEach { removeInstanceSettings(it.instanceId) }
         }
 
         // Soul
-        json["soul_text"]?.jsonPrimitive?.content?.let { setSoulText(it) }
+        if (ImportSection.SOUL in sections) {
+            try {
+                setSoulText(json["soul_text"]?.jsonPrimitive?.content ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setSoulText("")
+        }
 
         // Memory
-        json["memory_enabled"]?.jsonPrimitive?.let {
-            setMemoryEnabled(it.content.toBoolean())
-        }
-        json["agent_memories"]?.let {
-            setMemoriesJson(it.toString())
+        if (ImportSection.MEMORY in sections) {
+            try {
+                setMemoryEnabled(json["memory_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: true)
+                setMemoriesJson(json["agent_memories"]?.toString() ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setMemoryEnabled(true)
+            setMemoriesJson("")
         }
 
         // Scheduling
-        json["scheduling_enabled"]?.jsonPrimitive?.let {
-            setSchedulingEnabled(it.content.toBoolean())
-        }
-        json["scheduled_tasks"]?.let {
-            setScheduledTasksJson(it.toString())
+        if (ImportSection.SCHEDULING in sections) {
+            try {
+                setSchedulingEnabled(json["scheduling_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
+                setScheduledTasksJson(json["scheduled_tasks"]?.toString() ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setSchedulingEnabled(false)
+            setScheduledTasksJson("")
         }
 
         // Heartbeat
-        json["heartbeat_config"]?.let {
-            setHeartbeatConfigJson(it.toString())
-        }
-        json["heartbeat_prompt"]?.jsonPrimitive?.content?.let {
-            setHeartbeatPrompt(it)
-        }
-        json["heartbeat_log"]?.let {
-            setHeartbeatLogJson(it.toString())
+        if (ImportSection.HEARTBEAT in sections) {
+            try {
+                setHeartbeatConfigJson(json["heartbeat_config"]?.toString() ?: "")
+                setHeartbeatPrompt(json["heartbeat_prompt"]?.jsonPrimitive?.content ?: "")
+                setHeartbeatLogJson(json["heartbeat_log"]?.toString() ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setHeartbeatConfigJson("")
+            setHeartbeatPrompt("")
+            setHeartbeatLogJson("")
         }
 
         // Email
-        json["email_enabled"]?.jsonPrimitive?.let {
-            setEmailEnabled(it.content.toBoolean())
-        }
-        json["email_accounts"]?.let {
-            setEmailAccountsJson(it.toString())
-        }
-        json["email_passwords"]?.jsonObject?.forEach { (accountId, passwordElement) ->
-            setEmailPassword(accountId, passwordElement.jsonPrimitive.content)
-        }
-        json["email_sync_states"]?.jsonObject?.forEach { (accountId, syncElement) ->
-            setEmailSyncStateJson(accountId, syncElement.toString())
-        }
-        json["email_poll_interval"]?.jsonPrimitive?.let {
-            setEmailPollIntervalMinutes(it.content.toInt())
+        if (ImportSection.EMAIL in sections) {
+            try {
+                setEmailEnabled(json["email_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: true)
+                setEmailAccountsJson(json["email_accounts"]?.toString() ?: "")
+                json["email_passwords"]?.jsonObject?.forEach { (accountId, pw) ->
+                    setEmailPassword(accountId, pw.jsonPrimitive.content)
+                }
+                json["email_sync_states"]?.jsonObject?.forEach { (accountId, sync) ->
+                    setEmailSyncStateJson(accountId, sync.toString())
+                }
+                setEmailPollIntervalMinutes(json["email_poll_interval"]?.jsonPrimitive?.content?.toInt() ?: 15)
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setEmailEnabled(true)
+            setEmailAccountsJson("")
+            setEmailPollIntervalMinutes(15)
         }
 
-        // Tools
-        json["tool_overrides"]?.jsonObject?.forEach { (toolId, enabledElement) ->
-            setToolEnabled(toolId, enabledElement.jsonPrimitive.content.toBoolean())
+        // Tools — reset all tool overrides, then apply
+        if (ImportSection.TOOLS in sections) {
+            try {
+                for (toolId in toolIds) {
+                    settings.remove("$KEY_TOOL_PREFIX$toolId")
+                }
+                json["tool_overrides"]?.jsonObject?.forEach { (toolId, enabled) ->
+                    setToolEnabled(toolId, enabled.jsonPrimitive.content.toBoolean())
+                }
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            for (toolId in toolIds) {
+                settings.remove("$KEY_TOOL_PREFIX$toolId")
+            }
         }
 
         // MCP
-        json["mcp_servers"]?.let {
-            setMcpServersJson(it.toString())
+        if (ImportSection.MCP in sections) {
+            try {
+                setMcpServersJson(json["mcp_servers"]?.toString() ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setMcpServersJson("")
         }
+
+        return errors
     }
 
     companion object {

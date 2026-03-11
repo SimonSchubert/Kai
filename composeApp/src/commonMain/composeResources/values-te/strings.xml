@@ -154,4 +154,15 @@
     <string name="settings_import">దిగుమతి</string>
     <string name="settings_import_success">సెట్టింగ్‌లు విజయవంతంగా దిగుమతి చేయబడ్డాయి.</string>
     <string name="settings_import_error">దిగుమతి విఫలమైంది. ఫైల్ ఫార్మాట్ చెల్లదు.</string>
+    <string name="settings_import_preview_title">సెట్టింగ్‌లను దిగుమతి చేయండి</string>
+    <string name="settings_import_replace_all">అన్ని ఇప్పటికే ఉన్న సెట్టింగ్‌లను భర్తీ చేయండి</string>
+    <string name="settings_import_replace_all_description">ఎంపిక చేయని విభాగాలు డిఫాల్ట్‌లకు రీసెట్ చేయబడతాయి.</string>
+    <string name="settings_import_section_services">సేవలు</string>
+    <string name="settings_import_section_soul">ఆత్మ</string>
+    <string name="settings_import_section_memory">జ్ఞాపకం</string>
+    <string name="settings_import_section_scheduling">షెడ్యూలింగ్</string>
+    <string name="settings_import_section_heartbeat">హార్ట్‌బీట్</string>
+    <string name="settings_import_section_email">ఇమెయిల్</string>
+    <string name="settings_import_section_tools">సాధనాలు</string>
+    <string name="settings_import_section_mcp">MCP సర్వర్‌లు</string>
 </resources>

@@ -155,4 +155,15 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf√
     <string name="settings_import">Importer</string>
     <string name="settings_import_success">Innstillinger importert.</string>
     <string name="settings_import_error">Importen mislyktes. Filformatet er ugyldig.</string>
+    <string name="settings_import_preview_title">Importer innstillinger</string>
+    <string name="settings_import_replace_all">Erstatt alle eksisterende innstillinger</string>
+    <string name="settings_import_replace_all_description">Ikke-valgte seksjoner tilbakestilles til standardverdier.</string>
+    <string name="settings_import_section_services">Tjenester</string>
+    <string name="settings_import_section_soul">Sjel</string>
+    <string name="settings_import_section_memory">Minne</string>
+    <string name="settings_import_section_scheduling">Planlegging</string>
+    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_email">E-post</string>
+    <string name="settings_import_section_tools">Verkt√∏y</string>
+    <string name="settings_import_section_mcp">MCP-servere</string>
 </resources>
