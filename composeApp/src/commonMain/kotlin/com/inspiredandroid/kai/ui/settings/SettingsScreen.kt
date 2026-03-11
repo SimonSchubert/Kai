@@ -2239,17 +2239,15 @@ private fun ScheduledTaskList(
                             overflow = TextOverflow.Ellipsis,
                         )
                     }
-                    if (task.status == TaskStatus.PENDING) {
-                        IconButton(
-                            onClick = { onCancelTask(task.id) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
+                    IconButton(
+                        onClick = { onCancelTask(task.id) },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
                     }
                 }
                 Spacer(Modifier.height(8.dp))

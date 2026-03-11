@@ -147,18 +147,27 @@ class TaskScheduler(
             // Recurring task — compute next execution time
             val nextExecution = try {
                 CronExpression(task.cron).nextAfter(now)
-            } catch (_: Exception) {
-                null
+            } catch (e: Exception) {
+                // Cron computation failed — leave pending for retry
+                println("TaskScheduler: failed to compute next cron time for task ${task.id}: ${e.message}")
+                taskStore!!.updateTask(
+                    task.copy(
+                        status = TaskStatus.PENDING,
+                        lastResult = "Executed at $now (next schedule computation failed, will retry)",
+                    ),
+                )
+                return
             }
             if (nextExecution != null) {
                 taskStore!!.updateTask(
                     task.copy(
                         scheduledAtEpochMs = nextExecution.toEpochMilliseconds(),
                         lastResult = "Executed at $now",
+                        status = TaskStatus.PENDING,
                     ),
                 )
             } else {
-                // Can't compute next time — mark completed
+                // No valid future time — mark completed
                 taskStore!!.updateTask(
                     task.copy(
                         status = TaskStatus.COMPLETED,
