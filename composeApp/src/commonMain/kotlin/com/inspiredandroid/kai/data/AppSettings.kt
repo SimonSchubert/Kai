@@ -705,7 +705,11 @@ class AppSettings(private val settings: Settings) {
 
     @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
     private fun sanitizeScheduledTasks(element: JsonElement): String {
-        val array = try { element.jsonArray } catch (_: Exception) { return "[]" }
+        val array = try {
+            element.jsonArray
+        } catch (_: Exception) {
+            return "[]"
+        }
         val now = Clock.System.now().toEpochMilliseconds()
         val tasks = array.mapNotNull { item ->
             try {
@@ -732,7 +736,11 @@ class AppSettings(private val settings: Settings) {
 
     @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
     private fun sanitizeMemories(element: JsonElement): String {
-        val array = try { element.jsonArray } catch (_: Exception) { return "[]" }
+        val array = try {
+            element.jsonArray
+        } catch (_: Exception) {
+            return "[]"
+        }
         val now = Clock.System.now().toEpochMilliseconds()
         val memories = array.mapNotNull { item ->
             try {
