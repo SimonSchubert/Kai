@@ -711,6 +711,7 @@
 <li>Clicking <strong>Import</strong> in the dialog applies the selected sections.</li>
 <li>Each settings section is imported independently. If one section contains malformed data, the remaining sections are still imported and the error is counted.</li>
 <li>Unknown keys are silently ignored, so older exports can be imported into newer app versions.</li>
+<li>Scheduled tasks and memories with missing or invalid fields are auto-filled with sensible defaults (e.g. generated UUIDs for missing IDs, <code>PENDING</code> for invalid task status, <code>GENERAL</code> for invalid memory category). This ensures items are preserved even if the JSON was hand-edited or exported from a different version.</li>
 </ul>
 <h2 id="import-sections">Import Sections</h2>
 <table>
@@ -826,7 +827,7 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../data/AppSettings.kt</code></td>
-<td><code>ImportSection</code> enum, <code>detectImportSections()</code>, <code>exportToJson()</code> / <code>importFromJson()</code> core logic</td>
+<td><code>ImportSection</code> enum, <code>detectImportSections()</code>, <code>exportToJson()</code> / <code>importFromJson()</code> core logic, <code>sanitizeScheduledTasks()</code> / <code>sanitizeMemories()</code> default-filling helpers</td>
 </tr>
 <tr>
 <td><code>composeApp/.../data/DataRepository.kt</code></td>
