@@ -2078,16 +2078,22 @@ private fun SoulEditor(
             title = { Text(stringResource(Res.string.settings_soul_reset)) },
             text = { Text(stringResource(Res.string.settings_soul_reset_confirm)) },
             confirmButton = {
-                TextButton(onClick = {
-                    showResetDialog = false
-                    onSaveSoul("")
-                    editedText = localizedDefault
-                }) {
+                TextButton(
+                    onClick = {
+                        showResetDialog = false
+                        onSaveSoul("")
+                        editedText = localizedDefault
+                    },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
                     Text(stringResource(Res.string.settings_soul_reset))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) {
+                TextButton(
+                    onClick = { showResetDialog = false },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
                     Text(stringResource(Res.string.settings_soul_reset_cancel))
                 }
             },
@@ -2545,16 +2551,22 @@ private fun HeartbeatSection(
             title = { Text(stringResource(Res.string.settings_soul_reset)) },
             text = { Text(stringResource(Res.string.settings_heartbeat_reset_confirm)) },
             confirmButton = {
-                TextButton(onClick = {
-                    showResetDialog = false
-                    onSaveHeartbeatPrompt("")
-                    editedText = defaultPrompt
-                }) {
+                TextButton(
+                    onClick = {
+                        showResetDialog = false
+                        onSaveHeartbeatPrompt("")
+                        editedText = defaultPrompt
+                    },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
                     Text(stringResource(Res.string.settings_soul_reset))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showResetDialog = false }) {
+                TextButton(
+                    onClick = { showResetDialog = false },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
                     Text(stringResource(Res.string.settings_soul_reset_cancel))
                 }
             },
