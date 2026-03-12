@@ -2,5 +2,5 @@
     <string name="app_name">Kai</string>
     <string name="daemon_channel_name">Kai Background Service</string>
     <string name="daemon_channel_description">Keeps Kai running for scheduled task execution</string>
-    <string name="daemon_notification_text">Running scheduled tasks</string>
+    <string name="daemon_notification_text">Daemon is running</string>
 </resources>
