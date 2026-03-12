@@ -889,7 +889,7 @@
 
 
 <h1 id="daemon-mode">Daemon Mode</h1>
-<p><strong>Last verified:</strong> 2026-03-09</p>
+<p><strong>Last verified:</strong> 2026-03-12</p>
 <p>Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="daemon-controller">Daemon Controller</h3>
@@ -951,11 +951,11 @@
 <td>Android foreground service, notification, coroutine scope</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/.../KaiApplication.kt</code></td>
+<td><code>androidApp/src/main/.../KaiApplication.kt</code></td>
 <td>Auto-start on app launch</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/AndroidManifest.xml</code></td>
+<td><code>androidApp/src/main/AndroidManifest.xml</code></td>
 <td>Service declaration and permissions</td>
 </tr>
 <tr>
