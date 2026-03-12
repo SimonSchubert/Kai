@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.filekit.compose)
     implementation(libs.tts)
     implementation(libs.tts.compose)
+    implementation(compose.components.uiToolingPreview)
     debugImplementation(compose.uiTooling)
     "playStoreImplementation"(libs.play.review)
 }
