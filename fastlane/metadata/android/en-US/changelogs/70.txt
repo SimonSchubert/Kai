@@ -1,0 +1,6 @@
+Add quick service toggle
+Add delete buttons to completed tasks
+Fix reoccurring tasks on fail
+Strip markers in the content field
+Improve input layout arrangements
+Upgrade SDKs

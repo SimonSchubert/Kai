@@ -1,3 +1,19 @@
+## v1.9.5 — 2026-03-12
+
+### Features
+- Add quick service toggle
+- Add delete buttons to completed tasks
+
+### Fixes
+- Fix reoccurring tasks on fail
+- Strip markers in the content field
+- Rename daemon notification title
+
+### Improvements
+- Improve input layout arrangements
+- Migrate project structure for AGP 9 requirements
+- Upgrade SDKs
+
 ## v1.9.4 — 2026-03-11
 
 ### Features
