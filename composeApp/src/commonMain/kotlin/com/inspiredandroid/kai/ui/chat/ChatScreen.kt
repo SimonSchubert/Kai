@@ -87,12 +87,13 @@ fun ChatScreenContent(
             navigationTabBar = navigationTabBar,
         )
 
-        SelectionContainer {
+        SelectionContainer(Modifier.weight(1f)) {
             var isDropping by remember {
                 mutableStateOf(false)
             }
             Column(
                 Modifier
+                    .fillMaxSize()
                     .blur(radius = if (isDropping) 4.dp else 0.dp)
                     .dragAndDropTarget(
                         shouldStartDragAndDrop = { uiState.allowFileAttachment },
@@ -209,16 +210,18 @@ fun ChatScreenContent(
                         }
                     }
                 }
-
-                QuestionInput(
-                    file = uiState.file,
-                    setFile = uiState.actions.setFile,
-                    ask = uiState.actions.ask,
-                    allowFileAttachment = uiState.allowFileAttachment,
-                    isLoading = uiState.isLoading,
-                    cancel = uiState.actions.cancel,
-                )
             }
         }
+
+        QuestionInput(
+            file = uiState.file,
+            setFile = uiState.actions.setFile,
+            ask = uiState.actions.ask,
+            allowFileAttachment = uiState.allowFileAttachment,
+            isLoading = uiState.isLoading,
+            cancel = uiState.actions.cancel,
+            availableServices = uiState.availableServices,
+            onSelectService = uiState.actions.selectService,
+        )
     }
 }

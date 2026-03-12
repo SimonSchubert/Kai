@@ -16,6 +16,7 @@ interface DataRepository {
     fun addConfiguredService(serviceId: String): ServiceInstance
     fun removeConfiguredService(instanceId: String)
     fun reorderConfiguredServices(orderedInstanceIds: List<String>)
+    fun getServiceEntries(): List<ServiceEntry>
     fun getOrderedServicesForFallback(): List<Service>
     fun isFreeFallbackEnabled(): Boolean
     fun setFreeFallbackEnabled(enabled: Boolean)

@@ -14,4 +14,5 @@ data class ChatActions(
     val startNewChat: () -> Unit,
     val regenerate: () -> Unit,
     val cancel: () -> Unit,
+    val selectService: (String) -> Unit,
 )

@@ -30,6 +30,7 @@ object ScreenshotTestData {
         startNewChat = { },
         regenerate = {},
         cancel = {},
+        selectService = {},
     )
 
     val chatEmptyState = ChatUiState(

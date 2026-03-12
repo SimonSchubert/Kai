@@ -34,6 +34,7 @@ class ChatViewModel(
         startNewChat = ::startNewChat,
         regenerate = ::regenerate,
         cancel = ::cancel,
+        selectService = ::selectService,
     )
     private var currentJob: Job? = null
     private val _state = MutableStateFlow(
@@ -44,6 +45,7 @@ class ChatViewModel(
     )
 
     init {
+        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.loadConversations()
             dataRepository.restoreLatestConversation()
@@ -148,6 +150,15 @@ class ChatViewModel(
         _state.update {
             it.copy(isLoading = false)
         }
+    }
+
+    private fun selectService(instanceId: String) {
+        val instances = dataRepository.getConfiguredServiceInstances()
+        val currentIds = instances.map { it.instanceId }
+        if (instanceId !in currentIds) return
+        val reordered = listOf(instanceId) + currentIds.filter { it != instanceId }
+        dataRepository.reorderConfiguredServices(reordered)
+        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
     }
 
     private fun regenerate() {

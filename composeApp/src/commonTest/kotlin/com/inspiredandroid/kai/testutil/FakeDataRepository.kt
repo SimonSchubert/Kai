@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -70,6 +71,8 @@ class FakeDataRepository : DataRepository {
         configuredInstances.clear()
         configuredInstances.addAll(reordered)
     }
+
+    override fun getServiceEntries(): List<ServiceEntry> = emptyList()
 
     override fun getOrderedServicesForFallback(): List<Service> {
         val services = configuredInstances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }

@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
@@ -29,6 +30,7 @@ data class ChatUiState(
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
     val file: PlatformFile? = null,
+    val availableServices: List<ServiceEntry> = emptyList(),
 )
 
 @Immutable

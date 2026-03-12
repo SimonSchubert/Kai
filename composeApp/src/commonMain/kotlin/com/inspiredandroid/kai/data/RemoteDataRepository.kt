@@ -177,6 +177,19 @@ class RemoteDataRepository(
         appSettings.setConfiguredServiceInstances(reordered)
     }
 
+    override fun getServiceEntries(): List<ServiceEntry> = getConfiguredServiceInstances().map { instance ->
+        val service = Service.fromId(instance.serviceId)
+        val modelId = appSettings.getInstanceModelId(instance.instanceId).ifEmpty {
+            appSettings.getSelectedModelId(service)
+        }
+        ServiceEntry(
+            instanceId = instance.instanceId,
+            serviceId = service.id,
+            serviceName = service.displayName,
+            modelId = modelId,
+        )
+    }
+
     override fun getOrderedServicesForFallback(): List<Service> {
         val instances = getConfiguredServiceInstances()
         val services = instances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -46,10 +47,12 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.darkPurple
 import com.inspiredandroid.kai.ui.lightPurple
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
+import com.inspiredandroid.kai.ui.serviceIcon
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
@@ -74,132 +77,144 @@ fun QuestionInput(
     allowFileAttachment: Boolean,
     isLoading: Boolean = false,
     cancel: () -> Unit = {},
+    availableServices: List<ServiceEntry> = emptyList(),
+    onSelectService: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
-    if (file != null) {
-        val icon = when (file.extension) {
-            "jpg", "jpeg", "png", "gif" -> Res.drawable.ic_image
-            else -> Res.drawable.ic_file
-        }
-        SuggestionChip(
-            modifier = Modifier
-                .padding(start = 16.dp)
-                .pointerHoverIcon(PointerIcon.Hand),
-            onClick = { setFile(null) },
-            icon = {
-                Icon(
-                    modifier = Modifier.size(16.dp),
-                    painter = painterResource(icon),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onBackground,
-                )
-            },
-            label = {
-                DisableSelection {
-                    Text(
-                        modifier = Modifier
-                            .pointerHoverIcon(PointerIcon.Hand),
-                        text = file.name,
+    Column(modifier = modifier) {
+        if (file != null) {
+            val icon = when (file.extension) {
+                "jpg", "jpeg", "png", "gif" -> Res.drawable.ic_image
+                else -> Res.drawable.ic_file
+            }
+            SuggestionChip(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .pointerHoverIcon(PointerIcon.Hand),
+                onClick = { setFile(null) },
+                icon = {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        painter = painterResource(icon),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onBackground,
                     )
-                }
-            },
-        )
-    }
-
-    var textState by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-
-    fun submitQuestion() {
-        val text = textState.text
-        if (text.isNotBlank()) {
-            ask(text.trim())
-            textState = TextFieldValue("")
-            setFile(null)
-        }
-    }
-
-    val filePickerLauncher = if (allowFileAttachment) {
-        rememberFilePickerLauncher(
-            type = FileKitType.ImageAndVideo,
-        ) { file ->
-            setFile(file)
-        }
-    } else {
-        null
-    }
-
-    val focusRequester = remember { FocusRequester() }
-    TextField(
-        value = textState,
-        onValueChange = {
-            textState = it
-        },
-        modifier = Modifier
-            .focusRequester(focusRequester)
-            .padding(16.dp)
-            .heightIn(max = 120.dp)
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(28.dp))
-            .border(
-                BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))),
-                shape = RoundedCornerShape(28.dp),
-            )
-            .onPreviewKeyEvent { event ->
-                // Only handle hardware keyboard on desktop/web platforms
-                if (!isMobilePlatform && event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyDown) {
-                    if (event.isShiftPressed) {
-                        // Shift+Enter -> manually insert newline
-                        val currentText = textState.text
-                        val selection = textState.selection
-                        val start = minOf(selection.start, selection.end).coerceIn(0, currentText.length)
-                        val end = maxOf(selection.start, selection.end).coerceIn(0, currentText.length)
-
-                        val newText = currentText.replaceRange(start, end, "\n")
-                        textState = TextFieldValue(
-                            text = newText,
-                            selection = TextRange(start + 1),
+                },
+                label = {
+                    DisableSelection {
+                        Text(
+                            modifier = Modifier
+                                .pointerHoverIcon(PointerIcon.Hand),
+                            text = file.name,
                         )
-                        return@onPreviewKeyEvent true
-                    } else {
-                        // Enter without Shift -> send message and consume event
-                        submitQuestion()
-                        return@onPreviewKeyEvent true
                     }
-                }
-                return@onPreviewKeyEvent false
-            },
-        colors = outlineTextFieldColors(),
-        placeholder = {
-            Text(
-                stringResource(Res.string.prompt_ask_question),
-                color = MaterialTheme.colorScheme.onBackground,
+                },
             )
-        },
-        trailingIcon = if (isLoading) {
-            { TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel) }
-        } else if (textState.text.isNotBlank()) {
-            { TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }) }
-        } else {
-            null
-        },
-        keyboardActions = if (!isMobilePlatform) {
-            KeyboardActions(onSend = { submitQuestion() })
-        } else {
-            KeyboardActions() // No keyboard send action on mobile
-        },
-        leadingIcon = if (filePickerLauncher != null) {
-            {
-                LeadingIcon(onClick = {
-                    filePickerLauncher.launch()
-                })
+        }
+
+        var textState by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
+
+        fun submitQuestion() {
+            val text = textState.text
+            if (text.isNotBlank()) {
+                ask(text.trim())
+                textState = TextFieldValue("")
+                setFile(null)
+            }
+        }
+
+        val filePickerLauncher = if (allowFileAttachment) {
+            rememberFilePickerLauncher(
+                type = FileKitType.ImageAndVideo,
+            ) { file ->
+                setFile(file)
             }
         } else {
             null
-        },
-        keyboardOptions = KeyboardOptions(
-            imeAction = if (isMobilePlatform) ImeAction.Default else ImeAction.Send,
-        ),
-    )
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
+        }
+
+        val focusRequester = remember { FocusRequester() }
+        TextField(
+            value = textState,
+            onValueChange = {
+                textState = it
+            },
+            modifier = Modifier
+                .focusRequester(focusRequester)
+                .padding(16.dp)
+                .heightIn(max = 120.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(28.dp))
+                .border(
+                    BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))),
+                    shape = RoundedCornerShape(28.dp),
+                )
+                .onPreviewKeyEvent { event ->
+                    // Only handle hardware keyboard on desktop/web platforms
+                    if (!isMobilePlatform && event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyDown) {
+                        if (event.isShiftPressed) {
+                            // Shift+Enter -> manually insert newline
+                            val currentText = textState.text
+                            val selection = textState.selection
+                            val start = minOf(selection.start, selection.end).coerceIn(0, currentText.length)
+                            val end = maxOf(selection.start, selection.end).coerceIn(0, currentText.length)
+
+                            val newText = currentText.replaceRange(start, end, "\n")
+                            textState = TextFieldValue(
+                                text = newText,
+                                selection = TextRange(start + 1),
+                            )
+                            return@onPreviewKeyEvent true
+                        } else {
+                            // Enter without Shift -> send message and consume event
+                            submitQuestion()
+                            return@onPreviewKeyEvent true
+                        }
+                    }
+                    return@onPreviewKeyEvent false
+                },
+            colors = outlineTextFieldColors(),
+            placeholder = {
+                Text(
+                    stringResource(Res.string.prompt_ask_question),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            },
+            trailingIcon = if (isLoading) {
+                { TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel) }
+            } else if (textState.text.isNotBlank()) {
+                { TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }) }
+            } else {
+                null
+            },
+            keyboardActions = if (!isMobilePlatform) {
+                KeyboardActions(onSend = { submitQuestion() })
+            } else {
+                KeyboardActions() // No keyboard send action on mobile
+            },
+            leadingIcon = if (availableServices.size > 1) {
+                {
+                    ServiceSelector(
+                        services = availableServices,
+                        onSelectService = onSelectService,
+                    )
+                }
+            } else if (filePickerLauncher != null) {
+                {
+                    LeadingIcon(onClick = {
+                        filePickerLauncher.launch()
+                    })
+                }
+            } else {
+                null
+            },
+            keyboardOptions = KeyboardOptions(
+                imeAction = if (isMobilePlatform) ImeAction.Default else ImeAction.Send,
+            ),
+        )
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-03-10
+**Last verified:** 2026-03-12
 
 Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -75,6 +75,10 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 - GroqCloud shows only models marked as active
 - Other services show all non-retired models
 
+## Chat Screen Service Toggle
+
+When two or more non-Free service instances are configured, a circular service icon button appears to the left of the chat input. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
+
 ## Settings UI
 
 Users manage services through the settings screen:
@@ -94,3 +98,6 @@ Users manage services through the settings screen:
 | `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for all three API formats |
 | `composeApp/src/commonMain/.../network/dtos/anthropic/` | Anthropic Messages API DTOs |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | Connection validation, service management UI logic |
+| `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat screen, renders ServiceSelector |
+| `composeApp/src/commonMain/.../ui/chat/composables/ServiceSelector.kt` | Compact service toggle dropdown |
+| `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Wires service selection and reordering |
