@@ -5,16 +5,28 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
-    androidTarget {
+    androidLibrary {
+        namespace = "com.inspiredandroid.kai.shared"
+        compileSdk =
+            libs.versions.android.compileSdk
+                .get()
+                .toInt()
+        minSdk =
+            libs.versions.android.minSdk
+                .get()
+                .toInt()
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_21)
+        }
+        androidResources {
+            enable = true
         }
     }
 
@@ -137,82 +149,6 @@ kotlin {
             implementation(libs.ktor.client.js)
         }
     }
-}
-
-android {
-    namespace = "com.inspiredandroid.kai"
-    compileSdk =
-        libs.versions.android.compileSdk
-            .get()
-            .toInt()
-
-    defaultConfig {
-        applicationId = "com.inspiredandroid.kai"
-        minSdk =
-            libs.versions.android.minSdk
-                .get()
-                .toInt()
-        targetSdk =
-            libs.versions.android.targetSdk
-                .get()
-                .toInt()
-        versionCode =
-            libs.versions.android.versionCode
-                .get()
-                .toInt()
-        versionName = libs.versions.appVersion.get()
-    }
-    flavorDimensions += "distribution"
-    productFlavors {
-        create("playStore") {
-            dimension = "distribution"
-        }
-        create("foss") {
-            dimension = "distribution"
-            isDefault = true
-        }
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    signingConfigs {
-        create("release") {
-            val ksFile = System.getenv("KEYSTORE_FILE")
-            if (ksFile != null) {
-                storeFile = file(ksFile)
-                storePassword = System.getenv("KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("KEY_ALIAS")
-                keyPassword = System.getenv("KEYSTORE_PASSWORD")
-            }
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig =
-                if (System.getenv("KEYSTORE_FILE") != null) {
-                    signingConfigs.getByName("release")
-                } else {
-                    signingConfigs.getByName("debug")
-                }
-        }
-    }
-    buildFeatures {
-        buildConfig = true
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-}
-
-dependencies {
-    implementation(libs.androidx.foundation.android)
-    debugImplementation(compose.uiTooling)
-    "playStoreImplementation"(libs.play.review)
 }
 
 compose.desktop {

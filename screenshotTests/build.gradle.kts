@@ -1,12 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.paparazzi)
-    kotlin("android")
-}
-
-kotlin {
-    jvmToolchain(21)
 }
 
 android {
@@ -21,7 +17,6 @@ android {
             libs.versions.android.minSdk
                 .get()
                 .toInt()
-        missingDimensionStrategy("distribution", "foss")
     }
 
     compileOptions {
@@ -37,7 +32,7 @@ android {
     sourceSets {
         getByName("main") {
             assets.srcDirs(
-                project(":composeApp").file("build/generated/assets/copyFossDebugComposeResourcesToAndroidAssets"),
+                project(":composeApp").file("build/generated/assets/copyAndroidMainComposeResourcesToAndroidAssets"),
             )
         }
     }
@@ -51,13 +46,13 @@ dependencies {
     implementation(libs.tts)
     implementation(libs.tts.compose)
     testImplementation(libs.kotlinx.serialization.json)
-    testImplementation("androidx.compose.material3:material3")
-    testImplementation("org.jetbrains.compose.components:components-resources:${libs.versions.compose.multiplatform.get()}")
+    testImplementation(compose.material3)
+    testImplementation(compose.components.resources)
 }
 
 // Ensure composeApp resources are generated before screenshot tests
 tasks.matching { it.name.contains("preparePaparazzi") }.configureEach {
-    dependsOn(":composeApp:copyFossDebugComposeResourcesToAndroidAssets")
+    dependsOn(":composeApp:copyAndroidMainComposeResourcesToAndroidAssets")
 }
 
 // Only run store screenshot tests when generating store screenshots

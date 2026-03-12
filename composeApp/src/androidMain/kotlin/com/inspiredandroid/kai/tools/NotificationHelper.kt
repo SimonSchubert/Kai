@@ -7,8 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.inspiredandroid.kai.MainActivity
-import com.inspiredandroid.kai.R
+import com.inspiredandroid.kai.shared.R
 import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationHelper(
@@ -56,7 +55,7 @@ class NotificationHelper(
         return try {
             val notificationId = notificationIdCounter.incrementAndGet()
 
-            val intent = Intent(context, MainActivity::class.java).apply {
+            val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
             val pendingIntent = PendingIntent.getActivity(

@@ -28,13 +28,13 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
       - name: Install Android Build Tools
-        run: sdkmanager "build-tools;29.0.3"
+        run: sdkmanager "build-tools;36.0.0"
       - name: Build APK
-        run: bash ./gradlew assembleFossRelease --stacktrace
+        run: bash ./gradlew :androidApp:assembleFossRelease --stacktrace
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: composeApp/build/outputs/apk/foss/release
+          releaseDirectory: androidApp/build/outputs/apk/foss/release
           signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
           alias: ${{ secrets.KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: signed-apk
-          path: composeApp/build/outputs/apk/foss/release/composeApp-foss-release-signed.apk
+          path: androidApp/build/outputs/apk/foss/release/androidApp-foss-release-signed.apk
 
   dmg:
     name: Generate DMG
@@ -262,7 +262,7 @@ jobs:
       - name: Decode Play Store service account key
         run: echo "${{ secrets.PLAY_STORE_KEY_JSON }}" | base64 --decode > fastlane/play-store-key.json
       - name: Build signed AAB
-        run: ./gradlew bundlePlayStoreRelease --stacktrace
+        run: ./gradlew :androidApp:bundlePlayStoreRelease --stacktrace
         env:
           KEYSTORE_FILE: /tmp/keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.PLAY_STORE_KEYSTORE_PASSWORD }}
@@ -327,7 +327,7 @@ jobs:
       - name: Rename assets
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          mv composeApp-foss-release-signed.apk "Kai-${VERSION}-android.apk"
+          mv androidApp-foss-release-signed.apk "Kai-${VERSION}-android.apk"
           mv *.dmg "Kai-${VERSION}-macos.dmg"
           mv *.msi "Kai-${VERSION}-windows.msi"
           mv *.deb "Kai-${VERSION}-linux.deb"

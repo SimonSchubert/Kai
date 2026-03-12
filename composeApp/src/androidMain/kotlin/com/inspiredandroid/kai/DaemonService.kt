@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.shared.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -75,7 +76,7 @@ class DaemonService : Service() {
             @Suppress("DEPRECATION")
             Notification.Builder(this)
         }
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = packageManager.getLaunchIntentForPackage(packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         val pendingIntent = PendingIntent.getActivity(

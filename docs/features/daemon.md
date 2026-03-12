@@ -1,6 +1,6 @@
 # Daemon Mode
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-12
 
 Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.
 
@@ -63,8 +63,8 @@ A toggle labeled "Daemon Mode" appears in settings only on Android. The descript
 | `composeApp/src/commonMain/.../DaemonController.kt` | Platform-independent interface |
 | `composeApp/src/androidMain/.../DaemonController.android.kt` | Android implementation, start/stop/auto-start logic |
 | `composeApp/src/androidMain/.../DaemonService.kt` | Android foreground service, notification, coroutine scope |
-| `composeApp/src/androidMain/.../KaiApplication.kt` | Auto-start on app launch |
-| `composeApp/src/androidMain/AndroidManifest.xml` | Service declaration and permissions |
+| `androidApp/src/main/.../KaiApplication.kt` | Auto-start on app launch |
+| `androidApp/src/main/AndroidManifest.xml` | Service declaration and permissions |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Background poll loop started by the service |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Daemon enabled state persistence |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Daemon mode toggle UI |
