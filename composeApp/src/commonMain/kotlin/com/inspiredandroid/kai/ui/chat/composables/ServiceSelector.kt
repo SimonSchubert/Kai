@@ -42,8 +42,7 @@ internal fun ServiceSelector(
     Box {
         Box(
             modifier = Modifier
-                .padding(start = 6.dp)
-                .size(36.dp)
+                .size(42.dp)
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
                 .clickable { expanded = true }

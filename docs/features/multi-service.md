@@ -77,7 +77,7 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 
 ## Chat Screen Service Toggle
 
-When two or more non-Free service instances are configured, a circular service icon button appears to the left of the chat input. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
+When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
 
 ## Settings UI
 

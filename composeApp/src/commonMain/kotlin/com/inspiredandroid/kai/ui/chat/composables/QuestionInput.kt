@@ -6,7 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -59,7 +62,7 @@ import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.extension
 import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.ic_add
+import kai.composeapp.generated.resources.ic_attach
 import kai.composeapp.generated.resources.ic_file
 import kai.composeapp.generated.resources.ic_image
 import kai.composeapp.generated.resources.ic_stop
@@ -180,26 +183,34 @@ fun QuestionInput(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             },
-            trailingIcon = if (isLoading) {
-                { TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel) }
-            } else if (textState.text.isNotBlank()) {
-                { TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }) }
-            } else {
-                null
+            trailingIcon = {
+                val showSendStop = isLoading || textState.text.isNotBlank()
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = if (!showSendStop) Modifier.padding(end = 6.dp) else Modifier,
+                ) {
+                    if (availableServices.size > 1) {
+                        ServiceSelector(
+                            services = availableServices,
+                            onSelectService = onSelectService,
+                        )
+                        if (showSendStop) {
+                            Spacer(modifier = Modifier.width(4.dp))
+                        }
+                    }
+                    if (isLoading) {
+                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel)
+                    } else if (textState.text.isNotBlank()) {
+                        TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() })
+                    }
+                }
             },
             keyboardActions = if (!isMobilePlatform) {
                 KeyboardActions(onSend = { submitQuestion() })
             } else {
                 KeyboardActions() // No keyboard send action on mobile
             },
-            leadingIcon = if (availableServices.size > 1) {
-                {
-                    ServiceSelector(
-                        services = availableServices,
-                        onSelectService = onSelectService,
-                    )
-                }
-            } else if (filePickerLauncher != null) {
+            leadingIcon = if (filePickerLauncher != null) {
                 {
                     LeadingIcon(onClick = {
                         filePickerLauncher.launch()
@@ -260,8 +271,8 @@ private fun LeadingIcon(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            vectorResource(Res.drawable.ic_add),
-            modifier = Modifier.size(32.dp),
+            vectorResource(Res.drawable.ic_attach),
+            modifier = Modifier.size(24.dp),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onBackground,
         )
