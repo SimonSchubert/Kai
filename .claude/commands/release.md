@@ -62,9 +62,10 @@ Format:
 
 Write a condensed, user-facing summary to `fastlane/metadata/android/en-US/changelogs/{newVersionCode}.txt`.
 
-- Plain text only — no markdown headers, no bullet markers, no blank lines
+- Plain text only — no markdown headers, no bullet markers
+- One change per line — each entry on its own line, no blank lines between them
 - Must be under 500 characters (Play Store limit)
-- Combine the key changes into a brief description, similar in style to existing entries like "Add identity configurations" or "Support additional languages"
+- Each line should be a concise description, similar in style to existing entries like "Add identity configurations" or "Support additional languages"
 
 ## 6. Update gradle/libs.versions.toml
 
