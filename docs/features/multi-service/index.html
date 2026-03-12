@@ -537,6 +537,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#chat-screen-service-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat Screen Service Toggle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -874,6 +885,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#chat-screen-service-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat Screen Service Toggle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#settings-ui" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -913,7 +935,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-03-10</p>
+<p><strong>Last verified:</strong> 2026-03-12</p>
 <p>Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1048,6 +1070,8 @@
 - OpenAI shows only chat-oriented models
 - GroqCloud shows only models marked as active
 - Other services show all non-retired models</p>
+<h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
+<p>When two or more non-Free service instances are configured, a circular service icon button appears to the left of the chat input. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.</p>
 <h2 id="settings-ui">Settings UI</h2>
 <p>Users manage services through the settings screen:
 - <strong>Add</strong> — pick from the list of available services (can add the same service multiple times)
@@ -1087,6 +1111,18 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt</code></td>
 <td>Connection validation, service management UI logic</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/ChatScreen.kt</code></td>
+<td>Chat screen, renders ServiceSelector</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/ServiceSelector.kt</code></td>
+<td>Compact service toggle dropdown</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt</code></td>
+<td>Wires service selection and reordering</td>
 </tr>
 </tbody>
 </table>
