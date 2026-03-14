@@ -4,8 +4,8 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.ServiceEntry
-import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.data.SharedJson
+import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
