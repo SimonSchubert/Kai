@@ -170,8 +170,11 @@ fun ChatScreenContent(
                     }
 
                     val lastAssistantId = remember(uiState.history, uiState.isLoading) {
-                        if (uiState.isLoading) null
-                        else uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                        if (uiState.isLoading) {
+                            null
+                        } else {
+                            uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                        }
                     }
                     val executingTools = remember(uiState.history) {
                         uiState.history
