@@ -237,8 +237,8 @@ sealed class Service(
         chatUrl = "https://api.together.xyz/v1/chat/completions",
         modelsUrl = "https://api.together.xyz/v1/models",
         modelsResponseIsArray = true,
-        apiKeyUrl = "https://api.together.xyz/settings/api-keys",
-        apiKeyUrlDisplay = "api.together.xyz/settings/api-keys",
+        apiKeyUrl = "https://api.together.ai/settings/api-keys",
+        apiKeyUrlDisplay = "api.together.ai/settings/api-keys",
     )
 
     data object HuggingFace : Service(

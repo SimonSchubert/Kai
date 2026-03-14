@@ -7,8 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -25,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import com.inspiredandroid.kai.data.ServiceEntry
 import org.jetbrains.compose.resources.vectorResource
 
@@ -59,6 +59,8 @@ internal fun ServiceSelector(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
+            properties = PopupProperties(focusable = false),
+            shape = RoundedCornerShape(16.dp),
         ) {
             services.forEach { entry ->
                 val isCurrent = entry.instanceId == current.instanceId
@@ -68,31 +70,32 @@ internal fun ServiceSelector(
                             imageVector = vectorResource(entry.icon),
                             contentDescription = null,
                             modifier = Modifier.size(18.dp),
-                            tint = MaterialTheme.colorScheme.onSurface,
+                            tint = if (isCurrent) {
+                                MaterialTheme.colorScheme.onPrimaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.onSurface
+                            },
                         )
-                    },
-                    trailingIcon = if (isCurrent) {
-                        {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary,
-                            )
-                        }
-                    } else {
-                        null
                     },
                     text = {
                         Column {
                             Text(
                                 text = entry.serviceName,
                                 style = MaterialTheme.typography.bodyMedium,
+                                color = if (isCurrent) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface
+                                },
                             )
                             Text(
                                 text = entry.modelId,
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                color = if (isCurrent) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
                             )
                         }
                     },
@@ -102,7 +105,20 @@ internal fun ServiceSelector(
                             onSelectService(entry.instanceId)
                         }
                     },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier
+                        .pointerHoverIcon(PointerIcon.Hand)
+                        .then(
+                            if (isCurrent) {
+                                Modifier
+                                    .padding(horizontal = 4.dp)
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primaryContainer,
+                                        shape = RoundedCornerShape(12.dp),
+                                    )
+                            } else {
+                                Modifier
+                            },
+                        ),
                 )
             }
         }

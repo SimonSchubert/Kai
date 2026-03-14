@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
@@ -78,6 +79,7 @@ fun ChatScreenContent(
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
@@ -89,7 +91,10 @@ fun ChatScreenContent(
             isChatHistoryEmpty = uiState.history.isEmpty(),
             hasSavedConversations = uiState.savedConversations.any { it.id != uiState.currentConversationId },
             onNavigateToSettings = onNavigateToSettings,
-            onShowHistory = { showHistorySheet = true },
+            onShowHistory = {
+                keyboardController?.hide()
+                showHistorySheet = true
+            },
             navigationTabBar = navigationTabBar,
         )
 

@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,7 +39,6 @@ import kai.composeapp.generated.resources.chat_history_delete_content_descriptio
 import kai.composeapp.generated.resources.chat_history_empty
 import kai.composeapp.generated.resources.chat_history_heartbeat_label
 import kai.composeapp.generated.resources.chat_history_title
-import kai.composeapp.generated.resources.ic_delete_forever
 import kai.composeapp.generated.resources.ic_history
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents.Companion.Format
@@ -146,7 +147,7 @@ internal fun ChatHistorySheet(
                                 onClick = { actions.deleteConversation(conversation.id) },
                             ) {
                                 Icon(
-                                    imageVector = vectorResource(Res.drawable.ic_delete_forever),
+                                    imageVector = Icons.Default.Delete,
                                     contentDescription = stringResource(Res.string.chat_history_delete_content_description),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
