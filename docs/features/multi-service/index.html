@@ -935,7 +935,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-03-12</p>
+<p><strong>Last verified:</strong> 2026-03-14</p>
 <p>Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -971,7 +971,7 @@
 </ol>
 <h2 id="api-formats">API Formats</h2>
 <p>Most services use the <strong>OpenAI-compatible</strong> chat completions format. <strong>Gemini</strong> uses Google's native Generative Language API. <strong>Anthropic</strong> uses its own Messages API with <code>x-api-key</code> header authentication and a different request/response structure.</p>
-<p>The <strong>OpenAI-Compatible API</strong> service supports a custom base URL, defaulting to <code>localhost:11434</code> for local Ollama setups.</p>
+<p>The <strong>OpenAI-Compatible API</strong> service supports a custom base URL, defaulting to <code>localhost:11434/v1</code> for local Ollama setups. The base URL should include the version path segment (e.g., <code>http://localhost:11434/v1</code> or <code>https://my-provider.com/api/v1</code>), following the OpenAI SDK convention. Kai appends only <code>/chat/completions</code> or <code>/models</code> to this base URL.</p>
 <h2 id="supported-services">Supported Services</h2>
 <table>
 <thead>
