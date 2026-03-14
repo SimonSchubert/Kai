@@ -6,7 +6,7 @@ import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.getBackgroundDispatcher
-import com.inspiredandroid.kai.network.toUserMessage
+import com.inspiredandroid.kai.network.toUiError
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -114,10 +114,9 @@ class ChatViewModel(
                 // CancellationException must be re-thrown to properly propagate coroutine cancellation
                 if (exception is CancellationException) throw exception
 
-                val errorMessage = exception.toUserMessage()
                 _state.update {
                     it.copy(
-                        error = errorMessage,
+                        error = exception.toUiError(),
                         isLoading = false,
                     )
                 }

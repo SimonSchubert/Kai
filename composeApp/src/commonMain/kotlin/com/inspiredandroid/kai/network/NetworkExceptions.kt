@@ -8,7 +8,7 @@ import kai.composeapp.generated.resources.error_openai_compatible_connection
 import kai.composeapp.generated.resources.error_openai_compatible_model_not_found
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
-import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.StringResource
 
 sealed class ApiException(message: String?, cause: Throwable? = null) : Exception(message, cause)
 
@@ -36,18 +36,19 @@ class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleAp
 class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
 class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException("Image is too large. Try a smaller image.")
 
-suspend fun Exception.toUserMessage(): String = try {
-    when (this) {
-        is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException, is AnthropicInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
-        is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException, is AnthropicRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
-        is AnthropicOverloadedException -> getString(Res.string.error_rate_limit_exceeded)
-        is AnthropicInsufficientCreditsException, is OpenAICompatibleQuotaExhaustedException -> message ?: getString(Res.string.error_generic)
-        is OpenAICompatibleConnectionException -> getString(Res.string.error_openai_compatible_connection)
-        is OpenAICompatibleModelNotFoundException -> getString(Res.string.error_openai_compatible_model_not_found)
-        is OpenAICompatibleEmptyResponseException -> getString(Res.string.error_empty_response)
-        is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException -> message ?: getString(Res.string.error_generic)
-        else -> getString(Res.string.error_unknown)
-    }
-} catch (_: Exception) {
-    message ?: "An error occurred"
+sealed interface UiError {
+    data class Resource(val resource: StringResource) : UiError
+    data class Text(val message: String) : UiError
+}
+
+fun Exception.toUiError(): UiError = when (this) {
+    is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException, is AnthropicInvalidApiKeyException -> UiError.Resource(Res.string.error_invalid_api_key)
+    is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException, is AnthropicRateLimitExceededException -> UiError.Resource(Res.string.error_rate_limit_exceeded)
+    is AnthropicOverloadedException -> UiError.Resource(Res.string.error_rate_limit_exceeded)
+    is AnthropicInsufficientCreditsException, is OpenAICompatibleQuotaExhaustedException -> UiError.Text(message ?: "An unexpected error occurred.")
+    is OpenAICompatibleConnectionException -> UiError.Resource(Res.string.error_openai_compatible_connection)
+    is OpenAICompatibleModelNotFoundException -> UiError.Resource(Res.string.error_openai_compatible_model_not_found)
+    is OpenAICompatibleEmptyResponseException -> UiError.Resource(Res.string.error_empty_response)
+    is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException -> UiError.Text(message ?: "An unexpected error occurred.")
+    else -> UiError.Resource(Res.string.error_unknown)
 }

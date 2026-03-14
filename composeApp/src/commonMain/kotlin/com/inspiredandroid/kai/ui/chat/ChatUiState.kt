@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
@@ -32,7 +33,7 @@ data class ChatUiState(
     val history: List<History> = emptyList(),
     val isSpeechOutputEnabled: Boolean = false,
     val isLoading: Boolean = false,
-    val error: String? = null,
+    val error: UiError? = null,
     val showPrivacyInfo: Boolean = false,
     val allowFileAttachment: Boolean = false,
     val isSpeaking: Boolean = false,
