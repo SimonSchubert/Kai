@@ -1,3 +1,12 @@
+## v1.9.7 — 2026-03-14
+
+### Features
+- Add HuggingFace, LongCat, Moonshot, Together and Venice service support
+
+### Improvements
+- Sort services in modal alphabetically
+- Clean up service quick select and history modal UI
+
 ## v1.9.6 — 2026-03-14
 
 ### Features
