@@ -936,7 +936,7 @@
 
 <h1 id="multi-service">Multi-Service</h1>
 <p><strong>Last verified:</strong> 2026-03-14</p>
-<p>Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p>Kai supports 13 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1056,6 +1056,12 @@
 <td>OpenAI-compatible</td>
 </tr>
 <tr>
+<td>LongCat</td>
+<td><code>longcat</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible (hardcoded models, no <code>/models</code> endpoint)</td>
+</tr>
+<tr>
 <td>OpenAI-Compatible API</td>
 <td><code>openai-compatible</code></td>
 <td>No (optional)</td>
@@ -1064,7 +1070,7 @@
 </tbody>
 </table>
 <h2 id="connection-validation">Connection Validation</h2>
-<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, or <strong>connection failed</strong>. Validation also runs for all services when the settings screen opens. All services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. On a successful connection, the available model list is refreshed.</p>
+<p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, or <strong>connection failed</strong>. Validation also runs for all services when the settings screen opens. Most services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. Services without a models endpoint (e.g. LongCat) skip the fetch and show as "connected" immediately; the real API key validation happens on first chat. On a successful connection, the available model list is refreshed.</p>
 <h2 id="model-selection">Model Selection</h2>
 <p>When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
 - OpenAI shows only chat-oriented models
