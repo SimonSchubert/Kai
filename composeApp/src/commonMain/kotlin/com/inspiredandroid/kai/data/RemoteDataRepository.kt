@@ -52,7 +52,6 @@ import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-
 private val limitedModels = listOf(
     "llama3.2:1b",
     "llama3.2:3b",

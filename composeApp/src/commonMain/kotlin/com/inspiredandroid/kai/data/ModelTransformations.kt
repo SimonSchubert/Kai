@@ -44,33 +44,29 @@ internal val geminiModelComparator = Comparator<SettingsModel> { a, b ->
 internal fun mapAnthropicModels(
     models: List<AnthropicModelsResponseDto.ModelInfo>,
     selectedModelId: String,
-): List<SettingsModel> {
-    return models.map {
-        SettingsModel(
-            id = it.id,
-            subtitle = it.display_name ?: it.id,
-            isSelected = it.id == selectedModelId,
-        )
-    }
+): List<SettingsModel> = models.map {
+    SettingsModel(
+        id = it.id,
+        subtitle = it.display_name ?: it.id,
+        isSelected = it.id == selectedModelId,
+    )
 }
 
 internal fun mapGeminiModels(
     models: List<GeminiModelsResponseDto.Model>,
     selectedModelId: String,
-): List<SettingsModel> {
-    return models
-        .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
-        .map {
-            val modelId = it.name.removePrefix("models/")
-            SettingsModel(
-                id = modelId,
-                subtitle = it.displayName ?: modelId,
-                description = it.description,
-                isSelected = modelId == selectedModelId,
-            )
-        }
-        .sortedWith(geminiModelComparator)
-}
+): List<SettingsModel> = models
+    .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
+    .map {
+        val modelId = it.name.removePrefix("models/")
+        SettingsModel(
+            id = modelId,
+            subtitle = it.displayName ?: modelId,
+            description = it.description,
+            isSelected = modelId == selectedModelId,
+        )
+    }
+    .sortedWith(geminiModelComparator)
 
 internal fun mapOpenAICompatibleModels(
     models: List<OpenAICompatibleModelResponseDto.Model>,
