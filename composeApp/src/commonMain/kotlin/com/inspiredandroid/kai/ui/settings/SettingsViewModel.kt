@@ -127,7 +127,10 @@ class SettingsViewModel(
 
     private fun computeAvailableServices(): List<Service> {
         // Allow all non-Free services (multiple instances of same type are allowed)
-        return Service.all.filter { it != Service.Free }
+        // Sort alphabetically, but keep OpenAI-Compatible at the end
+        return Service.all
+            .filter { it != Service.Free }
+            .sortedWith(compareBy<Service> { it is Service.OpenAICompatible }.thenBy { it.displayName })
     }
 
     private fun refreshServiceList() {

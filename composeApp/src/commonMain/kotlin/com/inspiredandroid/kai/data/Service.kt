@@ -178,7 +178,7 @@ sealed class Service(
         id = "longcat",
         displayName = "LongCat",
         requiresApiKey = true,
-        defaultModel = "LongCat-Flash-Chat",
+        defaultModel = "LongCat-Flash-Lite",
         settingsKeyPrefix = "longcat",
         chatUrl = "https://api.longcat.chat/openai/v1/chat/completions",
         modelsUrl = null,

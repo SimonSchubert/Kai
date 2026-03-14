@@ -129,17 +129,18 @@ winget install SimonSchubert.Kai
 
 | Service | Website |
 |---|---|
-| OpenAI | https://openai.com |
-| Gemini | https://aistudio.google.com |
 | Anthropic | https://console.anthropic.com |
-| DeepSeek | https://www.deepseek.com |
-| Mistral | https://mistral.ai |
-| xAI | https://x.ai |
-| OpenRouter | https://openrouter.ai |
-| Groq | https://groq.com |
-| NVIDIA | https://developer.nvidia.com |
 | Cerebras | https://cerebras.ai |
+| DeepSeek | https://www.deepseek.com |
+| Gemini | https://aistudio.google.com |
+| Groq | https://groq.com |
+| LongCat | https://longcat.chat |
+| Mistral | https://mistral.ai |
+| NVIDIA | https://developer.nvidia.com |
 | Ollama Cloud | https://ollama.com |
+| OpenAI | https://openai.com |
+| OpenRouter | https://openrouter.ai |
+| xAI | https://x.ai |
 | OpenAI-Compatible API | Ollama, LM Studio, etc. |
 
 Plus a built-in **Free** tier that requires no API key.

@@ -282,7 +282,7 @@ class RemoteDataRepository(
                             isSelected = it.id == selectedModelId,
                         )
                     }
-                    updateModelsForInstance(instanceId, models)
+                    updateModelsForInstance(instanceId, models, service)
                 }
             }
         }
@@ -353,11 +353,11 @@ class RemoteDataRepository(
         updateModelsForInstance(instanceId, models)
     }
 
-    private fun updateModelsForInstance(instanceId: String, models: List<SettingsModel>) {
+    private fun updateModelsForInstance(instanceId: String, models: List<SettingsModel>, service: Service? = null) {
         val flow = modelsByInstance.getOrPut(instanceId) { MutableStateFlow(emptyList()) }
         flow.update { models }
         if (models.isNotEmpty() && models.none { it.isSelected }) {
-            val default = pickDefaultModel(models)
+            val default = pickDefaultModel(models, service)
             if (default != null) {
                 appSettings.setInstanceModelId(instanceId, default.id)
                 flow.update { m -> m.map { it.copy(isSelected = it.id == default.id) } }
@@ -365,8 +365,14 @@ class RemoteDataRepository(
         }
     }
 
-    private fun pickDefaultModel(models: List<SettingsModel>): SettingsModel? = models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
-        ?: models.firstOrNull()
+    private fun pickDefaultModel(models: List<SettingsModel>, service: Service? = null): SettingsModel? {
+        val defaultModel = service?.defaultModel
+        if (defaultModel != null) {
+            models.firstOrNull { it.id == defaultModel }?.let { return it }
+        }
+        return models.firstOrNull { it.id.contains("kimi-k2.5", ignoreCase = true) }
+            ?: models.firstOrNull()
+    }
 
     private suspend fun askWithService(
         service: Service,
