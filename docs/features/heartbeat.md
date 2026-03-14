@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-14
 
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
@@ -42,7 +42,12 @@ Validation rules enforced by the `configure_heartbeat` tool:
 ## Response Handling
 
 - If the AI responds with exactly "HEARTBEAT_OK" (after trimming), nothing is shown to the user
-- Any other response is added as a visible assistant message in the chat via `addAssistantMessage`
+- Any other response is saved into a dedicated heartbeat conversation (type `heartbeat`) via `addAssistantMessage`
+- A dismissable banner appears at the top of the chat when the heartbeat has something to report
+- Tapping the banner loads the heartbeat conversation so the user can read the report and reply
+- The X button dismisses the banner without navigating
+- Heartbeat conversations are excluded from the chat history list — they are accessed only via the banner
+- The heartbeat prompt is sent as a standalone message (not including user chat history as context)
 - If the API call fails, a failure entry is recorded in the heartbeat log
 
 ## Prompt Building
@@ -99,4 +104,6 @@ The heartbeat section in settings contains:
 | `composeApp/src/commonMain/.../tools/HeartbeatTools.kt` | AI tool definitions for heartbeat and promotion |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Poll loop that triggers heartbeat checks |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Persisted heartbeat config, prompt, and log storage |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Heartbeat conversation creation, unread flag management |
+| `composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt` | Dismissable notification banner UI |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Heartbeat settings UI section |

@@ -170,4 +170,11 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_partial">Paramètres importés avec %1$d section(s) contenant des erreurs.</string>
     <string name="settings_model_search">Rechercher des modèles…</string>
     <string name="waiting_content_description">En attente de réponse</string>
+    <string name="chat_history_content_description">Historique des discussions</string>
+    <string name="chat_history_title">Historique des discussions</string>
+    <string name="chat_history_delete_content_description">Supprimer la conversation</string>
+    <string name="chat_history_empty">Aucune conversation enregistrée</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat a quelque chose à signaler</string>
+    <string name="heartbeat_banner_dismiss">Fermer</string>
 </resources>

@@ -15,4 +15,7 @@ data class ChatActions(
     val regenerate: () -> Unit,
     val cancel: () -> Unit,
     val selectService: (String) -> Unit,
+    val loadConversation: (String) -> Unit,
+    val deleteConversation: (String) -> Unit,
+    val clearUnreadHeartbeat: () -> Unit,
 )

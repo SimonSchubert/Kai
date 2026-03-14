@@ -16,7 +16,9 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.chat_history_content_description
 import kai.composeapp.generated.resources.ic_add
+import kai.composeapp.generated.resources.ic_history
 import kai.composeapp.generated.resources.ic_settings
 import kai.composeapp.generated.resources.ic_volume_off
 import kai.composeapp.generated.resources.ic_volume_up
@@ -35,30 +37,47 @@ internal fun TopBar(
     isSpeaking: Boolean,
     actions: ChatActions,
     isChatHistoryEmpty: Boolean,
+    hasSavedConversations: Boolean,
     onNavigateToSettings: () -> Unit,
+    onShowHistory: () -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     if (navigationTabBar != null) {
         Box(
             modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
         ) {
-            if (!isChatHistoryEmpty) {
-                IconButton(
-                    modifier = Modifier.align(Alignment.CenterStart).pointerHoverIcon(PointerIcon.Hand),
-                    onClick = {
-                        if (isSpeechOutputEnabled && isSpeaking) {
-                            actions.setIsSpeaking(false, "")
-                            textToSpeech?.stop()
-                        }
-                        actions.startNewChat()
-                    },
-                    enabled = !isLoading,
-                ) {
-                    Icon(
-                        imageVector = vectorResource(Res.drawable.ic_add),
-                        contentDescription = stringResource(Res.string.new_chat_content_description),
-                        tint = MaterialTheme.colorScheme.onBackground,
-                    )
+            Row(modifier = Modifier.align(Alignment.CenterStart)) {
+                if (hasSavedConversations) {
+                    IconButton(
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        onClick = onShowHistory,
+                        enabled = !isLoading,
+                    ) {
+                        Icon(
+                            imageVector = vectorResource(Res.drawable.ic_history),
+                            contentDescription = stringResource(Res.string.chat_history_content_description),
+                            tint = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
+                }
+                if (!isChatHistoryEmpty) {
+                    IconButton(
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        onClick = {
+                            if (isSpeechOutputEnabled && isSpeaking) {
+                                actions.setIsSpeaking(false, "")
+                                textToSpeech?.stop()
+                            }
+                            actions.startNewChat()
+                        },
+                        enabled = !isLoading,
+                    ) {
+                        Icon(
+                            imageVector = vectorResource(Res.drawable.ic_add),
+                            contentDescription = stringResource(Res.string.new_chat_content_description),
+                            tint = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
                 }
             }
 
@@ -94,6 +113,19 @@ internal fun TopBar(
         }
     } else {
         Row {
+            if (hasSavedConversations) {
+                IconButton(
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    onClick = onShowHistory,
+                    enabled = !isLoading,
+                ) {
+                    Icon(
+                        imageVector = vectorResource(Res.drawable.ic_history),
+                        contentDescription = stringResource(Res.string.chat_history_content_description),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+            }
             if (!isChatHistoryEmpty) {
                 IconButton(
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),

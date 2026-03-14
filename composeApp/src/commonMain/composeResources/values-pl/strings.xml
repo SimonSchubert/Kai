@@ -170,4 +170,11 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_import_partial">Ustawienia zaimportowane z %1$d sekcją(-ami) zawierającą(-ymi) błędy.</string>
     <string name="settings_model_search">Szukaj modeli…</string>
     <string name="waiting_content_description">Oczekiwanie na odpowiedź</string>
+    <string name="chat_history_content_description">Historia czatów</string>
+    <string name="chat_history_title">Historia czatów</string>
+    <string name="chat_history_delete_content_description">Usuń rozmowę</string>
+    <string name="chat_history_empty">Brak zapisanych rozmów</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ma coś do zgłoszenia</string>
+    <string name="heartbeat_banner_dismiss">Zamknij</string>
 </resources>

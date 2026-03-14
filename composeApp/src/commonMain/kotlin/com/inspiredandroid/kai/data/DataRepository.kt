@@ -38,7 +38,10 @@ interface DataRepository {
     fun supportsFileAttachment(): Boolean
 
     // Conversation management
+    val savedConversations: StateFlow<List<Conversation>>
     suspend fun loadConversations()
+    fun loadConversation(id: String)
+    suspend fun deleteConversation(id: String)
     fun startNewChat()
     fun regenerate()
     suspend fun restoreLatestConversation()
@@ -106,5 +109,9 @@ interface DataRepository {
 
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String
-    fun addAssistantMessage(content: String)
+    suspend fun addAssistantMessage(content: String)
+
+    // Heartbeat notification
+    val hasUnreadHeartbeat: StateFlow<Boolean>
+    fun clearUnreadHeartbeat()
 }

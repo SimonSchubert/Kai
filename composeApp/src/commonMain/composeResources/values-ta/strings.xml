@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$d பிரிவு(கள்) பிழைகளுடன் அமைப்புகள் இறக்குமதி செய்யப்பட்டன.</string>
     <string name="settings_model_search">மாடல்களைத் தேடு…</string>
     <string name="waiting_content_description">பதிலுக்காகக் காத்திருக்கிறது</string>
+    <string name="chat_history_content_description">அரட்டை வரலாறு</string>
+    <string name="chat_history_title">அரட்டை வரலாறு</string>
+    <string name="chat_history_delete_content_description">உரையாடலை நீக்கு</string>
+    <string name="chat_history_empty">சேமிக்கப்பட்ட உரையாடல்கள் இல்லை</string>
+    <string name="chat_history_heartbeat_label">இதயத்துடிப்பு</string>
+    <string name="heartbeat_banner_message">இதயத்துடிப்பு அறிக்கையிட ஏதோ உள்ளது</string>
+    <string name="heartbeat_banner_dismiss">நிராகரி</string>
 </resources>

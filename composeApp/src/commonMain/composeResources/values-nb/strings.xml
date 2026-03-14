@@ -170,4 +170,11 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_import_partial">Innstillinger importert med %1$d seksjon(er) som hadde feil.</string>
     <string name="settings_model_search">Søk modeller…</string>
     <string name="waiting_content_description">Venter på svar</string>
+    <string name="chat_history_content_description">Chattehistorikk</string>
+    <string name="chat_history_title">Chattehistorikk</string>
+    <string name="chat_history_delete_content_description">Slett samtale</string>
+    <string name="chat_history_empty">Ingen lagrede samtaler</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat har noe å rapportere</string>
+    <string name="heartbeat_banner_dismiss">Avvis</string>
 </resources>

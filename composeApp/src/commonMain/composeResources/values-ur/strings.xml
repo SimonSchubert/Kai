@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$d سیکشن(ز) میں خرابیوں کے ساتھ ترتیبات درآمد کی گئیں۔</string>
     <string name="settings_model_search">ماڈلز تلاش کریں…</string>
     <string name="waiting_content_description">جواب کا انتظار</string>
+    <string name="chat_history_content_description">چیٹ ہسٹری</string>
+    <string name="chat_history_title">چیٹ ہسٹری</string>
+    <string name="chat_history_delete_content_description">بات چیت حذف کریں</string>
+    <string name="chat_history_empty">کوئی محفوظ بات چیت نہیں</string>
+    <string name="chat_history_heartbeat_label">ہارٹ بیٹ</string>
+    <string name="heartbeat_banner_message">ہارٹ بیٹ کے پاس رپورٹ کرنے کے لیے کچھ ہے</string>
+    <string name="heartbeat_banner_dismiss">برخاست</string>
 </resources>

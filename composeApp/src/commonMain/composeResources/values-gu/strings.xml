@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$d વિભાગ(ઓ)માં ભૂલો સાથે સેટિંગ્સ આયાત કરવામાં આવી.</string>
     <string name="settings_model_search">મોડેલ શોધો…</string>
     <string name="waiting_content_description">પ્રતિસાદની રાહ જોઈ રહ્યા છીએ</string>
+    <string name="chat_history_content_description">ચેટ ઇતિહાસ</string>
+    <string name="chat_history_title">ચેટ ઇતિહાસ</string>
+    <string name="chat_history_delete_content_description">વાતચીત કાઢી નાખો</string>
+    <string name="chat_history_empty">કોઈ સાચવેલી વાતચીત નથી</string>
+    <string name="chat_history_heartbeat_label">હાર્ટબીટ</string>
+    <string name="heartbeat_banner_message">હાર્ટબીટ પાસે રિપોર્ટ કરવા જેવું છે</string>
+    <string name="heartbeat_banner_dismiss">રદ કરો</string>
 </resources>

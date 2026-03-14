@@ -169,4 +169,11 @@
     <string name="settings_import_partial">تنظیمات با %1$d بخش دارای خطا وارد شد.</string>
     <string name="settings_model_search">جستجوی مدل‌ها…</string>
     <string name="waiting_content_description">در انتظار پاسخ</string>
+    <string name="chat_history_content_description">تاریخچه گفتگو</string>
+    <string name="chat_history_title">تاریخچه گفتگو</string>
+    <string name="chat_history_delete_content_description">حذف مکالمه</string>
+    <string name="chat_history_empty">گفتگوی ذخیره‌شده‌ای وجود ندارد</string>
+    <string name="chat_history_heartbeat_label">ضربان قلب</string>
+    <string name="heartbeat_banner_message">ضربان قلب چیزی برای گزارش دارد</string>
+    <string name="heartbeat_banner_dismiss">رد کردن</string>
 </resources>

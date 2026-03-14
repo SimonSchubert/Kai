@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Iestatījumi importēti ar %1$d sadaļu(-ām) ar kļūdām.</string>
     <string name="settings_model_search">Meklēt modeļus…</string>
     <string name="waiting_content_description">Gaida atbildi</string>
+    <string name="chat_history_content_description">Sarunu vēsture</string>
+    <string name="chat_history_title">Sarunu vēsture</string>
+    <string name="chat_history_delete_content_description">Dzēst sarunu</string>
+    <string name="chat_history_empty">Nav saglabātu sarunu</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ir ko ziņot</string>
+    <string name="heartbeat_banner_dismiss">Noraidīt</string>
 </resources>

@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Настройките са импортирани с %1$d секция(и) с грешки.</string>
     <string name="settings_model_search">Търсене на модели…</string>
     <string name="waiting_content_description">Изчакване на отговор</string>
+    <string name="chat_history_content_description">История на чатовете</string>
+    <string name="chat_history_title">История на чатовете</string>
+    <string name="chat_history_delete_content_description">Изтриване на разговор</string>
+    <string name="chat_history_empty">Няма запазени разговори</string>
+    <string name="chat_history_heartbeat_label">Пулс</string>
+    <string name="heartbeat_banner_message">Пулсът има какво да съобщи</string>
+    <string name="heartbeat_banner_dismiss">Отхвърляне</string>
 </resources>

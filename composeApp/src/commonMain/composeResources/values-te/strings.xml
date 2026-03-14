@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$d విభాగం(లు) లోపాలతో సెట్టింగ్‌లు దిగుమతి చేయబడ్డాయి.</string>
     <string name="settings_model_search">మోడల్‌లను శోధించండి…</string>
     <string name="waiting_content_description">స్పందన కోసం వేచి ఉంది</string>
+    <string name="chat_history_content_description">చాట్ చరిత్ర</string>
+    <string name="chat_history_title">చాట్ చరిత్ర</string>
+    <string name="chat_history_delete_content_description">సంభాషణ తొలగించు</string>
+    <string name="chat_history_empty">సేవ్ చేసిన సంభాషణలు లేవు</string>
+    <string name="chat_history_heartbeat_label">హార్ట్‌బీట్</string>
+    <string name="heartbeat_banner_message">హార్ట్‌బీట్ నివేదించడానికి ఏదో ఉంది</string>
+    <string name="heartbeat_banner_dismiss">తీసివేయి</string>
 </resources>

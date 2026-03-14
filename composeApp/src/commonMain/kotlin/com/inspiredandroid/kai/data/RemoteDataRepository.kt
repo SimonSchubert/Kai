@@ -72,6 +72,7 @@ private const val MAX_TOOL_ITERATIONS = 15
 private const val MIN_TOOL_DISPLAY_MS = 2000L
 private const val MAX_REPEATED_TOOL_CALLS = 3
 private const val MAX_API_RETRIES = 2
+private const val MAX_HEARTBEAT_MESSAGES = 50
 private const val ESTIMATED_CHARS_PER_TOKEN = 4
 private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 
@@ -149,7 +150,7 @@ class RemoteDataRepository(
     private val _currentConversationId = MutableStateFlow<String?>(null)
     override val currentConversationId: StateFlow<String?> = _currentConversationId
 
-    private val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
+    override val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
 
     override fun getConfiguredServiceInstances(): List<ServiceInstance> = appSettings.getConfiguredServiceInstances().filter { Service.fromId(it.serviceId) != Service.Free }
 
@@ -1037,6 +1038,9 @@ class RemoteDataRepository(
 
         val existingConversation = savedConversations.value.find { it.id == conversationId }
 
+        val title = existingConversation?.title?.ifEmpty { null }
+            ?: deriveTitle(history)
+
         val conversation = Conversation(
             id = conversationId,
             messages = history
@@ -1057,6 +1061,8 @@ class RemoteDataRepository(
                 },
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
+            title = title,
+            type = existingConversation?.type ?: Conversation.TYPE_CHAT,
         )
 
         conversationStorage.saveConversation(conversation)
@@ -1087,7 +1093,7 @@ class RemoteDataRepository(
         conversationStorage.loadConversations()
     }
 
-    private fun loadConversation(id: String) {
+    override fun loadConversation(id: String) {
         val conversation = savedConversations.value.find { it.id == id } ?: return
 
         _currentConversationId.value = id
@@ -1104,6 +1110,14 @@ class RemoteDataRepository(
                 data = m.data,
             )
         }
+    }
+
+    override suspend fun deleteConversation(id: String) {
+        if (_currentConversationId.value == id) {
+            _currentConversationId.value = null
+            chatHistory.value = emptyList()
+        }
+        conversationStorage.deleteConversation(id)
     }
 
     override fun regenerate() {
@@ -1342,7 +1356,7 @@ class RemoteDataRepository(
         val service = currentService()
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
         val creds = instanceCredentials(firstInstance.instanceId, service)
-        val messages = chatHistory.value + History(role = History.Role.USER, content = question)
+        val messages = listOf(History(role = History.Role.USER, content = question))
         val systemPrompt = getActiveSystemPrompt()
 
         val responseText = when (service) {
@@ -1368,11 +1382,47 @@ class RemoteDataRepository(
         return responseText
     }
 
-    override fun addAssistantMessage(content: String) {
-        chatHistory.update {
-            it.toMutableList().apply {
-                add(History(role = History.Role.ASSISTANT, content = content))
-            }
+    private val _hasUnreadHeartbeat = MutableStateFlow(false)
+    override val hasUnreadHeartbeat: StateFlow<Boolean> = _hasUnreadHeartbeat
+
+    override fun clearUnreadHeartbeat() {
+        _hasUnreadHeartbeat.value = false
+    }
+
+    override suspend fun addAssistantMessage(content: String) {
+        val now = Clock.System.now().toEpochMilliseconds()
+
+        val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
+        val heartbeatId = existing?.id ?: Uuid.random().toString()
+
+        val newMessage = Conversation.Message(
+            id = Uuid.random().toString(),
+            role = "assistant",
+            content = content,
+        )
+
+        val messages = ((existing?.messages ?: emptyList()) + newMessage).takeLast(MAX_HEARTBEAT_MESSAGES)
+
+        val conversation = Conversation(
+            id = heartbeatId,
+            messages = messages,
+            createdAt = existing?.createdAt ?: now,
+            updatedAt = now,
+            type = Conversation.TYPE_HEARTBEAT,
+        )
+
+        _hasUnreadHeartbeat.value = true
+        conversationStorage.saveConversation(conversation)
+    }
+
+    private fun deriveTitle(history: List<History>): String {
+        val firstUserMessage = history.firstOrNull { it.role == History.Role.USER }?.content ?: return ""
+        return if (firstUserMessage.length <= 50) {
+            firstUserMessage
+        } else {
+            val truncated = firstUserMessage.take(50)
+            val lastSpace = truncated.lastIndexOf(' ')
+            if (lastSpace > 20) truncated.substring(0, lastSpace) + "..." else truncated + "..."
         }
     }
 }

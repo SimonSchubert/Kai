@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Đã nhập cài đặt với %1$d phần có lỗi.</string>
     <string name="settings_model_search">Tìm kiếm mô hình…</string>
     <string name="waiting_content_description">Đang chờ phản hồi</string>
+    <string name="chat_history_content_description">Lịch sử trò chuyện</string>
+    <string name="chat_history_title">Lịch sử trò chuyện</string>
+    <string name="chat_history_delete_content_description">Xóa cuộc trò chuyện</string>
+    <string name="chat_history_empty">Không có cuộc trò chuyện đã lưu</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat có điều cần báo cáo</string>
+    <string name="heartbeat_banner_dismiss">Bỏ qua</string>
 </resources>

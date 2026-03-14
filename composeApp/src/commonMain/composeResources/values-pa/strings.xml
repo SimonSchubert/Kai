@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$d ਭਾਗ(ਾਂ) ਵਿੱਚ ਗਲਤੀਆਂ ਨਾਲ ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
     <string name="settings_model_search">ਮਾਡਲ ਖੋਜੋ…</string>
     <string name="waiting_content_description">ਜਵਾਬ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
+    <string name="chat_history_content_description">ਚੈਟ ਇਤਿਹਾਸ</string>
+    <string name="chat_history_title">ਚੈਟ ਇਤਿਹਾਸ</string>
+    <string name="chat_history_delete_content_description">ਗੱਲਬਾਤ ਮਿਟਾਓ</string>
+    <string name="chat_history_empty">ਕੋਈ ਸੁਰੱਖਿਅਤ ਗੱਲਬਾਤ ਨਹੀਂ</string>
+    <string name="chat_history_heartbeat_label">ਹਾਰਟਬੀਟ</string>
+    <string name="heartbeat_banner_message">ਹਾਰਟਬੀਟ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਹੈ</string>
+    <string name="heartbeat_banner_dismiss">ਰੱਦ ਕਰੋ</string>
 </resources>

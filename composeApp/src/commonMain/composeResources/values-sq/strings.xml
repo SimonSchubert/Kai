@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Cilësimet u importuan me %1$d seksion(e) me gabime.</string>
     <string name="settings_model_search">Kërko modele…</string>
     <string name="waiting_content_description">Duke pritur për përgjigje</string>
+    <string name="chat_history_content_description">Historiku i bisedave</string>
+    <string name="chat_history_title">Historiku i Bisedave</string>
+    <string name="chat_history_delete_content_description">Fshi bisedën</string>
+    <string name="chat_history_empty">Nuk ka biseda të ruajtura</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ka diçka për të raportuar</string>
+    <string name="heartbeat_banner_dismiss">Hiq</string>
 </resources>

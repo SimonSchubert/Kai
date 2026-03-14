@@ -169,4 +169,11 @@
     <string name="settings_import_partial">ההגדרות יובאו עם %1$d קטע(ים) שהכילו שגיאות.</string>
     <string name="settings_model_search">חיפוש מודלים…</string>
     <string name="waiting_content_description">ממתין לתגובה</string>
+    <string name="chat_history_content_description">היסטוריית צ׳אט</string>
+    <string name="chat_history_title">היסטוריית צ׳אט</string>
+    <string name="chat_history_delete_content_description">מחק שיחה</string>
+    <string name="chat_history_empty">אין שיחות שמורות</string>
+    <string name="chat_history_heartbeat_label">פעימת לב</string>
+    <string name="heartbeat_banner_message">לפעימת הלב יש מה לדווח</string>
+    <string name="heartbeat_banner_dismiss">סגור</string>
 </resources>

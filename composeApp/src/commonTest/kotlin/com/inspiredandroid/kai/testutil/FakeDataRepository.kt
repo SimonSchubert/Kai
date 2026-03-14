@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.testutil
 
+import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
@@ -183,8 +184,34 @@ class FakeDataRepository : DataRepository {
     override fun supportsFileAttachment(): Boolean = fileAttachmentSupported
 
     // Conversation management
+    override val savedConversations: MutableStateFlow<List<Conversation>> = MutableStateFlow(emptyList())
+
     override suspend fun loadConversations() {
         // No-op in tests
+    }
+
+    override fun loadConversation(id: String) {
+        val conversation = savedConversations.value.find { it.id == id } ?: return
+        currentConversationId.value = id
+        chatHistory.value = conversation.messages.map { m ->
+            History(
+                id = m.id,
+                role = when (m.role) {
+                    "user" -> History.Role.USER
+                    "tool" -> History.Role.TOOL
+                    else -> History.Role.ASSISTANT
+                },
+                content = m.content,
+            )
+        }
+    }
+
+    override suspend fun deleteConversation(id: String) {
+        if (currentConversationId.value == id) {
+            currentConversationId.value = null
+            chatHistory.value = emptyList()
+        }
+        savedConversations.update { it.filter { c -> c.id != id } }
     }
 
     override fun regenerate() {
@@ -329,7 +356,12 @@ class FakeDataRepository : DataRepository {
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = emptyList()
 
     override suspend fun askSilently(question: String): String = ""
-    override fun addAssistantMessage(content: String) {}
+    override suspend fun addAssistantMessage(content: String) {}
+
+    override val hasUnreadHeartbeat: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    override fun clearUnreadHeartbeat() {
+        hasUnreadHeartbeat.value = false
+    }
 
     // Email management
     private var emailEnabled = true

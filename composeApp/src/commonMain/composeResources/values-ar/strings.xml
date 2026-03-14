@@ -170,4 +170,11 @@
     <string name="settings_import_partial">تم استيراد الإعدادات مع %1$d قسم/أقسام بها أخطاء.</string>
     <string name="settings_model_search">البحث عن النماذج…</string>
     <string name="waiting_content_description">في انتظار الرد</string>
+    <string name="chat_history_content_description">سجل المحادثات</string>
+    <string name="chat_history_title">سجل المحادثات</string>
+    <string name="chat_history_delete_content_description">حذف المحادثة</string>
+    <string name="chat_history_empty">لا توجد محادثات محفوظة</string>
+    <string name="chat_history_heartbeat_label">نبض القلب</string>
+    <string name="heartbeat_banner_message">لدى نبض القلب شيء للإبلاغ عنه</string>
+    <string name="heartbeat_banner_dismiss">تجاهل</string>
 </resources>

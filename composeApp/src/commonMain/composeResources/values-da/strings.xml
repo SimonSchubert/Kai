@@ -170,4 +170,11 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_import_partial">Indstillinger importeret med %1$d sektion(er) der havde fejl.</string>
     <string name="settings_model_search">Søg modeller…</string>
     <string name="waiting_content_description">Venter på svar</string>
+    <string name="chat_history_content_description">Chathistorik</string>
+    <string name="chat_history_title">Chathistorik</string>
+    <string name="chat_history_delete_content_description">Slet samtale</string>
+    <string name="chat_history_empty">Ingen gemte samtaler</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat har noget at rapportere</string>
+    <string name="heartbeat_banner_dismiss">Afvis</string>
 </resources>

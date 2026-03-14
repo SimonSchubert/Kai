@@ -170,4 +170,11 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import_partial">Instellings ingevoer met %1$d afdeling(e) wat foute gehad het.</string>
     <string name="settings_model_search">Soek modelle…</string>
     <string name="waiting_content_description">Wag vir antwoord</string>
+    <string name="chat_history_content_description">Kletshistorie</string>
+    <string name="chat_history_title">Kletshistorie</string>
+    <string name="chat_history_delete_content_description">Verwyder gesprek</string>
+    <string name="chat_history_empty">Geen gestoorde gesprekke nie</string>
+    <string name="chat_history_heartbeat_label">Hartklop</string>
+    <string name="heartbeat_banner_message">Hartklop het iets om te rapporteer</string>
+    <string name="heartbeat_banner_dismiss">Verwerp</string>
 </resources>

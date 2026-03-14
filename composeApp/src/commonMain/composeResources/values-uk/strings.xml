@@ -170,4 +170,11 @@
     <string name="settings_import_partial">Налаштування імпортовано з %1$d розділом(-ами) з помилками.</string>
     <string name="settings_model_search">Пошук моделей…</string>
     <string name="waiting_content_description">Очікування відповіді</string>
+    <string name="chat_history_content_description">Історія чатів</string>
+    <string name="chat_history_title">Історія чатів</string>
+    <string name="chat_history_delete_content_description">Видалити розмову</string>
+    <string name="chat_history_empty">Немає збережених розмов</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat має що повідомити</string>
+    <string name="heartbeat_banner_dismiss">Закрити</string>
 </resources>

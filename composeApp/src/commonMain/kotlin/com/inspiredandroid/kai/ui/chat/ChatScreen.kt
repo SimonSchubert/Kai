@@ -37,8 +37,10 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.stripMarkdownForTts
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
+import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
+import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
@@ -75,6 +77,8 @@ fun ChatScreenContent(
     onNavigateToSettings: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
+    var showHistorySheet by remember { mutableStateOf(false) }
+
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         TopBar(
             textToSpeech = textToSpeech,
@@ -83,8 +87,21 @@ fun ChatScreenContent(
             isSpeaking = uiState.isSpeaking,
             actions = uiState.actions,
             isChatHistoryEmpty = uiState.history.isEmpty(),
+            hasSavedConversations = uiState.savedConversations.any { it.id != uiState.currentConversationId },
             onNavigateToSettings = onNavigateToSettings,
+            onShowHistory = { showHistorySheet = true },
             navigationTabBar = navigationTabBar,
+        )
+
+        HeartbeatBanner(
+            visible = uiState.hasUnreadHeartbeat,
+            onTap = {
+                uiState.heartbeatConversationId?.let { uiState.actions.loadConversation(it) }
+                uiState.actions.clearUnreadHeartbeat()
+            },
+            onDismiss = {
+                uiState.actions.clearUnreadHeartbeat()
+            },
         )
 
         SelectionContainer(Modifier.weight(1f)) {
@@ -222,6 +239,15 @@ fun ChatScreenContent(
             cancel = uiState.actions.cancel,
             availableServices = uiState.availableServices,
             onSelectService = uiState.actions.selectService,
+        )
+    }
+
+    if (showHistorySheet) {
+        ChatHistorySheet(
+            conversations = uiState.savedConversations,
+            currentConversationId = uiState.currentConversationId,
+            actions = uiState.actions,
+            onDismiss = { showHistorySheet = false },
         )
     }
 }

@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -35,6 +36,9 @@ class ChatViewModel(
         regenerate = ::regenerate,
         cancel = ::cancel,
         selectService = ::selectService,
+        loadConversation = ::loadConversation,
+        deleteConversation = ::deleteConversation,
+        clearUnreadHeartbeat = ::clearUnreadHeartbeat,
     )
     private var currentJob: Job? = null
     private val _state = MutableStateFlow(
@@ -59,10 +63,27 @@ class ChatViewModel(
     val state = combine(
         _state,
         dataRepository.chatHistory,
-    ) { state, history ->
+        dataRepository.savedConversations,
+        dataRepository.currentConversationId,
+        dataRepository.hasUnreadHeartbeat,
+    ) { state, history, conversations, conversationId, hasUnreadHeartbeat ->
+        val summaries = conversations
+            .sortedByDescending { it.updatedAt }
+            .map {
+                val isHeartbeat = it.type == Conversation.TYPE_HEARTBEAT
+                ConversationSummary(
+                    id = it.id,
+                    title = if (isHeartbeat) "" else it.title.ifEmpty { "Untitled" },
+                    updatedAt = it.updatedAt,
+                    isHeartbeat = isHeartbeat,
+                )
+            }
         state.copy(
             history = history,
             allowFileAttachment = dataRepository.supportsFileAttachment(),
+            savedConversations = summaries,
+            currentConversationId = conversationId,
+            hasUnreadHeartbeat = hasUnreadHeartbeat,
         )
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
@@ -164,6 +185,23 @@ class ChatViewModel(
     private fun regenerate() {
         dataRepository.regenerate()
         ask(null)
+    }
+
+    private fun loadConversation(id: String) {
+        dataRepository.loadConversation(id)
+        _state.update {
+            it.copy(error = null)
+        }
+    }
+
+    private fun deleteConversation(id: String) {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.deleteConversation(id)
+        }
+    }
+
+    private fun clearUnreadHeartbeat() {
+        dataRepository.clearUnreadHeartbeat()
     }
 
     private fun startNewChat() {

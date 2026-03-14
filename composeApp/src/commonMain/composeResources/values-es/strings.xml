@@ -170,4 +170,11 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_import_partial">Configuración importada con %1$d sección(es) con errores.</string>
     <string name="settings_model_search">Buscar modelos…</string>
     <string name="waiting_content_description">Esperando respuesta</string>
+    <string name="chat_history_content_description">Historial de chats</string>
+    <string name="chat_history_title">Historial de chats</string>
+    <string name="chat_history_delete_content_description">Eliminar conversación</string>
+    <string name="chat_history_empty">No hay conversaciones guardadas</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat tiene algo que reportar</string>
+    <string name="heartbeat_banner_dismiss">Descartar</string>
 </resources>

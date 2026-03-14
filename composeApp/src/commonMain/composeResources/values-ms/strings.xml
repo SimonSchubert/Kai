@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Tetapan diimport dengan %1$d bahagian yang mempunyai ralat.</string>
     <string name="settings_model_search">Cari model…</string>
     <string name="waiting_content_description">Menunggu respons</string>
+    <string name="chat_history_content_description">Sejarah sembang</string>
+    <string name="chat_history_title">Sejarah Sembang</string>
+    <string name="chat_history_delete_content_description">Padam perbualan</string>
+    <string name="chat_history_empty">Tiada perbualan tersimpan</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ada sesuatu untuk dilaporkan</string>
+    <string name="heartbeat_banner_dismiss">Tutup</string>
 </resources>

@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Pengaturan diimpor dengan %1$d bagian yang memiliki kesalahan.</string>
     <string name="settings_model_search">Cari model…</string>
     <string name="waiting_content_description">Menunggu respons</string>
+    <string name="chat_history_content_description">Riwayat obrolan</string>
+    <string name="chat_history_title">Riwayat Obrolan</string>
+    <string name="chat_history_delete_content_description">Hapus percakapan</string>
+    <string name="chat_history_empty">Tidak ada percakapan tersimpan</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat punya sesuatu untuk dilaporkan</string>
+    <string name="heartbeat_banner_dismiss">Tutup</string>
 </resources>

@@ -19,6 +19,14 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 @Immutable
+data class ConversationSummary(
+    val id: String,
+    val title: String,
+    val updatedAt: Long,
+    val isHeartbeat: Boolean = false,
+)
+
+@Immutable
 data class ChatUiState(
     val actions: ChatActions,
     val history: List<History> = emptyList(),
@@ -31,7 +39,13 @@ data class ChatUiState(
     val isSpeakingContentId: String = "",
     val file: PlatformFile? = null,
     val availableServices: List<ServiceEntry> = emptyList(),
-)
+    val savedConversations: List<ConversationSummary> = emptyList(),
+    val currentConversationId: String? = null,
+    val hasUnreadHeartbeat: Boolean = false,
+) {
+    val heartbeatConversationId: String?
+        get() = savedConversations.firstOrNull { it.isHeartbeat }?.id
+}
 
 @Immutable
 data class History(

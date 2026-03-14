@@ -170,4 +170,11 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import_partial">Asetukset tuotu, %1$d osiossa oli virheitä.</string>
     <string name="settings_model_search">Hae malleja…</string>
     <string name="waiting_content_description">Odotetaan vastausta</string>
+    <string name="chat_history_content_description">Keskusteluhistoria</string>
+    <string name="chat_history_title">Keskusteluhistoria</string>
+    <string name="chat_history_delete_content_description">Poista keskustelu</string>
+    <string name="chat_history_empty">Ei tallennettuja keskusteluja</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat-tarkistuksessa havaittiin jotain</string>
+    <string name="heartbeat_banner_dismiss">Hylkää</string>
 </resources>

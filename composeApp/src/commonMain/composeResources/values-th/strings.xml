@@ -169,4 +169,11 @@
     <string name="settings_import_partial">นำเข้าการตั้งค่าแล้วโดยมี %1$d ส่วนที่มีข้อผิดพลาด</string>
     <string name="settings_model_search">ค้นหาโมเดล…</string>
     <string name="waiting_content_description">กำลังรอการตอบกลับ</string>
+    <string name="chat_history_content_description">ประวัติแชท</string>
+    <string name="chat_history_title">ประวัติแชท</string>
+    <string name="chat_history_delete_content_description">ลบการสนทนา</string>
+    <string name="chat_history_empty">ไม่มีการสนทนาที่บันทึกไว้</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat มีเรื่องรายงาน</string>
+    <string name="heartbeat_banner_dismiss">ปิด</string>
 </resources>

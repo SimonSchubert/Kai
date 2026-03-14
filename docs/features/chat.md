@@ -1,18 +1,22 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-11
+**Last verified:** 2026-03-14
 
-Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored.
+Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
 ## Concepts
 
 ### Conversation
 
-A persisted chat session containing an id (UUID), message list, and timestamps (`createdAt`, `updatedAt`). Conversations are stored in an encrypted file and restored across app launches.
+A persisted chat session containing an id (UUID), message list, timestamps (`createdAt`, `updatedAt`), a title, and a type (`chat` or `heartbeat`). Conversations are stored in an encrypted file and restored across app launches.
 
 ### History
 
 The in-memory message list that drives the UI. Each entry has a role: USER, ASSISTANT, TOOL, or TOOL_EXECUTING. History is the source of truth during a session; it is written to a Conversation on save.
+
+### Conversation Title
+
+Auto-derived from the first user message when a conversation is saved for the first time. Truncated to ~50 characters at a word boundary. Once set, titles are not updated.
 
 ## Conversation Lifecycle
 
@@ -21,9 +25,19 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 - A new conversation ID (UUID) is generated on first message send
 - Conversations are saved after each assistant response
 - Only the most recent 20 exchanges are persisted per conversation
-- Only the current conversation is persisted — starting a new chat replaces the previous one
+- Multiple conversations are persisted — starting a new chat preserves previous conversations
 - Conversations are service-independent — switching services does not affect which conversation is loaded
-- No UI exists to browse or switch between saved conversations
+
+## Chat History
+
+- A history icon appears in the top bar when saved conversations exist
+- Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)
+- Each item shows the title and formatted date
+- The active conversation is highlighted with the primary color
+- Tapping an item loads that conversation and dismisses the sheet
+- Each item has a delete button that removes the conversation from storage
+- Deleting the active conversation clears the chat
+- Heartbeat conversations are excluded from the history list (accessed via the heartbeat banner)
 
 ## Message Sending
 
@@ -62,22 +76,27 @@ The in-memory message list that drives the UI. Each entry has a role: USER, ASSI
 - Conversations are stored in an encrypted file (`conversations.enc`)
 - XOR-based encryption with a 32-byte random key stored in app settings
 - The full conversation list is serialized as `ConversationsData` (versioned, currently v2)
+- Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended
 
 ## UI Elements
 
-- **Top bar**: New Chat, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
+- **Top bar**: New Chat, Chat History, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)
 - **Messages**: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry
 - **Input**: text field, send/stop button, attachment button, file chip
 - **Empty state**: animated logo + welcome message
 - **Drag-and-drop**: supported for file attachments
+- **History sheet**: bottom sheet listing saved conversations with title, date, active highlight, and delete
 
 ## Key Files
 
 | File | Purpose |
 |---|---|
-| `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes |
-| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Encryption, serialization, file I/O |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore, message sending |
-| `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel actions |
-| `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables |
+| `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes, type constants |
+| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Encryption, serialization, file I/O, upsert logic |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore/delete, title derivation, message sending |
+| `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel/loadConversation/deleteConversation actions |
+| `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables, history sheet and heartbeat banner wiring |
+| `composeApp/src/commonMain/.../ui/chat/composables/ChatHistorySheet.kt` | Bottom sheet listing saved conversations |
+| `composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt` | Dismissable banner for heartbeat notifications |
+| `composeApp/src/commonMain/.../ui/chat/composables/TopBar.kt` | Top bar with new chat, history, TTS, and settings icons |
 | `composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt` | Text input with send/stop button |

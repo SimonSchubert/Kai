@@ -40,6 +40,13 @@
     <string name="settings_openai_compatible_or_other_service">or any other compatible service:</string>
     <string name="settings_openai_compatible_providers">providers</string>
     <string name="new_chat_content_description">New chat</string>
+    <string name="chat_history_content_description">Chat history</string>
+    <string name="chat_history_title">Chat History</string>
+    <string name="chat_history_delete_content_description">Delete conversation</string>
+    <string name="chat_history_empty">No saved conversations</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat has something to report</string>
+    <string name="heartbeat_banner_dismiss">Dismiss</string>
     <string name="settings_tools_description">Enable or disable AI tools that can perform actions on your behalf.</string>
     <string name="settings_tools_none_available">No tools available on this platform.</string>
     <string name="settings_tab_general">General</string>

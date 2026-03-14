@@ -170,4 +170,11 @@
     <string name="settings_import_partial">%1$d अनुभाग(ों) में त्रुटियों के साथ सेटिंग्स आयात की गईं।</string>
     <string name="settings_model_search">मॉडल खोजें…</string>
     <string name="waiting_content_description">प्रतिक्रिया की प्रतीक्षा में</string>
+    <string name="chat_history_content_description">चैट इतिहास</string>
+    <string name="chat_history_title">चैट इतिहास</string>
+    <string name="chat_history_delete_content_description">बातचीत हटाएं</string>
+    <string name="chat_history_empty">कोई सहेजी गई बातचीत नहीं</string>
+    <string name="chat_history_heartbeat_label">हार्टबीट</string>
+    <string name="heartbeat_banner_message">हार्टबीट के पास रिपोर्ट करने के लिए कुछ है</string>
+    <string name="heartbeat_banner_dismiss">खारिज करें</string>
 </resources>

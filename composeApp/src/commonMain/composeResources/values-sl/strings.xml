@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Nastavitve uvožene z %1$d razdelkom(-ki) z napakami.</string>
     <string name="settings_model_search">Iskanje modelov…</string>
     <string name="waiting_content_description">Čakanje na odgovor</string>
+    <string name="chat_history_content_description">Zgodovina klepetov</string>
+    <string name="chat_history_title">Zgodovina klepetov</string>
+    <string name="chat_history_delete_content_description">Izbriši pogovor</string>
+    <string name="chat_history_empty">Ni shranjenih pogovorov</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ima kaj za poročanje</string>
+    <string name="heartbeat_banner_dismiss">Opusti</string>
 </resources>

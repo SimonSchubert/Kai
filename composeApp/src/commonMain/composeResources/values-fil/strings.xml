@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Na-import ang mga setting na may %1$d na seksyon na may mga error.</string>
     <string name="settings_model_search">Maghanap ng mga modelo…</string>
     <string name="waiting_content_description">Naghihintay ng tugon</string>
+    <string name="chat_history_content_description">Kasaysayan ng chat</string>
+    <string name="chat_history_title">Kasaysayan ng Chat</string>
+    <string name="chat_history_delete_content_description">Burahin ang usapan</string>
+    <string name="chat_history_empty">Walang naka-save na usapan</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">May irereport ang Heartbeat</string>
+    <string name="heartbeat_banner_dismiss">I-dismiss</string>
 </resources>

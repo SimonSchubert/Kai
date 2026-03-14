@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Configuraziuns importadas cun %1$d secziun(s) cun errurs.</string>
     <string name="settings_model_search">Tschertgar models…</string>
     <string name="waiting_content_description">Spetgar sin resposta</string>
+    <string name="chat_history_content_description">Istorgia dal chat</string>
+    <string name="chat_history_title">Istorgia dal Chat</string>
+    <string name="chat_history_delete_content_description">Stizzar la conversaziun</string>
+    <string name="chat_history_empty">Naginas conversaziuns memorisadas</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ha insatge da rapportar</string>
+    <string name="heartbeat_banner_dismiss">Serrar</string>
 </resources>

@@ -170,4 +170,11 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_import_partial">Inställningar importerade med %1$d avsnitt som hade fel.</string>
     <string name="settings_model_search">Sök modeller…</string>
     <string name="waiting_content_description">Väntar på svar</string>
+    <string name="chat_history_content_description">Chatthistorik</string>
+    <string name="chat_history_title">Chatthistorik</string>
+    <string name="chat_history_delete_content_description">Ta bort konversation</string>
+    <string name="chat_history_empty">Inga sparade konversationer</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat har något att rapportera</string>
+    <string name="heartbeat_banner_dismiss">Stäng</string>
 </resources>

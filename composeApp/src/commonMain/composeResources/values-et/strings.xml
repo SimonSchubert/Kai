@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Seaded imporditud %1$d vigase jaotisega.</string>
     <string name="settings_model_search">Otsi mudeleid…</string>
     <string name="waiting_content_description">Vastuse ootamine</string>
+    <string name="chat_history_content_description">Vestluste ajalugu</string>
+    <string name="chat_history_title">Vestluste ajalugu</string>
+    <string name="chat_history_delete_content_description">Kustuta vestlus</string>
+    <string name="chat_history_empty">Salvestatud vestlusi pole</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat-il on midagi teatada</string>
+    <string name="heartbeat_banner_dismiss">Sulge</string>
 </resources>

@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Подешавања увезена са %1$d одељком/одељцима са грешкама.</string>
     <string name="settings_model_search">Претражи моделе…</string>
     <string name="waiting_content_description">Чекање одговора</string>
+    <string name="chat_history_content_description">Историја ћаскања</string>
+    <string name="chat_history_title">Историја ћаскања</string>
+    <string name="chat_history_delete_content_description">Обриши разговор</string>
+    <string name="chat_history_empty">Нема сачуваних разговора</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat има нешто да пријави</string>
+    <string name="heartbeat_banner_dismiss">Одбаци</string>
 </resources>

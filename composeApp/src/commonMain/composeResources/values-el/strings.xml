@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Οι ρυθμίσεις εισήχθησαν με %1$d ενότητα(ες) που είχαν σφάλματα.</string>
     <string name="settings_model_search">Αναζήτηση μοντέλων…</string>
     <string name="waiting_content_description">Αναμονή για απάντηση</string>
+    <string name="chat_history_content_description">Ιστορικό συνομιλιών</string>
+    <string name="chat_history_title">Ιστορικό συνομιλιών</string>
+    <string name="chat_history_delete_content_description">Διαγραφή συνομιλίας</string>
+    <string name="chat_history_empty">Δεν υπάρχουν αποθηκευμένες συνομιλίες</string>
+    <string name="chat_history_heartbeat_label">Παλμός</string>
+    <string name="heartbeat_banner_message">Ο παλμός έχει κάτι να αναφέρει</string>
+    <string name="heartbeat_banner_dismiss">Απόρριψη</string>
 </resources>

@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Izilungiselelo zingeniswe ngesigaba esingu-%1$d esineziphazamiso.</string>
     <string name="settings_model_search">Sesha amamodeli…</string>
     <string name="waiting_content_description">Ilinde impendulo</string>
+    <string name="chat_history_content_description">Umlando wezingxoxo</string>
+    <string name="chat_history_title">Umlando Wezingxoxo</string>
+    <string name="chat_history_delete_content_description">Susa ingxoxo</string>
+    <string name="chat_history_empty">Azikho izingxoxo ezilondoloziwe</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">I-Heartbeat inokuthile okufanele ibike</string>
+    <string name="heartbeat_banner_dismiss">Cashisa</string>
 </resources>

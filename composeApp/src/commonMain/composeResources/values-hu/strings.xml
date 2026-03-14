@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Beállítások importálva %1$d hibás szakasszal.</string>
     <string name="settings_model_search">Modellek keresése…</string>
     <string name="waiting_content_description">Várakozás a válaszra</string>
+    <string name="chat_history_content_description">Csevegési előzmények</string>
+    <string name="chat_history_title">Csevegési előzmények</string>
+    <string name="chat_history_delete_content_description">Beszélgetés törlése</string>
+    <string name="chat_history_empty">Nincsenek mentett beszélgetések</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">A Heartbeat-nek van mit jelentenie</string>
+    <string name="heartbeat_banner_dismiss">Elvetés</string>
 </resources>

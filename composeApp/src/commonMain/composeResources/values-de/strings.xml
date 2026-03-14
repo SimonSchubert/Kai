@@ -170,4 +170,11 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_import_partial">Einstellungen mit %1$d fehlerhaften Abschnitt(en) importiert.</string>
     <string name="settings_model_search">Modelle suchen…</string>
     <string name="waiting_content_description">Warte auf Antwort</string>
+    <string name="chat_history_content_description">Chatverlauf</string>
+    <string name="chat_history_title">Chatverlauf</string>
+    <string name="chat_history_delete_content_description">Unterhaltung löschen</string>
+    <string name="chat_history_empty">Keine gespeicherten Unterhaltungen</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat hat etwas zu berichten</string>
+    <string name="heartbeat_banner_dismiss">Schließen</string>
 </resources>

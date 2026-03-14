@@ -170,4 +170,11 @@
     <string name="settings_import_partial">設定已匯入，其中 %1$d 個部分存在錯誤。</string>
     <string name="settings_model_search">搜尋模型…</string>
     <string name="waiting_content_description">等待回應</string>
+    <string name="chat_history_content_description">聊天記錄</string>
+    <string name="chat_history_title">聊天記錄</string>
+    <string name="chat_history_delete_content_description">刪除對話</string>
+    <string name="chat_history_empty">沒有已儲存的對話</string>
+    <string name="chat_history_heartbeat_label">心跳檢測</string>
+    <string name="heartbeat_banner_message">心跳檢測有內容需要回報</string>
+    <string name="heartbeat_banner_dismiss">關閉</string>
 </resources>

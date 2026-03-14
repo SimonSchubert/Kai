@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Mipangilio imeagizwa na sehemu %1$d zenye makosa.</string>
     <string name="settings_model_search">Tafuta miundo…</string>
     <string name="waiting_content_description">Inasubiri jibu</string>
+    <string name="chat_history_content_description">Historia ya mazungumzo</string>
+    <string name="chat_history_title">Historia ya Mazungumzo</string>
+    <string name="chat_history_delete_content_description">Futa mazungumzo</string>
+    <string name="chat_history_empty">Hakuna mazungumzo yaliyohifadhiwa</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ina jambo la kuripoti</string>
+    <string name="heartbeat_banner_dismiss">Ondoa</string>
 </resources>

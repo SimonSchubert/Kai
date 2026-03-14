@@ -170,4 +170,11 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_import_partial">Configurações importadas com %1$d seção(ões) com erros.</string>
     <string name="settings_model_search">Pesquisar modelos…</string>
     <string name="waiting_content_description">Aguardando resposta</string>
+    <string name="chat_history_content_description">Histórico de conversas</string>
+    <string name="chat_history_title">Histórico de conversas</string>
+    <string name="chat_history_delete_content_description">Apagar conversa</string>
+    <string name="chat_history_empty">Nenhuma conversa guardada</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat tem algo a reportar</string>
+    <string name="heartbeat_banner_dismiss">Fechar</string>
 </resources>

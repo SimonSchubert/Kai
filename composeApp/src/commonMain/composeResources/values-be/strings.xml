@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Налады імпартаваны з %1$d секцыяй(ямі) з памылкамі.</string>
     <string name="settings_model_search">Пошук мадэляў…</string>
     <string name="waiting_content_description">Чаканне адказу</string>
+    <string name="chat_history_content_description">Гісторыя чатаў</string>
+    <string name="chat_history_title">Гісторыя чатаў</string>
+    <string name="chat_history_delete_content_description">Выдаліць размову</string>
+    <string name="chat_history_empty">Няма захаваных размоў</string>
+    <string name="chat_history_heartbeat_label">Пульс</string>
+    <string name="heartbeat_banner_message">Пульс мае пра што паведаміць</string>
+    <string name="heartbeat_banner_dismiss">Адхіліць</string>
 </resources>

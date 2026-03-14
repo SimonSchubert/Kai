@@ -169,4 +169,11 @@
     <string name="settings_import_partial">%1$dটি বিভাগে ত্রুটি সহ সেটিংস আমদানি করা হয়েছে।</string>
     <string name="settings_model_search">মডেল খুঁজুন…</string>
     <string name="waiting_content_description">প্রতিক্রিয়ার জন্য অপেক্ষা করা হচ্ছে</string>
+    <string name="chat_history_content_description">চ্যাট ইতিহাস</string>
+    <string name="chat_history_title">চ্যাট ইতিহাস</string>
+    <string name="chat_history_delete_content_description">কথোপকথন মুছুন</string>
+    <string name="chat_history_empty">কোনো সংরক্ষিত কথোপকথন নেই</string>
+    <string name="chat_history_heartbeat_label">হার্টবিট</string>
+    <string name="heartbeat_banner_message">হার্টবিটের রিপোর্ট করার কিছু আছে</string>
+    <string name="heartbeat_banner_dismiss">বাতিল</string>
 </resources>

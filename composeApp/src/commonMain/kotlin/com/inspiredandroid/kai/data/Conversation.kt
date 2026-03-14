@@ -8,7 +8,14 @@ data class Conversation(
     val messages: List<Message>,
     val createdAt: Long,
     val updatedAt: Long,
+    val title: String = "",
+    val type: String = TYPE_CHAT,
 ) {
+    companion object {
+        const val TYPE_CHAT = "chat"
+        const val TYPE_HEARTBEAT = "heartbeat"
+    }
+
     @Serializable
     data class Message(
         val id: String,

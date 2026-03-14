@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Setări importate cu %1$d secțiune(i) cu erori.</string>
     <string name="settings_model_search">Căutare modele…</string>
     <string name="waiting_content_description">Se așteaptă răspunsul</string>
+    <string name="chat_history_content_description">Istoricul conversațiilor</string>
+    <string name="chat_history_title">Istoricul conversațiilor</string>
+    <string name="chat_history_delete_content_description">Șterge conversația</string>
+    <string name="chat_history_empty">Nicio conversație salvată</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat are ceva de raportat</string>
+    <string name="heartbeat_banner_dismiss">Închide</string>
 </resources>

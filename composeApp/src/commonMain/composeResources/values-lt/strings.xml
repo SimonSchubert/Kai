@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Nustatymai importuoti su %1$d sekcija(-omis), kuriose buvo klaidų.</string>
     <string name="settings_model_search">Ieškoti modelių…</string>
     <string name="waiting_content_description">Laukiama atsakymo</string>
+    <string name="chat_history_content_description">Pokalbių istorija</string>
+    <string name="chat_history_title">Pokalbių istorija</string>
+    <string name="chat_history_delete_content_description">Ištrinti pokalbį</string>
+    <string name="chat_history_empty">Nėra išsaugotų pokalbių</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat turi ką pranešti</string>
+    <string name="heartbeat_banner_dismiss">Atmesti</string>
 </resources>

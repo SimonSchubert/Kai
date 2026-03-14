@@ -170,4 +170,11 @@
     <string name="settings_import_partial">%1$d個のセクションにエラーがある状態で設定がインポートされました。</string>
     <string name="settings_model_search">モデルを検索…</string>
     <string name="waiting_content_description">応答を待っています</string>
+    <string name="chat_history_content_description">チャット履歴</string>
+    <string name="chat_history_title">チャット履歴</string>
+    <string name="chat_history_delete_content_description">会話を削除</string>
+    <string name="chat_history_empty">保存された会話はありません</string>
+    <string name="chat_history_heartbeat_label">ハートビート</string>
+    <string name="heartbeat_banner_message">ハートビートに報告事項があります</string>
+    <string name="heartbeat_banner_dismiss">閉じる</string>
 </resources>

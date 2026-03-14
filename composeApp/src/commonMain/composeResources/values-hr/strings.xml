@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Postavke uvezene s %1$d odjeljkom/odjeljcima s pogreškama.</string>
     <string name="settings_model_search">Pretraži modele…</string>
     <string name="waiting_content_description">Čekanje odgovora</string>
+    <string name="chat_history_content_description">Povijest razgovora</string>
+    <string name="chat_history_title">Povijest razgovora</string>
+    <string name="chat_history_delete_content_description">Obriši razgovor</string>
+    <string name="chat_history_empty">Nema spremljenih razgovora</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat ima nešto za prijaviti</string>
+    <string name="heartbeat_banner_dismiss">Odbaci</string>
 </resources>

@@ -170,4 +170,11 @@
     <string name="settings_import_partial">ቅንብሮች ከ%1$d ክፍል(ዎች) ስህተት ጋር ገብተዋል።</string>
     <string name="settings_model_search">ሞዴሎችን ፈልግ…</string>
     <string name="waiting_content_description">ምላሽ በመጠበቅ ላይ</string>
+    <string name="chat_history_content_description">የውይይት ታሪክ</string>
+    <string name="chat_history_title">የውይይት ታሪክ</string>
+    <string name="chat_history_delete_content_description">ውይይት ሰርዝ</string>
+    <string name="chat_history_empty">የተቀመጡ ውይይቶች የሉም</string>
+    <string name="chat_history_heartbeat_label">የልብ ምት</string>
+    <string name="heartbeat_banner_message">የልብ ምት ሪፖርት ያለው ነገር አለ</string>
+    <string name="heartbeat_banner_dismiss">አስወግድ</string>
 </resources>

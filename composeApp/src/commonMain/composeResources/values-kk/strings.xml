@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Параметрлер %1$d қателі бөлім(дер)мен импортталды.</string>
     <string name="settings_model_search">Модельдерді іздеу…</string>
     <string name="waiting_content_description">Жауап күтілуде</string>
+    <string name="chat_history_content_description">Чат тарихы</string>
+    <string name="chat_history_title">Чат тарихы</string>
+    <string name="chat_history_delete_content_description">Әңгімені жою</string>
+    <string name="chat_history_empty">Сақталған әңгімелер жоқ</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat хабарлайтын нәрсе бар</string>
+    <string name="heartbeat_banner_dismiss">Жабу</string>
 </resources>

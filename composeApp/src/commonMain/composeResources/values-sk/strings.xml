@@ -169,4 +169,11 @@
     <string name="settings_import_partial">Nastavenia importované s %1$d sekciou/-iami s chybami.</string>
     <string name="settings_model_search">Hľadať modely…</string>
     <string name="waiting_content_description">Čakanie na odpoveď</string>
+    <string name="chat_history_content_description">História chatov</string>
+    <string name="chat_history_title">História chatov</string>
+    <string name="chat_history_delete_content_description">Odstrániť konverzáciu</string>
+    <string name="chat_history_empty">Žiadne uložené konverzácie</string>
+    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="heartbeat_banner_message">Heartbeat má čo nahlásiť</string>
+    <string name="heartbeat_banner_dismiss">Zavrieť</string>
 </resources>
