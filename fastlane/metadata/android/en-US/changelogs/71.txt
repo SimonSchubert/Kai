@@ -1,0 +1,2 @@
+Add chat histories and separate heartbeat chat
+Remove hard-coded /v1 path in OpenAI-compatible service setup

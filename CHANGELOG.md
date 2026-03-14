@@ -1,3 +1,11 @@
+## v1.9.6 — 2026-03-14
+
+### Features
+- Add chat histories and separate heartbeat chat
+
+### Improvements
+- Remove hard-coded /v1 path in OpenAI-compatible service setup
+
 ## v1.9.5 — 2026-03-12
 
 ### Features
