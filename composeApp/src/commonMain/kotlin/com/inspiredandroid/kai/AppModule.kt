@@ -29,6 +29,7 @@ val appModule = module {
             it.migrateFromLegacyIfNeeded(legacySettings)
             it.migrateConfiguredServicesIfNeeded()
             it.migrateInstanceSettingsIfNeeded()
+            it.migrateBaseUrlsToV1PathIfNeeded()
         }
     }
     single<Requests> {

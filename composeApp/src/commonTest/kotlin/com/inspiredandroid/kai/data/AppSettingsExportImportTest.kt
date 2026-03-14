@@ -559,6 +559,44 @@ class AppSettingsExportImportTest {
     }
 
     @Test
+    fun `import normalizes old-format OpenAI-compatible base URL by appending v1`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "configured_services" to Json.parseToJsonElement(
+                    """[{"instanceId":"compat1","serviceId":"openai-compatible"}]""",
+                ),
+                "instance_settings" to Json.parseToJsonElement(
+                    """[{"instanceId":"compat1","api_key":"","base_url":"http://localhost:11434"}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        assertEquals("http://localhost:11434/v1", target.getInstanceBaseUrl("compat1"))
+    }
+
+    @Test
+    fun `import does not double-append v1 to already-versioned base URL`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "configured_services" to Json.parseToJsonElement(
+                    """[{"instanceId":"compat1","serviceId":"openai-compatible"}]""",
+                ),
+                "instance_settings" to Json.parseToJsonElement(
+                    """[{"instanceId":"compat1","base_url":"http://localhost:11434/v1"}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        assertEquals("http://localhost:11434/v1", target.getInstanceBaseUrl("compat1"))
+    }
+
+    @Test
     fun `import memories with missing category defaults to GENERAL`() {
         val json = JsonObject(
             mapOf(

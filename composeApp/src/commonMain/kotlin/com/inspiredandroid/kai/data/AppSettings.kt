@@ -247,6 +247,33 @@ class AppSettings(private val settings: Settings) {
         }
     }
 
+    /**
+     * Migrate existing OpenAI-compatible base URLs to include `/v1` path segment.
+     * Previously `/v1` was hardcoded in the endpoint paths; now the base URL should
+     * include it (following the OpenAI SDK convention).
+     */
+    fun migrateBaseUrlsToV1PathIfNeeded() {
+        if (settings.getBoolean(KEY_BASE_URL_V1_MIGRATION_COMPLETE, false)) return
+
+        val instances = getConfiguredServiceInstances()
+        for (instance in instances) {
+            val service = Service.fromId(instance.serviceId)
+            if (service != Service.OpenAICompatible) continue
+            val baseUrl = getInstanceBaseUrl(instance.instanceId)
+            if (baseUrl.isNotBlank()) {
+                setInstanceBaseUrl(instance.instanceId, ensureBaseUrlHasVersionPath(baseUrl))
+            }
+        }
+
+        // Also migrate legacy per-service base URL key
+        val legacyBaseUrl = settings.getString(Service.OpenAICompatible.baseUrlKey, "")
+        if (legacyBaseUrl.isNotBlank()) {
+            settings.putString(Service.OpenAICompatible.baseUrlKey, ensureBaseUrlHasVersionPath(legacyBaseUrl))
+        }
+
+        settings.putBoolean(KEY_BASE_URL_V1_MIGRATION_COMPLETE, true)
+    }
+
     fun generateInstanceId(serviceId: String): String {
         val existing = getConfiguredServiceInstances()
         val existingIds = existing.map { it.instanceId }.toSet()
@@ -579,12 +606,21 @@ class AppSettings(private val settings: Settings) {
             // Per-instance settings — clear old instance keys, then apply new
             try {
                 oldInstances.forEach { removeInstanceSettings(it.instanceId) }
+                val importedInstances = getConfiguredServiceInstances()
                 json["instance_settings"]?.jsonArray?.forEach { element ->
                     val obj = element.jsonObject
                     val instanceId = obj["instanceId"]?.jsonPrimitive?.content ?: return@forEach
                     obj["api_key"]?.jsonPrimitive?.content?.let { setInstanceApiKey(instanceId, it) }
                     obj["model_id"]?.jsonPrimitive?.content?.let { setInstanceModelId(instanceId, it) }
-                    obj["base_url"]?.jsonPrimitive?.content?.let { setInstanceBaseUrl(instanceId, it) }
+                    obj["base_url"]?.jsonPrimitive?.content?.let { baseUrl ->
+                        val service = importedInstances.find { it.instanceId == instanceId }
+                            ?.let { Service.fromId(it.serviceId) }
+                        if (service == Service.OpenAICompatible && baseUrl.isNotBlank()) {
+                            setInstanceBaseUrl(instanceId, ensureBaseUrlHasVersionPath(baseUrl))
+                        } else {
+                            setInstanceBaseUrl(instanceId, baseUrl)
+                        }
+                    }
                 }
             } catch (_: Exception) {
                 errors++
@@ -764,6 +800,13 @@ class AppSettings(private val settings: Settings) {
         return SharedJson.encodeToString(memories)
     }
 
+    private fun ensureBaseUrlHasVersionPath(url: String): String {
+        val trimmed = url.trimEnd('/')
+        // If URL already ends with a version path segment like /v1, /v2, /api/v1, etc. — leave it
+        if (trimmed.contains(Regex("/v\\d+$"))) return trimmed
+        return "$trimmed/v1"
+    }
+
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
@@ -791,6 +834,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
         const val KEY_UI_SCALE = "ui_scale"
         const val KEY_MCP_SERVERS = "mcp_servers"
+        const val KEY_BASE_URL_V1_MIGRATION_COMPLETE = "base_url_v1_migration_complete"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

@@ -181,8 +181,8 @@ sealed class Service(
         supportsOptionalApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "openai-compatible",
-        chatUrl = "/v1/chat/completions",
-        modelsUrl = "/v1/models",
+        chatUrl = "/chat/completions",
+        modelsUrl = "/models",
         sortModelsById = true,
         includeModelDate = false,
     )
@@ -190,7 +190,7 @@ sealed class Service(
     companion object {
         val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, OpenAICompatible)
 
-        const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434"
+        const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
         fun fromId(id: String): Service = all.find { it.id == id } ?: Free
     }
