@@ -936,7 +936,7 @@
 
 <h1 id="multi-service">Multi-Service</h1>
 <p><strong>Last verified:</strong> 2026-03-14</p>
-<p>Kai supports 13 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p>Kai supports 17 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong>. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1060,6 +1060,30 @@
 <td><code>longcat</code></td>
 <td>Yes</td>
 <td>OpenAI-compatible (hardcoded models, no <code>/models</code> endpoint)</td>
+</tr>
+<tr>
+<td>Together AI</td>
+<td><code>together</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td>Hugging Face</td>
+<td><code>huggingface</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td>Venice AI</td>
+<td><code>venice</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td>Moonshot AI</td>
+<td><code>moonshot</code></td>
+<td>Yes</td>
+<td>OpenAI-compatible</td>
 </tr>
 <tr>
 <td>OpenAI-Compatible API</td>
