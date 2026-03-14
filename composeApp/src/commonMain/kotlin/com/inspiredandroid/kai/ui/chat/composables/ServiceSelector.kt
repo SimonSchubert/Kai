@@ -26,7 +26,6 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.ServiceEntry
-import com.inspiredandroid.kai.ui.serviceIcon
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
@@ -50,7 +49,7 @@ internal fun ServiceSelector(
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = vectorResource(serviceIcon(current.serviceId)),
+                imageVector = vectorResource(current.icon),
                 contentDescription = current.serviceName,
                 modifier = Modifier.size(18.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -66,7 +65,7 @@ internal fun ServiceSelector(
                 DropdownMenuItem(
                     leadingIcon = {
                         Icon(
-                            imageVector = vectorResource(serviceIcon(entry.serviceId)),
+                            imageVector = vectorResource(entry.icon),
                             contentDescription = null,
                             modifier = Modifier.size(18.dp),
                             tint = MaterialTheme.colorScheme.onSurface,

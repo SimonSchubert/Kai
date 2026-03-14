@@ -115,7 +115,6 @@ import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
-import com.inspiredandroid.kai.ui.serviceIcon
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.readBytes
@@ -602,7 +601,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Icon(
-                                imageVector = vectorResource(serviceIcon(service.id)),
+                                imageVector = vectorResource(service.icon),
                                 contentDescription = null,
                                 modifier = Modifier.size(20.dp),
                                 tint = MaterialTheme.colorScheme.onBackground,

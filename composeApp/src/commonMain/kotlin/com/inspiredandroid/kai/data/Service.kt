@@ -1,5 +1,20 @@
 package com.inspiredandroid.kai.data
 
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_service_anthropic
+import kai.composeapp.generated.resources.ic_service_cerebras
+import kai.composeapp.generated.resources.ic_service_deepseek
+import kai.composeapp.generated.resources.ic_service_gemini
+import kai.composeapp.generated.resources.ic_service_groqcloud
+import kai.composeapp.generated.resources.ic_service_longcat
+import kai.composeapp.generated.resources.ic_service_mistral
+import kai.composeapp.generated.resources.ic_service_nvidia
+import kai.composeapp.generated.resources.ic_service_ollamacloud
+import kai.composeapp.generated.resources.ic_service_openai
+import kai.composeapp.generated.resources.ic_service_openai_compatible
+import kai.composeapp.generated.resources.ic_service_openrouter
+import kai.composeapp.generated.resources.ic_service_xai
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
 data class ModelDefinition(
@@ -11,6 +26,7 @@ data class ModelDefinition(
 sealed class Service(
     val id: String,
     val displayName: String,
+    val icon: DrawableResource,
     val requiresApiKey: Boolean,
     val supportsOptionalApiKey: Boolean = false,
     val defaultModel: String?,
@@ -27,6 +43,7 @@ sealed class Service(
     data object Free : Service(
         id = "free",
         displayName = "Free",
+        icon = Res.drawable.ic_service_openai_compatible,
         requiresApiKey = false,
         defaultModel = null,
         settingsKeyPrefix = "",
@@ -37,6 +54,7 @@ sealed class Service(
     data object Groq : Service(
         id = "groqcloud",
         displayName = "GroqCloud",
+        icon = Res.drawable.ic_service_groqcloud,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "groq",
@@ -51,6 +69,7 @@ sealed class Service(
     data object XAI : Service(
         id = "xai",
         displayName = "xAI",
+        icon = Res.drawable.ic_service_xai,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "xai",
@@ -64,6 +83,7 @@ sealed class Service(
     data object OpenRouter : Service(
         id = "openrouter",
         displayName = "OpenRouter",
+        icon = Res.drawable.ic_service_openrouter,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "openrouter",
@@ -77,6 +97,7 @@ sealed class Service(
     data object Nvidia : Service(
         id = "nvidia",
         displayName = "NVIDIA",
+        icon = Res.drawable.ic_service_nvidia,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "nvidia",
@@ -92,6 +113,7 @@ sealed class Service(
     data object Gemini : Service(
         id = "gemini",
         displayName = "Gemini",
+        icon = Res.drawable.ic_service_gemini,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "gemini",
@@ -105,6 +127,7 @@ sealed class Service(
     data object Anthropic : Service(
         id = "anthropic",
         displayName = "Anthropic",
+        icon = Res.drawable.ic_service_anthropic,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "anthropic",
@@ -117,6 +140,7 @@ sealed class Service(
     data object OpenAI : Service(
         id = "openai",
         displayName = "OpenAI",
+        icon = Res.drawable.ic_service_openai,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "openai",
@@ -129,6 +153,7 @@ sealed class Service(
     data object DeepSeek : Service(
         id = "deepseek",
         displayName = "DeepSeek",
+        icon = Res.drawable.ic_service_deepseek,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "deepseek",
@@ -141,6 +166,7 @@ sealed class Service(
     data object Mistral : Service(
         id = "mistral",
         displayName = "Mistral",
+        icon = Res.drawable.ic_service_mistral,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "mistral",
@@ -153,6 +179,7 @@ sealed class Service(
     data object Cerebras : Service(
         id = "cerebras",
         displayName = "Cerebras",
+        icon = Res.drawable.ic_service_cerebras,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "cerebras",
@@ -165,6 +192,7 @@ sealed class Service(
     data object OllamaCloud : Service(
         id = "ollamacloud",
         displayName = "Ollama Cloud",
+        icon = Res.drawable.ic_service_ollamacloud,
         requiresApiKey = true,
         defaultModel = null,
         settingsKeyPrefix = "ollamacloud",
@@ -177,6 +205,7 @@ sealed class Service(
     data object LongCat : Service(
         id = "longcat",
         displayName = "LongCat",
+        icon = Res.drawable.ic_service_longcat,
         requiresApiKey = true,
         defaultModel = "LongCat-Flash-Lite",
         settingsKeyPrefix = "longcat",
@@ -196,6 +225,7 @@ sealed class Service(
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
+        icon = Res.drawable.ic_service_openai_compatible,
         requiresApiKey = false,
         supportsOptionalApiKey = true,
         defaultModel = null,

@@ -55,7 +55,6 @@ import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.darkPurple
 import com.inspiredandroid.kai.ui.lightPurple
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
-import com.inspiredandroid.kai.ui.serviceIcon
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher

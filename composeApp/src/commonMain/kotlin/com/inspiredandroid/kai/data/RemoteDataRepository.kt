@@ -188,6 +188,7 @@ class RemoteDataRepository(
             serviceId = service.id,
             serviceName = service.displayName,
             modelId = modelId,
+            icon = service.icon,
         )
     }
 
