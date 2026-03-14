@@ -75,6 +75,8 @@ data class ServiceInstance(
     val serviceId: String,
 )
 
+private val versionPathRegex = Regex("/v\\d+$")
+
 class AppSettings(private val settings: Settings) {
 
     // Service selection
@@ -803,7 +805,7 @@ class AppSettings(private val settings: Settings) {
     private fun ensureBaseUrlHasVersionPath(url: String): String {
         val trimmed = url.trimEnd('/')
         // If URL already ends with a version path segment like /v1, /v2, /api/v1, etc. — leave it
-        if (trimmed.contains(Regex("/v\\d+$"))) return trimmed
+        if (trimmed.contains(versionPathRegex)) return trimmed
         return "$trimmed/v1"
     }
 

@@ -10,6 +10,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 
+private val serverIdRegex = Regex("[^a-z0-9]")
+
 class McpServerManager(private val appSettings: AppSettings) {
 
     private val json = Json {
@@ -22,18 +24,28 @@ class McpServerManager(private val appSettings: AppSettings) {
     private val clients = mutableMapOf<String, McpClient>()
     private val discoveredTools = mutableMapOf<String, List<McpToolMetadata>>()
 
+    private var cachedServersJson: String? = null
+    private var cachedServers: List<McpServerConfig> = emptyList()
+
     fun getServers(): List<McpServerConfig> {
         val jsonStr = appSettings.getMcpServersJson()
         if (jsonStr.isBlank()) return emptyList()
+        if (jsonStr == cachedServersJson) return cachedServers
         return try {
-            json.decodeFromString<List<McpServerConfig>>(jsonStr)
+            json.decodeFromString<List<McpServerConfig>>(jsonStr).also {
+                cachedServersJson = jsonStr
+                cachedServers = it
+            }
         } catch (_: Exception) {
             emptyList()
         }
     }
 
     private fun saveServers(servers: List<McpServerConfig>) {
-        appSettings.setMcpServersJson(json.encodeToString(kotlinx.serialization.builtins.ListSerializer(McpServerConfig.serializer()), servers))
+        val jsonStr = json.encodeToString(kotlinx.serialization.builtins.ListSerializer(McpServerConfig.serializer()), servers)
+        appSettings.setMcpServersJson(jsonStr)
+        cachedServersJson = jsonStr
+        cachedServers = servers
     }
 
     fun addServer(name: String, url: String, headers: Map<String, String>): McpServerConfig {
@@ -162,7 +174,7 @@ class McpServerManager(private val appSettings: AppSettings) {
     fun isConnected(serverId: String): Boolean = clients.containsKey(serverId)
 
     private fun generateServerId(name: String, existing: List<McpServerConfig>): String {
-        val base = name.lowercase().replace(Regex("[^a-z0-9]"), "_").take(30)
+        val base = name.lowercase().replace(serverIdRegex, "_").take(30)
         val existingIds = existing.map { it.id }.toSet()
         if (base !in existingIds) return base
         var counter = 2

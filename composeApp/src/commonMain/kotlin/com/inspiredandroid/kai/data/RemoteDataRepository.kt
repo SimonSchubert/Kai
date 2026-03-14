@@ -53,6 +53,8 @@ import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+private val geminiVersionRegex = Regex("""gemini-(\d+\.?\d*)""")
+
 private val limitedModels = listOf(
     "llama3.2:1b",
     "llama3.2:3b",
@@ -120,9 +122,7 @@ class RemoteDataRepository(
     }
 
     private fun extractGeminiVersion(modelId: String): Double {
-        // Match patterns like "gemini-2.5-pro", "gemini-1.5-flash-8b"
-        val versionRegex = Regex("""gemini-(\d+\.?\d*)""")
-        val match = versionRegex.find(modelId)
+        val match = geminiVersionRegex.find(modelId)
         return match?.groupValues?.get(1)?.toDoubleOrNull() ?: 0.0
     }
 
@@ -1238,10 +1238,11 @@ class RemoteDataRepository(
                 }
                 val memories = memoryStore.getAllMemories()
                 if (memories.isNotEmpty()) {
-                    val general = memories.filter { it.category == MemoryCategory.GENERAL }
-                    val preferences = memories.filter { it.category == MemoryCategory.PREFERENCE }
-                    val learnings = memories.filter { it.category == MemoryCategory.LEARNING }
-                    val errors = memories.filter { it.category == MemoryCategory.ERROR }
+                    val byCategory = memories.groupBy { it.category }
+                    val general = byCategory[MemoryCategory.GENERAL].orEmpty()
+                    val preferences = byCategory[MemoryCategory.PREFERENCE].orEmpty()
+                    val learnings = byCategory[MemoryCategory.LEARNING].orEmpty()
+                    val errors = byCategory[MemoryCategory.ERROR].orEmpty()
 
                     if (general.isNotEmpty()) {
                         append("\n\n## Your Memories\n")

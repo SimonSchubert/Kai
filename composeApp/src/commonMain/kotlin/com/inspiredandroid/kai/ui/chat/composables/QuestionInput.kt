@@ -71,6 +71,8 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
+private val gradientBrush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))
+
 @Composable
 fun QuestionInput(
     file: PlatformFile?,
@@ -148,7 +150,7 @@ fun QuestionInput(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(28.dp))
                 .border(
-                    BorderStroke(width = 2.dp, brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))),
+                    BorderStroke(width = 2.dp, brush = gradientBrush),
                     shape = RoundedCornerShape(28.dp),
                 )
                 .onPreviewKeyEvent { event ->
@@ -238,7 +240,7 @@ private fun TrailingIcon(
             .padding(end = 6.dp)
             .size(42.dp)
             .clip(CircleShape)
-            .background(brush = Brush.horizontalGradient(listOf(darkPurple, lightPurple)), CircleShape)
+            .background(brush = gradientBrush, CircleShape)
             .pointerHoverIcon(PointerIcon.Hand)
             .clickable {
                 onClick()

@@ -15,6 +15,8 @@ import kotlin.time.Instant
  * Supports: star, star/n (step), specific values, comma-separated lists, ranges.
  */
 @OptIn(ExperimentalTime::class)
+private val whitespaceRegex = Regex("\\s+")
+
 class CronExpression(expression: String) {
 
     private val minutes: Set<Int>
@@ -24,7 +26,7 @@ class CronExpression(expression: String) {
     private val daysOfWeek: Set<Int> // 0=Sunday .. 6=Saturday (cron standard)
 
     init {
-        val parts = expression.trim().split("\\s+".toRegex())
+        val parts = expression.trim().split(whitespaceRegex)
         require(parts.size == 5) { "Cron expression must have 5 fields, got ${parts.size}: $expression" }
         minutes = parseField(parts[0], 0, 59)
         hours = parseField(parts[1], 0, 23)

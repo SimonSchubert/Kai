@@ -169,6 +169,16 @@ fun ChatScreenContent(
                         }
                     }
 
+                    val lastAssistantId = remember(uiState.history, uiState.isLoading) {
+                        if (uiState.isLoading) null
+                        else uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                    }
+                    val executingTools = remember(uiState.history) {
+                        uiState.history
+                            .filter { it.role == History.Role.TOOL_EXECUTING }
+                            .map { it.id to (it.toolName ?: "tool") }
+                    }
+
                     LazyColumn(
                         modifier = Modifier.fillMaxWidth().weight(1f),
                         state = listState,
@@ -185,8 +195,7 @@ fun ChatScreenContent(
                                     // Skip thinking messages unless it's the last assistant message
                                     // (i.e. the model only returned reasoning with no content)
                                     if (history.content.isNotEmpty() && !history.isThinking) {
-                                        val isLastAssistant = !uiState.isLoading &&
-                                            history.id == uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                                        val isLastAssistant = history.id == lastAssistantId
                                         BotMessage(
                                             message = history.content,
                                             textToSpeech = textToSpeech,
@@ -219,9 +228,7 @@ fun ChatScreenContent(
                         if (uiState.isLoading) {
                             item(key = "loading") {
                                 WaitingResponseRow(
-                                    executingTools = uiState.history
-                                        .filter { it.role == History.Role.TOOL_EXECUTING }
-                                        .map { it.id to (it.toolName ?: "tool") },
+                                    executingTools = executingTools,
                                 )
                             }
                         }

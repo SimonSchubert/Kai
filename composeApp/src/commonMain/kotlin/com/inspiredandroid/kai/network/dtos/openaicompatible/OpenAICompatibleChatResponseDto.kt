@@ -3,6 +3,8 @@ package com.inspiredandroid.kai.network.dtos.openaicompatible
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+private val toolCallMarkerRegex = Regex("<TOOLCALL>[\\s\\S]*?</TOOLCALL>|<TOOLCALL>[\\s\\S]*$")
+
 @Serializable
 data class OpenAICompatibleChatResponseDto(
     val choices: List<Choice>,
@@ -24,7 +26,7 @@ data class OpenAICompatibleChatResponseDto(
                     // Some providers (e.g. Ollama) embed tool calls as <TOOLCALL>[...] markers
                     // in the content field alongside structured tool_calls — strip them.
                     if (raw != null && !toolCalls.isNullOrEmpty()) {
-                        val stripped = raw.replace(Regex("<TOOLCALL>[\\s\\S]*?</TOOLCALL>|<TOOLCALL>[\\s\\S]*$"), "").trim()
+                        val stripped = raw.replace(toolCallMarkerRegex, "").trim()
                         return stripped.takeIf { it.isNotBlank() }
                     }
                     return raw

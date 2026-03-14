@@ -6,6 +6,10 @@ import com.inspiredandroid.kai.data.EmailMessage
  * Minimal IMAP client supporting the subset of commands needed for email reading.
  * Uses tagged commands (e.g., "A001 LOGIN ...") per IMAP spec.
  */
+private val imapExistsRegex = Regex("\\* (\\d+) EXISTS")
+private val imapTaggedResponseRegex = Regex("^A\\d+ (OK|NO|BAD) .*")
+private val mimeBoundaryRegex = Regex("^--([\\w'()+,-./:=? ]+)\\s*$", RegexOption.MULTILINE)
+
 class ImapClient(
     private val host: String,
     private val port: Int = 993,
@@ -36,7 +40,7 @@ class ImapClient(
         conn.writeLine("$tag SELECT INBOX")
         val response = readUntilTaggedOrGreeting(tag)
         // Parse EXISTS count from response like "* 42 EXISTS"
-        val existsMatch = Regex("\\* (\\d+) EXISTS").find(response)
+        val existsMatch = imapExistsRegex.find(response)
         return existsMatch?.groupValues?.get(1)?.toIntOrNull() ?: 0
     }
 
@@ -197,7 +201,7 @@ class ImapClient(
         // Remove trailing IMAP response lines (tagged response, closing paren)
         val cleaned = bodyContent.lines()
             .takeWhile { line ->
-                !line.matches(Regex("^A\\d+ (OK|NO|BAD) .*")) && line.trimEnd() != ")"
+                !line.matches(imapTaggedResponseRegex) && line.trimEnd() != ")"
             }
             .joinToString("\n")
 
@@ -218,7 +222,7 @@ class ImapClient(
         return raw.substring(bodyStart + 2)
             .lines()
             .takeWhile { line ->
-                !line.matches(Regex("^A\\d+ (OK|NO|BAD) .*")) && line.trimEnd() != ")"
+                !line.matches(imapTaggedResponseRegex) && line.trimEnd() != ")"
             }
             .joinToString("\n")
             .trim()
@@ -228,7 +232,7 @@ class ImapClient(
      * Detect MIME boundary from content. Looks for lines like "--boundary_string".
      */
     private fun detectMimeBoundary(content: String): String? {
-        val match = Regex("^--([\\w'()+,-./:=? ]+)\\s*$", RegexOption.MULTILINE).find(content)
+        val match = mimeBoundaryRegex.find(content)
         return match?.groupValues?.get(1)
     }
 
