@@ -267,8 +267,11 @@ class RemoteDataRepository(
     private suspend fun fetchInstanceModels(service: Service, instanceId: String) {
         when (service) {
             Service.Gemini -> fetchGeminiModelsForInstance(instanceId)
+
             Service.Anthropic -> fetchAnthropicModelsForInstance(instanceId)
+
             Service.Free -> { /* No model listing */ }
+
             else -> {
                 if (service.modelsUrl != null) {
                     fetchOpenAICompatibleModelsForInstance(service, instanceId)
