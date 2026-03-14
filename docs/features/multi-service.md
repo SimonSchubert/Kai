@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-03-14
 
-Kai supports 13 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 17 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -63,6 +63,10 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Cerebras | `cerebras` | Yes | OpenAI-compatible |
 | Ollama Cloud | `ollamacloud` | Yes | OpenAI-compatible |
 | LongCat | `longcat` | Yes | OpenAI-compatible (hardcoded models, no `/models` endpoint) |
+| Together AI | `together` | Yes | OpenAI-compatible |
+| Hugging Face | `huggingface` | Yes | OpenAI-compatible |
+| Venice AI | `venice` | Yes | OpenAI-compatible |
+| Moonshot AI | `moonshot` | Yes | OpenAI-compatible |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 
 ## Connection Validation

@@ -6,13 +6,17 @@ import kai.composeapp.generated.resources.ic_service_cerebras
 import kai.composeapp.generated.resources.ic_service_deepseek
 import kai.composeapp.generated.resources.ic_service_gemini
 import kai.composeapp.generated.resources.ic_service_groqcloud
+import kai.composeapp.generated.resources.ic_service_huggingface
 import kai.composeapp.generated.resources.ic_service_longcat
 import kai.composeapp.generated.resources.ic_service_mistral
+import kai.composeapp.generated.resources.ic_service_moonshot
 import kai.composeapp.generated.resources.ic_service_nvidia
 import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_openrouter
+import kai.composeapp.generated.resources.ic_service_together
+import kai.composeapp.generated.resources.ic_service_venice
 import kai.composeapp.generated.resources.ic_service_xai
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -34,6 +38,7 @@ sealed class Service(
     val defaultModels: List<ModelDefinition> = emptyList(),
     val chatUrl: String,
     val modelsUrl: String? = null,
+    val modelsResponseIsArray: Boolean = false,
     val filterActiveStrictly: Boolean = false,
     val sortModelsById: Boolean = false,
     val includeModelDate: Boolean = true,
@@ -222,6 +227,59 @@ sealed class Service(
         apiKeyUrlDisplay = "longcat.chat/platform",
     )
 
+    data object Together : Service(
+        id = "together",
+        displayName = "Together AI",
+        icon = Res.drawable.ic_service_together,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "together",
+        chatUrl = "https://api.together.xyz/v1/chat/completions",
+        modelsUrl = "https://api.together.xyz/v1/models",
+        modelsResponseIsArray = true,
+        apiKeyUrl = "https://api.together.xyz/settings/api-keys",
+        apiKeyUrlDisplay = "api.together.xyz/settings/api-keys",
+    )
+
+    data object HuggingFace : Service(
+        id = "huggingface",
+        displayName = "Hugging Face",
+        icon = Res.drawable.ic_service_huggingface,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "huggingface",
+        chatUrl = "https://router.huggingface.co/v1/chat/completions",
+        modelsUrl = "https://router.huggingface.co/v1/models",
+        apiKeyUrl = "https://huggingface.co/settings/tokens",
+        apiKeyUrlDisplay = "huggingface.co/settings/tokens",
+    )
+
+    data object Venice : Service(
+        id = "venice",
+        displayName = "Venice AI",
+        icon = Res.drawable.ic_service_venice,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "venice",
+        chatUrl = "https://api.venice.ai/api/v1/chat/completions",
+        modelsUrl = "https://api.venice.ai/api/v1/models",
+        apiKeyUrl = "https://venice.ai/settings/api",
+        apiKeyUrlDisplay = "venice.ai/settings/api",
+    )
+
+    data object Moonshot : Service(
+        id = "moonshot",
+        displayName = "Moonshot AI",
+        icon = Res.drawable.ic_service_moonshot,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "moonshot",
+        chatUrl = "https://api.moonshot.cn/v1/chat/completions",
+        modelsUrl = "https://api.moonshot.cn/v1/models",
+        apiKeyUrl = "https://platform.moonshot.cn/console/api-keys",
+        apiKeyUrlDisplay = "platform.moonshot.cn/console/api-keys",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -237,7 +295,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

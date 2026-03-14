@@ -334,11 +334,16 @@ class RemoteDataRepository(
         } else {
             response.data.filter { it.isActive != false }
         }
-        val filtered = if (service is Service.OpenAI) {
-            val chatPrefixes = listOf("gpt-", "o1", "o3", "o4", "chatgpt-")
-            activeFiltered.filter { model -> chatPrefixes.any { model.id.startsWith(it) } }
+        val typeFiltered = if (activeFiltered.any { it.type != null }) {
+            activeFiltered.filter { it.type == "chat" }
         } else {
             activeFiltered
+        }
+        val filtered = if (service is Service.OpenAI) {
+            val chatPrefixes = listOf("gpt-", "o1", "o3", "o4", "chatgpt-")
+            typeFiltered.filter { model -> chatPrefixes.any { model.id.startsWith(it) } }
+        } else {
+            typeFiltered
         }
         val unique = filtered.distinctBy { it.id }
         val sorted = if (service.sortModelsById) {

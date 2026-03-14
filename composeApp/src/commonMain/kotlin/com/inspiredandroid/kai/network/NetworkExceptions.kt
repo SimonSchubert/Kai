@@ -41,7 +41,7 @@ suspend fun Exception.toUserMessage(): String = try {
         is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException, is AnthropicInvalidApiKeyException -> getString(Res.string.error_invalid_api_key)
         is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException, is AnthropicRateLimitExceededException -> getString(Res.string.error_rate_limit_exceeded)
         is AnthropicOverloadedException -> getString(Res.string.error_rate_limit_exceeded)
-        is AnthropicInsufficientCreditsException -> message ?: getString(Res.string.error_generic)
+        is AnthropicInsufficientCreditsException, is OpenAICompatibleQuotaExhaustedException -> message ?: getString(Res.string.error_generic)
         is OpenAICompatibleConnectionException -> getString(Res.string.error_openai_compatible_connection)
         is OpenAICompatibleModelNotFoundException -> getString(Res.string.error_openai_compatible_model_not_found)
         is OpenAICompatibleEmptyResponseException -> getString(Res.string.error_empty_response)

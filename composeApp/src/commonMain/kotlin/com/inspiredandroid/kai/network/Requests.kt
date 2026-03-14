@@ -206,7 +206,12 @@ class Requests {
             apiKey?.let { bearerAuth(it) }
         }
         if (response.status.isSuccess()) {
-            Result.success(response.body())
+            if (service.modelsResponseIsArray) {
+                val models: List<OpenAICompatibleModelResponseDto.Model> = response.body()
+                Result.success(OpenAICompatibleModelResponseDto(data = models))
+            } else {
+                Result.success(response.body())
+            }
         } else {
             handleOpenAICompatibleError(service, credentials, response)
         }
@@ -359,14 +364,13 @@ class Requests {
             429 -> throw OpenAICompatibleRateLimitExceededException()
 
             else -> {
-                if (service == Service.XAI) {
-                    val responseBody = response.bodyAsText()
-                    if (responseBody.contains("exhausted", ignoreCase = true) ||
-                        responseBody.contains("credits", ignoreCase = true) ||
-                        responseBody.contains("spending limit", ignoreCase = true)
-                    ) {
-                        throw OpenAICompatibleQuotaExhaustedException()
-                    }
+                val responseBody = response.bodyAsText()
+                if (responseBody.contains("credit", ignoreCase = true) ||
+                    responseBody.contains("exhausted", ignoreCase = true) ||
+                    responseBody.contains("spending limit", ignoreCase = true) ||
+                    responseBody.contains("quota", ignoreCase = true)
+                ) {
+                    throw OpenAICompatibleQuotaExhaustedException()
                 }
                 throw OpenAICompatibleGenericException("${service.displayName} request failed: ${response.status}")
             }

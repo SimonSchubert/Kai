@@ -14,5 +14,6 @@ data class OpenAICompatibleModelResponseDto(
         val created: Long? = null,
         val context_window: Long? = null,
         val isSelected: Boolean = false,
+        val type: String? = null,
     )
 }

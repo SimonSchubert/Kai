@@ -46,7 +46,7 @@ winget install SimonSchubert.Kai
 
 - **Persistent memory** — Kai remembers important details across conversations and uses them automatically
 - **Customizable soul** — Define the AI's personality and behavior with an editable system prompt
-- **Multi-service fallback** — 11+ LLM providers with automatic failover
+- **Multi-service fallback** — 17 LLM providers with automatic failover
 - **Tool execution** — Web search, notifications, calendar events, shell commands, and more
 - **MCP server support** — Connect to remote tool servers via the Model Context Protocol
 - **Autonomous heartbeat** — Periodic self-checks that surface anything needing attention
@@ -134,12 +134,16 @@ winget install SimonSchubert.Kai
 | DeepSeek | https://www.deepseek.com |
 | Gemini | https://aistudio.google.com |
 | Groq | https://groq.com |
+| Hugging Face | https://huggingface.co |
 | LongCat | https://longcat.chat |
 | Mistral | https://mistral.ai |
+| Moonshot AI | https://moonshot.cn |
 | NVIDIA | https://developer.nvidia.com |
 | Ollama Cloud | https://ollama.com |
 | OpenAI | https://openai.com |
 | OpenRouter | https://openrouter.ai |
+| Together AI | https://together.ai |
+| Venice AI | https://venice.ai |
 | xAI | https://x.ai |
 | OpenAI-Compatible API | Ollama, LM Studio, etc. |
 
