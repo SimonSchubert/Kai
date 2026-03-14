@@ -1097,8 +1097,9 @@
 <p>When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: <strong>checking</strong>, <strong>connected</strong>, <strong>invalid key</strong>, <strong>quota exhausted</strong>, <strong>rate limited</strong>, or <strong>connection failed</strong>. Validation also runs for all services when the settings screen opens. Most services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. Services without a models endpoint (e.g. LongCat) skip the fetch and show as "connected" immediately; the real API key validation happens on first chat. On a successful connection, the available model list is refreshed.</p>
 <h2 id="model-selection">Model Selection</h2>
 <p>When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
-- OpenAI shows only chat-oriented models
+- OpenAI shows only chat-oriented models (prefix filter)
 - GroqCloud shows only models marked as active
+- Together AI filters by <code>type == "chat"</code> to exclude non-chat models (embedding, code, etc.)
 - Other services show all non-retired models</p>
 <h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
 <p>When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.</p>
