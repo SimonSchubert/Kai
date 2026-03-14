@@ -437,6 +437,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#conversation-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conversation Title
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -447,6 +458,17 @@
     <span class="md-ellipsis">
       
         Conversation Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat History
       
     </span>
   </a>
@@ -813,6 +835,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#conversation-title" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conversation Title
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -823,6 +856,17 @@
     <span class="md-ellipsis">
       
         Conversation Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat History
       
     </span>
   </a>
@@ -935,13 +979,15 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-11</p>
-<p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored.</p>
+<p><strong>Last verified:</strong> 2026-03-14</p>
+<p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
-<p>A persisted chat session containing an id (UUID), message list, and timestamps (<code>createdAt</code>, <code>updatedAt</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
+<p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code> or <code>heartbeat</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
 <h3 id="history">History</h3>
 <p>The in-memory message list that drives the UI. Each entry has a role: USER, ASSISTANT, TOOL, or TOOL_EXECUTING. History is the source of truth during a session; it is written to a Conversation on save.</p>
+<h3 id="conversation-title">Conversation Title</h3>
+<p>Auto-derived from the first user message when a conversation is saved for the first time. Truncated to ~50 characters at a word boundary. Once set, titles are not updated.</p>
 <h2 id="conversation-lifecycle">Conversation Lifecycle</h2>
 <ul>
 <li>On launch, the latest conversation (by <code>updatedAt</code>) is restored automatically</li>
@@ -949,9 +995,19 @@
 <li>A new conversation ID (UUID) is generated on first message send</li>
 <li>Conversations are saved after each assistant response</li>
 <li>Only the most recent 20 exchanges are persisted per conversation</li>
-<li>Only the current conversation is persisted — starting a new chat replaces the previous one</li>
+<li>Multiple conversations are persisted — starting a new chat preserves previous conversations</li>
 <li>Conversations are service-independent — switching services does not affect which conversation is loaded</li>
-<li>No UI exists to browse or switch between saved conversations</li>
+</ul>
+<h2 id="chat-history">Chat History</h2>
+<ul>
+<li>A history icon appears in the top bar when saved conversations exist</li>
+<li>Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)</li>
+<li>Each item shows the title and formatted date</li>
+<li>The active conversation is highlighted with the primary color</li>
+<li>Tapping an item loads that conversation and dismisses the sheet</li>
+<li>Each item has a delete button that removes the conversation from storage</li>
+<li>Deleting the active conversation clears the chat</li>
+<li>Heartbeat conversations are excluded from the history list (accessed via the heartbeat banner)</li>
 </ul>
 <h2 id="message-sending">Message Sending</h2>
 <ul>
@@ -990,14 +1046,16 @@
 <li>Conversations are stored in an encrypted file (<code>conversations.enc</code>)</li>
 <li>XOR-based encryption with a 32-byte random key stored in app settings</li>
 <li>The full conversation list is serialized as <code>ConversationsData</code> (versioned, currently v2)</li>
+<li>Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended</li>
 </ul>
 <h2 id="ui-elements">UI Elements</h2>
 <ul>
-<li><strong>Top bar</strong>: New Chat, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
+<li><strong>Top bar</strong>: New Chat, Chat History, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
 <li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry</li>
 <li><strong>Input</strong>: text field, send/stop button, attachment button, file chip</li>
 <li><strong>Empty state</strong>: animated logo + welcome message</li>
 <li><strong>Drag-and-drop</strong>: supported for file attachments</li>
+<li><strong>History sheet</strong>: bottom sheet listing saved conversations with title, date, active highlight, and delete</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
 <table>
@@ -1010,23 +1068,35 @@
 <tbody>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/Conversation.kt</code></td>
-<td>Conversation and message data classes</td>
+<td>Conversation and message data classes, type constants</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/ConversationStorage.kt</code></td>
-<td>Encryption, serialization, file I/O</td>
+<td>Encryption, serialization, file I/O, upsert logic</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
-<td>History management, conversation save/restore, message sending</td>
+<td>History management, conversation save/restore/delete, title derivation, message sending</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt</code></td>
-<td>Chat UI state, send/retry/regenerate/cancel actions</td>
+<td>Chat UI state, send/retry/regenerate/cancel/loadConversation/deleteConversation actions</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/ChatScreen.kt</code></td>
-<td>Chat UI composables</td>
+<td>Chat UI composables, history sheet and heartbeat banner wiring</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/ChatHistorySheet.kt</code></td>
+<td>Bottom sheet listing saved conversations</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt</code></td>
+<td>Dismissable banner for heartbeat notifications</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/TopBar.kt</code></td>
+<td>Top bar with new chat, history, TTS, and settings icons</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/composables/QuestionInput.kt</code></td>
