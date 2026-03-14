@@ -174,6 +174,25 @@ sealed class Service(
         apiKeyUrlDisplay = "ollama.com/settings/keys",
     )
 
+    data object LongCat : Service(
+        id = "longcat",
+        displayName = "LongCat",
+        requiresApiKey = true,
+        defaultModel = "LongCat-Flash-Chat",
+        settingsKeyPrefix = "longcat",
+        chatUrl = "https://api.longcat.chat/openai/v1/chat/completions",
+        modelsUrl = null,
+        defaultModels = listOf(
+            ModelDefinition(id = "LongCat-Flash-Chat", subtitle = "LongCat"),
+            ModelDefinition(id = "LongCat-Flash-Thinking", subtitle = "LongCat"),
+            ModelDefinition(id = "LongCat-Flash-Thinking-2601", subtitle = "LongCat"),
+            ModelDefinition(id = "LongCat-Flash-Lite", subtitle = "LongCat"),
+            ModelDefinition(id = "LongCat-Flash-Omni-2603", subtitle = "LongCat"),
+        ),
+        apiKeyUrl = "https://longcat.chat/platform",
+        apiKeyUrlDisplay = "longcat.chat/platform",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -188,7 +207,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

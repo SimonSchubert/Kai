@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-03-14
 
-Kai supports 12 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 13 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -62,11 +62,12 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | NVIDIA | `nvidia` | Yes | OpenAI-compatible |
 | Cerebras | `cerebras` | Yes | OpenAI-compatible |
 | Ollama Cloud | `ollamacloud` | Yes | OpenAI-compatible |
+| LongCat | `longcat` | Yes | OpenAI-compatible (hardcoded models, no `/models` endpoint) |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 
 ## Connection Validation
 
-When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. All services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. On a successful connection, the available model list is refreshed.
+When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. Most services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. Services without a models endpoint (e.g. LongCat) skip the fetch and show as "connected" immediately; the real API key validation happens on first chat. On a successful connection, the available model list is refreshed.
 
 ## Model Selection
 

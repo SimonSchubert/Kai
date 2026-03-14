@@ -269,7 +269,22 @@ class RemoteDataRepository(
             Service.Gemini -> fetchGeminiModelsForInstance(instanceId)
             Service.Anthropic -> fetchAnthropicModelsForInstance(instanceId)
             Service.Free -> { /* No model listing */ }
-            else -> fetchOpenAICompatibleModelsForInstance(service, instanceId)
+            else -> {
+                if (service.modelsUrl != null) {
+                    fetchOpenAICompatibleModelsForInstance(service, instanceId)
+                } else if (service.defaultModels.isNotEmpty()) {
+                    val selectedModelId = appSettings.getInstanceModelId(instanceId)
+                    val models = service.defaultModels.map {
+                        SettingsModel(
+                            id = it.id,
+                            subtitle = it.subtitle,
+                            descriptionRes = it.descriptionRes,
+                            isSelected = it.id == selectedModelId,
+                        )
+                    }
+                    updateModelsForInstance(instanceId, models)
+                }
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import kai.composeapp.generated.resources.ic_service_mistral
 import kai.composeapp.generated.resources.ic_service_nvidia
 import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
+import kai.composeapp.generated.resources.ic_service_longcat
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_openrouter
 import kai.composeapp.generated.resources.ic_service_xai
@@ -27,6 +28,7 @@ fun serviceIcon(serviceId: String): DrawableResource = when (serviceId) {
     "nvidia" -> Res.drawable.ic_service_nvidia
     "cerebras" -> Res.drawable.ic_service_cerebras
     "ollamacloud" -> Res.drawable.ic_service_ollamacloud
+    "longcat" -> Res.drawable.ic_service_longcat
     "openai-compatible" -> Res.drawable.ic_service_openai_compatible
     else -> Res.drawable.ic_service_openai_compatible
 }

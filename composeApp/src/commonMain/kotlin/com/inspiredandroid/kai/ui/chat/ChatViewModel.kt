@@ -212,6 +212,7 @@ class ChatViewModel(
     }
 
     fun refreshSettings() {
+        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.restoreLatestConversation()
         }
