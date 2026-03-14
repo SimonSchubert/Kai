@@ -31,8 +31,8 @@ android {
     // Include composeApp's assets (which contain compose resources)
     sourceSets {
         getByName("main") {
-            assets.srcDirs(
-                project(":composeApp").file("build/generated/assets/copyAndroidMainComposeResourcesToAndroidAssets"),
+            assets.directories.add(
+                project(":composeApp").file("build/generated/assets/copyAndroidMainComposeResourcesToAndroidAssets").path,
             )
         }
     }
@@ -46,8 +46,8 @@ dependencies {
     implementation(libs.tts)
     implementation(libs.tts.compose)
     testImplementation(libs.kotlinx.serialization.json)
-    testImplementation(compose.material3)
-    testImplementation(compose.components.resources)
+    testImplementation(libs.compose.material3)
+    testImplementation(libs.compose.components.resources)
 }
 
 // Ensure composeApp resources are generated before screenshot tests

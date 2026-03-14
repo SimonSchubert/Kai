@@ -99,9 +99,7 @@ internal fun BotMessage(
             contentDescription = stringResource(Res.string.bot_message_copy_content_description),
             onClick = {
                 clipboardManager.setText(
-                    annotatedString = buildAnnotatedString {
-                        append(message)
-                    },
+                    buildAnnotatedString { append(message) },
                 )
             },
         )

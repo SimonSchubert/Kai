@@ -222,9 +222,10 @@ class AppSettings(private val settings: Settings) {
      * Migrate per-service settings to per-instance settings.
      * For existing users, the first instance of each service type uses the service's
      * legacy key prefix. This copies those values to the new instance_ keys.
-     * Runs every time (idempotent) to catch instances added by repair migrations.
      */
     fun migrateInstanceSettingsIfNeeded() {
+        if (settings.getBoolean(KEY_INSTANCE_MIGRATION_COMPLETE, false)) return
+
         val instances = getConfiguredServiceInstances()
         for (instance in instances) {
             val service = Service.fromId(instance.serviceId)
@@ -247,6 +248,8 @@ class AppSettings(private val settings: Settings) {
                 }
             }
         }
+
+        settings.putBoolean(KEY_INSTANCE_MIGRATION_COMPLETE, true)
     }
 
     /**
@@ -316,6 +319,13 @@ class AppSettings(private val settings: Settings) {
     @OptIn(ExperimentalEncodingApi::class)
     fun setEncryptionKey(key: ByteArray) {
         settings.putString(KEY_ENCRYPTION_KEY, Base64.encode(key))
+    }
+
+    fun runMigrations(legacySettings: Settings?) {
+        migrateFromLegacyIfNeeded(legacySettings)
+        migrateConfiguredServicesIfNeeded()
+        migrateInstanceSettingsIfNeeded()
+        migrateBaseUrlsToV1PathIfNeeded()
     }
 
     // Migration from legacy unencrypted settings
@@ -836,6 +846,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
         const val KEY_UI_SCALE = "ui_scale"
         const val KEY_MCP_SERVERS = "mcp_servers"
+        const val KEY_INSTANCE_MIGRATION_COMPLETE = "instance_migration_complete_v1"
         const val KEY_BASE_URL_V1_MIGRATION_COMPLETE = "base_url_v1_migration_complete"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =

@@ -11,6 +11,10 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
@@ -58,7 +62,14 @@ class MainActivity : ComponentActivity() {
                 else -> LightColorScheme
             }
             val navController = rememberNavController()
-            val textToSpeech = rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
+            // Defer TTS initialization until after the first frame
+            var ttsReady by remember { mutableStateOf(false) }
+            LaunchedEffect(Unit) { ttsReady = true }
+            val textToSpeech = if (ttsReady) {
+                rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
+            } else {
+                null
+            }
             App(
                 navController = navController,
                 colorScheme = colorScheme,

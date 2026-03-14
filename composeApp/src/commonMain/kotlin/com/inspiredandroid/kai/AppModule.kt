@@ -23,13 +23,8 @@ val appModule = module {
     single<CalendarPermissionController> { CalendarPermissionController() }
     single<NotificationPermissionController> { NotificationPermissionController() }
     single<AppSettings> {
-        val secureSettings = createSecureSettings()
-        val legacySettings = createLegacySettings()
-        AppSettings(secureSettings).also {
-            it.migrateFromLegacyIfNeeded(legacySettings)
-            it.migrateConfiguredServicesIfNeeded()
-            it.migrateInstanceSettingsIfNeeded()
-            it.migrateBaseUrlsToV1PathIfNeeded()
+        AppSettings(createSecureSettings()).also {
+            it.runMigrations(createLegacySettings())
         }
     }
     single<Requests> {

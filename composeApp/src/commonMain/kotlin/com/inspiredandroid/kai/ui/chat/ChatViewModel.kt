@@ -49,8 +49,8 @@ class ChatViewModel(
     )
 
     init {
-        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
         viewModelScope.launch(backgroundDispatcher) {
+            _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
             dataRepository.loadConversations()
             dataRepository.restoreLatestConversation()
         }

@@ -210,7 +210,7 @@ fun ChatScreenContent(
                                         )
                                         if (history.fallbackServiceName != null) {
                                             androidx.compose.material3.Text(
-                                                text = stringResource(Res.string.fallback_answered_by, history.fallbackServiceName ?: ""),
+                                                text = stringResource(Res.string.fallback_answered_by, history.fallbackServiceName),
                                                 style = MaterialTheme.typography.labelSmall,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                                 modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),

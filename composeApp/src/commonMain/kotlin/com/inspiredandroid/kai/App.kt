@@ -52,9 +52,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import nl.marc_apps.tts.TextToSpeechInstance
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
-import org.koin.compose.KoinContext
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -67,7 +65,6 @@ object Home
 object Settings
 
 @Composable
-@Preview
 fun App(
     navController: NavHostController,
     colorScheme: ColorScheme = if (isSystemInDarkTheme()) {
@@ -91,9 +88,7 @@ fun App(
     // Reuse global Koin if already started (Android Application class),
     // otherwise create a new instance (iOS, Desktop, Wasm).
     if (isKoinStarted) {
-        KoinContext {
-            AppContent(navController, colorScheme, textToSpeech, onAppOpens)
-        }
+        AppContent(navController, colorScheme, textToSpeech, onAppOpens)
     } else {
         KoinApplication(
             application = {

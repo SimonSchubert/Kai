@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.inspiredandroid.kai.ui
 
 import androidx.compose.material3.ColorScheme

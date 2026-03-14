@@ -4,6 +4,10 @@
 package com.inspiredandroid.kai
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 import androidx.navigation.ExperimentalBrowserHistoryApi
@@ -19,7 +23,14 @@ import nl.marc_apps.tts.rememberTextToSpeechOrNull
 fun main() {
     val body = document.body ?: return
     ComposeViewport(body) {
-        val textToSpeech = rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
+        // Defer TTS initialization until after the first frame
+        var ttsReady by remember { mutableStateOf(false) }
+        LaunchedEffect(Unit) { ttsReady = true }
+        val textToSpeech = if (ttsReady) {
+            rememberTextToSpeechOrNull(TextToSpeechEngine.Google)
+        } else {
+            null
+        }
         val navController = rememberNavController()
         App(
             navController = navController,

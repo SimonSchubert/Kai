@@ -54,12 +54,9 @@ kotlin {
                 outputFileName = "composeApp.js"
                 devServer =
                     (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                        static =
-                            (static ?: mutableListOf()).apply {
-                                // Serve sources to debug inside browser
-                                add(rootDirPath)
-                                add(projectDirPath)
-                            }
+                        // Serve sources to debug inside browser
+                        static(rootDirPath)
+                        static(projectDirPath)
                     }
             }
         }
@@ -88,13 +85,13 @@ kotlin {
             implementation(libs.material)
         }
         commonMain.dependencies {
-            implementation(compose.material3)
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.materialIconsExtended)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.components.uiToolingPreview)
+            implementation(libs.compose.material.icons.extended)
 
             implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -136,7 +133,7 @@ kotlin {
             implementation(libs.coil.network.ktor3)
         }
         desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
+            implementation(libs.compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.cio)
         }
