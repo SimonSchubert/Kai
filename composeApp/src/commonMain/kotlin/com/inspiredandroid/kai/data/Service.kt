@@ -40,6 +40,7 @@ sealed class Service(
     val modelsUrl: String? = null,
     val modelsResponseIsArray: Boolean = false,
     val filterActiveStrictly: Boolean = false,
+    val filterByModelType: Boolean = false,
     val sortModelsById: Boolean = false,
     val includeModelDate: Boolean = true,
     val apiKeyUrl: String? = null,
@@ -237,6 +238,7 @@ sealed class Service(
         chatUrl = "https://api.together.xyz/v1/chat/completions",
         modelsUrl = "https://api.together.xyz/v1/models",
         modelsResponseIsArray = true,
+        filterByModelType = true,
         apiKeyUrl = "https://api.together.ai/settings/api-keys",
         apiKeyUrlDisplay = "api.together.ai/settings/api-keys",
     )

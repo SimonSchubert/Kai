@@ -334,7 +334,7 @@ class RemoteDataRepository(
         } else {
             response.data.filter { it.isActive != false }
         }
-        val typeFiltered = if (activeFiltered.any { it.type != null }) {
+        val typeFiltered = if (service.filterByModelType && activeFiltered.any { it.type != null }) {
             activeFiltered.filter { it.type == "chat" }
         } else {
             activeFiltered
