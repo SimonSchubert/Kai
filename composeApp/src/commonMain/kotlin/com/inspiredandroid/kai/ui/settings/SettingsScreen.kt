@@ -662,13 +662,23 @@ private fun ConfiguredServiceCardContent(
 
                 Spacer(Modifier.width(12.dp))
 
-                // Service name
-                Text(
-                    text = entry.service.displayName,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.weight(1f),
-                )
+                // Service name and model
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = entry.service.displayName,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    if (entry.selectedModel != null) {
+                        Text(
+                            text = entry.selectedModel.id,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    }
+                }
 
                 // Expand/collapse chevron
                 Icon(
@@ -1161,13 +1171,15 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            Text(
-                text = model.subtitle,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
+            if (model.subtitle.isNotEmpty()) {
+                Text(
+                    text = model.subtitle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+            }
             description?.let {
                 Text(
                     text = it,

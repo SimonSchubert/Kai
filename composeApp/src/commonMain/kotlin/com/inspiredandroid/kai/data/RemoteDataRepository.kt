@@ -192,16 +192,20 @@ class RemoteDataRepository(
 
     override fun getInstanceModels(instanceId: String, service: Service): StateFlow<List<SettingsModel>> = modelsByInstance.getOrPut(instanceId) {
         val selectedModelId = appSettings.getInstanceModelId(instanceId)
-        MutableStateFlow(
-            service.defaultModels.map {
-                SettingsModel(
-                    id = it.id,
-                    subtitle = it.subtitle,
-                    descriptionRes = it.descriptionRes,
-                    isSelected = it.id == selectedModelId,
-                )
-            },
-        )
+        val defaultSettingsModels = service.defaultModels.map {
+            SettingsModel(
+                id = it.id,
+                subtitle = it.subtitle,
+                descriptionRes = it.descriptionRes,
+                isSelected = it.id == selectedModelId,
+            )
+        }
+        val models = if (selectedModelId.isNotEmpty() && defaultSettingsModels.none { it.id == selectedModelId }) {
+            listOf(SettingsModel(id = selectedModelId, subtitle = "", isSelected = true)) + defaultSettingsModels
+        } else {
+            defaultSettingsModels
+        }
+        MutableStateFlow(models)
     }
 
     override fun updateInstanceSelectedModel(instanceId: String, service: Service, modelId: String) {
