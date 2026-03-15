@@ -133,7 +133,7 @@ kotlin {
             implementation(libs.coil.network.ktor3)
         }
         desktopMain.dependencies {
-            implementation(libs.compose.desktop.currentOs)
+            implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.cio)
         }
