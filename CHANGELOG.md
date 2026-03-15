@@ -1,3 +1,16 @@
+## v1.9.8 — 2026-03-15
+
+### Features
+- Add scroll to bottom button
+- Show selected model on service rows in settings
+
+### Fixes
+- Fix model filter
+
+### Improvements
+- Improve startup time and migrate deprecated APIs
+- Improve performance
+
 ## v1.9.7 — 2026-03-14
 
 ### Features

@@ -1,0 +1,4 @@
+Add scroll to bottom button
+Show selected model on service rows in settings
+Fix model filter
+Improve startup time and performance
