@@ -43,6 +43,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -268,6 +270,8 @@ fun ChatScreenContent(
                             exit = fadeOut() + scaleOut(),
                         ) {
                             SmallFloatingActionButton(
+                                modifier = Modifier
+                                    .pointerHoverIcon(PointerIcon.Hand),
                                 onClick = {
                                     componentScope.launch {
                                         val totalItems = listState.layoutInfo.totalItemsCount
