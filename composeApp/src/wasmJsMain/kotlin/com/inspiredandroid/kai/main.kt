@@ -22,6 +22,7 @@ import nl.marc_apps.tts.rememberTextToSpeechOrNull
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     val body = document.body ?: return
+    document.getElementById("loader")?.remove()
     ComposeViewport(body) {
         // Defer TTS initialization until after the first frame
         var ttsReady by remember { mutableStateOf(false) }
