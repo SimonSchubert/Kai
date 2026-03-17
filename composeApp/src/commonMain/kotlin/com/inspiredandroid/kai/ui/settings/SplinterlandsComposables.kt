@@ -274,7 +274,8 @@ private fun SplinterlandsServiceList(
                             imageVector = Icons.Default.KeyboardArrowDown,
                             contentDescription = stringResource(Res.string.settings_move_down),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )                    }
+                        )
+                    }
                 } else {
                     Spacer(Modifier.size(48.dp))
                 }

@@ -8,12 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
@@ -135,13 +136,13 @@ class SplinterlandsBattleRunner(
                 val result = runOneBattle(accountId, username, postingKey, jwt, cardDetails)
                 when (result.outcome) {
                     BattleOutcome.Win -> {
-                        updateStatus(accountId) { it.copy(wins = it.wins + 1) }
                         logBattle(accountId, username, true, result.opponent, result.mana, result.rulesets, result.battleId)
+                        updateStatus(accountId) { it.copy(wins = it.wins + 1) }
                     }
 
                     BattleOutcome.Loss -> {
-                        updateStatus(accountId) { it.copy(losses = it.losses + 1) }
                         logBattle(accountId, username, false, result.opponent, result.mana, result.rulesets, result.battleId)
+                        updateStatus(accountId) { it.copy(losses = it.losses + 1) }
                     }
 
                     BattleOutcome.Skip -> {
@@ -437,12 +438,14 @@ class SplinterlandsBattleRunner(
         maxMonsters: Int,
         rulesets: Set<String>,
         teamDeadlineMs: Long,
-    ): TeamSelection? = coroutineScope {
-        // Channel receives results in completion order (not priority order)
+    ): TeamSelection? {
         val resultChannel = Channel<ServiceResult>(instanceIds.size)
+        // Detached scope so we return immediately without waiting for slow services to cancel
+        val queryJob = SupervisorJob(currentCoroutineContext()[Job])
+        val queryScope = CoroutineScope(currentCoroutineContext() + queryJob)
 
         instanceIds.forEachIndexed { index, instanceId ->
-            launch {
+            queryScope.launch {
                 val modelName = store.getModelName(instanceId)
                 val result = try {
                     val llmTimeout = teamDeadlineMs - Clock.System.now().toEpochMilliseconds() - 5_000
@@ -468,8 +471,36 @@ class SplinterlandsBattleRunner(
         val serviceStatusUpdates = instanceIds.associateWith { LlmServiceStatus.Querying }.toMutableMap()
         val completedPriorities = mutableSetOf<Int>()
 
-        repeat(instanceIds.size) {
-            val result = resultChannel.receive()
+        var receivedCount = 0
+        while (receivedCount < instanceIds.size) {
+            // Stop waiting 10s before deadline if we already have a valid result
+            val timeUntilDeadline = teamDeadlineMs - Clock.System.now().toEpochMilliseconds()
+            val receiveTimeout = (timeUntilDeadline - 10_000).coerceAtLeast(100)
+
+            val result = withTimeoutOrNull(receiveTimeout) {
+                resultChannel.receive()
+            }
+
+            if (result == null) {
+                // Deadline approaching — use best available result
+                val best = bestResult
+                if (best != null) {
+                    serviceStatusUpdates[best.instanceId] = LlmServiceStatus.Selected
+                    updateStatus(accountId) {
+                        it.copy(
+                            llmPickedTeam = true,
+                            serviceStatuses = serviceStatusUpdates.toMap(),
+                            winningServiceName = best.modelName.ifBlank { best.instanceId },
+                        )
+                    }
+                    activity(accountId, "LLM: deadline, using ${best.modelName.ifBlank { best.instanceId }}")
+                    queryJob.cancel()
+                    return best.team
+                }
+                break
+            }
+
+            receivedCount++
             val status = if (result.team != null) {
                 LlmServiceStatus.ValidResponse
             } else if (result.pick != null) {
@@ -488,7 +519,6 @@ class SplinterlandsBattleRunner(
             }
 
             // If we have a valid result and all higher-priority services have finished, use it now.
-            // Returning from coroutineScope cancels remaining child coroutines.
             val best = bestResult
             if (best != null && (0 until best.priority).all { it in completedPriorities }) {
                 serviceStatusUpdates[best.instanceId] = LlmServiceStatus.Selected
@@ -500,11 +530,13 @@ class SplinterlandsBattleRunner(
                     )
                 }
                 activity(accountId, "LLM: selected ${best.modelName.ifBlank { best.instanceId }}")
-                return@coroutineScope best.team
+                queryJob.cancel()
+                return best.team
             }
         }
 
-        null
+        queryJob.cancel()
+        return null
     }
 
     @OptIn(ExperimentalTime::class)
