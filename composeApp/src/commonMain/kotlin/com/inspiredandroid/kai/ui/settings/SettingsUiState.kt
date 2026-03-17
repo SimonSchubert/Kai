@@ -5,6 +5,7 @@ import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
+import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.mcp.PopularMcpServer
@@ -101,6 +102,8 @@ data class SettingsUiState(
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val onExportSettings: () -> String = { "" },
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
+    val currentSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
+    val pastSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
 )
 
 @Immutable

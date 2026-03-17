@@ -120,6 +120,7 @@ import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.mcp.PopularMcpServer
+import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
@@ -138,6 +139,8 @@ import kai.composeapp.generated.resources.settings_api_key_optional_label
 import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
+import kai.composeapp.generated.resources.settings_sponsors_monthly
+import kai.composeapp.generated.resources.settings_sponsors_past
 import kai.composeapp.generated.resources.settings_business_partnerships_description
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
@@ -454,6 +457,8 @@ private fun FreeSettings(
     showFallbackToggle: Boolean = false,
     isFreeFallbackEnabled: Boolean = true,
     onToggleFreeFallback: (Boolean) -> Unit = {},
+    currentSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
+    pastSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -515,6 +520,26 @@ private fun FreeSettings(
                 Text(stringResource(Res.string.settings_become_sponsor))
             }
 
+            if (currentSponsors.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider(thickness = 0.5.dp)
+                Spacer(Modifier.height(16.dp))
+                SponsorList(
+                    title = stringResource(Res.string.settings_sponsors_monthly),
+                    sponsors = currentSponsors,
+                )
+            }
+
+            if (pastSponsors.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+                HorizontalDivider(thickness = 0.5.dp)
+                Spacer(Modifier.height(16.dp))
+                SponsorList(
+                    title = stringResource(Res.string.settings_sponsors_past),
+                    sponsors = pastSponsors,
+                )
+            }
+
             Spacer(Modifier.height(16.dp))
             HorizontalDivider(thickness = 0.5.dp)
             Spacer(Modifier.height(16.dp))
@@ -539,6 +564,53 @@ private fun FreeSettings(
                     .pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Text(stringResource(Res.string.settings_contact_sponsorship))
+            }
+        }
+    }
+}
+
+@Composable
+private fun SponsorList(
+    title: String,
+    sponsors: List<SponsorsResponseDto.Sponsor>,
+) {
+    val uriHandler = LocalUriHandler.current
+    Text(
+        text = title,
+        style = MaterialTheme.typography.labelLarge,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(Modifier.height(8.dp))
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        sponsors.forEach { sponsor ->
+            Column(
+                horizontalAlignment = CenterHorizontally,
+                modifier = Modifier
+                    .width(72.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { uriHandler.openUri("https://github.com/${sponsor.username}") }
+                    .pointerHoverIcon(PointerIcon.Hand)
+                    .padding(4.dp),
+            ) {
+                coil3.compose.AsyncImage(
+                    model = sponsor.avatar,
+                    contentDescription = sponsor.username,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = sponsor.username,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                )
             }
         }
     }
@@ -595,6 +667,8 @@ private fun ServicesContent(uiState: SettingsUiState) {
         showFallbackToggle = entries.isNotEmpty(),
         isFreeFallbackEnabled = uiState.isFreeFallbackEnabled,
         onToggleFreeFallback = uiState.onToggleFreeFallback,
+        currentSponsors = uiState.currentSponsors,
+        pastSponsors = uiState.pastSponsors,
     )
 
     // Add service bottom sheet

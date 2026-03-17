@@ -7,6 +7,14 @@ import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.httpClient
+import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
+import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.http.isSuccess
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
@@ -109,6 +117,31 @@ class SettingsViewModel(
             hasCheckedInitialConnection = true
             checkAllConnections()
             connectEnabledMcpServers()
+            fetchSponsors()
+        }
+    }
+
+    private fun fetchSponsors() {
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            try {
+                val client = httpClient {
+                    install(ContentNegotiation) {
+                        json(Json { ignoreUnknownKeys = true })
+                    }
+                }
+                val response = client.get("https://ghs.vercel.app/v3/sponsors/SimonSchubert")
+                if (response.status.isSuccess()) {
+                    val dto = response.body<SponsorsResponseDto>()
+                    _state.update {
+                        it.copy(
+                            currentSponsors = dto.sponsors.current,
+                            pastSponsors = dto.sponsors.past,
+                        )
+                    }
+                }
+            } catch (_: Exception) {
+                // Silently ignore - sponsors are non-critical
+            }
         }
     }
 
