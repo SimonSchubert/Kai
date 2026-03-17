@@ -7,7 +7,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -120,18 +119,12 @@ class SplinterlandsBattleRunner(
         if (postingKey.isBlank()) throw RuntimeException("No posting key configured")
         val username = account.username.lowercase()
 
-        log("[$username] Starting battle loop")
-
         // Login
         updatePhase(accountId, BattlePhase.LoggingIn)
-        log("[$username] Logging in...")
         val jwt = api.login(username, postingKey)
-        log("[$username] Login successful")
 
         // Fetch card details
-        log("[$username] Fetching card details...")
         val cardDetails = api.getCardDetails()
-        log("[$username] Got ${cardDetails.size} card details")
 
         var consecutiveErrors = 0
         var battlesPlayed = 0
@@ -139,28 +132,23 @@ class SplinterlandsBattleRunner(
         while (true) {
             try {
                 battlesPlayed++
-                log("[$username] Starting battle $battlesPlayed")
                 val result = runOneBattle(accountId, username, postingKey, jwt, cardDetails)
                 when (result.outcome) {
                     BattleOutcome.Win -> {
-                        log("[$username] WIN vs ${result.opponent} (${result.mana}m, ${result.rulesets})")
                         updateStatus(accountId) { it.copy(wins = it.wins + 1) }
                         logBattle(accountId, username, true, result.opponent, result.mana, result.rulesets, result.battleId)
                     }
 
                     BattleOutcome.Loss -> {
-                        log("[$username] LOSS vs ${result.opponent} (${result.mana}m, ${result.rulesets})")
                         updateStatus(accountId) { it.copy(losses = it.losses + 1) }
                         logBattle(accountId, username, false, result.opponent, result.mana, result.rulesets, result.battleId)
                     }
 
                     BattleOutcome.Skip -> {
-                        log("[$username] SKIP (no valid team or match error)")
                         updateStatus(accountId) { it.copy(skips = it.skips + 1) }
                     }
 
                     BattleOutcome.NoEnergy -> {
-                        log("[$username] No energy remaining, stopping")
                         updateStatus(accountId) { it.copy(phase = BattlePhase.Finished, isRunning = false) }
                         return
                     }
@@ -169,7 +157,6 @@ class SplinterlandsBattleRunner(
 
                 // Check graceful stop after battle completes
                 if (accountId in stopRequested) {
-                    log("[$username] Stop requested, finishing after battle $battlesPlayed")
                     stopRequested.remove(accountId)
                     updateStatus(accountId) { it.copy(phase = BattlePhase.Finished, isRunning = false, isStopping = false) }
                     return
@@ -184,7 +171,6 @@ class SplinterlandsBattleRunner(
                 throw e
             } catch (e: Exception) {
                 consecutiveErrors++
-                log("[$username] Error ($consecutiveErrors/$MAX_CONSECUTIVE_ERRORS): ${e.message}")
                 updateStatus(accountId) { it.copy(errors = it.errors + 1, errorMessage = e.message ?: "") }
                 if (consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
                     updateStatus(accountId) { it.copy(phase = BattlePhase.Error, isRunning = false, errorMessage = "Too many consecutive errors") }
@@ -195,7 +181,6 @@ class SplinterlandsBattleRunner(
             }
 
             updatePhase(accountId, BattlePhase.Idle)
-            log("[$username] Sleeping ${SLEEP_BETWEEN_BATTLES_MS / 1000}s before next battle...")
             delay(SLEEP_BETWEEN_BATTLES_MS)
         }
     }
@@ -225,16 +210,13 @@ class SplinterlandsBattleRunner(
 
         // Check energy
         updatePhase(accountId, BattlePhase.CheckingEnergy)
-        log("[$username] Checking energy...")
         val energy = api.getEnergyPublic(username)
-        log("[$username] Energy: $energy")
         activity(accountId, "Energy: $energy")
         updateStatus(accountId) { it.copy(energy = energy) }
         if (energy <= 0) return BattleResult(BattleOutcome.NoEnergy)
 
         // Check outstanding match
         updatePhase(accountId, BattlePhase.FindingMatch)
-        log("[$username] Checking for outstanding match...")
         var existing = api.getOutstandingMatch(username, jwt)
 
         // Ignore non-ranked matches
@@ -247,7 +229,6 @@ class SplinterlandsBattleRunner(
             val mana = existing["mana_cap"]?.jsonPrimitive?.intOrNull ?: 0
             val rules = existing["ruleset"]?.jsonPrimitive?.contentOrNull ?: ""
             val trxId = existing["id"]?.jsonPrimitive?.contentOrNull ?: existing["trx_id"]?.jsonPrimitive?.contentOrNull ?: ""
-            log("[$username] Resuming existing match, waiting for result...")
             updateStatus(accountId) { it.copy(currentMana = mana, currentRulesets = rules) }
             updatePhase(accountId, BattlePhase.WaitingForResult)
             val battle = api.getBattleResult(trxId, jwt, timeoutMs = 120_000)
@@ -260,15 +241,12 @@ class SplinterlandsBattleRunner(
 
         val matchInfo: JsonObject
         if (existing != null && existing["opponent"]?.jsonPrimitive?.contentOrNull?.isNotBlank() == true) {
-            log("[$username] Resuming existing match...")
             matchInfo = existing
         } else if (existing != null) {
-            log("[$username] Match pending, waiting for opponent...")
             updatePhase(accountId, BattlePhase.WaitingForOpponent)
             matchInfo = api.pollForMatch(username, jwt, timeoutMs = 180_000)
         } else {
             updatePhase(accountId, BattlePhase.FindingMatch)
-            log("[$username] Submitting find_match transaction...")
             val nonce = generateSecret()
             val findData = """{"match_type":"Wild Ranked","app":"$APP_VERSION","n":"$nonce"}"""
             val signedTx = buildSignedCustomJson(username, postingKey, "sm_find_match", findData)
@@ -276,12 +254,10 @@ class SplinterlandsBattleRunner(
 
             if (result["success"]?.jsonPrimitive?.content?.toBoolean() != true) {
                 val error = result["error"]?.jsonPrimitive?.content ?: ""
-                log("[$username] find_match failed: $error")
                 if ("energy" in error.lowercase()) return BattleResult(BattleOutcome.NoEnergy)
                 return BattleResult(BattleOutcome.Skip)
             }
 
-            log("[$username] Waiting for opponent...")
             updatePhase(accountId, BattlePhase.WaitingForOpponent)
             matchInfo = api.pollForMatch(username, jwt, timeoutMs = 180_000)
         }
@@ -301,7 +277,6 @@ class SplinterlandsBattleRunner(
             Clock.System.now().toEpochMilliseconds() + TEAM_DEADLINE_MS
         }
         val deadlineSec = (teamDeadlineMs - Clock.System.now().toEpochMilliseconds()) / 1000
-        log("[$username] Matched vs $opponent (${matchMana}m, $matchRulesets)")
         activity(accountId, "Matched vs $opponent ($matchMana mana, $matchRulesets)")
         activity(accountId, "Team deadline: ${deadlineSec}s${if (expirationStr != null) " (from server)" else " (fallback)"}")
         updateStatus(accountId) {
@@ -316,21 +291,16 @@ class SplinterlandsBattleRunner(
 
         // Fetch collection
         updatePhase(accountId, BattlePhase.FetchingCollection)
-        log("[$username] Fetching card collection...")
         val cards = api.getCollection(username, jwt)
-        log("[$username] Got ${cards.size} cards")
         activity(accountId, "Collection: ${cards.size} cards")
 
         // Pick team
         updatePhase(accountId, BattlePhase.PickingTeam)
-        log("[$username] Picking team with LLM...")
         val team = pickTeamWithLlm(accountId, cards, matchInfo, cardDetails, teamDeadlineMs)
         if (team == null) {
-            log("[$username] No valid team found, skipping")
             activity(accountId, "No valid team found")
             return BattleResult(BattleOutcome.Skip, opponent, matchMana, matchRulesets)
         }
-        log("[$username] Team picked: summoner=${team.summonerUid}, ${team.monsterUids.size} monsters")
         activity(accountId, "Team picked (${team.monsterUids.size} monsters)")
 
         val secret = generateSecret()
@@ -338,7 +308,6 @@ class SplinterlandsBattleRunner(
 
         // Submit team
         updatePhase(accountId, BattlePhase.SubmittingTeam)
-        log("[$username] Submitting team (hash=$teamHash)...")
         val nonce = generateSecret()
         val monstersJson = team.monsterUids.joinToString(",") { "\"$it\"" }
         val allyColorJson = if (team.allyColor != null) "\"${team.allyColor}\"" else "null"
@@ -348,18 +317,14 @@ class SplinterlandsBattleRunner(
 
         if (submitResult["success"]?.jsonPrimitive?.content?.toBoolean() != true) {
             val error = submitResult["error"]?.jsonPrimitive?.content ?: ""
-            log("[$username] Submit result: $error")
             if ("already been submitted" !in error) {
                 return BattleResult(BattleOutcome.Loss, opponent, matchMana, matchRulesets)
             }
-        } else {
-            log("[$username] Team submitted successfully")
         }
         activity(accountId, "Team submitted")
 
         // Wait for result
         updatePhase(accountId, BattlePhase.WaitingForResult)
-        log("[$username] Waiting for battle result...")
         val battle = api.getBattleResult(trxId, jwt, timeoutMs = 120_000)
         val winner = battle["winner"]?.jsonPrimitive?.contentOrNull
         val opponentName = extractOpponentName(battle, username).ifBlank { opponent }
@@ -430,9 +395,7 @@ class SplinterlandsBattleRunner(
         // Query all configured services in parallel
         val instanceIds = store.getInstanceIds()
         if (instanceIds.isNotEmpty()) {
-            log("  LLM picker: ${dedupSummoners.size} summoners, ${dedupMonsters.size} monsters, ${manaCap}m, rulesets=$rulesets")
             activity(accountId, "LLM: ${dedupSummoners.size} summoners, ${dedupMonsters.size} monsters")
-            log("  LLM: querying ${instanceIds.size} services in parallel")
             activity(accountId, "LLM: querying ${instanceIds.size} services")
 
             val prompt = buildLlmPrompt(dedupSummoners, dedupMonsters, matchInfo, maxMonsters)
@@ -452,15 +415,11 @@ class SplinterlandsBattleRunner(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                log("  LLM error: ${e.message}")
                 activity(accountId, "LLM error: ${e.message}")
             }
-        } else {
-            log("  No LLM instances configured, using simple picker")
         }
 
         // Fallback to simple picker
-        log("  Using simple greedy picker")
         activity(accountId, "Fallback to auto picker")
         updateStatus(accountId) { it.copy(llmPickedTeam = false) }
         return pickTeam(cards, matchInfo, cardDetails)
@@ -488,10 +447,8 @@ class SplinterlandsBattleRunner(
                 val result = try {
                     val llmTimeout = teamDeadlineMs - Clock.System.now().toEpochMilliseconds() - 5_000
                     if (llmTimeout < 10_000) {
-                        log("  LLM [$instanceId]: deadline too close, skipping")
                         ServiceResult(index, instanceId, null, modelName, null, listOf("deadline"))
                     } else {
-                        log("  LLM [$instanceId]: asking (timeout ${llmTimeout / 1000}s)...")
                         activity(accountId, "LLM $instanceId: querying (timeout ${llmTimeout / 1000}s)")
                         val response = dataRepository.askSilentlyWithInstance(instanceId, fullPrompt, timeoutMs = llmTimeout.coerceAtLeast(10_000))
                         processServiceResponse(instanceId, index, modelName, accountId, response, prompt, dedupSummoners, dedupMonsters, manaCap, maxMonsters, rulesets)
@@ -499,7 +456,6 @@ class SplinterlandsBattleRunner(
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
-                    log("  LLM [$instanceId]: error: ${e.message}")
                     activity(accountId, "LLM $instanceId: error: ${e.message}")
                     ServiceResult(index, instanceId, null, modelName, null, listOf(e.message ?: "error"))
                 }
@@ -543,7 +499,6 @@ class SplinterlandsBattleRunner(
                         winningServiceName = best.modelName.ifBlank { best.instanceId },
                     )
                 }
-                log("  LLM: winner is ${best.instanceId} (priority ${best.priority}), cancelling remaining")
                 activity(accountId, "LLM: selected ${best.modelName.ifBlank { best.instanceId }}")
                 return@coroutineScope best.team
             }
@@ -574,14 +529,11 @@ class SplinterlandsBattleRunner(
 
     private suspend fun tryCancelMatch(username: String, postingKey: String, jwt: String) {
         try {
-            log("[$username] Cancelling match...")
             val nonce = generateSecret()
             val cancelData = """{"match_type":"Ranked","app":"$APP_VERSION","n":"$nonce"}"""
             val signedTx = buildSignedCustomJson(username, postingKey, "sm_cancel_match", cancelData)
             api.postBattleTx(signedTx, jwt)
-            log("[$username] Match cancelled")
-        } catch (e: Exception) {
-            log("[$username] Cancel match failed: ${e.message}")
+        } catch (_: Exception) {
         }
     }
 
@@ -597,9 +549,6 @@ class SplinterlandsBattleRunner(
 
     private fun updatePhase(accountId: String, phase: BattlePhase) {
         updateStatus(accountId) { it.copy(phase = phase) }
-    }
-
-    private fun log(@Suppress("UNUSED_PARAMETER") message: String) {
     }
 
     private data class ServiceResult(
@@ -625,23 +574,19 @@ class SplinterlandsBattleRunner(
         rulesets: Set<String>,
     ): ServiceResult {
         if (response.isBlank()) {
-            log("  LLM [$instanceId]: empty response")
             activity(accountId, "LLM $instanceId: empty response")
             return ServiceResult(index, instanceId, null, modelName, null, listOf("empty response"))
         }
-        log("  LLM [$instanceId]: got response (${response.length} chars)")
         activity(accountId, "LLM $instanceId: response (${response.length} chars)")
 
         val pick = parseLlmPick(response, prompt.idMap)
         if (pick == null) {
-            log("  LLM [$instanceId]: could not parse response")
             activity(accountId, "LLM $instanceId: parse failed")
             return ServiceResult(index, instanceId, null, modelName, null, listOf("parse failed"))
         }
 
         val issues = validateTeam(pick.summonerUid, pick.monsterUids, dedupSummoners, dedupMonsters, manaCap, maxMonsters, rulesets)
         if (issues.isEmpty()) {
-            log("  LLM [$instanceId]: valid team")
             activity(accountId, "LLM $instanceId: valid team")
             val summonerEntry = dedupSummoners.find { it.uid == pick.summonerUid }
             val allyColor = determineDragonAllyColor(summonerEntry?.color, pick.monsterUids, dedupMonsters.associateBy { it.uid })
@@ -649,15 +594,12 @@ class SplinterlandsBattleRunner(
         }
 
         // Try silent fixes
-        log("  LLM [$instanceId]: team invalid (${issues.size} issues), applying fixes")
         activity(accountId, "LLM $instanceId: invalid - ${issues.joinToString("; ")}")
         val fixed = applyFixes(pick.summonerUid, pick.monsterUids, dedupSummoners, dedupMonsters, manaCap, maxMonsters, rulesets)
         if (fixed != null) {
-            log("  LLM [$instanceId]: fixes applied successfully")
             activity(accountId, "LLM $instanceId: fixed")
             return ServiceResult(index, instanceId, fixed, modelName, pick, emptyList())
         }
-        log("  LLM [$instanceId]: fixes failed")
         return ServiceResult(index, instanceId, null, modelName, pick, issues)
     }
 
