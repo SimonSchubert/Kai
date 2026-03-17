@@ -206,3 +206,10 @@ This project is open-source and maintained by a single developer. If you find th
 
 - Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
 - Mistral: https://mistral.ai/
+
+
+## Usage
+
+```python
+# Usage examples
+```
