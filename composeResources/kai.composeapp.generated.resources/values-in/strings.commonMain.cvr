@@ -117,6 +117,7 @@ string|settings_status_error_quota_exhausted|S3VvdGEgaGFiaXM=
 string|settings_status_error_rate_limited|QmF0YXMga2VjZXBhdGFuIHRlcmNhcGFp
 string|settings_status_error|S29uZWtzaSBnYWdhbA==
 string|settings_tab_general|VW11bQ==
+string|settings_tab_integrations|SW50ZWdyYXNp
 string|settings_tab_services|TGF5YW5hbg==
 string|settings_tab_tools|QWxhdA==
 string|settings_tools_description|QWt0aWZrYW4gYXRhdSBub25ha3RpZmthbiBhbGF0IEFJIHlhbmcgZGFwYXQgbWVsYWt1a2FuIHRpbmRha2FuIGF0YXMgbmFtYSBBbmRhLg==
