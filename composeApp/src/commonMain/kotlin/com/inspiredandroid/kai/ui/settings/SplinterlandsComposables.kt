@@ -20,6 +20,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
@@ -57,6 +59,10 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.splinterlands.BattleLogEntry
 import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.settings_move_down
+import kai.composeapp.generated.resources.settings_move_up
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun SplinterlandsSection(
@@ -244,12 +250,16 @@ private fun SplinterlandsServiceList(
                             reordered[index] = reordered[index - 1].also { reordered[index - 1] = reordered[index] }
                             onReorderServices(reordered)
                         },
-                        modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     ) {
-                        Text("\u2191", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowUp,
+                            contentDescription = stringResource(Res.string.settings_move_up),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
                     }
                 } else {
-                    Spacer(Modifier.size(24.dp))
+                    Spacer(Modifier.size(48.dp))
                 }
                 if (index < instanceIds.size - 1) {
                     IconButton(
@@ -258,22 +268,24 @@ private fun SplinterlandsServiceList(
                             reordered[index] = reordered[index + 1].also { reordered[index + 1] = reordered[index] }
                             onReorderServices(reordered)
                         },
-                        modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                     ) {
-                        Text("\u2193", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    }
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowDown,
+                            contentDescription = stringResource(Res.string.settings_move_down),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )                    }
                 } else {
-                    Spacer(Modifier.size(24.dp))
+                    Spacer(Modifier.size(48.dp))
                 }
                 // Remove button
                 IconButton(
                     onClick = { onRemoveService(id) },
-                    modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Remove",
-                        modifier = Modifier.size(16.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
@@ -698,12 +710,11 @@ private fun SplinterlandsAccountRow(
             var showConfirm by remember { mutableStateOf(false) }
             IconButton(
                 onClick = { showConfirm = true },
-                modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand),
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = "Remove",
-                    modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
