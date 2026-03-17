@@ -356,6 +356,7 @@ class FakeDataRepository : DataRepository {
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = emptyList()
 
     override suspend fun askSilently(question: String): String = ""
+    override suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long): String = ""
     override suspend fun addAssistantMessage(content: String) {}
 
     override val hasUnreadHeartbeat: MutableStateFlow<Boolean> = MutableStateFlow(false)

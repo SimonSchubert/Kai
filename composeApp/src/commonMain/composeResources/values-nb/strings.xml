@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Generelt</string>
     <string name="settings_tab_services">Tjenester</string>
     <string name="settings_tab_tools">Verktøy</string>
+    <string name="settings_tab_integrations">Integrasjoner</string>
     <string name="tool_executing_content_description">Verktøy kjører</string>
     <string name="privacy_agree_prefix">Ved å bruke tjenesten godtar du </string>
     <string name="privacy_policy">Personvernerklæringen</string>

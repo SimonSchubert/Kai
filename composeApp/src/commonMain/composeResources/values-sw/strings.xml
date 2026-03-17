@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Hakuna zana zinazopatikana kwenye jukwaa hili.</string>
     <string name="settings_tab_services">Huduma</string>
     <string name="settings_tab_tools">Zana</string>
+    <string name="settings_tab_integrations">Muunganisho</string>
     <string name="tool_executing_content_description">Zana inatekelezwa</string>
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>

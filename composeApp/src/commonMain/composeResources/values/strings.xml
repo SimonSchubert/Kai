@@ -52,6 +52,7 @@
     <string name="settings_tab_general">General</string>
     <string name="settings_tab_services">Services</string>
     <string name="settings_tab_tools">Tools</string>
+    <string name="settings_tab_integrations">Integrations</string>
     <string name="tool_executing_content_description">Tool executing</string>
     <string name="waiting_thinking">Thinking…</string>
     <string name="waiting_working">Working…</string>

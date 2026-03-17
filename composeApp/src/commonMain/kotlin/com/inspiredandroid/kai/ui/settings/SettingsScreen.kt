@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -33,6 +34,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
@@ -40,14 +42,18 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Replay
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -84,6 +90,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalUriHandler
@@ -93,6 +100,8 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
@@ -213,6 +222,7 @@ import kai.composeapp.generated.resources.settings_status_error_invalid_key
 import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kai.composeapp.generated.resources.settings_tab_general
+import kai.composeapp.generated.resources.settings_tab_integrations
 import kai.composeapp.generated.resources.settings_tab_services
 import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
@@ -287,6 +297,7 @@ fun SettingsScreenContent(
             val maxContentWidth = when (uiState.currentTab) {
                 SettingsTab.Tools -> 900.dp
                 SettingsTab.General -> 900.dp
+                SettingsTab.Integrations -> 900.dp
                 else -> 500.dp
             }
             Column(
@@ -300,6 +311,10 @@ fun SettingsScreenContent(
 
                     SettingsTab.Services -> {
                         ServicesContent(uiState = uiState)
+                    }
+
+                    SettingsTab.Integrations -> {
+                        IntegrationsContent()
                     }
 
                     SettingsTab.Tools -> {
@@ -350,34 +365,36 @@ private fun SettingsTabSelector(
     currentTab: SettingsTab,
     onSelectTab: (SettingsTab) -> Unit,
 ) {
-    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
-    val count = 3
-    SingleChoiceSegmentedButtonRow(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+    val tabs = SettingsTab.entries
+    val selectedIndex = tabs.indexOf(currentTab)
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center,
     ) {
-        SegmentedButton(
-            selected = currentTab == SettingsTab.General,
-            onClick = { onSelectTab(SettingsTab.General) },
-            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+        androidx.compose.material3.PrimaryScrollableTabRow(
+            selectedTabIndex = selectedIndex,
+            modifier = Modifier.widthIn(max = 600.dp).padding(vertical = 8.dp),
+            containerColor = Color.Transparent,
+            edgePadding = 0.dp,
+            divider = {},
         ) {
-            Text(stringResource(Res.string.settings_tab_general))
-        }
-        SegmentedButton(
-            selected = currentTab == SettingsTab.Services,
-            onClick = { onSelectTab(SettingsTab.Services) },
-            shape = SegmentedButtonDefaults.itemShape(index = 1, count = count),
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-        ) {
-            Text(stringResource(Res.string.settings_tab_services))
-        }
-        SegmentedButton(
-            selected = currentTab == SettingsTab.Tools,
-            onClick = { onSelectTab(SettingsTab.Tools) },
-            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-        ) {
-            Text(stringResource(Res.string.settings_tab_tools))
+            tabs.forEach { tab ->
+                androidx.compose.material3.Tab(
+                    selected = currentTab == tab,
+                    onClick = { onSelectTab(tab) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    text = {
+                        Text(
+                            text = when (tab) {
+                                SettingsTab.General -> stringResource(Res.string.settings_tab_general)
+                                SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
+                                SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
+                                SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
+                            },
+                        )
+                    },
+                )
+            }
         }
     }
 }
@@ -1379,6 +1396,61 @@ private fun GeneralContent(uiState: SettingsUiState) {
 }
 
 @Composable
+private fun IntegrationsContent(
+    splinterlandsViewModel: SplinterlandsViewModel = koinViewModel(),
+) {
+    val splinterlandsState by splinterlandsViewModel.state.collectAsState()
+    LaunchedEffect(Unit) { splinterlandsViewModel.onScreenVisible() }
+
+    val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        if (splinterlandsState.showSplinterlandsSection) {
+            SettingsCard {
+                SplinterlandsSection(
+                    isEnabled = splinterlandsState.isSplinterlandsEnabled,
+                    accounts = splinterlandsState.splinterlandsAccounts,
+                    instanceIds = splinterlandsState.splinterlandsInstanceIds,
+                    addStatus = splinterlandsState.splinterlandsAddStatus,
+                    battleLog = splinterlandsState.splinterlandsBattleLog,
+                    availableServices = splinterlandsState.splinterlandsAvailableServices,
+                    onToggle = splinterlandsState.onToggleSplinterlands,
+                    onTestAndAddAccount = splinterlandsState.onTestAndAddSplinterlandsAccount,
+                    onRemoveAccount = splinterlandsState.onRemoveSplinterlandsAccount,
+                    onAddService = splinterlandsState.onAddSplinterlandsService,
+                    onRemoveService = splinterlandsState.onRemoveSplinterlandsService,
+                    onReorderServices = splinterlandsState.onReorderSplinterlandsServices,
+                    onStartBattle = splinterlandsState.onStartSplinterlandsBattle,
+                    onStopBattle = splinterlandsState.onStopSplinterlandsBattle,
+                    onClearBattleLog = splinterlandsState.onClearSplinterlandsBattleLog,
+                )
+            }
+        }
+        SettingsCard {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Request an Integration",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "Have an idea for an automation or integration? Let us know by opening a GitHub issue.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(Modifier.height(8.dp))
+                OutlinedButton(
+                    onClick = { uriHandler.openUri("https://github.com/SimonSchubert/Kai/issues/new?labels=integration-request&title=Integration+request:+") },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Text("Open GitHub Issue")
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun ExportImportSection(
     onExportSettings: () -> String,
     onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult,
@@ -1586,6 +1658,7 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
     ImportSection.SCHEDULING -> stringResource(Res.string.settings_import_section_scheduling)
     ImportSection.HEARTBEAT -> stringResource(Res.string.settings_import_section_heartbeat)
     ImportSection.EMAIL -> stringResource(Res.string.settings_import_section_email)
+    ImportSection.SPLINTERLANDS -> "Splinterlands"
     ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
     ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)
 }

@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">لا توجد أدوات متاحة على هذه المنصة.</string>
     <string name="settings_tab_services">الخدمات</string>
     <string name="settings_tab_tools">الأدوات</string>
+    <string name="settings_tab_integrations">التكاملات</string>
     <string name="tool_executing_content_description">الأداة قيد التنفيذ</string>
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>

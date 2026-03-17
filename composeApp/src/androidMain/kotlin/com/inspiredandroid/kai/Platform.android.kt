@@ -73,6 +73,8 @@ actual val platformName: String = "Android"
 
 actual val isEmailSupported: Boolean = true
 
+actual val isSplinterlandsSupported: Boolean = true
+
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {
     if (!mimeType.startsWith("image/")) return bytes
     return try {

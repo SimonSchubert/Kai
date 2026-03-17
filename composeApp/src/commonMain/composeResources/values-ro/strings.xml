@@ -41,6 +41,7 @@
     <string name="settings_tab_general">General</string>
     <string name="settings_tab_services">Servicii</string>
     <string name="settings_tab_tools">Instrumente</string>
+    <string name="settings_tab_integrations">Integrări</string>
     <string name="tool_executing_content_description">Instrumentul se execută</string>
     <string name="privacy_agree_prefix">Prin utilizarea serviciului, sunteți de acord cu </string>
     <string name="privacy_policy">Politica de confidențialitate</string>

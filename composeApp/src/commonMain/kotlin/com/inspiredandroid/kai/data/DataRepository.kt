@@ -109,6 +109,7 @@ interface DataRepository {
 
     // Silent ask (no chat history update, used for heartbeats)
     suspend fun askSilently(question: String): String
+    suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long = 0L): String
     suspend fun addAssistantMessage(content: String)
 
     // Heartbeat notification

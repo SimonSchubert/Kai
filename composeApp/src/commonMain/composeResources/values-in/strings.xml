@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Tidak ada alat yang tersedia di platform ini.</string>
     <string name="settings_tab_services">Layanan</string>
     <string name="settings_tab_tools">Alat</string>
+    <string name="settings_tab_integrations">Integrasi</string>
     <string name="tool_executing_content_description">Alat sedang berjalan</string>
     <string name="privacy_agree_prefix">Dengan menggunakan layanan, Anda menyetujui </string>
     <string name="privacy_policy">Kebijakan Privasi</string>

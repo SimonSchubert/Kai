@@ -44,6 +44,8 @@ expect val platformName: String
 
 expect val isEmailSupported: Boolean
 
+expect val isSplinterlandsSupported: Boolean
+
 expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray
 
 expect fun openUrl(url: String): Boolean

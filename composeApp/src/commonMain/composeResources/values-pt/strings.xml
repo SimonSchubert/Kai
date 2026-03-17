@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Nenhuma ferramenta disponível nesta plataforma.</string>
     <string name="settings_tab_services">Serviços</string>
     <string name="settings_tab_tools">Ferramentas</string>
+    <string name="settings_tab_integrations">Integrações</string>
     <string name="tool_executing_content_description">Ferramenta em execução</string>
     <string name="privacy_agree_prefix">Ao usar o serviço, você concorda com a </string>
     <string name="privacy_policy">Política de Privacidade</string>

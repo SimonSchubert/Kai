@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Općenito</string>
     <string name="settings_tab_services">Usluge</string>
     <string name="settings_tab_tools">Alati</string>
+    <string name="settings_tab_integrations">Integracije</string>
     <string name="tool_executing_content_description">Izvršavanje alata</string>
     <string name="privacy_agree_prefix">Korištenjem usluge pristajete na </string>
     <string name="privacy_policy">Pravila o privatnosti</string>

@@ -31,7 +31,7 @@ class OpenAICompatibleGenericException(message: String, cause: Throwable? = null
 class OpenAICompatibleInvalidApiKeyException : OpenAICompatibleApiException()
 class OpenAICompatibleRateLimitExceededException : OpenAICompatibleApiException()
 class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException("Quota exhausted")
-class OpenAICompatibleConnectionException : OpenAICompatibleApiException("Cannot connect to server")
+class OpenAICompatibleConnectionException(message: String = "Cannot connect to server") : OpenAICompatibleApiException(message)
 class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")
 class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
 class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException("Image is too large. Try a smaller image.")

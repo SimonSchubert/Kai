@@ -27,6 +27,7 @@ import io.ktor.client.plugins.logging.EMPTY
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.timeout
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -113,6 +114,7 @@ class Requests {
         messages: List<GeminiChatRequestDto.Content>,
         tools: List<Tool> = emptyList(),
         systemInstruction: String? = null,
+        requestTimeoutMs: Long? = null,
     ): Result<GeminiChatResponseDto> = try {
         val apiKey = credentials.apiKey.ifEmpty { throw GeminiInvalidApiKeyException() }
         val selectedModelId = credentials.modelId
@@ -125,6 +127,12 @@ class Requests {
 
         val response: HttpResponse =
             defaultClient.post("${Service.Gemini.chatUrl}$selectedModelId:generateContent?key=$apiKey") {
+                requestTimeoutMs?.let {
+                    timeout {
+                        requestTimeoutMillis = it
+                        socketTimeoutMillis = it
+                    }
+                }
                 contentType(ContentType.Application.Json)
                 setBody(
                     GeminiChatRequestDto(
@@ -166,12 +174,19 @@ class Requests {
         messages: List<OpenAICompatibleChatRequestDto.Message>,
         tools: List<Tool> = emptyList(),
         customHeaders: Map<String, String> = emptyMap(),
+        requestTimeoutMs: Long? = null,
     ): Result<OpenAICompatibleChatResponseDto> = try {
         val apiKey = getApiKeyOrThrow(service, credentials)
         val model = if (service == Service.Free) null else credentials.modelId.ifEmpty { null }
         val url = resolveUrl(service, credentials, service.chatUrl)
         val response: HttpResponse =
             defaultClient.post(url) {
+                requestTimeoutMs?.let {
+                    timeout {
+                        requestTimeoutMillis = it
+                        socketTimeoutMillis = it
+                    }
+                }
                 contentType(ContentType.Application.Json)
                 apiKey?.let { bearerAuth(it) }
                 customHeaders.forEach { (k, v) -> header(k, v) }
@@ -190,6 +205,8 @@ class Requests {
         }
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
+    } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
+        Result.failure(OpenAICompatibleConnectionException("Request timed out"))
     } catch (e: Exception) {
         Result.failure(OpenAICompatibleConnectionException())
     }
@@ -274,10 +291,17 @@ class Requests {
         messages: List<AnthropicChatRequestDto.Message>,
         tools: List<Tool> = emptyList(),
         systemInstruction: String? = null,
+        requestTimeoutMs: Long? = null,
     ): Result<AnthropicChatResponseDto> = try {
         val apiKey = credentials.apiKey.ifEmpty { throw AnthropicInvalidApiKeyException() }
         val response: HttpResponse =
             defaultClient.post(Service.Anthropic.chatUrl) {
+                requestTimeoutMs?.let {
+                    timeout {
+                        requestTimeoutMillis = it
+                        socketTimeoutMillis = it
+                    }
+                }
                 contentType(ContentType.Application.Json)
                 header("x-api-key", apiKey)
                 header("anthropic-version", "2023-06-01")

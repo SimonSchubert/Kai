@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Γενικά</string>
     <string name="settings_tab_services">Υπηρεσίες</string>
     <string name="settings_tab_tools">Εργαλεία</string>
+    <string name="settings_tab_integrations">Ενσωματώσεις</string>
     <string name="tool_executing_content_description">Εκτέλεση εργαλείου</string>
     <string name="privacy_agree_prefix">Χρησιμοποιώντας την υπηρεσία, συμφωνείτε με την </string>
     <string name="privacy_policy">Πολιτική Απορρήτου</string>

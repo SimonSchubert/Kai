@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Không có công cụ nào khả dụng trên nền tảng này.</string>
     <string name="settings_tab_services">Dịch vụ</string>
     <string name="settings_tab_tools">Công cụ</string>
+    <string name="settings_tab_integrations">Tích hợp</string>
     <string name="tool_executing_content_description">Công cụ đang chạy</string>
     <string name="privacy_agree_prefix">Bằng cách sử dụng dịch vụ, bạn đồng ý với </string>
     <string name="privacy_policy">Chính sách quyền riêng tư</string>

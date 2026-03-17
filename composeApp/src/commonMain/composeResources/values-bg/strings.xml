@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Общи</string>
     <string name="settings_tab_services">Услуги</string>
     <string name="settings_tab_tools">Инструменти</string>
+    <string name="settings_tab_integrations">Интеграции</string>
     <string name="tool_executing_content_description">Инструментът се изпълнява</string>
     <string name="privacy_agree_prefix">Използвайки услугата, вие се съгласявате с </string>
     <string name="privacy_policy">Политика за поверителност</string>

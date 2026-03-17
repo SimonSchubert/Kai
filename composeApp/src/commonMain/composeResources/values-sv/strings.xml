@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Allmänt</string>
     <string name="settings_tab_services">Tjänster</string>
     <string name="settings_tab_tools">Verktyg</string>
+    <string name="settings_tab_integrations">Integrationer</string>
     <string name="tool_executing_content_description">Verktyg körs</string>
     <string name="privacy_agree_prefix">Genom att använda tjänsten godkänner du </string>
     <string name="privacy_policy">Integritetspolicyn</string>

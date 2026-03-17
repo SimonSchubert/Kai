@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">На цій платформі немає доступних інструментів.</string>
     <string name="settings_tab_services">Сервіси</string>
     <string name="settings_tab_tools">Інструменти</string>
+    <string name="settings_tab_integrations">Інтеграції</string>
     <string name="tool_executing_content_description">Інструмент виконується</string>
     <string name="privacy_agree_prefix">Використовуючи сервіс, ви погоджуєтесь з </string>
     <string name="privacy_policy">Політикою конфіденційності</string>

@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Pangkalahatan</string>
     <string name="settings_tab_services">Mga Serbisyo</string>
     <string name="settings_tab_tools">Mga Tool</string>
+    <string name="settings_tab_integrations">Mga Integrasyon</string>
     <string name="tool_executing_content_description">Isinasagawa ang tool</string>
     <string name="privacy_agree_prefix">Sa paggamit ng serbisyo, sumasang-ayon ka sa </string>
     <string name="privacy_policy">Patakaran sa Privacy</string>

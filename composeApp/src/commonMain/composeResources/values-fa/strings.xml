@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">هیچ ابزاری در این پلتفرم موجود نیست.</string>
     <string name="settings_tab_services">سرویس‌ها</string>
     <string name="settings_tab_tools">ابزارها</string>
+    <string name="settings_tab_integrations">یکپارچه‌سازی‌ها</string>
     <string name="tool_executing_content_description">ابزار در حال اجرا</string>
     <string name="privacy_agree_prefix">با استفاده از سرویس، شما با </string>
     <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>

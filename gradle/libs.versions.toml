@@ -31,6 +31,7 @@ foundationAndroid = "1.10.5"
 ben-manes-versions = "0.53.0"
 paparazzi = "2.0.0-alpha04"
 turbine = "1.2.1"
+bouncycastle = "1.83"
 
 [libraries]
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
@@ -87,6 +88,7 @@ compose-components-uiToolingPreview = { module = "org.jetbrains.compose.componen
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons-extended" }
 compose-ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose-multiplatform" }
 compose-desktop-currentOs = { module = "org.jetbrains.compose.desktop:desktop-jvm", version.ref = "compose-multiplatform" }
+bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

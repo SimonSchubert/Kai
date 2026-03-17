@@ -1335,6 +1335,35 @@ class RemoteDataRepository(
         return responseText
     }
 
+    override suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long): String {
+        val instance = getConfiguredServiceInstances().find { it.instanceId == instanceId }
+            ?: return askSilently(prompt)
+        val service = Service.fromId(instance.serviceId)
+        val creds = instanceCredentials(instanceId, service)
+        val messages = listOf(History(role = History.Role.USER, content = prompt))
+        val reqTimeout = if (timeoutMs > 0) timeoutMs else null
+
+        return when (service) {
+            Service.Gemini -> {
+                val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                val response = requests.geminiChat(creds, geminiMessages, requestTimeoutMs = reqTimeout).getOrThrow()
+                response.extractText()
+            }
+
+            Service.Anthropic -> {
+                val anthropicMessages = buildAnthropicMessages(messages)
+                val response = requests.anthropicChat(creds, anthropicMessages, requestTimeoutMs = reqTimeout).getOrThrow()
+                response.extractText()
+            }
+
+            else -> {
+                val openAIMessages = buildOpenAIMessages(messages, null)
+                val response = requests.openAICompatibleChat(service, creds, openAIMessages, requestTimeoutMs = reqTimeout).getOrThrow()
+                response.choices.firstOrNull()?.message?.effectiveContent ?: ""
+            }
+        }
+    }
+
     private val _hasUnreadHeartbeat = MutableStateFlow(false)
     override val hasUnreadHeartbeat: StateFlow<Boolean> = _hasUnreadHeartbeat
 

@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Жалпы</string>
     <string name="settings_tab_services">Қызметтер</string>
     <string name="settings_tab_tools">Құралдар</string>
+    <string name="settings_tab_integrations">Интеграциялар</string>
     <string name="tool_executing_content_description">Құрал орындалуда</string>
     <string name="privacy_agree_prefix">Қызметті пайдалана отырып, сіз келесімен келісесіз </string>
     <string name="privacy_policy">Құпиялылық саясаты</string>

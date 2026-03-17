@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">На этой платформе нет доступных инструментов.</string>
     <string name="settings_tab_services">Сервисы</string>
     <string name="settings_tab_tools">Инструменты</string>
+    <string name="settings_tab_integrations">Интеграции</string>
     <string name="tool_executing_content_description">Инструмент выполняется</string>
     <string name="privacy_agree_prefix">Используя сервис, вы соглашаетесь с </string>
     <string name="privacy_policy">Политикой конфиденциальности</string>

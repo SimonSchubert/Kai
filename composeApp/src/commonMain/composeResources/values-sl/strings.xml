@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Splošno</string>
     <string name="settings_tab_services">Storitve</string>
     <string name="settings_tab_tools">Orodja</string>
+    <string name="settings_tab_integrations">Integracije</string>
     <string name="tool_executing_content_description">Orodje se izvaja</string>
     <string name="privacy_agree_prefix">Z uporabo storitve se strinjate s </string>
     <string name="privacy_policy">Pravilnik o zasebnosti</string>

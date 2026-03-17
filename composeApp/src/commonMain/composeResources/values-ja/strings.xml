@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">このプラットフォームでは利用可能なツールがありません。</string>
     <string name="settings_tab_services">サービス</string>
     <string name="settings_tab_tools">ツール</string>
+    <string name="settings_tab_integrations">連携</string>
     <string name="tool_executing_content_description">ツール実行中</string>
     <string name="privacy_agree_prefix">サービスを利用することで、</string>
     <string name="privacy_policy">プライバシーポリシー</string>

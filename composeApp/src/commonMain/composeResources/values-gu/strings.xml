@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">આ પ્લેટફોર્મ પર કોઈ ટૂલ્સ ઉપલબ્ધ નથી.</string>
     <string name="settings_tab_services">સેવાઓ</string>
     <string name="settings_tab_tools">ટૂલ્સ</string>
+    <string name="settings_tab_integrations">એકીકરણો</string>
     <string name="tool_executing_content_description">ટૂલ ચાલી રહ્યું છે</string>
     <string name="privacy_agree_prefix">સેવાનો ઉપયોગ કરીને, તમે સંમત થાઓ છો </string>
     <string name="privacy_policy">ગોપનીયતા નીતિ</string>

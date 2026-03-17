@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">या प्लॅटफॉर्मवर कोणतीही साधने उपलब्ध नाहीत.</string>
     <string name="settings_tab_services">सेवा</string>
     <string name="settings_tab_tools">साधने</string>
+    <string name="settings_tab_integrations">एकत्रीकरणे</string>
     <string name="tool_executing_content_description">साधन चालू आहे</string>
     <string name="privacy_agree_prefix">सेवा वापरून, तुम्ही सहमत आहात </string>
     <string name="privacy_policy">गोपनीयता धोरण</string>

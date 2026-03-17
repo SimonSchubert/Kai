@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">此平台上没有可用的工具。</string>
     <string name="settings_tab_services">服务</string>
     <string name="settings_tab_tools">工具</string>
+    <string name="settings_tab_integrations">集成</string>
     <string name="tool_executing_content_description">工具执行中</string>
     <string name="privacy_agree_prefix">使用本服务即表示您同意</string>
     <string name="privacy_policy">隐私政策</string>

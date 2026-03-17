@@ -41,6 +41,7 @@
     <string name="settings_tab_general">כללי</string>
     <string name="settings_tab_services">שירותים</string>
     <string name="settings_tab_tools">כלים</string>
+    <string name="settings_tab_integrations">אינטגרציות</string>
     <string name="tool_executing_content_description">הכלי פועל</string>
     <string name="privacy_agree_prefix">בשימוש בשירות, אתה מסכים ל</string>
     <string name="privacy_policy">מדיניות הפרטיות</string>

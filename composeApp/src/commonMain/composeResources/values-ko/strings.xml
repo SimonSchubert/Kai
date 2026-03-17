@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">이 플랫폼에서 사용 가능한 도구가 없습니다.</string>
     <string name="settings_tab_services">서비스</string>
     <string name="settings_tab_tools">도구</string>
+    <string name="settings_tab_integrations">통합</string>
     <string name="tool_executing_content_description">도구 실행 중</string>
     <string name="privacy_agree_prefix">서비스를 사용함으로써 </string>
     <string name="privacy_policy">개인정보 처리방침</string>

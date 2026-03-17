@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Bendra</string>
     <string name="settings_tab_services">Paslaugos</string>
     <string name="settings_tab_tools">Įrankiai</string>
+    <string name="settings_tab_integrations">Integracijos</string>
     <string name="tool_executing_content_description">Įrankis vykdomas</string>
     <string name="privacy_agree_prefix">Naudodami paslaugą, sutinkate su </string>
     <string name="privacy_policy">Privatumo politika</string>

@@ -25,6 +25,7 @@ enum class ImportSection {
     SCHEDULING,
     HEARTBEAT,
     EMAIL,
+    SPLINTERLANDS,
     TOOLS,
     MCP,
 }
@@ -52,6 +53,9 @@ fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
     if (json["email_enabled"] != null || json["email_accounts"] != null) {
         val count = json["email_accounts"]?.jsonArray?.size
         sections[ImportSection.EMAIL] = count?.let { "$it" }
+    }
+    if (json["splinterlands_enabled"] != null || json["splinterlands_account"] != null) {
+        sections[ImportSection.SPLINTERLANDS] = null
     }
     if (json["tool_overrides"] != null) {
         val enabled = json["tool_overrides"]?.jsonObject?.count { (_, v) ->
@@ -487,6 +491,50 @@ class AppSettings(private val settings: Settings) {
         settings.putInt(KEY_EMAIL_POLL_INTERVAL, minutes)
     }
 
+    // Splinterlands
+    fun isSplinterlandsEnabled(): Boolean = settings.getBoolean(KEY_SPLINTERLANDS_ENABLED, false)
+
+    fun setSplinterlandsEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SPLINTERLANDS_ENABLED, enabled)
+    }
+
+    fun getSplinterlandsAccountJson(): String = settings.getString(KEY_SPLINTERLANDS_ACCOUNT, "")
+
+    fun setSplinterlandsAccountJson(json: String) {
+        settings.putString(KEY_SPLINTERLANDS_ACCOUNT, json)
+    }
+
+    fun getSplinterlandsPostingKey(): String = settings.getString(KEY_SPLINTERLANDS_POSTING_KEY, "")
+
+    fun setSplinterlandsPostingKey(key: String) {
+        settings.putString(KEY_SPLINTERLANDS_POSTING_KEY, key)
+    }
+
+    fun getSplinterlandsPostingKey(accountId: String): String = settings.getString("${KEY_SPLINTERLANDS_POSTING_KEY}_$accountId", "")
+        .ifEmpty { getSplinterlandsPostingKey() } // fallback to legacy key
+
+    fun setSplinterlandsPostingKey(accountId: String, key: String) {
+        settings.putString("${KEY_SPLINTERLANDS_POSTING_KEY}_$accountId", key)
+    }
+
+    fun getSplinterlandsInstanceId(): String = settings.getString(KEY_SPLINTERLANDS_INSTANCE_ID, "")
+
+    fun setSplinterlandsInstanceId(instanceId: String) {
+        settings.putString(KEY_SPLINTERLANDS_INSTANCE_ID, instanceId)
+    }
+
+    fun getSplinterlandsInstanceIdsJson(): String = settings.getString(KEY_SPLINTERLANDS_INSTANCE_IDS, "")
+
+    fun setSplinterlandsInstanceIdsJson(json: String) {
+        settings.putString(KEY_SPLINTERLANDS_INSTANCE_IDS, json)
+    }
+
+    fun getSplinterlandsBattleLogJson(): String = settings.getString(KEY_SPLINTERLANDS_BATTLE_LOG, "")
+
+    fun setSplinterlandsBattleLogJson(json: String) {
+        settings.putString(KEY_SPLINTERLANDS_BATTLE_LOG, json)
+    }
+
     fun exportToJson(toolIds: List<String>): JsonObject {
         val map = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
         map["version"] = JsonPrimitive(1)
@@ -573,6 +621,21 @@ class AppSettings(private val settings: Settings) {
             }
         }
         map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
+
+        // Splinterlands
+        map["splinterlands_enabled"] = JsonPrimitive(isSplinterlandsEnabled())
+        val splinterlandsAccountJson = getSplinterlandsAccountJson()
+        if (splinterlandsAccountJson.isNotBlank()) {
+            map["splinterlands_account"] = Json.parseToJsonElement(splinterlandsAccountJson)
+        }
+        val splinterlandsInstanceIdsJson = getSplinterlandsInstanceIdsJson()
+        if (splinterlandsInstanceIdsJson.isNotBlank()) {
+            map["splinterlands_instance_ids"] = Json.parseToJsonElement(splinterlandsInstanceIdsJson)
+        }
+        val splinterlandsBattleLogJson = getSplinterlandsBattleLogJson()
+        if (splinterlandsBattleLogJson.isNotBlank()) {
+            map["splinterlands_battle_log"] = Json.parseToJsonElement(splinterlandsBattleLogJson)
+        }
 
         // Tools — export enabled state for all known tools
         val toolStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
@@ -719,6 +782,23 @@ class AppSettings(private val settings: Settings) {
             setEmailPollIntervalMinutes(15)
         }
 
+        // Splinterlands
+        if (ImportSection.SPLINTERLANDS in sections) {
+            try {
+                setSplinterlandsEnabled(json["splinterlands_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
+                setSplinterlandsAccountJson(json["splinterlands_account"]?.toString() ?: "")
+                setSplinterlandsInstanceIdsJson(json["splinterlands_instance_ids"]?.toString() ?: "")
+                setSplinterlandsBattleLogJson(json["splinterlands_battle_log"]?.toString() ?: "")
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setSplinterlandsEnabled(false)
+            setSplinterlandsAccountJson("")
+            setSplinterlandsInstanceIdsJson("")
+            setSplinterlandsBattleLogJson("")
+        }
+
         // Tools — reset all tool overrides, then apply
         if (ImportSection.TOOLS in sections) {
             try {
@@ -848,6 +928,13 @@ class AppSettings(private val settings: Settings) {
         const val KEY_MCP_SERVERS = "mcp_servers"
         const val KEY_INSTANCE_MIGRATION_COMPLETE = "instance_migration_complete_v1"
         const val KEY_BASE_URL_V1_MIGRATION_COMPLETE = "base_url_v1_migration_complete"
+
+        const val KEY_SPLINTERLANDS_ENABLED = "splinterlands_enabled"
+        const val KEY_SPLINTERLANDS_ACCOUNT = "splinterlands_account"
+        const val KEY_SPLINTERLANDS_POSTING_KEY = "splinterlands_posting_key"
+        const val KEY_SPLINTERLANDS_BATTLE_LOG = "splinterlands_battle_log"
+        const val KEY_SPLINTERLANDS_INSTANCE_ID = "splinterlands_instance_id"
+        const val KEY_SPLINTERLANDS_INSTANCE_IDS = "splinterlands_instance_ids"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Опште</string>
     <string name="settings_tab_services">Сервиси</string>
     <string name="settings_tab_tools">Алатке</string>
+    <string name="settings_tab_integrations">Интеграције</string>
     <string name="tool_executing_content_description">Алатка се извршава</string>
     <string name="privacy_agree_prefix">Коришћењем сервиса, прихватате </string>
     <string name="privacy_policy">Политику приватности</string>

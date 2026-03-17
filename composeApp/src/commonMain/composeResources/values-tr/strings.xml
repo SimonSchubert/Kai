@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Bu platformda kullanılabilir araç yok.</string>
     <string name="settings_tab_services">Hizmetler</string>
     <string name="settings_tab_tools">Araçlar</string>
+    <string name="settings_tab_integrations">Entegrasyonlar</string>
     <string name="tool_executing_content_description">Araç çalışıyor</string>
     <string name="privacy_agree_prefix">Hizmeti kullanarak </string>
     <string name="privacy_policy">Gizlilik Politikası</string>

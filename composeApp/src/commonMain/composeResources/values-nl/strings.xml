@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">Geen hulpmiddelen beschikbaar op dit platform.</string>
     <string name="settings_tab_services">Diensten</string>
     <string name="settings_tab_tools">Hulpmiddelen</string>
+    <string name="settings_tab_integrations">Integraties</string>
     <string name="tool_executing_content_description">Tool wordt uitgevoerd</string>
     <string name="privacy_agree_prefix">Door de service te gebruiken, gaat u akkoord met het </string>
     <string name="privacy_policy">Privacybeleid</string>

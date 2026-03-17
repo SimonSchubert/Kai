@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Të përgjithshme</string>
     <string name="settings_tab_services">Shërbimet</string>
     <string name="settings_tab_tools">Mjetet</string>
+    <string name="settings_tab_integrations">Integrimet</string>
     <string name="tool_executing_content_description">Mjeti po ekzekutohet</string>
     <string name="privacy_agree_prefix">Duke përdorur shërbimin, ju pranoni </string>
     <string name="privacy_policy">Politikën e privatësisë</string>

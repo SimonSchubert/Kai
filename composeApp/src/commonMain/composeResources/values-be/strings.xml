@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Агульныя</string>
     <string name="settings_tab_services">Сэрвісы</string>
     <string name="settings_tab_tools">Інструменты</string>
+    <string name="settings_tab_integrations">Інтэграцыі</string>
     <string name="tool_executing_content_description">Інструмент выконваецца</string>
     <string name="privacy_agree_prefix">Выкарыстоўваючы сэрвіс, вы згаджаецеся з </string>
     <string name="privacy_policy">Палітыка прыватнасці</string>

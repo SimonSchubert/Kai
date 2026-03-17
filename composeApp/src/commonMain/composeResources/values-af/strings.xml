@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Algemeen</string>
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Gereedskap</string>
+    <string name="settings_tab_integrations">Integrasies</string>
     <string name="tool_executing_content_description">Gereedskap voer uit</string>
     <string name="privacy_agree_prefix">Deur die diens te gebruik, stem jy in tot die </string>
     <string name="privacy_policy">Privaatheidsbeleid</string>

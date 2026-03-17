@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">ไม่มีเครื่องมือที่พร้อมใช้งานบนแพลตฟอร์มนี้</string>
     <string name="settings_tab_services">บริการ</string>
     <string name="settings_tab_tools">เครื่องมือ</string>
+    <string name="settings_tab_integrations">การเชื่อมต่อ</string>
     <string name="tool_executing_content_description">เครื่องมือกำลังทำงาน</string>
     <string name="privacy_agree_prefix">การใช้บริการถือว่าคุณยอมรับ</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>

@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">ఈ ప్లాట్‌ఫారమ్‌లో టూల్స్ అందుబాటులో లేవు.</string>
     <string name="settings_tab_services">సేవలు</string>
     <string name="settings_tab_tools">టూల్స్</string>
+    <string name="settings_tab_integrations">ఇంటిగ్రేషన్లు</string>
     <string name="tool_executing_content_description">సాధనం నడుస్తోంది</string>
     <string name="privacy_agree_prefix">సేవను ఉపయోగించడం ద్వారా, మీరు అంగీకరిస్తారు </string>
     <string name="privacy_policy">గోప్యతా విధానం</string>

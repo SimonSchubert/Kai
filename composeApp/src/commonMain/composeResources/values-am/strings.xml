@@ -41,6 +41,7 @@
     <string name="settings_tab_general">ጠቅላላ</string>
     <string name="settings_tab_services">አገልግሎቶች</string>
     <string name="settings_tab_tools">መሳሪያዎች</string>
+    <string name="settings_tab_integrations">ውህደቶች</string>
     <string name="tool_executing_content_description">መሳሪያ በማስፈጸም ላይ</string>
     <string name="privacy_agree_prefix">አገልግሎቱን በመጠቀም፣ የሚከተለውን ይቀበላሉ </string>
     <string name="privacy_policy">የግላዊነት ፖሊሲ</string>

@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Általános</string>
     <string name="settings_tab_services">Szolgáltatások</string>
     <string name="settings_tab_tools">Eszközök</string>
+    <string name="settings_tab_integrations">Integrációk</string>
     <string name="tool_executing_content_description">Eszköz végrehajtás alatt</string>
     <string name="privacy_agree_prefix">A szolgáltatás használatával elfogadod az </string>
     <string name="privacy_policy">Adatvédelmi irányelveket</string>

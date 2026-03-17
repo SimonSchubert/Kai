@@ -48,6 +48,7 @@
     <string name="settings_tools_none_available">اس پلیٹ فارم پر کوئی ٹولز دستیاب نہیں ہیں۔</string>
     <string name="settings_tab_services">خدمات</string>
     <string name="settings_tab_tools">ٹولز</string>
+    <string name="settings_tab_integrations">انٹیگریشنز</string>
     <string name="tool_executing_content_description">ٹول چل رہا ہے</string>
     <string name="privacy_agree_prefix">سروس استعمال کرکے، آپ اتفاق کرتے ہیں </string>
     <string name="privacy_policy">رازداری کی پالیسی</string>

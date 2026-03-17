@@ -41,6 +41,7 @@
     <string name="settings_tab_general">Obecn\u00e9</string>
     <string name="settings_tab_services">Slu\u017eby</string>
     <string name="settings_tab_tools">N\u00e1stroje</string>
+    <string name="settings_tab_integrations">Integrace</string>
     <string name="tool_executing_content_description">N\u00e1stroj se prov\u00e1d\u00ed</string>
     <string name="privacy_agree_prefix">Pou\u017e\u00edv\u00e1n\u00edm slu\u017eby souhlas\u00edte se </string>
     <string name="privacy_policy">Z\u00e1sadami ochrany osobn\u00edch \u00fadaj\u016f</string>

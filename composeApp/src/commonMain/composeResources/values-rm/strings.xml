@@ -41,6 +41,7 @@
     <string name="settings_tab_general">General</string>
     <string name="settings_tab_services">Servetschs</string>
     <string name="settings_tab_tools">Utensils</string>
+    <string name="settings_tab_integrations">Integraziuns</string>
     <string name="tool_executing_content_description">Utensil en execuziun</string>
     <string name="privacy_agree_prefix">Cun utilisar il servetsch, acceptais Vus la </string>
     <string name="privacy_policy">Directiva da protecziun da datas</string>
