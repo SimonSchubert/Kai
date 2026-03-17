@@ -1514,7 +1514,7 @@ private fun IntegrationsContent(
                 )
                 Spacer(Modifier.height(8.dp))
                 OutlinedButton(
-                    onClick = { uriHandler.openUri("https://github.com/SimonSchubert/Kai/issues/new?labels=integration-request&title=Integration+request:+") },
+                    onClick = { uriHandler.openUri("https://github.com/SimonSchubert/Kai/issues/new?template=integration_request.yml") },
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) {
                     Text("Open GitHub Issue")
