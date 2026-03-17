@@ -120,8 +120,8 @@ import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.mcp.PopularMcpServer
-import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.mcp.popularMcpServers
+import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
@@ -139,8 +139,6 @@ import kai.composeapp.generated.resources.settings_api_key_optional_label
 import kai.composeapp.generated.resources.settings_base_url_label
 import kai.composeapp.generated.resources.settings_become_sponsor
 import kai.composeapp.generated.resources.settings_business_partnerships
-import kai.composeapp.generated.resources.settings_sponsors_monthly
-import kai.composeapp.generated.resources.settings_sponsors_past
 import kai.composeapp.generated.resources.settings_business_partnerships_description
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
@@ -217,6 +215,8 @@ import kai.composeapp.generated.resources.settings_soul_reset
 import kai.composeapp.generated.resources.settings_soul_reset_cancel
 import kai.composeapp.generated.resources.settings_soul_reset_confirm
 import kai.composeapp.generated.resources.settings_soul_save
+import kai.composeapp.generated.resources.settings_sponsors_monthly
+import kai.composeapp.generated.resources.settings_sponsors_past
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
