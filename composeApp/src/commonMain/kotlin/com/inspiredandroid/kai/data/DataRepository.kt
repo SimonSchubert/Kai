@@ -107,7 +107,10 @@ interface DataRepository {
     fun exportSettingsToJson(): String
     fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int
 
-    // Silent ask (no chat history update, used for heartbeats)
+    // Background ask with tools (no chat history update, supports tool-calling loop)
+    suspend fun askWithTools(prompt: String): String
+
+    // Silent ask (no tools, no chat history update)
     suspend fun askSilently(question: String): String
     suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long = 0L): String
     suspend fun addAssistantMessage(content: String)

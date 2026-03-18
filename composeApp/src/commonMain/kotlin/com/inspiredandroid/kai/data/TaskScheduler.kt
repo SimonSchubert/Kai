@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.min
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -20,6 +21,7 @@ class TaskScheduler(
 ) {
     private companion object {
         const val POLL_INTERVAL_MS = 60_000L
+        const val MAX_BACKOFF_MS = 3_600_000L // 1 hour
     }
 
     private var activeJob: Job? = null
@@ -43,10 +45,11 @@ class TaskScheduler(
                     if (isLoading()) break
 
                     try {
-                        dataRepository.ask(task.prompt, null)
+                        val response = dataRepository.askWithTools(task.prompt)
+                        dataRepository.addAssistantMessage(response)
                         handleTaskCompletion(task)
                     } catch (_: Exception) {
-                        // Task failed — leave it pending so it retries next cycle
+                        handleTaskFailure(task)
                     }
                 }
 
@@ -54,7 +57,7 @@ class TaskScheduler(
                 if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
                     try {
                         val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt()
-                        val response = dataRepository.askSilently(heartbeatPrompt)
+                        val response = dataRepository.askWithTools(heartbeatPrompt)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
                         if (response.trim() != "HEARTBEAT_OK") {
@@ -141,6 +144,47 @@ class TaskScheduler(
         }
     }
 
+    private suspend fun handleTaskFailure(task: ScheduledTask) {
+        val now = Clock.System.now()
+        val failures = task.consecutiveFailures + 1
+
+        if (task.cron != null) {
+            // Cron task failed — advance to the next scheduled time instead of retrying every cycle
+            val nextExecution = try {
+                CronExpression(task.cron).nextAfter(now)
+            } catch (_: Exception) {
+                null
+            }
+            if (nextExecution != null) {
+                taskStore!!.updateTask(
+                    task.copy(
+                        scheduledAtEpochMs = nextExecution.toEpochMilliseconds(),
+                        lastResult = "Failed at $now (next retry at $nextExecution)",
+                        consecutiveFailures = failures,
+                    ),
+                )
+            } else {
+                taskStore!!.updateTask(
+                    task.copy(
+                        status = TaskStatus.COMPLETED,
+                        lastResult = "Failed at $now (no next schedule)",
+                        consecutiveFailures = failures,
+                    ),
+                )
+            }
+        } else {
+            // One-time task — apply exponential backoff
+            val backoffMs = min(POLL_INTERVAL_MS * (1L shl min(failures, 10)), MAX_BACKOFF_MS)
+            taskStore!!.updateTask(
+                task.copy(
+                    scheduledAtEpochMs = now.toEpochMilliseconds() + backoffMs,
+                    lastResult = "Failed at $now (retry after ${backoffMs / 1000}s backoff)",
+                    consecutiveFailures = failures,
+                ),
+            )
+        }
+    }
+
     private suspend fun handleTaskCompletion(task: ScheduledTask) {
         val now = Clock.System.now()
         if (task.cron != null) {
@@ -154,6 +198,7 @@ class TaskScheduler(
                     task.copy(
                         status = TaskStatus.PENDING,
                         lastResult = "Executed at $now (next schedule computation failed, will retry)",
+                        consecutiveFailures = 0,
                     ),
                 )
                 return
@@ -164,6 +209,7 @@ class TaskScheduler(
                         scheduledAtEpochMs = nextExecution.toEpochMilliseconds(),
                         lastResult = "Executed at $now",
                         status = TaskStatus.PENDING,
+                        consecutiveFailures = 0,
                     ),
                 )
             } else {
@@ -172,6 +218,7 @@ class TaskScheduler(
                     task.copy(
                         status = TaskStatus.COMPLETED,
                         lastResult = "Executed at $now (no next schedule)",
+                        consecutiveFailures = 0,
                     ),
                 )
             }
@@ -181,6 +228,7 @@ class TaskScheduler(
                 task.copy(
                     status = TaskStatus.COMPLETED,
                     lastResult = "Executed at $now",
+                    consecutiveFailures = 0,
                 ),
             )
         }

@@ -1305,6 +1305,14 @@ class RemoteDataRepository(
         return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
     }
 
+    override suspend fun askWithTools(prompt: String): String {
+        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val service = Service.fromId(firstInstance.serviceId)
+        val messages = listOf(History(role = History.Role.USER, content = prompt))
+        val systemPrompt = getActiveSystemPrompt()
+        return askWithService(service, messages, systemPrompt, firstInstance.instanceId)
+    }
+
     override suspend fun askSilently(question: String): String {
         val service = currentService()
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""

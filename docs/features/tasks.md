@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-03-11
+**Last verified:** 2026-03-18
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -8,7 +8,7 @@ Kai's tasks feature enables the AI to schedule one-time or recurring actions for
 
 ### Task
 
-A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a target execution time, and optionally a cron expression for recurrence. Tasks track their status (PENDING or COMPLETED) and store the result of their last execution.
+A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a target execution time, and optionally a cron expression for recurrence. Tasks track their status (PENDING or COMPLETED), the result of their last execution, and a consecutive failure count for backoff.
 
 ### Cron Expression
 
@@ -20,7 +20,7 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 2. A new task is created with a UUID and persisted to storage
 3. For cron-based tasks, the first execution time is computed from the cron expression
 4. The background scheduler polls every 60 seconds and checks for due tasks (execution time <= now)
-5. When due, the task's prompt is sent to the AI via the normal message pipeline
+5. When due, the task's prompt is sent to the AI via `askWithTools` (with full tool access but without adding to chat history)
 6. For one-time tasks, the status is set to COMPLETED after execution
 7. For recurring tasks, the next execution time is computed from the cron expression and the task remains PENDING
 8. The execution result and timestamp are stored on the task
@@ -28,9 +28,16 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 ## Execution Rules
 
 - Task execution is skipped if the app is currently processing another API call
-- Each execution runs the task's prompt through the standard AI pipeline, meaning tool calls and conversation context apply
+- Task prompts are executed via `askWithTools`, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). The response is added as an assistant message without polluting the main chat history
 - Results are stored as the `lastResult` on the task for audit purposes
 - The scheduler also handles heartbeat checks and email polling in the same poll loop
+
+## Failure Handling
+
+- Tasks track their `consecutiveFailures` count
+- When a **cron task fails**, its execution time is advanced to the next scheduled cron time (preventing retry flooding every poll cycle)
+- When a **one-time task fails**, exponential backoff is applied: the execution time is pushed forward by `60s * 2^failures`, capped at 1 hour
+- On successful execution, the failure counter resets to zero
 
 ## AI Tools
 

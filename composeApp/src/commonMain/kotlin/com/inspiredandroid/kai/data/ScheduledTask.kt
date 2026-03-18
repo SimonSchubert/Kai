@@ -12,6 +12,7 @@ data class ScheduledTask(
     val cron: String? = null,
     val status: TaskStatus = TaskStatus.PENDING,
     val lastResult: String? = null,
+    val consecutiveFailures: Int = 0,
 )
 
 @Serializable
