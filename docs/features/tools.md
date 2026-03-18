@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-09
+**Last verified:** 2026-03-18
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -68,7 +68,13 @@ Email tools are available when the email feature is enabled and accounts are con
 | `send_notification` | Send a push notification to the device | Enabled |
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
-| `shell_command` | Execute a shell command on the device | Disabled |
+| `execute_shell_command` | Execute a shell command on the device | Disabled |
+
+### Platform-specific (Desktop)
+
+| Tool | Description | Default |
+|---|---|---|
+| `execute_shell_command` | Execute a shell command on the host machine | Disabled |
 
 ## Execution Flow
 
@@ -81,7 +87,7 @@ Email tools are available when the email feature is enabled and accounts are con
 7. The AI may respond with more tool calls — repeat from step 1
 8. When the AI responds with no tool calls, the final text is returned to the user
 
-The loop supports both OpenAI-compatible and Gemini provider formats, with provider-specific serialization of tool calls and results.
+The loop supports OpenAI-compatible, Gemini, and Anthropic provider formats, with provider-specific serialization of tool calls and results.
 
 ## Safety Guards
 
@@ -103,7 +109,7 @@ Tool results longer than 8,000 characters are truncated with a note indicating t
 
 ### Context trimming
 
-Between iterations, the message history is trimmed to fit within the provider's context window before the next API call.
+Between iterations for OpenAI-compatible providers, the message history is trimmed to fit within the provider's context window before the next API call. Gemini and Anthropic providers do not perform inter-iteration context trimming.
 
 ## MCP Servers
 
@@ -115,7 +121,7 @@ Tool availability is controlled at multiple levels:
 
 - **Feature-level gates** — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
-- **Default state** — most tools default to enabled; `shell_command` defaults to disabled
+- **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
 - **Always-on** — memory tools have no individual toggle; they are on whenever memory is enabled
 
 The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.

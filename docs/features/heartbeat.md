@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-03-14
+**Last verified:** 2026-03-18
 
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
@@ -36,7 +36,7 @@ Validation rules enforced by the `configure_heartbeat` tool:
 
 1. The task scheduler polls every 60 seconds
 2. On each poll, it checks: is heartbeat enabled? Is the current hour within active hours? Has the configured interval elapsed since the last heartbeat?
-3. If all conditions are met and no other API call is in progress, a heartbeat prompt is built and sent silently via `askSilently`
+3. If all conditions are met and no other API call is in progress, a heartbeat prompt is built and sent via `askWithTools` (which includes the full tool-calling loop)
 4. The last heartbeat timestamp is updated and a log entry is recorded
 
 ## Response Handling
@@ -46,7 +46,7 @@ Validation rules enforced by the `configure_heartbeat` tool:
 - A dismissable banner appears at the top of the chat when the heartbeat has something to report
 - Tapping the banner loads the heartbeat conversation so the user can read the report and reply
 - The X button dismisses the banner without navigating
-- Heartbeat conversations are excluded from the chat history list — they are accessed only via the banner
+- Heartbeat conversations are included in the chat history list with a "Heartbeat" label badge, and can also be accessed via the banner
 - The heartbeat prompt is sent as a standalone message (not including user chat history as context)
 - If the API call fails, a failure entry is recorded in the heartbeat log
 
@@ -84,7 +84,7 @@ The heartbeat section in settings contains:
 - **Toggle** — enables or disables heartbeat with a switch
 - **Interval display** — shows the current interval in minutes in the section description
 - **Interval slider** — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label
-- **Active hours range slider** — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "HH:00 – HH:00" next to the label
+- **Active hours range slider** — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours)
 - **Custom prompt editor** — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set
 - **Log display** — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp
 

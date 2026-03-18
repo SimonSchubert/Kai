@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-Last verified: 2026-03-17 (battle loop survives navigation)
+Last verified: 2026-03-18
 
 ## Overview
 
@@ -84,7 +84,7 @@ Recent Battles log shows up to 30 entries (5 visible by default, expandable): Vi
 
 ## Platform Support
 
-- **Desktop (JVM)** and **Android**: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses double SHA-256 of (chain_id + serialized tx).
+- **Desktop (JVM)** and **Android**: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses single SHA-256 of (chain_id + serialized tx), following the Hive/Graphene signing protocol.
 - **iOS** and **Web**: Hidden (`isSplinterlandsSupported = false`)
 
 ## Key Files

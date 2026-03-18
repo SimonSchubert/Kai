@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-03-11
+**Last verified:** 2026-03-18
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 
@@ -35,6 +35,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | EMAIL | Email | `email_enabled`, `email_accounts` |
 | TOOLS | Tools | `tool_overrides` |
 | MCP | MCP Servers | `mcp_servers` |
+| SPLINTERLANDS | Splinterlands | `splinterlands_enabled`, `splinterlands_account` |
 
 ## Settings Included
 
@@ -48,6 +49,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | Email | `email_enabled`, `email_accounts`, per-account passwords and sync state, `email_poll_interval` |
 | Tools | Per-tool `tool_enabled_*` overrides |
 | MCP | `mcp_servers` |
+| Splinterlands | `splinterlands_enabled`, `splinterlands_account`, `splinterlands_instance_ids`, `splinterlands_battle_log` |
 
 ## Excluded
 

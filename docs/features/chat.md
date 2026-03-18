@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-15
+**Last verified:** 2026-03-18
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -22,7 +22,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 
 - On launch, the latest conversation (by `updatedAt`) is restored automatically
 - "New Chat" clears history and unsets the current conversation ID
-- A new conversation ID (UUID) is generated on first message send
+- A new conversation ID (UUID) is generated on first successful save (after the first assistant response)
 - Conversations are saved after each assistant response
 - Only the most recent 20 exchanges are persisted per conversation
 - Multiple conversations are persisted — starting a new chat preserves previous conversations
@@ -30,14 +30,14 @@ Auto-derived from the first user message when a conversation is saved for the fi
 
 ## Chat History
 
-- A history icon appears in the top bar when saved conversations exist
+- A history icon appears in the top bar when saved conversations other than the current one exist
 - Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)
 - Each item shows the title and formatted date
 - The active conversation is highlighted with the primary color
 - Tapping an item loads that conversation and dismisses the sheet
 - Each item has a delete button that removes the conversation from storage
 - Deleting the active conversation clears the chat
-- Heartbeat conversations are excluded from the history list (accessed via the heartbeat banner)
+- Heartbeat conversations are included in the history list with a "Heartbeat" label badge, and can also be accessed via the heartbeat banner
 
 ## Message Sending
 

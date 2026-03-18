@@ -1,6 +1,6 @@
 # Daemon Mode
 
-**Last verified:** 2026-03-12
+**Last verified:** 2026-03-18
 
 Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.
 
@@ -17,7 +17,7 @@ An Android service that runs with a persistent notification, preventing the syst
 ## Service Lifecycle
 
 1. When daemon mode is enabled in settings, the foreground service is started
-2. The service creates a notification channel and displays a persistent "Running scheduled tasks" notification
+2. The service creates a notification channel and displays a persistent "Daemon is running" notification
 3. A coroutine scope is created and the task scheduler is started within it
 4. The service returns `START_STICKY`, so Android restarts it if the system kills it
 5. When daemon mode is disabled, the service is stopped and the coroutine scope is cancelled
@@ -39,7 +39,7 @@ The daemon's task scheduler polls every 60 seconds and handles three types of ba
 ## Notification
 
 - **Channel**: "Kai Background Service" with low importance
-- **Content**: "Running scheduled tasks" with a sync icon
+- **Content**: "Daemon is running" with a sync icon
 - **Tap action**: Opens the app's main screen
 - The notification is required by Android for foreground services and cannot be hidden
 

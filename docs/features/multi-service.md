@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-03-14
+**Last verified:** 2026-03-18
 
 Kai supports 17 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -75,7 +75,7 @@ When the user enters or changes an API key (or base URL), the app validates the 
 
 ## Model Selection
 
-When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
+When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — first checking for a per-service default model (e.g. LongCat defaults to "LongCat-Flash-Lite"), then preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
 - OpenAI shows only chat-oriented models (prefix filter)
 - GroqCloud shows only models marked as active
 - Together AI filters by `type == "chat"` to exclude non-chat models (embedding, code, etc.)
@@ -83,7 +83,7 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 
 ## Chat Screen Service Toggle
 
-When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is marked with a checkmark. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
+When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
 
 ## Settings UI
 
