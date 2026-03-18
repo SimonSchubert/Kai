@@ -473,7 +473,10 @@ private fun SplinterlandsActivityDialog(
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) { Text("View Battle") }
             }
-            TextButton(onClick = onDismiss) { Text("Close") }
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            ) { Text("Close") }
         },
     )
 }
@@ -725,15 +728,21 @@ private fun SplinterlandsAccountRow(
                     title = { Text("Remove Account") },
                     text = { Text("Remove ${account.username} from Splinterlands?") },
                     confirmButton = {
-                        TextButton(onClick = {
-                            showConfirm = false
-                            onRemove()
-                        }) {
+                        TextButton(
+                            onClick = {
+                                showConfirm = false
+                                onRemove()
+                            },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
                             Text("Remove", color = MaterialTheme.colorScheme.error)
                         }
                     },
                     dismissButton = {
-                        TextButton(onClick = { showConfirm = false }) { Text("Cancel") }
+                        TextButton(
+                            onClick = { showConfirm = false },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) { Text("Cancel") }
                     },
                 )
             }
