@@ -1,0 +1,8 @@
+Add Splinterlands LLM auto-battle integration
+Add web loading spinner
+List sponsors on free tier UI
+Add bottom scroll pointer icon and rounded corners stop icon
+Fix heartbeat and tasks handling
+Fix icon button sizes
+Upgrade Kotlin to 2.3.20
+Upgrade Koin

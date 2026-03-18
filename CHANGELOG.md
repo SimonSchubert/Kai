@@ -1,3 +1,19 @@
+## v1.10.0 — 2026-03-18
+
+### Features
+- Add Splinterlands LLM auto-battle integration
+- Add web loading spinner
+- List sponsors on free tier UI
+- Add bottom scroll pointer icon and rounded corners stop icon
+
+### Fixes
+- Fix heartbeat and tasks handling
+- Fix icon button sizes
+
+### Improvements
+- Upgrade Kotlin to 2.3.20
+- Upgrade Koin
+
 ## v1.9.8 — 2026-03-15
 
 ### Features
