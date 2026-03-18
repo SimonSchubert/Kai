@@ -604,6 +604,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#platform-specific-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform-specific (Desktop)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1091,6 +1102,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#platform-specific-desktop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform-specific (Desktop)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1269,7 +1291,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-03-09</p>
+<p><strong>Last verified:</strong> 2026-03-18</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1379,8 +1401,25 @@
 <td>Enabled</td>
 </tr>
 <tr>
-<td><code>shell_command</code></td>
+<td><code>execute_shell_command</code></td>
 <td>Execute a shell command on the device</td>
+<td>Disabled</td>
+</tr>
+</tbody>
+</table>
+<h3 id="platform-specific-desktop">Platform-specific (Desktop)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>execute_shell_command</code></td>
+<td>Execute a shell command on the host machine</td>
 <td>Disabled</td>
 </tr>
 </tbody>
@@ -1396,7 +1435,7 @@
 <li>The AI may respond with more tool calls — repeat from step 1</li>
 <li>When the AI responds with no tool calls, the final text is returned to the user</li>
 </ol>
-<p>The loop supports both OpenAI-compatible and Gemini provider formats, with provider-specific serialization of tool calls and results.</p>
+<p>The loop supports OpenAI-compatible, Gemini, and Anthropic provider formats, with provider-specific serialization of tool calls and results.</p>
 <h2 id="safety-guards">Safety Guards</h2>
 <h3 id="iteration-limit">Iteration limit</h3>
 <p>The tool loop runs a maximum of 15 iterations. If exceeded, the AI is asked to respond with the best answer it has so far, with tools removed from the request.</p>
@@ -1407,7 +1446,7 @@
 <h3 id="result-truncation">Result truncation</h3>
 <p>Tool results longer than 8,000 characters are truncated with a note indicating the original length.</p>
 <h3 id="context-trimming">Context trimming</h3>
-<p>Between iterations, the message history is trimmed to fit within the provider's context window before the next API call.</p>
+<p>Between iterations for OpenAI-compatible providers, the message history is trimmed to fit within the provider's context window before the next API call. Gemini and Anthropic providers do not perform inter-iteration context trimming.</p>
 <h2 id="mcp-servers">MCP Servers</h2>
 <p>See <a href="../mcp/">mcp.md</a> for the full MCP feature spec.</p>
 <h2 id="tool-enablement">Tool Enablement</h2>
@@ -1415,7 +1454,7 @@
 <ul>
 <li><strong>Feature-level gates</strong> — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled</li>
 <li><strong>Per-tool toggles</strong> — individual tools can be enabled or disabled in settings, persisted with a <code>tool_enabled_</code> key prefix</li>
-<li><strong>Default state</strong> — most tools default to enabled; <code>shell_command</code> defaults to disabled</li>
+<li><strong>Default state</strong> — most tools default to enabled; <code>execute_shell_command</code> defaults to disabled</li>
 <li><strong>Always-on</strong> — memory tools have no individual toggle; they are on whenever memory is enabled</li>
 </ul>
 <p>The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.</p>

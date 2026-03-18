@@ -724,7 +724,7 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p>Last verified: 2026-03-17 (battle loop survives navigation)</p>
+<p>Last verified: 2026-03-18</p>
 <h2 id="overview">Overview</h2>
 <p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.</p>
 <h2 id="configuration">Configuration</h2>
@@ -796,7 +796,7 @@
 <p>Recent Battles log shows up to 30 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
 <h2 id="platform-support">Platform Support</h2>
 <ul>
-<li><strong>Desktop (JVM)</strong> and <strong>Android</strong>: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses double SHA-256 of (chain_id + serialized tx).</li>
+<li><strong>Desktop (JVM)</strong> and <strong>Android</strong>: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses single SHA-256 of (chain_id + serialized tx), following the Hive/Graphene signing protocol.</li>
 <li><strong>iOS</strong> and <strong>Web</strong>: Hidden (<code>isSplinterlandsSupported = false</code>)</li>
 </ul>
 <h2 id="key-files">Key Files</h2>

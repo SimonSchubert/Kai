@@ -957,7 +957,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-03-14</p>
+<p><strong>Last verified:</strong> 2026-03-18</p>
 <p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="heartbeat_1">Heartbeat</h3>
@@ -983,7 +983,7 @@
 <ol>
 <li>The task scheduler polls every 60 seconds</li>
 <li>On each poll, it checks: is heartbeat enabled? Is the current hour within active hours? Has the configured interval elapsed since the last heartbeat?</li>
-<li>If all conditions are met and no other API call is in progress, a heartbeat prompt is built and sent silently via <code>askSilently</code></li>
+<li>If all conditions are met and no other API call is in progress, a heartbeat prompt is built and sent via <code>askWithTools</code> (which includes the full tool-calling loop)</li>
 <li>The last heartbeat timestamp is updated and a log entry is recorded</li>
 </ol>
 <h2 id="response-handling">Response Handling</h2>
@@ -993,7 +993,7 @@
 <li>A dismissable banner appears at the top of the chat when the heartbeat has something to report</li>
 <li>Tapping the banner loads the heartbeat conversation so the user can read the report and reply</li>
 <li>The X button dismisses the banner without navigating</li>
-<li>Heartbeat conversations are excluded from the chat history list — they are accessed only via the banner</li>
+<li>Heartbeat conversations are included in the chat history list with a "Heartbeat" label badge, and can also be accessed via the banner</li>
 <li>The heartbeat prompt is sent as a standalone message (not including user chat history as context)</li>
 <li>If the API call fails, a failure entry is recorded in the heartbeat log</li>
 </ul>
@@ -1027,7 +1027,7 @@
 <li><strong>Toggle</strong> — enables or disables heartbeat with a switch</li>
 <li><strong>Interval display</strong> — shows the current interval in minutes in the section description</li>
 <li><strong>Interval slider</strong> — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label</li>
-<li><strong>Active hours range slider</strong> — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "HH:00 – HH:00" next to the label</li>
+<li><strong>Active hours range slider</strong> — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours)</li>
 <li><strong>Custom prompt editor</strong> — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set</li>
 <li><strong>Log display</strong> — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp</li>
 </ul>

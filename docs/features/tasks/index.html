@@ -633,6 +633,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#failure-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ai-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -853,6 +864,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#failure-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ai-tools" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -959,11 +981,11 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-03-11</p>
+<p><strong>Last verified:</strong> 2026-03-18</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
-<p>A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a target execution time, and optionally a cron expression for recurrence. Tasks track their status (PENDING or COMPLETED) and store the result of their last execution.</p>
+<p>A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a target execution time, and optionally a cron expression for recurrence. Tasks track their status (PENDING or COMPLETED), the result of their last execution, and a consecutive failure count for backoff.</p>
 <h3 id="cron-expression">Cron Expression</h3>
 <p>A 5-field schedule format (<code>minute hour day-of-month month day-of-week</code>) used for recurring tasks. Supports wildcards (<code>*</code>), steps (<code>*/n</code>), ranges (<code>1-5</code>), and comma-separated lists. Day-of-week follows standard cron numbering (0=Sunday, 6=Saturday). The parser searches up to ~2 years ahead for the next matching time.</p>
 <h2 id="task-lifecycle">Task Lifecycle</h2>
@@ -972,7 +994,7 @@
 <li>A new task is created with a UUID and persisted to storage</li>
 <li>For cron-based tasks, the first execution time is computed from the cron expression</li>
 <li>The background scheduler polls every 60 seconds and checks for due tasks (execution time &lt;= now)</li>
-<li>When due, the task's prompt is sent to the AI via the normal message pipeline</li>
+<li>When due, the task's prompt is sent to the AI via <code>askWithTools</code> (with full tool access but without adding to chat history)</li>
 <li>For one-time tasks, the status is set to COMPLETED after execution</li>
 <li>For recurring tasks, the next execution time is computed from the cron expression and the task remains PENDING</li>
 <li>The execution result and timestamp are stored on the task</li>
@@ -980,9 +1002,16 @@
 <h2 id="execution-rules">Execution Rules</h2>
 <ul>
 <li>Task execution is skipped if the app is currently processing another API call</li>
-<li>Each execution runs the task's prompt through the standard AI pipeline, meaning tool calls and conversation context apply</li>
+<li>Task prompts are executed via <code>askWithTools</code>, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). The response is added as an assistant message without polluting the main chat history</li>
 <li>Results are stored as the <code>lastResult</code> on the task for audit purposes</li>
 <li>The scheduler also handles heartbeat checks and email polling in the same poll loop</li>
+</ul>
+<h2 id="failure-handling">Failure Handling</h2>
+<ul>
+<li>Tasks track their <code>consecutiveFailures</code> count</li>
+<li>When a <strong>cron task fails</strong>, its execution time is advanced to the next scheduled cron time (preventing retry flooding every poll cycle)</li>
+<li>When a <strong>one-time task fails</strong>, exponential backoff is applied: the execution time is pushed forward by <code>60s * 2^failures</code>, capped at 1 hour</li>
+<li>On successful execution, the failure counter resets to zero</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
 <table>

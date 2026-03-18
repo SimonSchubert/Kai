@@ -979,7 +979,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-15</p>
+<p><strong>Last verified:</strong> 2026-03-18</p>
 <p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -992,7 +992,7 @@
 <ul>
 <li>On launch, the latest conversation (by <code>updatedAt</code>) is restored automatically</li>
 <li>"New Chat" clears history and unsets the current conversation ID</li>
-<li>A new conversation ID (UUID) is generated on first message send</li>
+<li>A new conversation ID (UUID) is generated on first successful save (after the first assistant response)</li>
 <li>Conversations are saved after each assistant response</li>
 <li>Only the most recent 20 exchanges are persisted per conversation</li>
 <li>Multiple conversations are persisted — starting a new chat preserves previous conversations</li>
@@ -1000,14 +1000,14 @@
 </ul>
 <h2 id="chat-history">Chat History</h2>
 <ul>
-<li>A history icon appears in the top bar when saved conversations exist</li>
+<li>A history icon appears in the top bar when saved conversations other than the current one exist</li>
 <li>Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)</li>
 <li>Each item shows the title and formatted date</li>
 <li>The active conversation is highlighted with the primary color</li>
 <li>Tapping an item loads that conversation and dismisses the sheet</li>
 <li>Each item has a delete button that removes the conversation from storage</li>
 <li>Deleting the active conversation clears the chat</li>
-<li>Heartbeat conversations are excluded from the history list (accessed via the heartbeat banner)</li>
+<li>Heartbeat conversations are included in the history list with a "Heartbeat" label badge, and can also be accessed via the heartbeat banner</li>
 </ul>
 <h2 id="message-sending">Message Sending</h2>
 <ul>

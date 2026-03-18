@@ -889,7 +889,7 @@
 
 
 <h1 id="daemon-mode">Daemon Mode</h1>
-<p><strong>Last verified:</strong> 2026-03-12</p>
+<p><strong>Last verified:</strong> 2026-03-18</p>
 <p>Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="daemon-controller">Daemon Controller</h3>
@@ -899,7 +899,7 @@
 <h2 id="service-lifecycle">Service Lifecycle</h2>
 <ol>
 <li>When daemon mode is enabled in settings, the foreground service is started</li>
-<li>The service creates a notification channel and displays a persistent "Running scheduled tasks" notification</li>
+<li>The service creates a notification channel and displays a persistent "Daemon is running" notification</li>
 <li>A coroutine scope is created and the task scheduler is started within it</li>
 <li>The service returns <code>START_STICKY</code>, so Android restarts it if the system kills it</li>
 <li>When daemon mode is disabled, the service is stopped and the coroutine scope is cancelled</li>
@@ -916,7 +916,7 @@
 <h2 id="notification">Notification</h2>
 <ul>
 <li><strong>Channel</strong>: "Kai Background Service" with low importance</li>
-<li><strong>Content</strong>: "Running scheduled tasks" with a sync icon</li>
+<li><strong>Content</strong>: "Daemon is running" with a sync icon</li>
 <li><strong>Tap action</strong>: Opens the app's main screen</li>
 <li>The notification is required by Android for foreground services and cannot be hidden</li>
 </ul>
