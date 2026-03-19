@@ -979,7 +979,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-18</p>
+<p><strong>Last verified:</strong> 2026-03-19</p>
 <p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1073,7 +1073,7 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/ConversationStorage.kt</code></td>
-<td>Encryption, serialization, file I/O, upsert logic</td>
+<td>Serialization, settings-backed persistence, legacy migration</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
