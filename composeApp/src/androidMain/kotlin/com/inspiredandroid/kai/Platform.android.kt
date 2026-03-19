@@ -9,6 +9,7 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.core.net.toUri
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.inspiredandroid.kai.data.AppSettings
@@ -369,7 +370,7 @@ actual fun getAvailableTools(): List<Tool> {
 
 actual fun openUrl(url: String): Boolean = try {
     val context: Context by inject(Context::class.java)
-    val parsedUri = android.net.Uri.parse(url)
+    val parsedUri = url.toUri()
     val intent = if (parsedUri.scheme == "file") {
         val file = java.io.File(parsedUri.path!!)
         val contentUri = androidx.core.content.FileProvider.getUriForFile(

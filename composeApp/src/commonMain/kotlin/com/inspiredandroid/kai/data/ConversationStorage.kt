@@ -6,69 +6,29 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
-import kotlin.random.Random
 
-expect class ConversationStorage(appSettings: AppSettings) {
-    val conversations: StateFlow<List<Conversation>>
+expect fun readLegacyConversationFile(): ByteArray?
+expect fun deleteLegacyConversationFile()
 
-    suspend fun loadConversations()
-    suspend fun saveConversation(conversation: Conversation)
-    suspend fun deleteConversation(id: String)
-    suspend fun deleteAllConversations()
-}
+class ConversationStorage(private val appSettings: AppSettings) {
+    private val mutableConversations = MutableStateFlow<List<Conversation>>(emptyList())
+    val conversations: StateFlow<List<Conversation>> = mutableConversations.asStateFlow()
 
-@OptIn(ExperimentalEncodingApi::class)
-abstract class BaseConversationStorage(private val appSettings: AppSettings) {
-    protected val mutableConversations = MutableStateFlow<List<Conversation>>(emptyList())
-    open val conversations: StateFlow<List<Conversation>> = mutableConversations.asStateFlow()
-
-    protected val json = Json {
+    private val json = Json {
         ignoreUnknownKeys = true
         encodeDefaults = true
     }
 
-    protected fun getEncryptionKey(): ByteArray {
-        val existingKey = appSettings.getEncryptionKey()
-        if (existingKey != null) {
-            return existingKey
+    fun loadConversations() {
+        val data = appSettings.getConversationsJson()
+        if (data != null) {
+            mutableConversations.value = deserialize(data)
+        } else {
+            migrateLegacy()
         }
-
-        val newKey = ByteArray(32)
-        Random.nextBytes(newKey)
-        appSettings.setEncryptionKey(newKey)
-        return newKey
     }
 
-    protected fun encrypt(data: String): ByteArray {
-        val key = getEncryptionKey()
-        val bytes = data.encodeToByteArray()
-        val encrypted = ByteArray(bytes.size)
-        for (i in bytes.indices) {
-            encrypted[i] = (bytes[i].toInt() xor key[i % key.size].toInt()).toByte()
-        }
-        return encrypted
-    }
-
-    protected fun decrypt(data: ByteArray): String {
-        val key = getEncryptionKey()
-        val decrypted = ByteArray(data.size)
-        for (i in data.indices) {
-            decrypted[i] = (data[i].toInt() xor key[i % key.size].toInt()).toByte()
-        }
-        return decrypted.decodeToString()
-    }
-
-    protected fun serializeConversations(conversations: List<Conversation>): String = json.encodeToString(ConversationsData(conversations = conversations))
-
-    protected fun deserializeConversations(data: String): List<Conversation> = try {
-        json.decodeFromString<ConversationsData>(data).conversations
-    } catch (_: Exception) {
-        emptyList()
-    }
-
-    fun updateConversation(conversation: Conversation) {
+    fun saveConversation(conversation: Conversation) {
         mutableConversations.update { current ->
             val index = current.indexOfFirst { it.id == conversation.id }
             if (index >= 0) {
@@ -77,19 +37,37 @@ abstract class BaseConversationStorage(private val appSettings: AppSettings) {
                 current + conversation
             }
         }
+        persist()
     }
 
-    fun removeConversation(id: String) {
+    fun deleteConversation(id: String) {
         mutableConversations.update { current ->
             current.filter { it.id != id }
         }
+        persist()
     }
 
-    fun clearAllConversations() {
-        mutableConversations.update { emptyList() }
+    private fun persist() {
+        val data = json.encodeToString(ConversationsData(conversations = mutableConversations.value))
+        appSettings.setConversationsJson(data)
     }
 
-    companion object {
-        const val FILE_NAME = "conversations.enc"
+    private fun deserialize(data: String): List<Conversation> = try {
+        json.decodeFromString<ConversationsData>(data).conversations
+    } catch (_: Exception) {
+        emptyList()
+    }
+
+    private fun migrateLegacy() {
+        val legacyData = readLegacyConversationFile() ?: return
+        val key = appSettings.getEncryptionKey() ?: return
+        val decrypted = ByteArray(legacyData.size)
+        for (i in legacyData.indices) {
+            decrypted[i] = (legacyData[i].toInt() xor key[i % key.size].toInt()).toByte()
+        }
+        val conversations = deserialize(decrypted.decodeToString())
+        mutableConversations.value = conversations
+        persist()
+        deleteLegacyConversationFile()
     }
 }

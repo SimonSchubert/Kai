@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-18
+**Last verified:** 2026-03-19
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -93,7 +93,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes, type constants |
-| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Encryption, serialization, file I/O, upsert logic |
+| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Serialization, settings-backed persistence, legacy migration |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore/delete, title derivation, message sending |
 | `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel/loadConversation/deleteConversation actions |
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables, history sheet and heartbeat banner wiring |

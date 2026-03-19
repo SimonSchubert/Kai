@@ -11,8 +11,6 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
@@ -309,20 +307,20 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean("$KEY_TOOL_PREFIX$toolId", enabled)
     }
 
-    // Encryption key for conversation storage
-    @OptIn(ExperimentalEncodingApi::class)
+    fun getConversationsJson(): String? = settings.getStringOrNull(KEY_CONVERSATIONS)
+
+    fun setConversationsJson(json: String) {
+        settings.putString(KEY_CONVERSATIONS, json)
+    }
+
     fun getEncryptionKey(): ByteArray? {
         val encoded = settings.getStringOrNull(KEY_ENCRYPTION_KEY) ?: return null
         return try {
-            Base64.decode(encoded)
+            @OptIn(kotlin.io.encoding.ExperimentalEncodingApi::class)
+            kotlin.io.encoding.Base64.decode(encoded)
         } catch (_: Exception) {
             null
         }
-    }
-
-    @OptIn(ExperimentalEncodingApi::class)
-    fun setEncryptionKey(key: ByteArray) {
-        settings.putString(KEY_ENCRYPTION_KEY, Base64.encode(key))
     }
 
     fun runMigrations(legacySettings: Settings?) {
@@ -340,7 +338,6 @@ class AppSettings(private val settings: Settings) {
         // Migrate general settings
         migrateString(legacySettings, KEY_CURRENT_SERVICE_ID)
         migrateInt(legacySettings, KEY_APP_OPENS)
-        migrateString(legacySettings, KEY_ENCRYPTION_KEY)
 
         // Migrate per-service settings
         for (service in Service.all) {
@@ -902,6 +899,8 @@ class AppSettings(private val settings: Settings) {
     companion object {
         const val KEY_CURRENT_SERVICE_ID = "current_service_id"
         const val KEY_APP_OPENS = "app_opens"
+
+        const val KEY_CONVERSATIONS = "conversations_json"
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"
