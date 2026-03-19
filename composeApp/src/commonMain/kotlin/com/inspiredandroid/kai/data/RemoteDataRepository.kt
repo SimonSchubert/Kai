@@ -27,6 +27,7 @@ import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
+import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
@@ -373,19 +374,50 @@ class RemoteDataRepository(
         // Read file bytes outside of StateFlow.update (readBytes is suspend)
         val rawBytes = file?.readBytes()
         val fileMimeType = file?.mimeType()?.toString()
-        val fileData = rawBytes?.let { bytes ->
-            val compressed = compressImageBytes(bytes, fileMimeType ?: "image/jpeg")
-            Base64.encode(compressed)
-        }
-        val effectiveMimeType = if (rawBytes != null && fileMimeType?.startsWith("image/") == true) "image/jpeg" else fileMimeType
+        val fileName = file?.name
 
-        if (question != null) {
+        val isImageFile = fileMimeType?.startsWith("image/") == true ||
+            fileMimeType?.startsWith("video/") == true
+
+        // For image/video files: compress and base64-encode for vision APIs
+        // For text files: decode as UTF-8 and prepend to question content
+        val fileData: String?
+        val effectiveMimeType: String?
+        val effectiveQuestion: String?
+
+        if (rawBytes != null && isImageFile) {
+            val compressed = compressImageBytes(rawBytes, fileMimeType ?: "image/jpeg")
+            fileData = Base64.encode(compressed)
+            effectiveMimeType = "image/jpeg"
+            effectiveQuestion = question
+        } else if (rawBytes != null) {
+            // Text-based file: read as UTF-8 and prepend to the user's question
+            val textContent = rawBytes.decodeToString()
+            val header = if (fileName != null) "--- File: $fileName ---" else "--- Attached file ---"
+            effectiveQuestion = buildString {
+                appendLine(header)
+                appendLine(textContent)
+                appendLine("---")
+                if (!question.isNullOrBlank()) {
+                    appendLine()
+                    append(question)
+                }
+            }
+            fileData = null
+            effectiveMimeType = null
+        } else {
+            fileData = null
+            effectiveMimeType = null
+            effectiveQuestion = question
+        }
+
+        if (effectiveQuestion != null) {
             chatHistory.update {
                 it.toMutableList().apply {
                     add(
                         History(
                             role = History.Role.USER,
-                            content = question,
+                            content = effectiveQuestion,
                             mimeType = effectiveMimeType,
                             data = fileData,
                         ),

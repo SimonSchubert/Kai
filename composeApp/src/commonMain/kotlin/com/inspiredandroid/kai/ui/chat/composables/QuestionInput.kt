@@ -129,7 +129,7 @@ fun QuestionInput(
 
         val filePickerLauncher = if (allowFileAttachment) {
             rememberFilePickerLauncher(
-                type = FileKitType.ImageAndVideo,
+                type = FileKitType.File(),
             ) { file ->
                 setFile(file)
             }
