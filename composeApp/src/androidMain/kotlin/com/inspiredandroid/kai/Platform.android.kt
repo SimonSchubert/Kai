@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.core.net.toUri
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import dev.spght.encryptedprefs.EncryptedSharedPreferences
+import dev.spght.encryptedprefs.MasterKey
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
@@ -104,6 +104,9 @@ actual fun getAppFilesDirectory(): String {
     return context.filesDir.absolutePath
 }
 
+// Uses dev.spght:encryptedprefs-ktx — a maintained community fork of the deprecated
+// androidx.security:security-crypto. We keep application-level encryption because
+// secure settings store API keys, email passwords, and conversation encryption keys.
 actual fun createSecureSettings(): Settings {
     val context: Context by inject(Context::class.java)
     val masterKey = MasterKey.Builder(context)
