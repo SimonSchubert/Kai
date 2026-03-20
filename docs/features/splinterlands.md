@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-Last verified: 2026-03-18
+Last verified: 2026-03-20
 
 ## Overview
 
@@ -80,7 +80,9 @@ The account row shows avatar (loaded via Coil), username, energy, W/L stats, and
 
 The opponent name is extracted from the battle result (`player_1`/`player_2` fields) for accurate display; during match-finding, the match queue's `opponent_player` field is tried first.
 
-Recent Battles log shows up to 30 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.
+A **Model Rankings** table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending. The top-ranked model row is highlighted. Win rates are color-coded: green for 60%+, red for below 40%.
+
+Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.
 
 ## Platform Support
 

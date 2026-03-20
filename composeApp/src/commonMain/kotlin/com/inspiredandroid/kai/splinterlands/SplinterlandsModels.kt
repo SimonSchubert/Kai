@@ -67,6 +67,50 @@ data class BattleStatus(
     val winningServiceName: String = "",
 )
 
+data class ModelStats(
+    val modelName: String,
+    val wins: Int,
+    val losses: Int,
+    val total: Int,
+    val winRate: Double,
+)
+
+fun computeModelStats(battleLog: List<BattleLogEntry>): List<ModelStats> {
+    val llmStats = battleLog
+        .filter { it.llmPicked == true && it.modelName.isNotBlank() }
+        .groupBy { it.modelName }
+        .map { (name, entries) ->
+            val wins = entries.count { it.won }
+            val losses = entries.size - wins
+            ModelStats(
+                modelName = name,
+                wins = wins,
+                losses = losses,
+                total = entries.size,
+                winRate = if (entries.isNotEmpty()) wins.toDouble() / entries.size else 0.0,
+            )
+        }
+
+    val fallbackEntries = battleLog.filter { it.llmPicked == false }
+    val fallbackStats = if (fallbackEntries.isNotEmpty()) {
+        val wins = fallbackEntries.count { it.won }
+        val losses = fallbackEntries.size - wins
+        listOf(
+            ModelStats(
+                modelName = "Auto Picker",
+                wins = wins,
+                losses = losses,
+                total = fallbackEntries.size,
+                winRate = wins.toDouble() / fallbackEntries.size,
+            ),
+        )
+    } else {
+        emptyList()
+    }
+
+    return (llmStats + fallbackStats).sortedByDescending { it.winRate }
+}
+
 // Card data structures matching the Splinterlands API
 
 data class CardEntry(

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,12 +28,14 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -59,6 +62,8 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.splinterlands.BattleLogEntry
 import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
+import com.inspiredandroid.kai.splinterlands.ModelStats
+import com.inspiredandroid.kai.splinterlands.computeModelStats
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_move_down
 import kai.composeapp.generated.resources.settings_move_up
@@ -118,6 +123,13 @@ internal fun SplinterlandsSection(
                 onRemoveService = onRemoveService,
                 onReorderServices = onReorderServices,
             )
+
+            // Model Rankings (below services)
+            val modelStats = remember(battleLog) { computeModelStats(battleLog) }
+            if (modelStats.isNotEmpty()) {
+                Spacer(Modifier.height(12.dp))
+                SplinterlandsModelRankings(modelStats)
+            }
 
             // Account list
             if (accounts.isNotEmpty()) {
@@ -340,6 +352,71 @@ private fun SplinterlandsServiceList(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SplinterlandsModelRankings(modelStats: List<ModelStats>) {
+    Text(
+        text = "Model Rankings",
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.onBackground,
+    )
+    Spacer(Modifier.height(6.dp))
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(10.dp),
+        colors = CardDefaults.outlinedCardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+        ),
+    ) {
+        Column(modifier = Modifier.padding(10.dp)) {
+            for ((index, stats) in modelStats.withIndex()) {
+                if (index > 0) Spacer(Modifier.height(6.dp))
+                SplinterlandsModelRow(index + 1, stats)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SplinterlandsModelRow(rank: Int, stats: ModelStats) {
+    val winPct = (stats.winRate * 100).toInt()
+    val barColor = when {
+        winPct >= 60 -> Color(0xFF4CAF50)
+        winPct >= 40 -> MaterialTheme.colorScheme.primary
+        else -> MaterialTheme.colorScheme.error
+    }
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Text(
+                text = "#$rank",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = stats.modelName,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text = "${stats.wins}W ${stats.losses}L",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = "$winPct%",
+                style = MaterialTheme.typography.labelMedium,
+                color = barColor,
+            )
         }
     }
 }

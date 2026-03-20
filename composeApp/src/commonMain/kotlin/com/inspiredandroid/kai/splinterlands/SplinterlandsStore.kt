@@ -125,7 +125,7 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
     suspend fun addBattleLogEntry(entry: BattleLogEntry) = mutex.withLock {
         val log = getBattleLog().toMutableList()
         log.add(0, entry)
-        while (log.size > 30) log.removeLast()
+        while (log.size > 500) log.removeLast()
         appSettings.setSplinterlandsBattleLogJson(json.encodeToString(log))
     }
 
