@@ -973,7 +973,7 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p>Last verified: 2026-03-18</p>
+<p>Last verified: 2026-03-20</p>
 <h2 id="overview">Overview</h2>
 <p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.</p>
 <h2 id="configuration">Configuration</h2>
@@ -1042,7 +1042,8 @@
 <li><strong>Countdown timer</strong>: live countdown from team deadline to 0:00 (turns red below 30s)</li>
 </ul>
 <p>The opponent name is extracted from the battle result (<code>player_1</code>/<code>player_2</code> fields) for accurate display; during match-finding, the match queue's <code>opponent_player</code> field is tried first.</p>
-<p>Recent Battles log shows up to 30 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
+<p>A <strong>Model Rankings</strong> table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending. The top-ranked model row is highlighted. Win rates are color-coded: green for 60%+, red for below 40%.</p>
+<p>Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
 <h2 id="platform-support">Platform Support</h2>
 <ul>
 <li><strong>Desktop (JVM)</strong> and <strong>Android</strong>: Full support via BouncyCastle secp256k1. Signing uses RFC 6979 deterministic k with y-parity based recovery ID computation. Transaction signing uses single SHA-256 of (chain_id + serialized tx), following the Hive/Graphene signing protocol.</li>
