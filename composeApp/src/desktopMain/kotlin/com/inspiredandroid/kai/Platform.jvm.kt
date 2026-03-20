@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
+import com.inspiredandroid.kai.data.EncryptedFileSettings
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
@@ -24,7 +25,6 @@ import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
-import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
@@ -37,7 +37,6 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent.inject
 import java.io.File
 import java.net.URI
-import java.util.prefs.Preferences
 import kotlin.coroutines.CoroutineContext
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(CIO) {
@@ -132,11 +131,7 @@ actual fun getAppFilesDirectory(): String {
     return kaiDir.absolutePath
 }
 
-actual fun createSecureSettings(): Settings {
-    // Desktop has no built-in secure storage - using standard Preferences
-    val preferences = Preferences.userRoot().node("com.inspiredandroid.kai")
-    return PreferencesSettings(preferences)
-}
+actual fun createSecureSettings(): Settings = EncryptedFileSettings()
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
