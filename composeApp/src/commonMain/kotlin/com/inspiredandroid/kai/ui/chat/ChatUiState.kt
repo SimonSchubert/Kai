@@ -46,6 +46,7 @@ data class ChatUiState(
     val currentConversationId: String? = null,
     val hasUnreadHeartbeat: Boolean = false,
     val snackbarMessage: String? = null,
+    val pendingConversationDeletion: String? = null,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

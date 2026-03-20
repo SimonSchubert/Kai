@@ -44,6 +44,7 @@ class SettingsViewModel(
 
     private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()
     private var hasCheckedInitialConnection = false
+    private var pendingDeleteJob: Job? = null
 
     private fun buildFullState(): SettingsUiState = SettingsUiState(
         configuredServices = buildConfiguredServiceEntries(),
@@ -102,6 +103,7 @@ class SettingsViewModel(
         onAddPopularMcpServer = ::onAddPopularMcpServer,
         onExportSettings = ::onExportSettings,
         onImportSettings = ::onImportSettings,
+        onUndoDelete = ::onUndoDelete,
     )
 
     private val _state = MutableStateFlow(buildFullState())
@@ -192,13 +194,17 @@ class SettingsViewModel(
     }
 
     private fun onRemoveService(instanceId: String) {
-        dataRepository.removeConfiguredService(instanceId)
+        commitPendingDeletion()
         _state.update {
             it.copy(
                 expandedServiceId = if (it.expandedServiceId == instanceId) null else it.expandedServiceId,
+                pendingDeletion = PendingDeletion.Service(instanceId),
             )
         }
-        refreshServiceList()
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.Service(instanceId))
+        }
     }
 
     private fun onReorderServices(orderedIds: List<String>) {
@@ -285,9 +291,11 @@ class SettingsViewModel(
     }
 
     private fun onDeleteMemory(key: String) {
-        viewModelScope.launch {
-            dataRepository.deleteMemory(key)
-            _state.update { it.copy(memories = dataRepository.getMemories()) }
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.Memory(key)) }
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.Memory(key))
         }
     }
 
@@ -297,9 +305,11 @@ class SettingsViewModel(
     }
 
     private fun onCancelTask(id: String) {
-        viewModelScope.launch {
-            dataRepository.cancelScheduledTask(id)
-            _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks()) }
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.Task(id)) }
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.Task(id))
         }
     }
 
@@ -339,9 +349,11 @@ class SettingsViewModel(
     }
 
     private fun onRemoveEmailAccount(id: String) {
-        viewModelScope.launch {
-            dataRepository.removeEmailAccount(id)
-            _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts()) }
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.EmailAccount(id)) }
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.EmailAccount(id))
         }
     }
 
@@ -434,8 +446,12 @@ class SettingsViewModel(
     }
 
     private fun onRemoveMcpServer(serverId: String) {
-        dataRepository.removeMcpServer(serverId)
-        refreshMcpServers()
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.McpServer(serverId)) }
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.McpServer(serverId))
+        }
     }
 
     private fun onToggleMcpServer(serverId: String, enabled: Boolean) {
@@ -490,6 +506,58 @@ class SettingsViewModel(
                 connectMcpServerWithStatus(server.id)
             }
         }
+    }
+
+    private fun commitPendingDeletion() {
+        pendingDeleteJob?.cancel()
+        pendingDeleteJob = null
+        val deletion = _state.value.pendingDeletion ?: return
+        _state.update { it.copy(pendingDeletion = null) }
+        viewModelScope.launch {
+            executeDeletion(deletion)
+        }
+    }
+
+    private suspend fun executeDeletion(deletion: PendingDeletion) {
+        when (deletion) {
+            is PendingDeletion.Memory -> {
+                dataRepository.deleteMemory(deletion.key)
+                _state.update { it.copy(memories = dataRepository.getMemories(), pendingDeletion = null) }
+            }
+
+            is PendingDeletion.Task -> {
+                dataRepository.cancelScheduledTask(deletion.id)
+                _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks(), pendingDeletion = null) }
+            }
+
+            is PendingDeletion.EmailAccount -> {
+                dataRepository.removeEmailAccount(deletion.id)
+                _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts(), pendingDeletion = null) }
+            }
+
+            is PendingDeletion.Service -> {
+                dataRepository.removeConfiguredService(deletion.instanceId)
+                _state.update { it.copy(pendingDeletion = null) }
+                refreshServiceList()
+            }
+
+            is PendingDeletion.McpServer -> {
+                dataRepository.removeMcpServer(deletion.serverId)
+                _state.update { it.copy(pendingDeletion = null) }
+                refreshMcpServers()
+            }
+        }
+    }
+
+    private fun onUndoDelete() {
+        pendingDeleteJob?.cancel()
+        pendingDeleteJob = null
+        _state.update { it.copy(pendingDeletion = null) }
+    }
+
+    override fun onCleared() {
+        commitPendingDeletion()
+        super.onCleared()
     }
 
     private fun checkAllConnections() {

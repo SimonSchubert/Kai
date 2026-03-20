@@ -1,6 +1,6 @@
 # Memories
 
-**Last verified:** 2026-03-18
+**Last verified:** 2026-03-20
 
 Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.
 
@@ -68,7 +68,7 @@ The memories section in settings contains:
 - **Toggle** — enables or disables the memory feature with a switch
 - **Description** — explains that memories are included in every message for context
 - **Memory list** — each entry displays the key (bold) and content (max 3 lines, truncated with ellipsis)
-- **Delete button** — per-memory trash icon to remove individual memories
+- **Delete button** — per-memory trash icon to remove individual memories; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the memory is permanently removed
 
 ## AI Tools
 

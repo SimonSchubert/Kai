@@ -19,4 +19,5 @@ data class ChatActions(
     val deleteConversation: (String) -> Unit,
     val clearUnreadHeartbeat: () -> Unit,
     val clearSnackbar: () -> Unit,
+    val undoDeleteConversation: () -> Unit,
 )

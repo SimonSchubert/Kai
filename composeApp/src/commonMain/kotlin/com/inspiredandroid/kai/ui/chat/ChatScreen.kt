@@ -29,8 +29,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -64,6 +66,8 @@ import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
+import kai.composeapp.generated.resources.snackbar_conversation_deleted
+import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -98,10 +102,31 @@ fun ChatScreenContent(
     val keyboardController = LocalSoftwareKeyboardController.current
     val snackbarHostState = remember { SnackbarHostState() }
 
+    val conversationDeletedMsg = stringResource(Res.string.snackbar_conversation_deleted)
+    val undoLabel = stringResource(Res.string.snackbar_undo)
+
     LaunchedEffect(uiState.snackbarMessage) {
         val message = uiState.snackbarMessage ?: return@LaunchedEffect
         snackbarHostState.showSnackbar(message)
         uiState.actions.clearSnackbar()
+    }
+
+    LaunchedEffect(uiState.pendingConversationDeletion) {
+        val pendingId = uiState.pendingConversationDeletion ?: return@LaunchedEffect
+        snackbarHostState.currentSnackbarData?.dismiss()
+        val result = snackbarHostState.showSnackbar(
+            message = conversationDeletedMsg,
+            actionLabel = undoLabel,
+            duration = SnackbarDuration.Short,
+        )
+        if (result == SnackbarResult.ActionPerformed) {
+            uiState.actions.undoDeleteConversation()
+        }
+    }
+
+    val filteredConversations = remember(uiState.savedConversations, uiState.pendingConversationDeletion) {
+        val pendingId = uiState.pendingConversationDeletion
+        if (pendingId != null) uiState.savedConversations.filter { it.id != pendingId } else uiState.savedConversations
     }
 
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
@@ -113,7 +138,7 @@ fun ChatScreenContent(
                 isSpeaking = uiState.isSpeaking,
                 actions = uiState.actions,
                 isChatHistoryEmpty = uiState.history.isEmpty(),
-                hasSavedConversations = uiState.savedConversations.any { it.id != uiState.currentConversationId },
+                hasSavedConversations = filteredConversations.any { it.id != uiState.currentConversationId },
                 onNavigateToSettings = onNavigateToSettings,
                 onShowHistory = {
                     keyboardController?.hide()
@@ -323,7 +348,7 @@ fun ChatScreenContent(
 
     if (showHistorySheet) {
         ChatHistorySheet(
-            conversations = uiState.savedConversations,
+            conversations = filteredConversations,
             currentConversationId = uiState.currentConversationId,
             actions = uiState.actions,
             onDismiss = { showHistorySheet = false },

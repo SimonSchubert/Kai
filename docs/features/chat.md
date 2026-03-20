@@ -35,7 +35,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 - Each item shows the title and formatted date
 - The active conversation is highlighted with the primary color
 - Tapping an item loads that conversation and dismisses the sheet
-- Each item has a delete button that removes the conversation from storage
+- Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed
 - Deleting the active conversation clears the chat
 - Heartbeat conversations are included in the history list with a "Heartbeat" label badge, and can also be accessed via the heartbeat banner
 

@@ -178,5 +178,12 @@
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Tools</string>
     <string name="settings_import_section_mcp">MCP Servers</string>
+    <string name="snackbar_undo">Undo</string>
+    <string name="snackbar_memory_deleted">Memory deleted</string>
+    <string name="snackbar_task_cancelled">Task cancelled</string>
+    <string name="snackbar_email_removed">Email account removed</string>
+    <string name="snackbar_service_removed">Service removed</string>
+    <string name="snackbar_mcp_server_removed">MCP server removed</string>
+    <string name="snackbar_conversation_deleted">Conversation deleted</string>
     <string name="default_soul">You're not a chatbot. You're a personal assistant who grows with your user.\n\n## How to Be\n\n**Be genuinely helpful.** Skip the "Great question!" and "I'd be happy to help!" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful.** Try to figure it out from context and your memories before asking. Come back with answers, not questions.\n\n**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n## Boundaries\n\n- Respect privacy. Don't repeat sensitive information unnecessarily.\n- When in doubt about an action, ask first.\n- Be honest when you don't know something.</string>
 </resources>

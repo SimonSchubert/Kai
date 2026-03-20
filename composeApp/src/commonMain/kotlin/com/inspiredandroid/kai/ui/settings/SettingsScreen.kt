@@ -67,6 +67,11 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -232,6 +237,12 @@ import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
+import kai.composeapp.generated.resources.snackbar_email_removed
+import kai.composeapp.generated.resources.snackbar_mcp_server_removed
+import kai.composeapp.generated.resources.snackbar_memory_deleted
+import kai.composeapp.generated.resources.snackbar_service_removed
+import kai.composeapp.generated.resources.snackbar_task_cancelled
+import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -273,75 +284,138 @@ fun SettingsScreenContent(
     onNavigateBack: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
-    Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding(), horizontalAlignment = CenterHorizontally) {
-        if (navigationTabBar != null) {
-            Row(
-                modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = CenterVertically,
-            ) {
-                navigationTabBar()
-            }
-        } else {
-            TopBar(onNavigateBack = onNavigateBack)
+    val snackbarHostState = remember { SnackbarHostState() }
+    val undoLabel = stringResource(Res.string.snackbar_undo)
+    val memoryDeletedMsg = stringResource(Res.string.snackbar_memory_deleted)
+    val taskCancelledMsg = stringResource(Res.string.snackbar_task_cancelled)
+    val emailRemovedMsg = stringResource(Res.string.snackbar_email_removed)
+    val serviceRemovedMsg = stringResource(Res.string.snackbar_service_removed)
+    val mcpServerRemovedMsg = stringResource(Res.string.snackbar_mcp_server_removed)
+
+    LaunchedEffect(uiState.pendingDeletion) {
+        val deletion = uiState.pendingDeletion ?: return@LaunchedEffect
+        snackbarHostState.currentSnackbarData?.dismiss()
+        val message = when (deletion) {
+            is PendingDeletion.Memory -> memoryDeletedMsg
+            is PendingDeletion.Task -> taskCancelledMsg
+            is PendingDeletion.EmailAccount -> emailRemovedMsg
+            is PendingDeletion.Service -> serviceRemovedMsg
+            is PendingDeletion.McpServer -> mcpServerRemovedMsg
         }
-
-        SettingsTabSelector(
-            currentTab = uiState.currentTab,
-            onSelectTab = uiState.onSelectTab,
+        val result = snackbarHostState.showSnackbar(
+            message = message,
+            actionLabel = undoLabel,
+            duration = SnackbarDuration.Short,
         )
+        if (result == SnackbarResult.ActionPerformed) {
+            uiState.onUndoDelete()
+        }
+    }
 
-        Column(
-            Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
-            horizontalAlignment = CenterHorizontally,
-        ) {
-            Spacer(Modifier.height(16.dp))
+    val pendingDeletion = uiState.pendingDeletion
+    val filteredMemories = remember(uiState.memories, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.Memory) uiState.memories.filter { it.key != pendingDeletion.key } else uiState.memories
+    }
+    val filteredTasks = remember(uiState.scheduledTasks, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.Task) uiState.scheduledTasks.filter { it.id != pendingDeletion.id } else uiState.scheduledTasks
+    }
+    val filteredEmailAccounts = remember(uiState.emailAccounts, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.EmailAccount) uiState.emailAccounts.filter { it.id != pendingDeletion.id } else uiState.emailAccounts
+    }
+    val filteredServices = remember(uiState.configuredServices, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.Service) uiState.configuredServices.filter { it.instanceId != pendingDeletion.instanceId } else uiState.configuredServices
+    }
+    val filteredMcpServers = remember(uiState.mcpServers, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId } else uiState.mcpServers
+    }
 
-            val maxContentWidth = when (uiState.currentTab) {
-                SettingsTab.Tools -> 900.dp
-                SettingsTab.General -> 900.dp
-                SettingsTab.Integrations -> 900.dp
-                else -> 500.dp
+    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers) {
+        uiState.copy(
+            memories = filteredMemories,
+            scheduledTasks = filteredTasks,
+            emailAccounts = filteredEmailAccounts,
+            configuredServices = filteredServices,
+            mcpServers = filteredMcpServers,
+        )
+    }
+
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
+        Column(Modifier.fillMaxSize(), horizontalAlignment = CenterHorizontally) {
+            if (navigationTabBar != null) {
+                Row(
+                    modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = CenterVertically,
+                ) {
+                    navigationTabBar()
+                }
+            } else {
+                TopBar(onNavigateBack = onNavigateBack)
             }
+
+            SettingsTabSelector(
+                currentTab = filteredUiState.currentTab,
+                onSelectTab = filteredUiState.onSelectTab,
+            )
+
             Column(
-                Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
                 horizontalAlignment = CenterHorizontally,
             ) {
-                when (uiState.currentTab) {
-                    SettingsTab.General -> {
-                        GeneralContent(uiState = uiState)
+                Spacer(Modifier.height(16.dp))
+
+                val maxContentWidth = when (filteredUiState.currentTab) {
+                    SettingsTab.Tools -> 900.dp
+                    SettingsTab.General -> 900.dp
+                    SettingsTab.Integrations -> 900.dp
+                    else -> 500.dp
+                }
+                Column(
+                    Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                    horizontalAlignment = CenterHorizontally,
+                ) {
+                    when (filteredUiState.currentTab) {
+                        SettingsTab.General -> {
+                            GeneralContent(uiState = filteredUiState)
+                        }
+
+                        SettingsTab.Services -> {
+                            ServicesContent(uiState = filteredUiState)
+                        }
+
+                        SettingsTab.Integrations -> {
+                            IntegrationsContent()
+                        }
+
+                        SettingsTab.Tools -> {
+                            ToolsContent(
+                                tools = filteredUiState.tools,
+                                onToggleTool = filteredUiState.onToggleTool,
+                                mcpServers = filteredUiState.mcpServers,
+                                onAddMcpServer = filteredUiState.onAddMcpServer,
+                                onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
+                                onToggleMcpServer = filteredUiState.onToggleMcpServer,
+                                onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
+                                showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
+                                onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
+                                onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                            )
+                        }
                     }
 
-                    SettingsTab.Services -> {
-                        ServicesContent(uiState = uiState)
-                    }
-
-                    SettingsTab.Integrations -> {
-                        IntegrationsContent()
-                    }
-
-                    SettingsTab.Tools -> {
-                        ToolsContent(
-                            tools = uiState.tools,
-                            onToggleTool = uiState.onToggleTool,
-                            mcpServers = uiState.mcpServers,
-                            onAddMcpServer = uiState.onAddMcpServer,
-                            onRemoveMcpServer = uiState.onRemoveMcpServer,
-                            onToggleMcpServer = uiState.onToggleMcpServer,
-                            onRefreshMcpServer = uiState.onRefreshMcpServer,
-                            showAddMcpServerDialog = uiState.showAddMcpServerDialog,
-                            onShowAddMcpServerDialog = uiState.onShowAddMcpServerDialog,
-                            onAddPopularMcpServer = uiState.onAddPopularMcpServer,
-                        )
-                    }
+                    Spacer(Modifier.height(16.dp))
                 }
 
-                Spacer(Modifier.height(16.dp))
+                Spacer(Modifier.weight(1f))
+
+                BottomInfo()
             }
-
-            Spacer(Modifier.weight(1f))
-
-            BottomInfo()
+        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp),
+        ) { data ->
+            Snackbar(snackbarData = data)
         }
     }
 }

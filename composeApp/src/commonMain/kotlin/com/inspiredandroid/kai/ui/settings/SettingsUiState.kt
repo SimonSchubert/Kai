@@ -104,6 +104,8 @@ data class SettingsUiState(
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
     val currentSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
     val pastSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
+    val pendingDeletion: PendingDeletion? = null,
+    val onUndoDelete: () -> Unit = {},
 )
 
 @Immutable
@@ -121,6 +123,14 @@ enum class McpConnectionStatus {
     Connecting,
     Connected,
     Error,
+}
+
+sealed interface PendingDeletion {
+    data class Memory(val key: String) : PendingDeletion
+    data class Task(val id: String) : PendingDeletion
+    data class EmailAccount(val id: String) : PendingDeletion
+    data class Service(val instanceId: String) : PendingDeletion
+    data class McpServer(val serverId: String) : PendingDeletion
 }
 
 sealed interface ImportResult {

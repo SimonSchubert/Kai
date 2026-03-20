@@ -14,6 +14,7 @@ import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -44,8 +45,10 @@ class ChatViewModel(
         deleteConversation = ::deleteConversation,
         clearUnreadHeartbeat = ::clearUnreadHeartbeat,
         clearSnackbar = ::clearSnackbar,
+        undoDeleteConversation = ::undoDeleteConversation,
     )
     private var currentJob: Job? = null
+    private var pendingConversationDeleteJob: Job? = null
     private val _state = MutableStateFlow(
         ChatUiState(
             actions = actions,
@@ -212,9 +215,34 @@ class ChatViewModel(
     }
 
     private fun deleteConversation(id: String) {
-        viewModelScope.launch(backgroundDispatcher) {
+        commitPendingConversationDeletion()
+        _state.update { it.copy(pendingConversationDeletion = id) }
+        pendingConversationDeleteJob = viewModelScope.launch {
+            delay(4000)
             dataRepository.deleteConversation(id)
+            _state.update { it.copy(pendingConversationDeletion = null) }
         }
+    }
+
+    private fun undoDeleteConversation() {
+        pendingConversationDeleteJob?.cancel()
+        pendingConversationDeleteJob = null
+        _state.update { it.copy(pendingConversationDeletion = null) }
+    }
+
+    private fun commitPendingConversationDeletion() {
+        pendingConversationDeleteJob?.cancel()
+        pendingConversationDeleteJob = null
+        val pendingId = _state.value.pendingConversationDeletion ?: return
+        _state.update { it.copy(pendingConversationDeletion = null) }
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.deleteConversation(pendingId)
+        }
+    }
+
+    override fun onCleared() {
+        commitPendingConversationDeletion()
+        super.onCleared()
     }
 
     private fun clearUnreadHeartbeat() {

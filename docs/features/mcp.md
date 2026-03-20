@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-03-18
+**Last verified:** 2026-03-20
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -45,7 +45,7 @@ Each server card in settings shows:
 
 - A status dot (green=connected, orange=connecting, red=error, grey=unknown), an enable/disable toggle, and a dropdown chevron
 - Clicking anywhere on the card expands/collapses it
-- When expanded: discovered tools with individual toggles, refresh button, remove button
+- When expanded: discovered tools with individual toggles, refresh button, remove button (removal is deferred with a snackbar "Undo" option before permanent deletion)
 - Disabling a server disconnects it immediately and the status dot reflects the change
 
 The UI uses the same card style, status dot colors, and spacing as the Services tab for visual consistency.

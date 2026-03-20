@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-03-18
+**Last verified:** 2026-03-20
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -58,7 +58,7 @@ The scheduled tasks section in settings provides:
 
 - **Feature toggle** — enables or disables the scheduling feature globally; when disabled, no tasks execute and scheduling tools are unavailable to the AI
 - **Task list** — each task shows its description, status (PENDING or COMPLETED), and either a formatted execution time or a human-readable cron description
-- **Delete button** — available on all tasks to remove them
+- **Delete button** — available on all tasks to remove them; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the task is permanently cancelled
 
 ### Cron Description
 
