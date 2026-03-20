@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat ha insatge da rapportar</string>
     <string name="heartbeat_banner_dismiss">Serrar</string>
+    <string name="scroll_to_bottom_content_description">Scrollar a la fin</string>
+    <string name="conversation_untitled">Senza titel</string>
+    <string name="error_unsupported_file_type">Quest tip da datoteca n\'è betg sustegnì. Vus pudais agiuntar maletgs, datotecas da text e PDFs.</string>
+    <string name="error_file_too_large">La datoteca è memia gronda. Datotecas da text ston esser pli pitschnas che 100 KB.</string>
+    <string name="error_image_too_large">Il maletg è memia grond. Empruvai in maletg pli pitschen.</string>
+    <string name="error_insufficient_credits">Betg avunda credit</string>
+    <string name="error_quota_exhausted">Quota exhaurida</string>
+    <string name="settings_request_integration_title">Dumandar ina integraziun</string>
+    <string name="settings_request_integration_description">Avais Vus ina idea per ina automatisaziun u integraziun? Laschai ans savair cun avrir in GitHub-issue.</string>
+    <string name="settings_open_github_issue">Avrir GitHub-issue</string>
+    <string name="notification_channel_name">Notificaziuns da IA</string>
+    <string name="notification_channel_description">Notificaziuns tramessas da l\'assistent da IA</string>
 </resources>

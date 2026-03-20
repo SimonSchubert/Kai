@@ -178,4 +178,16 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat har noe å rapportere</string>
     <string name="heartbeat_banner_dismiss">Avvis</string>
+    <string name="scroll_to_bottom_content_description">Rull til bunnen</string>
+    <string name="conversation_untitled">Uten tittel</string>
+    <string name="error_unsupported_file_type">Denne filtypen støttes ikke. Du kan legge ved bilder, tekstfiler og PDF-er.</string>
+    <string name="error_file_too_large">Filen er for stor. Tekstfiler må være under 100 KB.</string>
+    <string name="error_image_too_large">Bildet er for stort. Prøv et mindre bilde.</string>
+    <string name="error_insufficient_credits">Utilstrekkelige kreditter</string>
+    <string name="error_quota_exhausted">Kvoten er brukt opp</string>
+    <string name="settings_request_integration_title">Be om en integrasjon</string>
+    <string name="settings_request_integration_description">Har du en idé til en automatisering eller integrasjon? Gi oss beskjed ved å opprette en GitHub-sak.</string>
+    <string name="settings_open_github_issue">Opprett GitHub-sak</string>
+    <string name="notification_channel_name">AI-varsler</string>
+    <string name="notification_channel_description">Varsler sendt av AI-assistent</string>
 </resources>

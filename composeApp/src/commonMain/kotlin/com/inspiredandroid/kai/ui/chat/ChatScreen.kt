@@ -66,11 +66,13 @@ import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
+import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -106,8 +108,8 @@ fun ChatScreenContent(
     val undoLabel = stringResource(Res.string.snackbar_undo)
 
     LaunchedEffect(uiState.snackbarMessage) {
-        val message = uiState.snackbarMessage ?: return@LaunchedEffect
-        snackbarHostState.showSnackbar(message)
+        val resource = uiState.snackbarMessage ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(getString(resource))
         uiState.actions.clearSnackbar()
     }
 
@@ -319,7 +321,7 @@ fun ChatScreenContent(
                                         }
                                     },
                                 ) {
-                                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Scroll to bottom")
+                                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = stringResource(Res.string.scroll_to_bottom_content_description))
                                 }
                             }
                         }

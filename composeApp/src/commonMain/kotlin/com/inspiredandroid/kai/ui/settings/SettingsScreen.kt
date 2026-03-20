@@ -206,10 +206,13 @@ import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_model_search
 import kai.composeapp.generated.resources.settings_move_down
 import kai.composeapp.generated.resources.settings_move_up
+import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
 import kai.composeapp.generated.resources.settings_remove_service
+import kai.composeapp.generated.resources.settings_request_integration_description
+import kai.composeapp.generated.resources.settings_request_integration_title
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
@@ -1576,13 +1579,13 @@ private fun IntegrationsContent(
         SettingsCard {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Request an Integration",
+                    text = stringResource(Res.string.settings_request_integration_title),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = "Have an idea for an automation or integration? Let us know by opening a GitHub issue.",
+                    text = stringResource(Res.string.settings_request_integration_description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -1591,7 +1594,7 @@ private fun IntegrationsContent(
                     onClick = { uriHandler.openUri("https://github.com/SimonSchubert/Kai/issues/new?template=integration_request.yml") },
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) {
-                    Text("Open GitHub Issue")
+                    Text(stringResource(Res.string.settings_open_github_issue))
                 }
             }
         }

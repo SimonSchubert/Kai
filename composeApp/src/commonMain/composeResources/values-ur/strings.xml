@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">ہارٹ بیٹ</string>
     <string name="heartbeat_banner_message">ہارٹ بیٹ کے پاس رپورٹ کرنے کے لیے کچھ ہے</string>
     <string name="heartbeat_banner_dismiss">برخاست</string>
+    <string name="scroll_to_bottom_content_description">نیچے سکرول کریں</string>
+    <string name="conversation_untitled">بے عنوان</string>
+    <string name="error_unsupported_file_type">اس فائل کی قسم معاون نہیں ہے۔ آپ تصاویر، ٹیکسٹ فائلز، اور PDF منسلک کر سکتے ہیں۔</string>
+    <string name="error_file_too_large">فائل بہت بڑی ہے۔ ٹیکسٹ فائلز 100 KB سے کم ہونی چاہئیں۔</string>
+    <string name="error_image_too_large">تصویر بہت بڑی ہے۔ چھوٹی تصویر آزمائیں۔</string>
+    <string name="error_insufficient_credits">ناکافی کریڈٹس</string>
+    <string name="error_quota_exhausted">کوٹا ختم ہو گیا</string>
+    <string name="settings_request_integration_title">انٹیگریشن کی درخواست کریں</string>
+    <string name="settings_request_integration_description">آٹومیشن یا انٹیگریشن کا کوئی آئیڈیا ہے؟ GitHub پر ایک issue کھول کر ہمیں بتائیں۔</string>
+    <string name="settings_open_github_issue">GitHub Issue کھولیں</string>
+    <string name="notification_channel_name">AI اطلاعات</string>
+    <string name="notification_channel_description">AI اسسٹنٹ کی طرف سے بھیجی گئی اطلاعات</string>
 </resources>

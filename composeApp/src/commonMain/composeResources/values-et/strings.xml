@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat-il on midagi teatada</string>
     <string name="heartbeat_banner_dismiss">Sulge</string>
+    <string name="scroll_to_bottom_content_description">Keri alla</string>
+    <string name="conversation_untitled">Pealkirjata</string>
+    <string name="error_unsupported_file_type">Seda failitüüpi ei toetata. Saad lisada pilte, tekstifaile ja PDF-e.</string>
+    <string name="error_file_too_large">Fail on liiga suur. Tekstifailid peavad olema alla 100 KB.</string>
+    <string name="error_image_too_large">Pilt on liiga suur. Proovi väiksemat pilti.</string>
+    <string name="error_insufficient_credits">Ebapiisav krediidijääk</string>
+    <string name="error_quota_exhausted">Limiit on ammendatud</string>
+    <string name="settings_request_integration_title">Taotle integratsiooni</string>
+    <string name="settings_request_integration_description">Kas sul on idee automatiseerimise või integratsiooni jaoks? Anna meile teada, avades GitHubis probleemiteate.</string>
+    <string name="settings_open_github_issue">Ava GitHubi probleemiteade</string>
+    <string name="notification_channel_name">AI teavitused</string>
+    <string name="notification_channel_description">AI assistendi saadetud teavitused</string>
 </resources>

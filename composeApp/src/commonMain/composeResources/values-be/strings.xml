@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Пульс</string>
     <string name="heartbeat_banner_message">Пульс мае пра што паведаміць</string>
     <string name="heartbeat_banner_dismiss">Адхіліць</string>
+    <string name="scroll_to_bottom_content_description">Пракруціць уніз</string>
+    <string name="conversation_untitled">Без назвы</string>
+    <string name="error_unsupported_file_type">Гэты тып файла не падтрымліваецца. Вы можаце далучаць выявы, тэкставыя файлы і PDF.</string>
+    <string name="error_file_too_large">Файл занадта вялікі. Тэкставыя файлы павінны быць менш за 100 КБ.</string>
+    <string name="error_image_too_large">Выява занадта вялікая. Паспрабуйце меншую выяву.</string>
+    <string name="error_insufficient_credits">Недастаткова крэдытаў</string>
+    <string name="error_quota_exhausted">Квота вычарпана</string>
+    <string name="settings_request_integration_title">Запытаць інтэграцыю</string>
+    <string name="settings_request_integration_description">Маеце ідэю для аўтаматызацыі або інтэграцыі? Паведаміце нам, адкрыўшы GitHub-задачу.</string>
+    <string name="settings_open_github_issue">Адкрыць GitHub-задачу</string>
+    <string name="notification_channel_name">Апавяшчэнні AI</string>
+    <string name="notification_channel_description">Апавяшчэнні, адпраўленыя AI-памочнікам</string>
 </resources>

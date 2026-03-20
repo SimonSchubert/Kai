@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">ਹਾਰਟਬੀਟ</string>
     <string name="heartbeat_banner_message">ਹਾਰਟਬੀਟ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਹੈ</string>
     <string name="heartbeat_banner_dismiss">ਰੱਦ ਕਰੋ</string>
+    <string name="scroll_to_bottom_content_description">ਹੇਠਾਂ ਸਕ੍ਰੋਲ ਕਰੋ</string>
+    <string name="conversation_untitled">ਬਿਨਾਂ ਸਿਰਲੇਖ</string>
+    <string name="error_unsupported_file_type">ਇਹ ਫਾਈਲ ਕਿਸਮ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ। ਤੁਸੀਂ ਤਸਵੀਰਾਂ, ਟੈਕਸਟ ਫਾਈਲਾਂ ਅਤੇ PDF ਅਟੈਚ ਕਰ ਸਕਦੇ ਹੋ।</string>
+    <string name="error_file_too_large">ਫਾਈਲ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਟੈਕਸਟ ਫਾਈਲਾਂ 100 KB ਤੋਂ ਘੱਟ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।</string>
+    <string name="error_image_too_large">ਤਸਵੀਰ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਛੋਟੀ ਤਸਵੀਰ ਅਜ਼ਮਾਓ।</string>
+    <string name="error_insufficient_credits">ਨਾਕਾਫ਼ੀ ਕ੍ਰੈਡਿਟ</string>
+    <string name="error_quota_exhausted">ਕੋਟਾ ਖਤਮ ਹੋ ਗਿਆ</string>
+    <string name="settings_request_integration_title">ਇੰਟੀਗ੍ਰੇਸ਼ਨ ਦੀ ਬੇਨਤੀ ਕਰੋ</string>
+    <string name="settings_request_integration_description">ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਆਟੋਮੇਸ਼ਨ ਜਾਂ ਇੰਟੀਗ੍ਰੇਸ਼ਨ ਦਾ ਵਿਚਾਰ ਹੈ? GitHub ਇਸ਼ੂ ਖੋਲ੍ਹ ਕੇ ਸਾਨੂੰ ਦੱਸੋ।</string>
+    <string name="settings_open_github_issue">GitHub ਇਸ਼ੂ ਖੋਲ੍ਹੋ</string>
+    <string name="notification_channel_name">AI ਸੂਚਨਾਵਾਂ</string>
+    <string name="notification_channel_description">AI ਸਹਾਇਕ ਦੁਆਰਾ ਭੇਜੀਆਂ ਸੂਚਨਾਵਾਂ</string>
 </resources>

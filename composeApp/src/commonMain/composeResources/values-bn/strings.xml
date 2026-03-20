@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">হার্টবিট</string>
     <string name="heartbeat_banner_message">হার্টবিটের রিপোর্ট করার কিছু আছে</string>
     <string name="heartbeat_banner_dismiss">বাতিল</string>
+    <string name="scroll_to_bottom_content_description">নিচে স্ক্রল করুন</string>
+    <string name="conversation_untitled">শিরোনামহীন</string>
+    <string name="error_unsupported_file_type">এই ফাইল টাইপ সমর্থিত নয়। আপনি ছবি, টেক্সট ফাইল এবং PDF সংযুক্ত করতে পারেন।</string>
+    <string name="error_file_too_large">ফাইল খুব বড়। টেক্সট ফাইল ১০০ KB-এর কম হতে হবে।</string>
+    <string name="error_image_too_large">ছবি খুব বড়। একটি ছোট ছবি চেষ্টা করুন।</string>
+    <string name="error_insufficient_credits">অপর্যাপ্ত ক্রেডিট</string>
+    <string name="error_quota_exhausted">কোটা শেষ হয়ে গেছে</string>
+    <string name="settings_request_integration_title">একটি ইন্টিগ্রেশন অনুরোধ করুন</string>
+    <string name="settings_request_integration_description">অটোমেশন বা ইন্টিগ্রেশনের জন্য কোনো ধারণা আছে? একটি GitHub ইস্যু খুলে আমাদের জানান।</string>
+    <string name="settings_open_github_issue">GitHub ইস্যু খুলুন</string>
+    <string name="notification_channel_name">AI বিজ্ঞপ্তি</string>
+    <string name="notification_channel_description">AI সহকারী দ্বারা প্রেরিত বিজ্ঞপ্তি</string>
 </resources>

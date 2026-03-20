@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">இதயத்துடிப்பு</string>
     <string name="heartbeat_banner_message">இதயத்துடிப்பு அறிக்கையிட ஏதோ உள்ளது</string>
     <string name="heartbeat_banner_dismiss">நிராகரி</string>
+    <string name="scroll_to_bottom_content_description">கீழே உருட்டு</string>
+    <string name="conversation_untitled">தலைப்பிடாத</string>
+    <string name="error_unsupported_file_type">இந்த கோப்பு வகை ஆதரிக்கப்படவில்லை. நீங்கள் படங்கள், உரை கோப்புகள் மற்றும் PDF கோப்புகளை இணைக்கலாம்.</string>
+    <string name="error_file_too_large">கோப்பு மிகப் பெரியது. உரை கோப்புகள் 100 KB க்கு கீழ் இருக்க வேண்டும்.</string>
+    <string name="error_image_too_large">படம் மிகப் பெரியது. சிறிய படத்தை முயற்சிக்கவும்.</string>
+    <string name="error_insufficient_credits">போதுமான கிரெடிட்கள் இல்லை</string>
+    <string name="error_quota_exhausted">ஒதுக்கீடு தீர்ந்தது</string>
+    <string name="settings_request_integration_title">ஒரு ஒருங்கிணைப்பைக் கோரு</string>
+    <string name="settings_request_integration_description">தானியங்கி அல்லது ஒருங்கிணைப்புக்கான யோசனை உள்ளதா? GitHub issue திறந்து எங்களுக்குத் தெரிவியுங்கள்.</string>
+    <string name="settings_open_github_issue">GitHub Issue திற</string>
+    <string name="notification_channel_name">AI அறிவிப்புகள்</string>
+    <string name="notification_channel_description">AI உதவியாளரால் அனுப்பப்பட்ட அறிவிப்புகள்</string>
 </resources>

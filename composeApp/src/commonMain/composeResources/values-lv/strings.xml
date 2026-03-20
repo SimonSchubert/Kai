@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat ir ko ziņot</string>
     <string name="heartbeat_banner_dismiss">Noraidīt</string>
+    <string name="scroll_to_bottom_content_description">Ritināt uz leju</string>
+    <string name="conversation_untitled">Bez nosaukuma</string>
+    <string name="error_unsupported_file_type">Šis faila tips netiek atbalstīts. Varat pievienot attēlus, teksta failus un PDF.</string>
+    <string name="error_file_too_large">Fails ir pārāk liels. Teksta failiem jābūt mazākiem par 100 KB.</string>
+    <string name="error_image_too_large">Attēls ir pārāk liels. Izmēģiniet mazāku attēlu.</string>
+    <string name="error_insufficient_credits">Nepietiekami kredīti</string>
+    <string name="error_quota_exhausted">Kvota izsmelta</string>
+    <string name="settings_request_integration_title">Pieprasīt integrāciju</string>
+    <string name="settings_request_integration_description">Vai jums ir ideja automatizācijai vai integrācijai? Paziņojiet mums, izveidojot GitHub problēmu.</string>
+    <string name="settings_open_github_issue">Atvērt GitHub problēmu</string>
+    <string name="notification_channel_name">MI paziņojumi</string>
+    <string name="notification_channel_description">Paziņojumi, ko nosūta MI asistents</string>
 </resources>

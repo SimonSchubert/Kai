@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Παλμός</string>
     <string name="heartbeat_banner_message">Ο παλμός έχει κάτι να αναφέρει</string>
     <string name="heartbeat_banner_dismiss">Απόρριψη</string>
+    <string name="scroll_to_bottom_content_description">Κύλιση προς τα κάτω</string>
+    <string name="conversation_untitled">Χωρίς τίτλο</string>
+    <string name="error_unsupported_file_type">Αυτός ο τύπος αρχείου δεν υποστηρίζεται. Μπορείτε να επισυνάψετε εικόνες, αρχεία κειμένου και PDF.</string>
+    <string name="error_file_too_large">Το αρχείο είναι πολύ μεγάλο. Τα αρχεία κειμένου πρέπει να είναι κάτω από 100 KB.</string>
+    <string name="error_image_too_large">Η εικόνα είναι πολύ μεγάλη. Δοκιμάστε μια μικρότερη εικόνα.</string>
+    <string name="error_insufficient_credits">Ανεπαρκές υπόλοιπο</string>
+    <string name="error_quota_exhausted">Το όριο χρήσης εξαντλήθηκε</string>
+    <string name="settings_request_integration_title">Αίτημα ενσωμάτωσης</string>
+    <string name="settings_request_integration_description">Έχετε μια ιδέα για αυτοματισμό ή ενσωμάτωση; Ενημερώστε μας ανοίγοντας ένα ζήτημα στο GitHub.</string>
+    <string name="settings_open_github_issue">Άνοιγμα ζητήματος GitHub</string>
+    <string name="notification_channel_name">Ειδοποιήσεις AI</string>
+    <string name="notification_channel_description">Ειδοποιήσεις που αποστέλλονται από τον βοηθό AI</string>
 </resources>

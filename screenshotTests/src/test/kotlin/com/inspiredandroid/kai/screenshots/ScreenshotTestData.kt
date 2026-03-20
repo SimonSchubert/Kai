@@ -35,6 +35,7 @@ object ScreenshotTestData {
         deleteConversation = {},
         clearSnackbar = {},
         clearUnreadHeartbeat = {},
+        undoDeleteConversation = { },
     )
 
     val chatEmptyState = ChatUiState(

@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat ada sesuatu untuk dilaporkan</string>
     <string name="heartbeat_banner_dismiss">Tutup</string>
+    <string name="scroll_to_bottom_content_description">Tatal ke bawah</string>
+    <string name="conversation_untitled">Tanpa tajuk</string>
+    <string name="error_unsupported_file_type">Jenis fail ini tidak disokong. Anda boleh melampirkan imej, fail teks dan PDF.</string>
+    <string name="error_file_too_large">Fail terlalu besar. Fail teks mestilah di bawah 100 KB.</string>
+    <string name="error_image_too_large">Imej terlalu besar. Cuba imej yang lebih kecil.</string>
+    <string name="error_insufficient_credits">Kredit tidak mencukupi</string>
+    <string name="error_quota_exhausted">Kuota habis</string>
+    <string name="settings_request_integration_title">Minta Integrasi</string>
+    <string name="settings_request_integration_description">Ada idea untuk automasi atau integrasi? Beritahu kami dengan membuka isu GitHub.</string>
+    <string name="settings_open_github_issue">Buka Isu GitHub</string>
+    <string name="notification_channel_name">Pemberitahuan AI</string>
+    <string name="notification_channel_description">Pemberitahuan yang dihantar oleh pembantu AI</string>
 </resources>

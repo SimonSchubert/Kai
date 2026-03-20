@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat turi ką pranešti</string>
     <string name="heartbeat_banner_dismiss">Atmesti</string>
+    <string name="scroll_to_bottom_content_description">Slinkti į apačią</string>
+    <string name="conversation_untitled">Be pavadinimo</string>
+    <string name="error_unsupported_file_type">Šis failo tipas nepalaikomas. Galite pridėti paveikslėlius, tekstinius failus ir PDF.</string>
+    <string name="error_file_too_large">Failas per didelis. Tekstiniai failai turi būti mažesni nei 100 KB.</string>
+    <string name="error_image_too_large">Paveikslėlis per didelis. Pabandykite mažesnį paveikslėlį.</string>
+    <string name="error_insufficient_credits">Nepakanka kreditų</string>
+    <string name="error_quota_exhausted">Kvota išnaudota</string>
+    <string name="settings_request_integration_title">Paprašyti integracijos</string>
+    <string name="settings_request_integration_description">Turite idėją automatizavimui ar integracijai? Praneškite mums sukurdami „GitHub" klausimą.</string>
+    <string name="settings_open_github_issue">Atidaryti „GitHub" klausimą</string>
+    <string name="notification_channel_name">DI pranešimai</string>
+    <string name="notification_channel_description">Pranešimai, siunčiami DI asistento</string>
 </resources>

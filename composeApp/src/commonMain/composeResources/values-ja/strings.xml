@@ -178,4 +178,16 @@
     <string name="chat_history_heartbeat_label">ハートビート</string>
     <string name="heartbeat_banner_message">ハートビートに報告事項があります</string>
     <string name="heartbeat_banner_dismiss">閉じる</string>
+    <string name="scroll_to_bottom_content_description">一番下にスクロール</string>
+    <string name="conversation_untitled">無題</string>
+    <string name="error_unsupported_file_type">このファイル形式はサポートされていません。画像、テキストファイル、PDFを添付できます。</string>
+    <string name="error_file_too_large">ファイルが大きすぎます。テキストファイルは100 KB以下にしてください。</string>
+    <string name="error_image_too_large">画像が大きすぎます。より小さい画像をお試しください。</string>
+    <string name="error_insufficient_credits">クレジットが不足しています</string>
+    <string name="error_quota_exhausted">クォータを超過しました</string>
+    <string name="settings_request_integration_title">インテグレーションをリクエスト</string>
+    <string name="settings_request_integration_description">自動化やインテグレーションのアイデアがありますか？GitHubでissueを作成してお知らせください。</string>
+    <string name="settings_open_github_issue">GitHub issueを開く</string>
+    <string name="notification_channel_name">AI通知</string>
+    <string name="notification_channel_description">AIアシスタントから送信された通知</string>
 </resources>

@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat มีเรื่องรายงาน</string>
     <string name="heartbeat_banner_dismiss">ปิด</string>
+    <string name="scroll_to_bottom_content_description">เลื่อนไปด้านล่าง</string>
+    <string name="conversation_untitled">ไม่มีชื่อ</string>
+    <string name="error_unsupported_file_type">ไฟล์ประเภทนี้ไม่รองรับ คุณสามารถแนบรูปภาพ ไฟล์ข้อความ และ PDF ได้</string>
+    <string name="error_file_too_large">ไฟล์มีขนาดใหญ่เกินไป ไฟล์ข้อความต้องมีขนาดไม่เกิน 100 KB</string>
+    <string name="error_image_too_large">รูปภาพมีขนาดใหญ่เกินไป ลองใช้รูปภาพที่เล็กกว่า</string>
+    <string name="error_insufficient_credits">เครดิตไม่เพียงพอ</string>
+    <string name="error_quota_exhausted">โควตาหมดแล้ว</string>
+    <string name="settings_request_integration_title">ขอการเชื่อมต่อ</string>
+    <string name="settings_request_integration_description">มีไอเดียสำหรับระบบอัตโนมัติหรือการเชื่อมต่อ? แจ้งเราได้โดยเปิด Issue บน GitHub</string>
+    <string name="settings_open_github_issue">เปิด Issue บน GitHub</string>
+    <string name="notification_channel_name">การแจ้งเตือน AI</string>
+    <string name="notification_channel_description">การแจ้งเตือนที่ส่งโดยผู้ช่วย AI</string>
 </resources>

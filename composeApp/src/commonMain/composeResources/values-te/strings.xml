@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">హార్ట్‌బీట్</string>
     <string name="heartbeat_banner_message">హార్ట్‌బీట్ నివేదించడానికి ఏదో ఉంది</string>
     <string name="heartbeat_banner_dismiss">తీసివేయి</string>
+    <string name="scroll_to_bottom_content_description">కిందికి స్క్రోల్ చేయి</string>
+    <string name="conversation_untitled">శీర్షిక లేనిది</string>
+    <string name="error_unsupported_file_type">ఈ ఫైల్ రకం మద్దతు లేదు. మీరు చిత్రాలు, టెక్స్ట్ ఫైళ్లు మరియు PDFలను జోడించవచ్చు.</string>
+    <string name="error_file_too_large">ఫైల్ చాలా పెద్దది. టెక్స్ట్ ఫైళ్లు 100 KB లోపు ఉండాలి.</string>
+    <string name="error_image_too_large">చిత్రం చాలా పెద్దది. చిన్న చిత్రాన్ని ప్రయత్నించండి.</string>
+    <string name="error_insufficient_credits">తగినంత క్రెడిట్లు లేవు</string>
+    <string name="error_quota_exhausted">కోటా అయిపోయింది</string>
+    <string name="settings_request_integration_title">ఇంటిగ్రేషన్ అభ్యర్థించండి</string>
+    <string name="settings_request_integration_description">ఆటోమేషన్ లేదా ఇంటిగ్రేషన్ కోసం ఆలోచన ఉందా? GitHub issue తెరిచి మాకు తెలియజేయండి.</string>
+    <string name="settings_open_github_issue">GitHub Issue తెరువు</string>
+    <string name="notification_channel_name">AI నోటిఫికేషన్లు</string>
+    <string name="notification_channel_description">AI అసిస్టెంట్ పంపిన నోటిఫికేషన్లు</string>
 </resources>

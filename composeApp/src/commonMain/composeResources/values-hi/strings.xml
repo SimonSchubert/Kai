@@ -178,4 +178,16 @@
     <string name="chat_history_heartbeat_label">हार्टबीट</string>
     <string name="heartbeat_banner_message">हार्टबीट के पास रिपोर्ट करने के लिए कुछ है</string>
     <string name="heartbeat_banner_dismiss">खारिज करें</string>
+    <string name="scroll_to_bottom_content_description">नीचे स्क्रॉल करें</string>
+    <string name="conversation_untitled">बिना शीर्षक</string>
+    <string name="error_unsupported_file_type">यह फ़ाइल प्रकार समर्थित नहीं है। आप छवियाँ, टेक्स्ट फ़ाइलें और PDF संलग्न कर सकते हैं।</string>
+    <string name="error_file_too_large">फ़ाइल बहुत बड़ी है। टेक्स्ट फ़ाइलें 100 KB से कम होनी चाहिए।</string>
+    <string name="error_image_too_large">छवि बहुत बड़ी है। कोई छोटी छवि आज़माएँ।</string>
+    <string name="error_insufficient_credits">अपर्याप्त क्रेडिट</string>
+    <string name="error_quota_exhausted">कोटा समाप्त</string>
+    <string name="settings_request_integration_title">इंटीग्रेशन का अनुरोध करें</string>
+    <string name="settings_request_integration_description">ऑटोमेशन या इंटीग्रेशन के लिए कोई विचार है? GitHub issue खोलकर हमें बताएं।</string>
+    <string name="settings_open_github_issue">GitHub Issue खोलें</string>
+    <string name="notification_channel_name">AI सूचनाएं</string>
+    <string name="notification_channel_description">AI सहायक द्वारा भेजी गई सूचनाएं</string>
 </resources>

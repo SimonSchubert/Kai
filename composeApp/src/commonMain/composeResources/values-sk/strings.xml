@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat má čo nahlásiť</string>
     <string name="heartbeat_banner_dismiss">Zavrieť</string>
+    <string name="scroll_to_bottom_content_description">Posunúť nadol</string>
+    <string name="conversation_untitled">Bez názvu</string>
+    <string name="error_unsupported_file_type">Tento typ súboru nie je podporovaný. Môžete priložiť obrázky, textové súbory a PDF.</string>
+    <string name="error_file_too_large">Súbor je príliš veľký. Textové súbory musia mať menej ako 100 KB.</string>
+    <string name="error_image_too_large">Obrázok je príliš veľký. Skúste menší obrázok.</string>
+    <string name="error_insufficient_credits">Nedostatok kreditov</string>
+    <string name="error_quota_exhausted">Kvóta vyčerpaná</string>
+    <string name="settings_request_integration_title">Požiadať o integráciu</string>
+    <string name="settings_request_integration_description">Máte nápad na automatizáciu alebo integráciu? Dajte nám vedieť otvorením issue na GitHube.</string>
+    <string name="settings_open_github_issue">Otvoriť issue na GitHube</string>
+    <string name="notification_channel_name">Upozornenia AI</string>
+    <string name="notification_channel_description">Upozornenia odoslané AI asistentom</string>
 </resources>

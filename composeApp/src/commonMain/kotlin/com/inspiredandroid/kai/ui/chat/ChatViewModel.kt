@@ -12,6 +12,9 @@ import com.inspiredandroid.kai.network.toUiError
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.conversation_untitled
+import kai.composeapp.generated.resources.error_unsupported_file_type
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -22,6 +25,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 import kotlin.coroutines.CoroutineContext
 
 class ChatViewModel(
@@ -81,7 +85,7 @@ class ChatViewModel(
                 val isHeartbeat = it.type == Conversation.TYPE_HEARTBEAT
                 ConversationSummary(
                     id = it.id,
-                    title = if (isHeartbeat) "" else it.title.ifEmpty { "Untitled" },
+                    title = if (isHeartbeat) "" else it.title.ifEmpty { getString(Res.string.conversation_untitled) },
                     updatedAt = it.updatedAt,
                     isHeartbeat = isHeartbeat,
                 )
@@ -157,7 +161,7 @@ class ChatViewModel(
             val category = classifyFile(file.mimeType()?.toString(), file.name)
             if (category == FileCategory.UNSUPPORTED) {
                 _state.update {
-                    it.copy(snackbarMessage = "This file type is not supported. You can attach images, text files, and PDFs.")
+                    it.copy(snackbarMessage = Res.string.error_unsupported_file_type)
                 }
                 return
             }

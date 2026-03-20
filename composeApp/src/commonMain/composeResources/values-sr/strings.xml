@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat има нешто да пријави</string>
     <string name="heartbeat_banner_dismiss">Одбаци</string>
+    <string name="scroll_to_bottom_content_description">Скролуј на дно</string>
+    <string name="conversation_untitled">Без наслова</string>
+    <string name="error_unsupported_file_type">Овај тип фајла није подржан. Можете приложити слике, текстуалне фајлове и PDF-ове.</string>
+    <string name="error_file_too_large">Фајл је превелик. Текстуални фајлови морају бити мањи од 100 KB.</string>
+    <string name="error_image_too_large">Слика је превелика. Покушајте са мањом сликом.</string>
+    <string name="error_insufficient_credits">Недовољно кредита</string>
+    <string name="error_quota_exhausted">Квота је исцрпљена</string>
+    <string name="settings_request_integration_title">Затражите интеграцију</string>
+    <string name="settings_request_integration_description">Имате идеју за аутоматизацију или интеграцију? Јавите нам отварањем GitHub issue-а.</string>
+    <string name="settings_open_github_issue">Отвори GitHub Issue</string>
+    <string name="notification_channel_name">AI обавештења</string>
+    <string name="notification_channel_description">Обавештења послата од стране AI асистента</string>
 </resources>

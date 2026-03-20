@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">פעימת לב</string>
     <string name="heartbeat_banner_message">לפעימת הלב יש מה לדווח</string>
     <string name="heartbeat_banner_dismiss">סגור</string>
+    <string name="scroll_to_bottom_content_description">גלול למטה</string>
+    <string name="conversation_untitled">ללא כותרת</string>
+    <string name="error_unsupported_file_type">סוג קובץ זה אינו נתמך. ניתן לצרף תמונות, קובצי טקסט ו-PDF.</string>
+    <string name="error_file_too_large">הקובץ גדול מדי. קובצי טקסט חייבים להיות מתחת ל-100 KB.</string>
+    <string name="error_image_too_large">התמונה גדולה מדי. נסה תמונה קטנה יותר.</string>
+    <string name="error_insufficient_credits">אין מספיק קרדיטים</string>
+    <string name="error_quota_exhausted">המכסה נוצלה</string>
+    <string name="settings_request_integration_title">בקש אינטגרציה</string>
+    <string name="settings_request_integration_description">יש לך רעיון לאוטומציה או אינטגרציה? ספר לנו על ידי פתיחת issue ב-GitHub.</string>
+    <string name="settings_open_github_issue">פתח issue ב-GitHub</string>
+    <string name="notification_channel_name">התראות AI</string>
+    <string name="notification_channel_description">התראות שנשלחו על ידי עוזר AI</string>
 </resources>

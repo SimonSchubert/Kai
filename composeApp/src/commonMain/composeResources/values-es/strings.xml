@@ -178,4 +178,16 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat tiene algo que reportar</string>
     <string name="heartbeat_banner_dismiss">Descartar</string>
+    <string name="scroll_to_bottom_content_description">Desplazarse al final</string>
+    <string name="conversation_untitled">Sin título</string>
+    <string name="error_unsupported_file_type">Este tipo de archivo no es compatible. Puedes adjuntar imágenes, archivos de texto y PDFs.</string>
+    <string name="error_file_too_large">El archivo es demasiado grande. Los archivos de texto deben ser menores de 100 KB.</string>
+    <string name="error_image_too_large">La imagen es demasiado grande. Prueba con una imagen más pequeña.</string>
+    <string name="error_insufficient_credits">Créditos insuficientes</string>
+    <string name="error_quota_exhausted">Cuota agotada</string>
+    <string name="settings_request_integration_title">Solicitar una integración</string>
+    <string name="settings_request_integration_description">¿Tienes una idea para una automatización o integración? Cuéntanos abriendo un issue en GitHub.</string>
+    <string name="settings_open_github_issue">Abrir issue en GitHub</string>
+    <string name="notification_channel_name">Notificaciones de IA</string>
+    <string name="notification_channel_description">Notificaciones enviadas por el asistente de IA</string>
 </resources>

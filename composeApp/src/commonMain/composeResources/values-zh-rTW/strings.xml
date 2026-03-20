@@ -178,4 +178,16 @@
     <string name="chat_history_heartbeat_label">心跳檢測</string>
     <string name="heartbeat_banner_message">心跳檢測有內容需要回報</string>
     <string name="heartbeat_banner_dismiss">關閉</string>
+    <string name="scroll_to_bottom_content_description">捲動到底部</string>
+    <string name="conversation_untitled">未命名</string>
+    <string name="error_unsupported_file_type">不支援此檔案類型。您可以附加圖片、文字檔案和 PDF。</string>
+    <string name="error_file_too_large">檔案過大。文字檔案必須小於 100 KB。</string>
+    <string name="error_image_too_large">圖片過大。請嘗試較小的圖片。</string>
+    <string name="error_insufficient_credits">額度不足</string>
+    <string name="error_quota_exhausted">配額已用盡</string>
+    <string name="settings_request_integration_title">請求整合</string>
+    <string name="settings_request_integration_description">有自動化或整合的想法？請透過提交 GitHub Issue 告訴我們。</string>
+    <string name="settings_open_github_issue">開啟 GitHub Issue</string>
+    <string name="notification_channel_name">AI 通知</string>
+    <string name="notification_channel_description">由 AI 助理傳送的通知</string>
 </resources>

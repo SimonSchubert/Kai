@@ -8,6 +8,11 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.inspiredandroid.kai.shared.R
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.notification_channel_description
+import kai.composeapp.generated.resources.notification_channel_name
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import java.util.concurrent.atomic.AtomicInteger
 
 class NotificationHelper(
@@ -19,8 +24,6 @@ class NotificationHelper(
 
     companion object {
         private const val CHANNEL_ID = "kai_ai_notifications"
-        private const val CHANNEL_NAME = "AI Notifications"
-        private const val CHANNEL_DESCRIPTION = "Notifications sent by AI assistant"
     }
 
     init {
@@ -29,12 +32,14 @@ class NotificationHelper(
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = runBlocking { getString(Res.string.notification_channel_name) }
+            val channelDescription = runBlocking { getString(Res.string.notification_channel_description) }
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                CHANNEL_NAME,
+                channelName,
                 NotificationManager.IMPORTANCE_DEFAULT,
             ).apply {
-                description = CHANNEL_DESCRIPTION
+                description = channelDescription
             }
             notificationManager.createNotificationChannel(channel)
         }

@@ -185,5 +185,17 @@
     <string name="snackbar_service_removed">Service removed</string>
     <string name="snackbar_mcp_server_removed">MCP server removed</string>
     <string name="snackbar_conversation_deleted">Conversation deleted</string>
+    <string name="scroll_to_bottom_content_description">Scroll to bottom</string>
+    <string name="conversation_untitled">Untitled</string>
+    <string name="error_unsupported_file_type">This file type is not supported. You can attach images, text files, and PDFs.</string>
+    <string name="error_file_too_large">File is too large. Text files must be under 100 KB.</string>
+    <string name="error_image_too_large">Image is too large. Try a smaller image.</string>
+    <string name="error_insufficient_credits">Insufficient credits</string>
+    <string name="error_quota_exhausted">Quota exhausted</string>
+    <string name="settings_request_integration_title">Request an Integration</string>
+    <string name="settings_request_integration_description">Have an idea for an automation or integration? Let us know by opening a GitHub issue.</string>
+    <string name="settings_open_github_issue">Open GitHub Issue</string>
+    <string name="notification_channel_name">AI Notifications</string>
+    <string name="notification_channel_description">Notifications sent by AI assistant</string>
     <string name="default_soul">You're not a chatbot. You're a personal assistant who grows with your user.\n\n## How to Be\n\n**Be genuinely helpful.** Skip the "Great question!" and "I'd be happy to help!" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful.** Try to figure it out from context and your memories before asking. Come back with answers, not questions.\n\n**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n## Boundaries\n\n- Respect privacy. Don't repeat sensitive information unnecessarily.\n- When in doubt about an action, ask first.\n- Be honest when you don't know something.</string>
 </resources>

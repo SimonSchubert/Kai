@@ -178,4 +178,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat обнаружил что-то важное</string>
     <string name="heartbeat_banner_dismiss">Закрыть</string>
+    <string name="scroll_to_bottom_content_description">Прокрутить вниз</string>
+    <string name="conversation_untitled">Без названия</string>
+    <string name="error_unsupported_file_type">Этот тип файла не поддерживается. Вы можете прикреплять изображения, текстовые файлы и PDF.</string>
+    <string name="error_file_too_large">Файл слишком большой. Текстовые файлы должны быть менее 100 КБ.</string>
+    <string name="error_image_too_large">Изображение слишком большое. Попробуйте изображение поменьше.</string>
+    <string name="error_insufficient_credits">Недостаточно кредитов</string>
+    <string name="error_quota_exhausted">Квота исчерпана</string>
+    <string name="settings_request_integration_title">Запросить интеграцию</string>
+    <string name="settings_request_integration_description">Есть идея для автоматизации или интеграции? Сообщите нам, создав issue на GitHub.</string>
+    <string name="settings_open_github_issue">Открыть issue на GitHub</string>
+    <string name="notification_channel_name">Уведомления ИИ</string>
+    <string name="notification_channel_description">Уведомления, отправленные ИИ-ассистентом</string>
 </resources>

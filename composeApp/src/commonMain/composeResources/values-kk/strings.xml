@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat хабарлайтын нәрсе бар</string>
     <string name="heartbeat_banner_dismiss">Жабу</string>
+    <string name="scroll_to_bottom_content_description">Төменге жылжу</string>
+    <string name="conversation_untitled">Атаусыз</string>
+    <string name="error_unsupported_file_type">Бұл файл түрі қолдау көрсетілмейді. Суреттер, мәтін файлдары және PDF тіркей аласыз.</string>
+    <string name="error_file_too_large">Файл тым үлкен. Мәтін файлдары 100 КБ-тан аз болуы керек.</string>
+    <string name="error_image_too_large">Сурет тым үлкен. Кішірек суретті қолданып көріңіз.</string>
+    <string name="error_insufficient_credits">Кредиттер жеткіліксіз</string>
+    <string name="error_quota_exhausted">Квота таусылды</string>
+    <string name="settings_request_integration_title">Интеграция сұрау</string>
+    <string name="settings_request_integration_description">Автоматтандыру немесе интеграция идеясы бар ма? GitHub-та issue ашу арқылы бізге хабарлаңыз.</string>
+    <string name="settings_open_github_issue">GitHub issue ашу</string>
+    <string name="notification_channel_name">AI хабарландырулары</string>
+    <string name="notification_channel_description">AI көмекшісі жіберген хабарландырулар</string>
 </resources>

@@ -178,4 +178,16 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat hat etwas zu berichten</string>
     <string name="heartbeat_banner_dismiss">Schließen</string>
+    <string name="scroll_to_bottom_content_description">Nach unten scrollen</string>
+    <string name="conversation_untitled">Ohne Titel</string>
+    <string name="error_unsupported_file_type">Dieser Dateityp wird nicht unterstützt. Du kannst Bilder, Textdateien und PDFs anhängen.</string>
+    <string name="error_file_too_large">Datei ist zu groß. Textdateien dürfen maximal 100 KB groß sein.</string>
+    <string name="error_image_too_large">Bild ist zu groß. Versuche ein kleineres Bild.</string>
+    <string name="error_insufficient_credits">Unzureichendes Guthaben</string>
+    <string name="error_quota_exhausted">Kontingent erschöpft</string>
+    <string name="settings_request_integration_title">Integration anfragen</string>
+    <string name="settings_request_integration_description">Hast du eine Idee für eine Automatisierung oder Integration? Lass es uns wissen, indem du ein GitHub-Issue erstellst.</string>
+    <string name="settings_open_github_issue">GitHub-Issue öffnen</string>
+    <string name="notification_channel_name">KI-Benachrichtigungen</string>
+    <string name="notification_channel_description">Benachrichtigungen vom KI-Assistenten</string>
 </resources>

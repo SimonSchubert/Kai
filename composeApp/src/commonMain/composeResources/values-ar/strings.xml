@@ -178,4 +178,16 @@
     <string name="chat_history_heartbeat_label">نبض القلب</string>
     <string name="heartbeat_banner_message">لدى نبض القلب شيء للإبلاغ عنه</string>
     <string name="heartbeat_banner_dismiss">تجاهل</string>
+    <string name="scroll_to_bottom_content_description">التمرير إلى الأسفل</string>
+    <string name="conversation_untitled">بدون عنوان</string>
+    <string name="error_unsupported_file_type">نوع الملف هذا غير مدعوم. يمكنك إرفاق الصور والملفات النصية وملفات PDF.</string>
+    <string name="error_file_too_large">الملف كبير جدًا. يجب أن تكون الملفات النصية أقل من 100 كيلوبايت.</string>
+    <string name="error_image_too_large">الصورة كبيرة جدًا. جرّب صورة أصغر.</string>
+    <string name="error_insufficient_credits">رصيد غير كافٍ</string>
+    <string name="error_quota_exhausted">تم استنفاد الحصة</string>
+    <string name="settings_request_integration_title">طلب تكامل</string>
+    <string name="settings_request_integration_description">هل لديك فكرة لأتمتة أو تكامل؟ أخبرنا بفتح مشكلة على GitHub.</string>
+    <string name="settings_open_github_issue">فتح مشكلة GitHub</string>
+    <string name="notification_channel_name">إشعارات الذكاء الاصطناعي</string>
+    <string name="notification_channel_description">إشعارات مرسلة من مساعد الذكاء الاصطناعي</string>
 </resources>

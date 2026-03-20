@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat má co hlásit</string>
     <string name="heartbeat_banner_dismiss">Zavřít</string>
+    <string name="scroll_to_bottom_content_description">Posunout dolů</string>
+    <string name="conversation_untitled">Bez názvu</string>
+    <string name="error_unsupported_file_type">Tento typ souboru není podporován. Můžete přiložit obrázky, textové soubory a PDF.</string>
+    <string name="error_file_too_large">Soubor je příliš velký. Textové soubory musí být menší než 100 KB.</string>
+    <string name="error_image_too_large">Obrázek je příliš velký. Zkuste menší obrázek.</string>
+    <string name="error_insufficient_credits">Nedostatečný kredit</string>
+    <string name="error_quota_exhausted">Kvóta vyčerpána</string>
+    <string name="settings_request_integration_title">Požádat o integraci</string>
+    <string name="settings_request_integration_description">Máte nápad na automatizaci nebo integraci? Dejte nám vědět otevřením GitHub issue.</string>
+    <string name="settings_open_github_issue">Otevřít GitHub issue</string>
+    <string name="notification_channel_name">AI oznámení</string>
+    <string name="notification_channel_description">Oznámení odeslaná AI asistentem</string>
 </resources>

@@ -16,6 +16,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import org.jetbrains.compose.resources.StringResource
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.uuid.ExperimentalUuidApi
@@ -45,7 +46,7 @@ data class ChatUiState(
     val savedConversations: List<ConversationSummary> = emptyList(),
     val currentConversationId: String? = null,
     val hasUnreadHeartbeat: Boolean = false,
-    val snackbarMessage: String? = null,
+    val snackbarMessage: StringResource? = null,
     val pendingConversationDeletion: String? = null,
 ) {
     val heartbeatConversationId: String?

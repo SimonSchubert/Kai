@@ -178,4 +178,16 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat\'in raporlayacak bir şeyi var</string>
     <string name="heartbeat_banner_dismiss">Kapat</string>
+    <string name="scroll_to_bottom_content_description">Alta kaydır</string>
+    <string name="conversation_untitled">Başlıksız</string>
+    <string name="error_unsupported_file_type">Bu dosya türü desteklenmiyor. Resim, metin dosyası ve PDF ekleyebilirsiniz.</string>
+    <string name="error_file_too_large">Dosya çok büyük. Metin dosyaları 100 KB\'ın altında olmalıdır.</string>
+    <string name="error_image_too_large">Resim çok büyük. Daha küçük bir resim deneyin.</string>
+    <string name="error_insufficient_credits">Yetersiz kredi</string>
+    <string name="error_quota_exhausted">Kota tükendi</string>
+    <string name="settings_request_integration_title">Entegrasyon Talep Et</string>
+    <string name="settings_request_integration_description">Bir otomasyon veya entegrasyon fikriniz mi var? GitHub üzerinde bir issue açarak bize bildirin.</string>
+    <string name="settings_open_github_issue">GitHub Issue Aç</string>
+    <string name="notification_channel_name">AI Bildirimleri</string>
+    <string name="notification_channel_description">AI asistan tarafından gönderilen bildirimler</string>
 </resources>

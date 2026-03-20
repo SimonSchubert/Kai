@@ -178,4 +178,16 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">Heartbeat heeft iets te melden</string>
     <string name="heartbeat_banner_dismiss">Sluiten</string>
+    <string name="scroll_to_bottom_content_description">Naar beneden scrollen</string>
+    <string name="conversation_untitled">Naamloos</string>
+    <string name="error_unsupported_file_type">Dit bestandstype wordt niet ondersteund. U kunt afbeeldingen, tekstbestanden en PDF\'s bijvoegen.</string>
+    <string name="error_file_too_large">Bestand is te groot. Tekstbestanden moeten kleiner zijn dan 100 KB.</string>
+    <string name="error_image_too_large">Afbeelding is te groot. Probeer een kleinere afbeelding.</string>
+    <string name="error_insufficient_credits">Onvoldoende tegoed</string>
+    <string name="error_quota_exhausted">Quotum uitgeput</string>
+    <string name="settings_request_integration_title">Een integratie aanvragen</string>
+    <string name="settings_request_integration_description">Heeft u een idee voor een automatisering of integratie? Laat het ons weten door een GitHub-issue aan te maken.</string>
+    <string name="settings_open_github_issue">GitHub-issue openen</string>
+    <string name="notification_channel_name">AI-meldingen</string>
+    <string name="notification_channel_description">Meldingen verzonden door AI-assistent</string>
 </resources>

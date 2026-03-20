@@ -177,4 +177,16 @@
     <string name="chat_history_heartbeat_label">Heartbeat</string>
     <string name="heartbeat_banner_message">May irereport ang Heartbeat</string>
     <string name="heartbeat_banner_dismiss">I-dismiss</string>
+    <string name="scroll_to_bottom_content_description">Mag-scroll pababa</string>
+    <string name="conversation_untitled">Walang pamagat</string>
+    <string name="error_unsupported_file_type">Hindi suportado ang ganitong uri ng file. Maaari kang mag-attach ng mga larawan, text file, at PDF.</string>
+    <string name="error_file_too_large">Masyadong malaki ang file. Ang mga text file ay dapat mas mababa sa 100 KB.</string>
+    <string name="error_image_too_large">Masyadong malaki ang larawan. Subukan ang mas maliit na larawan.</string>
+    <string name="error_insufficient_credits">Hindi sapat ang mga credit</string>
+    <string name="error_quota_exhausted">Naubos na ang quota</string>
+    <string name="settings_request_integration_title">Humiling ng Integration</string>
+    <string name="settings_request_integration_description">May ideya ka ba para sa isang automation o integration? Ipaalam sa amin sa pamamagitan ng pagbukas ng GitHub issue.</string>
+    <string name="settings_open_github_issue">Buksan ang GitHub Issue</string>
+    <string name="notification_channel_name">Mga Notification ng AI</string>
+    <string name="notification_channel_description">Mga notification na ipinadala ng AI assistant</string>
 </resources>
