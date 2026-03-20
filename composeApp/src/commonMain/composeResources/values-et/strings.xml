@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Esita küsimus</string>
     <string name="error_invalid_api_key">Kehtetu API võti. Kontrollige oma seadeid.</string>
     <string name="error_rate_limit_exceeded">Päringute limiit ületatud. Proovige hiljem uuesti.</string>
-    <string name="error_generic">Ilmnes ootamatu viga. Proovige uuesti.</string>
     <string name="error_unknown">Ilmnes tundmatu viga.</string>
     <string name="settings_ai_mistakes_warning">Tehisintellekt teeb vigu, kontrollige üle ja ärge jagage tundlikku teavet.</string>
     <string name="settings_version">Versioon: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Ühendatud</string>
     <string name="settings_mcp_status_error">Ühendamine ebaõnnestus</string>
     <string name="settings_mcp_no_tools">Tööriistu ei leitud</string>
-    <string name="settings_mcp_tools_count">%1$d tööriista</string>
     <string name="settings_mcp_popular_servers">Populaarsed serverid</string>
-    <string name="settings_mcp_web_cors_note">Märkus: MCP-serverid võivad veebis olla CORS-i poolt blokeeritud.</string>
     <string name="settings_export_import_title">Eksport / Import</string>
     <string name="settings_export_import_description">Eksporditud fail sisaldab tundlikke andmeid, nagu API-võtmed ja paroolid.</string>
     <string name="settings_export">Eksport</string>

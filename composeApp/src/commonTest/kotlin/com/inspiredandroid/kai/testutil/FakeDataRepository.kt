@@ -75,17 +75,6 @@ class FakeDataRepository : DataRepository {
 
     override fun getServiceEntries(): List<ServiceEntry> = emptyList()
 
-    override fun getOrderedServicesForFallback(): List<Service> {
-        val services = configuredInstances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }
-        return if (services.isEmpty()) {
-            listOf(Service.Free)
-        } else if (freeFallbackEnabled) {
-            services + Service.Free
-        } else {
-            services
-        }
-    }
-
     private var freeFallbackEnabled = true
 
     override fun isFreeFallbackEnabled(): Boolean = freeFallbackEnabled
@@ -274,8 +263,6 @@ class FakeDataRepository : DataRepository {
         mcpConnected.add(serverId)
         return Result.success(mcpTools[serverId] ?: emptyList())
     }
-
-    override fun getMcpToolDefinitions(): List<ToolInfo> = mcpTools.values.flatten()
 
     override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpTools[serverId] ?: emptyList()
 

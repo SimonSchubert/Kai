@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">ถามคำถาม</string>
     <string name="error_invalid_api_key">คีย์ API ไม่ถูกต้อง กรุณาตรวจสอบการตั้งค่าของคุณ</string>
     <string name="error_rate_limit_exceeded">เกินขีดจำกัดอัตรา กรุณาลองอีกครั้งในภายหลัง</string>
-    <string name="error_generic">เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองอีกครั้ง</string>
     <string name="error_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
     <string name="settings_ai_mistakes_warning">AI อาจทำผิดพลาด ตรวจสอบอีกครั้งและอย่าแชร์ข้อมูลที่ละเอียดอ่อน</string>
     <string name="settings_version">เวอร์ชัน: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">ส่งออก / นำเข้า</string>
     <string name="settings_export_import_description">ไฟล์ที่ส่งออกมีข้อมูลที่ละเอียดอ่อน เช่น คีย์ API และรหัสผ่าน</string>
     <string name="settings_export">ส่งออก</string>

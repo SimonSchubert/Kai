@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">একটি প্রশ্ন করুন</string>
     <string name="error_invalid_api_key">অবৈধ API কী। অনুগ্রহ করে আপনার সেটিংস পরীক্ষা করুন।</string>
     <string name="error_rate_limit_exceeded">রেট সীমা অতিক্রম করা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</string>
-    <string name="error_generic">একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="error_unknown">একটি অজানা ত্রুটি ঘটেছে।</string>
     <string name="settings_ai_mistakes_warning">AI ভুল করতে পারে, দুবার যাচাই করুন এবং সংবেদনশীল তথ্য শেয়ার করবেন না।</string>
     <string name="settings_version">সংস্করণ: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">সংযুক্ত</string>
     <string name="settings_mcp_status_error">সংযোগ ব্যর্থ</string>
     <string name="settings_mcp_no_tools">কোনো টুল পাওয়া যায়নি</string>
-    <string name="settings_mcp_tools_count">%1$d টুল</string>
     <string name="settings_mcp_popular_servers">জনপ্রিয় সার্ভার</string>
-    <string name="settings_mcp_web_cors_note">দ্রষ্টব্য: MCP সার্ভার ওয়েবে CORS দ্বারা ব্লক হতে পারে।</string>
     <string name="settings_export_import_title">রপ্তানি / আমদানি</string>
     <string name="settings_export_import_description">রপ্তানি করা ফাইলে API কী এবং পাসওয়ার্ডের মতো সংবেদনশীল তথ্য রয়েছে।</string>
     <string name="settings_export">রপ্তানি</string>

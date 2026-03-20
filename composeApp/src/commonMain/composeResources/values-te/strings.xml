@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">ప్రశ్న అడగండి</string>
     <string name="error_invalid_api_key">చెల్లని API కీ. దయచేసి మీ సెట్టింగ్‌లను తనిఖీ చేయండి.</string>
     <string name="error_rate_limit_exceeded">రేట్ పరిమితి మించిపోయింది. దయచేసి తర్వాత మళ్ళీ ప్రయత్నించండి.</string>
-    <string name="error_generic">ఊహించని లోపం సంభవించింది. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
     <string name="error_unknown">తెలియని లోపం సంభవించింది.</string>
     <string name="settings_ai_mistakes_warning">AI తప్పులు చేస్తుంది, మళ్ళీ తనిఖీ చేయండి మరియు సున్నితమైన సమాచారాన్ని భాగస్వామ్యం చేయకండి.</string>
     <string name="settings_version">వెర్షన్: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">ఎగుమతి / దిగుమతి</string>
     <string name="settings_export_import_description">ఎగుమతి చేసిన ఫైల్‌లో API కీలు మరియు పాస్‌వర్డ్‌ల వంటి సున్నితమైన డేటా ఉంటుంది.</string>
     <string name="settings_export">ఎగుమతి</string>

@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Stel een vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Controleer uw instellingen.</string>
     <string name="error_rate_limit_exceeded">Aanvraaglimiet overschreden. Probeer het later opnieuw.</string>
-    <string name="error_generic">Er is een onverwachte fout opgetreden. Probeer het opnieuw.</string>
     <string name="error_unknown">Er is een onbekende fout opgetreden.</string>
     <string name="settings_ai_mistakes_warning">AI kan fouten maken, controleer opnieuw en deel geen gevoelige informatie.</string>
     <string name="settings_version">Versie: %1$s</string>
@@ -147,9 +146,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_mcp_status_connected">Verbonden</string>
     <string name="settings_mcp_status_error">Verbinding mislukt</string>
     <string name="settings_mcp_no_tools">Geen tools gevonden</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Populaire servers</string>
-    <string name="settings_mcp_web_cors_note">Opmerking: MCP-servers kunnen geblokkeerd worden door CORS op het web.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Het geëxporteerde bestand bevat gevoelige gegevens zoals API-sleutels en wachtwoorden.</string>
     <string name="settings_export">Export</string>

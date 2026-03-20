@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Magtanong</string>
     <string name="error_invalid_api_key">Hindi wastong API Key. Suriin ang iyong mga setting.</string>
     <string name="error_rate_limit_exceeded">Nalampasan na ang limitasyon ng request. Subukan muli mamaya.</string>
-    <string name="error_generic">May hindi inaasahang error na nangyari. Subukan muli.</string>
     <string name="error_unknown">May hindi kilalang error na nangyari.</string>
     <string name="settings_ai_mistakes_warning">Nagkakamali ang AI, i-double check at huwag magbahagi ng sensitibong impormasyon.</string>
     <string name="settings_version">Bersyon: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Konektado</string>
     <string name="settings_mcp_status_error">Nabigo ang koneksyon</string>
     <string name="settings_mcp_no_tools">Walang nahanap na tools</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Mga Sikat na Server</string>
-    <string name="settings_mcp_web_cors_note">Paalala: Maaaring ma-block ng CORS ang mga MCP server sa web.</string>
     <string name="settings_export_import_title">I-export / I-import</string>
     <string name="settings_export_import_description">Ang na-export na file ay naglalaman ng sensitibong data tulad ng mga API key at password.</string>
     <string name="settings_export">I-export</string>

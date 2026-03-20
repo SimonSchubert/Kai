@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Ställ en fråga</string>
     <string name="error_invalid_api_key">Ogiltig API-nyckel. Kontrollera dina inställningar.</string>
     <string name="error_rate_limit_exceeded">Hastighetsgränsen överskriden. Försök igen senare.</string>
-    <string name="error_generic">Ett oväntat fel uppstod. Försök igen.</string>
     <string name="error_unknown">Ett okänt fel uppstod.</string>
     <string name="settings_ai_mistakes_warning">AI kan göra fel, dubbelkolla och dela inte känslig information.</string>
     <string name="settings_version">Version: %1$s</string>
@@ -147,9 +146,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_mcp_status_connected">Ansluten</string>
     <string name="settings_mcp_status_error">Anslutningen misslyckades</string>
     <string name="settings_mcp_no_tools">Inga verktyg hittades</string>
-    <string name="settings_mcp_tools_count">%1$d verktyg</string>
     <string name="settings_mcp_popular_servers">Populära servrar</string>
-    <string name="settings_mcp_web_cors_note">Obs: MCP-servrar kan blockeras av CORS på webben.</string>
     <string name="settings_export_import_title">Exportera / Importera</string>
     <string name="settings_export_import_description">Den exporterade filen innehåller känsliga uppgifter som API-nycklar och lösenord.</string>
     <string name="settings_export">Exportera</string>

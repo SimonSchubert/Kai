@@ -159,18 +159,6 @@ class RemoteDataRepository(
         )
     }
 
-    override fun getOrderedServicesForFallback(): List<Service> {
-        val instances = getConfiguredServiceInstances()
-        val services = instances.map { Service.fromId(it.serviceId) }.filter { it != Service.Free }
-        return if (services.isEmpty()) {
-            listOf(Service.Free)
-        } else if (appSettings.isFreeFallbackEnabled()) {
-            services + Service.Free
-        } else {
-            services
-        }
-    }
-
     override fun isFreeFallbackEnabled(): Boolean = appSettings.isFreeFallbackEnabled()
 
     override fun setFreeFallbackEnabled(enabled: Boolean) {
@@ -1159,8 +1147,6 @@ class RemoteDataRepository(
         val result = mcpServerManager.connectAndDiscoverTools(serverId)
         return result.map { mcpServerManager.getToolsForServer(serverId) }
     }
-
-    override fun getMcpToolDefinitions(): List<ToolInfo> = mcpServerManager.getMcpToolDefinitions()
 
     override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpServerManager.getToolsForServer(serverId)
 

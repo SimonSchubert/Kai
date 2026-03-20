@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Soru sorun</string>
     <string name="error_invalid_api_key">Geçersiz API Anahtarı. Lütfen ayarlarınızı kontrol edin.</string>
     <string name="error_rate_limit_exceeded">İstek limiti aşıldı. Lütfen daha sonra tekrar deneyin.</string>
-    <string name="error_generic">Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.</string>
     <string name="error_unknown">Bilinmeyen bir hata oluştu.</string>
     <string name="settings_ai_mistakes_warning">Yapay zeka hata yapabilir, tekrar kontrol edin ve hassas bilgileri paylaşmayın.</string>
     <string name="settings_version">Sürüm: %1$s</string>
@@ -147,9 +146,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_mcp_status_connected">Bağlandı</string>
     <string name="settings_mcp_status_error">Bağlantı başarısız</string>
     <string name="settings_mcp_no_tools">Araç bulunamadı</string>
-    <string name="settings_mcp_tools_count">%1$d araç</string>
     <string name="settings_mcp_popular_servers">Popüler Sunucular</string>
-    <string name="settings_mcp_web_cors_note">Not: MCP sunucuları web üzerinde CORS tarafından engellenebilir.</string>
     <string name="settings_export_import_title">Dışa Aktar / İçe Aktar</string>
     <string name="settings_export_import_description">Dışa aktarılan dosya, API anahtarları ve şifreler gibi hassas veriler içerir.</string>
     <string name="settings_export">Dışa Aktar</string>

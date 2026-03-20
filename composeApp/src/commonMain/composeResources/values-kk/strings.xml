@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Сұрақ қойыңыз</string>
     <string name="error_invalid_api_key">Жарамсыз API кілті. Параметрлерді тексеріңіз.</string>
     <string name="error_rate_limit_exceeded">Сұрау лимитінен асып кетті. Кейінірек қайталаңыз.</string>
-    <string name="error_generic">Күтпеген қате орын алды. Қайталап көріңіз.</string>
     <string name="error_unknown">Белгісіз қате орын алды.</string>
     <string name="settings_ai_mistakes_warning">AI қателесуі мүмкін, қайта тексеріңіз және құпия ақпаратты бөліспеңіз.</string>
     <string name="settings_version">Нұсқа: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Қосылған</string>
     <string name="settings_mcp_status_error">Қосылу сәтсіз</string>
     <string name="settings_mcp_no_tools">Құралдар табылмады</string>
-    <string name="settings_mcp_tools_count">%1$d құрал</string>
     <string name="settings_mcp_popular_servers">Танымал серверлер</string>
-    <string name="settings_mcp_web_cors_note">Ескерту: MCP серверлері вебте CORS арқылы бұғатталуы мүмкін.</string>
     <string name="settings_export_import_title">Экспорт / Импорт</string>
     <string name="settings_export_import_description">Экспортталған файлда API кілттері мен құпия сөздер сияқты құпия деректер бар.</string>
     <string name="settings_export">Экспорт</string>

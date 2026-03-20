@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Zastavite vprašanje</string>
     <string name="error_invalid_api_key">Neveljaven API ključ. Preverite nastavitve.</string>
     <string name="error_rate_limit_exceeded">Omejitev zahtev je presežena. Poskusite znova pozneje.</string>
-    <string name="error_generic">Prišlo je do nepričakovane napake. Poskusite znova.</string>
     <string name="error_unknown">Prišlo je do neznane napake.</string>
     <string name="settings_ai_mistakes_warning">UI dela napake, dvakrat preverite in ne delite občutljivih podatkov.</string>
     <string name="settings_version">Različica: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Izvoz / Uvoz</string>
     <string name="settings_export_import_description">Izvožena datoteka vsebuje občutljive podatke, kot so ključi API in gesla.</string>
     <string name="settings_export">Izvoz</string>

@@ -121,7 +121,7 @@ class CronExpression(expression: String) {
     }
 
     companion object {
-        fun parseField(field: String, min: Int, max: Int): Set<Int> {
+        private fun parseField(field: String, min: Int, max: Int): Set<Int> {
             val result = mutableSetOf<Int>()
             for (part in field.split(",")) {
                 when {

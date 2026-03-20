@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">પ્રશ્ન પૂછો</string>
     <string name="error_invalid_api_key">અમાન્ય API કી. કૃપા કરીને તમારી સેટિંગ્સ તપાસો.</string>
     <string name="error_rate_limit_exceeded">દર મર્યાદા વટાવી ગઈ. કૃપા કરીને પછી ફરી પ્રયાસ કરો.</string>
-    <string name="error_generic">અણધારી ભૂલ થઈ. કૃપા કરીને ફરી પ્રયાસ કરો.</string>
     <string name="error_unknown">અજાણી ભૂલ થઈ.</string>
     <string name="settings_ai_mistakes_warning">AI ભૂલો કરી શકે છે, ફરીથી તપાસો અને સંવેદનશીલ માહિતી શેર ન કરો.</string>
     <string name="settings_version">વર્ઝન: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">કનેક્ટેડ</string>
     <string name="settings_mcp_status_error">કનેક્શન નિષ્ફળ</string>
     <string name="settings_mcp_no_tools">કોઈ ટૂલ મળ્યા નથી</string>
-    <string name="settings_mcp_tools_count">%1$d ટૂલ્સ</string>
     <string name="settings_mcp_popular_servers">લોકપ્રિય સર્વર્સ</string>
-    <string name="settings_mcp_web_cors_note">નોંધ: MCP સર્વર્સ વેબ પર CORS દ્વારા અવરોધિત થઈ શકે છે.</string>
     <string name="settings_export_import_title">નિકાસ / આયાત</string>
     <string name="settings_export_import_description">નિકાસ કરેલ ફાઇલમાં API કી અને પાસવર્ડ જેવી સંવેદનશીલ માહિતી છે.</string>
     <string name="settings_export">નિકાસ</string>

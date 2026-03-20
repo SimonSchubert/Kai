@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Задайце пытанне</string>
     <string name="error_invalid_api_key">Несапраўдны ключ API. Калі ласка, праверце свае налады.</string>
     <string name="error_rate_limit_exceeded">Ліміт запытаў перавышаны. Калі ласка, паспрабуйце пазней.</string>
-    <string name="error_generic">Адбылася нечаканая памылка. Калі ласка, паспрабуйце яшчэ раз.</string>
     <string name="error_unknown">Адбылася невядомая памылка.</string>
     <string name="settings_ai_mistakes_warning">AI робіць памылкі, правярайце двойчы і не дзяліцеся канфідэнцыяльнай інфармацыяй.</string>
     <string name="settings_version">Версія: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Падключана</string>
     <string name="settings_mcp_status_error">Памылка падключэння</string>
     <string name="settings_mcp_no_tools">Інструменты не знойдзены</string>
-    <string name="settings_mcp_tools_count">%1$d інструментаў</string>
     <string name="settings_mcp_popular_servers">Папулярныя серверы</string>
-    <string name="settings_mcp_web_cors_note">Заўвага: серверы MCP могуць быць заблакаваны CORS у вэбе.</string>
     <string name="settings_export_import_title">Экспарт / Імпарт</string>
     <string name="settings_export_import_description">Экспартаваны файл змяшчае канфідэнцыйныя даныя, такія як ключы API і паролі.</string>
     <string name="settings_export">Экспарт</string>

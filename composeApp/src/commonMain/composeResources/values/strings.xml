@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Ask a question</string>
     <string name="error_invalid_api_key">Invalid API Key. Please check your settings.</string>
     <string name="error_rate_limit_exceeded">Rate limit exceeded. Please try again later.</string>
-    <string name="error_generic">An unexpected error occurred. Please try again.</string>
     <string name="error_empty_response">No response received. Try starting a new chat or shortening your message.</string>
     <string name="error_unknown">An unknown error occurred.</string>
     <string name="settings_ai_mistakes_warning">AI makes mistakes, double check and don't share sensitive information.</string>
@@ -148,9 +147,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Settings</string>
     <string name="fallback_answered_by">Answered by %1$s (fallback)</string>

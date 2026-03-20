@@ -468,7 +468,7 @@ private fun SplinterlandsActivityDialog(
             if (entry.battleId.isNotBlank()) {
                 TextButton(
                     onClick = {
-                        uriHandler.openUri("https://splinterlands.com/?p=battle&id=${entry.battleId}")
+                        uriHandler.openUri("https://splinterlands.com/battle/${entry.battleId}")
                     },
                     modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
                 ) { Text("View Battle") }

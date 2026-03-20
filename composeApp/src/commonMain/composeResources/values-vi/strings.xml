@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Đặt câu hỏi</string>
     <string name="error_invalid_api_key">Khóa API không hợp lệ. Vui lòng kiểm tra cài đặt của bạn.</string>
     <string name="error_rate_limit_exceeded">Đã vượt quá giới hạn tốc độ. Vui lòng thử lại sau.</string>
-    <string name="error_generic">Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.</string>
     <string name="error_unknown">Đã xảy ra lỗi không xác định.</string>
     <string name="settings_ai_mistakes_warning">AI có thể mắc lỗi, hãy kiểm tra kỹ và không chia sẻ thông tin nhạy cảm.</string>
     <string name="settings_version">Phiên bản: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Xuất / Nhập</string>
     <string name="settings_export_import_description">Tệp xuất chứa dữ liệu nhạy cảm như khóa API và mật khẩu.</string>
     <string name="settings_export">Xuất</string>

@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Uzdodiet jautājumu</string>
     <string name="error_invalid_api_key">Nederīga API atslēga. Lūdzu, pārbaudiet iestatījumus.</string>
     <string name="error_rate_limit_exceeded">Pieprasījumu limits pārsniegts. Lūdzu, mēģiniet vēlāk.</string>
-    <string name="error_generic">Radās neparedzēta kļūda. Lūdzu, mēģiniet vēlreiz.</string>
     <string name="error_unknown">Radās nezināma kļūda.</string>
     <string name="settings_ai_mistakes_warning">AI var kļūdīties, pārbaudiet vēlreiz un nekopīgojiet sensitīvu informāciju.</string>
     <string name="settings_version">Versija: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Eksports / Imports</string>
     <string name="settings_export_import_description">Eksportētais fails satur sensitīvus datus, piemēram, API atslēgas un paroles.</string>
     <string name="settings_export">Eksports</string>

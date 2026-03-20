@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Buza umbuzo</string>
     <string name="error_invalid_api_key">Ukhiye we-API ongavumelekile. Sicela uhlole izilungiselelo zakho.</string>
     <string name="error_rate_limit_exceeded">Umkhawulo wezicelo udluliwe. Sicela uzame futhi kamuva.</string>
-    <string name="error_generic">Kwenzeke iphutha elingalindelekile. Sicela uzame futhi.</string>
     <string name="error_unknown">Kwenzeke iphutha elingaziwa.</string>
     <string name="settings_ai_mistakes_warning">I-AI yenza amaphutha, hlola kabili futhi ungabelani ngolwazi olubucayi.</string>
     <string name="settings_version">Inguqulo: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Thumela / Ngenisa</string>
     <string name="settings_export_import_description">Ifayela elithunyelwe liqukethe idatha ebucayi njengama-API key namaphasiwedi.</string>
     <string name="settings_export">Thumela</string>

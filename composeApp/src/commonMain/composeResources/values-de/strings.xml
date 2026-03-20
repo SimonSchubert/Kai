@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Stelle eine Frage</string>
     <string name="error_invalid_api_key">Ungültiger API-Schlüssel. Bitte überprüfe deine Einstellungen.</string>
     <string name="error_rate_limit_exceeded">Rate-Limit überschritten. Bitte versuche es später erneut.</string>
-    <string name="error_generic">Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.</string>
     <string name="error_unknown">Ein unbekannter Fehler ist aufgetreten.</string>
     <string name="settings_ai_mistakes_warning">KI macht Fehler – bitte überprüfe die Antworten und teile keine sensiblen Informationen.</string>
     <string name="settings_version">Version: %1$s</string>
@@ -147,9 +146,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_mcp_status_connected">Verbunden</string>
     <string name="settings_mcp_status_error">Verbindung fehlgeschlagen</string>
     <string name="settings_mcp_no_tools">Keine Tools gefunden</string>
-    <string name="settings_mcp_tools_count">%1$d Tools</string>
     <string name="settings_mcp_popular_servers">Beliebte Server</string>
-    <string name="settings_mcp_web_cors_note">Hinweis: MCP-Server können im Web durch CORS blockiert werden.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Die exportierte Datei enthält sensible Daten wie API-Schlüssel und Passwörter.</string>
     <string name="settings_export">Export</string>

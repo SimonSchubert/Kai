@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Polo\u017ete ot\u00e1zku</string>
     <string name="error_invalid_api_key">Neplatn\u00fd API kl\u00ed\u010d. Zkontrolujte pros\u00edm nastaven\u00ed.</string>
     <string name="error_rate_limit_exceeded">Limit po\u017eadavk\u016f p\u0159ekro\u010den. Zkuste to pros\u00edm pozd\u011bji.</string>
-    <string name="error_generic">Do\u0161lo k neo\u010dek\u00e1van\u00e9 chyb\u011b. Zkuste to pros\u00edm znovu.</string>
     <string name="error_unknown">Do\u0161lo k nezn\u00e1m\u00e9 chyb\u011b.</string>
     <string name="settings_ai_mistakes_warning">AI d\u011bl\u00e1 chyby, v\u0161e si ov\u011b\u0159te a nesd\u00edlejte citliv\u00e9 informace.</string>
     <string name="settings_version">Verze: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Připojeno</string>
     <string name="settings_mcp_status_error">Připojení selhalo</string>
     <string name="settings_mcp_no_tools">Nebyly nalezeny žádné nástroje</string>
-    <string name="settings_mcp_tools_count">%1$d nástrojů</string>
     <string name="settings_mcp_popular_servers">Oblíbené servery</string>
-    <string name="settings_mcp_web_cors_note">Poznámka: MCP servery mohou být na webu blokovány CORS.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Exportovaný soubor obsahuje citlivé údaje, jako jsou klíče API a hesla.</string>
     <string name="settings_export">Export</string>

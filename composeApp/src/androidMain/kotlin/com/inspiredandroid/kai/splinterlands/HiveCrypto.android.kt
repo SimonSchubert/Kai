@@ -111,21 +111,6 @@ private fun ecdsaSign(hash: ByteArray, privKeyBytes: ByteArray): String {
     }
 }
 
-private fun findRecoveryId(hash: ByteArray, r: BigInteger, s: BigInteger, expectedPub: ECPoint): Int {
-    for (id in 0..3) {
-        try {
-            val recovered = recoverPublicKey(hash, r, s, id) ?: continue
-            val norm = recovered.normalize()
-            if (norm.xCoord.toBigInteger() == expectedPub.xCoord.toBigInteger() &&
-                norm.yCoord.toBigInteger() == expectedPub.yCoord.toBigInteger()
-            ) {
-                return id
-            }
-        } catch (_: Exception) { }
-    }
-    return 0
-}
-
 private fun recoverPublicKey(hash: ByteArray, r: BigInteger, s: BigInteger, recId: Int): ECPoint? {
     val n = ecDomain.n
     val x = r.add(BigInteger.valueOf((recId / 2).toLong()).multiply(n))

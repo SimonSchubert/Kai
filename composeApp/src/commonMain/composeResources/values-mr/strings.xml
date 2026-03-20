@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">प्रश्न विचारा</string>
     <string name="error_invalid_api_key">अवैध API की. कृपया तुमची सेटिंग्ज तपासा.</string>
     <string name="error_rate_limit_exceeded">दर मर्यादा ओलांडली. कृपया नंतर पुन्हा प्रयत्न करा.</string>
-    <string name="error_generic">अनपेक्षित त्रुटी आली. कृपया पुन्हा प्रयत्न करा.</string>
     <string name="error_unknown">अज्ञात त्रुटी आली.</string>
     <string name="settings_ai_mistakes_warning">AI चुका करतो, पुन्हा तपासा आणि संवेदनशील माहिती शेअर करू नका.</string>
     <string name="settings_version">आवृत्ती: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">निर्यात / आयात</string>
     <string name="settings_export_import_description">निर्यात केलेल्या फाइलमध्ये API की आणि पासवर्ड सारखी संवेदनशील माहिती आहे.</string>
     <string name="settings_export">निर्यात</string>

@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Ajukan pertanyaan</string>
     <string name="error_invalid_api_key">Kunci API tidak valid. Silakan periksa pengaturan Anda.</string>
     <string name="error_rate_limit_exceeded">Batas kecepatan tercapai. Coba lagi nanti.</string>
-    <string name="error_generic">Terjadi kesalahan tak terduga. Silakan coba lagi.</string>
     <string name="error_unknown">Terjadi kesalahan yang tidak diketahui.</string>
     <string name="settings_ai_mistakes_warning">AI bisa membuat kesalahan, periksa kembali jawaban dan jangan bagikan informasi sensitif.</string>
     <string name="settings_version">Versi: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Terhubung</string>
     <string name="settings_mcp_status_error">Koneksi gagal</string>
     <string name="settings_mcp_no_tools">Tidak ada alat ditemukan</string>
-    <string name="settings_mcp_tools_count">%1$d alat</string>
     <string name="settings_mcp_popular_servers">Server Populer</string>
-    <string name="settings_mcp_web_cors_note">Catatan: Server MCP mungkin diblokir oleh CORS di web.</string>
     <string name="settings_export_import_title">Ekspor / Impor</string>
     <string name="settings_export_import_description">File yang diekspor berisi data sensitif seperti kunci API dan kata sandi.</string>
     <string name="settings_export">Ekspor</string>

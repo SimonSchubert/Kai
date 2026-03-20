@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Položte otázku</string>
     <string name="error_invalid_api_key">Neplatný API kľúč. Skontrolujte si nastavenia.</string>
     <string name="error_rate_limit_exceeded">Limit požiadaviek bol prekročený. Skúste to neskôr.</string>
-    <string name="error_generic">Vyskytla sa neočakávaná chyba. Skúste to znova.</string>
     <string name="error_unknown">Vyskytla sa neznáma chyba.</string>
     <string name="settings_ai_mistakes_warning">AI robí chyby, overte si informácie a nezdieľajte citlivé údaje.</string>
     <string name="settings_version">Verzia: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Exportovaný súbor obsahuje citlivé údaje, ako sú kľúče API a heslá.</string>
     <string name="settings_export">Export</string>

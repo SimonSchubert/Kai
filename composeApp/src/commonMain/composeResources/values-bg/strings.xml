@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Задайте въпрос</string>
     <string name="error_invalid_api_key">Невалиден API ключ. Моля, проверете настройките си.</string>
     <string name="error_rate_limit_exceeded">Лимитът на заявките е превишен. Моля, опитайте по-късно.</string>
-    <string name="error_generic">Възникна неочаквана грешка. Моля, опитайте отново.</string>
     <string name="error_unknown">Възникна неизвестна грешка.</string>
     <string name="settings_ai_mistakes_warning">AI прави грешки, проверявайте два пъти и не споделяйте чувствителна информация.</string>
     <string name="settings_version">Версия: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Свързан</string>
     <string name="settings_mcp_status_error">Неуспешна връзка</string>
     <string name="settings_mcp_no_tools">Не са открити инструменти</string>
-    <string name="settings_mcp_tools_count">%1$d инструмента</string>
     <string name="settings_mcp_popular_servers">Популярни сървъри</string>
-    <string name="settings_mcp_web_cors_note">Забележка: MCP сървърите може да бъдат блокирани от CORS в уеб.</string>
     <string name="settings_export_import_title">Експорт / Импорт</string>
     <string name="settings_export_import_description">Експортираният файл съдържа чувствителни данни като API ключове и пароли.</string>
     <string name="settings_export">Експорт</string>

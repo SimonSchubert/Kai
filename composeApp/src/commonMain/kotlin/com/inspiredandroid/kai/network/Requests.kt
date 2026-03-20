@@ -206,7 +206,7 @@ class Requests {
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)
     } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
-        Result.failure(OpenAICompatibleConnectionException("Request timed out"))
+        Result.failure(OpenAICompatibleConnectionException())
     } catch (e: Exception) {
         Result.failure(OpenAICompatibleConnectionException())
     }
@@ -381,7 +381,7 @@ class Requests {
 
             402 -> throw OpenAICompatibleQuotaExhaustedException()
 
-            404 -> throw OpenAICompatibleModelNotFoundException(credentials.modelId)
+            404 -> throw OpenAICompatibleModelNotFoundException()
 
             413 -> throw OpenAICompatibleRequestTooLargeException()
 

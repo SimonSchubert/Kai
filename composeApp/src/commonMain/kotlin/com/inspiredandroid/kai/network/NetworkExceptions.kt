@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.network
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_empty_response
 import kai.composeapp.generated.resources.error_file_too_large
-import kai.composeapp.generated.resources.error_generic
 import kai.composeapp.generated.resources.error_image_too_large
 import kai.composeapp.generated.resources.error_insufficient_credits
 import kai.composeapp.generated.resources.error_invalid_api_key
@@ -28,21 +27,21 @@ sealed class AnthropicApiException(message: String? = null, cause: Throwable? = 
 class AnthropicGenericException(message: String, cause: Throwable? = null) : AnthropicApiException(message, cause)
 class AnthropicInvalidApiKeyException : AnthropicApiException()
 class AnthropicRateLimitExceededException : AnthropicApiException()
-class AnthropicOverloadedException : AnthropicApiException("Anthropic API is overloaded")
-class AnthropicInsufficientCreditsException : AnthropicApiException("Insufficient credits")
+class AnthropicOverloadedException : AnthropicApiException()
+class AnthropicInsufficientCreditsException : AnthropicApiException()
 
 sealed class OpenAICompatibleApiException(message: String? = null, cause: Throwable? = null) : ApiException(message, cause)
 class OpenAICompatibleGenericException(message: String, cause: Throwable? = null) : OpenAICompatibleApiException(message, cause)
 class OpenAICompatibleInvalidApiKeyException : OpenAICompatibleApiException()
 class OpenAICompatibleRateLimitExceededException : OpenAICompatibleApiException()
-class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException("Quota exhausted")
-class OpenAICompatibleConnectionException(message: String = "Cannot connect to server") : OpenAICompatibleApiException(message)
-class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleApiException("Model not found: $model")
-class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
-class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException("Image is too large. Try a smaller image.")
+class OpenAICompatibleQuotaExhaustedException : OpenAICompatibleApiException()
+class OpenAICompatibleConnectionException : OpenAICompatibleApiException()
+class OpenAICompatibleModelNotFoundException : OpenAICompatibleApiException()
+class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException()
+class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException()
 
-class UnsupportedFileTypeException(message: String = "This file type is not supported. You can attach images, text files, and PDFs.") : ApiException(message)
-class FileTooLargeException(message: String = "File is too large. Text files must be under 100 KB.") : ApiException(message)
+class UnsupportedFileTypeException : ApiException(null)
+class FileTooLargeException : ApiException(null)
 
 sealed interface UiError {
     data class Resource(val resource: StringResource) : UiError

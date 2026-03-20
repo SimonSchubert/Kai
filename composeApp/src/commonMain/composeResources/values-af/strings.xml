@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Vra 'n vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Kontroleer asseblief jou instellings.</string>
     <string name="error_rate_limit_exceeded">Tarieklimiet oorskry. Probeer asseblief later weer.</string>
-    <string name="error_generic">'n Onverwagte fout het voorgekom. Probeer asseblief weer.</string>
     <string name="error_unknown">'n Onbekende fout het voorgekom.</string>
     <string name="settings_ai_mistakes_warning">KI maak foute, kontroleer dubbel en deel nie sensitiewe inligting nie.</string>
     <string name="settings_version">Weergawe: %1$s</string>
@@ -147,9 +146,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_mcp_status_connected">Gekoppel</string>
     <string name="settings_mcp_status_error">Koppeling het misluk</string>
     <string name="settings_mcp_no_tools">Geen gereedskap gevind nie</string>
-    <string name="settings_mcp_tools_count">%1$d gereedskap</string>
     <string name="settings_mcp_popular_servers">Gewilde bedieners</string>
-    <string name="settings_mcp_web_cors_note">Let wel: MCP-bedieners kan deur CORS op die web geblokkeer word.</string>
     <string name="settings_export_import_title">Uitvoer / Invoer</string>
     <string name="settings_export_import_description">Die uitgevoerde lêer bevat sensitiewe data soos API-sleutels en wagwoorde.</string>
     <string name="settings_export">Uitvoer</string>

@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">שאל שאלה</string>
     <string name="error_invalid_api_key">מפתח API לא תקין. בדוק את ההגדרות שלך.</string>
     <string name="error_rate_limit_exceeded">חריגה ממגבלת הבקשות. נסה שוב מאוחר יותר.</string>
-    <string name="error_generic">אירעה שגיאה בלתי צפויה. נסה שוב.</string>
     <string name="error_unknown">אירעה שגיאה לא ידועה.</string>
     <string name="settings_ai_mistakes_warning">בינה מלאכותית עלולה לטעות, בדוק שוב ואל תשתף מידע רגיש.</string>
     <string name="settings_version">גרסה: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">מחובר</string>
     <string name="settings_mcp_status_error">החיבור נכשל</string>
     <string name="settings_mcp_no_tools">לא נמצאו כלים</string>
-    <string name="settings_mcp_tools_count">%1$d כלים</string>
     <string name="settings_mcp_popular_servers">שרתים פופולריים</string>
-    <string name="settings_mcp_web_cors_note">הערה: שרתי MCP עלולים להיחסם על ידי CORS באינטרנט.</string>
     <string name="settings_export_import_title">ייצוא / ייבוא</string>
     <string name="settings_export_import_description">הקובץ המיוצא מכיל נתונים רגישים כגון מפתחות API וסיסמאות.</string>
     <string name="settings_export">ייצוא</string>

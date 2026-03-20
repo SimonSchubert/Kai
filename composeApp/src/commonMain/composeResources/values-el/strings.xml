@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Κάντε μια ερώτηση</string>
     <string name="error_invalid_api_key">Μη έγκυρο κλειδί API. Ελέγξτε τις ρυθμίσεις σας.</string>
     <string name="error_rate_limit_exceeded">Υπέρβαση ορίου αιτημάτων. Δοκιμάστε ξανά αργότερα.</string>
-    <string name="error_generic">Παρουσιάστηκε μη αναμενόμενο σφάλμα. Δοκιμάστε ξανά.</string>
     <string name="error_unknown">Παρουσιάστηκε άγνωστο σφάλμα.</string>
     <string name="settings_ai_mistakes_warning">Η τεχνητή νοημοσύνη κάνει λάθη, ελέγξτε ξανά και μην μοιράζεστε ευαίσθητες πληροφορίες.</string>
     <string name="settings_version">Έκδοση: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Συνδεδεμένο</string>
     <string name="settings_mcp_status_error">Αποτυχία σύνδεσης</string>
     <string name="settings_mcp_no_tools">Δεν βρέθηκαν εργαλεία</string>
-    <string name="settings_mcp_tools_count">%1$d εργαλεία</string>
     <string name="settings_mcp_popular_servers">Δημοφιλείς διακομιστές</string>
-    <string name="settings_mcp_web_cors_note">Σημείωση: Οι διακομιστές MCP ενδέχεται να αποκλείονται από το CORS στο web.</string>
     <string name="settings_export_import_title">Εξαγωγή / Εισαγωγή</string>
     <string name="settings_export_import_description">Το εξαγόμενο αρχείο περιέχει ευαίσθητα δεδομένα όπως κλειδιά API και κωδικούς πρόσβασης.</string>
     <string name="settings_export">Εξαγωγή</string>

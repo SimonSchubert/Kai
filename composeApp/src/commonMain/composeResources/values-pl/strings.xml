@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Zadaj pytanie</string>
     <string name="error_invalid_api_key">Nieprawidłowy klucz API. Sprawdź ustawienia.</string>
     <string name="error_rate_limit_exceeded">Przekroczono limit żądań. Spróbuj ponownie później.</string>
-    <string name="error_generic">Wystąpił nieoczekiwany błąd. Spróbuj ponownie.</string>
     <string name="error_unknown">Wystąpił nieznany błąd.</string>
     <string name="settings_ai_mistakes_warning">AI może popełniać błędy, sprawdzaj dwukrotnie i nie udostępniaj wrażliwych informacji.</string>
     <string name="settings_version">Wersja: %1$s</string>
@@ -147,9 +146,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_mcp_status_connected">Połączono</string>
     <string name="settings_mcp_status_error">Połączenie nie powiodło się</string>
     <string name="settings_mcp_no_tools">Nie znaleziono narzędzi</string>
-    <string name="settings_mcp_tools_count">%1$d narzędzi</string>
     <string name="settings_mcp_popular_servers">Popularne serwery</string>
-    <string name="settings_mcp_web_cors_note">Uwaga: serwery MCP mogą być blokowane przez CORS w przeglądarce.</string>
     <string name="settings_export_import_title">Eksport / Import</string>
     <string name="settings_export_import_description">Wyeksportowany plik zawiera wrażliwe dane, takie jak klucze API i hasła.</string>
     <string name="settings_export">Eksport</string>

@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">سوال بپرسید</string>
     <string name="error_invalid_api_key">کلید API نامعتبر است. لطفاً تنظیمات خود را بررسی کنید.</string>
     <string name="error_rate_limit_exceeded">از حد مجاز نرخ فراتر رفته‌اید. لطفاً بعداً دوباره امتحان کنید.</string>
-    <string name="error_generic">خطای غیرمنتظره‌ای رخ داد. لطفاً دوباره امتحان کنید.</string>
     <string name="error_unknown">خطای ناشناخته‌ای رخ داد.</string>
     <string name="settings_ai_mistakes_warning">هوش مصنوعی اشتباه می‌کند، دوباره بررسی کنید و اطلاعات حساس را به اشتراک نگذارید.</string>
     <string name="settings_version">نسخه: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">متصل</string>
     <string name="settings_mcp_status_error">اتصال ناموفق</string>
     <string name="settings_mcp_no_tools">ابزاری یافت نشد</string>
-    <string name="settings_mcp_tools_count">%1$d ابزار</string>
     <string name="settings_mcp_popular_servers">سرورهای محبوب</string>
-    <string name="settings_mcp_web_cors_note">توجه: سرورهای MCP ممکن است توسط CORS در وب مسدود شوند.</string>
     <string name="settings_export_import_title">صادرات / واردات</string>
     <string name="settings_export_import_description">فایل صادر شده حاوی داده‌های حساس مانند کلیدهای API و رمزهای عبور است.</string>
     <string name="settings_export">صادرات</string>

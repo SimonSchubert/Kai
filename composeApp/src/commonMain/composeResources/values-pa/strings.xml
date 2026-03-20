@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">ਸਵਾਲ ਪੁੱਛੋ</string>
     <string name="error_invalid_api_key">ਅਵੈਧ API ਕੁੰਜੀ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਚੈੱਕ ਕਰੋ।</string>
     <string name="error_rate_limit_exceeded">ਦਰ ਸੀਮਾ ਪਾਰ ਹੋ ਗਈ। ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
-    <string name="error_generic">ਅਚਾਨਕ ਗਲਤੀ ਹੋਈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="error_unknown">ਅਣਜਾਣ ਗਲਤੀ ਹੋਈ।</string>
     <string name="settings_ai_mistakes_warning">AI ਗਲਤੀਆਂ ਕਰਦਾ ਹੈ, ਦੁਬਾਰਾ ਜਾਂਚ ਕਰੋ ਅਤੇ ਸੰਵੇਦਨਸ਼ੀਲ ਜਾਣਕਾਰੀ ਸਾਂਝੀ ਨਾ ਕਰੋ।</string>
     <string name="settings_version">ਸੰਸਕਰਣ: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">ਨਿਰਯਾਤ / ਆਯਾਤ</string>
     <string name="settings_export_import_description">ਨਿਰਯਾਤ ਕੀਤੀ ਫਾਈਲ ਵਿੱਚ API ਕੁੰਜੀਆਂ ਅਤੇ ਪਾਸਵਰਡ ਵਰਗੇ ਸੰਵੇਦਨਸ਼ੀਲ ਡੇਟਾ ਹੁੰਦੇ ਹਨ।</string>
     <string name="settings_export">ਨਿਰਯਾਤ</string>

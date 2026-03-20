@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">கேள்வி கேளுங்கள்</string>
     <string name="error_invalid_api_key">தவறான API விசை. உங்கள் அமைப்புகளைச் சரிபார்க்கவும்.</string>
     <string name="error_rate_limit_exceeded">விகித வரம்பு மீறப்பட்டது. பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
-    <string name="error_generic">எதிர்பாராத பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.</string>
     <string name="error_unknown">அறியப்படாத பிழை ஏற்பட்டது.</string>
     <string name="settings_ai_mistakes_warning">AI தவறுகள் செய்யும், மீண்டும் சரிபார்த்து முக்கியமான தகவல்களைப் பகிர வேண்டாம்.</string>
     <string name="settings_version">பதிப்பு: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">ஏற்றுமதி / இறக்குமதி</string>
     <string name="settings_export_import_description">ஏற்றுமதி செய்யப்பட்ட கோப்பில் API விசைகள் மற்றும் கடவுச்சொற்கள் போன்ற முக்கியமான தரவுகள் உள்ளன.</string>
     <string name="settings_export">ஏற்றுமதி</string>

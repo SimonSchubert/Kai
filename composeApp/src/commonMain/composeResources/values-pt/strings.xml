@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Faça uma pergunta</string>
     <string name="error_invalid_api_key">Chave de API inválida. Por favor, verifique suas configurações.</string>
     <string name="error_rate_limit_exceeded">Limite de taxa excedido. Por favor, tente novamente mais tarde.</string>
-    <string name="error_generic">Ocorreu um erro inesperado. Por favor, tente novamente.</string>
     <string name="error_unknown">Ocorreu um erro desconhecido.</string>
     <string name="settings_ai_mistakes_warning">A IA comete erros, verifique novamente e não compartilhe informações sensíveis.</string>
     <string name="settings_version">Versão: %1$s</string>
@@ -147,9 +146,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_mcp_status_connected">Conectado</string>
     <string name="settings_mcp_status_error">Falha na conexão</string>
     <string name="settings_mcp_no_tools">Nenhuma ferramenta encontrada</string>
-    <string name="settings_mcp_tools_count">%1$d ferramentas</string>
     <string name="settings_mcp_popular_servers">Servidores populares</string>
-    <string name="settings_mcp_web_cors_note">Nota: servidores MCP podem ser bloqueados por CORS na web.</string>
     <string name="settings_export_import_title">Exportar / Importar</string>
     <string name="settings_export_import_description">O arquivo exportado contém dados sensíveis como chaves de API e senhas.</string>
     <string name="settings_export">Exportar</string>

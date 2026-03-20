@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Bëni një pyetje</string>
     <string name="error_invalid_api_key">Çelës API i pavlefshëm. Ju lutemi kontrolloni cilësimet tuaja.</string>
     <string name="error_rate_limit_exceeded">Kufiri i kërkesave u tejkalua. Ju lutemi provoni përsëri më vonë.</string>
-    <string name="error_generic">Ndodhi një gabim i papritur. Ju lutemi provoni përsëri.</string>
     <string name="error_unknown">Ndodhi një gabim i panjohur.</string>
     <string name="settings_ai_mistakes_warning">AI bën gabime, kontrolloni dy herë dhe mos ndani informacione të ndjeshme.</string>
     <string name="settings_version">Versioni: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Eksporto / Importo</string>
     <string name="settings_export_import_description">Skedari i eksportuar përmban të dhëna të ndjeshme si çelësa API dhe fjalëkalime.</string>
     <string name="settings_export">Eksporto</string>

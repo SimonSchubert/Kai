@@ -17,7 +17,6 @@ interface DataRepository {
     fun removeConfiguredService(instanceId: String)
     fun reorderConfiguredServices(orderedInstanceIds: List<String>)
     fun getServiceEntries(): List<ServiceEntry>
-    fun getOrderedServicesForFallback(): List<Service>
     fun isFreeFallbackEnabled(): Boolean
     fun setFreeFallbackEnabled(enabled: Boolean)
 
@@ -56,7 +55,6 @@ interface DataRepository {
     fun removeMcpServer(serverId: String)
     fun setMcpServerEnabled(serverId: String, enabled: Boolean)
     suspend fun connectMcpServer(serverId: String): Result<List<ToolInfo>>
-    fun getMcpToolDefinitions(): List<ToolInfo>
     fun getMcpToolsForServer(serverId: String): List<ToolInfo>
     fun isMcpServerConnected(serverId: String): Boolean
     suspend fun connectEnabledMcpServers()

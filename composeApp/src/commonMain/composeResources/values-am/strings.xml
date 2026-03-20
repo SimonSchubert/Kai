@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">ጥያቄ ይጠይቁ</string>
     <string name="error_invalid_api_key">ልክ ያልሆነ API ቁልፍ። እባክዎ ቅንብሮችዎን ያረጋግጡ።</string>
     <string name="error_rate_limit_exceeded">የተጠቀሙበት ገደብ አልፏል። እባክዎ ቆይተው ይሞክሩ።</string>
-    <string name="error_generic">ያልተጠበቀ ስህተት ተከሰተ። እባክዎ እንደገና ይሞክሩ።</string>
     <string name="error_unknown">ያልታወቀ ስህተት ተከሰተ።</string>
     <string name="settings_ai_mistakes_warning">AI ስህተቶችን ይሰራል፣ ደግመው ያረጋግጡ እና ሚስጥራዊ መረጃ አያጋሩ።</string>
     <string name="settings_version">ስሪት: %1$s</string>
@@ -147,9 +146,7 @@
     <string name="settings_mcp_status_connected">ተገናኝቷል</string>
     <string name="settings_mcp_status_error">ግንኙነት አልተሳካም</string>
     <string name="settings_mcp_no_tools">ምንም መሳሪያዎች አልተገኙም</string>
-    <string name="settings_mcp_tools_count">%1$d መሳሪያዎች</string>
     <string name="settings_mcp_popular_servers">ታዋቂ አገልጋዮች</string>
-    <string name="settings_mcp_web_cors_note">ማስታወሻ: MCP አገልጋዮች በድረ-ገጽ ላይ በCORS ሊታገዱ ይችላሉ።</string>
     <string name="settings_export_import_title">ወደ ውጭ ላክ / አስገባ</string>
     <string name="settings_export_import_description">የተላከው ፋይል እንደ API ቁልፎች እና የይለፍ ቃላት ያሉ ሚስጥራዊ መረጃዎችን ይዟል።</string>
     <string name="settings_export">ወደ ውጭ ላክ</string>

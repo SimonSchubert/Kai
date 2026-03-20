@@ -130,8 +130,6 @@ class McpServerManager(private val appSettings: AppSettings) {
         }
     }
 
-    fun getMcpToolDefinitions(): List<ToolInfo> = discoveredTools.keys.flatMap { getToolsForServer(it) }
-
     fun getToolsForServer(serverId: String): List<ToolInfo> {
         val tools = discoveredTools[serverId] ?: return emptyList()
         return tools.map { meta ->

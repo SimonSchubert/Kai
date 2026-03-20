@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">سوال پوچھیں</string>
     <string name="error_invalid_api_key">غلط API کلید۔ براہ کرم اپنی ترتیبات چیک کریں۔</string>
     <string name="error_rate_limit_exceeded">شرح کی حد سے تجاوز ہو گیا۔ براہ کرم بعد میں دوبارہ کوشش کریں۔</string>
-    <string name="error_generic">غیر متوقع خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔</string>
     <string name="error_unknown">نامعلوم خرابی پیش آئی۔</string>
     <string name="settings_ai_mistakes_warning">AI غلطیاں کر سکتا ہے، دوبارہ جانچ کریں اور حساس معلومات شیئر نہ کریں۔</string>
     <string name="settings_version">ورژن: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">برآمد / درآمد</string>
     <string name="settings_export_import_description">برآمد شدہ فائل میں API کیز اور پاس ورڈز جیسا حساس ڈیٹا ہوتا ہے۔</string>
     <string name="settings_export">برآمد</string>

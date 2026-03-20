@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Fa ina dumonda</string>
     <string name="error_invalid_api_key">Clav API nunvalida. Controlai Voss parameters.</string>
     <string name="error_rate_limit_exceeded">Limit da dumondas surpassà. Empruvai pli tard.</string>
-    <string name="error_generic">Ina errur nunspetgada è capitada. Empruvai anc ina giada.</string>
     <string name="error_unknown">Ina errur nunenconuschenta è capitada.</string>
     <string name="settings_ai_mistakes_warning">L'AI po far sbaglias, controllai dubel e na cundividai infurmaziuns sensitivas.</string>
     <string name="settings_version">Versiun: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">La datoteca exportada cuntegna datas sensiblas sco clavs API e pleds-clav.</string>
     <string name="settings_export">Export</string>

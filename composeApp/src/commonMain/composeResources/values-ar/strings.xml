@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">اطرح سؤالًا</string>
     <string name="error_invalid_api_key">مفتاح API غير صالح. يرجى التحقق من إعداداتك.</string>
     <string name="error_rate_limit_exceeded">تم تجاوز حد المعدل. يرجى المحاولة لاحقًا.</string>
-    <string name="error_generic">حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.</string>
     <string name="error_unknown">حدث خطأ غير معروف.</string>
     <string name="settings_ai_mistakes_warning">الذكاء الاصطناعي قد يرتكب أخطاء، تحقق من الإجابات ولا تشارك معلومات حساسة.</string>
     <string name="settings_version">الإصدار: %1$s</string>
@@ -147,9 +146,7 @@
     <string name="settings_mcp_status_connected">متصل</string>
     <string name="settings_mcp_status_error">فشل الاتصال</string>
     <string name="settings_mcp_no_tools">لم يتم اكتشاف أدوات</string>
-    <string name="settings_mcp_tools_count">%1$d أدوات</string>
     <string name="settings_mcp_popular_servers">خوادم شائعة</string>
-    <string name="settings_mcp_web_cors_note">ملاحظة: قد يتم حظر خوادم MCP بواسطة CORS على الويب.</string>
     <string name="settings_export_import_title">تصدير / استيراد</string>
     <string name="settings_export_import_description">يحتوي الملف المُصدَّر على بيانات حساسة مثل مفاتيح API وكلمات المرور.</string>
     <string name="settings_export">تصدير</string>

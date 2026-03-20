@@ -7,12 +7,7 @@ import kotlinx.serialization.json.JsonElement
 data class OpenAICompatibleChatRequestDto(
     val messages: List<Message>,
     val model: String? = null,
-    val tools: List<Tool>? = null, // Optional: list of tools the model can call
-    // You can add more fields as needed, e.g.:
-    // val tool_choice: String? = null,           // "auto" | "none" | "required" | { "type": "function", "function": { "name": "..." } }
-    // val response_format: ResponseFormat? = null,
-    // val temperature: Double? = null,
-    // etc.
+    val tools: List<Tool>? = null,
 ) {
     @Serializable
     data class Message(
@@ -42,7 +37,6 @@ data class OpenAICompatibleChatRequestDto(
         val properties: Map<String, PropertySchema>,
         val required: List<String>? = null,
         val additionalProperties: Boolean? = null,
-        // You can add more JSON Schema fields if needed (enum, items, etc.)
     )
 
     @Serializable
@@ -54,10 +48,8 @@ data class OpenAICompatibleChatRequestDto(
         val properties: Map<String, PropertySchema>? = null, // For type: "object"
         val required: List<String>? = null,
         val additionalProperties: Boolean? = null,
-        // Add more nested schema support as needed (minLength, maximum, etc.)
     )
 
-    // Optional: if you want to represent tool calls in responses
     @Serializable
     data class ToolCall(
         val id: String,

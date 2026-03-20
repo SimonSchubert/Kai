@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">提问</string>
     <string name="error_invalid_api_key">API 密钥无效。请检查您的设置。</string>
     <string name="error_rate_limit_exceeded">超出速率限制。请稍后重试。</string>
-    <string name="error_generic">发生意外错误。请重试。</string>
     <string name="error_unknown">发生未知错误。</string>
     <string name="settings_ai_mistakes_warning">AI 可能会出错，请仔细核对，不要分享敏感信息。</string>
     <string name="settings_version">版本：%1$s</string>
@@ -147,9 +146,7 @@
     <string name="settings_mcp_status_connected">已连接</string>
     <string name="settings_mcp_status_error">连接失败</string>
     <string name="settings_mcp_no_tools">未发现工具</string>
-    <string name="settings_mcp_tools_count">%1$d 个工具</string>
     <string name="settings_mcp_popular_servers">热门服务器</string>
-    <string name="settings_mcp_web_cors_note">注意：MCP 服务器可能会被网页上的 CORS 阻止。</string>
     <string name="settings_export_import_title">导出 / 导入</string>
     <string name="settings_export_import_description">导出的文件包含敏感数据，如 API 密钥和密码。</string>
     <string name="settings_export">导出</string>

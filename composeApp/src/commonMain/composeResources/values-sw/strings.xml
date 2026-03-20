@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Uliza swali</string>
     <string name="error_invalid_api_key">Ufunguo wa API si sahihi. Tafadhali angalia mipangilio yako.</string>
     <string name="error_rate_limit_exceeded">Kikomo cha kiwango kimezidishwa. Tafadhali jaribu tena baadaye.</string>
-    <string name="error_generic">Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena.</string>
     <string name="error_unknown">Hitilafu isiyojulikana imetokea.</string>
     <string name="settings_ai_mistakes_warning">AI inaweza kufanya makosa, angalia mara mbili na usishiriki taarifa nyeti.</string>
     <string name="settings_version">Toleo: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Hamisha / Ingiza</string>
     <string name="settings_export_import_description">Faili iliyohamishwa ina data nyeti kama vile funguo za API na nywila.</string>
     <string name="settings_export">Hamisha</string>

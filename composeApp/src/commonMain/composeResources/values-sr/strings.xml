@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Поставите питање</string>
     <string name="error_invalid_api_key">Неважећи API кључ. Проверите подешавања.</string>
     <string name="error_rate_limit_exceeded">Ограничење захтева је премашено. Покушајте поново касније.</string>
-    <string name="error_generic">Дошло је до неочекиване грешке. Покушајте поново.</string>
     <string name="error_unknown">Дошло је до непознате грешке.</string>
     <string name="settings_ai_mistakes_warning">АИ прави грешке, проверите двапут и не делите осетљиве информације.</string>
     <string name="settings_version">Верзија: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Извоз / Увоз</string>
     <string name="settings_export_import_description">Извезена датотека садржи осетљиве податке попут API кључева и лозинки.</string>
     <string name="settings_export">Извоз</string>

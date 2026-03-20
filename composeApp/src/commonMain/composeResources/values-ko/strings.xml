@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">질문하기</string>
     <string name="error_invalid_api_key">유효하지 않은 API 키입니다. 설정을 확인하세요.</string>
     <string name="error_rate_limit_exceeded">요청 한도를 초과했습니다. 나중에 다시 시도하세요.</string>
-    <string name="error_generic">예기치 않은 오류가 발생했습니다. 다시 시도하세요.</string>
     <string name="error_unknown">알 수 없는 오류가 발생했습니다.</string>
     <string name="settings_ai_mistakes_warning">AI는 실수할 수 있습니다. 다시 확인하고 민감한 정보를 공유하지 마세요.</string>
     <string name="settings_version">버전: %1$s</string>
@@ -147,9 +146,7 @@
     <string name="settings_mcp_status_connected">연결됨</string>
     <string name="settings_mcp_status_error">연결 실패</string>
     <string name="settings_mcp_no_tools">도구를 찾을 수 없음</string>
-    <string name="settings_mcp_tools_count">%1$d개 도구</string>
     <string name="settings_mcp_popular_servers">인기 서버</string>
-    <string name="settings_mcp_web_cors_note">참고: MCP 서버는 웹에서 CORS에 의해 차단될 수 있습니다.</string>
     <string name="settings_export_import_title">내보내기 / 가져오기</string>
     <string name="settings_export_import_description">내보낸 파일에는 API 키 및 비밀번호와 같은 민감한 데이터가 포함되어 있습니다.</string>
     <string name="settings_export">내보내기</string>

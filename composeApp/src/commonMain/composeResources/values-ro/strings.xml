@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">Pune o întrebare</string>
     <string name="error_invalid_api_key">Cheie API invalidă. Vă rugăm să verificați setările.</string>
     <string name="error_rate_limit_exceeded">Limita de solicitări a fost depășită. Vă rugăm să încercați din nou mai târziu.</string>
-    <string name="error_generic">A apărut o eroare neașteptată. Vă rugăm să încercați din nou.</string>
     <string name="error_unknown">A apărut o eroare necunoscută.</string>
     <string name="settings_ai_mistakes_warning">Inteligența artificială poate greși, verificați de două ori și nu partajați informații sensibile.</string>
     <string name="settings_version">Versiune: %1$s</string>
@@ -146,9 +145,7 @@
     <string name="settings_mcp_status_connected">Connected</string>
     <string name="settings_mcp_status_error">Connection failed</string>
     <string name="settings_mcp_no_tools">No tools discovered</string>
-    <string name="settings_mcp_tools_count">%1$d tools</string>
     <string name="settings_mcp_popular_servers">Popular Servers</string>
-    <string name="settings_mcp_web_cors_note">Note: MCP servers may be blocked by CORS on web.</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Fișierul exportat conține date sensibile precum chei API și parole.</string>
     <string name="settings_export">Export</string>

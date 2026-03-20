@@ -3,7 +3,6 @@
     <string name="prompt_ask_question">質問する</string>
     <string name="error_invalid_api_key">無効なAPIキーです。設定をご確認ください。</string>
     <string name="error_rate_limit_exceeded">レート制限を超えました。後でもう一度お試しください。</string>
-    <string name="error_generic">予期しないエラーが発生しました。もう一度お試しください。</string>
     <string name="error_unknown">不明なエラーが発生しました。</string>
     <string name="settings_ai_mistakes_warning">AIは間違えることがあります。必ず再確認し、機密情報は共有しないでください。</string>
     <string name="settings_version">バージョン：%1$s</string>
@@ -147,9 +146,7 @@
     <string name="settings_mcp_status_connected">接続済み</string>
     <string name="settings_mcp_status_error">接続に失敗しました</string>
     <string name="settings_mcp_no_tools">ツールが見つかりません</string>
-    <string name="settings_mcp_tools_count">%1$d個のツール</string>
     <string name="settings_mcp_popular_servers">人気のサーバー</string>
-    <string name="settings_mcp_web_cors_note">注意: MCPサーバーはウェブ上でCORSによりブロックされる場合があります。</string>
     <string name="settings_export_import_title">エクスポート / インポート</string>
     <string name="settings_export_import_description">エクスポートされたファイルにはAPIキーやパスワードなどの機密データが含まれています。</string>
     <string name="settings_export">エクスポート</string>
