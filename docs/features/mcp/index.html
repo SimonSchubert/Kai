@@ -935,7 +935,7 @@
 
 
 <h1 id="mcp-servers">MCP Servers</h1>
-<p><strong>Last verified:</strong> 2026-03-18</p>
+<p><strong>Last verified:</strong> 2026-03-20</p>
 <p>Kai supports external tool servers via the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="mcp-server">MCP Server</h3>
@@ -967,7 +967,7 @@
 <ul>
 <li>A status dot (green=connected, orange=connecting, red=error, grey=unknown), an enable/disable toggle, and a dropdown chevron</li>
 <li>Clicking anywhere on the card expands/collapses it</li>
-<li>When expanded: discovered tools with individual toggles, refresh button, remove button</li>
+<li>When expanded: discovered tools with individual toggles, refresh button, remove button (removal is deferred with a snackbar "Undo" option before permanent deletion)</li>
 <li>Disabling a server disconnects it immediately and the status dot reflects the change</li>
 </ul>
 <p>The UI uses the same card style, status dot colors, and spacing as the Services tab for visual consistency.</p>

@@ -981,7 +981,7 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-03-18</p>
+<p><strong>Last verified:</strong> 2026-03-20</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
@@ -1046,7 +1046,7 @@
 <ul>
 <li><strong>Feature toggle</strong> — enables or disables the scheduling feature globally; when disabled, no tasks execute and scheduling tools are unavailable to the AI</li>
 <li><strong>Task list</strong> — each task shows its description, status (PENDING or COMPLETED), and either a formatted execution time or a human-readable cron description</li>
-<li><strong>Delete button</strong> — available on all tasks to remove them</li>
+<li><strong>Delete button</strong> — available on all tasks to remove them; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the task is permanently cancelled</li>
 </ul>
 <h3 id="cron-description">Cron Description</h3>
 <p>Cron expressions are converted to readable descriptions in the UI:</p>
