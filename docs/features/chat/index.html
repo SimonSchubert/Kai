@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -509,13 +509,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#image-attachments" class="md-nav__link">
+  <a href="#file-attachments" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Image Attachments
+        File Attachments
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="File Attachments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDFs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -907,13 +957,63 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#image-attachments" class="md-nav__link">
+  <a href="#file-attachments" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Image Attachments
+        File Attachments
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="File Attachments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#images" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Images
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDFs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#general-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General behavior
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -979,7 +1079,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-19</p>
+<p><strong>Last verified:</strong> 2026-03-20</p>
 <p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1027,13 +1127,35 @@
 <li><strong>Retry</strong> resends the current prompt</li>
 <li><strong>Regenerate</strong> removes all messages after the last user message, then resends</li>
 </ul>
-<h2 id="image-attachments">Image Attachments</h2>
+<h2 id="file-attachments">File Attachments</h2>
+<p>Three categories of files can be attached:</p>
+<h3 id="images">Images</h3>
 <ul>
 <li>Attach via file picker or drag-and-drop</li>
-<li>Images are compressed and Base64-encoded</li>
-<li>Sent as <code>image_url</code> (OpenAI) or <code>inline_data</code> (Gemini)</li>
-<li>The attachment button is only shown when the current model supports images</li>
-<li>Attached images are shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
+<li>Compressed to JPEG and Base64-encoded</li>
+<li>Sent as <code>image_url</code> (OpenAI), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
+<li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
+</ul>
+<h3 id="text-files">Text files</h3>
+<ul>
+<li>Supports <code>.txt</code>, <code>.md</code>, <code>.json</code>, <code>.csv</code>, <code>.xml</code>, <code>.yaml</code>, <code>.html</code>, <code>.css</code>, <code>.js</code>, <code>.ts</code>, <code>.kt</code>, <code>.py</code>, <code>.rs</code>, <code>.go</code>, <code>.c</code>, <code>.cpp</code>, <code>.swift</code>, <code>.sh</code>, <code>.sql</code>, <code>.toml</code>, <code>.ini</code>, <code>.log</code>, <code>.gradle</code>, and more</li>
+<li>Maximum size: 100 KB</li>
+<li>Content is decoded from base64 at serialization time and prepended to the message as plain text with a filename header</li>
+<li>Works with all providers (content is inlined as text)</li>
+<li>Shown as a filename chip in the user message bubble</li>
+</ul>
+<h3 id="pdfs">PDFs</h3>
+<ul>
+<li>Base64-encoded without compression</li>
+<li>Sent as <code>document</code> block (Anthropic), <code>file</code> block (OpenAI), or <code>inline_data</code> (Gemini)</li>
+<li>Shown as a filename chip in the user message bubble</li>
+</ul>
+<h3 id="general-behavior">General behavior</h3>
+<ul>
+<li>The attachment button is always shown (text files work with all models)</li>
+<li>Unsupported file types (e.g., <code>.zip</code>) show an error message</li>
+<li>Text files exceeding the size limit show a size error</li>
+<li>File attachments persist across conversation save/restore via <code>fileName</code> field</li>
 </ul>
 <h2 id="speech-output-tts">Speech Output (TTS)</h2>
 <ul>
@@ -1074,6 +1196,10 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/ConversationStorage.kt</code></td>
 <td>Serialization, settings-backed persistence, legacy migration</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/FileClassification.kt</code></td>
+<td>File category enum, MIME/extension classifier, size constants, file exceptions</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
