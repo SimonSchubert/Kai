@@ -27,25 +27,36 @@ import kai.composeapp.generated.resources.tool_open_url_description
 import kai.composeapp.generated.resources.tool_open_url_name
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlin.time.Clock
 
 @Serializable
 private data class IpLocationResponse(
-    val status: String,
-    val country: String? = null,
-    val countryCode: String? = null,
-    val region: String? = null,
-    val regionName: String? = null,
+    val ip: String? = null,
+    val success: Boolean = false,
     val city: String? = null,
-    val zip: String? = null,
-    val lat: Double? = null,
-    val lon: Double? = null,
-    val timezone: String? = null,
-    val isp: String? = null,
-    val query: String? = null,
+    val region: String? = null,
+    val country: String? = null,
+    @SerialName("country_code") val countryCode: String? = null,
+    val postal: String? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    val connection: IpConnectionInfo? = null,
+    val timezone: IpTimezoneInfo? = null,
     val message: String? = null,
+)
+
+@Serializable
+private data class IpConnectionInfo(
+    val isp: String? = null,
+    val org: String? = null,
+)
+
+@Serializable
+private data class IpTimezoneInfo(
+    val id: String? = null,
 )
 
 /**
@@ -70,20 +81,20 @@ object CommonTools {
         )
 
         override suspend fun execute(args: Map<String, Any>): Any = try {
-            val response: IpLocationResponse = locationClient.get("http://ip-api.com/json/").body()
-            if (response.status == "success") {
+            val response: IpLocationResponse = locationClient.get("https://ipwho.is/").body()
+            if (response.success) {
                 mapOf(
                     "success" to true,
                     "city" to response.city,
-                    "region" to response.regionName,
+                    "region" to response.region,
                     "country" to response.country,
                     "country_code" to response.countryCode,
-                    "latitude" to response.lat,
-                    "longitude" to response.lon,
-                    "timezone" to response.timezone,
-                    "zip" to response.zip,
-                    "isp" to response.isp,
-                    "ip" to response.query,
+                    "latitude" to response.latitude,
+                    "longitude" to response.longitude,
+                    "timezone" to response.timezone?.id,
+                    "zip" to response.postal,
+                    "isp" to response.connection?.isp,
+                    "ip" to response.ip,
                 )
             } else {
                 mapOf(

@@ -97,9 +97,12 @@ class SettingsViewModelTest {
             initialState.onRemoveService("gemini")
             testDispatcher.scheduler.advanceUntilIdle()
 
-            val updatedState = awaitItem()
-            assertEquals(1, updatedState.configuredServices.size)
-            assertEquals(Service.OpenAI, updatedState.configuredServices[0].service)
+            // Deletion is deferred (undo snackbar), collect until actually removed
+            val updates = cancelAndConsumeRemainingEvents()
+            val lastState = updates.filterIsInstance<app.cash.turbine.Event.Item<SettingsUiState>>().lastOrNull()?.value
+            requireNotNull(lastState)
+            assertEquals(1, lastState.configuredServices.size)
+            assertEquals(Service.OpenAI, lastState.configuredServices[0].service)
         }
     }
 
@@ -189,9 +192,13 @@ class SettingsViewModelTest {
             assertEquals(1, initialState.mcpServers.size)
 
             initialState.onRemoveMcpServer(initialState.mcpServers[0].id)
+            testDispatcher.scheduler.advanceUntilIdle()
 
-            val updatedState = awaitItem()
-            assertTrue(updatedState.mcpServers.isEmpty())
+            // Deletion is deferred (undo snackbar), collect until actually removed
+            val updates = cancelAndConsumeRemainingEvents()
+            val lastState = updates.filterIsInstance<app.cash.turbine.Event.Item<SettingsUiState>>().lastOrNull()?.value
+            requireNotNull(lastState)
+            assertTrue(lastState.mcpServers.isEmpty())
         }
     }
 
