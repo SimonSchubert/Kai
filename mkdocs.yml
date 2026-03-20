@@ -43,3 +43,6 @@ nav:
     - Heartbeat: features/heartbeat.md
     - Tasks: features/tasks.md
     - Daemon: features/daemon.md
+    - Encryption: features/encryption.md
+    - Settings Export & Import: features/settings-export-import.md
+    - Splinterlands: features/splinterlands.md

@@ -99,6 +99,8 @@ Recent Battles log shows up to 30 entries (5 visible by default, expandable): Vi
 | `splinterlands/HiveCrypto.kt` | Expect declarations for Hive signing |
 | `splinterlands/HiveCrypto.jvm.kt` | BouncyCastle secp256k1 ECDSA (Desktop) |
 | `splinterlands/HiveCrypto.android.kt` | BouncyCastle secp256k1 ECDSA (Android) |
+| `splinterlands/HiveCrypto.ios.kt` | Stub/unsupported implementation (iOS) |
+| `splinterlands/HiveCrypto.wasmJs.kt` | Stub/unsupported implementation (Web) |
 | `splinterlands/HiveCryptoTest.kt` | Signing + recovery round-trip tests (desktopTest) |
 | `data/AppSettings.kt` | Splinterlands key/value accessors including `splinterlands_instance_ids` JSON array |
 | `ui/settings/SplinterlandsUiState.kt` | `SplinterlandsUiState`, `SplinterlandsAccountUiState`, `SplinterlandsAddStatus` |

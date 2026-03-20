@@ -29,7 +29,7 @@ class McpClient(
 
     private val client: HttpClient = httpClient {
         install(HttpTimeout) {
-            requestTimeoutMillis = 30_000
+            requestTimeoutMillis = 60_000
             connectTimeoutMillis = 10_000
         }
     }
