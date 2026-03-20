@@ -33,6 +33,7 @@ object ScreenshotTestData {
         selectService = {},
         loadConversation = {},
         deleteConversation = {},
+        clearSnackbar = {},
         clearUnreadHeartbeat = {},
     )
 
