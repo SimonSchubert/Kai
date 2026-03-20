@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalUuidApi::class)
+@file:OptIn(ExperimentalUuidApi::class, ExperimentalEncodingApi::class)
 
 package com.inspiredandroid.kai.ui.chat
 
@@ -16,6 +16,8 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -43,6 +45,7 @@ data class ChatUiState(
     val savedConversations: List<ConversationSummary> = emptyList(),
     val currentConversationId: String? = null,
     val hasUnreadHeartbeat: Boolean = false,
+    val snackbarMessage: String? = null,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id
@@ -55,6 +58,7 @@ data class History(
     val content: String,
     val mimeType: String? = null,
     val data: String? = null,
+    val fileName: String? = null,
     val toolCallId: String? = null,
     val toolName: String? = null,
     val toolCalls: List<ToolCallInfo>? = null,
@@ -80,23 +84,53 @@ data class ToolCallInfo(
 fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (role) {
     History.Role.USER -> {
         val messageContent: JsonElement = if (data != null && mimeType != null) {
-            JsonArray(
-                listOf(
-                    buildJsonObject {
-                        put("type", "text")
-                        put("text", content)
-                    },
-                    buildJsonObject {
-                        put("type", "image_url")
-                        put(
-                            "image_url",
+            when {
+                mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml" -> {
+                    val decoded = Base64.decode(data).decodeToString()
+                    val header = if (fileName != null) "--- $fileName ---\n" else ""
+                    JsonPrimitive("$header$decoded\n\n$content")
+                }
+
+                mimeType == "application/pdf" -> {
+                    JsonArray(
+                        listOf(
                             buildJsonObject {
-                                put("url", "data:$mimeType;base64,$data")
+                                put("type", "file")
+                                put(
+                                    "file",
+                                    buildJsonObject {
+                                        put("file_data", "data:application/pdf;base64,$data")
+                                    },
+                                )
                             },
-                        )
-                    },
-                ),
-            )
+                            buildJsonObject {
+                                put("type", "text")
+                                put("text", content)
+                            },
+                        ),
+                    )
+                }
+
+                else -> {
+                    JsonArray(
+                        listOf(
+                            buildJsonObject {
+                                put("type", "text")
+                                put("text", content)
+                            },
+                            buildJsonObject {
+                                put("type", "image_url")
+                                put(
+                                    "image_url",
+                                    buildJsonObject {
+                                        put("url", "data:$mimeType;base64,$data")
+                                    },
+                                )
+                            },
+                        ),
+                    )
+                }
+            }
         } else {
             JsonPrimitive(content)
         }
@@ -135,25 +169,57 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
 fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
     History.Role.USER -> {
         if (data != null && mimeType != null) {
-            JsonArray(
-                listOf(
-                    buildJsonObject {
-                        put("type", "image")
-                        put(
-                            "source",
+            when {
+                mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml" -> {
+                    val decoded = Base64.decode(data).decodeToString()
+                    val header = if (fileName != null) "--- $fileName ---\n" else ""
+                    JsonPrimitive("$header$decoded\n\n$content")
+                }
+
+                mimeType == "application/pdf" -> {
+                    JsonArray(
+                        listOf(
                             buildJsonObject {
-                                put("type", "base64")
-                                put("media_type", mimeType)
-                                put("data", data)
+                                put("type", "document")
+                                put(
+                                    "source",
+                                    buildJsonObject {
+                                        put("type", "base64")
+                                        put("media_type", "application/pdf")
+                                        put("data", data)
+                                    },
+                                )
                             },
-                        )
-                    },
-                    buildJsonObject {
-                        put("type", "text")
-                        put("text", content)
-                    },
-                ),
-            )
+                            buildJsonObject {
+                                put("type", "text")
+                                put("text", content)
+                            },
+                        ),
+                    )
+                }
+
+                else -> {
+                    JsonArray(
+                        listOf(
+                            buildJsonObject {
+                                put("type", "image")
+                                put(
+                                    "source",
+                                    buildJsonObject {
+                                        put("type", "base64")
+                                        put("media_type", mimeType)
+                                        put("data", data)
+                                    },
+                                )
+                            },
+                            buildJsonObject {
+                                put("type", "text")
+                                put("text", content)
+                            },
+                        ),
+                    )
+                }
+            }
         } else {
             JsonPrimitive(content)
         }
@@ -270,15 +336,20 @@ fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
 
                 else -> {
                     // Regular user message with potential inline data
-                    val inlineData = if (data != null && mimeType != null) {
-                        GeminiChatRequestDto.InlineData(mime_type = mimeType, data = data)
+                    if (data != null && mimeType != null) {
+                        val isText = mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml"
+                        if (isText) {
+                            val decoded = Base64.decode(data).decodeToString()
+                            val header = if (fileName != null) "--- $fileName ---\n" else ""
+                            add(GeminiChatRequestDto.Part(text = "$header$decoded\n\n$content"))
+                        } else {
+                            val inlineData = GeminiChatRequestDto.InlineData(mime_type = mimeType, data = data)
+                            add(GeminiChatRequestDto.Part(inline_data = inlineData))
+                            add(GeminiChatRequestDto.Part(text = content))
+                        }
                     } else {
-                        null
+                        add(GeminiChatRequestDto.Part(text = content))
                     }
-                    if (inlineData != null) {
-                        add(GeminiChatRequestDto.Part(inline_data = inlineData))
-                    }
-                    add(GeminiChatRequestDto.Part(text = content))
                 }
             }
         },

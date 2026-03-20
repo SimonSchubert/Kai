@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-19
+**Last verified:** 2026-03-20
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -57,13 +57,33 @@ Auto-derived from the first user message when a conversation is saved for the fi
 - **Retry** resends the current prompt
 - **Regenerate** removes all messages after the last user message, then resends
 
-## Image Attachments
+## File Attachments
 
+Three categories of files can be attached:
+
+### Images
 - Attach via file picker or drag-and-drop
-- Images are compressed and Base64-encoded
-- Sent as `image_url` (OpenAI) or `inline_data` (Gemini)
-- The attachment button is only shown when the current model supports images
-- Attached images are shown as a preview thumbnail (max 200dp wide) inside the user message bubble
+- Compressed to JPEG and Base64-encoded
+- Sent as `image_url` (OpenAI), `image` block (Anthropic), or `inline_data` (Gemini)
+- Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
+
+### Text files
+- Supports `.txt`, `.md`, `.json`, `.csv`, `.xml`, `.yaml`, `.html`, `.css`, `.js`, `.ts`, `.kt`, `.py`, `.rs`, `.go`, `.c`, `.cpp`, `.swift`, `.sh`, `.sql`, `.toml`, `.ini`, `.log`, `.gradle`, and more
+- Maximum size: 100 KB
+- Content is decoded from base64 at serialization time and prepended to the message as plain text with a filename header
+- Works with all providers (content is inlined as text)
+- Shown as a filename chip in the user message bubble
+
+### PDFs
+- Base64-encoded without compression
+- Sent as `document` block (Anthropic), `file` block (OpenAI), or `inline_data` (Gemini)
+- Shown as a filename chip in the user message bubble
+
+### General behavior
+- The attachment button is always shown (text files work with all models)
+- Unsupported file types (e.g., `.zip`) show an error message
+- Text files exceeding the size limit show a size error
+- File attachments persist across conversation save/restore via `fileName` field
 
 ## Speech Output (TTS)
 
@@ -94,6 +114,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 |---|---|
 | `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes, type constants |
 | `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Serialization, settings-backed persistence, legacy migration |
+| `composeApp/src/commonMain/.../data/FileClassification.kt` | File category enum, MIME/extension classifier, size constants, file exceptions |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore/delete, title derivation, message sending |
 | `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel/loadConversation/deleteConversation actions |
 | `composeApp/src/commonMain/.../ui/chat/ChatScreen.kt` | Chat UI composables, history sheet and heartbeat banner wiring |

@@ -4,10 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.FileCategory
 import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.data.classifyFile
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.mimeType
+import io.github.vinceglb.filekit.name
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,6 +43,7 @@ class ChatViewModel(
         loadConversation = ::loadConversation,
         deleteConversation = ::deleteConversation,
         clearUnreadHeartbeat = ::clearUnreadHeartbeat,
+        clearSnackbar = ::clearSnackbar,
     )
     private var currentJob: Job? = null
     private val _state = MutableStateFlow(
@@ -145,10 +150,23 @@ class ChatViewModel(
     }
 
     private fun setFile(file: PlatformFile?) {
+        if (file != null) {
+            val category = classifyFile(file.mimeType()?.toString(), file.name)
+            if (category == FileCategory.UNSUPPORTED) {
+                _state.update {
+                    it.copy(snackbarMessage = "This file type is not supported. You can attach images, text files, and PDFs.")
+                }
+                return
+            }
+        }
         _state.update {
-            it.copy(
-                file = file,
-            )
+            it.copy(file = file)
+        }
+    }
+
+    private fun clearSnackbar() {
+        _state.update {
+            it.copy(snackbarMessage = null)
         }
     }
 

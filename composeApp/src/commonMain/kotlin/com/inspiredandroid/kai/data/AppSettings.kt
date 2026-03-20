@@ -307,10 +307,26 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean("$KEY_TOOL_PREFIX$toolId", enabled)
     }
 
-    fun getConversationsJson(): String? = settings.getStringOrNull(KEY_CONVERSATIONS)
+    fun getConversationsJson(): String? {
+        // Check chunked storage first (from previous chunking approach)
+        val chunkCount = settings.getInt(KEY_CONVERSATIONS_CHUNK_COUNT, 0)
+        if (chunkCount > 0) {
+            return buildString {
+                for (i in 0 until chunkCount) {
+                    append(settings.getStringOrNull("${KEY_CONVERSATIONS_CHUNK_PREFIX}$i") ?: "")
+                }
+            }
+        }
+        return settings.getStringOrNull(KEY_CONVERSATIONS)
+    }
 
-    fun setConversationsJson(json: String) {
-        settings.putString(KEY_CONVERSATIONS, json)
+    fun removeConversationsJson() {
+        settings.remove(KEY_CONVERSATIONS)
+        val chunkCount = settings.getInt(KEY_CONVERSATIONS_CHUNK_COUNT, 0)
+        for (i in 0 until chunkCount) {
+            settings.remove("${KEY_CONVERSATIONS_CHUNK_PREFIX}$i")
+        }
+        settings.remove(KEY_CONVERSATIONS_CHUNK_COUNT)
     }
 
     fun getEncryptionKey(): ByteArray? {
@@ -901,6 +917,9 @@ class AppSettings(private val settings: Settings) {
         const val KEY_APP_OPENS = "app_opens"
 
         const val KEY_CONVERSATIONS = "conversations_json"
+        const val KEY_CONVERSATIONS_CHUNK_PREFIX = "conversations_chunk_"
+        const val KEY_CONVERSATIONS_CHUNK_COUNT = "conversations_chunk_count"
+        private const val PREFS_CHUNK_SIZE = 7000
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"

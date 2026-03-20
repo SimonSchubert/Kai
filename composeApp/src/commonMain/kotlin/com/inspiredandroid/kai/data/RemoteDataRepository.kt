@@ -9,10 +9,12 @@ import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
+import com.inspiredandroid.kai.network.FileTooLargeException
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
+import com.inspiredandroid.kai.network.UnsupportedFileTypeException
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
@@ -27,6 +29,7 @@ import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
+import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
@@ -373,11 +376,42 @@ class RemoteDataRepository(
         // Read file bytes outside of StateFlow.update (readBytes is suspend)
         val rawBytes = file?.readBytes()
         val fileMimeType = file?.mimeType()?.toString()
-        val fileData = rawBytes?.let { bytes ->
-            val compressed = compressImageBytes(bytes, fileMimeType ?: "image/jpeg")
-            Base64.encode(compressed)
+        val fileName = file?.name
+
+        val category = if (rawBytes != null) classifyFile(fileMimeType, fileName) else null
+        if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
+        if (category == FileCategory.TEXT && rawBytes != null && rawBytes.size > MAX_TEXT_FILE_BYTES) throw FileTooLargeException()
+
+        val fileData: String?
+        val effectiveMimeType: String?
+        val effectiveFileName: String?
+
+        when (category) {
+            FileCategory.IMAGE -> {
+                val compressed = compressImageBytes(rawBytes!!, fileMimeType ?: "image/jpeg")
+                fileData = Base64.encode(compressed)
+                effectiveMimeType = "image/jpeg"
+                effectiveFileName = null
+            }
+
+            FileCategory.TEXT -> {
+                fileData = Base64.encode(rawBytes!!)
+                effectiveMimeType = fileMimeType ?: "text/plain"
+                effectiveFileName = fileName
+            }
+
+            FileCategory.PDF -> {
+                fileData = Base64.encode(rawBytes!!)
+                effectiveMimeType = "application/pdf"
+                effectiveFileName = fileName
+            }
+
+            else -> {
+                fileData = null
+                effectiveMimeType = null
+                effectiveFileName = null
+            }
         }
-        val effectiveMimeType = if (rawBytes != null && fileMimeType?.startsWith("image/") == true) "image/jpeg" else fileMimeType
 
         if (question != null) {
             chatHistory.update {
@@ -388,6 +422,7 @@ class RemoteDataRepository(
                             content = question,
                             mimeType = effectiveMimeType,
                             data = fileData,
+                            fileName = effectiveFileName,
                         ),
                     )
                 }
@@ -403,26 +438,26 @@ class RemoteDataRepository(
         var fallbackServiceName: String? = null
 
         for ((index, entry) in fallbackEntries.withIndex()) {
-            try {
-                val responseText = retryApiCall {
+            val responseText = try {
+                retryApiCall {
                     askWithService(entry.service, messages, systemPrompt, entry.instanceId)
                 }
-                if (index > 0) {
-                    fallbackServiceName = entry.service.displayName
-                }
-                chatHistory.update {
-                    it.toMutableList().apply {
-                        add(History(role = History.Role.ASSISTANT, content = responseText, fallbackServiceName = fallbackServiceName))
-                    }
-                }
-                saveCurrentConversation()
-                return
             } catch (e: Exception) {
                 if (e is kotlinx.coroutines.CancellationException) throw e
                 if (isNonRetryableException(e)) throw e
                 lastException = e
-                // Try next service
+                continue
             }
+            if (index > 0) {
+                fallbackServiceName = entry.service.displayName
+            }
+            chatHistory.update {
+                it.toMutableList().apply {
+                    add(History(role = History.Role.ASSISTANT, content = responseText, fallbackServiceName = fallbackServiceName))
+                }
+            }
+            saveCurrentConversation()
+            return
         }
 
         throw lastException ?: OpenAICompatibleEmptyResponseException()
@@ -992,7 +1027,6 @@ class RemoteDataRepository(
 
         val title = existingConversation?.title?.ifEmpty { null }
             ?: deriveTitle(history)
-
         val conversation = Conversation(
             id = conversationId,
             messages = history
@@ -1009,6 +1043,7 @@ class RemoteDataRepository(
                         content = h.content,
                         mimeType = h.mimeType,
                         data = h.data,
+                        fileName = h.fileName,
                     )
                 },
             createdAt = existingConversation?.createdAt ?: now,
@@ -1028,12 +1063,7 @@ class RemoteDataRepository(
 
     override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
 
-    override fun supportsFileAttachment(): Boolean {
-        val service = currentService()
-        if (service == Service.Free) return true
-        val modelId = appSettings.getSelectedModelId(service)
-        return supportsImageAttachment(modelId)
-    }
+    override fun supportsFileAttachment(): Boolean = true
 
     override fun currentService(): Service {
         val instances = getConfiguredServiceInstances()
@@ -1060,6 +1090,7 @@ class RemoteDataRepository(
                 content = m.content,
                 mimeType = m.mimeType,
                 data = m.data,
+                fileName = m.fileName,
             )
         }
     }

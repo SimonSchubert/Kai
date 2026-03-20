@@ -28,6 +28,9 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -93,212 +96,229 @@ fun ChatScreenContent(
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
-        TopBar(
-            textToSpeech = textToSpeech,
-            isLoading = uiState.isLoading,
-            isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
-            isSpeaking = uiState.isSpeaking,
-            actions = uiState.actions,
-            isChatHistoryEmpty = uiState.history.isEmpty(),
-            hasSavedConversations = uiState.savedConversations.any { it.id != uiState.currentConversationId },
-            onNavigateToSettings = onNavigateToSettings,
-            onShowHistory = {
-                keyboardController?.hide()
-                showHistorySheet = true
-            },
-            navigationTabBar = navigationTabBar,
-        )
+    LaunchedEffect(uiState.snackbarMessage) {
+        val message = uiState.snackbarMessage ?: return@LaunchedEffect
+        snackbarHostState.showSnackbar(message)
+        uiState.actions.clearSnackbar()
+    }
 
-        HeartbeatBanner(
-            visible = uiState.hasUnreadHeartbeat,
-            onTap = {
-                uiState.heartbeatConversationId?.let { uiState.actions.loadConversation(it) }
-                uiState.actions.clearUnreadHeartbeat()
-            },
-            onDismiss = {
-                uiState.actions.clearUnreadHeartbeat()
-            },
-        )
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
+        Column(Modifier.fillMaxSize()) {
+            TopBar(
+                textToSpeech = textToSpeech,
+                isLoading = uiState.isLoading,
+                isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
+                isSpeaking = uiState.isSpeaking,
+                actions = uiState.actions,
+                isChatHistoryEmpty = uiState.history.isEmpty(),
+                hasSavedConversations = uiState.savedConversations.any { it.id != uiState.currentConversationId },
+                onNavigateToSettings = onNavigateToSettings,
+                onShowHistory = {
+                    keyboardController?.hide()
+                    showHistorySheet = true
+                },
+                navigationTabBar = navigationTabBar,
+            )
 
-        SelectionContainer(Modifier.weight(1f)) {
-            var isDropping by remember {
-                mutableStateOf(false)
-            }
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .blur(radius = if (isDropping) 4.dp else 0.dp)
-                    .dragAndDropTarget(
-                        shouldStartDragAndDrop = { uiState.allowFileAttachment },
-                        target = remember {
-                            object : DragAndDropTarget {
-                                override fun onEntered(event: DragAndDropEvent) {
-                                    super.onEntered(event)
-                                    isDropping = true
+            HeartbeatBanner(
+                visible = uiState.hasUnreadHeartbeat,
+                onTap = {
+                    uiState.heartbeatConversationId?.let { uiState.actions.loadConversation(it) }
+                    uiState.actions.clearUnreadHeartbeat()
+                },
+                onDismiss = {
+                    uiState.actions.clearUnreadHeartbeat()
+                },
+            )
+
+            SelectionContainer(Modifier.weight(1f)) {
+                var isDropping by remember {
+                    mutableStateOf(false)
+                }
+                Column(
+                    Modifier
+                        .fillMaxSize()
+                        .blur(radius = if (isDropping) 4.dp else 0.dp)
+                        .dragAndDropTarget(
+                            shouldStartDragAndDrop = { uiState.allowFileAttachment },
+                            target = remember {
+                                object : DragAndDropTarget {
+                                    override fun onEntered(event: DragAndDropEvent) {
+                                        super.onEntered(event)
+                                        isDropping = true
+                                    }
+                                    override fun onExited(event: DragAndDropEvent) {
+                                        super.onExited(event)
+                                        isDropping = false
+                                    }
+                                    override fun onDrop(event: DragAndDropEvent): Boolean {
+                                        val file = onDragAndDropEventDropped(event)
+                                        uiState.actions.setFile(file)
+                                        isDropping = false
+                                        return file != null
+                                    }
                                 }
-                                override fun onExited(event: DragAndDropEvent) {
-                                    super.onExited(event)
-                                    isDropping = false
-                                }
-                                override fun onDrop(event: DragAndDropEvent): Boolean {
-                                    val file = onDragAndDropEventDropped(event)
-                                    uiState.actions.setFile(file)
-                                    isDropping = false
-                                    return file != null
-                                }
-                            }
-                        },
-                    ),
-            ) {
-                if (uiState.history.isEmpty()) {
-                    EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.showPrivacyInfo)
-                } else {
-                    val listState = rememberLazyListState()
-                    val componentScope = rememberCoroutineScope()
+                            },
+                        ),
+                ) {
+                    if (uiState.history.isEmpty()) {
+                        EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.showPrivacyInfo)
+                    } else {
+                        val listState = rememberLazyListState()
+                        val componentScope = rememberCoroutineScope()
 
-                    LaunchedEffect(uiState.history.size) {
-                        // Capture history at effect start to prevent race conditions
-                        val history = uiState.history
-                        if (history.isNotEmpty()) {
-                            listState.scrollToItem(history.lastIndex)
-                            val lastMessage = history.last()
-                            if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
-                                componentScope.launch(getBackgroundDispatcher()) {
-                                    textToSpeech?.stop()
-                                    uiState.actions.setIsSpeaking(true, lastMessage.id)
-                                    try {
-                                        textToSpeech?.say(lastMessage.content.stripMarkdownForTts())
-                                    } catch (_: TextToSpeechSynthesisInterruptedError) {
-                                        // Speech was interrupted by user
-                                    } catch (_: Exception) {
-                                        // Handle TTS errors gracefully (service failure, audio issues, etc.)
-                                    } finally {
-                                        uiState.actions.setIsSpeaking(false, lastMessage.id)
+                        LaunchedEffect(uiState.history.size) {
+                            // Capture history at effect start to prevent race conditions
+                            val history = uiState.history
+                            if (history.isNotEmpty()) {
+                                listState.scrollToItem(history.lastIndex)
+                                val lastMessage = history.last()
+                                if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
+                                    componentScope.launch(getBackgroundDispatcher()) {
+                                        textToSpeech?.stop()
+                                        uiState.actions.setIsSpeaking(true, lastMessage.id)
+                                        try {
+                                            textToSpeech?.say(lastMessage.content.stripMarkdownForTts())
+                                        } catch (_: TextToSpeechSynthesisInterruptedError) {
+                                            // Speech was interrupted by user
+                                        } catch (_: Exception) {
+                                            // Handle TTS errors gracefully (service failure, audio issues, etc.)
+                                        } finally {
+                                            uiState.actions.setIsSpeaking(false, lastMessage.id)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    val lastAssistantId = remember(uiState.history, uiState.isLoading) {
-                        if (uiState.isLoading) {
-                            null
-                        } else {
-                            uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                        val lastAssistantId = remember(uiState.history, uiState.isLoading) {
+                            if (uiState.isLoading) {
+                                null
+                            } else {
+                                uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
+                            }
                         }
-                    }
-                    val executingTools = remember(uiState.history) {
-                        uiState.history
-                            .filter { it.role == History.Role.TOOL_EXECUTING }
-                            .map { it.id to (it.toolName ?: "tool") }
-                    }
-
-                    val showScrollToBottom by remember {
-                        derivedStateOf {
-                            val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
-                            lastVisibleItem != null && lastVisibleItem.index < listState.layoutInfo.totalItemsCount - 1
+                        val executingTools = remember(uiState.history) {
+                            uiState.history
+                                .filter { it.role == History.Role.TOOL_EXECUTING }
+                                .map { it.id to (it.toolName ?: "tool") }
                         }
-                    }
 
-                    Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            state = listState,
-                            horizontalAlignment = CenterHorizontally,
-                        ) {
-                            items(uiState.history, key = { it.id }) { history ->
-                                when (history.role) {
-                                    History.Role.USER -> UserMessage(
-                                        message = history.content,
-                                        imageData = history.data,
-                                    )
+                        val showScrollToBottom by remember {
+                            derivedStateOf {
+                                val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
+                                lastVisibleItem != null && lastVisibleItem.index < listState.layoutInfo.totalItemsCount - 1
+                            }
+                        }
 
-                                    History.Role.ASSISTANT -> {
-                                        // Skip thinking messages unless it's the last assistant message
-                                        // (i.e. the model only returned reasoning with no content)
-                                        if (history.content.isNotEmpty() && !history.isThinking) {
-                                            val isLastAssistant = history.id == lastAssistantId
-                                            BotMessage(
-                                                message = history.content,
-                                                textToSpeech = textToSpeech,
-                                                isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
-                                                setIsSpeaking = {
-                                                    uiState.actions.setIsSpeaking(it, history.id)
-                                                },
-                                                onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
-                                            )
-                                            if (history.fallbackServiceName != null) {
-                                                androidx.compose.material3.Text(
-                                                    text = stringResource(Res.string.fallback_answered_by, history.fallbackServiceName),
-                                                    style = MaterialTheme.typography.labelSmall,
-                                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                    modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                        Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
+                            LazyColumn(
+                                modifier = Modifier.fillMaxSize(),
+                                state = listState,
+                                horizontalAlignment = CenterHorizontally,
+                            ) {
+                                items(uiState.history, key = { it.id }) { history ->
+                                    when (history.role) {
+                                        History.Role.USER -> UserMessage(
+                                            message = history.content,
+                                            imageData = history.data,
+                                            mimeType = history.mimeType,
+                                            fileName = history.fileName,
+                                        )
+
+                                        History.Role.ASSISTANT -> {
+                                            // Skip thinking messages unless it's the last assistant message
+                                            // (i.e. the model only returned reasoning with no content)
+                                            if (history.content.isNotEmpty() && !history.isThinking) {
+                                                val isLastAssistant = history.id == lastAssistantId
+                                                BotMessage(
+                                                    message = history.content,
+                                                    textToSpeech = textToSpeech,
+                                                    isSpeaking = uiState.isSpeaking && uiState.isSpeakingContentId == history.id,
+                                                    setIsSpeaking = {
+                                                        uiState.actions.setIsSpeaking(it, history.id)
+                                                    },
+                                                    onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
                                                 )
+                                                if (history.fallbackServiceName != null) {
+                                                    androidx.compose.material3.Text(
+                                                        text = stringResource(Res.string.fallback_answered_by, history.fallbackServiceName),
+                                                        style = MaterialTheme.typography.labelSmall,
+                                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
+                                                    )
+                                                }
                                             }
                                         }
-                                    }
 
-                                    History.Role.TOOL_EXECUTING -> {
-                                        // Rendered in WaitingResponseRow below
-                                    }
+                                        History.Role.TOOL_EXECUTING -> {
+                                            // Rendered in WaitingResponseRow below
+                                        }
 
-                                    History.Role.TOOL -> {
-                                        // Don't show completed tool results in UI
-                                    }
-                                }
-                            }
-                            if (uiState.isLoading) {
-                                item(key = "loading") {
-                                    WaitingResponseRow(
-                                        executingTools = executingTools,
-                                    )
-                                }
-                            }
-                            uiState.error?.let { error ->
-                                item(key = "error") {
-                                    ErrorMessage(error = error, retry = uiState.actions.retry)
-                                }
-                            }
-                        }
-
-                        androidx.compose.animation.AnimatedVisibility(
-                            visible = showScrollToBottom,
-                            modifier = Modifier.align(BottomCenter).padding(bottom = 8.dp),
-                            enter = fadeIn() + scaleIn(),
-                            exit = fadeOut() + scaleOut(),
-                        ) {
-                            SmallFloatingActionButton(
-                                modifier = Modifier
-                                    .pointerHoverIcon(PointerIcon.Hand),
-                                onClick = {
-                                    componentScope.launch {
-                                        val totalItems = listState.layoutInfo.totalItemsCount
-                                        if (totalItems > 0) {
-                                            listState.animateScrollToItem(totalItems - 1)
+                                        History.Role.TOOL -> {
+                                            // Don't show completed tool results in UI
                                         }
                                     }
-                                },
+                                }
+                                if (uiState.isLoading) {
+                                    item(key = "loading") {
+                                        WaitingResponseRow(
+                                            executingTools = executingTools,
+                                        )
+                                    }
+                                }
+                                uiState.error?.let { error ->
+                                    item(key = "error") {
+                                        ErrorMessage(error = error, retry = uiState.actions.retry)
+                                    }
+                                }
+                            }
+
+                            androidx.compose.animation.AnimatedVisibility(
+                                visible = showScrollToBottom,
+                                modifier = Modifier.align(BottomCenter).padding(bottom = 8.dp),
+                                enter = fadeIn() + scaleIn(),
+                                exit = fadeOut() + scaleOut(),
                             ) {
-                                Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Scroll to bottom")
+                                SmallFloatingActionButton(
+                                    modifier = Modifier
+                                        .pointerHoverIcon(PointerIcon.Hand),
+                                    onClick = {
+                                        componentScope.launch {
+                                            val totalItems = listState.layoutInfo.totalItemsCount
+                                            if (totalItems > 0) {
+                                                listState.animateScrollToItem(totalItems - 1)
+                                            }
+                                        }
+                                    },
+                                ) {
+                                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Scroll to bottom")
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
-        QuestionInput(
-            file = uiState.file,
-            setFile = uiState.actions.setFile,
-            ask = uiState.actions.ask,
-            allowFileAttachment = uiState.allowFileAttachment,
-            isLoading = uiState.isLoading,
-            cancel = uiState.actions.cancel,
-            availableServices = uiState.availableServices,
-            onSelectService = uiState.actions.selectService,
-        )
+            QuestionInput(
+                file = uiState.file,
+                setFile = uiState.actions.setFile,
+                ask = uiState.actions.ask,
+                allowFileAttachment = uiState.allowFileAttachment,
+                isLoading = uiState.isLoading,
+                cancel = uiState.actions.cancel,
+                availableServices = uiState.availableServices,
+                onSelectService = uiState.actions.selectService,
+            )
+        }
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(BottomCenter).padding(bottom = 80.dp),
+        ) { data ->
+            Snackbar(snackbarData = data)
+        }
     }
 
     if (showHistorySheet) {

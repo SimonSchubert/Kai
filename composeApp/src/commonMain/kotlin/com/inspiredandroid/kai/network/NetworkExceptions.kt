@@ -36,12 +36,16 @@ class OpenAICompatibleModelNotFoundException(model: String) : OpenAICompatibleAp
 class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException("Empty response")
 class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException("Image is too large. Try a smaller image.")
 
+class UnsupportedFileTypeException(message: String = "This file type is not supported. You can attach images, text files, and PDFs.") : ApiException(message)
+class FileTooLargeException(message: String = "File is too large. Text files must be under 100 KB.") : ApiException(message)
+
 sealed interface UiError {
     data class Resource(val resource: StringResource) : UiError
     data class Text(val message: String) : UiError
 }
 
 fun Exception.toUiError(): UiError = when (this) {
+    is UnsupportedFileTypeException, is FileTooLargeException -> UiError.Text(message ?: "File error")
     is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException, is AnthropicInvalidApiKeyException -> UiError.Resource(Res.string.error_invalid_api_key)
     is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException, is AnthropicRateLimitExceededException -> UiError.Resource(Res.string.error_rate_limit_exceeded)
     is AnthropicOverloadedException -> UiError.Resource(Res.string.error_rate_limit_exceeded)

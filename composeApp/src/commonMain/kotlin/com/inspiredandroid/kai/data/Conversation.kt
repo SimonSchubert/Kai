@@ -23,6 +23,7 @@ data class Conversation(
         val content: String,
         val mimeType: String? = null,
         val data: String? = null,
+        val fileName: String? = null,
     )
 }
 
