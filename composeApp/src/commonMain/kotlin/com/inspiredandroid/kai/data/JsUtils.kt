@@ -35,11 +35,17 @@ fun jsonStringify(value: String): String = buildString {
     for (c in value) {
         when (c) {
             '"' -> append("\\\"")
+
             '\\' -> append("\\\\")
+
             '\n' -> append("\\n")
+
             '\r' -> append("\\r")
+
             '\t' -> append("\\t")
+
             '\b' -> append("\\b")
+
             else -> if (c.code < 0x20) {
                 append("\\u")
                 append(c.code.toString(16).padStart(4, '0'))

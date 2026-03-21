@@ -8,11 +8,11 @@ import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
-import com.inspiredandroid.kai.data.SkillEntry
-import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.data.SkillEntry
+import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -335,9 +335,7 @@ class FakeDataRepository : DataRepository {
         skills.removeAll { it.name == name }
     }
 
-    override suspend fun executeSkill(name: String, input: String?): SkillExecutionResult {
-        return SkillExecutionResult(success = false, output = "", error = "Not supported in tests")
-    }
+    override suspend fun executeSkill(name: String, input: String?): SkillExecutionResult = SkillExecutionResult(success = false, output = "", error = "Not supported in tests")
 
     override fun isDaemonEnabled(): Boolean = daemonEnabled
 

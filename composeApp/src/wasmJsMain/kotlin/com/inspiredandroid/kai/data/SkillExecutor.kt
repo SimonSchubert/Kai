@@ -7,13 +7,11 @@ actual class SkillExecutor actual constructor(skillStore: SkillStore) {
         input: String?,
         dataJson: String?,
         timeoutMs: Long,
-    ): SkillExecutionResult {
-        return SkillExecutionResult(
-            success = false,
-            output = "",
-            error = "Script execution is not supported on Web",
-        )
-    }
+    ): SkillExecutionResult = SkillExecutionResult(
+        success = false,
+        output = "",
+        error = "Script execution is not supported on Web",
+    )
 
     actual suspend fun validate(script: String): String? = null
 }

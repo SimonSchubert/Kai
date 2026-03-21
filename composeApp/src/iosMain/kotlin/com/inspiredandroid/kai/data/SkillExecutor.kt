@@ -20,16 +20,15 @@ actual class SkillExecutor actual constructor(skillStore: SkillStore) {
         input: String?,
         dataJson: String?,
         timeoutMs: Long,
-    ): SkillExecutionResult {
-        return mutex.withLock {
-            withContext(Dispatchers.IO) {
-                try {
-                    withTimeout(timeoutMs) {
-                        val context = JSContext()
+    ): SkillExecutionResult = mutex.withLock {
+        withContext(Dispatchers.IO) {
+            try {
+                withTimeout(timeoutMs) {
+                    val context = JSContext()
 
-                        // Stub bindings for fetch/fs (not yet supported on iOS)
-                        context.evaluateScript(
-                            """
+                    // Stub bindings for fetch/fs (not yet supported on iOS)
+                    context.evaluateScript(
+                        """
                             async function fetch() { throw new Error("fetch is not yet available on iOS"); }
                             var fs = {
                                 readFile: function() { throw new Error("fs is not yet available on iOS"); },
@@ -40,52 +39,49 @@ actual class SkillExecutor actual constructor(skillStore: SkillStore) {
                             var skill = {
                                 run: async function() { throw new Error("skill.run is not yet available on iOS"); }
                             };
-                            """.trimIndent(),
+                        """.trimIndent(),
+                    )
+
+                    context.evaluateScript("var input = ${toJsLiteral(input)};")
+                    context.evaluateScript("var data = ${toJsLiteral(dataJson?.ifEmpty { null })};")
+
+                    val result = context.evaluateScript(script)
+                    val exception = context.exception
+
+                    if (exception != null) {
+                        SkillExecutionResult(
+                            success = false,
+                            output = "",
+                            error = exception.toString(),
                         )
-
-                        context.evaluateScript("var input = ${toJsLiteral(input)};")
-                        context.evaluateScript("var data = ${toJsLiteral(dataJson?.ifEmpty { null })};")
-
-                        val result = context.evaluateScript(script)
-                        val exception = context.exception
-
-                        if (exception != null) {
-                            SkillExecutionResult(
-                                success = false,
-                                output = "",
-                                error = exception.toString(),
-                            )
-                        } else {
-                            SkillExecutionResult(
-                                success = true,
-                                output = result?.toString()?.take(MAX_OUTPUT_LENGTH) ?: "",
-                            )
-                        }
+                    } else {
+                        SkillExecutionResult(
+                            success = true,
+                            output = result?.toString()?.take(MAX_OUTPUT_LENGTH) ?: "",
+                        )
                     }
-                } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
-                    SkillExecutionResult(
-                        success = false,
-                        output = "",
-                        error = "Script timed out after ${timeoutMs / 1000} seconds",
-                        timedOut = true,
-                    )
-                } catch (e: Exception) {
-                    SkillExecutionResult(
-                        success = false,
-                        output = "",
-                        error = e.message ?: "Script execution failed",
-                    )
                 }
+            } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
+                SkillExecutionResult(
+                    success = false,
+                    output = "",
+                    error = "Script timed out after ${timeoutMs / 1000} seconds",
+                    timedOut = true,
+                )
+            } catch (e: Exception) {
+                SkillExecutionResult(
+                    success = false,
+                    output = "",
+                    error = e.message ?: "Script execution failed",
+                )
             }
         }
     }
 
-    actual suspend fun validate(script: String): String? {
-        return withContext(Dispatchers.IO) {
-            val context = JSContext()
-            context.evaluateScript("(function(){ $script })")
-            val exception = context.exception
-            exception?.toString()
-        }
+    actual suspend fun validate(script: String): String? = withContext(Dispatchers.IO) {
+        val context = JSContext()
+        context.evaluateScript("(function(){ $script })")
+        val exception = context.exception
+        exception?.toString()
     }
 }

@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -33,6 +32,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -41,10 +41,10 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -124,13 +124,13 @@ import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
-import com.inspiredandroid.kai.data.SkillEntry
-import com.inspiredandroid.kai.data.prettyPrintJs
-import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
+import com.inspiredandroid.kai.data.SkillEntry
+import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
+import com.inspiredandroid.kai.data.prettyPrintJs
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -188,6 +188,7 @@ import kai.composeapp.generated.resources.settings_import_section_mcp
 import kai.composeapp.generated.resources.settings_import_section_memory
 import kai.composeapp.generated.resources.settings_import_section_scheduling
 import kai.composeapp.generated.resources.settings_import_section_services
+import kai.composeapp.generated.resources.settings_import_section_skills
 import kai.composeapp.generated.resources.settings_import_section_soul
 import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
@@ -223,13 +224,11 @@ import kai.composeapp.generated.resources.settings_request_integration_title
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
+import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_skills
 import kai.composeapp.generated.resources.settings_skills_delete
 import kai.composeapp.generated.resources.settings_skills_description
 import kai.composeapp.generated.resources.settings_skills_empty
-import kai.composeapp.generated.resources.settings_import_section_skills
-import kai.composeapp.generated.resources.settings_tab_skills
-import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_soul
 import kai.composeapp.generated.resources.settings_soul_description
 import kai.composeapp.generated.resources.settings_soul_reset
@@ -248,6 +247,7 @@ import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kai.composeapp.generated.resources.settings_tab_general
 import kai.composeapp.generated.resources.settings_tab_integrations
 import kai.composeapp.generated.resources.settings_tab_services
+import kai.composeapp.generated.resources.settings_tab_skills
 import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
@@ -255,9 +255,9 @@ import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
 import kai.composeapp.generated.resources.snackbar_email_removed
 import kai.composeapp.generated.resources.snackbar_mcp_server_removed
-import kai.composeapp.generated.resources.snackbar_skill_deleted
 import kai.composeapp.generated.resources.snackbar_memory_deleted
 import kai.composeapp.generated.resources.snackbar_service_removed
+import kai.composeapp.generated.resources.snackbar_skill_deleted
 import kai.composeapp.generated.resources.snackbar_task_cancelled
 import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.coroutines.launch

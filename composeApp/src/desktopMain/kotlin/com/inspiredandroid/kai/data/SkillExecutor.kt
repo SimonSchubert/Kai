@@ -49,9 +49,7 @@ actual class SkillExecutor actual constructor(skillStore: SkillStore) {
         input: String?,
         dataJson: String?,
         timeoutMs: Long,
-    ): SkillExecutionResult {
-        return mutex.withLock { executeInternal(script, input, dataJson, 0, timeoutMs) }
-    }
+    ): SkillExecutionResult = mutex.withLock { executeInternal(script, input, dataJson, 0, timeoutMs) }
 
     private suspend fun executeInternal(
         script: String,
@@ -59,110 +57,106 @@ actual class SkillExecutor actual constructor(skillStore: SkillStore) {
         dataJson: String?,
         callDepth: Int,
         timeoutMs: Long,
-    ): SkillExecutionResult {
-        return withContext(Dispatchers.IO) {
-            try {
-                withTimeout(timeoutMs) {
-                    val fullScript = buildString {
-                        append(JS_PREAMBLE)
-                        append('\n')
-                        append("var input = ")
-                        append(toJsLiteral(input))
-                        append(";\n")
-                        append("var data = ")
-                        append(toJsLiteral(dataJson?.ifEmpty { null }))
-                        append(";\n")
-                        append(script)
-                    }
-                    val result = quickJs {
-                        asyncFunction("_nativeFetch") { args ->
-                            val url = args.firstOrNull()?.toString()
-                                ?: throw IllegalArgumentException("fetch requires a URL")
-                            val optionsJson = args.getOrNull(1)?.toString() ?: "{}"
-                            httpFetch(url, optionsJson)
-                        }
-
-                        asyncFunction("_nativeSkillRun") { args ->
-                            val name = args.firstOrNull()?.toString()
-                                ?: throw IllegalArgumentException("skill.run requires a skill name")
-                            val runInput = args.getOrNull(1)?.toString()
-                            if (callDepth + 1 >= MAX_SKILL_CALL_DEPTH) {
-                                throw IllegalStateException("Maximum skill call depth ($MAX_SKILL_CALL_DEPTH) exceeded")
-                            }
-                            val skill = skillStore.getSkill(name)
-                                ?: throw IllegalArgumentException("Skill not found: $name")
-                            val subResult = executeInternal(
-                                script = skill.script,
-                                input = runInput,
-                                dataJson = skill.dataJson.ifEmpty { null },
-                                callDepth = callDepth + 1,
-                                timeoutMs = timeoutMs,
-                            )
-                            if (!subResult.success) {
-                                throw RuntimeException(subResult.error ?: "Skill '$name' failed")
-                            }
-                            subResult.output
-                        }
-
-                        define("fs") {
-                            function("readFile") { args ->
-                                val path = args.firstOrNull()?.toString()
-                                    ?: throw IllegalArgumentException("readFile requires a path")
-                                File(path).readText()
-                            }
-                            function("writeFile") { args ->
-                                val path = args.firstOrNull()?.toString()
-                                    ?: throw IllegalArgumentException("writeFile requires a path")
-                                val content = args.getOrNull(1)?.toString() ?: ""
-                                File(path).parentFile?.mkdirs()
-                                File(path).writeText(content)
-                                true
-                            }
-                            function("exists") { args ->
-                                val path = args.firstOrNull()?.toString()
-                                    ?: throw IllegalArgumentException("exists requires a path")
-                                File(path).exists()
-                            }
-                            function("listDir") { args ->
-                                val path = args.firstOrNull()?.toString()
-                                    ?: throw IllegalArgumentException("listDir requires a path")
-                                File(path).list()?.joinToString("\n") ?: ""
-                            }
-                        }
-
-                        evaluate<Any?>(fullScript)
-                    }
-                    SkillExecutionResult(
-                        success = true,
-                        output = result?.toString()?.take(MAX_OUTPUT_LENGTH) ?: "",
-                    )
+    ): SkillExecutionResult = withContext(Dispatchers.IO) {
+        try {
+            withTimeout(timeoutMs) {
+                val fullScript = buildString {
+                    append(JS_PREAMBLE)
+                    append('\n')
+                    append("var input = ")
+                    append(toJsLiteral(input))
+                    append(";\n")
+                    append("var data = ")
+                    append(toJsLiteral(dataJson?.ifEmpty { null }))
+                    append(";\n")
+                    append(script)
                 }
-            } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
+                val result = quickJs {
+                    asyncFunction("_nativeFetch") { args ->
+                        val url = args.firstOrNull()?.toString()
+                            ?: throw IllegalArgumentException("fetch requires a URL")
+                        val optionsJson = args.getOrNull(1)?.toString() ?: "{}"
+                        httpFetch(url, optionsJson)
+                    }
+
+                    asyncFunction("_nativeSkillRun") { args ->
+                        val name = args.firstOrNull()?.toString()
+                            ?: throw IllegalArgumentException("skill.run requires a skill name")
+                        val runInput = args.getOrNull(1)?.toString()
+                        if (callDepth + 1 >= MAX_SKILL_CALL_DEPTH) {
+                            throw IllegalStateException("Maximum skill call depth ($MAX_SKILL_CALL_DEPTH) exceeded")
+                        }
+                        val skill = skillStore.getSkill(name)
+                            ?: throw IllegalArgumentException("Skill not found: $name")
+                        val subResult = executeInternal(
+                            script = skill.script,
+                            input = runInput,
+                            dataJson = skill.dataJson.ifEmpty { null },
+                            callDepth = callDepth + 1,
+                            timeoutMs = timeoutMs,
+                        )
+                        if (!subResult.success) {
+                            throw RuntimeException(subResult.error ?: "Skill '$name' failed")
+                        }
+                        subResult.output
+                    }
+
+                    define("fs") {
+                        function("readFile") { args ->
+                            val path = args.firstOrNull()?.toString()
+                                ?: throw IllegalArgumentException("readFile requires a path")
+                            File(path).readText()
+                        }
+                        function("writeFile") { args ->
+                            val path = args.firstOrNull()?.toString()
+                                ?: throw IllegalArgumentException("writeFile requires a path")
+                            val content = args.getOrNull(1)?.toString() ?: ""
+                            File(path).parentFile?.mkdirs()
+                            File(path).writeText(content)
+                            true
+                        }
+                        function("exists") { args ->
+                            val path = args.firstOrNull()?.toString()
+                                ?: throw IllegalArgumentException("exists requires a path")
+                            File(path).exists()
+                        }
+                        function("listDir") { args ->
+                            val path = args.firstOrNull()?.toString()
+                                ?: throw IllegalArgumentException("listDir requires a path")
+                            File(path).list()?.joinToString("\n") ?: ""
+                        }
+                    }
+
+                    evaluate<Any?>(fullScript)
+                }
                 SkillExecutionResult(
-                    success = false,
-                    output = "",
-                    error = "Script timed out after ${timeoutMs / 1000} seconds",
-                    timedOut = true,
-                )
-            } catch (e: Exception) {
-                SkillExecutionResult(
-                    success = false,
-                    output = "",
-                    error = e.message ?: "Script execution failed",
+                    success = true,
+                    output = result?.toString()?.take(MAX_OUTPUT_LENGTH) ?: "",
                 )
             }
+        } catch (e: kotlinx.coroutines.TimeoutCancellationException) {
+            SkillExecutionResult(
+                success = false,
+                output = "",
+                error = "Script timed out after ${timeoutMs / 1000} seconds",
+                timedOut = true,
+            )
+        } catch (e: Exception) {
+            SkillExecutionResult(
+                success = false,
+                output = "",
+                error = e.message ?: "Script execution failed",
+            )
         }
     }
 
-    actual suspend fun validate(script: String): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val fullScript = JS_PREAMBLE + "\n" + script
-                quickJs { compile(fullScript) }
-                null
-            } catch (e: Exception) {
-                e.message ?: "Syntax error"
-            }
+    actual suspend fun validate(script: String): String? = withContext(Dispatchers.IO) {
+        try {
+            val fullScript = JS_PREAMBLE + "\n" + script
+            quickJs { compile(fullScript) }
+            null
+        } catch (e: Exception) {
+            e.message ?: "Syntax error"
         }
     }
 
