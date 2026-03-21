@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Otevřít GitHub issue</string>
     <string name="notification_channel_name">AI oznámení</string>
     <string name="notification_channel_description">Oznámení odeslaná AI asistentem</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Vytvořit Skill</string>
+    <string name="tool_skill_create_description">Vytvořit nebo aktualizovat znovupoužitelný JavaScript skill</string>
+    <string name="tool_skill_list_name">Seznam Skills</string>
+    <string name="tool_skill_list_description">Zobrazit všechny uložené skills</string>
+    <string name="tool_skill_execute_name">Spustit Skill</string>
+    <string name="tool_skill_execute_description">Spustit uložený skill podle názvu</string>
+    <string name="tool_skill_delete_name">Smazat Skill</string>
+    <string name="tool_skill_delete_description">Smazat uložený skill</string>
+    <string name="tool_skill_update_data_name">Aktualizovat data Skillu</string>
+    <string name="tool_skill_update_data_description">Aktualizovat konfigurační data skillu</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills jsou znovupoužitelné JavaScript skripty vytvořené AI. Povolte toto, aby AI mohla vytvářet a spouštět vlastní skripty.</string>
+    <string name="settings_skills_empty">Zatím nebyly vytvořeny žádné skills. Požádejte AI o vytvoření skillu v chatu.</string>
+    <string name="settings_skills_delete">Smazat skill</string>
+    <string name="snackbar_skill_deleted">Skill smazán</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

@@ -84,6 +84,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.material)
             implementation(libs.bouncycastle.provider)
+            implementation(libs.quickjs.kt)
         }
         commonMain.dependencies {
             implementation(libs.compose.material3)
@@ -138,6 +139,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.cio)
             implementation(libs.bouncycastle.provider)
+            implementation(libs.quickjs.kt)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

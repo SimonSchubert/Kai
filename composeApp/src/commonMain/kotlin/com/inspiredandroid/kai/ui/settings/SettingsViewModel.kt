@@ -89,6 +89,11 @@ class SettingsViewModel(
         onToggleEmail = ::onToggleEmail,
         onRemoveEmailAccount = ::onRemoveEmailAccount,
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
+        isSkillsEnabled = dataRepository.isSkillsEnabled(),
+        onToggleSkills = ::onToggleSkills,
+        skills = dataRepository.getSkills(),
+        onDeleteSkill = ::onDeleteSkill,
+        onExecuteSkill = ::onExecuteSkill,
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         onToggleFreeFallback = ::onToggleFreeFallback,
         uiScale = dataRepository.getUiScale(),
@@ -310,6 +315,34 @@ class SettingsViewModel(
         pendingDeleteJob = viewModelScope.launch {
             delay(4000)
             executeDeletion(PendingDeletion.Task(id))
+        }
+    }
+
+    private fun onToggleSkills(enabled: Boolean) {
+        dataRepository.setSkillsEnabled(enabled)
+        _state.update { it.copy(isSkillsEnabled = enabled) }
+    }
+
+    private fun onDeleteSkill(name: String) {
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.Skill(name)) }
+        pendingDeleteJob = viewModelScope.launch {
+            delay(4000)
+            executeDeletion(PendingDeletion.Skill(name))
+        }
+    }
+
+    private fun onExecuteSkill(name: String, input: String?) {
+        _state.update { it.copy(executingSkillName = name, skillExecutionResult = null) }
+        viewModelScope.launch {
+            val result = dataRepository.executeSkill(name, input)
+            _state.update {
+                it.copy(
+                    executingSkillName = null,
+                    skillExecutionResult = name to result,
+                    skills = dataRepository.getSkills(),
+                )
+            }
         }
     }
 
@@ -545,6 +578,11 @@ class SettingsViewModel(
                 dataRepository.removeMcpServer(deletion.serverId)
                 _state.update { it.copy(pendingDeletion = null) }
                 refreshMcpServers()
+            }
+
+            is PendingDeletion.Skill -> {
+                dataRepository.deleteSkill(deletion.name)
+                _state.update { it.copy(skills = dataRepository.getSkills(), pendingDeletion = null, skillExecutionResult = null) }
             }
         }
     }

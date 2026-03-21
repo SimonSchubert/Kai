@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Hap issue në GitHub</string>
     <string name="notification_channel_name">Njoftimet e AI</string>
     <string name="notification_channel_description">Njoftimet e dërguara nga asistenti AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Krijo Skill</string>
+    <string name="tool_skill_create_description">Krijo ose përditëso një skill JavaScript të ripërdorshëm</string>
+    <string name="tool_skill_list_name">Lista e Skills</string>
+    <string name="tool_skill_list_description">Shfaq të gjitha skills e ruajtura</string>
+    <string name="tool_skill_execute_name">Ekzekuto Skill</string>
+    <string name="tool_skill_execute_description">Ekzekuto një skill të ruajtur sipas emrit</string>
+    <string name="tool_skill_delete_name">Fshi Skill</string>
+    <string name="tool_skill_delete_description">Fshi një skill të ruajtur</string>
+    <string name="tool_skill_update_data_name">Përditëso të dhënat e Skill</string>
+    <string name="tool_skill_update_data_description">Përditëso të dhënat e konfigurimit të një skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills janë skripte JavaScript të ripërdorshme të krijuara nga IA. Aktivizo këtë për të lejuar IA të ndërtojë dhe ekzekutojë skripte të personalizuara.</string>
+    <string name="settings_skills_empty">Ende nuk janë krijuar skills. Kërkojini IA-së të krijojë një skill në bisedë.</string>
+    <string name="settings_skills_delete">Fshi skill</string>
+    <string name="snackbar_skill_deleted">Skill u fshi</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

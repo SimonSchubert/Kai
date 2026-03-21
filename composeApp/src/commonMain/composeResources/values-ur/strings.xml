@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub Issue کھولیں</string>
     <string name="notification_channel_name">AI اطلاعات</string>
     <string name="notification_channel_description">AI اسسٹنٹ کی طرف سے بھیجی گئی اطلاعات</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill بنائیں</string>
+    <string name="tool_skill_create_description">دوبارہ قابل استعمال JavaScript skill بنائیں یا اپ ڈیٹ کریں</string>
+    <string name="tool_skill_list_name">Skills کی فہرست</string>
+    <string name="tool_skill_list_description">تمام محفوظ شدہ skills کی فہرست دکھائیں</string>
+    <string name="tool_skill_execute_name">Skill چلائیں</string>
+    <string name="tool_skill_execute_description">نام سے محفوظ شدہ skill چلائیں</string>
+    <string name="tool_skill_delete_name">Skill حذف کریں</string>
+    <string name="tool_skill_delete_description">محفوظ شدہ skill حذف کریں</string>
+    <string name="tool_skill_update_data_name">Skill ڈیٹا اپ ڈیٹ کریں</string>
+    <string name="tool_skill_update_data_description">Skill کی ترتیب ڈیٹا اپ ڈیٹ کریں</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills AI کے ذریعے بنائے گئے دوبارہ قابل استعمال JavaScript اسکرپٹ ہیں۔ AI کو حسب ضرورت اسکرپٹ بنانے اور چلانے کی اجازت دینے کے لیے اسے فعال کریں۔</string>
+    <string name="settings_skills_empty">ابھی تک کوئی skill نہیں بنائی گئی۔ چیٹ میں AI سے skill بنانے کو کہیں۔</string>
+    <string name="settings_skills_delete">Skill حذف کریں</string>
+    <string name="snackbar_skill_deleted">Skill حذف ہو گئی</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

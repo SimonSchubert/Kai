@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Deschide issue pe GitHub</string>
     <string name="notification_channel_name">Notificări AI</string>
     <string name="notification_channel_description">Notificări trimise de asistentul AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Creează Skill</string>
+    <string name="tool_skill_create_description">Creează sau actualizează un skill JavaScript reutilizabil</string>
+    <string name="tool_skill_list_name">Listează Skills</string>
+    <string name="tool_skill_list_description">Afișează toate skill-urile salvate</string>
+    <string name="tool_skill_execute_name">Execută Skill</string>
+    <string name="tool_skill_execute_description">Execută un skill salvat după nume</string>
+    <string name="tool_skill_delete_name">Șterge Skill</string>
+    <string name="tool_skill_delete_description">Șterge un skill salvat</string>
+    <string name="tool_skill_update_data_name">Actualizează datele Skill-ului</string>
+    <string name="tool_skill_update_data_description">Actualizează datele de configurare ale unui skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills sunt scripturi JavaScript reutilizabile create de AI. Activează aceasta pentru a permite AI să creeze și să execute scripturi personalizate.</string>
+    <string name="settings_skills_empty">Nu au fost create încă skill-uri. Cere AI-ului să creeze un skill în chat.</string>
+    <string name="settings_skills_delete">Șterge skill</string>
+    <string name="snackbar_skill_deleted">Skill șters</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

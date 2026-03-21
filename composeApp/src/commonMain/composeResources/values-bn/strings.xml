@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub ইস্যু খুলুন</string>
     <string name="notification_channel_name">AI বিজ্ঞপ্তি</string>
     <string name="notification_channel_description">AI সহকারী দ্বারা প্রেরিত বিজ্ঞপ্তি</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill তৈরি করুন</string>
+    <string name="tool_skill_create_description">একটি পুনরায় ব্যবহারযোগ্য JavaScript skill তৈরি বা আপডেট করুন</string>
+    <string name="tool_skill_list_name">Skills তালিকা</string>
+    <string name="tool_skill_list_description">সমস্ত সংরক্ষিত skills তালিকাভুক্ত করুন</string>
+    <string name="tool_skill_execute_name">Skill চালান</string>
+    <string name="tool_skill_execute_description">নাম দিয়ে একটি সংরক্ষিত skill চালান</string>
+    <string name="tool_skill_delete_name">Skill মুছুন</string>
+    <string name="tool_skill_delete_description">একটি সংরক্ষিত skill মুছুন</string>
+    <string name="tool_skill_update_data_name">Skill ডেটা আপডেট করুন</string>
+    <string name="tool_skill_update_data_description">একটি skill-এর কনফিগারেশন ডেটা আপডেট করুন</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills হল AI দ্বারা তৈরি পুনরায় ব্যবহারযোগ্য JavaScript স্ক্রিপ্ট। AI-কে কাস্টম স্ক্রিপ্ট তৈরি ও চালাতে দিতে এটি সক্ষম করুন।</string>
+    <string name="settings_skills_empty">এখনও কোনো skill তৈরি হয়নি। চ্যাটে AI-কে একটি skill তৈরি করতে বলুন।</string>
+    <string name="settings_skills_delete">Skill মুছুন</string>
+    <string name="snackbar_skill_deleted">Skill মুছে ফেলা হয়েছে</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">פתח issue ב-GitHub</string>
     <string name="notification_channel_name">התראות AI</string>
     <string name="notification_channel_description">התראות שנשלחו על ידי עוזר AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">צור Skill</string>
+    <string name="tool_skill_create_description">צור או עדכן skill JavaScript לשימוש חוזר</string>
+    <string name="tool_skill_list_name">רשימת Skills</string>
+    <string name="tool_skill_list_description">הצג את כל ה-skills השמורים</string>
+    <string name="tool_skill_execute_name">הפעל Skill</string>
+    <string name="tool_skill_execute_description">הפעל skill שמור לפי שם</string>
+    <string name="tool_skill_delete_name">מחק Skill</string>
+    <string name="tool_skill_delete_description">מחק skill שמור</string>
+    <string name="tool_skill_update_data_name">עדכן נתוני Skill</string>
+    <string name="tool_skill_update_data_description">עדכן את נתוני התצורה של skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills הם סקריפטי JavaScript לשימוש חוזר שנוצרו על ידי הבינה המלאכותית. הפעל זאת כדי לאפשר לבינה המלאכותית לבנות ולהריץ סקריפטים מותאמים אישית.</string>
+    <string name="settings_skills_empty">עדיין לא נוצרו skills. בקש מהבינה המלאכותית ליצור skill בצ\'אט.</string>
+    <string name="settings_skills_delete">מחק skill</string>
+    <string name="snackbar_skill_deleted">Skill נמחק</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

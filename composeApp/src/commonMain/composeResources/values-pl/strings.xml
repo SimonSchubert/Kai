@@ -187,4 +187,21 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_open_github_issue">Otwórz zgłoszenie na GitHubie</string>
     <string name="notification_channel_name">Powiadomienia AI</string>
     <string name="notification_channel_description">Powiadomienia wysyłane przez asystenta AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Utwórz Skill</string>
+    <string name="tool_skill_create_description">Utwórz lub zaktualizuj wielokrotnego użytku skill JavaScript</string>
+    <string name="tool_skill_list_name">Lista Skills</string>
+    <string name="tool_skill_list_description">Wyświetl wszystkie zapisane skills</string>
+    <string name="tool_skill_execute_name">Uruchom Skill</string>
+    <string name="tool_skill_execute_description">Uruchom zapisany skill według nazwy</string>
+    <string name="tool_skill_delete_name">Usuń Skill</string>
+    <string name="tool_skill_delete_description">Usuń zapisany skill</string>
+    <string name="tool_skill_update_data_name">Zaktualizuj dane Skillu</string>
+    <string name="tool_skill_update_data_description">Zaktualizuj dane konfiguracyjne skillu</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills to wielokrotnego użytku skrypty JavaScript stworzone przez AI. Włącz to, aby pozwolić AI tworzyć i uruchamiać niestandardowe skrypty.</string>
+    <string name="settings_skills_empty">Nie utworzono jeszcze żadnych skills. Poproś AI o utworzenie skillu w czacie.</string>
+    <string name="settings_skills_delete">Usuń skill</string>
+    <string name="snackbar_skill_deleted">Skill usunięty</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

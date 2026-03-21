@@ -187,4 +187,21 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_open_github_issue">Opprett GitHub-sak</string>
     <string name="notification_channel_name">AI-varsler</string>
     <string name="notification_channel_description">Varsler sendt av AI-assistent</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Opprett Skill</string>
+    <string name="tool_skill_create_description">Opprett eller oppdater en gjenbrukbar JavaScript-skill</string>
+    <string name="tool_skill_list_name">List Skills</string>
+    <string name="tool_skill_list_description">Vis alle lagrede skills</string>
+    <string name="tool_skill_execute_name">Kjør Skill</string>
+    <string name="tool_skill_execute_description">Kjør en lagret skill etter navn</string>
+    <string name="tool_skill_delete_name">Slett Skill</string>
+    <string name="tool_skill_delete_description">Slett en lagret skill</string>
+    <string name="tool_skill_update_data_name">Oppdater Skill-data</string>
+    <string name="tool_skill_update_data_description">Oppdater konfigurasjonsdata for en skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills er gjenbrukbare JavaScript-skript laget av AI. Aktiver dette for å la AI bygge og kjøre tilpassede skript.</string>
+    <string name="settings_skills_empty">Ingen skills opprettet ennå. Be AI om å opprette en skill i chatten.</string>
+    <string name="settings_skills_delete">Slett skill</string>
+    <string name="snackbar_skill_deleted">Skill slettet</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

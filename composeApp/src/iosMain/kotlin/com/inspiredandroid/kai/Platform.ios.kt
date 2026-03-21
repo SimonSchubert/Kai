@@ -17,7 +17,10 @@ import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
+import com.inspiredandroid.kai.data.SkillExecutor
+import com.inspiredandroid.kai.data.SkillStore
 import com.inspiredandroid.kai.tools.SchedulingTools
+import com.inspiredandroid.kai.tools.SkillTools
 import com.russhwolf.settings.ExperimentalSettingsImplementation
 import com.russhwolf.settings.KeychainSettings
 import com.russhwolf.settings.NSUserDefaultsSettings
@@ -128,7 +131,7 @@ actual fun createSecureSettings(): Settings = KeychainSettings(service = "com.in
 
 actual fun createLegacySettings(): Settings? = NSUserDefaultsSettings(platform.Foundation.NSUserDefaults.standardUserDefaults)
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + SkillTools.skillToolDefinitions
 
 private object IosKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
@@ -137,6 +140,8 @@ private object IosKoinHelper : KoinComponent {
     val heartbeatManager: HeartbeatManager by inject()
     val emailStore: EmailStore by inject()
     val mcpServerManager: McpServerManager by inject()
+    val skillStore: SkillStore by inject()
+    val skillExecutor: SkillExecutor by inject()
 }
 
 actual fun getAvailableTools(): List<Tool> = buildList {
@@ -150,6 +155,9 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     }
     if (IosKoinHelper.appSettings.isEmailEnabled()) {
         addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))
+    }
+    if (IosKoinHelper.appSettings.isSkillsEnabled()) {
+        addAll(SkillTools.getSkillTools(IosKoinHelper.skillStore, IosKoinHelper.skillExecutor))
     }
     addAll(IosKoinHelper.mcpServerManager.getEnabledMcpTools())
 }

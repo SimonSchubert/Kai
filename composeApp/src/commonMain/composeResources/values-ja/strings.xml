@@ -187,4 +187,21 @@
     <string name="settings_open_github_issue">GitHub issueを開く</string>
     <string name="notification_channel_name">AI通知</string>
     <string name="notification_channel_description">AIアシスタントから送信された通知</string>
+    <string name="settings_tab_skills">スキル</string>
+    <string name="tool_skill_create_name">スキルを作成</string>
+    <string name="tool_skill_create_description">再利用可能なJavaScriptスキルを作成または更新する</string>
+    <string name="tool_skill_list_name">スキル一覧</string>
+    <string name="tool_skill_list_description">保存されたすべてのスキルを一覧表示する</string>
+    <string name="tool_skill_execute_name">スキルを実行</string>
+    <string name="tool_skill_execute_description">名前で保存されたスキルを実行する</string>
+    <string name="tool_skill_delete_name">スキルを削除</string>
+    <string name="tool_skill_delete_description">保存されたスキルを削除する</string>
+    <string name="tool_skill_update_data_name">スキルデータを更新</string>
+    <string name="tool_skill_update_data_description">スキルの設定データを更新する</string>
+    <string name="settings_skills">スキル</string>
+    <string name="settings_skills_description">スキルはAIが作成した再利用可能なJavaScriptスクリプトです。AIがカスタムスクリプトを作成・実行できるようにするには、これを有効にしてください。</string>
+    <string name="settings_skills_empty">まだスキルが作成されていません。チャットでAIにスキルの作成を依頼してください。</string>
+    <string name="settings_skills_delete">スキルを削除</string>
+    <string name="snackbar_skill_deleted">スキルを削除しました</string>
+    <string name="settings_import_section_skills">スキル</string>
 </resources>

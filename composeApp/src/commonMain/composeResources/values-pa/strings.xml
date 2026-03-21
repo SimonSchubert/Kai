@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub ਇਸ਼ੂ ਖੋਲ੍ਹੋ</string>
     <string name="notification_channel_name">AI ਸੂਚਨਾਵਾਂ</string>
     <string name="notification_channel_description">AI ਸਹਾਇਕ ਦੁਆਰਾ ਭੇਜੀਆਂ ਸੂਚਨਾਵਾਂ</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill ਬਣਾਓ</string>
+    <string name="tool_skill_create_description">ਇੱਕ ਮੁੜ-ਵਰਤੋਂਯੋਗ JavaScript skill ਬਣਾਓ ਜਾਂ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="tool_skill_list_name">Skills ਸੂਚੀ</string>
+    <string name="tool_skill_list_description">ਸਾਰੇ ਸੁਰੱਖਿਅਤ ਕੀਤੇ skills ਦੀ ਸੂਚੀ ਵੇਖੋ</string>
+    <string name="tool_skill_execute_name">Skill ਚਲਾਓ</string>
+    <string name="tool_skill_execute_description">ਨਾਮ ਨਾਲ ਸੁਰੱਖਿਅਤ ਕੀਤੀ skill ਚਲਾਓ</string>
+    <string name="tool_skill_delete_name">Skill ਮਿਟਾਓ</string>
+    <string name="tool_skill_delete_description">ਸੁਰੱਖਿਅਤ ਕੀਤੀ skill ਮਿਟਾਓ</string>
+    <string name="tool_skill_update_data_name">Skill ਡੇਟਾ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="tool_skill_update_data_description">Skill ਦੇ ਸੰਰਚਨਾ ਡੇਟਾ ਨੂੰ ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills AI ਦੁਆਰਾ ਬਣਾਈਆਂ ਗਈਆਂ ਮੁੜ-ਵਰਤੋਂਯੋਗ JavaScript ਸਕ੍ਰਿਪਟਾਂ ਹਨ। AI ਨੂੰ ਕਸਟਮ ਸਕ੍ਰਿਪਟਾਂ ਬਣਾਉਣ ਅਤੇ ਚਲਾਉਣ ਦੀ ਇਜਾਜ਼ਤ ਦੇਣ ਲਈ ਇਸ ਨੂੰ ਚਾਲੂ ਕਰੋ।</string>
+    <string name="settings_skills_empty">ਅਜੇ ਤੱਕ ਕੋਈ skill ਨਹੀਂ ਬਣਾਈ ਗਈ। ਚੈਟ ਵਿੱਚ AI ਨੂੰ skill ਬਣਾਉਣ ਲਈ ਕਹੋ।</string>
+    <string name="settings_skills_delete">Skill ਮਿਟਾਓ</string>
+    <string name="snackbar_skill_deleted">Skill ਮਿਟਾਈ ਗਈ</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

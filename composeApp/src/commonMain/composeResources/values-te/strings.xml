@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub Issue తెరువు</string>
     <string name="notification_channel_name">AI నోటిఫికేషన్లు</string>
     <string name="notification_channel_description">AI అసిస్టెంట్ పంపిన నోటిఫికేషన్లు</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill సృష్టించు</string>
+    <string name="tool_skill_create_description">పునర్వినియోగ JavaScript skill సృష్టించు లేదా నవీకరించు</string>
+    <string name="tool_skill_list_name">Skills జాబితా</string>
+    <string name="tool_skill_list_description">భద్రపరచిన అన్ని skills జాబితా చూపు</string>
+    <string name="tool_skill_execute_name">Skill అమలు చేయి</string>
+    <string name="tool_skill_execute_description">పేరు ద్వారా భద్రపరచిన skill అమలు చేయి</string>
+    <string name="tool_skill_delete_name">Skill తొలగించు</string>
+    <string name="tool_skill_delete_description">భద్రపరచిన skill తొలగించు</string>
+    <string name="tool_skill_update_data_name">Skill డేటా నవీకరించు</string>
+    <string name="tool_skill_update_data_description">Skill యొక్క ఆకృతీకరణ డేటాను నవీకరించు</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills AI ద్వారా సృష్టించబడిన పునర్వినియోగ JavaScript స్క్రిప్ట్‌లు. AI అనుకూల స్క్రిప్ట్‌లను సృష్టించడానికి మరియు అమలు చేయడానికి అనుమతించడానికి దీన్ని ప్రారంభించండి.</string>
+    <string name="settings_skills_empty">ఇంకా skills ఏవీ సృష్టించబడలేదు. చాట్‌లో AI ని skill సృష్టించమని అడగండి.</string>
+    <string name="settings_skills_delete">Skill తొలగించు</string>
+    <string name="snackbar_skill_deleted">Skill తొలగించబడింది</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Άνοιγμα ζητήματος GitHub</string>
     <string name="notification_channel_name">Ειδοποιήσεις AI</string>
     <string name="notification_channel_description">Ειδοποιήσεις που αποστέλλονται από τον βοηθό AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Δημιουργία Skill</string>
+    <string name="tool_skill_create_description">Δημιουργία ή ενημέρωση ενός επαναχρησιμοποιήσιμου JavaScript skill</string>
+    <string name="tool_skill_list_name">Λίστα Skills</string>
+    <string name="tool_skill_list_description">Εμφάνιση όλων των αποθηκευμένων skills</string>
+    <string name="tool_skill_execute_name">Εκτέλεση Skill</string>
+    <string name="tool_skill_execute_description">Εκτέλεση ενός αποθηκευμένου skill κατά όνομα</string>
+    <string name="tool_skill_delete_name">Διαγραφή Skill</string>
+    <string name="tool_skill_delete_description">Διαγραφή ενός αποθηκευμένου skill</string>
+    <string name="tool_skill_update_data_name">Ενημέρωση δεδομένων Skill</string>
+    <string name="tool_skill_update_data_description">Ενημέρωση των δεδομένων διαμόρφωσης ενός skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Τα Skills είναι επαναχρησιμοποιήσιμα σενάρια JavaScript που δημιουργήθηκαν από την AI. Ενεργοποιήστε αυτό για να επιτρέψετε στην AI να δημιουργεί και να εκτελεί προσαρμοσμένα σενάρια.</string>
+    <string name="settings_skills_empty">Δεν έχουν δημιουργηθεί skills ακόμα. Ζητήστε από την AI να δημιουργήσει ένα skill στη συνομιλία.</string>
+    <string name="settings_skills_delete">Διαγραφή skill</string>
+    <string name="snackbar_skill_deleted">Το skill διαγράφηκε</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

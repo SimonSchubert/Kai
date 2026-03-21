@@ -29,8 +29,11 @@ import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.data.SkillExecutor
+import com.inspiredandroid.kai.data.SkillStore
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
+import com.inspiredandroid.kai.tools.SkillTools
 import com.inspiredandroid.kai.tools.WebSearchTool
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
@@ -158,7 +161,8 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
     ),
 ) + SchedulingTools.schedulingToolDefinitions +
     HeartbeatTools.heartbeatToolDefinitions +
-    EmailTools.emailToolDefinitions
+    EmailTools.emailToolDefinitions +
+    SkillTools.skillToolDefinitions
 
 actual fun getAvailableTools(): List<Tool> {
     val context: Context by inject(Context::class.java)
@@ -364,6 +368,12 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))
+        }
+
+        if (appSettings.isSkillsEnabled()) {
+            val skillStore: SkillStore by inject(SkillStore::class.java)
+            val skillExecutor: SkillExecutor by inject(SkillExecutor::class.java)
+            addAll(SkillTools.getSkillTools(skillStore, skillExecutor))
         }
 
         val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)

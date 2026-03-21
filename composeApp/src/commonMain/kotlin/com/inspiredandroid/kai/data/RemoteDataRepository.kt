@@ -98,6 +98,8 @@ class RemoteDataRepository(
     private val heartbeatManager: HeartbeatManager,
     private val emailStore: EmailStore,
     private val mcpServerManager: McpServerManager,
+    private val skillStore: SkillStore,
+    private val skillExecutor: SkillExecutor,
 ) : DataRepository {
 
     private val prettyJson = Json { prettyPrint = true }
@@ -1220,6 +1222,18 @@ class RemoteDataRepository(
                     }
                 }
             }
+            if (appSettings.isSkillsEnabled()) {
+                val skills = skillStore.getAllSkills()
+                if (skills.isNotEmpty()) {
+                    append("\n\n## Available Skills\n")
+                    append("Execute with skill_execute. Scripts have: 'input' variable, 'data' variable (stored JSON config), skill.run(name, input) for inter-skill calls.\n")
+                    for (s in skills) {
+                        append("- **${s.name}**: ${s.description} (used ${s.executionCount}x)")
+                        if (s.dataJson.isNotEmpty()) append(" [has data]")
+                        append("\n")
+                    }
+                }
+            }
             // Runtime context
             val service = currentService()
             val modelId = appSettings.getSelectedModelId(service)
@@ -1253,6 +1267,26 @@ class RemoteDataRepository(
 
     override suspend fun cancelScheduledTask(id: String) {
         taskStore.removeTask(id)
+    }
+
+    override fun isSkillsEnabled(): Boolean = appSettings.isSkillsEnabled()
+
+    override fun setSkillsEnabled(enabled: Boolean) {
+        appSettings.setSkillsEnabled(enabled)
+    }
+
+    override fun getSkills(): List<SkillEntry> = skillStore.getAllSkills()
+
+    override suspend fun deleteSkill(name: String) {
+        skillStore.deleteSkill(name)
+    }
+
+    override suspend fun executeSkill(name: String, input: String?): SkillExecutionResult {
+        val skill = skillStore.getSkill(name)
+            ?: return SkillExecutionResult(success = false, output = "", error = "Skill not found: $name")
+        val result = skillExecutor.execute(script = skill.script, input = input, dataJson = skill.dataJson.ifEmpty { null })
+        skillStore.recordExecution(name, result.output.ifEmpty { result.error ?: "" })
+        return result
     }
 
     override fun isDaemonEnabled(): Boolean = appSettings.isDaemonEnabled()

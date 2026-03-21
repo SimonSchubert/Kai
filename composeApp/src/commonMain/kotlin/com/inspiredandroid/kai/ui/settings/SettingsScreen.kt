@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -38,6 +39,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -120,6 +124,9 @@ import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
+import com.inspiredandroid.kai.data.SkillEntry
+import com.inspiredandroid.kai.data.prettyPrintJs
+import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
@@ -216,6 +223,12 @@ import kai.composeapp.generated.resources.settings_request_integration_title
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
+import kai.composeapp.generated.resources.settings_skills
+import kai.composeapp.generated.resources.settings_skills_delete
+import kai.composeapp.generated.resources.settings_skills_description
+import kai.composeapp.generated.resources.settings_skills_empty
+import kai.composeapp.generated.resources.settings_import_section_skills
+import kai.composeapp.generated.resources.settings_tab_skills
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
 import kai.composeapp.generated.resources.settings_soul
 import kai.composeapp.generated.resources.settings_soul_description
@@ -242,6 +255,7 @@ import kai.composeapp.generated.resources.settings_ui_scale
 import kai.composeapp.generated.resources.settings_version
 import kai.composeapp.generated.resources.snackbar_email_removed
 import kai.composeapp.generated.resources.snackbar_mcp_server_removed
+import kai.composeapp.generated.resources.snackbar_skill_deleted
 import kai.composeapp.generated.resources.snackbar_memory_deleted
 import kai.composeapp.generated.resources.snackbar_service_removed
 import kai.composeapp.generated.resources.snackbar_task_cancelled
@@ -294,6 +308,7 @@ fun SettingsScreenContent(
     val emailRemovedMsg = stringResource(Res.string.snackbar_email_removed)
     val serviceRemovedMsg = stringResource(Res.string.snackbar_service_removed)
     val mcpServerRemovedMsg = stringResource(Res.string.snackbar_mcp_server_removed)
+    val skillDeletedMsg = stringResource(Res.string.snackbar_skill_deleted)
 
     LaunchedEffect(uiState.pendingDeletion) {
         val deletion = uiState.pendingDeletion ?: return@LaunchedEffect
@@ -304,6 +319,7 @@ fun SettingsScreenContent(
             is PendingDeletion.EmailAccount -> emailRemovedMsg
             is PendingDeletion.Service -> serviceRemovedMsg
             is PendingDeletion.McpServer -> mcpServerRemovedMsg
+            is PendingDeletion.Skill -> skillDeletedMsg
         }
         val result = snackbarHostState.showSnackbar(
             message = message,
@@ -325,6 +341,9 @@ fun SettingsScreenContent(
     val filteredEmailAccounts = remember(uiState.emailAccounts, pendingDeletion) {
         if (pendingDeletion is PendingDeletion.EmailAccount) uiState.emailAccounts.filter { it.id != pendingDeletion.id } else uiState.emailAccounts
     }
+    val filteredSkills = remember(uiState.skills, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.Skill) uiState.skills.filter { it.name != pendingDeletion.name } else uiState.skills
+    }
     val filteredServices = remember(uiState.configuredServices, pendingDeletion) {
         if (pendingDeletion is PendingDeletion.Service) uiState.configuredServices.filter { it.instanceId != pendingDeletion.instanceId } else uiState.configuredServices
     }
@@ -332,13 +351,14 @@ fun SettingsScreenContent(
         if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId } else uiState.mcpServers
     }
 
-    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers) {
+    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers, filteredSkills) {
         uiState.copy(
             memories = filteredMemories,
             scheduledTasks = filteredTasks,
             emailAccounts = filteredEmailAccounts,
             configuredServices = filteredServices,
             mcpServers = filteredMcpServers,
+            skills = filteredSkills,
         )
     }
 
@@ -402,6 +422,18 @@ fun SettingsScreenContent(
                                 showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
                                 onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
                                 onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                            )
+                        }
+
+                        SettingsTab.Skills -> {
+                            SkillsContent(
+                                skills = filteredUiState.skills,
+                                onDeleteSkill = filteredUiState.onDeleteSkill,
+                                isSkillsEnabled = filteredUiState.isSkillsEnabled,
+                                onToggleSkills = filteredUiState.onToggleSkills,
+                                onExecuteSkill = filteredUiState.onExecuteSkill,
+                                executingSkillName = filteredUiState.executingSkillName,
+                                skillExecutionResult = filteredUiState.skillExecutionResult,
                             )
                         }
                     }
@@ -469,6 +501,7 @@ private fun SettingsTabSelector(
                                 SettingsTab.General -> stringResource(Res.string.settings_tab_general)
                                 SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
                                 SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
+                                SettingsTab.Skills -> stringResource(Res.string.settings_tab_skills)
                                 SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
                             },
                         )
@@ -1812,6 +1845,7 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
     ImportSection.SPLINTERLANDS -> "Splinterlands"
     ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
     ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)
+    ImportSection.SKILLS -> stringResource(Res.string.settings_import_section_skills)
 }
 
 @Composable
@@ -2498,6 +2532,276 @@ private fun ScheduledTaskList(
                     }
                 }
                 Spacer(Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun SkillsContent(
+    skills: List<SkillEntry>,
+    onDeleteSkill: (String) -> Unit,
+    isSkillsEnabled: Boolean,
+    onToggleSkills: (Boolean) -> Unit,
+    onExecuteSkill: (String, String?) -> Unit,
+    executingSkillName: String?,
+    skillExecutionResult: Pair<String, SkillExecutionResult>?,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        SettingsCard {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onToggleSkills(!isSkillsEnabled) }
+                        .pointerHoverIcon(PointerIcon.Hand),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.settings_skills),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = isSkillsEnabled,
+                        onCheckedChange = onToggleSkills,
+                    )
+                }
+                Text(
+                    text = stringResource(Res.string.settings_skills_description),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+
+        if (isSkillsEnabled && skills.isEmpty()) {
+            SettingsCard {
+                Text(
+                    text = stringResource(Res.string.settings_skills_empty),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+
+        if (isSkillsEnabled) {
+            skills.forEach { skill ->
+                SkillCard(
+                    skill = skill,
+                    onDeleteSkill = onDeleteSkill,
+                    onExecuteSkill = onExecuteSkill,
+                    isExecuting = executingSkillName == skill.name,
+                    executionResult = skillExecutionResult?.takeIf { it.first == skill.name }?.second,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SkillCard(
+    skill: SkillEntry,
+    onDeleteSkill: (String) -> Unit,
+    onExecuteSkill: (String, String?) -> Unit,
+    isExecuting: Boolean,
+    executionResult: SkillExecutionResult?,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var inputText by remember { mutableStateOf("") }
+    val prettyScript = remember(skill.script) { prettyPrintJs(skill.script) }
+
+    SettingsCard {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Header — clickable to expand
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded }
+                    .pointerHoverIcon(PointerIcon.Hand),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = skill.name,
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = skill.description,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    if (skill.executionCount > 0) {
+                        Text(
+                            text = "Executed ${skill.executionCount}x",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+                Icon(
+                    imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                IconButton(
+                    onClick = { onDeleteSkill(skill.name) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(Res.string.settings_skills_delete),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+
+            if (expanded) {
+                Spacer(Modifier.height(8.dp))
+
+                // Input + Execute
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    OutlinedTextField(
+                        value = inputText,
+                        onValueChange = { inputText = it },
+                        modifier = Modifier.weight(1f),
+                        placeholder = {
+                            Text(
+                                text = "Input (optional)",
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        },
+                        singleLine = true,
+                        textStyle = MaterialTheme.typography.bodySmall,
+                    )
+                    Button(
+                        onClick = { onExecuteSkill(skill.name, inputText.ifBlank { null }) },
+                        enabled = !isExecuting,
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        if (isExecuting) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(16.dp),
+                                strokeWidth = 2.dp,
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = "Execute",
+                                modifier = Modifier.size(18.dp),
+                            )
+                            Spacer(Modifier.width(4.dp))
+                            Text("Run")
+                        }
+                    }
+                }
+
+                // Result
+                if (executionResult != null) {
+                    Spacer(Modifier.height(8.dp))
+                    val resultColor = if (executionResult.success) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.error
+                    }
+                    val resultText = if (executionResult.success) {
+                        executionResult.output.ifEmpty { "(no output)" }
+                    } else {
+                        executionResult.error ?: "Execution failed"
+                    }
+                    SelectionContainer {
+                        Text(
+                            text = resultText,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                            ),
+                            color = resultColor,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(resultColor.copy(alpha = 0.08f))
+                                .padding(12.dp),
+                        )
+                    }
+                }
+
+                // Readme
+                if (skill.readme.isNotEmpty()) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Documentation",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    SelectionContainer {
+                        Text(
+                            text = skill.readme,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+                                .padding(12.dp),
+                        )
+                    }
+                }
+
+                // Data
+                if (skill.dataJson.isNotEmpty()) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = "Data",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    val prettyData = remember(skill.dataJson) { prettyPrintJs(skill.dataJson) }
+                    SelectionContainer {
+                        Text(
+                            text = prettyData,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                                .padding(12.dp),
+                        )
+                    }
+                }
+
+                // Script source
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "Script",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+                SelectionContainer {
+                    Text(
+                        text = prettyScript,
+                        style = MaterialTheme.typography.bodySmall.copy(
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
+                        ),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                            .padding(12.dp),
+                    )
+                }
             }
         }
     }

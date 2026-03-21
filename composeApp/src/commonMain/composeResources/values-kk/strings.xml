@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub issue ашу</string>
     <string name="notification_channel_name">AI хабарландырулары</string>
     <string name="notification_channel_description">AI көмекшісі жіберген хабарландырулар</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill жасау</string>
+    <string name="tool_skill_create_description">Қайта пайдалануға болатын JavaScript skill жасау немесе жаңарту</string>
+    <string name="tool_skill_list_name">Skills тізімі</string>
+    <string name="tool_skill_list_description">Барлық сақталған skills тізімін көрсету</string>
+    <string name="tool_skill_execute_name">Skill орындау</string>
+    <string name="tool_skill_execute_description">Аты бойынша сақталған skill орындау</string>
+    <string name="tool_skill_delete_name">Skill жою</string>
+    <string name="tool_skill_delete_description">Сақталған skill жою</string>
+    <string name="tool_skill_update_data_name">Skill деректерін жаңарту</string>
+    <string name="tool_skill_update_data_description">Skill конфигурация деректерін жаңарту</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills — AI жасаған қайта пайдалануға болатын JavaScript скрипттері. AI-ға арнаулы скрипттер жасауға және орындауға рұқсат беру үшін мұны қосыңыз.</string>
+    <string name="settings_skills_empty">Әзірге ешқандай skill жасалмаған. Чатта AI-дан skill жасауды сұраңыз.</string>
+    <string name="settings_skills_delete">Skill жою</string>
+    <string name="snackbar_skill_deleted">Skill жойылды</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

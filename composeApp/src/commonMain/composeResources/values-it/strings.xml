@@ -187,4 +187,21 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_open_github_issue">Apri issue su GitHub</string>
     <string name="notification_channel_name">Notifiche AI</string>
     <string name="notification_channel_description">Notifiche inviate dall\'assistente AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Crea Skill</string>
+    <string name="tool_skill_create_description">Crea o aggiorna uno skill JavaScript riutilizzabile</string>
+    <string name="tool_skill_list_name">Elenca Skills</string>
+    <string name="tool_skill_list_description">Elenca tutti gli skill salvati</string>
+    <string name="tool_skill_execute_name">Esegui Skill</string>
+    <string name="tool_skill_execute_description">Esegui uno skill salvato per nome</string>
+    <string name="tool_skill_delete_name">Elimina Skill</string>
+    <string name="tool_skill_delete_description">Elimina uno skill salvato</string>
+    <string name="tool_skill_update_data_name">Aggiorna dati Skill</string>
+    <string name="tool_skill_update_data_description">Aggiorna i dati di configurazione di uno skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Gli Skills sono script JavaScript riutilizzabili creati dall\'IA. Abilita questo per permettere all\'IA di creare ed eseguire script personalizzati.</string>
+    <string name="settings_skills_empty">Nessuno skill creato ancora. Chiedi all\'IA di creare uno skill nella chat.</string>
+    <string name="settings_skills_delete">Elimina skill</string>
+    <string name="snackbar_skill_deleted">Skill eliminato</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

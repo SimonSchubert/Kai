@@ -187,4 +187,21 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_open_github_issue">GitHub-issue openen</string>
     <string name="notification_channel_name">AI-meldingen</string>
     <string name="notification_channel_description">Meldingen verzonden door AI-assistent</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill aanmaken</string>
+    <string name="tool_skill_create_description">Een herbruikbare JavaScript-skill aanmaken of bijwerken</string>
+    <string name="tool_skill_list_name">Skills weergeven</string>
+    <string name="tool_skill_list_description">Alle opgeslagen skills weergeven</string>
+    <string name="tool_skill_execute_name">Skill uitvoeren</string>
+    <string name="tool_skill_execute_description">Een opgeslagen skill uitvoeren op naam</string>
+    <string name="tool_skill_delete_name">Skill verwijderen</string>
+    <string name="tool_skill_delete_description">Een opgeslagen skill verwijderen</string>
+    <string name="tool_skill_update_data_name">Skill-gegevens bijwerken</string>
+    <string name="tool_skill_update_data_description">De configuratiegegevens van een skill bijwerken</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills zijn herbruikbare JavaScript-scripts gemaakt door de AI. Schakel dit in om de AI aangepaste scripts te laten maken en uitvoeren.</string>
+    <string name="settings_skills_empty">Nog geen skills aangemaakt. Vraag de AI om een skill aan te maken in de chat.</string>
+    <string name="settings_skills_delete">Skill verwijderen</string>
+    <string name="snackbar_skill_deleted">Skill verwijderd</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

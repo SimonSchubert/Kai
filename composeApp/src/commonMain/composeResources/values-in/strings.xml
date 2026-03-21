@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Buka Isu GitHub</string>
     <string name="notification_channel_name">Notifikasi AI</string>
     <string name="notification_channel_description">Notifikasi yang dikirim oleh asisten AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Buat Skill</string>
+    <string name="tool_skill_create_description">Buat atau perbarui skill JavaScript yang dapat digunakan kembali</string>
+    <string name="tool_skill_list_name">Daftar Skills</string>
+    <string name="tool_skill_list_description">Tampilkan semua skill yang tersimpan</string>
+    <string name="tool_skill_execute_name">Jalankan Skill</string>
+    <string name="tool_skill_execute_description">Jalankan skill tersimpan berdasarkan nama</string>
+    <string name="tool_skill_delete_name">Hapus Skill</string>
+    <string name="tool_skill_delete_description">Hapus skill yang tersimpan</string>
+    <string name="tool_skill_update_data_name">Perbarui Data Skill</string>
+    <string name="tool_skill_update_data_description">Perbarui data konfigurasi skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills adalah skrip JavaScript yang dapat digunakan kembali yang dibuat oleh AI. Aktifkan ini untuk mengizinkan AI membuat dan menjalankan skrip kustom.</string>
+    <string name="settings_skills_empty">Belum ada skill yang dibuat. Minta AI untuk membuat skill di obrolan.</string>
+    <string name="settings_skills_delete">Hapus skill</string>
+    <string name="snackbar_skill_deleted">Skill dihapus</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

@@ -15,7 +15,10 @@ import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
+import com.inspiredandroid.kai.data.SkillExecutor
+import com.inspiredandroid.kai.data.SkillStore
 import com.inspiredandroid.kai.tools.SchedulingTools
+import com.inspiredandroid.kai.tools.SkillTools
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.StorageSettings
 import io.github.vinceglb.filekit.FileKit
@@ -65,7 +68,7 @@ actual fun createSecureSettings(): Settings {
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + SkillTools.skillToolDefinitions
 
 private object WebKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
@@ -73,6 +76,8 @@ private object WebKoinHelper : KoinComponent {
     val taskStore: TaskStore by inject()
     val heartbeatManager: HeartbeatManager by inject()
     val mcpServerManager: McpServerManager by inject()
+    val skillStore: SkillStore by inject()
+    val skillExecutor: SkillExecutor by inject()
 }
 
 actual fun getAvailableTools(): List<Tool> = buildList {
@@ -83,6 +88,9 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     if (WebKoinHelper.appSettings.isSchedulingEnabled()) {
         addAll(SchedulingTools.getSchedulingTools(WebKoinHelper.taskStore))
         addAll(HeartbeatTools.getHeartbeatTools(WebKoinHelper.heartbeatManager, WebKoinHelper.memoryStore, WebKoinHelper.appSettings))
+    }
+    if (WebKoinHelper.appSettings.isSkillsEnabled()) {
+        addAll(SkillTools.getSkillTools(WebKoinHelper.skillStore, WebKoinHelper.skillExecutor))
     }
     addAll(WebKoinHelper.mcpServerManager.getEnabledMcpTools())
 }

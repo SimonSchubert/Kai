@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Otvori GitHub Issue</string>
     <string name="notification_channel_name">AI obavijesti</string>
     <string name="notification_channel_description">Obavijesti koje šalje AI asistent</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Stvori Skill</string>
+    <string name="tool_skill_create_description">Stvori ili ažuriraj višekratno upotrebljiv JavaScript skill</string>
+    <string name="tool_skill_list_name">Popis Skills</string>
+    <string name="tool_skill_list_description">Prikaži sve spremljene skills</string>
+    <string name="tool_skill_execute_name">Pokreni Skill</string>
+    <string name="tool_skill_execute_description">Pokreni spremljeni skill po imenu</string>
+    <string name="tool_skill_delete_name">Obriši Skill</string>
+    <string name="tool_skill_delete_description">Obriši spremljeni skill</string>
+    <string name="tool_skill_update_data_name">Ažuriraj podatke Skilla</string>
+    <string name="tool_skill_update_data_description">Ažuriraj konfiguracijske podatke skilla</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills su višekratno upotrebljive JavaScript skripte koje je stvorio AI. Omogućite ovo kako biste AI-ju dopustili izradu i pokretanje prilagođenih skripti.</string>
+    <string name="settings_skills_empty">Još nema stvorenih skills. Zamolite AI da stvori skill u chatu.</string>
+    <string name="settings_skills_delete">Obriši skill</string>
+    <string name="snackbar_skill_deleted">Skill obrisan</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

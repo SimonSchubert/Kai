@@ -187,4 +187,21 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_open_github_issue">GitHub Issue Aç</string>
     <string name="notification_channel_name">AI Bildirimleri</string>
     <string name="notification_channel_description">AI asistan tarafından gönderilen bildirimler</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill Oluştur</string>
+    <string name="tool_skill_create_description">Yeniden kullanılabilir bir JavaScript skill oluştur veya güncelle</string>
+    <string name="tool_skill_list_name">Skills Listele</string>
+    <string name="tool_skill_list_description">Kaydedilmiş tüm skills listele</string>
+    <string name="tool_skill_execute_name">Skill Çalıştır</string>
+    <string name="tool_skill_execute_description">Kaydedilmiş bir skill ada göre çalıştır</string>
+    <string name="tool_skill_delete_name">Skill Sil</string>
+    <string name="tool_skill_delete_description">Kaydedilmiş bir skill sil</string>
+    <string name="tool_skill_update_data_name">Skill Verilerini Güncelle</string>
+    <string name="tool_skill_update_data_description">Bir skill\'in yapılandırma verilerini güncelle</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills, yapay zeka tarafından oluşturulan yeniden kullanılabilir JavaScript betikleridir. Yapay zekanın özel betikler oluşturmasına ve çalıştırmasına izin vermek için bunu etkinleştirin.</string>
+    <string name="settings_skills_empty">Henüz skill oluşturulmadı. Sohbette yapay zekadan bir skill oluşturmasını isteyin.</string>
+    <string name="settings_skills_delete">Skill sil</string>
+    <string name="snackbar_skill_deleted">Skill silindi</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

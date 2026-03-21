@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Vula i-GitHub Issue</string>
     <string name="notification_channel_name">Izaziso ze-AI</string>
     <string name="notification_channel_description">Izaziso ezithunyelwe umsizi we-AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Dala i-Skill</string>
+    <string name="tool_skill_create_description">Dala noma ubuyekeze i-skill ye-JavaScript engasetshenziswa kabusha</string>
+    <string name="tool_skill_list_name">Uhlu lwe-Skills</string>
+    <string name="tool_skill_list_description">Bonisa zonke ama-skills alondoloziwe</string>
+    <string name="tool_skill_execute_name">Sebenzisa i-Skill</string>
+    <string name="tool_skill_execute_description">Sebenzisa i-skill elondoloziwe ngegama</string>
+    <string name="tool_skill_delete_name">Susa i-Skill</string>
+    <string name="tool_skill_delete_description">Susa i-skill elondoloziwe</string>
+    <string name="tool_skill_update_data_name">Buyekeza idatha ye-Skill</string>
+    <string name="tool_skill_update_data_description">Buyekeza idatha yokulungisa ye-skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Ama-Skills ama-script e-JavaScript angasetshenziswa kabusha adalwe yi-AI. Vumela lokhu ukuze i-AI yakhe futhi isebenzise ama-script ahlukile.</string>
+    <string name="settings_skills_empty">Akukho ma-skills asedaliwe. Cela i-AI ukuba idle i-skill engxoxweni.</string>
+    <string name="settings_skills_delete">Susa i-skill</string>
+    <string name="snackbar_skill_deleted">I-skill isusiwe</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

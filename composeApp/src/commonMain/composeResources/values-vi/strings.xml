@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Mở GitHub Issue</string>
     <string name="notification_channel_name">Thông báo AI</string>
     <string name="notification_channel_description">Thông báo được gửi bởi trợ lý AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Tạo Skill</string>
+    <string name="tool_skill_create_description">Tạo hoặc cập nhật một skill JavaScript có thể tái sử dụng</string>
+    <string name="tool_skill_list_name">Danh sách Skills</string>
+    <string name="tool_skill_list_description">Hiển thị tất cả các skill đã lưu</string>
+    <string name="tool_skill_execute_name">Thực thi Skill</string>
+    <string name="tool_skill_execute_description">Thực thi một skill đã lưu theo tên</string>
+    <string name="tool_skill_delete_name">Xóa Skill</string>
+    <string name="tool_skill_delete_description">Xóa một skill đã lưu</string>
+    <string name="tool_skill_update_data_name">Cập nhật dữ liệu Skill</string>
+    <string name="tool_skill_update_data_description">Cập nhật dữ liệu cấu hình của skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills là các tập lệnh JavaScript có thể tái sử dụng do AI tạo ra. Bật tính năng này để cho phép AI xây dựng và thực thi các tập lệnh tùy chỉnh.</string>
+    <string name="settings_skills_empty">Chưa có skill nào được tạo. Yêu cầu AI tạo một skill trong cuộc trò chuyện.</string>
+    <string name="settings_skills_delete">Xóa skill</string>
+    <string name="snackbar_skill_deleted">Đã xóa skill</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

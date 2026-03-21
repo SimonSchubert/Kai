@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Buksan ang GitHub Issue</string>
     <string name="notification_channel_name">Mga Notification ng AI</string>
     <string name="notification_channel_description">Mga notification na ipinadala ng AI assistant</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Lumikha ng Skill</string>
+    <string name="tool_skill_create_description">Lumikha o i-update ang isang magagamit-muli na JavaScript skill</string>
+    <string name="tool_skill_list_name">Ilista ang Skills</string>
+    <string name="tool_skill_list_description">Ilista ang lahat ng naka-save na skills</string>
+    <string name="tool_skill_execute_name">Patakbuhin ang Skill</string>
+    <string name="tool_skill_execute_description">Patakbuhin ang isang naka-save na skill ayon sa pangalan</string>
+    <string name="tool_skill_delete_name">Burahin ang Skill</string>
+    <string name="tool_skill_delete_description">Burahin ang isang naka-save na skill</string>
+    <string name="tool_skill_update_data_name">I-update ang Skill Data</string>
+    <string name="tool_skill_update_data_description">I-update ang configuration data ng isang skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Ang Skills ay mga magagamit-muli na JavaScript scripts na ginawa ng AI. I-enable ito para payagan ang AI na gumawa at magpatakbo ng custom scripts.</string>
+    <string name="settings_skills_empty">Wala pang nalikhang skills. Hilingin sa AI na lumikha ng skill sa chat.</string>
+    <string name="settings_skills_delete">Burahin ang skill</string>
+    <string name="snackbar_skill_deleted">Na-delete ang skill</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

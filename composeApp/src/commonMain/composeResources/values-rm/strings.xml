@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Avrir GitHub-issue</string>
     <string name="notification_channel_name">Notificaziuns da IA</string>
     <string name="notification_channel_description">Notificaziuns tramessas da l\'assistent da IA</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Crear Skill</string>
+    <string name="tool_skill_create_description">Crear u actualisar in skill JavaScript reutilisabel</string>
+    <string name="tool_skill_list_name">Glista da Skills</string>
+    <string name="tool_skill_list_description">Mussar tut ils skills memorisads</string>
+    <string name="tool_skill_execute_name">Exequir Skill</string>
+    <string name="tool_skill_execute_description">Exequir in skill memorisà tenor il num</string>
+    <string name="tool_skill_delete_name">Stizzar Skill</string>
+    <string name="tool_skill_delete_description">Stizzar in skill memorisà</string>
+    <string name="tool_skill_update_data_name">Actualisar datas dal Skill</string>
+    <string name="tool_skill_update_data_description">Actualisar las datas da configuraziun dal skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills èn scripts JavaScript reutilisabels creads da l\'IA. Activescha quai per laschar l\'IA crear ed exequir scripts persunalisads.</string>
+    <string name="settings_skills_empty">Anc nagins skills creads. Dumonda a l\'IA da crear in skill en il chat.</string>
+    <string name="settings_skills_delete">Stizzar skill</string>
+    <string name="snackbar_skill_deleted">Skill stizzà</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

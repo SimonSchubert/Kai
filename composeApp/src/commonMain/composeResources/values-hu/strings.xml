@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub Issue megnyitása</string>
     <string name="notification_channel_name">AI-értesítések</string>
     <string name="notification_channel_description">Az AI-asszisztens által küldött értesítések</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill létrehozása</string>
+    <string name="tool_skill_create_description">Újrafelhasználható JavaScript skill létrehozása vagy frissítése</string>
+    <string name="tool_skill_list_name">Skills listázása</string>
+    <string name="tool_skill_list_description">Az összes mentett skill listázása</string>
+    <string name="tool_skill_execute_name">Skill futtatása</string>
+    <string name="tool_skill_execute_description">Mentett skill futtatása név szerint</string>
+    <string name="tool_skill_delete_name">Skill törlése</string>
+    <string name="tool_skill_delete_description">Mentett skill törlése</string>
+    <string name="tool_skill_update_data_name">Skill adatok frissítése</string>
+    <string name="tool_skill_update_data_description">Egy skill konfigurációs adatainak frissítése</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">A Skills az AI által létrehozott újrafelhasználható JavaScript szkriptek. Engedélyezze ezt, hogy az AI egyéni szkripteket hozhasson létre és futtasson.</string>
+    <string name="settings_skills_empty">Még nincsenek létrehozott skillek. Kérje meg az AI-t, hogy hozzon létre egy skillt a csevegésben.</string>
+    <string name="settings_skills_delete">Skill törlése</string>
+    <string name="snackbar_skill_deleted">Skill törölve</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

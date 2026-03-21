@@ -187,4 +187,21 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_open_github_issue">Öppna GitHub Issue</string>
     <string name="notification_channel_name">AI-aviseringar</string>
     <string name="notification_channel_description">Aviseringar skickade av AI-assistenten</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skapa Skill</string>
+    <string name="tool_skill_create_description">Skapa eller uppdatera en återanvändbar JavaScript-skill</string>
+    <string name="tool_skill_list_name">Lista Skills</string>
+    <string name="tool_skill_list_description">Visa alla sparade skills</string>
+    <string name="tool_skill_execute_name">Kör Skill</string>
+    <string name="tool_skill_execute_description">Kör en sparad skill efter namn</string>
+    <string name="tool_skill_delete_name">Ta bort Skill</string>
+    <string name="tool_skill_delete_description">Ta bort en sparad skill</string>
+    <string name="tool_skill_update_data_name">Uppdatera Skill-data</string>
+    <string name="tool_skill_update_data_description">Uppdatera konfigurationsdata för en skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills är återanvändbara JavaScript-skript skapade av AI. Aktivera detta för att låta AI bygga och köra anpassade skript.</string>
+    <string name="settings_skills_empty">Inga skills har skapats ännu. Be AI att skapa en skill i chatten.</string>
+    <string name="settings_skills_delete">Ta bort skill</string>
+    <string name="snackbar_skill_deleted">Skill borttagen</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

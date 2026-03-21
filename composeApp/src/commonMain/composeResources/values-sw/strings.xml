@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Fungua GitHub Issue</string>
     <string name="notification_channel_name">Arifa za AI</string>
     <string name="notification_channel_description">Arifa zilizotumwa na msaidizi wa AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Unda Skill</string>
+    <string name="tool_skill_create_description">Unda au sasisha skill ya JavaScript inayoweza kutumika tena</string>
+    <string name="tool_skill_list_name">Orodha ya Skills</string>
+    <string name="tool_skill_list_description">Onyesha skills zote zilizohifadhiwa</string>
+    <string name="tool_skill_execute_name">Tekeleza Skill</string>
+    <string name="tool_skill_execute_description">Tekeleza skill iliyohifadhiwa kwa jina</string>
+    <string name="tool_skill_delete_name">Futa Skill</string>
+    <string name="tool_skill_delete_description">Futa skill iliyohifadhiwa</string>
+    <string name="tool_skill_update_data_name">Sasisha Data ya Skill</string>
+    <string name="tool_skill_update_data_description">Sasisha data ya usanidi wa skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills ni hati za JavaScript zinazoweza kutumika tena zilizoundwa na AI. Wezesha hii ili kuruhusu AI kujenga na kutekeleza hati maalum.</string>
+    <string name="settings_skills_empty">Hakuna skills zilizoundwa bado. Muulize AI aunde skill kwenye mazungumzo.</string>
+    <string name="settings_skills_delete">Futa skill</string>
+    <string name="snackbar_skill_deleted">Skill imefutwa</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

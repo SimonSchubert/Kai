@@ -187,4 +187,21 @@
     <string name="settings_open_github_issue">Открыть issue на GitHub</string>
     <string name="notification_channel_name">Уведомления ИИ</string>
     <string name="notification_channel_description">Уведомления, отправленные ИИ-ассистентом</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Создать Skill</string>
+    <string name="tool_skill_create_description">Создать или обновить многоразовый JavaScript-skill</string>
+    <string name="tool_skill_list_name">Список Skills</string>
+    <string name="tool_skill_list_description">Показать все сохранённые skills</string>
+    <string name="tool_skill_execute_name">Выполнить Skill</string>
+    <string name="tool_skill_execute_description">Выполнить сохранённый skill по имени</string>
+    <string name="tool_skill_delete_name">Удалить Skill</string>
+    <string name="tool_skill_delete_description">Удалить сохранённый skill</string>
+    <string name="tool_skill_update_data_name">Обновить данные Skill</string>
+    <string name="tool_skill_update_data_description">Обновить данные конфигурации skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills — это многоразовые JavaScript-скрипты, созданные ИИ. Включите это, чтобы позволить ИИ создавать и выполнять пользовательские скрипты.</string>
+    <string name="settings_skills_empty">Пока не создано ни одного skill. Попросите ИИ создать skill в чате.</string>
+    <string name="settings_skills_delete">Удалить skill</string>
+    <string name="snackbar_skill_deleted">Skill удалён</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

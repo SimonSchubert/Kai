@@ -187,4 +187,21 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_open_github_issue">GitHub-Issue öffnen</string>
     <string name="notification_channel_name">KI-Benachrichtigungen</string>
     <string name="notification_channel_description">Benachrichtigungen vom KI-Assistenten</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill erstellen</string>
+    <string name="tool_skill_create_description">Einen wiederverwendbaren JavaScript-Skill erstellen oder aktualisieren</string>
+    <string name="tool_skill_list_name">Skills auflisten</string>
+    <string name="tool_skill_list_description">Alle gespeicherten Skills auflisten</string>
+    <string name="tool_skill_execute_name">Skill ausführen</string>
+    <string name="tool_skill_execute_description">Einen gespeicherten Skill nach Name ausführen</string>
+    <string name="tool_skill_delete_name">Skill löschen</string>
+    <string name="tool_skill_delete_description">Einen gespeicherten Skill löschen</string>
+    <string name="tool_skill_update_data_name">Skill-Daten aktualisieren</string>
+    <string name="tool_skill_update_data_description">Die Konfigurationsdaten eines Skills aktualisieren</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills sind wiederverwendbare JavaScript-Skripte, die von der KI erstellt wurden. Aktiviere dies, um der KI das Erstellen und Ausführen benutzerdefinierter Skripte zu ermöglichen.</string>
+    <string name="settings_skills_empty">Noch keine Skills erstellt. Bitte die KI im Chat, einen Skill zu erstellen.</string>
+    <string name="settings_skills_delete">Skill löschen</string>
+    <string name="snackbar_skill_deleted">Skill gelöscht</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

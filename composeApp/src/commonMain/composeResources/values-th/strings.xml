@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">เปิด Issue บน GitHub</string>
     <string name="notification_channel_name">การแจ้งเตือน AI</string>
     <string name="notification_channel_description">การแจ้งเตือนที่ส่งโดยผู้ช่วย AI</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">สร้าง Skill</string>
+    <string name="tool_skill_create_description">สร้างหรืออัปเดต skill JavaScript ที่ใช้ซ้ำได้</string>
+    <string name="tool_skill_list_name">รายการ Skills</string>
+    <string name="tool_skill_list_description">แสดงรายการ skills ที่บันทึกไว้ทั้งหมด</string>
+    <string name="tool_skill_execute_name">เรียกใช้ Skill</string>
+    <string name="tool_skill_execute_description">เรียกใช้ skill ที่บันทึกไว้ตามชื่อ</string>
+    <string name="tool_skill_delete_name">ลบ Skill</string>
+    <string name="tool_skill_delete_description">ลบ skill ที่บันทึกไว้</string>
+    <string name="tool_skill_update_data_name">อัปเดตข้อมูล Skill</string>
+    <string name="tool_skill_update_data_description">อัปเดตข้อมูลการกำหนดค่าของ skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills คือสคริปต์ JavaScript ที่ใช้ซ้ำได้ซึ่งสร้างโดย AI เปิดใช้งานเพื่อให้ AI สร้างและเรียกใช้สคริปต์ที่กำหนดเอง</string>
+    <string name="settings_skills_empty">ยังไม่มี skill ที่สร้างไว้ ขอให้ AI สร้าง skill ในแชท</string>
+    <string name="settings_skills_delete">ลบ skill</string>
+    <string name="snackbar_skill_deleted">ลบ skill แล้ว</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

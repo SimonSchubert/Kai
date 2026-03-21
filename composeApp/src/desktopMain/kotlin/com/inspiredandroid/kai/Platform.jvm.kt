@@ -23,8 +23,11 @@ import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
+import com.inspiredandroid.kai.data.SkillExecutor
+import com.inspiredandroid.kai.data.SkillStore
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
+import com.inspiredandroid.kai.tools.SkillTools
 import com.russhwolf.settings.Settings
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.PlatformFile
@@ -135,7 +138,7 @@ actual fun createSecureSettings(): Settings = EncryptedFileSettings()
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(ShellCommandTool.toolInfo) + CommonTools.commonToolDefinitions
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(ShellCommandTool.toolInfo) + CommonTools.commonToolDefinitions + SkillTools.skillToolDefinitions
 
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
@@ -157,6 +160,12 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))
+        }
+
+        if (appSettings.isSkillsEnabled()) {
+            val skillStore: SkillStore by inject(SkillStore::class.java)
+            val skillExecutor: SkillExecutor by inject(SkillExecutor::class.java)
+            addAll(SkillTools.getSkillTools(skillStore, skillExecutor))
         }
 
         val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)

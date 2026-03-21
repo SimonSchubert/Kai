@@ -187,4 +187,21 @@
     <string name="settings_open_github_issue">Відкрити GitHub Issue</string>
     <string name="notification_channel_name">Сповіщення ШІ</string>
     <string name="notification_channel_description">Сповіщення, надіслані ШІ-помічником</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Створити Skill</string>
+    <string name="tool_skill_create_description">Створити або оновити багаторазовий JavaScript-skill</string>
+    <string name="tool_skill_list_name">Список Skills</string>
+    <string name="tool_skill_list_description">Показати всі збережені skills</string>
+    <string name="tool_skill_execute_name">Виконати Skill</string>
+    <string name="tool_skill_execute_description">Виконати збережений skill за назвою</string>
+    <string name="tool_skill_delete_name">Видалити Skill</string>
+    <string name="tool_skill_delete_description">Видалити збережений skill</string>
+    <string name="tool_skill_update_data_name">Оновити дані Skill</string>
+    <string name="tool_skill_update_data_description">Оновити дані конфігурації skill</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills — це багаторазові JavaScript-скрипти, створені ШІ. Увімкніть це, щоб дозволити ШІ створювати та виконувати користувацькі скрипти.</string>
+    <string name="settings_skills_empty">Ще не створено жодного skill. Попросіть ШІ створити skill у чаті.</string>
+    <string name="settings_skills_delete">Видалити skill</string>
+    <string name="snackbar_skill_deleted">Skill видалено</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

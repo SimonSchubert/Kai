@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">ایجاد issue در GitHub</string>
     <string name="notification_channel_name">اعلان‌های هوش مصنوعی</string>
     <string name="notification_channel_description">اعلان‌های ارسال‌شده توسط دستیار هوش مصنوعی</string>
+    <string name="settings_tab_skills">مهارت‌ها</string>
+    <string name="tool_skill_create_name">ایجاد مهارت</string>
+    <string name="tool_skill_create_description">ایجاد یا به‌روزرسانی یک مهارت JavaScript قابل استفاده مجدد</string>
+    <string name="tool_skill_list_name">فهرست مهارت‌ها</string>
+    <string name="tool_skill_list_description">نمایش همه مهارت‌های ذخیره‌شده</string>
+    <string name="tool_skill_execute_name">اجرای مهارت</string>
+    <string name="tool_skill_execute_description">اجرای یک مهارت ذخیره‌شده بر اساس نام</string>
+    <string name="tool_skill_delete_name">حذف مهارت</string>
+    <string name="tool_skill_delete_description">حذف یک مهارت ذخیره‌شده</string>
+    <string name="tool_skill_update_data_name">به‌روزرسانی داده‌های مهارت</string>
+    <string name="tool_skill_update_data_description">به‌روزرسانی داده‌های پیکربندی یک مهارت</string>
+    <string name="settings_skills">مهارت‌ها</string>
+    <string name="settings_skills_description">مهارت‌ها اسکریپت‌های JavaScript قابل استفاده مجدد هستند که توسط هوش مصنوعی ایجاد شده‌اند. این را فعال کنید تا هوش مصنوعی بتواند اسکریپت‌های سفارشی بسازد و اجرا کند.</string>
+    <string name="settings_skills_empty">هنوز هیچ مهارتی ایجاد نشده است. از هوش مصنوعی بخواهید در چت یک مهارت ایجاد کند.</string>
+    <string name="settings_skills_delete">حذف مهارت</string>
+    <string name="snackbar_skill_deleted">مهارت حذف شد</string>
+    <string name="settings_import_section_skills">مهارت‌ها</string>
 </resources>

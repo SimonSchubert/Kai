@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Отвори GitHub Issue</string>
     <string name="notification_channel_name">AI обавештења</string>
     <string name="notification_channel_description">Обавештења послата од стране AI асистента</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Креирај Skill</string>
+    <string name="tool_skill_create_description">Креирај или ажурирај JavaScript skill за вишекратну употребу</string>
+    <string name="tool_skill_list_name">Листа Skills</string>
+    <string name="tool_skill_list_description">Прикажи све сачуване skills</string>
+    <string name="tool_skill_execute_name">Изврши Skill</string>
+    <string name="tool_skill_execute_description">Изврши сачувани skill по имену</string>
+    <string name="tool_skill_delete_name">Обриши Skill</string>
+    <string name="tool_skill_delete_description">Обриши сачувани skill</string>
+    <string name="tool_skill_update_data_name">Ажурирај податке Skill-а</string>
+    <string name="tool_skill_update_data_description">Ажурирај конфигурационе податке skill-а</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills су JavaScript скрипте за вишекратну употребу које је креирала вештачка интелигенција. Омогућите ово да дозволите ВИ да креира и извршава прилагођене скрипте.</string>
+    <string name="settings_skills_empty">Још нема креираних skills. Замолите ВИ да креира skill у ћаскању.</string>
+    <string name="settings_skills_delete">Обриши skill</string>
+    <string name="snackbar_skill_deleted">Skill обрисан</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

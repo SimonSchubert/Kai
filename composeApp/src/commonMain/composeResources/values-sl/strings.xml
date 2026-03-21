@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">Odpri issue na GitHubu</string>
     <string name="notification_channel_name">Obvestila UI</string>
     <string name="notification_channel_description">Obvestila, ki jih pošlje pomočnik z umetno inteligenco</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Ustvari Skill</string>
+    <string name="tool_skill_create_description">Ustvari ali posodobi ponovno uporaben JavaScript skill</string>
+    <string name="tool_skill_list_name">Seznam Skills</string>
+    <string name="tool_skill_list_description">Prikaži vse shranjene skills</string>
+    <string name="tool_skill_execute_name">Izvedi Skill</string>
+    <string name="tool_skill_execute_description">Izvedi shranjen skill po imenu</string>
+    <string name="tool_skill_delete_name">Izbriši Skill</string>
+    <string name="tool_skill_delete_description">Izbriši shranjen skill</string>
+    <string name="tool_skill_update_data_name">Posodobi podatke Skilla</string>
+    <string name="tool_skill_update_data_description">Posodobi konfiguracijske podatke skilla</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills so ponovno uporabne JavaScript skripte, ki jih je ustvaril UI. Omogočite to, da UI lahko ustvarja in izvaja prilagojene skripte.</string>
+    <string name="settings_skills_empty">Še ni ustvarjenih skills. Prosite UI, da ustvari skill v klepetu.</string>
+    <string name="settings_skills_delete">Izbriši skill</string>
+    <string name="snackbar_skill_deleted">Skill izbrisan</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>

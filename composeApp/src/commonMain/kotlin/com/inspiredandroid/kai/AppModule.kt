@@ -7,6 +7,8 @@ import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.SkillExecutor
+import com.inspiredandroid.kai.data.SkillStore
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
@@ -49,6 +51,12 @@ val appModule = module {
     single<EmailStore> {
         EmailStore(get())
     }
+    single<SkillStore> {
+        SkillStore(get()).also { it.migrateIfNeeded() }
+    }
+    single<SkillExecutor> {
+        SkillExecutor(get())
+    }
     single<SplinterlandsStore> {
         SplinterlandsStore(get())
     }
@@ -72,6 +80,8 @@ val appModule = module {
             heartbeatManager = get(),
             emailStore = get(),
             mcpServerManager = get(),
+            skillStore = get(),
+            skillExecutor = get(),
         )
     }
     single<DataRepository> { get<RemoteDataRepository>() }

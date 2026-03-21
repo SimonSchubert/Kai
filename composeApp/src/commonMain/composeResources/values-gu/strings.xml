@@ -186,4 +186,21 @@
     <string name="settings_open_github_issue">GitHub Issue ખોલો</string>
     <string name="notification_channel_name">AI સૂચનાઓ</string>
     <string name="notification_channel_description">AI સહાયક દ્વારા મોકલવામાં આવેલી સૂચનાઓ</string>
+    <string name="settings_tab_skills">Skills</string>
+    <string name="tool_skill_create_name">Skill બનાવો</string>
+    <string name="tool_skill_create_description">ફરીથી ઉપયોગ કરી શકાય તેવી JavaScript skill બનાવો અથવા અપડેટ કરો</string>
+    <string name="tool_skill_list_name">Skills ની યાદી</string>
+    <string name="tool_skill_list_description">બધી સાચવેલી skills ની યાદી બનાવો</string>
+    <string name="tool_skill_execute_name">Skill ચલાવો</string>
+    <string name="tool_skill_execute_description">નામ દ્વારા સાચવેલી skill ચલાવો</string>
+    <string name="tool_skill_delete_name">Skill કાઢી નાખો</string>
+    <string name="tool_skill_delete_description">સાચવેલી skill કાઢી નાખો</string>
+    <string name="tool_skill_update_data_name">Skill ડેટા અપડેટ કરો</string>
+    <string name="tool_skill_update_data_description">Skill ની રૂપરેખાંકન ડેટા અપડેટ કરો</string>
+    <string name="settings_skills">Skills</string>
+    <string name="settings_skills_description">Skills AI દ્વારા બનાવેલ ફરીથી ઉપયોગ કરી શકાય તેવા JavaScript સ્ક્રિપ્ટ્સ છે. AI ને કસ્ટમ સ્ક્રિપ્ટ્સ બનાવવા અને ચલાવવા દેવા માટે આ સક્ષમ કરો.</string>
+    <string name="settings_skills_empty">હજુ સુધી કોઈ skills બનાવવામાં આવી નથી. ચેટમાં AI ને skill બનાવવા કહો.</string>
+    <string name="settings_skills_delete">Skill કાઢી નાખો</string>
+    <string name="snackbar_skill_deleted">Skill કાઢી નાખવામાં આવી</string>
+    <string name="settings_import_section_skills">Skills</string>
 </resources>
