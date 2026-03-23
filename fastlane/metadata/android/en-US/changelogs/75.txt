@@ -1,0 +1,10 @@
+Add skills feature
+Support text and PDF file attachments
+Add minimax and zai services
+Show LLM model performance ranking for Splinterlands auto battle
+Add undo snackbars to revert deletions
+Replace re-order arrows with drag and drop
+Move conversations to secure encrypted storage
+Improve UI performance
+Add missing localizations
+Upgrade SDKs

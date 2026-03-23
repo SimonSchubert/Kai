@@ -1,3 +1,20 @@
+## v1.11.0 — 2026-03-24
+
+### Features
+- Add skills feature
+- Support text and PDF file attachments
+- Add minimax and zai services
+- Show LLM model performance ranking for Splinterlands auto battle
+- Add undo snackbars to revert deletions
+- Replace re-order arrows with drag and drop
+
+### Improvements
+- Move conversations to secure platform-specific encrypted storage
+- Replace location-from-IP tool with HTTPS-secured alternative
+- Improve UI performance
+- Add missing localizations and hover pointers
+- Upgrade Compose Multiplatform, Lifecycle, and Spotless SDKs
+
 ## v1.10.0 — 2026-03-18
 
 ### Features
