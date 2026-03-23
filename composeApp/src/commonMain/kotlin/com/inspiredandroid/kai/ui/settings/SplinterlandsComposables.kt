@@ -21,10 +21,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.rounded.DragIndicator
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -44,6 +43,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -65,9 +65,8 @@ import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
 import com.inspiredandroid.kai.splinterlands.ModelStats
 import com.inspiredandroid.kai.splinterlands.computeModelStats
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.settings_move_down
-import kai.composeapp.generated.resources.settings_move_up
 import org.jetbrains.compose.resources.stringResource
+import sh.calvin.reorderable.ReorderableColumn
 
 @Composable
 internal fun SplinterlandsSection(
@@ -212,95 +211,79 @@ private fun SplinterlandsServiceList(
             color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.height(4.dp))
-        for ((index, id) in instanceIds.withIndex()) {
-            val entry = serviceMap[id]
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-            ) {
-                // Priority number
-                Text(
-                    text = "${index + 1}.",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.width(20.dp),
-                )
-                // Service icon
-                if (entry != null) {
-                    Icon(
-                        imageVector = org.jetbrains.compose.resources.vectorResource(entry.icon),
-                        contentDescription = entry.serviceName,
-                        modifier = Modifier.size(20.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                // Name + model
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = entry?.serviceName ?: id,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                    if (entry != null && entry.modelId.isNotBlank()) {
+        ReorderableColumn(
+            list = instanceIds,
+            onSettle = { fromIndex, toIndex ->
+                val reordered = instanceIds.toMutableList()
+                reordered.add(toIndex, reordered.removeAt(fromIndex))
+                onReorderServices(reordered)
+            },
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) { index, id, _ ->
+            key(id) {
+                ReorderableItem {
+                    val entry = serviceMap[id]
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        // Drag handle
+                        if (instanceIds.size >= 2) {
+                            Icon(
+                                imageVector = Icons.Rounded.DragIndicator,
+                                contentDescription = "Reorder",
+                                modifier = Modifier.draggableHandle().pointerHoverIcon(PointerIcon.Hand),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        // Priority number
                         Text(
-                            text = entry.modelId,
-                            style = MaterialTheme.typography.bodySmall,
+                            text = "${index + 1}.",
+                            style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.width(20.dp),
                         )
+                        // Service icon
+                        if (entry != null) {
+                            Icon(
+                                imageVector = org.jetbrains.compose.resources.vectorResource(entry.icon),
+                                contentDescription = entry.serviceName,
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        // Name + model
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = entry?.serviceName ?: id,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                            if (entry != null && entry.modelId.isNotBlank()) {
+                                Text(
+                                    text = entry.modelId,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                        }
+                        // Remove button
+                        IconButton(
+                            onClick = { onRemoveService(id) },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Remove",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
                     }
-                }
-                // Up/down arrows
-                if (index > 0) {
-                    IconButton(
-                        onClick = {
-                            val reordered = instanceIds.toMutableList()
-                            reordered[index] = reordered[index - 1].also { reordered[index - 1] = reordered[index] }
-                            onReorderServices(reordered)
-                        },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowUp,
-                            contentDescription = stringResource(Res.string.settings_move_up),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                } else {
-                    Spacer(Modifier.size(48.dp))
-                }
-                if (index < instanceIds.size - 1) {
-                    IconButton(
-                        onClick = {
-                            val reordered = instanceIds.toMutableList()
-                            reordered[index] = reordered[index + 1].also { reordered[index + 1] = reordered[index] }
-                            onReorderServices(reordered)
-                        },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowDown,
-                            contentDescription = stringResource(Res.string.settings_move_down),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                } else {
-                    Spacer(Modifier.size(48.dp))
-                }
-                // Remove button
-                IconButton(
-                    onClick = { onRemoveService(id) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Remove",
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
                 }
             }
         }

@@ -134,6 +134,8 @@ kotlin {
 
             implementation(libs.coil.svg)
             implementation(libs.coil.network.ktor3)
+
+            implementation(libs.reorderable)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

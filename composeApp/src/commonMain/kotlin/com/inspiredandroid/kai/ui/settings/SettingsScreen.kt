@@ -42,13 +42,12 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.rounded.DragIndicator
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -85,6 +84,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -212,8 +212,6 @@ import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
 import kai.composeapp.generated.resources.settings_model_label
 import kai.composeapp.generated.resources.settings_model_search
-import kai.composeapp.generated.resources.settings_move_down
-import kai.composeapp.generated.resources.settings_move_up
 import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -271,6 +269,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.koin.compose.viewmodel.koinViewModel
+import sh.calvin.reorderable.ReorderableColumn
 import kotlin.math.roundToInt
 import kotlin.time.Instant
 
@@ -738,37 +737,30 @@ private fun ServicesContent(uiState: SettingsUiState) {
 
     // Configured services list
     val entries = uiState.configuredServices
-    entries.forEachIndexed { index, entry ->
-        ConfiguredServiceCardContent(
-            entry = entry,
-            isExpanded = uiState.expandedServiceId == entry.instanceId,
-            onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
-            onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
-            onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
-            onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
-            onRemove = { uiState.onRemoveService(entry.instanceId) },
-            onMoveUp = if (index > 0) {
-                {
-                    val ids = entries.map { it.instanceId }.toMutableList()
-                    ids.removeAt(index)
-                    ids.add(index - 1, entry.instanceId)
-                    uiState.onReorderServices(ids)
-                }
-            } else {
-                null
-            },
-            onMoveDown = if (index < entries.lastIndex) {
-                {
-                    val ids = entries.map { it.instanceId }.toMutableList()
-                    ids.removeAt(index)
-                    ids.add(index + 1, entry.instanceId)
-                    uiState.onReorderServices(ids)
-                }
-            } else {
-                null
-            },
-        )
-        Spacer(Modifier.height(8.dp))
+    ReorderableColumn(
+        list = entries,
+        onSettle = { fromIndex, toIndex ->
+            val ids = entries.map { it.instanceId }.toMutableList()
+            ids.add(toIndex, ids.removeAt(fromIndex))
+            uiState.onReorderServices(ids)
+        },
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) { _, entry, isDragging ->
+        key(entry.instanceId) {
+            ReorderableItem {
+                ConfiguredServiceCardContent(
+                    entry = entry,
+                    isExpanded = uiState.expandedServiceId == entry.instanceId,
+                    onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+                    onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
+                    onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
+                    onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
+                    onRemove = { uiState.onRemoveService(entry.instanceId) },
+                    isDragging = isDragging,
+                    dragHandleModifier = if (entries.size >= 2) Modifier.draggableHandle() else null,
+                )
+            }
+        }
     }
 
     if (uiState.availableServicesToAdd.isNotEmpty()) {
@@ -837,8 +829,8 @@ private fun ConfiguredServiceCardContent(
     onChangeBaseUrl: (String) -> Unit,
     onSelectModel: (String) -> Unit,
     onRemove: () -> Unit,
-    onMoveUp: (() -> Unit)?,
-    onMoveDown: (() -> Unit)?,
+    isDragging: Boolean = false,
+    dragHandleModifier: Modifier? = null,
 ) {
     Card(
         onClick = onExpand,
@@ -846,6 +838,7 @@ private fun ConfiguredServiceCardContent(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 4.dp else 0.dp),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             // Header row
@@ -853,6 +846,17 @@ private fun ConfiguredServiceCardContent(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
+                // Drag handle
+                if (dragHandleModifier != null) {
+                    Icon(
+                        imageVector = Icons.Rounded.DragIndicator,
+                        contentDescription = "Reorder",
+                        modifier = dragHandleModifier.pointerHoverIcon(PointerIcon.Hand),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    Spacer(Modifier.width(8.dp))
+                }
+
                 // Connection status dot
                 val dotColor = when (entry.connectionStatus) {
                     ConnectionStatus.Connected -> StatusColorConnected
@@ -925,38 +929,12 @@ private fun ConfiguredServiceCardContent(
 
                 Spacer(Modifier.height(12.dp))
 
-                // Reorder + Remove actions
+                // Remove action
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.End),
+                    horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    if (onMoveUp != null) {
-                        IconButton(
-                            onClick = onMoveUp,
-                            modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowUp,
-                                contentDescription = stringResource(Res.string.settings_move_up),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                    if (onMoveDown != null) {
-                        IconButton(
-                            onClick = onMoveDown,
-                            modifier = Modifier.size(32.dp).pointerHoverIcon(PointerIcon.Hand),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowDown,
-                                contentDescription = stringResource(Res.string.settings_move_down),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-
-                    // Remove button
                     TextButton(
                         onClick = onRemove,
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
