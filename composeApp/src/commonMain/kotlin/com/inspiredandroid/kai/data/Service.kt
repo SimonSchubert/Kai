@@ -8,6 +8,7 @@ import kai.composeapp.generated.resources.ic_service_gemini
 import kai.composeapp.generated.resources.ic_service_groqcloud
 import kai.composeapp.generated.resources.ic_service_huggingface
 import kai.composeapp.generated.resources.ic_service_longcat
+import kai.composeapp.generated.resources.ic_service_minimax
 import kai.composeapp.generated.resources.ic_service_mistral
 import kai.composeapp.generated.resources.ic_service_moonshot
 import kai.composeapp.generated.resources.ic_service_nvidia
@@ -18,6 +19,7 @@ import kai.composeapp.generated.resources.ic_service_openrouter
 import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
 import kai.composeapp.generated.resources.ic_service_xai
+import kai.composeapp.generated.resources.ic_service_zai
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
@@ -282,6 +284,32 @@ sealed class Service(
         apiKeyUrlDisplay = "platform.moonshot.cn/console/api-keys",
     )
 
+    data object Zai : Service(
+        id = "zai",
+        displayName = "Z.AI",
+        icon = Res.drawable.ic_service_zai,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "zai",
+        chatUrl = "https://api.z.ai/api/paas/v4/chat/completions",
+        modelsUrl = "https://api.z.ai/api/paas/v4/models",
+        apiKeyUrl = "https://z.ai/manage-apikey/apikey-list",
+        apiKeyUrlDisplay = "z.ai/manage-apikey/apikey-list",
+    )
+
+    data object Minimax : Service(
+        id = "minimax",
+        displayName = "MiniMax",
+        icon = Res.drawable.ic_service_minimax,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "minimax",
+        chatUrl = "https://api.minimax.io/v1/chat/completions",
+        modelsUrl = "https://api.minimax.io/v1/models",
+        apiKeyUrl = "https://platform.minimax.io",
+        apiKeyUrlDisplay = "platform.minimax.io",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -297,7 +325,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
