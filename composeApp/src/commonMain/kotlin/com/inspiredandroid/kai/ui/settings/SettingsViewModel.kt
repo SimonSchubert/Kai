@@ -28,6 +28,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,9 +48,9 @@ class SettingsViewModel(
     private var pendingDeleteJob: Job? = null
 
     private fun buildFullState(): SettingsUiState = SettingsUiState(
-        configuredServices = buildConfiguredServiceEntries(),
-        availableServicesToAdd = computeAvailableServices(),
-        tools = dataRepository.getToolDefinitions(),
+        configuredServices = buildConfiguredServiceEntries().toImmutableList(),
+        availableServicesToAdd = computeAvailableServices().toImmutableList(),
+        tools = dataRepository.getToolDefinitions().toImmutableList(),
         onSelectTab = ::onSelectTab,
         onAddService = ::onAddService,
         onRemoveService = ::onRemoveService,
@@ -63,11 +64,11 @@ class SettingsViewModel(
         onSaveSoul = ::onSaveSoul,
         isMemoryEnabled = dataRepository.isMemoryEnabled(),
         onToggleMemory = ::onToggleMemory,
-        memories = dataRepository.getMemories(),
+        memories = dataRepository.getMemories().toImmutableList(),
         onDeleteMemory = ::onDeleteMemory,
         isSchedulingEnabled = dataRepository.isSchedulingEnabled(),
         onToggleScheduling = ::onToggleScheduling,
-        scheduledTasks = dataRepository.getScheduledTasks(),
+        scheduledTasks = dataRepository.getScheduledTasks().toImmutableList(),
         onCancelTask = ::onCancelTask,
         isDaemonEnabled = dataRepository.isDaemonEnabled(),
         onToggleDaemon = ::onToggleDaemon,
@@ -77,21 +78,21 @@ class SettingsViewModel(
         heartbeatActiveHoursStart = dataRepository.getHeartbeatConfig().activeHoursStart,
         heartbeatActiveHoursEnd = dataRepository.getHeartbeatConfig().activeHoursEnd,
         heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
-        heartbeatLog = dataRepository.getHeartbeatLog(),
+        heartbeatLog = dataRepository.getHeartbeatLog().toImmutableList(),
         onToggleHeartbeat = ::onToggleHeartbeat,
         onChangeHeartbeatInterval = ::onChangeHeartbeatInterval,
         onChangeHeartbeatActiveHours = ::onChangeHeartbeatActiveHours,
         onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
         isEmailEnabled = dataRepository.isEmailEnabled(),
         showEmailToggle = isEmailSupported,
-        emailAccounts = dataRepository.getEmailAccounts(),
+        emailAccounts = dataRepository.getEmailAccounts().toImmutableList(),
         emailPollIntervalMinutes = dataRepository.getEmailPollIntervalMinutes(),
         onToggleEmail = ::onToggleEmail,
         onRemoveEmailAccount = ::onRemoveEmailAccount,
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
         isSkillsEnabled = dataRepository.isSkillsEnabled(),
         onToggleSkills = ::onToggleSkills,
-        skills = dataRepository.getSkills(),
+        skills = dataRepository.getSkills().toImmutableList(),
         onDeleteSkill = ::onDeleteSkill,
         onExecuteSkill = ::onExecuteSkill,
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
@@ -99,7 +100,7 @@ class SettingsViewModel(
         uiScale = dataRepository.getUiScale(),
         onChangeUiScale = ::onChangeUiScale,
         showUiScale = isDesktopPlatform,
-        mcpServers = buildMcpServerEntries(),
+        mcpServers = buildMcpServerEntries().toImmutableList(),
         onAddMcpServer = ::onAddMcpServer,
         onRemoveMcpServer = ::onRemoveMcpServer,
         onToggleMcpServer = ::onToggleMcpServer,
@@ -141,8 +142,8 @@ class SettingsViewModel(
                     val dto = response.body<SponsorsResponseDto>()
                     _state.update {
                         it.copy(
-                            currentSponsors = dto.sponsors.current,
-                            pastSponsors = dto.sponsors.past,
+                            currentSponsors = dto.sponsors.current.toImmutableList(),
+                            pastSponsors = dto.sponsors.past.toImmutableList(),
                         )
                     }
                 }
@@ -161,7 +162,7 @@ class SettingsViewModel(
             apiKey = dataRepository.getInstanceApiKey(instance.instanceId),
             baseUrl = dataRepository.getInstanceBaseUrl(instance.instanceId, service),
             selectedModel = models.firstOrNull { it.isSelected },
-            models = models,
+            models = models.toImmutableList(),
         )
     }
 
@@ -181,8 +182,8 @@ class SettingsViewModel(
                 if (preservedStatus != null) entry.copy(connectionStatus = preservedStatus) else entry
             }
             current.copy(
-                configuredServices = newEntries,
-                availableServicesToAdd = computeAvailableServices(),
+                configuredServices = newEntries.toImmutableList(),
+                availableServicesToAdd = computeAvailableServices().toImmutableList(),
             )
         }
     }
@@ -232,13 +233,13 @@ class SettingsViewModel(
                 configuredServices = state.configuredServices.map { e ->
                     if (e.instanceId == instanceId) {
                         e.copy(
-                            models = models,
+                            models = models.toImmutableList(),
                             selectedModel = models.firstOrNull { it.isSelected },
                         )
                     } else {
                         e
                     }
-                },
+                }.toImmutableList(),
             )
         }
     }
@@ -255,7 +256,7 @@ class SettingsViewModel(
                     } else {
                         e
                     }
-                },
+                }.toImmutableList(),
             )
         }
         checkConnectionDebounced(instanceId, entry.service)
@@ -273,7 +274,7 @@ class SettingsViewModel(
                     } else {
                         e
                     }
-                },
+                }.toImmutableList(),
             )
         }
         checkConnectionDebounced(instanceId, entry.service)
@@ -340,7 +341,7 @@ class SettingsViewModel(
                 it.copy(
                     executingSkillName = null,
                     skillExecutionResult = name to result,
-                    skills = dataRepository.getSkills(),
+                    skills = dataRepository.getSkills().toImmutableList(),
                 )
             }
         }
@@ -424,14 +425,14 @@ class SettingsViewModel(
             state.copy(
                 tools = state.tools.map { tool ->
                     if (tool.id == toolId) tool.copy(isEnabled = enabled) else tool
-                },
+                }.toImmutableList(),
                 mcpServers = state.mcpServers.map { server ->
                     server.copy(
                         tools = server.tools.map { tool ->
                             if (tool.id == toolId) tool.copy(isEnabled = enabled) else tool
-                        },
+                        }.toImmutableList(),
                     )
-                },
+                }.toImmutableList(),
             )
         }
     }
@@ -448,7 +449,7 @@ class SettingsViewModel(
             } else {
                 McpConnectionStatus.Unknown
             },
-            tools = dataRepository.getMcpToolsForServer(config.id),
+            tools = dataRepository.getMcpToolsForServer(config.id).toImmutableList(),
         )
     }
 
@@ -464,7 +465,7 @@ class SettingsViewModel(
                     } else {
                         entry
                     }
-                },
+                }.toImmutableList(),
             )
         }
     }
@@ -527,7 +528,7 @@ class SettingsViewModel(
             state.copy(
                 mcpServers = state.mcpServers.map { entry ->
                     if (entry.id == serverId) entry.copy(connectionStatus = status) else entry
-                },
+                }.toImmutableList(),
             )
         }
     }
@@ -555,17 +556,17 @@ class SettingsViewModel(
         when (deletion) {
             is PendingDeletion.Memory -> {
                 dataRepository.deleteMemory(deletion.key)
-                _state.update { it.copy(memories = dataRepository.getMemories(), pendingDeletion = null) }
+                _state.update { it.copy(memories = dataRepository.getMemories().toImmutableList(), pendingDeletion = null) }
             }
 
             is PendingDeletion.Task -> {
                 dataRepository.cancelScheduledTask(deletion.id)
-                _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks(), pendingDeletion = null) }
+                _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks().toImmutableList(), pendingDeletion = null) }
             }
 
             is PendingDeletion.EmailAccount -> {
                 dataRepository.removeEmailAccount(deletion.id)
-                _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts(), pendingDeletion = null) }
+                _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts().toImmutableList(), pendingDeletion = null) }
             }
 
             is PendingDeletion.Service -> {
@@ -582,7 +583,7 @@ class SettingsViewModel(
 
             is PendingDeletion.Skill -> {
                 dataRepository.deleteSkill(deletion.name)
-                _state.update { it.copy(skills = dataRepository.getSkills(), pendingDeletion = null, skillExecutionResult = null) }
+                _state.update { it.copy(skills = dataRepository.getSkills().toImmutableList(), pendingDeletion = null, skillExecutionResult = null) }
             }
         }
     }
@@ -633,7 +634,7 @@ class SettingsViewModel(
                     } else {
                         entry
                     }
-                },
+                }.toImmutableList(),
             )
         }
     }

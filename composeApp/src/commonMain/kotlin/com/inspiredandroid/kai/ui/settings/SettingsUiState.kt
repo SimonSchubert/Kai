@@ -12,6 +12,8 @@ import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.StringResource
 
 @Immutable
@@ -22,7 +24,7 @@ data class ConfiguredServiceEntry(
     val apiKey: String = "",
     val baseUrl: String = "",
     val selectedModel: SettingsModel? = null,
-    val models: List<SettingsModel> = emptyList(),
+    val models: ImmutableList<SettingsModel> = persistentListOf(),
 )
 
 enum class ConnectionStatus {
@@ -47,10 +49,10 @@ enum class SettingsTab {
 @Immutable
 data class SettingsUiState(
     val currentTab: SettingsTab = SettingsTab.Services,
-    val configuredServices: List<ConfiguredServiceEntry> = emptyList(),
+    val configuredServices: ImmutableList<ConfiguredServiceEntry> = persistentListOf(),
     val expandedServiceId: String? = null,
-    val availableServicesToAdd: List<Service> = emptyList(),
-    val tools: List<ToolInfo> = emptyList(),
+    val availableServicesToAdd: ImmutableList<Service> = persistentListOf(),
+    val tools: ImmutableList<ToolInfo> = persistentListOf(),
     val onSelectTab: (SettingsTab) -> Unit = {},
     val onAddService: (Service) -> Unit = {},
     val onRemoveService: (String) -> Unit = {},
@@ -64,11 +66,11 @@ data class SettingsUiState(
     val onSaveSoul: (String) -> Unit = {},
     val isMemoryEnabled: Boolean = true,
     val onToggleMemory: (Boolean) -> Unit = {},
-    val memories: List<MemoryEntry> = emptyList(),
+    val memories: ImmutableList<MemoryEntry> = persistentListOf(),
     val onDeleteMemory: (String) -> Unit = {},
     val isSchedulingEnabled: Boolean = true,
     val onToggleScheduling: (Boolean) -> Unit = {},
-    val scheduledTasks: List<ScheduledTask> = emptyList(),
+    val scheduledTasks: ImmutableList<ScheduledTask> = persistentListOf(),
     val onCancelTask: (String) -> Unit = {},
     val isDaemonEnabled: Boolean = false,
     val onToggleDaemon: (Boolean) -> Unit = {},
@@ -78,21 +80,21 @@ data class SettingsUiState(
     val heartbeatActiveHoursStart: Int = 8,
     val heartbeatActiveHoursEnd: Int = 22,
     val heartbeatPrompt: String = "",
-    val heartbeatLog: List<HeartbeatLogEntry> = emptyList(),
+    val heartbeatLog: ImmutableList<HeartbeatLogEntry> = persistentListOf(),
     val onToggleHeartbeat: (Boolean) -> Unit = {},
     val onChangeHeartbeatInterval: (Int) -> Unit = {},
     val onChangeHeartbeatActiveHours: (Int, Int) -> Unit = { _, _ -> },
     val onSaveHeartbeatPrompt: (String) -> Unit = {},
     val isEmailEnabled: Boolean = true,
     val showEmailToggle: Boolean = false,
-    val emailAccounts: List<EmailAccount> = emptyList(),
+    val emailAccounts: ImmutableList<EmailAccount> = persistentListOf(),
     val emailPollIntervalMinutes: Int = 15,
     val onToggleEmail: (Boolean) -> Unit = {},
     val onRemoveEmailAccount: (String) -> Unit = {},
     val onChangeEmailPollInterval: (Int) -> Unit = {},
     val isSkillsEnabled: Boolean = false,
     val onToggleSkills: (Boolean) -> Unit = {},
-    val skills: List<SkillEntry> = emptyList(),
+    val skills: ImmutableList<SkillEntry> = persistentListOf(),
     val onDeleteSkill: (String) -> Unit = {},
     val onExecuteSkill: (String, String?) -> Unit = { _, _ -> },
     val executingSkillName: String? = null,
@@ -102,7 +104,7 @@ data class SettingsUiState(
     val uiScale: Float = 1.0f,
     val onChangeUiScale: (Float) -> Unit = {},
     val showUiScale: Boolean = false,
-    val mcpServers: List<McpServerUiState> = emptyList(),
+    val mcpServers: ImmutableList<McpServerUiState> = persistentListOf(),
     val onAddMcpServer: (String, String, Map<String, String>) -> Unit = { _, _, _ -> },
     val onRemoveMcpServer: (String) -> Unit = {},
     val onToggleMcpServer: (String, Boolean) -> Unit = { _, _ -> },
@@ -112,8 +114,8 @@ data class SettingsUiState(
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val onExportSettings: () -> String = { "" },
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
-    val currentSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
-    val pastSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
+    val currentSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
+    val pastSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
     val pendingDeletion: PendingDeletion? = null,
     val onUndoDelete: () -> Unit = {},
 )
@@ -125,7 +127,7 @@ data class McpServerUiState(
     val url: String,
     val isEnabled: Boolean,
     val connectionStatus: McpConnectionStatus,
-    val tools: List<ToolInfo>,
+    val tools: ImmutableList<ToolInfo>,
 )
 
 enum class McpConnectionStatus {

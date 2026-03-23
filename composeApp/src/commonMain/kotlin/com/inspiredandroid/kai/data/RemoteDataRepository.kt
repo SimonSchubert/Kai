@@ -33,6 +33,7 @@ import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -507,7 +508,7 @@ class RemoteDataRepository(
                             isThinking = message.isContentFromReasoning,
                             toolCalls = toolCalls.map { tc ->
                                 ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
-                            },
+                            }.toImmutableList(),
                         ),
                     )
                 }
@@ -623,7 +624,7 @@ class RemoteDataRepository(
                         History(
                             role = History.Role.ASSISTANT,
                             content = textContent,
-                            toolCalls = toolCallInfos,
+                            toolCalls = toolCallInfos.toImmutableList(),
                         ),
                     )
                 }
@@ -797,7 +798,7 @@ class RemoteDataRepository(
                         History(
                             role = History.Role.ASSISTANT,
                             content = textContent,
-                            toolCalls = toolCallInfos,
+                            toolCalls = toolCallInfos.toImmutableList(),
                         ),
                     )
                 }

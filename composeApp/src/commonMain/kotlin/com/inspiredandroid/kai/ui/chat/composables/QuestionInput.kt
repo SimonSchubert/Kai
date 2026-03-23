@@ -67,6 +67,8 @@ import kai.composeapp.generated.resources.ic_image
 import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_up
 import kai.composeapp.generated.resources.prompt_ask_question
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -81,7 +83,7 @@ fun QuestionInput(
     allowFileAttachment: Boolean,
     isLoading: Boolean = false,
     cancel: () -> Unit = {},
-    availableServices: List<ServiceEntry> = emptyList(),
+    availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
     onSelectService: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {

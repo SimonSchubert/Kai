@@ -26,11 +26,12 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.inspiredandroid.kai.data.ServiceEntry
+import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun ServiceSelector(
-    services: List<ServiceEntry>,
+    services: ImmutableList<ServiceEntry>,
     onSelectService: (String) -> Unit,
 ) {
     if (services.isEmpty()) return

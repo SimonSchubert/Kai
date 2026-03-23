@@ -260,6 +260,9 @@ import kai.composeapp.generated.resources.snackbar_service_removed
 import kai.composeapp.generated.resources.snackbar_skill_deleted
 import kai.composeapp.generated.resources.snackbar_task_cancelled
 import kai.composeapp.generated.resources.snackbar_undo
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -333,22 +336,22 @@ fun SettingsScreenContent(
 
     val pendingDeletion = uiState.pendingDeletion
     val filteredMemories = remember(uiState.memories, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.Memory) uiState.memories.filter { it.key != pendingDeletion.key } else uiState.memories
+        if (pendingDeletion is PendingDeletion.Memory) uiState.memories.filter { it.key != pendingDeletion.key }.toImmutableList() else uiState.memories
     }
     val filteredTasks = remember(uiState.scheduledTasks, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.Task) uiState.scheduledTasks.filter { it.id != pendingDeletion.id } else uiState.scheduledTasks
+        if (pendingDeletion is PendingDeletion.Task) uiState.scheduledTasks.filter { it.id != pendingDeletion.id }.toImmutableList() else uiState.scheduledTasks
     }
     val filteredEmailAccounts = remember(uiState.emailAccounts, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.EmailAccount) uiState.emailAccounts.filter { it.id != pendingDeletion.id } else uiState.emailAccounts
+        if (pendingDeletion is PendingDeletion.EmailAccount) uiState.emailAccounts.filter { it.id != pendingDeletion.id }.toImmutableList() else uiState.emailAccounts
     }
     val filteredSkills = remember(uiState.skills, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.Skill) uiState.skills.filter { it.name != pendingDeletion.name } else uiState.skills
+        if (pendingDeletion is PendingDeletion.Skill) uiState.skills.filter { it.name != pendingDeletion.name }.toImmutableList() else uiState.skills
     }
     val filteredServices = remember(uiState.configuredServices, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.Service) uiState.configuredServices.filter { it.instanceId != pendingDeletion.instanceId } else uiState.configuredServices
+        if (pendingDeletion is PendingDeletion.Service) uiState.configuredServices.filter { it.instanceId != pendingDeletion.instanceId }.toImmutableList() else uiState.configuredServices
     }
     val filteredMcpServers = remember(uiState.mcpServers, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId } else uiState.mcpServers
+        if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId }.toImmutableList() else uiState.mcpServers
     }
 
     val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers, filteredSkills) {
@@ -525,7 +528,10 @@ private fun BottomInfo() {
 
     val uriHandler = LocalUriHandler.current
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier.padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Text(
             stringResource(Res.string.settings_version, Version.appVersion),
             style = MaterialTheme.typography.bodyMedium,
@@ -567,8 +573,8 @@ private fun FreeSettings(
     showFallbackToggle: Boolean = false,
     isFreeFallbackEnabled: Boolean = true,
     onToggleFreeFallback: (Boolean) -> Unit = {},
-    currentSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
-    pastSponsors: List<SponsorsResponseDto.Sponsor> = emptyList(),
+    currentSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
+    pastSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -682,7 +688,7 @@ private fun FreeSettings(
 @Composable
 private fun SponsorList(
     title: String,
-    sponsors: List<SponsorsResponseDto.Sponsor>,
+    sponsors: ImmutableList<SponsorsResponseDto.Sponsor>,
 ) {
     val uriHandler = LocalUriHandler.current
     Text(
@@ -980,7 +986,7 @@ private fun ServiceSettings(
     apiKeyUrl: String,
     apiKeyUrlDisplay: String,
     selectedModel: SettingsModel?,
-    models: List<SettingsModel>,
+    models: ImmutableList<SettingsModel>,
     onSelectModel: (String) -> Unit,
     connectionStatus: ConnectionStatus,
     testTag: String? = null,
@@ -1055,7 +1061,7 @@ private fun OpenAICompatibleSettings(
     apiKey: String,
     onChangeApiKey: (String) -> Unit,
     selectedModel: SettingsModel?,
-    models: List<SettingsModel>,
+    models: ImmutableList<SettingsModel>,
     onSelectModel: (String) -> Unit,
     connectionStatus: ConnectionStatus,
 ) {
@@ -1269,7 +1275,7 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
 @Composable
 private fun ModelSelection(
     currentSelectedModel: SettingsModel?,
-    models: List<SettingsModel>,
+    models: ImmutableList<SettingsModel>,
     onClick: (String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -1398,6 +1404,7 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
 private fun SettingsCard(
     modifier: Modifier = Modifier,
     innerPadding: Boolean = true,
+    onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     Card(
@@ -1406,7 +1413,12 @@ private fun SettingsCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
     ) {
-        Column(modifier = Modifier.fillMaxWidth().then(if (innerPadding) Modifier.padding(16.dp) else Modifier)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(if (onClick != null) Modifier.clickable(onClick = onClick).pointerHoverIcon(PointerIcon.Hand) else Modifier)
+                .then(if (innerPadding) Modifier.padding(16.dp) else Modifier),
+        ) {
             content()
         }
     }
@@ -1850,9 +1862,9 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
 
 @Composable
 private fun ToolsContent(
-    tools: List<ToolInfo>,
+    tools: ImmutableList<ToolInfo>,
     onToggleTool: (String, Boolean) -> Unit,
-    mcpServers: List<McpServerUiState>,
+    mcpServers: ImmutableList<McpServerUiState>,
     onAddMcpServer: (String, String, Map<String, String>) -> Unit,
     onRemoveMcpServer: (String) -> Unit,
     onToggleMcpServer: (String, Boolean) -> Unit,
@@ -1927,7 +1939,7 @@ private fun ToolsContent(
 
 @Composable
 private fun McpServersSection(
-    mcpServers: List<McpServerUiState>,
+    mcpServers: ImmutableList<McpServerUiState>,
     onAddMcpServer: (String, String, Map<String, String>) -> Unit,
     onRemoveMcpServer: (String) -> Unit,
     onToggleMcpServer: (String, Boolean) -> Unit,
@@ -2384,7 +2396,7 @@ private fun SoulEditor(
 
 @Composable
 private fun MemoryList(
-    memories: List<MemoryEntry>,
+    memories: ImmutableList<MemoryEntry>,
     onDeleteMemory: (String) -> Unit,
     isMemoryEnabled: Boolean,
     onToggleMemory: (Boolean) -> Unit,
@@ -2458,7 +2470,7 @@ private fun MemoryList(
 
 @Composable
 private fun ScheduledTaskList(
-    tasks: List<ScheduledTask>,
+    tasks: ImmutableList<ScheduledTask>,
     onCancelTask: (String) -> Unit,
     isSchedulingEnabled: Boolean,
     onToggleScheduling: (Boolean) -> Unit,
@@ -2539,7 +2551,7 @@ private fun ScheduledTaskList(
 
 @Composable
 private fun SkillsContent(
-    skills: List<SkillEntry>,
+    skills: ImmutableList<SkillEntry>,
     onDeleteSkill: (String) -> Unit,
     isSkillsEnabled: Boolean,
     onToggleSkills: (Boolean) -> Unit,
@@ -2612,14 +2624,12 @@ private fun SkillCard(
     var inputText by remember { mutableStateOf("") }
     val prettyScript = remember(skill.script) { prettyPrintJs(skill.script) }
 
-    SettingsCard {
+    SettingsCard(onClick = { expanded = !expanded }) {
         Column(modifier = Modifier.fillMaxWidth()) {
             // Header — clickable to expand
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { expanded = !expanded }
-                    .pointerHoverIcon(PointerIcon.Hand),
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = Modifier.weight(1f)) {
@@ -2846,7 +2856,7 @@ private fun HeartbeatSection(
     activeHoursStart: Int,
     activeHoursEnd: Int,
     heartbeatPrompt: String,
-    heartbeatLog: List<HeartbeatLogEntry>,
+    heartbeatLog: ImmutableList<HeartbeatLogEntry>,
     onToggleHeartbeat: (Boolean) -> Unit,
     onChangeInterval: (Int) -> Unit,
     onChangeActiveHours: (Int, Int) -> Unit,
@@ -3126,7 +3136,7 @@ private fun HeartbeatSection(
 @Composable
 private fun EmailSection(
     isEmailEnabled: Boolean,
-    emailAccounts: List<EmailAccount>,
+    emailAccounts: ImmutableList<EmailAccount>,
     pollIntervalMinutes: Int,
     onToggleEmail: (Boolean) -> Unit,
     onRemoveAccount: (String) -> Unit,

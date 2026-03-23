@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_executing_content_description
@@ -43,12 +44,13 @@ import kai.composeapp.generated.resources.waiting_brewing
 import kai.composeapp.generated.resources.waiting_content_description
 import kai.composeapp.generated.resources.waiting_thinking
 import kai.composeapp.generated.resources.waiting_working
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun WaitingResponseRow(
-    executingTools: List<Pair<String, String>>,
+    executingTools: ImmutableList<Pair<String, String>>,
 ) {
     Row(
         modifier = Modifier
@@ -58,8 +60,12 @@ internal fun WaitingResponseRow(
     ) {
         WaitingChip()
 
-        for ((_, name) in executingTools) {
-            ToolChip(toolName = name)
+        executingTools.forEachIndexed { index, (_, name) ->
+            val isLast = index == executingTools.lastIndex
+            ToolChip(
+                modifier = if (isLast) Modifier.weight(1f, fill = false) else Modifier,
+                toolName = name,
+            )
         }
     }
 }
@@ -134,9 +140,12 @@ private fun WaitingChip() {
 }
 
 @Composable
-private fun ToolChip(toolName: String) {
+private fun ToolChip(
+    toolName: String,
+    modifier: Modifier = Modifier,
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 MaterialTheme.colorScheme.primaryContainer,
                 RoundedCornerShape(8.dp),
@@ -155,6 +164,8 @@ private fun ToolChip(toolName: String) {
             text = toolName,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             style = MaterialTheme.typography.bodyMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

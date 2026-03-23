@@ -69,6 +69,7 @@ import kai.composeapp.generated.resources.fallback_answered_by
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -128,7 +129,7 @@ fun ChatScreenContent(
 
     val filteredConversations = remember(uiState.savedConversations, uiState.pendingConversationDeletion) {
         val pendingId = uiState.pendingConversationDeletion
-        if (pendingId != null) uiState.savedConversations.filter { it.id != pendingId } else uiState.savedConversations
+        if (pendingId != null) uiState.savedConversations.filter { it.id != pendingId }.toImmutableList() else uiState.savedConversations
     }
 
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
@@ -231,6 +232,7 @@ fun ChatScreenContent(
                             uiState.history
                                 .filter { it.role == History.Role.TOOL_EXECUTING }
                                 .map { it.id to (it.toolName ?: "tool") }
+                                .toImmutableList()
                         }
 
                         val showScrollToBottom by remember {

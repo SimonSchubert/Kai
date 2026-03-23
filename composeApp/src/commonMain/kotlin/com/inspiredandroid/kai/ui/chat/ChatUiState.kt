@@ -9,6 +9,8 @@ import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -32,7 +34,7 @@ data class ConversationSummary(
 @Immutable
 data class ChatUiState(
     val actions: ChatActions,
-    val history: List<History> = emptyList(),
+    val history: ImmutableList<History> = persistentListOf(),
     val isSpeechOutputEnabled: Boolean = false,
     val isLoading: Boolean = false,
     val error: UiError? = null,
@@ -41,8 +43,8 @@ data class ChatUiState(
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
     val file: PlatformFile? = null,
-    val availableServices: List<ServiceEntry> = emptyList(),
-    val savedConversations: List<ConversationSummary> = emptyList(),
+    val availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
+    val savedConversations: ImmutableList<ConversationSummary> = persistentListOf(),
     val currentConversationId: String? = null,
     val hasUnreadHeartbeat: Boolean = false,
     val snackbarMessage: StringResource? = null,
@@ -62,7 +64,7 @@ data class History(
     val fileName: String? = null,
     val toolCallId: String? = null,
     val toolName: String? = null,
-    val toolCalls: List<ToolCallInfo>? = null,
+    val toolCalls: ImmutableList<ToolCallInfo>? = null,
     val isThinking: Boolean = false,
     val fallbackServiceName: String? = null,
 ) {

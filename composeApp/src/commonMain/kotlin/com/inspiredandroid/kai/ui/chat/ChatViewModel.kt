@@ -15,6 +15,7 @@ import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.conversation_untitled
 import kai.composeapp.generated.resources.error_unsupported_file_type
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -62,7 +63,7 @@ class ChatViewModel(
 
     init {
         viewModelScope.launch(backgroundDispatcher) {
-            _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
+            _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
             dataRepository.loadConversations()
             dataRepository.restoreLatestConversation()
         }
@@ -91,9 +92,9 @@ class ChatViewModel(
                 )
             }
         state.copy(
-            history = history,
+            history = history.toImmutableList(),
             allowFileAttachment = dataRepository.supportsFileAttachment(),
-            savedConversations = summaries,
+            savedConversations = summaries.toImmutableList(),
             currentConversationId = conversationId,
             hasUnreadHeartbeat = hasUnreadHeartbeat,
         )
@@ -203,7 +204,7 @@ class ChatViewModel(
         if (instanceId !in currentIds) return
         val reordered = listOf(instanceId) + currentIds.filter { it != instanceId }
         dataRepository.reorderConfiguredServices(reordered)
-        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
+        _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
     }
 
     private fun regenerate() {
@@ -261,7 +262,7 @@ class ChatViewModel(
     }
 
     fun refreshSettings() {
-        _state.update { it.copy(availableServices = dataRepository.getServiceEntries()) }
+        _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.restoreLatestConversation()
         }

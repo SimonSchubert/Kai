@@ -40,6 +40,7 @@ import kai.composeapp.generated.resources.chat_history_empty
 import kai.composeapp.generated.resources.chat_history_heartbeat_label
 import kai.composeapp.generated.resources.chat_history_title
 import kai.composeapp.generated.resources.ic_history
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DateTimeComponents.Companion.Format
 import kotlinx.datetime.format.MonthNames
@@ -57,7 +58,7 @@ private val dateFormat = Format {
 
 @Composable
 internal fun ChatHistorySheet(
-    conversations: List<ConversationSummary>,
+    conversations: ImmutableList<ConversationSummary>,
     currentConversationId: String?,
     actions: ChatActions,
     onDismiss: () -> Unit,

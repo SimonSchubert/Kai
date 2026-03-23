@@ -45,6 +45,7 @@ dependencies {
     testImplementation(libs.filekit.core)
     implementation(libs.tts)
     implementation(libs.tts.compose)
+    testImplementation(libs.kotlinx.collections.immutable)
     testImplementation(libs.kotlinx.serialization.json)
     testImplementation(libs.compose.material3)
     testImplementation(libs.compose.components.resources)

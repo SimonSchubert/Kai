@@ -13,6 +13,8 @@ import com.inspiredandroid.kai.ui.settings.McpServerUiState
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
@@ -40,13 +42,13 @@ object ScreenshotTestData {
 
     val chatEmptyState = ChatUiState(
         actions = noOpChatActions,
-        history = emptyList(),
+        history = persistentListOf(),
         showPrivacyInfo = false,
     )
 
     val chatWithMessages = ChatUiState(
         actions = noOpChatActions,
-        history = listOf(
+        history = persistentListOf(
             History(
                 id = "1",
                 role = History.Role.USER,
@@ -108,7 +110,7 @@ JavaScript
 
     val chatWithCodeExample = ChatUiState(
         actions = noOpChatActions,
-        history = listOf(
+        history = persistentListOf(
             History(
                 id = "1",
                 role = History.Role.USER,
@@ -124,7 +126,7 @@ JavaScript
 
     val freeConnected = SettingsUiState(
         currentTab = SettingsTab.Services,
-        configuredServices = listOf(
+        configuredServices = persistentListOf(
             ConfiguredServiceEntry(
                 instanceId = "moonshot",
                 service = Service.Moonshot,
@@ -140,14 +142,14 @@ JavaScript
                 selectedModel = SettingsModel(id = "claude-opus-4-6", subtitle = "Claude Opus 4.6", isSelected = true),
             ),
         ),
-        availableServicesToAdd = listOf(Service.OpenAI, Service.DeepSeek, Service.Mistral),
+        availableServicesToAdd = persistentListOf(Service.OpenAI, Service.DeepSeek, Service.Mistral),
     )
 
     val settingsGeneral = SettingsUiState(
         currentTab = SettingsTab.General,
         soulText = "",
         isMemoryEnabled = true,
-        memories = listOf(
+        memories = persistentListOf(
             MemoryEntry(
                 key = "user_name",
                 content = "The user's name is Simon",
@@ -165,15 +167,15 @@ JavaScript
 
     val settingsTools = SettingsUiState(
         currentTab = SettingsTab.Tools,
-        tools = getPlatformToolDefinitions(),
-        mcpServers = listOf(
+        tools = getPlatformToolDefinitions().toImmutableList(),
+        mcpServers = persistentListOf(
             McpServerUiState(
                 id = "context7",
                 name = "Context7",
                 url = "https://context7.liam.sh/mcp",
                 isEnabled = true,
                 connectionStatus = McpConnectionStatus.Connected,
-                tools = emptyList(),
+                tools = persistentListOf(),
             ),
             McpServerUiState(
                 id = "manifold_markets",
@@ -181,7 +183,7 @@ JavaScript
                 url = "https://api.manifold.markets/v0/mcp",
                 isEnabled = true,
                 connectionStatus = McpConnectionStatus.Connected,
-                tools = emptyList(),
+                tools = persistentListOf(),
             ),
         ),
     )
@@ -200,7 +202,7 @@ JavaScript
         val chat = json["chatWithMessages"]!!.jsonObject
         return ChatUiState(
             actions = noOpChatActions,
-            history = listOf(
+            history = persistentListOf(
                 History(
                     id = "1",
                     role = History.Role.USER,
@@ -220,7 +222,7 @@ JavaScript
         val chat = json["chatWithCodeExample"]!!.jsonObject
         return ChatUiState(
             actions = noOpChatActions,
-            history = listOf(
+            history = persistentListOf(
                 History(
                     id = "1",
                     role = History.Role.USER,
