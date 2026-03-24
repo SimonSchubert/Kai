@@ -698,6 +698,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#context-window-overflow-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context window overflow protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-history-compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat history compaction
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1280,6 +1302,28 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#context-window-overflow-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context window overflow protection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-history-compaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat history compaction
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1375,7 +1419,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-03-18</p>
+<p><strong>Last verified:</strong> 2026-03-24</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1530,7 +1574,11 @@
 <h3 id="result-truncation">Result truncation</h3>
 <p>Tool results longer than 8,000 characters are truncated with a note indicating the original length.</p>
 <h3 id="context-trimming">Context trimming</h3>
-<p>Between iterations for OpenAI-compatible providers, the message history is trimmed to fit within the provider's context window before the next API call. Gemini and Anthropic providers do not perform inter-iteration context trimming.</p>
+<p>Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.</p>
+<h3 id="context-window-overflow-protection">Context window overflow protection</h3>
+<p>When the fallback chain is active, each fallback service is checked before use. If the current conversation exceeds a fallback model's estimated context window, that service is skipped. If no service in the chain has a large enough window, an error message is shown to the user.</p>
+<h3 id="chat-history-compaction">Chat history compaction</h3>
+<p>When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, older messages are dropped as a fallback.</p>
 <h2 id="mcp-servers">MCP Servers</h2>
 <p>See <a href="../mcp/">mcp.md</a> for the full MCP feature spec.</p>
 <h2 id="tool-enablement">Tool Enablement</h2>
