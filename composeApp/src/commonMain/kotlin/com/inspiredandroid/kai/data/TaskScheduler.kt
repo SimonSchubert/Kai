@@ -22,6 +22,7 @@ class TaskScheduler(
     private companion object {
         const val POLL_INTERVAL_MS = 60_000L
         const val MAX_BACKOFF_MS = 3_600_000L // 1 hour
+        const val HEARTBEAT_CONTEXT_COUNT = 3
     }
 
     private var activeJob: Job? = null
@@ -56,11 +57,16 @@ class TaskScheduler(
                 // Heartbeat check
                 if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
                     try {
-                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt()
+                        val recentResponses = dataRepository.savedConversations.value
+                            .find { it.type == Conversation.TYPE_HEARTBEAT }
+                            ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
+                            ?.map { it.content }
+                            ?: emptyList()
+                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses)
                         val response = dataRepository.askWithTools(heartbeatPrompt)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
-                        if (response.trim() != "HEARTBEAT_OK") {
+                        if ("HEARTBEAT_OK" !in response) {
                             dataRepository.addAssistantMessage(response)
                         }
                     } catch (e: Exception) {
@@ -114,7 +120,7 @@ class TaskScheduler(
 
                         if (!isLoading()) {
                             val response = dataRepository.askSilently(triagePrompt)
-                            if (response.trim() != "EMAIL_TRIAGE_OK") {
+                            if ("EMAIL_TRIAGE_OK" !in response) {
                                 dataRepository.addAssistantMessage(response)
                             }
                         }

@@ -59,10 +59,18 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         return elapsedMs >= intervalMs
     }
 
-    fun buildHeartbeatPrompt(): String = buildString {
+    fun buildHeartbeatPrompt(recentResponses: List<String> = emptyList()): String = buildString {
         val customPrompt = appSettings.getHeartbeatPrompt()
         append(customPrompt.ifEmpty { DEFAULT_HEARTBEAT_PROMPT })
         append("\n")
+
+        // Include recent heartbeat responses so the AI can track trends and avoid repeating itself
+        if (recentResponses.isNotEmpty()) {
+            append("\n## Previous Heartbeat Results\n")
+            for ((i, response) in recentResponses.withIndex()) {
+                append("${i + 1}. $response\n")
+            }
+        }
 
         // Append pending tasks
         val pendingTasks = taskStore.getPendingTasks()
