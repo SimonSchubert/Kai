@@ -11,6 +11,7 @@ import kotlin.time.Instant
 data class HeartbeatLogEntry(
     val timestampEpochMs: Long,
     val success: Boolean,
+    val error: String? = null,
 )
 
 @Serializable
@@ -102,10 +103,11 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         }
     }
 
-    fun recordHeartbeat(success: Boolean) {
+    fun recordHeartbeat(success: Boolean, error: String? = null) {
         val entry = HeartbeatLogEntry(
             timestampEpochMs = Clock.System.now().toEpochMilliseconds(),
             success = success,
+            error = error,
         )
         val log = getHeartbeatLog().toMutableList()
         log.add(0, entry)

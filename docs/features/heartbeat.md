@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-03-20
+**Last verified:** 2026-03-24
 
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
@@ -62,9 +62,10 @@ The heartbeat prompt is assembled from multiple sources:
 ## Heartbeat Log
 
 - Stores up to 5 most recent heartbeat entries
-- Each entry records success/failure and a timestamp
+- Each entry records success/failure, a timestamp, and an optional error message
 - Displayed in the settings UI under the heartbeat section
 - Entries show an OK/FAIL indicator and a formatted local timestamp
+- Failed entries display the error message (single line, ellipsized) below the timestamp in the error color
 
 ## Promote Learning
 

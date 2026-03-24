@@ -48,8 +48,8 @@ class TaskScheduler(
                         val response = dataRepository.askWithTools(task.prompt)
                         dataRepository.addAssistantMessage(response)
                         handleTaskCompletion(task)
-                    } catch (_: Exception) {
-                        handleTaskFailure(task)
+                    } catch (e: Exception) {
+                        handleTaskFailure(task, e.message)
                     }
                 }
 
@@ -63,8 +63,8 @@ class TaskScheduler(
                         if (response.trim() != "HEARTBEAT_OK") {
                             dataRepository.addAssistantMessage(response)
                         }
-                    } catch (_: Exception) {
-                        heartbeatManager.recordHeartbeat(success = false)
+                    } catch (e: Exception) {
+                        heartbeatManager.recordHeartbeat(success = false, error = e.message)
                     }
                 }
 
@@ -144,9 +144,10 @@ class TaskScheduler(
         }
     }
 
-    private suspend fun handleTaskFailure(task: ScheduledTask) {
+    private suspend fun handleTaskFailure(task: ScheduledTask, error: String? = null) {
         val now = Clock.System.now()
         val failures = task.consecutiveFailures + 1
+        val reason = error ?: "unknown error"
 
         if (task.cron != null) {
             // Cron task failed — advance to the next scheduled time instead of retrying every cycle
@@ -159,7 +160,7 @@ class TaskScheduler(
                 taskStore!!.updateTask(
                     task.copy(
                         scheduledAtEpochMs = nextExecution.toEpochMilliseconds(),
-                        lastResult = "Failed at $now (next retry at $nextExecution)",
+                        lastResult = "Failed at $now: $reason (next retry at $nextExecution)",
                         consecutiveFailures = failures,
                     ),
                 )
@@ -167,7 +168,7 @@ class TaskScheduler(
                 taskStore!!.updateTask(
                     task.copy(
                         status = TaskStatus.COMPLETED,
-                        lastResult = "Failed at $now (no next schedule)",
+                        lastResult = "Failed at $now: $reason (no next schedule)",
                         consecutiveFailures = failures,
                     ),
                 )
@@ -178,7 +179,7 @@ class TaskScheduler(
             taskStore!!.updateTask(
                 task.copy(
                     scheduledAtEpochMs = now.toEpochMilliseconds() + backoffMs,
-                    lastResult = "Failed at $now (retry after ${backoffMs / 1000}s backoff)",
+                    lastResult = "Failed at $now: $reason (retry after ${backoffMs / 1000}s backoff)",
                     consecutiveFailures = failures,
                 ),
             )

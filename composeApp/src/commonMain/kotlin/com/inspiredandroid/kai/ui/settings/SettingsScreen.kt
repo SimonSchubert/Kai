@@ -3071,11 +3071,22 @@ private fun HeartbeatSection(
                             },
                             modifier = Modifier.width(36.dp),
                         )
-                        Text(
-                            text = formatHeartbeatTime(entry.timestampEpochMs),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
+                        Column {
+                            Text(
+                                text = formatHeartbeatTime(entry.timestampEpochMs),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                            if (!entry.success && entry.error != null) {
+                                Text(
+                                    text = entry.error,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.error,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                        }
                     }
                 }
             }
