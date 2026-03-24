@@ -1,3 +1,8 @@
+## v1.11.1 — 2026-03-24
+
+### Fixes
+- Fix crash when restoring encrypted backups
+
 ## v1.11.0 — 2026-03-24
 
 ### Features
