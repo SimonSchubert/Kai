@@ -1041,7 +1041,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-03-20</p>
+<p><strong>Last verified:</strong> 2026-03-24</p>
 <p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="heartbeat_1">Heartbeat</h3>
@@ -1092,9 +1092,10 @@
 <h2 id="heartbeat-log">Heartbeat Log</h2>
 <ul>
 <li>Stores up to 5 most recent heartbeat entries</li>
-<li>Each entry records success/failure and a timestamp</li>
+<li>Each entry records success/failure, a timestamp, and an optional error message</li>
 <li>Displayed in the settings UI under the heartbeat section</li>
 <li>Entries show an OK/FAIL indicator and a formatted local timestamp</li>
+<li>Failed entries display the error message (single line, ellipsized) below the timestamp in the error color</li>
 </ul>
 <h2 id="promote-learning">Promote Learning</h2>
 <p>When a memory has been reinforced 5 or more times, it becomes a promotion candidate. The <code>promote_learning</code> tool:</p>
