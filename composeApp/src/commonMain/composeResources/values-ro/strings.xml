@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Acest tip de fișier nu este acceptat. Puteți atașa imagini, fișiere text și PDF-uri.</string>
     <string name="error_file_too_large">Fișierul este prea mare. Fișierele text trebuie să fie sub 100 KB.</string>
     <string name="error_image_too_large">Imaginea este prea mare. Încercați o imagine mai mică.</string>
+    <string name="error_context_window_exceeded">Fereastra de context este prea mare pentru serviciul de rezervă. Încercați să începeți un chat nou sau să utilizați un model cu o fereastră de context mai mare.</string>
     <string name="error_insufficient_credits">Credit insuficient</string>
     <string name="error_quota_exhausted">Cotă epuizată</string>
     <string name="settings_request_integration_title">Solicită o integrare</string>

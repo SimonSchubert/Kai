@@ -180,6 +180,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="error_unsupported_file_type">Tätä tiedostotyyppiä ei tueta. Voit liittää kuvia, tekstitiedostoja ja PDF-tiedostoja.</string>
     <string name="error_file_too_large">Tiedosto on liian suuri. Tekstitiedostojen enimmäiskoko on 100 KB.</string>
     <string name="error_image_too_large">Kuva on liian suuri. Kokeile pienempää kuvaa.</string>
+    <string name="error_context_window_exceeded">Konteksti-ikkuna on liian suuri varapalvelulle. Yritä aloittaa uusi keskustelu tai käytä mallia, jossa on suurempi konteksti-ikkuna.</string>
     <string name="error_insufficient_credits">Riittämätön saldo</string>
     <string name="error_quota_exhausted">Kiintiö loppunut</string>
     <string name="settings_request_integration_title">Pyydä integraatiota</string>

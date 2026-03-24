@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">ไฟล์ประเภทนี้ไม่รองรับ คุณสามารถแนบรูปภาพ ไฟล์ข้อความ และ PDF ได้</string>
     <string name="error_file_too_large">ไฟล์มีขนาดใหญ่เกินไป ไฟล์ข้อความต้องมีขนาดไม่เกิน 100 KB</string>
     <string name="error_image_too_large">รูปภาพมีขนาดใหญ่เกินไป ลองใช้รูปภาพที่เล็กกว่า</string>
+    <string name="error_context_window_exceeded">หน้าต่างบริบทใหญ่เกินไปสำหรับบริการสำรอง ลองเริ่มแชทใหม่หรือใช้โมเดลที่มีหน้าต่างบริบทขนาดใหญ่กว่า</string>
     <string name="error_insufficient_credits">เครดิตไม่เพียงพอ</string>
     <string name="error_quota_exhausted">โควตาหมดแล้ว</string>
     <string name="settings_request_integration_title">ขอการเชื่อมต่อ</string>

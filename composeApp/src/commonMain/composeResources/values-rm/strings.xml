@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Quest tip da datoteca n\'è betg sustegnì. Vus pudais agiuntar maletgs, datotecas da text e PDFs.</string>
     <string name="error_file_too_large">La datoteca è memia gronda. Datotecas da text ston esser pli pitschnas che 100 KB.</string>
     <string name="error_image_too_large">Il maletg è memia grond. Empruvai in maletg pli pitschen.</string>
+    <string name="error_context_window_exceeded">La fanestra da context è memia gronda per il servetsch da reserva. Emprova da cumenzar in nov chat u dad utilisar in model cun ina fanestra da context pli gronda.</string>
     <string name="error_insufficient_credits">Betg avunda credit</string>
     <string name="error_quota_exhausted">Quota exhaurida</string>
     <string name="settings_request_integration_title">Dumandar ina integraziun</string>

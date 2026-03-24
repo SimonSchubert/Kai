@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">Этот тип файла не поддерживается. Вы можете прикреплять изображения, текстовые файлы и PDF.</string>
     <string name="error_file_too_large">Файл слишком большой. Текстовые файлы должны быть менее 100 КБ.</string>
     <string name="error_image_too_large">Изображение слишком большое. Попробуйте изображение поменьше.</string>
+    <string name="error_context_window_exceeded">Окно контекста слишком велико для резервного сервиса. Попробуйте начать новый чат или использовать модель с большим окном контекста.</string>
     <string name="error_insufficient_credits">Недостаточно кредитов</string>
     <string name="error_quota_exhausted">Квота исчерпана</string>
     <string name="settings_request_integration_title">Запросить интеграцию</string>

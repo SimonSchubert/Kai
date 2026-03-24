@@ -180,6 +180,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="error_unsupported_file_type">Hierdie lêertipe word nie ondersteun nie. Jy kan beelde, tekslêers en PDF\'s aanheg.</string>
     <string name="error_file_too_large">Lêer is te groot. Tekslêers moet kleiner as 100 KB wees.</string>
     <string name="error_image_too_large">Beeld is te groot. Probeer \'n kleiner beeld.</string>
+    <string name="error_context_window_exceeded">Context-venster te groot vir terugvaldens. Probeer \'n nuwe klets begin of gebruik \'n model met \'n groter konteksvenster.</string>
     <string name="error_insufficient_credits">Onvoldoende krediete</string>
     <string name="error_quota_exhausted">Kwota uitgeput</string>
     <string name="settings_request_integration_title">Versoek \'n integrasie</string>

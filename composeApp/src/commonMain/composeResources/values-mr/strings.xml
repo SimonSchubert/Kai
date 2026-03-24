@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">हा फाइल प्रकार समर्थित नाही. तुम्ही चित्रे, मजकूर फाइल्स आणि PDF जोडू शकता.</string>
     <string name="error_file_too_large">फाइल खूप मोठी आहे. मजकूर फाइल्स 100 KB पेक्षा कमी असाव्यात.</string>
     <string name="error_image_too_large">चित्र खूप मोठे आहे. लहान चित्र वापरून पहा.</string>
+    <string name="error_context_window_exceeded">फॉलबॅक सेवेसाठी कॉन्टेक्स्ट विंडो खूप मोठी आहे. नवीन चॅट सुरू करण्याचा किंवा मोठ्या कॉन्टेक्स्ट विंडो असलेल्या मॉडेलचा वापर करण्याचा प्रयत्न करा.</string>
     <string name="error_insufficient_credits">अपुरे क्रेडिट्स</string>
     <string name="error_quota_exhausted">कोटा संपला</string>
     <string name="settings_request_integration_title">एकत्रीकरणाची विनंती करा</string>

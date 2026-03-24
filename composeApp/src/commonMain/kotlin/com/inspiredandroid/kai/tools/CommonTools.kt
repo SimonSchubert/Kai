@@ -182,7 +182,7 @@ object CommonTools {
     val openUrlTool = object : Tool {
         override val schema = ToolSchema(
             name = "open_url",
-            description = "Open a URL or link on the user's device. Use this to open web pages, deep links, local files (file:// URIs), or any URL the user wants to visit.",
+            description = "Open a URL in the user's browser or default app. This ONLY opens the link for the user to view — you will NOT receive the page content back. Do not use this to fetch or read information from URLs. Use this when the user asks to open or visit a link.",
             parameters = mapOf(
                 "url" to ParameterSchema(type = "string", description = "The URL to open", required = true),
             ),

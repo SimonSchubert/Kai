@@ -180,6 +180,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="error_unsupported_file_type">Ten typ pliku nie jest obsługiwany. Możesz załączać obrazy, pliki tekstowe i PDF-y.</string>
     <string name="error_file_too_large">Plik jest za duży. Pliki tekstowe muszą mieć mniej niż 100 KB.</string>
     <string name="error_image_too_large">Obraz jest za duży. Spróbuj mniejszy obraz.</string>
+    <string name="error_context_window_exceeded">Okno kontekstu zbyt duże dla usługi zapasowej. Spróbuj rozpocząć nowy czat lub użyj modelu z większym oknem kontekstu.</string>
     <string name="error_insufficient_credits">Niewystarczające środki</string>
     <string name="error_quota_exhausted">Limit wyczerpany</string>
     <string name="settings_request_integration_title">Poproś o integrację</string>

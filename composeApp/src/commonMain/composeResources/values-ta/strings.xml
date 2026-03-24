@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">இந்த கோப்பு வகை ஆதரிக்கப்படவில்லை. நீங்கள் படங்கள், உரை கோப்புகள் மற்றும் PDF கோப்புகளை இணைக்கலாம்.</string>
     <string name="error_file_too_large">கோப்பு மிகப் பெரியது. உரை கோப்புகள் 100 KB க்கு கீழ் இருக்க வேண்டும்.</string>
     <string name="error_image_too_large">படம் மிகப் பெரியது. சிறிய படத்தை முயற்சிக்கவும்.</string>
+    <string name="error_context_window_exceeded">பின்னடைவு சேவைக்கு சூழல் சாளரம் மிகவும் பெரியது. புதிய அரட்டையைத் தொடங்கவும் அல்லது பெரிய சூழல் சாளரம் கொண்ட மாதிரியைப் பயன்படுத்தவும்.</string>
     <string name="error_insufficient_credits">போதுமான கிரெடிட்கள் இல்லை</string>
     <string name="error_quota_exhausted">ஒதுக்கீடு தீர்ந்தது</string>
     <string name="settings_request_integration_title">ஒரு ஒருங்கிணைப்பைக் கோரு</string>

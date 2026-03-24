@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Овај тип фајла није подржан. Можете приложити слике, текстуалне фајлове и PDF-ове.</string>
     <string name="error_file_too_large">Фајл је превелик. Текстуални фајлови морају бити мањи од 100 KB.</string>
     <string name="error_image_too_large">Слика је превелика. Покушајте са мањом сликом.</string>
+    <string name="error_context_window_exceeded">Контекстни прозор је превелик за резервну услугу. Покушајте да започнете нови ћаскање или да користите модел са већим контекстним прозором.</string>
     <string name="error_insufficient_credits">Недовољно кредита</string>
     <string name="error_quota_exhausted">Квота је исцрпљена</string>
     <string name="settings_request_integration_title">Затражите интеграцију</string>

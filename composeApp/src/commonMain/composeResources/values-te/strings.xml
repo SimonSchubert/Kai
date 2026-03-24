@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">ఈ ఫైల్ రకం మద్దతు లేదు. మీరు చిత్రాలు, టెక్స్ట్ ఫైళ్లు మరియు PDFలను జోడించవచ్చు.</string>
     <string name="error_file_too_large">ఫైల్ చాలా పెద్దది. టెక్స్ట్ ఫైళ్లు 100 KB లోపు ఉండాలి.</string>
     <string name="error_image_too_large">చిత్రం చాలా పెద్దది. చిన్న చిత్రాన్ని ప్రయత్నించండి.</string>
+    <string name="error_context_window_exceeded">ఫాల్‌బ్యాక్ సేవకు కాంటెక్స్ట్ విండో చాలా పెద్దది. కొత్త చాట్ ప్రారంభించడానికి లేదా పెద్ద కాంటెక్స్ట్ విండో ఉన్న మోడల్‌ను ఉపయోగించడానికి ప్రయత్నించండి.</string>
     <string name="error_insufficient_credits">తగినంత క్రెడిట్లు లేవు</string>
     <string name="error_quota_exhausted">కోటా అయిపోయింది</string>
     <string name="settings_request_integration_title">ఇంటిగ్రేషన్ అభ్యర్థించండి</string>

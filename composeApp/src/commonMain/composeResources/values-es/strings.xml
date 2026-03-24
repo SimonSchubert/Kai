@@ -180,6 +180,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="error_unsupported_file_type">Este tipo de archivo no es compatible. Puedes adjuntar imágenes, archivos de texto y PDFs.</string>
     <string name="error_file_too_large">El archivo es demasiado grande. Los archivos de texto deben ser menores de 100 KB.</string>
     <string name="error_image_too_large">La imagen es demasiado grande. Prueba con una imagen más pequeña.</string>
+    <string name="error_context_window_exceeded">Ventana de contexto demasiado grande para el servicio de respaldo. Intenta iniciar un nuevo chat o usar un modelo con una ventana de contexto más grande.</string>
     <string name="error_insufficient_credits">Créditos insuficientes</string>
     <string name="error_quota_exhausted">Cuota agotada</string>
     <string name="settings_request_integration_title">Solicitar una integración</string>

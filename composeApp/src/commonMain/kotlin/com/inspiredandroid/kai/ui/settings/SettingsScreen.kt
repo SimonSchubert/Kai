@@ -764,6 +764,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
     }
 
     if (uiState.availableServicesToAdd.isNotEmpty()) {
+        Spacer(Modifier.height(12.dp))
         OutlinedButton(onClick = { showAddServiceSheet = true }, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)) {
             Text(stringResource(Res.string.settings_add_service))
         }

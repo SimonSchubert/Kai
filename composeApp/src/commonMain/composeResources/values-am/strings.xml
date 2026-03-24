@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">ይህ የፋይል ዓይነት አይደገፍም። ምስሎችን፣ የጽሑፍ ፋይሎችን እና PDFዎችን ማያያዝ ይችላሉ።</string>
     <string name="error_file_too_large">ፋይሉ በጣም ትልቅ ነው። የጽሑፍ ፋይሎች ከ100 KB በታች መሆን አለባቸው።</string>
     <string name="error_image_too_large">ምስሉ በጣም ትልቅ ነው። ትንሽ ምስል ይሞክሩ።</string>
+    <string name="error_context_window_exceeded">የአውድ መስኮት ለተተኪ አገልግሎት በጣም ትልቅ ነው። አዲስ ውይይት ለመጀመር ይሞክሩ ወይም ትልቅ የአውድ መስኮት ያለው ሞዴል ይጠቀሙ።</string>
     <string name="error_insufficient_credits">በቂ ክሬዲቶች የሉም</string>
     <string name="error_quota_exhausted">ኮታ ተሟጥጧል</string>
     <string name="settings_request_integration_title">ውህደት ይጠይቁ</string>

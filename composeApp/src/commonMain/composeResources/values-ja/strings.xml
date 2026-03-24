@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">このファイル形式はサポートされていません。画像、テキストファイル、PDFを添付できます。</string>
     <string name="error_file_too_large">ファイルが大きすぎます。テキストファイルは100 KB以下にしてください。</string>
     <string name="error_image_too_large">画像が大きすぎます。より小さい画像をお試しください。</string>
+    <string name="error_context_window_exceeded">フォールバックサービスにはコンテキストウィンドウが大きすぎます。新しいチャットを開始するか、より大きなコンテキストウィンドウを持つモデルを使用してください。</string>
     <string name="error_insufficient_credits">クレジットが不足しています</string>
     <string name="error_quota_exhausted">クォータを超過しました</string>
     <string name="settings_request_integration_title">インテグレーションをリクエスト</string>

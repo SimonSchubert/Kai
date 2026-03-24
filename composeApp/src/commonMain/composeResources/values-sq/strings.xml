@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Ky lloj skedari nuk mbështetet. Mund të bashkëngjitni imazhe, skedarë teksti dhe PDF.</string>
     <string name="error_file_too_large">Skedari është shumë i madh. Skedarët e tekstit duhet të jenë nën 100 KB.</string>
     <string name="error_image_too_large">Imazhi është shumë i madh. Provoni një imazh më të vogël.</string>
+    <string name="error_context_window_exceeded">Dritarja e kontekstit është shumë e madhe për shërbimin rezervë. Provoni të filloni një bisedë të re ose të përdorni një model me dritare konteksti më të madhe.</string>
     <string name="error_insufficient_credits">Kredite të pamjaftueshme</string>
     <string name="error_quota_exhausted">Kuota u ezaurua</string>
     <string name="settings_request_integration_title">Kërko një integrim</string>

@@ -180,6 +180,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="error_unsupported_file_type">Denne filtypen støttes ikke. Du kan legge ved bilder, tekstfiler og PDF-er.</string>
     <string name="error_file_too_large">Filen er for stor. Tekstfiler må være under 100 KB.</string>
     <string name="error_image_too_large">Bildet er for stort. Prøv et mindre bilde.</string>
+    <string name="error_context_window_exceeded">Kontekstvinduet er for stort for reservetjenesten. Prøv å starte en ny chat eller bruk en modell med et større kontekstvindu.</string>
     <string name="error_insufficient_credits">Utilstrekkelige kreditter</string>
     <string name="error_quota_exhausted">Kvoten er brukt opp</string>
     <string name="settings_request_integration_title">Be om en integrasjon</string>

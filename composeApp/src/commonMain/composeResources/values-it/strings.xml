@@ -180,6 +180,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="error_unsupported_file_type">Questo tipo di file non è supportato. Puoi allegare immagini, file di testo e PDF.</string>
     <string name="error_file_too_large">Il file è troppo grande. I file di testo devono essere inferiori a 100 KB.</string>
     <string name="error_image_too_large">L\'immagine è troppo grande. Prova con un\'immagine più piccola.</string>
+    <string name="error_context_window_exceeded">Finestra di contesto troppo grande per il servizio di riserva. Prova ad avviare una nuova chat o a utilizzare un modello con una finestra di contesto più grande.</string>
     <string name="error_insufficient_credits">Crediti insufficienti</string>
     <string name="error_quota_exhausted">Quota esaurita</string>
     <string name="settings_request_integration_title">Richiedi un\'integrazione</string>

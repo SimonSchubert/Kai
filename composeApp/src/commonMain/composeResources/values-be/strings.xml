@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Гэты тып файла не падтрымліваецца. Вы можаце далучаць выявы, тэкставыя файлы і PDF.</string>
     <string name="error_file_too_large">Файл занадта вялікі. Тэкставыя файлы павінны быць менш за 100 КБ.</string>
     <string name="error_image_too_large">Выява занадта вялікая. Паспрабуйце меншую выяву.</string>
+    <string name="error_context_window_exceeded">Акно кантэксту занадта вялікае для рэзервовай службы. Паспрабуйце пачаць новы чат або выкарыстоўваць мадэль з большым акном кантэксту.</string>
     <string name="error_insufficient_credits">Недастаткова крэдытаў</string>
     <string name="error_quota_exhausted">Квота вычарпана</string>
     <string name="settings_request_integration_title">Запытаць інтэграцыю</string>

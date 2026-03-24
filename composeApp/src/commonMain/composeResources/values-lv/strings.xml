@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Šis faila tips netiek atbalstīts. Varat pievienot attēlus, teksta failus un PDF.</string>
     <string name="error_file_too_large">Fails ir pārāk liels. Teksta failiem jābūt mazākiem par 100 KB.</string>
     <string name="error_image_too_large">Attēls ir pārāk liels. Izmēģiniet mazāku attēlu.</string>
+    <string name="error_context_window_exceeded">Konteksta logs ir pārāk liels rezerves pakalpojumam. Mēģiniet sākt jaunu sarunu vai izmantojiet modeli ar lielāku konteksta logu.</string>
     <string name="error_insufficient_credits">Nepietiekami kredīti</string>
     <string name="error_quota_exhausted">Kvota izsmelta</string>
     <string name="settings_request_integration_title">Pieprasīt integrāciju</string>

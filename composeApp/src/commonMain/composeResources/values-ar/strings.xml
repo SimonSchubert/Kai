@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">نوع الملف هذا غير مدعوم. يمكنك إرفاق الصور والملفات النصية وملفات PDF.</string>
     <string name="error_file_too_large">الملف كبير جدًا. يجب أن تكون الملفات النصية أقل من 100 كيلوبايت.</string>
     <string name="error_image_too_large">الصورة كبيرة جدًا. جرّب صورة أصغر.</string>
+    <string name="error_context_window_exceeded">نافذة السياق كبيرة جدًا لخدمة الاحتياط. جرّب بدء محادثة جديدة أو استخدام نموذج بنافذة سياق أكبر.</string>
     <string name="error_insufficient_credits">رصيد غير كافٍ</string>
     <string name="error_quota_exhausted">تم استنفاد الحصة</string>
     <string name="settings_request_integration_title">طلب تكامل</string>

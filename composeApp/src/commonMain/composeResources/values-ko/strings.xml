@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">이 파일 형식은 지원되지 않습니다. 이미지, 텍스트 파일, PDF를 첨부할 수 있습니다.</string>
     <string name="error_file_too_large">파일이 너무 큽니다. 텍스트 파일은 100KB 이하여야 합니다.</string>
     <string name="error_image_too_large">이미지가 너무 큽니다. 더 작은 이미지를 사용해 보세요.</string>
+    <string name="error_context_window_exceeded">대체 서비스의 컨텍스트 윈도우가 너무 큽니다. 새 채팅을 시작하거나 더 큰 컨텍스트 윈도우를 가진 모델을 사용해 보세요.</string>
     <string name="error_insufficient_credits">크레딧이 부족합니다</string>
     <string name="error_quota_exhausted">할당량이 소진되었습니다</string>
     <string name="settings_request_integration_title">통합 요청</string>

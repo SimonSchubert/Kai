@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Ez a fájltípus nem támogatott. Képeket, szövegfájlokat és PDF-eket csatolhat.</string>
     <string name="error_file_too_large">A fájl túl nagy. A szövegfájloknak 100 KB alatt kell lenniük.</string>
     <string name="error_image_too_large">A kép túl nagy. Próbáljon kisebb képet.</string>
+    <string name="error_context_window_exceeded">A kontextusablak túl nagy a tartalék szolgáltatáshoz. Próbálj meg új csevegést indítani, vagy használj nagyobb kontextusablakú modellt.</string>
     <string name="error_insufficient_credits">Nincs elég kredit</string>
     <string name="error_quota_exhausted">Kvóta kimerítve</string>
     <string name="settings_request_integration_title">Integráció kérése</string>

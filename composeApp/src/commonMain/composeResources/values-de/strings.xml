@@ -180,6 +180,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="error_unsupported_file_type">Dieser Dateityp wird nicht unterstützt. Du kannst Bilder, Textdateien und PDFs anhängen.</string>
     <string name="error_file_too_large">Datei ist zu groß. Textdateien dürfen maximal 100 KB groß sein.</string>
     <string name="error_image_too_large">Bild ist zu groß. Versuche ein kleineres Bild.</string>
+    <string name="error_context_window_exceeded">Kontextfenster zu groß für den Ersatzdienst. Versuche einen neuen Chat zu starten oder verwende ein Modell mit einem größeren Kontextfenster.</string>
     <string name="error_insufficient_credits">Unzureichendes Guthaben</string>
     <string name="error_quota_exhausted">Kontingent erschöpft</string>
     <string name="settings_request_integration_title">Integration anfragen</string>

@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Aina hii ya faili haiwezi kutumika. Unaweza kuambatisha picha, faili za maandishi, na PDF.</string>
     <string name="error_file_too_large">Faili ni kubwa mno. Faili za maandishi lazima ziwe chini ya KB 100.</string>
     <string name="error_image_too_large">Picha ni kubwa mno. Jaribu picha ndogo zaidi.</string>
+    <string name="error_context_window_exceeded">Dirisha la muktadha ni kubwa sana kwa huduma ya akiba. Jaribu kuanza mazungumzo mapya au tumia modeli yenye dirisha kubwa zaidi la muktadha.</string>
     <string name="error_insufficient_credits">Mikopo haitoshi</string>
     <string name="error_quota_exhausted">Kiwango kimekwisha</string>
     <string name="settings_request_integration_title">Omba Muunganisho</string>

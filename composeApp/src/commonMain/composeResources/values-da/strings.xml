@@ -180,6 +180,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="error_unsupported_file_type">Denne filtype understøttes ikke. Du kan vedhæfte billeder, tekstfiler og PDF\'er.</string>
     <string name="error_file_too_large">Filen er for stor. Tekstfiler skal være under 100 KB.</string>
     <string name="error_image_too_large">Billedet er for stort. Prøv et mindre billede.</string>
+    <string name="error_context_window_exceeded">Kontekstvinduet er for stort til reservetjenesten. Prøv at starte en ny chat eller brug en model med et større kontekstvindue.</string>
     <string name="error_insufficient_credits">Utilstrækkelig kredit</string>
     <string name="error_quota_exhausted">Kvote opbrugt</string>
     <string name="settings_request_integration_title">Anmod om en integration</string>

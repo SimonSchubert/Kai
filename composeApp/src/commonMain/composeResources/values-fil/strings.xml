@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Hindi suportado ang ganitong uri ng file. Maaari kang mag-attach ng mga larawan, text file, at PDF.</string>
     <string name="error_file_too_large">Masyadong malaki ang file. Ang mga text file ay dapat mas mababa sa 100 KB.</string>
     <string name="error_image_too_large">Masyadong malaki ang larawan. Subukan ang mas maliit na larawan.</string>
+    <string name="error_context_window_exceeded">Masyadong malaki ang context window para sa fallback service. Subukang magsimula ng bagong chat o gumamit ng model na may mas malaking context window.</string>
     <string name="error_insufficient_credits">Hindi sapat ang mga credit</string>
     <string name="error_quota_exhausted">Naubos na ang quota</string>
     <string name="settings_request_integration_title">Humiling ng Integration</string>

@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Lolu hlobo lwefayela alusekelwa. Ungaxhuma izithombe, amafayela ombhalo, nama-PDF.</string>
     <string name="error_file_too_large">Ifayela likhulu kakhulu. Amafayela ombhalo kufanele abe ngaphansi kuka-100 KB.</string>
     <string name="error_image_too_large">Isithombe sikhulu kakhulu. Zama isithombe esincane.</string>
+    <string name="error_context_window_exceeded">Iwindi lomongo likhulu kakhulu lesevisi yokubuyela emuva. Zama ukuqala ingxoxo entsha noma usebenzise imodeli enewindi lomongo elikhulu.</string>
     <string name="error_insufficient_credits">Amakredit anganele</string>
     <string name="error_quota_exhausted">Ikota iphelile</string>
     <string name="settings_request_integration_title">Cela Ukuhlanganiswa</string>

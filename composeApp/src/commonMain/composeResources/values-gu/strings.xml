@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">આ ફાઇલ પ્રકાર સમર્થિત નથી. તમે છબીઓ, ટેક્સ્ટ ફાઇલો અને PDF જોડી શકો છો.</string>
     <string name="error_file_too_large">ફાઇલ ખૂબ મોટી છે. ટેક્સ્ટ ફાઇલો 100 KB કરતાં ઓછી હોવી જોઈએ.</string>
     <string name="error_image_too_large">છબી ખૂબ મોટી છે. નાની છબી અજમાવો.</string>
+    <string name="error_context_window_exceeded">ફોલબેક સેવા માટે સંદર્ભ વિન્ડો ખૂબ મોટી છે. નવી ચેટ શરૂ કરવાનો અથવા મોટી સંદર્ભ વિન્ડો ધરાવતા મોડેલનો ઉપયોગ કરવાનો પ્રયાસ કરો.</string>
     <string name="error_insufficient_credits">અપૂરતા ક્રેડિટ્સ</string>
     <string name="error_quota_exhausted">ક્વોટા સમાપ્ત</string>
     <string name="settings_request_integration_title">ઇન્ટિગ્રેશનની વિનંતી કરો</string>

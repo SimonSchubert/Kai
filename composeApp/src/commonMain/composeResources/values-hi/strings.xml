@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">यह फ़ाइल प्रकार समर्थित नहीं है। आप छवियाँ, टेक्स्ट फ़ाइलें और PDF संलग्न कर सकते हैं।</string>
     <string name="error_file_too_large">फ़ाइल बहुत बड़ी है। टेक्स्ट फ़ाइलें 100 KB से कम होनी चाहिए।</string>
     <string name="error_image_too_large">छवि बहुत बड़ी है। कोई छोटी छवि आज़माएँ।</string>
+    <string name="error_context_window_exceeded">फ़ॉलबैक सेवा के लिए कॉन्टेक्स्ट विंडो बहुत बड़ी है। नई चैट शुरू करने या बड़ी कॉन्टेक्स्ट विंडो वाले मॉडल का उपयोग करने का प्रयास करें।</string>
     <string name="error_insufficient_credits">अपर्याप्त क्रेडिट</string>
     <string name="error_quota_exhausted">कोटा समाप्त</string>
     <string name="settings_request_integration_title">इंटीग्रेशन का अनुरोध करें</string>

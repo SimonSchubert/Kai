@@ -47,7 +47,6 @@ class TaskScheduler(
 
                     try {
                         val response = dataRepository.askWithTools(task.prompt)
-                        dataRepository.addAssistantMessage(response)
                         handleTaskCompletion(task)
                     } catch (e: Exception) {
                         handleTaskFailure(task, e.message)
@@ -66,7 +65,7 @@ class TaskScheduler(
                         val response = dataRepository.askWithTools(heartbeatPrompt)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
-                        if ("HEARTBEAT_OK" !in response) {
+                        if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
                             dataRepository.addAssistantMessage(response)
                         }
                     } catch (e: Exception) {
@@ -120,7 +119,7 @@ class TaskScheduler(
 
                         if (!isLoading()) {
                             val response = dataRepository.askSilently(triagePrompt)
-                            if ("EMAIL_TRIAGE_OK" !in response) {
+                            if (response.isNotBlank() && "EMAIL_TRIAGE_OK" !in response) {
                                 dataRepository.addAssistantMessage(response)
                             }
                         }

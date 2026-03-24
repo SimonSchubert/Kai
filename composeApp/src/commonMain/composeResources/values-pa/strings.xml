@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">ਇਹ ਫਾਈਲ ਕਿਸਮ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ। ਤੁਸੀਂ ਤਸਵੀਰਾਂ, ਟੈਕਸਟ ਫਾਈਲਾਂ ਅਤੇ PDF ਅਟੈਚ ਕਰ ਸਕਦੇ ਹੋ।</string>
     <string name="error_file_too_large">ਫਾਈਲ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਟੈਕਸਟ ਫਾਈਲਾਂ 100 KB ਤੋਂ ਘੱਟ ਹੋਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ।</string>
     <string name="error_image_too_large">ਤਸਵੀਰ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਛੋਟੀ ਤਸਵੀਰ ਅਜ਼ਮਾਓ।</string>
+    <string name="error_context_window_exceeded">ਫਾਲਬੈਕ ਸੇਵਾ ਲਈ ਕੰਟੈਕਸਟ ਵਿੰਡੋ ਬਹੁਤ ਵੱਡੀ ਹੈ। ਨਵੀਂ ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਜਾਂ ਵੱਡੀ ਕੰਟੈਕਸਟ ਵਿੰਡੋ ਵਾਲੇ ਮਾਡਲ ਦੀ ਵਰਤੋਂ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="error_insufficient_credits">ਨਾਕਾਫ਼ੀ ਕ੍ਰੈਡਿਟ</string>
     <string name="error_quota_exhausted">ਕੋਟਾ ਖਤਮ ਹੋ ਗਿਆ</string>
     <string name="settings_request_integration_title">ਇੰਟੀਗ੍ਰੇਸ਼ਨ ਦੀ ਬੇਨਤੀ ਕਰੋ</string>

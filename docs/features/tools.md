@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-18
+**Last verified:** 2026-03-24
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -109,7 +109,15 @@ Tool results longer than 8,000 characters are truncated with a note indicating t
 
 ### Context trimming
 
-Between iterations for OpenAI-compatible providers, the message history is trimmed to fit within the provider's context window before the next API call. Gemini and Anthropic providers do not perform inter-iteration context trimming.
+Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
+
+### Context window overflow protection
+
+When the fallback chain is active, each fallback service is checked before use. If the current conversation exceeds a fallback model's estimated context window, that service is skipped. If no service in the chain has a large enough window, an error message is shown to the user.
+
+### Chat history compaction
+
+When conversation history exceeds 70% of the primary model's context window, an AI-powered compaction runs before the next API call. Older messages are summarized into a single compact entry via a separate LLM call, while the most recent 4 user exchanges are kept verbatim. If the summarization call fails, older messages are dropped as a fallback.
 
 ## MCP Servers
 

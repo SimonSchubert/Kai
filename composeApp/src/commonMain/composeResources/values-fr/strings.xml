@@ -180,6 +180,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="error_unsupported_file_type">Ce type de fichier n\'est pas pris en charge. Vous pouvez joindre des images, des fichiers texte et des PDF.</string>
     <string name="error_file_too_large">Le fichier est trop volumineux. Les fichiers texte doivent faire moins de 100 Ko.</string>
     <string name="error_image_too_large">L\'image est trop volumineuse. Essayez une image plus petite.</string>
+    <string name="error_context_window_exceeded">Fenêtre de contexte trop grande pour le service de secours. Essayez de démarrer une nouvelle conversation ou d\'utiliser un modèle avec une fenêtre de contexte plus grande.</string>
     <string name="error_insufficient_credits">Crédits insuffisants</string>
     <string name="error_quota_exhausted">Quota épuisé</string>
     <string name="settings_request_integration_title">Demander une intégration</string>

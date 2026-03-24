@@ -41,7 +41,7 @@ Validation rules enforced by the `configure_heartbeat` tool:
 
 ## Response Handling
 
-- If the AI responds with exactly "HEARTBEAT_OK" (after trimming), nothing is shown to the user
+- If the AI response contains "HEARTBEAT_OK", nothing is shown to the user
 - Any other response is saved into a dedicated heartbeat conversation (type `heartbeat`) via `addAssistantMessage`
 - A dismissable banner appears at the top of the chat when the heartbeat has something to report
 - Tapping the banner loads the heartbeat conversation so the user can read the report and reply

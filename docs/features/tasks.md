@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-03-20
+**Last verified:** 2026-03-24
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -38,6 +38,7 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 - When a **cron task fails**, its execution time is advanced to the next scheduled cron time (preventing retry flooding every poll cycle)
 - When a **one-time task fails**, exponential backoff is applied: the execution time is pushed forward by `60s * 2^failures`, capped at 1 hour
 - On successful execution, the failure counter resets to zero
+- Failed tasks store the error message in `lastResult` for visibility in the settings UI
 
 ## AI Tools
 

@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">不支援此檔案類型。您可以附加圖片、文字檔案和 PDF。</string>
     <string name="error_file_too_large">檔案過大。文字檔案必須小於 100 KB。</string>
     <string name="error_image_too_large">圖片過大。請嘗試較小的圖片。</string>
+    <string name="error_context_window_exceeded">上下文視窗對於備用服務而言太大了。請嘗試開始新的聊天或使用具有更大上下文視窗的模型。</string>
     <string name="error_insufficient_credits">額度不足</string>
     <string name="error_quota_exhausted">配額已用盡</string>
     <string name="settings_request_integration_title">請求整合</string>

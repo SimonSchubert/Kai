@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Tento typ souboru není podporován. Můžete přiložit obrázky, textové soubory a PDF.</string>
     <string name="error_file_too_large">Soubor je příliš velký. Textové soubory musí být menší než 100 KB.</string>
     <string name="error_image_too_large">Obrázek je příliš velký. Zkuste menší obrázek.</string>
+    <string name="error_context_window_exceeded">Kontextové okno je příliš velké pro záložní službu. Zkuste zahájit nový chat nebo použijte model s větším kontextovým oknem.</string>
     <string name="error_insufficient_credits">Nedostatečný kredit</string>
     <string name="error_quota_exhausted">Kvóta vyčerpána</string>
     <string name="settings_request_integration_title">Požádat o integraci</string>

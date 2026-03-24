@@ -10,6 +10,7 @@ import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.FileTooLargeException
+import com.inspiredandroid.kai.network.ContextWindowExceededException
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
@@ -78,6 +79,51 @@ private const val MAX_API_RETRIES = 2
 private const val MAX_HEARTBEAT_MESSAGES = 50
 private const val ESTIMATED_CHARS_PER_TOKEN = 4
 private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
+private const val COMPACTION_THRESHOLD = 0.7 // Compact when history exceeds 70% of context window
+private const val COMPACTION_KEEP_RECENT = 4 // Number of recent user exchanges to keep verbatim
+
+/**
+ * Returns the estimated context window size in tokens for a given model ID.
+ * Uses substring matching on the model ID to cover versioned variants (e.g. "gpt-4o-2024-08-06").
+ * Falls back to [DEFAULT_CONTEXT_WINDOW_TOKENS] for unknown models.
+ */
+private fun estimateContextWindowTokens(modelId: String): Int {
+    val id = modelId.lowercase()
+    return when {
+        // Gemini
+        "gemini-2.5" in id || "gemini-2.0" in id -> 1_000_000
+        "gemini-1.5-pro" in id -> 2_000_000
+        "gemini-1.5-flash" in id -> 1_000_000
+        "gemini" in id -> 32_000
+        // Anthropic
+        "claude-opus" in id || "claude-sonnet" in id -> 200_000
+        "claude-haiku" in id -> 200_000
+        "claude-3" in id || "claude-3.5" in id -> 200_000
+        "claude" in id -> 200_000
+        // OpenAI
+        "gpt-4o" in id -> 128_000
+        "gpt-4-turbo" in id -> 128_000
+        "gpt-4" in id -> 8_192
+        "gpt-3.5" in id -> 16_385
+        "o1" in id || "o3" in id || "o4" in id -> 200_000
+        // DeepSeek
+        "deepseek" in id -> 64_000
+        // Mistral
+        "mistral-large" in id -> 128_000
+        "mistral" in id -> 32_000
+        // xAI
+        "grok" in id -> 131_072
+        // Llama
+        "llama-3.3" in id || "llama-3.1" in id -> 128_000
+        "llama" in id -> 8_192
+        // Qwen
+        "qwen" in id -> 32_000
+        // Small/local models
+        "phi" in id -> 16_000
+        "gemma" in id -> 8_192
+        else -> DEFAULT_CONTEXT_WINDOW_TOKENS
+    }
+}
 
 private fun supportsTools(modelId: String): Boolean {
     val lower = modelId.lowercase()
@@ -420,15 +466,27 @@ class RemoteDataRepository(
             }
         }
 
+        compactHistoryIfNeeded()
+
         val messages = chatHistory.value
         val systemPrompt = getActiveSystemPrompt()
 
         val fallbackEntries = getOrderedFallbackEntries().filter { hasValidInstanceApiKey(it.instanceId, it.service) }
 
+        val historyChars = messages.sumOf { it.content.length } + (systemPrompt?.length ?: 0)
+
         var lastException: Exception? = null
         var fallbackServiceName: String? = null
 
         for ((index, entry) in fallbackEntries.withIndex()) {
+            // Skip fallback services whose context window is too small for the current history
+            val creds = instanceCredentials(entry.instanceId, entry.service)
+            val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
+            if (historyChars > entryWindowChars) {
+                lastException = ContextWindowExceededException()
+                continue
+            }
+
             val responseText = try {
                 retryApiCall {
                     askWithService(entry.service, messages, systemPrompt, entry.instanceId)
@@ -461,11 +519,13 @@ class RemoteDataRepository(
         tools: List<Tool>,
         systemPrompt: String? = null,
     ): String {
+        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var currentMessages = trimMessagesForContext(
             buildOpenAIMessages(
                 messages.filter { it.role != History.Role.TOOL_EXECUTING },
                 systemPrompt,
             ),
+            contextWindowTokens,
         )
 
         var iteration = 0
@@ -543,11 +603,13 @@ class RemoteDataRepository(
                     chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
                     systemPrompt,
                 ),
+                contextWindowTokens,
             )
         }
     }
 
     private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
+        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
 
@@ -633,9 +695,9 @@ class RemoteDataRepository(
             // Execute all tool calls in parallel
             val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
 
-            // Add all tool results to history
+            // Add all tool results to history and trim to fit context window
             chatHistory.update { history ->
-                buildList(history.size + toolResults.size) {
+                val updated = buildList(history.size + toolResults.size) {
                     for (h in history) {
                         if (h.role != History.Role.TOOL_EXECUTING) add(h)
                     }
@@ -650,6 +712,7 @@ class RemoteDataRepository(
                         )
                     }
                 }
+                trimHistoryForContext(updated, systemPrompt?.length ?: 0, contextWindowTokens)
             }
         }
     }
@@ -732,6 +795,7 @@ class RemoteDataRepository(
         tools: List<Tool>,
         systemPrompt: String? = null,
     ): String {
+        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
 
@@ -807,9 +871,9 @@ class RemoteDataRepository(
             // Execute all tool calls in parallel
             val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
 
-            // Add all tool results to history
+            // Add all tool results to history and trim to fit context window
             chatHistory.update { history ->
-                buildList(history.size + toolResults.size) {
+                val updated = buildList(history.size + toolResults.size) {
                     for (h in history) {
                         if (h.role != History.Role.TOOL_EXECUTING) add(h)
                     }
@@ -824,6 +888,7 @@ class RemoteDataRepository(
                         )
                     }
                 }
+                trimHistoryForContext(updated, systemPrompt?.length ?: 0, contextWindowTokens)
             }
         }
     }
@@ -971,8 +1036,9 @@ class RemoteDataRepository(
      */
     private fun trimMessagesForContext(
         messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
+        contextWindowTokens: Int = DEFAULT_CONTEXT_WINDOW_TOKENS,
     ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> {
-        val maxChars = DEFAULT_CONTEXT_WINDOW_TOKENS * ESTIMATED_CHARS_PER_TOKEN
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
         val totalChars = messages.sumOf { estimateMessageChars(it) }
         if (totalChars <= maxChars) return messages
 
@@ -994,6 +1060,92 @@ class RemoteDataRepository(
         }
 
         return systemMessages + kept
+    }
+
+    /**
+     * Trims History entries to fit within the estimated context window by dropping oldest messages
+     * (keeping the most recent). Used by Gemini and Anthropic tool loops where the system prompt
+     * is sent separately (not as a message).
+     */
+    private fun trimHistoryForContext(
+        history: List<History>,
+        systemPromptChars: Int = 0,
+        contextWindowTokens: Int = DEFAULT_CONTEXT_WINDOW_TOKENS,
+    ): List<History> {
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
+        val totalChars = history.sumOf { it.content.length } + systemPromptChars
+        if (totalChars <= maxChars) return history
+
+        val availableChars = maxChars - systemPromptChars
+
+        // Keep messages from the end until we exceed the budget
+        val kept = mutableListOf<History>()
+        var usedChars = 0
+        for (msg in history.reversed()) {
+            val msgChars = msg.content.length
+            if (usedChars + msgChars > availableChars) break
+            kept.add(0, msg)
+            usedChars += msgChars
+        }
+
+        return kept
+    }
+
+    /**
+     * Compacts chat history by summarizing older messages via an LLM call when the history
+     * exceeds a percentage of the context window. Keeps recent exchanges verbatim and replaces
+     * older ones with a single summary. Falls back to simple drop-oldest trimming on failure.
+     */
+    private suspend fun compactHistoryIfNeeded() {
+        // Use primary service's context window for compaction decisions
+        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return
+        val service = Service.fromId(firstInstance.serviceId)
+        val modelId = appSettings.getSelectedModelId(service)
+        val contextWindowTokens = estimateContextWindowTokens(modelId)
+
+        val history = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+        val systemPromptChars = getActiveSystemPrompt()?.length ?: 0
+        val totalChars = history.sumOf { it.content.length } + systemPromptChars
+        val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
+        if (totalChars <= (maxChars * COMPACTION_THRESHOLD).toInt()) return
+
+        // Split history: older messages to summarize, recent to keep verbatim
+        val userIndices = history.mapIndexedNotNull { index, h ->
+            if (h.role == History.Role.USER) index else null
+        }
+        if (userIndices.size <= COMPACTION_KEEP_RECENT) return
+        val cutoffIndex = userIndices[userIndices.size - COMPACTION_KEEP_RECENT]
+        val olderMessages = history.subList(0, cutoffIndex)
+        val recentMessages = history.subList(cutoffIndex, history.size)
+
+        if (olderMessages.isEmpty()) return
+
+        // Build a transcript of the older messages for summarization
+        val transcript = buildString {
+            for (msg in olderMessages) {
+                if (msg.role == History.Role.USER || msg.role == History.Role.ASSISTANT) {
+                    val role = if (msg.role == History.Role.USER) "User" else "Assistant"
+                    appendLine("$role: ${msg.content}")
+                }
+            }
+        }
+
+        val summaryPrompt = "Summarize this conversation concisely, preserving key facts, decisions, and any information the assistant would need to continue helping. Be brief but complete:\n\n$transcript"
+
+        val summary = try {
+            askSilently(summaryPrompt)
+        } catch (_: Exception) {
+            // Summarization failed — fall back to dropping old messages
+            chatHistory.value = recentMessages
+            return
+        }
+
+        val summaryEntry = History(
+            role = History.Role.ASSISTANT,
+            content = "[Conversation summary: $summary]",
+        )
+
+        chatHistory.value = listOf(summaryEntry) + recentMessages
     }
 
     private fun trimToRecentExchanges(history: List<History>, maxExchanges: Int): List<History> {

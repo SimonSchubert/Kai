@@ -180,6 +180,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="error_unsupported_file_type">Este tipo de ficheiro não é suportado. Pode anexar imagens, ficheiros de texto e PDFs.</string>
     <string name="error_file_too_large">O ficheiro é demasiado grande. Ficheiros de texto devem ter menos de 100 KB.</string>
     <string name="error_image_too_large">A imagem é demasiado grande. Tente uma imagem mais pequena.</string>
+    <string name="error_context_window_exceeded">Janela de contexto grande demais para o serviço de reserva. Tente iniciar um novo chat ou usar um modelo com uma janela de contexto maior.</string>
     <string name="error_insufficient_credits">Créditos insuficientes</string>
     <string name="error_quota_exhausted">Quota esgotada</string>
     <string name="settings_request_integration_title">Solicitar uma integração</string>

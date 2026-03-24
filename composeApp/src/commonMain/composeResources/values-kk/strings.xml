@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Бұл файл түрі қолдау көрсетілмейді. Суреттер, мәтін файлдары және PDF тіркей аласыз.</string>
     <string name="error_file_too_large">Файл тым үлкен. Мәтін файлдары 100 КБ-тан аз болуы керек.</string>
     <string name="error_image_too_large">Сурет тым үлкен. Кішірек суретті қолданып көріңіз.</string>
+    <string name="error_context_window_exceeded">Контекст терезесі сақтық қызмет үшін тым үлкен. Жаңа чат бастауды немесе үлкенірек контекст терезесі бар модельді пайдалануды көріңіз.</string>
     <string name="error_insufficient_credits">Кредиттер жеткіліксіз</string>
     <string name="error_quota_exhausted">Квота таусылды</string>
     <string name="settings_request_integration_title">Интеграция сұрау</string>

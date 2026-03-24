@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Αυτός ο τύπος αρχείου δεν υποστηρίζεται. Μπορείτε να επισυνάψετε εικόνες, αρχεία κειμένου και PDF.</string>
     <string name="error_file_too_large">Το αρχείο είναι πολύ μεγάλο. Τα αρχεία κειμένου πρέπει να είναι κάτω από 100 KB.</string>
     <string name="error_image_too_large">Η εικόνα είναι πολύ μεγάλη. Δοκιμάστε μια μικρότερη εικόνα.</string>
+    <string name="error_context_window_exceeded">Το παράθυρο περιβάλλοντος είναι πολύ μεγάλο για την εφεδρική υπηρεσία. Δοκιμάστε να ξεκινήσετε μια νέα συνομιλία ή χρησιμοποιήστε ένα μοντέλο με μεγαλύτερο παράθυρο περιβάλλοντος.</string>
     <string name="error_insufficient_credits">Ανεπαρκές υπόλοιπο</string>
     <string name="error_quota_exhausted">Το όριο χρήσης εξαντλήθηκε</string>
     <string name="settings_request_integration_title">Αίτημα ενσωμάτωσης</string>

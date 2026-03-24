@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Jenis fail ini tidak disokong. Anda boleh melampirkan imej, fail teks dan PDF.</string>
     <string name="error_file_too_large">Fail terlalu besar. Fail teks mestilah di bawah 100 KB.</string>
     <string name="error_image_too_large">Imej terlalu besar. Cuba imej yang lebih kecil.</string>
+    <string name="error_context_window_exceeded">Tetingkap konteks terlalu besar untuk perkhidmatan sandaran. Cuba mulakan sembang baharu atau gunakan model dengan tetingkap konteks yang lebih besar.</string>
     <string name="error_insufficient_credits">Kredit tidak mencukupi</string>
     <string name="error_quota_exhausted">Kuota habis</string>
     <string name="settings_request_integration_title">Minta Integrasi</string>

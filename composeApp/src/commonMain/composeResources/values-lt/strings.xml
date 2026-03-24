@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Šis failo tipas nepalaikomas. Galite pridėti paveikslėlius, tekstinius failus ir PDF.</string>
     <string name="error_file_too_large">Failas per didelis. Tekstiniai failai turi būti mažesni nei 100 KB.</string>
     <string name="error_image_too_large">Paveikslėlis per didelis. Pabandykite mažesnį paveikslėlį.</string>
+    <string name="error_context_window_exceeded">Konteksto langas per didelis atsarginei paslaugai. Pabandykite pradėti naują pokalbį arba naudokite modelį su didesniu konteksto langu.</string>
     <string name="error_insufficient_credits">Nepakanka kreditų</string>
     <string name="error_quota_exhausted">Kvota išnaudota</string>
     <string name="settings_request_integration_title">Paprašyti integracijos</string>

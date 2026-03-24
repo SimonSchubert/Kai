@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Jenis file ini tidak didukung. Anda dapat melampirkan gambar, file teks, dan PDF.</string>
     <string name="error_file_too_large">File terlalu besar. File teks harus di bawah 100 KB.</string>
     <string name="error_image_too_large">Gambar terlalu besar. Coba gambar yang lebih kecil.</string>
+    <string name="error_context_window_exceeded">Jendela konteks terlalu besar untuk layanan cadangan. Coba mulai obrolan baru atau gunakan model dengan jendela konteks yang lebih besar.</string>
     <string name="error_insufficient_credits">Kredit tidak mencukupi</string>
     <string name="error_quota_exhausted">Kuota habis</string>
     <string name="settings_request_integration_title">Minta Integrasi</string>

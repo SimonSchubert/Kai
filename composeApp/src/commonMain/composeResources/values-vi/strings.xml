@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Loại tệp này không được hỗ trợ. Bạn có thể đính kèm hình ảnh, tệp văn bản và PDF.</string>
     <string name="error_file_too_large">Tệp quá lớn. Tệp văn bản phải dưới 100 KB.</string>
     <string name="error_image_too_large">Hình ảnh quá lớn. Hãy thử hình ảnh nhỏ hơn.</string>
+    <string name="error_context_window_exceeded">Cửa sổ ngữ cảnh quá lớn cho dịch vụ dự phòng. Hãy thử bắt đầu cuộc trò chuyện mới hoặc sử dụng mô hình có cửa sổ ngữ cảnh lớn hơn.</string>
     <string name="error_insufficient_credits">Không đủ tín dụng</string>
     <string name="error_quota_exhausted">Đã hết hạn mức</string>
     <string name="settings_request_integration_title">Yêu cầu tích hợp</string>

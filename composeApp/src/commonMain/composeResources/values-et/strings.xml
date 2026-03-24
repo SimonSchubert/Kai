@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">Seda failitüüpi ei toetata. Saad lisada pilte, tekstifaile ja PDF-e.</string>
     <string name="error_file_too_large">Fail on liiga suur. Tekstifailid peavad olema alla 100 KB.</string>
     <string name="error_image_too_large">Pilt on liiga suur. Proovi väiksemat pilti.</string>
+    <string name="error_context_window_exceeded">Kontekstiaken on varuteenuse jaoks liiga suur. Proovi alustada uut vestlust või kasuta suurema kontekstiaknaga mudelit.</string>
     <string name="error_insufficient_credits">Ebapiisav krediidijääk</string>
     <string name="error_quota_exhausted">Limiit on ammendatud</string>
     <string name="settings_request_integration_title">Taotle integratsiooni</string>

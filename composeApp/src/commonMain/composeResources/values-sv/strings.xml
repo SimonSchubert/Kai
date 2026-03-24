@@ -180,6 +180,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="error_unsupported_file_type">Den här filtypen stöds inte. Du kan bifoga bilder, textfiler och PDF-filer.</string>
     <string name="error_file_too_large">Filen är för stor. Textfiler måste vara under 100 KB.</string>
     <string name="error_image_too_large">Bilden är för stor. Prova en mindre bild.</string>
+    <string name="error_context_window_exceeded">Kontextfönstret är för stort för reservtjänsten. Försök starta en ny chatt eller använd en modell med ett större kontextfönster.</string>
     <string name="error_insufficient_credits">Otillräckliga krediter</string>
     <string name="error_quota_exhausted">Kvoten är förbrukad</string>
     <string name="settings_request_integration_title">Begär en integration</string>

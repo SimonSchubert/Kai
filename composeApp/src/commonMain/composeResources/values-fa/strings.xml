@@ -179,6 +179,7 @@
     <string name="error_unsupported_file_type">این نوع فایل پشتیبانی نمی‌شود. می‌توانید تصاویر، فایل‌های متنی و PDF پیوست کنید.</string>
     <string name="error_file_too_large">فایل بیش از حد بزرگ است. فایل‌های متنی باید کمتر از ۱۰۰ کیلوبایت باشند.</string>
     <string name="error_image_too_large">تصویر بیش از حد بزرگ است. یک تصویر کوچک‌تر امتحان کنید.</string>
+    <string name="error_context_window_exceeded">پنجره زمینه برای سرویس پشتیبان بیش از حد بزرگ است. سعی کنید یک چت جدید شروع کنید یا از مدلی با پنجره زمینه بزرگتر استفاده کنید.</string>
     <string name="error_insufficient_credits">اعتبار ناکافی</string>
     <string name="error_quota_exhausted">سهمیه به پایان رسیده است</string>
     <string name="settings_request_integration_title">درخواست یکپارچه‌سازی</string>

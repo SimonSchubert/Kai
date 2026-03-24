@@ -180,6 +180,7 @@
     <string name="error_unsupported_file_type">Цей тип файлу не підтримується. Ви можете прикріпити зображення, текстові файли та PDF.</string>
     <string name="error_file_too_large">Файл завеликий. Текстові файли мають бути менше 100 КБ.</string>
     <string name="error_image_too_large">Зображення завелике. Спробуйте менше зображення.</string>
+    <string name="error_context_window_exceeded">Вікно контексту занадто велике для резервного сервісу. Спробуйте розпочати новий чат або використати модель із більшим вікном контексту.</string>
     <string name="error_insufficient_credits">Недостатньо кредитів</string>
     <string name="error_quota_exhausted">Квоту вичерпано</string>
     <string name="settings_request_integration_title">Запросити інтеграцію</string>
