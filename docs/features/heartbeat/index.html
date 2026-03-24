@@ -1085,6 +1085,7 @@
 <p>The heartbeat prompt is assembled from multiple sources:</p>
 <ol>
 <li><strong>Custom prompt</strong> — user-defined text from settings, or the default prompt if empty. The default instructs the AI to review memories and tasks, respond "HEARTBEAT_OK" if nothing needs attention, or address anything that does</li>
+<li><strong>Previous heartbeat results</strong> — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")</li>
 <li><strong>Pending tasks</strong> — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)</li>
 <li><strong>Email status</strong> — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included</li>
 <li><strong>Promotion candidates</strong> — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the <code>promote_learning</code> tool</li>
