@@ -1,0 +1,3 @@
+Improve heartbeat reliability with previous response context and failure logging
+Add proper context compaction for conversations
+Upgrade SDKs

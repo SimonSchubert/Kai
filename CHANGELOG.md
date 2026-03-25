@@ -1,3 +1,10 @@
+## v1.11.2 — 2026-03-25
+
+### Improvements
+- Improve heartbeat reliability with previous response context and failure logging
+- Add proper context compaction for conversations
+- Upgrade SDKs
+
 ## v1.11.1 — 2026-03-24
 
 ### Fixes
