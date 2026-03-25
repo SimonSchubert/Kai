@@ -1,9 +1,9 @@
 package com.inspiredandroid.kai.network
 
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_context_window_exceeded
 import kai.composeapp.generated.resources.error_empty_response
 import kai.composeapp.generated.resources.error_file_too_large
-import kai.composeapp.generated.resources.error_context_window_exceeded
 import kai.composeapp.generated.resources.error_image_too_large
 import kai.composeapp.generated.resources.error_insufficient_credits
 import kai.composeapp.generated.resources.error_invalid_api_key

@@ -9,8 +9,8 @@ import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
-import com.inspiredandroid.kai.network.FileTooLargeException
 import com.inspiredandroid.kai.network.ContextWindowExceededException
+import com.inspiredandroid.kai.network.FileTooLargeException
 import com.inspiredandroid.kai.network.OpenAICompatibleEmptyResponseException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
@@ -92,35 +92,57 @@ private fun estimateContextWindowTokens(modelId: String): Int {
     return when {
         // Gemini
         "gemini-2.5" in id || "gemini-2.0" in id -> 1_000_000
+
         "gemini-1.5-pro" in id -> 2_000_000
+
         "gemini-1.5-flash" in id -> 1_000_000
+
         "gemini" in id -> 32_000
+
         // Anthropic
         "claude-opus" in id || "claude-sonnet" in id -> 200_000
+
         "claude-haiku" in id -> 200_000
+
         "claude-3" in id || "claude-3.5" in id -> 200_000
+
         "claude" in id -> 200_000
+
         // OpenAI
         "gpt-4o" in id -> 128_000
+
         "gpt-4-turbo" in id -> 128_000
+
         "gpt-4" in id -> 8_192
+
         "gpt-3.5" in id -> 16_385
+
         "o1" in id || "o3" in id || "o4" in id -> 200_000
+
         // DeepSeek
         "deepseek" in id -> 64_000
+
         // Mistral
         "mistral-large" in id -> 128_000
+
         "mistral" in id -> 32_000
+
         // xAI
         "grok" in id -> 131_072
+
         // Llama
         "llama-3.3" in id || "llama-3.1" in id -> 128_000
+
         "llama" in id -> 8_192
+
         // Qwen
         "qwen" in id -> 32_000
+
         // Small/local models
         "phi" in id -> 16_000
+
         "gemma" in id -> 8_192
+
         else -> DEFAULT_CONTEXT_WINDOW_TOKENS
     }
 }
