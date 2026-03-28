@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Задай аларма</string>
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
     <string name="tool_execute_shell_command_name">Изпълни команда</string>
-    <string name="tool_execute_shell_command_description">Изпълни команда на устройството</string>
+    <string name="tool_execute_shell_command_description">Изпълнение на shell команда в Linux пясъчника</string>
     <string name="settings_memories">Спомени</string>
     <string name="settings_memories_description">Спомени, запазени от AI по време на разговори. Те се включват в всяко съобщение за осигуряване на контекст.</string>
     <string name="settings_memories_delete">Изтрий памет</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Изтриване на skill</string>
     <string name="snackbar_skill_deleted">Skill е изтрит</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux пясъчник</string>
+    <string name="settings_sandbox_description">Лека Linux дистрибуция с мениджър на пакети и стандартни инструменти. Работи безопасно в приложението чрез proot. ~3 MB за изтегляне.</string>
+    <string name="settings_sandbox_install">Инсталиране</string>
+    <string name="settings_sandbox_install_packages">Инсталиране на основни пакети</string>
+    <string name="settings_sandbox_open_terminal">Отваряне на терминал</string>
+    <string name="settings_sandbox_uninstall">Деинсталиране</string>
+    <string name="settings_sandbox_cancel">Отказ</string>
+    <string name="settings_sandbox_disk_usage">%1$d МБ</string>
+    <string name="terminal_title">Терминал</string>
+    <string name="terminal_help_text">Въведете команда по-долу, за да започнете.</string>
+    <string name="terminal_input_placeholder">въведете команда…</string>
+    <string name="terminal_run_content_description">Изпълни</string>
 </resources>

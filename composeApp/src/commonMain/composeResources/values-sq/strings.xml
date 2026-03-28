@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Vendos alarm</string>
     <string name="tool_set_alarm_description">Vendos një alarm ose kohëmatës në pajisje</string>
     <string name="tool_execute_shell_command_name">Ekzekuto komandën</string>
-    <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në pajisje</string>
+    <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në sandbox-in Linux</string>
     <string name="settings_memories">Kujtesa</string>
     <string name="settings_memories_description">Kujtesat e ruajtura nga AI gjatë bisedave. Këto përfshihen në çdo mesazh për të ofruar kontekst.</string>
     <string name="settings_memories_delete">Fshi kujtesën</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Fshi skill</string>
     <string name="snackbar_skill_deleted">Skill u fshi</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox Linux</string>
+    <string name="settings_sandbox_description">Shpërndarje e lehtë Linux me menaxher paketash dhe mjete standarde. Funksionon me siguri brenda aplikacionit nëpërmjet proot. ~3 MB shkarkim.</string>
+    <string name="settings_sandbox_install">Instalo</string>
+    <string name="settings_sandbox_install_packages">Instalo paketat bazë</string>
+    <string name="settings_sandbox_open_terminal">Hap terminalin</string>
+    <string name="settings_sandbox_uninstall">Çinstalo</string>
+    <string name="settings_sandbox_cancel">Anulo</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminali</string>
+    <string name="terminal_help_text">Shkruaj një komandë më poshtë për të filluar.</string>
+    <string name="terminal_input_placeholder">fut komandën…</string>
+    <string name="terminal_run_content_description">Ekzekuto</string>
 </resources>

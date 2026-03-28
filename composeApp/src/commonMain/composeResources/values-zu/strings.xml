@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Setha i-alamu</string>
     <string name="tool_set_alarm_description">Setha i-alamu noma isibali sesikhathi edivaysini</string>
     <string name="tool_execute_shell_command_name">Sebenzisa umyalo</string>
-    <string name="tool_execute_shell_command_description">Sebenzisa umyalo we-shell kudivayisi</string>
+    <string name="tool_execute_shell_command_description">Sebenzisa umyalo we-shell ku-Linux sandbox</string>
     <string name="settings_memories">Izikhumbuzo</string>
     <string name="settings_memories_description">Izikhumbuzo ezilondolozwe i-AI ngesikhathi sezingxoxo. Lezi zifakiwe kuwo wonke umyalezo ukuze zinikezele imongo.</string>
     <string name="settings_memories_delete">Susa isikhumbuzo</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Susa i-skill</string>
     <string name="snackbar_skill_deleted">I-skill isusiwe</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">I-Linux Sandbox</string>
+    <string name="settings_sandbox_description">Ukusatshalaliswa okulula kwe-Linux okunomphathi wamaphakheji namathuluzi ajwayelekile. Isebenza ngokuphephile ngaphakathi kohlelo lokusebenza nge-proot. Ukulanda ~3 MB.</string>
+    <string name="settings_sandbox_install">Faka</string>
+    <string name="settings_sandbox_install_packages">Faka amaphakheji ayisisekelo</string>
+    <string name="settings_sandbox_open_terminal">Vula itheminali</string>
+    <string name="settings_sandbox_uninstall">Khipha</string>
+    <string name="settings_sandbox_cancel">Khansela</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Itheminali</string>
+    <string name="terminal_help_text">Bhala umyalo ngezansi ukuze uqale.</string>
+    <string name="terminal_input_placeholder">faka umyalo…</string>
+    <string name="terminal_run_content_description">Sebenzisa</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Indstil alarm</string>
     <string name="tool_set_alarm_description">Indstil en alarm eller nedtællingstimer på enheden</string>
     <string name="tool_execute_shell_command_name">Kør kommando</string>
-    <string name="tool_execute_shell_command_description">Kør en shell-kommando på enheden</string>
+    <string name="tool_execute_shell_command_description">Kør en shell-kommando i Linux-sandkassen</string>
     <string name="settings_memories">Hukommelser</string>
     <string name="settings_memories_description">Hukommelser gemt af AI under samtaler. Disse inkluderes i alle beskeder for at give kontekst.</string>
     <string name="settings_memories_delete">Slet hukommelse</string>
@@ -205,4 +205,16 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_skills_delete">Slet skill</string>
     <string name="snackbar_skill_deleted">Skill slettet</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-sandkasse</string>
+    <string name="settings_sandbox_description">Let Linux-distribution med pakkehåndtering og standardværktøjer. Kører sikkert i appen via proot. ~3 MB download.</string>
+    <string name="settings_sandbox_install">Installér</string>
+    <string name="settings_sandbox_install_packages">Installér basispakker</string>
+    <string name="settings_sandbox_open_terminal">Åbn terminal</string>
+    <string name="settings_sandbox_uninstall">Afinstallér</string>
+    <string name="settings_sandbox_cancel">Annullér</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Skriv en kommando nedenfor for at komme i gang.</string>
+    <string name="terminal_input_placeholder">indtast kommando…</string>
+    <string name="terminal_run_content_description">Kør</string>
 </resources>

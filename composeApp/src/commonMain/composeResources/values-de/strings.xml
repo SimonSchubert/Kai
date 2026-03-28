@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Wecker stellen</string>
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
     <string name="tool_execute_shell_command_name">Shell-Befehl ausführen</string>
-    <string name="tool_execute_shell_command_description">Einen Shell-Befehl auf dem Gerät ausführen</string>
+    <string name="tool_execute_shell_command_description">Einen Shell-Befehl in der Linux-Sandbox ausführen</string>
     <string name="settings_memories">Erinnerungen</string>
     <string name="settings_memories_description">Erinnerungen, die die KI während Gesprächen gespeichert hat. Diese werden in jede Nachricht einbezogen, um Kontext bereitzustellen.</string>
     <string name="settings_memories_delete">Erinnerung löschen</string>
@@ -205,4 +205,16 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_skills_delete">Skill löschen</string>
     <string name="snackbar_skill_deleted">Skill gelöscht</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-Sandbox</string>
+    <string name="settings_sandbox_description">Leichtgewichtige Linux-Distribution mit Paketmanager und Standard-Werkzeugen. Läuft sicher in der App über proot. ~3 MB Download.</string>
+    <string name="settings_sandbox_install">Installieren</string>
+    <string name="settings_sandbox_install_packages">Basispakete installieren</string>
+    <string name="settings_sandbox_open_terminal">Terminal öffnen</string>
+    <string name="settings_sandbox_uninstall">Deinstallieren</string>
+    <string name="settings_sandbox_cancel">Abbrechen</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Gib unten einen Befehl ein, um loszulegen.</string>
+    <string name="terminal_input_placeholder">Befehl eingeben…</string>
+    <string name="terminal_run_content_description">Ausführen</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">அலாரம் அமை</string>
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
     <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>
-    <string name="tool_execute_shell_command_description">சாதனத்தில் ஷெல் கட்டளையை இயக்கு</string>
+    <string name="tool_execute_shell_command_description">Linux சாண்ட்பாக்ஸில் ஷெல் கட்டளையை இயக்கு</string>
     <string name="settings_memories">நினைவுகள்</string>
     <string name="settings_memories_description">உரையாடல்களின் போது AI சேமித்த நினைவுகள். இவை சூழலை வழங்க ஒவ்வொரு செய்தியிலும் சேர்க்கப்படுகின்றன.</string>
     <string name="settings_memories_delete">நினைவகத்தை நீக்கு</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill நீக்கு</string>
     <string name="snackbar_skill_deleted">Skill நீக்கப்பட்டது</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux சாண்ட்பாக்ஸ்</string>
+    <string name="settings_sandbox_description">தொகுப்பு மேலாளர் மற்றும் நிலையான கருவிகளுடன் கூடிய லேசான Linux விநியோகம். proot வழியாக பயன்பாட்டிற்குள் பாதுகாப்பாக இயங்குகிறது. ~3 MB பதிவிறக்கம்.</string>
+    <string name="settings_sandbox_install">நிறுவு</string>
+    <string name="settings_sandbox_install_packages">அடிப்படை தொகுப்புகளை நிறுவு</string>
+    <string name="settings_sandbox_open_terminal">முனையத்தைத் திற</string>
+    <string name="settings_sandbox_uninstall">நீக்கு</string>
+    <string name="settings_sandbox_cancel">ரத்து</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">முனையம்</string>
+    <string name="terminal_help_text">தொடங்க கீழே ஒரு கட்டளையை தட்டச்சு செய்யுங்கள்.</string>
+    <string name="terminal_input_placeholder">கட்டளையை உள்ளிடவும்…</string>
+    <string name="terminal_run_content_description">இயக்கு</string>
 </resources>

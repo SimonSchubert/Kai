@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Đặt báo thức</string>
     <string name="tool_set_alarm_description">Đặt báo thức hoặc hẹn giờ đếm ngược trên thiết bị</string>
     <string name="tool_execute_shell_command_name">Chạy lệnh shell</string>
-    <string name="tool_execute_shell_command_description">Chạy lệnh shell trên thiết bị</string>
+    <string name="tool_execute_shell_command_description">Thực thi lệnh shell trong hộp cát Linux</string>
     <string name="settings_memories">Ký ức</string>
     <string name="settings_memories_description">Ký ức được AI lưu trong các cuộc trò chuyện. Chúng được đưa vào mỗi tin nhắn để cung cấp bối cảnh.</string>
     <string name="settings_memories_delete">Xóa ký ức</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Xóa skill</string>
     <string name="snackbar_skill_deleted">Đã xóa skill</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Hộp cát Linux</string>
+    <string name="settings_sandbox_description">Bản phân phối Linux nhẹ với trình quản lý gói và các tiện ích tiêu chuẩn. Chạy an toàn trong ứng dụng qua proot. Tải xuống ~3 MB.</string>
+    <string name="settings_sandbox_install">Cài đặt</string>
+    <string name="settings_sandbox_install_packages">Cài đặt gói cơ bản</string>
+    <string name="settings_sandbox_open_terminal">Mở terminal</string>
+    <string name="settings_sandbox_uninstall">Gỡ cài đặt</string>
+    <string name="settings_sandbox_cancel">Hủy</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Nhập lệnh bên dưới để bắt đầu.</string>
+    <string name="terminal_input_placeholder">nhập lệnh…</string>
+    <string name="terminal_run_content_description">Chạy</string>
 </resources>

@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-24
+**Last verified:** 2026-03-28
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -69,6 +69,21 @@ Email tools are available when the email feature is enabled and accounts are con
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
 | `execute_shell_command` | Execute a shell command on the device | Disabled |
+
+#### Linux Sandbox (Android)
+
+When the Linux Sandbox is set up and enabled, `execute_shell_command` routes commands through proot into an Alpine Linux rootfs instead of running them in Android's native shell. This provides:
+
+- A full Linux userland with bash, coreutils, and standard utilities
+- Package management via `apk` (Alpine's package manager)
+- Optional Python installation (`python3`, `pip`)
+- Network access (shares the host network stack)
+
+**Setup flow:** The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).
+
+**Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under `linux-sandbox/`.
+
+**Settings:** The sandbox section appears in Settings > Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.
 
 ### Platform-specific (Desktop)
 
@@ -167,6 +182,10 @@ When loading, a single composite row appears at the bottom of the chat list cont
 | `composeApp/src/commonMain/.../tools/CommonTools.kt` | Common tool implementations |
 | `composeApp/src/commonMain/.../Platform.kt` | Platform expect declarations for available tools |
 | `composeApp/src/androidMain/.../Platform.android.kt` | Android-specific tool implementations |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem composables |
+| `composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt` | Sandbox lifecycle, setup, proot management |
+| `composeApp/src/androidMain/.../sandbox/ProotExecutor.kt` | Proot command building and execution |
+| `composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt` | Alpine rootfs download and extraction |
+| `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
+| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Tool enabled state persistence |

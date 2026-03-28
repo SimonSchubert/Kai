@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Iestatīt modinātāju</string>
     <string name="tool_set_alarm_description">Iestatīt modinātāju vai atpakaļskaitīšanas taimeri ierīcē</string>
     <string name="tool_execute_shell_command_name">Izpildīt komandu</string>
-    <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu ierīcē</string>
+    <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu Linux smilškastē</string>
     <string name="settings_memories">Atmiņas</string>
     <string name="settings_memories_description">Atmiņas, ko AI saglabājis sarunu laikā. Tās tiek iekļautas katrā ziņojumā, lai nodrošinātu kontekstu.</string>
     <string name="settings_memories_delete">Dzēst atmiņu</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Dzēst skill</string>
     <string name="snackbar_skill_deleted">Skill dzēsts</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux smilškaste</string>
+    <string name="settings_sandbox_description">Viegla Linux distribūcija ar pakotņu pārvaldnieku un standarta rīkiem. Droši darbojas lietotnē caur proot. ~3 MB lejupielāde.</string>
+    <string name="settings_sandbox_install">Instalēt</string>
+    <string name="settings_sandbox_install_packages">Instalēt pamata pakotnes</string>
+    <string name="settings_sandbox_open_terminal">Atvērt termināli</string>
+    <string name="settings_sandbox_uninstall">Atinstalēt</string>
+    <string name="settings_sandbox_cancel">Atcelt</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminālis</string>
+    <string name="terminal_help_text">Ievadiet komandu zemāk, lai sāktu.</string>
+    <string name="terminal_input_placeholder">ievadiet komandu…</string>
+    <string name="terminal_run_content_description">Palaist</string>
 </resources>

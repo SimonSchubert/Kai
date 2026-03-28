@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Régler une alarme</string>
     <string name="tool_set_alarm_description">Régler une alarme ou un minuteur sur l&#39;appareil</string>
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>
-    <string name="tool_execute_shell_command_description">Exécuter une commande shell sur l'appareil</string>
+    <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
     <string name="settings_memories">Souvenirs</string>
     <string name="settings_memories_description">Souvenirs stockés par l'IA lors des conversations. Ils sont inclus dans chaque message pour fournir du contexte.</string>
     <string name="settings_memories_delete">Supprimer le souvenir</string>
@@ -205,4 +205,16 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_skills_delete">Supprimer le skill</string>
     <string name="snackbar_skill_deleted">Skill supprimé</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Bac à sable Linux</string>
+    <string name="settings_sandbox_description">Distribution Linux légère avec un gestionnaire de paquets et des utilitaires standard. Fonctionne en toute sécurité dans l\'application via proot. ~3 Mo de téléchargement.</string>
+    <string name="settings_sandbox_install">Installer</string>
+    <string name="settings_sandbox_install_packages">Installer les paquets de base</string>
+    <string name="settings_sandbox_open_terminal">Ouvrir le terminal</string>
+    <string name="settings_sandbox_uninstall">Désinstaller</string>
+    <string name="settings_sandbox_cancel">Annuler</string>
+    <string name="settings_sandbox_disk_usage">%1$d Mo</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Saisissez une commande ci-dessous pour commencer.</string>
+    <string name="terminal_input_placeholder">saisir une commande…</string>
+    <string name="terminal_run_content_description">Exécuter</string>
 </resources>

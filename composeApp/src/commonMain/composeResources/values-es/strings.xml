@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
     <string name="tool_execute_shell_command_name">Ejecutar comando</string>
-    <string name="tool_execute_shell_command_description">Ejecutar un comando de shell en el dispositivo</string>
+    <string name="tool_execute_shell_command_description">Ejecutar un comando shell en el sandbox de Linux</string>
     <string name="settings_memories">Memorias</string>
     <string name="settings_memories_description">Memorias almacenadas por la IA durante las conversaciones. Se incluyen en cada mensaje para proporcionar contexto.</string>
     <string name="settings_memories_delete">Eliminar memoria</string>
@@ -205,4 +205,16 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_skills_delete">Eliminar skill</string>
     <string name="snackbar_skill_deleted">Skill eliminado</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox de Linux</string>
+    <string name="settings_sandbox_description">Distribución Linux ligera con gestor de paquetes y utilidades estándar. Se ejecuta de forma segura dentro de la app mediante proot. ~3 MB de descarga.</string>
+    <string name="settings_sandbox_install">Instalar</string>
+    <string name="settings_sandbox_install_packages">Instalar paquetes básicos</string>
+    <string name="settings_sandbox_open_terminal">Abrir terminal</string>
+    <string name="settings_sandbox_uninstall">Desinstalar</string>
+    <string name="settings_sandbox_cancel">Cancelar</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Escribe un comando abajo para empezar.</string>
+    <string name="terminal_input_placeholder">introducir comando…</string>
+    <string name="terminal_run_content_description">Ejecutar</string>
 </resources>

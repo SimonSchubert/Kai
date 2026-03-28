@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Setează alarma</string>
     <string name="tool_set_alarm_description">Setează o alarmă sau un cronometru pe dispozitiv</string>
     <string name="tool_execute_shell_command_name">Execută comandă</string>
-    <string name="tool_execute_shell_command_description">Execută o comandă shell pe dispozitiv</string>
+    <string name="tool_execute_shell_command_description">Executarea unei comenzi shell în sandbox-ul Linux</string>
     <string name="settings_memories">Amintiri</string>
     <string name="settings_memories_description">Amintiri salvate de IA în timpul conversațiilor. Acestea sunt incluse în fiecare mesaj pentru a oferi context.</string>
     <string name="settings_memories_delete">Șterge amintire</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Șterge skill</string>
     <string name="snackbar_skill_deleted">Skill șters</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox Linux</string>
+    <string name="settings_sandbox_description">Distribuție Linux ușoară cu manager de pachete și utilitare standard. Rulează în siguranță în aplicație prin proot. ~3 MB descărcare.</string>
+    <string name="settings_sandbox_install">Instalare</string>
+    <string name="settings_sandbox_install_packages">Instalare pachete de bază</string>
+    <string name="settings_sandbox_open_terminal">Deschide terminalul</string>
+    <string name="settings_sandbox_uninstall">Dezinstalare</string>
+    <string name="settings_sandbox_cancel">Anulare</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Tastați o comandă mai jos pentru a începe.</string>
+    <string name="terminal_input_placeholder">introduceți comanda…</string>
+    <string name="terminal_run_content_description">Rulare</string>
 </resources>

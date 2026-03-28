@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Установить будильник</string>
     <string name="tool_set_alarm_description">Установить будильник или таймер обратного отсчёта на устройстве</string>
     <string name="tool_execute_shell_command_name">Выполнить команду</string>
-    <string name="tool_execute_shell_command_description">Выполнить команду оболочки на устройстве</string>
+    <string name="tool_execute_shell_command_description">Выполнить команду оболочки в песочнице Linux</string>
     <string name="settings_memories">Воспоминания</string>
     <string name="settings_memories_description">Воспоминания, сохранённые ИИ во время разговоров. Они включаются в каждое сообщение для обеспечения контекста.</string>
     <string name="settings_memories_delete">Удалить воспоминание</string>
@@ -205,4 +205,16 @@
     <string name="settings_skills_delete">Удалить skill</string>
     <string name="snackbar_skill_deleted">Skill удалён</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Песочница Linux</string>
+    <string name="settings_sandbox_description">Лёгкий дистрибутив Linux с менеджером пакетов и стандартными утилитами. Безопасно работает внутри приложения через proot. Загрузка ~3 МБ.</string>
+    <string name="settings_sandbox_install">Установить</string>
+    <string name="settings_sandbox_install_packages">Установить базовые пакеты</string>
+    <string name="settings_sandbox_open_terminal">Открыть терминал</string>
+    <string name="settings_sandbox_uninstall">Удалить</string>
+    <string name="settings_sandbox_cancel">Отмена</string>
+    <string name="settings_sandbox_disk_usage">%1$d МБ</string>
+    <string name="terminal_title">Терминал</string>
+    <string name="terminal_help_text">Введите команду ниже, чтобы начать.</string>
+    <string name="terminal_input_placeholder">введите команду…</string>
+    <string name="terminal_run_content_description">Выполнить</string>
 </resources>

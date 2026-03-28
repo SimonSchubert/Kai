@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Aseta h\u00e4lytys</string>
     <string name="tool_set_alarm_description">Aseta h\u00e4lytys tai ajastin laitteelle</string>
     <string name="tool_execute_shell_command_name">Suorita komento</string>
-    <string name="tool_execute_shell_command_description">Suorita komentotulkin komento laitteella</string>
+    <string name="tool_execute_shell_command_description">Suorita komentorivikomento Linux-hiekkalaatikossa</string>
     <string name="settings_memories">Muistot</string>
     <string name="settings_memories_description">Tekoälyn keskustelujen aikana tallentamat muistot. Ne sisällytetään jokaiseen viestiin kontekstin tarjoamiseksi.</string>
     <string name="settings_memories_delete">Poista muisto</string>
@@ -205,4 +205,16 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_skills_delete">Poista skill</string>
     <string name="snackbar_skill_deleted">Skill poistettu</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-hiekkalaatikko</string>
+    <string name="settings_sandbox_description">Kevyt Linux-jakelu paketinhallinnalla ja vakiotyökaluilla. Toimii turvallisesti sovelluksessa prootin kautta. ~3 Mt lataus.</string>
+    <string name="settings_sandbox_install">Asenna</string>
+    <string name="settings_sandbox_install_packages">Asenna peruspaketit</string>
+    <string name="settings_sandbox_open_terminal">Avaa terminaali</string>
+    <string name="settings_sandbox_uninstall">Poista asennus</string>
+    <string name="settings_sandbox_cancel">Peruuta</string>
+    <string name="settings_sandbox_disk_usage">%1$d Mt</string>
+    <string name="terminal_title">Terminaali</string>
+    <string name="terminal_help_text">Kirjoita komento alle aloittaaksesi.</string>
+    <string name="terminal_input_placeholder">syötä komento…</string>
+    <string name="terminal_run_content_description">Suorita</string>
 </resources>

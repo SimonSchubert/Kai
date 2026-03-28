@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">알람 설정</string>
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
     <string name="tool_execute_shell_command_name">셸 명령 실행</string>
-    <string name="tool_execute_shell_command_description">기기에서 셸 명령 실행</string>
+    <string name="tool_execute_shell_command_description">Linux 샌드박스에서 셸 명령어를 실행</string>
     <string name="settings_memories">기억들</string>
     <string name="settings_memories_description">대화 중 AI가 저장한 기억들입니다. 컨텍스트를 제공하기 위해 모든 메시지에 포함됩니다.</string>
     <string name="settings_memories_delete">기억 삭제</string>
@@ -205,4 +205,16 @@
     <string name="settings_skills_delete">스킬 삭제</string>
     <string name="snackbar_skill_deleted">스킬이 삭제되었습니다</string>
     <string name="settings_import_section_skills">스킬</string>
+    <string name="settings_sandbox_title">Linux 샌드박스</string>
+    <string name="settings_sandbox_description">패키지 관리자와 표준 유틸리티를 갖춘 경량 Linux 배포판. proot를 통해 앱 내에서 안전하게 실행됩니다. 약 3 MB 다운로드.</string>
+    <string name="settings_sandbox_install">설치</string>
+    <string name="settings_sandbox_install_packages">기본 패키지 설치</string>
+    <string name="settings_sandbox_open_terminal">터미널 열기</string>
+    <string name="settings_sandbox_uninstall">제거</string>
+    <string name="settings_sandbox_cancel">취소</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">터미널</string>
+    <string name="terminal_help_text">아래에 명령어를 입력하여 시작하세요.</string>
+    <string name="terminal_input_placeholder">명령어 입력…</string>
+    <string name="terminal_run_content_description">실행</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Imposta sveglia</string>
     <string name="tool_set_alarm_description">Imposta una sveglia o un timer sul dispositivo</string>
     <string name="tool_execute_shell_command_name">Esegui comando</string>
-    <string name="tool_execute_shell_command_description">Esegui un comando shell sul dispositivo</string>
+    <string name="tool_execute_shell_command_description">Eseguire un comando shell nella sandbox Linux</string>
     <string name="settings_memories">Ricordi</string>
     <string name="settings_memories_description">Ricordi salvati dall'IA durante le conversazioni. Questi vengono inclusi in ogni messaggio per fornire contesto.</string>
     <string name="settings_memories_delete">Elimina ricordo</string>
@@ -205,4 +205,16 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_skills_delete">Elimina skill</string>
     <string name="snackbar_skill_deleted">Skill eliminato</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox Linux</string>
+    <string name="settings_sandbox_description">Distribuzione Linux leggera con gestore di pacchetti e utilità standard. Funziona in modo sicuro nell\'app tramite proot. ~3 MB di download.</string>
+    <string name="settings_sandbox_install">Installa</string>
+    <string name="settings_sandbox_install_packages">Installa pacchetti di base</string>
+    <string name="settings_sandbox_open_terminal">Apri terminale</string>
+    <string name="settings_sandbox_uninstall">Disinstalla</string>
+    <string name="settings_sandbox_cancel">Annulla</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminale</string>
+    <string name="terminal_help_text">Digita un comando qui sotto per iniziare.</string>
+    <string name="terminal_input_placeholder">inserisci comando…</string>
+    <string name="terminal_run_content_description">Esegui</string>
 </resources>

@@ -1470,6 +1470,12 @@ class RemoteDataRepository(
         appSettings.setDaemonEnabled(enabled)
     }
 
+    override fun isSandboxEnabled(): Boolean = appSettings.isSandboxEnabled()
+
+    override fun setSandboxEnabled(enabled: Boolean) {
+        appSettings.setSandboxEnabled(enabled)
+    }
+
     override fun getHeartbeatConfig(): HeartbeatConfig = heartbeatManager.getConfig()
 
     override fun setHeartbeatEnabled(enabled: Boolean) {

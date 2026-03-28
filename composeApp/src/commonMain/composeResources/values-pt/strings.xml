@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Definir alarme</string>
     <string name="tool_set_alarm_description">Definir um alarme ou temporizador no dispositivo</string>
     <string name="tool_execute_shell_command_name">Executar comando</string>
-    <string name="tool_execute_shell_command_description">Executar um comando shell no dispositivo</string>
+    <string name="tool_execute_shell_command_description">Executar um comando shell no sandbox Linux</string>
     <string name="settings_memories">Memórias</string>
     <string name="settings_memories_description">Memórias armazenadas pela IA durante as conversas. Estas são incluídas em cada mensagem para fornecer contexto.</string>
     <string name="settings_memories_delete">Excluir memória</string>
@@ -205,4 +205,16 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_skills_delete">Excluir skill</string>
     <string name="snackbar_skill_deleted">Skill excluído</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox Linux</string>
+    <string name="settings_sandbox_description">Distribuição Linux leve com gerenciador de pacotes e utilitários padrão. Executa de forma segura dentro do app via proot. ~3 MB de download.</string>
+    <string name="settings_sandbox_install">Instalar</string>
+    <string name="settings_sandbox_install_packages">Instalar pacotes básicos</string>
+    <string name="settings_sandbox_open_terminal">Abrir terminal</string>
+    <string name="settings_sandbox_uninstall">Desinstalar</string>
+    <string name="settings_sandbox_cancel">Cancelar</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Digite um comando abaixo para começar.</string>
+    <string name="terminal_input_placeholder">inserir comando…</string>
+    <string name="terminal_run_content_description">Executar</string>
 </resources>

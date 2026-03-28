@@ -1,48 +1,35 @@
 package com.inspiredandroid.kai.tools
 
-import android.content.Context
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
+import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
+import com.inspiredandroid.kai.sandbox.SandboxState
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
 import org.koin.java.KoinJavaComponent.inject
-import java.io.File
-import java.util.concurrent.TimeUnit
 
-private const val MAX_OUTPUT_LENGTH = 5_000
-private const val DEFAULT_TIMEOUT_SECONDS = 30L
-private const val MAX_TIMEOUT_SECONDS = 60L
-
-private val blockedPatterns = listOf(
-    Regex("""rm\s+-[^\s]*r[^\s]*\s+/\s*$"""), // rm -rf /
-    Regex("""rm\s+-[^\s]*r[^\s]*\s+/\*"""), // rm -rf /*
-    Regex("""rm\s+-[^\s]*r[^\s]*\s+~\s*$"""), // rm -rf ~
-    Regex("""rm\s+-[^\s]*r[^\s]*\s+~/\*"""), // rm -rf ~/*
-    Regex("""mkfs\."""), // mkfs.ext4, mkfs.ntfs, etc.
-    Regex("""dd\s+.*if=/dev/(zero|urandom|random)"""), // dd overwrite disk
-    Regex(""">\s*/dev/[sh]d[a-z]"""), // > /dev/sda
-    Regex(""":\(\)\s*\{.*\|.*&\s*\}\s*;?\s*:"""), // fork bomb
-    Regex("""chmod\s+-[^\s]*R[^\s]*\s+[0-7]+\s+/\s*$"""), // chmod -R 777 /
-    Regex("""shutdown"""), // shutdown
-    Regex("""reboot"""), // reboot
-    Regex("""halt\b"""), // halt
-    Regex("""poweroff"""), // poweroff
-    Regex("""init\s+[06]"""), // init 0 / init 6
-)
-
-private fun isBlocked(command: String): Boolean = blockedPatterns.any { it.containsMatchIn(command) }
+private const val TOOL_DESCRIPTION = """Execute a shell command in an Alpine Linux sandbox and return stdout, stderr, and exit code. The environment is a full Alpine Linux system running via proot with:
+- Shell: /bin/sh (busybox), bash available if installed
+- Package manager: apk (e.g. "apk add <package>")
+- Default working directory: /root
+- Network access available (curl, wget)
+- Persistent home directory at /root across commands
+Install packages with: apk add <package>
+Common packages: python3, py3-pip, nodejs, git, curl, wget, jq, bash, gcc, make"""
 
 object ShellCommandTool : Tool {
+    private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
+
     override val schema = ToolSchema(
         name = "execute_shell_command",
-        description = "Execute a shell command on the Android device and return stdout, stderr, and exit code. Always call this tool to run commands - do not assume failure. Examples of working commands: ls, cat, echo, pwd, whoami, date, uname, df, ps, id, env, find, grep, wc, sort, head, tail, mkdir, rm, cp, mv, touch, chmod, ping, curl, wget.",
+        description = TOOL_DESCRIPTION,
         parameters = mapOf(
             "command" to ParameterSchema("string", "The shell command to execute", true),
             "timeout" to ParameterSchema("integer", "Timeout in seconds (default 30, max 60)", false),
-            "working_dir" to ParameterSchema("string", "Working directory for the command", false),
+            "working_dir" to ParameterSchema("string", "Working directory for the command (default: /root)", false),
         ),
     )
 
@@ -50,63 +37,22 @@ object ShellCommandTool : Tool {
         val command = args["command"] as? String
             ?: return mapOf("success" to false, "error" to "Command is required")
 
-        if (isBlocked(command)) {
-            return mapOf("success" to false, "error" to "Command is blocked for safety reasons")
+        if (sandboxManager.state.value !is SandboxState.Ready) {
+            return mapOf("success" to false, "error" to "Linux sandbox is not installed. Set it up in Settings > Tools.")
         }
 
-        val timeoutSeconds = ((args["timeout"] as? Number)?.toLong() ?: DEFAULT_TIMEOUT_SECONDS)
-            .coerceIn(1, MAX_TIMEOUT_SECONDS)
+        val timeoutSeconds = ((args["timeout"] as? Number)?.toLong() ?: 30L)
+            .coerceIn(1, 60L)
+        val workingDir = args["working_dir"] as? String ?: "/root"
 
-        val context: Context by inject(Context::class.java)
-        val workingDir = (args["working_dir"] as? String)?.let { File(it) }
-        val effectiveDir = when {
-            workingDir != null && workingDir.isDirectory -> workingDir
-            else -> context.filesDir
-        }
-
-        return try {
-            val process = Runtime.getRuntime().exec(
-                arrayOf("sh", "-c", command),
-                null,
-                effectiveDir,
-            )
-
-            val completed = process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
-
-            if (!completed) {
-                process.destroyForcibly()
-                return mapOf(
-                    "success" to false,
-                    "stdout" to process.inputStream.bufferedReader().readText().take(MAX_OUTPUT_LENGTH),
-                    "stderr" to process.errorStream.bufferedReader().readText().take(MAX_OUTPUT_LENGTH),
-                    "exit_code" to -1,
-                    "timed_out" to true,
-                )
-            }
-
-            val stdout = process.inputStream.bufferedReader().readText().take(MAX_OUTPUT_LENGTH)
-            val stderr = process.errorStream.bufferedReader().readText().take(MAX_OUTPUT_LENGTH)
-            val exitCode = process.exitValue()
-
-            mapOf(
-                "success" to (exitCode == 0),
-                "stdout" to stdout,
-                "stderr" to stderr,
-                "exit_code" to exitCode,
-                "timed_out" to false,
-            )
-        } catch (e: Exception) {
-            mapOf(
-                "success" to false,
-                "error" to (e.message ?: "Failed to execute command"),
-            )
-        }
+        val executor = sandboxManager.createProotExecutor()
+        return executor.execute(command, timeoutSeconds, workingDir)
     }
 
     val toolInfo = ToolInfo(
         id = "execute_shell_command",
         name = "Execute Shell Command",
-        description = "Execute a shell command on the device",
+        description = "Execute a shell command in the Linux sandbox",
         nameRes = Res.string.tool_execute_shell_command_name,
         descriptionRes = Res.string.tool_execute_shell_command_description,
         isEnabled = false,

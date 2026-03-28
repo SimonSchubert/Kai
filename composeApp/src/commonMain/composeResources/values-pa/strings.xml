@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ 'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
-    <string name="tool_execute_shell_command_description">ਡਿਵਾਈਸ ਤੇ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
+    <string name="tool_execute_shell_command_description">Linux ਸੈਂਡਬਾਕਸ ਵਿੱਚ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="settings_memories">ਯਾਦਾਂ</string>
     <string name="settings_memories_description">AI ਦੁਆਰਾ ਗੱਲਬਾਤ ਦੌਰਾਨ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ। ਇਹ ਸੰਦਰਭ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਹਰ ਸੁਨੇਹੇ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
     <string name="settings_memories_delete">ਯਾਦ ਮਿਟਾਓ</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill ਮਿਟਾਓ</string>
     <string name="snackbar_skill_deleted">Skill ਮਿਟਾਈ ਗਈ</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux ਸੈਂਡਬਾਕਸ</string>
+    <string name="settings_sandbox_description">ਪੈਕੇਜ ਮੈਨੇਜਰ ਅਤੇ ਮਿਆਰੀ ਟੂਲਾਂ ਵਾਲੀ ਹਲਕੀ Linux ਡਿਸਟ੍ਰੀਬਿਊਸ਼ਨ। proot ਰਾਹੀਂ ਐਪ ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਚੱਲਦੀ ਹੈ। ~3 MB ਡਾਊਨਲੋਡ।</string>
+    <string name="settings_sandbox_install">ਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="settings_sandbox_install_packages">ਮੁੱਢਲੇ ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="settings_sandbox_open_terminal">ਟਰਮੀਨਲ ਖੋਲ੍ਹੋ</string>
+    <string name="settings_sandbox_uninstall">ਅਣਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="settings_sandbox_cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">ਟਰਮੀਨਲ</string>
+    <string name="terminal_help_text">ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਹੇਠਾਂ ਇੱਕ ਕਮਾਂਡ ਟਾਈਪ ਕਰੋ।</string>
+    <string name="terminal_input_placeholder">ਕਮਾਂਡ ਦਰਜ ਕਰੋ…</string>
+    <string name="terminal_run_content_description">ਚਲਾਓ</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Seadista äratus</string>
     <string name="tool_set_alarm_description">Seadista äratus või taimer seadmes</string>
     <string name="tool_execute_shell_command_name">Käivita käsk</string>
-    <string name="tool_execute_shell_command_description">Käivita shell-käsk seadmes</string>
+    <string name="tool_execute_shell_command_description">Käivita shellikäsk Linuxi liivakastis</string>
     <string name="settings_memories">Mälestused</string>
     <string name="settings_memories_description">Mälestused, mille AI on vestluste ajal salvestanud. Need lisatakse igasse sõnumisse konteksti pakkumiseks.</string>
     <string name="settings_memories_delete">Kustuta mälestus</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Kustuta skill</string>
     <string name="snackbar_skill_deleted">Skill kustutatud</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linuxi liivakast</string>
+    <string name="settings_sandbox_description">Kerge Linuxi distributsioon paketihalduri ja standardsete tööriistadega. Töötab turvaliselt rakenduses proot kaudu. ~3 MB allalaadimine.</string>
+    <string name="settings_sandbox_install">Paigalda</string>
+    <string name="settings_sandbox_install_packages">Paigalda põhipaketid</string>
+    <string name="settings_sandbox_open_terminal">Ava terminal</string>
+    <string name="settings_sandbox_uninstall">Eemalda</string>
+    <string name="settings_sandbox_cancel">Tühista</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Sisestage allpool käsk alustamiseks.</string>
+    <string name="terminal_input_placeholder">sisestage käsk…</string>
+    <string name="terminal_run_content_description">Käivita</string>
 </resources>

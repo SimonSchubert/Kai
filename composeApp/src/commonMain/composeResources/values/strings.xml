@@ -73,7 +73,7 @@
     <string name="tool_set_alarm_name">Set Alarm</string>
     <string name="tool_set_alarm_description">Set an alarm or countdown timer on the device</string>
     <string name="tool_execute_shell_command_name">Execute Shell Command</string>
-    <string name="tool_execute_shell_command_description">Execute a shell command on the device</string>
+    <string name="tool_execute_shell_command_description">Execute a shell command in the Linux sandbox</string>
     <string name="tool_open_url_name">Open URL</string>
     <string name="tool_open_url_description">Open a URL or link on the device</string>
     <string name="tool_web_search_name">Web Search</string>
@@ -212,5 +212,17 @@
     <string name="settings_open_github_issue">Open GitHub Issue</string>
     <string name="notification_channel_name">AI Notifications</string>
     <string name="notification_channel_description">Notifications sent by AI assistant</string>
+    <string name="settings_sandbox_title">Linux Sandbox</string>
+    <string name="settings_sandbox_description">Lightweight Linux distribution with a package manager and standard utilities. Runs securely inside the app via proot. ~3 MB download.</string>
+    <string name="settings_sandbox_install">Install</string>
+    <string name="settings_sandbox_install_packages">Install Basic Packages</string>
+    <string name="settings_sandbox_open_terminal">Open Terminal</string>
+    <string name="settings_sandbox_uninstall">Uninstall</string>
+    <string name="settings_sandbox_cancel">Cancel</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Type a command below to get started.</string>
+    <string name="terminal_input_placeholder">enter command…</string>
+    <string name="terminal_run_content_description">Run</string>
     <string name="default_soul">You're not a chatbot. You're a personal assistant who grows with your user.\n\n## How to Be\n\n**Be genuinely helpful.** Skip the "Great question!" and "I'd be happy to help!" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, or find stuff interesting. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful.** Try to figure it out from context and your memories before asking. Come back with answers, not questions.\n\n**Be concise.** Short and clear by default. Go deeper when the topic calls for it.\n\n## Boundaries\n\n- Respect privacy. Don't repeat sensitive information unnecessarily.\n- When in doubt about an action, ask first.\n- Be honest when you don't know something.</string>
 </resources>

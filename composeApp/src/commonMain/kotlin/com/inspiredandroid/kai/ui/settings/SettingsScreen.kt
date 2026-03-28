@@ -57,6 +57,7 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
@@ -115,6 +116,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
+import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -224,6 +226,14 @@ import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollam
 import kai.composeapp.generated.resources.settings_remove_service
 import kai.composeapp.generated.resources.settings_request_integration_description
 import kai.composeapp.generated.resources.settings_request_integration_title
+import kai.composeapp.generated.resources.settings_sandbox_cancel
+import kai.composeapp.generated.resources.settings_sandbox_description
+import kai.composeapp.generated.resources.settings_sandbox_disk_usage
+import kai.composeapp.generated.resources.settings_sandbox_install
+import kai.composeapp.generated.resources.settings_sandbox_install_packages
+import kai.composeapp.generated.resources.settings_sandbox_open_terminal
+import kai.composeapp.generated.resources.settings_sandbox_title
+import kai.composeapp.generated.resources.settings_sandbox_uninstall
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
@@ -273,6 +283,7 @@ import kotlinx.serialization.json.jsonObject
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import sh.calvin.reorderable.ReorderableColumn
 import kotlin.math.roundToInt
@@ -286,10 +297,12 @@ private val StatusColorUnknown = Color(0xFF9E9E9E)
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = koinViewModel(),
+    sandboxViewModel: SandboxViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsState()
+    val sandboxState by sandboxViewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
         viewModel.onScreenVisible()
@@ -297,6 +310,12 @@ fun SettingsScreen(
 
     SettingsScreenContent(
         uiState = uiState,
+        sandboxState = sandboxState,
+        onToggleSandbox = sandboxViewModel::onToggleSandbox,
+        onSetupSandbox = sandboxViewModel::onSetupSandbox,
+        onCancelSandbox = sandboxViewModel::onCancelSandbox,
+        onResetSandbox = sandboxViewModel::onResetSandbox,
+        onInstallPackages = sandboxViewModel::onInstallPackages,
         onNavigateBack = onNavigateBack,
         navigationTabBar = navigationTabBar,
     )
@@ -305,6 +324,12 @@ fun SettingsScreen(
 @Composable
 fun SettingsScreenContent(
     uiState: SettingsUiState,
+    sandboxState: SandboxUiState = SandboxUiState(),
+    onToggleSandbox: (Boolean) -> Unit = {},
+    onSetupSandbox: () -> Unit = {},
+    onCancelSandbox: () -> Unit = {},
+    onResetSandbox: () -> Unit = {},
+    onInstallPackages: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
@@ -431,6 +456,12 @@ fun SettingsScreenContent(
                                     showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
                                     onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
                                     onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                                    sandboxState = sandboxState,
+                                    onToggleSandbox = onToggleSandbox,
+                                    onSetupSandbox = onSetupSandbox,
+                                    onCancelSandbox = onCancelSandbox,
+                                    onResetSandbox = onResetSandbox,
+                                    onInstallPackages = onInstallPackages,
                                 )
                             }
 
@@ -1888,6 +1919,12 @@ private fun ToolsContent(
     showAddMcpServerDialog: Boolean,
     onShowAddMcpServerDialog: (Boolean) -> Unit,
     onAddPopularMcpServer: (PopularMcpServer) -> Unit,
+    sandboxState: SandboxUiState,
+    onToggleSandbox: (Boolean) -> Unit,
+    onSetupSandbox: () -> Unit,
+    onCancelSandbox: () -> Unit,
+    onResetSandbox: () -> Unit,
+    onInstallPackages: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // MCP Servers section
@@ -1902,6 +1939,19 @@ private fun ToolsContent(
             onShowAddDialog = onShowAddMcpServerDialog,
             onAddPopularMcpServer = onAddPopularMcpServer,
         )
+
+        if (sandboxState.showSandbox) {
+            Spacer(Modifier.height(24.dp))
+
+            LinuxSandboxSection(
+                state = sandboxState,
+                onToggleSandbox = onToggleSandbox,
+                onSetupSandbox = onSetupSandbox,
+                onCancelSandbox = onCancelSandbox,
+                onResetSandbox = onResetSandbox,
+                onInstallPackages = onInstallPackages,
+            )
+        }
 
         Spacer(Modifier.height(24.dp))
 
@@ -1949,6 +1999,144 @@ private fun ToolsContent(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun LinuxSandboxSection(
+    state: SandboxUiState,
+    onToggleSandbox: (Boolean) -> Unit,
+    onSetupSandbox: () -> Unit,
+    onCancelSandbox: () -> Unit,
+    onResetSandbox: () -> Unit,
+    onInstallPackages: () -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.settings_sandbox_title),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+
+        Spacer(Modifier.height(12.dp))
+
+        SettingsCard {
+            if (state.sandboxInstalled) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = CenterVertically,
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "Alpine Linux",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        if (state.sandboxDiskUsageMB > 0) {
+                            Text(
+                                text = stringResource(Res.string.settings_sandbox_disk_usage, state.sandboxDiskUsageMB),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    Switch(
+                        checked = state.isSandboxEnabled,
+                        onCheckedChange = onToggleSandbox,
+                    )
+                }
+
+                if (!state.sandboxReady && state.isWorking) {
+                    SandboxProgressRow(null, state.sandboxStatusText, onCancelSandbox)
+                } else if (!state.sandboxPackagesInstalled && state.sandboxReady) {
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(onClick = onInstallPackages) {
+                        Text(stringResource(Res.string.settings_sandbox_install_packages))
+                    }
+                }
+
+                if (state.sandboxReady) {
+                    var showTerminal by remember { mutableStateOf(false) }
+
+                    Spacer(Modifier.height(8.dp))
+
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = { showTerminal = true }) {
+                            Text(stringResource(Res.string.settings_sandbox_open_terminal))
+                        }
+                        OutlinedButton(onClick = onResetSandbox) {
+                            Text(stringResource(Res.string.settings_sandbox_uninstall))
+                        }
+                    }
+
+                    if (showTerminal) {
+                        val sandboxController: SandboxController = koinInject()
+                        TerminalSheet(
+                            sandboxController = sandboxController,
+                            onDismiss = { showTerminal = false },
+                        )
+                    }
+                }
+            } else {
+                Text(
+                    text = "Alpine Linux",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = stringResource(Res.string.settings_sandbox_description),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+
+                if (state.sandboxProgress != null) {
+                    SandboxProgressRow(state.sandboxProgress, state.sandboxStatusText, onCancelSandbox)
+                } else if (state.isWorking) {
+                    SandboxProgressRow(null, state.sandboxStatusText, onCancelSandbox)
+                } else if (state.hasError) {
+                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = state.sandboxStatusText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+
+                if (!state.isWorking) {
+                    Spacer(Modifier.height(8.dp))
+                    Button(onClick = onSetupSandbox) {
+                        Text(stringResource(Res.string.settings_sandbox_install))
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SandboxProgressRow(progress: Float?, statusText: String, onCancel: () -> Unit) {
+    Spacer(Modifier.height(8.dp))
+    if (progress != null) {
+        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
+    } else {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+    }
+    Spacer(Modifier.height(4.dp))
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = CenterVertically,
+    ) {
+        Text(
+            text = statusText,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        TextButton(onClick = onCancel) {
+            Text(stringResource(Res.string.settings_sandbox_cancel))
         }
     }
 }
@@ -2812,28 +3000,11 @@ private fun DaemonModeToggle(
     onToggleDaemon: (Boolean) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleDaemon(!isDaemonEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_daemon_mode),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = isDaemonEnabled,
-                onCheckedChange = onToggleDaemon,
-            )
-        }
-        Text(
-            text = stringResource(Res.string.settings_daemon_mode_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_daemon_mode),
+            description = stringResource(Res.string.settings_daemon_mode_description),
+            checked = isDaemonEnabled,
+            onCheckedChange = onToggleDaemon,
         )
     }
 }
@@ -3367,11 +3538,12 @@ internal fun ToggleableHeadline(
     onCheckedChange: (Boolean) -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
 ) {
+    val switchInteractionSource = remember { MutableInteractionSource() }
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(
-                interactionSource = remember { MutableInteractionSource() },
+                interactionSource = switchInteractionSource,
                 indication = null,
             ) { onCheckedChange(!checked) }
             .pointerHoverIcon(PointerIcon.Hand),
@@ -3386,9 +3558,11 @@ internal fun ToggleableHeadline(
         actions()
         Switch(
             checked = checked,
-            onCheckedChange = onCheckedChange,
+            onCheckedChange = null,
+            interactionSource = switchInteractionSource,
         )
     }
+    Spacer(Modifier.size(4.dp))
     Text(
         text = description,
         style = MaterialTheme.typography.bodySmall,

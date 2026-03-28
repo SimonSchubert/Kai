@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">એલાર્મ સેટ કરો</string>
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
     <string name="tool_execute_shell_command_name">શેલ કમાન્ડ ચલાવો</string>
-    <string name="tool_execute_shell_command_description">ઉપકરણ પર શેલ કમાન્ડ ચલાવો</string>
+    <string name="tool_execute_shell_command_description">Linux સેન્ડબોક્સમાં શેલ કમાન્ડ ચલાવો</string>
     <string name="settings_memories">યાદો</string>
     <string name="settings_memories_description">AI દ્વારા વાર્તાલાપ દરમ્યાન સ્ટોર કરેલ યાદો. સંદર્ભ પ્રદાન કરવા માટે આ દરેક સંદેશમાં સામેલ છે.</string>
     <string name="settings_memories_delete">યાદ ભૂંસો</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill કાઢી નાખો</string>
     <string name="snackbar_skill_deleted">Skill કાઢી નાખવામાં આવી</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux સેન્ડબોક્સ</string>
+    <string name="settings_sandbox_description">પેકેજ મેનેજર અને સ્ટાન્ડર્ડ યુટિલિટીઝ સાથે હલકું Linux વિતરણ. proot દ્વારા એપમાં સુરક્ષિત રીતે ચાલે છે. ~3 MB ડાઉનલોડ.</string>
+    <string name="settings_sandbox_install">ઇન્સ્ટોલ કરો</string>
+    <string name="settings_sandbox_install_packages">બેઝિક પેકેજ ઇન્સ્ટોલ કરો</string>
+    <string name="settings_sandbox_open_terminal">ટર્મિનલ ખોલો</string>
+    <string name="settings_sandbox_uninstall">અનઇન્સ્ટોલ કરો</string>
+    <string name="settings_sandbox_cancel">રદ કરો</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">ટર્મિનલ</string>
+    <string name="terminal_help_text">શરૂ કરવા માટે નીચે કમાન્ડ ટાઈપ કરો.</string>
+    <string name="terminal_input_placeholder">કમાન્ડ દાખલ કરો…</string>
+    <string name="terminal_run_content_description">ચલાવો</string>
 </resources>

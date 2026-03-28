@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Ustaw alarm</string>
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
     <string name="tool_execute_shell_command_name">Wykonaj polecenie</string>
-    <string name="tool_execute_shell_command_description">Wykonaj polecenie powłoki na urządzeniu</string>
+    <string name="tool_execute_shell_command_description">Wykonaj polecenie powłoki w piaskownicy Linux</string>
     <string name="settings_memories">Wspomnienia</string>
     <string name="settings_memories_description">Wspomnienia zapisane przez AI podczas rozmów. Są one dołączane do każdej wiadomości w celu zapewnienia kontekstu.</string>
     <string name="settings_memories_delete">Usuń wspomnienie</string>
@@ -205,4 +205,16 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_skills_delete">Usuń skill</string>
     <string name="snackbar_skill_deleted">Skill usunięty</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Piaskownica Linux</string>
+    <string name="settings_sandbox_description">Lekka dystrybucja Linuksa z menedżerem pakietów i standardowymi narzędziami. Działa bezpiecznie w aplikacji przez proot. Pobieranie ~3 MB.</string>
+    <string name="settings_sandbox_install">Zainstaluj</string>
+    <string name="settings_sandbox_install_packages">Zainstaluj podstawowe pakiety</string>
+    <string name="settings_sandbox_open_terminal">Otwórz terminal</string>
+    <string name="settings_sandbox_uninstall">Odinstaluj</string>
+    <string name="settings_sandbox_cancel">Anuluj</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Wpisz polecenie poniżej, aby rozpocząć.</string>
+    <string name="terminal_input_placeholder">wpisz polecenie…</string>
+    <string name="terminal_run_content_description">Uruchom</string>
 </resources>

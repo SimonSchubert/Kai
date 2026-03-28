@@ -80,6 +80,10 @@ interface DataRepository {
     fun isDaemonEnabled(): Boolean
     fun setDaemonEnabled(enabled: Boolean)
 
+    // Linux Sandbox
+    fun isSandboxEnabled(): Boolean
+    fun setSandboxEnabled(enabled: Boolean)
+
     // Heartbeat
     fun getHeartbeatConfig(): HeartbeatConfig
     fun setHeartbeatEnabled(enabled: Boolean)

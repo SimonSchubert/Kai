@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
     <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>
-    <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية على الجهاز</string>
+    <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية في صندوق رمل Linux</string>
     <string name="settings_memories">الذكريات</string>
     <string name="settings_memories_description">الذكريات التي يخزنها الذكاء الاصطناعي أثناء المحادثات. يتم تضمينها في كل رسالة لتوفير السياق.</string>
     <string name="settings_memories_delete">حذف ذاكرة</string>
@@ -205,4 +205,16 @@
     <string name="settings_skills_delete">حذف المهارة</string>
     <string name="snackbar_skill_deleted">تم حذف المهارة</string>
     <string name="settings_import_section_skills">المهارات</string>
+    <string name="settings_sandbox_title">صندوق رمل Linux</string>
+    <string name="settings_sandbox_description">توزيعة Linux خفيفة مع مدير حزم وأدوات قياسية. تعمل بأمان داخل التطبيق عبر proot. حجم التحميل ~3 ميجابايت.</string>
+    <string name="settings_sandbox_install">تثبيت</string>
+    <string name="settings_sandbox_install_packages">تثبيت الحزم الأساسية</string>
+    <string name="settings_sandbox_open_terminal">فتح الطرفية</string>
+    <string name="settings_sandbox_uninstall">إزالة التثبيت</string>
+    <string name="settings_sandbox_cancel">إلغاء</string>
+    <string name="settings_sandbox_disk_usage">%1$d ميجابايت</string>
+    <string name="terminal_title">الطرفية</string>
+    <string name="terminal_help_text">اكتب أمرًا أدناه للبدء.</string>
+    <string name="terminal_input_placeholder">أدخل أمرًا…</string>
+    <string name="terminal_run_content_description">تشغيل</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
     <string name="tool_execute_shell_command_name">Kabuk komutu çalıştır</string>
-    <string name="tool_execute_shell_command_description">Cihazda bir kabuk komutu çalıştır</string>
+    <string name="tool_execute_shell_command_description">Linux korumalı alanında kabuk komutu çalıştır</string>
     <string name="settings_memories">Anılar</string>
     <string name="settings_memories_description">Konuşmalar sırasında AI tarafından kaydedilen anılar. Bağlam sağlamak için her mesaja dahil edilir.</string>
     <string name="settings_memories_delete">Anıyı sil</string>
@@ -205,4 +205,16 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_skills_delete">Skill sil</string>
     <string name="snackbar_skill_deleted">Skill silindi</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux Korumalı Alan</string>
+    <string name="settings_sandbox_description">Paket yöneticisi ve standart araçlarla hafif Linux dağıtımı. Uygulama içinde proot ile güvenle çalışır. ~3 MB indirme.</string>
+    <string name="settings_sandbox_install">Kur</string>
+    <string name="settings_sandbox_install_packages">Temel paketleri kur</string>
+    <string name="settings_sandbox_open_terminal">Terminali aç</string>
+    <string name="settings_sandbox_uninstall">Kaldır</string>
+    <string name="settings_sandbox_cancel">İptal</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Başlamak için aşağıya bir komut yazın.</string>
+    <string name="terminal_input_placeholder">komut girin…</string>
+    <string name="terminal_run_content_description">Çalıştır</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai
 
 import android.app.Application
+import com.inspiredandroid.kai.sandbox.sandboxModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ class KaiApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@KaiApplication)
-            modules(appModule)
+            modules(appModule, sandboxModule)
         }
 
         // Defer daemon auto-start off the main thread

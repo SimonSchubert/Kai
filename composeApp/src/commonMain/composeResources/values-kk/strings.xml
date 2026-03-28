@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Оятқыш орнату</string>
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
     <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
-    <string name="tool_execute_shell_command_description">Құрылғыда shell пәрменін орындау</string>
+    <string name="tool_execute_shell_command_description">Linux құмсалғышта shell пәрменін орындау</string>
     <string name="settings_memories">Жадтар</string>
     <string name="settings_memories_description">AI сұхбаттар барысында сақтаған жадтар. Контекст беру үшін әр хабарламаға қосылады.</string>
     <string name="settings_memories_delete">Жадты жою</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill жою</string>
     <string name="snackbar_skill_deleted">Skill жойылды</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux құмсалғыш</string>
+    <string name="settings_sandbox_description">Пакет менеджері және стандартты утилиталары бар жеңіл Linux дистрибутиві. proot арқылы қолданба ішінде қауіпсіз жұмыс істейді. ~3 МБ жүктеу.</string>
+    <string name="settings_sandbox_install">Орнату</string>
+    <string name="settings_sandbox_install_packages">Негізгі пакеттерді орнату</string>
+    <string name="settings_sandbox_open_terminal">Терминалды ашу</string>
+    <string name="settings_sandbox_uninstall">Жою</string>
+    <string name="settings_sandbox_cancel">Бас тарту</string>
+    <string name="settings_sandbox_disk_usage">%1$d МБ</string>
+    <string name="terminal_title">Терминал</string>
+    <string name="terminal_help_text">Бастау үшін төменге пәрмен теріңіз.</string>
+    <string name="terminal_input_placeholder">пәрмен енгізіңіз…</string>
+    <string name="terminal_run_content_description">Орындау</string>
 </resources>

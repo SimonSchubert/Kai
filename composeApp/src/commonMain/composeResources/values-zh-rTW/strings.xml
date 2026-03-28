@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">設定鬧鐘</string>
     <string name="tool_set_alarm_description">在裝置上設定鬧鐘或倒數計時器</string>
     <string name="tool_execute_shell_command_name">執行命令</string>
-    <string name="tool_execute_shell_command_description">在裝置上執行 Shell 命令</string>
+    <string name="tool_execute_shell_command_description">在 Linux 沙盒中執行 Shell 指令</string>
     <string name="settings_memories">記憶</string>
     <string name="settings_memories_description">AI 在對話期間儲存的記憶。這些記憶包含在每則訊息中以提供上下文。</string>
     <string name="settings_memories_delete">刪除記憶</string>
@@ -205,4 +205,16 @@
     <string name="settings_skills_delete">刪除技能</string>
     <string name="snackbar_skill_deleted">技能已刪除</string>
     <string name="settings_import_section_skills">技能</string>
+    <string name="settings_sandbox_title">Linux 沙盒</string>
+    <string name="settings_sandbox_description">輕量級 Linux 發行版，配備套件管理器和標準工具。透過 proot 在應用程式內安全執行。下載大小約 3 MB。</string>
+    <string name="settings_sandbox_install">安裝</string>
+    <string name="settings_sandbox_install_packages">安裝基本套件</string>
+    <string name="settings_sandbox_open_terminal">開啟終端機</string>
+    <string name="settings_sandbox_uninstall">解除安裝</string>
+    <string name="settings_sandbox_cancel">取消</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">終端機</string>
+    <string name="terminal_help_text">在下方輸入指令以開始使用。</string>
+    <string name="terminal_input_placeholder">輸入指令…</string>
+    <string name="terminal_run_content_description">執行</string>
 </resources>

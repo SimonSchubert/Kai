@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Sett alarm</string>
     <string name="tool_set_alarm_description">Sett en alarm eller nedtellingstimer på enheten</string>
     <string name="tool_execute_shell_command_name">Kjør kommando</string>
-    <string name="tool_execute_shell_command_description">Kjør en shell-kommando på enheten</string>
+    <string name="tool_execute_shell_command_description">Kjør en shell-kommando i Linux-sandkassen</string>
     <string name="settings_memories">Minner</string>
     <string name="settings_memories_description">Minner lagret av AI under samtaler. Disse inkluderes i alle meldinger for å gi kontekst.</string>
     <string name="settings_memories_delete">Slett minne</string>
@@ -205,4 +205,16 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_skills_delete">Slett skill</string>
     <string name="snackbar_skill_deleted">Skill slettet</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-sandkasse</string>
+    <string name="settings_sandbox_description">Lettvekts Linux-distribusjon med pakkebehandler og standardverktøy. Kjører sikkert i appen via proot. ~3 MB nedlasting.</string>
+    <string name="settings_sandbox_install">Installer</string>
+    <string name="settings_sandbox_install_packages">Installer grunnleggende pakker</string>
+    <string name="settings_sandbox_open_terminal">Åpne terminal</string>
+    <string name="settings_sandbox_uninstall">Avinstaller</string>
+    <string name="settings_sandbox_cancel">Avbryt</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Skriv en kommando nedenfor for å komme i gang.</string>
+    <string name="terminal_input_placeholder">skriv inn kommando…</string>
+    <string name="terminal_run_content_description">Kjør</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Nustatyti žadintuvą</string>
     <string name="tool_set_alarm_description">Nustatyti žadintuvą arba atgalinį laikmatį įrenginyje</string>
     <string name="tool_execute_shell_command_name">Vykdyti komandą</string>
-    <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą įrenginyje</string>
+    <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą „Linux" smėlio dėžėje</string>
     <string name="settings_memories">Prisiminimai</string>
     <string name="settings_memories_description">AI pokalbių metu išsaugoti prisiminimai. Jie įtraukiami į kiekvieną žinutę kontekstui teikti.</string>
     <string name="settings_memories_delete">Ištrinti prisiminimą</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Ištrinti skill</string>
     <string name="snackbar_skill_deleted">Skill ištrintas</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">„Linux" smėlio dėžė</string>
+    <string name="settings_sandbox_description">Lengvas „Linux" platinimas su paketų tvarkykle ir standartiniais įrankiais. Saugiai veikia programoje per proot. ~3 MB atsisiuntimas.</string>
+    <string name="settings_sandbox_install">Įdiegti</string>
+    <string name="settings_sandbox_install_packages">Įdiegti pagrindinius paketus</string>
+    <string name="settings_sandbox_open_terminal">Atidaryti terminalą</string>
+    <string name="settings_sandbox_uninstall">Pašalinti</string>
+    <string name="settings_sandbox_cancel">Atšaukti</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminalas</string>
+    <string name="terminal_help_text">Įveskite komandą žemiau, kad pradėtumėte.</string>
+    <string name="terminal_input_placeholder">įveskite komandą…</string>
+    <string name="terminal_run_content_description">Vykdyti</string>
 </resources>

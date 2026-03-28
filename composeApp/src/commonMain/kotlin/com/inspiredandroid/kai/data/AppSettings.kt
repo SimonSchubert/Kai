@@ -422,6 +422,13 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean(KEY_DAEMON_ENABLED, enabled)
     }
 
+    // Linux Sandbox
+    fun isSandboxEnabled(): Boolean = settings.getBoolean(KEY_SANDBOX_ENABLED, true)
+
+    fun setSandboxEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SANDBOX_ENABLED, enabled)
+    }
+
     fun getScheduledTasksJson(): String = settings.getString(KEY_SCHEDULED_TASKS, "[]")
 
     fun setScheduledTasksJson(json: String) {
@@ -1034,6 +1041,8 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SKILLS_ENABLED = "skills_enabled"
         const val KEY_AGENT_SKILLS = "agent_skills"
         const val KEY_SKILLS_MIGRATION_V1 = "skills_migration_v1"
+
+        const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
 
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +

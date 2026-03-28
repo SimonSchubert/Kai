@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
     <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>
-    <string name="tool_execute_shell_command_description">اجرای یک فرمان شل در دستگاه</string>
+    <string name="tool_execute_shell_command_description">اجرای دستور شل در جعبه شنی لینوکس</string>
     <string name="settings_memories">خاطرات</string>
     <string name="settings_memories_description">خاطراتی که هوش مصنوعی در طول مکالمات ذخیره کرده است. اینها برای ارائه زمینه در هر پیام گنجانده می‌شوند.</string>
     <string name="settings_memories_delete">حذف خاطره</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">حذف مهارت</string>
     <string name="snackbar_skill_deleted">مهارت حذف شد</string>
     <string name="settings_import_section_skills">مهارت‌ها</string>
+    <string name="settings_sandbox_title">جعبه شنی لینوکس</string>
+    <string name="settings_sandbox_description">توزیع سبک لینوکس با مدیر بسته و ابزارهای استاندارد. به‌صورت امن در برنامه از طریق proot اجرا می‌شود. حدود ۳ مگابایت دانلود.</string>
+    <string name="settings_sandbox_install">نصب</string>
+    <string name="settings_sandbox_install_packages">نصب بسته‌های پایه</string>
+    <string name="settings_sandbox_open_terminal">باز کردن ترمینال</string>
+    <string name="settings_sandbox_uninstall">حذف</string>
+    <string name="settings_sandbox_cancel">لغو</string>
+    <string name="settings_sandbox_disk_usage">%1$d مگابایت</string>
+    <string name="terminal_title">ترمینال</string>
+    <string name="terminal_help_text">برای شروع، دستوری در زیر تایپ کنید.</string>
+    <string name="terminal_input_placeholder">دستور وارد کنید…</string>
+    <string name="terminal_run_content_description">اجرا</string>
 </resources>

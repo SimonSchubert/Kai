@@ -343,6 +343,11 @@ class FakeDataRepository : DataRepository {
         daemonEnabled = enabled
     }
 
+    override fun isSandboxEnabled(): Boolean = true
+
+    override fun setSandboxEnabled(enabled: Boolean) {
+    }
+
     override fun getHeartbeatConfig(): HeartbeatConfig = HeartbeatConfig()
 
     override fun setHeartbeatEnabled(enabled: Boolean) {

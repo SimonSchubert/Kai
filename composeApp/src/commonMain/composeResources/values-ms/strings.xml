@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Tetapkan Penggera</string>
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
     <string name="tool_execute_shell_command_name">Jalankan arahan</string>
-    <string name="tool_execute_shell_command_description">Jalankan arahan shell pada peranti</string>
+    <string name="tool_execute_shell_command_description">Jalankan arahan shell dalam kotak pasir Linux</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan oleh AI semasa perbualan. Ini disertakan dalam setiap mesej untuk menyediakan konteks.</string>
     <string name="settings_memories_delete">Padam kenangan</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Padam skill</string>
     <string name="snackbar_skill_deleted">Skill dipadam</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Kotak pasir Linux</string>
+    <string name="settings_sandbox_description">Pengedaran Linux ringan dengan pengurus pakej dan utiliti standard. Berjalan dengan selamat dalam aplikasi melalui proot. Muat turun ~3 MB.</string>
+    <string name="settings_sandbox_install">Pasang</string>
+    <string name="settings_sandbox_install_packages">Pasang pakej asas</string>
+    <string name="settings_sandbox_open_terminal">Buka terminal</string>
+    <string name="settings_sandbox_uninstall">Nyahpasang</string>
+    <string name="settings_sandbox_cancel">Batal</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Taip arahan di bawah untuk bermula.</string>
+    <string name="terminal_input_placeholder">masukkan arahan…</string>
+    <string name="terminal_run_content_description">Jalankan</string>
 </resources>

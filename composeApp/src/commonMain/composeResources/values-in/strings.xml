@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
     <string name="tool_execute_shell_command_name">Jalankan perintah</string>
-    <string name="tool_execute_shell_command_description">Jalankan perintah shell di perangkat</string>
+    <string name="tool_execute_shell_command_description">Jalankan perintah shell di sandbox Linux</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan AI selama percakapan. Ini disertakan di setiap pesan untuk memberikan konteks.</string>
     <string name="settings_memories_delete">Hapus kenangan</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Hapus skill</string>
     <string name="snackbar_skill_deleted">Skill dihapus</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sandbox Linux</string>
+    <string name="settings_sandbox_description">Distribusi Linux ringan dengan manajer paket dan utilitas standar. Berjalan aman di dalam aplikasi melalui proot. Unduhan ~3 MB.</string>
+    <string name="settings_sandbox_install">Pasang</string>
+    <string name="settings_sandbox_install_packages">Pasang paket dasar</string>
+    <string name="settings_sandbox_open_terminal">Buka terminal</string>
+    <string name="settings_sandbox_uninstall">Hapus</string>
+    <string name="settings_sandbox_cancel">Batal</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Ketik perintah di bawah untuk memulai.</string>
+    <string name="terminal_input_placeholder">masukkan perintah…</string>
+    <string name="terminal_run_content_description">Jalankan</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Nastavit bud\u00edk</string>
     <string name="tool_set_alarm_description">Nastavit bud\u00edk nebo odpo\u010d\u00edtavac\u00ed \u010dasova\u010d na za\u0159\u00edzen\u00ed</string>
     <string name="tool_execute_shell_command_name">Spustit příkaz</string>
-    <string name="tool_execute_shell_command_description">Spustit příkaz shellu na zařízení</string>
+    <string name="tool_execute_shell_command_description">Spustit příkaz shellu v linuxovém sandboxu</string>
     <string name="settings_memories">Vzpomínky</string>
     <string name="settings_memories_description">Vzpomínky uložené AI během konverzací. Jsou zahrnuty v každé zprávě pro poskytnutí kontextu.</string>
     <string name="settings_memories_delete">Smazat vzpomínku</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Smazat skill</string>
     <string name="snackbar_skill_deleted">Skill smazán</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linuxový sandbox</string>
+    <string name="settings_sandbox_description">Lehká distribuce Linuxu se správcem balíčků a standardními nástroji. Běží bezpečně v aplikaci přes proot. Stažení ~3 MB.</string>
+    <string name="settings_sandbox_install">Nainstalovat</string>
+    <string name="settings_sandbox_install_packages">Nainstalovat základní balíčky</string>
+    <string name="settings_sandbox_open_terminal">Otevřít terminál</string>
+    <string name="settings_sandbox_uninstall">Odinstalovat</string>
+    <string name="settings_sandbox_cancel">Zrušit</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminál</string>
+    <string name="terminal_help_text">Zadejte příkaz níže pro začátek.</string>
+    <string name="terminal_input_placeholder">zadejte příkaz…</string>
+    <string name="terminal_run_content_description">Spustit</string>
 </resources>

@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
     <string name="tool_execute_shell_command_name">షెల్ కమాండ్ అమలు చేయండి</string>
-    <string name="tool_execute_shell_command_description">పరికరంలో షెల్ కమాండ్ అమలు చేయండి</string>
+    <string name="tool_execute_shell_command_description">Linux శాండ్‌బాక్స్‌లో షెల్ ఆదేశాన్ని అమలు చేయండి</string>
     <string name="settings_memories">జ్ఞాపకాలు</string>
     <string name="settings_memories_description">సంభాషణల సమయంలో AI సేవ్ చేసిన జ్ఞాపకాలు. ఇవి సందర్భం అందించడానికి ప్రతి సందేశంలో చేర్చబడతాయి.</string>
     <string name="settings_memories_delete">జ్ఞాపకాన్ని తొలగించు</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill తొలగించు</string>
     <string name="snackbar_skill_deleted">Skill తొలగించబడింది</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux శాండ్‌బాక్స్</string>
+    <string name="settings_sandbox_description">ప్యాకేజ్ మేనేజర్ మరియు ప్రమాణ సాధనాలతో తేలికైన Linux పంపిణీ. proot ద్వారా యాప్‌లో సురక్షితంగా పనిచేస్తుంది. ~3 MB డౌన్‌లోడ్.</string>
+    <string name="settings_sandbox_install">ఇన్‌స్టాల్ చేయండి</string>
+    <string name="settings_sandbox_install_packages">ప్రాథమిక ప్యాకేజీలను ఇన్‌స్టాల్ చేయండి</string>
+    <string name="settings_sandbox_open_terminal">టెర్మినల్ తెరవండి</string>
+    <string name="settings_sandbox_uninstall">అన్‌ఇన్‌స్టాల్ చేయండి</string>
+    <string name="settings_sandbox_cancel">రద్దు</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">టెర్మినల్</string>
+    <string name="terminal_help_text">ప్రారంభించడానికి క్రింద ఒక ఆదేశాన్ని టైప్ చేయండి.</string>
+    <string name="terminal_input_placeholder">ఆదేశాన్ని నమోదు చేయండి…</string>
+    <string name="terminal_run_content_description">అమలు చేయండి</string>
 </resources>

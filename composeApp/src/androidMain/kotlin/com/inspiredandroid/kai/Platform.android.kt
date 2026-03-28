@@ -144,7 +144,6 @@ actual fun createLegacySettings(): Settings? {
 
 // Tool definitions for Android platform
 actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
-    ShellCommandTool.toolInfo,
     WebSearchTool.toolInfo,
     CommonTools.localTimeToolInfo,
     CommonTools.ipLocationToolInfo,
@@ -373,7 +372,7 @@ actual fun getAvailableTools(): List<Tool> {
             add(CommonTools.openUrlTool)
         }
 
-        if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
+        if (appSettings.isSandboxEnabled()) {
             add(ShellCommandTool)
         }
 

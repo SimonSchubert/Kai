@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Nastaviť budík</string>
     <string name="tool_set_alarm_description">Nastaviť budík alebo odpočítavací časovač na zariadení</string>
     <string name="tool_execute_shell_command_name">Spustiť príkaz</string>
-    <string name="tool_execute_shell_command_description">Spustiť príkaz shellu na zariadení</string>
+    <string name="tool_execute_shell_command_description">Spustiť príkaz shellu v linuxovom sandboxe</string>
     <string name="settings_memories">Spomienky</string>
     <string name="settings_memories_description">Spomienky uložené AI počas konverzácií. Sú zahrnuté v každej správe na poskytnutie kontextu.</string>
     <string name="settings_memories_delete">Odstrániť spomienku</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Zmazať skill</string>
     <string name="snackbar_skill_deleted">Skill zmazaný</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linuxový sandbox</string>
+    <string name="settings_sandbox_description">Ľahká distribúcia Linuxu so správcom balíkov a štandardnými nástrojmi. Beží bezpečne v aplikácii cez proot. Stiahnutie ~3 MB.</string>
+    <string name="settings_sandbox_install">Nainštalovať</string>
+    <string name="settings_sandbox_install_packages">Nainštalovať základné balíky</string>
+    <string name="settings_sandbox_open_terminal">Otvoriť terminál</string>
+    <string name="settings_sandbox_uninstall">Odinštalovať</string>
+    <string name="settings_sandbox_cancel">Zrušiť</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminál</string>
+    <string name="terminal_help_text">Zadajte príkaz nižšie pre začiatok.</string>
+    <string name="terminal_input_placeholder">zadajte príkaz…</string>
+    <string name="terminal_run_content_description">Spustiť</string>
 </resources>

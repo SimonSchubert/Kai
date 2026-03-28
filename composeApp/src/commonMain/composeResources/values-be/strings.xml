@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Усталяваць будзільнік</string>
     <string name="tool_set_alarm_description">Усталяваць будзільнік або таймер зваротнага адліку на прыладзе</string>
     <string name="tool_execute_shell_command_name">Выканаць каманду абалонкі</string>
-    <string name="tool_execute_shell_command_description">Выканаць каманду абалонкі на прыладзе</string>
+    <string name="tool_execute_shell_command_description">Выканаць каманду абалонкі ў пясочніцы Linux</string>
     <string name="settings_memories">Успаміны</string>
     <string name="settings_memories_description">Успаміны, захаваныя AI падчас размоў. Яны ўключаюцца ў кожнае паведамленне для забеспячэння кантэксту.</string>
     <string name="settings_memories_delete">Выдаліць памяць</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Выдаліць skill</string>
     <string name="snackbar_skill_deleted">Skill выдалены</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Пясочніца Linux</string>
+    <string name="settings_sandbox_description">Лёгкі дыстрыбутыў Linux з менеджарам пакетаў і стандартнымі ўтылітамі. Бяспечна працуе ўнутры праграмы праз proot. Спампоўка ~3 МБ.</string>
+    <string name="settings_sandbox_install">Усталяваць</string>
+    <string name="settings_sandbox_install_packages">Усталяваць базавыя пакеты</string>
+    <string name="settings_sandbox_open_terminal">Адкрыць тэрмінал</string>
+    <string name="settings_sandbox_uninstall">Выдаліць</string>
+    <string name="settings_sandbox_cancel">Скасаваць</string>
+    <string name="settings_sandbox_disk_usage">%1$d МБ</string>
+    <string name="terminal_title">Тэрмінал</string>
+    <string name="terminal_help_text">Увядзіце каманду ніжэй, каб пачаць.</string>
+    <string name="terminal_input_placeholder">увядзіце каманду…</string>
+    <string name="terminal_run_content_description">Выканаць</string>
 </resources>

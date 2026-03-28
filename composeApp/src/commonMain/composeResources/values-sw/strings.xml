@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
     <string name="tool_execute_shell_command_name">Tekeleza amri</string>
-    <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye kifaa</string>
+    <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye sanduku la mchanga la Linux</string>
     <string name="settings_memories">Kumbukumbu</string>
     <string name="settings_memories_description">Kumbukumbu zilizohifadhiwa na AI wakati wa mazungumzo. Hizi zimejumuishwa katika kila ujumbe kutoa muktadha.</string>
     <string name="settings_memories_delete">Futa kumbukumbu</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Futa skill</string>
     <string name="snackbar_skill_deleted">Skill imefutwa</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Sanduku la mchanga la Linux</string>
+    <string name="settings_sandbox_description">Usambazaji mwepesi wa Linux wenye kidhibiti cha vifurushi na zana za kawaida. Inafanya kazi kwa usalama ndani ya programu kupitia proot. Upakuaji wa ~3 MB.</string>
+    <string name="settings_sandbox_install">Sakinisha</string>
+    <string name="settings_sandbox_install_packages">Sakinisha vifurushi vya msingi</string>
+    <string name="settings_sandbox_open_terminal">Fungua terminal</string>
+    <string name="settings_sandbox_uninstall">Ondoa</string>
+    <string name="settings_sandbox_cancel">Ghairi</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Andika amri hapa chini ili kuanza.</string>
+    <string name="terminal_input_placeholder">ingiza amri…</string>
+    <string name="terminal_run_content_description">Endesha</string>
 </resources>

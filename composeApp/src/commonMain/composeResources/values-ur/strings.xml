@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
     <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>
-    <string name="tool_execute_shell_command_description">ڈیوائس پر شیل کمانڈ چلائیں</string>
+    <string name="tool_execute_shell_command_description">Linux سینڈباکس میں شیل کمانڈ چلائیں</string>
     <string name="settings_memories">یادیں</string>
     <string name="settings_memories_description">گفتگو کے دوران AI کی محفوظ کردہ یادیں۔ یہ سیاق و سباق فراہم کرنے کے لیے ہر پیغام میں شامل کی جاتی ہیں۔</string>
     <string name="settings_memories_delete">یاد حذف کریں</string>
@@ -204,4 +204,16 @@
     <string name="settings_skills_delete">Skill حذف کریں</string>
     <string name="snackbar_skill_deleted">Skill حذف ہو گئی</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux سینڈباکس</string>
+    <string name="settings_sandbox_description">پیکیج مینیجر اور معیاری ٹولز کے ساتھ ہلکی Linux تقسیم۔ proot کے ذریعے ایپ میں محفوظ طریقے سے چلتی ہے۔ ~3 MB ڈاؤن لوڈ۔</string>
+    <string name="settings_sandbox_install">انسٹال کریں</string>
+    <string name="settings_sandbox_install_packages">بنیادی پیکیجز انسٹال کریں</string>
+    <string name="settings_sandbox_open_terminal">ٹرمینل کھولیں</string>
+    <string name="settings_sandbox_uninstall">ان انسٹال کریں</string>
+    <string name="settings_sandbox_cancel">منسوخ</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">ٹرمینل</string>
+    <string name="terminal_help_text">شروع کرنے کے لیے نیچے کمانڈ ٹائپ کریں۔</string>
+    <string name="terminal_input_placeholder">کمانڈ درج کریں…</string>
+    <string name="terminal_run_content_description">چلائیں</string>
 </resources>

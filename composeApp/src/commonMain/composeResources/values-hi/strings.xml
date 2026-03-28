@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">अलार्म सेट करें</string>
     <string name="tool_set_alarm_description">डिवाइस पर अलार्म या काउंटडाउन टाइमर सेट करें</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चलाएँ</string>
-    <string name="tool_execute_shell_command_description">डिवाइस पर शेल कमांड चलाएँ</string>
+    <string name="tool_execute_shell_command_description">Linux सैंडबॉक्स में शेल कमांड चलाएं</string>
     <string name="settings_memories">यादें</string>
     <string name="settings_memories_description">AI द्वारा बातचीत के दौरान संग्रहीत यादें। ये संदर्भ प्रदान करने के लिए हर संदेश में शामिल की जाती हैं।</string>
     <string name="settings_memories_delete">याद हटाएं</string>
@@ -205,4 +205,16 @@
     <string name="settings_skills_delete">Skill हटाएं</string>
     <string name="snackbar_skill_deleted">Skill हटा दी गई</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux सैंडबॉक्स</string>
+    <string name="settings_sandbox_description">पैकेज मैनेजर और मानक उपयोगिताओं वाला हल्का Linux वितरण। proot के माध्यम से ऐप के अंदर सुरक्षित रूप से चलता है। ~3 MB डाउनलोड।</string>
+    <string name="settings_sandbox_install">इंस्टॉल करें</string>
+    <string name="settings_sandbox_install_packages">बेसिक पैकेज इंस्टॉल करें</string>
+    <string name="settings_sandbox_open_terminal">टर्मिनल खोलें</string>
+    <string name="settings_sandbox_uninstall">अनइंस्टॉल करें</string>
+    <string name="settings_sandbox_cancel">रद्द करें</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">टर्मिनल</string>
+    <string name="terminal_help_text">शुरू करने के लिए नीचे एक कमांड टाइप करें।</string>
+    <string name="terminal_input_placeholder">कमांड दर्ज करें…</string>
+    <string name="terminal_run_content_description">चलाएं</string>
 </resources>

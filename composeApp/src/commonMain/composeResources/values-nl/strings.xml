@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
     <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>
-    <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren op het apparaat</string>
+    <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren in de Linux-sandbox</string>
     <string name="settings_memories">Herinneringen</string>
     <string name="settings_memories_description">Herinneringen opgeslagen door de AI tijdens gesprekken. Deze worden in elk bericht opgenomen om context te bieden.</string>
     <string name="settings_memories_delete">Herinnering verwijderen</string>
@@ -205,4 +205,16 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_skills_delete">Skill verwijderen</string>
     <string name="snackbar_skill_deleted">Skill verwijderd</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-sandbox</string>
+    <string name="settings_sandbox_description">Lichtgewicht Linux-distributie met pakketbeheerder en standaard hulpprogramma\'s. Draait veilig in de app via proot. ~3 MB download.</string>
+    <string name="settings_sandbox_install">Installeren</string>
+    <string name="settings_sandbox_install_packages">Basispakketten installeren</string>
+    <string name="settings_sandbox_open_terminal">Terminal openen</string>
+    <string name="settings_sandbox_uninstall">Verwijderen</string>
+    <string name="settings_sandbox_cancel">Annuleren</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminal</string>
+    <string name="terminal_help_text">Typ hieronder een opdracht om te beginnen.</string>
+    <string name="terminal_input_placeholder">opdracht invoeren…</string>
+    <string name="terminal_run_content_description">Uitvoeren</string>
 </resources>

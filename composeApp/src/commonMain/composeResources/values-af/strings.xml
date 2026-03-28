@@ -55,7 +55,7 @@
     <string name="tool_set_alarm_name">Stel Alarm</string>
     <string name="tool_set_alarm_description">Stel 'n alarm of afteltydhouer op die toestel</string>
     <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
-    <string name="tool_execute_shell_command_description">Voer 'n skelopdrag op die toestel uit</string>
+    <string name="tool_execute_shell_command_description">Voer \'n dopopdrag uit in die Linux-sandbox</string>
     <string name="settings_memories">Geheuens</string>
     <string name="settings_memories_description">Geheuens wat deur die KI tydens gesprekke gestoor is. Hierdie word in elke boodskap ingesluit om konteks te verskaf.</string>
     <string name="settings_memories_delete">Verwyder geheue</string>
@@ -205,4 +205,16 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_skills_delete">Verwyder skill</string>
     <string name="snackbar_skill_deleted">Skill verwyder</string>
     <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_sandbox_title">Linux-sandbox</string>
+    <string name="settings_sandbox_description">Liggewig Linux-verspreiding met pakketbestuurder en standaard nutsprogramme. Loop veilig in die toep via proot. ~3 MB aflaai.</string>
+    <string name="settings_sandbox_install">Installeer</string>
+    <string name="settings_sandbox_install_packages">Installeer basispakkette</string>
+    <string name="settings_sandbox_open_terminal">Maak terminaal oop</string>
+    <string name="settings_sandbox_uninstall">Deïnstalleer</string>
+    <string name="settings_sandbox_cancel">Kanselleer</string>
+    <string name="settings_sandbox_disk_usage">%1$d MB</string>
+    <string name="terminal_title">Terminaal</string>
+    <string name="terminal_help_text">Tik \'n opdrag hieronder om te begin.</string>
+    <string name="terminal_input_placeholder">voer opdrag in…</string>
+    <string name="terminal_run_content_description">Voer uit</string>
 </resources>
