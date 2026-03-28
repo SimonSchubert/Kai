@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -850,13 +852,16 @@ private fun ConfiguredServiceCardContent(
     isDragging: Boolean = false,
     dragHandleModifier: Modifier? = null,
 ) {
-    Card(
-        onClick = onExpand,
-        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = if (isDragging) 4.dp else 0.dp),
+    Column(
+        modifier = Modifier
+            .clip(CardDefaults.shape)
+            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            .fillMaxWidth()
+            .clickable {
+                onExpand()
+            }
+            .pointerHoverIcon(PointerIcon.Hand),
+
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             // Header row
@@ -2420,28 +2425,11 @@ private fun MemoryList(
     onToggleMemory: (Boolean) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleMemory(!isMemoryEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_memories),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = isMemoryEnabled,
-                onCheckedChange = onToggleMemory,
-            )
-        }
-        Text(
-            text = stringResource(Res.string.settings_memories_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_memories),
+            description = stringResource(Res.string.settings_memories_description),
+            checked = isMemoryEnabled,
+            onCheckedChange = onToggleMemory,
         )
         Spacer(Modifier.height(12.dp))
 
@@ -2494,28 +2482,11 @@ private fun ScheduledTaskList(
     onToggleScheduling: (Boolean) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleScheduling(!isSchedulingEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_scheduled_tasks),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = isSchedulingEnabled,
-                onCheckedChange = onToggleScheduling,
-            )
-        }
-        Text(
-            text = stringResource(Res.string.settings_scheduled_tasks_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_scheduled_tasks),
+            description = stringResource(Res.string.settings_scheduled_tasks_description),
+            checked = isSchedulingEnabled,
+            onCheckedChange = onToggleScheduling,
         )
         Spacer(Modifier.height(12.dp))
 
@@ -2889,40 +2860,25 @@ private fun HeartbeatSection(
     var showResetDialog by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleHeartbeat(!isHeartbeatEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_heartbeat),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            if (heartbeatPrompt.isNotEmpty()) {
-                IconButton(
-                    onClick = { showResetDialog = true },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Replay,
-                        contentDescription = stringResource(Res.string.settings_soul_reset),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_heartbeat),
+            description = stringResource(Res.string.settings_heartbeat_description, heartbeatIntervalMinutes),
+            checked = isHeartbeatEnabled,
+            onCheckedChange = onToggleHeartbeat,
+            actions = {
+                if (heartbeatPrompt.isNotEmpty()) {
+                    IconButton(
+                        onClick = { showResetDialog = true },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Replay,
+                            contentDescription = stringResource(Res.string.settings_soul_reset),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
-            }
-            Switch(
-                checked = isHeartbeatEnabled,
-                onCheckedChange = onToggleHeartbeat,
-            )
-        }
-        Text(
-            text = stringResource(Res.string.settings_heartbeat_description, heartbeatIntervalMinutes),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            },
         )
 
         if (isHeartbeatEnabled) {
@@ -3172,28 +3128,11 @@ private fun EmailSection(
     onChangePollInterval: (Int) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggleEmail(!isEmailEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_email),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = isEmailEnabled,
-                onCheckedChange = onToggleEmail,
-            )
-        }
-        Text(
-            text = stringResource(Res.string.settings_email_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_email),
+            description = stringResource(Res.string.settings_email_description),
+            checked = isEmailEnabled,
+            onCheckedChange = onToggleEmail,
         )
 
         if (isEmailEnabled) {
@@ -3418,4 +3357,41 @@ private fun UiScaleSection(
             },
         )
     }
+}
+
+@Composable
+internal fun ToggleableHeadline(
+    title: String,
+    description: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    actions: @Composable RowScope.() -> Unit = {},
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+            ) { onCheckedChange(!checked) }
+            .pointerHoverIcon(PointerIcon.Hand),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.weight(1f),
+        )
+        actions()
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+        )
+    }
+    Text(
+        text = description,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
 }

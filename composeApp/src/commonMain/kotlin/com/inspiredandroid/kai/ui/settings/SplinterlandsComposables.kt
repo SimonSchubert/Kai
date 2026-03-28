@@ -89,28 +89,11 @@ internal fun SplinterlandsSection(
     onClearBattleLog: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onToggle(!isEnabled) }
-                .pointerHoverIcon(PointerIcon.Hand),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "Splinterlands",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = isEnabled,
-                onCheckedChange = onToggle,
-            )
-        }
-        Text(
-            text = "Splinterlands is a blockchain-based trading card game. This experimental feature auto-battles Wild Ranked matches using an LLM to pick teams. Battle outcome heavily depends on the chosen model and its response speed (must respond within 180 seconds). Falls back to a simple greedy picker if the LLM fails.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ToggleableHeadline(
+            title = "Splinterlands",
+            description = "Splinterlands is a blockchain-based trading card game. This experimental feature auto-battles Wild Ranked matches using an LLM to pick teams. Battle outcome heavily depends on the chosen model and its response speed (must respond within 180 seconds). Falls back to a simple greedy picker if the LLM fails.",
+            checked = isEnabled,
+            onCheckedChange = onToggle,
         )
 
         if (isEnabled) {
