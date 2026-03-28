@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
 import kai.composeapp.generated.resources.ic_service_cerebras
 import kai.composeapp.generated.resources.ic_service_deepseek
@@ -310,6 +311,19 @@ sealed class Service(
         apiKeyUrlDisplay = "platform.minimax.io",
     )
 
+    data object AiHubMix : Service(
+        id = "aihubmix",
+        displayName = "AIHubMix",
+        icon = Res.drawable.ic_service_aihubmix,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "aihubmix",
+        chatUrl = "https://aihubmix.com/v1/chat/completions",
+        modelsUrl = "https://aihubmix.com/v1/models",
+        apiKeyUrl = "https://aihubmix.com/token",
+        apiKeyUrlDisplay = "aihubmix.com/token",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -325,7 +339,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
