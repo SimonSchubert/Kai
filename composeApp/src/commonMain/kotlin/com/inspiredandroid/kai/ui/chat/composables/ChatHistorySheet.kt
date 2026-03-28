@@ -7,7 +7,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -27,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -34,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ConversationSummary
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.chat_history_delete_content_description
 import kai.composeapp.generated.resources.chat_history_empty
@@ -83,81 +88,88 @@ internal fun ChatHistorySheet(
                     modifier = Modifier.padding(vertical = 24.dp),
                 )
             } else {
-                LazyColumn {
-                    items(conversations, key = { it.id }) { conversation ->
-                        val isActive = conversation.id == currentConversationId
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .pointerHoverIcon(PointerIcon.Hand)
-                                .clickable {
-                                    actions.loadConversation(conversation.id)
-                                    onDismiss()
-                                }
-                                .padding(vertical = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                if (conversation.isHeartbeat) {
-                                    Row(
-                                        modifier = Modifier
-                                            .padding(bottom = 4.dp)
-                                            .background(
-                                                color = MaterialTheme.colorScheme.tertiaryContainer,
-                                                shape = RoundedCornerShape(4.dp),
+                val historyListState = rememberLazyListState()
+                Box {
+                    LazyColumn(state = historyListState) {
+                        items(conversations, key = { it.id }) { conversation ->
+                            val isActive = conversation.id == currentConversationId
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .pointerHoverIcon(PointerIcon.Hand)
+                                    .clickable {
+                                        actions.loadConversation(conversation.id)
+                                        onDismiss()
+                                    }
+                                    .padding(vertical = 12.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                            ) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    if (conversation.isHeartbeat) {
+                                        Row(
+                                            modifier = Modifier
+                                                .padding(bottom = 4.dp)
+                                                .background(
+                                                    color = MaterialTheme.colorScheme.tertiaryContainer,
+                                                    shape = RoundedCornerShape(4.dp),
+                                                )
+                                                .padding(horizontal = 6.dp, vertical = 2.dp),
+                                            verticalAlignment = Alignment.CenterVertically,
+                                        ) {
+                                            Icon(
+                                                imageVector = vectorResource(Res.drawable.ic_history),
+                                                contentDescription = null,
+                                                tint = MaterialTheme.colorScheme.onTertiaryContainer,
+                                                modifier = Modifier.size(12.dp),
                                             )
-                                            .padding(horizontal = 6.dp, vertical = 2.dp),
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        Icon(
-                                            imageVector = vectorResource(Res.drawable.ic_history),
-                                            contentDescription = null,
-                                            tint = MaterialTheme.colorScheme.onTertiaryContainer,
-                                            modifier = Modifier.size(12.dp),
-                                        )
-                                        Spacer(Modifier.width(4.dp))
+                                            Spacer(Modifier.width(4.dp))
+                                            Text(
+                                                text = stringResource(Res.string.chat_history_heartbeat_label),
+                                                style = MaterialTheme.typography.labelSmall,
+                                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                            )
+                                        }
+                                    }
+                                    if (conversation.title.isNotEmpty()) {
                                         Text(
-                                            text = stringResource(Res.string.chat_history_heartbeat_label),
-                                            style = MaterialTheme.typography.labelSmall,
-                                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                            text = conversation.title,
+                                            style = MaterialTheme.typography.bodyLarge,
+                                            color = if (isActive) {
+                                                MaterialTheme.colorScheme.primary
+                                            } else {
+                                                MaterialTheme.colorScheme.onBackground
+                                            },
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
                                         )
                                     }
-                                }
-                                if (conversation.title.isNotEmpty()) {
                                     Text(
-                                        text = conversation.title,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        color = if (isActive) {
-                                            MaterialTheme.colorScheme.primary
-                                        } else {
-                                            MaterialTheme.colorScheme.onBackground
-                                        },
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis,
+                                        text = formatDate(conversation.updatedAt),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
                                 }
-                                Text(
-                                    text = formatDate(conversation.updatedAt),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                            IconButton(
-                                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                                onClick = { actions.deleteConversation(conversation.id) },
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = stringResource(Res.string.chat_history_delete_content_description),
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
+                                IconButton(
+                                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                                    onClick = { actions.deleteConversation(conversation.id) },
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = stringResource(Res.string.chat_history_delete_content_description),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
                             }
                         }
+                        item {
+                            Spacer(Modifier.height(16.dp))
+                        }
                     }
-                    item {
-                        Spacer(Modifier.height(16.dp))
-                    }
+                    VerticalScrollbarForList(
+                        listState = historyListState,
+                        modifier = Modifier.align(CenterEnd).fillMaxHeight(),
+                    )
                 }
             }
         }

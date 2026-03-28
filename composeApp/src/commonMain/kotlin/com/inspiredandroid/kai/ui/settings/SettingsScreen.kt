@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -111,6 +112,8 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
@@ -383,69 +386,76 @@ fun SettingsScreenContent(
                 onSelectTab = filteredUiState.onSelectTab,
             )
 
-            Column(
-                Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
-                horizontalAlignment = CenterHorizontally,
-            ) {
-                Spacer(Modifier.height(16.dp))
-
-                val maxContentWidth = when (filteredUiState.currentTab) {
-                    SettingsTab.Tools -> 900.dp
-                    SettingsTab.General -> 900.dp
-                    SettingsTab.Integrations -> 900.dp
-                    else -> 500.dp
-                }
+            val settingsScrollState = rememberScrollState()
+            Box(Modifier.weight(1f).fillMaxWidth()) {
                 Column(
-                    Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                    Modifier.fillMaxWidth().verticalScroll(settingsScrollState),
                     horizontalAlignment = CenterHorizontally,
                 ) {
-                    when (filteredUiState.currentTab) {
-                        SettingsTab.General -> {
-                            GeneralContent(uiState = filteredUiState)
+                    Spacer(Modifier.height(16.dp))
+
+                    val maxContentWidth = when (filteredUiState.currentTab) {
+                        SettingsTab.Tools -> 900.dp
+                        SettingsTab.General -> 900.dp
+                        SettingsTab.Integrations -> 900.dp
+                        else -> 500.dp
+                    }
+                    Column(
+                        Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                        horizontalAlignment = CenterHorizontally,
+                    ) {
+                        when (filteredUiState.currentTab) {
+                            SettingsTab.General -> {
+                                GeneralContent(uiState = filteredUiState)
+                            }
+
+                            SettingsTab.Services -> {
+                                ServicesContent(uiState = filteredUiState)
+                            }
+
+                            SettingsTab.Integrations -> {
+                                IntegrationsContent()
+                            }
+
+                            SettingsTab.Tools -> {
+                                ToolsContent(
+                                    tools = filteredUiState.tools,
+                                    onToggleTool = filteredUiState.onToggleTool,
+                                    mcpServers = filteredUiState.mcpServers,
+                                    onAddMcpServer = filteredUiState.onAddMcpServer,
+                                    onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
+                                    onToggleMcpServer = filteredUiState.onToggleMcpServer,
+                                    onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
+                                    showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
+                                    onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
+                                    onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                                )
+                            }
+
+                            SettingsTab.Skills -> {
+                                SkillsContent(
+                                    skills = filteredUiState.skills,
+                                    onDeleteSkill = filteredUiState.onDeleteSkill,
+                                    isSkillsEnabled = filteredUiState.isSkillsEnabled,
+                                    onToggleSkills = filteredUiState.onToggleSkills,
+                                    onExecuteSkill = filteredUiState.onExecuteSkill,
+                                    executingSkillName = filteredUiState.executingSkillName,
+                                    skillExecutionResult = filteredUiState.skillExecutionResult,
+                                )
+                            }
                         }
 
-                        SettingsTab.Services -> {
-                            ServicesContent(uiState = filteredUiState)
-                        }
-
-                        SettingsTab.Integrations -> {
-                            IntegrationsContent()
-                        }
-
-                        SettingsTab.Tools -> {
-                            ToolsContent(
-                                tools = filteredUiState.tools,
-                                onToggleTool = filteredUiState.onToggleTool,
-                                mcpServers = filteredUiState.mcpServers,
-                                onAddMcpServer = filteredUiState.onAddMcpServer,
-                                onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
-                                onToggleMcpServer = filteredUiState.onToggleMcpServer,
-                                onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
-                                showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
-                                onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
-                                onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
-                            )
-                        }
-
-                        SettingsTab.Skills -> {
-                            SkillsContent(
-                                skills = filteredUiState.skills,
-                                onDeleteSkill = filteredUiState.onDeleteSkill,
-                                isSkillsEnabled = filteredUiState.isSkillsEnabled,
-                                onToggleSkills = filteredUiState.onToggleSkills,
-                                onExecuteSkill = filteredUiState.onExecuteSkill,
-                                executingSkillName = filteredUiState.executingSkillName,
-                                skillExecutionResult = filteredUiState.skillExecutionResult,
-                            )
-                        }
+                        Spacer(Modifier.height(16.dp))
                     }
 
-                    Spacer(Modifier.height(16.dp))
+                    Spacer(Modifier.weight(1f))
+
+                    BottomInfo()
                 }
-
-                Spacer(Modifier.weight(1f))
-
-                BottomInfo()
+                VerticalScrollbarForScroll(
+                    scrollState = settingsScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
             }
         }
         SnackbarHost(
@@ -786,36 +796,43 @@ private fun ServicesContent(uiState: SettingsUiState) {
             onDismissRequest = { showAddServiceSheet = false },
             sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         ) {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState()).padding(16.dp)) {
-                uiState.availableServicesToAdd.forEach { service ->
-                    Surface(
-                        onClick = {
-                            uiState.onAddService(service)
-                            showAddServiceSheet = false
-                        },
-                        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
-                        shape = RoundedCornerShape(8.dp),
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
+            val addServiceScrollState = rememberScrollState()
+            Box {
+                Column(modifier = Modifier.verticalScroll(addServiceScrollState).padding(16.dp)) {
+                    uiState.availableServicesToAdd.forEach { service ->
+                        Surface(
+                            onClick = {
+                                uiState.onAddService(service)
+                                showAddServiceSheet = false
+                            },
+                            modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand),
+                            shape = RoundedCornerShape(8.dp),
                         ) {
-                            Icon(
-                                imageVector = vectorResource(service.icon),
-                                contentDescription = null,
-                                modifier = Modifier.size(20.dp),
-                                tint = MaterialTheme.colorScheme.onBackground,
-                            )
-                            Spacer(Modifier.width(12.dp))
-                            Text(
-                                text = service.displayName,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onBackground,
-                            )
+                            Row(
+                                modifier = Modifier.padding(16.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Icon(
+                                    imageVector = vectorResource(service.icon),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp),
+                                    tint = MaterialTheme.colorScheme.onBackground,
+                                )
+                                Spacer(Modifier.width(12.dp))
+                                Text(
+                                    text = service.displayName,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onBackground,
+                                )
+                            }
                         }
                     }
+                    Spacer(Modifier.height(16.dp))
                 }
-                Spacer(Modifier.height(16.dp))
+                VerticalScrollbarForScroll(
+                    scrollState = addServiceScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
             }
         }
     }
@@ -1319,21 +1336,29 @@ private fun ModelSelection(
                         colors = outlineTextFieldColors(),
                     )
                 }
-                LazyVerticalGrid(
-                    GridCells.Adaptive(300.dp),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    items(filteredModels, key = { it.id }) { model ->
-                        ModelCard(
-                            model = model,
-                            onClick = {
-                                onClick(model.id)
-                                expanded = false
-                            },
-                        )
+                val gridState = rememberLazyGridState()
+                Box {
+                    LazyVerticalGrid(
+                        GridCells.Adaptive(300.dp),
+                        state = gridState,
+                        contentPadding = PaddingValues(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(filteredModels, key = { it.id }) { model ->
+                            ModelCard(
+                                model = model,
+                                onClick = {
+                                    onClick(model.id)
+                                    expanded = false
+                                },
+                            )
+                        }
                     }
+                    VerticalScrollbarForGrid(
+                        gridState = gridState,
+                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                    )
                 }
             }
         }
@@ -1738,71 +1763,78 @@ private fun ImportPreviewDialog(
             Text(stringResource(Res.string.settings_import_preview_title))
         },
         text = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                Row(
-                    verticalAlignment = CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { replace = !replace }
-                        .pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(Res.string.settings_import_replace_all),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                        if (replace) {
-                            Text(
-                                text = stringResource(Res.string.settings_import_replace_all_description),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                    Spacer(Modifier.width(8.dp))
-                    Switch(
-                        checked = replace,
-                        onCheckedChange = { replace = it },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    )
-                }
-                Spacer(Modifier.height(12.dp))
-                for ((section, count) in sortedEntries) {
+            val importScrollState = rememberScrollState()
+            Box {
+                Column(modifier = Modifier.verticalScroll(importScrollState)) {
                     Row(
                         verticalAlignment = CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {
-                                selectedSections = if (section in selectedSections) {
-                                    selectedSections - section
-                                } else {
-                                    selectedSections + section
-                                }
-                            }
-                            .pointerHoverIcon(PointerIcon.Hand)
-                            .padding(vertical = 4.dp),
+                            .clickable { replace = !replace }
+                            .pointerHoverIcon(PointerIcon.Hand),
                     ) {
-                        Checkbox(
-                            checked = section in selectedSections,
-                            onCheckedChange = { checked ->
-                                selectedSections = if (checked) selectedSections + section else selectedSections - section
-                            },
-                        )
-                        Spacer(Modifier.width(8.dp))
-                        Text(
-                            text = sectionDisplayName(section),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                        if (count != null) {
-                            Spacer(Modifier.width(4.dp))
+                        Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "($count)",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                text = stringResource(Res.string.settings_import_replace_all),
+                                style = MaterialTheme.typography.bodyMedium,
                             )
+                            if (replace) {
+                                Text(
+                                    text = stringResource(Res.string.settings_import_replace_all_description),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        }
+                        Spacer(Modifier.width(8.dp))
+                        Switch(
+                            checked = replace,
+                            onCheckedChange = { replace = it },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        )
+                    }
+                    Spacer(Modifier.height(12.dp))
+                    for ((section, count) in sortedEntries) {
+                        Row(
+                            verticalAlignment = CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    selectedSections = if (section in selectedSections) {
+                                        selectedSections - section
+                                    } else {
+                                        selectedSections + section
+                                    }
+                                }
+                                .pointerHoverIcon(PointerIcon.Hand)
+                                .padding(vertical = 4.dp),
+                        ) {
+                            Checkbox(
+                                checked = section in selectedSections,
+                                onCheckedChange = { checked ->
+                                    selectedSections = if (checked) selectedSections + section else selectedSections - section
+                                },
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                text = sectionDisplayName(section),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            if (count != null) {
+                                Spacer(Modifier.width(4.dp))
+                                Text(
+                                    text = "($count)",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
                         }
                     }
                 }
+                VerticalScrollbarForScroll(
+                    scrollState = importScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
             }
         },
         confirmButton = {
@@ -2125,103 +2157,110 @@ private fun AddMcpServerDialog(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     ) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_mcp_add_server),
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-            Spacer(Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = { Text(stringResource(Res.string.settings_mcp_server_name)) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Spacer(Modifier.height(8.dp))
-            OutlinedTextField(
-                value = url,
-                onValueChange = { url = it },
-                label = { Text(stringResource(Res.string.settings_mcp_server_url)) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-            Spacer(Modifier.height(8.dp))
-            OutlinedTextField(
-                value = authHeader,
-                onValueChange = { authHeader = it },
-                label = { Text(stringResource(Res.string.settings_mcp_auth_header)) },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-            )
-
-            Spacer(Modifier.height(8.dp))
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
+        val mcpScrollState = rememberScrollState()
+        Box {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(mcpScrollState)
+                    .padding(16.dp),
             ) {
-                TextButton(
-                    onClick = {
-                        val headers = if (authHeader.isNotBlank()) {
-                            mapOf("Authorization" to authHeader)
-                        } else {
-                            emptyMap()
-                        }
-                        onAdd(name, url, headers)
-                    },
-                    enabled = name.isNotBlank() && url.isNotBlank(),
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Text(stringResource(Res.string.settings_mcp_add))
-                }
-            }
-
-            if (popularMcpServers.isNotEmpty()) {
-                Spacer(Modifier.height(16.dp))
                 Text(
-                    text = stringResource(Res.string.settings_mcp_popular_servers),
-                    style = MaterialTheme.typography.titleSmall,
+                    text = stringResource(Res.string.settings_mcp_add_server),
+                    style = MaterialTheme.typography.headlineSmall,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
-                Spacer(Modifier.height(8.dp))
-                for (server in popularMcpServers) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(CardDefaults.shape)
-                            .clickable {
-                                onAddPopular(server)
-                            }
-                            .pointerHoverIcon(PointerIcon.Hand),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                        ),
-                    ) {
-                        Column(modifier = Modifier.padding(12.dp)) {
-                            Text(
-                                text = server.name,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurface,
-                            )
-                            Text(
-                                text = server.description,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(4.dp))
-                }
-            }
+                Spacer(Modifier.height(16.dp))
 
-            Spacer(Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text(stringResource(Res.string.settings_mcp_server_name)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = url,
+                    onValueChange = { url = it },
+                    label = { Text(stringResource(Res.string.settings_mcp_server_url)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = authHeader,
+                    onValueChange = { authHeader = it },
+                    label = { Text(stringResource(Res.string.settings_mcp_auth_header)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                ) {
+                    TextButton(
+                        onClick = {
+                            val headers = if (authHeader.isNotBlank()) {
+                                mapOf("Authorization" to authHeader)
+                            } else {
+                                emptyMap()
+                            }
+                            onAdd(name, url, headers)
+                        },
+                        enabled = name.isNotBlank() && url.isNotBlank(),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    ) {
+                        Text(stringResource(Res.string.settings_mcp_add))
+                    }
+                }
+
+                if (popularMcpServers.isNotEmpty()) {
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(Res.string.settings_mcp_popular_servers),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    for (server in popularMcpServers) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(CardDefaults.shape)
+                                .clickable {
+                                    onAddPopular(server)
+                                }
+                                .pointerHoverIcon(PointerIcon.Hand),
+                            colors = CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                            ),
+                        ) {
+                            Column(modifier = Modifier.padding(12.dp)) {
+                                Text(
+                                    text = server.name,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                )
+                                Text(
+                                    text = server.description,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(4.dp))
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+            }
+            VerticalScrollbarForScroll(
+                scrollState = mcpScrollState,
+                modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+            )
         }
     }
 }

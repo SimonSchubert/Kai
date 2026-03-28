@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -56,6 +57,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.splinterlands.BattleLogEntry
 import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
@@ -513,15 +515,22 @@ private fun SplinterlandsActivityDialog(
         onDismissRequest = onDismiss,
         title = { Text("Battle Activity") },
         text = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                for (line in entry.activity) {
-                    Text(
-                        text = line,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(vertical = 1.dp),
-                    )
+            val activityScrollState = rememberScrollState()
+            Box {
+                Column(modifier = Modifier.verticalScroll(activityScrollState)) {
+                    for (line in entry.activity) {
+                        Text(
+                            text = line,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(vertical = 1.dp),
+                        )
+                    }
                 }
+                VerticalScrollbarForScroll(
+                    scrollState = activityScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
             }
         },
         confirmButton = {
