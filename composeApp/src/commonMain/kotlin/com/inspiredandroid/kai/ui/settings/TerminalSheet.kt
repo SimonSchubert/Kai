@@ -50,7 +50,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.SandboxController
-import org.jetbrains.compose.resources.stringResource
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.terminal_help_text
 import kai.composeapp.generated.resources.terminal_input_placeholder
@@ -59,6 +58,7 @@ import kai.composeapp.generated.resources.terminal_title
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.stringResource
 
 private data class TerminalColors(
     val bg: Color,
