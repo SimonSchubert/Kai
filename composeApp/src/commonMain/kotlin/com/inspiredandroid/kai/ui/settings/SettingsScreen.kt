@@ -112,8 +112,6 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
-import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
@@ -133,6 +131,8 @@ import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.ExpandLess
 import com.inspiredandroid.kai.ui.icons.ExpandMore

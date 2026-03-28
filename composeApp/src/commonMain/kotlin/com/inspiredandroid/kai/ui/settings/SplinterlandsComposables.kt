@@ -57,12 +57,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.splinterlands.BattleLogEntry
 import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
 import com.inspiredandroid.kai.splinterlands.ModelStats
 import com.inspiredandroid.kai.splinterlands.computeModelStats
+import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
