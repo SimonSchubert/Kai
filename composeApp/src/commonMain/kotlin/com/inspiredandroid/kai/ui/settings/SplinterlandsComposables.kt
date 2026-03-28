@@ -21,9 +21,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material.icons.rounded.DragIndicator
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -64,6 +61,9 @@ import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
 import com.inspiredandroid.kai.splinterlands.ModelStats
 import com.inspiredandroid.kai.splinterlands.computeModelStats
+import com.inspiredandroid.kai.ui.icons.DragIndicator
+import com.inspiredandroid.kai.ui.icons.Visibility
+import com.inspiredandroid.kai.ui.icons.VisibilityOff
 import kai.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 import sh.calvin.reorderable.ReorderableColumn
