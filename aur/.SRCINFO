@@ -1,6 +1,6 @@
 pkgbase = kai-bin
 	pkgdesc = AI assistant powered by Ollama, Gemini, ChatGPT and more
-	pkgver = 1.11.1
+	pkgver = 1.11.2
 	pkgrel = 1
 	url = https://github.com/SimonSchubert/Kai
 	arch = x86_64
@@ -9,7 +9,7 @@ pkgbase = kai-bin
 	provides = kai
 	conflicts = kai
 	options = !strip
-	source = Kai-1.11.1-linux-x86_64.tar.gz::https://github.com/SimonSchubert/Kai/releases/download/v1.11.1/Kai-1.11.1-linux-x86_64.tar.gz
-	sha256sums = b8b24353af078f47d74aa1271f25376779ca5f662ce0d07c851478d1afeb3fc0
+	source = Kai-1.11.2-linux-x86_64.tar.gz::https://github.com/SimonSchubert/Kai/releases/download/v1.11.2/Kai-1.11.2-linux-x86_64.tar.gz
+	sha256sums = facd1a098c98e09b0be8db73711c8da93a8a849d0f79ccfc3667151bde5b94ed
 
 pkgname = kai-bin
