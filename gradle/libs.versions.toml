@@ -6,6 +6,7 @@ android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
 androidx-activityCompose = "1.13.0"
+slf4jNop = "2.0.17"
 spght-encryptedprefs = "1.1.1"
 androidx-lifecycle = "2.10.0"
 compose-multiplatform = "1.10.3"
@@ -20,7 +21,7 @@ kotlinx-coroutines = "1.10.2"
 kotlinx-datetime = "0.7.1"
 kotlinxCollectionsImmutable = "0.4.0"
 kotlinxSerializationJson = "1.10.0"
-ktor = "3.4.1"
+ktor = "3.4.2"
 material = "1.13.0"
 playReview = "2.0.2"
 multiplatformMarkdownRenderer = "0.39.2"
@@ -49,6 +50,7 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComp
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinCompose" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCompose" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4jNop" }
 spght-encryptedprefs = { module = "dev.spght:encryptedprefs-ktx", version.ref = "spght-encryptedprefs" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }

@@ -143,6 +143,7 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.bouncycastle.provider)
             implementation(libs.quickjs.kt)
+            implementation(libs.slf4j.nop)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
