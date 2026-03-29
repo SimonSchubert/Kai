@@ -525,8 +525,8 @@ private fun SettingsTabSelector(
     onSelectTab: (SettingsTab) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        modifier = Modifier.widthIn(max = 900.dp).fillMaxWidth().padding(vertical = 8.dp),
+        color = Color.Transparent,
     ) {
         Row(
             modifier = Modifier
