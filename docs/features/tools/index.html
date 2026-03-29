@@ -602,6 +602,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Platform-specific (Android)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-sandbox-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Sandbox (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1206,6 +1223,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Platform-specific (Android)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linux-sandbox-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linux Sandbox (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -1419,7 +1453,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-03-24</p>
+<p><strong>Last verified:</strong> 2026-03-28</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1535,6 +1569,17 @@
 </tr>
 </tbody>
 </table>
+<h4 id="linux-sandbox-android">Linux Sandbox (Android)</h4>
+<p>When the Linux Sandbox is set up and enabled, <code>execute_shell_command</code> routes commands through proot into an Alpine Linux rootfs instead of running them in Android's native shell. This provides:</p>
+<ul>
+<li>A full Linux userland with bash, coreutils, and standard utilities</li>
+<li>Package management via <code>apk</code> (Alpine's package manager)</li>
+<li>Optional Python installation (<code>python3</code>, <code>pip</code>)</li>
+<li>Network access (shares the host network stack)</li>
+</ul>
+<p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).</p>
+<p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under <code>linux-sandbox/</code>.</p>
+<p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.</p>
 <h3 id="platform-specific-desktop">Platform-specific (Desktop)</h3>
 <table>
 <thead>
@@ -1644,8 +1689,24 @@
 <td>Android-specific tool implementations</td>
 </tr>
 <tr>
+<td><code>composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt</code></td>
+<td>Sandbox lifecycle, setup, proot management</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../sandbox/ProotExecutor.kt</code></td>
+<td>Proot command building and execution</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt</code></td>
+<td>Alpine rootfs download and extraction</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../SandboxController.kt</code></td>
+<td>Cross-platform sandbox interface</td>
+</tr>
+<tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
-<td>ToolsContent, ToolItem composables</td>
+<td>ToolsContent, ToolItem, LinuxSandboxSection composables</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt</code></td>
