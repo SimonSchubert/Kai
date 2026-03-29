@@ -1,3 +1,9 @@
+## v1.12.1 — 2026-03-29
+
+### Improvements
+- Replace standard tabs with custom piles
+- Build proot from source
+
 ## v1.12.0 — 2026-03-29
 
 ### Features
