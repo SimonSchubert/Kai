@@ -188,25 +188,9 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_open_github_issue">Maak GitHub-kwessie oop</string>
     <string name="notification_channel_name">KI-kennisgewings</string>
     <string name="notification_channel_description">Kennisgewings gestuur deur KI-assistent</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skep Skill</string>
-    <string name="tool_skill_create_description">Skep of werk \'n herbruikbare JavaScript-skill by</string>
-    <string name="tool_skill_list_name">Lys Skills</string>
-    <string name="tool_skill_list_description">Lys alle gestoorde skills</string>
-    <string name="tool_skill_execute_name">Voer Skill Uit</string>
-    <string name="tool_skill_execute_description">Voer \'n gestoorde skill uit volgens naam</string>
-    <string name="tool_skill_delete_name">Verwyder Skill</string>
-    <string name="tool_skill_delete_description">Verwyder \'n gestoorde skill</string>
-    <string name="tool_skill_update_data_name">Werk Skill-data By</string>
-    <string name="tool_skill_update_data_description">Werk \'n skill se konfigurasiedata by</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills is herbruikbare JavaScript-skrifte wat deur die KI geskep is. Aktiveer dit om die KI toe te laat om pasgemaakte skrifte te bou en uit te voer.</string>
-    <string name="settings_skills_empty">Nog geen skills geskep nie. Vra die KI om \'n skill in die klets te skep.</string>
-    <string name="settings_skills_delete">Verwyder skill</string>
-    <string name="snackbar_skill_deleted">Skill verwyder</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux-sandbox</string>
-    <string name="settings_sandbox_description">Liggewig Linux-verspreiding met pakketbestuurder en standaard nutsprogramme. Loop veilig in die toep via proot. ~3 MB aflaai.</string>
+    <string name="settings_sandbox_description">Installeer 'n Linux-omgewing sodat die KI dopbevele, skrifte en gereedskap namens jou kan uitvoer. Dit werk veilig binne die toep. ~3 MB aflaai.</string>
     <string name="settings_sandbox_install">Installeer</string>
     <string name="settings_sandbox_install_packages">Installeer basispakkette</string>
     <string name="settings_sandbox_open_terminal">Maak terminaal oop</string>
@@ -214,7 +198,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_sandbox_cancel">Kanselleer</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminaal</string>
-    <string name="terminal_help_text">Tik \'n opdrag hieronder om te begin.</string>
+    <string name="terminal_help_text">Die KI gebruik hierdie omgewing om opdragte uit te voer.\nJy kan ook opdragte handmatig hieronder uitvoer.</string>
     <string name="terminal_input_placeholder">voer opdrag in…</string>
     <string name="terminal_run_content_description">Voer uit</string>
 </resources>

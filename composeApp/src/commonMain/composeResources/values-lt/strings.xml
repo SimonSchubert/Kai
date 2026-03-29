@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Atidaryti „GitHub" klausimą</string>
     <string name="notification_channel_name">DI pranešimai</string>
     <string name="notification_channel_description">Pranešimai, siunčiami DI asistento</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Sukurti Skill</string>
-    <string name="tool_skill_create_description">Sukurti arba atnaujinti pakartotinai naudojamą JavaScript skill</string>
-    <string name="tool_skill_list_name">Skills sąrašas</string>
-    <string name="tool_skill_list_description">Rodyti visus išsaugotus skills</string>
-    <string name="tool_skill_execute_name">Vykdyti Skill</string>
-    <string name="tool_skill_execute_description">Vykdyti išsaugotą skill pagal pavadinimą</string>
-    <string name="tool_skill_delete_name">Ištrinti Skill</string>
-    <string name="tool_skill_delete_description">Ištrinti išsaugotą skill</string>
-    <string name="tool_skill_update_data_name">Atnaujinti Skill duomenis</string>
-    <string name="tool_skill_update_data_description">Atnaujinti skill konfigūracijos duomenis</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills yra pakartotinai naudojami JavaScript scenarijai, sukurti DI. Įjunkite tai, kad DI galėtų kurti ir vykdyti pasirinktinius scenarijus.</string>
-    <string name="settings_skills_empty">Dar nesukurta jokių skills. Paprašykite DI sukurti skill pokalbyje.</string>
-    <string name="settings_skills_delete">Ištrinti skill</string>
-    <string name="snackbar_skill_deleted">Skill ištrintas</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">„Linux" smėlio dėžė</string>
-    <string name="settings_sandbox_description">Lengvas „Linux" platinimas su paketų tvarkykle ir standartiniais įrankiais. Saugiai veikia programoje per proot. ~3 MB atsisiuntimas.</string>
+    <string name="settings_sandbox_description">Įdiekite Linux aplinką, kad DI galėtų vykdyti apvalkalo komandas, scenarijus ir įrankius jūsų vardu. Veikia saugiai programėlės viduje. ~3 MB atsisiuntimas.</string>
     <string name="settings_sandbox_install">Įdiegti</string>
     <string name="settings_sandbox_install_packages">Įdiegti pagrindinius paketus</string>
     <string name="settings_sandbox_open_terminal">Atidaryti terminalą</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Atšaukti</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminalas</string>
-    <string name="terminal_help_text">Įveskite komandą žemiau, kad pradėtumėte.</string>
+    <string name="terminal_help_text">DI naudoja šią aplinką komandoms vykdyti.\nTaip pat galite vykdyti komandas rankiniu būdu žemiau.</string>
     <string name="terminal_input_placeholder">įveskite komandą…</string>
     <string name="terminal_run_content_description">Vykdyti</string>
 </resources>

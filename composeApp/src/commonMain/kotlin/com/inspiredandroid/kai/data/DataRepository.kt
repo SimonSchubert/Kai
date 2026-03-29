@@ -101,13 +101,6 @@ interface DataRepository {
     fun getEmailPollIntervalMinutes(): Int
     fun setEmailPollIntervalMinutes(minutes: Int)
 
-    // Skills
-    fun isSkillsEnabled(): Boolean
-    fun setSkillsEnabled(enabled: Boolean)
-    fun getSkills(): List<SkillEntry>
-    suspend fun deleteSkill(name: String)
-    suspend fun executeSkill(name: String, input: String?): SkillExecutionResult
-
     // UI Scale
     fun getUiScale(): Float
     fun setUiScale(scale: Float)

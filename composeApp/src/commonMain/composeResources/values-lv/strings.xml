@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Atvērt GitHub problēmu</string>
     <string name="notification_channel_name">MI paziņojumi</string>
     <string name="notification_channel_description">Paziņojumi, ko nosūta MI asistents</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Izveidot Skill</string>
-    <string name="tool_skill_create_description">Izveidot vai atjaunināt atkārtoti lietojamu JavaScript skill</string>
-    <string name="tool_skill_list_name">Skills saraksts</string>
-    <string name="tool_skill_list_description">Parādīt visus saglabātos skills</string>
-    <string name="tool_skill_execute_name">Izpildīt Skill</string>
-    <string name="tool_skill_execute_description">Izpildīt saglabātu skill pēc nosaukuma</string>
-    <string name="tool_skill_delete_name">Dzēst Skill</string>
-    <string name="tool_skill_delete_description">Dzēst saglabātu skill</string>
-    <string name="tool_skill_update_data_name">Atjaunināt Skill datus</string>
-    <string name="tool_skill_update_data_description">Atjaunināt skill konfigurācijas datus</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills ir atkārtoti lietojami JavaScript skripti, ko izveidojis MI. Iespējojiet šo, lai MI varētu veidot un izpildīt pielāgotus skriptus.</string>
-    <string name="settings_skills_empty">Vēl nav izveidoti neviens skill. Lūdziet MI izveidot skill tērzēšanā.</string>
-    <string name="settings_skills_delete">Dzēst skill</string>
-    <string name="snackbar_skill_deleted">Skill dzēsts</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux smilškaste</string>
-    <string name="settings_sandbox_description">Viegla Linux distribūcija ar pakotņu pārvaldnieku un standarta rīkiem. Droši darbojas lietotnē caur proot. ~3 MB lejupielāde.</string>
+    <string name="settings_sandbox_description">Instalējiet Linux vidi, lai MI varētu jūsu vārdā palaist čaulas komandas, skriptus un rīkus. Darbojas droši lietotnes iekšienē. ~3 MB lejupielāde.</string>
     <string name="settings_sandbox_install">Instalēt</string>
     <string name="settings_sandbox_install_packages">Instalēt pamata pakotnes</string>
     <string name="settings_sandbox_open_terminal">Atvērt termināli</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Atcelt</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminālis</string>
-    <string name="terminal_help_text">Ievadiet komandu zemāk, lai sāktu.</string>
+    <string name="terminal_help_text">MI izmanto šo vidi, lai palaistu komandas.\nZemāk varat arī palaist komandas manuāli.</string>
     <string name="terminal_input_placeholder">ievadiet komandu…</string>
     <string name="terminal_run_content_description">Palaist</string>
 </resources>

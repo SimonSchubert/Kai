@@ -188,25 +188,9 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_open_github_issue">Öppna GitHub Issue</string>
     <string name="notification_channel_name">AI-aviseringar</string>
     <string name="notification_channel_description">Aviseringar skickade av AI-assistenten</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skapa Skill</string>
-    <string name="tool_skill_create_description">Skapa eller uppdatera en återanvändbar JavaScript-skill</string>
-    <string name="tool_skill_list_name">Lista Skills</string>
-    <string name="tool_skill_list_description">Visa alla sparade skills</string>
-    <string name="tool_skill_execute_name">Kör Skill</string>
-    <string name="tool_skill_execute_description">Kör en sparad skill efter namn</string>
-    <string name="tool_skill_delete_name">Ta bort Skill</string>
-    <string name="tool_skill_delete_description">Ta bort en sparad skill</string>
-    <string name="tool_skill_update_data_name">Uppdatera Skill-data</string>
-    <string name="tool_skill_update_data_description">Uppdatera konfigurationsdata för en skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills är återanvändbara JavaScript-skript skapade av AI. Aktivera detta för att låta AI bygga och köra anpassade skript.</string>
-    <string name="settings_skills_empty">Inga skills har skapats ännu. Be AI att skapa en skill i chatten.</string>
-    <string name="settings_skills_delete">Ta bort skill</string>
-    <string name="snackbar_skill_deleted">Skill borttagen</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux-sandlåda</string>
-    <string name="settings_sandbox_description">Lättviktsdistribution av Linux med pakethanterare och standardverktyg. Körs säkert i appen via proot. ~3 MB nedladdning.</string>
+    <string name="settings_sandbox_description">Installera en Linux-miljö så att AI:n kan köra skalkommandon, skript och verktyg åt dig. Körs säkert inuti appen. ~3 MB nedladdning.</string>
     <string name="settings_sandbox_install">Installera</string>
     <string name="settings_sandbox_install_packages">Installera grundpaket</string>
     <string name="settings_sandbox_open_terminal">Öppna terminal</string>
@@ -214,7 +198,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_sandbox_cancel">Avbryt</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Skriv ett kommando nedan för att komma igång.</string>
+    <string name="terminal_help_text">AI:n använder den här miljön för att köra kommandon.\nDu kan även köra kommandon manuellt nedan.</string>
     <string name="terminal_input_placeholder">ange kommando…</string>
     <string name="terminal_run_content_description">Kör</string>
 </resources>

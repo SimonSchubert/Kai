@@ -188,25 +188,9 @@
     <string name="settings_open_github_issue">GitHub ጉዳይ ይክፈቱ</string>
     <string name="notification_channel_name">የ AI ማሳወቂያዎች</string>
     <string name="notification_channel_description">በ AI ረዳት የተላኩ ማሳወቂያዎች</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill ፍጠር</string>
-    <string name="tool_skill_create_description">ድጋሚ ጥቅም ላይ ሊውል የሚችል JavaScript skill ፍጠር ወይም አዘምን</string>
-    <string name="tool_skill_list_name">Skills ዝርዝር</string>
-    <string name="tool_skill_list_description">ሁሉንም የተቀመጡ skills ዘርዝር</string>
-    <string name="tool_skill_execute_name">Skill አስፈጽም</string>
-    <string name="tool_skill_execute_description">በስም የተቀመጠ skill አስፈጽም</string>
-    <string name="tool_skill_delete_name">Skill ሰርዝ</string>
-    <string name="tool_skill_delete_description">የተቀመጠ skill ሰርዝ</string>
-    <string name="tool_skill_update_data_name">Skill ውሂብ አዘምን</string>
-    <string name="tool_skill_update_data_description">የ skill ውቅረት ውሂብ አዘምን</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills በ AI የተፈጠሩ ድጋሚ ጥቅም ላይ ሊውሉ የሚችሉ JavaScript ስክሪፕቶች ናቸው። AI ብጁ ስክሪፕቶችን እንዲገነባ እና እንዲያስፈጽም ይህንን ያንቁ።</string>
-    <string name="settings_skills_empty">እስካሁን ምንም skills አልተፈጠሩም። AI ውስጥ skill እንዲፈጥር ጠይቁ።</string>
-    <string name="settings_skills_delete">Skill ሰርዝ</string>
-    <string name="snackbar_skill_deleted">Skill ተሰርዟል</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">የLinux ሳንድቦክስ</string>
-    <string name="settings_sandbox_description">ከፓኬጅ ማኔጀር እና መደበኛ መሣሪያዎች ጋር ቀላል የLinux ስርጭት። በproot በኩል በመተግበሪያ ውስጥ ደህንነቱ የተጠበቀ ሁኔታ ይሰራል። ~3 MB ማውረድ።</string>
+    <string name="settings_sandbox_description">AI በእርስዎ ምትክ የሼል ትዕዛዞችን፣ ስክሪፕቶችን እና መሳሪያዎችን ማሄድ እንዲችል የLinux አካባቢ ይጫኑ። በመተግበሪያው ውስጥ በአስተማማኝ ሁኔታ ይሰራል። ~3 MB ማውረድ።</string>
     <string name="settings_sandbox_install">ጫን</string>
     <string name="settings_sandbox_install_packages">መሠረታዊ ፓኬጆችን ጫን</string>
     <string name="settings_sandbox_open_terminal">ተርሚናል ክፈት</string>
@@ -214,7 +198,7 @@
     <string name="settings_sandbox_cancel">ይቅር</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ተርሚናል</string>
-    <string name="terminal_help_text">ለመጀመር ከታች ትዕዛዝ ይተይቡ።</string>
+    <string name="terminal_help_text">AI ትዕዛዞችን ለማስኬድ ይህን አካባቢ ይጠቀማል።\nእርስዎም ከዚህ በታች ትዕዛዞችን በእጅ ማስኬድ ይችላሉ።</string>
     <string name="terminal_input_placeholder">ትዕዛዝ ያስገቡ…</string>
     <string name="terminal_run_content_description">አስኪድ</string>
 </resources>

@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Fungua GitHub Issue</string>
     <string name="notification_channel_name">Arifa za AI</string>
     <string name="notification_channel_description">Arifa zilizotumwa na msaidizi wa AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Unda Skill</string>
-    <string name="tool_skill_create_description">Unda au sasisha skill ya JavaScript inayoweza kutumika tena</string>
-    <string name="tool_skill_list_name">Orodha ya Skills</string>
-    <string name="tool_skill_list_description">Onyesha skills zote zilizohifadhiwa</string>
-    <string name="tool_skill_execute_name">Tekeleza Skill</string>
-    <string name="tool_skill_execute_description">Tekeleza skill iliyohifadhiwa kwa jina</string>
-    <string name="tool_skill_delete_name">Futa Skill</string>
-    <string name="tool_skill_delete_description">Futa skill iliyohifadhiwa</string>
-    <string name="tool_skill_update_data_name">Sasisha Data ya Skill</string>
-    <string name="tool_skill_update_data_description">Sasisha data ya usanidi wa skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills ni hati za JavaScript zinazoweza kutumika tena zilizoundwa na AI. Wezesha hii ili kuruhusu AI kujenga na kutekeleza hati maalum.</string>
-    <string name="settings_skills_empty">Hakuna skills zilizoundwa bado. Muulize AI aunde skill kwenye mazungumzo.</string>
-    <string name="settings_skills_delete">Futa skill</string>
-    <string name="snackbar_skill_deleted">Skill imefutwa</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Sanduku la mchanga la Linux</string>
-    <string name="settings_sandbox_description">Usambazaji mwepesi wa Linux wenye kidhibiti cha vifurushi na zana za kawaida. Inafanya kazi kwa usalama ndani ya programu kupitia proot. Upakuaji wa ~3 MB.</string>
+    <string name="settings_sandbox_description">Sakinisha mazingira ya Linux ili AI iweze kuendesha amri za shell, hati na zana kwa niaba yako. Inafanya kazi kwa usalama ndani ya programu. ~3 MB ya kupakua.</string>
     <string name="settings_sandbox_install">Sakinisha</string>
     <string name="settings_sandbox_install_packages">Sakinisha vifurushi vya msingi</string>
     <string name="settings_sandbox_open_terminal">Fungua terminal</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Ghairi</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Andika amri hapa chini ili kuanza.</string>
+    <string name="terminal_help_text">AI hutumia mazingira haya kuendesha amri.\nUnaweza pia kuendesha amri wewe mwenyewe hapa chini.</string>
     <string name="terminal_input_placeholder">ingiza amri…</string>
     <string name="terminal_run_content_description">Endesha</string>
 </resources>

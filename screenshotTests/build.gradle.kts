@@ -88,6 +88,7 @@ tasks.register("updateScreenshots") {
                 "settingsFree_dark" to "4.png",
                 "settingsTools_light" to "5.png",
                 "settingsGeneral_dark" to "6.png",
+                "settingsSandbox_dark" to "7.png",
             )
 
         // Copy phone screenshots (from ScreenshotTest)

@@ -188,25 +188,9 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_open_github_issue">Otwórz zgłoszenie na GitHubie</string>
     <string name="notification_channel_name">Powiadomienia AI</string>
     <string name="notification_channel_description">Powiadomienia wysyłane przez asystenta AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Utwórz Skill</string>
-    <string name="tool_skill_create_description">Utwórz lub zaktualizuj wielokrotnego użytku skill JavaScript</string>
-    <string name="tool_skill_list_name">Lista Skills</string>
-    <string name="tool_skill_list_description">Wyświetl wszystkie zapisane skills</string>
-    <string name="tool_skill_execute_name">Uruchom Skill</string>
-    <string name="tool_skill_execute_description">Uruchom zapisany skill według nazwy</string>
-    <string name="tool_skill_delete_name">Usuń Skill</string>
-    <string name="tool_skill_delete_description">Usuń zapisany skill</string>
-    <string name="tool_skill_update_data_name">Zaktualizuj dane Skillu</string>
-    <string name="tool_skill_update_data_description">Zaktualizuj dane konfiguracyjne skillu</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills to wielokrotnego użytku skrypty JavaScript stworzone przez AI. Włącz to, aby pozwolić AI tworzyć i uruchamiać niestandardowe skrypty.</string>
-    <string name="settings_skills_empty">Nie utworzono jeszcze żadnych skills. Poproś AI o utworzenie skillu w czacie.</string>
-    <string name="settings_skills_delete">Usuń skill</string>
-    <string name="snackbar_skill_deleted">Skill usunięty</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Piaskownica Linux</string>
-    <string name="settings_sandbox_description">Lekka dystrybucja Linuksa z menedżerem pakietów i standardowymi narzędziami. Działa bezpiecznie w aplikacji przez proot. Pobieranie ~3 MB.</string>
+    <string name="settings_sandbox_description">Zainstaluj środowisko Linux, aby AI mogło uruchamiać polecenia powłoki, skrypty i narzędzia w Twoim imieniu. Działa bezpiecznie wewnątrz aplikacji. ~3 MB do pobrania.</string>
     <string name="settings_sandbox_install">Zainstaluj</string>
     <string name="settings_sandbox_install_packages">Zainstaluj podstawowe pakiety</string>
     <string name="settings_sandbox_open_terminal">Otwórz terminal</string>
@@ -214,7 +198,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_sandbox_cancel">Anuluj</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Wpisz polecenie poniżej, aby rozpocząć.</string>
+    <string name="terminal_help_text">AI używa tego środowiska do uruchamiania poleceń.\nMożesz również uruchamiać polecenia ręcznie poniżej.</string>
     <string name="terminal_input_placeholder">wpisz polecenie…</string>
     <string name="terminal_run_content_description">Uruchom</string>
 </resources>

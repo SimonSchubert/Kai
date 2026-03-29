@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">פתח issue ב-GitHub</string>
     <string name="notification_channel_name">התראות AI</string>
     <string name="notification_channel_description">התראות שנשלחו על ידי עוזר AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">צור Skill</string>
-    <string name="tool_skill_create_description">צור או עדכן skill JavaScript לשימוש חוזר</string>
-    <string name="tool_skill_list_name">רשימת Skills</string>
-    <string name="tool_skill_list_description">הצג את כל ה-skills השמורים</string>
-    <string name="tool_skill_execute_name">הפעל Skill</string>
-    <string name="tool_skill_execute_description">הפעל skill שמור לפי שם</string>
-    <string name="tool_skill_delete_name">מחק Skill</string>
-    <string name="tool_skill_delete_description">מחק skill שמור</string>
-    <string name="tool_skill_update_data_name">עדכן נתוני Skill</string>
-    <string name="tool_skill_update_data_description">עדכן את נתוני התצורה של skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills הם סקריפטי JavaScript לשימוש חוזר שנוצרו על ידי הבינה המלאכותית. הפעל זאת כדי לאפשר לבינה המלאכותית לבנות ולהריץ סקריפטים מותאמים אישית.</string>
-    <string name="settings_skills_empty">עדיין לא נוצרו skills. בקש מהבינה המלאכותית ליצור skill בצ\'אט.</string>
-    <string name="settings_skills_delete">מחק skill</string>
-    <string name="snackbar_skill_deleted">Skill נמחק</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">ארגז חול Linux</string>
-    <string name="settings_sandbox_description">הפצת Linux קלה עם מנהל חבילות וכלים סטנדרטיים. פועלת בבטחה באפליקציה דרך proot. הורדה של כ-3 מ"ב.</string>
+    <string name="settings_sandbox_description">התקן סביבת Linux כדי שה-AI יוכל להריץ פקודות מעטפת, סקריפטים וכלים בשמך. פועל בצורה מאובטחת בתוך האפליקציה. ~3 MB להורדה.</string>
     <string name="settings_sandbox_install">התקנה</string>
     <string name="settings_sandbox_install_packages">התקנת חבילות בסיסיות</string>
     <string name="settings_sandbox_open_terminal">פתיחת מסוף</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">ביטול</string>
     <string name="settings_sandbox_disk_usage">%1$d מ"ב</string>
     <string name="terminal_title">מסוף</string>
-    <string name="terminal_help_text">הקלידו פקודה למטה כדי להתחיל.</string>
+    <string name="terminal_help_text">ה-AI משתמש בסביבה זו כדי להריץ פקודות.\nאתה יכול גם להריץ פקודות ידנית למטה.</string>
     <string name="terminal_input_placeholder">הזינו פקודה…</string>
     <string name="terminal_run_content_description">הפעלה</string>
 </resources>

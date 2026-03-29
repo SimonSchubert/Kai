@@ -188,25 +188,9 @@
     <string name="settings_open_github_issue">打开 GitHub Issue</string>
     <string name="notification_channel_name">AI 通知</string>
     <string name="notification_channel_description">由 AI 助手发送的通知</string>
-    <string name="settings_tab_skills">技能</string>
-    <string name="tool_skill_create_name">创建技能</string>
-    <string name="tool_skill_create_description">创建或更新可重复使用的 JavaScript 技能</string>
-    <string name="tool_skill_list_name">技能列表</string>
-    <string name="tool_skill_list_description">列出所有已保存的技能</string>
-    <string name="tool_skill_execute_name">执行技能</string>
-    <string name="tool_skill_execute_description">按名称执行已保存的技能</string>
-    <string name="tool_skill_delete_name">删除技能</string>
-    <string name="tool_skill_delete_description">删除已保存的技能</string>
-    <string name="tool_skill_update_data_name">更新技能数据</string>
-    <string name="tool_skill_update_data_description">更新技能的配置数据</string>
-    <string name="settings_skills">技能</string>
-    <string name="settings_skills_description">技能是由 AI 创建的可重复使用的 JavaScript 脚本。启用此功能以允许 AI 创建和执行自定义脚本。</string>
-    <string name="settings_skills_empty">尚未创建任何技能。在聊天中请 AI 创建技能。</string>
-    <string name="settings_skills_delete">删除技能</string>
-    <string name="snackbar_skill_deleted">技能已删除</string>
-    <string name="settings_import_section_skills">技能</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux 沙盒</string>
-    <string name="settings_sandbox_description">轻量级 Linux 发行版，配备包管理器和标准工具。通过 proot 在应用内安全运行。下载大小约 3 MB。</string>
+    <string name="settings_sandbox_description">安装 Linux 环境，以便 AI 可以代您运行 shell 命令、脚本和工具。在应用内安全运行。约 3 MB 下载。</string>
     <string name="settings_sandbox_install">安装</string>
     <string name="settings_sandbox_install_packages">安装基础软件包</string>
     <string name="settings_sandbox_open_terminal">打开终端</string>
@@ -214,7 +198,7 @@
     <string name="settings_sandbox_cancel">取消</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">终端</string>
-    <string name="terminal_help_text">在下方输入命令开始使用。</string>
+    <string name="terminal_help_text">AI 使用此环境来运行命令。\n您也可以在下方手动运行命令。</string>
     <string name="terminal_input_placeholder">输入命令…</string>
     <string name="terminal_run_content_description">运行</string>
 </resources>

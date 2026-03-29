@@ -188,25 +188,9 @@
     <string name="settings_open_github_issue">فتح مشكلة GitHub</string>
     <string name="notification_channel_name">إشعارات الذكاء الاصطناعي</string>
     <string name="notification_channel_description">إشعارات مرسلة من مساعد الذكاء الاصطناعي</string>
-    <string name="settings_tab_skills">المهارات</string>
-    <string name="tool_skill_create_name">إنشاء مهارة</string>
-    <string name="tool_skill_create_description">إنشاء أو تحديث مهارة JavaScript قابلة لإعادة الاستخدام</string>
-    <string name="tool_skill_list_name">قائمة المهارات</string>
-    <string name="tool_skill_list_description">عرض جميع المهارات المحفوظة</string>
-    <string name="tool_skill_execute_name">تنفيذ مهارة</string>
-    <string name="tool_skill_execute_description">تنفيذ مهارة محفوظة بالاسم</string>
-    <string name="tool_skill_delete_name">حذف مهارة</string>
-    <string name="tool_skill_delete_description">حذف مهارة محفوظة</string>
-    <string name="tool_skill_update_data_name">تحديث بيانات المهارة</string>
-    <string name="tool_skill_update_data_description">تحديث بيانات تكوين المهارة</string>
-    <string name="settings_skills">المهارات</string>
-    <string name="settings_skills_description">المهارات هي نصوص JavaScript قابلة لإعادة الاستخدام أنشأها الذكاء الاصطناعي. فعّل هذا للسماح للذكاء الاصطناعي ببناء وتنفيذ نصوص مخصصة.</string>
-    <string name="settings_skills_empty">لم يتم إنشاء أي مهارات بعد. اطلب من الذكاء الاصطناعي إنشاء مهارة في المحادثة.</string>
-    <string name="settings_skills_delete">حذف المهارة</string>
-    <string name="snackbar_skill_deleted">تم حذف المهارة</string>
-    <string name="settings_import_section_skills">المهارات</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">صندوق رمل Linux</string>
-    <string name="settings_sandbox_description">توزيعة Linux خفيفة مع مدير حزم وأدوات قياسية. تعمل بأمان داخل التطبيق عبر proot. حجم التحميل ~3 ميجابايت.</string>
+    <string name="settings_sandbox_description">ثبّت بيئة Linux ليتمكّن الذكاء الاصطناعي من تشغيل أوامر الطرفية والنصوص البرمجية والأدوات نيابةً عنك. يعمل بأمان داخل التطبيق. ~3 ميغابايت للتنزيل.</string>
     <string name="settings_sandbox_install">تثبيت</string>
     <string name="settings_sandbox_install_packages">تثبيت الحزم الأساسية</string>
     <string name="settings_sandbox_open_terminal">فتح الطرفية</string>
@@ -214,7 +198,7 @@
     <string name="settings_sandbox_cancel">إلغاء</string>
     <string name="settings_sandbox_disk_usage">%1$d ميجابايت</string>
     <string name="terminal_title">الطرفية</string>
-    <string name="terminal_help_text">اكتب أمرًا أدناه للبدء.</string>
+    <string name="terminal_help_text">يستخدم الذكاء الاصطناعي هذه البيئة لتشغيل الأوامر.\nيمكنك أيضًا تشغيل الأوامر يدويًا أدناه.</string>
     <string name="terminal_input_placeholder">أدخل أمرًا…</string>
     <string name="terminal_run_content_description">تشغيل</string>
 </resources>

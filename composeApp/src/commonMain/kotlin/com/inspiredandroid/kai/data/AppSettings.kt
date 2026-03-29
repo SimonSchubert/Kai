@@ -26,7 +26,6 @@ enum class ImportSection {
     SPLINTERLANDS,
     TOOLS,
     MCP,
-    SKILLS,
 }
 
 fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
@@ -69,19 +68,6 @@ fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
     if (json["mcp_servers"] != null) {
         val count = json["mcp_servers"]?.jsonArray?.size
         sections[ImportSection.MCP] = count?.let { "$it" }
-    }
-    if (json["skills_enabled"] != null || json["agent_skills"] != null) {
-        val skillsElement = json["agent_skills"]
-        val count = try {
-            skillsElement?.jsonArray?.size // legacy: raw array
-        } catch (_: Exception) {
-            try {
-                skillsElement?.jsonObject?.get("skills")?.jsonArray?.size // versioned: {"version":1,"skills":[...]}
-            } catch (_: Exception) {
-                null
-            }
-        }
-        sections[ImportSection.SKILLS] = count?.let { "$it" }
     }
     return sections
 }
@@ -553,25 +539,6 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_SPLINTERLANDS_BATTLE_LOG, json)
     }
 
-    // Skills
-    fun isSkillsEnabled(): Boolean = settings.getBoolean(KEY_SKILLS_ENABLED, false)
-
-    fun setSkillsEnabled(enabled: Boolean) {
-        settings.putBoolean(KEY_SKILLS_ENABLED, enabled)
-    }
-
-    fun getSkillsJson(): String = settings.getString(KEY_AGENT_SKILLS, "[]")
-
-    fun setSkillsJson(json: String) {
-        settings.putString(KEY_AGENT_SKILLS, json)
-    }
-
-    fun isSkillsMigrationComplete(): Boolean = settings.getBoolean(KEY_SKILLS_MIGRATION_V1, false)
-
-    fun setSkillsMigrationComplete() {
-        settings.putBoolean(KEY_SKILLS_MIGRATION_V1, true)
-    }
-
     fun exportToJson(toolIds: List<String>): JsonObject {
         val map = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
         map["version"] = JsonPrimitive(1)
@@ -685,18 +652,6 @@ class AppSettings(private val settings: Settings) {
         val mcpJson = getMcpServersJson()
         if (mcpJson.isNotBlank()) {
             map["mcp_servers"] = Json.parseToJsonElement(mcpJson)
-        }
-
-        // Skills
-        map["skills_enabled"] = JsonPrimitive(isSkillsEnabled())
-        val skillsJson = getSkillsJson()
-        if (skillsJson.isNotBlank() && skillsJson != "[]") {
-            map["agent_skills"] = JsonObject(
-                mapOf(
-                    "version" to JsonPrimitive(1),
-                    "skills" to Json.parseToJsonElement(skillsJson),
-                ),
-            )
         }
 
         return JsonObject(map)
@@ -877,20 +832,6 @@ class AppSettings(private val settings: Settings) {
             setMcpServersJson("")
         }
 
-        // Skills
-        if (ImportSection.SKILLS in sections) {
-            try {
-                setSkillsEnabled(json["skills_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
-                val skillsElement = json["agent_skills"]
-                setSkillsJson(if (skillsElement != null) sanitizeSkills(skillsElement) else "[]")
-            } catch (_: Exception) {
-                errors++
-            }
-        } else if (replace) {
-            setSkillsEnabled(false)
-            setSkillsJson("[]")
-        }
-
         return errors
     }
 
@@ -955,43 +896,6 @@ class AppSettings(private val settings: Settings) {
         return SharedJson.encodeToString(memories)
     }
 
-    @OptIn(ExperimentalUuidApi::class, ExperimentalTime::class)
-    private fun sanitizeSkills(element: JsonElement): String {
-        // Handle both legacy format (raw array) and versioned format ({"version":1,"skills":[...]})
-        val array = try {
-            element.jsonArray
-        } catch (_: Exception) {
-            try {
-                element.jsonObject["skills"]?.jsonArray ?: return "[]"
-            } catch (_: Exception) {
-                return "[]"
-            }
-        }
-        val now = Clock.System.now().toEpochMilliseconds()
-        val skills = array.mapNotNull { item ->
-            try {
-                SharedJson.decodeFromString<SkillEntry>(item.toString())
-            } catch (_: Exception) {
-                try {
-                    val obj = item.jsonObject
-                    SkillEntry(
-                        id = obj["id"]?.jsonPrimitive?.content ?: Uuid.random().toString(),
-                        name = obj["name"]?.jsonPrimitive?.content ?: return@mapNotNull null,
-                        description = obj["description"]?.jsonPrimitive?.content ?: "",
-                        script = obj["script"]?.jsonPrimitive?.content ?: "",
-                        createdAtEpochMs = obj["createdAtEpochMs"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
-                        updatedAtEpochMs = obj["updatedAtEpochMs"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
-                        executionCount = obj["executionCount"]?.jsonPrimitive?.content?.toIntOrNull() ?: 0,
-                        lastResult = obj["lastResult"]?.jsonPrimitive?.content,
-                    )
-                } catch (_: Exception) {
-                    null
-                }
-            }
-        }
-        return SharedJson.encodeToString(skills)
-    }
-
     private fun ensureBaseUrlHasVersionPath(url: String): String {
         val trimmed = url.trimEnd('/')
         // If URL already ends with a version path segment like /v1, /v2, /api/v1, etc. — leave it
@@ -1037,10 +941,6 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SPLINTERLANDS_BATTLE_LOG = "splinterlands_battle_log"
         const val KEY_SPLINTERLANDS_INSTANCE_ID = "splinterlands_instance_id"
         const val KEY_SPLINTERLANDS_INSTANCE_IDS = "splinterlands_instance_ids"
-
-        const val KEY_SKILLS_ENABLED = "skills_enabled"
-        const val KEY_AGENT_SKILLS = "agent_skills"
-        const val KEY_SKILLS_MIGRATION_V1 = "skills_migration_v1"
 
         const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
 

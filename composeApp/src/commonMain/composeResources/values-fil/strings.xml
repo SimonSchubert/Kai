@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Buksan ang GitHub Issue</string>
     <string name="notification_channel_name">Mga Notification ng AI</string>
     <string name="notification_channel_description">Mga notification na ipinadala ng AI assistant</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Lumikha ng Skill</string>
-    <string name="tool_skill_create_description">Lumikha o i-update ang isang magagamit-muli na JavaScript skill</string>
-    <string name="tool_skill_list_name">Ilista ang Skills</string>
-    <string name="tool_skill_list_description">Ilista ang lahat ng naka-save na skills</string>
-    <string name="tool_skill_execute_name">Patakbuhin ang Skill</string>
-    <string name="tool_skill_execute_description">Patakbuhin ang isang naka-save na skill ayon sa pangalan</string>
-    <string name="tool_skill_delete_name">Burahin ang Skill</string>
-    <string name="tool_skill_delete_description">Burahin ang isang naka-save na skill</string>
-    <string name="tool_skill_update_data_name">I-update ang Skill Data</string>
-    <string name="tool_skill_update_data_description">I-update ang configuration data ng isang skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Ang Skills ay mga magagamit-muli na JavaScript scripts na ginawa ng AI. I-enable ito para payagan ang AI na gumawa at magpatakbo ng custom scripts.</string>
-    <string name="settings_skills_empty">Wala pang nalikhang skills. Hilingin sa AI na lumikha ng skill sa chat.</string>
-    <string name="settings_skills_delete">Burahin ang skill</string>
-    <string name="snackbar_skill_deleted">Na-delete ang skill</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux Sandbox</string>
-    <string name="settings_sandbox_description">Magaan na distribusyon ng Linux na may package manager at karaniwang mga kasangkapan. Ligtas na tumatakbo sa loob ng app sa pamamagitan ng proot. ~3 MB na pag-download.</string>
+    <string name="settings_sandbox_description">Mag-install ng Linux environment para makapag-run ang AI ng mga shell command, script, at tool para sa iyo. Ligtas na tumatakbo sa loob ng app. ~3 MB na download.</string>
     <string name="settings_sandbox_install">I-install</string>
     <string name="settings_sandbox_install_packages">I-install ang mga pangunahing package</string>
     <string name="settings_sandbox_open_terminal">Buksan ang terminal</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Kanselahin</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Mag-type ng utos sa ibaba upang magsimula.</string>
+    <string name="terminal_help_text">Ginagamit ng AI ang environment na ito para mag-run ng mga command.\nMaaari ka ring mag-run ng mga command nang manu-mano sa ibaba.</string>
     <string name="terminal_input_placeholder">ilagay ang utos…</string>
     <string name="terminal_run_content_description">Patakbuhin</string>
 </resources>

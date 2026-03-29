@@ -60,6 +60,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 
+internal val TerminalDarkBg = Color(0xFF1E1E1E)
+
 private data class TerminalColors(
     val bg: Color,
     val inputBg: Color,
@@ -70,7 +72,17 @@ private data class TerminalColors(
 )
 
 @Composable
-private fun terminalColors(): TerminalColors {
+private fun terminalColors(darkBackground: Boolean = false): TerminalColors {
+    if (darkBackground) {
+        return TerminalColors(
+            bg = TerminalDarkBg,
+            inputBg = Color(0xFF252525),
+            text = Color(0xFFD4D4D4),
+            prompt = Color(0xFF6CB6FF),
+            error = Color(0xFFF48771),
+            dimText = Color(0xFF666666),
+        )
+    }
     val colorScheme = MaterialTheme.colorScheme
     return TerminalColors(
         bg = colorScheme.background,
@@ -83,49 +95,45 @@ private fun terminalColors(): TerminalColors {
 }
 
 @Composable
-fun TerminalSheet(
-    sandboxController: SandboxController,
-    onDismiss: () -> Unit,
+fun TerminalContent(
+    sandboxController: SandboxController?,
+    modifier: Modifier = Modifier,
+    showHeader: Boolean = false,
+    darkBackground: Boolean = false,
+    initialLines: List<TerminalLine> = emptyList(),
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
     val scrollState = rememberScrollState()
-    val outputLines = remember { mutableStateListOf<TerminalLine>() }
+    val outputLines = remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
     var inputText by remember { mutableStateOf("") }
     var isRunning by remember { mutableStateOf(false) }
-    var alpineVersion by remember { mutableStateOf("") }
-    val colors = terminalColors()
+    val colors = terminalColors(darkBackground)
     val focusRequester = remember { FocusRequester() }
+    val canSubmit = sandboxController != null && inputText.isNotBlank() && !isRunning
+    val isInputEnabled = sandboxController != null && !isRunning
     val executeInput = {
-        if (inputText.isNotBlank() && !isRunning) {
+        val controller = sandboxController
+        if (controller != null && inputText.isNotBlank() && !isRunning) {
             val cmd = inputText.trim()
             inputText = ""
             scope.launch {
-                runCommand(cmd, outputLines, sandboxController) { isRunning = it }
+                runCommand(cmd, outputLines, controller) { isRunning = it }
             }
         }
     }
 
     LaunchedEffect(Unit) {
-        alpineVersion = withContext(Dispatchers.IO) {
-            sandboxController.executeCommand("cat /etc/alpine-release").trim()
+        if (sandboxController != null) {
+            focusRequester.requestFocus()
         }
-        focusRequester.requestFocus()
     }
 
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = sheetState,
-        containerColor = colors.inputBg,
-        dragHandle = null,
+    Column(
+        modifier = modifier
+            .then(if (showHeader) Modifier.background(colors.bg) else Modifier)
+            .imePadding(),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(colors.bg)
-                .imePadding(),
-        ) {
-            // Header with status bar padding
+        if (showHeader) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -144,7 +152,7 @@ fun TerminalSheet(
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = if (alpineVersion.isNotEmpty()) "Alpine Linux $alpineVersion" else "Alpine Linux",
+                    text = "Alpine Linux",
                     style = TextStyle(
                         fontFamily = FontFamily.Monospace,
                         fontSize = 12.sp,
@@ -152,125 +160,165 @@ fun TerminalSheet(
                     ),
                 )
             }
+        }
 
-            // Output area
-            SelectionContainer(
-                modifier = Modifier.weight(1f),
+        SelectionContainer(
+            modifier = Modifier.weight(1f),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(scrollState)
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                ) {
-                    if (outputLines.isEmpty()) {
-                        Text(
-                            text = stringResource(Res.string.terminal_help_text),
-                            style = TextStyle(
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 13.sp,
-                                color = colors.dimText,
-                            ),
-                        )
-                    }
-                    outputLines.forEach { line ->
-                        val (text, color, prefix) = when (line) {
-                            is TerminalLine.Command -> Triple("$ ${line.text}", colors.prompt, true)
-                            is TerminalLine.Output -> Triple(line.text, colors.text, false)
-                            is TerminalLine.Error -> Triple(line.text, colors.error, false)
+                if (outputLines.isEmpty()) {
+                    Text(
+                        text = stringResource(Res.string.terminal_help_text),
+                        style = TextStyle(
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 13.sp,
+                            color = colors.dimText,
+                        ),
+                    )
+                }
+                outputLines.forEach { line ->
+                    when (line) {
+                        is TerminalLine.Command -> {
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                text = "$ ${line.text}",
+                                style = TextStyle(
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 13.sp,
+                                    color = colors.prompt,
+                                ),
+                            )
                         }
-                        if (prefix) Spacer(Modifier.height(4.dp))
-                        Text(
-                            text = text,
-                            style = TextStyle(
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 13.sp,
-                                color = color,
-                            ),
-                        )
-                    }
-                    if (isRunning) {
-                        Spacer(Modifier.height(4.dp))
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(14.dp),
-                            strokeWidth = 2.dp,
-                            color = colors.prompt,
-                        )
+
+                        is TerminalLine.Output -> {
+                            Text(
+                                text = parseAnsiToAnnotatedString(line.text, colors.text),
+                                style = TextStyle(
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 13.sp,
+                                ),
+                            )
+                        }
+
+                        is TerminalLine.Error -> {
+                            Text(
+                                text = parseAnsiToAnnotatedString(line.text, colors.error),
+                                style = TextStyle(
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 13.sp,
+                                ),
+                            )
+                        }
                     }
                 }
-            }
-
-            // Auto-scroll to bottom when output changes
-            LaunchedEffect(outputLines.size, isRunning) {
-                scrollState.animateScrollTo(scrollState.maxValue)
-            }
-
-            // Input area with navigation bar padding
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(colors.inputBg)
-                    .padding(horizontal = 8.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = "$",
-                    style = TextStyle(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 14.sp,
+                if (isRunning) {
+                    Spacer(Modifier.height(4.dp))
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(14.dp),
+                        strokeWidth = 2.dp,
                         color = colors.prompt,
-                    ),
-                    modifier = Modifier.padding(start = 8.dp),
-                )
-                Spacer(Modifier.width(8.dp))
-                TextField(
-                    value = inputText,
-                    onValueChange = { inputText = it },
-                    modifier = Modifier.weight(1f).focusRequester(focusRequester),
-                    enabled = !isRunning,
-                    textStyle = TextStyle(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 14.sp,
-                        color = colors.text,
-                    ),
-                    placeholder = {
-                        Text(
-                            text = stringResource(Res.string.terminal_input_placeholder),
-                            style = TextStyle(
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 14.sp,
-                                color = colors.dimText,
-                            ),
-                        )
-                    },
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.Transparent,
-                        unfocusedContainerColor = Color.Transparent,
-                        disabledContainerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        cursorColor = colors.prompt,
-                    ),
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
-                    keyboardActions = KeyboardActions(
-                        onGo = { executeInput() },
-                    ),
-                    singleLine = true,
-                )
-                IconButton(
-                    onClick = { executeInput() },
-                    enabled = inputText.isNotBlank() && !isRunning,
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.Send,
-                        contentDescription = stringResource(Res.string.terminal_run_content_description),
-                        tint = if (inputText.isNotBlank() && !isRunning) colors.prompt else colors.dimText,
-                        modifier = Modifier.size(20.dp),
                     )
                 }
             }
         }
+
+        LaunchedEffect(outputLines.size, isRunning) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
+
+        androidx.compose.material3.HorizontalDivider(
+            color = colors.dimText.copy(alpha = 0.2f),
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "$",
+                style = TextStyle(
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 14.sp,
+                    color = colors.prompt,
+                ),
+                modifier = Modifier.padding(start = 8.dp),
+            )
+            Spacer(Modifier.width(8.dp))
+            TextField(
+                value = inputText,
+                onValueChange = { inputText = it },
+                modifier = Modifier.weight(1f).then(
+                    if (sandboxController != null) Modifier.focusRequester(focusRequester) else Modifier,
+                ),
+                enabled = isInputEnabled,
+                textStyle = TextStyle(
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 14.sp,
+                    color = colors.text,
+                ),
+                placeholder = {
+                    Text(
+                        text = stringResource(Res.string.terminal_input_placeholder),
+                        style = TextStyle(
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 14.sp,
+                            color = colors.dimText,
+                        ),
+                    )
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                    cursorColor = colors.prompt,
+                ),
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                keyboardActions = KeyboardActions(
+                    onGo = { executeInput() },
+                ),
+                singleLine = true,
+            )
+            IconButton(
+                onClick = { executeInput() },
+                enabled = canSubmit,
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Send,
+                    contentDescription = stringResource(Res.string.terminal_run_content_description),
+                    tint = if (canSubmit) colors.prompt else colors.dimText,
+                    modifier = Modifier.size(20.dp),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun TerminalSheet(
+    sandboxController: SandboxController,
+    onDismiss: () -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = terminalColors().inputBg,
+        dragHandle = null,
+    ) {
+        TerminalContent(
+            sandboxController = sandboxController,
+            modifier = Modifier.fillMaxSize(),
+            showHeader = true,
+        )
     }
 }
 
@@ -289,7 +337,7 @@ private suspend fun runCommand(
     outputLines.add(TerminalLine.Command(command))
     setRunning(true)
     try {
-        val result = withContext(Dispatchers.IO) {
+        val result = withContext(Dispatchers.Default) {
             sandboxController.executeCommand(command)
         }
         if (result.isNotEmpty()) {
@@ -298,13 +346,14 @@ private suspend fun runCommand(
     } catch (e: Exception) {
         outputLines.add(TerminalLine.Error(e.message ?: "Command failed"))
     }
-    while (outputLines.size > MAX_OUTPUT_LINES) {
-        outputLines.removeAt(0)
+    val excess = outputLines.size - MAX_OUTPUT_LINES
+    if (excess > 0) {
+        outputLines.subList(0, excess).clear()
     }
     setRunning(false)
 }
 
-private sealed interface TerminalLine {
+sealed interface TerminalLine {
     data class Command(val text: String) : TerminalLine
     data class Output(val text: String) : TerminalLine
     data class Error(val text: String) : TerminalLine

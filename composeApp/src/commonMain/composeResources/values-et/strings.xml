@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Ava GitHubi probleemiteade</string>
     <string name="notification_channel_name">AI teavitused</string>
     <string name="notification_channel_description">AI assistendi saadetud teavitused</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Loo Skill</string>
-    <string name="tool_skill_create_description">Loo või uuenda korduvkasutatav JavaScript-skill</string>
-    <string name="tool_skill_list_name">Loetle Skills</string>
-    <string name="tool_skill_list_description">Kuva kõik salvestatud skills</string>
-    <string name="tool_skill_execute_name">Käivita Skill</string>
-    <string name="tool_skill_execute_description">Käivita salvestatud skill nime järgi</string>
-    <string name="tool_skill_delete_name">Kustuta Skill</string>
-    <string name="tool_skill_delete_description">Kustuta salvestatud skill</string>
-    <string name="tool_skill_update_data_name">Uuenda Skilli andmeid</string>
-    <string name="tool_skill_update_data_description">Uuenda skilli konfiguratsiooniandmeid</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills on AI loodud korduvkasutatavad JavaScripti skriptid. Luba see, et AI saaks luua ja käivitada kohandatud skripte.</string>
-    <string name="settings_skills_empty">Ühtegi skilli pole veel loodud. Palu AI-l luua skill vestluses.</string>
-    <string name="settings_skills_delete">Kustuta skill</string>
-    <string name="snackbar_skill_deleted">Skill kustutatud</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linuxi liivakast</string>
-    <string name="settings_sandbox_description">Kerge Linuxi distributsioon paketihalduri ja standardsete tööriistadega. Töötab turvaliselt rakenduses proot kaudu. ~3 MB allalaadimine.</string>
+    <string name="settings_sandbox_description">Paigalda Linuxi keskkond, et tehisintellekt saaks sinu nimel käivitada käsuridu, skripte ja tööriistu. Töötab turvaliselt rakenduse sees. ~3 MB allalaadimine.</string>
     <string name="settings_sandbox_install">Paigalda</string>
     <string name="settings_sandbox_install_packages">Paigalda põhipaketid</string>
     <string name="settings_sandbox_open_terminal">Ava terminal</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Tühista</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Sisestage allpool käsk alustamiseks.</string>
+    <string name="terminal_help_text">Tehisintellekt kasutab seda keskkonda käskude käivitamiseks.\nSaad ka ise allpool käske käsitsi käivitada.</string>
     <string name="terminal_input_placeholder">sisestage käsk…</string>
     <string name="terminal_run_content_description">Käivita</string>
 </resources>

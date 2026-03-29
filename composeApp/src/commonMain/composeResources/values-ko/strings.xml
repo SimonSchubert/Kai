@@ -188,25 +188,9 @@
     <string name="settings_open_github_issue">GitHub Issue 열기</string>
     <string name="notification_channel_name">AI 알림</string>
     <string name="notification_channel_description">AI 어시스턴트가 보낸 알림</string>
-    <string name="settings_tab_skills">스킬</string>
-    <string name="tool_skill_create_name">스킬 만들기</string>
-    <string name="tool_skill_create_description">재사용 가능한 JavaScript 스킬을 만들거나 업데이트합니다</string>
-    <string name="tool_skill_list_name">스킬 목록</string>
-    <string name="tool_skill_list_description">저장된 모든 스킬을 나열합니다</string>
-    <string name="tool_skill_execute_name">스킬 실행</string>
-    <string name="tool_skill_execute_description">이름으로 저장된 스킬을 실행합니다</string>
-    <string name="tool_skill_delete_name">스킬 삭제</string>
-    <string name="tool_skill_delete_description">저장된 스킬을 삭제합니다</string>
-    <string name="tool_skill_update_data_name">스킬 데이터 업데이트</string>
-    <string name="tool_skill_update_data_description">스킬의 구성 데이터를 업데이트합니다</string>
-    <string name="settings_skills">스킬</string>
-    <string name="settings_skills_description">스킬은 AI가 만든 재사용 가능한 JavaScript 스크립트입니다. AI가 맞춤 스크립트를 만들고 실행할 수 있도록 이 기능을 활성화하세요.</string>
-    <string name="settings_skills_empty">아직 생성된 스킬이 없습니다. 채팅에서 AI에게 스킬을 만들어달라고 요청하세요.</string>
-    <string name="settings_skills_delete">스킬 삭제</string>
-    <string name="snackbar_skill_deleted">스킬이 삭제되었습니다</string>
-    <string name="settings_import_section_skills">스킬</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux 샌드박스</string>
-    <string name="settings_sandbox_description">패키지 관리자와 표준 유틸리티를 갖춘 경량 Linux 배포판. proot를 통해 앱 내에서 안전하게 실행됩니다. 약 3 MB 다운로드.</string>
+    <string name="settings_sandbox_description">AI가 사용자를 대신하여 셸 명령, 스크립트 및 도구를 실행할 수 있도록 Linux 환경을 설치합니다. 앱 내에서 안전하게 실행됩니다. ~3 MB 다운로드.</string>
     <string name="settings_sandbox_install">설치</string>
     <string name="settings_sandbox_install_packages">기본 패키지 설치</string>
     <string name="settings_sandbox_open_terminal">터미널 열기</string>
@@ -214,7 +198,7 @@
     <string name="settings_sandbox_cancel">취소</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">터미널</string>
-    <string name="terminal_help_text">아래에 명령어를 입력하여 시작하세요.</string>
+    <string name="terminal_help_text">AI는 이 환경을 사용하여 명령을 실행합니다.\n아래에서 수동으로 명령을 실행할 수도 있습니다.</string>
     <string name="terminal_input_placeholder">명령어 입력…</string>
     <string name="terminal_run_content_description">실행</string>
 </resources>

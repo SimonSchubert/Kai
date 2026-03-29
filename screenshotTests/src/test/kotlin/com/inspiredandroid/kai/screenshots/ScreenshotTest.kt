@@ -105,4 +105,15 @@ class ScreenshotTest {
             SettingsScreenContent(uiState = ScreenshotTestData.settingsTools)
         }
     }
+
+    @Test
+    fun settingsSandbox_dark() {
+        paparazzi.snap(DarkColorScheme) {
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsSandbox,
+                sandboxState = ScreenshotTestData.sandboxState,
+                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            )
+        }
+    }
 }

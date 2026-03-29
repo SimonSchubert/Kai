@@ -11,8 +11,6 @@ import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
-import com.inspiredandroid.kai.data.SkillEntry
-import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -319,23 +317,6 @@ class FakeDataRepository : DataRepository {
 
     // Daemon mode
     private var daemonEnabled = false
-
-    private var skillsEnabled = false
-    private val skills = mutableListOf<SkillEntry>()
-
-    override fun isSkillsEnabled(): Boolean = skillsEnabled
-
-    override fun setSkillsEnabled(enabled: Boolean) {
-        skillsEnabled = enabled
-    }
-
-    override fun getSkills(): List<SkillEntry> = skills.toList()
-
-    override suspend fun deleteSkill(name: String) {
-        skills.removeAll { it.name == name }
-    }
-
-    override suspend fun executeSkill(name: String, input: String?): SkillExecutionResult = SkillExecutionResult(success = false, output = "", error = "Not supported in tests")
 
     override fun isDaemonEnabled(): Boolean = daemonEnabled
 

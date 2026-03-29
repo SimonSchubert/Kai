@@ -10,9 +10,11 @@ import com.inspiredandroid.kai.ui.settings.ConfiguredServiceEntry
 import com.inspiredandroid.kai.ui.settings.ConnectionStatus
 import com.inspiredandroid.kai.ui.settings.McpConnectionStatus
 import com.inspiredandroid.kai.ui.settings.McpServerUiState
+import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
+import com.inspiredandroid.kai.ui.settings.TerminalLine
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.Json
@@ -163,6 +165,56 @@ JavaScript
                 updatedAt = 1709310000000,
             ),
         ),
+    )
+
+    val settingsSandbox = SettingsUiState(
+        currentTab = SettingsTab.Sandbox,
+    )
+
+    val sandboxState = SandboxUiState(
+        showSandbox = true,
+        sandboxInstalled = true,
+        sandboxReady = true,
+        sandboxDiskUsageMB = 578,
+        sandboxPackagesInstalled = true,
+        isSandboxEnabled = true,
+    )
+
+    private val fastfetchOutput =
+        "        .hddddddddddddddddddh.\n" +
+            "      :ddddddddddddddddddddddddd:\n" +
+            "     /ddddddddddddddddddddddddddd/\n" +
+            "    +dddddddddddddddddddddddddddddd+\n" +
+            "   \u0060sddddddddddddddddddddddddddddds\u0060\n" +
+            "  \u0060ydddddddddddd++hddddddddddddddddy\u0060\n" +
+            " .hddddddddddd+\u0060  \u0060+ddddh:-sddddddddddh.\n" +
+            " hddddddddddd+\u0060       \u0060+y:     .sdddddddddh\n" +
+            " ddddddddh+\u0060  \u0060//\u0060   \u0060.\u0060      -sdddddddd\n" +
+            " ddddddh+\u0060   \u0060/hddh/\u0060    \u0060:s-     -sddddddd\n" +
+            " dddddh+\u0060   \u0060/+/dddddh/\u0060    \u0060+s-    -sddddd\n" +
+            " dddd+\u0060   \u0060/o\u0060  :dddddddh/\u0060    \u0060oy-     .yddd\n" +
+            " hdddyo+ohddyosddddddddddho+oydddy++ohdddh\n" +
+            " .hdddddddddddddddddddddddddddddddddddh.\n" +
+            "  \u0060yddddddddddddddddddddddddddddddddddy\u0060\n" +
+            "   \u0060sddddddddddddddddddddddddddddddds\u0060\n" +
+            "    +dddddddddddddddddddddddddddddd+\n" +
+            "     /ddddddddddddddddddddddddddd/\n" +
+            "      :ddddddddddddddddddddddddd:\n" +
+            "        .hdddddddddddddddddddh.\n" +
+            "root@localhost\n" +
+            "--------------\n" +
+            "OS: Alpine Linux v3.21 aarch64\n" +
+            "Kernel: Linux 6.1.145-android14-11-gfa1d6308d1fe-ab14691759\n" +
+            "Uptime: 3 days, 12 hours, 51 mins\n" +
+            "Packages: 65 (apk)\n" +
+            "Shell: libproot.so\n" +
+            "Terminal: iredandroid.kai\n" +
+            "CPU: Cortex-A520*4 + Cortex-A720*3 + Cortex-X4 (8) @ 3.10 GHz\n" +
+            "Memory: 6.75 GiB / 7.39 GiB (91%)"
+
+    val sandboxTerminalLines = listOf(
+        TerminalLine.Command("fastfetch"),
+        TerminalLine.Output(fastfetchOutput),
     )
 
     val settingsTools = SettingsUiState(

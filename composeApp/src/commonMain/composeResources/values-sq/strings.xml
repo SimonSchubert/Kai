@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Hap issue në GitHub</string>
     <string name="notification_channel_name">Njoftimet e AI</string>
     <string name="notification_channel_description">Njoftimet e dërguara nga asistenti AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Krijo Skill</string>
-    <string name="tool_skill_create_description">Krijo ose përditëso një skill JavaScript të ripërdorshëm</string>
-    <string name="tool_skill_list_name">Lista e Skills</string>
-    <string name="tool_skill_list_description">Shfaq të gjitha skills e ruajtura</string>
-    <string name="tool_skill_execute_name">Ekzekuto Skill</string>
-    <string name="tool_skill_execute_description">Ekzekuto një skill të ruajtur sipas emrit</string>
-    <string name="tool_skill_delete_name">Fshi Skill</string>
-    <string name="tool_skill_delete_description">Fshi një skill të ruajtur</string>
-    <string name="tool_skill_update_data_name">Përditëso të dhënat e Skill</string>
-    <string name="tool_skill_update_data_description">Përditëso të dhënat e konfigurimit të një skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills janë skripte JavaScript të ripërdorshme të krijuara nga IA. Aktivizo këtë për të lejuar IA të ndërtojë dhe ekzekutojë skripte të personalizuara.</string>
-    <string name="settings_skills_empty">Ende nuk janë krijuar skills. Kërkojini IA-së të krijojë një skill në bisedë.</string>
-    <string name="settings_skills_delete">Fshi skill</string>
-    <string name="snackbar_skill_deleted">Skill u fshi</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Sandbox Linux</string>
-    <string name="settings_sandbox_description">Shpërndarje e lehtë Linux me menaxher paketash dhe mjete standarde. Funksionon me siguri brenda aplikacionit nëpërmjet proot. ~3 MB shkarkim.</string>
+    <string name="settings_sandbox_description">Instaloni një mjedis Linux në mënyrë që IA të mund të ekzekutojë komanda shell, skripte dhe mjete në emrin tuaj. Ekzekutohet në mënyrë të sigurt brenda aplikacionit. ~3 MB shkarkim.</string>
     <string name="settings_sandbox_install">Instalo</string>
     <string name="settings_sandbox_install_packages">Instalo paketat bazë</string>
     <string name="settings_sandbox_open_terminal">Hap terminalin</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Anulo</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminali</string>
-    <string name="terminal_help_text">Shkruaj një komandë më poshtë për të filluar.</string>
+    <string name="terminal_help_text">IA përdor këtë mjedis për të ekzekutuar komanda.\nMund të ekzekutoni komanda edhe manualisht më poshtë.</string>
     <string name="terminal_input_placeholder">fut komandën…</string>
     <string name="terminal_run_content_description">Ekzekuto</string>
 </resources>

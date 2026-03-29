@@ -188,25 +188,9 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_open_github_issue">Abrir issue en GitHub</string>
     <string name="notification_channel_name">Notificaciones de IA</string>
     <string name="notification_channel_description">Notificaciones enviadas por el asistente de IA</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Crear Skill</string>
-    <string name="tool_skill_create_description">Crear o actualizar un skill de JavaScript reutilizable</string>
-    <string name="tool_skill_list_name">Listar Skills</string>
-    <string name="tool_skill_list_description">Listar todos los skills guardados</string>
-    <string name="tool_skill_execute_name">Ejecutar Skill</string>
-    <string name="tool_skill_execute_description">Ejecutar un skill guardado por nombre</string>
-    <string name="tool_skill_delete_name">Eliminar Skill</string>
-    <string name="tool_skill_delete_description">Eliminar un skill guardado</string>
-    <string name="tool_skill_update_data_name">Actualizar datos del Skill</string>
-    <string name="tool_skill_update_data_description">Actualizar los datos de configuración de un skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Los Skills son scripts de JavaScript reutilizables creados por la IA. Activa esto para permitir que la IA cree y ejecute scripts personalizados.</string>
-    <string name="settings_skills_empty">Aún no se han creado skills. Pide a la IA que cree un skill en el chat.</string>
-    <string name="settings_skills_delete">Eliminar skill</string>
-    <string name="snackbar_skill_deleted">Skill eliminado</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Sandbox de Linux</string>
-    <string name="settings_sandbox_description">Distribución Linux ligera con gestor de paquetes y utilidades estándar. Se ejecuta de forma segura dentro de la app mediante proot. ~3 MB de descarga.</string>
+    <string name="settings_sandbox_description">Instala un entorno Linux para que la IA pueda ejecutar comandos de shell, scripts y herramientas en tu nombre. Se ejecuta de forma segura dentro de la app. ~3 MB de descarga.</string>
     <string name="settings_sandbox_install">Instalar</string>
     <string name="settings_sandbox_install_packages">Instalar paquetes básicos</string>
     <string name="settings_sandbox_open_terminal">Abrir terminal</string>
@@ -214,7 +198,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_sandbox_cancel">Cancelar</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Escribe un comando abajo para empezar.</string>
+    <string name="terminal_help_text">La IA usa este entorno para ejecutar comandos.\nTambién puedes ejecutar comandos manualmente a continuación.</string>
     <string name="terminal_input_placeholder">introducir comando…</string>
     <string name="terminal_run_content_description">Ejecutar</string>
 </resources>

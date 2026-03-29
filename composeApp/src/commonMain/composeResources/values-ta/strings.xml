@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">GitHub Issue திற</string>
     <string name="notification_channel_name">AI அறிவிப்புகள்</string>
     <string name="notification_channel_description">AI உதவியாளரால் அனுப்பப்பட்ட அறிவிப்புகள்</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill உருவாக்கு</string>
-    <string name="tool_skill_create_description">மீண்டும் பயன்படுத்தக்கூடிய JavaScript skill-ஐ உருவாக்கவும் அல்லது புதுப்பிக்கவும்</string>
-    <string name="tool_skill_list_name">Skills பட்டியல்</string>
-    <string name="tool_skill_list_description">சேமிக்கப்பட்ட அனைத்து skills-ஐ பட்டியலிடு</string>
-    <string name="tool_skill_execute_name">Skill இயக்கு</string>
-    <string name="tool_skill_execute_description">பெயர் மூலம் சேமிக்கப்பட்ட skill-ஐ இயக்கு</string>
-    <string name="tool_skill_delete_name">Skill நீக்கு</string>
-    <string name="tool_skill_delete_description">சேமிக்கப்பட்ட skill-ஐ நீக்கு</string>
-    <string name="tool_skill_update_data_name">Skill தரவை புதுப்பி</string>
-    <string name="tool_skill_update_data_description">Skill-இன் கட்டமைப்பு தரவை புதுப்பிக்கவும்</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills என்பது AI ஆல் உருவாக்கப்பட்ட மீண்டும் பயன்படுத்தக்கூடிய JavaScript ஸ்கிரிப்ட்கள். AI தனிப்பயன் ஸ்கிரிப்ட்களை உருவாக்கவும் இயக்கவும் அனுமதிக்க இதை இயக்கவும்.</string>
-    <string name="settings_skills_empty">இதுவரை skills எதுவும் உருவாக்கப்படவில்லை. அரட்டையில் AI-யிடம் skill உருவாக்கச் சொல்லுங்கள்.</string>
-    <string name="settings_skills_delete">Skill நீக்கு</string>
-    <string name="snackbar_skill_deleted">Skill நீக்கப்பட்டது</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux சாண்ட்பாக்ஸ்</string>
-    <string name="settings_sandbox_description">தொகுப்பு மேலாளர் மற்றும் நிலையான கருவிகளுடன் கூடிய லேசான Linux விநியோகம். proot வழியாக பயன்பாட்டிற்குள் பாதுகாப்பாக இயங்குகிறது. ~3 MB பதிவிறக்கம்.</string>
+    <string name="settings_sandbox_description">AI உங்கள் சார்பாக ஷெல் கட்டளைகள், ஸ்கிரிப்ட்கள் மற்றும் கருவிகளை இயக்க Linux சூழலை நிறுவுங்கள். பயன்பாட்டிற்குள் பாதுகாப்பாக இயங்குகிறது. ~3 MB பதிவிறக்கம்.</string>
     <string name="settings_sandbox_install">நிறுவு</string>
     <string name="settings_sandbox_install_packages">அடிப்படை தொகுப்புகளை நிறுவு</string>
     <string name="settings_sandbox_open_terminal">முனையத்தைத் திற</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">ரத்து</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">முனையம்</string>
-    <string name="terminal_help_text">தொடங்க கீழே ஒரு கட்டளையை தட்டச்சு செய்யுங்கள்.</string>
+    <string name="terminal_help_text">AI கட்டளைகளை இயக்க இந்தச் சூழலைப் பயன்படுத்துகிறது.\nகீழே நீங்களும் கட்டளைகளை கைமுறையாக இயக்கலாம்.</string>
     <string name="terminal_input_placeholder">கட்டளையை உள்ளிடவும்…</string>
     <string name="terminal_run_content_description">இயக்கு</string>
 </resources>

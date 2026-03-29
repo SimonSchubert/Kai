@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Otevřít GitHub issue</string>
     <string name="notification_channel_name">AI oznámení</string>
     <string name="notification_channel_description">Oznámení odeslaná AI asistentem</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Vytvořit Skill</string>
-    <string name="tool_skill_create_description">Vytvořit nebo aktualizovat znovupoužitelný JavaScript skill</string>
-    <string name="tool_skill_list_name">Seznam Skills</string>
-    <string name="tool_skill_list_description">Zobrazit všechny uložené skills</string>
-    <string name="tool_skill_execute_name">Spustit Skill</string>
-    <string name="tool_skill_execute_description">Spustit uložený skill podle názvu</string>
-    <string name="tool_skill_delete_name">Smazat Skill</string>
-    <string name="tool_skill_delete_description">Smazat uložený skill</string>
-    <string name="tool_skill_update_data_name">Aktualizovat data Skillu</string>
-    <string name="tool_skill_update_data_description">Aktualizovat konfigurační data skillu</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills jsou znovupoužitelné JavaScript skripty vytvořené AI. Povolte toto, aby AI mohla vytvářet a spouštět vlastní skripty.</string>
-    <string name="settings_skills_empty">Zatím nebyly vytvořeny žádné skills. Požádejte AI o vytvoření skillu v chatu.</string>
-    <string name="settings_skills_delete">Smazat skill</string>
-    <string name="snackbar_skill_deleted">Skill smazán</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linuxový sandbox</string>
-    <string name="settings_sandbox_description">Lehká distribuce Linuxu se správcem balíčků a standardními nástroji. Běží bezpečně v aplikaci přes proot. Stažení ~3 MB.</string>
+    <string name="settings_sandbox_description">Nainstalujte prostředí Linux, aby AI mohla vaším jménem spouštět příkazy shellu, skripty a nástroje. Běží bezpečně uvnitř aplikace. ~3 MB ke stažení.</string>
     <string name="settings_sandbox_install">Nainstalovat</string>
     <string name="settings_sandbox_install_packages">Nainstalovat základní balíčky</string>
     <string name="settings_sandbox_open_terminal">Otevřít terminál</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Zrušit</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminál</string>
-    <string name="terminal_help_text">Zadejte příkaz níže pro začátek.</string>
+    <string name="terminal_help_text">AI používá toto prostředí ke spouštění příkazů.\nPříkazy můžete spouštět i ručně níže.</string>
     <string name="terminal_input_placeholder">zadejte příkaz…</string>
     <string name="terminal_run_content_description">Spustit</string>
 </resources>

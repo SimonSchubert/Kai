@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">GitHub issue ашу</string>
     <string name="notification_channel_name">AI хабарландырулары</string>
     <string name="notification_channel_description">AI көмекшісі жіберген хабарландырулар</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill жасау</string>
-    <string name="tool_skill_create_description">Қайта пайдалануға болатын JavaScript skill жасау немесе жаңарту</string>
-    <string name="tool_skill_list_name">Skills тізімі</string>
-    <string name="tool_skill_list_description">Барлық сақталған skills тізімін көрсету</string>
-    <string name="tool_skill_execute_name">Skill орындау</string>
-    <string name="tool_skill_execute_description">Аты бойынша сақталған skill орындау</string>
-    <string name="tool_skill_delete_name">Skill жою</string>
-    <string name="tool_skill_delete_description">Сақталған skill жою</string>
-    <string name="tool_skill_update_data_name">Skill деректерін жаңарту</string>
-    <string name="tool_skill_update_data_description">Skill конфигурация деректерін жаңарту</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills — AI жасаған қайта пайдалануға болатын JavaScript скрипттері. AI-ға арнаулы скрипттер жасауға және орындауға рұқсат беру үшін мұны қосыңыз.</string>
-    <string name="settings_skills_empty">Әзірге ешқандай skill жасалмаған. Чатта AI-дан skill жасауды сұраңыз.</string>
-    <string name="settings_skills_delete">Skill жою</string>
-    <string name="snackbar_skill_deleted">Skill жойылды</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux құмсалғыш</string>
-    <string name="settings_sandbox_description">Пакет менеджері және стандартты утилиталары бар жеңіл Linux дистрибутиві. proot арқылы қолданба ішінде қауіпсіз жұмыс істейді. ~3 МБ жүктеу.</string>
+    <string name="settings_sandbox_description">AI сіздің атыңыздан shell командаларын, скрипттерді және құралдарды іске қоса алуы үшін Linux ортасын орнатыңыз. Қолданба ішінде қауіпсіз жұмыс істейді. ~3 МБ жүктеу.</string>
     <string name="settings_sandbox_install">Орнату</string>
     <string name="settings_sandbox_install_packages">Негізгі пакеттерді орнату</string>
     <string name="settings_sandbox_open_terminal">Терминалды ашу</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Бас тарту</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Терминал</string>
-    <string name="terminal_help_text">Бастау үшін төменге пәрмен теріңіз.</string>
+    <string name="terminal_help_text">AI командаларды іске қосу үшін осы ортаны пайдаланады.\nСіз де төменде командаларды қолмен іске қоса аласыз.</string>
     <string name="terminal_input_placeholder">пәрмен енгізіңіз…</string>
     <string name="terminal_run_content_description">Орындау</string>
 </resources>

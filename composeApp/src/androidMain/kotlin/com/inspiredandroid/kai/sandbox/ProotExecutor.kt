@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 
 private const val MAX_OUTPUT_LENGTH = 5_000
 private const val DEFAULT_TIMEOUT_SECONDS = 30L
-private const val MAX_TIMEOUT_SECONDS = 60L
+private const val MAX_TIMEOUT_SECONDS = 180L
 
 class ProotExecutor(
     private val prootPath: String,

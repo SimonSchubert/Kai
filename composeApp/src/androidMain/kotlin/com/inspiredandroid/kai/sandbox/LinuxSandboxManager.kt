@@ -121,8 +121,9 @@ class LinuxSandboxManager(private val context: Context) {
             }
         }
 
-        // Post-setup: write resolv.conf
+        // Post-setup
         _state.value = SandboxState.Installing("Configuring...")
+        downloader.makeWritable(rootfsDir)
         downloader.writeResolvConf(rootfsDir)
 
         val executor = createProotExecutor()
@@ -161,13 +162,23 @@ class LinuxSandboxManager(private val context: Context) {
                     val result = executor.execute("apk add --no-cache $pkg", timeoutSeconds = 120)
                     ensureActive()
                     val success = result["success"] as? Boolean ?: false
-                    if (!success) break
+                    if (!success) {
+                        val stderr = result["stderr"] as? String ?: ""
+                        val stdout = result["stdout"] as? String ?: ""
+                        val error = result["error"] as? String ?: ""
+                        val timedOut = result["timed_out"] as? Boolean ?: false
+                        val exitCode = result["exit_code"] as? Int ?: -1
+                        android.util.Log.e("LinuxSandbox", "Failed to install $pkg: exit=$exitCode timedOut=$timedOut error=$error stdout=$stdout stderr=$stderr")
+                        _state.value = SandboxState.Error("Failed to install $pkg: ${stderr.ifEmpty { error }.ifEmpty { stdout }.take(200)}")
+                        return@launch
+                    }
                 }
                 _state.value = SandboxState.Ready
             } catch (_: kotlinx.coroutines.CancellationException) {
                 _state.value = SandboxState.Ready
-            } catch (_: Exception) {
-                _state.value = SandboxState.Ready
+            } catch (e: Exception) {
+                android.util.Log.e("LinuxSandbox", "Package install exception", e)
+                _state.value = SandboxState.Error("Install failed: ${e.message}")
             }
         }
     }

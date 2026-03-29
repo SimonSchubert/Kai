@@ -7,8 +7,6 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
-import com.inspiredandroid.kai.data.SkillEntry
-import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -42,7 +40,7 @@ enum class SettingsTab {
     General,
     Services,
     Tools,
-    Skills,
+    Sandbox,
     Integrations,
 }
 
@@ -92,13 +90,6 @@ data class SettingsUiState(
     val onToggleEmail: (Boolean) -> Unit = {},
     val onRemoveEmailAccount: (String) -> Unit = {},
     val onChangeEmailPollInterval: (Int) -> Unit = {},
-    val isSkillsEnabled: Boolean = false,
-    val onToggleSkills: (Boolean) -> Unit = {},
-    val skills: ImmutableList<SkillEntry> = persistentListOf(),
-    val onDeleteSkill: (String) -> Unit = {},
-    val onExecuteSkill: (String, String?) -> Unit = { _, _ -> },
-    val executingSkillName: String? = null,
-    val skillExecutionResult: Pair<String, SkillExecutionResult>? = null,
     val isFreeFallbackEnabled: Boolean = true,
     val onToggleFreeFallback: (Boolean) -> Unit = {},
     val uiScale: Float = 1.0f,
@@ -143,7 +134,6 @@ sealed interface PendingDeletion {
     data class EmailAccount(val id: String) : PendingDeletion
     data class Service(val instanceId: String) : PendingDeletion
     data class McpServer(val serverId: String) : PendingDeletion
-    data class Skill(val name: String) : PendingDeletion
 }
 
 sealed interface ImportResult {

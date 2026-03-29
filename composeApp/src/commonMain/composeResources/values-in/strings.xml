@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Buka Isu GitHub</string>
     <string name="notification_channel_name">Notifikasi AI</string>
     <string name="notification_channel_description">Notifikasi yang dikirim oleh asisten AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Buat Skill</string>
-    <string name="tool_skill_create_description">Buat atau perbarui skill JavaScript yang dapat digunakan kembali</string>
-    <string name="tool_skill_list_name">Daftar Skills</string>
-    <string name="tool_skill_list_description">Tampilkan semua skill yang tersimpan</string>
-    <string name="tool_skill_execute_name">Jalankan Skill</string>
-    <string name="tool_skill_execute_description">Jalankan skill tersimpan berdasarkan nama</string>
-    <string name="tool_skill_delete_name">Hapus Skill</string>
-    <string name="tool_skill_delete_description">Hapus skill yang tersimpan</string>
-    <string name="tool_skill_update_data_name">Perbarui Data Skill</string>
-    <string name="tool_skill_update_data_description">Perbarui data konfigurasi skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills adalah skrip JavaScript yang dapat digunakan kembali yang dibuat oleh AI. Aktifkan ini untuk mengizinkan AI membuat dan menjalankan skrip kustom.</string>
-    <string name="settings_skills_empty">Belum ada skill yang dibuat. Minta AI untuk membuat skill di obrolan.</string>
-    <string name="settings_skills_delete">Hapus skill</string>
-    <string name="snackbar_skill_deleted">Skill dihapus</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Sandbox Linux</string>
-    <string name="settings_sandbox_description">Distribusi Linux ringan dengan manajer paket dan utilitas standar. Berjalan aman di dalam aplikasi melalui proot. Unduhan ~3 MB.</string>
+    <string name="settings_sandbox_description">Instal lingkungan Linux agar AI dapat menjalankan perintah shell, skrip, dan alat atas nama Anda. Berjalan dengan aman di dalam aplikasi. ~3 MB unduhan.</string>
     <string name="settings_sandbox_install">Pasang</string>
     <string name="settings_sandbox_install_packages">Pasang paket dasar</string>
     <string name="settings_sandbox_open_terminal">Buka terminal</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Batal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Ketik perintah di bawah untuk memulai.</string>
+    <string name="terminal_help_text">AI menggunakan lingkungan ini untuk menjalankan perintah.\nAnda juga dapat menjalankan perintah secara manual di bawah.</string>
     <string name="terminal_input_placeholder">masukkan perintah…</string>
     <string name="terminal_run_content_description">Jalankan</string>
 </resources>

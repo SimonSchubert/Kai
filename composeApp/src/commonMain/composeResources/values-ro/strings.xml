@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Deschide issue pe GitHub</string>
     <string name="notification_channel_name">Notificări AI</string>
     <string name="notification_channel_description">Notificări trimise de asistentul AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Creează Skill</string>
-    <string name="tool_skill_create_description">Creează sau actualizează un skill JavaScript reutilizabil</string>
-    <string name="tool_skill_list_name">Listează Skills</string>
-    <string name="tool_skill_list_description">Afișează toate skill-urile salvate</string>
-    <string name="tool_skill_execute_name">Execută Skill</string>
-    <string name="tool_skill_execute_description">Execută un skill salvat după nume</string>
-    <string name="tool_skill_delete_name">Șterge Skill</string>
-    <string name="tool_skill_delete_description">Șterge un skill salvat</string>
-    <string name="tool_skill_update_data_name">Actualizează datele Skill-ului</string>
-    <string name="tool_skill_update_data_description">Actualizează datele de configurare ale unui skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills sunt scripturi JavaScript reutilizabile create de AI. Activează aceasta pentru a permite AI să creeze și să execute scripturi personalizate.</string>
-    <string name="settings_skills_empty">Nu au fost create încă skill-uri. Cere AI-ului să creeze un skill în chat.</string>
-    <string name="settings_skills_delete">Șterge skill</string>
-    <string name="snackbar_skill_deleted">Skill șters</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Sandbox Linux</string>
-    <string name="settings_sandbox_description">Distribuție Linux ușoară cu manager de pachete și utilitare standard. Rulează în siguranță în aplicație prin proot. ~3 MB descărcare.</string>
+    <string name="settings_sandbox_description">Instalează un mediu Linux pentru ca AI-ul să poată rula comenzi shell, scripturi și instrumente în numele tău. Rulează în siguranță în interiorul aplicației. ~3 MB descărcare.</string>
     <string name="settings_sandbox_install">Instalare</string>
     <string name="settings_sandbox_install_packages">Instalare pachete de bază</string>
     <string name="settings_sandbox_open_terminal">Deschide terminalul</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Anulare</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Tastați o comandă mai jos pentru a începe.</string>
+    <string name="terminal_help_text">AI-ul folosește acest mediu pentru a rula comenzi.\nPoți rula și comenzi manual mai jos.</string>
     <string name="terminal_input_placeholder">introduceți comanda…</string>
     <string name="terminal_run_content_description">Rulare</string>
 </resources>

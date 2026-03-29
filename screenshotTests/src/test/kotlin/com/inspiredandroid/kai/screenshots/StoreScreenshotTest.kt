@@ -146,4 +146,15 @@ class StoreScreenshotTest(
             SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
         }
     }
+
+    @Test
+    fun settingsSandbox() {
+        snap("07", DarkColorScheme) {
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsSandbox,
+                sandboxState = ScreenshotTestData.sandboxState,
+                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            )
+        }
+    }
 }

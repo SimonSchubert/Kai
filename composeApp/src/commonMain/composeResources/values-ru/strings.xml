@@ -188,25 +188,9 @@
     <string name="settings_open_github_issue">Открыть issue на GitHub</string>
     <string name="notification_channel_name">Уведомления ИИ</string>
     <string name="notification_channel_description">Уведомления, отправленные ИИ-ассистентом</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Создать Skill</string>
-    <string name="tool_skill_create_description">Создать или обновить многоразовый JavaScript-skill</string>
-    <string name="tool_skill_list_name">Список Skills</string>
-    <string name="tool_skill_list_description">Показать все сохранённые skills</string>
-    <string name="tool_skill_execute_name">Выполнить Skill</string>
-    <string name="tool_skill_execute_description">Выполнить сохранённый skill по имени</string>
-    <string name="tool_skill_delete_name">Удалить Skill</string>
-    <string name="tool_skill_delete_description">Удалить сохранённый skill</string>
-    <string name="tool_skill_update_data_name">Обновить данные Skill</string>
-    <string name="tool_skill_update_data_description">Обновить данные конфигурации skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills — это многоразовые JavaScript-скрипты, созданные ИИ. Включите это, чтобы позволить ИИ создавать и выполнять пользовательские скрипты.</string>
-    <string name="settings_skills_empty">Пока не создано ни одного skill. Попросите ИИ создать skill в чате.</string>
-    <string name="settings_skills_delete">Удалить skill</string>
-    <string name="snackbar_skill_deleted">Skill удалён</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Песочница Linux</string>
-    <string name="settings_sandbox_description">Лёгкий дистрибутив Linux с менеджером пакетов и стандартными утилитами. Безопасно работает внутри приложения через proot. Загрузка ~3 МБ.</string>
+    <string name="settings_sandbox_description">Установите среду Linux, чтобы ИИ мог выполнять команды оболочки, скрипты и инструменты от вашего имени. Работает безопасно внутри приложения. ~3 МБ загрузка.</string>
     <string name="settings_sandbox_install">Установить</string>
     <string name="settings_sandbox_install_packages">Установить базовые пакеты</string>
     <string name="settings_sandbox_open_terminal">Открыть терминал</string>
@@ -214,7 +198,7 @@
     <string name="settings_sandbox_cancel">Отмена</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Терминал</string>
-    <string name="terminal_help_text">Введите команду ниже, чтобы начать.</string>
+    <string name="terminal_help_text">ИИ использует эту среду для выполнения команд.\nВы также можете выполнять команды вручную ниже.</string>
     <string name="terminal_input_placeholder">введите команду…</string>
     <string name="terminal_run_content_description">Выполнить</string>
 </resources>

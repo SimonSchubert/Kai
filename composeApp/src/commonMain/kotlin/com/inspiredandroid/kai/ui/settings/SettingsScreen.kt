@@ -43,7 +43,6 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -125,11 +124,8 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
-import com.inspiredandroid.kai.data.SkillEntry
-import com.inspiredandroid.kai.data.SkillExecutionResult
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
-import com.inspiredandroid.kai.data.prettyPrintJs
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -138,8 +134,6 @@ import com.inspiredandroid.kai.saveFileToDevice
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.icons.DragIndicator
-import com.inspiredandroid.kai.ui.icons.ExpandLess
-import com.inspiredandroid.kai.ui.icons.ExpandMore
 import com.inspiredandroid.kai.ui.icons.Replay
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
@@ -195,7 +189,6 @@ import kai.composeapp.generated.resources.settings_import_section_mcp
 import kai.composeapp.generated.resources.settings_import_section_memory
 import kai.composeapp.generated.resources.settings_import_section_scheduling
 import kai.composeapp.generated.resources.settings_import_section_services
-import kai.composeapp.generated.resources.settings_import_section_skills
 import kai.composeapp.generated.resources.settings_import_section_soul
 import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
@@ -238,10 +231,6 @@ import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
-import kai.composeapp.generated.resources.settings_skills
-import kai.composeapp.generated.resources.settings_skills_delete
-import kai.composeapp.generated.resources.settings_skills_description
-import kai.composeapp.generated.resources.settings_skills_empty
 import kai.composeapp.generated.resources.settings_soul
 import kai.composeapp.generated.resources.settings_soul_description
 import kai.composeapp.generated.resources.settings_soul_reset
@@ -259,8 +248,8 @@ import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kai.composeapp.generated.resources.settings_tab_general
 import kai.composeapp.generated.resources.settings_tab_integrations
+import kai.composeapp.generated.resources.settings_tab_sandbox
 import kai.composeapp.generated.resources.settings_tab_services
-import kai.composeapp.generated.resources.settings_tab_skills
 import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
@@ -270,7 +259,6 @@ import kai.composeapp.generated.resources.snackbar_email_removed
 import kai.composeapp.generated.resources.snackbar_mcp_server_removed
 import kai.composeapp.generated.resources.snackbar_memory_deleted
 import kai.composeapp.generated.resources.snackbar_service_removed
-import kai.composeapp.generated.resources.snackbar_skill_deleted
 import kai.composeapp.generated.resources.snackbar_task_cancelled
 import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.collections.immutable.ImmutableList
@@ -332,6 +320,7 @@ fun SettingsScreenContent(
     onInstallPackages: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
+    terminalPreviewLines: List<TerminalLine> = emptyList(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val undoLabel = stringResource(Res.string.snackbar_undo)
@@ -340,7 +329,6 @@ fun SettingsScreenContent(
     val emailRemovedMsg = stringResource(Res.string.snackbar_email_removed)
     val serviceRemovedMsg = stringResource(Res.string.snackbar_service_removed)
     val mcpServerRemovedMsg = stringResource(Res.string.snackbar_mcp_server_removed)
-    val skillDeletedMsg = stringResource(Res.string.snackbar_skill_deleted)
 
     LaunchedEffect(uiState.pendingDeletion) {
         val deletion = uiState.pendingDeletion ?: return@LaunchedEffect
@@ -351,7 +339,6 @@ fun SettingsScreenContent(
             is PendingDeletion.EmailAccount -> emailRemovedMsg
             is PendingDeletion.Service -> serviceRemovedMsg
             is PendingDeletion.McpServer -> mcpServerRemovedMsg
-            is PendingDeletion.Skill -> skillDeletedMsg
         }
         val result = snackbarHostState.showSnackbar(
             message = message,
@@ -373,9 +360,6 @@ fun SettingsScreenContent(
     val filteredEmailAccounts = remember(uiState.emailAccounts, pendingDeletion) {
         if (pendingDeletion is PendingDeletion.EmailAccount) uiState.emailAccounts.filter { it.id != pendingDeletion.id }.toImmutableList() else uiState.emailAccounts
     }
-    val filteredSkills = remember(uiState.skills, pendingDeletion) {
-        if (pendingDeletion is PendingDeletion.Skill) uiState.skills.filter { it.name != pendingDeletion.name }.toImmutableList() else uiState.skills
-    }
     val filteredServices = remember(uiState.configuredServices, pendingDeletion) {
         if (pendingDeletion is PendingDeletion.Service) uiState.configuredServices.filter { it.instanceId != pendingDeletion.instanceId }.toImmutableList() else uiState.configuredServices
     }
@@ -383,14 +367,13 @@ fun SettingsScreenContent(
         if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId }.toImmutableList() else uiState.mcpServers
     }
 
-    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers, filteredSkills) {
+    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers) {
         uiState.copy(
             memories = filteredMemories,
             scheduledTasks = filteredTasks,
             emailAccounts = filteredEmailAccounts,
             configuredServices = filteredServices,
             mcpServers = filteredMcpServers,
-            skills = filteredSkills,
         )
     }
 
@@ -408,87 +391,104 @@ fun SettingsScreenContent(
                 TopBar(onNavigateBack = onNavigateBack)
             }
 
+            val visibleTabs = remember(sandboxState.showSandbox) {
+                SettingsTab.entries.filter { it != SettingsTab.Sandbox || sandboxState.showSandbox }
+            }
+
             SettingsTabSelector(
+                tabs = visibleTabs,
                 currentTab = filteredUiState.currentTab,
                 onSelectTab = filteredUiState.onSelectTab,
             )
 
+            val isTerminalReady = filteredUiState.currentTab == SettingsTab.Sandbox && sandboxState.sandboxReady
+
             val settingsScrollState = rememberScrollState()
             Box(Modifier.weight(1f).fillMaxWidth()) {
-                Column(
-                    Modifier.fillMaxWidth().verticalScroll(settingsScrollState),
-                    horizontalAlignment = CenterHorizontally,
-                ) {
-                    Spacer(Modifier.height(16.dp))
-
-                    val maxContentWidth = when (filteredUiState.currentTab) {
-                        SettingsTab.Tools -> 900.dp
-                        SettingsTab.General -> 900.dp
-                        SettingsTab.Integrations -> 900.dp
-                        else -> 500.dp
-                    }
+                if (isTerminalReady) {
+                    // Terminal fills entire space with its own internal scroll
                     Column(
-                        Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                        Modifier.fillMaxSize().padding(horizontal = 16.dp),
                         horizontalAlignment = CenterHorizontally,
                     ) {
-                        when (filteredUiState.currentTab) {
-                            SettingsTab.General -> {
-                                GeneralContent(uiState = filteredUiState)
+                        TerminalTabContent(
+                            sandboxState = sandboxState,
+                            onToggleSandbox = onToggleSandbox,
+                            onResetSandbox = onResetSandbox,
+                            onInstallPackages = onInstallPackages,
+                            previewLines = terminalPreviewLines,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    }
+                } else {
+                    Column(
+                        Modifier.fillMaxWidth().verticalScroll(settingsScrollState),
+                        horizontalAlignment = CenterHorizontally,
+                    ) {
+                        Spacer(Modifier.height(16.dp))
+
+                        val maxContentWidth = when (filteredUiState.currentTab) {
+                            SettingsTab.Services -> 500.dp
+                            else -> 900.dp
+                        }
+                        Column(
+                            Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
+                            horizontalAlignment = CenterHorizontally,
+                        ) {
+                            when (filteredUiState.currentTab) {
+                                SettingsTab.General -> {
+                                    GeneralContent(uiState = filteredUiState)
+                                }
+
+                                SettingsTab.Services -> {
+                                    ServicesContent(uiState = filteredUiState)
+                                }
+
+                                SettingsTab.Integrations -> {
+                                    IntegrationsContent()
+                                }
+
+                                SettingsTab.Tools -> {
+                                    ToolsContent(
+                                        tools = filteredUiState.tools,
+                                        onToggleTool = filteredUiState.onToggleTool,
+                                        mcpServers = filteredUiState.mcpServers,
+                                        onAddMcpServer = filteredUiState.onAddMcpServer,
+                                        onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
+                                        onToggleMcpServer = filteredUiState.onToggleMcpServer,
+                                        onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
+                                        showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
+                                        onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
+                                        onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                                    )
+                                }
+
+                                SettingsTab.Sandbox -> {
+                                    // Not-ready state (install UI) - scrollable
+                                    TerminalTabContent(
+                                        sandboxState = sandboxState,
+                                        onToggleSandbox = onToggleSandbox,
+                                        onSetupSandbox = onSetupSandbox,
+                                        onCancelSandbox = onCancelSandbox,
+                                        onResetSandbox = onResetSandbox,
+                                        onInstallPackages = onInstallPackages,
+                                        previewLines = terminalPreviewLines,
+                                    )
+                                }
                             }
 
-                            SettingsTab.Services -> {
-                                ServicesContent(uiState = filteredUiState)
-                            }
-
-                            SettingsTab.Integrations -> {
-                                IntegrationsContent()
-                            }
-
-                            SettingsTab.Tools -> {
-                                ToolsContent(
-                                    tools = filteredUiState.tools,
-                                    onToggleTool = filteredUiState.onToggleTool,
-                                    mcpServers = filteredUiState.mcpServers,
-                                    onAddMcpServer = filteredUiState.onAddMcpServer,
-                                    onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
-                                    onToggleMcpServer = filteredUiState.onToggleMcpServer,
-                                    onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
-                                    showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
-                                    onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
-                                    onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
-                                    sandboxState = sandboxState,
-                                    onToggleSandbox = onToggleSandbox,
-                                    onSetupSandbox = onSetupSandbox,
-                                    onCancelSandbox = onCancelSandbox,
-                                    onResetSandbox = onResetSandbox,
-                                    onInstallPackages = onInstallPackages,
-                                )
-                            }
-
-                            SettingsTab.Skills -> {
-                                SkillsContent(
-                                    skills = filteredUiState.skills,
-                                    onDeleteSkill = filteredUiState.onDeleteSkill,
-                                    isSkillsEnabled = filteredUiState.isSkillsEnabled,
-                                    onToggleSkills = filteredUiState.onToggleSkills,
-                                    onExecuteSkill = filteredUiState.onExecuteSkill,
-                                    executingSkillName = filteredUiState.executingSkillName,
-                                    skillExecutionResult = filteredUiState.skillExecutionResult,
-                                )
-                            }
+                            Spacer(Modifier.height(16.dp))
                         }
 
-                        Spacer(Modifier.height(16.dp))
+                        Spacer(Modifier.weight(1f))
+
+                        BottomInfo()
                     }
-
-                    Spacer(Modifier.weight(1f))
-
-                    BottomInfo()
+                    VerticalScrollbarForScroll(
+                        scrollState = settingsScrollState,
+                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                    )
                 }
-                VerticalScrollbarForScroll(
-                    scrollState = settingsScrollState,
-                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
-                )
             }
         }
         SnackbarHost(
@@ -519,10 +519,10 @@ private fun TopBar(onNavigateBack: () -> Unit) {
 
 @Composable
 private fun SettingsTabSelector(
+    tabs: List<SettingsTab>,
     currentTab: SettingsTab,
     onSelectTab: (SettingsTab) -> Unit,
 ) {
-    val tabs = SettingsTab.entries
     val selectedIndex = tabs.indexOf(currentTab)
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -546,7 +546,7 @@ private fun SettingsTabSelector(
                                 SettingsTab.General -> stringResource(Res.string.settings_tab_general)
                                 SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
                                 SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
-                                SettingsTab.Skills -> stringResource(Res.string.settings_tab_skills)
+                                SettingsTab.Sandbox -> stringResource(Res.string.settings_tab_sandbox)
                                 SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
                             },
                         )
@@ -1904,7 +1904,6 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
     ImportSection.SPLINTERLANDS -> "Splinterlands"
     ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
     ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)
-    ImportSection.SKILLS -> stringResource(Res.string.settings_import_section_skills)
 }
 
 @Composable
@@ -1919,12 +1918,6 @@ private fun ToolsContent(
     showAddMcpServerDialog: Boolean,
     onShowAddMcpServerDialog: (Boolean) -> Unit,
     onAddPopularMcpServer: (PopularMcpServer) -> Unit,
-    sandboxState: SandboxUiState,
-    onToggleSandbox: (Boolean) -> Unit,
-    onSetupSandbox: () -> Unit,
-    onCancelSandbox: () -> Unit,
-    onResetSandbox: () -> Unit,
-    onInstallPackages: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // MCP Servers section
@@ -1939,19 +1932,6 @@ private fun ToolsContent(
             onShowAddDialog = onShowAddMcpServerDialog,
             onAddPopularMcpServer = onAddPopularMcpServer,
         )
-
-        if (sandboxState.showSandbox) {
-            Spacer(Modifier.height(24.dp))
-
-            LinuxSandboxSection(
-                state = sandboxState,
-                onToggleSandbox = onToggleSandbox,
-                onSetupSandbox = onSetupSandbox,
-                onCancelSandbox = onCancelSandbox,
-                onResetSandbox = onResetSandbox,
-                onInstallPackages = onInstallPackages,
-            )
-        }
 
         Spacer(Modifier.height(24.dp))
 
@@ -2004,25 +1984,24 @@ private fun ToolsContent(
 }
 
 @Composable
-private fun LinuxSandboxSection(
-    state: SandboxUiState,
+private fun TerminalTabContent(
+    sandboxState: SandboxUiState,
     onToggleSandbox: (Boolean) -> Unit,
-    onSetupSandbox: () -> Unit,
-    onCancelSandbox: () -> Unit,
+    onSetupSandbox: () -> Unit = {},
+    onCancelSandbox: () -> Unit = {},
     onResetSandbox: () -> Unit,
     onInstallPackages: () -> Unit,
+    previewLines: List<TerminalLine> = emptyList(),
+    modifier: Modifier = Modifier,
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(Res.string.settings_sandbox_title),
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-
-        Spacer(Modifier.height(12.dp))
-
-        SettingsCard {
-            if (state.sandboxInstalled) {
+    if (sandboxState.sandboxReady) {
+        val isPreview = LocalInspectionMode.current
+        val sandboxController: SandboxController? = if (!isPreview) koinInject() else null
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            SettingsCard {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -2031,81 +2010,86 @@ private fun LinuxSandboxSection(
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = "Alpine Linux",
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
-                        if (state.sandboxDiskUsageMB > 0) {
+                        if (sandboxState.sandboxDiskUsageMB > 0) {
                             Text(
-                                text = stringResource(Res.string.settings_sandbox_disk_usage, state.sandboxDiskUsageMB),
+                                text = stringResource(Res.string.settings_sandbox_disk_usage, sandboxState.sandboxDiskUsageMB),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     }
                     Switch(
-                        checked = state.isSandboxEnabled,
+                        checked = sandboxState.isSandboxEnabled,
                         onCheckedChange = onToggleSandbox,
                     )
                 }
 
-                if (!state.sandboxReady && state.isWorking) {
-                    SandboxProgressRow(null, state.sandboxStatusText, onCancelSandbox)
-                } else if (!state.sandboxPackagesInstalled && state.sandboxReady) {
-                    Spacer(Modifier.height(8.dp))
-                    OutlinedButton(onClick = onInstallPackages) {
-                        Text(stringResource(Res.string.settings_sandbox_install_packages))
-                    }
+                if (sandboxState.isWorking) {
+                    SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
                 }
 
-                if (state.sandboxReady) {
-                    var showTerminal by remember { mutableStateOf(false) }
+                Spacer(Modifier.height(4.dp))
 
-                    Spacer(Modifier.height(8.dp))
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Button(onClick = { showTerminal = true }) {
-                            Text(stringResource(Res.string.settings_sandbox_open_terminal))
-                        }
-                        OutlinedButton(onClick = onResetSandbox) {
-                            Text(stringResource(Res.string.settings_sandbox_uninstall))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (!sandboxState.sandboxPackagesInstalled && !sandboxState.isWorking) {
+                        OutlinedButton(onClick = onInstallPackages) {
+                            Text(stringResource(Res.string.settings_sandbox_install_packages))
                         }
                     }
-
-                    if (showTerminal) {
-                        val sandboxController: SandboxController = koinInject()
-                        TerminalSheet(
-                            sandboxController = sandboxController,
-                            onDismiss = { showTerminal = false },
-                        )
+                    OutlinedButton(onClick = onResetSandbox) {
+                        Text(stringResource(Res.string.settings_sandbox_uninstall))
                     }
                 }
-            } else {
+            }
+
+            Surface(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                shape = RoundedCornerShape(12.dp),
+                color = TerminalDarkBg,
+                tonalElevation = 2.dp,
+            ) {
+                TerminalContent(
+                    sandboxController = sandboxController,
+                    modifier = Modifier.fillMaxSize(),
+                    darkBackground = true,
+                    initialLines = previewLines,
+                )
+            }
+        }
+    } else {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            SettingsCard {
                 Text(
                     text = "Alpine Linux",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
+
                 Spacer(Modifier.height(4.dp))
+
                 Text(
                     text = stringResource(Res.string.settings_sandbox_description),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
 
-                if (state.sandboxProgress != null) {
-                    SandboxProgressRow(state.sandboxProgress, state.sandboxStatusText, onCancelSandbox)
-                } else if (state.isWorking) {
-                    SandboxProgressRow(null, state.sandboxStatusText, onCancelSandbox)
-                } else if (state.hasError) {
+                if (sandboxState.sandboxProgress != null) {
+                    SandboxProgressRow(sandboxState.sandboxProgress, sandboxState.sandboxStatusText, onCancelSandbox)
+                } else if (sandboxState.isWorking) {
+                    SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
+                } else if (sandboxState.hasError) {
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = state.sandboxStatusText,
+                        text = sandboxState.sandboxStatusText,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.error,
                     )
                 }
 
-                if (!state.isWorking) {
+                if (!sandboxState.isWorking) {
                     Spacer(Modifier.height(8.dp))
                     Button(onClick = onSetupSandbox) {
                         Text(stringResource(Res.string.settings_sandbox_install))
@@ -2721,274 +2705,6 @@ private fun ScheduledTaskList(
                     }
                 }
                 Spacer(Modifier.height(8.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun SkillsContent(
-    skills: ImmutableList<SkillEntry>,
-    onDeleteSkill: (String) -> Unit,
-    isSkillsEnabled: Boolean,
-    onToggleSkills: (Boolean) -> Unit,
-    onExecuteSkill: (String, String?) -> Unit,
-    executingSkillName: String?,
-    skillExecutionResult: Pair<String, SkillExecutionResult>?,
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        SettingsCard {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onToggleSkills(!isSkillsEnabled) }
-                        .pointerHoverIcon(PointerIcon.Hand),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.settings_skills),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.weight(1f),
-                    )
-                    Switch(
-                        checked = isSkillsEnabled,
-                        onCheckedChange = onToggleSkills,
-                    )
-                }
-                Text(
-                    text = stringResource(Res.string.settings_skills_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
-
-        if (isSkillsEnabled && skills.isEmpty()) {
-            SettingsCard {
-                Text(
-                    text = stringResource(Res.string.settings_skills_empty),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
-
-        if (isSkillsEnabled) {
-            skills.forEach { skill ->
-                SkillCard(
-                    skill = skill,
-                    onDeleteSkill = onDeleteSkill,
-                    onExecuteSkill = onExecuteSkill,
-                    isExecuting = executingSkillName == skill.name,
-                    executionResult = skillExecutionResult?.takeIf { it.first == skill.name }?.second,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun SkillCard(
-    skill: SkillEntry,
-    onDeleteSkill: (String) -> Unit,
-    onExecuteSkill: (String, String?) -> Unit,
-    isExecuting: Boolean,
-    executionResult: SkillExecutionResult?,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var inputText by remember { mutableStateOf("") }
-    val prettyScript = remember(skill.script) { prettyPrintJs(skill.script) }
-
-    SettingsCard(onClick = { expanded = !expanded }) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            // Header — clickable to expand
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = skill.name,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = skill.description,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                    if (skill.executionCount > 0) {
-                        Text(
-                            text = "Executed ${skill.executionCount}x",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-                Icon(
-                    imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                IconButton(
-                    onClick = { onDeleteSkill(skill.name) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = stringResource(Res.string.settings_skills_delete),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-
-            if (expanded) {
-                Spacer(Modifier.height(8.dp))
-
-                // Input + Execute
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    OutlinedTextField(
-                        value = inputText,
-                        onValueChange = { inputText = it },
-                        modifier = Modifier.weight(1f),
-                        placeholder = {
-                            Text(
-                                text = "Input (optional)",
-                                style = MaterialTheme.typography.bodySmall,
-                            )
-                        },
-                        singleLine = true,
-                        textStyle = MaterialTheme.typography.bodySmall,
-                    )
-                    Button(
-                        onClick = { onExecuteSkill(skill.name, inputText.ifBlank { null }) },
-                        enabled = !isExecuting,
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    ) {
-                        if (isExecuting) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(16.dp),
-                                strokeWidth = 2.dp,
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.PlayArrow,
-                                contentDescription = "Execute",
-                                modifier = Modifier.size(18.dp),
-                            )
-                            Spacer(Modifier.width(4.dp))
-                            Text("Run")
-                        }
-                    }
-                }
-
-                // Result
-                if (executionResult != null) {
-                    Spacer(Modifier.height(8.dp))
-                    val resultColor = if (executionResult.success) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.error
-                    }
-                    val resultText = if (executionResult.success) {
-                        executionResult.output.ifEmpty { "(no output)" }
-                    } else {
-                        executionResult.error ?: "Execution failed"
-                    }
-                    SelectionContainer {
-                        Text(
-                            text = resultText,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                            ),
-                            color = resultColor,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(resultColor.copy(alpha = 0.08f))
-                                .padding(12.dp),
-                        )
-                    }
-                }
-
-                // Readme
-                if (skill.readme.isNotEmpty()) {
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = "Documentation",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    SelectionContainer {
-                        Text(
-                            text = skill.readme,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
-                                .padding(12.dp),
-                        )
-                    }
-                }
-
-                // Data
-                if (skill.dataJson.isNotEmpty()) {
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = "Data",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    val prettyData = remember(skill.dataJson) { prettyPrintJs(skill.dataJson) }
-                    SelectionContainer {
-                        Text(
-                            text = prettyData,
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                            ),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                                .padding(12.dp),
-                        )
-                    }
-                }
-
-                // Script source
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = "Script",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Spacer(Modifier.height(4.dp))
-                SelectionContainer {
-                    Text(
-                        text = prettyScript,
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
-                        ),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                            .padding(12.dp),
-                    )
-                }
             }
         }
     }

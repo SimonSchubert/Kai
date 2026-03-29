@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Vula i-GitHub Issue</string>
     <string name="notification_channel_name">Izaziso ze-AI</string>
     <string name="notification_channel_description">Izaziso ezithunyelwe umsizi we-AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Dala i-Skill</string>
-    <string name="tool_skill_create_description">Dala noma ubuyekeze i-skill ye-JavaScript engasetshenziswa kabusha</string>
-    <string name="tool_skill_list_name">Uhlu lwe-Skills</string>
-    <string name="tool_skill_list_description">Bonisa zonke ama-skills alondoloziwe</string>
-    <string name="tool_skill_execute_name">Sebenzisa i-Skill</string>
-    <string name="tool_skill_execute_description">Sebenzisa i-skill elondoloziwe ngegama</string>
-    <string name="tool_skill_delete_name">Susa i-Skill</string>
-    <string name="tool_skill_delete_description">Susa i-skill elondoloziwe</string>
-    <string name="tool_skill_update_data_name">Buyekeza idatha ye-Skill</string>
-    <string name="tool_skill_update_data_description">Buyekeza idatha yokulungisa ye-skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Ama-Skills ama-script e-JavaScript angasetshenziswa kabusha adalwe yi-AI. Vumela lokhu ukuze i-AI yakhe futhi isebenzise ama-script ahlukile.</string>
-    <string name="settings_skills_empty">Akukho ma-skills asedaliwe. Cela i-AI ukuba idle i-skill engxoxweni.</string>
-    <string name="settings_skills_delete">Susa i-skill</string>
-    <string name="snackbar_skill_deleted">I-skill isusiwe</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">I-Linux Sandbox</string>
-    <string name="settings_sandbox_description">Ukusatshalaliswa okulula kwe-Linux okunomphathi wamaphakheji namathuluzi ajwayelekile. Isebenza ngokuphephile ngaphakathi kohlelo lokusebenza nge-proot. Ukulanda ~3 MB.</string>
+    <string name="settings_sandbox_description">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo ye-shell, amaskripthi namathuluzi egameni lakho. Isebenza ngokuphepha ngaphakathi kohlelo lokusebenza. ~3 MB ukudawuniloda.</string>
     <string name="settings_sandbox_install">Faka</string>
     <string name="settings_sandbox_install_packages">Faka amaphakheji ayisisekelo</string>
     <string name="settings_sandbox_open_terminal">Vula itheminali</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Khansela</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Itheminali</string>
-    <string name="terminal_help_text">Bhala umyalo ngezansi ukuze uqale.</string>
+    <string name="terminal_help_text">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo.\nUngasebenzisa nemiyalo mathupha ngezansi.</string>
     <string name="terminal_input_placeholder">faka umyalo…</string>
     <string name="terminal_run_content_description">Sebenzisa</string>
 </resources>

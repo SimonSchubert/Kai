@@ -188,25 +188,9 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_open_github_issue">Avaa GitHub-issue</string>
     <string name="notification_channel_name">Tekoäly-ilmoitukset</string>
     <string name="notification_channel_description">Tekoälyavustajan lähettämät ilmoitukset</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Luo Skill</string>
-    <string name="tool_skill_create_description">Luo tai päivitä uudelleenkäytettävä JavaScript-skill</string>
-    <string name="tool_skill_list_name">Listaa Skills</string>
-    <string name="tool_skill_list_description">Listaa kaikki tallennetut skills</string>
-    <string name="tool_skill_execute_name">Suorita Skill</string>
-    <string name="tool_skill_execute_description">Suorita tallennettu skill nimen perusteella</string>
-    <string name="tool_skill_delete_name">Poista Skill</string>
-    <string name="tool_skill_delete_description">Poista tallennettu skill</string>
-    <string name="tool_skill_update_data_name">Päivitä Skillin tiedot</string>
-    <string name="tool_skill_update_data_description">Päivitä skillin määritystiedot</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills ovat tekoälyn luomia uudelleenkäytettäviä JavaScript-skriptejä. Ota tämä käyttöön, jotta tekoäly voi luoda ja suorittaa mukautettuja skriptejä.</string>
-    <string name="settings_skills_empty">Skilleja ei ole vielä luotu. Pyydä tekoälyä luomaan skill chatissa.</string>
-    <string name="settings_skills_delete">Poista skill</string>
-    <string name="snackbar_skill_deleted">Skill poistettu</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux-hiekkalaatikko</string>
-    <string name="settings_sandbox_description">Kevyt Linux-jakelu paketinhallinnalla ja vakiotyökaluilla. Toimii turvallisesti sovelluksessa prootin kautta. ~3 Mt lataus.</string>
+    <string name="settings_sandbox_description">Asenna Linux-ympäristö, jotta tekoäly voi suorittaa komentorivikomentoja, skriptejä ja työkaluja puolestasi. Toimii turvallisesti sovelluksen sisällä. ~3 Mt lataus.</string>
     <string name="settings_sandbox_install">Asenna</string>
     <string name="settings_sandbox_install_packages">Asenna peruspaketit</string>
     <string name="settings_sandbox_open_terminal">Avaa terminaali</string>
@@ -214,7 +198,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_sandbox_cancel">Peruuta</string>
     <string name="settings_sandbox_disk_usage">%1$d Mt</string>
     <string name="terminal_title">Terminaali</string>
-    <string name="terminal_help_text">Kirjoita komento alle aloittaaksesi.</string>
+    <string name="terminal_help_text">Tekoäly käyttää tätä ympäristöä komentojen suorittamiseen.\nVoit myös suorittaa komentoja manuaalisesti alla.</string>
     <string name="terminal_input_placeholder">syötä komento…</string>
     <string name="terminal_run_content_description">Suorita</string>
 </resources>

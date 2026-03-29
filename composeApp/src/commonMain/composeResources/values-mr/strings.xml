@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">GitHub समस्या उघडा</string>
     <string name="notification_channel_name">AI सूचना</string>
     <string name="notification_channel_description">AI सहाय्यकाने पाठवलेल्या सूचना</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill तयार करा</string>
-    <string name="tool_skill_create_description">पुन्हा वापरता येणारी JavaScript skill तयार करा किंवा अपडेट करा</string>
-    <string name="tool_skill_list_name">Skills यादी</string>
-    <string name="tool_skill_list_description">सर्व जतन केलेल्या skills ची यादी पहा</string>
-    <string name="tool_skill_execute_name">Skill चालवा</string>
-    <string name="tool_skill_execute_description">नावाने जतन केलेली skill चालवा</string>
-    <string name="tool_skill_delete_name">Skill हटवा</string>
-    <string name="tool_skill_delete_description">जतन केलेली skill हटवा</string>
-    <string name="tool_skill_update_data_name">Skill डेटा अपडेट करा</string>
-    <string name="tool_skill_update_data_description">Skill चा कॉन्फिगरेशन डेटा अपडेट करा</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills या AI ने तयार केलेल्या पुन्हा वापरता येणाऱ्या JavaScript स्क्रिप्ट आहेत. AI ला सानुकूल स्क्रिप्ट तयार करण्यास आणि चालवण्यास अनुमती देण्यासाठी हे सक्षम करा.</string>
-    <string name="settings_skills_empty">अद्याप कोणतीही skill तयार केलेली नाही. चॅटमध्ये AI ला skill तयार करण्यास सांगा.</string>
-    <string name="settings_skills_delete">Skill हटवा</string>
-    <string name="snackbar_skill_deleted">Skill हटवली</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux सँडबॉक्स</string>
-    <string name="settings_sandbox_description">पॅकेज व्यवस्थापक आणि मानक साधनांसह हलके Linux वितरण. proot द्वारे अॅपमध्ये सुरक्षितपणे चालते. ~3 MB डाउनलोड.</string>
+    <string name="settings_sandbox_description">Linux वातावरण स्थापित करा जेणेकरून AI तुमच्या वतीने शेल कमांड, स्क्रिप्ट आणि साधने चालवू शकेल. अ‍ॅपमध्ये सुरक्षितपणे चालते. ~3 MB डाउनलोड.</string>
     <string name="settings_sandbox_install">स्थापित करा</string>
     <string name="settings_sandbox_install_packages">मूलभूत पॅकेज स्थापित करा</string>
     <string name="settings_sandbox_open_terminal">टर्मिनल उघडा</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">रद्द करा</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">टर्मिनल</string>
-    <string name="terminal_help_text">सुरू करण्यासाठी खाली कमांड टाइप करा.</string>
+    <string name="terminal_help_text">AI कमांड चालवण्यासाठी हे वातावरण वापरते.\nतुम्ही खाली मॅन्युअली देखील कमांड चालवू शकता.</string>
     <string name="terminal_input_placeholder">कमांड प्रविष्ट करा…</string>
     <string name="terminal_run_content_description">चालवा</string>
 </resources>

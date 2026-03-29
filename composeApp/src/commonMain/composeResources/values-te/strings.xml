@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">GitHub Issue తెరువు</string>
     <string name="notification_channel_name">AI నోటిఫికేషన్లు</string>
     <string name="notification_channel_description">AI అసిస్టెంట్ పంపిన నోటిఫికేషన్లు</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill సృష్టించు</string>
-    <string name="tool_skill_create_description">పునర్వినియోగ JavaScript skill సృష్టించు లేదా నవీకరించు</string>
-    <string name="tool_skill_list_name">Skills జాబితా</string>
-    <string name="tool_skill_list_description">భద్రపరచిన అన్ని skills జాబితా చూపు</string>
-    <string name="tool_skill_execute_name">Skill అమలు చేయి</string>
-    <string name="tool_skill_execute_description">పేరు ద్వారా భద్రపరచిన skill అమలు చేయి</string>
-    <string name="tool_skill_delete_name">Skill తొలగించు</string>
-    <string name="tool_skill_delete_description">భద్రపరచిన skill తొలగించు</string>
-    <string name="tool_skill_update_data_name">Skill డేటా నవీకరించు</string>
-    <string name="tool_skill_update_data_description">Skill యొక్క ఆకృతీకరణ డేటాను నవీకరించు</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills AI ద్వారా సృష్టించబడిన పునర్వినియోగ JavaScript స్క్రిప్ట్‌లు. AI అనుకూల స్క్రిప్ట్‌లను సృష్టించడానికి మరియు అమలు చేయడానికి అనుమతించడానికి దీన్ని ప్రారంభించండి.</string>
-    <string name="settings_skills_empty">ఇంకా skills ఏవీ సృష్టించబడలేదు. చాట్‌లో AI ని skill సృష్టించమని అడగండి.</string>
-    <string name="settings_skills_delete">Skill తొలగించు</string>
-    <string name="snackbar_skill_deleted">Skill తొలగించబడింది</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux శాండ్‌బాక్స్</string>
-    <string name="settings_sandbox_description">ప్యాకేజ్ మేనేజర్ మరియు ప్రమాణ సాధనాలతో తేలికైన Linux పంపిణీ. proot ద్వారా యాప్‌లో సురక్షితంగా పనిచేస్తుంది. ~3 MB డౌన్‌లోడ్.</string>
+    <string name="settings_sandbox_description">AI మీ తరపున షెల్ కమాండ్‌లు, స్క్రిప్ట్‌లు మరియు టూల్స్ అమలు చేయడానికి Linux వాతావరణాన్ని ఇన్‌స్టాల్ చేయండి. యాప్ లోపల సురక్షితంగా నడుస్తుంది. ~3 MB డౌన్‌లోడ్.</string>
     <string name="settings_sandbox_install">ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_install_packages">ప్రాథమిక ప్యాకేజీలను ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_open_terminal">టెర్మినల్ తెరవండి</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">రద్దు</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">టెర్మినల్</string>
-    <string name="terminal_help_text">ప్రారంభించడానికి క్రింద ఒక ఆదేశాన్ని టైప్ చేయండి.</string>
+    <string name="terminal_help_text">AI కమాండ్‌లను అమలు చేయడానికి ఈ వాతావరణాన్ని ఉపయోగిస్తుంది.\nమీరు కింద మాన్యువల్‌గా కూడా కమాండ్‌లను అమలు చేయవచ్చు.</string>
     <string name="terminal_input_placeholder">ఆదేశాన్ని నమోదు చేయండి…</string>
     <string name="terminal_run_content_description">అమలు చేయండి</string>
 </resources>

@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Buka Isu GitHub</string>
     <string name="notification_channel_name">Pemberitahuan AI</string>
     <string name="notification_channel_description">Pemberitahuan yang dihantar oleh pembantu AI</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Cipta Skill</string>
-    <string name="tool_skill_create_description">Cipta atau kemas kini skill JavaScript yang boleh diguna semula</string>
-    <string name="tool_skill_list_name">Senarai Skills</string>
-    <string name="tool_skill_list_description">Senaraikan semua skill yang disimpan</string>
-    <string name="tool_skill_execute_name">Jalankan Skill</string>
-    <string name="tool_skill_execute_description">Jalankan skill tersimpan mengikut nama</string>
-    <string name="tool_skill_delete_name">Padam Skill</string>
-    <string name="tool_skill_delete_description">Padam skill yang disimpan</string>
-    <string name="tool_skill_update_data_name">Kemas kini Data Skill</string>
-    <string name="tool_skill_update_data_description">Kemas kini data konfigurasi skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills ialah skrip JavaScript boleh guna semula yang dicipta oleh AI. Dayakan ini untuk membenarkan AI membina dan menjalankan skrip tersuai.</string>
-    <string name="settings_skills_empty">Belum ada skill yang dicipta. Minta AI untuk mencipta skill dalam sembang.</string>
-    <string name="settings_skills_delete">Padam skill</string>
-    <string name="snackbar_skill_deleted">Skill dipadam</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Kotak pasir Linux</string>
-    <string name="settings_sandbox_description">Pengedaran Linux ringan dengan pengurus pakej dan utiliti standard. Berjalan dengan selamat dalam aplikasi melalui proot. Muat turun ~3 MB.</string>
+    <string name="settings_sandbox_description">Pasang persekitaran Linux supaya AI boleh menjalankan arahan shell, skrip dan alatan bagi pihak anda. Berjalan dengan selamat di dalam apl. ~3 MB muat turun.</string>
     <string name="settings_sandbox_install">Pasang</string>
     <string name="settings_sandbox_install_packages">Pasang pakej asas</string>
     <string name="settings_sandbox_open_terminal">Buka terminal</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Batal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
-    <string name="terminal_help_text">Taip arahan di bawah untuk bermula.</string>
+    <string name="terminal_help_text">AI menggunakan persekitaran ini untuk menjalankan arahan.\nAnda juga boleh menjalankan arahan secara manual di bawah.</string>
     <string name="terminal_input_placeholder">masukkan arahan…</string>
     <string name="terminal_run_content_description">Jalankan</string>
 </resources>

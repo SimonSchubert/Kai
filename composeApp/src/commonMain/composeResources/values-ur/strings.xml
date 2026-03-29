@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">GitHub Issue کھولیں</string>
     <string name="notification_channel_name">AI اطلاعات</string>
     <string name="notification_channel_description">AI اسسٹنٹ کی طرف سے بھیجی گئی اطلاعات</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Skill بنائیں</string>
-    <string name="tool_skill_create_description">دوبارہ قابل استعمال JavaScript skill بنائیں یا اپ ڈیٹ کریں</string>
-    <string name="tool_skill_list_name">Skills کی فہرست</string>
-    <string name="tool_skill_list_description">تمام محفوظ شدہ skills کی فہرست دکھائیں</string>
-    <string name="tool_skill_execute_name">Skill چلائیں</string>
-    <string name="tool_skill_execute_description">نام سے محفوظ شدہ skill چلائیں</string>
-    <string name="tool_skill_delete_name">Skill حذف کریں</string>
-    <string name="tool_skill_delete_description">محفوظ شدہ skill حذف کریں</string>
-    <string name="tool_skill_update_data_name">Skill ڈیٹا اپ ڈیٹ کریں</string>
-    <string name="tool_skill_update_data_description">Skill کی ترتیب ڈیٹا اپ ڈیٹ کریں</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills AI کے ذریعے بنائے گئے دوبارہ قابل استعمال JavaScript اسکرپٹ ہیں۔ AI کو حسب ضرورت اسکرپٹ بنانے اور چلانے کی اجازت دینے کے لیے اسے فعال کریں۔</string>
-    <string name="settings_skills_empty">ابھی تک کوئی skill نہیں بنائی گئی۔ چیٹ میں AI سے skill بنانے کو کہیں۔</string>
-    <string name="settings_skills_delete">Skill حذف کریں</string>
-    <string name="snackbar_skill_deleted">Skill حذف ہو گئی</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux سینڈباکس</string>
-    <string name="settings_sandbox_description">پیکیج مینیجر اور معیاری ٹولز کے ساتھ ہلکی Linux تقسیم۔ proot کے ذریعے ایپ میں محفوظ طریقے سے چلتی ہے۔ ~3 MB ڈاؤن لوڈ۔</string>
+    <string name="settings_sandbox_description">ایک Linux ماحول انسٹال کریں تاکہ AI آپ کی جانب سے شیل کمانڈز، اسکرپٹس اور ٹولز چلا سکے۔ ایپ کے اندر محفوظ طریقے سے چلتا ہے۔ ~3 MB ڈاؤن لوڈ۔</string>
     <string name="settings_sandbox_install">انسٹال کریں</string>
     <string name="settings_sandbox_install_packages">بنیادی پیکیجز انسٹال کریں</string>
     <string name="settings_sandbox_open_terminal">ٹرمینل کھولیں</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">منسوخ</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ٹرمینل</string>
-    <string name="terminal_help_text">شروع کرنے کے لیے نیچے کمانڈ ٹائپ کریں۔</string>
+    <string name="terminal_help_text">AI کمانڈز چلانے کے لیے اس ماحول کا استعمال کرتا ہے۔\nآپ نیچے دستی طور پر بھی کمانڈز چلا سکتے ہیں۔</string>
     <string name="terminal_input_placeholder">کمانڈ درج کریں…</string>
     <string name="terminal_run_content_description">چلائیں</string>
 </resources>

@@ -187,25 +187,9 @@
     <string name="settings_open_github_issue">Отворете GitHub проблем</string>
     <string name="notification_channel_name">AI известия</string>
     <string name="notification_channel_description">Известия, изпратени от AI асистент</string>
-    <string name="settings_tab_skills">Skills</string>
-    <string name="tool_skill_create_name">Създаване на Skill</string>
-    <string name="tool_skill_create_description">Създаване или актуализиране на многократно използваем JavaScript skill</string>
-    <string name="tool_skill_list_name">Списък Skills</string>
-    <string name="tool_skill_list_description">Показване на всички запазени skills</string>
-    <string name="tool_skill_execute_name">Изпълнение на Skill</string>
-    <string name="tool_skill_execute_description">Изпълнение на запазен skill по име</string>
-    <string name="tool_skill_delete_name">Изтриване на Skill</string>
-    <string name="tool_skill_delete_description">Изтриване на запазен skill</string>
-    <string name="tool_skill_update_data_name">Актуализиране данни на Skill</string>
-    <string name="tool_skill_update_data_description">Актуализиране на конфигурационните данни на skill</string>
-    <string name="settings_skills">Skills</string>
-    <string name="settings_skills_description">Skills са многократно използваеми JavaScript скриптове, създадени от ИИ. Активирайте това, за да позволите на ИИ да създава и изпълнява персонализирани скриптове.</string>
-    <string name="settings_skills_empty">Все още няма създадени skills. Помолете ИИ да създаде skill в чата.</string>
-    <string name="settings_skills_delete">Изтриване на skill</string>
-    <string name="snackbar_skill_deleted">Skill е изтрит</string>
-    <string name="settings_import_section_skills">Skills</string>
+    <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Linux пясъчник</string>
-    <string name="settings_sandbox_description">Лека Linux дистрибуция с мениджър на пакети и стандартни инструменти. Работи безопасно в приложението чрез proot. ~3 MB за изтегляне.</string>
+    <string name="settings_sandbox_description">Инсталирайте Linux среда, за да може ИИ да изпълнява команди, скриптове и инструменти от ваше име. Работи сигурно вътре в приложението. ~3 MB за изтегляне.</string>
     <string name="settings_sandbox_install">Инсталиране</string>
     <string name="settings_sandbox_install_packages">Инсталиране на основни пакети</string>
     <string name="settings_sandbox_open_terminal">Отваряне на терминал</string>
@@ -213,7 +197,7 @@
     <string name="settings_sandbox_cancel">Отказ</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Терминал</string>
-    <string name="terminal_help_text">Въведете команда по-долу, за да започнете.</string>
+    <string name="terminal_help_text">ИИ използва тази среда за изпълнение на команди.\nМожете също да изпълнявате команди ръчно по-долу.</string>
     <string name="terminal_input_placeholder">въведете команда…</string>
     <string name="terminal_run_content_description">Изпълни</string>
 </resources>
