@@ -21,3 +21,4 @@ captures
 fastlane/play-store-key.json
 fastlane/report.xml
 fastlane/README.mdsite/
+.build-native/
