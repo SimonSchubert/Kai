@@ -1,3 +1,18 @@
+## v1.12.0 — 2026-03-29
+
+### Features
+- Add Linux sandbox for Android shell commands with ANSI terminal output
+- Add AiHubMix service
+- Add desktop scrollbars
+
+### Fixes
+- Fix macOS window application appearance
+
+### Improvements
+- Improve settings UI
+- Migrate extended icons to custom icons
+- Upgrade Ktor and add slf4j-nop
+
 ## v1.11.2 — 2026-03-25
 
 ### Improvements

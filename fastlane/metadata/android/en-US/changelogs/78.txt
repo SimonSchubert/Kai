@@ -1,0 +1,7 @@
+Add Linux sandbox for Android shell commands with ANSI terminal output
+Add AiHubMix service
+Add desktop scrollbars
+Fix macOS window application appearance
+Improve settings UI
+Migrate extended icons to custom icons
+Upgrade Ktor and add slf4j-nop
