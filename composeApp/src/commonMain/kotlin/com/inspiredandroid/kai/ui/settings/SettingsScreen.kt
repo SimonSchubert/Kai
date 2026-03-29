@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -523,35 +524,43 @@ private fun SettingsTabSelector(
     currentTab: SettingsTab,
     onSelectTab: (SettingsTab) -> Unit,
 ) {
-    val selectedIndex = tabs.indexOf(currentTab)
-    Box(
-        modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center,
+    Surface(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
     ) {
-        androidx.compose.material3.PrimaryScrollableTabRow(
-            selectedTabIndex = selectedIndex,
-            modifier = Modifier.widthIn(max = 600.dp).padding(vertical = 8.dp),
-            containerColor = Color.Transparent,
-            edgePadding = 0.dp,
-            divider = {},
+        Row(
+            modifier = Modifier
+                .padding(4.dp)
+                .horizontalScroll(rememberScrollState()),
         ) {
             tabs.forEach { tab ->
-                androidx.compose.material3.Tab(
-                    selected = currentTab == tab,
-                    onClick = { onSelectTab(tab) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
-                    text = {
-                        Text(
-                            text = when (tab) {
-                                SettingsTab.General -> stringResource(Res.string.settings_tab_general)
-                                SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
-                                SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
-                                SettingsTab.Sandbox -> stringResource(Res.string.settings_tab_sandbox)
-                                SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
-                            },
-                        )
+                val isSelected = currentTab == tab
+                Surface(
+                    modifier = Modifier
+                        .pointerHoverIcon(PointerIcon.Hand)
+                        .clip(RoundedCornerShape(50))
+                        .clickable { onSelectTab(tab) },
+                    shape = RoundedCornerShape(50),
+                    color = if (isSelected) {
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                    } else {
+                        Color.Transparent
                     },
-                )
+                ) {
+                    Text(
+                        text = when (tab) {
+                            SettingsTab.General -> stringResource(Res.string.settings_tab_general)
+                            SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
+                            SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
+                            SettingsTab.Sandbox -> stringResource(Res.string.settings_tab_sandbox)
+                            SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
+                        },
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelLarge,
+                        maxLines = 1,
+                    )
+                }
             }
         }
     }
