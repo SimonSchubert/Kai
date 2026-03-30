@@ -616,6 +616,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shell-command-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell command parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output handling
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1237,6 +1270,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shell-command-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell command parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#output-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output handling
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1453,7 +1519,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-03-28</p>
+<p><strong>Last verified:</strong> 2026-03-30</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1580,6 +1646,78 @@
 <p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).</p>
 <p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under <code>linux-sandbox/</code>.</p>
 <p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.</p>
+<h4 id="shell-command-parameters">Shell command parameters</h4>
+<p>Both platforms support these parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>command</code></td>
+<td>string (required)</td>
+<td>The shell command to execute</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>integer</td>
+<td>Timeout in seconds (desktop default 30, max 120; Android default 30, max 60)</td>
+</tr>
+<tr>
+<td><code>working_dir</code></td>
+<td>string</td>
+<td>Working directory for the command</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>object</td>
+<td>Environment variables to set as key-value pairs</td>
+</tr>
+<tr>
+<td><code>background</code></td>
+<td>boolean</td>
+<td>Run in background and return a session_id immediately</td>
+</tr>
+</tbody>
+</table>
+<p>When <code>background=true</code>, the command starts asynchronously and returns a <code>session_id</code>. The AI then uses the <code>manage_process</code> tool to check status, retrieve output, or terminate the process.</p>
+<p>The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.</p>
+<p>On desktop, dangerous environment variables (PATH, LD_PRELOAD, DYLD_INSERT_LIBRARIES) cannot be overridden via the <code>env</code> parameter.</p>
+<h4 id="process-management">Process management</h4>
+<p>The <code>manage_process</code> tool is automatically available when the shell command tool is enabled. It supports these actions:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>list</code></td>
+<td>Show all running and finished background processes</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Get output from a process (with offset/limit for paging)</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>Terminate a running process</td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td>Remove a finished process from the list</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-handling">Output handling</h4>
+<p>Command output uses smart middle truncation: when output exceeds the limit, both the beginning and end are preserved with a truncation marker in the middle. This ensures error messages (typically at the end) are not lost.</p>
+<p>Output limits: desktop 30,000 chars per stream, Android 15,000 chars per stream. Final tool results are truncated at 20,000 chars.</p>
 <h3 id="platform-specific-desktop">Platform-specific (Desktop)</h3>
 <table>
 <thead>
@@ -1594,6 +1732,11 @@
 <td><code>execute_shell_command</code></td>
 <td>Execute a shell command on the host machine</td>
 <td>Disabled</td>
+</tr>
+<tr>
+<td><code>manage_process</code></td>
+<td>Manage background shell processes (list, log, kill, remove)</td>
+<td>Disabled (enabled with shell command)</td>
 </tr>
 </tbody>
 </table>
@@ -1699,6 +1842,22 @@
 <tr>
 <td><code>composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt</code></td>
 <td>Alpine rootfs download and extraction</td>
+</tr>
+<tr>
+<td><code>composeApp/src/desktopMain/.../tools/ProcessManager.kt</code></td>
+<td>Desktop background process tracking</td>
+</tr>
+<tr>
+<td><code>composeApp/src/desktopMain/.../tools/ProcessManagerTool.kt</code></td>
+<td>Desktop process management tool</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/ProcessManager.kt</code></td>
+<td>Android background process tracking</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/ProcessManagerTool.kt</code></td>
+<td>Android process management tool</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../SandboxController.kt</code></td>
