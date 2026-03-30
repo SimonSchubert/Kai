@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">ਮੁੱਢਲੇ ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰੋ</string>
     <string name="settings_sandbox_open_terminal">ਟਰਮੀਨਲ ਖੋਲ੍ਹੋ</string>
     <string name="settings_sandbox_uninstall">ਅਣਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux ਸੈਂਡਬਾਕਸ ਦਾ ਸਾਰਾ ਡਾਟਾ ਗੁਆਚ ਜਾਵੇਗਾ। ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ \'ਤੇ ਅਣਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <string name="settings_sandbox_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ਟਰਮੀਨਲ</string>

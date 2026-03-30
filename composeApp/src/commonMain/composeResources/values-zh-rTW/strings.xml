@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">安裝基本套件</string>
     <string name="settings_sandbox_open_terminal">開啟終端機</string>
     <string name="settings_sandbox_uninstall">解除安裝</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux 沙盒中的所有資料將會遺失。確定要解除安裝嗎？</string>
     <string name="settings_sandbox_cancel">取消</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">終端機</string>

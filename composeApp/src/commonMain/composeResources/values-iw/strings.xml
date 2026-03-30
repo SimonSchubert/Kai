@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">התקנת חבילות בסיסיות</string>
     <string name="settings_sandbox_open_terminal">פתיחת מסוף</string>
     <string name="settings_sandbox_uninstall">הסרה</string>
+    <string name="settings_sandbox_uninstall_confirm">כל הנתונים בסביבת החול של Linux יאבדו. האם אתה בטוח שברצונך להסיר?</string>
     <string name="settings_sandbox_cancel">ביטול</string>
     <string name="settings_sandbox_disk_usage">%1$d מ"ב</string>
     <string name="terminal_title">מסוף</string>

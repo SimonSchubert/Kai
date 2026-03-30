@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Pasang paket dasar</string>
     <string name="settings_sandbox_open_terminal">Buka terminal</string>
     <string name="settings_sandbox_uninstall">Hapus</string>
+    <string name="settings_sandbox_uninstall_confirm">Semua data di sandbox Linux akan hilang. Apakah Anda yakin ingin menghapus?</string>
     <string name="settings_sandbox_cancel">Batal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

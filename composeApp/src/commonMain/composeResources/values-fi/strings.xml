@@ -195,6 +195,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_sandbox_install_packages">Asenna peruspaketit</string>
     <string name="settings_sandbox_open_terminal">Avaa terminaali</string>
     <string name="settings_sandbox_uninstall">Poista asennus</string>
+    <string name="settings_sandbox_uninstall_confirm">Kaikki Linux-hiekkalaatikon tiedot menetetään. Haluatko varmasti poistaa asennuksen?</string>
     <string name="settings_sandbox_cancel">Peruuta</string>
     <string name="settings_sandbox_disk_usage">%1$d Mt</string>
     <string name="terminal_title">Terminaali</string>

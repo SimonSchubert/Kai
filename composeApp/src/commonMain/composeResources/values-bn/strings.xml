@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">বেসিক প্যাকেজ ইনস্টল করুন</string>
     <string name="settings_sandbox_open_terminal">টার্মিনাল খুলুন</string>
     <string name="settings_sandbox_uninstall">আনইনস্টল করুন</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux স্যান্ডবক্সের সমস্ত ডেটা হারিয়ে যাবে। আপনি কি নিশ্চিত আনইনস্টল করতে চান?</string>
     <string name="settings_sandbox_cancel">বাতিল</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">টার্মিনাল</string>

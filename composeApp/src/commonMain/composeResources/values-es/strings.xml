@@ -195,6 +195,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_sandbox_install_packages">Instalar paquetes básicos</string>
     <string name="settings_sandbox_open_terminal">Abrir terminal</string>
     <string name="settings_sandbox_uninstall">Desinstalar</string>
+    <string name="settings_sandbox_uninstall_confirm">Se perderán todos los datos del sandbox de Linux. ¿Estás seguro de que quieres desinstalar?</string>
     <string name="settings_sandbox_cancel">Cancelar</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

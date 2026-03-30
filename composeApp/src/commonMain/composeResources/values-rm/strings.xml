@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Installar pachets da basa</string>
     <string name="settings_sandbox_open_terminal">Avrir il terminal</string>
     <string name="settings_sandbox_uninstall">Deinstallar</string>
+    <string name="settings_sandbox_uninstall_confirm">Tut las datas en il sandbox da Linux van a ir a perder. Es ti segir che ti vuls deinstallar?</string>
     <string name="settings_sandbox_cancel">Interrumper</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

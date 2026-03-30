@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">تثبيت الحزم الأساسية</string>
     <string name="settings_sandbox_open_terminal">فتح الطرفية</string>
     <string name="settings_sandbox_uninstall">إزالة التثبيت</string>
+    <string name="settings_sandbox_uninstall_confirm">ستُفقد جميع البيانات في بيئة Linux المحمية. هل أنت متأكد من رغبتك في إزالة التثبيت؟</string>
     <string name="settings_sandbox_cancel">إلغاء</string>
     <string name="settings_sandbox_disk_usage">%1$d ميجابايت</string>
     <string name="terminal_title">الطرفية</string>

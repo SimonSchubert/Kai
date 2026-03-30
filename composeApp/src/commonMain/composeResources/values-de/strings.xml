@@ -195,6 +195,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_sandbox_install_packages">Basispakete installieren</string>
     <string name="settings_sandbox_open_terminal">Terminal öffnen</string>
     <string name="settings_sandbox_uninstall">Deinstallieren</string>
+    <string name="settings_sandbox_uninstall_confirm">Alle Daten in der Linux-Sandbox gehen verloren. Möchten Sie wirklich deinstallieren?</string>
     <string name="settings_sandbox_cancel">Abbrechen</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Инсталиране на основни пакети</string>
     <string name="settings_sandbox_open_terminal">Отваряне на терминал</string>
     <string name="settings_sandbox_uninstall">Деинсталиране</string>
+    <string name="settings_sandbox_uninstall_confirm">Всички данни в Linux пясъчника ще бъдат загубени. Сигурни ли сте, че искате да деинсталирате?</string>
     <string name="settings_sandbox_cancel">Отказ</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Терминал</string>

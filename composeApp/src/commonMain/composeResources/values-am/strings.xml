@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">መሠረታዊ ፓኬጆችን ጫን</string>
     <string name="settings_sandbox_open_terminal">ተርሚናል ክፈት</string>
     <string name="settings_sandbox_uninstall">አራግፍ</string>
+    <string name="settings_sandbox_uninstall_confirm">በLinux sandbox ውስጥ ያሉ ሁሉም ውሂቦች ይጠፋሉ። እርግጠኛ ነዎት ማራገፍ ይፈልጋሉ?</string>
     <string name="settings_sandbox_cancel">ይቅር</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ተርሚናል</string>

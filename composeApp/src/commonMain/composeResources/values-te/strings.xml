@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">ప్రాథమిక ప్యాకేజీలను ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_open_terminal">టెర్మినల్ తెరవండి</string>
     <string name="settings_sandbox_uninstall">అన్‌ఇన్‌స్టాల్ చేయండి</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux శాండ్‌బాక్స్‌లోని మొత్తం డేటా కోల్పోతారు. మీరు ఖచ్చితంగా అన్‌ఇన్‌స్టాల్ చేయాలనుకుంటున్నారా?</string>
     <string name="settings_sandbox_cancel">రద్దు</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">టెర్మినల్</string>

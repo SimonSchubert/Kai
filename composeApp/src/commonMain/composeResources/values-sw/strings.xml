@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Sakinisha vifurushi vya msingi</string>
     <string name="settings_sandbox_open_terminal">Fungua terminal</string>
     <string name="settings_sandbox_uninstall">Ondoa</string>
+    <string name="settings_sandbox_uninstall_confirm">Data zote katika sandbox ya Linux zitapotea. Una uhakika unataka kuondoa?</string>
     <string name="settings_sandbox_cancel">Ghairi</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">基本パッケージをインストール</string>
     <string name="settings_sandbox_open_terminal">ターミナルを開く</string>
     <string name="settings_sandbox_uninstall">アンインストール</string>
+    <string name="settings_sandbox_uninstall_confirm">Linuxサンドボックス内のすべてのデータが失われます。本当にアンインストールしますか？</string>
     <string name="settings_sandbox_cancel">キャンセル</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ターミナル</string>

@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Усталяваць базавыя пакеты</string>
     <string name="settings_sandbox_open_terminal">Адкрыць тэрмінал</string>
     <string name="settings_sandbox_uninstall">Выдаліць</string>
+    <string name="settings_sandbox_uninstall_confirm">Усе даныя ў пясочніцы Linux будуць страчаны. Вы ўпэўнены, што жадаеце выдаліць?</string>
     <string name="settings_sandbox_cancel">Скасаваць</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Тэрмінал</string>

@@ -195,6 +195,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_sandbox_install_packages">Installera grundpaket</string>
     <string name="settings_sandbox_open_terminal">Öppna terminal</string>
     <string name="settings_sandbox_uninstall">Avinstallera</string>
+    <string name="settings_sandbox_uninstall_confirm">All data i Linux-sandlådan kommer att förloras. Är du säker på att du vill avinstallera?</string>
     <string name="settings_sandbox_cancel">Avbryt</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

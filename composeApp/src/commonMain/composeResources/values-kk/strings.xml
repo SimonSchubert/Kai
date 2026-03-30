@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Негізгі пакеттерді орнату</string>
     <string name="settings_sandbox_open_terminal">Терминалды ашу</string>
     <string name="settings_sandbox_uninstall">Жою</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux құм жәшігіндегі барлық деректер жоғалады. Жоюды қалайтыныңызға сенімдісіз бе?</string>
     <string name="settings_sandbox_cancel">Бас тарту</string>
     <string name="settings_sandbox_disk_usage">%1$d МБ</string>
     <string name="terminal_title">Терминал</string>

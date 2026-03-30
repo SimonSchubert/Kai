@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">安装基础软件包</string>
     <string name="settings_sandbox_open_terminal">打开终端</string>
     <string name="settings_sandbox_uninstall">卸载</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux 沙盒中的所有数据将会丢失。确定要卸载吗？</string>
     <string name="settings_sandbox_cancel">取消</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">终端</string>

@@ -195,6 +195,7 @@
     <string name="settings_sandbox_install_packages">기본 패키지 설치</string>
     <string name="settings_sandbox_open_terminal">터미널 열기</string>
     <string name="settings_sandbox_uninstall">제거</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux 샌드박스의 모든 데이터가 손실됩니다. 정말 제거하시겠습니까?</string>
     <string name="settings_sandbox_cancel">취소</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">터미널</string>

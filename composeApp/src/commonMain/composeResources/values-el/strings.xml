@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Εγκατάσταση βασικών πακέτων</string>
     <string name="settings_sandbox_open_terminal">Άνοιγμα τερματικού</string>
     <string name="settings_sandbox_uninstall">Απεγκατάσταση</string>
+    <string name="settings_sandbox_uninstall_confirm">Όλα τα δεδομένα στο sandbox Linux θα χαθούν. Είστε βέβαιοι ότι θέλετε να απεγκαταστήσετε;</string>
     <string name="settings_sandbox_cancel">Ακύρωση</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Τερματικό</string>

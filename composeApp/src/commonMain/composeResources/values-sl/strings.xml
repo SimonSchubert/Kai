@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Namesti osnovne pakete</string>
     <string name="settings_sandbox_open_terminal">Odpri terminal</string>
     <string name="settings_sandbox_uninstall">Odstrani</string>
+    <string name="settings_sandbox_uninstall_confirm">Vsi podatki v peskovniku Linux bodo izgubljeni. Ali ste prepričani, da želite odstraniti?</string>
     <string name="settings_sandbox_cancel">Prekliči</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

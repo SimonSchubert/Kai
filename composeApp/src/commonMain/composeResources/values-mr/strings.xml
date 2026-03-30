@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">मूलभूत पॅकेज स्थापित करा</string>
     <string name="settings_sandbox_open_terminal">टर्मिनल उघडा</string>
     <string name="settings_sandbox_uninstall">काढून टाका</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux सँडबॉक्समधील सर्व डेटा गमावला जाईल. तुम्हाला खात्री आहे की तुम्ही काढून टाकू इच्छिता?</string>
     <string name="settings_sandbox_cancel">रद्द करा</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">टर्मिनल</string>

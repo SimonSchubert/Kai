@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Instalo paketat bazë</string>
     <string name="settings_sandbox_open_terminal">Hap terminalin</string>
     <string name="settings_sandbox_uninstall">Çinstalo</string>
+    <string name="settings_sandbox_uninstall_confirm">Të gjitha të dhënat në sandbox-in Linux do të humbasin. A jeni i sigurt që dëshironi ta çinstaloni?</string>
     <string name="settings_sandbox_cancel">Anulo</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminali</string>

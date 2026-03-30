@@ -195,6 +195,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_sandbox_install_packages">Installer les paquets de base</string>
     <string name="settings_sandbox_open_terminal">Ouvrir le terminal</string>
     <string name="settings_sandbox_uninstall">Désinstaller</string>
+    <string name="settings_sandbox_uninstall_confirm">Toutes les données du bac à sable Linux seront perdues. Êtes-vous sûr de vouloir désinstaller ?</string>
     <string name="settings_sandbox_cancel">Annuler</string>
     <string name="settings_sandbox_disk_usage">%1$d Mo</string>
     <string name="terminal_title">Terminal</string>

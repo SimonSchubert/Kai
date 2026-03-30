@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Nainstalovat základní balíčky</string>
     <string name="settings_sandbox_open_terminal">Otevřít terminál</string>
     <string name="settings_sandbox_uninstall">Odinstalovat</string>
+    <string name="settings_sandbox_uninstall_confirm">Všechna data v sandboxu Linuxu budou ztracena. Opravdu chcete odinstalovat?</string>
     <string name="settings_sandbox_cancel">Zrušit</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminál</string>

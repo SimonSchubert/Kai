@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Instalare pachete de bază</string>
     <string name="settings_sandbox_open_terminal">Deschide terminalul</string>
     <string name="settings_sandbox_uninstall">Dezinstalare</string>
+    <string name="settings_sandbox_uninstall_confirm">Toate datele din sandbox-ul Linux vor fi pierdute. Sigur doriți să dezinstalați?</string>
     <string name="settings_sandbox_cancel">Anulare</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

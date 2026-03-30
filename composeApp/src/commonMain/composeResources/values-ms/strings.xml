@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Pasang pakej asas</string>
     <string name="settings_sandbox_open_terminal">Buka terminal</string>
     <string name="settings_sandbox_uninstall">Nyahpasang</string>
+    <string name="settings_sandbox_uninstall_confirm">Semua data dalam sandbox Linux akan hilang. Adakah anda pasti mahu menyahpasang?</string>
     <string name="settings_sandbox_cancel">Batal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

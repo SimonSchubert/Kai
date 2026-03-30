@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Paigalda põhipaketid</string>
     <string name="settings_sandbox_open_terminal">Ava terminal</string>
     <string name="settings_sandbox_uninstall">Eemalda</string>
+    <string name="settings_sandbox_uninstall_confirm">Kõik andmed Linuxi liivakastis lähevad kaotsi. Kas soovite kindlasti eemaldada?</string>
     <string name="settings_sandbox_cancel">Tühista</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

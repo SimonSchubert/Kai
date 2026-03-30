@@ -195,6 +195,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_sandbox_install_packages">Basispakketten installeren</string>
     <string name="settings_sandbox_open_terminal">Terminal openen</string>
     <string name="settings_sandbox_uninstall">Verwijderen</string>
+    <string name="settings_sandbox_uninstall_confirm">Alle gegevens in de Linux-sandbox gaan verloren. Weet u zeker dat u wilt verwijderen?</string>
     <string name="settings_sandbox_cancel">Annuleren</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

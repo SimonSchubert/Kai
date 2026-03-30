@@ -195,6 +195,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_sandbox_install_packages">Installa pacchetti di base</string>
     <string name="settings_sandbox_open_terminal">Apri terminale</string>
     <string name="settings_sandbox_uninstall">Disinstalla</string>
+    <string name="settings_sandbox_uninstall_confirm">Tutti i dati nella sandbox Linux andranno persi. Sei sicuro di voler disinstallare?</string>
     <string name="settings_sandbox_cancel">Annulla</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminale</string>

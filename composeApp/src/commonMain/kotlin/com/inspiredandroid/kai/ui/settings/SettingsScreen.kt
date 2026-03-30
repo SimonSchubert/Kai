@@ -228,6 +228,7 @@ import kai.composeapp.generated.resources.settings_sandbox_install_packages
 import kai.composeapp.generated.resources.settings_sandbox_open_terminal
 import kai.composeapp.generated.resources.settings_sandbox_title
 import kai.composeapp.generated.resources.settings_sandbox_uninstall
+import kai.composeapp.generated.resources.settings_sandbox_uninstall_confirm
 import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
@@ -2006,6 +2007,7 @@ private fun TerminalTabContent(
     if (sandboxState.sandboxReady) {
         val isPreview = LocalInspectionMode.current
         val sandboxController: SandboxController? = if (!isPreview) koinInject() else null
+        var showResetDialog by remember { mutableStateOf(false) }
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -2048,10 +2050,37 @@ private fun TerminalTabContent(
                             Text(stringResource(Res.string.settings_sandbox_install_packages))
                         }
                     }
-                    OutlinedButton(onClick = onResetSandbox) {
+                    OutlinedButton(onClick = { showResetDialog = true }) {
                         Text(stringResource(Res.string.settings_sandbox_uninstall))
                     }
                 }
+            }
+
+            if (showResetDialog) {
+                AlertDialog(
+                    onDismissRequest = { showResetDialog = false },
+                    title = { Text(stringResource(Res.string.settings_sandbox_uninstall)) },
+                    text = { Text(stringResource(Res.string.settings_sandbox_uninstall_confirm)) },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                showResetDialog = false
+                                onResetSandbox()
+                            },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Text(stringResource(Res.string.settings_sandbox_uninstall))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = { showResetDialog = false },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        ) {
+                            Text(stringResource(Res.string.settings_sandbox_cancel))
+                        }
+                    },
+                )
             }
 
             Surface(

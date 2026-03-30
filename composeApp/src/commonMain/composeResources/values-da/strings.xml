@@ -195,6 +195,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_sandbox_install_packages">Installér basispakker</string>
     <string name="settings_sandbox_open_terminal">Åbn terminal</string>
     <string name="settings_sandbox_uninstall">Afinstallér</string>
+    <string name="settings_sandbox_uninstall_confirm">Alle data i Linux-sandkassen vil gå tabt. Er du sikker på, at du vil afinstallere?</string>
     <string name="settings_sandbox_cancel">Annullér</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

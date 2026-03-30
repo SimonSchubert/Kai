@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Instaliraj osnovne pakete</string>
     <string name="settings_sandbox_open_terminal">Otvori terminal</string>
     <string name="settings_sandbox_uninstall">Deinstaliraj</string>
+    <string name="settings_sandbox_uninstall_confirm">Svi podaci u Linux sandboxu bit će izgubljeni. Jeste li sigurni da želite deinstalirati?</string>
     <string name="settings_sandbox_cancel">Odustani</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

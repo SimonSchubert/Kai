@@ -195,6 +195,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_sandbox_install_packages">Installeer basispakkette</string>
     <string name="settings_sandbox_open_terminal">Maak terminaal oop</string>
     <string name="settings_sandbox_uninstall">Deïnstalleer</string>
+    <string name="settings_sandbox_uninstall_confirm">Alle data in die Linux-sandbox sal verlore gaan. Is jy seker jy wil deïnstalleer?</string>
     <string name="settings_sandbox_cancel">Kanselleer</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminaal</string>

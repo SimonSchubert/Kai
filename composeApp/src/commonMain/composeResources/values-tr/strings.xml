@@ -195,6 +195,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_sandbox_install_packages">Temel paketleri kur</string>
     <string name="settings_sandbox_open_terminal">Terminali aç</string>
     <string name="settings_sandbox_uninstall">Kaldır</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux sandbox\'taki tüm veriler kaybolacak. Kaldırmak istediğinizden emin misiniz?</string>
     <string name="settings_sandbox_cancel">İptal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

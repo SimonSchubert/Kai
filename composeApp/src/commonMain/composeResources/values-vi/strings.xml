@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Cài đặt gói cơ bản</string>
     <string name="settings_sandbox_open_terminal">Mở terminal</string>
     <string name="settings_sandbox_uninstall">Gỡ cài đặt</string>
+    <string name="settings_sandbox_uninstall_confirm">Tất cả dữ liệu trong sandbox Linux sẽ bị mất. Bạn có chắc chắn muốn gỡ cài đặt không?</string>
     <string name="settings_sandbox_cancel">Hủy</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

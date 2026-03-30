@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">બેઝિક પેકેજ ઇન્સ્ટોલ કરો</string>
     <string name="settings_sandbox_open_terminal">ટર્મિનલ ખોલો</string>
     <string name="settings_sandbox_uninstall">અનઇન્સ્ટોલ કરો</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux સેન્ડબોક્સમાંનો તમામ ડેટા ગુમાવશો. શું તમે ખરેખર અનઇન્સ્ટોલ કરવા માગો છો?</string>
     <string name="settings_sandbox_cancel">રદ કરો</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ટર્મિનલ</string>

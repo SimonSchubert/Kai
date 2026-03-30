@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Faka amaphakheji ayisisekelo</string>
     <string name="settings_sandbox_open_terminal">Vula itheminali</string>
     <string name="settings_sandbox_uninstall">Khipha</string>
+    <string name="settings_sandbox_uninstall_confirm">Yonke idatha ku-Linux sandbox izolahleka. Uqinisekile ukuthi ufuna ukukhipha?</string>
     <string name="settings_sandbox_cancel">Khansela</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Itheminali</string>

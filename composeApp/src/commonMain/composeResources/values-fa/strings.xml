@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">نصب بسته‌های پایه</string>
     <string name="settings_sandbox_open_terminal">باز کردن ترمینال</string>
     <string name="settings_sandbox_uninstall">حذف</string>
+    <string name="settings_sandbox_uninstall_confirm">تمام داده‌ها در جعبه شنی لینوکس از بین خواهند رفت. آیا مطمئن هستید که می‌خواهید حذف کنید؟</string>
     <string name="settings_sandbox_cancel">لغو</string>
     <string name="settings_sandbox_disk_usage">%1$d مگابایت</string>
     <string name="terminal_title">ترمینال</string>

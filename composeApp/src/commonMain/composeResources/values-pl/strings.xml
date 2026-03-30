@@ -195,6 +195,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_sandbox_install_packages">Zainstaluj podstawowe pakiety</string>
     <string name="settings_sandbox_open_terminal">Otwórz terminal</string>
     <string name="settings_sandbox_uninstall">Odinstaluj</string>
+    <string name="settings_sandbox_uninstall_confirm">Wszystkie dane w piaskownicy Linux zostaną utracone. Czy na pewno chcesz odinstalować?</string>
     <string name="settings_sandbox_cancel">Anuluj</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

@@ -202,6 +202,7 @@
     <string name="settings_sandbox_install_packages">Install Basic Packages</string>
     <string name="settings_sandbox_open_terminal">Open Terminal</string>
     <string name="settings_sandbox_uninstall">Uninstall</string>
+    <string name="settings_sandbox_uninstall_confirm">All data in the Linux sandbox will be lost. Are you sure you want to uninstall?</string>
     <string name="settings_sandbox_cancel">Cancel</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">ติดตั้งแพ็กเกจพื้นฐาน</string>
     <string name="settings_sandbox_open_terminal">เปิดเทอร์มินัล</string>
     <string name="settings_sandbox_uninstall">ถอนการติดตั้ง</string>
+    <string name="settings_sandbox_uninstall_confirm">ข้อมูลทั้งหมดใน Linux sandbox จะสูญหาย คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง?</string>
     <string name="settings_sandbox_cancel">ยกเลิก</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">เทอร์มินัล</string>

@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">அடிப்படை தொகுப்புகளை நிறுவு</string>
     <string name="settings_sandbox_open_terminal">முனையத்தைத் திற</string>
     <string name="settings_sandbox_uninstall">நீக்கு</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux சாண்ட்பாக்ஸில் உள்ள அனைத்து தரவுகளும் இழக்கப்படும். நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
     <string name="settings_sandbox_cancel">ரத்து</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">முனையம்</string>

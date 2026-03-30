@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">بنیادی پیکیجز انسٹال کریں</string>
     <string name="settings_sandbox_open_terminal">ٹرمینل کھولیں</string>
     <string name="settings_sandbox_uninstall">ان انسٹال کریں</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux سینڈباکس میں موجود تمام ڈیٹا ضائع ہو جائے گا۔ کیا آپ واقعی ان انسٹال کرنا چاہتے ہیں؟</string>
     <string name="settings_sandbox_cancel">منسوخ</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">ٹرمینل</string>

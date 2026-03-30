@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">Alapcsomagok telepítése</string>
     <string name="settings_sandbox_open_terminal">Terminál megnyitása</string>
     <string name="settings_sandbox_uninstall">Eltávolítás</string>
+    <string name="settings_sandbox_uninstall_confirm">A Linux sandbox összes adata elvész. Biztosan el szeretné távolítani?</string>
     <string name="settings_sandbox_cancel">Mégse</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminál</string>

@@ -194,6 +194,7 @@
     <string name="settings_sandbox_install_packages">I-install ang mga pangunahing package</string>
     <string name="settings_sandbox_open_terminal">Buksan ang terminal</string>
     <string name="settings_sandbox_uninstall">I-uninstall</string>
+    <string name="settings_sandbox_uninstall_confirm">Mawawala ang lahat ng data sa Linux sandbox. Sigurado ka bang gusto mong i-uninstall?</string>
     <string name="settings_sandbox_cancel">Kanselahin</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
