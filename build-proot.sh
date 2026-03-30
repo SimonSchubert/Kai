@@ -49,29 +49,38 @@ nproc_portable() {
     nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4
 }
 
+# required for f-droid
+NDK_MAJOR=29
+
 find_ndk() {
     for var in "${ANDROID_NDK_HOME:-}" "${ANDROID_NDK_ROOT:-}"; do
         [[ -n "$var" && -d "$var" ]] && { echo "$var"; return; }
     done
-    # Try local.properties
+
+    # Search SDK locations for NDK r$NDK_MAJOR, falling back to latest installed
+    local sdk_dirs=()
     if [[ -f "$SCRIPT_DIR/local.properties" ]]; then
-        local sdk_dir
-        sdk_dir=$(grep '^sdk.dir=' "$SCRIPT_DIR/local.properties" 2>/dev/null | cut -d= -f2-)
-        if [[ -n "${sdk_dir:-}" ]]; then
-            local found
-            found=$(ls -d "$sdk_dir/ndk/"* 2>/dev/null | sort -V | tail -1) || true
-            [[ -n "${found:-}" ]] && { echo "$found"; return; }
-        fi
+        local prop_sdk
+        prop_sdk=$(grep '^sdk.dir=' "$SCRIPT_DIR/local.properties" 2>/dev/null | cut -d= -f2-)
+        [[ -n "${prop_sdk:-}" ]] && sdk_dirs+=("$prop_sdk")
     fi
-    # Common SDK locations
     for base in "${ANDROID_HOME:-}" "${ANDROID_SDK_ROOT:-}" "$HOME/Library/Android/sdk" "$HOME/Android/Sdk"; do
-        if [[ -n "$base" && -d "$base/ndk" ]]; then
-            local found
-            found=$(ls -d "$base/ndk/"* 2>/dev/null | sort -V | tail -1) || true
-            [[ -n "${found:-}" ]] && { echo "$found"; return; }
-        fi
+        [[ -n "$base" && -d "$base" ]] && sdk_dirs+=("$base")
     done
-    echo "ERROR: Android NDK not found. Set ANDROID_NDK_HOME." >&2
+
+    for sdk in "${sdk_dirs[@]}"; do
+        [[ -d "$sdk/ndk" ]] || continue
+        # Prefer NDK r$NDK_MAJOR
+        local preferred
+        preferred=$(ls -d "$sdk/ndk/${NDK_MAJOR}."* 2>/dev/null | sort -V | tail -1) || true
+        [[ -n "${preferred:-}" ]] && { echo "$preferred"; return; }
+        # Fall back to latest
+        local found
+        found=$(ls -d "$sdk/ndk/"* 2>/dev/null | sort -V | tail -1) || true
+        [[ -n "${found:-}" ]] && { echo "$found"; return; }
+    done
+
+    echo "ERROR: Android NDK r${NDK_MAJOR} not found. Install it via SDK Manager or set ANDROID_NDK_HOME." >&2
     exit 1
 }
 
@@ -219,7 +228,7 @@ build_proot() {
         export STRIP="${TOOLCHAIN}/llvm-strip"
         export OBJCOPY="${TOOLCHAIN}/llvm-objcopy"
         export OBJDUMP="${TOOLCHAIN}/llvm-objdump"
-        export CFLAGS="-DARG_MAX=131072 -I${sysroot}/include -Wno-error=implicit-function-declaration -Wno-error=int-conversion"
+        export CFLAGS="-DARG_MAX=131072 -ffile-prefix-map=${SCRIPT_DIR}=. -I${sysroot}/include -Wno-error=implicit-function-declaration -Wno-error=int-conversion"
         export LDFLAGS="-L${sysroot}/lib"
         export PATH="$tmp_bin:$PATH"
         make -C src \
