@@ -70,6 +70,8 @@ On Android, Kai includes a built-in Linux environment that the AI can use to exe
 
 Enable it in **Settings > Linux Sandbox**.
 
+<img src="screenshots/mobile-7.png" alt="Linux Sandbox" height="300">
+
 ## Screenshots
 
 ### Desktop
