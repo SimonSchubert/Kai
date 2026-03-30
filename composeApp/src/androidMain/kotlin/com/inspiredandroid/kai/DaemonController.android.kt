@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai
 
+import android.app.ForegroundServiceStartNotAllowedException
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -16,11 +17,15 @@ class AndroidDaemonController : DaemonController {
     fun shouldAutoStart(): Boolean = appSettings.isDaemonEnabled()
 
     override fun start() {
-        val intent = Intent(context, DaemonService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intent)
-        } else {
-            context.startService(intent)
+        try {
+            val intent = Intent(context, DaemonService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+        } catch (_: ForegroundServiceStartNotAllowedException) {
+            // App is not in a foreground state — cannot start foreground service (Android 12+)
         }
     }
 

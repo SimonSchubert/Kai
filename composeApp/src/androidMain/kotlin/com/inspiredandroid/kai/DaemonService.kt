@@ -1,6 +1,5 @@
 package com.inspiredandroid.kai
 
-import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -34,6 +33,7 @@ class DaemonService : Service() {
         try {
             startForeground(NOTIFICATION_ID, notification)
         } catch (_: Exception) {
+            serviceScope.cancel()
             stopSelf()
             return
         }

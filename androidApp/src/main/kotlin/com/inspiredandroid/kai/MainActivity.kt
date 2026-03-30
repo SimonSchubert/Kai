@@ -24,6 +24,7 @@ import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
 import nl.marc_apps.tts.rememberTextToSpeechOrNull
+import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
 
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         FileKit.init(this)
+        autoStartDaemon()
 
         val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         setContent {
@@ -81,6 +83,13 @@ class MainActivity : ComponentActivity() {
                     }
                 },
             )
+        }
+    }
+
+    private fun autoStartDaemon() {
+        val daemonController: DaemonController = get()
+        if (daemonController is AndroidDaemonController && daemonController.shouldAutoStart()) {
+            daemonController.start()
         }
     }
 }

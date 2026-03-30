@@ -23,6 +23,7 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.platformName
+import com.inspiredandroid.kai.tools.NotificationPermissionController
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
@@ -41,6 +42,7 @@ import kotlinx.serialization.json.Json
 class SettingsViewModel(
     private val dataRepository: DataRepository,
     private val daemonController: DaemonController,
+    private val notificationPermissionController: NotificationPermissionController,
 ) : ViewModel() {
 
     private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()
@@ -317,6 +319,7 @@ class SettingsViewModel(
     private fun onToggleDaemon(enabled: Boolean) {
         dataRepository.setDaemonEnabled(enabled)
         if (enabled) {
+            viewModelScope.launch { notificationPermissionController.requestPermission() }
             daemonController.start()
         } else {
             daemonController.stop()
