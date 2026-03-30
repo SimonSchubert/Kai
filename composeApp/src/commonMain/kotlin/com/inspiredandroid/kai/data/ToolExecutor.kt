@@ -2,9 +2,11 @@ package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.smartTruncate
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
@@ -19,7 +21,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.jetbrains.compose.resources.getString
 
-private const val MAX_TOOL_RESULT_LENGTH = 8_000
+private const val MAX_TOOL_RESULT_LENGTH = 20_000
 
 class ToolExecutor {
 
@@ -69,11 +71,7 @@ class ToolExecutor {
         }
     }
 
-    private fun truncateResult(result: String): String {
-        if (result.length <= MAX_TOOL_RESULT_LENGTH) return result
-        return result.take(MAX_TOOL_RESULT_LENGTH) +
-            "\n[Output truncated. Original length: ${result.length} characters]"
-    }
+    private fun truncateResult(result: String): String = result.smartTruncate(MAX_TOOL_RESULT_LENGTH)
 
     private fun anyToJsonElement(value: Any?): JsonElement = when (value) {
         null -> JsonNull
@@ -87,6 +85,8 @@ class ToolExecutor {
         is Map<*, *> -> JsonObject(
             value.entries.associate { (k, v) -> k.toString() to anyToJsonElement(v) },
         )
+
+        is List<*> -> JsonArray(value.map { anyToJsonElement(it) })
 
         else -> JsonPrimitive(value.toString())
     }

@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.WebSearchTool
@@ -370,6 +371,7 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isSandboxEnabled()) {
             add(ShellCommandTool)
+            add(ProcessManagerTool)
         }
 
         if (appSettings.isEmailEnabled()) {

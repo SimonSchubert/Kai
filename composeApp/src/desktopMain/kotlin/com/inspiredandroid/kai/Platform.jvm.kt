@@ -23,6 +23,7 @@ import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.EmailTools
 import com.inspiredandroid.kai.tools.HeartbeatTools
+import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.russhwolf.settings.Settings
@@ -135,7 +136,7 @@ actual fun createSecureSettings(): Settings = EncryptedFileSettings()
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(ShellCommandTool.toolInfo) + CommonTools.commonToolDefinitions
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(ShellCommandTool.toolInfo, ProcessManagerTool.toolInfo) + CommonTools.commonToolDefinitions
 
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
@@ -154,6 +155,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)
+            add(ProcessManagerTool)
         }
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))

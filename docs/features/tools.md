@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-03-28
+**Last verified:** 2026-03-30
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -85,11 +85,47 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Settings:** The sandbox section appears in Settings > Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.
 
+#### Shell command parameters
+
+Both platforms support these parameters:
+
+| Parameter | Type | Description |
+|---|---|---|
+| `command` | string (required) | The shell command to execute |
+| `timeout` | integer | Timeout in seconds (desktop default 30, max 120; Android default 30, max 60) |
+| `working_dir` | string | Working directory for the command |
+| `env` | object | Environment variables to set as key-value pairs |
+| `background` | boolean | Run in background and return a session_id immediately |
+
+When `background=true`, the command starts asynchronously and returns a `session_id`. The AI then uses the `manage_process` tool to check status, retrieve output, or terminate the process.
+
+The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.
+
+On desktop, dangerous environment variables (PATH, LD_PRELOAD, DYLD_INSERT_LIBRARIES) cannot be overridden via the `env` parameter.
+
+#### Process management
+
+The `manage_process` tool is automatically available when the shell command tool is enabled. It supports these actions:
+
+| Action | Description |
+|---|---|
+| `list` | Show all running and finished background processes |
+| `log` | Get output from a process (with offset/limit for paging) |
+| `kill` | Terminate a running process |
+| `remove` | Remove a finished process from the list |
+
+#### Output handling
+
+Command output uses smart middle truncation: when output exceeds the limit, both the beginning and end are preserved with a truncation marker in the middle. This ensures error messages (typically at the end) are not lost.
+
+Output limits: desktop 30,000 chars per stream, Android 15,000 chars per stream. Final tool results are truncated at 20,000 chars.
+
 ### Platform-specific (Desktop)
 
 | Tool | Description | Default |
 |---|---|---|
 | `execute_shell_command` | Execute a shell command on the host machine | Disabled |
+| `manage_process` | Manage background shell processes (list, log, kill, remove) | Disabled (enabled with shell command) |
 
 ## Execution Flow
 
@@ -185,6 +221,10 @@ When loading, a single composite row appears at the bottom of the chat list cont
 | `composeApp/src/androidMain/.../sandbox/LinuxSandboxManager.kt` | Sandbox lifecycle, setup, proot management |
 | `composeApp/src/androidMain/.../sandbox/ProotExecutor.kt` | Proot command building and execution |
 | `composeApp/src/androidMain/.../sandbox/RootfsDownloader.kt` | Alpine rootfs download and extraction |
+| `composeApp/src/desktopMain/.../tools/ProcessManager.kt` | Desktop background process tracking |
+| `composeApp/src/desktopMain/.../tools/ProcessManagerTool.kt` | Desktop process management tool |
+| `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking |
+| `composeApp/src/androidMain/.../tools/ProcessManagerTool.kt` | Android process management tool |
 | `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |

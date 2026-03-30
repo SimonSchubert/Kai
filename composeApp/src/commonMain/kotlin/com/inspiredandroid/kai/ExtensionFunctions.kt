@@ -33,6 +33,14 @@ private val ttsItalicUnderscoresRegex = Regex("_(.+?)_")
 private val ttsInlineCodeRegex = Regex("`([^`]+)`")
 private val ttsMultipleBlankLinesRegex = Regex("\\n{3,}")
 
+fun String.smartTruncate(maxLength: Int): String {
+    if (length <= maxLength) return this
+    val keep = (maxLength - 80) / 2
+    return take(keep) +
+        "\n[... ${length - 2 * keep} characters truncated ...]\n" +
+        takeLast(keep)
+}
+
 fun String.stripMarkdownForTts(): String = this
     .replace(ttsCodeBlockRegex, "")
     .replace(ttsImageRegex, "$1")
