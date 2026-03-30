@@ -176,6 +176,7 @@ EOF
     (
         cd "$build_dir"
         CC="$cc" \
+        CFLAGS="-ffile-prefix-map=${SCRIPT_DIR}=." \
         AR="${TOOLCHAIN}/llvm-ar" \
         RANLIB="${TOOLCHAIN}/llvm-ranlib" \
         STRIP="${TOOLCHAIN}/llvm-strip" \
@@ -231,10 +232,16 @@ build_proot() {
         export CFLAGS="-DARG_MAX=131072 -ffile-prefix-map=${SCRIPT_DIR}=. -I${sysroot}/include -Wno-error=implicit-function-declaration -Wno-error=int-conversion"
         export LDFLAGS="-L${sysroot}/lib"
         export PATH="$tmp_bin:$PATH"
+        # Use a relative path for PROOT_UNBUNDLE_LOADER to avoid embedding
+        # absolute build paths in the binary. The app sets PROOT_LOADER at
+        # runtime anyway, so this compiled-in path is only a fallback.
         make -C src \
-            PROOT_UNBUNDLE_LOADER="$loader_dir" \
+            PROOT_UNBUNDLE_LOADER="loader-out" \
             -j"$JOBS"
     )
+
+    # The loader was written to src/loader-out/ (relative), move it
+    cp "$build_dir/src/loader-out/loader" "$loader_dir/loader" 2>/dev/null || true
 
     # Copy outputs (named lib*.so so Android extracts them from the APK)
     cp "$build_dir/src/proot" "$out_dir/libproot.so"
