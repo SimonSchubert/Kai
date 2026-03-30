@@ -370,6 +370,7 @@ class RemoteDataRepository(
         messages: List<History>,
         systemPrompt: String?,
         instanceId: String,
+        history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         val creds = instanceCredentials(instanceId, service)
         val tools = if (supportsTools(creds.modelId)) getAvailableTools() else emptyList()
@@ -377,7 +378,7 @@ class RemoteDataRepository(
         return when (service) {
             Service.Gemini -> {
                 if (tools.isNotEmpty()) {
-                    handleGeminiChatWithTools(creds, messages, tools, systemPrompt)
+                    handleGeminiChatWithTools(creds, messages, tools, systemPrompt, history)
                 } else {
                     val geminiMessages = messages.map { it.toGeminiMessageDto() }
                     val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
@@ -387,7 +388,7 @@ class RemoteDataRepository(
 
             Service.Anthropic -> {
                 if (tools.isNotEmpty()) {
-                    handleAnthropicChatWithTools(creds, messages, tools, systemPrompt)
+                    handleAnthropicChatWithTools(creds, messages, tools, systemPrompt, history)
                 } else {
                     val anthropicMessages = buildAnthropicMessages(messages)
                     val response = requests.anthropicChat(creds, anthropicMessages, systemInstruction = systemPrompt).getOrThrow()
@@ -397,7 +398,7 @@ class RemoteDataRepository(
 
             else -> {
                 if (tools.isNotEmpty()) {
-                    handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt)
+                    handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt, history)
                 } else {
                     val openAIMessages = buildOpenAIMessages(messages, systemPrompt)
                     val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
@@ -538,6 +539,7 @@ class RemoteDataRepository(
         messages: List<History>,
         tools: List<Tool>,
         systemPrompt: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var currentMessages = trimMessagesForContext(
@@ -579,7 +581,7 @@ class RemoteDataRepository(
             recentSignatures.addAll(signatures)
 
             // Add assistant message with tool calls to history
-            chatHistory.update {
+            history.update {
                 it.toMutableList().apply {
                     add(
                         History(
@@ -598,11 +600,11 @@ class RemoteDataRepository(
             val toolResults = executeToolCallsInParallel(toolCalls.map { Triple(it.id, it.function.name, it.function.arguments) })
 
             // Add all tool results to history
-            chatHistory.update { history ->
-                buildList(history.size + toolResults.size) {
+            history.update { h ->
+                buildList(h.size + toolResults.size) {
                     // Remove any TOOL_EXECUTING entries
-                    for (h in history) {
-                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
+                    for (entry in h) {
+                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
                     }
                     for ((callId, name, result) in toolResults) {
                         add(
@@ -620,7 +622,7 @@ class RemoteDataRepository(
             // Update messages for next iteration with context trimming
             currentMessages = trimMessagesForContext(
                 buildOpenAIMessages(
-                    chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
+                    history.value.filter { it.role != History.Role.TOOL_EXECUTING },
                     systemPrompt,
                 ),
                 contextWindowTokens,
@@ -628,7 +630,7 @@ class RemoteDataRepository(
         }
     }
 
-    private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null): String {
+    private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null, history: MutableStateFlow<List<History>> = chatHistory): String {
         val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
@@ -639,7 +641,7 @@ class RemoteDataRepository(
 
             if (iteration > MAX_TOOL_ITERATIONS) {
                 // Bail out: make a final Gemini call without tools
-                val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+                val currentMessages = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
                 val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
                 val bailoutResponse = retryApiCall {
                     requests.geminiChat(
@@ -651,7 +653,7 @@ class RemoteDataRepository(
                 return bailoutResponse.extractText()
             }
 
-            val currentMessages = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
+            val currentMessages = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
             val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
 
             val response = retryApiCall {
@@ -700,7 +702,7 @@ class RemoteDataRepository(
 
             // Add assistant message with tool calls to history
             val textContent = parts.mapNotNull { it.text }.joinToString("\n")
-            chatHistory.update {
+            history.update {
                 it.toMutableList().apply {
                     add(
                         History(
@@ -716,10 +718,10 @@ class RemoteDataRepository(
             val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
 
             // Add all tool results to history and trim to fit context window
-            chatHistory.update { history ->
-                val updated = buildList(history.size + toolResults.size) {
-                    for (h in history) {
-                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
+            history.update { h ->
+                val updated = buildList(h.size + toolResults.size) {
+                    for (entry in h) {
+                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
                     }
                     for ((callId, name, result) in toolResults) {
                         add(
@@ -814,6 +816,7 @@ class RemoteDataRepository(
         messages: List<History>,
         tools: List<Tool>,
         systemPrompt: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
         var iteration = 0
@@ -823,7 +826,7 @@ class RemoteDataRepository(
             iteration++
 
             val currentMessages = buildAnthropicMessages(
-                chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING },
+                history.value.filter { it.role != History.Role.TOOL_EXECUTING },
             )
 
             if (iteration > MAX_TOOL_ITERATIONS) {
@@ -876,7 +879,7 @@ class RemoteDataRepository(
 
             // Add assistant message with tool calls to history
             val textContent = response.content.filter { it.type == "text" }.mapNotNull { it.text }.joinToString("\n")
-            chatHistory.update {
+            history.update {
                 it.toMutableList().apply {
                     add(
                         History(
@@ -892,10 +895,10 @@ class RemoteDataRepository(
             val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
 
             // Add all tool results to history and trim to fit context window
-            chatHistory.update { history ->
-                val updated = buildList(history.size + toolResults.size) {
-                    for (h in history) {
-                        if (h.role != History.Role.TOOL_EXECUTING) add(h)
+            history.update { h ->
+                val updated = buildList(h.size + toolResults.size) {
+                    for (entry in h) {
+                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
                     }
                     for ((callId, name, result) in toolResults) {
                         add(
@@ -1508,7 +1511,9 @@ class RemoteDataRepository(
         val service = Service.fromId(firstInstance.serviceId)
         val messages = listOf(History(role = History.Role.USER, content = prompt))
         val systemPrompt = getActiveSystemPrompt()
-        return askWithService(service, messages, systemPrompt, firstInstance.instanceId)
+        // Use a local history to avoid polluting the current conversation's chatHistory
+        val localHistory = MutableStateFlow(messages)
+        return askWithService(service, messages, systemPrompt, firstInstance.instanceId, localHistory)
     }
 
     override suspend fun askSilently(question: String): String {
