@@ -738,10 +738,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#simple-fallback" class="md-nav__link">
+  <a href="#scoring-based-fallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simple Fallback
+        Scoring-Based Fallback
       
     </span>
   </a>
@@ -896,10 +896,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#simple-fallback" class="md-nav__link">
+  <a href="#scoring-based-fallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simple Fallback
+        Scoring-Based Fallback
       
     </span>
   </a>
@@ -973,7 +973,7 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p>Last verified: 2026-03-20</p>
+<p>Last verified: 2026-03-29</p>
 <h2 id="overview">Overview</h2>
 <p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.</p>
 <h2 id="configuration">Configuration</h2>
@@ -1019,11 +1019,18 @@
 <li>Time-aware: skips services if less than 10s remain before deadline; per-request HTTP timeout is deadline minus 5s (minimum 10s). The deadline comes from the server's <code>submit_expiration_date</code> minus 10s, falling back to 180s.</li>
 <li>70% mana efficiency check</li>
 </ul>
-<h3 id="simple-fallback">Simple Fallback</h3>
+<h3 id="scoring-based-fallback">Scoring-Based Fallback</h3>
 <ul>
-<li>Sort monsters by mana descending</li>
-<li>For each summoner: fill with highest-mana monsters of matching colors</li>
-<li>Dragon summoners: try each ally color, pick best team</li>
+<li>Scores each monster based on stats, abilities, and active rulesets for two positions: tank (position 1) and backline (positions 2+)</li>
+<li>Tank scoring rewards HP, armor, Shield, Void, Heal, Taunt, and other defensive abilities</li>
+<li>Backline scoring rewards Tank Heal, Triage, Inspire, Resurrect, damage abilities, and team buffs</li>
+<li>All ~40 strategic rulesets shift scoring (e.g., Earthquake boosts Flying, Reverse Speed rewards low speed, Noxious Fumes prioritizes HP and Immunity, Equalizer favors low-mana high-attack, Briar Patch/Counterspell/Fire &amp; Regret penalize reflected damage types)</li>
+<li>Counter-scoring anticipates enemy strategies: since both players face the same rulesets, predicts likely enemy attack types and boosts defensive counters (e.g., if rulesets favor melee, boosts Thorns/Demoralize/Shield/Blind; if magic, boosts Void/Silence/Phase). Enemy debuffs (Demoralize, Headwinds, Silence) are only scored when the enemy can use that attack type. Disruptive abilities (Affliction, Dispel, Halving, Shatter) are scored based on enemy composition.</li>
+<li>Abilities are ignored when Back to Basics is active (raw stats only)</li>
+<li>Summoners are scored by buff synergy with the available monster pool and ruleset interactions</li>
+<li>For each summoner: tries top 3 tank candidates, fills backline by score-per-mana ratio, picks the best overall team across all summoners</li>
+<li>Dragon summoners: try each ally color, pick best scoring combination</li>
+<li>Super Sneak: moves the second-tankiest monster to last position (targeted by all enemy Sneaks)</li>
 </ul>
 <h3 id="ruleset-filters-category-a-card-selection">Ruleset Filters (Category A -- card selection)</h3>
 <p>Rarity, attack type, mana cost, color, and stat threshold filters applied before team picking.</p>
