@@ -181,27 +181,26 @@ JavaScript
     )
 
     private val fastfetchOutput =
-        "        .hddddddddddddddddddh.\n" +
-            "      :ddddddddddddddddddddddddd:\n" +
-            "     /ddddddddddddddddddddddddddd/\n" +
+        "       .hddddddddddddddddddddddh.\n" +
+            "      :dddddddddddddddddddddddddd:\n" +
+            "     /dddddddddddddddddddddddddddd/\n" +
             "    +dddddddddddddddddddddddddddddd+\n" +
-            "   \u0060sddddddddddddddddddddddddddddds\u0060\n" +
-            "  \u0060ydddddddddddd++hddddddddddddddddy\u0060\n" +
-            " .hddddddddddd+\u0060  \u0060+ddddh:-sddddddddddh.\n" +
-            " hddddddddddd+\u0060       \u0060+y:     .sdddddddddh\n" +
-            " ddddddddh+\u0060  \u0060//\u0060   \u0060.\u0060      -sdddddddd\n" +
-            " ddddddh+\u0060   \u0060/hddh/\u0060    \u0060:s-     -sddddddd\n" +
-            " dddddh+\u0060   \u0060/+/dddddh/\u0060    \u0060+s-    -sddddd\n" +
-            " dddd+\u0060   \u0060/o\u0060  :dddddddh/\u0060    \u0060oy-     .yddd\n" +
-            " hdddyo+ohddyosddddddddddho+oydddy++ohdddh\n" +
-            " .hdddddddddddddddddddddddddddddddddddh.\n" +
-            "  \u0060yddddddddddddddddddddddddddddddddddy\u0060\n" +
-            "   \u0060sddddddddddddddddddddddddddddddds\u0060\n" +
+            "  \u0060sdddddddddddddddddddddddddddddddds\u0060\n" +
+            " \u0060ydddddddddddd++hdddddddddddddddddddy\u0060\n" +
+            ".hddddddddddd+\u0060  \u0060+ddddh:-sdddddddddddh.\n" +
+            "hdddddddddd+\u0060      \u0060+y:    .sddddddddddh\n" +
+            "ddddddddh+\u0060   \u0060//\u0060   \u0060.\u0060     -sddddddddd\n" +
+            "ddddddh+\u0060   \u0060/hddh/\u0060   \u0060:s-    -sddddddd\n" +
+            "ddddh+\u0060   \u0060/+/dddddh/\u0060   \u0060+s-    -sddddd\n" +
+            "ddd+\u0060   \u0060/o\u0060 :dddddddh/\u0060   \u0060oy-    .yddd\n" +
+            "hdddyo+ohddyosdddddddddho+oydddy++ohdddh\n" +
+            ".hddddddddddddddddddddddddddddddddddddh.\n" +
+            " \u0060yddddddddddddddddddddddddddddddddddy\u0060\n" +
+            "  \u0060sdddddddddddddddddddddddddddddddds\u0060\n" +
             "    +dddddddddddddddddddddddddddddd+\n" +
-            "     /ddddddddddddddddddddddddddd/\n" +
-            "      :ddddddddddddddddddddddddd:\n" +
-            "        .hdddddddddddddddddddh.\n" +
-            "root@localhost\n" +
+            "     /dddddddddddddddddddddddddddd/\n" +
+            "      :dddddddddddddddddddddddddd:\n" +
+            "       .hddddddddddddddddddddddh.root@localhost\n" +
             "--------------\n" +
             "OS: Alpine Linux v3.21 aarch64\n" +
             "Kernel: Linux 6.1.145-android14-11-gfa1d6308d1fe-ab14691759\n" +
