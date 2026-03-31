@@ -96,6 +96,16 @@ fi
 NDK="$(find_ndk)"
 echo "Using NDK: $NDK"
 
+# Warn if NDK is a pre-release version (F-Droid requires stable)
+NDK_PROPS="$NDK/source.properties"
+if [[ -f "$NDK_PROPS" ]]; then
+    NDK_RELEASE=$(grep '^Pkg.ReleaseName' "$NDK_PROPS" | cut -d= -f2- | tr -d ' ')
+    if [[ "$NDK_RELEASE" == *beta* || "$NDK_RELEASE" == *rc* ]]; then
+        echo "WARNING: NDK $NDK_RELEASE is a pre-release version."
+        echo "F-Droid requires a stable NDK release for reproducible builds."
+    fi
+fi
+
 HOST_TAG=""
 for tag in "$(uname -s | tr 'A-Z' 'a-z')-$(uname -m)" "darwin-x86_64" "linux-x86_64"; do
     if [[ -d "$NDK/toolchains/llvm/prebuilt/$tag" ]]; then
@@ -249,6 +259,7 @@ build_proot() {
     cp "$sysroot/lib/libtalloc.so" "$out_dir/libtalloc.so"
 
     "${TOOLCHAIN}/llvm-strip" "$out_dir/libproot.so"
+    "${TOOLCHAIN}/llvm-strip" "$out_dir/libproot-loader.so"
     "${TOOLCHAIN}/llvm-strip" "$out_dir/libtalloc.so"
 
     echo "[proot/$abi] done -> $out_dir"
@@ -319,6 +330,14 @@ for abi in $ABIS; do
     build_talloc "$abi"
     build_proot "$abi"
     build_loader32 "$abi"
+
+    # Remove .comment sections for F-Droid reproducible builds (issue #91).
+    # The .comment section embeds the NDK clang version string, which differs
+    # between macOS and Linux build environments.
+    for lib in "$OUTPUT_DIR/$abi"/lib*.so; do
+        "${TOOLCHAIN}/llvm-objcopy" --remove-section .comment "$lib" 2>/dev/null || true
+    done
+
     echo ""
 done
 
