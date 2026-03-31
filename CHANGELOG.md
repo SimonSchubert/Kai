@@ -1,3 +1,15 @@
+## v1.12.2 — 2026-03-31
+
+### Fixes
+- Fix daemon start crash
+- Fix heartbeat thinking in wrong conversation
+- Fix leaked path in sandbox
+
+### Improvements
+- Improve shell integrations
+- Add uninstall linux sandbox confirmation dialog
+- Add NDK 29 requirement and reproducible build flags
+
 ## v1.12.1 — 2026-03-29
 
 ### Improvements

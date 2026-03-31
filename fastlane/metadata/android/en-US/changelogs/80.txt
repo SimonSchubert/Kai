@@ -1,0 +1,5 @@
+Fix daemon start crash
+Fix heartbeat thinking in wrong conversation
+Fix leaked path in sandbox
+Improve shell integrations
+Add uninstall linux sandbox confirmation dialog
