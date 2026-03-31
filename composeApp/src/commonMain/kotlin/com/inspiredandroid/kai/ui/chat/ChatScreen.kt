@@ -251,7 +251,7 @@ fun ChatScreenContent(
                                 state = listState,
                                 horizontalAlignment = CenterHorizontally,
                             ) {
-                                items(uiState.history, key = { it.id }) { history ->
+                                items(uiState.history, key = { it.id }, contentType = { it.role }) { history ->
                                     when (history.role) {
                                         History.Role.USER -> UserMessage(
                                             message = history.content,

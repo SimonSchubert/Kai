@@ -199,6 +199,631 @@ fun <T> applyRulesetFilters(
     return filtered
 }
 
+// ── Ruleset context ──
+
+private data class RulesetContext(
+    // Attack type positioning
+    val meleeFromAnyPosition: Boolean,
+    val superSneak: Boolean,
+    val rangedFromPos1: Boolean,
+    val fogOfWar: Boolean,
+    val nowYouSeeMe: Boolean,
+    // Damage type penalties (reflect rulesets)
+    val avoidMelee: Boolean,
+    val avoidMagic: Boolean,
+    val avoidRanged: Boolean,
+    val preferMagic: Boolean,
+    // Damage type bonuses
+    val armoredUp: Boolean,
+    val weakMagic: Boolean,
+    val unprotected: Boolean,
+    val arcaneDampening: Boolean,
+    // Stat/survival shifts
+    val earthquake: Boolean,
+    val reverseSpeed: Boolean,
+    val noxiousFumes: Boolean,
+    val globalWarming: Boolean,
+    val equalizer: Boolean,
+    val backToBasics: Boolean,
+    val healedOut: Boolean,
+    // Targeting changes
+    val equalOpportunity: Boolean,
+    val targetPractice: Boolean,
+    val heyJealousy: Boolean,
+    val aimless: Boolean,
+    val ferocity: Boolean,
+    // Combat modifiers
+    val aimTrue: Boolean,
+    val backlash: Boolean,
+    val holyProtection: Boolean,
+    val explosiveWeaponry: Boolean,
+    val bloodMoon: Boolean,
+    val heavyHitters: Boolean,
+    val whatDoesntKillYou: Boolean,
+    val stampede: Boolean,
+    val bruteForce: Boolean,
+    val tisButScratches: Boolean,
+    // Death/resurrection
+    val bornAgain: Boolean,
+    val deathHasNoPower: Boolean,
+    // Other
+    val silencedSummoners: Boolean,
+    val deflectionShield: Boolean,
+    val amplify: Boolean,
+    val dragonBreath: Boolean,
+    val frostbite: Boolean,
+    val collateralDamage: Boolean,
+    val noPainNoGain: Boolean,
+    val areYouNotEntertained: Boolean,
+    // Enemy composition (both players face same card restrictions)
+    val enemyNoMelee: Boolean,
+    val enemyNoRanged: Boolean,
+    val enemyNoMagic: Boolean,
+    val enemyOnlyMelee: Boolean,
+    val enemyOnlyRanged: Boolean,
+    val enemyOnlyMagic: Boolean,
+)
+
+private fun buildRulesetContext(rulesets: Set<String>): RulesetContext = RulesetContext(
+    meleeFromAnyPosition = "Melee Mayhem" in rulesets || "Super Sneak" in rulesets || "Hey Jealousy" in rulesets,
+    superSneak = "Super Sneak" in rulesets,
+    rangedFromPos1 = "Close Range" in rulesets,
+    fogOfWar = "Fog of War" in rulesets,
+    nowYouSeeMe = "Now You See Me" in rulesets,
+    avoidMelee = "Briar Patch" in rulesets,
+    avoidMagic = "Counterspell" in rulesets,
+    avoidRanged = "Fire & Regret" in rulesets,
+    preferMagic = "Thick Skinned" in rulesets,
+    armoredUp = "Armored Up" in rulesets,
+    weakMagic = "Weak Magic" in rulesets,
+    unprotected = "Unprotected" in rulesets,
+    arcaneDampening = "Arcane Dampening" in rulesets,
+    earthquake = "Earthquake" in rulesets,
+    reverseSpeed = "Reverse Speed" in rulesets,
+    noxiousFumes = "Noxious Fumes" in rulesets,
+    globalWarming = "Global Warming" in rulesets,
+    equalizer = "Equalizer" in rulesets,
+    backToBasics = "Back to Basics" in rulesets,
+    healedOut = "Healed Out" in rulesets,
+    equalOpportunity = "Equal Opportunity" in rulesets,
+    targetPractice = "Target Practice" in rulesets,
+    heyJealousy = "Hey Jealousy" in rulesets,
+    aimless = "Aimless" in rulesets,
+    ferocity = "Ferocity" in rulesets,
+    aimTrue = "Aim True" in rulesets,
+    backlash = "Backlash" in rulesets,
+    holyProtection = "Holy Protection" in rulesets,
+    explosiveWeaponry = "Explosive Weaponry" in rulesets,
+    bloodMoon = "Blood Moon" in rulesets,
+    heavyHitters = "Heavy Hitters" in rulesets,
+    whatDoesntKillYou = "What Doesn't Kill You" in rulesets,
+    stampede = "Stampede" in rulesets,
+    bruteForce = "Brute Force" in rulesets,
+    tisButScratches = "Tis But Scratches" in rulesets,
+    bornAgain = "Born Again" in rulesets,
+    deathHasNoPower = "Death Has No Power" in rulesets,
+    silencedSummoners = "Silenced Summoners" in rulesets,
+    deflectionShield = "Deflection Shield" in rulesets,
+    amplify = "Amplify" in rulesets,
+    dragonBreath = "Dragon Breath" in rulesets,
+    frostbite = "Frostbite" in rulesets,
+    collateralDamage = "Collateral Damage" in rulesets,
+    noPainNoGain = "No Pain No Gain" in rulesets,
+    areYouNotEntertained = "Are You Not Entertained" in rulesets,
+    enemyNoMelee = "Keep Your Distance" in rulesets,
+    enemyNoRanged = "Broken Arrows" in rulesets,
+    enemyNoMagic = "Lost Magic" in rulesets,
+    enemyOnlyMelee = "Up Close & Personal" in rulesets,
+    enemyOnlyRanged = "Going the Distance" in rulesets,
+    enemyOnlyMagic = "Wands Out" in rulesets,
+)
+
+// ── Monster and summoner scoring ──
+
+private enum class Position { TANK, BACKLINE }
+
+private fun scoreMonster(m: CardEntry, pos: Position, ctx: RulesetContext): Double {
+    var score = 0.0
+
+    // ── Base stats ──
+    score += m.health * 1.5
+    if (!ctx.unprotected) score += m.armor * 1.0
+    score += m.attackPower * 2.0
+    score += m.speed * 0.5
+
+    // ── Attack type positioning ──
+    if (m.attackType == "melee") {
+        val hasPositional = !ctx.backToBasics && (
+            "Reach" in m.abilities || "Sneak" in m.abilities ||
+                "Opportunity" in m.abilities || "Charge" in m.abilities
+            )
+        if (pos == Position.BACKLINE && !ctx.meleeFromAnyPosition && !hasPositional) {
+            score -= m.attackPower * 2.0
+        }
+    }
+    if (m.attackType == "ranged") {
+        val hasCloseRange = !ctx.backToBasics && "Close Range" in m.abilities
+        if (pos == Position.TANK && !ctx.rangedFromPos1 && !hasCloseRange) {
+            score -= m.attackPower * 2.0
+        }
+    }
+    if (m.attackType == "none") {
+        if (ctx.frostbite) score -= 8.0
+    }
+
+    // ── Position-specific ability bonuses (gated by backToBasics) ──
+    if (!ctx.backToBasics) {
+        if (pos == Position.TANK) {
+            score += m.health * 1.0
+            if (!ctx.unprotected) score += m.armor * 1.5
+            // Shield halves melee/ranged -- worthless if enemy is pure magic
+            if ("Shield" in m.abilities && !ctx.enemyOnlyMagic) score += 8.0
+            // Void halves magic -- worthless if enemy has no magic
+            if ("Void" in m.abilities && !ctx.enemyNoMagic) score += 6.0
+            if ("Heal" in m.abilities && !ctx.healedOut) score += 10.0
+            if ("Divine Shield" in m.abilities) score += 4.0
+            if ("Forcefield" in m.abilities) score += 4.0
+            // Dodge/Flying evasion only works vs melee/ranged
+            if ("Dodge" in m.abilities && !ctx.aimTrue && !ctx.enemyOnlyMagic) score += 3.0
+            if ("Flying" in m.abilities && !ctx.aimTrue && !ctx.enemyOnlyMagic) score += 2.0
+            if ("Void Armor" in m.abilities && !ctx.enemyNoMagic) score += 3.0
+            if ("Enrage" in m.abilities) score += 3.0
+            // Retaliate counters melee attackers
+            if ("Retaliate" in m.abilities && !ctx.enemyNoMelee) score += 2.0
+            if ("Rebirth" in m.abilities && !ctx.deathHasNoPower && !ctx.bornAgain) score += 4.0
+            if ("Last Stand" in m.abilities) score += 2.0
+            // Taunt: great for tank unless Ferocity (Fury doubles damage vs Taunt)
+            if ("Taunt" in m.abilities) {
+                score += if (ctx.ferocity) {
+                    -5.0
+                } else if (ctx.aimless) {
+                    1.0
+                } else {
+                    5.0
+                }
+            }
+            // Thorns: good on tank vs melee, boosted by Amplify, useless with Deflection Shield or no enemy melee
+            if ("Thorns" in m.abilities && !ctx.enemyNoMelee) {
+                if (!ctx.deflectionShield) score += if (ctx.amplify) 5.0 else 3.0
+            }
+            // Magic Reflect: useless if enemy has no magic
+            if ("Magic Reflect" in m.abilities && !ctx.enemyNoMagic) {
+                if (!ctx.deflectionShield) score += if (ctx.amplify) 4.0 else 2.0
+            }
+        }
+
+        if (pos == Position.BACKLINE) {
+            // Healing/support
+            if ("Tank Heal" in m.abilities && !ctx.healedOut) score += 10.0
+            if ("Triage" in m.abilities && !ctx.healedOut) score += 6.0
+            if ("Heal" in m.abilities && !ctx.healedOut) score += 4.0
+            if ("Repair" in m.abilities && !ctx.unprotected) score += 5.0
+            if ("Protect" in m.abilities && !ctx.unprotected) score += 5.0
+            if ("Strengthen" in m.abilities) score += 3.0
+            if ("Cleanse" in m.abilities) score += 3.0
+            if ("Resurrect" in m.abilities && !ctx.deathHasNoPower) score += 5.0
+            if ("Rebirth" in m.abilities && !ctx.deathHasNoPower && !ctx.bornAgain) score += 3.0
+            // Offensive
+            if ("Snipe" in m.abilities && !ctx.fogOfWar && !ctx.nowYouSeeMe) score += 2.0
+            if ("Sneak" in m.abilities && !ctx.fogOfWar && !ctx.nowYouSeeMe) score += 2.0
+            if ("Opportunity" in m.abilities && !ctx.fogOfWar && !ctx.nowYouSeeMe) score += 2.0
+            if ("Blast" in m.abilities && !ctx.deflectionShield) score += 3.0
+            if ("Double Strike" in m.abilities) score += 4.0
+            if ("Poison" in m.abilities) score += 2.0
+            if ("Stun" in m.abilities) score += if (ctx.heavyHitters) 8.0 else 2.0
+            if ("Piercing" in m.abilities) score += 1.5
+            if ("Trample" in m.abilities) score += if (ctx.stampede) 4.0 else 1.0
+            if ("Deathblow" in m.abilities) score += 1.5
+            if ("Recharge" in m.abilities) score += 1.0
+            // Team buffs
+            if ("Inspire" in m.abilities) score += 4.0
+            if ("Swiftness" in m.abilities) score += if (ctx.reverseSpeed) -2.0 else 2.0
+            // Enemy debuffs: only valuable if enemy uses that attack type
+            if ("Demoralize" in m.abilities && !ctx.enemyNoMelee) score += 3.0
+            if ("Headwinds" in m.abilities && !ctx.enemyNoRanged) score += 3.0
+            if ("Silence" in m.abilities && !ctx.enemyNoMagic) score += 3.0
+            if ("Slow" in m.abilities) score += if (ctx.reverseSpeed) -2.0 else 2.0
+            if ("Blind" in m.abilities && !ctx.aimTrue && !ctx.enemyOnlyMagic) score += 2.0
+            if ("Rust" in m.abilities && !ctx.unprotected) score += 2.0
+            if ("Weaken" in m.abilities) score += 2.0
+            if ("Weapons Training" in m.abilities) score += 4.0
+            // Defensive for backline
+            if ("Taunt" in m.abilities) {
+                score += if (ctx.ferocity) {
+                    -5.0
+                } else if (ctx.aimless) {
+                    0.0
+                } else {
+                    -2.0
+                }
+            }
+            if ("Camouflage" in m.abilities) score += 2.0
+            // Return Fire / Magic Reflect on backline: only if enemy uses that type
+            if ("Return Fire" in m.abilities && !ctx.deflectionShield && !ctx.enemyNoRanged) score += if (ctx.amplify) 3.0 else 1.5
+            if ("Magic Reflect" in m.abilities && !ctx.deflectionShield && !ctx.enemyNoMagic) score += if (ctx.amplify) 3.0 else 1.5
+            // Martyr
+            if ("Martyr" in m.abilities && !ctx.deathHasNoPower) score += 3.0
+            if ("Redemption" in m.abilities && !ctx.deathHasNoPower && !ctx.deflectionShield) score += 1.5
+        }
+    } else {
+        // Back to Basics: only raw stat bonuses for tank
+        if (pos == Position.TANK) {
+            score += m.health * 1.0
+            if (!ctx.unprotected) score += m.armor * 1.5
+        }
+    }
+
+    // ── Ruleset modifiers (applied to both positions) ──
+
+    // Earthquake
+    if (ctx.earthquake) {
+        if (!ctx.backToBasics && "Flying" in m.abilities) score += 8.0 else score -= 6.0
+    }
+
+    // Reverse Speed
+    if (ctx.reverseSpeed) {
+        score -= m.speed * 1.0
+        score += (10 - m.speed).coerceAtLeast(0) * 0.5
+    }
+
+    // Noxious Fumes
+    if (ctx.noxiousFumes) {
+        score += m.health * 1.0
+        if (!ctx.backToBasics) {
+            if ("Immunity" in m.abilities) score += 10.0
+            if ("Cleanse" in m.abilities) score += 5.0
+            if ("Heal" in m.abilities && !ctx.healedOut) score += 5.0
+        }
+    }
+
+    // Global Warming
+    if (ctx.globalWarming) {
+        score += m.health * 0.5
+        if (!ctx.backToBasics) {
+            if ("Immunity" in m.abilities) score += 6.0
+            if ("Cleanse" in m.abilities) score += 3.0
+        }
+    }
+
+    // Equalizer
+    if (ctx.equalizer) {
+        score -= m.health * 1.5
+        score += m.attackPower * 2.0
+        if (m.mana <= 4 && m.attackPower >= 2) score += 4.0
+    }
+
+    // Damage type avoidance (reflect rulesets)
+    if (ctx.avoidMelee && m.attackType == "melee" && !ctx.deflectionShield) score -= 5.0
+    if (ctx.avoidMagic && m.attackType == "magic" && !ctx.deflectionShield) score -= 5.0
+    if (ctx.avoidRanged && m.attackType == "ranged" && !ctx.deflectionShield) score -= 5.0
+
+    // Thick Skinned (Shield on all): halves melee/ranged, prefer magic
+    if (ctx.preferMagic) {
+        if (m.attackType == "melee" || m.attackType == "ranged") score -= 4.0
+        if (m.attackType == "magic") score += 3.0
+    }
+
+    // Arcane Dampening (Void on all): magic halved
+    if (ctx.arcaneDampening && m.attackType == "magic") score -= 4.0
+
+    // Armored Up: magic bypasses the +2 armor
+    if (ctx.armoredUp && m.attackType == "magic" && !ctx.weakMagic) score += 3.0
+
+    // Weak Magic: magic hits armor first
+    if (ctx.weakMagic && m.attackType == "magic") score -= 3.0
+
+    // What Doesn't Kill You: Enrage on all melee
+    if (ctx.whatDoesntKillYou && m.attackType == "melee") score += 4.0
+
+    // Stampede: melee with Trample
+    if (ctx.stampede && !ctx.backToBasics && "Trample" in m.abilities && m.attackType == "melee") score += 4.0
+
+    // Equal Opportunity: low HP is dangerous
+    if (ctx.equalOpportunity) {
+        if (m.health <= 3 && pos == Position.BACKLINE) score -= 4.0
+        score += m.health * 0.5
+    }
+
+    // Target Practice: backline ranged/magic get targeted
+    if (ctx.targetPractice && pos == Position.BACKLINE) {
+        if (m.attackType == "ranged" || m.attackType == "magic") score += m.health * 0.5
+    }
+
+    // Hey Jealousy: high HP attracts fire (non-tanks)
+    if (ctx.heyJealousy && pos == Position.BACKLINE) {
+        score -= m.health * 0.3
+    }
+
+    // Aim True: evasion worthless
+    if (ctx.aimTrue) {
+        score -= m.speed * 0.5
+    }
+
+    // Backlash: True Strike valuable, speed helps avoid self-damage
+    if (ctx.backlash) {
+        if (!ctx.backToBasics && "True Strike" in m.abilities) score += 4.0
+        score += m.speed * 0.5
+    }
+
+    // Holy Protection: multi-hit to pop Divine Shield
+    if (ctx.holyProtection && !ctx.backToBasics) {
+        if ("Double Strike" in m.abilities) score += 4.0
+        if ("Blast" in m.abilities && !ctx.deflectionShield) score += 2.0
+    }
+
+    // Explosive Weaponry: spread damage, Reflection Shield valuable
+    if (ctx.explosiveWeaponry) {
+        score += m.health * 0.5
+        if (!ctx.backToBasics && "Reflection Shield" in m.abilities) score += 5.0
+    }
+
+    // Blood Moon: kills buff the killer
+    if (ctx.bloodMoon) {
+        score += m.attackPower * 1.0
+    }
+
+    // Brute Force: highest attack goes first
+    if (ctx.bruteForce) {
+        score += m.attackPower * 0.5
+    }
+
+    // Tis But Scratches: Cripple on all, high attack = faster HP reduction
+    if (ctx.tisButScratches) {
+        score += m.attackPower * 0.5
+    }
+
+    // Collateral Damage: self-damage, HP matters
+    if (ctx.collateralDamage) {
+        score += m.health * 0.5
+    }
+
+    // Born Again: low HP less punished (everyone resurrects)
+    if (ctx.bornAgain && m.health <= 3) {
+        score += 2.0
+    }
+
+    // Dragon Breath: ranged/magic inflict Burning
+    if (ctx.dragonBreath && (m.attackType == "ranged" || m.attackType == "magic")) {
+        score += 2.0
+    }
+
+    // ── Counter-scoring: anticipate enemy strategies ──
+    // Both players face the same rulesets, so we can predict what the enemy is likely to play
+    // and boost abilities that specifically counter those strategies.
+    if (!ctx.backToBasics) {
+        // Predict enemy attack type emphasis
+        val enemyHeavyMelee = ctx.enemyOnlyMelee || (
+            !ctx.enemyNoMelee &&
+                (ctx.meleeFromAnyPosition || ctx.whatDoesntKillYou || ctx.stampede)
+            )
+        val enemyHeavyMagic = ctx.enemyOnlyMagic || (
+            !ctx.enemyNoMagic &&
+                ((ctx.armoredUp && !ctx.weakMagic) || ctx.unprotected)
+            )
+        val enemyHeavyRanged = ctx.enemyOnlyRanged || (!ctx.enemyNoRanged && ctx.rangedFromPos1)
+
+        // Counter enemy melee emphasis
+        if (enemyHeavyMelee) {
+            if ("Thorns" in m.abilities && !ctx.deflectionShield) score += 4.0
+            if ("Demoralize" in m.abilities) score += 3.0
+            if ("Shield" in m.abilities) score += 3.0
+            if ("Dodge" in m.abilities && !ctx.aimTrue) score += 2.0
+            if ("Blind" in m.abilities && !ctx.aimTrue) score += 2.0
+            if ("Enfeeble" in m.abilities) score += 2.0
+        }
+
+        // Counter enemy magic emphasis
+        if (enemyHeavyMagic) {
+            if ("Void" in m.abilities) score += 4.0
+            if ("Silence" in m.abilities) score += 3.0
+            if ("Magic Reflect" in m.abilities && !ctx.deflectionShield) score += 3.0
+            if ("Phase" in m.abilities) score += 2.0
+            if ("Void Armor" in m.abilities) score += 2.0
+        }
+
+        // Counter enemy ranged emphasis
+        if (enemyHeavyRanged) {
+            if ("Headwinds" in m.abilities) score += 3.0
+            if ("Return Fire" in m.abilities && !ctx.deflectionShield) score += 3.0
+            if ("Shield" in m.abilities) score += 2.0
+        }
+
+        // Disruptive abilities (counter any enemy strategy)
+        if ("Affliction" in m.abilities && !ctx.healedOut) score += 3.0
+        if ("Dispel" in m.abilities) score += if (ctx.bloodMoon) 5.0 else 2.0
+        if ("Halving" in m.abilities) score += 3.0
+        if ("Shatter" in m.abilities && !ctx.unprotected) score += if (ctx.armoredUp) 4.0 else 2.0
+        if ("Cripple" in m.abilities) score += 1.5
+        if ("Enfeeble" in m.abilities && !ctx.enemyNoMelee && !enemyHeavyMelee) score += 1.0
+        if ("Impede" in m.abilities && !ctx.reverseSpeed) score += 1.5
+        if ("Giant Killer" in m.abilities) score += 2.0
+        if ("Oppress" in m.abilities) score += 1.0
+        if ("Life Leech" in m.abilities && !ctx.healedOut) score += 2.0
+        if ("Scavenger" in m.abilities) score += 1.5
+    }
+
+    return score
+}
+
+private fun scoreSummoner(
+    s: SummonerEntry,
+    availableMonsters: List<CardEntry>,
+    ctx: RulesetContext,
+): Double {
+    if (ctx.silencedSummoners) return -s.mana.toDouble()
+
+    var score = 0.0
+    val total = availableMonsters.size.coerceAtLeast(1).toDouble()
+    val meleeRatio = availableMonsters.count { it.attackType == "melee" } / total
+    val rangedRatio = availableMonsters.count { it.attackType == "ranged" } / total
+    val magicRatio = availableMonsters.count { it.attackType == "magic" } / total
+
+    // Summoner buffs have dual meaning:
+    //   Positive values (e.g., attack=+1) buff YOUR team's attack type
+    //   Negative values (e.g., attack=-1) debuff ENEMY team's attack type
+    // Buff value depends on your pool; debuff value depends on whether enemy uses that type
+
+    // Positive buffs: weighted by OUR pool composition
+    if (s.buffs.attack > 0) score += s.buffs.attack * 3.0 * meleeRatio
+    if (s.buffs.ranged > 0) score += s.buffs.ranged * 3.0 * rangedRatio
+    if (s.buffs.magic > 0) score += s.buffs.magic * 3.0 * magicRatio
+
+    // Negative buffs (enemy debuffs): weighted by whether enemy can use that type
+    if (s.buffs.attack < 0 && !ctx.enemyNoMelee) score += s.buffs.attack * -3.0
+    if (s.buffs.ranged < 0 && !ctx.enemyNoRanged) score += s.buffs.ranged * -3.0
+    if (s.buffs.magic < 0 && !ctx.enemyNoMagic) score += s.buffs.magic * -3.0
+
+    // Defensive buffs (positive = helps us, negative = hurts enemy)
+    if (!ctx.unprotected) {
+        if (s.buffs.armor > 0) {
+            score += s.buffs.armor * 2.0
+        } else if (s.buffs.armor < 0) {
+            score += s.buffs.armor * -2.0 // enemy loses armor
+        }
+    }
+    if (s.buffs.health > 0) {
+        score += s.buffs.health * 2.0
+    } else if (s.buffs.health < 0) {
+        score += s.buffs.health * -2.0
+    }
+    if (s.buffs.speed > 0) {
+        score += s.buffs.speed * if (ctx.reverseSpeed) -1.0 else 1.0
+    } else if (s.buffs.speed < 0) {
+        score += s.buffs.speed * if (ctx.reverseSpeed) 1.0 else -1.0
+    }
+
+    // Ruleset interactions
+    if (ctx.avoidMelee && !ctx.deflectionShield && s.buffs.attack > 0) score -= s.buffs.attack * 2.0 * meleeRatio
+    if (ctx.avoidRanged && !ctx.deflectionShield && s.buffs.ranged > 0) score -= s.buffs.ranged * 2.0 * rangedRatio
+    if (ctx.avoidMagic && !ctx.deflectionShield && s.buffs.magic > 0) score -= s.buffs.magic * 2.0 * magicRatio
+    if (ctx.preferMagic) {
+        if (s.buffs.attack > 0) score -= s.buffs.attack * 1.5 * meleeRatio
+        if (s.buffs.ranged > 0) score -= s.buffs.ranged * 1.5 * rangedRatio
+        if (s.buffs.magic > 0) score += s.buffs.magic * 1.5 * magicRatio
+    }
+    if (ctx.arcaneDampening && s.buffs.magic > 0) score -= s.buffs.magic * 1.5 * magicRatio
+    if (ctx.armoredUp && !ctx.weakMagic && s.buffs.magic > 0) score += s.buffs.magic * 1.5 * magicRatio
+    if (ctx.whatDoesntKillYou && s.buffs.attack > 0) score += s.buffs.attack * 1.5 * meleeRatio
+
+    // Enemy counter bonuses for summoner debuffs based on predicted enemy meta
+    val enemyHeavyMelee = ctx.enemyOnlyMelee || (
+        !ctx.enemyNoMelee &&
+            (ctx.meleeFromAnyPosition || ctx.whatDoesntKillYou || ctx.stampede)
+        )
+    val enemyHeavyMagic = ctx.enemyOnlyMagic || (
+        !ctx.enemyNoMagic &&
+            ((ctx.armoredUp && !ctx.weakMagic) || ctx.unprotected)
+        )
+    val enemyHeavyRanged = ctx.enemyOnlyRanged || (!ctx.enemyNoRanged && ctx.rangedFromPos1)
+    if (enemyHeavyMelee && s.buffs.attack < 0) score += s.buffs.attack * -2.0
+    if (enemyHeavyMagic && s.buffs.magic < 0) score += s.buffs.magic * -2.0
+    if (enemyHeavyRanged && s.buffs.ranged < 0) score += s.buffs.ranged * -2.0
+
+    // Summoner abilities
+    if (!ctx.backToBasics) {
+        for (ability in s.buffs.abilities) {
+            score += when (ability) {
+                "Conscript" -> 5.0
+                "Resurrect" -> if (ctx.deathHasNoPower) 0.0 else 4.0
+                "Blast" -> if (ctx.deflectionShield) 0.0 else 3.0
+                else -> 1.0
+            }
+        }
+    }
+
+    // Prefer cheaper summoners
+    score -= s.mana * 0.3
+
+    return score
+}
+
+// ── Scored team building ──
+
+private fun buildScoredTeam(
+    monsters: List<CardEntry>,
+    remainingMana: Int,
+    maxMonsters: Int,
+    gladLimit: Int,
+    ctx: RulesetContext,
+): Pair<List<CardEntry>, Double> {
+    if (monsters.isEmpty()) return emptyList<CardEntry>() to 0.0
+
+    val tankCandidates = monsters
+        .filter { it.mana <= remainingMana }
+        .map { it to scoreMonster(it, Position.TANK, ctx) }
+        .sortedByDescending { it.second }
+
+    var bestTeam = emptyList<CardEntry>()
+    var bestScore = Double.NEGATIVE_INFINITY
+    val tankTrials = minOf(3, tankCandidates.size)
+
+    for (i in 0 until tankTrials) {
+        val (tank, tankScore) = tankCandidates[i]
+        val manaAfterTank = remainingMana - tank.mana
+        val gladUsedByTank = if (tank.isGladiator) 1 else 0
+
+        // Score backline candidates by score-per-mana for efficient filling
+        val backlineCandidates = monsters
+            .filter { it.detailId != tank.detailId && it.mana <= manaAfterTank }
+            .filter { !(it.isGladiator && gladUsedByTank >= gladLimit) }
+            .map { it to scoreMonster(it, Position.BACKLINE, ctx) }
+            .sortedByDescending { it.second / it.first.mana.coerceAtLeast(1) }
+
+        val team = mutableListOf(tank)
+        var manaLeft = manaAfterTank
+        var gladCount = gladUsedByTank
+        val usedIds = mutableSetOf(tank.detailId)
+        var teamScore = tankScore
+
+        for ((monster, monsterScore) in backlineCandidates) {
+            if (team.size >= maxMonsters) break
+            if (monster.detailId in usedIds) continue
+            if (monster.mana > manaLeft) continue
+            if (monster.isGladiator && gladCount >= gladLimit) continue
+            team.add(monster)
+            teamScore += monsterScore
+            manaLeft -= monster.mana
+            usedIds.add(monster.detailId)
+            if (monster.isGladiator) gladCount++
+        }
+
+        // Second pass: fill remaining slots by absolute score (not per-mana)
+        if (team.size < maxMonsters && manaLeft > 0) {
+            val remaining = monsters
+                .filter { it.detailId !in usedIds && it.mana <= manaLeft }
+                .filter { !(it.isGladiator && gladCount >= gladLimit) }
+                .map { it to scoreMonster(it, Position.BACKLINE, ctx) }
+                .sortedByDescending { it.second }
+            for ((m, mScore) in remaining) {
+                if (team.size >= maxMonsters) break
+                if (m.mana > manaLeft) continue
+                team.add(m)
+                teamScore += mScore
+                manaLeft -= m.mana
+                usedIds.add(m.detailId)
+                if (m.isGladiator) gladCount++
+            }
+        }
+
+        // Super Sneak: move second-tankiest monster to last position
+        if (ctx.superSneak && team.size >= 3) {
+            val backline = team.subList(1, team.size)
+            val tankiest = backline.maxByOrNull { scoreMonster(it, Position.TANK, ctx) }
+            if (tankiest != null) {
+                team.remove(tankiest)
+                team.add(tankiest)
+            }
+        }
+
+        if (team.isNotEmpty() && teamScore > bestScore) {
+            bestTeam = team.toList()
+            bestScore = teamScore
+        }
+    }
+
+    return bestTeam to bestScore
+}
+
 // ── Team picking ──
 
 fun pickTeam(
@@ -252,9 +877,10 @@ fun pickTeam(
         { it.mana }, { it.speed }, { it.armor }, { it.health },
     )
 
-    // Gladiator handling — keep gladiators only if some summoner has Conscript
+    // Gladiator handling — keep gladiators only if some summoner has Conscript or Are You Not Entertained
     val hasConscript = filteredSummoners.any { "Conscript" in it.buffs.abilities }
-    if (!hasConscript) {
+    val areYouNotEntertained = "Are You Not Entertained" in rulesets
+    if (!hasConscript && !areYouNotEntertained) {
         filteredMonsters = filteredMonsters.filter { !it.isGladiator }
     }
 
@@ -262,22 +888,23 @@ fun pickTeam(
     val dedupSummoners = filteredSummoners.distinctBy { it.detailId }
     val dedupMonsters = filteredMonsters.distinctBy { it.detailId }
 
-    // Sort monsters by mana descending
-    val sortedMonsters = dedupMonsters.sortedByDescending { it.mana }
+    val ctx = buildRulesetContext(rulesets)
 
-    // Try each summoner until a valid team is found
+    // Score each summoner + team combination, pick the best
+    var bestResult: TeamSelection? = null
+    var bestTotalScore = Double.NEGATIVE_INFINITY
+
     for (summoner in dedupSummoners) {
         val remaining = manaCap - summoner.mana
         if (remaining <= 0) continue
-        val gladLimit = if ("Conscript" in summoner.buffs.abilities) 1 else 0
+        var gladLimit = if ("Conscript" in summoner.buffs.abilities) 1 else 0
+        if (areYouNotEntertained) gladLimit++
 
         if (summoner.color == "Gold") {
-            // Dragon: try each ally color
+            // Dragon: try each ally color, pick the best scoring team
             val allyCandidates = COLOR_TO_SPLINTER.keys.filter {
                 it !in inactiveColors && COLOR_TO_SPLINTER[it] !in inactiveColors && it != "Gold" && it != "Gray"
             }
-            var bestTeam = emptyList<CardEntry>()
-            var bestMana = 0
             for (ally in allyCandidates) {
                 val validColors = mutableSetOf(ally, "Gray")
                 if ("Taking Sides" in rulesets) validColors.remove("Gray")
@@ -285,14 +912,17 @@ fun pickTeam(
                     validColors.clear()
                     validColors.add("Gray")
                 }
-                val (team, manaUsed) = pickMonsters(sortedMonsters, remaining, validColors, maxMonsters, gladLimit)
-                if (team.isNotEmpty() && manaUsed > bestMana) {
-                    bestTeam = team
-                    bestMana = manaUsed
+                val colorPool = dedupMonsters.filter { it.color in validColors }
+                val (team, teamScore) = buildScoredTeam(colorPool, remaining, maxMonsters, gladLimit, ctx)
+                if (team.isEmpty()) continue
+                val sumScore = scoreSummoner(summoner, colorPool, ctx)
+                val totalScore = sumScore + teamScore
+                if (totalScore > bestTotalScore) {
+                    bestTotalScore = totalScore
+                    val monsterLookup = team.associateBy { it.uid }
+                    val allyColor = determineDragonAllyColor(summoner.color, team.map { it.uid }, monsterLookup)
+                    bestResult = TeamSelection(summoner.uid, team.map { it.uid }, allyColor)
                 }
-            }
-            if (bestTeam.isNotEmpty()) {
-                return withAllyColor(summoner, bestTeam)
             }
         } else {
             val validColors = mutableSetOf(summoner.color, "Gray")
@@ -301,45 +931,19 @@ fun pickTeam(
                 validColors.clear()
                 validColors.add("Gray")
             }
-            val (team, _) = pickMonsters(sortedMonsters, remaining, validColors, maxMonsters, gladLimit)
-            if (team.isNotEmpty()) {
-                return TeamSelection(summoner.uid, team.map { it.uid }, null)
+            val colorPool = dedupMonsters.filter { it.color in validColors }
+            val (team, teamScore) = buildScoredTeam(colorPool, remaining, maxMonsters, gladLimit, ctx)
+            if (team.isEmpty()) continue
+            val sumScore = scoreSummoner(summoner, colorPool, ctx)
+            val totalScore = sumScore + teamScore
+            if (totalScore > bestTotalScore) {
+                bestTotalScore = totalScore
+                bestResult = TeamSelection(summoner.uid, team.map { it.uid }, null)
             }
         }
     }
 
-    return null
-}
-
-private fun pickMonsters(
-    sorted: List<CardEntry>,
-    remainingMana: Int,
-    validColors: Set<String>,
-    maxMonsters: Int,
-    gladLimit: Int = 0,
-): Pair<List<CardEntry>, Int> {
-    val team = mutableListOf<CardEntry>()
-    var manaUsed = 0
-    var gladCount = 0
-    val usedIds = mutableSetOf<Int>()
-    for (m in sorted) {
-        if (m.detailId in usedIds) continue
-        if (m.color !in validColors) continue
-        if (m.mana > remainingMana - manaUsed) continue
-        if (m.isGladiator && gladCount >= gladLimit) continue
-        team.add(m)
-        manaUsed += m.mana
-        usedIds.add(m.detailId)
-        if (m.isGladiator) gladCount++
-        if (team.size >= maxMonsters) break
-    }
-    return team to manaUsed
-}
-
-private fun withAllyColor(summoner: SummonerEntry, team: List<CardEntry>): TeamSelection {
-    val monsterLookup = team.associateBy { it.uid }
-    val allyColor = determineDragonAllyColor(summoner.color, team.map { it.uid }, monsterLookup)
-    return TeamSelection(summoner.uid, team.map { it.uid }, allyColor)
+    return bestResult
 }
 
 internal fun buildInactiveColors(inactiveStr: String): Set<String> {

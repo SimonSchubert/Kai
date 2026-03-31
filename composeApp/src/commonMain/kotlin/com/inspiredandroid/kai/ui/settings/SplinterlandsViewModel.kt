@@ -9,6 +9,8 @@ import com.inspiredandroid.kai.splinterlands.SplinterlandsAccount
 import com.inspiredandroid.kai.splinterlands.SplinterlandsApi
 import com.inspiredandroid.kai.splinterlands.SplinterlandsBattleRunner
 import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -32,10 +34,10 @@ class SplinterlandsViewModel(
     private fun buildFullState(): SplinterlandsUiState = SplinterlandsUiState(
         showSplinterlandsSection = isSplinterlandsSupported,
         isSplinterlandsEnabled = splinterlandsStore.isEnabled(),
-        splinterlandsAccounts = buildSplinterlandsAccountStates(),
-        splinterlandsInstanceIds = splinterlandsStore.getInstanceIds(),
-        splinterlandsBattleLog = splinterlandsStore.getBattleLog(),
-        splinterlandsAvailableServices = dataRepository.getServiceEntries(),
+        splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList(),
+        splinterlandsInstanceIds = splinterlandsStore.getInstanceIds().toImmutableList(),
+        splinterlandsBattleLog = splinterlandsStore.getBattleLog().toImmutableList(),
+        splinterlandsAvailableServices = dataRepository.getServiceEntries().toImmutableList(),
         onToggleSplinterlands = ::onToggleSplinterlands,
         onTestAndAddSplinterlandsAccount = ::onTestAndAddSplinterlandsAccount,
         onRemoveSplinterlandsAccount = ::onRemoveSplinterlandsAccount,
@@ -57,7 +59,7 @@ class SplinterlandsViewModel(
 
     fun onScreenVisible() {
         _state.update {
-            it.copy(splinterlandsAvailableServices = dataRepository.getServiceEntries())
+            it.copy(splinterlandsAvailableServices = dataRepository.getServiceEntries().toImmutableList())
         }
         if (splinterlandsStore.isEnabled()) fetchSplinterlandsAccountInfo()
     }
@@ -84,7 +86,7 @@ class SplinterlandsViewModel(
             accounts.map { account ->
                 async { fetchAccountAvatarAndEnergy(account.id, account.username.lowercase()) }
             }.awaitAll()
-            _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates()) }
+            _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList()) }
         }
     }
 
@@ -108,7 +110,7 @@ class SplinterlandsViewModel(
         _state.update {
             it.copy(
                 isSplinterlandsEnabled = enabled,
-                splinterlandsAccounts = buildSplinterlandsAccountStates(),
+                splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList(),
             )
         }
         if (enabled) fetchSplinterlandsAccountInfo()
@@ -127,7 +129,7 @@ class SplinterlandsViewModel(
                 fetchAccountAvatarAndEnergy(id, uname)
                 _state.update {
                     it.copy(
-                        splinterlandsAccounts = buildSplinterlandsAccountStates(),
+                        splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList(),
                         splinterlandsAddStatus = SplinterlandsAddStatus.Idle,
                     )
                 }
@@ -143,7 +145,7 @@ class SplinterlandsViewModel(
         viewModelScope.launch {
             splinterlandsBattleRunner.stop(accountId)
             splinterlandsStore.removeAccount(accountId)
-            _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates()) }
+            _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList()) }
         }
     }
 
@@ -153,18 +155,18 @@ class SplinterlandsViewModel(
             current.add(instanceId)
             splinterlandsStore.setInstanceIds(current)
         }
-        _state.update { it.copy(splinterlandsInstanceIds = current.toList()) }
+        _state.update { it.copy(splinterlandsInstanceIds = current.toImmutableList()) }
     }
 
     private fun onRemoveSplinterlandsService(instanceId: String) {
         val current = splinterlandsStore.getInstanceIds().filter { it != instanceId }
         splinterlandsStore.setInstanceIds(current)
-        _state.update { it.copy(splinterlandsInstanceIds = current) }
+        _state.update { it.copy(splinterlandsInstanceIds = current.toImmutableList()) }
     }
 
     private fun onReorderSplinterlandsServices(orderedIds: List<String>) {
         splinterlandsStore.setInstanceIds(orderedIds)
-        _state.update { it.copy(splinterlandsInstanceIds = orderedIds) }
+        _state.update { it.copy(splinterlandsInstanceIds = orderedIds.toImmutableList()) }
     }
 
     private fun onStartSplinterlandsBattle(accountId: String) {
@@ -179,8 +181,8 @@ class SplinterlandsViewModel(
                 if (battleLogChanged) lastBattleCount = totalBattles
                 _state.update { s ->
                     s.copy(
-                        splinterlandsAccounts = accounts,
-                        splinterlandsBattleLog = if (battleLogChanged) splinterlandsStore.getBattleLog() else s.splinterlandsBattleLog,
+                        splinterlandsAccounts = accounts.toImmutableList(),
+                        splinterlandsBattleLog = if (battleLogChanged) splinterlandsStore.getBattleLog().toImmutableList() else s.splinterlandsBattleLog,
                     )
                 }
             }
@@ -191,13 +193,13 @@ class SplinterlandsViewModel(
         battleStatusJobs[accountId]?.cancel()
         battleStatusJobs.remove(accountId)
         splinterlandsBattleRunner.stop(accountId)
-        _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates()) }
+        _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList()) }
     }
 
     private fun onClearSplinterlandsBattleLog() {
         viewModelScope.launch {
             splinterlandsStore.clearBattleLog()
-            _state.update { it.copy(splinterlandsBattleLog = emptyList()) }
+            _state.update { it.copy(splinterlandsBattleLog = persistentListOf()) }
         }
     }
 }

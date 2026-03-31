@@ -4,15 +4,17 @@ import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.splinterlands.BattleLogEntry
 import com.inspiredandroid.kai.splinterlands.BattleStatus
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 data class SplinterlandsUiState(
     val showSplinterlandsSection: Boolean = false,
     val isSplinterlandsEnabled: Boolean = false,
-    val splinterlandsAccounts: List<SplinterlandsAccountUiState> = emptyList(),
-    val splinterlandsInstanceIds: List<String> = emptyList(),
-    val splinterlandsBattleLog: List<BattleLogEntry> = emptyList(),
-    val splinterlandsAvailableServices: List<ServiceEntry> = emptyList(),
+    val splinterlandsAccounts: ImmutableList<SplinterlandsAccountUiState> = persistentListOf(),
+    val splinterlandsInstanceIds: ImmutableList<String> = persistentListOf(),
+    val splinterlandsBattleLog: ImmutableList<BattleLogEntry> = persistentListOf(),
+    val splinterlandsAvailableServices: ImmutableList<ServiceEntry> = persistentListOf(),
     val splinterlandsAddStatus: SplinterlandsAddStatus = SplinterlandsAddStatus.Idle,
     val onToggleSplinterlands: (Boolean) -> Unit = {},
     val onTestAndAddSplinterlandsAccount: (String, String) -> Unit = { _, _ -> },

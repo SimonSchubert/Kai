@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-Last verified: 2026-03-20
+Last verified: 2026-03-29
 
 ## Overview
 
@@ -54,10 +54,17 @@ The Stop button behavior depends on the current phase. Before a match is committ
 - Time-aware: skips services if less than 10s remain before deadline; per-request HTTP timeout is deadline minus 5s (minimum 10s). The deadline comes from the server's `submit_expiration_date` minus 10s, falling back to 180s.
 - 70% mana efficiency check
 
-### Simple Fallback
-- Sort monsters by mana descending
-- For each summoner: fill with highest-mana monsters of matching colors
-- Dragon summoners: try each ally color, pick best team
+### Scoring-Based Fallback
+- Scores each monster based on stats, abilities, and active rulesets for two positions: tank (position 1) and backline (positions 2+)
+- Tank scoring rewards HP, armor, Shield, Void, Heal, Taunt, and other defensive abilities
+- Backline scoring rewards Tank Heal, Triage, Inspire, Resurrect, damage abilities, and team buffs
+- All ~40 strategic rulesets shift scoring (e.g., Earthquake boosts Flying, Reverse Speed rewards low speed, Noxious Fumes prioritizes HP and Immunity, Equalizer favors low-mana high-attack, Briar Patch/Counterspell/Fire & Regret penalize reflected damage types)
+- Counter-scoring anticipates enemy strategies: since both players face the same rulesets, predicts likely enemy attack types and boosts defensive counters (e.g., if rulesets favor melee, boosts Thorns/Demoralize/Shield/Blind; if magic, boosts Void/Silence/Phase). Enemy debuffs (Demoralize, Headwinds, Silence) are only scored when the enemy can use that attack type. Disruptive abilities (Affliction, Dispel, Halving, Shatter) are scored based on enemy composition.
+- Abilities are ignored when Back to Basics is active (raw stats only)
+- Summoners are scored by buff synergy with the available monster pool and ruleset interactions
+- For each summoner: tries top 3 tank candidates, fills backline by score-per-mana ratio, picks the best overall team across all summoners
+- Dragon summoners: try each ally color, pick best scoring combination
+- Super Sneak: moves the second-tankiest monster to last position (targeted by all enemy Sneaks)
 
 ### Ruleset Filters (Category A -- card selection)
 Rarity, attack type, mana cost, color, and stat threshold filters applied before team picking.
