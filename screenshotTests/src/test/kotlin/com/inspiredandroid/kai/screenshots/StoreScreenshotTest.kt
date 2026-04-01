@@ -117,10 +117,10 @@ class StoreScreenshotTest(
     }
 
     @Test
-    fun chatWithCodeExample() {
+    fun chatWithDynamicUi() {
         snap("03", LightColorScheme) {
             ChatScreenContent(
-                uiState = ScreenshotTestData.localizedChatWithCodeExample(locale),
+                uiState = ScreenshotTestData.localizedChatWithDynamicUi(locale),
                 FakeTextToSpeechInstance(),
             )
         }
@@ -129,21 +129,30 @@ class StoreScreenshotTest(
     @Test
     fun settingsFree() {
         snap("04", DarkColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.freeConnected)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.freeConnected,
+                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            )
         }
     }
 
     @Test
     fun settingsTools() {
         snap("05", LightColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.settingsTools)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsTools,
+                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            )
         }
     }
 
     @Test
     fun settingsGeneral() {
         snap("06", DarkColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsGeneral,
+                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            )
         }
     }
 

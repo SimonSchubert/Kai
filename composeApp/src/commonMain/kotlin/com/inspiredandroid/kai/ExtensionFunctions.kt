@@ -16,7 +16,7 @@ private val humanReadableDateFormat = Format {
 
 fun Long.toHumanReadableDate(): String = Instant.fromEpochSeconds(this).format(humanReadableDateFormat)
 
-private val ttsKaiUiBlockRegex = Regex("```kai-ui\\s*\\n?.*?\\n?```", RegexOption.DOT_MATCHES_ALL)
+private val ttsKaiUiBlockRegex = Regex("```kai-ui\\s*\\n?[\\s\\S]*?\\n?```")
 private val ttsCodeBlockRegex = Regex("```[a-zA-Z]*\\n?")
 private val ttsImageRegex = Regex("!\\[([^]]*)]\\([^)]*\\)")
 private val ttsLinkRegex = Regex("\\[([^]]*)]\\([^)]*\\)")

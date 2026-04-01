@@ -76,10 +76,10 @@ class ScreenshotTest {
     }
 
     @Test
-    fun chatWithCodeExample_light() {
+    fun chatWithDynamicUi_light() {
         paparazzi.snap(LightColorScheme) {
             ChatScreenContent(
-                uiState = ScreenshotTestData.chatWithCodeExample,
+                uiState = ScreenshotTestData.chatWithDynamicUi,
                 FakeTextToSpeechInstance(),
             )
         }
@@ -88,21 +88,30 @@ class ScreenshotTest {
     @Test
     fun settingsGeneral_dark() {
         paparazzi.snap(DarkColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsGeneral,
+                sandboxState = ScreenshotTestData.sandboxState,
+            )
         }
     }
 
     @Test
     fun settingsFree_dark() {
         paparazzi.snap(DarkColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.freeConnected)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.freeConnected,
+                sandboxState = ScreenshotTestData.sandboxState,
+            )
         }
     }
 
     @Test
     fun settingsTools_light() {
         paparazzi.snap(LightColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.settingsTools)
+            SettingsScreenContent(
+                uiState = ScreenshotTestData.settingsTools,
+                sandboxState = ScreenshotTestData.sandboxState,
+            )
         }
     }
 

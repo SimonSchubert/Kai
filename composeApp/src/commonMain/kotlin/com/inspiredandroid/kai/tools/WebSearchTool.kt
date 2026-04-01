@@ -16,10 +16,10 @@ import kai.composeapp.generated.resources.tool_web_search_name
 private const val MAX_RESULTS = 5
 
 object WebSearchTool : Tool {
-    private val linkRegex = Regex("""<a[^>]+class=['"]result-link['"][^>]*>(.*?)</a>""", RegexOption.DOT_MATCHES_ALL)
+    private val linkRegex = Regex("""<a[^>]+class=['"]result-link['"][^>]*>([\s\S]*?)</a>""")
     private val hrefRegex = Regex("""href=['"]([^'"]*?)['"]""")
-    private val snippetRegex = Regex("""<td[^>]+class=['"]result-snippet['"][^>]*>(.*?)</td>""", RegexOption.DOT_MATCHES_ALL)
-    private val fullLinkRegex = Regex("""<a\s[^>]*class=['"]result-link['"][^>]*>""", RegexOption.DOT_MATCHES_ALL)
+    private val snippetRegex = Regex("""<td[^>]+class=['"]result-snippet['"][^>]*>([\s\S]*?)</td>""")
+    private val fullLinkRegex = Regex("""<a\s[^>]*class=['"]result-link['"][^>]*>""")
     private val uddgRegex = Regex("""uddg=([^&]+)""")
     private val htmlTagRegex = Regex("<[^>]*>")
 

@@ -84,7 +84,7 @@ tasks.register("updateScreenshots") {
             mapOf(
                 "chatEmptyState_light" to "1.png",
                 "chatWithMessages_dark" to "2.png",
-                "chatWithCodeExample_light" to "3.png",
+                "chatWithDynamicUi_light" to "3.png",
                 "settingsFree_dark" to "4.png",
                 "settingsTools_light" to "5.png",
                 "settingsGeneral_dark" to "6.png",

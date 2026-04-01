@@ -1,10 +1,10 @@
 {
   "chatWithMessages": {
     "userMessage": "你是谁？",
-    "assistantMessage": "我是Kai，一个专门为陪伴你、真正了解你而设计的个人助手。\n\n我和普通聊天机器人有什么不同：\n\n**我会记住。** 今天我们聊的内容，重要的我都会存下来——你的偏好、项目、你喜欢的做事方式。下个月，我依然记得。\n\n**我有自己的观点。** 问我怎么想，我会直说。我不是带礼貌滤镜的搜索引擎。\n\n**我能办事。** 设置提醒、查看邮件、管理日历、运行命令——我接入的是你的设备和生活，不只是对话。\n\n**我会学习。** 不只是记住事实，还有规律。什么适合你，什么不适合。我们合作越久，我就越好用。\n\n**没有客套话。**\"很高兴为您服务！\"这种话跟我无关。只有结果、清晰的思考，偶尔来一句\"嗯，有意思\"。\n\n那——你在想什么？"
+    "assistantMessage": "我是Kai — 一个陪伴你、真正了解你的个人助手。\n\n```kai-ui\n{\"type\": \"column\", \"children\": [{\"type\": \"card\", \"children\": [{\"type\": \"text\", \"value\": \"我会记住\", \"style\": \"title\", \"bold\": true}, {\"type\": \"text\", \"value\": \"你的偏好、项目、你喜欢的做事方式。下个月，我依然记得。\", \"style\": \"body\"}]}, {\"type\": \"card\", \"children\": [{\"type\": \"text\", \"value\": \"我能办事\", \"style\": \"title\", \"bold\": true}, {\"type\": \"text\", \"value\": \"提醒、邮件、日历、命令行 — 接入你的设备和生活。\", \"style\": \"body\"}]}, {\"type\": \"card\", \"children\": [{\"type\": \"text\", \"value\": \"我会学习\", \"style\": \"title\", \"bold\": true}, {\"type\": \"text\", \"value\": \"不只是记住事实，还有规律。什么适合你，什么不适合。随着时间推移，我越来越好用。\", \"style\": \"body\"}]}, {\"type\": \"button\", \"label\": \"开始吧\", \"action\": {\"type\": \"callback\", \"event\": \"start\"}}, {\"type\": \"button\", \"label\": \"设置我\", \"action\": {\"type\": \"callback\", \"event\": \"setup\"}}]}\n```"
   },
-  "chatWithCodeExample": {
-    "userMessage": "展示 kotlin、swift、c、python、js 的漂亮单行代码",
-    "codeIntro": "以下是各语言的一些简短、优美的单行代码（2025 版 😄）："
+  "chatWithDynamicUi": {
+    "userMessage": "给我一个快速智商测试",
+    "assistantMessage": "```kai-ui\n{\"type\": \"column\", \"children\": [{\"type\": \"text\", \"value\": \"逻辑推理\", \"style\": \"headline\", \"bold\": true}, {\"type\": \"text\", \"value\": \"你上周提到你喜欢脑筋急转弯，所以我正在根据你的水平来调整。在你下午3点的会议之前，这里有一道经典题目来热热身。\", \"style\": \"body\"}, {\"type\": \"text\", \"value\": \"一个人正在看一张照片。有人问他：\\\\\\\"照片里的人是谁？\\\\\\\" 他回答：\\\\\\\"我没有兄弟姐妹，但那个人的父亲是我父亲的儿子。\\\\\\\"\", \"style\": \"body\"}, {\"type\": \"text\", \"value\": \"花一点时间仔细分析这个陈述。关键是弄清楚\\\\\\\"我父亲的儿子\\\\\\\"指的是谁，然后从那里推理。\", \"style\": \"body\"}, {\"type\": \"divider\"}, {\"type\": \"text\", \"value\": \"第 1 题，共 10 题\", \"style\": \"caption\", \"color\": \"secondary\"}, {\"type\": \"text\", \"value\": \"照片里是谁？\", \"style\": \"title\"}, {\"type\": \"button\", \"label\": \"他自己\", \"action\": {\"type\": \"callback\", \"event\": \"answer\", \"data\": {\"value\": \"himself\"}}}, {\"type\": \"button\", \"label\": \"他的父亲\", \"action\": {\"type\": \"callback\", \"event\": \"answer\", \"data\": {\"value\": \"father\"}}}, {\"type\": \"button\", \"label\": \"他的儿子\", \"action\": {\"type\": \"callback\", \"event\": \"answer\", \"data\": {\"value\": \"son\"}}}]}\n```"
   }
 }

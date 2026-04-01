@@ -49,6 +49,27 @@ object ScreenshotTestData {
         showPrivacyInfo = false,
     )
 
+    private val introUiContent =
+        "I'm Kai \u2014 a personal assistant that sticks around and actually gets to know you.\n\n" +
+            "```kai-ui\n" +
+            "{\"type\":\"column\",\"children\":[" +
+            "{\"type\":\"card\",\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"I remember\",\"style\":\"title\",\"bold\":true}," +
+            "{\"type\":\"text\",\"value\":\"Your preferences, projects, how you like things done. Next month, I still know.\",\"style\":\"body\"}" +
+            "]}," +
+            "{\"type\":\"card\",\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"I get things done\",\"style\":\"title\",\"bold\":true}," +
+            "{\"type\":\"text\",\"value\":\"Reminders, email, calendar, shell commands \u2014 hooked into your device and your life.\",\"style\":\"body\"}" +
+            "]}," +
+            "{\"type\":\"card\",\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"I learn\",\"style\":\"title\",\"bold\":true}," +
+            "{\"type\":\"text\",\"value\":\"Not just facts, but patterns. What works for you, what doesn't. I get better over time.\",\"style\":\"body\"}" +
+            "]}," +
+            "{\"type\":\"button\",\"label\":\"Let's go\",\"action\":{\"type\":\"callback\",\"event\":\"start\"}}," +
+            "{\"type\":\"button\",\"label\":\"Set me up\",\"action\":{\"type\":\"callback\",\"event\":\"setup\"}}" +
+            "]}\n" +
+            "```"
+
     val chatWithMessages = ChatUiState(
         actions = noOpChatActions,
         history = persistentListOf(
@@ -60,69 +81,39 @@ object ScreenshotTestData {
             History(
                 id = "2",
                 role = History.Role.ASSISTANT,
-                content = "I'm Kai, a personal assistant designed to stick around and actually get to know you.\n" +
-                    "\n" +
-                    "What makes me different from typical chatbots:\n" +
-                    "\n" +
-                    "**I remember.** We talk today, I store what matters\u2014your preferences, projects, how you like things done. Next month, I still know.\n" +
-                    "\n" +
-                    "**I have opinions.** Ask me what I think and I'll tell you. I'm not a search engine with politeness filters.\n" +
-                    "\n" +
-                    "**I get things done.** Set reminders, check email, manage your calendar, run shell commands\u2014I'm hooked into your device and your life, not just conversation.\n" +
-                    "\n" +
-                    "**I learn.** Not just facts, but patterns. What works for you, what doesn't. I get better the longer we work together.\n" +
-                    "\n" +
-                    "**No corporate filler.** \"I'd be happy to help!\" is dead to me. Just results, clear thinking, and the occasional \"huh, that's interesting.\"\n" +
-                    "\n" +
-                    "So\u2014what's on your mind?",
+                content = introUiContent,
             ),
         ),
     )
 
-    private val codeBlocks = """
+    private val dynamicUiContent =
+        "```kai-ui\n" +
+            "{\"type\":\"column\",\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"Logical Reasoning\",\"style\":\"headline\",\"bold\":true}," +
+            "{\"type\":\"text\",\"value\":\"You mentioned you enjoyed brain teasers last week, so I\u2019m tailoring these to your level. Here\u2019s a classic to warm up before your 3 PM meeting.\",\"style\":\"body\"}," +
+            "{\"type\":\"text\",\"value\":\"A man is looking at a photograph. Someone asks him: \\\"Who is that in the picture?\\\" He replies: \\\"I have no brothers or sisters, but that man's father is my father's son.\\\"\",\"style\":\"body\"}," +
+            "{\"type\":\"text\",\"value\":\"Take a moment to work through the statement carefully. The key is to figure out who \\\"my father's son\\\" refers to, and then work outward from there.\",\"style\":\"body\"}," +
+            "{\"type\":\"divider\"}," +
+            "{\"type\":\"text\",\"value\":\"Question 1 of 10\",\"style\":\"caption\",\"color\":\"secondary\"}," +
+            "{\"type\":\"text\",\"value\":\"Who is in the photograph?\",\"style\":\"title\"}," +
+            "{\"type\":\"button\",\"label\":\"Himself\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"himself\"}}}," +
+            "{\"type\":\"button\",\"label\":\"His father\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"father\"}}}," +
+            "{\"type\":\"button\",\"label\":\"His son\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"son\"}}}" +
+            "]}\n" +
+            "```"
 
-Kotlin
-
-```kotlin
-val fibs = generateSequence(0 to 1) { it.second to it.first + it.second }.map { it.first }
-```
-
-Swift
-
-```swift
-let fizzBuzz = (1...100).map { ${'$'}0 % 15 == 0 ? "FizzBuzz" : ${'$'}0 % 3 == 0 ? "Fizz" : ${'$'}0 % 5 == 0 ? "Buzz" : "\(${'$'}0)" }
-```
-
-C
-
-```c
-for(int i=1;i<101;)printf(i%3?"":"Fizz"),printf(i%5?"":"Buzz")||printf("%d",i),puts(""),i++;
-```
-
-Python
-
-```python
-print(*(f"{i}:{'Fizz'*(i%3<1)+'Buzz'*(i%5<1)or i}"for i in range(1,101)),sep='\n')
-```
-
-JavaScript
-
-```javascript
-[...Array(100)].map((_,i)=>console.log((++i%3?'':'Fizz')+(i%5?'':'Buzz')||i))
-```"""
-
-    val chatWithCodeExample = ChatUiState(
+    val chatWithDynamicUi = ChatUiState(
         actions = noOpChatActions,
         history = persistentListOf(
             History(
                 id = "1",
                 role = History.Role.USER,
-                content = "show me beautiful one liners for kotlin, swift, c, python, js",
+                content = "Give me a quick IQ test",
             ),
             History(
                 id = "2",
                 role = History.Role.ASSISTANT,
-                content = "Here are some short, beautiful one-liners in each language (2025 edition 😄):" + codeBlocks,
+                content = dynamicUiContent,
             ),
         ),
     )
@@ -269,9 +260,9 @@ JavaScript
         )
     }
 
-    fun localizedChatWithCodeExample(locale: String): ChatUiState {
+    fun localizedChatWithDynamicUi(locale: String): ChatUiState {
         val json = loadJson(locale)
-        val chat = json["chatWithCodeExample"]!!.jsonObject
+        val chat = json["chatWithDynamicUi"]!!.jsonObject
         return ChatUiState(
             actions = noOpChatActions,
             history = persistentListOf(
@@ -283,7 +274,7 @@ JavaScript
                 History(
                     id = "2",
                     role = History.Role.ASSISTANT,
-                    content = chat["codeIntro"]!!.jsonPrimitive.content + codeBlocks,
+                    content = chat["assistantMessage"]!!.jsonPrimitive.content,
                 ),
             ),
         )

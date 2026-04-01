@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.dynamicui
 import androidx.compose.runtime.Immutable
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonPrimitive
 
 @Immutable
 @Serializable
@@ -13,9 +14,13 @@ sealed interface UiAction
 @SerialName("callback")
 data class CallbackAction(
     val event: String,
-    val data: Map<String, String>? = null,
+    val data: Map<String, JsonPrimitive>? = null,
     val collectFrom: List<String>? = null,
-) : UiAction
+) : UiAction {
+    /** Returns data values coerced to strings (handles booleans/numbers from LLMs). */
+    val dataAsStrings: Map<String, String>?
+        get() = data?.mapValues { it.value.content }
+}
 
 @Immutable
 @Serializable

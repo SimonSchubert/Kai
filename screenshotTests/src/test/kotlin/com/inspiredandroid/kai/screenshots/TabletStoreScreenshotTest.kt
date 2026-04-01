@@ -117,10 +117,10 @@ class TabletStoreScreenshotTest(
     }
 
     @Test
-    fun chatWithCodeExample() {
+    fun chatWithDynamicUi() {
         snap("03", LightColorScheme) {
             ChatScreenContent(
-                uiState = ScreenshotTestData.localizedChatWithCodeExample(locale),
+                uiState = ScreenshotTestData.localizedChatWithDynamicUi(locale),
                 FakeTextToSpeechInstance(),
             )
         }
