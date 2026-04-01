@@ -157,9 +157,9 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
+import kai.composeapp.generated.resources.settings_documentation
 import kai.composeapp.generated.resources.settings_dynamic_ui
 import kai.composeapp.generated.resources.settings_dynamic_ui_description
-import kai.composeapp.generated.resources.settings_documentation
 import kai.composeapp.generated.resources.settings_email
 import kai.composeapp.generated.resources.settings_email_description
 import kai.composeapp.generated.resources.settings_email_empty
