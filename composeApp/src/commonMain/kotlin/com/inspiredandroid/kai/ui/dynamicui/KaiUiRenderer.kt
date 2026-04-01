@@ -391,9 +391,9 @@ private fun RenderList(
 
 private fun initializeFormState(node: KaiUiNode, formState: MutableMap<String, String>) {
     when (node) {
-        is TextInputNode -> node.value?.let { formState.putIfAbsent(node.id, it) }
-        is CheckboxNode -> formState.putIfAbsent(node.id, (node.checked ?: false).toString())
-        is SelectNode -> node.selected?.let { formState.putIfAbsent(node.id, it) }
+        is TextInputNode -> node.value?.let { if (node.id !in formState) formState[node.id] = it }
+        is CheckboxNode -> if (node.id !in formState) formState[node.id] = (node.checked ?: false).toString()
+        is SelectNode -> node.selected?.let { if (node.id !in formState) formState[node.id] = it }
         is ColumnNode -> node.children.forEach { initializeFormState(it, formState) }
         is RowNode -> node.children.forEach { initializeFormState(it, formState) }
         is CardNode -> node.children.forEach { initializeFormState(it, formState) }
