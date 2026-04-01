@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Régler une alarme ou un minuteur sur l&#39;appareil</string>
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>
     <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
+    <string name="settings_dynamic_ui">UI dynamique</string>
+    <string name="settings_dynamic_ui_description">Permettre à l\'IA de créer des éléments d\'interface interactifs comme des boutons, des formulaires et des cartes dans les réponses. Le changement s\'applique aux nouvelles conversations.</string>
     <string name="settings_memories">Souvenirs</string>
     <string name="settings_memories_description">Souvenirs stockés par l'IA lors des conversations. Ils sont inclus dans chaque message pour fournir du contexte.</string>
     <string name="settings_memories_delete">Supprimer le souvenir</string>

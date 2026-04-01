@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Ustaw alarm lub minutnik na urządzeniu</string>
     <string name="tool_execute_shell_command_name">Wykonaj polecenie</string>
     <string name="tool_execute_shell_command_description">Wykonaj polecenie powłoki w piaskownicy Linux</string>
+    <string name="settings_dynamic_ui">Dynamiczny interfejs</string>
+    <string name="settings_dynamic_ui_description">Zezwól AI na tworzenie interaktywnych elementów interfejsu, takich jak przyciski, formularze i karty w odpowiedziach. Zmiana dotyczy nowych rozmów.</string>
     <string name="settings_memories">Wspomnienia</string>
     <string name="settings_memories_description">Wspomnienia zapisane przez AI podczas rozmów. Są one dołączane do każdej wiadomości w celu zapewnienia kontekstu.</string>
     <string name="settings_memories_delete">Usuń wspomnienie</string>

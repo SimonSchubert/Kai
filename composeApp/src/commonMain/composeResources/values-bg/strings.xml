@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
     <string name="tool_execute_shell_command_name">Изпълни команда</string>
     <string name="tool_execute_shell_command_description">Изпълнение на shell команда в Linux пясъчника</string>
+    <string name="settings_dynamic_ui">Динамичен UI</string>
+    <string name="settings_dynamic_ui_description">Позволяване на AI да създава интерактивни UI елементи като бутони, формуляри и карти в отговорите. Промяната се прилага за нови разговори.</string>
     <string name="settings_memories">Спомени</string>
     <string name="settings_memories_description">Спомени, запазени от AI по време на разговори. Те се включват в всяко съобщение за осигуряване на контекст.</string>
     <string name="settings_memories_delete">Изтрий памет</string>

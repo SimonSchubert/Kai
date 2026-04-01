@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
     <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>
     <string name="tool_execute_shell_command_description">Linux சாண்ட்பாக்ஸில் ஷெல் கட்டளையை இயக்கு</string>
+    <string name="settings_dynamic_ui">டைனமிக் UI</string>
+    <string name="settings_dynamic_ui_description">AI-க்கு பதில்களில் பொத்தான்கள், படிவங்கள் மற்றும் அட்டைகள் போன்ற ஊடாடும் UI கூறுகளை உருவாக்க அனுமதிக்கவும். மாற்றம் புதிய உரையாடல்களுக்குப் பொருந்தும்.</string>
     <string name="settings_memories">நினைவுகள்</string>
     <string name="settings_memories_description">உரையாடல்களின் போது AI சேமித்த நினைவுகள். இவை சூழலை வழங்க ஒவ்வொரு செய்தியிலும் சேர்க்கப்படுகின்றன.</string>
     <string name="settings_memories_delete">நினைவகத்தை நீக்கு</string>

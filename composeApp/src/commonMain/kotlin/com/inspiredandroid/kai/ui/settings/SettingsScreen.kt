@@ -157,6 +157,8 @@ import kai.composeapp.generated.resources.settings_business_partnerships_descrip
 import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
+import kai.composeapp.generated.resources.settings_dynamic_ui
+import kai.composeapp.generated.resources.settings_dynamic_ui_description
 import kai.composeapp.generated.resources.settings_documentation
 import kai.composeapp.generated.resources.settings_email
 import kai.composeapp.generated.resources.settings_email_description
@@ -1510,6 +1512,12 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         )
                     }
                     SettingsCard {
+                        DynamicUiToggle(
+                            isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                            onToggleDynamicUi = uiState.onToggleDynamicUi,
+                        )
+                    }
+                    SettingsCard {
                         MemoryList(
                             memories = uiState.memories,
                             onDeleteMemory = uiState.onDeleteMemory,
@@ -1586,6 +1594,12 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     SoulEditor(
                         soulText = uiState.soulText,
                         onSaveSoul = uiState.onSaveSoul,
+                    )
+                }
+                SettingsCard {
+                    DynamicUiToggle(
+                        isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                        onToggleDynamicUi = uiState.onToggleDynamicUi,
                     )
                 }
                 SettingsCard {
@@ -2759,6 +2773,21 @@ private fun DaemonModeToggle(
             description = stringResource(Res.string.settings_daemon_mode_description),
             checked = isDaemonEnabled,
             onCheckedChange = onToggleDaemon,
+        )
+    }
+}
+
+@Composable
+private fun DynamicUiToggle(
+    isDynamicUiEnabled: Boolean,
+    onToggleDynamicUi: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_dynamic_ui),
+            description = stringResource(Res.string.settings_dynamic_ui_description),
+            checked = isDynamicUiEnabled,
+            onCheckedChange = onToggleDynamicUi,
         )
     }
 }

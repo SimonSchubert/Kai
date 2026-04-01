@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
     <string name="tool_execute_shell_command_name">รันคำสั่งเชลล์</string>
     <string name="tool_execute_shell_command_description">เรียกใช้คำสั่ง shell ในแซนด์บ็อกซ์ Linux</string>
+    <string name="settings_dynamic_ui">UI แบบไดนามิก</string>
+    <string name="settings_dynamic_ui_description">อนุญาตให้ AI สร้างองค์ประกอบ UI แบบโต้ตอบ เช่น ปุ่ม แบบฟอร์ม และการ์ดในคำตอบ การเปลี่ยนแปลงมีผลกับการสนทนาใหม่</string>
     <string name="settings_memories">ความทรงจำ</string>
     <string name="settings_memories_description">ความทรงจำที่ AI บันทึกระหว่างการสนทนา ความทรงจำเหล่านี้จะถูกรวมไว้ในทุกข้อความเพื่อให้บริบท</string>
     <string name="settings_memories_delete">ลบความทรงจำ</string>

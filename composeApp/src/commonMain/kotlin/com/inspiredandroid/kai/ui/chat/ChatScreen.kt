@@ -273,6 +273,10 @@ fun ChatScreenContent(
                                                         uiState.actions.setIsSpeaking(it, history.id)
                                                     },
                                                     onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
+                                                    isInteractive = isLastAssistant && !uiState.isLoading,
+                                                    onUiCallback = { event, data ->
+                                                        uiState.actions.submitUiCallback(event, data)
+                                                    },
                                                 )
                                                 if (history.fallbackServiceName != null) {
                                                     androidx.compose.material3.Text(

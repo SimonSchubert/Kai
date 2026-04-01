@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
     <string name="tool_execute_shell_command_name">Jalankan arahan</string>
     <string name="tool_execute_shell_command_description">Jalankan arahan shell dalam kotak pasir Linux</string>
+    <string name="settings_dynamic_ui">UI Dinamik</string>
+    <string name="settings_dynamic_ui_description">Benarkan AI mencipta elemen UI interaktif seperti butang, borang dan kad dalam respons. Perubahan terpakai untuk perbualan baharu.</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan oleh AI semasa perbualan. Ini disertakan dalam setiap mesej untuk menyediakan konteks.</string>
     <string name="settings_memories_delete">Padam kenangan</string>

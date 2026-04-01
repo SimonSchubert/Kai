@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
     <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>
     <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren in de Linux-sandbox</string>
+    <string name="settings_dynamic_ui">Dynamische UI</string>
+    <string name="settings_dynamic_ui_description">Sta de AI toe om interactieve UI-elementen zoals knoppen, formulieren en kaarten in antwoorden te maken. Wijziging geldt voor nieuwe gesprekken.</string>
     <string name="settings_memories">Herinneringen</string>
     <string name="settings_memories_description">Herinneringen opgeslagen door de AI tijdens gesprekken. Deze worden in elk bericht opgenomen om context te bieden.</string>
     <string name="settings_memories_delete">Herinnering verwijderen</string>

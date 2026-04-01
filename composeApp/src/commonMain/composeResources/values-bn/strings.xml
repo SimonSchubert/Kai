@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
     <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
     <string name="tool_execute_shell_command_description">Linux স্যান্ডবক্সে শেল কমান্ড চালান</string>
+    <string name="settings_dynamic_ui">ডায়নামিক UI</string>
+    <string name="settings_dynamic_ui_description">AI-কে প্রতিক্রিয়ায় বোতাম, ফর্ম এবং কার্ডের মতো ইন্টারেক্টিভ UI উপাদান তৈরি করার অনুমতি দিন। পরিবর্তনটি নতুন কথোপকথনে প্রযোজ্য।</string>
     <string name="settings_memories">স্মৃতিসমূহ</string>
     <string name="settings_memories_description">কথোপকথনের সময় AI কর্তৃক সংরক্ষিত স্মৃতি। প্রসঙ্গ প্রদানের জন্য এগুলি প্রতিটি বার্তায় অন্তর্ভুক্ত করা হয়।</string>
     <string name="settings_memories_delete">স্মৃতি মুছুন</string>

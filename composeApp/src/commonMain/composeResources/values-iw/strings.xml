@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">הגדר שעון מעורר או טיימר ספירה לאחור במכשיר</string>
     <string name="tool_execute_shell_command_name">הפעל פקודת מעטפת</string>
     <string name="tool_execute_shell_command_description">הפעלת פקודת מעטפת בארגז חול Linux</string>
+    <string name="settings_dynamic_ui">ממשק משתמש דינמי</string>
+    <string name="settings_dynamic_ui_description">אפשר ל-AI ליצור רכיבי ממשק משתמש אינטראקטיביים כמו כפתורים, טפסים וכרטיסים בתגובות. השינוי חל על שיחות חדשות.</string>
     <string name="settings_memories">זיכרונות</string>
     <string name="settings_memories_description">זיכרונות שנשמרו על ידי הבינה המלאכותית במהלך שיחות. אלה נכללים בכל הודעה כדי לספק הקשר.</string>
     <string name="settings_memories_delete">מחק זיכרון</string>

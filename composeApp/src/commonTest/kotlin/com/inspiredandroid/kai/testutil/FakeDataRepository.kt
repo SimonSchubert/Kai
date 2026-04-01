@@ -284,6 +284,14 @@ class FakeDataRepository : DataRepository {
     override suspend fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
 
     // Memory management
+    private var dynamicUiEnabled = true
+
+    override fun isDynamicUiEnabled(): Boolean = dynamicUiEnabled
+
+    override fun setDynamicUiEnabled(enabled: Boolean) {
+        dynamicUiEnabled = enabled
+    }
+
     private var memoryEnabled = true
     private val memories = mutableListOf<MemoryEntry>()
 

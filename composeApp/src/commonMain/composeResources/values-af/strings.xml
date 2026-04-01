@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Stel 'n alarm of afteltydhouer op die toestel</string>
     <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
     <string name="tool_execute_shell_command_description">Voer \'n dopopdrag uit in die Linux-sandbox</string>
+    <string name="settings_dynamic_ui">Dinamiese UI</string>
+    <string name="settings_dynamic_ui_description">Laat die KI toe om interaktiewe UI-elemente soos knoppies, vorms en kaarte in antwoorde te skep. Verandering geld vir nuwe gesprekke.</string>
     <string name="settings_memories">Geheuens</string>
     <string name="settings_memories_description">Geheuens wat deur die KI tydens gesprekke gestoor is. Hierdie word in elke boodskap ingesluit om konteks te verskaf.</string>
     <string name="settings_memories_delete">Verwyder geheue</string>

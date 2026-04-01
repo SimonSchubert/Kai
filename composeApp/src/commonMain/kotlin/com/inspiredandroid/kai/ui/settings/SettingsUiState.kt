@@ -62,6 +62,8 @@ data class SettingsUiState(
     val onToggleTool: (String, Boolean) -> Unit = { _, _ -> },
     val soulText: String = "",
     val onSaveSoul: (String) -> Unit = {},
+    val isDynamicUiEnabled: Boolean = true,
+    val onToggleDynamicUi: (Boolean) -> Unit = {},
     val isMemoryEnabled: Boolean = true,
     val onToggleMemory: (Boolean) -> Unit = {},
     val memories: ImmutableList<MemoryEntry> = persistentListOf(),

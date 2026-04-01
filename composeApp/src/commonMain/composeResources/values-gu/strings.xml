@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
     <string name="tool_execute_shell_command_name">શેલ કમાન્ડ ચલાવો</string>
     <string name="tool_execute_shell_command_description">Linux સેન્ડબોક્સમાં શેલ કમાન્ડ ચલાવો</string>
+    <string name="settings_dynamic_ui">ડાયનેમિક UI</string>
+    <string name="settings_dynamic_ui_description">AI ને જવાબોમાં બટન, ફોર્મ અને કાર્ડ જેવા ઇન્ટરેક્ટિવ UI ઘટકો બનાવવાની મંજૂરી આપો. ફેરફાર નવી વાતચીત પર લાગુ થાય છે.</string>
     <string name="settings_memories">યાદો</string>
     <string name="settings_memories_description">AI દ્વારા વાર્તાલાપ દરમ્યાન સ્ટોર કરેલ યાદો. સંદર્ભ પ્રદાન કરવા માટે આ દરેક સંદેશમાં સામેલ છે.</string>
     <string name="settings_memories_delete">યાદ ભૂંસો</string>

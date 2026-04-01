@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Setează o alarmă sau un cronometru pe dispozitiv</string>
     <string name="tool_execute_shell_command_name">Execută comandă</string>
     <string name="tool_execute_shell_command_description">Executarea unei comenzi shell în sandbox-ul Linux</string>
+    <string name="settings_dynamic_ui">Interfață dinamică</string>
+    <string name="settings_dynamic_ui_description">Permiteți AI-ului să creeze elemente de interfață interactive precum butoane, formulare și carduri în răspunsuri. Modificarea se aplică conversațiilor noi.</string>
     <string name="settings_memories">Amintiri</string>
     <string name="settings_memories_description">Amintiri salvate de IA în timpul conversațiilor. Acestea sunt incluse în fiecare mesaj pentru a oferi context.</string>
     <string name="settings_memories_delete">Șterge amintire</string>

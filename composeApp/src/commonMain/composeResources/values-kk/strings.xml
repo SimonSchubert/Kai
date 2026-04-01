@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
     <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
     <string name="tool_execute_shell_command_description">Linux құмсалғышта shell пәрменін орындау</string>
+    <string name="settings_dynamic_ui">Динамикалық UI</string>
+    <string name="settings_dynamic_ui_description">AI-ға жауаптарда түймелер, формалар және карталар сияқты интерактивті UI элементтерін жасауға рұқсат беріңіз. Өзгеріс жаңа сұхбаттарға қолданылады.</string>
     <string name="settings_memories">Жадтар</string>
     <string name="settings_memories_description">AI сұхбаттар барысында сақтаған жадтар. Контекст беру үшін әр хабарламаға қосылады.</string>
     <string name="settings_memories_delete">Жадты жою</string>

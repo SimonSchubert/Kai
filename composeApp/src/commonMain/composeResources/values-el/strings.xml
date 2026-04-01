@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Ρύθμιση ξυπνητηριού ή χρονομέτρου αντίστροφης μέτρησης στη συσκευή</string>
     <string name="tool_execute_shell_command_name">Εκτέλεση εντολής</string>
     <string name="tool_execute_shell_command_description">Εκτέλεση εντολής κελύφους στο περιβάλλον Linux</string>
+    <string name="settings_dynamic_ui">Δυναμικό UI</string>
+    <string name="settings_dynamic_ui_description">Επιτρέψτε στην AI να δημιουργεί διαδραστικά στοιχεία UI όπως κουμπιά, φόρμες και κάρτες στις απαντήσεις. Η αλλαγή ισχύει για νέες συνομιλίες.</string>
     <string name="settings_memories">Αναμνήσεις</string>
     <string name="settings_memories_description">Αναμνήσεις που αποθηκεύτηκαν από την τεχνητή νοημοσύνη κατά τη διάρκεια συνομιλιών. Αυτές συμπεριλαμβάνονται σε κάθε μήνυμα για την παροχή πλαισίου.</string>
     <string name="settings_memories_delete">Διαγραφή ανάμνησης</string>

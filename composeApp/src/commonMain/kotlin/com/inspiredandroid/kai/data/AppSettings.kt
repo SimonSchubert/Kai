@@ -401,6 +401,13 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean(KEY_SCHEDULING_ENABLED, enabled)
     }
 
+    // Dynamic UI
+    fun isDynamicUiEnabled(): Boolean = settings.getBoolean(KEY_DYNAMIC_UI_ENABLED, true)
+
+    fun setDynamicUiEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_DYNAMIC_UI_ENABLED, enabled)
+    }
+
     // Daemon mode
     fun isDaemonEnabled(): Boolean = settings.getBoolean(KEY_DAEMON_ENABLED, false)
 
@@ -917,6 +924,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_AGENT_MEMORIES = "agent_memories"
         const val KEY_SCHEDULED_TASKS = "scheduled_tasks"
         const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
+        const val KEY_DYNAMIC_UI_ENABLED = "dynamic_ui_enabled"
         const val KEY_DAEMON_ENABLED = "daemon_enabled"
         const val KEY_HEARTBEAT_CONFIG = "heartbeat_config"
         const val KEY_HEARTBEAT_PROMPT = "heartbeat_prompt"

@@ -76,6 +76,10 @@ interface DataRepository {
     fun getScheduledTasks(): List<ScheduledTask>
     suspend fun cancelScheduledTask(id: String)
 
+    // Dynamic UI
+    fun isDynamicUiEnabled(): Boolean
+    fun setDynamicUiEnabled(enabled: Boolean)
+
     // Daemon mode
     fun isDaemonEnabled(): Boolean
     fun setDaemonEnabled(enabled: Boolean)

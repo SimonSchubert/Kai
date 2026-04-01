@@ -21,6 +21,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.stripMarkdownForTts
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.components.MarkdownComponent
 import com.mikepenz.markdown.compose.components.markdownComponents
@@ -52,19 +54,77 @@ internal fun BotMessage(
     isSpeaking: Boolean,
     setIsSpeaking: (Boolean) -> Unit,
     onRegenerate: (() -> Unit)? = null,
+    isInteractive: Boolean = false,
+    onUiCallback: ((event: String, data: Map<String, String>) -> Unit)? = null,
 ) {
-    val markdownState = rememberMarkdownState(message, immediate = true)
-    Markdown(
-        markdownState,
-        imageTransformer = Coil3ImageTransformerImpl,
-        components = markdownComponents(
-            codeBlock = highlightedCodeBlock,
-            codeFence = highlightedCodeFence,
-        ),
-        typography = smallerMarkdownTypography(),
-        modifier = Modifier.fillMaxWidth()
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-    )
+    val hasUiBlocks = remember(message) { KaiUiParser.containsUiBlocks(message) }
+
+    if (hasUiBlocks && isInteractive) {
+        // Active UI: render interactive kai-ui blocks
+        val segments = remember(message) { KaiUiParser.parse(message) }
+        androidx.compose.foundation.layout.Column(
+            Modifier.fillMaxWidth()
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+        ) {
+            for (segment in segments) {
+                when (segment) {
+                    is KaiUiParser.MarkdownSegment -> {
+                        val segmentState = rememberMarkdownState(segment.content, immediate = true)
+                        Markdown(
+                            segmentState,
+                            imageTransformer = Coil3ImageTransformerImpl,
+                            components = markdownComponents(
+                                codeBlock = highlightedCodeBlock,
+                                codeFence = highlightedCodeFence,
+                            ),
+                            typography = smallerMarkdownTypography(),
+                        )
+                    }
+
+                    is KaiUiParser.UiSegment -> {
+                        KaiUiRenderer(
+                            node = segment.node,
+                            isInteractive = true,
+                            onCallback = onUiCallback ?: { _, _ -> },
+                            modifier = Modifier.padding(vertical = 8.dp),
+                        )
+                    }
+
+                    is KaiUiParser.ErrorSegment -> {
+                        val errorState = rememberMarkdownState("```json\n${segment.rawJson}\n```", immediate = true)
+                        Markdown(
+                            errorState,
+                            imageTransformer = Coil3ImageTransformerImpl,
+                            components = markdownComponents(
+                                codeBlock = highlightedCodeBlock,
+                                codeFence = highlightedCodeFence,
+                            ),
+                            typography = smallerMarkdownTypography(),
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        // No UI blocks, or answered (non-interactive): render as plain markdown, stripping kai-ui fences
+        val displayMessage = if (hasUiBlocks) {
+            remember(message) { KaiUiParser.stripUiBlocks(message) }
+        } else {
+            message
+        }
+        val markdownState = rememberMarkdownState(displayMessage, immediate = true)
+        Markdown(
+            markdownState,
+            imageTransformer = Coil3ImageTransformerImpl,
+            components = markdownComponents(
+                codeBlock = highlightedCodeBlock,
+                codeFence = highlightedCodeFence,
+            ),
+            typography = smallerMarkdownTypography(),
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+        )
+    }
     Row(Modifier.padding(horizontal = 8.dp)) {
         if (textToSpeech != null) {
             val componentScope = rememberCoroutineScope()

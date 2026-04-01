@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Vendos një alarm ose kohëmatës në pajisje</string>
     <string name="tool_execute_shell_command_name">Ekzekuto komandën</string>
     <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në sandbox-in Linux</string>
+    <string name="settings_dynamic_ui">UI dinamike</string>
+    <string name="settings_dynamic_ui_description">Lejo AI-në të krijojë elemente ndërfaqjeje interaktive si butona, formularë dhe kartela në përgjigje. Ndryshimi vlen për biseda të reja.</string>
     <string name="settings_memories">Kujtesa</string>
     <string name="settings_memories_description">Kujtesat e ruajtura nga AI gjatë bisedave. Këto përfshihen në çdo mesazh për të ofruar kontekst.</string>
     <string name="settings_memories_delete">Fshi kujtesën</string>

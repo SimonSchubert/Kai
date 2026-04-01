@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
     <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>
     <string name="tool_execute_shell_command_description">Linuxサンドボックスでシェルコマンドを実行する</string>
+    <string name="settings_dynamic_ui">ダイナミックUI</string>
+    <string name="settings_dynamic_ui_description">AIが応答にボタン、フォーム、カードなどのインタラクティブなUI要素を作成できるようにします。変更は新しい会話に適用されます。</string>
     <string name="settings_memories">記憶</string>
     <string name="settings_memories_description">AIが会話中に保存した記憶です。すべてのメッセージにコンテキストとして含まれます。</string>
     <string name="settings_memories_delete">記憶を削除</string>

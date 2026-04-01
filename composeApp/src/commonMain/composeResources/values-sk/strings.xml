@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Nastaviť budík alebo odpočítavací časovač na zariadení</string>
     <string name="tool_execute_shell_command_name">Spustiť príkaz</string>
     <string name="tool_execute_shell_command_description">Spustiť príkaz shellu v linuxovom sandboxe</string>
+    <string name="settings_dynamic_ui">Dynamické rozhranie</string>
+    <string name="settings_dynamic_ui_description">Umožniť AI vytvárať interaktívne prvky rozhrania ako tlačidlá, formuláre a karty v odpovediach. Zmena sa prejaví v nových konverzáciách.</string>
     <string name="settings_memories">Spomienky</string>
     <string name="settings_memories_description">Spomienky uložené AI počas konverzácií. Sú zahrnuté v každej správe na poskytnutie kontextu.</string>
     <string name="settings_memories_delete">Odstrániť spomienku</string>

@@ -51,6 +51,7 @@ class ChatViewModel(
         clearUnreadHeartbeat = ::clearUnreadHeartbeat,
         clearSnackbar = ::clearSnackbar,
         undoDeleteConversation = ::undoDeleteConversation,
+        submitUiCallback = ::submitUiCallback,
     )
     private var currentJob: Job? = null
     private var pendingConversationDeleteJob: Job? = null
@@ -103,6 +104,16 @@ class ChatViewModel(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = _state.value,
     )
+
+    private fun submitUiCallback(event: String, data: Map<String, String>) {
+        val message = if (data.isNotEmpty()) {
+            val formattedData = data.entries.joinToString(", ") { "${it.key}: ${it.value}" }
+            "Responded with: $formattedData"
+        } else {
+            "Pressed: $event"
+        }
+        ask(message)
+    }
 
     private fun ask(question: String?) {
         // Prevent concurrent requests

@@ -1406,7 +1406,38 @@ class RemoteDataRepository(
             append("- Platform: $platformName\n")
             append("- Model: $modelId\n")
             append("- Provider: ${service.displayName}\n")
+            if (appSettings.isDynamicUiEnabled()) {
+                append("\n## Dynamic UI\n")
+                append("You can create interactive UI elements inline in your responses using kai-ui blocks. ")
+                append("Proactively use them whenever you need input from the user — don't just ask in plain text if a form, selector, or buttons would be more natural. ")
+                append("For example, if the user asks you to help plan a trip, present destination options as buttons; if you need preferences, show a form; if presenting choices, use interactive cards. ")
+                append("Use kai-ui whenever collecting data, offering choices, presenting structured information, or guiding multi-step workflows. ")
+                append("You can mix kai-ui blocks with regular markdown text naturally.\n\n")
+                append("Format: wrap a JSON object in ```kai-ui fences.\n\n")
+                append("Components: column, row, card, text, button, text_input, checkbox, select, table, list, spacer, divider, image.\n")
+                append("- text: {\"type\":\"text\",\"value\":\"...\",\"style\":\"headline|title|body|caption\",\"bold\":true,\"color\":\"primary|secondary|error\"}\n")
+                append("- button: {\"type\":\"button\",\"label\":\"...\",\"action\":{...},\"variant\":\"filled\"}\n")
+                append("- text_input: {\"type\":\"text_input\",\"id\":\"...\",\"label\":\"...\",\"placeholder\":\"...\",\"value\":\"...\"}\n")
+                append("- checkbox: {\"type\":\"checkbox\",\"id\":\"...\",\"label\":\"...\",\"checked\":false}\n")
+                append("- select: {\"type\":\"select\",\"id\":\"...\",\"label\":\"...\",\"options\":[\"A\",\"B\"],\"selected\":\"A\"}\n")
+                append("- table: {\"type\":\"table\",\"headers\":[\"Col1\",\"Col2\"],\"rows\":[[\"a\",\"b\"]]}\n\n")
+                append("Actions (on buttons):\n")
+                append("- callback: {\"type\":\"callback\",\"event\":\"event_name\",\"data\":{\"key\":\"val\"},\"collectFrom\":[\"input_id1\",\"input_id2\"]} — collects input values and sends back as a user message\n")
+                append("- toggle: {\"type\":\"toggle\",\"targetId\":\"element_id\"} — shows/hides an element locally\n")
+                append("- open_url: {\"type\":\"open_url\",\"url\":\"https://...\"}\n\n")
+                append("Layout tips:\n")
+                append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
+                append("- Max 2 items per row on mobile. For 3+ options, use a column of cards instead of a row\n")
+                append("- Keep button labels short (1-3 words)\n\n")
+                append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Your name?\",\"style\":\"title\"},{\"type\":\"text_input\",\"id\":\"name\",\"placeholder\":\"Enter name\"},{\"type\":\"button\",\"label\":\"Submit\",\"action\":{\"type\":\"callback\",\"event\":\"submit\",\"collectFrom\":[\"name\"]}}]}\n```\n")
+            }
         }.ifEmpty { null }
+    }
+
+    override fun isDynamicUiEnabled(): Boolean = appSettings.isDynamicUiEnabled()
+
+    override fun setDynamicUiEnabled(enabled: Boolean) {
+        appSettings.setDynamicUiEnabled(enabled)
     }
 
     override fun isMemoryEnabled(): Boolean = appSettings.isMemoryEnabled()

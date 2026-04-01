@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
     <string name="tool_execute_shell_command_name">Ejecutar comando</string>
     <string name="tool_execute_shell_command_description">Ejecutar un comando shell en el sandbox de Linux</string>
+    <string name="settings_dynamic_ui">UI dinámica</string>
+    <string name="settings_dynamic_ui_description">Permitir a la IA crear elementos de interfaz interactivos como botones, formularios y tarjetas en las respuestas. El cambio se aplica a las conversaciones nuevas.</string>
     <string name="settings_memories">Memorias</string>
     <string name="settings_memories_description">Memorias almacenadas por la IA durante las conversaciones. Se incluyen en cada mensaje para proporcionar contexto.</string>
     <string name="settings_memories_delete">Eliminar memoria</string>

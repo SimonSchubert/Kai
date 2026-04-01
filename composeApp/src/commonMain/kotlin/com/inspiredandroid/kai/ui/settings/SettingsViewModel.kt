@@ -64,6 +64,8 @@ class SettingsViewModel(
         onToggleTool = ::onToggleTool,
         soulText = dataRepository.getSoulText(),
         onSaveSoul = ::onSaveSoul,
+        isDynamicUiEnabled = dataRepository.isDynamicUiEnabled(),
+        onToggleDynamicUi = ::onToggleDynamicUi,
         isMemoryEnabled = dataRepository.isMemoryEnabled(),
         onToggleMemory = ::onToggleMemory,
         memories = dataRepository.getMemories().toImmutableList(),
@@ -286,6 +288,11 @@ class SettingsViewModel(
     private fun onSaveSoul(text: String) {
         dataRepository.setSoulText(text)
         _state.update { it.copy(soulText = text) }
+    }
+
+    private fun onToggleDynamicUi(enabled: Boolean) {
+        dataRepository.setDynamicUiEnabled(enabled)
+        _state.update { it.copy(isDynamicUiEnabled = enabled) }
     }
 
     private fun onToggleMemory(enabled: Boolean) {

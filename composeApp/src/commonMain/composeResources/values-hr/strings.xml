@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Postavite alarm ili odbrojavanje na uređaju</string>
     <string name="tool_execute_shell_command_name">Izvrši naredbu</string>
     <string name="tool_execute_shell_command_description">Izvršiti naredbu ljuske u Linux sandučiću</string>
+    <string name="settings_dynamic_ui">Dinamičko korisničko sučelje</string>
+    <string name="settings_dynamic_ui_description">Dopustite AI-u stvaranje interaktivnih elemenata sučelja poput gumba, obrazaca i kartica u odgovorima. Promjena se primjenjuje na nove razgovore.</string>
     <string name="settings_memories">Sjećanja</string>
     <string name="settings_memories_description">Sjećanja koja je AI pohranio tijekom razgovora. Uključena su u svaku poruku radi pružanja konteksta.</string>
     <string name="settings_memories_delete">Obriši sjećanje</string>

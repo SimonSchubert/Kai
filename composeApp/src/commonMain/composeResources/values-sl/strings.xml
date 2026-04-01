@@ -56,6 +56,8 @@
     <string name="tool_set_alarm_description">Nastavi alarm ali odštevalnik na napravi</string>
     <string name="tool_execute_shell_command_name">Zaženi ukaz</string>
     <string name="tool_execute_shell_command_description">Zagnati ukaz lupine v peskovniku Linux</string>
+    <string name="settings_dynamic_ui">Dinamični vmesnik</string>
+    <string name="settings_dynamic_ui_description">Dovolite UI ustvarjati interaktivne elemente vmesnika, kot so gumbi, obrazci in kartice v odgovorih. Sprememba velja za nove pogovore.</string>
     <string name="settings_memories">Spomini</string>
     <string name="settings_memories_description">Spomini, ki jih je UI shranila med pogovori. Ti so vključeni v vsako sporočilo za zagotavljanje konteksta.</string>
     <string name="settings_memories_delete">Izbriši spomin</string>
