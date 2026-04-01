@@ -6,7 +6,7 @@ import kotlinx.serialization.json.jsonObject
 
 object KaiUiParser {
 
-    private val kaiUiBlockRegex = Regex("```kai-ui\\s*\\n?(.*?)\\n?```", RegexOption.DOT_MATCHES_ALL)
+    private val kaiUiBlockRegex = Regex("```kai-ui\\s*\\n?([\\s\\S]*?)\\n?```")
 
     sealed interface MessageSegment
 
@@ -19,38 +19,91 @@ object KaiUiParser {
     fun containsUiBlocks(message: String): Boolean = kaiUiBlockRegex.containsMatchIn(message)
 
     /**
-     * LLMs sometimes produce JSON with unbalanced trailing braces/brackets.
-     * Walk the string tracking depth (respecting strings) and truncate at the
-     * point where the root object/array closes.
+     * LLMs sometimes produce JSON with extra closing braces/brackets.
+     * Uses stack-based matching: mismatched closers (e.g. `}` when `[` is
+     * on top) are skipped, effectively removing the LLM's erroneous characters.
+     * Returns as soon as the root object/array is fully closed.
      */
     private fun sanitizeJson(raw: String): String {
         if (raw.isEmpty()) return raw
-        val open = raw[0]
-        if (open != '{' && open != '[') return raw
-        val close = if (open == '{') '}' else ']'
-        var depth = 0
+        if (raw[0] != '{' && raw[0] != '[') return raw
+        val stack = mutableListOf<Char>()
+        val result = StringBuilder()
         var inString = false
         var escaped = false
         for (i in raw.indices) {
             val c = raw[i]
             if (escaped) {
                 escaped = false
+                result.append(c)
                 continue
             }
             if (c == '\\' && inString) {
                 escaped = true
+                result.append(c)
                 continue
             }
             if (c == '"') {
                 inString = !inString
+                result.append(c)
                 continue
             }
-            if (inString) continue
-            if (c == open || c == '[' || c == '{') depth++
-            if (c == close || c == ']' || c == '}') depth--
-            if (depth == 0) return raw.substring(0, i + 1)
+            if (inString) {
+                result.append(c)
+                continue
+            }
+            when (c) {
+                '{', '[' -> {
+                    stack.add(c)
+                    result.append(c)
+                }
+
+                '}' -> if (stack.isNotEmpty() && stack.last() == '{') {
+                    stack.removeLast()
+                    result.append(c)
+                }
+
+                ']' -> if (stack.isNotEmpty() && stack.last() == '[') {
+                    stack.removeLast()
+                    result.append(c)
+                }
+
+                else -> result.append(c)
+            }
+            if (stack.isEmpty()) return result.toString()
         }
-        return raw // unclosed — let the JSON parser produce the error
+        return result.toString() // unclosed — return what we have
+    }
+
+    /**
+     * Try multiple strategies to parse a single JSON line into a KaiUiNode.
+     * Returns null if all strategies fail.
+     */
+    private fun tryParseLine(line: String): KaiUiNode? {
+        // Strategy 1: parse directly
+        try {
+            return parseSingleNode(line)
+        } catch (_: Exception) {
+        }
+        // Strategy 2: sanitize trailing braces/brackets then parse
+        try {
+            return parseSingleNode(sanitizeJson(line))
+        } catch (_: Exception) {
+        }
+        println("KaiUiParser: failed to deserialize kai-ui line, skipping")
+        return null
+    }
+
+    private fun parseSingleNode(json: String): KaiUiNode {
+        val jsonElement = SharedJson.parseToJsonElement(json)
+        val jsonObject = jsonElement.jsonObject
+        return if ("type" in jsonObject) {
+            SharedJson.decodeFromString<KaiUiNode>(json)
+        } else {
+            // Wrap bare object as a column if it has children but no type
+            val wrapped = JsonObject(jsonObject + ("type" to kotlinx.serialization.json.JsonPrimitive("column")))
+            SharedJson.decodeFromJsonElement(KaiUiNode.serializer(), wrapped)
+        }
     }
 
     fun stripUiBlocks(message: String): String = kaiUiBlockRegex.replace(message, "").trim()
@@ -65,21 +118,33 @@ object KaiUiParser {
                 segments.add(MarkdownSegment(before))
             }
 
-            val json = sanitizeJson(match.groupValues[1].trim())
-            try {
-                val jsonElement = SharedJson.parseToJsonElement(json)
-                val jsonObject = jsonElement.jsonObject
-                val node = if ("type" in jsonObject) {
-                    SharedJson.decodeFromString<KaiUiNode>(json)
-                } else {
-                    // Wrap bare object as a column if it has children but no type
-                    val wrapped = JsonObject(jsonObject + ("type" to kotlinx.serialization.json.JsonPrimitive("column")))
-                    SharedJson.decodeFromJsonElement(KaiUiNode.serializer(), wrapped)
+            val rawBlock = match.groupValues[1].trim()
+            val lines = rawBlock.lines().map { it.trim() }.filter { it.isNotEmpty() }
+
+            // Multi-line: each line is a separate JSON object → parse individually and wrap in a column
+            if (lines.size > 1 && lines.all { it.startsWith("{") }) {
+                val children = mutableListOf<KaiUiNode>()
+                for (line in lines) {
+                    val node = tryParseLine(line)
+                    if (node != null) {
+                        children.add(node)
+                    }
                 }
-                segments.add(UiSegment(node, json))
-            } catch (e: Exception) {
-                println("KaiUiParser: failed to deserialize kai-ui block: ${e.message}")
-                segments.add(ErrorSegment(json))
+                if (children.isNotEmpty()) {
+                    val columnNode = ColumnNode(children = children)
+                    segments.add(UiSegment(columnNode, rawBlock))
+                } else {
+                    segments.add(ErrorSegment(rawBlock))
+                }
+            } else {
+                // Single JSON object (possibly with trailing braces from LLM)
+                val json = sanitizeJson(rawBlock)
+                try {
+                    segments.add(UiSegment(parseSingleNode(json), json))
+                } catch (e: Exception) {
+                    println("KaiUiParser: failed to deserialize kai-ui block: ${e.message}")
+                    segments.add(ErrorSegment(json))
+                }
             }
 
             lastIndex = match.range.last + 1

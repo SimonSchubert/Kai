@@ -404,7 +404,7 @@ private fun initializeFormState(node: KaiUiNode, formState: MutableMap<String, S
 
 private fun collectFormData(action: CallbackAction, formState: Map<String, String>): Map<String, String> {
     val collected = mutableMapOf<String, String>()
-    action.data?.let { collected.putAll(it) }
+    action.dataAsStrings?.let { collected.putAll(it) }
     action.collectFrom?.forEach { inputId ->
         formState[inputId]?.let { collected[inputId] = it }
     }

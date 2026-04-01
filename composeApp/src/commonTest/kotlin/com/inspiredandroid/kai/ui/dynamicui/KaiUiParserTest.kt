@@ -159,6 +159,130 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `parses multi-line JSON objects as column`() {
+        val block = """
+            {"type":"text","value":"Question 1 of 3","style":"caption"}
+            {"type":"text","value":"Complete the sequence:","style":"body","bold":true}
+            {"type":"text","value":"2, 6, 12, 20, 30, ?","style":"title"}
+            {"type":"spacer"}
+            {"type":"column","children":[{"type":"button","label":"42","action":{"type":"callback","event":"answer","data":{"answer":"42"}},"variant":"filled"}]}
+        """.trimIndent()
+        val message = "Here's a quiz:\n```kai-ui\n$block\n```\nGood luck!"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(3, segments.size)
+        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
+        assertIs<KaiUiParser.UiSegment>(segments[1])
+        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
+
+        val column = (segments[1] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        assertEquals(5, column.children.size)
+        assertIs<TextNode>(column.children[0])
+        assertIs<TextNode>(column.children[1])
+        assertIs<TextNode>(column.children[2])
+        assertIs<SpacerNode>(column.children[3])
+        assertIs<ColumnNode>(column.children[4])
+    }
+
+    @Test
+    fun `multi-line skips malformed line and renders the rest`() {
+        // Simulates LLM adding an extra } inside a nested line
+        val block = """
+            {"type":"text","value":"Question 1","style":"caption"}
+            {"type":"text","value":"Pick one:","style":"title"}
+            {invalid json here}
+            {"type":"text","value":"Good luck","style":"body"}
+        """.trimIndent()
+        val message = "```kai-ui\n$block\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val column = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        // The invalid line is skipped, but the 3 valid lines parse
+        assertEquals(3, column.children.size)
+    }
+
+    @Test
+    fun `multi-line with extra closing brace in nested column from LLM`() {
+        // Real-world kimi-k2.5 output: multi-line NDJSON where the column line has an extra }
+        val block = """
+            {"type":"text","value":"Question 1 of 3","style":"caption","color":"secondary"}
+            {"type":"text","value":"Complete the sequence:","style":"body","bold":true}
+            {"type":"text","value":"2, 6, 12, 20, 30, ?","style":"title"}
+            {"type":"spacer","size":12}
+            {"type":"column","children":[{"type":"button","label":"38","action":{"type":"callback","event":"answer_q1","data":{"answer":"38"}},"variant":"filled"},{"type":"button","label":"40","action":{"type":"callback","event":"answer_q1","data":{"answer":"40"}},"variant":"filled"},{"type":"button","label":"42","action":{"type":"callback","event":"answer_q1","data":{"answer":"42"}},"variant":"filled"},{"type":"button","label":"44","action":{"type":"callback","event":"answer_q1","data":{"answer":"44"}},"variant":"filled"}}]}
+        """.trimIndent()
+        val message = "Sure! Let's see how sharp you are today.\n\n```kai-ui\n$block\n```\n\nTake your shot!"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(3, segments.size)
+        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
+        assertIs<KaiUiParser.UiSegment>(segments[1])
+        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
+
+        val column = (segments[1] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        // sanitizeJson repairs the extra } so all 5 lines parse including buttons
+        assertEquals(5, column.children.size)
+        assertIs<TextNode>(column.children[0])
+        assertEquals("Question 1 of 3", (column.children[0] as TextNode).value)
+        assertIs<TextNode>(column.children[1])
+        assertIs<TextNode>(column.children[2])
+        assertIs<SpacerNode>(column.children[3])
+        val buttonsColumn = assertIs<ColumnNode>(column.children[4])
+        assertEquals(4, buttonsColumn.children.size)
+        assertIs<ButtonNode>(buttonsColumn.children[0])
+    }
+
+    @Test
+    fun `single-line column with extra closing brace in children`() {
+        // Real-world kimi-k2.5 output: single column with buttons, extra } before ]}
+        val json = """{"type":"column","children":[{"type":"button","label":"All roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"all"}},"variant":"filled"},{"type":"button","label":"Some roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"some"}},"variant":"filled"},{"type":"button","label":"No roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"none"}},"variant":"filled"},{"type":"button","label":"None of these follow","action":{"type":"callback","event":"answer_q2","data":{"answer":"none_follow"}},"variant":"filled"}}]}"""
+        val message = "Which statement is necessarily true?\n\n```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(2, segments.size)
+        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
+        assertIs<KaiUiParser.UiSegment>(segments[1])
+
+        val column = (segments[1] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        assertEquals(4, column.children.size)
+        for (child in column.children) {
+            assertIs<ButtonNode>(child)
+        }
+        assertEquals("All roses fade quickly", (column.children[0] as ButtonNode).label)
+        assertEquals("None of these follow", (column.children[3] as ButtonNode).label)
+    }
+
+    @Test
+    fun `extra closing bracket inside nested structure is skipped`() {
+        // Extra ] where } is expected — sanitizeJson should skip it
+        val json = """{"type":"column","children":[{"type":"text","value":"A"},{"type":"text","value":"B"}]]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        assertIs<KaiUiParser.UiSegment>(segments[0])
+        val column = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        assertEquals(2, column.children.size)
+    }
+
+    @Test
+    fun `callback data with non-string values`() {
+        // LLMs sometimes send booleans or numbers in the data map instead of strings
+        val json = """{"type":"button","label":"Continue","action":{"type":"callback","event":"continue","data":{"continue":true,"count":42,"name":"test"}}}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val button = (segments[0] as KaiUiParser.UiSegment).node as ButtonNode
+        val action = button.action as CallbackAction
+        assertEquals("continue", action.event)
+        val data = action.dataAsStrings!!
+        assertEquals("true", data["continue"])
+        assertEquals("42", data["count"])
+        assertEquals("test", data["name"])
+    }
+
+    @Test
     fun `parses complex nested kai-ui from kimi model`() {
         val json = """{"type":"column","children":[{"type":"text","value":"Wilderness Survival","style":"headline","bold":true},{"type":"text","value":"You wake up in a cold pine forest.","style":"body"},{"type":"divider"},{"type":"text","value":"Status","style":"title"},{"type":"row","children":[{"type":"card","children":[{"type":"text","value":"Health: 80/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Hunger: 30/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Energy: 70/100","style":"body"}]}]},{"type":"text","value":"What do you want to do?","style":"title"},{"type":"column","children":[{"type":"button","label":"Follow river","action":{"type":"callback","event":"survival_choice","data":{"choice":"river"}},"variant":"filled"},{"type":"button","label":"Head to mountains","action":{"type":"callback","event":"survival_choice","data":{"choice":"mountains"}},"variant":"filled"},{"type":"button","label":"Stay & build camp here","action":{"type":"callback","event":"survival_choice","data":{"choice":"camp"}},"variant":"filled"}]}]}"""
         val message = "```kai-ui\n$json\n```\n\nType \"stop game\" anytime to quit."
