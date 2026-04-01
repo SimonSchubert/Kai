@@ -39,6 +39,7 @@ nav:
     - Multi-Service: features/multi-service.md
     - Tools: features/tools.md
     - MCP Servers: features/mcp.md
+    - Dynamic UI: features/dynamic-ui.md
     - Memories: features/memories.md
     - Heartbeat: features/heartbeat.md
     - Tasks: features/tasks.md
