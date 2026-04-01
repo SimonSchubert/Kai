@@ -33,9 +33,18 @@ object KaiUiParser {
         var escaped = false
         for (i in raw.indices) {
             val c = raw[i]
-            if (escaped) { escaped = false; continue }
-            if (c == '\\' && inString) { escaped = true; continue }
-            if (c == '"') { inString = !inString; continue }
+            if (escaped) {
+                escaped = false
+                continue
+            }
+            if (c == '\\' && inString) {
+                escaped = true
+                continue
+            }
+            if (c == '"') {
+                inString = !inString
+                continue
+            }
             if (inString) continue
             if (c == open || c == '[' || c == '{') depth++
             if (c == close || c == ']' || c == '}') depth--
