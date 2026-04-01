@@ -18,6 +18,11 @@ object KaiUiParser {
 
     fun containsUiBlocks(message: String): Boolean = kaiUiBlockRegex.containsMatchIn(message)
 
+    /** Fix common LLM JSON syntax errors like `"key=[` instead of `"key":[`. */
+    private val brokenKeySyntax = Regex(""""(\w+)=([{\[])""")
+    private fun fixJsonSyntax(raw: String): String =
+        brokenKeySyntax.replace(raw) { "\"${it.groupValues[1]}\":${it.groupValues[2]}" }
+
     /**
      * LLMs sometimes produce JSON with extra closing braces/brackets.
      * Uses stack-based matching: mismatched closers (e.g. `}` when `[` is
@@ -118,7 +123,7 @@ object KaiUiParser {
                 segments.add(MarkdownSegment(before))
             }
 
-            val rawBlock = match.groupValues[1].trim()
+            val rawBlock = fixJsonSyntax(match.groupValues[1].trim())
             val lines = rawBlock.lines().map { it.trim() }.filter { it.isNotEmpty() }
 
             // Multi-line: each line is a separate JSON object → parse individually and wrap in a column

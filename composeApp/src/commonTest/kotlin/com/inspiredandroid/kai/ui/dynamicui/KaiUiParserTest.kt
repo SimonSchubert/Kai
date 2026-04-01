@@ -283,6 +283,19 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `fixes equals sign instead of colon in key-value separator`() {
+        val json = """{"type":"column","children=[{"type":"text","value":"Hello"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        assertIs<KaiUiParser.UiSegment>(segments[0])
+        val column = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(column)
+        assertEquals(1, column.children.size)
+        assertIs<TextNode>(column.children[0])
+    }
+
+    @Test
     fun `parses complex nested kai-ui from kimi model`() {
         val json = """{"type":"column","children":[{"type":"text","value":"Wilderness Survival","style":"headline","bold":true},{"type":"text","value":"You wake up in a cold pine forest.","style":"body"},{"type":"divider"},{"type":"text","value":"Status","style":"title"},{"type":"row","children":[{"type":"card","children":[{"type":"text","value":"Health: 80/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Hunger: 30/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Energy: 70/100","style":"body"}]}]},{"type":"text","value":"What do you want to do?","style":"title"},{"type":"column","children":[{"type":"button","label":"Follow river","action":{"type":"callback","event":"survival_choice","data":{"choice":"river"}},"variant":"filled"},{"type":"button","label":"Head to mountains","action":{"type":"callback","event":"survival_choice","data":{"choice":"mountains"}},"variant":"filled"},{"type":"button","label":"Stay & build camp here","action":{"type":"callback","event":"survival_choice","data":{"choice":"camp"}},"variant":"filled"}]}]}"""
         val message = "```kai-ui\n$json\n```\n\nType \"stop game\" anytime to quit."
