@@ -20,8 +20,7 @@ object KaiUiParser {
 
     /** Fix common LLM JSON syntax errors like `"key=[` instead of `"key":[`. */
     private val brokenKeySyntax = Regex(""""(\w+)=([{\[])""")
-    private fun fixJsonSyntax(raw: String): String =
-        brokenKeySyntax.replace(raw) { "\"${it.groupValues[1]}\":${it.groupValues[2]}" }
+    private fun fixJsonSyntax(raw: String): String = brokenKeySyntax.replace(raw) { "\"${it.groupValues[1]}\":${it.groupValues[2]}" }
 
     /**
      * LLMs sometimes produce JSON with extra closing braces/brackets.
