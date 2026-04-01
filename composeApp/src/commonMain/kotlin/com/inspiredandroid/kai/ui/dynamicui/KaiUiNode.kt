@@ -63,7 +63,7 @@ data class DividerNode(
 @SerialName("text")
 data class TextNode(
     override val id: String? = null,
-    val value: String,
+    val value: String = "",
     val style: TextNodeStyle? = null,
     val bold: Boolean? = null,
     val italic: Boolean? = null,
@@ -75,7 +75,7 @@ data class TextNode(
 @SerialName("image")
 data class ImageNode(
     override val id: String? = null,
-    val url: String,
+    val url: String = "",
     val alt: String? = null,
     val height: Int? = null,
 ) : KaiUiNode
@@ -87,8 +87,8 @@ data class ImageNode(
 @SerialName("button")
 data class ButtonNode(
     override val id: String? = null,
-    val label: String,
-    val action: UiAction,
+    val label: String = "",
+    val action: UiAction? = null,
     val variant: ButtonVariant? = null,
     val enabled: Boolean? = null,
 ) : KaiUiNode
@@ -97,7 +97,7 @@ data class ButtonNode(
 @Serializable
 @SerialName("text_input")
 data class TextInputNode(
-    override val id: String,
+    override val id: String = "",
     val label: String? = null,
     val placeholder: String? = null,
     val value: String? = null,
@@ -108,8 +108,8 @@ data class TextInputNode(
 @Serializable
 @SerialName("checkbox")
 data class CheckboxNode(
-    override val id: String,
-    val label: String,
+    override val id: String = "",
+    val label: String = "",
     val checked: Boolean? = null,
 ) : KaiUiNode
 
@@ -117,9 +117,9 @@ data class CheckboxNode(
 @Serializable
 @SerialName("select")
 data class SelectNode(
-    override val id: String,
+    override val id: String = "",
     val label: String? = null,
-    val options: List<String>,
+    val options: List<String> = emptyList(),
     val selected: String? = null,
 ) : KaiUiNode
 

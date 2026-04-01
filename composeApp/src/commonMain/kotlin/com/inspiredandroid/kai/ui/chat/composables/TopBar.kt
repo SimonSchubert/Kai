@@ -49,7 +49,7 @@ internal fun TopBar(
             Row(modifier = Modifier.align(Alignment.CenterStart)) {
                 if (hasSavedConversations) {
                     IconButton(
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                         onClick = onShowHistory,
                         enabled = !isLoading,
                     ) {
@@ -62,7 +62,7 @@ internal fun TopBar(
                 }
                 if (!isChatHistoryEmpty) {
                     IconButton(
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                         onClick = {
                             if (isSpeechOutputEnabled && isSpeaking) {
                                 actions.setIsSpeaking(false, "")
@@ -88,7 +88,7 @@ internal fun TopBar(
             Row(modifier = Modifier.align(Alignment.CenterEnd)) {
                 if (textToSpeech != null) {
                     IconButton(
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                         onClick = {
                             if (isSpeechOutputEnabled && isSpeaking) {
                                 actions.setIsSpeaking(false, "")
@@ -115,7 +115,7 @@ internal fun TopBar(
         Row {
             if (hasSavedConversations) {
                 IconButton(
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     onClick = onShowHistory,
                     enabled = !isLoading,
                 ) {
@@ -128,7 +128,7 @@ internal fun TopBar(
             }
             if (!isChatHistoryEmpty) {
                 IconButton(
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     onClick = {
                         if (isSpeechOutputEnabled && isSpeaking) {
                             actions.setIsSpeaking(false, "")
@@ -150,7 +150,7 @@ internal fun TopBar(
 
             if (textToSpeech != null) {
                 IconButton(
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     onClick = {
                         if (isSpeechOutputEnabled && isSpeaking) {
                             actions.setIsSpeaking(false, "")
@@ -173,7 +173,7 @@ internal fun TopBar(
             }
 
             IconButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                 onClick = onNavigateToSettings,
             ) {
                 Icon(

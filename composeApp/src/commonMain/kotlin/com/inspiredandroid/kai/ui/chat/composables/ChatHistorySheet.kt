@@ -96,7 +96,7 @@ internal fun ChatHistorySheet(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .pointerHoverIcon(PointerIcon.Hand)
+                                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
                                     .clickable {
                                         actions.loadConversation(conversation.id)
                                         onDismiss()
@@ -151,7 +151,7 @@ internal fun ChatHistorySheet(
                                     )
                                 }
                                 IconButton(
-                                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                                     onClick = { actions.deleteConversation(conversation.id) },
                                 ) {
                                     Icon(

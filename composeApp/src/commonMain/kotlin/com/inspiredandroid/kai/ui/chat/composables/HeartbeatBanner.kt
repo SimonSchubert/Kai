@@ -44,7 +44,7 @@ internal fun HeartbeatBanner(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 4.dp)
-                .pointerHoverIcon(PointerIcon.Hand)
+                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
                 .clickable { onTap() },
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
@@ -69,7 +69,7 @@ internal fun HeartbeatBanner(
                     modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
                 )
                 IconButton(
-                    modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand),
+                    modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     onClick = onDismiss,
                 ) {
                     Icon(

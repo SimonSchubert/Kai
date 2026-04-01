@@ -96,7 +96,7 @@ fun QuestionInput(
             SuggestionChip(
                 modifier = Modifier
                     .padding(start = 16.dp)
-                    .pointerHoverIcon(PointerIcon.Hand),
+                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                 onClick = { setFile(null) },
                 icon = {
                     Icon(
@@ -110,7 +110,7 @@ fun QuestionInput(
                     DisableSelection {
                         Text(
                             modifier = Modifier
-                                .pointerHoverIcon(PointerIcon.Hand),
+                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                             text = file.name,
                         )
                     }
@@ -243,7 +243,7 @@ private fun TrailingIcon(
             .size(42.dp)
             .clip(CircleShape)
             .background(brush = gradientBrush, CircleShape)
-            .pointerHoverIcon(PointerIcon.Hand)
+            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
             .clickable {
                 onClick()
             },
@@ -267,7 +267,7 @@ private fun LeadingIcon(
             .padding(start = 6.dp)
             .size(42.dp)
             .clip(CircleShape)
-            .pointerHoverIcon(PointerIcon.Hand)
+            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
             .clickable {
                 onClick()
             },

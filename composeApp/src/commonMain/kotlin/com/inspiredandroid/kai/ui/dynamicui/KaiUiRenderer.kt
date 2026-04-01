@@ -30,6 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -244,13 +246,19 @@ private fun RenderButton(
                 is OpenUrlAction -> {
                     uriHandler.openUri(action.url)
                 }
+
+                null -> {}
             }
         } catch (_: Exception) {
             // Prevent crashes from action handlers
         }
     }
 
-    Button(onClick = onClick, enabled = enabled) { Text(node.label) }
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+    ) { Text(node.label) }
 }
 
 @Composable
@@ -282,6 +290,7 @@ private fun RenderCheckbox(
             checked = checked,
             onCheckedChange = { formState[node.id] = it.toString() },
             enabled = isInteractive,
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         )
         Text(node.label, style = MaterialTheme.typography.bodyLarge)
     }
@@ -308,12 +317,13 @@ private fun RenderSelect(
             label = node.label?.let { { Text(it) } },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             enabled = isInteractive,
-            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         )
         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             for (option in node.options) {
                 DropdownMenuItem(
                     text = { Text(option) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     onClick = {
                         formState[node.id] = option
                         expanded = false

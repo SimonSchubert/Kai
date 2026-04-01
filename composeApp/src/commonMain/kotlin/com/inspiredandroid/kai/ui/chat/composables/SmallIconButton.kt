@@ -23,7 +23,7 @@ internal fun SmallIconButton(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier.size(36.dp).clip(CircleShape).pointerHoverIcon(PointerIcon.Hand).clickable { onClick() },
+        modifier = Modifier.size(36.dp).clip(CircleShape).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true).clickable { onClick() },
         contentAlignment = Alignment.Center,
     ) {
         Icon(

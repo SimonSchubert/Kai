@@ -46,7 +46,7 @@ internal fun ServiceSelector(
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
                 .clickable { expanded = true }
-                .pointerHoverIcon(PointerIcon.Hand),
+                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -107,7 +107,7 @@ internal fun ServiceSelector(
                         }
                     },
                     modifier = Modifier
-                        .pointerHoverIcon(PointerIcon.Hand)
+                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
                         .then(
                             if (isCurrent) {
                                 Modifier

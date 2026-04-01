@@ -325,7 +325,7 @@ fun ChatScreenContent(
                             ) {
                                 SmallFloatingActionButton(
                                     modifier = Modifier
-                                        .pointerHoverIcon(PointerIcon.Hand),
+                                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                                     onClick = {
                                         componentScope.launch {
                                             val totalItems = listState.layoutInfo.totalItemsCount

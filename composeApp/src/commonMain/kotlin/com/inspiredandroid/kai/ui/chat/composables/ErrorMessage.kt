@@ -39,7 +39,7 @@ internal fun ErrorMessage(
         )
         Spacer(Modifier.height(8.dp))
         IconButton(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
             onClick = retry,
         ) {
             Icon(

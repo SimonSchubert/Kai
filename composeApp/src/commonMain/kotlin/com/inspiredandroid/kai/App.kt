@@ -149,7 +149,7 @@ private fun AppContent(
                             }
                         },
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     ) {
                         Text(stringResource(Res.string.tab_chat))
                     }
@@ -162,7 +162,7 @@ private fun AppContent(
                             }
                         },
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand),
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     ) {
                         Text(stringResource(Res.string.tab_settings))
                     }
