@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://simonschubert.github.io/Kai/docs/features/dynamic-ui/">
       
       
+        <link rel="prev" href="../mcp/">
+      
+      
+        <link rel="next" href="../memories/">
       
       
         
@@ -23,7 +27,7 @@
     
     
       
-        <title>Dynamic UI (kai-ui) - Kai Documentation</title>
+        <title>Dynamic UI - Kai Documentation</title>
       
     
     
@@ -110,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dynamic UI (kai-ui)
+              Dynamic UI
             
           </span>
         </div>
@@ -283,8 +287,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -295,13 +301,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -322,7 +326,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -440,6 +444,186 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout Blocks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interaction-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interaction Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -752,6 +936,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -787,15 +982,15 @@
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
 <p><strong>Last verified:</strong> 2026-04-01</p>
-<p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows.</p>
+<p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
-<p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially.</p>
+<p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).</p>
 <h3 id="component-types">Component Types</h3>
 <ul>
 <li><strong>Layout</strong>: column, row, card, spacer, divider</li>
 <li><strong>Content</strong>: text (with headline/title/body/caption styles), image</li>
-<li><strong>Interactive</strong>: button, text input, checkbox, select dropdown</li>
+<li><strong>Interactive</strong>: button (filled variant only), text input, checkbox, select dropdown</li>
 <li><strong>Data</strong>: list, table</li>
 </ul>
 <h3 id="actions">Actions</h3>
@@ -810,7 +1005,9 @@
 <h3 id="layout-lifecycle">Layout Lifecycle</h3>
 <p>Only the latest assistant message's layouts are interactive. Older layouts become read-only with disabled buttons and inputs. Form state is local to each layout; cross-step state lives in conversation history.</p>
 <h3 id="error-handling">Error Handling</h3>
-<p>Malformed JSON falls back to rendering as a code block. The <code>containsUiBlocks</code> check avoids parsing overhead for messages without <code>kai-ui</code> fences. TTS strips <code>kai-ui</code> blocks entirely.</p>
+<p>Malformed JSON falls back to rendering as a code block. The parser sanitizes common LLM mistakes like extra trailing braces/brackets using stack-based brace matching. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
+<h3 id="settings">Settings</h3>
+<p>The feature is controlled by the Dynamic UI toggle in Settings (General tab). When disabled, the system prompt omits kai-ui instructions so the AI stops generating them. Parsing and rendering remain active unconditionally.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -822,7 +1019,7 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiNode.kt</code></td>
-<td>Serializable component tree model</td>
+<td>Serializable component tree model (all classes @Immutable)</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/UiAction.kt</code></td>
@@ -830,7 +1027,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiParser.kt</code></td>
-<td>Detects and parses kai-ui fences into segments</td>
+<td>Detects and parses kai-ui fences into segments, sanitizes malformed JSON</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiRenderer.kt</code></td>
@@ -847,6 +1044,14 @@
 <tr>
 <td><code>composeApp/.../ui/chat/ChatViewModel.kt</code></td>
 <td>Formats callback data and routes to ask()</td>
+</tr>
+<tr>
+<td><code>composeApp/.../data/AppSettings.kt</code></td>
+<td>isDynamicUiEnabled / setDynamicUiEnabled</td>
+</tr>
+<tr>
+<td><code>composeApp/.../data/RemoteDataRepository.kt</code></td>
+<td>Conditionally includes kai-ui instructions in system prompt</td>
 </tr>
 </tbody>
 </table>
