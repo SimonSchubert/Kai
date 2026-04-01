@@ -1,3 +1,11 @@
+## v1.12.3 — 2026-04-02
+
+### Features
+- Add Dynamic UI — AI can create interactive buttons, forms, and cards inline in chat responses (opt-out in Settings)
+
+### Fixes
+- Fix hover pointer not showing over text inside buttons on desktop and web
+
 ## v1.12.2 — 2026-03-31
 
 ### Fixes

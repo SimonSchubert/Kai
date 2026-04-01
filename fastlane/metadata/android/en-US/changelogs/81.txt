@@ -1,0 +1,2 @@
+Add Dynamic UI — AI can create interactive buttons, forms, and cards inline in chat responses
+Fix hover pointer not showing over text inside buttons on desktop and web
