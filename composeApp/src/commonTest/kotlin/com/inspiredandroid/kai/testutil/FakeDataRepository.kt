@@ -219,6 +219,13 @@ class FakeDataRepository : DataRepository {
         chatHistory.value = emptyList()
     }
 
+    override fun popLastExchange() {
+        chatHistory.update { history ->
+            val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+            if (lastUserIndex >= 0) history.subList(0, lastUserIndex) else history
+        }
+    }
+
     override suspend fun restoreLatestConversation() {
         // No-op in tests
     }
@@ -291,6 +298,14 @@ class FakeDataRepository : DataRepository {
     override fun setDynamicUiEnabled(enabled: Boolean) {
         dynamicUiEnabled = enabled
     }
+
+    private var interactiveMode = false
+
+    override fun setInteractiveMode(enabled: Boolean) {
+        interactiveMode = enabled
+    }
+
+    override fun isInteractiveModeActive(): Boolean = interactiveMode
 
     private var memoryEnabled = true
     private val memories = mutableListOf<MemoryEntry>()

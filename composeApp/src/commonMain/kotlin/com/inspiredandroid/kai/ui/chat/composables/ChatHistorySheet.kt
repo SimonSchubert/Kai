@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ConversationSummary
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
+import com.inspiredandroid.kai.ui.components.animatedGradientBorder
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.chat_history_delete_content_description
 import kai.composeapp.generated.resources.chat_history_empty
@@ -93,15 +94,23 @@ internal fun ChatHistorySheet(
                     LazyColumn(state = historyListState) {
                         items(conversations, key = { it.id }) { conversation ->
                             val isActive = conversation.id == currentConversationId
+                            val borderModifier = if (conversation.isInteractive) {
+                                Modifier.animatedGradientBorder(
+                                    cornerRadius = 12.dp,
+                                    backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                                )
+                            } else {
+                                Modifier
+                            }
                             Row(
-                                modifier = Modifier
+                                modifier = borderModifier
                                     .fillMaxWidth()
                                     .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
                                     .clickable {
                                         actions.loadConversation(conversation.id)
                                         onDismiss()
                                     }
-                                    .padding(vertical = 12.dp),
+                                    .padding(vertical = 12.dp, horizontal = if (conversation.isInteractive) 8.dp else 0.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {

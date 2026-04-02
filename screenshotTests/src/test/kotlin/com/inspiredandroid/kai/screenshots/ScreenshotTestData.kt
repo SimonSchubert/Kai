@@ -41,6 +41,9 @@ object ScreenshotTestData {
         clearUnreadHeartbeat = {},
         undoDeleteConversation = { },
         submitUiCallback = { _, _ -> },
+        enterInteractiveMode = { },
+        exitInteractiveMode = { },
+        goBackInteractiveMode = { },
     )
 
     val chatEmptyState = ChatUiState(

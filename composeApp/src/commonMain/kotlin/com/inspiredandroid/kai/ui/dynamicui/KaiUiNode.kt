@@ -123,6 +123,160 @@ data class SelectNode(
     val selected: String? = null,
 ) : KaiUiNode
 
+// --- Interactive nodes (additional) ---
+
+@Immutable
+@Serializable
+@SerialName("switch")
+data class SwitchNode(
+    override val id: String = "",
+    val label: String = "",
+    val checked: Boolean? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("slider")
+data class SliderNode(
+    override val id: String = "",
+    val label: String? = null,
+    val value: Float? = null,
+    val min: Float? = null,
+    val max: Float? = null,
+    val step: Float? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("radio_group")
+data class RadioGroupNode(
+    override val id: String = "",
+    val label: String? = null,
+    val options: List<String> = emptyList(),
+    val selected: String? = null,
+) : KaiUiNode
+
+// --- Feedback nodes ---
+
+@Immutable
+@Serializable
+@SerialName("progress")
+data class ProgressNode(
+    override val id: String? = null,
+    val value: Float? = null,
+    val label: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("alert")
+data class AlertNode(
+    override val id: String? = null,
+    val message: String = "",
+    val title: String? = null,
+    val severity: AlertSeverity? = null,
+) : KaiUiNode
+
+// --- Selection nodes ---
+
+@Immutable
+@Serializable
+@SerialName("chip_group")
+data class ChipGroupNode(
+    override val id: String = "",
+    val chips: List<ChipItem> = emptyList(),
+    val multiSelect: Boolean? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+data class ChipItem(
+    val label: String = "",
+    val value: String = "",
+)
+
+@Immutable
+@Serializable
+@SerialName("chip")
+data class ChipNode(
+    override val id: String? = null,
+    val label: String = "",
+) : KaiUiNode
+
+// --- Content nodes (additional) ---
+
+@Immutable
+@Serializable
+@SerialName("icon")
+data class IconNode(
+    override val id: String? = null,
+    val name: String = "",
+    val size: Int? = null,
+    val color: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("code")
+data class CodeNode(
+    override val id: String? = null,
+    val code: String = "",
+    val language: String? = null,
+) : KaiUiNode
+
+// --- Layout nodes (additional) ---
+
+@Immutable
+@Serializable
+@SerialName("box")
+data class BoxNode(
+    override val id: String? = null,
+    val children: List<KaiUiNode> = emptyList(),
+    val contentAlignment: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("tabs")
+data class TabsNode(
+    override val id: String? = null,
+    val tabs: List<TabItem> = emptyList(),
+    val selectedIndex: Int? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+data class TabItem(
+    val label: String = "",
+    val children: List<KaiUiNode> = emptyList(),
+)
+
+@Immutable
+@Serializable
+@SerialName("bottom_bar")
+data class BottomBarNode(
+    override val id: String? = null,
+    val buttons: List<BottomBarButton> = emptyList(),
+) : KaiUiNode
+
+@Immutable
+@Serializable
+data class BottomBarButton(
+    val label: String = "",
+    val icon: String? = null,
+    val action: UiAction? = null,
+)
+
+@Immutable
+@Serializable
+@SerialName("accordion")
+data class AccordionNode(
+    override val id: String? = null,
+    val title: String = "",
+    val children: List<KaiUiNode> = emptyList(),
+    val expanded: Boolean? = null,
+) : KaiUiNode
+
 // --- Data display nodes ---
 
 @Immutable
@@ -164,4 +318,28 @@ enum class TextNodeStyle {
 enum class ButtonVariant {
     @SerialName("filled")
     FILLED,
+
+    @SerialName("outlined")
+    OUTLINED,
+
+    @SerialName("text")
+    TEXT,
+
+    @SerialName("tonal")
+    TONAL,
+}
+
+@Serializable
+enum class AlertSeverity {
+    @SerialName("info")
+    INFO,
+
+    @SerialName("success")
+    SUCCESS,
+
+    @SerialName("warning")
+    WARNING,
+
+    @SerialName("error")
+    ERROR,
 }

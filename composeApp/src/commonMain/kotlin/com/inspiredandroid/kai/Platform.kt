@@ -50,6 +50,9 @@ expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
 
 expect fun openUrl(url: String): Boolean
 
+@androidx.compose.runtime.Composable
+expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
+
 expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?
 
 expect suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String)

@@ -308,4 +308,191 @@ class KaiUiParserTest {
         assertIs<ColumnNode>(column)
         assertEquals(7, column.children.size)
     }
+
+    // --- Tests for new node types ---
+
+    @Test
+    fun `parses switch node`() {
+        val json = """{"type":"switch","id":"dark_mode","label":"Dark Mode","checked":true}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<SwitchNode>(node)
+        assertEquals("dark_mode", node.id)
+        assertEquals("Dark Mode", node.label)
+        assertEquals(true, node.checked)
+    }
+
+    @Test
+    fun `parses slider node`() {
+        val json = """{"type":"slider","id":"volume","label":"Volume","value":75,"min":0,"max":100,"step":5}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<SliderNode>(node)
+        assertEquals("volume", node.id)
+        assertEquals(75f, node.value)
+        assertEquals(0f, node.min)
+        assertEquals(100f, node.max)
+        assertEquals(5f, node.step)
+    }
+
+    @Test
+    fun `parses radio_group node`() {
+        val json = """{"type":"radio_group","id":"size","label":"Size","options":["S","M","L","XL"],"selected":"M"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<RadioGroupNode>(node)
+        assertEquals(listOf("S", "M", "L", "XL"), node.options)
+        assertEquals("M", node.selected)
+    }
+
+    @Test
+    fun `parses progress node determinate`() {
+        val json = """{"type":"progress","value":0.7,"label":"Uploading..."}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ProgressNode>(node)
+        assertEquals(0.7f, node.value)
+        assertEquals("Uploading...", node.label)
+    }
+
+    @Test
+    fun `parses progress node indeterminate`() {
+        val json = """{"type":"progress","label":"Loading..."}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ProgressNode>(node)
+        assertEquals(null, node.value)
+    }
+
+    @Test
+    fun `parses alert node`() {
+        val json = """{"type":"alert","message":"File saved successfully","title":"Success","severity":"success"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<AlertNode>(node)
+        assertEquals("File saved successfully", node.message)
+        assertEquals("Success", node.title)
+        assertEquals(AlertSeverity.SUCCESS, node.severity)
+    }
+
+    @Test
+    fun `parses chip_group node`() {
+        val json = """{"type":"chip_group","id":"tags","chips":[{"label":"Kotlin","value":"kotlin"},{"label":"Java","value":"java"}],"multiSelect":true}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ChipGroupNode>(node)
+        assertEquals(2, node.chips.size)
+        assertEquals("Kotlin", node.chips[0].label)
+        assertEquals("kotlin", node.chips[0].value)
+        assertEquals(true, node.multiSelect)
+    }
+
+    @Test
+    fun `parses icon node`() {
+        val json = """{"type":"icon","name":"star","size":32,"color":"primary"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<IconNode>(node)
+        assertEquals("star", node.name)
+        assertEquals(32, node.size)
+        assertEquals("primary", node.color)
+    }
+
+    @Test
+    fun `parses code node`() {
+        val json = """{"type":"code","code":"fun main() { println(\"Hello\") }","language":"kotlin"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<CodeNode>(node)
+        assertEquals("fun main() { println(\"Hello\") }", node.code)
+        assertEquals("kotlin", node.language)
+    }
+
+    @Test
+    fun `parses tabs node`() {
+        val json = """{"type":"tabs","tabs":[{"label":"Tab 1","children":[{"type":"text","value":"Content 1"}]},{"label":"Tab 2","children":[{"type":"text","value":"Content 2"}]}],"selectedIndex":0}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<TabsNode>(node)
+        assertEquals(2, node.tabs.size)
+        assertEquals("Tab 1", node.tabs[0].label)
+        assertEquals(1, node.tabs[0].children.size)
+        assertIs<TextNode>(node.tabs[0].children[0])
+    }
+
+    @Test
+    fun `parses accordion node`() {
+        val json = """{"type":"accordion","title":"More details","children":[{"type":"text","value":"Hidden content"}],"expanded":false}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<AccordionNode>(node)
+        assertEquals("More details", node.title)
+        assertEquals(false, node.expanded)
+        assertEquals(1, node.children.size)
+    }
+
+    @Test
+    fun `parses bottom_bar node`() {
+        val json = """{"type":"bottom_bar","buttons":[{"label":"Home","icon":"home","action":{"type":"callback","event":"nav_home"}},{"label":"Settings","icon":"settings","action":{"type":"callback","event":"nav_settings"}}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<BottomBarNode>(node)
+        assertEquals(2, node.buttons.size)
+        assertEquals("Home", node.buttons[0].label)
+        assertEquals("home", node.buttons[0].icon)
+        assertIs<CallbackAction>(node.buttons[0].action)
+    }
+
+    @Test
+    fun `parses box node`() {
+        val json = """{"type":"box","children":[{"type":"text","value":"Centered"}],"contentAlignment":"center"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<BoxNode>(node)
+        assertEquals("center", node.contentAlignment)
+        assertEquals(1, node.children.size)
+    }
+
+    @Test
+    fun `parses button with outlined variant`() {
+        val json = """{"type":"button","label":"Cancel","variant":"outlined"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ButtonNode>(node)
+        assertEquals(ButtonVariant.OUTLINED, node.variant)
+    }
+
+    @Test
+    fun `parses button with text variant`() {
+        val json = """{"type":"button","label":"Skip","variant":"text"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ButtonNode>(node)
+        assertEquals(ButtonVariant.TEXT, node.variant)
+    }
+
+    @Test
+    fun `parses button with tonal variant`() {
+        val json = """{"type":"button","label":"Maybe","variant":"tonal"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ButtonNode>(node)
+        assertEquals(ButtonVariant.TONAL, node.variant)
+    }
 }

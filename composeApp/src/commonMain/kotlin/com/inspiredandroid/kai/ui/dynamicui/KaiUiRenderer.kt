@@ -1,14 +1,57 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.inspiredandroid.kai.ui.dynamicui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
@@ -17,22 +60,46 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.key
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,6 +110,7 @@ fun KaiUiRenderer(
     isInteractive: Boolean,
     onCallback: (event: String, data: Map<String, String>) -> Unit,
     modifier: Modifier = Modifier,
+    wrapInCard: Boolean = true,
 ) {
     val formState = remember { mutableStateMapOf<String, String>() }
     val toggleState = remember { mutableStateMapOf<String, Boolean>() }
@@ -66,15 +134,29 @@ fun KaiUiRenderer(
         return
     }
 
-    Card(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
-        Column(Modifier.padding(12.dp).wrapContentHeight()) {
-            RenderNode(
-                node = node,
-                isInteractive = isInteractive,
-                formState = formState,
-                toggleState = toggleState,
-                onCallback = safeCallback(onCallback),
-            )
+    if (wrapInCard) {
+        Card(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
+            Column(Modifier.padding(12.dp).wrapContentHeight()) {
+                RenderNode(
+                    node = node,
+                    isInteractive = isInteractive,
+                    formState = formState,
+                    toggleState = toggleState,
+                    onCallback = safeCallback(onCallback),
+                )
+            }
+        }
+    } else {
+        CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
+            Column(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
+                RenderNode(
+                    node = node,
+                    isInteractive = isInteractive,
+                    formState = formState,
+                    toggleState = toggleState,
+                    onCallback = safeCallback(onCallback),
+                )
+            }
         }
     }
 }
@@ -119,6 +201,19 @@ private fun RenderNode(
         is ListNode -> RenderList(node, isInteractive, formState, toggleState, onCallback, depth)
         is SpacerNode -> Spacer(Modifier.height((node.height ?: 8).dp))
         is DividerNode -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
+        is SwitchNode -> RenderSwitch(node, isInteractive, formState)
+        is SliderNode -> RenderSlider(node, isInteractive, formState)
+        is RadioGroupNode -> RenderRadioGroup(node, isInteractive, formState)
+        is ProgressNode -> RenderProgress(node)
+        is AlertNode -> RenderAlert(node)
+        is ChipGroupNode -> RenderChipGroup(node, isInteractive, formState)
+        is ChipNode -> RenderChip(node)
+        is IconNode -> RenderIcon(node)
+        is CodeNode -> RenderCode(node)
+        is BoxNode -> RenderBox(node, isInteractive, formState, toggleState, onCallback, depth)
+        is TabsNode -> RenderTabs(node, isInteractive, formState, toggleState, onCallback, depth)
+        is BottomBarNode -> RenderBottomBar(node, isInteractive, formState, toggleState, onCallback)
+        is AccordionNode -> RenderAccordion(node, isInteractive, formState, toggleState, onCallback, depth)
     }
 }
 
@@ -146,11 +241,10 @@ private fun RenderColumn(
     depth: Int,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy((node.spacing ?: 8).dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .then(if (node.padding != null) Modifier.padding(node.padding.dp) else Modifier),
+            .wrapContentHeight(),
     ) {
         RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
     }
@@ -165,18 +259,16 @@ private fun RenderRow(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy((node.spacing ?: 8).dp),
-        verticalAlignment = Alignment.Top,
+    @OptIn(ExperimentalLayoutApi::class)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .wrapContentHeight()
-            .then(if (node.padding != null) Modifier.padding(node.padding.dp) else Modifier),
+            .wrapContentHeight(),
     ) {
         for (child in node.children) {
-            Box(Modifier.weight(1f).wrapContentHeight()) {
-                RenderNode(child, isInteractive, formState, toggleState, onCallback, depth + 1)
-            }
+            RenderNode(child, isInteractive, formState, toggleState, onCallback, depth + 1)
         }
     }
 }
@@ -191,7 +283,10 @@ private fun RenderCard(
     depth: Int,
 ) {
     Card(Modifier.fillMaxWidth().wrapContentHeight()) {
-        Column(Modifier.padding((node.padding ?: 12).dp).wrapContentHeight()) {
+        Column(
+            modifier = Modifier.padding(16.dp).wrapContentHeight(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
         }
     }
@@ -254,11 +349,13 @@ private fun RenderButton(
         }
     }
 
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-    ) { Text(node.label) }
+    val hoverModifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+    when (node.variant) {
+        ButtonVariant.OUTLINED -> OutlinedButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
+        ButtonVariant.TEXT -> TextButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
+        ButtonVariant.TONAL -> FilledTonalButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
+        ButtonVariant.FILLED, null -> Button(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
+    }
 }
 
 @Composable
@@ -274,6 +371,7 @@ private fun RenderTextInput(
         placeholder = node.placeholder?.let { { Text(it) } },
         enabled = isInteractive,
         singleLine = node.multiline != true,
+        shape = RoundedCornerShape(12.dp),
         modifier = Modifier.fillMaxWidth(),
     )
 }
@@ -285,12 +383,23 @@ private fun RenderCheckbox(
     formState: MutableMap<String, String>,
 ) {
     val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    val toggle = { formState[node.id] = (!checked).toString() }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+            .then(
+                if (isInteractive) {
+                    Modifier.clickable(onClick = toggle)
+                } else {
+                    Modifier
+                },
+            ),
+    ) {
         Checkbox(
             checked = checked,
-            onCheckedChange = { formState[node.id] = it.toString() },
+            onCheckedChange = null,
             enabled = isInteractive,
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         )
         Text(node.label, style = MaterialTheme.typography.bodyLarge)
     }
@@ -348,29 +457,37 @@ private fun RenderImage(node: ImageNode) {
 
 @Composable
 private fun RenderTable(node: TableNode) {
+    val columnCount = maxOf(
+        node.headers.size,
+        node.rows.maxOfOrNull { it.size } ?: 0,
+    )
     Column(Modifier.fillMaxWidth().wrapContentHeight()) {
         if (node.headers.isNotEmpty()) {
             Row(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                for (header in node.headers) {
+                for ((index, header) in node.headers.withIndex()) {
+                    val isLast = index == columnCount - 1
                     Text(
                         text = header,
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.weight(1f),
+                        modifier = if (isLast) Modifier.weight(1f) else Modifier.padding(end = 8.dp),
                     )
                 }
             }
             HorizontalDivider()
         }
         for (row in node.rows) {
-            Row(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+            Row(
+                Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+            ) {
                 for ((index, cell) in row.withIndex()) {
+                    val isLast = index == columnCount - 1
                     Text(
                         text = cell,
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f),
+                        modifier = if (isLast) Modifier.weight(1f) else Modifier.padding(end = 8.dp),
                     )
-                    // If row has fewer cells than headers, skip remaining
-                    if (index >= node.headers.size - 1) break
+                    if (index >= columnCount - 1) break
                 }
             }
         }
@@ -399,15 +516,531 @@ private fun RenderList(
     }
 }
 
+// --- New component renderers ---
+
+@Composable
+private fun RenderSwitch(
+    node: SwitchNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+) {
+    val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
+    val toggle = { formState[node.id] = (!checked).toString() }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+            .then(if (isInteractive) Modifier.clickable(onClick = toggle) else Modifier),
+    ) {
+        Text(
+            text = node.label,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f),
+        )
+        Switch(
+            checked = checked,
+            onCheckedChange = null,
+            enabled = isInteractive,
+        )
+    }
+}
+
+@Composable
+private fun RenderSlider(
+    node: SliderNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+) {
+    val min = node.min ?: 0f
+    val max = node.max ?: 100f
+    val currentValue = formState[node.id]?.toFloatOrNull() ?: (node.value ?: min)
+
+    Column(Modifier.fillMaxWidth()) {
+        if (node.label != null) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(node.label, style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    text = if (currentValue == currentValue.toLong().toFloat()) {
+                        currentValue.toLong().toString()
+                    } else {
+                        currentValue.toString()
+                    },
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+        }
+        val steps = if (node.step != null && node.step > 0) {
+            ((max - min) / node.step).toInt() - 1
+        } else {
+            0
+        }
+        Slider(
+            value = currentValue.coerceIn(min, max),
+            onValueChange = { formState[node.id] = it.toString() },
+            valueRange = min..max,
+            steps = steps.coerceAtLeast(0),
+            enabled = isInteractive,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
+
+@Composable
+private fun RenderRadioGroup(
+    node: RadioGroupNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+) {
+    val selected = formState[node.id] ?: ""
+    Column(Modifier.fillMaxWidth()) {
+        if (node.label != null) {
+            Text(
+                text = node.label,
+                style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.padding(bottom = 4.dp),
+            )
+        }
+        for (option in node.options) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            ) {
+                RadioButton(
+                    selected = selected == option,
+                    onClick = { formState[node.id] = option },
+                    enabled = isInteractive,
+                )
+                Text(
+                    text = option,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.clickable(
+                        indication = null,
+                        interactionSource = null,
+                    ) { if (isInteractive) formState[node.id] = option },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RenderProgress(node: ProgressNode) {
+    Column(Modifier.fillMaxWidth()) {
+        if (node.label != null) {
+            Text(
+                text = node.label,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 4.dp),
+            )
+        }
+        if (node.value != null) {
+            LinearProgressIndicator(
+                progress = { node.value.coerceIn(0f, 1f) },
+                modifier = Modifier.fillMaxWidth(),
+                drawStopIndicator = {},
+                gapSize = 0.dp,
+            )
+        } else {
+            LinearProgressIndicator(
+                modifier = Modifier.fillMaxWidth(),
+                gapSize = 0.dp,
+            )
+        }
+    }
+}
+
+@Composable
+private fun RenderAlert(node: AlertNode) {
+    val containerColor = when (node.severity) {
+        AlertSeverity.SUCCESS -> MaterialTheme.colorScheme.tertiaryContainer
+        AlertSeverity.WARNING -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f)
+        AlertSeverity.ERROR -> MaterialTheme.colorScheme.errorContainer
+        AlertSeverity.INFO, null -> MaterialTheme.colorScheme.primaryContainer
+    }
+    val contentColor = when (node.severity) {
+        AlertSeverity.SUCCESS -> MaterialTheme.colorScheme.onTertiaryContainer
+        AlertSeverity.WARNING -> MaterialTheme.colorScheme.onErrorContainer
+        AlertSeverity.ERROR -> MaterialTheme.colorScheme.onErrorContainer
+        AlertSeverity.INFO, null -> MaterialTheme.colorScheme.onPrimaryContainer
+    }
+    val icon = when (node.severity) {
+        AlertSeverity.SUCCESS -> Icons.Default.Check
+        AlertSeverity.WARNING -> Icons.Default.Warning
+        AlertSeverity.ERROR -> Icons.Default.Close
+        AlertSeverity.INFO, null -> Icons.Default.Info
+    }
+
+    Surface(
+        color = containerColor,
+        contentColor = contentColor,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.padding(12.dp),
+            verticalAlignment = Alignment.Top,
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(Modifier.width(8.dp))
+            Column {
+                if (node.title != null) {
+                    Text(
+                        text = node.title,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Spacer(Modifier.height(2.dp))
+                }
+                Text(
+                    text = node.message,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun RenderChipGroup(
+    node: ChipGroupNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+) {
+    val isMulti = node.multiSelect == true
+
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        for (chip in node.chips) {
+            val value = chip.value.ifEmpty { chip.label }
+            key(value) {
+                val isSelected by remember {
+                    derivedStateOf {
+                        val csv = formState[node.id] ?: ""
+                        csv.split(",").contains(value)
+                    }
+                }
+                FilterChip(
+                    selected = isSelected,
+                    onClick = {
+                        if (!isInteractive) return@FilterChip
+                        val current = (formState[node.id] ?: "").split(",").filter { it.isNotEmpty() }.toSet()
+                        val newSelection = if (isMulti) {
+                            if (isSelected) current - value else current + value
+                        } else {
+                            if (isSelected) emptySet() else setOf(value)
+                        }
+                        formState[node.id] = newSelection.joinToString(",")
+                    },
+                    label = { Text(chip.label) },
+                    enabled = isInteractive,
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RenderChip(node: ChipNode) {
+    SuggestionChip(
+        onClick = {},
+        label = { Text(node.label) },
+    )
+}
+
+@Composable
+private fun RenderIcon(node: IconNode) {
+    val imageVector = resolveIcon(node.name) ?: Icons.Default.MoreVert
+    val size = (node.size ?: 24).dp
+    val color = when (node.color) {
+        "primary" -> MaterialTheme.colorScheme.primary
+        "secondary" -> MaterialTheme.colorScheme.secondary
+        "error" -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.onSurface
+    }
+    Icon(
+        imageVector = imageVector,
+        contentDescription = node.name,
+        modifier = Modifier.size(size),
+        tint = color,
+    )
+}
+
+@Composable
+private fun RenderCode(node: CodeNode) {
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        shape = RoundedCornerShape(8.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(12.dp)) {
+            if (node.language != null) {
+                Text(
+                    text = node.language,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(bottom = 4.dp),
+                )
+            }
+            Text(
+                text = node.code,
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+            )
+        }
+    }
+}
+
+@Composable
+private fun RenderBox(
+    node: BoxNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+    toggleState: MutableMap<String, Boolean>,
+    onCallback: (String, Map<String, String>) -> Unit,
+    depth: Int,
+) {
+    val alignment = when (node.contentAlignment) {
+        "center" -> Alignment.Center
+        "top_start" -> Alignment.TopStart
+        "top_center" -> Alignment.TopCenter
+        "top_end" -> Alignment.TopEnd
+        "center_start" -> Alignment.CenterStart
+        "center_end" -> Alignment.CenterEnd
+        "bottom_start" -> Alignment.BottomStart
+        "bottom_center" -> Alignment.BottomCenter
+        "bottom_end" -> Alignment.BottomEnd
+        else -> Alignment.TopStart
+    }
+    Box(
+        contentAlignment = alignment,
+        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+    ) {
+        for (child in node.children) {
+            RenderNode(child, isInteractive, formState, toggleState, onCallback, depth + 1)
+        }
+    }
+}
+
+@Composable
+private fun RenderTabs(
+    node: TabsNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+    toggleState: MutableMap<String, Boolean>,
+    onCallback: (String, Map<String, String>) -> Unit,
+    depth: Int,
+) {
+    if (node.tabs.isEmpty()) return
+    var selectedIndex by remember { mutableIntStateOf((node.selectedIndex ?: 0).coerceIn(0, node.tabs.lastIndex)) }
+
+    Column(Modifier.fillMaxWidth()) {
+        TabRow(selectedTabIndex = selectedIndex, containerColor = Color.Transparent) {
+            node.tabs.forEachIndexed { index, tab ->
+                Tab(
+                    selected = selectedIndex == index,
+                    onClick = { if (isInteractive) selectedIndex = index },
+                    text = { Text(tab.label) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                )
+            }
+        }
+        val selectedTab = node.tabs.getOrNull(selectedIndex)
+        if (selectedTab != null) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+            ) {
+                RenderChildren(selectedTab.children, isInteractive, formState, toggleState, onCallback, depth)
+            }
+        }
+    }
+}
+
+@Composable
+private fun RenderBottomBar(
+    node: BottomBarNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+    toggleState: MutableMap<String, Boolean>,
+    onCallback: (String, Map<String, String>) -> Unit,
+) {
+    val uriHandler = LocalUriHandler.current
+    NavigationBar(modifier = Modifier.fillMaxWidth()) {
+        for (button in node.buttons) {
+            val icon = button.icon?.let { resolveIcon(it) }
+            NavigationBarItem(
+                selected = false,
+                onClick = {
+                    if (!isInteractive) return@NavigationBarItem
+                    try {
+                        when (val action = button.action) {
+                            is CallbackAction -> {
+                                val data = collectFormData(action, formState)
+                                onCallback(action.event, data)
+                            }
+
+                            is ToggleAction -> {
+                                toggleState[action.targetId] = !(toggleState[action.targetId] ?: true)
+                            }
+
+                            is OpenUrlAction -> {
+                                uriHandler.openUri(action.url)
+                            }
+
+                            null -> {}
+                        }
+                    } catch (_: Exception) {
+                        // Prevent crashes
+                    }
+                },
+                icon = {
+                    Icon(
+                        icon ?: Icons.Default.MoreVert,
+                        contentDescription = button.label,
+                    )
+                },
+                label = { Text(button.label) },
+                enabled = isInteractive,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            )
+        }
+    }
+}
+
+@Composable
+private fun RenderAccordion(
+    node: AccordionNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+    toggleState: MutableMap<String, Boolean>,
+    onCallback: (String, Map<String, String>) -> Unit,
+    depth: Int,
+) {
+    var expanded by remember { mutableStateOf(node.expanded ?: false) }
+
+    Column(Modifier.fillMaxWidth()) {
+        Surface(
+            onClick = { if (isInteractive) expanded = !expanded },
+            modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = node.title,
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.weight(1f),
+                )
+                Icon(
+                    imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                    contentDescription = null,
+                )
+            }
+        }
+        AnimatedVisibility(
+            visible = expanded,
+            enter = expandVertically(),
+            exit = shrinkVertically(),
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 12.dp),
+            ) {
+                RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
+            }
+        }
+    }
+}
+
+// --- Icon resolution ---
+
+private fun resolveIcon(name: String): ImageVector? = when (name) {
+    "home" -> Icons.Default.Home
+    "settings" -> Icons.Default.Settings
+    "search" -> Icons.Default.Search
+    "add" -> Icons.Default.Add
+    "delete" -> Icons.Default.Delete
+    "edit" -> Icons.Default.Edit
+    "check" -> Icons.Default.Check
+    "close" -> Icons.Default.Close
+    "arrow_back" -> Icons.AutoMirrored.Filled.ArrowBack
+    "arrow_forward" -> Icons.AutoMirrored.Filled.ArrowForward
+    "star" -> Icons.Default.Star
+    "favorite" -> Icons.Default.Favorite
+    "share" -> Icons.Default.Share
+    "info" -> Icons.Default.Info
+    "warning" -> Icons.Default.Warning
+    "person" -> Icons.Default.Person
+    "group" -> Icons.Default.Face
+    "mail", "email" -> Icons.Default.Email
+    "phone" -> Icons.Default.Call
+    "calendar" -> Icons.Default.DateRange
+    "clock" -> Icons.Default.Refresh
+    "location" -> Icons.Default.LocationOn
+    "photo" -> Icons.Default.Face
+    "refresh" -> Icons.Default.Refresh
+    "menu" -> Icons.Default.Menu
+    "more" -> Icons.Default.MoreVert
+    "send" -> Icons.AutoMirrored.Filled.Send
+    "notifications" -> Icons.Default.Notifications
+    "expand_more" -> Icons.Default.KeyboardArrowDown
+    "expand_less" -> Icons.Default.KeyboardArrowUp
+    else -> null
+}
+
+// --- Form state initialization ---
+
 private fun initializeFormState(node: KaiUiNode, formState: MutableMap<String, String>) {
     when (node) {
         is TextInputNode -> node.value?.let { if (node.id !in formState) formState[node.id] = it }
+
         is CheckboxNode -> if (node.id !in formState) formState[node.id] = (node.checked ?: false).toString()
+
         is SelectNode -> node.selected?.let { if (node.id !in formState) formState[node.id] = it }
+
+        is SwitchNode -> if (node.id !in formState) formState[node.id] = (node.checked ?: false).toString()
+
+        is SliderNode -> if (node.id !in formState) formState[node.id] = (node.value ?: node.min ?: 0f).toString()
+
+        is RadioGroupNode -> node.selected?.let { if (node.id !in formState) formState[node.id] = it }
+
+        is ChipGroupNode -> if (node.id !in formState) {
+            val preselected = node.chips.filter { false }.map { it.value.ifEmpty { it.label } } // No default selection
+            formState[node.id] = preselected.joinToString(",")
+        }
+
         is ColumnNode -> node.children.forEach { initializeFormState(it, formState) }
+
         is RowNode -> node.children.forEach { initializeFormState(it, formState) }
+
         is CardNode -> node.children.forEach { initializeFormState(it, formState) }
+
         is ListNode -> node.items.forEach { initializeFormState(it, formState) }
+
+        is BoxNode -> node.children.forEach { initializeFormState(it, formState) }
+
+        is TabsNode -> node.tabs.forEach { tab -> tab.children.forEach { initializeFormState(it, formState) } }
+
+        is AccordionNode -> node.children.forEach { initializeFormState(it, formState) }
+
         else -> {}
     }
 }

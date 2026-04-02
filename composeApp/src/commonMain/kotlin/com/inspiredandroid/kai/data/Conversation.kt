@@ -14,6 +14,7 @@ data class Conversation(
     companion object {
         const val TYPE_CHAT = "chat"
         const val TYPE_HEARTBEAT = "heartbeat"
+        const val TYPE_INTERACTIVE = "interactive"
     }
 
     @Serializable

@@ -29,6 +29,7 @@ data class ConversationSummary(
     val title: String,
     val updatedAt: Long,
     val isHeartbeat: Boolean = false,
+    val isInteractive: Boolean = false,
 )
 
 @Immutable
@@ -49,6 +50,7 @@ data class ChatUiState(
     val hasUnreadHeartbeat: Boolean = false,
     val snackbarMessage: StringResource? = null,
     val pendingConversationDeletion: String? = null,
+    val isInteractiveMode: Boolean = false,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

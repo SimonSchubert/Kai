@@ -43,6 +43,7 @@ interface DataRepository {
     suspend fun deleteConversation(id: String)
     fun startNewChat()
     fun regenerate()
+    fun popLastExchange()
     suspend fun restoreLatestConversation()
 
     // Tool management
@@ -79,6 +80,10 @@ interface DataRepository {
     // Dynamic UI
     fun isDynamicUiEnabled(): Boolean
     fun setDynamicUiEnabled(enabled: Boolean)
+
+    // Interactive mode
+    fun setInteractiveMode(enabled: Boolean)
+    fun isInteractiveModeActive(): Boolean
 
     // Daemon mode
     fun isDaemonEnabled(): Boolean

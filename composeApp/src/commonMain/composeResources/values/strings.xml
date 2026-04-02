@@ -46,6 +46,7 @@
     <string name="chat_history_delete_content_description">Delete conversation</string>
     <string name="chat_history_empty">No saved conversations</string>
     <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_interactive_label">Interactive UI</string>
     <string name="heartbeat_banner_message">Heartbeat has something to report</string>
     <string name="heartbeat_banner_dismiss">Dismiss</string>
     <string name="settings_tools_description">Enable or disable AI tools that can perform actions on your behalf.</string>

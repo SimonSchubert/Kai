@@ -9,6 +9,7 @@ import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.classifyFile
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
@@ -18,7 +19,9 @@ import kai.composeapp.generated.resources.error_unsupported_file_type
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -52,6 +55,9 @@ class ChatViewModel(
         clearSnackbar = ::clearSnackbar,
         undoDeleteConversation = ::undoDeleteConversation,
         submitUiCallback = ::submitUiCallback,
+        enterInteractiveMode = ::enterInteractiveMode,
+        exitInteractiveMode = ::exitInteractiveMode,
+        goBackInteractiveMode = ::goBackInteractiveMode,
     )
     private var currentJob: Job? = null
     private var pendingConversationDeleteJob: Job? = null
@@ -66,6 +72,9 @@ class ChatViewModel(
         viewModelScope.launch(backgroundDispatcher) {
             _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
             dataRepository.loadConversations()
+            // Set interactive mode BEFORE restoring so the combine flow never emits
+            // an intermediate state with interactive content in standard chat mode
+            presetInteractiveModeForLatestConversation()
             dataRepository.restoreLatestConversation()
         }
         viewModelScope.launch(backgroundDispatcher) {
@@ -85,11 +94,13 @@ class ChatViewModel(
             .sortedByDescending { it.updatedAt }
             .map {
                 val isHeartbeat = it.type == Conversation.TYPE_HEARTBEAT
+                val isInteractive = it.type == Conversation.TYPE_INTERACTIVE
                 ConversationSummary(
                     id = it.id,
                     title = if (isHeartbeat) "" else it.title.ifEmpty { getString(Res.string.conversation_untitled) },
                     updatedAt = it.updatedAt,
                     isHeartbeat = isHeartbeat,
+                    isInteractive = isInteractive,
                 )
             }
         state.copy(
@@ -131,6 +142,12 @@ class ChatViewModel(
             }
             try {
                 dataRepository.ask(question, file)
+
+                // Auto-retry in interactive mode if the response has no valid kai-ui
+                if (_state.value.isInteractiveMode) {
+                    retryIfNoValidKaiUi()
+                }
+
                 _state.update {
                     it.copy(isLoading = false)
                 }
@@ -145,6 +162,31 @@ class ChatViewModel(
                     )
                 }
             }
+        }
+    }
+
+    private suspend fun retryIfNoValidKaiUi(maxRetries: Int = 2) {
+        repeat(maxRetries) {
+            currentCoroutineContext().ensureActive()
+            val lastAssistant = dataRepository.chatHistory.value
+                .lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
+                ?: return
+
+            val segments = KaiUiParser.parse(lastAssistant.content)
+            val hasValidUi = segments.any { it is KaiUiParser.UiSegment }
+            if (hasValidUi) return
+
+            // Build error feedback for the AI
+            val errorSegment = segments.filterIsInstance<KaiUiParser.ErrorSegment>().firstOrNull()
+            val errorDetail = if (errorSegment != null) {
+                "JSON parse error in: ${errorSegment.rawJson.take(200)}"
+            } else {
+                "No kai-ui code fence found in your response."
+            }
+            val retryMessage = "[SYSTEM] Your previous response failed to render as interactive UI. $errorDetail " +
+                "Remember: respond with ONLY a single ```kai-ui code fence containing valid JSON. No text outside the fence."
+
+            dataRepository.ask(retryMessage, null)
         }
     }
 
@@ -224,9 +266,12 @@ class ChatViewModel(
     }
 
     private fun loadConversation(id: String) {
+        val conversation = dataRepository.savedConversations.value.find { it.id == id }
+        val isInteractive = conversation?.type == Conversation.TYPE_INTERACTIVE
+        dataRepository.setInteractiveMode(isInteractive)
         dataRepository.loadConversation(id)
         _state.update {
-            it.copy(error = null)
+            it.copy(error = null, isInteractiveMode = isInteractive)
         }
     }
 
@@ -267,15 +312,62 @@ class ChatViewModel(
 
     private fun startNewChat() {
         dataRepository.startNewChat()
+        dataRepository.setInteractiveMode(false)
         _state.update {
-            it.copy(error = null)
+            it.copy(error = null, isInteractiveMode = false)
+        }
+    }
+
+    private fun enterInteractiveMode() {
+        dataRepository.startNewChat()
+        dataRepository.setInteractiveMode(true)
+        _state.update {
+            it.copy(isInteractiveMode = true, error = null)
+        }
+    }
+
+    private fun exitInteractiveMode() {
+        currentJob?.cancel()
+        currentJob = null
+        dataRepository.startNewChat()
+        dataRepository.setInteractiveMode(false)
+        _state.update {
+            it.copy(isInteractiveMode = false, isLoading = false, error = null)
+        }
+    }
+
+    private fun goBackInteractiveMode() {
+        val userCount = dataRepository.chatHistory.value.count { it.role == History.Role.USER }
+        if (userCount <= 1) {
+            // Go back to initial prompt — clear history but stay in interactive mode
+            dataRepository.clearHistory()
+        } else {
+            dataRepository.popLastExchange()
         }
     }
 
     fun refreshSettings() {
         _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
         viewModelScope.launch(backgroundDispatcher) {
+            presetInteractiveModeForLatestConversation()
             dataRepository.restoreLatestConversation()
         }
+    }
+
+    /**
+     * Sets interactive mode flag BEFORE the conversation is loaded into chat history,
+     * preventing the combine flow from emitting an intermediate state where interactive
+     * content appears in the standard chat view.
+     */
+    private fun presetInteractiveModeForLatestConversation() {
+        val currentId = dataRepository.currentConversationId.value
+        val conversation = if (currentId != null) {
+            dataRepository.savedConversations.value.find { it.id == currentId }
+        } else {
+            dataRepository.savedConversations.value.maxByOrNull { it.updatedAt }
+        }
+        val isInteractive = conversation?.type == Conversation.TYPE_INTERACTIVE
+        dataRepository.setInteractiveMode(isInteractive)
+        _state.update { it.copy(isInteractiveMode = isInteractive) }
     }
 }

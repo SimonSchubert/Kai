@@ -1215,7 +1215,7 @@ class RemoteDataRepository(
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
             title = title,
-            type = existingConversation?.type ?: Conversation.TYPE_CHAT,
+            type = existingConversation?.type ?: if (interactiveModeFlag) Conversation.TYPE_INTERACTIVE else Conversation.TYPE_CHAT,
         )
 
         conversationStorage.saveConversation(conversation)
@@ -1283,6 +1283,13 @@ class RemoteDataRepository(
     override fun startNewChat() {
         _currentConversationId.value = null
         chatHistory.value = emptyList()
+    }
+
+    override fun popLastExchange() {
+        chatHistory.update { history ->
+            val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+            if (lastUserIndex >= 0) history.take(lastUserIndex) else history
+        }
     }
 
     override suspend fun restoreLatestConversation() {
@@ -1406,7 +1413,7 @@ class RemoteDataRepository(
             append("- Platform: $platformName\n")
             append("- Model: $modelId\n")
             append("- Provider: ${service.displayName}\n")
-            if (appSettings.isDynamicUiEnabled()) {
+            if (appSettings.isDynamicUiEnabled() || interactiveModeFlag) {
                 append("\n## Dynamic UI\n")
                 append("You can create interactive UI elements inline in your responses using kai-ui blocks. ")
                 append("Proactively use them whenever you need input from the user — don't just ask in plain text if a form, selector, or buttons would be more natural. ")
@@ -1414,22 +1421,49 @@ class RemoteDataRepository(
                 append("Use kai-ui whenever collecting data, offering choices, presenting structured information, or guiding multi-step workflows. ")
                 append("You can mix kai-ui blocks with regular markdown text naturally.\n\n")
                 append("Format: wrap a JSON object in ```kai-ui fences.\n\n")
-                append("Components: column, row, card, text, button, text_input, checkbox, select, table, list, spacer, divider, image.\n")
+                append("Components: column, row, card, box, text, button, text_input, checkbox, switch, select, radio_group, slider, chip_group, table, list, spacer, divider, image, icon, code, progress, alert, tabs, accordion, bottom_bar.\n")
                 append("- text: {\"type\":\"text\",\"value\":\"...\",\"style\":\"headline|title|body|caption\",\"bold\":true,\"color\":\"primary|secondary|error\"}\n")
-                append("- button: {\"type\":\"button\",\"label\":\"...\",\"action\":{...},\"variant\":\"filled\"}\n")
+                append("- button: {\"type\":\"button\",\"label\":\"...\",\"action\":{...},\"variant\":\"filled|outlined|text|tonal\"}\n")
                 append("- text_input: {\"type\":\"text_input\",\"id\":\"...\",\"label\":\"...\",\"placeholder\":\"...\",\"value\":\"...\"}\n")
                 append("- checkbox: {\"type\":\"checkbox\",\"id\":\"...\",\"label\":\"...\",\"checked\":false}\n")
+                append("- switch: {\"type\":\"switch\",\"id\":\"...\",\"label\":\"...\",\"checked\":false}\n")
                 append("- select: {\"type\":\"select\",\"id\":\"...\",\"label\":\"...\",\"options\":[\"A\",\"B\"],\"selected\":\"A\"}\n")
-                append("- table: {\"type\":\"table\",\"headers\":[\"Col1\",\"Col2\"],\"rows\":[[\"a\",\"b\"]]}\n\n")
-                append("Actions (on buttons):\n")
+                append("- radio_group: {\"type\":\"radio_group\",\"id\":\"...\",\"label\":\"...\",\"options\":[\"A\",\"B\"],\"selected\":\"A\"}\n")
+                append("- slider: {\"type\":\"slider\",\"id\":\"...\",\"label\":\"...\",\"value\":50,\"min\":0,\"max\":100,\"step\":10}\n")
+                append("- chip_group: {\"type\":\"chip_group\",\"id\":\"...\",\"chips\":[{\"label\":\"Tag\",\"value\":\"tag\"}],\"multiSelect\":false}\n")
+                append("- table: {\"type\":\"table\",\"headers\":[\"Col1\",\"Col2\"],\"rows\":[[\"a\",\"b\"]]}\n")
+                append("- icon: {\"type\":\"icon\",\"name\":\"home|settings|search|add|delete|edit|check|close|arrow_back|arrow_forward|star|favorite|share|info|warning|person|mail|phone|calendar|location|refresh|menu|more|send|notifications\",\"size\":24,\"color\":\"primary|secondary|error\"}\n")
+                append("- code: {\"type\":\"code\",\"code\":\"...\",\"language\":\"kotlin\"}\n")
+                append("- progress: {\"type\":\"progress\",\"value\":0.5,\"label\":\"Loading...\"} (omit value for indeterminate)\n")
+                append("- alert: {\"type\":\"alert\",\"message\":\"...\",\"title\":\"...\",\"severity\":\"info|success|warning|error\"}\n")
+                append("- tabs: {\"type\":\"tabs\",\"tabs\":[{\"label\":\"Tab 1\",\"children\":[...]},{\"label\":\"Tab 2\",\"children\":[...]}],\"selectedIndex\":0}\n")
+                append("- accordion: {\"type\":\"accordion\",\"title\":\"...\",\"children\":[...],\"expanded\":false}\n")
+                append("- bottom_bar: {\"type\":\"bottom_bar\",\"buttons\":[{\"label\":\"Home\",\"icon\":\"home\",\"action\":{...}}]}\n")
+                append("- box: {\"type\":\"box\",\"children\":[...],\"contentAlignment\":\"center|top_start|top_center|top_end|center_start|center_end|bottom_start|bottom_center|bottom_end\"}\n\n")
+                append("Actions (on buttons, chips, bottom_bar buttons):\n")
                 append("- callback: {\"type\":\"callback\",\"event\":\"event_name\",\"data\":{\"key\":\"val\"},\"collectFrom\":[\"input_id1\",\"input_id2\"]} — collects input values and sends back as a user message\n")
                 append("- toggle: {\"type\":\"toggle\",\"targetId\":\"element_id\"} — shows/hides an element locally\n")
                 append("- open_url: {\"type\":\"open_url\",\"url\":\"https://...\"}\n\n")
                 append("Layout tips:\n")
                 append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
                 append("- Max 2 items per row on mobile. For 3+ options, use a column of cards instead of a row\n")
-                append("- Keep button labels short (1-3 words)\n\n")
+                append("- Keep button labels short (1-3 words)\n")
+                append("- Do NOT set spacing or padding on layout nodes — the app enforces consistent spacing automatically\n\n")
                 append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Your name?\",\"style\":\"title\"},{\"type\":\"text_input\",\"id\":\"name\",\"placeholder\":\"Enter name\"},{\"type\":\"button\",\"label\":\"Submit\",\"action\":{\"type\":\"callback\",\"event\":\"submit\",\"collectFrom\":[\"name\"]}}]}\n```\n")
+            }
+            if (interactiveModeFlag) {
+                append("\n## Interactive UI Mode (ACTIVE)\n")
+                append("You are in full-screen interactive UI mode. The user ONLY sees rendered kai-ui — they cannot see markdown or plain text at all.\n")
+                append("- Your ENTIRE response must be a single ```kai-ui code fence. Nothing else. No text before it, no text after it, no markdown.\n")
+                append("- If you write anything outside the ```kai-ui fence, the user will NOT see it.\n")
+                append("- Each response is a COMPLETE screen layout. Include all content and actions in one kai-ui block.\n")
+                append("- Use the full component set: tabs, accordion, alerts, progress, chips, icons, etc.\n")
+                append("- Always include clear primary action buttons so the user can proceed.\n")
+                append("- Use headline text for screen titles. Structure screens with cards for grouping related content.\n")
+                append("- Max 2 items per row on mobile. Use columns for vertical flow.\n")
+                append("- Use descriptive callback events (e.g., \"select_destination\", \"submit_form\") so you understand what the user selected.\n")
+                append("- Do NOT include back buttons, navigation bars, or any navigation controls. The app provides a back button and close button in the toolbar. The user can also type instructions in a text field below your UI.\n")
+                append("- Focus only on content and forward actions (e.g., Submit, Continue, Select). Never add \"Back\", \"Go Back\", \"Home\", or \"Previous\" buttons.\n")
             }
         }.ifEmpty { null }
     }
@@ -1439,6 +1473,15 @@ class RemoteDataRepository(
     override fun setDynamicUiEnabled(enabled: Boolean) {
         appSettings.setDynamicUiEnabled(enabled)
     }
+
+    @Volatile
+    private var interactiveModeFlag = false
+
+    override fun setInteractiveMode(enabled: Boolean) {
+        interactiveModeFlag = enabled
+    }
+
+    override fun isInteractiveModeActive(): Boolean = interactiveModeFlag
 
     override fun isMemoryEnabled(): Boolean = appSettings.isMemoryEnabled()
 

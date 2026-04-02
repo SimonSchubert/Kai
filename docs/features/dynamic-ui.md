@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-01
+**Last verified:** 2026-04-02
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -12,14 +12,16 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 
 ### Component Types
 
-- **Layout**: column, row, card, spacer, divider
-- **Content**: text (with headline/title/body/caption styles), image
-- **Interactive**: button (filled variant only), text input, checkbox, select dropdown
+- **Layout**: column, row, card, box, spacer, divider
+- **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set), code (syntax-highlighted block)
+- **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group
+- **Feedback**: progress (determinate/indeterminate), alert (info/success/warning/error)
+- **Navigation**: tabs (tabbed content), accordion (collapsible sections), bottom bar (navigation bar)
 - **Data**: list, table
 
 ### Actions
 
-Buttons carry an action that fires on click:
+Buttons, chips, and bottom bar items carry an action that fires on click:
 
 - **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow
 - **toggle** — shows/hides a target element locally without AI roundtrip
@@ -41,16 +43,49 @@ Malformed JSON falls back to rendering as a code block. The parser sanitizes com
 
 The feature is controlled by the Dynamic UI toggle in Settings (General tab). When disabled, the system prompt omits kai-ui instructions so the AI stops generating them. Parsing and rendering remain active unconditionally.
 
+## Interactive UI Mode
+
+A dedicated full-screen mode where the AI produces complete screen layouts via kai-ui. The user navigates between screens by clicking buttons — no chat scrolling, no markdown visible.
+
+### Entering Interactive Mode
+
+Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI.
+
+### Screen Navigation
+
+Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.
+
+### Back Button
+
+The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. Going back past the first screen exits interactive mode.
+
+### Auto-Retry on Parse Failure
+
+If the AI responds without valid kai-ui blocks, the system automatically retries up to 2 times, sending the parse error details back to the AI so it can fix its JSON.
+
+### Conversation Persistence
+
+Interactive sessions are saved with type `interactive`. Loading an interactive conversation from history automatically re-enters interactive mode.
+
+### System Prompt
+
+In interactive mode, the system prompt instructs the AI to respond ONLY with a single kai-ui code fence — no markdown text outside the fence. The AI is told the user cannot see anything outside the rendered UI.
+
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model (all classes @Immutable) |
+| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 25 node types, all @Immutable |
 | `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
 | `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Detects and parses kai-ui fences into segments, sanitizes malformed JSON |
-| `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree |
-| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — renders mixed markdown + UI |
-| `composeApp/.../ui/chat/ChatActions.kt` | submitUiCallback action |
-| `composeApp/.../ui/chat/ChatViewModel.kt` | Formats callback data and routes to ask() |
+| `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
+| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — renders mixed markdown + UI in chat mode |
+| `composeApp/.../ui/chat/ChatScreen.kt` | Branches between chat mode and interactive mode |
+| `composeApp/.../ui/chat/composables/EmptyState.kt` | "Start Interactive UI" button |
+| `composeApp/.../ui/chat/ChatActions.kt` | submitUiCallback, enterInteractiveMode, exitInteractiveMode, goBackInteractiveMode |
+| `composeApp/.../ui/chat/ChatViewModel.kt` | Interactive mode lifecycle, auto-retry on parse failure |
+| `composeApp/.../ui/chat/ChatUiState.kt` | isInteractiveMode state flag |
+| `composeApp/.../data/DataRepository.kt` | popLastExchange, setInteractiveMode/isInteractiveModeActive |
+| `composeApp/.../data/RemoteDataRepository.kt` | Interactive mode system prompt, TYPE_INTERACTIVE conversation saving |
 | `composeApp/.../data/AppSettings.kt` | isDynamicUiEnabled / setDynamicUiEnabled |
-| `composeApp/.../data/RemoteDataRepository.kt` | Conditionally includes kai-ui instructions in system prompt |
+| `composeApp/.../data/Conversation.kt` | TYPE_INTERACTIVE conversation type constant |

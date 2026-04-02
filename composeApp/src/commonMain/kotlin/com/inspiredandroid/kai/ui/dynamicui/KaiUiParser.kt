@@ -63,12 +63,12 @@ object KaiUiParser {
                 }
 
                 '}' -> if (stack.isNotEmpty() && stack.last() == '{') {
-                    stack.removeLast()
+                    stack.removeAt(stack.lastIndex)
                     result.append(c)
                 }
 
                 ']' -> if (stack.isNotEmpty() && stack.last() == '[') {
-                    stack.removeLast()
+                    stack.removeAt(stack.lastIndex)
                     result.append(c)
                 }
 

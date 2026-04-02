@@ -13,6 +13,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val darkPurple = Color(0xFF6200EE)
 val lightPurple = Color(0xff8063C5)
+val gradientBrush = androidx.compose.ui.graphics.Brush.horizontalGradient(listOf(darkPurple, lightPurple))
+
+// Animated border gradient colors
+val gradientPurple = Color(0xFF9C27B0)
+val gradientViolet = Color(0xFF7C4DFF)
+val gradientMagenta = Color(0xFFE040FB)
 
 val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),

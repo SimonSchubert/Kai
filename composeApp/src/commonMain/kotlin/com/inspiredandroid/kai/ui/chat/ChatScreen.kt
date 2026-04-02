@@ -4,29 +4,47 @@
 
 package com.inspiredandroid.kai.ui.chat
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Snackbar
@@ -34,6 +52,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -50,6 +69,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -63,12 +83,16 @@ import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
+import com.inspiredandroid.kai.ui.chat.composables.ServiceSelector
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
+import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
@@ -77,6 +101,7 @@ import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -103,6 +128,312 @@ fun ChatScreenContent(
     textToSpeech: TextToSpeechInstance? = null,
     onNavigateToSettings: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
+) {
+    if (uiState.isInteractiveMode) {
+        InteractiveModeScreen(uiState = uiState)
+    } else {
+        ChatModeScreen(
+            uiState = uiState,
+            textToSpeech = textToSpeech,
+            onNavigateToSettings = onNavigateToSettings,
+            navigationTabBar = navigationTabBar,
+        )
+    }
+}
+
+// --- Interactive Mode ---
+
+@Composable
+private fun InteractiveModeScreen(uiState: ChatUiState) {
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Intercept system back to exit interactive mode instead of closing the app
+    com.inspiredandroid.kai.PlatformBackHandler(enabled = true) {
+        uiState.actions.exitInteractiveMode()
+    }
+
+    val hasAssistantResponse = remember(uiState.history) {
+        uiState.history.any { it.role == History.Role.ASSISTANT }
+    }
+    var inputExpanded by remember { mutableStateOf(true) }
+    LaunchedEffect(hasAssistantResponse) {
+        if (hasAssistantResponse) inputExpanded = false
+    }
+    val showFullInput = inputExpanded || !hasAssistantResponse
+
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .navigationBarsPadding()
+            .statusBarsPadding()
+            .imePadding(),
+    ) {
+        Column(Modifier.fillMaxSize()) {
+            // Top bar with back and close
+            InteractiveModeTopBar(
+                onBack = uiState.actions.goBackInteractiveMode,
+                onExit = uiState.actions.exitInteractiveMode,
+                isLoading = uiState.isLoading,
+                showBack = hasAssistantResponse,
+                showPulse = uiState.isLoading && hasAssistantResponse,
+            )
+
+            // Content area fills remaining space
+            if (!hasAssistantResponse && !uiState.isLoading) {
+                Column(
+                    modifier = Modifier.weight(1f).fillMaxWidth(),
+                    horizontalAlignment = CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Text(
+                        text = "What would you like to do?",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = "Describe your interactive experience",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                }
+            } else {
+                InteractiveModeContent(
+                    uiState = uiState,
+                    modifier = Modifier.weight(1f),
+                    bottomPadding = if (!showFullInput) 88.dp else 0.dp,
+                )
+            }
+
+            // Full QuestionInput stays in the column flow
+            if (showFullInput) {
+                QuestionInput(
+                    file = uiState.file,
+                    setFile = uiState.actions.setFile,
+                    ask = {
+                        inputExpanded = false
+                        uiState.actions.ask(it)
+                    },
+                    allowFileAttachment = uiState.allowFileAttachment,
+                    isLoading = uiState.isLoading,
+                    cancel = uiState.actions.cancel,
+                    availableServices = uiState.availableServices,
+                    onSelectService = uiState.actions.selectService,
+                )
+            }
+        }
+
+        // Collapsed pill floats over content at the bottom-end
+        if (!showFullInput) {
+            val gradientBrush = com.inspiredandroid.kai.ui.gradientBrush
+            Row(
+                modifier = Modifier
+                    .align(BottomCenter)
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                Row(
+                    modifier = Modifier
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(28.dp))
+                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp))
+                        .border(
+                            BorderStroke(2.dp, gradientBrush),
+                            RoundedCornerShape(28.dp),
+                        )
+                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                ) {
+                    if (uiState.isLoading) {
+                        Box(
+                            modifier = Modifier
+                                .padding(start = 6.dp)
+                                .size(42.dp)
+                                .clip(androidx.compose.foundation.shape.CircleShape)
+                                .background(
+                                    brush = gradientBrush,
+                                    shape = androidx.compose.foundation.shape.CircleShape,
+                                )
+                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                .clickable { uiState.actions.cancel() },
+                            contentAlignment = androidx.compose.ui.Alignment.Center,
+                        ) {
+                            Icon(
+                                painter = painterResource(Res.drawable.ic_stop),
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp),
+                                tint = androidx.compose.ui.graphics.Color.White,
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = { inputExpanded = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    if (uiState.availableServices.size > 1) {
+                        Box(Modifier.padding(end = 6.dp)) {
+                            ServiceSelector(
+                                services = uiState.availableServices,
+                                onSelectService = uiState.actions.selectService,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier.align(BottomCenter).padding(bottom = 80.dp),
+        ) { data ->
+            Snackbar(snackbarData = data)
+        }
+    }
+}
+
+@Composable
+private fun InteractiveModeTopBar(
+    onBack: () -> Unit,
+    onExit: () -> Unit,
+    isLoading: Boolean,
+    showBack: Boolean,
+    showPulse: Boolean,
+) {
+    val iconColor = MaterialTheme.colorScheme.onSurface
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+    ) {
+        if (showBack) {
+            IconButton(
+                onClick = onBack,
+                enabled = !isLoading,
+                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            ) {
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = iconColor,
+                )
+            }
+        } else {
+            // Placeholder to keep close button aligned right
+            Spacer(Modifier.size(48.dp))
+        }
+        Spacer(Modifier.weight(1f))
+        if (showPulse) {
+            WaitingResponseRow(
+                executingTools = remember { kotlinx.collections.immutable.persistentListOf() },
+            )
+        } else {
+            Text(
+                text = "Interactive UI",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        Spacer(Modifier.weight(1f))
+        IconButton(
+            onClick = onExit,
+            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        ) {
+            Icon(
+                Icons.Default.Close,
+                contentDescription = "Exit interactive mode",
+                tint = iconColor,
+            )
+        }
+    }
+}
+
+@Composable
+private fun InteractiveModeContent(
+    uiState: ChatUiState,
+    modifier: Modifier = Modifier,
+    bottomPadding: androidx.compose.ui.unit.Dp = 0.dp,
+) {
+    val lastAssistant = remember(uiState.history) {
+        uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
+    }
+
+    Box(modifier.fillMaxWidth()) {
+        if (uiState.isLoading && lastAssistant == null) {
+            // First load — show centered loading
+            Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                WaitingResponseRow(
+                    executingTools = remember { kotlinx.collections.immutable.persistentListOf() },
+                )
+            }
+        } else if (lastAssistant != null) {
+            val contentId = lastAssistant.id
+            AnimatedContent(
+                targetState = contentId,
+                transitionSpec = { fadeIn() togetherWith fadeOut() },
+                modifier = Modifier.fillMaxSize(),
+            ) { _ ->
+                val segments = remember(lastAssistant.content) { KaiUiParser.parse(lastAssistant.content) }
+                val uiSegments = segments.filterIsInstance<KaiUiParser.UiSegment>()
+
+                if (uiSegments.isNotEmpty()) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 8.dp + bottomPadding),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        for (segment in uiSegments) {
+                            KaiUiRenderer(
+                                node = segment.node,
+                                isInteractive = !uiState.isLoading,
+                                onCallback = { event, data ->
+                                    uiState.actions.submitUiCallback(event, data)
+                                },
+                                wrapInCard = false,
+                            )
+                        }
+                    }
+                } else {
+                    // AI responded but no valid kai-ui — show fallback
+                    Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                        Column(horizontalAlignment = CenterHorizontally) {
+                            Text(
+                                text = "UI parsing failed, trying again…",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        // Error state
+        uiState.error?.let { error ->
+            Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+                ErrorMessage(error = error, retry = uiState.actions.retry)
+            }
+        }
+    }
+}
+
+// --- Regular Chat Mode ---
+
+@Composable
+private fun ChatModeScreen(
+    uiState: ChatUiState,
+    textToSpeech: TextToSpeechInstance?,
+    onNavigateToSettings: () -> Unit,
+    navigationTabBar: (@Composable () -> Unit)?,
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -195,7 +526,11 @@ fun ChatScreenContent(
                         ),
                 ) {
                     if (uiState.history.isEmpty()) {
-                        EmptyState(Modifier.fillMaxWidth().weight(1f), uiState.showPrivacyInfo)
+                        EmptyState(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            isUsingSharedKey = uiState.showPrivacyInfo,
+                            onStartInteractiveMode = uiState.actions.enterInteractiveMode,
+                        )
                     } else {
                         val listState = rememberLazyListState()
                         val componentScope = rememberCoroutineScope()

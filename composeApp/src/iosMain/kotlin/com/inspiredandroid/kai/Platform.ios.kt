@@ -172,6 +172,11 @@ actual fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap? = try {
     null
 }
 
+@androidx.compose.runtime.Composable
+actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
+    // iOS swipe-back is handled by the navigation controller
+}
+
 actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
