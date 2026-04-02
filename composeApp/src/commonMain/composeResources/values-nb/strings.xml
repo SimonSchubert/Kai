@@ -139,7 +139,9 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf√
     <string name="settings_mcp_add_server">Legg til MCP-server</string>
     <string name="settings_mcp_server_name">Servernavn</string>
     <string name="settings_mcp_server_url">Server-URL</string>
-    <string name="settings_mcp_auth_header">Autorisasjonshode (valgfritt)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Legg til</string>
     <string name="settings_mcp_cancel">Avbryt</string>
     <string name="settings_mcp_remove">Fjern</string>

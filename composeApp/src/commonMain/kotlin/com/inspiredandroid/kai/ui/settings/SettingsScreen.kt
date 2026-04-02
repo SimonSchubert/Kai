@@ -83,6 +83,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -196,9 +197,11 @@ import kai.composeapp.generated.resources.settings_import_section_soul
 import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_add
+import kai.composeapp.generated.resources.settings_mcp_add_header
 import kai.composeapp.generated.resources.settings_mcp_add_server
-import kai.composeapp.generated.resources.settings_mcp_auth_header
 import kai.composeapp.generated.resources.settings_mcp_cancel
+import kai.composeapp.generated.resources.settings_mcp_header_key
+import kai.composeapp.generated.resources.settings_mcp_header_value
 import kai.composeapp.generated.resources.settings_mcp_no_tools
 import kai.composeapp.generated.resources.settings_mcp_popular_servers
 import kai.composeapp.generated.resources.settings_mcp_refresh
@@ -2372,6 +2375,8 @@ private fun McpServerCard(
     }
 }
 
+private data class HeaderEntry(val key: String = "Authorization", val value: String = "")
+
 @Composable
 private fun AddMcpServerDialog(
     onDismiss: () -> Unit,
@@ -2380,7 +2385,7 @@ private fun AddMcpServerDialog(
 ) {
     var name by remember { mutableStateOf("") }
     var url by remember { mutableStateOf("") }
-    var authHeader by remember { mutableStateOf("") }
+    val headers = remember { mutableStateListOf(HeaderEntry()) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -2415,14 +2420,49 @@ private fun AddMcpServerDialog(
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                 )
-                Spacer(Modifier.height(8.dp))
-                OutlinedTextField(
-                    value = authHeader,
-                    onValueChange = { authHeader = it },
-                    label = { Text(stringResource(Res.string.settings_mcp_auth_header)) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                Spacer(Modifier.height(12.dp))
+
+                headers.forEachIndexed { index, entry ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        OutlinedTextField(
+                            value = entry.key,
+                            onValueChange = { headers[index] = entry.copy(key = it) },
+                            label = { Text(stringResource(Res.string.settings_mcp_header_key)) },
+                            singleLine = true,
+                            modifier = Modifier.weight(0.4f),
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        OutlinedTextField(
+                            value = entry.value,
+                            onValueChange = { headers[index] = entry.copy(value = it) },
+                            label = { Text(stringResource(Res.string.settings_mcp_header_value)) },
+                            singleLine = true,
+                            modifier = Modifier.weight(0.6f),
+                        )
+                        IconButton(
+                            onClick = { headers.removeAt(index) },
+                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = stringResource(Res.string.settings_mcp_remove),
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(4.dp))
+                }
+
+                TextButton(
+                    onClick = { headers.add(HeaderEntry(key = "", value = "")) },
+                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(4.dp))
+                    Text(stringResource(Res.string.settings_mcp_add_header))
+                }
 
                 Spacer(Modifier.height(8.dp))
 
@@ -2432,12 +2472,10 @@ private fun AddMcpServerDialog(
                 ) {
                     TextButton(
                         onClick = {
-                            val headers = if (authHeader.isNotBlank()) {
-                                mapOf("Authorization" to authHeader)
-                            } else {
-                                emptyMap()
-                            }
-                            onAdd(name, url, headers)
+                            val headerMap = headers
+                                .filter { it.key.isNotBlank() && it.value.isNotBlank() }
+                                .associate { it.key.trim() to it.value.trim() }
+                            onAdd(name, url, headerMap)
                         },
                         enabled = name.isNotBlank() && url.isNotBlank(),
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),

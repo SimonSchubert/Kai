@@ -139,7 +139,9 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_mcp_add_server">Añadir servidor MCP</string>
     <string name="settings_mcp_server_name">Nombre del servidor</string>
     <string name="settings_mcp_server_url">URL del servidor</string>
-    <string name="settings_mcp_auth_header">Encabezado de autorización (opcional)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Añadir</string>
     <string name="settings_mcp_cancel">Cancelar</string>
     <string name="settings_mcp_remove">Eliminar</string>

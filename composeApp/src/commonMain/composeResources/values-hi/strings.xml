@@ -139,7 +139,9 @@
     <string name="settings_mcp_add_server">MCP सर्वर जोड़ें</string>
     <string name="settings_mcp_server_name">सर्वर का नाम</string>
     <string name="settings_mcp_server_url">सर्वर URL</string>
-    <string name="settings_mcp_auth_header">प्राधिकरण हेडर (वैकल्पिक)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">जोड़ें</string>
     <string name="settings_mcp_cancel">रद्द करें</string>
     <string name="settings_mcp_remove">हटाएं</string>

@@ -139,7 +139,9 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_mcp_add_server">Tilføj MCP-server</string>
     <string name="settings_mcp_server_name">Servernavn</string>
     <string name="settings_mcp_server_url">Server-URL</string>
-    <string name="settings_mcp_auth_header">Autorisationsheader (valgfrit)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Tilføj</string>
     <string name="settings_mcp_cancel">Annuller</string>
     <string name="settings_mcp_remove">Fjern</string>

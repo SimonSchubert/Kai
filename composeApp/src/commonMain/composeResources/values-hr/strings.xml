@@ -138,7 +138,9 @@
     <string name="settings_mcp_add_server">Dodaj MCP poslužitelj</string>
     <string name="settings_mcp_server_name">Naziv poslužitelja</string>
     <string name="settings_mcp_server_url">URL poslužitelja</string>
-    <string name="settings_mcp_auth_header">Zaglavlje autorizacije (neobavezno)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Dodaj</string>
     <string name="settings_mcp_cancel">Odustani</string>
     <string name="settings_mcp_remove">Ukloni</string>

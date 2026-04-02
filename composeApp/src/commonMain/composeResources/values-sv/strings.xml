@@ -139,7 +139,9 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_mcp_add_server">Lägg till MCP-server</string>
     <string name="settings_mcp_server_name">Servernamn</string>
     <string name="settings_mcp_server_url">Server-URL</string>
-    <string name="settings_mcp_auth_header">Auktoriseringsrubrik (valfritt)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Lägg till</string>
     <string name="settings_mcp_cancel">Avbryt</string>
     <string name="settings_mcp_remove">Ta bort</string>

@@ -138,7 +138,9 @@
     <string name="settings_mcp_add_server">Προσθήκη διακομιστή MCP</string>
     <string name="settings_mcp_server_name">Όνομα διακομιστή</string>
     <string name="settings_mcp_server_url">URL διακομιστή</string>
-    <string name="settings_mcp_auth_header">Κεφαλίδα εξουσιοδότησης (προαιρετικό)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Προσθήκη</string>
     <string name="settings_mcp_cancel">Ακύρωση</string>
     <string name="settings_mcp_remove">Αφαίρεση</string>

@@ -139,7 +139,9 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_mcp_add_server">MCP-server toevoegen</string>
     <string name="settings_mcp_server_name">Servernaam</string>
     <string name="settings_mcp_server_url">Server-URL</string>
-    <string name="settings_mcp_auth_header">Autorisatieheader (optioneel)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Toevoegen</string>
     <string name="settings_mcp_cancel">Annuleren</string>
     <string name="settings_mcp_remove">Verwijderen</string>

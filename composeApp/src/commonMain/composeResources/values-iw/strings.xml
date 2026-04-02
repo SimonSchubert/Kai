@@ -138,7 +138,9 @@
     <string name="settings_mcp_add_server">הוסף שרת MCP</string>
     <string name="settings_mcp_server_name">שם השרת</string>
     <string name="settings_mcp_server_url">URL של השרת</string>
-    <string name="settings_mcp_auth_header">כותרת הרשאה (אופציונלי)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">הוסף</string>
     <string name="settings_mcp_cancel">ביטול</string>
     <string name="settings_mcp_remove">הסר</string>

@@ -139,7 +139,9 @@
     <string name="settings_mcp_add_server">MCPサーバーを追加</string>
     <string name="settings_mcp_server_name">サーバー名</string>
     <string name="settings_mcp_server_url">サーバーURL</string>
-    <string name="settings_mcp_auth_header">認証ヘッダー（任意）</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">追加</string>
     <string name="settings_mcp_cancel">キャンセル</string>
     <string name="settings_mcp_remove">削除</string>

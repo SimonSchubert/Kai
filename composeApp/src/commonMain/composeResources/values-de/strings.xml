@@ -139,7 +139,9 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_mcp_add_server">MCP-Server hinzufügen</string>
     <string name="settings_mcp_server_name">Servername</string>
     <string name="settings_mcp_server_url">Server-URL</string>
-    <string name="settings_mcp_auth_header">Autorisierungs-Header (optional)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Hinzufügen</string>
     <string name="settings_mcp_cancel">Abbrechen</string>
     <string name="settings_mcp_remove">Entfernen</string>

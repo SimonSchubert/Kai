@@ -139,7 +139,9 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_mcp_add_server">Dodaj serwer MCP</string>
     <string name="settings_mcp_server_name">Nazwa serwera</string>
     <string name="settings_mcp_server_url">URL serwera</string>
-    <string name="settings_mcp_auth_header">Nagłówek autoryzacji (opcjonalny)</string>
+    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_value">Value</string>
+    <string name="settings_mcp_add_header">Add Header</string>
     <string name="settings_mcp_add">Dodaj</string>
     <string name="settings_mcp_cancel">Anuluj</string>
     <string name="settings_mcp_remove">Usuń</string>
