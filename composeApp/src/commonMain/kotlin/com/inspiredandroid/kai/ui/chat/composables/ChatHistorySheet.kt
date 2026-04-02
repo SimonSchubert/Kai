@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +33,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
@@ -91,7 +93,10 @@ internal fun ChatHistorySheet(
             } else {
                 val historyListState = rememberLazyListState()
                 Box {
-                    LazyColumn(state = historyListState) {
+                    LazyColumn(
+                        state = historyListState,
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
                         items(conversations, key = { it.id }) { conversation ->
                             val isActive = conversation.id == currentConversationId
                             val borderModifier = if (conversation.isInteractive) {
@@ -101,6 +106,12 @@ internal fun ChatHistorySheet(
                                 )
                             } else {
                                 Modifier
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .border(
+                                        1.dp,
+                                        MaterialTheme.colorScheme.primary,
+                                        RoundedCornerShape(12.dp),
+                                    )
                             }
                             Row(
                                 modifier = borderModifier
@@ -110,7 +121,7 @@ internal fun ChatHistorySheet(
                                         actions.loadConversation(conversation.id)
                                         onDismiss()
                                     }
-                                    .padding(vertical = 12.dp, horizontal = if (conversation.isInteractive) 8.dp else 0.dp),
+                                    .padding(vertical = 8.dp, horizontal = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {

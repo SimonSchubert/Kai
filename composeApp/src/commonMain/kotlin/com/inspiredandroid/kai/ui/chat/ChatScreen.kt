@@ -5,37 +5,45 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -58,6 +66,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -70,6 +79,7 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -96,7 +106,11 @@ import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
+import kai.composeapp.generated.resources.waiting_brewing
+import kai.composeapp.generated.resources.waiting_thinking
+import kai.composeapp.generated.resources.waiting_working
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -159,6 +173,10 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
     LaunchedEffect(hasAssistantResponse) {
         if (hasAssistantResponse) inputExpanded = false
     }
+    // Collapse input when a new response arrives
+    LaunchedEffect(uiState.history.size) {
+        if (hasAssistantResponse) inputExpanded = false
+    }
     val showFullInput = inputExpanded || !hasAssistantResponse
 
     Box(
@@ -199,11 +217,13 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                     )
                 }
             } else {
-                InteractiveModeContent(
-                    uiState = uiState,
-                    modifier = Modifier.weight(1f),
-                    bottomPadding = if (!showFullInput) 88.dp else 0.dp,
-                )
+                SelectionContainer(Modifier.weight(1f)) {
+                    InteractiveModeContent(
+                        uiState = uiState,
+                        modifier = Modifier.fillMaxSize(),
+                        bottomPadding = if (!showFullInput) 88.dp else 0.dp,
+                    )
+                }
             }
 
             // Full QuestionInput stays in the column flow
@@ -330,16 +350,19 @@ private fun InteractiveModeTopBar(
             Spacer(Modifier.size(48.dp))
         }
         Spacer(Modifier.weight(1f))
-        if (showPulse) {
-            WaitingResponseRow(
-                executingTools = remember { kotlinx.collections.immutable.persistentListOf() },
-            )
-        } else {
-            Text(
-                text = "Interactive UI",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+        Crossfade(
+            targetState = showPulse,
+            animationSpec = tween(durationMillis = 300),
+        ) { pulsing ->
+            if (pulsing) {
+                TopBarPulse()
+            } else {
+                Text(
+                    text = "Interactive UI",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
         Spacer(Modifier.weight(1f))
         IconButton(
@@ -350,6 +373,67 @@ private fun InteractiveModeTopBar(
                 Icons.Default.Close,
                 contentDescription = "Exit interactive mode",
                 tint = iconColor,
+            )
+        }
+    }
+}
+
+@Composable
+private fun TopBarPulse() {
+    val infiniteTransition = rememberInfiniteTransition()
+    val pulseScale by infiniteTransition.animateFloat(
+        initialValue = 0.6f,
+        targetValue = 1.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+    )
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.4f,
+        targetValue = 1.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+    )
+    val waitingTexts = remember {
+        listOf(
+            Res.string.waiting_thinking,
+            Res.string.waiting_working,
+            Res.string.waiting_brewing,
+        )
+    }
+    var index by remember { mutableIntStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(3000)
+            index = (index + 1) % waitingTexts.size
+        }
+    }
+    Row(
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(10.dp)
+                .graphicsLayer {
+                    scaleX = pulseScale
+                    scaleY = pulseScale
+                    alpha = pulseAlpha
+                }
+                .background(MaterialTheme.colorScheme.onSurface, CircleShape),
+        )
+        Spacer(Modifier.width(8.dp))
+        Crossfade(
+            targetState = index,
+            animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+        ) { targetIndex ->
+            Text(
+                text = stringResource(waitingTexts[targetIndex]),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }

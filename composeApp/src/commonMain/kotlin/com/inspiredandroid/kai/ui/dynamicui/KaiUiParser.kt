@@ -1,8 +1,12 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
 import com.inspiredandroid.kai.data.SharedJson
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 object KaiUiParser {
 
@@ -98,14 +102,38 @@ object KaiUiParser {
         return null
     }
 
+    /**
+     * Recursively fix objects that LLMs produce without a "type" field.
+     * e.g. {"content":"some text"} → {"type":"text","value":"some text"}
+     */
+    private fun fixMissingTypes(element: JsonElement): JsonElement = when (element) {
+        is JsonArray -> JsonArray(element.map { fixMissingTypes(it) })
+
+        is JsonObject -> {
+            val fixed = JsonObject(element.mapValues { fixMissingTypes(it.value) })
+            if ("type" !in fixed && "content" in fixed) {
+                JsonObject(
+                    mapOf(
+                        "type" to JsonPrimitive("text"),
+                        "value" to (fixed["content"]?.jsonPrimitive ?: JsonPrimitive("")),
+                    ),
+                )
+            } else {
+                fixed
+            }
+        }
+
+        else -> element
+    }
+
     private fun parseSingleNode(json: String): KaiUiNode {
-        val jsonElement = SharedJson.parseToJsonElement(json)
+        val jsonElement = fixMissingTypes(SharedJson.parseToJsonElement(json))
         val jsonObject = jsonElement.jsonObject
         return if ("type" in jsonObject) {
-            SharedJson.decodeFromString<KaiUiNode>(json)
+            SharedJson.decodeFromJsonElement(KaiUiNode.serializer(), jsonObject)
         } else {
             // Wrap bare object as a column if it has children but no type
-            val wrapped = JsonObject(jsonObject + ("type" to kotlinx.serialization.json.JsonPrimitive("column")))
+            val wrapped = JsonObject(jsonObject + ("type" to JsonPrimitive("column")))
             SharedJson.decodeFromJsonElement(KaiUiNode.serializer(), wrapped)
         }
     }

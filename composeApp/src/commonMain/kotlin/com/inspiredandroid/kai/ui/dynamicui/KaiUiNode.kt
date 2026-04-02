@@ -177,6 +177,16 @@ data class AlertNode(
     val severity: AlertSeverity? = null,
 ) : KaiUiNode
 
+@Immutable
+@Serializable
+@SerialName("countdown")
+data class CountdownNode(
+    override val id: String? = null,
+    val seconds: Int = 0,
+    val label: String? = null,
+    val action: UiAction? = null,
+) : KaiUiNode
+
 // --- Selection nodes ---
 
 @Immutable
@@ -275,6 +285,46 @@ data class AccordionNode(
     val title: String = "",
     val children: List<KaiUiNode> = emptyList(),
     val expanded: Boolean? = null,
+) : KaiUiNode
+
+// --- Display nodes ---
+
+@Immutable
+@Serializable
+@SerialName("quote")
+data class QuoteNode(
+    override val id: String? = null,
+    val text: String = "",
+    val source: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("badge")
+data class BadgeNode(
+    override val id: String? = null,
+    val value: String = "",
+    val color: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("stat")
+data class StatNode(
+    override val id: String? = null,
+    val value: String = "",
+    val label: String = "",
+    val description: String? = null,
+) : KaiUiNode
+
+@Immutable
+@Serializable
+@SerialName("avatar")
+data class AvatarNode(
+    override val id: String? = null,
+    val name: String? = null,
+    val imageUrl: String? = null,
+    val size: Int? = null,
 ) : KaiUiNode
 
 // --- Data display nodes ---

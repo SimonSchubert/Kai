@@ -4,6 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertIs
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class KaiUiParserTest {
@@ -494,5 +495,114 @@ class KaiUiParserTest {
         val node = (segments[0] as KaiUiParser.UiSegment).node
         assertIs<ButtonNode>(node)
         assertEquals(ButtonVariant.TONAL, node.variant)
+    }
+
+    @Test
+    fun `parses countdown node`() {
+        val json = """{"type":"countdown","seconds":300,"label":"Time left"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<CountdownNode>(node)
+        assertEquals(300, node.seconds)
+        assertEquals("Time left", node.label)
+        assertEquals(null, node.action)
+    }
+
+    @Test
+    fun `parses countdown node with action`() {
+        val json = """{"type":"countdown","seconds":60,"label":"Hurry!","action":{"type":"callback","event":"timer_done"}}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<CountdownNode>(node)
+        assertEquals(60, node.seconds)
+        assertIs<CallbackAction>(node.action)
+        assertEquals("timer_done", (node.action as CallbackAction).event)
+    }
+
+    @Test
+    fun `parses quote node`() {
+        val json = """{"type":"quote","text":"Be the change.","source":"Gandhi"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<QuoteNode>(node)
+        assertEquals("Be the change.", node.text)
+        assertEquals("Gandhi", node.source)
+    }
+
+    @Test
+    fun `parses quote node without source`() {
+        val json = """{"type":"quote","text":"Hello world"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<QuoteNode>(node)
+        assertEquals("Hello world", node.text)
+        assertNull(node.source)
+    }
+
+    @Test
+    fun `parses badge node`() {
+        val json = """{"type":"badge","value":"3","color":"error"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<BadgeNode>(node)
+        assertEquals("3", node.value)
+        assertEquals("error", node.color)
+    }
+
+    @Test
+    fun `parses stat node`() {
+        val json = """{"type":"stat","value":"$1,234","label":"Revenue","description":"12% increase"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<StatNode>(node)
+        assertEquals("$1,234", node.value)
+        assertEquals("Revenue", node.label)
+        assertEquals("12% increase", node.description)
+    }
+
+    @Test
+    fun `parses avatar node`() {
+        val json = """{"type":"avatar","name":"John Doe","size":48}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<AvatarNode>(node)
+        assertEquals("John Doe", node.name)
+        assertNull(node.imageUrl)
+        assertEquals(48, node.size)
+    }
+
+    @Test
+    fun `parses avatar node with image url`() {
+        val json = """{"type":"avatar","name":"Jane","imageUrl":"https://example.com/photo.jpg"}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<AvatarNode>(node)
+        assertEquals("Jane", node.name)
+        assertEquals("https://example.com/photo.jpg", node.imageUrl)
+    }
+
+    @Test
+    fun `parses list items with content field instead of type`() {
+        val json = """{"type":"list","items":[{"content":"First item"},{"content":"Second item"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ListNode>(node)
+        assertEquals(2, node.items.size)
+        val first = node.items[0]
+        assertIs<TextNode>(first)
+        assertEquals("First item", first.value)
+        val second = node.items[1]
+        assertIs<TextNode>(second)
+        assertEquals("Second item", second.value)
     }
 }

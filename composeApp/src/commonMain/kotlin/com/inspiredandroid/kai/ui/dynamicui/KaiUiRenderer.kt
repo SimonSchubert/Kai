@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -62,7 +64,6 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -75,6 +76,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
@@ -85,12 +87,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.key
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -103,6 +106,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
+import kotlin.time.Clock
 
 @Composable
 fun KaiUiRenderer(
@@ -205,6 +210,7 @@ private fun RenderNode(
         is SliderNode -> RenderSlider(node, isInteractive, formState)
         is RadioGroupNode -> RenderRadioGroup(node, isInteractive, formState)
         is ProgressNode -> RenderProgress(node)
+        is CountdownNode -> RenderCountdown(node, isInteractive, formState, toggleState, onCallback)
         is AlertNode -> RenderAlert(node)
         is ChipGroupNode -> RenderChipGroup(node, isInteractive, formState)
         is ChipNode -> RenderChip(node)
@@ -214,6 +220,10 @@ private fun RenderNode(
         is TabsNode -> RenderTabs(node, isInteractive, formState, toggleState, onCallback, depth)
         is BottomBarNode -> RenderBottomBar(node, isInteractive, formState, toggleState, onCallback)
         is AccordionNode -> RenderAccordion(node, isInteractive, formState, toggleState, onCallback, depth)
+        is QuoteNode -> RenderQuote(node)
+        is BadgeNode -> RenderBadge(node)
+        is StatNode -> RenderStat(node)
+        is AvatarNode -> RenderAvatar(node)
     }
 }
 
@@ -401,7 +411,7 @@ private fun RenderCheckbox(
             onCheckedChange = null,
             enabled = isInteractive,
         )
-        Text(node.label, style = MaterialTheme.typography.bodyLarge)
+        Text(node.label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 8.dp))
     }
 }
 
@@ -461,15 +471,15 @@ private fun RenderTable(node: TableNode) {
         node.headers.size,
         node.rows.maxOfOrNull { it.size } ?: 0,
     )
+    if (columnCount == 0) return
     Column(Modifier.fillMaxWidth().wrapContentHeight()) {
         if (node.headers.isNotEmpty()) {
             Row(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
-                for ((index, header) in node.headers.withIndex()) {
-                    val isLast = index == columnCount - 1
+                for (index in 0 until columnCount) {
                     Text(
-                        text = header,
+                        text = node.headers.getOrElse(index) { "" },
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = if (isLast) Modifier.weight(1f) else Modifier.padding(end = 8.dp),
+                        modifier = Modifier.weight(1f),
                     )
                 }
             }
@@ -480,14 +490,12 @@ private fun RenderTable(node: TableNode) {
                 Modifier.fillMaxWidth().padding(vertical = 4.dp),
                 verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
             ) {
-                for ((index, cell) in row.withIndex()) {
-                    val isLast = index == columnCount - 1
+                for (index in 0 until columnCount) {
                     Text(
-                        text = cell,
+                        text = row.getOrElse(index) { "" },
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = if (isLast) Modifier.weight(1f) else Modifier.padding(end = 8.dp),
+                        modifier = Modifier.weight(1f),
                     )
-                    if (index >= columnCount - 1) break
                 }
             }
         }
@@ -585,7 +593,33 @@ private fun RenderSlider(
             valueRange = min..max,
             steps = steps.coerceAtLeast(0),
             enabled = isInteractive,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            colors = SliderDefaults.colors(
+                thumbColor = MaterialTheme.colorScheme.primary,
+                activeTrackColor = MaterialTheme.colorScheme.primary,
+                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                activeTickColor = Color.Transparent,
+                inactiveTickColor = Color.Transparent,
+            ),
+            thumb = {
+                Box(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(50)),
+                )
+            },
+            track = { sliderState ->
+                SliderDefaults.Track(
+                    sliderState = sliderState,
+                    colors = SliderDefaults.colors(
+                        activeTrackColor = MaterialTheme.colorScheme.primary,
+                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    ),
+                    drawStopIndicator = null,
+                    drawTick = { _, _ -> },
+                )
+            },
         )
     }
 }
@@ -653,6 +687,77 @@ private fun RenderProgress(node: ProgressNode) {
                 gapSize = 0.dp,
             )
         }
+    }
+}
+
+@Composable
+private fun RenderCountdown(
+    node: CountdownNode,
+    isInteractive: Boolean,
+    formState: MutableMap<String, String>,
+    toggleState: MutableMap<String, Boolean>,
+    onCallback: (String, Map<String, String>) -> Unit,
+) {
+    val targetMs = remember { Clock.System.now().toEpochMilliseconds() + node.seconds.toLong() * 1000L }
+    var remainingSeconds by remember { mutableStateOf<Long>(node.seconds.toLong()) }
+    var expired by remember { mutableStateOf(false) }
+    val currentOnCallback by rememberUpdatedState(onCallback)
+
+    LaunchedEffect(targetMs) {
+        while (true) {
+            val diff = (targetMs - Clock.System.now().toEpochMilliseconds()) / 1000L
+            remainingSeconds = diff.coerceAtLeast(0L)
+            if (diff <= 0L) {
+                if (!expired) {
+                    expired = true
+                    node.id?.let { formState[it] = "0" }
+                    if (node.action != null) {
+                        try {
+                            when (val action = node.action) {
+                                is CallbackAction -> {
+                                    val data = collectFormData(action, formState)
+                                    currentOnCallback(action.event, data)
+                                }
+
+                                is ToggleAction -> {
+                                    toggleState[action.targetId] = !(toggleState[action.targetId] ?: true)
+                                }
+
+                                is OpenUrlAction -> {}
+
+                                null -> {}
+                            }
+                        } catch (_: Exception) {}
+                    }
+                }
+                break
+            }
+            node.id?.let { formState[it] = diff.toString() }
+            delay(1000L)
+        }
+    }
+
+    Column(Modifier.fillMaxWidth()) {
+        if (node.label != null) {
+            Text(
+                text = node.label,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 4.dp),
+            )
+        }
+        val h = remainingSeconds / 3600
+        val m = (remainingSeconds % 3600) / 60
+        val s = remainingSeconds % 60
+        val formatted = if (h > 0) {
+            "$h:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}"
+        } else {
+            "${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}"
+        }
+        Text(
+            text = formatted,
+            style = MaterialTheme.typography.headlineMedium,
+            color = if (expired) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+        )
     }
 }
 
@@ -808,6 +913,139 @@ private fun RenderCode(node: CodeNode) {
 }
 
 @Composable
+private fun RenderQuote(node: QuoteNode) {
+    Row(
+        modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+    ) {
+        Box(
+            modifier = Modifier
+                .width(3.dp)
+                .fillMaxHeight()
+                .background(MaterialTheme.colorScheme.primary, RoundedCornerShape(1.5.dp)),
+        )
+        Spacer(Modifier.width(12.dp))
+        Column {
+            Text(
+                text = node.text,
+                style = MaterialTheme.typography.bodyLarge,
+                fontStyle = FontStyle.Italic,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            if (node.source != null) {
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = "— ${node.source}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RenderBadge(node: BadgeNode) {
+    val backgroundColor = when (node.color) {
+        "primary" -> MaterialTheme.colorScheme.primary
+        "secondary" -> MaterialTheme.colorScheme.secondary
+        "error" -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.primary
+    }
+    val contentColor = when (node.color) {
+        "primary" -> MaterialTheme.colorScheme.onPrimary
+        "secondary" -> MaterialTheme.colorScheme.onSecondary
+        "error" -> MaterialTheme.colorScheme.onError
+        else -> MaterialTheme.colorScheme.onPrimary
+    }
+    Surface(
+        color = backgroundColor,
+        contentColor = contentColor,
+        shape = RoundedCornerShape(12.dp),
+    ) {
+        Text(
+            text = node.value,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+        )
+    }
+}
+
+@Composable
+private fun RenderStat(node: StatNode) {
+    Column {
+        Text(
+            text = node.value,
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
+        Text(
+            text = node.label,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        if (node.description != null) {
+            Text(
+                text = node.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun RenderAvatar(node: AvatarNode) {
+    val sizeDp = (node.size ?: 40).coerceIn(24, 80).dp
+    if (node.imageUrl != null) {
+        Surface(
+            shape = androidx.compose.foundation.shape.CircleShape,
+            modifier = Modifier.size(sizeDp),
+        ) {
+            coil3.compose.AsyncImage(
+                model = node.imageUrl,
+                contentDescription = node.name,
+                modifier = Modifier.size(sizeDp),
+            )
+        }
+    } else if (node.name != null) {
+        val initials = node.name.split(" ")
+            .filter { it.isNotEmpty() }
+            .take(2)
+            .joinToString("") { it.first().uppercase() }
+        Surface(
+            color = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            shape = androidx.compose.foundation.shape.CircleShape,
+            modifier = Modifier.size(sizeDp),
+        ) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.size(sizeDp)) {
+                Text(
+                    text = initials,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
+        }
+    } else {
+        Surface(
+            color = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            shape = androidx.compose.foundation.shape.CircleShape,
+            modifier = Modifier.size(sizeDp),
+        ) {
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.size(sizeDp)) {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = null,
+                    modifier = Modifier.size(sizeDp * 0.6f),
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun RenderBox(
     node: BoxNode,
     isInteractive: Boolean,
@@ -816,24 +1054,35 @@ private fun RenderBox(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
-    val alignment = when (node.contentAlignment) {
-        "center" -> Alignment.Center
-        "top_start" -> Alignment.TopStart
-        "top_center" -> Alignment.TopCenter
-        "top_end" -> Alignment.TopEnd
-        "center_start" -> Alignment.CenterStart
-        "center_end" -> Alignment.CenterEnd
-        "bottom_start" -> Alignment.BottomStart
-        "bottom_center" -> Alignment.BottomCenter
-        "bottom_end" -> Alignment.BottomEnd
-        else -> Alignment.TopStart
-    }
-    Box(
-        contentAlignment = alignment,
-        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
-    ) {
-        for (child in node.children) {
-            RenderNode(child, isInteractive, formState, toggleState, onCallback, depth + 1)
+    // LLMs frequently misuse box when they mean column, causing children to stack/overlap.
+    // Only use Box layout for single-child centering; fall back to Column for multiple children.
+    if (node.children.size <= 1 && node.contentAlignment != null) {
+        val alignment = when (node.contentAlignment) {
+            "center" -> Alignment.Center
+            "top_start" -> Alignment.TopStart
+            "top_center" -> Alignment.TopCenter
+            "top_end" -> Alignment.TopEnd
+            "center_start" -> Alignment.CenterStart
+            "center_end" -> Alignment.CenterEnd
+            "bottom_start" -> Alignment.BottomStart
+            "bottom_center" -> Alignment.BottomCenter
+            "bottom_end" -> Alignment.BottomEnd
+            else -> Alignment.TopStart
+        }
+        Box(
+            contentAlignment = alignment,
+            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+        ) {
+            for (child in node.children) {
+                RenderNode(child, isInteractive, formState, toggleState, onCallback, depth + 1)
+            }
+        }
+    } else {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+        ) {
+            RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
         }
     }
 }
@@ -935,11 +1184,13 @@ private fun RenderAccordion(
 ) {
     var expanded by remember { mutableStateOf(node.expanded ?: false) }
 
-    Column(Modifier.fillMaxWidth()) {
-        Surface(
-            onClick = { if (isInteractive) expanded = !expanded },
-            modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-        ) {
+    Surface(
+        onClick = { if (isInteractive) expanded = !expanded },
+        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        shape = RoundedCornerShape(6.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+    ) {
+        Column(Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -954,17 +1205,17 @@ private fun RenderAccordion(
                     contentDescription = null,
                 )
             }
-        }
-        AnimatedVisibility(
-            visible = expanded,
-            enter = expandVertically(),
-            exit = shrinkVertically(),
-        ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 12.dp),
+            AnimatedVisibility(
+                visible = expanded,
+                enter = expandVertically(),
+                exit = shrinkVertically(),
             ) {
-                RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 12.dp),
+                ) {
+                    RenderChildren(node.children, isInteractive, formState, toggleState, onCallback, depth)
+                }
             }
         }
     }
@@ -992,7 +1243,7 @@ private fun resolveIcon(name: String): ImageVector? = when (name) {
     "group" -> Icons.Default.Face
     "mail", "email" -> Icons.Default.Email
     "phone" -> Icons.Default.Call
-    "calendar" -> Icons.Default.DateRange
+    "calendar", "date_range", "schedule" -> Icons.Default.DateRange
     "clock" -> Icons.Default.Refresh
     "location" -> Icons.Default.LocationOn
     "photo" -> Icons.Default.Face

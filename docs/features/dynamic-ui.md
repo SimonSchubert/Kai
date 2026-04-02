@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-02
+**Last verified:** 2026-04-03
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -15,8 +15,9 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 - **Layout**: column, row, card, box, spacer, divider
 - **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set), code (syntax-highlighted block)
 - **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group
-- **Feedback**: progress (determinate/indeterminate), alert (info/success/warning/error)
+- **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)
 - **Navigation**: tabs (tabbed content), accordion (collapsible sections), bottom bar (navigation bar)
+- **Display**: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)
 - **Data**: list, table
 
 ### Actions
@@ -75,7 +76,7 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 
 | File | Purpose |
 |------|---------|
-| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 25 node types, all @Immutable |
+| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 29 node types, all @Immutable |
 | `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
 | `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Detects and parses kai-ui fences into segments, sanitizes malformed JSON |
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
