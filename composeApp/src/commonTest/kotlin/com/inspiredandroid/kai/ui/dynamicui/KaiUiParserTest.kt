@@ -650,6 +650,47 @@ class KaiUiParserTest {
         assertEquals("Click me", child.value)
     }
 
+    // --- Truncated JSON recovery tests ---
+
+    @Test
+    fun `recovers truncated JSON mid-value in nested object`() {
+        // Simulates LLM response cut off inside a deeply nested structure
+        val json = """{"type":"column","children":[{"type":"text","value":"Complete"},{"type":"text","value":"Trun"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        // At least the first complete child should be recovered
+        assertTrue(node.children.isNotEmpty())
+        assertIs<TextNode>(node.children[0])
+        assertEquals("Complete", (node.children[0] as TextNode).value)
+    }
+
+    @Test
+    fun `recovers truncated JSON after comma`() {
+        val json = """{"type":"column","children":[{"type":"text","value":"First"},"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        assertEquals(1, node.children.size)
+        assertIs<TextNode>(node.children[0])
+        assertEquals("First", (node.children[0] as TextNode).value)
+    }
+
+    @Test
+    fun `recovers truncated JSON mid-key`() {
+        val json = """{"type":"column","children":[{"type":"text","value":"OK"}],"spa"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        assertEquals(1, node.children.size)
+    }
+
     @Test
     fun `parses list items with content field instead of type`() {
         val json = """{"type":"list","items":[{"content":"First item"},{"content":"Second item"}]}"""

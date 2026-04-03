@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -357,10 +358,11 @@ private fun RenderRow(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
+    val spacingDp = (node.spacing ?: 8).dp
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(spacingDp),
+        verticalArrangement = Arrangement.spacedBy(spacingDp),
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
@@ -523,6 +525,7 @@ private fun RenderSelect(
             label = node.label?.let { { Text(it) } },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             enabled = isInteractive,
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         )
         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
@@ -1079,6 +1082,7 @@ private fun RenderBadge(node: BadgeNode) {
 private fun RenderStat(node: StatNode) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.widthIn(min = 72.dp),
     ) {
         Text(
             text = node.value,

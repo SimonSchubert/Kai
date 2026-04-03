@@ -81,7 +81,57 @@ object KaiUiParser {
             }
             if (stack.isEmpty()) return result.toString()
         }
-        return result.toString() // unclosed — return what we have
+        // Unclosed JSON — trim trailing incomplete content and close open structures
+        val trimmed = trimTrailingIncomplete(result.toString(), inString)
+        val sb = StringBuilder(trimmed)
+        for (i in stack.indices.reversed()) {
+            sb.append(if (stack[i] == '{') '}' else ']')
+        }
+        return sb.toString()
+    }
+
+    /**
+     * Trim trailing incomplete content from truncated JSON so that appending
+     * closing delimiters produces valid JSON.
+     *
+     * Handles: incomplete strings, trailing commas, trailing colons, and
+     * incomplete key-value pairs (e.g. `"key":` or `"key`).
+     */
+    private fun trimTrailingIncomplete(json: String, inString: Boolean): String {
+        var s = json
+        // If we were inside a string when input ended, backtrack to before that string opened.
+        // This removes the incomplete string and any preceding key/colon.
+        if (inString) {
+            val lastQuote = s.lastIndexOf('"')
+            if (lastQuote >= 0) {
+                s = s.substring(0, lastQuote)
+            }
+        }
+        // Strip trailing whitespace, commas, colons, and orphaned key strings
+        // (e.g. `, "key` left after removing an incomplete value)
+        s = s.trimEnd()
+        while (s.isNotEmpty()) {
+            val last = s.last()
+            if (last == ',' || last == ':') {
+                s = s.dropLast(1).trimEnd()
+            } else if (last == '"') {
+                // Possible orphaned key — find its opening quote
+                val openQuote = s.lastIndexOf('"', s.lastIndex - 1)
+                if (openQuote >= 0) {
+                    val before = s.substring(0, openQuote).trimEnd()
+                    if (before.isEmpty() || before.last() == ',' || before.last() == '{' || before.last() == '[') {
+                        s = before
+                    } else {
+                        break
+                    }
+                } else {
+                    break
+                }
+            } else {
+                break
+            }
+        }
+        return s
     }
 
     /**

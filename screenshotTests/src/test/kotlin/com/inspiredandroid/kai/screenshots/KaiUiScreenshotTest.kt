@@ -306,10 +306,6 @@ class KaiUiScreenshotTest {
         )
     }
 
-    // --- Navigation: Bottom Bar ---
-
-    @Test
-
     // --- Data: Table ---
 
     @Test
@@ -604,6 +600,174 @@ class KaiUiScreenshotTest {
                     {"type":"text","value":"2 hours ago","style":"caption","color":"secondary"}
                 ]},
                 {"type":"button","label":"Edit Profile","variant":"outlined","action":{"type":"callback","event":"edit_profile"}}
+            ]}""",
+        )
+    }
+
+    // --- Scenario: Survival game ---
+
+    @Test
+    fun scenario_survivalGame_dark() {
+        paparazzi.snapKaiUi(
+            """{"type":"column","spacing":8,"children":[
+                {"type":"text","value":"\u2694\ufe0f The Goblin Tunnels","style":"headline","bold":true},
+                {"type":"text","value":"Chapter 3 \u2022 Depth: Level 2","style":"caption","color":"secondary"},
+                {"type":"text","value":"You descend deeper into the darkness. The air grows thick with the smell of damp stone and something rotten. Your torchlight dances across crude carvings on the walls — warnings, perhaps, from those who came before. A low growl echoes from somewhere ahead.","style":"body"},
+                {"type":"text","value":"The tunnel forks. To the left, faint firelight flickers. To the right, silence — and a cold draft that makes your torch sputter.","style":"body"},
+                {"type":"divider"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"14/20","label":"HP"},
+                    {"type":"stat","value":"Lv 3","label":"Level"},
+                    {"type":"stat","value":"42g","label":"Gold"},
+                    {"type":"stat","value":"7","label":"DEF"}
+                ]},
+                {"type":"progress","value":0.7,"label":"14/20 HP"},
+                {"type":"divider"},
+                {"type":"text","value":"\ud83c\udf92 Inventory","style":"title"},
+                {"type":"row","spacing":8,"children":[
+                    {"type":"badge","value":"\ud83d\udde1\ufe0f Iron Sword","color":"secondary"},
+                    {"type":"badge","value":"\ud83d\udee1\ufe0f Shield","color":"secondary"},
+                    {"type":"badge","value":"\ud83e\udded Health Potion","color":"primary"},
+                    {"type":"badge","value":"\ud83d\udd25 Torch","color":"tertiary"}
+                ]},
+                {"type":"divider"},
+                {"type":"alert","severity":"warning","message":"\ud83d\udc7a Two orcs block the left passage! They sit around a small fire, gnawing on bones. They haven't noticed you yet."},
+                {"type":"spacer","height":4},
+                {"type":"button","label":"\u2694\ufe0f Attack with sword","variant":"filled","action":{"type":"callback","event":"attack"}},
+                {"type":"button","label":"\ud83e\udded Drink health potion first","variant":"outlined","action":{"type":"callback","event":"potion"}},
+                {"type":"button","label":"\ud83e\udd2b Sneak past in the shadows","variant":"outlined","action":{"type":"callback","event":"sneak"}},
+                {"type":"button","label":"\ud83d\udc68\u200d\ud83e\uddb2 Take the right tunnel","variant":"outlined","action":{"type":"callback","event":"right_tunnel"}}
+            ]}""",
+        )
+    }
+
+    // --- Scenario: Task management ---
+
+    @Test
+    fun scenario_taskManagement_light() {
+        paparazzi.snapKaiUi(
+            """{"type":"column","spacing":10,"children":[
+                {"type":"text","value":"Your Tasks","style":"headline","bold":true},
+                {"type":"text","value":"Here's what's on your plate today and coming up this week.","style":"body","color":"secondary"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"4","label":"Open"},
+                    {"type":"stat","value":"3","label":"Done"},
+                    {"type":"stat","value":"1","label":"Upcoming"}
+                ]},
+                {"type":"progress","value":0.43,"label":"43% complete"},
+                {"type":"divider"},
+                {"type":"text","value":"Today","style":"title","bold":true},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"checkbox","id":"t1","label":"Grocery run"},
+                            {"type":"spacer"},
+                            {"type":"badge","value":"Low","color":"secondary"}
+                        ]},
+                        {"type":"text","value":"Milk, eggs, bread, vegetables","style":"caption"}
+                    ]}
+                ]},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"checkbox","id":"t2","label":"Review PR #247"},
+                            {"type":"spacer"},
+                            {"type":"badge","value":"Med","color":"primary"}
+                        ]},
+                        {"type":"text","value":"Auth middleware refactor by @lisa","style":"caption"}
+                    ]}
+                ]},
+                {"type":"divider"},
+                {"type":"text","value":"This Week","style":"title","bold":true},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"checkbox","id":"t3","label":"Book Berlin flights"},
+                            {"type":"spacer"},
+                            {"type":"badge","value":"Med","color":"primary"}
+                        ]},
+                        {"type":"text","value":"Apr 5 \u2022 Check Lufthansa and EasyJet","style":"caption"}
+                    ]}
+                ]},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"checkbox","id":"t4","label":"Dentist appointment"},
+                            {"type":"spacer"},
+                            {"type":"badge","value":"High","color":"error"}
+                        ]},
+                        {"type":"text","value":"Apr 7 at 10:00 AM \u2022 Dr. Weber","style":"caption"}
+                    ]}
+                ]},
+                {"type":"divider"},
+                {"type":"button","label":"Add New Task","variant":"filled","action":{"type":"callback","event":"add_task"}}
+            ]}""",
+            colorScheme = LightColorScheme,
+        )
+    }
+
+    // --- Scenario: Memories ---
+
+    @Test
+    fun scenario_memories_dark() {
+        paparazzi.snapKaiUi(
+            """{"type":"column","spacing":10,"children":[
+                {"type":"text","value":"Your Memories","style":"headline","bold":true},
+                {"type":"text","value":"Kai remembers what matters to you. Frequently used memories get promoted into the system prompt.","style":"body","color":"secondary"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"12","label":"Total"},
+                    {"type":"stat","value":"3","label":"Promoted"},
+                    {"type":"stat","value":"87","label":"Recalled"}
+                ]},
+                {"type":"divider"},
+                {"type":"text","value":"Promoted","style":"title","bold":true,"color":"primary"},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"icon","name":"star","color":"primary"},
+                            {"type":"text","value":"Dark mode, concise answers","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 14 times \u2022 Promoted to system prompt","style":"caption","color":"primary"}
+                    ]}
+                ]},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"icon","name":"star","color":"primary"},
+                            {"type":"text","value":"Software engineer, mainly Kotlin","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 9 times \u2022 Promoted to system prompt","style":"caption","color":"primary"}
+                    ]}
+                ]},
+                {"type":"divider"},
+                {"type":"text","value":"Facts & Preferences","style":"title","bold":true},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"icon","name":"pets"},
+                            {"type":"text","value":"Cat named Pixel","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 4 times","style":"caption"}
+                    ]}
+                ]},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"icon","name":"restaurant"},
+                            {"type":"text","value":"Vegetarian, allergic to nuts","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 3 times","style":"caption"}
+                    ]}
+                ]},
+                {"type":"card","padding":12,"children":[
+                    {"type":"column","spacing":6,"children":[
+                        {"type":"row","spacing":8,"children":[
+                            {"type":"icon","name":"location_on"},
+                            {"type":"text","value":"Lives in Berlin, moved from Munich","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 2 times","style":"caption"}
+                    ]}
+                ]}
             ]}""",
         )
     }
