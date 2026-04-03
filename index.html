@@ -1,18 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kai</title>
-    <link type="text/css" rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" sizes="32x32">
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="apple-icon-180x180.png">
-    <script type="application/javascript" src="composeApp.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kai 9000 — Open-Source AI Assistant</title>
+  <meta name="description" content="An open-source AI powerhouse with persistent memory that runs locally on Android, iOS, Windows, Mac, Linux, and Web. Featuring Interactive UI where AI builds full screens, not just text.">
+  <meta property="og:title" content="Kai 9000 — Open-Source AI Assistant">
+  <meta property="og:description" content="An open-source AI powerhouse with persistent memory that runs locally in your pocket.">
+  <meta property="og:image" content="https://kai9000.com/img/og-preview.png">
+  <meta property="og:url" content="https://kai9000.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="img/favicon.ico" sizes="32x32">
+  <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@2/dist/lottie-player.js"></script>
 </head>
 <body>
-<div id="loader">
-    <div class="spinner"></div>
-</div>
+
+  <!-- Hero + Interactive UI Showcase -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <lottie-player src="img/lottie_loading.json" background="transparent" speed="0.6" class="hero-mascot" loop autoplay></lottie-player>
+        <h1>Kai 9000</h1>
+        <p class="tagline">AI That Builds Screens, Not Just Text</p>
+        <p class="sub">An open-source AI powerhouse that runs locally in your pocket. With persistent memory, a heartbeat, tool execution, and an interactive UI that generates full screens — not just chat bubbles.</p>
+        <div class="hero-badges">
+          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.png" alt="Download on the App Store"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.png" alt="Get it on Google Play"></a>
+        </div>
+        <div class="github-badge">
+          <a href="https://github.com/SimonSchubert/Kai"><img src="https://img.shields.io/github/stars/SimonSchubert/Kai?style=social" alt="GitHub stars"></a>
+        </div>
+      </div>
+      <div class="hero-phone">
+        <div class="phone-carousel">
+          <div class="phone-frame">
+            <div class="carousel-slides">
+              <img src="img/survival-dark.png" alt="Survival game with health stats, inventory, and choice buttons" class="carousel-slide active">
+              <img src="img/recipe-light.png" alt="Recipe card with ingredients and action buttons" class="carousel-slide">
+              <img src="img/tasks-light.png" alt="Task management with priorities and progress tracking" class="carousel-slide">
+              <img src="img/memories-dark.png" alt="Memory system showing facts Kai remembers" class="carousel-slide">
+            </div>
+          </div>
+          <div class="carousel-label" id="carousel-label">Survival Game</div>
+          <div class="carousel-dots" id="carousel-dots">
+            <button class="dot active" aria-label="Survival Game"></button>
+            <button class="dot" aria-label="Recipe Card"></button>
+            <button class="dot" aria-label="Task Manager"></button>
+            <button class="dot" aria-label="Memories"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title fade-in">What Makes Kai Different</h2>
+      <p class="section-desc fade-in">A personal AI assistant that remembers, acts, and adapts — across every platform.</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f9e0;</span>
+          <h3>Persistent Memory</h3>
+          <p>Kai remembers facts, preferences, and learnings across conversations. Frequently used memories get promoted into the system prompt automatically.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f49c;</span>
+          <h3>Customizable Soul</h3>
+          <p>Define Kai's personality with an editable system prompt. Choose from presets like Short &amp; Direct, Tutor, or Creative Writer — or write your own.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f493;</span>
+          <h3>Autonomous Heartbeat</h3>
+          <p>Kai runs periodic self-checks in the background — reviewing memories, pending tasks, and emails. If something needs attention, it notifies you.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f504;</span>
+          <h3>AI Providers</h3>
+          <p>OpenAI, Gemini, Anthropic, DeepSeek, Groq, Mistral, xAI, and more. Configure a fallback chain — Kai tries the next provider on failure.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f527;</span>
+          <h3>Tool Execution</h3>
+          <p>Web search, notifications, calendar events, shell commands, and alarms. Kai acts on your behalf, not just talks.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f50c;</span>
+          <h3>MCP Servers</h3>
+          <p>Connect to external tools via the Model Context Protocol. Fetch web content, query docs, check crypto prices, and more.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f427;</span>
+          <h3>Linux Sandbox</h3>
+          <p>On Android, Kai runs shell commands in a secure sandboxed Alpine Linux environment. Install packages, run Python, process data.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f512;</span>
+          <h3>Open Source &amp; Encrypted</h3>
+          <p>Everything runs on your device. Conversations are encrypted locally. No cloud accounts, no tracking, no data collection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="download" id="download">
+    <div class="container">
+      <h2 class="section-title fade-in">Available Everywhere</h2>
+      <p class="section-desc fade-in">Android, iOS, Windows, Mac, Linux, and Web. Pick your platform.</p>
+
+      <div class="desktop-preview fade-in">
+        <img src="img/desktop-1.png" alt="Kai desktop app" loading="lazy">
+      </div>
+
+      <div class="badge-row fade-in">
+        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.png" alt="Download on the App Store"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.png" alt="Get it on Google Play"></a>
+        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="img/fdroid_badge.png" alt="Get it on F-Droid"></a>
+        <a href="/app/"><img src="img/web_badge.png" alt="Use the Web App"></a>
+      </div>
+
+      <div class="cli-installs fade-in">
+        <div class="cli-card">
+          <div class="label">Homebrew (macOS)</div>
+          <code>brew install --cask simonschubert/tap/kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">Winget (Windows)</div>
+          <code>winget install SimonSchubert.Kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">AUR (Arch Linux)</div>
+          <code>yay -S kai-bin</code>
+        </div>
+      </div>
+
+      <div class="download-footer fade-in">
+        <a href="https://github.com/SimonSchubert/Kai/releases">All downloads on GitHub Releases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="/docs/">Documentation</a>
+      <a href="https://github.com/SimonSchubert/Kai">GitHub</a>
+      <a href="https://github.com/SimonSchubert/Kai/releases">Releases</a>
+    </div>
+    <p class="note">Kai is open-source software. Built with Kotlin Multiplatform &amp; Compose Multiplatform.</p>
+    <p class="impressum">Simon Schubert &middot; Parkstr. 43, 13585 Berlin &middot; simon@librem.one</p>
+  </footer>
+
+  <script>
+    const o = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => o.observe(el));
+
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    const label = document.getElementById('carousel-label');
+    const labels = ['Survival Game', 'Recipe Card', 'Task Manager', 'Memories'];
+    let current = 0;
+    let timer;
+
+    function goTo(i) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = i;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      label.textContent = labels[current];
+    }
+
+    function next() { goTo((current + 1) % slides.length); }
+
+    function startTimer() { timer = setInterval(next, 2000); }
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(i);
+      startTimer();
+    }));
+
+    startTimer();
+  </script>
 </body>
 </html>

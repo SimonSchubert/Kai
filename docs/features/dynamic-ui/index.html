@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://simonschubert.github.io/Kai/docs/features/dynamic-ui/">
+        <link rel="canonical" href="https://kai9000.com/docs/features/dynamic-ui/">
       
       
         <link rel="prev" href="../mcp/">
@@ -610,6 +610,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interactive-ui-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive UI Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive UI Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entering Interactive Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back Button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-retry-on-parse-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Retry on Parse Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversation-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conversation Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#key-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -953,6 +1036,89 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#interactive-ui-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive UI Mode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interactive UI Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entering-interactive-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entering Interactive Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screen Navigation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#back-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Back Button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#auto-retry-on-parse-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-Retry on Parse Failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversation-persistence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conversation Persistence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-prompt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Prompt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#key-files" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -981,20 +1147,23 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-01</p>
+<p><strong>Last verified:</strong> 2026-04-03</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
 <p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).</p>
 <h3 id="component-types">Component Types</h3>
 <ul>
-<li><strong>Layout</strong>: column, row, card, spacer, divider</li>
-<li><strong>Content</strong>: text (with headline/title/body/caption styles), image</li>
-<li><strong>Interactive</strong>: button (filled variant only), text input, checkbox, select dropdown</li>
+<li><strong>Layout</strong>: column, row, card, box, spacer, divider</li>
+<li><strong>Content</strong>: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)</li>
+<li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group</li>
+<li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)</li>
+<li><strong>Navigation</strong>: tabs (tabbed content), accordion (collapsible sections)</li>
+<li><strong>Display</strong>: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)</li>
 <li><strong>Data</strong>: list, table</li>
 </ul>
 <h3 id="actions">Actions</h3>
-<p>Buttons carry an action that fires on click:</p>
+<p>Buttons and chips carry an action that fires on click:</p>
 <ul>
 <li><strong>callback</strong> — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow</li>
 <li><strong>toggle</strong> — shows/hides a target element locally without AI roundtrip</li>
@@ -1008,6 +1177,20 @@
 <p>Malformed JSON falls back to rendering as a code block. The parser sanitizes common LLM mistakes like extra trailing braces/brackets using stack-based brace matching. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
 <h3 id="settings">Settings</h3>
 <p>The feature is controlled by the Dynamic UI toggle in Settings (General tab). When disabled, the system prompt omits kai-ui instructions so the AI stops generating them. Parsing and rendering remain active unconditionally.</p>
+<h2 id="interactive-ui-mode">Interactive UI Mode</h2>
+<p>A dedicated full-screen mode where the AI produces complete screen layouts via kai-ui. The user navigates between screens by clicking buttons — no chat scrolling, no markdown visible.</p>
+<h3 id="entering-interactive-mode">Entering Interactive Mode</h3>
+<p>Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI.</p>
+<h3 id="screen-navigation">Screen Navigation</h3>
+<p>Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.</p>
+<h3 id="back-button">Back Button</h3>
+<p>The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. Going back past the first screen exits interactive mode.</p>
+<h3 id="auto-retry-on-parse-failure">Auto-Retry on Parse Failure</h3>
+<p>If the AI responds without valid kai-ui blocks, the system automatically retries up to 2 times, sending the parse error details back to the AI so it can fix its JSON.</p>
+<h3 id="conversation-persistence">Conversation Persistence</h3>
+<p>Interactive sessions are saved with type <code>interactive</code>. Loading an interactive conversation from history automatically re-enters interactive mode.</p>
+<h3 id="system-prompt">System Prompt</h3>
+<p>In interactive mode, the system prompt instructs the AI to respond ONLY with a single kai-ui code fence — no markdown text outside the fence. The AI is told the user cannot see anything outside the rendered UI.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -1019,7 +1202,7 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiNode.kt</code></td>
-<td>Serializable component tree model (all classes @Immutable)</td>
+<td>Serializable component tree model — 29 node types, all @Immutable</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/UiAction.kt</code></td>
@@ -1031,27 +1214,47 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiRenderer.kt</code></td>
-<td>Recursive Compose renderer for the component tree</td>
+<td>Recursive Compose renderer for the component tree, wrapInCard option</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/composables/BotMessage.kt</code></td>
-<td>Integration point — renders mixed markdown + UI</td>
+<td>Integration point — renders mixed markdown + UI in chat mode</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/chat/ChatScreen.kt</code></td>
+<td>Branches between chat mode and interactive mode</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/chat/composables/EmptyState.kt</code></td>
+<td>"Start Interactive UI" button</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/ChatActions.kt</code></td>
-<td>submitUiCallback action</td>
+<td>submitUiCallback, enterInteractiveMode, exitInteractiveMode, goBackInteractiveMode</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/ChatViewModel.kt</code></td>
-<td>Formats callback data and routes to ask()</td>
+<td>Interactive mode lifecycle, auto-retry on parse failure</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/chat/ChatUiState.kt</code></td>
+<td>isInteractiveMode state flag</td>
+</tr>
+<tr>
+<td><code>composeApp/.../data/DataRepository.kt</code></td>
+<td>popLastExchange, setInteractiveMode/isInteractiveModeActive</td>
+</tr>
+<tr>
+<td><code>composeApp/.../data/RemoteDataRepository.kt</code></td>
+<td>Interactive mode system prompt, TYPE_INTERACTIVE conversation saving</td>
 </tr>
 <tr>
 <td><code>composeApp/.../data/AppSettings.kt</code></td>
 <td>isDynamicUiEnabled / setDynamicUiEnabled</td>
 </tr>
 <tr>
-<td><code>composeApp/.../data/RemoteDataRepository.kt</code></td>
-<td>Conditionally includes kai-ui instructions in system prompt</td>
+<td><code>composeApp/.../data/Conversation.kt</code></td>
+<td>TYPE_INTERACTIVE conversation type constant</td>
 </tr>
 </tbody>
 </table>
