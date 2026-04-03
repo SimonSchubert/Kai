@@ -181,10 +181,12 @@ object KaiUiParser {
                                     }
                                 },
                             )
+
                         // LLMs sometimes put arrays where a primitive is expected
                         // e.g. "value": ["line1", "line2"] → join as comma-separated string
                         key !in knownCompositeFields && processed is JsonArray ->
                             flattenToString(processed)
+
                         else -> processed
                     }
                 },
@@ -213,13 +215,18 @@ object KaiUiParser {
 
     /** Fields whose JSON values are expected to be arrays or objects (not primitives). */
     private val knownCompositeFields = nodeListFields + setOf(
-        "chips", "tabs", "options", "headers", "rows", "collectFrom",
-        "action", "data",
+        "chips",
+        "tabs",
+        "options",
+        "headers",
+        "rows",
+        "collectFrom",
+        "action",
+        "data",
     )
 
     /** Join array elements into a single comma-separated string primitive. */
-    private fun flattenToString(arr: JsonArray): JsonPrimitive =
-        JsonPrimitive(arr.joinToString(", ") { if (it is JsonPrimitive) it.content else it.toString() })
+    private fun flattenToString(arr: JsonArray): JsonPrimitive = JsonPrimitive(arr.joinToString(", ") { if (it is JsonPrimitive) it.content else it.toString() })
 
     /**
      * Recursively remove objects with unrecognized "type" values from node-list fields

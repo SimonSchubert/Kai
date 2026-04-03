@@ -1,10 +1,10 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -64,49 +64,49 @@ internal fun BotMessage(
         // Active UI: render interactive kai-ui blocks
         val segments = remember(message) { KaiUiParser.parse(message) }
         SelectionContainer {
-        androidx.compose.foundation.layout.Column(
-            Modifier.fillMaxWidth()
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-        ) {
-            for (segment in segments) {
-                when (segment) {
-                    is KaiUiParser.MarkdownSegment -> {
-                        val segmentState = rememberMarkdownState(segment.content, immediate = true)
-                        Markdown(
-                            segmentState,
-                            imageTransformer = Coil3ImageTransformerImpl,
-                            components = markdownComponents(
-                                codeBlock = highlightedCodeBlock,
-                                codeFence = highlightedCodeFence,
-                            ),
-                            typography = smallerMarkdownTypography(),
-                        )
-                    }
+            androidx.compose.foundation.layout.Column(
+                Modifier.fillMaxWidth()
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+            ) {
+                for (segment in segments) {
+                    when (segment) {
+                        is KaiUiParser.MarkdownSegment -> {
+                            val segmentState = rememberMarkdownState(segment.content, immediate = true)
+                            Markdown(
+                                segmentState,
+                                imageTransformer = Coil3ImageTransformerImpl,
+                                components = markdownComponents(
+                                    codeBlock = highlightedCodeBlock,
+                                    codeFence = highlightedCodeFence,
+                                ),
+                                typography = smallerMarkdownTypography(),
+                            )
+                        }
 
-                    is KaiUiParser.UiSegment -> {
-                        KaiUiRenderer(
-                            node = segment.node,
-                            isInteractive = true,
-                            onCallback = onUiCallback ?: { _, _ -> },
-                            modifier = Modifier.padding(vertical = 8.dp),
-                        )
-                    }
+                        is KaiUiParser.UiSegment -> {
+                            KaiUiRenderer(
+                                node = segment.node,
+                                isInteractive = true,
+                                onCallback = onUiCallback ?: { _, _ -> },
+                                modifier = Modifier.padding(vertical = 8.dp),
+                            )
+                        }
 
-                    is KaiUiParser.ErrorSegment -> {
-                        val errorState = rememberMarkdownState("```json\n${segment.rawJson}\n```", immediate = true)
-                        Markdown(
-                            errorState,
-                            imageTransformer = Coil3ImageTransformerImpl,
-                            components = markdownComponents(
-                                codeBlock = highlightedCodeBlock,
-                                codeFence = highlightedCodeFence,
-                            ),
-                            typography = smallerMarkdownTypography(),
-                        )
+                        is KaiUiParser.ErrorSegment -> {
+                            val errorState = rememberMarkdownState("```json\n${segment.rawJson}\n```", immediate = true)
+                            Markdown(
+                                errorState,
+                                imageTransformer = Coil3ImageTransformerImpl,
+                                components = markdownComponents(
+                                    codeBlock = highlightedCodeBlock,
+                                    codeFence = highlightedCodeFence,
+                                ),
+                                typography = smallerMarkdownTypography(),
+                            )
+                        }
                     }
                 }
             }
-        }
         }
     } else {
         // No UI blocks, or answered (non-interactive): render as plain markdown, stripping kai-ui fences
@@ -117,17 +117,17 @@ internal fun BotMessage(
         }
         val markdownState = rememberMarkdownState(displayMessage, immediate = true)
         SelectionContainer {
-        Markdown(
-            markdownState,
-            imageTransformer = Coil3ImageTransformerImpl,
-            components = markdownComponents(
-                codeBlock = highlightedCodeBlock,
-                codeFence = highlightedCodeFence,
-            ),
-            typography = smallerMarkdownTypography(),
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-        )
+            Markdown(
+                markdownState,
+                imageTransformer = Coil3ImageTransformerImpl,
+                components = markdownComponents(
+                    codeBlock = highlightedCodeBlock,
+                    codeFence = highlightedCodeFence,
+                ),
+                typography = smallerMarkdownTypography(),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+            )
         }
     }
     Row(Modifier.padding(horizontal = 8.dp)) {

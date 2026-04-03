@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
@@ -20,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.decodeToImageBitmap
 import kai.composeapp.generated.resources.Res
@@ -40,63 +40,63 @@ internal fun UserMessage(
     val isImage = mimeType == null || mimeType.startsWith("image/")
 
     SelectionContainer {
-    Row(Modifier.padding(16.dp)) {
-        Spacer(Modifier.weight(1f))
-        Column(
-            modifier = Modifier
-                .background(
-                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f),
-                    RoundedCornerShape(8.dp),
-                )
-                .padding(16.dp),
-            horizontalAlignment = Alignment.End,
-        ) {
-            if (imageData != null && isImage) {
-                val imageBitmap = remember(imageData) {
-                    try {
-                        val bytes = Base64.decode(imageData)
-                        decodeToImageBitmap(bytes)
-                    } catch (_: Exception) {
-                        null
+        Row(Modifier.padding(16.dp)) {
+            Spacer(Modifier.weight(1f))
+            Column(
+                modifier = Modifier
+                    .background(
+                        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f),
+                        RoundedCornerShape(8.dp),
+                    )
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.End,
+            ) {
+                if (imageData != null && isImage) {
+                    val imageBitmap = remember(imageData) {
+                        try {
+                            val bytes = Base64.decode(imageData)
+                            decodeToImageBitmap(bytes)
+                        } catch (_: Exception) {
+                            null
+                        }
                     }
-                }
-                if (imageBitmap != null) {
-                    Image(
-                        bitmap = imageBitmap,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .widthIn(max = 200.dp)
-                            .clip(RoundedCornerShape(8.dp)),
-                        contentScale = ContentScale.FillWidth,
+                    if (imageBitmap != null) {
+                        Image(
+                            bitmap = imageBitmap,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .widthIn(max = 200.dp)
+                                .clip(RoundedCornerShape(8.dp)),
+                            contentScale = ContentScale.FillWidth,
+                        )
+                        if (message.isNotEmpty()) {
+                            Spacer(Modifier.height(8.dp))
+                        }
+                    }
+                } else if (imageData != null && fileName != null) {
+                    SuggestionChip(
+                        onClick = {},
+                        icon = {
+                            Icon(
+                                modifier = Modifier.size(16.dp),
+                                painter = painterResource(Res.drawable.ic_file),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onBackground,
+                            )
+                        },
+                        label = { Text(fileName) },
                     )
                     if (message.isNotEmpty()) {
                         Spacer(Modifier.height(8.dp))
                     }
                 }
-            } else if (imageData != null && fileName != null) {
-                SuggestionChip(
-                    onClick = {},
-                    icon = {
-                        Icon(
-                            modifier = Modifier.size(16.dp),
-                            painter = painterResource(Res.drawable.ic_file),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onBackground,
-                        )
-                    },
-                    label = { Text(fileName) },
-                )
                 if (message.isNotEmpty()) {
-                    Spacer(Modifier.height(8.dp))
+                    Text(
+                        text = message,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
                 }
             }
-            if (message.isNotEmpty()) {
-                Text(
-                    text = message,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
         }
-    }
     }
 }
