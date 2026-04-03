@@ -652,6 +652,7 @@ private fun RenderSlider(
 ) {
     val min = node.min ?: 0f
     val max = node.max ?: 100f
+    val step = node.step
     val currentValue = formState[node.id]?.toFloatOrNull() ?: (node.value ?: min)
 
     Column(Modifier.fillMaxWidth()) {
@@ -662,24 +663,20 @@ private fun RenderSlider(
             ) {
                 Text(node.label, style = MaterialTheme.typography.bodyLarge)
                 Text(
-                    text = if (currentValue == currentValue.toLong().toFloat()) {
-                        currentValue.toLong().toString()
-                    } else {
-                        currentValue.toString()
-                    },
+                    text = formatSliderValue(currentValue, step),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary,
                 )
             }
         }
-        val steps = if (node.step != null && node.step > 0) {
-            ((max - min) / node.step).toInt() - 1
+        val steps = if (step != null && step > 0) {
+            ((max - min) / step).toInt() - 1
         } else {
             0
         }
         Slider(
             value = currentValue.coerceIn(min, max),
-            onValueChange = { formState[node.id] = it.toString() },
+            onValueChange = { formState[node.id] = formatSliderValue(it, step) },
             valueRange = min..max,
             steps = steps.coerceAtLeast(0),
             enabled = isInteractive,
@@ -711,6 +708,27 @@ private fun RenderSlider(
                 )
             },
         )
+    }
+}
+
+private fun formatSliderValue(value: Float, step: Float?): String {
+    if (step != null && step > 0) {
+        val rounded = kotlin.math.round(value / step) * step
+        if (rounded == rounded.toLong().toFloat()) {
+            return rounded.toLong().toString()
+        }
+        // Determine decimal places from step (e.g. step=0.1 → 1 decimal)
+        val stepStr = step.toString()
+        val decimals = stepStr.substringAfter('.', "").trimEnd('0').length.coerceIn(1, 6)
+        var factor = 1f
+        repeat(decimals) { factor *= 10f }
+        return (kotlin.math.round(rounded * factor) / factor).toString()
+    }
+    return if (value == value.toLong().toFloat()) {
+        value.toLong().toString()
+    } else {
+        val rounded = kotlin.math.round(value * 100.0f) / 100.0f
+        rounded.toString()
     }
 }
 
@@ -1470,7 +1488,7 @@ private fun initializeFormState(node: KaiUiNode, formState: MutableMap<String, S
 
         is SwitchNode -> if (node.id !in formState) formState[node.id] = (node.checked ?: false).toString()
 
-        is SliderNode -> if (node.id !in formState) formState[node.id] = (node.value ?: node.min ?: 0f).toString()
+        is SliderNode -> if (node.id !in formState) formState[node.id] = formatSliderValue(node.value ?: node.min ?: 0f, node.step)
 
         is RadioGroupNode -> node.selected?.let { if (node.id !in formState) formState[node.id] = it }
 
