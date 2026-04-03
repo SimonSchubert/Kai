@@ -20,5 +20,5 @@ captures
 /screenshotTests/src/test/snapshots/images/
 fastlane/play-store-key.json
 fastlane/report.xml
-fastlane/README.mdsite/
+fastlane/README.md
 .build-native/

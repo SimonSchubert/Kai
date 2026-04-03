@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI командаларды іске қосу үшін осы ортаны пайдаланады.\nСіз де төменде командаларды қолмен іске қоса аласыз.</string>
     <string name="terminal_input_placeholder">пәрмен енгізіңіз…</string>
     <string name="terminal_run_content_description">Орындау</string>
+    <string name="interactive_welcome_title">Мен толығымен жұмыс істеп тұрмын.</string>
+    <string name="interactive_welcome_subtitle">Не істегіңіз келетінін айтыңыз.</string>
+    <string name="interactive_back_content_description">Артқа</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Интерактивті режимнен шығу</string>
+    <string name="interactive_ui_parsing_failed">UI талдауы сәтсіз аяқталды, қайта әрекет жасалуда…</string>
 </resources>

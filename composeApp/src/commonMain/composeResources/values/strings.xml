@@ -189,6 +189,12 @@
     <string name="snackbar_mcp_server_removed">MCP server removed</string>
     <string name="snackbar_conversation_deleted">Conversation deleted</string>
     <string name="scroll_to_bottom_content_description">Scroll to bottom</string>
+    <string name="interactive_welcome_title">I\'m completely operational.</string>
+    <string name="interactive_welcome_subtitle">Tell me what you\'d like to do.</string>
+    <string name="interactive_back_content_description">Back</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Exit interactive mode</string>
+    <string name="interactive_ui_parsing_failed">UI parsing failed, trying again…</string>
     <string name="conversation_untitled">Untitled</string>
     <string name="error_unsupported_file_type">This file type is not supported. You can attach images, text files, and PDFs.</string>
     <string name="error_file_too_large">File is too large. Text files must be under 100 KB.</string>

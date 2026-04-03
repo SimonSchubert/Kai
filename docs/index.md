@@ -116,4 +116,4 @@ Plus a built-in **Free** tier that requires no API key.
 - [GitHub Repository](https://github.com/SimonSchubert/Kai)
 - [Issue Tracker](https://github.com/SimonSchubert/Kai/issues)
 - [Releases](https://github.com/SimonSchubert/Kai/releases)
-- [Web App](https://simonschubert.github.io/Kai)
+- [Web App](https://kai9000.com/app/)

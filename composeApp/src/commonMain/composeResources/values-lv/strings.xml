@@ -205,4 +205,10 @@
     <string name="terminal_help_text">MI izmanto šo vidi, lai palaistu komandas.\nZemāk varat arī palaist komandas manuāli.</string>
     <string name="terminal_input_placeholder">ievadiet komandu…</string>
     <string name="terminal_run_content_description">Palaist</string>
+    <string name="interactive_welcome_title">Esmu pilnībā darbspējīgs.</string>
+    <string name="interactive_welcome_subtitle">Pastāstiet man, ko vēlaties darīt.</string>
+    <string name="interactive_back_content_description">Atpakaļ</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Iziet no interaktīvā režīma</string>
+    <string name="interactive_ui_parsing_failed">UI analīze neizdevās, mēģinu vēlreiz…</string>
 </resources>

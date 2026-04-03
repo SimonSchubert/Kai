@@ -206,4 +206,10 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="terminal_help_text">La IA usa este entorno para ejecutar comandos.\nTambién puedes ejecutar comandos manualmente a continuación.</string>
     <string name="terminal_input_placeholder">introducir comando…</string>
     <string name="terminal_run_content_description">Ejecutar</string>
+    <string name="interactive_welcome_title">Estoy completamente operativo.</string>
+    <string name="interactive_welcome_subtitle">Dime qué te gustaría hacer.</string>
+    <string name="interactive_back_content_description">Atrás</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Salir del modo interactivo</string>
+    <string name="interactive_ui_parsing_failed">Error al analizar la UI, reintentando…</string>
 </resources>

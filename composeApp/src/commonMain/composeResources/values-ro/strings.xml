@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI-ul folosește acest mediu pentru a rula comenzi.\nPoți rula și comenzi manual mai jos.</string>
     <string name="terminal_input_placeholder">introduceți comanda…</string>
     <string name="terminal_run_content_description">Rulare</string>
+    <string name="interactive_welcome_title">Sunt complet operațional.</string>
+    <string name="interactive_welcome_subtitle">Spune-mi ce ai vrea să faci.</string>
+    <string name="interactive_back_content_description">Înapoi</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Ieșire din modul interactiv</string>
+    <string name="interactive_ui_parsing_failed">Analiza UI a eșuat, se încearcă din nou…</string>
 </resources>

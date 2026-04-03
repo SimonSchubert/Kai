@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI ใช้สภาพแวดล้อมนี้ในการเรียกใช้คำสั่ง\nคุณสามารถเรียกใช้คำสั่งด้วยตนเองได้ด้านล่าง</string>
     <string name="terminal_input_placeholder">ป้อนคำสั่ง…</string>
     <string name="terminal_run_content_description">เรียกใช้</string>
+    <string name="interactive_welcome_title">ฉันพร้อมทำงานอย่างเต็มที่</string>
+    <string name="interactive_welcome_subtitle">บอกฉันว่าคุณต้องการทำอะไร</string>
+    <string name="interactive_back_content_description">ย้อนกลับ</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">ออกจากโหมดอินเทอร์แอคทีฟ</string>
+    <string name="interactive_ui_parsing_failed">วิเคราะห์ UI ล้มเหลว กำลังลองใหม่…</string>
 </resources>

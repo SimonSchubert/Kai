@@ -206,4 +206,10 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="terminal_help_text">Tekoäly käyttää tätä ympäristöä komentojen suorittamiseen.\nVoit myös suorittaa komentoja manuaalisesti alla.</string>
     <string name="terminal_input_placeholder">syötä komento…</string>
     <string name="terminal_run_content_description">Suorita</string>
+    <string name="interactive_welcome_title">Olen täysin toimintakykyinen.</string>
+    <string name="interactive_welcome_subtitle">Kerro minulle, mitä haluaisit tehdä.</string>
+    <string name="interactive_back_content_description">Takaisin</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Poistu vuorovaikutustilasta</string>
+    <string name="interactive_ui_parsing_failed">Käyttöliittymän jäsennys epäonnistui, yritetään uudelleen…</string>
 </resources>

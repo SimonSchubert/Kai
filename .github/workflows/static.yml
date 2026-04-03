@@ -46,14 +46,30 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Assemble site
+        run: |
+          mkdir -p _site_build/app
+          cp -r site/* _site_build/
+          cp -r composeApp/build/dist/wasmJs/productionExecutable/* _site_build/app/
+
       - name: Build documentation
         run: |
           pip install mkdocs-material
-          mkdocs build -d composeApp/build/dist/wasmJs/productionExecutable/docs
+          mkdocs build -d _site_build/docs
+
+      - name: Validate site before deploy
+        run: |
+          echo "Checking critical files..."
+          test -f _site_build/index.html || { echo "FATAL: Landing page missing"; exit 1; }
+          test -f _site_build/CNAME || { echo "FATAL: CNAME missing"; exit 1; }
+          test -f _site_build/app/index.html || { echo "FATAL: Web app missing"; exit 1; }
+          test -f _site_build/app/composeApp.js || { echo "FATAL: WASM bundle missing"; exit 1; }
+          test -d _site_build/docs || { echo "FATAL: Docs directory missing"; exit 1; }
+          echo "All checks passed"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: composeApp/build/dist/wasmJs/productionExecutable
+          publish_dir: _site_build
           enable_jekyll: false

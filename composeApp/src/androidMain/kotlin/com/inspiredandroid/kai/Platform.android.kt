@@ -9,6 +9,7 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.core.graphics.scale
 import androidx.core.net.toUri
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
@@ -55,7 +56,6 @@ import kai.composeapp.generated.resources.tool_set_alarm_name
 import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.coroutines.CoroutineContext
-import androidx.core.graphics.scale
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Android) {
     config(this)
@@ -429,7 +429,7 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
 }
 
 actual fun appendParseErrorLog(entry: String) {
-    if (!BuildConfig.DEBUG) return
+    // if (!BuildConfig.DEBUG) return
     try {
         java.io.File(getAppFilesDirectory(), "parse_errors.log").appendText("$entry\n")
     } catch (_: Exception) {

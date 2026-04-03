@@ -205,4 +205,10 @@
     <string name="terminal_help_text">ИИ използва тази среда за изпълнение на команди.\nМожете също да изпълнявате команди ръчно по-долу.</string>
     <string name="terminal_input_placeholder">въведете команда…</string>
     <string name="terminal_run_content_description">Изпълни</string>
+    <string name="interactive_welcome_title">Напълно работоспособен съм.</string>
+    <string name="interactive_welcome_subtitle">Кажете ми какво искате да направите.</string>
+    <string name="interactive_back_content_description">Назад</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Изход от интерактивен режим</string>
+    <string name="interactive_ui_parsing_failed">Анализът на UI се провали, нов опит…</string>
 </resources>

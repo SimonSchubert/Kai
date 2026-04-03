@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI sử dụng môi trường này để chạy các lệnh.\nBạn cũng có thể chạy lệnh thủ công bên dưới.</string>
     <string name="terminal_input_placeholder">nhập lệnh…</string>
     <string name="terminal_run_content_description">Chạy</string>
+    <string name="interactive_welcome_title">Tôi hoàn toàn sẵn sàng hoạt động.</string>
+    <string name="interactive_welcome_subtitle">Hãy cho tôi biết bạn muốn làm gì.</string>
+    <string name="interactive_back_content_description">Quay lại</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Thoát chế độ tương tác</string>
+    <string name="interactive_ui_parsing_failed">Phân tích UI thất bại, đang thử lại…</string>
 </resources>

@@ -205,4 +205,10 @@
     <string name="terminal_help_text">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo.\nUngasebenzisa nemiyalo mathupha ngezansi.</string>
     <string name="terminal_input_placeholder">faka umyalo…</string>
     <string name="terminal_run_content_description">Sebenzisa</string>
+    <string name="interactive_welcome_title">Ngisebenza ngokuphelele.</string>
+    <string name="interactive_welcome_subtitle">Ngitshele ukuthi ufuna ukwenzani.</string>
+    <string name="interactive_back_content_description">Emuva</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Phuma kumodi yokuxhumana</string>
+    <string name="interactive_ui_parsing_failed">Ukuhlaziya kwe-UI kuhlulekile, kuzanywa futhi…</string>
 </resources>

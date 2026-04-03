@@ -206,4 +206,10 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="terminal_help_text">L'IA utilizza questo ambiente per eseguire comandi.\nPuoi anche eseguire comandi manualmente qui sotto.</string>
     <string name="terminal_input_placeholder">inserisci comando…</string>
     <string name="terminal_run_content_description">Esegui</string>
+    <string name="interactive_welcome_title">Sono completamente operativo.</string>
+    <string name="interactive_welcome_subtitle">Dimmi cosa vorresti fare.</string>
+    <string name="interactive_back_content_description">Indietro</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Esci dalla modalità interattiva</string>
+    <string name="interactive_ui_parsing_failed">Analisi dell\'interfaccia non riuscita, nuovo tentativo…</string>
 </resources>

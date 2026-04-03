@@ -205,4 +205,10 @@
     <string name="terminal_help_text">АИ користи ово окружење за покретање команди.\nТакође можете ручно покретати команде испод.</string>
     <string name="terminal_input_placeholder">унесите команду…</string>
     <string name="terminal_run_content_description">Покрени</string>
+    <string name="interactive_welcome_title">Потпуно сам оперативан.</string>
+    <string name="interactive_welcome_subtitle">Реците ми шта желите да урадите.</string>
+    <string name="interactive_back_content_description">Назад</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Изађи из интерактивног режима</string>
+    <string name="interactive_ui_parsing_failed">Рашчлањивање корисничког интерфејса није успело, покушавам поново…</string>
 </resources>

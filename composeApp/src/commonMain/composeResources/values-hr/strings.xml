@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI koristi ovo okruženje za pokretanje naredbi.\nTakođer možete ručno pokretati naredbe u nastavku.</string>
     <string name="terminal_input_placeholder">unesite naredbu…</string>
     <string name="terminal_run_content_description">Pokreni</string>
+    <string name="interactive_welcome_title">Potpuno sam operativan.</string>
+    <string name="interactive_welcome_subtitle">Recite mi što želite učiniti.</string>
+    <string name="interactive_back_content_description">Natrag</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Izađi iz interaktivnog načina</string>
+    <string name="interactive_ui_parsing_failed">Raščlamba korisničkog sučelja nije uspjela, pokušavam ponovo…</string>
 </resources>

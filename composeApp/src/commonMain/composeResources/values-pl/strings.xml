@@ -206,4 +206,10 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="terminal_help_text">AI używa tego środowiska do uruchamiania poleceń.\nMożesz również uruchamiać polecenia ręcznie poniżej.</string>
     <string name="terminal_input_placeholder">wpisz polecenie…</string>
     <string name="terminal_run_content_description">Uruchom</string>
+    <string name="interactive_welcome_title">Jestem w pełni sprawny.</string>
+    <string name="interactive_welcome_subtitle">Powiedz mi, co chcesz zrobić.</string>
+    <string name="interactive_back_content_description">Wstecz</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Wyjdź z trybu interaktywnego</string>
+    <string name="interactive_ui_parsing_failed">Analiza UI nie powiodła się, ponawiam próbę…</string>
 </resources>

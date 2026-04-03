@@ -105,6 +105,12 @@ import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
 import kai.composeapp.generated.resources.ic_stop
+import kai.composeapp.generated.resources.interactive_back_content_description
+import kai.composeapp.generated.resources.interactive_exit_content_description
+import kai.composeapp.generated.resources.interactive_title
+import kai.composeapp.generated.resources.interactive_ui_parsing_failed
+import kai.composeapp.generated.resources.interactive_welcome_subtitle
+import kai.composeapp.generated.resources.interactive_welcome_title
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
@@ -210,12 +216,12 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            text = "What would you like to do?",
+                            text = stringResource(Res.string.interactive_welcome_title),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
                         Text(
-                            text = "Describe your interactive experience",
+                            text = stringResource(Res.string.interactive_welcome_subtitle),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = 4.dp),
@@ -348,7 +354,7 @@ private fun InteractiveModeTopBar(
             ) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(Res.string.interactive_back_content_description),
                     tint = iconColor,
                 )
             }
@@ -365,7 +371,7 @@ private fun InteractiveModeTopBar(
                 TopBarPulse()
             } else {
                 Text(
-                    text = "Kai 9000",
+                    text = stringResource(Res.string.interactive_title),
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -378,7 +384,7 @@ private fun InteractiveModeTopBar(
         ) {
             Icon(
                 Icons.Default.Close,
-                contentDescription = "Exit interactive mode",
+                contentDescription = stringResource(Res.string.interactive_exit_content_description),
                 tint = iconColor,
             )
         }
@@ -501,7 +507,7 @@ private fun InteractiveModeContent(
                     Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
                         Column(horizontalAlignment = CenterHorizontally) {
                             Text(
-                                text = "UI parsing failed, trying again…",
+                                text = stringResource(Res.string.interactive_ui_parsing_failed),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )

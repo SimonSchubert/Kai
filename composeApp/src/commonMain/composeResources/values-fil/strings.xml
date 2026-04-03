@@ -205,4 +205,10 @@
     <string name="terminal_help_text">Ginagamit ng AI ang environment na ito para mag-run ng mga command.\nMaaari ka ring mag-run ng mga command nang manu-mano sa ibaba.</string>
     <string name="terminal_input_placeholder">ilagay ang utos…</string>
     <string name="terminal_run_content_description">Patakbuhin</string>
+    <string name="interactive_welcome_title">Ganap akong gumagana.</string>
+    <string name="interactive_welcome_subtitle">Sabihin mo sa akin kung ano ang gusto mong gawin.</string>
+    <string name="interactive_back_content_description">Bumalik</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Lumabas sa interactive mode</string>
+    <string name="interactive_ui_parsing_failed">Nabigo ang pag-parse ng UI, sinusubukan muli…</string>
 </resources>

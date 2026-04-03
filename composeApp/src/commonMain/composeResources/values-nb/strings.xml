@@ -206,4 +206,10 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="terminal_help_text">AI-en bruker dette miljøet til å kjøre kommandoer.\nDu kan også kjøre kommandoer manuelt nedenfor.</string>
     <string name="terminal_input_placeholder">skriv inn kommando…</string>
     <string name="terminal_run_content_description">Kjør</string>
+    <string name="interactive_welcome_title">Jeg er fullt operativ.</string>
+    <string name="interactive_welcome_subtitle">Fortell meg hva du ønsker å gjøre.</string>
+    <string name="interactive_back_content_description">Tilbake</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Avslutt interaktiv modus</string>
+    <string name="interactive_ui_parsing_failed">UI-analyse mislyktes, prøver igjen…</string>
 </resources>

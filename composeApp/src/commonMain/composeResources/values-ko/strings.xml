@@ -206,4 +206,10 @@
     <string name="terminal_help_text">AI는 이 환경을 사용하여 명령을 실행합니다.\n아래에서 수동으로 명령을 실행할 수도 있습니다.</string>
     <string name="terminal_input_placeholder">명령어 입력…</string>
     <string name="terminal_run_content_description">실행</string>
+    <string name="interactive_welcome_title">완전히 작동 중입니다.</string>
+    <string name="interactive_welcome_subtitle">무엇을 하고 싶은지 알려주세요.</string>
+    <string name="interactive_back_content_description">뒤로</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">인터랙티브 모드 종료</string>
+    <string name="interactive_ui_parsing_failed">UI 파싱 실패, 다시 시도 중…</string>
 </resources>

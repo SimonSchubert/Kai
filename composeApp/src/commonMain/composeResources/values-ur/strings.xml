@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI کمانڈز چلانے کے لیے اس ماحول کا استعمال کرتا ہے۔\nآپ نیچے دستی طور پر بھی کمانڈز چلا سکتے ہیں۔</string>
     <string name="terminal_input_placeholder">کمانڈ درج کریں…</string>
     <string name="terminal_run_content_description">چلائیں</string>
+    <string name="interactive_welcome_title">میں مکمل طور پر فعال ہوں۔</string>
+    <string name="interactive_welcome_subtitle">مجھے بتائیں آپ کیا کرنا چاہتے ہیں۔</string>
+    <string name="interactive_back_content_description">واپس</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">انٹرایکٹو موڈ سے باہر نکلیں</string>
+    <string name="interactive_ui_parsing_failed">UI تجزیہ ناکام، دوبارہ کوشش ہو رہی ہے…</string>
 </resources>

@@ -206,4 +206,10 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="terminal_help_text">De AI gebruikt deze omgeving om opdrachten uit te voeren.\nJe kunt hieronder ook handmatig opdrachten uitvoeren.</string>
     <string name="terminal_input_placeholder">opdracht invoeren…</string>
     <string name="terminal_run_content_description">Uitvoeren</string>
+    <string name="interactive_welcome_title">Ik ben volledig operationeel.</string>
+    <string name="interactive_welcome_subtitle">Vertel me wat je wilt doen.</string>
+    <string name="interactive_back_content_description">Terug</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Interactieve modus verlaten</string>
+    <string name="interactive_ui_parsing_failed">UI-analyse mislukt, opnieuw proberen…</string>
 </resources>

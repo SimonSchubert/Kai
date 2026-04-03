@@ -205,4 +205,10 @@
     <string name="terminal_help_text">ШІ выкарыстоўвае гэтае асяроддзе для выканання каманд.\nВы таксама можаце выконваць каманды ўручную ніжэй.</string>
     <string name="terminal_input_placeholder">увядзіце каманду…</string>
     <string name="terminal_run_content_description">Выканаць</string>
+    <string name="interactive_welcome_title">Я цалкам працаздольны.</string>
+    <string name="interactive_welcome_subtitle">Скажыце, што вы хочаце зрабіць.</string>
+    <string name="interactive_back_content_description">Назад</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Выйсці з інтэрактыўнага рэжыму</string>
+    <string name="interactive_ui_parsing_failed">Не ўдалося разабраць UI, паўторная спроба…</string>
 </resources>

@@ -205,4 +205,10 @@
     <string name="terminal_help_text">IA përdor këtë mjedis për të ekzekutuar komanda.\nMund të ekzekutoni komanda edhe manualisht më poshtë.</string>
     <string name="terminal_input_placeholder">fut komandën…</string>
     <string name="terminal_run_content_description">Ekzekuto</string>
+    <string name="interactive_welcome_title">Jam plotësisht operacional.</string>
+    <string name="interactive_welcome_subtitle">Më tregoni çfarë dëshironi të bëni.</string>
+    <string name="interactive_back_content_description">Prapa</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Dil nga mënyra ndërvepruese</string>
+    <string name="interactive_ui_parsing_failed">Analizimi i UI dështoi, po provohet përsëri…</string>
 </resources>

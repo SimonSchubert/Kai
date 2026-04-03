@@ -31,7 +31,10 @@ val appModule = module {
         AppSettings(createSecureSettings()).also {
             it.runMigrations(createLegacySettings())
             com.inspiredandroid.kai.ui.dynamicui.ParseErrorCollector.init(
-                onLog = { entry -> appendParseErrorLog(entry) },
+                onLog = { entry ->
+                    appendParseErrorLog(entry)
+                    println(entry)
+                },
             )
         }
     }

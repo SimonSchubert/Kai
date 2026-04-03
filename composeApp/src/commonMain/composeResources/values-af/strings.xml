@@ -206,4 +206,10 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="terminal_help_text">Die KI gebruik hierdie omgewing om opdragte uit te voer.\nJy kan ook opdragte handmatig hieronder uitvoer.</string>
     <string name="terminal_input_placeholder">voer opdrag in…</string>
     <string name="terminal_run_content_description">Voer uit</string>
+    <string name="interactive_welcome_title">Ek is volledig operasioneel.</string>
+    <string name="interactive_welcome_subtitle">Vertel my wat jy wil doen.</string>
+    <string name="interactive_back_content_description">Terug</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Verlaat interaktiewe modus</string>
+    <string name="interactive_ui_parsing_failed">UI-ontleding het misluk, probeer weer…</string>
 </resources>

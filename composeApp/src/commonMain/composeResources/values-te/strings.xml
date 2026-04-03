@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI కమాండ్‌లను అమలు చేయడానికి ఈ వాతావరణాన్ని ఉపయోగిస్తుంది.\nమీరు కింద మాన్యువల్‌గా కూడా కమాండ్‌లను అమలు చేయవచ్చు.</string>
     <string name="terminal_input_placeholder">ఆదేశాన్ని నమోదు చేయండి…</string>
     <string name="terminal_run_content_description">అమలు చేయండి</string>
+    <string name="interactive_welcome_title">నేను పూర్తిగా పనిచేస్తున్నాను.</string>
+    <string name="interactive_welcome_subtitle">మీరు ఏమి చేయాలనుకుంటున్నారో చెప్పండి.</string>
+    <string name="interactive_back_content_description">వెనుకకు</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">ఇంటరాక్టివ్ మోడ్ నుండి నిష్క్రమించు</string>
+    <string name="interactive_ui_parsing_failed">UI పార్సింగ్ విఫలమైంది, మళ్ళీ ప్రయత్నిస్తోంది…</string>
 </resources>

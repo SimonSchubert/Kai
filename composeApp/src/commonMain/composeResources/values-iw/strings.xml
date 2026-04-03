@@ -205,4 +205,10 @@
     <string name="terminal_help_text">ה-AI משתמש בסביבה זו כדי להריץ פקודות.\nאתה יכול גם להריץ פקודות ידנית למטה.</string>
     <string name="terminal_input_placeholder">הזינו פקודה…</string>
     <string name="terminal_run_content_description">הפעלה</string>
+    <string name="interactive_welcome_title">אני פעיל לחלוטין.</string>
+    <string name="interactive_welcome_subtitle">ספר לי מה תרצה לעשות.</string>
+    <string name="interactive_back_content_description">חזרה</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">יציאה ממצב אינטראקטיבי</string>
+    <string name="interactive_ui_parsing_failed">ניתוח ממשק המשתמש נכשל, מנסה שוב…</string>
 </resources>

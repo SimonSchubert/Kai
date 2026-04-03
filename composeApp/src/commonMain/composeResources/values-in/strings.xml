@@ -205,4 +205,10 @@
     <string name="terminal_help_text">AI menggunakan lingkungan ini untuk menjalankan perintah.\nAnda juga dapat menjalankan perintah secara manual di bawah.</string>
     <string name="terminal_input_placeholder">masukkan perintah…</string>
     <string name="terminal_run_content_description">Jalankan</string>
+    <string name="interactive_welcome_title">Saya sepenuhnya beroperasi.</string>
+    <string name="interactive_welcome_subtitle">Beritahu saya apa yang ingin Anda lakukan.</string>
+    <string name="interactive_back_content_description">Kembali</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Keluar dari mode interaktif</string>
+    <string name="interactive_ui_parsing_failed">Penguraian UI gagal, mencoba lagi…</string>
 </resources>

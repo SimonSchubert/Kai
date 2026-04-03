@@ -206,4 +206,10 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="terminal_help_text">L'IA utilise cet environnement pour exécuter des commandes.\nVous pouvez également exécuter des commandes manuellement ci-dessous.</string>
     <string name="terminal_input_placeholder">saisir une commande…</string>
     <string name="terminal_run_content_description">Exécuter</string>
+    <string name="interactive_welcome_title">Je suis pleinement opérationnel.</string>
+    <string name="interactive_welcome_subtitle">Dites-moi ce que vous aimeriez faire.</string>
+    <string name="interactive_back_content_description">Retour</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Quitter le mode interactif</string>
+    <string name="interactive_ui_parsing_failed">Échec de l\'analyse de l\'interface, nouvel essai…</string>
 </resources>

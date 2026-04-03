@@ -205,4 +205,10 @@
     <string name="terminal_help_text">Tehisintellekt kasutab seda keskkonda käskude käivitamiseks.\nSaad ka ise allpool käske käsitsi käivitada.</string>
     <string name="terminal_input_placeholder">sisestage käsk…</string>
     <string name="terminal_run_content_description">Käivita</string>
+    <string name="interactive_welcome_title">Olen täielikult töökorras.</string>
+    <string name="interactive_welcome_subtitle">Ütle mulle, mida soovid teha.</string>
+    <string name="interactive_back_content_description">Tagasi</string>
+    <string name="interactive_title">Kai 9000</string>
+    <string name="interactive_exit_content_description">Välju interaktiivsest režiimist</string>
+    <string name="interactive_ui_parsing_failed">UI analüüs ebaõnnestus, proovin uuesti…</string>
 </resources>
