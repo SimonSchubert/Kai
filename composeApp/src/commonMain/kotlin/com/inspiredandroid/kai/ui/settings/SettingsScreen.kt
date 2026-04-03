@@ -61,7 +61,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -133,13 +132,13 @@ import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
+import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Replay
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
-import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.readBytes
@@ -1039,7 +1038,7 @@ private fun ServiceSettings(
     testTag: String? = null,
 ) {
     var apiKeyFocused by remember { mutableStateOf(false) }
-    OutlinedTextField(
+    KaiOutlinedTextField(
         modifier = Modifier.fillMaxWidth()
             .let { if (testTag != null) it.testTag(testTag) else it }
             .onFocusChanged { apiKeyFocused = it.isFocused },
@@ -1051,7 +1050,6 @@ private fun ServiceSettings(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
-        colors = outlineTextFieldColors(),
         trailingIcon = {
             IconButton(
                 onClick = { onChangeApiKey("") },
@@ -1113,7 +1111,7 @@ private fun OpenAICompatibleSettings(
     connectionStatus: ConnectionStatus,
 ) {
     var baseUrlFocused by remember { mutableStateOf(false) }
-    OutlinedTextField(
+    KaiOutlinedTextField(
         modifier = Modifier.fillMaxWidth().onFocusChanged { baseUrlFocused = it.isFocused },
         value = baseUrl,
         onValueChange = onChangeBaseUrl,
@@ -1123,7 +1121,6 @@ private fun OpenAICompatibleSettings(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
-        colors = outlineTextFieldColors(),
         singleLine = true,
         trailingIcon = {
             IconButton(
@@ -1152,7 +1149,7 @@ private fun OpenAICompatibleSettings(
     Spacer(Modifier.height(8.dp))
 
     var apiKeyFocused by remember { mutableStateOf(false) }
-    OutlinedTextField(
+    KaiOutlinedTextField(
         modifier = Modifier.fillMaxWidth().onFocusChanged { apiKeyFocused = it.isFocused },
         value = apiKey,
         onValueChange = onChangeApiKey,
@@ -1162,7 +1159,6 @@ private fun OpenAICompatibleSettings(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         },
-        colors = outlineTextFieldColors(),
         singleLine = true,
         trailingIcon = {
             IconButton(
@@ -1330,10 +1326,9 @@ private fun ModelSelection(
         Box(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            OutlinedTextField(
+            KaiOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = currentSelectedModel?.id ?: "",
-                colors = outlineTextFieldColors(),
                 onValueChange = {},
                 readOnly = true,
                 label = {
@@ -1376,7 +1371,7 @@ private fun ModelSelection(
                     }
                 }
                 if (models.size > 6) {
-                    OutlinedTextField(
+                    KaiOutlinedTextField(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
@@ -1384,7 +1379,6 @@ private fun ModelSelection(
                             Text(stringResource(Res.string.settings_model_search))
                         },
                         singleLine = true,
-                        colors = outlineTextFieldColors(),
                     )
                 }
                 val gridState = rememberLazyGridState()
@@ -2405,7 +2399,7 @@ private fun AddMcpServerDialog(
                 )
                 Spacer(Modifier.height(16.dp))
 
-                OutlinedTextField(
+                KaiOutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     label = { Text(stringResource(Res.string.settings_mcp_server_name)) },
@@ -2413,7 +2407,7 @@ private fun AddMcpServerDialog(
                     modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(8.dp))
-                OutlinedTextField(
+                KaiOutlinedTextField(
                     value = url,
                     onValueChange = { url = it },
                     label = { Text(stringResource(Res.string.settings_mcp_server_url)) },
@@ -2427,7 +2421,7 @@ private fun AddMcpServerDialog(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        OutlinedTextField(
+                        KaiOutlinedTextField(
                             value = entry.key,
                             onValueChange = { headers[index] = entry.copy(key = it) },
                             label = { Text(stringResource(Res.string.settings_mcp_header_key)) },
@@ -2435,7 +2429,7 @@ private fun AddMcpServerDialog(
                             modifier = Modifier.weight(0.4f),
                         )
                         Spacer(Modifier.width(8.dp))
-                        OutlinedTextField(
+                        KaiOutlinedTextField(
                             value = entry.value,
                             onValueChange = { headers[index] = entry.copy(value = it) },
                             label = { Text(stringResource(Res.string.settings_mcp_header_value)) },
@@ -2618,7 +2612,7 @@ private fun SoulEditor(
         )
         Spacer(Modifier.height(12.dp))
 
-        OutlinedTextField(
+        KaiOutlinedTextField(
             modifier = Modifier.fillMaxWidth().height(250.dp),
             value = editedText,
             onValueChange = { if (it.length <= maxChars) editedText = it },
@@ -2628,7 +2622,6 @@ private fun SoulEditor(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             },
-            colors = outlineTextFieldColors(),
         )
 
         Text(
@@ -3005,7 +2998,7 @@ private fun HeartbeatSection(
 
             Spacer(Modifier.height(12.dp))
 
-            OutlinedTextField(
+            KaiOutlinedTextField(
                 modifier = Modifier.fillMaxWidth().height(200.dp),
                 value = editedText,
                 onValueChange = { if (it.length <= maxChars) editedText = it },
@@ -3015,7 +3008,6 @@ private fun HeartbeatSection(
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                 },
-                colors = outlineTextFieldColors(),
             )
 
             Text(

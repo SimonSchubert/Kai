@@ -98,6 +98,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
@@ -106,6 +107,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import kotlinx.coroutines.delay
 import kotlin.time.Clock
 
@@ -374,14 +377,13 @@ private fun RenderTextInput(
     isInteractive: Boolean,
     formState: MutableMap<String, String>,
 ) {
-    OutlinedTextField(
+    KaiOutlinedTextField(
         value = formState[node.id] ?: "",
         onValueChange = { formState[node.id] = it },
         label = node.label?.let { { Text(it) } },
         placeholder = node.placeholder?.let { { Text(it) } },
         enabled = isInteractive,
         singleLine = node.multiline != true,
-        shape = RoundedCornerShape(12.dp),
         modifier = Modifier.fillMaxWidth(),
     )
 }
@@ -763,25 +765,23 @@ private fun RenderCountdown(
 
 @Composable
 private fun RenderAlert(node: AlertNode) {
+    val isDark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val successContainer = if (isDark) Color(0xFF1B3A1B) else Color(0xFFE8F5E9)
+    val onSuccessContainer = if (isDark) Color(0xFFC8E6C9) else Color(0xFF1B5E20)
+    val warningContainer = if (isDark) Color(0xFF3D2600) else Color(0xFFFFF3E0)
+    val onWarningContainer = if (isDark) Color(0xFFFF9100) else Color(0xFFE65100)
     val containerColor = when (node.severity) {
-        AlertSeverity.SUCCESS -> MaterialTheme.colorScheme.tertiaryContainer
-        AlertSeverity.WARNING -> MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.6f)
+        AlertSeverity.SUCCESS -> successContainer
+        AlertSeverity.WARNING -> warningContainer
         AlertSeverity.ERROR -> MaterialTheme.colorScheme.errorContainer
         AlertSeverity.INFO, null -> MaterialTheme.colorScheme.primaryContainer
     }
     val contentColor = when (node.severity) {
-        AlertSeverity.SUCCESS -> MaterialTheme.colorScheme.onTertiaryContainer
-        AlertSeverity.WARNING -> MaterialTheme.colorScheme.onErrorContainer
+        AlertSeverity.SUCCESS -> onSuccessContainer
+        AlertSeverity.WARNING -> onWarningContainer
         AlertSeverity.ERROR -> MaterialTheme.colorScheme.onErrorContainer
         AlertSeverity.INFO, null -> MaterialTheme.colorScheme.onPrimaryContainer
     }
-    val icon = when (node.severity) {
-        AlertSeverity.SUCCESS -> Icons.Default.Check
-        AlertSeverity.WARNING -> Icons.Default.Warning
-        AlertSeverity.ERROR -> Icons.Default.Close
-        AlertSeverity.INFO, null -> Icons.Default.Info
-    }
-
     Surface(
         color = containerColor,
         contentColor = contentColor,
@@ -790,13 +790,9 @@ private fun RenderAlert(node: AlertNode) {
     ) {
         Row(
             modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.Top,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp),
-            )
+            AlertIcon(node.severity, contentColor, containerColor)
             Spacer(Modifier.width(8.dp))
             Column {
                 if (node.title != null) {
@@ -816,7 +812,25 @@ private fun RenderAlert(node: AlertNode) {
     }
 }
 
+@Composable
+private fun AlertIcon(severity: AlertSeverity?, contentColor: Color, containerColor: Color) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(20.dp)
+            .background(contentColor, androidx.compose.foundation.shape.CircleShape),
+    ) {
+        when (severity) {
+            AlertSeverity.SUCCESS -> Icon(Icons.Default.Check, null, Modifier.size(14.dp), tint = containerColor)
+            AlertSeverity.ERROR -> Icon(Icons.Default.Close, null, Modifier.size(14.dp), tint = containerColor)
+            AlertSeverity.WARNING -> Text("!", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = containerColor)
+            AlertSeverity.INFO, null -> Text("i", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = containerColor)
+        }
+    }
+}
+
 @OptIn(ExperimentalLayoutApi::class)
+
 @Composable
 private fun RenderChipGroup(
     node: ChipGroupNode,
@@ -870,20 +884,27 @@ private fun RenderChip(node: ChipNode) {
 
 @Composable
 private fun RenderIcon(node: IconNode) {
-    val imageVector = resolveIcon(node.name) ?: Icons.Default.MoreVert
+    val imageVector = resolveIcon(node.name)
     val size = (node.size ?: 24).dp
-    val color = when (node.color) {
-        "primary" -> MaterialTheme.colorScheme.primary
-        "secondary" -> MaterialTheme.colorScheme.secondary
-        "error" -> MaterialTheme.colorScheme.error
-        else -> MaterialTheme.colorScheme.onSurface
+    if (imageVector != null) {
+        val color = when (node.color) {
+            "primary" -> MaterialTheme.colorScheme.primary
+            "secondary" -> MaterialTheme.colorScheme.secondary
+            "error" -> MaterialTheme.colorScheme.error
+            else -> MaterialTheme.colorScheme.onSurface
+        }
+        Icon(
+            imageVector = imageVector,
+            contentDescription = node.name,
+            modifier = Modifier.size(size),
+            tint = color,
+        )
+    } else if (node.name.isNotEmpty()) {
+        Text(
+            text = node.name,
+            fontSize = size.value.sp,
+        )
     }
-    Icon(
-        imageVector = imageVector,
-        contentDescription = node.name,
-        modifier = Modifier.size(size),
-        tint = color,
-    )
 }
 
 @Composable
@@ -972,7 +993,9 @@ private fun RenderBadge(node: BadgeNode) {
 
 @Composable
 private fun RenderStat(node: StatNode) {
-    Column {
+    Column(
+       horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = node.value,
             style = MaterialTheme.typography.headlineMedium,
@@ -1134,6 +1157,7 @@ private fun RenderBottomBar(
     NavigationBar(modifier = Modifier.fillMaxWidth()) {
         for (button in node.buttons) {
             val icon = button.icon?.let { resolveIcon(it) }
+            val iconName = button.icon
             NavigationBarItem(
                 selected = false,
                 onClick = {
@@ -1160,10 +1184,13 @@ private fun RenderBottomBar(
                     }
                 },
                 icon = {
-                    Icon(
-                        icon ?: Icons.Default.MoreVert,
-                        contentDescription = button.label,
-                    )
+                    if (icon != null) {
+                        Icon(icon, contentDescription = button.label)
+                    } else if (!iconName.isNullOrEmpty()) {
+                        Text(iconName, fontSize = 20.sp)
+                    } else {
+                        Icon(Icons.Default.MoreVert, contentDescription = button.label)
+                    }
                 },
                 label = { Text(button.label) },
                 enabled = isInteractive,

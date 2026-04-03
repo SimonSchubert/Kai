@@ -590,6 +590,60 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `infers text node from object with text field but no type`() {
+        val json = """{"type":"column","children":[{"text":"Hello","icon":"check"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        val child = node.children[0]
+        assertIs<TextNode>(child)
+        assertEquals("Hello", child.value)
+    }
+
+    @Test
+    fun `infers column from object with title and subtitle but no type`() {
+        val json = """{"type":"column","children":[{"title":"My Title","subtitle":"My Subtitle","icon":"settings"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        val child = node.children[0]
+        assertIs<ColumnNode>(child)
+        assertEquals(2, child.children.size)
+        val title = child.children[0]
+        assertIs<TextNode>(title)
+        assertEquals("My Title", title.value)
+        val subtitle = child.children[1]
+        assertIs<TextNode>(subtitle)
+        assertEquals("My Subtitle", subtitle.value)
+    }
+
+    @Test
+    fun `infers text node from object with title only but no type`() {
+        val json = """{"type":"column","children":[{"title":"A Title"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        val child = node.children[0]
+        assertIs<TextNode>(child)
+        assertEquals("A Title", child.value)
+    }
+
+    @Test
+    fun `infers text node from object with label but no type`() {
+        val json = """{"type":"column","children":[{"label":"Click me"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<ColumnNode>(node)
+        val child = node.children[0]
+        assertIs<TextNode>(child)
+        assertEquals("Click me", child.value)
+    }
+
+    @Test
     fun `parses list items with content field instead of type`() {
         val json = """{"type":"list","items":[{"content":"First item"},{"content":"Second item"}]}"""
         val message = "```kai-ui\n$json\n```"

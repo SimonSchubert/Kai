@@ -108,3 +108,6 @@ actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
 actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
     FileKit.download(bytes = bytes, fileName = "$baseName.$extension")
 }
+
+actual fun appendParseErrorLog(entry: String) {
+}

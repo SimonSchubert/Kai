@@ -98,32 +98,97 @@ object KaiUiParser {
             return parseSingleNode(sanitizeJson(line))
         } catch (_: Exception) {
         }
-        println("KaiUiParser: failed to deserialize kai-ui line, skipping")
+        ParseErrorCollector.log("failed to deserialize kai-ui line", line)
         return null
     }
 
     /**
      * Recursively fix objects that LLMs produce without a "type" field.
-     * e.g. {"content":"some text"} → {"type":"text","value":"some text"}
+     * Handles common patterns: {"content":"..."}, {"text":"..."}, {"title":"...","subtitle":"..."}.
      */
     private fun fixMissingTypes(element: JsonElement): JsonElement = when (element) {
         is JsonArray -> JsonArray(element.map { fixMissingTypes(it) })
 
         is JsonObject -> {
             val fixed = JsonObject(element.mapValues { fixMissingTypes(it.value) })
-            if ("type" !in fixed && "content" in fixed) {
-                JsonObject(
-                    mapOf(
-                        "type" to JsonPrimitive("text"),
-                        "value" to (fixed["content"]?.jsonPrimitive ?: JsonPrimitive("")),
-                    ),
-                )
-            } else {
+            if ("type" in fixed) {
                 fixed
+            } else {
+                inferMissingType(fixed)
             }
         }
 
         else -> element
+    }
+
+    /** Known fields on helper data classes (ChipItem, TabItem, BottomBarButton) — skip inference. */
+    private val helperObjectFields = setOf("value", "children", "action")
+
+    private fun inferMissingType(obj: JsonObject): JsonObject {
+        // Skip inference for helper objects (ChipItem, TabItem, BottomBarButton)
+        // that have known non-node fields alongside label/title.
+        if (obj.keys.any { it in helperObjectFields }) return obj
+
+        // {"content":"..."} → text node
+        if ("content" in obj) {
+            return JsonObject(
+                mapOf(
+                    "type" to JsonPrimitive("text"),
+                    "value" to (obj["content"]?.jsonPrimitive ?: JsonPrimitive("")),
+                ),
+            )
+        }
+        // {"title":"...","subtitle":"..."} → column with title + subtitle text nodes
+        if ("title" in obj && "subtitle" in obj) {
+            val children = JsonArray(
+                listOf(
+                    JsonObject(
+                        mapOf(
+                            "type" to JsonPrimitive("text"),
+                            "value" to (obj["title"]?.jsonPrimitive ?: JsonPrimitive("")),
+                            "style" to JsonPrimitive("title"),
+                        ),
+                    ),
+                    JsonObject(
+                        mapOf(
+                            "type" to JsonPrimitive("text"),
+                            "value" to (obj["subtitle"]?.jsonPrimitive ?: JsonPrimitive("")),
+                            "style" to JsonPrimitive("caption"),
+                        ),
+                    ),
+                ),
+            )
+            return JsonObject(mapOf("type" to JsonPrimitive("column"), "children" to children))
+        }
+        // {"text":"..."} → text node (LLMs often use "text" instead of "value")
+        if ("text" in obj) {
+            return JsonObject(
+                mapOf(
+                    "type" to JsonPrimitive("text"),
+                    "value" to (obj["text"]?.jsonPrimitive ?: JsonPrimitive("")),
+                ),
+            )
+        }
+        // {"title":"..."} → text node with title style
+        if ("title" in obj) {
+            return JsonObject(
+                mapOf(
+                    "type" to JsonPrimitive("text"),
+                    "value" to (obj["title"]?.jsonPrimitive ?: JsonPrimitive("")),
+                    "style" to JsonPrimitive("title"),
+                ),
+            )
+        }
+        // {"label":"..."} → text node (only when no other known fields present)
+        if ("label" in obj) {
+            return JsonObject(
+                mapOf(
+                    "type" to JsonPrimitive("text"),
+                    "value" to (obj["label"]?.jsonPrimitive ?: JsonPrimitive("")),
+                ),
+            )
+        }
+        return obj
     }
 
     private fun parseSingleNode(json: String): KaiUiNode {
@@ -174,7 +239,7 @@ object KaiUiParser {
                 try {
                     segments.add(UiSegment(parseSingleNode(json), json))
                 } catch (e: Exception) {
-                    println("KaiUiParser: failed to deserialize kai-ui block: ${e.message}")
+                    ParseErrorCollector.log("failed to deserialize kai-ui block: ${e.message}", json)
                     segments.add(ErrorSegment(json))
                 }
             }

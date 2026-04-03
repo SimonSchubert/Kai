@@ -13,7 +13,7 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 ### Component Types
 
 - **Layout**: column, row, card, box, spacer, divider
-- **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set), code (syntax-highlighted block)
+- **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)
 - **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group
 - **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)
 - **Navigation**: tabs (tabbed content), accordion (collapsible sections), bottom bar (navigation bar)

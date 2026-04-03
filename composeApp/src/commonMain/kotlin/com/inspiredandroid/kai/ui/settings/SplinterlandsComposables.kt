@@ -62,6 +62,7 @@ import com.inspiredandroid.kai.splinterlands.BattlePhase
 import com.inspiredandroid.kai.splinterlands.LlmServiceStatus
 import com.inspiredandroid.kai.splinterlands.ModelStats
 import com.inspiredandroid.kai.splinterlands.computeModelStats
+import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Visibility
@@ -585,7 +586,7 @@ private fun SplinterlandsAddAccountForm(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(Modifier.height(8.dp))
-        OutlinedTextField(
+        KaiOutlinedTextField(
             value = username,
             onValueChange = { username = it },
             label = { Text("Hive Username") },
@@ -596,7 +597,7 @@ private fun SplinterlandsAddAccountForm(
 
         Spacer(Modifier.height(8.dp))
 
-        OutlinedTextField(
+        KaiOutlinedTextField(
             value = postingKey,
             onValueChange = { postingKey = it },
             label = { Text("Posting Key") },

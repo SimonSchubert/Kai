@@ -30,6 +30,9 @@ val appModule = module {
     single<AppSettings> {
         AppSettings(createSecureSettings()).also {
             it.runMigrations(createLegacySettings())
+            com.inspiredandroid.kai.ui.dynamicui.ParseErrorCollector.init(
+                onLog = { entry -> appendParseErrorLog(entry) },
+            )
         }
     }
     single<Requests> {

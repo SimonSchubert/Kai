@@ -68,6 +68,16 @@ tasks.matching { it.name == "testDebugUnitTest" }.configureEach {
     }
 }
 
+// Record golden images for kai-ui component tests only (faster than full suite)
+tasks.register("recordKaiUiScreenshots") {
+    dependsOn("recordPaparazziDebug")
+    doFirst {
+        tasks.named("testDebugUnitTest").configure {
+            (this as Test).filter.includeTestsMatching("*.KaiUiScreenshotTest")
+        }
+    }
+}
+
 // Task to copy screenshots to fastlane and README locations
 tasks.register("updateScreenshots") {
     dependsOn("recordPaparazziDebug")

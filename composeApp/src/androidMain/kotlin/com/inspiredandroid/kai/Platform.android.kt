@@ -33,6 +33,7 @@ import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.WebSearchTool
+import com.russhwolf.settings.BuildConfig
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 import dev.spght.encryptedprefs.EncryptedSharedPreferences
@@ -424,4 +425,12 @@ actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
 actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
+}
+
+actual fun appendParseErrorLog(entry: String) {
+    if (!BuildConfig.DEBUG) return
+    try {
+        java.io.File(getAppFilesDirectory(), "parse_errors.log").appendText("$entry\n")
+    } catch (_: Exception) {
+    }
 }

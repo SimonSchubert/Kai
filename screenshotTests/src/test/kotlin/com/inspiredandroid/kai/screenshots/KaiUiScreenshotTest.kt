@@ -548,6 +548,79 @@ class KaiUiScreenshotTest {
         )
     }
 
+    // --- Display elements (quote, badge, stat, avatar) ---
+
+    @Test
+    fun displayElements() {
+        paparazzi.snapKaiUi(
+            """{"type":"column","spacing":12,"children":[
+                {"type":"text","value":"Display Elements","style":"headline","bold":true},
+                {"type":"divider"},
+                {"type":"text","value":"Quote","style":"title"},
+                {"type":"quote","text":"The only way to do great work is to love what you do.","source":"Steve Jobs"},
+                {"type":"divider"},
+                {"type":"text","value":"Badges","style":"title"},
+                {"type":"row","spacing":8,"children":[
+                    {"type":"badge","value":"3","color":"primary"},
+                    {"type":"badge","value":"New","color":"secondary"},
+                    {"type":"badge","value":"!","color":"error"}
+                ]},
+                {"type":"divider"},
+                {"type":"text","value":"Stats","style":"title"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"1,234","label":"Users","description":"↑ 12%"},
+                    {"type":"stat","value":"$56K","label":"Revenue"},
+                    {"type":"stat","value":"99.9%","label":"Uptime"}
+                ]},
+                {"type":"divider"},
+                {"type":"text","value":"Avatars","style":"title"},
+                {"type":"row","spacing":12,"children":[
+                    {"type":"avatar","name":"Simon Schubert","size":48},
+                    {"type":"avatar","name":"Jane Doe","size":48},
+                    {"type":"avatar","size":48}
+                ]}
+            ]}""",
+        )
+    }
+
+    // --- Scenario: User profile ---
+
+    @Test
+    fun scenario_userProfile_dark() {
+        paparazzi.snapKaiUi(
+            """{"type":"column","spacing":12,"children":[
+                {"type":"row","spacing":12,"children":[
+                    {"type":"avatar","name":"Simon Schubert","size":56},
+                    {"type":"column","children":[
+                        {"type":"text","value":"Simon Schubert","style":"title","bold":true},
+                        {"type":"row","spacing":6,"children":[
+                            {"type":"badge","value":"Pro","color":"primary"},
+                            {"type":"badge","value":"Verified","color":"secondary"}
+                        ]}
+                    ]}
+                ]},
+                {"type":"divider"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"127","label":"Posts"},
+                    {"type":"stat","value":"1.2K","label":"Followers"},
+                    {"type":"stat","value":"342","label":"Following"}
+                ]},
+                {"type":"divider"},
+                {"type":"quote","text":"Building the future, one line of code at a time."},
+                {"type":"divider"},
+                {"type":"text","value":"Recent Activity","style":"title"},
+                {"type":"card","children":[
+                    {"type":"row","spacing":8,"children":[
+                        {"type":"icon","name":"star","color":"primary"},
+                        {"type":"text","value":"Published \"Getting Started with KMP\"","style":"body"}
+                    ]},
+                    {"type":"text","value":"2 hours ago","style":"caption","color":"secondary"}
+                ]},
+                {"type":"button","label":"Edit Profile","variant":"outlined","action":{"type":"callback","event":"edit_profile"}}
+            ]}""",
+        )
+    }
+
     // --- All elements combined (light) ---
 
     @Test

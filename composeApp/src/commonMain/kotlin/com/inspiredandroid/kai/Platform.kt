@@ -56,3 +56,6 @@ expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
 expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?
 
 expect suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String)
+
+/** Append a line to parse_errors.log in the app files directory. Temporary debug — remove before release. */
+expect fun appendParseErrorLog(entry: String)

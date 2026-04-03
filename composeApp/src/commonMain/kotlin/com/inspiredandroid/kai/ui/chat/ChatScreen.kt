@@ -71,6 +71,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -197,50 +198,55 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 showPulse = uiState.isLoading && hasAssistantResponse,
             )
 
-            // Content area fills remaining space
-            if (!hasAssistantResponse && !uiState.isLoading) {
-                Column(
-                    modifier = Modifier.weight(1f).fillMaxWidth(),
-                    horizontalAlignment = CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = "What would you like to do?",
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = "Describe your interactive experience",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 4.dp),
-                    )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                // Content area fills remaining space
+                if (!hasAssistantResponse && !uiState.isLoading) {
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Text(
+                            text = "What would you like to do?",
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Text(
+                            text = "Describe your interactive experience",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = 4.dp),
+                        )
+                    }
+                } else {
+                    SelectionContainer {
+                        InteractiveModeContent(
+                            uiState = uiState,
+                            modifier = Modifier.fillMaxSize(),
+                            bottomPadding = if (!showFullInput) 88.dp else 0.dp,
+                        )
+                    }
                 }
-            } else {
-                SelectionContainer(Modifier.weight(1f)) {
-                    InteractiveModeContent(
-                        uiState = uiState,
-                        modifier = Modifier.fillMaxSize(),
-                        bottomPadding = if (!showFullInput) 88.dp else 0.dp,
-                    )
-                }
-            }
 
-            // Full QuestionInput stays in the column flow
-            if (showFullInput) {
-                QuestionInput(
-                    file = uiState.file,
-                    setFile = uiState.actions.setFile,
-                    ask = {
-                        inputExpanded = false
-                        uiState.actions.ask(it)
-                    },
-                    allowFileAttachment = uiState.allowFileAttachment,
-                    isLoading = uiState.isLoading,
-                    cancel = uiState.actions.cancel,
-                    availableServices = uiState.availableServices,
-                    onSelectService = uiState.actions.selectService,
-                )
+                // Full QuestionInput stays in the column flow
+                if (showFullInput) {
+                    QuestionInput(
+                        modifier = Modifier.align(Alignment.BottomEnd),
+                        file = uiState.file,
+                        setFile = uiState.actions.setFile,
+                        ask = {
+                            inputExpanded = false
+                            uiState.actions.ask(it)
+                        },
+                        allowFileAttachment = uiState.allowFileAttachment,
+                        isLoading = uiState.isLoading,
+                        cancel = uiState.actions.cancel,
+                        availableServices = uiState.availableServices,
+                        onSelectService = uiState.actions.selectService,
+                    )
+                }
             }
         }
 

@@ -151,6 +151,7 @@ fun QuestionInput(
                 .heightIn(max = 120.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(28.dp))
+                .background(MaterialTheme.colorScheme.background)
                 .border(
                     BorderStroke(width = 2.dp, brush = gradientBrush),
                     shape = RoundedCornerShape(28.dp),

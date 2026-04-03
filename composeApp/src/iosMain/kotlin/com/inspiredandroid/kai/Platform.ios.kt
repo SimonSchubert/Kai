@@ -181,3 +181,6 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
 }
+
+actual fun appendParseErrorLog(entry: String) {
+}
