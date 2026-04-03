@@ -94,7 +94,9 @@ class Requests {
     suspend fun getGeminiModels(credentials: ServiceCredentials): Result<GeminiModelsResponseDto> = try {
         val apiKey = credentials.apiKey.ifEmpty { throw GeminiInvalidApiKeyException() }
         val response: HttpResponse =
-            defaultClient.get("https://generativelanguage.googleapis.com/v1beta/models?key=$apiKey")
+            defaultClient.get("https://generativelanguage.googleapis.com/v1beta/models") {
+                header("x-goog-api-key", apiKey)
+            }
         if (response.status.isSuccess()) {
             Result.success(response.body())
         } else {
@@ -126,7 +128,8 @@ class Requests {
         }
 
         val response: HttpResponse =
-            defaultClient.post("${Service.Gemini.chatUrl}$selectedModelId:generateContent?key=$apiKey") {
+            defaultClient.post("${Service.Gemini.chatUrl}$selectedModelId:generateContent") {
+                header("x-goog-api-key", apiKey)
                 requestTimeoutMs?.let {
                     timeout {
                         requestTimeoutMillis = it
