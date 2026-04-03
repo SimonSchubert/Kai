@@ -68,9 +68,9 @@
     <string name="bot_message_regenerate_content_description">Yeniden oluştur</string>
     <string name="error_empty_response">Yanıt alınamadı. Yeni bir sohbet başlatmayı veya mesajınızı kısaltmayı deneyin.</string>
     <string name="settings_daemon_mode">Arka Plan Modu</string>
-    <string name="settings_daemon_mode_description">Uygulama ön planda olmasa bile zamanlanmış görevlerin çalışması için Kai\'yi arka planda çalışır durumda tutun.</string>
+    <string name="settings_daemon_mode_description">Uygulama ön planda olmasa bile zamanlanmış görevlerin çalışması için Kai'yi arka planda çalışır durumda tutun.</string>
     <string name="settings_scheduled_tasks">Zamanlanmış Görevler</string>
-    <string name="settings_scheduled_tasks_description">AI tarafından gelecekte çalıştırılmak üzere zamanlanan görevler. Zamanlanmış görevler oluşturmak için AI\'dan size hatırlatmasını veya daha sonra bir şey çalıştırmasını isteyin.</string>
+    <string name="settings_scheduled_tasks_description">AI tarafından gelecekte çalıştırılmak üzere zamanlanan görevler. Zamanlanmış görevler oluşturmak için AI'dan size hatırlatmasını veya daha sonra bir şey çalıştırmasını isteyin.</string>
     <string name="settings_scheduled_tasks_cancel">Görevi iptal et</string>
     <string name="settings_soul_reset">Sıfırla</string>
     <string name="settings_soul_reset_confirm">Bu, ruhu varsayılan sistem komutuna sıfırlayacaktır. Emin misiniz?</string>
@@ -177,12 +177,12 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="chat_history_delete_content_description">Sohbeti sil</string>
     <string name="chat_history_empty">Kayıtlı sohbet yok</string>
     <string name="chat_history_heartbeat_label">Heartbeat</string>
-    <string name="heartbeat_banner_message">Heartbeat\'in raporlayacak bir şeyi var</string>
+    <string name="heartbeat_banner_message">Heartbeat'in raporlayacak bir şeyi var</string>
     <string name="heartbeat_banner_dismiss">Kapat</string>
     <string name="scroll_to_bottom_content_description">Alta kaydır</string>
     <string name="conversation_untitled">Başlıksız</string>
     <string name="error_unsupported_file_type">Bu dosya türü desteklenmiyor. Resim, metin dosyası ve PDF ekleyebilirsiniz.</string>
-    <string name="error_file_too_large">Dosya çok büyük. Metin dosyaları 100 KB\'ın altında olmalıdır.</string>
+    <string name="error_file_too_large">Dosya çok büyük. Metin dosyaları 100 KB'ın altında olmalıdır.</string>
     <string name="error_image_too_large">Resim çok büyük. Daha küçük bir resim deneyin.</string>
     <string name="error_context_window_exceeded">Yedek hizmet için bağlam penceresi çok büyük. Yeni bir sohbet başlatmayı veya daha büyük bağlam penceresine sahip bir model kullanmayı deneyin.</string>
     <string name="error_insufficient_credits">Yetersiz kredi</string>
@@ -199,7 +199,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_sandbox_install_packages">Temel paketleri kur</string>
     <string name="settings_sandbox_open_terminal">Terminali aç</string>
     <string name="settings_sandbox_uninstall">Kaldır</string>
-    <string name="settings_sandbox_uninstall_confirm">Linux sandbox\'taki tüm veriler kaybolacak. Kaldırmak istediğinizden emin misiniz?</string>
+    <string name="settings_sandbox_uninstall_confirm">Linux sandbox'taki tüm veriler kaybolacak. Kaldırmak istediğinizden emin misiniz?</string>
     <string name="settings_sandbox_cancel">İptal</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>

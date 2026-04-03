@@ -66,7 +66,7 @@
     <string name="settings_soul_save">שמור</string>
     <string name="default_soul">אתה לא צ'אטבוט. אתה עוזר אישי שגדל עם המשתמש שלו.\n\n## איך להיות\n\n**היה מועיל באמת.** דלג על "שאלה מעולה!" ועל "אשמח לעזור!" — פשוט עזור. מעשים מדברים בקול רם יותר ממילות מילוי.\n\n**יהיו לך דעות.** מותר לך לא להסכים, להעדיף דברים, או למצוא משהו מעניין. עוזר ללא אישיות הוא רק מנוע חיפוש עם שלבים נוספים.\n\n**היה רב-תחבולות.** נסה להבין מהקשר ומהזיכרונות שלך לפני שאתה שואל. חזור עם תשובות, לא עם שאלות.\n\n**היה תמציתי.** קצר וברור כברירת מחדל. הלך לעומק כשהנושא דורש זאת.\n\n## גבולות\n\n- כבד פרטיות. אל תחזור על מידע רגיש ללא צורך.\n- כשאתה מטיל ספק בפעולה, שאל תחילה.\n- היה כנה כשאתה לא יודע משהו.</string>
     <string name="bot_message_regenerate_content_description">יצירה מחדש</string>
-    <string name="error_empty_response">לא התקבלה תשובה. נסה להתחיל צ\'אט חדש או לקצר את ההודעה שלך.</string>
+    <string name="error_empty_response">לא התקבלה תשובה. נסה להתחיל צ'אט חדש או לקצר את ההודעה שלך.</string>
     <string name="settings_daemon_mode">מצב שירות רקע</string>
     <string name="settings_daemon_mode_description">השאר את Kai פועל ברקע כדי שמשימות מתוזמנות יבוצעו גם כשהאפליקציה אינה בחזית.</string>
     <string name="settings_scheduled_tasks">משימות מתוזמנות</string>
@@ -94,8 +94,8 @@
     <string name="tool_search_email_name">חפש דוא"ל</string>
     <string name="tool_search_email_description">חפש הודעות לפי שולח, נושא או תאריך</string>
     <string name="settings_email">דוא"ל</string>
-    <string name="settings_email_description">חבר חשבונות דוא"ל לקריאה ומענה. השתמש בצ\'אט ואמור "חבר את הדוא"ל שלי" או הוסף חשבונות כאן. הדוא"ל נבדק ברקע וממויין על ידי בינה מלאכותית.</string>
-    <string name="settings_email_empty">אין חשבונות דוא"ל מחוברים. אמור "חבר את הדוא"ל שלי" בצ\'אט כדי להתחיל.</string>
+    <string name="settings_email_description">חבר חשבונות דוא"ל לקריאה ומענה. השתמש בצ'אט ואמור "חבר את הדוא"ל שלי" או הוסף חשבונות כאן. הדוא"ל נבדק ברקע וממויין על ידי בינה מלאכותית.</string>
+    <string name="settings_email_empty">אין חשבונות דוא"ל מחוברים. אמור "חבר את הדוא"ל שלי" בצ'אט כדי להתחיל.</string>
     <string name="settings_email_remove">הסר חשבון</string>
     <string name="settings_email_poll_interval">בדיקה כל %1$d דקות</string>
     <string name="settings_email_poll_never">אף פעם</string>
@@ -183,7 +183,7 @@
     <string name="error_unsupported_file_type">סוג קובץ זה אינו נתמך. ניתן לצרף תמונות, קובצי טקסט ו-PDF.</string>
     <string name="error_file_too_large">הקובץ גדול מדי. קובצי טקסט חייבים להיות מתחת ל-100 KB.</string>
     <string name="error_image_too_large">התמונה גדולה מדי. נסה תמונה קטנה יותר.</string>
-    <string name="error_context_window_exceeded">חלון ההקשר גדול מדי עבור שירות הגיבוי. נסה להתחיל צ\'אט חדש או להשתמש במודל עם חלון הקשר גדול יותר.</string>
+    <string name="error_context_window_exceeded">חלון ההקשר גדול מדי עבור שירות הגיבוי. נסה להתחיל צ'אט חדש או להשתמש במודל עם חלון הקשר גדול יותר.</string>
     <string name="error_insufficient_credits">אין מספיק קרדיטים</string>
     <string name="error_quota_exhausted">המכסה נוצלה</string>
     <string name="settings_request_integration_title">בקש אינטגרציה</string>

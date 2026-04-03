@@ -162,7 +162,7 @@
     <string name="settings_import_replace_all_description">Невибрані розділи будуть скинуті до значень за замовчуванням.</string>
     <string name="settings_import_section_services">Сервіси</string>
     <string name="settings_import_section_soul">Душа</string>
-    <string name="settings_import_section_memory">Пам\'ять</string>
+    <string name="settings_import_section_memory">Пам'ять</string>
     <string name="settings_import_section_scheduling">Планування</string>
     <string name="settings_import_section_heartbeat">Heartbeat</string>
     <string name="settings_import_section_email">Електронна пошта</string>

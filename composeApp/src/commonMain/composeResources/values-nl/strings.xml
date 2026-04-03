@@ -181,7 +181,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="heartbeat_banner_dismiss">Sluiten</string>
     <string name="scroll_to_bottom_content_description">Naar beneden scrollen</string>
     <string name="conversation_untitled">Naamloos</string>
-    <string name="error_unsupported_file_type">Dit bestandstype wordt niet ondersteund. U kunt afbeeldingen, tekstbestanden en PDF\'s bijvoegen.</string>
+    <string name="error_unsupported_file_type">Dit bestandstype wordt niet ondersteund. U kunt afbeeldingen, tekstbestanden en PDF's bijvoegen.</string>
     <string name="error_file_too_large">Bestand is te groot. Tekstbestanden moeten kleiner zijn dan 100 KB.</string>
     <string name="error_image_too_large">Afbeelding is te groot. Probeer een kleinere afbeelding.</string>
     <string name="error_context_window_exceeded">Contextvenster te groot voor de terugvaldienst. Probeer een nieuw gesprek te starten of gebruik een model met een groter contextvenster.</string>

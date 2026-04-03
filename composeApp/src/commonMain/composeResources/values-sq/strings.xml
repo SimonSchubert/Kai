@@ -70,7 +70,7 @@
     <string name="settings_daemon_mode">Mënyra Daemon</string>
     <string name="settings_daemon_mode_description">Mbani Kai duke punuar në sfond në mënyrë që detyrat e programuara të ekzekutohen edhe kur aplikacioni nuk është në plan të parë.</string>
     <string name="settings_scheduled_tasks">Detyra të programuara</string>
-    <string name="settings_scheduled_tasks_description">Detyra të programuara nga AI për ekzekutim në të ardhmen. Kërkojini AI t\'ju kujtojë ose të ekzekutojë diçka më vonë për të krijuar detyra të programuara.</string>
+    <string name="settings_scheduled_tasks_description">Detyra të programuara nga AI për ekzekutim në të ardhmen. Kërkojini AI t'ju kujtojë ose të ekzekutojë diçka më vonë për të krijuar detyra të programuara.</string>
     <string name="settings_scheduled_tasks_cancel">Anulo detyrën</string>
     <string name="settings_soul_reset">Rivendos</string>
     <string name="settings_soul_reset_confirm">Kjo do të rivendosë shpirtin në kërkesën e parazgjedhur të sistemit. Jeni i sigurt?</string>

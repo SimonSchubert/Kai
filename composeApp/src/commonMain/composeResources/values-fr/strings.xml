@@ -57,7 +57,7 @@
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>
     <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
     <string name="settings_dynamic_ui">UI dynamique</string>
-    <string name="settings_dynamic_ui_description">Permettre à l\'IA de créer des éléments d\'interface interactifs comme des boutons, des formulaires et des cartes dans les réponses. Le changement s\'applique aux nouvelles conversations.</string>
+    <string name="settings_dynamic_ui_description">Permettre à l'IA de créer des éléments d'interface interactifs comme des boutons, des formulaires et des cartes dans les réponses. Le changement s'applique aux nouvelles conversations.</string>
     <string name="settings_memories">Souvenirs</string>
     <string name="settings_memories_description">Souvenirs stockés par l'IA lors des conversations. Ils sont inclus dans chaque message pour fournir du contexte.</string>
     <string name="settings_memories_delete">Supprimer le souvenir</string>
@@ -68,12 +68,12 @@
     <string name="bot_message_regenerate_content_description">Régénérer</string>
     <string name="error_empty_response">Aucune réponse reçue. Essayez de démarrer une nouvelle conversation ou de raccourcir votre message.</string>
     <string name="settings_daemon_mode">Mode démon</string>
-    <string name="settings_daemon_mode_description">Gardez Kai en fonctionnement en arrière-plan afin que les tâches planifiées s\'exécutent même lorsque l\'application n\'est pas au premier plan.</string>
+    <string name="settings_daemon_mode_description">Gardez Kai en fonctionnement en arrière-plan afin que les tâches planifiées s'exécutent même lorsque l'application n'est pas au premier plan.</string>
     <string name="settings_scheduled_tasks">Tâches planifiées</string>
-    <string name="settings_scheduled_tasks_description">Tâches planifiées par l\'IA pour une exécution future. Demandez à l\'IA de vous rappeler ou d\'exécuter quelque chose plus tard pour créer des tâches planifiées.</string>
+    <string name="settings_scheduled_tasks_description">Tâches planifiées par l'IA pour une exécution future. Demandez à l'IA de vous rappeler ou d'exécuter quelque chose plus tard pour créer des tâches planifiées.</string>
     <string name="settings_scheduled_tasks_cancel">Annuler la tâche</string>
     <string name="settings_soul_reset">Réinitialiser</string>
-    <string name="settings_soul_reset_confirm">Cela réinitialisera l\'âme au prompt système par défaut. Êtes-vous sûr ?</string>
+    <string name="settings_soul_reset_confirm">Cela réinitialisera l'âme au prompt système par défaut. Êtes-vous sûr ?</string>
     <string name="settings_soul_reset_cancel">Annuler</string>
     <string name="tool_schedule_task_name">Planifier une tâche</string>
     <string name="tool_schedule_task_description">Planifier une tâche pour une exécution future</string>
@@ -121,8 +121,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_trigger_heartbeat_description">Déclencher un battement au prochain cycle</string>
     <string name="tool_trigger_heartbeat_name">Déclencher le battement</string>
     <string name="tool_web_search_description">Rechercher sur le web des informations actuelles</string>
-    <string name="tool_open_url_name">Ouvrir l\'URL</string>
-    <string name="tool_open_url_description">Ouvrir une URL ou un lien sur l\'appareil</string>
+    <string name="tool_open_url_name">Ouvrir l'URL</string>
+    <string name="tool_open_url_description">Ouvrir une URL ou un lien sur l'appareil</string>
     <string name="tool_web_search_name">Recherche Web</string>
     <string name="settings_ui_scale">Échelle de l'interface</string>
     <string name="tab_chat">Discussion</string>
@@ -156,7 +156,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_export">Exporter</string>
     <string name="settings_import">Importer</string>
     <string name="settings_import_success">Paramètres importés avec succès.</string>
-    <string name="settings_import_error">L\'importation a échoué. Le format du fichier est invalide.</string>
+    <string name="settings_import_error">L'importation a échoué. Le format du fichier est invalide.</string>
     <string name="settings_import_preview_title">Importer les paramètres</string>
     <string name="settings_import_replace_all">Remplacer tous les paramètres existants</string>
     <string name="settings_import_replace_all_description">Les sections non sélectionnées seront réinitialisées aux valeurs par défaut.</string>
@@ -168,7 +168,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Outils</string>
     <string name="settings_import_section_mcp">Serveurs MCP</string>
-    <string name="settings_heartbeat_reset_confirm">Cela réinitialisera l\'invite de battement de cœur par défaut. Êtes-vous sûr ?</string>
+    <string name="settings_heartbeat_reset_confirm">Cela réinitialisera l'invite de battement de cœur par défaut. Êtes-vous sûr ?</string>
     <string name="settings_import_partial">Paramètres importés avec %1$d section(s) contenant des erreurs.</string>
     <string name="settings_model_search">Rechercher des modèles…</string>
     <string name="waiting_content_description">En attente de réponse</string>
@@ -181,17 +181,17 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="heartbeat_banner_dismiss">Fermer</string>
     <string name="scroll_to_bottom_content_description">Défiler vers le bas</string>
     <string name="conversation_untitled">Sans titre</string>
-    <string name="error_unsupported_file_type">Ce type de fichier n\'est pas pris en charge. Vous pouvez joindre des images, des fichiers texte et des PDF.</string>
+    <string name="error_unsupported_file_type">Ce type de fichier n'est pas pris en charge. Vous pouvez joindre des images, des fichiers texte et des PDF.</string>
     <string name="error_file_too_large">Le fichier est trop volumineux. Les fichiers texte doivent faire moins de 100 Ko.</string>
-    <string name="error_image_too_large">L\'image est trop volumineuse. Essayez une image plus petite.</string>
-    <string name="error_context_window_exceeded">Fenêtre de contexte trop grande pour le service de secours. Essayez de démarrer une nouvelle conversation ou d\'utiliser un modèle avec une fenêtre de contexte plus grande.</string>
+    <string name="error_image_too_large">L'image est trop volumineuse. Essayez une image plus petite.</string>
+    <string name="error_context_window_exceeded">Fenêtre de contexte trop grande pour le service de secours. Essayez de démarrer une nouvelle conversation ou d'utiliser un modèle avec une fenêtre de contexte plus grande.</string>
     <string name="error_insufficient_credits">Crédits insuffisants</string>
     <string name="error_quota_exhausted">Quota épuisé</string>
     <string name="settings_request_integration_title">Demander une intégration</string>
-    <string name="settings_request_integration_description">Vous avez une idée d\'automatisation ou d\'intégration ? Faites-le nous savoir en ouvrant un ticket GitHub.</string>
+    <string name="settings_request_integration_description">Vous avez une idée d'automatisation ou d'intégration ? Faites-le nous savoir en ouvrant un ticket GitHub.</string>
     <string name="settings_open_github_issue">Ouvrir un ticket GitHub</string>
     <string name="notification_channel_name">Notifications IA</string>
-    <string name="notification_channel_description">Notifications envoyées par l\'assistant IA</string>
+    <string name="notification_channel_description">Notifications envoyées par l'assistant IA</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_sandbox_title">Bac à sable Linux</string>
     <string name="settings_sandbox_description">Installez un environnement Linux pour que l'IA puisse exécuter des commandes shell, des scripts et des outils en votre nom. S'exécute en toute sécurité dans l'application. ~3 Mo à télécharger.</string>
@@ -211,5 +211,5 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="interactive_back_content_description">Retour</string>
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Quitter le mode interactif</string>
-    <string name="interactive_ui_parsing_failed">Échec de l\'analyse de l\'interface, nouvel essai…</string>
+    <string name="interactive_ui_parsing_failed">Échec de l'analyse de l'interface, nouvel essai…</string>
 </resources>
