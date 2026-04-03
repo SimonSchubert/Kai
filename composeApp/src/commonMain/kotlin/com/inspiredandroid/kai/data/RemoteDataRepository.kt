@@ -1481,7 +1481,6 @@ class RemoteDataRepository(
         appSettings.setDynamicUiEnabled(enabled)
     }
 
-    @Volatile
     private var interactiveModeFlag = false
 
     override fun setInteractiveMode(enabled: Boolean) {
