@@ -161,7 +161,29 @@ object KaiUiParser {
         is JsonArray -> JsonArray(element.map { fixMissingTypes(it) })
 
         is JsonObject -> {
-            val fixed = JsonObject(element.mapValues { fixMissingTypes(it.value) })
+            val fixed = JsonObject(
+                element.mapValues { (key, value) ->
+                    val processed = fixMissingTypes(value)
+                    if (key in nodeListFields && processed is JsonArray) {
+                        JsonArray(
+                            processed.map { item ->
+                                if (item is JsonPrimitive && item.isString) {
+                                    JsonObject(
+                                        mapOf(
+                                            "type" to JsonPrimitive("text"),
+                                            "value" to item,
+                                        ),
+                                    )
+                                } else {
+                                    item
+                                }
+                            },
+                        )
+                    } else {
+                        processed
+                    }
+                },
+            )
             if ("type" in fixed) {
                 fixed
             } else {

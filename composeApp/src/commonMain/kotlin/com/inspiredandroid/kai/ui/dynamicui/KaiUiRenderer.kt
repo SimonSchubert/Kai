@@ -551,7 +551,7 @@ private fun RenderImage(node: ImageNode) {
     coil3.compose.AsyncImage(
         model = node.url,
         contentDescription = node.alt,
-        modifier = modifier,
+        modifier = modifier.clip(RoundedCornerShape(6.dp)),
     )
 }
 
