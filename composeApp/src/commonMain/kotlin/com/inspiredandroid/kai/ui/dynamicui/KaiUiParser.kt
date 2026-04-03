@@ -149,7 +149,7 @@ object KaiUiParser {
             return parseSingleNode(sanitizeJson(line))
         } catch (_: Exception) {
         }
-        ParseErrorCollector.log("failed to deserialize kai-ui line", line)
+        println("kai-ui parse error: failed to deserialize line | ${line.take(500)}")
         return null
     }
 
@@ -330,7 +330,7 @@ object KaiUiParser {
                         segments.add(UiSegment(node, json))
                     }
                 } catch (e: Exception) {
-                    ParseErrorCollector.log("failed to deserialize kai-ui block: ${e.message}", json)
+                    println("kai-ui parse error: ${e.message} | ${json.take(500)}")
                     segments.add(ErrorSegment(json))
                 }
             }

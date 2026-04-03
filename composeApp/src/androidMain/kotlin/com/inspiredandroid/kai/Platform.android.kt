@@ -427,11 +427,3 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
 }
-
-actual fun appendParseErrorLog(entry: String) {
-    // if (!BuildConfig.DEBUG) return
-    try {
-        java.io.File(getAppFilesDirectory(), "parse_errors.log").appendText("$entry\n")
-    } catch (_: Exception) {
-    }
-}
