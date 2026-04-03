@@ -71,7 +71,11 @@ fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
         sections[ImportSection.MCP] = count?.let { "$it" }
     }
     if (json["conversations"] != null) {
-        val count = try { json["conversations"]?.jsonArray?.size } catch (_: Exception) { null }
+        val count = try {
+            json["conversations"]?.jsonArray?.size
+        } catch (_: Exception) {
+            null
+        }
         sections[ImportSection.CONVERSATIONS] = count?.let { "$it" }
     }
     return sections
@@ -929,7 +933,11 @@ class AppSettings(private val settings: Settings) {
                         createdAt = obj["createdAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
                         updatedAt = obj["updatedAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
                         category = obj["category"]?.jsonPrimitive?.content?.let { name ->
-                            try { MemoryCategory.valueOf(name) } catch (_: Exception) { MemoryCategory.GENERAL }
+                            try {
+                                MemoryCategory.valueOf(name)
+                            } catch (_: Exception) {
+                                MemoryCategory.GENERAL
+                            }
                         } ?: MemoryCategory.GENERAL,
                         hitCount = obj["hitCount"]?.jsonPrimitive?.content?.toIntOrNull() ?: 1,
                         source = obj["source"]?.jsonPrimitive?.content,
