@@ -26,6 +26,7 @@ enum class ImportSection {
     SPLINTERLANDS,
     TOOLS,
     MCP,
+    CONVERSATIONS,
 }
 
 fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
@@ -68,6 +69,10 @@ fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
     if (json["mcp_servers"] != null) {
         val count = json["mcp_servers"]?.jsonArray?.size
         sections[ImportSection.MCP] = count?.let { "$it" }
+    }
+    if (json["conversations"] != null) {
+        val count = try { json["conversations"]?.jsonArray?.size } catch (_: Exception) { null }
+        sections[ImportSection.CONVERSATIONS] = count?.let { "$it" }
     }
     return sections
 }
@@ -661,6 +666,19 @@ class AppSettings(private val settings: Settings) {
             map["mcp_servers"] = Json.parseToJsonElement(mcpJson)
         }
 
+        // Conversations
+        val conversationsJson = getConversationsJson()
+        if (!conversationsJson.isNullOrBlank()) {
+            try {
+                val convData = SharedJson.decodeFromString<ConversationsData>(conversationsJson)
+                if (convData.conversations.isNotEmpty()) {
+                    map["conversations"] = Json.parseToJsonElement(SharedJson.encodeToString(convData.conversations))
+                }
+            } catch (_: Exception) {
+                // Skip if conversations JSON is malformed
+            }
+        }
+
         return JsonObject(map)
     }
 
@@ -839,6 +857,24 @@ class AppSettings(private val settings: Settings) {
             setMcpServersJson("")
         }
 
+        // Conversations
+        if (ImportSection.CONVERSATIONS in sections) {
+            try {
+                val element = json["conversations"]
+                if (element != null) {
+                    val conversations = sanitizeConversations(element)
+                    val wrapped = SharedJson.encodeToString(ConversationsData(conversations = conversations))
+                    setConversationsJson(wrapped)
+                } else {
+                    setConversationsJson("")
+                }
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setConversationsJson("")
+        }
+
         return errors
     }
 
@@ -892,6 +928,9 @@ class AppSettings(private val settings: Settings) {
                         content = obj["content"]?.jsonPrimitive?.content ?: "",
                         createdAt = obj["createdAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
                         updatedAt = obj["updatedAt"]?.jsonPrimitive?.content?.toLongOrNull() ?: now,
+                        category = obj["category"]?.jsonPrimitive?.content?.let { name ->
+                            try { MemoryCategory.valueOf(name) } catch (_: Exception) { MemoryCategory.GENERAL }
+                        } ?: MemoryCategory.GENERAL,
                         hitCount = obj["hitCount"]?.jsonPrimitive?.content?.toIntOrNull() ?: 1,
                         source = obj["source"]?.jsonPrimitive?.content,
                     )
@@ -901,6 +940,21 @@ class AppSettings(private val settings: Settings) {
             }
         }
         return SharedJson.encodeToString(memories)
+    }
+
+    private fun sanitizeConversations(element: JsonElement): List<Conversation> {
+        val array = try {
+            element.jsonArray
+        } catch (_: Exception) {
+            return emptyList()
+        }
+        return array.mapNotNull { item ->
+            try {
+                SharedJson.decodeFromString<Conversation>(item.toString())
+            } catch (_: Exception) {
+                null
+            }
+        }
     }
 
     private fun ensureBaseUrlHasVersionPath(url: String): String {

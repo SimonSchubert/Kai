@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">El. paštas</string>
     <string name="settings_import_section_tools">Įrankiai</string>
     <string name="settings_import_section_mcp">MCP serveriai</string>
+    <string name="settings_import_section_conversations">Pokalbiai</string>
     <string name="settings_heartbeat_reset_confirm">Tai atkurs širdies ritmo raginimą į numatytąjį. Ar esate tikri?</string>
     <string name="settings_import_partial">Nustatymai importuoti su %1$d sekcija(-omis), kuriose buvo klaidų.</string>
     <string name="settings_model_search">Ieškoti modelių…</string>

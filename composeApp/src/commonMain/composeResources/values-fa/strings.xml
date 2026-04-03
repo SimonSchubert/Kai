@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">ایمیل</string>
     <string name="settings_import_section_tools">ابزارها</string>
     <string name="settings_import_section_mcp">سرورهای MCP</string>
+    <string name="settings_import_section_conversations">مکالمات</string>
     <string name="settings_heartbeat_reset_confirm">این کار پیام ضربان قلب را به پیش‌فرض بازنشانی می‌کند. آیا مطمئن هستید؟</string>
     <string name="settings_import_partial">تنظیمات با %1$d بخش دارای خطا وارد شد.</string>
     <string name="settings_model_search">جستجوی مدل‌ها…</string>

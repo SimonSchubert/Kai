@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">ईमेल</string>
     <string name="settings_import_section_tools">साधने</string>
     <string name="settings_import_section_mcp">MCP सर्व्हर</string>
+    <string name="settings_import_section_conversations">संवाद</string>
     <string name="settings_heartbeat_reset_confirm">हे हार्टबीट प्रॉम्प्ट डीफॉल्टवर रीसेट करेल. तुम्हाला खात्री आहे का?</string>
     <string name="settings_import_partial">%1$d विभाग(ांमध्ये) त्रुटींसह सेटिंग्ज आयात केल्या.</string>
     <string name="settings_model_search">मॉडेल शोधा…</string>

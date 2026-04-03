@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">ای میل</string>
     <string name="settings_import_section_tools">اوزار</string>
     <string name="settings_import_section_mcp">MCP سرورز</string>
+    <string name="settings_import_section_conversations">بات چیت</string>
     <string name="settings_heartbeat_reset_confirm">یہ دل کی دھڑکن کے پرامپٹ کو ڈیفالٹ پر ری سیٹ کر دے گا۔ کیا آپ کو یقین ہے؟</string>
     <string name="settings_import_partial">%1$d سیکشن(ز) میں خرابیوں کے ساتھ ترتیبات درآمد کی گئیں۔</string>
     <string name="settings_model_search">ماڈلز تلاش کریں…</string>

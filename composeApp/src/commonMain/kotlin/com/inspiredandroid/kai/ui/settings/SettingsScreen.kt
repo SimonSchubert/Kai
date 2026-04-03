@@ -186,6 +186,7 @@ import kai.composeapp.generated.resources.settings_import_partial
 import kai.composeapp.generated.resources.settings_import_preview_title
 import kai.composeapp.generated.resources.settings_import_replace_all
 import kai.composeapp.generated.resources.settings_import_replace_all_description
+import kai.composeapp.generated.resources.settings_import_section_conversations
 import kai.composeapp.generated.resources.settings_import_section_email
 import kai.composeapp.generated.resources.settings_import_section_heartbeat
 import kai.composeapp.generated.resources.settings_import_section_mcp
@@ -1925,6 +1926,7 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
     ImportSection.SPLINTERLANDS -> "Splinterlands"
     ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
     ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)
+    ImportSection.CONVERSATIONS -> stringResource(Res.string.settings_import_section_conversations)
 }
 
 @Composable

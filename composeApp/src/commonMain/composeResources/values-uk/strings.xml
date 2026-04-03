@@ -168,6 +168,7 @@
     <string name="settings_import_section_email">Електронна пошта</string>
     <string name="settings_import_section_tools">Інструменти</string>
     <string name="settings_import_section_mcp">Сервери MCP</string>
+    <string name="settings_import_section_conversations">Розмови</string>
     <string name="settings_heartbeat_reset_confirm">Це скине запит серцебиття до стандартного. Ви впевнені?</string>
     <string name="settings_import_partial">Налаштування імпортовано з %1$d розділом(-ами) з помилками.</string>
     <string name="settings_model_search">Пошук моделей…</string>

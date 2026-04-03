@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Alat</string>
     <string name="settings_import_section_mcp">Server MCP</string>
+    <string name="settings_import_section_conversations">Percakapan</string>
     <string name="settings_heartbeat_reset_confirm">Ini akan mereset prompt detak jantung ke default. Apakah Anda yakin?</string>
     <string name="settings_import_partial">Pengaturan diimpor dengan %1$d bagian yang memiliki kesalahan.</string>
     <string name="settings_model_search">Cari model…</string>

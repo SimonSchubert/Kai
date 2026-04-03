@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">דוא״ל</string>
     <string name="settings_import_section_tools">כלים</string>
     <string name="settings_import_section_mcp">שרתי MCP</string>
+    <string name="settings_import_section_conversations">שיחות</string>
     <string name="settings_heartbeat_reset_confirm">פעולה זו תאפס את הודעת פעימת הלב לברירת המחדל. האם אתה בטוח?</string>
     <string name="settings_import_partial">ההגדרות יובאו עם %1$d קטע(ים) שהכילו שגיאות.</string>
     <string name="settings_model_search">חיפוש מודלים…</string>

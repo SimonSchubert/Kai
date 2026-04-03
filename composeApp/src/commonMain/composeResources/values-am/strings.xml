@@ -168,6 +168,7 @@
     <string name="settings_import_section_email">ኢሜይል</string>
     <string name="settings_import_section_tools">መሣሪያዎች</string>
     <string name="settings_import_section_mcp">MCP አገልጋዮች</string>
+    <string name="settings_import_section_conversations">ውይይቶች</string>
     <string name="settings_heartbeat_reset_confirm">ይህ የልብ ምት ጥያቄውን ወደ ነባሪ ይመልሳል። እርግጠኛ ነህ?</string>
     <string name="settings_import_partial">ቅንብሮች ከ%1$d ክፍል(ዎች) ስህተት ጋር ገብተዋል።</string>
     <string name="settings_model_search">ሞዴሎችን ፈልግ…</string>

@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">Электрондық пошта</string>
     <string name="settings_import_section_tools">Құралдар</string>
     <string name="settings_import_section_mcp">MCP серверлері</string>
+    <string name="settings_import_section_conversations">Сұхбаттар</string>
     <string name="settings_heartbeat_reset_confirm">Бұл жүрек соғысы сұрауын әдепкіге қалпына келтіреді. Сенімдісіз бе?</string>
     <string name="settings_import_partial">Параметрлер %1$d қателі бөлім(дер)мен импортталды.</string>
     <string name="settings_model_search">Модельдерді іздеу…</string>

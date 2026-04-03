@@ -168,6 +168,7 @@
     <string name="settings_import_section_email">メール</string>
     <string name="settings_import_section_tools">ツール</string>
     <string name="settings_import_section_mcp">MCPサーバー</string>
+    <string name="settings_import_section_conversations">会話</string>
     <string name="settings_heartbeat_reset_confirm">ハートビートプロンプトをデフォルトにリセットします。よろしいですか？</string>
     <string name="settings_import_partial">%1$d個のセクションにエラーがある状態で設定がインポートされました。</string>
     <string name="settings_model_search">モデルを検索…</string>

@@ -617,6 +617,50 @@ class AppSettingsExportImportTest {
     }
 
     @Test
+    fun `import memories fallback path preserves category`() {
+        // createdAt as non-numeric string forces the primary decode to fail,
+        // exercising the manual-extraction fallback in sanitizeMemories()
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "memory_enabled" to JsonPrimitive(true),
+                "agent_memories" to Json.parseToJsonElement(
+                    """[{"key": "m1", "content": "prefers dark mode", "createdAt": "not-a-number", "updatedAt": "also-not", "category": "PREFERENCE", "hitCount": "3", "source": "chat"}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        val memories = SharedJson.decodeFromString<List<MemoryEntry>>(target.getMemoriesJson())
+        assertEquals(1, memories.size)
+        assertEquals("m1", memories[0].key)
+        assertEquals("prefers dark mode", memories[0].content)
+        assertEquals(MemoryCategory.PREFERENCE, memories[0].category)
+        assertEquals(3, memories[0].hitCount)
+        assertEquals("chat", memories[0].source)
+    }
+
+    @Test
+    fun `import memories fallback path with invalid category defaults to GENERAL`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "memory_enabled" to JsonPrimitive(true),
+                "agent_memories" to Json.parseToJsonElement(
+                    """[{"key": "m2", "content": "test", "createdAt": "bad", "updatedAt": "bad", "category": "NONEXISTENT"}]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        val memories = SharedJson.decodeFromString<List<MemoryEntry>>(target.getMemoriesJson())
+        assertEquals(1, memories.size)
+        assertEquals(MemoryCategory.GENERAL, memories[0].category)
+    }
+
+    @Test
     fun `import valid tasks round-trips unchanged`() {
         val appSettings = createAppSettings()
         // Use the export from a settings instance with proper tasks
@@ -639,5 +683,132 @@ class AppSettingsExportImportTest {
         assertEquals(2000L, tasks[0].createdAtEpochMs)
         assertEquals(TaskStatus.COMPLETED, tasks[0].status)
         assertEquals("done", tasks[0].lastResult)
+    }
+
+    @Test
+    fun `export includes conversations when present`() {
+        val appSettings = createAppSettings()
+        val convData = ConversationsData(
+            conversations = listOf(
+                Conversation(
+                    id = "conv1",
+                    messages = listOf(Conversation.Message(id = "msg1", role = "user", content = "Hello")),
+                    createdAt = 1000L,
+                    updatedAt = 2000L,
+                    title = "Test chat",
+                ),
+            ),
+        )
+        appSettings.setConversationsJson(SharedJson.encodeToString(convData))
+
+        val json = appSettings.exportToJson(toolIds)
+
+        assertTrue(json.containsKey("conversations"))
+        val conversations = json["conversations"]!!.jsonArray
+        assertEquals(1, conversations.size)
+        assertEquals("conv1", conversations[0].jsonObject["id"]?.jsonPrimitive?.content)
+    }
+
+    @Test
+    fun `export omits conversations when empty`() {
+        val appSettings = createAppSettings()
+        val json = appSettings.exportToJson(toolIds)
+        assertFalse(json.containsKey("conversations"))
+    }
+
+    @Test
+    fun `import conversations round-trips correctly`() {
+        val appSettings = createAppSettings()
+        val convData = ConversationsData(
+            conversations = listOf(
+                Conversation(
+                    id = "conv1",
+                    messages = listOf(
+                        Conversation.Message(id = "msg1", role = "user", content = "Hello"),
+                        Conversation.Message(id = "msg2", role = "assistant", content = "Hi there!"),
+                    ),
+                    createdAt = 1000L,
+                    updatedAt = 2000L,
+                    title = "Test chat",
+                    type = Conversation.TYPE_CHAT,
+                ),
+                Conversation(
+                    id = "conv2",
+                    messages = listOf(Conversation.Message(id = "msg3", role = "user", content = "Heartbeat")),
+                    createdAt = 3000L,
+                    updatedAt = 4000L,
+                    title = "HB",
+                    type = Conversation.TYPE_HEARTBEAT,
+                ),
+            ),
+        )
+        appSettings.setConversationsJson(SharedJson.encodeToString(convData))
+
+        val exported = appSettings.exportToJson(toolIds)
+
+        val target = createAppSettings()
+        target.importFromJson(exported, toolIds)
+
+        val imported = SharedJson.decodeFromString<ConversationsData>(target.getConversationsJson()!!)
+        assertEquals(2, imported.conversations.size)
+        assertEquals("conv1", imported.conversations[0].id)
+        assertEquals("Test chat", imported.conversations[0].title)
+        assertEquals(2, imported.conversations[0].messages.size)
+        assertEquals("conv2", imported.conversations[1].id)
+        assertEquals(Conversation.TYPE_HEARTBEAT, imported.conversations[1].type)
+    }
+
+    @Test
+    fun `import conversations with malformed entries skips invalid ones`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "conversations" to Json.parseToJsonElement(
+                    """[
+                        {"id": "conv1", "messages": [{"id": "m1", "role": "user", "content": "Hi"}], "createdAt": 1000, "updatedAt": 2000, "title": "Good"},
+                        {"bad": "entry"},
+                        {"id": "conv3", "messages": [], "createdAt": 3000, "updatedAt": 4000}
+                    ]""",
+                ),
+            ),
+        )
+        val target = createAppSettings()
+        target.importFromJson(json, toolIds)
+
+        val imported = SharedJson.decodeFromString<ConversationsData>(target.getConversationsJson()!!)
+        assertEquals(2, imported.conversations.size)
+        assertEquals("conv1", imported.conversations[0].id)
+        assertEquals("conv3", imported.conversations[1].id)
+    }
+
+    @Test
+    fun `detect import sections finds conversations`() {
+        val json = JsonObject(
+            mapOf(
+                "version" to JsonPrimitive(1),
+                "conversations" to Json.parseToJsonElement(
+                    """[{"id": "c1", "messages": [], "createdAt": 1000, "updatedAt": 2000}]""",
+                ),
+            ),
+        )
+        val sections = detectImportSections(json)
+        assertTrue(ImportSection.CONVERSATIONS in sections)
+        assertEquals("1", sections[ImportSection.CONVERSATIONS])
+    }
+
+    @Test
+    fun `import with replace clears conversations when section not selected`() {
+        val appSettings = createAppSettings()
+        val convData = ConversationsData(
+            conversations = listOf(
+                Conversation(id = "conv1", messages = emptyList(), createdAt = 1000L, updatedAt = 2000L),
+            ),
+        )
+        appSettings.setConversationsJson(SharedJson.encodeToString(convData))
+
+        val json = JsonObject(mapOf("version" to JsonPrimitive(1), "soul_text" to JsonPrimitive("test")))
+        appSettings.importFromJson(json, toolIds, sections = setOf(ImportSection.SOUL), replace = true)
+
+        assertEquals("", appSettings.getConversationsJson())
     }
 }

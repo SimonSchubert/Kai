@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">Имејл</string>
     <string name="settings_import_section_tools">Алати</string>
     <string name="settings_import_section_mcp">MCP сервери</string>
+    <string name="settings_import_section_conversations">Разговори</string>
     <string name="settings_heartbeat_reset_confirm">Ово ће ресетовати упит откуцаја срца на подразумевани. Да ли сте сигурни?</string>
     <string name="settings_import_partial">Подешавања увезена са %1$d одељком/одељцима са грешкама.</string>
     <string name="settings_model_search">Претражи моделе…</string>

@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Nástroje</string>
     <string name="settings_import_section_mcp">MCP servery</string>
+    <string name="settings_import_section_conversations">Konverzácie</string>
     <string name="settings_heartbeat_reset_confirm">Tým sa výzva heartbeat obnoví na predvolenú. Ste si istí?</string>
     <string name="settings_import_partial">Nastavenia importované s %1$d sekciou/-iami s chybami.</string>
     <string name="settings_model_search">Hľadať modely…</string>

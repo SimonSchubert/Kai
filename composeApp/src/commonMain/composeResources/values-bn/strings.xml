@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">ইমেইল</string>
     <string name="settings_import_section_tools">সরঞ্জাম</string>
     <string name="settings_import_section_mcp">MCP সার্ভার</string>
+    <string name="settings_import_section_conversations">কথোপকথন</string>
     <string name="settings_heartbeat_reset_confirm">এটি হার্টবিট প্রম্পটকে ডিফল্টে রিসেট করবে। আপনি কি নিশ্চিত?</string>
     <string name="settings_import_partial">%1$dটি বিভাগে ত্রুটি সহ সেটিংস আমদানি করা হয়েছে।</string>
     <string name="settings_model_search">মডেল খুঁজুন…</string>

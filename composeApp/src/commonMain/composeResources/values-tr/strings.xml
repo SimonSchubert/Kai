@@ -168,6 +168,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_import_section_email">E-posta</string>
     <string name="settings_import_section_tools">Araçlar</string>
     <string name="settings_import_section_mcp">MCP Sunucuları</string>
+    <string name="settings_import_section_conversations">Konuşmalar</string>
     <string name="settings_heartbeat_reset_confirm">Bu, kalp atışı istemini varsayılana sıfırlayacaktır. Emin misiniz?</string>
     <string name="settings_import_partial">Ayarlar %1$d hatalı bölüm(ler) ile içe aktarıldı.</string>
     <string name="settings_model_search">Model ara…</string>

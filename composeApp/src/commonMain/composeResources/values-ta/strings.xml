@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">மின்னஞ்சல்</string>
     <string name="settings_import_section_tools">கருவிகள்</string>
     <string name="settings_import_section_mcp">MCP சேவையகங்கள்</string>
+    <string name="settings_import_section_conversations">உரையாடல்கள்</string>
     <string name="settings_heartbeat_reset_confirm">இது இதயத்துடிப்பு அறிவுறுத்தலை இயல்புநிலைக்கு மீட்டமைக்கும். நீங்கள் உறுதியாக இருக்கிறீர்களா?</string>
     <string name="settings_import_partial">%1$d பிரிவு(கள்) பிழைகளுடன் அமைப்புகள் இறக்குமதி செய்யப்பட்டன.</string>
     <string name="settings_model_search">மாடல்களைத் தேடு…</string>

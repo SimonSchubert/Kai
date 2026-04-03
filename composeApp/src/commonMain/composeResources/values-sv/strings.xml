@@ -168,6 +168,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_import_section_email">E-post</string>
     <string name="settings_import_section_tools">Verktyg</string>
     <string name="settings_import_section_mcp">MCP-servrar</string>
+    <string name="settings_import_section_conversations">Konversationer</string>
     <string name="settings_heartbeat_reset_confirm">Detta kommer att återställa heartbeat-prompten till standard. Är du säker?</string>
     <string name="settings_import_partial">Inställningar importerade med %1$d avsnitt som hade fel.</string>
     <string name="settings_model_search">Sök modeller…</string>

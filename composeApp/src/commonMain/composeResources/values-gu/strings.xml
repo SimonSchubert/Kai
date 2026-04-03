@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">ઇમેઇલ</string>
     <string name="settings_import_section_tools">સાધનો</string>
     <string name="settings_import_section_mcp">MCP સર્વર્સ</string>
+    <string name="settings_import_section_conversations">વાર્તાલાપ</string>
     <string name="settings_heartbeat_reset_confirm">આ હાર્ટબીટ પ્રોમ્પ્ટને ડિફોલ્ટ પર રીસેટ કરશે. શું તમે ખાતરી કરો છો?</string>
     <string name="settings_import_partial">%1$d વિભાગ(ઓ)માં ભૂલો સાથે સેટિંગ્સ આયાત કરવામાં આવી.</string>
     <string name="settings_model_search">મોડેલ શોધો…</string>

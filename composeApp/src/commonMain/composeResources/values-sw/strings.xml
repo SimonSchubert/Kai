@@ -167,6 +167,7 @@
     <string name="settings_import_section_email">Barua pepe</string>
     <string name="settings_import_section_tools">Zana</string>
     <string name="settings_import_section_mcp">Seva za MCP</string>
+    <string name="settings_import_section_conversations">Mazungumzo</string>
     <string name="settings_heartbeat_reset_confirm">Hii itarejesha kidokezo cha mapigo ya moyo kuwa chaguo-msingi. Una uhakika?</string>
     <string name="settings_import_partial">Mipangilio imeagizwa na sehemu %1$d zenye makosa.</string>
     <string name="settings_model_search">Tafuta miundo…</string>

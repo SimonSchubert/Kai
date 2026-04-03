@@ -181,6 +181,7 @@
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Tools</string>
     <string name="settings_import_section_mcp">MCP Servers</string>
+    <string name="settings_import_section_conversations">Conversations</string>
     <string name="snackbar_undo">Undo</string>
     <string name="snackbar_memory_deleted">Memory deleted</string>
     <string name="snackbar_task_cancelled">Task cancelled</string>
