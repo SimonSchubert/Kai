@@ -444,16 +444,23 @@ class KaiUiParserTest {
     }
 
     @Test
-    fun `parses bottom_bar node`() {
-        val json = """{"type":"bottom_bar","buttons":[{"label":"Home","icon":"home","action":{"type":"callback","event":"nav_home"}},{"label":"Settings","icon":"settings","action":{"type":"callback","event":"nav_settings"}}]}"""
+    fun `skips unknown top-level node type`() {
+        val json = """{"type":"bottom_bar","buttons":[{"label":"Home","icon":"home"}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertTrue(segments.none { it is KaiUiParser.ErrorSegment })
+        assertTrue(segments.none { it is KaiUiParser.UiSegment })
+    }
+
+    @Test
+    fun `strips unknown child node from children`() {
+        val json = """{"type":"column","children":[{"type":"text","value":"Keep"},{"type":"bottom_bar","buttons":[]}]}"""
         val message = "```kai-ui\n$json\n```"
         val segments = KaiUiParser.parse(message)
         val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<BottomBarNode>(node)
-        assertEquals(2, node.buttons.size)
-        assertEquals("Home", node.buttons[0].label)
-        assertEquals("home", node.buttons[0].icon)
-        assertIs<CallbackAction>(node.buttons[0].action)
+        assertIs<ColumnNode>(node)
+        assertEquals(1, node.children.size)
+        assertIs<TextNode>(node.children[0])
     }
 
     @Test

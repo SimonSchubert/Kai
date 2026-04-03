@@ -5,6 +5,7 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -121,11 +122,47 @@ object KaiUiParser {
         else -> element
     }
 
-    /** Known fields on helper data classes (ChipItem, TabItem, BottomBarButton) — skip inference. */
+    /** Known fields on helper data classes (ChipItem, TabItem) — skip inference. */
     private val helperObjectFields = setOf("value", "children", "action")
 
+    /** Known node type discriminators derived from the KaiUiNode sealed hierarchy. */
+    private val knownNodeTypes: Set<String> by lazy {
+        val valueDescriptor = KaiUiNode.serializer().descriptor.getElementDescriptor(1)
+        (0 until valueDescriptor.elementsCount).map { valueDescriptor.getElementName(it) }.toSet()
+    }
+
+    /** Fields that hold List<KaiUiNode> and need unknown-type filtering. */
+    private val nodeListFields = setOf("children", "items")
+
+    /**
+     * Recursively remove objects with unrecognized "type" values from node-list fields
+     * (children, items). Returns null if the top-level element itself is an unknown node type.
+     */
+    private fun stripUnknownNodes(element: JsonElement): JsonElement? = when (element) {
+        is JsonObject -> {
+            val type = element["type"]?.jsonPrimitive?.contentOrNull
+            if (type != null && type !in knownNodeTypes) {
+                null
+            } else {
+                JsonObject(
+                    element.mapValues { (key, value) ->
+                        if (key in nodeListFields && value is JsonArray) {
+                            JsonArray(value.mapNotNull { stripUnknownNodes(it) })
+                        } else {
+                            stripUnknownNodes(value) ?: value
+                        }
+                    },
+                )
+            }
+        }
+
+        is JsonArray -> JsonArray(element.map { stripUnknownNodes(it) ?: it })
+
+        else -> element
+    }
+
     private fun inferMissingType(obj: JsonObject): JsonObject {
-        // Skip inference for helper objects (ChipItem, TabItem, BottomBarButton)
+        // Skip inference for helper objects (ChipItem, TabItem)
         // that have known non-node fields alongside label/title.
         if (obj.keys.any { it in helperObjectFields }) return obj
 
@@ -191,9 +228,10 @@ object KaiUiParser {
         return obj
     }
 
-    private fun parseSingleNode(json: String): KaiUiNode {
+    private fun parseSingleNode(json: String): KaiUiNode? {
         val jsonElement = fixMissingTypes(SharedJson.parseToJsonElement(json))
-        val jsonObject = jsonElement.jsonObject
+        val filtered = stripUnknownNodes(jsonElement) ?: return null
+        val jsonObject = filtered.jsonObject
         return if ("type" in jsonObject) {
             SharedJson.decodeFromJsonElement(KaiUiNode.serializer(), jsonObject)
         } else {
@@ -237,7 +275,10 @@ object KaiUiParser {
                 // Single JSON object (possibly with trailing braces from LLM)
                 val json = sanitizeJson(rawBlock)
                 try {
-                    segments.add(UiSegment(parseSingleNode(json), json))
+                    val node = parseSingleNode(json)
+                    if (node != null) {
+                        segments.add(UiSegment(node, json))
+                    }
                 } catch (e: Exception) {
                     ParseErrorCollector.log("failed to deserialize kai-ui block: ${e.message}", json)
                     segments.add(ErrorSegment(json))

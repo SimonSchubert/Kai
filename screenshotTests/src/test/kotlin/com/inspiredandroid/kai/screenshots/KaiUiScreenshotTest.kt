@@ -309,19 +309,6 @@ class KaiUiScreenshotTest {
     // --- Navigation: Bottom Bar ---
 
     @Test
-    fun bottomBar() {
-        paparazzi.snapKaiUi(
-            """{"type":"column","children":[
-                {"type":"text","value":"Bottom Navigation","style":"title","bold":true},
-                {"type":"spacer","height":16},
-                {"type":"bottom_bar","buttons":[
-                    {"label":"Home","icon":"home","action":{"type":"callback","event":"nav","data":{"tab":"home"}}},
-                    {"label":"Search","icon":"search","action":{"type":"callback","event":"nav","data":{"tab":"search"}}},
-                    {"label":"Profile","icon":"person","action":{"type":"callback","event":"nav","data":{"tab":"profile"}}}
-                ]}
-            ]}""",
-        )
-    }
 
     // --- Data: Table ---
 

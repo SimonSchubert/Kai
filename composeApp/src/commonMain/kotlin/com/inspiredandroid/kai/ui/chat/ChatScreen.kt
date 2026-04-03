@@ -6,6 +6,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -270,7 +271,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                             RoundedCornerShape(28.dp),
                         )
                         .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-                    verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     if (uiState.isLoading) {
                         Box(
@@ -364,7 +365,7 @@ private fun InteractiveModeTopBar(
                 TopBarPulse()
             } else {
                 Text(
-                    text = "Interactive UI",
+                    text = "Kai 9000",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -432,9 +433,12 @@ private fun TopBarPulse() {
                 .background(MaterialTheme.colorScheme.onSurface, CircleShape),
         )
         Spacer(Modifier.width(8.dp))
-        Crossfade(
+        AnimatedContent(
             targetState = index,
-            animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+            transitionSpec = {
+                (fadeIn(tween(300)) togetherWith fadeOut(tween(300)))
+                    .using(SizeTransform(clip = false) { _, _ -> tween(300) })
+            },
         ) { targetIndex ->
             Text(
                 text = stringResource(waitingTexts[targetIndex]),

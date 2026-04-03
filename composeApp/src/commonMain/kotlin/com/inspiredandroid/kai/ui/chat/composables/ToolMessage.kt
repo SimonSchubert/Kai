@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
@@ -8,6 +9,9 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -128,9 +132,12 @@ private fun WaitingChip() {
                 .background(MaterialTheme.colorScheme.onSurfaceVariant, CircleShape),
         )
         Spacer(Modifier.width(8.dp))
-        Crossfade(
+        AnimatedContent(
             targetState = index,
-            animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing),
+            transitionSpec = {
+                (fadeIn(tween(300)) togetherWith fadeOut(tween(300)))
+                    .using(SizeTransform(clip = false) { _, _ -> tween(300) })
+            },
         ) { targetIndex ->
             Text(
                 text = stringResource(waitingTexts[targetIndex]),

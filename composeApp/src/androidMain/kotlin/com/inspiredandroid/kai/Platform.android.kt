@@ -55,6 +55,7 @@ import kai.composeapp.generated.resources.tool_set_alarm_name
 import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.coroutines.CoroutineContext
+import androidx.core.graphics.scale
 
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Android) {
     config(this)
@@ -87,7 +88,7 @@ actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
             val scale = maxDim.toFloat() / maxOf(bitmap.width, bitmap.height)
             val newWidth = (bitmap.width * scale).toInt()
             val newHeight = (bitmap.height * scale).toInt()
-            android.graphics.Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+            bitmap.scale(newWidth, newHeight)
         } else {
             bitmap
         }

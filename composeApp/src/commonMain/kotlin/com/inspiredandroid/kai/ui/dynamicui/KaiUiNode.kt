@@ -263,22 +263,6 @@ data class TabItem(
 
 @Immutable
 @Serializable
-@SerialName("bottom_bar")
-data class BottomBarNode(
-    override val id: String? = null,
-    val buttons: List<BottomBarButton> = emptyList(),
-) : KaiUiNode
-
-@Immutable
-@Serializable
-data class BottomBarButton(
-    val label: String = "",
-    val icon: String? = null,
-    val action: UiAction? = null,
-)
-
-@Immutable
-@Serializable
 @SerialName("accordion")
 data class AccordionNode(
     override val id: String? = null,

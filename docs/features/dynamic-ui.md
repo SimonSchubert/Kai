@@ -16,13 +16,13 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 - **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)
 - **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group
 - **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)
-- **Navigation**: tabs (tabbed content), accordion (collapsible sections), bottom bar (navigation bar)
+- **Navigation**: tabs (tabbed content), accordion (collapsible sections)
 - **Display**: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)
 - **Data**: list, table
 
 ### Actions
 
-Buttons, chips, and bottom bar items carry an action that fires on click:
+Buttons and chips carry an action that fires on click:
 
 - **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow
 - **toggle** — shows/hides a target element locally without AI roundtrip
