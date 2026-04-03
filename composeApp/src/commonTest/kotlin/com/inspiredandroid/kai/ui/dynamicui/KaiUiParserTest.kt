@@ -692,6 +692,17 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `flattens array value to string when primitive expected`() {
+        val json = """{"type":"text","value":["line one","line two"]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<TextNode>(node)
+        assertEquals("line one, line two", node.value)
+    }
+
+    @Test
     fun `parses list items with content field instead of type`() {
         val json = """{"type":"list","items":[{"content":"First item"},{"content":"Second item"}]}"""
         val message = "```kai-ui\n$json\n```"
