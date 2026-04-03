@@ -45,7 +45,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -228,7 +227,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         )
                     }
                 } else {
-                    SelectionContainer {
+                    Box {
                         InteractiveModeContent(
                             uiState = uiState,
                             modifier = Modifier.fillMaxSize(),
@@ -595,7 +594,7 @@ private fun ChatModeScreen(
                 },
             )
 
-            SelectionContainer(Modifier.weight(1f)) {
+            Box(Modifier.weight(1f)) {
                 var isDropping by remember {
                     mutableStateOf(false)
                 }

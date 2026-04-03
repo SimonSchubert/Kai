@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.decodeToImageBitmap
 import kai.composeapp.generated.resources.Res
@@ -38,6 +39,7 @@ internal fun UserMessage(
 ) {
     val isImage = mimeType == null || mimeType.startsWith("image/")
 
+    SelectionContainer {
     Row(Modifier.padding(16.dp)) {
         Spacer(Modifier.weight(1f))
         Column(
@@ -95,5 +97,6 @@ internal fun UserMessage(
                 )
             }
         }
+    }
     }
 }
