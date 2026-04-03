@@ -1,0 +1,6 @@
+Add experimental interactive UI screen
+Add conversation import and export
+Add dedicated GitHub Pages screen
+Add custom MCP server headers
+Improve Kai UI parsing
+Use Gemini header auth instead of URL parameter

@@ -1,3 +1,15 @@
+## v2.0.0 — 2026-04-03
+
+### Features
+- Add experimental interactive UI screen
+- Add conversation import and export
+- Add dedicated GitHub Pages screen
+- Add custom MCP server headers
+
+### Improvements
+- Improve Kai UI parsing
+- Use Gemini header auth instead of URL parameter
+
 ## v1.12.3 — 2026-04-02
 
 ### Features
