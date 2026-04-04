@@ -47,6 +47,7 @@ data class CardNode(
 data class SpacerNode(
     override val id: String? = null,
     val height: Int? = null,
+    val size: Int? = null,
 ) : KaiUiNode
 
 @Immutable

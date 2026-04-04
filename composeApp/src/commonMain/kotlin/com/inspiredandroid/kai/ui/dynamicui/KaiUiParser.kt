@@ -13,6 +13,9 @@ object KaiUiParser {
 
     private val kaiUiBlockRegex = Regex("```kai-ui\\s*\\n?([\\s\\S]*?)\\n?```")
 
+    /** LLMs sometimes write "kai-ui" as plain text then a separate ```json block. */
+    private val kaiUiSplitBlockRegex = Regex("(?:^|\\n)\\s*kai-ui\\s*\\n\\s*```(?:json)?\\s*\\n([\\s\\S]*?)\\n?```")
+
     sealed interface MessageSegment
 
     data class MarkdownSegment(val content: String) : MessageSegment
@@ -21,7 +24,7 @@ object KaiUiParser {
 
     data class ErrorSegment(val rawJson: String) : MessageSegment
 
-    fun containsUiBlocks(message: String): Boolean = kaiUiBlockRegex.containsMatchIn(message)
+    fun containsUiBlocks(message: String): Boolean = kaiUiBlockRegex.containsMatchIn(message) || kaiUiSplitBlockRegex.containsMatchIn(message)
 
     /** Fix common LLM JSON syntax errors like `"key=[` instead of `"key":[`. */
     private val brokenKeySyntax = Regex(""""(\w+)=([{\[])""")
@@ -335,13 +338,30 @@ object KaiUiParser {
         }
     }
 
-    fun stripUiBlocks(message: String): String = kaiUiBlockRegex.replace(message, "").trim()
+    fun stripUiBlocks(message: String): String = kaiUiSplitBlockRegex.replace(kaiUiBlockRegex.replace(message, ""), "").trim()
+
+    /** Find all kai-ui block matches (from both regex patterns), sorted by position, non-overlapping. */
+    private fun findAllUiBlockMatches(message: String): List<MatchResult> {
+        val all = (kaiUiBlockRegex.findAll(message) + kaiUiSplitBlockRegex.findAll(message))
+            .sortedBy { it.range.first }
+            .toList()
+        // Remove overlapping matches (keep the one that starts first)
+        val result = mutableListOf<MatchResult>()
+        var lastEnd = -1
+        for (match in all) {
+            if (match.range.first > lastEnd) {
+                result.add(match)
+                lastEnd = match.range.last
+            }
+        }
+        return result
+    }
 
     fun parse(message: String): List<MessageSegment> {
         val segments = mutableListOf<MessageSegment>()
         var lastIndex = 0
 
-        for (match in kaiUiBlockRegex.findAll(message)) {
+        for (match in findAllUiBlockMatches(message)) {
             val before = message.substring(lastIndex, match.range.first)
             if (before.isNotBlank()) {
                 segments.add(MarkdownSegment(before))

@@ -16,7 +16,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -90,6 +89,7 @@ import com.inspiredandroid.kai.ui.chat.composables.PulsingStatusIndicator
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.ServiceSelector
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
+import com.inspiredandroid.kai.ui.chat.composables.TrailingIcon
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import com.inspiredandroid.kai.ui.chat.composables.toolSummaryText
@@ -115,7 +115,6 @@ import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
 import org.jetbrains.compose.resources.getString
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -170,20 +169,11 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
         uiState.history.any { it.role == History.Role.ASSISTANT }
     }
     var inputExpanded by remember { mutableStateOf(true) }
-    LaunchedEffect(hasAssistantResponse) {
-        if (hasAssistantResponse) inputExpanded = false
-    }
-    // Collapse input when a new response arrives
-    LaunchedEffect(uiState.history.size) {
+    LaunchedEffect(hasAssistantResponse, uiState.history.size) {
         if (hasAssistantResponse) inputExpanded = false
     }
     val showFullInput = inputExpanded && !uiState.isLoading
-    val executingTools = remember(uiState.history) {
-        uiState.history
-            .filter { it.role == History.Role.TOOL_EXECUTING }
-            .map { it.id to (it.toolName ?: "tool") }
-            .toImmutableList()
-    }
+    val executingTools = rememberExecutingTools(uiState.history)
 
     Box(
         Modifier
@@ -282,26 +272,11 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     if (uiState.isLoading) {
-                        Box(
-                            modifier = Modifier
-                                .padding(start = 6.dp)
-                                .size(42.dp)
-                                .clip(androidx.compose.foundation.shape.CircleShape)
-                                .background(
-                                    brush = gradientBrush,
-                                    shape = androidx.compose.foundation.shape.CircleShape,
-                                )
-                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-                                .clickable { uiState.actions.cancel() },
-                            contentAlignment = androidx.compose.ui.Alignment.Center,
-                        ) {
-                            Icon(
-                                painter = painterResource(Res.drawable.ic_stop),
-                                contentDescription = null,
-                                modifier = Modifier.size(32.dp),
-                                tint = androidx.compose.ui.graphics.Color.White,
-                            )
-                        }
+                        TrailingIcon(
+                            icon = Res.drawable.ic_stop,
+                            onClick = { uiState.actions.cancel() },
+                            modifier = Modifier.padding(start = 6.dp),
+                        )
                     } else {
                         IconButton(onClick = { inputExpanded = true }) {
                             Icon(
@@ -612,12 +587,7 @@ private fun ChatModeScreen(
                                 uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
                             }
                         }
-                        val executingTools = remember(uiState.history) {
-                            uiState.history
-                                .filter { it.role == History.Role.TOOL_EXECUTING }
-                                .map { it.id to (it.toolName ?: "tool") }
-                                .toImmutableList()
-                        }
+                        val executingTools = rememberExecutingTools(uiState.history)
 
                         val showScrollToBottom by remember {
                             derivedStateOf {
@@ -751,4 +721,12 @@ private fun ChatModeScreen(
             onDismiss = { showHistorySheet = false },
         )
     }
+}
+
+@Composable
+private fun rememberExecutingTools(history: ImmutableList<History>): ImmutableList<Pair<String, String>> = remember(history) {
+    history
+        .filter { it.role == History.Role.TOOL_EXECUTING }
+        .map { it.id to (it.toolName ?: "tool") }
+        .toImmutableList()
 }

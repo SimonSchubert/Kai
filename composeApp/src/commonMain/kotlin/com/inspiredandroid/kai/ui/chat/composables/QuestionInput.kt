@@ -35,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -52,8 +51,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.isMobilePlatform
-import com.inspiredandroid.kai.ui.darkPurple
-import com.inspiredandroid.kai.ui.lightPurple
+import com.inspiredandroid.kai.ui.gradientBrush
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
@@ -72,8 +70,6 @@ import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-
-private val gradientBrush = Brush.horizontalGradient(listOf(darkPurple, lightPurple))
 
 @Composable
 fun QuestionInput(
@@ -203,9 +199,9 @@ fun QuestionInput(
                         }
                     }
                     if (isLoading) {
-                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel)
+                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel, modifier = Modifier.padding(end = 6.dp))
                     } else if (textState.text.isNotBlank()) {
-                        TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() })
+                        TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }, modifier = Modifier.padding(end = 6.dp))
                     }
                 }
             },
@@ -234,13 +230,13 @@ fun QuestionInput(
 }
 
 @Composable
-private fun TrailingIcon(
+internal fun TrailingIcon(
     icon: org.jetbrains.compose.resources.DrawableResource = Res.drawable.ic_up,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
-            .padding(end = 6.dp)
+        modifier = modifier
             .size(42.dp)
             .clip(CircleShape)
             .background(brush = gradientBrush, CircleShape)

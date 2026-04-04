@@ -294,7 +294,7 @@ private fun RenderNode(
         is ImageNode -> RenderImage(node)
         is TableNode -> RenderTable(node)
         is ListNode -> RenderList(node, isInteractive, formState, toggleState, onCallback, depth)
-        is SpacerNode -> Spacer(Modifier.height((node.height ?: 8).dp))
+        is SpacerNode -> Spacer(Modifier.height((node.height ?: node.size ?: 8).dp))
         is DividerNode -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
         is SwitchNode -> RenderSwitch(node, isInteractive, formState)
         is SliderNode -> RenderSlider(node, isInteractive, formState)

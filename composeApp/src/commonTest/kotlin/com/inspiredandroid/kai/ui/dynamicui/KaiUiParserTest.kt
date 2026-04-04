@@ -718,4 +718,35 @@ class KaiUiParserTest {
         assertIs<TextNode>(second)
         assertEquals("Second item", second.value)
     }
+
+    @Test
+    fun `detects kai-ui as plain text followed by json code block`() {
+        val message = "kai-ui\n```json\n{\"type\":\"text\",\"value\":\"Hello\"}\n```"
+        assertTrue(KaiUiParser.containsUiBlocks(message))
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        assertIs<KaiUiParser.UiSegment>(segments[0])
+        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<TextNode>(node)
+        assertEquals("Hello", node.value)
+    }
+
+    @Test
+    fun `detects kai-ui as plain text followed by untagged code block`() {
+        val message = "kai-ui\n```\n{\"type\":\"text\",\"value\":\"Hello\"}\n```"
+        assertTrue(KaiUiParser.containsUiBlocks(message))
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        assertIs<KaiUiParser.UiSegment>(segments[0])
+    }
+
+    @Test
+    fun `strips split kai-ui blocks`() {
+        val message = "Before\nkai-ui\n```json\n{\"type\":\"text\",\"value\":\"Hi\"}\n```\nAfter"
+        val stripped = KaiUiParser.stripUiBlocks(message)
+        assertFalse(stripped.contains("kai-ui"))
+        assertFalse(stripped.contains("\"type\""))
+        assertTrue(stripped.contains("Before"))
+        assertTrue(stripped.contains("After"))
+    }
 }

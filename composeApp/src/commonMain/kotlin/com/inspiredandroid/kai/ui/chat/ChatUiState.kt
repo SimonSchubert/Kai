@@ -23,6 +23,9 @@ import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
+private fun String.isTextMimeType(): Boolean = startsWith("text/") || this == "application/json" || this == "application/xml" ||
+    this == "application/javascript" || this == "application/x-yaml" || this == "application/yaml"
+
 @Immutable
 data class ConversationSummary(
     val id: String,
@@ -90,7 +93,7 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
     History.Role.USER -> {
         val messageContent: JsonElement = if (data != null && mimeType != null) {
             when {
-                mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml" -> {
+                mimeType.isTextMimeType() -> {
                     val decoded = Base64.decode(data).decodeToString()
                     val header = if (fileName != null) "--- $fileName ---\n" else ""
                     JsonPrimitive("$header$decoded\n\n$content")
@@ -175,7 +178,7 @@ fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
     History.Role.USER -> {
         if (data != null && mimeType != null) {
             when {
-                mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml" -> {
+                mimeType.isTextMimeType() -> {
                     val decoded = Base64.decode(data).decodeToString()
                     val header = if (fileName != null) "--- $fileName ---\n" else ""
                     JsonPrimitive("$header$decoded\n\n$content")
@@ -342,7 +345,7 @@ fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
                 else -> {
                     // Regular user message with potential inline data
                     if (data != null && mimeType != null) {
-                        val isText = mimeType.startsWith("text/") || mimeType == "application/json" || mimeType == "application/xml" || mimeType == "application/javascript" || mimeType == "application/x-yaml" || mimeType == "application/yaml"
+                        val isText = mimeType.isTextMimeType()
                         if (isText) {
                             val decoded = Base64.decode(data).decodeToString()
                             val header = if (fileName != null) "--- $fileName ---\n" else ""
