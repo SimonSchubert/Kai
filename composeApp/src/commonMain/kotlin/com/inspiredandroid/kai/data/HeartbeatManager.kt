@@ -21,6 +21,7 @@ data class HeartbeatConfig(
     val activeHoursStart: Int = 8,
     val activeHoursEnd: Int = 22,
     val lastHeartbeatEpochMs: Long = 0L,
+    val heartbeatInstanceId: String? = null,
 )
 
 @OptIn(ExperimentalTime::class)

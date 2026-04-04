@@ -1572,6 +1572,13 @@ class RemoteDataRepository(
 
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = heartbeatManager.getHeartbeatLog()
 
+    override fun getHeartbeatInstanceId(): String? = heartbeatManager.getConfig().heartbeatInstanceId
+
+    override fun setHeartbeatInstanceId(instanceId: String?) {
+        val config = heartbeatManager.getConfig()
+        heartbeatManager.saveConfig(config.copy(heartbeatInstanceId = instanceId))
+    }
+
     override fun isEmailEnabled(): Boolean = appSettings.isEmailEnabled()
 
     override fun setEmailEnabled(enabled: Boolean) {
@@ -1608,14 +1615,18 @@ class RemoteDataRepository(
         return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
     }
 
-    override suspend fun askWithTools(prompt: String): String {
-        val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
-        val service = Service.fromId(firstInstance.serviceId)
+    override suspend fun askWithTools(prompt: String, instanceId: String?): String {
+        val targetInstance = if (instanceId != null) {
+            getConfiguredServiceInstances().find { it.instanceId == instanceId }
+        } else {
+            null
+        } ?: getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val service = Service.fromId(targetInstance.serviceId)
         val messages = listOf(History(role = History.Role.USER, content = prompt))
         val systemPrompt = getActiveSystemPrompt()
         // Use a local history to avoid polluting the current conversation's chatHistory
         val localHistory = MutableStateFlow(messages)
-        return askWithService(service, messages, systemPrompt, firstInstance.instanceId, localHistory)
+        return askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory)
     }
 
     override suspend fun askSilently(question: String): String {

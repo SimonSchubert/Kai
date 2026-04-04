@@ -62,7 +62,7 @@ class TaskScheduler(
                             ?.map { it.content }
                             ?: emptyList()
                         val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses)
-                        val response = dataRepository.askWithTools(heartbeatPrompt)
+                        val response = dataRepository.askWithTools(heartbeatPrompt, heartbeatManager.getConfig().heartbeatInstanceId)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
                         if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {

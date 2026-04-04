@@ -101,6 +101,8 @@ interface DataRepository {
     fun getHeartbeatPrompt(): String
     fun setHeartbeatPrompt(text: String)
     fun getHeartbeatLog(): List<HeartbeatLogEntry>
+    fun getHeartbeatInstanceId(): String?
+    fun setHeartbeatInstanceId(instanceId: String?)
 
     // Email
     fun isEmailEnabled(): Boolean
@@ -119,7 +121,7 @@ interface DataRepository {
     fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int
 
     // Background ask with tools (no chat history update, supports tool-calling loop)
-    suspend fun askWithTools(prompt: String): String
+    suspend fun askWithTools(prompt: String, instanceId: String? = null): String
 
     // Silent ask (no tools, no chat history update)
     suspend fun askSilently(question: String): String

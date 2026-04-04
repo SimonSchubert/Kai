@@ -175,6 +175,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_import_section_mcp">MCP-servere</string>
     <string name="settings_import_section_conversations">Samtaler</string>
     <string name="settings_heartbeat_reset_confirm">Dette vil tilbakestille heartbeat-meldingen til standard. Er du sikker?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Innstillinger importert med %1$d seksjon(er) som hadde feil.</string>
     <string name="settings_model_search">Søk modeller…</string>
     <string name="waiting_content_description">Venter på svar</string>

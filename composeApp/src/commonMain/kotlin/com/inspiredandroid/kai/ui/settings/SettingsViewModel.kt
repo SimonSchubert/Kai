@@ -83,10 +83,18 @@ class SettingsViewModel(
         heartbeatActiveHoursEnd = dataRepository.getHeartbeatConfig().activeHoursEnd,
         heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
         heartbeatLog = dataRepository.getHeartbeatLog().toImmutableList(),
+        heartbeatServiceEntries = dataRepository.getServiceEntries().toImmutableList(),
+        heartbeatSelectedInstanceId = dataRepository.getHeartbeatInstanceId()?.takeIf { id ->
+            dataRepository.getServiceEntries().any { it.instanceId == id }
+        }.also { validId ->
+            val savedId = dataRepository.getHeartbeatInstanceId()
+            if (savedId != null && validId == null) dataRepository.setHeartbeatInstanceId(null)
+        },
         onToggleHeartbeat = ::onToggleHeartbeat,
         onChangeHeartbeatInterval = ::onChangeHeartbeatInterval,
         onChangeHeartbeatActiveHours = ::onChangeHeartbeatActiveHours,
         onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
+        onChangeHeartbeatService = ::onChangeHeartbeatService,
         isEmailEnabled = dataRepository.isEmailEnabled(),
         showEmailToggle = isEmailSupported,
         emailAccounts = dataRepository.getEmailAccounts().toImmutableList(),
@@ -352,6 +360,11 @@ class SettingsViewModel(
     private fun onSaveHeartbeatPrompt(text: String) {
         dataRepository.setHeartbeatPrompt(text)
         _state.update { it.copy(heartbeatPrompt = text) }
+    }
+
+    private fun onChangeHeartbeatService(instanceId: String?) {
+        dataRepository.setHeartbeatInstanceId(instanceId)
+        _state.update { it.copy(heartbeatSelectedInstanceId = instanceId) }
     }
 
     private fun onToggleEmail(enabled: Boolean) {

@@ -175,6 +175,8 @@
     <string name="settings_import_section_mcp">MCP सर्वर</string>
     <string name="settings_import_section_conversations">वार्तालाप</string>
     <string name="settings_heartbeat_reset_confirm">यह हार्टबीट प्रॉम्प्ट को डिफ़ॉल्ट पर रीसेट कर देगा। क्या आप सुनिश्चित हैं?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">%1$d अनुभाग(ों) में त्रुटियों के साथ सेटिंग्स आयात की गईं।</string>
     <string name="settings_model_search">मॉडल खोजें…</string>
     <string name="waiting_content_description">प्रतिक्रिया की प्रतीक्षा में</string>

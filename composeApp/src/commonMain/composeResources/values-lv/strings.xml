@@ -174,6 +174,8 @@
     <string name="settings_import_section_mcp">MCP serveri</string>
     <string name="settings_import_section_conversations">Sarunas</string>
     <string name="settings_heartbeat_reset_confirm">Tas atiestatīs sirdspukstu uzvedni uz noklusējumu. Vai esat pārliecināts?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Iestatījumi importēti ar %1$d sadaļu(-ām) ar kļūdām.</string>
     <string name="settings_model_search">Meklēt modeļus…</string>
     <string name="waiting_content_description">Gaida atbildi</string>

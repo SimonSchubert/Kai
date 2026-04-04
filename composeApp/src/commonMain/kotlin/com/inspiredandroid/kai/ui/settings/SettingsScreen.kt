@@ -52,6 +52,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -124,6 +126,7 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
@@ -177,6 +180,8 @@ import kai.composeapp.generated.resources.settings_heartbeat_active_hours
 import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
 import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_heartbeat_interval
+import kai.composeapp.generated.resources.settings_heartbeat_model
+import kai.composeapp.generated.resources.settings_heartbeat_model_default
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
@@ -1544,10 +1549,13 @@ private fun GeneralContent(uiState: SettingsUiState) {
                             activeHoursEnd = uiState.heartbeatActiveHoursEnd,
                             heartbeatPrompt = uiState.heartbeatPrompt,
                             heartbeatLog = uiState.heartbeatLog,
+                            heartbeatServiceEntries = uiState.heartbeatServiceEntries,
+                            heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
                             onToggleHeartbeat = uiState.onToggleHeartbeat,
                             onChangeInterval = uiState.onChangeHeartbeatInterval,
                             onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
                             onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
+                            onChangeHeartbeatService = uiState.onChangeHeartbeatService,
                         )
                     }
                     if (uiState.showEmailToggle) {
@@ -1624,10 +1632,13 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         activeHoursEnd = uiState.heartbeatActiveHoursEnd,
                         heartbeatPrompt = uiState.heartbeatPrompt,
                         heartbeatLog = uiState.heartbeatLog,
+                        heartbeatServiceEntries = uiState.heartbeatServiceEntries,
+                        heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
                         onToggleHeartbeat = uiState.onToggleHeartbeat,
                         onChangeInterval = uiState.onChangeHeartbeatInterval,
                         onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
                         onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
+                        onChangeHeartbeatService = uiState.onChangeHeartbeatService,
                     )
                 }
                 if (uiState.showEmailToggle) {
@@ -2833,10 +2844,13 @@ private fun HeartbeatSection(
     activeHoursEnd: Int,
     heartbeatPrompt: String,
     heartbeatLog: ImmutableList<HeartbeatLogEntry>,
+    heartbeatServiceEntries: ImmutableList<ServiceEntry>,
+    heartbeatSelectedInstanceId: String?,
     onToggleHeartbeat: (Boolean) -> Unit,
     onChangeInterval: (Int) -> Unit,
     onChangeActiveHours: (Int, Int) -> Unit,
     onSaveHeartbeatPrompt: (String) -> Unit,
+    onChangeHeartbeatService: (String?) -> Unit,
 ) {
     val defaultPrompt = stringResource(Res.string.settings_heartbeat_default_prompt)
     val displayText = heartbeatPrompt.ifEmpty { defaultPrompt }
@@ -2997,6 +3011,138 @@ private fun HeartbeatSection(
                     )
                 },
             )
+
+            if (heartbeatServiceEntries.size > 1) {
+                Spacer(Modifier.height(12.dp))
+
+                Text(
+                    text = stringResource(Res.string.settings_heartbeat_model),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(4.dp))
+
+                var modelExpanded by remember { mutableStateOf(false) }
+                val selectedEntry = heartbeatServiceEntries.find { it.instanceId == heartbeatSelectedInstanceId }
+
+                Box {
+                    OutlinedButton(
+                        onClick = { modelExpanded = true },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    ) {
+                        if (selectedEntry != null) {
+                            Icon(
+                                imageVector = vectorResource(selectedEntry.icon),
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp),
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                text = "${selectedEntry.serviceName} · ${selectedEntry.modelId}",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        } else {
+                            Text(stringResource(Res.string.settings_heartbeat_model_default))
+                        }
+                    }
+
+                    DropdownMenu(
+                        expanded = modelExpanded,
+                        onDismissRequest = { modelExpanded = false },
+                        shape = RoundedCornerShape(16.dp),
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = stringResource(Res.string.settings_heartbeat_model_default),
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = if (heartbeatSelectedInstanceId == null) {
+                                        MaterialTheme.colorScheme.onPrimaryContainer
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurface
+                                    },
+                                )
+                            },
+                            onClick = {
+                                modelExpanded = false
+                                onChangeHeartbeatService(null)
+                            },
+                            modifier = Modifier
+                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                .then(
+                                    if (heartbeatSelectedInstanceId == null) {
+                                        Modifier
+                                            .padding(horizontal = 4.dp)
+                                            .background(
+                                                color = MaterialTheme.colorScheme.primaryContainer,
+                                                shape = RoundedCornerShape(12.dp),
+                                            )
+                                    } else {
+                                        Modifier
+                                    },
+                                ),
+                        )
+                        heartbeatServiceEntries.forEach { entry ->
+                            val isSelected = entry.instanceId == heartbeatSelectedInstanceId
+                            DropdownMenuItem(
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = vectorResource(entry.icon),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(18.dp),
+                                        tint = if (isSelected) {
+                                            MaterialTheme.colorScheme.onPrimaryContainer
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurface
+                                        },
+                                    )
+                                },
+                                text = {
+                                    Column {
+                                        Text(
+                                            text = entry.serviceName,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            color = if (isSelected) {
+                                                MaterialTheme.colorScheme.onPrimaryContainer
+                                            } else {
+                                                MaterialTheme.colorScheme.onSurface
+                                            },
+                                        )
+                                        Text(
+                                            text = entry.modelId,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = if (isSelected) {
+                                                MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                            } else {
+                                                MaterialTheme.colorScheme.onSurfaceVariant
+                                            },
+                                        )
+                                    }
+                                },
+                                onClick = {
+                                    modelExpanded = false
+                                    onChangeHeartbeatService(entry.instanceId)
+                                },
+                                modifier = Modifier
+                                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                    .then(
+                                        if (isSelected) {
+                                            Modifier
+                                                .padding(horizontal = 4.dp)
+                                                .background(
+                                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                                    shape = RoundedCornerShape(12.dp),
+                                                )
+                                        } else {
+                                            Modifier
+                                        },
+                                    ),
+                            )
+                        }
+                    }
+                }
+            }
 
             Spacer(Modifier.height(12.dp))
 

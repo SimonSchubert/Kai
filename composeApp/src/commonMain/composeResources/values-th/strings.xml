@@ -174,6 +174,8 @@
     <string name="settings_import_section_mcp">เซิร์ฟเวอร์ MCP</string>
     <string name="settings_import_section_conversations">การสนทนา</string>
     <string name="settings_heartbeat_reset_confirm">การดำเนินการนี้จะรีเซ็ตข้อความ heartbeat เป็นค่าเริ่มต้น คุณแน่ใจหรือไม่?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">นำเข้าการตั้งค่าแล้วโดยมี %1$d ส่วนที่มีข้อผิดพลาด</string>
     <string name="settings_model_search">ค้นหาโมเดล…</string>
     <string name="waiting_content_description">กำลังรอการตอบกลับ</string>

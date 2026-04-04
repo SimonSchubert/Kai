@@ -175,6 +175,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_import_section_mcp">Server MCP</string>
     <string name="settings_import_section_conversations">Conversazioni</string>
     <string name="settings_heartbeat_reset_confirm">Questo ripristinerà il prompt heartbeat al valore predefinito. Sei sicuro?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Impostazioni importate con %1$d sezione/i con errori.</string>
     <string name="settings_model_search">Cerca modelli…</string>
     <string name="waiting_content_description">In attesa di risposta</string>

@@ -174,6 +174,8 @@
     <string name="settings_import_section_mcp">Servere MCP</string>
     <string name="settings_import_section_conversations">Conversații</string>
     <string name="settings_heartbeat_reset_confirm">Aceasta va reseta promptul heartbeat la valoarea implicită. Ești sigur?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Setări importate cu %1$d secțiune(i) cu erori.</string>
     <string name="settings_model_search">Căutare modele…</string>
     <string name="waiting_content_description">Se așteaptă răspunsul</string>

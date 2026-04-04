@@ -175,6 +175,8 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_import_section_mcp">MCP-servere</string>
     <string name="settings_import_section_conversations">Samtaler</string>
     <string name="settings_heartbeat_reset_confirm">Dette vil nulstille heartbeat-prompten til standard. Er du sikker?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Indstillinger importeret med %1$d sektion(er) der havde fejl.</string>
     <string name="settings_model_search">Søg modeller…</string>
     <string name="waiting_content_description">Venter på svar</string>

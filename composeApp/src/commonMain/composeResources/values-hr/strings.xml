@@ -174,6 +174,8 @@
     <string name="settings_import_section_mcp">MCP poslužitelji</string>
     <string name="settings_import_section_conversations">Razgovori</string>
     <string name="settings_heartbeat_reset_confirm">Ovo će vratiti poruku otkucaja srca na zadano. Jeste li sigurni?</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Postavke uvezene s %1$d odjeljkom/odjeljcima s pogreškama.</string>
     <string name="settings_model_search">Pretraži modele…</string>
     <string name="waiting_content_description">Čekanje odgovora</string>

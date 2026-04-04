@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -81,10 +82,13 @@ data class SettingsUiState(
     val heartbeatActiveHoursEnd: Int = 22,
     val heartbeatPrompt: String = "",
     val heartbeatLog: ImmutableList<HeartbeatLogEntry> = persistentListOf(),
+    val heartbeatServiceEntries: ImmutableList<ServiceEntry> = persistentListOf(),
+    val heartbeatSelectedInstanceId: String? = null,
     val onToggleHeartbeat: (Boolean) -> Unit = {},
     val onChangeHeartbeatInterval: (Int) -> Unit = {},
     val onChangeHeartbeatActiveHours: (Int, Int) -> Unit = { _, _ -> },
     val onSaveHeartbeatPrompt: (String) -> Unit = {},
+    val onChangeHeartbeatService: (String?) -> Unit = {},
     val isEmailEnabled: Boolean = true,
     val showEmailToggle: Boolean = false,
     val emailAccounts: ImmutableList<EmailAccount> = persistentListOf(),

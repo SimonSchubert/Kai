@@ -370,7 +370,10 @@ class FakeDataRepository : DataRepository {
 
     override fun getHeartbeatLog(): List<HeartbeatLogEntry> = emptyList()
 
-    override suspend fun askWithTools(prompt: String): String = ""
+    override fun getHeartbeatInstanceId(): String? = null
+    override fun setHeartbeatInstanceId(instanceId: String?) {}
+
+    override suspend fun askWithTools(prompt: String, instanceId: String?): String = ""
     override suspend fun askSilently(question: String): String = ""
     override suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long): String = ""
     override suspend fun addAssistantMessage(content: String) {}

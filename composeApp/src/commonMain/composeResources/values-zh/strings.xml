@@ -175,6 +175,8 @@
     <string name="settings_import_section_mcp">MCP 服务器</string>
     <string name="settings_import_section_conversations">对话</string>
     <string name="settings_heartbeat_reset_confirm">这将把心跳提示重置为默认值。您确定吗？</string>
+    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">设置已导入，其中 %1$d 个部分存在错误。</string>
     <string name="settings_model_search">搜索模型…</string>
     <string name="waiting_content_description">等待响应</string>
