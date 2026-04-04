@@ -47,4 +47,14 @@ val popularMcpServers = listOf(
         url = "https://subwayinfo.nyc/mcp",
         description = "Real-time NYC transit info",
     ),
+    PopularMcpServer(
+        name = "Jina AI",
+        url = "https://mcp.jina.ai/v1",
+        description = "Convert URLs to markdown, web search, image search",
+    ),
+    PopularMcpServer(
+        name = "Open-Meteo Weather",
+        url = "https://mcp.open-mcp.org/api/server/open-weather@latest/mcp",
+        description = "Global weather forecasts and air quality",
+    ),
 )
