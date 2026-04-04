@@ -218,4 +218,15 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Wyjdź z trybu interaktywnego</string>
     <string name="interactive_ui_parsing_failed">Analiza UI nie powiodła się, ponawiam próbę…</string>
+    <string name="chat_history_interactive_label">Interaktywny UI</string>
+    <string name="settings_sponsors_monthly">Miesięczni sponsorzy</string>
+    <string name="settings_sponsors_past">Poprzedni sponsorzy</string>
+    <string name="snackbar_undo">Cofnij</string>
+    <string name="snackbar_memory_deleted">Wspomnienie usunięte</string>
+    <string name="snackbar_task_cancelled">Zadanie anulowane</string>
+    <string name="snackbar_email_removed">Konto e-mail usunięte</string>
+    <string name="snackbar_service_removed">Usługa usunięta</string>
+    <string name="snackbar_mcp_server_removed">Serwer MCP usunięty</string>
+    <string name="snackbar_conversation_deleted">Rozmowa usunięta</string>
+    <string name="start_interactive_ui">Uruchom interaktywny UI</string>
 </resources>

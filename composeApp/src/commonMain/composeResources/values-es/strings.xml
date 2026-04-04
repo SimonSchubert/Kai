@@ -218,4 +218,15 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Salir del modo interactivo</string>
     <string name="interactive_ui_parsing_failed">Error al analizar la UI, reintentando…</string>
+    <string name="chat_history_interactive_label">UI interactiva</string>
+    <string name="settings_sponsors_monthly">Patrocinadores mensuales</string>
+    <string name="settings_sponsors_past">Patrocinadores anteriores</string>
+    <string name="snackbar_undo">Deshacer</string>
+    <string name="snackbar_memory_deleted">Recuerdo eliminado</string>
+    <string name="snackbar_task_cancelled">Tarea cancelada</string>
+    <string name="snackbar_email_removed">Cuenta de correo eliminada</string>
+    <string name="snackbar_service_removed">Servicio eliminado</string>
+    <string name="snackbar_mcp_server_removed">Servidor MCP eliminado</string>
+    <string name="snackbar_conversation_deleted">Conversación eliminada</string>
+    <string name="start_interactive_ui">Iniciar UI interactiva</string>
 </resources>

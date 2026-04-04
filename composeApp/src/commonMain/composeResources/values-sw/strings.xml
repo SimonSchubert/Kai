@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ondoka hali ya mwingiliano</string>
     <string name="interactive_ui_parsing_failed">Uchambuzi wa UI umeshindwa, inajaribu tena…</string>
+    <string name="chat_history_interactive_label">UI ya mwingiliano</string>
+    <string name="settings_sponsors_monthly">Wadhamini wa kila mwezi</string>
+    <string name="settings_sponsors_past">Wadhamini wa awali</string>
+    <string name="snackbar_undo">Tendua</string>
+    <string name="snackbar_memory_deleted">Kumbukumbu imefutwa</string>
+    <string name="snackbar_task_cancelled">Kazi imeghairiwa</string>
+    <string name="snackbar_email_removed">Akaunti ya barua pepe imeondolewa</string>
+    <string name="snackbar_service_removed">Huduma imeondolewa</string>
+    <string name="snackbar_mcp_server_removed">Seva ya MCP imeondolewa</string>
+    <string name="snackbar_conversation_deleted">Mazungumzo yamefutwa</string>
+    <string name="start_interactive_ui">Anza UI ya mwingiliano</string>
 </resources>

@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Phuma kumodi yokuxhumana</string>
     <string name="interactive_ui_parsing_failed">Ukuhlaziya kwe-UI kuhlulekile, kuzanywa futhi…</string>
+    <string name="chat_history_interactive_label">UI Ehlanganyela</string>
+    <string name="settings_sponsors_monthly">Abaxhasi Banyanga Zonke Izinyanga</string>
+    <string name="settings_sponsors_past">Abaxhasi Bangaphambili</string>
+    <string name="snackbar_undo">Hlehlisa</string>
+    <string name="snackbar_memory_deleted">Inkumbulo isusiwe</string>
+    <string name="snackbar_task_cancelled">Umsebenzi ukhanseliwe</string>
+    <string name="snackbar_email_removed">I-akhawunti ye-imeyili isusiwe</string>
+    <string name="snackbar_service_removed">Isevisi isusiwe</string>
+    <string name="snackbar_mcp_server_removed">Iseva ye-MCP isusiwe</string>
+    <string name="snackbar_conversation_deleted">Ingxoxo isusiwe</string>
+    <string name="start_interactive_ui">Qala UI Ehlanganyela</string>
 </resources>

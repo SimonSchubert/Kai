@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ออกจากโหมดอินเทอร์แอคทีฟ</string>
     <string name="interactive_ui_parsing_failed">วิเคราะห์ UI ล้มเหลว กำลังลองใหม่…</string>
+    <string name="chat_history_interactive_label">UI แบบโต้ตอบ</string>
+    <string name="settings_sponsors_monthly">ผู้สนับสนุนรายเดือน</string>
+    <string name="settings_sponsors_past">ผู้สนับสนุนก่อนหน้า</string>
+    <string name="snackbar_undo">เลิกทำ</string>
+    <string name="snackbar_memory_deleted">ลบความทรงจำแล้ว</string>
+    <string name="snackbar_task_cancelled">ยกเลิกงานแล้ว</string>
+    <string name="snackbar_email_removed">ลบบัญชีอีเมลแล้ว</string>
+    <string name="snackbar_service_removed">ลบบริการแล้ว</string>
+    <string name="snackbar_mcp_server_removed">ลบเซิร์ฟเวอร์ MCP แล้ว</string>
+    <string name="snackbar_conversation_deleted">ลบการสนทนาแล้ว</string>
+    <string name="start_interactive_ui">เริ่ม UI แบบโต้ตอบ</string>
 </resources>

@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Dil nga mënyra ndërvepruese</string>
     <string name="interactive_ui_parsing_failed">Analizimi i UI dështoi, po provohet përsëri…</string>
+    <string name="chat_history_interactive_label">UI interaktive</string>
+    <string name="settings_sponsors_monthly">Sponsorë mujorë</string>
+    <string name="settings_sponsors_past">Sponsorë të mëparshëm</string>
+    <string name="snackbar_undo">Zhbëj</string>
+    <string name="snackbar_memory_deleted">Kujtesa u fshi</string>
+    <string name="snackbar_task_cancelled">Detyra u anulua</string>
+    <string name="snackbar_email_removed">Llogaria e emailit u hoq</string>
+    <string name="snackbar_service_removed">Shërbimi u hoq</string>
+    <string name="snackbar_mcp_server_removed">Serveri MCP u hoq</string>
+    <string name="snackbar_conversation_deleted">Biseda u fshi</string>
+    <string name="start_interactive_ui">Fillo UI interaktive</string>
 </resources>

@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Выйсці з інтэрактыўнага рэжыму</string>
     <string name="interactive_ui_parsing_failed">Не ўдалося разабраць UI, паўторная спроба…</string>
+    <string name="chat_history_interactive_label">Інтэрактыўны UI</string>
+    <string name="settings_sponsors_monthly">Штомесячныя спонсары</string>
+    <string name="settings_sponsors_past">Папярэднія спонсары</string>
+    <string name="snackbar_undo">Адмяніць</string>
+    <string name="snackbar_memory_deleted">Успамін выдалены</string>
+    <string name="snackbar_task_cancelled">Задача скасавана</string>
+    <string name="snackbar_email_removed">Уліковы запіс электроннай пошты выдалены</string>
+    <string name="snackbar_service_removed">Сэрвіс выдалены</string>
+    <string name="snackbar_mcp_server_removed">MCP-сервер выдалены</string>
+    <string name="snackbar_conversation_deleted">Размова выдалена</string>
+    <string name="start_interactive_ui">Пачаць інтэрактыўны UI</string>
 </resources>

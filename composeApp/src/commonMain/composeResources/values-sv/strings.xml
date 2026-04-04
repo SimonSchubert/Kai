@@ -218,4 +218,15 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Lämna interaktivt läge</string>
     <string name="interactive_ui_parsing_failed">UI-analys misslyckades, försöker igen…</string>
+    <string name="chat_history_interactive_label">Interaktivt UI</string>
+    <string name="settings_sponsors_monthly">Månatliga sponsorer</string>
+    <string name="settings_sponsors_past">Tidigare sponsorer</string>
+    <string name="snackbar_undo">Ångra</string>
+    <string name="snackbar_memory_deleted">Minne raderat</string>
+    <string name="snackbar_task_cancelled">Uppgift avbruten</string>
+    <string name="snackbar_email_removed">E-postkonto borttaget</string>
+    <string name="snackbar_service_removed">Tjänst borttagen</string>
+    <string name="snackbar_mcp_server_removed">MCP-server borttagen</string>
+    <string name="snackbar_conversation_deleted">Konversation raderad</string>
+    <string name="start_interactive_ui">Starta interaktivt UI</string>
 </resources>

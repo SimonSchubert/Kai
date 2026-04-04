@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">इंटरॅक्टिव्ह मोडमधून बाहेर पडा</string>
     <string name="interactive_ui_parsing_failed">UI पार्सिंग अयशस्वी, पुन्हा प्रयत्न करत आहे…</string>
+    <string name="chat_history_interactive_label">इंटरॅक्टिव्ह UI</string>
+    <string name="settings_sponsors_monthly">मासिक प्रायोजक</string>
+    <string name="settings_sponsors_past">मागील प्रायोजक</string>
+    <string name="snackbar_undo">पूर्ववत करा</string>
+    <string name="snackbar_memory_deleted">स्मृती हटवली</string>
+    <string name="snackbar_task_cancelled">कार्य रद्द केले</string>
+    <string name="snackbar_email_removed">ईमेल खाते काढले</string>
+    <string name="snackbar_service_removed">सेवा काढली</string>
+    <string name="snackbar_mcp_server_removed">MCP सर्व्हर काढला</string>
+    <string name="snackbar_conversation_deleted">संभाषण हटवले</string>
+    <string name="start_interactive_ui">इंटरॅक्टिव्ह UI सुरू करा</string>
 </resources>

@@ -218,4 +218,15 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Verlaat interaktiewe modus</string>
     <string name="interactive_ui_parsing_failed">UI-ontleding het misluk, probeer weer…</string>
+    <string name="chat_history_interactive_label">Interaktiewe UI</string>
+    <string name="settings_sponsors_monthly">Maandelikse borge</string>
+    <string name="settings_sponsors_past">Vorige borge</string>
+    <string name="snackbar_undo">Ontdoen</string>
+    <string name="snackbar_memory_deleted">Herinnering verwyder</string>
+    <string name="snackbar_task_cancelled">Taak gekanselleer</string>
+    <string name="snackbar_email_removed">E-posrekening verwyder</string>
+    <string name="snackbar_service_removed">Diens verwyder</string>
+    <string name="snackbar_mcp_server_removed">MCP-bediener verwyder</string>
+    <string name="snackbar_conversation_deleted">Gesprek verwyder</string>
+    <string name="start_interactive_ui">Begin interaktiewe UI</string>
 </resources>

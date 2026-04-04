@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Интерактивті режимнен шығу</string>
     <string name="interactive_ui_parsing_failed">UI талдауы сәтсіз аяқталды, қайта әрекет жасалуда…</string>
+    <string name="chat_history_interactive_label">Интерактивті UI</string>
+    <string name="settings_sponsors_monthly">Ай сайынғы демеушілер</string>
+    <string name="settings_sponsors_past">Бұрынғы демеушілер</string>
+    <string name="snackbar_undo">Болдырмау</string>
+    <string name="snackbar_memory_deleted">Естелік жойылды</string>
+    <string name="snackbar_task_cancelled">Тапсырма бас тартылды</string>
+    <string name="snackbar_email_removed">Электрондық пошта тіркелгісі жойылды</string>
+    <string name="snackbar_service_removed">Қызмет жойылды</string>
+    <string name="snackbar_mcp_server_removed">MCP сервер жойылды</string>
+    <string name="snackbar_conversation_deleted">Әңгіме жойылды</string>
+    <string name="start_interactive_ui">Интерактивті UI бастау</string>
 </resources>

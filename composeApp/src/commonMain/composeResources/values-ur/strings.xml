@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">انٹرایکٹو موڈ سے باہر نکلیں</string>
     <string name="interactive_ui_parsing_failed">UI تجزیہ ناکام، دوبارہ کوشش ہو رہی ہے…</string>
+    <string name="chat_history_interactive_label">انٹرایکٹو UI</string>
+    <string name="settings_sponsors_monthly">ماہانہ سپانسرز</string>
+    <string name="settings_sponsors_past">سابقہ سپانسرز</string>
+    <string name="snackbar_undo">واپس کریں</string>
+    <string name="snackbar_memory_deleted">یادداشت حذف ہو گئی</string>
+    <string name="snackbar_task_cancelled">ٹاسک منسوخ ہو گیا</string>
+    <string name="snackbar_email_removed">ای میل اکاؤنٹ ہٹا دیا گیا</string>
+    <string name="snackbar_service_removed">سروس ہٹا دی گئی</string>
+    <string name="snackbar_mcp_server_removed">MCP سرور ہٹا دیا گیا</string>
+    <string name="snackbar_conversation_deleted">بات چیت حذف ہو گئی</string>
+    <string name="start_interactive_ui">انٹرایکٹو UI شروع کریں</string>
 </resources>

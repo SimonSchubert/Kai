@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ஊடாடும் பயன்முறையிலிருந்து வெளியேறு</string>
     <string name="interactive_ui_parsing_failed">UI பகுப்பாய்வு தோல்வி, மீண்டும் முயற்சிக்கிறது…</string>
+    <string name="chat_history_interactive_label">ஊடாடும் UI</string>
+    <string name="settings_sponsors_monthly">மாதாந்திர நிதியுதவியாளர்கள்</string>
+    <string name="settings_sponsors_past">முந்தைய நிதியுதவியாளர்கள்</string>
+    <string name="snackbar_undo">செயல்தவிர்</string>
+    <string name="snackbar_memory_deleted">நினைவு நீக்கப்பட்டது</string>
+    <string name="snackbar_task_cancelled">பணி ரத்து செய்யப்பட்டது</string>
+    <string name="snackbar_email_removed">மின்னஞ்சல் கணக்கு அகற்றப்பட்டது</string>
+    <string name="snackbar_service_removed">சேவை அகற்றப்பட்டது</string>
+    <string name="snackbar_mcp_server_removed">MCP சேவையகம் அகற்றப்பட்டது</string>
+    <string name="snackbar_conversation_deleted">உரையாடல் நீக்கப்பட்டது</string>
+    <string name="start_interactive_ui">ஊடாடும் UI-ஐ தொடங்கு</string>
 </resources>

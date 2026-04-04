@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Έξοδος από τη διαδραστική λειτουργία</string>
     <string name="interactive_ui_parsing_failed">Η ανάλυση UI απέτυχε, νέα προσπάθεια…</string>
+    <string name="chat_history_interactive_label">Διαδραστικό UI</string>
+    <string name="settings_sponsors_monthly">Μηνιαίοι χορηγοί</string>
+    <string name="settings_sponsors_past">Προηγούμενοι χορηγοί</string>
+    <string name="snackbar_undo">Αναίρεση</string>
+    <string name="snackbar_memory_deleted">Η μνήμη διαγράφηκε</string>
+    <string name="snackbar_task_cancelled">Η εργασία ακυρώθηκε</string>
+    <string name="snackbar_email_removed">Ο λογαριασμός email αφαιρέθηκε</string>
+    <string name="snackbar_service_removed">Η υπηρεσία αφαιρέθηκε</string>
+    <string name="snackbar_mcp_server_removed">Ο διακομιστής MCP αφαιρέθηκε</string>
+    <string name="snackbar_conversation_deleted">Η συνομιλία διαγράφηκε</string>
+    <string name="start_interactive_ui">Εκκίνηση διαδραστικού UI</string>
 </resources>

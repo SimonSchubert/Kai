@@ -218,4 +218,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Выйти из интерактивного режима</string>
     <string name="interactive_ui_parsing_failed">Не удалось разобрать UI, повторная попытка…</string>
+    <string name="chat_history_interactive_label">Интерактивный UI</string>
+    <string name="settings_sponsors_monthly">Ежемесячные спонсоры</string>
+    <string name="settings_sponsors_past">Предыдущие спонсоры</string>
+    <string name="snackbar_undo">Отменить</string>
+    <string name="snackbar_memory_deleted">Воспоминание удалено</string>
+    <string name="snackbar_task_cancelled">Задача отменена</string>
+    <string name="snackbar_email_removed">Учётная запись электронной почты удалена</string>
+    <string name="snackbar_service_removed">Сервис удалён</string>
+    <string name="snackbar_mcp_server_removed">MCP-сервер удалён</string>
+    <string name="snackbar_conversation_deleted">Беседа удалена</string>
+    <string name="start_interactive_ui">Запустить интерактивный UI</string>
 </resources>

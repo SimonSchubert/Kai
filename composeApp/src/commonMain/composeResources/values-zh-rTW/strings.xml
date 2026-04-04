@@ -218,4 +218,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">退出互動模式</string>
     <string name="interactive_ui_parsing_failed">UI 解析失敗，正在重試…</string>
+    <string name="chat_history_interactive_label">互動式 UI</string>
+    <string name="settings_sponsors_monthly">每月贊助者</string>
+    <string name="settings_sponsors_past">先前贊助者</string>
+    <string name="snackbar_undo">復原</string>
+    <string name="snackbar_memory_deleted">記憶已刪除</string>
+    <string name="snackbar_task_cancelled">任務已取消</string>
+    <string name="snackbar_email_removed">電子郵件帳號已移除</string>
+    <string name="snackbar_service_removed">服務已移除</string>
+    <string name="snackbar_mcp_server_removed">MCP 伺服器已移除</string>
+    <string name="snackbar_conversation_deleted">對話已刪除</string>
+    <string name="start_interactive_ui">啟動互動式 UI</string>
 </resources>

@@ -195,6 +195,7 @@
     <string name="snackbar_mcp_server_removed">MCP server removed</string>
     <string name="snackbar_conversation_deleted">Conversation deleted</string>
     <string name="scroll_to_bottom_content_description">Scroll to bottom</string>
+    <string name="start_interactive_ui">Start Interactive UI</string>
     <string name="interactive_welcome_title">I'm completely operational.</string>
     <string name="interactive_welcome_subtitle">Tell me what you'd like to do.</string>
     <string name="interactive_back_content_description">Back</string>

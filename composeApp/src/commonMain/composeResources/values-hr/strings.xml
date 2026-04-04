@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Izađi iz interaktivnog načina</string>
     <string name="interactive_ui_parsing_failed">Raščlamba korisničkog sučelja nije uspjela, pokušavam ponovo…</string>
+    <string name="chat_history_interactive_label">Interaktivno sučelje</string>
+    <string name="settings_sponsors_monthly">Mjesečni sponzori</string>
+    <string name="settings_sponsors_past">Prethodni sponzori</string>
+    <string name="snackbar_undo">Poništi</string>
+    <string name="snackbar_memory_deleted">Sjećanje obrisano</string>
+    <string name="snackbar_task_cancelled">Zadatak otkazan</string>
+    <string name="snackbar_email_removed">Račun e-pošte uklonjen</string>
+    <string name="snackbar_service_removed">Usluga uklonjena</string>
+    <string name="snackbar_mcp_server_removed">MCP poslužitelj uklonjen</string>
+    <string name="snackbar_conversation_deleted">Razgovor obrisan</string>
+    <string name="start_interactive_ui">Pokreni interaktivno sučelje</string>
 </resources>

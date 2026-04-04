@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Keluar daripada mod interaktif</string>
     <string name="interactive_ui_parsing_failed">Penghuraian UI gagal, mencuba semula…</string>
+    <string name="chat_history_interactive_label">UI Interaktif</string>
+    <string name="settings_sponsors_monthly">Penaja Bulanan</string>
+    <string name="settings_sponsors_past">Penaja Terdahulu</string>
+    <string name="snackbar_undo">Buat asal</string>
+    <string name="snackbar_memory_deleted">Memori dipadam</string>
+    <string name="snackbar_task_cancelled">Tugasan dibatalkan</string>
+    <string name="snackbar_email_removed">Akaun e-mel dialih keluar</string>
+    <string name="snackbar_service_removed">Perkhidmatan dialih keluar</string>
+    <string name="snackbar_mcp_server_removed">Pelayan MCP dialih keluar</string>
+    <string name="snackbar_conversation_deleted">Perbualan dipadam</string>
+    <string name="start_interactive_ui">Mulakan UI Interaktif</string>
 </resources>

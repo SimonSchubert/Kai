@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Keluar dari mode interaktif</string>
     <string name="interactive_ui_parsing_failed">Penguraian UI gagal, mencoba lagi…</string>
+    <string name="chat_history_interactive_label">UI Interaktif</string>
+    <string name="settings_sponsors_monthly">Sponsor Bulanan</string>
+    <string name="settings_sponsors_past">Sponsor Sebelumnya</string>
+    <string name="snackbar_undo">Urungkan</string>
+    <string name="snackbar_memory_deleted">Memori dihapus</string>
+    <string name="snackbar_task_cancelled">Tugas dibatalkan</string>
+    <string name="snackbar_email_removed">Akun email dihapus</string>
+    <string name="snackbar_service_removed">Layanan dihapus</string>
+    <string name="snackbar_mcp_server_removed">Server MCP dihapus</string>
+    <string name="snackbar_conversation_deleted">Percakapan dihapus</string>
+    <string name="start_interactive_ui">Mulai UI Interaktif</string>
 </resources>

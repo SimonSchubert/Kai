@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Išeiti iš interaktyvaus režimo</string>
     <string name="interactive_ui_parsing_failed">UI analizė nepavyko, bandoma iš naujo…</string>
+    <string name="chat_history_interactive_label">Interaktyvi UI</string>
+    <string name="settings_sponsors_monthly">Mėnesiniai rėmėjai</string>
+    <string name="settings_sponsors_past">Ankstesni rėmėjai</string>
+    <string name="snackbar_undo">Anuliuoti</string>
+    <string name="snackbar_memory_deleted">Prisiminimas ištrintas</string>
+    <string name="snackbar_task_cancelled">Užduotis atšaukta</string>
+    <string name="snackbar_email_removed">El. pašto paskyra pašalinta</string>
+    <string name="snackbar_service_removed">Paslauga pašalinta</string>
+    <string name="snackbar_mcp_server_removed">MCP serveris pašalintas</string>
+    <string name="snackbar_conversation_deleted">Pokalbis ištrintas</string>
+    <string name="start_interactive_ui">Pradėti interaktyvią UI</string>
 </resources>

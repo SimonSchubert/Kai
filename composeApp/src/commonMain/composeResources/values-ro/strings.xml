@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ieșire din modul interactiv</string>
     <string name="interactive_ui_parsing_failed">Analiza UI a eșuat, se încearcă din nou…</string>
+    <string name="chat_history_interactive_label">UI interactiv</string>
+    <string name="settings_sponsors_monthly">Sponsori lunari</string>
+    <string name="settings_sponsors_past">Sponsori anteriori</string>
+    <string name="snackbar_undo">Anulare</string>
+    <string name="snackbar_memory_deleted">Amintire ștearsă</string>
+    <string name="snackbar_task_cancelled">Sarcină anulată</string>
+    <string name="snackbar_email_removed">Cont de email eliminat</string>
+    <string name="snackbar_service_removed">Serviciu eliminat</string>
+    <string name="snackbar_mcp_server_removed">Server MCP eliminat</string>
+    <string name="snackbar_conversation_deleted">Conversație ștearsă</string>
+    <string name="start_interactive_ui">Pornește UI interactiv</string>
 </resources>

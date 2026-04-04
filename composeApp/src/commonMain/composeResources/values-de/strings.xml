@@ -218,4 +218,15 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Interaktiven Modus verlassen</string>
     <string name="interactive_ui_parsing_failed">UI-Analyse fehlgeschlagen, erneuter Versuch…</string>
+    <string name="chat_history_interactive_label">Interaktive UI</string>
+    <string name="settings_sponsors_monthly">Monatliche Sponsoren</string>
+    <string name="settings_sponsors_past">Frühere Sponsoren</string>
+    <string name="snackbar_undo">Rückgängig</string>
+    <string name="snackbar_memory_deleted">Erinnerung gelöscht</string>
+    <string name="snackbar_task_cancelled">Aufgabe abgebrochen</string>
+    <string name="snackbar_email_removed">E-Mail-Konto entfernt</string>
+    <string name="snackbar_service_removed">Dienst entfernt</string>
+    <string name="snackbar_mcp_server_removed">MCP-Server entfernt</string>
+    <string name="snackbar_conversation_deleted">Unterhaltung gelöscht</string>
+    <string name="start_interactive_ui">Interaktive UI starten</string>
 </resources>

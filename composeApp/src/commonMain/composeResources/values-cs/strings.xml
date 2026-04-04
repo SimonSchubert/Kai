@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ukončit interaktivní režim</string>
     <string name="interactive_ui_parsing_failed">Parsování UI selhalo, zkouším znovu…</string>
+    <string name="chat_history_interactive_label">Interaktivní UI</string>
+    <string name="settings_sponsors_monthly">Měsíční sponzoři</string>
+    <string name="settings_sponsors_past">Předchozí sponzoři</string>
+    <string name="snackbar_undo">Zpět</string>
+    <string name="snackbar_memory_deleted">Vzpomínka smazána</string>
+    <string name="snackbar_task_cancelled">Úloha zrušena</string>
+    <string name="snackbar_email_removed">E-mailový účet odebrán</string>
+    <string name="snackbar_service_removed">Služba odebrána</string>
+    <string name="snackbar_mcp_server_removed">MCP server odebrán</string>
+    <string name="snackbar_conversation_deleted">Konverzace smazána</string>
+    <string name="start_interactive_ui">Spustit interaktivní UI</string>
 </resources>

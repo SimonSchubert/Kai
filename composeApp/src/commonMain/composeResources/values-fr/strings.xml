@@ -218,4 +218,15 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Quitter le mode interactif</string>
     <string name="interactive_ui_parsing_failed">Échec de l'analyse de l'interface, nouvel essai…</string>
+    <string name="chat_history_interactive_label">UI interactive</string>
+    <string name="settings_sponsors_monthly">Sponsors mensuels</string>
+    <string name="settings_sponsors_past">Anciens sponsors</string>
+    <string name="snackbar_undo">Annuler</string>
+    <string name="snackbar_memory_deleted">Souvenir supprimé</string>
+    <string name="snackbar_task_cancelled">Tâche annulée</string>
+    <string name="snackbar_email_removed">Compte e-mail supprimé</string>
+    <string name="snackbar_service_removed">Service supprimé</string>
+    <string name="snackbar_mcp_server_removed">Serveur MCP supprimé</string>
+    <string name="snackbar_conversation_deleted">Conversation supprimée</string>
+    <string name="start_interactive_ui">Démarrer l\'UI interactive</string>
 </resources>

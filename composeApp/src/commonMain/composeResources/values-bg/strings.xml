@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Изход от интерактивен режим</string>
     <string name="interactive_ui_parsing_failed">Анализът на UI се провали, нов опит…</string>
+    <string name="chat_history_interactive_label">Интерактивен UI</string>
+    <string name="settings_sponsors_monthly">Месечни спонсори</string>
+    <string name="settings_sponsors_past">Предишни спонсори</string>
+    <string name="snackbar_undo">Отмяна</string>
+    <string name="snackbar_memory_deleted">Споменът е изтрит</string>
+    <string name="snackbar_task_cancelled">Задачата е отменена</string>
+    <string name="snackbar_email_removed">Имейл акаунтът е премахнат</string>
+    <string name="snackbar_service_removed">Услугата е премахната</string>
+    <string name="snackbar_mcp_server_removed">MCP сървърът е премахнат</string>
+    <string name="snackbar_conversation_deleted">Разговорът е изтрит</string>
+    <string name="start_interactive_ui">Стартиране на интерактивен UI</string>
 </resources>

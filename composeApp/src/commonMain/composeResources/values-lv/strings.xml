@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Iziet no interaktīvā režīma</string>
     <string name="interactive_ui_parsing_failed">UI analīze neizdevās, mēģinu vēlreiz…</string>
+    <string name="chat_history_interactive_label">Interaktīvā UI</string>
+    <string name="settings_sponsors_monthly">Ikmēneša sponsori</string>
+    <string name="settings_sponsors_past">Iepriekšējie sponsori</string>
+    <string name="snackbar_undo">Atsaukt</string>
+    <string name="snackbar_memory_deleted">Atmiņa dzēsta</string>
+    <string name="snackbar_task_cancelled">Uzdevums atcelts</string>
+    <string name="snackbar_email_removed">E-pasta konts noņemts</string>
+    <string name="snackbar_service_removed">Pakalpojums noņemts</string>
+    <string name="snackbar_mcp_server_removed">MCP serveris noņemts</string>
+    <string name="snackbar_conversation_deleted">Saruna dzēsta</string>
+    <string name="start_interactive_ui">Sākt interaktīvo UI</string>
 </resources>

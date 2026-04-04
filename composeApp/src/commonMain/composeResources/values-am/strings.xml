@@ -218,4 +218,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">መስተጋብር ሁነታን ውጣ</string>
     <string name="interactive_ui_parsing_failed">UI ትንተና አልተሳካም፣ እንደገና በመሞከር ላይ…</string>
+    <string name="chat_history_interactive_label">መስተጋብራዊ UI</string>
+    <string name="settings_sponsors_monthly">ወርሃዊ ስፖንሰሮች</string>
+    <string name="settings_sponsors_past">ቀድሞ ስፖንሰሮች</string>
+    <string name="snackbar_undo">ቀልብስ</string>
+    <string name="snackbar_memory_deleted">ትዝታ ተሰርዟል</string>
+    <string name="snackbar_task_cancelled">ተግባር ተሰርዟል</string>
+    <string name="snackbar_email_removed">የኢሜል መለያ ተወግዷል</string>
+    <string name="snackbar_service_removed">አገልግሎት ተወግዷል</string>
+    <string name="snackbar_mcp_server_removed">MCP አገልጋይ ተወግዷል</string>
+    <string name="snackbar_conversation_deleted">ውይይት ተሰርዟል</string>
+    <string name="start_interactive_ui">መስተጋብራዊ UI ጀምር</string>
 </resources>

@@ -217,4 +217,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Välju interaktiivsest režiimist</string>
     <string name="interactive_ui_parsing_failed">UI analüüs ebaõnnestus, proovin uuesti…</string>
+    <string name="chat_history_interactive_label">Interaktiivne UI</string>
+    <string name="settings_sponsors_monthly">Igakuised sponsorid</string>
+    <string name="settings_sponsors_past">Varasemad sponsorid</string>
+    <string name="snackbar_undo">Võta tagasi</string>
+    <string name="snackbar_memory_deleted">Mälestus kustutatud</string>
+    <string name="snackbar_task_cancelled">Ülesanne tühistatud</string>
+    <string name="snackbar_email_removed">E-posti konto eemaldatud</string>
+    <string name="snackbar_service_removed">Teenus eemaldatud</string>
+    <string name="snackbar_mcp_server_removed">MCP-server eemaldatud</string>
+    <string name="snackbar_conversation_deleted">Vestlus kustutatud</string>
+    <string name="start_interactive_ui">Käivita interaktiivne UI</string>
 </resources>

@@ -218,4 +218,15 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">الخروج من الوضع التفاعلي</string>
     <string name="interactive_ui_parsing_failed">فشل تحليل واجهة المستخدم، جارٍ إعادة المحاولة…</string>
+    <string name="chat_history_interactive_label">واجهة تفاعلية</string>
+    <string name="settings_sponsors_monthly">الرعاة الشهريون</string>
+    <string name="settings_sponsors_past">الرعاة السابقون</string>
+    <string name="snackbar_undo">تراجع</string>
+    <string name="snackbar_memory_deleted">تم حذف الذاكرة</string>
+    <string name="snackbar_task_cancelled">تم إلغاء المهمة</string>
+    <string name="snackbar_email_removed">تمت إزالة حساب البريد الإلكتروني</string>
+    <string name="snackbar_service_removed">تمت إزالة الخدمة</string>
+    <string name="snackbar_mcp_server_removed">تمت إزالة خادم MCP</string>
+    <string name="snackbar_conversation_deleted">تم حذف المحادثة</string>
+    <string name="start_interactive_ui">بدء الواجهة التفاعلية</string>
 </resources>
