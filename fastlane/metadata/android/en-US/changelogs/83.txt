@@ -1,0 +1,7 @@
+Add possibility to define service for heartbeat
+Add additional MCP servers
+Improve kai-ui prompt and split-block parsing
+Replace Lottie animation with custom implementation
+Improve tool use UI
+Add missing localizations
+Clean up implementations

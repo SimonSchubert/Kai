@@ -1,3 +1,16 @@
+## v2.0.1 — 2026-04-04
+
+### Features
+- Add possibility to define service for heartbeat
+- Add additional MCP servers
+
+### Improvements
+- Improve kai-ui prompt and split-block parsing
+- Replace Lottie animation with custom implementation
+- Improve tool use UI
+- Add missing localizations
+- Clean up implementations
+
 ## v2.0.0 — 2026-04-03
 
 ### Features
