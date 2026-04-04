@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">கருவிகள்</string>
     <string name="settings_tab_integrations">ஒருங்கிணைப்புகள்</string>
     <string name="tool_executing_content_description">கருவி இயங்குகிறது</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">சேவையைப் பயன்படுத்துவதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள் </string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="settings_tab_general">பொது</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">அவ்வப்போது சுய சோதனை நடத்தையை உள்ளமை</string>
     <string name="tool_configure_heartbeat_name">Heartbeat உள்ளமை</string>
     <string name="tool_memory_learn_description">வகைப்படுத்தப்பட்ட கற்றல், பிழை தீர்வு அல்லது விருப்பத்தைச் சேமி</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">நினைவைக் கற்று</string>
     <string name="tool_memory_reinforce_description">நல்ல முடிவைத் தந்த நினைவை வலுப்படுத்து</string>
     <string name="tool_memory_reinforce_name">நினைவை வலுப்படுத்து</string>

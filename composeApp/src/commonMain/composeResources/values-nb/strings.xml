@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Verktøy</string>
     <string name="settings_tab_integrations">Integrasjoner</string>
     <string name="tool_executing_content_description">Verktøy kjører</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Ved å bruke tjenesten godtar du </string>
     <string name="privacy_policy">Personvernerklæringen</string>
     <string name="tool_get_local_time_name">Hent lokal tid</string>
@@ -113,6 +114,10 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvsjekk-atferd</string>
     <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
     <string name="tool_memory_learn_description">Lagre en kategorisert lærdom, feilløsning eller preferanse</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Lær hukommelse</string>
     <string name="tool_memory_reinforce_description">Forsterke et minne som ga et godt resultat</string>
     <string name="tool_memory_reinforce_name">Forsterk hukommelse</string>

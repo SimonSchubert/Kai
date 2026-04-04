@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Nástroje</string>
     <string name="settings_tab_integrations">Integrácie</string>
     <string name="tool_executing_content_description">Nástroj sa vykonáva</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Používaním služby súhlasíte s </string>
     <string name="privacy_policy">Zásadami ochrany osobných údajov</string>
     <string name="tool_get_local_time_name">Zistiť miestny čas</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigurovať správanie periodickej sebakontroly</string>
     <string name="tool_configure_heartbeat_name">Konfigurovať Heartbeat</string>
     <string name="tool_memory_learn_description">Uložiť kategorizované učenie, vyriešenie chyby alebo preferenciu</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Naučiť spomienku</string>
     <string name="tool_memory_reinforce_description">Posilniť spomienku, ktorá priniesla dobrý výsledok</string>
     <string name="tool_memory_reinforce_name">Posilniť spomienku</string>

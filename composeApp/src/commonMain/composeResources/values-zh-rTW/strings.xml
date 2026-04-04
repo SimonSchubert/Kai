@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">工具</string>
     <string name="settings_tab_integrations">整合</string>
     <string name="tool_executing_content_description">工具執行中</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">使用本服務即表示您同意</string>
     <string name="privacy_policy">隱私權政策</string>
     <string name="settings_tab_general">一般</string>
@@ -113,6 +114,10 @@
     <string name="tool_configure_heartbeat_description">設定定期自我檢查行為</string>
     <string name="tool_configure_heartbeat_name">設定心跳</string>
     <string name="tool_memory_learn_description">儲存分類學習、錯誤解決方案或偏好</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">學習記憶</string>
     <string name="tool_memory_reinforce_description">強化產生良好結果的記憶</string>
     <string name="tool_memory_reinforce_name">強化記憶</string>

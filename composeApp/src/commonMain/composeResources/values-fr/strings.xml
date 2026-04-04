@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Outils</string>
     <string name="settings_tab_integrations">Intégrations</string>
     <string name="tool_executing_content_description">Outil en cours d'exécution</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">En utilisant le service, vous acceptez la </string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="settings_tab_general">Général</string>
@@ -113,6 +114,10 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_configure_heartbeat_description">Configurer le comportement de vérification périodique</string>
     <string name="tool_configure_heartbeat_name">Configurer le battement</string>
     <string name="tool_memory_learn_description">Stocker un apprentissage catégorisé, une résolution d'erreur ou une préférence</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Apprendre Mémoire</string>
     <string name="tool_memory_reinforce_description">Renforcer un souvenir qui a produit un bon résultat</string>
     <string name="tool_memory_reinforce_name">Renforcer Mémoire</string>

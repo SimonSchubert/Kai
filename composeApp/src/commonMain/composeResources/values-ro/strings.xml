@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Instrumente</string>
     <string name="settings_tab_integrations">Integrări</string>
     <string name="tool_executing_content_description">Instrumentul se execută</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Prin utilizarea serviciului, sunteți de acord cu </string>
     <string name="privacy_policy">Politica de confidențialitate</string>
     <string name="tool_get_local_time_name">Obține ora locală</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Configurează comportamentul autoverificării periodice</string>
     <string name="tool_configure_heartbeat_name">Configurare Heartbeat</string>
     <string name="tool_memory_learn_description">Stochează o învățare categorizată, rezolvare de erori sau preferință</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Învață amintire</string>
     <string name="tool_memory_reinforce_description">Întărește o amintire care a produs un rezultat bun</string>
     <string name="tool_memory_reinforce_name">Întărește amintire</string>

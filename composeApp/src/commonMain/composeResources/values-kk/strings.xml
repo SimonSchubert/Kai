@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Құралдар</string>
     <string name="settings_tab_integrations">Интеграциялар</string>
     <string name="tool_executing_content_description">Құрал орындалуда</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Қызметті пайдалана отырып, сіз келесімен келісесіз </string>
     <string name="privacy_policy">Құпиялылық саясаты</string>
     <string name="tool_get_local_time_name">Жергілікті уақытты алу</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Мерзімді өзін-өзі тексеру әрекетін теңшеу</string>
     <string name="tool_configure_heartbeat_name">Heartbeat теңшеу</string>
     <string name="tool_memory_learn_description">Санатталған білім, қате шешімі немесе таңдауды сақтау</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Естелік үйрену</string>
     <string name="tool_memory_reinforce_description">Жақсы нәтиже берген естелікті күшейту</string>
     <string name="tool_memory_reinforce_name">Естелікті күшейту</string>

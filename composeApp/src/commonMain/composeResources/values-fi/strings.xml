@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Ty\u00f6kalut</string>
     <string name="settings_tab_integrations">Integraatiot</string>
     <string name="tool_executing_content_description">Ty\u00f6kalua suoritetaan</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">K\u00e4ytt\u00e4m\u00e4ll\u00e4 palvelua hyv\u00e4ksyt </string>
     <string name="privacy_policy">Tietosuojak\u00e4yt\u00e4nn\u00f6n</string>
     <string name="tool_get_local_time_name">Hae paikallinen aika</string>
@@ -113,6 +114,10 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_configure_heartbeat_description">Määritä jaksollinen itsetarkistuskäyttäytyminen</string>
     <string name="tool_configure_heartbeat_name">Määritä syke</string>
     <string name="tool_memory_learn_description">Tallenna luokiteltu oppiminen, virheenratkaisu tai mieltymys</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Opi muisti</string>
     <string name="tool_memory_reinforce_description">Vahvista muisto, joka tuotti hyvän tuloksen</string>
     <string name="tool_memory_reinforce_name">Vahvista muisti</string>

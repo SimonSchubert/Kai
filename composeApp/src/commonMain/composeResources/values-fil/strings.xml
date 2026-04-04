@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Mga Tool</string>
     <string name="settings_tab_integrations">Mga Integrasyon</string>
     <string name="tool_executing_content_description">Isinasagawa ang tool</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Sa paggamit ng serbisyo, sumasang-ayon ka sa </string>
     <string name="privacy_policy">Patakaran sa Privacy</string>
     <string name="tool_get_local_time_name">Kunin ang Lokal na Oras</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">I-configure ang peryodikong self-check na gawi</string>
     <string name="tool_configure_heartbeat_name">I-configure ang Heartbeat</string>
     <string name="tool_memory_learn_description">Mag-imbak ng kategorisadong kaalaman, resolusyon ng error, o kagustuhan</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Matuto ng alaala</string>
     <string name="tool_memory_reinforce_description">Palakasin ang isang alaala na nagbigay ng magandang resulta</string>
     <string name="tool_memory_reinforce_name">Palakasin ang alaala</string>

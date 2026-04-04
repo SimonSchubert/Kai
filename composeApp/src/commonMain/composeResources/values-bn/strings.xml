@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">টুলস</string>
     <string name="settings_tab_integrations">ইন্টিগ্রেশন</string>
     <string name="tool_executing_content_description">টুল চলছে</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">পরিষেবা ব্যবহার করে, আপনি সম্মত হচ্ছেন </string>
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="settings_tab_general">সাধারণ</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">পর্যায়ক্রমিক আত্ম-পরীক্ষার আচরণ কনফিগার করুন</string>
     <string name="tool_configure_heartbeat_name">হার্টবিট কনফিগার করুন</string>
     <string name="tool_memory_learn_description">একটি শ্রেণীবদ্ধ শিক্ষা, ত্রুটি সমাধান, বা পছন্দ সংরক্ষণ করুন</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">স্মৃতি শিখুন</string>
     <string name="tool_memory_reinforce_description">ভালো ফলাফল দেওয়া একটি স্মৃতি শক্তিশালী করুন</string>
     <string name="tool_memory_reinforce_name">স্মৃতি শক্তিশালী করুন</string>

@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">టూల్స్</string>
     <string name="settings_tab_integrations">ఇంటిగ్రేషన్లు</string>
     <string name="tool_executing_content_description">సాధనం నడుస్తోంది</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">సేవను ఉపయోగించడం ద్వారా, మీరు అంగీకరిస్తారు </string>
     <string name="privacy_policy">గోప్యతా విధానం</string>
     <string name="settings_tab_general">సాధారణ</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">ఆవర్తన స్వీయ తనిఖీ ప్రవర్తనను కాన్ఫిగర్ చేయి</string>
     <string name="tool_configure_heartbeat_name">Heartbeat కాన్ఫిగర్ చేయి</string>
     <string name="tool_memory_learn_description">వర్గీకరించబడిన అభ్యాసం, లోపం పరిష్కారం లేదా ప్రాధాన్యతను నిల్వ చేయి</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">జ్ఞాపకాన్ని నేర్చుకో</string>
     <string name="tool_memory_reinforce_description">మంచి ఫలితాన్ని ఇచ్చిన జ్ఞాపకాన్ని బలపరుచు</string>
     <string name="tool_memory_reinforce_name">జ్ఞాపకాన్ని బలపరుచు</string>

@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Gereedskap</string>
     <string name="settings_tab_integrations">Integrasies</string>
     <string name="tool_executing_content_description">Gereedskap voer uit</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Deur die diens te gebruik, stem jy in tot die </string>
     <string name="privacy_policy">Privaatheidsbeleid</string>
     <string name="tool_get_local_time_name">Kry Plaaslike Tyd</string>
@@ -113,6 +114,10 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tool_configure_heartbeat_description">Stel periodieke selfkontrole-gedrag op</string>
     <string name="tool_configure_heartbeat_name">Stel Hartklop Op</string>
     <string name="tool_memory_learn_description">Stoor 'n gekategoriseerde leerervaring, foutoplossing of voorkeur</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Leer Geheue</string>
     <string name="tool_memory_reinforce_description">Versterk 'n herinnering wat 'n goeie uitkoms gelewer het</string>
     <string name="tool_memory_reinforce_name">Versterk Geheue</string>

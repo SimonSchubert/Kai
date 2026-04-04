@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Alat</string>
     <string name="settings_tab_integrations">Integrasi</string>
     <string name="tool_executing_content_description">Alat sedang berjalan</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Dengan menggunakan perkhidmatan, anda bersetuju dengan </string>
     <string name="privacy_policy">Dasar Privasi</string>
     <string name="settings_tab_general">Umum</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigurasi tingkah laku semakan kendiri berkala</string>
     <string name="tool_configure_heartbeat_name">Konfigurasi Heartbeat</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran berkategori, penyelesaian ralat, atau keutamaan</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Pelajari Ingatan</string>
     <string name="tool_memory_reinforce_description">Kukuhkan ingatan yang menghasilkan keputusan baik</string>
     <string name="tool_memory_reinforce_name">Kukuhkan Ingatan</string>

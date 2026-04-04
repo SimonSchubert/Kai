@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">N\u00e1stroje</string>
     <string name="settings_tab_integrations">Integrace</string>
     <string name="tool_executing_content_description">N\u00e1stroj se prov\u00e1d\u00ed</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Pou\u017e\u00edv\u00e1n\u00edm slu\u017eby souhlas\u00edte se </string>
     <string name="privacy_policy">Z\u00e1sadami ochrany osobn\u00edch \u00fadaj\u016f</string>
     <string name="tool_get_local_time_name">Z\u00edskat m\u00edstn\u00ed \u010das</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Nastavit chování periodické sebekontroly</string>
     <string name="tool_configure_heartbeat_name">Nastavit Heartbeat</string>
     <string name="tool_memory_learn_description">Uložit kategorizované poznatky, řešení chyb nebo preference</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Naučit se vzpomínku</string>
     <string name="tool_memory_reinforce_description">Posílit vzpomínku, která přinesla dobrý výsledek</string>
     <string name="tool_memory_reinforce_name">Posílit vzpomínku</string>

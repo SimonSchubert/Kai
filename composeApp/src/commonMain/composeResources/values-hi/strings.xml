@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">उपकरण</string>
     <string name="settings_tab_integrations">एकीकरण</string>
     <string name="tool_executing_content_description">टूल चल रहा है</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">सेवा का उपयोग करके, आप सहमत होते हैं </string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="settings_tab_general">सामान्य</string>
@@ -113,6 +114,10 @@
     <string name="tool_configure_heartbeat_description">समय-समय पर आत्म-जाँच व्यवहार कॉन्फ़िगर करें</string>
     <string name="tool_configure_heartbeat_name">हार्टबीट कॉन्फ़िगर करें</string>
     <string name="tool_memory_learn_description">श्रेणीबद्ध सीख, त्रुटि समाधान या प्राथमिकता संग्रहित करें</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">स्मृति सीखें</string>
     <string name="tool_memory_reinforce_description">अच्छा परिणाम देने वाली स्मृति को मजबूत करें</string>
     <string name="tool_memory_reinforce_name">स्मृति मजबूत करें</string>

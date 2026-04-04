@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Orodja</string>
     <string name="settings_tab_integrations">Integracije</string>
     <string name="tool_executing_content_description">Orodje se izvaja</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Z uporabo storitve se strinjate s </string>
     <string name="privacy_policy">Pravilnik o zasebnosti</string>
     <string name="tool_get_local_time_name">Pridobi lokalni čas</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Nastavi vedenje periodičnega samopreverjanja</string>
     <string name="tool_configure_heartbeat_name">Nastavi Heartbeat</string>
     <string name="tool_memory_learn_description">Shrani kategorizirano učenje, rešitev napake ali nastavitev</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Nauči spomin</string>
     <string name="tool_memory_reinforce_description">Okrepi spomin, ki je prinesel dober rezultat</string>
     <string name="tool_memory_reinforce_name">Okrepi spomin</string>

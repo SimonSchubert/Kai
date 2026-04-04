@@ -57,6 +57,7 @@
     <string name="settings_tab_sandbox">Linux Sandbox</string>
     <string name="settings_tab_integrations">Integrations</string>
     <string name="tool_executing_content_description">Tool executing</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="waiting_thinking">Thinking…</string>
     <string name="waiting_working">Working…</string>
     <string name="waiting_brewing">Brewing…</string>
@@ -91,6 +92,10 @@
     <string name="tool_trigger_heartbeat_description">Trigger a heartbeat on next cycle</string>
     <string name="tool_promote_learning_name">Promote Learning</string>
     <string name="tool_promote_learning_description">Promote a reinforced learning into the system prompt</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Learn Memory</string>
     <string name="tool_memory_learn_description">Store a categorized learning, error resolution, or preference</string>
     <string name="tool_memory_reinforce_name">Reinforce Memory</string>

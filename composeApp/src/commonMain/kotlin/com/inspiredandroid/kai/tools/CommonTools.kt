@@ -19,10 +19,14 @@ import kai.composeapp.generated.resources.tool_get_local_time_description
 import kai.composeapp.generated.resources.tool_get_local_time_name
 import kai.composeapp.generated.resources.tool_get_location_description
 import kai.composeapp.generated.resources.tool_get_location_name
+import kai.composeapp.generated.resources.tool_memory_forget_description
+import kai.composeapp.generated.resources.tool_memory_forget_name
 import kai.composeapp.generated.resources.tool_memory_learn_description
 import kai.composeapp.generated.resources.tool_memory_learn_name
 import kai.composeapp.generated.resources.tool_memory_reinforce_description
 import kai.composeapp.generated.resources.tool_memory_reinforce_name
+import kai.composeapp.generated.resources.tool_memory_store_description
+import kai.composeapp.generated.resources.tool_memory_store_name
 import kai.composeapp.generated.resources.tool_open_url_description
 import kai.composeapp.generated.resources.tool_open_url_name
 import kotlinx.datetime.TimeZone
@@ -163,6 +167,22 @@ object CommonTools {
         descriptionRes = Res.string.tool_get_local_time_description,
     )
 
+    val memoryStoreToolInfo = ToolInfo(
+        id = "memory_store",
+        name = "Store Memory",
+        description = "Store or update a memory with a descriptive key",
+        nameRes = Res.string.tool_memory_store_name,
+        descriptionRes = Res.string.tool_memory_store_description,
+    )
+
+    val memoryForgetToolInfo = ToolInfo(
+        id = "memory_forget",
+        name = "Forget Memory",
+        description = "Delete a stored memory by its key",
+        nameRes = Res.string.tool_memory_forget_name,
+        descriptionRes = Res.string.tool_memory_forget_description,
+    )
+
     val memoryLearnToolInfo = ToolInfo(
         id = "memory_learn",
         name = "Learn Memory",
@@ -213,6 +233,7 @@ object CommonTools {
     )
 
     val commonToolDefinitions = listOf(WebSearchTool.toolInfo, localTimeToolInfo, ipLocationToolInfo, openUrlToolInfo) +
+        listOf(memoryStoreToolInfo, memoryForgetToolInfo, memoryLearnToolInfo, memoryReinforceToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
         HeartbeatTools.heartbeatToolDefinitions +
         EmailTools.emailToolDefinitions

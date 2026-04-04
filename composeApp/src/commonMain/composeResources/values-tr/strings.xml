@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Araçlar</string>
     <string name="settings_tab_integrations">Entegrasyonlar</string>
     <string name="tool_executing_content_description">Araç çalışıyor</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Hizmeti kullanarak </string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="settings_tab_general">Genel</string>
@@ -113,6 +114,10 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="tool_configure_heartbeat_description">Periyodik öz kontrol davranışını yapılandır</string>
     <string name="tool_configure_heartbeat_name">Kalp Atışını Yapılandır</string>
     <string name="tool_memory_learn_description">Kategorize edilmiş bir öğrenme, hata çözümü veya tercih kaydet</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Hafıza Öğren</string>
     <string name="tool_memory_reinforce_description">İyi sonuç veren bir anıyı güçlendir</string>
     <string name="tool_memory_reinforce_name">Hafıza Güçlendir</string>

@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Værktøjer</string>
     <string name="settings_tab_integrations">Integrationer</string>
     <string name="tool_executing_content_description">Værktøj udfører</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Ved at bruge tjenesten accepterer du </string>
     <string name="privacy_policy">Privatlivspolitikken</string>
     <string name="tool_get_local_time_name">Hent lokal tid</string>
@@ -113,6 +114,10 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvtjek-adfærd</string>
     <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
     <string name="tool_memory_learn_description">Gem en kategoriseret lærdom, fejlløsning eller præference</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Lær hukommelse</string>
     <string name="tool_memory_reinforce_description">Forstærk en erindring der gav et godt resultat</string>
     <string name="tool_memory_reinforce_name">Forstærk hukommelse</string>

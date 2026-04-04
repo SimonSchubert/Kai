@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Інструменты</string>
     <string name="settings_tab_integrations">Інтэграцыі</string>
     <string name="tool_executing_content_description">Інструмент выконваецца</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Выкарыстоўваючы сэрвіс, вы згаджаецеся з </string>
     <string name="privacy_policy">Палітыка прыватнасці</string>
     <string name="tool_get_local_time_name">Атрымаць мясцовы час</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Наладзіць паводзіны перыядычнай самаправеркі</string>
     <string name="tool_configure_heartbeat_name">Наладзіць Heartbeat</string>
     <string name="tool_memory_learn_description">Захаваць катэгарызаванае веданне, вырашэнне памылкі або перавагу</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Запомніць</string>
     <string name="tool_memory_reinforce_description">Узмацніць успамін, які прывёў да добрага выніку</string>
     <string name="tool_memory_reinforce_name">Узмацніць успамін</string>

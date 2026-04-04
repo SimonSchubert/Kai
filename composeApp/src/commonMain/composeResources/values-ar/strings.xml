@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">الأدوات</string>
     <string name="settings_tab_integrations">التكاملات</string>
     <string name="tool_executing_content_description">الأداة قيد التنفيذ</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="settings_tab_general">عام</string>
@@ -113,6 +114,10 @@
     <string name="tool_configure_heartbeat_description">تكوين سلوك الفحص الذاتي الدوري</string>
     <string name="tool_configure_heartbeat_name">تكوين نبض القلب</string>
     <string name="tool_memory_learn_description">تخزين تعلم مصنف أو حل خطأ أو تفضيل</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">تعلم الذاكرة</string>
     <string name="tool_memory_reinforce_description">تعزيز ذاكرة أنتجت نتيجة جيدة</string>
     <string name="tool_memory_reinforce_name">تعزيز الذاكرة</string>

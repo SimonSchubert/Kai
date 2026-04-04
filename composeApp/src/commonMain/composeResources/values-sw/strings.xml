@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Zana</string>
     <string name="settings_tab_integrations">Muunganisho</string>
     <string name="tool_executing_content_description">Zana inatekelezwa</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>
     <string name="settings_tab_general">Jumla</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Sanidi tabia ya ukaguzi wa kiotomatiki</string>
     <string name="tool_configure_heartbeat_name">Sanidi Heartbeat</string>
     <string name="tool_memory_learn_description">Hifadhi mafunzo yaliyoainishwa, utatuzi wa hitilafu, au pendeleo</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Jifunze Kumbukumbu</string>
     <string name="tool_memory_reinforce_description">Imarisha kumbukumbu iliyotoa matokeo mazuri</string>
     <string name="tool_memory_reinforce_name">Imarisha Kumbukumbu</string>

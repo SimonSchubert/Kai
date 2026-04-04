@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Инструменти</string>
     <string name="settings_tab_integrations">Интеграции</string>
     <string name="tool_executing_content_description">Инструментът се изпълнява</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Използвайки услугата, вие се съгласявате с </string>
     <string name="privacy_policy">Политика за поверителност</string>
     <string name="tool_get_local_time_name">Вземи местно време</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Конфигуриране на поведението при периодична самопроверка</string>
     <string name="tool_configure_heartbeat_name">Конфигуриране на Heartbeat</string>
     <string name="tool_memory_learn_description">Съхрани категоризирано знание, решение на грешка или предпочитание</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Запомни</string>
     <string name="tool_memory_reinforce_description">Подсили спомен, който е дал добър резултат</string>
     <string name="tool_memory_reinforce_name">Подсили спомен</string>

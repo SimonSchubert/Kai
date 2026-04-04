@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Werkzeuge</string>
     <string name="settings_tab_integrations">Integrationen</string>
     <string name="tool_executing_content_description">Werkzeug wird ausgeführt</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Mit der Nutzung des Dienstes stimmen Sie der </string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="settings_tab_general">Allgemein</string>
@@ -113,6 +114,10 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tool_configure_heartbeat_description">Periodisches Selbstprüfungsverhalten konfigurieren</string>
     <string name="tool_configure_heartbeat_name">Heartbeat konfigurieren</string>
     <string name="tool_memory_learn_description">Ein kategorisiertes Lernergebnis, eine Fehlerbehebung oder eine Präferenz speichern</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Erinnerung lernen</string>
     <string name="tool_memory_reinforce_description">Eine Erinnerung verstärken, die ein gutes Ergebnis erzielt hat</string>
     <string name="tool_memory_reinforce_name">Erinnerung verstärken</string>

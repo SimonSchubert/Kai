@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">도구</string>
     <string name="settings_tab_integrations">통합</string>
     <string name="tool_executing_content_description">도구 실행 중</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">서비스를 사용함으로써 </string>
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="settings_tab_general">일반</string>
@@ -113,6 +114,10 @@
     <string name="tool_configure_heartbeat_description">주기적 자가 점검 동작 구성</string>
     <string name="tool_configure_heartbeat_name">하트비트 구성</string>
     <string name="tool_memory_learn_description">분류된 학습, 오류 해결 또는 선호도 저장</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">기억 학습</string>
     <string name="tool_memory_reinforce_description">좋은 결과를 낸 기억 강화</string>
     <string name="tool_memory_reinforce_name">기억 강화</string>

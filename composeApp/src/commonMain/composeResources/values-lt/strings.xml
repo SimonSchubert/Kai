@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Įrankiai</string>
     <string name="settings_tab_integrations">Integracijos</string>
     <string name="tool_executing_content_description">Įrankis vykdomas</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Naudodami paslaugą, sutinkate su </string>
     <string name="privacy_policy">Privatumo politika</string>
     <string name="tool_get_local_time_name">Gauti vietinį laiką</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigūruoti periodinės savipatikros elgseną</string>
     <string name="tool_configure_heartbeat_name">Konfigūruoti Heartbeat</string>
     <string name="tool_memory_learn_description">Išsaugoti kategorizuotą mokymąsi, klaidos sprendimą ar nuostatą</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Išmokti prisiminimą</string>
     <string name="tool_memory_reinforce_description">Sustiprinti prisiminimą, davusį gerą rezultatą</string>
     <string name="tool_memory_reinforce_name">Sustiprinti prisiminimą</string>

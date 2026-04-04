@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Rīki</string>
     <string name="settings_tab_integrations">Integrācijas</string>
     <string name="tool_executing_content_description">Rīks tiek izpildīts</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Izmantojot pakalpojumu, jūs piekrītat </string>
     <string name="privacy_policy">Privātuma politika</string>
     <string name="tool_get_local_time_name">Iegūt vietējo laiku</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigurēt periodiskas pašpārbaudes uzvedību</string>
     <string name="tool_configure_heartbeat_name">Konfigurēt Heartbeat</string>
     <string name="tool_memory_learn_description">Saglabāt kategorizētu mācību, kļūdas risinājumu vai preferenci</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Apgūt atmiņu</string>
     <string name="tool_memory_reinforce_description">Pastiprināt atmiņu, kas deva labu rezultātu</string>
     <string name="tool_memory_reinforce_name">Pastiprināt atmiņu</string>

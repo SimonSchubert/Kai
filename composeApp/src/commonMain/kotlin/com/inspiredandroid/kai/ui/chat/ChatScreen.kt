@@ -6,12 +6,6 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.Crossfade
-import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -43,8 +37,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -66,7 +60,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -80,11 +73,11 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.stripMarkdownForTts
@@ -93,11 +86,13 @@ import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
+import com.inspiredandroid.kai.ui.chat.composables.PulsingStatusIndicator
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.ServiceSelector
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
+import com.inspiredandroid.kai.ui.chat.composables.toolSummaryText
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
@@ -113,11 +108,8 @@ import kai.composeapp.generated.resources.interactive_welcome_title
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kai.composeapp.generated.resources.snackbar_conversation_deleted
 import kai.composeapp.generated.resources.snackbar_undo
-import kai.composeapp.generated.resources.waiting_brewing
-import kai.composeapp.generated.resources.waiting_thinking
-import kai.composeapp.generated.resources.waiting_working
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -184,7 +176,13 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
     LaunchedEffect(uiState.history.size) {
         if (hasAssistantResponse) inputExpanded = false
     }
-    val showFullInput = inputExpanded || !hasAssistantResponse
+    val showFullInput = inputExpanded && !uiState.isLoading
+    val executingTools = remember(uiState.history) {
+        uiState.history
+            .filter { it.role == History.Role.TOOL_EXECUTING }
+            .map { it.id to (it.toolName ?: "tool") }
+            .toImmutableList()
+    }
 
     Box(
         Modifier
@@ -202,6 +200,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 isLoading = uiState.isLoading,
                 showBack = hasAssistantResponse,
                 showPulse = uiState.isLoading && hasAssistantResponse,
+                executingTools = executingTools,
             )
 
             Box(
@@ -227,11 +226,11 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         )
                     }
                 } else {
-                    Box {
+                    SelectionContainer {
                         InteractiveModeContent(
                             uiState = uiState,
                             modifier = Modifier.fillMaxSize(),
-                            bottomPadding = if (!showFullInput) 88.dp else 0.dp,
+                            bottomPadding = 88.dp,
                         )
                     }
                 }
@@ -277,6 +276,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         )
                         .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     if (uiState.isLoading) {
                         Box(
@@ -336,6 +336,7 @@ private fun InteractiveModeTopBar(
     isLoading: Boolean,
     showBack: Boolean,
     showPulse: Boolean,
+    executingTools: ImmutableList<Pair<String, String>>,
 ) {
     val iconColor = MaterialTheme.colorScheme.onSurface
 
@@ -352,7 +353,7 @@ private fun InteractiveModeTopBar(
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
             ) {
                 Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
+                    BackIcon,
                     contentDescription = stringResource(Res.string.interactive_back_content_description),
                     tint = iconColor,
                 )
@@ -367,7 +368,14 @@ private fun InteractiveModeTopBar(
             animationSpec = tween(durationMillis = 300),
         ) { pulsing ->
             if (pulsing) {
-                TopBarPulse()
+                val summary = toolSummaryText(executingTools)
+                PulsingStatusIndicator(
+                    toolSummary = summary,
+                    dotSize = 10.dp,
+                    dotColor = MaterialTheme.colorScheme.onSurface,
+                    textColor = MaterialTheme.colorScheme.onSurface,
+                    textStyle = MaterialTheme.typography.titleMedium,
+                )
             } else {
                 Text(
                     text = stringResource(Res.string.interactive_title),
@@ -385,70 +393,6 @@ private fun InteractiveModeTopBar(
                 Icons.Default.Close,
                 contentDescription = stringResource(Res.string.interactive_exit_content_description),
                 tint = iconColor,
-            )
-        }
-    }
-}
-
-@Composable
-private fun TopBarPulse() {
-    val infiniteTransition = rememberInfiniteTransition()
-    val pulseScale by infiniteTransition.animateFloat(
-        initialValue = 0.6f,
-        targetValue = 1.0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
-    )
-    val pulseAlpha by infiniteTransition.animateFloat(
-        initialValue = 0.4f,
-        targetValue = 1.0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
-    )
-    val waitingTexts = remember {
-        listOf(
-            Res.string.waiting_thinking,
-            Res.string.waiting_working,
-            Res.string.waiting_brewing,
-        )
-    }
-    var index by remember { mutableIntStateOf(0) }
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(3000)
-            index = (index + 1) % waitingTexts.size
-        }
-    }
-    Row(
-        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        Box(
-            modifier = Modifier
-                .size(10.dp)
-                .graphicsLayer {
-                    scaleX = pulseScale
-                    scaleY = pulseScale
-                    alpha = pulseAlpha
-                }
-                .background(MaterialTheme.colorScheme.onSurface, CircleShape),
-        )
-        Spacer(Modifier.width(8.dp))
-        AnimatedContent(
-            targetState = index,
-            transitionSpec = {
-                (fadeIn(tween(300)) togetherWith fadeOut(tween(300)))
-                    .using(SizeTransform(clip = false) { _, _ -> tween(300) })
-            },
-        ) { targetIndex ->
-            Text(
-                text = stringResource(waitingTexts[targetIndex]),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }

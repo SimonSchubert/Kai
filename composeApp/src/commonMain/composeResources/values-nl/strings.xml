@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">Hulpmiddelen</string>
     <string name="settings_tab_integrations">Integraties</string>
     <string name="tool_executing_content_description">Tool wordt uitgevoerd</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Door de service te gebruiken, gaat u akkoord met het </string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="settings_tab_general">Algemeen</string>
@@ -113,6 +114,10 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tool_configure_heartbeat_description">Periodiek zelfcontrolegedrag configureren</string>
     <string name="tool_configure_heartbeat_name">Hartslag configureren</string>
     <string name="tool_memory_learn_description">Een gecategoriseerd leerresultaat, foutoplossing of voorkeur opslaan</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Geheugen leren</string>
     <string name="tool_memory_reinforce_description">Een herinnering versterken die een goed resultaat opleverde</string>
     <string name="tool_memory_reinforce_name">Geheugen versterken</string>

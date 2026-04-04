@@ -49,6 +49,7 @@
     <string name="settings_tab_tools">ツール</string>
     <string name="settings_tab_integrations">連携</string>
     <string name="tool_executing_content_description">ツール実行中</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">サービスを利用することで、</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="settings_tab_general">一般</string>
@@ -113,6 +114,10 @@
     <string name="tool_configure_heartbeat_description">定期的なセルフチェックの動作を設定</string>
     <string name="tool_configure_heartbeat_name">ハートビートを設定</string>
     <string name="tool_memory_learn_description">分類された学習、エラー解決、または設定を保存</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">記憶を学習</string>
     <string name="tool_memory_reinforce_description">良い結果を生んだ記憶を強化</string>
     <string name="tool_memory_reinforce_name">記憶を強化</string>

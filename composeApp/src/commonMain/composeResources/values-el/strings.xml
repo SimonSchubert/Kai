@@ -42,6 +42,7 @@
     <string name="settings_tab_tools">Εργαλεία</string>
     <string name="settings_tab_integrations">Ενσωματώσεις</string>
     <string name="tool_executing_content_description">Εκτέλεση εργαλείου</string>
+    <string name="tools_count">%1$d Tools</string>
     <string name="privacy_agree_prefix">Χρησιμοποιώντας την υπηρεσία, συμφωνείτε με την </string>
     <string name="privacy_policy">Πολιτική Απορρήτου</string>
     <string name="tool_get_local_time_name">Λήψη Τοπικής Ώρας</string>
@@ -112,6 +113,10 @@
     <string name="tool_configure_heartbeat_description">Ρύθμιση συμπεριφοράς περιοδικού αυτοελέγχου</string>
     <string name="tool_configure_heartbeat_name">Ρύθμιση Heartbeat</string>
     <string name="tool_memory_learn_description">Αποθήκευση κατηγοριοποιημένης γνώσης, επίλυσης σφάλματος ή προτίμησης</string>
+    <string name="tool_memory_store_name">Store Memory</string>
+    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
+    <string name="tool_memory_forget_name">Forget Memory</string>
+    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
     <string name="tool_memory_learn_name">Εκμάθηση ανάμνησης</string>
     <string name="tool_memory_reinforce_description">Ενίσχυση μιας ανάμνησης που είχε καλό αποτέλεσμα</string>
     <string name="tool_memory_reinforce_name">Ενίσχυση ανάμνησης</string>
