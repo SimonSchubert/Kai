@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.animatedGradientBorder
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.start_interactive_ui
 import kai.composeapp.generated.resources.privacy_agree_prefix
 import kai.composeapp.generated.resources.privacy_policy
 import kai.composeapp.generated.resources.welcome_message
@@ -56,7 +57,7 @@ internal fun EmptyState(
         if (onStartInteractiveMode != null) {
             Spacer(Modifier.height(16.dp))
             AnimatedBorderButton(
-                text = "Start Interactive UI",
+                text = stringResource(Res.string.start_interactive_ui),
                 onClick = onStartInteractiveMode,
             )
             Spacer(Modifier.height(8.dp))

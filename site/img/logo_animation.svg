@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 52" width="104" height="52">
+  <circle r="26" cy="26" fill="#582FB7" opacity="1">
+    <animate attributeName="cx" values="78;26;78" dur="1.534s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="opacity" values="1;0" keyTimes="0;0.5" dur="1.534s"
+             repeatCount="indefinite" calcMode="discrete"/>
+  </circle>
+  <circle r="26" cy="26" fill="#8063C5">
+    <animate attributeName="cx" values="26;78;26" dur="1.534s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </circle>
+  <circle r="26" cy="26" fill="#582FB7" opacity="0">
+    <animate attributeName="cx" values="78;26;78" dur="1.534s" repeatCount="indefinite"
+             calcMode="spline" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="opacity" values="0;1" keyTimes="0;0.5" dur="1.534s"
+             repeatCount="indefinite" calcMode="discrete"/>
+  </circle>
+</svg>

@@ -130,62 +130,64 @@ internal fun BotMessage(
             )
         }
     }
-    Row(Modifier.padding(horizontal = 8.dp)) {
-        if (textToSpeech != null) {
-            val componentScope = rememberCoroutineScope()
-            SmallIconButton( // This is now imported from the composables directory
-                iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
-                contentDescription = stringResource(Res.string.bot_message_speech_content_description),
-                onClick = {
-                    componentScope.launch(getBackgroundDispatcher()) {
-                        textToSpeech.stop()
-                        if (isSpeaking) {
-                            setIsSpeaking(false)
-                        } else {
-                            setIsSpeaking(true)
-                            try {
-                                textToSpeech.say(
-                                    text = message.stripMarkdownForTts(),
-                                )
-                            } catch (ignore: TextToSpeechSynthesisInterruptedError) {
-                                // Expected interruption - no action needed
-                            } catch (e: Exception) {
-                                // Handle TTS errors gracefully (service failure, audio issues, etc.)
+    if (!hasUiBlocks) {
+        Row(Modifier.padding(horizontal = 8.dp)) {
+            if (textToSpeech != null) {
+                val componentScope = rememberCoroutineScope()
+                SmallIconButton( // This is now imported from the composables directory
+                    iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
+                    contentDescription = stringResource(Res.string.bot_message_speech_content_description),
+                    onClick = {
+                        componentScope.launch(getBackgroundDispatcher()) {
+                            textToSpeech.stop()
+                            if (isSpeaking) {
+                                setIsSpeaking(false)
+                            } else {
+                                setIsSpeaking(true)
+                                try {
+                                    textToSpeech.say(
+                                        text = message.stripMarkdownForTts(),
+                                    )
+                                } catch (ignore: TextToSpeechSynthesisInterruptedError) {
+                                    // Expected interruption - no action needed
+                                } catch (e: Exception) {
+                                    // Handle TTS errors gracefully (service failure, audio issues, etc.)
+                                }
+                                setIsSpeaking(false)
                             }
-                            setIsSpeaking(false)
                         }
-                    }
-                },
-            )
-        }
-        val clipboardManager = LocalClipboardManager.current
-        SmallIconButton(
-            iconResource = Res.drawable.ic_copy,
-            contentDescription = stringResource(Res.string.bot_message_copy_content_description),
-            onClick = {
-                clipboardManager.setText(
-                    buildAnnotatedString { append(message) },
+                    },
                 )
-            },
-        )
-        run {
-            val uriHandler = LocalUriHandler.current
+            }
+            val clipboardManager = LocalClipboardManager.current
             SmallIconButton(
-                iconResource = Res.drawable.ic_flag,
-                contentDescription = stringResource(Res.string.bot_message_flag_content_description),
+                iconResource = Res.drawable.ic_copy,
+                contentDescription = stringResource(Res.string.bot_message_copy_content_description),
                 onClick = {
-                    uriHandler.openUri("https://form.jotform.com/250014908169355")
+                    clipboardManager.setText(
+                        buildAnnotatedString { append(message) },
+                    )
                 },
             )
+            run {
+                val uriHandler = LocalUriHandler.current
+                SmallIconButton(
+                    iconResource = Res.drawable.ic_flag,
+                    contentDescription = stringResource(Res.string.bot_message_flag_content_description),
+                    onClick = {
+                        uriHandler.openUri("https://form.jotform.com/250014908169355")
+                    },
+                )
+            }
+            if (onRegenerate != null) {
+                SmallIconButton(
+                    iconResource = Res.drawable.ic_refresh,
+                    contentDescription = stringResource(Res.string.bot_message_regenerate_content_description),
+                    onClick = onRegenerate,
+                )
+            }
+            Spacer(Modifier.weight(1f))
         }
-        if (onRegenerate != null) {
-            SmallIconButton(
-                iconResource = Res.drawable.ic_refresh,
-                contentDescription = stringResource(Res.string.bot_message_regenerate_content_description),
-                onClick = onRegenerate,
-            )
-        }
-        Spacer(Modifier.weight(1f))
     }
 }
 
