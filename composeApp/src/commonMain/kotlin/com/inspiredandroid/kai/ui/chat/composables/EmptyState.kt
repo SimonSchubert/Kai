@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.animatedGradientBorder
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.start_interactive_ui
 import kai.composeapp.generated.resources.privacy_agree_prefix
 import kai.composeapp.generated.resources.privacy_policy
+import kai.composeapp.generated.resources.start_interactive_ui
 import kai.composeapp.generated.resources.welcome_message
 import org.jetbrains.compose.resources.stringResource
 
