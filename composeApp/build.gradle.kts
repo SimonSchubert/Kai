@@ -125,10 +125,6 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
-            implementation(libs.compottie)
-            implementation(libs.compottie.dot)
-            implementation(libs.compottie.resources)
-
             implementation(libs.filekit.core)
             implementation(libs.filekit.compose)
 

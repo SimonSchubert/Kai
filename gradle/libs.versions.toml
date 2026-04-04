@@ -12,7 +12,6 @@ androidx-lifecycle = "2.10.0"
 compose-multiplatform = "1.10.3"
 compose-material3 = "1.10.0-alpha05"
 coil = "3.4.0"
-compottieDot = "2.1.0"
 filekitCore = "0.13.0"
 koinCompose = "4.2.0"
 kotlin = "2.3.20"
@@ -39,9 +38,6 @@ materialIcons = "1.7.3"
 [libraries]
 coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
 coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
-compottie = { module = "io.github.alexzhirkevich:compottie-lite", version.ref = "compottieDot" }
-compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottieDot" }
-compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottieDot" }
 filekit-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekitCore" }
 filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekitCore" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCompose" }

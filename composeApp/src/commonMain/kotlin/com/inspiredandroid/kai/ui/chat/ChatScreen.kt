@@ -93,6 +93,7 @@ import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import com.inspiredandroid.kai.ui.chat.composables.toolSummaryText
+import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
@@ -213,6 +214,8 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         horizontalAlignment = CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                     ) {
+                        LogoAnimation()
+                        Spacer(Modifier.height(16.dp))
                         Text(
                             text = stringResource(Res.string.interactive_welcome_title),
                             style = MaterialTheme.typography.titleLarge,

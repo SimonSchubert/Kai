@@ -1,6 +1,5 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -29,18 +27,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.animatedGradientBorder
-import io.github.alexzhirkevich.compottie.Compottie
-import io.github.alexzhirkevich.compottie.LottieCompositionSpec
-import io.github.alexzhirkevich.compottie.rememberLottieComposition
-import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.logo
 import kai.composeapp.generated.resources.privacy_agree_prefix
 import kai.composeapp.generated.resources.privacy_policy
 import kai.composeapp.generated.resources.welcome_message
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 internal fun EmptyState(
@@ -48,73 +41,47 @@ internal fun EmptyState(
     isUsingSharedKey: Boolean,
     onStartInteractiveMode: (() -> Unit)? = null,
 ) {
-    val isInspectionMode = LocalInspectionMode.current
-
-    DisableSelection {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            if (isInspectionMode) {
-                // Use static logo for previews/screenshots since Lottie loads asynchronously
-                Image(
-                    modifier = Modifier.size(64.dp),
-                    imageVector = vectorResource(Res.drawable.logo),
-                    contentDescription = null,
-                )
-                Spacer(Modifier.height(12.dp))
-            } else {
-                val composition by rememberLottieComposition {
-                    LottieCompositionSpec.JsonString(
-                        Res.readBytes("files/lottie_loading.json").decodeToString(),
-                    )
-                }
-                Image(
-                    modifier = Modifier.size(128.dp),
-                    painter = rememberLottiePainter(
-                        composition = composition,
-                        iterations = Compottie.IterateForever,
-                        speed = 0.6f,
-                    ),
-                    contentDescription = null,
-                )
-            }
-            Text(
-                text = stringResource(Res.string.welcome_message),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground,
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        LogoAnimation()
+        Spacer(Modifier.height(16.dp))
+        Text(
+            text = stringResource(Res.string.welcome_message),
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        if (onStartInteractiveMode != null) {
+            Spacer(Modifier.height(16.dp))
+            AnimatedBorderButton(
+                text = "Start Interactive UI",
+                onClick = onStartInteractiveMode,
             )
-            if (onStartInteractiveMode != null) {
-                Spacer(Modifier.height(16.dp))
-                AnimatedBorderButton(
-                    text = "Start Interactive UI",
-                    onClick = onStartInteractiveMode,
-                )
-                Spacer(Modifier.height(8.dp))
-            }
-            if (isUsingSharedKey) {
-                val linkColor = MaterialTheme.colorScheme.primary
-                val prefixText = stringResource(Res.string.privacy_agree_prefix)
-                val policyText = stringResource(Res.string.privacy_policy)
-                val annotatedString = remember(prefixText, policyText, linkColor) {
-                    buildAnnotatedString {
-                        append(prefixText)
-                        withLink(LinkAnnotation.Url(url = "https://schubert-simon.de/privacy/kai.txt")) {
-                            withStyle(style = SpanStyle(color = linkColor)) {
-                                append(policyText)
-                            }
+            Spacer(Modifier.height(8.dp))
+        }
+        if (isUsingSharedKey) {
+            val linkColor = MaterialTheme.colorScheme.primary
+            val prefixText = stringResource(Res.string.privacy_agree_prefix)
+            val policyText = stringResource(Res.string.privacy_policy)
+            val annotatedString = remember(prefixText, policyText, linkColor) {
+                buildAnnotatedString {
+                    append(prefixText)
+                    withLink(LinkAnnotation.Url(url = "https://schubert-simon.de/privacy/kai.txt")) {
+                        withStyle(style = SpanStyle(color = linkColor)) {
+                            append(policyText)
                         }
                     }
                 }
-                Text(
-                    annotatedString,
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
             }
+            Text(
+                annotatedString,
+                modifier = Modifier.padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
         }
     }
 }
