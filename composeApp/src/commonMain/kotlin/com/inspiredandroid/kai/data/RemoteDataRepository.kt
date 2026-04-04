@@ -1465,7 +1465,7 @@ class RemoteDataRepository(
                 if (dynamicUiOnly) {
                     append("Layout tips:\n")
                     append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
-                    append("- Max 2 items per row on mobile. For 3+ options, use a column of cards instead of a row\n")
+                    append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
                     append("- Keep button labels short (1-3 words)\n")
                     append("- Do NOT set spacing or padding on layout nodes — the app enforces consistent spacing automatically\n\n")
                     append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Your name?\",\"style\":\"title\"},{\"type\":\"text_input\",\"id\":\"name\",\"placeholder\":\"Enter name\"},{\"type\":\"button\",\"label\":\"Submit\",\"action\":{\"type\":\"callback\",\"event\":\"submit\",\"collectFrom\":[\"name\"]}}]}\n```\n")
@@ -1479,7 +1479,7 @@ class RemoteDataRepository(
                     append("- Do NOT include back buttons, navigation bars, or any navigation controls. The app provides a back button and close button in the toolbar. The user can also type instructions in a text field below your UI.\n")
                     append("Layout:\n")
                     append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
-                    append("- Max 2 items per row on mobile. For 3+ options, use a column of cards instead of a row\n")
+                    append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
                     append("- Keep button labels short (1-3 words)\n")
                     append("- Use columns for vertical flow. Use the full component set: tabs, accordion, alerts, progress, chips, icons, etc.\n")
                     append("- Do NOT set spacing or padding on layout nodes — the app enforces consistent spacing automatically\n\n")
