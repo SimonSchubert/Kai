@@ -186,10 +186,61 @@ object KaiUiParser {
                                 },
                             )
 
+                        // chip_group.chips: LLMs sometimes send bare strings instead of {label, value}
+                        key == "chips" && processed is JsonArray ->
+                            JsonArray(
+                                processed.map { chip ->
+                                    if (chip is JsonPrimitive && chip.isString) {
+                                        JsonObject(mapOf("label" to chip, "value" to chip))
+                                    } else {
+                                        chip
+                                    }
+                                },
+                            )
+
+                        // tabs.tabs: wrap bare strings as {label, children: []}
+                        key == "tabs" && processed is JsonArray ->
+                            JsonArray(
+                                processed.map { tab ->
+                                    if (tab is JsonPrimitive && tab.isString) {
+                                        JsonObject(
+                                            mapOf(
+                                                "label" to tab,
+                                                "children" to JsonArray(emptyList()),
+                                            ),
+                                        )
+                                    } else {
+                                        tab
+                                    }
+                                },
+                            )
+
+                        // table.rows (List<List<String>>): accept arrays of arrays, arrays of
+                        // objects (values become cells), or arrays of primitives (one cell each)
+                        key == "rows" && processed is JsonArray ->
+                            JsonArray(
+                                processed.map { row ->
+                                    when (row) {
+                                        is JsonArray -> JsonArray(row.map { coerceToStringPrimitive(it) })
+                                        is JsonObject -> JsonArray(row.values.map { coerceToStringPrimitive(it) })
+                                        is JsonPrimitive -> JsonArray(listOf(row))
+                                    }
+                                },
+                            )
+
+                        // options/headers/collectFrom (List<String>): coerce every element
+                        key in stringListFields && processed is JsonArray ->
+                            JsonArray(processed.map { coerceToStringPrimitive(it) })
+
                         // LLMs sometimes put arrays where a primitive is expected
                         // e.g. "value": ["line1", "line2"] → join as comma-separated string
                         key !in knownCompositeFields && processed is JsonArray ->
                             flattenToString(processed)
+
+                        // LLMs sometimes put objects where a primitive is expected
+                        // e.g. "value": {"text": "hello"} → extract as "hello"
+                        key !in knownCompositeFields && processed is JsonObject ->
+                            coerceToStringPrimitive(processed)
 
                         else -> processed
                     }
@@ -235,6 +286,9 @@ object KaiUiParser {
     /** Fields that hold List<KaiUiNode> and need unknown-type filtering. */
     private val nodeListFields = setOf("children", "items")
 
+    /** Fields typed as List<String> on the data model — each element must be coerced to a string. */
+    private val stringListFields = setOf("options", "headers", "collectFrom")
+
     /** Fields whose JSON values are expected to be arrays or objects (not primitives). */
     private val knownCompositeFields = nodeListFields + setOf(
         "chips",
@@ -249,6 +303,27 @@ object KaiUiParser {
 
     /** Join array elements into a single comma-separated string primitive. */
     private fun flattenToString(arr: JsonArray): JsonPrimitive = JsonPrimitive(arr.joinToString(", ") { if (it is JsonPrimitive) it.content else it.toString() })
+
+    /**
+     * Coerce any JsonElement into a string primitive, best-effort. Used when an LLM puts an
+     * object or array into a slot that the data model declares as a plain `String`.
+     *
+     * - Primitive → itself
+     * - Array → comma-joined contents (via `flattenToString`)
+     * - Object → first "label-ish" primitive field (`value`/`text`/`label`/`title`/`name`/`content`),
+     *   else comma-joined values
+     */
+    private fun coerceToStringPrimitive(element: JsonElement): JsonPrimitive = when (element) {
+        is JsonPrimitive -> element
+        is JsonArray -> flattenToString(element)
+        is JsonObject -> {
+            val preferred = listOf("value", "text", "label", "title", "name", "content")
+                .firstNotNullOfOrNull { element[it] as? JsonPrimitive }
+            preferred ?: JsonPrimitive(
+                element.values.joinToString(", ") { if (it is JsonPrimitive) it.content else it.toString() },
+            )
+        }
+    }
 
     /**
      * Recursively remove objects with unrecognized "type" values from node-list fields

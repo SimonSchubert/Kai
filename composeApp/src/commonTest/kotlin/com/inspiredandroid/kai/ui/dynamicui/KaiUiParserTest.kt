@@ -785,4 +785,76 @@ class KaiUiParserTest {
         assertTrue(stripped.contains("Before"))
         assertTrue(stripped.contains("After"))
     }
+
+    // --- Shape coercion: LLMs sometimes put objects or wrong-shaped lists where the data
+    // model expects a plain string or a List<String>. These regressions pin the behaviour of
+    // fixMissingTypes so the parser recovers instead of crashing the whole block.
+
+    private fun parseSingleNode(json: String): KaiUiNode {
+        val segments = KaiUiParser.parse("```kai-ui\n$json\n```")
+        val uiSegment = segments.filterIsInstance<KaiUiParser.UiSegment>().single()
+        return uiSegment.node
+    }
+
+    @Test
+    fun `coerces text value as object with nested text field`() {
+        val node = parseSingleNode("""{"type":"text","value":{"text":"hello"}}""")
+        val text = assertIs<TextNode>(node)
+        assertEquals("hello", text.value)
+    }
+
+    @Test
+    fun `coerces button label as object with label field`() {
+        val node = parseSingleNode("""{"type":"button","label":{"label":"Click me"},"action":{"type":"callback","event":"tap"}}""")
+        val button = assertIs<ButtonNode>(node)
+        assertEquals("Click me", button.label)
+    }
+
+    @Test
+    fun `coerces select options as list of objects`() {
+        val node = parseSingleNode("""{"type":"select","id":"pick","options":[{"label":"Alpha","value":"a"},{"label":"Beta","value":"b"}]}""")
+        val select = assertIs<SelectNode>(node)
+        assertEquals(listOf("a", "b"), select.options)
+    }
+
+    @Test
+    fun `coerces radio group options as list of objects`() {
+        val node = parseSingleNode("""{"type":"radio_group","id":"pick","options":[{"label":"Yes","value":"y"},{"label":"No","value":"n"}]}""")
+        val radio = assertIs<RadioGroupNode>(node)
+        assertEquals(listOf("y", "n"), radio.options)
+    }
+
+    @Test
+    fun `coerces table rows as list of objects`() {
+        val node = parseSingleNode("""{"type":"table","headers":["col1","col2"],"rows":[{"col1":"1","col2":"2"},{"col1":"3","col2":"4"}]}""")
+        val table = assertIs<TableNode>(node)
+        assertEquals(listOf("col1", "col2"), table.headers)
+        assertEquals(listOf(listOf("1", "2"), listOf("3", "4")), table.rows)
+    }
+
+    @Test
+    fun `coerces table headers as list of objects`() {
+        val node = parseSingleNode("""{"type":"table","headers":[{"name":"Col A"},{"name":"Col B"}],"rows":[["a","b"]]}""")
+        val table = assertIs<TableNode>(node)
+        assertEquals(listOf("Col A", "Col B"), table.headers)
+        assertEquals(listOf(listOf("a", "b")), table.rows)
+    }
+
+    @Test
+    fun `coerces chip group chips as bare strings`() {
+        val node = parseSingleNode("""{"type":"chip_group","id":"tags","chips":["red","blue","green"]}""")
+        val chipGroup = assertIs<ChipGroupNode>(node)
+        assertEquals(3, chipGroup.chips.size)
+        assertEquals("red", chipGroup.chips[0].label)
+        assertEquals("red", chipGroup.chips[0].value)
+        assertEquals("green", chipGroup.chips[2].label)
+    }
+
+    @Test
+    fun `coerces quote text as object`() {
+        val node = parseSingleNode("""{"type":"quote","text":{"content":"Be kind"},"source":"anon"}""")
+        val quote = assertIs<QuoteNode>(node)
+        assertEquals("Be kind", quote.text)
+        assertEquals("anon", quote.source)
+    }
 }
