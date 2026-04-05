@@ -1147,14 +1147,14 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-05</p>
+<p><strong>Last verified:</strong> 2026-04-05 (spacing cleanup)</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
 <p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).</p>
 <h3 id="component-types">Component Types</h3>
 <ul>
-<li><strong>Layout</strong>: column, row, card, box, spacer, divider</li>
+<li><strong>Layout</strong>: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)</li>
 <li><strong>Content</strong>: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)</li>
 <li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)</li>
 <li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)</li>
