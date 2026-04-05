@@ -760,8 +760,10 @@ private fun RenderRadioGroup(
     formState: MutableMap<String, String>,
 ) {
     val selected = formState[node.id] ?: ""
-    Column(Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    Column(
+        Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
         if (node.label != null) {
             Text(
                 text = node.label,
