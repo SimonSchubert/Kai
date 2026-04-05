@@ -1,12 +1,13 @@
-# Kai
+# Kai 9000
 
 <img src="https://img.shields.io/badge/Platform-Web-f7df1c?logo=javascript" alt="Web"> <img src="https://img.shields.io/badge/Platform-Android-34a853.svg?logo=android" alt="Android" /> <img src="https://img.shields.io/badge/Platform-iOS-lightgrey.svg?logo=apple" alt="iOS" /> <img src="https://img.shields.io/badge/Platform-Windows/macOS/Linux-e10707.svg?logo=openjdk" alt="Platform JVM" />
 <div align="center">
+
 <img src="site/img/logo_animation.gif" height="80">
 
 An **open-source AI assistant with persistent memory** that runs on **Android, iOS, Windows, Mac, Linux, and Web**.
 
-**[Documentation](https://kai9000.com/docs/)**
+**[Website](https://kai9000.com)** - **[Documentation](https://kai9000.com/docs/)**
 </div>
 
 ## Installation
@@ -230,5 +231,4 @@ This project is open-source and maintained by a single developer. If you find th
 
 ## Credits
 
-- Lottie animation: https://lottiefiles.com/free-animation/loading-wDUukARCPj
 - Mistral: https://mistral.ai/

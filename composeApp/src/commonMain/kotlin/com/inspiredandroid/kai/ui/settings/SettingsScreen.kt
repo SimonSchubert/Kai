@@ -622,7 +622,7 @@ private fun BottomInfo() {
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .clickable { uriHandler.openUri("https://simonschubert.github.io/Kai/docs/") }
+                .clickable { uriHandler.openUri("https://kai9000.com/docs/") }
                 .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         )
     }
