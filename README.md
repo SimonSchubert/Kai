@@ -48,9 +48,9 @@ winget install SimonSchubert.Kai
 
 ## AI That Builds Screens, Not Just Text
 
-Kai 9000's Interactive UI lets the AI generate full interactive screens — quizzes, dashboards, recipes, task managers, and more. Navigate by tapping buttons instead of scrolling through chat.
+Kai 9000's Interactive UI lets the AI generate full interactive screens — quizzes, dashboards, recipes, brainstorms, and more. Navigate by tapping buttons instead of scrolling through chat.
 
-<img src="screenshots/interactive-survival.png" alt="Survival Game" height="300"> <img src="screenshots/interactive-recipe.png" alt="Recipe Card" height="300"> <img src="screenshots/interactive-tasks.png" alt="Task Manager" height="300"> <img src="screenshots/interactive-memories.png" alt="Memories" height="300">
+<img src="screenshots/interactive-survival.png" alt="Survival Game" height="300"> <img src="screenshots/interactive-recipe.png" alt="Recipe Card" height="300"> <img src="screenshots/interactive-ecopulse.png" alt="EcoPulse Brainstorm" height="300"> <img src="screenshots/interactive-memories.png" alt="Memories" height="300">
 
 ## Features
 

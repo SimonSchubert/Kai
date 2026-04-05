@@ -491,7 +491,6 @@ private fun ChatModeScreen(
         Column(Modifier.fillMaxSize()) {
             TopBar(
                 textToSpeech = textToSpeech,
-                isLoading = uiState.isLoading,
                 isSpeechOutputEnabled = uiState.isSpeechOutputEnabled,
                 isSpeaking = uiState.isSpeaking,
                 actions = uiState.actions,

@@ -196,7 +196,8 @@ data class CountdownNode(
 data class ChipGroupNode(
     override val id: String = "",
     val chips: List<ChipItem> = emptyList(),
-    val multiSelect: Boolean? = null,
+    /** "single" (default), "multi", or "none" for display-only tags. */
+    val selection: String = "single",
 ) : KaiUiNode
 
 @Immutable
@@ -205,14 +206,6 @@ data class ChipItem(
     val label: String = "",
     val value: String = "",
 )
-
-@Immutable
-@Serializable
-@SerialName("chip")
-data class ChipNode(
-    override val id: String? = null,
-    val label: String = "",
-) : KaiUiNode
 
 // --- Content nodes (additional) ---
 

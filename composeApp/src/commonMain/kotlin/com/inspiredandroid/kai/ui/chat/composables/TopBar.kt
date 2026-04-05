@@ -32,7 +32,6 @@ import org.jetbrains.compose.resources.vectorResource
 @Composable
 internal fun TopBar(
     textToSpeech: TextToSpeechInstance? = null,
-    isLoading: Boolean,
     isSpeechOutputEnabled: Boolean,
     isSpeaking: Boolean,
     actions: ChatActions,
@@ -47,7 +46,7 @@ internal fun TopBar(
             modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
         ) {
             Row(modifier = Modifier.align(Alignment.CenterStart)) {
-                LeadingButtons(textToSpeech, isLoading, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory)
+                LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory)
             }
             Box(modifier = Modifier.align(Alignment.Center)) {
                 navigationTabBar()
@@ -60,7 +59,7 @@ internal fun TopBar(
         }
     } else {
         Row {
-            LeadingButtons(textToSpeech, isLoading, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory)
+            LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory)
             Spacer(Modifier.weight(1f))
             if (textToSpeech != null) {
                 SpeechToggleButton(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions)
@@ -82,7 +81,6 @@ internal fun TopBar(
 @Composable
 private fun LeadingButtons(
     textToSpeech: TextToSpeechInstance?,
-    isLoading: Boolean,
     isSpeechOutputEnabled: Boolean,
     isSpeaking: Boolean,
     actions: ChatActions,
@@ -94,7 +92,6 @@ private fun LeadingButtons(
         IconButton(
             modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
             onClick = onShowHistory,
-            enabled = !isLoading,
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_history),
@@ -113,7 +110,6 @@ private fun LeadingButtons(
                 }
                 actions.startNewChat()
             },
-            enabled = !isLoading,
         ) {
             Icon(
                 imageVector = vectorResource(Res.drawable.ic_add),

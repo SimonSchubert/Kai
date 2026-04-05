@@ -384,7 +384,7 @@ class KaiUiParserTest {
 
     @Test
     fun `parses chip_group node`() {
-        val json = """{"type":"chip_group","id":"tags","chips":[{"label":"Kotlin","value":"kotlin"},{"label":"Java","value":"java"}],"multiSelect":true}"""
+        val json = """{"type":"chip_group","id":"tags","chips":[{"label":"Kotlin","value":"kotlin"},{"label":"Java","value":"java"}],"selection":"multi"}"""
         val message = "```kai-ui\n$json\n```"
         val segments = KaiUiParser.parse(message)
         val node = (segments[0] as KaiUiParser.UiSegment).node
@@ -392,7 +392,21 @@ class KaiUiParserTest {
         assertEquals(2, node.chips.size)
         assertEquals("Kotlin", node.chips[0].label)
         assertEquals("kotlin", node.chips[0].value)
-        assertEquals(true, node.multiSelect)
+        assertEquals("multi", node.selection)
+    }
+
+    @Test
+    fun `migrates legacy multiSelect to selection`() {
+        // Legacy kai-ui blocks in historical chat messages used multiSelect:Boolean.
+        val multiJson = """{"type":"chip_group","id":"tags","chips":[{"label":"A"}],"multiSelect":true}"""
+        val multiNode = (KaiUiParser.parse("```kai-ui\n$multiJson\n```")[0] as KaiUiParser.UiSegment).node
+        assertIs<ChipGroupNode>(multiNode)
+        assertEquals("multi", multiNode.selection)
+
+        val singleJson = """{"type":"chip_group","id":"tags","chips":[{"label":"A"}],"multiSelect":false}"""
+        val singleNode = (KaiUiParser.parse("```kai-ui\n$singleJson\n```")[0] as KaiUiParser.UiSegment).node
+        assertIs<ChipGroupNode>(singleNode)
+        assertEquals("single", singleNode.selection)
     }
 
     @Test

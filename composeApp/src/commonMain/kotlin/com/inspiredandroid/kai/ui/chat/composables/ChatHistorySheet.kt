@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -75,8 +76,9 @@ internal fun ChatHistorySheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     ) {
-        Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+        Column {
             Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 text = stringResource(Res.string.chat_history_title),
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -88,13 +90,14 @@ internal fun ChatHistorySheet(
                     text = stringResource(Res.string.chat_history_empty),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(vertical = 24.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp),
                 )
             } else {
                 val historyListState = rememberLazyListState()
                 Box {
                     LazyColumn(
                         state = historyListState,
+                        contentPadding = PaddingValues(horizontal = 16.dp),
                         verticalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
                         items(conversations, key = { it.id }) { conversation ->

@@ -8,6 +8,8 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -152,7 +154,6 @@ import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -163,11 +164,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -196,6 +197,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
+import com.inspiredandroid.kai.ui.components.KaiChip
 import kotlinx.coroutines.delay
 import kotlin.time.Clock
 
@@ -303,7 +305,6 @@ private fun RenderNode(
         is CountdownNode -> RenderCountdown(node, isInteractive, formState, toggleState, onCallback)
         is AlertNode -> RenderAlert(node)
         is ChipGroupNode -> RenderChipGroup(node, isInteractive, formState)
-        is ChipNode -> RenderChip(node)
         is IconNode -> RenderIcon(node)
         is CodeNode -> RenderCode(node)
         is BoxNode -> RenderBox(node, isInteractive, formState, toggleState, onCallback, depth)
@@ -483,13 +484,18 @@ private fun RenderCheckbox(
 ) {
     val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
     val toggle = { formState[node.id] = (!checked).toString() }
+    val interactionSource = remember { MutableInteractionSource() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
             .then(
                 if (isInteractive) {
-                    Modifier.clickable(onClick = toggle)
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = toggle,
+                    )
                 } else {
                     Modifier
                 },
@@ -499,6 +505,11 @@ private fun RenderCheckbox(
             checked = checked,
             onCheckedChange = null,
             enabled = isInteractive,
+            modifier = Modifier.indication(
+                interactionSource = interactionSource,
+                indication = ripple(bounded = false, radius = 20.dp),
+            ),
+            interactionSource = interactionSource,
         )
         Text(node.label, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(start = 8.dp))
     }
@@ -624,12 +635,23 @@ private fun RenderSwitch(
 ) {
     val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
     val toggle = { formState[node.id] = (!checked).toString() }
+    val interactionSource = remember { MutableInteractionSource() }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-            .then(if (isInteractive) Modifier.clickable(onClick = toggle) else Modifier),
+            .then(
+                if (isInteractive) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = toggle,
+                    )
+                } else {
+                    Modifier
+                },
+            ),
     ) {
         Text(
             text = node.label,
@@ -640,6 +662,7 @@ private fun RenderSwitch(
             checked = checked,
             onCheckedChange = null,
             enabled = isInteractive,
+            interactionSource = interactionSource,
         )
     }
 }
@@ -748,25 +771,41 @@ private fun RenderRadioGroup(
             )
         }
         for (option in node.options) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-            ) {
-                RadioButton(
-                    selected = selected == option,
-                    onClick = { formState[node.id] = option },
-                    enabled = isInteractive,
-                )
-                Text(
-                    text = option,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.clickable(
-                        indication = null,
-                        interactionSource = null,
-                    ) { if (isInteractive) formState[node.id] = option },
-                )
+            key(option) {
+                val interactionSource = remember { MutableInteractionSource() }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                        .then(
+                            if (isInteractive) {
+                                Modifier.clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null,
+                                    onClick = { formState[node.id] = option },
+                                )
+                            } else {
+                                Modifier
+                            },
+                        ),
+                ) {
+                    RadioButton(
+                        selected = selected == option,
+                        onClick = null,
+                        enabled = isInteractive,
+                        modifier = Modifier.indication(
+                            interactionSource = interactionSource,
+                            indication = ripple(bounded = false, radius = 20.dp),
+                        ),
+                        interactionSource = interactionSource,
+                    )
+                    Text(
+                        text = option,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
+                }
             }
         }
     }
@@ -942,49 +981,46 @@ private fun RenderChipGroup(
     isInteractive: Boolean,
     formState: MutableMap<String, String>,
 ) {
-    val isMulti = node.multiSelect == true
+    val isDisplayOnly = node.selection == "none"
+    val isMulti = node.selection == "multi"
 
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
         for (chip in node.chips) {
             val value = chip.value.ifEmpty { chip.label }
             key(value) {
-                val isSelected by remember {
-                    derivedStateOf {
-                        val csv = formState[node.id] ?: ""
-                        csv.split(",").contains(value)
+                if (isDisplayOnly) {
+                    KaiChip { Text(chip.label) }
+                } else {
+                    val isSelected by remember {
+                        derivedStateOf {
+                            val csv = formState[node.id] ?: ""
+                            csv.split(",").contains(value)
+                        }
+                    }
+                    KaiChip(
+                        selected = isSelected,
+                        onClick = {
+                            if (!isInteractive) return@KaiChip
+                            val current = (formState[node.id] ?: "").split(",").filter { it.isNotEmpty() }.toSet()
+                            val newSelection = if (isMulti) {
+                                if (isSelected) current - value else current + value
+                            } else {
+                                if (isSelected) emptySet() else setOf(value)
+                            }
+                            formState[node.id] = newSelection.joinToString(",")
+                        },
+                        enabled = isInteractive,
+                    ) {
+                        Text(chip.label)
                     }
                 }
-                FilterChip(
-                    selected = isSelected,
-                    onClick = {
-                        if (!isInteractive) return@FilterChip
-                        val current = (formState[node.id] ?: "").split(",").filter { it.isNotEmpty() }.toSet()
-                        val newSelection = if (isMulti) {
-                            if (isSelected) current - value else current + value
-                        } else {
-                            if (isSelected) emptySet() else setOf(value)
-                        }
-                        formState[node.id] = newSelection.joinToString(",")
-                    },
-                    label = { Text(chip.label) },
-                    enabled = isInteractive,
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-                )
             }
         }
     }
-}
-
-@Composable
-private fun RenderChip(node: ChipNode) {
-    SuggestionChip(
-        onClick = {},
-        label = { Text(node.label) },
-    )
 }
 
 @Composable
@@ -1318,7 +1354,7 @@ private fun RenderAccordion(
     var expanded by remember { mutableStateOf(node.expanded ?: false) }
 
     Surface(
-        onClick = { if (isInteractive) expanded = !expanded },
+        onClick = { expanded = !expanded },
         modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         shape = RoundedCornerShape(6.dp),
         color = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -1492,9 +1528,8 @@ private fun initializeFormState(node: KaiUiNode, formState: MutableMap<String, S
 
         is RadioGroupNode -> node.selected?.let { if (node.id !in formState) formState[node.id] = it }
 
-        is ChipGroupNode -> if (node.id !in formState) {
-            val preselected = node.chips.filter { false }.map { it.value.ifEmpty { it.label } } // No default selection
-            formState[node.id] = preselected.joinToString(",")
+        is ChipGroupNode -> if (node.selection != "none" && node.id !in formState) {
+            formState[node.id] = ""
         }
 
         is ColumnNode -> node.children.forEach { initializeFormState(it, formState) }

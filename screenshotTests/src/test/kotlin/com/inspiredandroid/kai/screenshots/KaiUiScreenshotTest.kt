@@ -170,7 +170,7 @@ class KaiUiScreenshotTest {
                     {"label":"Sad","value":"sad"}
                 ]},
                 {"type":"text","value":"Multi Select","style":"title"},
-                {"type":"chip_group","id":"tags","multiSelect":true,"chips":[
+                {"type":"chip_group","id":"tags","selection":"multi","chips":[
                     {"label":"Kotlin","value":"kotlin"},
                     {"label":"Swift","value":"swift"},
                     {"label":"Rust","value":"rust"},
@@ -365,7 +365,7 @@ class KaiUiScreenshotTest {
                 {"type":"switch","id":"notifications","label":"Push Notifications","checked":false},
                 {"type":"slider","id":"font_size","label":"Font Size","min":12,"max":24,"value":16,"step":1},
                 {"type":"divider"},
-                {"type":"chip_group","id":"interests","multiSelect":true,"chips":[
+                {"type":"chip_group","id":"interests","selection":"multi","chips":[
                     {"label":"Technology","value":"tech"},
                     {"label":"Science","value":"science"},
                     {"label":"Music","value":"music"},
@@ -641,66 +641,49 @@ class KaiUiScreenshotTest {
         )
     }
 
-    // --- Scenario: Task management ---
+    // --- Scenario: Sustainable tech brainstorm ---
 
     @Test
-    fun scenario_taskManagement_light() {
+    fun scenario_sustainableTech_light() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":10,"children":[
-                {"type":"text","value":"Your Tasks","style":"headline","bold":true},
-                {"type":"text","value":"Here's what's on your plate today and coming up this week.","style":"body","color":"secondary"},
-                {"type":"row","spacing":16,"children":[
-                    {"type":"stat","value":"4","label":"Open"},
-                    {"type":"stat","value":"3","label":"Done"},
-                    {"type":"stat","value":"1","label":"Upcoming"}
-                ]},
-                {"type":"progress","value":0.43,"label":"43% complete"},
-                {"type":"divider"},
-                {"type":"text","value":"Today","style":"title","bold":true},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"checkbox","id":"t1","label":"Grocery run"},
-                            {"type":"spacer"},
-                            {"type":"badge","value":"Low","color":"secondary"}
-                        ]},
-                        {"type":"text","value":"Milk, eggs, bread, vegetables","style":"caption"}
+            """{"type":"column","children":[
+                {"type":"text","value":"Sustainable Tech Project \uD83C\uDF31","style":"headline","bold":true},
+                {"type":"card","children":[
+                    {"type":"text","value":"Let\u2019s design a project that merges technology with sustainability. Here\u2019s a concept to explore:","style":"body"},
+                    {"type":"spacer","size":16},
+                    {"type":"quote","text":"What if we built a platform that helps individuals and businesses reduce their carbon footprint\u2014without sacrificing convenience?","source":"Hypothetical You"},
+                    {"type":"spacer","size":16},
+                    {"type":"text","value":"Project Name: **EcoPulse**","style":"title","bold":true},
+                    {"type":"text","value":"A real-time carbon footprint tracker and reduction platform for individuals and businesses.","style":"body"},
+                    {"type":"spacer","size":16},
+                    {"type":"accordion","title":"Core Features","expanded":false,"children":[
+                        {"type":"list","items":[
+                            "**Real-Time Tracking**: Monitor energy, transportation, and consumption habits.",
+                            "**Automated Insights**: Integrate with smart devices and apps for seamless data collection.",
+                            "**Actionable Tips**: Receive personalized recommendations to reduce your footprint.",
+                            "**Gamification**: Earn rewards for hitting sustainability milestones.",
+                            "**Business Tools**: Track and report emissions for ESG compliance."
+                        ],"ordered":false}
+                    ]},
+                    {"type":"spacer","size":16},
+                    {"type":"row","children":[
+                        {"type":"button","label":"Refine This Idea","action":{"type":"callback","event":"refine_ecopulse"},"variant":"filled"},
+                        {"type":"button","label":"Explore Another Idea","action":{"type":"callback","event":"explore_sustainable_idea"},"variant":"outlined"}
                     ]}
                 ]},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"checkbox","id":"t2","label":"Review PR #247"},
-                            {"type":"spacer"},
-                            {"type":"badge","value":"Med","color":"primary"}
-                        ]},
-                        {"type":"text","value":"Auth middleware refactor by @lisa","style":"caption"}
-                    ]}
-                ]},
-                {"type":"divider"},
-                {"type":"text","value":"This Week","style":"title","bold":true},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"checkbox","id":"t3","label":"Book Berlin flights"},
-                            {"type":"spacer"},
-                            {"type":"badge","value":"Med","color":"primary"}
-                        ]},
-                        {"type":"text","value":"Apr 5 \u2022 Check Lufthansa and EasyJet","style":"caption"}
-                    ]}
-                ]},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"checkbox","id":"t4","label":"Dentist appointment"},
-                            {"type":"spacer"},
-                            {"type":"badge","value":"High","color":"error"}
-                        ]},
-                        {"type":"text","value":"Apr 7 at 10:00 AM \u2022 Dr. Weber","style":"caption"}
-                    ]}
-                ]},
-                {"type":"divider"},
-                {"type":"button","label":"Add New Task","variant":"filled","action":{"type":"callback","event":"add_task"}}
+                {"type":"card","children":[
+                    {"type":"text","value":"Or, brainstorm a different sustainable tech project:","style":"title","bold":true},
+                    {"type":"chip_group","id":"sustainable_themes","chips":[
+                        {"label":"Circular Economy","value":"circular_economy"},
+                        {"label":"Renewable Energy","value":"renewable_energy"},
+                        {"label":"Smart Cities","value":"smart_cities"},
+                        {"label":"Sustainable Agriculture","value":"sustainable_agriculture"},
+                        {"label":"E-Waste Reduction","value":"e_waste"},
+                        {"label":"Water Conservation","value":"water_conservation"}
+                    ],"selection":"multi"},
+                    {"type":"spacer","size":8},
+                    {"type":"button","label":"Brainstorm","action":{"type":"callback","event":"brainstorm_sustainable_project","collectFrom":["sustainable_themes"]},"variant":"filled"}
+                ]}
             ]}""",
             colorScheme = LightColorScheme,
         )
@@ -796,7 +779,7 @@ class KaiUiScreenshotTest {
                 {"type":"slider","id":"sl1","label":"Slider","value":50,"min":0,"max":100},
                 {"type":"divider"},
                 {"type":"text","value":"Chips","style":"title"},
-                {"type":"chip_group","id":"ch1","multiSelect":true,"chips":[{"label":"Tag 1","value":"1"},{"label":"Tag 2","value":"2"},{"label":"Tag 3","value":"3"}]},
+                {"type":"chip_group","id":"ch1","selection":"multi","chips":[{"label":"Tag 1","value":"1"},{"label":"Tag 2","value":"2"},{"label":"Tag 3","value":"3"}]},
                 {"type":"divider"},
                 {"type":"text","value":"Feedback","style":"title"},
                 {"type":"progress","value":0.5,"label":"50%"},

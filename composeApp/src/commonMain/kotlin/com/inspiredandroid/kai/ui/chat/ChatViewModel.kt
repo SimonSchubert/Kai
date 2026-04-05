@@ -266,12 +266,14 @@ class ChatViewModel(
     }
 
     private fun loadConversation(id: String) {
+        currentJob?.cancel()
+        currentJob = null
         val conversation = dataRepository.savedConversations.value.find { it.id == id }
         val isInteractive = conversation?.type == Conversation.TYPE_INTERACTIVE
         dataRepository.setInteractiveMode(isInteractive)
         dataRepository.loadConversation(id)
         _state.update {
-            it.copy(error = null, isInteractiveMode = isInteractive)
+            it.copy(error = null, isInteractiveMode = isInteractive, isLoading = false)
         }
     }
 
@@ -311,10 +313,12 @@ class ChatViewModel(
     }
 
     private fun startNewChat() {
+        currentJob?.cancel()
+        currentJob = null
         dataRepository.startNewChat()
         dataRepository.setInteractiveMode(false)
         _state.update {
-            it.copy(error = null, isInteractiveMode = false)
+            it.copy(error = null, isInteractiveMode = false, isLoading = false)
         }
     }
 

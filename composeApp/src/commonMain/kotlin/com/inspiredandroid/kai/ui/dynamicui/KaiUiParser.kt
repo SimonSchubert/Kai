@@ -5,6 +5,7 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -194,14 +195,32 @@ object KaiUiParser {
                     }
                 },
             )
-            if ("type" in fixed) {
-                fixed
+            val migrated = migrateLegacyFields(fixed)
+            if ("type" in migrated) {
+                migrated
             } else {
-                inferMissingType(fixed)
+                inferMissingType(migrated)
             }
         }
 
         else -> element
+    }
+
+    /**
+     * Migrate deprecated JSON field names so historical kai-ui blocks keep working.
+     * Runs before deserialization.
+     */
+    private fun migrateLegacyFields(obj: JsonObject): JsonObject {
+        val type = (obj["type"] as? JsonPrimitive)?.takeIf { it.isString }?.content
+        // chip_group: multiSelect (Boolean) → selection (String)
+        if (type == "chip_group" && "multiSelect" in obj && "selection" !in obj) {
+            val multi = (obj["multiSelect"] as? JsonPrimitive)?.booleanOrNull == true
+            val newMap = obj.toMutableMap()
+            newMap.remove("multiSelect")
+            newMap["selection"] = JsonPrimitive(if (multi) "multi" else "single")
+            return JsonObject(newMap)
+        }
+        return obj
     }
 
     /** Known fields on helper data classes (ChipItem, TabItem) — skip inference. */
