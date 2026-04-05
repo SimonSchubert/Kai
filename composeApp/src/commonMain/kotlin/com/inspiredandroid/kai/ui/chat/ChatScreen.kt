@@ -423,8 +423,10 @@ private fun InteractiveModeContent(
                             )
                         }
                     }
-                } else {
-                    // AI responded but no valid kai-ui — show fallback
+                } else if (uiState.error == null) {
+                    // AI responded with no valid kai-ui AND there's no API error underneath —
+                    // this is a genuine parse failure (retries exhausted). When an API error is
+                    // set, the ErrorMessage overlay below takes over with the correct message.
                     Box(Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
                         Column(horizontalAlignment = CenterHorizontally) {
                             Text(

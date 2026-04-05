@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-05 (spacing cleanup)
+**Last verified:** 2026-04-05 (parser refactor to direct builders)
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -38,7 +38,7 @@ Only the latest assistant message's layouts are interactive. Older layouts becom
 
 ### Error Handling
 
-Malformed JSON falls back to rendering as a code block. The parser sanitizes common LLM mistakes like extra trailing braces/brackets using stack-based brace matching. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips `kai-ui` blocks entirely.
+Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, `"key="` typos), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in `children` or `items` are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips `kai-ui` blocks entirely.
 
 ### Settings
 
@@ -78,7 +78,8 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 |------|---------|
 | `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 29 node types, all @Immutable |
 | `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
-| `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Detects and parses kai-ui fences into segments, sanitizes malformed JSON |
+| `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Detects kai-ui fences, sanitizes malformed JSON, dispatches to the builders |
+| `composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt` | Tolerant field-by-field construction of KaiUiNode instances from JsonElement |
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
 | `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — renders mixed markdown + UI in chat mode |
 | `composeApp/.../ui/chat/ChatScreen.kt` | Branches between chat mode and interactive mode |
