@@ -64,12 +64,12 @@ jobs:
       - name: Set execution flag for gradlew
         run: chmod +x gradlew
       - name: Build DMG
-        run: bash ./gradlew packageDmg --stacktrace
+        run: bash ./gradlew packageReleaseDmg --stacktrace
       - name: Upload DMG Artifact
         uses: actions/upload-artifact@v4
         with:
           name: dmg-package
-          path: composeApp/build/compose/binaries/main/dmg/*.dmg
+          path: composeApp/build/compose/binaries/main-release/dmg/*.dmg
 
   msi:
     name: Generate MSI
@@ -86,12 +86,12 @@ jobs:
           distribution: temurin
           java-version: "21"
       - name: Build MSI
-        run: ./gradlew packageMsi --stacktrace
+        run: ./gradlew packageReleaseMsi --stacktrace
       - name: Upload MSI Artifact
         uses: actions/upload-artifact@v4
         with:
           name: msi-package
-          path: composeApp/build/compose/binaries/main/msi/*.msi
+          path: composeApp/build/compose/binaries/main-release/msi/*.msi
 
   deb:
     name: Generate DEB
@@ -110,12 +110,12 @@ jobs:
       - name: Set execution flag for gradlew
         run: chmod +x gradlew
       - name: Build DEB
-        run: ./gradlew packageDeb --stacktrace
+        run: ./gradlew packageReleaseDeb --stacktrace
       - name: Upload DEB Artifact
         uses: actions/upload-artifact@v4
         with:
           name: deb-package
-          path: composeApp/build/compose/binaries/main/deb/*.deb
+          path: composeApp/build/compose/binaries/main-release/deb/*.deb
 
   rpm:
     name: Generate RPM
@@ -136,12 +136,12 @@ jobs:
       - name: Install RPM build tools
         run: sudo apt-get update && sudo apt-get install -y rpm
       - name: Build RPM
-        run: ./gradlew packageRpm --stacktrace
+        run: ./gradlew packageReleaseRpm --stacktrace
       - name: Upload RPM Artifact
         uses: actions/upload-artifact@v4
         with:
           name: rpm-package
-          path: composeApp/build/compose/binaries/main/rpm/*.rpm
+          path: composeApp/build/compose/binaries/main-release/rpm/*.rpm
 
   linux-tar:
     name: Generate Linux Tarball
@@ -160,10 +160,10 @@ jobs:
       - name: Set execution flag for gradlew
         run: chmod +x gradlew
       - name: Build application distribution
-        run: ./gradlew createDistributable --stacktrace
+        run: ./gradlew createReleaseDistributable --stacktrace
       - name: Create tarball
         run: |
-          cd composeApp/build/compose/binaries/main/app
+          cd composeApp/build/compose/binaries/main-release/app
           tar czf "$GITHUB_WORKSPACE/Kai-linux-x86_64.tar.gz" Kai
       - name: Upload Tarball Artifact
         uses: actions/upload-artifact@v4
@@ -194,7 +194,7 @@ jobs:
           wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x appimagetool-x86_64.AppImage
       - name: Build application distribution
-        run: ./gradlew createDistributable --stacktrace
+        run: ./gradlew createReleaseDistributable --stacktrace
       - name: Create AppDir structure
         run: |
           mkdir -p AppDir/usr/bin
@@ -203,7 +203,7 @@ jobs:
           mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
 
           # Copy distributable contents
-          cp -r composeApp/build/compose/binaries/main/app/Kai/* AppDir/usr/lib/
+          cp -r composeApp/build/compose/binaries/main-release/app/Kai/* AppDir/usr/lib/
 
           # Copy icon
           cp composeApp/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/kai.png
