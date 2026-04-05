@@ -857,4 +857,177 @@ class KaiUiParserTest {
         assertEquals("Be kind", quote.text)
         assertEquals("anon", quote.source)
     }
+
+    @Test
+    fun `wraps untyped objects inside list items as text nodes`() {
+        // Real-world kimi-k2.5 output: list items emitted as {"value":"..."} without a type field
+        val node = parseSingleNode(
+            """{"type":"list","items":[
+                {"value":"AI employees as social creators"},
+                {"value":"Nostalgia platforms comeback"},
+                {"value":"Gut health micro-movements"}
+            ]}""",
+        )
+        val list = assertIs<ListNode>(node)
+        assertEquals(3, list.items.size)
+        val first = assertIs<TextNode>(list.items[0])
+        assertEquals("AI employees as social creators", first.value)
+        val second = assertIs<TextNode>(list.items[1])
+        assertEquals("Nostalgia platforms comeback", second.value)
+        val third = assertIs<TextNode>(list.items[2])
+        assertEquals("Gut health micro-movements", third.value)
+    }
+
+    @Test
+    fun `wraps untyped objects inside children as text nodes`() {
+        val node = parseSingleNode(
+            """{"type":"column","children":[
+                {"type":"text","value":"Header","style":"title"},
+                {"text":"Untyped object with text field"},
+                {"label":"Untyped object with label field"}
+            ]}""",
+        )
+        val column = assertIs<ColumnNode>(node)
+        assertEquals(3, column.children.size)
+        assertEquals("Header", (column.children[0] as TextNode).value)
+        assertEquals("Untyped object with text field", (column.children[1] as TextNode).value)
+        assertEquals("Untyped object with label field", (column.children[2] as TextNode).value)
+    }
+
+    @Test
+    fun `preserves style fields when wrapping untyped object in children`() {
+        val node = parseSingleNode(
+            """{"type":"column","children":[
+                {"value":"Styled text","style":"title","bold":true,"color":"primary"}
+            ]}""",
+        )
+        val column = assertIs<ColumnNode>(node)
+        val text = assertIs<TextNode>(column.children.single())
+        assertEquals("Styled text", text.value)
+        assertEquals(TextNodeStyle.TITLE, text.style)
+        assertEquals(true, text.bold)
+        assertEquals("primary", text.color)
+    }
+
+    @Test
+    fun `coerces bare string action to callback`() {
+        val node = parseSingleNode(
+            """{"type":"button","label":"Submit","action":"submit_form"}""",
+        )
+        val button = assertIs<ButtonNode>(node)
+        val callback = assertIs<CallbackAction>(button.action)
+        assertEquals("submit_form", callback.event)
+    }
+
+    @Test
+    fun `coerces untyped action object with event as callback`() {
+        val node = parseSingleNode(
+            """{"type":"button","label":"Go","action":{"event":"go_clicked","data":{"x":"1"}}}""",
+        )
+        val button = assertIs<ButtonNode>(node)
+        val callback = assertIs<CallbackAction>(button.action)
+        assertEquals("go_clicked", callback.event)
+    }
+
+    @Test
+    fun `coerces untyped action object with url as open_url`() {
+        val node = parseSingleNode(
+            """{"type":"button","label":"Docs","action":{"url":"https://example.com"}}""",
+        )
+        val button = assertIs<ButtonNode>(node)
+        val action = assertIs<OpenUrlAction>(button.action)
+        assertEquals("https://example.com", action.url)
+    }
+
+    @Test
+    fun `coerces untyped action object with targetId as toggle`() {
+        val node = parseSingleNode(
+            """{"type":"button","label":"Reveal","action":{"targetId":"hidden_box"}}""",
+        )
+        val button = assertIs<ButtonNode>(node)
+        val action = assertIs<ToggleAction>(button.action)
+        assertEquals("hidden_box", action.targetId)
+    }
+
+    @Test
+    fun `coerces chip label and value when sent as objects`() {
+        val node = parseSingleNode(
+            """{"type":"chip_group","id":"tags","chips":[
+                {"label":{"text":"Kotlin"},"value":"kotlin"},
+                {"label":"Rust","value":{"content":"rust"}}
+            ]}""",
+        )
+        val chipGroup = assertIs<ChipGroupNode>(node)
+        assertEquals(2, chipGroup.chips.size)
+        assertEquals("Kotlin", chipGroup.chips[0].label)
+        assertEquals("kotlin", chipGroup.chips[0].value)
+        assertEquals("Rust", chipGroup.chips[1].label)
+        assertEquals("rust", chipGroup.chips[1].value)
+    }
+
+    @Test
+    fun `coerces tab label when sent as object`() {
+        val node = parseSingleNode(
+            """{"type":"tabs","tabs":[
+                {"label":{"title":"Overview"},"children":[{"type":"text","value":"a"}]},
+                {"label":{"title":"Specs"},"children":[{"type":"text","value":"b"}]}
+            ]}""",
+        )
+        val tabs = assertIs<TabsNode>(node)
+        assertEquals(2, tabs.tabs.size)
+        assertEquals("Overview", tabs.tabs[0].label)
+        assertEquals("Specs", tabs.tabs[1].label)
+    }
+
+    @Test
+    fun `coerces string booleans for known boolean fields`() {
+        val node = parseSingleNode(
+            """{"type":"column","children":[
+                {"type":"list","ordered":"true","items":[{"type":"text","value":"a"}]},
+                {"type":"accordion","title":"More","expanded":"yes","children":[]},
+                {"type":"checkbox","id":"c","label":"Agree","checked":"1"},
+                {"type":"switch","id":"s","label":"Dark","checked":"false"}
+            ]}""",
+        )
+        val column = assertIs<ColumnNode>(node)
+        assertEquals(true, (column.children[0] as ListNode).ordered)
+        assertEquals(true, (column.children[1] as AccordionNode).expanded)
+        assertEquals(true, (column.children[2] as CheckboxNode).checked)
+        assertEquals(false, (column.children[3] as SwitchNode).checked)
+    }
+
+    @Test
+    fun `coerces text node bold and italic as strings`() {
+        val node = parseSingleNode(
+            """{"type":"text","value":"Hello","bold":"true","italic":"no"}""",
+        )
+        val text = assertIs<TextNode>(node)
+        assertEquals(true, text.bold)
+        assertEquals(false, text.italic)
+    }
+
+    @Test
+    fun `migrates image src to url`() {
+        val node = parseSingleNode(
+            """{"type":"image","src":"https://example.com/a.jpg","alt":"photo"}""",
+        )
+        val image = assertIs<ImageNode>(node)
+        assertEquals("https://example.com/a.jpg", image.url)
+        assertEquals("photo", image.alt)
+    }
+
+    @Test
+    fun `coerces nested objects in CallbackAction data to primitives`() {
+        // Covered indirectly by the "non-composite + JsonObject → primitive" rule inside
+        // the data object. Verifies recursion walks into data correctly.
+        val node = parseSingleNode(
+            """{"type":"button","label":"Submit","action":{"type":"callback","event":"submit",
+                "data":{"user":{"name":"alice"},"tags":["a","b"]}}}""",
+        )
+        val button = assertIs<ButtonNode>(node)
+        val callback = assertIs<CallbackAction>(button.action)
+        val data = callback.data!!
+        assertEquals("alice", data["user"]?.content)
+        assertEquals("a, b", data["tags"]?.content)
+    }
 }
