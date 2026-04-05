@@ -218,6 +218,12 @@ Two separate screenshot pipelines exist, both using Compose screenshot tests:
 bundle exec fastlane android upload_screenshots
 ```
 
+**Kai UI component screenshots** — Records golden images for `KaiUiScreenshotTest` only. Faster than recording the full suite when iterating on Kai UI components.
+
+```bash
+./gradlew :screenshotTests:recordKaiUiScreenshots
+```
+
 ## Sponsors
 
 This project is open-source and maintained by a single developer. If you find this app useful, please consider sponsoring to help take it to the next level with more features and faster updates.
