@@ -1147,7 +1147,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-05 (spacing cleanup)</p>
+<p><strong>Last verified:</strong> 2026-04-05 (parser refactor to direct builders)</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1174,7 +1174,7 @@
 <h3 id="layout-lifecycle">Layout Lifecycle</h3>
 <p>Only the latest assistant message's layouts are interactive. Older layouts become read-only with disabled buttons and inputs. Form state is local to each layout; cross-step state lives in conversation history.</p>
 <h3 id="error-handling">Error Handling</h3>
-<p>Malformed JSON falls back to rendering as a code block. The parser sanitizes common LLM mistakes like extra trailing braces/brackets using stack-based brace matching. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
+<p>Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, <code>"key="</code> typos), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in <code>children</code> or <code>items</code> are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
 <h3 id="settings">Settings</h3>
 <p>The feature is controlled by the Dynamic UI toggle in Settings (General tab). When disabled, the system prompt omits kai-ui instructions so the AI stops generating them. Parsing and rendering remain active unconditionally.</p>
 <h2 id="interactive-ui-mode">Interactive UI Mode</h2>
@@ -1210,7 +1210,11 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiParser.kt</code></td>
-<td>Detects and parses kai-ui fences into segments, sanitizes malformed JSON</td>
+<td>Detects kai-ui fences, sanitizes malformed JSON, dispatches to the builders</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt</code></td>
+<td>Tolerant field-by-field construction of KaiUiNode instances from JsonElement</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiRenderer.kt</code></td>
