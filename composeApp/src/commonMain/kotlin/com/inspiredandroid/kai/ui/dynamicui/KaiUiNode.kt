@@ -18,8 +18,6 @@ sealed interface KaiUiNode {
 data class ColumnNode(
     override val id: String? = null,
     val children: List<KaiUiNode> = emptyList(),
-    val spacing: Int? = null,
-    val padding: Int? = null,
 ) : KaiUiNode
 
 @Immutable
@@ -28,8 +26,6 @@ data class ColumnNode(
 data class RowNode(
     override val id: String? = null,
     val children: List<KaiUiNode> = emptyList(),
-    val spacing: Int? = null,
-    val padding: Int? = null,
 ) : KaiUiNode
 
 @Immutable
@@ -38,16 +34,6 @@ data class RowNode(
 data class CardNode(
     override val id: String? = null,
     val children: List<KaiUiNode> = emptyList(),
-    val padding: Int? = null,
-) : KaiUiNode
-
-@Immutable
-@Serializable
-@SerialName("spacer")
-data class SpacerNode(
-    override val id: String? = null,
-    val height: Int? = null,
-    val size: Int? = null,
 ) : KaiUiNode
 
 @Immutable

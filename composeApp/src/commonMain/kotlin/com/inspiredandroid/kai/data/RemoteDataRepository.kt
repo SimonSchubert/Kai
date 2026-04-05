@@ -1431,7 +1431,7 @@ class RemoteDataRepository(
 
                 // Shared component definitions
                 append("Format: wrap a JSON object in ```kai-ui fences.\n\n")
-                append("Components: column, row, card, box, text, button, text_input, checkbox, switch, select, radio_group, slider, chip_group, table, list, spacer, divider, image, icon, code, progress, countdown, alert, tabs, accordion, quote, badge, stat, avatar.\n")
+                append("Components: column, row, card, box, text, button, text_input, checkbox, switch, select, radio_group, slider, chip_group, table, list, divider, image, icon, code, progress, countdown, alert, tabs, accordion, quote, badge, stat, avatar.\n")
                 append("- text: {\"type\":\"text\",\"value\":\"...\",\"style\":\"headline|title|body|caption\",\"bold\":true,\"color\":\"primary|secondary|error\"} — do NOT use markdown formatting (**, *, #, etc.) in text values; use the bold/italic/style properties instead\n")
                 append("- button: {\"type\":\"button\",\"label\":\"...\",\"action\":{...},\"variant\":\"filled|outlined|text|tonal\"}\n")
                 append("- text_input: {\"type\":\"text_input\",\"id\":\"...\",\"label\":\"...\",\"placeholder\":\"...\",\"value\":\"...\"}\n")
@@ -1466,8 +1466,7 @@ class RemoteDataRepository(
                     append("Layout tips:\n")
                     append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
                     append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
-                    append("- Keep button labels short (1-3 words)\n")
-                    append("- Do NOT set spacing or padding on layout nodes — the app enforces consistent spacing automatically\n\n")
+                    append("- Keep button labels short (1-3 words)\n\n")
                     append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Your name?\",\"style\":\"title\"},{\"type\":\"text_input\",\"id\":\"name\",\"placeholder\":\"Enter name\"},{\"type\":\"button\",\"label\":\"Submit\",\"action\":{\"type\":\"callback\",\"event\":\"submit\",\"collectFrom\":[\"name\"]}}]}\n```\n")
                 } else {
                     append("Rules:\n")
@@ -1481,8 +1480,7 @@ class RemoteDataRepository(
                     append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
                     append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
                     append("- Keep button labels short (1-3 words)\n")
-                    append("- Use columns for vertical flow. Use the full component set: tabs, accordion, alerts, progress, chips, icons, etc.\n")
-                    append("- Do NOT set spacing or padding on layout nodes — the app enforces consistent spacing automatically\n\n")
+                    append("- Use columns for vertical flow. Use the full component set: tabs, accordion, alerts, progress, chips, icons, etc.\n\n")
                     append("Limitations — respect these strictly:\n")
                     append("- The UI is static once rendered. NEVER show loading, fetching, or verifying states. You cannot fetch data or run operations asynchronously. Present all content immediately.\n")
                     append("- Never use indeterminate progress (progress without a value) or text like \"Loading...\", \"Fetching...\", \"Verifying...\" as if something will happen later — nothing will.\n")

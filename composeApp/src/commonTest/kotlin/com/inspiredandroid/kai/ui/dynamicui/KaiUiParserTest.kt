@@ -165,7 +165,6 @@ class KaiUiParserTest {
             {"type":"text","value":"Question 1 of 3","style":"caption"}
             {"type":"text","value":"Complete the sequence:","style":"body","bold":true}
             {"type":"text","value":"2, 6, 12, 20, 30, ?","style":"title"}
-            {"type":"spacer"}
             {"type":"column","children":[{"type":"button","label":"42","action":{"type":"callback","event":"answer","data":{"answer":"42"}},"variant":"filled"}]}
         """.trimIndent()
         val message = "Here's a quiz:\n```kai-ui\n$block\n```\nGood luck!"
@@ -177,12 +176,11 @@ class KaiUiParserTest {
 
         val column = (segments[1] as KaiUiParser.UiSegment).node
         assertIs<ColumnNode>(column)
-        assertEquals(5, column.children.size)
+        assertEquals(4, column.children.size)
         assertIs<TextNode>(column.children[0])
         assertIs<TextNode>(column.children[1])
         assertIs<TextNode>(column.children[2])
-        assertIs<SpacerNode>(column.children[3])
-        assertIs<ColumnNode>(column.children[4])
+        assertIs<ColumnNode>(column.children[3])
     }
 
     @Test
@@ -210,7 +208,6 @@ class KaiUiParserTest {
             {"type":"text","value":"Question 1 of 3","style":"caption","color":"secondary"}
             {"type":"text","value":"Complete the sequence:","style":"body","bold":true}
             {"type":"text","value":"2, 6, 12, 20, 30, ?","style":"title"}
-            {"type":"spacer","size":12}
             {"type":"column","children":[{"type":"button","label":"38","action":{"type":"callback","event":"answer_q1","data":{"answer":"38"}},"variant":"filled"},{"type":"button","label":"40","action":{"type":"callback","event":"answer_q1","data":{"answer":"40"}},"variant":"filled"},{"type":"button","label":"42","action":{"type":"callback","event":"answer_q1","data":{"answer":"42"}},"variant":"filled"},{"type":"button","label":"44","action":{"type":"callback","event":"answer_q1","data":{"answer":"44"}},"variant":"filled"}}]}
         """.trimIndent()
         val message = "Sure! Let's see how sharp you are today.\n\n```kai-ui\n$block\n```\n\nTake your shot!"
@@ -222,16 +219,41 @@ class KaiUiParserTest {
 
         val column = (segments[1] as KaiUiParser.UiSegment).node
         assertIs<ColumnNode>(column)
-        // sanitizeJson repairs the extra } so all 5 lines parse including buttons
-        assertEquals(5, column.children.size)
+        // sanitizeJson repairs the extra } so all 4 lines parse including buttons
+        assertEquals(4, column.children.size)
         assertIs<TextNode>(column.children[0])
         assertEquals("Question 1 of 3", (column.children[0] as TextNode).value)
         assertIs<TextNode>(column.children[1])
         assertIs<TextNode>(column.children[2])
-        assertIs<SpacerNode>(column.children[3])
-        val buttonsColumn = assertIs<ColumnNode>(column.children[4])
+        val buttonsColumn = assertIs<ColumnNode>(column.children[3])
         assertEquals(4, buttonsColumn.children.size)
         assertIs<ButtonNode>(buttonsColumn.children[0])
+    }
+
+    @Test
+    fun `legacy spacer nodes and spacing fields are silently dropped`() {
+        // Back-compat: old assistant messages may contain spacer children and
+        // spacing/padding properties on containers. The parser must still render them,
+        // treating spacer as no-op and ignoring the removed fields.
+        val json = """{"type":"column","spacing":16,"padding":8,"children":[
+            {"type":"text","value":"Before"},
+            {"type":"spacer","size":16},
+            {"type":"text","value":"After"},
+            {"type":"card","padding":12,"children":[
+                {"type":"text","value":"Inside"},
+                {"type":"spacer","height":8}
+            ]}
+        ]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        val column = assertIs<ColumnNode>((segments[0] as KaiUiParser.UiSegment).node)
+        assertEquals(3, column.children.size)
+        assertIs<TextNode>(column.children[0])
+        assertIs<TextNode>(column.children[1])
+        val card = assertIs<CardNode>(column.children[2])
+        assertEquals(1, card.children.size)
+        assertIs<TextNode>(card.children[0])
     }
 
     @Test

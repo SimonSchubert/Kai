@@ -296,7 +296,6 @@ private fun RenderNode(
         is ImageNode -> RenderImage(node)
         is TableNode -> RenderTable(node)
         is ListNode -> RenderList(node, isInteractive, formState, toggleState, onCallback, depth)
-        is SpacerNode -> Spacer(Modifier.height((node.height ?: node.size ?: 8).dp))
         is DividerNode -> HorizontalDivider(Modifier.padding(vertical = 4.dp))
         is SwitchNode -> RenderSwitch(node, isInteractive, formState)
         is SliderNode -> RenderSlider(node, isInteractive, formState)
@@ -359,11 +358,10 @@ private fun RenderRow(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
-    val spacingDp = (node.spacing ?: 8).dp
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(spacingDp),
-        verticalArrangement = Arrangement.spacedBy(spacingDp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
@@ -762,7 +760,8 @@ private fun RenderRadioGroup(
     formState: MutableMap<String, String>,
 ) {
     val selected = formState[node.id] ?: ""
-    Column(Modifier.fillMaxWidth()) {
+    Column(Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(6.dp)) {
         if (node.label != null) {
             Text(
                 text = node.label,
