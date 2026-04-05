@@ -1147,7 +1147,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-04</p>
+<p><strong>Last verified:</strong> 2026-04-05</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1156,14 +1156,14 @@
 <ul>
 <li><strong>Layout</strong>: column, row, card, box, spacer, divider</li>
 <li><strong>Content</strong>: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)</li>
-<li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group</li>
+<li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)</li>
 <li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)</li>
 <li><strong>Navigation</strong>: tabs (tabbed content), accordion (collapsible sections)</li>
 <li><strong>Display</strong>: quote (blockquote with accent border), badge (colored count/status pill), stat (large metric display), avatar (circular image or initials)</li>
 <li><strong>Data</strong>: list, table</li>
 </ul>
 <h3 id="actions">Actions</h3>
-<p>Buttons and chips carry an action that fires on click:</p>
+<p>Buttons carry an action that fires on click (chip groups are form inputs, not action carriers):</p>
 <ul>
 <li><strong>callback</strong> — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow</li>
 <li><strong>toggle</strong> — shows/hides a target element locally without AI roundtrip</li>
