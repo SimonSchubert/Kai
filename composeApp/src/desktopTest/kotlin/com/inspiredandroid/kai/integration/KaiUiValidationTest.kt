@@ -177,16 +177,19 @@ class KaiUiValidationTest {
                     success++
                     println("  [$marker] $rel ($ui ui)")
                 }
+
                 "PARTIAL" -> {
                     partial++
                     failures += file to "PARTIAL: $ui ui, $err err"
                     println("  [$marker] $rel ($ui ui, $err err)")
                 }
+
                 "NO_UI" -> {
                     noUi++
                     failures += file to "NO_UI"
                     println("  [$marker] $rel")
                 }
+
                 "PARSE_ERROR" -> {
                     parseError++
                     failures += file to "PARSE_ERROR: $err err"

@@ -315,7 +315,9 @@ object KaiUiParser {
      */
     private fun coerceToStringPrimitive(element: JsonElement): JsonPrimitive = when (element) {
         is JsonPrimitive -> element
+
         is JsonArray -> flattenToString(element)
+
         is JsonObject -> {
             val preferred = listOf("value", "text", "label", "title", "name", "content")
                 .firstNotNullOfOrNull { element[it] as? JsonPrimitive }
