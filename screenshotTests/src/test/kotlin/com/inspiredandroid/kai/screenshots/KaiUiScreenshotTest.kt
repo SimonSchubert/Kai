@@ -2,11 +2,20 @@
 
 package com.inspiredandroid.kai.screenshots
 
+import android.graphics.BitmapFactory
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Card
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -80,6 +89,47 @@ class KaiUiScreenshotTest {
                 modifier = Modifier.padding(12.dp),
                 wrapInCard = wrapInCard,
             )
+        }
+    }
+
+    private fun Paparazzi.snapKaiUiWithImage(
+        titleJson: String,
+        bodyJson: String,
+        imageResource: String,
+        imageHeight: Int = 200,
+        colorScheme: ColorScheme = DarkColorScheme,
+    ) {
+        val titleNode = KaiUiParser.parse("```kai-ui\n$titleJson\n```")
+            .filterIsInstance<KaiUiParser.UiSegment>().first()
+        val bodyNode = KaiUiParser.parse("```kai-ui\n$bodyJson\n```")
+            .filterIsInstance<KaiUiParser.UiSegment>().first()
+        val bitmap = BitmapFactory.decodeStream(javaClass.getResourceAsStream(imageResource))
+        val imageBitmap = bitmap.asImageBitmap()
+        snap(colorScheme) {
+            Card(Modifier.fillMaxWidth().wrapContentHeight().padding(12.dp)) {
+                Column(Modifier.wrapContentHeight()) {
+                    KaiUiRenderer(
+                        node = titleNode.node,
+                        isInteractive = true,
+                        onCallback = { _, _ -> },
+                        modifier = Modifier.padding(12.dp),
+                        wrapInCard = false,
+                    )
+                    Image(
+                        bitmap = imageBitmap,
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxWidth().height(imageHeight.dp),
+                        contentScale = ContentScale.Crop,
+                    )
+                    KaiUiRenderer(
+                        node = bodyNode.node,
+                        isInteractive = true,
+                        onCallback = { _, _ -> },
+                        modifier = Modifier.padding(12.dp),
+                        wrapInCard = false,
+                    )
+                }
+            }
         }
     }
 
@@ -481,52 +531,37 @@ class KaiUiScreenshotTest {
 
     @Test
     fun scenario_recipeCard_light() {
-        paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
-                {"type":"text","value":"Pasta Carbonara","style":"headline","bold":true},
-                {"type":"text","value":"Classic Italian comfort food","style":"caption"},
-                {"type":"divider"},
-                {"type":"row","spacing":16,"children":[
-                    {"type":"column","children":[
-                        {"type":"icon","name":"calendar","size":20},
-                        {"type":"text","value":"25 min","style":"caption"}
-                    ]},
-                    {"type":"column","children":[
-                        {"type":"icon","name":"person","size":20},
-                        {"type":"text","value":"4 servings","style":"caption"}
-                    ]},
-                    {"type":"column","children":[
-                        {"type":"icon","name":"star","size":20,"color":"primary"},
-                        {"type":"text","value":"4.8/5","style":"caption"}
-                    ]}
-                ]},
-                {"type":"divider"},
+        paparazzi.snapKaiUiWithImage(
+            titleJson = """{"type":"column","spacing":4,"children":[
+                {"type":"text","value":"Cacio e Pepe","style":"headline","bold":true},
+                {"type":"text","value":"Classic Roman pasta \u2022 2 servings","style":"caption","color":"secondary"},
+                {"type":"row","spacing":8,"children":[
+                    {"type":"badge","value":"\u23f1 20 min","color":"secondary"},
+                    {"type":"badge","value":"\uD83C\uDF7D 2 servings","color":"secondary"},
+                    {"type":"badge","value":"\u2b50 4.9/5","color":"primary"}
+                ]}
+            ]}""",
+            bodyJson = """{"type":"column","spacing":8,"children":[
                 {"type":"text","value":"Ingredients","style":"title"},
                 {"type":"list","ordered":false,"items":[
-                    {"type":"text","value":"400g spaghetti"},
-                    {"type":"text","value":"200g guanciale or pancetta"},
-                    {"type":"text","value":"4 egg yolks + 2 whole eggs"},
-                    {"type":"text","value":"100g Pecorino Romano"},
-                    {"type":"text","value":"Black pepper to taste"}
+                    {"type":"text","value":"200g tonnarelli or spaghetti"},
+                    {"type":"text","value":"150g Pecorino Romano, finely grated"},
+                    {"type":"text","value":"2 tsp black peppercorns"},
+                    {"type":"text","value":"Salt for pasta water"}
                 ]},
                 {"type":"divider"},
                 {"type":"text","value":"Instructions","style":"title"},
-                {"type":"accordion","title":"Step 1: Cook pasta","children":[
-                    {"type":"text","value":"Bring a large pot of salted water to boil. Cook spaghetti until al dente.","style":"body"}
+                {"type":"accordion","title":"Step 1: Toast pepper & cook pasta","children":[
+                    {"type":"text","value":"Toast peppercorns in a dry pan until fragrant, crush coarsely. Boil pasta until al dente, reserve pasta water.","style":"body"}
                 ]},
-                {"type":"accordion","title":"Step 2: Prepare guanciale","children":[
-                    {"type":"text","value":"Cut guanciale into small strips. Cook in a pan over medium heat until crispy.","style":"body"}
+                {"type":"accordion","title":"Step 2: Make the sauce","children":[
+                    {"type":"text","value":"Mix grated Pecorino with a few tablespoons of warm pasta water to form a smooth cream.","style":"body"}
                 ]},
-                {"type":"accordion","title":"Step 3: Mix egg sauce","children":[
-                    {"type":"text","value":"Whisk egg yolks, whole eggs, and grated Pecorino together. Season with pepper.","style":"body"}
-                ]},
-                {"type":"accordion","title":"Step 4: Combine","children":[
-                    {"type":"text","value":"Toss hot pasta with guanciale off heat. Quickly stir in egg mixture. The residual heat cooks the eggs into a creamy sauce.","style":"body"}
-                ]},
-                {"type":"spacer","height":8},
-                {"type":"button","label":"Start Cooking Timer","variant":"filled","action":{"type":"callback","event":"start_timer"}},
-                {"type":"button","label":"Save Recipe","variant":"outlined","action":{"type":"callback","event":"save"}}
+                {"type":"accordion","title":"Step 3: Combine","children":[
+                    {"type":"text","value":"Toss hot pasta with crushed pepper off heat. Add the Pecorino cream and toss vigorously, adding pasta water until silky.","style":"body"}
+                ]}
             ]}""",
+            imageResource = "/cacio_e_pepe.png",
             colorScheme = LightColorScheme,
         )
     }
@@ -608,20 +643,20 @@ class KaiUiScreenshotTest {
 
     @Test
     fun scenario_survivalGame_dark() {
-        paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+        paparazzi.snapKaiUiWithImage(
+            titleJson = """{"type":"column","spacing":4,"children":[
                 {"type":"text","value":"\u2694\ufe0f The Goblin Tunnels","style":"headline","bold":true},
-                {"type":"text","value":"Chapter 3 \u2022 Depth: Level 2","style":"caption","color":"secondary"},
+                {"type":"text","value":"Chapter 1 \u2022 The Beginning","style":"caption","color":"secondary"},
+                {"type":"row","spacing":16,"children":[
+                    {"type":"stat","value":"20/20","label":"HP"},
+                    {"type":"stat","value":"Lv 1","label":"Level"},
+                    {"type":"stat","value":"0g","label":"Gold"},
+                    {"type":"stat","value":"2","label":"DEF"}
+                ]}
+            ]}""",
+            bodyJson = """{"type":"column","spacing":8,"children":[
                 {"type":"text","value":"You descend deeper into the darkness. The air grows thick with the smell of damp stone and something rotten. Your torchlight dances across crude carvings on the walls — warnings, perhaps, from those who came before. A low growl echoes from somewhere ahead.","style":"body"},
                 {"type":"text","value":"The tunnel forks. To the left, faint firelight flickers. To the right, silence — and a cold draft that makes your torch sputter.","style":"body"},
-                {"type":"divider"},
-                {"type":"row","spacing":16,"children":[
-                    {"type":"stat","value":"14/20","label":"HP"},
-                    {"type":"stat","value":"Lv 3","label":"Level"},
-                    {"type":"stat","value":"42g","label":"Gold"},
-                    {"type":"stat","value":"7","label":"DEF"}
-                ]},
-                {"type":"progress","value":0.7,"label":"14/20 HP"},
                 {"type":"divider"},
                 {"type":"text","value":"\ud83c\udf92 Inventory","style":"title"},
                 {"type":"row","spacing":8,"children":[
@@ -634,10 +669,10 @@ class KaiUiScreenshotTest {
                 {"type":"alert","severity":"warning","message":"\ud83d\udc7a Two orcs block the left passage! They sit around a small fire, gnawing on bones. They haven't noticed you yet."},
                 {"type":"spacer","height":4},
                 {"type":"button","label":"\u2694\ufe0f Attack with sword","variant":"filled","action":{"type":"callback","event":"attack"}},
-                {"type":"button","label":"\ud83e\udded Drink health potion first","variant":"outlined","action":{"type":"callback","event":"potion"}},
                 {"type":"button","label":"\ud83e\udd2b Sneak past in the shadows","variant":"outlined","action":{"type":"callback","event":"sneak"}},
                 {"type":"button","label":"\ud83d\udc68\u200d\ud83e\uddb2 Take the right tunnel","variant":"outlined","action":{"type":"callback","event":"right_tunnel"}}
             ]}""",
+            imageResource = "/orc_survival.png",
         )
     }
 

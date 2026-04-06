@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -261,13 +262,15 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 Row(
                     modifier = Modifier
                         .height(56.dp)
+                        .widthIn(min = 56.dp)
                         .clip(RoundedCornerShape(28.dp))
                         .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp))
                         .border(
                             BorderStroke(2.dp, gradientBrush),
                             RoundedCornerShape(28.dp),
                         )
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                        .padding(horizontal = 6.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
@@ -275,7 +278,6 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         TrailingIcon(
                             icon = Res.drawable.ic_stop,
                             onClick = { uiState.actions.cancel() },
-                            modifier = Modifier.padding(start = 6.dp),
                         )
                     } else {
                         IconButton(onClick = { inputExpanded = true }) {
@@ -287,12 +289,10 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         }
                     }
                     if (uiState.availableServices.size > 1) {
-                        Box(Modifier.padding(end = 6.dp)) {
-                            ServiceSelector(
-                                services = uiState.availableServices,
-                                onSelectService = uiState.actions.selectService,
-                            )
-                        }
+                        ServiceSelector(
+                            services = uiState.availableServices,
+                            onSelectService = uiState.actions.selectService,
+                        )
                     }
                 }
             }

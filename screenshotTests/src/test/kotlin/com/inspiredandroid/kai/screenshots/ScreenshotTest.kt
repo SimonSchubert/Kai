@@ -2,9 +2,12 @@
 
 package com.inspiredandroid.kai.screenshots
 
+import android.graphics.BitmapFactory
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalInspectionMode
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
@@ -12,6 +15,7 @@ import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreenContent
+import com.inspiredandroid.kai.ui.dynamicui.LocalPreviewImages
 import com.inspiredandroid.kai.ui.settings.SettingsScreenContent
 import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -30,9 +34,18 @@ class ScreenshotTest {
         maxPercentDifference = 0.1,
     )
 
+    private val previewImages = mutableMapOf<String, ImageBitmap>()
+
     @Before
     fun setup() {
         setResourceReaderAndroidContext(paparazzi.context)
+        loadPreviewImage("resource://orc_survival.png", "/orc_survival.png")
+        loadPreviewImage("resource://cacio_e_pepe.png", "/cacio_e_pepe.png")
+    }
+
+    private fun loadPreviewImage(key: String, resourcePath: String) {
+        val bitmap = BitmapFactory.decodeStream(javaClass.getResourceAsStream(resourcePath)) ?: return
+        previewImages[key] = bitmap.asImageBitmap()
     }
 
     fun Paparazzi.snap(
@@ -47,7 +60,10 @@ class ScreenshotTest {
         unsafeUpdateConfig(theme = theme)
 
         snapshot {
-            CompositionLocalProvider(LocalInspectionMode provides true) {
+            CompositionLocalProvider(
+                LocalInspectionMode provides true,
+                LocalPreviewImages provides previewImages,
+            ) {
                 Theme(colorScheme = colorScheme) {
                     content()
                 }

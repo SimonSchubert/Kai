@@ -52,24 +52,24 @@ object ScreenshotTestData {
         showPrivacyInfo = false,
     )
 
-    private val introUiContent =
-        "I'm Kai \u2014 a personal assistant that sticks around and actually gets to know you.\n\n" +
-            "```kai-ui\n" +
-            "{\"type\":\"column\",\"children\":[" +
-            "{\"type\":\"card\",\"children\":[" +
-            "{\"type\":\"text\",\"value\":\"I remember\",\"style\":\"title\",\"bold\":true}," +
-            "{\"type\":\"text\",\"value\":\"Your preferences, projects, how you like things done. Next month, I still know.\",\"style\":\"body\"}" +
+    private val survivalGameContent =
+        "```kai-ui\n" +
+            "{\"type\":\"column\",\"spacing\":8,\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"\u2694\ufe0f The Goblin Tunnels\",\"style\":\"headline\",\"bold\":true}," +
+            "{\"type\":\"text\",\"value\":\"Chapter 1 \u2022 The Beginning\",\"style\":\"caption\",\"color\":\"secondary\"}," +
+            "{\"type\":\"row\",\"spacing\":16,\"children\":[" +
+            "{\"type\":\"stat\",\"value\":\"20/20\",\"label\":\"HP\"}," +
+            "{\"type\":\"stat\",\"value\":\"Lv 1\",\"label\":\"Level\"}," +
+            "{\"type\":\"stat\",\"value\":\"0g\",\"label\":\"Gold\"}," +
+            "{\"type\":\"stat\",\"value\":\"2\",\"label\":\"DEF\"}" +
             "]}," +
-            "{\"type\":\"card\",\"children\":[" +
-            "{\"type\":\"text\",\"value\":\"I get things done\",\"style\":\"title\",\"bold\":true}," +
-            "{\"type\":\"text\",\"value\":\"Reminders, email, calendar, shell commands \u2014 hooked into your device and your life.\",\"style\":\"body\"}" +
-            "]}," +
-            "{\"type\":\"card\",\"children\":[" +
-            "{\"type\":\"text\",\"value\":\"I learn\",\"style\":\"title\",\"bold\":true}," +
-            "{\"type\":\"text\",\"value\":\"Not just facts, but patterns. What works for you, what doesn't. I get better over time.\",\"style\":\"body\"}" +
-            "]}," +
-            "{\"type\":\"button\",\"label\":\"Let's go\",\"action\":{\"type\":\"callback\",\"event\":\"start\"}}," +
-            "{\"type\":\"button\",\"label\":\"Set me up\",\"action\":{\"type\":\"callback\",\"event\":\"setup\"}}" +
+            "{\"type\":\"image\",\"url\":\"resource://orc_survival.png\",\"height\":160}," +
+            "{\"type\":\"text\",\"value\":\"The tunnel forks. To the left, faint firelight flickers. To the right, silence \u2014 and a cold draft that makes your torch sputter.\",\"style\":\"body\"}," +
+            "{\"type\":\"divider\"}," +
+            "{\"type\":\"alert\",\"severity\":\"warning\",\"message\":\"\uD83D\uDC7A Two orcs block the left passage! They haven't noticed you yet.\"}," +
+            "{\"type\":\"spacer\",\"height\":4}," +
+            "{\"type\":\"button\",\"label\":\"\u2694\ufe0f Attack with sword\",\"variant\":\"filled\",\"action\":{\"type\":\"callback\",\"event\":\"attack\"}}," +
+            "{\"type\":\"button\",\"label\":\"\uD83E\uDD2B Sneak past in the shadows\",\"variant\":\"outlined\",\"action\":{\"type\":\"callback\",\"event\":\"sneak\"}}" +
             "]}\n" +
             "```"
 
@@ -79,29 +79,34 @@ object ScreenshotTestData {
             History(
                 id = "1",
                 role = History.Role.USER,
-                content = "who are you?",
+                content = "lets play a game",
             ),
             History(
                 id = "2",
                 role = History.Role.ASSISTANT,
-                content = introUiContent,
+                content = survivalGameContent,
             ),
         ),
     )
 
-    private val dynamicUiContent =
+    private val recipeContent =
         "```kai-ui\n" +
-            "{\"type\":\"column\",\"children\":[" +
-            "{\"type\":\"text\",\"value\":\"Logical Reasoning\",\"style\":\"headline\",\"bold\":true}," +
-            "{\"type\":\"text\",\"value\":\"You mentioned you enjoyed brain teasers last week, so I\u2019m tailoring these to your level. Here\u2019s a classic to warm up before your 3 PM meeting.\",\"style\":\"body\"}," +
-            "{\"type\":\"text\",\"value\":\"A man is looking at a photograph. Someone asks him: \\\"Who is that in the picture?\\\" He replies: \\\"I have no brothers or sisters, but that man's father is my father's son.\\\"\",\"style\":\"body\"}," +
-            "{\"type\":\"text\",\"value\":\"Take a moment to work through the statement carefully. The key is to figure out who \\\"my father's son\\\" refers to, and then work outward from there.\",\"style\":\"body\"}," +
+            "{\"type\":\"column\",\"spacing\":8,\"children\":[" +
+            "{\"type\":\"text\",\"value\":\"Cacio e Pepe\",\"style\":\"headline\",\"bold\":true}," +
+            "{\"type\":\"row\",\"spacing\":8,\"children\":[{\"type\":\"badge\",\"value\":\"\u23f1 20 min\",\"color\":\"secondary\"},{\"type\":\"badge\",\"value\":\"\uD83C\uDF7D 2 servings\",\"color\":\"secondary\"},{\"type\":\"badge\",\"value\":\"\u2b50 4.9/5\",\"color\":\"primary\"}]}," +
+            "{\"type\":\"image\",\"url\":\"resource://cacio_e_pepe.png\",\"height\":160}," +
+            "{\"type\":\"text\",\"value\":\"Ingredients\",\"style\":\"title\"}," +
+            "{\"type\":\"list\",\"ordered\":false,\"items\":[" +
+            "{\"type\":\"text\",\"value\":\"200g tonnarelli or spaghetti\"}," +
+            "{\"type\":\"text\",\"value\":\"150g Pecorino Romano, finely grated\"}," +
+            "{\"type\":\"text\",\"value\":\"2 tsp black peppercorns\"}," +
+            "{\"type\":\"text\",\"value\":\"Salt for pasta water\"}" +
+            "]}," +
             "{\"type\":\"divider\"}," +
-            "{\"type\":\"text\",\"value\":\"Question 1 of 10\",\"style\":\"caption\",\"color\":\"secondary\"}," +
-            "{\"type\":\"text\",\"value\":\"Who is in the photograph?\",\"style\":\"title\"}," +
-            "{\"type\":\"button\",\"label\":\"Himself\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"himself\"}}}," +
-            "{\"type\":\"button\",\"label\":\"His father\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"father\"}}}," +
-            "{\"type\":\"button\",\"label\":\"His son\",\"action\":{\"type\":\"callback\",\"event\":\"answer\",\"data\":{\"value\":\"son\"}}}" +
+            "{\"type\":\"text\",\"value\":\"Instructions\",\"style\":\"title\"}," +
+            "{\"type\":\"accordion\",\"title\":\"Step 1: Toast pepper & cook pasta\",\"children\":[{\"type\":\"text\",\"value\":\"Toast peppercorns in a dry pan until fragrant, crush coarsely. Boil pasta until al dente, reserve pasta water.\",\"style\":\"body\"}]}," +
+            "{\"type\":\"accordion\",\"title\":\"Step 2: Make the sauce\",\"children\":[{\"type\":\"text\",\"value\":\"Mix grated Pecorino with warm pasta water to form a smooth cream.\",\"style\":\"body\"}]}," +
+            "{\"type\":\"accordion\",\"title\":\"Step 3: Combine\",\"children\":[{\"type\":\"text\",\"value\":\"Toss hot pasta with pepper off heat. Add Pecorino cream and toss until silky.\",\"style\":\"body\"}]}" +
             "]}\n" +
             "```"
 
@@ -111,12 +116,12 @@ object ScreenshotTestData {
             History(
                 id = "1",
                 role = History.Role.USER,
-                content = "Give me a quick IQ test",
+                content = "suggest Cacio e Pepe recipe for 2 servings",
             ),
             History(
                 id = "2",
                 role = History.Role.ASSISTANT,
-                content = dynamicUiContent,
+                content = recipeContent,
             ),
         ),
     )

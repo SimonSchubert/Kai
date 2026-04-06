@@ -5,6 +5,7 @@ package com.inspiredandroid.kai.ui.dynamicui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -181,14 +182,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
@@ -200,6 +204,8 @@ import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiChip
 import kotlinx.coroutines.delay
 import kotlin.time.Clock
+
+val LocalPreviewImages = staticCompositionLocalOf<Map<String, ImageBitmap>> { emptyMap() }
 
 @Composable
 fun KaiUiRenderer(
@@ -557,11 +563,21 @@ private fun RenderImage(node: ImageNode) {
     val modifier = Modifier.fillMaxWidth().then(
         if (node.height != null) Modifier.height(node.height.dp) else Modifier,
     )
-    coil3.compose.AsyncImage(
-        model = node.url,
-        contentDescription = node.alt,
-        modifier = modifier.clip(RoundedCornerShape(6.dp)),
-    )
+    val previewBitmap = LocalPreviewImages.current[node.url]
+    if (previewBitmap != null) {
+        Image(
+            bitmap = previewBitmap,
+            contentDescription = node.alt,
+            modifier = modifier.clip(RoundedCornerShape(6.dp)),
+            contentScale = ContentScale.Crop,
+        )
+    } else {
+        coil3.compose.AsyncImage(
+            model = node.url,
+            contentDescription = node.alt,
+            modifier = modifier.clip(RoundedCornerShape(6.dp)),
+        )
+    }
 }
 
 @Composable
