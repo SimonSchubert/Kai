@@ -259,7 +259,7 @@ class KaiUiValidationTest {
                 "mistral",
                 "Mistral",
                 Service.Mistral,
-                env("KAI_MISTRAL_MODEL") ?: "mistral-medium-latest",
+                env("KAI_MISTRAL_MODEL") ?: "mistral-small-latest",
                 it,
                 ProviderSpec.Kind.OPENAI_COMPAT,
             )

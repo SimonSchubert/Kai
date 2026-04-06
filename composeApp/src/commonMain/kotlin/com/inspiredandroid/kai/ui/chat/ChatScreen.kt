@@ -16,6 +16,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -83,6 +84,7 @@ import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.stripMarkdownForTts
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
+import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
@@ -254,46 +256,36 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
             val gradientBrush = com.inspiredandroid.kai.ui.gradientBrush
             Row(
                 modifier = Modifier
-                    .align(BottomCenter)
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.End,
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
+                    .height(56.dp)
+                    .clip(RoundedCornerShape(28.dp))
+                    .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp))
+                    .border(
+                        BorderStroke(2.dp, gradientBrush),
+                        RoundedCornerShape(28.dp),
+                    )
+                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                    .padding(horizontal = 7.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Row(
-                    modifier = Modifier
-                        .height(56.dp)
-                        .widthIn(min = 56.dp)
-                        .clip(RoundedCornerShape(28.dp))
-                        .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp))
-                        .border(
-                            BorderStroke(2.dp, gradientBrush),
-                            RoundedCornerShape(28.dp),
-                        )
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-                        .padding(horizontal = 6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    if (uiState.isLoading) {
-                        TrailingIcon(
-                            icon = Res.drawable.ic_stop,
-                            onClick = { uiState.actions.cancel() },
-                        )
-                    } else {
-                        IconButton(onClick = { inputExpanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.Edit,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                    if (uiState.availableServices.size > 1) {
-                        ServiceSelector(
-                            services = uiState.availableServices,
-                            onSelectService = uiState.actions.selectService,
-                        )
-                    }
+                if (uiState.isLoading) {
+                    TrailingIcon(
+                        icon = Res.drawable.ic_stop,
+                        onClick = { uiState.actions.cancel() },
+                    )
+                } else {
+                    CircleIconButton(
+                        icon = Icons.Default.Edit,
+                        onClick = { inputExpanded = true },
+                    )
+                }
+                if (uiState.availableServices.size > 1) {
+                    ServiceSelector(
+                        services = uiState.availableServices,
+                        onSelectService = uiState.actions.selectService,
+                    )
                 }
             }
         }

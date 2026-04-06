@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.isShiftPressed
@@ -184,24 +186,21 @@ fun QuestionInput(
                 )
             },
             trailingIcon = {
-                val showSendStop = isLoading || textState.text.isNotBlank()
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = if (!showSendStop) Modifier.padding(end = 6.dp) else Modifier,
+                    modifier = Modifier.padding(end = 7.dp),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     if (availableServices.size > 1) {
                         ServiceSelector(
                             services = availableServices,
                             onSelectService = onSelectService,
                         )
-                        if (showSendStop) {
-                            Spacer(modifier = Modifier.width(4.dp))
-                        }
                     }
                     if (isLoading) {
-                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel, modifier = Modifier.padding(end = 6.dp))
+                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel)
                     } else if (textState.text.isNotBlank()) {
-                        TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() }, modifier = Modifier.padding(end = 6.dp))
+                        TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() })
                     }
                 }
             },
@@ -212,9 +211,12 @@ fun QuestionInput(
             },
             leadingIcon = if (filePickerLauncher != null) {
                 {
-                    LeadingIcon(onClick = {
-                        filePickerLauncher.launch()
-                    })
+                    CircleIconButton(
+                        icon = vectorResource(Res.drawable.ic_attach),
+                        onClick = { filePickerLauncher.launch() },
+                        modifier = Modifier.padding(start = 7.dp),
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
                 }
             } else {
                 null
@@ -256,25 +258,25 @@ internal fun TrailingIcon(
 }
 
 @Composable
-private fun LeadingIcon(
+internal fun CircleIconButton(
+    icon: ImageVector,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
     Box(
-        modifier = Modifier
-            .padding(start = 6.dp)
+        modifier = modifier
             .size(42.dp)
             .clip(CircleShape)
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-            .clickable {
-                onClick()
-            },
+            .clickable { onClick() }
+            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            vectorResource(Res.drawable.ic_attach),
+            imageVector = icon,
             modifier = Modifier.size(24.dp),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground,
+            tint = tint,
         )
     }
 }

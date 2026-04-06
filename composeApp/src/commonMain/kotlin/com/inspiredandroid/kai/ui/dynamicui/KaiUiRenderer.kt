@@ -364,9 +364,10 @@ private fun RenderRow(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
+    val allStats = node.children.isNotEmpty() && node.children.all { it is StatNode }
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = if (allStats) Arrangement.SpaceEvenly else Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier
             .fillMaxWidth()
@@ -1326,7 +1327,7 @@ private fun RenderTabs(
                                     Modifier
                                 },
                             )
-                            .clickable(enabled = isInteractive) { selectedIndex = index }
+                            .clickable { selectedIndex = index }
                             .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
                             .padding(horizontal = 16.dp),
                     ) {
