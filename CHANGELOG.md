@@ -1,3 +1,15 @@
+## v2.0.2 — 2026-04-06
+
+### Fixes
+- Fix toolbar vertical padding
+- Fix removeLast crash
+
+### Improvements
+- Add custom JSON parser for more flexible and resilient UI parsing
+- Improve desktop release performance and reduce app size
+- Simplify UI spacing by handling padding definitions locally
+- General UI/UX improvements
+
 ## v2.0.1 — 2026-04-04
 
 ### Features

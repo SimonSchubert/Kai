@@ -1,0 +1,6 @@
+Fix toolbar vertical padding
+Fix removeLast crash
+Add custom JSON parser for more flexible and resilient UI parsing
+Improve desktop release performance and reduce app size
+Simplify UI spacing by handling padding definitions locally
+General UI/UX improvements
