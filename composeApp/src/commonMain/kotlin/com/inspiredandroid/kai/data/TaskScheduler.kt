@@ -69,7 +69,7 @@ class TaskScheduler(
                             dataRepository.addAssistantMessage(response)
                         }
                     } catch (e: Exception) {
-                        heartbeatManager.recordHeartbeat(success = false, error = e.message)
+                        heartbeatManager.recordHeartbeat(success = false, error = e.message ?: e.toString())
                     }
                 }
 
