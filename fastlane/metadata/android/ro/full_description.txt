@@ -1,34 +1,47 @@
-Fa cunostinta cu Kai — alternativa ta locala la OpenClaw, direct in buzunar. O aplicatie de chat AI rapida si open-source, alimentata de modele precum Llama, Gemini, GPT si DeepSeek. Intra in conversatii fluente pentru brainstorming, scris, rezumare, invatare sau discutii relaxate — totul intr-o interfata minimalista care se incarca in secunde.
+Aplicatie de chat AI open-source care creeaza ecrane interactive, nu doar text. Kai este o alternativa gratuita la ChatGPT cu suflet, batai de inima, amintiri persistente si invatare consolidata — un asistent AI care evolueaza cu fiecare conversatie.
 
-Servicii AI suportate
-• Ollama / LM Studio: Conecteaza-te la modelele tale AI locale auto-gazduite (compatibile cu OpenAI)
-• OpenAI: Acceseaza modele GPT pentru conversatii puternice
-• Gemini: AI-ul avansat de la Google cu suport integrat pentru atasarea fisierelor
-• DeepSeek: Modele de rationament de inalta performanta
-• xAI: Modele Grok inovatoare pentru raspunsuri creative si perspicace
-• Mistral AI: Modele multilingve eficiente
-• Groq: Inferenta AI ultra-rapida pentru raspunsuri instantanee
-• OpenRouter: Acceseaza sute de modele printr-o singura API
-• NVIDIA: Ruleaza modele gazduite de NVIDIA
-• Orice API compatibila cu OpenAI: Adauga propriul tau endpoint
+Spre deosebire de chatbotii obisnuiti, Kai genereaza interfete native interactive — butoane, formulare, tabele, grafice si aplicatii pe ecran complet — chiar in chat. Cere-i sa construiasca un calculator, un quiz, un panou de control sau o lista de sarcini, si va crea o interfata reala functionala pe care o poti atinge, glisa si folosi. Aceasta este AI dincolo de text.
 
-Functionalitati principale
-• Memorie persistenta: AI-ul retine detalii importante intre conversatii
-• Stocare locala criptata: Pastreaza in siguranta istoricul conversatiilor pe dispozitivul tau
-• Text-to-Speech: Asculta raspunsurile AI cu iesire vocala naturala
-• Atasamente de fisiere: Incarca fisiere pentru a imbogati conversatiile (disponibil pe Gemini)
-• Schimbare usoara intre servicii: Treci de la un furnizor AI la altul fara efort, chiar in mijlocul conversatiei
-• Conversatii cu mai multe runde: Chaturi care tin cont de context, unde AI-ul isi aminteste mesajele anterioare
-• Daemon in fundal si programare de sarcini: Programeaza sarcini cu expresii cron sau intervale de heartbeat
+🧠 Suflet si Memorie — Un chatbot care te cunoaste
+Ofera-i lui Kai o personalitate scriindu-i „sufletul." Isi aminteste ce conteaza de-a lungul conversatiilor — preferintele tale, lectiile anterioare si problemele cunoscute — si consolideaza aceste cunostinte in timp. Amintirile utile sunt promovate in personalitatea sa permanenta. Cu cat vorbesti mai mult, cu atat devine mai inteligent.
 
-Instrumente AI (Activeaza din Setari)
-• Obtine ora locala: Informatii precise despre data si ora curenta
-• Obtine locatia: Raspunsuri bazate pe locatie prin detectie IP
-• Trimite notificare: Notificari push declansate de AI
-• Creeaza eveniment in calendar: Adauga evenimente in calendar direct din conversatie
-• Cautare pe web: Lasa AI-ul sa caute pe web pentru raspunsuri actualizate
-• Executa comanda shell: Executa comenzi pe dispozitivul tau prin AI
-• Programeaza / Anuleaza / Listeaza sarcini: Gestioneaza sarcini AI recurente
+💓 Batai de inima — Agentul tau personal mereu activ
+Kai nu doarme. Sistemul sau de batai de inima verifica periodic — revizuind sarcini in asteptare, e-mailuri si tendinte — chiar si cand nu conversezi. Seteaza intervalul, orele active si modelul. Cand ceva necesita atentia ta, Kai te anunta. Cand totul este in regula, ramane discret.
 
-Confidentialitate pe primul loc
-Kai pune confidentialitatea ta pe primul loc: Intreg istoricul conversatiilor este stocat local cu criptare puternica. La utilizarea serviciilor AI din cloud, datele tale sunt trimise direct la furnizori pentru procesare — aplicatia in sine nu colecteaza niciun fel de date. Ramai in control cu aceasta aplicatie open-source de chat AI.
+⚡ 24 de servicii — O aplicatie, fiecare model
+Conecteaza-te la ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok si alti 17 furnizori. Ruleaza modele locale prin Ollama sau LM Studio pentru utilizare privata si offline. Adauga mai multe conturi, reordoneaza prioritatile si lasa lantul inteligent de rezerva sa gestioneze automat intreruperile. Un nivel gratuit integrat inseamna ca poti incepe fara configurare — nu este nevoie de cheie API.
+
+Servicii suportate
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (cu fisiere atasate)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / orice API compatibil OpenAI
+• Nivel gratuit integrat
+
+🛠️ 40+ instrumente — Dincolo de chat
+Activeaza instrumente puternice care permit asistentului sa actioneze, nu doar sa vorbeasca:
+• Cautare web — raspunsuri in timp real de pe internet
+• E-mail — verifica, citeste, raspunde, compune si cauta
+• Comenzi shell — executa comenzi de terminal pe dispozitivul tau
+• Programarea sarcinilor — sarcini recurente cu expresii cron
+• Evenimente calendar — creeaza evenimente direct din chat
+• Text-to-Speech — asculta raspunsurile cu voce naturala
+• Notificari — alerte push declansate
+• Locatie si ora — raspunsuri constiente de context
+• MCP Servers — conectare la servere de instrumente externe
+
+🖥️ Mod UI interactiv
+Treci pe ecran complet. In Modul Interactiv, Kai devine un constructor vizual de aplicatii — fara markdown, fara text derulant. Doar ecrane functionale si interactive generate instantaneu. Navigheaza prin butoane si campuri de introducere. Este ca si cum ai avea un dezvoltator de aplicatii in buzunar.
+
+🔒 Confidentialitate pe primul loc, open source si fara reclame
+Tot istoricul de chat este criptat si stocat local pe dispozitivul tau. Fara reclame, fara colectare de date, fara urmarire. Apelurile API merg direct la furnizorul ales — Kai nu se interpune niciodata. Ruleaza modele locale pentru o experienta complet offline si privata. Complet open source, complet transparent.
+
+🌍 Functioneaza peste tot
+Foloseste Kai pe telefonul tau Android, tableta, Chromebook sau desktop. Asistentul tau, mereu la indemana.
+
+Fie ca scrii, programezi, rezumi, traduci, faci brainstorming, automatizezi fluxuri de lucru, gestionezi e-mailuri sau studiezi — Kai este alternativa gratuita, fara reclame si open-source la ChatGPT care se adapteaza la tine.

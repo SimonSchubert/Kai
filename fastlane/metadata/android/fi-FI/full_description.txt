@@ -1,34 +1,47 @@
-Tutustu Kai:hin — paikallinen OpenClaw-vaihtoehto taskussasi. Nopea, avoimen lähdekoodin AI-chat-sovellus, joka hyödyntää malleja kuten Llama, Gemini, GPT ja DeepSeek. Sukella sujuviin keskusteluihin ideointia, kirjoittamista, tiivistämistä, oppimista tai rentoa jutustelua varten — kaikki minimalistisessa käyttöliittymässä, joka latautuu sekunneissa.
+Avoimen lähdekoodin AI-chat-sovellus, joka rakentaa interaktiivisia näyttöjä, ei pelkkää tekstiä. Kai on ilmainen ChatGPT-vaihtoehto sielulla, sykkeellä, pysyvällä muistilla ja vahvistetulla oppimisella — AI-avustaja, joka kehittyy jokaisella keskustelulla.
 
-Tuetut AI-palvelut
-• Ollama / LM Studio: Yhdistä omiin paikallisiin AI-malleihisi (OpenAI-yhteensopiva)
-• OpenAI: Käytä GPT-malleja tehokkaisiin keskusteluihin
-• Gemini: Googlen edistynyt AI sisäänrakennetulla tiedostoliitetuella
-• DeepSeek: Suorituskykyiset päättelymallit
-• xAI: Innovatiiviset Grok-mallit luoviin ja oivaltaviin vastauksiin
-• Mistral AI: Tehokkaat monikieliset mallit
-• Groq: Ultranopea AI-päättely nopeisiin vastauksiin
-• OpenRouter: Pääsy satoihin malleihin yhden API:n kautta
-• NVIDIA: Suorita NVIDIA-isännöityjä malleja
-• Mikä tahansa OpenAI-yhteensopiva API: Käytä omaa päätepistettäsi
+Kai luo natiiveja interaktiivisia käyttöliittymiä — painikkeita, lomakkeita, taulukoita, kaavioita ja kokoruudun sovelluksia — suoraan chatissa. Pyydä laskinta, tietovisaa, hallintapaneelia tai tehtävälistaa ja saat oikean toimivan käyttöliittymän. Tämä on AI:ta tekstin tuolla puolen.
 
-Keskeiset ominaisuudet
-• Pysyvä muisti: AI muistaa tärkeät yksityiskohdat keskustelujen välillä
-• Salattu paikallinen tallennus: Tallenna keskusteluhistoriasi turvallisesti laitteellesi
-• Tekstistä puheeksi: Kuuntele AI-vastauksia luonnollisella puheäänellä
-• Tiedostoliitteet: Lataa tiedostoja keskustelujesi tueksi (tuettu Gemini-palvelussa)
-• Saumaton palvelunvaihto: Vaihda AI-palveluntarjoajien välillä vaivattomasti kesken keskustelun
-• Monivuoroiset keskustelut: Kontekstitietoiset keskustelut, joissa AI muistaa aiemmat viestit
-• Taustadaemon ja tehtävien ajastus: Ajasta tehtäviä cron-lausekkeilla tai sykevälein
+🧠 Sielu ja Muisti — Chatbot, Joka Tuntee Sinut
+Anna Kai:lle persoona kirjoittamalla sen "sielu". Se muistaa tärkeät asiat keskustelujen välillä — mieltymyksesi, opitut asiat ja tunnetut ongelmat — ja vahvistaa tietojaan ajan myötä. Hyödylliset muistot ylennetään pysyvään persoonaan. Mitä enemmän keskustelet, sitä älykkäämmäksi se tulee.
 
-AI-työkalut (Ota käyttöön asetuksista)
-• Paikallinen aika: Tarkka päivämäärä- ja aikatieto
-• Sijainnin haku: Sijaintiin perustuvat vastaukset IP-tunnistuksella
-• Ilmoituksen lähetys: AI:n käynnistämät push-ilmoitukset
-• Kalenteritapahtuman luonti: Lisää tapahtumia kalenteriisi chatista
-• Verkkohaku: Anna AI:n hakea verkosta ajantasaisia vastauksia
-• Komentojen suoritus: Suorita komentoja laitteellasi AI:n kautta
-• Tehtävien ajastus / peruutus / listaus: Hallitse toistuvia AI-tehtäviä
+💓 Syke — Aina Päällä Oleva Agenttisi
+Kai ei nuku. Sykejärjestelmä tarkistaa aikataulun mukaan — tehtävät, sähköpostit ja trendit — vaikka et keskustelisikaan. Aseta väli, aktiiviset tunnit ja malli. Kun jokin vaatii huomiotasi, Kai nostaa sen esiin. Kun kaikki on hyvin, se pysyy hiljaa.
 
-Yksityisyys ensin
-Kai asettaa yksityisyytesi etusijalle: kaikki keskusteluhistoria tallennetaan paikallisesti vahvalla salauksella. Pilvi-AI-palveluita käytettäessä tietosi lähetetään suoraan palveluntarjoajille käsiteltäviksi — sovellus itse ei kerää tietoja. Pidä kontrolli itsellläsi tällä avoimen lähdekoodin AI-chat-sovelluksella.
+⚡ 24 Palvelua — Yksi Sovellus, Kaikki Mallit
+Yhdistä ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ja 17 muuhun. Paikallisia malleja Ollama tai LM Studio kautta. Useita tilejä, prioriteetit ja älykäs varaketju automaattisesti. Ilmaistaso — ei API-avainta.
+
+Tuetut Palvelut
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (tiedostoliitteet)
+• Anthropic Claude
+• DeepSeek (R1-päättely)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / OpenAI-yhteensopiva API
+• Sisäänrakennettu ilmaistaso
+
+🛠️ 40+ Työkalua — Chatin Tuolla Puolen
+Tehokkaita työkaluja, jotka antavat avustajan toimia, ei vain puhua:
+• Verkkohaku — reaaliaikaiset vastaukset internetistä
+• Sähköposti — tarkista, lue, vastaa, kirjoita ja hae
+• Shell-komennot — päätekomennot laitteellasi
+• Tehtävien Ajastus — toistuvat tehtävät cron-lausekkeilla
+• Kalenteritapahtumat — suoraan chatista
+• Tekstistä Puheeksi — luonnollinen ääni
+• Ilmoitukset — push-ilmoitukset
+• Sijainti ja Aika — kontekstitietoiset vastaukset
+• MCP Servers — ulkoiset työkalupalvelimet
+
+🖥️ Interaktiivinen UI-tila
+Kokoruutu. Kai muuttuu visuaaliseksi sovellusrakentajaksi — ei markdownia, ei vieritettävää tekstiä. Toimivia näyttöjä lennossa. Kuin sovelluskehittäjä taskussasi.
+
+🔒 Yksityisyys Edellä, Avoin Lähdekoodi, Mainokseton
+Salattu paikallinen historia. Ei mainoksia, ei tiedonkeruuta, ei seurantaa. API-kutsut suoraan palveluntarjoajalle — Kai ei ole koskaan välissä. Täysin avointa lähdekoodia, täysin läpinäkyvää.
+
+🌍 Toimii Kaikkialla
+Android-puhelin, tabletti, Chromebook tai pöytätietokone. Avustajasi, aina ulottuvillasi.
+
+Kirjoitatpa, koodaat, tiivistät, käännät, ideoit tai opiskelet — Kai on ilmainen, mainokseton, avoimen lähdekoodin ChatGPT-vaihtoehto, joka mukautuu sinuun.

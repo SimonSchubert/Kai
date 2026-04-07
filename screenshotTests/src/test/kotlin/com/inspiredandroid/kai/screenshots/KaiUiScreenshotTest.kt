@@ -3,19 +3,12 @@
 package com.inspiredandroid.kai.screenshots
 
 import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Card
 import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
@@ -28,6 +21,7 @@ import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
+import com.inspiredandroid.kai.ui.dynamicui.LocalPreviewImages
 import kotlinx.collections.immutable.persistentListOf
 import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -93,42 +87,24 @@ class KaiUiScreenshotTest {
     }
 
     private fun Paparazzi.snapKaiUiWithImage(
-        titleJson: String,
-        bodyJson: String,
+        json: String,
         imageResource: String,
-        imageHeight: Int = 200,
+        imageUrl: String = "preview://image",
         colorScheme: ColorScheme = DarkColorScheme,
     ) {
-        val titleNode = KaiUiParser.parse("```kai-ui\n$titleJson\n```")
-            .filterIsInstance<KaiUiParser.UiSegment>().first()
-        val bodyNode = KaiUiParser.parse("```kai-ui\n$bodyJson\n```")
+        val node = KaiUiParser.parse("```kai-ui\n$json\n```")
             .filterIsInstance<KaiUiParser.UiSegment>().first()
         val bitmap = BitmapFactory.decodeStream(javaClass.getResourceAsStream(imageResource))
         val imageBitmap = bitmap.asImageBitmap()
         snap(colorScheme) {
-            Card(Modifier.fillMaxWidth().wrapContentHeight().padding(12.dp)) {
-                Column(Modifier.wrapContentHeight()) {
-                    KaiUiRenderer(
-                        node = titleNode.node,
-                        isInteractive = true,
-                        onCallback = { _, _ -> },
-                        modifier = Modifier.padding(12.dp),
-                        wrapInCard = false,
-                    )
-                    Image(
-                        bitmap = imageBitmap,
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxWidth().height(imageHeight.dp),
-                        contentScale = ContentScale.Crop,
-                    )
-                    KaiUiRenderer(
-                        node = bodyNode.node,
-                        isInteractive = true,
-                        onCallback = { _, _ -> },
-                        modifier = Modifier.padding(12.dp),
-                        wrapInCard = false,
-                    )
-                }
+            CompositionLocalProvider(LocalPreviewImages provides mapOf(imageUrl to imageBitmap)) {
+                KaiUiRenderer(
+                    node = node.node,
+                    isInteractive = true,
+                    onCallback = { _, _ -> },
+                    modifier = Modifier.padding(12.dp),
+                    wrapInCard = true,
+                )
             }
         }
     }
@@ -532,16 +508,15 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_recipeCard_light() {
         paparazzi.snapKaiUiWithImage(
-            titleJson = """{"type":"column","children":[
+            json = """{"type":"column","children":[
                 {"type":"text","value":"Cacio e Pepe","style":"headline","bold":true},
                 {"type":"text","value":"Classic Roman pasta \u2022 2 servings","style":"caption","color":"secondary"},
                 {"type":"row","children":[
                     {"type":"badge","value":"\u23f1 20 min","color":"secondary"},
                     {"type":"badge","value":"\uD83C\uDF7D 2 servings","color":"secondary"},
                     {"type":"badge","value":"\u2b50 4.9/5","color":"primary"}
-                ]}
-            ]}""",
-            bodyJson = """{"type":"column","children":[
+                ]},
+                {"type":"image","url":"preview://image"},
                 {"type":"text","value":"Ingredients","style":"title"},
                 {"type":"list","ordered":false,"items":[
                     {"type":"text","value":"200g tonnarelli or spaghetti"},
@@ -644,7 +619,7 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_survivalGame_dark() {
         paparazzi.snapKaiUiWithImage(
-            titleJson = """{"type":"column","children":[
+            json = """{"type":"column","children":[
                 {"type":"text","value":"\u2694\ufe0f The Goblin Tunnels","style":"headline","bold":true},
                 {"type":"text","value":"Chapter 1 \u2022 The Beginning","style":"caption","color":"secondary"},
                 {"type":"row","children":[
@@ -652,9 +627,8 @@ class KaiUiScreenshotTest {
                     {"type":"stat","value":"Lv 1","label":"Level"},
                     {"type":"stat","value":"50g","label":"Gold"},
                     {"type":"stat","value":"2","label":"DEF"}
-                ]}
-            ]}""",
-            bodyJson = """{"type":"column","children":[
+                ]},
+                {"type":"image","url":"preview://image"},
                 {"type":"text","value":"You descend deeper into the darkness. The air grows thick with the smell of damp stone and something rotten. Your torchlight dances across crude carvings on the walls — warnings, perhaps, from those who came before. A low growl echoes from somewhere ahead.","style":"body"},
                 {"type":"text","value":"The tunnel forks. To the left, faint firelight flickers. To the right, silence — and a cold draft that makes your torch sputter.","style":"body"},
                 {"type":"divider"},

@@ -1,34 +1,47 @@
-Enconuscha Kai — tia alternativa locala ad OpenClaw en tia tasca. Ina app da chat AI svelta e open-source, alimentada da models sco Llama, Gemini, GPT e DeepSeek. Cumenza conversaziuns fluidas per brainstorming, scriver, resumar, emprender u discurrer — tut en ina interfatscha minimalista che sa chargia en seconds.
+Applicaziun da chat AI open-source che creescha screens interactivs, betg mo text. Kai è ina alternativa gratuita a ChatGPT cun ina olma, in batter dal cor, memorias persistentas e dommer dapli — in assistent AI che sa sviluppa cun mintga conversaziun.
 
-Servetschs AI sustegnids
-• Ollama / LM Studio: Connectescha tai cun tes agens models AI locals (cumpatibels cun OpenAI)
-• OpenAI: Access a models GPT per conversaziuns potentas
-• Gemini: L'AI avanzà da Google cun sustegn integrà per annexas da datotecas
-• DeepSeek: Models da raschunament cun auta prestaziun
-• xAI: Models Grok innovativs per respostas creativas ed approfundidas
-• Mistral AI: Models multilings effizients
-• Groq: Inferenza AI ultra-svelta per respostas rapidissimas
-• OpenRouter: Access a tschientaneras da models tras ina singula API
-• NVIDIA: Executa models ospitads da NVIDIA
-• Tge API cumpatibla cun OpenAI: Porta tes agen endpoint
+A differenza da chatbots ordinaras, Kai generescha UI nativa interactiva — buttuns, formulars, tabellas, diagrammas ed apps a screen entir — directamain en il chat. Dumonda da construir ina calculatricha, in quiz, in dashboard u ina glista, ed el rendera ina vera interfatscha funcziunala. Quai è AI sur il text ora.
 
-Funcziuns principalas
-• Memoria persistenta: L'AI sa regorda da detagls impurtants tranter conversaziuns
-• Memoria locala criptada: Memorisescha tes historical da chat segir sin tes apparat
-• Text-to-Speech: Taidla las respostas AI cun ina vusch che tuna natirala
-• Annexas da datotecas: Chargia si datotecas per meglierar tias conversaziuns (sustegnì sin Gemini)
-• Midar da servetsch senza interrupziun: Mida tranter purschiders AI senza problems durant la conversaziun
-• Conversaziuns a plirs tocs: Chats cun context nua che l'AI sa regorda da messadis precedents
-• Daemon en il fund e planisaziun da tasks: Planisescha tasks cun expressiuns cron u intervals da heartbeat
+🧠 Olma & Memoria — In chatbot che ta enconuscha
+Dat a Kai ina persunalitad cun scriver sia "olma." El sa regorda tge che importa — tias preferenzas, imprendì precedentas e problems enconuschents — e rinforzescha quella savida cun il temp. Memorias utilas vegnan promovidas en sia persunalitad permanenta. Pli che ti chattas, pli intelligent vegn el.
 
-Utensils AI (Activescha en ils parameters)
-• Retschaiver l'ura locala: Infurmaziuns exactas davart la data e l'ura actuala
-• Retschaiver la posiziun: Respostas basadas sin la posiziun cun detecziun IP
-• Trametter notificaziun: Push-notificaziuns activadas da l'AI
-• Crear eveniment da chalender: Agiunta eveniments a tes chalender dal chat
-• Tschertga en il web: Lascha l'AI tschertgar en il web per respostas actualas
-• Execuar cumonds shell: Execua cumonds sin tes apparat via AI
-• Planischar / Annullar / Listar tasks: Administrescha tasks repetitivas da l'AI
+💓 Batter dal cor — Tes agent persunal adina activ
+Kai dorma betg. Ses sistem da batter dal cor controlleschan regularmain — repassond incumbensas, e-mails e tendenzas — era sche ti na chattas betg. Definescha l'interval, las uras activas ed il model. Sche insatgei pretenda tia attenziun, Kai al mussa. Sche tut è en urden, resta el quiet.
 
-Protecziun da datas en emprim lieu
-Kai dat prioritad a tia protecziun da datas: Tut l'historical da chat vegn memorisà localmain cun criptaziun ferma. Sche ti utiliseschas servetschs AI en il cloud, vegnan tes datas tramessas directamain als purschiders per elavuraziun — nagina collecziun da datas tras l'app sezza. Resta en controlla cun questa app da chat AI open-source.
+⚡ 24 servetschs — Ina applicaziun, mintga model
+Connecta tai a ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok e 17 ulteriurs purschiders. Fa ir models locals via Ollama u LM Studio per diever privat ed offline. Agiunta plirs contos, reordinescha prioritads e lascha che la chadaina da fallback intelligenta gestiunescha interrupziuns automaticamain. In nivel gratuit integrà munta che ti pos cumenzar senza configuraziun — nagina clav API necessaria.
+
+Servetschs sustegnids
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (cun documents agiuntads)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / mintga API cumpatibla cun OpenAI
+• Nivel gratuit integrà
+
+🛠️ 40+ utensils — Pli che mo chattar
+Activescha utensils potents che laschan l'assistent agir, betg mo discurrer:
+• Tschertga web — respostas en temp real da l'internet
+• E-mail — controllar, leger, respunder, cumponer e tschertgar
+• Cumonds shell — exequir cumonds dal terminal sin tes apparat
+• Planificaziun da tasks — incumbensas periodicas cun expressiuns cron
+• Eveniments da chalender — creescha eveniments dal chat
+• Text-to-Speech — taidla respostas cun vusch naturala
+• Notificaziuns — alerts push activads
+• Posiziun & temp — respostas cun context
+• MCP Servers — connecta tai a servers d'utensils externs
+
+🖥️ Modus UI interactiv
+Va a screen entir. En il Modus Interactiv, Kai daventa in constructur visual d'apps — nagin markdown, nagin text che scrolla. Mo screens funcziunals e tippabels, generads al mument. Navighescha cun buttuns ed inputs. Igl è sco avair in sviluppader d'apps persunal en tia tasca.
+
+🔒 Protecziun da datas, open source & senza reclama
+Tut l'istorgia da chat è criptada e memorisada localmain sin tes apparat. Naginas reclamas, nagina collecziun da datas, nagin tracking. Cloms API van directamain a tes purschider — Kai na stat mai en il mez. Fa ir models locals per ina experientscha offline e privata. Cumplettamain open source, cumplettamain transparent.
+
+🌍 Funcziuna dapertut
+Dovra Kai sin tes telefon Android, tablet, Chromebook u desktop. Tes assistent, adina a dispusiziun.
+
+Che ti scrivas, programmas, resummas, translatteschas, fatschas brainstorming, automatiseschas workflows, gestiuneschas e-mails u emprendas — Kai è l'alternativa gratuita, senza reclama ed open-source a ChatGPT che s'adattescha a tai.

@@ -1,34 +1,47 @@
-Kilalanin si Kai — ang iyong lokal na OpenClaw na alternatibo sa iyong bulsa. Isang mabilis at open-source na AI chat app na pinapagana ng mga modelo tulad ng Llama, Gemini, GPT, at DeepSeek. Sumabak sa maayos na mga pag-uusap para sa brainstorming, pagsusulat, pagbubuod, pag-aaral, o kaswal na usapan — lahat sa isang minimalistang interface na naglo-load sa ilang segundo.
+Open-source na AI chat app na gumagawa ng interactive na mga screen, hindi lang teksto. Ang Kai ay libreng alternatibo sa ChatGPT na may kaluluwa, tibok ng puso, permanenteng alaala, at reinforced learning — AI assistant na nagbabago sa bawat pag-uusap.
 
-Mga Sinusuportahang AI na Serbisyo
-• Ollama / LM Studio: Kumonekta sa iyong self-hosted na lokal na AI na mga modelo (OpenAI-compatible)
-• OpenAI: I-access ang mga GPT na modelo para sa makapangyarihang pag-uusap
-• Gemini: Advanced na AI ng Google na may built-in na suporta sa file attachment
-• DeepSeek: Mga high-performance na reasoning modelo
-• xAI: Mga makabagong Grok na modelo para sa malikhain at makatotohanang mga sagot
-• Mistral AI: Mga mahusay na multilingual na modelo
-• Groq: Napakabilis na AI inference para sa mabilis na sagot
-• OpenRouter: I-access ang daan-daang modelo sa isang API
-• NVIDIA: Magpatakbo ng mga NVIDIA-hosted na modelo
-• Anumang OpenAI-compatible na API: Magdala ng sarili mong endpoint
+Hindi tulad ng karaniwang chatbot, gumagawa ang Kai ng native interactive UI — mga button, form, table, chart, at full-screen app — sa loob ng chat. Hilingin mong gumawa ng calculator, quiz, dashboard, o to-do list, at gagawa ito ng totoong gumaganang interface. Ito ay AI na lampas sa teksto.
 
-Mga Pangunahing Tampok
-• Persistent Memory: Natatandaan ng AI ang mahahalagang detalye sa mga pag-uusap
-• Naka-encrypt na Lokal na Storage: Ligtas na i-store ang iyong chat history sa iyong device
-• Text-to-Speech: Pakinggan ang mga sagot ng AI na may natural na boses
-• Mga File Attachment: Mag-upload ng mga file para mapahusay ang iyong mga pag-uusap (sinusuportahan sa Gemini)
-• Seamless na Pagpapalit ng Serbisyo: Magpalit ng AI provider nang walang kahirap-hirap sa gitna ng pag-uusap
-• Multi-Turn na Pag-uusap: Context-aware na mga chat kung saan natatandaan ng AI ang mga nakaraang mensahe
-• Background Daemon at Task Scheduling: Mag-iskedyul ng mga gawain gamit ang cron expression o heartbeat interval
+🧠 Kaluluwa at Alaala — Chatbot Na Kilala Ka
+Bigyan ng personalidad ang Kai sa pamamagitan ng pagsulat ng "kaluluwa." Naaalala niya ang mga importanteng bagay sa pagitan ng pag-uusap — kagustuhan, natutunan, at kilalang isyu. Ang mga kapaki-pakinabang na alaala ay itinataas sa permanenteng personalidad. Mas maraming chat, mas matalino.
 
-Mga AI Tool (I-enable sa Settings)
-• Kunin ang Lokal na Oras: Tumpak na kasalukuyang petsa at oras
-• Kunin ang Lokasyon: Mga sagot batay sa lokasyon gamit ang IP detection
-• Magpadala ng Notification: Mga push notification na triggered ng AI
-• Gumawa ng Calendar Event: Magdagdag ng mga event sa iyong kalendaryo mula sa chat
-• Web Search: Hayaan ang AI na maghanap sa web para sa pinakabagong mga sagot
-• Magpatakbo ng Shell Command: Mag-execute ng mga command sa iyong device gamit ang AI
-• Mag-iskedyul / Kanselahin / Ilista ang mga Gawain: Pamahalaan ang mga paulit-ulit na AI na gawain
+💓 Tibok ng Puso — Palaging Aktibong Agent
+Hindi natutulog ang Kai. Nagche-check ayon sa iskedyul — gawain, email, at trend — kahit hindi ka nag-cha-chat. Itakda ang interval, aktibong oras, at modelo.
 
-Privacy Muna
-Inuuna ng Kai ang iyong privacy: lahat ng chat history ay naka-store nang lokal na may matibay na encryption. Kapag gumagamit ng cloud AI na mga serbisyo, ang iyong data ay direktang ipinapadala sa mga provider para sa pagproseso — walang data collection mula sa app mismo. Manatiling may kontrol gamit ang open-source na AI chat app na ito.
+⚡ 24 Serbisyo — Isang App, Lahat ng Modelo
+Kumonekta sa ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok, at 17 pa. Lokal na modelo sa Ollama o LM Studio para sa pribado at offline. Maraming account, priyoridad, at smart fallback. Built-in libreng tier — walang API key.
+
+Mga Serbisyo
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (may file attachment)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / anumang OpenAI-compatible API
+• Built-in Libreng tier
+
+🛠️ 40+ Tools — Lampas sa Chat
+Mga powerful tool para sa assistant na kumilos, hindi lang magsalita:
+• Web Search — real-time na sagot
+• Email — suriin, basahin, sagutin, isulat, hanapin
+• Shell Commands — terminal command sa device
+• Task Scheduling — paulit-ulit na gawain gamit cron
+• Calendar Events — gumawa ng event mula sa chat
+• Text-to-Speech — natural na boses
+• Notifications — push alert
+• Location at Time — context-aware na sagot
+• MCP Servers — external tool server
+
+🖥️ Interactive UI Mode
+Full-screen. Kai nagiging visual app builder — walang markdown. Mga tappable na screen na ginagawa on the fly. Parang personal app developer sa bulsa mo.
+
+🔒 Privacy-First, Open Source, Walang Ads
+Naka-encrypt at lokal na chat history. Walang ads, walang data collection. API call direkta sa provider. Buong open source.
+
+🌍 Gumagana Kahit Saan
+Android phone, tablet, Chromebook, o desktop. Palaging maabot.
+
+Kung nagsusulat, nagko-code, nagbubuod, nagsasalin, o nag-aaral ka — ang Kai ang libreng, walang ads, open-source na alternatibo sa ChatGPT na nag-a-adapt sa iyo.

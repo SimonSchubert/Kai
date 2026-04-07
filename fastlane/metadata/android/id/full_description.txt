@@ -1,34 +1,47 @@
-Kenalkan Kai — alternatif OpenClaw lokal di saku Anda. Aplikasi chat AI yang cepat dan open-source, didukung oleh model seperti Llama, Gemini, GPT, dan DeepSeek. Nikmati obrolan lancar untuk brainstorming, menulis, merangkum, belajar, atau ngobrol santai — semuanya dalam antarmuka minimalis yang dimuat dalam hitungan detik.
+Aplikasi chat AI open-source yang membangun layar interaktif, bukan sekadar teks. Kai adalah alternatif ChatGPT gratis dengan jiwa, detak jantung, memori permanen, dan pembelajaran yang diperkuat — asisten AI yang berkembang setiap kali Anda bercakap.
 
-Layanan AI yang Didukung
-• Ollama / LM Studio: Hubungkan ke model AI lokal yang Anda hosting sendiri (kompatibel OpenAI)
-• OpenAI: Akses model GPT untuk percakapan yang powerful
-• Gemini: AI canggih dari Google dengan dukungan lampiran file bawaan
-• DeepSeek: Model penalaran berperforma tinggi
-• xAI: Model Grok inovatif untuk respons kreatif dan mendalam
-• Mistral AI: Model multibahasa yang efisien
-• Groq: Inferensi AI ultra-cepat untuk balasan instan
-• OpenRouter: Akses ratusan model melalui satu API
-• NVIDIA: Jalankan model yang di-hosting oleh NVIDIA
-• API apa pun yang kompatibel dengan OpenAI: Gunakan endpoint Anda sendiri
+Berbeda dari chatbot biasa, Kai menghasilkan UI interaktif native — tombol, formulir, tabel, grafik, dan aplikasi layar penuh — langsung di dalam chat. Minta ia membangun kalkulator, kuis, dasbor, atau daftar tugas, dan ia merender antarmuka nyata yang bisa Anda ketuk, geser, dan gunakan. Ini AI melampaui teks.
 
-Fitur Utama
-• Memori Persisten: AI mengingat detail penting lintas percakapan
-• Penyimpanan Lokal Terenkripsi: Simpan riwayat obrolan Anda dengan aman di perangkat
-• Text-to-Speech: Dengarkan respons AI dengan suara yang alami
-• Lampiran File: Unggah file untuk memperkaya percakapan Anda (didukung di Gemini)
-• Pergantian Layanan Mulus: Beralih antar penyedia AI dengan mudah di tengah percakapan
-• Percakapan Multi-Giliran: Obrolan sadar konteks di mana AI mengingat pesan sebelumnya
-• Daemon Latar Belakang & Penjadwalan Tugas: Jadwalkan tugas dengan ekspresi cron atau interval heartbeat
+🧠 Jiwa & Memori — Chatbot yang Mengenal Anda
+Berikan Kai kepribadian dengan menulis "jiwa"-nya. Ia mengingat hal penting lintas percakapan — preferensi Anda, pembelajaran sebelumnya, dan masalah yang diketahui — lalu memperkuat pengetahuan itu seiring waktu. Memori yang terbukti berguna dipromosikan menjadi kepribadian permanennya. Semakin sering Anda mengobrol, semakin cerdas ia.
 
-Alat AI (Aktifkan di Pengaturan)
-• Dapatkan Waktu Lokal: Info tanggal dan waktu terkini yang akurat
-• Dapatkan Lokasi: Respons berbasis lokasi menggunakan deteksi IP
-• Kirim Notifikasi: Notifikasi push yang dipicu oleh AI
-• Buat Acara Kalender: Tambahkan acara ke kalender Anda dari obrolan
-• Pencarian Web: Biarkan AI mencari di web untuk jawaban terkini
-• Jalankan Perintah Shell: Eksekusi perintah di perangkat Anda melalui AI
-• Jadwalkan / Batalkan / Daftar Tugas: Kelola tugas AI berulang
+💓 Detak Jantung — Agen Personal yang Selalu Aktif
+Kai tidak tidur. Sistem detak jantungnya memeriksa secara terjadwal — meninjau tugas tertunda, email, dan tren — bahkan saat Anda tidak mengobrol. Atur interval, jam aktif, dan model. Saat sesuatu perlu perhatian Anda, Kai memunculkannya. Saat semua baik-baik saja, ia tetap diam.
 
-Privasi Utama
-Kai mengutamakan privasi Anda: Semua riwayat obrolan disimpan secara lokal dengan enkripsi kuat. Saat menggunakan layanan AI cloud, data Anda dikirim langsung ke penyedia untuk diproses — tidak ada pengumpulan data oleh aplikasi itu sendiri. Tetap pegang kendali dengan aplikasi chat AI open-source ini.
+⚡ 24 Layanan — Satu Aplikasi, Semua Model
+Hubungkan ke ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok, dan 17 penyedia lainnya. Jalankan model lokal via Ollama atau LM Studio untuk penggunaan privat dan offline. Tambahkan banyak akun, atur ulang prioritas, dan biarkan rantai fallback cerdas menangani gangguan secara otomatis. Tier gratis bawaan berarti Anda bisa langsung mengobrol tanpa pengaturan apa pun — tidak perlu API key.
+
+Layanan yang Didukung
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (dengan lampiran file)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / API apa pun yang kompatibel dengan OpenAI
+• Tier gratis bawaan
+
+🛠️ 40+ Alat — Melampaui Chat
+Aktifkan alat-alat canggih yang memungkinkan asisten bertindak, bukan sekadar bicara:
+• Pencarian Web — jawaban real-time dari internet
+• Email — periksa, baca, balas, tulis, dan cari
+• Perintah Shell — jalankan perintah terminal di perangkat Anda
+• Penjadwalan Tugas — atur tugas berulang dengan ekspresi cron
+• Acara Kalender — buat acara langsung dari chat
+• Text-to-Speech — dengarkan respons dengan suara alami
+• Notifikasi — push alert yang dipicu otomatis
+• Lokasi & Waktu — respons yang sadar konteks
+• MCP Servers — hubungkan ke server alat eksternal
+
+🖥️ Mode UI Interaktif
+Beralih ke layar penuh. Dalam Mode Interaktif, Kai menjadi pembangun aplikasi visual — tanpa markdown, tanpa teks bergulir. Hanya layar fungsional yang bisa diketuk, dihasilkan secara instan. Navigasi sepenuhnya melalui tombol dan input. Seperti punya pengembang aplikasi pribadi di saku Anda.
+
+🔒 Privasi Utama, Open Source & Bebas Iklan
+Semua riwayat chat dienkripsi dan disimpan secara lokal di perangkat Anda. Tanpa iklan, tanpa pengumpulan data, tanpa pelacakan. Panggilan API langsung ke penyedia pilihan Anda — Kai tidak pernah menjadi perantara. Jalankan model lokal untuk pengalaman offline dan privat sepenuhnya. Sepenuhnya open source, sepenuhnya transparan.
+
+🌍 Berfungsi di Mana Saja
+Gunakan Kai di ponsel Android, tablet, Chromebook, atau desktop Anda. Asisten Anda, selalu dalam jangkauan.
+
+Baik Anda menulis, coding, merangkum, menerjemahkan, brainstorming, mengotomatisasi alur kerja, mengelola email, atau belajar — Kai adalah alternatif ChatGPT gratis, bebas iklan, dan open-source yang beradaptasi dengan Anda.

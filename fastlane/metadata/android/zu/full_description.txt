@@ -1,34 +1,46 @@
-Hlangana no-Kai — enye indlela ye-OpenClaw ephaketheni lakho. Uhlelo lokusebenza lwe-AI lokukhuluma olusheshayo, oluvulekile, olusekelwa amamodeli afana ne-Llama, Gemini, GPT, kanye ne-DeepSeek. Xoxa ngokukhululeka ukuze ucabange, ubhale, ufingqe, ufunde, noma uxoxe nje — konke ngesixhumanisi esilula esilayisha ngomzuzwana.
+Uhlelo lwe-AI lokukhuluma oluvulekile olwakha izixhumanisi ezisebenzayo, hhayi umbhalo kuphela. Kai indlela yamahhala esikhundleni se-ChatGPT enomphefumulo, ukushaya kwenhliziyo, inkumbulo engapheli nokufunda okuqinisiwe.
 
-Izinsizakalo ze-AI Ezisekelwayo
-• Ollama / LM Studio: Xhuma amamodeli e-AI aziphathele wena endaweni (ahambisana ne-OpenAI)
-• OpenAI: Finyelela amamodeli e-GPT ezingxoxo ezinamandla
-• Gemini: I-AI ephezulu ye-Google enesekelo lokufaka amafayela elingenakiwe
-• DeepSeek: Amamodeli okucabanga asebenza kahle kakhulu
-• xAI: Amamodeli e-Grok abukhali nezimpendulo ezibonisa ukuqonda
-• Mistral AI: Amamodeli abalulekile ezilimi eziningi
-• Groq: Ukucabanga kwe-AI okusheshayo kakhulu kwezimpendulo ezisheshayo
-• OpenRouter: Finyelela amakhulu amamodeli nge-API eyodwa
-• NVIDIA: Sebenzisa amamodeli asingathwe yi-NVIDIA
-• Noma iyiphi i-API ehambisana ne-OpenAI: Letha indawo yakho yokuxhuma
+Kai wakha isixhumanisi somdabu — izinkinobho, amafomu, amathebula, amagrafu — ngaphakathi engxoxweni. Cela isibali, ikhwizi, idashbodi noma uhlu lwemisebenzi, bese usebenzisana naso.
 
-Izici Ezibalulekile
-• Inkumbulo Engapheli: I-AI ikhumbula imininingwane ebalulekile phakathi kwezingxoxo
-• Isitoreji Sasendaweni Esibethelwe: Gcina umlando wokukhuluma kwakho ngokuphepha kudivayisi yakho
-• Ukufunda Kombhalo: Lalela izimpendulo ze-AI ngezwi elizwakala ngokwemvelo
-• Amafayela Ahambisanayo: Layisha amafayela ukuthuthukisa izingxoxo zakho (kusekelwa ku-Gemini)
-• Ukushintsha Izinsizakalo Okungenazithiyo: Shintsha phakathi kwabahlinzeki be-AI kalula phakathi nengxoxo
-• Izingxoxo Eziningi: Izingxoxo eziqonda umongo lapho i-AI ikhumbula imilayezo yangaphambilini
-• Isisebenzi Sangemuva Nokulawula Imisebenzi: Hlela imisebenzi ngezinkulumo ze-cron noma izikhawu zokushaya kwenhliziyo
+🧠 Umphefumulo Nenkumbulo
+Nika Kai ubuntu ngokubhala "umphefumulo". Ukhumbula okubalulekile phakathi kwezingxoxo. Uma uxoxa kaningi, uhlakaniphe kakhulu.
 
-Amathuluzi e-AI (Vula Ezilungiselelweni)
-• Thola Isikhathi Sasendaweni: Ulwazi olunembile lweskhathi samanje nosuku
-• Thola Indawo: Izimpendulo ezisekelwe endaweni ngokubona kwe-IP
-• Thumela Isaziso: Izaziso ezisheshayo ezivuswa yi-AI
-• Dala Isenzakalo Sekhalenda: Faka izenzakalo ekhalendeni yakho usuka engxoxweni
-• Sesha Kuwebhu: Vumela i-AI isesha iwebhu ukuthola izimpendulo ezimusha
-• Sebenzisa Umyalo we-Shell: Sebenzisa imiyalo kudivayisi yakho nge-AI
-• Hlela / Khansela / Buka Imisebenzi: Phatha imisebenzi ye-AI ephindaphindayo
+💓 Ukushaya Kwenhliziyo
+Kai uhlola ngesheduli — imisebenzi, ama-imeyili, amathrendi — ngisho ungaxoxi. Uma kukhona okudinga ukunakwa, ukukhombisa.
 
-Ubumfihlo Kuqala
-U-Kai ubeka ubumfihlo bakho phambili: Wonke umlando wokukhuluma ugcinwa endaweni ngokubethela okuqinile. Uma usebenzisa izinsizakalo ze-AI zasemafini, idatha yakho ithunyelwa ngqo kubahlinzeki ukuze icutshungulwe — akukho ukuqoqwa kwedatha uhlelo lokusebenza ngokwalo. Hlala ulawula ngohlelo lokusebenza lwe-AI lokukhuluma oluvulekile.
+⚡ Izinsizakalo Ezingu-24 — Uhlelo Olulodwa
+Xhuma ku-ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok nabahlinzeki abangu-17. Sebenzisa amamodeli asendaweni nge-Ollama noma LM Studio. Izinga lamahhala elingenakiwe — akudingeki ukhiye we-API.
+
+Izinsizakalo Ezisekelwayo
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (ngamafayela)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / OpenAI API
+• Izinga Lamahhala
+
+🛠️ Amathuluzi Angaphezu Kwangu-40
+• Ukusesha Kuwebhu — izimpendulo zangempela
+• I-imeyili — hlola, funda, phendula, bhala
+• Imiyalo ye-Shell
+• Ukuhlela Imisebenzi — cron
+• Izenzakalo Zekhalenda
+• Umbhalo-Kuya-Kunkulumo
+• Izaziso ze-push
+• Indawo Nesikhathi
+• MCP Servers
+
+🖥️ Imodi Yesixhumanisi
+Yiya kusikrini esigcwele. Kai uba umakhi wezinhlelo — izikrini ezisebenzayo ezidalwa ngokushesha.
+
+🔒 Ubumfihlo, Ivulekile, Ayinazikhangiso
+Umlando ubethelwe endaweni. Azikho izikhangiso, akukho ukulandelwa. Izingcingo ze-API ziya ngqo kumhlinzeki.
+
+🌍 Isebenza Yonke Indawo
+Sebenzisa Kai ku-Android, kuthebhulethi, ku-Chromebook noma kudeskithophu.
+
+Noma ubhala, ucoda, uhumusha noma ufunda — Kai indlela yamahhala, evulekile ye-ChatGPT ezilungisela kuwe.

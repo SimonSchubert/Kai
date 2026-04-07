@@ -1,34 +1,46 @@
-Giới thiệu Kai — ứng dụng thay thế OpenClaw ngay trong túi bạn. Một ứng dụng trò chuyện AI mã nguồn mở, nhanh chóng, được hỗ trợ bởi các mô hình như Llama, Gemini, GPT và DeepSeek. Trò chuyện mượt mà để lên ý tưởng, viết lách, tóm tắt, học tập hoặc nói chuyện phiếm — tất cả trong giao diện tối giản, khởi động chỉ trong vài giây.
+Ứng dụng chat AI mã nguồn mở tạo ra màn hình tương tác, không chỉ văn bản. Kai là giải pháp thay thế ChatGPT miễn phí với linh hồn, nhịp tim, trí nhớ bền bỉ và học tăng cường — trợ lý AI phát triển theo mỗi cuộc trò chuyện.
 
-Dịch vụ AI được hỗ trợ
-• Ollama / LM Studio: Kết nối với các mô hình AI tự lưu trữ cục bộ (tương thích OpenAI)
-• OpenAI: Truy cập các mô hình GPT cho cuộc hội thoại mạnh mẽ
-• Gemini: AI tiên tiến của Google với hỗ trợ đính kèm tệp tích hợp
-• DeepSeek: Mô hình suy luận hiệu suất cao
-• xAI: Mô hình Grok sáng tạo cho phản hồi sâu sắc
-• Mistral AI: Mô hình đa ngôn ngữ hiệu quả
-• Groq: Suy luận AI siêu nhanh cho phản hồi tức thì
-• OpenRouter: Truy cập hàng trăm mô hình qua một API
-• NVIDIA: Chạy các mô hình được lưu trữ trên NVIDIA
-• Bất kỳ API tương thích OpenAI: Sử dụng điểm cuối của riêng bạn
+Kai tạo giao diện tương tác gốc — nút, biểu mẫu, bảng, biểu đồ và ứng dụng toàn màn hình — ngay trong chat. Yêu cầu xây máy tính, trắc nghiệm, bảng điều khiển hoặc danh sách việc cần làm, và tương tác trực tiếp.
 
-Tính năng chính
-• Bộ nhớ liên tục: AI ghi nhớ các chi tiết quan trọng qua các cuộc hội thoại
-• Lưu trữ cục bộ được mã hóa: Lưu trữ lịch sử trò chuyện an toàn trên thiết bị
-• Chuyển văn bản thành giọng nói: Nghe phản hồi AI bằng giọng nói tự nhiên
-• Đính kèm tệp: Tải tệp lên để nâng cao cuộc hội thoại (hỗ trợ trên Gemini)
-• Chuyển đổi dịch vụ liền mạch: Chuyển đổi giữa các nhà cung cấp AI dễ dàng giữa cuộc hội thoại
-• Hội thoại nhiều lượt: Trò chuyện theo ngữ cảnh, AI nhớ các tin nhắn trước đó
-• Tác vụ nền & Lên lịch: Lên lịch tác vụ với biểu thức cron hoặc khoảng thời gian nhịp tim
+🧠 Linh hồn và Trí nhớ
+Tạo tính cách cho Kai bằng cách viết "linh hồn". Kai ghi nhớ điều quan trọng giữa các cuộc trò chuyện — sở thích, kiến thức và vấn đề đã biết. Trò chuyện càng nhiều, càng thông minh.
 
-Công cụ AI (Bật trong Cài đặt)
-• Lấy giờ địa phương: Thông tin ngày giờ hiện tại chính xác
-• Lấy vị trí: Phản hồi dựa trên vị trí qua phát hiện IP
-• Gửi thông báo: Thông báo đẩy được kích hoạt bởi AI
-• Tạo sự kiện lịch: Thêm sự kiện vào lịch từ cuộc trò chuyện
-• Tìm kiếm web: Để AI tìm kiếm thông tin cập nhật trên web
-• Chạy lệnh Shell: Thực thi lệnh trên thiết bị qua AI
-• Lên lịch / Hủy / Liệt kê tác vụ: Quản lý các tác vụ AI định kỳ
+💓 Nhịp tim
+Kai kiểm tra theo lịch — công việc, email, xu hướng — ngay cả khi bạn không trò chuyện. Khi cần chú ý, Kai thông báo.
 
-Quyền riêng tư là ưu tiên
-Kai đặt quyền riêng tư của bạn lên hàng đầu: Toàn bộ lịch sử trò chuyện được lưu trữ cục bộ với mã hóa mạnh. Khi sử dụng dịch vụ AI đám mây, dữ liệu được gửi trực tiếp đến nhà cung cấp để xử lý — ứng dụng không thu thập bất kỳ dữ liệu nào. Kiểm soát hoàn toàn với ứng dụng trò chuyện AI mã nguồn mở này.
+⚡ 24 Dịch vụ — Một ứng dụng, mọi mô hình
+Kết nối ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok và 17 nhà cung cấp khác. Chạy mô hình cục bộ qua Ollama hoặc LM Studio. Gói miễn phí tích hợp — không cần API key.
+
+Dịch vụ được hỗ trợ
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (đính kèm tệp)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / API tương thích OpenAI
+• Gói miễn phí tích hợp
+
+🛠️ 40+ Công cụ
+• Tìm kiếm Web — câu trả lời thời gian thực
+• Email — kiểm tra, đọc, trả lời, soạn, tìm kiếm
+• Lệnh Shell
+• Lên lịch tác vụ — cron
+• Sự kiện Lịch
+• Chuyển văn bản thành giọng nói
+• Thông báo đẩy
+• Vị trí và Thời gian
+• MCP Servers
+
+🖥️ Chế độ Giao diện Tương tác
+Toàn màn hình. Kai trở thành trình xây dựng ứng dụng — màn hình chức năng tạo tức thì. Điều hướng qua nút và ô nhập liệu.
+
+🔒 Quyền riêng tư, Mã nguồn mở, Không quảng cáo
+Lịch sử chat mã hóa lưu trữ cục bộ. Không quảng cáo, không thu thập dữ liệu. API đi thẳng đến nhà cung cấp. Hoàn toàn mã nguồn mở.
+
+🌍 Hoạt động mọi nơi
+Sử dụng Kai trên Android, máy tính bảng, Chromebook hoặc máy tính. Trợ lý luôn trong tầm tay.
+
+Dù viết, lập trình, tóm tắt, dịch thuật hay học tập — Kai là giải pháp ChatGPT miễn phí, mã nguồn mở thích ứng với bạn.

@@ -13,6 +13,7 @@ import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -275,6 +276,8 @@ private fun safeCallback(
 }
 
 private const val MAX_DEPTH = 10
+private const val DEFAULT_IMAGE_HEIGHT = 220
+private const val DEFAULT_IMAGE_ASPECT_RATIO = 1.91f
 
 @Composable
 private fun RenderNode(
@@ -561,28 +564,27 @@ private fun RenderSelect(
 
 @Composable
 private fun RenderImage(node: ImageNode) {
-    val modifier = if (node.aspectRatio != null && node.aspectRatio > 0f) {
-        Modifier.fillMaxWidth().aspectRatio(node.aspectRatio.coerceIn(0.1f, 10f))
-    } else {
-        Modifier.fillMaxWidth().then(
-            if (node.height != null) Modifier.height(node.height.dp) else Modifier,
-        )
-    }
-    val previewBitmap = LocalPreviewImages.current[node.url]
-    if (previewBitmap != null) {
-        Image(
-            bitmap = previewBitmap,
-            contentDescription = node.alt,
-            modifier = modifier.clip(RoundedCornerShape(6.dp)),
-            contentScale = ContentScale.Crop,
-        )
-    } else {
-        coil3.compose.AsyncImage(
-            model = node.url,
-            contentDescription = node.alt,
-            modifier = modifier.clip(RoundedCornerShape(6.dp)),
-            contentScale = ContentScale.Crop,
-        )
+    val height = (node.height ?: DEFAULT_IMAGE_HEIGHT).dp
+    val aspectRatio = (node.aspectRatio ?: DEFAULT_IMAGE_ASPECT_RATIO)
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val width = minOf(maxWidth, height * aspectRatio)
+        val modifier = Modifier.height(width/aspectRatio).width(width).clip(RoundedCornerShape(6.dp))
+        val previewBitmap = LocalPreviewImages.current[node.url]
+        if (previewBitmap != null) {
+            Image(
+                bitmap = previewBitmap,
+                contentDescription = node.alt,
+                modifier = modifier,
+                contentScale = ContentScale.Crop,
+            )
+        } else {
+            coil3.compose.AsyncImage(
+                model = node.url,
+                contentDescription = node.alt,
+                modifier = modifier,
+                contentScale = ContentScale.Crop,
+            )
+        }
     }
 }
 

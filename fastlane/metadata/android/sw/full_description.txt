@@ -1,34 +1,47 @@
-Kutana na Kai — mbadala wako wa OpenClaw mfukoni mwako. Programu ya haraka ya mazungumzo ya AI yenye msimbo wazi, inayoendeshwa na modeli kama Llama, Gemini, GPT, na DeepSeek. Ingia katika mazungumzo laini ya kutafakari, kuandika, kufupisha, kujifunza, au mazungumzo ya kawaida — yote katika muundo rahisi unaopakia kwa sekunde.
+Programu ya mazungumzo ya AI yenye chanzo wazi inayounda skrini shirikishi, si maandishi tu. Kai ni mbadala wa bure wa ChatGPT wenye roho, mapigo ya moyo, kumbukumbu za kudumu na ujifunzaji ulioimarishwa — msaidizi wa AI unaobadilika na kila mazungumzo.
 
-Huduma za AI Zinazotumika
-• Ollama / LM Studio: Unganisha na modeli zako za AI zinazohifadhiwa ndani (zinazooana na OpenAI)
-• OpenAI: Fikia modeli za GPT kwa mazungumzo yenye nguvu
-• Gemini: AI ya hali ya juu ya Google yenye msaada wa kuambatisha faili
-• DeepSeek: Modeli za ufasaha wa juu za kufikiri
-• xAI: Modeli bunifu za Grok kwa majibu ya ubunifu na maarifa
-• Mistral AI: Modeli bora za lugha nyingi
-• Groq: Uchanganuzi wa AI wa kasi sana kwa majibu ya haraka
-• OpenRouter: Fikia mamia ya modeli kupitia API moja
-• NVIDIA: Endesha modeli zinazohifadhiwa na NVIDIA
-• API yoyote inayooana na OpenAI: Weka endpoint yako mwenyewe
+Tofauti na chatbot za kawaida, Kai hutoa muundo shirikishi wa asili — vitufe, fomu, jedwali, chati na programu za skrini kamili — moja kwa moja ndani ya mazungumzo. Mwambie aunde kikokotoo, jaribio, dashibodi au orodha ya kazi, na ataunda muundo unaofanya kazi ambao unaweza kugusa, kutelezesha na kutumia. Hii ni AI zaidi ya maandishi.
 
-Vipengele Muhimu
-• Kumbukumbu ya Kudumu: AI inakumbuka maelezo muhimu kati ya mazungumzo
-• Hifadhi ya Ndani Iliyosimbwa: Hifadhi historia yako ya mazungumzo kwa usalama kwenye kifaa chako
-• Maandishi-kwa-Sauti: Sikia majibu ya AI kwa sauti ya asili
-• Viambatisho vya Faili: Pakia faili ili kuboresha mazungumzo yako (inapatikana kwenye Gemini)
-• Kubadilisha Huduma kwa Urahisi: Badilisha kati ya watoa huduma za AI bila shida katikati ya mazungumzo
-• Mazungumzo ya Hatua Nyingi: Mazungumzo yanayofahamu muktadha ambapo AI inakumbuka ujumbe uliotangulia
-• Daemon ya Nyuma na Kupanga Kazi: Panga kazi kwa kutumia misemo ya cron au muda wa heartbeat
+🧠 Roho na Kumbukumbu — Chatbot anayekujua
+Mpe Kai utu kwa kuandika "roho" yake. Anakumbuka mambo muhimu katika mazungumzo — mapendeleo yako, masomo ya awali na matatizo yanayojulikana — na kuimarisha maarifa hayo kwa muda. Kumbukumbu zinazothibitika kuwa muhimu hupandishwa hadhi kuwa sehemu ya utu wake wa kudumu. Kadri unavyozungumza zaidi, ndivyo anavyokuwa mjanja zaidi.
 
-Zana za AI (Wezesha katika Mipangilio)
-• Pata Saa ya Mahali: Taarifa sahihi ya tarehe na saa ya sasa
-• Pata Eneo: Majibu yanayotegemea eneo kwa kutumia utambuzi wa IP
-• Tuma Arifa: Arifa za push zinazozinduliwa na AI
-• Unda Tukio la Kalenda: Ongeza matukio kwenye kalenda yako kutoka mazungumzoni
-• Utafutaji wa Wavuti: Ruhusu AI kutafuta wavuti kwa majibu ya kisasa
-• Endesha Amri ya Shell: Tekeleza amri kwenye kifaa chako kupitia AI
-• Panga / Sitisha / Orodhesha Kazi: Simamia kazi za AI zinazojirudia
+💓 Mapigo ya Moyo — Wakala wako binafsi, daima hai
+Kai halali. Mfumo wake wa mapigo ya moyo hukagua mara kwa mara — kupitia kazi zinazosubiri, barua pepe na mitindo — hata usipokuwa ukizungumza. Weka muda, masaa ya kazi na modeli. Wakati kitu kinahitaji umakini wako, Kai anakuarifu. Wakati kila kitu kiko sawa, anabaki kimya.
 
-Faragha Kwanza
-Kai inatanguliza faragha yako: Historia yote ya mazungumzo huhifadhiwa ndani ya kifaa kwa usimbaji imara. Unapotumia huduma za AI za wingu, data yako hutumwa moja kwa moja kwa watoa huduma kwa uchakataji — hakuna ukusanyaji wa data na programu yenyewe. Dhibiti kwa programu hii ya mazungumzo ya AI yenye msimbo wazi.
+⚡ Huduma 24 — Programu moja, kila modeli
+Unganisha na ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok na watoa huduma 17 zaidi. Endesha modeli za ndani kupitia Ollama au LM Studio kwa matumizi ya faragha bila mtandao. Ongeza akaunti nyingi, panga upya vipaumbele na uache mnyororo wa akiba unaojiendesha ushughulikie kukatika kwa huduma. Kiwango cha bure kilichojumuishwa kinamaanisha unaweza kuanza kuzungumza bila usanidi wowote — hakuna ufunguo wa API unaohitajika.
+
+Huduma zinazotumika
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (na viambatisho vya faili)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / API yoyote inayooana na OpenAI
+• Kiwango cha bure kilichojumuishwa
+
+🛠️ Zana 40+ — Zaidi ya mazungumzo
+Wezesha zana zenye nguvu zinazoruhusu msaidizi kutenda, si kuzungumza tu:
+• Utafutaji wa wavuti — majibu ya wakati halisi kutoka mtandaoni
+• Barua pepe — angalia, soma, jibu, tunga na tafuta
+• Amri za shell — tekeleza amri za terminali kwenye kifaa chako
+• Upangaji wa kazi — weka kazi zinazojirudia na misemo ya cron
+• Matukio ya kalenda — unda matukio moja kwa moja kutoka mazungumzoni
+• Text-to-Speech — sikia majibu kwa sauti ya asili
+• Arifa — arifa za kushinikiza zilizochochewa
+• Mahali na wakati — majibu yanayofahamu muktadha
+• MCP Servers — unganisha na seva za zana za nje
+
+🖥️ Hali ya UI shirikishi
+Nenda skrini kamili. Katika Hali Shirikishi, Kai anakuwa mjenzi wa programu — bila markdown, bila maandishi yanayosogea. Skrini zinazofanya kazi zinazozalishwa papo hapo ambazo unaweza kugusa. Sogeza kabisa kupitia vitufe na sehemu za kuingiza. Ni kama kuwa na mtengenezaji wa programu binafsi mfukoni mwako.
+
+🔒 Faragha kwanza, chanzo wazi na bila matangazo
+Historia yote ya mazungumzo imesimbwa kwa njia fiche na kuhifadhiwa ndani ya kifaa chako. Bila matangazo, bila ukusanyaji wa data, bila ufuatiliaji. Simu za API zinakwenda moja kwa moja kwa mtoa huduma uliyemchagua — Kai hasimami katikati kamwe. Endesha modeli za ndani kwa uzoefu kamili bila mtandao na wa faragha. Chanzo wazi kabisa, uwazi kamili.
+
+🌍 Inafanya kazi kila mahali
+Tumia Kai kwenye simu yako ya Android, kompyuta kibao, Chromebook au kompyuta ya mezani. Msaidizi wako, daima karibu nawe.
+
+Iwe unaandika, kuprogramu, kufupisha, kutafsiri, kutafakari, kuendesha kiotomatiki mtiririko wa kazi, kusimamia barua pepe au kusoma — Kai ni mbadala wa bure, bila matangazo na chanzo wazi wa ChatGPT unaokubaliana nawe.

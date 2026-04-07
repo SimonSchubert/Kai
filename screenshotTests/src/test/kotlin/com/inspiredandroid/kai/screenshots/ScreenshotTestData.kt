@@ -63,7 +63,7 @@ object ScreenshotTestData {
             "{\"type\":\"stat\",\"value\":\"50g\",\"label\":\"Gold\"}," +
             "{\"type\":\"stat\",\"value\":\"2\",\"label\":\"DEF\"}" +
             "]}," +
-            "{\"type\":\"image\",\"url\":\"resource://orc_survival.png\",\"aspectRatio\":1.78}," +
+            "{\"type\":\"image\",\"url\":\"resource://orc_survival.png\"}," +
             "{\"type\":\"text\",\"value\":\"The tunnel forks. To the left, faint firelight flickers. To the right, silence \u2014 and a cold draft that makes your torch sputter.\",\"style\":\"body\"}," +
             "{\"type\":\"divider\"}," +
             "{\"type\":\"alert\",\"severity\":\"warning\",\"message\":\"\uD83D\uDC7A Two orcs block the left passage! They haven't noticed you yet.\"}," +

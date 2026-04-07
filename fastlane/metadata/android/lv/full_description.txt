@@ -1,34 +1,47 @@
-Iepazīstieties ar Kai — jūsu lokālā OpenClaw alternatīva kabatā. Ātra, atvērtā koda AI čata lietotne, ko darbina tādi modeļi kā Llama, Gemini, GPT un DeepSeek. Ienirstiet netraucētās sarunās prāta vētrai, rakstīšanai, apkopošanai, mācībām vai ikdienas sarunām — tas viss minimālistiskā saskarnē, kas ielādējas sekundēs.
+Atvērtā koda MI tērzēšanas lietotne, kas veido interaktīvus ekrānus, ne tikai tekstu. Kai ir bezmaksas ChatGPT alternatīva ar dvēseli, sirdspukstu, pastāvīgām atmiņām un pastiprinātu mācīšanos — MI asistents, kas attīstās ar katru sarunu.
 
-Atbalstītie AI pakalpojumi
-• Ollama / LM Studio: Savienojieties ar pašmitinātiem lokāliem AI modeļiem (OpenAI-saderīgi)
-• OpenAI: Piekļūstiet GPT modeļiem jaudīgām sarunām
-• Gemini: Google uzlabotais AI ar iebūvētu failu pielikumu atbalstu
-• DeepSeek: Augstas veiktspējas spriešanas modeļi
-• xAI: Inovatīvi Grok modeļi radošām un iedvesmojošām atbildēm
-• Mistral AI: Efektīvi daudzvalodu modeļi
-• Groq: Īpaši ātra AI izpilde ātrai atbildei
-• OpenRouter: Piekļūstiet simtiem modeļu caur vienu API
-• NVIDIA: Palaidiet NVIDIA mitinātus modeļus
-• Jebkurš OpenAI-saderīgs API: Izmantojiet savu galapunktu
+Atšķirībā no parastajiem tērzēšanas robotiem, Kai ģenerē interaktīvu saskarni — pogas, formas, tabulas, diagrammas un pilnekrāna lietotnes — tieši tērzēšanā. Lūdziet izveidot kalkulatoru, viktorīnu vai uzdevumu sarakstu, un tas attēlos reālu, funkcionējošu saskarni.
 
-Galvenās funkcijas
-• Noturīgā atmiņa: AI atceras svarīgas detaļas dažādās sarunās
-• Šifrēta lokālā krātuve: Droši glabājiet čata vēsturi savā ierīcē
-• Teksta pārvēršana runā: Klausieties AI atbildes dabīgi skanošā balss izvadē
-• Failu pielikumi: Augšupielādējiet failus, lai uzlabotu sarunas (atbalstīts Gemini)
-• Nemanāma pakalpojumu maiņa: Pārslēdzieties starp AI pakalpojumu sniedzējiem sarunas laikā
-• Daudzpakāpju sarunas: Kontekstapzinīgas sarunas, kur AI atceras iepriekšējos ziņojumus
-• Fona dēmons un uzdevumu plānošana: Plānojiet uzdevumus ar cron izteiksmēm vai sirdspukstu intervāliem
+🧠 Dvēsele un atmiņa — tērzēšanas robots, kas jūs pazīst
+Piešķiriet Kai personību, uzrakstot tā "dvēseli". Tas atceras svarīgo — jūsu preferences, iepriekšējās mācības un zināmās problēmas — un pastiprina šīs zināšanas laika gaitā. Jo vairāk tērzējat, jo gudrāks tas kļūst.
 
-AI rīki (iespējojiet iestatījumos)
-• Iegūt lokālo laiku: Precīza pašreizējā datuma un laika informācija
-• Iegūt atrašanās vietu: Atbildes, kas balstītas uz atrašanās vietu, izmantojot IP noteikšanu
-• Sūtīt paziņojumu: AI aktivizēti push paziņojumi
-• Izveidot kalendāra notikumu: Pievienojiet notikumus kalendāram no čata
-• Meklēšana tīmeklī: Ļaujiet AI meklēt tīmeklī aktuālas atbildes
-• Palaist čaulas komandu: Izpildiet komandas savā ierīcē caur AI
-• Plānot / Atcelt / Uzskaitīt uzdevumus: Pārvaldiet atkārtotus AI uzdevumus
+💓 Sirdspuksts — vienmēr aktīvais personīgais aģents
+Kai neguļ. Sirdspuksta sistēma pārbauda pēc grafika — pārskata uzdevumus, e-pastus un tendences — pat kad jūs netērzējat. Kad kaut kas prasa uzmanību, Kai informē. Kad viss kārtībā, tas klusē.
 
-Privātums vispirms
-Kai prioritizē jūsu privātumu: Visa čata vēsture tiek glabāta lokāli ar spēcīgu šifrēšanu. Izmantojot mākoņa AI pakalpojumus, jūsu dati tiek sūtīti tieši pakalpojumu sniedzējiem apstrādei — lietotne pati neveic datu vākšanu. Saglabājiet kontroli ar šo atvērtā koda AI čata lietotni.
+⚡ 24 pakalpojumi — viena lietotne, visi modeļi
+Pieslēdzieties ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok un vēl 17 sniedzējiem. Palaidiet lokālos modeļus ar Ollama vai LM Studio. Iebūvēts bezmaksas līmenis — API atslēga nav nepieciešama.
+
+Atbalstītie pakalpojumi
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (ar failu pielikumiem)
+• Anthropic Claude
+• DeepSeek (R1 spriešana)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / jebkura ar OpenAI saderīga API
+• Iebūvēts bezmaksas līmenis
+
+🛠️ 40+ rīku — vairāk nekā tērzēšana
+Iespējojiet jaudīgus rīkus, kas ļauj asistentam rīkoties:
+• Meklēšana tīmeklī — reāllaika atbildes no interneta
+• E-pasts — pārbaudīt, lasīt, atbildēt, rakstīt un meklēt
+• Termināļa komandas — izpildīt komandas jūsu ierīcē
+• Uzdevumu plānošana — atkārtoti uzdevumi ar cron
+• Kalendāra notikumi — veidot notikumus no tērzēšanas
+• Teksta pārvēršana runā — klausieties dabiskā balsī
+• Paziņojumi — automātiski push brīdinājumi
+• Atrašanās vieta un laiks — kontekstjutīgas atbildes
+• MCP serveri — pieslēgties ārējiem rīku serveriem
+
+🖥️ Interaktīvās saskarnes režīms
+Pārejiet pilnekrāna režīmā. Kai kļūst par vizuālu lietotņu veidotāju — bez markdown, bez ritināma teksta. Tikai pieskārieniem reaģējoši, funkcionāli ekrāni. Tas ir kā personīgs izstrādātājs jūsu kabatā.
+
+🔒 Privātums vispirms, atvērtais kods un bez reklāmām
+Visa tērzēšanas vēsture ir šifrēta un glabāta tikai jūsu ierīcē. Bez reklāmām, datu vākšanas vai izsekošanas. API pieprasījumi tiek nosūtīti tieši jūsu sniedzējam. Pilnībā atvērtais kods, pilnīga caurskatāmība.
+
+🌍 Darbojas visur
+Izmantojiet Kai savā Android tālrunī, planšetdatorā, Chromebook vai galddatorā. Jūsu asistents vienmēr pa rokai.
+
+Neatkarīgi no tā, vai rakstāt, programmējat, tulkojat vai mācāties — Kai ir bezmaksas, bez reklāmām, atvērtā koda ChatGPT alternatīva, kas pielāgojas jums.

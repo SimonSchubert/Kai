@@ -1,34 +1,47 @@
-Möt Kai — ditt lokala OpenClaw-alternativ i fickan. En snabb AI-chattapp med öppen källkod, driven av modeller som Llama, Gemini, GPT och DeepSeek. Dyk in i smidiga chattar för brainstorming, skrivande, sammanfattning, lärande eller vardagliga samtal — allt i ett minimalistiskt gränssnitt som laddas på sekunder.
+AI-chattapp med oppen kallkod som bygger interaktiva skarmar, inte bara text. Kai ar ett gratis ChatGPT-alternativ med en sjal, ett hjartslag, bestande minnen och forstarkt larande — en AI-assistent som utvecklas med varje samtal du har.
 
-AI-tjänster som stöds
-• Ollama / LM Studio: Anslut till dina lokalt hostade AI-modeller (OpenAI-kompatibla)
-• OpenAI: Få tillgång till GPT-modeller för kraftfulla konversationer
-• Gemini: Googles avancerade AI med inbyggt stöd för filbilagor
-• DeepSeek: Högpresterande resonemangsmodeller
-• xAI: Innovativa Grok-modeller för kreativa och insiktsfulla svar
-• Mistral AI: Effektiva flerspråkiga modeller
-• Groq: Ultrasnabb AI-inferens för snabba svar
-• OpenRouter: Få tillgång till hundratals modeller via ett API
-• NVIDIA: Kör NVIDIA-hostade modeller
-• Alla OpenAI-kompatibla API:er: Anslut din egen endpoint
+Till skillnad fran vanliga chatbotar genererar Kai nativt interaktivt granssnitt — knappar, formular, tabeller, diagram och helskarmsprogram — direkt i chatten. Be den bygga en kalkylator, ett quiz, en instrumentpanel eller en att gora-lista, sa renderar den ett riktigt fungerande granssnitt du kan trycka, svepa och interagera med. Det har ar AI bortom text.
 
-Nyckelfunktioner
-• Beständigt minne: AI kommer ihåg viktiga detaljer mellan konversationer
-• Krypterad lokal lagring: Lagra din chatthistorik säkert på din enhet
-• Text-till-tal: Lyssna på AI-svar med naturligt klingande röstutmatning
-• Filbilagor: Ladda upp filer för att förbättra dina konversationer (stöds på Gemini)
-• Smidig tjänstväxling: Byt mellan AI-leverantörer utan ansträngning mitt i konversationen
-• Flerstegskonversationer: Kontextmedvetna chattar där AI minns tidigare meddelanden
-• Bakgrundsdemon och schemaläggning: Schemalägg uppgifter med cron-uttryck eller heartbeat-intervall
+🧠 Sjal och Minne — En chattbot som kanner dig
+Ge Kai en personlighet genom att skriva dess "sjal." Den kommer ihag det som ar viktigt over samtal — dina preferenser, tidigare laroerfarenheter och kanda problem — och forstarker den kunskapen over tid. Minnen som visar sig vara anvanbara befordras till dess permanenta personlighet. Ju mer du chattar, desto smartare blir den.
 
-AI-verktyg (Aktivera i Inställningar)
-• Hämta lokal tid: Exakt information om aktuellt datum och tid
-• Hämta plats: Platsbaserade svar med IP-detektering
-• Skicka avisering: Push-aviseringar utlösta av AI
-• Skapa kalenderhändelse: Lägg till händelser i din kalender från chatten
-• Webbsökning: Låt AI söka på webben efter aktuella svar
-• Kör Shell-kommando: Exekvera kommandon på din enhet via AI
-• Schemalägg / Avbryt / Lista uppgifter: Hantera återkommande AI-uppgifter
+💓 Hjartslag — Din personliga agent, alltid aktiv
+Kai sover inte. Dess hjartslag-system kollar in regelbundet — granskar vantande uppgifter, mejl och trender — aven nar du inte chattar. Stall in intervallet, aktiva timmar och modell. Nar nagot kraver din uppmarksamhet pakallar Kai den. Nar allt ar lugnt haller den sig tyst.
 
-Integritet först
-Kai prioriterar din integritet: All chatthistorik lagras lokalt med stark kryptering. När du använder molnbaserade AI-tjänster skickas dina data direkt till leverantörerna för bearbetning — ingen datainsamling av appen själv. Behåll kontrollen med denna AI-chattapp med öppen källkod.
+⚡ 24 tjanster — En app, varje modell
+Anslut till ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok och 17 fler leverantorer. Kor lokala modeller via Ollama eller LM Studio for privat offlineanvandning. Lagg till flera konton, ordna om prioriteringar och lat den smarta reservkedjan hantera avbrott automatiskt. En inbyggd gratisniva innebar att du kan borja chatta utan nagon installation — ingen API-nyckel behovs.
+
+Tjanster som stods
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (med filbilagor)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / alla OpenAI-kompatibla API:er
+• Inbyggd gratisniva
+
+🛠️ 40+ verktyg — Mer an chatt
+Aktivera kraftfulla verktyg som later assistenten agera, inte bara prata:
+• Webbsokning — realtidssvar fran internet
+• E-post — kontrollera, lasa, svara, skriva och soka
+• Shell-kommandon — exekvera terminalkommandon pa din enhet
+• Uppgiftsschemalagning — stall in aterkommande uppgifter med cron-uttryck
+• Kalenderhardelser — skapa handelser direkt fran chatten
+• Text-till-tal — lyssna pa svar med naturlig rost
+• Notiser — utlosta push-notiser
+• Plats och tid — kontextmedvetna svar
+• MCP Servers — anslut till externa verktygservrar
+
+🖥️ Interaktivt UI-lage
+Ga till helskarmsvy. I interaktivt lage blir Kai en visuell appbyggare — ingen markdown, ingen rullande text. Bara tryckbara, funktionella skarmar som genereras i flygande fart. Navigera helt genom knappar och inmatningsfalt. Det ar som att ha en personlig apputvecklare i fickan.
+
+🔒 Integritet forst, oppen kallkod och reklamfritt
+All chatthistorik ar krypterad och lagrad lokalt pa din enhet. Inga annonser, ingen datainsamling, ingen sparning. API-anrop gar direkt till din valda leverantor — Kai star aldrig i vagen. Kor lokala modeller for en helt offline och privat upplevelse. Helt oppen kallkod, helt transparent.
+
+🌍 Fungerar overallt
+Anvand Kai pa din Android-telefon, surfplatta, Chromebook eller dator. Din assistent, alltid inom rackvidd.
+
+Oavsett om du skriver, kodar, sammanfattar, oversatter, brainstormar, automatiserar arbetsfloden, hanterar e-post eller studerar — Kai ar det gratis, reklamfria, ChatGPT-alternativet med oppen kallkod som anpassar sig efter dig.

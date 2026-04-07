@@ -1,34 +1,47 @@
-Susipažinkite su Kai — jūsų vietine OpenClaw alternatyva kišenėje. Greita, atvirojo kodo AI pokalbių programa, veikianti su tokiais modeliais kaip Llama, Gemini, GPT ir DeepSeek. Mėgaukitės sklandžiais pokalbiais minčių lietui, rašymui, apibendrinimui, mokymuisi ar laisviems pokalbiams — visa tai minimalistinėje sąsajoje, kuri užsikrauna per kelias sekundes.
+Atvirojo kodo DI pokalbių programa, kuri kuria interaktyvius ekranus, o ne tik tekstą. Kai yra nemokama ChatGPT alternatyva su siela, širdies plakimu, nuolatiniais prisiminimais ir sustiprintu mokymusi — DI asistentas, kuris tobulėja su kiekvienu pokalbiu.
 
-Palaikomos AI paslaugos
-• Ollama / LM Studio: Prisijunkite prie savo lokaliai talpinamų AI modelių (suderinami su OpenAI)
-• OpenAI: Pasiekite GPT modelius galingiems pokalbiams
-• Gemini: Pažangi „Google" AI su integruotu failų priedų palaikymu
-• DeepSeek: Didelio našumo samprotavimo modeliai
-• xAI: Novatoriški Grok modeliai kūrybiškiems ir įžvalgiems atsakymams
-• Mistral AI: Efektyvūs daugiakalbiai modeliai
-• Groq: Itin greita AI išvada greitiems atsakymams
-• OpenRouter: Pasiekite šimtus modelių per vieną API
-• NVIDIA: Paleiskite NVIDIA talpinamų modelius
-• Bet kuri su OpenAI suderinama API: Naudokite savo galutinį tašką
+Skirtingai nuo įprastų pokalbių robotų, Kai generuoja interaktyvią sąsają — mygtukus, formas, lenteles, diagramas ir viso ekrano programas — tiesiai pokalbio viduje. Paprašykite sukurti skaičiuoklę, viktoriną ar užduočių sąrašą, ir jis sukurs tikrą veikiančią sąsają.
 
-Pagrindinės funkcijos
-• Nuolatinė atmintis: AI prisimena svarbias detales tarp pokalbių
-• Šifruota vietinė saugykla: Saugiai saugokite pokalbių istoriją savo įrenginyje
-• Teksto vertimas į kalbą: Klausykitės AI atsakymų natūraliu balsu
-• Failų priedai: Įkelkite failus pokalbių praturtinimui (palaikoma Gemini)
-• Sklandus paslaugų perjungimas: Lengvai keiskite AI teikėjus pokalbio metu
-• Daugiažingsniai pokalbiai: Kontekstą suvokiantys pokalbiai, kuriuose AI prisimena ankstesnius pranešimus
-• Foninis procesas ir užduočių planavimas: Planuokite užduotis naudodami cron išraiškas arba heartbeat intervalus
+🧠 Siela ir atmintis — pokalbių robotas, kuris jus pažįsta
+Suteikite Kai asmenybę parašydami jo „sielą". Jis prisimena tai, kas svarbu — jūsų nuostatas, mokymosi momentus ir žinomas problemas — ir sustiprina šias žinias laikui bėgant. Kuo daugiau bendraujate, tuo protingesnis jis tampa.
 
-AI įrankiai (Įjunkite nustatymuose)
-• Gauti vietinį laiką: Tiksli dabartinė datos ir laiko informacija
-• Gauti vietovę: Atsakymai pagal vietovę naudojant IP aptikimą
-• Siųsti pranešimą: AI suaktyvinami push pranešimai
-• Sukurti kalendoriaus įvykį: Pridėkite įvykius į kalendorių iš pokalbio
-• Paieška internete: Leiskite AI ieškoti naujausių atsakymų internete
-• Paleisti Shell komandą: Vykdykite komandas savo įrenginyje per AI
-• Planuoti / atšaukti / peržiūrėti užduotis: Tvarkykite pasikartojančias AI užduotis
+💓 Širdies plakimas — visada veikiantis asmeninis agentas
+Kai nemiega. Jo sistema tikrina pagal tvarkaraštį — peržiūri užduotis, el. laiškus ir tendencijas — net kai nesikalbate. Kai kažkas reikalauja dėmesio, Kai praneša. Kai viskas gerai, jis tyli.
 
-Privatumas pirmiausia
-Kai teikia pirmenybę jūsų privatumui: visa pokalbių istorija saugoma vietiniame įrenginyje su stipriu šifravimu. Naudojant debesijos AI paslaugas, jūsų duomenys siunčiami tiesiogiai teikėjams apdorojimui — pati programa nerenka jokių duomenų. Kontroliuokite savo duomenis su šia atvirojo kodo AI pokalbių programa.
+⚡ 24 paslaugos — viena programa, visi modeliai
+Prisijunkite prie ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ir dar 17 tiekėjų. Paleiskite vietinius modelius per Ollama arba LM Studio. Integruotas nemokamas lygis — API rakto nereikia.
+
+Palaikomos paslaugos
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (su failų priedais)
+• Anthropic Claude
+• DeepSeek (R1 samprotavimas)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / bet kuri su OpenAI suderinama API
+• Integruotas nemokamas lygis
+
+🛠️ 40+ įrankių — daugiau nei pokalbis
+Įjunkite galingus įrankius, leidžiančius asistentui veikti:
+• Paieška internete — realaus laiko atsakymai
+• El. paštas — tikrinti, skaityti, atsakyti, rašyti ir ieškoti
+• Terminalo komandos — vykdyti komandas jūsų įrenginyje
+• Užduočių planavimas — pasikartojančios užduotys su cron
+• Kalendoriaus įvykiai — kurti įvykius iš pokalbio
+• Teksto vertimas į kalbą — klausykite natūraliu balsu
+• Pranešimai — automatiniai tiesioginiai įspėjimai
+• Vieta ir laikas — kontekstui jautrūs atsakymai
+• MCP serveriai — prisijungti prie išorinių įrankių serverių
+
+🖥️ Interaktyvios sąsajos režimas
+Pereikite į viso ekrano režimą. Kai tampa vizualiu programų kūrėju — be markdown, be slenkamo teksto. Tik paspaudžiami, veikiantys ekranai. Tai tarsi asmeninis programų kūrėjas jūsų kišenėje.
+
+🔒 Privatumas pirmiausia, atvirasis kodas ir be reklamų
+Visa pokalbių istorija užšifruota ir saugoma tik jūsų įrenginyje. Jokių reklamų, duomenų rinkimo ar sekimo. API užklausos siunčiamos tiesiai tiekėjui. Visiškai atviras kodas, visiškai skaidrus.
+
+🌍 Veikia visur
+Naudokite Kai savo Android telefone, planšetėje, Chromebook ar kompiuteryje. Jūsų asistentas visada po ranka.
+
+Nesvarbu, ar rašote, programuojate, verčiate ar mokotės — Kai yra nemokama, be reklamų, atvirojo kodo ChatGPT alternatyva, kuri prisitaiko prie jūsų.

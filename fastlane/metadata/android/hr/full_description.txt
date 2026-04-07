@@ -1,34 +1,47 @@
-Upoznajte Kai — vašu lokalnu OpenClaw alternativu u džepu. Brza, open-source AI chat aplikacija pokretana modelima poput Llama, Gemini, GPT i DeepSeek. Uronite u besprijekorne razgovore za brainstorming, pisanje, sažimanje, učenje ili neformalne razgovore — sve u minimalističkom sučelju koje se učitava u sekundi.
+AI chat aplikacija otvorenog koda koja gradi interaktivne zaslone, ne samo tekst. Kai je besplatna ChatGPT alternativa s dušom, otkucajima srca, trajnom memorijom i pojačanim učenjem — AI asistent koji se razvija sa svakim vašim razgovorom.
 
-Podržane AI usluge
-• Ollama / LM Studio: Povežite se sa svojim lokalno hostiranim AI modelima (OpenAI-kompatibilno)
-• OpenAI: Pristupite GPT modelima za moćne razgovore
-• Gemini: Googleov napredni AI s ugrađenom podrškom za privitke datoteka
-• DeepSeek: Visokoučinkoviti modeli za zaključivanje
-• xAI: Inovativni Grok modeli za kreativne i pronicljive odgovore
-• Mistral AI: Učinkoviti višejezični modeli
-• Groq: Ultrabrza AI inferencija za brze odgovore
-• OpenRouter: Pristupite stotinama modela putem jednog API-ja
-• NVIDIA: Pokrenite NVIDIA-hostirane modele
-• Bilo koji OpenAI-kompatibilni API: Koristite vlastitu krajnju točku
+Za razliku od običnih chatbotova, Kai generira nativni interaktivni UI — gumbe, obrasce, tablice, grafikone i aplikacije na cijelom zaslonu — izravno u chatu. Zamolite ga da napravi kalkulator, kviz, nadzornu ploču ili popis zadataka, i on renderira pravo funkcionalno sučelje koje možete dodirnuti, povući i koristiti. Ovo je AI izvan teksta.
 
-Ključne značajke
-• Trajna memorija: AI pamti važne detalje između razgovora
-• Šifrirano lokalno spremište: Sigurno pohranite povijest razgovora na svom uređaju
-• Pretvaranje teksta u govor: Slušajte AI odgovore prirodnim glasom
-• Privici datoteka: Učitajte datoteke za poboljšanje razgovora (podržano na Gemini)
-• Besprijekorno prebacivanje usluga: Prebacujte se između AI pružatelja bez napora usred razgovora
-• Višestruki razgovori: Kontekstualno svjesni razgovori gdje AI pamti prethodne poruke
-• Pozadinski daemon i zakazivanje zadataka: Zakažite zadatke s cron izrazima ili heartbeat intervalima
+🧠 Duša i memorija — Chatbot koji vas poznaje
+Dajte Kaiju osobnost pisanjem njegove "duše." Pamti ono što je važno kroz razgovore — vaše preferencije, prošla učenja i poznate probleme — i pojačava to znanje tijekom vremena. Sjećanja koja se pokažu korisnima napreduju u njegovu trajnu osobnost. Što više razgovarate, to postaje pametniji.
 
-AI alati (Omogućite u postavkama)
-• Dohvati lokalno vrijeme: Točan trenutni datum i vrijeme
-• Dohvati lokaciju: Odgovori temeljeni na lokaciji pomoću IP detekcije
-• Pošalji obavijest: Push obavijesti koje pokreće AI
-• Stvori kalendarski događaj: Dodajte događaje u svoj kalendar iz razgovora
-• Web pretraživanje: Pustite AI da pretražuje web za aktualne odgovore
-• Pokreni shell naredbu: Izvršite naredbe na svom uređaju putem AI-ja
-• Zakaži / Otkaži / Prikaži zadatke: Upravljajte ponavljajućim AI zadacima
+💓 Otkucaj srca — Vaš uvijek aktivni osobni agent
+Kai ne spava. Njegov sustav otkucaja srca provjerava prema rasporedu — pregledava zadatke na čekanju, emailove i trendove — čak i kad ne razgovarate. Postavite interval, aktivne sate i model. Kad nešto zahtijeva vašu pozornost, Kai to iznosi. Kad je sve u redu, ostaje tih.
 
-Privatnost na prvom mjestu
-Kai stavlja vašu privatnost na prvo mjesto: sva povijest razgovora pohranjuje se lokalno s jakom enkripcijom. Kada koristite AI usluge u oblaku, vaši podaci šalju se izravno pružateljima na obradu — aplikacija sama ne prikuplja podatke. Zadržite kontrolu s ovom open-source AI chat aplikacijom.
+⚡ 24 servisa — Jedna aplikacija, svaki model
+Povežite se s ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok i još 17 pružatelja. Pokrenite lokalne modele putem Ollama ili LM Studio za privatnu, offline upotrebu. Dodajte više računa, promijenite prioritete i pustite pametni lanac zamjene da automatski obradi ispade. Ugrađena besplatna razina znači da možete početi razgovarati bez ikakve postavke — nije potreban API ključ.
+
+Podržani servisi
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (s privicima datoteka)
+• Anthropic Claude
+• DeepSeek (R1 zaključivanje)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / bilo koji OpenAI-kompatibilni API
+• Ugrađena besplatna razina
+
+🛠️ 40+ alata — Izvan chata
+Omogućite moćne alate koji asistentu dopuštaju da djeluje, a ne samo govori:
+• Web pretraživanje — odgovori u stvarnom vremenu s interneta
+• Email — provjerite, čitajte, odgovarajte, pišite i pretražujte
+• Shell naredbe — izvršite terminalne naredbe na svom uređaju
+• Zakazivanje zadataka — postavite ponavljajuće zadatke s cron izrazima
+• Kalendarski događaji — izravno stvarajte događaje iz chata
+• Tekst u govor — slušajte odgovore prirodnim glasom
+• Obavijesti — pokrenute push obavijesti
+• Lokacija i vrijeme — kontekstualno svjesni odgovori
+• MCP Servers — povežite se s vanjskim poslužiteljima alata
+
+🖥️ Interaktivni UI način
+Idite na cijeli zaslon. U interaktivnom načinu Kai postaje vizualni graditelj aplikacija — bez markdowna, bez pomicanja teksta. Samo dodirljivi, funkcionalni zasloni generirani u hodu. Navigirajte isključivo gumbima i unosima. Kao da imate osobnog razvijatelja aplikacija u džepu.
+
+🔒 Privatnost na prvom mjestu, otvoreni kod i bez oglasa
+Sva povijest razgovora je šifrirana i pohranjena lokalno na vašem uređaju. Bez oglasa, bez prikupljanja podataka, bez praćenja. API pozivi idu izravno vašem odabranom pružatelju — Kai nikad nije posrednik. Pokrenite lokalne modele za potpuno offline, privatno iskustvo. Potpuno otvoreni kod, potpuno transparentno.
+
+🌍 Radi svugdje
+Koristite Kai na Android telefonu, tabletu, Chromebooku ili stolnom računalu. Vaš asistent, uvijek nadohvat ruke.
+
+Bilo da pišete, kodirate, sažimate, prevodite, brainstormirate, automatizirate radne procese, upravljate emailovima ili učite — Kai je besplatna, bez oglasa, ChatGPT alternativa otvorenog koda koja se prilagođava vama.

@@ -1,34 +1,47 @@
-Meet Kai — your local OpenClaw alternative in your pocket. A fast, open-source AI chat app powered by models like Llama, Gemini, GPT, and DeepSeek. Dive into seamless chats for brainstorming, writing, summarizing, learning, or casual talks — all in a minimalist interface that loads in seconds.
+Open-source AI chat app that builds interactive screens, not just text. Kai is a free ChatGPT alternative with a soul, a heartbeat, persistent memories, and reinforced learning — an AI assistant that evolves with every conversation you have.
 
-Supported AI Services
-• Ollama / LM Studio: Connect to your self-hosted local AI models (OpenAI-compatible)
-• OpenAI: Access GPT models for powerful conversations
-• Gemini: Google's advanced AI with built-in file attachment support
-• DeepSeek: High-performance reasoning models
-• xAI: Innovative Grok models for creative and insightful responses
-• Mistral AI: Efficient multilingual models
-• Groq: Ultra-fast AI inference for quick replies
-• OpenRouter: Access hundreds of models through one API
-• NVIDIA: Run NVIDIA-hosted models
-• Any OpenAI-compatible API: Bring your own endpoint
+Unlike ordinary chatbots, Kai generates native interactive UI — buttons, forms, tables, charts, and full-screen apps — right inside the chat. Ask it to build a calculator, a quiz, a dashboard, or a to-do list, and it renders a real working interface you can tap, swipe, and interact with. This is AI beyond text.
 
-Key Features
-• Persistent Memory: AI remembers important details across conversations
-• Encrypted Local Storage: Securely store your chat history on your device
-• Text-to-Speech: Hear AI responses aloud with natural-sounding voice output
-• File Attachments: Upload files to enhance your conversations (supported on Gemini)
-• Seamless Service Switching: Switch between AI providers effortlessly mid-conversation
-• Multi-Turn Conversations: Context-aware chats where AI remembers previous messages
-• Background Daemon & Task Scheduling: Schedule tasks with cron expressions or heartbeat intervals
+🧠 Soul & Memory — A Chatbot That Knows You
+Give Kai a personality by writing its "soul." It remembers what matters across conversations — your preferences, past learnings, and known issues — and reinforces that knowledge over time. Memories that prove useful get promoted into its permanent personality. The more you chat, the smarter it gets.
 
-AI Tools (Enable in Settings)
-• Get Local Time: Accurate current date and time info
-• Get Location: Location-based responses using IP detection
-• Send Notification: Push notifications triggered by AI
-• Create Calendar Event: Add events to your calendar from chat
-• Web Search: Let AI search the web for up-to-date answers
-• Run Shell Command: Execute commands on your device via AI
-• Schedule / Cancel / List Tasks: Manage recurring AI tasks
+💓 Heartbeat — Your Always-On Personal Agent
+Kai doesn't sleep. Its heartbeat system checks in on a schedule — reviewing pending tasks, emails, and trends — even when you're not chatting. Set the interval, active hours, and model. When something needs your attention, Kai surfaces it. When everything's fine, it stays quiet.
 
-Privacy First
-Kai prioritizes your privacy: All chat history is stored locally with strong encryption. When using cloud AI services, your data is sent directly to the providers for processing — no data collection by the app itself. Stay in control with this open-source AI chat app.
+⚡ 24 Services — One App, Every Model
+Connect to ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok, and 17 more providers. Run local models via Ollama or LM Studio for private, offline use. Add multiple accounts, reorder priorities, and let the smart fallback chain handle outages automatically. A built-in free tier means you can start chatting with zero setup — no API key needed.
+
+Supported Services
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (with file attachments)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / any OpenAI-compatible API
+• Built-in Free tier
+
+🛠️ 40+ Tools — Beyond Chat
+Enable powerful tools that let the assistant act, not just talk:
+• Web Search — real-time answers from the internet
+• Email — check, read, reply, compose, and search
+• Shell Commands — execute terminal commands on your device
+• Task Scheduling — set up recurring tasks with cron expressions
+• Calendar Events — create events directly from chat
+• Text-to-Speech — hear responses aloud with natural voice output
+• Notifications — triggered push alerts
+• Location & Time — context-aware responses
+• MCP Servers — connect to external tool servers
+
+🖥️ Interactive UI Mode
+Go full-screen. In Interactive Mode, Kai becomes a visual app builder — no markdown, no scrolling text. Just tappable, functional screens generated on the fly. Navigate entirely through buttons and inputs. It's like having a personal app developer in your pocket.
+
+🔒 Privacy-First, Open Source & Ad-Free
+All chat history is encrypted and stored locally on your device. No ads, no data collection, no tracking. API calls go directly to your chosen provider — Kai never sits in the middle. Run local models for a fully offline, private experience. Fully open source, fully transparent.
+
+🌍 Works Everywhere
+Use Kai on your Android phone, tablet, Chromebook, or desktop. Your assistant, always within reach.
+
+Whether you're writing, coding, summarizing, translating, brainstorming, automating workflows, managing emails, or studying — Kai is the free, ad-free, open-source ChatGPT alternative that adapts to you.

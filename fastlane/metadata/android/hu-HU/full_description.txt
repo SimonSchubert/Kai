@@ -1,34 +1,47 @@
-Ismerd meg Kai-t — a helyi OpenClaw alternatívát a zsebedben. Egy gyors, nyílt forráskódú AI csevegőalkalmazás, amelyet olyan modellek hajtanak, mint a Llama, Gemini, GPT és DeepSeek. Merülj el a gördülékeny beszélgetésekben ötleteléshez, íráshoz, összefoglaláshoz, tanuláshoz vagy kötetlen csevegéshez — mindezt egy minimalista felületen, amely másodpercek alatt betölt.
+Nyilt forraskodu AI chat alkalmazas, amely interaktiv keppernyoket epit, nem csak szoveget. Kai egy ingyenes ChatGPT alternativa lelekkel, szivveressel, tarto memoriaval es megerositett tanulassal — egy AI asszisztens, amely minden beszelgetessel fejlodik.
 
-Támogatott AI szolgáltatások
-• Ollama / LM Studio: Csatlakozz saját helyi AI modelljeidhez (OpenAI-kompatibilis)
-• OpenAI: Hozzáférés GPT modellekhez hatékony beszélgetésekhez
-• Gemini: A Google fejlett AI-ja beépített fájlmelléklet-támogatással
-• DeepSeek: Nagy teljesítményű következtetési modellek
-• xAI: Innovatív Grok modellek kreatív és éleslátó válaszokhoz
-• Mistral AI: Hatékony többnyelvű modellek
-• Groq: Ultragyors AI következtetés villámgyors válaszokhoz
-• OpenRouter: Hozzáférés több száz modellhez egyetlen API-n keresztül
-• NVIDIA: NVIDIA által hosztolt modellek futtatása
-• Bármely OpenAI-kompatibilis API: Használd a saját végpontodat
+A hagyomanyos chatbotoktol elteroen Kai nativ interaktiv feluletet general — gombokat, urlapokat, tablazatokat, diagramokat es teljes keppernyos alkalmazasokat — kozvetlenul a chatben. Kerd meg, hogy epitsen szamologepet, kvizt vagy feladatlistat, es valodi, mukodo feluletet renderel, amelyet megerinthetsz es hasznalhatsz. Ez az AI a szovegen tul.
 
-Főbb funkciók
-• Tartós memória: Az AI megjegyzi a fontos részleteket a beszélgetések között
-• Titkosított helyi tárhely: Csevegési előzményeid biztonságosan tárolódnak az eszközödön
-• Szövegfelolvasás: Hallgasd meg az AI válaszait természetes hangon
-• Fájlmellékletek: Tölts fel fájlokat a beszélgetéseid gazdagításához (Gemini-n támogatott)
-• Zökkenőmentes szolgáltatásváltás: Válts AI szolgáltatók között könnyedén a beszélgetés közben
-• Többfordulós beszélgetések: Kontextustudatos csevegések, ahol az AI emlékszik a korábbi üzenetekre
-• Háttérdémon és feladatütemezés: Ütemezz feladatokat cron kifejezésekkel vagy heartbeat intervallumokkal
+🧠 Lelek es memoria — Egy chatbot, amely ismer teged
+Adj Kai-nak szemelyiseget a "lelke" megirasaval. Emlekszik arra, ami fontos a beszelgetesek kozott — a preferenciaidra, korabbi tanulsagokra es ismert problemakra — es megerositi ezt a tudast idovel. A hasznos emlekek beepulnek az allando szemelyisegebe. Minel tobbet beszelgetsz, annal okosabb lesz.
 
-AI eszközök (Beállításokban engedélyezhető)
-• Helyi idő lekérése: Pontos aktuális dátum és idő
-• Helymeghatározás: Helyalapú válaszok IP-felismeréssel
-• Értesítés küldése: AI által kiváltott push értesítések
-• Naptáresemény létrehozása: Események hozzáadása a naptáradhoz csevegésből
-• Webes keresés: Engedd az AI-t a weben keresni naprakész válaszokért
-• Shell parancs futtatása: Parancsok végrehajtása az eszközödön AI segítségével
-• Feladatok ütemezése / törlése / listázása: Ismétlődő AI feladatok kezelése
+💓 Szivveres — Mindig aktiv szemelyes ugynokod
+Kai nem alszik. Szivveres rendszere utemezetten ellenoriz — attekinti a fuggo feladatokat, emaileket es trendeket — meg akkor is, amikor nem beszelgetsz. Allitsd be az intervallumot, az aktiv orakat es a modellt. Amikor valami figyelmet igenyel, Kai felszinre hozza. Amikor minden rendben, csendben marad.
 
-Adatvédelem az első
-Kai az adatvédelmedet helyezi előtérbe: minden csevegési előzmény erős titkosítással, helyben tárolódik. Felhőalapú AI szolgáltatások használatakor adataid közvetlenül a szolgáltatókhoz kerülnek feldolgozásra — az alkalmazás maga nem gyűjt adatokat. Tartsd kézben az irányítást ezzel a nyílt forráskódú AI csevegőalkalmazással.
+⚡ 24 szolgaltatas — Egy alkalmazas, minden modell
+Csatlakozz a ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok es meg 17 tovabbi szolgaltatohoz. Futtass helyi modelleket Ollama vagy LM Studio segitsegevel privat, offline hasznalatra. Adj hozza tobb fiokot, rendezd at a prioritasokat, es hagyd, hogy az intelligens tartalek lanc automatikusan kezelje a kimaradasokat. A beepitett ingyenes szint azt jelenti, hogy azonnal elkezdhetsz csevegesni — nem kell API kulcs.
+
+Tamogatott szolgaltatasok
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (fajlmellekletekkel)
+• Anthropic Claude
+• DeepSeek (R1 kovetkeztetes)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / barmely OpenAI-kompatibilis API
+• Beepitett ingyenes szint
+
+🛠️ 40+ eszkoz — A chaten tul
+Engedelyezz hatekony eszkozoket, amelyekkel az asszisztens cselekedhet, nem csak beszelhet:
+• Webes kereses — valos ideju valaszok az internetrol
+• Email — ellenorzes, olvasas, valasz, iras es kereses
+• Shell parancsok — terminalparancsok vegrehajtasa az eszkozodon
+• Feladatutemeses — ismetlodo feladatok beallitasa cron kifejezsekkel
+• Naptaresemenyek — esemenyek letrehozasa kozvetlenul a chatbol
+• Szovegfelolvasas — valaszok meghallgatasa termeszetes hangon
+• Ertesitesek — kivaltott push riasztasok
+• Helymegallapitas es ido — kontextustudatos valaszok
+• MCP Servers — csatlakozas kulso eszkozszerverekhez
+
+🖥️ Interaktiv UI mod
+Valtas teljes kepernyore. Interaktiv modban Kai vizualis alkalmazasepitove valik — nincs markdown, nincs gorgetheto szoveg. Csak megerintheto, mukodo kepernyok, amelyek menet kozben generalodnak. Navigalj kizarolag gombokkal es beviteli mezokkel. Mint egy alkalmazasfejleszto a zsebedben.
+
+🔒 Adatvedelem az elso, nyilt forraskod es hirdetesmentes
+Minden csevegesi elozmeny titkositva es helyben tarolva az eszkozodon. Nincs hirdetes, nincs adatgyujtes, nincs nyomon kovetes. Az API hivasok kozvetlenul a valasztott szolgaltatohoz mennek — Kai soha nincs kozottuk. Futtass helyi modelleket teljesen offline, privat elmenyert. Teljesen nyilt forraskodu, teljesen atlatszto.
+
+🌍 Mindenhol mukodik
+Hasznald Kai-t Android telefonodon, tablagepeden, Chromebookon vagy asztali gepen. Az asszisztensed, mindig kesznel.
+
+Legyen szo irasrol, kodolasrol, osszefoglalasrol, forditasrol, otletelesrol, munkafolyamatok automatizalasarol, emailek kezeleserol vagy tanulasrol — Kai az ingyenes, hirdetesmentes, nyilt forraskodu ChatGPT alternativa, amely hozzad alkalmazkodik.

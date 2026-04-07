@@ -1,34 +1,47 @@
-Seznamte se s Kai — vaší lokální alternativou OpenClaw v kapse. Rychlá open-source AI chatovací aplikace poháněná modely jako Llama, Gemini, GPT a DeepSeek. Ponořte se do plynulých konverzací pro brainstorming, psaní, shrnutí, učení nebo běžné povídání — to vše v minimalistickém rozhraní, které se načte za vteřiny.
+Open-source AI chatovací aplikace, která vytváří interaktivní obrazovky, nejen text. Kai je bezplatná alternativa k ChatGPT s duší, srdečním tepem, trvalými vzpomínkami a posilovaným učením — AI asistent, který se vyvíjí s každou konverzací.
 
-Podporované AI služby
-• Ollama / LM Studio: Připojte se k vlastním lokálním AI modelům (kompatibilní s OpenAI)
-• OpenAI: Přístup k modelům GPT pro výkonné konverzace
-• Gemini: Pokročilé AI od Google s vestavěnou podporou příloh
-• DeepSeek: Vysoce výkonné modely pro uvažování
-• xAI: Inovativní modely Grok pro kreativní a zasvěcené odpovědi
-• Mistral AI: Efektivní vícejazyčné modely
-• Groq: Ultrarychlá AI inference pro bleskové odpovědi
-• OpenRouter: Přístup ke stovkám modelů přes jedno API
-• NVIDIA: Spouštějte modely hostované na NVIDIA
-• Jakékoliv API kompatibilní s OpenAI: Použijte vlastní koncový bod
+Na rozdíl od běžných chatbotů generuje Kai nativní interaktivní UI — tlačítka, formuláře, tabulky, grafy a celoobrazovkové aplikace — přímo v chatu. Požádejte ho o vytvoření kalkulačky, kvízu, přehledového panelu nebo seznamu úkolů a on vykreslí skutečné fungující rozhraní, se kterým můžete interagovat. To je AI za hranicemi textu.
 
-Klíčové funkce
-• Trvalá paměť: AI si pamatuje důležité detaily napříč konverzacemi
-• Šifrované lokální úložiště: Bezpečně ukládejte historii chatů na svém zařízení
-• Převod textu na řeč: Poslechněte si odpovědi AI přirozeně znějícím hlasem
-• Přílohy souborů: Nahrajte soubory pro obohacení konverzací (podporováno v Gemini)
-• Plynulé přepínání služeb: Snadno přepínejte mezi poskytovateli AI uprostřed konverzace
-• Vícestupňové konverzace: Kontextově uvědomělé chaty, kde si AI pamatuje předchozí zprávy
-• Daemon na pozadí a plánování úloh: Plánujte úlohy pomocí výrazů cron nebo intervalů heartbeat
+🧠 Duše a Paměť — Chatbot, který vás zná
+Dejte Kai osobnost napsáním jeho "duše". Pamatuje si to důležité napříč konverzacemi — vaše preference, minulé poznatky a známé problémy — a posiluje tyto znalosti v čase. Vzpomínky, které se ukáží jako užitečné, jsou povýšeny do jeho trvalé osobnosti. Čím více chatujete, tím chytřejší je.
 
-AI nástroje (Aktivujte v Nastavení)
-• Zjistit místní čas: Přesné informace o aktuálním datu a čase
-• Zjistit polohu: Odpovědi na základě polohy pomocí detekce IP
-• Odeslat oznámení: Push oznámení spouštěná AI
-• Vytvořit událost v kalendáři: Přidejte události do kalendáře přímo z chatu
-• Vyhledávání na webu: Nechte AI vyhledávat na webu aktuální odpovědi
-• Spustit příkaz Shell: Spouštějte příkazy na zařízení prostřednictvím AI
-• Plánovat / Zrušit / Zobrazit úlohy: Spravujte opakující se AI úlohy
+💓 Srdeční Tep — Váš Stále Aktivní Osobní Agent
+Kai nespí. Jeho systém srdečního tepu pravidelně kontroluje — kontroluje čekající úkoly, e-maily a trendy — i když nečatujete. Nastavte interval, aktivní hodiny a model. Když něco vyžaduje vaši pozornost, Kai vás upozorní. Když je vše v pořádku, je ticho.
 
-Soukromí na prvním místě
-Kai klade vaše soukromí na první místo: Veškerá historie chatů je uložena lokálně se silným šifrováním. Při používání cloudových AI služeb jsou vaše data odesílána přímo poskytovatelům ke zpracování — aplikace sama žádná data neshromažďuje. Mějte vše pod kontrolou s touto open-source AI chatovací aplikací.
+⚡ 24 Služeb — Jedna Aplikace, Každý Model
+Připojte se k ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok a dalším 17 poskytovatelům. Spouštějte lokální modely přes Ollama nebo LM Studio pro soukromé, offline použití. Přidávejte více účtů, měňte priority a nechte chytrý záložní řetězec automaticky zvládnout výpadky. Vestavěná bezplatná úroveň znamená, že můžete začít chatovat bez jakéhokoliv nastavení — není potřeba API klíč.
+
+Podporované Služby
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (s přílohami souborů)
+• Anthropic Claude
+• DeepSeek (R1 uvažování)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / jakékoliv API kompatibilní s OpenAI
+• Vestavěná bezplatná úroveň
+
+🛠️ 40+ Nástrojů — Víc než Chat
+Aktivujte výkonné nástroje, které asistentovi umožní jednat, nejen mluvit:
+• Webové vyhledávání — odpovědi v reálném čase z internetu
+• E-mail — kontrola, čtení, odpovědi, psaní a vyhledávání
+• Příkazy terminálu — spouštějte příkazy na vašem zařízení
+• Plánování úloh — nastavte opakující se úlohy s cron výrazy
+• Kalendářní události — vytvářejte události přímo z chatu
+• Text na řeč — poslechněte si odpovědi přirozeným hlasem
+• Oznámení — push upozornění na vyžádání
+• Poloha a Čas — kontextově uvědomělé odpovědi
+• MCP Servers — připojení k externím serverům nástrojů
+
+🖥️ Interaktivní Režim UI
+Přejděte na celou obrazovku. V Interaktivním Režimu se Kai stává vizuálním tvůrcem aplikací — žádný markdown, žádný rolující text. Jen klikatelné, funkční obrazovky generované za letu. Navigujte výhradně pomocí tlačítek a vstupů. Je to jako mít osobního vývojáře aplikací v kapse.
+
+🔒 Soukromí na Prvním Místě, Open Source a Bez Reklam
+Veškerá historie chatů je šifrována a uložena lokálně na vašem zařízení. Žádné reklamy, žádný sběr dat, žádné sledování. API volání jdou přímo k vámi zvolenému poskytovateli — Kai nikdy nestojí uprostřed. Spouštějte lokální modely pro plně offline, soukromý zážitek. Plně open source, plně transparentní.
+
+🌍 Funguje Všude
+Používejte Kai na svém Android telefonu, tabletu, Chromebooku nebo počítači. Váš asistent, vždy na dosah.
+
+Ať už píšete, kódujete, shrnujete, překládáte, brainstormujete, automatizujete pracovní postupy, spravujete e-maily nebo studujete — Kai je bezplatná, bez reklam, open-source alternativa k ChatGPT, která se přizpůsobí vám.

@@ -1,34 +1,47 @@
-Spoznajte Kai — vašo lokalno alternativo za OpenClaw kar v žepu. Hitra odprtokodna aplikacija za AI klepet, ki jo poganjajo modeli kot so Llama, Gemini, GPT in DeepSeek. Potopite se v tekoče pogovore za brainstorming, pisanje, povzemanje, učenje ali sproščene klepete — vse v minimalističnem vmesniku, ki se naloži v nekaj sekundah.
+Odprtokodna aplikacija za AI klepet, ki ustvarja interaktivne zaslone, ne le besedilo. Kai je brezplacna alternativa za ChatGPT z duso, srcnim utripom, trajnimi spomini in okrepljenem ucenjem — AI pomrocnik, ki se razvija z vsakim pogovorom.
 
-Podprte storitve AI
-• Ollama / LM Studio: Povežite se s svojimi lokalno gostovanimi modeli AI (združljivimi z OpenAI)
-• OpenAI: Dostop do modelov GPT za zmogljive pogovore
-• Gemini: Napredna AI od Google z vgrajeno podporo za priponke datotek
-• DeepSeek: Visoko zmogljivi modeli za sklepanje
-• xAI: Inovativni modeli Grok za ustvarjalne in pronicljive odgovore
-• Mistral AI: Učinkoviti večjezični modeli
-• Groq: Izjemno hitro sklepanje AI za takojšnje odgovore
-• OpenRouter: Dostop do več sto modelov prek enega API
-• NVIDIA: Poganjajte modele, ki jih gosti NVIDIA
-• Katera koli API, združljiva z OpenAI: Uporabite lastno končno točko
+Za razliko od obicajnih klepetalnih botov Kai ustvarja izvorne interaktivne vmesnike — gumbe, obrazce, tabele, grafikone in celozaslonske aplikacije — neposredno v klepetu. Prosite ga, naj zgradi kalkulator, kviz, nadzorno plosco ali seznam opravil, in upodobil bo pravi delujorc vmesnik, ki ga lahko tapnete, podrsate in z njim komunicirate. To je AI onkraj besedila.
 
-Ključne funkcije
-• Trajni spomin: AI si zapomni pomembne podrobnosti med pogovori
-• Šifrirano lokalno shranjevanje: Varno shranjujte zgodovino klepetov na svoji napravi
-• Pretvorba besedila v govor: Poslušajte odgovore AI z naravno zvenečim glasovnim izhodom
-• Priponke datotek: Naložite datoteke za izboljšanje pogovorov (podprto na Gemini)
-• Brezhibno preklapljanje storitev: Med pogovorom brez truda preklapljajte med ponudniki AI
-• Večkrožni pogovori: Kontekstno ozaveščeni klepeti, kjer si AI zapomni prejšnja sporočila
-• Ozadnji daemon in razporejanje opravil: Razporejajte opravila z izrazi cron ali intervali heartbeat
+🧠 Dusa in Spomin — Klepetalnik, ki vas pozna
+Dajte Kai osebnost tako, da mu napisete "duso." Zapomni si, kar je pomembno med pogovori — vase zelje, pretekle ugotovitve in znane tezave — ter to znanje krepI skasom. Spomini, ki se izkazejo za koristne, napredujejo v njegovo trajno osebnost. Vec ko klepetate, pametnejsi postaja.
 
-Orodja AI (Omogočite v nastavitvah)
-• Pridobi lokalni čas: Natančne informacije o trenutnem datumu in času
-• Pridobi lokacijo: Odgovori na podlagi lokacije z zaznavanjem IP
-• Pošlji obvestilo: Potisna obvestila, ki jih sproži AI
-• Ustvari koledarski dogodek: Dodajte dogodke v koledar neposredno iz klepeta
-• Spletno iskanje: Pustite AI, da poišče po spletu aktualne odgovore
-• Zaženi ukaz lupine: Izvajajte ukaze na svoji napravi prek AI
-• Razporedi / Prekliči / Prikaži opravila: Upravljajte ponavljajoča se opravila AI
+💓 Srcni utrip — Vas osebni agent, vedno aktiven
+Kai ne spi. Njegov sistem srcnega utripa redno preverja — pregleduje cakajoca opravila, e-posto in trende — tudi ko ne klepetate. Nastavite interval, aktivne ure in model. Ko nekaj zahteva vaso pozornost, vas Kai opozori. Ko je vse v redu, ostane tih.
 
-Zasebnost na prvem mestu
-Kai daje prednost vaši zasebnosti: Vsa zgodovina klepetov je shranjena lokalno z močnim šifriranjem. Pri uporabi storitev AI v oblaku se vaši podatki pošljejo neposredno ponudnikom za obdelavo — aplikacija sama ne zbira nobenih podatkov. Ohranite nadzor s to odprtokodno aplikacijo za AI klepet.
+⚡ 24 storitev — Ena aplikacija, vsak model
+Povezite se s ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok in se 17 ponudniki. Poganjajte lokalne modele prek Ollama ali LM Studio za zasebno uporabo brez povezave. Dodajte vec racunov, preuredite prioritete in pustite pametno nadomestno verigo, da samodejno obravnava izpade. Vgrajena brezplacna raven pomeni, da lahko zacnete klepetati brez nastavitev — kljuc API ni potreben.
+
+Podprte storitve
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (s priponkami datotek)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / kateri koli API, zdruzljiv z OpenAI
+• Vgrajena brezplacna raven
+
+🛠️ 40+ orodij — Vec kot le klepet
+Omogocite zmogljiva orodja, ki asistentu omogocajo delovanje, ne le govorjenje:
+• Spletno iskanje — odgovori v realnem casu z interneta
+• E-posta — preverjanje, branje, odgovarjanje, sestavljanje in iskanje
+• Ukazi lupine — izvajanje terminalskih ukazov na vasi napravi
+• Razporejanje opravil — nastavitev ponavljajocih se opravil z izrazi cron
+• Koledarski dogodki — ustvarjanje dogodkov neposredno iz klepeta
+• Text-to-Speech — poslusajte odgovore z naravnim glasom
+• Obvestila — sprozena potisna opozorila
+• Lokacija in cas — kontekstno ozavesceni odgovori
+• MCP Servers — povezava z zunanjimi strezniki orodij
+
+🖥️ Interaktivni nacin UI
+Pojdite na celoten zaslon. V interaktivnem nacinu Kai postane vizualni gradnik aplikacij — brez markdown, brez drsecega besedila. Le funkcionalni zasloni, ustvarjeni sproti, ki jih lahko tapnete. Navigirajte izkljucno prek gumbov in vnosnih polj. Kot bi imeli osebnega razvijalca aplikacij v zepu.
+
+🔒 Zasebnost na prvem mestu, odprta koda in brez oglasov
+Vsa zgodovina klepetov je sifrirana in shranjena lokalno na vasi napravi. Brez oglasov, brez zbiranja podatkov, brez sledenja. Klici API gredo neposredno k vasemu izbranemu ponudniku — Kai nikoli ni vmes. Poganjajte lokalne modele za popolnoma zasebno izkusnjo brez povezave. Popolnoma odprtokodno, popolnoma pregledno.
+
+🌍 Deluje povsod
+Uporabljajte Kai na telefonu Android, tablici, Chromebooku ali namizju. Vas pomrocnik, vedno na dosegu roke.
+
+Naj pisete, programirate, povzemate, prevajate, razmisljate, avtomatizirate delovne tokove, upravljate e-posto ali se ucite — Kai je brezplacna, brez oglasov in odprtokodna alternativa za ChatGPT, ki se prilagaja vam.

@@ -1,34 +1,47 @@
-Njihuni Kai — alternativa juaj lokale e OpenClaw ne xhepin tuaj. Nje aplikacion i shpejte dhe me burim te hapur per chat me AI, i mundesuar nga modele si Llama, Gemini, GPT dhe DeepSeek. Zhytuni ne biseda te qeta per stuhi mendimesh, shkrim, permbledhje, mesim ose biseda te rastesishme — te gjitha ne nje nderfaqe minimaliste qe ngarkohet ne sekonda.
+Aplikacion chat AI me burim te hapur qe nderton ekrane ndervepruese, jo vetem tekst. Kai eshte nje alternative falas e ChatGPT me shpirt, rrahje zemre, kujtime te vazhdueshme dhe mesim te perforcuar — nje asistent AI qe evoluon me cdo bisede.
 
-Sherbimet AI te Mbeshtetura
-• Ollama / LM Studio: Lidhuni me modelet tuaja lokale AI te vete-strehuar (te pajtueshme me OpenAI)
-• OpenAI: Qasje ne modelet GPT per biseda te fuqishme
-• Gemini: AI i avancuar i Google me mbeshtetje te integruar per bashkengjitje skedaresh
-• DeepSeek: Modele arsyetimi me performance te larte
-• xAI: Modele Grok inovative per pergjigje kreative dhe plot njohuri
-• Mistral AI: Modele shumëgjuhëshe efikase
-• Groq: Perpunim AI ultra i shpejte per pergjigje te menjehershme
-• OpenRouter: Qasje ne qindra modele permes nje API te vetme
-• NVIDIA: Ekzekutoni modele te strehuara nga NVIDIA
-• Cdo API e pajtueshme me OpenAI: Sillni endpointin tuaj
+Ndryshe nga chatbotet e zakonshme, Kai gjeneron nderfaqe ndervepruese native — butona, formular, tabela, grafike dhe aplikacione ne ekran te plote — direkt ne chat. Kerkoji te ndertoje nje kalkulator, nje kuiz, nje panel kontrolli ose nje liste detyrash, dhe ai krijon nje nderfaqe reale funksionale qe mund ta prekesh, rrshqitesh dhe ndervepresh. Ky eshte AI pertej tekstit.
 
-Vecorite Kryesore
-• Kujtese e Vazhdueshme: AI kujton detaje te rendesishme mes bisedave
-• Ruajtje Lokale e Enkriptuar: Ruani ne menyre te sigurt historine e bisedave ne pajisjen tuaj
-• Tekst-ne-Ze: Degjoni pergjigjet AI me ze me tingull natyral
-• Bashkengjitje Skedaresh: Ngarkoni skedare per te pasuruar bisedat tuaja (mbeshtetut ne Gemini)
-• Nderrim i Lehte Sherbimesh: Nderroni mes ofruesve AI pa mundim gjate bisedes
-• Biseda me Shume Kthesa: Chaturi me kontekst ku AI kujton mesazhet e meparshme
-• Daemon ne Sfond dhe Programim Detyrash: Programoni detyra me shprehje cron ose intervale heartbeat
+🧠 Shpirt dhe Kujtese — Nje chatbot qe te njeh
+Jepi Kai nje personalitet duke shkruar "shpirtin" e tij. Ai kujton cfare ka rendesi neper biseda — preferencat e tua, mesimet e kaluara dhe problemet e njohura — dhe e perforcon kete dije me kalimin e kohes. Kujtimet qe rezultojne te dobishme avancohen ne personalitetin e tij te perhershem. Sa me shume bisedoni, aq me i zgjuar behet.
 
-Mjetet AI (Aktivizoni ne Cilesimet)
-• Merr Oren Lokale: Informacion i sakte i dates dhe ores aktuale
-• Merr Vendndodhjen: Pergjigje te bazuara ne vendndodhje duke perdorur zbulimin IP
-• Dergo Njoftim: Njoftime push te aktivizuara nga AI
-• Krijo Ngjarje Kalendari: Shtoni ngjarje ne kalendarin tuaj direkt nga biseda
-• Kerkim ne Web: Lejoni AI te kerkoje ne web per pergjigje te perditësuara
-• Ekzekuto Komande Shell: Ekzekutoni komanda ne pajisjen tuaj permes AI
-• Programo / Anulo / Listo Detyra: Menaxhoni detyra te perseritura te AI
+💓 Rrahje zemre — Agjenti yt personal gjithmone aktiv
+Kai nuk fle. Sistemi i tij i rrahjes se zemres kontrollon rregullisht — duke rishikuar detyra ne pritje, e-maile dhe tendenca — edhe kur nuk je duke biseduar. Cakto intervalin, oret aktive dhe modelin. Kur dicka kerkon vemendjen tende, Kai te njofton. Kur gjithcka eshte ne rregull, ai qendron i heshtur.
 
-Privatesia e Para
-Kai i jep perparesi privatësise suaj: E gjithe historia e bisedave ruhet lokalisht me enkriptim te forte. Kur perdorni sherbime AI ne re, te dhenat tuaja dergohen direkt te ofruesit per perpunim — asnje mbledhje te dhenash nga vete aplikacioni. Qendroni ne kontroll me kete aplikacion bisede AI me burim te hapur.
+⚡ 24 sherbime — Nje aplikacion, cdo model
+Lidhu me ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok dhe 17 ofrues te tjere. Ekzekuto modele lokale nepermjet Ollama ose LM Studio per perdorim privat dhe pa internet. Shto llogari te shumta, rirendit prioritetet dhe lere zinxhirin inteligjent te rezerves te menaxhoje nderprerjet automatikisht. Nje nivel falas i integruar do te thote qe mund te fillosh te bisedosh pa asnje konfigurim — nuk nevojitet celes API.
+
+Sherbimet e mbeshtetur
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (me bashkengjitje skedaresh)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / cdo API e pajtueshme me OpenAI
+• Nivel falas i integruar
+
+🛠️ 40+ mjete — Pertej chatit
+Aktivizo mjete te fuqishme qe i lejojne asistentit te veprojne, jo vetem te flase:
+• Kerkim ne web — pergjigje ne kohe reale nga interneti
+• E-mail — kontrollo, lexo, pergjigju, kompozo dhe kerko
+• Komanda shell — ekzekuto komanda terminali ne pajisjen tende
+• Programim detyrash — cakto detyra te perseritura me shprehje cron
+• Ngjarje kalendari — krijo ngjarje direkt nga chati
+• Text-to-Speech — degjo pergjigjet me ze natyrale
+• Njoftime — alarme push te aktivizuara
+• Vendndodhje dhe ore — pergjigje te vetedijshme per kontekstin
+• MCP Servers — lidhu me servere te jashtme mjetesh
+
+🖥️ Menyra ndervepruese UI
+Kalo ne ekran te plote. Ne Menyren Ndervepruese, Kai behet nje ndertues vizual aplikacionesh — pa markdown, pa tekst qe leviz. Vetem ekrane funksionale te gjeneruara menjehere qe mund t'i prekesh. Navigo plotesisht nepermjet butonave dhe fushave te hyrjes. Eshte si te kesh nje zhvillues personal aplikacionesh ne xhep.
+
+🔒 Privatesia e para, burim i hapur dhe pa reklama
+E gjithe historia e chatit eshte e enkriptuar dhe e ruajtur lokalisht ne pajisjen tende. Pa reklama, pa mbledhje te dhenash, pa gjurmim. Thirrjet API shkojne direkt te ofruesi i zgjedhur — Kai nuk nderhyn kurre ne mes. Ekzekuto modele lokale per nje pervoje plotesisht pa internet dhe private. Plotesisht me burim te hapur, plotesisht transparente.
+
+🌍 Funksionon kudo
+Perdor Kai ne telefonin tend Android, tablet, Chromebook ose desktop. Asistenti yt, gjithmone ne dore.
+
+Qofte qe shkruan, programon, permbledh, perkthe, bren idete, automatizon procese pune, menaxhon e-maile ose studion — Kai eshte alternativa falas, pa reklama dhe me burim te hapur e ChatGPT qe adaptohet me ty.

@@ -1,34 +1,47 @@
-Kai ile tanışın — cebinizdeki yerel OpenClaw alternatifi. Llama, Gemini, GPT ve DeepSeek gibi modellerle çalışan hızlı, açık kaynaklı bir AI sohbet uygulaması. Beyin fırtınası, yazma, özetleme, öğrenme veya günlük sohbetler için akıcı konuşmalara dalın — saniyeler içinde yüklenen minimalist bir arayüzde.
+Sadece metin değil, etkileşimli ekranlar oluşturan açık kaynak AI sohbet uygulaması. Kai; ruhu, kalp atışı, kalıcı hafızası ve pekiştirmeli öğrenmesi olan ücretsiz bir ChatGPT alternatifidir — her sohbetle gelişen bir AI asistan.
 
-Desteklenen AI Hizmetleri
-• Ollama / LM Studio: Kendi sunucunuzdaki yerel AI modellerinize bağlanın (OpenAI uyumlu)
-• OpenAI: Güçlü konuşmalar için GPT modellerine erişin
-• Gemini: Yerleşik dosya ekleme desteğine sahip Google'ın gelişmiş AI'ı
-• DeepSeek: Yüksek performanslı muhakeme modelleri
-• xAI: Yaratıcı ve içgörülü yanıtlar için yenilikçi Grok modelleri
-• Mistral AI: Verimli çok dilli modeller
-• Groq: Hızlı yanıtlar için ultra hızlı AI çıkarımı
-• OpenRouter: Tek bir API üzerinden yüzlerce modele erişin
-• NVIDIA: NVIDIA tarafından barındırılan modelleri çalıştırın
-• Herhangi bir OpenAI uyumlu API: Kendi endpoint'inizi ekleyin
+Sıradan sohbet botlarının aksine Kai, sohbet içinde doğal etkileşimli arayüz oluşturur — düğmeler, formlar, tablolar, grafikler ve tam ekran uygulamalar. Hesap makinesi, quiz, gösterge paneli veya yapılacaklar listesi isteyin; dokunup kaydırabileceğiniz gerçek bir arayüz oluşturur.
 
-Temel Özellikler
-• Kalıcı Bellek: AI, konuşmalar arasında önemli ayrıntıları hatırlar
-• Şifreli Yerel Depolama: Sohbet geçmişinizi cihazınızda güvenle saklayın
-• Metinden Konuşmaya: AI yanıtlarını doğal ses çıkışıyla sesli dinleyin
-• Dosya Ekleri: Konuşmalarınızı geliştirmek için dosya yükleyin (Gemini'de desteklenir)
-• Sorunsuz Hizmet Geçişi: Konuşma ortasında AI sağlayıcıları arasında zahmetsizce geçiş yapın
-• Çok Turlu Konuşmalar: AI'ın önceki mesajları hatırladığı bağlam farkındalıklı sohbetler
-• Arka Plan Daemon'u ve Görev Zamanlama: cron ifadeleri veya heartbeat aralıklarıyla görev zamanlayın
+🧠 Ruh ve Hafıza — Sizi Tanıyan Sohbet Botu
+Kai'ye "ruhunu" yazarak kişilik verin. Sohbetler arasında önemli olanları hatırlar — tercihlerinizi, öğrenmelerinizi ve bilinen sorunları — ve bu bilgiyi pekiştirir. Ne kadar çok sohbet ederseniz, o kadar akıllanır.
 
-AI Araçları (Ayarlardan Etkinleştirin)
-• Yerel Saati Al: Doğru güncel tarih ve saat bilgisi
-• Konum Al: IP tespiti kullanarak konuma dayalı yanıtlar
-• Bildirim Gönder: AI tarafından tetiklenen push bildirimleri
-• Takvim Etkinliği Oluştur: Sohbetten takviminize etkinlik ekleyin
-• Web Araması: AI'ın güncel yanıtlar için web araması yapmasına izin verin
-• Shell Komutu Çalıştır: AI aracılığıyla cihazınızda komut çalıştırın
-• Görev Zamanla / İptal Et / Listele: Tekrarlayan AI görevlerini yönetin
+💓 Kalp Atışı — Her Zaman Açık Kişisel Asistan
+Kai uyumaz. Kalp atışı sistemi programa göre kontrol eder — bekleyen görevleri, e-postaları ve trendleri inceler — siz sohbet etmiyorken bile. Dikkatinizi gerektiren bir şey olduğunda Kai uyarır. Her şey yolundaysa sessiz kalır.
 
-Önce Gizlilik
-Kai gizliliğinizi ön planda tutar: Tüm sohbet geçmişi güçlü şifrelemeyle yerel olarak saklanır. Bulut AI hizmetlerini kullanırken verileriniz işlenmek üzere doğrudan sağlayıcılara gönderilir — uygulama tarafından herhangi bir veri toplanmaz. Bu açık kaynaklı AI sohbet uygulamasıyla kontrolü elinizde tutun.
+⚡ 24 Hizmet — Tek Uygulama, Her Model
+ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ve 17 sağlayıcıya daha bağlanın. Ollama veya LM Studio ile yerel modeller çalıştırın. Yerleşik ücretsiz katmanla sıfır kurulumla başlayın — API anahtarı gerekmez.
+
+Desteklenen Hizmetler
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (dosya ekleri ile)
+• Anthropic Claude
+• DeepSeek (R1 reasoning)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / OpenAI uyumlu API
+• Yerleşik Ücretsiz katman
+
+🛠️ 40+ Araç — Sohbetin Ötesinde
+Asistanın harekete geçmesini sağlayan güçlü araçlar:
+• Web Arama — gerçek zamanlı yanıtlar
+• E-posta — kontrol, okuma, yanıtlama, yazma ve arama
+• Shell Komutları — terminal komutları çalıştırma
+• Görev Zamanlama — cron ifadeleriyle tekrarlayan görevler
+• Takvim Etkinlikleri — sohbetten etkinlik oluşturma
+• Metinden Konuşmaya — doğal sesle dinleme
+• Bildirimler — push uyarıları
+• Konum ve Zaman — bağlam duyarlı yanıtlar
+• MCP Servers — harici araç sunucularına bağlanma
+
+🖥️ Etkileşimli Arayüz Modu
+Tam ekran. Kai görsel uygulama oluşturucuya dönüşür — dokunulabilir, işlevsel ekranlar anında oluşturulur. Cebinizde kişisel uygulama geliştiricisi gibi.
+
+🔒 Gizlilik Öncelikli, Açık Kaynak ve Reklamsız
+Sohbet geçmişi şifrelenir ve yerel olarak saklanır. Reklam yok, veri toplama yok, izleme yok. API çağrıları doğrudan sağlayıcıya gider. Tamamen açık kaynak, tamamen şeffaf.
+
+🌍 Her Yerde Çalışır
+Android telefon, tablet, Chromebook veya masaüstünüzde kullanın. Asistanınız her zaman elinizin altında.
+
+Yazıyor, kodluyor, özetliyor, çeviriyor, beyin fırtınası yapıyor veya e-postaları yönetiyor olun — Kai size uyum sağlayan ücretsiz, açık kaynaklı ChatGPT alternatifidir.

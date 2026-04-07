@@ -1,34 +1,47 @@
-Perkenalkan Kai — alternatif OpenClaw setempat dalam poket anda. Aplikasi sembang AI sumber terbuka yang pantas, dikuasakan oleh model seperti Llama, Gemini, GPT dan DeepSeek. Selami sembang lancar untuk sumbang saran, penulisan, ringkasan, pembelajaran atau perbualan santai — semuanya dalam antara muka minimalis yang dimuatkan dalam beberapa saat.
+Aplikasi sembang AI sumber terbuka yang membina skrin interaktif, bukan sekadar teks. Kai ialah alternatif ChatGPT percuma dengan jiwa, degupan jantung, memori berterusan dan pembelajaran diperkukuh — pembantu AI yang berkembang dengan setiap perbualan anda.
 
-Perkhidmatan AI yang Disokong
-• Ollama / LM Studio: Sambung ke model AI setempat yang dihoskan sendiri (serasi OpenAI)
-• OpenAI: Akses model GPT untuk perbualan berkuasa
-• Gemini: AI canggih Google dengan sokongan lampiran fail terbina dalam
-• DeepSeek: Model penaakulan berprestasi tinggi
-• xAI: Model Grok inovatif untuk respons kreatif dan berwawasan
-• Mistral AI: Model berbilang bahasa yang cekap
-• Groq: Inferens AI ultra-pantas untuk balasan segera
-• OpenRouter: Akses ratusan model melalui satu API
-• NVIDIA: Jalankan model yang dihoskan NVIDIA
-• Mana-mana API serasi OpenAI: Gunakan titik akhir anda sendiri
+Tidak seperti chatbot biasa, Kai menjana UI interaktif natif — butang, borang, jadual, carta dan aplikasi skrin penuh — terus dalam sembang. Minta ia membina kalkulator, kuiz, papan pemuka atau senarai tugasan, dan ia akan memaparkan antara muka berfungsi sebenar yang boleh anda ketik, leret dan gunakan. Ini ialah AI melangkaui teks.
 
-Ciri Utama
-• Memori Berterusan: AI mengingati butiran penting merentas perbualan
-• Storan Setempat Tersulit: Simpan sejarah sembang anda dengan selamat pada peranti anda
-• Teks-ke-Pertuturan: Dengar respons AI dengan suara yang kedengaran semula jadi
-• Lampiran Fail: Muat naik fail untuk meningkatkan perbualan anda (disokong pada Gemini)
-• Penukaran Perkhidmatan Lancar: Tukar antara penyedia AI dengan mudah semasa perbualan
-• Perbualan Berbilang Giliran: Sembang sedar konteks di mana AI mengingati mesej sebelumnya
-• Daemon Latar Belakang & Penjadualan Tugas: Jadualkan tugas dengan ungkapan cron atau selang degupan
+🧠 Jiwa & Memori — Chatbot Yang Mengenali Anda
+Berikan Kai personaliti dengan menulis "jiwa"nya. Ia mengingati perkara penting merentas perbualan — keutamaan anda, pembelajaran lalu dan isu yang diketahui — dan mengukuhkan pengetahuan itu dari semasa ke semasa. Memori yang terbukti berguna dinaikkan ke personaliti tetapnya. Semakin banyak anda bersembang, semakin bijak ia menjadi.
 
-Alat AI (Aktifkan dalam Tetapan)
-• Dapatkan Masa Setempat: Maklumat tarikh dan masa semasa yang tepat
-• Dapatkan Lokasi: Respons berdasarkan lokasi menggunakan pengesanan IP
-• Hantar Pemberitahuan: Pemberitahuan tolak yang dicetuskan oleh AI
-• Cipta Acara Kalendar: Tambah acara ke kalendar anda daripada sembang
-• Carian Web: Biarkan AI mencari web untuk jawapan terkini
-• Jalankan Perintah Shell: Laksanakan perintah pada peranti anda melalui AI
-• Jadual / Batal / Senarai Tugas: Urus tugas AI berulang
+💓 Degupan Jantung — Ejen Peribadi Anda Yang Sentiasa Aktif
+Kai tidak tidur. Sistem degupan jantungnya memeriksa mengikut jadual — menyemak tugas tertangguh, e-mel dan trend — walaupun anda tidak bersembang. Tetapkan selang masa, waktu aktif dan model. Apabila sesuatu memerlukan perhatian anda, Kai memaklumkannya. Apabila semuanya baik, ia senyap.
 
-Privasi Diutamakan
-Kai mengutamakan privasi anda: Semua sejarah sembang disimpan secara setempat dengan penyulitan yang kukuh. Apabila menggunakan perkhidmatan AI awan, data anda dihantar terus kepada penyedia untuk pemprosesan — tiada pengumpulan data oleh aplikasi itu sendiri. Kekal dalam kawalan dengan aplikasi sembang AI sumber terbuka ini.
+⚡ 24 Perkhidmatan — Satu Aplikasi, Setiap Model
+Sambung ke ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok dan 17 lagi pembekal. Jalankan model tempatan melalui Ollama atau LM Studio untuk kegunaan peribadi dan luar talian. Tambah berbilang akaun, susun semula keutamaan dan biarkan rantai sandaran pintar mengendalikan gangguan secara automatik. Peringkat percuma terbina dalam bermakna anda boleh mula bersembang tanpa sebarang persediaan — tiada kunci API diperlukan.
+
+Perkhidmatan Disokong
+• OpenAI (GPT-4o, GPT-4, o1, o3)
+• Google Gemini (dengan lampiran fail)
+• Anthropic Claude
+• DeepSeek (penaakulan R1)
+• xAI Grok
+• Mistral, Groq, OpenRouter, NVIDIA
+• Together, Hugging Face, Cerebras
+• Deep Infra, Fireworks, Venice, MiniMax, Moonshot
+• Ollama / LM Studio / mana-mana API serasi OpenAI
+• Peringkat Percuma terbina dalam
+
+🛠️ 40+ Alat — Melangkaui Sembang
+Aktifkan alat berkuasa yang membolehkan pembantu bertindak, bukan sekadar bercakap:
+• Carian Web — jawapan masa nyata dari internet
+• E-mel — semak, baca, balas, karang dan cari
+• Arahan Shell — laksanakan arahan terminal pada peranti anda
+• Penjadualan Tugas — tetapkan tugas berulang dengan ungkapan cron
+• Acara Kalendar — cipta acara terus dari sembang
+• Teks-ke-Ucapan — dengar respons dengan suara semula jadi
+• Pemberitahuan — amaran tolak tercetus
+• Lokasi & Masa — respons peka konteks
+• Pelayan MCP — sambung ke pelayan alat luaran
+
+🖥️ Mod UI Interaktif
+Pergi skrin penuh. Dalam Mod Interaktif, Kai menjadi pembina aplikasi visual — tiada markdown, tiada teks menatal. Hanya skrin berfungsi yang boleh diketik, dijana serta-merta. Navigasi sepenuhnya melalui butang dan input. Ia seperti mempunyai pembangun aplikasi peribadi dalam poket anda.
+
+🔒 Privasi Didahulukan, Sumber Terbuka & Tanpa Iklan
+Semua sejarah sembang disulitkan dan disimpan secara setempat pada peranti anda. Tiada iklan, tiada pengumpulan data, tiada penjejakan. Panggilan API pergi terus ke pembekal pilihan anda — Kai tidak pernah berada di tengah. Jalankan model tempatan untuk pengalaman luar talian dan peribadi sepenuhnya. Sumber terbuka sepenuhnya, telus sepenuhnya.
+
+🌍 Berfungsi Di Mana-Mana
+Gunakan Kai pada telefon Android, tablet, Chromebook atau desktop anda. Pembantu anda, sentiasa dalam jangkauan.
+
+Sama ada anda menulis, mengekod, meringkaskan, menterjemah, sumbang saran, mengautomasikan aliran kerja, mengurus e-mel atau belajar — Kai ialah alternatif ChatGPT percuma, tanpa iklan, sumber terbuka yang menyesuaikan diri dengan anda.
