@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import androidx.compose.runtime.Immutable
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
@@ -7,6 +8,7 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+@Immutable
 @Serializable
 data class HeartbeatLogEntry(
     val timestampEpochMs: Long,

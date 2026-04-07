@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.mcp
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class PopularMcpServer(
     val name: String,
     val url: String,

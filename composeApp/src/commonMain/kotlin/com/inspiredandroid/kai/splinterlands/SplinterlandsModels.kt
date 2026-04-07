@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.splinterlands
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,6 +11,7 @@ data class SplinterlandsAccount(
     val instanceId: String = "",
 )
 
+@Immutable
 @Serializable
 data class BattleLogEntry(
     val opponent: String,
@@ -47,6 +49,7 @@ enum class LlmServiceStatus {
     Selected,
 }
 
+@Immutable
 data class BattleStatus(
     val phase: BattlePhase = BattlePhase.Idle,
     val isRunning: Boolean = false,

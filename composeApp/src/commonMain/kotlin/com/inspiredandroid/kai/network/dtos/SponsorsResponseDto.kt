@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.network.dtos
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -12,6 +13,7 @@ data class SponsorsResponseDto(
         val past: List<Sponsor> = emptyList(),
     )
 
+    @Immutable
     @Serializable
     data class Sponsor(
         val username: String = "",

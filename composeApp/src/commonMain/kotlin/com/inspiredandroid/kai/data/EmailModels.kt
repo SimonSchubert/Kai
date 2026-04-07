@@ -1,7 +1,9 @@
 package com.inspiredandroid.kai.data
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
 
+@Immutable
 @Serializable
 data class EmailAccount(
     val id: String,

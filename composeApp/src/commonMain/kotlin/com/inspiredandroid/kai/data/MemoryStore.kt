@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import androidx.compose.runtime.Immutable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
@@ -14,6 +15,7 @@ enum class MemoryCategory {
     PREFERENCE,
 }
 
+@Immutable
 @Serializable
 data class MemoryEntry(
     val key: String,
