@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">መሳሪያዎች</string>
     <string name="settings_tab_integrations">ውህደቶች</string>
     <string name="tool_executing_content_description">መሳሪያ በማስፈጸም ላይ</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d መሳሪያዎች</string>
     <string name="privacy_agree_prefix">አገልግሎቱን በመጠቀም፣ የሚከተለውን ይቀበላሉ </string>
     <string name="privacy_policy">የግላዊነት ፖሊሲ</string>
     <string name="tool_get_local_time_name">የአካባቢ ሰዓት ያግኙ</string>
@@ -114,10 +114,10 @@
     <string name="tool_configure_heartbeat_description">ወቅታዊ ራስ-ምርመራ ባህሪ አዋቅር</string>
     <string name="tool_configure_heartbeat_name">ልብ ምት አዋቅር</string>
     <string name="tool_memory_learn_description">የተመደበ ትምህርት፣ የስህተት መፍትሄ ወይም ምርጫ ያከማቹ</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">ትውስታ አስቀምጥ</string>
+    <string name="tool_memory_store_description">ገላጭ ቁልፍ ያለው ትውስታ አስቀምጥ ወይም አዘምን</string>
+    <string name="tool_memory_forget_name">ትውስታ ሰርዝ</string>
+    <string name="tool_memory_forget_description">የተቀመጠ ትውስታን በቁልፉ ሰርዝ</string>
     <string name="tool_memory_learn_name">ትውስታ ተማር</string>
     <string name="tool_memory_reinforce_description">ጥሩ ውጤት ያመጣ ትውስታ አጠናክር</string>
     <string name="tool_memory_reinforce_name">ትውስታ አጠናክር</string>
@@ -145,8 +145,8 @@
     <string name="settings_mcp_server_name">የአገልጋይ ስም</string>
     <string name="settings_mcp_server_url">የአገልጋይ URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">ዋጋ</string>
+    <string name="settings_mcp_add_header">ራስጌ ጨምር</string>
     <string name="settings_mcp_add">ጨምር</string>
     <string name="settings_mcp_cancel">ሰርዝ</string>
     <string name="settings_mcp_remove">አስወግድ</string>
@@ -231,5 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP አገልጋይ ተወግዷል</string>
     <string name="snackbar_conversation_deleted">ውይይት ተሰርዟል</string>
     <string name="start_interactive_ui">መስተጋብራዊ UI ጀምር</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">እንደገና ደርድር</string>
 </resources>

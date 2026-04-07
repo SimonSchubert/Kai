@@ -19,7 +19,7 @@
     <string name="settings_free_tier_description">Mit wachsender Nutzerbasis hilft Sponsoring dabei, die Infrastruktur zu skalieren, die Rate-Limits für alle zu erhöhen und die Entwicklung aktiv zu halten.</string>
     <string name="settings_become_sponsor">GitHub-Sponsor werden</string>
     <string name="settings_business_partnerships">Geschäftspartnerschaften</string>
-    <string name="settings_business_partnerships_description">Möchten Sie Ihr Firmenlogo präsentieren oder eine strategische Partnerschaft besprechen?</string>
+    <string name="settings_business_partnerships_description">Möchtest du dein Firmenlogo präsentieren oder eine strategische Partnerschaft besprechen?</string>
     <string name="settings_contact_sponsorship">Kontakt für strategisches Sponsoring</string>
     <string name="settings_status_error_invalid_key">Ungültiger API-Schlüssel</string>
     <string name="settings_status_error_quota_exhausted">Kontingent erschöpft</string>
@@ -49,8 +49,8 @@
     <string name="settings_tab_tools">Werkzeuge</string>
     <string name="settings_tab_integrations">Integrationen</string>
     <string name="tool_executing_content_description">Werkzeug wird ausgeführt</string>
-    <string name="tools_count">%1$d Tools</string>
-    <string name="privacy_agree_prefix">Mit der Nutzung des Dienstes stimmen Sie der </string>
+    <string name="tools_count">%1$d Werkzeuge</string>
+    <string name="privacy_agree_prefix">Mit der Nutzung des Dienstes stimmst du der </string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
     <string name="settings_tab_general">Allgemein</string>
     <string name="tool_set_alarm_name">Wecker stellen</string>
@@ -114,10 +114,10 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tool_configure_heartbeat_description">Periodisches Selbstprüfungsverhalten konfigurieren</string>
     <string name="tool_configure_heartbeat_name">Heartbeat konfigurieren</string>
     <string name="tool_memory_learn_description">Ein kategorisiertes Lernergebnis, eine Fehlerbehebung oder eine Präferenz speichern</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Erinnerung speichern</string>
+    <string name="tool_memory_store_description">Eine Erinnerung mit einem beschreibenden Schlüssel speichern oder aktualisieren</string>
+    <string name="tool_memory_forget_name">Erinnerung vergessen</string>
+    <string name="tool_memory_forget_description">Eine gespeicherte Erinnerung anhand ihres Schlüssels löschen</string>
     <string name="tool_memory_learn_name">Erinnerung lernen</string>
     <string name="tool_memory_reinforce_description">Eine Erinnerung verstärken, die ein gutes Ergebnis erzielt hat</string>
     <string name="tool_memory_reinforce_name">Erinnerung verstärken</string>
@@ -145,8 +145,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_mcp_server_name">Servername</string>
     <string name="settings_mcp_server_url">Server-URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Wert</string>
+    <string name="settings_mcp_add_header">Header hinzufügen</string>
     <string name="settings_mcp_add">Hinzufügen</string>
     <string name="settings_mcp_cancel">Abbrechen</string>
     <string name="settings_mcp_remove">Entfernen</string>
@@ -207,7 +207,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_sandbox_install_packages">Basispakete installieren</string>
     <string name="settings_sandbox_open_terminal">Terminal öffnen</string>
     <string name="settings_sandbox_uninstall">Deinstallieren</string>
-    <string name="settings_sandbox_uninstall_confirm">Alle Daten in der Linux-Sandbox gehen verloren. Möchten Sie wirklich deinstallieren?</string>
+    <string name="settings_sandbox_uninstall_confirm">Alle Daten in der Linux-Sandbox gehen verloren. Möchtest du wirklich deinstallieren?</string>
     <string name="settings_sandbox_cancel">Abbrechen</string>
     <string name="settings_sandbox_disk_usage">%1$d MB</string>
     <string name="terminal_title">Terminal</string>
@@ -231,5 +231,5 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="snackbar_mcp_server_removed">MCP-Server entfernt</string>
     <string name="snackbar_conversation_deleted">Unterhaltung gelöscht</string>
     <string name="start_interactive_ui">Interaktive UI starten</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Neu anordnen</string>
 </resources>

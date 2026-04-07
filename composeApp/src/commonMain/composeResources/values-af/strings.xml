@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Gereedskap</string>
     <string name="settings_tab_integrations">Integrasies</string>
     <string name="tool_executing_content_description">Gereedskap voer uit</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Gereedskap</string>
     <string name="privacy_agree_prefix">Deur die diens te gebruik, stem jy in tot die </string>
     <string name="privacy_policy">Privaatheidsbeleid</string>
     <string name="tool_get_local_time_name">Kry Plaaslike Tyd</string>
@@ -114,10 +114,10 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tool_configure_heartbeat_description">Stel periodieke selfkontrole-gedrag op</string>
     <string name="tool_configure_heartbeat_name">Stel Hartklop Op</string>
     <string name="tool_memory_learn_description">Stoor 'n gekategoriseerde leerervaring, foutoplossing of voorkeur</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Stoor herinnering</string>
+    <string name="tool_memory_store_description">Stoor of werk 'n herinnering by met 'n beskrywende sleutel</string>
+    <string name="tool_memory_forget_name">Vergeet herinnering</string>
+    <string name="tool_memory_forget_description">Skrap 'n gestoorde herinnering volgens sy sleutel</string>
     <string name="tool_memory_learn_name">Leer Geheue</string>
     <string name="tool_memory_reinforce_description">Versterk 'n herinnering wat 'n goeie uitkoms gelewer het</string>
     <string name="tool_memory_reinforce_name">Versterk Geheue</string>
@@ -145,8 +145,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_mcp_server_name">Bedienernaam</string>
     <string name="settings_mcp_server_url">Bediener-URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Waarde</string>
+    <string name="settings_mcp_add_header">Voeg kopskrif by</string>
     <string name="settings_mcp_add">Voeg by</string>
     <string name="settings_mcp_cancel">Kanselleer</string>
     <string name="settings_mcp_remove">Verwyder</string>
@@ -231,5 +231,5 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="snackbar_mcp_server_removed">MCP-bediener verwyder</string>
     <string name="snackbar_conversation_deleted">Gesprek verwyder</string>
     <string name="start_interactive_ui">Begin interaktiewe UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Herrangskik</string>
 </resources>

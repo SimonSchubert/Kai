@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Tööriistad</string>
     <string name="settings_tab_integrations">Integratsioonid</string>
     <string name="tool_executing_content_description">Tööriista käivitamine</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Tööriistad</string>
     <string name="privacy_agree_prefix">Teenuse kasutamisega nõustute </string>
     <string name="privacy_policy">Privaatsuspoliitikaga</string>
     <string name="tool_get_local_time_name">Hangi kohalik aeg</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Seadista perioodilise enesekontrolli käitumist</string>
     <string name="tool_configure_heartbeat_name">Seadista Heartbeat</string>
     <string name="tool_memory_learn_description">Salvesta kategoriseeritud teadmine, veaparandus või eelistus</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Salvesta mälestus</string>
+    <string name="tool_memory_store_description">Salvesta või uuenda mälestus kirjeldava võtmega</string>
+    <string name="tool_memory_forget_name">Unusta mälestus</string>
+    <string name="tool_memory_forget_description">Kustuta salvestatud mälestus selle võtme järgi</string>
     <string name="tool_memory_learn_name">Õpi mälestus</string>
     <string name="tool_memory_reinforce_description">Tugevda mälestust, mis andis hea tulemuse</string>
     <string name="tool_memory_reinforce_name">Tugevda mälestust</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Serveri nimi</string>
     <string name="settings_mcp_server_url">Serveri URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Väärtus</string>
+    <string name="settings_mcp_add_header">Lisa päis</string>
     <string name="settings_mcp_add">Lisa</string>
     <string name="settings_mcp_cancel">Tühista</string>
     <string name="settings_mcp_remove">Eemalda</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP-server eemaldatud</string>
     <string name="snackbar_conversation_deleted">Vestlus kustutatud</string>
     <string name="start_interactive_ui">Käivita interaktiivne UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Järjesta ümber</string>
 </resources>

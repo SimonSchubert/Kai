@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">ٹولز</string>
     <string name="settings_tab_integrations">انٹیگریشنز</string>
     <string name="tool_executing_content_description">ٹول چل رہا ہے</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d ٹولز</string>
     <string name="privacy_agree_prefix">سروس استعمال کرکے، آپ اتفاق کرتے ہیں </string>
     <string name="privacy_policy">رازداری کی پالیسی</string>
     <string name="settings_tab_general">عمومی</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">وقتاً فوقتاً سیلف چیک کے رویے کو ترتیب دیں</string>
     <string name="tool_configure_heartbeat_name">Heartbeat ترتیب دیں</string>
     <string name="tool_memory_learn_description">زمرہ بند سیکھ، خرابی کا حل، یا ترجیح محفوظ کریں</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">یادداشت محفوظ کریں</string>
+    <string name="tool_memory_store_description">وضاحتی کلید کے ساتھ یادداشت محفوظ یا اپ ڈیٹ کریں</string>
+    <string name="tool_memory_forget_name">یادداشت بھولیں</string>
+    <string name="tool_memory_forget_description">کلید کے ذریعے محفوظ شدہ یادداشت حذف کریں</string>
     <string name="tool_memory_learn_name">یادداشت سیکھیں</string>
     <string name="tool_memory_reinforce_description">اس یادداشت کو مضبوط کریں جس نے اچھا نتیجہ دیا</string>
     <string name="tool_memory_reinforce_name">یادداشت مضبوط کریں</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">قدر</string>
+    <string name="settings_mcp_add_header">ہیڈر شامل کریں</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP سرور ہٹا دیا گیا</string>
     <string name="snackbar_conversation_deleted">بات چیت حذف ہو گئی</string>
     <string name="start_interactive_ui">انٹرایکٹو UI شروع کریں</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">ترتیب بدلیں</string>
 </resources>

@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Ferramentas</string>
     <string name="settings_tab_integrations">Integrações</string>
     <string name="tool_executing_content_description">Ferramenta em execução</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Ferramentas</string>
     <string name="privacy_agree_prefix">Ao usar o serviço, você concorda com a </string>
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="settings_tab_general">Geral</string>
@@ -114,10 +114,10 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="tool_configure_heartbeat_description">Configurar comportamento de verificação periódica</string>
     <string name="tool_configure_heartbeat_name">Configurar Heartbeat</string>
     <string name="tool_memory_learn_description">Armazenar um aprendizado categorizado, resolução de erro ou preferência</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Guardar memória</string>
+    <string name="tool_memory_store_description">Guardar ou atualizar uma memória com uma chave descritiva</string>
+    <string name="tool_memory_forget_name">Esquecer memória</string>
+    <string name="tool_memory_forget_description">Eliminar uma memória guardada pela sua chave</string>
     <string name="tool_memory_learn_name">Aprender Memória</string>
     <string name="tool_memory_reinforce_description">Reforçar uma memória que produziu um bom resultado</string>
     <string name="tool_memory_reinforce_name">Reforçar Memória</string>
@@ -145,8 +145,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_mcp_server_name">Nome do servidor</string>
     <string name="settings_mcp_server_url">URL do servidor</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Valor</string>
+    <string name="settings_mcp_add_header">Adicionar cabeçalho</string>
     <string name="settings_mcp_add">Adicionar</string>
     <string name="settings_mcp_cancel">Cancelar</string>
     <string name="settings_mcp_remove">Remover</string>
@@ -231,5 +231,5 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="snackbar_mcp_server_removed">Servidor MCP removido</string>
     <string name="snackbar_conversation_deleted">Conversa excluída</string>
     <string name="start_interactive_ui">Iniciar UI Interativa</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Reordenar</string>
 </resources>

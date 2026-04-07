@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Outils</string>
     <string name="settings_tab_integrations">Intégrations</string>
     <string name="tool_executing_content_description">Outil en cours d'exécution</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Outils</string>
     <string name="privacy_agree_prefix">En utilisant le service, vous acceptez la </string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="settings_tab_general">Général</string>
@@ -114,10 +114,10 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_configure_heartbeat_description">Configurer le comportement de vérification périodique</string>
     <string name="tool_configure_heartbeat_name">Configurer le battement</string>
     <string name="tool_memory_learn_description">Stocker un apprentissage catégorisé, une résolution d'erreur ou une préférence</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Enregistrer un souvenir</string>
+    <string name="tool_memory_store_description">Enregistrer ou mettre à jour un souvenir avec une clé descriptive</string>
+    <string name="tool_memory_forget_name">Oublier un souvenir</string>
+    <string name="tool_memory_forget_description">Supprimer un souvenir enregistré par sa clé</string>
     <string name="tool_memory_learn_name">Apprendre Mémoire</string>
     <string name="tool_memory_reinforce_description">Renforcer un souvenir qui a produit un bon résultat</string>
     <string name="tool_memory_reinforce_name">Renforcer Mémoire</string>
@@ -145,8 +145,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_mcp_server_name">Nom du serveur</string>
     <string name="settings_mcp_server_url">URL du serveur</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Valeur</string>
+    <string name="settings_mcp_add_header">Ajouter un en-tête</string>
     <string name="settings_mcp_add">Ajouter</string>
     <string name="settings_mcp_cancel">Annuler</string>
     <string name="settings_mcp_remove">Supprimer</string>
@@ -231,5 +231,5 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="snackbar_mcp_server_removed">Serveur MCP supprimé</string>
     <string name="snackbar_conversation_deleted">Conversation supprimée</string>
     <string name="start_interactive_ui">Démarrer l\'UI interactive</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Réorganiser</string>
 </resources>

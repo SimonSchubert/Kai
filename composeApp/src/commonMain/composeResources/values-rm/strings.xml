@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Utensils</string>
     <string name="settings_tab_integrations">Integraziuns</string>
     <string name="tool_executing_content_description">Utensil en execuziun</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d utensils</string>
     <string name="privacy_agree_prefix">Cun utilisar il servetsch, acceptais Vus la </string>
     <string name="privacy_policy">Directiva da protecziun da datas</string>
     <string name="tool_get_local_time_name">Retschaiver il temp local</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Configurar il cumportament da l'auto-controlla periodica</string>
     <string name="tool_configure_heartbeat_name">Configurar Heartbeat</string>
     <string name="tool_memory_learn_description">Memorisar in'emprendida categorisada, ina resoluziun d'errur u ina preferenza</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Memorisar regurdanza</string>
+    <string name="tool_memory_store_description">Memorisar u actualisar ina regurdanza cun ina clav descriptiva</string>
+    <string name="tool_memory_forget_name">Stizzar regurdanza</string>
+    <string name="tool_memory_forget_description">Stizzar ina regurdanza memorisada tenor sia clav</string>
     <string name="tool_memory_learn_name">Emprender regurdanza</string>
     <string name="tool_memory_reinforce_description">Rinforzar ina regurdanza che ha dà in bun resultat</string>
     <string name="tool_memory_reinforce_name">Rinforzar regurdanza</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Valur</string>
+    <string name="settings_mcp_add_header">Agiuntar header</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Server MCP allontanà</string>
     <string name="snackbar_conversation_deleted">Conversaziun stizzada</string>
     <string name="start_interactive_ui">Cumenzar UI interactiva</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Reordinar</string>
 </resources>

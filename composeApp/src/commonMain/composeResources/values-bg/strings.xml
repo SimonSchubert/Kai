@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Инструменти</string>
     <string name="settings_tab_integrations">Интеграции</string>
     <string name="tool_executing_content_description">Инструментът се изпълнява</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Инструмента</string>
     <string name="privacy_agree_prefix">Използвайки услугата, вие се съгласявате с </string>
     <string name="privacy_policy">Политика за поверителност</string>
     <string name="tool_get_local_time_name">Вземи местно време</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Конфигуриране на поведението при периодична самопроверка</string>
     <string name="tool_configure_heartbeat_name">Конфигуриране на Heartbeat</string>
     <string name="tool_memory_learn_description">Съхрани категоризирано знание, решение на грешка или предпочитание</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Запази спомен</string>
+    <string name="tool_memory_store_description">Запази или актуализирай спомен с описателен ключ</string>
+    <string name="tool_memory_forget_name">Забрави спомен</string>
+    <string name="tool_memory_forget_description">Изтрий запазен спомен по неговия ключ</string>
     <string name="tool_memory_learn_name">Запомни</string>
     <string name="tool_memory_reinforce_description">Подсили спомен, който е дал добър резултат</string>
     <string name="tool_memory_reinforce_name">Подсили спомен</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Име на сървъра</string>
     <string name="settings_mcp_server_url">URL на сървъра</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Стойност</string>
+    <string name="settings_mcp_add_header">Добавяне на заглавие</string>
     <string name="settings_mcp_add">Добавяне</string>
     <string name="settings_mcp_cancel">Отказ</string>
     <string name="settings_mcp_remove">Премахване</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP сървърът е премахнат</string>
     <string name="snackbar_conversation_deleted">Разговорът е изтрит</string>
     <string name="start_interactive_ui">Стартиране на интерактивен UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Пренареждане</string>
 </resources>

@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Құралдар</string>
     <string name="settings_tab_integrations">Интеграциялар</string>
     <string name="tool_executing_content_description">Құрал орындалуда</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Құрал</string>
     <string name="privacy_agree_prefix">Қызметті пайдалана отырып, сіз келесімен келісесіз </string>
     <string name="privacy_policy">Құпиялылық саясаты</string>
     <string name="tool_get_local_time_name">Жергілікті уақытты алу</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Мерзімді өзін-өзі тексеру әрекетін теңшеу</string>
     <string name="tool_configure_heartbeat_name">Heartbeat теңшеу</string>
     <string name="tool_memory_learn_description">Санатталған білім, қате шешімі немесе таңдауды сақтау</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Естелікті сақтау</string>
+    <string name="tool_memory_store_description">Сипаттамалық кілтпен естелікті сақтау немесе жаңарту</string>
+    <string name="tool_memory_forget_name">Естелікті ұмыту</string>
+    <string name="tool_memory_forget_description">Сақталған естелікті кілті бойынша жою</string>
     <string name="tool_memory_learn_name">Естелік үйрену</string>
     <string name="tool_memory_reinforce_description">Жақсы нәтиже берген естелікті күшейту</string>
     <string name="tool_memory_reinforce_name">Естелікті күшейту</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Сервер атауы</string>
     <string name="settings_mcp_server_url">Сервер URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Мән</string>
+    <string name="settings_mcp_add_header">Тақырып қосу</string>
     <string name="settings_mcp_add">Қосу</string>
     <string name="settings_mcp_cancel">Болдырмау</string>
     <string name="settings_mcp_remove">Жою</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP сервер жойылды</string>
     <string name="snackbar_conversation_deleted">Әңгіме жойылды</string>
     <string name="start_interactive_ui">Интерактивті UI бастау</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Ретін өзгерту</string>
 </resources>

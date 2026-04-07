@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Amathuluzi</string>
     <string name="settings_tab_integrations">Ukuhlanganiswa</string>
     <string name="tool_executing_content_description">Ithuluzi liyasebenza</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">Amathuluzi angu-%1$d</string>
     <string name="privacy_agree_prefix">Ngokusebenzisa isevisi, uyavumelana ne-</string>
     <string name="privacy_policy">Inqubomgomo yobumfihlo</string>
     <string name="tool_get_local_time_name">Thola isikhathi sendawo</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Lungiselela ukuziphatha kokuhlolwa kwezenzakalelayo</string>
     <string name="tool_configure_heartbeat_name">Lungiselela i-Heartbeat</string>
     <string name="tool_memory_learn_description">Gcina ukufunda okuhlukanisiwe, ukuxazululwa kwephutha, noma ukukhetha</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Gcina Inkumbulo</string>
+    <string name="tool_memory_store_description">Gcina noma ubuyekeze inkumbulo ngokhiye ochazayo</string>
+    <string name="tool_memory_forget_name">Khohlwa Inkumbulo</string>
+    <string name="tool_memory_forget_description">Susa inkumbulo egciniwe ngokhiye wayo</string>
     <string name="tool_memory_learn_name">Funda Inkumbulo</string>
     <string name="tool_memory_reinforce_description">Qinisa inkumbulo enikezele umphumela omuhle</string>
     <string name="tool_memory_reinforce_name">Qinisa Inkumbulo</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Inani</string>
+    <string name="settings_mcp_add_header">Engeza Isihloko</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Iseva ye-MCP isusiwe</string>
     <string name="snackbar_conversation_deleted">Ingxoxo isusiwe</string>
     <string name="start_interactive_ui">Qala UI Ehlanganyela</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Hlela kabusha</string>
 </resources>

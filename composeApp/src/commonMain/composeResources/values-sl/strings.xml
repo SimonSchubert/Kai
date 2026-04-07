@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Orodja</string>
     <string name="settings_tab_integrations">Integracije</string>
     <string name="tool_executing_content_description">Orodje se izvaja</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d orodij</string>
     <string name="privacy_agree_prefix">Z uporabo storitve se strinjate s </string>
     <string name="privacy_policy">Pravilnik o zasebnosti</string>
     <string name="tool_get_local_time_name">Pridobi lokalni čas</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Nastavi vedenje periodičnega samopreverjanja</string>
     <string name="tool_configure_heartbeat_name">Nastavi Heartbeat</string>
     <string name="tool_memory_learn_description">Shrani kategorizirano učenje, rešitev napake ali nastavitev</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Shrani spomin</string>
+    <string name="tool_memory_store_description">Shrani ali posodobi spomin z opisnim ključem</string>
+    <string name="tool_memory_forget_name">Pozabi spomin</string>
+    <string name="tool_memory_forget_description">Izbriši shranjen spomin po ključu</string>
     <string name="tool_memory_learn_name">Nauči spomin</string>
     <string name="tool_memory_reinforce_description">Okrepi spomin, ki je prinesel dober rezultat</string>
     <string name="tool_memory_reinforce_name">Okrepi spomin</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Vrednost</string>
+    <string name="settings_mcp_add_header">Dodaj glavo</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP strežnik odstranjen</string>
     <string name="snackbar_conversation_deleted">Pogovor izbrisan</string>
     <string name="start_interactive_ui">Zaženi interaktivni UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Preuredi</string>
 </resources>

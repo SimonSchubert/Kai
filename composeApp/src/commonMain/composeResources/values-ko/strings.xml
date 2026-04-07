@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">도구</string>
     <string name="settings_tab_integrations">통합</string>
     <string name="tool_executing_content_description">도구 실행 중</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d 도구</string>
     <string name="privacy_agree_prefix">서비스를 사용함으로써 </string>
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="settings_tab_general">일반</string>
@@ -114,10 +114,10 @@
     <string name="tool_configure_heartbeat_description">주기적 자가 점검 동작 구성</string>
     <string name="tool_configure_heartbeat_name">하트비트 구성</string>
     <string name="tool_memory_learn_description">분류된 학습, 오류 해결 또는 선호도 저장</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">기억 저장</string>
+    <string name="tool_memory_store_description">설명 키로 기억을 저장하거나 업데이트</string>
+    <string name="tool_memory_forget_name">기억 삭제</string>
+    <string name="tool_memory_forget_description">키로 저장된 기억을 삭제</string>
     <string name="tool_memory_learn_name">기억 학습</string>
     <string name="tool_memory_reinforce_description">좋은 결과를 낸 기억 강화</string>
     <string name="tool_memory_reinforce_name">기억 강화</string>
@@ -145,8 +145,8 @@
     <string name="settings_mcp_server_name">서버 이름</string>
     <string name="settings_mcp_server_url">서버 URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">값</string>
+    <string name="settings_mcp_add_header">헤더 추가</string>
     <string name="settings_mcp_add">추가</string>
     <string name="settings_mcp_cancel">취소</string>
     <string name="settings_mcp_remove">제거</string>
@@ -231,5 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP 서버가 제거되었습니다</string>
     <string name="snackbar_conversation_deleted">대화가 삭제되었습니다</string>
     <string name="start_interactive_ui">인터랙티브 UI 시작</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">순서 변경</string>
 </resources>

@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">الأدوات</string>
     <string name="settings_tab_integrations">التكاملات</string>
     <string name="tool_executing_content_description">الأداة قيد التنفيذ</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d أدوات</string>
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="settings_tab_general">عام</string>
@@ -114,10 +114,10 @@
     <string name="tool_configure_heartbeat_description">تكوين سلوك الفحص الذاتي الدوري</string>
     <string name="tool_configure_heartbeat_name">تكوين نبض القلب</string>
     <string name="tool_memory_learn_description">تخزين تعلم مصنف أو حل خطأ أو تفضيل</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">حفظ ذاكرة</string>
+    <string name="tool_memory_store_description">حفظ أو تحديث ذاكرة بمفتاح وصفي</string>
+    <string name="tool_memory_forget_name">نسيان ذاكرة</string>
+    <string name="tool_memory_forget_description">حذف ذاكرة مخزنة بواسطة مفتاحها</string>
     <string name="tool_memory_learn_name">تعلم الذاكرة</string>
     <string name="tool_memory_reinforce_description">تعزيز ذاكرة أنتجت نتيجة جيدة</string>
     <string name="tool_memory_reinforce_name">تعزيز الذاكرة</string>
@@ -145,8 +145,8 @@
     <string name="settings_mcp_server_name">اسم الخادم</string>
     <string name="settings_mcp_server_url">URL الخادم</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">القيمة</string>
+    <string name="settings_mcp_add_header">إضافة ترويسة</string>
     <string name="settings_mcp_add">إضافة</string>
     <string name="settings_mcp_cancel">إلغاء</string>
     <string name="settings_mcp_remove">إزالة</string>
@@ -231,5 +231,5 @@
     <string name="snackbar_mcp_server_removed">تمت إزالة خادم MCP</string>
     <string name="snackbar_conversation_deleted">تم حذف المحادثة</string>
     <string name="start_interactive_ui">بدء الواجهة التفاعلية</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">إعادة ترتيب</string>
 </resources>

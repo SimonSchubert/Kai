@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">工具</string>
     <string name="settings_tab_integrations">集成</string>
     <string name="tool_executing_content_description">工具执行中</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d 个工具</string>
     <string name="privacy_agree_prefix">使用本服务即表示您同意</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="settings_tab_general">通用</string>
@@ -114,10 +114,10 @@
     <string name="tool_configure_heartbeat_description">配置定期自检行为</string>
     <string name="tool_configure_heartbeat_name">配置心跳</string>
     <string name="tool_memory_learn_description">存储分类学习、错误解决方案或偏好</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">存储记忆</string>
+    <string name="tool_memory_store_description">使用描述性键名存储或更新一条记忆</string>
+    <string name="tool_memory_forget_name">删除记忆</string>
+    <string name="tool_memory_forget_description">根据键名删除一条已存储的记忆</string>
     <string name="tool_memory_learn_name">学习记忆</string>
     <string name="tool_memory_reinforce_description">强化产生良好结果的记忆</string>
     <string name="tool_memory_reinforce_name">强化记忆</string>
@@ -145,8 +145,8 @@
     <string name="settings_mcp_server_name">服务器名称</string>
     <string name="settings_mcp_server_url">服务器 URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">值</string>
+    <string name="settings_mcp_add_header">添加请求头</string>
     <string name="settings_mcp_add">添加</string>
     <string name="settings_mcp_cancel">取消</string>
     <string name="settings_mcp_remove">移除</string>
@@ -231,5 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP 服务器已移除</string>
     <string name="snackbar_conversation_deleted">对话已删除</string>
     <string name="start_interactive_ui">启动互动 UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">重新排序</string>
 </resources>

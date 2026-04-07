@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Strumenti</string>
     <string name="settings_tab_integrations">Integrazioni</string>
     <string name="tool_executing_content_description">Strumento in esecuzione</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Strumenti</string>
     <string name="privacy_agree_prefix">Utilizzando il servizio, accetti la </string>
     <string name="privacy_policy">Informativa sulla privacy</string>
     <string name="settings_tab_general">Generali</string>
@@ -114,10 +114,10 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="tool_configure_heartbeat_description">Configura il comportamento del controllo periodico</string>
     <string name="tool_configure_heartbeat_name">Configura Battito</string>
     <string name="tool_memory_learn_description">Memorizza un apprendimento categorizzato, una risoluzione di errore o una preferenza</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Salva ricordo</string>
+    <string name="tool_memory_store_description">Salva o aggiorna un ricordo con una chiave descrittiva</string>
+    <string name="tool_memory_forget_name">Dimentica ricordo</string>
+    <string name="tool_memory_forget_description">Elimina un ricordo salvato tramite la sua chiave</string>
     <string name="tool_memory_learn_name">Impara Memoria</string>
     <string name="tool_memory_reinforce_description">Rinforza un ricordo che ha prodotto un buon risultato</string>
     <string name="tool_memory_reinforce_name">Rinforza Memoria</string>
@@ -145,8 +145,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_mcp_server_name">Nome del server</string>
     <string name="settings_mcp_server_url">URL del server</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Valore</string>
+    <string name="settings_mcp_add_header">Aggiungi intestazione</string>
     <string name="settings_mcp_add">Aggiungi</string>
     <string name="settings_mcp_cancel">Annulla</string>
     <string name="settings_mcp_remove">Rimuovi</string>
@@ -231,5 +231,5 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="snackbar_mcp_server_removed">Server MCP rimosso</string>
     <string name="snackbar_conversation_deleted">Conversazione eliminata</string>
     <string name="start_interactive_ui">Avvia UI interattiva</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Riordina</string>
 </resources>

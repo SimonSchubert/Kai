@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">เครื่องมือ</string>
     <string name="settings_tab_integrations">การเชื่อมต่อ</string>
     <string name="tool_executing_content_description">เครื่องมือกำลังทำงาน</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d เครื่องมือ</string>
     <string name="privacy_agree_prefix">การใช้บริการถือว่าคุณยอมรับ</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="settings_tab_general">ทั่วไป</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">กำหนดค่าพฤติกรรมการตรวจสอบตนเองเป็นระยะ</string>
     <string name="tool_configure_heartbeat_name">กำหนดค่า Heartbeat</string>
     <string name="tool_memory_learn_description">บันทึกการเรียนรู้ที่จัดหมวดหมู่ การแก้ไขข้อผิดพลาด หรือการตั้งค่า</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">บันทึกความทรงจำ</string>
+    <string name="tool_memory_store_description">บันทึกหรืออัปเดตความทรงจำด้วยคีย์อธิบาย</string>
+    <string name="tool_memory_forget_name">ลบความทรงจำ</string>
+    <string name="tool_memory_forget_description">ลบความทรงจำที่บันทึกไว้ตามคีย์</string>
     <string name="tool_memory_learn_name">เรียนรู้ความทรงจำ</string>
     <string name="tool_memory_reinforce_description">เสริมความทรงจำที่ให้ผลลัพธ์ที่ดี</string>
     <string name="tool_memory_reinforce_name">เสริมความทรงจำ</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">ค่า</string>
+    <string name="settings_mcp_add_header">เพิ่มส่วนหัว</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">ลบเซิร์ฟเวอร์ MCP แล้ว</string>
     <string name="snackbar_conversation_deleted">ลบการสนทนาแล้ว</string>
     <string name="start_interactive_ui">เริ่ม UI แบบโต้ตอบ</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">จัดเรียงใหม่</string>
 </resources>

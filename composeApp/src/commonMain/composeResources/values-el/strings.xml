@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Εργαλεία</string>
     <string name="settings_tab_integrations">Ενσωματώσεις</string>
     <string name="tool_executing_content_description">Εκτέλεση εργαλείου</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Εργαλεία</string>
     <string name="privacy_agree_prefix">Χρησιμοποιώντας την υπηρεσία, συμφωνείτε με την </string>
     <string name="privacy_policy">Πολιτική Απορρήτου</string>
     <string name="tool_get_local_time_name">Λήψη Τοπικής Ώρας</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Ρύθμιση συμπεριφοράς περιοδικού αυτοελέγχου</string>
     <string name="tool_configure_heartbeat_name">Ρύθμιση Heartbeat</string>
     <string name="tool_memory_learn_description">Αποθήκευση κατηγοριοποιημένης γνώσης, επίλυσης σφάλματος ή προτίμησης</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Αποθήκευση ανάμνησης</string>
+    <string name="tool_memory_store_description">Αποθήκευση ή ενημέρωση ανάμνησης με περιγραφικό κλειδί</string>
+    <string name="tool_memory_forget_name">Διαγραφή ανάμνησης</string>
+    <string name="tool_memory_forget_description">Διαγραφή αποθηκευμένης ανάμνησης με βάση το κλειδί της</string>
     <string name="tool_memory_learn_name">Εκμάθηση ανάμνησης</string>
     <string name="tool_memory_reinforce_description">Ενίσχυση μιας ανάμνησης που είχε καλό αποτέλεσμα</string>
     <string name="tool_memory_reinforce_name">Ενίσχυση ανάμνησης</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Όνομα διακομιστή</string>
     <string name="settings_mcp_server_url">URL διακομιστή</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Τιμή</string>
+    <string name="settings_mcp_add_header">Προσθήκη κεφαλίδας</string>
     <string name="settings_mcp_add">Προσθήκη</string>
     <string name="settings_mcp_cancel">Ακύρωση</string>
     <string name="settings_mcp_remove">Αφαίρεση</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Ο διακομιστής MCP αφαιρέθηκε</string>
     <string name="snackbar_conversation_deleted">Η συνομιλία διαγράφηκε</string>
     <string name="start_interactive_ui">Εκκίνηση διαδραστικού UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Αναδιάταξη</string>
 </resources>

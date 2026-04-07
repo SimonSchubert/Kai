@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Инструменты</string>
     <string name="settings_tab_integrations">Интеграции</string>
     <string name="tool_executing_content_description">Инструмент выполняется</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d инструментов</string>
     <string name="privacy_agree_prefix">Используя сервис, вы соглашаетесь с </string>
     <string name="privacy_policy">Политикой конфиденциальности</string>
     <string name="settings_tab_general">Общие</string>
@@ -114,10 +114,10 @@
     <string name="tool_configure_heartbeat_description">Настроить поведение периодической самопроверки</string>
     <string name="tool_configure_heartbeat_name">Настроить пульс</string>
     <string name="tool_memory_learn_description">Сохранить категоризированное знание, решение ошибки или предпочтение</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Сохранить запись</string>
+    <string name="tool_memory_store_description">Сохранить или обновить запись с описательным ключом</string>
+    <string name="tool_memory_forget_name">Удалить запись</string>
+    <string name="tool_memory_forget_description">Удалить сохранённую запись по ключу</string>
     <string name="tool_memory_learn_name">Изучить память</string>
     <string name="tool_memory_reinforce_description">Укрепить воспоминание, давшее хороший результат</string>
     <string name="tool_memory_reinforce_name">Укрепить память</string>
@@ -145,8 +145,8 @@
     <string name="settings_mcp_server_name">Имя сервера</string>
     <string name="settings_mcp_server_url">URL сервера</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Значение</string>
+    <string name="settings_mcp_add_header">Добавить заголовок</string>
     <string name="settings_mcp_add">Добавить</string>
     <string name="settings_mcp_cancel">Отмена</string>
     <string name="settings_mcp_remove">Удалить</string>
@@ -231,5 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP-сервер удалён</string>
     <string name="snackbar_conversation_deleted">Беседа удалена</string>
     <string name="start_interactive_ui">Запустить интерактивный UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Изменить порядок</string>
 </resources>

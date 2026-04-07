@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Narzędzia</string>
     <string name="settings_tab_integrations">Integracje</string>
     <string name="tool_executing_content_description">Narzędzie w trakcie</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Narzędzia</string>
     <string name="privacy_agree_prefix">Korzystając z usługi, zgadzasz się z </string>
     <string name="privacy_policy">Polityką prywatności</string>
     <string name="settings_tab_general">Ogólne</string>
@@ -114,10 +114,10 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="tool_configure_heartbeat_description">Skonfiguruj zachowanie okresowej samokontroli</string>
     <string name="tool_configure_heartbeat_name">Skonfiguruj puls</string>
     <string name="tool_memory_learn_description">Zapisz skategoryzowaną naukę, rozwiązanie błędu lub preferencję</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Zapisz wspomnienie</string>
+    <string name="tool_memory_store_description">Zapisz lub zaktualizuj wspomnienie z opisowym kluczem</string>
+    <string name="tool_memory_forget_name">Zapomnij wspomnienie</string>
+    <string name="tool_memory_forget_description">Usuń zapisane wspomnienie według jego klucza</string>
     <string name="tool_memory_learn_name">Ucz pamięć</string>
     <string name="tool_memory_reinforce_description">Wzmocnij wspomnienie, które przyniosło dobry wynik</string>
     <string name="tool_memory_reinforce_name">Wzmocnij pamięć</string>
@@ -145,8 +145,8 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_mcp_server_name">Nazwa serwera</string>
     <string name="settings_mcp_server_url">URL serwera</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Wartość</string>
+    <string name="settings_mcp_add_header">Dodaj nagłówek</string>
     <string name="settings_mcp_add">Dodaj</string>
     <string name="settings_mcp_cancel">Anuluj</string>
     <string name="settings_mcp_remove">Usuń</string>
@@ -231,5 +231,5 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="snackbar_mcp_server_removed">Serwer MCP usunięty</string>
     <string name="snackbar_conversation_deleted">Rozmowa usunięta</string>
     <string name="start_interactive_ui">Uruchom interaktywny UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Zmień kolejność</string>
 </resources>

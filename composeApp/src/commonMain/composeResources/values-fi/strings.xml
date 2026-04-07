@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Ty\u00f6kalut</string>
     <string name="settings_tab_integrations">Integraatiot</string>
     <string name="tool_executing_content_description">Ty\u00f6kalua suoritetaan</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Työkalua</string>
     <string name="privacy_agree_prefix">K\u00e4ytt\u00e4m\u00e4ll\u00e4 palvelua hyv\u00e4ksyt </string>
     <string name="privacy_policy">Tietosuojak\u00e4yt\u00e4nn\u00f6n</string>
     <string name="tool_get_local_time_name">Hae paikallinen aika</string>
@@ -114,10 +114,10 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_configure_heartbeat_description">Määritä jaksollinen itsetarkistuskäyttäytyminen</string>
     <string name="tool_configure_heartbeat_name">Määritä syke</string>
     <string name="tool_memory_learn_description">Tallenna luokiteltu oppiminen, virheenratkaisu tai mieltymys</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Tallenna muisto</string>
+    <string name="tool_memory_store_description">Tallenna tai päivitä muisto kuvaavalla avaimella</string>
+    <string name="tool_memory_forget_name">Unohda muisto</string>
+    <string name="tool_memory_forget_description">Poista tallennettu muisto sen avaimen perusteella</string>
     <string name="tool_memory_learn_name">Opi muisti</string>
     <string name="tool_memory_reinforce_description">Vahvista muisto, joka tuotti hyvän tuloksen</string>
     <string name="tool_memory_reinforce_name">Vahvista muisti</string>
@@ -145,8 +145,8 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_mcp_server_name">Palvelimen nimi</string>
     <string name="settings_mcp_server_url">Palvelimen URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Arvo</string>
+    <string name="settings_mcp_add_header">Lisää otsikko</string>
     <string name="settings_mcp_add">Lisää</string>
     <string name="settings_mcp_cancel">Peruuta</string>
     <string name="settings_mcp_remove">Poista</string>
@@ -231,5 +231,5 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="snackbar_mcp_server_removed">MCP-palvelin poistettu</string>
     <string name="snackbar_conversation_deleted">Keskustelu poistettu</string>
     <string name="start_interactive_ui">Käynnistä interaktiivinen UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Järjestä uudelleen</string>
 </resources>

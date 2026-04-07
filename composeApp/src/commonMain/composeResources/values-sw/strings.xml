@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Zana</string>
     <string name="settings_tab_integrations">Muunganisho</string>
     <string name="tool_executing_content_description">Zana inatekelezwa</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Zana</string>
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>
     <string name="settings_tab_general">Jumla</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Sanidi tabia ya ukaguzi wa kiotomatiki</string>
     <string name="tool_configure_heartbeat_name">Sanidi Heartbeat</string>
     <string name="tool_memory_learn_description">Hifadhi mafunzo yaliyoainishwa, utatuzi wa hitilafu, au pendeleo</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Hifadhi Kumbukumbu</string>
+    <string name="tool_memory_store_description">Hifadhi au sasisha kumbukumbu kwa ufunguo wa maelezo</string>
+    <string name="tool_memory_forget_name">Sahau Kumbukumbu</string>
+    <string name="tool_memory_forget_description">Futa kumbukumbu iliyohifadhiwa kwa ufunguo wake</string>
     <string name="tool_memory_learn_name">Jifunze Kumbukumbu</string>
     <string name="tool_memory_reinforce_description">Imarisha kumbukumbu iliyotoa matokeo mazuri</string>
     <string name="tool_memory_reinforce_name">Imarisha Kumbukumbu</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Thamani</string>
+    <string name="settings_mcp_add_header">Ongeza Kichwa</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Seva ya MCP imeondolewa</string>
     <string name="snackbar_conversation_deleted">Mazungumzo yamefutwa</string>
     <string name="start_interactive_ui">Anza UI ya mwingiliano</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Panga upya</string>
 </resources>

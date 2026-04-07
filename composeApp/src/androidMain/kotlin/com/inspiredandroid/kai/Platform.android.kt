@@ -143,11 +143,7 @@ actual fun createLegacySettings(): Settings? {
 }
 
 // Tool definitions for Android platform
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
-    WebSearchTool.toolInfo,
-    CommonTools.localTimeToolInfo,
-    CommonTools.ipLocationToolInfo,
-    CommonTools.openUrlToolInfo,
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + listOf(
     ToolInfo(
         id = "send_notification",
         name = "Send Notification",
@@ -169,9 +165,7 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(
         nameRes = Res.string.tool_set_alarm_name,
         descriptionRes = Res.string.tool_set_alarm_description,
     ),
-) + SchedulingTools.schedulingToolDefinitions +
-    HeartbeatTools.heartbeatToolDefinitions +
-    EmailTools.emailToolDefinitions
+)
 
 actual fun getAvailableTools(): List<Tool> {
     val context: Context by inject(Context::class.java)

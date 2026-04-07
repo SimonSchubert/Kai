@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">साधने</string>
     <string name="settings_tab_integrations">एकत्रीकरणे</string>
     <string name="tool_executing_content_description">साधन चालू आहे</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d साधने</string>
     <string name="privacy_agree_prefix">सेवा वापरून, तुम्ही सहमत आहात </string>
     <string name="privacy_policy">गोपनीयता धोरण</string>
     <string name="settings_tab_general">सामान्य</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">नियतकालिक स्व-तपासणी वर्तन कॉन्फिगर करा</string>
     <string name="tool_configure_heartbeat_name">Heartbeat कॉन्फिगर करा</string>
     <string name="tool_memory_learn_description">वर्गीकृत शिकणे, त्रुटी निराकरण किंवा प्राधान्य साठवा</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">स्मृती जतन करा</string>
+    <string name="tool_memory_store_description">वर्णनात्मक कीसह स्मृती जतन करा किंवा अद्ययावत करा</string>
+    <string name="tool_memory_forget_name">स्मृती विसरा</string>
+    <string name="tool_memory_forget_description">तिच्या कीद्वारे जतन केलेली स्मृती हटवा</string>
     <string name="tool_memory_learn_name">आठवण शिका</string>
     <string name="tool_memory_reinforce_description">चांगला परिणाम देणारी आठवण बळकट करा</string>
     <string name="tool_memory_reinforce_name">आठवण बळकट करा</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">मूल्य</string>
+    <string name="settings_mcp_add_header">हेडर जोडा</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP सर्व्हर काढला</string>
     <string name="snackbar_conversation_deleted">संभाषण हटवले</string>
     <string name="start_interactive_ui">इंटरॅक्टिव्ह UI सुरू करा</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">पुनर्रचना</string>
 </resources>

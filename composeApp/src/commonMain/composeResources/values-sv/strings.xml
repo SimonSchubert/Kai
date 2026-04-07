@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Verktyg</string>
     <string name="settings_tab_integrations">Integrationer</string>
     <string name="tool_executing_content_description">Verktyg körs</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Verktyg</string>
     <string name="privacy_agree_prefix">Genom att använda tjänsten godkänner du </string>
     <string name="privacy_policy">Integritetspolicyn</string>
     <string name="tool_get_local_time_name">Hämta lokal tid</string>
@@ -114,10 +114,10 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tool_configure_heartbeat_description">Konfigurera periodiskt självkontrollbeteende</string>
     <string name="tool_configure_heartbeat_name">Konfigurera hjärtslag</string>
     <string name="tool_memory_learn_description">Lagra en kategoriserad lärdom, fellösning eller preferens</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Spara minne</string>
+    <string name="tool_memory_store_description">Spara eller uppdatera ett minne med en beskrivande nyckel</string>
+    <string name="tool_memory_forget_name">Glöm minne</string>
+    <string name="tool_memory_forget_description">Ta bort ett sparat minne efter dess nyckel</string>
     <string name="tool_memory_learn_name">Lär minne</string>
     <string name="tool_memory_reinforce_description">Förstärk ett minne som gav ett bra resultat</string>
     <string name="tool_memory_reinforce_name">Förstärk minne</string>
@@ -145,8 +145,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_mcp_server_name">Servernamn</string>
     <string name="settings_mcp_server_url">Server-URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Värde</string>
+    <string name="settings_mcp_add_header">Lägg till rubrik</string>
     <string name="settings_mcp_add">Lägg till</string>
     <string name="settings_mcp_cancel">Avbryt</string>
     <string name="settings_mcp_remove">Ta bort</string>
@@ -231,5 +231,5 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="snackbar_mcp_server_removed">MCP-server borttagen</string>
     <string name="snackbar_conversation_deleted">Konversation raderad</string>
     <string name="start_interactive_ui">Starta interaktivt UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Ändra ordning</string>
 </resources>

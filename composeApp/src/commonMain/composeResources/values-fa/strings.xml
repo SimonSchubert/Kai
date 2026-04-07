@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">ابزارها</string>
     <string name="settings_tab_integrations">یکپارچه‌سازی‌ها</string>
     <string name="tool_executing_content_description">ابزار در حال اجرا</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d ابزار</string>
     <string name="privacy_agree_prefix">با استفاده از سرویس، شما با </string>
     <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
     <string name="settings_tab_general">عمومی</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">پیکربندی رفتار خودبررسی دوره‌ای</string>
     <string name="tool_configure_heartbeat_name">پیکربندی Heartbeat</string>
     <string name="tool_memory_learn_description">ذخیره یک آموخته دسته‌بندی‌شده، رفع خطا یا ترجیح</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">ذخیره خاطره</string>
+    <string name="tool_memory_store_description">ذخیره یا به‌روزرسانی خاطره با یک کلید توصیفی</string>
+    <string name="tool_memory_forget_name">فراموش کردن خاطره</string>
+    <string name="tool_memory_forget_description">حذف یک خاطره ذخیره‌شده با کلید آن</string>
     <string name="tool_memory_learn_name">یادگیری خاطره</string>
     <string name="tool_memory_reinforce_description">تقویت خاطره‌ای که نتیجه خوبی داشته است</string>
     <string name="tool_memory_reinforce_name">تقویت خاطره</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">نام سرور</string>
     <string name="settings_mcp_server_url">URL سرور</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">مقدار</string>
+    <string name="settings_mcp_add_header">افزودن سربرگ</string>
     <string name="settings_mcp_add">افزودن</string>
     <string name="settings_mcp_cancel">لغو</string>
     <string name="settings_mcp_remove">حذف</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">سرور MCP حذف شد</string>
     <string name="snackbar_conversation_deleted">مکالمه حذف شد</string>
     <string name="start_interactive_ui">شروع رابط کاربری تعاملی</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">مرتب‌سازی مجدد</string>
 </resources>

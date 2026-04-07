@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">Alat</string>
     <string name="settings_tab_integrations">Integrasi</string>
     <string name="tool_executing_content_description">Alat sedang berjalan</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Alat</string>
     <string name="privacy_agree_prefix">Dengan menggunakan layanan, Anda menyetujui </string>
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="settings_tab_general">Umum</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigurasi perilaku pemeriksaan mandiri berkala</string>
     <string name="tool_configure_heartbeat_name">Konfigurasi Heartbeat</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran terkategorisasi, resolusi kesalahan, atau preferensi</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Simpan Memori</string>
+    <string name="tool_memory_store_description">Simpan atau perbarui memori dengan kunci deskriptif</string>
+    <string name="tool_memory_forget_name">Lupakan Memori</string>
+    <string name="tool_memory_forget_description">Hapus memori tersimpan berdasarkan kuncinya</string>
     <string name="tool_memory_learn_name">Pelajari Memori</string>
     <string name="tool_memory_reinforce_description">Perkuat memori yang menghasilkan hasil baik</string>
     <string name="tool_memory_reinforce_name">Perkuat Memori</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Nama Server</string>
     <string name="settings_mcp_server_url">URL Server</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Nilai</string>
+    <string name="settings_mcp_add_header">Tambah Header</string>
     <string name="settings_mcp_add">Tambah</string>
     <string name="settings_mcp_cancel">Batal</string>
     <string name="settings_mcp_remove">Hapus</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Server MCP dihapus</string>
     <string name="snackbar_conversation_deleted">Percakapan dihapus</string>
     <string name="start_interactive_ui">Mulai UI Interaktif</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Urutkan ulang</string>
 </resources>

@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Eszközök</string>
     <string name="settings_tab_integrations">Integrációk</string>
     <string name="tool_executing_content_description">Eszköz végrehajtás alatt</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Eszköz</string>
     <string name="privacy_agree_prefix">A szolgáltatás használatával elfogadod az </string>
     <string name="privacy_policy">Adatvédelmi irányelveket</string>
     <string name="tool_get_local_time_name">Helyi idő lekérése</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Időszakos önellenőrzés viselkedésének beállítása</string>
     <string name="tool_configure_heartbeat_name">Heartbeat beállítása</string>
     <string name="tool_memory_learn_description">Kategorizált tanulság, hibajavítás vagy preferencia tárolása</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Emlék mentése</string>
+    <string name="tool_memory_store_description">Emlék mentése vagy frissítése leíró kulccsal</string>
+    <string name="tool_memory_forget_name">Emlék törlése</string>
+    <string name="tool_memory_forget_description">Mentett emlék törlése a kulcsa alapján</string>
     <string name="tool_memory_learn_name">Emlék tanulása</string>
     <string name="tool_memory_reinforce_description">Jó eredményt hozó emlék megerősítése</string>
     <string name="tool_memory_reinforce_name">Emlék megerősítése</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Kiszolgáló neve</string>
     <string name="settings_mcp_server_url">Kiszolgáló URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Érték</string>
+    <string name="settings_mcp_add_header">Fejléc hozzáadása</string>
     <string name="settings_mcp_add">Hozzáadás</string>
     <string name="settings_mcp_cancel">Mégse</string>
     <string name="settings_mcp_remove">Eltávolítás</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP szerver eltávolítva</string>
     <string name="snackbar_conversation_deleted">Beszélgetés törölve</string>
     <string name="start_interactive_ui">Interaktív UI indítása</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Átrendezés</string>
 </resources>

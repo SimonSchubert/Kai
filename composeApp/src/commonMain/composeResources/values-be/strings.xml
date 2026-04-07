@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Інструменты</string>
     <string name="settings_tab_integrations">Інтэграцыі</string>
     <string name="tool_executing_content_description">Інструмент выконваецца</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d Інструментаў</string>
     <string name="privacy_agree_prefix">Выкарыстоўваючы сэрвіс, вы згаджаецеся з </string>
     <string name="privacy_policy">Палітыка прыватнасці</string>
     <string name="tool_get_local_time_name">Атрымаць мясцовы час</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Наладзіць паводзіны перыядычнай самаправеркі</string>
     <string name="tool_configure_heartbeat_name">Наладзіць Heartbeat</string>
     <string name="tool_memory_learn_description">Захаваць катэгарызаванае веданне, вырашэнне памылкі або перавагу</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Захаваць успамін</string>
+    <string name="tool_memory_store_description">Захаваць або абнавіць успамін з апісальным ключом</string>
+    <string name="tool_memory_forget_name">Забыць успамін</string>
+    <string name="tool_memory_forget_description">Выдаліць захаваны ўспамін па яго ключу</string>
     <string name="tool_memory_learn_name">Запомніць</string>
     <string name="tool_memory_reinforce_description">Узмацніць успамін, які прывёў да добрага выніку</string>
     <string name="tool_memory_reinforce_name">Узмацніць успамін</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Назва сервера</string>
     <string name="settings_mcp_server_url">URL сервера</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Значэнне</string>
+    <string name="settings_mcp_add_header">Дадаць загаловак</string>
     <string name="settings_mcp_add">Дадаць</string>
     <string name="settings_mcp_cancel">Скасаваць</string>
     <string name="settings_mcp_remove">Выдаліць</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP-сервер выдалены</string>
     <string name="snackbar_conversation_deleted">Размова выдалена</string>
     <string name="start_interactive_ui">Пачаць інтэрактыўны UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Змяніць парадак</string>
 </resources>

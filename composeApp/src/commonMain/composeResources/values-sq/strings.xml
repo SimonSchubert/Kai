@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Mjetet</string>
     <string name="settings_tab_integrations">Integrimet</string>
     <string name="tool_executing_content_description">Mjeti po ekzekutohet</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d mjete</string>
     <string name="privacy_agree_prefix">Duke përdorur shërbimin, ju pranoni </string>
     <string name="privacy_policy">Politikën e privatësisë</string>
     <string name="tool_get_local_time_name">Merr orën lokale</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfiguro sjelljen e vetëkontrollit periodik</string>
     <string name="tool_configure_heartbeat_name">Konfiguro Heartbeat</string>
     <string name="tool_memory_learn_description">Ruaj një mësim të kategorizuar, zgjidhje gabimi ose preferencë</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Ruaj kujtesë</string>
+    <string name="tool_memory_store_description">Ruaj ose përditëso një kujtesë me një çelës përshkrues</string>
+    <string name="tool_memory_forget_name">Harro kujtesë</string>
+    <string name="tool_memory_forget_description">Fshi një kujtesë të ruajtur sipas çelësit</string>
     <string name="tool_memory_learn_name">Mëso kujtim</string>
     <string name="tool_memory_reinforce_description">Përforco një kujtim që prodhoi një rezultat të mirë</string>
     <string name="tool_memory_reinforce_name">Përforco kujtim</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Vlera</string>
+    <string name="settings_mcp_add_header">Shto kokëz</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">Serveri MCP u hoq</string>
     <string name="snackbar_conversation_deleted">Biseda u fshi</string>
     <string name="start_interactive_ui">Fillo UI interaktive</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Rirendit</string>
 </resources>

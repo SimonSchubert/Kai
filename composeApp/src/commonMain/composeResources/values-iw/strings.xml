@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">כלים</string>
     <string name="settings_tab_integrations">אינטגרציות</string>
     <string name="tool_executing_content_description">הכלי פועל</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d כלים</string>
     <string name="privacy_agree_prefix">בשימוש בשירות, אתה מסכים ל</string>
     <string name="privacy_policy">מדיניות הפרטיות</string>
     <string name="tool_get_local_time_name">קבל שעה מקומית</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">הגדר התנהגות בדיקה עצמית תקופתית</string>
     <string name="tool_configure_heartbeat_name">הגדר Heartbeat</string>
     <string name="tool_memory_learn_description">שמור למידה מסווגת, פתרון שגיאה או העדפה</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">שמור זיכרון</string>
+    <string name="tool_memory_store_description">שמור או עדכן זיכרון עם מפתח תיאורי</string>
+    <string name="tool_memory_forget_name">שכח זיכרון</string>
+    <string name="tool_memory_forget_description">מחק זיכרון שמור לפי המפתח שלו</string>
     <string name="tool_memory_learn_name">למד זיכרון</string>
     <string name="tool_memory_reinforce_description">חזק זיכרון שהניב תוצאה טובה</string>
     <string name="tool_memory_reinforce_name">חזק זיכרון</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">שם השרת</string>
     <string name="settings_mcp_server_url">URL של השרת</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">ערך</string>
+    <string name="settings_mcp_add_header">הוסף כותרת</string>
     <string name="settings_mcp_add">הוסף</string>
     <string name="settings_mcp_cancel">ביטול</string>
     <string name="settings_mcp_remove">הסר</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">שרת MCP הוסר</string>
     <string name="snackbar_conversation_deleted">השיחה נמחקה</string>
     <string name="start_interactive_ui">התחל ממשק אינטראקטיבי</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">סדר מחדש</string>
 </resources>

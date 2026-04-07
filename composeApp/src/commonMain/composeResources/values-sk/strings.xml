@@ -42,7 +42,7 @@
     <string name="settings_tab_tools">Nástroje</string>
     <string name="settings_tab_integrations">Integrácie</string>
     <string name="tool_executing_content_description">Nástroj sa vykonáva</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d nástrojov</string>
     <string name="privacy_agree_prefix">Používaním služby súhlasíte s </string>
     <string name="privacy_policy">Zásadami ochrany osobných údajov</string>
     <string name="tool_get_local_time_name">Zistiť miestny čas</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">Konfigurovať správanie periodickej sebakontroly</string>
     <string name="tool_configure_heartbeat_name">Konfigurovať Heartbeat</string>
     <string name="tool_memory_learn_description">Uložiť kategorizované učenie, vyriešenie chyby alebo preferenciu</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">Uložiť spomienku</string>
+    <string name="tool_memory_store_description">Uložiť alebo aktualizovať spomienku s popisným kľúčom</string>
+    <string name="tool_memory_forget_name">Zabudnúť spomienku</string>
+    <string name="tool_memory_forget_description">Odstrániť uloženú spomienku podľa kľúča</string>
     <string name="tool_memory_learn_name">Naučiť spomienku</string>
     <string name="tool_memory_reinforce_description">Posilniť spomienku, ktorá priniesla dobrý výsledok</string>
     <string name="tool_memory_reinforce_name">Posilniť spomienku</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">Hodnota</string>
+    <string name="settings_mcp_add_header">Pridať hlavičku</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP server odstránený</string>
     <string name="snackbar_conversation_deleted">Konverzácia vymazaná</string>
     <string name="start_interactive_ui">Spustiť interaktívne UI</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">Zmeniť poradie</string>
 </resources>

@@ -49,7 +49,7 @@
     <string name="settings_tab_tools">கருவிகள்</string>
     <string name="settings_tab_integrations">ஒருங்கிணைப்புகள்</string>
     <string name="tool_executing_content_description">கருவி இயங்குகிறது</string>
-    <string name="tools_count">%1$d Tools</string>
+    <string name="tools_count">%1$d கருவிகள்</string>
     <string name="privacy_agree_prefix">சேவையைப் பயன்படுத்துவதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள் </string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="settings_tab_general">பொது</string>
@@ -113,10 +113,10 @@
     <string name="tool_configure_heartbeat_description">அவ்வப்போது சுய சோதனை நடத்தையை உள்ளமை</string>
     <string name="tool_configure_heartbeat_name">Heartbeat உள்ளமை</string>
     <string name="tool_memory_learn_description">வகைப்படுத்தப்பட்ட கற்றல், பிழை தீர்வு அல்லது விருப்பத்தைச் சேமி</string>
-    <string name="tool_memory_store_name">Store Memory</string>
-    <string name="tool_memory_store_description">Store or update a memory with a descriptive key</string>
-    <string name="tool_memory_forget_name">Forget Memory</string>
-    <string name="tool_memory_forget_description">Delete a stored memory by its key</string>
+    <string name="tool_memory_store_name">நினைவகத்தை சேமி</string>
+    <string name="tool_memory_store_description">விளக்க விசையுடன் நினைவகத்தை சேமிக்கவும் அல்லது புதுப்பிக்கவும்</string>
+    <string name="tool_memory_forget_name">நினைவகத்தை மற</string>
+    <string name="tool_memory_forget_description">அதன் விசை மூலம் சேமித்த நினைவகத்தை நீக்கு</string>
     <string name="tool_memory_learn_name">நினைவைக் கற்று</string>
     <string name="tool_memory_reinforce_description">நல்ல முடிவைத் தந்த நினைவை வலுப்படுத்து</string>
     <string name="tool_memory_reinforce_name">நினைவை வலுப்படுத்து</string>
@@ -144,8 +144,8 @@
     <string name="settings_mcp_server_name">Server Name</string>
     <string name="settings_mcp_server_url">Server URL</string>
     <string name="settings_mcp_header_key">Name</string>
-    <string name="settings_mcp_header_value">Value</string>
-    <string name="settings_mcp_add_header">Add Header</string>
+    <string name="settings_mcp_header_value">மதிப்பு</string>
+    <string name="settings_mcp_add_header">தலைப்பு சேர்</string>
     <string name="settings_mcp_add">Add</string>
     <string name="settings_mcp_cancel">Cancel</string>
     <string name="settings_mcp_remove">Remove</string>
@@ -230,5 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP சேவையகம் அகற்றப்பட்டது</string>
     <string name="snackbar_conversation_deleted">உரையாடல் நீக்கப்பட்டது</string>
     <string name="start_interactive_ui">ஊடாடும் UI-ஐ தொடங்கு</string>
-    <string name="settings_reorder_content_description">Reorder</string>
+    <string name="settings_reorder_content_description">மறுவரிசைப்படுத்து</string>
 </resources>
