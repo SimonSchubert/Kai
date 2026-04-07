@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP poslužitelj uklonjen</string>
     <string name="snackbar_conversation_deleted">Razgovor obrisan</string>
     <string name="start_interactive_ui">Pokreni interaktivno sučelje</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

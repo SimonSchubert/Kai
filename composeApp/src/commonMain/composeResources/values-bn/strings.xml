@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP সার্ভার সরানো হয়েছে</string>
     <string name="snackbar_conversation_deleted">কথোপকথন মুছে ফেলা হয়েছে</string>
     <string name="start_interactive_ui">ইন্টারেক্টিভ UI শুরু করুন</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

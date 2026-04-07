@@ -231,4 +231,5 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="snackbar_mcp_server_removed">MCP-server verwijderd</string>
     <string name="snackbar_conversation_deleted">Gesprek verwijderd</string>
     <string name="start_interactive_ui">Interactieve UI starten</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP serveris pašalintas</string>
     <string name="snackbar_conversation_deleted">Pokalbis ištrintas</string>
     <string name="start_interactive_ui">Pradėti interaktyvią UI</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

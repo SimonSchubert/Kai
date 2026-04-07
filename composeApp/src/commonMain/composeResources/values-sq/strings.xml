@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">Serveri MCP u hoq</string>
     <string name="snackbar_conversation_deleted">Biseda u fshi</string>
     <string name="start_interactive_ui">Fillo UI interaktive</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

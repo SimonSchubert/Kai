@@ -231,4 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP 伺服器已移除</string>
     <string name="snackbar_conversation_deleted">對話已刪除</string>
     <string name="start_interactive_ui">啟動互動式 UI</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

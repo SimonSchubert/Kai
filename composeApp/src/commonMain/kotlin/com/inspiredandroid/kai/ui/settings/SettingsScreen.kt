@@ -927,7 +927,7 @@ private fun ConfiguredServiceCardContent(
                 if (dragHandleModifier != null) {
                     Icon(
                         imageVector = Icons.Rounded.DragIndicator,
-                        contentDescription = "Reorder",
+                        contentDescription = stringResource(Res.string.settings_reorder_content_description),
                         modifier = dragHandleModifier.handCursor(),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )

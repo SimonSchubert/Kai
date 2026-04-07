@@ -231,4 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP 서버가 제거되었습니다</string>
     <string name="snackbar_conversation_deleted">대화가 삭제되었습니다</string>
     <string name="start_interactive_ui">인터랙티브 UI 시작</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

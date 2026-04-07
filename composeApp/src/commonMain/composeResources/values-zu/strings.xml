@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">Iseva ye-MCP isusiwe</string>
     <string name="snackbar_conversation_deleted">Ingxoxo isusiwe</string>
     <string name="start_interactive_ui">Qala UI Ehlanganyela</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

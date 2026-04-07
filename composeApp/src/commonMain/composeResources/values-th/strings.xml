@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">ลบเซิร์ฟเวอร์ MCP แล้ว</string>
     <string name="snackbar_conversation_deleted">ลบการสนทนาแล้ว</string>
     <string name="start_interactive_ui">เริ่ม UI แบบโต้ตอบ</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

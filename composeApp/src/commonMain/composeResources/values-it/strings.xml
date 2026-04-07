@@ -231,4 +231,5 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="snackbar_mcp_server_removed">Server MCP rimosso</string>
     <string name="snackbar_conversation_deleted">Conversazione eliminata</string>
     <string name="start_interactive_ui">Avvia UI interattiva</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

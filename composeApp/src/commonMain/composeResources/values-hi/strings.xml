@@ -231,4 +231,5 @@
     <string name="snackbar_mcp_server_removed">MCP सर्वर हटाया गया</string>
     <string name="snackbar_conversation_deleted">बातचीत हटाई गई</string>
     <string name="start_interactive_ui">इंटरैक्टिव UI शुरू करें</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

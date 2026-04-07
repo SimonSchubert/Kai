@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP سرور ہٹا دیا گیا</string>
     <string name="snackbar_conversation_deleted">بات چیت حذف ہو گئی</string>
     <string name="start_interactive_ui">انٹرایکٹو UI شروع کریں</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

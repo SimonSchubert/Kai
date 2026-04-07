@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">MCP server odebrán</string>
     <string name="snackbar_conversation_deleted">Konverzace smazána</string>
     <string name="start_interactive_ui">Spustit interaktivní UI</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>

@@ -230,4 +230,5 @@
     <string name="snackbar_mcp_server_removed">Seva ya MCP imeondolewa</string>
     <string name="snackbar_conversation_deleted">Mazungumzo yamefutwa</string>
     <string name="start_interactive_ui">Anza UI ya mwingiliano</string>
+    <string name="settings_reorder_content_description">Reorder</string>
 </resources>
