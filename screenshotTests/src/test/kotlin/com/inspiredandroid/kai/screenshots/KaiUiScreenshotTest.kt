@@ -623,10 +623,10 @@ class KaiUiScreenshotTest {
                 {"type":"text","value":"\u2694\ufe0f The Goblin Tunnels","style":"headline","bold":true},
                 {"type":"text","value":"Chapter 1 \u2022 The Beginning","style":"caption","color":"secondary"},
                 {"type":"row","children":[
-                    {"type":"stat","value":"20/20","label":"HP"},
-                    {"type":"stat","value":"Lv 1","label":"Level"},
-                    {"type":"stat","value":"50g","label":"Gold"},
-                    {"type":"stat","value":"2","label":"DEF"}
+                    {"type":"stat","value":"20/20","label":"\u2764\ufe0f HP"},
+                    {"type":"stat","value":"50g","label":"\ud83d\udcb0 Gold"},
+                    {"type":"stat","value":"2","label":"\ud83d\udee1\ufe0f DEF"},
+                    {"type":"stat","value":"5","label":"\u2694\ufe0f DMG"}
                 ]},
                 {"type":"image","url":"preview://image"},
                 {"type":"text","value":"You descend deeper into the darkness. The air grows thick with the smell of damp stone and something rotten. Your torchlight dances across crude carvings on the walls — warnings, perhaps, from those who came before. A low growl echoes from somewhere ahead.","style":"body"},

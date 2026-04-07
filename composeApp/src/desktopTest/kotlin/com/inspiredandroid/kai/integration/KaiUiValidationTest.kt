@@ -46,6 +46,7 @@ import kotlin.test.Test
  * | Cerebras     | KAI_CEREBRAS_KEY      | KAI_CEREBRAS_MODEL       | llama-3.3-70b                |
  * | Moonshot     | KAI_MOONSHOT_KEY      | KAI_MOONSHOT_MODEL       | moonshot-v1-8k               |
  * | Together     | KAI_TOGETHER_KEY      | KAI_TOGETHER_MODEL       | meta-llama/Llama-3.3-70B-Instruct-Turbo |
+ * | Mistral FT   | KAI_MISTRAL_FT_KEY    | KAI_MISTRAL_FT_MODEL     | ft:open-mistral-7b:latest  |
  *
  * Additional knobs:
  * - `KAI_REPORT_DIR` — where to write the report (default: `build/reports/kaiui-integration`)
@@ -330,6 +331,16 @@ class KaiUiValidationTest {
                 "Together",
                 Service.Together,
                 env("KAI_TOGETHER_MODEL") ?: "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+                it,
+                ProviderSpec.Kind.OPENAI_COMPAT,
+            )
+        }
+        env("KAI_MISTRAL_FT_KEY")?.let {
+            out += ProviderSpec(
+                "mistral-ft",
+                "Mistral Fine-tuned",
+                Service.Mistral,
+                env("KAI_MISTRAL_FT_MODEL") ?: "ft:open-mistral-7b:latest",
                 it,
                 ProviderSpec.Kind.OPENAI_COMPAT,
             )

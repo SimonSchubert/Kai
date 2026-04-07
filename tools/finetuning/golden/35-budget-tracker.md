@@ -1,0 +1,13 @@
+---
+mode: interactive
+slug: budget-tracker
+description: Monthly budget with stats, table, progress, alerts, and spending categories
+---
+
+## User
+Show me my budget overview for this month.
+
+## Assistant
+```kai-ui
+{"type":"column","children":[{"type":"text","value":"April Budget","style":"headline"},{"type":"card","children":[{"type":"row","children":[{"type":"stat","value":"\u20ac2,340","label":"\ud83d\udcb0 Income"},{"type":"stat","value":"\u20ac1,685","label":"\ud83d\uded2 Spent"},{"type":"stat","value":"\u20ac655","label":"\ud83c\udf31 Remaining"}]},{"type":"progress","value":0.72,"label":"72% of budget used \u2014 7 days left"},{"type":"row","children":[{"type":"button","label":"Add Income","variant":"text","action":{"type":"callback","event":"add_income"}},{"type":"button","label":"Previous Month","variant":"text","action":{"type":"callback","event":"previous_month"}}]}]},{"type":"alert","title":"Heads up","message":"You've spent 90% of your dining budget this month.","severity":"warning"},{"type":"card","children":[{"type":"text","value":"Spending by Category","style":"title"},{"type":"row","children":[{"type":"column","children":[{"type":"text","value":"Rent","style":"body"},{"type":"progress","value":1.0,"label":"\u20ac850 / \u20ac850"}]},{"type":"column","children":[{"type":"text","value":"Groceries","style":"body"},{"type":"progress","value":0.65,"label":"\u20ac195 / \u20ac300"}]}]},{"type":"row","children":[{"type":"column","children":[{"type":"text","value":"Dining","style":"body"},{"type":"progress","value":0.9,"label":"\u20ac135 / \u20ac150"}]},{"type":"column","children":[{"type":"text","value":"Transport","style":"body"},{"type":"progress","value":0.4,"label":"\u20ac48 / \u20ac120"}]}]},{"type":"button","label":"Edit Budgets","variant":"outlined","action":{"type":"callback","event":"edit_budgets"}}]},{"type":"card","children":[{"type":"text","value":"Recent Transactions","style":"title"},{"type":"table","headers":["Date","Description","Amount"],"rows":[["Apr 7","Supermarket","-\u20ac42.50"],["Apr 6","Train ticket","-\u20ac12.80"],["Apr 5","Restaurant","-\u20ac38.00"],["Apr 4","Pharmacy","-\u20ac15.90"],["Apr 3","Coffee shop","-\u20ac4.50"]]},{"type":"button","label":"See All Transactions","variant":"text","action":{"type":"callback","event":"all_transactions"}}]},{"type":"row","children":[{"type":"button","label":"Add Expense","action":{"type":"callback","event":"add_expense"}},{"type":"button","label":"Set Goals","variant":"outlined","action":{"type":"callback","event":"set_goals"}},{"type":"button","label":"Export","variant":"tonal","action":{"type":"callback","event":"export_report"}}]}]}
+```
