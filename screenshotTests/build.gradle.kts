@@ -118,7 +118,8 @@ tasks.register("updateScreenshots") {
                 "scenario_sustainableTech_light" to "ecopulse-light.png",
                 "scenario_memories_dark" to "memories-dark.png",
             )
-        snapshotsDir.listFiles()?.filter { it.name.startsWith("com.inspiredandroid.kai.screenshots_KaiUiScreenshotTest_") }?.forEach { file ->
+        val prefix = "com.inspiredandroid.kai.screenshots_KaiUiScreenshotTest_"
+        snapshotsDir.listFiles()?.filter { it.name.startsWith(prefix) }?.forEach { file ->
             siteMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
                 file.copyTo(siteImgDir.resolve(destName), overwrite = true)
                 println("Copied ${file.name} -> site/img/$destName")

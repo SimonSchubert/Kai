@@ -4,7 +4,9 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
 import kai.composeapp.generated.resources.ic_service_cerebras
+import kai.composeapp.generated.resources.ic_service_deepinfra
 import kai.composeapp.generated.resources.ic_service_deepseek
+import kai.composeapp.generated.resources.ic_service_fireworksai
 import kai.composeapp.generated.resources.ic_service_gemini
 import kai.composeapp.generated.resources.ic_service_groqcloud
 import kai.composeapp.generated.resources.ic_service_huggingface
@@ -13,10 +15,10 @@ import kai.composeapp.generated.resources.ic_service_minimax
 import kai.composeapp.generated.resources.ic_service_mistral
 import kai.composeapp.generated.resources.ic_service_moonshot
 import kai.composeapp.generated.resources.ic_service_nvidia
-import kai.composeapp.generated.resources.ic_service_opencode
 import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
+import kai.composeapp.generated.resources.ic_service_opencode
 import kai.composeapp.generated.resources.ic_service_openrouter
 import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
@@ -325,6 +327,32 @@ sealed class Service(
         apiKeyUrlDisplay = "aihubmix.com/token",
     )
 
+    data object DeepInfra : Service(
+        id = "deepinfra",
+        displayName = "Deep Infra",
+        icon = Res.drawable.ic_service_deepinfra,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "deepinfra",
+        chatUrl = "https://api.deepinfra.com/v1/openai/chat/completions",
+        modelsUrl = "https://api.deepinfra.com/v1/openai/models",
+        apiKeyUrl = "https://deepinfra.com/dash/api_keys",
+        apiKeyUrlDisplay = "deepinfra.com/dash/api_keys",
+    )
+
+    data object FireworksAI : Service(
+        id = "fireworksai",
+        displayName = "Fireworks AI",
+        icon = Res.drawable.ic_service_fireworksai,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "fireworksai",
+        chatUrl = "https://api.fireworks.ai/inference/v1/chat/completions",
+        modelsUrl = "https://api.fireworks.ai/inference/v1/models",
+        apiKeyUrl = "https://app.fireworks.ai/settings/users/api-keys",
+        apiKeyUrlDisplay = "app.fireworks.ai/settings/users/api-keys",
+    )
+
     data object OpenCode : Service(
         id = "opencode",
         displayName = "OpenCode",
@@ -353,7 +381,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, OpenCode, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

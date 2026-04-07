@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-04-07
 
-Kai supports 21 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 23 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -70,6 +70,8 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Z.AI | `zai` | Yes | OpenAI-compatible |
 | MiniMax | `minimax` | Yes | OpenAI-compatible |
 | AIHubMix | `aihubmix` | Yes | OpenAI-compatible |
+| Deep Infra | `deepinfra` | Yes | OpenAI-compatible |
+| Fireworks AI | `fireworksai` | Yes | OpenAI-compatible |
 | OpenCode | `opencode` | Yes | OpenAI-compatible |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 
