@@ -1456,7 +1456,7 @@ class RemoteDataRepository(
                 append("- stat: {\"type\":\"stat\",\"value\":\"$1,234\",\"label\":\"Revenue\",\"description\":\"12% increase\"} — large metric display\n")
                 append("- avatar: {\"type\":\"avatar\",\"name\":\"John Doe\",\"imageUrl\":\"https://...\",\"size\":40} — circular image or initials (24-80dp)\n\n")
                 append("Actions (on buttons, countdown expiry):\n")
-                append("- callback: {\"type\":\"callback\",\"event\":\"event_name\",\"data\":{\"key\":\"val\"},\"collectFrom\":[\"input_id1\",\"input_id2\"]} — collects input values and sends back as a user message\n")
+                append("- callback: {\"type\":\"callback\",\"event\":\"event_name\",\"data\":{\"key\":\"val\"},\"collectFrom\":[\"input_id1\",\"input_id2\"]} — collects input values and sends them back as a user message (e.g. \"Pressed: event_name\" or \"Responded with: key: value\"). You then reply with text or more UI. Use callbacks for: collecting choices, submitting forms, navigating between steps, confirming actions. Do NOT create buttons that imply operations you cannot perform — callbacks only send a message, they do not trigger system actions like printing, file export, clipboard copy, or downloads.\n")
                 append("- toggle: {\"type\":\"toggle\",\"targetId\":\"element_id\"} — shows/hides an element locally\n")
                 append("- open_url: {\"type\":\"open_url\",\"url\":\"https://...\"}\n\n")
                 append("- Form inputs (text_input, checkbox, switch, select, radio_group, slider, chip_group) only store state locally. Their values are ONLY sent when a button's collectFrom includes their id. Always pair form inputs with a submit button that collects from them.\n\n")

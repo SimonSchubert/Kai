@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-05 (parser refactor to direct builders)
+**Last verified:** 2026-04-07 (callback prompt clarification)
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -24,7 +24,7 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 
 Buttons carry an action that fires on click (chip groups are form inputs, not action carriers):
 
-- **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow
+- **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow (e.g. "Pressed: event_name" or "Responded with: key: value"). The AI then responds with text or more UI. The prompt explicitly tells the AI to only offer buttons for actions it can fulfill — callbacks do not trigger system operations like printing, file export, or clipboard access.
 - **toggle** — shows/hides a target element locally without AI roundtrip
 - **open_url** — opens a link in the browser
 
