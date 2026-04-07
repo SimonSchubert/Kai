@@ -13,6 +13,7 @@ import kai.composeapp.generated.resources.ic_service_minimax
 import kai.composeapp.generated.resources.ic_service_mistral
 import kai.composeapp.generated.resources.ic_service_moonshot
 import kai.composeapp.generated.resources.ic_service_nvidia
+import kai.composeapp.generated.resources.ic_service_opencode
 import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
@@ -324,6 +325,19 @@ sealed class Service(
         apiKeyUrlDisplay = "aihubmix.com/token",
     )
 
+    data object OpenCode : Service(
+        id = "opencode",
+        displayName = "OpenCode",
+        icon = Res.drawable.ic_service_opencode,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "opencode",
+        chatUrl = "https://opencode.ai/zen/v1/chat/completions",
+        modelsUrl = "https://opencode.ai/zen/v1/models",
+        apiKeyUrl = "https://opencode.ai/docs/zen/",
+        apiKeyUrlDisplay = "opencode.ai/docs/zen",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -339,7 +353,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, OpenCode, OpenAICompatible)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

@@ -154,27 +154,7 @@ Enable it in **Settings > Linux Sandbox**.
 
 ## Supported Services
 
-| Service | Website |
-|---|---|
-| Anthropic | https://console.anthropic.com |
-| Cerebras | https://cerebras.ai |
-| DeepSeek | https://www.deepseek.com |
-| Gemini | https://aistudio.google.com |
-| Groq | https://groq.com |
-| Hugging Face | https://huggingface.co |
-| LongCat | https://longcat.chat |
-| Mistral | https://mistral.ai |
-| Moonshot AI | https://moonshot.cn |
-| NVIDIA | https://developer.nvidia.com |
-| Ollama Cloud | https://ollama.com |
-| OpenAI | https://openai.com |
-| OpenRouter | https://openrouter.ai |
-| Together AI | https://together.ai |
-| Venice AI | https://venice.ai |
-| xAI | https://x.ai |
-| OpenAI-Compatible API | Ollama, LM Studio, etc. |
-
-Plus a built-in **Free** tier that requires no API key.
+[Anthropic](https://console.anthropic.com) · [OpenAI](https://openai.com) · [Gemini](https://aistudio.google.com) · [DeepSeek](https://www.deepseek.com) · [Mistral](https://mistral.ai) · [xAI](https://x.ai) · [OpenRouter](https://openrouter.ai) · [Groq](https://groq.com) · [NVIDIA](https://developer.nvidia.com) · [Cerebras](https://cerebras.ai) · [Ollama Cloud](https://ollama.com) · [LongCat](https://longcat.chat) · [Together AI](https://together.ai) · [Hugging Face](https://huggingface.co) · [Venice AI](https://venice.ai) · [Moonshot AI](https://moonshot.cn) · [Z.AI](https://z.ai) · [MiniMax](https://minimax.io) · [AIHubMix](https://aihubmix.com) · [OpenCode](https://opencode.ai) · OpenAI-Compatible API · Free tier (no API key needed)
 
 ## MCP Servers
 

@@ -231,6 +231,7 @@ import kai.composeapp.generated.resources.settings_openai_compatible_or_other_se
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
 import kai.composeapp.generated.resources.settings_remove_service
+import kai.composeapp.generated.resources.settings_reorder_content_description
 import kai.composeapp.generated.resources.settings_request_integration_description
 import kai.composeapp.generated.resources.settings_request_integration_title
 import kai.composeapp.generated.resources.settings_sandbox_cancel
@@ -2611,7 +2612,7 @@ private fun SoulEditor(
     }
 
     if (showResetDialog) {
-        androidx.compose.material3.AlertDialog(
+        AlertDialog(
             onDismissRequest = { showResetDialog = false },
             title = { Text(stringResource(Res.string.settings_soul_reset)) },
             text = { Text(stringResource(Res.string.settings_soul_reset_confirm)) },
