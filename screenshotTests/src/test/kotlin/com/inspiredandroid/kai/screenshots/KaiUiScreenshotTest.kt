@@ -650,7 +650,7 @@ class KaiUiScreenshotTest {
                 {"type":"row","spacing":16,"children":[
                     {"type":"stat","value":"20/20","label":"HP"},
                     {"type":"stat","value":"Lv 1","label":"Level"},
-                    {"type":"stat","value":"0g","label":"Gold"},
+                    {"type":"stat","value":"50g","label":"Gold"},
                     {"type":"stat","value":"2","label":"DEF"}
                 ]}
             ]}""",
