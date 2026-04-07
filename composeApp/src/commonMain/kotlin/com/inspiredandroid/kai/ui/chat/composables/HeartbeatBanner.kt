@@ -17,10 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.heartbeat_banner_dismiss
 import kai.composeapp.generated.resources.heartbeat_banner_message
@@ -44,7 +43,7 @@ internal fun HeartbeatBanner(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp, vertical = 4.dp)
-                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                .handCursor()
                 .clickable { onTap() },
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
@@ -69,7 +68,7 @@ internal fun HeartbeatBanner(
                     modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
                 )
                 IconButton(
-                    modifier = Modifier.size(24.dp).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.size(24.dp).handCursor(),
                     onClick = onDismiss,
                 ) {
                     Icon(

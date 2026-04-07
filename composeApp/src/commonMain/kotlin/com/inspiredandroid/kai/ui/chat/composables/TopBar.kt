@@ -11,10 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.chat.ChatActions
+import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.chat_history_content_description
 import kai.composeapp.generated.resources.ic_add
@@ -65,7 +64,7 @@ internal fun TopBar(
                 SpeechToggleButton(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions)
             }
             IconButton(
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
                 onClick = onNavigateToSettings,
             ) {
                 Icon(
@@ -90,7 +89,7 @@ private fun LeadingButtons(
 ) {
     if (hasSavedConversations) {
         IconButton(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
             onClick = onShowHistory,
         ) {
             Icon(
@@ -102,7 +101,7 @@ private fun LeadingButtons(
     }
     if (!isChatHistoryEmpty) {
         IconButton(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
             onClick = {
                 if (isSpeechOutputEnabled && isSpeaking) {
                     actions.setIsSpeaking(false, "")
@@ -128,7 +127,7 @@ private fun SpeechToggleButton(
     actions: ChatActions,
 ) {
     IconButton(
-        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        modifier = Modifier.handCursor(),
         onClick = {
             if (isSpeechOutputEnabled && isSpeaking) {
                 actions.setIsSpeaking(false, "")

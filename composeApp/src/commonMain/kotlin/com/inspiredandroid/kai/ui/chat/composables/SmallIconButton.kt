@@ -10,9 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.handCursor
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
@@ -23,7 +22,7 @@ internal fun SmallIconButton(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier.size(36.dp).clip(CircleShape).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true).clickable { onClick() },
+        modifier = Modifier.size(36.dp).clip(CircleShape).handCursor().clickable { onClick() },
         contentAlignment = Alignment.Center,
     ) {
         Icon(

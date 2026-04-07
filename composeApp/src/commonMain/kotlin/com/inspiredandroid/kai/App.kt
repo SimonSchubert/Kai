@@ -19,8 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Density
@@ -44,6 +42,7 @@ import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tab_chat
@@ -149,7 +148,7 @@ private fun AppContent(
                             }
                         },
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Text(stringResource(Res.string.tab_chat))
                     }
@@ -162,7 +161,7 @@ private fun AppContent(
                             }
                         },
                         shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Text(stringResource(Res.string.tab_settings))
                     }

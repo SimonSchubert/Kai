@@ -190,8 +190,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalUriHandler
@@ -202,6 +200,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiChip
+import com.inspiredandroid.kai.ui.handCursor
 import kotlinx.coroutines.delay
 import kotlin.time.Clock
 
@@ -455,7 +454,7 @@ private fun RenderButton(
         }
     }
 
-    val hoverModifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+    val hoverModifier = Modifier.handCursor()
     when (node.variant) {
         ButtonVariant.OUTLINED -> OutlinedButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
         ButtonVariant.TEXT -> TextButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
@@ -493,7 +492,7 @@ private fun RenderCheckbox(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+            .handCursor()
             .then(
                 if (isInteractive) {
                     Modifier.clickable(
@@ -542,13 +541,13 @@ private fun RenderSelect(
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             enabled = isInteractive,
             shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable).handCursor(),
         )
         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             for (option in node.options) {
                 DropdownMenuItem(
                     text = { Text(option) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                     onClick = {
                         formState[node.id] = option
                         expanded = false
@@ -655,7 +654,7 @@ private fun RenderSwitch(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+            .handCursor()
             .then(
                 if (isInteractive) {
                     Modifier.clickable(
@@ -719,7 +718,7 @@ private fun RenderSlider(
             steps = steps.coerceAtLeast(0),
             enabled = isInteractive,
             modifier = Modifier.fillMaxWidth()
-                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                .handCursor(),
             colors = SliderDefaults.colors(
                 thumbColor = MaterialTheme.colorScheme.primary,
                 activeTrackColor = MaterialTheme.colorScheme.primary,
@@ -795,7 +794,7 @@ private fun RenderRadioGroup(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                        .handCursor()
                         .then(
                             if (isInteractive) {
                                 Modifier.clickable(
@@ -1328,7 +1327,7 @@ private fun RenderTabs(
                                 },
                             )
                             .clickable { selectedIndex = index }
-                            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                            .handCursor()
                             .padding(horizontal = 16.dp),
                     ) {
                         Text(
@@ -1373,7 +1372,7 @@ private fun RenderAccordion(
 
     Surface(
         onClick = { expanded = !expanded },
-        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        modifier = Modifier.fillMaxWidth().handCursor(),
         shape = RoundedCornerShape(6.dp),
         color = MaterialTheme.colorScheme.surfaceContainerLow,
     ) {

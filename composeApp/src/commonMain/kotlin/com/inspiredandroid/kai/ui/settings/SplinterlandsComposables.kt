@@ -49,8 +49,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -64,6 +62,7 @@ import com.inspiredandroid.kai.splinterlands.ModelStats
 import com.inspiredandroid.kai.splinterlands.computeModelStats
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
+import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
@@ -147,7 +146,7 @@ internal fun SplinterlandsSection(
                     )
                     TextButton(
                         onClick = onClearBattleLog,
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Text("Clear", style = MaterialTheme.typography.labelSmall)
                     }
@@ -160,7 +159,7 @@ internal fun SplinterlandsSection(
                 if (battleLog.size > 5 && !showAll) {
                     TextButton(
                         onClick = { showAll = true },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Text("Show more (${battleLog.size - 5})")
                     }
@@ -219,7 +218,7 @@ private fun SplinterlandsServiceList(
                             Icon(
                                 imageVector = Icons.Rounded.DragIndicator,
                                 contentDescription = "Reorder",
-                                modifier = Modifier.draggableHandle().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                                modifier = Modifier.draggableHandle().handCursor(),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
@@ -261,7 +260,7 @@ private fun SplinterlandsServiceList(
                         // Remove button
                         IconButton(
                             onClick = { onRemoveService(id) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Delete,
@@ -285,7 +284,7 @@ private fun SplinterlandsServiceList(
         Box {
             OutlinedButton(
                 onClick = { showDropdown = true },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(4.dp))
@@ -317,7 +316,7 @@ private fun SplinterlandsServiceList(
                             onAddService(service.instanceId)
                             showDropdown = false
                         },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     )
                 }
             }
@@ -407,7 +406,7 @@ private fun SplinterlandsBattleLogRow(entry: BattleLogEntry) {
             .padding(vertical = 3.dp)
             .then(
                 if (entry.activity.isNotEmpty()) {
-                    Modifier.clickable { showActivity = true }.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                    Modifier.clickable { showActivity = true }.handCursor()
                 } else {
                     Modifier
                 },
@@ -523,12 +522,12 @@ private fun SplinterlandsActivityDialog(
                     onClick = {
                         uriHandler.openUri("https://splinterlands.com/battle/${entry.battleId}")
                     },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) { Text("View Battle") }
             }
             TextButton(
                 onClick = onDismiss,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) { Text("Close") }
         },
     )
@@ -573,7 +572,7 @@ private fun SplinterlandsAddAccountForm(
     if (!expanded) {
         OutlinedButton(
             onClick = { expanded = true },
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
         ) {
             Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
             Spacer(Modifier.width(4.dp))
@@ -607,7 +606,7 @@ private fun SplinterlandsAddAccountForm(
             trailingIcon = {
                 IconButton(
                     onClick = { showKey = !showKey },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Icon(
                         imageVector = if (showKey) Icons.Default.VisibilityOff else Icons.Default.Visibility,
@@ -627,7 +626,7 @@ private fun SplinterlandsAddAccountForm(
                     username = ""
                     postingKey = ""
                 },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
                 enabled = username.isNotBlank() && postingKey.isNotBlank() && !isTesting,
             ) {
                 if (isTesting) {
@@ -648,7 +647,7 @@ private fun SplinterlandsAddAccountForm(
                     username = ""
                     postingKey = ""
                 },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
                 enabled = !isTesting,
             ) {
                 Text("Cancel")
@@ -745,7 +744,7 @@ private fun SplinterlandsAccountRow(
             if (bs.isRunning) {
                 OutlinedButton(
                     onClick = onStopBattle,
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                     enabled = !bs.isStopping,
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
@@ -755,7 +754,7 @@ private fun SplinterlandsAccountRow(
             } else {
                 Button(
                     onClick = onStartBattle,
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                     enabled = hasServices,
                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
                 ) {
@@ -767,7 +766,7 @@ private fun SplinterlandsAccountRow(
             var showConfirm by remember { mutableStateOf(false) }
             IconButton(
                 onClick = { showConfirm = true },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
@@ -786,7 +785,7 @@ private fun SplinterlandsAccountRow(
                                 showConfirm = false
                                 onRemove()
                             },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Text("Remove", color = MaterialTheme.colorScheme.error)
                         }
@@ -794,7 +793,7 @@ private fun SplinterlandsAccountRow(
                     dismissButton = {
                         TextButton(
                             onClick = { showConfirm = false },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) { Text("Cancel") }
                     },
                 )

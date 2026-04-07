@@ -44,14 +44,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.terminal_help_text
 import kai.composeapp.generated.resources.terminal_input_placeholder
@@ -292,7 +291,7 @@ fun TerminalContent(
             IconButton(
                 onClick = { executeInput() },
                 enabled = canSubmit,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,

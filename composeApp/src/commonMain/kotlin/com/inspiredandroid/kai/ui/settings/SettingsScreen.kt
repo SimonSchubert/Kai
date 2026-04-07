@@ -97,8 +97,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -135,9 +133,14 @@ import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
+import com.inspiredandroid.kai.ui.KaiClearableTextField
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
+import com.inspiredandroid.kai.ui.components.KaiRangeSlider
+import com.inspiredandroid.kai.ui.components.KaiSlider
+import com.inspiredandroid.kai.ui.components.SettingsListItem
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
+import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Replay
 import com.inspiredandroid.kai.ui.icons.Visibility
@@ -516,7 +519,7 @@ fun SettingsScreenContent(
 private fun TopBar(onNavigateBack: () -> Unit) {
     Row {
         IconButton(
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
             onClick = onNavigateBack,
         ) {
             Icon(
@@ -548,7 +551,7 @@ private fun SettingsTabSelector(
                 val isSelected = currentTab == tab
                 Surface(
                     modifier = Modifier
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                        .handCursor()
                         .clip(RoundedCornerShape(50))
                         .clickable { onSelectTab(tab) },
                     shape = RoundedCornerShape(50),
@@ -609,7 +612,7 @@ private fun BottomInfo() {
                 .clickable(onClick = {
                     uriHandler.openUri("https://github.com/SimonSchubert/Kai")
                 })
-                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                .handCursor(),
             painter = painterResource(Res.drawable.github_mark),
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onBackground,
@@ -623,7 +626,7 @@ private fun BottomInfo() {
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier
                 .clickable { uriHandler.openUri("https://kai9000.com/docs/") }
-                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                .handCursor(),
         )
     }
 
@@ -657,7 +660,7 @@ private fun FreeSettings(
                     modifier = Modifier.fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp))
                         .clickable { onToggleFreeFallback(!isFreeFallbackEnabled) }
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        .handCursor(),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
@@ -691,7 +694,7 @@ private fun FreeSettings(
                 },
                 Modifier
                     .align(CenterHorizontally)
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    .handCursor(),
             ) {
                 Icon(Icons.Default.Favorite, contentDescription = null)
                 Spacer(Modifier.width(8.dp))
@@ -739,7 +742,7 @@ private fun FreeSettings(
                     uriHandler.openUri("https://schubert-simon.de")
                 },
                 Modifier
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    .handCursor(),
             ) {
                 Text(stringResource(Res.string.settings_contact_sponsorship))
             }
@@ -769,7 +772,7 @@ private fun SponsorList(
                     .width(72.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .clickable { uriHandler.openUri("https://github.com/${sponsor.username}") }
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                    .handCursor()
                     .padding(4.dp),
             ) {
                 coil3.compose.AsyncImage(
@@ -828,7 +831,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
 
     if (uiState.availableServicesToAdd.isNotEmpty()) {
         Spacer(Modifier.height(12.dp))
-        OutlinedButton(onClick = { showAddServiceSheet = true }, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+        OutlinedButton(onClick = { showAddServiceSheet = true }, modifier = Modifier.handCursor()) {
             Text(stringResource(Res.string.settings_add_service))
         }
     }
@@ -858,7 +861,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
                                 uiState.onAddService(service)
                                 showAddServiceSheet = false
                             },
-                            modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.fillMaxWidth().handCursor(),
                             shape = RoundedCornerShape(8.dp),
                         ) {
                             Row(
@@ -911,7 +914,7 @@ private fun ConfiguredServiceCardContent(
             .clickable {
                 onExpand()
             }
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            .handCursor(),
 
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -925,7 +928,7 @@ private fun ConfiguredServiceCardContent(
                     Icon(
                         imageVector = Icons.Rounded.DragIndicator,
                         contentDescription = "Reorder",
-                        modifier = dragHandleModifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = dragHandleModifier.handCursor(),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                     Spacer(Modifier.width(8.dp))
@@ -1011,7 +1014,7 @@ private fun ConfiguredServiceCardContent(
                 ) {
                     TextButton(
                         onClick = onRemove,
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Delete,
@@ -1043,11 +1046,8 @@ private fun ServiceSettings(
     connectionStatus: ConnectionStatus,
     testTag: String? = null,
 ) {
-    var apiKeyFocused by remember { mutableStateOf(false) }
-    KaiOutlinedTextField(
-        modifier = Modifier.fillMaxWidth()
-            .let { if (testTag != null) it.testTag(testTag) else it }
-            .onFocusChanged { apiKeyFocused = it.isFocused },
+    KaiClearableTextField(
+        modifier = Modifier.let { if (testTag != null) it.testTag(testTag) else it },
         value = apiKey,
         onValueChange = onChangeApiKey,
         label = {
@@ -1055,20 +1055,6 @@ private fun ServiceSettings(
                 stringResource(Res.string.settings_api_key_label),
                 color = MaterialTheme.colorScheme.onBackground,
             )
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = { onChangeApiKey("") },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-                    .alpha(if (apiKeyFocused && apiKey.isNotEmpty()) 1f else 0f),
-                enabled = apiKey.isNotEmpty(),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
         },
     )
 
@@ -1116,9 +1102,7 @@ private fun OpenAICompatibleSettings(
     onSelectModel: (String) -> Unit,
     connectionStatus: ConnectionStatus,
 ) {
-    var baseUrlFocused by remember { mutableStateOf(false) }
-    KaiOutlinedTextField(
-        modifier = Modifier.fillMaxWidth().onFocusChanged { baseUrlFocused = it.isFocused },
+    KaiClearableTextField(
         value = baseUrl,
         onValueChange = onChangeBaseUrl,
         label = {
@@ -1128,20 +1112,6 @@ private fun OpenAICompatibleSettings(
             )
         },
         singleLine = true,
-        trailingIcon = {
-            IconButton(
-                onClick = { onChangeBaseUrl("") },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-                    .alpha(if (baseUrlFocused && baseUrl.isNotEmpty()) 1f else 0f),
-                enabled = baseUrl.isNotEmpty(),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        },
     )
     if (baseUrl.isNotBlank()) {
         Text(
@@ -1154,9 +1124,7 @@ private fun OpenAICompatibleSettings(
 
     Spacer(Modifier.height(8.dp))
 
-    var apiKeyFocused by remember { mutableStateOf(false) }
-    KaiOutlinedTextField(
-        modifier = Modifier.fillMaxWidth().onFocusChanged { apiKeyFocused = it.isFocused },
+    KaiClearableTextField(
         value = apiKey,
         onValueChange = onChangeApiKey,
         label = {
@@ -1166,20 +1134,6 @@ private fun OpenAICompatibleSettings(
             )
         },
         singleLine = true,
-        trailingIcon = {
-            IconButton(
-                onClick = { onChangeApiKey("") },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
-                    .alpha(if (apiKeyFocused && apiKey.isNotEmpty()) 1f else 0f),
-                enabled = apiKey.isNotEmpty(),
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        },
     )
 
     Spacer(Modifier.height(8.dp))
@@ -1345,7 +1299,7 @@ private fun ModelSelection(
                 },
                 trailingIcon = {
                     Icon(
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                         imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onBackground,
@@ -1356,7 +1310,7 @@ private fun ModelSelection(
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                    .handCursor()
                     .clickable { expanded = true },
             )
         }
@@ -1420,7 +1374,7 @@ private fun ModelSelection(
 private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
     val description = model.descriptionRes?.let { stringResource(it) } ?: model.description
     Card(
-        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true).clip(CardDefaults.shape).clickable { onClick() },
+        modifier = Modifier.handCursor().clip(CardDefaults.shape).clickable { onClick() },
         shape = CardDefaults.shape,
     ) {
         Column(
@@ -1471,7 +1425,7 @@ private fun SettingsCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .then(if (onClick != null) Modifier.clickable(onClick = onClick).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true) else Modifier)
+                .then(if (onClick != null) Modifier.clickable(onClick = onClick).handCursor() else Modifier)
                 .then(if (innerPadding) Modifier.padding(16.dp) else Modifier),
         ) {
             content()
@@ -1710,7 +1664,7 @@ private fun IntegrationsContent(
                 Spacer(Modifier.height(8.dp))
                 OutlinedButton(
                     onClick = { uriHandler.openUri("https://github.com/SimonSchubert/Kai/issues/new?template=integration_request.yml") },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_open_github_issue))
                 }
@@ -1787,7 +1741,7 @@ private fun ExportImportSection(
                     )
                 }
             },
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
         ) {
             Text(stringResource(Res.string.settings_export))
         }
@@ -1796,7 +1750,7 @@ private fun ExportImportSection(
                 importResult = null
                 filePickerLauncher?.launch()
             },
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
         ) {
             Text(stringResource(Res.string.settings_import))
         }
@@ -1840,7 +1794,7 @@ private fun ImportPreviewDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { replace = !replace }
-                            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            .handCursor(),
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
@@ -1859,7 +1813,7 @@ private fun ImportPreviewDialog(
                         Switch(
                             checked = replace,
                             onCheckedChange = { replace = it },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         )
                     }
                     Spacer(Modifier.height(12.dp))
@@ -1875,7 +1829,7 @@ private fun ImportPreviewDialog(
                                         selectedSections + section
                                     }
                                 }
-                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                .handCursor()
                                 .padding(vertical = 4.dp),
                         ) {
                             Checkbox(
@@ -1910,7 +1864,7 @@ private fun ImportPreviewDialog(
             Button(
                 onClick = { onConfirm(selectedSections, replace) },
                 enabled = selectedSections.isNotEmpty(),
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Text(stringResource(Res.string.settings_import))
             }
@@ -1918,7 +1872,7 @@ private fun ImportPreviewDialog(
         dismissButton = {
             TextButton(
                 onClick = onDismiss,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Text(stringResource(Res.string.settings_mcp_cancel))
             }
@@ -2070,11 +2024,11 @@ private fun TerminalTabContent(
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     if (!sandboxState.sandboxPackagesInstalled && !sandboxState.isWorking) {
-                        OutlinedButton(onClick = onInstallPackages, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+                        OutlinedButton(onClick = onInstallPackages, modifier = Modifier.handCursor()) {
                             Text(stringResource(Res.string.settings_sandbox_install_packages))
                         }
                     }
-                    OutlinedButton(onClick = { showResetDialog = true }, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+                    OutlinedButton(onClick = { showResetDialog = true }, modifier = Modifier.handCursor()) {
                         Text(stringResource(Res.string.settings_sandbox_uninstall))
                     }
                 }
@@ -2091,7 +2045,7 @@ private fun TerminalTabContent(
                                 showResetDialog = false
                                 onResetSandbox()
                             },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Text(stringResource(Res.string.settings_sandbox_uninstall))
                         }
@@ -2099,7 +2053,7 @@ private fun TerminalTabContent(
                     dismissButton = {
                         TextButton(
                             onClick = { showResetDialog = false },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Text(stringResource(Res.string.settings_sandbox_cancel))
                         }
@@ -2153,7 +2107,7 @@ private fun TerminalTabContent(
 
                 if (!sandboxState.isWorking) {
                     Spacer(Modifier.height(8.dp))
-                    Button(onClick = onSetupSandbox, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+                    Button(onClick = onSetupSandbox, modifier = Modifier.handCursor()) {
                         Text(stringResource(Res.string.settings_sandbox_install))
                     }
                 }
@@ -2181,7 +2135,7 @@ private fun SandboxProgressRow(progress: Float?, statusText: String, onCancel: (
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        TextButton(onClick = onCancel, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+        TextButton(onClick = onCancel, modifier = Modifier.handCursor()) {
             Text(stringResource(Res.string.settings_sandbox_cancel))
         }
     }
@@ -2227,7 +2181,7 @@ private fun McpServersSection(
 
         OutlinedButton(
             onClick = { onShowAddDialog(true) },
-            modifier = Modifier.align(Alignment.CenterHorizontally).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.align(Alignment.CenterHorizontally).handCursor(),
         ) {
             Text(stringResource(Res.string.settings_mcp_add_server))
         }
@@ -2254,7 +2208,7 @@ private fun McpServerCard(
 
     Card(
         onClick = { expanded = !expanded },
-        modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+        modifier = Modifier.fillMaxWidth().handCursor(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -2367,10 +2321,10 @@ private fun McpServerCard(
                 Spacer(Modifier.height(8.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = onRefresh, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+                    TextButton(onClick = onRefresh, modifier = Modifier.handCursor()) {
                         Text(stringResource(Res.string.settings_mcp_refresh))
                     }
-                    TextButton(onClick = onRemove, modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)) {
+                    TextButton(onClick = onRemove, modifier = Modifier.handCursor()) {
                         Text(
                             text = stringResource(Res.string.settings_mcp_remove),
                             color = MaterialTheme.colorScheme.error,
@@ -2451,7 +2405,7 @@ private fun AddMcpServerDialog(
                         )
                         IconButton(
                             onClick = { headers.removeAt(index) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Clear,
@@ -2464,7 +2418,7 @@ private fun AddMcpServerDialog(
 
                 TextButton(
                     onClick = { headers.add(HeaderEntry(key = "", value = "")) },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(4.dp))
@@ -2485,7 +2439,7 @@ private fun AddMcpServerDialog(
                             onAdd(name, url, headerMap)
                         },
                         enabled = name.isNotBlank() && url.isNotBlank(),
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Text(stringResource(Res.string.settings_mcp_add))
                     }
@@ -2507,7 +2461,7 @@ private fun AddMcpServerDialog(
                                 .clickable {
                                     onAddPopular(server)
                                 }
-                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                                .handCursor(),
                             colors = CardDefaults.cardColors(
                                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
                             ),
@@ -2549,7 +2503,7 @@ private fun ToolItem(
         modifier = modifier
             .clip(CardDefaults.shape)
             .clickable { onToggle(!tool.isEnabled) }
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            .handCursor(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
         ),
@@ -2608,7 +2562,7 @@ private fun SoulEditor(
             if (soulText.isNotEmpty()) {
                 IconButton(
                     onClick = { showResetDialog = true },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Icon(
                         imageVector = Icons.Default.Replay,
@@ -2649,7 +2603,7 @@ private fun SoulEditor(
             Spacer(Modifier.height(8.dp))
             Button(
                 onClick = { onSaveSoul(editedText.trim()) },
-                modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.align(CenterHorizontally).handCursor(),
             ) {
                 Text(stringResource(Res.string.settings_soul_save))
             }
@@ -2668,7 +2622,7 @@ private fun SoulEditor(
                         onSaveSoul("")
                         editedText = localizedDefault
                     },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_soul_reset))
                 }
@@ -2676,7 +2630,7 @@ private fun SoulEditor(
             dismissButton = {
                 TextButton(
                     onClick = { showResetDialog = false },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_soul_reset_cancel))
                 }
@@ -2703,39 +2657,13 @@ private fun MemoryList(
 
         if (isMemoryEnabled) {
             memories.forEach { memory ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = memory.key,
-                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                        Text(
-                            text = memory.content,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 3,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                    IconButton(
-                        onClick = { onDeleteMemory(memory.key) },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = stringResource(Res.string.settings_memories_delete),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
+                SettingsListItem(
+                    title = memory.key,
+                    subtitle = memory.content,
+                    onDelete = { onDeleteMemory(memory.key) },
+                    deleteContentDescription = stringResource(Res.string.settings_memories_delete),
+                    subtitleMaxLines = 3,
+                )
                 Spacer(Modifier.height(8.dp))
             }
         }
@@ -2760,46 +2688,19 @@ private fun ScheduledTaskList(
 
         if (isSchedulingEnabled && tasks.isNotEmpty()) {
             tasks.forEach { task ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = task.description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                        val subtitle = if (task.cron != null) {
-                            "${task.status} - ${describeCron(task.cron)}"
-                        } else {
-                            val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
-                                .toLocalDateTime(TimeZone.currentSystemDefault())
-                            "${task.status} - $scheduledTime"
-                        }
-                        Text(
-                            text = subtitle,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                    IconButton(
-                        onClick = { onCancelTask(task.id) },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                val subtitle = if (task.cron != null) {
+                    "${task.status} - ${describeCron(task.cron)}"
+                } else {
+                    val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
+                        .toLocalDateTime(TimeZone.currentSystemDefault())
+                    "${task.status} - $scheduledTime"
                 }
+                SettingsListItem(
+                    title = task.description,
+                    subtitle = subtitle,
+                    onDelete = { onCancelTask(task.id) },
+                    deleteContentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
+                )
                 Spacer(Modifier.height(8.dp))
             }
         }
@@ -2870,7 +2771,7 @@ private fun HeartbeatSection(
                 if (heartbeatPrompt.isNotEmpty()) {
                     IconButton(
                         onClick = { showResetDialog = true },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Replay,
@@ -2914,40 +2815,14 @@ private fun HeartbeatSection(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-            Slider(
+            KaiSlider(
                 value = intervalSliderValue,
                 onValueChange = { intervalSliderValue = it },
                 onValueChangeFinished = {
                     onChangeInterval(intervalPresets[intervalSliderValue.roundToInt()])
                 },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                 valueRange = 0f..(intervalPresets.size - 1).toFloat(),
                 steps = intervalPresets.size - 2,
-                colors = SliderDefaults.colors(
-                    thumbColor = MaterialTheme.colorScheme.primary,
-                    activeTrackColor = MaterialTheme.colorScheme.primary,
-                    inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                    activeTickColor = Color.Transparent,
-                    inactiveTickColor = Color.Transparent,
-                ),
-                thumb = {
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .background(MaterialTheme.colorScheme.primary, CircleShape),
-                    )
-                },
-                track = { sliderState ->
-                    SliderDefaults.Track(
-                        sliderState = sliderState,
-                        colors = SliderDefaults.colors(
-                            activeTrackColor = MaterialTheme.colorScheme.primary,
-                            inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                        ),
-                        drawStopIndicator = null,
-                        drawTick = { _, _ -> },
-                    )
-                },
             )
 
             Spacer(Modifier.height(12.dp))
@@ -2973,7 +2848,7 @@ private fun HeartbeatSection(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-            RangeSlider(
+            KaiRangeSlider(
                 value = activeStart..activeEnd,
                 onValueChange = { range ->
                     activeStart = range.start
@@ -2982,34 +2857,8 @@ private fun HeartbeatSection(
                 onValueChangeFinished = {
                     onChangeActiveHours(activeStart.roundToInt(), activeEnd.roundToInt())
                 },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                 valueRange = 0f..23f,
                 steps = 22,
-                startThumb = {
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .background(MaterialTheme.colorScheme.primary, CircleShape),
-                    )
-                },
-                endThumb = {
-                    Box(
-                        modifier = Modifier
-                            .size(20.dp)
-                            .background(MaterialTheme.colorScheme.primary, CircleShape),
-                    )
-                },
-                track = { rangeSliderState ->
-                    SliderDefaults.Track(
-                        rangeSliderState = rangeSliderState,
-                        colors = SliderDefaults.colors(
-                            activeTrackColor = MaterialTheme.colorScheme.primary,
-                            inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                        ),
-                        drawStopIndicator = null,
-                        drawTick = { _, _ -> },
-                    )
-                },
             )
 
             if (heartbeatServiceEntries.size > 1) {
@@ -3028,7 +2877,7 @@ private fun HeartbeatSection(
                 Box {
                     OutlinedButton(
                         onClick = { modelExpanded = true },
-                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                        modifier = Modifier.handCursor(),
                     ) {
                         if (selectedEntry != null) {
                             Icon(
@@ -3069,7 +2918,7 @@ private fun HeartbeatSection(
                                 onChangeHeartbeatService(null)
                             },
                             modifier = Modifier
-                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                .handCursor()
                                 .then(
                                     if (heartbeatSelectedInstanceId == null) {
                                         Modifier
@@ -3125,7 +2974,7 @@ private fun HeartbeatSection(
                                     onChangeHeartbeatService(entry.instanceId)
                                 },
                                 modifier = Modifier
-                                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                    .handCursor()
                                     .then(
                                         if (isSelected) {
                                             Modifier
@@ -3170,7 +3019,7 @@ private fun HeartbeatSection(
                 Spacer(Modifier.height(8.dp))
                 Button(
                     onClick = { onSaveHeartbeatPrompt(editedText.trim()) },
-                    modifier = Modifier.align(CenterHorizontally).pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.align(CenterHorizontally).handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_soul_save))
                 }
@@ -3233,7 +3082,7 @@ private fun HeartbeatSection(
                         onSaveHeartbeatPrompt("")
                         editedText = defaultPrompt
                     },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_soul_reset))
                 }
@@ -3241,7 +3090,7 @@ private fun HeartbeatSection(
             dismissButton = {
                 TextButton(
                     onClick = { showResetDialog = false },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    modifier = Modifier.handCursor(),
                 ) {
                     Text(stringResource(Res.string.settings_soul_reset_cancel))
                 }
@@ -3303,72 +3152,26 @@ private fun EmailSection(
                         color = MaterialTheme.colorScheme.onBackground,
                     )
                 }
-                Slider(
+                KaiSlider(
                     value = emailSliderValue,
                     onValueChange = { emailSliderValue = it },
                     onValueChangeFinished = {
                         onChangePollInterval(emailPresets[emailSliderValue.roundToInt()])
                     },
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
                     valueRange = 0f..(emailPresets.size - 1).toFloat(),
                     steps = emailPresets.size - 2,
-                    colors = SliderDefaults.colors(
-                        thumbColor = MaterialTheme.colorScheme.primary,
-                        activeTrackColor = MaterialTheme.colorScheme.primary,
-                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                        activeTickColor = Color.Transparent,
-                        inactiveTickColor = Color.Transparent,
-                    ),
-                    thumb = {
-                        Box(
-                            modifier = Modifier
-                                .size(20.dp)
-                                .background(MaterialTheme.colorScheme.primary, CircleShape),
-                        )
-                    },
-                    track = { sliderState ->
-                        SliderDefaults.Track(
-                            sliderState = sliderState,
-                            colors = SliderDefaults.colors(
-                                activeTrackColor = MaterialTheme.colorScheme.primary,
-                                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                            ),
-                            drawStopIndicator = null,
-                            drawTick = { _, _ -> },
-                        )
-                    },
                 )
 
                 Spacer(Modifier.height(12.dp))
 
                 for (account in emailAccounts) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = account.email,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onBackground,
-                            )
-                            Text(
-                                text = "${account.imapHost}:${account.imapPort}",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                        IconButton(
-                            onClick = { onRemoveAccount(account.id) },
-                            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = stringResource(Res.string.settings_email_remove),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
+                    SettingsListItem(
+                        title = account.email,
+                        subtitle = "${account.imapHost}:${account.imapPort}",
+                        onDelete = { onRemoveAccount(account.id) },
+                        deleteContentDescription = stringResource(Res.string.settings_email_remove),
+                    )
+                    Spacer(Modifier.height(8.dp))
                 }
             }
         }
@@ -3455,38 +3258,12 @@ private fun UiScaleSection(
                 color = MaterialTheme.colorScheme.onBackground,
             )
         }
-        Slider(
+        KaiSlider(
             value = sliderValue,
             onValueChange = { sliderValue = it },
             onValueChangeFinished = { onChangeUiScale(sliderValue) },
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
             valueRange = 0.5f..2.0f,
             steps = steps,
-            colors = SliderDefaults.colors(
-                thumbColor = MaterialTheme.colorScheme.primary,
-                activeTrackColor = MaterialTheme.colorScheme.primary,
-                inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                activeTickColor = Color.Transparent,
-                inactiveTickColor = Color.Transparent,
-            ),
-            thumb = {
-                Box(
-                    modifier = Modifier
-                        .size(20.dp)
-                        .background(MaterialTheme.colorScheme.primary, CircleShape),
-                )
-            },
-            track = { sliderState ->
-                SliderDefaults.Track(
-                    sliderState = sliderState,
-                    colors = SliderDefaults.colors(
-                        activeTrackColor = MaterialTheme.colorScheme.primary,
-                        inactiveTrackColor = MaterialTheme.colorScheme.surfaceVariant,
-                    ),
-                    drawStopIndicator = null,
-                    drawTick = { _, _ -> },
-                )
-            },
         )
     }
 }
@@ -3507,7 +3284,7 @@ internal fun ToggleableHeadline(
                 interactionSource = switchInteractionSource,
                 indication = null,
             ) { onCheckedChange(!checked) }
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            .handCursor(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

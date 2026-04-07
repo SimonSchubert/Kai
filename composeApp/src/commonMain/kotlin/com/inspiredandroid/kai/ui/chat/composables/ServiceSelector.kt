@@ -21,11 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.ui.handCursor
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.vectorResource
 
@@ -46,7 +45,7 @@ internal fun ServiceSelector(
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
                 .clickable { expanded = true }
-                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                .handCursor(),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -107,7 +106,7 @@ internal fun ServiceSelector(
                         }
                     },
                     modifier = Modifier
-                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                        .handCursor()
                         .then(
                             if (isCurrent) {
                                 Modifier

@@ -74,8 +74,6 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
@@ -100,6 +98,7 @@ import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
+import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
 import kai.composeapp.generated.resources.ic_stop
@@ -265,7 +264,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         BorderStroke(2.dp, gradientBrush),
                         RoundedCornerShape(28.dp),
                     )
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                    .handCursor()
                     .padding(horizontal = 7.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -319,7 +318,7 @@ private fun InteractiveModeTopBar(
             IconButton(
                 onClick = onBack,
                 enabled = !isLoading,
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                modifier = Modifier.handCursor(),
             ) {
                 Icon(
                     BackIcon,
@@ -356,7 +355,7 @@ private fun InteractiveModeTopBar(
         Spacer(Modifier.weight(1f))
         IconButton(
             onClick = onExit,
-            modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = Modifier.handCursor(),
         ) {
             Icon(
                 Icons.Default.Close,
@@ -668,7 +667,7 @@ private fun ChatModeScreen(
                             ) {
                                 SmallFloatingActionButton(
                                     modifier = Modifier
-                                        .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                                        .handCursor(),
                                     onClick = {
                                         componentScope.launch {
                                             val totalItems = listState.layoutInfo.totalItemsCount

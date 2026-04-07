@@ -45,8 +45,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -54,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.gradientBrush
+import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
@@ -94,7 +93,7 @@ fun QuestionInput(
             SuggestionChip(
                 modifier = Modifier
                     .padding(start = 16.dp)
-                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                    .handCursor(),
                 onClick = { setFile(null) },
                 icon = {
                     Icon(
@@ -108,7 +107,7 @@ fun QuestionInput(
                     DisableSelection {
                         Text(
                             modifier = Modifier
-                                .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                                .handCursor(),
                             text = file.name,
                         )
                     }
@@ -242,7 +241,7 @@ internal fun TrailingIcon(
             .size(42.dp)
             .clip(CircleShape)
             .background(brush = gradientBrush, CircleShape)
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+            .handCursor()
             .clickable {
                 onClick()
             },
@@ -269,7 +268,7 @@ internal fun CircleIconButton(
             .size(42.dp)
             .clip(CircleShape)
             .clickable { onClick() }
-            .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            .handCursor(),
         contentAlignment = Alignment.Center,
     ) {
         Icon(

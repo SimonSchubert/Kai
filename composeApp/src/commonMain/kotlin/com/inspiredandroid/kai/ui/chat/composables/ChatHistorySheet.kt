@@ -35,14 +35,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.chat.ChatActions
 import com.inspiredandroid.kai.ui.chat.ConversationSummary
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.components.animatedGradientBorder
+import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.chat_history_delete_content_description
 import kai.composeapp.generated.resources.chat_history_empty
@@ -119,7 +118,7 @@ internal fun ChatHistorySheet(
                             Row(
                                 modifier = borderModifier
                                     .fillMaxWidth()
-                                    .pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true)
+                                    .handCursor()
                                     .clickable {
                                         actions.loadConversation(conversation.id)
                                         onDismiss()
@@ -174,7 +173,7 @@ internal fun ChatHistorySheet(
                                     )
                                 }
                                 IconButton(
-                                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+                                    modifier = Modifier.handCursor(),
                                     onClick = { actions.deleteConversation(conversation.id) },
                                 ) {
                                     Icon(

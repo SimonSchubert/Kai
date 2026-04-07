@@ -15,9 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon
-import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.ui.handCursor
 
 /**
  * Chip with full control over appearance — fixed 48.dp height, no hidden
@@ -64,7 +63,7 @@ fun KaiChip(
         Surface(
             onClick = onClick,
             enabled = enabled,
-            modifier = sizeModifier.pointerHoverIcon(PointerIcon.Hand, overrideDescendants = true),
+            modifier = sizeModifier.handCursor(),
             shape = shape,
             color = containerColor,
             contentColor = contentColor,
