@@ -37,10 +37,29 @@
 -keep class com.sun.speech.freetts.** { *; }
 -dontwarn com.sun.speech.freetts.**
 
-# BouncyCastle ships as a cryptographically signed JCE provider jar. Any
-# bytecode modification by ProGuard invalidates the per-class SHA-256 digests
-# recorded in META-INF/BCKEY.SF, causing "SHA-256 digest error" at runtime
-# when the JCE framework verifies the provider. BC's own docs say their jar
-# must not be processed by ProGuard. Size cost: ~6 MB (bcprov stays at 8.1 MB).
+# Ktor — HTTP client and networking (used by Coil for image loading).
+# ProGuard strips ~50% of classes including JVM I/O adapters, auth headers,
+# and content handlers that break HTTPS connections.
+-keep class io.ktor.** { *; }
+-dontwarn io.ktor.**
+
+# Okio — I/O primitives used by Ktor CIO engine for sockets, TLS, compression.
+# ProGuard strips Socket, CipherSink/Source, GzipSource, AsyncTimeout etc.
+-keep class okio.** { *; }
+-dontwarn okio.**
+
+# Coil — ProGuard strips platform-specific Kotlin top-level function classes
+# (SkiaImageDecoder_jvmKt, RealImageLoader_nonAndroidKt, FileSystems_jvmKt, …)
+# that Coil needs at runtime on desktop. Keep broadly to avoid breakage.
+# Coil does not ship consumer ProGuard rules (coil-kt/coil#2546).
+-keep class coil3.** { *; }
+-dontwarn coil3.**
+
+# BouncyCastle ships as a cryptographically signed JCE provider jar.
+# -keep alone is not enough: ProGuard still rewrites the jar, stripping the
+# META-INF signatures (BCKEY.SF / BCKEY.DSA) and invalidating per-class
+# SHA-256 digests. A Gradle doLast in build.gradle.kts copies the original
+# signed jar back over the ProGuard output; the -keep rule is still needed
+# so ProGuard does not report "missing class" warnings for the rest of the app.
 -keep class org.bouncycastle.** { *; }
 -dontwarn org.bouncycastle.**

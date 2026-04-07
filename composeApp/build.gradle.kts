@@ -178,6 +178,23 @@ compose.desktop {
     }
 }
 
+// BouncyCastle is a cryptographically signed JCE provider jar. ProGuard rewrites
+// it and strips the META-INF signatures, causing "SHA-256 digest error" at
+// runtime. After ProGuard finishes, replace the processed jar with the original.
+afterEvaluate {
+    tasks.matching { it.name == "proguardReleaseJars" }.configureEach {
+        doLast {
+            val proguardDir = layout.buildDirectory.dir("compose/tmp/main-release/proguard").get().asFile
+            val processedJar = proguardDir.listFiles()?.find { it.name.startsWith("bcprov") } ?: return@doLast
+            val originalJar = configurations["desktopRuntimeClasspath"]
+                .resolve()
+                .find { it.name.startsWith("bcprov") } ?: return@doLast
+            originalJar.copyTo(processedJar, overwrite = true)
+            logger.lifecycle("Restored original signed BouncyCastle jar: ${processedJar.name}")
+        }
+    }
+}
+
 class VersionGeneratorPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.afterEvaluate {
