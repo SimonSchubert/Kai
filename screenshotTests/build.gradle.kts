@@ -108,6 +108,22 @@ tasks.register("updateScreenshots") {
                 println("Copied ${file.name} -> phoneScreenshots/0$destName")
             }
         }
+
+        // Copy hero screenshots to site (from KaiUiScreenshotTest scenarios)
+        val siteImgDir = rootProject.file("site/img")
+        val siteMapping =
+            mapOf(
+                "scenario_survivalGame_dark" to "survival-dark.png",
+                "scenario_recipeCard_light" to "recipe-light.png",
+                "scenario_sustainableTech_light" to "ecopulse-light.png",
+                "scenario_memories_dark" to "memories-dark.png",
+            )
+        snapshotsDir.listFiles()?.filter { it.name.startsWith("com.inspiredandroid.kai.screenshots_KaiUiScreenshotTest_") }?.forEach { file ->
+            siteMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
+                file.copyTo(siteImgDir.resolve(destName), overwrite = true)
+                println("Copied ${file.name} -> site/img/$destName")
+            }
+        }
     }
 }
 

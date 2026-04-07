@@ -60,10 +60,10 @@ object ScreenshotTestData {
             "{\"type\":\"row\",\"spacing\":16,\"children\":[" +
             "{\"type\":\"stat\",\"value\":\"20/20\",\"label\":\"HP\"}," +
             "{\"type\":\"stat\",\"value\":\"Lv 1\",\"label\":\"Level\"}," +
-            "{\"type\":\"stat\",\"value\":\"0g\",\"label\":\"Gold\"}," +
+            "{\"type\":\"stat\",\"value\":\"50g\",\"label\":\"Gold\"}," +
             "{\"type\":\"stat\",\"value\":\"2\",\"label\":\"DEF\"}" +
             "]}," +
-            "{\"type\":\"image\",\"url\":\"resource://orc_survival.png\",\"height\":160}," +
+            "{\"type\":\"image\",\"url\":\"resource://orc_survival.png\",\"aspectRatio\":1.78}," +
             "{\"type\":\"text\",\"value\":\"The tunnel forks. To the left, faint firelight flickers. To the right, silence \u2014 and a cold draft that makes your torch sputter.\",\"style\":\"body\"}," +
             "{\"type\":\"divider\"}," +
             "{\"type\":\"alert\",\"severity\":\"warning\",\"message\":\"\uD83D\uDC7A Two orcs block the left passage! They haven't noticed you yet.\"}," +
@@ -94,7 +94,7 @@ object ScreenshotTestData {
             "{\"type\":\"column\",\"spacing\":8,\"children\":[" +
             "{\"type\":\"text\",\"value\":\"Cacio e Pepe\",\"style\":\"headline\",\"bold\":true}," +
             "{\"type\":\"row\",\"spacing\":8,\"children\":[{\"type\":\"badge\",\"value\":\"\u23f1 20 min\",\"color\":\"secondary\"},{\"type\":\"badge\",\"value\":\"\uD83C\uDF7D 2 servings\",\"color\":\"secondary\"},{\"type\":\"badge\",\"value\":\"\u2b50 4.9/5\",\"color\":\"primary\"}]}," +
-            "{\"type\":\"image\",\"url\":\"resource://cacio_e_pepe.png\",\"height\":160}," +
+            "{\"type\":\"image\",\"url\":\"resource://cacio_e_pepe.png\",\"aspectRatio\":1.5}," +
             "{\"type\":\"text\",\"value\":\"Ingredients\",\"style\":\"title\"}," +
             "{\"type\":\"list\",\"ordered\":false,\"items\":[" +
             "{\"type\":\"text\",\"value\":\"200g tonnarelli or spaghetti\"}," +

@@ -65,6 +65,7 @@ data class ImageNode(
     val url: String = "",
     val alt: String? = null,
     val height: Int? = null,
+    val aspectRatio: Float? = null,
 ) : KaiUiNode
 
 // --- Interactive nodes ---

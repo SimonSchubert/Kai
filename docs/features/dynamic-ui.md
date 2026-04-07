@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-07 (callback prompt clarification)
+**Last verified:** 2026-04-07 (image aspectRatio support)
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -13,7 +13,7 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 ### Component Types
 
 - **Layout**: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)
-- **Content**: text (with headline/title/body/caption styles), image, icon (curated material icon set or any emoji), code (syntax-highlighted block)
+- **Content**: text (with headline/title/body/caption styles), image (optional aspect ratio to prevent distortion on wide screens), icon (curated material icon set or any emoji), code (syntax-highlighted block)
 - **Interactive**: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)
 - **Feedback**: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)
 - **Navigation**: tabs (tabbed content), accordion (collapsible sections)

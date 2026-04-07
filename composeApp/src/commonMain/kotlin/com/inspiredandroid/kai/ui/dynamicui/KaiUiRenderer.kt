@@ -12,6 +12,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -560,9 +561,13 @@ private fun RenderSelect(
 
 @Composable
 private fun RenderImage(node: ImageNode) {
-    val modifier = Modifier.fillMaxWidth().then(
-        if (node.height != null) Modifier.height(node.height.dp) else Modifier,
-    )
+    val modifier = if (node.aspectRatio != null && node.aspectRatio > 0f) {
+        Modifier.fillMaxWidth().aspectRatio(node.aspectRatio.coerceIn(0.1f, 10f))
+    } else {
+        Modifier.fillMaxWidth().then(
+            if (node.height != null) Modifier.height(node.height.dp) else Modifier,
+        )
+    }
     val previewBitmap = LocalPreviewImages.current[node.url]
     if (previewBitmap != null) {
         Image(
@@ -576,6 +581,7 @@ private fun RenderImage(node: ImageNode) {
             model = node.url,
             contentDescription = node.alt,
             modifier = modifier.clip(RoundedCornerShape(6.dp)),
+            contentScale = ContentScale.Crop,
         )
     }
 }

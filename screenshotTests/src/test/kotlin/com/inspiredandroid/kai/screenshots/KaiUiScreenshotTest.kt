@@ -161,7 +161,7 @@ class KaiUiScreenshotTest {
     @Test
     fun textStyles() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Headline Text","style":"headline","bold":true},
                 {"type":"text","value":"Title Text","style":"title"},
                 {"type":"text","value":"Body text with normal styling. This is the default text style used for paragraphs.","style":"body"},
@@ -178,7 +178,7 @@ class KaiUiScreenshotTest {
     @Test
     fun buttonVariants() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Button Variants","style":"title","bold":true},
                 {"type":"button","label":"Filled Button","variant":"filled","action":{"type":"callback","event":"click"}},
                 {"type":"button","label":"Outlined Button","variant":"outlined","action":{"type":"callback","event":"click"}},
@@ -194,7 +194,7 @@ class KaiUiScreenshotTest {
     @Test
     fun formInputs() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Form Inputs","style":"title","bold":true},
                 {"type":"text_input","id":"name","label":"Full Name","placeholder":"Enter your name"},
                 {"type":"text_input","id":"bio","label":"Bio","placeholder":"Tell us about yourself","multiline":true},
@@ -212,7 +212,7 @@ class KaiUiScreenshotTest {
     @Test
     fun chipGroup() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Single Select","style":"title"},
                 {"type":"chip_group","id":"mood","chips":[
                     {"label":"Happy","value":"happy"},
@@ -235,7 +235,7 @@ class KaiUiScreenshotTest {
     @Test
     fun feedbackElements() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Feedback","style":"title","bold":true},
                 {"type":"progress","label":"Upload progress","value":0.7},
                 {"type":"progress","label":"Indeterminate"},
@@ -253,14 +253,14 @@ class KaiUiScreenshotTest {
     @Test
     fun layoutElements() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Cards & Layout","style":"title","bold":true},
-                {"type":"card","padding":12,"children":[
+                {"type":"card","children":[
                     {"type":"text","value":"Card Title","style":"title"},
                     {"type":"text","value":"Cards group related content together.","style":"body"}
                 ]},
                 {"type":"divider"},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"icon","name":"star","color":"primary"},
                     {"type":"text","value":"Row with icon and text","style":"body"},
                     {"type":"spacer"},
@@ -278,9 +278,9 @@ class KaiUiScreenshotTest {
     @Test
     fun icons() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Icons","style":"title","bold":true},
-                {"type":"row","spacing":12,"children":[
+                {"type":"row","children":[
                     {"type":"icon","name":"home"},
                     {"type":"icon","name":"search"},
                     {"type":"icon","name":"settings"},
@@ -290,7 +290,7 @@ class KaiUiScreenshotTest {
                     {"type":"icon","name":"notifications"},
                     {"type":"icon","name":"email"}
                 ]},
-                {"type":"row","spacing":12,"children":[
+                {"type":"row","children":[
                     {"type":"icon","name":"edit"},
                     {"type":"icon","name":"delete","color":"error"},
                     {"type":"icon","name":"share"},
@@ -309,7 +309,7 @@ class KaiUiScreenshotTest {
     @Test
     fun codeBlock() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Code Block","style":"title","bold":true},
                 {"type":"code","language":"kotlin","code":"fun greet(name: String): String {\n    return \"Hello, ${'$'}name!\"\n}"}
             ]}""",
@@ -341,7 +341,7 @@ class KaiUiScreenshotTest {
     @Test
     fun accordion() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":4,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"FAQ","style":"title","bold":true},
                 {"type":"accordion","title":"What is Kai?","expanded":true,"children":[
                     {"type":"text","value":"Kai is a personal AI assistant that remembers your preferences and gets things done.","style":"body"}
@@ -361,7 +361,7 @@ class KaiUiScreenshotTest {
     @Test
     fun table() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Leaderboard","style":"title","bold":true},
                 {"type":"table","headers":["Rank","Player","Score","Level"],
                     "rows":[
@@ -380,7 +380,7 @@ class KaiUiScreenshotTest {
     @Test
     fun list() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Shopping List","style":"title","bold":true},
                 {"type":"list","ordered":true,"items":[
                     {"type":"text","value":"Milk"},
@@ -405,7 +405,7 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_settingsForm_light() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Preferences","style":"headline","bold":true},
                 {"type":"text","value":"Customize your experience","style":"caption"},
                 {"type":"divider"},
@@ -423,7 +423,7 @@ class KaiUiScreenshotTest {
                     {"label":"Travel","value":"travel"}
                 ]},
                 {"type":"spacer","height":8},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"button","label":"Cancel","variant":"outlined","action":{"type":"callback","event":"cancel"}},
                     {"type":"button","label":"Save","variant":"filled","action":{"type":"callback","event":"save","collectFrom":["display_name","language","dark_mode","notifications","font_size","interests"]}}
                 ]}
@@ -437,27 +437,27 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_dashboard_dark() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":8,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Daily Dashboard","style":"headline","bold":true},
                 {"type":"text","value":"Wednesday, April 2","style":"caption"},
                 {"type":"divider"},
                 {"type":"card","children":[
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"email","color":"primary"},
                         {"type":"text","value":"12 Unread","style":"body","bold":true}
                     ]},
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"calendar","color":"primary"},
                         {"type":"text","value":"3 Meetings","style":"body","bold":true}
                     ]},
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"check","color":"primary"},
                         {"type":"text","value":"7 Tasks Done","style":"body","bold":true}
                     ]}
                 ]},
                 {"type":"text","value":"Upcoming","style":"title"},
                 {"type":"card","children":[
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"calendar"},
                         {"type":"column","children":[
                             {"type":"text","value":"Team Standup","style":"body","bold":true},
@@ -466,7 +466,7 @@ class KaiUiScreenshotTest {
                     ]}
                 ]},
                 {"type":"card","children":[
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"calendar"},
                         {"type":"column","children":[
                             {"type":"text","value":"Design Review","style":"body","bold":true},
@@ -475,7 +475,7 @@ class KaiUiScreenshotTest {
                     ]}
                 ]},
                 {"type":"card","children":[
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"calendar"},
                         {"type":"column","children":[
                             {"type":"text","value":"Sprint Planning","style":"body","bold":true},
@@ -498,7 +498,7 @@ class KaiUiScreenshotTest {
             """{"type":"text","value":"Brain Teaser #4","style":"headline","bold":true},""" +
             """{"type":"progress","value":0.4,"label":"4 of 10"},""" +
             """{"type":"spacer","height":8},""" +
-            """{"type":"card","padding":12,"children":[""" +
+            """{"type":"card","children":[""" +
             """{"type":"text","value":"A farmer has 17 sheep. All but 9 run away. How many sheep does the farmer have left?","style":"body"}""" +
             """]},""" +
             """{"type":"spacer","height":8},""" +
@@ -532,16 +532,16 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_recipeCard_light() {
         paparazzi.snapKaiUiWithImage(
-            titleJson = """{"type":"column","spacing":4,"children":[
+            titleJson = """{"type":"column","children":[
                 {"type":"text","value":"Cacio e Pepe","style":"headline","bold":true},
                 {"type":"text","value":"Classic Roman pasta \u2022 2 servings","style":"caption","color":"secondary"},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"badge","value":"\u23f1 20 min","color":"secondary"},
                     {"type":"badge","value":"\uD83C\uDF7D 2 servings","color":"secondary"},
                     {"type":"badge","value":"\u2b50 4.9/5","color":"primary"}
                 ]}
             ]}""",
-            bodyJson = """{"type":"column","spacing":8,"children":[
+            bodyJson = """{"type":"column","children":[
                 {"type":"text","value":"Ingredients","style":"title"},
                 {"type":"list","ordered":false,"items":[
                     {"type":"text","value":"200g tonnarelli or spaghetti"},
@@ -571,28 +571,28 @@ class KaiUiScreenshotTest {
     @Test
     fun displayElements() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Display Elements","style":"headline","bold":true},
                 {"type":"divider"},
                 {"type":"text","value":"Quote","style":"title"},
                 {"type":"quote","text":"The only way to do great work is to love what you do.","source":"Steve Jobs"},
                 {"type":"divider"},
                 {"type":"text","value":"Badges","style":"title"},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"badge","value":"3","color":"primary"},
                     {"type":"badge","value":"New","color":"secondary"},
                     {"type":"badge","value":"!","color":"error"}
                 ]},
                 {"type":"divider"},
                 {"type":"text","value":"Stats","style":"title"},
-                {"type":"row","spacing":16,"children":[
+                {"type":"row","children":[
                     {"type":"stat","value":"1,234","label":"Users","description":"↑ 12%"},
                     {"type":"stat","value":"$56K","label":"Revenue"},
                     {"type":"stat","value":"99.9%","label":"Uptime"}
                 ]},
                 {"type":"divider"},
                 {"type":"text","value":"Avatars","style":"title"},
-                {"type":"row","spacing":12,"children":[
+                {"type":"row","children":[
                     {"type":"avatar","name":"Simon Schubert","size":48},
                     {"type":"avatar","name":"Jane Doe","size":48},
                     {"type":"avatar","size":48}
@@ -606,19 +606,19 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_userProfile_dark() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":12,"children":[
-                {"type":"row","spacing":12,"children":[
+            """{"type":"column","children":[
+                {"type":"row","children":[
                     {"type":"avatar","name":"Simon Schubert","size":56},
                     {"type":"column","children":[
                         {"type":"text","value":"Simon Schubert","style":"title","bold":true},
-                        {"type":"row","spacing":6,"children":[
+                        {"type":"row","children":[
                             {"type":"badge","value":"Pro","color":"primary"},
                             {"type":"badge","value":"Verified","color":"secondary"}
                         ]}
                     ]}
                 ]},
                 {"type":"divider"},
-                {"type":"row","spacing":16,"children":[
+                {"type":"row","children":[
                     {"type":"stat","value":"127","label":"Posts"},
                     {"type":"stat","value":"1.2K","label":"Followers"},
                     {"type":"stat","value":"342","label":"Following"}
@@ -628,7 +628,7 @@ class KaiUiScreenshotTest {
                 {"type":"divider"},
                 {"type":"text","value":"Recent Activity","style":"title"},
                 {"type":"card","children":[
-                    {"type":"row","spacing":8,"children":[
+                    {"type":"row","children":[
                         {"type":"icon","name":"star","color":"primary"},
                         {"type":"text","value":"Published \"Getting Started with KMP\"","style":"body"}
                     ]},
@@ -644,22 +644,22 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_survivalGame_dark() {
         paparazzi.snapKaiUiWithImage(
-            titleJson = """{"type":"column","spacing":4,"children":[
+            titleJson = """{"type":"column","children":[
                 {"type":"text","value":"\u2694\ufe0f The Goblin Tunnels","style":"headline","bold":true},
                 {"type":"text","value":"Chapter 1 \u2022 The Beginning","style":"caption","color":"secondary"},
-                {"type":"row","spacing":16,"children":[
+                {"type":"row","children":[
                     {"type":"stat","value":"20/20","label":"HP"},
                     {"type":"stat","value":"Lv 1","label":"Level"},
                     {"type":"stat","value":"50g","label":"Gold"},
                     {"type":"stat","value":"2","label":"DEF"}
                 ]}
             ]}""",
-            bodyJson = """{"type":"column","spacing":8,"children":[
+            bodyJson = """{"type":"column","children":[
                 {"type":"text","value":"You descend deeper into the darkness. The air grows thick with the smell of damp stone and something rotten. Your torchlight dances across crude carvings on the walls — warnings, perhaps, from those who came before. A low growl echoes from somewhere ahead.","style":"body"},
                 {"type":"text","value":"The tunnel forks. To the left, faint firelight flickers. To the right, silence — and a cold draft that makes your torch sputter.","style":"body"},
                 {"type":"divider"},
                 {"type":"text","value":"\ud83c\udf92 Inventory","style":"title"},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"badge","value":"\ud83d\udde1\ufe0f Iron Sword","color":"secondary"},
                     {"type":"badge","value":"\ud83d\udee1\ufe0f Shield","color":"secondary"},
                     {"type":"badge","value":"\ud83e\udded Health Potion","color":"primary"},
@@ -729,62 +729,84 @@ class KaiUiScreenshotTest {
     @Test
     fun scenario_memories_dark() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":10,"children":[
-                {"type":"text","value":"Your Memories","style":"headline","bold":true},
+            """{"type":"column","children":[
+                {"type":"text","value":"Our Memories","style":"headline","bold":true},
                 {"type":"text","value":"Kai remembers what matters to you. Frequently used memories get promoted into the system prompt.","style":"body","color":"secondary"},
-                {"type":"row","spacing":16,"children":[
+                {"type":"row","children":[
                     {"type":"stat","value":"12","label":"Total"},
                     {"type":"stat","value":"3","label":"Promoted"},
                     {"type":"stat","value":"87","label":"Recalled"}
                 ]},
                 {"type":"divider"},
                 {"type":"text","value":"Promoted","style":"title","bold":true,"color":"primary"},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"icon","name":"star","color":"primary"},
-                            {"type":"text","value":"Dark mode, concise answers","style":"body","bold":true}
-                        ]},
-                        {"type":"text","value":"Recalled 14 times \u2022 Promoted to system prompt","style":"caption","color":"primary"}
-                    ]}
-                ]},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"icon","name":"star","color":"primary"},
+                {"type":"card","children":[
+                    {"type":"column","children":[
+                        {"type":"row","children":[
+                            {"type":"icon","name":"star"},
                             {"type":"text","value":"Software engineer, mainly Kotlin","style":"body","bold":true}
                         ]},
-                        {"type":"text","value":"Recalled 9 times \u2022 Promoted to system prompt","style":"caption","color":"primary"}
+                        {"type":"text","value":"Recalled 9 times \u2022 Promoted to system prompt","style":"caption","color":"primary"},
+                        {"type":"row","children":[
+                            {"type":"button","label":"Demote","variant":"outlined","action":{"type":"callback","event":"demote","data":{"id":"2"}}},
+                            {"type":"button","label":"Delete","variant":"text","action":{"type":"callback","event":"delete","data":{"id":"2"}}}
+                        ]}
+                    ]}
+                ]},
+                {"type":"card","children":[
+                    {"type":"column","children":[
+                        {"type":"row","children":[
+                            {"type":"icon","name":"star"},
+                            {"type":"text","value":"Dark mode, concise answers","style":"body","bold":true}
+                        ]},
+                        {"type":"text","value":"Recalled 14 times \u2022 Promoted to system prompt","style":"caption","color":"primary"},
+                        {"type":"row","children":[
+                            {"type":"button","label":"Demote","variant":"outlined","action":{"type":"callback","event":"demote","data":{"id":"1"}}},
+                            {"type":"button","label":"Delete","variant":"text","action":{"type":"callback","event":"delete","data":{"id":"1"}}}
+                        ]}
                     ]}
                 ]},
                 {"type":"divider"},
                 {"type":"text","value":"Facts & Preferences","style":"title","bold":true},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
+                {"type":"card","children":[
+                    {"type":"column","children":[
+                        {"type":"row","children":[
                             {"type":"icon","name":"pets"},
                             {"type":"text","value":"Cat named Pixel","style":"body","bold":true}
                         ]},
-                        {"type":"text","value":"Recalled 4 times","style":"caption"}
+                        {"type":"row","children":[
+                            {"type":"text","value":"Recalled 4 times","style":"caption"},
+                            {"type":"badge","value":"promote","color":"primary"}
+                        ]}
                     ]}
                 ]},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
-                            {"type":"icon","name":"restaurant"},
-                            {"type":"text","value":"Vegetarian, allergic to nuts","style":"body","bold":true}
+                {"type":"card","children":[
+                    {"type":"column","children":[
+                        {"type":"row","children":[
+                            {"type":"icon","name":"flight"},
+                            {"type":"text","value":"Travels often, prefers window seats","style":"body","bold":true}
                         ]},
-                        {"type":"text","value":"Recalled 3 times","style":"caption"}
+                        {"type":"row","children":[
+                            {"type":"text","value":"Recalled 3 times","style":"caption"},
+                            {"type":"badge","value":"promote","color":"primary"}
+                        ]}
                     ]}
                 ]},
-                {"type":"card","padding":12,"children":[
-                    {"type":"column","spacing":6,"children":[
-                        {"type":"row","spacing":8,"children":[
+                {"type":"card","children":[
+                    {"type":"column","children":[
+                        {"type":"row","children":[
                             {"type":"icon","name":"location_on"},
                             {"type":"text","value":"Lives in Berlin, moved from Munich","style":"body","bold":true}
                         ]},
-                        {"type":"text","value":"Recalled 2 times","style":"caption"}
+                        {"type":"row","children":[
+                            {"type":"text","value":"Recalled 2 times","style":"caption"},
+                            {"type":"badge","value":"promote","color":"primary"}
+                        ]}
                     ]}
+                ]},
+                {"type":"divider"},
+                {"type":"row","children":[
+                    {"type":"button","label":"Add Memory","variant":"filled","action":{"type":"callback","event":"add_memory"}},
+                    {"type":"button","label":"Export All","variant":"outlined","action":{"type":"callback","event":"export"}}
                 ]}
             ]}""",
         )
@@ -795,11 +817,11 @@ class KaiUiScreenshotTest {
     @Test
     fun allElements_light() {
         paparazzi.snapKaiUi(
-            """{"type":"column","spacing":10,"children":[
+            """{"type":"column","children":[
                 {"type":"text","value":"Component Showcase","style":"headline","bold":true},
                 {"type":"divider"},
                 {"type":"text","value":"Buttons","style":"title"},
-                {"type":"row","spacing":6,"children":[
+                {"type":"row","children":[
                     {"type":"button","label":"Filled","variant":"filled","action":{"type":"callback","event":"x"}},
                     {"type":"button","label":"Tonal","variant":"tonal","action":{"type":"callback","event":"x"}},
                     {"type":"button","label":"Outlined","variant":"outlined","action":{"type":"callback","event":"x"}}
@@ -826,7 +848,7 @@ class KaiUiScreenshotTest {
                 {"type":"list","ordered":true,"items":[{"type":"text","value":"First item"},{"type":"text","value":"Second item"}]},
                 {"type":"divider"},
                 {"type":"code","language":"kotlin","code":"println(\"Hello\")"},
-                {"type":"row","spacing":8,"children":[
+                {"type":"row","children":[
                     {"type":"icon","name":"home"},
                     {"type":"icon","name":"star","color":"primary"},
                     {"type":"icon","name":"favorite","color":"error"}

@@ -1017,6 +1017,44 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `parses image with aspectRatio`() {
+        val node = parseSingleNode(
+            """{"type":"image","url":"https://example.com/a.jpg","aspectRatio":1.78}""",
+        )
+        val image = assertIs<ImageNode>(node)
+        assertEquals(1.78f, image.aspectRatio)
+        assertNull(image.height)
+    }
+
+    @Test
+    fun `parses image with snake_case aspect_ratio`() {
+        val node = parseSingleNode(
+            """{"type":"image","url":"https://example.com/a.jpg","aspect_ratio":1.5}""",
+        )
+        val image = assertIs<ImageNode>(node)
+        assertEquals(1.5f, image.aspectRatio)
+    }
+
+    @Test
+    fun `parses image with integer aspectRatio`() {
+        val node = parseSingleNode(
+            """{"type":"image","url":"https://example.com/a.jpg","aspectRatio":2}""",
+        )
+        val image = assertIs<ImageNode>(node)
+        assertEquals(2.0f, image.aspectRatio)
+    }
+
+    @Test
+    fun `legacy image without aspectRatio has null`() {
+        val node = parseSingleNode(
+            """{"type":"image","url":"https://example.com/a.jpg","height":160}""",
+        )
+        val image = assertIs<ImageNode>(node)
+        assertEquals(160, image.height)
+        assertNull(image.aspectRatio)
+    }
+
+    @Test
     fun `coerces nested objects in CallbackAction data to primitives`() {
         // Covered indirectly by the "non-composite + JsonObject → primitive" rule inside
         // the data object. Verifies recursion walks into data correctly.
