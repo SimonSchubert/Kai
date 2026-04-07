@@ -1,0 +1,4 @@
+Fix Bouncycastle and Coil proguard rules on desktop
+Simplify and improve chat input UI
+Extract reusable UI components
+Improve heartbeat error messages

@@ -1,3 +1,13 @@
+## v2.0.3 — 2026-04-07
+
+### Fixes
+- Fix Bouncycastle and Coil proguard rules on desktop
+
+### Improvements
+- Simplify and improve chat input UI
+- Extract reusable UI components
+- Improve heartbeat error messages
+
 ## v2.0.2 — 2026-04-06
 
 ### Fixes
