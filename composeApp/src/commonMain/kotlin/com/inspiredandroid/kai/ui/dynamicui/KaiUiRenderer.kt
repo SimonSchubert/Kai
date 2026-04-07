@@ -568,7 +568,7 @@ private fun RenderImage(node: ImageNode) {
     val aspectRatio = (node.aspectRatio ?: DEFAULT_IMAGE_ASPECT_RATIO)
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val width = minOf(maxWidth, height * aspectRatio)
-        val modifier = Modifier.height(width/aspectRatio).width(width).clip(RoundedCornerShape(6.dp))
+        val modifier = Modifier.height(width / aspectRatio).width(width).clip(RoundedCornerShape(6.dp))
         val previewBitmap = LocalPreviewImages.current[node.url]
         if (previewBitmap != null) {
             Image(
