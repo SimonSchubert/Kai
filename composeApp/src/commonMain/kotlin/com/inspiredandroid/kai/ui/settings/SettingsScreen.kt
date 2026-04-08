@@ -155,12 +155,12 @@ import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
+import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
-import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.litert_cancel
-import kai.composeapp.generated.resources.litert_error_not_enough_disk_space
 import kai.composeapp.generated.resources.litert_download
+import kai.composeapp.generated.resources.litert_error_not_enough_disk_space
 import kai.composeapp.generated.resources.litert_free_space
 import kai.composeapp.generated.resources.litert_limitations
 import kai.composeapp.generated.resources.litert_on_device_description

@@ -8,11 +8,11 @@ import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
-import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.InferenceMessage
 import com.inspiredandroid.kai.inference.LocalInferenceEngine
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
