@@ -1,3 +1,12 @@
+## v2.1.0 — 2026-04-08
+
+### Features
+- Add support for local Gemma 4 via LiteRT
+- Add PublicAI, Fireworks, DeepInfra, and OpenCode services
+
+### Improvements
+- Add missing localizations
+
 ## v2.0.3 — 2026-04-07
 
 ### Fixes
