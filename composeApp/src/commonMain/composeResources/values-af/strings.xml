@@ -232,4 +232,9 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="snackbar_conversation_deleted">Gesprek verwyder</string>
     <string name="start_interactive_ui">Begin interaktiewe UI</string>
     <string name="settings_reorder_content_description">Herrangskik</string>
+    <string name="litert_on_device_description">Voer KI-modelle direk op jou toestel uit. Geen API-sleutel of internet nodig nie.</string>
+    <string name="litert_download">Laai af</string>
+    <string name="litert_cancel">Kanselleer</string>
+    <string name="litert_limitations">Geen gereedskapsgebruik, geen beeldinvoer, geen hartklop, 4K konteksvenster</string>
+    <string name="litert_free_space">%1$s beskikbaar op toestel</string>
 </resources>

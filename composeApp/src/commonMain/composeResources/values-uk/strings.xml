@@ -232,4 +232,9 @@
     <string name="snackbar_conversation_deleted">Розмову видалено</string>
     <string name="start_interactive_ui">Запустити інтерактивний UI</string>
     <string name="settings_reorder_content_description">Змінити порядок</string>
+    <string name="litert_on_device_description">Запускайте моделі ШІ безпосередньо на пристрої. API-ключ та інтернет не потрібні.</string>
+    <string name="litert_download">Завантажити</string>
+    <string name="litert_cancel">Скасувати</string>
+    <string name="litert_limitations">Без інструментів, без зображень, без heartbeat, контекстне вікно 4K</string>
+    <string name="litert_free_space">%1$s доступно на пристрої</string>
 </resources>

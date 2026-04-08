@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Conversaziun stizzada</string>
     <string name="start_interactive_ui">Cumenzar UI interactiva</string>
     <string name="settings_reorder_content_description">Reordinar</string>
+    <string name="litert_on_device_description">Exequir models AI directamain sin tes apparat. Nagina clav API u internet necessari.</string>
+    <string name="litert_download">Telechargiar</string>
+    <string name="litert_cancel">Annullar</string>
+    <string name="litert_limitations">Nagins utensils, naginas maletgs, nagin heartbeat, fanestra da context 4K</string>
+    <string name="litert_free_space">%1$s disponibel sin l'apparat</string>
 </resources>

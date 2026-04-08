@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -63,6 +64,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -128,6 +130,8 @@ import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
+import com.inspiredandroid.kai.formatFileSize
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -152,6 +156,11 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.litert_cancel
+import kai.composeapp.generated.resources.litert_download
+import kai.composeapp.generated.resources.litert_free_space
+import kai.composeapp.generated.resources.litert_limitations
+import kai.composeapp.generated.resources.litert_on_device_description
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -825,6 +834,13 @@ private fun ServicesContent(uiState: SettingsUiState) {
                     onRemove = { uiState.onRemoveService(entry.instanceId) },
                     isDragging = isDragging,
                     dragHandleModifier = if (entries.size >= 2) Modifier.draggableHandle() else null,
+                    localAvailableModels = uiState.localAvailableModels,
+                    localFreeSpaceBytes = uiState.localFreeSpaceBytes,
+                    localDownloadingModelId = uiState.localDownloadingModelId,
+                    localDownloadProgress = uiState.localDownloadProgress,
+                    onDownloadLocalModel = uiState.onDownloadLocalModel,
+                    onCancelLocalModelDownload = uiState.onCancelLocalModelDownload,
+                    onDeleteLocalModel = uiState.onDeleteLocalModel,
                 )
             }
         }
@@ -857,12 +873,19 @@ private fun ServicesContent(uiState: SettingsUiState) {
             Box {
                 Column(modifier = Modifier.verticalScroll(addServiceScrollState).padding(16.dp)) {
                     uiState.availableServicesToAdd.forEach { service ->
+                        val isSpecial = service.isOnDevice || service is Service.OpenAICompatible
                         Surface(
                             onClick = {
                                 uiState.onAddService(service)
                                 showAddServiceSheet = false
                             },
-                            modifier = Modifier.fillMaxWidth().handCursor(),
+                            modifier = Modifier.fillMaxWidth().handCursor().then(
+                                if (isSpecial) {
+                                    Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(8.dp))
+                                } else {
+                                    Modifier
+                                },
+                            ),
                             shape = RoundedCornerShape(8.dp),
                         ) {
                             Row(
@@ -906,17 +929,21 @@ private fun ConfiguredServiceCardContent(
     onRemove: () -> Unit,
     isDragging: Boolean = false,
     dragHandleModifier: Modifier? = null,
+    localAvailableModels: ImmutableList<LocalModel> = persistentListOf(),
+    localFreeSpaceBytes: Long = 0L,
+    localDownloadingModelId: String? = null,
+    localDownloadProgress: Float? = null,
+    onDownloadLocalModel: (LocalModel) -> Unit = {},
+    onCancelLocalModelDownload: () -> Unit = {},
+    onDeleteLocalModel: (String) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
             .clip(CardDefaults.shape)
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
             .fillMaxWidth()
-            .clickable {
-                onExpand()
-            }
+            .clickable { onExpand() }
             .handCursor(),
-
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             // Header row
@@ -981,7 +1008,20 @@ private fun ConfiguredServiceCardContent(
         // Expanded content
         if (isExpanded) {
             Column(modifier = Modifier.padding(horizontal = 16.dp).padding(bottom = 16.dp)) {
-                if (entry.service is Service.OpenAICompatible) {
+                if (entry.service.isOnDevice) {
+                    LiteRTSettings(
+                        selectedModel = entry.selectedModel,
+                        downloadedModels = entry.models,
+                        availableModels = localAvailableModels,
+                        freeSpaceBytes = localFreeSpaceBytes,
+                        downloadingModelId = localDownloadingModelId,
+                        downloadProgress = localDownloadProgress,
+                        onSelectModel = onSelectModel,
+                        onDownloadModel = onDownloadLocalModel,
+                        onCancelDownload = onCancelLocalModelDownload,
+                        onDeleteModel = onDeleteLocalModel,
+                    )
+                } else if (entry.service is Service.OpenAICompatible) {
                     OpenAICompatibleSettings(
                         baseUrl = entry.baseUrl,
                         onChangeBaseUrl = onChangeBaseUrl,
@@ -1177,6 +1217,134 @@ private fun OpenAICompatibleSettings(
     if (connectionStatus == ConnectionStatus.Connected) {
         ModelSelection(selectedModel, models, onSelectModel)
     }
+}
+
+@Composable
+private fun LiteRTSettings(
+    selectedModel: SettingsModel?,
+    downloadedModels: ImmutableList<SettingsModel>,
+    availableModels: ImmutableList<LocalModel>,
+    freeSpaceBytes: Long,
+    downloadingModelId: String?,
+    downloadProgress: Float?,
+    onSelectModel: (String) -> Unit,
+    onDownloadModel: (LocalModel) -> Unit,
+    onCancelDownload: () -> Unit,
+    onDeleteModel: (String) -> Unit,
+) {
+    val downloadedIds = remember(downloadedModels) { downloadedModels.map { it.id }.toSet() }
+
+    Text(
+        text = stringResource(Res.string.litert_on_device_description),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+
+    Spacer(Modifier.height(4.dp))
+
+    Text(
+        text = stringResource(Res.string.litert_limitations),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+
+    Spacer(Modifier.height(12.dp))
+
+    availableModels.forEach { model ->
+        val isDownloaded = model.id in downloadedIds
+        val isSelected = selectedModel?.id == model.id
+        val isDownloading = downloadingModelId == model.id
+
+        Surface(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+            shape = RoundedCornerShape(8.dp),
+            tonalElevation = if (isSelected) 3.dp else 1.dp,
+        ) {
+            Column(modifier = Modifier.padding(12.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    if (isDownloaded) {
+                        RadioButton(
+                            selected = isSelected,
+                            onClick = { onSelectModel(model.id) },
+                            modifier = Modifier.size(20.dp),
+                        )
+                        Spacer(Modifier.width(8.dp))
+                    }
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = model.displayName,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                        Text(
+                            text = formatFileSize(model.sizeBytes),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    if (isDownloaded) {
+                        IconButton(
+                            onClick = { onDeleteModel(model.id) },
+                            modifier = Modifier.size(32.dp).handCursor(),
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                    } else if (!isDownloading) {
+                        TextButton(
+                            onClick = { onDownloadModel(model) },
+                            modifier = Modifier.handCursor(),
+                            enabled = downloadingModelId == null,
+                        ) {
+                            Text(stringResource(Res.string.litert_download))
+                        }
+                    }
+                }
+                if (isDownloading && downloadProgress != null) {
+                    Spacer(Modifier.height(8.dp))
+                    LinearProgressIndicator(
+                        progress = { downloadProgress },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "${(downloadProgress * 100).toInt()}%",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        TextButton(
+                            onClick = onCancelDownload,
+                            modifier = Modifier.handCursor(),
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.litert_cancel),
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    Spacer(Modifier.height(8.dp))
+
+    Text(
+        text = stringResource(Res.string.litert_free_space, formatFileSize(freeSpaceBytes)),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
 }
 
 @Composable

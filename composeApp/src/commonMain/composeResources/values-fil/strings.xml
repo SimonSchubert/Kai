@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Usapan na-delete</string>
     <string name="start_interactive_ui">Simulan ang interactive na UI</string>
     <string name="settings_reorder_content_description">Ayusin muli</string>
+    <string name="litert_on_device_description">Magpatakbo ng mga AI model nang direkta sa iyong device. Hindi kailangan ng API key o internet.</string>
+    <string name="litert_download">I-download</string>
+    <string name="litert_cancel">Kanselahin</string>
+    <string name="litert_limitations">Walang tool use, walang image input, walang heartbeat, 4K context window</string>
+    <string name="litert_free_space">%1$s available sa device</string>
 </resources>

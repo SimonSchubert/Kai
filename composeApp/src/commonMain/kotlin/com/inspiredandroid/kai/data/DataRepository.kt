@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.EngineState
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.chat.History
@@ -131,4 +134,16 @@ interface DataRepository {
     // Heartbeat notification
     val hasUnreadHeartbeat: StateFlow<Boolean>
     fun clearUnreadHeartbeat()
+
+    // On-device inference (LiteRT)
+    fun isLocalInferenceAvailable(): Boolean
+    fun getLocalEngineState(): StateFlow<EngineState>?
+    fun getLocalDownloadedModels(): List<DownloadedModel>
+    fun getLocalAvailableModels(): List<LocalModel>
+    fun getLocalFreeSpaceBytes(): Long
+    fun getLocalDownloadingModelId(): StateFlow<String?>?
+    fun getLocalDownloadProgress(): StateFlow<Float?>?
+    fun startLocalModelDownload(model: LocalModel)
+    fun cancelLocalModelDownload()
+    suspend fun deleteLocalModel(modelId: String)
 }

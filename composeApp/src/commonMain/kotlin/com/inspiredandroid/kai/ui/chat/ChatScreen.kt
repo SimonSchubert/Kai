@@ -175,7 +175,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
         if (hasAssistantResponse) inputExpanded = false
     }
     val showFullInput = inputExpanded && !uiState.isLoading
-    val executingTools = rememberExecutingTools(uiState.history)
+    val executingToolsState = rememberExecutingTools(uiState.history)
 
     Box(
         Modifier
@@ -193,7 +193,8 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 isLoading = uiState.isLoading,
                 showBack = hasAssistantResponse,
                 showPulse = uiState.isLoading && hasAssistantResponse,
-                executingTools = executingTools,
+                executingTools = executingToolsState.tools,
+                isStatusOnly = executingToolsState.isStatusOnly,
             )
 
             Box(
@@ -306,6 +307,7 @@ private fun InteractiveModeTopBar(
     showBack: Boolean,
     showPulse: Boolean,
     executingTools: ImmutableList<Pair<String, String>>,
+    isStatusOnly: Boolean = false,
 ) {
     val iconColor = MaterialTheme.colorScheme.onSurface
 
@@ -578,7 +580,7 @@ private fun ChatModeScreen(
                                 uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
                             }
                         }
-                        val executingTools = rememberExecutingTools(uiState.history)
+                        val executingToolsState = rememberExecutingTools(uiState.history)
 
                         val showScrollToBottom by remember {
                             derivedStateOf {
@@ -643,7 +645,8 @@ private fun ChatModeScreen(
                                 if (uiState.isLoading) {
                                     item(key = "loading") {
                                         WaitingResponseRow(
-                                            executingTools = executingTools,
+                                            executingTools = executingToolsState.tools,
+                                            isStatusOnly = executingToolsState.isStatusOnly,
                                         )
                                     }
                                 }
@@ -714,10 +717,16 @@ private fun ChatModeScreen(
     }
 }
 
+private data class ExecutingToolsState(
+    val tools: ImmutableList<Pair<String, String>>,
+    val isStatusOnly: Boolean,
+)
+
 @Composable
-private fun rememberExecutingTools(history: ImmutableList<History>): ImmutableList<Pair<String, String>> = remember(history) {
-    history
-        .filter { it.role == History.Role.TOOL_EXECUTING }
-        .map { it.id to (it.toolName ?: "tool") }
-        .toImmutableList()
+private fun rememberExecutingTools(history: ImmutableList<History>): ExecutingToolsState = remember(history) {
+    val executing = history.filter { it.role == History.Role.TOOL_EXECUTING }
+    ExecutingToolsState(
+        tools = executing.map { it.id to (it.toolName ?: "tool") }.toImmutableList(),
+        isStatusOnly = executing.any { it.isStatusMessage },
+    )
 }

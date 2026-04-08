@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">ลบการสนทนาแล้ว</string>
     <string name="start_interactive_ui">เริ่ม UI แบบโต้ตอบ</string>
     <string name="settings_reorder_content_description">จัดเรียงใหม่</string>
+    <string name="litert_on_device_description">รันโมเดล AI โดยตรงบนอุปกรณ์ของคุณ ไม่ต้องใช้ API key หรืออินเทอร์เน็ต</string>
+    <string name="litert_download">ดาวน์โหลด</string>
+    <string name="litert_cancel">ยกเลิก</string>
+    <string name="litert_limitations">ไม่มีเครื่องมือ ไม่มีรูปภาพ ไม่มี heartbeat หน้าต่างบริบท 4K</string>
+    <string name="litert_free_space">%1$s พร้อมใช้งานบนอุปกรณ์</string>
 </resources>

@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Saruna dzēsta</string>
     <string name="start_interactive_ui">Sākt interaktīvo UI</string>
     <string name="settings_reorder_content_description">Pārkārtot</string>
+    <string name="litert_on_device_description">Palaidiet AI modeļus tieši savā ierīcē. Nav nepieciešama API atslēga vai internets.</string>
+    <string name="litert_download">Lejupielādēt</string>
+    <string name="litert_cancel">Atcelt</string>
+    <string name="litert_limitations">Bez rīkiem, bez attēliem, bez heartbeat, 4K konteksta logs</string>
+    <string name="litert_free_space">%1$s pieejams ierīcē</string>
 </resources>

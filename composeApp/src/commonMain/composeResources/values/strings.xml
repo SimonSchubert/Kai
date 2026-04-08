@@ -138,6 +138,11 @@
     <string name="settings_email_remove">Remove account</string>
     <string name="settings_email_poll_interval">Poll every %1$d minutes</string>
     <string name="settings_email_poll_never">Never</string>
+    <string name="litert_on_device_description">Run AI models directly on your device. No API key or internet required.</string>
+    <string name="litert_download">Download</string>
+    <string name="litert_cancel">Cancel</string>
+    <string name="litert_limitations">No tool use, no image input, no heartbeat, 4K context window</string>
+    <string name="litert_free_space">%1$s available on device</string>
     <string name="settings_add_service">Add Service</string>
     <string name="settings_remove_service">Remove</string>
     <string name="settings_move_up">Move up</string>

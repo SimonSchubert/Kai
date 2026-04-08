@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Percakapan dihapus</string>
     <string name="start_interactive_ui">Mulai UI Interaktif</string>
     <string name="settings_reorder_content_description">Urutkan ulang</string>
+    <string name="litert_on_device_description">Jalankan model AI langsung di perangkat Anda. Tidak perlu kunci API atau internet.</string>
+    <string name="litert_download">Unduh</string>
+    <string name="litert_cancel">Batal</string>
+    <string name="litert_limitations">Tanpa alat, tanpa input gambar, tanpa heartbeat, jendela konteks 4K</string>
+    <string name="litert_free_space">%1$s tersedia di perangkat</string>
 </resources>

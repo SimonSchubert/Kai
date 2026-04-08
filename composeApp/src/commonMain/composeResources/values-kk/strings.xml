@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Әңгіме жойылды</string>
     <string name="start_interactive_ui">Интерактивті UI бастау</string>
     <string name="settings_reorder_content_description">Ретін өзгерту</string>
+    <string name="litert_on_device_description">AI модельдерін тікелей құрылғыңызда іске қосыңыз. API кілті немесе интернет қажет емес.</string>
+    <string name="litert_download">Жүктеу</string>
+    <string name="litert_cancel">Бас тарту</string>
+    <string name="litert_limitations">Құралдарсыз, суретсіз, heartbeat жоқ, 4K контекст терезесі</string>
+    <string name="litert_free_space">Құрылғыда %1$s қолжетімді</string>
 </resources>

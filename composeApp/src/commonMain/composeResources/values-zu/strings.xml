@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Ingxoxo isusiwe</string>
     <string name="start_interactive_ui">Qala UI Ehlanganyela</string>
     <string name="settings_reorder_content_description">Hlela kabusha</string>
+    <string name="litert_on_device_description">Sebenzisa amamodeli e-AI ngqo kudivayisi yakho. Akukho sihluthulelo se-API noma i-inthanethi edingekayo.</string>
+    <string name="litert_download">Landa</string>
+    <string name="litert_cancel">Khansela</string>
+    <string name="litert_limitations">Akukho ukusetshenziswa kwethuluzi, akukho okufakwayo kwezithombe, akukho i-heartbeat, iwindi lomongo we-4K</string>
+    <string name="litert_free_space">%1$s iyatholakala kudivayisi</string>
 </resources>

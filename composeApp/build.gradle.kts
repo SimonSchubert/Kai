@@ -84,6 +84,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.material)
             implementation(libs.bouncycastle.provider)
+            implementation(libs.litert.lm)
         }
         commonMain.dependencies {
             implementation(libs.compose.material3)

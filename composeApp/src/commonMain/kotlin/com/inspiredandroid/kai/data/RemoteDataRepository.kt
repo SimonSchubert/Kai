@@ -3,8 +3,14 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.compressImageBytes
+import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.EngineState
+import com.inspiredandroid.kai.inference.InferenceMessage
+import com.inspiredandroid.kai.inference.LocalInferenceEngine
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
@@ -64,6 +70,8 @@ private val limitedModels = listOf(
     "gemma2",
     "gemma:2b",
     "gemma:7b",
+    "gemma-4-e2b",
+    "gemma-4-e4b",
     "phi3:mini",
     "tinyllama",
     "stablelm",
@@ -167,6 +175,7 @@ class RemoteDataRepository(
     private val heartbeatManager: HeartbeatManager,
     private val emailStore: EmailStore,
     private val mcpServerManager: McpServerManager,
+    private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
 
     private val prettyJson = Json { prettyPrint = true }
@@ -280,6 +289,10 @@ class RemoteDataRepository(
     }
 
     override suspend fun validateConnection(service: Service, instanceId: String) {
+        if (service.isOnDevice) {
+            fetchInstanceModels(service, instanceId)
+            return
+        }
         val creds = instanceCredentials(instanceId, service)
         when (service) {
             Service.Free -> { /* Always valid */ }
@@ -300,6 +313,20 @@ class RemoteDataRepository(
             Service.Anthropic -> fetchAnthropicModelsForInstance(instanceId)
 
             Service.Free -> { /* No model listing */ }
+
+            Service.LiteRT -> {
+                val engine = localInferenceEngine ?: return
+                val selectedModelId = appSettings.getInstanceModelId(instanceId)
+                val downloaded = engine.getDownloadedModels()
+                val models = downloaded.map {
+                    SettingsModel(
+                        id = it.id,
+                        subtitle = "${it.displayName} (${formatFileSize(it.sizeBytes)})",
+                        isSelected = it.id == selectedModelId,
+                    )
+                }
+                updateModelsForInstance(instanceId, models, service)
+            }
 
             else -> {
                 if (service.modelsUrl != null) {
@@ -365,6 +392,46 @@ class RemoteDataRepository(
             ?: models.firstOrNull()
     }
 
+    private suspend fun askWithLocalEngine(
+        messages: List<History>,
+        systemPrompt: String?,
+        instanceId: String,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): String {
+        val engine = localInferenceEngine
+            ?: throw IllegalStateException("On-device inference not available on this platform")
+
+        val modelId = appSettings.getInstanceModelId(instanceId)
+        val downloadedModels = engine.getDownloadedModels()
+        val model = downloadedModels.find { it.id == modelId }
+            ?: throw IllegalStateException("Model not downloaded: $modelId")
+
+        if (engine.engineState.value != EngineState.READY) {
+            val statusEntry = History(
+                role = History.Role.TOOL_EXECUTING,
+                content = "",
+                toolName = "Initializing ${model.displayName}",
+                isStatusMessage = true,
+            )
+            history.update { it + statusEntry }
+            try {
+                engine.initialize(model)
+            } finally {
+                history.update { h -> h.filter { it.id != statusEntry.id } }
+            }
+        }
+
+        val inferenceMessages = messages.mapNotNull { msg ->
+            when (msg.role) {
+                History.Role.USER -> InferenceMessage(role = "user", content = msg.content)
+                History.Role.ASSISTANT -> InferenceMessage(role = "assistant", content = msg.content)
+                else -> null
+            }
+        }
+
+        return engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt)
+    }
+
     private suspend fun askWithService(
         service: Service,
         messages: List<History>,
@@ -372,6 +439,10 @@ class RemoteDataRepository(
         instanceId: String,
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
+        if (service.isOnDevice) {
+            return askWithLocalEngine(messages, systemPrompt, instanceId)
+        }
+
         val creds = instanceCredentials(instanceId, service)
         val tools = if (supportsTools(creds.modelId)) getAvailableTools() else emptyList()
 
@@ -410,6 +481,7 @@ class RemoteDataRepository(
 
     private fun hasValidInstanceApiKey(instanceId: String, service: Service): Boolean {
         if (service == Service.Free) return true
+        if (service.isOnDevice) return true
         if (!service.requiresApiKey && !service.supportsOptionalApiKey) return true
         if (service.requiresApiKey) return appSettings.getInstanceApiKey(instanceId).isNotBlank()
         return true // Optional API key services are always valid
@@ -421,6 +493,7 @@ class RemoteDataRepository(
         val instances = getConfiguredServiceInstances()
         val entries = instances.map { FallbackEntry(instanceId = it.instanceId, service = Service.fromId(it.serviceId)) }
             .filter { it.service != Service.Free }
+            .filter { !it.service.isOnDevice || localInferenceEngine != null }
         return if (entries.isEmpty()) {
             listOf(FallbackEntry(instanceId = "free", service = Service.Free))
         } else if (appSettings.isFreeFallbackEnabled()) {
@@ -1413,7 +1486,8 @@ class RemoteDataRepository(
             append("- Platform: $platformName\n")
             append("- Model: $modelId\n")
             append("- Provider: ${service.displayName}\n")
-            val dynamicUiOnly = appSettings.isDynamicUiEnabled() && !interactiveModeFlag
+            val isLimited = supportsTools(modelId).not()
+            val dynamicUiOnly = appSettings.isDynamicUiEnabled() && !interactiveModeFlag && !isLimited
             if (dynamicUiOnly || interactiveModeFlag) {
                 // Mode-specific introduction (mutually exclusive)
                 if (dynamicUiOnly) {
@@ -1618,8 +1692,10 @@ class RemoteDataRepository(
             getConfiguredServiceInstances().find { it.instanceId == instanceId }
         } else {
             null
-        } ?: getConfiguredServiceInstances().firstOrNull() ?: return ""
+        } ?: getConfiguredServiceInstances().firstOrNull { !Service.fromId(it.serviceId).isOnDevice }
+            ?: return ""
         val service = Service.fromId(targetInstance.serviceId)
+        if (service.isOnDevice) return ""
         val messages = listOf(History(role = History.Role.USER, content = prompt))
         val systemPrompt = getActiveSystemPrompt()
         // Use a local history to avoid polluting the current conversation's chatHistory
@@ -1630,9 +1706,14 @@ class RemoteDataRepository(
     override suspend fun askSilently(question: String): String {
         val service = currentService()
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
-        val creds = instanceCredentials(firstInstance.instanceId, service)
         val messages = listOf(History(role = History.Role.USER, content = question))
         val systemPrompt = getActiveSystemPrompt()
+
+        if (service.isOnDevice) {
+            return askWithLocalEngine(messages, systemPrompt, firstInstance.instanceId)
+        }
+
+        val creds = instanceCredentials(firstInstance.instanceId, service)
 
         val responseText = when (service) {
             Service.Gemini -> {
@@ -1661,8 +1742,13 @@ class RemoteDataRepository(
         val instance = getConfiguredServiceInstances().find { it.instanceId == instanceId }
             ?: return askSilently(prompt)
         val service = Service.fromId(instance.serviceId)
-        val creds = instanceCredentials(instanceId, service)
         val messages = listOf(History(role = History.Role.USER, content = prompt))
+
+        if (service.isOnDevice) {
+            return askWithLocalEngine(messages, null, instanceId)
+        }
+
+        val creds = instanceCredentials(instanceId, service)
         val reqTimeout = if (timeoutMs > 0) timeoutMs else null
 
         return when (service) {
@@ -1728,5 +1814,33 @@ class RemoteDataRepository(
             val lastSpace = truncated.lastIndexOf(' ')
             if (lastSpace > 20) truncated.substring(0, lastSpace) + "..." else truncated + "..."
         }
+    }
+
+    // On-device inference (LiteRT)
+
+    override fun isLocalInferenceAvailable(): Boolean = localInferenceEngine != null
+
+    override fun getLocalEngineState(): StateFlow<EngineState>? = localInferenceEngine?.engineState
+
+    override fun getLocalDownloadingModelId(): StateFlow<String?>? = localInferenceEngine?.downloadingModelId
+
+    override fun getLocalDownloadProgress(): StateFlow<Float?>? = localInferenceEngine?.downloadProgress
+
+    override fun getLocalDownloadedModels(): List<DownloadedModel> = localInferenceEngine?.getDownloadedModels() ?: emptyList()
+
+    override fun getLocalAvailableModels(): List<LocalModel> = localInferenceEngine?.getAvailableModels() ?: emptyList()
+
+    override fun getLocalFreeSpaceBytes(): Long = localInferenceEngine?.getFreeSpaceBytes() ?: 0L
+
+    override fun startLocalModelDownload(model: LocalModel) {
+        localInferenceEngine?.startDownload(model)
+    }
+
+    override fun cancelLocalModelDownload() {
+        localInferenceEngine?.cancelDownload()
+    }
+
+    override suspend fun deleteLocalModel(modelId: String) {
+        localInferenceEngine?.deleteModel(modelId)
     }
 }

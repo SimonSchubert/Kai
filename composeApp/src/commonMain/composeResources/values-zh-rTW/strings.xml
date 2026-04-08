@@ -232,4 +232,9 @@
     <string name="snackbar_conversation_deleted">對話已刪除</string>
     <string name="start_interactive_ui">啟動互動式 UI</string>
     <string name="settings_reorder_content_description">重新排序</string>
+    <string name="litert_on_device_description">直接在您的裝置上執行AI模型。無需API金鑰或網際網路。</string>
+    <string name="litert_download">下載</string>
+    <string name="litert_cancel">取消</string>
+    <string name="litert_limitations">無工具使用，無圖片輸入，無心跳，4K上下文視窗</string>
+    <string name="litert_free_space">裝置上可用 %1$s</string>
 </resources>

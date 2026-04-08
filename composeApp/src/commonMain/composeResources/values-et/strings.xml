@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Vestlus kustutatud</string>
     <string name="start_interactive_ui">Käivita interaktiivne UI</string>
     <string name="settings_reorder_content_description">Järjesta ümber</string>
+    <string name="litert_on_device_description">Käitage AI mudeleid otse oma seadmes. API-võtit ega internetti pole vaja.</string>
+    <string name="litert_download">Laadi alla</string>
+    <string name="litert_cancel">Tühista</string>
+    <string name="litert_limitations">Ilma tööriistadeta, ilma piltideta, ilma südamelöögita, 4K kontekstiaken</string>
+    <string name="litert_free_space">%1$s saadaval seadmes</string>
 </resources>

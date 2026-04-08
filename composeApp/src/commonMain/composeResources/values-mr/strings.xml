@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">संभाषण हटवले</string>
     <string name="start_interactive_ui">इंटरॅक्टिव्ह UI सुरू करा</string>
     <string name="settings_reorder_content_description">पुनर्रचना</string>
+    <string name="litert_on_device_description">तुमच्या डिव्हाइसवर थेट AI मॉडेल चालवा. कोणतीही API की किंवा इंटरनेट आवश्यक नाही.</string>
+    <string name="litert_download">डाउनलोड</string>
+    <string name="litert_cancel">रद्द करा</string>
+    <string name="litert_limitations">कोणताही टूल वापर नाही, कोणताही इमेज इनपुट नाही, कोणताही हार्टबीट नाही, 4K कॉन्टेक्स्ट विंडो</string>
+    <string name="litert_free_space">डिव्हाइसवर %1$s उपलब्ध</string>
 </resources>

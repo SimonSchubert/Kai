@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">بات چیت حذف ہو گئی</string>
     <string name="start_interactive_ui">انٹرایکٹو UI شروع کریں</string>
     <string name="settings_reorder_content_description">ترتیب بدلیں</string>
+    <string name="litert_on_device_description">اپنے آلے پر براہ راست AI ماڈلز چلائیں۔ کسی API کلید یا انٹرنیٹ کی ضرورت نہیں۔</string>
+    <string name="litert_download">ڈاؤن لوڈ</string>
+    <string name="litert_cancel">منسوخ</string>
+    <string name="litert_limitations">کوئی ٹول استعمال نہیں، کوئی تصویری ان پٹ نہیں، کوئی ہارٹ بیٹ نہیں، 4K سیاق و سباق ونڈو</string>
+    <string name="litert_free_space">آلے پر %1$s دستیاب</string>
 </resources>

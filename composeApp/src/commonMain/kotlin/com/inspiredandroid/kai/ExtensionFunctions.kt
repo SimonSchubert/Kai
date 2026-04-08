@@ -34,6 +34,12 @@ private val ttsItalicUnderscoresRegex = Regex("_(.+?)_")
 private val ttsInlineCodeRegex = Regex("`([^`]+)`")
 private val ttsMultipleBlankLinesRegex = Regex("\\n{3,}")
 
+fun formatFileSize(bytes: Long): String = when {
+    bytes >= 1_000_000_000 -> "${(bytes / 100_000_000).toDouble() / 10} GB"
+    bytes >= 1_000_000 -> "${bytes / 1_000_000} MB"
+    else -> "${bytes / 1_000} KB"
+}
+
 fun String.smartTruncate(maxLength: Int): String {
     if (length <= maxLength) return this
     val keep = (maxLength - 80) / 2

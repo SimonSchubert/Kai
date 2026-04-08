@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">কথোপকথন মুছে ফেলা হয়েছে</string>
     <string name="start_interactive_ui">ইন্টারেক্টিভ UI শুরু করুন</string>
     <string name="settings_reorder_content_description">পুনর্বিন্যাস</string>
+    <string name="litert_on_device_description">আপনার ডিভাইসে সরাসরি AI মডেল চালান। কোনো API কী বা ইন্টারনেট প্রয়োজন নেই।</string>
+    <string name="litert_download">ডাউনলোড</string>
+    <string name="litert_cancel">বাতিল</string>
+    <string name="litert_limitations">কোনো টুল ব্যবহার নেই, কোনো ছবি ইনপুট নেই, কোনো হার্টবিট নেই, 4K কনটেক্সট উইন্ডো</string>
+    <string name="litert_free_space">ডিভাইসে %1$s উপলব্ধ</string>
 </resources>

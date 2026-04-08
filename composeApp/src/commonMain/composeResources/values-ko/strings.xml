@@ -232,4 +232,9 @@
     <string name="snackbar_conversation_deleted">대화가 삭제되었습니다</string>
     <string name="start_interactive_ui">인터랙티브 UI 시작</string>
     <string name="settings_reorder_content_description">순서 변경</string>
+    <string name="litert_on_device_description">기기에서 직접 AI 모델을 실행합니다. API 키나 인터넷이 필요 없습니다.</string>
+    <string name="litert_download">다운로드</string>
+    <string name="litert_cancel">취소</string>
+    <string name="litert_limitations">도구 사용 없음, 이미지 입력 없음, 하트비트 없음, 4K 컨텍스트 윈도우</string>
+    <string name="litert_free_space">기기에서 %1$s 사용 가능</string>
 </resources>

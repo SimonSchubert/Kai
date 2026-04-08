@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Razgovor obrisan</string>
     <string name="start_interactive_ui">Pokreni interaktivno sučelje</string>
     <string name="settings_reorder_content_description">Preuredi</string>
+    <string name="litert_on_device_description">Pokrenite AI modele izravno na svom uređaju. Nije potreban API ključ ni internet.</string>
+    <string name="litert_download">Preuzmi</string>
+    <string name="litert_cancel">Otkaži</string>
+    <string name="litert_limitations">Bez alata, bez slika, bez heartbeata, 4K kontekstni prozor</string>
+    <string name="litert_free_space">%1$s dostupno na uređaju</string>
 </resources>

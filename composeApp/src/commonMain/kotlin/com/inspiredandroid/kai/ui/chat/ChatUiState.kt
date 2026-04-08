@@ -71,6 +71,7 @@ data class History(
     val toolName: String? = null,
     val toolCalls: ImmutableList<ToolCallInfo>? = null,
     val isThinking: Boolean = false,
+    val isStatusMessage: Boolean = false,
     val fallbackServiceName: String? = null,
 ) {
     enum class Role {

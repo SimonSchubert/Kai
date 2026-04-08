@@ -10,6 +10,7 @@ import kai.composeapp.generated.resources.ic_service_fireworksai
 import kai.composeapp.generated.resources.ic_service_gemini
 import kai.composeapp.generated.resources.ic_service_groqcloud
 import kai.composeapp.generated.resources.ic_service_huggingface
+import kai.composeapp.generated.resources.ic_service_litert
 import kai.composeapp.generated.resources.ic_service_longcat
 import kai.composeapp.generated.resources.ic_service_minimax
 import kai.composeapp.generated.resources.ic_service_mistral
@@ -42,7 +43,7 @@ sealed class Service(
     val defaultModel: String?,
     val settingsKeyPrefix: String,
     val defaultModels: List<ModelDefinition> = emptyList(),
-    val chatUrl: String,
+    val chatUrl: String = "",
     val modelsUrl: String? = null,
     val modelsResponseIsArray: Boolean = false,
     val filterActiveStrictly: Boolean = false,
@@ -51,6 +52,7 @@ sealed class Service(
     val includeModelDate: Boolean = true,
     val apiKeyUrl: String? = null,
     val apiKeyUrlDisplay: String? = null,
+    val isOnDevice: Boolean = false,
 ) {
     data object Free : Service(
         id = "free",
@@ -380,8 +382,18 @@ sealed class Service(
         includeModelDate = false,
     )
 
+    data object LiteRT : Service(
+        id = "litert",
+        displayName = "LiteRT (On-Device)",
+        icon = Res.drawable.ic_service_litert,
+        requiresApiKey = false,
+        defaultModel = null,
+        settingsKeyPrefix = "litert",
+        isOnDevice = true,
+    )
+
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, OpenAICompatible)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 

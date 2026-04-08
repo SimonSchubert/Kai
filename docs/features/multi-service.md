@@ -1,8 +1,8 @@
 # Multi-Service
 
-**Last verified:** 2026-04-07
+**Last verified:** 2026-04-08
 
-Kai supports 23 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native**. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 24 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -42,7 +42,7 @@ A built-in service that requires no API key. Free is never shown in the service 
 
 ## API Formats
 
-Most services use the **OpenAI-compatible** chat completions format. **Gemini** uses Google's native Generative Language API. **Anthropic** uses its own Messages API with `x-api-key` header authentication and a different request/response structure.
+Most services use the **OpenAI-compatible** chat completions format. **Gemini** uses Google's native Generative Language API. **Anthropic** uses its own Messages API with `x-api-key` header authentication and a different request/response structure. **LiteRT** runs inference on-device using Google's LiteRT LM SDK -- no HTTP, no API key, fully offline.
 
 The **OpenAI-Compatible API** service supports a custom base URL, defaulting to `localhost:11434/v1` for local Ollama setups. The base URL should include the version path segment (e.g., `http://localhost:11434/v1` or `https://my-provider.com/api/v1`), following the OpenAI SDK convention. Kai appends only `/chat/completions` or `/models` to this base URL.
 
@@ -74,6 +74,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Fireworks AI | `fireworksai` | Yes | OpenAI-compatible |
 | OpenCode | `opencode` | Yes | OpenAI-compatible |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
+| LiteRT (On-Device) | `litert` | No | On-device (LiteRT LM) |
 
 ## Connection Validation
 

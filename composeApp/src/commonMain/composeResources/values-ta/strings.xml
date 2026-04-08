@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">உரையாடல் நீக்கப்பட்டது</string>
     <string name="start_interactive_ui">ஊடாடும் UI-ஐ தொடங்கு</string>
     <string name="settings_reorder_content_description">மறுவரிசைப்படுத்து</string>
+    <string name="litert_on_device_description">உங்கள் சாதனத்தில் நேரடியாக AI மாதிரிகளை இயக்கவும். API விசை அல்லது இணையம் தேவையில்லை.</string>
+    <string name="litert_download">பதிவிறக்கம்</string>
+    <string name="litert_cancel">ரத்து</string>
+    <string name="litert_limitations">கருவி பயன்பாடு இல்லை, பட உள்ளீடு இல்லை, இதயத்துடிப்பு இல்லை, 4K சூழல் சாளரம்</string>
+    <string name="litert_free_space">சாதனத்தில் %1$s கிடைக்கிறது</string>
 </resources>

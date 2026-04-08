@@ -232,4 +232,9 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="snackbar_conversation_deleted">Rozmowa usunięta</string>
     <string name="start_interactive_ui">Uruchom interaktywny UI</string>
     <string name="settings_reorder_content_description">Zmień kolejność</string>
+    <string name="litert_on_device_description">Uruchamiaj modele AI bezpośrednio na swoim urządzeniu. Nie wymaga klucza API ani internetu.</string>
+    <string name="litert_download">Pobierz</string>
+    <string name="litert_cancel">Anuluj</string>
+    <string name="litert_limitations">Brak narzędzi, brak obrazów, brak heartbeatu, okno kontekstu 4K</string>
+    <string name="litert_free_space">%1$s dostępne na urządzeniu</string>
 </resources>

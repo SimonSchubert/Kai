@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
@@ -83,7 +84,7 @@ class SettingsViewModel(
         heartbeatActiveHoursEnd = dataRepository.getHeartbeatConfig().activeHoursEnd,
         heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
         heartbeatLog = dataRepository.getHeartbeatLog().toImmutableList(),
-        heartbeatServiceEntries = dataRepository.getServiceEntries().toImmutableList(),
+        heartbeatServiceEntries = dataRepository.getServiceEntries().filter { !Service.fromId(it.serviceId).isOnDevice }.toImmutableList(),
         heartbeatSelectedInstanceId = dataRepository.getHeartbeatInstanceId()?.takeIf { id ->
             dataRepository.getServiceEntries().any { it.instanceId == id }
         }.also { validId ->
@@ -114,6 +115,13 @@ class SettingsViewModel(
         onRefreshMcpServer = ::onRefreshMcpServer,
         onShowAddMcpServerDialog = ::onShowAddMcpServerDialog,
         onAddPopularMcpServer = ::onAddPopularMcpServer,
+        localAvailableModels = dataRepository.getLocalAvailableModels().toImmutableList(),
+        localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes(),
+        localDownloadingModelId = dataRepository.getLocalDownloadingModelId()?.value,
+        localDownloadProgress = dataRepository.getLocalDownloadProgress()?.value,
+        onDownloadLocalModel = ::onDownloadLocalModel,
+        onCancelLocalModelDownload = ::onCancelLocalModelDownload,
+        onDeleteLocalModel = ::onDeleteLocalModel,
         onExportSettings = ::onExportSettings,
         onImportSettings = ::onImportSettings,
         onUndoDelete = ::onUndoDelete,
@@ -126,6 +134,37 @@ class SettingsViewModel(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = _state.value,
     )
+
+    init {
+        // Observe download state from the engine singleton (survives activity recreation)
+        dataRepository.getLocalDownloadingModelId()?.let { flow ->
+            viewModelScope.launch {
+                flow.collect { modelId ->
+                    _state.update { it.copy(localDownloadingModelId = modelId) }
+                    if (modelId == null) {
+                        // Download finished or cancelled — refresh
+                        _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
+                        refreshServiceList()
+                        _state.value.configuredServices
+                            .filter { it.service.isOnDevice }
+                            .forEach { checkConnection(it.instanceId, it.service) }
+                    }
+                }
+            }
+        }
+        dataRepository.getLocalDownloadProgress()?.let { flow ->
+            viewModelScope.launch {
+                var lastPercent = -1
+                flow.collect { progress ->
+                    val percent = progress?.let { (it * 100).toInt() } ?: -1
+                    if (percent != lastPercent) {
+                        lastPercent = percent
+                        _state.update { it.copy(localDownloadProgress = progress) }
+                    }
+                }
+            }
+        }
+    }
 
     fun onScreenVisible() {
         if (!hasCheckedInitialConnection) {
@@ -175,10 +214,12 @@ class SettingsViewModel(
 
     private fun computeAvailableServices(): List<Service> {
         // Allow all non-Free services (multiple instances of same type are allowed)
-        // Sort alphabetically, but keep OpenAI-Compatible at the end
+        // Sort alphabetically, but keep OpenAI-Compatible and LiteRT at the end
+        // Hide on-device services on platforms that don't support them
         return Service.all
             .filter { it != Service.Free }
-            .sortedWith(compareBy<Service> { it is Service.OpenAICompatible }.thenBy { it.displayName })
+            .filter { !it.isOnDevice || dataRepository.isLocalInferenceAvailable() }
+            .sortedWith(compareBy<Service> { it is Service.OpenAICompatible || it.isOnDevice }.thenBy { it.displayName })
     }
 
     private fun refreshServiceList() {
@@ -391,6 +432,25 @@ class SettingsViewModel(
         _state.update { it.copy(isFreeFallbackEnabled = enabled) }
     }
 
+    private fun onDownloadLocalModel(model: LocalModel) {
+        dataRepository.startLocalModelDownload(model)
+    }
+
+    private fun onCancelLocalModelDownload() {
+        dataRepository.cancelLocalModelDownload()
+    }
+
+    private fun onDeleteLocalModel(modelId: String) {
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            dataRepository.deleteLocalModel(modelId)
+            _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
+            refreshServiceList()
+            _state.value.configuredServices
+                .filter { it.service.isOnDevice }
+                .forEach { checkConnection(it.instanceId, it.service) }
+        }
+    }
+
     private fun onChangeUiScale(scale: Float) {
         dataRepository.setUiScale(scale)
         _state.update { it.copy(uiScale = scale) }
@@ -560,7 +620,20 @@ class SettingsViewModel(
             }
 
             is PendingDeletion.Service -> {
+                val service = _state.value.configuredServices.find { it.instanceId == deletion.instanceId }?.service
                 dataRepository.removeConfiguredService(deletion.instanceId)
+                // If removing the last on-device service, delete all downloaded models
+                if (service?.isOnDevice == true) {
+                    val hasOtherOnDevice = dataRepository.getConfiguredServiceInstances().any {
+                        Service.fromId(it.serviceId).isOnDevice
+                    }
+                    if (!hasOtherOnDevice) {
+                        dataRepository.getLocalDownloadedModels().forEach {
+                            dataRepository.deleteLocalModel(it.id)
+                        }
+                        _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
+                    }
+                }
                 _state.update { it.copy(pendingDeletion = null) }
                 refreshServiceList()
             }
@@ -603,6 +676,10 @@ class SettingsViewModel(
             updateConnectionStatus(instanceId, ConnectionStatus.Connected)
             return
         }
+        if (service.isOnDevice) {
+            validateConnectionWithStatus(instanceId, service)
+            return
+        }
         if (service.requiresApiKey && dataRepository.getInstanceApiKey(instanceId).isBlank()) {
             updateConnectionStatus(instanceId, ConnectionStatus.Unknown)
             return
@@ -629,7 +706,11 @@ class SettingsViewModel(
         viewModelScope.launch(context = getBackgroundDispatcher()) {
             try {
                 dataRepository.validateConnection(service, instanceId)
-                updateConnectionStatus(instanceId, ConnectionStatus.Connected)
+                if (service.isOnDevice && dataRepository.getLocalDownloadedModels().isEmpty()) {
+                    updateConnectionStatus(instanceId, ConnectionStatus.Unknown)
+                } else {
+                    updateConnectionStatus(instanceId, ConnectionStatus.Connected)
+                }
                 refreshInstanceModels(instanceId)
             } catch (e: Exception) {
                 val status = when (e) {

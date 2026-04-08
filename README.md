@@ -59,7 +59,8 @@ Kai 9000's Interactive UI lets the AI generate full interactive screens — quiz
 
 - **Persistent memory** — Kai remembers important details across conversations and uses them automatically
 - **Customizable soul** — Define the AI's personality and behavior with an editable system prompt
-- **Multi-service fallback** — 17 LLM providers with automatic failover
+- **Multi-service fallback** — 24 LLM providers with automatic failover
+- **On-device inference** — Run AI models locally on Android using LiteRT, no internet needed
 - **Tool execution** — Web search, notifications, calendar events, shell commands, and more
 - **MCP server support** — Connect to remote tool servers via the Model Context Protocol
 - **Autonomous heartbeat** — Periodic self-checks that surface anything needing attention
@@ -154,7 +155,7 @@ Enable it in **Settings > Linux Sandbox**.
 
 ## Supported Services
 
-[Anthropic](https://console.anthropic.com) · [OpenAI](https://openai.com) · [Gemini](https://aistudio.google.com) · [DeepSeek](https://www.deepseek.com) · [Mistral](https://mistral.ai) · [xAI](https://x.ai) · [OpenRouter](https://openrouter.ai) · [Groq](https://groq.com) · [NVIDIA](https://developer.nvidia.com) · [Cerebras](https://cerebras.ai) · [Ollama Cloud](https://ollama.com) · [LongCat](https://longcat.chat) · [Together AI](https://together.ai) · [Hugging Face](https://huggingface.co) · [Venice AI](https://venice.ai) · [Moonshot AI](https://moonshot.cn) · [Z.AI](https://z.ai) · [MiniMax](https://minimax.io) · [AIHubMix](https://aihubmix.com) · [Deep Infra](https://deepinfra.com) · [Fireworks AI](https://fireworks.ai) · [OpenCode](https://opencode.ai) · OpenAI-Compatible API · Free tier (no API key needed)
+[Anthropic](https://console.anthropic.com) · [OpenAI](https://openai.com) · [Gemini](https://aistudio.google.com) · [DeepSeek](https://www.deepseek.com) · [Mistral](https://mistral.ai) · [xAI](https://x.ai) · [OpenRouter](https://openrouter.ai) · [Groq](https://groq.com) · [NVIDIA](https://developer.nvidia.com) · [Cerebras](https://cerebras.ai) · [Ollama Cloud](https://ollama.com) · [LongCat](https://longcat.chat) · [Together AI](https://together.ai) · [Hugging Face](https://huggingface.co) · [Venice AI](https://venice.ai) · [Moonshot AI](https://moonshot.cn) · [Z.AI](https://z.ai) · [MiniMax](https://minimax.io) · [AIHubMix](https://aihubmix.com) · [Deep Infra](https://deepinfra.com) · [Fireworks AI](https://fireworks.ai) · [OpenCode](https://opencode.ai) · OpenAI-Compatible API · LiteRT On-Device (Android) · Free tier (no API key needed)
 
 ## MCP Servers
 

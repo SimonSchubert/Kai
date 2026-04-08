@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">Mazungumzo yamefutwa</string>
     <string name="start_interactive_ui">Anza UI ya mwingiliano</string>
     <string name="settings_reorder_content_description">Panga upya</string>
+    <string name="litert_on_device_description">Endesha miundo ya AI moja kwa moja kwenye kifaa chako. Hakuna ufunguo wa API au intaneti inayohitajika.</string>
+    <string name="litert_download">Pakua</string>
+    <string name="litert_cancel">Ghairi</string>
+    <string name="litert_limitations">Hakuna matumizi ya zana, hakuna picha, hakuna heartbeat, dirisha la muktadha wa 4K</string>
+    <string name="litert_free_space">%1$s inapatikana kwenye kifaa</string>
 </resources>

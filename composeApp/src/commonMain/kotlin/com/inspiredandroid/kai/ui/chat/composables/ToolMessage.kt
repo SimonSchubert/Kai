@@ -62,6 +62,7 @@ internal fun toolSummaryText(
 @Composable
 internal fun WaitingResponseRow(
     executingTools: ImmutableList<Pair<String, String>>,
+    isStatusOnly: Boolean = false,
 ) {
     val summary = toolSummaryText(executingTools)
     val waitingCd = stringResource(Res.string.waiting_content_description)
@@ -85,6 +86,7 @@ internal fun WaitingResponseRow(
         ) {
             PulsingStatusIndicator(
                 toolSummary = summary,
+                isStatusOnly = isStatusOnly,
                 dotSize = 16.dp,
                 dotColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 textColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -102,6 +104,7 @@ internal fun PulsingStatusIndicator(
     textColor: Color,
     textStyle: TextStyle,
     modifier: Modifier = Modifier,
+    isStatusOnly: Boolean = false,
 ) {
     val infiniteTransition = rememberInfiniteTransition()
     val pulseScale by infiniteTransition.animateFloat(
@@ -150,27 +153,37 @@ internal fun PulsingStatusIndicator(
                 .background(dotColor, CircleShape),
         )
         Spacer(Modifier.width(8.dp))
-        AnimatedContent(
-            targetState = index,
-            transitionSpec = {
-                (fadeIn(tween(300)) togetherWith fadeOut(tween(300)))
-                    .using(SizeTransform(clip = false) { _, _ -> tween(300) })
-            },
-        ) { targetIndex ->
+        if (isStatusOnly && toolSummary != null) {
             Text(
-                text = stringResource(waitingTexts[targetIndex]),
-                color = textColor,
-                style = textStyle,
-            )
-        }
-        if (toolSummary != null) {
-            Text(
-                text = " · $toolSummary",
+                text = toolSummary,
                 color = textColor,
                 style = textStyle,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
+        } else {
+            AnimatedContent(
+                targetState = index,
+                transitionSpec = {
+                    (fadeIn(tween(300)) togetherWith fadeOut(tween(300)))
+                        .using(SizeTransform(clip = false) { _, _ -> tween(300) })
+                },
+            ) { targetIndex ->
+                Text(
+                    text = stringResource(waitingTexts[targetIndex]),
+                    color = textColor,
+                    style = textStyle,
+                )
+            }
+            if (toolSummary != null) {
+                Text(
+                    text = " · $toolSummary",
+                    color = textColor,
+                    style = textStyle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
         }
     }
 }

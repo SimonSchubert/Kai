@@ -232,4 +232,9 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="snackbar_conversation_deleted">Conversa excluída</string>
     <string name="start_interactive_ui">Iniciar UI Interativa</string>
     <string name="settings_reorder_content_description">Reordenar</string>
+    <string name="litert_on_device_description">Execute modelos de IA diretamente no seu dispositivo. Não é necessária chave API ou internet.</string>
+    <string name="litert_download">Baixar</string>
+    <string name="litert_cancel">Cancelar</string>
+    <string name="litert_limitations">Sem ferramentas, sem imagens, sem heartbeat, janela de contexto 4K</string>
+    <string name="litert_free_space">%1$s disponível no dispositivo</string>
 </resources>

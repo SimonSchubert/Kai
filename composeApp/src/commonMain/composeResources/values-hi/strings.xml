@@ -232,4 +232,9 @@
     <string name="snackbar_conversation_deleted">बातचीत हटाई गई</string>
     <string name="start_interactive_ui">इंटरैक्टिव UI शुरू करें</string>
     <string name="settings_reorder_content_description">पुनर्व्यवस्थित करें</string>
+    <string name="litert_on_device_description">अपने डिवाइस पर सीधे AI मॉडल चलाएं। कोई API कुंजी या इंटरनेट आवश्यक नहीं।</string>
+    <string name="litert_download">डाउनलोड</string>
+    <string name="litert_cancel">रद्द करें</string>
+    <string name="litert_limitations">कोई टूल उपयोग नहीं, कोई इमेज इनपुट नहीं, कोई हार्टबीट नहीं, 4K कॉन्टेक्स्ट विंडो</string>
+    <string name="litert_free_space">डिवाइस पर %1$s उपलब्ध</string>
 </resources>

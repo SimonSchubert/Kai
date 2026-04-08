@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">సంభాషణ తొలగించబడింది</string>
     <string name="start_interactive_ui">ఇంటరాక్టివ్ UI ప్రారంభించు</string>
     <string name="settings_reorder_content_description">పునఃక్రమం</string>
+    <string name="litert_on_device_description">మీ పరికరంలో నేరుగా AI మోడల్‌లను అమలు చేయండి. API కీ లేదా ఇంటర్నెట్ అవసరం లేదు.</string>
+    <string name="litert_download">డౌన్‌లోడ్</string>
+    <string name="litert_cancel">రద్దు</string>
+    <string name="litert_limitations">టూల్ వాడకం లేదు, ఇమేజ్ ఇన్‌పుట్ లేదు, హార్ట్‌బీట్ లేదు, 4K కాంటెక్స్ట్ విండో</string>
+    <string name="litert_free_space">పరికరంలో %1$s అందుబాటులో ఉంది</string>
 </resources>

@@ -10,6 +10,7 @@ import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
+import com.inspiredandroid.kai.inference.createLocalInferenceEngine
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.splinterlands.SplinterlandsApi
@@ -73,6 +74,7 @@ val appModule = module {
             heartbeatManager = get(),
             emailStore = get(),
             mcpServerManager = get(),
+            localInferenceEngine = createLocalInferenceEngine(),
         )
     }
     single<DataRepository> { get<RemoteDataRepository>() }

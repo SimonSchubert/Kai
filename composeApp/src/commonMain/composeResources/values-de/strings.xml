@@ -232,4 +232,9 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="snackbar_conversation_deleted">Unterhaltung gelöscht</string>
     <string name="start_interactive_ui">Interaktive UI starten</string>
     <string name="settings_reorder_content_description">Neu anordnen</string>
+    <string name="litert_on_device_description">KI-Modelle direkt auf deinem Gerät ausführen. Kein API-Schlüssel oder Internet erforderlich.</string>
+    <string name="litert_download">Herunterladen</string>
+    <string name="litert_cancel">Abbrechen</string>
+    <string name="litert_limitations">Keine Werkzeuge, keine Bildeingabe, kein Heartbeat, 4K Kontextfenster</string>
+    <string name="litert_free_space">%1$s auf dem Gerät verfügbar</string>
 </resources>

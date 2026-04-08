@@ -231,4 +231,9 @@
     <string name="snackbar_conversation_deleted">مکالمه حذف شد</string>
     <string name="start_interactive_ui">شروع رابط کاربری تعاملی</string>
     <string name="settings_reorder_content_description">مرتب‌سازی مجدد</string>
+    <string name="litert_on_device_description">مدل‌های هوش مصنوعی را مستقیماً روی دستگاه خود اجرا کنید. نیازی به کلید API یا اینترنت نیست.</string>
+    <string name="litert_download">دانلود</string>
+    <string name="litert_cancel">لغو</string>
+    <string name="litert_limitations">بدون ابزار، بدون تصویر ورودی، بدون ضربان قلب، پنجره زمینه 4K</string>
+    <string name="litert_free_space">%1$s در دستگاه موجود است</string>
 </resources>

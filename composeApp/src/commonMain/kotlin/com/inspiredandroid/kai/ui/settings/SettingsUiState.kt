@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -109,6 +110,13 @@ data class SettingsUiState(
     val showAddMcpServerDialog: Boolean = false,
     val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
+    val localAvailableModels: ImmutableList<LocalModel> = persistentListOf(),
+    val localFreeSpaceBytes: Long = 0L,
+    val localDownloadingModelId: String? = null,
+    val localDownloadProgress: Float? = null,
+    val onDownloadLocalModel: (LocalModel) -> Unit = {},
+    val onCancelLocalModelDownload: () -> Unit = {},
+    val onDeleteLocalModel: (String) -> Unit = {},
     val onExportSettings: () -> String = { "" },
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
     val currentSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),
