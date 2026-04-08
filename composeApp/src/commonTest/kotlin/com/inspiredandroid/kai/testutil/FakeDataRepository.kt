@@ -2,9 +2,6 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.inference.DownloadedModel
-import com.inspiredandroid.kai.inference.EngineState
-import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -14,6 +11,9 @@ import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.EngineState
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
