@@ -758,6 +758,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#platform-differences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Differences
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fallback-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -798,7 +809,7 @@
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
 <p><strong>Last verified:</strong> 2026-04-08</p>
-<p>Kai can run AI models directly on the user's Android device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost.</p>
+<p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
 <h2 id="available-models">Available Models</h2>
@@ -830,31 +841,66 @@
 <li><strong>No image input</strong> -- limited model capabilities</li>
 <li><strong>No heartbeat</strong> -- heartbeat requires tool calling</li>
 <li><strong>No dynamic UI</strong> -- kai-ui prompts are skipped for limited models</li>
-<li><strong>Android only</strong> -- LiteRT LM SDK is not available on iOS, desktop, or web</li>
+<li><strong>Not available on iOS or web</strong> -- LiteRT LM SDK supports Android and JVM only</li>
 </ul>
 <h2 id="model-management">Model Management</h2>
 <p>Users manage models through the LiteRT service card in Settings:</p>
 <ul>
-<li><strong>Download</strong> -- each model card shows a download button with size info</li>
+<li><strong>Download</strong> -- each model card shows a download button with size info; disk space is validated before starting</li>
 <li><strong>Select</strong> -- radio button appears after download to set the active model</li>
 <li><strong>Delete</strong> -- trash icon removes the downloaded model file</li>
 <li><strong>Cancel</strong> -- active downloads can be cancelled</li>
+<li><strong>Error display</strong> -- download failures (network, disk space, incomplete) are shown inline in the settings UI</li>
 <li><strong>Free space</strong> -- available device storage is shown below the model list</li>
 </ul>
-<p>Downloads run in a foreground service with a notification, so they continue when the app is backgrounded.</p>
+<p>On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. On Desktop, downloads run in a background coroutine.</p>
 <p>When the last LiteRT service instance is removed, all downloaded models are automatically deleted.</p>
 <h2 id="engine-lifecycle">Engine Lifecycle</h2>
 <ol>
 <li><strong>Lazy initialization</strong> -- the engine loads only when the first message is sent</li>
 <li><strong>GPU-first</strong> -- attempts GPU backend, falls back to CPU if unavailable</li>
+<li><strong>Memory check</strong> -- verifies sufficient RAM (model size + 512 MB headroom) before loading</li>
 <li><strong>Persistent across messages</strong> -- stays loaded for the duration of the conversation</li>
-<li><strong>Auto-release</strong> -- released after 5 minutes of inactivity to free memory</li>
+<li><strong>Inference timeout</strong> -- individual inference calls are capped at 2 minutes</li>
+<li><strong>Auto-release</strong> -- released after 5 minutes of inactivity to free memory (always re-armed, even on errors)</li>
 <li><strong>Status indicator</strong> -- the chat shows "Initializing {model name}" with a pulsing dot during engine load</li>
 </ol>
+<h2 id="platform-differences">Platform Differences</h2>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Android</th>
+<th>Desktop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Model storage</td>
+<td><code>context.filesDir/litert_models</code></td>
+<td><code>~/.kai/litert_models</code></td>
+</tr>
+<tr>
+<td>Memory check</td>
+<td><code>ActivityManager.getMemoryInfo()</code></td>
+<td><code>OperatingSystemMXBean.freePhysicalMemorySize</code></td>
+</tr>
+<tr>
+<td>Disk space</td>
+<td><code>StatFs.availableBytes</code></td>
+<td><code>File.usableSpace</code></td>
+</tr>
+<tr>
+<td>Download notification</td>
+<td>Foreground service with notification</td>
+<td>No notification (no OS restriction)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="fallback-behavior">Fallback Behavior</h2>
 <ul>
 <li>LiteRT instances participate in the normal fallback chain</li>
-<li>On non-Android platforms, LiteRT instances are silently skipped</li>
+<li>On unsupported platforms (iOS, web), LiteRT instances are silently skipped</li>
 <li><code>askWithTools</code> (used by heartbeat and scheduling) never falls back to on-device services</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
@@ -875,16 +921,28 @@
 <td>Platform-agnostic interface for on-device inference</td>
 </tr>
 <tr>
-<td><code>composeApp/src/commonMain/.../inference/LocalInferenceEngineProvider.kt</code></td>
-<td><code>expect</code> factory, returns <code>null</code> on non-Android</td>
+<td><code>composeApp/src/commonMain/.../inference/InferencePlatform.kt</code></td>
+<td><code>expect</code> declarations for platform-specific operations</td>
 </tr>
 <tr>
-<td><code>composeApp/src/androidMain/.../inference/LiteRTInferenceEngine.kt</code></td>
-<td>Android implementation wrapping LiteRT LM SDK</td>
+<td><code>composeApp/src/commonMain/.../inference/LocalInferenceEngineProvider.kt</code></td>
+<td><code>expect</code> factory, returns <code>null</code> on unsupported platforms</td>
+</tr>
+<tr>
+<td><code>composeApp/src/jvmShared/.../inference/LiteRTInferenceEngine.kt</code></td>
+<td>Shared Android+Desktop implementation wrapping LiteRT LM SDK</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../inference/InferencePlatform.android.kt</code></td>
+<td>Android platform implementations (storage, memory, notifications)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/desktopMain/.../inference/InferencePlatform.jvm.kt</code></td>
+<td>Desktop platform implementations (storage, memory)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../inference/ModelDownloadService.kt</code></td>
-<td>Foreground service for background downloads</td>
+<td>Android foreground service for background downloads</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
