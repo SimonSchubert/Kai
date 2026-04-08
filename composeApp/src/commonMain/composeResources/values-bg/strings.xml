@@ -236,4 +236,9 @@
     <string name="litert_cancel">Отказ</string>
     <string name="litert_limitations">Без инструменти, без изображения, без heartbeat, 4K контекстен прозорец</string>
     <string name="litert_free_space">%1$s налично на устройството</string>
+    <string name="litert_no_model_warning">Няма изтеглен модел. Отидете в Настройки, за да изтеглите модел.</string>
+    <string name="litert_error_no_model">Няма изтеглен модел. Отидете в Настройки, за да изтеглите модел.</string>
+    <string name="litert_error_inference_timeout">Извличането на устройството изтече. Опитайте по-кратко съобщение или по-малък модел.</string>
+    <string name="litert_error_not_enough_disk_space">Няма достатъчно дисково пространство за изтегляне на модела.</string>
+    <string name="litert_error_insufficient_memory">Няма достатъчно памет за зареждане на модела. Затворете други приложения и опитайте отново.</string>
 </resources>

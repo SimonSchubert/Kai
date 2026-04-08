@@ -237,4 +237,9 @@
     <string name="litert_cancel">取消</string>
     <string name="litert_limitations">无工具使用，无图片输入，无心跳，4K上下文窗口</string>
     <string name="litert_free_space">设备上可用 %1$s</string>
+    <string name="litert_no_model_warning">未下载模型。请前往设置下载模型。</string>
+    <string name="litert_error_no_model">未下载模型。请前往设置下载模型。</string>
+    <string name="litert_error_inference_timeout">设备端推理超时。请尝试更短的消息或更小的模型。</string>
+    <string name="litert_error_not_enough_disk_space">磁盘空间不足，无法下载模型。</string>
+    <string name="litert_error_insufficient_memory">内存不足，无法加载模型。请关闭其他应用后重试。</string>
 </resources>

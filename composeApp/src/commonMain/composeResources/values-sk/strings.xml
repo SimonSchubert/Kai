@@ -236,4 +236,9 @@
     <string name="litert_cancel">Zrušiť</string>
     <string name="litert_limitations">Bez nástrojov, bez obrázkov, bez heartbeatu, 4K kontextové okno</string>
     <string name="litert_free_space">%1$s dostupné na zariadení</string>
+    <string name="litert_no_model_warning">Žiadny model nebol stiahnutý. Prejdite do Nastavení a stiahnite model.</string>
+    <string name="litert_error_no_model">Žiadny model nebol stiahnutý. Prejdite do Nastavení a stiahnite model.</string>
+    <string name="litert_error_inference_timeout">Čas odvodzovania na zariadení vypršal. Skúste kratšiu správu alebo menší model.</string>
+    <string name="litert_error_not_enough_disk_space">Nedostatok miesta na disku na stiahnutie modelu.</string>
+    <string name="litert_error_insufficient_memory">Nedostatok pamäte na načítanie modelu. Zatvorte ostatné aplikácie a skúste to znova.</string>
 </resources>

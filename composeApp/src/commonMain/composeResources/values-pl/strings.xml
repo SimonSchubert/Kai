@@ -237,4 +237,9 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="litert_cancel">Anuluj</string>
     <string name="litert_limitations">Brak narzędzi, brak obrazów, brak heartbeatu, okno kontekstu 4K</string>
     <string name="litert_free_space">%1$s dostępne na urządzeniu</string>
+    <string name="litert_no_model_warning">Nie pobrano żadnego modelu. Przejdź do Ustawień, aby pobrać model.</string>
+    <string name="litert_error_no_model">Nie pobrano żadnego modelu. Przejdź do Ustawień, aby pobrać model.</string>
+    <string name="litert_error_inference_timeout">Upłynął limit czasu wnioskowania na urządzeniu. Spróbuj krótszej wiadomości lub mniejszego modelu.</string>
+    <string name="litert_error_not_enough_disk_space">Za mało miejsca na dysku, aby pobrać model.</string>
+    <string name="litert_error_insufficient_memory">Za mało pamięci, aby załadować model. Zamknij inne aplikacje i spróbuj ponownie.</string>
 </resources>

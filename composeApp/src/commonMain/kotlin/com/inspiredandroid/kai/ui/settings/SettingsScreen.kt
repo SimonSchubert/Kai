@@ -131,6 +131,7 @@ import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.formatFileSize
+import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
@@ -156,7 +157,9 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
+import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.litert_cancel
+import kai.composeapp.generated.resources.litert_error_not_enough_disk_space
 import kai.composeapp.generated.resources.litert_download
 import kai.composeapp.generated.resources.litert_free_space
 import kai.composeapp.generated.resources.litert_limitations
@@ -838,6 +841,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
                     localFreeSpaceBytes = uiState.localFreeSpaceBytes,
                     localDownloadingModelId = uiState.localDownloadingModelId,
                     localDownloadProgress = uiState.localDownloadProgress,
+                    localDownloadError = uiState.localDownloadError,
                     onDownloadLocalModel = uiState.onDownloadLocalModel,
                     onCancelLocalModelDownload = uiState.onCancelLocalModelDownload,
                     onDeleteLocalModel = uiState.onDeleteLocalModel,
@@ -933,6 +937,7 @@ private fun ConfiguredServiceCardContent(
     localFreeSpaceBytes: Long = 0L,
     localDownloadingModelId: String? = null,
     localDownloadProgress: Float? = null,
+    localDownloadError: DownloadError? = null,
     onDownloadLocalModel: (LocalModel) -> Unit = {},
     onCancelLocalModelDownload: () -> Unit = {},
     onDeleteLocalModel: (String) -> Unit = {},
@@ -1016,6 +1021,7 @@ private fun ConfiguredServiceCardContent(
                         freeSpaceBytes = localFreeSpaceBytes,
                         downloadingModelId = localDownloadingModelId,
                         downloadProgress = localDownloadProgress,
+                        downloadError = localDownloadError,
                         onSelectModel = onSelectModel,
                         onDownloadModel = onDownloadLocalModel,
                         onCancelDownload = onCancelLocalModelDownload,
@@ -1227,6 +1233,7 @@ private fun LiteRTSettings(
     freeSpaceBytes: Long,
     downloadingModelId: String?,
     downloadProgress: Float?,
+    downloadError: DownloadError?,
     onSelectModel: (String) -> Unit,
     onDownloadModel: (LocalModel) -> Unit,
     onCancelDownload: () -> Unit,
@@ -1336,6 +1343,21 @@ private fun LiteRTSettings(
                 }
             }
         }
+    }
+
+    if (downloadError != null) {
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = stringResource(
+                when (downloadError) {
+                    DownloadError.NOT_ENOUGH_DISK_SPACE -> Res.string.litert_error_not_enough_disk_space
+                    DownloadError.NETWORK_ERROR -> Res.string.error_unknown
+                    DownloadError.DOWNLOAD_INCOMPLETE -> Res.string.error_unknown
+                },
+            ),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.error,
+        )
     }
 
     Spacer(Modifier.height(8.dp))

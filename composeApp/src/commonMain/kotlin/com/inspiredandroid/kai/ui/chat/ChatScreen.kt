@@ -509,6 +509,17 @@ private fun ChatModeScreen(
                 },
             )
 
+            uiState.warning?.let { warning ->
+                Text(
+                    text = stringResource(warning),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+            }
+
             Box(Modifier.weight(1f)) {
                 var isDropping by remember {
                     mutableStateOf(false)

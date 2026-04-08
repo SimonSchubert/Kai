@@ -236,4 +236,9 @@
     <string name="litert_cancel">Ακύρωση</string>
     <string name="litert_limitations">Χωρίς εργαλεία, χωρίς εικόνες, χωρίς heartbeat, παράθυρο πλαισίου 4K</string>
     <string name="litert_free_space">%1$s διαθέσιμα στη συσκευή</string>
+    <string name="litert_no_model_warning">Δεν έχει ληφθεί μοντέλο. Μεταβείτε στις Ρυθμίσεις για λήψη μοντέλου.</string>
+    <string name="litert_error_no_model">Δεν έχει ληφθεί μοντέλο. Μεταβείτε στις Ρυθμίσεις για λήψη μοντέλου.</string>
+    <string name="litert_error_inference_timeout">Η εξαγωγή συμπερασμάτων στη συσκευή έληξε. Δοκιμάστε ένα πιο σύντομο μήνυμα ή μικρότερο μοντέλο.</string>
+    <string name="litert_error_not_enough_disk_space">Δεν υπάρχει αρκετός χώρος στο δίσκο για λήψη του μοντέλου.</string>
+    <string name="litert_error_insufficient_memory">Δεν υπάρχει αρκετή μνήμη για φόρτωση του μοντέλου. Κλείστε άλλες εφαρμογές και δοκιμάστε ξανά.</string>
 </resources>

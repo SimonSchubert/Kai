@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -114,6 +115,7 @@ data class SettingsUiState(
     val localFreeSpaceBytes: Long = 0L,
     val localDownloadingModelId: String? = null,
     val localDownloadProgress: Float? = null,
+    val localDownloadError: DownloadError? = null,
     val onDownloadLocalModel: (LocalModel) -> Unit = {},
     val onCancelLocalModelDownload: () -> Unit = {},
     val onDeleteLocalModel: (String) -> Unit = {},

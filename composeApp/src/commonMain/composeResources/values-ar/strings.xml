@@ -237,4 +237,9 @@
     <string name="litert_cancel">إلغاء</string>
     <string name="litert_limitations">بدون أدوات، بدون إدخال صور، بدون نبض القلب، نافذة سياق 4K</string>
     <string name="litert_free_space">%1$s متاح على الجهاز</string>
+    <string name="litert_no_model_warning">لم يتم تنزيل أي نموذج. انتقل إلى الإعدادات لتنزيل نموذج.</string>
+    <string name="litert_error_no_model">لم يتم تنزيل أي نموذج. انتقل إلى الإعدادات لتنزيل نموذج.</string>
+    <string name="litert_error_inference_timeout">انتهت مهلة الاستدلال على الجهاز. جرب رسالة أقصر أو نموذجًا أصغر.</string>
+    <string name="litert_error_not_enough_disk_space">لا توجد مساحة كافية على القرص لتنزيل النموذج.</string>
+    <string name="litert_error_insufficient_memory">لا توجد ذاكرة كافية لتحميل النموذج. أغلق التطبيقات الأخرى وحاول مرة أخرى.</string>
 </resources>

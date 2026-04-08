@@ -2,9 +2,6 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.inference.DownloadedModel
-import com.inspiredandroid.kai.inference.EngineState
-import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -14,6 +11,10 @@ import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.inference.DownloadError
+import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.EngineState
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
@@ -76,7 +77,8 @@ class FakeDataRepository : DataRepository {
         configuredInstances.addAll(reordered)
     }
 
-    override fun getServiceEntries(): List<ServiceEntry> = emptyList()
+    var fakeServiceEntries: List<ServiceEntry> = emptyList()
+    override fun getServiceEntries(): List<ServiceEntry> = fakeServiceEntries
 
     private var freeFallbackEnabled = true
 
@@ -422,13 +424,16 @@ class FakeDataRepository : DataRepository {
     override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int = 0
 
     // On-device inference (LiteRT)
-    override fun isLocalInferenceAvailable(): Boolean = false
+    var localInferenceAvailable = false
+    var fakeLocalDownloadedModels: List<DownloadedModel> = emptyList()
+    override fun isLocalInferenceAvailable(): Boolean = localInferenceAvailable
     override fun getLocalEngineState(): StateFlow<EngineState>? = null
-    override fun getLocalDownloadedModels(): List<DownloadedModel> = emptyList()
+    override fun getLocalDownloadedModels(): List<DownloadedModel> = fakeLocalDownloadedModels
     override fun getLocalAvailableModels(): List<LocalModel> = emptyList()
     override fun getLocalFreeSpaceBytes(): Long = 0L
     override fun getLocalDownloadingModelId(): StateFlow<String?>? = null
     override fun getLocalDownloadProgress(): StateFlow<Float?>? = null
+    override fun getLocalDownloadError(): StateFlow<DownloadError?>? = null
     override fun startLocalModelDownload(model: LocalModel) {}
     override fun cancelLocalModelDownload() {}
     override suspend fun deleteLocalModel(modelId: String) {}

@@ -236,4 +236,9 @@
     <string name="litert_cancel">Atšaukti</string>
     <string name="litert_limitations">Be įrankių, be vaizdų, be heartbeat, 4K konteksto langas</string>
     <string name="litert_free_space">%1$s pasiekiama įrenginyje</string>
+    <string name="litert_no_model_warning">Joks modelis neatsisiųstas. Eikite į Nustatymus, kad atsisiųstumėte modelį.</string>
+    <string name="litert_error_no_model">Joks modelis neatsisiųstas. Eikite į Nustatymus, kad atsisiųstumėte modelį.</string>
+    <string name="litert_error_inference_timeout">Įrenginio išvada baigėsi. Pabandykite trumpesnę žinutę arba mažesnį modelį.</string>
+    <string name="litert_error_not_enough_disk_space">Nepakanka vietos diske modeliui atsisiųsti.</string>
+    <string name="litert_error_insufficient_memory">Nepakanka atminties modeliui įkelti. Uždarykite kitas programas ir bandykite dar kartą.</string>
 </resources>

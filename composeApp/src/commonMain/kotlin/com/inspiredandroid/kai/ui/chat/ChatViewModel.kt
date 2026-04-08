@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.FileCategory
+import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.classifyFile
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -16,6 +17,7 @@ import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.conversation_untitled
 import kai.composeapp.generated.resources.error_unsupported_file_type
+import kai.composeapp.generated.resources.litert_no_model_warning
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -70,7 +72,7 @@ class ChatViewModel(
 
     init {
         viewModelScope.launch(backgroundDispatcher) {
-            _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
+            updateAvailableServices()
             dataRepository.loadConversations()
             // Set interactive mode BEFORE restoring so the combine flow never emits
             // an intermediate state with interactive content in standard chat mode
@@ -257,7 +259,18 @@ class ChatViewModel(
         if (instanceId !in currentIds) return
         val reordered = listOf(instanceId) + currentIds.filter { it != instanceId }
         dataRepository.reorderConfiguredServices(reordered)
-        _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
+        updateAvailableServices()
+    }
+
+    private fun updateAvailableServices() {
+        val entries = dataRepository.getServiceEntries().toImmutableList()
+        val primaryService = entries.firstOrNull()?.let { Service.fromId(it.serviceId) }
+        val warning = if (primaryService?.isOnDevice == true && dataRepository.getLocalDownloadedModels().isEmpty()) {
+            Res.string.litert_no_model_warning
+        } else {
+            null
+        }
+        _state.update { it.copy(availableServices = entries, warning = warning) }
     }
 
     private fun regenerate() {
@@ -351,7 +364,7 @@ class ChatViewModel(
     }
 
     fun refreshSettings() {
-        _state.update { it.copy(availableServices = dataRepository.getServiceEntries().toImmutableList()) }
+        updateAvailableServices()
         viewModelScope.launch(backgroundDispatcher) {
             presetInteractiveModeForLatestConversation()
             dataRepository.restoreLatestConversation()

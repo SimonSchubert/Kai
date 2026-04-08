@@ -236,4 +236,9 @@
     <string name="litert_cancel">Скасаваць</string>
     <string name="litert_limitations">Без інструментаў, без малюнкаў, без пульсу, акно кантэксту 4K</string>
     <string name="litert_free_space">%1$s даступна на прыладзе</string>
+    <string name="litert_no_model_warning">Мадэль не спампавана. Перайдзіце ў Налады, каб спампаваць мадэль.</string>
+    <string name="litert_error_no_model">Мадэль не спампавана. Перайдзіце ў Налады, каб спампаваць мадэль.</string>
+    <string name="litert_error_inference_timeout">Час апрацоўкі на прыладзе скончыўся. Паспрабуйце карацейшае паведамленне або меншую мадэль.</string>
+    <string name="litert_error_not_enough_disk_space">Недастаткова месца на дыску для спампоўвання мадэлі.</string>
+    <string name="litert_error_insufficient_memory">Недастаткова памяці для загрузкі мадэлі. Зачыніце іншыя праграмы і паспрабуйце зноў.</string>
 </resources>

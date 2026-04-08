@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.network
 
+import com.inspiredandroid.kai.inference.InferenceTimeoutException
+import com.inspiredandroid.kai.inference.InsufficientMemoryException
+import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_context_window_exceeded
 import kai.composeapp.generated.resources.error_empty_response
@@ -13,6 +16,9 @@ import kai.composeapp.generated.resources.error_quota_exhausted
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
 import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.error_unsupported_file_type
+import kai.composeapp.generated.resources.litert_error_inference_timeout
+import kai.composeapp.generated.resources.litert_error_insufficient_memory
+import kai.composeapp.generated.resources.litert_error_no_model
 import org.jetbrains.compose.resources.StringResource
 
 sealed class ApiException(message: String?, cause: Throwable? = null) : Exception(message, cause)
@@ -63,6 +69,9 @@ fun Exception.toUiError(): UiError = when (this) {
     is OpenAICompatibleConnectionException -> UiError.Resource(Res.string.error_openai_compatible_connection)
     is OpenAICompatibleModelNotFoundException -> UiError.Resource(Res.string.error_openai_compatible_model_not_found)
     is OpenAICompatibleEmptyResponseException -> UiError.Resource(Res.string.error_empty_response)
+    is InsufficientMemoryException -> UiError.Resource(Res.string.litert_error_insufficient_memory)
+    is InferenceTimeoutException -> UiError.Resource(Res.string.litert_error_inference_timeout)
+    is NoModelDownloadedException -> UiError.Resource(Res.string.litert_error_no_model)
     is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException -> UiError.Text(message ?: "An unexpected error occurred.")
-    else -> UiError.Resource(Res.string.error_unknown)
+    else -> if (!message.isNullOrBlank()) UiError.Text(message!!) else UiError.Resource(Res.string.error_unknown)
 }

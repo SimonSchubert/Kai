@@ -236,4 +236,9 @@
     <string name="litert_cancel">বাতিল</string>
     <string name="litert_limitations">কোনো টুল ব্যবহার নেই, কোনো ছবি ইনপুট নেই, কোনো হার্টবিট নেই, 4K কনটেক্সট উইন্ডো</string>
     <string name="litert_free_space">ডিভাইসে %1$s উপলব্ধ</string>
+    <string name="litert_no_model_warning">কোনো মডেল ডাউনলোড করা হয়নি। একটি মডেল ডাউনলোড করতে সেটিংসে যান।</string>
+    <string name="litert_error_no_model">কোনো মডেল ডাউনলোড করা হয়নি। একটি মডেল ডাউনলোড করতে সেটিংসে যান।</string>
+    <string name="litert_error_inference_timeout">অন-ডিভাইস ইনফারেন্স সময় শেষ। একটি ছোট বার্তা বা ছোট মডেল চেষ্টা করুন।</string>
+    <string name="litert_error_not_enough_disk_space">মডেল ডাউনলোড করার জন্য পর্যাপ্ত ডিস্ক স্পেস নেই।</string>
+    <string name="litert_error_insufficient_memory">মডেল লোড করার জন্য পর্যাপ্ত মেমরি নেই। অন্যান্য অ্যাপ বন্ধ করে আবার চেষ্টা করুন।</string>
 </resources>

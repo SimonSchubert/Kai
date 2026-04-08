@@ -63,3 +63,7 @@
 # so ProGuard does not report "missing class" warnings for the rest of the app.
 -keep class org.bouncycastle.** { *; }
 -dontwarn org.bouncycastle.**
+
+# LiteRT LM — on-device inference SDK with JNI native bridge.
+-keep class com.google.ai.edge.litertlm.** { *; }
+-dontwarn com.google.ai.edge.litertlm.**

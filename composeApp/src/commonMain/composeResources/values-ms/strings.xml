@@ -236,4 +236,9 @@
     <string name="litert_cancel">Batal</string>
     <string name="litert_limitations">Tiada penggunaan alat, tiada input imej, tiada heartbeat, tetingkap konteks 4K</string>
     <string name="litert_free_space">%1$s tersedia pada peranti</string>
+    <string name="litert_no_model_warning">Tiada model dimuat turun. Pergi ke Tetapan untuk memuat turun model.</string>
+    <string name="litert_error_no_model">Tiada model dimuat turun. Pergi ke Tetapan untuk memuat turun model.</string>
+    <string name="litert_error_inference_timeout">Inferens pada peranti tamat masa. Cuba mesej yang lebih pendek atau model yang lebih kecil.</string>
+    <string name="litert_error_not_enough_disk_space">Ruang cakera tidak mencukupi untuk memuat turun model.</string>
+    <string name="litert_error_insufficient_memory">Memori tidak mencukupi untuk memuatkan model. Tutup aplikasi lain dan cuba lagi.</string>
 </resources>

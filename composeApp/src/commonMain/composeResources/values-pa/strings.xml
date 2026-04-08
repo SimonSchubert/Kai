@@ -236,4 +236,9 @@
     <string name="litert_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="litert_limitations">ਕੋਈ ਟੂਲ ਵਰਤੋਂ ਨਹੀਂ, ਕੋਈ ਚਿੱਤਰ ਇੰਪੁੱਟ ਨਹੀਂ, ਕੋਈ ਹਾਰਟਬੀਟ ਨਹੀਂ, 4K ਸੰਦਰਭ ਵਿੰਡੋ</string>
     <string name="litert_free_space">ਡਿਵਾਈਸ 'ਤੇ %1$s ਉਪਲਬਧ</string>
+    <string name="litert_no_model_warning">ਕੋਈ ਮਾਡਲ ਡਾਊਨਲੋਡ ਨਹੀਂ ਕੀਤਾ। ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਜਾਓ।</string>
+    <string name="litert_error_no_model">ਕੋਈ ਮਾਡਲ ਡਾਊਨਲੋਡ ਨਹੀਂ ਕੀਤਾ। ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਜਾਓ।</string>
+    <string name="litert_error_inference_timeout">ਆਨ-ਡਿਵਾਈਸ ਇੰਫਰੈਂਸ ਸਮਾਂ ਸਮਾਪਤ। ਛੋਟਾ ਸੁਨੇਹਾ ਜਾਂ ਛੋਟਾ ਮਾਡਲ ਅਜ਼ਮਾਓ।</string>
+    <string name="litert_error_not_enough_disk_space">ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਕਾਫ਼ੀ ਡਿਸਕ ਸਪੇਸ ਨਹੀਂ ਹੈ।</string>
+    <string name="litert_error_insufficient_memory">ਮਾਡਲ ਲੋਡ ਕਰਨ ਲਈ ਕਾਫ਼ੀ ਮੈਮੋਰੀ ਨਹੀਂ ਹੈ। ਹੋਰ ਐਪਾਂ ਬੰਦ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
 </resources>

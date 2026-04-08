@@ -237,4 +237,9 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="litert_cancel">Peruuta</string>
     <string name="litert_limitations">Ei työkaluja, ei kuvia, ei heartbeatia, 4K konteksti-ikkuna</string>
     <string name="litert_free_space">%1$s käytettävissä laitteella</string>
+    <string name="litert_no_model_warning">Mallia ei ole ladattu. Siirry Asetuksiin ladataksesi mallin.</string>
+    <string name="litert_error_no_model">Mallia ei ole ladattu. Siirry Asetuksiin ladataksesi mallin.</string>
+    <string name="litert_error_inference_timeout">Laitteella suoritettava päättely aikakatkaistiin. Kokeile lyhyempää viestiä tai pienempää mallia.</string>
+    <string name="litert_error_not_enough_disk_space">Levytilaa ei ole tarpeeksi mallin lataamiseen.</string>
+    <string name="litert_error_insufficient_memory">Muisti ei riitä mallin lataamiseen. Sulje muut sovellukset ja yritä uudelleen.</string>
 </resources>

@@ -237,4 +237,9 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="litert_cancel">Kanselleer</string>
     <string name="litert_limitations">Geen gereedskapsgebruik, geen beeldinvoer, geen hartklop, 4K konteksvenster</string>
     <string name="litert_free_space">%1$s beskikbaar op toestel</string>
+    <string name="litert_no_model_warning">Geen model afgelaai nie. Gaan na Instellings om \'n model af te laai.</string>
+    <string name="litert_error_no_model">Geen model afgelaai nie. Gaan na Instellings om \'n model af te laai.</string>
+    <string name="litert_error_inference_timeout">Op-toestel-aflei het uitgetel. Probeer \'n korter boodskap of \'n kleiner model.</string>
+    <string name="litert_error_not_enough_disk_space">Nie genoeg skyfspasie om die model af te laai nie.</string>
+    <string name="litert_error_insufficient_memory">Nie genoeg geheue om die model te laai nie. Maak ander programme toe en probeer weer.</string>
 </resources>

@@ -236,4 +236,9 @@
     <string name="litert_cancel">Ghairi</string>
     <string name="litert_limitations">Hakuna matumizi ya zana, hakuna picha, hakuna heartbeat, dirisha la muktadha wa 4K</string>
     <string name="litert_free_space">%1$s inapatikana kwenye kifaa</string>
+    <string name="litert_no_model_warning">Hakuna modeli iliyopakuliwa. Nenda kwa Mipangilio kupakua modeli.</string>
+    <string name="litert_error_no_model">Hakuna modeli iliyopakuliwa. Nenda kwa Mipangilio kupakua modeli.</string>
+    <string name="litert_error_inference_timeout">Muda wa inference kwenye kifaa umeisha. Jaribu ujumbe mfupi au modeli ndogo.</string>
+    <string name="litert_error_not_enough_disk_space">Nafasi ya diski haitoshi kupakua modeli.</string>
+    <string name="litert_error_insufficient_memory">Kumbukumbu haitoshi kupakia modeli. Funga programu nyingine na ujaribu tena.</string>
 </resources>

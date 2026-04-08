@@ -236,4 +236,9 @@
     <string name="litert_cancel">Tühista</string>
     <string name="litert_limitations">Ilma tööriistadeta, ilma piltideta, ilma südamelöögita, 4K kontekstiaken</string>
     <string name="litert_free_space">%1$s saadaval seadmes</string>
+    <string name="litert_no_model_warning">Mudelit pole alla laaditud. Mine seadetesse, et mudel alla laadida.</string>
+    <string name="litert_error_no_model">Mudelit pole alla laaditud. Mine seadetesse, et mudel alla laadida.</string>
+    <string name="litert_error_inference_timeout">Seadme järeldamine aegus. Proovige lühemat sõnumit või väiksemat mudelit.</string>
+    <string name="litert_error_not_enough_disk_space">Mudeli allalaadimiseks pole piisavalt kettaruumi.</string>
+    <string name="litert_error_insufficient_memory">Mudeli laadimiseks pole piisavalt mälu. Sulgege teised rakendused ja proovige uuesti.</string>
 </resources>

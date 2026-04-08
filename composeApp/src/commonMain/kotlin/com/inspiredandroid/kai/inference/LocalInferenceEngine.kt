@@ -30,10 +30,21 @@ data class InferenceMessage(
     val content: String,
 )
 
+class InsufficientMemoryException : Exception()
+class InferenceTimeoutException : Exception()
+class NoModelDownloadedException : Exception()
+
+enum class DownloadError {
+    NOT_ENOUGH_DISK_SPACE,
+    NETWORK_ERROR,
+    DOWNLOAD_INCOMPLETE,
+}
+
 interface LocalInferenceEngine {
     val engineState: StateFlow<EngineState>
     val downloadingModelId: StateFlow<String?>
     val downloadProgress: StateFlow<Float?>
+    val downloadError: StateFlow<DownloadError?>
 
     suspend fun initialize(model: DownloadedModel)
     suspend fun release()

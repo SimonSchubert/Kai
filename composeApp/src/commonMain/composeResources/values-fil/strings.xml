@@ -236,4 +236,9 @@
     <string name="litert_cancel">Kanselahin</string>
     <string name="litert_limitations">Walang tool use, walang image input, walang heartbeat, 4K context window</string>
     <string name="litert_free_space">%1$s available sa device</string>
+    <string name="litert_no_model_warning">Walang na-download na modelo. Pumunta sa Settings para mag-download ng modelo.</string>
+    <string name="litert_error_no_model">Walang na-download na modelo. Pumunta sa Settings para mag-download ng modelo.</string>
+    <string name="litert_error_inference_timeout">Nag-timeout ang on-device inference. Subukan ang mas maikling mensahe o mas maliit na modelo.</string>
+    <string name="litert_error_not_enough_disk_space">Hindi sapat ang disk space para i-download ang modelo.</string>
+    <string name="litert_error_insufficient_memory">Hindi sapat ang memory para i-load ang modelo. Isara ang ibang apps at subukan ulit.</string>
 </resources>

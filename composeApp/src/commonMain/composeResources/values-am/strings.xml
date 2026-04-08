@@ -237,4 +237,9 @@
     <string name="litert_cancel">ሰርዝ</string>
     <string name="litert_limitations">መሣሪያ አጠቃቀም የለም፣ ምስል ግቤት የለም፣ የልብ ምት የለም፣ 4K የአውድ መስኮት</string>
     <string name="litert_free_space">%1$s በመሣሪያ ላይ ይገኛል</string>
+    <string name="litert_no_model_warning">ምንም ሞዴል አልወረደም። ሞዴል ለማውረድ ወደ ቅንብሮች ይሂዱ።</string>
+    <string name="litert_error_no_model">ምንም ሞዴል አልወረደም። ሞዴል ለማውረድ ወደ ቅንብሮች ይሂዱ።</string>
+    <string name="litert_error_inference_timeout">በመሣሪያ ላይ ማስተዋል ጊዜ ተጠናቋል። አጭር መልዕክት ወይም ትንሽ ሞዴል ይሞክሩ።</string>
+    <string name="litert_error_not_enough_disk_space">ሞዴሉን ለማውረድ በቂ የዲስክ ቦታ የለም።</string>
+    <string name="litert_error_insufficient_memory">ሞዴሉን ለመጫን በቂ ማህደረ ትውስታ የለም። ሌሎች መተግበሪያዎችን ዝጉ እና እንደገና ይሞክሩ።</string>
 </resources>

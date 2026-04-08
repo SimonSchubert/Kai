@@ -236,4 +236,9 @@
     <string name="litert_cancel">Hủy</string>
     <string name="litert_limitations">Không dùng công cụ, không nhập ảnh, không heartbeat, cửa sổ ngữ cảnh 4K</string>
     <string name="litert_free_space">%1$s khả dụng trên thiết bị</string>
+    <string name="litert_no_model_warning">Chưa tải xuống mô hình nào. Vào Cài đặt để tải xuống mô hình.</string>
+    <string name="litert_error_no_model">Chưa tải xuống mô hình nào. Vào Cài đặt để tải xuống mô hình.</string>
+    <string name="litert_error_inference_timeout">Suy luận trên thiết bị đã hết thời gian. Thử tin nhắn ngắn hơn hoặc mô hình nhỏ hơn.</string>
+    <string name="litert_error_not_enough_disk_space">Không đủ dung lượng đĩa để tải xuống mô hình.</string>
+    <string name="litert_error_insufficient_memory">Không đủ bộ nhớ để tải mô hình. Đóng các ứng dụng khác và thử lại.</string>
 </resources>

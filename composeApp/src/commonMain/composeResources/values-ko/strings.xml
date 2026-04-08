@@ -237,4 +237,9 @@
     <string name="litert_cancel">취소</string>
     <string name="litert_limitations">도구 사용 없음, 이미지 입력 없음, 하트비트 없음, 4K 컨텍스트 윈도우</string>
     <string name="litert_free_space">기기에서 %1$s 사용 가능</string>
+    <string name="litert_no_model_warning">다운로드된 모델이 없습니다. 설정으로 이동하여 모델을 다운로드하세요.</string>
+    <string name="litert_error_no_model">다운로드된 모델이 없습니다. 설정으로 이동하여 모델을 다운로드하세요.</string>
+    <string name="litert_error_inference_timeout">온디바이스 추론 시간이 초과되었습니다. 더 짧은 메시지나 작은 모델을 시도하세요.</string>
+    <string name="litert_error_not_enough_disk_space">모델을 다운로드할 디스크 공간이 부족합니다.</string>
+    <string name="litert_error_insufficient_memory">모델을 로드할 메모리가 부족합니다. 다른 앱을 닫고 다시 시도하세요.</string>
 </resources>

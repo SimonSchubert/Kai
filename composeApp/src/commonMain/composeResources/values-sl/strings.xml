@@ -236,4 +236,9 @@
     <string name="litert_cancel">Prekliči</string>
     <string name="litert_limitations">Brez orodij, brez slik, brez heartbeata, 4K kontekstno okno</string>
     <string name="litert_free_space">%1$s na voljo na napravi</string>
+    <string name="litert_no_model_warning">Noben model ni prenesen. Pojdite v Nastavitve za prenos modela.</string>
+    <string name="litert_error_no_model">Noben model ni prenesen. Pojdite v Nastavitve za prenos modela.</string>
+    <string name="litert_error_inference_timeout">Sklepanje na napravi je poteklo. Poskusite s krajšim sporočilom ali manjšim modelom.</string>
+    <string name="litert_error_not_enough_disk_space">Ni dovolj prostora na disku za prenos modela.</string>
+    <string name="litert_error_insufficient_memory">Ni dovolj pomnilnika za nalaganje modela. Zaprite druge aplikacije in poskusite znova.</string>
 </resources>

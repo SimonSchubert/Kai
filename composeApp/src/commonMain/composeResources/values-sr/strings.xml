@@ -236,4 +236,9 @@
     <string name="litert_cancel">Откажи</string>
     <string name="litert_limitations">Без алата, без слика, без heartbeat-а, 4K прозор контекста</string>
     <string name="litert_free_space">%1$s доступно на уређају</string>
+    <string name="litert_no_model_warning">Ниједан модел није преузет. Идите у Подешавања да преузмете модел.</string>
+    <string name="litert_error_no_model">Ниједан модел није преузет. Идите у Подешавања да преузмете модел.</string>
+    <string name="litert_error_inference_timeout">Време извођења на уређају је истекло. Покушајте са краћом поруком или мањим моделом.</string>
+    <string name="litert_error_not_enough_disk_space">Нема довољно простора на диску за преузимање модела.</string>
+    <string name="litert_error_insufficient_memory">Нема довољно меморије за учитавање модела. Затворите друге апликације и покушајте поново.</string>
 </resources>

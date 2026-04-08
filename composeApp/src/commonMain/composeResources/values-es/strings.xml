@@ -237,4 +237,9 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="litert_cancel">Cancelar</string>
     <string name="litert_limitations">Sin herramientas, sin imágenes, sin heartbeat, ventana de contexto de 4K</string>
     <string name="litert_free_space">%1$s disponible en el dispositivo</string>
+    <string name="litert_no_model_warning">No se descargó ningún modelo. Ve a Configuración para descargar un modelo.</string>
+    <string name="litert_error_no_model">No se descargó ningún modelo. Ve a Configuración para descargar un modelo.</string>
+    <string name="litert_error_inference_timeout">La inferencia en el dispositivo agotó el tiempo de espera. Prueba un mensaje más corto o un modelo más pequeño.</string>
+    <string name="litert_error_not_enough_disk_space">No hay suficiente espacio en disco para descargar el modelo.</string>
+    <string name="litert_error_insufficient_memory">No hay suficiente memoria para cargar el modelo. Cierra otras aplicaciones e inténtalo de nuevo.</string>
 </resources>

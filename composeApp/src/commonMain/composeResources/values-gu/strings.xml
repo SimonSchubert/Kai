@@ -236,4 +236,9 @@
     <string name="litert_cancel">રદ કરો</string>
     <string name="litert_limitations">કોઈ ટૂલ ઉપયોગ નહીં, કોઈ ઇમેજ ઇનપુટ નહીં, કોઈ હાર્ટબીટ નહીં, 4K કોન્ટેક્સ્ટ વિન્ડો</string>
     <string name="litert_free_space">ઉપકરણ પર %1$s ઉપલબ્ધ</string>
+    <string name="litert_no_model_warning">કોઈ મોડેલ ડાઉનલોડ થયું નથી. મોડેલ ડાઉનલોડ કરવા માટે સેટિંગ્સમાં જાઓ.</string>
+    <string name="litert_error_no_model">કોઈ મોડેલ ડાઉનલોડ થયું નથી. મોડેલ ડાઉનલોડ કરવા માટે સેટિંગ્સમાં જાઓ.</string>
+    <string name="litert_error_inference_timeout">ઑન-ડિવાઇસ ઇન્ફરન્સ સમય સમાપ્ત. ટૂંકો સંદેશ અથવા નાનું મોડેલ અજમાવો.</string>
+    <string name="litert_error_not_enough_disk_space">મોડેલ ડાઉનલોડ કરવા માટે પૂરતી ડિસ્ક સ્પેસ નથી.</string>
+    <string name="litert_error_insufficient_memory">મોડેલ લોડ કરવા માટે પૂરતી મેમરી નથી. અન્ય એપ્સ બંધ કરો અને ફરી પ્રયાસ કરો.</string>
 </resources>

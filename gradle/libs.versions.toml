@@ -94,6 +94,7 @@ compose-desktop-currentOs = { module = "org.jetbrains.compose.desktop:desktop-jv
 bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncycastle" }
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 litert-lm = { module = "com.google.ai.edge.litertlm:litertlm-android", version.ref = "litert-lm" }
+litert-lm-jvm = { module = "com.google.ai.edge.litertlm:litertlm-jvm", version.ref = "litert-lm" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

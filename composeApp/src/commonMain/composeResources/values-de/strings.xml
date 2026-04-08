@@ -237,4 +237,9 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="litert_cancel">Abbrechen</string>
     <string name="litert_limitations">Keine Werkzeuge, keine Bildeingabe, kein Heartbeat, 4K Kontextfenster</string>
     <string name="litert_free_space">%1$s auf dem Gerät verfügbar</string>
+    <string name="litert_no_model_warning">Kein Modell heruntergeladen. Gehe zu Einstellungen, um ein Modell herunterzuladen.</string>
+    <string name="litert_error_no_model">Kein Modell heruntergeladen. Gehe zu Einstellungen, um ein Modell herunterzuladen.</string>
+    <string name="litert_error_inference_timeout">On-Device-Inferenz hat das Zeitlimit überschritten. Versuche eine kürzere Nachricht oder ein kleineres Modell.</string>
+    <string name="litert_error_not_enough_disk_space">Nicht genug Speicherplatz, um das Modell herunterzuladen.</string>
+    <string name="litert_error_insufficient_memory">Nicht genug Arbeitsspeicher, um das Modell zu laden. Schließe andere Apps und versuche es erneut.</string>
 </resources>

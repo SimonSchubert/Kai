@@ -237,4 +237,9 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="litert_cancel">Avbryt</string>
     <string name="litert_limitations">Ingen verktøy, ingen bildeinndata, ingen heartbeat, 4K kontekstvindu</string>
     <string name="litert_free_space">%1$s tilgjengelig på enheten</string>
+    <string name="litert_no_model_warning">Ingen modell lastet ned. Gå til Innstillinger for å laste ned en modell.</string>
+    <string name="litert_error_no_model">Ingen modell lastet ned. Gå til Innstillinger for å laste ned en modell.</string>
+    <string name="litert_error_inference_timeout">On-device-inferens tidsavbrudd. Prøv en kortere melding eller en mindre modell.</string>
+    <string name="litert_error_not_enough_disk_space">Ikke nok diskplass til å laste ned modellen.</string>
+    <string name="litert_error_insufficient_memory">Ikke nok minne til å laste modellen. Lukk andre apper og prøv igjen.</string>
 </resources>

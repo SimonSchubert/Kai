@@ -236,4 +236,9 @@
     <string name="litert_cancel">रद्द करा</string>
     <string name="litert_limitations">कोणताही टूल वापर नाही, कोणताही इमेज इनपुट नाही, कोणताही हार्टबीट नाही, 4K कॉन्टेक्स्ट विंडो</string>
     <string name="litert_free_space">डिव्हाइसवर %1$s उपलब्ध</string>
+    <string name="litert_no_model_warning">कोणतेही मॉडेल डाउनलोड केलेले नाही. मॉडेल डाउनलोड करण्यासाठी सेटिंग्जवर जा.</string>
+    <string name="litert_error_no_model">कोणतेही मॉडेल डाउनलोड केलेले नाही. मॉडेल डाउनलोड करण्यासाठी सेटिंग्जवर जा.</string>
+    <string name="litert_error_inference_timeout">ऑन-डिव्हाइस इन्फरन्स कालबाह्य झाले. लहान संदेश किंवा लहान मॉडेल वापरून पहा.</string>
+    <string name="litert_error_not_enough_disk_space">मॉडेल डाउनलोड करण्यासाठी पुरेशी डिस्क स्पेस नाही.</string>
+    <string name="litert_error_insufficient_memory">मॉडेल लोड करण्यासाठी पुरेशी मेमरी नाही. इतर अॅप्स बंद करा आणि पुन्हा प्रयत्न करा.</string>
 </resources>

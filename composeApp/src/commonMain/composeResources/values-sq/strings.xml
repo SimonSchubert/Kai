@@ -236,4 +236,9 @@
     <string name="litert_cancel">Anulo</string>
     <string name="litert_limitations">Pa përdorim mjetesh, pa imazhe, pa heartbeat, dritare konteksti 4K</string>
     <string name="litert_free_space">%1$s e disponueshme në pajisje</string>
+    <string name="litert_no_model_warning">Asnjë model i shkarkuar. Shkoni te Cilësimet për të shkarkuar një model.</string>
+    <string name="litert_error_no_model">Asnjë model i shkarkuar. Shkoni te Cilësimet për të shkarkuar një model.</string>
+    <string name="litert_error_inference_timeout">Koha e përfundimit të konkludimit në pajisje ka skaduar. Provoni një mesazh më të shkurtër ose një model më të vogël.</string>
+    <string name="litert_error_not_enough_disk_space">Hapësirë e pamjaftueshme në disk për të shkarkuar modelin.</string>
+    <string name="litert_error_insufficient_memory">Memorie e pamjaftueshme për të ngarkuar modelin. Mbyllni aplikacionet e tjera dhe provoni përsëri.</string>
 </resources>

@@ -6,7 +6,9 @@ import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.InferenceMessage
 import com.inspiredandroid.kai.inference.LocalInferenceEngine
@@ -404,7 +406,8 @@ class RemoteDataRepository(
         val modelId = appSettings.getInstanceModelId(instanceId)
         val downloadedModels = engine.getDownloadedModels()
         val model = downloadedModels.find { it.id == modelId }
-            ?: throw IllegalStateException("Model not downloaded: $modelId")
+            ?: downloadedModels.firstOrNull()
+            ?: throw NoModelDownloadedException()
 
         if (engine.engineState.value != EngineState.READY) {
             val statusEntry = History(
@@ -429,7 +432,11 @@ class RemoteDataRepository(
             }
         }
 
-        return engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt)
+        // Strip Dynamic UI / Interactive UI sections — on-device models can't use them
+        // and the large kai-ui schema can crash the native template parser
+        val cleanedPrompt = systemPrompt?.replace(Regex("\\n## (?:Dynamic UI|Interactive UI Mode)[\\s\\S]*"), "")?.trim()
+
+        return engine.chat(messages = inferenceMessages, systemPrompt = cleanedPrompt)
     }
 
     private suspend fun askWithService(
@@ -574,11 +581,14 @@ class RemoteDataRepository(
 
         for ((index, entry) in fallbackEntries.withIndex()) {
             // Skip fallback services whose context window is too small for the current history
-            val creds = instanceCredentials(entry.instanceId, entry.service)
-            val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
-            if (historyChars > entryWindowChars) {
-                lastException = ContextWindowExceededException()
-                continue
+            // On-device models handle their own context limits, so skip this check for them
+            if (!entry.service.isOnDevice) {
+                val creds = instanceCredentials(entry.instanceId, entry.service)
+                val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
+                if (historyChars > entryWindowChars) {
+                    lastException = ContextWindowExceededException()
+                    continue
+                }
             }
 
             val responseText = try {
@@ -588,6 +598,8 @@ class RemoteDataRepository(
             } catch (e: Exception) {
                 if (e is kotlinx.coroutines.CancellationException) throw e
                 if (isNonRetryableException(e)) throw e
+                // On-device services should not silently fall back — surface the error
+                if (entry.service.isOnDevice) throw e
                 lastException = e
                 continue
             }
@@ -1825,6 +1837,8 @@ class RemoteDataRepository(
     override fun getLocalDownloadingModelId(): StateFlow<String?>? = localInferenceEngine?.downloadingModelId
 
     override fun getLocalDownloadProgress(): StateFlow<Float?>? = localInferenceEngine?.downloadProgress
+
+    override fun getLocalDownloadError(): StateFlow<DownloadError?>? = localInferenceEngine?.downloadError
 
     override fun getLocalDownloadedModels(): List<DownloadedModel> = localInferenceEngine?.getDownloadedModels() ?: emptyList()
 

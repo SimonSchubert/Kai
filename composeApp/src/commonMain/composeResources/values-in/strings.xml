@@ -236,4 +236,9 @@
     <string name="litert_cancel">Batal</string>
     <string name="litert_limitations">Tanpa alat, tanpa input gambar, tanpa heartbeat, jendela konteks 4K</string>
     <string name="litert_free_space">%1$s tersedia di perangkat</string>
+    <string name="litert_no_model_warning">Tidak ada model yang diunduh. Buka Pengaturan untuk mengunduh model.</string>
+    <string name="litert_error_no_model">Tidak ada model yang diunduh. Buka Pengaturan untuk mengunduh model.</string>
+    <string name="litert_error_inference_timeout">Inferensi di perangkat habis waktu. Coba pesan yang lebih pendek atau model yang lebih kecil.</string>
+    <string name="litert_error_not_enough_disk_space">Ruang disk tidak cukup untuk mengunduh model.</string>
+    <string name="litert_error_insufficient_memory">Memori tidak cukup untuk memuat model. Tutup aplikasi lain dan coba lagi.</string>
 </resources>

@@ -237,4 +237,9 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="litert_cancel">Annuler</string>
     <string name="litert_limitations">Pas d'outils, pas d'images, pas de heartbeat, fenêtre de contexte 4K</string>
     <string name="litert_free_space">%1$s disponible sur l'appareil</string>
+    <string name="litert_no_model_warning">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>
+    <string name="litert_error_no_model">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>
+    <string name="litert_error_inference_timeout">L\'inférence sur l\'appareil a expiré. Essayez un message plus court ou un modèle plus petit.</string>
+    <string name="litert_error_not_enough_disk_space">Espace disque insuffisant pour télécharger le modèle.</string>
+    <string name="litert_error_insufficient_memory">Mémoire insuffisante pour charger le modèle. Fermez les autres applications et réessayez.</string>
 </resources>

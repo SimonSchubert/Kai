@@ -236,4 +236,9 @@
     <string name="litert_cancel">రద్దు</string>
     <string name="litert_limitations">టూల్ వాడకం లేదు, ఇమేజ్ ఇన్‌పుట్ లేదు, హార్ట్‌బీట్ లేదు, 4K కాంటెక్స్ట్ విండో</string>
     <string name="litert_free_space">పరికరంలో %1$s అందుబాటులో ఉంది</string>
+    <string name="litert_no_model_warning">ఏ మోడల్ డౌన్‌లోడ్ కాలేదు. మోడల్ డౌన్‌లోడ్ చేయడానికి సెట్టింగ్‌లకు వెళ్ళండి.</string>
+    <string name="litert_error_no_model">ఏ మోడల్ డౌన్‌లోడ్ కాలేదు. మోడల్ డౌన్‌లోడ్ చేయడానికి సెట్టింగ్‌లకు వెళ్ళండి.</string>
+    <string name="litert_error_inference_timeout">ఆన్-డివైస్ ఇన్ఫరెన్స్ సమయం ముగిసింది. చిన్న సందేశం లేదా చిన్న మోడల్ ప్రయత్నించండి.</string>
+    <string name="litert_error_not_enough_disk_space">మోడల్ డౌన్‌లోడ్ చేయడానికి తగినంత డిస్క్ స్పేస్ లేదు.</string>
+    <string name="litert_error_insufficient_memory">మోడల్ లోడ్ చేయడానికి తగినంత మెమరీ లేదు. ఇతర యాప్‌లను మూసివేసి మళ్ళీ ప్రయత్నించండి.</string>
 </resources>

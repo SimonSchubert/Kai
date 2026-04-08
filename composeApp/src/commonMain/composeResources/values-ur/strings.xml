@@ -236,4 +236,9 @@
     <string name="litert_cancel">منسوخ</string>
     <string name="litert_limitations">کوئی ٹول استعمال نہیں، کوئی تصویری ان پٹ نہیں، کوئی ہارٹ بیٹ نہیں، 4K سیاق و سباق ونڈو</string>
     <string name="litert_free_space">آلے پر %1$s دستیاب</string>
+    <string name="litert_no_model_warning">کوئی ماڈل ڈاؤن لوڈ نہیں ہوا۔ ماڈل ڈاؤن لوڈ کرنے کے لیے ترتیبات میں جائیں۔</string>
+    <string name="litert_error_no_model">کوئی ماڈل ڈاؤن لوڈ نہیں ہوا۔ ماڈل ڈاؤن لوڈ کرنے کے لیے ترتیبات میں جائیں۔</string>
+    <string name="litert_error_inference_timeout">آن ڈیوائس انفرنس کا وقت ختم ہو گیا۔ چھوٹا پیغام یا چھوٹا ماڈل آزمائیں۔</string>
+    <string name="litert_error_not_enough_disk_space">ماڈل ڈاؤن لوڈ کرنے کے لیے کافی ڈسک اسپیس نہیں ہے۔</string>
+    <string name="litert_error_insufficient_memory">ماڈل لوڈ کرنے کے لیے کافی میموری نہیں ہے۔ دوسری ایپس بند کریں اور دوبارہ کوشش کریں۔</string>
 </resources>

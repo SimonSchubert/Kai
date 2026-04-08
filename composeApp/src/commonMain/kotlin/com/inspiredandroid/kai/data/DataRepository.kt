@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
@@ -143,6 +144,7 @@ interface DataRepository {
     fun getLocalFreeSpaceBytes(): Long
     fun getLocalDownloadingModelId(): StateFlow<String?>?
     fun getLocalDownloadProgress(): StateFlow<Float?>?
+    fun getLocalDownloadError(): StateFlow<DownloadError?>?
     fun startLocalModelDownload(model: LocalModel)
     fun cancelLocalModelDownload()
     suspend fun deleteLocalModel(modelId: String)

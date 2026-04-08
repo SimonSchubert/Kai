@@ -236,4 +236,9 @@
     <string name="litert_cancel">Khansela</string>
     <string name="litert_limitations">Akukho ukusetshenziswa kwethuluzi, akukho okufakwayo kwezithombe, akukho i-heartbeat, iwindi lomongo we-4K</string>
     <string name="litert_free_space">%1$s iyatholakala kudivayisi</string>
+    <string name="litert_no_model_warning">Akukho modeli elanda. Iya kuZilungiselelo ukuze ulande imodeli.</string>
+    <string name="litert_error_no_model">Akukho modeli elanda. Iya kuZilungiselelo ukuze ulande imodeli.</string>
+    <string name="litert_error_inference_timeout">I-on-device inference iphelelwe yisikhathi. Zama umyalezo omfushane noma imodeli encane.</string>
+    <string name="litert_error_not_enough_disk_space">Isikhala sediski asanele ukulanda imodeli.</string>
+    <string name="litert_error_insufficient_memory">Imemori ayenele ukulayisha imodeli. Vala ezinye izinhlelo zokusebenza bese uzama futhi.</string>
 </resources>

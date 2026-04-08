@@ -143,6 +143,11 @@
     <string name="litert_cancel">Cancel</string>
     <string name="litert_limitations">No tool use, no image input, no heartbeat, 4K context window</string>
     <string name="litert_free_space">%1$s available on device</string>
+    <string name="litert_no_model_warning">No model downloaded. Go to Settings to download a model.</string>
+    <string name="litert_error_insufficient_memory">Not enough memory to load the model. Close other apps and try again.</string>
+    <string name="litert_error_not_enough_disk_space">Not enough disk space to download the model.</string>
+    <string name="litert_error_inference_timeout">On-device inference timed out. Try a shorter message or a smaller model.</string>
+    <string name="litert_error_no_model">No model downloaded. Go to Settings to download a model.</string>
     <string name="settings_add_service">Add Service</string>
     <string name="settings_remove_service">Remove</string>
     <string name="settings_move_up">Move up</string>

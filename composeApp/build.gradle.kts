@@ -77,6 +77,10 @@ kotlin {
             }
         }
 
+        val androidMain by getting {
+            kotlin.srcDir("src/jvmShared/kotlin")
+        }
+        desktopMain.kotlin.srcDir("src/jvmShared/kotlin")
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.spght.encryptedprefs)
@@ -140,6 +144,7 @@ kotlin {
             implementation(libs.ktor.client.cio)
             implementation(libs.bouncycastle.provider)
             implementation(libs.slf4j.nop)
+            implementation(libs.litert.lm.jvm)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

@@ -35,6 +35,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -137,30 +139,28 @@ class SettingsViewModel(
 
     init {
         // Observe download state from the engine singleton (survives activity recreation)
-        dataRepository.getLocalDownloadingModelId()?.let { flow ->
-            viewModelScope.launch {
-                flow.collect { modelId ->
-                    _state.update { it.copy(localDownloadingModelId = modelId) }
-                    if (modelId == null) {
-                        // Download finished or cancelled — refresh
-                        _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
-                        refreshServiceList()
-                        _state.value.configuredServices
-                            .filter { it.service.isOnDevice }
-                            .forEach { checkConnection(it.instanceId, it.service) }
-                    }
+        val downloadingFlow = dataRepository.getLocalDownloadingModelId() ?: flowOf(null)
+        val progressFlow = dataRepository.getLocalDownloadProgress() ?: flowOf(null)
+        val errorFlow = dataRepository.getLocalDownloadError() ?: flowOf(null)
+        viewModelScope.launch {
+            combine(downloadingFlow, progressFlow, errorFlow) { modelId, progress, error ->
+                Triple(modelId, progress, error)
+            }.collect { (modelId, progress, error) ->
+                val wasDownloading = _state.value.localDownloadingModelId != null
+                _state.update {
+                    it.copy(
+                        localDownloadingModelId = modelId,
+                        localDownloadProgress = progress,
+                        localDownloadError = error,
+                    )
                 }
-            }
-        }
-        dataRepository.getLocalDownloadProgress()?.let { flow ->
-            viewModelScope.launch {
-                var lastPercent = -1
-                flow.collect { progress ->
-                    val percent = progress?.let { (it * 100).toInt() } ?: -1
-                    if (percent != lastPercent) {
-                        lastPercent = percent
-                        _state.update { it.copy(localDownloadProgress = progress) }
-                    }
+                if (modelId == null && wasDownloading) {
+                    // Download finished or cancelled — refresh
+                    _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
+                    refreshServiceList()
+                    _state.value.configuredServices
+                        .filter { it.service.isOnDevice }
+                        .forEach { checkConnection(it.instanceId, it.service) }
                 }
             }
         }

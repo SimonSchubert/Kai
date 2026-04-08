@@ -237,4 +237,9 @@
     <string name="litert_cancel">Отмена</string>
     <string name="litert_limitations">Без инструментов, без изображений, без heartbeat, контекстное окно 4K</string>
     <string name="litert_free_space">%1$s доступно на устройстве</string>
+    <string name="litert_no_model_warning">Модель не загружена. Перейдите в Настройки, чтобы загрузить модель.</string>
+    <string name="litert_error_no_model">Модель не загружена. Перейдите в Настройки, чтобы загрузить модель.</string>
+    <string name="litert_error_inference_timeout">Время ожидания вывода на устройстве истекло. Попробуйте более короткое сообщение или меньшую модель.</string>
+    <string name="litert_error_not_enough_disk_space">Недостаточно места на диске для загрузки модели.</string>
+    <string name="litert_error_insufficient_memory">Недостаточно памяти для загрузки модели. Закройте другие приложения и попробуйте снова.</string>
 </resources>

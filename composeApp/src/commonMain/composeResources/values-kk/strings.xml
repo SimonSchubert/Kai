@@ -236,4 +236,9 @@
     <string name="litert_cancel">Бас тарту</string>
     <string name="litert_limitations">Құралдарсыз, суретсіз, heartbeat жоқ, 4K контекст терезесі</string>
     <string name="litert_free_space">Құрылғыда %1$s қолжетімді</string>
+    <string name="litert_no_model_warning">Модель жүктелмеген. Модельді жүктеу үшін Параметрлерге өтіңіз.</string>
+    <string name="litert_error_no_model">Модель жүктелмеген. Модельді жүктеу үшін Параметрлерге өтіңіз.</string>
+    <string name="litert_error_inference_timeout">Құрылғыдағы шығару уақыты аяқталды. Қысқарақ хабарлама немесе кішірек модельді қолданып көріңіз.</string>
+    <string name="litert_error_not_enough_disk_space">Модельді жүктеу үшін жеткілікті диск кеңістігі жоқ.</string>
+    <string name="litert_error_insufficient_memory">Модельді жүктеу үшін жеткілікті жады жоқ. Басқа қолданбаларды жабыңыз және қайталап көріңіз.</string>
 </resources>

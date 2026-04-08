@@ -236,4 +236,9 @@
     <string name="litert_cancel">لغو</string>
     <string name="litert_limitations">بدون ابزار، بدون تصویر ورودی، بدون ضربان قلب، پنجره زمینه 4K</string>
     <string name="litert_free_space">%1$s در دستگاه موجود است</string>
+    <string name="litert_no_model_warning">مدلی دانلود نشده است. به تنظیمات بروید تا مدلی دانلود کنید.</string>
+    <string name="litert_error_no_model">مدلی دانلود نشده است. به تنظیمات بروید تا مدلی دانلود کنید.</string>
+    <string name="litert_error_inference_timeout">استنتاج روی دستگاه به پایان رسید. پیام کوتاه‌تر یا مدل کوچک‌تر را امتحان کنید.</string>
+    <string name="litert_error_not_enough_disk_space">فضای دیسک کافی برای دانلود مدل وجود ندارد.</string>
+    <string name="litert_error_insufficient_memory">حافظه کافی برای بارگذاری مدل وجود ندارد. برنامه‌های دیگر را ببندید و دوباره امتحان کنید.</string>
 </resources>

@@ -237,4 +237,9 @@
     <string name="litert_cancel">キャンセル</string>
     <string name="litert_limitations">ツール使用なし、画像入力なし、ハートビートなし、4Kコンテキストウィンドウ</string>
     <string name="litert_free_space">デバイスで%1$s利用可能</string>
+    <string name="litert_no_model_warning">モデルがダウンロードされていません。設定からモデルをダウンロードしてください。</string>
+    <string name="litert_error_no_model">モデルがダウンロードされていません。設定からモデルをダウンロードしてください。</string>
+    <string name="litert_error_inference_timeout">オンデバイス推論がタイムアウトしました。短いメッセージまたは小さいモデルをお試しください。</string>
+    <string name="litert_error_not_enough_disk_space">モデルをダウンロードするための十分なディスク容量がありません。</string>
+    <string name="litert_error_insufficient_memory">モデルの読み込みに十分なメモリがありません。他のアプリを閉じてもう一度お試しください。</string>
 </resources>

@@ -384,7 +384,7 @@ sealed class Service(
 
     data object LiteRT : Service(
         id = "litert",
-        displayName = "LiteRT (On-Device)",
+        displayName = "Local Model",
         icon = Res.drawable.ic_service_litert,
         requiresApiKey = false,
         defaultModel = null,

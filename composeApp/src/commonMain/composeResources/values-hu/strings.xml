@@ -236,4 +236,9 @@
     <string name="litert_cancel">Mégse</string>
     <string name="litert_limitations">Nincs eszközhasználat, nincs képbevitel, nincs heartbeat, 4K kontextusablak</string>
     <string name="litert_free_space">%1$s elérhető az eszközön</string>
+    <string name="litert_no_model_warning">Nincs letöltött modell. Menj a Beállításokba egy modell letöltéséhez.</string>
+    <string name="litert_error_no_model">Nincs letöltött modell. Menj a Beállításokba egy modell letöltéséhez.</string>
+    <string name="litert_error_inference_timeout">Az eszközön végzett következtetés időtúllépés. Próbálj rövidebb üzenetet vagy kisebb modellt.</string>
+    <string name="litert_error_not_enough_disk_space">Nincs elég lemezterület a modell letöltéséhez.</string>
+    <string name="litert_error_insufficient_memory">Nincs elég memória a modell betöltéséhez. Zárd be a többi alkalmazást és próbáld újra.</string>
 </resources>
