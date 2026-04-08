@@ -20,8 +20,8 @@ import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_opencode
-import kai.composeapp.generated.resources.ic_service_publicai
 import kai.composeapp.generated.resources.ic_service_openrouter
+import kai.composeapp.generated.resources.ic_service_publicai
 import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
 import kai.composeapp.generated.resources.ic_service_xai
