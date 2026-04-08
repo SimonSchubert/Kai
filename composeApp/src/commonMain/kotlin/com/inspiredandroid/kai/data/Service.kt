@@ -20,6 +20,7 @@ import kai.composeapp.generated.resources.ic_service_ollamacloud
 import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_opencode
+import kai.composeapp.generated.resources.ic_service_publicai
 import kai.composeapp.generated.resources.ic_service_openrouter
 import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
@@ -368,6 +369,19 @@ sealed class Service(
         apiKeyUrlDisplay = "opencode.ai/docs/zen",
     )
 
+    data object PublicAI : Service(
+        id = "publicai",
+        displayName = "Public AI",
+        icon = Res.drawable.ic_service_publicai,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "publicai",
+        chatUrl = "https://api.publicai.co/v1/chat/completions",
+        modelsUrl = "https://api.publicai.co/v1/models",
+        apiKeyUrl = "https://platform.publicai.co",
+        apiKeyUrlDisplay = "platform.publicai.co",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -393,7 +407,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
