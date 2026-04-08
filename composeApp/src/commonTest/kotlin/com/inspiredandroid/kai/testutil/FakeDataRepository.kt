@@ -2,6 +2,9 @@ package com.inspiredandroid.kai.testutil
 
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.inference.DownloadedModel
+import com.inspiredandroid.kai.inference.EngineState
+import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -417,4 +420,16 @@ class FakeDataRepository : DataRepository {
     override fun exportSettingsToJson(): String = "{}"
 
     override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int = 0
+
+    // On-device inference (LiteRT)
+    override fun isLocalInferenceAvailable(): Boolean = false
+    override fun getLocalEngineState(): StateFlow<EngineState>? = null
+    override fun getLocalDownloadedModels(): List<DownloadedModel> = emptyList()
+    override fun getLocalAvailableModels(): List<LocalModel> = emptyList()
+    override fun getLocalFreeSpaceBytes(): Long = 0L
+    override fun getLocalDownloadingModelId(): StateFlow<String?>? = null
+    override fun getLocalDownloadProgress(): StateFlow<Float?>? = null
+    override fun startLocalModelDownload(model: LocalModel) {}
+    override fun cancelLocalModelDownload() {}
+    override suspend fun deleteLocalModel(modelId: String) {}
 }
