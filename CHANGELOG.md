@@ -1,3 +1,8 @@
+## v2.1.1 — 2026-04-09
+
+### Fixes
+- Fix crash when opening Settings on devices without downloaded local models
+
 ## v2.1.0 — 2026-04-08
 
 ### Features
