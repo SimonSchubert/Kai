@@ -1,3 +1,14 @@
+## v2.1.2 — 2026-04-09
+
+### Features
+- Add local model context configuration
+
+### Fixes
+- Fix undo snackbars not executing after leaving screen
+
+### Improvements
+- Improve filetype checks for file attachments
+
 ## v2.1.1 — 2026-04-09
 
 ### Fixes
