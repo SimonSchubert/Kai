@@ -21,7 +21,10 @@ actual fun getAvailableMemoryBytes(): Long {
     return memInfo.availMem
 }
 
-actual fun getAvailableDiskSpaceBytes(path: String): Long = StatFs(path).availableBytes
+actual fun getAvailableDiskSpaceBytes(path: String): Long {
+    java.io.File(path).mkdirs()
+    return StatFs(path).availableBytes
+}
 
 actual fun startDownloadNotificationService() {
     try {
