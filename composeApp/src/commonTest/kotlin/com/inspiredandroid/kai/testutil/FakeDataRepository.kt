@@ -172,10 +172,9 @@ class FakeDataRepository : DataRepository {
     override fun currentService(): Service = currentService
 
     override fun isUsingSharedKey(): Boolean = currentService == Service.Free
+    override fun supportedFileExtensions(): List<String> = if (fileAttachmentSupported) listOf("txt", "pdf", "png") else emptyList()
 
     var fileAttachmentSupported = true
-
-    override fun supportsFileAttachment(): Boolean = fileAttachmentSupported
 
     // Conversation management
     override val savedConversations: MutableStateFlow<List<Conversation>> = MutableStateFlow(emptyList())

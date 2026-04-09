@@ -332,7 +332,7 @@ class ChatViewModelTest {
         viewModel.state.test {
             skipItems(1)
             val state = awaitItem()
-            assertTrue(state.allowFileAttachment)
+            assertTrue(state.supportedFileExtensions.isNotEmpty())
         }
     }
 
@@ -343,7 +343,7 @@ class ChatViewModelTest {
 
         viewModel.state.test {
             val state = awaitItem()
-            assertFalse(state.allowFileAttachment)
+            assertTrue(state.supportedFileExtensions.isEmpty())
         }
     }
 }

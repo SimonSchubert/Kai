@@ -40,6 +40,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 
 class SettingsViewModel(
@@ -653,7 +654,16 @@ class SettingsViewModel(
     }
 
     override fun onCleared() {
-        commitPendingDeletion()
+        pendingDeleteJob?.cancel()
+        pendingDeleteJob = null
+        val deletion = _state.value.pendingDeletion ?: run {
+            super.onCleared()
+            return
+        }
+        _state.update { it.copy(pendingDeletion = null) }
+        runBlocking {
+            executeDeletion(deletion)
+        }
         super.onCleared()
     }
 
