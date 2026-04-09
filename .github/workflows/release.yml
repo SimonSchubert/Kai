@@ -241,6 +241,46 @@ jobs:
           name: appimage-package
           path: Kai-*.AppImage
 
+  flatpak:
+    name: Generate Flatpak
+    needs: [linux-tar]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - name: Download Linux Tarball
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: linux-tar-package
+      - name: Install Flatpak and Builder
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+          sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+          sudo flatpak install -y flathub org.freedesktop.Platform//24.08 org.freedesktop.Sdk//24.08
+      - name: Build Flatpak
+        run: |
+          # Copy tarball to flatpak dir and compute sha256
+          cp Kai-linux-x86_64.tar.gz flatpak/
+          SHA256=$(sha256sum Kai-linux-x86_64.tar.gz | cut -d' ' -f1)
+
+          # Patch manifest to use local tarball instead of URL
+          cd flatpak
+          sed -i "s|url: https://github.com/SimonSchubert/Kai/releases/download/.*|path: Kai-linux-x86_64.tar.gz|" io.github.simonschubert.Kai.yaml
+          sed -i "s|sha256: .*|sha256: ${SHA256}|" io.github.simonschubert.Kai.yaml
+
+          # Build and bundle
+          flatpak-builder --repo=repo --force-clean build-dir io.github.simonschubert.Kai.yaml
+          flatpak build-bundle repo ../Kai.flatpak io.github.simonschubert.Kai
+      - name: Upload Flatpak Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flatpak-package
+          path: Kai.flatpak
+
   play-store:
     name: Upload AAB to Play Store
     runs-on: ubuntu-latest
@@ -278,8 +318,8 @@ jobs:
         run: bundle exec fastlane android deploy
 
   release:
-    name: Release APK, DMG, MSI, DEB, RPM, AppImage and Tarball
-    needs: [apk, dmg, msi, deb, rpm, appimage, linux-tar]
+    name: Release APK, DMG, MSI, DEB, RPM, AppImage, Flatpak and Tarball
+    needs: [apk, dmg, msi, deb, rpm, appimage, linux-tar, flatpak]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -323,6 +363,11 @@ jobs:
         with:
           name: linux-tar-package
 
+      - name: Download Flatpak Artifact
+        uses: actions/download-artifact@v4.1.7
+        with:
+          name: flatpak-package
+
       - name: List downloaded files (for debugging)
         run: ls -la
 
@@ -336,6 +381,7 @@ jobs:
           mv *.rpm "Kai-${VERSION}-linux.rpm"
           mv *.AppImage "Kai-${VERSION}-linux.AppImage"
           mv Kai-linux-x86_64.tar.gz "Kai-${VERSION}-linux-x86_64.tar.gz"
+          mv Kai.flatpak "Kai-${VERSION}-linux.flatpak"
 
       - name: Extract changelog
         run: |
