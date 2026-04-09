@@ -49,7 +49,9 @@ import kai.composeapp.generated.resources.tab_chat
 import kai.composeapp.generated.resources.tab_settings
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import androidx.compose.ui.text.intl.Locale
 import nl.marc_apps.tts.TextToSpeechInstance
+import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
@@ -120,6 +122,18 @@ private fun AppContent(
 
     val notificationPermissionController = koinInject<NotificationPermissionController>()
     SetupNotificationPermissionHandler(notificationPermissionController)
+
+    // Set TTS voice to match system language
+    @OptIn(ExperimentalVoiceApi::class)
+    LaunchedEffect(textToSpeech) {
+        val tts = textToSpeech ?: return@LaunchedEffect
+        val systemLanguage = Locale.current.language
+        val matchingVoice = tts.voices
+            .firstOrNull { it.languageTag.startsWith(systemLanguage) }
+        if (matchingVoice != null) {
+            tts.currentVoice = matchingVoice
+        }
+    }
 
     val appSettingsForScale = koinInject<AppSettings>()
     val uiScale by appSettingsForScale.uiScaleFlow.collectAsState()
