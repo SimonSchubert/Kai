@@ -808,7 +808,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-04-08</p>
+<p><strong>Last verified:</strong> 2026-04-09</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -818,19 +818,25 @@
 <tr>
 <th>Model</th>
 <th>Size</th>
-<th>Context Window</th>
+<th>GPU Memory (Android)</th>
+<th>Default Context</th>
+<th>Max Context</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Gemma 4 E2B IT</td>
 <td>2.6 GB</td>
+<td>676 MB</td>
 <td>4K tokens</td>
+<td>32K tokens</td>
 </tr>
 <tr>
 <td>Gemma 4 E4B IT</td>
 <td>3.7 GB</td>
+<td>710 MB</td>
 <td>4K tokens</td>
+<td>32K tokens</td>
 </tr>
 </tbody>
 </table>
@@ -851,6 +857,8 @@
 <li><strong>Delete</strong> -- trash icon removes the downloaded model file</li>
 <li><strong>Cancel</strong> -- active downloads can be cancelled</li>
 <li><strong>Error display</strong> -- download failures (network, disk space, incomplete) are shown inline in the settings UI</li>
+<li><strong>Context size slider</strong> -- each model has a slider to adjust context size (4K–32K tokens in 1K steps); available before download so users can preview performance impact</li>
+<li><strong>Performance indicator</strong> -- each model shows a Good/OK/Poor label based on total device RAM vs estimated GPU memory at the selected context size (Good: RAM &gt;= 3x, OK: &gt;= 1.5x, Poor: &lt; 1.5x); memory estimate scales linearly with context size via per-model KV cache cost</li>
 <li><strong>Free space</strong> -- available device storage is shown below the model list</li>
 </ul>
 <p>On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. On Desktop, downloads run in a background coroutine.</p>
