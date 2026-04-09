@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.navigation.NavHostController
@@ -49,7 +50,6 @@ import kai.composeapp.generated.resources.tab_chat
 import kai.composeapp.generated.resources.tab_settings
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import androidx.compose.ui.text.intl.Locale
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.experimental.ExperimentalVoiceApi
 import org.jetbrains.compose.resources.stringResource
