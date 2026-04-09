@@ -40,7 +40,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 
 class SettingsViewModel(
@@ -661,7 +661,7 @@ class SettingsViewModel(
             return
         }
         _state.update { it.copy(pendingDeletion = null) }
-        runBlocking {
+        CoroutineScope(getBackgroundDispatcher()).launch {
             executeDeletion(deletion)
         }
         super.onCleared()
