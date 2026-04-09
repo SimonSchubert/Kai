@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Dịch vụ</string>
     <string name="settings_tab_tools">Công cụ</string>
     <string name="settings_tab_integrations">Tích hợp</string>
-    <string name="tool_executing_content_description">Công cụ đang chạy</string>
     <string name="tools_count">%1$d Công cụ</string>
     <string name="privacy_agree_prefix">Bằng cách sử dụng dịch vụ, bạn đồng ý với </string>
     <string name="privacy_policy">Chính sách quyền riêng tư</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Kiểm tra tự động định kỳ cho phép AI xem lại bộ nhớ và tác vụ mà không cần đầu vào từ người dùng. Chạy mỗi %1$d phút trong giờ hoạt động.</string>
     <string name="settings_heartbeat_prompt_label">Lệnh Heartbeat</string>
     <string name="settings_heartbeat_recent">Hoạt động gần đây</string>
-    <string name="settings_move_down">Di chuyển xuống</string>
-    <string name="settings_move_up">Di chuyển lên</string>
     <string name="settings_remove_service">Xóa</string>
     <string name="tool_configure_heartbeat_description">Cấu hình hành vi kiểm tra tự động định kỳ</string>
     <string name="tool_configure_heartbeat_name">Cấu hình Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Thoát chế độ tương tác</string>
     <string name="interactive_ui_parsing_failed">Phân tích UI thất bại, đang thử lại…</string>
-    <string name="chat_history_interactive_label">Giao diện tương tác</string>
     <string name="settings_sponsors_monthly">Nhà tài trợ hàng tháng</string>
     <string name="settings_sponsors_past">Nhà tài trợ trước đây</string>
     <string name="snackbar_undo">Hoàn tác</string>

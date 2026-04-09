@@ -48,7 +48,6 @@
     <string name="settings_tab_services">บริการ</string>
     <string name="settings_tab_tools">เครื่องมือ</string>
     <string name="settings_tab_integrations">การเชื่อมต่อ</string>
-    <string name="tool_executing_content_description">เครื่องมือกำลังทำงาน</string>
     <string name="tools_count">%1$d เครื่องมือ</string>
     <string name="privacy_agree_prefix">การใช้บริการถือว่าคุณยอมรับ</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">การตรวจสอบตนเองเป็นระยะที่ให้ AI ตรวจสอบความทรงจำและงานโดยไม่ต้องมีข้อมูลจากผู้ใช้ ทำงานทุก %1$d นาทีในช่วงเวลาที่ใช้งาน</string>
     <string name="settings_heartbeat_prompt_label">พรอมต์ Heartbeat</string>
     <string name="settings_heartbeat_recent">กิจกรรมล่าสุด</string>
-    <string name="settings_move_down">เลื่อนลง</string>
-    <string name="settings_move_up">เลื่อนขึ้น</string>
     <string name="settings_remove_service">ลบ</string>
     <string name="tool_configure_heartbeat_description">กำหนดค่าพฤติกรรมการตรวจสอบตนเองเป็นระยะ</string>
     <string name="tool_configure_heartbeat_name">กำหนดค่า Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ออกจากโหมดอินเทอร์แอคทีฟ</string>
     <string name="interactive_ui_parsing_failed">วิเคราะห์ UI ล้มเหลว กำลังลองใหม่…</string>
-    <string name="chat_history_interactive_label">UI แบบโต้ตอบ</string>
     <string name="settings_sponsors_monthly">ผู้สนับสนุนรายเดือน</string>
     <string name="settings_sponsors_past">ผู้สนับสนุนก่อนหน้า</string>
     <string name="snackbar_undo">เลิกทำ</string>

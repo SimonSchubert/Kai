@@ -48,7 +48,6 @@
     <string name="settings_tab_services">سرویس‌ها</string>
     <string name="settings_tab_tools">ابزارها</string>
     <string name="settings_tab_integrations">یکپارچه‌سازی‌ها</string>
-    <string name="tool_executing_content_description">ابزار در حال اجرا</string>
     <string name="tools_count">%1$d ابزار</string>
     <string name="privacy_agree_prefix">با استفاده از سرویس، شما با </string>
     <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">خودبررسی‌های دوره‌ای که به هوش مصنوعی اجازه می‌دهد خاطرات و وظایف را بدون ورودی کاربر بررسی کند. هر %1$d دقیقه در ساعات فعال اجرا می‌شود.</string>
     <string name="settings_heartbeat_prompt_label">پرامپت Heartbeat</string>
     <string name="settings_heartbeat_recent">فعالیت اخیر</string>
-    <string name="settings_move_down">انتقال به پایین</string>
-    <string name="settings_move_up">انتقال به بالا</string>
     <string name="settings_remove_service">حذف</string>
     <string name="tool_configure_heartbeat_description">پیکربندی رفتار خودبررسی دوره‌ای</string>
     <string name="tool_configure_heartbeat_name">پیکربندی Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">خروج از حالت تعاملی</string>
     <string name="interactive_ui_parsing_failed">تجزیه رابط کاربری ناموفق بود، تلاش مجدد…</string>
-    <string name="chat_history_interactive_label">رابط کاربری تعاملی</string>
     <string name="settings_sponsors_monthly">حامیان ماهانه</string>
     <string name="settings_sponsors_past">حامیان قبلی</string>
     <string name="snackbar_undo">بازگردانی</string>

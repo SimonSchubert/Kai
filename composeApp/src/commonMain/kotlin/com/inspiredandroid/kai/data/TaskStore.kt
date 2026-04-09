@@ -55,8 +55,6 @@ class TaskStore(private val appSettings: AppSettings) {
         task
     }
 
-    fun getTask(id: String): ScheduledTask? = loadTasks().find { it.id == id }
-
     fun getAllTasks(): List<ScheduledTask> = loadTasks()
 
     fun getPendingTasks(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING }

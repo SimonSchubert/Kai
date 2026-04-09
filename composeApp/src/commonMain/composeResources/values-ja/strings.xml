@@ -48,7 +48,6 @@
     <string name="settings_tab_services">サービス</string>
     <string name="settings_tab_tools">ツール</string>
     <string name="settings_tab_integrations">連携</string>
-    <string name="tool_executing_content_description">ツール実行中</string>
     <string name="tools_count">%1$d ツール</string>
     <string name="privacy_agree_prefix">サービスを利用することで、</string>
     <string name="privacy_policy">プライバシーポリシー</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">ユーザー入力なしでAIが記憶とタスクを確認できる定期的なセルフチェック。アクティブ時間中に%1$d分ごとに実行されます。</string>
     <string name="settings_heartbeat_prompt_label">ハートビートプロンプト</string>
     <string name="settings_heartbeat_recent">最近のアクティビティ</string>
-    <string name="settings_move_down">下に移動</string>
-    <string name="settings_move_up">上に移動</string>
     <string name="settings_remove_service">削除</string>
     <string name="tool_configure_heartbeat_description">定期的なセルフチェックの動作を設定</string>
     <string name="tool_configure_heartbeat_name">ハートビートを設定</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">インタラクティブモードを終了</string>
     <string name="interactive_ui_parsing_failed">UIの解析に失敗しました。再試行中…</string>
-    <string name="chat_history_interactive_label">インタラクティブUI</string>
     <string name="settings_sponsors_monthly">月間スポンサー</string>
     <string name="settings_sponsors_past">過去のスポンサー</string>
     <string name="snackbar_undo">元に戻す</string>

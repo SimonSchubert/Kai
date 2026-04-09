@@ -48,7 +48,6 @@
     <string name="settings_tab_services">ਸੇਵਾਵਾਂ</string>
     <string name="settings_tab_tools">ਟੂਲ</string>
     <string name="settings_tab_integrations">ਏਕੀਕਰਨ</string>
-    <string name="tool_executing_content_description">ਟੂਲ ਚੱਲ ਰਿਹਾ ਹੈ</string>
     <string name="tools_count">%1$d ਟੂਲ</string>
     <string name="privacy_agree_prefix">ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ, ਤੁਸੀਂ ਸਹਿਮਤ ਹੋ </string>
     <string name="privacy_policy">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">ਸਮੇਂ-ਸਮੇਂ ਦੀਆਂ ਸਵੈ-ਜਾਂਚਾਂ ਜੋ AI ਨੂੰ ਉਪਭੋਗਤਾ ਇਨਪੁਟ ਤੋਂ ਬਿਨਾਂ ਯਾਦਾਂ ਅਤੇ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰਨ ਦਿੰਦੀਆਂ ਹਨ। ਸਰਗਰਮ ਘੰਟਿਆਂ ਦੌਰਾਨ ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੱਲਦੀਆਂ ਹਨ।</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat ਪ੍ਰੋਂਪਟ</string>
     <string name="settings_heartbeat_recent">ਤਾਜ਼ਾ ਗਤੀਵਿਧੀ</string>
-    <string name="settings_move_down">ਹੇਠਾਂ ਲਿਜਾਓ</string>
-    <string name="settings_move_up">ਉੱਪਰ ਲਿਜਾਓ</string>
     <string name="settings_remove_service">ਹਟਾਓ</string>
     <string name="tool_configure_heartbeat_description">ਸਮੇਂ-ਸਮੇਂ ਦੀ ਸਵੈ-ਜਾਂਚ ਵਿਵਹਾਰ ਕੌਂਫਿਗਰ ਕਰੋ</string>
     <string name="tool_configure_heartbeat_name">Heartbeat ਕੌਂਫਿਗਰ ਕਰੋ</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ਇੰਟਰੈਕਟਿਵ ਮੋਡ ਤੋਂ ਬਾਹਰ ਨਿਕਲੋ</string>
     <string name="interactive_ui_parsing_failed">UI ਪਾਰਸਿੰਗ ਅਸਫਲ, ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ…</string>
-    <string name="chat_history_interactive_label">ਇੰਟਰੈਕਟਿਵ UI</string>
     <string name="settings_sponsors_monthly">ਮਹੀਨਾਵਾਰ ਸਪਾਂਸਰ</string>
     <string name="settings_sponsors_past">ਪਿਛਲੇ ਸਪਾਂਸਰ</string>
     <string name="snackbar_undo">ਵਾਪਸ ਕਰੋ</string>

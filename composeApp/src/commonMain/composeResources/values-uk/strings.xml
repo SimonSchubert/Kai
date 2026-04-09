@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Сервіси</string>
     <string name="settings_tab_tools">Інструменти</string>
     <string name="settings_tab_integrations">Інтеграції</string>
-    <string name="tool_executing_content_description">Інструмент виконується</string>
     <string name="tools_count">%1$d інструментів</string>
     <string name="privacy_agree_prefix">Використовуючи сервіс, ви погоджуєтесь з </string>
     <string name="privacy_policy">Політикою конфіденційності</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">Періодичні самоперевірки, що дозволяють ШІ переглядати спогади та завдання без введення користувача. Запускається кожні %1$d хвилин в активні години.</string>
     <string name="settings_heartbeat_prompt_label">Промпт пульсу</string>
     <string name="settings_heartbeat_recent">Нещодавня активність</string>
-    <string name="settings_move_down">Перемістити вниз</string>
-    <string name="settings_move_up">Перемістити вгору</string>
     <string name="settings_remove_service">Видалити</string>
     <string name="tool_configure_heartbeat_description">Налаштувати поведінку періодичної самоперевірки</string>
     <string name="tool_configure_heartbeat_name">Налаштувати пульс</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Вийти з інтерактивного режиму</string>
     <string name="interactive_ui_parsing_failed">Не вдалося розібрати UI, повторна спроба…</string>
-    <string name="chat_history_interactive_label">Інтерактивний UI</string>
     <string name="settings_sponsors_monthly">Щомісячні спонсори</string>
     <string name="settings_sponsors_past">Попередні спонсори</string>
     <string name="snackbar_undo">Скасувати</string>

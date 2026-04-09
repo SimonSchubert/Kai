@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Usluge</string>
     <string name="settings_tab_tools">Alati</string>
     <string name="settings_tab_integrations">Integracije</string>
-    <string name="tool_executing_content_description">Izvršavanje alata</string>
     <string name="tools_count">%1$d Alati</string>
     <string name="privacy_agree_prefix">Korištenjem usluge pristajete na </string>
     <string name="privacy_policy">Pravila o privatnosti</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Periodične samoprovjere koje omogućuju AI-ju pregled sjećanja i zadataka bez korisničkog unosa. Pokreće se svakih %1$d minuta tijekom aktivnih sati.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
     <string name="settings_heartbeat_recent">Nedavna aktivnost</string>
-    <string name="settings_move_down">Pomakni dolje</string>
-    <string name="settings_move_up">Pomakni gore</string>
     <string name="settings_remove_service">Ukloni</string>
     <string name="tool_configure_heartbeat_description">Konfiguriraj ponašanje periodične samoprovjere</string>
     <string name="tool_configure_heartbeat_name">Konfiguriraj Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Izađi iz interaktivnog načina</string>
     <string name="interactive_ui_parsing_failed">Raščlamba korisničkog sučelja nije uspjela, pokušavam ponovo…</string>
-    <string name="chat_history_interactive_label">Interaktivno sučelje</string>
     <string name="settings_sponsors_monthly">Mjesečni sponzori</string>
     <string name="settings_sponsors_past">Prethodni sponzori</string>
     <string name="snackbar_undo">Poništi</string>

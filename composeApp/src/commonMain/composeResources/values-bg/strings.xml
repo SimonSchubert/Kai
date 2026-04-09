@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Услуги</string>
     <string name="settings_tab_tools">Инструменти</string>
     <string name="settings_tab_integrations">Интеграции</string>
-    <string name="tool_executing_content_description">Инструментът се изпълнява</string>
     <string name="tools_count">%1$d Инструмента</string>
     <string name="privacy_agree_prefix">Използвайки услугата, вие се съгласявате с </string>
     <string name="privacy_policy">Политика за поверителност</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Периодични самопроверки, които позволяват на AI да преглежда спомени и задачи без потребителски вход. Изпълнява се на всеки %1$d минути в активните часове.</string>
     <string name="settings_heartbeat_prompt_label">Промпт за Heartbeat</string>
     <string name="settings_heartbeat_recent">Скорошна активност</string>
-    <string name="settings_move_down">Премести надолу</string>
-    <string name="settings_move_up">Премести нагоре</string>
     <string name="settings_remove_service">Премахни</string>
     <string name="tool_configure_heartbeat_description">Конфигуриране на поведението при периодична самопроверка</string>
     <string name="tool_configure_heartbeat_name">Конфигуриране на Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Изход от интерактивен режим</string>
     <string name="interactive_ui_parsing_failed">Анализът на UI се провали, нов опит…</string>
-    <string name="chat_history_interactive_label">Интерактивен UI</string>
     <string name="settings_sponsors_monthly">Месечни спонсори</string>
     <string name="settings_sponsors_past">Предишни спонсори</string>
     <string name="snackbar_undo">Отмяна</string>

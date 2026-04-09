@@ -41,7 +41,6 @@
     <string name="settings_tab_services">שירותים</string>
     <string name="settings_tab_tools">כלים</string>
     <string name="settings_tab_integrations">אינטגרציות</string>
-    <string name="tool_executing_content_description">הכלי פועל</string>
     <string name="tools_count">%1$d כלים</string>
     <string name="privacy_agree_prefix">בשימוש בשירות, אתה מסכים ל</string>
     <string name="privacy_policy">מדיניות הפרטיות</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">בדיקות עצמיות תקופתיות המאפשרות לבינה המלאכותית לסקור זיכרונות ומשימות ללא קלט מהמשתמש. פועל כל %1$d דקות בשעות הפעילות.</string>
     <string name="settings_heartbeat_prompt_label">פרומפט Heartbeat</string>
     <string name="settings_heartbeat_recent">פעילות אחרונה</string>
-    <string name="settings_move_down">הזז למטה</string>
-    <string name="settings_move_up">הזז למעלה</string>
     <string name="settings_remove_service">הסר</string>
     <string name="tool_configure_heartbeat_description">הגדר התנהגות בדיקה עצמית תקופתית</string>
     <string name="tool_configure_heartbeat_name">הגדר Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">יציאה ממצב אינטראקטיבי</string>
     <string name="interactive_ui_parsing_failed">ניתוח ממשק המשתמש נכשל, מנסה שוב…</string>
-    <string name="chat_history_interactive_label">ממשק אינטראקטיבי</string>
     <string name="settings_sponsors_monthly">נותני חסות חודשיים</string>
     <string name="settings_sponsors_past">נותני חסות קודמים</string>
     <string name="snackbar_undo">בטל</string>

@@ -161,14 +161,6 @@ class McpServerManager(private val appSettings: AppSettings) {
         }
     }
 
-    fun disconnectAll() {
-        for ((_, client) in clients) {
-            client.close()
-        }
-        clients.clear()
-        discoveredTools.clear()
-    }
-
     fun isConnected(serverId: String): Boolean = clients.containsKey(serverId)
 
     private fun generateServerId(name: String, existing: List<McpServerConfig>): String {

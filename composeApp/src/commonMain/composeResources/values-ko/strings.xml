@@ -48,7 +48,6 @@
     <string name="settings_tab_services">서비스</string>
     <string name="settings_tab_tools">도구</string>
     <string name="settings_tab_integrations">통합</string>
-    <string name="tool_executing_content_description">도구 실행 중</string>
     <string name="tools_count">%1$d 도구</string>
     <string name="privacy_agree_prefix">서비스를 사용함으로써 </string>
     <string name="privacy_policy">개인정보 처리방침</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">사용자 입력 없이 AI가 기억과 작업을 검토할 수 있는 주기적 자가 점검. 활동 시간 동안 %1$d분마다 실행됩니다.</string>
     <string name="settings_heartbeat_prompt_label">하트비트 프롬프트</string>
     <string name="settings_heartbeat_recent">최근 활동</string>
-    <string name="settings_move_down">아래로 이동</string>
-    <string name="settings_move_up">위로 이동</string>
     <string name="settings_remove_service">제거</string>
     <string name="tool_configure_heartbeat_description">주기적 자가 점검 동작 구성</string>
     <string name="tool_configure_heartbeat_name">하트비트 구성</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">인터랙티브 모드 종료</string>
     <string name="interactive_ui_parsing_failed">UI 파싱 실패, 다시 시도 중…</string>
-    <string name="chat_history_interactive_label">인터랙티브 UI</string>
     <string name="settings_sponsors_monthly">월간 후원자</string>
     <string name="settings_sponsors_past">이전 후원자</string>
     <string name="snackbar_undo">실행 취소</string>

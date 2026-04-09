@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Služby</string>
     <string name="settings_tab_tools">Nástroje</string>
     <string name="settings_tab_integrations">Integrácie</string>
-    <string name="tool_executing_content_description">Nástroj sa vykonáva</string>
     <string name="tools_count">%1$d nástrojov</string>
     <string name="privacy_agree_prefix">Používaním služby súhlasíte s </string>
     <string name="privacy_policy">Zásadami ochrany osobných údajov</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Periodické sebakontroly, ktoré umožňujú AI kontrolovať spomienky a úlohy bez vstupu používateľa. Spúšťa sa každých %1$d minút počas aktívnych hodín.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Nedávna aktivita</string>
-    <string name="settings_move_down">Posunúť nadol</string>
-    <string name="settings_move_up">Posunúť nahor</string>
     <string name="settings_remove_service">Odstrániť</string>
     <string name="tool_configure_heartbeat_description">Konfigurovať správanie periodickej sebakontroly</string>
     <string name="tool_configure_heartbeat_name">Konfigurovať Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ukončiť interaktívny režim</string>
     <string name="interactive_ui_parsing_failed">Analýza používateľského rozhrania zlyhala, skúšam znova…</string>
-    <string name="chat_history_interactive_label">Interaktívne UI</string>
     <string name="settings_sponsors_monthly">Mesační sponzori</string>
     <string name="settings_sponsors_past">Predchádzajúci sponzori</string>
     <string name="snackbar_undo">Späť</string>

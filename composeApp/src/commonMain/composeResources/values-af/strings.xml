@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Gereedskap</string>
     <string name="settings_tab_integrations">Integrasies</string>
-    <string name="tool_executing_content_description">Gereedskap voer uit</string>
     <string name="tools_count">%1$d Gereedskap</string>
     <string name="privacy_agree_prefix">Deur die diens te gebruik, stem jy in tot die </string>
     <string name="privacy_policy">Privaatheidsbeleid</string>
@@ -108,8 +107,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_heartbeat_description">Periodieke selfkontroles wat die KI toelaat om herinneringe en take te hersien sonder gebruikerinvoer. Loop elke %1$d minute tydens aktiewe ure.</string>
     <string name="settings_heartbeat_prompt_label">Hartklop-opdrag</string>
     <string name="settings_heartbeat_recent">Onlangse Aktiwiteit</string>
-    <string name="settings_move_down">Skuif af</string>
-    <string name="settings_move_up">Skuif op</string>
     <string name="settings_remove_service">Verwyder</string>
     <string name="tool_configure_heartbeat_description">Stel periodieke selfkontrole-gedrag op</string>
     <string name="tool_configure_heartbeat_name">Stel Hartklop Op</string>
@@ -220,7 +217,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Verlaat interaktiewe modus</string>
     <string name="interactive_ui_parsing_failed">UI-ontleding het misluk, probeer weer…</string>
-    <string name="chat_history_interactive_label">Interaktiewe UI</string>
     <string name="settings_sponsors_monthly">Maandelikse borge</string>
     <string name="settings_sponsors_past">Vorige borge</string>
     <string name="snackbar_undo">Ontdoen</string>

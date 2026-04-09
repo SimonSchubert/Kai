@@ -77,8 +77,6 @@ class MemoryStore(private val appSettings: AppSettings) {
         updated
     }
 
-    fun getMemoriesByCategory(category: MemoryCategory): List<MemoryEntry> = loadMemories().filter { it.category == category }
-
     fun getPromotionCandidates(minHits: Int = 5): List<MemoryEntry> = loadMemories().filter { it.hitCount >= minHits }
 
     suspend fun forget(key: String): Boolean = mutex.withLock {

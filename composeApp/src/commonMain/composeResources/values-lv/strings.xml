@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Pakalpojumi</string>
     <string name="settings_tab_tools">Rīki</string>
     <string name="settings_tab_integrations">Integrācijas</string>
-    <string name="tool_executing_content_description">Rīks tiek izpildīts</string>
     <string name="tools_count">%1$d Rīki</string>
     <string name="privacy_agree_prefix">Izmantojot pakalpojumu, jūs piekrītat </string>
     <string name="privacy_policy">Privātuma politika</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Periodiskas pašpārbaudes, kas ļauj AI pārskatīt atmiņas un uzdevumus bez lietotāja ievades. Darbojas ik pēc %1$d minūtēm aktīvajās stundās.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat uzvedne</string>
     <string name="settings_heartbeat_recent">Nesenā darbība</string>
-    <string name="settings_move_down">Pārvietot uz leju</string>
-    <string name="settings_move_up">Pārvietot uz augšu</string>
     <string name="settings_remove_service">Noņemt</string>
     <string name="tool_configure_heartbeat_description">Konfigurēt periodiskas pašpārbaudes uzvedību</string>
     <string name="tool_configure_heartbeat_name">Konfigurēt Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Iziet no interaktīvā režīma</string>
     <string name="interactive_ui_parsing_failed">UI analīze neizdevās, mēģinu vēlreiz…</string>
-    <string name="chat_history_interactive_label">Interaktīvā UI</string>
     <string name="settings_sponsors_monthly">Ikmēneša sponsori</string>
     <string name="settings_sponsors_past">Iepriekšējie sponsori</string>
     <string name="snackbar_undo">Atsaukt</string>

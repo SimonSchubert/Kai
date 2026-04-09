@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Palvelut</string>
     <string name="settings_tab_tools">Ty\u00f6kalut</string>
     <string name="settings_tab_integrations">Integraatiot</string>
-    <string name="tool_executing_content_description">Ty\u00f6kalua suoritetaan</string>
     <string name="tools_count">%1$d Työkalua</string>
     <string name="privacy_agree_prefix">K\u00e4ytt\u00e4m\u00e4ll\u00e4 palvelua hyv\u00e4ksyt </string>
     <string name="privacy_policy">Tietosuojak\u00e4yt\u00e4nn\u00f6n</string>
@@ -108,8 +107,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_heartbeat_description">Jaksolliset itsetarkistukset, jotka antavat tekoälyn tarkistaa muistot ja tehtävät ilman käyttäjän syötettä. Suoritetaan %1$d minuutin välein aktiivisina tunteina.</string>
     <string name="settings_heartbeat_prompt_label">Sykekehote</string>
     <string name="settings_heartbeat_recent">Viimeaikainen toiminta</string>
-    <string name="settings_move_down">Siirrä alas</string>
-    <string name="settings_move_up">Siirrä ylös</string>
     <string name="settings_remove_service">Poista</string>
     <string name="tool_configure_heartbeat_description">Määritä jaksollinen itsetarkistuskäyttäytyminen</string>
     <string name="tool_configure_heartbeat_name">Määritä syke</string>
@@ -220,7 +217,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Poistu vuorovaikutustilasta</string>
     <string name="interactive_ui_parsing_failed">Käyttöliittymän jäsennys epäonnistui, yritetään uudelleen…</string>
-    <string name="chat_history_interactive_label">Interaktiivinen UI</string>
     <string name="settings_sponsors_monthly">Kuukausittaiset sponsorit</string>
     <string name="settings_sponsors_past">Aiemmat sponsorit</string>
     <string name="snackbar_undo">Kumoa</string>

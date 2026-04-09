@@ -48,7 +48,6 @@
     <string name="settings_tab_services">সেবাসমূহ</string>
     <string name="settings_tab_tools">টুলস</string>
     <string name="settings_tab_integrations">ইন্টিগ্রেশন</string>
-    <string name="tool_executing_content_description">টুল চলছে</string>
     <string name="tools_count">%1$d টুল</string>
     <string name="privacy_agree_prefix">পরিষেবা ব্যবহার করে, আপনি সম্মত হচ্ছেন </string>
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">পর্যায়ক্রমিক আত্ম-পরীক্ষা যা AI-কে ব্যবহারকারীর ইনপুট ছাড়াই স্মৃতি এবং কাজ পর্যালোচনা করতে দেয়। সক্রিয় সময়ে প্রতি %1$d মিনিটে চলে।</string>
     <string name="settings_heartbeat_prompt_label">হার্টবিট প্রম্পট</string>
     <string name="settings_heartbeat_recent">সাম্প্রতিক কার্যকলাপ</string>
-    <string name="settings_move_down">নিচে সরান</string>
-    <string name="settings_move_up">উপরে সরান</string>
     <string name="settings_remove_service">সরান</string>
     <string name="tool_configure_heartbeat_description">পর্যায়ক্রমিক আত্ম-পরীক্ষার আচরণ কনফিগার করুন</string>
     <string name="tool_configure_heartbeat_name">হার্টবিট কনফিগার করুন</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ইন্টারেক্টিভ মোড থেকে বের হন</string>
     <string name="interactive_ui_parsing_failed">UI পার্সিং ব্যর্থ, আবার চেষ্টা করা হচ্ছে…</string>
-    <string name="chat_history_interactive_label">ইন্টারেক্টিভ UI</string>
     <string name="settings_sponsors_monthly">মাসিক স্পনসর</string>
     <string name="settings_sponsors_past">পূর্ববর্তী স্পনসর</string>
     <string name="snackbar_undo">পূর্বাবস্থায় ফেরান</string>

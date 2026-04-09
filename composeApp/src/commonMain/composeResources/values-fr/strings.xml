@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Services</string>
     <string name="settings_tab_tools">Outils</string>
     <string name="settings_tab_integrations">Intégrations</string>
-    <string name="tool_executing_content_description">Outil en cours d'exécution</string>
     <string name="tools_count">%1$d Outils</string>
     <string name="privacy_agree_prefix">En utilisant le service, vous acceptez la </string>
     <string name="privacy_policy">Politique de confidentialité</string>
@@ -108,8 +107,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_heartbeat_description">Vérifications périodiques permettant à l'IA de revoir les souvenirs et les tâches sans intervention de l'utilisateur. S'exécute toutes les %1$d minutes pendant les heures actives.</string>
     <string name="settings_heartbeat_prompt_label">Prompt de battement</string>
     <string name="settings_heartbeat_recent">Activité Récente</string>
-    <string name="settings_move_down">Déplacer vers le bas</string>
-    <string name="settings_move_up">Déplacer vers le haut</string>
     <string name="settings_remove_service">Supprimer</string>
     <string name="tool_configure_heartbeat_description">Configurer le comportement de vérification périodique</string>
     <string name="tool_configure_heartbeat_name">Configurer le battement</string>
@@ -220,7 +217,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Quitter le mode interactif</string>
     <string name="interactive_ui_parsing_failed">Échec de l'analyse de l'interface, nouvel essai…</string>
-    <string name="chat_history_interactive_label">UI interactive</string>
     <string name="settings_sponsors_monthly">Sponsors mensuels</string>
     <string name="settings_sponsors_past">Anciens sponsors</string>
     <string name="snackbar_undo">Annuler</string>

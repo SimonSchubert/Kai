@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Servizi</string>
     <string name="settings_tab_tools">Strumenti</string>
     <string name="settings_tab_integrations">Integrazioni</string>
-    <string name="tool_executing_content_description">Strumento in esecuzione</string>
     <string name="tools_count">%1$d Strumenti</string>
     <string name="privacy_agree_prefix">Utilizzando il servizio, accetti la </string>
     <string name="privacy_policy">Informativa sulla privacy</string>
@@ -108,8 +107,6 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_heartbeat_description">Controlli periodici che permettono all'IA di rivedere ricordi e attività senza input dell'utente. Viene eseguito ogni %1$d minuti durante le ore attive.</string>
     <string name="settings_heartbeat_prompt_label">Prompt del battito</string>
     <string name="settings_heartbeat_recent">Attività Recente</string>
-    <string name="settings_move_down">Sposta in basso</string>
-    <string name="settings_move_up">Sposta in alto</string>
     <string name="settings_remove_service">Rimuovi</string>
     <string name="tool_configure_heartbeat_description">Configura il comportamento del controllo periodico</string>
     <string name="tool_configure_heartbeat_name">Configura Battito</string>
@@ -220,7 +217,6 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Esci dalla modalità interattiva</string>
     <string name="interactive_ui_parsing_failed">Analisi dell'interfaccia non riuscita, nuovo tentativo…</string>
-    <string name="chat_history_interactive_label">UI interattiva</string>
     <string name="settings_sponsors_monthly">Sponsor mensili</string>
     <string name="settings_sponsors_past">Sponsor precedenti</string>
     <string name="snackbar_undo">Annulla</string>

@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Servetschs</string>
     <string name="settings_tab_tools">Utensils</string>
     <string name="settings_tab_integrations">Integraziuns</string>
-    <string name="tool_executing_content_description">Utensil en execuziun</string>
     <string name="tools_count">%1$d utensils</string>
     <string name="privacy_agree_prefix">Cun utilisar il servetsch, acceptais Vus la </string>
     <string name="privacy_policy">Directiva da protecziun da datas</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Auto-controllas periodicas che permettan a l'IA da controllar regurdanzas ed incumbensas senza input da l'utilisader. Curra mintga %1$d minutas durant las uras activas.</string>
     <string name="settings_heartbeat_prompt_label">Prompt da Heartbeat</string>
     <string name="settings_heartbeat_recent">Activitad recenta</string>
-    <string name="settings_move_down">Spustar giu</string>
-    <string name="settings_move_up">Spustar si</string>
     <string name="settings_remove_service">Stizzar</string>
     <string name="tool_configure_heartbeat_description">Configurar il cumportament da l'auto-controlla periodica</string>
     <string name="tool_configure_heartbeat_name">Configurar Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Bandunar il modus interactiv</string>
     <string name="interactive_ui_parsing_failed">L'analisa da l'UI n'è betg reussida, emprova danovamain…</string>
-    <string name="chat_history_interactive_label">UI interactiva</string>
     <string name="settings_sponsors_monthly">Sponsurs mensils</string>
     <string name="settings_sponsors_past">Sponsurs precedents</string>
     <string name="snackbar_undo">Revocar</string>

@@ -5,34 +5,6 @@ import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
 
-val Icons.Filled.ExpandLess: ImageVector by lazy {
-    materialIcon(name = "Filled.ExpandLess") {
-        materialPath {
-            moveTo(12.0f, 8.0f)
-            lineToRelative(-6.0f, 6.0f)
-            lineToRelative(1.41f, 1.41f)
-            lineTo(12.0f, 10.83f)
-            lineToRelative(4.59f, 4.58f)
-            lineTo(18.0f, 14.0f)
-            close()
-        }
-    }
-}
-
-val Icons.Filled.ExpandMore: ImageVector by lazy {
-    materialIcon(name = "Filled.ExpandMore") {
-        materialPath {
-            moveTo(16.59f, 8.59f)
-            lineTo(12.0f, 13.17f)
-            lineTo(7.41f, 8.59f)
-            lineTo(6.0f, 10.0f)
-            lineToRelative(6.0f, 6.0f)
-            lineToRelative(6.0f, -6.0f)
-            close()
-        }
-    }
-}
-
 val Icons.Filled.Replay: ImageVector by lazy {
     materialIcon(name = "Filled.Replay") {
         materialPath {

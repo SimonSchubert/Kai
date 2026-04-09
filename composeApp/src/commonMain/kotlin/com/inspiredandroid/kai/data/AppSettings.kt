@@ -116,12 +116,6 @@ class AppSettings(private val settings: Settings) {
     // Model selection
     fun getSelectedModelId(service: Service): String = settings.getString(service.modelIdKey, service.defaultModel ?: "")
 
-    fun setSelectedModelId(service: Service, modelId: String) {
-        if (service.modelIdKey.isNotEmpty()) {
-            settings.putString(service.modelIdKey, modelId)
-        }
-    }
-
     // Base URL (for self-hosted services like OpenAI-compatible APIs)
     fun getBaseUrl(service: Service): String = when (service) {
         Service.OpenAICompatible -> settings.getString(service.baseUrlKey, Service.DEFAULT_OPENAI_COMPATIBLE_BASE_URL)
@@ -525,10 +519,6 @@ class AppSettings(private val settings: Settings) {
     }
 
     fun getSplinterlandsPostingKey(): String = settings.getString(KEY_SPLINTERLANDS_POSTING_KEY, "")
-
-    fun setSplinterlandsPostingKey(key: String) {
-        settings.putString(KEY_SPLINTERLANDS_POSTING_KEY, key)
-    }
 
     fun getSplinterlandsPostingKey(accountId: String): String = settings.getString("${KEY_SPLINTERLANDS_POSTING_KEY}_$accountId", "")
         .ifEmpty { getSplinterlandsPostingKey() } // fallback to legacy key

@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Szolgáltatások</string>
     <string name="settings_tab_tools">Eszközök</string>
     <string name="settings_tab_integrations">Integrációk</string>
-    <string name="tool_executing_content_description">Eszköz végrehajtás alatt</string>
     <string name="tools_count">%1$d Eszköz</string>
     <string name="privacy_agree_prefix">A szolgáltatás használatával elfogadod az </string>
     <string name="privacy_policy">Adatvédelmi irányelveket</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Időszakos önellenőrzések, amelyek lehetővé teszik az AI számára az emlékek és feladatok áttekintését felhasználói beavatkozás nélkül. Minden %1$d percben fut az aktív órákban.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
     <string name="settings_heartbeat_recent">Legutóbbi tevékenység</string>
-    <string name="settings_move_down">Mozgatás le</string>
-    <string name="settings_move_up">Mozgatás fel</string>
     <string name="settings_remove_service">Eltávolítás</string>
     <string name="tool_configure_heartbeat_description">Időszakos önellenőrzés viselkedésének beállítása</string>
     <string name="tool_configure_heartbeat_name">Heartbeat beállítása</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Kilépés az interaktív módból</string>
     <string name="interactive_ui_parsing_failed">A felhasználói felület elemzése sikertelen, újrapróbálás…</string>
-    <string name="chat_history_interactive_label">Interaktív UI</string>
     <string name="settings_sponsors_monthly">Havi szponzorok</string>
     <string name="settings_sponsors_past">Korábbi szponzorok</string>
     <string name="snackbar_undo">Visszavonás</string>

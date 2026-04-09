@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Servicii</string>
     <string name="settings_tab_tools">Instrumente</string>
     <string name="settings_tab_integrations">Integrări</string>
-    <string name="tool_executing_content_description">Instrumentul se execută</string>
     <string name="tools_count">%1$d instrumente</string>
     <string name="privacy_agree_prefix">Prin utilizarea serviciului, sunteți de acord cu </string>
     <string name="privacy_policy">Politica de confidențialitate</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Autoverificări periodice care permit IA să verifice amintirile și sarcinile fără input de la utilizator. Rulează la fiecare %1$d minute în orele active.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Activitate recentă</string>
-    <string name="settings_move_down">Mută în jos</string>
-    <string name="settings_move_up">Mută în sus</string>
     <string name="settings_remove_service">Elimină</string>
     <string name="tool_configure_heartbeat_description">Configurează comportamentul autoverificării periodice</string>
     <string name="tool_configure_heartbeat_name">Configurare Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ieșire din modul interactiv</string>
     <string name="interactive_ui_parsing_failed">Analiza UI a eșuat, se încearcă din nou…</string>
-    <string name="chat_history_interactive_label">UI interactiv</string>
     <string name="settings_sponsors_monthly">Sponsori lunari</string>
     <string name="settings_sponsors_past">Sponsori anteriori</string>
     <string name="snackbar_undo">Anulare</string>

@@ -48,7 +48,6 @@
     <string name="settings_tab_services">सेवा</string>
     <string name="settings_tab_tools">साधने</string>
     <string name="settings_tab_integrations">एकत्रीकरणे</string>
-    <string name="tool_executing_content_description">साधन चालू आहे</string>
     <string name="tools_count">%1$d साधने</string>
     <string name="privacy_agree_prefix">सेवा वापरून, तुम्ही सहमत आहात </string>
     <string name="privacy_policy">गोपनीयता धोरण</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">नियतकालिक स्व-तपासण्या ज्या AI ला वापरकर्ता इनपुटशिवाय आठवणी आणि कार्ये तपासू देतात. सक्रिय तासांमध्ये दर %1$d मिनिटांनी चालते.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat प्रॉम्प्ट</string>
     <string name="settings_heartbeat_recent">अलीकडील क्रियाकलाप</string>
-    <string name="settings_move_down">खाली हलवा</string>
-    <string name="settings_move_up">वर हलवा</string>
     <string name="settings_remove_service">काढा</string>
     <string name="tool_configure_heartbeat_description">नियतकालिक स्व-तपासणी वर्तन कॉन्फिगर करा</string>
     <string name="tool_configure_heartbeat_name">Heartbeat कॉन्फिगर करा</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">इंटरॅक्टिव्ह मोडमधून बाहेर पडा</string>
     <string name="interactive_ui_parsing_failed">UI पार्सिंग अयशस्वी, पुन्हा प्रयत्न करत आहे…</string>
-    <string name="chat_history_interactive_label">इंटरॅक्टिव्ह UI</string>
     <string name="settings_sponsors_monthly">मासिक प्रायोजक</string>
     <string name="settings_sponsors_past">मागील प्रायोजक</string>
     <string name="snackbar_undo">पूर्ववत करा</string>

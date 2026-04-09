@@ -48,7 +48,6 @@
     <string name="settings_tab_services">సేవలు</string>
     <string name="settings_tab_tools">టూల్స్</string>
     <string name="settings_tab_integrations">ఇంటిగ్రేషన్లు</string>
-    <string name="tool_executing_content_description">సాధనం నడుస్తోంది</string>
     <string name="tools_count">%1$d సాధనాలు</string>
     <string name="privacy_agree_prefix">సేవను ఉపయోగించడం ద్వారా, మీరు అంగీకరిస్తారు </string>
     <string name="privacy_policy">గోప్యతా విధానం</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">వినియోగదారు ఇన్‌పుట్ లేకుండా AI జ్ఞాపకాలు మరియు టాస్క్‌లను సమీక్షించడానికి అనుమతించే ఆవర్తన స్వీయ తనిఖీలు. సక్రియ గంటల్లో ప్రతి %1$d నిమిషాలకు అమలవుతుంది.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat ప్రాంప్ట్</string>
     <string name="settings_heartbeat_recent">ఇటీవలి కార్యకలాపం</string>
-    <string name="settings_move_down">కిందికి జరుపు</string>
-    <string name="settings_move_up">పైకి జరుపు</string>
     <string name="settings_remove_service">తొలగించు</string>
     <string name="tool_configure_heartbeat_description">ఆవర్తన స్వీయ తనిఖీ ప్రవర్తనను కాన్ఫిగర్ చేయి</string>
     <string name="tool_configure_heartbeat_name">Heartbeat కాన్ఫిగర్ చేయి</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ఇంటరాక్టివ్ మోడ్ నుండి నిష్క్రమించు</string>
     <string name="interactive_ui_parsing_failed">UI పార్సింగ్ విఫలమైంది, మళ్ళీ ప్రయత్నిస్తోంది…</string>
-    <string name="chat_history_interactive_label">ఇంటరాక్టివ్ UI</string>
     <string name="settings_sponsors_monthly">నెలవారీ స్పాన్సర్లు</string>
     <string name="settings_sponsors_past">మునుపటి స్పాన్సర్లు</string>
     <string name="snackbar_undo">రద్దు చేయి</string>

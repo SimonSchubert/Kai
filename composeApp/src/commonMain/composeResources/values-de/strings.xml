@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Werkzeuge</string>
     <string name="settings_tab_integrations">Integrationen</string>
-    <string name="tool_executing_content_description">Werkzeug wird ausgeführt</string>
     <string name="tools_count">%1$d Werkzeuge</string>
     <string name="privacy_agree_prefix">Mit der Nutzung des Dienstes stimmst du der </string>
     <string name="privacy_policy">Datenschutzrichtlinie</string>
@@ -108,8 +107,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_heartbeat_description">Periodische Selbstprüfungen, die der KI ermöglichen, Erinnerungen und Aufgaben ohne Benutzereingabe zu überprüfen. Läuft alle %1$d Minuten während aktiver Stunden.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat-Prompt</string>
     <string name="settings_heartbeat_recent">Letzte Aktivität</string>
-    <string name="settings_move_down">Nach unten</string>
-    <string name="settings_move_up">Nach oben</string>
     <string name="settings_remove_service">Entfernen</string>
     <string name="tool_configure_heartbeat_description">Periodisches Selbstprüfungsverhalten konfigurieren</string>
     <string name="tool_configure_heartbeat_name">Heartbeat konfigurieren</string>
@@ -220,7 +217,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Interaktiven Modus verlassen</string>
     <string name="interactive_ui_parsing_failed">UI-Analyse fehlgeschlagen, erneuter Versuch…</string>
-    <string name="chat_history_interactive_label">Interaktive UI</string>
     <string name="settings_sponsors_monthly">Monatliche Sponsoren</string>
     <string name="settings_sponsors_past">Frühere Sponsoren</string>
     <string name="snackbar_undo">Rückgängig</string>

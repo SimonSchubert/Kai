@@ -31,10 +31,6 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
         return appSettings.getInstanceModelId(instanceId)
     }
 
-    fun setInstanceId(instanceId: String) {
-        appSettings.setSplinterlandsInstanceId(instanceId)
-    }
-
     // ── Multi-service LLM instances (priority order) ──
 
     fun getInstanceIds(): List<String> {
@@ -77,9 +73,6 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
         }
     }
 
-    /** Legacy single-account getter for BattleRunner compatibility. */
-    fun getAccount(): SplinterlandsAccount? = getAccounts().firstOrNull()
-
     fun getAccountById(id: String): SplinterlandsAccount? = getAccounts().find { it.id == id }
 
     suspend fun saveAccount(account: SplinterlandsAccount) = mutex.withLock {
@@ -101,12 +94,6 @@ class SplinterlandsStore(private val appSettings: AppSettings) {
     }
 
     fun getPostingKey(accountId: String): String = appSettings.getSplinterlandsPostingKey(accountId)
-
-    /** Legacy getter — returns first account's posting key. */
-    fun getPostingKey(): String {
-        val firstId = getAccounts().firstOrNull()?.id ?: return appSettings.getSplinterlandsPostingKey()
-        return getPostingKey(firstId)
-    }
 
     suspend fun setPostingKey(accountId: String, key: String) {
         appSettings.setSplinterlandsPostingKey(accountId, key)

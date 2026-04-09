@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Tjenester</string>
     <string name="settings_tab_tools">Verktøy</string>
     <string name="settings_tab_integrations">Integrasjoner</string>
-    <string name="tool_executing_content_description">Verktøy kjører</string>
     <string name="tools_count">%1$d Verktøy</string>
     <string name="privacy_agree_prefix">Ved å bruke tjenesten godtar du </string>
     <string name="privacy_policy">Personvernerklæringen</string>
@@ -108,8 +107,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_heartbeat_description">Periodiske selvsjekker som lar AI gjennomgå minner og oppgaver uten brukerinndata. Kjøres hvert %1$d minutt i aktive timer.</string>
     <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
     <string name="settings_heartbeat_recent">Nylig aktivitet</string>
-    <string name="settings_move_down">Flytt ned</string>
-    <string name="settings_move_up">Flytt opp</string>
     <string name="settings_remove_service">Fjern</string>
     <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvsjekk-atferd</string>
     <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
@@ -220,7 +217,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Avslutt interaktiv modus</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislyktes, prøver igjen…</string>
-    <string name="chat_history_interactive_label">Interaktivt UI</string>
     <string name="settings_sponsors_monthly">Månedlige sponsorer</string>
     <string name="settings_sponsors_past">Tidligere sponsorer</string>
     <string name="snackbar_undo">Angre</string>

@@ -1574,15 +1574,6 @@ fun validateTeam(
     return issues
 }
 
-fun buildFeedbackMessage(issues: List<String>): String = buildString {
-    appendLine("Your team is INVALID:")
-    for (issue in issues) {
-        appendLine("- $issue")
-    }
-    appendLine()
-    append("Fix these errors. Same constraints apply. Return ONLY valid JSON.")
-}
-
 // ── Silent fixes (last resort) ──
 
 fun applyFixes(
@@ -1683,24 +1674,3 @@ fun applyFixes(
     return TeamSelection(summonerUid, fixed, allyColor)
 }
 
-// ── Legacy single-call parser (delegates to new functions) ──
-
-fun parseLlmResponse(
-    responseText: String,
-    idMap: Map<Int, String>,
-    summoners: List<SummonerEntry>,
-    monsters: List<CardEntry>,
-    manaCap: Int,
-    maxMonsters: Int,
-    rulesets: Set<String>,
-): TeamSelection? {
-    val pick = parseLlmPick(responseText, idMap) ?: return null
-    val issues = validateTeam(pick.summonerUid, pick.monsterUids, summoners, monsters, manaCap, maxMonsters, rulesets)
-    return if (issues.isEmpty()) {
-        val summonerEntry = summoners.find { it.uid == pick.summonerUid } ?: return null
-        val allyColor = determineDragonAllyColor(summonerEntry.color, pick.monsterUids, monsters.associateBy { it.uid })
-        TeamSelection(pick.summonerUid, pick.monsterUids, allyColor)
-    } else {
-        applyFixes(pick.summonerUid, pick.monsterUids, summoners, monsters, manaCap, maxMonsters, rulesets)
-    }
-}

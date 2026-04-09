@@ -48,7 +48,6 @@
     <string name="settings_tab_services">સેવાઓ</string>
     <string name="settings_tab_tools">ટૂલ્સ</string>
     <string name="settings_tab_integrations">એકીકરણો</string>
-    <string name="tool_executing_content_description">ટૂલ ચાલી રહ્યું છે</string>
     <string name="tools_count">%1$d ટૂલ્સ</string>
     <string name="privacy_agree_prefix">સેવાનો ઉપયોગ કરીને, તમે સંમત થાઓ છો </string>
     <string name="privacy_policy">ગોપનીયતા નીતિ</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">સમયાંતરે સ્વ-તપાસ જે AI ને વપરાશકર્તાના ઇનપુટ વિના યાદો અને કાર્યોની સમીક્ષા કરવા દે છે. સક્રિય કલાકો દરમિયાન દર %1$d મિનિટે ચાલે છે.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat પ્રોમ્પ્ટ</string>
     <string name="settings_heartbeat_recent">તાજેતરની પ્રવૃત્તિ</string>
-    <string name="settings_move_down">નીચે ખસેડો</string>
-    <string name="settings_move_up">ઉપર ખસેડો</string>
     <string name="settings_remove_service">દૂર કરો</string>
     <string name="tool_configure_heartbeat_description">સમયાંતરે સ્વ-તપાસ વર્તન ગોઠવો</string>
     <string name="tool_configure_heartbeat_name">Heartbeat ગોઠવો</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ઇન્ટરેક્ટિવ મોડમાંથી બહાર નીકળો</string>
     <string name="interactive_ui_parsing_failed">UI પાર્સિંગ નિષ્ફળ, ફરીથી પ્રયાસ કરી રહ્યા છીએ…</string>
-    <string name="chat_history_interactive_label">ઇન્ટરેક્ટિવ UI</string>
     <string name="settings_sponsors_monthly">માસિક પ્રાયોજકો</string>
     <string name="settings_sponsors_past">અગાઉના પ્રાયોજકો</string>
     <string name="snackbar_undo">પૂર્વવત્ કરો</string>

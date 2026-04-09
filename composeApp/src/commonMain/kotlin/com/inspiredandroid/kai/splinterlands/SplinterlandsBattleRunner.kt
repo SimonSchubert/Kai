@@ -76,12 +76,6 @@ class SplinterlandsBattleRunner(
         }
     }
 
-    /** Legacy start for first account. */
-    fun start() {
-        val firstId = store.getAccounts().firstOrNull()?.id ?: return
-        start(firstId)
-    }
-
     fun stop(accountId: String) {
         val phase = getStatus(accountId).phase
         if (phase in MID_BATTLE_PHASES) {

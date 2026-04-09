@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Tjenester</string>
     <string name="settings_tab_tools">Værktøjer</string>
     <string name="settings_tab_integrations">Integrationer</string>
-    <string name="tool_executing_content_description">Værktøj udfører</string>
     <string name="tools_count">%1$d Værktøjer</string>
     <string name="privacy_agree_prefix">Ved at bruge tjenesten accepterer du </string>
     <string name="privacy_policy">Privatlivspolitikken</string>
@@ -108,8 +107,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_heartbeat_description">Periodiske selvtjek der lader AI gennemgå erindringer og opgaver uden brugerinput. Kører hver %1$d minut i aktive timer.</string>
     <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
     <string name="settings_heartbeat_recent">Seneste aktivitet</string>
-    <string name="settings_move_down">Flyt ned</string>
-    <string name="settings_move_up">Flyt op</string>
     <string name="settings_remove_service">Fjern</string>
     <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvtjek-adfærd</string>
     <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
@@ -220,7 +217,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Forlad interaktiv tilstand</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislykkedes, prøver igen…</string>
-    <string name="chat_history_interactive_label">Interaktiv UI</string>
     <string name="settings_sponsors_monthly">Månedlige sponsorer</string>
     <string name="settings_sponsors_past">Tidligere sponsorer</string>
     <string name="snackbar_undo">Fortryd</string>

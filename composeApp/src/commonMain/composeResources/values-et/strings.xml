@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Teenused</string>
     <string name="settings_tab_tools">Tööriistad</string>
     <string name="settings_tab_integrations">Integratsioonid</string>
-    <string name="tool_executing_content_description">Tööriista käivitamine</string>
     <string name="tools_count">%1$d Tööriistad</string>
     <string name="privacy_agree_prefix">Teenuse kasutamisega nõustute </string>
     <string name="privacy_policy">Privaatsuspoliitikaga</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Perioodilised enesekontrollid, mis võimaldavad AI-l vaadata üle mälestused ja ülesanded ilma kasutaja sisendita. Käivitub iga %1$d minuti järel aktiivsetel tundidel.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat-viip</string>
     <string name="settings_heartbeat_recent">Hiljutine tegevus</string>
-    <string name="settings_move_down">Liiguta alla</string>
-    <string name="settings_move_up">Liiguta üles</string>
     <string name="settings_remove_service">Eemalda</string>
     <string name="tool_configure_heartbeat_description">Seadista perioodilise enesekontrolli käitumist</string>
     <string name="tool_configure_heartbeat_name">Seadista Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Välju interaktiivsest režiimist</string>
     <string name="interactive_ui_parsing_failed">UI analüüs ebaõnnestus, proovin uuesti…</string>
-    <string name="chat_history_interactive_label">Interaktiivne UI</string>
     <string name="settings_sponsors_monthly">Igakuised sponsorid</string>
     <string name="settings_sponsors_past">Varasemad sponsorid</string>
     <string name="snackbar_undo">Võta tagasi</string>

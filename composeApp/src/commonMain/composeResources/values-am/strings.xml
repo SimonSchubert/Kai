@@ -41,7 +41,6 @@
     <string name="settings_tab_services">አገልግሎቶች</string>
     <string name="settings_tab_tools">መሳሪያዎች</string>
     <string name="settings_tab_integrations">ውህደቶች</string>
-    <string name="tool_executing_content_description">መሳሪያ በማስፈጸም ላይ</string>
     <string name="tools_count">%1$d መሳሪያዎች</string>
     <string name="privacy_agree_prefix">አገልግሎቱን በመጠቀም፣ የሚከተለውን ይቀበላሉ </string>
     <string name="privacy_policy">የግላዊነት ፖሊሲ</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">AI ያለ ተጠቃሚ ግብአት ትውስታዎችን እና ስራዎችን እንዲገመግም የሚያስችሉ ወቅታዊ ራስ-ምርመራዎች። በየ %1$d ደቂቃ በንቁ ሰዓታት ይሰራል።</string>
     <string name="settings_heartbeat_prompt_label">የልብ ምት ጥያቄ</string>
     <string name="settings_heartbeat_recent">የቅርብ ጊዜ እንቅስቃሴ</string>
-    <string name="settings_move_down">ወደ ታች አንቀሳቅስ</string>
-    <string name="settings_move_up">ወደ ላይ አንቀሳቅስ</string>
     <string name="settings_remove_service">አስወግድ</string>
     <string name="tool_configure_heartbeat_description">ወቅታዊ ራስ-ምርመራ ባህሪ አዋቅር</string>
     <string name="tool_configure_heartbeat_name">ልብ ምት አዋቅር</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">መስተጋብር ሁነታን ውጣ</string>
     <string name="interactive_ui_parsing_failed">UI ትንተና አልተሳካም፣ እንደገና በመሞከር ላይ…</string>
-    <string name="chat_history_interactive_label">መስተጋብራዊ UI</string>
     <string name="settings_sponsors_monthly">ወርሃዊ ስፖንሰሮች</string>
     <string name="settings_sponsors_past">ቀድሞ ስፖንሰሮች</string>
     <string name="snackbar_undo">ቀልብስ</string>

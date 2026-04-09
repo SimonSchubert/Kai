@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Сэрвісы</string>
     <string name="settings_tab_tools">Інструменты</string>
     <string name="settings_tab_integrations">Інтэграцыі</string>
-    <string name="tool_executing_content_description">Інструмент выконваецца</string>
     <string name="tools_count">%1$d Інструментаў</string>
     <string name="privacy_agree_prefix">Выкарыстоўваючы сэрвіс, вы згаджаецеся з </string>
     <string name="privacy_policy">Палітыка прыватнасці</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Перыядычныя самаправеркі, якія дазваляюць AI праглядаць успаміны і задачы без удзелу карыстальніка. Запускаецца кожныя %1$d хвілін у актыўныя гадзіны.</string>
     <string name="settings_heartbeat_prompt_label">Промпт Heartbeat</string>
     <string name="settings_heartbeat_recent">Апошняя актыўнасць</string>
-    <string name="settings_move_down">Перамясціць уніз</string>
-    <string name="settings_move_up">Перамясціць уверх</string>
     <string name="settings_remove_service">Выдаліць</string>
     <string name="tool_configure_heartbeat_description">Наладзіць паводзіны перыядычнай самаправеркі</string>
     <string name="tool_configure_heartbeat_name">Наладзіць Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Выйсці з інтэрактыўнага рэжыму</string>
     <string name="interactive_ui_parsing_failed">Не ўдалося разабраць UI, паўторная спроба…</string>
-    <string name="chat_history_interactive_label">Інтэрактыўны UI</string>
     <string name="settings_sponsors_monthly">Штомесячныя спонсары</string>
     <string name="settings_sponsors_past">Папярэднія спонсары</string>
     <string name="snackbar_undo">Адмяніць</string>

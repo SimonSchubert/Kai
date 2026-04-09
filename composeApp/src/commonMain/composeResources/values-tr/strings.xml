@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Hizmetler</string>
     <string name="settings_tab_tools">Araçlar</string>
     <string name="settings_tab_integrations">Entegrasyonlar</string>
-    <string name="tool_executing_content_description">Araç çalışıyor</string>
     <string name="tools_count">%1$d Araç</string>
     <string name="privacy_agree_prefix">Hizmeti kullanarak </string>
     <string name="privacy_policy">Gizlilik Politikası</string>
@@ -108,8 +107,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_heartbeat_description">Yapay zekanın kullanıcı girişi olmadan anıları ve görevleri gözden geçirmesine olanak tanıyan periyodik öz kontroller. Aktif saatlerde her %1$d dakikada bir çalışır.</string>
     <string name="settings_heartbeat_prompt_label">Kalp Atışı İstemi</string>
     <string name="settings_heartbeat_recent">Son Etkinlik</string>
-    <string name="settings_move_down">Aşağı taşı</string>
-    <string name="settings_move_up">Yukarı taşı</string>
     <string name="settings_remove_service">Kaldır</string>
     <string name="tool_configure_heartbeat_description">Periyodik öz kontrol davranışını yapılandır</string>
     <string name="tool_configure_heartbeat_name">Kalp Atışını Yapılandır</string>
@@ -220,7 +217,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Etkileşimli moddan çık</string>
     <string name="interactive_ui_parsing_failed">UI ayrıştırma başarısız oldu, tekrar deneniyor…</string>
-    <string name="chat_history_interactive_label">Etkileşimli UI</string>
     <string name="settings_sponsors_monthly">Aylık Sponsorlar</string>
     <string name="settings_sponsors_past">Önceki Sponsorlar</string>
     <string name="snackbar_undo">Geri al</string>

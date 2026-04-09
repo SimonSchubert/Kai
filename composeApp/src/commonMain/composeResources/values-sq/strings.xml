@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Shërbimet</string>
     <string name="settings_tab_tools">Mjetet</string>
     <string name="settings_tab_integrations">Integrimet</string>
-    <string name="tool_executing_content_description">Mjeti po ekzekutohet</string>
     <string name="tools_count">%1$d mjete</string>
     <string name="privacy_agree_prefix">Duke përdorur shërbimin, ju pranoni </string>
     <string name="privacy_policy">Politikën e privatësisë</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Vetëkontrolle periodike që lejojnë AI-n të shqyrtojë kujtimet dhe detyrat pa ndërhyrje të përdoruesit. Ekzekutohet çdo %1$d minuta gjatë orëve aktive.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Aktiviteti i fundit</string>
-    <string name="settings_move_down">Lëviz poshtë</string>
-    <string name="settings_move_up">Lëviz lart</string>
     <string name="settings_remove_service">Hiq</string>
     <string name="tool_configure_heartbeat_description">Konfiguro sjelljen e vetëkontrollit periodik</string>
     <string name="tool_configure_heartbeat_name">Konfiguro Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Dil nga mënyra ndërvepruese</string>
     <string name="interactive_ui_parsing_failed">Analizimi i UI dështoi, po provohet përsëri…</string>
-    <string name="chat_history_interactive_label">UI interaktive</string>
     <string name="settings_sponsors_monthly">Sponsorë mujorë</string>
     <string name="settings_sponsors_past">Sponsorë të mëparshëm</string>
     <string name="snackbar_undo">Zhbëj</string>

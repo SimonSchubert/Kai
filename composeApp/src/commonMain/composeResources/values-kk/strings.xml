@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Қызметтер</string>
     <string name="settings_tab_tools">Құралдар</string>
     <string name="settings_tab_integrations">Интеграциялар</string>
-    <string name="tool_executing_content_description">Құрал орындалуда</string>
     <string name="tools_count">%1$d Құрал</string>
     <string name="privacy_agree_prefix">Қызметті пайдалана отырып, сіз келесімен келісесіз </string>
     <string name="privacy_policy">Құпиялылық саясаты</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">AI-ға пайдаланушы енгізуінсіз естеліктер мен тапсырмаларды қарауға мүмкіндік беретін мерзімді өзін-өзі тексерулер. Белсенді сағаттарда әр %1$d минут сайын іске қосылады.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat промпты</string>
     <string name="settings_heartbeat_recent">Соңғы белсенділік</string>
-    <string name="settings_move_down">Төмен жылжыту</string>
-    <string name="settings_move_up">Жоғары жылжыту</string>
     <string name="settings_remove_service">Жою</string>
     <string name="tool_configure_heartbeat_description">Мерзімді өзін-өзі тексеру әрекетін теңшеу</string>
     <string name="tool_configure_heartbeat_name">Heartbeat теңшеу</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Интерактивті режимнен шығу</string>
     <string name="interactive_ui_parsing_failed">UI талдауы сәтсіз аяқталды, қайта әрекет жасалуда…</string>
-    <string name="chat_history_interactive_label">Интерактивті UI</string>
     <string name="settings_sponsors_monthly">Ай сайынғы демеушілер</string>
     <string name="settings_sponsors_past">Бұрынғы демеушілер</string>
     <string name="snackbar_undo">Болдырмау</string>

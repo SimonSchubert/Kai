@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Huduma</string>
     <string name="settings_tab_tools">Zana</string>
     <string name="settings_tab_integrations">Muunganisho</string>
-    <string name="tool_executing_content_description">Zana inatekelezwa</string>
     <string name="tools_count">%1$d Zana</string>
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Ukaguzi wa kiotomatiki unaoruhusu AI kukagua kumbukumbu na kazi bila mchango wa mtumiaji. Inafanya kazi kila dakika %1$d wakati wa masaa ya shughuli.</string>
     <string name="settings_heartbeat_prompt_label">Maelekezo ya Heartbeat</string>
     <string name="settings_heartbeat_recent">Shughuli za Hivi Karibuni</string>
-    <string name="settings_move_down">Sogeza chini</string>
-    <string name="settings_move_up">Sogeza juu</string>
     <string name="settings_remove_service">Ondoa</string>
     <string name="tool_configure_heartbeat_description">Sanidi tabia ya ukaguzi wa kiotomatiki</string>
     <string name="tool_configure_heartbeat_name">Sanidi Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ondoka hali ya mwingiliano</string>
     <string name="interactive_ui_parsing_failed">Uchambuzi wa UI umeshindwa, inajaribu tena…</string>
-    <string name="chat_history_interactive_label">UI ya mwingiliano</string>
     <string name="settings_sponsors_monthly">Wadhamini wa kila mwezi</string>
     <string name="settings_sponsors_past">Wadhamini wa awali</string>
     <string name="snackbar_undo">Tendua</string>

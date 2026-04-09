@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Layanan</string>
     <string name="settings_tab_tools">Alat</string>
     <string name="settings_tab_integrations">Integrasi</string>
-    <string name="tool_executing_content_description">Alat sedang berjalan</string>
     <string name="tools_count">%1$d Alat</string>
     <string name="privacy_agree_prefix">Dengan menggunakan layanan, Anda menyetujui </string>
     <string name="privacy_policy">Kebijakan Privasi</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Pemeriksaan mandiri berkala yang memungkinkan AI meninjau memori dan tugas tanpa masukan pengguna. Berjalan setiap %1$d menit selama jam aktif.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Aktivitas Terkini</string>
-    <string name="settings_move_down">Pindah ke bawah</string>
-    <string name="settings_move_up">Pindah ke atas</string>
     <string name="settings_remove_service">Hapus</string>
     <string name="tool_configure_heartbeat_description">Konfigurasi perilaku pemeriksaan mandiri berkala</string>
     <string name="tool_configure_heartbeat_name">Konfigurasi Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Keluar dari mode interaktif</string>
     <string name="interactive_ui_parsing_failed">Penguraian UI gagal, mencoba lagi…</string>
-    <string name="chat_history_interactive_label">UI Interaktif</string>
     <string name="settings_sponsors_monthly">Sponsor Bulanan</string>
     <string name="settings_sponsors_past">Sponsor Sebelumnya</string>
     <string name="snackbar_undo">Urungkan</string>

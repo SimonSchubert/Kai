@@ -48,7 +48,6 @@
     <string name="settings_tab_services">خدمات</string>
     <string name="settings_tab_tools">ٹولز</string>
     <string name="settings_tab_integrations">انٹیگریشنز</string>
-    <string name="tool_executing_content_description">ٹول چل رہا ہے</string>
     <string name="tools_count">%1$d ٹولز</string>
     <string name="privacy_agree_prefix">سروس استعمال کرکے، آپ اتفاق کرتے ہیں </string>
     <string name="privacy_policy">رازداری کی پالیسی</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">وقتاً فوقتاً سیلف چیک جو AI کو صارف کے ان پٹ کے بغیر یادداشتوں اور کاموں کا جائزہ لینے دیتے ہیں۔ فعال اوقات میں ہر %1$d منٹ بعد چلتا ہے۔</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat پرامپٹ</string>
     <string name="settings_heartbeat_recent">حالیہ سرگرمی</string>
-    <string name="settings_move_down">نیچے منتقل کریں</string>
-    <string name="settings_move_up">اوپر منتقل کریں</string>
     <string name="settings_remove_service">ہٹائیں</string>
     <string name="tool_configure_heartbeat_description">وقتاً فوقتاً سیلف چیک کے رویے کو ترتیب دیں</string>
     <string name="tool_configure_heartbeat_name">Heartbeat ترتیب دیں</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">انٹرایکٹو موڈ سے باہر نکلیں</string>
     <string name="interactive_ui_parsing_failed">UI تجزیہ ناکام، دوبارہ کوشش ہو رہی ہے…</string>
-    <string name="chat_history_interactive_label">انٹرایکٹو UI</string>
     <string name="settings_sponsors_monthly">ماہانہ سپانسرز</string>
     <string name="settings_sponsors_past">سابقہ سپانسرز</string>
     <string name="snackbar_undo">واپس کریں</string>

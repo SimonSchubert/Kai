@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Mga Serbisyo</string>
     <string name="settings_tab_tools">Mga Tool</string>
     <string name="settings_tab_integrations">Mga Integrasyon</string>
-    <string name="tool_executing_content_description">Isinasagawa ang tool</string>
     <string name="tools_count">%1$d Mga Tool</string>
     <string name="privacy_agree_prefix">Sa paggamit ng serbisyo, sumasang-ayon ka sa </string>
     <string name="privacy_policy">Patakaran sa Privacy</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Mga peryodikong self-check na nagpapahintulot sa AI na suriin ang mga alaala at gawain nang walang input mula sa user. Tumatakbo tuwing %1$d minuto sa mga aktibong oras.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat Prompt</string>
     <string name="settings_heartbeat_recent">Kamakailang Aktibidad</string>
-    <string name="settings_move_down">Ilipat pababa</string>
-    <string name="settings_move_up">Ilipat pataas</string>
     <string name="settings_remove_service">Alisin</string>
     <string name="tool_configure_heartbeat_description">I-configure ang peryodikong self-check na gawi</string>
     <string name="tool_configure_heartbeat_name">I-configure ang Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Lumabas sa interactive mode</string>
     <string name="interactive_ui_parsing_failed">Nabigo ang pag-parse ng UI, sinusubukan muli…</string>
-    <string name="chat_history_interactive_label">Interactive na UI</string>
     <string name="settings_sponsors_monthly">Buwanang mga sponsor</string>
     <string name="settings_sponsors_past">Mga nakaraang sponsor</string>
     <string name="snackbar_undo">I-undo</string>

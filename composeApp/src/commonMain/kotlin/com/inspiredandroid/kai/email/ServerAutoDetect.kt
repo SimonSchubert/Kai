@@ -93,5 +93,4 @@ object ServerAutoDetect {
         return knownProviders[domain]
     }
 
-    fun isKnownProvider(email: String): Boolean = detect(email) != null
 }

@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Tjänster</string>
     <string name="settings_tab_tools">Verktyg</string>
     <string name="settings_tab_integrations">Integrationer</string>
-    <string name="tool_executing_content_description">Verktyg körs</string>
     <string name="tools_count">%1$d Verktyg</string>
     <string name="privacy_agree_prefix">Genom att använda tjänsten godkänner du </string>
     <string name="privacy_policy">Integritetspolicyn</string>
@@ -108,8 +107,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_heartbeat_description">Periodiska självkontroller som låter AI granska minnen och uppgifter utan användarinmatning. Körs var %1$d minut under aktiva timmar.</string>
     <string name="settings_heartbeat_prompt_label">Hjärtslagsprompt</string>
     <string name="settings_heartbeat_recent">Senaste aktivitet</string>
-    <string name="settings_move_down">Flytta ner</string>
-    <string name="settings_move_up">Flytta upp</string>
     <string name="settings_remove_service">Ta bort</string>
     <string name="tool_configure_heartbeat_description">Konfigurera periodiskt självkontrollbeteende</string>
     <string name="tool_configure_heartbeat_name">Konfigurera hjärtslag</string>
@@ -220,7 +217,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Lämna interaktivt läge</string>
     <string name="interactive_ui_parsing_failed">UI-analys misslyckades, försöker igen…</string>
-    <string name="chat_history_interactive_label">Interaktivt UI</string>
     <string name="settings_sponsors_monthly">Månatliga sponsorer</string>
     <string name="settings_sponsors_past">Tidigare sponsorer</string>
     <string name="snackbar_undo">Ångra</string>

@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Slu\u017eby</string>
     <string name="settings_tab_tools">N\u00e1stroje</string>
     <string name="settings_tab_integrations">Integrace</string>
-    <string name="tool_executing_content_description">N\u00e1stroj se prov\u00e1d\u00ed</string>
     <string name="tools_count">%1$d Nástrojů</string>
     <string name="privacy_agree_prefix">Pou\u017e\u00edv\u00e1n\u00edm slu\u017eby souhlas\u00edte se </string>
     <string name="privacy_policy">Z\u00e1sadami ochrany osobn\u00edch \u00fadaj\u016f</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Periodické sebekontroly, které umožňují AI kontrolovat vzpomínky a úkoly bez vstupu uživatele. Spouští se každých %1$d minut v aktivních hodinách.</string>
     <string name="settings_heartbeat_prompt_label">Prompt pro Heartbeat</string>
     <string name="settings_heartbeat_recent">Nedávná aktivita</string>
-    <string name="settings_move_down">Posunout dolů</string>
-    <string name="settings_move_up">Posunout nahoru</string>
     <string name="settings_remove_service">Odebrat</string>
     <string name="tool_configure_heartbeat_description">Nastavit chování periodické sebekontroly</string>
     <string name="tool_configure_heartbeat_name">Nastavit Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ukončit interaktivní režim</string>
     <string name="interactive_ui_parsing_failed">Parsování UI selhalo, zkouším znovu…</string>
-    <string name="chat_history_interactive_label">Interaktivní UI</string>
     <string name="settings_sponsors_monthly">Měsíční sponzoři</string>
     <string name="settings_sponsors_past">Předchozí sponzoři</string>
     <string name="snackbar_undo">Zpět</string>

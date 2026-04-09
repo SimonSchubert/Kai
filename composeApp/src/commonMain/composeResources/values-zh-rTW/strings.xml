@@ -48,7 +48,6 @@
     <string name="settings_tab_services">服務</string>
     <string name="settings_tab_tools">工具</string>
     <string name="settings_tab_integrations">整合</string>
-    <string name="tool_executing_content_description">工具執行中</string>
     <string name="tools_count">%1$d 個工具</string>
     <string name="privacy_agree_prefix">使用本服務即表示您同意</string>
     <string name="privacy_policy">隱私權政策</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">定期自我檢查，允許AI在無使用者輸入的情況下檢查記憶和任務。在活躍時段每 %1$d 分鐘執行一次。</string>
     <string name="settings_heartbeat_prompt_label">心跳提示詞</string>
     <string name="settings_heartbeat_recent">最近活動</string>
-    <string name="settings_move_down">下移</string>
-    <string name="settings_move_up">上移</string>
     <string name="settings_remove_service">移除</string>
     <string name="tool_configure_heartbeat_description">設定定期自我檢查行為</string>
     <string name="tool_configure_heartbeat_name">設定心跳</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">退出互動模式</string>
     <string name="interactive_ui_parsing_failed">UI 解析失敗，正在重試…</string>
-    <string name="chat_history_interactive_label">互動式 UI</string>
     <string name="settings_sponsors_monthly">每月贊助者</string>
     <string name="settings_sponsors_past">先前贊助者</string>
     <string name="snackbar_undo">復原</string>

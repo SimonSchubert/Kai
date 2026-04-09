@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Diensten</string>
     <string name="settings_tab_tools">Hulpmiddelen</string>
     <string name="settings_tab_integrations">Integraties</string>
-    <string name="tool_executing_content_description">Tool wordt uitgevoerd</string>
     <string name="tools_count">%1$d Hulpmiddelen</string>
     <string name="privacy_agree_prefix">Door de service te gebruiken, gaat u akkoord met het </string>
     <string name="privacy_policy">Privacybeleid</string>
@@ -108,8 +107,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_heartbeat_description">Periodieke zelfcontroles waarmee de AI herinneringen en taken kan bekijken zonder gebruikersinvoer. Wordt elke %1$d minuten uitgevoerd tijdens actieve uren.</string>
     <string name="settings_heartbeat_prompt_label">Hartslag-prompt</string>
     <string name="settings_heartbeat_recent">Recente Activiteit</string>
-    <string name="settings_move_down">Naar beneden</string>
-    <string name="settings_move_up">Naar boven</string>
     <string name="settings_remove_service">Verwijderen</string>
     <string name="tool_configure_heartbeat_description">Periodiek zelfcontrolegedrag configureren</string>
     <string name="tool_configure_heartbeat_name">Hartslag configureren</string>
@@ -220,7 +217,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Interactieve modus verlaten</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislukt, opnieuw proberen…</string>
-    <string name="chat_history_interactive_label">Interactieve UI</string>
     <string name="settings_sponsors_monthly">Maandelijkse sponsors</string>
     <string name="settings_sponsors_past">Vorige sponsors</string>
     <string name="snackbar_undo">Ongedaan maken</string>

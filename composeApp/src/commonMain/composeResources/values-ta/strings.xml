@@ -48,7 +48,6 @@
     <string name="settings_tab_services">சேவைகள்</string>
     <string name="settings_tab_tools">கருவிகள்</string>
     <string name="settings_tab_integrations">ஒருங்கிணைப்புகள்</string>
-    <string name="tool_executing_content_description">கருவி இயங்குகிறது</string>
     <string name="tools_count">%1$d கருவிகள்</string>
     <string name="privacy_agree_prefix">சேவையைப் பயன்படுத்துவதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள் </string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">பயனர் உள்ளீடு இல்லாமல் AI நினைவுகளையும் பணிகளையும் மதிப்பாய்வு செய்ய அனுமதிக்கும் அவ்வப்போது சுய சோதனைகள். செயலில் உள்ள நேரங்களில் ஒவ்வொரு %1$d நிமிடங்களுக்கும் இயங்கும்.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat ப்ராம்ப்ட்</string>
     <string name="settings_heartbeat_recent">சமீபத்திய செயல்பாடு</string>
-    <string name="settings_move_down">கீழே நகர்த்து</string>
-    <string name="settings_move_up">மேலே நகர்த்து</string>
     <string name="settings_remove_service">அகற்று</string>
     <string name="tool_configure_heartbeat_description">அவ்வப்போது சுய சோதனை நடத்தையை உள்ளமை</string>
     <string name="tool_configure_heartbeat_name">Heartbeat உள்ளமை</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ஊடாடும் பயன்முறையிலிருந்து வெளியேறு</string>
     <string name="interactive_ui_parsing_failed">UI பகுப்பாய்வு தோல்வி, மீண்டும் முயற்சிக்கிறது…</string>
-    <string name="chat_history_interactive_label">ஊடாடும் UI</string>
     <string name="settings_sponsors_monthly">மாதாந்திர நிதியுதவியாளர்கள்</string>
     <string name="settings_sponsors_past">முந்தைய நிதியுதவியாளர்கள்</string>
     <string name="snackbar_undo">செயல்தவிர்</string>

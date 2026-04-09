@@ -41,7 +41,6 @@
     <string name="settings_tab_services">Amasevisi</string>
     <string name="settings_tab_tools">Amathuluzi</string>
     <string name="settings_tab_integrations">Ukuhlanganiswa</string>
-    <string name="tool_executing_content_description">Ithuluzi liyasebenza</string>
     <string name="tools_count">Amathuluzi angu-%1$d</string>
     <string name="privacy_agree_prefix">Ngokusebenzisa isevisi, uyavumelana ne-</string>
     <string name="privacy_policy">Inqubomgomo yobumfihlo</string>
@@ -107,8 +106,6 @@
     <string name="settings_heartbeat_description">Ukuhlolwa kwezenzakalelayo okwesikhashana okuvumela i-AI ukuthi ibuyekeze izinkumbulo nemisebenzi ngaphandle kokufakwa komsebenzisi. Isebenza njalo ngemizuzu engu-%1$d ngamahora asebenzayo.</string>
     <string name="settings_heartbeat_prompt_label">I-Prompt ye-Heartbeat</string>
     <string name="settings_heartbeat_recent">Umsebenzi Wamuva</string>
-    <string name="settings_move_down">Hambisa phansi</string>
-    <string name="settings_move_up">Hambisa phezulu</string>
     <string name="settings_remove_service">Susa</string>
     <string name="tool_configure_heartbeat_description">Lungiselela ukuziphatha kokuhlolwa kwezenzakalelayo</string>
     <string name="tool_configure_heartbeat_name">Lungiselela i-Heartbeat</string>
@@ -219,7 +216,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Phuma kumodi yokuxhumana</string>
     <string name="interactive_ui_parsing_failed">Ukuhlaziya kwe-UI kuhlulekile, kuzanywa futhi…</string>
-    <string name="chat_history_interactive_label">UI Ehlanganyela</string>
     <string name="settings_sponsors_monthly">Abaxhasi Banyanga Zonke Izinyanga</string>
     <string name="settings_sponsors_past">Abaxhasi Bangaphambili</string>
     <string name="snackbar_undo">Hlehlisa</string>

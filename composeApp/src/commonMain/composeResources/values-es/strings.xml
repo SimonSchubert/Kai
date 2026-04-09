@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Servicios</string>
     <string name="settings_tab_tools">Herramientas</string>
     <string name="settings_tab_integrations">Integraciones</string>
-    <string name="tool_executing_content_description">Herramienta ejecutándose</string>
     <string name="tools_count">%1$d Herramientas</string>
     <string name="privacy_agree_prefix">Al usar el servicio, aceptas la </string>
     <string name="privacy_policy">Política de privacidad</string>
@@ -108,8 +107,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_heartbeat_description">Autoverificaciones periódicas que permiten a la IA revisar memorias y tareas sin entrada del usuario. Se ejecuta cada %1$d minutos durante las horas activas.</string>
     <string name="settings_heartbeat_prompt_label">Prompt de Latido</string>
     <string name="settings_heartbeat_recent">Actividad Reciente</string>
-    <string name="settings_move_down">Mover abajo</string>
-    <string name="settings_move_up">Mover arriba</string>
     <string name="settings_remove_service">Eliminar</string>
     <string name="tool_configure_heartbeat_description">Configurar el comportamiento de autoverificación periódica</string>
     <string name="tool_configure_heartbeat_name">Configurar Latido</string>
@@ -220,7 +217,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Salir del modo interactivo</string>
     <string name="interactive_ui_parsing_failed">Error al analizar la UI, reintentando…</string>
-    <string name="chat_history_interactive_label">UI interactiva</string>
     <string name="settings_sponsors_monthly">Patrocinadores mensuales</string>
     <string name="settings_sponsors_past">Patrocinadores anteriores</string>
     <string name="snackbar_undo">Deshacer</string>

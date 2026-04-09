@@ -48,7 +48,6 @@
     <string name="settings_tab_services">الخدمات</string>
     <string name="settings_tab_tools">الأدوات</string>
     <string name="settings_tab_integrations">التكاملات</string>
-    <string name="tool_executing_content_description">الأداة قيد التنفيذ</string>
     <string name="tools_count">%1$d أدوات</string>
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>
@@ -108,8 +107,6 @@
     <string name="settings_heartbeat_description">فحوصات ذاتية دورية تسمح للذكاء الاصطناعي بمراجعة الذكريات والمهام بدون إدخال المستخدم. تعمل كل %1$d دقيقة خلال الساعات النشطة.</string>
     <string name="settings_heartbeat_prompt_label">موجه نبض القلب</string>
     <string name="settings_heartbeat_recent">النشاط الأخير</string>
-    <string name="settings_move_down">تحريك لأسفل</string>
-    <string name="settings_move_up">تحريك لأعلى</string>
     <string name="settings_remove_service">إزالة</string>
     <string name="tool_configure_heartbeat_description">تكوين سلوك الفحص الذاتي الدوري</string>
     <string name="tool_configure_heartbeat_name">تكوين نبض القلب</string>
@@ -220,7 +217,6 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">الخروج من الوضع التفاعلي</string>
     <string name="interactive_ui_parsing_failed">فشل تحليل واجهة المستخدم، جارٍ إعادة المحاولة…</string>
-    <string name="chat_history_interactive_label">واجهة تفاعلية</string>
     <string name="settings_sponsors_monthly">الرعاة الشهريون</string>
     <string name="settings_sponsors_past">الرعاة السابقون</string>
     <string name="snackbar_undo">تراجع</string>

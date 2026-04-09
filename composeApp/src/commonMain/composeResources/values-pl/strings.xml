@@ -48,7 +48,6 @@
     <string name="settings_tab_services">Usługi</string>
     <string name="settings_tab_tools">Narzędzia</string>
     <string name="settings_tab_integrations">Integracje</string>
-    <string name="tool_executing_content_description">Narzędzie w trakcie</string>
     <string name="tools_count">%1$d Narzędzia</string>
     <string name="privacy_agree_prefix">Korzystając z usługi, zgadzasz się z </string>
     <string name="privacy_policy">Polityką prywatności</string>
@@ -108,8 +107,6 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_heartbeat_description">Okresowe samokontrole pozwalające AI przeglądać wspomnienia i zadania bez udziału użytkownika. Uruchamiane co %1$d minut w aktywnych godzinach.</string>
     <string name="settings_heartbeat_prompt_label">Prompt pulsu</string>
     <string name="settings_heartbeat_recent">Ostatnia aktywność</string>
-    <string name="settings_move_down">Przenieś w dół</string>
-    <string name="settings_move_up">Przenieś w górę</string>
     <string name="settings_remove_service">Usuń</string>
     <string name="tool_configure_heartbeat_description">Skonfiguruj zachowanie okresowej samokontroli</string>
     <string name="tool_configure_heartbeat_name">Skonfiguruj puls</string>
@@ -220,7 +217,6 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Wyjdź z trybu interaktywnego</string>
     <string name="interactive_ui_parsing_failed">Analiza UI nie powiodła się, ponawiam próbę…</string>
-    <string name="chat_history_interactive_label">Interaktywny UI</string>
     <string name="settings_sponsors_monthly">Miesięczni sponsorzy</string>
     <string name="settings_sponsors_past">Poprzedni sponsorzy</string>
     <string name="snackbar_undo">Cofnij</string>
