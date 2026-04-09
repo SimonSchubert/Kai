@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Καλώς ήρθατε στο Kai</string>
+    <string name="welcome_message">Καλώς ήρθατε στο Kai 9000</string>
     <string name="prompt_ask_question">Κάντε μια ερώτηση</string>
     <string name="error_invalid_api_key">Μη έγκυρο κλειδί API. Ελέγξτε τις ρυθμίσεις σας.</string>
     <string name="error_rate_limit_exceeded">Υπέρβαση ορίου αιτημάτων. Δοκιμάστε ξανά αργότερα.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Αναδημιουργία</string>
     <string name="error_empty_response">Δεν ελήφθη απάντηση. Δοκιμάστε να ξεκινήσετε μια νέα συνομιλία ή να συντομεύσετε το μήνυμά σας.</string>
     <string name="settings_daemon_mode">Λειτουργία Daemon</string>
-    <string name="settings_daemon_mode_description">Διατηρήστε το Kai σε λειτουργία στο παρασκήνιο ώστε οι προγραμματισμένες εργασίες να εκτελούνται ακόμα και όταν η εφαρμογή δεν είναι στο προσκήνιο.</string>
+    <string name="settings_daemon_mode_description">Διατηρήστε το Kai 9000 σε λειτουργία στο παρασκήνιο ώστε οι προγραμματισμένες εργασίες να εκτελούνται ακόμα και όταν η εφαρμογή δεν είναι στο προσκήνιο.</string>
     <string name="settings_scheduled_tasks">Προγραμματισμένες Εργασίες</string>
     <string name="settings_scheduled_tasks_description">Εργασίες προγραμματισμένες από την τεχνητή νοημοσύνη για μελλοντική εκτέλεση. Ζητήστε από την τεχνητή νοημοσύνη να σας υπενθυμίσει ή να εκτελέσει κάτι αργότερα για να δημιουργήσετε προγραμματισμένες εργασίες.</string>
     <string name="settings_scheduled_tasks_cancel">Ακύρωση εργασίας</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Ποτέ</string>
     <string name="settings_add_service">Προσθήκη υπηρεσίας</string>
     <string name="settings_free_fallback">Χρήση ως εφεδρικό</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Παλμός</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Αυτός είναι ένας αυτόματος αυτοέλεγχος. Εξέτασε τις αναμνήσεις και τις εκκρεμείς εργασίες σου. Αν όλα φαίνονται εντάξει και τίποτα δεν χρειάζεται προσοχή, απάντησε ακριβώς: HEARTBEAT_OK\nΑν κάτι χρειάζεται προσοχή (παλιές αναμνήσεις, εκκρεμείς εργασίες, ερωτήματα χρήστη), ασχολήσου με αυτό.</string>
     <string name="settings_heartbeat_description">Περιοδικοί αυτοέλεγχοι που επιτρέπουν στην AI να ελέγχει αναμνήσεις και εργασίες χωρίς είσοδο χρήστη. Εκτελείται κάθε %1$d λεπτά κατά τις ενεργές ώρες.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Ψυχή</string>
     <string name="settings_import_section_memory">Μνήμη</string>
     <string name="settings_import_section_scheduling">Προγραμματισμός</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Παλμός</string>
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Εργαλεία</string>
     <string name="settings_import_section_mcp">Διακομιστές MCP</string>
     <string name="settings_import_section_conversations">Συνομιλίες</string>
     <string name="settings_heartbeat_reset_confirm">Αυτό θα επαναφέρει το μήνυμα heartbeat στο προεπιλεγμένο. Είστε σίγουροι;</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Προεπιλογή</string>
     <string name="settings_import_partial">Οι ρυθμίσεις εισήχθησαν με %1$d ενότητα(ες) που είχαν σφάλματα.</string>
     <string name="settings_model_search">Αναζήτηση μοντέλων…</string>
     <string name="waiting_content_description">Αναμονή για απάντηση</string>

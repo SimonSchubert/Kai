@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Velkommen til Kai</string>
+    <string name="welcome_message">Velkommen til Kai 9000</string>
     <string name="prompt_ask_question">Still et spørsmål</string>
     <string name="error_invalid_api_key">Ugyldig API-nøkkel. Sjekk innstillingene dine.</string>
     <string name="error_rate_limit_exceeded">Hastighetsgrense overskredet. Prøv igjen senere.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Regenerer</string>
     <string name="error_empty_response">Intet svar mottatt. Prøv å starte en ny chat eller forkorte meldingen din.</string>
     <string name="settings_daemon_mode">Daemon-modus</string>
-    <string name="settings_daemon_mode_description">Hold Kai kjørende i bakgrunnen slik at planlagte oppgaver utføres selv når appen ikke er i forgrunnen.</string>
+    <string name="settings_daemon_mode_description">Hold Kai 9000 kjørende i bakgrunnen slik at planlagte oppgaver utføres selv når appen ikke er i forgrunnen.</string>
     <string name="settings_scheduled_tasks">Planlagte oppgaver</string>
     <string name="settings_scheduled_tasks_description">Oppgaver planlagt av AI-en for fremtidig utførelse. Be AI-en om å minne deg på eller kjøre noe senere for å opprette planlagte oppgaver.</string>
     <string name="settings_scheduled_tasks_cancel">Avbryt oppgave</string>
@@ -166,14 +166,14 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_import_section_soul">Sjel</string>
     <string name="settings_import_section_memory">Minne</string>
     <string name="settings_import_section_scheduling">Planlegging</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Hjerteslag</string>
     <string name="settings_import_section_email">E-post</string>
     <string name="settings_import_section_tools">Verktøy</string>
     <string name="settings_import_section_mcp">MCP-servere</string>
     <string name="settings_import_section_conversations">Samtaler</string>
     <string name="settings_heartbeat_reset_confirm">Dette vil tilbakestille heartbeat-meldingen til standard. Er du sikker?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Innstillinger importert med %1$d seksjon(er) som hadde feil.</string>
     <string name="settings_model_search">Søk modeller…</string>
     <string name="waiting_content_description">Venter på svar</string>
@@ -181,7 +181,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="chat_history_title">Chattehistorikk</string>
     <string name="chat_history_delete_content_description">Slett samtale</string>
     <string name="chat_history_empty">Ingen lagrede samtaler</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Hjerteslag</string>
     <string name="heartbeat_banner_message">Heartbeat har noe å rapportere</string>
     <string name="heartbeat_banner_dismiss">Avvis</string>
     <string name="scroll_to_bottom_content_description">Rull til bunnen</string>

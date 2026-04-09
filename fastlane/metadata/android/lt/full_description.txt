@@ -1,12 +1,12 @@
-Atvirojo kodo DI pokalbių programa, kuri kuria interaktyvius ekranus, o ne tik tekstą. Kai yra nemokama ChatGPT alternatyva su siela, širdies plakimu, nuolatiniais prisiminimais ir sustiprintu mokymusi — DI asistentas, kuris tobulėja su kiekvienu pokalbiu.
+Atvirojo kodo DI pokalbių programa, kuri kuria interaktyvius ekranus, o ne tik tekstą. Kai 9000 yra nemokama ChatGPT alternatyva su siela, širdies plakimu, nuolatiniais prisiminimais ir sustiprintu mokymusi — DI asistentas, kuris tobulėja su kiekvienu pokalbiu.
 
-Skirtingai nuo įprastų pokalbių robotų, Kai generuoja interaktyvią sąsają — mygtukus, formas, lenteles, diagramas ir viso ekrano programas — tiesiai pokalbio viduje. Paprašykite sukurti skaičiuoklę, viktoriną ar užduočių sąrašą, ir jis sukurs tikrą veikiančią sąsają.
+Skirtingai nuo įprastų pokalbių robotų, Kai 9000 generuoja interaktyvią sąsają — mygtukus, formas, lenteles, diagramas ir viso ekrano programas — tiesiai pokalbio viduje. Paprašykite sukurti skaičiuoklę, viktoriną ar užduočių sąrašą, ir jis sukurs tikrą veikiančią sąsają.
 
 🧠 Siela ir atmintis — pokalbių robotas, kuris jus pažįsta
-Suteikite Kai asmenybę parašydami jo „sielą". Jis prisimena tai, kas svarbu — jūsų nuostatas, mokymosi momentus ir žinomas problemas — ir sustiprina šias žinias laikui bėgant. Kuo daugiau bendraujate, tuo protingesnis jis tampa.
+Suteikite Kai 9000 asmenybę parašydami jo „sielą". Jis prisimena tai, kas svarbu — jūsų nuostatas, mokymosi momentus ir žinomas problemas — ir sustiprina šias žinias laikui bėgant. Kuo daugiau bendraujate, tuo protingesnis jis tampa.
 
 💓 Širdies plakimas — visada veikiantis asmeninis agentas
-Kai nemiega. Jo sistema tikrina pagal tvarkaraštį — peržiūri užduotis, el. laiškus ir tendencijas — net kai nesikalbate. Kai kažkas reikalauja dėmesio, Kai praneša. Kai viskas gerai, jis tyli.
+Kai 9000 nemiega. Jo sistema tikrina pagal tvarkaraštį — peržiūri užduotis, el. laiškus ir tendencijas — net kai nesikalbate. Kai 9000 kažkas reikalauja dėmesio, Kai 9000 praneša. Kai 9000 viskas gerai, jis tyli.
 
 ⚡ 24 paslaugos — viena programa, visi modeliai
 Prisijunkite prie ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ir dar 17 tiekėjų. Paleiskite vietinius modelius per Ollama arba LM Studio. Integruotas nemokamas lygis — API rakto nereikia.
@@ -36,12 +36,12 @@ Palaikomos paslaugos
 • MCP serveriai — prisijungti prie išorinių įrankių serverių
 
 🖥️ Interaktyvios sąsajos režimas
-Pereikite į viso ekrano režimą. Kai tampa vizualiu programų kūrėju — be markdown, be slenkamo teksto. Tik paspaudžiami, veikiantys ekranai. Tai tarsi asmeninis programų kūrėjas jūsų kišenėje.
+Pereikite į viso ekrano režimą. Kai 9000 tampa vizualiu programų kūrėju — be markdown, be slenkamo teksto. Tik paspaudžiami, veikiantys ekranai. Tai tarsi asmeninis programų kūrėjas jūsų kišenėje.
 
 🔒 Privatumas pirmiausia, atvirasis kodas ir be reklamų
 Visa pokalbių istorija užšifruota ir saugoma tik jūsų įrenginyje. Jokių reklamų, duomenų rinkimo ar sekimo. API užklausos siunčiamos tiesiai tiekėjui. Visiškai atviras kodas, visiškai skaidrus.
 
 🌍 Veikia visur
-Naudokite Kai savo Android telefone, planšetėje, Chromebook ar kompiuteryje. Jūsų asistentas visada po ranka.
+Naudokite Kai 9000 savo Android telefone, planšetėje, Chromebook ar kompiuteryje. Jūsų asistentas visada po ranka.
 
-Nesvarbu, ar rašote, programuojate, verčiate ar mokotės — Kai yra nemokama, be reklamų, atvirojo kodo ChatGPT alternatyva, kuri prisitaiko prie jūsų.
+Nesvarbu, ar rašote, programuojate, verčiate ar mokotės — Kai 9000 yra nemokama, be reklamų, atvirojo kodo ChatGPT alternatyva, kuri prisitaiko prie jūsų.

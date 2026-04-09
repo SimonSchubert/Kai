@@ -1,12 +1,12 @@
-Sadece metin değil, etkileşimli ekranlar oluşturan açık kaynak AI sohbet uygulaması. Kai; ruhu, kalp atışı, kalıcı hafızası ve pekiştirmeli öğrenmesi olan ücretsiz bir ChatGPT alternatifidir — her sohbetle gelişen bir AI asistan.
+Sadece metin değil, etkileşimli ekranlar oluşturan açık kaynak AI sohbet uygulaması. Kai 9000; ruhu, kalp atışı, kalıcı hafızası ve pekiştirmeli öğrenmesi olan ücretsiz bir ChatGPT alternatifidir — her sohbetle gelişen bir AI asistan.
 
-Sıradan sohbet botlarının aksine Kai, sohbet içinde doğal etkileşimli arayüz oluşturur — düğmeler, formlar, tablolar, grafikler ve tam ekran uygulamalar. Hesap makinesi, quiz, gösterge paneli veya yapılacaklar listesi isteyin; dokunup kaydırabileceğiniz gerçek bir arayüz oluşturur.
+Sıradan sohbet botlarının aksine Kai 9000, sohbet içinde doğal etkileşimli arayüz oluşturur — düğmeler, formlar, tablolar, grafikler ve tam ekran uygulamalar. Hesap makinesi, quiz, gösterge paneli veya yapılacaklar listesi isteyin; dokunup kaydırabileceğiniz gerçek bir arayüz oluşturur.
 
 🧠 Ruh ve Hafıza — Sizi Tanıyan Sohbet Botu
-Kai'ye "ruhunu" yazarak kişilik verin. Sohbetler arasında önemli olanları hatırlar — tercihlerinizi, öğrenmelerinizi ve bilinen sorunları — ve bu bilgiyi pekiştirir. Ne kadar çok sohbet ederseniz, o kadar akıllanır.
+Kai 9000'ye "ruhunu" yazarak kişilik verin. Sohbetler arasında önemli olanları hatırlar — tercihlerinizi, öğrenmelerinizi ve bilinen sorunları — ve bu bilgiyi pekiştirir. Ne kadar çok sohbet ederseniz, o kadar akıllanır.
 
 💓 Kalp Atışı — Her Zaman Açık Kişisel Asistan
-Kai uyumaz. Kalp atışı sistemi programa göre kontrol eder — bekleyen görevleri, e-postaları ve trendleri inceler — siz sohbet etmiyorken bile. Dikkatinizi gerektiren bir şey olduğunda Kai uyarır. Her şey yolundaysa sessiz kalır.
+Kai 9000 uyumaz. Kalp atışı sistemi programa göre kontrol eder — bekleyen görevleri, e-postaları ve trendleri inceler — siz sohbet etmiyorken bile. Dikkatinizi gerektiren bir şey olduğunda Kai 9000 uyarır. Her şey yolundaysa sessiz kalır.
 
 ⚡ 24 Hizmet — Tek Uygulama, Her Model
 ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ve 17 sağlayıcıya daha bağlanın. Ollama veya LM Studio ile yerel modeller çalıştırın. Yerleşik ücretsiz katmanla sıfır kurulumla başlayın — API anahtarı gerekmez.
@@ -36,7 +36,7 @@ Asistanın harekete geçmesini sağlayan güçlü araçlar:
 • MCP Servers — harici araç sunucularına bağlanma
 
 🖥️ Etkileşimli Arayüz Modu
-Tam ekran. Kai görsel uygulama oluşturucuya dönüşür — dokunulabilir, işlevsel ekranlar anında oluşturulur. Cebinizde kişisel uygulama geliştiricisi gibi.
+Tam ekran. Kai 9000 görsel uygulama oluşturucuya dönüşür — dokunulabilir, işlevsel ekranlar anında oluşturulur. Cebinizde kişisel uygulama geliştiricisi gibi.
 
 🔒 Gizlilik Öncelikli, Açık Kaynak ve Reklamsız
 Sohbet geçmişi şifrelenir ve yerel olarak saklanır. Reklam yok, veri toplama yok, izleme yok. API çağrıları doğrudan sağlayıcıya gider. Tamamen açık kaynak, tamamen şeffaf.
@@ -44,4 +44,4 @@ Sohbet geçmişi şifrelenir ve yerel olarak saklanır. Reklam yok, veri toplama
 🌍 Her Yerde Çalışır
 Android telefon, tablet, Chromebook veya masaüstünüzde kullanın. Asistanınız her zaman elinizin altında.
 
-Yazıyor, kodluyor, özetliyor, çeviriyor, beyin fırtınası yapıyor veya e-postaları yönetiyor olun — Kai size uyum sağlayan ücretsiz, açık kaynaklı ChatGPT alternatifidir.
+Yazıyor, kodluyor, özetliyor, çeviriyor, beyin fırtınası yapıyor veya e-postaları yönetiyor olun — Kai 9000 size uyum sağlayan ücretsiz, açık kaynaklı ChatGPT alternatifidir.

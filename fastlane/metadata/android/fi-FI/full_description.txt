@@ -1,14 +1,14 @@
-Avoimen lähdekoodin AI-chat-sovellus, joka rakentaa interaktiivisia näyttöjä, ei pelkkää tekstiä. Kai on ilmainen ChatGPT-vaihtoehto sielulla, sykkeellä, pysyvällä muistilla ja vahvistetulla oppimisella — AI-avustaja, joka kehittyy jokaisella keskustelulla.
+Avoimen lähdekoodin AI-chat-sovellus, joka rakentaa interaktiivisia näyttöjä, ei pelkkää tekstiä. Kai 9000 on ilmainen ChatGPT-vaihtoehto sielulla, sykkeellä, pysyvällä muistilla ja vahvistetulla oppimisella — AI-avustaja, joka kehittyy jokaisella keskustelulla.
 
-Kai luo natiiveja interaktiivisia käyttöliittymiä — painikkeita, lomakkeita, taulukoita, kaavioita ja kokoruudun sovelluksia — suoraan chatissa. Pyydä laskinta, tietovisaa, hallintapaneelia tai tehtävälistaa ja saat oikean toimivan käyttöliittymän. Tämä on AI:ta tekstin tuolla puolen.
+Kai 9000 luo natiiveja interaktiivisia käyttöliittymiä — painikkeita, lomakkeita, taulukoita, kaavioita ja kokoruudun sovelluksia — suoraan chatissa. Pyydä laskinta, tietovisaa, hallintapaneelia tai tehtävälistaa ja saat oikean toimivan käyttöliittymän. Tämä on AI:ta tekstin tuolla puolen.
 
 🧠 Sielu ja Muisti — Chatbot, Joka Tuntee Sinut
-Anna Kai:lle persoona kirjoittamalla sen "sielu". Se muistaa tärkeät asiat keskustelujen välillä — mieltymyksesi, opitut asiat ja tunnetut ongelmat — ja vahvistaa tietojaan ajan myötä. Hyödylliset muistot ylennetään pysyvään persoonaan. Mitä enemmän keskustelet, sitä älykkäämmäksi se tulee.
+Anna Kai 9000:lle persoona kirjoittamalla sen "sielu". Se muistaa tärkeät asiat keskustelujen välillä — mieltymyksesi, opitut asiat ja tunnetut ongelmat — ja vahvistaa tietojaan ajan myötä. Hyödylliset muistot ylennetään pysyvään persoonaan. Mitä enemmän keskustelet, sitä älykkäämmäksi se tulee.
 
 💓 Syke — Aina Päällä Oleva Agenttisi
-Kai ei nuku. Sykejärjestelmä tarkistaa aikataulun mukaan — tehtävät, sähköpostit ja trendit — vaikka et keskustelisikaan. Aseta väli, aktiiviset tunnit ja malli. Kun jokin vaatii huomiotasi, Kai nostaa sen esiin. Kun kaikki on hyvin, se pysyy hiljaa.
+Kai 9000 ei nuku. Sykejärjestelmä tarkistaa aikataulun mukaan — tehtävät, sähköpostit ja trendit — vaikka et keskustelisikaan. Aseta väli, aktiiviset tunnit ja malli. Kun jokin vaatii huomiotasi, Kai 9000 nostaa sen esiin. Kun kaikki on hyvin, se pysyy hiljaa.
 
-⚡ 24 Palvelua — Yksi Sovellus, Kaikki Mallit
+⚡ 24 Palvelua — Yksi Sovellus, Kai 9000kki Mallit
 Yhdistä ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok ja 17 muuhun. Paikallisia malleja Ollama tai LM Studio kautta. Useita tilejä, prioriteetit ja älykäs varaketju automaattisesti. Ilmaistaso — ei API-avainta.
 
 Tuetut Palvelut
@@ -36,12 +36,12 @@ Tehokkaita työkaluja, jotka antavat avustajan toimia, ei vain puhua:
 • MCP Servers — ulkoiset työkalupalvelimet
 
 🖥️ Interaktiivinen UI-tila
-Kokoruutu. Kai muuttuu visuaaliseksi sovellusrakentajaksi — ei markdownia, ei vieritettävää tekstiä. Toimivia näyttöjä lennossa. Kuin sovelluskehittäjä taskussasi.
+Kokoruutu. Kai 9000 muuttuu visuaaliseksi sovellusrakentajaksi — ei markdownia, ei vieritettävää tekstiä. Toimivia näyttöjä lennossa. Kuin sovelluskehittäjä taskussasi.
 
 🔒 Yksityisyys Edellä, Avoin Lähdekoodi, Mainokseton
-Salattu paikallinen historia. Ei mainoksia, ei tiedonkeruuta, ei seurantaa. API-kutsut suoraan palveluntarjoajalle — Kai ei ole koskaan välissä. Täysin avointa lähdekoodia, täysin läpinäkyvää.
+Salattu paikallinen historia. Ei mainoksia, ei tiedonkeruuta, ei seurantaa. API-kutsut suoraan palveluntarjoajalle — Kai 9000 ei ole koskaan välissä. Täysin avointa lähdekoodia, täysin läpinäkyvää.
 
-🌍 Toimii Kaikkialla
+🌍 Toimii Kai 9000kkialla
 Android-puhelin, tabletti, Chromebook tai pöytätietokone. Avustajasi, aina ulottuvillasi.
 
-Kirjoitatpa, koodaat, tiivistät, käännät, ideoit tai opiskelet — Kai on ilmainen, mainokseton, avoimen lähdekoodin ChatGPT-vaihtoehto, joka mukautuu sinuun.
+Kirjoitatpa, koodaat, tiivistät, käännät, ideoit tai opiskelet — Kai 9000 on ilmainen, mainokseton, avoimen lähdekoodin ChatGPT-vaihtoehto, joka mukautuu sinuun.

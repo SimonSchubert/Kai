@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Willkommen bei Kai</string>
+    <string name="welcome_message">Willkommen bei Kai 9000</string>
     <string name="prompt_ask_question">Stelle eine Frage</string>
     <string name="error_invalid_api_key">Ungültiger API-Schlüssel. Bitte überprüfe deine Einstellungen.</string>
     <string name="error_rate_limit_exceeded">Rate-Limit überschritten. Bitte versuche es später erneut.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Neu generieren</string>
     <string name="error_empty_response">Keine Antwort erhalten. Versuche einen neuen Chat zu starten oder deine Nachricht zu kürzen.</string>
     <string name="settings_daemon_mode">Hintergrundmodus</string>
-    <string name="settings_daemon_mode_description">Halte Kai im Hintergrund aktiv, damit geplante Aufgaben auch ausgeführt werden, wenn die App nicht im Vordergrund ist.</string>
+    <string name="settings_daemon_mode_description">Halte Kai 9000 im Hintergrund aktiv, damit geplante Aufgaben auch ausgeführt werden, wenn die App nicht im Vordergrund ist.</string>
     <string name="settings_scheduled_tasks">Geplante Aufgaben</string>
     <string name="settings_scheduled_tasks_description">Aufgaben, die von der KI für die zukünftige Ausführung geplant wurden. Bitte die KI, dich zu erinnern oder etwas später auszuführen, um geplante Aufgaben zu erstellen.</string>
     <string name="settings_scheduled_tasks_cancel">Aufgabe abbrechen</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Nie</string>
     <string name="settings_add_service">Dienst hinzufügen</string>
     <string name="settings_free_fallback">Als Fallback verwenden</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Herzschlag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dies ist eine automatische Selbstprüfung. Überprüfe deine Erinnerungen und ausstehenden Aufgaben. Wenn alles in Ordnung ist und nichts Aufmerksamkeit erfordert, antworte mit genau: HEARTBEAT_OK
 Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, Benutzer-Nachfragen), kümmere dich darum.</string>
     <string name="settings_heartbeat_description">Periodische Selbstprüfungen, die der KI ermöglichen, Erinnerungen und Aufgaben ohne Benutzereingabe zu überprüfen. Läuft alle %1$d Minuten während aktiver Stunden.</string>
@@ -155,8 +155,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_mcp_popular_servers">Beliebte Server</string>
     <string name="settings_export_import_title">Export / Import</string>
     <string name="settings_export_import_description">Die exportierte Datei enthält sensible Daten wie API-Schlüssel und Passwörter.</string>
-    <string name="settings_export">Export</string>
-    <string name="settings_import">Import</string>
+    <string name="settings_export">Exportieren</string>
+    <string name="settings_import">Importieren</string>
     <string name="settings_import_success">Einstellungen erfolgreich importiert.</string>
     <string name="settings_import_error">Import fehlgeschlagen. Das Dateiformat ist ungültig.</string>
     <string name="settings_import_preview_title">Einstellungen importieren</string>
@@ -166,14 +166,14 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_import_section_soul">Seele</string>
     <string name="settings_import_section_memory">Erinnerungen</string>
     <string name="settings_import_section_scheduling">Planung</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Herzschlag</string>
     <string name="settings_import_section_email">E-Mail</string>
     <string name="settings_import_section_tools">Werkzeuge</string>
     <string name="settings_import_section_mcp">MCP-Server</string>
     <string name="settings_import_section_conversations">Unterhaltungen</string>
     <string name="settings_heartbeat_reset_confirm">Dadurch wird der Heartbeat-Prompt auf den Standard zurückgesetzt. Bist du sicher?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Einstellungen mit %1$d fehlerhaften Abschnitt(en) importiert.</string>
     <string name="settings_model_search">Modelle suchen…</string>
     <string name="waiting_content_description">Warte auf Antwort</string>
@@ -181,7 +181,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="chat_history_title">Chatverlauf</string>
     <string name="chat_history_delete_content_description">Unterhaltung löschen</string>
     <string name="chat_history_empty">Keine gespeicherten Unterhaltungen</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Herzschlag</string>
     <string name="heartbeat_banner_message">Heartbeat hat etwas zu berichten</string>
     <string name="heartbeat_banner_dismiss">Schließen</string>
     <string name="scroll_to_bottom_content_description">Nach unten scrollen</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Tervetuloa Kai-sovellukseen</string>
+    <string name="welcome_message">Tervetuloa Kai 9000-sovellukseen</string>
     <string name="prompt_ask_question">Kysy kysymys</string>
     <string name="error_invalid_api_key">Virheellinen API-avain. Tarkista asetuksesi.</string>
     <string name="error_rate_limit_exceeded">Pyynt\u00f6raja ylitetty. Yrit\u00e4 my\u00f6hemmin uudelleen.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Luo uudelleen</string>
     <string name="error_empty_response">Vastausta ei saatu. Kokeile aloittaa uusi keskustelu tai lyhentää viestiäsi.</string>
     <string name="settings_daemon_mode">Taustaprosessitila</string>
-    <string name="settings_daemon_mode_description">Pidä Kai käynnissä taustalla, jotta ajoitetut tehtävät suoritetaan, vaikka sovellus ei olisi etualalla.</string>
+    <string name="settings_daemon_mode_description">Pidä Kai 9000 käynnissä taustalla, jotta ajoitetut tehtävät suoritetaan, vaikka sovellus ei olisi etualalla.</string>
     <string name="settings_scheduled_tasks">Ajoitetut tehtävät</string>
     <string name="settings_scheduled_tasks_description">Tekoälyn tulevaisuudessa suoritettavaksi ajoittamat tehtävät. Pyydä tekoälyä muistuttamaan sinua tai suorittamaan jotain myöhemmin luodaksesi ajoitettuja tehtäviä.</string>
     <string name="settings_scheduled_tasks_cancel">Peruuta tehtävä</string>
@@ -166,14 +166,14 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import_section_soul">Sielu</string>
     <string name="settings_import_section_memory">Muisti</string>
     <string name="settings_import_section_scheduling">Ajastus</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Syke</string>
     <string name="settings_import_section_email">Sähköposti</string>
     <string name="settings_import_section_tools">Työkalut</string>
     <string name="settings_import_section_mcp">MCP-palvelimet</string>
     <string name="settings_import_section_conversations">Keskustelut</string>
     <string name="settings_heartbeat_reset_confirm">Tämä palauttaa sydämenlyöntikehoksen oletusarvoon. Oletko varma?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Oletus</string>
     <string name="settings_import_partial">Asetukset tuotu, %1$d osiossa oli virheitä.</string>
     <string name="settings_model_search">Hae malleja…</string>
     <string name="waiting_content_description">Odotetaan vastausta</string>
@@ -181,7 +181,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="chat_history_title">Keskusteluhistoria</string>
     <string name="chat_history_delete_content_description">Poista keskustelu</string>
     <string name="chat_history_empty">Ei tallennettuja keskusteluja</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Syke</string>
     <string name="heartbeat_banner_message">Heartbeat-tarkistuksessa havaittiin jotain</string>
     <string name="heartbeat_banner_dismiss">Hylkää</string>
     <string name="scroll_to_bottom_content_description">Vieritä alas</string>

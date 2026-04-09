@@ -1,12 +1,12 @@
-Otwartoźródłowa aplikacja czatu AI, która tworzy interaktywne ekrany, nie tylko tekst. Kai to darmowa alternatywa dla ChatGPT z duszą, pulsem, trwałą pamięcią i wzmocnionym uczeniem — asystent AI, który rozwija się z każdą rozmową.
+Otwartoźródłowa aplikacja czatu AI, która tworzy interaktywne ekrany, nie tylko tekst. Kai 9000 to darmowa alternatywa dla ChatGPT z duszą, pulsem, trwałą pamięcią i wzmocnionym uczeniem — asystent AI, który rozwija się z każdą rozmową.
 
-W odróżnieniu od zwykłych chatbotów, Kai generuje natywny interaktywny interfejs — przyciski, formularze, tabele, wykresy i aplikacje na pełnym ekranie — bezpośrednio w czacie. Poproś o kalkulator, quiz, dashboard lub listę zadań, a wyświetli prawdziwy działający interfejs, który możesz dotykać, przesuwać i używać. To AI wykraczające poza tekst.
+W odróżnieniu od zwykłych chatbotów, Kai 9000 generuje natywny interaktywny interfejs — przyciski, formularze, tabele, wykresy i aplikacje na pełnym ekranie — bezpośrednio w czacie. Poproś o kalkulator, quiz, dashboard lub listę zadań, a wyświetli prawdziwy działający interfejs, który możesz dotykać, przesuwać i używać. To AI wykraczające poza tekst.
 
 🧠 Dusza i pamięć — Chatbot, który Cię zna
-Nadaj Kai osobowość, pisząc jego „duszę". Zapamiętuje to, co ważne, między rozmowami — Twoje preferencje, wcześniejsze lekcje i znane problemy — i wzmacnia tę wiedzę z czasem. Wspomnienia, które okazują się przydatne, awansują do jego trwałej osobowości. Im więcej rozmawiasz, tym mądrzejszy się staje.
+Nadaj Kai 9000 osobowość, pisząc jego „duszę". Zapamiętuje to, co ważne, między rozmowami — Twoje preferencje, wcześniejsze lekcje i znane problemy — i wzmacnia tę wiedzę z czasem. Wspomnienia, które okazują się przydatne, awansują do jego trwałej osobowości. Im więcej rozmawiasz, tym mądrzejszy się staje.
 
 💓 Puls — Twój zawsze aktywny osobisty agent
-Kai nie śpi. Jego system pulsu sprawdza według harmonogramu — przegląda oczekujące zadania, e-maile i trendy — nawet gdy nie rozmawiasz. Ustaw interwał, aktywne godziny i model. Gdy coś wymaga Twojej uwagi, Kai Cię informuje. Gdy wszystko jest w porządku, milczy.
+Kai 9000 nie śpi. Jego system pulsu sprawdza według harmonogramu — przegląda oczekujące zadania, e-maile i trendy — nawet gdy nie rozmawiasz. Ustaw interwał, aktywne godziny i model. Gdy coś wymaga Twojej uwagi, Kai 9000 Cię informuje. Gdy wszystko jest w porządku, milczy.
 
 ⚡ 24 usługi — Jedna aplikacja, każdy model
 Połącz się z ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok i 17 innymi dostawcami. Uruchamiaj lokalne modele przez Ollama lub LM Studio do prywatnego użytku offline. Dodawaj wiele kont, zmieniaj priorytety i pozwól inteligentnemu łańcuchowi awaryjnemu automatycznie obsługiwać przestoje. Wbudowany darmowy poziom oznacza, że możesz zacząć rozmawiać bez konfiguracji — klucz API nie jest potrzebny.
@@ -36,12 +36,12 @@ Włącz potężne narzędzia, które pozwalają asystentowi działać, nie tylko
 • Serwery MCP — łącz się z zewnętrznymi serwerami narzędzi
 
 🖥️ Tryb interaktywnego UI
-Przejdź na pełny ekran. W trybie interaktywnym Kai staje się wizualnym konstruktorem aplikacji — bez markdown, bez przewijanego tekstu. Tylko dotykalne, funkcjonalne ekrany generowane na bieżąco. Nawiguj wyłącznie przyciskami i polami wprowadzania. To jak mieć osobistego programistę aplikacji w kieszeni.
+Przejdź na pełny ekran. W trybie interaktywnym Kai 9000 staje się wizualnym konstruktorem aplikacji — bez markdown, bez przewijanego tekstu. Tylko dotykalne, funkcjonalne ekrany generowane na bieżąco. Nawiguj wyłącznie przyciskami i polami wprowadzania. To jak mieć osobistego programistę aplikacji w kieszeni.
 
 🔒 Prywatność przede wszystkim, open source i bez reklam
-Cała historia czatów jest zaszyfrowana i przechowywana lokalnie na Twoim urządzeniu. Żadnych reklam, żadnego zbierania danych, żadnego śledzenia. Wywołania API idą bezpośrednio do wybranego dostawcy — Kai nigdy nie stoi pośrodku. Uruchamiaj lokalne modele dla w pełni offline, prywatnego doświadczenia. W pełni open source, w pełni przejrzysty.
+Cała historia czatów jest zaszyfrowana i przechowywana lokalnie na Twoim urządzeniu. Żadnych reklam, żadnego zbierania danych, żadnego śledzenia. Wywołania API idą bezpośrednio do wybranego dostawcy — Kai 9000 nigdy nie stoi pośrodku. Uruchamiaj lokalne modele dla w pełni offline, prywatnego doświadczenia. W pełni open source, w pełni przejrzysty.
 
 🌍 Działa wszędzie
-Używaj Kai na telefonie Android, tablecie, Chromebook lub komputerze. Twój asystent, zawsze w zasięgu ręki.
+Używaj Kai 9000 na telefonie Android, tablecie, Chromebook lub komputerze. Twój asystent, zawsze w zasięgu ręki.
 
-Czy piszesz, kodujesz, tłumaczysz czy się uczysz — Kai to darmowa, bez reklam, otwartoźródłowa alternatywa ChatGPT, która dostosowuje się do Ciebie.
+Czy piszesz, kodujesz, tłumaczysz czy się uczysz — Kai 9000 to darmowa, bez reklam, otwartoźródłowa alternatywa ChatGPT, która dostosowuje się do Ciebie.

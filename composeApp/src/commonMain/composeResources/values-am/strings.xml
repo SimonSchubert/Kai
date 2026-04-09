@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">እንኳን ወደ Kai በደህና መጡ</string>
+    <string name="welcome_message">እንኳን ወደ Kai 9000 በደህና መጡ</string>
     <string name="prompt_ask_question">ጥያቄ ይጠይቁ</string>
     <string name="error_invalid_api_key">ልክ ያልሆነ API ቁልፍ። እባክዎ ቅንብሮችዎን ያረጋግጡ።</string>
     <string name="error_rate_limit_exceeded">የተጠቀሙበት ገደብ አልፏል። እባክዎ ቆይተው ይሞክሩ።</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">እንደገና አፍርት</string>
     <string name="error_empty_response">ምላሽ አልተቀበለም። አዲስ ውይይት ለመጀመር ወይም መልዕክትዎን ለማሳጠር ይሞክሩ።</string>
     <string name="settings_daemon_mode">የዳይሞን ሁነታ</string>
-    <string name="settings_daemon_mode_description">Kai ከበስተጀርባ እንዲሰራ ያቆዩ ስለዚህ የተያዙ ተግባራት ምንም እንኳን መተግበሪያው በፊት ላይ ባይሆንም ይፈጸማሉ።</string>
+    <string name="settings_daemon_mode_description">Kai 9000 ከበስተጀርባ እንዲሰራ ያቆዩ ስለዚህ የተያዙ ተግባራት ምንም እንኳን መተግበሪያው በፊት ላይ ባይሆንም ይፈጸማሉ።</string>
     <string name="settings_scheduled_tasks">የተያዙ ተግባራት</string>
     <string name="settings_scheduled_tasks_description">ለወደፊት ማስፈጸሚያ በ AI የተያዙ ተግባራት። የተያዙ ተግባራትን ለመፍጠር AI ን ያስታውሱኝ ወይም ነገር በኋላ ያሂዱ ይበሉት።</string>
     <string name="settings_scheduled_tasks_cancel">ተግባር ሰርዝ</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_conversations">ውይይቶች</string>
     <string name="settings_heartbeat_reset_confirm">ይህ የልብ ምት ጥያቄውን ወደ ነባሪ ይመልሳል። እርግጠኛ ነህ?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">ነባሪ</string>
     <string name="settings_import_partial">ቅንብሮች ከ%1$d ክፍል(ዎች) ስህተት ጋር ገብተዋል።</string>
     <string name="settings_model_search">ሞዴሎችን ፈልግ…</string>
     <string name="waiting_content_description">ምላሽ በመጠበቅ ላይ</string>

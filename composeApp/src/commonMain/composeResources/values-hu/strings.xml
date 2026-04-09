@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai-ba</string>
+    <string name="welcome_message">Kai 9000-ba</string>
     <string name="prompt_ask_question">Tegyel fel egy k\u00e9rd\u00e9st</string>
     <string name="error_invalid_api_key">Érvénytelen API kulcs. Kérlek, ellenőrizd a beállításaidat.</string>
     <string name="error_rate_limit_exceeded">Kérési limit túllépve. Kérlek, próbáld újra később.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Újragenerálás</string>
     <string name="error_empty_response">Nem érkezett válasz. Próbálj meg új csevegést indítani vagy rövidítsd az üzenetedet.</string>
     <string name="settings_daemon_mode">Daemon mód</string>
-    <string name="settings_daemon_mode_description">Tartsd a Kai-t futva a háttérben, hogy az ütemezett feladatok akkor is végrehajtódjanak, ha az alkalmazás nincs az előtérben.</string>
+    <string name="settings_daemon_mode_description">Tartsd a Kai 9000-t futva a háttérben, hogy az ütemezett feladatok akkor is végrehajtódjanak, ha az alkalmazás nincs az előtérben.</string>
     <string name="settings_scheduled_tasks">Ütemezett feladatok</string>
     <string name="settings_scheduled_tasks_description">A mesterséges intelligencia által jövőbeli végrehajtásra ütemezett feladatok. Kérd a mesterséges intelligenciát, hogy emlékeztessen vagy futtasson valamit később, hogy ütemezett feladatokat hozz létre.</string>
     <string name="settings_scheduled_tasks_cancel">Feladat törlése</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Soha</string>
     <string name="settings_add_service">Szolgáltatás hozzáadása</string>
     <string name="settings_free_fallback">Tartalékként használ</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Szívverés</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ez egy automatikus önellenőrzés. Tekintsd át az emlékeidet és a függő feladatokat. Ha minden rendben van és semmi sem igényel figyelmet, válaszolj pontosan ezzel: HEARTBEAT_OK\nHa valami figyelmet igényel (elavult emlékek, esedékes feladatok, felhasználói utánkövetések), foglalkozz vele.</string>
     <string name="settings_heartbeat_description">Időszakos önellenőrzések, amelyek lehetővé teszik az AI számára az emlékek és feladatok áttekintését felhasználói beavatkozás nélkül. Minden %1$d percben fut az aktív órákban.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Lélek</string>
     <string name="settings_import_section_memory">Memória</string>
     <string name="settings_import_section_scheduling">Ütemezés</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Szívverés</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Eszközök</string>
     <string name="settings_import_section_mcp">MCP szerverek</string>
     <string name="settings_import_section_conversations">Beszélgetések</string>
     <string name="settings_heartbeat_reset_confirm">Ez visszaállítja a szívverés promptot az alapértelmezettre. Biztos vagy benne?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Alapértelmezett</string>
     <string name="settings_import_partial">Beállítások importálva %1$d hibás szakasszal.</string>
     <string name="settings_model_search">Modellek keresése…</string>
     <string name="waiting_content_description">Várakozás a válaszra</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Csevegési előzmények</string>
     <string name="chat_history_delete_content_description">Beszélgetés törlése</string>
     <string name="chat_history_empty">Nincsenek mentett beszélgetések</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Szívverés</string>
     <string name="heartbeat_banner_message">A Heartbeat-nek van mit jelentenie</string>
     <string name="heartbeat_banner_dismiss">Elvetés</string>
     <string name="scroll_to_bottom_content_description">Görgetés az aljára</string>

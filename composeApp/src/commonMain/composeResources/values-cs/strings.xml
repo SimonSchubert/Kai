@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">V\u00edtejte v Kai</string>
+    <string name="welcome_message">V\u00edtejte v Kai 9000</string>
     <string name="prompt_ask_question">Polo\u017ete ot\u00e1zku</string>
     <string name="error_invalid_api_key">Neplatn\u00fd API kl\u00ed\u010d. Zkontrolujte pros\u00edm nastaven\u00ed.</string>
     <string name="error_rate_limit_exceeded">Limit po\u017eadavk\u016f p\u0159ekro\u010den. Zkuste to pros\u00edm pozd\u011bji.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Vygenerovat znovu</string>
     <string name="error_empty_response">Nebyla přijata žádná odpověď. Zkuste začít nový chat nebo zkrátit zprávu.</string>
     <string name="settings_daemon_mode">Režim démona</string>
-    <string name="settings_daemon_mode_description">Ponechte Kai spuštěné na pozadí, aby se naplánované úlohy prováděly i když aplikace není v popředí.</string>
+    <string name="settings_daemon_mode_description">Ponechte Kai 9000 spuštěné na pozadí, aby se naplánované úlohy prováděly i když aplikace není v popředí.</string>
     <string name="settings_scheduled_tasks">Naplánované úlohy</string>
     <string name="settings_scheduled_tasks_description">Úlohy naplánované AI pro budoucí provedení. Požádejte AI, aby vám připomněla nebo spustila něco později a vytvořila naplánované úlohy.</string>
     <string name="settings_scheduled_tasks_cancel">Zrušit úlohu</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Nikdy</string>
     <string name="settings_add_service">Přidat službu</string>
     <string name="settings_free_fallback">Použít jako zálohu</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Srdeční tep</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Toto je automatická sebekontrola. Zkontroluj své vzpomínky a nevyřízené úkoly. Pokud je vše v pořádku a nic nevyžaduje pozornost, odpověz přesně: HEARTBEAT_OK\nPokud něco vyžaduje pozornost (zastaralé vzpomínky, splatné úkoly, následná komunikace s uživatelem), postarej se o to.</string>
     <string name="settings_heartbeat_description">Periodické sebekontroly, které umožňují AI kontrolovat vzpomínky a úkoly bez vstupu uživatele. Spouští se každých %1$d minut v aktivních hodinách.</string>
     <string name="settings_heartbeat_prompt_label">Prompt pro Heartbeat</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Duše</string>
     <string name="settings_import_section_memory">Paměť</string>
     <string name="settings_import_section_scheduling">Plánování</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Srdeční tep</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Nástroje</string>
     <string name="settings_import_section_mcp">MCP servery</string>
     <string name="settings_import_section_conversations">Konverzace</string>
     <string name="settings_heartbeat_reset_confirm">Tím se výzva heartbeat obnoví na výchozí. Jste si jisti?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Výchozí</string>
     <string name="settings_import_partial">Nastavení importováno s %1$d sekcí/sekcemi, které obsahovaly chyby.</string>
     <string name="settings_model_search">Hledat modely…</string>
     <string name="waiting_content_description">Čekání na odpověď</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Historie chatů</string>
     <string name="chat_history_delete_content_description">Smazat konverzaci</string>
     <string name="chat_history_empty">Žádné uložené konverzace</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Srdeční tep</string>
     <string name="heartbeat_banner_message">Heartbeat má co hlásit</string>
     <string name="heartbeat_banner_dismiss">Zavřít</string>
     <string name="scroll_to_bottom_content_description">Posunout dolů</string>

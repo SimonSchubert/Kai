@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Tere tulemast Kai'sse</string>
+    <string name="welcome_message">Tere tulemast Kai 9000'sse</string>
     <string name="prompt_ask_question">Esita küsimus</string>
     <string name="error_invalid_api_key">Kehtetu API võti. Kontrollige oma seadeid.</string>
     <string name="error_rate_limit_exceeded">Päringute limiit ületatud. Proovige hiljem uuesti.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Genereeri uuesti</string>
     <string name="error_empty_response">Vastust ei saadud. Proovige alustada uut vestlust või lühendada oma sõnumit.</string>
     <string name="settings_daemon_mode">Taustarežiim</string>
-    <string name="settings_daemon_mode_description">Hoidke Kai taustal töötamas, et ajastatud ülesanded täidetaks isegi siis, kui rakendus pole esiplaanil.</string>
+    <string name="settings_daemon_mode_description">Hoidke Kai 9000 taustal töötamas, et ajastatud ülesanded täidetaks isegi siis, kui rakendus pole esiplaanil.</string>
     <string name="settings_scheduled_tasks">Ajastatud ülesanded</string>
     <string name="settings_scheduled_tasks_description">AI poolt tulevikus täitmiseks ajastatud ülesanded. Paluge AI-l teid meelde tuletada või midagi hiljem käivitada, et luua ajastatud ülesandeid.</string>
     <string name="settings_scheduled_tasks_cancel">Tühista ülesanne</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Mitte kunagi</string>
     <string name="settings_add_service">Lisa teenus</string>
     <string name="settings_free_fallback">Kasuta varuvarjandina</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Südamelöök</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] See on automaatne enesekontroll. Vaata üle oma mälestused ja ootel ülesanded. Kui kõik on korras ja miski ei vaja tähelepanu, vasta täpselt: HEARTBEAT_OK\nKui miski vajab tähelepanu (aegunud mälestused, tähtaegsed ülesanded, kasutaja järelpärimised), tegele sellega.</string>
     <string name="settings_heartbeat_description">Perioodilised enesekontrollid, mis võimaldavad AI-l vaadata üle mälestused ja ülesanded ilma kasutaja sisendita. Käivitub iga %1$d minuti järel aktiivsetel tundidel.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat-viip</string>
@@ -155,7 +155,7 @@
     <string name="settings_export_import_title">Eksport / Import</string>
     <string name="settings_export_import_description">Eksporditud fail sisaldab tundlikke andmeid, nagu API-võtmed ja paroolid.</string>
     <string name="settings_export">Eksport</string>
-    <string name="settings_import">Import</string>
+    <string name="settings_import">Impordi</string>
     <string name="settings_import_success">Seaded edukalt imporditud.</string>
     <string name="settings_import_error">Import ebaõnnestus. Failivorming on vigane.</string>
     <string name="settings_import_preview_title">Impordi seaded</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Hing</string>
     <string name="settings_import_section_memory">Mälu</string>
     <string name="settings_import_section_scheduling">Ajastamine</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Südamelöök</string>
     <string name="settings_import_section_email">E-post</string>
     <string name="settings_import_section_tools">Tööriistad</string>
     <string name="settings_import_section_mcp">MCP serverid</string>
     <string name="settings_import_section_conversations">Vestlused</string>
     <string name="settings_heartbeat_reset_confirm">See lähtestab südamelöögi viipa vaikeväärtusele. Kas oled kindel?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Vaikimisi</string>
     <string name="settings_import_partial">Seaded imporditud %1$d vigase jaotisega.</string>
     <string name="settings_model_search">Otsi mudeleid…</string>
     <string name="waiting_content_description">Vastuse ootamine</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Vestluste ajalugu</string>
     <string name="chat_history_delete_content_description">Kustuta vestlus</string>
     <string name="chat_history_empty">Salvestatud vestlusi pole</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Südamelöök</string>
     <string name="heartbeat_banner_message">Heartbeat-il on midagi teatada</string>
     <string name="heartbeat_banner_dismiss">Sulge</string>
     <string name="scroll_to_bottom_content_description">Keri alla</string>

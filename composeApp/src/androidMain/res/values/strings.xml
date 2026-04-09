@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Kai</string>
-    <string name="daemon_channel_name">Kai Background Service</string>
-    <string name="daemon_channel_description">Keeps Kai running for scheduled task execution</string>
+    <string name="app_name">Kai 9000</string>
+    <string name="daemon_channel_name">Kai 9000 Background Service</string>
+    <string name="daemon_channel_description">Keeps Kai 9000 running for scheduled task execution</string>
     <string name="daemon_notification_text">Daemon is running</string>
     <string name="download_channel_name">Model Downloads</string>
     <string name="download_channel_description">Shows progress while downloading AI models</string>

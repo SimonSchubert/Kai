@@ -1,12 +1,12 @@
-Ứng dụng chat AI mã nguồn mở tạo ra màn hình tương tác, không chỉ văn bản. Kai là giải pháp thay thế ChatGPT miễn phí với linh hồn, nhịp tim, trí nhớ bền bỉ và học tăng cường — trợ lý AI phát triển theo mỗi cuộc trò chuyện.
+Ứng dụng chat AI mã nguồn mở tạo ra màn hình tương tác, không chỉ văn bản. Kai 9000 là giải pháp thay thế ChatGPT miễn phí với linh hồn, nhịp tim, trí nhớ bền bỉ và học tăng cường — trợ lý AI phát triển theo mỗi cuộc trò chuyện.
 
-Kai tạo giao diện tương tác gốc — nút, biểu mẫu, bảng, biểu đồ và ứng dụng toàn màn hình — ngay trong chat. Yêu cầu xây máy tính, trắc nghiệm, bảng điều khiển hoặc danh sách việc cần làm, và tương tác trực tiếp.
+Kai 9000 tạo giao diện tương tác gốc — nút, biểu mẫu, bảng, biểu đồ và ứng dụng toàn màn hình — ngay trong chat. Yêu cầu xây máy tính, trắc nghiệm, bảng điều khiển hoặc danh sách việc cần làm, và tương tác trực tiếp.
 
 🧠 Linh hồn và Trí nhớ
-Tạo tính cách cho Kai bằng cách viết "linh hồn". Kai ghi nhớ điều quan trọng giữa các cuộc trò chuyện — sở thích, kiến thức và vấn đề đã biết. Trò chuyện càng nhiều, càng thông minh.
+Tạo tính cách cho Kai 9000 bằng cách viết "linh hồn". Kai 9000 ghi nhớ điều quan trọng giữa các cuộc trò chuyện — sở thích, kiến thức và vấn đề đã biết. Trò chuyện càng nhiều, càng thông minh.
 
 💓 Nhịp tim
-Kai kiểm tra theo lịch — công việc, email, xu hướng — ngay cả khi bạn không trò chuyện. Khi cần chú ý, Kai thông báo.
+Kai 9000 kiểm tra theo lịch — công việc, email, xu hướng — ngay cả khi bạn không trò chuyện. Khi cần chú ý, Kai 9000 thông báo.
 
 ⚡ 24 Dịch vụ — Một ứng dụng, mọi mô hình
 Kết nối ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok và 17 nhà cung cấp khác. Chạy mô hình cục bộ qua Ollama hoặc LM Studio. Gói miễn phí tích hợp — không cần API key.
@@ -35,12 +35,12 @@ Dịch vụ được hỗ trợ
 • MCP Servers
 
 🖥️ Chế độ Giao diện Tương tác
-Toàn màn hình. Kai trở thành trình xây dựng ứng dụng — màn hình chức năng tạo tức thì. Điều hướng qua nút và ô nhập liệu.
+Toàn màn hình. Kai 9000 trở thành trình xây dựng ứng dụng — màn hình chức năng tạo tức thì. Điều hướng qua nút và ô nhập liệu.
 
 🔒 Quyền riêng tư, Mã nguồn mở, Không quảng cáo
 Lịch sử chat mã hóa lưu trữ cục bộ. Không quảng cáo, không thu thập dữ liệu. API đi thẳng đến nhà cung cấp. Hoàn toàn mã nguồn mở.
 
 🌍 Hoạt động mọi nơi
-Sử dụng Kai trên Android, máy tính bảng, Chromebook hoặc máy tính. Trợ lý luôn trong tầm tay.
+Sử dụng Kai 9000 trên Android, máy tính bảng, Chromebook hoặc máy tính. Trợ lý luôn trong tầm tay.
 
-Dù viết, lập trình, tóm tắt, dịch thuật hay học tập — Kai là giải pháp ChatGPT miễn phí, mã nguồn mở thích ứng với bạn.
+Dù viết, lập trình, tóm tắt, dịch thuật hay học tập — Kai 9000 là giải pháp ChatGPT miễn phí, mã nguồn mở thích ứng với bạn.

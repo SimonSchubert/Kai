@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai-ға қош келдіңіз</string>
+    <string name="welcome_message">Kai 9000-ға қош келдіңіз</string>
     <string name="prompt_ask_question">Сұрақ қойыңыз</string>
     <string name="error_invalid_api_key">Жарамсыз API кілті. Параметрлерді тексеріңіз.</string>
     <string name="error_rate_limit_exceeded">Сұрау лимитінен асып кетті. Кейінірек қайталаңыз.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Қайта жасау</string>
     <string name="error_empty_response">Жауап алынбады. Жаңа чат бастаңыз немесе хабарламаңызды қысқартыңыз.</string>
     <string name="settings_daemon_mode">Daemon режимі</string>
-    <string name="settings_daemon_mode_description">Қолданба алдыңғы жақта болмаса да, жоспарланған тапсырмалар орындалуы үшін Kai-ды фонда жұмыс істетіп ұстаңыз.</string>
+    <string name="settings_daemon_mode_description">Қолданба алдыңғы жақта болмаса да, жоспарланған тапсырмалар орындалуы үшін Kai 9000-ды фонда жұмыс істетіп ұстаңыз.</string>
     <string name="settings_scheduled_tasks">Жоспарланған тапсырмалар</string>
     <string name="settings_scheduled_tasks_description">AI болашақта орындау үшін жоспарлаған тапсырмалар. Жоспарланған тапсырмалар жасау үшін AI-дан есіңізге салуды немесе кейінірек бірдеңе орындауды сұраңыз.</string>
     <string name="settings_scheduled_tasks_cancel">Тапсырманы болдырмау</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Ешқашан</string>
     <string name="settings_add_service">Қызметті қосу</string>
     <string name="settings_free_fallback">Қосалқы ретінде пайдалану</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Жүрек соғысы</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Бұл автоматты өзін-өзі тексеру. Естеліктеріңіз бен күтудегі тапсырмаларды қарап шығыңыз. Егер бәрі жақсы болса және ешнәрсе назар аударуды қажет етпесе, дәл осылай жауап беріңіз: HEARTBEAT_OK\nЕгер бірнәрсе назар аударуды қажет етсе (ескірген естеліктер, мерзімі келген тапсырмалар, пайдаланушы кейінгі әрекеттері), оны шешіңіз.</string>
     <string name="settings_heartbeat_description">AI-ға пайдаланушы енгізуінсіз естеліктер мен тапсырмаларды қарауға мүмкіндік беретін мерзімді өзін-өзі тексерулер. Белсенді сағаттарда әр %1$d минут сайын іске қосылады.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat промпты</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Жан</string>
     <string name="settings_import_section_memory">Жады</string>
     <string name="settings_import_section_scheduling">Жоспарлау</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Жүрек соғысы</string>
     <string name="settings_import_section_email">Электрондық пошта</string>
     <string name="settings_import_section_tools">Құралдар</string>
     <string name="settings_import_section_mcp">MCP серверлері</string>
     <string name="settings_import_section_conversations">Сұхбаттар</string>
     <string name="settings_heartbeat_reset_confirm">Бұл жүрек соғысы сұрауын әдепкіге қалпына келтіреді. Сенімдісіз бе?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Әдепкі</string>
     <string name="settings_import_partial">Параметрлер %1$d қателі бөлім(дер)мен импортталды.</string>
     <string name="settings_model_search">Модельдерді іздеу…</string>
     <string name="waiting_content_description">Жауап күтілуде</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Чат тарихы</string>
     <string name="chat_history_delete_content_description">Әңгімені жою</string>
     <string name="chat_history_empty">Сақталған әңгімелер жоқ</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Жүрек соғысы</string>
     <string name="heartbeat_banner_message">Heartbeat хабарлайтын нәрсе бар</string>
     <string name="heartbeat_banner_dismiss">Жабу</string>
     <string name="scroll_to_bottom_content_description">Төменге жылжу</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Welcome to Kai</string>
+    <string name="welcome_message">Welcome to Kai 9000</string>
     <string name="prompt_ask_question">Ask a question</string>
     <string name="error_invalid_api_key">Invalid API Key. Please check your settings.</string>
     <string name="error_rate_limit_exceeded">Rate limit exceeded. Please try again later.</string>
@@ -119,7 +119,7 @@
     <string name="settings_scheduled_tasks_description">Tasks scheduled by the AI for future execution. Ask the AI to remind you or run something later to create scheduled tasks.</string>
     <string name="settings_scheduled_tasks_cancel">Cancel task</string>
     <string name="settings_daemon_mode">Daemon Mode</string>
-    <string name="settings_daemon_mode_description">Keep Kai running in the background so scheduled tasks execute even when the app is not in the foreground.</string>
+    <string name="settings_daemon_mode_description">Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground.</string>
     <string name="settings_heartbeat">Heartbeat</string>
     <string name="settings_heartbeat_description">Periodic self-checks that let the AI review memories and tasks without user input. Runs every %1$d minutes during active hours.</string>
     <string name="settings_heartbeat_interval">Interval</string>

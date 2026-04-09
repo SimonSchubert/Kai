@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Välkommen till Kai</string>
+    <string name="welcome_message">Välkommen till Kai 9000</string>
     <string name="prompt_ask_question">Ställ en fråga</string>
     <string name="error_invalid_api_key">Ogiltig API-nyckel. Kontrollera dina inställningar.</string>
     <string name="error_rate_limit_exceeded">Hastighetsgränsen överskriden. Försök igen senare.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Generera om</string>
     <string name="error_empty_response">Inget svar mottaget. Prova att starta en ny chatt eller korta ner ditt meddelande.</string>
     <string name="settings_daemon_mode">Bakgrundsläge</string>
-    <string name="settings_daemon_mode_description">Håll Kai igång i bakgrunden så att schemalagda uppgifter körs även när appen inte är i förgrunden.</string>
+    <string name="settings_daemon_mode_description">Håll Kai 9000 igång i bakgrunden så att schemalagda uppgifter körs även när appen inte är i förgrunden.</string>
     <string name="settings_scheduled_tasks">Schemalagda uppgifter</string>
     <string name="settings_scheduled_tasks_description">Uppgifter som AI:n har schemalagt för framtida körning. Be AI:n att påminna dig eller köra något senare för att skapa schemalagda uppgifter.</string>
     <string name="settings_scheduled_tasks_cancel">Avbryt uppgift</string>
@@ -166,14 +166,14 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_import_section_soul">Själ</string>
     <string name="settings_import_section_memory">Minne</string>
     <string name="settings_import_section_scheduling">Schemaläggning</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Hjärtslag</string>
     <string name="settings_import_section_email">E-post</string>
     <string name="settings_import_section_tools">Verktyg</string>
     <string name="settings_import_section_mcp">MCP-servrar</string>
     <string name="settings_import_section_conversations">Konversationer</string>
     <string name="settings_heartbeat_reset_confirm">Detta kommer att återställa heartbeat-prompten till standard. Är du säker?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Inställningar importerade med %1$d avsnitt som hade fel.</string>
     <string name="settings_model_search">Sök modeller…</string>
     <string name="waiting_content_description">Väntar på svar</string>
@@ -181,7 +181,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="chat_history_title">Chatthistorik</string>
     <string name="chat_history_delete_content_description">Ta bort konversation</string>
     <string name="chat_history_empty">Inga sparade konversationer</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Hjärtslag</string>
     <string name="heartbeat_banner_message">Heartbeat har något att rapportera</string>
     <string name="heartbeat_banner_dismiss">Stäng</string>
     <string name="scroll_to_bottom_content_description">Scrolla till botten</string>

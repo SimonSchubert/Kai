@@ -213,7 +213,7 @@ actual fun getAvailableTools(): List<Tool> {
                     )
 
                     override suspend fun execute(args: Map<String, Any>): Any {
-                        val title = args["title"] as? String ?: "Kai"
+                        val title = args["title"] as? String ?: "Kai 9000"
                         val message = args["message"] as? String
                             ?: return mapOf("success" to false, "error" to "Message is required")
 

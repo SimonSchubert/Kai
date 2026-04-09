@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai માં આપનું સ્વાગત છે</string>
+    <string name="welcome_message">Kai 9000 માં આપનું સ્વાગત છે</string>
     <string name="prompt_ask_question">પ્રશ્ન પૂછો</string>
     <string name="error_invalid_api_key">અમાન્ય API કી. કૃપા કરીને તમારી સેટિંગ્સ તપાસો.</string>
     <string name="error_rate_limit_exceeded">દર મર્યાદા વટાવી ગઈ. કૃપા કરીને પછી ફરી પ્રયાસ કરો.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">ફરીથી જનરેટ કરો</string>
     <string name="error_empty_response">કોઈ જવાબ મળ્યો નથી. નવી ચેટ શરૂ કરવાનો અથવા તમારો સંદેશ ટૂંકો કરવાનો પ્રયાસ કરો.</string>
     <string name="settings_daemon_mode">ડેમન મોડ</string>
-    <string name="settings_daemon_mode_description">Kai ને બેકગ્રાઉન્ડમાં ચાલુ રાખો જેથી શેડ્યૂલ કરેલ કાર્યો એપ ફોરગ્રાઉન્ડમાં ન હોય ત્યારે પણ ચાલે.</string>
+    <string name="settings_daemon_mode_description">Kai 9000 ને બેકગ્રાઉન્ડમાં ચાલુ રાખો જેથી શેડ્યૂલ કરેલ કાર્યો એપ ફોરગ્રાઉન્ડમાં ન હોય ત્યારે પણ ચાલે.</string>
     <string name="settings_scheduled_tasks">શેડ્યૂલ કરેલ કાર્યો</string>
     <string name="settings_scheduled_tasks_description">AI દ્વારા ભવિષ્યના અમલ માટે શેડ્યૂલ કરેલ કાર્યો. શેડ્યૂલ કરેલ કાર્યો બનાવવા માટે AI ને તમને યાદ અપાવવા અથવા પછીથી કંઈક ચલાવવા કહો.</string>
     <string name="settings_scheduled_tasks_cancel">કાર્ય રદ કરો</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">ક્યારેય નહીં</string>
     <string name="settings_add_service">સેવા ઉમેરો</string>
     <string name="settings_free_fallback">ફોલબેક તરીકે વાપરો</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">ધબકારા</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] આ એક આપોઆપ સ્વ-તપાસ છે. તમારી યાદો અને બાકી કાર્યોની સમીક્ષા કરો. જો બધું બરાબર છે અને કશાને ધ્યાનની જરૂર નથી, તો ચોક્કસ આ સાથે જવાબ આપો: HEARTBEAT_OK\nજો કશાકને ધ્યાનની જરૂર હોય (જૂની યાદો, બાકી કાર્યો, વપરાશકર્તા ફોલો-અપ્સ), તો તેને સંભાળો.</string>
     <string name="settings_heartbeat_description">સમયાંતરે સ્વ-તપાસ જે AI ને વપરાશકર્તાના ઇનપુટ વિના યાદો અને કાર્યોની સમીક્ષા કરવા દે છે. સક્રિય કલાકો દરમિયાન દર %1$d મિનિટે ચાલે છે.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat પ્રોમ્પ્ટ</string>
@@ -172,7 +172,7 @@
     <string name="settings_import_section_conversations">વાર્તાલાપ</string>
     <string name="settings_heartbeat_reset_confirm">આ હાર્ટબીટ પ્રોમ્પ્ટને ડિફોલ્ટ પર રીસેટ કરશે. શું તમે ખાતરી કરો છો?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">ડિફૉલ્ટ</string>
     <string name="settings_import_partial">%1$d વિભાગ(ઓ)માં ભૂલો સાથે સેટિંગ્સ આયાત કરવામાં આવી.</string>
     <string name="settings_model_search">મોડેલ શોધો…</string>
     <string name="waiting_content_description">પ્રતિસાદની રાહ જોઈ રહ્યા છીએ</string>

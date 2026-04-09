@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">欢迎使用 Kai</string>
+    <string name="welcome_message">欢迎使用 Kai 9000</string>
     <string name="prompt_ask_question">提问</string>
     <string name="error_invalid_api_key">API 密钥无效。请检查您的设置。</string>
     <string name="error_rate_limit_exceeded">超出速率限制。请稍后重试。</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">重新生成</string>
     <string name="error_empty_response">未收到回复。请尝试开始新对话或缩短您的消息。</string>
     <string name="settings_daemon_mode">后台模式</string>
-    <string name="settings_daemon_mode_description">让 Kai 在后台持续运行，以便即使应用不在前台时计划任务也能执行。</string>
+    <string name="settings_daemon_mode_description">让 Kai 9000 在后台持续运行，以便即使应用不在前台时计划任务也能执行。</string>
     <string name="settings_scheduled_tasks">计划任务</string>
     <string name="settings_scheduled_tasks_description">AI 安排的未来执行任务。让 AI 提醒您或稍后运行某些操作来创建计划任务。</string>
     <string name="settings_scheduled_tasks_cancel">取消任务</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_conversations">对话</string>
     <string name="settings_heartbeat_reset_confirm">这将把心跳提示重置为默认值。您确定吗？</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">默认</string>
     <string name="settings_import_partial">设置已导入，其中 %1$d 个部分存在错误。</string>
     <string name="settings_model_search">搜索模型…</string>
     <string name="waiting_content_description">等待响应</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Welkom bij Kai</string>
+    <string name="welcome_message">Welkom bij Kai 9000</string>
     <string name="prompt_ask_question">Stel een vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Controleer uw instellingen.</string>
     <string name="error_rate_limit_exceeded">Aanvraaglimiet overschreden. Probeer het later opnieuw.</string>
@@ -27,7 +27,7 @@
     <string name="settings_status_error_connection_failed">Verbinding mislukt</string>
     <string name="settings_openai_compatible_setup_ollama">Stel uw lokale Ollama-instantie in:</string>
     <string name="settings_openai_compatible_or_other_service">of een andere compatibele service:</string>
-    <string name="settings_openai_compatible_providers">providers</string>
+    <string name="settings_openai_compatible_providers">aanbieders</string>
     <string name="tool_get_local_time_name">Lokale tijd ophalen</string>
     <string name="tool_get_local_time_description">Huidige lokale datum en tijd ophalen voor het interpreteren van relatieve datums</string>
     <string name="tool_get_location_name">Locatie ophalen</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Opnieuw genereren</string>
     <string name="error_empty_response">Geen antwoord ontvangen. Probeer een nieuw gesprek te starten of uw bericht in te korten.</string>
     <string name="settings_daemon_mode">Daemon-modus</string>
-    <string name="settings_daemon_mode_description">Houd Kai op de achtergrond actief zodat geplande taken worden uitgevoerd, zelfs als de app niet op de voorgrond staat.</string>
+    <string name="settings_daemon_mode_description">Houd Kai 9000 op de achtergrond actief zodat geplande taken worden uitgevoerd, zelfs als de app niet op de voorgrond staat.</string>
     <string name="settings_scheduled_tasks">Geplande taken</string>
     <string name="settings_scheduled_tasks_description">Taken die door de AI zijn gepland voor toekomstige uitvoering. Vraag de AI om u eraan te herinneren of iets later uit te voeren om geplande taken aan te maken.</string>
     <string name="settings_scheduled_tasks_cancel">Taak annuleren</string>
@@ -153,10 +153,10 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_mcp_status_error">Verbinding mislukt</string>
     <string name="settings_mcp_no_tools">Geen tools gevonden</string>
     <string name="settings_mcp_popular_servers">Populaire servers</string>
-    <string name="settings_export_import_title">Export / Import</string>
+    <string name="settings_export_import_title">Exporteren / Importeren</string>
     <string name="settings_export_import_description">Het geëxporteerde bestand bevat gevoelige gegevens zoals API-sleutels en wachtwoorden.</string>
-    <string name="settings_export">Export</string>
-    <string name="settings_import">Import</string>
+    <string name="settings_export">Exporteren</string>
+    <string name="settings_import">Importeren</string>
     <string name="settings_import_success">Instellingen succesvol geïmporteerd.</string>
     <string name="settings_import_error">Import mislukt. Het bestandsformaat is ongeldig.</string>
     <string name="settings_import_preview_title">Instellingen importeren</string>
@@ -166,14 +166,14 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_import_section_soul">Ziel</string>
     <string name="settings_import_section_memory">Geheugen</string>
     <string name="settings_import_section_scheduling">Planning</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Hartslag</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Hulpmiddelen</string>
     <string name="settings_import_section_mcp">MCP-servers</string>
     <string name="settings_import_section_conversations">Gesprekken</string>
     <string name="settings_heartbeat_reset_confirm">Hiermee wordt de heartbeat-prompt teruggezet naar de standaard. Weet je het zeker?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Standaard</string>
     <string name="settings_import_partial">Instellingen geïmporteerd met %1$d sectie(s) met fouten.</string>
     <string name="settings_model_search">Modellen zoeken…</string>
     <string name="waiting_content_description">Wachten op antwoord</string>
@@ -181,7 +181,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="chat_history_title">Chatgeschiedenis</string>
     <string name="chat_history_delete_content_description">Gesprek verwijderen</string>
     <string name="chat_history_empty">Geen opgeslagen gesprekken</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Hartslag</string>
     <string name="heartbeat_banner_message">Heartbeat heeft iets te melden</string>
     <string name="heartbeat_banner_dismiss">Sluiten</string>
     <string name="scroll_to_bottom_content_description">Naar beneden scrollen</string>

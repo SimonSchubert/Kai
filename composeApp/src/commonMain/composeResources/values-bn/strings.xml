@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai-তে স্বাগতম</string>
+    <string name="welcome_message">Kai 9000-তে স্বাগতম</string>
     <string name="prompt_ask_question">একটি প্রশ্ন করুন</string>
     <string name="error_invalid_api_key">অবৈধ API কী। অনুগ্রহ করে আপনার সেটিংস পরীক্ষা করুন।</string>
     <string name="error_rate_limit_exceeded">রেট সীমা অতিক্রম করা হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">পুনরায় তৈরি করুন</string>
     <string name="error_empty_response">কোনো প্রতিক্রিয়া পাওয়া যায়নি। নতুন চ্যাট শুরু করার বা আপনার বার্তা সংক্ষিপ্ত করার চেষ্টা করুন।</string>
     <string name="settings_daemon_mode">ডেমন মোড</string>
-    <string name="settings_daemon_mode_description">Kai ব্যাকগ্রাউন্ডে চালু রাখুন যাতে অ্যাপ ফোরগ্রাউন্ডে না থাকলেও নির্ধারিত কাজগুলি সম্পাদিত হয়।</string>
+    <string name="settings_daemon_mode_description">Kai 9000 ব্যাকগ্রাউন্ডে চালু রাখুন যাতে অ্যাপ ফোরগ্রাউন্ডে না থাকলেও নির্ধারিত কাজগুলি সম্পাদিত হয়।</string>
     <string name="settings_scheduled_tasks">নির্ধারিত কাজ</string>
     <string name="settings_scheduled_tasks_description">AI দ্বারা ভবিষ্যতে সম্পাদনের জন্য নির্ধারিত কাজ। নির্ধারিত কাজ তৈরি করতে AI কে আপনাকে মনে করিয়ে দিতে বা পরে কিছু চালাতে বলুন।</string>
     <string name="settings_scheduled_tasks_cancel">কাজ বাতিল করুন</string>
@@ -172,7 +172,7 @@
     <string name="settings_import_section_conversations">কথোপকথন</string>
     <string name="settings_heartbeat_reset_confirm">এটি হার্টবিট প্রম্পটকে ডিফল্টে রিসেট করবে। আপনি কি নিশ্চিত?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">ডিফল্ট</string>
     <string name="settings_import_partial">%1$dটি বিভাগে ত্রুটি সহ সেটিংস আমদানি করা হয়েছে।</string>
     <string name="settings_model_search">মডেল খুঁজুন…</string>
     <string name="waiting_content_description">প্রতিক্রিয়ার জন্য অপেক্ষা করা হচ্ছে</string>

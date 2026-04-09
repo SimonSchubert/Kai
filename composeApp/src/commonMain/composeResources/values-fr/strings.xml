@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Bienvenue sur Kai</string>
+    <string name="welcome_message">Bienvenue sur Kai 9000</string>
     <string name="prompt_ask_question">Poser une question</string>
     <string name="error_invalid_api_key">Clé API invalide. Veuillez vérifier vos paramètres.</string>
     <string name="error_rate_limit_exceeded">Limite de taux dépassée. Veuillez réessayer plus tard.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Régénérer</string>
     <string name="error_empty_response">Aucune réponse reçue. Essayez de démarrer une nouvelle conversation ou de raccourcir votre message.</string>
     <string name="settings_daemon_mode">Mode démon</string>
-    <string name="settings_daemon_mode_description">Gardez Kai en fonctionnement en arrière-plan afin que les tâches planifiées s'exécutent même lorsque l'application n'est pas au premier plan.</string>
+    <string name="settings_daemon_mode_description">Gardez Kai 9000 en fonctionnement en arrière-plan afin que les tâches planifiées s'exécutent même lorsque l'application n'est pas au premier plan.</string>
     <string name="settings_scheduled_tasks">Tâches planifiées</string>
     <string name="settings_scheduled_tasks_description">Tâches planifiées par l'IA pour une exécution future. Demandez à l'IA de vous rappeler ou d'exécuter quelque chose plus tard pour créer des tâches planifiées.</string>
     <string name="settings_scheduled_tasks_cancel">Annuler la tâche</string>
@@ -166,14 +166,14 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_section_soul">Âme</string>
     <string name="settings_import_section_memory">Mémoire</string>
     <string name="settings_import_section_scheduling">Planification</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Pulsation</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Outils</string>
     <string name="settings_import_section_mcp">Serveurs MCP</string>
     <string name="settings_import_section_conversations">Conversations</string>
     <string name="settings_heartbeat_reset_confirm">Cela réinitialisera l'invite de battement de cœur par défaut. Êtes-vous sûr ?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Par défaut</string>
     <string name="settings_import_partial">Paramètres importés avec %1$d section(s) contenant des erreurs.</string>
     <string name="settings_model_search">Rechercher des modèles…</string>
     <string name="waiting_content_description">En attente de réponse</string>
@@ -181,7 +181,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="chat_history_title">Historique des discussions</string>
     <string name="chat_history_delete_content_description">Supprimer la conversation</string>
     <string name="chat_history_empty">Aucune conversation enregistrée</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Pulsation</string>
     <string name="heartbeat_banner_message">Heartbeat a quelque chose à signaler</string>
     <string name="heartbeat_banner_dismiss">Fermer</string>
     <string name="scroll_to_bottom_content_description">Défiler vers le bas</string>

@@ -1,12 +1,12 @@
-Nyilt forraskodu AI chat alkalmazas, amely interaktiv keppernyoket epit, nem csak szoveget. Kai egy ingyenes ChatGPT alternativa lelekkel, szivveressel, tarto memoriaval es megerositett tanulassal — egy AI asszisztens, amely minden beszelgetessel fejlodik.
+Nyilt forraskodu AI chat alkalmazas, amely interaktiv keppernyoket epit, nem csak szoveget. Kai 9000 egy ingyenes ChatGPT alternativa lelekkel, szivveressel, tarto memoriaval es megerositett tanulassal — egy AI asszisztens, amely minden beszelgetessel fejlodik.
 
-A hagyomanyos chatbotoktol elteroen Kai nativ interaktiv feluletet general — gombokat, urlapokat, tablazatokat, diagramokat es teljes keppernyos alkalmazasokat — kozvetlenul a chatben. Kerd meg, hogy epitsen szamologepet, kvizt vagy feladatlistat, es valodi, mukodo feluletet renderel, amelyet megerinthetsz es hasznalhatsz. Ez az AI a szovegen tul.
+A hagyomanyos chatbotoktol elteroen Kai 9000 nativ interaktiv feluletet general — gombokat, urlapokat, tablazatokat, diagramokat es teljes keppernyos alkalmazasokat — kozvetlenul a chatben. Kerd meg, hogy epitsen szamologepet, kvizt vagy feladatlistat, es valodi, mukodo feluletet renderel, amelyet megerinthetsz es hasznalhatsz. Ez az AI a szovegen tul.
 
 🧠 Lelek es memoria — Egy chatbot, amely ismer teged
-Adj Kai-nak szemelyiseget a "lelke" megirasaval. Emlekszik arra, ami fontos a beszelgetesek kozott — a preferenciaidra, korabbi tanulsagokra es ismert problemakra — es megerositi ezt a tudast idovel. A hasznos emlekek beepulnek az allando szemelyisegebe. Minel tobbet beszelgetsz, annal okosabb lesz.
+Adj Kai 9000-nak szemelyiseget a "lelke" megirasaval. Emlekszik arra, ami fontos a beszelgetesek kozott — a preferenciaidra, korabbi tanulsagokra es ismert problemakra — es megerositi ezt a tudast idovel. A hasznos emlekek beepulnek az allando szemelyisegebe. Minel tobbet beszelgetsz, annal okosabb lesz.
 
 💓 Szivveres — Mindig aktiv szemelyes ugynokod
-Kai nem alszik. Szivveres rendszere utemezetten ellenoriz — attekinti a fuggo feladatokat, emaileket es trendeket — meg akkor is, amikor nem beszelgetsz. Allitsd be az intervallumot, az aktiv orakat es a modellt. Amikor valami figyelmet igenyel, Kai felszinre hozza. Amikor minden rendben, csendben marad.
+Kai 9000 nem alszik. Szivveres rendszere utemezetten ellenoriz — attekinti a fuggo feladatokat, emaileket es trendeket — meg akkor is, amikor nem beszelgetsz. Allitsd be az intervallumot, az aktiv orakat es a modellt. Amikor valami figyelmet igenyel, Kai 9000 felszinre hozza. Amikor minden rendben, csendben marad.
 
 ⚡ 24 szolgaltatas — Egy alkalmazas, minden modell
 Csatlakozz a ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok es meg 17 tovabbi szolgaltatohoz. Futtass helyi modelleket Ollama vagy LM Studio segitsegevel privat, offline hasznalatra. Adj hozza tobb fiokot, rendezd at a prioritasokat, es hagyd, hogy az intelligens tartalek lanc automatikusan kezelje a kimaradasokat. A beepitett ingyenes szint azt jelenti, hogy azonnal elkezdhetsz csevegesni — nem kell API kulcs.
@@ -36,12 +36,12 @@ Engedelyezz hatekony eszkozoket, amelyekkel az asszisztens cselekedhet, nem csak
 • MCP Servers — csatlakozas kulso eszkozszerverekhez
 
 🖥️ Interaktiv UI mod
-Valtas teljes kepernyore. Interaktiv modban Kai vizualis alkalmazasepitove valik — nincs markdown, nincs gorgetheto szoveg. Csak megerintheto, mukodo kepernyok, amelyek menet kozben generalodnak. Navigalj kizarolag gombokkal es beviteli mezokkel. Mint egy alkalmazasfejleszto a zsebedben.
+Valtas teljes kepernyore. Interaktiv modban Kai 9000 vizualis alkalmazasepitove valik — nincs markdown, nincs gorgetheto szoveg. Csak megerintheto, mukodo kepernyok, amelyek menet kozben generalodnak. Navigalj kizarolag gombokkal es beviteli mezokkel. Mint egy alkalmazasfejleszto a zsebedben.
 
 🔒 Adatvedelem az elso, nyilt forraskod es hirdetesmentes
-Minden csevegesi elozmeny titkositva es helyben tarolva az eszkozodon. Nincs hirdetes, nincs adatgyujtes, nincs nyomon kovetes. Az API hivasok kozvetlenul a valasztott szolgaltatohoz mennek — Kai soha nincs kozottuk. Futtass helyi modelleket teljesen offline, privat elmenyert. Teljesen nyilt forraskodu, teljesen atlatszto.
+Minden csevegesi elozmeny titkositva es helyben tarolva az eszkozodon. Nincs hirdetes, nincs adatgyujtes, nincs nyomon kovetes. Az API hivasok kozvetlenul a valasztott szolgaltatohoz mennek — Kai 9000 soha nincs kozottuk. Futtass helyi modelleket teljesen offline, privat elmenyert. Teljesen nyilt forraskodu, teljesen atlatszto.
 
 🌍 Mindenhol mukodik
-Hasznald Kai-t Android telefonodon, tablagepeden, Chromebookon vagy asztali gepen. Az asszisztensed, mindig kesznel.
+Hasznald Kai 9000-t Android telefonodon, tablagepeden, Chromebookon vagy asztali gepen. Az asszisztensed, mindig kesznel.
 
-Legyen szo irasrol, kodolasrol, osszefoglalasrol, forditasrol, otletelesrol, munkafolyamatok automatizalasarol, emailek kezeleserol vagy tanulasrol — Kai az ingyenes, hirdetesmentes, nyilt forraskodu ChatGPT alternativa, amely hozzad alkalmazkodik.
+Legyen szo irasrol, kodolasrol, osszefoglalasrol, forditasrol, otletelesrol, munkafolyamatok automatizalasarol, emailek kezeleserol vagy tanulasrol — Kai 9000 az ingyenes, hirdetesmentes, nyilt forraskodu ChatGPT alternativa, amely hozzad alkalmazkodik.

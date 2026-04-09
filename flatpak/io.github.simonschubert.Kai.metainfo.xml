@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>io.github.simonschubert.Kai</id>
 
-  <name>Kai</name>
+  <name>Kai 9000</name>
   <summary>AI assistant powered by Ollama, Gemini, ChatGPT and more</summary>
 
   <metadata_license>CC0-1.0</metadata_license>
@@ -14,7 +14,7 @@
 
   <description>
     <p>
-      Kai is a versatile AI assistant that connects to multiple AI services including
+      Kai 9000 is a versatile AI assistant that connects to multiple AI services including
       Ollama, Google Gemini, OpenAI ChatGPT, Anthropic Claude, Mistral, Groq,
       OpenRouter, and any OpenAI-compatible API.
     </p>

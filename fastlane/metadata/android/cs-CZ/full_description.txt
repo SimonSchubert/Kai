@@ -1,12 +1,12 @@
-Open-source AI chatovací aplikace, která vytváří interaktivní obrazovky, nejen text. Kai je bezplatná alternativa k ChatGPT s duší, srdečním tepem, trvalými vzpomínkami a posilovaným učením — AI asistent, který se vyvíjí s každou konverzací.
+Open-source AI chatovací aplikace, která vytváří interaktivní obrazovky, nejen text. Kai 9000 je bezplatná alternativa k ChatGPT s duší, srdečním tepem, trvalými vzpomínkami a posilovaným učením — AI asistent, který se vyvíjí s každou konverzací.
 
-Na rozdíl od běžných chatbotů generuje Kai nativní interaktivní UI — tlačítka, formuláře, tabulky, grafy a celoobrazovkové aplikace — přímo v chatu. Požádejte ho o vytvoření kalkulačky, kvízu, přehledového panelu nebo seznamu úkolů a on vykreslí skutečné fungující rozhraní, se kterým můžete interagovat. To je AI za hranicemi textu.
+Na rozdíl od běžných chatbotů generuje Kai 9000 nativní interaktivní UI — tlačítka, formuláře, tabulky, grafy a celoobrazovkové aplikace — přímo v chatu. Požádejte ho o vytvoření kalkulačky, kvízu, přehledového panelu nebo seznamu úkolů a on vykreslí skutečné fungující rozhraní, se kterým můžete interagovat. To je AI za hranicemi textu.
 
 🧠 Duše a Paměť — Chatbot, který vás zná
-Dejte Kai osobnost napsáním jeho "duše". Pamatuje si to důležité napříč konverzacemi — vaše preference, minulé poznatky a známé problémy — a posiluje tyto znalosti v čase. Vzpomínky, které se ukáží jako užitečné, jsou povýšeny do jeho trvalé osobnosti. Čím více chatujete, tím chytřejší je.
+Dejte Kai 9000 osobnost napsáním jeho "duše". Pamatuje si to důležité napříč konverzacemi — vaše preference, minulé poznatky a známé problémy — a posiluje tyto znalosti v čase. Vzpomínky, které se ukáží jako užitečné, jsou povýšeny do jeho trvalé osobnosti. Čím více chatujete, tím chytřejší je.
 
 💓 Srdeční Tep — Váš Stále Aktivní Osobní Agent
-Kai nespí. Jeho systém srdečního tepu pravidelně kontroluje — kontroluje čekající úkoly, e-maily a trendy — i když nečatujete. Nastavte interval, aktivní hodiny a model. Když něco vyžaduje vaši pozornost, Kai vás upozorní. Když je vše v pořádku, je ticho.
+Kai 9000 nespí. Jeho systém srdečního tepu pravidelně kontroluje — kontroluje čekající úkoly, e-maily a trendy — i když nečatujete. Nastavte interval, aktivní hodiny a model. Když něco vyžaduje vaši pozornost, Kai 9000 vás upozorní. Když je vše v pořádku, je ticho.
 
 ⚡ 24 Služeb — Jedna Aplikace, Každý Model
 Připojte se k ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok a dalším 17 poskytovatelům. Spouštějte lokální modely přes Ollama nebo LM Studio pro soukromé, offline použití. Přidávejte více účtů, měňte priority a nechte chytrý záložní řetězec automaticky zvládnout výpadky. Vestavěná bezplatná úroveň znamená, že můžete začít chatovat bez jakéhokoliv nastavení — není potřeba API klíč.
@@ -36,12 +36,12 @@ Aktivujte výkonné nástroje, které asistentovi umožní jednat, nejen mluvit:
 • MCP Servers — připojení k externím serverům nástrojů
 
 🖥️ Interaktivní Režim UI
-Přejděte na celou obrazovku. V Interaktivním Režimu se Kai stává vizuálním tvůrcem aplikací — žádný markdown, žádný rolující text. Jen klikatelné, funkční obrazovky generované za letu. Navigujte výhradně pomocí tlačítek a vstupů. Je to jako mít osobního vývojáře aplikací v kapse.
+Přejděte na celou obrazovku. V Interaktivním Režimu se Kai 9000 stává vizuálním tvůrcem aplikací — žádný markdown, žádný rolující text. Jen klikatelné, funkční obrazovky generované za letu. Navigujte výhradně pomocí tlačítek a vstupů. Je to jako mít osobního vývojáře aplikací v kapse.
 
 🔒 Soukromí na Prvním Místě, Open Source a Bez Reklam
-Veškerá historie chatů je šifrována a uložena lokálně na vašem zařízení. Žádné reklamy, žádný sběr dat, žádné sledování. API volání jdou přímo k vámi zvolenému poskytovateli — Kai nikdy nestojí uprostřed. Spouštějte lokální modely pro plně offline, soukromý zážitek. Plně open source, plně transparentní.
+Veškerá historie chatů je šifrována a uložena lokálně na vašem zařízení. Žádné reklamy, žádný sběr dat, žádné sledování. API volání jdou přímo k vámi zvolenému poskytovateli — Kai 9000 nikdy nestojí uprostřed. Spouštějte lokální modely pro plně offline, soukromý zážitek. Plně open source, plně transparentní.
 
 🌍 Funguje Všude
-Používejte Kai na svém Android telefonu, tabletu, Chromebooku nebo počítači. Váš asistent, vždy na dosah.
+Používejte Kai 9000 na svém Android telefonu, tabletu, Chromebooku nebo počítači. Váš asistent, vždy na dosah.
 
-Ať už píšete, kódujete, shrnujete, překládáte, brainstormujete, automatizujete pracovní postupy, spravujete e-maily nebo studujete — Kai je bezplatná, bez reklam, open-source alternativa k ChatGPT, která se přizpůsobí vám.
+Ať už píšete, kódujete, shrnujete, překládáte, brainstormujete, automatizujete pracovní postupy, spravujete e-maily nebo studujete — Kai 9000 je bezplatná, bez reklam, open-source alternativa k ChatGPT, která se přizpůsobí vám.

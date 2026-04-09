@@ -1,12 +1,12 @@
-Open-source na AI chat app na gumagawa ng interactive na mga screen, hindi lang teksto. Ang Kai ay libreng alternatibo sa ChatGPT na may kaluluwa, tibok ng puso, permanenteng alaala, at reinforced learning — AI assistant na nagbabago sa bawat pag-uusap.
+Open-source na AI chat app na gumagawa ng interactive na mga screen, hindi lang teksto. Ang Kai 9000 ay libreng alternatibo sa ChatGPT na may kaluluwa, tibok ng puso, permanenteng alaala, at reinforced learning — AI assistant na nagbabago sa bawat pag-uusap.
 
-Hindi tulad ng karaniwang chatbot, gumagawa ang Kai ng native interactive UI — mga button, form, table, chart, at full-screen app — sa loob ng chat. Hilingin mong gumawa ng calculator, quiz, dashboard, o to-do list, at gagawa ito ng totoong gumaganang interface. Ito ay AI na lampas sa teksto.
+Hindi tulad ng karaniwang chatbot, gumagawa ang Kai 9000 ng native interactive UI — mga button, form, table, chart, at full-screen app — sa loob ng chat. Hilingin mong gumawa ng calculator, quiz, dashboard, o to-do list, at gagawa ito ng totoong gumaganang interface. Ito ay AI na lampas sa teksto.
 
 🧠 Kaluluwa at Alaala — Chatbot Na Kilala Ka
-Bigyan ng personalidad ang Kai sa pamamagitan ng pagsulat ng "kaluluwa." Naaalala niya ang mga importanteng bagay sa pagitan ng pag-uusap — kagustuhan, natutunan, at kilalang isyu. Ang mga kapaki-pakinabang na alaala ay itinataas sa permanenteng personalidad. Mas maraming chat, mas matalino.
+Bigyan ng personalidad ang Kai 9000 sa pamamagitan ng pagsulat ng "kaluluwa." Naaalala niya ang mga importanteng bagay sa pagitan ng pag-uusap — kagustuhan, natutunan, at kilalang isyu. Ang mga kapaki-pakinabang na alaala ay itinataas sa permanenteng personalidad. Mas maraming chat, mas matalino.
 
 💓 Tibok ng Puso — Palaging Aktibong Agent
-Hindi natutulog ang Kai. Nagche-check ayon sa iskedyul — gawain, email, at trend — kahit hindi ka nag-cha-chat. Itakda ang interval, aktibong oras, at modelo.
+Hindi natutulog ang Kai 9000. Nagche-check ayon sa iskedyul — gawain, email, at trend — kahit hindi ka nag-cha-chat. Itakda ang interval, aktibong oras, at modelo.
 
 ⚡ 24 Serbisyo — Isang App, Lahat ng Modelo
 Kumonekta sa ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok, at 17 pa. Lokal na modelo sa Ollama o LM Studio para sa pribado at offline. Maraming account, priyoridad, at smart fallback. Built-in libreng tier — walang API key.
@@ -36,7 +36,7 @@ Mga powerful tool para sa assistant na kumilos, hindi lang magsalita:
 • MCP Servers — external tool server
 
 🖥️ Interactive UI Mode
-Full-screen. Kai nagiging visual app builder — walang markdown. Mga tappable na screen na ginagawa on the fly. Parang personal app developer sa bulsa mo.
+Full-screen. Kai 9000 nagiging visual app builder — walang markdown. Mga tappable na screen na ginagawa on the fly. Parang personal app developer sa bulsa mo.
 
 🔒 Privacy-First, Open Source, Walang Ads
 Naka-encrypt at lokal na chat history. Walang ads, walang data collection. API call direkta sa provider. Buong open source.
@@ -44,4 +44,4 @@ Naka-encrypt at lokal na chat history. Walang ads, walang data collection. API c
 🌍 Gumagana Kahit Saan
 Android phone, tablet, Chromebook, o desktop. Palaging maabot.
 
-Kung nagsusulat, nagko-code, nagbubuod, nagsasalin, o nag-aaral ka — ang Kai ang libreng, walang ads, open-source na alternatibo sa ChatGPT na nag-a-adapt sa iyo.
+Kung nagsusulat, nagko-code, nagbubuod, nagsasalin, o nag-aaral ka — ang Kai 9000 ang libreng, walang ads, open-source na alternatibo sa ChatGPT na nag-a-adapt sa iyo.

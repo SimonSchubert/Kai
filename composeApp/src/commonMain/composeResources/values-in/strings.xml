@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Selamat datang di Kai</string>
+    <string name="welcome_message">Selamat datang di Kai 9000</string>
     <string name="prompt_ask_question">Ajukan pertanyaan</string>
     <string name="error_invalid_api_key">Kunci API tidak valid. Silakan periksa pengaturan Anda.</string>
     <string name="error_rate_limit_exceeded">Batas kecepatan tercapai. Coba lagi nanti.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Regenerasi</string>
     <string name="error_empty_response">Tidak ada respons yang diterima. Coba mulai obrolan baru atau persingkat pesan Anda.</string>
     <string name="settings_daemon_mode">Mode Daemon</string>
-    <string name="settings_daemon_mode_description">Biarkan Kai berjalan di latar belakang agar tugas terjadwal tetap dijalankan meskipun aplikasi tidak di latar depan.</string>
+    <string name="settings_daemon_mode_description">Biarkan Kai 9000 berjalan di latar belakang agar tugas terjadwal tetap dijalankan meskipun aplikasi tidak di latar depan.</string>
     <string name="settings_scheduled_tasks">Tugas Terjadwal</string>
     <string name="settings_scheduled_tasks_description">Tugas yang dijadwalkan oleh AI untuk dijalankan di masa depan. Minta AI untuk mengingatkan Anda atau menjalankan sesuatu nanti untuk membuat tugas terjadwal.</string>
     <string name="settings_scheduled_tasks_cancel">Batalkan tugas</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Jangan pernah</string>
     <string name="settings_add_service">Tambah layanan</string>
     <string name="settings_free_fallback">Gunakan sebagai cadangan</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Detak Jantung</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ini adalah pemeriksaan mandiri otomatis. Tinjau memori dan tugas yang tertunda. Jika semuanya baik dan tidak ada yang perlu perhatian, jawab dengan tepat: HEARTBEAT_OK\nJika sesuatu memerlukan perhatian (memori usang, tugas jatuh tempo, tindak lanjut pengguna), tangani hal tersebut.</string>
     <string name="settings_heartbeat_description">Pemeriksaan mandiri berkala yang memungkinkan AI meninjau memori dan tugas tanpa masukan pengguna. Berjalan setiap %1$d menit selama jam aktif.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Jiwa</string>
     <string name="settings_import_section_memory">Memori</string>
     <string name="settings_import_section_scheduling">Penjadwalan</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Detak Jantung</string>
     <string name="settings_import_section_email">Email</string>
     <string name="settings_import_section_tools">Alat</string>
     <string name="settings_import_section_mcp">Server MCP</string>
     <string name="settings_import_section_conversations">Percakapan</string>
     <string name="settings_heartbeat_reset_confirm">Ini akan mereset prompt detak jantung ke default. Apakah Anda yakin?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Bawaan</string>
     <string name="settings_import_partial">Pengaturan diimpor dengan %1$d bagian yang memiliki kesalahan.</string>
     <string name="settings_model_search">Cari model…</string>
     <string name="waiting_content_description">Menunggu respons</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Riwayat Obrolan</string>
     <string name="chat_history_delete_content_description">Hapus percakapan</string>
     <string name="chat_history_empty">Tidak ada percakapan tersimpan</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Detak Jantung</string>
     <string name="heartbeat_banner_message">Heartbeat punya sesuatu untuk dilaporkan</string>
     <string name="heartbeat_banner_dismiss">Tutup</string>
     <string name="scroll_to_bottom_content_description">Gulir ke bawah</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Добре дошли в Kai</string>
+    <string name="welcome_message">Добре дошли в Kai 9000</string>
     <string name="prompt_ask_question">Задайте въпрос</string>
     <string name="error_invalid_api_key">Невалиден API ключ. Моля, проверете настройките си.</string>
     <string name="error_rate_limit_exceeded">Лимитът на заявките е превишен. Моля, опитайте по-късно.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Генерирай отново</string>
     <string name="error_empty_response">Не е получен отговор. Опитайте да започнете нов чат или да съкратите съобщението си.</string>
     <string name="settings_daemon_mode">Фонов режим</string>
-    <string name="settings_daemon_mode_description">Дръжте Kai работещ във фонов режим, за да се изпълняват планираните задачи дори когато приложението не е на преден план.</string>
+    <string name="settings_daemon_mode_description">Дръжте Kai 9000 работещ във фонов режим, за да се изпълняват планираните задачи дори когато приложението не е на преден план.</string>
     <string name="settings_scheduled_tasks">Планирани задачи</string>
     <string name="settings_scheduled_tasks_description">Задачи, планирани от AI за бъдещо изпълнение. Поискайте от AI да ви напомни или да изпълни нещо по-късно, за да създадете планирани задачи.</string>
     <string name="settings_scheduled_tasks_cancel">Отмени задача</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Никога</string>
     <string name="settings_add_service">Добавяне на услуга</string>
     <string name="settings_free_fallback">Използвай като резервен</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Сърцебиене</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Това е автоматична самопроверка. Прегледай спомените и чакащите задачи. Ако всичко изглежда наред и нищо не изисква внимание, отговори точно с: HEARTBEAT_OK\nАко нещо изисква внимание (остарели спомени, дължими задачи, последващи действия от потребителя), обърни му внимание.</string>
     <string name="settings_heartbeat_description">Периодични самопроверки, които позволяват на AI да преглежда спомени и задачи без потребителски вход. Изпълнява се на всеки %1$d минути в активните часове.</string>
     <string name="settings_heartbeat_prompt_label">Промпт за Heartbeat</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Душа</string>
     <string name="settings_import_section_memory">Памет</string>
     <string name="settings_import_section_scheduling">Планиране</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Сърцебиене</string>
     <string name="settings_import_section_email">Имейл</string>
     <string name="settings_import_section_tools">Инструменти</string>
     <string name="settings_import_section_mcp">MCP сървъри</string>
     <string name="settings_import_section_conversations">Разговори</string>
     <string name="settings_heartbeat_reset_confirm">Това ще нулира подканата за сърдечен ритъм до стандартната. Сигурни ли сте?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">По подразбиране</string>
     <string name="settings_import_partial">Настройките са импортирани с %1$d секция(и) с грешки.</string>
     <string name="settings_model_search">Търсене на модели…</string>
     <string name="waiting_content_description">Изчакване на отговор</string>

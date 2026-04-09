@@ -1,12 +1,12 @@
-Programu ya mazungumzo ya AI yenye chanzo wazi inayounda skrini shirikishi, si maandishi tu. Kai ni mbadala wa bure wa ChatGPT wenye roho, mapigo ya moyo, kumbukumbu za kudumu na ujifunzaji ulioimarishwa — msaidizi wa AI unaobadilika na kila mazungumzo.
+Programu ya mazungumzo ya AI yenye chanzo wazi inayounda skrini shirikishi, si maandishi tu. Kai 9000 ni mbadala wa bure wa ChatGPT wenye roho, mapigo ya moyo, kumbukumbu za kudumu na ujifunzaji ulioimarishwa — msaidizi wa AI unaobadilika na kila mazungumzo.
 
-Tofauti na chatbot za kawaida, Kai hutoa muundo shirikishi wa asili — vitufe, fomu, jedwali, chati na programu za skrini kamili — moja kwa moja ndani ya mazungumzo. Mwambie aunde kikokotoo, jaribio, dashibodi au orodha ya kazi, na ataunda muundo unaofanya kazi ambao unaweza kugusa, kutelezesha na kutumia. Hii ni AI zaidi ya maandishi.
+Tofauti na chatbot za kawaida, Kai 9000 hutoa muundo shirikishi wa asili — vitufe, fomu, jedwali, chati na programu za skrini kamili — moja kwa moja ndani ya mazungumzo. Mwambie aunde kikokotoo, jaribio, dashibodi au orodha ya kazi, na ataunda muundo unaofanya kazi ambao unaweza kugusa, kutelezesha na kutumia. Hii ni AI zaidi ya maandishi.
 
 🧠 Roho na Kumbukumbu — Chatbot anayekujua
-Mpe Kai utu kwa kuandika "roho" yake. Anakumbuka mambo muhimu katika mazungumzo — mapendeleo yako, masomo ya awali na matatizo yanayojulikana — na kuimarisha maarifa hayo kwa muda. Kumbukumbu zinazothibitika kuwa muhimu hupandishwa hadhi kuwa sehemu ya utu wake wa kudumu. Kadri unavyozungumza zaidi, ndivyo anavyokuwa mjanja zaidi.
+Mpe Kai 9000 utu kwa kuandika "roho" yake. Anakumbuka mambo muhimu katika mazungumzo — mapendeleo yako, masomo ya awali na matatizo yanayojulikana — na kuimarisha maarifa hayo kwa muda. Kumbukumbu zinazothibitika kuwa muhimu hupandishwa hadhi kuwa sehemu ya utu wake wa kudumu. Kadri unavyozungumza zaidi, ndivyo anavyokuwa mjanja zaidi.
 
 💓 Mapigo ya Moyo — Wakala wako binafsi, daima hai
-Kai halali. Mfumo wake wa mapigo ya moyo hukagua mara kwa mara — kupitia kazi zinazosubiri, barua pepe na mitindo — hata usipokuwa ukizungumza. Weka muda, masaa ya kazi na modeli. Wakati kitu kinahitaji umakini wako, Kai anakuarifu. Wakati kila kitu kiko sawa, anabaki kimya.
+Kai 9000 halali. Mfumo wake wa mapigo ya moyo hukagua mara kwa mara — kupitia kazi zinazosubiri, barua pepe na mitindo — hata usipokuwa ukizungumza. Weka muda, masaa ya kazi na modeli. Wakati kitu kinahitaji umakini wako, Kai 9000 anakuarifu. Wakati kila kitu kiko sawa, anabaki kimya.
 
 ⚡ Huduma 24 — Programu moja, kila modeli
 Unganisha na ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok na watoa huduma 17 zaidi. Endesha modeli za ndani kupitia Ollama au LM Studio kwa matumizi ya faragha bila mtandao. Ongeza akaunti nyingi, panga upya vipaumbele na uache mnyororo wa akiba unaojiendesha ushughulikie kukatika kwa huduma. Kiwango cha bure kilichojumuishwa kinamaanisha unaweza kuanza kuzungumza bila usanidi wowote — hakuna ufunguo wa API unaohitajika.
@@ -36,12 +36,12 @@ Wezesha zana zenye nguvu zinazoruhusu msaidizi kutenda, si kuzungumza tu:
 • MCP Servers — unganisha na seva za zana za nje
 
 🖥️ Hali ya UI shirikishi
-Nenda skrini kamili. Katika Hali Shirikishi, Kai anakuwa mjenzi wa programu — bila markdown, bila maandishi yanayosogea. Skrini zinazofanya kazi zinazozalishwa papo hapo ambazo unaweza kugusa. Sogeza kabisa kupitia vitufe na sehemu za kuingiza. Ni kama kuwa na mtengenezaji wa programu binafsi mfukoni mwako.
+Nenda skrini kamili. Katika Hali Shirikishi, Kai 9000 anakuwa mjenzi wa programu — bila markdown, bila maandishi yanayosogea. Skrini zinazofanya kazi zinazozalishwa papo hapo ambazo unaweza kugusa. Sogeza kabisa kupitia vitufe na sehemu za kuingiza. Ni kama kuwa na mtengenezaji wa programu binafsi mfukoni mwako.
 
 🔒 Faragha kwanza, chanzo wazi na bila matangazo
-Historia yote ya mazungumzo imesimbwa kwa njia fiche na kuhifadhiwa ndani ya kifaa chako. Bila matangazo, bila ukusanyaji wa data, bila ufuatiliaji. Simu za API zinakwenda moja kwa moja kwa mtoa huduma uliyemchagua — Kai hasimami katikati kamwe. Endesha modeli za ndani kwa uzoefu kamili bila mtandao na wa faragha. Chanzo wazi kabisa, uwazi kamili.
+Historia yote ya mazungumzo imesimbwa kwa njia fiche na kuhifadhiwa ndani ya kifaa chako. Bila matangazo, bila ukusanyaji wa data, bila ufuatiliaji. Simu za API zinakwenda moja kwa moja kwa mtoa huduma uliyemchagua — Kai 9000 hasimami katikati kamwe. Endesha modeli za ndani kwa uzoefu kamili bila mtandao na wa faragha. Chanzo wazi kabisa, uwazi kamili.
 
 🌍 Inafanya kazi kila mahali
-Tumia Kai kwenye simu yako ya Android, kompyuta kibao, Chromebook au kompyuta ya mezani. Msaidizi wako, daima karibu nawe.
+Tumia Kai 9000 kwenye simu yako ya Android, kompyuta kibao, Chromebook au kompyuta ya mezani. Msaidizi wako, daima karibu nawe.
 
-Iwe unaandika, kuprogramu, kufupisha, kutafsiri, kutafakari, kuendesha kiotomatiki mtiririko wa kazi, kusimamia barua pepe au kusoma — Kai ni mbadala wa bure, bila matangazo na chanzo wazi wa ChatGPT unaokubaliana nawe.
+Iwe unaandika, kuprogramu, kufupisha, kutafsiri, kutafakari, kuendesha kiotomatiki mtiririko wa kazi, kusimamia barua pepe au kusoma — Kai 9000 ni mbadala wa bure, bila matangazo na chanzo wazi wa ChatGPT unaokubaliana nawe.

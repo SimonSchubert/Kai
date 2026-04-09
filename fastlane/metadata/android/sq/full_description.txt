@@ -1,12 +1,12 @@
-Aplikacion chat AI me burim te hapur qe nderton ekrane ndervepruese, jo vetem tekst. Kai eshte nje alternative falas e ChatGPT me shpirt, rrahje zemre, kujtime te vazhdueshme dhe mesim te perforcuar — nje asistent AI qe evoluon me cdo bisede.
+Aplikacion chat AI me burim te hapur qe nderton ekrane ndervepruese, jo vetem tekst. Kai 9000 eshte nje alternative falas e ChatGPT me shpirt, rrahje zemre, kujtime te vazhdueshme dhe mesim te perforcuar — nje asistent AI qe evoluon me cdo bisede.
 
-Ndryshe nga chatbotet e zakonshme, Kai gjeneron nderfaqe ndervepruese native — butona, formular, tabela, grafike dhe aplikacione ne ekran te plote — direkt ne chat. Kerkoji te ndertoje nje kalkulator, nje kuiz, nje panel kontrolli ose nje liste detyrash, dhe ai krijon nje nderfaqe reale funksionale qe mund ta prekesh, rrshqitesh dhe ndervepresh. Ky eshte AI pertej tekstit.
+Ndryshe nga chatbotet e zakonshme, Kai 9000 gjeneron nderfaqe ndervepruese native — butona, formular, tabela, grafike dhe aplikacione ne ekran te plote — direkt ne chat. Kerkoji te ndertoje nje kalkulator, nje kuiz, nje panel kontrolli ose nje liste detyrash, dhe ai krijon nje nderfaqe reale funksionale qe mund ta prekesh, rrshqitesh dhe ndervepresh. Ky eshte AI pertej tekstit.
 
 🧠 Shpirt dhe Kujtese — Nje chatbot qe te njeh
-Jepi Kai nje personalitet duke shkruar "shpirtin" e tij. Ai kujton cfare ka rendesi neper biseda — preferencat e tua, mesimet e kaluara dhe problemet e njohura — dhe e perforcon kete dije me kalimin e kohes. Kujtimet qe rezultojne te dobishme avancohen ne personalitetin e tij te perhershem. Sa me shume bisedoni, aq me i zgjuar behet.
+Jepi Kai 9000 nje personalitet duke shkruar "shpirtin" e tij. Ai kujton cfare ka rendesi neper biseda — preferencat e tua, mesimet e kaluara dhe problemet e njohura — dhe e perforcon kete dije me kalimin e kohes. Kujtimet qe rezultojne te dobishme avancohen ne personalitetin e tij te perhershem. Sa me shume bisedoni, aq me i zgjuar behet.
 
 💓 Rrahje zemre — Agjenti yt personal gjithmone aktiv
-Kai nuk fle. Sistemi i tij i rrahjes se zemres kontrollon rregullisht — duke rishikuar detyra ne pritje, e-maile dhe tendenca — edhe kur nuk je duke biseduar. Cakto intervalin, oret aktive dhe modelin. Kur dicka kerkon vemendjen tende, Kai te njofton. Kur gjithcka eshte ne rregull, ai qendron i heshtur.
+Kai 9000 nuk fle. Sistemi i tij i rrahjes se zemres kontrollon rregullisht — duke rishikuar detyra ne pritje, e-maile dhe tendenca — edhe kur nuk je duke biseduar. Cakto intervalin, oret aktive dhe modelin. Kur dicka kerkon vemendjen tende, Kai 9000 te njofton. Kur gjithcka eshte ne rregull, ai qendron i heshtur.
 
 ⚡ 24 sherbime — Nje aplikacion, cdo model
 Lidhu me ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok dhe 17 ofrues te tjere. Ekzekuto modele lokale nepermjet Ollama ose LM Studio per perdorim privat dhe pa internet. Shto llogari te shumta, rirendit prioritetet dhe lere zinxhirin inteligjent te rezerves te menaxhoje nderprerjet automatikisht. Nje nivel falas i integruar do te thote qe mund te fillosh te bisedosh pa asnje konfigurim — nuk nevojitet celes API.
@@ -36,12 +36,12 @@ Aktivizo mjete te fuqishme qe i lejojne asistentit te veprojne, jo vetem te flas
 • MCP Servers — lidhu me servere te jashtme mjetesh
 
 🖥️ Menyra ndervepruese UI
-Kalo ne ekran te plote. Ne Menyren Ndervepruese, Kai behet nje ndertues vizual aplikacionesh — pa markdown, pa tekst qe leviz. Vetem ekrane funksionale te gjeneruara menjehere qe mund t'i prekesh. Navigo plotesisht nepermjet butonave dhe fushave te hyrjes. Eshte si te kesh nje zhvillues personal aplikacionesh ne xhep.
+Kalo ne ekran te plote. Ne Menyren Ndervepruese, Kai 9000 behet nje ndertues vizual aplikacionesh — pa markdown, pa tekst qe leviz. Vetem ekrane funksionale te gjeneruara menjehere qe mund t'i prekesh. Navigo plotesisht nepermjet butonave dhe fushave te hyrjes. Eshte si te kesh nje zhvillues personal aplikacionesh ne xhep.
 
 🔒 Privatesia e para, burim i hapur dhe pa reklama
-E gjithe historia e chatit eshte e enkriptuar dhe e ruajtur lokalisht ne pajisjen tende. Pa reklama, pa mbledhje te dhenash, pa gjurmim. Thirrjet API shkojne direkt te ofruesi i zgjedhur — Kai nuk nderhyn kurre ne mes. Ekzekuto modele lokale per nje pervoje plotesisht pa internet dhe private. Plotesisht me burim te hapur, plotesisht transparente.
+E gjithe historia e chatit eshte e enkriptuar dhe e ruajtur lokalisht ne pajisjen tende. Pa reklama, pa mbledhje te dhenash, pa gjurmim. Thirrjet API shkojne direkt te ofruesi i zgjedhur — Kai 9000 nuk nderhyn kurre ne mes. Ekzekuto modele lokale per nje pervoje plotesisht pa internet dhe private. Plotesisht me burim te hapur, plotesisht transparente.
 
 🌍 Funksionon kudo
-Perdor Kai ne telefonin tend Android, tablet, Chromebook ose desktop. Asistenti yt, gjithmone ne dore.
+Perdor Kai 9000 ne telefonin tend Android, tablet, Chromebook ose desktop. Asistenti yt, gjithmone ne dore.
 
-Qofte qe shkruan, programon, permbledh, perkthe, bren idete, automatizon procese pune, menaxhon e-maile ose studion — Kai eshte alternativa falas, pa reklama dhe me burim te hapur e ChatGPT qe adaptohet me ty.
+Qofte qe shkruan, programon, permbledh, perkthe, bren idete, automatizon procese pune, menaxhon e-maile ose studion — Kai 9000 eshte alternativa falas, pa reklama dhe me burim te hapur e ChatGPT qe adaptohet me ty.

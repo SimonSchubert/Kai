@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">ברוכים הבאים ל-Kai</string>
+    <string name="welcome_message">ברוכים הבאים ל-Kai 9000</string>
     <string name="prompt_ask_question">שאל שאלה</string>
     <string name="error_invalid_api_key">מפתח API לא תקין. בדוק את ההגדרות שלך.</string>
     <string name="error_rate_limit_exceeded">חריגה ממגבלת הבקשות. נסה שוב מאוחר יותר.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">יצירה מחדש</string>
     <string name="error_empty_response">לא התקבלה תשובה. נסה להתחיל צ'אט חדש או לקצר את ההודעה שלך.</string>
     <string name="settings_daemon_mode">מצב שירות רקע</string>
-    <string name="settings_daemon_mode_description">השאר את Kai פועל ברקע כדי שמשימות מתוזמנות יבוצעו גם כשהאפליקציה אינה בחזית.</string>
+    <string name="settings_daemon_mode_description">השאר את Kai 9000 פועל ברקע כדי שמשימות מתוזמנות יבוצעו גם כשהאפליקציה אינה בחזית.</string>
     <string name="settings_scheduled_tasks">משימות מתוזמנות</string>
     <string name="settings_scheduled_tasks_description">משימות שתוזמנו על ידי הבינה המלאכותית לביצוע עתידי. בקש מהבינה המלאכותית להזכיר לך או להריץ משהו מאוחר יותר כדי ליצור משימות מתוזמנות.</string>
     <string name="settings_scheduled_tasks_cancel">בטל משימה</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">אף פעם</string>
     <string name="settings_add_service">הוסף שירות</string>
     <string name="settings_free_fallback">השתמש כחלופה</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">פעימת לב</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] זוהי בדיקה עצמית אוטומטית. סקור את הזיכרונות והמשימות הממתינות שלך. אם הכל תקין ושום דבר לא דורש תשומת לב, השב בדיוק: HEARTBEAT_OK\nאם משהו דורש תשומת לב (זיכרונות מיושנים, משימות שהגיע מועדן, מעקבים של משתמשים), טפל בכך.</string>
     <string name="settings_heartbeat_description">בדיקות עצמיות תקופתיות המאפשרות לבינה המלאכותית לסקור זיכרונות ומשימות ללא קלט מהמשתמש. פועל כל %1$d דקות בשעות הפעילות.</string>
     <string name="settings_heartbeat_prompt_label">פרומפט Heartbeat</string>
@@ -172,7 +172,7 @@
     <string name="settings_import_section_conversations">שיחות</string>
     <string name="settings_heartbeat_reset_confirm">פעולה זו תאפס את הודעת פעימת הלב לברירת המחדל. האם אתה בטוח?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">ברירת מחדל</string>
     <string name="settings_import_partial">ההגדרות יובאו עם %1$d קטע(ים) שהכילו שגיאות.</string>
     <string name="settings_model_search">חיפוש מודלים…</string>
     <string name="waiting_content_description">ממתין לתגובה</string>

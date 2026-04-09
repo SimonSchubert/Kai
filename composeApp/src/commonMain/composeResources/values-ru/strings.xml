@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Добро пожаловать в Kai</string>
+    <string name="welcome_message">Добро пожаловать в Kai 9000</string>
     <string name="prompt_ask_question">Задать вопрос</string>
     <string name="error_invalid_api_key">Недействительный ключ API. Пожалуйста, проверьте настройки.</string>
     <string name="error_rate_limit_exceeded">Превышен лимит запросов. Пожалуйста, попробуйте позже.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Сгенерировать заново</string>
     <string name="error_empty_response">Ответ не получен. Попробуйте начать новый чат или сократить сообщение.</string>
     <string name="settings_daemon_mode">Фоновый режим</string>
-    <string name="settings_daemon_mode_description">Оставлять Kai работающим в фоновом режиме, чтобы запланированные задачи выполнялись даже когда приложение не на переднем плане.</string>
+    <string name="settings_daemon_mode_description">Оставлять Kai 9000 работающим в фоновом режиме, чтобы запланированные задачи выполнялись даже когда приложение не на переднем плане.</string>
     <string name="settings_scheduled_tasks">Запланированные задачи</string>
     <string name="settings_scheduled_tasks_description">Задачи, запланированные ИИ для выполнения в будущем. Попросите ИИ напомнить вам или выполнить что-то позже, чтобы создать запланированные задачи.</string>
     <string name="settings_scheduled_tasks_cancel">Отменить задачу</string>
@@ -166,14 +166,14 @@
     <string name="settings_import_section_soul">Душа</string>
     <string name="settings_import_section_memory">Память</string>
     <string name="settings_import_section_scheduling">Планирование</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Пульс</string>
     <string name="settings_import_section_email">Электронная почта</string>
     <string name="settings_import_section_tools">Инструменты</string>
     <string name="settings_import_section_mcp">Серверы MCP</string>
     <string name="settings_import_section_conversations">Разговоры</string>
     <string name="settings_heartbeat_reset_confirm">Это сбросит запрос пульса до значения по умолчанию. Вы уверены?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">По умолчанию</string>
     <string name="settings_import_partial">Настройки импортированы с %1$d разделом(-ами), содержащим(-и) ошибки.</string>
     <string name="settings_model_search">Поиск моделей…</string>
     <string name="waiting_content_description">Ожидание ответа</string>
@@ -181,7 +181,7 @@
     <string name="chat_history_title">История чатов</string>
     <string name="chat_history_delete_content_description">Удалить разговор</string>
     <string name="chat_history_empty">Нет сохранённых разговоров</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Пульс</string>
     <string name="heartbeat_banner_message">Heartbeat обнаружил что-то важное</string>
     <string name="heartbeat_banner_dismiss">Закрыть</string>
     <string name="scroll_to_bottom_content_description">Прокрутить вниз</string>

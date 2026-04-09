@@ -1,12 +1,12 @@
-Aplikasi sembang AI sumber terbuka yang membina skrin interaktif, bukan sekadar teks. Kai ialah alternatif ChatGPT percuma dengan jiwa, degupan jantung, memori berterusan dan pembelajaran diperkukuh — pembantu AI yang berkembang dengan setiap perbualan anda.
+Aplikasi sembang AI sumber terbuka yang membina skrin interaktif, bukan sekadar teks. Kai 9000 ialah alternatif ChatGPT percuma dengan jiwa, degupan jantung, memori berterusan dan pembelajaran diperkukuh — pembantu AI yang berkembang dengan setiap perbualan anda.
 
-Tidak seperti chatbot biasa, Kai menjana UI interaktif natif — butang, borang, jadual, carta dan aplikasi skrin penuh — terus dalam sembang. Minta ia membina kalkulator, kuiz, papan pemuka atau senarai tugasan, dan ia akan memaparkan antara muka berfungsi sebenar yang boleh anda ketik, leret dan gunakan. Ini ialah AI melangkaui teks.
+Tidak seperti chatbot biasa, Kai 9000 menjana UI interaktif natif — butang, borang, jadual, carta dan aplikasi skrin penuh — terus dalam sembang. Minta ia membina kalkulator, kuiz, papan pemuka atau senarai tugasan, dan ia akan memaparkan antara muka berfungsi sebenar yang boleh anda ketik, leret dan gunakan. Ini ialah AI melangkaui teks.
 
 🧠 Jiwa & Memori — Chatbot Yang Mengenali Anda
-Berikan Kai personaliti dengan menulis "jiwa"nya. Ia mengingati perkara penting merentas perbualan — keutamaan anda, pembelajaran lalu dan isu yang diketahui — dan mengukuhkan pengetahuan itu dari semasa ke semasa. Memori yang terbukti berguna dinaikkan ke personaliti tetapnya. Semakin banyak anda bersembang, semakin bijak ia menjadi.
+Berikan Kai 9000 personaliti dengan menulis "jiwa"nya. Ia mengingati perkara penting merentas perbualan — keutamaan anda, pembelajaran lalu dan isu yang diketahui — dan mengukuhkan pengetahuan itu dari semasa ke semasa. Memori yang terbukti berguna dinaikkan ke personaliti tetapnya. Semakin banyak anda bersembang, semakin bijak ia menjadi.
 
 💓 Degupan Jantung — Ejen Peribadi Anda Yang Sentiasa Aktif
-Kai tidak tidur. Sistem degupan jantungnya memeriksa mengikut jadual — menyemak tugas tertangguh, e-mel dan trend — walaupun anda tidak bersembang. Tetapkan selang masa, waktu aktif dan model. Apabila sesuatu memerlukan perhatian anda, Kai memaklumkannya. Apabila semuanya baik, ia senyap.
+Kai 9000 tidak tidur. Sistem degupan jantungnya memeriksa mengikut jadual — menyemak tugas tertangguh, e-mel dan trend — walaupun anda tidak bersembang. Tetapkan selang masa, waktu aktif dan model. Apabila sesuatu memerlukan perhatian anda, Kai 9000 memaklumkannya. Apabila semuanya baik, ia senyap.
 
 ⚡ 24 Perkhidmatan — Satu Aplikasi, Setiap Model
 Sambung ke ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok dan 17 lagi pembekal. Jalankan model tempatan melalui Ollama atau LM Studio untuk kegunaan peribadi dan luar talian. Tambah berbilang akaun, susun semula keutamaan dan biarkan rantai sandaran pintar mengendalikan gangguan secara automatik. Peringkat percuma terbina dalam bermakna anda boleh mula bersembang tanpa sebarang persediaan — tiada kunci API diperlukan.
@@ -36,12 +36,12 @@ Aktifkan alat berkuasa yang membolehkan pembantu bertindak, bukan sekadar bercak
 • Pelayan MCP — sambung ke pelayan alat luaran
 
 🖥️ Mod UI Interaktif
-Pergi skrin penuh. Dalam Mod Interaktif, Kai menjadi pembina aplikasi visual — tiada markdown, tiada teks menatal. Hanya skrin berfungsi yang boleh diketik, dijana serta-merta. Navigasi sepenuhnya melalui butang dan input. Ia seperti mempunyai pembangun aplikasi peribadi dalam poket anda.
+Pergi skrin penuh. Dalam Mod Interaktif, Kai 9000 menjadi pembina aplikasi visual — tiada markdown, tiada teks menatal. Hanya skrin berfungsi yang boleh diketik, dijana serta-merta. Navigasi sepenuhnya melalui butang dan input. Ia seperti mempunyai pembangun aplikasi peribadi dalam poket anda.
 
 🔒 Privasi Didahulukan, Sumber Terbuka & Tanpa Iklan
-Semua sejarah sembang disulitkan dan disimpan secara setempat pada peranti anda. Tiada iklan, tiada pengumpulan data, tiada penjejakan. Panggilan API pergi terus ke pembekal pilihan anda — Kai tidak pernah berada di tengah. Jalankan model tempatan untuk pengalaman luar talian dan peribadi sepenuhnya. Sumber terbuka sepenuhnya, telus sepenuhnya.
+Semua sejarah sembang disulitkan dan disimpan secara setempat pada peranti anda. Tiada iklan, tiada pengumpulan data, tiada penjejakan. Panggilan API pergi terus ke pembekal pilihan anda — Kai 9000 tidak pernah berada di tengah. Jalankan model tempatan untuk pengalaman luar talian dan peribadi sepenuhnya. Sumber terbuka sepenuhnya, telus sepenuhnya.
 
 🌍 Berfungsi Di Mana-Mana
-Gunakan Kai pada telefon Android, tablet, Chromebook atau desktop anda. Pembantu anda, sentiasa dalam jangkauan.
+Gunakan Kai 9000 pada telefon Android, tablet, Chromebook atau desktop anda. Pembantu anda, sentiasa dalam jangkauan.
 
-Sama ada anda menulis, mengekod, meringkaskan, menterjemah, sumbang saran, mengautomasikan aliran kerja, mengurus e-mel atau belajar — Kai ialah alternatif ChatGPT percuma, tanpa iklan, sumber terbuka yang menyesuaikan diri dengan anda.
+Sama ada anda menulis, mengekod, meringkaskan, menterjemah, sumbang saran, mengautomasikan aliran kerja, mengurus e-mel atau belajar — Kai 9000 ialah alternatif ChatGPT percuma, tanpa iklan, sumber terbuka yang menyesuaikan diri dengan anda.

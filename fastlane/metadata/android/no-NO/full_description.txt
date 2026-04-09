@@ -1,12 +1,12 @@
-AI-chatapp med åpen kildekode som bygger interaktive skjermer, ikke bare tekst. Kai er et gratis ChatGPT-alternativ med en sjel, et hjerteslag, vedvarende hukommelse og forsterket læring — en AI-assistent som utvikler seg med hver samtale du har.
+AI-chatapp med åpen kildekode som bygger interaktive skjermer, ikke bare tekst. Kai 9000 er et gratis ChatGPT-alternativ med en sjel, et hjerteslag, vedvarende hukommelse og forsterket læring — en AI-assistent som utvikler seg med hver samtale du har.
 
-I motsetning til vanlige chatboter genererer Kai native interaktivt brukergrensesnitt — knapper, skjemaer, tabeller, diagrammer og fullskjermapper — rett i chatten. Be den bygge en kalkulator, en quiz, et dashbord eller en oppgaveliste, og den gjengir et ekte fungerende grensesnitt du kan trykke på, sveipe og samhandle med. Dette er AI utover tekst.
+I motsetning til vanlige chatboter genererer Kai 9000 native interaktivt brukergrensesnitt — knapper, skjemaer, tabeller, diagrammer og fullskjermapper — rett i chatten. Be den bygge en kalkulator, en quiz, et dashbord eller en oppgaveliste, og den gjengir et ekte fungerende grensesnitt du kan trykke på, sveipe og samhandle med. Dette er AI utover tekst.
 
 🧠 Sjel og hukommelse — En chatbot som kjenner deg
-Gi Kai en personlighet ved å skrive dens «sjel». Den husker det som betyr noe på tvers av samtaler — dine preferanser, tidligere lærdommer og kjente problemer — og forsterker den kunnskapen over tid. Minner som viser seg nyttige, forfremmes til permanent personlighet. Jo mer du chatter, jo smartere blir den.
+Gi Kai 9000 en personlighet ved å skrive dens «sjel». Den husker det som betyr noe på tvers av samtaler — dine preferanser, tidligere lærdommer og kjente problemer — og forsterker den kunnskapen over tid. Minner som viser seg nyttige, forfremmes til permanent personlighet. Jo mer du chatter, jo smartere blir den.
 
 💓 Hjerteslag — Din alltid aktive personlige agent
-Kai sover ikke. Hjerteslagsystemet sjekker inn etter en tidsplan — gjennomgår ventende oppgaver, e-poster og trender — selv når du ikke chatter. Angi intervall, aktive timer og modell. Når noe trenger oppmerksomheten din, varsler Kai deg. Når alt er i orden, holder den seg stille.
+Kai 9000 sover ikke. Hjerteslagsystemet sjekker inn etter en tidsplan — gjennomgår ventende oppgaver, e-poster og trender — selv når du ikke chatter. Angi intervall, aktive timer og modell. Når noe trenger oppmerksomheten din, varsler Kai 9000 deg. Når alt er i orden, holder den seg stille.
 
 ⚡ 24 tjenester — Én app, alle modeller
 Koble til ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok og 17 andre leverandører. Kjør lokale modeller via Ollama eller LM Studio for privat, frakoblet bruk. Legg til flere kontoer, endre rekkefølge på prioriteringer, og la den smarte reservekjeden håndtere avbrudd automatisk. Et innebygd gratisnivå betyr at du kan begynne å chatte uten oppsett — ingen API-nøkkel nødvendig.
@@ -36,12 +36,12 @@ Aktiver kraftige verktøy som lar assistenten handle, ikke bare snakke:
 • MCP-servere — koble til eksterne verktøyservere
 
 🖥️ Interaktiv UI-modus
-Gå til fullskjerm. I Interaktiv modus blir Kai en visuell app-bygger — ingen markdown, ingen rullende tekst. Bare trykkbare, funksjonelle skjermer generert umiddelbart. Naviger helt gjennom knapper og inndatafelt. Det er som å ha en personlig app-utvikler i lomma.
+Gå til fullskjerm. I Interaktiv modus blir Kai 9000 en visuell app-bygger — ingen markdown, ingen rullende tekst. Bare trykkbare, funksjonelle skjermer generert umiddelbart. Naviger helt gjennom knapper og inndatafelt. Det er som å ha en personlig app-utvikler i lomma.
 
 🔒 Personvern først, åpen kildekode og reklamefri
-All chathistorikk er kryptert og lagret lokalt på enheten din. Ingen annonser, ingen datainnsamling, ingen sporing. API-kall går direkte til din valgte leverandør — Kai sitter aldri i midten. Kjør lokale modeller for en fullstendig frakoblet, privat opplevelse. Helt åpen kildekode, helt transparent.
+All chathistorikk er kryptert og lagret lokalt på enheten din. Ingen annonser, ingen datainnsamling, ingen sporing. API-kall går direkte til din valgte leverandør — Kai 9000 sitter aldri i midten. Kjør lokale modeller for en fullstendig frakoblet, privat opplevelse. Helt åpen kildekode, helt transparent.
 
 🌍 Fungerer overalt
-Bruk Kai på Android-telefonen, nettbrettet, Chromebook-en eller datamaskinen din. Din assistent, alltid innen rekkevidde.
+Bruk Kai 9000 på Android-telefonen, nettbrettet, Chromebook-en eller datamaskinen din. Din assistent, alltid innen rekkevidde.
 
-Enten du skriver, koder, oppsummerer, oversetter, brainstormer, automatiserer arbeidsflyter, håndterer e-post eller studerer — Kai er det gratis, reklamefrie, åpen kildekode ChatGPT-alternativet som tilpasser seg deg.
+Enten du skriver, koder, oppsummerer, oversetter, brainstormer, automatiserer arbeidsflyter, håndterer e-post eller studerer — Kai 9000 er det gratis, reklamefrie, åpen kildekode ChatGPT-alternativet som tilpasser seg deg.

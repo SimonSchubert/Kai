@@ -1,12 +1,12 @@
-Aplicación de chat con IA de código abierto que crea pantallas interactivas, no solo texto. Kai es una alternativa gratuita a ChatGPT con alma, latido, memorias persistentes y aprendizaje reforzado — un asistente de IA que evoluciona con cada conversación.
+Aplicación de chat con IA de código abierto que crea pantallas interactivas, no solo texto. Kai 9000 es una alternativa gratuita a ChatGPT con alma, latido, memorias persistentes y aprendizaje reforzado — un asistente de IA que evoluciona con cada conversación.
 
-A diferencia de los chatbots habituales, Kai genera UI interactiva nativa — botones, formularios, tablas, gráficos y aplicaciones a pantalla completa — directamente en el chat. Pídele una calculadora, cuestionario, panel o lista de tareas y genera una interfaz real y funcional. Esto es IA más allá del texto.
+A diferencia de los chatbots habituales, Kai 9000 genera UI interactiva nativa — botones, formularios, tablas, gráficos y aplicaciones a pantalla completa — directamente en el chat. Pídele una calculadora, cuestionario, panel o lista de tareas y genera una interfaz real y funcional. Esto es IA más allá del texto.
 
 🧠 Alma y Memoria — Un Chatbot que te Conoce
-Dale personalidad a Kai escribiendo su «alma». Recuerda lo importante entre conversaciones — preferencias, aprendizajes y problemas conocidos — y refuerza ese conocimiento. Los recuerdos útiles se promueven a su personalidad permanente. Cuanto más chateas, más inteligente se vuelve.
+Dale personalidad a Kai 9000 escribiendo su «alma». Recuerda lo importante entre conversaciones — preferencias, aprendizajes y problemas conocidos — y refuerza ese conocimiento. Los recuerdos útiles se promueven a su personalidad permanente. Cuanto más chateas, más inteligente se vuelve.
 
 💓 Latido — Tu Agente Siempre Activo
-Kai no duerme. Su sistema de latido revisa periódicamente — tareas, correos y tendencias — incluso cuando no chateas. Configura el intervalo, horas activas y modelo. Cuando algo necesita tu atención, te avisa. Si todo va bien, permanece en silencio.
+Kai 9000 no duerme. Su sistema de latido revisa periódicamente — tareas, correos y tendencias — incluso cuando no chateas. Configura el intervalo, horas activas y modelo. Cuando algo necesita tu atención, te avisa. Si todo va bien, permanece en silencio.
 
 ⚡ 24 Servicios — Una App, Todos los Modelos
 Conéctate a ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok y 17 más. Modelos locales mediante Ollama o LM Studio para uso privado sin conexión. Múltiples cuentas, prioridades configurables y cadena de respaldo automática. Nivel gratuito integrado — sin clave API.
@@ -36,12 +36,12 @@ Herramientas que permiten al asistente actuar, no solo hablar:
 • MCP Servers — servidores de herramientas externos
 
 🖥️ Modo de UI Interactiva
-Pantalla completa. Kai se convierte en creador visual de apps — sin markdown. Pantallas funcionales generadas al instante. Es como un desarrollador de apps en tu bolsillo.
+Pantalla completa. Kai 9000 se convierte en creador visual de apps — sin markdown. Pantallas funcionales generadas al instante. Es como un desarrollador de apps en tu bolsillo.
 
 🔒 Privacidad Primero, Código Abierto y Sin Anuncios
-Historial cifrado y local. Sin anuncios, sin recogida de datos. Las llamadas API van directo a tu proveedor — Kai nunca se interpone. Totalmente de código abierto.
+Historial cifrado y local. Sin anuncios, sin recogida de datos. Las llamadas API van directo a tu proveedor — Kai 9000 nunca se interpone. Totalmente de código abierto.
 
 🌍 Funciona en Todas Partes
-Usa Kai en Android, tableta, Chromebook u ordenador. Tu asistente, siempre a tu alcance.
+Usa Kai 9000 en Android, tableta, Chromebook u ordenador. Tu asistente, siempre a tu alcance.
 
-Ya sea que escribas, programes, resumas, traduzcas, hagas lluvia de ideas, automatices flujos o estudies — Kai es la alternativa gratuita, sin anuncios y de código abierto a ChatGPT que se adapta a ti.
+Ya sea que escribas, programes, resumas, traduzcas, hagas lluvia de ideas, automatices flujos o estudies — Kai 9000 es la alternativa gratuita, sin anuncios y de código abierto a ChatGPT que se adapta a ti.

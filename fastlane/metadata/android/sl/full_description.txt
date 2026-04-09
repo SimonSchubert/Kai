@@ -1,12 +1,12 @@
-Odprtokodna aplikacija za AI klepet, ki ustvarja interaktivne zaslone, ne le besedilo. Kai je brezplacna alternativa za ChatGPT z duso, srcnim utripom, trajnimi spomini in okrepljenem ucenjem — AI pomrocnik, ki se razvija z vsakim pogovorom.
+Odprtokodna aplikacija za AI klepet, ki ustvarja interaktivne zaslone, ne le besedilo. Kai 9000 je brezplacna alternativa za ChatGPT z duso, srcnim utripom, trajnimi spomini in okrepljenem ucenjem — AI pomrocnik, ki se razvija z vsakim pogovorom.
 
-Za razliko od obicajnih klepetalnih botov Kai ustvarja izvorne interaktivne vmesnike — gumbe, obrazce, tabele, grafikone in celozaslonske aplikacije — neposredno v klepetu. Prosite ga, naj zgradi kalkulator, kviz, nadzorno plosco ali seznam opravil, in upodobil bo pravi delujorc vmesnik, ki ga lahko tapnete, podrsate in z njim komunicirate. To je AI onkraj besedila.
+Za razliko od obicajnih klepetalnih botov Kai 9000 ustvarja izvorne interaktivne vmesnike — gumbe, obrazce, tabele, grafikone in celozaslonske aplikacije — neposredno v klepetu. Prosite ga, naj zgradi kalkulator, kviz, nadzorno plosco ali seznam opravil, in upodobil bo pravi delujorc vmesnik, ki ga lahko tapnete, podrsate in z njim komunicirate. To je AI onkraj besedila.
 
 🧠 Dusa in Spomin — Klepetalnik, ki vas pozna
-Dajte Kai osebnost tako, da mu napisete "duso." Zapomni si, kar je pomembno med pogovori — vase zelje, pretekle ugotovitve in znane tezave — ter to znanje krepI skasom. Spomini, ki se izkazejo za koristne, napredujejo v njegovo trajno osebnost. Vec ko klepetate, pametnejsi postaja.
+Dajte Kai 9000 osebnost tako, da mu napisete "duso." Zapomni si, kar je pomembno med pogovori — vase zelje, pretekle ugotovitve in znane tezave — ter to znanje krepI skasom. Spomini, ki se izkazejo za koristne, napredujejo v njegovo trajno osebnost. Vec ko klepetate, pametnejsi postaja.
 
 💓 Srcni utrip — Vas osebni agent, vedno aktiven
-Kai ne spi. Njegov sistem srcnega utripa redno preverja — pregleduje cakajoca opravila, e-posto in trende — tudi ko ne klepetate. Nastavite interval, aktivne ure in model. Ko nekaj zahteva vaso pozornost, vas Kai opozori. Ko je vse v redu, ostane tih.
+Kai 9000 ne spi. Njegov sistem srcnega utripa redno preverja — pregleduje cakajoca opravila, e-posto in trende — tudi ko ne klepetate. Nastavite interval, aktivne ure in model. Ko nekaj zahteva vaso pozornost, vas Kai 9000 opozori. Ko je vse v redu, ostane tih.
 
 ⚡ 24 storitev — Ena aplikacija, vsak model
 Povezite se s ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok in se 17 ponudniki. Poganjajte lokalne modele prek Ollama ali LM Studio za zasebno uporabo brez povezave. Dodajte vec racunov, preuredite prioritete in pustite pametno nadomestno verigo, da samodejno obravnava izpade. Vgrajena brezplacna raven pomeni, da lahko zacnete klepetati brez nastavitev — kljuc API ni potreben.
@@ -36,12 +36,12 @@ Omogocite zmogljiva orodja, ki asistentu omogocajo delovanje, ne le govorjenje:
 • MCP Servers — povezava z zunanjimi strezniki orodij
 
 🖥️ Interaktivni nacin UI
-Pojdite na celoten zaslon. V interaktivnem nacinu Kai postane vizualni gradnik aplikacij — brez markdown, brez drsecega besedila. Le funkcionalni zasloni, ustvarjeni sproti, ki jih lahko tapnete. Navigirajte izkljucno prek gumbov in vnosnih polj. Kot bi imeli osebnega razvijalca aplikacij v zepu.
+Pojdite na celoten zaslon. V interaktivnem nacinu Kai 9000 postane vizualni gradnik aplikacij — brez markdown, brez drsecega besedila. Le funkcionalni zasloni, ustvarjeni sproti, ki jih lahko tapnete. Navigirajte izkljucno prek gumbov in vnosnih polj. Kot bi imeli osebnega razvijalca aplikacij v zepu.
 
 🔒 Zasebnost na prvem mestu, odprta koda in brez oglasov
-Vsa zgodovina klepetov je sifrirana in shranjena lokalno na vasi napravi. Brez oglasov, brez zbiranja podatkov, brez sledenja. Klici API gredo neposredno k vasemu izbranemu ponudniku — Kai nikoli ni vmes. Poganjajte lokalne modele za popolnoma zasebno izkusnjo brez povezave. Popolnoma odprtokodno, popolnoma pregledno.
+Vsa zgodovina klepetov je sifrirana in shranjena lokalno na vasi napravi. Brez oglasov, brez zbiranja podatkov, brez sledenja. Klici API gredo neposredno k vasemu izbranemu ponudniku — Kai 9000 nikoli ni vmes. Poganjajte lokalne modele za popolnoma zasebno izkusnjo brez povezave. Popolnoma odprtokodno, popolnoma pregledno.
 
 🌍 Deluje povsod
-Uporabljajte Kai na telefonu Android, tablici, Chromebooku ali namizju. Vas pomrocnik, vedno na dosegu roke.
+Uporabljajte Kai 9000 na telefonu Android, tablici, Chromebooku ali namizju. Vas pomrocnik, vedno na dosegu roke.
 
-Naj pisete, programirate, povzemate, prevajate, razmisljate, avtomatizirate delovne tokove, upravljate e-posto ali se ucite — Kai je brezplacna, brez oglasov in odprtokodna alternativa za ChatGPT, ki se prilagaja vam.
+Naj pisete, programirate, povzemate, prevajate, razmisljate, avtomatizirate delovne tokove, upravljate e-posto ali se ucite — Kai 9000 je brezplacna, brez oglasov in odprtokodna alternativa za ChatGPT, ki se prilagaja vam.

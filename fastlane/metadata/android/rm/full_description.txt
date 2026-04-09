@@ -1,12 +1,12 @@
-Applicaziun da chat AI open-source che creescha screens interactivs, betg mo text. Kai è ina alternativa gratuita a ChatGPT cun ina olma, in batter dal cor, memorias persistentas e dommer dapli — in assistent AI che sa sviluppa cun mintga conversaziun.
+Applicaziun da chat AI open-source che creescha screens interactivs, betg mo text. Kai 9000 è ina alternativa gratuita a ChatGPT cun ina olma, in batter dal cor, memorias persistentas e dommer dapli — in assistent AI che sa sviluppa cun mintga conversaziun.
 
-A differenza da chatbots ordinaras, Kai generescha UI nativa interactiva — buttuns, formulars, tabellas, diagrammas ed apps a screen entir — directamain en il chat. Dumonda da construir ina calculatricha, in quiz, in dashboard u ina glista, ed el rendera ina vera interfatscha funcziunala. Quai è AI sur il text ora.
+A differenza da chatbots ordinaras, Kai 9000 generescha UI nativa interactiva — buttuns, formulars, tabellas, diagrammas ed apps a screen entir — directamain en il chat. Dumonda da construir ina calculatricha, in quiz, in dashboard u ina glista, ed el rendera ina vera interfatscha funcziunala. Quai è AI sur il text ora.
 
 🧠 Olma & Memoria — In chatbot che ta enconuscha
-Dat a Kai ina persunalitad cun scriver sia "olma." El sa regorda tge che importa — tias preferenzas, imprendì precedentas e problems enconuschents — e rinforzescha quella savida cun il temp. Memorias utilas vegnan promovidas en sia persunalitad permanenta. Pli che ti chattas, pli intelligent vegn el.
+Dat a Kai 9000 ina persunalitad cun scriver sia "olma." El sa regorda tge che importa — tias preferenzas, imprendì precedentas e problems enconuschents — e rinforzescha quella savida cun il temp. Memorias utilas vegnan promovidas en sia persunalitad permanenta. Pli che ti chattas, pli intelligent vegn el.
 
 💓 Batter dal cor — Tes agent persunal adina activ
-Kai dorma betg. Ses sistem da batter dal cor controlleschan regularmain — repassond incumbensas, e-mails e tendenzas — era sche ti na chattas betg. Definescha l'interval, las uras activas ed il model. Sche insatgei pretenda tia attenziun, Kai al mussa. Sche tut è en urden, resta el quiet.
+Kai 9000 dorma betg. Ses sistem da batter dal cor controlleschan regularmain — repassond incumbensas, e-mails e tendenzas — era sche ti na chattas betg. Definescha l'interval, las uras activas ed il model. Sche insatgei pretenda tia attenziun, Kai 9000 al mussa. Sche tut è en urden, resta el quiet.
 
 ⚡ 24 servetschs — Ina applicaziun, mintga model
 Connecta tai a ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok e 17 ulteriurs purschiders. Fa ir models locals via Ollama u LM Studio per diever privat ed offline. Agiunta plirs contos, reordinescha prioritads e lascha che la chadaina da fallback intelligenta gestiunescha interrupziuns automaticamain. In nivel gratuit integrà munta che ti pos cumenzar senza configuraziun — nagina clav API necessaria.
@@ -36,12 +36,12 @@ Activescha utensils potents che laschan l'assistent agir, betg mo discurrer:
 • MCP Servers — connecta tai a servers d'utensils externs
 
 🖥️ Modus UI interactiv
-Va a screen entir. En il Modus Interactiv, Kai daventa in constructur visual d'apps — nagin markdown, nagin text che scrolla. Mo screens funcziunals e tippabels, generads al mument. Navighescha cun buttuns ed inputs. Igl è sco avair in sviluppader d'apps persunal en tia tasca.
+Va a screen entir. En il Modus Interactiv, Kai 9000 daventa in constructur visual d'apps — nagin markdown, nagin text che scrolla. Mo screens funcziunals e tippabels, generads al mument. Navighescha cun buttuns ed inputs. Igl è sco avair in sviluppader d'apps persunal en tia tasca.
 
 🔒 Protecziun da datas, open source & senza reclama
-Tut l'istorgia da chat è criptada e memorisada localmain sin tes apparat. Naginas reclamas, nagina collecziun da datas, nagin tracking. Cloms API van directamain a tes purschider — Kai na stat mai en il mez. Fa ir models locals per ina experientscha offline e privata. Cumplettamain open source, cumplettamain transparent.
+Tut l'istorgia da chat è criptada e memorisada localmain sin tes apparat. Naginas reclamas, nagina collecziun da datas, nagin tracking. Cloms API van directamain a tes purschider — Kai 9000 na stat mai en il mez. Fa ir models locals per ina experientscha offline e privata. Cumplettamain open source, cumplettamain transparent.
 
 🌍 Funcziuna dapertut
-Dovra Kai sin tes telefon Android, tablet, Chromebook u desktop. Tes assistent, adina a dispusiziun.
+Dovra Kai 9000 sin tes telefon Android, tablet, Chromebook u desktop. Tes assistent, adina a dispusiziun.
 
-Che ti scrivas, programmas, resummas, translatteschas, fatschas brainstorming, automatiseschas workflows, gestiuneschas e-mails u emprendas — Kai è l'alternativa gratuita, senza reclama ed open-source a ChatGPT che s'adattescha a tai.
+Che ti scrivas, programmas, resummas, translatteschas, fatschas brainstorming, automatiseschas workflows, gestiuneschas e-mails u emprendas — Kai 9000 è l'alternativa gratuita, senza reclama ed open-source a ChatGPT che s'adattescha a tai.

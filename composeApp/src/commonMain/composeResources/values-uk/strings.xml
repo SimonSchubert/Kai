@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Ласкаво просимо до Kai</string>
+    <string name="welcome_message">Ласкаво просимо до Kai 9000</string>
     <string name="prompt_ask_question">Задати питання</string>
     <string name="error_invalid_api_key">Недійсний ключ API. Будь ласка, перевірте налаштування.</string>
     <string name="error_rate_limit_exceeded">Перевищено ліміт запитів. Будь ласка, спробуйте пізніше.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Згенерувати заново</string>
     <string name="error_empty_response">Відповідь не отримано. Спробуйте розпочати новий чат або скоротити повідомлення.</string>
     <string name="settings_daemon_mode">Фоновий режим</string>
-    <string name="settings_daemon_mode_description">Тримати Kai запущеним у фоновому режимі, щоб заплановані завдання виконувались навіть коли додаток не на передньому плані.</string>
+    <string name="settings_daemon_mode_description">Тримати Kai 9000 запущеним у фоновому режимі, щоб заплановані завдання виконувались навіть коли додаток не на передньому плані.</string>
     <string name="settings_scheduled_tasks">Заплановані завдання</string>
     <string name="settings_scheduled_tasks_description">Завдання, заплановані ШІ для виконання в майбутньому. Попросіть ШІ нагадати вам або виконати щось пізніше, щоб створити заплановані завдання.</string>
     <string name="settings_scheduled_tasks_cancel">Скасувати завдання</string>
@@ -166,14 +166,14 @@
     <string name="settings_import_section_soul">Душа</string>
     <string name="settings_import_section_memory">Пам'ять</string>
     <string name="settings_import_section_scheduling">Планування</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Серцебиття</string>
     <string name="settings_import_section_email">Електронна пошта</string>
     <string name="settings_import_section_tools">Інструменти</string>
     <string name="settings_import_section_mcp">Сервери MCP</string>
     <string name="settings_import_section_conversations">Розмови</string>
     <string name="settings_heartbeat_reset_confirm">Це скине запит серцебиття до стандартного. Ви впевнені?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">За замовчуванням</string>
     <string name="settings_import_partial">Налаштування імпортовано з %1$d розділом(-ами) з помилками.</string>
     <string name="settings_model_search">Пошук моделей…</string>
     <string name="waiting_content_description">Очікування відповіді</string>
@@ -181,7 +181,7 @@
     <string name="chat_history_title">Історія чатів</string>
     <string name="chat_history_delete_content_description">Видалити розмову</string>
     <string name="chat_history_empty">Немає збережених розмов</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Серцебиття</string>
     <string name="heartbeat_banner_message">Heartbeat має що повідомити</string>
     <string name="heartbeat_banner_dismiss">Закрити</string>
     <string name="scroll_to_bottom_content_description">Прокрутити донизу</string>

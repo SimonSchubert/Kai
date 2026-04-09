@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">به Kai خوش آمدید</string>
+    <string name="welcome_message">به Kai 9000 خوش آمدید</string>
     <string name="prompt_ask_question">سوال بپرسید</string>
     <string name="error_invalid_api_key">کلید API نامعتبر است. لطفاً تنظیمات خود را بررسی کنید.</string>
     <string name="error_rate_limit_exceeded">از حد مجاز نرخ فراتر رفته‌اید. لطفاً بعداً دوباره امتحان کنید.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">تولید مجدد</string>
     <string name="error_empty_response">پاسخی دریافت نشد. سعی کنید یک گفتگوی جدید شروع کنید یا پیام خود را کوتاه‌تر کنید.</string>
     <string name="settings_daemon_mode">حالت پس‌زمینه</string>
-    <string name="settings_daemon_mode_description">Kai را در پس‌زمینه فعال نگه دارید تا وظایف زمان‌بندی‌شده حتی وقتی برنامه در پیش‌زمینه نیست اجرا شوند.</string>
+    <string name="settings_daemon_mode_description">Kai 9000 را در پس‌زمینه فعال نگه دارید تا وظایف زمان‌بندی‌شده حتی وقتی برنامه در پیش‌زمینه نیست اجرا شوند.</string>
     <string name="settings_scheduled_tasks">وظایف زمان‌بندی‌شده</string>
     <string name="settings_scheduled_tasks_description">وظایفی که توسط هوش مصنوعی برای اجرای آینده زمان‌بندی شده‌اند. از هوش مصنوعی بخواهید یادآوری کند یا چیزی را بعداً اجرا کند تا وظایف زمان‌بندی‌شده ایجاد شود.</string>
     <string name="settings_scheduled_tasks_cancel">لغو وظیفه</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">هرگز</string>
     <string name="settings_add_service">افزودن سرویس</string>
     <string name="settings_free_fallback">استفاده به عنوان پشتیبان</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">ضربان قلب</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] این یک خودبررسی خودکار است. خاطرات و وظایف معلق خود را بررسی کن. اگر همه چیز خوب به نظر می‌رسد و چیزی نیاز به توجه ندارد، دقیقاً پاسخ بده: HEARTBEAT_OK\nاگر چیزی نیاز به توجه دارد (خاطرات قدیمی، وظایف سررسید شده، پیگیری‌های کاربر)، به آن رسیدگی کن.</string>
     <string name="settings_heartbeat_description">خودبررسی‌های دوره‌ای که به هوش مصنوعی اجازه می‌دهد خاطرات و وظایف را بدون ورودی کاربر بررسی کند. هر %1$d دقیقه در ساعات فعال اجرا می‌شود.</string>
     <string name="settings_heartbeat_prompt_label">پرامپت Heartbeat</string>
@@ -172,7 +172,7 @@
     <string name="settings_import_section_conversations">مکالمات</string>
     <string name="settings_heartbeat_reset_confirm">این کار پیام ضربان قلب را به پیش‌فرض بازنشانی می‌کند. آیا مطمئن هستید؟</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">پیش‌فرض</string>
     <string name="settings_import_partial">تنظیمات با %1$d بخش دارای خطا وارد شد.</string>
     <string name="settings_model_search">جستجوی مدل‌ها…</string>
     <string name="waiting_content_description">در انتظار پاسخ</string>

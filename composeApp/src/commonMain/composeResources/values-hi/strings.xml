@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai में आपका स्वागत है</string>
+    <string name="welcome_message">Kai 9000 में आपका स्वागत है</string>
     <string name="prompt_ask_question">एक सवाल पूछें</string>
     <string name="error_invalid_api_key">अमान्य API कुंजी। कृपया अपनी सेटिंग्स जाँचें।</string>
     <string name="error_rate_limit_exceeded">दर सीमा पार हो गई। कृपया बाद में फिर से प्रयास करें।</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">पुनः उत्पन्न करें</string>
     <string name="error_empty_response">कोई प्रतिक्रिया नहीं मिली। नई चैट शुरू करने या अपना संदेश छोटा करने का प्रयास करें।</string>
     <string name="settings_daemon_mode">डेमन मोड</string>
-    <string name="settings_daemon_mode_description">Kai को बैकग्राउंड में चालू रखें ताकि शेड्यूल किए गए कार्य ऐप फोरग्राउंड में न होने पर भी चलें।</string>
+    <string name="settings_daemon_mode_description">Kai 9000 को बैकग्राउंड में चालू रखें ताकि शेड्यूल किए गए कार्य ऐप फोरग्राउंड में न होने पर भी चलें।</string>
     <string name="settings_scheduled_tasks">शेड्यूल किए गए कार्य</string>
     <string name="settings_scheduled_tasks_description">AI द्वारा भविष्य में निष्पादन के लिए शेड्यूल किए गए कार्य। शेड्यूल किए गए कार्य बनाने के लिए AI से आपको याद दिलाने या बाद में कुछ चलाने को कहें।</string>
     <string name="settings_scheduled_tasks_cancel">कार्य रद्द करें</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_conversations">वार्तालाप</string>
     <string name="settings_heartbeat_reset_confirm">यह हार्टबीट प्रॉम्प्ट को डिफ़ॉल्ट पर रीसेट कर देगा। क्या आप सुनिश्चित हैं?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">डिफ़ॉल्ट</string>
     <string name="settings_import_partial">%1$d अनुभाग(ों) में त्रुटियों के साथ सेटिंग्स आयात की गईं।</string>
     <string name="settings_model_search">मॉडल खोजें…</string>
     <string name="waiting_content_description">प्रतिक्रिया की प्रतीक्षा में</string>

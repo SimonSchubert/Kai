@@ -1,12 +1,12 @@
-AI chat aplikacija otvorenog koda koja gradi interaktivne zaslone, ne samo tekst. Kai je besplatna ChatGPT alternativa s dušom, otkucajima srca, trajnom memorijom i pojačanim učenjem — AI asistent koji se razvija sa svakim vašim razgovorom.
+AI chat aplikacija otvorenog koda koja gradi interaktivne zaslone, ne samo tekst. Kai 9000 je besplatna ChatGPT alternativa s dušom, otkucajima srca, trajnom memorijom i pojačanim učenjem — AI asistent koji se razvija sa svakim vašim razgovorom.
 
-Za razliku od običnih chatbotova, Kai generira nativni interaktivni UI — gumbe, obrasce, tablice, grafikone i aplikacije na cijelom zaslonu — izravno u chatu. Zamolite ga da napravi kalkulator, kviz, nadzornu ploču ili popis zadataka, i on renderira pravo funkcionalno sučelje koje možete dodirnuti, povući i koristiti. Ovo je AI izvan teksta.
+Za razliku od običnih chatbotova, Kai 9000 generira nativni interaktivni UI — gumbe, obrasce, tablice, grafikone i aplikacije na cijelom zaslonu — izravno u chatu. Zamolite ga da napravi kalkulator, kviz, nadzornu ploču ili popis zadataka, i on renderira pravo funkcionalno sučelje koje možete dodirnuti, povući i koristiti. Ovo je AI izvan teksta.
 
 🧠 Duša i memorija — Chatbot koji vas poznaje
-Dajte Kaiju osobnost pisanjem njegove "duše." Pamti ono što je važno kroz razgovore — vaše preferencije, prošla učenja i poznate probleme — i pojačava to znanje tijekom vremena. Sjećanja koja se pokažu korisnima napreduju u njegovu trajnu osobnost. Što više razgovarate, to postaje pametniji.
+Dajte Kai 9000ju osobnost pisanjem njegove "duše." Pamti ono što je važno kroz razgovore — vaše preferencije, prošla učenja i poznate probleme — i pojačava to znanje tijekom vremena. Sjećanja koja se pokažu korisnima napreduju u njegovu trajnu osobnost. Što više razgovarate, to postaje pametniji.
 
 💓 Otkucaj srca — Vaš uvijek aktivni osobni agent
-Kai ne spava. Njegov sustav otkucaja srca provjerava prema rasporedu — pregledava zadatke na čekanju, emailove i trendove — čak i kad ne razgovarate. Postavite interval, aktivne sate i model. Kad nešto zahtijeva vašu pozornost, Kai to iznosi. Kad je sve u redu, ostaje tih.
+Kai 9000 ne spava. Njegov sustav otkucaja srca provjerava prema rasporedu — pregledava zadatke na čekanju, emailove i trendove — čak i kad ne razgovarate. Postavite interval, aktivne sate i model. Kad nešto zahtijeva vašu pozornost, Kai 9000 to iznosi. Kad je sve u redu, ostaje tih.
 
 ⚡ 24 servisa — Jedna aplikacija, svaki model
 Povežite se s ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok i još 17 pružatelja. Pokrenite lokalne modele putem Ollama ili LM Studio za privatnu, offline upotrebu. Dodajte više računa, promijenite prioritete i pustite pametni lanac zamjene da automatski obradi ispade. Ugrađena besplatna razina znači da možete početi razgovarati bez ikakve postavke — nije potreban API ključ.
@@ -36,12 +36,12 @@ Omogućite moćne alate koji asistentu dopuštaju da djeluje, a ne samo govori:
 • MCP Servers — povežite se s vanjskim poslužiteljima alata
 
 🖥️ Interaktivni UI način
-Idite na cijeli zaslon. U interaktivnom načinu Kai postaje vizualni graditelj aplikacija — bez markdowna, bez pomicanja teksta. Samo dodirljivi, funkcionalni zasloni generirani u hodu. Navigirajte isključivo gumbima i unosima. Kao da imate osobnog razvijatelja aplikacija u džepu.
+Idite na cijeli zaslon. U interaktivnom načinu Kai 9000 postaje vizualni graditelj aplikacija — bez markdowna, bez pomicanja teksta. Samo dodirljivi, funkcionalni zasloni generirani u hodu. Navigirajte isključivo gumbima i unosima. Kao da imate osobnog razvijatelja aplikacija u džepu.
 
 🔒 Privatnost na prvom mjestu, otvoreni kod i bez oglasa
-Sva povijest razgovora je šifrirana i pohranjena lokalno na vašem uređaju. Bez oglasa, bez prikupljanja podataka, bez praćenja. API pozivi idu izravno vašem odabranom pružatelju — Kai nikad nije posrednik. Pokrenite lokalne modele za potpuno offline, privatno iskustvo. Potpuno otvoreni kod, potpuno transparentno.
+Sva povijest razgovora je šifrirana i pohranjena lokalno na vašem uređaju. Bez oglasa, bez prikupljanja podataka, bez praćenja. API pozivi idu izravno vašem odabranom pružatelju — Kai 9000 nikad nije posrednik. Pokrenite lokalne modele za potpuno offline, privatno iskustvo. Potpuno otvoreni kod, potpuno transparentno.
 
 🌍 Radi svugdje
-Koristite Kai na Android telefonu, tabletu, Chromebooku ili stolnom računalu. Vaš asistent, uvijek nadohvat ruke.
+Koristite Kai 9000 na Android telefonu, tabletu, Chromebooku ili stolnom računalu. Vaš asistent, uvijek nadohvat ruke.
 
-Bilo da pišete, kodirate, sažimate, prevodite, brainstormirate, automatizirate radne procese, upravljate emailovima ili učite — Kai je besplatna, bez oglasa, ChatGPT alternativa otvorenog koda koja se prilagođava vama.
+Bilo da pišete, kodirate, sažimate, prevodite, brainstormirate, automatizirate radne procese, upravljate emailovima ili učite — Kai 9000 je besplatna, bez oglasa, ChatGPT alternativa otvorenog koda koja se prilagođava vama.

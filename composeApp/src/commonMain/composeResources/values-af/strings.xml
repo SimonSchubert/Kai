@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Welkom by Kai</string>
+    <string name="welcome_message">Welkom by Kai 9000</string>
     <string name="prompt_ask_question">Vra 'n vraag</string>
     <string name="error_invalid_api_key">Ongeldige API-sleutel. Kontroleer asseblief jou instellings.</string>
     <string name="error_rate_limit_exceeded">Tarieklimiet oorskry. Probeer asseblief later weer.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Hergenereer</string>
     <string name="error_empty_response">Geen antwoord ontvang nie. Probeer om 'n nuwe klets te begin of jou boodskap korter te maak.</string>
     <string name="settings_daemon_mode">Daemonmodus</string>
-    <string name="settings_daemon_mode_description">Hou Kai in die agtergrond aan sodat geskeduleerde take uitgevoer word selfs wanneer die toepassing nie op die voorgrond is nie.</string>
+    <string name="settings_daemon_mode_description">Hou Kai 9000 in die agtergrond aan sodat geskeduleerde take uitgevoer word selfs wanneer die toepassing nie op die voorgrond is nie.</string>
     <string name="settings_scheduled_tasks">Geskeduleerde Take</string>
     <string name="settings_scheduled_tasks_description">Take wat deur die KI vir toekomstige uitvoering geskeduleer is. Vra die KI om jou te herinner of iets later uit te voer om geskeduleerde take te skep.</string>
     <string name="settings_scheduled_tasks_cancel">Kanselleer taak</string>
@@ -173,7 +173,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import_section_conversations">Gesprekke</string>
     <string name="settings_heartbeat_reset_confirm">Dit sal die hartklopprompt na die verstek terugstel. Is jy seker?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Verstek</string>
     <string name="settings_import_partial">Instellings ingevoer met %1$d afdeling(e) wat foute gehad het.</string>
     <string name="settings_model_search">Soek modelle…</string>
     <string name="waiting_content_description">Wag vir antwoord</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Dobrodošli u Kai</string>
+    <string name="welcome_message">Dobrodošli u Kai 9000</string>
     <string name="prompt_ask_question">Postavite pitanje</string>
     <string name="error_invalid_api_key">Nevažeći API ključ. Provjerite svoje postavke.</string>
     <string name="error_rate_limit_exceeded">Premašeno ograničenje zahtjeva. Pokušajte ponovno kasnije.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">Regeneriraj</string>
     <string name="error_empty_response">Nema primljenog odgovora. Pokušajte započeti novi razgovor ili skratiti svoju poruku.</string>
     <string name="settings_daemon_mode">Daemon način rada</string>
-    <string name="settings_daemon_mode_description">Zadržite Kai pokrenutim u pozadini kako bi se planirani zadaci izvršavali čak i kad aplikacija nije u prvom planu.</string>
+    <string name="settings_daemon_mode_description">Zadržite Kai 9000 pokrenutim u pozadini kako bi se planirani zadaci izvršavali čak i kad aplikacija nije u prvom planu.</string>
     <string name="settings_scheduled_tasks">Planirani zadaci</string>
     <string name="settings_scheduled_tasks_description">Zadaci koje je AI zakazao za buduće izvršavanje. Zamolite AI da vas podsjeti ili pokrene nešto kasnije kako biste stvorili planirane zadatke.</string>
     <string name="settings_scheduled_tasks_cancel">Otkaži zadatak</string>
@@ -101,7 +101,7 @@
     <string name="settings_email_poll_never">Nikad</string>
     <string name="settings_add_service">Dodaj uslugu</string>
     <string name="settings_free_fallback">Koristi kao zamjenu</string>
-    <string name="settings_heartbeat">Heartbeat</string>
+    <string name="settings_heartbeat">Otkucaj srca</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ovo je automatska samoprovjera. Pregledaj svoja sjećanja i zadatke na čekanju. Ako je sve u redu i ništa ne zahtijeva pažnju, odgovori točno s: HEARTBEAT_OK\nAko nešto zahtijeva pažnju (zastarjela sjećanja, dospjeli zadaci, korisničke nadopune), pozabavi se time.</string>
     <string name="settings_heartbeat_description">Periodične samoprovjere koje omogućuju AI-ju pregled sjećanja i zadataka bez korisničkog unosa. Pokreće se svakih %1$d minuta tijekom aktivnih sati.</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
@@ -165,14 +165,14 @@
     <string name="settings_import_section_soul">Duša</string>
     <string name="settings_import_section_memory">Memorija</string>
     <string name="settings_import_section_scheduling">Raspoređivanje</string>
-    <string name="settings_import_section_heartbeat">Heartbeat</string>
+    <string name="settings_import_section_heartbeat">Otkucaj srca</string>
     <string name="settings_import_section_email">E-pošta</string>
     <string name="settings_import_section_tools">Alati</string>
     <string name="settings_import_section_mcp">MCP poslužitelji</string>
     <string name="settings_import_section_conversations">Razgovori</string>
     <string name="settings_heartbeat_reset_confirm">Ovo će vratiti poruku otkucaja srca na zadano. Jeste li sigurni?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">Zadano</string>
     <string name="settings_import_partial">Postavke uvezene s %1$d odjeljkom/odjeljcima s pogreškama.</string>
     <string name="settings_model_search">Pretraži modele…</string>
     <string name="waiting_content_description">Čekanje odgovora</string>
@@ -180,7 +180,7 @@
     <string name="chat_history_title">Povijest razgovora</string>
     <string name="chat_history_delete_content_description">Obriši razgovor</string>
     <string name="chat_history_empty">Nema spremljenih razgovora</string>
-    <string name="chat_history_heartbeat_label">Heartbeat</string>
+    <string name="chat_history_heartbeat_label">Otkucaj srca</string>
     <string name="heartbeat_banner_message">Heartbeat ima nešto za prijaviti</string>
     <string name="heartbeat_banner_dismiss">Odbaci</string>
     <string name="scroll_to_bottom_content_description">Pomakni na dno</string>

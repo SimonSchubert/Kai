@@ -1,5 +1,5 @@
 <resources>
-    <string name="welcome_message">Kai에 오신 것을 환영합니다</string>
+    <string name="welcome_message">Kai 9000에 오신 것을 환영합니다</string>
     <string name="prompt_ask_question">질문하기</string>
     <string name="error_invalid_api_key">유효하지 않은 API 키입니다. 설정을 확인하세요.</string>
     <string name="error_rate_limit_exceeded">요청 한도를 초과했습니다. 나중에 다시 시도하세요.</string>
@@ -68,7 +68,7 @@
     <string name="bot_message_regenerate_content_description">재생성</string>
     <string name="error_empty_response">응답이 수신되지 않았습니다. 새 채팅을 시작하거나 메시지를 짧게 해보세요.</string>
     <string name="settings_daemon_mode">데몬 모드</string>
-    <string name="settings_daemon_mode_description">앱이 포그라운드에 없을 때도 예약된 작업이 실행되도록 Kai를 백그라운드에서 계속 실행합니다.</string>
+    <string name="settings_daemon_mode_description">앱이 포그라운드에 없을 때도 예약된 작업이 실행되도록 Kai 9000를 백그라운드에서 계속 실행합니다.</string>
     <string name="settings_scheduled_tasks">예약된 작업</string>
     <string name="settings_scheduled_tasks_description">AI가 미래 실행을 위해 예약한 작업입니다. 예약된 작업을 만들려면 AI에게 나중에 알려주거나 실행하도록 요청하세요.</string>
     <string name="settings_scheduled_tasks_cancel">작업 취소</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_conversations">대화</string>
     <string name="settings_heartbeat_reset_confirm">하트비트 프롬프트를 기본값으로 재설정합니다. 계속하시겠습니까?</string>
     <string name="settings_heartbeat_model">Model</string>
-    <string name="settings_heartbeat_model_default">Default</string>
+    <string name="settings_heartbeat_model_default">기본값</string>
     <string name="settings_import_partial">%1$d개 섹션에 오류가 있는 상태로 설정을 가져왔습니다.</string>
     <string name="settings_model_search">모델 검색…</string>
     <string name="waiting_content_description">응답 대기 중</string>

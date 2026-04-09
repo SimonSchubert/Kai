@@ -1,12 +1,12 @@
-Oopbron AI-kletstoep wat interaktiewe skerms bou, nie net teks nie. Kai is 'n gratis ChatGPT-alternatief met 'n siel, 'n hartklop, blywende herinneringe en versterkte leer — 'n KI-assistent wat met elke gesprek ontwikkel.
+Oopbron AI-kletstoep wat interaktiewe skerms bou, nie net teks nie. Kai 9000 is 'n gratis ChatGPT-alternatief met 'n siel, 'n hartklop, blywende herinneringe en versterkte leer — 'n KI-assistent wat met elke gesprek ontwikkel.
 
-Anders as gewone kletsbotte, genereer Kai inheemse interaktiewe UI — knoppies, vorms, tabelle, grafieke en volskermprogramme — reg binne die klets. Vra dit om 'n sakrekenaar, vasvra, kontroleskerm of takelys te bou, en dit lewer 'n werkende koppelvlak wat jy kan tik, vee en mee werk. Dit is KI verby teks.
+Anders as gewone kletsbotte, genereer Kai 9000 inheemse interaktiewe UI — knoppies, vorms, tabelle, grafieke en volskermprogramme — reg binne die klets. Vra dit om 'n sakrekenaar, vasvra, kontroleskerm of takelys te bou, en dit lewer 'n werkende koppelvlak wat jy kan tik, vee en mee werk. Dit is KI verby teks.
 
 🧠 Siel & Geheue — 'n Kletsbot Wat Jou Ken
-Gee Kai 'n persoonlikheid deur sy "siel" te skryf. Dit onthou wat saak maak oor gesprekke heen — jou voorkeure, vorige lesse en bekende kwessies — en versterk daardie kennis oor tyd. Herinneringe wat nuttig blyk, word bevorder tot sy permanente persoonlikheid. Hoe meer jy klets, hoe slimmer word dit.
+Gee Kai 9000 'n persoonlikheid deur sy "siel" te skryf. Dit onthou wat saak maak oor gesprekke heen — jou voorkeure, vorige lesse en bekende kwessies — en versterk daardie kennis oor tyd. Herinneringe wat nuttig blyk, word bevorder tot sy permanente persoonlikheid. Hoe meer jy klets, hoe slimmer word dit.
 
 💓 Hartklop — Jou Altyd-Aan Persoonlike Agent
-Kai slaap nie. Sy hartklopstelsel meld in op 'n skedule — hersien hangende take, e-posse en tendense — selfs as jy nie klets nie. Stel die interval, aktiewe ure en model in. Wanneer iets jou aandag nodig het, bring Kai dit na vore. Wanneer alles reg is, bly dit stil.
+Kai 9000 slaap nie. Sy hartklopstelsel meld in op 'n skedule — hersien hangende take, e-posse en tendense — selfs as jy nie klets nie. Stel die interval, aktiewe ure en model in. Wanneer iets jou aandag nodig het, bring Kai 9000 dit na vore. Wanneer alles reg is, bly dit stil.
 
 ⚡ 24 Dienste — Een Toep, Elke Model
 Koppel aan ChatGPT, Gemini, Claude, DeepSeek, Llama, Mistral, Grok en 17 meer verskaffers. Laat plaaslike modelle loop via Ollama of LM Studio vir private, aflyngebruik. Voeg veelvuldige rekeninge by, herrangskik prioriteite en laat die slim terugvalsketting onderbrekings outomaties hanteer. 'n Ingeboude gratis vlak beteken jy kan dadelik begin klets — geen API-sleutel nodig nie.
@@ -36,12 +36,12 @@ Aktiveer kragtige gereedskap wat die assistent laat optree, nie net praat nie:
 • MCP Servers — koppel aan eksterne gereedskapbedieners
 
 🖥️ Interaktiewe UI-modus
-Gaan volskerm. In Interaktiewe Modus word Kai 'n visuele toepbouer — geen markdown, geen rollende teks nie. Net tikbare, funksionele skerms wat dadelik gegenereer word. Navigeer heeltemal deur knoppies en invoere. Dit is soos om 'n persoonlike toep-ontwikkelaar in jou sak te hê.
+Gaan volskerm. In Interaktiewe Modus word Kai 9000 'n visuele toepbouer — geen markdown, geen rollende teks nie. Net tikbare, funksionele skerms wat dadelik gegenereer word. Navigeer heeltemal deur knoppies en invoere. Dit is soos om 'n persoonlike toep-ontwikkelaar in jou sak te hê.
 
 🔒 Privaatheid-Eerste, Oopbron & Advertensievry
-Alle kletsgeskiedenis word geënkripteer en plaaslik op jou toestel gestoor. Geen advertensies, geen dataversameling, geen nasporing nie. API-oproepe gaan direk na jou gekose verskaffer — Kai sit nooit in die middel nie. Laat plaaslike modelle loop vir 'n ten volle aflynse, private ervaring. Heeltemal oopbron, heeltemal deursigtig.
+Alle kletsgeskiedenis word geënkripteer en plaaslik op jou toestel gestoor. Geen advertensies, geen dataversameling, geen nasporing nie. API-oproepe gaan direk na jou gekose verskaffer — Kai 9000 sit nooit in die middel nie. Laat plaaslike modelle loop vir 'n ten volle aflynse, private ervaring. Heeltemal oopbron, heeltemal deursigtig.
 
 🌍 Werk Oral
-Gebruik Kai op jou Android-foon, tablet, Chromebook of rekenaar. Jou assistent, altyd binne bereik.
+Gebruik Kai 9000 op jou Android-foon, tablet, Chromebook of rekenaar. Jou assistent, altyd binne bereik.
 
-Of jy skryf, kodeer, opsom, vertaal, dinkskrum, werkvloeie outomatiseer, e-posse bestuur of studeer — Kai is die gratis, advertensievrye, oopbron ChatGPT-alternatief wat by jou aanpas.
+Of jy skryf, kodeer, opsom, vertaal, dinkskrum, werkvloeie outomatiseer, e-posse bestuur of studeer — Kai 9000 is die gratis, advertensievrye, oopbron ChatGPT-alternatief wat by jou aanpas.
