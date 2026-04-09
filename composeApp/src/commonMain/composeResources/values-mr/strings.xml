@@ -231,6 +231,10 @@
     <string name="litert_download">डाउनलोड</string>
     <string name="litert_cancel">रद्द करा</string>
     <string name="litert_limitations">कोणताही टूल वापर नाही, कोणताही इमेज इनपुट नाही, कोणताही हार्टबीट नाही, 4K कॉन्टेक्स्ट विंडो</string>
+    <string name="litert_performance_good">चांगले</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">कमकुवत</string>
+    <string name="litert_context_size">संदर्भ: %1$s</string>
     <string name="litert_free_space">डिव्हाइसवर %1$s उपलब्ध</string>
     <string name="litert_no_model_warning">कोणतेही मॉडेल डाउनलोड केलेले नाही. मॉडेल डाउनलोड करण्यासाठी सेटिंग्जवर जा.</string>
     <string name="litert_error_no_model">कोणतेही मॉडेल डाउनलोड केलेले नाही. मॉडेल डाउनलोड करण्यासाठी सेटिंग्जवर जा.</string>

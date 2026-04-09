@@ -6,6 +6,8 @@ expect fun getModelCacheDirectory(): String
 
 expect fun getAvailableMemoryBytes(): Long
 
+expect fun getTotalMemoryBytes(): Long
+
 expect fun getAvailableDiskSpaceBytes(path: String): Long
 
 expect fun startDownloadNotificationService()

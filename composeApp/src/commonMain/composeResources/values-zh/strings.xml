@@ -232,6 +232,10 @@
     <string name="litert_download">下载</string>
     <string name="litert_cancel">取消</string>
     <string name="litert_limitations">无工具使用，无图片输入，无心跳，4K上下文窗口</string>
+    <string name="litert_performance_good">良好</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">较差</string>
+    <string name="litert_context_size">上下文: %1$s</string>
     <string name="litert_free_space">设备上可用 %1$s</string>
     <string name="litert_no_model_warning">未下载模型。请前往设置下载模型。</string>
     <string name="litert_error_no_model">未下载模型。请前往设置下载模型。</string>

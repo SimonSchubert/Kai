@@ -231,6 +231,10 @@
     <string name="litert_download">ડાઉનલોડ</string>
     <string name="litert_cancel">રદ કરો</string>
     <string name="litert_limitations">કોઈ ટૂલ ઉપયોગ નહીં, કોઈ ઇમેજ ઇનપુટ નહીં, કોઈ હાર્ટબીટ નહીં, 4K કોન્ટેક્સ્ટ વિન્ડો</string>
+    <string name="litert_performance_good">સારું</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">નબળું</string>
+    <string name="litert_context_size">સંદર્ભ: %1$s</string>
     <string name="litert_free_space">ઉપકરણ પર %1$s ઉપલબ્ધ</string>
     <string name="litert_no_model_warning">કોઈ મોડેલ ડાઉનલોડ થયું નથી. મોડેલ ડાઉનલોડ કરવા માટે સેટિંગ્સમાં જાઓ.</string>
     <string name="litert_error_no_model">કોઈ મોડેલ ડાઉનલોડ થયું નથી. મોડેલ ડાઉનલોડ કરવા માટે સેટિંગ્સમાં જાઓ.</string>

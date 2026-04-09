@@ -32,6 +32,10 @@ private val MODEL_CATALOG = listOf(
         fileName = "gemma-4-E2B-it.litertlm",
         sizeBytes = 2_580_000_000L,
         downloadUrl = "https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/main/gemma-4-E2B-it.litertlm",
+        gpuMemoryMb = 676,
+        defaultContextTokens = 4_096,
+        maxContextTokens = 32_768,
+        kvPerTokenBytes = 50_000,
     ),
     LocalModel(
         id = "gemma-4-e4b-it",
@@ -39,6 +43,10 @@ private val MODEL_CATALOG = listOf(
         fileName = "gemma-4-E4B-it.litertlm",
         sizeBytes = 3_650_000_000L,
         downloadUrl = "https://huggingface.co/litert-community/gemma-4-E4B-it-litert-lm/resolve/main/gemma-4-E4B-it.litertlm",
+        gpuMemoryMb = 710,
+        defaultContextTokens = 4_096,
+        maxContextTokens = 32_768,
+        kvPerTokenBytes = 75_000,
     ),
 )
 
@@ -51,6 +59,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private var engine: Engine? = null
     private var conversation: com.google.ai.edge.litertlm.Conversation? = null
     private var currentModelId: String? = null
+    private var currentContextTokens: Int = 0
 
     private val _engineState = MutableStateFlow(EngineState.UNINITIALIZED)
     override val engineState: StateFlow<EngineState> = _engineState
@@ -64,10 +73,10 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private val _downloadError = MutableStateFlow<DownloadError?>(null)
     override val downloadError: StateFlow<DownloadError?> = _downloadError
 
-    override suspend fun initialize(model: DownloadedModel) {
+    override suspend fun initialize(model: DownloadedModel, contextTokens: Int) {
         withContext(Dispatchers.IO) {
             idleReleaseJob?.cancel()
-            if (currentModelId == model.id && _engineState.value == EngineState.READY) return@withContext
+            if (currentModelId == model.id && currentContextTokens == contextTokens && _engineState.value == EngineState.READY) return@withContext
             _engineState.value = EngineState.INITIALIZING
             try {
                 val modelFile = File(model.filePath)
@@ -82,27 +91,45 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
                 release()
 
-                fun initWithBackend(backend: Backend): Engine {
+                fun initWithBackend(backend: Backend, maxTokens: Int?): Engine {
                     val config = EngineConfig(
                         modelPath = model.filePath,
                         backend = backend,
                         cacheDir = getModelCacheDirectory(),
+                        maxNumTokens = maxTokens,
                     )
                     val e = Engine(config)
                     e.initialize()
                     return e
                 }
 
+                val requestedTokens = if (contextTokens > 0) contextTokens else null
+                println("LiteRT: initializing model=${model.id} maxNumTokens=$requestedTokens")
+
                 val newEngine = try {
-                    initWithBackend(Backend.GPU())
+                    try {
+                        initWithBackend(Backend.GPU(), requestedTokens)
+                    } catch (e: Exception) {
+                        initWithBackend(Backend.CPU(), requestedTokens)
+                    }
                 } catch (e: Exception) {
-                    // GPU not available, fall back to CPU
-                    initWithBackend(Backend.CPU())
+                    // Context size not supported — retry with model default
+                    println("LiteRT: init failed with maxNumTokens=$requestedTokens, falling back to default: ${e.message}")
+                    if (requestedTokens != null) {
+                        try {
+                            initWithBackend(Backend.GPU(), null)
+                        } catch (e2: Exception) {
+                            initWithBackend(Backend.CPU(), null)
+                        }
+                    } else {
+                        throw e
+                    }
                 }
 
                 engine = newEngine
                 conversation = newEngine.createConversation()
                 currentModelId = model.id
+                currentContextTokens = contextTokens
                 _engineState.value = EngineState.READY
             } catch (e: Exception) {
                 _engineState.value = EngineState.ERROR

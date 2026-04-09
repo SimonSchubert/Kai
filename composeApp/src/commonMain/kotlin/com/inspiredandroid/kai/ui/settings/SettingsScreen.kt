@@ -131,8 +131,11 @@ import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.formatFileSize
+import com.inspiredandroid.kai.inference.DevicePerformance
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.calculateDevicePerformance
+import com.inspiredandroid.kai.inference.estimateGpuMemoryMb
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -159,11 +162,15 @@ import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.github_mark
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.litert_cancel
+import kai.composeapp.generated.resources.litert_context_size
 import kai.composeapp.generated.resources.litert_download
 import kai.composeapp.generated.resources.litert_error_not_enough_disk_space
 import kai.composeapp.generated.resources.litert_free_space
 import kai.composeapp.generated.resources.litert_limitations
 import kai.composeapp.generated.resources.litert_on_device_description
+import kai.composeapp.generated.resources.litert_performance_good
+import kai.composeapp.generated.resources.litert_performance_ok
+import kai.composeapp.generated.resources.litert_performance_poor
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -838,6 +845,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
                     isDragging = isDragging,
                     dragHandleModifier = if (entries.size >= 2) Modifier.draggableHandle() else null,
                     localAvailableModels = uiState.localAvailableModels,
+                    totalDeviceMemoryBytes = uiState.totalDeviceMemoryBytes,
                     localFreeSpaceBytes = uiState.localFreeSpaceBytes,
                     localDownloadingModelId = uiState.localDownloadingModelId,
                     localDownloadProgress = uiState.localDownloadProgress,
@@ -845,6 +853,8 @@ private fun ServicesContent(uiState: SettingsUiState) {
                     onDownloadLocalModel = uiState.onDownloadLocalModel,
                     onCancelLocalModelDownload = uiState.onCancelLocalModelDownload,
                     onDeleteLocalModel = uiState.onDeleteLocalModel,
+                    onChangeModelContextTokens = uiState.onChangeModelContextTokens,
+                    modelContextTokens = uiState.modelContextTokens,
                 )
             }
         }
@@ -934,6 +944,7 @@ private fun ConfiguredServiceCardContent(
     isDragging: Boolean = false,
     dragHandleModifier: Modifier? = null,
     localAvailableModels: ImmutableList<LocalModel> = persistentListOf(),
+    totalDeviceMemoryBytes: Long = Long.MAX_VALUE,
     localFreeSpaceBytes: Long = 0L,
     localDownloadingModelId: String? = null,
     localDownloadProgress: Float? = null,
@@ -941,6 +952,8 @@ private fun ConfiguredServiceCardContent(
     onDownloadLocalModel: (LocalModel) -> Unit = {},
     onCancelLocalModelDownload: () -> Unit = {},
     onDeleteLocalModel: (String) -> Unit = {},
+    onChangeModelContextTokens: (String, Int) -> Unit = { _, _ -> },
+    modelContextTokens: Map<String, Int> = emptyMap(),
 ) {
     Column(
         modifier = Modifier
@@ -1018,6 +1031,7 @@ private fun ConfiguredServiceCardContent(
                         selectedModel = entry.selectedModel,
                         downloadedModels = entry.models,
                         availableModels = localAvailableModels,
+                        totalDeviceMemoryBytes = totalDeviceMemoryBytes,
                         freeSpaceBytes = localFreeSpaceBytes,
                         downloadingModelId = localDownloadingModelId,
                         downloadProgress = localDownloadProgress,
@@ -1026,6 +1040,8 @@ private fun ConfiguredServiceCardContent(
                         onDownloadModel = onDownloadLocalModel,
                         onCancelDownload = onCancelLocalModelDownload,
                         onDeleteModel = onDeleteLocalModel,
+                        onChangeModelContextTokens = onChangeModelContextTokens,
+                        modelContextTokens = modelContextTokens,
                     )
                 } else if (entry.service is Service.OpenAICompatible) {
                     OpenAICompatibleSettings(
@@ -1230,6 +1246,7 @@ private fun LiteRTSettings(
     selectedModel: SettingsModel?,
     downloadedModels: ImmutableList<SettingsModel>,
     availableModels: ImmutableList<LocalModel>,
+    totalDeviceMemoryBytes: Long,
     freeSpaceBytes: Long,
     downloadingModelId: String?,
     downloadProgress: Float?,
@@ -1238,6 +1255,8 @@ private fun LiteRTSettings(
     onDownloadModel: (LocalModel) -> Unit,
     onCancelDownload: () -> Unit,
     onDeleteModel: (String) -> Unit,
+    onChangeModelContextTokens: (String, Int) -> Unit,
+    modelContextTokens: Map<String, Int>,
 ) {
     val downloadedIds = remember(downloadedModels) { downloadedModels.map { it.id }.toSet() }
 
@@ -1261,6 +1280,14 @@ private fun LiteRTSettings(
         val isDownloaded = model.id in downloadedIds
         val isSelected = selectedModel?.id == model.id
         val isDownloading = downloadingModelId == model.id
+        val steps = (model.maxContextTokens - model.defaultContextTokens) / 1024
+        val storedContextTokens = modelContextTokens[model.id] ?: model.defaultContextTokens
+        var contextSliderValue by remember(storedContextTokens) {
+            mutableStateOf(((storedContextTokens - model.defaultContextTokens) / 1024).toFloat())
+        }
+        val contextTokens = model.defaultContextTokens + (contextSliderValue.roundToInt() * 1024)
+        val estimatedMemoryMb = estimateGpuMemoryMb(model, contextTokens)
+        val performance = calculateDevicePerformance(totalDeviceMemoryBytes, estimatedMemoryMb)
 
         Surface(
             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
@@ -1285,11 +1312,17 @@ private fun LiteRTSettings(
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                         )
-                        Text(
-                            text = formatFileSize(model.sizeBytes),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(
+                                text = formatFileSize(model.sizeBytes),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            DevicePerformanceLabel(performance)
+                        }
                     }
                     if (isDownloaded) {
                         IconButton(
@@ -1313,6 +1346,21 @@ private fun LiteRTSettings(
                         }
                     }
                 }
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = stringResource(Res.string.litert_context_size, "${contextTokens / 1024}K"),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                KaiSlider(
+                    value = contextSliderValue,
+                    onValueChange = { contextSliderValue = it },
+                    onValueChangeFinished = {
+                        onChangeModelContextTokens(model.id, contextTokens)
+                    },
+                    valueRange = 0f..steps.toFloat(),
+                    steps = steps - 1,
+                )
                 if (isDownloading && downloadProgress != null) {
                     Spacer(Modifier.height(8.dp))
                     LinearProgressIndicator(
@@ -1367,6 +1415,29 @@ private fun LiteRTSettings(
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
+}
+
+@Composable
+private fun DevicePerformanceLabel(performance: DevicePerformance) {
+    when (performance) {
+        DevicePerformance.GOOD -> Text(
+            text = stringResource(Res.string.litert_performance_good),
+            style = MaterialTheme.typography.labelSmall,
+            color = StatusColorConnected,
+        )
+
+        DevicePerformance.OK -> Text(
+            text = stringResource(Res.string.litert_performance_ok),
+            style = MaterialTheme.typography.labelSmall,
+            color = StatusColorChecking,
+        )
+
+        DevicePerformance.POOR -> Text(
+            text = stringResource(Res.string.litert_performance_poor),
+            style = MaterialTheme.typography.labelSmall,
+            color = StatusColorError,
+        )
+    }
 }
 
 @Composable

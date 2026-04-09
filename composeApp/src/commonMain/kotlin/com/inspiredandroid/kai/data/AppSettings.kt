@@ -505,6 +505,13 @@ class AppSettings(private val settings: Settings) {
         settings.putInt(KEY_EMAIL_POLL_INTERVAL, minutes)
     }
 
+    // Local model context size
+    fun getModelContextTokens(modelId: String): Int = settings.getInt("$KEY_MODEL_CONTEXT_PREFIX$modelId", 0)
+
+    fun setModelContextTokens(modelId: String, contextTokens: Int) {
+        settings.putInt("$KEY_MODEL_CONTEXT_PREFIX$modelId", contextTokens)
+    }
+
     // Splinterlands
     fun isSplinterlandsEnabled(): Boolean = settings.getBoolean(KEY_SPLINTERLANDS_ENABLED, false)
 
@@ -1001,6 +1008,8 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SPLINTERLANDS_BATTLE_LOG = "splinterlands_battle_log"
         const val KEY_SPLINTERLANDS_INSTANCE_ID = "splinterlands_instance_id"
         const val KEY_SPLINTERLANDS_INSTANCE_IDS = "splinterlands_instance_ids"
+
+        const val KEY_MODEL_CONTEXT_PREFIX = "model_context_"
 
         const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
 

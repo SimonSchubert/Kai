@@ -231,6 +231,10 @@
     <string name="litert_download">Telechargiar</string>
     <string name="litert_cancel">Annullar</string>
     <string name="litert_limitations">Nagins utensils, naginas maletgs, nagin heartbeat, fanestra da context 4K</string>
+    <string name="litert_performance_good">Bun</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Nausch</string>
+    <string name="litert_context_size">Context: %1$s</string>
     <string name="litert_free_space">%1$s disponibel sin l'apparat</string>
     <string name="litert_no_model_warning">Nagin model telechargia. Va a las Configuraziuns per telechargiar in model.</string>
     <string name="litert_error_no_model">Nagin model telechargia. Va a las Configuraziuns per telechargiar in model.</string>

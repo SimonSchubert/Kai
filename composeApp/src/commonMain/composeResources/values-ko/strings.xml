@@ -232,6 +232,10 @@
     <string name="litert_download">다운로드</string>
     <string name="litert_cancel">취소</string>
     <string name="litert_limitations">도구 사용 없음, 이미지 입력 없음, 하트비트 없음, 4K 컨텍스트 윈도우</string>
+    <string name="litert_performance_good">좋음</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">낮음</string>
+    <string name="litert_context_size">컨텍스트: %1$s</string>
     <string name="litert_free_space">기기에서 %1$s 사용 가능</string>
     <string name="litert_no_model_warning">다운로드된 모델이 없습니다. 설정으로 이동하여 모델을 다운로드하세요.</string>
     <string name="litert_error_no_model">다운로드된 모델이 없습니다. 설정으로 이동하여 모델을 다운로드하세요.</string>

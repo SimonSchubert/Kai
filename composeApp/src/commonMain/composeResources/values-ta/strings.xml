@@ -231,6 +231,10 @@
     <string name="litert_download">பதிவிறக்கம்</string>
     <string name="litert_cancel">ரத்து</string>
     <string name="litert_limitations">கருவி பயன்பாடு இல்லை, பட உள்ளீடு இல்லை, இதயத்துடிப்பு இல்லை, 4K சூழல் சாளரம்</string>
+    <string name="litert_performance_good">நல்லது</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">மோசம்</string>
+    <string name="litert_context_size">சூழல்: %1$s</string>
     <string name="litert_free_space">சாதனத்தில் %1$s கிடைக்கிறது</string>
     <string name="litert_no_model_warning">எந்த மாடலும் பதிவிறக்கம் செய்யப்படவில்லை. மாடலைப் பதிவிறக்க அமைப்புகளுக்குச் செல்லுங்கள்.</string>
     <string name="litert_error_no_model">எந்த மாடலும் பதிவிறக்கம் செய்யப்படவில்லை. மாடலைப் பதிவிறக்க அமைப்புகளுக்குச் செல்லுங்கள்.</string>

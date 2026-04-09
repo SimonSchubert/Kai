@@ -232,6 +232,10 @@
     <string name="litert_download">Завантажити</string>
     <string name="litert_cancel">Скасувати</string>
     <string name="litert_limitations">Без інструментів, без зображень, без heartbeat, контекстне вікно 4K</string>
+    <string name="litert_performance_good">Добре</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Погано</string>
+    <string name="litert_context_size">Контекст: %1$s</string>
     <string name="litert_free_space">%1$s доступно на пристрої</string>
     <string name="litert_no_model_warning">Модель не завантажено. Перейдіть до Налаштувань, щоб завантажити модель.</string>
     <string name="litert_error_no_model">Модель не завантажено. Перейдіть до Налаштувань, щоб завантажити модель.</string>

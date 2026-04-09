@@ -231,6 +231,10 @@
     <string name="litert_download">دانلود</string>
     <string name="litert_cancel">لغو</string>
     <string name="litert_limitations">بدون ابزار، بدون تصویر ورودی، بدون ضربان قلب، پنجره زمینه 4K</string>
+    <string name="litert_performance_good">خوب</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">ضعیف</string>
+    <string name="litert_context_size">زمینه: %1$s</string>
     <string name="litert_free_space">%1$s در دستگاه موجود است</string>
     <string name="litert_no_model_warning">مدلی دانلود نشده است. به تنظیمات بروید تا مدلی دانلود کنید.</string>
     <string name="litert_error_no_model">مدلی دانلود نشده است. به تنظیمات بروید تا مدلی دانلود کنید.</string>

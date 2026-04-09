@@ -430,6 +430,10 @@ class FakeDataRepository : DataRepository {
     override fun getLocalDownloadedModels(): List<DownloadedModel> = fakeLocalDownloadedModels
     override fun getLocalAvailableModels(): List<LocalModel> = emptyList()
     override fun getLocalFreeSpaceBytes(): Long = 0L
+    override fun getTotalDeviceMemoryBytes(): Long = Long.MAX_VALUE
+    override fun getModelContextTokens(modelId: String): Int = 0
+    override fun setModelContextTokens(modelId: String, contextTokens: Int) {}
+    override suspend fun releaseLocalEngine() {}
     override fun getLocalDownloadingModelId(): StateFlow<String?>? = null
     override fun getLocalDownloadProgress(): StateFlow<Float?>? = null
     override fun getLocalDownloadError(): StateFlow<DownloadError?>? = null

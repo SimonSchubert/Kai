@@ -232,6 +232,10 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="litert_download">Télécharger</string>
     <string name="litert_cancel">Annuler</string>
     <string name="litert_limitations">Pas d'outils, pas d'images, pas de heartbeat, fenêtre de contexte 4K</string>
+    <string name="litert_performance_good">Bon</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Faible</string>
+    <string name="litert_context_size">Contexte : %1$s</string>
     <string name="litert_free_space">%1$s disponible sur l'appareil</string>
     <string name="litert_no_model_warning">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>
     <string name="litert_error_no_model">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>

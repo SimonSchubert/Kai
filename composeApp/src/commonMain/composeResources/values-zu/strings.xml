@@ -231,6 +231,10 @@
     <string name="litert_download">Landa</string>
     <string name="litert_cancel">Khansela</string>
     <string name="litert_limitations">Akukho ukusetshenziswa kwethuluzi, akukho okufakwayo kwezithombe, akukho i-heartbeat, iwindi lomongo we-4K</string>
+    <string name="litert_performance_good">Kuhle</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Kuphansi</string>
+    <string name="litert_context_size">Umongo: %1$s</string>
     <string name="litert_free_space">%1$s iyatholakala kudivayisi</string>
     <string name="litert_no_model_warning">Akukho modeli elanda. Iya kuZilungiselelo ukuze ulande imodeli.</string>
     <string name="litert_error_no_model">Akukho modeli elanda. Iya kuZilungiselelo ukuze ulande imodeli.</string>

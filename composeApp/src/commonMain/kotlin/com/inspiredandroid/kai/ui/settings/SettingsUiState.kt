@@ -14,7 +14,9 @@ import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.resources.StringResource
 
 @Immutable
@@ -112,6 +114,7 @@ data class SettingsUiState(
     val onShowAddMcpServerDialog: (Boolean) -> Unit = {},
     val onAddPopularMcpServer: (PopularMcpServer) -> Unit = {},
     val localAvailableModels: ImmutableList<LocalModel> = persistentListOf(),
+    val totalDeviceMemoryBytes: Long = Long.MAX_VALUE,
     val localFreeSpaceBytes: Long = 0L,
     val localDownloadingModelId: String? = null,
     val localDownloadProgress: Float? = null,
@@ -119,6 +122,8 @@ data class SettingsUiState(
     val onDownloadLocalModel: (LocalModel) -> Unit = {},
     val onCancelLocalModelDownload: () -> Unit = {},
     val onDeleteLocalModel: (String) -> Unit = {},
+    val onChangeModelContextTokens: (String, Int) -> Unit = { _, _ -> },
+    val modelContextTokens: ImmutableMap<String, Int> = persistentMapOf(),
     val onExportSettings: () -> String = { "" },
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult = { _, _, _ -> ImportResult.Failure },
     val currentSponsors: ImmutableList<SponsorsResponseDto.Sponsor> = persistentListOf(),

@@ -231,6 +231,10 @@
     <string name="litert_download">ਡਾਊਨਲੋਡ</string>
     <string name="litert_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="litert_limitations">ਕੋਈ ਟੂਲ ਵਰਤੋਂ ਨਹੀਂ, ਕੋਈ ਚਿੱਤਰ ਇੰਪੁੱਟ ਨਹੀਂ, ਕੋਈ ਹਾਰਟਬੀਟ ਨਹੀਂ, 4K ਸੰਦਰਭ ਵਿੰਡੋ</string>
+    <string name="litert_performance_good">ਵਧੀਆ</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">ਮਾੜਾ</string>
+    <string name="litert_context_size">ਸੰਦਰਭ: %1$s</string>
     <string name="litert_free_space">ਡਿਵਾਈਸ 'ਤੇ %1$s ਉਪਲਬਧ</string>
     <string name="litert_no_model_warning">ਕੋਈ ਮਾਡਲ ਡਾਊਨਲੋਡ ਨਹੀਂ ਕੀਤਾ। ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਜਾਓ।</string>
     <string name="litert_error_no_model">ਕੋਈ ਮਾਡਲ ਡਾਊਨਲੋਡ ਨਹੀਂ ਕੀਤਾ। ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਸੈਟਿੰਗਜ਼ ਵਿੱਚ ਜਾਓ।</string>

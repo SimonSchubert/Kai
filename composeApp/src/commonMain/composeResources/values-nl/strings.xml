@@ -232,6 +232,10 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="litert_download">Downloaden</string>
     <string name="litert_cancel">Annuleren</string>
     <string name="litert_limitations">Geen toolgebruik, geen afbeeldingsinvoer, geen heartbeat, 4K contextvenster</string>
+    <string name="litert_performance_good">Goed</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Slecht</string>
+    <string name="litert_context_size">Context: %1$s</string>
     <string name="litert_free_space">%1$s beschikbaar op apparaat</string>
     <string name="litert_no_model_warning">Geen model gedownload. Ga naar Instellingen om een model te downloaden.</string>
     <string name="litert_error_no_model">Geen model gedownload. Ga naar Instellingen om een model te downloaden.</string>

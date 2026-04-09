@@ -232,6 +232,10 @@
     <string name="litert_download">डाउनलोड</string>
     <string name="litert_cancel">रद्द करें</string>
     <string name="litert_limitations">कोई टूल उपयोग नहीं, कोई इमेज इनपुट नहीं, कोई हार्टबीट नहीं, 4K कॉन्टेक्स्ट विंडो</string>
+    <string name="litert_performance_good">अच्छा</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">कमज़ोर</string>
+    <string name="litert_context_size">कॉन्टेक्स्ट: %1$s</string>
     <string name="litert_free_space">डिवाइस पर %1$s उपलब्ध</string>
     <string name="litert_no_model_warning">कोई मॉडल डाउनलोड नहीं हुआ। मॉडल डाउनलोड करने के लिए सेटिंग्स में जाएं।</string>
     <string name="litert_error_no_model">कोई मॉडल डाउनलोड नहीं हुआ। मॉडल डाउनलोड करने के लिए सेटिंग्स में जाएं।</string>

@@ -6,6 +6,8 @@ actual fun getModelCacheDirectory(): String = ""
 
 actual fun getAvailableMemoryBytes(): Long = Long.MAX_VALUE
 
+actual fun getTotalMemoryBytes(): Long = Long.MAX_VALUE
+
 actual fun getAvailableDiskSpaceBytes(path: String): Long = 0L
 
 actual fun startDownloadNotificationService() {}

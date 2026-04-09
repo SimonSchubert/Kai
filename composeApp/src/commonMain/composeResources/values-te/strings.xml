@@ -231,6 +231,10 @@
     <string name="litert_download">డౌన్‌లోడ్</string>
     <string name="litert_cancel">రద్దు</string>
     <string name="litert_limitations">టూల్ వాడకం లేదు, ఇమేజ్ ఇన్‌పుట్ లేదు, హార్ట్‌బీట్ లేదు, 4K కాంటెక్స్ట్ విండో</string>
+    <string name="litert_performance_good">మంచి</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">తక్కువ</string>
+    <string name="litert_context_size">సందర్భం: %1$s</string>
     <string name="litert_free_space">పరికరంలో %1$s అందుబాటులో ఉంది</string>
     <string name="litert_no_model_warning">ఏ మోడల్ డౌన్‌లోడ్ కాలేదు. మోడల్ డౌన్‌లోడ్ చేయడానికి సెట్టింగ్‌లకు వెళ్ళండి.</string>
     <string name="litert_error_no_model">ఏ మోడల్ డౌన్‌లోడ్ కాలేదు. మోడల్ డౌన్‌లోడ్ చేయడానికి సెట్టింగ్‌లకు వెళ్ళండి.</string>

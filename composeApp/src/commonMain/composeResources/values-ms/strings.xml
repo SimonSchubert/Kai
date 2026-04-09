@@ -231,6 +231,10 @@
     <string name="litert_download">Muat turun</string>
     <string name="litert_cancel">Batal</string>
     <string name="litert_limitations">Tiada penggunaan alat, tiada input imej, tiada heartbeat, tetingkap konteks 4K</string>
+    <string name="litert_performance_good">Baik</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Lemah</string>
+    <string name="litert_context_size">Konteks: %1$s</string>
     <string name="litert_free_space">%1$s tersedia pada peranti</string>
     <string name="litert_no_model_warning">Tiada model dimuat turun. Pergi ke Tetapan untuk memuat turun model.</string>
     <string name="litert_error_no_model">Tiada model dimuat turun. Pergi ke Tetapan untuk memuat turun model.</string>

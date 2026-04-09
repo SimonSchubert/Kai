@@ -14,12 +14,14 @@ actual fun getModelStorageDirectory(): String = context.filesDir.absolutePath + 
 
 actual fun getModelCacheDirectory(): String = context.cacheDir.absolutePath
 
-actual fun getAvailableMemoryBytes(): Long {
+private fun getMemoryInfo(): ActivityManager.MemoryInfo {
     val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-    val memInfo = ActivityManager.MemoryInfo()
-    activityManager.getMemoryInfo(memInfo)
-    return memInfo.availMem
+    return ActivityManager.MemoryInfo().also { activityManager.getMemoryInfo(it) }
 }
+
+actual fun getAvailableMemoryBytes(): Long = getMemoryInfo().availMem
+
+actual fun getTotalMemoryBytes(): Long = getMemoryInfo().totalMem
 
 actual fun getAvailableDiskSpaceBytes(path: String): Long {
     java.io.File(path).mkdirs()

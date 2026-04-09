@@ -231,6 +231,10 @@
     <string name="litert_download">Жүктеу</string>
     <string name="litert_cancel">Бас тарту</string>
     <string name="litert_limitations">Құралдарсыз, суретсіз, heartbeat жоқ, 4K контекст терезесі</string>
+    <string name="litert_performance_good">Жақсы</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Нашар</string>
+    <string name="litert_context_size">Контекст: %1$s</string>
     <string name="litert_free_space">Құрылғыда %1$s қолжетімді</string>
     <string name="litert_no_model_warning">Модель жүктелмеген. Модельді жүктеу үшін Параметрлерге өтіңіз.</string>
     <string name="litert_error_no_model">Модель жүктелмеген. Модельді жүктеу үшін Параметрлерге өтіңіз.</string>

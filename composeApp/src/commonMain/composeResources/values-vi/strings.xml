@@ -231,6 +231,10 @@
     <string name="litert_download">Tải xuống</string>
     <string name="litert_cancel">Hủy</string>
     <string name="litert_limitations">Không dùng công cụ, không nhập ảnh, không heartbeat, cửa sổ ngữ cảnh 4K</string>
+    <string name="litert_performance_good">Tốt</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Kém</string>
+    <string name="litert_context_size">Ngữ cảnh: %1$s</string>
     <string name="litert_free_space">%1$s khả dụng trên thiết bị</string>
     <string name="litert_no_model_warning">Chưa tải xuống mô hình nào. Vào Cài đặt để tải xuống mô hình.</string>
     <string name="litert_error_no_model">Chưa tải xuống mô hình nào. Vào Cài đặt để tải xuống mô hình.</string>

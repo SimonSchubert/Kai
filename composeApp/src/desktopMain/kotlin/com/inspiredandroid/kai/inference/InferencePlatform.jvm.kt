@@ -10,6 +10,8 @@ actual fun getModelCacheDirectory(): String = System.getProperty("java.io.tmpdir
 
 actual fun getAvailableMemoryBytes(): Long = Long.MAX_VALUE // Desktop OSes manage memory via swap and cache eviction; skip the check
 
+actual fun getTotalMemoryBytes(): Long = Long.MAX_VALUE
+
 actual fun getAvailableDiskSpaceBytes(path: String): Long {
     var dir = File(path)
     while (!dir.exists()) {

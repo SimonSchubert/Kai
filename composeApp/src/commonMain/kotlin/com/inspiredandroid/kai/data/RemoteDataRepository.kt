@@ -13,6 +13,7 @@ import com.inspiredandroid.kai.inference.InferenceMessage
 import com.inspiredandroid.kai.inference.LocalInferenceEngine
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
+import com.inspiredandroid.kai.inference.getTotalMemoryBytes
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AnthropicGenericException
@@ -404,7 +405,12 @@ class RemoteDataRepository(
             ?: downloadedModels.firstOrNull()
             ?: throw NoModelDownloadedException()
 
-        if (engine.engineState.value != EngineState.READY) {
+        val catalogModel = engine.getAvailableModels().find { it.id == model.id }
+        val storedContext = appSettings.getModelContextTokens(model.id)
+        val contextTokens = if (storedContext > 0) storedContext else catalogModel?.defaultContextTokens ?: 0
+
+        val needsInit = engine.engineState.value != EngineState.READY
+        if (needsInit) {
             val statusEntry = History(
                 role = History.Role.TOOL_EXECUTING,
                 content = "",
@@ -413,10 +419,12 @@ class RemoteDataRepository(
             )
             history.update { it + statusEntry }
             try {
-                engine.initialize(model)
+                engine.initialize(model, contextTokens)
             } finally {
                 history.update { h -> h.filter { it.id != statusEntry.id } }
             }
+        } else {
+            engine.initialize(model, contextTokens)
         }
 
         val inferenceMessages = messages.mapNotNull { msg ->
@@ -1844,6 +1852,18 @@ class RemoteDataRepository(
     override fun getLocalAvailableModels(): List<LocalModel> = localInferenceEngine?.getAvailableModels() ?: emptyList()
 
     override fun getLocalFreeSpaceBytes(): Long = localInferenceEngine?.getFreeSpaceBytes() ?: 0L
+
+    override fun getTotalDeviceMemoryBytes(): Long = getTotalMemoryBytes()
+
+    override fun getModelContextTokens(modelId: String): Int = appSettings.getModelContextTokens(modelId)
+
+    override fun setModelContextTokens(modelId: String, contextTokens: Int) {
+        appSettings.setModelContextTokens(modelId, contextTokens)
+    }
+
+    override suspend fun releaseLocalEngine() {
+        localInferenceEngine?.release()
+    }
 
     override fun startLocalModelDownload(model: LocalModel) {
         localInferenceEngine?.startDownload(model)

@@ -231,6 +231,10 @@
     <string name="litert_download">ডাউনলোড</string>
     <string name="litert_cancel">বাতিল</string>
     <string name="litert_limitations">কোনো টুল ব্যবহার নেই, কোনো ছবি ইনপুট নেই, কোনো হার্টবিট নেই, 4K কনটেক্সট উইন্ডো</string>
+    <string name="litert_performance_good">ভালো</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">দুর্বল</string>
+    <string name="litert_context_size">কনটেক্সট: %1$s</string>
     <string name="litert_free_space">ডিভাইসে %1$s উপলব্ধ</string>
     <string name="litert_no_model_warning">কোনো মডেল ডাউনলোড করা হয়নি। একটি মডেল ডাউনলোড করতে সেটিংসে যান।</string>
     <string name="litert_error_no_model">কোনো মডেল ডাউনলোড করা হয়নি। একটি মডেল ডাউনলোড করতে সেটিংসে যান।</string>

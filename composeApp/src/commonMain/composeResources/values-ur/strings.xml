@@ -231,6 +231,10 @@
     <string name="litert_download">ڈاؤن لوڈ</string>
     <string name="litert_cancel">منسوخ</string>
     <string name="litert_limitations">کوئی ٹول استعمال نہیں، کوئی تصویری ان پٹ نہیں، کوئی ہارٹ بیٹ نہیں، 4K سیاق و سباق ونڈو</string>
+    <string name="litert_performance_good">اچھا</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">کمزور</string>
+    <string name="litert_context_size">سیاق: %1$s</string>
     <string name="litert_free_space">آلے پر %1$s دستیاب</string>
     <string name="litert_no_model_warning">کوئی ماڈل ڈاؤن لوڈ نہیں ہوا۔ ماڈل ڈاؤن لوڈ کرنے کے لیے ترتیبات میں جائیں۔</string>
     <string name="litert_error_no_model">کوئی ماڈل ڈاؤن لوڈ نہیں ہوا۔ ماڈل ڈاؤن لوڈ کرنے کے لیے ترتیبات میں جائیں۔</string>

@@ -232,6 +232,10 @@
     <string name="litert_download">ダウンロード</string>
     <string name="litert_cancel">キャンセル</string>
     <string name="litert_limitations">ツール使用なし、画像入力なし、ハートビートなし、4Kコンテキストウィンドウ</string>
+    <string name="litert_performance_good">良好</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">低い</string>
+    <string name="litert_context_size">コンテキスト: %1$s</string>
     <string name="litert_free_space">デバイスで%1$s利用可能</string>
     <string name="litert_no_model_warning">モデルがダウンロードされていません。設定からモデルをダウンロードしてください。</string>
     <string name="litert_error_no_model">モデルがダウンロードされていません。設定からモデルをダウンロードしてください。</string>

@@ -232,6 +232,10 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="litert_download">Ladda ner</string>
     <string name="litert_cancel">Avbryt</string>
     <string name="litert_limitations">Inga verktyg, ingen bildinmatning, ingen heartbeat, 4K kontextfönster</string>
+    <string name="litert_performance_good">Bra</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Dålig</string>
+    <string name="litert_context_size">Kontext: %1$s</string>
     <string name="litert_free_space">%1$s tillgängligt på enheten</string>
     <string name="litert_no_model_warning">Ingen modell nedladdad. Gå till Inställningar för att ladda ner en modell.</string>
     <string name="litert_error_no_model">Ingen modell nedladdad. Gå till Inställningar för att ladda ner en modell.</string>

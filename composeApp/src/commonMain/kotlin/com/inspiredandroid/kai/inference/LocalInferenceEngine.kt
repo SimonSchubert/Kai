@@ -9,7 +9,33 @@ data class LocalModel(
     val fileName: String,
     val sizeBytes: Long,
     val downloadUrl: String,
+    val gpuMemoryMb: Int,
+    val defaultContextTokens: Int,
+    val maxContextTokens: Int,
+    val kvPerTokenBytes: Int,
 )
+
+enum class DevicePerformance {
+    GOOD,
+    OK,
+    POOR,
+}
+
+fun estimateGpuMemoryMb(model: LocalModel, contextTokens: Int): Int {
+    val extraTokens = contextTokens - model.defaultContextTokens
+    val extraMemoryMb = (extraTokens.toLong() * model.kvPerTokenBytes) / (1024 * 1024)
+    return model.gpuMemoryMb + extraMemoryMb.toInt()
+}
+
+fun calculateDevicePerformance(totalMemoryBytes: Long, estimatedGpuMemoryMb: Int): DevicePerformance {
+    val gpuMemoryBytes = estimatedGpuMemoryMb.toLong() * 1024 * 1024
+    val ratio = totalMemoryBytes.toDouble() / gpuMemoryBytes
+    return when {
+        ratio >= 3.0 -> DevicePerformance.GOOD
+        ratio >= 1.5 -> DevicePerformance.OK
+        else -> DevicePerformance.POOR
+    }
+}
 
 data class DownloadedModel(
     val id: String,
@@ -46,7 +72,7 @@ interface LocalInferenceEngine {
     val downloadProgress: StateFlow<Float?>
     val downloadError: StateFlow<DownloadError?>
 
-    suspend fun initialize(model: DownloadedModel)
+    suspend fun initialize(model: DownloadedModel, contextTokens: Int = 0)
     suspend fun release()
 
     suspend fun chat(

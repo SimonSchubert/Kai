@@ -142,6 +142,10 @@ interface DataRepository {
     fun getLocalDownloadedModels(): List<DownloadedModel>
     fun getLocalAvailableModels(): List<LocalModel>
     fun getLocalFreeSpaceBytes(): Long
+    fun getTotalDeviceMemoryBytes(): Long
+    fun getModelContextTokens(modelId: String): Int
+    fun setModelContextTokens(modelId: String, contextTokens: Int)
+    suspend fun releaseLocalEngine()
     fun getLocalDownloadingModelId(): StateFlow<String?>?
     fun getLocalDownloadProgress(): StateFlow<Float?>?
     fun getLocalDownloadError(): StateFlow<DownloadError?>?

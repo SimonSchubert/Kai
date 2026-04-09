@@ -231,6 +231,10 @@
     <string name="litert_download">Lejupielādēt</string>
     <string name="litert_cancel">Atcelt</string>
     <string name="litert_limitations">Bez rīkiem, bez attēliem, bez heartbeat, 4K konteksta logs</string>
+    <string name="litert_performance_good">Laba</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Vāja</string>
+    <string name="litert_context_size">Konteksts: %1$s</string>
     <string name="litert_free_space">%1$s pieejams ierīcē</string>
     <string name="litert_no_model_warning">Nav lejupielādēts neviens modelis. Dodieties uz Iestatījumiem, lai lejupielādētu modeli.</string>
     <string name="litert_error_no_model">Nav lejupielādēts neviens modelis. Dodieties uz Iestatījumiem, lai lejupielādētu modeli.</string>

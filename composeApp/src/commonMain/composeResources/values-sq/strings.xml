@@ -231,6 +231,10 @@
     <string name="litert_download">Shkarko</string>
     <string name="litert_cancel">Anulo</string>
     <string name="litert_limitations">Pa përdorim mjetesh, pa imazhe, pa heartbeat, dritare konteksti 4K</string>
+    <string name="litert_performance_good">Mirë</string>
+    <string name="litert_performance_ok">OK</string>
+    <string name="litert_performance_poor">Dobët</string>
+    <string name="litert_context_size">Konteksti: %1$s</string>
     <string name="litert_free_space">%1$s e disponueshme në pajisje</string>
     <string name="litert_no_model_warning">Asnjë model i shkarkuar. Shkoni te Cilësimet për të shkarkuar një model.</string>
     <string name="litert_error_no_model">Asnjë model i shkarkuar. Shkoni te Cilësimet për të shkarkuar një model.</string>

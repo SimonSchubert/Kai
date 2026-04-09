@@ -31,6 +31,7 @@ import io.ktor.client.request.get
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -119,12 +120,15 @@ class SettingsViewModel(
         onShowAddMcpServerDialog = ::onShowAddMcpServerDialog,
         onAddPopularMcpServer = ::onAddPopularMcpServer,
         localAvailableModels = dataRepository.getLocalAvailableModels().toImmutableList(),
+        totalDeviceMemoryBytes = dataRepository.getTotalDeviceMemoryBytes(),
         localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes(),
         localDownloadingModelId = dataRepository.getLocalDownloadingModelId()?.value,
         localDownloadProgress = dataRepository.getLocalDownloadProgress()?.value,
         onDownloadLocalModel = ::onDownloadLocalModel,
         onCancelLocalModelDownload = ::onCancelLocalModelDownload,
         onDeleteLocalModel = ::onDeleteLocalModel,
+        onChangeModelContextTokens = ::onChangeModelContextTokens,
+        modelContextTokens = buildModelContextTokensMap(),
         onExportSettings = ::onExportSettings,
         onImportSettings = ::onImportSettings,
         onUndoDelete = ::onUndoDelete,
@@ -440,6 +444,23 @@ class SettingsViewModel(
     private fun onCancelLocalModelDownload() {
         dataRepository.cancelLocalModelDownload()
     }
+
+    private fun onChangeModelContextTokens(modelId: String, contextTokens: Int) {
+        if (_state.value.modelContextTokens[modelId] == contextTokens) return
+        dataRepository.setModelContextTokens(modelId, contextTokens)
+        _state.update {
+            it.copy(modelContextTokens = it.modelContextTokens.toMutableMap().apply { put(modelId, contextTokens) }.toImmutableMap())
+        }
+        // Release engine so the next message re-initializes with the new context size
+        viewModelScope.launch(context = getBackgroundDispatcher()) {
+            dataRepository.releaseLocalEngine()
+        }
+    }
+
+    private fun buildModelContextTokensMap() = dataRepository.getLocalAvailableModels().associate { model ->
+        val stored = dataRepository.getModelContextTokens(model.id)
+        model.id to if (stored > 0) stored else model.defaultContextTokens
+    }.toImmutableMap()
 
     private fun onDeleteLocalModel(modelId: String) {
         viewModelScope.launch(context = getBackgroundDispatcher()) {
