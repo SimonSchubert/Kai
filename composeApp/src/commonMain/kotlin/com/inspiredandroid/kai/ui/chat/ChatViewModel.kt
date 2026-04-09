@@ -292,7 +292,7 @@ class ChatViewModel(
     private fun deleteConversation(id: String) {
         commitPendingConversationDeletion()
         _state.update { it.copy(pendingConversationDeletion = id) }
-        pendingConversationDeleteJob = viewModelScope.launch {
+        pendingConversationDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             dataRepository.deleteConversation(id)
             _state.update { it.copy(pendingConversationDeletion = null) }

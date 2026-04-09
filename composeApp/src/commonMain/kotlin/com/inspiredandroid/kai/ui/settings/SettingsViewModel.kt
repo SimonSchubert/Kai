@@ -43,11 +43,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import kotlin.coroutines.CoroutineContext
 
 class SettingsViewModel(
     private val dataRepository: DataRepository,
     private val daemonController: DaemonController,
     private val notificationPermissionController: NotificationPermissionController,
+    private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) : ViewModel() {
 
     private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()
@@ -181,7 +183,7 @@ class SettingsViewModel(
     }
 
     private fun fetchSponsors() {
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             try {
                 val client = httpClient {
                     install(ContentNegotiation) {
@@ -260,7 +262,7 @@ class SettingsViewModel(
                 pendingDeletion = PendingDeletion.Service(instanceId),
             )
         }
-        pendingDeleteJob = viewModelScope.launch {
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.Service(instanceId))
         }
@@ -357,7 +359,7 @@ class SettingsViewModel(
     private fun onDeleteMemory(key: String) {
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.Memory(key)) }
-        pendingDeleteJob = viewModelScope.launch {
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.Memory(key))
         }
@@ -371,7 +373,7 @@ class SettingsViewModel(
     private fun onCancelTask(id: String) {
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.Task(id)) }
-        pendingDeleteJob = viewModelScope.launch {
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.Task(id))
         }
@@ -421,7 +423,7 @@ class SettingsViewModel(
     private fun onRemoveEmailAccount(id: String) {
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.EmailAccount(id)) }
-        pendingDeleteJob = viewModelScope.launch {
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.EmailAccount(id))
         }
@@ -452,7 +454,7 @@ class SettingsViewModel(
             it.copy(modelContextTokens = it.modelContextTokens.toMutableMap().apply { put(modelId, contextTokens) }.toImmutableMap())
         }
         // Release engine so the next message re-initializes with the new context size
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             dataRepository.releaseLocalEngine()
         }
     }
@@ -463,7 +465,7 @@ class SettingsViewModel(
     }.toImmutableMap()
 
     private fun onDeleteLocalModel(modelId: String) {
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             dataRepository.deleteLocalModel(modelId)
             _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
             refreshServiceList()
@@ -543,7 +545,7 @@ class SettingsViewModel(
     }
 
     private fun onAddMcpServer(name: String, url: String, headers: Map<String, String>) {
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             val config = dataRepository.addMcpServer(name, url, headers)
             refreshMcpServers()
             connectMcpServerWithStatus(config.id)
@@ -554,7 +556,7 @@ class SettingsViewModel(
     private fun onRemoveMcpServer(serverId: String) {
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.McpServer(serverId)) }
-        pendingDeleteJob = viewModelScope.launch {
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.McpServer(serverId))
         }
@@ -564,14 +566,14 @@ class SettingsViewModel(
         dataRepository.setMcpServerEnabled(serverId, enabled)
         refreshMcpServers()
         if (enabled) {
-            viewModelScope.launch(context = getBackgroundDispatcher()) {
+            viewModelScope.launch(backgroundDispatcher) {
                 connectMcpServerWithStatus(serverId)
             }
         }
     }
 
     private fun onRefreshMcpServer(serverId: String) {
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             connectMcpServerWithStatus(serverId)
         }
     }
@@ -608,7 +610,7 @@ class SettingsViewModel(
     private fun connectEnabledMcpServers() {
         val enabledServers = _state.value.mcpServers.filter { it.isEnabled && it.connectionStatus != McpConnectionStatus.Connected }
         for (server in enabledServers) {
-            viewModelScope.launch(context = getBackgroundDispatcher()) {
+            viewModelScope.launch(backgroundDispatcher) {
                 connectMcpServerWithStatus(server.id)
             }
         }
@@ -619,7 +621,7 @@ class SettingsViewModel(
         pendingDeleteJob = null
         val deletion = _state.value.pendingDeletion ?: return
         _state.update { it.copy(pendingDeletion = null) }
-        viewModelScope.launch {
+        viewModelScope.launch(backgroundDispatcher) {
             executeDeletion(deletion)
         }
     }
@@ -682,7 +684,7 @@ class SettingsViewModel(
             return
         }
         _state.update { it.copy(pendingDeletion = null) }
-        CoroutineScope(getBackgroundDispatcher()).launch {
+        CoroutineScope(backgroundDispatcher).launch {
             executeDeletion(deletion)
         }
         super.onCleared()
@@ -734,7 +736,7 @@ class SettingsViewModel(
 
     private fun validateConnectionWithStatus(instanceId: String, service: Service) {
         updateConnectionStatus(instanceId, ConnectionStatus.Checking)
-        viewModelScope.launch(context = getBackgroundDispatcher()) {
+        viewModelScope.launch(backgroundDispatcher) {
             try {
                 dataRepository.validateConnection(service, instanceId)
                 if (service.isOnDevice && dataRepository.getLocalDownloadedModels().isEmpty()) {

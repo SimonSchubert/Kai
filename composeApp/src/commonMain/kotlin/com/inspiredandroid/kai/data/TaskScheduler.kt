@@ -1,11 +1,13 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.email.ImapClient
+import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.min
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -18,6 +20,7 @@ class TaskScheduler(
     private val heartbeatManager: HeartbeatManager? = null,
     private val emailStore: EmailStore? = null,
     private val enabled: Boolean = true,
+    private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) {
     private companion object {
         const val POLL_INTERVAL_MS = 60_000L
@@ -36,7 +39,7 @@ class TaskScheduler(
         if (!enabled || taskStore == null || appSettings == null) return
         // If a loop is already running, don't start another
         if (activeJob?.isActive == true) return
-        activeJob = scope.launch {
+        activeJob = scope.launch(backgroundDispatcher) {
             while (true) {
                 delay(POLL_INTERVAL_MS)
                 if (!appSettings.isSchedulingEnabled()) continue

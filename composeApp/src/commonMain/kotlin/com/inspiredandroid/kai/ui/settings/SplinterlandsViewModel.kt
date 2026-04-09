@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isSplinterlandsSupported
 import com.inspiredandroid.kai.splinterlands.BattleStatus
 import com.inspiredandroid.kai.splinterlands.SplinterlandsAccount
@@ -19,12 +20,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class SplinterlandsViewModel(
     private val dataRepository: DataRepository,
     private val splinterlandsStore: SplinterlandsStore,
     private val splinterlandsBattleRunner: SplinterlandsBattleRunner,
     private val splinterlandsApi: SplinterlandsApi,
+    private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) : ViewModel() {
 
     private val splinterlandsEnergy = mutableMapOf<String, Int>()
@@ -82,7 +85,7 @@ class SplinterlandsViewModel(
     private fun fetchSplinterlandsAccountInfo() {
         val accounts = splinterlandsStore.getAccounts().filter { it.username.isNotBlank() }
         if (accounts.isEmpty()) return
-        viewModelScope.launch {
+        viewModelScope.launch(backgroundDispatcher) {
             accounts.map { account ->
                 async { fetchAccountAvatarAndEnergy(account.id, account.username.lowercase()) }
             }.awaitAll()
@@ -118,7 +121,7 @@ class SplinterlandsViewModel(
 
     private fun onTestAndAddSplinterlandsAccount(username: String, postingKey: String) {
         _state.update { it.copy(splinterlandsAddStatus = SplinterlandsAddStatus.Testing) }
-        viewModelScope.launch {
+        viewModelScope.launch(backgroundDispatcher) {
             try {
                 val uname = username.trim().lowercase()
                 splinterlandsApi.login(uname, postingKey)
@@ -142,7 +145,7 @@ class SplinterlandsViewModel(
     }
 
     private fun onRemoveSplinterlandsAccount(accountId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(backgroundDispatcher) {
             splinterlandsBattleRunner.stop(accountId)
             splinterlandsStore.removeAccount(accountId)
             _state.update { it.copy(splinterlandsAccounts = buildSplinterlandsAccountStates().toImmutableList()) }
@@ -197,7 +200,7 @@ class SplinterlandsViewModel(
     }
 
     private fun onClearSplinterlandsBattleLog() {
-        viewModelScope.launch {
+        viewModelScope.launch(backgroundDispatcher) {
             splinterlandsStore.clearBattleLog()
             _state.update { it.copy(splinterlandsBattleLog = persistentListOf()) }
         }
