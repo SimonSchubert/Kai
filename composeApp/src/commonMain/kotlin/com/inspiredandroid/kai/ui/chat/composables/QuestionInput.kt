@@ -50,6 +50,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.data.imageExtensions
 import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.gradientBrush
 import com.inspiredandroid.kai.ui.handCursor
@@ -77,7 +78,7 @@ fun QuestionInput(
     file: PlatformFile?,
     setFile: (PlatformFile?) -> Unit,
     ask: (String) -> Unit,
-    allowFileAttachment: Boolean,
+    supportedFileExtensions: ImmutableList<String>,
     isLoading: Boolean = false,
     cancel: () -> Unit = {},
     availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
@@ -86,9 +87,10 @@ fun QuestionInput(
 ) {
     Column(modifier = modifier) {
         if (file != null) {
-            val icon = when (file.extension) {
-                "jpg", "jpeg", "png", "gif" -> Res.drawable.ic_image
-                else -> Res.drawable.ic_file
+            val icon = if (file.extension.lowercase() in imageExtensions) {
+                Res.drawable.ic_image
+            } else {
+                Res.drawable.ic_file
             }
             SuggestionChip(
                 modifier = Modifier
@@ -126,9 +128,10 @@ fun QuestionInput(
             }
         }
 
+        val allowFileAttachment = supportedFileExtensions.isNotEmpty()
         val filePickerLauncher = if (allowFileAttachment) {
             rememberFilePickerLauncher(
-                type = FileKitType.File(),
+                type = FileKitType.File(extensions = supportedFileExtensions),
             ) { file ->
                 setFile(file)
             }

@@ -44,7 +44,7 @@ data class ChatUiState(
     val error: UiError? = null,
     val warning: StringResource? = null,
     val showPrivacyInfo: Boolean = false,
-    val allowFileAttachment: Boolean = false,
+    val supportedFileExtensions: ImmutableList<String> = persistentListOf(),
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
     val file: PlatformFile? = null,
@@ -102,23 +102,8 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
                 }
 
                 mimeType == "application/pdf" -> {
-                    JsonArray(
-                        listOf(
-                            buildJsonObject {
-                                put("type", "file")
-                                put(
-                                    "file",
-                                    buildJsonObject {
-                                        put("file_data", "data:application/pdf;base64,$data")
-                                    },
-                                )
-                            },
-                            buildJsonObject {
-                                put("type", "text")
-                                put("text", content)
-                            },
-                        ),
-                    )
+                    // PDFs not natively supported in OpenAI-compatible format; send text only
+                    JsonPrimitive(content)
                 }
 
                 else -> {

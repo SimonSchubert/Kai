@@ -54,6 +54,7 @@ sealed class Service(
     val apiKeyUrl: String? = null,
     val apiKeyUrlDisplay: String? = null,
     val isOnDevice: Boolean = false,
+    val supportsPdf: Boolean = false,
 ) {
     data object Free : Service(
         id = "free",
@@ -107,6 +108,7 @@ sealed class Service(
         modelsUrl = "https://openrouter.ai/api/v1/models",
         apiKeyUrl = "https://openrouter.ai/settings/keys",
         apiKeyUrlDisplay = "openrouter.ai/settings/keys",
+        supportsPdf = true,
     )
 
     data object Nvidia : Service(
@@ -137,6 +139,7 @@ sealed class Service(
         defaultModels = emptyList(),
         apiKeyUrl = "https://aistudio.google.com/apikey",
         apiKeyUrlDisplay = "aistudio.google.com/apikey",
+        supportsPdf = true,
     )
 
     data object Anthropic : Service(
@@ -150,6 +153,7 @@ sealed class Service(
         modelsUrl = "https://api.anthropic.com/v1/models",
         apiKeyUrl = "https://console.anthropic.com/settings/keys",
         apiKeyUrlDisplay = "console.anthropic.com/settings/keys",
+        supportsPdf = true,
     )
 
     data object OpenAI : Service(
@@ -163,6 +167,7 @@ sealed class Service(
         modelsUrl = "https://api.openai.com/v1/models",
         apiKeyUrl = "https://platform.openai.com/api-keys",
         apiKeyUrlDisplay = "platform.openai.com/api-keys",
+        supportsPdf = true,
     )
 
     data object DeepSeek : Service(

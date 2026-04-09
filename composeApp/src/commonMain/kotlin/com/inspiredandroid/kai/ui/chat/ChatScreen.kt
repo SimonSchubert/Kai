@@ -241,7 +241,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                             inputExpanded = false
                             uiState.actions.ask(it)
                         },
-                        allowFileAttachment = uiState.allowFileAttachment,
+                        supportedFileExtensions = uiState.supportedFileExtensions,
                         isLoading = uiState.isLoading,
                         cancel = uiState.actions.cancel,
                         availableServices = uiState.availableServices,
@@ -529,7 +529,7 @@ private fun ChatModeScreen(
                         .fillMaxSize()
                         .blur(radius = if (isDropping) 4.dp else 0.dp)
                         .dragAndDropTarget(
-                            shouldStartDragAndDrop = { uiState.allowFileAttachment },
+                            shouldStartDragAndDrop = { uiState.supportedFileExtensions.isNotEmpty() },
                             target = remember {
                                 object : DragAndDropTarget {
                                     override fun onEntered(event: DragAndDropEvent) {
@@ -703,7 +703,7 @@ private fun ChatModeScreen(
                 file = uiState.file,
                 setFile = uiState.actions.setFile,
                 ask = uiState.actions.ask,
-                allowFileAttachment = uiState.allowFileAttachment,
+                supportedFileExtensions = uiState.supportedFileExtensions,
                 isLoading = uiState.isLoading,
                 cancel = uiState.actions.cancel,
                 availableServices = uiState.availableServices,

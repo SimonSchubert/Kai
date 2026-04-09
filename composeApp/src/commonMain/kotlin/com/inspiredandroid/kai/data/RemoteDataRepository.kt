@@ -162,11 +162,6 @@ private fun supportsTools(modelId: String): Boolean {
     return limitedModels.none { lower.startsWith(it) }
 }
 
-private fun supportsImageAttachment(modelId: String): Boolean {
-    val lower = modelId.lowercase()
-    return limitedModels.none { lower.startsWith(it) }
-}
-
 class RemoteDataRepository(
     private val requests: Requests,
     private val appSettings: AppSettings,
@@ -1314,7 +1309,11 @@ class RemoteDataRepository(
 
     override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
 
-    override fun supportsFileAttachment(): Boolean = true
+    override fun supportedFileExtensions(): List<String> {
+        val service = currentService()
+        if (service.isOnDevice) return emptyList()
+        return if (service.supportsPdf) supportedFileExtensions + "pdf" else supportedFileExtensions
+    }
 
     override fun currentService(): Service {
         val instances = getConfiguredServiceInstances()

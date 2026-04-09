@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.data.FileCategory
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
-import com.inspiredandroid.kai.data.classifyFile
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.extension
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
@@ -107,7 +106,7 @@ class ChatViewModel(
             }
         state.copy(
             history = history.toImmutableList(),
-            allowFileAttachment = dataRepository.supportsFileAttachment(),
+            supportedFileExtensions = dataRepository.supportedFileExtensions().toImmutableList(),
             savedConversations = summaries.toImmutableList(),
             currentConversationId = conversationId,
             hasUnreadHeartbeat = hasUnreadHeartbeat,
@@ -214,8 +213,8 @@ class ChatViewModel(
 
     private fun setFile(file: PlatformFile?) {
         if (file != null) {
-            val category = classifyFile(file.mimeType()?.toString(), file.name)
-            if (category == FileCategory.UNSUPPORTED) {
+            val ext = file.extension.lowercase()
+            if (ext.isEmpty() || ext !in _state.value.supportedFileExtensions) {
                 _state.update {
                     it.copy(snackbarMessage = Res.string.error_unsupported_file_type)
                 }

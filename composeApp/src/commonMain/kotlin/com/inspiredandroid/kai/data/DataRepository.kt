@@ -38,7 +38,7 @@ interface DataRepository {
     fun clearHistory()
     fun currentService(): Service
     fun isUsingSharedKey(): Boolean
-    fun supportsFileAttachment(): Boolean
+    fun supportedFileExtensions(): List<String>
 
     // Conversation management
     val savedConversations: StateFlow<List<Conversation>>

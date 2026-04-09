@@ -30,6 +30,18 @@ private val textExtensions = setOf(
     "gradle", "tsx", "jsx",
 )
 
+internal val imageExtensions = setOf(
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "webp",
+    "bmp",
+    "svg",
+)
+
+val supportedFileExtensions = (imageExtensions + textExtensions).toList()
+
 fun classifyFile(mimeType: String?, fileName: String?): FileCategory {
     if (mimeType != null) {
         if (mimeType.startsWith("image/")) return FileCategory.IMAGE
@@ -38,6 +50,7 @@ fun classifyFile(mimeType: String?, fileName: String?): FileCategory {
     }
     // Fall back to extension
     val ext = fileName?.substringAfterLast('.', "")?.lowercase()
+    if (ext != null && ext in imageExtensions) return FileCategory.IMAGE
     if (ext != null && ext in textExtensions) return FileCategory.TEXT
     if (ext == "pdf") return FileCategory.PDF
 
