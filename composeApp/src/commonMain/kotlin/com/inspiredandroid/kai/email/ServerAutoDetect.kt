@@ -92,5 +92,4 @@ object ServerAutoDetect {
         val domain = email.substringAfter("@").lowercase()
         return knownProviders[domain]
     }
-
 }
