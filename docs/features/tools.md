@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-04
+**Last verified:** 2026-04-10
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -101,7 +101,7 @@ When `background=true`, the command starts asynchronously and returns a `session
 
 The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.
 
-On desktop, dangerous environment variables (PATH, LD_PRELOAD, DYLD_INSERT_LIBRARIES) cannot be overridden via the `env` parameter.
+On desktop, dangerous environment variables (PATH, LD_PRELOAD, LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH) cannot be overridden via the `env` parameter.
 
 #### Process management
 
@@ -156,7 +156,7 @@ Each tool has a configurable timeout defaulting to 30 seconds. If execution exce
 
 ### Result truncation
 
-Tool results longer than 8,000 characters are truncated with a note indicating the original length.
+Tool results longer than 20,000 characters are truncated with a note indicating the original length.
 
 ### Context trimming
 

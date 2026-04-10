@@ -1,6 +1,6 @@
 # Encryption & Secure Storage
 
-**Last verified:** 2026-03-20
+**Last verified:** 2026-04-10
 
 All sensitive data (API keys, email passwords, conversation history) is stored through a platform-specific `Settings` implementation selected by `createSecureSettings()`. Each platform uses the strongest available mechanism.
 

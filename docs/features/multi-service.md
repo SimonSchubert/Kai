@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-04-10
 
-Kai supports 24 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -73,6 +73,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Deep Infra | `deepinfra` | Yes | OpenAI-compatible |
 | Fireworks AI | `fireworksai` | Yes | OpenAI-compatible |
 | OpenCode | `opencode` | Yes | OpenAI-compatible |
+| Public AI | `publicai` | Yes | OpenAI-compatible |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 | LiteRT (On-Device) | `litert` | No | On-device (LiteRT LM) |
 

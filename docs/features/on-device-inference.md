@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-04-09
+**Last verified:** 2026-04-10
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -12,8 +12,8 @@ Models are downloaded from HuggingFace's litert-community and stored locally on 
 
 | Model | Size | GPU Memory (Android) | Default Context | Max Context |
 |-------|------|---------------------|-----------------|-------------|
-| Gemma 4 E2B IT | 2.6 GB | 676 MB | 4K tokens | 32K tokens |
-| Gemma 4 E4B IT | 3.7 GB | 710 MB | 4K tokens | 32K tokens |
+| Gemma 4 E2B IT | 2.58 GB | 676 MB | 4K tokens | 32K tokens |
+| Gemma 4 E4B IT | 3.65 GB | 710 MB | 4K tokens | 32K tokens |
 
 Models are `.litertlm` files from the [litert-community](https://huggingface.co/litert-community) organization on HuggingFace.
 

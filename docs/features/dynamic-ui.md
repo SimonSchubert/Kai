@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-07 (image aspectRatio support)
+**Last verified:** 2026-04-10
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -58,7 +58,7 @@ Each AI response replaces the previous screen entirely. Only the latest assistan
 
 ### Back Button
 
-The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. Going back past the first screen exits interactive mode.
+The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. When only one exchange remains, pressing back clears the history and returns to the initial prompt input — interactive mode stays active. To leave interactive mode entirely, the user uses the exit button in the top bar.
 
 ### Auto-Retry on Parse Failure
 
