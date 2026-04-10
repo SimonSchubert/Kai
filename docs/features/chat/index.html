@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-03-20</p>
+<p><strong>Last verified:</strong> 2026-04-10</p>
 <p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1202,13 +1202,15 @@
 <p>Auto-derived from the first user message when a conversation is saved for the first time. Truncated to ~50 characters at a word boundary. Once set, titles are not updated.</p>
 <h2 id="conversation-lifecycle">Conversation Lifecycle</h2>
 <ul>
-<li>On launch, the latest conversation (by <code>updatedAt</code>) is restored automatically</li>
-<li>"New Chat" clears history and unsets the current conversation ID</li>
-<li>A new conversation ID (UUID) is generated on first successful save (after the first assistant response)</li>
+<li>The "current conversation" pointer is persisted across launches: opening the app restores whichever conversation was last active, including an empty new chat the user explicitly started</li>
+<li>If the persisted pointer references a conversation that no longer exists (or is null because the user started a new chat), the app opens to an empty new chat</li>
+<li>"New Chat" clears history, unsets the current conversation pointer, and persists the empty state — so an unused new chat survives an app restart</li>
+<li>A new conversation ID (UUID) is generated on first successful save (after the first assistant response) and immediately becomes the persisted current pointer</li>
 <li>Conversations are saved after each assistant response</li>
 <li>Only the most recent 20 exchanges are persisted per conversation</li>
 <li>Multiple conversations are persisted — starting a new chat preserves previous conversations</li>
 <li>Conversations are service-independent — switching services does not affect which conversation is loaded</li>
+<li>Interactive vs normal chat mode is persisted alongside the current pointer, so an empty interactive chat also survives a restart</li>
 </ul>
 <h2 id="chat-history">Chat History</h2>
 <ul>
