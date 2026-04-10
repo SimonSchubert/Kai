@@ -1217,7 +1217,7 @@
 <li>A history icon appears in the top bar when saved conversations other than the current one exist</li>
 <li>Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)</li>
 <li>Each item shows the title and formatted date</li>
-<li>The active conversation is highlighted with the primary color</li>
+<li>The active conversation is highlighted with the primary color; interactive-mode conversations get an animated gradient border</li>
 <li>Tapping an item loads that conversation and dismisses the sheet</li>
 <li>Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed</li>
 <li>Deleting the active conversation clears the chat</li>
@@ -1279,10 +1279,10 @@
 </ul>
 <h2 id="conversation-storage">Conversation Storage</h2>
 <ul>
-<li>Conversations are stored in an encrypted file (<code>conversations.enc</code>)</li>
-<li>XOR-based encryption with a 32-byte random key stored in app settings</li>
+<li>Conversations are persisted through the platform's secure settings store (see <a href="../encryption/">encryption.md</a>)</li>
 <li>The full conversation list is serialized as <code>ConversationsData</code> (versioned, currently v2)</li>
 <li>Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended</li>
+<li>Older builds stored conversations in an encrypted <code>conversations.enc</code> file (XOR with a 32-byte random key); on first load that file is decrypted and migrated into secure settings, then deleted</li>
 </ul>
 <h2 id="ui-elements">UI Elements</h2>
 <ul>

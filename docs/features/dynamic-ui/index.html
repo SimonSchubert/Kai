@@ -1147,7 +1147,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-07 (image aspectRatio support)</p>
+<p><strong>Last verified:</strong> 2026-04-10</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1184,7 +1184,7 @@
 <h3 id="screen-navigation">Screen Navigation</h3>
 <p>Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.</p>
 <h3 id="back-button">Back Button</h3>
-<p>The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. Going back past the first screen exits interactive mode.</p>
+<p>The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. When only one exchange remains, pressing back clears the history and returns to the initial prompt input — interactive mode stays active. To leave interactive mode entirely, the user uses the exit button in the top bar.</p>
 <h3 id="auto-retry-on-parse-failure">Auto-Retry on Parse Failure</h3>
 <p>If the AI responds without valid kai-ui blocks, the system automatically retries up to 2 times, sending the parse error details back to the AI so it can fix its JSON.</p>
 <h3 id="conversation-persistence">Conversation Persistence</h3>

@@ -1613,7 +1613,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-04-04</p>
+<p><strong>Last verified:</strong> 2026-04-10</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1780,7 +1780,7 @@
 </table>
 <p>When <code>background=true</code>, the command starts asynchronously and returns a <code>session_id</code>. The AI then uses the <code>manage_process</code> tool to check status, retrieve output, or terminate the process.</p>
 <p>The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.</p>
-<p>On desktop, dangerous environment variables (PATH, LD_PRELOAD, DYLD_INSERT_LIBRARIES) cannot be overridden via the <code>env</code> parameter.</p>
+<p>On desktop, dangerous environment variables (PATH, LD_PRELOAD, LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH) cannot be overridden via the <code>env</code> parameter.</p>
 <h4 id="process-management">Process management</h4>
 <p>The <code>manage_process</code> tool is automatically available when the shell command tool is enabled. It supports these actions:</p>
 <table>
@@ -1854,7 +1854,7 @@
 <h3 id="timeout">Timeout</h3>
 <p>Each tool has a configurable timeout defaulting to 30 seconds. If execution exceeds the timeout, the call is cancelled and an error is returned as the tool result.</p>
 <h3 id="result-truncation">Result truncation</h3>
-<p>Tool results longer than 8,000 characters are truncated with a note indicating the original length.</p>
+<p>Tool results longer than 20,000 characters are truncated with a note indicating the original length.</p>
 <h3 id="context-trimming">Context trimming</h3>
 <p>Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.</p>
 <h3 id="context-window-overflow-protection">Context window overflow protection</h3>
