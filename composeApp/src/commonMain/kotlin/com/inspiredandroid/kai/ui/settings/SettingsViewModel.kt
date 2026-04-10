@@ -221,12 +221,12 @@ class SettingsViewModel(
 
     private fun computeAvailableServices(): List<Service> {
         // Allow all non-Free services (multiple instances of same type are allowed)
-        // Sort alphabetically, but keep OpenAI-Compatible and LiteRT at the end
+        // Pin OpenAI-Compatible and LiteRT (Local Model) to the top, then sort the rest alphabetically
         // Hide on-device services on platforms that don't support them
         return Service.all
             .filter { it != Service.Free }
             .filter { !it.isOnDevice || dataRepository.isLocalInferenceAvailable() }
-            .sortedWith(compareBy<Service> { it is Service.OpenAICompatible || it.isOnDevice }.thenBy { it.displayName })
+            .sortedWith(compareBy<Service> { !(it is Service.OpenAICompatible || it.isOnDevice) }.thenBy { it.displayName })
     }
 
     private fun refreshServiceList() {

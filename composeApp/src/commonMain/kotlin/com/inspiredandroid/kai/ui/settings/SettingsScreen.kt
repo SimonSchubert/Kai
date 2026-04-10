@@ -3,7 +3,6 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -886,32 +885,51 @@ private fun ServicesContent(uiState: SettingsUiState) {
             val addServiceScrollState = rememberScrollState()
             Box {
                 Column(modifier = Modifier.verticalScroll(addServiceScrollState).padding(16.dp)) {
-                    uiState.availableServicesToAdd.forEach { service ->
+                    val services = uiState.availableServicesToAdd
+                    services.forEachIndexed { index, service ->
+                        val isFirst = index == 0
+                        val isLast = index == services.lastIndex
+                        val itemShape = RoundedCornerShape(
+                            topStart = if (isFirst) 12.dp else 0.dp,
+                            topEnd = if (isFirst) 12.dp else 0.dp,
+                            bottomStart = if (isLast) 12.dp else 0.dp,
+                            bottomEnd = if (isLast) 12.dp else 0.dp,
+                        )
                         val isSpecial = service.isOnDevice || service is Service.OpenAICompatible
                         Surface(
                             onClick = {
                                 uiState.onAddService(service)
                                 showAddServiceSheet = false
                             },
-                            modifier = Modifier.fillMaxWidth().handCursor().then(
-                                if (isSpecial) {
-                                    Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(8.dp))
-                                } else {
-                                    Modifier
-                                },
-                            ),
-                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.fillMaxWidth().handCursor(),
+                            shape = itemShape,
                         ) {
                             Row(
-                                modifier = Modifier.padding(16.dp),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
-                                Icon(
-                                    imageVector = vectorResource(service.icon),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(20.dp),
-                                    tint = MaterialTheme.colorScheme.onBackground,
-                                )
+                                Box(
+                                    modifier = Modifier
+                                        .size(36.dp)
+                                        .then(
+                                            if (isSpecial) {
+                                                Modifier.background(
+                                                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                                                    shape = RoundedCornerShape(8.dp),
+                                                )
+                                            } else {
+                                                Modifier
+                                            },
+                                        ),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        imageVector = vectorResource(service.icon),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(20.dp),
+                                        tint = MaterialTheme.colorScheme.onBackground,
+                                    )
+                                }
                                 Spacer(Modifier.width(12.dp))
                                 Text(
                                     text = service.displayName,

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-04-08
+**Last verified:** 2026-04-10
 
 Kai supports 24 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -95,7 +95,7 @@ When two or more non-Free service instances are configured, a circular service i
 ## Settings UI
 
 Users manage services through the settings screen:
-- **Add** — pick from the list of available services (can add the same service multiple times)
+- **Add** — pick from the list of available services (can add the same service multiple times); the OpenAI-Compatible API and the on-device Local Model are pinned to the top of the picker, with the remaining providers sorted alphabetically
 - **Remove** — delete an instance and its stored credentials; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the service is permanently removed
 - **Reorder** — drag to change priority (first = primary, rest = fallbacks)
 - **Configure** — per-instance API key, model selection, base URL (OpenAI-Compatible only)

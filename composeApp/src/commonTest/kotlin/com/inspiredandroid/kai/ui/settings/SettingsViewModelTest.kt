@@ -42,7 +42,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `initial state has empty configured services when none configured`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -54,7 +54,7 @@ class SettingsViewModelTest {
     fun `initial state reflects configured services`() = runTest {
         fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI)
 
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -68,7 +68,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `onAddService adds a new configured service`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -89,7 +89,7 @@ class SettingsViewModelTest {
     @Test
     fun `onRemoveService removes a configured service by instanceId`() = runTest {
         fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI)
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -112,7 +112,7 @@ class SettingsViewModelTest {
     fun `availableServicesToAdd contains all non-Free services`() = runTest {
         fakeRepository.setConfiguredServices(Service.Gemini)
 
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -127,7 +127,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `adding same service type twice creates unique instanceIds`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -153,7 +153,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `initial state has empty mcp servers when none configured`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -163,7 +163,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `onAddMcpServer adds server and closes dialog`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -187,7 +187,7 @@ class SettingsViewModelTest {
     fun `onRemoveMcpServer removes server`() = runTest {
         // Pre-add a server
         fakeRepository.addMcpServer("Test", "https://example.com/mcp", emptyMap())
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -207,7 +207,7 @@ class SettingsViewModelTest {
     @Test
     fun `onToggleMcpServer disables server and updates status`() = runTest {
         val config = fakeRepository.addMcpServer("Test", "https://example.com/mcp", emptyMap())
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -226,7 +226,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `showAddMcpServerDialog toggles correctly`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -244,7 +244,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `onToggleTool does not crash with no mcp servers`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val state = awaitItem()
@@ -260,7 +260,7 @@ class SettingsViewModelTest {
     @Test
     fun `onChangeApiKey updates API key for specific instance`() = runTest {
         fakeRepository.setConfiguredServices(Service.Groq)
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
@@ -277,7 +277,7 @@ class SettingsViewModelTest {
 
     @Test
     fun `adding Anthropic service shows no models before validation`() = runTest {
-        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
             val initialState = awaitItem()
