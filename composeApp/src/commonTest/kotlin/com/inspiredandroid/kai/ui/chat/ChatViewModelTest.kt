@@ -3,6 +3,10 @@ package com.inspiredandroid.kai.ui.chat
 import app.cash.turbine.test
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
+import com.inspiredandroid.kai.network.AnthropicInvalidApiKeyException
+import com.inspiredandroid.kai.network.AnthropicOverloadedException
+import com.inspiredandroid.kai.network.AnthropicRateLimitExceededException
 import com.inspiredandroid.kai.network.GeminiInvalidApiKeyException
 import com.inspiredandroid.kai.network.GeminiRateLimitExceededException
 import com.inspiredandroid.kai.network.GenericNetworkException
@@ -206,6 +210,86 @@ class ChatViewModelTest {
     @Test
     fun `failed ask with GroqRateLimitExceededException sets error`() = runTest {
         fakeRepository.askException = OpenAICompatibleRateLimitExceededException()
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.actions.ask("Hello")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            var errorState: ChatUiState
+            do {
+                errorState = awaitItem()
+            } while (errorState.error == null)
+
+            assertNotNull(errorState.error)
+            assertFalse(errorState.isLoading)
+        }
+    }
+
+    @Test
+    fun `failed ask with AnthropicInvalidApiKeyException sets error`() = runTest {
+        fakeRepository.askException = AnthropicInvalidApiKeyException()
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.actions.ask("Hello")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            var errorState: ChatUiState
+            do {
+                errorState = awaitItem()
+            } while (errorState.error == null)
+
+            assertNotNull(errorState.error)
+            assertFalse(errorState.isLoading)
+        }
+    }
+
+    @Test
+    fun `failed ask with AnthropicRateLimitExceededException sets error`() = runTest {
+        fakeRepository.askException = AnthropicRateLimitExceededException()
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.actions.ask("Hello")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            var errorState: ChatUiState
+            do {
+                errorState = awaitItem()
+            } while (errorState.error == null)
+
+            assertNotNull(errorState.error)
+            assertFalse(errorState.isLoading)
+        }
+    }
+
+    @Test
+    fun `failed ask with AnthropicOverloadedException sets error`() = runTest {
+        fakeRepository.askException = AnthropicOverloadedException()
+        val viewModel = createViewModel()
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.actions.ask("Hello")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            var errorState: ChatUiState
+            do {
+                errorState = awaitItem()
+            } while (errorState.error == null)
+
+            assertNotNull(errorState.error)
+            assertFalse(errorState.isLoading)
+        }
+    }
+
+    @Test
+    fun `failed ask with AnthropicInsufficientCreditsException sets error`() = runTest {
+        fakeRepository.askException = AnthropicInsufficientCreditsException()
         val viewModel = createViewModel()
 
         viewModel.state.test {

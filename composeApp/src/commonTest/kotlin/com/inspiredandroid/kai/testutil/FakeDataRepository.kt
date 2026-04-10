@@ -21,6 +21,7 @@ import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -35,6 +36,14 @@ class FakeDataRepository : DataRepository {
     val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
     var clearHistoryCalls = 0
     var askException: Exception? = null
+
+    /**
+     * When non-null, [ask] suspends on this gate before doing any work. Tests can use this
+     * to keep an in-flight ask in progress while inspecting state (e.g., to verify
+     * concurrent ask prevention or to test cancel behavior).
+     */
+    var askGate: CompletableDeferred<Unit>? = null
+    var regenerateCalls = 0
 
     fun setCurrentService(service: Service) {
         currentService = service
@@ -153,6 +162,7 @@ class FakeDataRepository : DataRepository {
 
     override suspend fun ask(question: String?, file: PlatformFile?) {
         askCalls.add(question to file)
+        askGate?.await()
         askException?.let { throw it }
         if (question != null) {
             chatHistory.update { history ->
@@ -208,6 +218,7 @@ class FakeDataRepository : DataRepository {
     }
 
     override fun regenerate() {
+        regenerateCalls++
         chatHistory.update { history ->
             val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
             if (lastUserIndex >= 0) {

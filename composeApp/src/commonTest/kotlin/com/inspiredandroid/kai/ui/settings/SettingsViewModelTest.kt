@@ -298,4 +298,256 @@ class SettingsViewModelTest {
             cancelAndIgnoreRemainingEvents()
         }
     }
+
+    // --- Per-instance settings persistence ---
+
+    @Test
+    fun `onChangeApiKey persists to repository`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Anthropic)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onChangeApiKey("anthropic", "sk-test-123")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            assertEquals("sk-test-123", fakeRepository.getInstanceApiKey("anthropic"))
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeApiKey clears models for that instance`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Anthropic)
+        // Pre-populate models
+        fakeRepository.setInstanceModels("anthropic", listOf(SettingsModel(id = "claude-old", subtitle = "")))
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onChangeApiKey("anthropic", "new-key")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            // Models should have been cleared
+            val models = fakeRepository.getInstanceModels("anthropic", Service.Anthropic).value
+            assertTrue(models.isEmpty())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeBaseUrl persists to repository`() = runTest {
+        fakeRepository.setConfiguredServices(Service.OpenAICompatible)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            val instanceId = initialState.configuredServices.first().instanceId
+            initialState.onChangeBaseUrl(instanceId, "https://custom.example.com/v1/")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            assertEquals(
+                "https://custom.example.com/v1/",
+                fakeRepository.getInstanceBaseUrl(instanceId, Service.OpenAICompatible),
+            )
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeBaseUrl resets connectionStatus to Unknown`() = runTest {
+        fakeRepository.setConfiguredServices(Service.OpenAICompatible)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            val instanceId = initialState.configuredServices.first().instanceId
+            initialState.onChangeBaseUrl(instanceId, "https://x.example/v1")
+
+            val updatedState = awaitItem()
+            assertEquals(ConnectionStatus.Unknown, updatedState.configuredServices.first().connectionStatus)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onSelectModel marks the chosen model as selected on the repository`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini)
+        fakeRepository.setInstanceModels(
+            "gemini",
+            listOf(
+                SettingsModel(id = "gemini-flash", subtitle = ""),
+                SettingsModel(id = "gemini-pro", subtitle = ""),
+            ),
+        )
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onSelectModel("gemini", "gemini-pro")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val models = fakeRepository.getInstanceModels("gemini", Service.Gemini).value
+            assertTrue(models.first { it.id == "gemini-pro" }.isSelected)
+            assertFalse(models.first { it.id == "gemini-flash" }.isSelected)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    // --- Expand state ---
+
+    @Test
+    fun `onExpandService updates expandedServiceId`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertEquals(null, initialState.expandedServiceId)
+
+            initialState.onExpandService("openai")
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            val expandedState = awaitItem()
+            assertEquals("openai", expandedState.expandedServiceId)
+
+            // Collapse
+            expandedState.onExpandService(null)
+            val collapsedState = awaitItem()
+            assertEquals(null, collapsedState.expandedServiceId)
+        }
+    }
+
+    // --- Tab selection ---
+
+    @Test
+    fun `onSelectTab updates currentTab`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onSelectTab(SettingsTab.Tools)
+            val updated = awaitItem()
+            assertEquals(SettingsTab.Tools, updated.currentTab)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    // --- Soul / dynamic UI / memory toggles ---
+
+    @Test
+    fun `onSaveSoul persists soul text`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onSaveSoul("You are a helpful assistant.")
+
+            val updated = awaitItem()
+            assertEquals("You are a helpful assistant.", updated.soulText)
+            assertEquals("You are a helpful assistant.", fakeRepository.getSoulText())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onToggleDynamicUi persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.isDynamicUiEnabled)
+            initialState.onToggleDynamicUi(false)
+            val updated = awaitItem()
+            assertFalse(updated.isDynamicUiEnabled)
+            assertFalse(fakeRepository.isDynamicUiEnabled())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onToggleMemory persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.isMemoryEnabled)
+            initialState.onToggleMemory(false)
+            val updated = awaitItem()
+            assertFalse(updated.isMemoryEnabled)
+            assertFalse(fakeRepository.isMemoryEnabled())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onToggleScheduling persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.isSchedulingEnabled)
+            initialState.onToggleScheduling(false)
+            val updated = awaitItem()
+            assertFalse(updated.isSchedulingEnabled)
+            assertFalse(fakeRepository.isSchedulingEnabled())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onToggleFreeFallback persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            assertTrue(initialState.isFreeFallbackEnabled)
+            initialState.onToggleFreeFallback(false)
+            val updated = awaitItem()
+            assertFalse(updated.isFreeFallbackEnabled)
+            assertFalse(fakeRepository.isFreeFallbackEnabled())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeUiScale persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onChangeUiScale(1.5f)
+            val updated = awaitItem()
+            assertEquals(1.5f, updated.uiScale)
+            assertEquals(1.5f, fakeRepository.getUiScale())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeEmailPollInterval persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onChangeEmailPollInterval(30)
+            val updated = awaitItem()
+            assertEquals(30, updated.emailPollIntervalMinutes)
+            assertEquals(30, fakeRepository.getEmailPollIntervalMinutes())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `onChangeHeartbeatInterval persists and reflects in state`() = runTest {
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
+
+        viewModel.state.test {
+            val initialState = awaitItem()
+            initialState.onChangeHeartbeatInterval(45)
+            val updated = awaitItem()
+            assertEquals(45, updated.heartbeatIntervalMinutes)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
 }
