@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-03-20
+**Last verified:** 2026-04-10
 
 Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -20,13 +20,15 @@ Auto-derived from the first user message when a conversation is saved for the fi
 
 ## Conversation Lifecycle
 
-- On launch, the latest conversation (by `updatedAt`) is restored automatically
-- "New Chat" clears history and unsets the current conversation ID
-- A new conversation ID (UUID) is generated on first successful save (after the first assistant response)
+- The "current conversation" pointer is persisted across launches: opening the app restores whichever conversation was last active, including an empty new chat the user explicitly started
+- If the persisted pointer references a conversation that no longer exists (or is null because the user started a new chat), the app opens to an empty new chat
+- "New Chat" clears history, unsets the current conversation pointer, and persists the empty state — so an unused new chat survives an app restart
+- A new conversation ID (UUID) is generated on first successful save (after the first assistant response) and immediately becomes the persisted current pointer
 - Conversations are saved after each assistant response
 - Only the most recent 20 exchanges are persisted per conversation
 - Multiple conversations are persisted — starting a new chat preserves previous conversations
 - Conversations are service-independent — switching services does not affect which conversation is loaded
+- Interactive vs normal chat mode is persisted alongside the current pointer, so an empty interactive chat also survives a restart
 
 ## Chat History
 

@@ -179,7 +179,7 @@ class FakeDataRepository : DataRepository {
     // Conversation management
     override val savedConversations: MutableStateFlow<List<Conversation>> = MutableStateFlow(emptyList())
 
-    override suspend fun loadConversations() {
+    override fun loadConversations() {
         // No-op in tests
     }
 
@@ -230,7 +230,7 @@ class FakeDataRepository : DataRepository {
         }
     }
 
-    override suspend fun restoreLatestConversation() {
+    override fun restoreCurrentConversation() {
         // No-op in tests
     }
 

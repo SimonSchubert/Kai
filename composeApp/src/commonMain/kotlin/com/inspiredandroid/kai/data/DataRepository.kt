@@ -42,13 +42,13 @@ interface DataRepository {
 
     // Conversation management
     val savedConversations: StateFlow<List<Conversation>>
-    suspend fun loadConversations()
+    fun loadConversations()
     fun loadConversation(id: String)
     suspend fun deleteConversation(id: String)
     fun startNewChat()
     fun regenerate()
     fun popLastExchange()
-    suspend fun restoreLatestConversation()
+    fun restoreCurrentConversation()
 
     // Tool management
     fun getToolDefinitions(): List<ToolInfo>

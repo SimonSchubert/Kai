@@ -316,6 +316,28 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_CONVERSATIONS, json)
     }
 
+    fun getCurrentConversationId(): String? = settings.getStringOrNull(KEY_CURRENT_CONVERSATION_ID)
+
+    fun setCurrentConversationId(id: String?) {
+        if (id == null) {
+            settings.remove(KEY_CURRENT_CONVERSATION_ID)
+        } else {
+            settings.putString(KEY_CURRENT_CONVERSATION_ID, id)
+        }
+    }
+
+    fun getCurrentInteractiveMode(): Boolean = settings.getBoolean(KEY_CURRENT_INTERACTIVE_MODE, false)
+
+    fun setCurrentInteractiveMode(enabled: Boolean) {
+        settings.putBoolean(KEY_CURRENT_INTERACTIVE_MODE, enabled)
+    }
+
+    fun isCurrentConversationMigrated(): Boolean = settings.getBoolean(KEY_CURRENT_CONVERSATION_MIGRATED, false)
+
+    fun markCurrentConversationMigrated() {
+        settings.putBoolean(KEY_CURRENT_CONVERSATION_MIGRATED, true)
+    }
+
     fun getEncryptionKey(): ByteArray? {
         val encoded = settings.getStringOrNull(KEY_ENCRYPTION_KEY) ?: return null
         return try {
@@ -974,6 +996,9 @@ class AppSettings(private val settings: Settings) {
         const val KEY_APP_OPENS = "app_opens"
 
         const val KEY_CONVERSATIONS = "conversations_json"
+        const val KEY_CURRENT_CONVERSATION_ID = "current_conversation_id"
+        const val KEY_CURRENT_INTERACTIVE_MODE = "current_interactive_mode"
+        const val KEY_CURRENT_CONVERSATION_MIGRATED = "current_conversation_migrated"
         const val KEY_ENCRYPTION_KEY = "encryption_key"
         const val KEY_MIGRATION_COMPLETE = "migration_complete_v1"
         const val KEY_TOOL_PREFIX = "tool_enabled_"

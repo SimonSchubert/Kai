@@ -1274,7 +1274,7 @@ class RemoteDataRepository(
 
         val now = Clock.System.now().toEpochMilliseconds()
         val conversationId = _currentConversationId.value ?: Uuid.random().toString().also {
-            _currentConversationId.value = it
+            setCurrentConversationId(it)
         }
 
         val existingConversation = savedConversations.value.find { it.id == conversationId }
@@ -1328,15 +1328,20 @@ class RemoteDataRepository(
         return instances.firstOrNull()?.let { Service.fromId(it.serviceId) } ?: Service.Free
     }
 
+    private fun setCurrentConversationId(id: String?) {
+        _currentConversationId.value = id
+        appSettings.setCurrentConversationId(id)
+    }
+
     // Conversation management
-    override suspend fun loadConversations() {
+    override fun loadConversations() {
         conversationStorage.loadConversations()
     }
 
     override fun loadConversation(id: String) {
         val conversation = savedConversations.value.find { it.id == id } ?: return
 
-        _currentConversationId.value = id
+        setCurrentConversationId(id)
         chatHistory.value = conversation.messages.map { m ->
             History(
                 id = m.id,
@@ -1355,7 +1360,7 @@ class RemoteDataRepository(
 
     override suspend fun deleteConversation(id: String) {
         if (_currentConversationId.value == id) {
-            _currentConversationId.value = null
+            setCurrentConversationId(null)
             chatHistory.value = emptyList()
         }
         conversationStorage.deleteConversation(id)
@@ -1373,7 +1378,7 @@ class RemoteDataRepository(
     }
 
     override fun startNewChat() {
-        _currentConversationId.value = null
+        setCurrentConversationId(null)
         chatHistory.value = emptyList()
     }
 
@@ -1384,8 +1389,19 @@ class RemoteDataRepository(
         }
     }
 
-    override suspend fun restoreLatestConversation() {
-        // Already have a loaded conversation with messages — nothing to do
+    override fun restoreCurrentConversation() {
+        // One-time migration for existing users: pin the latest conversation as the new
+        // "current" pointer so the upgrade is non-disruptive.
+        if (!appSettings.isCurrentConversationMigrated()) {
+            val latest = savedConversations.value.maxByOrNull { it.updatedAt }
+            if (latest != null) {
+                loadConversation(latest.id)
+            }
+            appSettings.markCurrentConversationMigrated()
+            return
+        }
+
+        // Already-loaded guard (covers re-entry from refreshSettings)
         val currentId = _currentConversationId.value
         if (currentId != null && chatHistory.value.isNotEmpty() &&
             savedConversations.value.any { it.id == currentId }
@@ -1393,11 +1409,11 @@ class RemoteDataRepository(
             return
         }
 
-        val latest = savedConversations.value
-            .maxByOrNull { it.updatedAt }
-            ?: return
-
-        loadConversation(latest.id)
+        val persistedId = appSettings.getCurrentConversationId()
+        if (persistedId != null && savedConversations.value.any { it.id == persistedId }) {
+            loadConversation(persistedId)
+        }
+        // else: null id or stale id → leave history empty (this is the new-empty-chat state)
     }
 
     // Tool management
@@ -1594,10 +1610,11 @@ class RemoteDataRepository(
         appSettings.setDynamicUiEnabled(enabled)
     }
 
-    private var interactiveModeFlag = false
+    private var interactiveModeFlag = appSettings.getCurrentInteractiveMode()
 
     override fun setInteractiveMode(enabled: Boolean) {
         interactiveModeFlag = enabled
+        appSettings.setCurrentInteractiveMode(enabled)
     }
 
     override fun isInteractiveModeActive(): Boolean = interactiveModeFlag

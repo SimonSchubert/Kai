@@ -70,14 +70,15 @@ class ChatViewModel(
     )
 
     init {
-        viewModelScope.launch(backgroundDispatcher) {
-            updateAvailableServices()
-            dataRepository.loadConversations()
-            // Set interactive mode BEFORE restoring so the combine flow never emits
-            // an intermediate state with interactive content in standard chat mode
-            presetInteractiveModeForLatestConversation()
-            dataRepository.restoreLatestConversation()
-        }
+        // Synchronous restore so the first composition has the correct interactive mode.
+        // Property initializers and init blocks run in declaration order; the `state`
+        // property below captures `_state.value` as its initial value, so updating
+        // _state here ensures no flash between ChatModeScreen and InteractiveModeScreen.
+        updateAvailableServices()
+        dataRepository.loadConversations()
+        dataRepository.restoreCurrentConversation()
+        presetInteractiveModeForCurrentConversation()
+
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.connectEnabledMcpServers()
         }
@@ -364,25 +365,23 @@ class ChatViewModel(
 
     fun refreshSettings() {
         updateAvailableServices()
-        viewModelScope.launch(backgroundDispatcher) {
-            presetInteractiveModeForLatestConversation()
-            dataRepository.restoreLatestConversation()
-        }
+        dataRepository.restoreCurrentConversation()
+        presetInteractiveModeForCurrentConversation()
     }
 
     /**
-     * Sets interactive mode flag BEFORE the conversation is loaded into chat history,
-     * preventing the combine flow from emitting an intermediate state where interactive
-     * content appears in the standard chat view.
+     * Resolves the interactive mode flag from the currently-loaded conversation, or — when
+     * there is no loaded conversation (new empty chat) — falls back to the persisted flag.
+     * Runs synchronously so the first composition already has the correct mode.
      */
-    private fun presetInteractiveModeForLatestConversation() {
+    private fun presetInteractiveModeForCurrentConversation() {
         val currentId = dataRepository.currentConversationId.value
-        val conversation = if (currentId != null) {
-            dataRepository.savedConversations.value.find { it.id == currentId }
+        val conversation = dataRepository.savedConversations.value.find { it.id == currentId }
+        val isInteractive = if (conversation != null) {
+            conversation.type == Conversation.TYPE_INTERACTIVE
         } else {
-            dataRepository.savedConversations.value.maxByOrNull { it.updatedAt }
+            dataRepository.isInteractiveModeActive()
         }
-        val isInteractive = conversation?.type == Conversation.TYPE_INTERACTIVE
         dataRepository.setInteractiveMode(isInteractive)
         _state.update { it.copy(isInteractiveMode = isInteractive) }
     }
