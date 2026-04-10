@@ -1047,7 +1047,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-04-08</p>
+<p><strong>Last verified:</strong> 2026-04-10</p>
 <p>Kai supports 24 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1259,7 +1259,7 @@
 <p>When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.</p>
 <h2 id="settings-ui">Settings UI</h2>
 <p>Users manage services through the settings screen:
-- <strong>Add</strong> — pick from the list of available services (can add the same service multiple times)
+- <strong>Add</strong> — pick from the list of available services (can add the same service multiple times); the OpenAI-Compatible API and the on-device Local Model are pinned to the top of the picker, with the remaining providers sorted alphabetically
 - <strong>Remove</strong> — delete an instance and its stored credentials; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the service is permanently removed
 - <strong>Reorder</strong> — drag to change priority (first = primary, rest = fallbacks)
 - <strong>Configure</strong> — per-instance API key, model selection, base URL (OpenAI-Compatible only)
