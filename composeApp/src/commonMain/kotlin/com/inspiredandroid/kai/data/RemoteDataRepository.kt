@@ -678,46 +678,43 @@ class RemoteDataRepository(
         }
     }
 
-    override suspend fun ask(question: String?, file: PlatformFile?) {
-        // Read file bytes outside of StateFlow.update (readBytes is suspend)
-        val rawBytes = file?.readBytes()
-        val fileMimeType = file?.mimeType()?.toString()
-        val fileName = file?.name
+    override suspend fun ask(question: String?, files: List<PlatformFile>) {
+        // Process every attached file: classify, compress/encode, and build an Attachment.
+        // readBytes() is suspend, so this happens before the StateFlow.update block.
+        val attachments = files.map { file ->
+            val rawBytes = file.readBytes()
+            val fileMimeType = file.mimeType()?.toString()
+            val fileName = file.name
 
-        val category = if (rawBytes != null) classifyFile(fileMimeType, fileName) else null
-        if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
-        if (category == FileCategory.TEXT && rawBytes != null && rawBytes.size > MAX_TEXT_FILE_BYTES) throw FileTooLargeException()
+            val category = classifyFile(fileMimeType, fileName)
+            if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
+            if (category == FileCategory.TEXT && rawBytes.size > MAX_TEXT_FILE_BYTES) throw FileTooLargeException()
 
-        val fileData: String?
-        val effectiveMimeType: String?
-        val effectiveFileName: String?
+            when (category) {
+                FileCategory.IMAGE -> {
+                    val compressed = compressImageBytes(rawBytes, fileMimeType ?: "image/jpeg")
+                    Attachment(
+                        data = Base64.encode(compressed),
+                        mimeType = "image/jpeg",
+                        fileName = null,
+                    )
+                }
 
-        when (category) {
-            FileCategory.IMAGE -> {
-                val compressed = compressImageBytes(rawBytes!!, fileMimeType ?: "image/jpeg")
-                fileData = Base64.encode(compressed)
-                effectiveMimeType = "image/jpeg"
-                effectiveFileName = null
+                FileCategory.TEXT -> Attachment(
+                    data = Base64.encode(rawBytes),
+                    mimeType = fileMimeType ?: "text/plain",
+                    fileName = fileName,
+                )
+
+                FileCategory.PDF -> Attachment(
+                    data = Base64.encode(rawBytes),
+                    mimeType = "application/pdf",
+                    fileName = fileName,
+                )
+
+                FileCategory.UNSUPPORTED -> throw UnsupportedFileTypeException()
             }
-
-            FileCategory.TEXT -> {
-                fileData = Base64.encode(rawBytes!!)
-                effectiveMimeType = fileMimeType ?: "text/plain"
-                effectiveFileName = fileName
-            }
-
-            FileCategory.PDF -> {
-                fileData = Base64.encode(rawBytes!!)
-                effectiveMimeType = "application/pdf"
-                effectiveFileName = fileName
-            }
-
-            else -> {
-                fileData = null
-                effectiveMimeType = null
-                effectiveFileName = null
-            }
-        }
+        }.toImmutableList()
 
         if (question != null) {
             chatHistory.update {
@@ -726,9 +723,7 @@ class RemoteDataRepository(
                         History(
                             role = History.Role.USER,
                             content = question,
-                            mimeType = effectiveMimeType,
-                            data = fileData,
-                            fileName = effectiveFileName,
+                            attachments = attachments,
                         ),
                     )
                 }
@@ -1460,9 +1455,7 @@ class RemoteDataRepository(
                             History.Role.TOOL_EXECUTING -> "tool" // Should not happen due to filter
                         },
                         content = h.content,
-                        mimeType = h.mimeType,
-                        data = h.data,
-                        fileName = h.fileName,
+                        attachments = h.attachments,
                     )
                 },
             createdAt = existingConversation?.createdAt ?: now,
@@ -1508,6 +1501,16 @@ class RemoteDataRepository(
 
         setCurrentConversationId(id)
         chatHistory.value = conversation.messages.map { m ->
+            // Prefer the modern `attachments` field. Fall back to the legacy single-file
+            // fields for conversations saved before multi-attachment support.
+            val attachments = when {
+                m.attachments.isNotEmpty() -> m.attachments.toImmutableList()
+
+                m.data != null && m.mimeType != null ->
+                    persistentListOf(Attachment(data = m.data, mimeType = m.mimeType, fileName = m.fileName))
+
+                else -> persistentListOf()
+            }
             History(
                 id = m.id,
                 role = when (m.role) {
@@ -1516,9 +1519,7 @@ class RemoteDataRepository(
                     else -> History.Role.ASSISTANT
                 },
                 content = m.content,
-                mimeType = m.mimeType,
-                data = m.data,
-                fileName = m.fileName,
+                attachments = attachments,
             )
         }
     }

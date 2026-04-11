@@ -7,6 +7,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -73,10 +75,12 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun QuestionInput(
-    file: PlatformFile?,
-    setFile: (PlatformFile?) -> Unit,
+    files: ImmutableList<PlatformFile>,
+    addFile: (PlatformFile) -> Unit,
+    removeFile: (PlatformFile) -> Unit,
     ask: (String) -> Unit,
     supportedFileExtensions: ImmutableList<String>,
     isLoading: Boolean = false,
@@ -86,35 +90,42 @@ fun QuestionInput(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        if (file != null) {
-            val icon = if (file.extension.lowercase() in imageExtensions) {
-                Res.drawable.ic_image
-            } else {
-                Res.drawable.ic_file
-            }
-            SuggestionChip(
+        if (files.isNotEmpty()) {
+            FlowRow(
                 modifier = Modifier
-                    .padding(start = 16.dp)
-                    .handCursor(),
-                onClick = { setFile(null) },
-                icon = {
-                    Icon(
-                        modifier = Modifier.size(16.dp),
-                        painter = painterResource(icon),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-                label = {
-                    DisableSelection {
-                        Text(
-                            modifier = Modifier
-                                .handCursor(),
-                            text = file.name,
-                        )
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+            ) {
+                for (file in files) {
+                    val icon = if (file.extension.lowercase() in imageExtensions) {
+                        Res.drawable.ic_image
+                    } else {
+                        Res.drawable.ic_file
                     }
-                },
-            )
+                    SuggestionChip(
+                        modifier = Modifier.handCursor(),
+                        onClick = { removeFile(file) },
+                        icon = {
+                            Icon(
+                                modifier = Modifier.size(16.dp),
+                                painter = painterResource(icon),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onBackground,
+                            )
+                        },
+                        label = {
+                            DisableSelection {
+                                Text(
+                                    modifier = Modifier.handCursor(),
+                                    text = truncateFileName(file.name),
+                                )
+                            }
+                        },
+                    )
+                }
+            }
         }
 
         var textState by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
@@ -124,7 +135,6 @@ fun QuestionInput(
             if (text.isNotBlank()) {
                 ask(text.trim())
                 textState = TextFieldValue("")
-                setFile(null)
             }
         }
 
@@ -133,7 +143,7 @@ fun QuestionInput(
             rememberFilePickerLauncher(
                 type = FileKitType.File(extensions = supportedFileExtensions),
             ) { file ->
-                setFile(file)
+                if (file != null) addFile(file)
             }
         } else {
             null
@@ -230,6 +240,24 @@ fun QuestionInput(
         LaunchedEffect(Unit) {
             focusRequester.requestFocus()
         }
+    }
+}
+
+/**
+ * Shortens a filename that is too long to display in a chip. Returns the first [maxChars]
+ * characters of the base name followed by `…` and the original extension, so the user still
+ * recognizes the file type. Short names are returned unchanged.
+ */
+internal fun truncateFileName(name: String, maxChars: Int = 16): String {
+    if (name.length <= maxChars) return name
+    val dotIndex = name.lastIndexOf('.')
+    return if (dotIndex > 0 && dotIndex < name.length - 1) {
+        val base = name.substring(0, dotIndex)
+        val ext = name.substring(dotIndex) // includes the dot
+        val keep = (maxChars - ext.length - 1).coerceAtLeast(1)
+        "${base.take(keep)}…$ext"
+    } else {
+        "${name.take(maxChars - 1)}…"
     }
 }
 

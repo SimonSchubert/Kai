@@ -34,7 +34,7 @@ interface DataRepository {
     fun clearInstanceModels(instanceId: String, service: Service)
     suspend fun validateConnection(service: Service, instanceId: String)
 
-    suspend fun ask(question: String?, file: PlatformFile?)
+    suspend fun ask(question: String?, files: List<PlatformFile>)
     fun clearHistory()
     fun currentService(): Service
     fun isUsingSharedKey(): Boolean

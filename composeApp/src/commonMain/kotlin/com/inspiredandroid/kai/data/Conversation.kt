@@ -1,6 +1,19 @@
 package com.inspiredandroid.kai.data
 
+import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
+
+/**
+ * A single file attachment on a chat message. Used both in-memory on `History` and
+ * persisted on `Conversation.Message`. Binary content is base64-encoded.
+ */
+@Immutable
+@Serializable
+data class Attachment(
+    val data: String,
+    val mimeType: String,
+    val fileName: String? = null,
+)
 
 @Serializable
 data class Conversation(
@@ -22,6 +35,9 @@ data class Conversation(
         val id: String,
         val role: String,
         val content: String,
+        val attachments: List<Attachment> = emptyList(),
+        // Legacy single-file fields — retained for reading old persisted conversations.
+        // New code writes only `attachments`; these remain null on newly saved messages.
         val mimeType: String? = null,
         val data: String? = null,
         val fileName: String? = null,

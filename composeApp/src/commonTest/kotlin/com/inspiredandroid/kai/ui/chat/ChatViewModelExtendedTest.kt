@@ -271,18 +271,14 @@ class ChatViewModelExtendedTest {
         }
     }
 
-    // ---- setFile ----
+    // ---- files ----
 
     @Test
-    fun `setFile null clears the file from state`() = runTest {
+    fun `files list defaults to empty`() = runTest {
         val viewModel = createViewModel()
         viewModel.state.test {
             val state = awaitItem()
-            assertNull(state.file)
-            state.actions.setFile(null)
-            testDispatcher.scheduler.advanceUntilIdle()
-            // File remains null; no exception
-            assertNull(state.file)
+            assertTrue(state.files.isEmpty())
             cancelAndIgnoreRemainingEvents()
         }
     }

@@ -236,8 +236,9 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 if (showFullInput) {
                     QuestionInput(
                         modifier = Modifier.align(Alignment.BottomEnd),
-                        file = uiState.file,
-                        setFile = uiState.actions.setFile,
+                        files = uiState.files,
+                        addFile = uiState.actions.addFile,
+                        removeFile = uiState.actions.removeFile,
                         ask = {
                             inputExpanded = false
                             uiState.actions.ask(it)
@@ -543,7 +544,7 @@ private fun ChatModeScreen(
                                     }
                                     override fun onDrop(event: DragAndDropEvent): Boolean {
                                         val file = onDragAndDropEventDropped(event)
-                                        uiState.actions.setFile(file)
+                                        if (file != null) uiState.actions.addFile(file)
                                         isDropping = false
                                         return file != null
                                     }
@@ -618,9 +619,7 @@ private fun ChatModeScreen(
                                     when (history.role) {
                                         History.Role.USER -> UserMessage(
                                             message = history.content,
-                                            imageData = history.data,
-                                            mimeType = history.mimeType,
-                                            fileName = history.fileName,
+                                            attachments = history.attachments,
                                         )
 
                                         History.Role.ASSISTANT -> {
@@ -708,8 +707,9 @@ private fun ChatModeScreen(
             }
 
             QuestionInput(
-                file = uiState.file,
-                setFile = uiState.actions.setFile,
+                files = uiState.files,
+                addFile = uiState.actions.addFile,
+                removeFile = uiState.actions.removeFile,
                 ask = uiState.actions.ask,
                 supportedFileExtensions = uiState.supportedFileExtensions,
                 isLoading = uiState.isLoading,

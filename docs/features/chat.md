@@ -1,8 +1,8 @@
 # Chat & Conversations
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-11
 
-Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
+Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
 ## Concepts
 
@@ -61,31 +61,32 @@ Auto-derived from the first user message when a conversation is saved for the fi
 
 ## File Attachments
 
-Three categories of files can be attached:
+Multiple files can be attached to a single prompt. Each file is added one at a time via the file picker or drag-and-drop, and appears as a chip below the input. Clicking a chip removes that specific file from the queue. All queued files are cleared after the prompt is sent. Three categories of files are supported:
 
 ### Images
 - Attach via file picker or drag-and-drop
 - Compressed to JPEG and Base64-encoded
-- Sent as `image_url` (OpenAI), `image` block (Anthropic), or `inline_data` (Gemini)
+- Sent as `image_url` (OpenAI-compatible), `image` block (Anthropic), or `inline_data` (Gemini)
 - Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
 
 ### Text files
 - Supports `.txt`, `.md`, `.json`, `.csv`, `.xml`, `.yaml`, `.html`, `.css`, `.js`, `.ts`, `.kt`, `.py`, `.rs`, `.go`, `.c`, `.cpp`, `.swift`, `.sh`, `.sql`, `.toml`, `.ini`, `.log`, `.gradle`, and more
-- Maximum size: 100 KB
-- Content is decoded from base64 at serialization time and prepended to the message as plain text with a filename header
+- Maximum size: 100 KB per file
+- Content is decoded at send time and concatenated into the user message with a filename header per file
 - Works with all providers (content is inlined as text)
 - Shown as a filename chip in the user message bubble
 
 ### PDFs
 - Base64-encoded without compression
-- Sent as `document` block (Anthropic), `file` block (OpenAI), or `inline_data` (Gemini)
+- Sent as `document` block (Anthropic) or `inline_data` (Gemini); OpenAI-compatible providers have no native PDF support, so PDFs are not offered as an attachment type on those services
 - Shown as a filename chip in the user message bubble
 
 ### General behavior
 - The attachment button is always shown (text files work with all models)
 - Unsupported file types (e.g., `.zip`) show an error message
 - Text files exceeding the size limit show a size error
-- File attachments persist across conversation save/restore via `fileName` field
+- Long filenames in chips are truncated with an ellipsis while preserving the extension
+- File attachments persist across conversation save/restore via an `attachments` list on each message; older conversations saved with a single-file schema are migrated on load
 
 ## Speech Output (TTS)
 

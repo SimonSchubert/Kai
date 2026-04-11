@@ -11,12 +11,11 @@ import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.extension
-import io.github.vinceglb.filekit.mimeType
-import io.github.vinceglb.filekit.name
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.conversation_untitled
 import kai.composeapp.generated.resources.error_unsupported_file_type
 import kai.composeapp.generated.resources.litert_no_model_warning
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -45,7 +44,8 @@ class ChatViewModel(
         toggleSpeechOutput = ::toggleSpeechOutput,
         clearHistory = ::clearHistory,
         setIsSpeaking = ::setIsSpeaking,
-        setFile = ::setFile,
+        addFile = ::addFile,
+        removeFile = ::removeFile,
         startNewChat = ::startNewChat,
         regenerate = ::regenerate,
         cancel = ::cancel,
@@ -132,18 +132,19 @@ class ChatViewModel(
         // Prevent concurrent requests
         if (_state.value.isLoading) return
 
-        // Capture file before launching coroutine to avoid race with setFile(null)
-        val file = _state.value.file
+        // Capture files before launching coroutine to avoid race with files being cleared
+        val files = _state.value.files
 
         currentJob = viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
                     isLoading = true,
                     error = null,
+                    files = persistentListOf(),
                 )
             }
             try {
-                dataRepository.ask(question, file)
+                dataRepository.ask(question, files)
 
                 // Auto-retry in interactive mode if the response has no valid kai-ui
                 if (_state.value.isInteractiveMode) {
@@ -188,7 +189,7 @@ class ChatViewModel(
             val retryMessage = "[SYSTEM] Your previous response failed to render as interactive UI. $errorDetail " +
                 "Remember: respond with ONLY a single ```kai-ui code fence containing valid JSON. No text outside the fence."
 
-            dataRepository.ask(retryMessage, null)
+            dataRepository.ask(retryMessage, emptyList())
         }
     }
 
@@ -212,18 +213,23 @@ class ChatViewModel(
         }
     }
 
-    private fun setFile(file: PlatformFile?) {
-        if (file != null) {
-            val ext = file.extension.lowercase()
-            if (ext.isEmpty() || ext !in _state.value.supportedFileExtensions) {
-                _state.update {
-                    it.copy(snackbarMessage = Res.string.error_unsupported_file_type)
-                }
-                return
+    private fun addFile(file: PlatformFile) {
+        val ext = file.extension.lowercase()
+        val supported = dataRepository.supportedFileExtensions()
+        if (ext.isEmpty() || ext !in supported) {
+            _state.update {
+                it.copy(snackbarMessage = Res.string.error_unsupported_file_type)
             }
+            return
         }
         _state.update {
-            it.copy(file = file)
+            it.copy(files = (it.files + file).toImmutableList())
+        }
+    }
+
+    private fun removeFile(file: PlatformFile) {
+        _state.update {
+            it.copy(files = it.files.filterNot { f -> f == file }.toImmutableList())
         }
     }
 

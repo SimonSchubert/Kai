@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.Attachment
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.network.UiError
@@ -11,6 +12,7 @@ import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleCha
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -25,6 +27,32 @@ import kotlin.uuid.Uuid
 
 private fun String.isTextMimeType(): Boolean = startsWith("text/") || this == "application/json" || this == "application/xml" ||
     this == "application/javascript" || this == "application/x-yaml" || this == "application/yaml"
+
+/**
+ * Splits attachments into the text that should be prepended to the user's message
+ * (decoded text files with filename headers) and the remaining binary attachments
+ * (images, PDFs) that become standalone content blocks in provider-specific formats.
+ */
+private data class AttachmentSplit(
+    val textPrefix: String,
+    val binaries: List<Attachment>,
+)
+
+private fun List<Attachment>.splitForMessage(): AttachmentSplit {
+    if (isEmpty()) return AttachmentSplit("", emptyList())
+    val prefix = StringBuilder()
+    val binaries = mutableListOf<Attachment>()
+    for (att in this) {
+        if (att.mimeType.isTextMimeType()) {
+            val decoded = Base64.decode(att.data).decodeToString()
+            if (att.fileName != null) prefix.append("--- ${att.fileName} ---\n")
+            prefix.append(decoded).append("\n\n")
+        } else {
+            binaries.add(att)
+        }
+    }
+    return AttachmentSplit(prefix.toString(), binaries)
+}
 
 @Immutable
 data class ConversationSummary(
@@ -47,7 +75,7 @@ data class ChatUiState(
     val supportedFileExtensions: ImmutableList<String> = persistentListOf(),
     val isSpeaking: Boolean = false,
     val isSpeakingContentId: String = "",
-    val file: PlatformFile? = null,
+    val files: ImmutableList<PlatformFile> = persistentListOf(),
     val availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
     val savedConversations: ImmutableList<ConversationSummary> = persistentListOf(),
     val currentConversationId: String? = null,
@@ -65,9 +93,7 @@ data class History(
     val id: String = Uuid.random().toString(),
     val role: Role,
     val content: String,
-    val mimeType: String? = null,
-    val data: String? = null,
-    val fileName: String? = null,
+    val attachments: ImmutableList<Attachment> = persistentListOf(),
     val toolCallId: String? = null,
     val toolName: String? = null,
     val toolCalls: ImmutableList<ToolCallInfo>? = null,
@@ -93,41 +119,37 @@ data class ToolCallInfo(
 
 fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (role) {
     History.Role.USER -> {
-        val messageContent: JsonElement = if (data != null && mimeType != null) {
-            when {
-                mimeType.isTextMimeType() -> {
-                    val decoded = Base64.decode(data).decodeToString()
-                    val header = if (fileName != null) "--- $fileName ---\n" else ""
-                    JsonPrimitive("$header$decoded\n\n$content")
-                }
-
-                mimeType == "application/pdf" -> {
-                    // PDFs not natively supported in OpenAI-compatible format; send text only
-                    JsonPrimitive(content)
-                }
-
-                else -> {
-                    JsonArray(
-                        listOf(
-                            buildJsonObject {
-                                put("type", "text")
-                                put("text", content)
-                            },
+        val split = attachments.splitForMessage()
+        // Images become image_url parts; PDFs are dropped (OpenAI-compatible has no native PDF
+        // support, matching the prior behavior). Text files get merged into the text prefix.
+        val imageAttachments = split.binaries.filter { it.mimeType.startsWith("image/") }
+        val fullText = "${split.textPrefix}$content"
+        val messageContent: JsonElement = if (imageAttachments.isEmpty()) {
+            JsonPrimitive(fullText)
+        } else {
+            JsonArray(
+                buildList {
+                    add(
+                        buildJsonObject {
+                            put("type", "text")
+                            put("text", fullText)
+                        },
+                    )
+                    for (att in imageAttachments) {
+                        add(
                             buildJsonObject {
                                 put("type", "image_url")
                                 put(
                                     "image_url",
                                     buildJsonObject {
-                                        put("url", "data:$mimeType;base64,$data")
+                                        put("url", "data:${att.mimeType};base64,${att.data}")
                                     },
                                 )
                             },
-                        ),
-                    )
-                }
-            }
-        } else {
-            JsonPrimitive(content)
+                        )
+                    }
+                },
+            )
         }
         OpenAICompatibleChatRequestDto.Message(role = "user", content = messageContent)
     }
@@ -163,60 +185,52 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
 
 fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
     History.Role.USER -> {
-        if (data != null && mimeType != null) {
-            when {
-                mimeType.isTextMimeType() -> {
-                    val decoded = Base64.decode(data).decodeToString()
-                    val header = if (fileName != null) "--- $fileName ---\n" else ""
-                    JsonPrimitive("$header$decoded\n\n$content")
-                }
-
-                mimeType == "application/pdf" -> {
-                    JsonArray(
-                        listOf(
-                            buildJsonObject {
-                                put("type", "document")
-                                put(
-                                    "source",
-                                    buildJsonObject {
-                                        put("type", "base64")
-                                        put("media_type", "application/pdf")
-                                        put("data", data)
-                                    },
-                                )
-                            },
-                            buildJsonObject {
-                                put("type", "text")
-                                put("text", content)
-                            },
-                        ),
-                    )
-                }
-
-                else -> {
-                    JsonArray(
-                        listOf(
-                            buildJsonObject {
-                                put("type", "image")
-                                put(
-                                    "source",
-                                    buildJsonObject {
-                                        put("type", "base64")
-                                        put("media_type", mimeType)
-                                        put("data", data)
-                                    },
-                                )
-                            },
-                            buildJsonObject {
-                                put("type", "text")
-                                put("text", content)
-                            },
-                        ),
-                    )
-                }
-            }
+        val split = attachments.splitForMessage()
+        val fullText = "${split.textPrefix}$content"
+        if (split.binaries.isEmpty()) {
+            JsonPrimitive(fullText)
         } else {
-            JsonPrimitive(content)
+            JsonArray(
+                buildList {
+                    for (att in split.binaries) {
+                        if (att.mimeType == "application/pdf") {
+                            add(
+                                buildJsonObject {
+                                    put("type", "document")
+                                    put(
+                                        "source",
+                                        buildJsonObject {
+                                            put("type", "base64")
+                                            put("media_type", "application/pdf")
+                                            put("data", att.data)
+                                        },
+                                    )
+                                },
+                            )
+                        } else {
+                            add(
+                                buildJsonObject {
+                                    put("type", "image")
+                                    put(
+                                        "source",
+                                        buildJsonObject {
+                                            put("type", "base64")
+                                            put("media_type", att.mimeType)
+                                            put("data", att.data)
+                                        },
+                                    )
+                                },
+                            )
+                        }
+                    }
+                    add(
+                        buildJsonObject {
+                            put("type", "text")
+                            put("text", fullText)
+                        },
+                    )
+                },
+            )
         }
     }
 
@@ -330,21 +344,19 @@ fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
                 }
 
                 else -> {
-                    // Regular user message with potential inline data
-                    if (data != null && mimeType != null) {
-                        val isText = mimeType.isTextMimeType()
-                        if (isText) {
-                            val decoded = Base64.decode(data).decodeToString()
-                            val header = if (fileName != null) "--- $fileName ---\n" else ""
-                            add(GeminiChatRequestDto.Part(text = "$header$decoded\n\n$content"))
-                        } else {
-                            val inlineData = GeminiChatRequestDto.InlineData(mime_type = mimeType, data = data)
-                            add(GeminiChatRequestDto.Part(inline_data = inlineData))
-                            add(GeminiChatRequestDto.Part(text = content))
-                        }
-                    } else {
-                        add(GeminiChatRequestDto.Part(text = content))
+                    // Regular user message with potential inline data (images / PDFs)
+                    val split = attachments.splitForMessage()
+                    for (att in split.binaries) {
+                        add(
+                            GeminiChatRequestDto.Part(
+                                inline_data = GeminiChatRequestDto.InlineData(
+                                    mime_type = att.mimeType,
+                                    data = att.data,
+                                ),
+                            ),
+                        )
                     }
+                    add(GeminiChatRequestDto.Part(text = "${split.textPrefix}$content"))
                 }
             }
         },

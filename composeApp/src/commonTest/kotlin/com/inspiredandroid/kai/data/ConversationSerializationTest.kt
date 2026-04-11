@@ -331,6 +331,67 @@ class ConversationSerializationTest {
     }
 
     @Test
+    fun `serialize and deserialize conversation with multi-attachment message`() {
+        val original = Conversation(
+            id = "conv-multi",
+            messages = listOf(
+                Conversation.Message(
+                    id = "msg-1",
+                    role = "user",
+                    content = "look at these",
+                    attachments = listOf(
+                        Attachment(data = "imgdata1", mimeType = "image/jpeg", fileName = null),
+                        Attachment(data = "imgdata2", mimeType = "image/png", fileName = null),
+                        Attachment(data = "textdata", mimeType = "text/plain", fileName = "notes.txt"),
+                    ),
+                ),
+            ),
+            createdAt = 1000L,
+            updatedAt = 2000L,
+        )
+
+        val jsonString = json.encodeToString(original)
+        val decoded = json.decodeFromString<Conversation>(jsonString)
+
+        assertEquals(original, decoded)
+        assertEquals(3, decoded.messages[0].attachments.size)
+        assertEquals("image/jpeg", decoded.messages[0].attachments[0].mimeType)
+        assertEquals("notes.txt", decoded.messages[0].attachments[2].fileName)
+    }
+
+    @Test
+    fun `deserialize legacy single-file message keeps old fields readable`() {
+        // Conversations saved by earlier versions have data/mimeType/fileName on the message
+        // and no `attachments` field. The schema must still accept this shape; the conversion
+        // to an `attachments` list happens in RemoteDataRepository.loadConversation.
+        val jsonString = """
+            {
+                "id": "conv-legacy",
+                "messages": [
+                    {
+                        "id": "msg-1",
+                        "role": "user",
+                        "content": "legacy attach",
+                        "mimeType": "image/jpeg",
+                        "data": "legacybase64",
+                        "fileName": "old.jpg"
+                    }
+                ],
+                "createdAt": 1000,
+                "updatedAt": 2000
+            }
+        """.trimIndent()
+
+        val conversation = json.decodeFromString<Conversation>(jsonString)
+
+        val m = conversation.messages.single()
+        assertEquals("image/jpeg", m.mimeType)
+        assertEquals("legacybase64", m.data)
+        assertEquals("old.jpg", m.fileName)
+        assertEquals(0, m.attachments.size)
+    }
+
+    @Test
     fun `deserialize conversation with unicode content`() {
         val jsonString = """
             {

@@ -34,7 +34,7 @@ class FakeDataRepository : DataRepository {
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
     override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
 
-    val askCalls = mutableListOf<Pair<String?, PlatformFile?>>()
+    val askCalls = mutableListOf<Pair<String?, List<PlatformFile>>>()
     var clearHistoryCalls = 0
     var askException: Exception? = null
 
@@ -161,8 +161,8 @@ class FakeDataRepository : DataRepository {
         instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }.value = models
     }
 
-    override suspend fun ask(question: String?, file: PlatformFile?) {
-        askCalls.add(question to file)
+    override suspend fun ask(question: String?, files: List<PlatformFile>) {
+        askCalls.add(question to files)
         askGate?.await()
         askException?.let { throw it }
         if (question != null) {
