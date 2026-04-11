@@ -1,0 +1,1056 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Kai - AI Assistant App">
+      
+      
+      
+        <link rel="canonical" href="https://kai9000.com/docs/features/system-prompts/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>System Prompts - Kai Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-prompts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kai Documentation" class="md-header__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kai Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System Prompts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kai Documentation" class="md-nav__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kai Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat & Conversations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heartbeat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heartbeat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daemon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encryption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings-export-import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings Export & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splinterlands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splinterlands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chat-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat variants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heartbeat-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat sections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-add-a-new-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to add a new section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="system-prompts">System Prompts</h1>
+<p><strong>Last verified:</strong> 2026-04-11</p>
+<p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
+<h2 id="paths">Paths</h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Builder</th>
+<th>Test</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chat (remote)</td>
+<td><code>buildChatSystemPrompt(variant = CHAT_REMOTE, …)</code></td>
+<td><code>ChatSystemPromptBuilderTest</code></td>
+<td>Any remote service (OpenAI, Anthropic, Gemini, etc.) via <code>RemoteDataRepository.ask()</code></td>
+</tr>
+<tr>
+<td>Chat (on-device)</td>
+<td><code>buildChatSystemPrompt(variant = CHAT_LOCAL, …)</code></td>
+<td><code>ChatSystemPromptBuilderTest</code></td>
+<td>LiteRT via <code>RemoteDataRepository.askWithLocalEngine()</code></td>
+</tr>
+<tr>
+<td>Heartbeat</td>
+<td><code>buildHeartbeatPrompt(…)</code></td>
+<td><code>HeartbeatPromptBuilderTest</code></td>
+<td><code>TaskScheduler</code> via <code>HeartbeatManager.buildHeartbeatPrompt()</code> — sent as a USER message, not a system prompt</td>
+</tr>
+<tr>
+<td>Splinterlands LLM picker</td>
+<td><code>buildLlmPrompt(…)</code> in <code>SplinterlandsTeamPicker.kt</code></td>
+<td><code>SplinterlandsTeamPickerPromptTest</code></td>
+<td><code>SplinterlandsBattleRunner</code> — fully isolated, does not use the chat prompt builder</td>
+</tr>
+</tbody>
+</table>
+<p>The on-device tool allowlist (<code>LOCAL_TOOL_ALLOWLIST</code> in <code>RemoteDataRepository.kt</code>) is locked in by <code>LocalToolAllowlistTest</code>. Any rename or removal of a tool in that set fails the test loudly.</p>
+<h2 id="chat-variants">Chat variants</h2>
+<p><code>SystemPromptVariant</code> in <code>ChatSystemPromptBuilder.kt</code> controls which sections are composed. Each <code>if (variant == …)</code> block in <code>buildChatSystemPrompt</code> is the single source of truth for where a section belongs — there is no post-hoc regex stripping.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th style="text-align: center;"><code>CHAT_REMOTE</code></th>
+<th style="text-align: center;"><code>CHAT_LOCAL</code></th>
+<th>Gating input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Soul</td>
+<td style="text-align: center;">always</td>
+<td style="text-align: center;">always</td>
+<td><code>soul</code> param (non-empty)</td>
+</tr>
+<tr>
+<td>Memory instructions (basic)</td>
+<td style="text-align: center;">when provided</td>
+<td style="text-align: center;">when provided</td>
+<td><code>memoryInstructions</code> param</td>
+</tr>
+<tr>
+<td><code>## Structured Learning</code></td>
+<td style="text-align: center;">always (remote-only block)</td>
+<td style="text-align: center;">never</td>
+<td>baked into <code>DEFAULT_STRUCTURED_LEARNING_SECTION</code> constant</td>
+</tr>
+<tr>
+<td><code>## Your Memories</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">when list non-empty (budget-capped)</td>
+<td><code>generalMemories</code></td>
+</tr>
+<tr>
+<td><code>## User Preferences</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">when list non-empty (budget-capped)</td>
+<td><code>preferenceMemories</code></td>
+</tr>
+<tr>
+<td><code>## Learnings</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">when list non-empty (budget-capped)</td>
+<td><code>learningMemories</code> (reinforcement count rendered)</td>
+</tr>
+<tr>
+<td><code>## Known Issues &amp; Resolutions</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">when list non-empty (budget-capped)</td>
+<td><code>errorMemories</code></td>
+</tr>
+<tr>
+<td><code>## Scheduled Tasks</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">never</td>
+<td><code>pendingTasks</code></td>
+</tr>
+<tr>
+<td><code>## Context</code></td>
+<td style="text-align: center;">always</td>
+<td style="text-align: center;">always</td>
+<td><code>runtime</code> param (date, platform, model, provider)</td>
+</tr>
+<tr>
+<td><code>## Dynamic UI</code></td>
+<td style="text-align: center;">when <code>uiMode = DYNAMIC_UI</code></td>
+<td style="text-align: center;">never</td>
+<td><code>uiMode</code> param</td>
+</tr>
+<tr>
+<td><code>## Interactive UI Mode</code></td>
+<td style="text-align: center;">when <code>uiMode = INTERACTIVE_UI</code></td>
+<td style="text-align: center;">never</td>
+<td><code>uiMode</code> param</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Memory budget for <code>CHAT_LOCAL</code>:</strong> the four memory category sections share a combined char budget (<code>LOCAL_MEMORY_BUDGET_CHARS</code>, currently 2000 chars). Entries are appended in order (general → preferences → learnings → errors); the next entry that would push the combined size past the budget is dropped, and all subsequent entries are dropped too. Truncation happens at entry boundaries, never mid-entry. If no entries in a category fit, that category's header is not emitted either.</p>
+<p><strong>Why two variants:</strong></p>
+<ul>
+<li><code>CHAT_REMOTE</code> — full chat prompt for remote services. No limits.</li>
+<li><code>CHAT_LOCAL</code> — trimmed chat prompt for on-device LiteRT. Small Gemma models (2-4B params) can't coherently attend to the full remote prompt, so Structured Learning, Scheduled Tasks, and kai-ui sections are dropped, and memory sections are char-capped. The model still gets soul + basic memory guidance + memories (up to the cap) + runtime Context — memories matter because <code>memory_store</code> / <code>memory_forget</code> / <code>memory_reinforce</code> are all in the local tool allowlist, and a memory might have been learned via a remote model in an earlier turn.</li>
+</ul>
+<p>Interactive UI mode is <strong>not</strong> available on on-device services — the kai-ui component schema is too large for small Gemma models to coherently attend to, and in practice the model can't produce valid kai-ui JSON. The "Start interactive mode" button in the empty-state UI is hidden when the primary service is on-device (see <code>ChatScreen.kt</code>). If you have LiteRT selected and need interactive UI mode, switch to a remote service first.</p>
+<h2 id="heartbeat-sections">Heartbeat sections</h2>
+<p><code>buildHeartbeatPrompt</code> has no variant — it's a single shape sent as the user message.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Gating input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Opening prompt</td>
+<td><code>customOrDefaultPrompt</code> (custom or <code>DEFAULT_HEARTBEAT_PROMPT</code>)</td>
+</tr>
+<tr>
+<td><code>## Previous Heartbeat Results</code></td>
+<td><code>recentResponses</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## Pending Tasks</code> (with optional cron annotation)</td>
+<td><code>pendingTasks</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## Email Status</code> (per-account unread count + last sync)</td>
+<td><code>emailAccounts</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## Promotion Candidates</code> (with hit counts + category)</td>
+<td><code>promotionCandidates</code> non-empty</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-add-a-new-section">How to add a new section</h2>
+<ol>
+<li><strong>Decide which variant(s) need the section.</strong> For the chat builder, that's <code>CHAT_REMOTE</code>, <code>CHAT_LOCAL</code>, or both. For heartbeat, it's always "present iff gating input is non-empty".</li>
+<li><strong>Add the input parameter</strong> to the builder's signature.</li>
+<li><strong>Add the <code>if (variant == …)</code> block</strong> or conditional in the builder body — composition is explicit, not post-hoc.</li>
+<li><strong>Add a focused test</strong> in the corresponding <code>*BuilderTest</code> class that verifies the section is present when gated on, absent otherwise.</li>
+<li><strong>Update this doc's table</strong> with the new row.</li>
+<li><strong>Update the wrapper</strong> (<code>RemoteDataRepository.getActiveSystemPrompt</code> or <code>HeartbeatManager.buildHeartbeatPrompt</code>) to thread the new input through from <code>AppSettings</code> / stores.</li>
+<li><strong>Run</strong> <code>./gradlew :composeApp:desktopTest --tests '*BuilderTest'</code> to confirm nothing else broke.</li>
+</ol>
+<h2 id="key-files">Key files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ChatSystemPromptBuilder.kt</code></td>
+<td>Pure builder + <code>SystemPromptVariant</code> + section helpers + <code>DEFAULT_STRUCTURED_LEARNING_SECTION</code></td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt</code></td>
+<td>Pure heartbeat builder + input data classes</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
+<td><code>getActiveSystemPrompt(variant)</code> wrapper that gathers inputs from <code>AppSettings</code> / <code>MemoryStore</code> / <code>TaskStore</code> and calls the pure builder</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/HeartbeatManager.kt</code></td>
+<td><code>buildHeartbeatPrompt()</code> wrapper that gathers inputs and calls the pure builder</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/AppSettings.kt</code></td>
+<td><code>DEFAULT_MEMORY_INSTRUCTIONS</code> (basic block, used by both variants). The advanced <code>## Structured Learning</code> block lives in <code>ChatSystemPromptBuilder.kt</code> and is remote-only</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../splinterlands/SplinterlandsTeamPicker.kt</code></td>
+<td><code>buildLlmPrompt</code> (separate path, independent contract)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonTest/.../data/ChatSystemPromptBuilderTest.kt</code></td>
+<td>Focused + golden tests for every chat variant section</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonTest/.../data/HeartbeatPromptBuilderTest.kt</code></td>
+<td>Focused + golden tests for every heartbeat section</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonTest/.../data/LocalToolAllowlistTest.kt</code></td>
+<td>Lock-in test for the on-device tool allowlist</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonTest/.../splinterlands/SplinterlandsTeamPickerPromptTest.kt</code></td>
+<td>Focused tests for the Splinterlands LLM picker</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

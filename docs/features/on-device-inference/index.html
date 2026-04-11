@@ -725,10 +725,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
+  <a href="#tool-support" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Limitations
+        Tool support
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other limitations
       
     </span>
   </a>
@@ -808,7 +819,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-04-10</p>
+<p><strong>Last verified:</strong> 2026-04-11</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -841,12 +852,18 @@
 </tbody>
 </table>
 <p>Models are <code>.litertlm</code> files from the <a href="https://huggingface.co/litert-community">litert-community</a> organization on HuggingFace.</p>
-<h2 id="limitations">Limitations</h2>
+<h2 id="tool-support">Tool support</h2>
+<p>The application uses <strong>litert-lm's native function calling</strong> (<code>automaticToolCalling = true</code> on <code>ConversationConfig</code>): each exposed Kai tool is wrapped in an <code>OpenApiTool</code> adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format and <code>chat()</code> returns the final assistant text after all tool round-trips complete. Tools are available <strong>at any context size</strong> — there's no threshold gating.</p>
+<p>Only a small <strong>allowlist</strong> of tools is exposed on-device, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.</p>
+<p>The allowlist (in <code>RemoteDataRepository.LOCAL_TOOL_ALLOWLIST</code>) currently exposes: <code>get_local_time</code>, <code>get_location_from_ip</code>, <code>web_search</code>, <code>open_url</code>, <code>memory_store</code>, <code>memory_forget</code>, <code>memory_reinforce</code>, and <code>execute_shell_command</code> (when the user has enabled the shell tool in Settings). Email tools, task scheduling (<code>schedule_task</code> / <code>list_tasks</code> / <code>cancel_task</code>), MCP server tools, structured <code>memory_learn</code>, heartbeat-config tools, and <code>promote_learning</code> are excluded — they require a remote model.</p>
+<p>The system prompt for on-device runs is built directly from the <code>CHAT_LOCAL</code> variant of <code>buildChatSystemPrompt</code> — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.</p>
+<p>Interactive UI mode is <strong>not supported</strong> on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device. Users who need interactive UI should switch to a remote service.</p>
+<p>See <a href="../system-prompts/">system-prompts.md</a> and <code>ChatSystemPromptBuilderTest</code> for the full contract.</p>
+<p>If the engine throws (e.g. the model does emit malformed tool-call syntax that the ANTLR parser rejects), the application catches the <code>RuntimeException</code>, logs it, and retries the call <strong>once</strong> with no tools — the user gets a plain-chat answer instead of a hard error.</p>
+<h2 id="other-limitations">Other limitations</h2>
 <ul>
-<li><strong>No tool use</strong> -- the 4K context window is too small to include tool schemas</li>
-<li><strong>No image input</strong> -- limited model capabilities</li>
-<li><strong>No heartbeat</strong> -- heartbeat requires tool calling</li>
-<li><strong>No dynamic UI</strong> -- kai-ui prompts are skipped for limited models</li>
+<li><strong>No image input</strong> -- the <code>LocalInferenceEngine</code> interface only accepts text messages</li>
+<li><strong>No dynamic UI</strong> -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)</li>
 <li><strong>Not available on iOS or web</strong> -- LiteRT LM SDK supports Android and JVM only</li>
 </ul>
 <h2 id="model-management">Model Management</h2>
@@ -909,7 +926,7 @@
 <ul>
 <li>LiteRT instances participate in the normal fallback chain</li>
 <li>On unsupported platforms (iOS, web), LiteRT instances are silently skipped</li>
-<li><code>askWithTools</code> (used by heartbeat and scheduling) never falls back to on-device services</li>
+<li><code>askWithTools</code> (used by heartbeat and scheduling) prefers remote services and falls back to on-device when no remote is configured. The on-device fallback works at any context size, since the simple-tool allowlist has no schema-overhead penalty.</li>
 </ul>
 <h2 id="key-files">Key Files</h2>
 <table>

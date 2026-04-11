@@ -1111,7 +1111,7 @@
 <li>If the API call fails, a failure entry is recorded in the heartbeat log</li>
 </ul>
 <h2 id="prompt-building">Prompt Building</h2>
-<p>The heartbeat prompt is assembled from multiple sources:</p>
+<p>The heartbeat prompt is assembled by the pure function <code>buildHeartbeatPrompt</code> (in <code>HeartbeatPromptBuilder.kt</code>). Each conditional section is covered by <code>HeartbeatPromptBuilderTest</code>. Sources:</p>
 <ol>
 <li><strong>Custom prompt</strong> — user-defined text from settings, or the default prompt if empty. The default instructs the AI to review memories and tasks, respond "HEARTBEAT_OK" if nothing needs attention, or address anything that does</li>
 <li><strong>Previous heartbeat results</strong> — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")</li>
@@ -1119,6 +1119,7 @@
 <li><strong>Email status</strong> — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included</li>
 <li><strong>Promotion candidates</strong> — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the <code>promote_learning</code> tool</li>
 </ol>
+<p>For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see <a href="../system-prompts/">system-prompts.md</a>.</p>
 <h2 id="heartbeat-log">Heartbeat Log</h2>
 <ul>
 <li>Stores up to 5 most recent heartbeat entries</li>
