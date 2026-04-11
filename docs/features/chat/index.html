@@ -1191,8 +1191,8 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-04-10</p>
-<p>Kai's chat system manages the message history, conversation persistence, image attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
+<p><strong>Last verified:</strong> 2026-04-11</p>
+<p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
 <p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code> or <code>heartbeat</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
@@ -1242,26 +1242,26 @@
 <li><strong>Regenerate</strong> removes all messages after the last user message, then resends</li>
 </ul>
 <h2 id="file-attachments">File Attachments</h2>
-<p>Three categories of files can be attached:</p>
+<p>Multiple files can be attached to a single prompt. Each file is added one at a time via the file picker or drag-and-drop, and appears as a chip below the input. Clicking a chip removes that specific file from the queue. All queued files are cleared after the prompt is sent. Three categories of files are supported:</p>
 <h3 id="images">Images</h3>
 <ul>
 <li>Attach via file picker or drag-and-drop</li>
 <li>Compressed to JPEG and Base64-encoded</li>
-<li>Sent as <code>image_url</code> (OpenAI), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
+<li>Sent as <code>image_url</code> (OpenAI-compatible), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
 <li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
 </ul>
 <h3 id="text-files">Text files</h3>
 <ul>
 <li>Supports <code>.txt</code>, <code>.md</code>, <code>.json</code>, <code>.csv</code>, <code>.xml</code>, <code>.yaml</code>, <code>.html</code>, <code>.css</code>, <code>.js</code>, <code>.ts</code>, <code>.kt</code>, <code>.py</code>, <code>.rs</code>, <code>.go</code>, <code>.c</code>, <code>.cpp</code>, <code>.swift</code>, <code>.sh</code>, <code>.sql</code>, <code>.toml</code>, <code>.ini</code>, <code>.log</code>, <code>.gradle</code>, and more</li>
-<li>Maximum size: 100 KB</li>
-<li>Content is decoded from base64 at serialization time and prepended to the message as plain text with a filename header</li>
+<li>Maximum size: 100 KB per file</li>
+<li>Content is decoded at send time and concatenated into the user message with a filename header per file</li>
 <li>Works with all providers (content is inlined as text)</li>
 <li>Shown as a filename chip in the user message bubble</li>
 </ul>
 <h3 id="pdfs">PDFs</h3>
 <ul>
 <li>Base64-encoded without compression</li>
-<li>Sent as <code>document</code> block (Anthropic), <code>file</code> block (OpenAI), or <code>inline_data</code> (Gemini)</li>
+<li>Sent as <code>document</code> block (Anthropic) or <code>inline_data</code> (Gemini); OpenAI-compatible providers have no native PDF support, so PDFs are not offered as an attachment type on those services</li>
 <li>Shown as a filename chip in the user message bubble</li>
 </ul>
 <h3 id="general-behavior">General behavior</h3>
@@ -1269,7 +1269,8 @@
 <li>The attachment button is always shown (text files work with all models)</li>
 <li>Unsupported file types (e.g., <code>.zip</code>) show an error message</li>
 <li>Text files exceeding the size limit show a size error</li>
-<li>File attachments persist across conversation save/restore via <code>fileName</code> field</li>
+<li>Long filenames in chips are truncated with an ellipsis while preserving the extension</li>
+<li>File attachments persist across conversation save/restore via an <code>attachments</code> list on each message; older conversations saved with a single-file schema are migrated on load</li>
 </ul>
 <h2 id="speech-output-tts">Speech Output (TTS)</h2>
 <ul>
