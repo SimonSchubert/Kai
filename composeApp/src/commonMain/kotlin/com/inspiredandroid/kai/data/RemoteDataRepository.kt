@@ -12,6 +12,7 @@ import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.InferenceMessage
 import com.inspiredandroid.kai.inference.LocalInferenceEngine
 import com.inspiredandroid.kai.inference.LocalModel
+import com.inspiredandroid.kai.inference.LocalTool
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.getTotalMemoryBytes
 import com.inspiredandroid.kai.mcp.McpServerConfig
@@ -43,6 +44,7 @@ import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readBytes
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -56,7 +58,12 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
+import kotlinx.serialization.json.putJsonArray
+import kotlinx.serialization.json.putJsonObject
 import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
@@ -92,6 +99,23 @@ private const val ESTIMATED_CHARS_PER_TOKEN = 4
 private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 private const val COMPACTION_THRESHOLD = 0.7 // Compact when history exceeds 70% of context window
 private const val COMPACTION_KEEP_RECENT = 4 // Number of recent user exchanges to keep verbatim
+
+// Explicit allowlist of tools exposed to the on-device (LiteRT) model. We use a
+// hardcoded name list rather than a structural filter because small Gemma models hit
+// litert-lm's strict ANTLR function-call parser hard on anything more complex than
+// a couple of string parameters. Excluded by design: memory_learn (4 params + enum),
+// schedule_task / list_tasks / cancel_task (datetime + cron), the entire email family,
+// the heartbeat config tools, and MCP tools.
+internal val LOCAL_TOOL_ALLOWLIST = setOf(
+    "get_local_time",
+    "get_location_from_ip",
+    "web_search",
+    "open_url",
+    "memory_store",
+    "memory_forget",
+    "memory_reinforce",
+    "execute_shell_command",
+)
 
 /**
  * Returns the estimated context window size in tokens for a given model ID.
@@ -177,6 +201,15 @@ class RemoteDataRepository(
 ) : DataRepository {
 
     private val prettyJson = Json { prettyPrint = true }
+
+    /**
+     * Returns the tools exposed to the on-device (LiteRT) model. Filtered by name against
+     * [LOCAL_TOOL_ALLOWLIST]. Tools the user has disabled in settings (e.g. shell command,
+     * which is gated behind `isToolEnabled("execute_shell_command")`) won't appear in
+     * `getAvailableTools()` in the first place, so they're naturally excluded.
+     */
+    private fun getLocalSafeTools(): List<Tool> = getAvailableTools()
+        .filter { it.schema.name in LOCAL_TOOL_ALLOWLIST }
 
     // Per-instance model storage: instanceId -> models flow
     private val modelsByInstance: MutableMap<String, MutableStateFlow<List<SettingsModel>>> = mutableMapOf()
@@ -427,6 +460,19 @@ class RemoteDataRepository(
             engine.initialize(model, contextTokens)
         }
 
+        // Callers pass either a CHAT_LOCAL system prompt (chat + silent paths) or null
+        // (Splinterlands via `askSilentlyWithInstance`, where the caller owns the full
+        // prompt shape). We hand whichever one through to the engine unchanged.
+        // Native litert-lm `automaticToolCalling` owns the tool loop — our allowlisted
+        // tools are passed once via [localToolDescriptionJson] and the engine drives them.
+        val localTools: List<LocalTool> = getLocalSafeTools().map { tool ->
+            LocalTool(
+                name = tool.schema.name,
+                descriptionJsonString = localToolDescriptionJson(tool),
+                execute = { jsonArgs -> runLocalToolWithUiFeedback(tool.schema.name, jsonArgs, history) },
+            )
+        }
+
         val inferenceMessages = messages.mapNotNull { msg ->
             when (msg.role) {
                 History.Role.USER -> InferenceMessage(role = "user", content = msg.content)
@@ -435,11 +481,126 @@ class RemoteDataRepository(
             }
         }
 
-        // Strip Dynamic UI / Interactive UI sections — on-device models can't use them
-        // and the large kai-ui schema can crash the native template parser
-        val cleanedPrompt = systemPrompt?.replace(Regex("\\n## (?:Dynamic UI|Interactive UI Mode)[\\s\\S]*"), "")?.trim()
+        return try {
+            engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt, tools = localTools)
+        } catch (e: RuntimeException) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            // litert-lm's strict ANTLR function-call parser sometimes rejects malformed
+            // tool-call output from small Gemma models, throwing INVALID_ARGUMENT from JNI.
+            // Retry once without tools so the user gets *some* answer rather than a hard
+            // error in the UI. With an empty tool list, LiteRTInferenceEngine sets
+            // automaticToolCalling = false, so the parser is bypassed entirely on the retry.
+            println("LiteRT: tool-call parser failed (${e.message?.take(200)}). Falling back to plain chat.")
+            engine.chat(messages = inferenceMessages, systemPrompt = systemPrompt, tools = emptyList())
+        }
+    }
 
-        return engine.chat(messages = inferenceMessages, systemPrompt = cleanedPrompt)
+    /**
+     * Cached OpenAPI/OpenAI-style JSON descriptions for local tools, keyed by tool name.
+     * Schemas are static for allowlisted tools, so serializing them once per tool avoids
+     * re-running the JSON builder on every message.
+     */
+    private val localToolDescriptionJsonCache = mutableMapOf<String, String>()
+
+    /**
+     * Returns the cached OpenAPI/OpenAI-style JSON description for [tool], building it on
+     * first request. Shape mirrors `Tool.toRequestTool()` in `Requests.kt` without the
+     * OpenAI `{type: "function", function: {…}}` wrapper, so litert-lm's `OpenApiTool`
+     * adapter can forward it straight to the model. If a parameter has a `rawSchema`,
+     * it's passed through verbatim — that preserves array/enum/nested-object shapes the
+     * simple `{type, description}` form would lose.
+     */
+    private fun localToolDescriptionJson(tool: Tool): String = localToolDescriptionJsonCache.getOrPut(tool.schema.name) {
+        buildJsonObject {
+            put("name", tool.schema.name)
+            put("description", tool.schema.description)
+            putJsonObject("parameters") {
+                put("type", "object")
+                putJsonObject("properties") {
+                    for ((paramName, param) in tool.schema.parameters) {
+                        val raw = param.rawSchema
+                        if (raw != null) {
+                            put(paramName, raw)
+                        } else {
+                            putJsonObject(paramName) {
+                                put("type", param.type)
+                                put("description", param.description)
+                            }
+                        }
+                    }
+                }
+                putJsonArray("required") {
+                    tool.schema.parameters.filter { it.value.required }.keys.forEach { add(it) }
+                }
+            }
+        }.toString()
+    }
+
+    /**
+     * Runs a single tool invocation requested by the on-device engine, mirroring the UI
+     * flow used by [executeToolCallsInParallel]: write the assistant tool-call row, show a
+     * TOOL_EXECUTING indicator (with a 2 s minimum so it's visible), execute the tool, then
+     * replace the indicator with a TOOL result row. Returns the raw result string for the
+     * engine to feed back to the model.
+     */
+    private suspend fun runLocalToolWithUiFeedback(
+        name: String,
+        arguments: String,
+        history: MutableStateFlow<List<History>>,
+    ): String {
+        val callId = "local-${Uuid.random()}"
+        val executingId = Uuid.random().toString()
+        val displayName = toolExecutor.getToolDisplayName(name)
+        // Append the assistant tool-call row and the executing indicator in a single
+        // StateFlow update so the UI doesn't flash twice before the tool even starts.
+        history.update {
+            it.toMutableList().apply {
+                add(
+                    History(
+                        role = History.Role.ASSISTANT,
+                        content = "",
+                        toolCalls = persistentListOf(
+                            ToolCallInfo(id = callId, name = name, arguments = arguments),
+                        ),
+                    ),
+                )
+                add(
+                    History(
+                        id = executingId,
+                        role = History.Role.TOOL_EXECUTING,
+                        content = name,
+                        toolName = displayName,
+                    ),
+                )
+            }
+        }
+        val startTime = Clock.System.now().toEpochMilliseconds()
+        val result = try {
+            toolExecutor.executeTool(name, arguments)
+        } catch (e: Exception) {
+            if (e is kotlinx.coroutines.CancellationException) throw e
+            """{"success": false, "error": "${e.message ?: "Tool execution failed"}"}"""
+        }
+        val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
+        if (elapsed < MIN_TOOL_DISPLAY_MS) {
+            delay(MIN_TOOL_DISPLAY_MS - elapsed)
+        }
+        history.update { h ->
+            buildList(h.size) {
+                for (entry in h) {
+                    if (entry.id != executingId) add(entry)
+                }
+                add(
+                    History(
+                        role = History.Role.TOOL,
+                        content = result,
+                        toolCallId = callId,
+                        toolName = name,
+                    ),
+                )
+            }
+        }
+        return result
     }
 
     private suspend fun askWithService(
@@ -450,7 +611,11 @@ class RemoteDataRepository(
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         if (service.isOnDevice) {
-            return askWithLocalEngine(messages, systemPrompt, instanceId)
+            // Re-fetch the system prompt with the CHAT_LOCAL variant — the caller
+            // (`ask()`/`askWithTools()`) pre-fetched a CHAT_REMOTE prompt, but on-device
+            // needs the trimmed variant.
+            val localPrompt = getActiveSystemPrompt(SystemPromptVariant.CHAT_LOCAL)
+            return askWithLocalEngine(messages, localPrompt, instanceId, history)
         }
 
         val creds = instanceCredentials(instanceId, service)
@@ -1456,152 +1621,62 @@ class RemoteDataRepository(
         appSettings.setSoulText(text)
     }
 
-    override suspend fun getActiveSystemPrompt(): String? {
+    override suspend fun getActiveSystemPrompt(variant: SystemPromptVariant): String? {
         val soul = appSettings.getSoulText().ifEmpty { getString(Res.string.default_soul) }
         val memoryEnabled = appSettings.isMemoryEnabled()
         val schedulingEnabled = appSettings.isSchedulingEnabled()
-        return buildString {
-            append(soul)
-            if (memoryEnabled) {
-                val memoryInstructions = appSettings.getMemoryInstructions()
-                if (memoryInstructions.isNotEmpty()) {
-                    if (isNotEmpty()) append("\n\n")
-                    append(memoryInstructions)
-                }
-                val memories = memoryStore.getAllMemories()
-                if (memories.isNotEmpty()) {
-                    val byCategory = memories.groupBy { it.category }
-                    val general = byCategory[MemoryCategory.GENERAL].orEmpty()
-                    val preferences = byCategory[MemoryCategory.PREFERENCE].orEmpty()
-                    val learnings = byCategory[MemoryCategory.LEARNING].orEmpty()
-                    val errors = byCategory[MemoryCategory.ERROR].orEmpty()
 
-                    if (general.isNotEmpty()) {
-                        append("\n\n## Your Memories\n")
-                        for (m in general) {
-                            append("- **${m.key}**: ${m.content}\n")
-                        }
-                    }
-                    if (preferences.isNotEmpty()) {
-                        append("\n\n## User Preferences\n")
-                        for (m in preferences) {
-                            append("- **${m.key}**: ${m.content}\n")
-                        }
-                    }
-                    if (learnings.isNotEmpty()) {
-                        append("\n\n## Learnings\n")
-                        for (m in learnings) {
-                            append("- **${m.key}** (reinforced ${m.hitCount}x): ${m.content}\n")
-                        }
-                    }
-                    if (errors.isNotEmpty()) {
-                        append("\n\n## Known Issues & Resolutions\n")
-                        for (m in errors) {
-                            append("- **${m.key}**: ${m.content}\n")
-                        }
-                    }
-                }
-            }
-            if (schedulingEnabled) {
-                val pendingTasks = taskStore.getPendingTasks()
-                if (pendingTasks.isNotEmpty()) {
-                    append("\n\n## Scheduled Tasks\n")
-                    for (t in pendingTasks) {
-                        append("- **${t.description}** (id: ${t.id}, scheduled: ${Instant.fromEpochMilliseconds(t.scheduledAtEpochMs)})")
-                        if (t.cron != null) append(" [cron: ${t.cron}]")
-                        append("\n")
-                    }
-                }
-            }
-            // Runtime context
-            val service = currentService()
-            val modelId = appSettings.getSelectedModelId(service)
-            append("\n\n## Context\n")
-            append("- Date: ${Clock.System.now()}\n")
-            append("- Platform: $platformName\n")
-            append("- Model: $modelId\n")
-            append("- Provider: ${service.displayName}\n")
-            val isLimited = supportsTools(modelId).not()
-            val dynamicUiOnly = appSettings.isDynamicUiEnabled() && !interactiveModeFlag && !isLimited
-            if (dynamicUiOnly || interactiveModeFlag) {
-                // Mode-specific introduction (mutually exclusive)
-                if (dynamicUiOnly) {
-                    append("\n## Dynamic UI\n")
-                    append("You can enhance your chat responses with interactive UI elements using kai-ui blocks. ")
-                    append("Proactively use them whenever you need input from the user — don't just ask in plain text if a form, selector, or buttons would be more natural. ")
-                    append("For example, if the user asks you to help plan a trip, present destination options as buttons; if you need preferences, show a form; if presenting choices, use interactive cards. ")
-                    append("Use kai-ui whenever collecting data, offering choices, presenting structured information, or guiding multi-step workflows. ")
-                    append("You can mix kai-ui blocks with regular markdown text naturally — use markdown for explanations and kai-ui for interactive elements.\n\n")
-                } else {
-                    append("\n## Interactive UI Mode (ACTIVE)\n")
-                    append("You are in full-screen interactive UI mode. The user ONLY sees rendered kai-ui components — they cannot see markdown, plain text, or anything outside a kai-ui fence.\n")
-                    append("Your ENTIRE response must be a single ```kai-ui code fence. No text before it, no text after it, no markdown. If you write anything outside the fence, the user will NOT see it.\n\n")
-                }
+        val memoryInstructions = if (memoryEnabled) {
+            appSettings.getMemoryInstructions().ifEmpty { null }
+        } else {
+            null
+        }
 
-                // Shared component definitions
-                append("Format: wrap a JSON object in ```kai-ui fences.\n\n")
-                append("Components: column, row, card, box, text, button, text_input, checkbox, switch, select, radio_group, slider, chip_group, table, list, divider, image, icon, code, progress, countdown, alert, tabs, accordion, quote, badge, stat, avatar.\n")
-                append("- text: {\"type\":\"text\",\"value\":\"...\",\"style\":\"headline|title|body|caption\",\"bold\":true,\"color\":\"primary|secondary|error\"} — do NOT use markdown formatting (**, *, #, etc.) in text values; use the bold/italic/style properties instead\n")
-                append("- button: {\"type\":\"button\",\"label\":\"...\",\"action\":{...},\"variant\":\"filled|outlined|text|tonal\"}\n")
-                append("- text_input: {\"type\":\"text_input\",\"id\":\"...\",\"label\":\"...\",\"placeholder\":\"...\",\"value\":\"...\"}\n")
-                append("- checkbox: {\"type\":\"checkbox\",\"id\":\"...\",\"label\":\"...\",\"checked\":false}\n")
-                append("- switch: {\"type\":\"switch\",\"id\":\"...\",\"label\":\"...\",\"checked\":false}\n")
-                append("- select: {\"type\":\"select\",\"id\":\"...\",\"label\":\"...\",\"options\":[\"A\",\"B\"],\"selected\":\"A\"}\n")
-                append("- radio_group: {\"type\":\"radio_group\",\"id\":\"...\",\"label\":\"...\",\"options\":[\"A\",\"B\"],\"selected\":\"A\"}\n")
-                append("- slider: {\"type\":\"slider\",\"id\":\"...\",\"label\":\"...\",\"value\":50,\"min\":0,\"max\":100,\"step\":10}\n")
-                append("- chip_group: {\"type\":\"chip_group\",\"id\":\"...\",\"chips\":[{\"label\":\"Tag\",\"value\":\"tag\"}],\"selection\":\"single|multi|none\"} — selection mode: \"single\" (default, one at a time), \"multi\" (any number), or \"none\" (display-only tags, no interaction, id not needed). For \"single\" and \"multi\" a button must collectFrom the chip_group id to send the selection.\n")
-                append("- list: {\"type\":\"list\",\"items\":[...],\"ordered\":false} — bullet (or numbered) list; the app renders bullets/numbers automatically, so do NOT include bullet characters (•, -, *) or numbering in item text\n")
-                append("- table: {\"type\":\"table\",\"headers\":[\"Col1\",\"Col2\"],\"rows\":[[\"a\",\"b\"]]} — columns share equal width; keep to 3-4 columns max on mobile, use short cell values\n")
-                append("- icon: {\"type\":\"icon\",\"name\":\"home|settings|search|add|delete|edit|check|check_circle|close|arrow_back|arrow_forward|star|favorite|share|info|warning|person|group|mail|phone|calendar|location|refresh|menu|more|send|notifications|trending_up|trending_down|trending_flat|thumb_up|thumb_down|visibility|lock|shopping_cart|play|pause|stop|download|upload|cloud|attachment|link|code|terminal|build|bug|lightbulb|science|school|work|account_circle|language|translate|dark_mode|light_mode|bolt|rocket|money|credit_card|receipt|inventory|category|dashboard|analytics|chart|pie_chart|show_chart|timer|alarm|task|bookmark|flag|tag|pin|copy|paste|cut|undo|redo|filter|sort|swap|sync|wifi|bluetooth|battery|speed|shield|verified|health|fitness|food|coffee|airplane|hotel|car|earth|map|compass|pet|leaf|water|weather|party|trophy|medal|premium\",\"size\":24,\"color\":\"primary|secondary|error\"} — you can also use any emoji as the name (e.g. \"name\":\"⚔️\" or \"name\":\"🗺️\"); prefer emojis when they better convey the meaning than the generic Material icons\n")
-                append("- code: {\"type\":\"code\",\"code\":\"...\",\"language\":\"kotlin\"}\n")
-                append("- progress: {\"type\":\"progress\",\"value\":0.5,\"label\":\"50%\"} (always provide a value 0.0-1.0 to show a determinate bar; do NOT omit value to fake a loading state)\n")
-                append("- countdown: {\"type\":\"countdown\",\"seconds\":300,\"label\":\"Time left\",\"action\":{\"type\":\"callback\",\"event\":\"timer_done\"}} (seconds is relative duration from render; action is optional, fires on expiry)\n")
-                append("- alert: {\"type\":\"alert\",\"message\":\"...\",\"title\":\"...\",\"severity\":\"info|success|warning|error\"}\n")
-                append("- tabs: {\"type\":\"tabs\",\"tabs\":[{\"label\":\"Tab 1\",\"children\":[...]},{\"label\":\"Tab 2\",\"children\":[...]}],\"selectedIndex\":0}\n")
-                append("- accordion: {\"type\":\"accordion\",\"title\":\"...\",\"children\":[...],\"expanded\":false}\n")
-                append("- box: {\"type\":\"box\",\"children\":[...],\"contentAlignment\":\"center|top_start|top_center|top_end|center_start|center_end|bottom_start|bottom_center|bottom_end\"}\n")
-                append("- quote: {\"type\":\"quote\",\"text\":\"...\",\"source\":\"Author Name\"} — blockquote with accent border\n")
-                append("- badge: {\"type\":\"badge\",\"value\":\"3\",\"color\":\"primary|secondary|error\"} — small colored pill for counts or status\n")
-                append("- stat: {\"type\":\"stat\",\"value\":\"$1,234\",\"label\":\"Revenue\",\"description\":\"12% increase\"} — large metric display\n")
-                append("- avatar: {\"type\":\"avatar\",\"name\":\"John Doe\",\"imageUrl\":\"https://...\",\"size\":40} — circular image or initials (24-80dp)\n\n")
-                append("Actions (on buttons, countdown expiry):\n")
-                append("- callback: {\"type\":\"callback\",\"event\":\"event_name\",\"data\":{\"key\":\"val\"},\"collectFrom\":[\"input_id1\",\"input_id2\"]} — collects input values and sends them back as a user message (e.g. \"Pressed: event_name\" or \"Responded with: key: value\"). You then reply with text or more UI. Use callbacks for: collecting choices, submitting forms, navigating between steps, confirming actions. Do NOT create buttons that imply operations you cannot perform — callbacks only send a message, they do not trigger system actions like printing, file export, clipboard copy, or downloads.\n")
-                append("- toggle: {\"type\":\"toggle\",\"targetId\":\"element_id\"} — shows/hides an element locally\n")
-                append("- open_url: {\"type\":\"open_url\",\"url\":\"https://...\"}\n\n")
-                append("- Form inputs (text_input, checkbox, switch, select, radio_group, slider, chip_group) only store state locally. Their values are ONLY sent when a button's collectFrom includes their id. Always pair form inputs with a submit button that collects from them.\n\n")
+        val memories = if (memoryEnabled) memoryStore.getAllMemories() else emptyList()
+        val byCategory = memories.groupBy { it.category }
 
-                // Mode-specific tips and example (mutually exclusive)
-                if (dynamicUiOnly) {
-                    append("Layout tips:\n")
-                    append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
-                    append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
-                    append("- Keep button labels short (1-3 words)\n\n")
-                    append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Your name?\",\"style\":\"title\"},{\"type\":\"text_input\",\"id\":\"name\",\"placeholder\":\"Enter name\"},{\"type\":\"button\",\"label\":\"Submit\",\"action\":{\"type\":\"callback\",\"event\":\"submit\",\"collectFrom\":[\"name\"]}}]}\n```\n")
-                } else {
-                    append("Rules:\n")
-                    append("- Each response is a COMPLETE screen layout. Include all content and actions in one kai-ui block.\n")
-                    append("- Always include clear primary action buttons so the user can proceed.\n")
-                    append("- Every screen MUST have at least one interactive element with a callback action (button, countdown with expiry action, etc.). A screen without any callback is a dead end the user cannot proceed from.\n")
-                    append("- Use headline text for screen titles. Structure screens with cards for grouping related content.\n")
-                    append("- Use descriptive callback events (e.g., \"select_destination\", \"submit_form\") so you understand what the user selected.\n")
-                    append("- Do NOT include back buttons, navigation bars, or any navigation controls. The app provides a back button and close button in the toolbar. The user can also type instructions in a text field below your UI.\n")
-                    append("Layout:\n")
-                    append("- Put buttons INSIDE cards, directly below related content — never group all buttons separately at the bottom\n")
-                    append("- Use rows for groups of buttons or chips — rows wrap automatically, so any number of items is fine\n")
-                    append("- Keep button labels short (1-3 words)\n")
-                    append("- Use columns for vertical flow. Use the full component set: tabs, accordion, alerts, progress, chips, icons, etc.\n\n")
-                    append("Limitations — respect these strictly:\n")
-                    append("- The UI is static once rendered. NEVER show loading, fetching, or verifying states. You cannot fetch data or run operations asynchronously. Present all content immediately.\n")
-                    append("- Never use indeterminate progress (progress without a value) or text like \"Loading...\", \"Fetching...\", \"Verifying...\" as if something will happen later — nothing will.\n")
-                    append("- Each screen is independent. Only conversation history carries state between screens — there is no client-side state persistence, no session storage, no variables that survive across responses.\n")
-                    append("- Do not attempt to build multi-screen stateful applications (e.g., shopping carts that accumulate items, dashboards that refresh). Each response is a fresh, self-contained screen.\n")
-                    append("- Only use the exact components and properties defined above. Do not invent attributes, component types, or behaviors that are not listed. If a component doesn't support a feature, do not pretend it does.\n")
-                    append("- Start with simple, clean layouts. A well-structured screen with a few cards and clear actions is better than a complex layout that pushes the component set beyond its capabilities.\n")
-                    append("- When unsure whether something will work, use a simpler approach. A working simple screen is always better than a broken ambitious one.\n\n")
-                    append("Example:\n```kai-ui\n{\"type\":\"column\",\"children\":[{\"type\":\"text\",\"value\":\"Welcome\",\"style\":\"headline\"},{\"type\":\"card\",\"children\":[{\"type\":\"text\",\"value\":\"What would you like to do?\",\"style\":\"title\"},{\"type\":\"button\",\"label\":\"Get Started\",\"action\":{\"type\":\"callback\",\"event\":\"get_started\"}}]}]}\n```\n")
-                }
+        val pendingTasks = if (schedulingEnabled) taskStore.getPendingTasks() else emptyList()
+
+        val service = currentService()
+        // On-device services store the active model ID per-instance, not globally, so
+        // `getSelectedModelId` comes back blank for LiteRT. Fall back to the first
+        // configured on-device instance's model ID in that case.
+        val modelId = appSettings.getSelectedModelId(service).ifBlank {
+            if (service.isOnDevice) {
+                getConfiguredServiceInstances()
+                    .firstOrNull { Service.fromId(it.serviceId).isOnDevice }
+                    ?.let { appSettings.getInstanceModelId(it.instanceId) }
+                    .orEmpty()
+            } else {
+                ""
             }
-        }.ifEmpty { null }
+        }
+        val runtime = ChatPromptRuntimeContext(
+            nowIsoString = Clock.System.now().toString(),
+            platform = platformName,
+            modelId = modelId,
+            providerName = service.displayName,
+        )
+
+        val isLimited = !supportsTools(modelId)
+        val uiMode = when {
+            interactiveModeFlag -> ChatPromptUiMode.INTERACTIVE_UI
+            appSettings.isDynamicUiEnabled() && !isLimited -> ChatPromptUiMode.DYNAMIC_UI
+            else -> ChatPromptUiMode.NONE
+        }
+
+        return buildChatSystemPrompt(
+            variant = variant,
+            soul = soul,
+            memoryInstructions = memoryInstructions,
+            generalMemories = byCategory[MemoryCategory.GENERAL].orEmpty(),
+            preferenceMemories = byCategory[MemoryCategory.PREFERENCE].orEmpty(),
+            learningMemories = byCategory[MemoryCategory.LEARNING].orEmpty(),
+            errorMemories = byCategory[MemoryCategory.ERROR].orEmpty(),
+            pendingTasks = pendingTasks,
+            runtime = runtime,
+            uiMode = uiMode,
+        ).ifEmpty { null }
     }
 
     override fun isDynamicUiEnabled(): Boolean = appSettings.isDynamicUiEnabled()
@@ -1724,14 +1799,14 @@ class RemoteDataRepository(
     }
 
     override suspend fun askWithTools(prompt: String, instanceId: String?): String {
-        val targetInstance = if (instanceId != null) {
-            getConfiguredServiceInstances().find { it.instanceId == instanceId }
-        } else {
-            null
-        } ?: getConfiguredServiceInstances().firstOrNull { !Service.fromId(it.serviceId).isOnDevice }
+        // Selection: explicit instance > first remote > first on-device. The simple-tool
+        // allowlist works at any context size, so on-device is always eligible for fallback.
+        val instances = getConfiguredServiceInstances()
+        val targetInstance = instanceId?.let { id -> instances.find { it.instanceId == id } }
+            ?: instances.firstOrNull { !Service.fromId(it.serviceId).isOnDevice }
+            ?: instances.firstOrNull { Service.fromId(it.serviceId).isOnDevice }
             ?: return ""
         val service = Service.fromId(targetInstance.serviceId)
-        if (service.isOnDevice) return ""
         val messages = listOf(History(role = History.Role.USER, content = prompt))
         val systemPrompt = getActiveSystemPrompt()
         // Use a local history to avoid polluting the current conversation's chatHistory
@@ -1743,11 +1818,16 @@ class RemoteDataRepository(
         val service = currentService()
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return ""
         val messages = listOf(History(role = History.Role.USER, content = question))
-        val systemPrompt = getActiveSystemPrompt()
 
         if (service.isOnDevice) {
-            return askWithLocalEngine(messages, systemPrompt, firstInstance.instanceId)
+            // Throwaway history — we don't want tool-execution rows leaking into the
+            // visible chatHistory for a "silent" call. LOCAL variant of the system
+            // prompt so small on-device models get the right section set.
+            val localPrompt = getActiveSystemPrompt(SystemPromptVariant.CHAT_LOCAL)
+            return askWithLocalEngine(messages, localPrompt, firstInstance.instanceId, MutableStateFlow(messages))
         }
+
+        val systemPrompt = getActiveSystemPrompt()
 
         val creds = instanceCredentials(firstInstance.instanceId, service)
 
@@ -1781,7 +1861,7 @@ class RemoteDataRepository(
         val messages = listOf(History(role = History.Role.USER, content = prompt))
 
         if (service.isOnDevice) {
-            return askWithLocalEngine(messages, null, instanceId)
+            return askWithLocalEngine(messages, null, instanceId, MutableStateFlow(messages))
         }
 
         val creds = instanceCredentials(instanceId, service)

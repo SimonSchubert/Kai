@@ -231,7 +231,7 @@
     <string name="litert_on_device_description">अपने डिवाइस पर सीधे AI मॉडल चलाएं। कोई API कुंजी या इंटरनेट आवश्यक नहीं।</string>
     <string name="litert_download">डाउनलोड</string>
     <string name="litert_cancel">रद्द करें</string>
-    <string name="litert_limitations">कोई टूल उपयोग नहीं, कोई इमेज इनपुट नहीं, कोई हार्टबीट नहीं, 4K कॉन्टेक्स्ट विंडो</string>
+    <string name="litert_tool_support">ईमेल, टास्क शेड्यूलिंग और MCP सर्वर टूल उपलब्ध नहीं हैं</string>
     <string name="litert_performance_good">अच्छा</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">कमज़ोर</string>

@@ -231,7 +231,7 @@
     <string name="litert_on_device_description">直接在您的裝置上執行AI模型。無需API金鑰或網際網路。</string>
     <string name="litert_download">下載</string>
     <string name="litert_cancel">取消</string>
-    <string name="litert_limitations">無工具使用，無圖片輸入，無心跳，4K上下文視窗</string>
+    <string name="litert_tool_support">電子郵件、任務排程和 MCP 伺服器工具無法使用</string>
     <string name="litert_performance_good">良好</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">較差</string>

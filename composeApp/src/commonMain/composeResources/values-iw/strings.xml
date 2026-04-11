@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">הפעל מודלים של AI ישירות במכשיר שלך. לא נדרש מפתח API או אינטרנט.</string>
     <string name="litert_download">הורדה</string>
     <string name="litert_cancel">ביטול</string>
-    <string name="litert_limitations">ללא כלים, ללא תמונות, ללא heartbeat, חלון הקשר 4K</string>
+    <string name="litert_tool_support">כלי דוא״ל, תזמון משימות ושרת MCP אינם זמינים</string>
     <string name="litert_performance_good">טוב</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">חלש</string>

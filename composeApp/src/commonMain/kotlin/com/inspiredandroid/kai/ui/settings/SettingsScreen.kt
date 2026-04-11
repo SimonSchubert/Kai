@@ -165,11 +165,11 @@ import kai.composeapp.generated.resources.litert_context_size
 import kai.composeapp.generated.resources.litert_download
 import kai.composeapp.generated.resources.litert_error_not_enough_disk_space
 import kai.composeapp.generated.resources.litert_free_space
-import kai.composeapp.generated.resources.litert_limitations
 import kai.composeapp.generated.resources.litert_on_device_description
 import kai.composeapp.generated.resources.litert_performance_good
 import kai.composeapp.generated.resources.litert_performance_ok
 import kai.composeapp.generated.resources.litert_performance_poor
+import kai.composeapp.generated.resources.litert_tool_support
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -1287,7 +1287,7 @@ private fun LiteRTSettings(
     Spacer(Modifier.height(4.dp))
 
     Text(
-        text = stringResource(Res.string.litert_limitations),
+        text = stringResource(Res.string.litert_tool_support),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )

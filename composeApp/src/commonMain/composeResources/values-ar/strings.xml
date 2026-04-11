@@ -231,7 +231,7 @@
     <string name="litert_on_device_description">شغّل نماذج الذكاء الاصطناعي مباشرة على جهازك. لا حاجة لمفتاح API أو إنترنت.</string>
     <string name="litert_download">تنزيل</string>
     <string name="litert_cancel">إلغاء</string>
-    <string name="litert_limitations">بدون أدوات، بدون إدخال صور، بدون نبض القلب، نافذة سياق 4K</string>
+    <string name="litert_tool_support">أدوات البريد الإلكتروني وجدولة المهام وخوادم MCP غير متاحة</string>
     <string name="litert_performance_good">جيد</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ضعيف</string>

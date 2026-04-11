@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Endesha miundo ya AI moja kwa moja kwenye kifaa chako. Hakuna ufunguo wa API au intaneti inayohitajika.</string>
     <string name="litert_download">Pakua</string>
     <string name="litert_cancel">Ghairi</string>
-    <string name="litert_limitations">Hakuna matumizi ya zana, hakuna picha, hakuna heartbeat, dirisha la muktadha wa 4K</string>
+    <string name="litert_tool_support">Zana za barua pepe, kupanga kazi na seva ya MCP hazipatikani</string>
     <string name="litert_performance_good">Nzuri</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dhaifu</string>

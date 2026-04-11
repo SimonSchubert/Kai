@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Spouštějte AI modely přímo na vašem zařízení. Není potřeba API klíč ani internet.</string>
     <string name="litert_download">Stáhnout</string>
     <string name="litert_cancel">Zrušit</string>
-    <string name="litert_limitations">Bez nástrojů, bez obrázků, bez heartbeatu, 4K kontextové okno</string>
+    <string name="litert_tool_support">Nástroje pro e-mail, plánování úloh a MCP servery nejsou k dispozici</string>
     <string name="litert_performance_good">Dobré</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Slabé</string>

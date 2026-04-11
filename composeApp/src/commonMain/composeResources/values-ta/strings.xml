@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">உங்கள் சாதனத்தில் நேரடியாக AI மாதிரிகளை இயக்கவும். API விசை அல்லது இணையம் தேவையில்லை.</string>
     <string name="litert_download">பதிவிறக்கம்</string>
     <string name="litert_cancel">ரத்து</string>
-    <string name="litert_limitations">கருவி பயன்பாடு இல்லை, பட உள்ளீடு இல்லை, இதயத்துடிப்பு இல்லை, 4K சூழல் சாளரம்</string>
+    <string name="litert_tool_support">மின்னஞ்சல், பணி திட்டமிடல் மற்றும் MCP சேவையக கருவிகள் கிடைக்கவில்லை</string>
     <string name="litert_performance_good">நல்லது</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">மோசம்</string>

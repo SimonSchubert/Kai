@@ -231,7 +231,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="litert_on_device_description">Kjør AI-modeller direkte på enheten din. Ingen API-nøkkel eller internett nødvendig.</string>
     <string name="litert_download">Last ned</string>
     <string name="litert_cancel">Avbryt</string>
-    <string name="litert_limitations">Ingen verktøy, ingen bildeinndata, ingen heartbeat, 4K kontekstvindu</string>
+    <string name="litert_tool_support">E-post, oppgaveplanlegging og MCP-serververktøy er ikke tilgjengelig</string>
     <string name="litert_performance_good">God</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dårlig</string>

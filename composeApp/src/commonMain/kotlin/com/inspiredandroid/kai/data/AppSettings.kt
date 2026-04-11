@@ -1038,18 +1038,15 @@ class AppSettings(private val settings: Settings) {
 
         const val KEY_SANDBOX_ENABLED = "sandbox_enabled"
 
+        // Basic memory guidance shared by every chat variant. The advanced `## Structured
+        // Learning` block lives in `ChatSystemPromptBuilder.DEFAULT_STRUCTURED_LEARNING_SECTION`
+        // and is composed in only for the remote variant.
         const val DEFAULT_MEMORY_INSTRUCTIONS =
             "You have persistent memory across conversations. " +
                 "All your stored memories are listed in the system prompt grouped by category.\n\n" +
                 "When you learn important information about the user (name, preferences, projects, goals, etc.), " +
                 "proactively use the memory_store tool to save it.\n" +
                 "Use the memory_forget tool to remove outdated or incorrect memories.\n" +
-                "Do not store trivial or transient information.\n\n" +
-                "## Structured Learning\n" +
-                "Use memory_learn to record categorized learnings:\n" +
-                "- Record user corrections and preferences as PREFERENCE entries\n" +
-                "- Record things that worked well as LEARNING entries\n" +
-                "- Record error resolutions as ERROR entries\n" +
-                "Use memory_reinforce when a stored learning produced a good outcome."
+                "Do not store trivial or transient information."
     }
 }

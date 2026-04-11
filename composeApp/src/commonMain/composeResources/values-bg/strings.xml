@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Стартирайте AI модели директно на вашето устройство. Не е необходим API ключ или интернет.</string>
     <string name="litert_download">Изтегляне</string>
     <string name="litert_cancel">Отказ</string>
-    <string name="litert_limitations">Без инструменти, без изображения, без heartbeat, 4K контекстен прозорец</string>
+    <string name="litert_tool_support">Имейл, планиране на задачи и MCP сървърни инструменти не са налични</string>
     <string name="litert_performance_good">Добро</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Слабо</string>

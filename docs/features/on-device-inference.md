@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-11
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -17,12 +17,26 @@ Models are downloaded from HuggingFace's litert-community and stored locally on 
 
 Models are `.litertlm` files from the [litert-community](https://huggingface.co/litert-community) organization on HuggingFace.
 
-## Limitations
+## Tool support
 
-- **No tool use** -- the 4K context window is too small to include tool schemas
-- **No image input** -- limited model capabilities
-- **No heartbeat** -- heartbeat requires tool calling
-- **No dynamic UI** -- kai-ui prompts are skipped for limited models
+The application uses **litert-lm's native function calling** (`automaticToolCalling = true` on `ConversationConfig`): each exposed Kai tool is wrapped in an `OpenApiTool` adapter, registered on the conversation, and the engine drives the tool loop internally. The model uses its trained tool format and `chat()` returns the final assistant text after all tool round-trips complete. Tools are available **at any context size** — there's no threshold gating.
+
+Only a small **allowlist** of tools is exposed on-device, because small Gemma models (2-4B params) struggle to emit valid function-call syntax for tools with many parameters or complex value types, and litert-lm's strict ANTLR parser crashes the call when the syntax is malformed.
+
+The allowlist (in `RemoteDataRepository.LOCAL_TOOL_ALLOWLIST`) currently exposes: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command` (when the user has enabled the shell tool in Settings). Email tools, task scheduling (`schedule_task` / `list_tasks` / `cancel_task`), MCP server tools, structured `memory_learn`, heartbeat-config tools, and `promote_learning` are excluded — they require a remote model.
+
+The system prompt for on-device runs is built directly from the `CHAT_LOCAL` variant of `buildChatSystemPrompt` — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.
+
+Interactive UI mode is **not supported** on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device. Users who need interactive UI should switch to a remote service.
+
+See [system-prompts.md](system-prompts.md) and `ChatSystemPromptBuilderTest` for the full contract.
+
+If the engine throws (e.g. the model does emit malformed tool-call syntax that the ANTLR parser rejects), the application catches the `RuntimeException`, logs it, and retries the call **once** with no tools — the user gets a plain-chat answer instead of a hard error.
+
+## Other limitations
+
+- **No image input** -- the `LocalInferenceEngine` interface only accepts text messages
+- **No dynamic UI** -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)
 - **Not available on iOS or web** -- LiteRT LM SDK supports Android and JVM only
 
 ## Model Management
@@ -65,7 +79,7 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 
 - LiteRT instances participate in the normal fallback chain
 - On unsupported platforms (iOS, web), LiteRT instances are silently skipped
-- `askWithTools` (used by heartbeat and scheduling) never falls back to on-device services
+- `askWithTools` (used by heartbeat and scheduling) prefers remote services and falls back to on-device when no remote is configured. The on-device fallback works at any context size, since the simple-tool allowlist has no schema-overhead penalty.
 
 ## Key Files
 

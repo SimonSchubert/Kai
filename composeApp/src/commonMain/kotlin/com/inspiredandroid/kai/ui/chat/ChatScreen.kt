@@ -77,6 +77,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
+import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.stripMarkdownForTts
@@ -551,10 +552,17 @@ private fun ChatModeScreen(
                         ),
                 ) {
                     if (uiState.history.isEmpty()) {
+                        // Interactive UI mode isn't offered on on-device LiteRT: the kai-ui
+                        // component schema is too large for small Gemma models to coherently
+                        // attend to, and even the minimal variant we tried was unreliable.
+                        val primaryIsOnDevice = uiState.availableServices
+                            .firstOrNull()
+                            ?.let { Service.fromId(it.serviceId).isOnDevice } == true
                         EmptyState(
                             modifier = Modifier.fillMaxWidth().weight(1f),
                             isUsingSharedKey = uiState.showPrivacyInfo,
-                            onStartInteractiveMode = uiState.actions.enterInteractiveMode,
+                            onStartInteractiveMode = uiState.actions.enterInteractiveMode
+                                .takeUnless { primaryIsOnDevice },
                         )
                     } else {
                         val listState = rememberLazyListState()

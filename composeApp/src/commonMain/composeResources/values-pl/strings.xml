@@ -231,7 +231,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="litert_on_device_description">Uruchamiaj modele AI bezpośrednio na swoim urządzeniu. Nie wymaga klucza API ani internetu.</string>
     <string name="litert_download">Pobierz</string>
     <string name="litert_cancel">Anuluj</string>
-    <string name="litert_limitations">Brak narzędzi, brak obrazów, brak heartbeatu, okno kontekstu 4K</string>
+    <string name="litert_tool_support">Narzędzia poczty e-mail, planowania zadań i serwera MCP są niedostępne</string>
     <string name="litert_performance_good">Dobra</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Słaba</string>

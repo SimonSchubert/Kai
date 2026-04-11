@@ -67,7 +67,7 @@ interface DataRepository {
     // Soul (system prompt)
     fun getSoulText(): String
     fun setSoulText(text: String)
-    suspend fun getActiveSystemPrompt(): String?
+    suspend fun getActiveSystemPrompt(variant: SystemPromptVariant = SystemPromptVariant.CHAT_REMOTE): String?
 
     // Memory management
     fun isMemoryEnabled(): Boolean

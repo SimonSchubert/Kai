@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">รันโมเดล AI โดยตรงบนอุปกรณ์ของคุณ ไม่ต้องใช้ API key หรืออินเทอร์เน็ต</string>
     <string name="litert_download">ดาวน์โหลด</string>
     <string name="litert_cancel">ยกเลิก</string>
-    <string name="litert_limitations">ไม่มีเครื่องมือ ไม่มีรูปภาพ ไม่มี heartbeat หน้าต่างบริบท 4K</string>
+    <string name="litert_tool_support">เครื่องมืออีเมล การจัดตารางงาน และเครื่องมือเซิร์ฟเวอร์ MCP ไม่พร้อมใช้งาน</string>
     <string name="litert_performance_good">ดี</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ต่ำ</string>

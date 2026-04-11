@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Chạy các mô hình AI trực tiếp trên thiết bị của bạn. Không cần khóa API hay internet.</string>
     <string name="litert_download">Tải xuống</string>
     <string name="litert_cancel">Hủy</string>
-    <string name="litert_limitations">Không dùng công cụ, không nhập ảnh, không heartbeat, cửa sổ ngữ cảnh 4K</string>
+    <string name="litert_tool_support">Công cụ email, lập lịch tác vụ và máy chủ MCP không khả dụng</string>
     <string name="litert_performance_good">Tốt</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Kém</string>

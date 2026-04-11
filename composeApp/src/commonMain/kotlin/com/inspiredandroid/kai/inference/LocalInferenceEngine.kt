@@ -56,6 +56,21 @@ data class InferenceMessage(
     val content: String,
 )
 
+/**
+ * A tool definition handed to the on-device inference engine.
+ *
+ * @param name the tool's identifier as the model will see it
+ * @param descriptionJsonString a complete OpenAPI/OpenAI-style JSON object describing the
+ *        tool, e.g. `{"name":"get_time","description":"...","parameters":{"type":"object",...}}`
+ * @param execute receives the JSON arguments object as a string and returns the
+ *        JSON-encoded result string
+ */
+data class LocalTool(
+    val name: String,
+    val descriptionJsonString: String,
+    val execute: suspend (jsonArgs: String) -> String,
+)
+
 class InsufficientMemoryException : Exception()
 class InferenceTimeoutException : Exception()
 class NoModelDownloadedException : Exception()
@@ -78,6 +93,7 @@ interface LocalInferenceEngine {
     suspend fun chat(
         messages: List<InferenceMessage>,
         systemPrompt: String?,
+        tools: List<LocalTool> = emptyList(),
     ): String
 
     fun getDownloadedModels(): List<DownloadedModel>

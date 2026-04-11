@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Εκτελέστε μοντέλα AI απευθείας στη συσκευή σας. Δεν απαιτείται κλειδί API ή internet.</string>
     <string name="litert_download">Λήψη</string>
     <string name="litert_cancel">Ακύρωση</string>
-    <string name="litert_limitations">Χωρίς εργαλεία, χωρίς εικόνες, χωρίς heartbeat, παράθυρο πλαισίου 4K</string>
+    <string name="litert_tool_support">Τα εργαλεία email, χρονοπρογραμματισμού εργασιών και διακομιστή MCP δεν είναι διαθέσιμα</string>
     <string name="litert_performance_good">Καλή</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Χαμηλή</string>

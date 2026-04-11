@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Futtasson AI modelleket közvetlenül az eszközén. Nem szükséges API kulcs vagy internet.</string>
     <string name="litert_download">Letöltés</string>
     <string name="litert_cancel">Mégse</string>
-    <string name="litert_limitations">Nincs eszközhasználat, nincs képbevitel, nincs heartbeat, 4K kontextusablak</string>
+    <string name="litert_tool_support">Az e-mail, feladatütemezés és MCP-szerver eszközök nem érhetők el</string>
     <string name="litert_performance_good">Jó</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Gyenge</string>

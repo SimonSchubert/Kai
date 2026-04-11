@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Jalankan model AI langsung di perangkat Anda. Tidak perlu kunci API atau internet.</string>
     <string name="litert_download">Unduh</string>
     <string name="litert_cancel">Batal</string>
-    <string name="litert_limitations">Tanpa alat, tanpa input gambar, tanpa heartbeat, jendela konteks 4K</string>
+    <string name="litert_tool_support">Alat email, penjadwalan tugas, dan server MCP tidak tersedia</string>
     <string name="litert_performance_good">Baik</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Buruk</string>

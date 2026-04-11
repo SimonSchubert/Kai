@@ -53,13 +53,15 @@ Validation rules enforced by the `configure_heartbeat` tool:
 
 ## Prompt Building
 
-The heartbeat prompt is assembled from multiple sources:
+The heartbeat prompt is assembled by the pure function `buildHeartbeatPrompt` (in `HeartbeatPromptBuilder.kt`). Each conditional section is covered by `HeartbeatPromptBuilderTest`. Sources:
 
 1. **Custom prompt** — user-defined text from settings, or the default prompt if empty. The default instructs the AI to review memories and tasks, respond "HEARTBEAT_OK" if nothing needs attention, or address anything that does
 2. **Previous heartbeat results** — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")
 3. **Pending tasks** — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)
 4. **Email status** — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included
 5. **Promotion candidates** — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the `promote_learning` tool
+
+For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see [system-prompts.md](system-prompts.md).
 
 ## Heartbeat Log
 

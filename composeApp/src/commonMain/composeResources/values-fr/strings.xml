@@ -231,7 +231,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="litert_on_device_description">Exécutez des modèles IA directement sur votre appareil. Aucune clé API ni internet requis.</string>
     <string name="litert_download">Télécharger</string>
     <string name="litert_cancel">Annuler</string>
-    <string name="litert_limitations">Pas d'outils, pas d'images, pas de heartbeat, fenêtre de contexte 4K</string>
+    <string name="litert_tool_support">Les outils e-mail, de planification de tâches et de serveur MCP ne sont pas disponibles</string>
     <string name="litert_performance_good">Bon</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Faible</string>

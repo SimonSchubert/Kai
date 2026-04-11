@@ -231,7 +231,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="litert_on_device_description">KI-Modelle direkt auf deinem Gerät ausführen. Kein API-Schlüssel oder Internet erforderlich.</string>
     <string name="litert_download">Herunterladen</string>
     <string name="litert_cancel">Abbrechen</string>
-    <string name="litert_limitations">Keine Werkzeuge, keine Bildeingabe, kein Heartbeat, 4K Kontextfenster</string>
+    <string name="litert_tool_support">E-Mail, Aufgabenplanung und MCP-Server-Tools sind nicht verfügbar</string>
     <string name="litert_performance_good">Gut</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Schlecht</string>

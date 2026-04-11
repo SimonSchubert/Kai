@@ -62,56 +62,37 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         return elapsedMs >= intervalMs
     }
 
-    fun buildHeartbeatPrompt(recentResponses: List<String> = emptyList()): String = buildString {
+    fun buildHeartbeatPrompt(recentResponses: List<String> = emptyList()): String {
         val customPrompt = appSettings.getHeartbeatPrompt()
-        append(customPrompt.ifEmpty { DEFAULT_HEARTBEAT_PROMPT })
-        append("\n")
-
-        // Include recent heartbeat responses so the AI can track trends and avoid repeating itself
-        if (recentResponses.isNotEmpty()) {
-            append("\n## Previous Heartbeat Results\n")
-            for ((i, response) in recentResponses.withIndex()) {
-                append("${i + 1}. $response\n")
-            }
-        }
-
-        // Append pending tasks
         val pendingTasks = taskStore.getPendingTasks()
-        if (pendingTasks.isNotEmpty()) {
-            append("\n## Pending Tasks\n")
-            for (t in pendingTasks) {
-                append("- **${t.description}** (id: ${t.id}, scheduled: ${Instant.fromEpochMilliseconds(t.scheduledAtEpochMs)})")
-                if (t.cron != null) append(" [cron: ${t.cron}]")
-                append("\n")
-            }
-        }
-
-        // Append email status
-        if (emailStore != null && appSettings.isEmailEnabled()) {
-            val accounts = emailStore.getAccounts()
-            if (accounts.isNotEmpty()) {
-                append("\n## Email Status\n")
-                for (account in accounts) {
+        val emailAccounts: List<HeartbeatEmailStatus> =
+            if (emailStore != null && appSettings.isEmailEnabled()) {
+                emailStore.getAccounts().map { account ->
                     val syncState = emailStore.getSyncState(account.id)
-                    append("- **${account.email}**: ${syncState.unreadCount} unread")
-                    if (syncState.lastSyncEpochMs > 0) {
-                        append(" (last sync: ${Instant.fromEpochMilliseconds(syncState.lastSyncEpochMs)})")
-                    }
-                    append("\n")
+                    HeartbeatEmailStatus(
+                        email = account.email,
+                        unreadCount = syncState.unreadCount,
+                        lastSyncEpochMs = syncState.lastSyncEpochMs,
+                    )
                 }
+            } else {
+                emptyList()
             }
+        val promotionCandidates = memoryStore.getPromotionCandidates().map { entry ->
+            HeartbeatPromotionCandidate(
+                key = entry.key,
+                hitCount = entry.hitCount,
+                category = entry.category,
+                content = entry.content,
+            )
         }
-
-        // Append promotion candidates
-        val candidates = memoryStore.getPromotionCandidates()
-        if (candidates.isNotEmpty()) {
-            append("\n## Promotion Candidates\n")
-            append("These memories have been reinforced ${candidates.first().hitCount}+ times. ")
-            append("Consider using the promote_learning tool to add well-established patterns to your soul/system prompt:\n")
-            for (entry in candidates) {
-                append("- **${entry.key}** (hits: ${entry.hitCount}, category: ${entry.category}): ${entry.content}\n")
-            }
-        }
+        return buildHeartbeatPrompt(
+            customOrDefaultPrompt = customPrompt.ifEmpty { DEFAULT_HEARTBEAT_PROMPT },
+            recentResponses = recentResponses,
+            pendingTasks = pendingTasks,
+            emailAccounts = emailAccounts,
+            promotionCandidates = promotionCandidates,
+        )
     }
 
     fun recordHeartbeat(success: Boolean, error: String? = null) {

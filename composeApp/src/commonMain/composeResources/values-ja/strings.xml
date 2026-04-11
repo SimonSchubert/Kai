@@ -231,7 +231,7 @@
     <string name="litert_on_device_description">デバイス上で直接AIモデルを実行します。APIキーやインターネットは不要です。</string>
     <string name="litert_download">ダウンロード</string>
     <string name="litert_cancel">キャンセル</string>
-    <string name="litert_limitations">ツール使用なし、画像入力なし、ハートビートなし、4Kコンテキストウィンドウ</string>
+    <string name="litert_tool_support">メール、タスクスケジューリング、MCPサーバーツールは利用できません</string>
     <string name="litert_performance_good">良好</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">低い</string>

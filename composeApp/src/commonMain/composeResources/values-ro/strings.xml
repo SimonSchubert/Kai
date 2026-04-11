@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Rulează modele AI direct pe dispozitivul tău. Nu este necesară cheie API sau internet.</string>
     <string name="litert_download">Descarcă</string>
     <string name="litert_cancel">Anulează</string>
-    <string name="litert_limitations">Fără instrumente, fără imagini, fără heartbeat, fereastră de context 4K</string>
+    <string name="litert_tool_support">Instrumentele pentru e-mail, programarea sarcinilor și serverele MCP nu sunt disponibile</string>
     <string name="litert_performance_good">Bună</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Slabă</string>

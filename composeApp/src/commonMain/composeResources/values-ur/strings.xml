@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">اپنے آلے پر براہ راست AI ماڈلز چلائیں۔ کسی API کلید یا انٹرنیٹ کی ضرورت نہیں۔</string>
     <string name="litert_download">ڈاؤن لوڈ</string>
     <string name="litert_cancel">منسوخ</string>
-    <string name="litert_limitations">کوئی ٹول استعمال نہیں، کوئی تصویری ان پٹ نہیں، کوئی ہارٹ بیٹ نہیں، 4K سیاق و سباق ونڈو</string>
+    <string name="litert_tool_support">ای میل، ٹاسک شیڈولنگ، اور MCP سرور ٹولز دستیاب نہیں ہیں</string>
     <string name="litert_performance_good">اچھا</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">کمزور</string>

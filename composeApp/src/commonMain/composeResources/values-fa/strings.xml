@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">مدل‌های هوش مصنوعی را مستقیماً روی دستگاه خود اجرا کنید. نیازی به کلید API یا اینترنت نیست.</string>
     <string name="litert_download">دانلود</string>
     <string name="litert_cancel">لغو</string>
-    <string name="litert_limitations">بدون ابزار، بدون تصویر ورودی، بدون ضربان قلب، پنجره زمینه 4K</string>
+    <string name="litert_tool_support">ابزارهای ایمیل، زمان‌بندی وظایف و سرورهای MCP در دسترس نیستند</string>
     <string name="litert_performance_good">خوب</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ضعیف</string>

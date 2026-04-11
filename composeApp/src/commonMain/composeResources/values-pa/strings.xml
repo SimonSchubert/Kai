@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">ਆਪਣੇ ਡਿਵਾਈਸ 'ਤੇ ਸਿੱਧੇ AI ਮਾਡਲ ਚਲਾਓ। ਕੋਈ API ਕੁੰਜੀ ਜਾਂ ਇੰਟਰਨੈੱਟ ਲੋੜੀਂਦਾ ਨਹੀਂ।</string>
     <string name="litert_download">ਡਾਊਨਲੋਡ</string>
     <string name="litert_cancel">ਰੱਦ ਕਰੋ</string>
-    <string name="litert_limitations">ਕੋਈ ਟੂਲ ਵਰਤੋਂ ਨਹੀਂ, ਕੋਈ ਚਿੱਤਰ ਇੰਪੁੱਟ ਨਹੀਂ, ਕੋਈ ਹਾਰਟਬੀਟ ਨਹੀਂ, 4K ਸੰਦਰਭ ਵਿੰਡੋ</string>
+    <string name="litert_tool_support">ਈਮੇਲ, ਟਾਸਕ ਸ਼ਡਿਊਲਿੰਗ ਅਤੇ MCP ਸਰਵਰ ਟੂਲ ਉਪਲਬਧ ਨਹੀਂ ਹਨ</string>
     <string name="litert_performance_good">ਵਧੀਆ</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ਮਾੜਾ</string>

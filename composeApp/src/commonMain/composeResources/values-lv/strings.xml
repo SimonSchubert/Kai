@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Palaidiet AI modeļus tieši savā ierīcē. Nav nepieciešama API atslēga vai internets.</string>
     <string name="litert_download">Lejupielādēt</string>
     <string name="litert_cancel">Atcelt</string>
-    <string name="litert_limitations">Bez rīkiem, bez attēliem, bez heartbeat, 4K konteksta logs</string>
+    <string name="litert_tool_support">E-pasta, uzdevumu plānošanas un MCP servera rīki nav pieejami</string>
     <string name="litert_performance_good">Laba</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Vāja</string>

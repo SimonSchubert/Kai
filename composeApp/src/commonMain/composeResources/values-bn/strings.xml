@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">আপনার ডিভাইসে সরাসরি AI মডেল চালান। কোনো API কী বা ইন্টারনেট প্রয়োজন নেই।</string>
     <string name="litert_download">ডাউনলোড</string>
     <string name="litert_cancel">বাতিল</string>
-    <string name="litert_limitations">কোনো টুল ব্যবহার নেই, কোনো ছবি ইনপুট নেই, কোনো হার্টবিট নেই, 4K কনটেক্সট উইন্ডো</string>
+    <string name="litert_tool_support">ইমেল, টাস্ক শিডিউলিং এবং MCP সার্ভার টুল উপলব্ধ নয়</string>
     <string name="litert_performance_good">ভালো</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">দুর্বল</string>

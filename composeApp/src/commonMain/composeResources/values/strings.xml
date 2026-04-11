@@ -139,7 +139,7 @@
     <string name="litert_on_device_description">Run AI models directly on your device. No API key or internet required.</string>
     <string name="litert_download">Download</string>
     <string name="litert_cancel">Cancel</string>
-    <string name="litert_limitations">No tool use, no image input, no heartbeat, 4K context window</string>
+    <string name="litert_tool_support">Email, task scheduling, and MCP server tools are not available</string>
     <string name="litert_performance_good">Good</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Poor</string>

@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Sebenzisa amamodeli e-AI ngqo kudivayisi yakho. Akukho sihluthulelo se-API noma i-inthanethi edingekayo.</string>
     <string name="litert_download">Landa</string>
     <string name="litert_cancel">Khansela</string>
-    <string name="litert_limitations">Akukho ukusetshenziswa kwethuluzi, akukho okufakwayo kwezithombe, akukho i-heartbeat, iwindi lomongo we-4K</string>
+    <string name="litert_tool_support">Amathuluzi e-imeyili, ukuhlela imisebenzi, ne-MCP server awatholakali</string>
     <string name="litert_performance_good">Kuhle</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Kuphansi</string>

@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Magpatakbo ng mga AI model nang direkta sa iyong device. Hindi kailangan ng API key o internet.</string>
     <string name="litert_download">I-download</string>
     <string name="litert_cancel">Kanselahin</string>
-    <string name="litert_limitations">Walang tool use, walang image input, walang heartbeat, 4K context window</string>
+    <string name="litert_tool_support">Hindi available ang email, pag-iiskedyul ng gawain, at mga tool ng MCP server</string>
     <string name="litert_performance_good">Maganda</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Mahina</string>

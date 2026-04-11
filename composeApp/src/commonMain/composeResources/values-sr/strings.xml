@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">Покрените AI моделе директно на вашем уређају. Није потребан API кључ или интернет.</string>
     <string name="litert_download">Преузми</string>
     <string name="litert_cancel">Откажи</string>
-    <string name="litert_limitations">Без алата, без слика, без heartbeat-а, 4K прозор контекста</string>
+    <string name="litert_tool_support">Алати за е-пошту, заказивање задатака и MCP сервере нису доступни</string>
     <string name="litert_performance_good">Добро</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Лоше</string>

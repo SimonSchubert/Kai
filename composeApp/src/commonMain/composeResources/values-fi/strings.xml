@@ -231,7 +231,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="litert_on_device_description">Suorita tekoälymalleja suoraan laitteellasi. API-avainta tai internetiä ei tarvita.</string>
     <string name="litert_download">Lataa</string>
     <string name="litert_cancel">Peruuta</string>
-    <string name="litert_limitations">Ei työkaluja, ei kuvia, ei heartbeatia, 4K konteksti-ikkuna</string>
+    <string name="litert_tool_support">Sähköposti-, tehtävien ajastus- ja MCP-palvelintyökalut eivät ole käytettävissä</string>
     <string name="litert_performance_good">Hyvä</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Heikko</string>

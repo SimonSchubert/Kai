@@ -11,6 +11,7 @@ import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.data.SystemPromptVariant
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
@@ -303,7 +304,7 @@ class FakeDataRepository : DataRepository {
         soulText = text
     }
 
-    override suspend fun getActiveSystemPrompt(): String? = soulText.ifEmpty { null }
+    override suspend fun getActiveSystemPrompt(variant: SystemPromptVariant): String? = soulText.ifEmpty { null }
 
     // Memory management
     private var dynamicUiEnabled = true

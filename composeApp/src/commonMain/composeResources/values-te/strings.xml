@@ -230,7 +230,7 @@
     <string name="litert_on_device_description">మీ పరికరంలో నేరుగా AI మోడల్‌లను అమలు చేయండి. API కీ లేదా ఇంటర్నెట్ అవసరం లేదు.</string>
     <string name="litert_download">డౌన్‌లోడ్</string>
     <string name="litert_cancel">రద్దు</string>
-    <string name="litert_limitations">టూల్ వాడకం లేదు, ఇమేజ్ ఇన్‌పుట్ లేదు, హార్ట్‌బీట్ లేదు, 4K కాంటెక్స్ట్ విండో</string>
+    <string name="litert_tool_support">ఇమెయిల్, టాస్క్ షెడ్యూలింగ్ మరియు MCP సర్వర్ సాధనాలు అందుబాటులో లేవు</string>
     <string name="litert_performance_good">మంచి</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">తక్కువ</string>

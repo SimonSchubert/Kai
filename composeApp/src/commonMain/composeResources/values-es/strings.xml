@@ -231,7 +231,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="litert_on_device_description">Ejecuta modelos de IA directamente en tu dispositivo. No se necesita clave API ni internet.</string>
     <string name="litert_download">Descargar</string>
     <string name="litert_cancel">Cancelar</string>
-    <string name="litert_limitations">Sin herramientas, sin imágenes, sin heartbeat, ventana de contexto de 4K</string>
+    <string name="litert_tool_support">Las herramientas de correo, programación de tareas y servidores MCP no están disponibles</string>
     <string name="litert_performance_good">Bueno</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Bajo</string>

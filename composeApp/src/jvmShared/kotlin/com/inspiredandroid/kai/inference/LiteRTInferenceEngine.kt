@@ -6,7 +6,9 @@ import com.google.ai.edge.litertlm.ConversationConfig
 import com.google.ai.edge.litertlm.Engine
 import com.google.ai.edge.litertlm.EngineConfig
 import com.google.ai.edge.litertlm.Message
+import com.google.ai.edge.litertlm.OpenApiTool
 import com.google.ai.edge.litertlm.SamplerConfig
+import com.google.ai.edge.litertlm.tool
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +20,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.io.File
@@ -152,6 +155,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     override suspend fun chat(
         messages: List<InferenceMessage>,
         systemPrompt: String?,
+        tools: List<LocalTool>,
     ): String = withContext(Dispatchers.IO) {
         idleReleaseJob?.cancel()
         try {
@@ -160,23 +164,30 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             val lastUserIndex = messages.indexOfLast { it.role == "user" }
             if (lastUserIndex < 0) throw IllegalStateException("No user message found")
 
+            val sanitizedSystemPrompt = sanitizeForLiteRt(systemPrompt)
             val initialMessages = messages.subList(0, lastUserIndex).map { msg ->
+                val sanitized = sanitizeForLiteRt(msg.content) ?: ""
                 when (msg.role) {
-                    "user" -> Message.user(msg.content)
-                    else -> Message.model(msg.content)
+                    "user" -> Message.user(sanitized)
+                    else -> Message.model(sanitized)
                 }
             }
 
+            val toolProviders = tools.map { tool(LocalToolOpenApiAdapter(it)) }
             val config = ConversationConfig(
-                systemInstruction = systemPrompt?.let { Contents.of(it) },
+                systemInstruction = sanitizedSystemPrompt?.let { Contents.of(it) },
                 initialMessages = initialMessages,
+                tools = toolProviders,
                 samplerConfig = SamplerConfig(topK = 40, topP = 0.95, temperature = 0.8),
+                // automaticToolCalling = true drives the parser; only enable when we
+                // actually have tools, otherwise plain-text responses get parsed as FCs.
+                automaticToolCalling = toolProviders.isNotEmpty(),
             )
             conversation?.close()
             val conv = currentEngine.createConversation(config)
             conversation = conv
 
-            val lastMessage = messages[lastUserIndex].content
+            val lastMessage = sanitizeForLiteRt(messages[lastUserIndex].content) ?: ""
             val response = try {
                 withTimeout(INFERENCE_TIMEOUT_MS) {
                     conv.sendMessage(lastMessage)
@@ -188,6 +199,36 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         } finally {
             scheduleIdleRelease()
         }
+    }
+
+    /**
+     * Adapter that exposes a Kai [LocalTool] (suspend execute) to litert-lm's [OpenApiTool]
+     * (synchronous execute). The bridge uses [runBlocking] because the engine calls
+     * [execute] on its own worker thread (we're already inside `Dispatchers.IO` from
+     * [chat]) and waits for the result before continuing the tool loop.
+     */
+    private class LocalToolOpenApiAdapter(private val localTool: LocalTool) : OpenApiTool {
+        override fun getToolDescriptionJsonString(): String = localTool.descriptionJsonString
+        override fun execute(paramsJsonString: String): String = runBlocking { localTool.execute(paramsJsonString) }
+    }
+
+    /**
+     * Drops UTF-16 surrogate halves from the string. The litert-lm JNI layer passes
+     * strings to the native runtime as *modified* UTF-8, which encodes supplementary-plane
+     * characters (U+10000–U+10FFFF — most emoji like 🗺️, 🎉, 🔥) as surrogate-pair
+     * sequences where each half becomes a 3-byte block. That is invalid as *standard*
+     * UTF-8, and the native runtime's `nlohmann::json` parser crashes with "ill-formed
+     * UTF-8 byte" the moment it hits one.
+     *
+     * Filtering surrogates drops every supplementary character (both halves are surrogate
+     * code units in UTF-16) while leaving BMP characters — including BMP-only emoji like
+     * ⚔️, ♻️, ❤️, and all CJK / extended Latin / accented characters — untouched.
+     * No-op for strings that don't contain any supplementary character.
+     */
+    private fun sanitizeForLiteRt(s: String?): String? {
+        if (s == null) return null
+        if (s.none { it.isSurrogate() }) return s
+        return s.filter { !it.isSurrogate() }
     }
 
     private fun scheduleIdleRelease() {

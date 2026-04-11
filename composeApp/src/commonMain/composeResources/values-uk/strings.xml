@@ -231,7 +231,7 @@
     <string name="litert_on_device_description">Запускайте моделі ШІ безпосередньо на пристрої. API-ключ та інтернет не потрібні.</string>
     <string name="litert_download">Завантажити</string>
     <string name="litert_cancel">Скасувати</string>
-    <string name="litert_limitations">Без інструментів, без зображень, без heartbeat, контекстне вікно 4K</string>
+    <string name="litert_tool_support">Інструменти електронної пошти, планування завдань та серверів MCP недоступні</string>
     <string name="litert_performance_good">Добре</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Погано</string>
