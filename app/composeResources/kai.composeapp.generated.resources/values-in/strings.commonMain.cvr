@@ -45,6 +45,9 @@ string|litert_performance_good|QmFpaw==
 string|litert_performance_ok|T0s=
 string|litert_performance_poor|QnVydWs=
 string|litert_tool_support|QWxhdCBlbWFpbCwgcGVuamFkd2FsYW4gdHVnYXMsIGRhbiBzZXJ2ZXIgTUNQIHRpZGFrIHRlcnNlZGlh
+string|model_sort_context|S29udGVrcw==
+string|model_sort_date|VGFuZ2dhbA==
+string|model_sort_score|U2tvcg==
 string|new_chat_content_description|T2Jyb2xhbiBiYXJ1
 string|notification_channel_description|Tm90aWZpa2FzaSB5YW5nIGRpa2lyaW0gb2xlaCBhc2lzdGVuIEFJ
 string|notification_channel_name|Tm90aWZpa2FzaSBBSQ==

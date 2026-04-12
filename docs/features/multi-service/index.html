@@ -534,6 +534,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Model Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Cards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -994,6 +1011,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Model Selection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-cards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Cards
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1047,7 +1081,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-04-10</p>
+<p><strong>Last verified:</strong> 2026-04-12</p>
 <p>Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1261,6 +1295,16 @@
 - GroqCloud shows only models marked as active
 - Together AI filters by <code>type == "chat"</code> to exclude non-chat models (embedding, code, etc.)
 - Other services show all non-retired models</p>
+<h3 id="model-cards">Model Cards</h3>
+<p>The model picker modal shows each candidate as a card with consistent metadata regardless of provider:</p>
+<ul>
+<li><strong>Title</strong> (top left) — a human-readable display name from the curated catalog or the provider's API; falls back to the raw model id only when no display name is available</li>
+<li><strong>Arena score</strong> (top right) — LMArena Elo rating as colored text, gradient from green (&gt;= 1400) through lime/yellow to orange (&lt; 1250)</li>
+<li><strong>Detail chips</strong> (middle) — parameter count and context window (<code>200K ctx</code> / <code>1M ctx</code>) as neutral chips</li>
+<li><strong>Release date</strong> (bottom left) — month and year in muted text, e.g. <code>Mar 2025</code></li>
+</ul>
+<p>The modal includes sort chips (Date, Score, Ctx, Params) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by date (newest first).</p>
+<p>Context window and release date come from two sources, merged by the mapping layer: whatever the provider's own models endpoint returns (e.g. OpenAI-compat <code>context_window</code> and <code>created</code>, Anthropic <code>created_at</code>), and a bundled curated catalog of well-known models that fills gaps for providers whose API omits these fields (notably Gemini and Anthropic for context window). API data always wins over the catalog. Models not present in the catalog still render — their chips are simply hidden.</p>
 <h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
 <p>When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.</p>
 <h2 id="settings-ui">Settings UI</h2>
@@ -1282,6 +1326,14 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../data/Service.kt</code></td>
 <td>Service definitions, all provider metadata</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ModelCatalog.kt</code></td>
+<td>Curated context window / release date for well-known models</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ModelTransformations.kt</code></td>
+<td>Maps provider model DTOs to <code>SettingsModel</code>, merges with catalog</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/AppSettings.kt</code></td>
