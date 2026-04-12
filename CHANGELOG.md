@@ -1,3 +1,17 @@
+## v2.1.3 — 2026-04-12
+
+### Features
+- Add fast and expert mode toggles for free services
+- Add Windows menu entry
+- Enrich model catalog with arena scores, release dates, and context windows
+- Support multi-file upload for attachments
+- Enable simple tools for local Gemma 4
+- Select TTS voice based on current locale
+
+### Improvements
+- Improve conversation restore on app restart and settings navigation
+- Upgrade SDKs
+
 ## v2.1.2 — 2026-04-09
 
 ### Features
