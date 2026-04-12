@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Never</string>
     <string name="settings_add_service">Engeza isevisi</string>
     <string name="settings_free_fallback">Sebenzisa njengokungukuhlehla</string>
+    <string name="service_free_fast">Mahhala Okukhulu</string>
+    <string name="service_free_expert">Mahhala Ungoti</string>
     <string name="settings_heartbeat">Ukushaya kwenhliziyo</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Lokhu ukuhlolwa kwezenzakalelayo. Buyekeza izinkumbulo zakho nemisebenzi esalindile. Uma konke kukuhle futhi akukho okudinga ukunakwa, phendula ngokuthe ngqo: HEARTBEAT_OK\nUma kukhona okudinga ukunakwa (izinkumbulo ezindala, imisebenzi esifikile, ukulandela komsebenzisi), kubhekane nakho.</string>
     <string name="settings_heartbeat_description">Ukuhlolwa kwezenzakalelayo okwesikhashana okuvumela i-AI ukuthi ibuyekeze izinkumbulo nemisebenzi ngaphandle kokufakwa komsebenzisi. Isebenza njalo ngemizuzu engu-%1$d ngamahora asebenzayo.</string>

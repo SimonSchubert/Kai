@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">कधीच नाही</string>
     <string name="settings_add_service">सेवा जोडा</string>
     <string name="settings_free_fallback">फॉलबॅक म्हणून वापरा</string>
+    <string name="service_free_fast">मोफत जलद</string>
+    <string name="service_free_expert">मोफत तज्ञ</string>
     <string name="settings_heartbeat">हृदयस्पंदन</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ही एक स्वयंचलित स्व-तपासणी आहे. तुमच्या आठवणी आणि प्रलंबित कार्ये तपासा. सर्व काही ठीक असल्यास आणि काहीही लक्ष देण्याची गरज नसल्यास, नेमके हे उत्तर द्या: HEARTBEAT_OK\nजर काहीतरी लक्ष देण्याची गरज असेल (जुन्या आठवणी, देय कार्ये, वापरकर्ता फॉलो-अप), त्यावर कार्यवाही करा.</string>
     <string name="settings_heartbeat_description">नियतकालिक स्व-तपासण्या ज्या AI ला वापरकर्ता इनपुटशिवाय आठवणी आणि कार्ये तपासू देतात. सक्रिय तासांमध्ये दर %1$d मिनिटांनी चालते.</string>

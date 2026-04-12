@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Nikoli</string>
     <string name="settings_add_service">Dodaj storitev</string>
     <string name="settings_free_fallback">Uporabi kot rezervo</string>
+    <string name="service_free_fast">Brezplačno hitro</string>
+    <string name="service_free_expert">Brezplačno strokovnjak</string>
     <string name="settings_heartbeat">Srčni utrip</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] To je samodejno samopreverjanje. Preglej svoje spomine in čakajoče naloge. Če je vse v redu in nič ne zahteva pozornosti, odgovori natančno z: HEARTBEAT_OK\nČe nekaj zahteva pozornost (zastareli spomini, zapadle naloge, uporabniška spremljanja), se tega loti.</string>
     <string name="settings_heartbeat_description">Periodična samopreverjanja, ki UI omogočajo pregled spominov in nalog brez uporabniškega vnosa. Izvaja se vsakih %1$d minut med aktivnimi urami.</string>

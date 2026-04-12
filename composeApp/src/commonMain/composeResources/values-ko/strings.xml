@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">안 함</string>
     <string name="settings_add_service">서비스 추가</string>
     <string name="settings_free_fallback">대체로 사용</string>
+    <string name="service_free_fast">무료 빠른</string>
+    <string name="service_free_expert">무료 전문가</string>
     <string name="settings_heartbeat">하트비트</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] 이것은 자동 자가 점검입니다. 기억과 대기 중인 작업을 검토하세요. 모든 것이 괜찮고 주의가 필요한 것이 없다면 정확히 다음과 같이 응답하세요: HEARTBEAT_OK
 주의가 필요한 것이 있다면(오래된 기억, 만료된 작업, 사용자 후속 조치) 처리하세요.</string>

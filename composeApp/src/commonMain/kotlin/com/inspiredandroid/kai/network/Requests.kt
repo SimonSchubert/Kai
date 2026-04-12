@@ -180,7 +180,7 @@ class Requests {
         requestTimeoutMs: Long? = null,
     ): Result<OpenAICompatibleChatResponseDto> = try {
         val apiKey = getApiKeyOrThrow(service, credentials)
-        val model = if (service == Service.Free) null else credentials.modelId.ifEmpty { null }
+        val model = credentials.modelId.ifEmpty { null }
         val url = resolveUrl(service, credentials, service.chatUrl)
         val response: HttpResponse =
             defaultClient.post(url) {

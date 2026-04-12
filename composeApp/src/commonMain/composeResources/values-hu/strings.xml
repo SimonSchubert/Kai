@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Soha</string>
     <string name="settings_add_service">Szolgáltatás hozzáadása</string>
     <string name="settings_free_fallback">Tartalékként használ</string>
+    <string name="service_free_fast">Ingyenes gyors</string>
+    <string name="service_free_expert">Ingyenes szakértő</string>
     <string name="settings_heartbeat">Szívverés</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ez egy automatikus önellenőrzés. Tekintsd át az emlékeidet és a függő feladatokat. Ha minden rendben van és semmi sem igényel figyelmet, válaszolj pontosan ezzel: HEARTBEAT_OK\nHa valami figyelmet igényel (elavult emlékek, esedékes feladatok, felhasználói utánkövetések), foglalkozz vele.</string>
     <string name="settings_heartbeat_description">Időszakos önellenőrzések, amelyek lehetővé teszik az AI számára az emlékek és feladatok áttekintését felhasználói beavatkozás nélkül. Minden %1$d percben fut az aktív órákban.</string>

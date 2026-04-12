@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">從不</string>
     <string name="settings_add_service">新增服務</string>
     <string name="settings_free_fallback">用作備選</string>
+    <string name="service_free_fast">免費快速</string>
+    <string name="service_free_expert">免費專家</string>
     <string name="settings_heartbeat">心跳</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] 這是一次自動自我檢查。檢查你的記憶和待處理任務。如果一切正常且無需關注，請準確回覆：HEARTBEAT_OK
 如果有需要關注的事項（過時的記憶、到期的任務、使用者跟進），請處理。</string>

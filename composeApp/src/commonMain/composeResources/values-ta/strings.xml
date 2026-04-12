@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">ஒருபோதும் இல்லை</string>
     <string name="settings_add_service">சேவையைச் சேர்</string>
     <string name="settings_free_fallback">மாற்றாகப் பயன்படுத்து</string>
+    <string name="service_free_fast">இலவச வேகம்</string>
+    <string name="service_free_expert">இலவச நிபுணர்</string>
     <string name="settings_heartbeat">இதயத்துடிப்பு</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] இது ஒரு தானியங்கி சுய சோதனை. உங்கள் நினைவுகளையும் நிலுவையில் உள்ள பணிகளையும் மதிப்பாய்வு செய்யுங்கள். எல்லாம் நன்றாக இருந்தால் மற்றும் எதுவும் கவனிக்க வேண்டியதில்லை என்றால், சரியாக பதிலளிக்கவும்: HEARTBEAT_OK\nஏதாவது கவனிக்க வேண்டியிருந்தால் (பழைய நினைவுகள், நிலுவை பணிகள், பயனர் தொடர்கள்), அதைக் கவனியுங்கள்.</string>
     <string name="settings_heartbeat_description">பயனர் உள்ளீடு இல்லாமல் AI நினைவுகளையும் பணிகளையும் மதிப்பாய்வு செய்ய அனுமதிக்கும் அவ்வப்போது சுய சோதனைகள். செயலில் உள்ள நேரங்களில் ஒவ்வொரு %1$d நிமிடங்களுக்கும் இயங்கும்.</string>

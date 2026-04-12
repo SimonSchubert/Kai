@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Kurrë</string>
     <string name="settings_add_service">Shto shërbim</string>
     <string name="settings_free_fallback">Përdor si rezervë</string>
+    <string name="service_free_fast">Falas i shpejtë</string>
+    <string name="service_free_expert">Falas ekspert</string>
     <string name="settings_heartbeat">Rrahjet e zemrës</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Kjo është një vetëkontroll automatik. Shqyrto kujtimet dhe detyrat në pritje. Nëse gjithçka duket mirë dhe asgjë nuk kërkon vëmendje, përgjigju me saktësisht: HEARTBEAT_OK\nNëse diçka kërkon vëmendje (kujtime të vjetruara, detyra të vonuara, ndjekje përdoruesi), merru me të.</string>
     <string name="settings_heartbeat_description">Vetëkontrolle periodike që lejojnë AI-n të shqyrtojë kujtimet dhe detyrat pa ndërhyrje të përdoruesit. Ekzekutohet çdo %1$d minuta gjatë orëve aktive.</string>

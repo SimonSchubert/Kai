@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Kamwe</string>
     <string name="settings_add_service">Ongeza huduma</string>
     <string name="settings_free_fallback">Tumia kama mbadala</string>
+    <string name="service_free_fast">Bure Haraka</string>
+    <string name="service_free_expert">Bure Mtaalamu</string>
     <string name="settings_heartbeat">Mapigo ya moyo</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Hii ni ukaguzi wa kiotomatiki. Kagua kumbukumbu zako na kazi zinazosubiri. Ikiwa kila kitu kiko sawa na hakuna kinachohitaji umakini, jibu kwa usahihi: HEARTBEAT_OK\nIkiwa kitu kinahitaji umakini (kumbukumbu za zamani, kazi zilizofika, ufuatiliaji wa mtumiaji), shughulikia.</string>
     <string name="settings_heartbeat_description">Ukaguzi wa kiotomatiki unaoruhusu AI kukagua kumbukumbu na kazi bila mchango wa mtumiaji. Inafanya kazi kila dakika %1$d wakati wa masaa ya shughuli.</string>

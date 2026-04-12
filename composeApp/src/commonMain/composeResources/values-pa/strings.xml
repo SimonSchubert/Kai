@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">ਕਦੇ ਨਹੀਂ</string>
     <string name="settings_add_service">ਸੇਵਾ ਜੋੜੋ</string>
     <string name="settings_free_fallback">ਫਾਲਬੈਕ ਵਜੋਂ ਵਰਤੋ</string>
+    <string name="service_free_fast">ਮੁਫ਼ਤ ਤੇਜ਼</string>
+    <string name="service_free_expert">ਮੁਫ਼ਤ ਮਾਹਰ</string>
     <string name="settings_heartbeat">ਦਿਲ ਦੀ ਧੜਕਣ</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ਇਹ ਇੱਕ ਆਟੋਮੈਟਿਕ ਸਵੈ-ਜਾਂਚ ਹੈ। ਆਪਣੀਆਂ ਯਾਦਾਂ ਅਤੇ ਬਕਾਇਆ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ। ਜੇ ਸਭ ਕੁਝ ਠੀਕ ਹੈ ਅਤੇ ਕਿਸੇ ਧਿਆਨ ਦੀ ਲੋੜ ਨਹੀਂ, ਤਾਂ ਬਿਲਕੁਲ ਇਹ ਜਵਾਬ ਦਿਓ: HEARTBEAT_OK\nਜੇ ਕਿਸੇ ਚੀਜ਼ ਨੂੰ ਧਿਆਨ ਦੀ ਲੋੜ ਹੈ (ਪੁਰਾਣੀਆਂ ਯਾਦਾਂ, ਬਕਾਇਆ ਕੰਮ, ਉਪਭੋਗਤਾ ਫਾਲੋ-ਅੱਪ), ਇਸ ਨੂੰ ਸੰਭਾਲੋ।</string>
     <string name="settings_heartbeat_description">ਸਮੇਂ-ਸਮੇਂ ਦੀਆਂ ਸਵੈ-ਜਾਂਚਾਂ ਜੋ AI ਨੂੰ ਉਪਭੋਗਤਾ ਇਨਪੁਟ ਤੋਂ ਬਿਨਾਂ ਯਾਦਾਂ ਅਤੇ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰਨ ਦਿੰਦੀਆਂ ਹਨ। ਸਰਗਰਮ ਘੰਟਿਆਂ ਦੌਰਾਨ ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੱਲਦੀਆਂ ਹਨ।</string>

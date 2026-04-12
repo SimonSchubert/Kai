@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Ei koskaan</string>
     <string name="settings_add_service">Lisää palvelu</string>
     <string name="settings_free_fallback">Käytä varavaihtoehtona</string>
+    <string name="service_free_fast">Ilmainen nopea</string>
+    <string name="service_free_expert">Ilmainen asiantuntija</string>
     <string name="settings_heartbeat">Syke</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Tämä on automaattinen itsetarkistus. Tarkista muistisi ja odottavat tehtävät. Jos kaikki näyttää hyvältä eikä mikään vaadi huomiota, vastaa tarkasti: HEARTBEAT_OK
 Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyttäjän seurannat), hoida se.</string>

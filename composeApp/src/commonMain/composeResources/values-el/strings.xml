@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Ποτέ</string>
     <string name="settings_add_service">Προσθήκη υπηρεσίας</string>
     <string name="settings_free_fallback">Χρήση ως εφεδρικό</string>
+    <string name="service_free_fast">Δωρεάν γρήγορο</string>
+    <string name="service_free_expert">Δωρεάν ειδικός</string>
     <string name="settings_heartbeat">Παλμός</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Αυτός είναι ένας αυτόματος αυτοέλεγχος. Εξέτασε τις αναμνήσεις και τις εκκρεμείς εργασίες σου. Αν όλα φαίνονται εντάξει και τίποτα δεν χρειάζεται προσοχή, απάντησε ακριβώς: HEARTBEAT_OK\nΑν κάτι χρειάζεται προσοχή (παλιές αναμνήσεις, εκκρεμείς εργασίες, ερωτήματα χρήστη), ασχολήσου με αυτό.</string>
     <string name="settings_heartbeat_description">Περιοδικοί αυτοέλεγχοι που επιτρέπουν στην AI να ελέγχει αναμνήσεις και εργασίες χωρίς είσοδο χρήστη. Εκτελείται κάθε %1$d λεπτά κατά τις ενεργές ώρες.</string>

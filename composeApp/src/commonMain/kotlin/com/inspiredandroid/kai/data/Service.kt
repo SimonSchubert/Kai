@@ -7,6 +7,8 @@ import kai.composeapp.generated.resources.ic_service_cerebras
 import kai.composeapp.generated.resources.ic_service_deepinfra
 import kai.composeapp.generated.resources.ic_service_deepseek
 import kai.composeapp.generated.resources.ic_service_fireworksai
+import kai.composeapp.generated.resources.ic_service_free_expert
+import kai.composeapp.generated.resources.ic_service_free_fast
 import kai.composeapp.generated.resources.ic_service_gemini
 import kai.composeapp.generated.resources.ic_service_groqcloud
 import kai.composeapp.generated.resources.ic_service_huggingface
@@ -26,8 +28,18 @@ import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
 import kai.composeapp.generated.resources.ic_service_xai
 import kai.composeapp.generated.resources.ic_service_zai
+import kai.composeapp.generated.resources.service_free_expert
+import kai.composeapp.generated.resources.service_free_fast
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
+
+enum class FreeMode(val modelId: String, val nameRes: StringResource, val icon: DrawableResource) {
+    FAST("fast", Res.string.service_free_fast, Res.drawable.ic_service_free_fast),
+    EXPERT("expert", Res.string.service_free_expert, Res.drawable.ic_service_free_expert),
+    ;
+
+    val instanceId: String get() = "free-$modelId"
+}
 
 data class ModelDefinition(
     val id: String,
@@ -58,7 +70,7 @@ sealed class Service(
     data object Free : Service(
         id = "free",
         displayName = "Free",
-        icon = Res.drawable.ic_service_openai_compatible,
+        icon = Res.drawable.ic_service_free_fast,
         requiresApiKey = false,
         defaultModel = null,
         settingsKeyPrefix = "",

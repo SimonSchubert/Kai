@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Hindi kailanman</string>
     <string name="settings_add_service">Magdagdag ng serbisyo</string>
     <string name="settings_free_fallback">Gamitin bilang fallback</string>
+    <string name="service_free_fast">Libreng Mabilis</string>
+    <string name="service_free_expert">Libreng Eksperto</string>
     <string name="settings_heartbeat">Tibok ng Puso</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ito ay isang awtomatikong self-check. Suriin ang iyong mga alaala at mga nakabinbing gawain. Kung mukhang maayos ang lahat at walang nangangailangan ng atensyon, tumugon nang eksakto: HEARTBEAT_OK\nKung may nangangailangan ng atensyon (lumang mga alaala, mga takdang gawain, mga follow-up ng user), tugunan ito.</string>
     <string name="settings_heartbeat_description">Mga peryodikong self-check na nagpapahintulot sa AI na suriin ang mga alaala at gawain nang walang input mula sa user. Tumatakbo tuwing %1$d minuto sa mga aktibong oras.</string>

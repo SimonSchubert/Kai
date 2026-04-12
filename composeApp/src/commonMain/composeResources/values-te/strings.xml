@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">ఎప్పుడూ వద్దు</string>
     <string name="settings_add_service">సేవను జోడించు</string>
     <string name="settings_free_fallback">ఫాల్‌బ్యాక్‌గా ఉపయోగించు</string>
+    <string name="service_free_fast">ఉచిత వేగం</string>
+    <string name="service_free_expert">ఉచిత నిపుణుడు</string>
     <string name="settings_heartbeat">హృదయ స్పందన</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ఇది ఆటోమేటిక్ స్వీయ తనిఖీ. మీ జ్ఞాపకాలు మరియు పెండింగ్ టాస్క్‌లను సమీక్షించండి. అంతా బాగున్నట్లయితే మరియు ఏదీ శ్రద్ధ అవసరం లేకపోతే, సరిగ్గా ఇలా సమాధానం ఇవ్వండి: HEARTBEAT_OK\nఏదైనా శ్రద్ధ అవసరమైతే (పాత జ్ఞాపకాలు, గడువు తీరిన టాస్క్‌లు, వినియోగదారు ఫాలో-అప్‌లు), దాన్ని పరిష్కరించండి.</string>
     <string name="settings_heartbeat_description">వినియోగదారు ఇన్‌పుట్ లేకుండా AI జ్ఞాపకాలు మరియు టాస్క్‌లను సమీక్షించడానికి అనుమతించే ఆవర్తన స్వీయ తనిఖీలు. సక్రియ గంటల్లో ప్రతి %1$d నిమిషాలకు అమలవుతుంది.</string>

@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Tidak pernah</string>
     <string name="settings_add_service">Tambah perkhidmatan</string>
     <string name="settings_free_fallback">Gunakan sebagai sandaran</string>
+    <string name="service_free_fast">Percuma Pantas</string>
+    <string name="service_free_expert">Percuma Pakar</string>
     <string name="settings_heartbeat">Degupan Jantung</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ini adalah semakan kendiri automatik. Semak ingatan dan tugas tertangguh anda. Jika semuanya baik dan tiada yang memerlukan perhatian, balas dengan tepat: HEARTBEAT_OK\nJika sesuatu memerlukan perhatian (ingatan lapuk, tugas tertunggak, susulan pengguna), tanganinya.</string>
     <string name="settings_heartbeat_description">Semakan kendiri berkala yang membolehkan AI menyemak ingatan dan tugas tanpa input pengguna. Berjalan setiap %1$d minit semasa waktu aktif.</string>

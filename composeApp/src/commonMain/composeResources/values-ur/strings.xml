@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">کبھی نہیں</string>
     <string name="settings_add_service">سروس شامل کریں</string>
     <string name="settings_free_fallback">متبادل کے طور پر استعمال کریں</string>
+    <string name="service_free_fast">مفت تیز</string>
+    <string name="service_free_expert">مفت ماہر</string>
     <string name="settings_heartbeat">دل کی دھڑکن</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] یہ ایک خودکار سیلف چیک ہے۔ اپنی یادداشتوں اور زیر التوا کاموں کا جائزہ لیں۔ اگر سب کچھ ٹھیک ہے اور کسی چیز پر توجہ کی ضرورت نہیں ہے تو بالکل اس طرح جواب دیں: HEARTBEAT_OK\nاگر کسی چیز پر توجہ کی ضرورت ہے (پرانی یادداشتیں، واجب الادا کام، صارف کے فالو اپ)، اسے حل کریں۔</string>
     <string name="settings_heartbeat_description">وقتاً فوقتاً سیلف چیک جو AI کو صارف کے ان پٹ کے بغیر یادداشتوں اور کاموں کا جائزہ لینے دیتے ہیں۔ فعال اوقات میں ہر %1$d منٹ بعد چلتا ہے۔</string>

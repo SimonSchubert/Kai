@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">أبداً</string>
     <string name="settings_add_service">إضافة خدمة</string>
     <string name="settings_free_fallback">استخدام كاحتياطي</string>
+    <string name="service_free_fast">مجاني سريع</string>
+    <string name="service_free_expert">مجاني خبير</string>
     <string name="settings_heartbeat">نبض القلب</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] هذا فحص ذاتي تلقائي. راجع ذكرياتك والمهام المعلقة. إذا كان كل شيء على ما يرام ولا شيء يحتاج اهتمامًا، أجب بالضبط: HEARTBEAT_OK
 إذا كان شيء ما يحتاج اهتمامًا (ذكريات قديمة، مهام مستحقة، متابعات المستخدم)، عالجه.</string>

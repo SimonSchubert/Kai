@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Nikdy</string>
     <string name="settings_add_service">Přidat službu</string>
     <string name="settings_free_fallback">Použít jako zálohu</string>
+    <string name="service_free_fast">Zdarma rychlý</string>
+    <string name="service_free_expert">Zdarma expert</string>
     <string name="settings_heartbeat">Srdeční tep</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Toto je automatická sebekontrola. Zkontroluj své vzpomínky a nevyřízené úkoly. Pokud je vše v pořádku a nic nevyžaduje pozornost, odpověz přesně: HEARTBEAT_OK\nPokud něco vyžaduje pozornost (zastaralé vzpomínky, splatné úkoly, následná komunikace s uživatelem), postarej se o to.</string>
     <string name="settings_heartbeat_description">Periodické sebekontroly, které umožňují AI kontrolovat vzpomínky a úkoly bez vstupu uživatele. Spouští se každých %1$d minut v aktivních hodinách.</string>

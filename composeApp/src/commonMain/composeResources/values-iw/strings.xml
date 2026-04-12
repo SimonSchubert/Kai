@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">אף פעם</string>
     <string name="settings_add_service">הוסף שירות</string>
     <string name="settings_free_fallback">השתמש כחלופה</string>
+    <string name="service_free_fast">חינם מהיר</string>
+    <string name="service_free_expert">חינם מומחה</string>
     <string name="settings_heartbeat">פעימת לב</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] זוהי בדיקה עצמית אוטומטית. סקור את הזיכרונות והמשימות הממתינות שלך. אם הכל תקין ושום דבר לא דורש תשומת לב, השב בדיוק: HEARTBEAT_OK\nאם משהו דורש תשומת לב (זיכרונות מיושנים, משימות שהגיע מועדן, מעקבים של משתמשים), טפל בכך.</string>
     <string name="settings_heartbeat_description">בדיקות עצמיות תקופתיות המאפשרות לבינה המלאכותית לסקור זיכרונות ומשימות ללא קלט מהמשתמש. פועל כל %1$d דקות בשעות הפעילות.</string>

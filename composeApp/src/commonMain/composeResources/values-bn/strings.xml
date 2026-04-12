@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">কখনো না</string>
     <string name="settings_add_service">পরিষেবা যোগ করুন</string>
     <string name="settings_free_fallback">ফলব্যাক হিসেবে ব্যবহার করুন</string>
+    <string name="service_free_fast">ফ্রি ফাস্ট</string>
+    <string name="service_free_expert">ফ্রি এক্সপার্ট</string>
     <string name="settings_heartbeat">হার্টবিট</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] এটি একটি স্বয়ংক্রিয় আত্ম-পরীক্ষা। তোমার স্মৃতি এবং মুলতুবি কাজগুলি পর্যালোচনা করো। যদি সবকিছু ঠিক থাকে এবং কোনো কিছুতে মনোযোগের প্রয়োজন না হয়, ঠিক এইভাবে উত্তর দাও: HEARTBEAT_OK\nযদি কিছুতে মনোযোগের প্রয়োজন হয় (পুরানো স্মৃতি, বকেয়া কাজ, ব্যবহারকারীর ফলো-আপ), সেটি সমাধান করো।</string>
     <string name="settings_heartbeat_description">পর্যায়ক্রমিক আত্ম-পরীক্ষা যা AI-কে ব্যবহারকারীর ইনপুট ছাড়াই স্মৃতি এবং কাজ পর্যালোচনা করতে দেয়। সক্রিয় সময়ে প্রতি %1$d মিনিটে চলে।</string>

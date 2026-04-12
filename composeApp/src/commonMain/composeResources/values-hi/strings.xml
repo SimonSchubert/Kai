@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">कभी नहीं</string>
     <string name="settings_add_service">सेवा जोड़ें</string>
     <string name="settings_free_fallback">फ़ॉलबैक के रूप में उपयोग करें</string>
+    <string name="service_free_fast">मुफ़्त तेज़</string>
+    <string name="service_free_expert">मुफ़्त विशेषज्ञ</string>
     <string name="settings_heartbeat">हार्टबीट</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] यह एक स्वचालित आत्म-जाँच है। अपनी यादों और लंबित कार्यों की समीक्षा करें। यदि सब कुछ ठीक है और किसी चीज़ पर ध्यान देने की आवश्यकता नहीं है, तो बिल्कुल इस प्रकार उत्तर दें: HEARTBEAT_OK
 यदि किसी चीज़ पर ध्यान देने की आवश्यकता है (पुरानी यादें, देय कार्य, उपयोगकर्ता अनुवर्ती), तो उसे संभालें।</string>

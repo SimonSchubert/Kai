@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Nikad</string>
     <string name="settings_add_service">Dodaj uslugu</string>
     <string name="settings_free_fallback">Koristi kao zamjenu</string>
+    <string name="service_free_fast">Besplatno brzo</string>
+    <string name="service_free_expert">Besplatno stručnjak</string>
     <string name="settings_heartbeat">Otkucaj srca</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ovo je automatska samoprovjera. Pregledaj svoja sjećanja i zadatke na čekanju. Ako je sve u redu i ništa ne zahtijeva pažnju, odgovori točno s: HEARTBEAT_OK\nAko nešto zahtijeva pažnju (zastarjela sjećanja, dospjeli zadaci, korisničke nadopune), pozabavi se time.</string>
     <string name="settings_heartbeat_description">Periodične samoprovjere koje omogućuju AI-ju pregled sjećanja i zadataka bez korisničkog unosa. Pokreće se svakih %1$d minuta tijekom aktivnih sati.</string>

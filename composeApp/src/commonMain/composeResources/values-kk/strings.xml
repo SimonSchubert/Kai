@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Ешқашан</string>
     <string name="settings_add_service">Қызметті қосу</string>
     <string name="settings_free_fallback">Қосалқы ретінде пайдалану</string>
+    <string name="service_free_fast">Тегін жылдам</string>
+    <string name="service_free_expert">Тегін сарапшы</string>
     <string name="settings_heartbeat">Жүрек соғысы</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Бұл автоматты өзін-өзі тексеру. Естеліктеріңіз бен күтудегі тапсырмаларды қарап шығыңыз. Егер бәрі жақсы болса және ешнәрсе назар аударуды қажет етпесе, дәл осылай жауап беріңіз: HEARTBEAT_OK\nЕгер бірнәрсе назар аударуды қажет етсе (ескірген естеліктер, мерзімі келген тапсырмалар, пайдаланушы кейінгі әрекеттері), оны шешіңіз.</string>
     <string name="settings_heartbeat_description">AI-ға пайдаланушы енгізуінсіз естеліктер мен тапсырмаларды қарауға мүмкіндік беретін мерзімді өзін-өзі тексерулер. Белсенді сағаттарда әр %1$d минут сайын іске қосылады.</string>

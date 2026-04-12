@@ -217,7 +217,11 @@ class RemoteDataRepository(
     /** Build credentials from per-instance settings */
     private fun instanceCredentials(instanceId: String, service: Service): ServiceCredentials = ServiceCredentials(
         apiKey = appSettings.getInstanceApiKey(instanceId),
-        modelId = appSettings.getInstanceModelId(instanceId).ifEmpty { appSettings.getSelectedModelId(service) },
+        modelId = if (service == Service.Free) {
+            appSettings.getFreeMode().modelId
+        } else {
+            appSettings.getInstanceModelId(instanceId).ifEmpty { appSettings.getSelectedModelId(service) }
+        },
         baseUrl = appSettings.getInstanceBaseUrl(instanceId).ifEmpty { appSettings.getBaseUrl(service) },
     )
 
@@ -236,6 +240,7 @@ class RemoteDataRepository(
         val current = appSettings.getConfiguredServiceInstances().toMutableList()
         current.add(instance)
         appSettings.setConfiguredServiceInstances(current)
+        appSettings.setFreeServicePrimary(false)
         return instance
     }
 
@@ -272,6 +277,18 @@ class RemoteDataRepository(
 
     override fun setFreeFallbackEnabled(enabled: Boolean) {
         appSettings.setFreeFallbackEnabled(enabled)
+    }
+
+    override fun getFreeMode(): FreeMode = appSettings.getFreeMode()
+
+    override fun setFreeMode(mode: FreeMode) {
+        appSettings.setFreeMode(mode)
+    }
+
+    override fun isFreeServicePrimary(): Boolean = appSettings.isFreeServicePrimary()
+
+    override fun setFreeServicePrimary(primary: Boolean) {
+        appSettings.setFreeServicePrimary(primary)
     }
 
     // Per-instance settings
@@ -669,10 +686,13 @@ class RemoteDataRepository(
         val entries = instances.map { FallbackEntry(instanceId = it.instanceId, service = Service.fromId(it.serviceId)) }
             .filter { it.service != Service.Free }
             .filter { !it.service.isOnDevice || localInferenceEngine != null }
+        val freeEntry = FallbackEntry(instanceId = "free", service = Service.Free)
         return if (entries.isEmpty()) {
-            listOf(FallbackEntry(instanceId = "free", service = Service.Free))
+            listOf(freeEntry)
+        } else if (appSettings.isFreeServicePrimary()) {
+            listOf(freeEntry) + entries
         } else if (appSettings.isFreeFallbackEnabled()) {
-            entries + FallbackEntry(instanceId = "free", service = Service.Free)
+            entries + freeEntry
         } else {
             entries
         }
@@ -1482,6 +1502,7 @@ class RemoteDataRepository(
     }
 
     override fun currentService(): Service {
+        if (appSettings.isFreeServicePrimary()) return Service.Free
         val instances = getConfiguredServiceInstances()
         return instances.firstOrNull()?.let { Service.fromId(it.serviceId) } ?: Service.Free
     }

@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Hiçbir zaman</string>
     <string name="settings_add_service">Hizmet ekle</string>
     <string name="settings_free_fallback">Yedek olarak kullan</string>
+    <string name="service_free_fast">Ücretsiz hızlı</string>
+    <string name="service_free_expert">Ücretsiz uzman</string>
     <string name="settings_heartbeat">Kalp Atışı</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Bu otomatik bir öz kontroldür. Anılarınızı ve bekleyen görevleri gözden geçirin. Her şey yolunda görünüyorsa ve hiçbir şey dikkat gerektirmiyorsa, tam olarak şunu yanıtlayın: HEARTBEAT_OK
 Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullanıcı takipleri), bununla ilgilenin.</string>

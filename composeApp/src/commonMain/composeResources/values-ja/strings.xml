@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">しない</string>
     <string name="settings_add_service">サービスを追加</string>
     <string name="settings_free_fallback">フォールバックとして使用</string>
+    <string name="service_free_fast">無料 高速</string>
+    <string name="service_free_expert">無料 エキスパート</string>
     <string name="settings_heartbeat">ハートビート</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] これは自動セルフチェックです。記憶と保留中のタスクを確認してください。すべて問題なく何も注意を必要としない場合は、正確に次のように応答してください: HEARTBEAT_OK
 何かが注意を必要とする場合（古い記憶、期限のタスク、ユーザーフォローアップ）、対処してください。</string>

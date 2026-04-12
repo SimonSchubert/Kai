@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Nie</string>
     <string name="settings_add_service">Dienst hinzufügen</string>
     <string name="settings_free_fallback">Als Fallback verwenden</string>
+    <string name="service_free_fast">Gratis Schnell</string>
+    <string name="service_free_expert">Gratis Experte</string>
     <string name="settings_heartbeat">Herzschlag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dies ist eine automatische Selbstprüfung. Überprüfe deine Erinnerungen und ausstehenden Aufgaben. Wenn alles in Ordnung ist und nichts Aufmerksamkeit erfordert, antworte mit genau: HEARTBEAT_OK
 Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, Benutzer-Nachfragen), kümmere dich darum.</string>

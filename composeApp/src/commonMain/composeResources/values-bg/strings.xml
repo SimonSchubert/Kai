@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Никога</string>
     <string name="settings_add_service">Добавяне на услуга</string>
     <string name="settings_free_fallback">Използвай като резервен</string>
+    <string name="service_free_fast">Безплатен бърз</string>
+    <string name="service_free_expert">Безплатен експерт</string>
     <string name="settings_heartbeat">Сърцебиене</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Това е автоматична самопроверка. Прегледай спомените и чакащите задачи. Ако всичко изглежда наред и нищо не изисква внимание, отговори точно с: HEARTBEAT_OK\nАко нещо изисква внимание (остарели спомени, дължими задачи, последващи действия от потребителя), обърни му внимание.</string>
     <string name="settings_heartbeat_description">Периодични самопроверки, които позволяват на AI да преглежда спомени и задачи без потребителски вход. Изпълнява се на всеки %1$d минути в активните часове.</string>

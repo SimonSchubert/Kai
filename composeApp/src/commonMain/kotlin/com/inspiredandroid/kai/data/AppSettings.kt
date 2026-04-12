@@ -396,6 +396,21 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean(KEY_FREE_FALLBACK_ENABLED, enabled)
     }
 
+    fun getFreeMode(): FreeMode {
+        val stored = settings.getStringOrNull(KEY_FREE_MODE) ?: return FreeMode.FAST
+        return FreeMode.entries.find { it.name == stored } ?: FreeMode.FAST
+    }
+
+    fun setFreeMode(mode: FreeMode) {
+        settings.putString(KEY_FREE_MODE, mode.name)
+    }
+
+    fun isFreeServicePrimary(): Boolean = settings.getBoolean(KEY_FREE_SERVICE_PRIMARY, false)
+
+    fun setFreeServicePrimary(primary: Boolean) {
+        settings.putBoolean(KEY_FREE_SERVICE_PRIMARY, primary)
+    }
+
     // Soul (system prompt)
     fun getSoulText(): String = settings.getString(KEY_SOUL, "")
 
@@ -1021,6 +1036,8 @@ class AppSettings(private val settings: Settings) {
         const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
         const val KEY_CONFIGURED_SERVICES = "configured_services"
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
+        const val KEY_FREE_MODE = "free_mode"
+        const val KEY_FREE_SERVICE_PRIMARY = "free_service_primary"
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
         const val KEY_UI_SCALE = "ui_scale"
         const val KEY_MCP_SERVERS = "mcp_servers"

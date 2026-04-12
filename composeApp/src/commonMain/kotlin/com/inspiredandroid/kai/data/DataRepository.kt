@@ -23,6 +23,10 @@ interface DataRepository {
     fun getServiceEntries(): List<ServiceEntry>
     fun isFreeFallbackEnabled(): Boolean
     fun setFreeFallbackEnabled(enabled: Boolean)
+    fun getFreeMode(): FreeMode
+    fun setFreeMode(mode: FreeMode)
+    fun isFreeServicePrimary(): Boolean
+    fun setFreeServicePrimary(primary: Boolean)
 
     // Per-instance settings
     fun getInstanceApiKey(instanceId: String): String

@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.testutil
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.FreeMode
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
@@ -70,6 +71,7 @@ class FakeDataRepository : DataRepository {
         }
         val instance = ServiceInstance(instanceId = instanceId, serviceId = serviceId)
         configuredInstances.add(instance)
+        freeServicePrimary = false
         return instance
     }
 
@@ -96,6 +98,22 @@ class FakeDataRepository : DataRepository {
 
     override fun setFreeFallbackEnabled(enabled: Boolean) {
         freeFallbackEnabled = enabled
+    }
+
+    private var freeMode = FreeMode.FAST
+
+    override fun getFreeMode(): FreeMode = freeMode
+
+    override fun setFreeMode(mode: FreeMode) {
+        freeMode = mode
+    }
+
+    private var freeServicePrimary = false
+
+    override fun isFreeServicePrimary(): Boolean = freeServicePrimary
+
+    override fun setFreeServicePrimary(primary: Boolean) {
+        freeServicePrimary = primary
     }
 
     // Per-instance settings

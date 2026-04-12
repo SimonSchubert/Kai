@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Mitte kunagi</string>
     <string name="settings_add_service">Lisa teenus</string>
     <string name="settings_free_fallback">Kasuta varuvarjandina</string>
+    <string name="service_free_fast">Tasuta kiire</string>
+    <string name="service_free_expert">Tasuta ekspert</string>
     <string name="settings_heartbeat">Südamelöök</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] See on automaatne enesekontroll. Vaata üle oma mälestused ja ootel ülesanded. Kui kõik on korras ja miski ei vaja tähelepanu, vasta täpselt: HEARTBEAT_OK\nKui miski vajab tähelepanu (aegunud mälestused, tähtaegsed ülesanded, kasutaja järelpärimised), tegele sellega.</string>
     <string name="settings_heartbeat_description">Perioodilised enesekontrollid, mis võimaldavad AI-l vaadata üle mälestused ja ülesanded ilma kasutaja sisendita. Käivitub iga %1$d minuti järel aktiivsetel tundidel.</string>

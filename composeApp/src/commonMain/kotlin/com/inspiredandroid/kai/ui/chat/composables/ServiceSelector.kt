@@ -88,15 +88,17 @@ internal fun ServiceSelector(
                                     MaterialTheme.colorScheme.onSurface
                                 },
                             )
-                            Text(
-                                text = entry.modelId,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = if (isCurrent) {
-                                    MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                            )
+                            if (entry.modelId.isNotEmpty()) {
+                                Text(
+                                    text = entry.modelId,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (isCurrent) {
+                                        MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurfaceVariant
+                                    },
+                                )
+                            }
                         }
                     },
                     onClick = {

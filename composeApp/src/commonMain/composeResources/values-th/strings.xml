@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">ไม่ตรวจสอบ</string>
     <string name="settings_add_service">เพิ่มบริการ</string>
     <string name="settings_free_fallback">ใช้เป็นทางเลือกสำรอง</string>
+    <string name="service_free_fast">ฟรีเร็ว</string>
+    <string name="service_free_expert">ฟรีผู้เชี่ยวชาญ</string>
     <string name="settings_heartbeat">จังหวะหัวใจ</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] นี่คือการตรวจสอบตนเองอัตโนมัติ ตรวจสอบความทรงจำและงานที่รอดำเนินการ หากทุกอย่างเรียบร้อยและไม่มีอะไรต้องดูแล ให้ตอบด้วยคำว่า: HEARTBEAT_OK\nหากมีสิ่งที่ต้องดูแล (ความทรงจำเก่า งานที่ครบกำหนด การติดตามผู้ใช้) ให้จัดการ</string>
     <string name="settings_heartbeat_description">การตรวจสอบตนเองเป็นระยะที่ให้ AI ตรวจสอบความทรงจำและงานโดยไม่ต้องมีข้อมูลจากผู้ใช้ ทำงานทุก %1$d นาทีในช่วงเวลาที่ใช้งาน</string>

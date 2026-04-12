@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Jangan pernah</string>
     <string name="settings_add_service">Tambah layanan</string>
     <string name="settings_free_fallback">Gunakan sebagai cadangan</string>
+    <string name="service_free_fast">Gratis Cepat</string>
+    <string name="service_free_expert">Gratis Ahli</string>
     <string name="settings_heartbeat">Detak Jantung</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ini adalah pemeriksaan mandiri otomatis. Tinjau memori dan tugas yang tertunda. Jika semuanya baik dan tidak ada yang perlu perhatian, jawab dengan tepat: HEARTBEAT_OK\nJika sesuatu memerlukan perhatian (memori usang, tugas jatuh tempo, tindak lanjut pengguna), tangani hal tersebut.</string>
     <string name="settings_heartbeat_description">Pemeriksaan mandiri berkala yang memungkinkan AI meninjau memori dan tugas tanpa masukan pengguna. Berjalan setiap %1$d menit selama jam aktif.</string>

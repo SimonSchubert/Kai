@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Nooit</string>
     <string name="settings_add_service">Service toevoegen</string>
     <string name="settings_free_fallback">Gebruiken als terugval</string>
+    <string name="service_free_fast">Gratis snel</string>
+    <string name="service_free_expert">Gratis expert</string>
     <string name="settings_heartbeat">Hartslag</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Dit is een automatische zelfcontrole. Bekijk je herinneringen en openstaande taken. Als alles er goed uitziet en niets aandacht nodig heeft, antwoord dan precies: HEARTBEAT_OK
 Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruikersopvolgingen), pak het aan.</string>

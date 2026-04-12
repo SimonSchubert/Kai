@@ -101,6 +101,8 @@
     <string name="settings_email_poll_never">Niciodată</string>
     <string name="settings_add_service">Adăugare serviciu</string>
     <string name="settings_free_fallback">Folosește ca rezervă</string>
+    <string name="service_free_fast">Gratuit rapid</string>
+    <string name="service_free_expert">Gratuit expert</string>
     <string name="settings_heartbeat">Ritm cardiac</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Aceasta este o autoverificare automată. Verifică-ți amintirile și sarcinile în așteptare. Dacă totul arată bine și nimic nu necesită atenție, răspunde cu exact: HEARTBEAT_OK\nDacă ceva necesită atenție (amintiri vechi, sarcini scadente, urmăriri utilizator), ocupă-te de asta.</string>
     <string name="settings_heartbeat_description">Autoverificări periodice care permit IA să verifice amintirile și sarcinile fără input de la utilizator. Rulează la fiecare %1$d minute în orele active.</string>

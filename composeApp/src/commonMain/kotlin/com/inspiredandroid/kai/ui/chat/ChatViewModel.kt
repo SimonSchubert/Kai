@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
+import com.inspiredandroid.kai.data.FreeMode
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
@@ -29,6 +31,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.coroutines.CoroutineContext
 
@@ -260,6 +263,15 @@ class ChatViewModel(
     }
 
     private fun selectService(instanceId: String) {
+        val freeMode = FREE_MODE_INSTANCE_IDS[instanceId]
+        if (freeMode != null) {
+            dataRepository.setFreeMode(freeMode)
+            dataRepository.setFreeServicePrimary(true)
+            updateAvailableServices()
+            return
+        }
+
+        dataRepository.setFreeServicePrimary(false)
         val instances = dataRepository.getConfiguredServiceInstances()
         val currentIds = instances.map { it.instanceId }
         if (instanceId !in currentIds) return
@@ -269,7 +281,26 @@ class ChatViewModel(
     }
 
     private fun updateAvailableServices() {
-        val entries = dataRepository.getServiceEntries().toImmutableList()
+        val configuredEntries = dataRepository.getServiceEntries()
+        val currentFreeMode = dataRepository.getFreeMode()
+        val freeIsPrimary = dataRepository.isFreeServicePrimary() || configuredEntries.isEmpty()
+
+        val freeModes = (listOf(currentFreeMode) + FreeMode.entries.filter { it != currentFreeMode }).map { mode ->
+            ServiceEntry(
+                instanceId = mode.instanceId,
+                serviceId = Service.Free.id,
+                serviceName = FREE_MODE_NAMES.getValue(mode),
+                modelId = "",
+                icon = mode.icon,
+            )
+        }
+
+        val entries = if (freeIsPrimary) {
+            freeModes + configuredEntries
+        } else {
+            configuredEntries + freeModes
+        }.toImmutableList()
+
         val primaryService = entries.firstOrNull()?.let { Service.fromId(it.serviceId) }
         val warning = if (primaryService?.isOnDevice == true && dataRepository.getLocalDownloadedModels().isEmpty()) {
             Res.string.litert_no_model_warning
@@ -277,6 +308,13 @@ class ChatViewModel(
             null
         }
         _state.update { it.copy(availableServices = entries, warning = warning, showPrivacyInfo = dataRepository.isUsingSharedKey()) }
+    }
+
+    companion object {
+        private val FREE_MODE_INSTANCE_IDS = FreeMode.entries.associateBy { it.instanceId }
+        private val FREE_MODE_NAMES: Map<FreeMode, String> by lazy {
+            runBlocking { FreeMode.entries.associateWith { getString(it.nameRes) } }
+        }
     }
 
     private fun regenerate() {
