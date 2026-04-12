@@ -174,6 +174,7 @@ compose.desktop {
             }
             windows {
                 iconFile.set(project.file("icon.ico"))
+                menuGroup = "Kai"
             }
             linux {
                 iconFile.set(project.file("icon.png"))
