@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Muda wa inference kwenye kifaa umeisha. Jaribu ujumbe mfupi au modeli ndogo.</string>
     <string name="litert_error_not_enough_disk_space">Nafasi ya diski haitoshi kupakua modeli.</string>
     <string name="litert_error_insufficient_memory">Kumbukumbu haitoshi kupakia modeli. Funga programu nyingine na ujaribu tena.</string>
+    <string name="model_sort_date">Tarehe</string>
+    <string name="model_sort_score">Alama</string>
+    <string name="model_sort_context">Muktadha</string>
 </resources>

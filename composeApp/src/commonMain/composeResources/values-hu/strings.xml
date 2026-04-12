@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Az eszközön végzett következtetés időtúllépés. Próbálj rövidebb üzenetet vagy kisebb modellt.</string>
     <string name="litert_error_not_enough_disk_space">Nincs elég lemezterület a modell letöltéséhez.</string>
     <string name="litert_error_insufficient_memory">Nincs elég memória a modell betöltéséhez. Zárd be a többi alkalmazást és próbáld újra.</string>
+    <string name="model_sort_date">Dátum</string>
+    <string name="model_sort_score">Pontszám</string>
+    <string name="model_sort_context">Kontextus</string>
 </resources>

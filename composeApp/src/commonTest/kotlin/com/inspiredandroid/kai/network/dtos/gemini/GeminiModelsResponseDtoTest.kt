@@ -54,12 +54,13 @@ class GeminiModelsResponseDtoTest {
     }
 
     @Test
-    fun `unknown fields are ignored`() {
+    fun `captures token limits and version`() {
         val responseJson = """
             {
                 "models": [
                     {
                         "name": "models/gemini-2.0-flash",
+                        "version": "2.0",
                         "displayName": "Gemini 2.0 Flash",
                         "inputTokenLimit": 1048576,
                         "outputTokenLimit": 8192,
@@ -71,8 +72,12 @@ class GeminiModelsResponseDtoTest {
         """.trimIndent()
         val response = json.decodeFromString(GeminiModelsResponseDto.serializer(), responseJson)
         assertEquals(1, response.models.size)
-        assertEquals("models/gemini-2.0-flash", response.models[0].name)
-        assertEquals("Gemini 2.0 Flash", response.models[0].displayName)
+        val model = response.models[0]
+        assertEquals("models/gemini-2.0-flash", model.name)
+        assertEquals("2.0", model.version)
+        assertEquals("Gemini 2.0 Flash", model.displayName)
+        assertEquals(1_048_576L, model.inputTokenLimit)
+        assertEquals(8_192L, model.outputTokenLimit)
     }
 
     @Test

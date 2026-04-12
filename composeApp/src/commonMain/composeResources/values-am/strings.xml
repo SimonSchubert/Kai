@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">በመሣሪያ ላይ ማስተዋል ጊዜ ተጠናቋል። አጭር መልዕክት ወይም ትንሽ ሞዴል ይሞክሩ።</string>
     <string name="litert_error_not_enough_disk_space">ሞዴሉን ለማውረድ በቂ የዲስክ ቦታ የለም።</string>
     <string name="litert_error_insufficient_memory">ሞዴሉን ለመጫን በቂ ማህደረ ትውስታ የለም። ሌሎች መተግበሪያዎችን ዝጉ እና እንደገና ይሞክሩ።</string>
+    <string name="model_sort_date">ቀን</string>
+    <string name="model_sort_score">ነጥብ</string>
+    <string name="model_sort_context">አውድ</string>
 </resources>

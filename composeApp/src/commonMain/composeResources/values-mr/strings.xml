@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">ऑन-डिव्हाइस इन्फरन्स कालबाह्य झाले. लहान संदेश किंवा लहान मॉडेल वापरून पहा.</string>
     <string name="litert_error_not_enough_disk_space">मॉडेल डाउनलोड करण्यासाठी पुरेशी डिस्क स्पेस नाही.</string>
     <string name="litert_error_insufficient_memory">मॉडेल लोड करण्यासाठी पुरेशी मेमरी नाही. इतर अॅप्स बंद करा आणि पुन्हा प्रयत्न करा.</string>
+    <string name="model_sort_date">तारीख</string>
+    <string name="model_sort_score">गुण</string>
+    <string name="model_sort_context">संदर्भ</string>
 </resources>

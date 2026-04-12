@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">オンデバイス推論がタイムアウトしました。短いメッセージまたは小さいモデルをお試しください。</string>
     <string name="litert_error_not_enough_disk_space">モデルをダウンロードするための十分なディスク容量がありません。</string>
     <string name="litert_error_insufficient_memory">モデルの読み込みに十分なメモリがありません。他のアプリを閉じてもう一度お試しください。</string>
+    <string name="model_sort_date">日付</string>
+    <string name="model_sort_score">スコア</string>
+    <string name="model_sort_context">コンテキスト</string>
 </resources>

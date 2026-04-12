@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Seadme järeldamine aegus. Proovige lühemat sõnumit või väiksemat mudelit.</string>
     <string name="litert_error_not_enough_disk_space">Mudeli allalaadimiseks pole piisavalt kettaruumi.</string>
     <string name="litert_error_insufficient_memory">Mudeli laadimiseks pole piisavalt mälu. Sulgege teised rakendused ja proovige uuesti.</string>
+    <string name="model_sort_date">Kuupäev</string>
+    <string name="model_sort_score">Skoor</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

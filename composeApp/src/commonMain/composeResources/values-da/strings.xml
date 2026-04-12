@@ -242,4 +242,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="litert_error_inference_timeout">On-device inferens timeout. Prøv en kortere besked eller en mindre model.</string>
     <string name="litert_error_not_enough_disk_space">Ikke nok diskplads til at downloade modellen.</string>
     <string name="litert_error_insufficient_memory">Ikke nok hukommelse til at indlæse modellen. Luk andre apps og prøv igen.</string>
+    <string name="model_sort_date">Dato</string>
+    <string name="model_sort_score">Score</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

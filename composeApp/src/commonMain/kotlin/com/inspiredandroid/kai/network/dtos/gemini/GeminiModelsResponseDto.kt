@@ -9,8 +9,11 @@ data class GeminiModelsResponseDto(
     @Serializable
     data class Model(
         val name: String,
+        val version: String? = null,
         val displayName: String? = null,
         val description: String? = null,
+        val inputTokenLimit: Long? = null,
+        val outputTokenLimit: Long? = null,
         val supportedGenerationMethods: List<String>? = null,
     )
 }

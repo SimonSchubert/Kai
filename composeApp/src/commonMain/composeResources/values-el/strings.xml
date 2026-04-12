@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Η εξαγωγή συμπερασμάτων στη συσκευή έληξε. Δοκιμάστε ένα πιο σύντομο μήνυμα ή μικρότερο μοντέλο.</string>
     <string name="litert_error_not_enough_disk_space">Δεν υπάρχει αρκετός χώρος στο δίσκο για λήψη του μοντέλου.</string>
     <string name="litert_error_insufficient_memory">Δεν υπάρχει αρκετή μνήμη για φόρτωση του μοντέλου. Κλείστε άλλες εφαρμογές και δοκιμάστε ξανά.</string>
+    <string name="model_sort_date">Ημερομηνία</string>
+    <string name="model_sort_score">Βαθμολογία</string>
+    <string name="model_sort_context">Πλαίσιο</string>
 </resources>

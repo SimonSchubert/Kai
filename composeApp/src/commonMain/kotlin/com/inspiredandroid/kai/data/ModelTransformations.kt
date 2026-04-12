@@ -3,70 +3,131 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicModelsResponseDto
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiModelsResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
-import com.inspiredandroid.kai.toHumanReadableDate
+import com.inspiredandroid.kai.toIsoDate
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 
-internal val geminiVersionRegex = Regex("""gemini-(\d+\.?\d*)""")
+/**
+ * Model id substrings that mark a model as non-chat. Any model whose
+ * lowercased id contains one of these is filtered out of the picker.
+ * Covers: voice/TTS, embeddings, moderation, OCR, safety, image gen,
+ * video gen, retrieval, reward, translation, and other non-chat APIs.
+ */
+private val nonChatPatterns = listOf(
+    "embed",
+    "tts",
+    "transcribe",
+    "realtime",
+    "moderation",
+    "ocr",
+    "guard",
+    "safety",
+    "reward",
+    "voxtral",
+    "whisper",
+    "orpheus",
+    "leanstral",
+    "vibe-cli",
+    "streampetr",
+    "nvclip",
+    "deplot",
+    "paligemma",
+    "gliner",
+    "nemoretriever",
+    "nemotron-parse",
+    "riva-translate",
+    "kosmos",
+    "nano-banana",
+    "lyria",
+    "imagen",
+    "image",
+    "aqa",
+    "veo",
+    "native-audio",
+    "live-",
+    "bge-",
+    "shieldgemma",
+)
 
-internal fun extractGeminiVersion(modelId: String): Double {
-    val match = geminiVersionRegex.find(modelId)
-    return match?.groupValues?.get(1)?.toDoubleOrNull() ?: 0.0
-}
-
-internal fun getGeminiModelPriority(modelId: String): Int {
-    val lowerId = modelId.lowercase()
-    return when {
-        lowerId.contains("pro") && !lowerId.contains("flash") -> 0
-        lowerId.contains("flash") -> 1
-        else -> 2
-    }
+internal fun isChatModel(modelId: String): Boolean {
+    val lower = modelId.lowercase()
+    return nonChatPatterns.none { lower.contains(it) }
 }
 
 /**
- * Comparator for Gemini models that sorts by:
- * 1. Version number (descending) - e.g., 2.5 > 2.0 > 1.5
- * 2. Model type priority: pro > flash > others
+ * Unified "newest first" sort applied to every provider's model list.
+ *
+ *  1. Release date descending (nulls last)
+ *  2. Context window descending (nulls last)
+ *  3. Model id ascending (stable tiebreaker)
  */
-internal val geminiModelComparator = Comparator<SettingsModel> { a, b ->
-    val versionA = extractGeminiVersion(a.id)
-    val versionB = extractGeminiVersion(b.id)
+internal val newestFirstComparator: Comparator<SettingsModel> = Comparator { a, b ->
+    val dateA = a.releaseDate
+    val dateB = b.releaseDate
+    when {
+        dateA != null && dateB == null -> return@Comparator -1
 
-    // Compare versions (descending - higher versions first)
-    val versionCompare = versionB.compareTo(versionA)
-    if (versionCompare != 0) return@Comparator versionCompare
+        dateA == null && dateB != null -> return@Comparator 1
 
-    // Same version, compare by model type priority
-    val priorityA = getGeminiModelPriority(a.id)
-    val priorityB = getGeminiModelPriority(b.id)
-    priorityA.compareTo(priorityB)
+        dateA != null && dateB != null -> {
+            val cmp = dateB.compareTo(dateA)
+            if (cmp != 0) return@Comparator cmp
+        }
+    }
+    val ctxA = a.contextWindow
+    val ctxB = b.contextWindow
+    when {
+        ctxA != null && ctxB == null -> return@Comparator -1
+
+        ctxA == null && ctxB != null -> return@Comparator 1
+
+        ctxA != null && ctxB != null -> {
+            val cmp = ctxB.compareTo(ctxA)
+            if (cmp != 0) return@Comparator cmp
+        }
+    }
+    a.id.compareTo(b.id)
 }
 
 internal fun mapAnthropicModels(
     models: List<AnthropicModelsResponseDto.ModelInfo>,
     selectedModelId: String,
-): List<SettingsModel> = models.map {
-    SettingsModel(
-        id = it.id,
-        subtitle = it.display_name ?: it.id,
-        isSelected = it.id == selectedModelId,
-    )
-}
+): List<SettingsModel> = models
+    .map {
+        val curated = ModelCatalog.lookup(it.id)
+        SettingsModel(
+            id = it.id,
+            displayName = curated?.displayName ?: it.display_name,
+            subtitle = "",
+            isSelected = it.id == selectedModelId,
+            contextWindow = curated?.contextWindow,
+            releaseDate = curated?.releaseDate,
+            parameterCount = curated?.parameterCount,
+            arenaScore = curated?.arenaScore,
+        )
+    }
+    .sortedWith(newestFirstComparator)
 
 internal fun mapGeminiModels(
     models: List<GeminiModelsResponseDto.Model>,
     selectedModelId: String,
 ): List<SettingsModel> = models
     .filter { it.supportedGenerationMethods?.contains("generateContent") == true }
-    .map {
-        val modelId = it.name.removePrefix("models/")
+    .map { it to it.name.removePrefix("models/") }
+    .filter { (_, modelId) -> isChatModel(modelId) }
+    .map { (dto, modelId) ->
+        val curated = ModelCatalog.lookup(modelId)
         SettingsModel(
             id = modelId,
-            subtitle = it.displayName ?: modelId,
-            description = it.description,
+            displayName = curated?.displayName ?: dto.displayName,
+            subtitle = "",
             isSelected = modelId == selectedModelId,
+            contextWindow = curated?.contextWindow ?: dto.inputTokenLimit,
+            releaseDate = curated?.releaseDate,
+            parameterCount = curated?.parameterCount,
+            arenaScore = curated?.arenaScore,
         )
     }
-    .sortedWith(geminiModelComparator)
+    .sortedWith(newestFirstComparator)
 
 internal fun mapOpenAICompatibleModels(
     models: List<OpenAICompatibleModelResponseDto.Model>,
@@ -89,18 +150,24 @@ internal fun mapOpenAICompatibleModels(
     } else {
         typeFiltered
     }
-    val unique = filtered.distinctBy { it.id }
-    val sorted = if (service.sortModelsById) {
-        unique.sortedBy { it.id }
-    } else {
-        unique.sortedByDescending { it.context_window }
-    }
-    return sorted.map {
+    val chatOnly = filtered.filter { isChatModel(it.id) }
+    val unique = chatOnly.distinctBy { it.id }
+    val mapped = unique.map {
+        val curated = ModelCatalog.lookup(it.id)
         SettingsModel(
             id = it.id,
-            subtitle = it.owned_by ?: "",
-            description = if (service.includeModelDate) it.created?.toHumanReadableDate() else null,
+            displayName = curated?.displayName ?: it.name,
+            subtitle = "",
             isSelected = it.id == selectedModelId,
+            contextWindow = curated?.contextWindow ?: it.context_window ?: it.context_length,
+            releaseDate = curated?.releaseDate ?: it.created?.toIsoDate(),
+            parameterCount = curated?.parameterCount,
+            arenaScore = curated?.arenaScore,
         )
+    }
+    return if (service.sortModelsById) {
+        mapped.sortedBy { it.id }
+    } else {
+        mapped.sortedWith(newestFirstComparator)
     }
 }

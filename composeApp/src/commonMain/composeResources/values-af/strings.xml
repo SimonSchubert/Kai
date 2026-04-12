@@ -242,4 +242,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="litert_error_inference_timeout">Op-toestel-aflei het uitgetel. Probeer \'n korter boodskap of \'n kleiner model.</string>
     <string name="litert_error_not_enough_disk_space">Nie genoeg skyfspasie om die model af te laai nie.</string>
     <string name="litert_error_insufficient_memory">Nie genoeg geheue om die model te laai nie. Maak ander programme toe en probeer weer.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Telling</string>
+    <string name="model_sort_context">Konteks</string>
 </resources>

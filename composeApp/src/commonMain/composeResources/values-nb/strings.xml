@@ -242,4 +242,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="litert_error_inference_timeout">On-device-inferens tidsavbrudd. Prøv en kortere melding eller en mindre modell.</string>
     <string name="litert_error_not_enough_disk_space">Ikke nok diskplass til å laste ned modellen.</string>
     <string name="litert_error_insufficient_memory">Ikke nok minne til å laste modellen. Lukk andre apper og prøv igjen.</string>
+    <string name="model_sort_date">Dato</string>
+    <string name="model_sort_score">Poeng</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

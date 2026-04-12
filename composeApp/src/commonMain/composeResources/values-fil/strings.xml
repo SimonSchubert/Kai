@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Nag-timeout ang on-device inference. Subukan ang mas maikling mensahe o mas maliit na modelo.</string>
     <string name="litert_error_not_enough_disk_space">Hindi sapat ang disk space para i-download ang modelo.</string>
     <string name="litert_error_insufficient_memory">Hindi sapat ang memory para i-load ang modelo. Isara ang ibang apps at subukan ulit.</string>
+    <string name="model_sort_date">Petsa</string>
+    <string name="model_sort_score">Iskor</string>
+    <string name="model_sort_context">Konteksto</string>
 </resources>

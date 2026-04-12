@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">Час очікування виведення на пристрої вичерпано. Спробуйте коротше повідомлення або меншу модель.</string>
     <string name="litert_error_not_enough_disk_space">Недостатньо місця на диску для завантаження моделі.</string>
     <string name="litert_error_insufficient_memory">Недостатньо пам\'яті для завантаження моделі. Закрийте інші програми та спробуйте знову.</string>
+    <string name="model_sort_date">Дата</string>
+    <string name="model_sort_score">Оцінка</string>
+    <string name="model_sort_context">Контекст</string>
 </resources>

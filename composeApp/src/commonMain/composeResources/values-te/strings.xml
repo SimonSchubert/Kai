@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">ఆన్-డివైస్ ఇన్ఫరెన్స్ సమయం ముగిసింది. చిన్న సందేశం లేదా చిన్న మోడల్ ప్రయత్నించండి.</string>
     <string name="litert_error_not_enough_disk_space">మోడల్ డౌన్‌లోడ్ చేయడానికి తగినంత డిస్క్ స్పేస్ లేదు.</string>
     <string name="litert_error_insufficient_memory">మోడల్ లోడ్ చేయడానికి తగినంత మెమరీ లేదు. ఇతర యాప్‌లను మూసివేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="model_sort_date">తేదీ</string>
+    <string name="model_sort_score">స్కోర్</string>
+    <string name="model_sort_context">సందర్భం</string>
 </resources>

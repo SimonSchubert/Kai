@@ -1,0 +1,1514 @@
+package com.inspiredandroid.kai.data
+
+/**
+ * Curated metadata for well-known models. Used as a fallback by
+ * [ModelTransformations] when the provider API response doesn't expose a
+ * field. API data always wins — the catalog only fills gaps.
+ */
+internal data class CuratedModelInfo(
+    val displayName: String? = null,
+    val contextWindow: Long? = null,
+    /** "YYYY-MM" or "YYYY-MM-DD". */
+    val releaseDate: String? = null,
+    /** Pre-formatted parameter count like "70B", "8x22B", "671B". */
+    val parameterCount: String? = null,
+    /**
+     * LMArena Elo score (chatbot arena ranking). Populated from [ModelCatalog.arenaScores]
+     * at lookup time — don't set this directly on catalog entries.
+     */
+    val arenaScore: Int? = null,
+)
+
+/**
+ * Plain id → metadata hash map. Every model is listed explicitly — no
+ * normalization, no walking, no fuzzy matching. To add or correct an entry,
+ * just edit the line below.
+ *
+ * Keys MUST be lowercase. Multiple ids can point to the same model (e.g.
+ * `claude-3-5-sonnet-20241022` and `claude-3.5-sonnet` both map to Claude
+ * 3.5 Sonnet) — just repeat the value.
+ */
+internal object ModelCatalog {
+
+    private val baseEntries: Map<String, CuratedModelInfo> = mapOf(
+        // ==============================================================
+        // Anthropic Claude
+        // ==============================================================
+        "claude-opus-4-5" to CuratedModelInfo("Claude Opus 4.5", 200_000, "2025-11"),
+        "claude-opus-4.5" to CuratedModelInfo("Claude Opus 4.5", 200_000, "2025-11"),
+        "claude-opus-4-5-20251101" to CuratedModelInfo("Claude Opus 4.5", 200_000, "2025-11"),
+        "claude-sonnet-4-5" to CuratedModelInfo("Claude Sonnet 4.5", 1_000_000, "2025-09"),
+        "claude-sonnet-4.5" to CuratedModelInfo("Claude Sonnet 4.5", 1_000_000, "2025-09"),
+        "claude-sonnet-4-5-20250929" to CuratedModelInfo("Claude Sonnet 4.5", 1_000_000, "2025-09"),
+        "claude-haiku-4-5" to CuratedModelInfo("Claude Haiku 4.5", 200_000, "2025-10"),
+        "claude-haiku-4.5" to CuratedModelInfo("Claude Haiku 4.5", 200_000, "2025-10"),
+        "claude-haiku-4-5-20251001" to CuratedModelInfo("Claude Haiku 4.5", 200_000, "2025-10"),
+        "claude-opus-4-1" to CuratedModelInfo("Claude Opus 4.1", 200_000, "2025-08"),
+        "claude-opus-4.1" to CuratedModelInfo("Claude Opus 4.1", 200_000, "2025-08"),
+        "claude-opus-4-1-20250805" to CuratedModelInfo("Claude Opus 4.1", 200_000, "2025-08"),
+        "claude-opus-4" to CuratedModelInfo("Claude Opus 4", 200_000, "2025-05"),
+        "claude-opus-4-20250514" to CuratedModelInfo("Claude Opus 4", 200_000, "2025-05"),
+        "claude-sonnet-4" to CuratedModelInfo("Claude Sonnet 4", 200_000, "2025-05"),
+        "claude-sonnet-4-20250514" to CuratedModelInfo("Claude Sonnet 4", 200_000, "2025-05"),
+        "claude-3-7-sonnet" to CuratedModelInfo("Claude 3.7 Sonnet", 200_000, "2025-02"),
+        "claude-3.7-sonnet" to CuratedModelInfo("Claude 3.7 Sonnet", 200_000, "2025-02"),
+        "claude-3-7-sonnet-latest" to CuratedModelInfo("Claude 3.7 Sonnet (Latest)", 200_000, "2025-02"),
+        "claude-3-7-sonnet-20250219" to CuratedModelInfo("Claude 3.7 Sonnet", 200_000, "2025-02"),
+        "claude-3-5-sonnet" to CuratedModelInfo("Claude 3.5 Sonnet", 200_000, "2024-10"),
+        "claude-3.5-sonnet" to CuratedModelInfo("Claude 3.5 Sonnet", 200_000, "2024-10"),
+        "claude-3-5-sonnet-latest" to CuratedModelInfo("Claude 3.5 Sonnet (Latest)", 200_000, "2024-10"),
+        "claude-3-5-sonnet-20241022" to CuratedModelInfo("Claude 3.5 Sonnet", 200_000, "2024-10"),
+        "claude-3-5-sonnet-20240620" to CuratedModelInfo("Claude 3.5 Sonnet (June)", 200_000, "2024-06"),
+        "claude-3-5-haiku" to CuratedModelInfo("Claude 3.5 Haiku", 200_000, "2024-10"),
+        "claude-3.5-haiku" to CuratedModelInfo("Claude 3.5 Haiku", 200_000, "2024-10"),
+        "claude-3-5-haiku-latest" to CuratedModelInfo("Claude 3.5 Haiku (Latest)", 200_000, "2024-10"),
+        "claude-3-5-haiku-20241022" to CuratedModelInfo("Claude 3.5 Haiku", 200_000, "2024-10"),
+        "claude-3-opus" to CuratedModelInfo("Claude 3 Opus", 200_000, "2024-02"),
+        "claude-3-opus-latest" to CuratedModelInfo("Claude 3 Opus (Latest)", 200_000, "2024-02"),
+        "claude-3-opus-20240229" to CuratedModelInfo("Claude 3 Opus", 200_000, "2024-02"),
+        "claude-3-sonnet" to CuratedModelInfo("Claude 3 Sonnet", 200_000, "2024-02"),
+        "claude-3-sonnet-20240229" to CuratedModelInfo("Claude 3 Sonnet", 200_000, "2024-02"),
+        "claude-3-haiku" to CuratedModelInfo("Claude 3 Haiku", 200_000, "2024-03"),
+        "claude-3-haiku-20240307" to CuratedModelInfo("Claude 3 Haiku", 200_000, "2024-03"),
+
+        // ==============================================================
+        // OpenAI
+        // ==============================================================
+        "gpt-5" to CuratedModelInfo("GPT-5", 400_000, "2025-08"),
+        "gpt-5-2025-08-07" to CuratedModelInfo("GPT-5", 400_000, "2025-08"),
+        "gpt-5-mini" to CuratedModelInfo("GPT-5 mini", 400_000, "2025-08"),
+        "gpt-5-mini-2025-08-07" to CuratedModelInfo("GPT-5 mini", 400_000, "2025-08"),
+        "gpt-5-nano" to CuratedModelInfo("GPT-5 nano", 400_000, "2025-08"),
+        "gpt-5-nano-2025-08-07" to CuratedModelInfo("GPT-5 nano", 400_000, "2025-08"),
+        "gpt-5-codex" to CuratedModelInfo("GPT-5 Codex", 400_000, "2025-09"),
+        "gpt-5-pro" to CuratedModelInfo("GPT-5 Pro", 400_000, "2025-10"),
+        "gpt-4.1" to CuratedModelInfo("GPT-4.1", 1_000_000, "2025-04"),
+        "gpt-4.1-2025-04-14" to CuratedModelInfo("GPT-4.1", 1_000_000, "2025-04"),
+        "gpt-4.1-mini" to CuratedModelInfo("GPT-4.1 mini", 1_000_000, "2025-04"),
+        "gpt-4.1-mini-2025-04-14" to CuratedModelInfo("GPT-4.1 mini", 1_000_000, "2025-04"),
+        "gpt-4.1-nano" to CuratedModelInfo("GPT-4.1 nano", 1_000_000, "2025-04"),
+        "gpt-4.1-nano-2025-04-14" to CuratedModelInfo("GPT-4.1 nano", 1_000_000, "2025-04"),
+        "gpt-4o" to CuratedModelInfo("GPT-4o", 128_000, "2024-08"),
+        "gpt-4o-2024-05-13" to CuratedModelInfo("GPT-4o (May)", 128_000, "2024-05"),
+        "gpt-4o-2024-08-06" to CuratedModelInfo("GPT-4o", 128_000, "2024-08"),
+        "gpt-4o-2024-11-20" to CuratedModelInfo("GPT-4o (Nov)", 128_000, "2024-11"),
+        "gpt-4o-mini" to CuratedModelInfo("GPT-4o mini", 128_000, "2024-07"),
+        "gpt-4o-mini-2024-07-18" to CuratedModelInfo("GPT-4o mini", 128_000, "2024-07"),
+        "chatgpt-4o-latest" to CuratedModelInfo("ChatGPT-4o (Latest)", 128_000, "2024-08"),
+        "gpt-4-turbo" to CuratedModelInfo("GPT-4 Turbo", 128_000, "2024-04"),
+        "gpt-4-turbo-2024-04-09" to CuratedModelInfo("GPT-4 Turbo", 128_000, "2024-04"),
+        "gpt-4-turbo-preview" to CuratedModelInfo("GPT-4 Turbo (Preview)", 128_000, "2024-01"),
+        "gpt-4-0125-preview" to CuratedModelInfo("GPT-4 Turbo (Preview)", 128_000, "2024-01"),
+        "gpt-4-1106-preview" to CuratedModelInfo("GPT-4 Turbo (Preview)", 128_000, "2023-11"),
+        "gpt-4" to CuratedModelInfo("GPT-4", 8_192, "2023-03"),
+        "gpt-4-0613" to CuratedModelInfo("GPT-4", 8_192, "2023-06"),
+        "gpt-4-32k" to CuratedModelInfo("GPT-4 32K", 32_768, "2023-06"),
+        "gpt-3.5-turbo" to CuratedModelInfo("GPT-3.5 Turbo", 16_385, "2022-11"),
+        "gpt-3.5-turbo-0125" to CuratedModelInfo("GPT-3.5 Turbo", 16_385, "2024-01"),
+        "gpt-3.5-turbo-1106" to CuratedModelInfo("GPT-3.5 Turbo", 16_385, "2023-11"),
+        "gpt-3.5-turbo-16k" to CuratedModelInfo("GPT-3.5 Turbo 16K", 16_385, "2023-06"),
+        "o4-mini" to CuratedModelInfo("o4-mini", 200_000, "2025-04"),
+        "o4-mini-2025-04-16" to CuratedModelInfo("o4-mini", 200_000, "2025-04"),
+        "o3" to CuratedModelInfo("o3", 200_000, "2025-04"),
+        "o3-2025-04-16" to CuratedModelInfo("o3", 200_000, "2025-04"),
+        "o3-pro" to CuratedModelInfo("o3-pro", 200_000, "2025-06"),
+        "o3-pro-2025-06-10" to CuratedModelInfo("o3-pro", 200_000, "2025-06"),
+        "o3-mini" to CuratedModelInfo("o3-mini", 200_000, "2025-01"),
+        "o3-mini-2025-01-31" to CuratedModelInfo("o3-mini", 200_000, "2025-01"),
+        "o1" to CuratedModelInfo("o1", 200_000, "2024-12"),
+        "o1-2024-12-17" to CuratedModelInfo("o1", 200_000, "2024-12"),
+        "o1-pro" to CuratedModelInfo("o1-pro", 200_000, "2025-03"),
+        "o1-preview" to CuratedModelInfo("o1-preview", 128_000, "2024-09"),
+        "o1-preview-2024-09-12" to CuratedModelInfo("o1-preview", 128_000, "2024-09"),
+        "o1-mini" to CuratedModelInfo("o1-mini", 128_000, "2024-09"),
+        "o1-mini-2024-09-12" to CuratedModelInfo("o1-mini", 128_000, "2024-09"),
+
+        // ==============================================================
+        // Google Gemini
+        // ==============================================================
+        "gemini-3-pro" to CuratedModelInfo("Gemini 3 Pro", 2_000_000, "2025-11"),
+        "gemini-3-pro-preview" to CuratedModelInfo("Gemini 3 Pro (Preview)", 2_000_000, "2025-11"),
+        "gemini-3-pro-latest" to CuratedModelInfo("Gemini 3 Pro (Latest)", 2_000_000, "2025-11"),
+        "gemini-3-flash" to CuratedModelInfo("Gemini 3 Flash", 1_000_000, "2025-11"),
+        "gemini-3-flash-preview" to CuratedModelInfo("Gemini 3 Flash (Preview)", 1_000_000, "2025-11"),
+        "gemini-3-flash-lite" to CuratedModelInfo("Gemini 3 Flash Lite", 1_000_000, "2025-11"),
+        "gemini-3-flash-lite-preview" to CuratedModelInfo("Gemini 3 Flash Lite (Preview)", 1_000_000, "2025-11"),
+        "gemini-2.5-pro" to CuratedModelInfo("Gemini 2.5 Pro", 2_000_000, "2025-03"),
+        "gemini-2.5-pro-latest" to CuratedModelInfo("Gemini 2.5 Pro (Latest)", 2_000_000, "2025-03"),
+        "gemini-2.5-pro-preview-03-25" to CuratedModelInfo("Gemini 2.5 Pro (Preview 03-25)", 2_000_000, "2025-03"),
+        "gemini-2.5-pro-preview-05-06" to CuratedModelInfo("Gemini 2.5 Pro (Preview 05-06)", 2_000_000, "2025-05"),
+        "gemini-2.5-pro-preview-06-05" to CuratedModelInfo("Gemini 2.5 Pro (Preview 06-05)", 2_000_000, "2025-06"),
+        "gemini-2.5-pro-exp-03-25" to CuratedModelInfo("Gemini 2.5 Pro", 2_000_000, "2025-03"),
+        "gemini-2.5-flash" to CuratedModelInfo("Gemini 2.5 Flash", 1_000_000, "2025-04"),
+        "gemini-2.5-flash-latest" to CuratedModelInfo("Gemini 2.5 Flash (Latest)", 1_000_000, "2025-04"),
+        "gemini-2.5-flash-preview-04-17" to CuratedModelInfo("Gemini 2.5 Flash (Preview 04-17)", 1_000_000, "2025-04"),
+        "gemini-2.5-flash-preview-05-20" to CuratedModelInfo("Gemini 2.5 Flash (Preview 05-20)", 1_000_000, "2025-05"),
+        "gemini-2.5-flash-preview-09-2025" to CuratedModelInfo("Gemini 2.5 Flash (Preview 09-2025)", 1_000_000, "2025-09"),
+        "gemini-2.5-flash-lite" to CuratedModelInfo("Gemini 2.5 Flash Lite", 1_000_000, "2025-07"),
+        "gemini-2.5-flash-lite-preview-06-17" to CuratedModelInfo("Gemini 2.5 Flash Lite (Preview 06-17)", 1_000_000, "2025-06"),
+        "gemini-2.5-flash-lite-preview-09-2025" to CuratedModelInfo("Gemini 2.5 Flash Lite (Preview 09-2025)", 1_000_000, "2025-09"),
+        "gemini-2.0-flash" to CuratedModelInfo("Gemini 2.0 Flash", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-001" to CuratedModelInfo("Gemini 2.0 Flash", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-exp" to CuratedModelInfo("Gemini 2.0 Flash Exp", 1_000_000, "2024-12"),
+        "gemini-2.0-flash-latest" to CuratedModelInfo("Gemini 2.0 Flash (Latest)", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-lite" to CuratedModelInfo("Gemini 2.0 Flash Lite", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-lite-001" to CuratedModelInfo("Gemini 2.0 Flash Lite", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-lite-preview" to CuratedModelInfo("Gemini 2.0 Flash Lite (Preview)", 1_000_000, "2025-02"),
+        "gemini-2.0-flash-lite-preview-02-05" to CuratedModelInfo("Gemini 2.0 Flash Lite (Preview 02-05)", 1_000_000, "2025-02"),
+        "gemini-2.0-pro-exp" to CuratedModelInfo("Gemini 2.0 Pro Exp", 2_000_000, "2025-02"),
+        "gemini-2.0-pro-exp-02-05" to CuratedModelInfo("Gemini 2.0 Pro Exp", 2_000_000, "2025-02"),
+        "gemini-2.0-flash-thinking-exp" to CuratedModelInfo("Gemini 2.0 Flash Thinking", 1_000_000, "2025-01"),
+        "gemini-2.0-flash-thinking-exp-01-21" to CuratedModelInfo("Gemini 2.0 Flash Thinking", 1_000_000, "2025-01"),
+        "gemini-2.0-flash-thinking-exp-1219" to CuratedModelInfo("Gemini 2.0 Flash Thinking", 1_000_000, "2024-12"),
+        "gemini-1.5-pro" to CuratedModelInfo("Gemini 1.5 Pro", 2_000_000, "2024-05"),
+        "gemini-1.5-pro-latest" to CuratedModelInfo("Gemini 1.5 Pro (Latest)", 2_000_000, "2024-05"),
+        "gemini-1.5-pro-001" to CuratedModelInfo("Gemini 1.5 Pro", 2_000_000, "2024-05"),
+        "gemini-1.5-pro-002" to CuratedModelInfo("Gemini 1.5 Pro", 2_000_000, "2024-09"),
+        "gemini-1.5-flash" to CuratedModelInfo("Gemini 1.5 Flash", 1_000_000, "2024-05"),
+        "gemini-1.5-flash-latest" to CuratedModelInfo("Gemini 1.5 Flash (Latest)", 1_000_000, "2024-05"),
+        "gemini-1.5-flash-001" to CuratedModelInfo("Gemini 1.5 Flash", 1_000_000, "2024-05"),
+        "gemini-1.5-flash-002" to CuratedModelInfo("Gemini 1.5 Flash", 1_000_000, "2024-09"),
+        "gemini-1.5-flash-8b" to CuratedModelInfo("Gemini 1.5 Flash 8B", 1_000_000, "2024-10", "8B"),
+        "gemini-1.5-flash-8b-latest" to CuratedModelInfo("Gemini 1.5 Flash 8B (Latest)", 1_000_000, "2024-10", "8B"),
+        "gemini-1.5-flash-8b-001" to CuratedModelInfo("Gemini 1.5 Flash 8B", 1_000_000, "2024-10", "8B"),
+
+        // ==============================================================
+        // xAI Grok
+        // ==============================================================
+        "grok-4" to CuratedModelInfo("Grok 4", 256_000, "2025-07"),
+        "grok-4-latest" to CuratedModelInfo("Grok 4 (Latest)", 256_000, "2025-07"),
+        "grok-4-0709" to CuratedModelInfo("Grok 4", 256_000, "2025-07"),
+        "grok-4-fast" to CuratedModelInfo("Grok 4 Fast", 2_000_000, "2025-09"),
+        "grok-4-fast-reasoning" to CuratedModelInfo("Grok 4 Fast Reasoning", 2_000_000, "2025-09"),
+        "grok-4-fast-non-reasoning" to CuratedModelInfo("Grok 4 Fast", 2_000_000, "2025-09"),
+        "grok-code-fast-1" to CuratedModelInfo("Grok Code Fast", 256_000, "2025-09"),
+        "grok-3" to CuratedModelInfo("Grok 3", 131_072, "2025-02"),
+        "grok-3-latest" to CuratedModelInfo("Grok 3 (Latest)", 131_072, "2025-02"),
+        "grok-3-fast" to CuratedModelInfo("Grok 3 Fast", 131_072, "2025-02"),
+        "grok-3-mini" to CuratedModelInfo("Grok 3 Mini", 131_072, "2025-02"),
+        "grok-3-mini-latest" to CuratedModelInfo("Grok 3 Mini (Latest)", 131_072, "2025-02"),
+        "grok-3-mini-fast" to CuratedModelInfo("Grok 3 Mini Fast", 131_072, "2025-02"),
+        "grok-2" to CuratedModelInfo("Grok 2", 131_072, "2024-08"),
+        "grok-2-latest" to CuratedModelInfo("Grok 2 (Latest)", 131_072, "2024-08"),
+        "grok-2-1212" to CuratedModelInfo("Grok 2", 131_072, "2024-12"),
+        "grok-2-vision" to CuratedModelInfo("Grok 2 Vision", 32_000, "2024-12"),
+        "grok-2-vision-1212" to CuratedModelInfo("Grok 2 Vision", 32_000, "2024-12"),
+        "grok-beta" to CuratedModelInfo("Grok Beta", 131_072, "2024-10"),
+        "grok-vision-beta" to CuratedModelInfo("Grok Vision Beta", 8_192, "2024-11"),
+
+        // ==============================================================
+        // DeepSeek
+        // ==============================================================
+        "deepseek-v3.2" to CuratedModelInfo("DeepSeek V3.2", 128_000, "2025-09", "671B"),
+        "deepseek-v3-2" to CuratedModelInfo("DeepSeek V3.2", 128_000, "2025-09", "671B"),
+        "deepseek-v3.2-exp" to CuratedModelInfo("DeepSeek V3.2 Exp", 128_000, "2025-09", "671B"),
+        "deepseek-v3.1" to CuratedModelInfo("DeepSeek V3.1", 128_000, "2025-08", "671B"),
+        "deepseek-v3-1" to CuratedModelInfo("DeepSeek V3.1", 128_000, "2025-08", "671B"),
+        "deepseek-v3" to CuratedModelInfo("DeepSeek V3", 128_000, "2024-12", "671B"),
+        "deepseek-chat" to CuratedModelInfo("DeepSeek Chat", 128_000, "2024-12", "671B"),
+        "deepseek-r1" to CuratedModelInfo("DeepSeek R1", 128_000, "2025-01", "671B"),
+        "deepseek-reasoner" to CuratedModelInfo("DeepSeek R1", 128_000, "2025-01", "671B"),
+        "deepseek-r1-0528" to CuratedModelInfo("DeepSeek R1", 128_000, "2025-05", "671B"),
+        "deepseek-r1-distill-llama-70b" to CuratedModelInfo("DeepSeek R1 Distill Llama", 128_000, "2025-01", "70B"),
+        "deepseek-r1-distill-llama-8b" to CuratedModelInfo("DeepSeek R1 Distill Llama", 128_000, "2025-01", "8B"),
+        "deepseek-r1-distill-qwen-32b" to CuratedModelInfo("DeepSeek R1 Distill Qwen", 128_000, "2025-01", "32B"),
+        "deepseek-r1-distill-qwen-14b" to CuratedModelInfo("DeepSeek R1 Distill Qwen", 128_000, "2025-01", "14B"),
+        "deepseek-r1-distill-qwen-7b" to CuratedModelInfo("DeepSeek R1 Distill Qwen", 128_000, "2025-01", "7B"),
+        "deepseek-r1-distill-qwen-1.5b" to CuratedModelInfo("DeepSeek R1 Distill Qwen", 128_000, "2025-01", "1.5B"),
+        "deepseek-coder-v2" to CuratedModelInfo("DeepSeek Coder V2", 128_000, "2024-06", "236B"),
+        "deepseek-coder" to CuratedModelInfo("DeepSeek Coder", 128_000, "2024-06"),
+
+        // ==============================================================
+        // Mistral
+        // ==============================================================
+        "mistral-large-3" to CuratedModelInfo("Mistral Large 3", 128_000, "2025-12"),
+        "mistral-large-latest" to CuratedModelInfo("Mistral Large 2 (Latest)", 128_000, "2024-11"),
+        "mistral-large-2411" to CuratedModelInfo("Mistral Large 2", 128_000, "2024-11"),
+        "mistral-large-2407" to CuratedModelInfo("Mistral Large 2", 128_000, "2024-07"),
+        "mistral-medium-latest" to CuratedModelInfo("Mistral Medium 3 (Latest)", 128_000, "2025-05"),
+        "mistral-medium-2505" to CuratedModelInfo("Mistral Medium 3", 128_000, "2025-05"),
+        "mistral-medium-3" to CuratedModelInfo("Mistral Medium 3", 128_000, "2025-05"),
+        "mistral-small-latest" to CuratedModelInfo("Mistral Small 3 (Latest)", 128_000, "2025-03"),
+        "mistral-small-2503" to CuratedModelInfo("Mistral Small 3", 128_000, "2025-03"),
+        "mistral-small-2501" to CuratedModelInfo("Mistral Small 3", 128_000, "2025-01"),
+        "mistral-small-3" to CuratedModelInfo("Mistral Small 3", 128_000, "2025-03"),
+        "mistral-small-3.1" to CuratedModelInfo("Mistral Small 3.1", 128_000, "2025-03"),
+        "mistral-small-3.2" to CuratedModelInfo("Mistral Small 3.2", 128_000, "2025-06"),
+        "codestral-latest" to CuratedModelInfo("Codestral (Latest)", 256_000, "2025-01"),
+        "codestral-2501" to CuratedModelInfo("Codestral", 256_000, "2025-01"),
+        "codestral-2412" to CuratedModelInfo("Codestral", 256_000, "2024-12"),
+        "codestral-2405" to CuratedModelInfo("Codestral", 32_000, "2024-05"),
+        "pixtral-large-latest" to CuratedModelInfo("Pixtral Large (Latest)", 128_000, "2024-11"),
+        "pixtral-large-2411" to CuratedModelInfo("Pixtral Large", 128_000, "2024-11"),
+        "pixtral-12b" to CuratedModelInfo("Pixtral 12B", 128_000, "2024-09", "12B"),
+        "pixtral-12b-2409" to CuratedModelInfo("Pixtral 12B", 128_000, "2024-09", "12B"),
+        "magistral-medium-latest" to CuratedModelInfo("Magistral Medium (Latest)", 40_000, "2025-06"),
+        "magistral-medium-2506" to CuratedModelInfo("Magistral Medium", 40_000, "2025-06"),
+        "magistral-small-latest" to CuratedModelInfo("Magistral Small (Latest)", 40_000, "2025-06", "24B"),
+        "magistral-small-2506" to CuratedModelInfo("Magistral Small", 40_000, "2025-06", "24B"),
+        "ministral-8b-latest" to CuratedModelInfo("Ministral 8B (Latest)", 128_000, "2024-10", "8B"),
+        "ministral-8b-2410" to CuratedModelInfo("Ministral 8B", 128_000, "2024-10", "8B"),
+        "ministral-3b-latest" to CuratedModelInfo("Ministral 3B (Latest)", 128_000, "2024-10", "3B"),
+        "ministral-3b-2410" to CuratedModelInfo("Ministral 3B", 128_000, "2024-10", "3B"),
+        "open-mistral-nemo" to CuratedModelInfo("Mistral Nemo", 128_000, "2024-07", "12B"),
+        "mistral-nemo" to CuratedModelInfo("Mistral Nemo", 128_000, "2024-07", "12B"),
+        "mistral-nemo-latest" to CuratedModelInfo("Mistral Nemo (Latest)", 128_000, "2024-07", "12B"),
+        "mixtral-8x22b" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "mixtral-8x22b-instruct-v0.1" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "open-mixtral-8x22b" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "open-mixtral-8x22b-2404" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "mixtral-8x7b" to CuratedModelInfo("Mixtral 8x7B", 32_000, "2023-12", "8x7B"),
+        "mixtral-8x7b-instruct-v0.1" to CuratedModelInfo("Mixtral 8x7B", 32_000, "2023-12", "8x7B"),
+        "open-mixtral-8x7b" to CuratedModelInfo("Mixtral 8x7B", 32_000, "2023-12", "8x7B"),
+        "mixtral-8x7b-32768" to CuratedModelInfo("Mixtral 8x7B", 32_768, "2023-12", "8x7B"),
+        "mistral-7b-instruct" to CuratedModelInfo("Mistral 7B", 32_000, "2023-09", "7B"),
+        "mistral-7b-instruct-v0.3" to CuratedModelInfo("Mistral 7B", 32_000, "2024-05", "7B"),
+        "mistral-7b-instruct-v0.2" to CuratedModelInfo("Mistral 7B", 32_000, "2023-12", "7B"),
+        "mistral-7b-instruct-v0.1" to CuratedModelInfo("Mistral 7B", 32_000, "2023-09", "7B"),
+        "open-mistral-7b" to CuratedModelInfo("Mistral 7B", 32_000, "2023-09", "7B"),
+        "mistral-saba-24b" to CuratedModelInfo("Mistral Saba", 32_000, "2025-02", "24B"),
+        "devstral-medium" to CuratedModelInfo("Devstral Medium", 128_000, "2025-05"),
+        "devstral-small" to CuratedModelInfo("Devstral Small", 128_000, "2025-05", "24B"),
+        "devstral-small-latest" to CuratedModelInfo("Devstral Small (Latest)", 128_000, "2025-05", "24B"),
+
+        // ==============================================================
+        // Meta Llama
+        // ==============================================================
+        "llama-4-scout" to CuratedModelInfo("Llama 4 Scout", 10_000_000, "2025-04", "109B"),
+        "llama-4-scout-17b-16e" to CuratedModelInfo("Llama 4 Scout", 10_000_000, "2025-04", "109B"),
+        "llama-4-scout-17b-16e-instruct" to CuratedModelInfo("Llama 4 Scout", 10_000_000, "2025-04", "109B"),
+        "llama-4-maverick" to CuratedModelInfo("Llama 4 Maverick", 1_000_000, "2025-04", "400B"),
+        "llama-4-maverick-17b-128e" to CuratedModelInfo("Llama 4 Maverick", 1_000_000, "2025-04", "400B"),
+        "llama-4-maverick-17b-128e-instruct" to CuratedModelInfo("Llama 4 Maverick", 1_000_000, "2025-04", "400B"),
+        "llama-3.3-70b" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-3.3-70b-instruct" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-3.3-70b-instruct-turbo" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-3.3-70b-versatile" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-v3p3-70b-instruct" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama3.3" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama3.3:70b" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-3.2-90b-vision" to CuratedModelInfo("Llama 3.2 90B Vision", 128_000, "2024-09", "90B"),
+        "llama-3.2-90b-vision-instruct" to CuratedModelInfo("Llama 3.2 90B Vision", 128_000, "2024-09", "90B"),
+        "llama-3.2-11b-vision" to CuratedModelInfo("Llama 3.2 11B Vision", 128_000, "2024-09", "11B"),
+        "llama-3.2-11b-vision-instruct" to CuratedModelInfo("Llama 3.2 11B Vision", 128_000, "2024-09", "11B"),
+        "llama-3.2-3b" to CuratedModelInfo("Llama 3.2 3B", 128_000, "2024-09", "3B"),
+        "llama-3.2-3b-instruct" to CuratedModelInfo("Llama 3.2 3B", 128_000, "2024-09", "3B"),
+        "llama-3.2-3b-instruct-turbo" to CuratedModelInfo("Llama 3.2 3B", 128_000, "2024-09", "3B"),
+        "llama-3.2-1b" to CuratedModelInfo("Llama 3.2 1B", 128_000, "2024-09", "1B"),
+        "llama-3.2-1b-instruct" to CuratedModelInfo("Llama 3.2 1B", 128_000, "2024-09", "1B"),
+        "llama-3.1-405b" to CuratedModelInfo("Llama 3.1 405B", 128_000, "2024-07", "405B"),
+        "llama-3.1-405b-instruct" to CuratedModelInfo("Llama 3.1 405B", 128_000, "2024-07", "405B"),
+        "llama-3.1-405b-instruct-turbo" to CuratedModelInfo("Llama 3.1 405B", 128_000, "2024-07", "405B"),
+        "meta-llama-3.1-405b-instruct-turbo" to CuratedModelInfo("Llama 3.1 405B", 128_000, "2024-07", "405B"),
+        "llama-3.1-70b" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama-3.1-70b-instruct" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama-3.1-70b-instruct-turbo" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama-3.1-70b-versatile" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama-v3p1-70b-instruct" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "meta-llama-3.1-70b-instruct-turbo" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama3.1:70b" to CuratedModelInfo("Llama 3.1 70B", 128_000, "2024-07", "70B"),
+        "llama-3.1-8b" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama-3.1-8b-instruct" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama-3.1-8b-instant" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama-3.1-8b-instruct-turbo" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama-v3p1-8b-instruct" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "meta-llama-3.1-8b-instruct-turbo" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama3.1" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama3.1:8b" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama-guard-3-8b" to CuratedModelInfo("Llama Guard 3", 8_192, "2024-07", "8B"),
+        "llama-guard-4-12b" to CuratedModelInfo("Llama Guard 4", 128_000, "2025-04", "12B"),
+        "llama3-groq-70b-8192-tool-use-preview" to CuratedModelInfo("Llama 3 Groq Tool Use (Preview)", 8_192, "2024-07", "70B"),
+        "llama3-groq-8b-8192-tool-use-preview" to CuratedModelInfo("Llama 3 Groq Tool Use (Preview)", 8_192, "2024-07", "8B"),
+
+        // ==============================================================
+        // Qwen (Alibaba)
+        // ==============================================================
+        "qwen-max" to CuratedModelInfo("Qwen Max", 32_000, "2025-01"),
+        "qwen-max-latest" to CuratedModelInfo("Qwen Max (Latest)", 32_000, "2025-01"),
+        "qwen-max-2025-01-25" to CuratedModelInfo("Qwen Max", 32_000, "2025-01"),
+        "qwen-plus" to CuratedModelInfo("Qwen Plus", 131_072, "2025-01"),
+        "qwen-plus-latest" to CuratedModelInfo("Qwen Plus (Latest)", 131_072, "2025-01"),
+        "qwen-turbo" to CuratedModelInfo("Qwen Turbo", 1_008_192, "2025-01"),
+        "qwen-turbo-latest" to CuratedModelInfo("Qwen Turbo (Latest)", 1_008_192, "2025-01"),
+        "qwen3-235b-a22b" to CuratedModelInfo("Qwen3 235B", 128_000, "2025-04", "235B"),
+        "qwen3-235b" to CuratedModelInfo("Qwen3 235B", 128_000, "2025-04", "235B"),
+        "qwen3-235b-a22b-2507" to CuratedModelInfo("Qwen3 235B", 128_000, "2025-07", "235B"),
+        "qwen3-235b-a22b-thinking-2507" to CuratedModelInfo("Qwen3 235B Thinking", 128_000, "2025-07", "235B"),
+        "qwen3-32b" to CuratedModelInfo("Qwen3 32B", 128_000, "2025-04", "32B"),
+        "qwen3-14b" to CuratedModelInfo("Qwen3 14B", 128_000, "2025-04", "14B"),
+        "qwen3-8b" to CuratedModelInfo("Qwen3 8B", 128_000, "2025-04", "8B"),
+        "qwen3-4b" to CuratedModelInfo("Qwen3 4B", 128_000, "2025-04", "4B"),
+        "qwen3-1.7b" to CuratedModelInfo("Qwen3 1.7B", 32_000, "2025-04", "1.7B"),
+        "qwen3-0.6b" to CuratedModelInfo("Qwen3 0.6B", 32_000, "2025-04", "0.6B"),
+        "qwen3-coder-480b-a35b" to CuratedModelInfo("Qwen3 Coder 480B", 256_000, "2025-07", "480B"),
+        "qwen3-coder-480b-a35b-instruct" to CuratedModelInfo("Qwen3 Coder 480B", 256_000, "2025-07", "480B"),
+        "qwen3-coder-plus" to CuratedModelInfo("Qwen3 Coder Plus", 1_000_000, "2025-07"),
+        "qwen3-coder" to CuratedModelInfo("Qwen3 Coder", 256_000, "2025-07"),
+        "qwen2.5-72b-instruct" to CuratedModelInfo("Qwen 2.5 72B", 131_072, "2024-09", "72B"),
+        "qwen2.5-72b-instruct-turbo" to CuratedModelInfo("Qwen 2.5 72B", 131_072, "2024-09", "72B"),
+        "qwen2.5-72b" to CuratedModelInfo("Qwen 2.5 72B", 131_072, "2024-09", "72B"),
+        "qwen2.5:72b" to CuratedModelInfo("Qwen 2.5 72B", 131_072, "2024-09", "72B"),
+        "qwen2.5-32b-instruct" to CuratedModelInfo("Qwen 2.5 32B", 131_072, "2024-09", "32B"),
+        "qwen2.5-32b" to CuratedModelInfo("Qwen 2.5 32B", 131_072, "2024-09", "32B"),
+        "qwen-2.5-32b" to CuratedModelInfo("Qwen 2.5 32B", 131_072, "2024-09", "32B"),
+        "qwen2.5-14b-instruct" to CuratedModelInfo("Qwen 2.5 14B", 131_072, "2024-09", "14B"),
+        "qwen2.5-7b-instruct" to CuratedModelInfo("Qwen 2.5 7B", 131_072, "2024-09", "7B"),
+        "qwen2.5-7b-instruct-turbo" to CuratedModelInfo("Qwen 2.5 7B", 131_072, "2024-09", "7B"),
+        "qwen2.5-3b-instruct" to CuratedModelInfo("Qwen 2.5 3B", 32_000, "2024-09", "3B"),
+        "qwen2.5-coder-32b-instruct" to CuratedModelInfo("Qwen 2.5 Coder 32B", 131_072, "2024-11", "32B"),
+        "qwen2.5-coder-32b" to CuratedModelInfo("Qwen 2.5 Coder 32B", 131_072, "2024-11", "32B"),
+        "qwen-2.5-coder-32b" to CuratedModelInfo("Qwen 2.5 Coder 32B", 131_072, "2024-11", "32B"),
+        "qwen2.5-coder-14b-instruct" to CuratedModelInfo("Qwen 2.5 Coder 14B", 131_072, "2024-11", "14B"),
+        "qwen2.5-coder-7b-instruct" to CuratedModelInfo("Qwen 2.5 Coder 7B", 131_072, "2024-11", "7B"),
+        "qwen2.5-vl-72b-instruct" to CuratedModelInfo("Qwen 2.5 VL 72B", 131_072, "2025-01", "72B"),
+        "qwen2.5-vl-32b-instruct" to CuratedModelInfo("Qwen 2.5 VL 32B", 131_072, "2025-01", "32B"),
+        "qwen2.5-vl-7b-instruct" to CuratedModelInfo("Qwen 2.5 VL 7B", 131_072, "2025-01", "7B"),
+        "qwen2-72b-instruct" to CuratedModelInfo("Qwen2 72B", 131_072, "2024-06", "72B"),
+        "qwq-32b" to CuratedModelInfo("QwQ 32B", 32_000, "2025-03", "32B"),
+        "qwen-qwq-32b" to CuratedModelInfo("QwQ 32B", 32_000, "2025-03", "32B"),
+        "qwq-32b-preview" to CuratedModelInfo("QwQ 32B (Preview)", 32_000, "2024-11", "32B"),
+        "qwq-plus" to CuratedModelInfo("QwQ Plus", 131_072, "2025-03"),
+
+        // ==============================================================
+        // Cohere Command
+        // ==============================================================
+        "command-a-03-2025" to CuratedModelInfo("Command A", 256_000, "2025-03"),
+        "command-a" to CuratedModelInfo("Command A", 256_000, "2025-03"),
+        "command-a-vision-07-2025" to CuratedModelInfo("Command A Vision", 256_000, "2025-07"),
+        "command-r-plus-08-2024" to CuratedModelInfo("Command R+", 128_000, "2024-08"),
+        "command-r-plus" to CuratedModelInfo("Command R+", 128_000, "2024-08"),
+        "command-r-plus-04-2024" to CuratedModelInfo("Command R+", 128_000, "2024-04"),
+        "command-r-08-2024" to CuratedModelInfo("Command R", 128_000, "2024-08"),
+        "command-r" to CuratedModelInfo("Command R", 128_000, "2024-08"),
+        "command-r-03-2024" to CuratedModelInfo("Command R", 128_000, "2024-03"),
+        "command-r7b-12-2024" to CuratedModelInfo("Command R7B", 128_000, "2024-12", "7B"),
+        "command-r7b" to CuratedModelInfo("Command R7B", 128_000, "2024-12", "7B"),
+        "c4ai-aya-expanse-32b" to CuratedModelInfo("Aya Expanse 32B", 128_000, "2024-10", "32B"),
+        "c4ai-aya-expanse-8b" to CuratedModelInfo("Aya Expanse 8B", 8_192, "2024-10", "8B"),
+        "c4ai-aya-vision-32b" to CuratedModelInfo("Aya Vision 32B", 16_000, "2025-03", "32B"),
+        "c4ai-aya-vision-8b" to CuratedModelInfo("Aya Vision 8B", 16_000, "2025-03", "8B"),
+
+        // ==============================================================
+        // GLM / Zhipu
+        // ==============================================================
+        "glm-4.6" to CuratedModelInfo("GLM-4.6", 200_000, "2025-09"),
+        "glm-4.6-air" to CuratedModelInfo("GLM-4.6 Air", 128_000, "2025-09"),
+        "glm-4.5" to CuratedModelInfo("GLM-4.5", 128_000, "2025-07"),
+        "glm-4.5-air" to CuratedModelInfo("GLM-4.5 Air", 128_000, "2025-07"),
+        "glm-4.5-x" to CuratedModelInfo("GLM-4.5 X", 128_000, "2025-07"),
+        "glm-4.5v" to CuratedModelInfo("GLM-4.5V", 64_000, "2025-08"),
+        "glm-4-plus" to CuratedModelInfo("GLM-4 Plus", 128_000, "2024-10"),
+        "glm-4-air" to CuratedModelInfo("GLM-4 Air", 128_000, "2024-06"),
+        "glm-4-airx" to CuratedModelInfo("GLM-4 AirX", 128_000, "2024-06"),
+        "glm-4-long" to CuratedModelInfo("GLM-4 Long", 1_000_000, "2024-06"),
+        "glm-4-flash" to CuratedModelInfo("GLM-4 Flash", 128_000, "2024-06"),
+        "glm-4v-plus" to CuratedModelInfo("GLM-4V Plus", 8_192, "2024-10"),
+        "glm-z1-airx" to CuratedModelInfo("GLM-Z1 AirX", 128_000, "2025-04"),
+        "glm-z1-air" to CuratedModelInfo("GLM-Z1 Air", 128_000, "2025-04"),
+        "glm-z1-flash" to CuratedModelInfo("GLM-Z1 Flash", 128_000, "2025-04"),
+
+        // ==============================================================
+        // Moonshot Kimi
+        // ==============================================================
+        "kimi-k2.5" to CuratedModelInfo("Kimi K2.5", 256_000, "2025-10"),
+        "kimi-k2-thinking" to CuratedModelInfo("Kimi K2 Thinking", 200_000, "2025-11"),
+        "kimi-k2" to CuratedModelInfo("Kimi K2", 200_000, "2025-07"),
+        "kimi-k2-instruct" to CuratedModelInfo("Kimi K2", 200_000, "2025-07"),
+        "kimi-k2-0905" to CuratedModelInfo("Kimi K2", 200_000, "2025-09"),
+        "kimi-k2-0711" to CuratedModelInfo("Kimi K2", 200_000, "2025-07"),
+        "kimi-k2-0711-preview" to CuratedModelInfo("Kimi K2 (Preview 07-11)", 200_000, "2025-07"),
+        "kimi-k2-0905-preview" to CuratedModelInfo("Kimi K2 (Preview 09-05)", 200_000, "2025-09"),
+        "kimi-k1.5" to CuratedModelInfo("Kimi K1.5", 200_000, "2025-01"),
+        "moonshot-v1-128k" to CuratedModelInfo("Moonshot v1 128K", 128_000, "2024-09"),
+        "moonshot-v1-32k" to CuratedModelInfo("Moonshot v1 32K", 32_000, "2024-09"),
+        "moonshot-v1-8k" to CuratedModelInfo("Moonshot v1 8K", 8_192, "2024-09"),
+
+        // ==============================================================
+        // MiniMax
+        // ==============================================================
+        "minimax-m2.7" to CuratedModelInfo("MiniMax M2.7", 1_000_000, "2026-03"),
+        "minimax-m2" to CuratedModelInfo("MiniMax M2", 1_000_000, "2025-10"),
+        "minimax-m1" to CuratedModelInfo("MiniMax M1", 1_000_000, "2025-06"),
+        "minimax-text-01" to CuratedModelInfo("MiniMax Text 01", 4_000_000, "2025-01"),
+        "abab6.5s-chat" to CuratedModelInfo("ABAB 6.5s", 245_000, "2024-05"),
+        "abab6.5-chat" to CuratedModelInfo("ABAB 6.5", 32_000, "2024-04"),
+
+        // ==============================================================
+        // Google Gemma (open weight)
+        // ==============================================================
+        "gemma-3-27b-it" to CuratedModelInfo("Gemma 3 27B", 128_000, "2025-03", "27B"),
+        "gemma-3-27b" to CuratedModelInfo("Gemma 3 27B", 128_000, "2025-03", "27B"),
+        "gemma3:27b" to CuratedModelInfo("Gemma 3 27B", 128_000, "2025-03", "27B"),
+        "gemma-3-12b-it" to CuratedModelInfo("Gemma 3 12B", 128_000, "2025-03", "12B"),
+        "gemma-3-12b" to CuratedModelInfo("Gemma 3 12B", 128_000, "2025-03", "12B"),
+        "gemma3:12b" to CuratedModelInfo("Gemma 3 12B", 128_000, "2025-03", "12B"),
+        "gemma-3-4b-it" to CuratedModelInfo("Gemma 3 4B", 128_000, "2025-03", "4B"),
+        "gemma-3-4b" to CuratedModelInfo("Gemma 3 4B", 128_000, "2025-03", "4B"),
+        "gemma3:4b" to CuratedModelInfo("Gemma 3 4B", 128_000, "2025-03", "4B"),
+        "gemma-3-1b-it" to CuratedModelInfo("Gemma 3 1B", 32_000, "2025-03", "1B"),
+        "gemma-3-1b" to CuratedModelInfo("Gemma 3 1B", 32_000, "2025-03", "1B"),
+        "gemma3:1b" to CuratedModelInfo("Gemma 3 1B", 32_000, "2025-03", "1B"),
+        "gemma-2-27b-it" to CuratedModelInfo("Gemma 2 27B", 8_192, "2024-06", "27B"),
+        "gemma2:27b" to CuratedModelInfo("Gemma 2 27B", 8_192, "2024-06", "27B"),
+        "gemma-2-9b-it" to CuratedModelInfo("Gemma 2 9B", 8_192, "2024-06", "9B"),
+        "gemma2-9b-it" to CuratedModelInfo("Gemma 2 9B", 8_192, "2024-06", "9B"),
+        "gemma2:9b" to CuratedModelInfo("Gemma 2 9B", 8_192, "2024-06", "9B"),
+        "gemma-2-2b-it" to CuratedModelInfo("Gemma 2 2B", 8_192, "2024-06", "2B"),
+        "gemma2:2b" to CuratedModelInfo("Gemma 2 2B", 8_192, "2024-06", "2B"),
+
+        // ==============================================================
+        // Microsoft Phi
+        // ==============================================================
+        "phi-4" to CuratedModelInfo("Phi-4", 16_384, "2024-12", "14B"),
+        "phi4" to CuratedModelInfo("Phi-4", 16_384, "2024-12", "14B"),
+        "phi4:14b" to CuratedModelInfo("Phi-4", 16_384, "2024-12", "14B"),
+        "phi-4-14b" to CuratedModelInfo("Phi-4", 16_384, "2024-12", "14B"),
+        "phi-4-mini-instruct" to CuratedModelInfo("Phi-4 Mini", 128_000, "2025-02", "3.8B"),
+        "phi-4-mini" to CuratedModelInfo("Phi-4 Mini", 128_000, "2025-02", "3.8B"),
+        "phi-4-multimodal-instruct" to CuratedModelInfo("Phi-4 Multimodal", 128_000, "2025-02", "5.6B"),
+        "phi-4-multimodal" to CuratedModelInfo("Phi-4 Multimodal", 128_000, "2025-02", "5.6B"),
+        "phi-4-reasoning" to CuratedModelInfo("Phi-4 Reasoning", 32_000, "2025-04", "14B"),
+        "phi-4-reasoning-plus" to CuratedModelInfo("Phi-4 Reasoning Plus", 32_000, "2025-04", "14B"),
+        "phi-3.5-mini-instruct" to CuratedModelInfo("Phi-3.5 Mini", 128_000, "2024-08", "3.8B"),
+        "phi3.5" to CuratedModelInfo("Phi-3.5 Mini", 128_000, "2024-08", "3.8B"),
+        "phi3.5:3.8b" to CuratedModelInfo("Phi-3.5 Mini", 128_000, "2024-08", "3.8B"),
+        "phi-3.5-moe-instruct" to CuratedModelInfo("Phi-3.5 MoE", 128_000, "2024-08", "42B"),
+        "phi-3-medium-128k-instruct" to CuratedModelInfo("Phi-3 Medium", 128_000, "2024-04", "14B"),
+        "phi-3-medium-4k-instruct" to CuratedModelInfo("Phi-3 Medium", 4_000, "2024-04", "14B"),
+        "phi-3-small-128k-instruct" to CuratedModelInfo("Phi-3 Small", 128_000, "2024-04", "7B"),
+        "phi-3-small-8k-instruct" to CuratedModelInfo("Phi-3 Small", 8_000, "2024-04", "7B"),
+        "phi-3-mini-128k-instruct" to CuratedModelInfo("Phi-3 Mini", 128_000, "2024-04", "3.8B"),
+        "phi-3-mini-4k-instruct" to CuratedModelInfo("Phi-3 Mini", 4_000, "2024-04", "3.8B"),
+
+        // ==============================================================
+        // NVIDIA Nemotron
+        // ==============================================================
+        "llama-3.1-nemotron-ultra-253b-v1" to CuratedModelInfo("Nemotron Ultra", 128_000, "2025-04", "253B"),
+        "nemotron-ultra" to CuratedModelInfo("Nemotron Ultra", 128_000, "2025-04", "253B"),
+        "llama-3.3-nemotron-super-49b-v1" to CuratedModelInfo("Nemotron Super", 128_000, "2025-03", "49B"),
+        "nemotron-super" to CuratedModelInfo("Nemotron Super", 128_000, "2025-03", "49B"),
+        "llama-3.1-nemotron-nano-8b-v1" to CuratedModelInfo("Nemotron Nano", 128_000, "2025-03", "8B"),
+        "nemotron-nano" to CuratedModelInfo("Nemotron Nano", 128_000, "2025-03", "8B"),
+        "llama-3.1-nemotron-70b-instruct" to CuratedModelInfo("Nemotron 70B", 128_000, "2024-10", "70B"),
+        "nemotron-4-340b-instruct" to CuratedModelInfo("Nemotron 4 340B", 4_096, "2024-06", "340B"),
+
+        // ==============================================================
+        // NousResearch Hermes
+        // ==============================================================
+        "hermes-4-405b" to CuratedModelInfo("Hermes 4 405B", 128_000, "2025-08", "405B"),
+        "hermes-4-70b" to CuratedModelInfo("Hermes 4 70B", 128_000, "2025-08", "70B"),
+        "hermes-3-llama-3.1-405b" to CuratedModelInfo("Hermes 3 405B", 128_000, "2024-08", "405B"),
+        "hermes-3-llama-3.1-70b" to CuratedModelInfo("Hermes 3 70B", 128_000, "2024-08", "70B"),
+        "hermes-3-llama-3.1-8b" to CuratedModelInfo("Hermes 3 8B", 128_000, "2024-08", "8B"),
+        "nous-hermes-2-mixtral-8x7b-dpo" to CuratedModelInfo("Nous Hermes 2 Mixtral", 32_000, "2024-01", "8x7B"),
+
+        // ==============================================================
+        // 01.AI Yi
+        // ==============================================================
+        "yi-lightning" to CuratedModelInfo("Yi Lightning", 16_000, "2024-10"),
+        "yi-large" to CuratedModelInfo("Yi Large", 32_000, "2024-05"),
+        "yi-large-turbo" to CuratedModelInfo("Yi Large Turbo", 32_000, "2024-05"),
+        "yi-medium" to CuratedModelInfo("Yi Medium", 16_000, "2024-05"),
+        "yi-vision" to CuratedModelInfo("Yi Vision", 16_000, "2024-05"),
+        "yi-34b-chat" to CuratedModelInfo("Yi 34B", 4_096, "2023-11", "34B"),
+
+        // ==============================================================
+        // Perplexity Sonar
+        // ==============================================================
+        "sonar" to CuratedModelInfo("Sonar", 128_000, "2025-01"),
+        "sonar-pro" to CuratedModelInfo("Sonar Pro", 200_000, "2025-01"),
+        "sonar-reasoning" to CuratedModelInfo("Sonar Reasoning", 127_072, "2025-02"),
+        "sonar-reasoning-pro" to CuratedModelInfo("Sonar Reasoning Pro", 127_072, "2025-03"),
+        "sonar-deep-research" to CuratedModelInfo("Sonar Deep Research", 128_000, "2025-03"),
+
+        // ==============================================================
+        // Amazon Nova
+        // ==============================================================
+        "nova-pro-v1" to CuratedModelInfo("Nova Pro", 300_000, "2024-12"),
+        "nova-pro" to CuratedModelInfo("Nova Pro", 300_000, "2024-12"),
+        "nova-lite-v1" to CuratedModelInfo("Nova Lite", 300_000, "2024-12"),
+        "nova-lite" to CuratedModelInfo("Nova Lite", 300_000, "2024-12"),
+        "nova-micro-v1" to CuratedModelInfo("Nova Micro", 128_000, "2024-12"),
+        "nova-micro" to CuratedModelInfo("Nova Micro", 128_000, "2024-12"),
+        "nova-premier-v1" to CuratedModelInfo("Nova Premier", 1_000_000, "2025-04"),
+        "nova-premier" to CuratedModelInfo("Nova Premier", 1_000_000, "2025-04"),
+
+        // ==============================================================
+        // AI21 Jamba
+        // ==============================================================
+        "jamba-large-1.7" to CuratedModelInfo("Jamba Large 1.7", 256_000, "2025-07"),
+        "jamba-mini-1.7" to CuratedModelInfo("Jamba Mini 1.7", 256_000, "2025-07"),
+        "jamba-1.6-large" to CuratedModelInfo("Jamba 1.6 Large", 256_000, "2025-03"),
+        "jamba-1.6-mini" to CuratedModelInfo("Jamba 1.6 Mini", 256_000, "2025-03"),
+        "jamba-1.5-large" to CuratedModelInfo("Jamba 1.5 Large", 256_000, "2024-08"),
+        "jamba-1.5-mini" to CuratedModelInfo("Jamba 1.5 Mini", 256_000, "2024-08"),
+
+        // ==============================================================
+        // Inflection Pi
+        // ==============================================================
+        "inflection-3-pi" to CuratedModelInfo("Inflection 3 Pi", 8_000, "2024-10"),
+        "inflection-3-productivity" to CuratedModelInfo("Inflection 3 Productivity", 8_000, "2024-10"),
+
+        // ==============================================================
+        // Reka
+        // ==============================================================
+        "reka-core" to CuratedModelInfo("Reka Core", 128_000, "2024-04"),
+        "reka-core-20240904" to CuratedModelInfo("Reka Core", 128_000, "2024-09"),
+        "reka-flash" to CuratedModelInfo("Reka Flash", 128_000, "2024-04"),
+        "reka-flash-3" to CuratedModelInfo("Reka Flash 3", 32_000, "2025-03", "21B"),
+        "reka-edge" to CuratedModelInfo("Reka Edge", 64_000, "2024-04"),
+
+        // ==============================================================
+        // Liquid
+        // ==============================================================
+        "lfm-40b" to CuratedModelInfo("LFM 40B", 32_000, "2024-09", "40B"),
+        "lfm-7b" to CuratedModelInfo("LFM 7B", 32_000, "2025-01", "7B"),
+        "lfm-3b" to CuratedModelInfo("LFM 3B", 32_000, "2025-01", "3B"),
+        "lfm-1.3b" to CuratedModelInfo("LFM 1.3B", 32_000, "2024-09", "1.3B"),
+
+        // ==============================================================
+        // Databricks / MosaicML
+        // ==============================================================
+        "dbrx-instruct" to CuratedModelInfo("DBRX Instruct", 32_000, "2024-03", "132B"),
+
+        // ==============================================================
+        // Microsoft WizardLM
+        // ==============================================================
+        "wizardlm-2-8x22b" to CuratedModelInfo("WizardLM-2 8x22B", 65_536, "2024-04", "8x22B"),
+        "wizardlm-2-7b" to CuratedModelInfo("WizardLM-2 7B", 32_000, "2024-04", "7B"),
+
+        // ==============================================================
+        // IBM Granite
+        // ==============================================================
+        "granite-3.1-8b-instruct" to CuratedModelInfo("Granite 3.1 8B", 128_000, "2024-12", "8B"),
+        "granite-3.1-2b-instruct" to CuratedModelInfo("Granite 3.1 2B", 128_000, "2024-12", "2B"),
+        "granite-3.0-8b-instruct" to CuratedModelInfo("Granite 3.0 8B", 4_096, "2024-10", "8B"),
+        "granite-3.0-2b-instruct" to CuratedModelInfo("Granite 3.0 2B", 4_096, "2024-10", "2B"),
+
+        // ==============================================================
+        // Allen AI OLMo
+        // ==============================================================
+        "olmo-2-0325-32b-instruct" to CuratedModelInfo("OLMo 2 32B", 4_096, "2025-03", "32B"),
+        "olmo-2-1124-13b-instruct" to CuratedModelInfo("OLMo 2 13B", 4_096, "2024-11", "13B"),
+        "olmo-2-1124-7b-instruct" to CuratedModelInfo("OLMo 2 7B", 4_096, "2024-11", "7B"),
+
+        // ==============================================================
+        // Tencent Hunyuan
+        // ==============================================================
+        "hunyuan-large" to CuratedModelInfo("Hunyuan Large", 256_000, "2024-11", "389B"),
+        "hunyuan-turbo" to CuratedModelInfo("Hunyuan Turbo", 32_000, "2024-10"),
+        "hunyuan-standard" to CuratedModelInfo("Hunyuan Standard", 32_000, "2024-10"),
+
+        // ==============================================================
+        // Baidu Ernie
+        // ==============================================================
+        "ernie-4.5-turbo" to CuratedModelInfo("Ernie 4.5 Turbo", 128_000, "2025-03"),
+        "ernie-4.5" to CuratedModelInfo("Ernie 4.5", 128_000, "2025-03"),
+        "ernie-x1" to CuratedModelInfo("Ernie X1", 128_000, "2025-03"),
+        "ernie-4.0-turbo" to CuratedModelInfo("Ernie 4.0 Turbo", 32_000, "2024-08"),
+        "ernie-4.0" to CuratedModelInfo("Ernie 4.0", 8_192, "2024-03"),
+
+        // ==============================================================
+        // Misc
+        // ==============================================================
+        "allam-2-7b" to CuratedModelInfo("ALLaM 2", 4_096, "2024-12", "7B"),
+        "command-light" to CuratedModelInfo("Command Light", 4_096, "2023-09"),
+        "llamaguard-7b" to CuratedModelInfo("Llama Guard", 4_096, "2023-12", "7B"),
+
+        // ==============================================================
+        // OpenAI — additional / newer variants
+        // ==============================================================
+        "gpt-oss-120b" to CuratedModelInfo("GPT-OSS 120B", 131_072, "2025-08", "120B"),
+        "gpt-oss:120b" to CuratedModelInfo("GPT-OSS 120B", 131_072, "2025-08", "120B"),
+        "gpt-oss-120b:free" to CuratedModelInfo("GPT-OSS 120B", 131_072, "2025-08", "120B"),
+        "gpt-oss-20b" to CuratedModelInfo("GPT-OSS 20B", 131_072, "2025-08", "20B"),
+        "gpt-oss:20b" to CuratedModelInfo("GPT-OSS 20B", 131_072, "2025-08", "20B"),
+        "gpt-oss-20b:free" to CuratedModelInfo("GPT-OSS 20B", 131_072, "2025-08", "20B"),
+        "gpt-oss-safeguard-20b" to CuratedModelInfo("GPT-OSS Safeguard", 131_072, "2025-10", "20B"),
+        "gpt-5-chat" to CuratedModelInfo("GPT-5 Chat", 400_000, "2025-08"),
+        "gpt-5-image" to CuratedModelInfo("GPT-5 Image", 400_000, "2025-09"),
+        "gpt-5-image-mini" to CuratedModelInfo("GPT-5 Image Mini", 400_000, "2025-09"),
+        "gpt-5.1" to CuratedModelInfo("GPT-5.1", 400_000, "2025-11"),
+        "gpt-5.1-chat" to CuratedModelInfo("GPT-5.1 Chat", 400_000, "2025-11"),
+        "gpt-5.1-codex" to CuratedModelInfo("GPT-5.1 Codex", 400_000, "2025-11"),
+        "gpt-5.1-codex-mini" to CuratedModelInfo("GPT-5.1 Codex Mini", 400_000, "2025-11"),
+        "gpt-5.1-codex-max" to CuratedModelInfo("GPT-5.1 Codex Max", 400_000, "2025-11"),
+        "gpt-5.2" to CuratedModelInfo("GPT-5.2", 400_000, "2025-12"),
+        "gpt-5.2-chat" to CuratedModelInfo("GPT-5.2 Chat", 400_000, "2025-12"),
+        "gpt-5.2-codex" to CuratedModelInfo("GPT-5.2 Codex", 400_000, "2025-12"),
+        "gpt-5.2-pro" to CuratedModelInfo("GPT-5.2 Pro", 400_000, "2025-12"),
+        "gpt-5.3-chat" to CuratedModelInfo("GPT-5.3 Chat", 400_000, "2026-01"),
+        "gpt-5.3-codex" to CuratedModelInfo("GPT-5.3 Codex", 400_000, "2026-01"),
+        "gpt-5.4" to CuratedModelInfo("GPT-5.4", 400_000, "2026-02"),
+        "gpt-5.4-chat" to CuratedModelInfo("GPT-5.4 Chat", 400_000, "2026-02"),
+        "gpt-5.4-mini" to CuratedModelInfo("GPT-5.4 mini", 400_000, "2026-02"),
+        "gpt-5.4-nano" to CuratedModelInfo("GPT-5.4 nano", 400_000, "2026-02"),
+        "gpt-5.4-pro" to CuratedModelInfo("GPT-5.4 Pro", 400_000, "2026-02"),
+        "gpt-audio" to CuratedModelInfo("GPT Audio", 128_000, "2025-09"),
+        "gpt-audio-mini" to CuratedModelInfo("GPT Audio Mini", 128_000, "2025-09"),
+        "gpt-4o-audio-preview" to CuratedModelInfo("GPT-4o Audio (Preview)", 128_000, "2024-10"),
+        "gpt-4o-search-preview" to CuratedModelInfo("GPT-4o Search (Preview)", 128_000, "2025-03"),
+        "gpt-4o-mini-search-preview" to CuratedModelInfo("GPT-4o mini Search (Preview)", 128_000, "2025-03"),
+        "gpt-4o:extended" to CuratedModelInfo("GPT-4o Extended", 128_000, "2024-08"),
+        "gpt-4-0314" to CuratedModelInfo("GPT-4", 8_192, "2023-03"),
+        "gpt-3.5-turbo-0613" to CuratedModelInfo("GPT-3.5 Turbo", 4_096, "2023-06"),
+        "gpt-3.5-turbo-instruct" to CuratedModelInfo("GPT-3.5 Turbo Instruct", 4_096, "2023-09"),
+        "o3-mini-high" to CuratedModelInfo("o3-mini (high)", 200_000, "2025-01"),
+        "o4-mini-high" to CuratedModelInfo("o4-mini (high)", 200_000, "2025-04"),
+        "o3-deep-research" to CuratedModelInfo("o3 Deep Research", 200_000, "2025-06"),
+        "o4-mini-deep-research" to CuratedModelInfo("o4-mini Deep Research", 200_000, "2025-06"),
+
+        // ==============================================================
+        // Anthropic — additional
+        // ==============================================================
+        "claude-opus-4.6" to CuratedModelInfo("Claude Opus 4.6", 200_000, "2025-12"),
+        "claude-opus-4-6" to CuratedModelInfo("Claude Opus 4.6", 200_000, "2025-12"),
+        "claude-opus-4.6-fast" to CuratedModelInfo("Claude Opus 4.6 Fast", 200_000, "2025-12"),
+        "claude-sonnet-4.6" to CuratedModelInfo("Claude Sonnet 4.6", 1_000_000, "2025-12"),
+        "claude-sonnet-4-6" to CuratedModelInfo("Claude Sonnet 4.6", 1_000_000, "2025-12"),
+        "claude-3.7-sonnet:thinking" to CuratedModelInfo("Claude 3.7 Sonnet Thinking", 200_000, "2025-02"),
+
+        // ==============================================================
+        // Google Gemini — additional
+        // ==============================================================
+        "gemini-flash-latest" to CuratedModelInfo("Gemini Flash (Latest)", 1_000_000, "2025-11"),
+        "gemini-flash-lite-latest" to CuratedModelInfo("Gemini Flash Lite (Latest)", 1_000_000, "2025-11"),
+        "gemini-pro-latest" to CuratedModelInfo("Gemini Pro (Latest)", 2_000_000, "2025-11"),
+        "gemini-3.1-pro-preview" to CuratedModelInfo("Gemini 3.1 Pro (Preview)", 1_000_000, "2026-01"),
+        "gemini-3.1-pro-preview-customtools" to CuratedModelInfo("Gemini 3.1 Pro (Preview Custom Tools)", 1_000_000, "2026-01"),
+        "gemini-3.1-flash-lite-preview" to CuratedModelInfo("Gemini 3.1 Flash Lite (Preview)", 1_000_000, "2026-01"),
+        "gemini-3.1-flash-image-preview" to CuratedModelInfo("Gemini 3.1 Flash Image (Preview)", 1_000_000, "2026-01"),
+        "gemini-2.5-pro-preview" to CuratedModelInfo("Gemini 2.5 Pro (Preview)", 2_000_000, "2025-06"),
+        "gemini-2.5-flash-image" to CuratedModelInfo("Gemini 2.5 Flash Image (Nano Banana)", 32_000, "2025-08"),
+        "gemini-2.5-computer-use-preview-10-2025" to CuratedModelInfo("Gemini 2.5 Computer Use (Preview 10-2025)", 128_000, "2025-10"),
+        "gemini-robotics-er-1.5-preview" to CuratedModelInfo("Gemini Robotics ER 1.5 (Preview)", 1_000_000, "2025-09"),
+        "gemini-3-pro-image-preview" to CuratedModelInfo("Gemini 3 Pro Image (Preview)", 32_000, "2025-11"),
+        "nano-banana-pro-preview" to CuratedModelInfo("Nano Banana Pro (Preview)", 32_000, "2025-10"),
+        "lyria-3-pro-preview" to CuratedModelInfo("Lyria 3 Pro (Preview)", 0, "2025-10"),
+        "lyria-3-clip-preview" to CuratedModelInfo("Lyria 3 Clip (Preview)", 0, "2025-10"),
+        "deep-research-pro-preview-12-2025" to CuratedModelInfo("Deep Research Pro (Preview)", 1_000_000, "2025-12"),
+
+        // ==============================================================
+        // Google Gemma — additional
+        // ==============================================================
+        "gemma-7b" to CuratedModelInfo("Gemma 7B", 8_192, "2024-02", "7B"),
+        "gemma-2b" to CuratedModelInfo("Gemma 2B", 8_192, "2024-02", "2B"),
+        "gemma-3n-e2b-it" to CuratedModelInfo("Gemma 3n E2B", 32_000, "2025-06", "2B"),
+        "gemma-3n-e2b-it:free" to CuratedModelInfo("Gemma 3n E2B", 32_000, "2025-06", "2B"),
+        "gemma-3n-e4b-it" to CuratedModelInfo("Gemma 3n E4B", 32_000, "2025-06", "4B"),
+        "gemma-3n-e4b-it:free" to CuratedModelInfo("Gemma 3n E4B", 32_000, "2025-06", "4B"),
+        "gemma-4-26b-a4b-it" to CuratedModelInfo("Gemma 4 26B", 128_000, "2026-03", "26B"),
+        "gemma-4-26b-a4b-it:free" to CuratedModelInfo("Gemma 4 26B", 128_000, "2026-03", "26B"),
+        "gemma-4-31b-it" to CuratedModelInfo("Gemma 4 31B", 128_000, "2026-03", "31B"),
+        "gemma-4-31b-it:free" to CuratedModelInfo("Gemma 4 31B", 128_000, "2026-03", "31B"),
+        "gemma4:31b" to CuratedModelInfo("Gemma 4 31B", 128_000, "2026-03", "31B"),
+        "gemma-3-4b-it:free" to CuratedModelInfo("Gemma 3 4B", 128_000, "2025-03", "4B"),
+        "gemma-3-12b-it:free" to CuratedModelInfo("Gemma 3 12B", 128_000, "2025-03", "12B"),
+        "gemma-3-27b-it:free" to CuratedModelInfo("Gemma 3 27B", 128_000, "2025-03", "27B"),
+        "codegemma-7b" to CuratedModelInfo("CodeGemma 7B", 8_192, "2024-04", "7B"),
+        "codegemma-1.1-7b" to CuratedModelInfo("CodeGemma 1.1 7B", 8_192, "2024-05", "7B"),
+        "paligemma" to CuratedModelInfo("PaliGemma", 8_192, "2024-05", "3B"),
+        "recurrentgemma-2b" to CuratedModelInfo("RecurrentGemma 2B", 8_192, "2024-04", "2B"),
+        "shieldgemma-9b" to CuratedModelInfo("ShieldGemma 9B", 8_192, "2024-07", "9B"),
+        "deplot" to CuratedModelInfo("DePlot", 4_096, "2023-12"),
+
+        // ==============================================================
+        // DeepSeek — additional
+        // ==============================================================
+        "deepseek-v3.1:671b" to CuratedModelInfo("DeepSeek V3.1", 128_000, "2025-08", "671B"),
+        "deepseek-v3.1-terminus" to CuratedModelInfo("DeepSeek V3.1 Terminus", 128_000, "2025-09", "671B"),
+        "deepseek-v3.1-nex-n1" to CuratedModelInfo("DeepSeek V3.1 Nex N1", 128_000, "2025-09", "671B"),
+        "deepseek-v3.2-speciale" to CuratedModelInfo("DeepSeek V3.2 Speciale", 128_000, "2025-10", "671B"),
+        "deepseek-coder-6.7b-instruct" to CuratedModelInfo("DeepSeek Coder 6.7B", 16_000, "2024-01", "6.7B"),
+        "deepseek-chat-v3.1" to CuratedModelInfo("DeepSeek Chat V3.1", 128_000, "2025-08", "671B"),
+        "deepseek-chat-v3-0324" to CuratedModelInfo("DeepSeek Chat V3", 128_000, "2025-03", "671B"),
+        "deepseek-r1t2-chimera" to CuratedModelInfo("DeepSeek R1T2 Chimera", 128_000, "2025-07", "671B"),
+        "cogito-2.1:671b" to CuratedModelInfo("Cogito 2.1", 128_000, "2025-10", "671B"),
+        "cogito-v2.1-671b" to CuratedModelInfo("Cogito 2.1", 128_000, "2025-10", "671B"),
+
+        // ==============================================================
+        // xAI Grok — additional
+        // ==============================================================
+        "grok-3-beta" to CuratedModelInfo("Grok 3 Beta", 131_072, "2025-02"),
+        "grok-3-mini-beta" to CuratedModelInfo("Grok 3 Mini Beta", 131_072, "2025-02"),
+        "grok-4.1-fast" to CuratedModelInfo("Grok 4.1 Fast", 2_000_000, "2025-10"),
+        "grok-4.20" to CuratedModelInfo("Grok 4.20", 256_000, "2025-11"),
+        "grok-4.20-multi-agent" to CuratedModelInfo("Grok 4.20 Multi-Agent", 256_000, "2025-11"),
+
+        // ==============================================================
+        // GLM / Zhipu / Z-AI — additional
+        // ==============================================================
+        "glm-5" to CuratedModelInfo("GLM-5", 200_000, "2026-02"),
+        "glm5" to CuratedModelInfo("GLM-5", 200_000, "2026-02"),
+        "glm-5.1" to CuratedModelInfo("GLM-5.1", 200_000, "2026-03"),
+        "glm-5-turbo" to CuratedModelInfo("GLM-5 Turbo", 128_000, "2026-02"),
+        "glm-5v-turbo" to CuratedModelInfo("GLM-5V Turbo", 64_000, "2026-02"),
+        "glm-4.7" to CuratedModelInfo("GLM-4.7", 200_000, "2025-12"),
+        "glm4.7" to CuratedModelInfo("GLM-4.7", 200_000, "2025-12"),
+        "zai-glm-4.7" to CuratedModelInfo("GLM-4.7", 200_000, "2025-12"),
+        "glm-4.7-flash" to CuratedModelInfo("GLM-4.7 Flash", 128_000, "2025-12"),
+        "glm-4.6v" to CuratedModelInfo("GLM-4.6V", 64_000, "2025-10"),
+        "glm-4-32b" to CuratedModelInfo("GLM-4 32B", 128_000, "2024-06", "32B"),
+        "glm-4.5-air:free" to CuratedModelInfo("GLM-4.5 Air", 128_000, "2025-07"),
+
+        // ==============================================================
+        // Mistral — additional
+        // ==============================================================
+        "mistral-large" to CuratedModelInfo("Mistral Large", 128_000, "2024-02"),
+        "mistral-large-2-instruct" to CuratedModelInfo("Mistral Large 2", 128_000, "2024-07"),
+        "mistral-large-2512" to CuratedModelInfo("Mistral Large 3", 128_000, "2025-12"),
+        "mistral-large-3:675b" to CuratedModelInfo("Mistral Large 3", 128_000, "2025-12", "675B"),
+        "mistral-large-3-675b-instruct-2512" to CuratedModelInfo("Mistral Large 3", 128_000, "2025-12", "675B"),
+        "mistral-large-pixtral-2411" to CuratedModelInfo("Mistral Large Pixtral", 128_000, "2024-11"),
+        "mistral-medium" to CuratedModelInfo("Mistral Medium", 32_000, "2023-12"),
+        "mistral-medium-2508" to CuratedModelInfo("Mistral Medium 3.1", 128_000, "2025-08"),
+        "mistral-medium-3.1" to CuratedModelInfo("Mistral Medium 3.1", 128_000, "2025-08"),
+        "mistral-medium-3-instruct" to CuratedModelInfo("Mistral Medium 3", 128_000, "2025-05"),
+        "mistral-small-2603" to CuratedModelInfo("Mistral Small 4", 128_000, "2026-03"),
+        "mistral-small-2506" to CuratedModelInfo("Mistral Small 3.2", 128_000, "2025-06"),
+        "mistral-small-24b-instruct" to CuratedModelInfo("Mistral Small 24B", 128_000, "2025-01", "24B"),
+        "mistral-small-24b-instruct-2501" to CuratedModelInfo("Mistral Small 24B", 128_000, "2025-01", "24B"),
+        "mistral-small-3.1-24b-instruct" to CuratedModelInfo("Mistral Small 3.1 24B", 128_000, "2025-03", "24B"),
+        "mistral-small-3.1-24b-instruct-2503" to CuratedModelInfo("Mistral Small 3.1 24B", 128_000, "2025-03", "24B"),
+        "mistral-small-3.2-24b-instruct" to CuratedModelInfo("Mistral Small 3.2 24B", 128_000, "2025-06", "24B"),
+        "mistral-small-4-119b-2603" to CuratedModelInfo("Mistral Small 4", 128_000, "2026-03", "119B"),
+        "mistral-small-creative" to CuratedModelInfo("Mistral Small Creative", 128_000, "2025-03", "24B"),
+        "labs-mistral-small-creative" to CuratedModelInfo("Mistral Small Creative", 128_000, "2025-03", "24B"),
+        "labs-leanstral-2603" to CuratedModelInfo("Leanstral", 128_000, "2026-03"),
+        "mistral-saba" to CuratedModelInfo("Mistral Saba", 32_000, "2025-02", "24B"),
+        "mistral-tiny-latest" to CuratedModelInfo("Mistral Tiny (Latest)", 32_000, "2024-07"),
+        "mistral-tiny-2407" to CuratedModelInfo("Mistral Tiny", 32_000, "2024-07"),
+        "mistral-nemotron" to CuratedModelInfo("Mistral Nemotron", 128_000, "2025-06"),
+        "mistral-vibe-cli-latest" to CuratedModelInfo("Mistral Vibe CLI (Latest)", 128_000, "2025-10"),
+        "mistral-vibe-cli-fast" to CuratedModelInfo("Mistral Vibe CLI Fast", 128_000, "2025-10"),
+        "mistral-vibe-cli-with-tools" to CuratedModelInfo("Mistral Vibe CLI Tools", 128_000, "2025-10"),
+        "mistral-nemo-12b-instruct" to CuratedModelInfo("Mistral Nemo", 128_000, "2024-07", "12B"),
+        "open-mistral-nemo-2407" to CuratedModelInfo("Mistral Nemo", 128_000, "2024-07", "12B"),
+        "mixtral-8x22b-v0.1" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "mixtral-8x22b-instruct" to CuratedModelInfo("Mixtral 8x22B", 64_000, "2024-04", "8x22B"),
+        "mixtral-8x7b-instruct" to CuratedModelInfo("Mixtral 8x7B", 32_000, "2023-12", "8x7B"),
+        "codestral-2508" to CuratedModelInfo("Codestral", 256_000, "2025-08"),
+        "codestral-22b-instruct-v0.1" to CuratedModelInfo("Codestral 22B", 32_000, "2024-05", "22B"),
+        "codestral-embed" to CuratedModelInfo("Codestral Embed", 32_000, "2025-05"),
+        "codestral-embed-2505" to CuratedModelInfo("Codestral Embed", 32_000, "2025-05"),
+        "mamba-codestral-7b-v0.1" to CuratedModelInfo("Mamba Codestral 7B", 256_000, "2024-07", "7B"),
+        "mathstral-7b-v0.1" to CuratedModelInfo("Mathstral 7B", 32_000, "2024-07", "7B"),
+        "magistral-medium-2509" to CuratedModelInfo("Magistral Medium", 40_000, "2025-09"),
+        "magistral-small-2509" to CuratedModelInfo("Magistral Small", 40_000, "2025-09", "24B"),
+        "ministral-3:3b" to CuratedModelInfo("Ministral 3 3B", 128_000, "2025-12", "3B"),
+        "ministral-3:8b" to CuratedModelInfo("Ministral 3 8B", 128_000, "2025-12", "8B"),
+        "ministral-3:14b" to CuratedModelInfo("Ministral 3 14B", 128_000, "2025-12", "14B"),
+        "ministral-3b-2512" to CuratedModelInfo("Ministral 3 3B", 128_000, "2025-12", "3B"),
+        "ministral-8b-2512" to CuratedModelInfo("Ministral 3 8B", 128_000, "2025-12", "8B"),
+        "ministral-14b-2512" to CuratedModelInfo("Ministral 3 14B", 128_000, "2025-12", "14B"),
+        "ministral-14b-latest" to CuratedModelInfo("Ministral 14B (Latest)", 128_000, "2025-12", "14B"),
+        "ministral-14b-instruct-2512" to CuratedModelInfo("Ministral 14B", 128_000, "2025-12", "14B"),
+        "devstral-2:123b" to CuratedModelInfo("Devstral 2", 128_000, "2025-12", "123B"),
+        "devstral-2512" to CuratedModelInfo("Devstral 2", 128_000, "2025-12"),
+        "devstral-latest" to CuratedModelInfo("Devstral (Latest)", 128_000, "2025-12"),
+        "devstral-medium-latest" to CuratedModelInfo("Devstral Medium (Latest)", 128_000, "2025-05"),
+        "devstral-medium-2507" to CuratedModelInfo("Devstral Medium", 128_000, "2025-07"),
+        "devstral-small-2507" to CuratedModelInfo("Devstral Small", 128_000, "2025-07", "24B"),
+        "devstral-small-2:24b" to CuratedModelInfo("Devstral Small 2", 128_000, "2025-12", "24B"),
+        "devstral-2-123b-instruct-2512" to CuratedModelInfo("Devstral 2 123B", 128_000, "2025-12", "123B"),
+        "voxtral-mini-latest" to CuratedModelInfo("Voxtral Mini (Latest)", 32_000, "2025-07"),
+        "voxtral-mini-2507" to CuratedModelInfo("Voxtral Mini", 32_000, "2025-07"),
+        "voxtral-mini-2602" to CuratedModelInfo("Voxtral Mini", 32_000, "2026-02"),
+        "voxtral-mini-realtime-2602" to CuratedModelInfo("Voxtral Mini Realtime", 32_000, "2026-02"),
+        "voxtral-mini-realtime-latest" to CuratedModelInfo("Voxtral Mini Realtime (Latest)", 32_000, "2026-02"),
+        "voxtral-mini-transcribe-2507" to CuratedModelInfo("Voxtral Mini Transcribe", 32_000, "2025-07"),
+        "voxtral-mini-transcribe-realtime-2602" to CuratedModelInfo("Voxtral Mini Transcribe Realtime", 32_000, "2026-02"),
+        "voxtral-mini-tts-latest" to CuratedModelInfo("Voxtral Mini TTS (Latest)", 32_000, "2026-03"),
+        "voxtral-mini-tts-2603" to CuratedModelInfo("Voxtral Mini TTS", 32_000, "2026-03"),
+        "voxtral-small-latest" to CuratedModelInfo("Voxtral Small (Latest)", 32_000, "2025-07"),
+        "voxtral-small-2507" to CuratedModelInfo("Voxtral Small", 32_000, "2025-07"),
+        "voxtral-small-24b-2507" to CuratedModelInfo("Voxtral Small", 32_000, "2025-07", "24B"),
+        "mistral-embed" to CuratedModelInfo("Mistral Embed", 8_192, "2023-12"),
+        "mistral-embed-2312" to CuratedModelInfo("Mistral Embed", 8_192, "2023-12"),
+        "mistral-moderation-latest" to CuratedModelInfo("Mistral Moderation (Latest)", 8_192, "2024-11"),
+        "mistral-moderation-2411" to CuratedModelInfo("Mistral Moderation", 8_192, "2024-11"),
+        "mistral-moderation-2603" to CuratedModelInfo("Mistral Moderation", 8_192, "2026-03"),
+        "mistral-ocr-latest" to CuratedModelInfo("Mistral OCR (Latest)", 32_000, "2025-12"),
+        "mistral-ocr-2505" to CuratedModelInfo("Mistral OCR", 32_000, "2025-05"),
+        "mistral-ocr-2512" to CuratedModelInfo("Mistral OCR", 32_000, "2025-12"),
+
+        // ==============================================================
+        // Llama — additional
+        // ==============================================================
+        "llama-prompt-guard-2-22m" to CuratedModelInfo("Llama Prompt Guard 2", 512, "2025-04", "22M"),
+        "llama-prompt-guard-2-86m" to CuratedModelInfo("Llama Prompt Guard 2", 512, "2025-04", "86M"),
+        "llama-3.3-70b-instruct:free" to CuratedModelInfo("Llama 3.3 70B", 128_000, "2024-12", "70B"),
+        "llama-3.2-3b-instruct:free" to CuratedModelInfo("Llama 3.2 3B", 128_000, "2024-09", "3B"),
+        "llama-3-8b-instruct" to CuratedModelInfo("Llama 3 8B", 8_192, "2024-04", "8B"),
+        "llama-3-70b-instruct" to CuratedModelInfo("Llama 3 70B", 8_192, "2024-04", "70B"),
+        "llama3-8b-instruct" to CuratedModelInfo("Llama 3 8B", 8_192, "2024-04", "8B"),
+        "llama3-70b-instruct" to CuratedModelInfo("Llama 3 70B", 8_192, "2024-04", "70B"),
+        "llama3.1-8b" to CuratedModelInfo("Llama 3.1 8B", 128_000, "2024-07", "8B"),
+        "llama2-70b" to CuratedModelInfo("Llama 2 70B", 4_096, "2023-07", "70B"),
+        "codellama-70b" to CuratedModelInfo("Code Llama 70B", 16_384, "2024-01", "70B"),
+        "codellama-7b-instruct-solidity" to CuratedModelInfo("Code Llama 7B Solidity", 16_384, "2024-03", "7B"),
+        "l3.1-euryale-70b" to CuratedModelInfo("L3.1 Euryale 70B", 8_192, "2024-09", "70B"),
+        "l3-euryale-70b" to CuratedModelInfo("L3 Euryale 70B", 8_192, "2024-07", "70B"),
+        "l3.3-euryale-70b" to CuratedModelInfo("L3.3 Euryale 70B", 131_072, "2024-12", "70B"),
+        "l3.1-70b-hanami-x1" to CuratedModelInfo("L3.1 Hanami X1", 131_072, "2024-10", "70B"),
+        "l3-lunaris-8b" to CuratedModelInfo("L3 Lunaris 8B", 8_192, "2024-07", "8B"),
+        "llama-3.1-swallow-70b-instruct-v0.1" to CuratedModelInfo("Llama 3.1 Swallow 70B", 128_000, "2024-10", "70B"),
+        "llama-3.1-swallow-8b-instruct-v0.1" to CuratedModelInfo("Llama 3.1 Swallow 8B", 128_000, "2024-10", "8B"),
+        "llama-3-swallow-70b-instruct-v0.1" to CuratedModelInfo("Llama 3 Swallow 70B", 8_192, "2024-06", "70B"),
+        "llama-3-taiwan-70b-instruct" to CuratedModelInfo("Llama 3 Taiwan 70B", 8_192, "2024-08", "70B"),
+
+        // ==============================================================
+        // Qwen — additional (OpenRouter + Ollama + Alibaba variants)
+        // ==============================================================
+        "qwen-2.5-72b-instruct" to CuratedModelInfo("Qwen 2.5 72B", 131_072, "2024-09", "72B"),
+        "qwen-2.5-7b-instruct" to CuratedModelInfo("Qwen 2.5 7B", 131_072, "2024-09", "7B"),
+        "qwen-2.5-coder-32b-instruct" to CuratedModelInfo("Qwen 2.5 Coder 32B", 131_072, "2024-11", "32B"),
+        "qwen-vl-plus" to CuratedModelInfo("Qwen VL Plus", 32_000, "2024-01"),
+        "qwen-vl-max" to CuratedModelInfo("Qwen VL Max", 32_000, "2024-01"),
+        "qwen2-7b-instruct" to CuratedModelInfo("Qwen2 7B", 131_072, "2024-06", "7B"),
+        "qwen-plus-2025-07-28" to CuratedModelInfo("Qwen Plus", 131_072, "2025-07"),
+        "qwen-plus-2025-07-28:thinking" to CuratedModelInfo("Qwen Plus Thinking", 131_072, "2025-07"),
+        "qwen-3-235b-a22b-instruct-2507" to CuratedModelInfo("Qwen3 235B", 128_000, "2025-07", "235B"),
+        "qwen3-max" to CuratedModelInfo("Qwen3 Max", 262_144, "2025-09"),
+        "qwen3-max-thinking" to CuratedModelInfo("Qwen3 Max Thinking", 262_144, "2025-09"),
+        "qwen3-coder-next" to CuratedModelInfo("Qwen3 Coder Next", 256_000, "2025-12"),
+        "qwen3-coder-flash" to CuratedModelInfo("Qwen3 Coder Flash", 256_000, "2025-09"),
+        "qwen3-coder-30b-a3b-instruct" to CuratedModelInfo("Qwen3 Coder 30B", 256_000, "2025-08", "30B"),
+        "qwen3-coder:free" to CuratedModelInfo("Qwen3 Coder", 256_000, "2025-07"),
+        "qwen3-coder:480b" to CuratedModelInfo("Qwen3 Coder 480B", 256_000, "2025-07", "480B"),
+        "qwen3-30b-a3b" to CuratedModelInfo("Qwen3 30B", 128_000, "2025-04", "30B"),
+        "qwen3-30b-a3b-instruct-2507" to CuratedModelInfo("Qwen3 30B", 128_000, "2025-07", "30B"),
+        "qwen3-30b-a3b-thinking-2507" to CuratedModelInfo("Qwen3 30B Thinking", 128_000, "2025-07", "30B"),
+        "qwen3-next:80b" to CuratedModelInfo("Qwen3 Next", 262_144, "2025-09", "80B"),
+        "qwen3-next-80b-a3b-instruct" to CuratedModelInfo("Qwen3 Next", 262_144, "2025-09", "80B"),
+        "qwen3-next-80b-a3b-thinking" to CuratedModelInfo("Qwen3 Next Thinking", 262_144, "2025-09", "80B"),
+        "qwen3-next-80b-a3b-instruct:free" to CuratedModelInfo("Qwen3 Next", 262_144, "2025-09", "80B"),
+        "qwen3-vl:235b" to CuratedModelInfo("Qwen3 VL 235B", 128_000, "2025-10", "235B"),
+        "qwen3-vl:235b-instruct" to CuratedModelInfo("Qwen3 VL 235B", 128_000, "2025-10", "235B"),
+        "qwen3-vl-235b-a22b-instruct" to CuratedModelInfo("Qwen3 VL 235B", 128_000, "2025-10", "235B"),
+        "qwen3-vl-235b-a22b-thinking" to CuratedModelInfo("Qwen3 VL 235B Thinking", 128_000, "2025-10", "235B"),
+        "qwen3-vl-32b-instruct" to CuratedModelInfo("Qwen3 VL 32B", 128_000, "2025-10", "32B"),
+        "qwen3-vl-30b-a3b-instruct" to CuratedModelInfo("Qwen3 VL 30B", 128_000, "2025-10", "30B"),
+        "qwen3-vl-30b-a3b-thinking" to CuratedModelInfo("Qwen3 VL 30B Thinking", 128_000, "2025-10", "30B"),
+        "qwen3-vl-8b-instruct" to CuratedModelInfo("Qwen3 VL 8B", 128_000, "2025-10", "8B"),
+        "qwen3-vl-8b-thinking" to CuratedModelInfo("Qwen3 VL 8B Thinking", 128_000, "2025-10", "8B"),
+        "qwen3.5:397b" to CuratedModelInfo("Qwen 3.5 397B", 128_000, "2026-02", "397B"),
+        "qwen3.5-397b-a17b" to CuratedModelInfo("Qwen 3.5 397B", 128_000, "2026-02", "397B"),
+        "qwen3.5-122b-a10b" to CuratedModelInfo("Qwen 3.5 122B", 128_000, "2026-02", "122B"),
+        "qwen3.5-35b-a3b" to CuratedModelInfo("Qwen 3.5 35B", 128_000, "2026-02", "35B"),
+        "qwen3.5-27b" to CuratedModelInfo("Qwen 3.5 27B", 128_000, "2026-02", "27B"),
+        "qwen3.5-9b" to CuratedModelInfo("Qwen 3.5 9B", 128_000, "2026-02", "9B"),
+        "qwen3.5-flash-02-23" to CuratedModelInfo("Qwen 3.5 Flash", 128_000, "2026-02"),
+        "qwen3.5-plus-02-15" to CuratedModelInfo("Qwen 3.5 Plus", 128_000, "2026-02"),
+        "qwen3.6-plus" to CuratedModelInfo("Qwen 3.6 Plus", 131_072, "2026-03"),
+
+        // ==============================================================
+        // Kimi / Moonshot — additional
+        // ==============================================================
+        "kimi-k2:1t" to CuratedModelInfo("Kimi K2", 200_000, "2025-07", "1T"),
+        "kimi-k2-instruct-0905" to CuratedModelInfo("Kimi K2", 200_000, "2025-09"),
+
+        // ==============================================================
+        // MiniMax — additional
+        // ==============================================================
+        "minimax-m2.1" to CuratedModelInfo("MiniMax M2.1", 1_000_000, "2025-11"),
+        "minimax-m2.5" to CuratedModelInfo("MiniMax M2.5", 1_000_000, "2026-02"),
+        "minimax-m2.5:free" to CuratedModelInfo("MiniMax M2.5", 1_000_000, "2026-02"),
+        "minimax-m2-her" to CuratedModelInfo("MiniMax M2 Her", 1_000_000, "2025-10"),
+        "minimax-01" to CuratedModelInfo("MiniMax 01", 4_000_000, "2025-01"),
+
+        // ==============================================================
+        // NVIDIA / Nemotron — additional
+        // ==============================================================
+        "nemotron-3-super" to CuratedModelInfo("Nemotron 3 Super", 128_000, "2025-10", "120B"),
+        "nemotron-3-nano:30b" to CuratedModelInfo("Nemotron 3 Nano", 128_000, "2025-10", "30B"),
+        "nemotron-3-nano-30b-a3b" to CuratedModelInfo("Nemotron 3 Nano", 128_000, "2025-10", "30B"),
+        "nemotron-3-nano-30b-a3b:free" to CuratedModelInfo("Nemotron 3 Nano", 128_000, "2025-10", "30B"),
+        "nemotron-3-super-120b-a12b" to CuratedModelInfo("Nemotron 3 Super", 128_000, "2025-10", "120B"),
+        "nemotron-3-super-120b-a12b:free" to CuratedModelInfo("Nemotron 3 Super", 128_000, "2025-10", "120B"),
+        "nemotron-nano-3-30b-a3b" to CuratedModelInfo("Nemotron Nano 3", 128_000, "2025-10", "30B"),
+        "nemotron-nano-9b-v2" to CuratedModelInfo("Nemotron Nano 9B", 128_000, "2025-08", "9B"),
+        "nemotron-nano-9b-v2:free" to CuratedModelInfo("Nemotron Nano 9B", 128_000, "2025-08", "9B"),
+        "nvidia-nemotron-nano-9b-v2" to CuratedModelInfo("Nemotron Nano 9B", 128_000, "2025-08", "9B"),
+        "nemotron-nano-12b-v2-vl" to CuratedModelInfo("Nemotron Nano VL", 128_000, "2025-09", "12B"),
+        "nemotron-nano-12b-v2-vl:free" to CuratedModelInfo("Nemotron Nano VL", 128_000, "2025-09", "12B"),
+        "nemotron-4-340b-reward" to CuratedModelInfo("Nemotron 4 Reward", 4_096, "2024-06", "340B"),
+        "nemotron-4-mini-hindi-4b-instruct" to CuratedModelInfo("Nemotron 4 Mini Hindi", 4_096, "2024-11", "4B"),
+        "nemotron-content-safety-reasoning-4b" to CuratedModelInfo("Nemotron Content Safety", 4_096, "2025-04", "4B"),
+        "nemotron-mini-4b-instruct" to CuratedModelInfo("Nemotron Mini 4B", 4_096, "2024-09", "4B"),
+        "nemotron-parse" to CuratedModelInfo("Nemotron Parse", 4_096, "2024-12"),
+        "neva-22b" to CuratedModelInfo("NeVA 22B", 4_096, "2024-03", "22B"),
+        "vila" to CuratedModelInfo("VILA", 4_096, "2024-05"),
+        "llama-3.1-nemotron-51b-instruct" to CuratedModelInfo("Nemotron 51B", 128_000, "2024-09", "51B"),
+        "llama-3.1-nemotron-70b-reward" to CuratedModelInfo("Nemotron 70B Reward", 128_000, "2024-10", "70B"),
+        "llama-3.1-nemotron-nano-4b-v1.1" to CuratedModelInfo("Nemotron Nano 4B", 128_000, "2025-04", "4B"),
+        "llama-3.1-nemotron-nano-vl-8b-v1" to CuratedModelInfo("Nemotron Nano VL", 128_000, "2025-05", "8B"),
+        "llama-3.1-nemotron-safety-guard-8b-v3" to CuratedModelInfo("Nemotron Safety Guard", 128_000, "2025-06", "8B"),
+        "llama-3.1-nemoguard-8b-content-safety" to CuratedModelInfo("NemoGuard Content Safety", 128_000, "2024-10", "8B"),
+        "llama-3.1-nemoguard-8b-topic-control" to CuratedModelInfo("NemoGuard Topic Control", 128_000, "2024-10", "8B"),
+        "llama-3.2-nemoretriever-1b-vlm-embed-v1" to CuratedModelInfo("NemoRetriever VLM", 8_192, "2025-02", "1B"),
+        "llama-3.2-nemoretriever-300m-embed-v1" to CuratedModelInfo("NemoRetriever", 8_192, "2025-02", "300M"),
+        "llama-3.2-nv-embedqa-1b-v1" to CuratedModelInfo("NV EmbedQA", 8_192, "2024-11", "1B"),
+        "llama-3.2-nv-embedqa-1b-v2" to CuratedModelInfo("NV EmbedQA v2", 8_192, "2025-02", "1B"),
+        "llama-3.3-nemotron-super-49b-v1.5" to CuratedModelInfo("Nemotron Super 1.5", 128_000, "2025-07", "49B"),
+        "llama-nemotron-embed-1b-v2" to CuratedModelInfo("Nemotron Embed", 8_192, "2025-02", "1B"),
+        "llama-nemotron-embed-vl-1b-v2" to CuratedModelInfo("Nemotron Embed VL", 8_192, "2025-02", "1B"),
+        "llama3-chatqa-1.5-70b" to CuratedModelInfo("Llama 3 ChatQA", 8_192, "2024-05", "70B"),
+        "llama3-chatqa-1.5-8b" to CuratedModelInfo("Llama 3 ChatQA", 8_192, "2024-05", "8B"),
+        "mistral-nemo-minitron-8b-8k-instruct" to CuratedModelInfo("Nemo Minitron", 8_192, "2024-10", "8B"),
+        "mistral-nemo-minitron-8b-base" to CuratedModelInfo("Nemo Minitron", 8_192, "2024-10", "8B"),
+        "nemoretriever-parse" to CuratedModelInfo("NemoRetriever Parse", 8_192, "2024-12"),
+        "cosmos-reason2-8b" to CuratedModelInfo("Cosmos Reason 2", 128_000, "2025-06", "8B"),
+        "embed-qa-4" to CuratedModelInfo("Embed QA 4", 8_192, "2024-06"),
+        "gliner-pii" to CuratedModelInfo("GLiNER PII", 384, "2024-09"),
+        "nv-embed-v1" to CuratedModelInfo("NV-Embed v1", 32_768, "2024-05"),
+        "nv-embedcode-7b-v1" to CuratedModelInfo("NV-EmbedCode", 32_768, "2025-01", "7B"),
+        "nv-embedqa-e5-v5" to CuratedModelInfo("NV-EmbedQA E5", 512, "2024-08"),
+        "nv-embedqa-mistral-7b-v2" to CuratedModelInfo("NV-EmbedQA Mistral", 512, "2024-08", "7B"),
+        "nvclip" to CuratedModelInfo("NVCLIP", 77, "2024-06"),
+        "riva-translate-4b-instruct" to CuratedModelInfo("Riva Translate", 4_096, "2025-05", "4B"),
+        "riva-translate-4b-instruct-v1.1" to CuratedModelInfo("Riva Translate", 4_096, "2025-06", "4B"),
+        "streampetr" to CuratedModelInfo("StreamPETR", 4_096, "2024-04"),
+
+        // ==============================================================
+        // IBM Granite — additional
+        // ==============================================================
+        "granite-3.3-8b-instruct" to CuratedModelInfo("Granite 3.3 8B", 128_000, "2025-04", "8B"),
+        "granite-3.0-3b-a800m-instruct" to CuratedModelInfo("Granite 3.0 3B MoE", 4_096, "2024-10", "3B"),
+        "granite-4.0-h-micro" to CuratedModelInfo("Granite 4.0 Micro", 128_000, "2025-10", "3B"),
+        "granite-34b-code-instruct" to CuratedModelInfo("Granite 34B Code", 8_192, "2024-05", "34B"),
+        "granite-8b-code-instruct" to CuratedModelInfo("Granite 8B Code", 4_096, "2024-05", "8B"),
+        "granite-guardian-3.0-8b" to CuratedModelInfo("Granite Guardian 3.0", 8_192, "2024-10", "8B"),
+
+        // ==============================================================
+        // Phi / Microsoft — additional
+        // ==============================================================
+        "phi-3-vision-128k-instruct" to CuratedModelInfo("Phi-3 Vision", 128_000, "2024-05", "4.2B"),
+        "phi-3.5-vision-instruct" to CuratedModelInfo("Phi-3.5 Vision", 128_000, "2024-08", "4.2B"),
+        "phi-4-mini-flash-reasoning" to CuratedModelInfo("Phi-4 Mini Flash Reasoning", 128_000, "2025-04", "3.8B"),
+        "kosmos-2" to CuratedModelInfo("Kosmos-2", 2_048, "2024-02"),
+
+        // ==============================================================
+        // Groq-specific
+        // ==============================================================
+        "compound" to CuratedModelInfo("Groq Compound", 128_000, "2025-07"),
+        "compound-mini" to CuratedModelInfo("Groq Compound Mini", 128_000, "2025-07"),
+        "whisper-large-v3" to CuratedModelInfo("Whisper Large v3", 0, "2023-11"),
+        "whisper-large-v3-turbo" to CuratedModelInfo("Whisper Large v3 Turbo", 0, "2024-10"),
+
+        // ==============================================================
+        // OpenRouter routing / meta
+        // ==============================================================
+        "free" to CuratedModelInfo("OpenRouter Auto (Free)"),
+        "auto" to CuratedModelInfo("OpenRouter Auto"),
+        "bodybuilder" to CuratedModelInfo("OpenRouter Bodybuilder"),
+        "router" to CuratedModelInfo("Switchpoint Router"),
+
+        // ==============================================================
+        // Baidu Ernie — additional
+        // ==============================================================
+        "ernie-4.5-21b-a3b" to CuratedModelInfo("Ernie 4.5 21B", 128_000, "2025-06", "21B"),
+        "ernie-4.5-21b-a3b-thinking" to CuratedModelInfo("Ernie 4.5 21B Thinking", 128_000, "2025-06", "21B"),
+        "ernie-4.5-vl-28b-a3b" to CuratedModelInfo("Ernie 4.5 VL 28B", 128_000, "2025-06", "28B"),
+        "ernie-4.5-300b-a47b" to CuratedModelInfo("Ernie 4.5 300B", 128_000, "2025-06", "300B"),
+        "ernie-4.5-vl-424b-a47b" to CuratedModelInfo("Ernie 4.5 VL 424B", 128_000, "2025-06", "424B"),
+
+        // ==============================================================
+        // Tencent Hunyuan — additional
+        // ==============================================================
+        "hunyuan-a13b-instruct" to CuratedModelInfo("Hunyuan A13B", 128_000, "2025-06", "13B"),
+
+        // ==============================================================
+        // Inception Mercury
+        // ==============================================================
+        "mercury" to CuratedModelInfo("Mercury", 32_000, "2025-02"),
+        "mercury-2" to CuratedModelInfo("Mercury 2", 32_000, "2025-09"),
+        "mercury-coder" to CuratedModelInfo("Mercury Coder", 32_000, "2025-03"),
+
+        // ==============================================================
+        // AI21 Jamba — additional
+        // ==============================================================
+        "jamba-1.5-large-instruct" to CuratedModelInfo("Jamba 1.5 Large", 256_000, "2024-08"),
+        "jamba-1.5-mini-instruct" to CuratedModelInfo("Jamba 1.5 Mini", 256_000, "2024-08"),
+
+        // ==============================================================
+        // Arcee AI
+        // ==============================================================
+        "spotlight" to CuratedModelInfo("Arcee Spotlight", 128_000, "2025-03"),
+        "maestro-reasoning" to CuratedModelInfo("Arcee Maestro Reasoning", 128_000, "2025-03"),
+        "virtuoso-large" to CuratedModelInfo("Arcee Virtuoso Large", 128_000, "2025-03"),
+        "coder-large" to CuratedModelInfo("Arcee Coder Large", 128_000, "2025-03"),
+        "trinity-large-thinking" to CuratedModelInfo("Arcee Trinity Large Thinking", 256_000, "2025-11"),
+        "trinity-large-preview:free" to CuratedModelInfo("Arcee Trinity Large (Preview)", 256_000, "2025-10"),
+        "trinity-mini" to CuratedModelInfo("Arcee Trinity Mini", 128_000, "2025-11"),
+        "dracarys-llama-3.1-70b-instruct" to CuratedModelInfo("Dracarys Llama 3.1", 128_000, "2024-09", "70B"),
+
+        // ==============================================================
+        // Perplexity — additional
+        // ==============================================================
+        "sonar-pro-search" to CuratedModelInfo("Sonar Pro Search", 200_000, "2025-06"),
+
+        // ==============================================================
+        // Writer Palmyra
+        // ==============================================================
+        "palmyra-x5" to CuratedModelInfo("Palmyra X5", 1_000_000, "2025-03"),
+        "palmyra-med-70b" to CuratedModelInfo("Palmyra Med 70B", 8_192, "2024-06", "70B"),
+        "palmyra-med-70b-32k" to CuratedModelInfo("Palmyra Med 70B", 32_000, "2024-06", "70B"),
+        "palmyra-fin-70b-32k" to CuratedModelInfo("Palmyra Fin 70B", 32_000, "2024-06", "70B"),
+        "palmyra-creative-122b" to CuratedModelInfo("Palmyra Creative", 128_000, "2024-10", "122B"),
+
+        // ==============================================================
+        // Liquid
+        // ==============================================================
+        "lfm-2-24b-a2b" to CuratedModelInfo("LFM-2 24B", 32_000, "2025-04", "24B"),
+        "lfm-2.5-1.2b-thinking:free" to CuratedModelInfo("LFM-2.5 1.2B Thinking", 32_000, "2025-08", "1.2B"),
+        "lfm-2.5-1.2b-instruct:free" to CuratedModelInfo("LFM-2.5 1.2B", 32_000, "2025-08", "1.2B"),
+
+        // ==============================================================
+        // Amazon Nova — additional
+        // ==============================================================
+        "nova-2-lite-v1" to CuratedModelInfo("Nova 2 Lite", 300_000, "2025-11"),
+
+        // ==============================================================
+        // ByteDance Seed / UI-TARS
+        // ==============================================================
+        "seed-1.6" to CuratedModelInfo("Seed 1.6", 256_000, "2025-07"),
+        "seed-1.6-flash" to CuratedModelInfo("Seed 1.6 Flash", 256_000, "2025-07"),
+        "seed-2.0-lite" to CuratedModelInfo("Seed 2.0 Lite", 256_000, "2025-11"),
+        "seed-2.0-mini" to CuratedModelInfo("Seed 2.0 Mini", 256_000, "2025-11"),
+        "seed-oss-36b-instruct" to CuratedModelInfo("Seed OSS 36B", 512_000, "2025-08", "36B"),
+        "ui-tars-1.5-7b" to CuratedModelInfo("UI-TARS 1.5", 128_000, "2025-04", "7B"),
+
+        // ==============================================================
+        // StepFun, Xiaomi, Kwaipilot, Others
+        // ==============================================================
+        "step-3.5-flash" to CuratedModelInfo("Step 3.5 Flash", 128_000, "2025-09"),
+        "mimo-v2-omni" to CuratedModelInfo("Mimo V2 Omni", 128_000, "2025-11"),
+        "mimo-v2-pro" to CuratedModelInfo("Mimo V2 Pro", 128_000, "2025-11"),
+        "mimo-v2-flash" to CuratedModelInfo("Mimo V2 Flash", 128_000, "2025-11"),
+        "kat-coder-pro-v2" to CuratedModelInfo("KAT Coder Pro v2", 128_000, "2025-11"),
+        "longcat-flash-chat" to CuratedModelInfo("LongCat Flash", 128_000, "2025-09"),
+
+        // ==============================================================
+        // Allen AI OLMo — additional
+        // ==============================================================
+        "olmo-3-32b-think" to CuratedModelInfo("OLMo 3 32B Think", 8_192, "2025-11", "32B"),
+        "olmo-3.1-32b-instruct" to CuratedModelInfo("OLMo 3.1 32B", 8_192, "2026-01", "32B"),
+
+        // ==============================================================
+        // Upstage Solar
+        // ==============================================================
+        "solar-10.7b-instruct" to CuratedModelInfo("Solar 10.7B", 4_096, "2023-12", "10.7B"),
+        "solar-pro-3" to CuratedModelInfo("Solar Pro 3", 32_000, "2025-11"),
+
+        // ==============================================================
+        // Fine-tunes / role play / community
+        // ==============================================================
+        "magnum-v4-72b" to CuratedModelInfo("Magnum v4 72B", 32_000, "2024-10", "72B"),
+        "goliath-120b" to CuratedModelInfo("Goliath 120B", 6_144, "2023-11", "120B"),
+        "mythomax-l2-13b" to CuratedModelInfo("MythoMax L2 13B", 4_096, "2023-08", "13B"),
+        "remm-slerp-l2-13b" to CuratedModelInfo("ReMM SLERP L2 13B", 6_144, "2023-09", "13B"),
+        "weaver" to CuratedModelInfo("Mancer Weaver", 8_000, "2023-12", "12B"),
+        "unslopnemo-12b" to CuratedModelInfo("UnslopNemo 12B", 32_000, "2024-11", "12B"),
+        "rocinante-12b" to CuratedModelInfo("Rocinante 12B", 32_000, "2024-10", "12B"),
+        "cydonia-24b-v4.1" to CuratedModelInfo("Cydonia 24B v4.1", 32_000, "2025-07", "24B"),
+        "skyfall-36b-v2" to CuratedModelInfo("Skyfall 36B v2", 32_000, "2025-03", "36B"),
+        "dolphin-mistral-24b-venice-edition:free" to CuratedModelInfo("Dolphin Mistral 24B Venice", 32_000, "2025-03", "24B"),
+        "hermes-3-llama-3.1-405b:free" to CuratedModelInfo("Hermes 3 405B", 128_000, "2024-08", "405B"),
+        "hermes-2-pro-llama-3-8b" to CuratedModelInfo("Hermes 2 Pro Llama 3", 8_192, "2024-05", "8B"),
+        "aion-1.0" to CuratedModelInfo("Aion 1.0", 32_000, "2025-01"),
+        "aion-1.0-mini" to CuratedModelInfo("Aion 1.0 Mini", 32_000, "2025-01"),
+        "aion-2.0" to CuratedModelInfo("Aion 2.0", 128_000, "2025-10"),
+        "aion-rp-llama-3.1-8b" to CuratedModelInfo("Aion RP Llama 3.1", 32_000, "2024-11", "8B"),
+        "tongyi-deepresearch-30b-a3b" to CuratedModelInfo("Tongyi DeepResearch", 128_000, "2025-09", "30B"),
+        "intellect-3" to CuratedModelInfo("Intellect 3", 128_000, "2025-11"),
+        "rnj-1:8b" to CuratedModelInfo("RNJ-1 8B", 32_000, "2025-10", "8B"),
+        "rnj-1-instruct" to CuratedModelInfo("RNJ-1 Instruct", 32_000, "2025-10"),
+        "morph-v3-large" to CuratedModelInfo("Morph V3 Large", 32_000, "2025-06"),
+        "morph-v3-fast" to CuratedModelInfo("Morph V3 Fast", 32_000, "2025-06"),
+        "relace-search" to CuratedModelInfo("Relace Search", 32_000, "2025-10"),
+        "relace-apply-3" to CuratedModelInfo("Relace Apply 3", 32_000, "2025-09"),
+
+        // ==============================================================
+        // HuggingFace / misc open models
+        // ==============================================================
+        "fuyu-8b" to CuratedModelInfo("Fuyu 8B", 16_000, "2023-10", "8B"),
+        "sea-lion-7b-instruct" to CuratedModelInfo("SEA-LION 7B", 4_096, "2024-02", "7B"),
+        "bge-m3" to CuratedModelInfo("BGE-M3", 8_192, "2024-01"),
+        "baichuan2-13b-chat" to CuratedModelInfo("Baichuan2 13B", 4_096, "2023-09", "13B"),
+        "starcoder2-15b" to CuratedModelInfo("StarCoder2 15B", 16_000, "2024-02", "15B"),
+        "starcoder2-7b" to CuratedModelInfo("StarCoder2 7B", 16_000, "2024-02", "7B"),
+        "llemma_7b" to CuratedModelInfo("Llemma 7B", 4_096, "2023-10", "7B"),
+        "gemma-2-9b-cpt-sahabatai-instruct" to CuratedModelInfo("Sahabat-AI 9B", 8_192, "2024-11", "9B"),
+        "colosseum_355b_instruct_16k" to CuratedModelInfo("Colosseum 355B", 16_000, "2024-10", "355B"),
+        "italia_10b_instruct_16k" to CuratedModelInfo("Italia 10B", 16_000, "2024-08", "10B"),
+        "marin-8b-instruct" to CuratedModelInfo("Marin 8B", 4_096, "2024-11", "8B"),
+        "breeze-7b-instruct" to CuratedModelInfo("Breeze 7B", 8_192, "2024-03", "7B"),
+        "rakutenai-7b-chat" to CuratedModelInfo("RakutenAI 7B", 32_000, "2024-03", "7B"),
+        "rakutenai-7b-instruct" to CuratedModelInfo("RakutenAI 7B", 32_000, "2024-03", "7B"),
+        "sarvam-m" to CuratedModelInfo("Sarvam M", 32_000, "2025-05", "24B"),
+        "arctic-embed-l" to CuratedModelInfo("Arctic Embed L", 512, "2024-05"),
+        "bielik-11b-v2.3-instruct" to CuratedModelInfo("Bielik 11B v2.3", 32_000, "2024-12", "11B"),
+        "bielik-11b-v2.6-instruct" to CuratedModelInfo("Bielik 11B v2.6", 32_000, "2025-03", "11B"),
+        "stockmark-2-100b-instruct" to CuratedModelInfo("Stockmark 2 100B", 4_096, "2024-12", "100B"),
+        "chatglm3-6b" to CuratedModelInfo("ChatGLM3 6B", 32_000, "2023-10", "6B"),
+        "falcon3-7b-instruct" to CuratedModelInfo("Falcon3 7B", 32_000, "2024-12", "7B"),
+        "eurollm-9b-instruct" to CuratedModelInfo("EuroLLM 9B", 4_096, "2024-12", "9B"),
+        "teuken-7b-instruct-commercial-v0.4" to CuratedModelInfo("Teuken 7B", 4_096, "2024-11", "7B"),
+        "zamba2-7b-instruct" to CuratedModelInfo("Zamba 2 7B", 4_096, "2024-10", "7B"),
+        "orpheus-v1-english" to CuratedModelInfo("Orpheus v1 English", 0, "2025-03"),
+        "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
+    )
+
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard (Apr 2026).
+    // To update: python3 tools/update_arena_scores.py
+    private val arenaScores: Map<String, Int> = mapOf(
+        // --- Anthropic ---
+        "claude-opus-4-6" to 1496, "claude-opus-4.6" to 1496, "claude-opus-4.6-fast" to 1496,
+        "claude-opus-4-5" to 1460, "claude-opus-4.5" to 1460, "claude-opus-4-5-20251101" to 1460,
+        "claude-sonnet-4-6" to 1451, "claude-sonnet-4.6" to 1451,
+        "claude-sonnet-4-5" to 1463, "claude-sonnet-4.5" to 1463, "claude-sonnet-4-5-20250929" to 1463,
+        "claude-opus-4-1" to 1445, "claude-opus-4.1" to 1445, "claude-opus-4-1-20250805" to 1445,
+        "claude-sonnet-4" to 1420, "claude-sonnet-4-20250514" to 1420,
+        "claude-opus-4" to 1394, "claude-opus-4-20250514" to 1394,
+        "claude-haiku-4-5" to 1388, "claude-haiku-4.5" to 1388, "claude-haiku-4-5-20251001" to 1388,
+        "claude-3-7-sonnet" to 1401, "claude-3.7-sonnet" to 1401, "claude-3-7-sonnet-latest" to 1401,
+        "claude-3-7-sonnet-20250219" to 1401, "claude-3.7-sonnet:thinking" to 1415,
+        "claude-3-5-sonnet" to 1402, "claude-3.5-sonnet" to 1402, "claude-3-5-sonnet-latest" to 1402,
+        "claude-3-5-sonnet-20241022" to 1402, "claude-3-5-sonnet-20240620" to 1367,
+        "claude-3-5-haiku" to 1345, "claude-3.5-haiku" to 1345, "claude-3-5-haiku-latest" to 1345,
+        "claude-3-5-haiku-20241022" to 1345,
+        "claude-3-opus" to 1341, "claude-3-opus-latest" to 1341, "claude-3-opus-20240229" to 1341,
+        // --- OpenAI ---
+        "gpt-5.4" to 1455, "gpt-5.2" to 1433, "gpt-5.2-pro" to 1435, "gpt-5.1" to 1432,
+        "gpt-5" to 1426, "gpt-5-chat" to 1418, "gpt-5-mini" to 1421,
+        "gpt-4.1" to 1395, "gpt-4.1-2025-04-14" to 1395,
+        "gpt-4.1-mini" to 1410, "gpt-4.1-mini-2025-04-14" to 1410,
+        "gpt-4.1-nano" to 1343, "gpt-4.1-nano-2025-04-14" to 1343,
+        "gpt-4o" to 1360, "gpt-4o-2024-08-06" to 1360,
+        "gpt-4o-2024-11-20" to 1375, "gpt-4o-2024-05-13" to 1371,
+        "gpt-4o-mini" to 1333, "gpt-4o-mini-2024-07-18" to 1333,
+        "chatgpt-4o-latest" to 1438,
+        "gpt-4-turbo" to 1348, "gpt-4-turbo-2024-04-09" to 1348,
+        "gpt-4" to 1220, "gpt-4-0613" to 1220, "gpt-4-0314" to 1220,
+        "gpt-3.5-turbo" to 1075, "gpt-3.5-turbo-0125" to 1075,
+        "gpt-oss-120b" to 1387, "gpt-oss:120b" to 1387, "gpt-oss-120b:free" to 1387,
+        "gpt-oss-20b" to 1336, "gpt-oss:20b" to 1336, "gpt-oss-20b:free" to 1336,
+        "o4-mini" to 1422, "o4-mini-2025-04-16" to 1422, "o4-mini-high" to 1430,
+        "o3" to 1421, "o3-2025-04-16" to 1421,
+        "o3-pro" to 1435, "o3-pro-2025-06-10" to 1435,
+        "o3-mini" to 1379, "o3-mini-2025-01-31" to 1379, "o3-mini-high" to 1395,
+        "o1" to 1379, "o1-2024-12-17" to 1379, "o1-pro" to 1420,
+        "o1-preview" to 1419, "o1-mini" to 1364, "o1-mini-2024-09-12" to 1364,
+        // --- Google Gemini ---
+        "gemini-3.1-pro-preview" to 1492, "gemini-3.1-pro-preview-customtools" to 1492,
+        "gemini-3-pro" to 1486, "gemini-3-pro-preview" to 1486, "gemini-3-pro-latest" to 1486,
+        "gemini-3-flash" to 1468, "gemini-3-flash-preview" to 1468,
+        "gemini-3.1-flash-lite-preview" to 1428,
+        "gemini-pro-latest" to 1486, "gemini-flash-latest" to 1468,
+        "gemini-2.5-pro" to 1450, "gemini-2.5-pro-latest" to 1450,
+        "gemini-2.5-pro-preview-03-25" to 1450, "gemini-2.5-pro-preview-05-06" to 1450,
+        "gemini-2.5-pro-preview-06-05" to 1450, "gemini-2.5-pro-exp-03-25" to 1450,
+        "gemini-2.5-flash" to 1392, "gemini-2.5-flash-latest" to 1392,
+        "gemini-2.5-flash-preview-04-17" to 1392, "gemini-2.5-flash-preview-05-20" to 1392,
+        "gemini-2.5-flash-preview-09-2025" to 1387,
+        "gemini-2.0-flash" to 1392, "gemini-2.0-flash-001" to 1392, "gemini-2.0-flash-latest" to 1392,
+        "gemini-2.0-flash-lite" to 1384, "gemini-2.0-flash-lite-001" to 1384,
+        "gemini-2.0-pro-exp" to 1365, "gemini-2.0-pro-exp-02-05" to 1365,
+        "gemini-2.0-flash-thinking-exp" to 1355, "gemini-2.0-flash-thinking-exp-01-21" to 1355,
+        "gemini-1.5-pro" to 1383, "gemini-1.5-pro-latest" to 1383, "gemini-1.5-pro-002" to 1383,
+        "gemini-1.5-pro-001" to 1346,
+        "gemini-1.5-flash" to 1326, "gemini-1.5-flash-latest" to 1326, "gemini-1.5-flash-002" to 1326,
+        // --- xAI Grok ---
+        "grok-4.20" to 1486, "grok-4.20-multi-agent" to 1476,
+        "grok-4.1-fast" to 1462,
+        "grok-4" to 1390, "grok-4-latest" to 1390, "grok-4-0709" to 1390,
+        "grok-4-fast" to 1407, "grok-4-fast-reasoning" to 1386,
+        "grok-3" to 1393, "grok-3-latest" to 1393, "grok-3-beta" to 1393,
+        "grok-3-mini" to 1394, "grok-3-mini-latest" to 1394, "grok-3-mini-beta" to 1390,
+        "grok-2" to 1361, "grok-2-latest" to 1361, "grok-2-1212" to 1361,
+        // --- DeepSeek ---
+        "deepseek-v3.2" to 1414, "deepseek-v3-2" to 1414, "deepseek-v3.2-exp" to 1411,
+        "deepseek-v3.1" to 1405, "deepseek-v3-1" to 1405, "deepseek-v3.1:671b" to 1405,
+        "deepseek-v3.1-terminus" to 1399,
+        "deepseek-v3" to 1391, "deepseek-chat" to 1391,
+        "deepseek-chat-v3.1" to 1405, "deepseek-chat-v3-0324" to 1426,
+        "deepseek-r1" to 1374, "deepseek-reasoner" to 1374, "deepseek-r1-0528" to 1408,
+        // --- Meta Llama ---
+        "llama-4-maverick" to 1350, "llama-4-maverick-17b-128e" to 1350,
+        "llama-4-maverick-17b-128e-instruct" to 1350,
+        "llama-4-scout" to 1344, "llama-4-scout-17b-16e" to 1344,
+        "llama-4-scout-17b-16e-instruct" to 1344,
+        "llama-3.3-70b" to 1337, "llama-3.3-70b-instruct" to 1337,
+        "llama-3.3-70b-versatile" to 1337, "llama3.3" to 1337, "llama3.3:70b" to 1337,
+        "llama-3.1-405b" to 1359, "llama-3.1-405b-instruct" to 1359,
+        "llama-3.1-70b" to 1275, "llama-3.1-70b-instruct" to 1275, "llama-3.1-70b-versatile" to 1275,
+        "llama-3.1-8b" to 1185, "llama-3.1-8b-instruct" to 1185, "llama-3.1-8b-instant" to 1185,
+        // --- Qwen ---
+        "qwen3.5-397b-a17b" to 1447, "qwen3.5:397b" to 1447,
+        "qwen3.5-122b-a10b" to 1403, "qwen3.5-27b" to 1382, "qwen3.5-35b-a3b" to 1372,
+        "qwen3-max" to 1427, "qwen3-max-thinking" to 1427,
+        "qwen3-coder-480b-a35b" to 1418, "qwen3-coder-480b-a35b-instruct" to 1418, "qwen3-coder" to 1418,
+        "qwen3-235b-a22b" to 1407, "qwen3-235b" to 1407,
+        "qwen3-235b-a22b-2507" to 1412, "qwen3-235b-a22b-thinking-2507" to 1376,
+        "qwen3-next-80b-a3b-instruct" to 1380, "qwen3-next:80b" to 1380,
+        "qwen3-next-80b-a3b-thinking" to 1400,
+        "qwen3-32b" to 1377, "qwen3-30b-a3b" to 1352, "qwen3-30b-a3b-instruct-2507" to 1412,
+        "qwen2.5-72b-instruct" to 1326, "qwen2.5-72b" to 1326,
+        "qwq-32b" to 1362, "qwen-qwq-32b" to 1362,
+        // --- Mistral ---
+        "mistral-large-3" to 1396, "mistral-large-3:675b" to 1396,
+        "mistral-large-3-675b-instruct-2512" to 1396, "mistral-large-2512" to 1396,
+        "mistral-large-latest" to 1330, "mistral-large-2411" to 1330, "mistral-large-2407" to 1330,
+        "mistral-medium-latest" to 1389, "mistral-medium-3" to 1389, "mistral-medium-2505" to 1389,
+        "mistral-medium-2508" to 1389,
+        "mistral-small-latest" to 1389, "mistral-small-2506" to 1389,
+        "mistral-small-2503" to 1325, "mistral-small-3.1-24b-instruct-2503" to 1325,
+        "magistral-medium-2506" to 1385,
+        "mixtral-8x22b" to 1210, "mixtral-8x22b-instruct" to 1210,
+        "mixtral-8x7b" to 1110, "mixtral-8x7b-instruct" to 1110,
+        // --- GLM / Zhipu ---
+        "glm-5.1" to 1465, "glm-5" to 1471, "glm5" to 1471,
+        "glm-4.7" to 1436, "glm4.7" to 1436, "zai-glm-4.7" to 1436,
+        "glm-4.7-flash" to 1399, "glm-4.6v" to 1408,
+        "glm-4.6" to 1417, "glm-4.5" to 1391, "glm-4.5-air" to 1403, "glm-4-plus" to 1339,
+        // --- Kimi ---
+        "kimi-k2.5" to 1424, "kimi-k2-thinking" to 1420,
+        "kimi-k2" to 1402, "kimi-k2-instruct" to 1402, "kimi-k2:1t" to 1402,
+        "kimi-k2-0905" to 1404, "kimi-k2-0711" to 1402,
+        // --- MiniMax ---
+        "minimax-m2.7" to 1385, "minimax-m2.5" to 1384, "minimax-m2.5:free" to 1384,
+        "minimax-m2.1" to 1413, "minimax-m2" to 1374, "minimax-m1" to 1396,
+        // --- NVIDIA Nemotron ---
+        "llama-3.1-nemotron-ultra-253b-v1" to 1375, "nemotron-ultra" to 1375,
+        "nemotron-3-super-120b-a12b" to 1393, "nemotron-3-super" to 1393,
+        "nemotron-3-super-120b-a12b:free" to 1393,
+        "nemotron-3-nano-30b-a3b" to 1335, "nemotron-3-nano:30b" to 1335,
+        "nemotron-3-nano-30b-a3b:free" to 1335,
+        "llama-3.3-nemotron-super-49b-v1" to 1353, "nemotron-super" to 1353,
+        "llama-3.3-nemotron-super-49b-v1.5" to 1370,
+        "llama-3.1-nemotron-70b-instruct" to 1275,
+        // --- Cohere ---
+        "command-a-03-2025" to 1386, "command-a" to 1386,
+        "command-r-plus-08-2024" to 1240, "command-r-plus" to 1240,
+        // --- Gemma ---
+        "gemma-4-26b-a4b-it" to 1429, "gemma-4-26b-a4b-it:free" to 1429,
+        "gemma-4-31b-it" to 1429, "gemma-4-31b-it:free" to 1429, "gemma4:31b" to 1429,
+        "gemma-3n-e4b-it" to 1338, "gemma-3n-e4b-it:free" to 1338,
+        "gemma-3-27b-it" to 1397, "gemma-3-27b" to 1397, "gemma3:27b" to 1397,
+        "gemma-3-27b-it:free" to 1397,
+        "gemma-3-12b-it" to 1368, "gemma-3-12b" to 1368, "gemma3:12b" to 1368,
+        "gemma-3-12b-it:free" to 1368,
+        "gemma-3-4b-it" to 1325, "gemma3:4b" to 1325, "gemma-3-4b-it:free" to 1325,
+        "gemma-2-27b-it" to 1280, "gemma2:27b" to 1280,
+        "gemma-2-9b-it" to 1230, "gemma2-9b-it" to 1230, "gemma2:9b" to 1230,
+        // --- Other ---
+        "yi-lightning" to 1354, "mercury-2" to 1376,
+        "step-3.5-flash" to 1423, "mimo-v2-pro" to 1444, "mimo-v2-flash" to 1424,
+        "olmo-3.1-32b-instruct" to 1355, "olmo-3-32b-think" to 1355,
+        "intellect-3" to 1388, "trinity-large-preview:free" to 1405,
+        "longcat-flash-chat" to 1378,
+        "sonar-pro" to 1310, "sonar-reasoning-pro" to 1320,
+        "sonar" to 1250,
+
+        // --- Auto-filled aliases and family estimates ---
+        "abab6.5-chat" to 1180, "abab6.5s-chat" to 1200,
+        "aion-1.0" to 1200, "aion-1.0-mini" to 1150, "aion-2.0" to 1350, "aion-rp-llama-3.1-8b" to 1180,
+        "allam-2-7b" to 1030, "auto" to 1400,
+        "baichuan2-13b-chat" to 1050, "bielik-11b-v2.3-instruct" to 1130, "bielik-11b-v2.6-instruct" to 1150,
+        "bodybuilder" to 1400, "breeze-7b-instruct" to 1050,
+        "c4ai-aya-expanse-32b" to 1240, "c4ai-aya-expanse-8b" to 1150, "c4ai-aya-vision-32b" to 1230, "c4ai-aya-vision-8b" to 1140,
+        "chatglm3-6b" to 1060, "claude-3-haiku" to 1170, "claude-3-haiku-20240307" to 1170,
+        "claude-3-sonnet" to 1200, "claude-3-sonnet-20240229" to 1200,
+        "codegemma-1.1-7b" to 1130, "codegemma-7b" to 1120, "codellama-70b" to 1180, "codellama-7b-instruct-solidity" to 1080,
+        "coder-large" to 1330, "codestral-22b-instruct-v0.1" to 1220, "codestral-2405" to 1250, "codestral-2412" to 1250,
+        "codestral-2501" to 1250, "codestral-2508" to 1250, "codestral-latest" to 1250,
+        "cogito-2.1:671b" to 1400, "cogito-v2.1-671b" to 1400, "colosseum_355b_instruct_16k" to 1200,
+        "command-a-vision-07-2025" to 1380, "command-light" to 1050, "command-r" to 1230, "command-r-03-2024" to 1230,
+        "command-r-08-2024" to 1230, "command-r-plus-04-2024" to 1240, "command-r7b" to 1140, "command-r7b-12-2024" to 1140,
+        "compound" to 1350, "compound-mini" to 1320, "cosmos-reason2-8b" to 1250, "cydonia-24b-v4.1" to 1200,
+        "dbrx-instruct" to 1180, "deep-research-pro-preview-12-2025" to 1450,
+        "deepseek-coder" to 1200, "deepseek-coder-6.7b-instruct" to 1150, "deepseek-coder-v2" to 1330,
+        "deepseek-r1-distill-llama-70b" to 1295, "deepseek-r1-distill-llama-8b" to 1295,
+        "deepseek-r1-distill-qwen-1.5b" to 1280, "deepseek-r1-distill-qwen-14b" to 1280,
+        "deepseek-r1-distill-qwen-32b" to 1280, "deepseek-r1-distill-qwen-7b" to 1280,
+        "deepseek-r1t2-chimera" to 1400, "deepseek-v3.1-nex-n1" to 1405, "deepseek-v3.2-speciale" to 1414,
+        "devstral-2-123b-instruct-2512" to 1380, "devstral-2512" to 1380, "devstral-2:123b" to 1380,
+        "devstral-latest" to 1340, "devstral-medium" to 1360, "devstral-medium-2507" to 1360, "devstral-medium-latest" to 1360,
+        "devstral-small" to 1320, "devstral-small-2507" to 1320, "devstral-small-2:24b" to 1330, "devstral-small-latest" to 1320,
+        "dolphin-mistral-24b-venice-edition:free" to 1200, "dracarys-llama-3.1-70b-instruct" to 1285,
+        "ernie-4.0" to 1180, "ernie-4.0-turbo" to 1200, "ernie-4.5" to 1275, "ernie-4.5-21b-a3b" to 1250,
+        "ernie-4.5-21b-a3b-thinking" to 1260, "ernie-4.5-300b-a47b" to 1300, "ernie-4.5-turbo" to 1275,
+        "ernie-4.5-vl-28b-a3b" to 1240, "ernie-4.5-vl-424b-a47b" to 1290, "ernie-x1" to 1290,
+        "eurollm-9b-instruct" to 1100, "falcon3-7b-instruct" to 1120, "free" to 1300, "fuyu-8b" to 1050,
+        "gemini-1.5-flash-001" to 1326, "gemini-1.5-flash-8b" to 1195, "gemini-1.5-flash-8b-001" to 1195, "gemini-1.5-flash-8b-latest" to 1195,
+        "gemini-2.0-flash-exp" to 1310, "gemini-2.0-flash-lite-preview" to 1384, "gemini-2.0-flash-lite-preview-02-05" to 1384,
+        "gemini-2.0-flash-thinking-exp-1219" to 1355, "gemini-2.5-computer-use-preview-10-2025" to 1400,
+        "gemini-2.5-flash-lite" to 1345, "gemini-2.5-flash-lite-preview-06-17" to 1345, "gemini-2.5-flash-lite-preview-09-2025" to 1345,
+        "gemini-2.5-pro-preview" to 1450, "gemini-3-flash-lite" to 1420, "gemini-3-flash-lite-preview" to 1420,
+        "gemini-flash-lite-latest" to 1420, "gemini-robotics-er-1.5-preview" to 1300,
+        "gemma-2-2b-it" to 1090, "gemma-2-9b-cpt-sahabatai-instruct" to 1170, "gemma-2b" to 1040,
+        "gemma-3-1b" to 1080, "gemma-3-1b-it" to 1080, "gemma-3-4b" to 1325, "gemma-3n-e2b-it" to 1200, "gemma-3n-e2b-it:free" to 1200,
+        "gemma-7b" to 1100, "gemma2:2b" to 1090, "gemma3:1b" to 1080,
+        "glm-4-32b" to 1300, "glm-4-air" to 1300, "glm-4-airx" to 1310, "glm-4-flash" to 1280, "glm-4-long" to 1295,
+        "glm-4.5-air:free" to 1403, "glm-4.5-x" to 1395, "glm-4.5v" to 1385, "glm-4.6-air" to 1400, "glm-4v-plus" to 1310,
+        "glm-5-turbo" to 1440, "glm-5v-turbo" to 1430, "glm-z1-air" to 1420, "glm-z1-airx" to 1430, "glm-z1-flash" to 1400,
+        "goliath-120b" to 1100, "gpt-3.5-turbo-0613" to 1075, "gpt-3.5-turbo-1106" to 1075,
+        "gpt-3.5-turbo-16k" to 1075, "gpt-3.5-turbo-instruct" to 1070,
+        "gpt-4-0125-preview" to 1340, "gpt-4-1106-preview" to 1330, "gpt-4-32k" to 1220, "gpt-4-turbo-preview" to 1340,
+        "gpt-4o-audio-preview" to 1360, "gpt-4o-mini-search-preview" to 1333, "gpt-4o-search-preview" to 1360, "gpt-4o:extended" to 1360,
+        "gpt-5-2025-08-07" to 1426, "gpt-5-codex" to 1430, "gpt-5-mini-2025-08-07" to 1421,
+        "gpt-5-nano" to 1360, "gpt-5-nano-2025-08-07" to 1360, "gpt-5-pro" to 1440,
+        "gpt-5.1-chat" to 1432, "gpt-5.1-codex" to 1430, "gpt-5.1-codex-max" to 1435, "gpt-5.1-codex-mini" to 1420,
+        "gpt-5.2-chat" to 1433, "gpt-5.2-codex" to 1430, "gpt-5.3-chat" to 1440, "gpt-5.3-codex" to 1435,
+        "gpt-5.4-chat" to 1455, "gpt-5.4-mini" to 1430, "gpt-5.4-nano" to 1380, "gpt-5.4-pro" to 1460,
+        "gpt-audio" to 1350, "gpt-audio-mini" to 1320,
+        "granite-3.0-2b-instruct" to 1130, "granite-3.0-3b-a800m-instruct" to 1140, "granite-3.0-8b-instruct" to 1200,
+        "granite-3.1-2b-instruct" to 1150, "granite-3.1-8b-instruct" to 1220, "granite-3.3-8b-instruct" to 1250,
+        "granite-34b-code-instruct" to 1180, "granite-4.0-h-micro" to 1260, "granite-8b-code-instruct" to 1120,
+        "grok-2-vision" to 1280, "grok-2-vision-1212" to 1280, "grok-3-fast" to 1393, "grok-3-mini-fast" to 1370,
+        "grok-4-fast-non-reasoning" to 1407, "grok-beta" to 1290, "grok-code-fast-1" to 1380, "grok-vision-beta" to 1220,
+        "hermes-2-pro-llama-3-8b" to 1150, "hermes-3-llama-3.1-405b" to 1350, "hermes-3-llama-3.1-405b:free" to 1350,
+        "hermes-3-llama-3.1-70b" to 1300, "hermes-3-llama-3.1-8b" to 1200, "hermes-4-405b" to 1380, "hermes-4-70b" to 1330,
+        "hunyuan-a13b-instruct" to 1310, "hunyuan-large" to 1349, "hunyuan-standard" to 1327, "hunyuan-turbo" to 1366,
+        "inflection-3-pi" to 1220, "inflection-3-productivity" to 1230, "italia_10b_instruct_16k" to 1100,
+        "jamba-1.5-large" to 1290, "jamba-1.5-large-instruct" to 1290, "jamba-1.5-mini" to 1220, "jamba-1.5-mini-instruct" to 1220,
+        "jamba-1.6-large" to 1310, "jamba-1.6-mini" to 1250, "jamba-large-1.7" to 1330, "jamba-mini-1.7" to 1270,
+        "kat-coder-pro-v2" to 1340, "kimi-k1.5" to 1310, "kimi-k2-0711-preview" to 1402, "kimi-k2-0905-preview" to 1402, "kimi-k2-instruct-0905" to 1402,
+        "l3-euryale-70b" to 1200, "l3-lunaris-8b" to 1100, "l3.1-70b-hanami-x1" to 1270, "l3.1-euryale-70b" to 1270, "l3.3-euryale-70b" to 1310,
+        "labs-mistral-small-creative" to 1310,
+        "lfm-1.3b" to 1030, "lfm-2-24b-a2b" to 1230, "lfm-2.5-1.2b-instruct:free" to 1050, "lfm-2.5-1.2b-thinking:free" to 1060,
+        "lfm-3b" to 1070, "lfm-40b" to 1200, "lfm-7b" to 1120,
+        "llama-3-70b-instruct" to 1250, "llama-3-8b-instruct" to 1150,
+        "llama-3-swallow-70b-instruct-v0.1" to 1220, "llama-3-taiwan-70b-instruct" to 1230,
+        "llama-3.1-405b-instruct-turbo" to 1359, "llama-3.1-70b-instruct-turbo" to 1275, "llama-3.1-8b-instruct-turbo" to 1185,
+        "llama-3.1-nemotron-51b-instruct" to 1270, "llama-3.1-nemotron-nano-4b-v1.1" to 1160, "llama-3.1-nemotron-nano-8b-v1" to 1215,
+        "llama-3.1-nemotron-nano-vl-8b-v1" to 1200,
+        "llama-3.1-swallow-70b-instruct-v0.1" to 1270, "llama-3.1-swallow-8b-instruct-v0.1" to 1180,
+        "llama-3.2-11b-vision" to 1210, "llama-3.2-11b-vision-instruct" to 1210,
+        "llama-3.2-1b" to 1060, "llama-3.2-1b-instruct" to 1060, "llama-3.2-3b" to 1120, "llama-3.2-3b-instruct" to 1120,
+        "llama-3.2-3b-instruct-turbo" to 1120, "llama-3.2-3b-instruct:free" to 1120,
+        "llama-3.2-90b-vision" to 1310, "llama-3.2-90b-vision-instruct" to 1310,
+        "llama-3.3-70b-instruct-turbo" to 1337, "llama-3.3-70b-instruct:free" to 1337,
+        "llama-v3p1-70b-instruct" to 1275, "llama-v3p1-8b-instruct" to 1185, "llama-v3p3-70b-instruct" to 1337,
+        "llama2-70b" to 1080, "llama3-70b-instruct" to 1250, "llama3-8b-instruct" to 1150,
+        "llama3-chatqa-1.5-70b" to 1200, "llama3-chatqa-1.5-8b" to 1200,
+        "llama3-groq-70b-8192-tool-use-preview" to 1200, "llama3-groq-8b-8192-tool-use-preview" to 1200,
+        "llama3.1" to 1185, "llama3.1-8b" to 1185, "llama3.1:70b" to 1275, "llama3.1:8b" to 1185,
+        "llemma_7b" to 1030, "maestro-reasoning" to 1360,
+        "magistral-medium-2509" to 1385, "magistral-medium-latest" to 1385,
+        "magistral-small-2506" to 1350, "magistral-small-2509" to 1350, "magistral-small-latest" to 1350,
+        "magnum-v4-72b" to 1260, "mamba-codestral-7b-v0.1" to 1150, "marin-8b-instruct" to 1100, "mathstral-7b-v0.1" to 1170,
+        "mercury" to 1320, "mercury-coder" to 1300,
+        "meta-llama-3.1-405b-instruct-turbo" to 1359, "meta-llama-3.1-70b-instruct-turbo" to 1275, "meta-llama-3.1-8b-instruct-turbo" to 1185,
+        "mimo-v2-omni" to 1400, "minimax-01" to 1290, "minimax-m2-her" to 1370, "minimax-text-01" to 1290,
+        "ministral-14b-2512" to 1290, "ministral-14b-instruct-2512" to 1280, "ministral-14b-latest" to 1280,
+        "ministral-3:14b" to 1290, "ministral-3:3b" to 1120, "ministral-3:8b" to 1180,
+        "ministral-3b-2410" to 1105, "ministral-3b-2512" to 1120, "ministral-3b-latest" to 1105,
+        "ministral-8b-2410" to 1165, "ministral-8b-2512" to 1180, "ministral-8b-latest" to 1165,
+        "mistral-7b-instruct" to 1070, "mistral-7b-instruct-v0.1" to 1070, "mistral-7b-instruct-v0.2" to 1070, "mistral-7b-instruct-v0.3" to 1070,
+        "mistral-large" to 1280, "mistral-large-2-instruct" to 1330, "mistral-large-pixtral-2411" to 1330,
+        "mistral-medium" to 1260, "mistral-medium-3-instruct" to 1389, "mistral-medium-3.1" to 1389,
+        "mistral-nemo" to 1280, "mistral-nemo-12b-instruct" to 1280, "mistral-nemo-latest" to 1280,
+        "mistral-nemo-minitron-8b-8k-instruct" to 1180, "mistral-nemo-minitron-8b-base" to 1180,
+        "mistral-nemotron" to 1290, "mistral-saba" to 1215, "mistral-saba-24b" to 1215,
+        "mistral-small-24b-instruct" to 1310, "mistral-small-24b-instruct-2501" to 1310,
+        "mistral-small-2501" to 1389, "mistral-small-2603" to 1400,
+        "mistral-small-3" to 1389, "mistral-small-3.1" to 1325, "mistral-small-3.1-24b-instruct" to 1325,
+        "mistral-small-3.2" to 1389, "mistral-small-3.2-24b-instruct" to 1389,
+        "mistral-small-4-119b-2603" to 1400, "mistral-small-creative" to 1310,
+        "mistral-tiny-2407" to 1070, "mistral-tiny-latest" to 1070,
+        "mixtral-8x22b-instruct-v0.1" to 1210, "mixtral-8x22b-v0.1" to 1210, "mixtral-8x7b-32768" to 1110, "mixtral-8x7b-instruct-v0.1" to 1110,
+        "moonshot-v1-128k" to 1290, "moonshot-v1-32k" to 1260, "moonshot-v1-8k" to 1240,
+        "morph-v3-fast" to 1270, "morph-v3-large" to 1300, "mythomax-l2-13b" to 1060,
+        "nemotron-4-340b-instruct" to 1200, "nemotron-4-mini-hindi-4b-instruct" to 1080, "nemotron-mini-4b-instruct" to 1130,
+        "nemotron-nano" to 1215, "nemotron-nano-12b-v2-vl" to 1200, "nemotron-nano-12b-v2-vl:free" to 1200,
+        "nemotron-nano-3-30b-a3b" to 1335, "nemotron-nano-9b-v2" to 1230, "nemotron-nano-9b-v2:free" to 1230,
+        "neva-22b" to 1100, "nous-hermes-2-mixtral-8x7b-dpo" to 1160,
+        "nova-2-lite-v1" to 1365, "nova-lite" to 1290, "nova-lite-v1" to 1290,
+        "nova-micro" to 1240, "nova-micro-v1" to 1240, "nova-premier" to 1370, "nova-premier-v1" to 1370,
+        "nova-pro" to 1330, "nova-pro-v1" to 1330, "nvidia-nemotron-nano-9b-v2" to 1230,
+        "o1-preview-2024-09-12" to 1419, "o3-deep-research" to 1440, "o4-mini-deep-research" to 1420,
+        "olmo-2-0325-32b-instruct" to 1290, "olmo-2-1124-13b-instruct" to 1210, "olmo-2-1124-7b-instruct" to 1150,
+        "open-mistral-7b" to 1070, "open-mistral-nemo" to 1280, "open-mistral-nemo-2407" to 1280,
+        "open-mixtral-8x22b" to 1210, "open-mixtral-8x22b-2404" to 1210, "open-mixtral-8x7b" to 1110,
+        "palmyra-creative-122b" to 1260, "palmyra-fin-70b-32k" to 1190, "palmyra-med-70b" to 1180, "palmyra-med-70b-32k" to 1180, "palmyra-x5" to 1340,
+        "phi-3-medium-128k-instruct" to 1200, "phi-3-medium-4k-instruct" to 1200,
+        "phi-3-mini-128k-instruct" to 1120, "phi-3-mini-4k-instruct" to 1120,
+        "phi-3-small-128k-instruct" to 1150, "phi-3-small-8k-instruct" to 1150,
+        "phi-3-vision-128k-instruct" to 1180, "phi-3.5-mini-instruct" to 1180, "phi-3.5-moe-instruct" to 1220, "phi-3.5-vision-instruct" to 1190,
+        "phi-4" to 1310, "phi-4-14b" to 1310, "phi-4-mini" to 1260, "phi-4-mini-flash-reasoning" to 1250, "phi-4-mini-instruct" to 1260,
+        "phi-4-multimodal" to 1270, "phi-4-multimodal-instruct" to 1270, "phi-4-reasoning" to 1340, "phi-4-reasoning-plus" to 1360,
+        "phi3.5" to 1180, "phi3.5:3.8b" to 1180, "phi4" to 1310, "phi4:14b" to 1310,
+        "pixtral-12b" to 1240, "pixtral-12b-2409" to 1240, "pixtral-large-2411" to 1255, "pixtral-large-latest" to 1255,
+        "qwen-2.5-32b" to 1290, "qwen-2.5-72b-instruct" to 1326, "qwen-2.5-7b-instruct" to 1220,
+        "qwen-2.5-coder-32b" to 1280, "qwen-2.5-coder-32b-instruct" to 1280,
+        "qwen-3-235b-a22b-instruct-2507" to 1407,
+        "qwen-max" to 1334, "qwen-max-2025-01-25" to 1334, "qwen-max-latest" to 1334,
+        "qwen-plus" to 1372, "qwen-plus-2025-07-28" to 1372, "qwen-plus-2025-07-28:thinking" to 1380, "qwen-plus-latest" to 1372,
+        "qwen-turbo" to 1260, "qwen-turbo-latest" to 1260, "qwen-vl-max" to 1290, "qwen-vl-plus" to 1250,
+        "qwen2-72b-instruct" to 1290, "qwen2-7b-instruct" to 1170,
+        "qwen2.5-14b-instruct" to 1260, "qwen2.5-32b" to 1290, "qwen2.5-32b-instruct" to 1290, "qwen2.5-3b-instruct" to 1150,
+        "qwen2.5-72b-instruct-turbo" to 1326, "qwen2.5-7b-instruct" to 1220, "qwen2.5-7b-instruct-turbo" to 1220,
+        "qwen2.5-coder-14b-instruct" to 1240, "qwen2.5-coder-32b" to 1280, "qwen2.5-coder-32b-instruct" to 1280, "qwen2.5-coder-7b-instruct" to 1200,
+        "qwen2.5-vl-32b-instruct" to 1270, "qwen2.5-vl-72b-instruct" to 1300, "qwen2.5-vl-7b-instruct" to 1210, "qwen2.5:72b" to 1326,
+        "qwen3-0.6b" to 1020, "qwen3-1.7b" to 1100, "qwen3-14b" to 1280, "qwen3-30b-a3b-thinking-2507" to 1310,
+        "qwen3-4b" to 1170, "qwen3-8b" to 1220,
+        "qwen3-coder-30b-a3b-instruct" to 1380, "qwen3-coder-flash" to 1380, "qwen3-coder-next" to 1400, "qwen3-coder-plus" to 1420,
+        "qwen3-coder:480b" to 1418, "qwen3-coder:free" to 1418,
+        "qwen3-next-80b-a3b-instruct:free" to 1380,
+        "qwen3-vl-235b-a22b-instruct" to 1398, "qwen3-vl-235b-a22b-thinking" to 1371,
+        "qwen3-vl-30b-a3b-instruct" to 1330, "qwen3-vl-30b-a3b-thinking" to 1340,
+        "qwen3-vl-32b-instruct" to 1340, "qwen3-vl-8b-instruct" to 1260, "qwen3-vl-8b-thinking" to 1270,
+        "qwen3-vl:235b" to 1398, "qwen3-vl:235b-instruct" to 1398,
+        "qwen3.5-9b" to 1340, "qwen3.5-flash-02-23" to 1377, "qwen3.5-plus-02-15" to 1420, "qwen3.6-plus" to 1430,
+        "qwq-32b-preview" to 1305, "qwq-plus" to 1340,
+        "rakutenai-7b-chat" to 1050, "rakutenai-7b-instruct" to 1050, "recurrentgemma-2b" to 1040,
+        "reka-core" to 1265, "reka-core-20240904" to 1265, "reka-edge" to 1140, "reka-flash" to 1200, "reka-flash-3" to 1260,
+        "relace-apply-3" to 1240, "relace-search" to 1250, "remm-slerp-l2-13b" to 1050,
+        "rnj-1-instruct" to 1210, "rnj-1:8b" to 1200, "rocinante-12b" to 1150, "router" to 1300,
+        "sarvam-m" to 1150, "sea-lion-7b-instruct" to 1020,
+        "seed-1.6" to 1350, "seed-1.6-flash" to 1330, "seed-2.0-lite" to 1380, "seed-2.0-mini" to 1360, "seed-oss-36b-instruct" to 1310,
+        "skyfall-36b-v2" to 1220, "solar-10.7b-instruct" to 1100, "solar-pro-3" to 1250,
+        "sonar-deep-research" to 1330, "sonar-pro-search" to 1315, "sonar-reasoning" to 1280,
+        "spotlight" to 1350, "starcoder2-15b" to 1100, "starcoder2-7b" to 1060, "stockmark-2-100b-instruct" to 1180,
+        "teuken-7b-instruct-commercial-v0.4" to 1030, "tongyi-deepresearch-30b-a3b" to 1350,
+        "trinity-large-thinking" to 1405, "trinity-mini" to 1310,
+        "ui-tars-1.5-7b" to 1200, "unslopnemo-12b" to 1160, "vila" to 1100, "virtuoso-large" to 1340,
+        "weaver" to 1080, "wizardlm-2-7b" to 1100, "wizardlm-2-8x22b" to 1220,
+        "yi-34b-chat" to 1080, "yi-large" to 1240, "yi-large-turbo" to 1250, "yi-medium" to 1190, "yi-vision" to 1200,
+        "zamba2-7b-instruct" to 1080,
+    )
+
+    /**
+     * Baked entries — base catalog with [arenaScores] merged in at init
+     * time. Runtime lookup is a single O(1) hash access on this map, no
+     * per-call copy or double lookup.
+     */
+    private val entries: Map<String, CuratedModelInfo> = HashMap<String, CuratedModelInfo>(baseEntries.size).apply {
+        for ((key, info) in baseEntries) {
+            val score = arenaScores[key]
+            put(key, if (score != null) info.copy(arenaScore = score) else info)
+        }
+    }
+
+    /** Misses already logged this session — so logcat isn't spammed on every repeat lookup. */
+    private val loggedMisses = mutableSetOf<String>()
+
+    /**
+     * Strip any leading `provider/` prefix from the id, lowercase it, and
+     * look it up in the hash map. That's the whole contract — no walking,
+     * no noise stripping, no normalization.
+     *
+     * If the id isn't in the catalog, log it once (per session) so missing
+     * models can be added later. Grep logcat for `ModelCatalog miss:`.
+     */
+    fun lookup(modelId: String): CuratedModelInfo? {
+        val key = modelId.substringAfterLast('/').lowercase()
+        val hit = entries[key]
+        if (hit == null && loggedMisses.add(key)) {
+            println("ModelCatalog miss: \"$key\" (raw: \"$modelId\")")
+        }
+        return hit
+    }
+}

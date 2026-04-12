@@ -242,4 +242,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="litert_error_inference_timeout">A inferência no dispositivo expirou. Tente uma mensagem mais curta ou um modelo menor.</string>
     <string name="litert_error_not_enough_disk_space">Espaço em disco insuficiente para baixar o modelo.</string>
     <string name="litert_error_insufficient_memory">Memória insuficiente para carregar o modelo. Feche outros aplicativos e tente novamente.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Pontuação</string>
+    <string name="model_sort_context">Contexto</string>
 </resources>

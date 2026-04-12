@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">استنتاج روی دستگاه به پایان رسید. پیام کوتاه‌تر یا مدل کوچک‌تر را امتحان کنید.</string>
     <string name="litert_error_not_enough_disk_space">فضای دیسک کافی برای دانلود مدل وجود ندارد.</string>
     <string name="litert_error_insufficient_memory">حافظه کافی برای بارگذاری مدل وجود ندارد. برنامه‌های دیگر را ببندید و دوباره امتحان کنید.</string>
+    <string name="model_sort_date">تاریخ</string>
+    <string name="model_sort_score">امتیاز</string>
+    <string name="model_sort_context">زمینه</string>
 </resources>

@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">פג הזמן של ההסקה במכשיר. נסה הודעה קצרה יותר או מודל קטן יותר.</string>
     <string name="litert_error_not_enough_disk_space">אין מספיק מקום בדיסק להורדת המודל.</string>
     <string name="litert_error_insufficient_memory">אין מספיק זיכרון לטעינת המודל. סגור אפליקציות אחרות ונסה שוב.</string>
+    <string name="model_sort_date">תאריך</string>
+    <string name="model_sort_score">ציון</string>
+    <string name="model_sort_context">הקשר</string>
 </resources>

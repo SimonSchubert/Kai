@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Sklepanje na napravi je poteklo. Poskusite s krajšim sporočilom ali manjšim modelom.</string>
     <string name="litert_error_not_enough_disk_space">Ni dovolj prostora na disku za prenos modela.</string>
     <string name="litert_error_insufficient_memory">Ni dovolj pomnilnika za nalaganje modela. Zaprite druge aplikacije in poskusite znova.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Rezultat</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

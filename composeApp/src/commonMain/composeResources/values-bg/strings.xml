@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Извличането на устройството изтече. Опитайте по-кратко съобщение или по-малък модел.</string>
     <string name="litert_error_not_enough_disk_space">Няма достатъчно дисково пространство за изтегляне на модела.</string>
     <string name="litert_error_insufficient_memory">Няма достатъчно памет за зареждане на модела. Затворете други приложения и опитайте отново.</string>
+    <string name="model_sort_date">Дата</string>
+    <string name="model_sort_score">Резултат</string>
+    <string name="model_sort_context">Контекст</string>
 </resources>

@@ -129,7 +129,9 @@ import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
+import com.inspiredandroid.kai.formatContextWindow
 import com.inspiredandroid.kai.formatFileSize
+import com.inspiredandroid.kai.formatReleaseDate
 import com.inspiredandroid.kai.inference.DevicePerformance
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
@@ -170,6 +172,9 @@ import kai.composeapp.generated.resources.litert_performance_good
 import kai.composeapp.generated.resources.litert_performance_ok
 import kai.composeapp.generated.resources.litert_performance_poor
 import kai.composeapp.generated.resources.litert_tool_support
+import kai.composeapp.generated.resources.model_sort_context
+import kai.composeapp.generated.resources.model_sort_date
+import kai.composeapp.generated.resources.model_sort_score
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -302,6 +307,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.jsonObject
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -1568,7 +1574,7 @@ private fun ModelSelection(
         ) {
             KaiOutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = currentSelectedModel?.id ?: "",
+                value = currentSelectedModel?.let { it.displayName ?: it.id } ?: "",
                 onValueChange = {},
                 readOnly = true,
                 label = {
@@ -1607,7 +1613,8 @@ private fun ModelSelection(
                 } else {
                     models.filter {
                         it.id.contains(searchQuery, ignoreCase = true) ||
-                            it.subtitle.contains(searchQuery, ignoreCase = true)
+                            it.subtitle.contains(searchQuery, ignoreCase = true) ||
+                            it.displayName?.contains(searchQuery, ignoreCase = true) == true
                     }
                 }
                 if (models.size > 6) {
@@ -1621,7 +1628,43 @@ private fun ModelSelection(
                         singleLine = true,
                     )
                 }
+                var sortOption by remember { mutableStateOf(ModelSortOption.Score) }
+                val sortedModels = remember(filteredModels, sortOption) {
+                    filteredModels.sortedWith(sortOption.comparator)
+                }
+                Row(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    ModelSortOption.entries.forEach { option ->
+                        val isSelected = sortOption == option
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (isSelected) {
+                                MaterialTheme.colorScheme.secondaryContainer
+                            } else {
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                            },
+                            modifier = Modifier.handCursor(),
+                            onClick = { sortOption = option },
+                        ) {
+                            Text(
+                                text = stringResource(option.labelRes),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = if (isSelected) {
+                                    MaterialTheme.colorScheme.onSecondaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                            )
+                        }
+                    }
+                }
                 val gridState = rememberLazyGridState()
+                LaunchedEffect(sortOption) {
+                    gridState.scrollToItem(0)
+                }
                 Box {
                     LazyVerticalGrid(
                         GridCells.Adaptive(300.dp),
@@ -1630,7 +1673,7 @@ private fun ModelSelection(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        items(filteredModels, key = { it.id }) { model ->
+                        items(sortedModels, key = { it.id }) { model ->
                             ModelCard(
                                 model = model,
                                 onClick = {
@@ -1650,9 +1693,25 @@ private fun ModelSelection(
     }
 }
 
+private enum class ModelSortOption(
+    val labelRes: StringResource,
+    val comparator: Comparator<SettingsModel>,
+) {
+    Date(Res.string.model_sort_date, compareByDescending<SettingsModel> { it.releaseDate }.thenBy { it.id }),
+    Score(Res.string.model_sort_score, compareByDescending<SettingsModel> { it.arenaScore }.thenBy { it.id }),
+    Ctx(Res.string.model_sort_context, compareByDescending<SettingsModel> { it.contextWindow }.thenBy { it.id }),
+}
+
 @Composable
 private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
-    val description = model.descriptionRes?.let { stringResource(it) } ?: model.description
+    val displayName = model.displayName?.takeIf { it.isNotBlank() && it != model.id }
+    val title = displayName ?: model.id
+    val secondary = if (displayName == null && model.subtitle.isNotBlank()) model.subtitle else null
+    val contextText = model.contextWindow?.let { formatContextWindow(it) }
+    val releaseText = model.releaseDate?.let { formatReleaseDate(it) }
+    val detailText = listOfNotNull(releaseText, model.parameterCount, contextText)
+        .joinToString("  ·  ").ifEmpty { null }
+
     Card(
         modifier = Modifier.handCursor().clip(CardDefaults.shape).clickable { onClick() },
         shape = CardDefaults.shape,
@@ -1660,33 +1719,59 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
         Column(
             modifier = Modifier.padding(16.dp),
         ) {
-            Text(
-                text = model.id,
-                style = MaterialTheme.typography.titleMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-            if (model.subtitle.isNotEmpty()) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = model.subtitle,
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.weight(1f),
                 )
+                model.arenaScore?.let { score ->
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = "$score",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = arenaScoreColor(score),
+                    )
+                }
             }
-            description?.let {
+            secondary?.let {
                 Text(
                     text = it,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                )
+            }
+            detailText?.let {
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                 )
             }
         }
     }
+}
+
+private fun arenaScoreColor(score: Int): Color = when {
+    score >= 1400 -> Color(0xFF2E7D32)
+
+    // green 800
+    score >= 1350 -> Color(0xFF558B2F)
+
+    // light green 800
+    score >= 1300 -> Color(0xFF9E9D24)
+
+    // lime 800
+    score >= 1250 -> Color(0xFFF9A825)
+
+    // yellow 800
+    else -> Color(0xFFEF6C00) // orange 800
 }
 
 @Composable

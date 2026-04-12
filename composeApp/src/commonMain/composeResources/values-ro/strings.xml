@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Inferența pe dispozitiv a expirat. Încercați un mesaj mai scurt sau un model mai mic.</string>
     <string name="litert_error_not_enough_disk_space">Spațiu pe disc insuficient pentru descărcarea modelului.</string>
     <string name="litert_error_insufficient_memory">Memorie insuficientă pentru încărcarea modelului. Închideți alte aplicații și încercați din nou.</string>
+    <string name="model_sort_date">Dată</string>
+    <string name="model_sort_score">Scor</string>
+    <string name="model_sort_context">Context</string>
 </resources>

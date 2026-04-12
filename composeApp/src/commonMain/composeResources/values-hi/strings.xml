@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">ऑन-डिवाइस इंफरेंस का समय समाप्त हो गया। छोटा संदेश या छोटा मॉडल आज़माएं।</string>
     <string name="litert_error_not_enough_disk_space">मॉडल डाउनलोड करने के लिए पर्याप्त डिस्क स्पेस नहीं है।</string>
     <string name="litert_error_insufficient_memory">मॉडल लोड करने के लिए पर्याप्त मेमोरी नहीं है। अन्य ऐप्स बंद करें और पुनः प्रयास करें।</string>
+    <string name="model_sort_date">तारीख</string>
+    <string name="model_sort_score">स्कोर</string>
+    <string name="model_sort_context">संदर्भ</string>
 </resources>

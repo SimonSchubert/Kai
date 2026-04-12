@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">L\'inferenza sin l\'apparat è scadida. Emprova in messadi pli curt u in model pli pitschen.</string>
     <string name="litert_error_not_enough_disk_space">Betg avunda spazi sin il disc per telechargiar il model.</string>
     <string name="litert_error_insufficient_memory">Betg avunda memoria per chargiar il model. Serrai autras applicaziuns e emprova anc ina giada.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Puncts</string>
+    <string name="model_sort_context">Context</string>
 </resources>

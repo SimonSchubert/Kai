@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">ઑન-ડિવાઇસ ઇન્ફરન્સ સમય સમાપ્ત. ટૂંકો સંદેશ અથવા નાનું મોડેલ અજમાવો.</string>
     <string name="litert_error_not_enough_disk_space">મોડેલ ડાઉનલોડ કરવા માટે પૂરતી ડિસ્ક સ્પેસ નથી.</string>
     <string name="litert_error_insufficient_memory">મોડેલ લોડ કરવા માટે પૂરતી મેમરી નથી. અન્ય એપ્સ બંધ કરો અને ફરી પ્રયાસ કરો.</string>
+    <string name="model_sort_date">તારીખ</string>
+    <string name="model_sort_score">સ્કોર</string>
+    <string name="model_sort_context">સંદર્ભ</string>
 </resources>

@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Құрылғыдағы шығару уақыты аяқталды. Қысқарақ хабарлама немесе кішірек модельді қолданып көріңіз.</string>
     <string name="litert_error_not_enough_disk_space">Модельді жүктеу үшін жеткілікті диск кеңістігі жоқ.</string>
     <string name="litert_error_insufficient_memory">Модельді жүктеу үшін жеткілікті жады жоқ. Басқа қолданбаларды жабыңыз және қайталап көріңіз.</string>
+    <string name="model_sort_date">Күні</string>
+    <string name="model_sort_score">Ұпай</string>
+    <string name="model_sort_context">Контекст</string>
 </resources>

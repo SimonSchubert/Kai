@@ -242,4 +242,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="litert_error_inference_timeout">L\'inferenza sul dispositivo è scaduta. Prova un messaggio più breve o un modello più piccolo.</string>
     <string name="litert_error_not_enough_disk_space">Spazio su disco insufficiente per scaricare il modello.</string>
     <string name="litert_error_insufficient_memory">Memoria insufficiente per caricare il modello. Chiudi le altre app e riprova.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Punteggio</string>
+    <string name="model_sort_context">Contesto</string>
 </resources>

@@ -242,4 +242,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="litert_error_inference_timeout">On-Device-Inferenz hat das Zeitlimit überschritten. Versuche eine kürzere Nachricht oder ein kleineres Modell.</string>
     <string name="litert_error_not_enough_disk_space">Nicht genug Speicherplatz, um das Modell herunterzuladen.</string>
     <string name="litert_error_insufficient_memory">Nicht genug Arbeitsspeicher, um das Modell zu laden. Schließe andere Apps und versuche es erneut.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Bewertung</string>
+    <string name="model_sort_context">Kontext</string>
 </resources>

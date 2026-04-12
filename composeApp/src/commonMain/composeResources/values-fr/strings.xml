@@ -242,4 +242,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="litert_error_inference_timeout">L\'inférence sur l\'appareil a expiré. Essayez un message plus court ou un modèle plus petit.</string>
     <string name="litert_error_not_enough_disk_space">Espace disque insuffisant pour télécharger le modèle.</string>
     <string name="litert_error_insufficient_memory">Mémoire insuffisante pour charger le modèle. Fermez les autres applications et réessayez.</string>
+    <string name="model_sort_date">Date</string>
+    <string name="model_sort_score">Score</string>
+    <string name="model_sort_context">Contexte</string>
 </resources>

@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">การอนุมานบนอุปกรณ์หมดเวลา ลองข้อความสั้นลงหรือโมเดลที่เล็กกว่า</string>
     <string name="litert_error_not_enough_disk_space">พื้นที่ดิสก์ไม่เพียงพอสำหรับดาวน์โหลดโมเดล</string>
     <string name="litert_error_insufficient_memory">หน่วยความจำไม่เพียงพอสำหรับโหลดโมเดล ปิดแอปอื่นแล้วลองอีกครั้ง</string>
+    <string name="model_sort_date">วันที่</string>
+    <string name="model_sort_score">คะแนน</string>
+    <string name="model_sort_context">บริบท</string>
 </resources>

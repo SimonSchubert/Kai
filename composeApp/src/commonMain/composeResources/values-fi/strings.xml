@@ -242,4 +242,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="litert_error_inference_timeout">Laitteella suoritettava päättely aikakatkaistiin. Kokeile lyhyempää viestiä tai pienempää mallia.</string>
     <string name="litert_error_not_enough_disk_space">Levytilaa ei ole tarpeeksi mallin lataamiseen.</string>
     <string name="litert_error_insufficient_memory">Muisti ei riitä mallin lataamiseen. Sulje muut sovellukset ja yritä uudelleen.</string>
+    <string name="model_sort_date">Päivämäärä</string>
+    <string name="model_sort_score">Pisteet</string>
+    <string name="model_sort_context">Konteksti</string>
 </resources>

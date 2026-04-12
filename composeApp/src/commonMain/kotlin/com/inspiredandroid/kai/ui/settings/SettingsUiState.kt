@@ -170,4 +170,14 @@ data class SettingsModel(
     val description: String? = null,
     val descriptionRes: StringResource? = null,
     val isSelected: Boolean = false,
+    /** Human-readable name to display in place of [id], when the provider exposes one. */
+    val displayName: String? = null,
+    /** Max context window in tokens, from the API or the curated catalog. */
+    val contextWindow: Long? = null,
+    /** Release date as "YYYY-MM" or "YYYY-MM-DD", from the API or the curated catalog. */
+    val releaseDate: String? = null,
+    /** Parameter count, pre-formatted for display (e.g. "70B", "8B", "3.3B"). */
+    val parameterCount: String? = null,
+    /** LMArena Elo score, or null when unknown. */
+    val arenaScore: Int? = null,
 )

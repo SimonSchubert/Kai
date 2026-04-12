@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Vypršel čas odvozování na zařízení. Zkuste kratší zprávu nebo menší model.</string>
     <string name="litert_error_not_enough_disk_space">Nedostatek místa na disku pro stažení modelu.</string>
     <string name="litert_error_insufficient_memory">Nedostatek paměti pro načtení modelu. Zavřete ostatní aplikace a zkuste to znovu.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Skóre</string>
+    <string name="model_sort_context">Kontext</string>
 </resources>

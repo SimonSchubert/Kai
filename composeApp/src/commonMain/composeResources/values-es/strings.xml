@@ -242,4 +242,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="litert_error_inference_timeout">La inferencia en el dispositivo agotó el tiempo de espera. Prueba un mensaje más corto o un modelo más pequeño.</string>
     <string name="litert_error_not_enough_disk_space">No hay suficiente espacio en disco para descargar el modelo.</string>
     <string name="litert_error_insufficient_memory">No hay suficiente memoria para cargar el modelo. Cierra otras aplicaciones e inténtalo de nuevo.</string>
+    <string name="model_sort_date">Fecha</string>
+    <string name="model_sort_score">Puntuación</string>
+    <string name="model_sort_context">Contexto</string>
 </resources>

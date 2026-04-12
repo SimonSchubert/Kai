@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">온디바이스 추론 시간이 초과되었습니다. 더 짧은 메시지나 작은 모델을 시도하세요.</string>
     <string name="litert_error_not_enough_disk_space">모델을 다운로드할 디스크 공간이 부족합니다.</string>
     <string name="litert_error_insufficient_memory">모델을 로드할 메모리가 부족합니다. 다른 앱을 닫고 다시 시도하세요.</string>
+    <string name="model_sort_date">날짜</string>
+    <string name="model_sort_score">점수</string>
+    <string name="model_sort_context">컨텍스트</string>
 </resources>

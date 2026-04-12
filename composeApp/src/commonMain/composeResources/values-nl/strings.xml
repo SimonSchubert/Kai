@@ -242,4 +242,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="litert_error_inference_timeout">On-device inferentie is verlopen. Probeer een korter bericht of een kleiner model.</string>
     <string name="litert_error_not_enough_disk_space">Niet genoeg schijfruimte om het model te downloaden.</string>
     <string name="litert_error_insufficient_memory">Niet genoeg geheugen om het model te laden. Sluit andere apps en probeer opnieuw.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Score</string>
+    <string name="model_sort_context">Context</string>
 </resources>

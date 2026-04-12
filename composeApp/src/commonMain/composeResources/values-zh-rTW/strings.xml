@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">裝置端推理逾時。請嘗試較短的訊息或較小的模型。</string>
     <string name="litert_error_not_enough_disk_space">磁碟空間不足，無法下載模型。</string>
     <string name="litert_error_insufficient_memory">記憶體不足，無法載入模型。請關閉其他應用程式後重試。</string>
+    <string name="model_sort_date">日期</string>
+    <string name="model_sort_score">評分</string>
+    <string name="model_sort_context">上下文</string>
 </resources>

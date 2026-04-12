@@ -242,4 +242,7 @@
     <string name="litert_error_inference_timeout">انتهت مهلة الاستدلال على الجهاز. جرب رسالة أقصر أو نموذجًا أصغر.</string>
     <string name="litert_error_not_enough_disk_space">لا توجد مساحة كافية على القرص لتنزيل النموذج.</string>
     <string name="litert_error_insufficient_memory">لا توجد ذاكرة كافية لتحميل النموذج. أغلق التطبيقات الأخرى وحاول مرة أخرى.</string>
+    <string name="model_sort_date">التاريخ</string>
+    <string name="model_sort_score">النتيجة</string>
+    <string name="model_sort_context">السياق</string>
 </resources>

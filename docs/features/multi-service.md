@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-12
 
 Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -89,6 +89,19 @@ When a connection is validated and models are fetched, the app auto-selects a mo
 - Together AI filters by `type == "chat"` to exclude non-chat models (embedding, code, etc.)
 - Other services show all non-retired models
 
+### Model Cards
+
+The model picker modal shows each candidate as a card with consistent metadata regardless of provider:
+
+- **Title** (top left) — a human-readable display name from the curated catalog or the provider's API; falls back to the raw model id only when no display name is available
+- **Arena score** (top right) — LMArena Elo rating as colored text, gradient from green (>= 1400) through lime/yellow to orange (< 1250)
+- **Detail chips** (middle) — parameter count and context window (`200K ctx` / `1M ctx`) as neutral chips
+- **Release date** (bottom left) — month and year in muted text, e.g. `Mar 2025`
+
+The modal includes sort chips (Date, Score, Ctx, Params) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by date (newest first).
+
+Context window and release date come from two sources, merged by the mapping layer: whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`), and a bundled curated catalog of well-known models that fills gaps for providers whose API omits these fields (notably Gemini and Anthropic for context window). API data always wins over the catalog. Models not present in the catalog still render — their chips are simply hidden.
+
 ## Chat Screen Service Toggle
 
 When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
@@ -107,6 +120,8 @@ Users manage services through the settings screen:
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/Service.kt` | Service definitions, all provider metadata |
+| `composeApp/src/commonMain/.../data/ModelCatalog.kt` | Curated context window / release date for well-known models |
+| `composeApp/src/commonMain/.../data/ModelTransformations.kt` | Maps provider model DTOs to `SettingsModel`, merges with catalog |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Service instance storage, credential persistence, migration |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Fallback chain, request orchestration |
 | `composeApp/src/commonMain/.../network/Requests.kt` | HTTP clients for all three API formats |

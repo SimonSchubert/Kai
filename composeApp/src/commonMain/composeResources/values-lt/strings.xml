@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Įrenginio išvada baigėsi. Pabandykite trumpesnę žinutę arba mažesnį modelį.</string>
     <string name="litert_error_not_enough_disk_space">Nepakanka vietos diske modeliui atsisiųsti.</string>
     <string name="litert_error_insufficient_memory">Nepakanka atminties modeliui įkelti. Uždarykite kitas programas ir bandykite dar kartą.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Rezultatas</string>
+    <string name="model_sort_context">Kontekstas</string>
 </resources>

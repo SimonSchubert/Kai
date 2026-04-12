@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">I-on-device inference iphelelwe yisikhathi. Zama umyalezo omfushane noma imodeli encane.</string>
     <string name="litert_error_not_enough_disk_space">Isikhala sediski asanele ukulanda imodeli.</string>
     <string name="litert_error_insufficient_memory">Imemori ayenele ukulayisha imodeli. Vala ezinye izinhlelo zokusebenza bese uzama futhi.</string>
+    <string name="model_sort_date">Usuku</string>
+    <string name="model_sort_score">Amamaki</string>
+    <string name="model_sort_context">Isizinda</string>
 </resources>

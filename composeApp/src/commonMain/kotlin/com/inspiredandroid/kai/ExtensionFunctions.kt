@@ -16,6 +16,35 @@ private val humanReadableDateFormat = Format {
 
 fun Long.toHumanReadableDate(): String = Instant.fromEpochSeconds(this).format(humanReadableDateFormat)
 
+/**
+ * Convert a Unix epoch-seconds timestamp to an ISO-8601 date string (YYYY-MM-DD),
+ * or null for zero/negative values. Some providers return `0` instead of omitting
+ * the `created` field, which would otherwise surface as "Jan 1970".
+ */
+fun Long.toIsoDate(): String? = if (this <= 0L) null else Instant.fromEpochSeconds(this).toString().take(10)
+
+fun formatContextWindow(tokens: Long): String = when {
+    tokens >= 1_000_000 -> "${tokens / 1_000_000}M"
+    tokens >= 1_000 -> "${tokens / 1_000}K"
+    else -> "$tokens"
+}
+
+private val shortMonthNames = listOf(
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+)
+
+fun formatReleaseDate(iso: String): String {
+    val firstDash = iso.indexOf('-')
+    if (firstDash < 1) return iso
+    val secondDash = iso.indexOf('-', firstDash + 1)
+    val year = iso.substring(0, firstDash).toIntOrNull() ?: return iso
+    val monthStr = if (secondDash > 0) iso.substring(firstDash + 1, secondDash) else iso.substring(firstDash + 1)
+    val month = monthStr.toIntOrNull() ?: return iso
+    if (month !in 1..12) return iso
+    return "${shortMonthNames[month - 1]} $year"
+}
+
 private val ttsKaiUiBlockRegex = Regex("```kai-ui\\s*\\n?[\\s\\S]*?\\n?```")
 private val ttsCodeBlockRegex = Regex("```[a-zA-Z]*\\n?")
 private val ttsImageRegex = Regex("!\\[([^]]*)]\\([^)]*\\)")

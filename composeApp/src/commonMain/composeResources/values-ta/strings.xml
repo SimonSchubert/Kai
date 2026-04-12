@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">ஆன்-டிவைஸ் இன்ஃபரன்ஸ் நேரம் முடிந்தது. குறுகிய செய்தி அல்லது சிறிய மாடலை முயற்சிக்கவும்.</string>
     <string name="litert_error_not_enough_disk_space">மாடலை பதிவிறக்க போதுமான டிஸ்க் இடம் இல்லை.</string>
     <string name="litert_error_insufficient_memory">மாடலை ஏற்ற போதுமான நினைவகம் இல்லை. பிற ஆப்களை மூடிவிட்டு மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="model_sort_date">தேதி</string>
+    <string name="model_sort_score">மதிப்பெண்</string>
+    <string name="model_sort_context">சூழல்</string>
 </resources>

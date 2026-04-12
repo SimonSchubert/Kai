@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">ਆਨ-ਡਿਵਾਈਸ ਇੰਫਰੈਂਸ ਸਮਾਂ ਸਮਾਪਤ। ਛੋਟਾ ਸੁਨੇਹਾ ਜਾਂ ਛੋਟਾ ਮਾਡਲ ਅਜ਼ਮਾਓ।</string>
     <string name="litert_error_not_enough_disk_space">ਮਾਡਲ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਕਾਫ਼ੀ ਡਿਸਕ ਸਪੇਸ ਨਹੀਂ ਹੈ।</string>
     <string name="litert_error_insufficient_memory">ਮਾਡਲ ਲੋਡ ਕਰਨ ਲਈ ਕਾਫ਼ੀ ਮੈਮੋਰੀ ਨਹੀਂ ਹੈ। ਹੋਰ ਐਪਾਂ ਬੰਦ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="model_sort_date">ਤਾਰੀਖ</string>
+    <string name="model_sort_score">ਸਕੋਰ</string>
+    <string name="model_sort_context">ਸੰਦਰਭ</string>
 </resources>

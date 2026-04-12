@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Suy luận trên thiết bị đã hết thời gian. Thử tin nhắn ngắn hơn hoặc mô hình nhỏ hơn.</string>
     <string name="litert_error_not_enough_disk_space">Không đủ dung lượng đĩa để tải xuống mô hình.</string>
     <string name="litert_error_insufficient_memory">Không đủ bộ nhớ để tải mô hình. Đóng các ứng dụng khác và thử lại.</string>
+    <string name="model_sort_date">Ngày</string>
+    <string name="model_sort_score">Điểm</string>
+    <string name="model_sort_context">Ngữ cảnh</string>
 </resources>

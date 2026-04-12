@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Inferensi di perangkat habis waktu. Coba pesan yang lebih pendek atau model yang lebih kecil.</string>
     <string name="litert_error_not_enough_disk_space">Ruang disk tidak cukup untuk mengunduh model.</string>
     <string name="litert_error_insufficient_memory">Memori tidak cukup untuk memuat model. Tutup aplikasi lain dan coba lagi.</string>
+    <string name="model_sort_date">Tanggal</string>
+    <string name="model_sort_score">Skor</string>
+    <string name="model_sort_context">Konteks</string>
 </resources>

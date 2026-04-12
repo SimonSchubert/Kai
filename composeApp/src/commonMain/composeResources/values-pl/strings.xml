@@ -242,4 +242,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="litert_error_inference_timeout">Upłynął limit czasu wnioskowania na urządzeniu. Spróbuj krótszej wiadomości lub mniejszego modelu.</string>
     <string name="litert_error_not_enough_disk_space">Za mało miejsca na dysku, aby pobrać model.</string>
     <string name="litert_error_insufficient_memory">Za mało pamięci, aby załadować model. Zamknij inne aplikacje i spróbuj ponownie.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Wynik</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

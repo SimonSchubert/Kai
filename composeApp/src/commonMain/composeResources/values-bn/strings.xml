@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">অন-ডিভাইস ইনফারেন্স সময় শেষ। একটি ছোট বার্তা বা ছোট মডেল চেষ্টা করুন।</string>
     <string name="litert_error_not_enough_disk_space">মডেল ডাউনলোড করার জন্য পর্যাপ্ত ডিস্ক স্পেস নেই।</string>
     <string name="litert_error_insufficient_memory">মডেল লোড করার জন্য পর্যাপ্ত মেমরি নেই। অন্যান্য অ্যাপ বন্ধ করে আবার চেষ্টা করুন।</string>
+    <string name="model_sort_date">তারিখ</string>
+    <string name="model_sort_score">স্কোর</string>
+    <string name="model_sort_context">প্রসঙ্গ</string>
 </resources>

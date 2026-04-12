@@ -50,7 +50,6 @@ sealed class Service(
     val filterActiveStrictly: Boolean = false,
     val filterByModelType: Boolean = false,
     val sortModelsById: Boolean = false,
-    val includeModelDate: Boolean = true,
     val apiKeyUrl: String? = null,
     val apiKeyUrlDisplay: String? = null,
     val isOnDevice: Boolean = false,
@@ -122,7 +121,6 @@ sealed class Service(
         chatUrl = "https://integrate.api.nvidia.com/v1/chat/completions",
         modelsUrl = "https://integrate.api.nvidia.com/v1/models",
         sortModelsById = true,
-        includeModelDate = false,
         apiKeyUrl = "https://build.nvidia.com/settings/api-keys",
         apiKeyUrlDisplay = "build.nvidia.com/settings/api-keys",
     )
@@ -398,7 +396,6 @@ sealed class Service(
         chatUrl = "/chat/completions",
         modelsUrl = "/models",
         sortModelsById = true,
-        includeModelDate = false,
     )
 
     data object LiteRT : Service(

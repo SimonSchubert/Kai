@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Час апрацоўкі на прыладзе скончыўся. Паспрабуйце карацейшае паведамленне або меншую мадэль.</string>
     <string name="litert_error_not_enough_disk_space">Недастаткова месца на дыску для спампоўвання мадэлі.</string>
     <string name="litert_error_insufficient_memory">Недастаткова памяці для загрузкі мадэлі. Зачыніце іншыя праграмы і паспрабуйце зноў.</string>
+    <string name="model_sort_date">Дата</string>
+    <string name="model_sort_score">Бал</string>
+    <string name="model_sort_context">Кантэкст</string>
 </resources>

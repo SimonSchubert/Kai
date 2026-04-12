@@ -117,6 +117,27 @@ class OpenAICompatibleModelResponseDtoTest {
     }
 
     @Test
+    fun `openrouter style context_length and name are parsed`() {
+        val responseJson = """
+            {
+                "data": [
+                    {
+                        "id": "anthropic/claude-3.5-sonnet",
+                        "name": "Anthropic: Claude 3.5 Sonnet",
+                        "context_length": 200000,
+                        "description": "Claude 3.5 Sonnet by Anthropic"
+                    }
+                ]
+            }
+        """.trimIndent()
+        val response = json.decodeFromString(OpenAICompatibleModelResponseDto.serializer(), responseJson)
+        val model = response.data[0]
+        assertEquals("Anthropic: Claude 3.5 Sonnet", model.name)
+        assertEquals(200_000L, model.context_length)
+        assertEquals("Claude 3.5 Sonnet by Anthropic", model.description)
+    }
+
+    @Test
     fun `type present and absent`() {
         val responseJson = """
             {

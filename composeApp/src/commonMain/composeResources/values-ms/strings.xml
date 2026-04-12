@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Inferens pada peranti tamat masa. Cuba mesej yang lebih pendek atau model yang lebih kecil.</string>
     <string name="litert_error_not_enough_disk_space">Ruang cakera tidak mencukupi untuk memuat turun model.</string>
     <string name="litert_error_insufficient_memory">Memori tidak mencukupi untuk memuatkan model. Tutup aplikasi lain dan cuba lagi.</string>
+    <string name="model_sort_date">Tarikh</string>
+    <string name="model_sort_score">Skor</string>
+    <string name="model_sort_context">Konteks</string>
 </resources>

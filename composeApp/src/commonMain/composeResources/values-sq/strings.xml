@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Koha e përfundimit të konkludimit në pajisje ka skaduar. Provoni një mesazh më të shkurtër ose një model më të vogël.</string>
     <string name="litert_error_not_enough_disk_space">Hapësirë e pamjaftueshme në disk për të shkarkuar modelin.</string>
     <string name="litert_error_insufficient_memory">Memorie e pamjaftueshme për të ngarkuar modelin. Mbyllni aplikacionet e tjera dhe provoni përsëri.</string>
+    <string name="model_sort_date">Data</string>
+    <string name="model_sort_score">Rezultati</string>
+    <string name="model_sort_context">Konteksti</string>
 </resources>

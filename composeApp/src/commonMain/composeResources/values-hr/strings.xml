@@ -241,4 +241,7 @@
     <string name="litert_error_inference_timeout">Isteklo je vrijeme za zaključivanje na uređaju. Pokušajte s kraćom porukom ili manjim modelom.</string>
     <string name="litert_error_not_enough_disk_space">Nema dovoljno prostora na disku za preuzimanje modela.</string>
     <string name="litert_error_insufficient_memory">Nema dovoljno memorije za učitavanje modela. Zatvorite druge aplikacije i pokušajte ponovo.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Rezultat</string>
+    <string name="model_sort_context">Kontekst</string>
 </resources>

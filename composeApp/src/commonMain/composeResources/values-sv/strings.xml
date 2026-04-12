@@ -242,4 +242,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="litert_error_inference_timeout">On-device-inferens timeout. Prova ett kortare meddelande eller en mindre modell.</string>
     <string name="litert_error_not_enough_disk_space">Inte tillräckligt med diskutrymme för att ladda ner modellen.</string>
     <string name="litert_error_insufficient_memory">Inte tillräckligt med minne för att ladda modellen. Stäng andra appar och försök igen.</string>
+    <string name="model_sort_date">Datum</string>
+    <string name="model_sort_score">Poäng</string>
+    <string name="model_sort_context">Kontext</string>
 </resources>
