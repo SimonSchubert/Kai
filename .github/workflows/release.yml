@@ -406,6 +406,11 @@ jobs:
           body_path: changelog.txt
           files: Kai-*
 
+      - name: Sync winget-pkgs fork
+        env:
+          GH_TOKEN: ${{ secrets.WINGET_TOKEN }}
+        run: gh repo sync SimonSchubert/winget-pkgs --source microsoft/winget-pkgs --branch master --force
+
       - name: Publish to WinGet
         uses: vedantmgoyal9/winget-releaser@v2
         with:
