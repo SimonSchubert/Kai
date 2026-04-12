@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.coroutines.CoroutineContext
 
@@ -63,6 +62,7 @@ class ChatViewModel(
         exitInteractiveMode = ::exitInteractiveMode,
         goBackInteractiveMode = ::goBackInteractiveMode,
     )
+    private var freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
     private var currentJob: Job? = null
     private var pendingConversationDeleteJob: Job? = null
     private val _state = MutableStateFlow(
@@ -82,6 +82,10 @@ class ChatViewModel(
         dataRepository.restoreCurrentConversation()
         presetInteractiveModeForCurrentConversation()
 
+        viewModelScope.launch {
+            freeModeNames = FreeMode.entries.associateWith { getString(it.nameRes) }
+            updateAvailableServices()
+        }
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.connectEnabledMcpServers()
         }
@@ -289,7 +293,7 @@ class ChatViewModel(
             ServiceEntry(
                 instanceId = mode.instanceId,
                 serviceId = Service.Free.id,
-                serviceName = FREE_MODE_NAMES.getValue(mode),
+                serviceName = freeModeNames.getValue(mode),
                 modelId = "",
                 icon = mode.icon,
             )
@@ -312,9 +316,6 @@ class ChatViewModel(
 
     companion object {
         private val FREE_MODE_INSTANCE_IDS = FreeMode.entries.associateBy { it.instanceId }
-        private val FREE_MODE_NAMES: Map<FreeMode, String> by lazy {
-            runBlocking { FreeMode.entries.associateWith { getString(it.nameRes) } }
-        }
     }
 
     private fun regenerate() {
