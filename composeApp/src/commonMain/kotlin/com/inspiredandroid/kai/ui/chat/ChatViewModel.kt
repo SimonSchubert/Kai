@@ -62,7 +62,7 @@ class ChatViewModel(
         exitInteractiveMode = ::exitInteractiveMode,
         goBackInteractiveMode = ::goBackInteractiveMode,
     )
-    private var freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
+    private val freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
     private var currentJob: Job? = null
     private var pendingConversationDeleteJob: Job? = null
     private val _state = MutableStateFlow(
@@ -82,10 +82,6 @@ class ChatViewModel(
         dataRepository.restoreCurrentConversation()
         presetInteractiveModeForCurrentConversation()
 
-        viewModelScope.launch {
-            freeModeNames = FreeMode.entries.associateWith { getString(it.nameRes) }
-            updateAvailableServices()
-        }
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.connectEnabledMcpServers()
         }
