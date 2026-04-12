@@ -109,14 +109,13 @@ internal fun ServiceSelector(
                     },
                     modifier = Modifier
                         .handCursor()
+                        .padding(horizontal = 4.dp)
+                        .clip(RoundedCornerShape(12.dp))
                         .then(
                             if (isCurrent) {
-                                Modifier
-                                    .padding(horizontal = 4.dp)
-                                    .background(
-                                        color = MaterialTheme.colorScheme.primaryContainer,
-                                        shape = RoundedCornerShape(12.dp),
-                                    )
+                                Modifier.background(
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                )
                             } else {
                                 Modifier
                             },

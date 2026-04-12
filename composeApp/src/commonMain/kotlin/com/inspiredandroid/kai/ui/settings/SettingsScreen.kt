@@ -29,19 +29,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Warning
@@ -52,8 +46,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -64,12 +56,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -120,34 +109,27 @@ import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
-import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
-import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.detectImportSections
-import com.inspiredandroid.kai.formatContextWindow
 import com.inspiredandroid.kai.formatFileSize
-import com.inspiredandroid.kai.formatReleaseDate
 import com.inspiredandroid.kai.inference.DevicePerformance
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.inference.calculateDevicePerformance
 import com.inspiredandroid.kai.inference.estimateGpuMemoryMb
 import com.inspiredandroid.kai.mcp.PopularMcpServer
-import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.saveFileToDevice
 import com.inspiredandroid.kai.ui.KaiClearableTextField
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
-import com.inspiredandroid.kai.ui.components.KaiRangeSlider
 import com.inspiredandroid.kai.ui.components.KaiSlider
 import com.inspiredandroid.kai.ui.components.SettingsListItem
-import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.icons.DragIndicator
@@ -172,9 +154,6 @@ import kai.composeapp.generated.resources.litert_performance_good
 import kai.composeapp.generated.resources.litert_performance_ok
 import kai.composeapp.generated.resources.litert_performance_poor
 import kai.composeapp.generated.resources.litert_tool_support
-import kai.composeapp.generated.resources.model_sort_context
-import kai.composeapp.generated.resources.model_sort_date
-import kai.composeapp.generated.resources.model_sort_score
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
 import kai.composeapp.generated.resources.settings_api_key_label
@@ -189,28 +168,12 @@ import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_documentation
 import kai.composeapp.generated.resources.settings_dynamic_ui
 import kai.composeapp.generated.resources.settings_dynamic_ui_description
-import kai.composeapp.generated.resources.settings_email
-import kai.composeapp.generated.resources.settings_email_description
-import kai.composeapp.generated.resources.settings_email_empty
-import kai.composeapp.generated.resources.settings_email_poll_interval
-import kai.composeapp.generated.resources.settings_email_poll_never
-import kai.composeapp.generated.resources.settings_email_remove
 import kai.composeapp.generated.resources.settings_export
 import kai.composeapp.generated.resources.settings_export_import_description
 import kai.composeapp.generated.resources.settings_export_import_title
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
-import kai.composeapp.generated.resources.settings_heartbeat
-import kai.composeapp.generated.resources.settings_heartbeat_active_hours
-import kai.composeapp.generated.resources.settings_heartbeat_default_prompt
-import kai.composeapp.generated.resources.settings_heartbeat_description
-import kai.composeapp.generated.resources.settings_heartbeat_interval
-import kai.composeapp.generated.resources.settings_heartbeat_model
-import kai.composeapp.generated.resources.settings_heartbeat_model_default
-import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
-import kai.composeapp.generated.resources.settings_heartbeat_recent
-import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
 import kai.composeapp.generated.resources.settings_import_partial
@@ -227,28 +190,10 @@ import kai.composeapp.generated.resources.settings_import_section_services
 import kai.composeapp.generated.resources.settings_import_section_soul
 import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
-import kai.composeapp.generated.resources.settings_mcp_add
-import kai.composeapp.generated.resources.settings_mcp_add_header
-import kai.composeapp.generated.resources.settings_mcp_add_server
 import kai.composeapp.generated.resources.settings_mcp_cancel
-import kai.composeapp.generated.resources.settings_mcp_header_key
-import kai.composeapp.generated.resources.settings_mcp_header_value
-import kai.composeapp.generated.resources.settings_mcp_no_tools
-import kai.composeapp.generated.resources.settings_mcp_popular_servers
-import kai.composeapp.generated.resources.settings_mcp_refresh
-import kai.composeapp.generated.resources.settings_mcp_remove
-import kai.composeapp.generated.resources.settings_mcp_server_name
-import kai.composeapp.generated.resources.settings_mcp_server_url
-import kai.composeapp.generated.resources.settings_mcp_servers
-import kai.composeapp.generated.resources.settings_mcp_servers_description
-import kai.composeapp.generated.resources.settings_mcp_status_connected
-import kai.composeapp.generated.resources.settings_mcp_status_connecting
-import kai.composeapp.generated.resources.settings_mcp_status_error
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
-import kai.composeapp.generated.resources.settings_model_label
-import kai.composeapp.generated.resources.settings_model_search
 import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -317,10 +262,10 @@ import sh.calvin.reorderable.ReorderableColumn
 import kotlin.math.roundToInt
 import kotlin.time.Instant
 
-private val StatusColorConnected = Color(0xFF4CAF50)
-private val StatusColorChecking = Color(0xFFFF9800)
-private val StatusColorError = Color(0xFFF44336)
-private val StatusColorUnknown = Color(0xFF9E9E9E)
+internal val StatusColorConnected = Color(0xFF4CAF50)
+internal val StatusColorChecking = Color(0xFFFF9800)
+internal val StatusColorError = Color(0xFFF44336)
+internal val StatusColorUnknown = Color(0xFF9E9E9E)
 
 @Composable
 fun SettingsScreen(
@@ -1103,13 +1048,6 @@ private fun ConfiguredServiceCardContent(
                         onClick = onRemove,
                         modifier = Modifier.handCursor(),
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.error,
-                        )
-                        Spacer(Modifier.width(4.dp))
                         Text(
                             text = stringResource(Res.string.settings_remove_service),
                             color = MaterialTheme.colorScheme.error,
@@ -1351,12 +1289,12 @@ private fun LiteRTSettings(
                     if (isDownloaded) {
                         IconButton(
                             onClick = { onDeleteModel(model.id) },
-                            modifier = Modifier.size(32.dp).handCursor(),
+                            modifier = Modifier.handCursor(),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = null,
-                                modifier = Modifier.size(16.dp),
+                                modifier = Modifier.size(20.dp),
                                 tint = MaterialTheme.colorScheme.error,
                             )
                         }
@@ -1559,219 +1497,6 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
             }
         }
     }
-}
-
-@Composable
-private fun ModelSelection(
-    currentSelectedModel: SettingsModel?,
-    models: ImmutableList<SettingsModel>,
-    onClick: (String) -> Unit,
-) {
-    var expanded by remember { mutableStateOf(false) }
-    if (models.isNotEmpty()) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            KaiOutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = currentSelectedModel?.let { it.displayName ?: it.id } ?: "",
-                onValueChange = {},
-                readOnly = true,
-                label = {
-                    Text(
-                        stringResource(Res.string.settings_model_label),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-                trailingIcon = {
-                    Icon(
-                        modifier = Modifier.handCursor(),
-                        imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-            )
-            // Transparent overlay to capture clicks reliably on all platforms
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .handCursor()
-                    .clickable { expanded = true },
-            )
-        }
-        if (expanded) {
-            ModalBottomSheet(
-                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-                onDismissRequest = {
-                    expanded = false
-                },
-            ) {
-                var searchQuery by remember { mutableStateOf("") }
-                val filteredModels = if (searchQuery.isBlank()) {
-                    models
-                } else {
-                    models.filter {
-                        it.id.contains(searchQuery, ignoreCase = true) ||
-                            it.subtitle.contains(searchQuery, ignoreCase = true) ||
-                            it.displayName?.contains(searchQuery, ignoreCase = true) == true
-                    }
-                }
-                if (models.size > 6) {
-                    KaiOutlinedTextField(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
-                        value = searchQuery,
-                        onValueChange = { searchQuery = it },
-                        placeholder = {
-                            Text(stringResource(Res.string.settings_model_search))
-                        },
-                        singleLine = true,
-                    )
-                }
-                var sortOption by remember { mutableStateOf(ModelSortOption.Score) }
-                val sortedModels = remember(filteredModels, sortOption) {
-                    filteredModels.sortedWith(sortOption.comparator)
-                }
-                Row(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    ModelSortOption.entries.forEach { option ->
-                        val isSelected = sortOption == option
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (isSelected) {
-                                MaterialTheme.colorScheme.secondaryContainer
-                            } else {
-                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                            },
-                            modifier = Modifier.handCursor(),
-                            onClick = { sortOption = option },
-                        ) {
-                            Text(
-                                text = stringResource(option.labelRes),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (isSelected) {
-                                    MaterialTheme.colorScheme.onSecondaryContainer
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                            )
-                        }
-                    }
-                }
-                val gridState = rememberLazyGridState()
-                LaunchedEffect(sortOption) {
-                    gridState.scrollToItem(0)
-                }
-                Box {
-                    LazyVerticalGrid(
-                        GridCells.Adaptive(300.dp),
-                        state = gridState,
-                        contentPadding = PaddingValues(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items(sortedModels, key = { it.id }) { model ->
-                            ModelCard(
-                                model = model,
-                                onClick = {
-                                    onClick(model.id)
-                                    expanded = false
-                                },
-                            )
-                        }
-                    }
-                    VerticalScrollbarForGrid(
-                        gridState = gridState,
-                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
-                    )
-                }
-            }
-        }
-    }
-}
-
-private enum class ModelSortOption(
-    val labelRes: StringResource,
-    val comparator: Comparator<SettingsModel>,
-) {
-    Date(Res.string.model_sort_date, compareByDescending<SettingsModel> { it.releaseDate }.thenBy { it.id }),
-    Score(Res.string.model_sort_score, compareByDescending<SettingsModel> { it.arenaScore }.thenBy { it.id }),
-    Ctx(Res.string.model_sort_context, compareByDescending<SettingsModel> { it.contextWindow }.thenBy { it.id }),
-}
-
-@Composable
-private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
-    val displayName = model.displayName?.takeIf { it.isNotBlank() && it != model.id }
-    val title = displayName ?: model.id
-    val secondary = if (displayName == null && model.subtitle.isNotBlank()) model.subtitle else null
-    val contextText = model.contextWindow?.let { formatContextWindow(it) }
-    val releaseText = model.releaseDate?.let { formatReleaseDate(it) }
-    val detailText = listOfNotNull(releaseText, model.parameterCount, contextText)
-        .joinToString("  ·  ").ifEmpty { null }
-
-    Card(
-        modifier = Modifier.handCursor().clip(CardDefaults.shape).clickable { onClick() },
-        shape = CardDefaults.shape,
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.weight(1f),
-                )
-                model.arenaScore?.let { score ->
-                    Spacer(Modifier.width(8.dp))
-                    Text(
-                        text = "$score",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = arenaScoreColor(score),
-                    )
-                }
-            }
-            secondary?.let {
-                Text(
-                    text = it,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
-                )
-            }
-            detailText?.let {
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-                )
-            }
-        }
-    }
-}
-
-private fun arenaScoreColor(score: Int): Color = when {
-    score >= 1400 -> Color(0xFF2E7D32)
-
-    // green 800
-    score >= 1350 -> Color(0xFF558B2F)
-
-    // light green 800
-    score >= 1300 -> Color(0xFF9E9D24)
-
-    // lime 800
-    score >= 1250 -> Color(0xFFF9A825)
-
-    // yellow 800
-    else -> Color(0xFFEF6C00) // orange 800
 }
 
 @Composable
@@ -2507,358 +2232,6 @@ private fun SandboxProgressRow(progress: Float?, statusText: String, onCancel: (
 }
 
 @Composable
-private fun McpServersSection(
-    mcpServers: ImmutableList<McpServerUiState>,
-    onAddMcpServer: (String, String, Map<String, String>) -> Unit,
-    onRemoveMcpServer: (String) -> Unit,
-    onToggleMcpServer: (String, Boolean) -> Unit,
-    onRefreshMcpServer: (String) -> Unit,
-    onToggleTool: (String, Boolean) -> Unit,
-    showAddDialog: Boolean,
-    onShowAddDialog: (Boolean) -> Unit,
-    onAddPopularMcpServer: (PopularMcpServer) -> Unit,
-) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(
-            text = stringResource(Res.string.settings_mcp_servers),
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground,
-        )
-        Spacer(Modifier.height(4.dp))
-        Text(
-            text = stringResource(Res.string.settings_mcp_servers_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-
-        Spacer(Modifier.height(12.dp))
-
-        for (server in mcpServers) {
-            McpServerCard(
-                server = server,
-                onToggle = { enabled -> onToggleMcpServer(server.id, enabled) },
-                onRemove = { onRemoveMcpServer(server.id) },
-                onRefresh = { onRefreshMcpServer(server.id) },
-                onToggleTool = onToggleTool,
-            )
-            Spacer(Modifier.height(8.dp))
-        }
-
-        OutlinedButton(
-            onClick = { onShowAddDialog(true) },
-            modifier = Modifier.align(Alignment.CenterHorizontally).handCursor(),
-        ) {
-            Text(stringResource(Res.string.settings_mcp_add_server))
-        }
-    }
-
-    if (showAddDialog) {
-        AddMcpServerDialog(
-            onDismiss = { onShowAddDialog(false) },
-            onAdd = onAddMcpServer,
-            onAddPopular = onAddPopularMcpServer,
-        )
-    }
-}
-
-@Composable
-private fun McpServerCard(
-    server: McpServerUiState,
-    onToggle: (Boolean) -> Unit,
-    onRemove: () -> Unit,
-    onRefresh: () -> Unit,
-    onToggleTool: (String, Boolean) -> Unit,
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    Card(
-        onClick = { expanded = !expanded },
-        modifier = Modifier.fillMaxWidth().handCursor(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                // Status dot
-                val statusColor = when (server.connectionStatus) {
-                    McpConnectionStatus.Connected -> StatusColorConnected
-                    McpConnectionStatus.Connecting -> StatusColorChecking
-                    McpConnectionStatus.Error -> StatusColorError
-                    McpConnectionStatus.Unknown -> StatusColorUnknown
-                }
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(statusColor),
-                )
-                Spacer(Modifier.width(12.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = server.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = server.url,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                    )
-                }
-
-                Switch(
-                    checked = server.isEnabled,
-                    onCheckedChange = onToggle,
-                )
-
-                Spacer(Modifier.width(8.dp))
-
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-
-            if (expanded) {
-                Spacer(Modifier.height(12.dp))
-
-                // Status text
-                val statusText = when (server.connectionStatus) {
-                    McpConnectionStatus.Connected -> stringResource(Res.string.settings_mcp_status_connected)
-                    McpConnectionStatus.Connecting -> stringResource(Res.string.settings_mcp_status_connecting)
-                    McpConnectionStatus.Error -> stringResource(Res.string.settings_mcp_status_error)
-                    McpConnectionStatus.Unknown -> ""
-                }
-                if (statusText.isNotEmpty()) {
-                    Text(
-                        text = statusText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = when (server.connectionStatus) {
-                            McpConnectionStatus.Error -> MaterialTheme.colorScheme.error
-                            else -> MaterialTheme.colorScheme.onSurfaceVariant
-                        },
-                    )
-                    Spacer(Modifier.height(8.dp))
-                }
-
-                // Tools list
-                if (server.tools.isNotEmpty()) {
-                    for (tool in server.tools) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = tool.name,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                )
-                                if (tool.description.isNotEmpty()) {
-                                    Text(
-                                        text = tool.description,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                }
-                            }
-                            Switch(
-                                checked = tool.isEnabled,
-                                onCheckedChange = { enabled -> onToggleTool(tool.id, enabled) },
-                            )
-                        }
-                    }
-                } else if (server.connectionStatus == McpConnectionStatus.Connected) {
-                    Text(
-                        text = stringResource(Res.string.settings_mcp_no_tools),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-
-                Spacer(Modifier.height(8.dp))
-
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    TextButton(onClick = onRefresh, modifier = Modifier.handCursor()) {
-                        Text(stringResource(Res.string.settings_mcp_refresh))
-                    }
-                    TextButton(onClick = onRemove, modifier = Modifier.handCursor()) {
-                        Text(
-                            text = stringResource(Res.string.settings_mcp_remove),
-                            color = MaterialTheme.colorScheme.error,
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-private data class HeaderEntry(val key: String = "Authorization", val value: String = "")
-
-@Composable
-private fun AddMcpServerDialog(
-    onDismiss: () -> Unit,
-    onAdd: (String, String, Map<String, String>) -> Unit,
-    onAddPopular: (PopularMcpServer) -> Unit,
-) {
-    var name by remember { mutableStateOf("") }
-    var url by remember { mutableStateOf("") }
-    val headers = remember { mutableStateListOf(HeaderEntry()) }
-
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-    ) {
-        val mcpScrollState = rememberScrollState()
-        Box {
-            Column(
-                modifier = Modifier
-                    .verticalScroll(mcpScrollState)
-                    .padding(16.dp),
-            ) {
-                Text(
-                    text = stringResource(Res.string.settings_mcp_add_server),
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                Spacer(Modifier.height(16.dp))
-
-                KaiOutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text(stringResource(Res.string.settings_mcp_server_name)) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Spacer(Modifier.height(8.dp))
-                KaiOutlinedTextField(
-                    value = url,
-                    onValueChange = { url = it },
-                    label = { Text(stringResource(Res.string.settings_mcp_server_url)) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Spacer(Modifier.height(12.dp))
-
-                headers.forEachIndexed { index, entry ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        KaiOutlinedTextField(
-                            value = entry.key,
-                            onValueChange = { headers[index] = entry.copy(key = it) },
-                            label = { Text(stringResource(Res.string.settings_mcp_header_key)) },
-                            singleLine = true,
-                            modifier = Modifier.weight(0.4f),
-                        )
-                        Spacer(Modifier.width(8.dp))
-                        KaiOutlinedTextField(
-                            value = entry.value,
-                            onValueChange = { headers[index] = entry.copy(value = it) },
-                            label = { Text(stringResource(Res.string.settings_mcp_header_value)) },
-                            singleLine = true,
-                            modifier = Modifier.weight(0.6f),
-                        )
-                        IconButton(
-                            onClick = { headers.removeAt(index) },
-                            modifier = Modifier.handCursor(),
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = stringResource(Res.string.settings_mcp_remove),
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(4.dp))
-                }
-
-                TextButton(
-                    onClick = { headers.add(HeaderEntry(key = "", value = "")) },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text(stringResource(Res.string.settings_mcp_add_header))
-                }
-
-                Spacer(Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    TextButton(
-                        onClick = {
-                            val headerMap = headers
-                                .filter { it.key.isNotBlank() && it.value.isNotBlank() }
-                                .associate { it.key.trim() to it.value.trim() }
-                            onAdd(name, url, headerMap)
-                        },
-                        enabled = name.isNotBlank() && url.isNotBlank(),
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        Text(stringResource(Res.string.settings_mcp_add))
-                    }
-                }
-
-                if (popularMcpServers.isNotEmpty()) {
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(Res.string.settings_mcp_popular_servers),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    for (server in popularMcpServers) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(CardDefaults.shape)
-                                .clickable {
-                                    onAddPopular(server)
-                                }
-                                .handCursor(),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                            ),
-                        ) {
-                            Column(modifier = Modifier.padding(12.dp)) {
-                                Text(
-                                    text = server.name,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                )
-                                Text(
-                                    text = server.description,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                        }
-                        Spacer(Modifier.height(4.dp))
-                    }
-                }
-
-                Spacer(Modifier.height(16.dp))
-            }
-            VerticalScrollbarForScroll(
-                scrollState = mcpScrollState,
-                modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
-            )
-        }
-    }
-}
-
-@Composable
 private fun ToolItem(
     tool: ToolInfo,
     onToggle: (Boolean) -> Unit,
@@ -3100,502 +2473,6 @@ private fun DynamicUiToggle(
             onCheckedChange = onToggleDynamicUi,
         )
     }
-}
-
-@Composable
-private fun HeartbeatSection(
-    isHeartbeatEnabled: Boolean,
-    heartbeatIntervalMinutes: Int,
-    activeHoursStart: Int,
-    activeHoursEnd: Int,
-    heartbeatPrompt: String,
-    heartbeatLog: ImmutableList<HeartbeatLogEntry>,
-    heartbeatServiceEntries: ImmutableList<ServiceEntry>,
-    heartbeatSelectedInstanceId: String?,
-    onToggleHeartbeat: (Boolean) -> Unit,
-    onChangeInterval: (Int) -> Unit,
-    onChangeActiveHours: (Int, Int) -> Unit,
-    onSaveHeartbeatPrompt: (String) -> Unit,
-    onChangeHeartbeatService: (String?) -> Unit,
-) {
-    val defaultPrompt = stringResource(Res.string.settings_heartbeat_default_prompt)
-    val displayText = heartbeatPrompt.ifEmpty { defaultPrompt }
-    var editedText by remember(displayText) { mutableStateOf(displayText) }
-    val hasChanges = editedText != displayText
-    val maxChars = 4000
-
-    var showResetDialog by remember { mutableStateOf(false) }
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        ToggleableHeadline(
-            title = stringResource(Res.string.settings_heartbeat),
-            description = stringResource(Res.string.settings_heartbeat_description, heartbeatIntervalMinutes),
-            checked = isHeartbeatEnabled,
-            onCheckedChange = onToggleHeartbeat,
-            actions = {
-                if (heartbeatPrompt.isNotEmpty()) {
-                    IconButton(
-                        onClick = { showResetDialog = true },
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Replay,
-                            contentDescription = stringResource(Res.string.settings_soul_reset),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-            },
-        )
-
-        if (isHeartbeatEnabled) {
-            Spacer(Modifier.height(12.dp))
-
-            val intervalPresets = listOf(5, 10, 15, 30, 45, 60, 120, 240)
-            val initialSliderPos = intervalPresets.indexOf(heartbeatIntervalMinutes)
-                .takeIf { it >= 0 }?.toFloat() ?: 2f
-            var intervalSliderValue by remember(heartbeatIntervalMinutes) {
-                mutableStateOf(initialSliderPos)
-            }
-            val currentPresetMinutes = intervalPresets[intervalSliderValue.roundToInt()]
-            val intervalDisplay = if (currentPresetMinutes < 60) {
-                "${currentPresetMinutes}m"
-            } else {
-                "${currentPresetMinutes / 60}h"
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(Res.string.settings_heartbeat_interval),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Text(
-                    text = intervalDisplay,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-            KaiSlider(
-                value = intervalSliderValue,
-                onValueChange = { intervalSliderValue = it },
-                onValueChangeFinished = {
-                    onChangeInterval(intervalPresets[intervalSliderValue.roundToInt()])
-                },
-                valueRange = 0f..(intervalPresets.size - 1).toFloat(),
-                steps = intervalPresets.size - 2,
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            var activeStart by remember(activeHoursStart) { mutableStateOf(activeHoursStart.toFloat()) }
-            var activeEnd by remember(activeHoursEnd) { mutableStateOf(activeHoursEnd.toFloat()) }
-            val startDisplay = "${activeStart.roundToInt()}:00"
-            val endDisplay = "${activeEnd.roundToInt()}:00"
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(Res.string.settings_heartbeat_active_hours),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Text(
-                    text = "$startDisplay – $endDisplay",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-            KaiRangeSlider(
-                value = activeStart..activeEnd,
-                onValueChange = { range ->
-                    activeStart = range.start
-                    activeEnd = range.endInclusive
-                },
-                onValueChangeFinished = {
-                    onChangeActiveHours(activeStart.roundToInt(), activeEnd.roundToInt())
-                },
-                valueRange = 0f..23f,
-                steps = 22,
-            )
-
-            if (heartbeatServiceEntries.size > 1) {
-                Spacer(Modifier.height(12.dp))
-
-                Text(
-                    text = stringResource(Res.string.settings_heartbeat_model),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Spacer(Modifier.height(4.dp))
-
-                var modelExpanded by remember { mutableStateOf(false) }
-                val selectedEntry = heartbeatServiceEntries.find { it.instanceId == heartbeatSelectedInstanceId }
-
-                Box {
-                    OutlinedButton(
-                        onClick = { modelExpanded = true },
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        if (selectedEntry != null) {
-                            Icon(
-                                imageVector = vectorResource(selectedEntry.icon),
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp),
-                            )
-                            Spacer(Modifier.width(8.dp))
-                            Text(
-                                text = "${selectedEntry.serviceName} · ${selectedEntry.modelId}",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        } else {
-                            Text(stringResource(Res.string.settings_heartbeat_model_default))
-                        }
-                    }
-
-                    DropdownMenu(
-                        expanded = modelExpanded,
-                        onDismissRequest = { modelExpanded = false },
-                        shape = RoundedCornerShape(16.dp),
-                    ) {
-                        DropdownMenuItem(
-                            text = {
-                                Text(
-                                    text = stringResource(Res.string.settings_heartbeat_model_default),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = if (heartbeatSelectedInstanceId == null) {
-                                        MaterialTheme.colorScheme.onPrimaryContainer
-                                    } else {
-                                        MaterialTheme.colorScheme.onSurface
-                                    },
-                                )
-                            },
-                            onClick = {
-                                modelExpanded = false
-                                onChangeHeartbeatService(null)
-                            },
-                            modifier = Modifier
-                                .handCursor()
-                                .then(
-                                    if (heartbeatSelectedInstanceId == null) {
-                                        Modifier
-                                            .padding(horizontal = 4.dp)
-                                            .background(
-                                                color = MaterialTheme.colorScheme.primaryContainer,
-                                                shape = RoundedCornerShape(12.dp),
-                                            )
-                                    } else {
-                                        Modifier
-                                    },
-                                ),
-                        )
-                        heartbeatServiceEntries.forEach { entry ->
-                            val isSelected = entry.instanceId == heartbeatSelectedInstanceId
-                            DropdownMenuItem(
-                                leadingIcon = {
-                                    Icon(
-                                        imageVector = vectorResource(entry.icon),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(18.dp),
-                                        tint = if (isSelected) {
-                                            MaterialTheme.colorScheme.onPrimaryContainer
-                                        } else {
-                                            MaterialTheme.colorScheme.onSurface
-                                        },
-                                    )
-                                },
-                                text = {
-                                    Column {
-                                        Text(
-                                            text = entry.serviceName,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            color = if (isSelected) {
-                                                MaterialTheme.colorScheme.onPrimaryContainer
-                                            } else {
-                                                MaterialTheme.colorScheme.onSurface
-                                            },
-                                        )
-                                        Text(
-                                            text = entry.modelId,
-                                            style = MaterialTheme.typography.bodySmall,
-                                            color = if (isSelected) {
-                                                MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                                            } else {
-                                                MaterialTheme.colorScheme.onSurfaceVariant
-                                            },
-                                        )
-                                    }
-                                },
-                                onClick = {
-                                    modelExpanded = false
-                                    onChangeHeartbeatService(entry.instanceId)
-                                },
-                                modifier = Modifier
-                                    .handCursor()
-                                    .then(
-                                        if (isSelected) {
-                                            Modifier
-                                                .padding(horizontal = 4.dp)
-                                                .background(
-                                                    color = MaterialTheme.colorScheme.primaryContainer,
-                                                    shape = RoundedCornerShape(12.dp),
-                                                )
-                                        } else {
-                                            Modifier
-                                        },
-                                    ),
-                            )
-                        }
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(12.dp))
-
-            KaiOutlinedTextField(
-                modifier = Modifier.fillMaxWidth().height(200.dp),
-                value = editedText,
-                onValueChange = { if (it.length <= maxChars) editedText = it },
-                label = {
-                    Text(
-                        stringResource(Res.string.settings_heartbeat_prompt_label),
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-            )
-
-            Text(
-                text = "${editedText.length}/$maxChars",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.End,
-            )
-
-            if (hasChanges) {
-                Spacer(Modifier.height(8.dp))
-                Button(
-                    onClick = { onSaveHeartbeatPrompt(editedText.trim()) },
-                    modifier = Modifier.align(CenterHorizontally).handCursor(),
-                ) {
-                    Text(stringResource(Res.string.settings_soul_save))
-                }
-            }
-
-            if (heartbeatLog.isNotEmpty()) {
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    text = stringResource(Res.string.settings_heartbeat_recent),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Spacer(Modifier.height(4.dp))
-                for (entry in heartbeatLog) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = if (entry.success) "OK" else "FAIL",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = if (entry.success) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.error
-                            },
-                            modifier = Modifier.width(36.dp),
-                        )
-                        Column {
-                            Text(
-                                text = formatHeartbeatTime(entry.timestampEpochMs),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                            if (!entry.success && entry.error != null) {
-                                Text(
-                                    text = entry.error,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.error,
-                                    maxLines = 3,
-                                    overflow = TextOverflow.Ellipsis,
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    if (showResetDialog) {
-        androidx.compose.material3.AlertDialog(
-            onDismissRequest = { showResetDialog = false },
-            title = { Text(stringResource(Res.string.settings_soul_reset)) },
-            text = { Text(stringResource(Res.string.settings_heartbeat_reset_confirm)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showResetDialog = false
-                        onSaveHeartbeatPrompt("")
-                        editedText = defaultPrompt
-                    },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text(stringResource(Res.string.settings_soul_reset))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = { showResetDialog = false },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text(stringResource(Res.string.settings_soul_reset_cancel))
-                }
-            },
-        )
-    }
-}
-
-@Composable
-private fun EmailSection(
-    isEmailEnabled: Boolean,
-    emailAccounts: ImmutableList<EmailAccount>,
-    pollIntervalMinutes: Int,
-    onToggleEmail: (Boolean) -> Unit,
-    onRemoveAccount: (String) -> Unit,
-    onChangePollInterval: (Int) -> Unit,
-) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        ToggleableHeadline(
-            title = stringResource(Res.string.settings_email),
-            description = stringResource(Res.string.settings_email_description),
-            checked = isEmailEnabled,
-            onCheckedChange = onToggleEmail,
-        )
-
-        if (isEmailEnabled) {
-            Spacer(Modifier.height(12.dp))
-
-            if (emailAccounts.isEmpty()) {
-                Text(
-                    text = stringResource(Res.string.settings_email_empty),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            } else {
-                val emailPresets = listOf(0, 5, 15, 30, 60)
-                val neverLabel = stringResource(Res.string.settings_email_poll_never)
-                val initialEmailPos = emailPresets.indexOf(pollIntervalMinutes)
-                    .takeIf { it >= 0 }?.toFloat() ?: 0f
-                var emailSliderValue by remember(pollIntervalMinutes) {
-                    mutableStateOf(initialEmailPos)
-                }
-                val currentEmailMinutes = emailPresets[emailSliderValue.roundToInt()]
-                val emailDisplay = if (currentEmailMinutes == 0) neverLabel else "${currentEmailMinutes}m"
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.settings_email_poll_interval, currentEmailMinutes),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = emailDisplay,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                }
-                KaiSlider(
-                    value = emailSliderValue,
-                    onValueChange = { emailSliderValue = it },
-                    onValueChangeFinished = {
-                        onChangePollInterval(emailPresets[emailSliderValue.roundToInt()])
-                    },
-                    valueRange = 0f..(emailPresets.size - 1).toFloat(),
-                    steps = emailPresets.size - 2,
-                )
-
-                Spacer(Modifier.height(12.dp))
-
-                for (account in emailAccounts) {
-                    SettingsListItem(
-                        title = account.email,
-                        subtitle = "${account.imapHost}:${account.imapPort}",
-                        onDelete = { onRemoveAccount(account.id) },
-                        deleteContentDescription = stringResource(Res.string.settings_email_remove),
-                    )
-                    Spacer(Modifier.height(8.dp))
-                }
-            }
-        }
-    }
-}
-
-private fun formatHeartbeatTime(epochMs: Long): String {
-    val instant = Instant.fromEpochMilliseconds(epochMs)
-    val local = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-    return "${local.day} ${local.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }} ${local.hour}:${local.minute.toString().padStart(2, '0')}"
-}
-
-private fun describeCron(cron: String): String {
-    val parts = cron.trim().split("\\s+".toRegex())
-    if (parts.size != 5) return cron
-
-    val (minute, hour, dayOfMonth, month, dayOfWeek) = parts
-    val isEveryDay = dayOfMonth == "*" && month == "*" && dayOfWeek == "*"
-    val isEveryWeekday = dayOfMonth == "*" && month == "*" && dayOfWeek != "*"
-    val isEveryMonth = dayOfMonth != "*" && month == "*" && dayOfWeek == "*"
-
-    val timeStr = formatCronTime(hour, minute) ?: return cron
-
-    return when {
-        isEveryDay -> "Daily at $timeStr"
-
-        isEveryWeekday -> {
-            val days = dayOfWeek.split(",").mapNotNull { dayName(it.trim()) }
-            if (days.isNotEmpty()) "Every ${days.joinToString(", ")} at $timeStr" else cron
-        }
-
-        isEveryMonth -> "Monthly on day $dayOfMonth at $timeStr"
-
-        else -> cron
-    }
-}
-
-private fun formatCronTime(hour: String, minute: String): String? {
-    val h = hour.toIntOrNull() ?: return null
-    val m = minute.toIntOrNull() ?: return null
-    return "$h:${m.toString().padStart(2, '0')}"
-}
-
-private fun dayName(day: String): String? = when (day) {
-    "0", "7" -> "Sun"
-    "1" -> "Mon"
-    "2" -> "Tue"
-    "3" -> "Wed"
-    "4" -> "Thu"
-    "5" -> "Fri"
-    "6" -> "Sat"
-    "MON" -> "Mon"
-    "TUE" -> "Tue"
-    "WED" -> "Wed"
-    "THU" -> "Thu"
-    "FRI" -> "Fri"
-    "SAT" -> "Sat"
-    "SUN" -> "Sun"
-    else -> null
 }
 
 @Composable
