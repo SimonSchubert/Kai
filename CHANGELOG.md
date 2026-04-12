@@ -1,4 +1,4 @@
-## v2.1.3 — 2026-04-12
+## v2.1.4 — 2026-04-12
 
 ### Features
 - Add fast and expert mode toggles for free services
