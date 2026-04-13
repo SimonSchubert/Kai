@@ -21,6 +21,7 @@ import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -56,6 +57,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -77,6 +79,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.BackIcon
+import com.inspiredandroid.kai.data.BranchDirection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
@@ -84,6 +87,7 @@ import com.inspiredandroid.kai.stripMarkdownForTts
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
+import com.inspiredandroid.kai.ui.chat.composables.EditMessageDialog
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
@@ -453,6 +457,10 @@ private fun ChatModeScreen(
     navigationTabBar: (@Composable () -> Unit)?,
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
+    var editingMessageId by remember { mutableStateOf<String?>(null) }
+    val editingMessage = remember(uiState.history, editingMessageId) {
+        uiState.history.find { it.id == editingMessageId }
+    }
     val keyboardController = LocalSoftwareKeyboardController.current
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -617,10 +625,37 @@ private fun ChatModeScreen(
                             ) {
                                 items(uiState.history, key = { it.id }, contentType = { it.role }) { history ->
                                     when (history.role) {
-                                        History.Role.USER -> UserMessage(
-                                            message = history.content,
-                                            attachments = history.attachments,
-                                        )
+                                        History.Role.USER -> {
+                                            UserMessage(
+                                                message = history.content,
+                                                attachments = history.attachments,
+                                                onEdit = if (!uiState.isLoading) { { editingMessageId = history.id } } else null,
+                                            )
+                                            val branch = uiState.branchInfo[history.id]
+                                            if (branch != null && branch.second > 1) {
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
+                                                    horizontalArrangement = Arrangement.Start,
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                ) {
+                                                    TextButton(
+                                                        onClick = { uiState.actions.navigateBranch(history.id, BranchDirection.BACK) },
+                                                        enabled = branch.first > 0,
+                                                        contentPadding = PaddingValues(4.dp),
+                                                    ) { Text("<") }
+                                                    Text(
+                                                        text = "${branch.first + 1} / ${branch.second}",
+                                                        style = MaterialTheme.typography.bodySmall,
+                                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                    )
+                                                    TextButton(
+                                                        onClick = { uiState.actions.navigateBranch(history.id, BranchDirection.FORWARD) },
+                                                        enabled = branch.first < branch.second - 1,
+                                                        contentPadding = PaddingValues(4.dp),
+                                                    ) { Text(">") }
+                                                }
+                                            }
+                                        }
 
                                         History.Role.ASSISTANT -> {
                                             // Skip thinking messages unless it's the last assistant message
@@ -724,6 +759,17 @@ private fun ChatModeScreen(
         ) { data ->
             Snackbar(snackbarData = data)
         }
+    }
+
+    editingMessage?.let { message ->
+        EditMessageDialog(
+            originalContent = message.content,
+            onDismiss = { editingMessageId = null },
+            onConfirm = { newContent ->
+                uiState.actions.editMessage(message.id, newContent)
+                editingMessageId = null
+            },
+        )
     }
 
     if (showHistorySheet) {

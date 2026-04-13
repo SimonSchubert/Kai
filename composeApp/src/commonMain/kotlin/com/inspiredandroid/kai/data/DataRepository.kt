@@ -11,6 +11,11 @@ import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.StateFlow
 
+enum class BranchDirection {
+    BACK,
+    FORWARD,
+}
+
 interface DataRepository {
     val chatHistory: StateFlow<List<History>>
     val currentConversationId: StateFlow<String?>
@@ -53,6 +58,11 @@ interface DataRepository {
     fun regenerate()
     fun popLastExchange()
     fun restoreCurrentConversation()
+
+    // Branch management (edit to fork)
+    fun editMessage(messageId: String, newContent: String)
+    fun navigateBranch(messageId: String, direction: BranchDirection)
+    fun getBranchInfo(): Map<String, Pair<Int, Int>>
 
     // Tool management
     fun getToolDefinitions(): List<ToolInfo>

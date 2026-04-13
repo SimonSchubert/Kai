@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inspiredandroid.kai.data.BranchDirection
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.FreeMode
@@ -61,6 +62,8 @@ class ChatViewModel(
         enterInteractiveMode = ::enterInteractiveMode,
         exitInteractiveMode = ::exitInteractiveMode,
         goBackInteractiveMode = ::goBackInteractiveMode,
+        navigateBranch = ::navigateBranch,
+        editMessage = ::editMessage,
     )
     private val freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
     private var currentJob: Job? = null
@@ -114,6 +117,7 @@ class ChatViewModel(
             savedConversations = summaries.toImmutableList(),
             currentConversationId = conversationId,
             hasUnreadHeartbeat = hasUnreadHeartbeat,
+            branchInfo = dataRepository.getBranchInfo(),
         )
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
@@ -402,6 +406,15 @@ class ChatViewModel(
         } else {
             dataRepository.popLastExchange()
         }
+    }
+
+    private fun navigateBranch(messageId: String, direction: BranchDirection) {
+        dataRepository.navigateBranch(messageId, direction)
+    }
+
+    private fun editMessage(messageId: String, newContent: String) {
+        dataRepository.editMessage(messageId, newContent)
+        ask(null)
     }
 
     fun refreshSettings() {

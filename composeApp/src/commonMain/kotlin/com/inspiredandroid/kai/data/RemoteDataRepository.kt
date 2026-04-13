@@ -1465,23 +1465,12 @@ class RemoteDataRepository(
             id = conversationId,
             messages = history
                 .filter { it.role != History.Role.TOOL_EXECUTING }
-                .map { h ->
-                    Conversation.Message(
-                        id = h.id,
-                        role = when (h.role) {
-                            History.Role.USER -> "user"
-                            History.Role.ASSISTANT -> "assistant"
-                            History.Role.TOOL -> "tool"
-                            History.Role.TOOL_EXECUTING -> "tool" // Should not happen due to filter
-                        },
-                        content = h.content,
-                        attachments = h.attachments,
-                    )
-                },
+                .map { historyToMessage(it) },
             createdAt = existingConversation?.createdAt ?: now,
             updatedAt = now,
             title = title,
             type = existingConversation?.type ?: if (interactiveModeFlag) Conversation.TYPE_INTERACTIVE else Conversation.TYPE_CHAT,
+            branches = serializeBranchGroups(chatHistory.value),
         )
 
         conversationStorage.saveConversation(conversation)
@@ -1491,6 +1480,7 @@ class RemoteDataRepository(
         chatHistory.update {
             emptyList()
         }
+        branchGroups.clear()
     }
 
     override fun isUsingSharedKey(): Boolean = currentService() == Service.Free
@@ -1521,15 +1511,13 @@ class RemoteDataRepository(
         val conversation = savedConversations.value.find { it.id == id } ?: return
 
         setCurrentConversationId(id)
-        chatHistory.value = conversation.messages.map { m ->
-            // Prefer the modern `attachments` field. Fall back to the legacy single-file
-            // fields for conversations saved before multi-attachment support.
+        branchGroups.clear()
+
+        val allHistory = conversation.messages.map { m ->
             val attachments = when {
                 m.attachments.isNotEmpty() -> m.attachments.toImmutableList()
-
                 m.data != null && m.mimeType != null ->
                     persistentListOf(Attachment(data = m.data, mimeType = m.mimeType, fileName = m.fileName))
-
                 else -> persistentListOf()
             }
             History(
@@ -1543,6 +1531,9 @@ class RemoteDataRepository(
                 attachments = attachments,
             )
         }
+
+        chatHistory.value = allHistory.toImmutableList()
+        restoreBranchGroups(conversation.branches)
     }
 
     override suspend fun deleteConversation(id: String) {
@@ -1567,12 +1558,183 @@ class RemoteDataRepository(
     override fun startNewChat() {
         setCurrentConversationId(null)
         chatHistory.value = emptyList()
+        branchGroups.clear()
     }
 
     override fun popLastExchange() {
         chatHistory.update { history ->
             val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
             if (lastUserIndex >= 0) history.take(lastUserIndex) else history
+        }
+    }
+
+    private data class BranchGroup(
+        val branches: MutableList<List<History>>,
+        var activeIndex: Int,
+    )
+
+    private val branchGroups = mutableMapOf<String?, BranchGroup>()
+
+    private fun findAnchorPosition(anchorId: String?): Int {
+        if (anchorId == null) return 0
+        val history = chatHistory.value
+        val anchorIndex = history.indexOfFirst { it.id == anchorId }
+        return if (anchorIndex >= 0) anchorIndex + 1 else -1
+    }
+
+    private fun saveBranchSuffix(anchorId: String?) {
+        val bg = branchGroups[anchorId] ?: return
+        val position = findAnchorPosition(anchorId)
+        if (position < 0) return
+        val history = chatHistory.value
+        if (position <= history.size && bg.activeIndex < bg.branches.size) {
+            bg.branches[bg.activeIndex] = history.drop(position).toList()
+        }
+    }
+
+    override fun editMessage(messageId: String, newContent: String) {
+        val history = chatHistory.value
+        val index = history.indexOfFirst { it.id == messageId }
+        if (index < 0) return
+        val originalMessage = history[index]
+        if (originalMessage.role != History.Role.USER) return
+
+        val anchorId = if (index > 0) history[index - 1].id else null
+
+        saveBranchSuffix(anchorId)
+
+        val newMessage = originalMessage.copy(
+            id = Uuid.random().toString(),
+            content = newContent,
+        )
+
+        val existing = branchGroups[anchorId]
+        if (existing != null) {
+            existing.branches.add(listOf(newMessage))
+            existing.activeIndex = existing.branches.size - 1
+        } else {
+            val suffix = history.drop(index).toList()
+            branchGroups[anchorId] = BranchGroup(
+                branches = mutableListOf(suffix, listOf(newMessage)),
+                activeIndex = 1,
+            )
+        }
+
+        chatHistory.update { h ->
+            (h.take(index) + newMessage).toImmutableList()
+        }
+    }
+
+    override fun navigateBranch(messageId: String, direction: BranchDirection) {
+        val history = chatHistory.value
+        val index = history.indexOfFirst { it.id == messageId }
+        if (index < 0) return
+
+        val anchorId = if (index > 0) history[index - 1].id else null
+        val bg = branchGroups[anchorId] ?: return
+        if (bg.branches.size <= 1) return
+
+        saveBranchSuffix(anchorId)
+
+        val position = findAnchorPosition(anchorId)
+        if (position < 0) return
+
+        val newIndex = when (direction) {
+            BranchDirection.BACK -> (bg.activeIndex - 1).coerceAtLeast(0)
+            BranchDirection.FORWARD -> (bg.activeIndex + 1).coerceAtMost(bg.branches.size - 1)
+        }
+        if (newIndex == bg.activeIndex) return
+        bg.activeIndex = newIndex
+
+        chatHistory.update { h ->
+            (h.take(position) + bg.branches[newIndex]).toImmutableList()
+        }
+    }
+
+    override fun getBranchInfo(): Map<String, Pair<Int, Int>> {
+        val history = chatHistory.value
+        val result = mutableMapOf<String, Pair<Int, Int>>()
+        for ((anchorId, bg) in branchGroups) {
+            if (bg.branches.size <= 1) continue
+            val position = findAnchorPosition(anchorId)
+            if (position < 0 || position >= history.size) continue
+            result[history[position].id] = bg.activeIndex to bg.branches.size
+        }
+        return result
+    }
+
+    private fun historyToMessage(h: History): Conversation.Message {
+        return Conversation.Message(
+            id = h.id,
+            role = when (h.role) {
+                History.Role.USER -> "user"
+                History.Role.ASSISTANT -> "assistant"
+                History.Role.TOOL -> "tool"
+                History.Role.TOOL_EXECUTING -> "tool"
+            },
+            content = h.content,
+            attachments = h.attachments.toList(),
+        )
+    }
+
+    private fun messageToHistory(m: Conversation.Message): History {
+        val attachments = when {
+            m.attachments.isNotEmpty() -> m.attachments.toImmutableList()
+            m.data != null && m.mimeType != null ->
+                persistentListOf(Attachment(data = m.data, mimeType = m.mimeType, fileName = m.fileName))
+            else -> persistentListOf()
+        }
+        return History(
+            id = m.id,
+            role = when (m.role) {
+                "user" -> History.Role.USER
+                "tool" -> History.Role.TOOL
+                else -> History.Role.ASSISTANT
+            },
+            content = m.content,
+            attachments = attachments,
+        )
+    }
+
+    private fun serializeBranchGroups(currentHistory: List<History>): List<BranchData> {
+        if (branchGroups.isEmpty()) return emptyList()
+        val result = mutableListOf<BranchData>()
+        for ((anchorId, bg) in branchGroups) {
+            if (bg.branches.size <= 1) continue
+            val position = findAnchorPosition(anchorId)
+            if (position < 0) {
+                println("serializeBranchGroups: anchor not found in history, skipping: $anchorId")
+                continue
+            }
+
+            val updatedBranches = bg.branches.toMutableList()
+            if (bg.activeIndex < updatedBranches.size && position <= currentHistory.size) {
+                updatedBranches[bg.activeIndex] = currentHistory
+                    .drop(position)
+                    .filter { it.role != History.Role.TOOL_EXECUTING }
+                    .toList()
+            }
+
+            result.add(BranchData(
+                anchorMessageId = anchorId,
+                branches = updatedBranches.map { branch ->
+                    branch.map { historyToMessage(it) }
+                },
+                activeIndex = bg.activeIndex,
+            ))
+        }
+        return result
+    }
+
+    private fun restoreBranchGroups(branches: List<BranchData>) {
+        branchGroups.clear()
+        for (bd in branches) {
+            branchGroups[bd.anchorMessageId] = BranchGroup(
+                branches = bd.branches.map { branch ->
+                    branch.map { messageToHistory(it) }.toMutableList()
+                }.toMutableList(),
+                activeIndex = bd.activeIndex,
+            )
         }
     }
 
