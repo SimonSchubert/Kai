@@ -180,6 +180,16 @@ class SettingsViewModel(
             connectEnabledMcpServers()
             fetchSponsors()
         }
+        refreshMemoriesAndTasks()
+    }
+
+    private fun refreshMemoriesAndTasks() {
+        _state.update { state ->
+            state.copy(
+                memories = dataRepository.getMemories().toImmutableList(),
+                scheduledTasks = dataRepository.getScheduledTasks().toImmutableList(),
+            )
+        }
     }
 
     private fun fetchSponsors() {

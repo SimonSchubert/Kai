@@ -106,9 +106,17 @@ fun MemoriesScreen(
         }
     }
 
+    // Refresh on screen become visible (handles navigation back)
     DisposableEffect(Unit) {
         viewModel.refresh()
         onDispose { }
+    }
+    
+    // Additional refresh when screen becomes visible again
+    LaunchedEffect(Unit) {
+        // Small delay to ensure state is synced after navigation
+        kotlinx.coroutines.delay(100)
+        viewModel.refresh()
     }
 
     Scaffold(
