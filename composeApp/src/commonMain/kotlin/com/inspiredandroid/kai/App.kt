@@ -44,9 +44,13 @@ import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.heartbeat.HeartbeatScreen
+import com.inspiredandroid.kai.ui.heartbeat.HeartbeatViewModel
 import com.inspiredandroid.kai.ui.memories.MemoriesScreen
 import com.inspiredandroid.kai.ui.memories.MemoriesViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
+import com.inspiredandroid.kai.ui.soul.SoulScreen
+import com.inspiredandroid.kai.ui.soul.SoulViewModel
 import com.inspiredandroid.kai.ui.tasks.TasksScreen
 import com.inspiredandroid.kai.ui.tasks.TasksViewModel
 import kai.composeapp.generated.resources.Res
@@ -76,6 +80,14 @@ object Memories
 @Serializable
 @SerialName("tasks")
 object Tasks
+
+@Serializable
+@SerialName("soul")
+object Soul
+
+@Serializable
+@SerialName("heartbeat")
+object Heartbeat
 
 @Composable
 fun App(
@@ -224,6 +236,8 @@ private fun AppContent(
                         },
                         onNavigateToMemories = { navController.navigate(Memories) },
                         onNavigateToTasks = { navController.navigate(Tasks) },
+                        onNavigateToSoul = { navController.navigate(Soul) },
+                        onNavigateToHeartbeat = { navController.navigate(Heartbeat) },
                         navigationTabBar = if (showTabBar) navigationTabBar else null,
                     )
                 }
@@ -238,6 +252,22 @@ private fun AppContent(
                 composable<Tasks> {
                     val viewModel: TasksViewModel = koinViewModel()
                     TasksScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.navigateUp() },
+                        navigationTabBar = if (showTabBar) navigationTabBar else null,
+                    )
+                }
+                composable<Soul> {
+                    val viewModel: SoulViewModel = koinViewModel()
+                    SoulScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.navigateUp() },
+                        navigationTabBar = if (showTabBar) navigationTabBar else null,
+                    )
+                }
+                composable<Heartbeat> {
+                    val viewModel: HeartbeatViewModel = koinViewModel()
+                    HeartbeatScreen(
                         viewModel = viewModel,
                         onNavigateBack = { navController.navigateUp() },
                         navigationTabBar = if (showTabBar) navigationTabBar else null,

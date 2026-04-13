@@ -173,6 +173,8 @@ import kai.composeapp.generated.resources.settings_export
 import kai.composeapp.generated.resources.settings_export_import_description
 import kai.composeapp.generated.resources.settings_export_import_title
 import kai.composeapp.generated.resources.settings_free_fallback
+import kai.composeapp.generated.resources.settings_heartbeat
+import kai.composeapp.generated.resources.settings_heartbeat_description
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
 import kai.composeapp.generated.resources.settings_import
@@ -275,6 +277,8 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
     onNavigateToMemories: () -> Unit = {},
     onNavigateToTasks: () -> Unit = {},
+    onNavigateToSoul: () -> Unit = {},
+    onNavigateToHeartbeat: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -295,6 +299,8 @@ fun SettingsScreen(
         onNavigateBack = onNavigateBack,
         onNavigateToMemories = onNavigateToMemories,
         onNavigateToTasks = onNavigateToTasks,
+        onNavigateToSoul = onNavigateToSoul,
+        onNavigateToHeartbeat = onNavigateToHeartbeat,
         navigationTabBar = navigationTabBar,
     )
 }
@@ -311,6 +317,8 @@ fun SettingsScreenContent(
     onNavigateBack: () -> Unit = {},
     onNavigateToMemories: () -> Unit = {},
     onNavigateToTasks: () -> Unit = {},
+    onNavigateToSoul: () -> Unit = {},
+    onNavigateToHeartbeat: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
     terminalPreviewLines: List<TerminalLine> = emptyList(),
 ) {
@@ -433,6 +441,8 @@ fun SettingsScreenContent(
                                         uiState = filteredUiState,
                                         onNavigateToMemories = onNavigateToMemories,
                                         onNavigateToTasks = onNavigateToTasks,
+                                        onNavigateToSoul = onNavigateToSoul,
+                                        onNavigateToHeartbeat = onNavigateToHeartbeat,
                                     )
                                 }
 
@@ -1539,6 +1549,8 @@ private fun GeneralContent(
     uiState: SettingsUiState,
     onNavigateToMemories: () -> Unit = {},
     onNavigateToTasks: () -> Unit = {},
+    onNavigateToSoul: () -> Unit = {},
+    onNavigateToHeartbeat: () -> Unit = {},
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val useStaggered = maxWidth >= 600.dp
@@ -1560,9 +1572,9 @@ private fun GeneralContent(
                         }
                     }
                     SettingsCard {
-                        SoulEditor(
+                        SoulListSummary(
                             soulText = uiState.soulText,
-                            onSaveSoul = uiState.onSaveSoul,
+                            onNavigate = onNavigateToSoul,
                         )
                     }
                     SettingsCard {
@@ -1601,20 +1613,11 @@ private fun GeneralContent(
                         }
                     }
                     SettingsCard {
-                        HeartbeatSection(
+                        HeartbeatSummary(
                             isHeartbeatEnabled = uiState.isHeartbeatEnabled,
                             heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
-                            activeHoursStart = uiState.heartbeatActiveHoursStart,
-                            activeHoursEnd = uiState.heartbeatActiveHoursEnd,
-                            heartbeatPrompt = uiState.heartbeatPrompt,
-                            heartbeatLog = uiState.heartbeatLog,
-                            heartbeatServiceEntries = uiState.heartbeatServiceEntries,
-                            heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
                             onToggleHeartbeat = uiState.onToggleHeartbeat,
-                            onChangeInterval = uiState.onChangeHeartbeatInterval,
-                            onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
-                            onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
-                            onChangeHeartbeatService = uiState.onChangeHeartbeatService,
+                            onNavigate = onNavigateToHeartbeat,
                         )
                     }
                     if (uiState.showEmailToggle) {
@@ -1656,9 +1659,9 @@ private fun GeneralContent(
                     }
                 }
                 SettingsCard {
-                    SoulEditor(
+                    SoulListSummary(
                         soulText = uiState.soulText,
-                        onSaveSoul = uiState.onSaveSoul,
+                        onNavigate = onNavigateToSoul,
                     )
                 }
                 SettingsCard {
@@ -1684,20 +1687,11 @@ private fun GeneralContent(
                     )
                 }
                 SettingsCard {
-                    HeartbeatSection(
+                    HeartbeatSummary(
                         isHeartbeatEnabled = uiState.isHeartbeatEnabled,
                         heartbeatIntervalMinutes = uiState.heartbeatIntervalMinutes,
-                        activeHoursStart = uiState.heartbeatActiveHoursStart,
-                        activeHoursEnd = uiState.heartbeatActiveHoursEnd,
-                        heartbeatPrompt = uiState.heartbeatPrompt,
-                        heartbeatLog = uiState.heartbeatLog,
-                        heartbeatServiceEntries = uiState.heartbeatServiceEntries,
-                        heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
                         onToggleHeartbeat = uiState.onToggleHeartbeat,
-                        onChangeInterval = uiState.onChangeHeartbeatInterval,
-                        onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
-                        onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
-                        onChangeHeartbeatService = uiState.onChangeHeartbeatService,
+                        onNavigate = onNavigateToHeartbeat,
                     )
                 }
                 if (uiState.showEmailToggle) {
@@ -2289,110 +2283,6 @@ private fun ToolItem(
 }
 
 @Composable
-private fun SoulEditor(
-    soulText: String,
-    onSaveSoul: (String) -> Unit,
-) {
-    val localizedDefault = stringResource(Res.string.default_soul)
-    val displayText = soulText.ifEmpty { localizedDefault }
-    var editedText by remember(displayText) { mutableStateOf(displayText) }
-    val hasChanges = editedText != displayText
-    val maxChars = 4000
-
-    var showResetDialog by remember { mutableStateOf(false) }
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = stringResource(Res.string.settings_soul),
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f),
-            )
-            if (soulText.isNotEmpty()) {
-                IconButton(
-                    onClick = { showResetDialog = true },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Replay,
-                        contentDescription = stringResource(Res.string.settings_soul_reset),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
-        }
-        Text(
-            text = stringResource(Res.string.settings_soul_description),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Spacer(Modifier.height(12.dp))
-
-        KaiOutlinedTextField(
-            modifier = Modifier.fillMaxWidth().height(250.dp),
-            value = editedText,
-            onValueChange = { if (it.length <= maxChars) editedText = it },
-            label = {
-                Text(
-                    stringResource(Res.string.settings_soul),
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            },
-        )
-
-        Text(
-            text = "${editedText.length}/$maxChars",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.End,
-        )
-
-        if (hasChanges) {
-            Spacer(Modifier.height(8.dp))
-            Button(
-                onClick = { onSaveSoul(editedText.trim()) },
-                modifier = Modifier.align(CenterHorizontally).handCursor(),
-            ) {
-                Text(stringResource(Res.string.settings_soul_save))
-            }
-        }
-    }
-
-    if (showResetDialog) {
-        AlertDialog(
-            onDismissRequest = { showResetDialog = false },
-            title = { Text(stringResource(Res.string.settings_soul_reset)) },
-            text = { Text(stringResource(Res.string.settings_soul_reset_confirm)) },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        showResetDialog = false
-                        onSaveSoul("")
-                        editedText = localizedDefault
-                    },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text(stringResource(Res.string.settings_soul_reset))
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = { showResetDialog = false },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text(stringResource(Res.string.settings_soul_reset_cancel))
-                }
-            },
-        )
-    }
-}
-
-@Composable
 private fun MemoryListSummary(
     memories: ImmutableList<MemoryEntry>,
     isMemoryEnabled: Boolean,
@@ -2555,6 +2445,61 @@ private fun NavigableSettingRow(
             onCheckedChange = onToggle,
         )
     }
+}
+
+@Composable
+private fun SoulListSummary(
+    soulText: String,
+    onNavigate: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onNavigate).handCursor(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(Res.string.settings_soul),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(2.dp))
+            Text(
+                text = stringResource(Res.string.settings_soul_description),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (soulText.isNotEmpty()) {
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "${soulText.length} characters",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.alpha(0.6f),
+                )
+            }
+        }
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
+@Composable
+private fun HeartbeatSummary(
+    isHeartbeatEnabled: Boolean,
+    heartbeatIntervalMinutes: Int,
+    onToggleHeartbeat: (Boolean) -> Unit,
+    onNavigate: () -> Unit,
+) {
+    NavigableSettingRow(
+        title = stringResource(Res.string.settings_heartbeat),
+        description = stringResource(Res.string.settings_heartbeat_description, heartbeatIntervalMinutes),
+        checked = isHeartbeatEnabled,
+        onToggle = onToggleHeartbeat,
+        onNavigate = onNavigate,
+    )
 }
 
 @Composable
