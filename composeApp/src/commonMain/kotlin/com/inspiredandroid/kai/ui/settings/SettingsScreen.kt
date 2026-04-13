@@ -35,6 +35,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
@@ -272,6 +273,8 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = koinViewModel(),
     sandboxViewModel: SandboxViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
+    onNavigateToMemories: () -> Unit = {},
+    onNavigateToTasks: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -290,6 +293,8 @@ fun SettingsScreen(
         onResetSandbox = sandboxViewModel::onResetSandbox,
         onInstallPackages = sandboxViewModel::onInstallPackages,
         onNavigateBack = onNavigateBack,
+        onNavigateToMemories = onNavigateToMemories,
+        onNavigateToTasks = onNavigateToTasks,
         navigationTabBar = navigationTabBar,
     )
 }
@@ -304,6 +309,8 @@ fun SettingsScreenContent(
     onResetSandbox: () -> Unit = {},
     onInstallPackages: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
+    onNavigateToMemories: () -> Unit = {},
+    onNavigateToTasks: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
     terminalPreviewLines: List<TerminalLine> = emptyList(),
 ) {
@@ -422,7 +429,11 @@ fun SettingsScreenContent(
                         ) {
                             when (filteredUiState.currentTab) {
                                 SettingsTab.General -> {
-                                    GeneralContent(uiState = filteredUiState)
+                                    GeneralContent(
+                                        uiState = filteredUiState,
+                                        onNavigateToMemories = onNavigateToMemories,
+                                        onNavigateToTasks = onNavigateToTasks,
+                                    )
                                 }
 
                                 SettingsTab.Services -> {
@@ -1524,7 +1535,11 @@ private fun SettingsCard(
 }
 
 @Composable
-private fun GeneralContent(uiState: SettingsUiState) {
+private fun GeneralContent(
+    uiState: SettingsUiState,
+    onNavigateToMemories: () -> Unit = {},
+    onNavigateToTasks: () -> Unit = {},
+) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val useStaggered = maxWidth >= 600.dp
         if (useStaggered) {
@@ -1551,11 +1566,11 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         )
                     }
                     SettingsCard {
-                        ScheduledTaskList(
+                        ScheduledTaskListSummary(
                             tasks = uiState.scheduledTasks,
-                            onCancelTask = uiState.onCancelTask,
                             isSchedulingEnabled = uiState.isSchedulingEnabled,
                             onToggleScheduling = uiState.onToggleScheduling,
+                            onNavigate = onNavigateToTasks,
                         )
                     }
                     SettingsCard {
@@ -1565,11 +1580,11 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         )
                     }
                     SettingsCard {
-                        MemoryList(
+                        MemoryListSummary(
                             memories = uiState.memories,
-                            onDeleteMemory = uiState.onDeleteMemory,
                             isMemoryEnabled = uiState.isMemoryEnabled,
                             onToggleMemory = uiState.onToggleMemory,
+                            onNavigate = onNavigateToMemories,
                         )
                     }
                 }
@@ -1653,19 +1668,19 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     )
                 }
                 SettingsCard {
-                    MemoryList(
+                    MemoryListSummary(
                         memories = uiState.memories,
-                        onDeleteMemory = uiState.onDeleteMemory,
                         isMemoryEnabled = uiState.isMemoryEnabled,
                         onToggleMemory = uiState.onToggleMemory,
+                        onNavigate = onNavigateToMemories,
                     )
                 }
                 SettingsCard {
-                    ScheduledTaskList(
+                    ScheduledTaskListSummary(
                         tasks = uiState.scheduledTasks,
-                        onCancelTask = uiState.onCancelTask,
                         isSchedulingEnabled = uiState.isSchedulingEnabled,
                         onToggleScheduling = uiState.onToggleScheduling,
+                        onNavigate = onNavigateToTasks,
                     )
                 }
                 SettingsCard {
@@ -2378,69 +2393,68 @@ private fun SoulEditor(
 }
 
 @Composable
-private fun MemoryList(
+private fun MemoryListSummary(
     memories: ImmutableList<MemoryEntry>,
-    onDeleteMemory: (String) -> Unit,
     isMemoryEnabled: Boolean,
     onToggleMemory: (Boolean) -> Unit,
+    onNavigate: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        ToggleableHeadline(
+        NavigableSettingRow(
             title = stringResource(Res.string.settings_memories),
             description = stringResource(Res.string.settings_memories_description),
             checked = isMemoryEnabled,
-            onCheckedChange = onToggleMemory,
+            onToggle = onToggleMemory,
+            onNavigate = onNavigate,
         )
         Spacer(Modifier.height(12.dp))
 
-        if (isMemoryEnabled) {
-            memories.forEach { memory ->
-                SettingsListItem(
-                    title = memory.key,
-                    subtitle = memory.content,
-                    onDelete = { onDeleteMemory(memory.key) },
-                    deleteContentDescription = stringResource(Res.string.settings_memories_delete),
-                    subtitleMaxLines = 3,
-                )
-                Spacer(Modifier.height(8.dp))
-            }
+        if (isMemoryEnabled && memories.isNotEmpty()) {
+            Text(
+                text = "${memories.size} memories stored",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.alpha(0.6f),
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = "Tap to view and manage",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.alpha(0.4f),
+            )
         }
     }
 }
 
 @Composable
-private fun ScheduledTaskList(
+private fun ScheduledTaskListSummary(
     tasks: ImmutableList<ScheduledTask>,
-    onCancelTask: (String) -> Unit,
     isSchedulingEnabled: Boolean,
     onToggleScheduling: (Boolean) -> Unit,
+    onNavigate: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        ToggleableHeadline(
+        NavigableSettingRow(
             title = stringResource(Res.string.settings_scheduled_tasks),
             description = stringResource(Res.string.settings_scheduled_tasks_description),
             checked = isSchedulingEnabled,
-            onCheckedChange = onToggleScheduling,
+            onToggle = onToggleScheduling,
+            onNavigate = onNavigate,
         )
         Spacer(Modifier.height(12.dp))
 
         if (isSchedulingEnabled && tasks.isNotEmpty()) {
-            tasks.forEach { task ->
-                val subtitle = if (task.cron != null) {
-                    "${task.status} - ${describeCron(task.cron)}"
-                } else {
-                    val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
-                        .toLocalDateTime(TimeZone.currentSystemDefault())
-                    "${task.status} - $scheduledTime"
-                }
-                SettingsListItem(
-                    title = task.description,
-                    subtitle = subtitle,
-                    onDelete = { onCancelTask(task.id) },
-                    deleteContentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
-                )
-                Spacer(Modifier.height(8.dp))
-            }
+            val pendingCount = tasks.count { it.status == TaskStatus.PENDING }
+            Text(
+                text = "$pendingCount pending, ${tasks.size - pendingCount} completed",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.alpha(0.6f),
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = "Tap to view and manage",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.alpha(0.4f),
+            )
         }
     }
 }
@@ -2471,6 +2485,74 @@ private fun DynamicUiToggle(
             description = stringResource(Res.string.settings_dynamic_ui_description),
             checked = isDynamicUiEnabled,
             onCheckedChange = onToggleDynamicUi,
+        )
+    }
+}
+
+/**
+ * Android Settings-style row with navigation chevron and separate toggle.
+ * Click title/description/chevron → navigate
+ * Click switch → toggle only
+ */
+@Composable
+private fun NavigableSettingRow(
+    title: String,
+    description: String,
+    checked: Boolean,
+    onToggle: (Boolean) -> Unit,
+    onNavigate: () -> Unit,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        // Left side: Title + Description (navigable area)
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .clickable(onClick = onNavigate)
+                .handCursor(),
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(2.dp))
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        // Chevron (navigable)
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier
+                .clickable(onClick = onNavigate)
+                .handCursor(),
+        )
+
+        Spacer(Modifier.width(8.dp))
+
+        // Divider line
+        Box(
+            modifier = Modifier
+                .width(1.dp)
+                .height(24.dp)
+                .alpha(0.3f)
+                .background(MaterialTheme.colorScheme.onSurfaceVariant),
+        )
+
+        Spacer(Modifier.width(8.dp))
+
+        // Switch (toggle only - NOT navigable)
+        Switch(
+            checked = checked,
+            onCheckedChange = onToggle,
         )
     }
 }
@@ -2517,16 +2599,23 @@ internal fun ToggleableHeadline(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     actions: @Composable RowScope.() -> Unit = {},
+    rowClickEnabled: Boolean = true,
 ) {
     val switchInteractionSource = remember { MutableInteractionSource() }
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(
-                interactionSource = switchInteractionSource,
-                indication = null,
-            ) { onCheckedChange(!checked) }
-            .handCursor(),
+            .then(
+                if (rowClickEnabled) {
+                    Modifier.clickable(
+                        interactionSource = switchInteractionSource,
+                        indication = null,
+                    ) { onCheckedChange(!checked) }
+                    .handCursor()
+                } else {
+                    Modifier
+                }
+            ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(

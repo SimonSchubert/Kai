@@ -44,7 +44,11 @@ import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.memories.MemoriesScreen
+import com.inspiredandroid.kai.ui.memories.MemoriesViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
+import com.inspiredandroid.kai.ui.tasks.TasksScreen
+import com.inspiredandroid.kai.ui.tasks.TasksViewModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tab_chat
 import kai.composeapp.generated.resources.tab_settings
@@ -64,6 +68,14 @@ object Home
 @Serializable
 @SerialName("settings")
 object Settings
+
+@Serializable
+@SerialName("memories")
+object Memories
+
+@Serializable
+@SerialName("tasks")
+object Tasks
 
 @Composable
 fun App(
@@ -210,6 +222,24 @@ private fun AppContent(
                             chatViewModel.refreshSettings()
                             navController.navigateUp()
                         },
+                        onNavigateToMemories = { navController.navigate(Memories) },
+                        onNavigateToTasks = { navController.navigate(Tasks) },
+                        navigationTabBar = if (showTabBar) navigationTabBar else null,
+                    )
+                }
+                composable<Memories> {
+                    val viewModel: MemoriesViewModel = koinViewModel()
+                    MemoriesScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.navigateUp() },
+                        navigationTabBar = if (showTabBar) navigationTabBar else null,
+                    )
+                }
+                composable<Tasks> {
+                    val viewModel: TasksViewModel = koinViewModel()
+                    TasksScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.navigateUp() },
                         navigationTabBar = if (showTabBar) navigationTabBar else null,
                     )
                 }

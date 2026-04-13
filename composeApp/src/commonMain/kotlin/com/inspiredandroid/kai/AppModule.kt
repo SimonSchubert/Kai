@@ -19,9 +19,11 @@ import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.memories.MemoriesViewModel
 import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
 import com.inspiredandroid.kai.ui.settings.SplinterlandsViewModel
+import com.inspiredandroid.kai.ui.tasks.TasksViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -90,4 +92,6 @@ val appModule = module {
     viewModel { SandboxViewModel(get<DataRepository>(), get<SandboxController>()) }
     viewModel { SplinterlandsViewModel(get<DataRepository>(), get(), get(), get<SplinterlandsApi>()) }
     viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>()) }
+    viewModel { MemoriesViewModel(get<DataRepository>()) }
+    viewModel { TasksViewModel(get<DataRepository>()) }
 }
