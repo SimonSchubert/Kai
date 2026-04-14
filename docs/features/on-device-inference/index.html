@@ -819,7 +819,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-04-11</p>
+<p><strong>Last verified:</strong> 2026-04-14</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -875,7 +875,7 @@
 <li><strong>Cancel</strong> -- active downloads can be cancelled</li>
 <li><strong>Error display</strong> -- download failures (network, disk space, incomplete) are shown inline in the settings UI</li>
 <li><strong>Context size slider</strong> -- each model has a slider to adjust context size (4K–32K tokens in 1K steps); available before download so users can preview performance impact</li>
-<li><strong>Performance indicator</strong> -- each model shows a Good/OK/Poor label based on total device RAM vs estimated GPU memory at the selected context size (Good: RAM &gt;= 3x, OK: &gt;= 1.5x, Poor: &lt; 1.5x); memory estimate scales linearly with context size via per-model KV cache cost</li>
+<li><strong>Performance indicator</strong> -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good &gt;= 2.5x, OK &gt;= 1.85x, Poor &lt; 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead.</li>
 <li><strong>Free space</strong> -- available device storage is shown below the model list</li>
 </ul>
 <p>On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. On Desktop, downloads run in a background coroutine.</p>
