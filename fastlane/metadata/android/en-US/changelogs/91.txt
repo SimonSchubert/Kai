@@ -1,0 +1,8 @@
+Add copy-to-clipboard button for code blocks
+Highlight currently selected model in model picker
+Improve Linux sandbox interactive interface
+Filter out internal Gemini thought responses
+Add safeguards for large PDF and image attachments
+Adjust Gemma 4 device performance expectations
+Upgrade BouncyCastle
+UI polish and alignment

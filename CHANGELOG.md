@@ -1,3 +1,19 @@
+## v2.1.5 — 2026-04-15
+
+### Features
+- Add copy-to-clipboard button for code blocks
+
+### Fixes
+- Filter out Gemini API responses marked as internal thoughts
+- Add size safeguards for PDF and image compression failures
+
+### Improvements
+- Highlight currently selected model in model picker
+- Improve Linux sandbox interactive interface
+- Adjust Gemma 4 device performance expectations
+- Upgrade BouncyCastle and remove version checker dependency
+- UI polish and alignment
+
 ## v2.1.4 — 2026-04-12
 
 ### Features
