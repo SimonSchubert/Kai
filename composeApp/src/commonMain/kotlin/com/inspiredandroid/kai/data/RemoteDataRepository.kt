@@ -932,8 +932,8 @@ class RemoteDataRepository(
             // Check for function calls in the response (parts that have functionCall)
             val partsWithFunctionCalls = parts.filter { it.functionCall != null }
             if (partsWithFunctionCalls.isEmpty()) {
-                // No function calls - return the text response
-                return parts.joinToString("\n") { it.text ?: "" }
+                // No function calls - return the text response (skip thought parts)
+                return parts.filterNot { it.isThought }.joinToString("\n") { it.text ?: "" }
             }
 
             // Convert Gemini function calls to ToolCallInfo with synthetic IDs
@@ -968,8 +968,8 @@ class RemoteDataRepository(
             }
             recentSignatures.addAll(signatures)
 
-            // Add assistant message with tool calls to history
-            val textContent = parts.mapNotNull { it.text }.joinToString("\n")
+            // Add assistant message with tool calls to history (skip thought parts)
+            val textContent = parts.filterNot { it.isThought }.mapNotNull { it.text }.joinToString("\n")
             history.update {
                 it.toMutableList().apply {
                     add(

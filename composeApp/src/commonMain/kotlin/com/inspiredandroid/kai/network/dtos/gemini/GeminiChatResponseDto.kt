@@ -18,7 +18,10 @@ data class GeminiChatResponseDto(
         val text: String? = null,
         val functionCall: FunctionCall? = null,
         val thoughtSignature: String? = null,
-    )
+        val thought: Boolean? = null,
+    ) {
+        val isThought: Boolean get() = thought == true
+    }
 
     @Serializable
     data class FunctionCall(
@@ -27,4 +30,7 @@ data class GeminiChatResponseDto(
     )
 }
 
-fun GeminiChatResponseDto.extractText(): String = candidates.firstOrNull()?.content?.parts?.joinToString("\n") { it.text ?: "" } ?: ""
+fun GeminiChatResponseDto.extractText(): String = candidates.firstOrNull()?.content?.parts
+    ?.filterNot { it.isThought }
+    ?.joinToString("\n") { it.text ?: "" }
+    ?: ""
