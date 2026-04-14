@@ -28,10 +28,9 @@ navigationComposeVersion = "2.9.2"
 spotless = "8.4.0"
 tts = "3.0.0"
 foundationAndroid = "1.10.6"
-ben-manes-versions = "0.53.0"
 paparazzi = "2.0.0-alpha04"
 turbine = "1.2.1"
-bouncycastle = "1.83"
+bouncycastle = "1.84"
 reorderable = "3.0.0"
 litert-lm = "0.10.0"
 materialIcons = "1.7.3"
@@ -102,6 +101,5 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "ben-manes-versions" }
 androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
