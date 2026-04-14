@@ -213,6 +213,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="terminal_help_text">A IA usa este ambiente para executar comandos.\nVocê também pode executar comandos manualmente abaixo.</string>
     <string name="terminal_input_placeholder">inserir comando…</string>
     <string name="terminal_run_content_description">Executar</string>
+    <string name="terminal_stop_content_description">Parar</string>
     <string name="interactive_welcome_title">Estou completamente operacional.</string>
     <string name="interactive_welcome_subtitle">Diga-me o que gostaria de fazer.</string>
     <string name="interactive_back_content_description">Voltar</string>

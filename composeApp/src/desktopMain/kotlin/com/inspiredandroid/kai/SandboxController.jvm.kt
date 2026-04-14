@@ -12,4 +12,9 @@ class NoOpSandboxController : SandboxController {
     override fun reset() {}
     override fun installPackages() {}
     override suspend fun executeCommand(command: String): String = ""
+    override suspend fun executeCommandStreaming(
+        command: String,
+        onStdout: (String) -> Unit,
+        onStderr: (String) -> Unit,
+    ): CommandHandle = NoOpCommandHandle
 }

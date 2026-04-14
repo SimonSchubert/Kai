@@ -212,6 +212,7 @@
     <string name="terminal_help_text">Az AI ezt a környezetet használja parancsok futtatásához.\nLent manuálisan is futtathat parancsokat.</string>
     <string name="terminal_input_placeholder">parancs bevitele…</string>
     <string name="terminal_run_content_description">Futtatás</string>
+    <string name="terminal_stop_content_description">Leállítás</string>
     <string name="interactive_welcome_title">Teljesen működőképes vagyok.</string>
     <string name="interactive_welcome_subtitle">Mondd el, mit szeretnél csinálni.</string>
     <string name="interactive_back_content_description">Vissza</string>

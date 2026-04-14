@@ -213,6 +213,7 @@
     <string name="terminal_help_text">AIはこの環境を使用してコマンドを実行します。\n下で手動でコマンドを実行することもできます。</string>
     <string name="terminal_input_placeholder">コマンドを入力…</string>
     <string name="terminal_run_content_description">実行</string>
+    <string name="terminal_stop_content_description">停止</string>
     <string name="interactive_welcome_title">完全に稼働中です。</string>
     <string name="interactive_welcome_subtitle">何をしたいか教えてください。</string>
     <string name="interactive_back_content_description">戻る</string>

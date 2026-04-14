@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI командаларды іске қосу үшін осы ортаны пайдаланады.\nСіз де төменде командаларды қолмен іске қоса аласыз.</string>
     <string name="terminal_input_placeholder">пәрмен енгізіңіз…</string>
     <string name="terminal_run_content_description">Орындау</string>
+    <string name="terminal_stop_content_description">Тоқтату</string>
     <string name="interactive_welcome_title">Мен толығымен жұмыс істеп тұрмын.</string>
     <string name="interactive_welcome_subtitle">Не істегіңіз келетінін айтыңыз.</string>
     <string name="interactive_back_content_description">Артқа</string>

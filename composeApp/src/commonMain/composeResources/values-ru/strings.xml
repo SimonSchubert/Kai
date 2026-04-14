@@ -213,6 +213,7 @@
     <string name="terminal_help_text">ИИ использует эту среду для выполнения команд.\nВы также можете выполнять команды вручную ниже.</string>
     <string name="terminal_input_placeholder">введите команду…</string>
     <string name="terminal_run_content_description">Выполнить</string>
+    <string name="terminal_stop_content_description">Остановить</string>
     <string name="interactive_welcome_title">Я полностью работоспособен.</string>
     <string name="interactive_welcome_subtitle">Скажите, что вы хотите сделать.</string>
     <string name="interactive_back_content_description">Назад</string>

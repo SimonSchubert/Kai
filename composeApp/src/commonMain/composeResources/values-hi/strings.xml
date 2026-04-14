@@ -213,6 +213,7 @@
     <string name="terminal_help_text">AI कमांड चलाने के लिए इस वातावरण का उपयोग करता है।\nआप नीचे मैन्युअल रूप से भी कमांड चला सकते हैं।</string>
     <string name="terminal_input_placeholder">कमांड दर्ज करें…</string>
     <string name="terminal_run_content_description">चलाएं</string>
+    <string name="terminal_stop_content_description">रोकें</string>
     <string name="interactive_welcome_title">मैं पूरी तरह से काम कर रहा हूँ।</string>
     <string name="interactive_welcome_subtitle">मुझे बताइए आप क्या करना चाहेंगे।</string>
     <string name="interactive_back_content_description">वापस</string>

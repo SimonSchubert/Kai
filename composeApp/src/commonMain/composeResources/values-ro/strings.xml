@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI-ul folosește acest mediu pentru a rula comenzi.\nPoți rula și comenzi manual mai jos.</string>
     <string name="terminal_input_placeholder">introduceți comanda…</string>
     <string name="terminal_run_content_description">Rulare</string>
+    <string name="terminal_stop_content_description">Oprește</string>
     <string name="interactive_welcome_title">Sunt complet operațional.</string>
     <string name="interactive_welcome_subtitle">Spune-mi ce ai vrea să faci.</string>
     <string name="interactive_back_content_description">Înapoi</string>

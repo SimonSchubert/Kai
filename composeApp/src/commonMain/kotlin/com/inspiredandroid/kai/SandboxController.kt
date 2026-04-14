@@ -13,6 +13,20 @@ data class SandboxStatus(
     val error: Boolean = false,
 )
 
+interface CommandHandle {
+    fun cancel()
+    fun isCancelled(): Boolean
+    suspend fun writeInput(line: String)
+    suspend fun awaitExit(): Int
+}
+
+internal object NoOpCommandHandle : CommandHandle {
+    override fun cancel() {}
+    override fun isCancelled(): Boolean = false
+    override suspend fun writeInput(line: String) {}
+    override suspend fun awaitExit(): Int = -1
+}
+
 interface SandboxController {
     val status: StateFlow<SandboxStatus>
     fun setup()
@@ -20,6 +34,11 @@ interface SandboxController {
     fun reset()
     fun installPackages()
     suspend fun executeCommand(command: String): String
+    suspend fun executeCommandStreaming(
+        command: String,
+        onStdout: (String) -> Unit,
+        onStderr: (String) -> Unit,
+    ): CommandHandle
 }
 
 expect fun createSandboxController(): SandboxController

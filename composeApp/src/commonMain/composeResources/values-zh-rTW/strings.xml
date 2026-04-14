@@ -213,6 +213,7 @@
     <string name="terminal_help_text">安裝 Linux 環境，讓 AI 可以代您執行指令。\n您也可以在下方手動執行指令。</string>
     <string name="terminal_input_placeholder">輸入指令…</string>
     <string name="terminal_run_content_description">執行</string>
+    <string name="terminal_stop_content_description">停止</string>
     <string name="interactive_welcome_title">我已完全就緒。</string>
     <string name="interactive_welcome_subtitle">告訴我你想做什麼。</string>
     <string name="interactive_back_content_description">返回</string>

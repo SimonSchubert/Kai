@@ -212,6 +212,7 @@
     <string name="terminal_help_text">DI naudoja šią aplinką komandoms vykdyti.\nTaip pat galite vykdyti komandas rankiniu būdu žemiau.</string>
     <string name="terminal_input_placeholder">įveskite komandą…</string>
     <string name="terminal_run_content_description">Vykdyti</string>
+    <string name="terminal_stop_content_description">Stabdyti</string>
     <string name="interactive_welcome_title">Esu visiškai veikiantis.</string>
     <string name="interactive_welcome_subtitle">Pasakykite, ką norėtumėte daryti.</string>
     <string name="interactive_back_content_description">Atgal</string>

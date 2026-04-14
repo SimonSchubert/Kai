@@ -213,6 +213,7 @@
     <string name="terminal_help_text">ШІ використовує це середовище для виконання команд.\nВи також можете виконувати команди вручну нижче.</string>
     <string name="terminal_input_placeholder">введіть команду…</string>
     <string name="terminal_run_content_description">Виконати</string>
+    <string name="terminal_stop_content_description">Зупинити</string>
     <string name="interactive_welcome_title">Я повністю працездатний.</string>
     <string name="interactive_welcome_subtitle">Скажіть мені, що ви хочете зробити.</string>
     <string name="interactive_back_content_description">Назад</string>

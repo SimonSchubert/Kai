@@ -212,6 +212,7 @@
     <string name="terminal_help_text">هوش مصنوعی از این محیط برای اجرای دستورات استفاده می‌کند.\nشما نیز می‌توانید دستورات را به‌صورت دستی در زیر اجرا کنید.</string>
     <string name="terminal_input_placeholder">دستور وارد کنید…</string>
     <string name="terminal_run_content_description">اجرا</string>
+    <string name="terminal_stop_content_description">توقف</string>
     <string name="interactive_welcome_title">من کاملاً آماده به کار هستم.</string>
     <string name="interactive_welcome_subtitle">بگویید چه کاری می‌خواهید انجام دهید.</string>
     <string name="interactive_back_content_description">بازگشت</string>

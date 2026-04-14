@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI کمانڈز چلانے کے لیے اس ماحول کا استعمال کرتا ہے۔\nآپ نیچے دستی طور پر بھی کمانڈز چلا سکتے ہیں۔</string>
     <string name="terminal_input_placeholder">کمانڈ درج کریں…</string>
     <string name="terminal_run_content_description">چلائیں</string>
+    <string name="terminal_stop_content_description">روکیں</string>
     <string name="interactive_welcome_title">میں مکمل طور پر فعال ہوں۔</string>
     <string name="interactive_welcome_subtitle">مجھے بتائیں آپ کیا کرنا چاہتے ہیں۔</string>
     <string name="interactive_back_content_description">واپس</string>

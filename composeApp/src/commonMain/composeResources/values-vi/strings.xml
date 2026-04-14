@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI sử dụng môi trường này để chạy các lệnh.\nBạn cũng có thể chạy lệnh thủ công bên dưới.</string>
     <string name="terminal_input_placeholder">nhập lệnh…</string>
     <string name="terminal_run_content_description">Chạy</string>
+    <string name="terminal_stop_content_description">Dừng</string>
     <string name="interactive_welcome_title">Tôi hoàn toàn sẵn sàng hoạt động.</string>
     <string name="interactive_welcome_subtitle">Hãy cho tôi biết bạn muốn làm gì.</string>
     <string name="interactive_back_content_description">Quay lại</string>

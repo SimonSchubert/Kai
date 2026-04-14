@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI menggunakan persekitaran ini untuk menjalankan arahan.\nAnda juga boleh menjalankan arahan secara manual di bawah.</string>
     <string name="terminal_input_placeholder">masukkan arahan…</string>
     <string name="terminal_run_content_description">Jalankan</string>
+    <string name="terminal_stop_content_description">Henti</string>
     <string name="interactive_welcome_title">Saya beroperasi sepenuhnya.</string>
     <string name="interactive_welcome_subtitle">Beritahu saya apa yang anda ingin lakukan.</string>
     <string name="interactive_back_content_description">Kembali</string>

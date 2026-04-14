@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI கட்டளைகளை இயக்க இந்தச் சூழலைப் பயன்படுத்துகிறது.\nகீழே நீங்களும் கட்டளைகளை கைமுறையாக இயக்கலாம்.</string>
     <string name="terminal_input_placeholder">கட்டளையை உள்ளிடவும்…</string>
     <string name="terminal_run_content_description">இயக்கு</string>
+    <string name="terminal_stop_content_description">நிறுத்து</string>
     <string name="interactive_welcome_title">நான் முழுமையாக செயல்படுகிறேன்.</string>
     <string name="interactive_welcome_subtitle">நீங்கள் என்ன செய்ய விரும்புகிறீர்கள் என்று சொல்லுங்கள்.</string>
     <string name="interactive_back_content_description">பின்செல்</string>

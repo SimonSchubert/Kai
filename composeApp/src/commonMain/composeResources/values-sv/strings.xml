@@ -213,6 +213,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="terminal_help_text">AI:n använder den här miljön för att köra kommandon.\nDu kan även köra kommandon manuellt nedan.</string>
     <string name="terminal_input_placeholder">ange kommando…</string>
     <string name="terminal_run_content_description">Kör</string>
+    <string name="terminal_stop_content_description">Stoppa</string>
     <string name="interactive_welcome_title">Jag är fullt operativ.</string>
     <string name="interactive_welcome_subtitle">Berätta vad du vill göra.</string>
     <string name="interactive_back_content_description">Tillbaka</string>

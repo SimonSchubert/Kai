@@ -14,13 +14,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -45,18 +47,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.terminal_help_text
 import kai.composeapp.generated.resources.terminal_input_placeholder
 import kai.composeapp.generated.resources.terminal_run_content_description
+import kai.composeapp.generated.resources.terminal_stop_content_description
 import kai.composeapp.generated.resources.terminal_title
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 
 internal val TerminalDarkBg = Color(0xFF1E1E1E)
@@ -68,6 +76,12 @@ private data class TerminalColors(
     val prompt: Color,
     val error: Color,
     val dimText: Color,
+)
+
+private fun monoStyle(size: TextUnit, color: Color = Color.Unspecified) = TextStyle(
+    fontFamily = FontFamily.Monospace,
+    fontSize = size,
+    color = color,
 )
 
 @Composable
@@ -102,24 +116,40 @@ fun TerminalContent(
     initialLines: List<TerminalLine> = emptyList(),
 ) {
     val scope = rememberCoroutineScope()
-    val scrollState = rememberScrollState()
+    val listState = rememberLazyListState()
     val outputLines = remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
     var inputText by remember { mutableStateOf("") }
     var isRunning by remember { mutableStateOf(false) }
+    var activeHandle by remember { mutableStateOf<CommandHandle?>(null) }
     val colors = terminalColors(darkBackground)
     val focusRequester = remember { FocusRequester() }
-    val canSubmit = sandboxController != null && inputText.isNotBlank() && !isRunning
-    val isInputEnabled = sandboxController != null && !isRunning
-    val executeInput = {
+    val canSubmit = sandboxController != null && inputText.isNotBlank()
+    val canCancel = isRunning && activeHandle != null && inputText.isBlank()
+    val isInputEnabled = sandboxController != null
+    val submitInput = {
         val controller = sandboxController
-        if (controller != null && inputText.isNotBlank() && !isRunning) {
-            val cmd = inputText.trim()
+        val running = isRunning
+        val handle = activeHandle
+        if (controller != null && inputText.isNotBlank()) {
+            val line = inputText
             inputText = ""
-            scope.launch {
-                runCommand(cmd, outputLines, controller) { isRunning = it }
+            if (running && handle != null) {
+                outputLines.add(TerminalLine.Output(line))
+                scope.launch { handle.writeInput(line) }
+            } else if (!running) {
+                scope.launch {
+                    runCommand(
+                        command = line.trim(),
+                        outputLines = outputLines,
+                        sandboxController = controller,
+                        setRunning = { isRunning = it },
+                        setHandle = { activeHandle = it },
+                    )
+                }
             }
         }
     }
+    val cancelRunning: () -> Unit = { activeHandle?.cancel() }
 
     LaunchedEffect(Unit) {
         if (sandboxController != null) {
@@ -143,20 +173,12 @@ fun TerminalContent(
             ) {
                 Text(
                     text = stringResource(Res.string.terminal_title),
-                    style = TextStyle(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 16.sp,
-                        color = colors.prompt,
-                    ),
+                    style = monoStyle(16.sp, colors.prompt),
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
                     text = "Alpine Linux",
-                    style = TextStyle(
-                        fontFamily = FontFamily.Monospace,
-                        fontSize = 12.sp,
-                        color = colors.text.copy(alpha = 0.5f),
-                    ),
+                    style = monoStyle(12.sp, colors.text.copy(alpha = 0.5f)),
                 )
             }
         }
@@ -164,70 +186,70 @@ fun TerminalContent(
         SelectionContainer(
             modifier = Modifier.weight(1f),
         ) {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
                     .padding(horizontal = 16.dp, vertical = 12.dp),
+                state = listState,
             ) {
                 if (outputLines.isEmpty()) {
-                    Text(
-                        text = stringResource(Res.string.terminal_help_text),
-                        style = TextStyle(
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 13.sp,
-                            color = colors.dimText,
-                        ),
-                    )
+                    item {
+                        Text(
+                            text = stringResource(Res.string.terminal_help_text),
+                            style = monoStyle(13.sp, colors.dimText),
+                        )
+                    }
                 }
-                outputLines.forEach { line ->
+                items(
+                    items = outputLines,
+                    contentType = { it::class },
+                ) { line ->
                     when (line) {
                         is TerminalLine.Command -> {
                             Spacer(Modifier.height(4.dp))
                             Text(
                                 text = "$ ${line.text}",
-                                style = TextStyle(
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 13.sp,
-                                    color = colors.prompt,
-                                ),
+                                style = monoStyle(13.sp, colors.prompt),
                             )
                         }
 
                         is TerminalLine.Output -> {
                             Text(
                                 text = parseAnsiToAnnotatedString(line.text, colors.text),
-                                style = TextStyle(
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 13.sp,
-                                ),
+                                style = monoStyle(13.sp),
                             )
                         }
 
                         is TerminalLine.Error -> {
                             Text(
                                 text = parseAnsiToAnnotatedString(line.text, colors.error),
-                                style = TextStyle(
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 13.sp,
-                                ),
+                                style = monoStyle(13.sp),
                             )
                         }
                     }
                 }
                 if (isRunning) {
-                    Spacer(Modifier.height(4.dp))
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(14.dp),
-                        strokeWidth = 2.dp,
-                        color = colors.prompt,
-                    )
+                    item {
+                        Spacer(Modifier.height(4.dp))
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(14.dp),
+                            strokeWidth = 2.dp,
+                            color = colors.prompt,
+                        )
+                    }
                 }
             }
         }
 
         LaunchedEffect(outputLines.size, isRunning) {
-            scrollState.animateScrollTo(scrollState.maxValue)
+            val lastIndex = outputLines.lastIndex + if (isRunning) 1 else 0
+            if (lastIndex < 0) return@LaunchedEffect
+            val layout = listState.layoutInfo
+            val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
+            // Don't yank the user back if they've scrolled up to read older output.
+            if (lastVisible >= layout.totalItemsCount - 2) {
+                listState.scrollToItem(lastIndex)
+            }
         }
 
         androidx.compose.material3.HorizontalDivider(
@@ -241,11 +263,7 @@ fun TerminalContent(
         ) {
             Text(
                 text = "$",
-                style = TextStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 14.sp,
-                    color = colors.prompt,
-                ),
+                style = monoStyle(14.sp, colors.prompt),
                 modifier = Modifier.padding(start = 8.dp),
             )
             Spacer(Modifier.width(8.dp))
@@ -256,19 +274,11 @@ fun TerminalContent(
                     if (sandboxController != null) Modifier.focusRequester(focusRequester) else Modifier,
                 ),
                 enabled = isInputEnabled,
-                textStyle = TextStyle(
-                    fontFamily = FontFamily.Monospace,
-                    fontSize = 14.sp,
-                    color = colors.text,
-                ),
+                textStyle = monoStyle(14.sp, colors.text),
                 placeholder = {
                     Text(
                         text = stringResource(Res.string.terminal_input_placeholder),
-                        style = TextStyle(
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 14.sp,
-                            color = colors.dimText,
-                        ),
+                        style = monoStyle(14.sp, colors.dimText),
                     )
                 },
                 colors = TextFieldDefaults.colors(
@@ -282,19 +292,30 @@ fun TerminalContent(
                 ),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
                 keyboardActions = KeyboardActions(
-                    onGo = { executeInput() },
+                    onGo = { submitInput() },
                 ),
                 singleLine = true,
             )
             IconButton(
-                onClick = { executeInput() },
-                enabled = canSubmit,
+                onClick = {
+                    when {
+                        canSubmit -> submitInput()
+                        canCancel -> cancelRunning()
+                    }
+                },
+                enabled = canSubmit || canCancel,
                 modifier = Modifier.handCursor(),
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Send,
-                    contentDescription = stringResource(Res.string.terminal_run_content_description),
-                    tint = if (canSubmit) colors.prompt else colors.dimText,
+                    imageVector = if (canCancel) Icons.Filled.Stop else Icons.AutoMirrored.Filled.Send,
+                    contentDescription = stringResource(
+                        if (canCancel) {
+                            Res.string.terminal_stop_content_description
+                        } else {
+                            Res.string.terminal_run_content_description
+                        },
+                    ),
+                    tint = if (canSubmit || canCancel) colors.prompt else colors.dimText,
                     modifier = Modifier.size(20.dp),
                 )
             }
@@ -303,12 +324,16 @@ fun TerminalContent(
 }
 
 private const val MAX_OUTPUT_LINES = 500
+private const val STREAM_BUFFER_CAPACITY = 256
+private const val STREAM_FLUSH_INTERVAL_MS = 32L
+private const val STREAM_FLUSH_BATCH_MAX = 200
 
 private suspend fun runCommand(
     command: String,
     outputLines: MutableList<TerminalLine>,
     sandboxController: SandboxController,
     setRunning: (Boolean) -> Unit,
+    setHandle: (CommandHandle?) -> Unit,
 ) {
     if (command == "clear") {
         outputLines.clear()
@@ -316,21 +341,77 @@ private suspend fun runCommand(
     }
     outputLines.add(TerminalLine.Command(command))
     setRunning(true)
+
+    // Buffered channel with DROP_OLDEST so a runaway producer (e.g. `yes`)
+    // can't starve the UI or grow memory without bound. The drain loop
+    // flushes on a fixed cadence and prunes to MAX_OUTPUT_LINES each tick.
+    val channel = Channel<TerminalLine>(
+        capacity = STREAM_BUFFER_CAPACITY,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+
+    var handle: CommandHandle? = null
     try {
-        val result = withContext(Dispatchers.Default) {
-            sandboxController.executeCommand(command)
+        coroutineScope {
+            val drainJob = launch { drainStreamedLines(channel, outputLines) }
+            val h = sandboxController.executeCommandStreaming(
+                command = command,
+                onStdout = { line -> channel.trySend(TerminalLine.Output(line)) },
+                onStderr = { line -> channel.trySend(TerminalLine.Error(line)) },
+            )
+            handle = h
+            setHandle(h)
+            try {
+                h.awaitExit()
+            } finally {
+                channel.close()
+                drainJob.join()
+            }
         }
-        if (result.isNotEmpty()) {
-            outputLines.add(TerminalLine.Output(result))
+        if (handle?.isCancelled() == true) {
+            outputLines.add(TerminalLine.Output("^C"))
         }
+    } catch (e: CancellationException) {
+        throw e
     } catch (e: Exception) {
         outputLines.add(TerminalLine.Error(e.message ?: "Command failed"))
+    } finally {
+        setHandle(null)
+        pruneOutput(outputLines)
+        setRunning(false)
     }
+}
+
+private suspend fun drainStreamedLines(
+    channel: Channel<TerminalLine>,
+    outputLines: MutableList<TerminalLine>,
+) {
+    while (true) {
+        val batch = ArrayList<TerminalLine>(STREAM_FLUSH_BATCH_MAX)
+        var closed = false
+        while (batch.size < STREAM_FLUSH_BATCH_MAX) {
+            val result = channel.tryReceive()
+            if (result.isSuccess) {
+                batch.add(result.getOrThrow())
+            } else {
+                if (result.isClosed) closed = true
+                break
+            }
+        }
+        if (batch.isNotEmpty()) {
+            outputLines.addAll(batch)
+            pruneOutput(outputLines)
+        }
+        if (closed) break
+        delay(STREAM_FLUSH_INTERVAL_MS)
+    }
+}
+
+private fun pruneOutput(outputLines: MutableList<TerminalLine>) {
     val excess = outputLines.size - MAX_OUTPUT_LINES
     if (excess > 0) {
         outputLines.subList(0, excess).clear()
     }
-    setRunning(false)
 }
 
 sealed interface TerminalLine {

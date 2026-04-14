@@ -212,6 +212,7 @@
     <string name="terminal_help_text">AI hutumia mazingira haya kuendesha amri.\nUnaweza pia kuendesha amri wewe mwenyewe hapa chini.</string>
     <string name="terminal_input_placeholder">ingiza amri…</string>
     <string name="terminal_run_content_description">Endesha</string>
+    <string name="terminal_stop_content_description">Simamisha</string>
     <string name="interactive_welcome_title">Niko tayari kabisa kufanya kazi.</string>
     <string name="interactive_welcome_subtitle">Niambie ungependa kufanya nini.</string>
     <string name="interactive_back_content_description">Rudi</string>
