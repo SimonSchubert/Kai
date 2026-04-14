@@ -1081,7 +1081,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-04-12</p>
+<p><strong>Last verified:</strong> 2026-04-14</p>
 <p>Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1303,6 +1303,7 @@
 <li><strong>Detail chips</strong> (middle) — parameter count and context window (<code>200K ctx</code> / <code>1M ctx</code>) as neutral chips</li>
 <li><strong>Release date</strong> (bottom left) — month and year in muted text, e.g. <code>Mar 2025</code></li>
 </ul>
+<p>The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.</p>
 <p>The modal includes sort chips (Date, Score, Ctx, Params) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by date (newest first).</p>
 <p>Context window and release date come from two sources, merged by the mapping layer: whatever the provider's own models endpoint returns (e.g. OpenAI-compat <code>context_window</code> and <code>created</code>, Anthropic <code>created_at</code>), and a bundled curated catalog of well-known models that fills gaps for providers whose API omits these fields (notably Gemini and Anthropic for context window). API data always wins over the catalog. Models not present in the catalog still render — their chips are simply hidden.</p>
 <h2 id="chat-screen-service-toggle">Chat Screen Service Toggle</h2>
