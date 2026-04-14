@@ -1294,8 +1294,7 @@ private fun LiteRTSettings(
                             Icon(
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = null,
-                                modifier = Modifier.size(20.dp),
-                                tint = MaterialTheme.colorScheme.error,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                         }
                     } else if (!isDownloading) {
