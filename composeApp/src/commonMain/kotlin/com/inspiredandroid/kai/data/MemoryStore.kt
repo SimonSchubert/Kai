@@ -33,11 +33,15 @@ class MemoryStore(private val appSettings: AppSettings) {
     private val json = SharedJson
     private val mutex = Mutex()
 
-    private fun loadMemories(): MutableList<MemoryEntry> = try {
-        json.decodeFromString<List<MemoryEntry>>(appSettings.getMemoriesJson()).toMutableList()
-    } catch (e: Exception) {
-        println("MemoryStore: failed to load memories: ${e.message}")
-        mutableListOf()
+    private fun loadMemories(): MutableList<MemoryEntry> {
+        val raw = appSettings.getMemoriesJson()
+        if (raw.isBlank()) return mutableListOf()
+        return try {
+            json.decodeFromString<List<MemoryEntry>>(raw).toMutableList()
+        } catch (e: Exception) {
+            println("MemoryStore: failed to load memories: ${e.message}")
+            mutableListOf()
+        }
     }
 
     private fun saveMemories(memories: List<MemoryEntry>) {

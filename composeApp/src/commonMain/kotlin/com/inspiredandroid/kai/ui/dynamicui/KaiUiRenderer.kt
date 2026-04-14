@@ -1091,26 +1091,45 @@ private fun RenderIcon(node: IconNode) {
 
 @Composable
 private fun RenderCode(node: CodeNode) {
+    val clipboardManager = LocalClipboardManager.current
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column(Modifier.padding(12.dp)) {
-            if (node.language != null) {
+        Box(Modifier.padding(12.dp)) {
+            Column {
+                if (node.language != null) {
+                    Text(
+                        text = node.language,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(bottom = 4.dp, end = 32.dp),
+                    )
+                }
                 Text(
-                    text = node.language,
-                    style = MaterialTheme.typography.labelSmall,
+                    text = node.code,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(bottom = 4.dp),
+                    modifier = Modifier.horizontalScroll(rememberScrollState()).padding(end = 32.dp),
                 )
             }
-            Text(
-                text = node.code,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.horizontalScroll(rememberScrollState()),
-            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(28.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .handCursor()
+                    .clickable { clipboardManager.setText(AnnotatedString(node.code)) },
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.ContentCopy,
+                    contentDescription = "Copy",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(16.dp),
+                )
+            }
         }
     }
 }
