@@ -1147,7 +1147,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-10</p>
+<p><strong>Last verified:</strong> 2026-04-15</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1155,7 +1155,7 @@
 <h3 id="component-types">Component Types</h3>
 <ul>
 <li><strong>Layout</strong>: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)</li>
-<li><strong>Content</strong>: text (with headline/title/body/caption styles), image (optional aspect ratio to prevent distortion on wide screens), icon (curated material icon set or any emoji), code (syntax-highlighted block)</li>
+<li><strong>Content</strong>: text (with headline/title/body/caption styles), image (optional aspect ratio to prevent distortion on wide screens), icon (curated material icon set or any emoji), code (syntax-highlighted block with a built-in copy-to-clipboard icon in the top-right corner)</li>
 <li><strong>Interactive</strong>: button (filled/outlined/text/tonal variants), text input, checkbox, switch, select dropdown, radio group, slider, chip group (single-select, multi-select, or display-only tags)</li>
 <li><strong>Feedback</strong>: progress (determinate/indeterminate), countdown (relative duration with optional expiry action), alert (info/success/warning/error)</li>
 <li><strong>Navigation</strong>: tabs (tabbed content), accordion (collapsible sections)</li>
@@ -1165,9 +1165,10 @@
 <h3 id="actions">Actions</h3>
 <p>Buttons carry an action that fires on click (chip groups are form inputs, not action carriers):</p>
 <ul>
-<li><strong>callback</strong> — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow (e.g. "Pressed: event_name" or "Responded with: key: value"). The AI then responds with text or more UI. The prompt explicitly tells the AI to only offer buttons for actions it can fulfill — callbacks do not trigger system operations like printing, file export, or clipboard access.</li>
+<li><strong>callback</strong> — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow (e.g. "Pressed: event_name" or "Responded with: key: value"). The AI then responds with text or more UI. The prompt explicitly tells the AI to only offer callback buttons for actions it can fulfill — callbacks do not trigger system operations like printing, file export, or downloads. Clipboard access is available via the dedicated copy action below.</li>
 <li><strong>toggle</strong> — shows/hides a target element locally without AI roundtrip</li>
 <li><strong>open_url</strong> — opens a link in the browser</li>
+<li><strong>copy_to_clipboard</strong> — writes a literal string to the system clipboard locally, no AI roundtrip. A button carrying this action always renders as a compact clipboard icon button regardless of its variant; the button's label is ignored. Intended for surfacing copyable values (snippets, commands, tokens) alongside the content they belong to.</li>
 </ul>
 <h3 id="interaction-flow">Interaction Flow</h3>
 <p>When a callback fires, the renderer collects input values and formats them as a <code>[UI Interaction]</code> user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls.</p>
