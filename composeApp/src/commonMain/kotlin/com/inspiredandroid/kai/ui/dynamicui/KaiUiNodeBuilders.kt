@@ -610,7 +610,7 @@ internal fun JsonObject.readAction(key: String): UiAction? {
 private fun buildActionFromObject(obj: JsonObject): UiAction {
     val declaredType = obj.readNullableString("type")
     val type = when (declaredType) {
-        "callback", "toggle", "open_url" -> declaredType
+        "callback", "toggle", "open_url", "copy_to_clipboard" -> declaredType
 
         else -> when {
             "event" in obj -> "callback"
@@ -623,6 +623,8 @@ private fun buildActionFromObject(obj: JsonObject): UiAction {
         "toggle" -> ToggleAction(targetId = obj.readString("targetId"))
 
         "open_url" -> OpenUrlAction(url = obj.readString("url"))
+
+        "copy_to_clipboard" -> CopyToClipboardAction(text = obj.readString("text"))
 
         else -> CallbackAction(
             event = obj.readString("event"),

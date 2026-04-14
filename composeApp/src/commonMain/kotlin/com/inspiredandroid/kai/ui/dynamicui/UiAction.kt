@@ -35,3 +35,10 @@ data class ToggleAction(
 data class OpenUrlAction(
     val url: String = "",
 ) : UiAction
+
+@Immutable
+@Serializable
+@SerialName("copy_to_clipboard")
+data class CopyToClipboardAction(
+    val text: String = "",
+) : UiAction

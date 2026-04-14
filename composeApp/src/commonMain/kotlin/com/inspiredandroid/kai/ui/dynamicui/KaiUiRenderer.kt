@@ -159,6 +159,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -194,7 +195,9 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -434,6 +437,7 @@ private fun RenderButton(
     onCallback: (String, Map<String, String>) -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
+    val clipboardManager = LocalClipboardManager.current
     val enabled = isInteractive && (node.enabled != false)
     val onClick: () -> Unit = {
         try {
@@ -451,6 +455,10 @@ private fun RenderButton(
                     uriHandler.openUri(action.url)
                 }
 
+                is CopyToClipboardAction -> {
+                    clipboardManager.setText(AnnotatedString(action.text))
+                }
+
                 null -> {}
             }
         } catch (_: Exception) {
@@ -459,6 +467,12 @@ private fun RenderButton(
     }
 
     val hoverModifier = Modifier.handCursor()
+    if (node.action is CopyToClipboardAction) {
+        IconButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) {
+            Icon(imageVector = Icons.Filled.ContentCopy, contentDescription = "Copy")
+        }
+        return
+    }
     when (node.variant) {
         ButtonVariant.OUTLINED -> OutlinedButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
         ButtonVariant.TEXT -> TextButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
@@ -896,6 +910,8 @@ private fun RenderCountdown(
                                 }
 
                                 is OpenUrlAction -> {}
+
+                                is CopyToClipboardAction -> {}
 
                                 null -> {}
                             }

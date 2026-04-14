@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-14
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -24,9 +24,10 @@ A `kai-ui` code fence inside an assistant message contains a JSON object describ
 
 Buttons carry an action that fires on click (chip groups are form inputs, not action carriers):
 
-- **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow (e.g. "Pressed: event_name" or "Responded with: key: value"). The AI then responds with text or more UI. The prompt explicitly tells the AI to only offer buttons for actions it can fulfill — callbacks do not trigger system operations like printing, file export, or clipboard access.
+- **callback** — collects form data from specified input IDs and sends a structured message back to the AI via the normal chat flow (e.g. "Pressed: event_name" or "Responded with: key: value"). The AI then responds with text or more UI. The prompt explicitly tells the AI to only offer callback buttons for actions it can fulfill — callbacks do not trigger system operations like printing, file export, or downloads. Clipboard access is available via the dedicated copy action below.
 - **toggle** — shows/hides a target element locally without AI roundtrip
 - **open_url** — opens a link in the browser
+- **copy_to_clipboard** — writes a literal string to the system clipboard locally, no AI roundtrip. A button carrying this action always renders as a compact clipboard icon button regardless of its variant; the button's label is ignored. Intended for surfacing copyable values (snippets, commands, tokens) alongside the content they belong to.
 
 ### Interaction Flow
 
