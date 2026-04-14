@@ -709,10 +709,14 @@ class RemoteDataRepository(
             val category = classifyFile(fileMimeType, fileName)
             if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
             if (category == FileCategory.TEXT && rawBytes.size > MAX_TEXT_FILE_BYTES) throw FileTooLargeException()
+            if (category == FileCategory.PDF && rawBytes.size > MAX_PDF_BYTES) throw FileTooLargeException()
 
             when (category) {
                 FileCategory.IMAGE -> {
                     val compressed = compressImageBytes(rawBytes, fileMimeType ?: "image/jpeg")
+                    // compressImageBytes can fall back to the original bytes on failure or on
+                    // platforms without compression — guard against Base64 OOM for oversized input.
+                    if (compressed.size > MAX_IMAGE_BYTES) throw FileTooLargeException()
                     Attachment(
                         data = Base64.encode(compressed),
                         mimeType = "image/jpeg",

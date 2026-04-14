@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-04-11
+**Last verified:** 2026-04-14
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -66,6 +66,7 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 ### Images
 - Attach via file picker or drag-and-drop
 - Compressed to JPEG and Base64-encoded
+- Maximum size (after compression): 15 MB — rejected with a size error if exceeded
 - Sent as `image_url` (OpenAI-compatible), `image` block (Anthropic), or `inline_data` (Gemini)
 - Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
 
@@ -78,13 +79,14 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 
 ### PDFs
 - Base64-encoded without compression
+- Maximum size: 20 MB — rejected with a size error if exceeded
 - Sent as `document` block (Anthropic) or `inline_data` (Gemini); OpenAI-compatible providers have no native PDF support, so PDFs are not offered as an attachment type on those services
 - Shown as a filename chip in the user message bubble
 
 ### General behavior
 - The attachment button is always shown (text files work with all models)
 - Unsupported file types (e.g., `.zip`) show an error message
-- Text files exceeding the size limit show a size error
+- Files exceeding the per-category size limit show a size error
 - Long filenames in chips are truncated with an ellipsis while preserving the extension
 - File attachments persist across conversation save/restore via an `attachments` list on each message; older conversations saved with a single-file schema are migrated on load
 

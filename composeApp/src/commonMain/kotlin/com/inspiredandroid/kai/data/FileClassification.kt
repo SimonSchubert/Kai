@@ -8,6 +8,8 @@ enum class FileCategory {
 }
 
 const val MAX_TEXT_FILE_BYTES = 100_000
+const val MAX_PDF_BYTES = 20_000_000
+const val MAX_IMAGE_BYTES = 15_000_000
 
 private val textMimeTypes = setOf(
     "application/json",
