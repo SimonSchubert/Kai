@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-04-12
+**Last verified:** 2026-04-14
 
 Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -97,6 +97,8 @@ The model picker modal shows each candidate as a card with consistent metadata r
 - **Arena score** (top right) — LMArena Elo rating as colored text, gradient from green (>= 1400) through lime/yellow to orange (< 1250)
 - **Detail chips** (middle) — parameter count and context window (`200K ctx` / `1M ctx`) as neutral chips
 - **Release date** (bottom left) — month and year in muted text, e.g. `Mar 2025`
+
+The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.
 
 The modal includes sort chips (Date, Score, Ctx, Params) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by date (newest first).
 

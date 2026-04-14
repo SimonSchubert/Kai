@@ -171,6 +171,7 @@ internal fun ModelSelection(
                         items(sortedModels, key = { it.id }) { model ->
                             ModelCard(
                                 model = model,
+                                isSelected = currentSelectedModel?.id == model.id,
                                 onClick = {
                                     onClick(model.id)
                                     expanded = false
@@ -198,7 +199,7 @@ private enum class ModelSortOption(
 }
 
 @Composable
-private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
+private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> Unit) {
     val displayName = model.displayName?.takeIf { it.isNotBlank() && it != model.id }
     val title = displayName ?: model.id
     val secondary = if (displayName == null && model.subtitle.isNotBlank()) model.subtitle else null
@@ -210,6 +211,11 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
     Card(
         modifier = Modifier.handCursor().clip(CardDefaults.shape).clickable { onClick() },
         shape = CardDefaults.shape,
+        colors = if (isSelected) {
+            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+        } else {
+            CardDefaults.cardColors()
+        },
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -220,7 +226,11 @@ private fun ModelCard(model: SettingsModel, onClick: () -> Unit) {
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = if (isSelected) {
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.onBackground
+                    },
                     modifier = Modifier.weight(1f),
                 )
                 model.arenaScore?.let { score ->
