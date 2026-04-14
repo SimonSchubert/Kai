@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.ui.settings
 
 import app.cash.turbine.test
+import com.inspiredandroid.kai.CommandHandle
+import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.testutil.FakeDataRepository
@@ -49,6 +51,12 @@ class SandboxViewModelTest {
         }
 
         override suspend fun executeCommand(command: String): String = ""
+
+        override suspend fun executeCommandStreaming(
+            command: String,
+            onStdout: (String) -> Unit,
+            onStderr: (String) -> Unit,
+        ): CommandHandle = NoOpCommandHandle
     }
 
     @BeforeTest
