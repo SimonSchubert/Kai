@@ -22,17 +22,18 @@ enum class DevicePerformance {
 }
 
 fun estimateGpuMemoryMb(model: LocalModel, contextTokens: Int): Int {
+    val modelFileMb = (model.sizeBytes / (1024 * 1024)).toInt()
     val extraTokens = contextTokens - model.defaultContextTokens
     val extraMemoryMb = (extraTokens.toLong() * model.kvPerTokenBytes) / (1024 * 1024)
-    return model.gpuMemoryMb + extraMemoryMb.toInt()
+    return modelFileMb + model.gpuMemoryMb + extraMemoryMb.toInt()
 }
 
 fun calculateDevicePerformance(totalMemoryBytes: Long, estimatedGpuMemoryMb: Int): DevicePerformance {
     val gpuMemoryBytes = estimatedGpuMemoryMb.toLong() * 1024 * 1024
     val ratio = totalMemoryBytes.toDouble() / gpuMemoryBytes
     return when {
-        ratio >= 3.0 -> DevicePerformance.GOOD
-        ratio >= 1.5 -> DevicePerformance.OK
+        ratio >= 2.5 -> DevicePerformance.GOOD
+        ratio >= 1.85 -> DevicePerformance.OK
         else -> DevicePerformance.POOR
     }
 }

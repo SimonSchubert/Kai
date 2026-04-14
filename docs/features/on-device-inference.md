@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-04-11
+**Last verified:** 2026-04-14
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -49,7 +49,7 @@ Users manage models through the LiteRT service card in Settings:
 - **Cancel** -- active downloads can be cancelled
 - **Error display** -- download failures (network, disk space, incomplete) are shown inline in the settings UI
 - **Context size slider** -- each model has a slider to adjust context size (4K–32K tokens in 1K steps); available before download so users can preview performance impact
-- **Performance indicator** -- each model shows a Good/OK/Poor label based on total device RAM vs estimated GPU memory at the selected context size (Good: RAM >= 3x, OK: >= 1.5x, Poor: < 1.5x); memory estimate scales linearly with context size via per-model KV cache cost
+- **Performance indicator** -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good >= 2.5x, OK >= 1.85x, Poor < 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead.
 - **Free space** -- available device storage is shown below the model list
 
 On Android, downloads run in a foreground service with a notification so they continue when the app is backgrounded. On Desktop, downloads run in a background coroutine.
