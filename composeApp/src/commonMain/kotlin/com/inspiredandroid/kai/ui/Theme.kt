@@ -73,6 +73,8 @@ fun KaiOutlinedTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = false,
+    minLines: Int = 1,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
 ) {
     OutlinedTextField(
         value = value,
@@ -85,6 +87,8 @@ fun KaiOutlinedTextField(
         trailingIcon = trailingIcon,
         visualTransformation = visualTransformation,
         singleLine = singleLine,
+        minLines = minLines,
+        maxLines = maxLines,
         shape = RoundedCornerShape(12.dp),
         colors = outlineTextFieldColors(),
     )

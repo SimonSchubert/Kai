@@ -330,9 +330,11 @@ internal fun HeartbeatSection(
             Spacer(Modifier.height(12.dp))
 
             KaiOutlinedTextField(
-                modifier = Modifier.fillMaxWidth().height(200.dp),
+                modifier = Modifier.fillMaxWidth(),
                 value = editedText,
                 onValueChange = { if (it.length <= maxChars) editedText = it },
+                minLines = 8,
+                maxLines = 8,
                 label = {
                     Text(
                         stringResource(Res.string.settings_heartbeat_prompt_label),
