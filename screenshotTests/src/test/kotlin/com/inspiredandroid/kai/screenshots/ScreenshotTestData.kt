@@ -24,7 +24,7 @@ import kotlinx.serialization.json.jsonPrimitive
 
 object ScreenshotTestData {
 
-    private val noOpChatActions = ChatActions(
+    val noOpChatActions = ChatActions(
         ask = {},
         toggleSpeechOutput = {},
         retry = {},

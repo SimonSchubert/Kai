@@ -28,7 +28,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 
-private val MODEL_CATALOG = listOf(
+val MODEL_CATALOG = listOf(
     LocalModel(
         id = "gemma-4-e2b-it",
         displayName = "Gemma 4 E2B IT",

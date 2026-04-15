@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private | Kai</title>
+  <meta name="description" content="Run Google Gemma 4 (E2B / E4B) locally on Android, macOS, Windows, or Linux with Kai. Fully offline, private, no API key, no cost. Step-by-step guide.">
+  <link rel="canonical" href="https://kai9000.com/run-gemma-locally/">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta property="og:title" content="Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private">
+  <meta property="og:description" content="Step-by-step guide to running Google Gemma 4 locally on your phone or desktop with Kai. Offline, private, free, no API key.">
+  <meta property="og:image" content="https://kai9000.com/img/og-preview.png">
+  <meta property="og:url" content="https://kai9000.com/run-gemma-locally/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kai 9000">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private">
+  <meta name="twitter:description" content="Step-by-step guide to running Google Gemma 4 locally on your phone or desktop with Kai. Offline, private, free, no API key.">
+  <meta name="twitter:image" content="https://kai9000.com/img/og-preview.png">
+  <link rel="icon" href="../img/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../img/icon.svg">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Kai 9000",
+    "description": "An open-source AI assistant that runs Google Gemma 4 locally on Android, macOS, Windows, and Linux. Fully offline, private, no API key.",
+    "url": "https://kai9000.com",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Android, Windows, macOS, Linux",
+    "featureList": [
+      "On-device Gemma 4 E2B and E4B inference via Google LiteRT LM",
+      "Fully offline chat with no API key required",
+      "GPU-first inference with CPU fallback",
+      "Adjustable 4K\u201332K token context window",
+      "Persistent memory across conversations"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Simon Schubert"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to run Gemma 4 locally with Kai",
+    "description": "Download and run Google Gemma 4 E2B or E4B fully on-device with the open-source Kai assistant on Android, macOS, Windows, or Linux.",
+    "totalTime": "PT10M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "0"
+    },
+    "supply": [
+      { "@type": "HowToSupply", "name": "Android phone or desktop computer with at least 6 GB RAM" },
+      { "@type": "HowToSupply", "name": "Around 4 GB of free disk space for the model weights" },
+      { "@type": "HowToSupply", "name": "Internet connection (only required to download the model)" }
+    ],
+    "tool": [
+      { "@type": "HowToTool", "name": "Kai 9000 app" }
+    ],
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Install Kai",
+        "text": "Install Kai on Android, macOS, Windows, or Linux. Kai is free and open-source.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-1"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Open Settings and tap Add Service",
+        "text": "Open Kai's Settings, go to the Services tab and tap Add Service. Pick Local Model from the list — Kai will set up an on-device LiteRT service for you.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-2",
+        "image": "https://kai9000.com/img/gemma-local-settings.png"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Choose Gemma 4 E2B or E4B",
+        "text": "Pick Gemma 4 E2B IT (2.58 GB, lighter, faster) or Gemma 4 E4B IT (3.65 GB, higher quality). Kai shows a Good / OK / Poor performance indicator based on your device's RAM.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-3",
+        "image": "https://kai9000.com/img/gemma-local-model-card.png"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 4,
+        "name": "Adjust the context size",
+        "text": "Use the context slider to pick anywhere between 4K and 32K tokens. Larger contexts use more memory.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-4",
+        "image": "https://kai9000.com/img/gemma-local-context-slider.png"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 5,
+        "name": "Download the model",
+        "text": "Tap Download. The model is fetched from HuggingFace's litert-community. On Android, the download continues in a foreground notification if you leave the app.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-5",
+        "image": "https://kai9000.com/img/gemma-local-download.png"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 6,
+        "name": "Select the active model",
+        "text": "Once downloaded, tap the radio button to make Gemma 4 your active on-device model.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-6",
+        "image": "https://kai9000.com/img/gemma-local-select.png"
+      },
+      {
+        "@type": "HowToStep",
+        "position": 7,
+        "name": "Start chatting offline",
+        "text": "Open a chat and send a message. The engine initializes in about 10 seconds on first use, runs on GPU with CPU fallback, and automatically releases after 5 minutes of inactivity.",
+        "url": "https://kai9000.com/run-gemma-locally/#step-7",
+        "image": "https://kai9000.com/img/gemma-local-chat.png"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Gemma 4 free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Google releases Gemma 4 under an open license and Kai is free and open-source. No subscription, no API key, no cloud account."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Gemma 4 work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Once the model is downloaded, inference runs fully on-device. You can use Kai with Gemma 4 in airplane mode."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which devices can run Gemma 4 locally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Android phones and macOS, Windows, or Linux desktops. On-device Gemma 4 is not available on iOS or in the browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much RAM do I need to run Gemma 4 locally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kai shows a Good / OK / Poor performance indicator per model. As a rule of thumb, Gemma 4 E2B (2.58 GB) runs well from around 6 GB of RAM and Gemma 4 E4B (3.65 GB) prefers 8 GB or more. The indicator takes your chosen context size into account before you download."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data private when using Gemma 4 locally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. With on-device Gemma 4 your messages never leave the device. Model weights are stored locally and Kai's encrypted conversation storage applies as with any other service."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="page-nav">
+    <a href="/">&larr; Kai 9000</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner hero-inner-stacked">
+      <div class="hero-text hero-text-centered">
+        <h1>Run Gemma 4 Locally on Your Phone or Desktop</h1>
+        <p class="tagline">Google Gemma 4, fully offline, fully private — with Kai.</p>
+        <p class="sub">Kai runs Google's Gemma 4 E2B and E4B models directly on your device using the LiteRT LM SDK. No API key, no cloud account, no monthly bill. Works on Android, macOS, Windows, and Linux.</p>
+        <div class="hero-badges">
+          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.png" alt="Download on the App Store"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.png" alt="Get it on Google Play"></a>
+          <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.png" alt="Get it on F-Droid"></a>
+          <a href="/app/"><img src="../img/web_badge.png" alt="Use the Web App"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why -->
+  <section id="why">
+    <div class="container">
+      <h2 class="section-title fade-in">Why run Gemma 4 locally?</h2>
+      <p class="section-desc fade-in">Four reasons to run Google Gemma 4 on your own device instead of a cloud API.</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f512;</span>
+          <h3>Fully private</h3>
+          <p>Your messages never leave the device. No prompts are sent to Google, OpenAI, or anyone else — not even to Kai.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x2708;&#xfe0f;</span>
+          <h3>Works offline</h3>
+          <p>Once Gemma 4 is downloaded, inference runs entirely on-device. Use it on a plane, in a tunnel, or anywhere without signal.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f4b8;</span>
+          <h3>Free forever</h3>
+          <p>Google's Gemma 4 is free. Kai is free and open-source. No subscription, no per-token billing, no credit card.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f511;</span>
+          <h3>No API key</h3>
+          <p>Install, download a model, chat. No signup, no keys to rotate, no account to manage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models -->
+  <section id="models">
+    <div class="container">
+      <h2 class="section-title fade-in">Supported platforms and models</h2>
+      <p class="section-desc fade-in">Kai runs Google Gemma 4 on-device on Android and desktop. iOS and the web build are not supported for on-device inference.</p>
+      <div class="models-table-wrapper fade-in">
+        <table class="models-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Size</th>
+              <th>Default context</th>
+              <th>Max context</th>
+              <th>Best for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gemma 4 E2B IT</td>
+              <td>2.58 GB</td>
+              <td>4K tokens</td>
+              <td>32K tokens</td>
+              <td>Most phones and laptops — lighter, faster, lower RAM.</td>
+            </tr>
+            <tr>
+              <td>Gemma 4 E4B IT</td>
+              <td>3.65 GB</td>
+              <td>4K tokens</td>
+              <td>32K tokens</td>
+              <td>Better quality when you have 8 GB+ RAM to spare.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-note fade-in">Both models are <code>.litertlm</code> files from the <a href="https://huggingface.co/litert-community">litert-community</a> organization on HuggingFace. GPU-first inference with automatic CPU fallback. The engine initializes in about 10 seconds on first use and automatically releases memory after 5 minutes of inactivity.</p>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section id="how-to">
+    <div class="container">
+      <h2 class="section-title fade-in">How to run Gemma 4 locally with Kai</h2>
+      <p class="section-desc fade-in">Seven steps, about ten minutes including the model download.</p>
+
+      <article class="howto-step fade-in" id="step-1">
+        <h3>1. Install Kai</h3>
+        <p>Kai is available on Android (Google Play, F-Droid), desktop (macOS via Homebrew, Windows via Winget, Arch Linux via AUR), and as a downloadable release on GitHub. iOS users can install the app, but on-device Gemma 4 is not yet supported on iPhone — see <a href="#what-works">platform limits</a> below.</p>
+        <p><a href="/#download">See all download options &rarr;</a></p>
+      </article>
+
+      <article class="howto-step fade-in" id="step-2">
+        <h3>2. Open Settings and tap Add Service</h3>
+        <p>Open Kai, go to Settings &rarr; Services, and tap <strong>Add Service</strong>. In the list that slides up, pick <strong>Local Model</strong> — it's pinned to the top next to OpenAI-Compatible API. Kai will set up an on-device service that runs Gemma 4 via Google's LiteRT SDK.</p>
+        <img src="../img/gemma-local-settings.png" alt="Kai Add Service bottom sheet with Local Model (LiteRT) at the top of the provider list" loading="lazy">
+      </article>
+
+      <article class="howto-step fade-in" id="step-3">
+        <h3>3. Pick a Gemma 4 model</h3>
+        <p>You'll see two models: <strong>Gemma 4 E2B IT</strong> (2.58 GB) and <strong>Gemma 4 E4B IT</strong> (3.65 GB). Kai shows a Good / OK / Poor label on each one based on your device's RAM and the context size you pick. If your phone has 6 GB of RAM, start with E2B. On an 8 GB+ machine, E4B's quality is usually worth the extra memory.</p>
+        <img src="../img/gemma-local-model-card.png" alt="LiteRT settings card showing Gemma 4 E2B and E4B with size and download buttons" loading="lazy">
+      </article>
+
+      <article class="howto-step fade-in" id="step-4">
+        <h3>4. Adjust the context size (optional)</h3>
+        <p>Each model has a slider to set the context window from 4K to 32K tokens in 1K steps. Bigger is not always better — larger contexts use more GPU memory and push the performance indicator toward OK or Poor. The slider is available before you download, so you can preview the memory impact first.</p>
+        <img src="../img/gemma-local-context-slider.png" alt="Context size slider ranging from 4K to 32K tokens with a performance indicator" loading="lazy">
+      </article>
+
+      <article class="howto-step fade-in" id="step-5">
+        <h3>5. Download the model</h3>
+        <p>Tap Download. Kai validates that there's enough disk space first, then streams the model from HuggingFace's <a href="https://huggingface.co/litert-community">litert-community</a> repo. On Android, downloads continue in a foreground notification if you leave the app. On desktop, downloads run in the background and you'll see progress in the settings card.</p>
+        <img src="../img/gemma-local-download.png" alt="Gemma 4 model downloading with a progress percentage" loading="lazy">
+      </article>
+
+      <article class="howto-step fade-in" id="step-6">
+        <h3>6. Select it as the active model</h3>
+        <p>Once the download finishes, tap the radio button next to the model to make it the active on-device model for new chats.</p>
+        <img src="../img/gemma-local-select.png" alt="Gemma 4 model card with the active-model radio button selected" loading="lazy">
+      </article>
+
+      <article class="howto-step fade-in" id="step-7">
+        <h3>7. Start chatting — fully offline</h3>
+        <p>Open a new chat and send a message. The first message triggers engine initialization (~10 seconds) — you'll see an "Initializing Gemma 4" pulse. After that, replies stream directly from your GPU, with automatic CPU fallback if the GPU backend isn't available. The engine stays warm for 5 minutes of inactivity and then releases memory automatically.</p>
+        <img src="../img/gemma-local-chat.png" alt="Kai chat running Gemma 4 locally with a streaming response" loading="lazy">
+      </article>
+    </div>
+  </section>
+
+  <!-- What works / what doesn't -->
+  <section id="what-works">
+    <div class="container">
+      <h2 class="section-title fade-in">What works on-device, what doesn't</h2>
+      <p class="section-desc fade-in">Gemma 4 E2B and E4B are small models (2&ndash;4B parameters). Kai deliberately limits the surface area of on-device runs so small models don't fail in confusing ways.</p>
+      <div class="split-grid">
+        <div class="split-card fade-in">
+          <h3>Works on-device</h3>
+          <ul>
+            <li>Text chat with persistent memory</li>
+            <li>Local time and IP-based location</li>
+            <li>Web search and opening URLs</li>
+            <li>Storing, forgetting, and reinforcing memories</li>
+            <li>Shell commands (if you've enabled the shell tool in Settings)</li>
+            <li>GPU inference with automatic CPU fallback</li>
+            <li>Context sizes from 4K to 32K tokens</li>
+          </ul>
+        </div>
+        <div class="split-card fade-in">
+          <h3>Requires a remote model</h3>
+          <ul>
+            <li>Image input (vision)</li>
+            <li>Interactive UI — the full-screen generative UI feature</li>
+            <li>MCP server tools</li>
+            <li>Scheduled tasks and email tools</li>
+            <li>Structured memory learning and heartbeat configuration</li>
+            <li>iOS and the web build — LiteRT ships Android and JVM only</li>
+          </ul>
+        </div>
+      </div>
+      <p class="section-note fade-in">If you need any of the remote-only features, configure a cloud provider (OpenAI, Gemini, Anthropic, Groq, Mistral, DeepSeek, xAI) alongside Gemma 4 — Kai's fallback chain will use Gemma 4 locally and fall back to a cloud model only when a feature requires it.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2 class="section-title fade-in">Gemma 4 local inference FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item fade-in">
+          <summary>Is Gemma 4 free?</summary>
+          <p>Yes. Google releases Gemma 4 under an open license and Kai is free and open-source. No subscription, no API key, no cloud account.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Does Gemma 4 work offline?</summary>
+          <p>Yes. Once the model is downloaded, inference runs fully on-device. You can use Kai with Gemma 4 in airplane mode.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Which devices can run Gemma 4 locally?</summary>
+          <p>Android phones and macOS, Windows, or Linux desktops. On-device Gemma 4 is not available on iOS or in the browser — the LiteRT LM SDK targets Android and the JVM.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>How much RAM do I need to run Gemma 4 locally?</summary>
+          <p>Kai shows a Good / OK / Poor performance indicator per model. As a rule of thumb, Gemma 4 E2B (2.58 GB) runs well from around 6 GB of RAM and Gemma 4 E4B (3.65 GB) prefers 8 GB or more. The indicator takes your chosen context size into account before you download.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Is my data private when using Gemma 4 locally?</summary>
+          <p>Yes. With on-device Gemma 4 your messages never leave the device. Model weights are stored locally and Kai's encrypted conversation storage applies as with any other service.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="download" id="get-kai">
+    <div class="container">
+      <h2 class="section-title fade-in">Get Kai and try Gemma 4 locally</h2>
+      <p class="section-desc fade-in">Free. Open-source. No account.</p>
+      <div class="badge-row fade-in">
+        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.png" alt="Download on the App Store"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.png" alt="Get it on Google Play"></a>
+        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.png" alt="Get it on F-Droid"></a>
+        <a href="/app/"><img src="../img/web_badge.png" alt="Use the Web App"></a>
+      </div>
+      <div class="cli-installs fade-in">
+        <div class="cli-card">
+          <div class="label">Homebrew (macOS)</div>
+          <code>brew install --cask simonschubert/tap/kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">Winget (Windows)</div>
+          <code>winget install SimonSchubert.Kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">AUR (Arch Linux)</div>
+          <code>yay -S kai-bin</code>
+        </div>
+      </div>
+      <div class="download-footer fade-in">
+        <a href="https://github.com/SimonSchubert/Kai/releases">All downloads on GitHub Releases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/docs/">Documentation</a>
+      <a href="https://github.com/SimonSchubert/Kai">GitHub</a>
+      <a href="https://github.com/SimonSchubert/Kai/releases">Releases</a>
+    </div>
+    <p class="note">Kai is open-source software. Built with Kotlin Multiplatform &amp; Compose Multiplatform. Gemma 4 is a trademark of Google LLC.</p>
+    <p class="impressum">Simon Schubert &middot; Parkstr. 43, 13585 Berlin &middot; simon@librem.one</p>
+  </footer>
+
+  <script>
+    const o = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => o.observe(el));
+  </script>
+</body>
+</html>

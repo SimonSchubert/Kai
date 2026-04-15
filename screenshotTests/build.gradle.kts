@@ -84,46 +84,47 @@ tasks.register("updateScreenshots") {
 
     doLast {
         val snapshotsDir = file("src/test/snapshots/images")
-        val readmeDir = rootProject.file("screenshots")
+        val readmeDir = rootProject.file("screenshots").also { it.mkdirs() }
+        val siteImgDir = rootProject.file("site/img")
 
-        // Ensure destination directories exist
-        readmeDir.mkdirs()
-
-        // Mapping for fastlane screenshots
-        val screenshotMapping =
+        // (source-key contains → destination file). Source-key is a substring of the
+        // Paparazzi filename; destination is the resolved path on disk.
+        val copies = buildList<Pair<String, java.io.File>> {
+            // Fastlane-style phone screenshots from ScreenshotTest → screenshots/
             mapOf(
-                "chatEmptyState_light" to "1.png",
-                "chatWithMessages_dark" to "2.png",
-                "chatWithDynamicUi_light" to "3.png",
-                "settingsFree_dark" to "4.png",
-                "settingsTools_light" to "5.png",
-                "settingsGeneral_dark" to "6.png",
-                "settingsSandbox_dark" to "7.png",
-            )
+                "ScreenshotTest_chatEmptyState_light" to "mobile-1.png",
+                "ScreenshotTest_chatWithMessages_dark" to "mobile-2.png",
+                "ScreenshotTest_chatWithDynamicUi_light" to "mobile-3.png",
+                "ScreenshotTest_settingsFree_dark" to "mobile-4.png",
+                "ScreenshotTest_settingsTools_light" to "mobile-5.png",
+                "ScreenshotTest_settingsGeneral_dark" to "mobile-6.png",
+                "ScreenshotTest_settingsSandbox_dark" to "mobile-7.png",
+            ).forEach { (k, v) -> add(k to readmeDir.resolve(v)) }
 
-        // Copy phone screenshots (from ScreenshotTest)
-        snapshotsDir.listFiles()?.filter { it.name.startsWith("com.inspiredandroid.kai.screenshots_ScreenshotTest_") }?.forEach { file ->
-            screenshotMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
-                file.copyTo(readmeDir.resolve("mobile-$destName"), overwrite = true)
-                println("Copied ${file.name} -> phoneScreenshots/0$destName")
-            }
+            // Hero carousel screenshots from KaiUiScreenshotTest → site/img/
+            mapOf(
+                "KaiUiScreenshotTest_scenario_survivalGame_dark" to "survival-dark.png",
+                "KaiUiScreenshotTest_scenario_recipeCard_light" to "recipe-light.png",
+                "KaiUiScreenshotTest_scenario_sustainableTech_light" to "ecopulse-light.png",
+                "KaiUiScreenshotTest_scenario_memories_dark" to "memories-dark.png",
+            ).forEach { (k, v) -> add(k to siteImgDir.resolve(v)) }
+
+            // /run-gemma-locally/ landing-page screenshots → site/img/
+            mapOf(
+                "GemmaLocalScreenshotTest_gemmaLocal_settings_dark" to "gemma-local-settings.png",
+                "GemmaLocalScreenshotTest_gemmaLocal_modelCard_dark" to "gemma-local-model-card.png",
+                "GemmaLocalScreenshotTest_gemmaLocal_contextSlider_dark" to "gemma-local-context-slider.png",
+                "GemmaLocalScreenshotTest_gemmaLocal_download_dark" to "gemma-local-download.png",
+                "GemmaLocalScreenshotTest_gemmaLocal_select_dark" to "gemma-local-select.png",
+                "GemmaLocalScreenshotTest_gemmaLocal_chat_dark" to "gemma-local-chat.png",
+            ).forEach { (k, v) -> add(k to siteImgDir.resolve(v)) }
         }
 
-        // Copy hero screenshots to site (from KaiUiScreenshotTest scenarios)
-        val siteImgDir = rootProject.file("site/img")
-        val siteMapping =
-            mapOf(
-                "scenario_survivalGame_dark" to "survival-dark.png",
-                "scenario_recipeCard_light" to "recipe-light.png",
-                "scenario_sustainableTech_light" to "ecopulse-light.png",
-                "scenario_memories_dark" to "memories-dark.png",
-            )
-        val prefix = "com.inspiredandroid.kai.screenshots_KaiUiScreenshotTest_"
-        snapshotsDir.listFiles()?.filter { it.name.startsWith(prefix) }?.forEach { file ->
-            siteMapping.entries.find { file.name.contains(it.key) }?.let { (_, destName) ->
-                file.copyTo(siteImgDir.resolve(destName), overwrite = true)
-                println("Copied ${file.name} -> site/img/$destName")
-            }
+        val files = snapshotsDir.listFiles() ?: emptyArray()
+        copies.forEach { (key, dest) ->
+            val match = files.firstOrNull { it.name.contains(key) } ?: return@forEach
+            match.copyTo(dest, overwrite = true)
+            println("Copied ${match.name} -> ${dest.relativeTo(rootProject.projectDir)}")
         }
     }
 }
