@@ -147,6 +147,13 @@ class SplinterlandsBattleRunner(
                         updateStatus(accountId) { it.copy(phase = BattlePhase.Finished, isRunning = false) }
                         return
                     }
+
+                    BattleOutcome.Fatal -> {
+                        updateStatus(accountId) {
+                            it.copy(phase = BattlePhase.Error, isRunning = false, errorMessage = result.errorMessage)
+                        }
+                        return
+                    }
                 }
                 consecutiveErrors = 0
 
@@ -250,7 +257,7 @@ class SplinterlandsBattleRunner(
             if (result["success"]?.jsonPrimitive?.content?.toBoolean() != true) {
                 val error = result["error"]?.jsonPrimitive?.content ?: ""
                 if ("energy" in error.lowercase()) return BattleResult(BattleOutcome.NoEnergy)
-                return BattleResult(BattleOutcome.Skip)
+                return BattleResult(BattleOutcome.Fatal, errorMessage = error.ifBlank { "Failed to queue for match" })
             }
 
             updatePhase(accountId, BattlePhase.WaitingForOpponent)
@@ -634,6 +641,7 @@ class SplinterlandsBattleRunner(
         Loss,
         Skip,
         NoEnergy,
+        Fatal,
     }
 
     private data class BattleResult(
@@ -642,5 +650,6 @@ class SplinterlandsBattleRunner(
         val mana: Int = 0,
         val rulesets: String = "",
         val battleId: String = "",
+        val errorMessage: String = "",
     )
 }
