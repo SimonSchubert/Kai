@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.handCursor
 import org.jetbrains.compose.resources.DrawableResource
@@ -21,10 +22,7 @@ internal fun SmallIconButton(
     contentDescription: String? = null,
     onClick: () -> Unit,
 ) {
-    Box(
-        modifier = Modifier.size(36.dp).clip(CircleShape).handCursor().clickable { onClick() },
-        contentAlignment = Alignment.Center,
-    ) {
+    SmallIconButtonBox(onClick) {
         Icon(
             modifier = Modifier.size(20.dp),
             painter = painterResource(iconResource),
@@ -32,4 +30,28 @@ internal fun SmallIconButton(
             tint = MaterialTheme.colorScheme.onBackground,
         )
     }
+}
+
+@Composable
+internal fun SmallIconButton(
+    imageVector: ImageVector,
+    contentDescription: String? = null,
+    onClick: () -> Unit,
+) {
+    SmallIconButtonBox(onClick) {
+        Icon(
+            modifier = Modifier.size(20.dp),
+            imageVector = imageVector,
+            contentDescription = contentDescription,
+            tint = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+}
+
+@Composable
+private fun SmallIconButtonBox(onClick: () -> Unit, content: @Composable () -> Unit) {
+    Box(
+        modifier = Modifier.size(36.dp).clip(CircleShape).handCursor().clickable { onClick() },
+        contentAlignment = Alignment.Center,
+    ) { content() }
 }

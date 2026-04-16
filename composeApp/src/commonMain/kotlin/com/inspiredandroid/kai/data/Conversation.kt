@@ -36,6 +36,7 @@ data class Conversation(
         val role: String,
         val content: String,
         val attachments: List<Attachment> = emptyList(),
+        val uiSubmission: UiSubmission? = null,
         // Legacy single-file fields — retained for reading old persisted conversations.
         // New code writes only `attachments`; these remain null on newly saved messages.
         val mimeType: String? = null,
@@ -43,6 +44,20 @@ data class Conversation(
         val fileName: String? = null,
     )
 }
+
+/**
+ * Snapshot of a kai-ui form the user submitted. Attached to the resulting User message so
+ * the bubble renders as a frozen form (with the values the user picked) instead of the
+ * cryptic "Responded with: ..." text. `sourceContent` holds the assistant message body that
+ * originated the form — it's re-parsed at render time.
+ */
+@Immutable
+@Serializable
+data class UiSubmission(
+    val sourceContent: String,
+    val values: Map<String, String> = emptyMap(),
+    val pressedEvent: String? = null,
+)
 
 @Serializable
 data class ConversationsData(

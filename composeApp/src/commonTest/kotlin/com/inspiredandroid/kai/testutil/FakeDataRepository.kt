@@ -179,13 +179,13 @@ class FakeDataRepository : DataRepository {
         instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }.value = models
     }
 
-    override suspend fun ask(question: String?, files: List<PlatformFile>) {
+    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: com.inspiredandroid.kai.data.UiSubmission?) {
         askCalls.add(question to files)
         askGate?.await()
         askException?.let { throw it }
         if (question != null) {
             chatHistory.update { history ->
-                history + History(role = History.Role.USER, content = question)
+                history + History(role = History.Role.USER, content = question, uiSubmission = uiSubmission)
             }
         }
         chatHistory.update { history ->
@@ -257,6 +257,13 @@ class FakeDataRepository : DataRepository {
         chatHistory.update { history ->
             val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
             if (lastUserIndex >= 0) history.subList(0, lastUserIndex) else history
+        }
+    }
+
+    override fun truncateFrom(messageId: String) {
+        chatHistory.update { history ->
+            val index = history.indexOfFirst { it.id == messageId }
+            if (index >= 0) history.subList(0, index) else history
         }
     }
 

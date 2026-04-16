@@ -5,8 +5,6 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -80,25 +78,24 @@ import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
-import com.inspiredandroid.kai.stripMarkdownForTts
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
 import com.inspiredandroid.kai.ui.chat.composables.ChatHistorySheet
 import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
-import com.inspiredandroid.kai.ui.chat.composables.PulsingStatusIndicator
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.ServiceSelector
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.TrailingIcon
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
-import com.inspiredandroid.kai.ui.chat.composables.toolSummaryText
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
+import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
+import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
@@ -176,7 +173,6 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
         if (hasAssistantResponse) inputExpanded = false
     }
     val showFullInput = inputExpanded && !uiState.isLoading
-    val executingToolsState = rememberExecutingTools(uiState.history)
 
     Box(
         Modifier
@@ -193,9 +189,6 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                 onExit = uiState.actions.exitInteractiveMode,
                 isLoading = uiState.isLoading,
                 showBack = hasAssistantResponse,
-                showPulse = uiState.isLoading && hasAssistantResponse,
-                executingTools = executingToolsState.tools,
-                isStatusOnly = executingToolsState.isStatusOnly,
             )
 
             Box(
@@ -307,9 +300,6 @@ private fun InteractiveModeTopBar(
     onExit: () -> Unit,
     isLoading: Boolean,
     showBack: Boolean,
-    showPulse: Boolean,
-    executingTools: ImmutableList<Pair<String, String>>,
-    isStatusOnly: Boolean = false,
 ) {
     val iconColor = MaterialTheme.colorScheme.onSurface
 
@@ -335,27 +325,11 @@ private fun InteractiveModeTopBar(
             Spacer(Modifier.size(48.dp))
         }
         Spacer(Modifier.weight(1f))
-        Crossfade(
-            targetState = showPulse,
-            animationSpec = tween(durationMillis = 300),
-        ) { pulsing ->
-            if (pulsing) {
-                val summary = toolSummaryText(executingTools)
-                PulsingStatusIndicator(
-                    toolSummary = summary,
-                    dotSize = 10.dp,
-                    dotColor = MaterialTheme.colorScheme.onSurface,
-                    textColor = MaterialTheme.colorScheme.onSurface,
-                    textStyle = MaterialTheme.typography.titleMedium,
-                )
-            } else {
-                Text(
-                    text = stringResource(Res.string.interactive_title),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-            }
-        }
+        Text(
+            text = stringResource(Res.string.interactive_title),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+        )
         Spacer(Modifier.weight(1f))
         IconButton(
             onClick = onExit,
@@ -376,9 +350,7 @@ private fun InteractiveModeContent(
     modifier: Modifier = Modifier,
     bottomPadding: androidx.compose.ui.unit.Dp = 0.dp,
 ) {
-    val lastAssistant = remember(uiState.history) {
-        uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
-    }
+    val lastAssistant = remember(uiState.history) { uiState.history.lastRenderedAssistant() }
 
     Box(modifier.fillMaxWidth()) {
         if (uiState.isLoading && lastAssistant == null) {
@@ -580,7 +552,7 @@ private fun ChatModeScreen(
                                         textToSpeech?.stop()
                                         uiState.actions.setIsSpeaking(true, lastMessage.id)
                                         try {
-                                            textToSpeech?.say(lastMessage.content.stripMarkdownForTts())
+                                            textToSpeech?.say(lastMessage.content.toSpeakableText())
                                         } catch (_: TextToSpeechSynthesisInterruptedError) {
                                             // Speech was interrupted by user
                                         } catch (_: Exception) {
@@ -593,12 +565,22 @@ private fun ChatModeScreen(
                             }
                         }
 
-                        val lastAssistantId = remember(uiState.history, uiState.isLoading) {
-                            if (uiState.isLoading) {
-                                null
-                            } else {
-                                uiState.history.lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }?.id
-                            }
+                        val lastAssistantId = remember(uiState.history) { uiState.history.lastRenderedAssistant()?.id }
+                        val lastUserId = remember(uiState.history) {
+                            uiState.history.lastOrNull { it.role == History.Role.USER }?.id
+                        }
+                        // Freeze the bot's kai-ui in place while a submission is pending so the
+                        // layout doesn't shift on click. The user's SubmittedUiMessage is skipped
+                        // below to avoid rendering the same buttons twice.
+                        val pendingFrozen = remember(uiState.history, uiState.isLoading) {
+                            if (!uiState.isLoading) return@remember null
+                            val lastUser = uiState.history.lastOrNull { it.role == History.Role.USER }
+                            val submission = lastUser?.uiSubmission ?: return@remember null
+                            FrozenSubmission(
+                                values = submission.values,
+                                pressedEvent = submission.pressedEvent,
+                                isPending = true,
+                            )
                         }
                         val executingToolsState = rememberExecutingTools(uiState.history)
 
@@ -617,10 +599,24 @@ private fun ChatModeScreen(
                             ) {
                                 items(uiState.history, key = { it.id }, contentType = { it.role }) { history ->
                                     when (history.role) {
-                                        History.Role.USER -> UserMessage(
-                                            message = history.content,
-                                            attachments = history.attachments,
-                                        )
+                                        History.Role.USER -> {
+                                            val isLastUser = history.id == lastUserId
+                                            // When the bot card above is showing the pending frozen state,
+                                            // skip this user entry — otherwise the buttons render twice.
+                                            if (!(isLastUser && pendingFrozen != null)) {
+                                                UserMessage(
+                                                    message = history.content,
+                                                    attachments = history.attachments,
+                                                    uiSubmission = history.uiSubmission,
+                                                    isPendingSubmission = uiState.isLoading && isLastUser,
+                                                    onResubmit = if (history.uiSubmission != null && !uiState.isLoading) {
+                                                        { event, data -> uiState.actions.resubmit(history.id, event, data) }
+                                                    } else {
+                                                        null
+                                                    },
+                                                )
+                                            }
+                                        }
 
                                         History.Role.ASSISTANT -> {
                                             // Skip thinking messages unless it's the last assistant message
@@ -639,6 +635,7 @@ private fun ChatModeScreen(
                                                     onUiCallback = { event, data ->
                                                         uiState.actions.submitUiCallback(event, data)
                                                     },
+                                                    pendingFrozen = if (isLastAssistant) pendingFrozen else null,
                                                 )
                                                 if (history.fallbackServiceName != null) {
                                                     androidx.compose.material3.Text(
@@ -660,7 +657,12 @@ private fun ChatModeScreen(
                                         }
                                     }
                                 }
-                                if (uiState.isLoading) {
+                                // Skip the generic "thinking" row during a pending kai-ui submission — the
+                                // pressed button's pulse already signals work in flight. Keep it for tool
+                                // activity so tool feedback isn't lost.
+                                val showWaitingRow = uiState.isLoading &&
+                                    (pendingFrozen == null || executingToolsState.tools.isNotEmpty())
+                                if (showWaitingRow) {
                                     item(key = "loading") {
                                         WaitingResponseRow(
                                             executingTools = executingToolsState.tools,

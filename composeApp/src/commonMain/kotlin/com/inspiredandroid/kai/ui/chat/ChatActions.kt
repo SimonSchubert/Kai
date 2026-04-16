@@ -22,6 +22,7 @@ data class ChatActions(
     val clearSnackbar: () -> Unit,
     val undoDeleteConversation: () -> Unit,
     val submitUiCallback: (event: String, data: Map<String, String>) -> Unit,
+    val resubmit: (messageId: String, event: String, data: Map<String, String>) -> Unit,
     val enterInteractiveMode: () -> Unit,
     val exitInteractiveMode: () -> Unit,
     val goBackInteractiveMode: () -> Unit,

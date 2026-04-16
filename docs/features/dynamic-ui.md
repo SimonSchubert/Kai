@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-15
+**Last verified:** 2026-04-16
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -31,7 +31,9 @@ Buttons carry an action that fires on click (chip groups are form inputs, not ac
 
 ### Interaction Flow
 
-When a callback fires, the renderer collects input values and formats them as a `[UI Interaction]` user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls.
+When a callback fires, the renderer collects input values and formats them as a `[UI Interaction]` user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button shows an inline circular spinner in place of its label; other buttons in the same layout become disabled.
+
+The resulting user message in the chat renders as a **frozen snapshot** of the form the user just submitted — the originating kai-ui is re-rendered non-interactively with the submitted values injected into the form fields, instead of showing a cryptic "Responded with: key: value" text. The text form is still what the AI receives; only the UI rendering changes. Snapshots are persisted with the conversation, so reloading a saved conversation preserves them. Messages saved before this feature shipped (or plain text submissions without an originating kai-ui) fall back to the normal text bubble.
 
 ### Layout Lifecycle
 
@@ -39,7 +41,7 @@ Only the latest assistant message's layouts are interactive. Older layouts becom
 
 ### Error Handling
 
-Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, `"key="` typos), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in `children` or `items` are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips `kai-ui` blocks entirely.
+Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, `"key="` typos, and missing closing braces between sibling objects in an array — e.g. when the LLM writes `,{` where a key was expected), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in `children` or `items` are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips `kai-ui` blocks entirely.
 
 ### Settings
 

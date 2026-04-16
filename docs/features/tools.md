@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-15
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -201,7 +201,7 @@ Only individually toggleable tools appear in the grid — always-on tools (memor
 
 ### Shared pulsing status indicator
 
-Both the standard chat and the interactive mode use a shared `PulsingStatusIndicator` composable that shows:
+The standard chat uses a `PulsingStatusIndicator` composable that shows:
 - A pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation)
 - Cycling status text ("Thinking…", "Working…", "Brewing…" rotating every 3 seconds with AnimatedContent fade)
 - An optional inline tool summary separated by " · ":
@@ -209,15 +209,18 @@ Both the standard chat and the interactive mode use a shared `PulsingStatusIndic
   - **Multiple tools executing**: shows a grouped count (e.g., "Working… · 2 Tools")
   - **No tools**: shows only the cycling status text
 
-The indicator accepts styling parameters (dot size, colors, text style) so it adapts to both contexts.
+The indicator accepts styling parameters (dot size, colors, text style).
 
 ### Waiting response row (standard chat)
 
 When loading, a chip appears at the bottom of the chat list containing the `PulsingStatusIndicator` with surface variant colors, a 16dp dot, and `bodyMedium` text style. The chip uses `animateContentSize` (300ms) for smooth text transitions.
 
-### Interactive mode top bar
+### Interactive mode loading feedback
 
-When loading and an assistant response exists, the top bar center replaces the title with the `PulsingStatusIndicator` using `onSurface` colors, a 10dp dot, and `titleMedium` text style. A `Crossfade` (300ms) animates the transition between the title and the indicator.
+The interactive-mode top bar shows only the static title — loading is surfaced closer to the user's point of action instead:
+- **Clicking a kai-ui action button**: the clicked button shows an inline circular spinner in place of its label until the response arrives; other buttons become disabled.
+- **First load** (no assistant response yet): a centered waiting row is shown.
+- **Typed-and-sent input**: the trailing send icon swaps to a stop icon in the input, as in standard chat.
 
 ### Common behavior
 

@@ -38,7 +38,7 @@ interface DataRepository {
     fun clearInstanceModels(instanceId: String, service: Service)
     suspend fun validateConnection(service: Service, instanceId: String)
 
-    suspend fun ask(question: String?, files: List<PlatformFile>)
+    suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission? = null)
     fun clearHistory()
     fun currentService(): Service
     fun isUsingSharedKey(): Boolean
@@ -52,6 +52,7 @@ interface DataRepository {
     fun startNewChat()
     fun regenerate()
     fun popLastExchange()
+    fun truncateFrom(messageId: String)
     fun restoreCurrentConversation()
 
     // Tool management

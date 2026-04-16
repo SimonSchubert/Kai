@@ -6,6 +6,7 @@ import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.Attachment
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
+import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
@@ -100,6 +101,7 @@ data class History(
     val isThinking: Boolean = false,
     val isStatusMessage: Boolean = false,
     val fallbackServiceName: String? = null,
+    val uiSubmission: UiSubmission? = null,
 ) {
     enum class Role {
         USER,
@@ -108,6 +110,10 @@ data class History(
         TOOL,
     }
 }
+
+/** Latest assistant message that should render in the UI (non-empty content, not a thinking-only entry). */
+fun List<History>.lastRenderedAssistant(): History? =
+    lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
 
 @Immutable
 data class ToolCallInfo(

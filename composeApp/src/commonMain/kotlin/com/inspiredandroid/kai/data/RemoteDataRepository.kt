@@ -698,7 +698,7 @@ class RemoteDataRepository(
         }
     }
 
-    override suspend fun ask(question: String?, files: List<PlatformFile>) {
+    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
         // Process every attached file: classify, compress/encode, and build an Attachment.
         // readBytes() is suspend, so this happens before the StateFlow.update block.
         val attachments = files.map { file ->
@@ -748,6 +748,7 @@ class RemoteDataRepository(
                             role = History.Role.USER,
                             content = question,
                             attachments = attachments,
+                            uiSubmission = uiSubmission,
                         ),
                     )
                 }
@@ -1480,6 +1481,7 @@ class RemoteDataRepository(
                         },
                         content = h.content,
                         attachments = h.attachments,
+                        uiSubmission = h.uiSubmission,
                     )
                 },
             createdAt = existingConversation?.createdAt ?: now,
@@ -1545,6 +1547,7 @@ class RemoteDataRepository(
                 },
                 content = m.content,
                 attachments = attachments,
+                uiSubmission = m.uiSubmission,
             )
         }
     }
@@ -1577,6 +1580,13 @@ class RemoteDataRepository(
         chatHistory.update { history ->
             val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
             if (lastUserIndex >= 0) history.take(lastUserIndex) else history
+        }
+    }
+
+    override fun truncateFrom(messageId: String) {
+        chatHistory.update { history ->
+            val index = history.indexOfFirst { it.id == messageId }
+            if (index >= 0) history.take(index) else history
         }
     }
 

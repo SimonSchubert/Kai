@@ -21,9 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
-import com.inspiredandroid.kai.stripMarkdownForTts
+import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
+import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.components.MarkdownComponent
 import com.mikepenz.markdown.compose.components.markdownComponents
@@ -57,11 +58,13 @@ internal fun BotMessage(
     onRegenerate: (() -> Unit)? = null,
     isInteractive: Boolean = false,
     onUiCallback: ((event: String, data: Map<String, String>) -> Unit)? = null,
+    pendingFrozen: FrozenSubmission? = null,
 ) {
     val hasUiBlocks = remember(message) { KaiUiParser.containsUiBlocks(message) }
 
-    if (hasUiBlocks && isInteractive) {
-        // Active UI: render interactive kai-ui blocks
+    if (hasUiBlocks && (isInteractive || pendingFrozen != null)) {
+        // Keep the card rendered while a submission is pending so the layout doesn't
+        // collapse; the frozen snapshot highlights and pulses the pressed button.
         val segments = remember(message) { KaiUiParser.parse(message) }
         SelectionContainer {
             androidx.compose.foundation.layout.Column(
@@ -70,125 +73,107 @@ internal fun BotMessage(
             ) {
                 for (segment in segments) {
                     when (segment) {
-                        is KaiUiParser.MarkdownSegment -> {
-                            val segmentState = rememberMarkdownState(segment.content, immediate = true)
-                            Markdown(
-                                segmentState,
-                                imageTransformer = Coil3ImageTransformerImpl,
-                                components = markdownComponents(
-                                    codeBlock = highlightedCodeBlock,
-                                    codeFence = highlightedCodeFence,
-                                ),
-                                typography = smallerMarkdownTypography(),
-                            )
-                        }
+                        is KaiUiParser.MarkdownSegment -> MarkdownContent(segment.content)
 
-                        is KaiUiParser.UiSegment -> {
-                            KaiUiRenderer(
-                                node = segment.node,
-                                isInteractive = true,
-                                onCallback = onUiCallback ?: { _, _ -> },
-                                modifier = Modifier.padding(vertical = 8.dp),
-                            )
-                        }
+                        is KaiUiParser.UiSegment -> KaiUiRenderer(
+                            node = segment.node,
+                            isInteractive = isInteractive,
+                            onCallback = onUiCallback ?: { _, _ -> },
+                            frozen = pendingFrozen,
+                            modifier = Modifier.padding(vertical = 8.dp),
+                        )
 
-                        is KaiUiParser.ErrorSegment -> {
-                            val errorState = rememberMarkdownState("```json\n${segment.rawJson}\n```", immediate = true)
-                            Markdown(
-                                errorState,
-                                imageTransformer = Coil3ImageTransformerImpl,
-                                components = markdownComponents(
-                                    codeBlock = highlightedCodeBlock,
-                                    codeFence = highlightedCodeFence,
-                                ),
-                                typography = smallerMarkdownTypography(),
-                            )
-                        }
+                        is KaiUiParser.ErrorSegment -> MarkdownContent("```json\n${segment.rawJson}\n```")
                     }
                 }
             }
         }
     } else {
-        // No UI blocks, or answered (non-interactive): render as plain markdown, stripping kai-ui fences
         val displayMessage = if (hasUiBlocks) {
             remember(message) { KaiUiParser.stripUiBlocks(message) }
         } else {
             message
         }
-        val markdownState = rememberMarkdownState(displayMessage, immediate = true)
         SelectionContainer {
-            Markdown(
-                markdownState,
-                imageTransformer = Coil3ImageTransformerImpl,
-                components = markdownComponents(
-                    codeBlock = highlightedCodeBlock,
-                    codeFence = highlightedCodeFence,
-                ),
-                typography = smallerMarkdownTypography(),
+            MarkdownContent(
+                displayMessage,
                 modifier = Modifier.fillMaxWidth()
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
             )
         }
     }
-    if (!hasUiBlocks) {
-        Row(Modifier.padding(horizontal = 8.dp)) {
-            if (textToSpeech != null) {
-                val componentScope = rememberCoroutineScope()
-                SmallIconButton( // This is now imported from the composables directory
-                    iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
-                    contentDescription = stringResource(Res.string.bot_message_speech_content_description),
-                    onClick = {
-                        componentScope.launch(getBackgroundDispatcher()) {
-                            textToSpeech.stop()
-                            if (isSpeaking) {
-                                setIsSpeaking(false)
-                            } else {
-                                setIsSpeaking(true)
-                                try {
-                                    textToSpeech.say(
-                                        text = message.stripMarkdownForTts(),
-                                    )
-                                } catch (ignore: TextToSpeechSynthesisInterruptedError) {
-                                    // Expected interruption - no action needed
-                                } catch (e: Exception) {
-                                    // Handle TTS errors gracefully (service failure, audio issues, etc.)
-                                }
-                                setIsSpeaking(false)
-                            }
-                        }
-                    },
-                )
-            }
-            val clipboardManager = LocalClipboardManager.current
+    Row(Modifier.padding(horizontal = 8.dp)) {
+        if (textToSpeech != null) {
+            val componentScope = rememberCoroutineScope()
             SmallIconButton(
-                iconResource = Res.drawable.ic_copy,
-                contentDescription = stringResource(Res.string.bot_message_copy_content_description),
+                iconResource = if (isSpeaking) Res.drawable.ic_stop else Res.drawable.ic_volume_up,
+                contentDescription = stringResource(Res.string.bot_message_speech_content_description),
                 onClick = {
-                    clipboardManager.setText(
-                        buildAnnotatedString { append(message) },
-                    )
+                    componentScope.launch(getBackgroundDispatcher()) {
+                        textToSpeech.stop()
+                        if (isSpeaking) {
+                            setIsSpeaking(false)
+                        } else {
+                            setIsSpeaking(true)
+                            try {
+                                textToSpeech.say(text = message.toSpeakableText())
+                            } catch (ignore: TextToSpeechSynthesisInterruptedError) {
+                                // Expected interruption - no action needed
+                            } catch (e: Exception) {
+                                // Handle TTS errors gracefully (service failure, audio issues, etc.)
+                            }
+                            setIsSpeaking(false)
+                        }
+                    }
                 },
             )
-            run {
-                val uriHandler = LocalUriHandler.current
-                SmallIconButton(
-                    iconResource = Res.drawable.ic_flag,
-                    contentDescription = stringResource(Res.string.bot_message_flag_content_description),
-                    onClick = {
-                        uriHandler.openUri("https://form.jotform.com/250014908169355")
-                    },
-                )
-            }
-            if (onRegenerate != null) {
-                SmallIconButton(
-                    iconResource = Res.drawable.ic_refresh,
-                    contentDescription = stringResource(Res.string.bot_message_regenerate_content_description),
-                    onClick = onRegenerate,
-                )
-            }
-            Spacer(Modifier.weight(1f))
         }
+        val clipboardManager = LocalClipboardManager.current
+        SmallIconButton(
+            iconResource = Res.drawable.ic_copy,
+            contentDescription = stringResource(Res.string.bot_message_copy_content_description),
+            onClick = {
+                val copied = if (hasUiBlocks) KaiUiParser.stripUiBlocks(message) else message
+                clipboardManager.setText(buildAnnotatedString { append(copied) })
+            },
+        )
+        run {
+            val uriHandler = LocalUriHandler.current
+            SmallIconButton(
+                iconResource = Res.drawable.ic_flag,
+                contentDescription = stringResource(Res.string.bot_message_flag_content_description),
+                onClick = {
+                    uriHandler.openUri("https://form.jotform.com/250014908169355")
+                },
+            )
+        }
+        if (onRegenerate != null) {
+            SmallIconButton(
+                iconResource = Res.drawable.ic_refresh,
+                contentDescription = stringResource(Res.string.bot_message_regenerate_content_description),
+                onClick = onRegenerate,
+            )
+        }
+        Spacer(Modifier.weight(1f))
     }
+}
+
+@Composable
+internal fun MarkdownContent(
+    content: String,
+    modifier: Modifier = Modifier,
+) {
+    val markdownState = rememberMarkdownState(content, immediate = true)
+    Markdown(
+        markdownState,
+        imageTransformer = Coil3ImageTransformerImpl,
+        components = markdownComponents(
+            codeBlock = highlightedCodeBlock,
+            codeFence = highlightedCodeFence,
+        ),
+        typography = smallerMarkdownTypography(),
+        modifier = modifier,
+    )
 }
 
 @Composable

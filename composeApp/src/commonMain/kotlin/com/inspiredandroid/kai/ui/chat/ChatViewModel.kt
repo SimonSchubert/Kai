@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.FreeMode
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
@@ -58,6 +59,7 @@ class ChatViewModel(
         clearSnackbar = ::clearSnackbar,
         undoDeleteConversation = ::undoDeleteConversation,
         submitUiCallback = ::submitUiCallback,
+        resubmit = ::resubmit,
         enterInteractiveMode = ::enterInteractiveMode,
         exitInteractiveMode = ::exitInteractiveMode,
         goBackInteractiveMode = ::goBackInteractiveMode,
@@ -128,10 +130,18 @@ class ChatViewModel(
         } else {
             "Pressed: $event"
         }
-        ask(message)
+        val lastAssistant = dataRepository.chatHistory.value.lastRenderedAssistant()
+        val submission = lastAssistant?.let {
+            UiSubmission(sourceContent = it.content, values = data, pressedEvent = event)
+        }
+        askInternal(message, submission)
     }
 
     private fun ask(question: String?) {
+        askInternal(question, null)
+    }
+
+    private fun askInternal(question: String?, uiSubmission: UiSubmission?) {
         // Prevent concurrent requests
         if (_state.value.isLoading) return
 
@@ -147,7 +157,7 @@ class ChatViewModel(
                 )
             }
             try {
-                dataRepository.ask(question, files)
+                dataRepository.ask(question, files, uiSubmission)
 
                 // Auto-retry in interactive mode if the response has no valid kai-ui
                 if (_state.value.isInteractiveMode) {
@@ -174,9 +184,7 @@ class ChatViewModel(
     private suspend fun retryIfNoValidKaiUi(maxRetries: Int = 2) {
         repeat(maxRetries) {
             currentCoroutineContext().ensureActive()
-            val lastAssistant = dataRepository.chatHistory.value
-                .lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
-                ?: return
+            val lastAssistant = dataRepository.chatHistory.value.lastRenderedAssistant() ?: return
 
             val segments = KaiUiParser.parse(lastAssistant.content)
             val hasValidUi = segments.any { it is KaiUiParser.UiSegment }
@@ -392,6 +400,12 @@ class ChatViewModel(
         _state.update {
             it.copy(isInteractiveMode = false, isLoading = false, error = null)
         }
+    }
+
+    private fun resubmit(messageId: String, event: String, data: Map<String, String>) {
+        if (_state.value.isLoading) return
+        dataRepository.truncateFrom(messageId)
+        submitUiCallback(event, data)
     }
 
     private fun goBackInteractiveMode() {

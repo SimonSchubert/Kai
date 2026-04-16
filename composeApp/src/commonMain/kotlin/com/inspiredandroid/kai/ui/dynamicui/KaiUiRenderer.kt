@@ -3,6 +3,12 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Image
@@ -149,6 +155,7 @@ import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.filled.WorkspacePremium
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
@@ -175,6 +182,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -184,6 +192,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
@@ -191,6 +200,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -211,6 +221,23 @@ import kotlin.time.Clock
 
 val LocalPreviewImages = staticCompositionLocalOf<Map<String, ImageBitmap>> { emptyMap() }
 
+/**
+ * A frozen snapshot of a user's kai-ui submission: the values they submitted, plus the
+ * event of the button they pressed. Matching a button uses event + collected form data
+ * rather than event alone (multiple buttons often share an event but carry distinct
+ * per-button data payloads, e.g. a quiz with one event and different `choice` values).
+ * `isPending` is a transient UI flag — true while the AI is still answering this submission;
+ * the pressed button pulses to signal the in-flight request.
+ */
+@Immutable
+data class FrozenSubmission(
+    val values: Map<String, String> = emptyMap(),
+    val pressedEvent: String? = null,
+    val isPending: Boolean = false,
+)
+
+private val LocalFrozenSubmission = compositionLocalOf<FrozenSubmission?> { null }
+
 @Composable
 fun KaiUiRenderer(
     node: KaiUiNode,
@@ -218,14 +245,16 @@ fun KaiUiRenderer(
     onCallback: (event: String, data: Map<String, String>) -> Unit,
     modifier: Modifier = Modifier,
     wrapInCard: Boolean = true,
+    frozen: FrozenSubmission? = null,
 ) {
     val formState = remember { mutableStateMapOf<String, String>() }
     val toggleState = remember { mutableStateMapOf<String, Boolean>() }
     var hasError by remember { mutableStateOf(false) }
 
-    LaunchedEffect(node) {
+    LaunchedEffect(node, frozen?.values) {
         try {
             initializeFormState(node, formState)
+            frozen?.values?.let { formState.putAll(it) }
         } catch (_: Exception) {
             hasError = true
         }
@@ -241,28 +270,30 @@ fun KaiUiRenderer(
         return
     }
 
-    if (wrapInCard) {
-        Card(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
-            Column(Modifier.padding(12.dp).wrapContentHeight()) {
-                RenderNode(
-                    node = node,
-                    isInteractive = isInteractive,
-                    formState = formState,
-                    toggleState = toggleState,
-                    onCallback = safeCallback(onCallback),
-                )
+    CompositionLocalProvider(LocalFrozenSubmission provides frozen) {
+        if (wrapInCard) {
+            Card(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
+                Column(Modifier.padding(12.dp).wrapContentHeight()) {
+                    RenderNode(
+                        node = node,
+                        isInteractive = isInteractive,
+                        formState = formState,
+                        toggleState = toggleState,
+                        onCallback = safeCallback(onCallback),
+                    )
+                }
             }
-        }
-    } else {
-        CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
-            Column(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
-                RenderNode(
-                    node = node,
-                    isInteractive = isInteractive,
-                    formState = formState,
-                    toggleState = toggleState,
-                    onCallback = safeCallback(onCallback),
-                )
+        } else {
+            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onBackground) {
+                Column(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
+                    RenderNode(
+                        node = node,
+                        isInteractive = isInteractive,
+                        formState = formState,
+                        toggleState = toggleState,
+                        onCallback = safeCallback(onCallback),
+                    )
+                }
             }
         }
     }
@@ -438,12 +469,23 @@ private fun RenderButton(
 ) {
     val uriHandler = LocalUriHandler.current
     val clipboardManager = LocalClipboardManager.current
+    var clicked by remember { mutableStateOf(false) }
+    LaunchedEffect(isInteractive) {
+        if (isInteractive) clicked = false
+    }
+    val frozen = LocalFrozenSubmission.current
+    val isPressedSnapshot = !isInteractive && frozen?.pressedEvent != null && run {
+        val action = node.action as? CallbackAction ?: return@run false
+        action.event == frozen.pressedEvent && collectFormData(action, formState) == frozen.values
+    }
+    val showPulse = (clicked && !isInteractive) || (isPressedSnapshot && frozen.isPending)
     val enabled = isInteractive && (node.enabled != false)
     val onClick: () -> Unit = {
         try {
             when (val action = node.action) {
                 is CallbackAction -> {
                     val data = collectFormData(action, formState)
+                    clicked = true
                     onCallback(action.event, data)
                 }
 
@@ -466,19 +508,61 @@ private fun RenderButton(
         }
     }
 
-    val hoverModifier = Modifier.handCursor()
+    val buttonModifier = Modifier.handCursor().then(pulseModifier(showPulse))
     if (node.action is CopyToClipboardAction) {
-        IconButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) {
+        IconButton(onClick = onClick, enabled = enabled, modifier = buttonModifier) {
             Icon(imageVector = Icons.Filled.ContentCopy, contentDescription = "Copy")
         }
         return
     }
-    when (node.variant) {
-        ButtonVariant.OUTLINED -> OutlinedButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
-        ButtonVariant.TEXT -> TextButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
-        ButtonVariant.TONAL -> FilledTonalButton(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
-        ButtonVariant.FILLED, null -> Button(onClick = onClick, enabled = enabled, modifier = hoverModifier) { Text(node.label) }
+    val labelContent: @Composable () -> Unit = { Text(node.label) }
+    if (isPressedSnapshot) {
+        // The pressed button in a frozen snapshot uses primary colors so it stands out
+        // against the greyed-out disabled siblings. `enabled=false` prevents clicks; the
+        // override on disabled colors bypasses Material's auto-faded disabled appearance.
+        val pressedColors = ButtonDefaults.buttonColors(
+            disabledContainerColor = MaterialTheme.colorScheme.primary,
+            disabledContentColor = MaterialTheme.colorScheme.onPrimary,
+        )
+        Button(
+            onClick = {},
+            enabled = false,
+            colors = pressedColors,
+            modifier = buttonModifier,
+        ) { labelContent() }
+        return
     }
+    when (node.variant) {
+        ButtonVariant.OUTLINED -> OutlinedButton(onClick = onClick, enabled = enabled, modifier = buttonModifier) { labelContent() }
+        ButtonVariant.TEXT -> TextButton(onClick = onClick, enabled = enabled, modifier = buttonModifier) { labelContent() }
+        ButtonVariant.TONAL -> FilledTonalButton(onClick = onClick, enabled = enabled, modifier = buttonModifier) { labelContent() }
+        ButtonVariant.FILLED, null -> Button(onClick = onClick, enabled = enabled, modifier = buttonModifier) { labelContent() }
+    }
+}
+
+@Composable
+private fun pulseModifier(active: Boolean): Modifier {
+    if (!active) return Modifier
+    val transition = rememberInfiniteTransition(label = "button-pulse")
+    val scale by transition.animateFloat(
+        initialValue = 0.96f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 700, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "scale",
+    )
+    val alpha by transition.animateFloat(
+        initialValue = 0.55f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 700, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "alpha",
+    )
+    return Modifier.graphicsLayer(scaleX = scale, scaleY = scale, alpha = alpha)
 }
 
 @Composable
