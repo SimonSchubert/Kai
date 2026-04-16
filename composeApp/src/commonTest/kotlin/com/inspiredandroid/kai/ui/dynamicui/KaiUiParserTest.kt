@@ -277,6 +277,24 @@ class KaiUiParserTest {
     }
 
     @Test
+    fun `closes object before next array element when LLM omits brace`() {
+        // Real-world broken output: each button is missing its closing `}` before the
+        // comma that separates it from the next button in the array. The first failure
+        // is at offset 139 — `,{` inside button1 where a key is expected.
+        val json = """{"type":"row","children":[{"type":"button","label":"Au","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Au"}},{"type":"button","label":"Ag","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Ag"}},{"type":"button","label":"Fe","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Fe"}}}}}]}"""
+        val message = "```kai-ui\n$json\n```"
+        val segments = KaiUiParser.parse(message)
+        assertEquals(1, segments.size)
+        assertIs<KaiUiParser.UiSegment>(segments[0])
+        val row = (segments[0] as KaiUiParser.UiSegment).node
+        assertIs<RowNode>(row)
+        assertEquals(3, row.children.size)
+        assertEquals("Au", (row.children[0] as ButtonNode).label)
+        assertEquals("Ag", (row.children[1] as ButtonNode).label)
+        assertEquals("Fe", (row.children[2] as ButtonNode).label)
+    }
+
+    @Test
     fun `extra closing bracket inside nested structure is skipped`() {
         // Extra ] where } is expected — sanitizeJson should skip it
         val json = """{"type":"column","children":[{"type":"text","value":"A"},{"type":"text","value":"B"}]]}"""

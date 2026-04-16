@@ -142,6 +142,10 @@ object KaiUiParser {
         val result = StringBuilder()
         var inString = false
         var escaped = false
+        // Last structural char emitted outside of strings. Used to detect `,{` / `,[`
+        // inside an object, which signals a missing closing `}` before the next array
+        // element (LLMs sometimes forget to close each object in an array of objects).
+        var lastSig: Char = ' '
 
         for (c in raw) {
             if (escaped) {
@@ -157,29 +161,53 @@ object KaiUiParser {
             if (c == '"') {
                 inString = !inString
                 result.append(c)
+                lastSig = c
                 continue
             }
             if (inString) {
                 result.append(c)
                 continue
             }
+            if (c.isWhitespace()) {
+                result.append(c)
+                continue
+            }
             when (c) {
                 '{', '[' -> {
+                    // Repair `,{` or `,[` appearing where an object expects a key: the
+                    // LLM forgot to close the object before the next array element.
+                    // Only repair when the parent of the open object is an array.
+                    if (lastSig == ',' &&
+                        stack.lastOrNull() == '{' &&
+                        stack.getOrNull(stack.size - 2) == '['
+                    ) {
+                        val commaIdx = result.lastIndexOf(',')
+                        if (commaIdx >= 0) {
+                            result.insert(commaIdx, '}')
+                            stack.removeAt(stack.lastIndex)
+                        }
+                    }
                     stack.add(c)
                     result.append(c)
+                    lastSig = c
                 }
 
                 '}' -> if (stack.isNotEmpty() && stack.last() == '{') {
                     stack.removeAt(stack.lastIndex)
                     result.append(c)
+                    lastSig = c
                 }
 
                 ']' -> if (stack.isNotEmpty() && stack.last() == '[') {
                     stack.removeAt(stack.lastIndex)
                     result.append(c)
+                    lastSig = c
                 }
 
-                else -> result.append(c)
+                else -> {
+                    result.append(c)
+                    lastSig = c
+                }
             }
             if (stack.isEmpty()) return result.toString()
         }
