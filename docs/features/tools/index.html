@@ -843,10 +843,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#interactive-mode-top-bar" class="md-nav__link">
+  <a href="#interactive-mode-loading-feedback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive mode top bar
+        Interactive mode loading feedback
       
     </span>
   </a>
@@ -1558,10 +1558,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#interactive-mode-top-bar" class="md-nav__link">
+  <a href="#interactive-mode-loading-feedback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Interactive mode top bar
+        Interactive mode loading feedback
       
     </span>
   </a>
@@ -1613,7 +1613,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-04-10</p>
+<p><strong>Last verified:</strong> 2026-04-15</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1883,18 +1883,21 @@
 <p>Only individually toggleable tools appear in the grid — always-on tools (memory) and feature-gated tool groups (scheduling, email) are controlled by their respective feature toggles elsewhere in settings.</p>
 <h2 id="chat-ui">Chat UI</h2>
 <h3 id="shared-pulsing-status-indicator">Shared pulsing status indicator</h3>
-<p>Both the standard chat and the interactive mode use a shared <code>PulsingStatusIndicator</code> composable that shows:
+<p>The standard chat uses a <code>PulsingStatusIndicator</code> composable that shows:
 - A pulsing dot (scale 0.6→1.0, alpha 0.4→1.0, 800ms reverse animation)
 - Cycling status text ("Thinking…", "Working…", "Brewing…" rotating every 3 seconds with AnimatedContent fade)
 - An optional inline tool summary separated by " · ":
   - <strong>1 tool executing</strong>: shows the tool's display name (e.g., "Thinking… · Learn Memory")
   - <strong>Multiple tools executing</strong>: shows a grouped count (e.g., "Working… · 2 Tools")
   - <strong>No tools</strong>: shows only the cycling status text</p>
-<p>The indicator accepts styling parameters (dot size, colors, text style) so it adapts to both contexts.</p>
+<p>The indicator accepts styling parameters (dot size, colors, text style).</p>
 <h3 id="waiting-response-row-standard-chat">Waiting response row (standard chat)</h3>
 <p>When loading, a chip appears at the bottom of the chat list containing the <code>PulsingStatusIndicator</code> with surface variant colors, a 16dp dot, and <code>bodyMedium</code> text style. The chip uses <code>animateContentSize</code> (300ms) for smooth text transitions.</p>
-<h3 id="interactive-mode-top-bar">Interactive mode top bar</h3>
-<p>When loading and an assistant response exists, the top bar center replaces the title with the <code>PulsingStatusIndicator</code> using <code>onSurface</code> colors, a 10dp dot, and <code>titleMedium</code> text style. A <code>Crossfade</code> (300ms) animates the transition between the title and the indicator.</p>
+<h3 id="interactive-mode-loading-feedback">Interactive mode loading feedback</h3>
+<p>The interactive-mode top bar shows only the static title — loading is surfaced closer to the user's point of action instead:
+- <strong>Clicking a kai-ui action button</strong>: the clicked button shows an inline circular spinner in place of its label until the response arrives; other buttons become disabled.
+- <strong>First load</strong> (no assistant response yet): a centered waiting row is shown.
+- <strong>Typed-and-sent input</strong>: the trailing send icon swaps to a stop icon in the input, as in standard chat.</p>
 <h3 id="common-behavior">Common behavior</h3>
 <ul>
 <li>TOOL_EXECUTING entries are not rendered as separate list items</li>

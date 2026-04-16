@@ -1147,11 +1147,11 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-15</p>
+<p><strong>Last verified:</strong> 2026-04-16 (unified markdown parser)</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
-<p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).</p>
+<p>A <code>kai-ui</code> code fence inside an assistant message contains a JSON object describing a component tree. The unified markdown parser treats kai-ui fences as first-class AST blocks, alongside headings, paragraphs, and other markdown; the renderer dispatches each block to its composable. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).</p>
 <h3 id="component-types">Component Types</h3>
 <ul>
 <li><strong>Layout</strong>: column, row, card, box, divider (spacing between children is fixed by the renderer — the LLM does not control it)</li>
@@ -1171,11 +1171,12 @@
 <li><strong>copy_to_clipboard</strong> — writes a literal string to the system clipboard locally, no AI roundtrip. A button carrying this action always renders as a compact clipboard icon button regardless of its variant; the button's label is ignored. Intended for surfacing copyable values (snippets, commands, tokens) alongside the content they belong to.</li>
 </ul>
 <h3 id="interaction-flow">Interaction Flow</h3>
-<p>When a callback fires, the renderer collects input values and formats them as a <code>[UI Interaction]</code> user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls.</p>
+<p>When a callback fires, the renderer collects input values and formats them as a <code>[UI Interaction]</code> user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button shows an inline circular spinner in place of its label; other buttons in the same layout become disabled.</p>
+<p>The resulting user message in the chat renders as a <strong>frozen snapshot</strong> of the form the user just submitted — the originating kai-ui is re-rendered non-interactively with the submitted values injected into the form fields, instead of showing a cryptic "Responded with: key: value" text. The text form is still what the AI receives; only the UI rendering changes. Snapshots are persisted with the conversation, so reloading a saved conversation preserves them. Messages saved before this feature shipped (or plain text submissions without an originating kai-ui) fall back to the normal text bubble.</p>
 <h3 id="layout-lifecycle">Layout Lifecycle</h3>
 <p>Only the latest assistant message's layouts are interactive. Older layouts become read-only with disabled buttons and inputs. Form state is local to each layout; cross-step state lives in conversation history.</p>
 <h3 id="error-handling">Error Handling</h3>
-<p>Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, <code>"key="</code> typos), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in <code>children</code> or <code>items</code> are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
+<p>Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, <code>"key="</code> typos, and missing closing braces between sibling objects in an array — e.g. when the LLM writes <code>,{</code> where a key was expected), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in <code>children</code> or <code>items</code> are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips <code>kai-ui</code> blocks entirely.</p>
 <h3 id="settings">Settings</h3>
 <p>The feature is controlled by the Dynamic UI toggle in Settings (General tab). When disabled, the system prompt omits kai-ui instructions so the AI stops generating them. Parsing and rendering remain active unconditionally.</p>
 <h2 id="interactive-ui-mode">Interactive UI Mode</h2>
@@ -1211,7 +1212,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiParser.kt</code></td>
-<td>Detects kai-ui fences, sanitizes malformed JSON, dispatches to the builders</td>
+<td>Sanitizes malformed JSON and decodes kai-ui fence bodies via <code>parseUiBlockBody</code></td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt</code></td>
@@ -1222,8 +1223,16 @@
 <td>Recursive Compose renderer for the component tree, wrapInCard option</td>
 </tr>
 <tr>
+<td><code>composeApp/.../ui/markdown/MarkdownParser.kt</code></td>
+<td>Unified markdown parser; emits <code>KaiUiBlock</code> AST nodes for kai-ui fences</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/markdown/MarkdownRenderer.kt</code></td>
+<td>Compose renderer that dispatches each block (including kai-ui) to its composable</td>
+</tr>
+<tr>
 <td><code>composeApp/.../ui/chat/composables/BotMessage.kt</code></td>
-<td>Integration point — renders mixed markdown + UI in chat mode</td>
+<td>Integration point — runs the parser and filters kai-ui out of non-interactive history</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/ChatScreen.kt</code></td>
