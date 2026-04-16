@@ -211,7 +211,11 @@ object ScreenshotTestData {
             "Shell: libproot.so\n" +
             "Terminal: iredandroid.kai\n" +
             "CPU: Cortex-A520*4 + Cortex-A720*3 + Cortex-X4 (8) @ 3.10 GHz\n" +
-            "Memory: 6.75 GiB / 7.39 GiB (91%)"
+            "Memory: 6.75 GiB / 7.39 GiB (91%)\n" +
+            "\u001B[40m   \u001B[41m   \u001B[42m   \u001B[43m   \u001B[44m   " +
+            "\u001B[45m   \u001B[46m   \u001B[47m   \u001B[0m\n" +
+            "\u001B[100m   \u001B[101m   \u001B[102m   \u001B[103m   \u001B[104m   " +
+            "\u001B[105m   \u001B[106m   \u001B[107m   \u001B[0m"
 
     val sandboxTerminalLines = listOf(
         TerminalLine.Command("fastfetch"),
