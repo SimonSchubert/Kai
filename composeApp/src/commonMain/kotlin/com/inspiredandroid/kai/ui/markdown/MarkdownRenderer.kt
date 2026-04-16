@@ -57,7 +57,11 @@ fun MarkdownContent(
     onUiCallback: (event: String, data: Map<String, String>) -> Unit = { _, _ -> },
     frozen: FrozenSubmission? = null,
 ) {
-    val doc = remember(content) { parseMarkdown(content) }
+    val doc = remember(content) {
+        runCatching { parseMarkdown(content) }.getOrElse {
+            MarkdownDocument(listOf(Paragraph(listOf(com.inspiredandroid.kai.ui.markdown.Text(content)))))
+        }
+    }
     MarkdownContent(doc, modifier, isInteractive, onUiCallback, frozen)
 }
 

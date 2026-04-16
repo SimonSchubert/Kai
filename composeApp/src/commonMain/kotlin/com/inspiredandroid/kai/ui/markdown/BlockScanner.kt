@@ -23,25 +23,37 @@ internal object BlockScanner {
     private val ATX_HEADING_REGEX = Regex("""^\s{0,3}(#{1,6})(?:\s+(.*?))?\s*#*\s*$""")
     private val SETEXT_H1_REGEX = Regex("""^\s{0,3}=+\s*$""")
     private val SETEXT_H2_REGEX = Regex("""^\s{0,3}-+\s*$""")
-    private val HR_REGEX = Regex("""^\s{0,3}([-*_])(?:\s*\1){2,}\s*$""")
+    private val HR_REGEX = Regex(
+        """^\s{0,3}(?:-(?:[ \t]*-){2,}|\*(?:[ \t]*\*){2,}|_(?:[ \t]*_){2,})\s*$""",
+    )
     private val BLOCKQUOTE_REGEX = Regex("""^\s{0,3}>\s?(.*)$""")
     private val BULLET_REGEX = Regex("""^(\s*)([-*+])(\s+)(.*)$""")
     private val ORDERED_REGEX = Regex("""^(\s*)(\d{1,9})([.)])(\s+)(.*)$""")
     private val TABLE_SEPARATOR_REGEX = Regex("""^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?\s*$""")
 
+    private const val MAX_BLOCK_DEPTH = 32
+    private const val MAX_LINE_REGEX_LEN = 10_000
+
     fun scan(text: String): List<BlockNode> {
         val normalized = text.replace("\r\n", "\n").replace("\r", "\n")
         val lines = normalized.split("\n")
-        return scanLines(lines, 0, lines.size)
+        return scanLines(lines, 0, lines.size, 0)
     }
 
-    private fun scanLines(lines: List<String>, start: Int, end: Int): List<BlockNode> {
+    private fun scanLines(lines: List<String>, start: Int, end: Int, depth: Int): List<BlockNode> {
+        if (depth >= MAX_BLOCK_DEPTH) return flattenToParagraph(lines, start, end)
         val blocks = mutableListOf<BlockNode>()
         var i = start
         while (i < end) {
             val line = lines[i]
             if (line.isBlank()) {
                 i++
+                continue
+            }
+            if (line.length > MAX_LINE_REGEX_LEN) {
+                val (paragraph, next) = parseParagraph(lines, i, end)
+                blocks += paragraph
+                i = next
                 continue
             }
 
@@ -94,7 +106,7 @@ internal object BlockScanner {
             }
 
             if (BLOCKQUOTE_REGEX.matchEntire(line) != null) {
-                val (bq, next) = parseBlockquote(lines, i, end)
+                val (bq, next) = parseBlockquote(lines, i, end, depth)
                 blocks += bq
                 i = next
                 continue
@@ -103,7 +115,7 @@ internal object BlockScanner {
             val bullet = BULLET_REGEX.matchEntire(line)
             val ordered = ORDERED_REGEX.matchEntire(line)
             if (bullet != null || ordered != null) {
-                val (list, next) = parseList(lines, i, end, isOrdered = ordered != null)
+                val (list, next) = parseList(lines, i, end, isOrdered = ordered != null, depth = depth)
                 blocks += list
                 i = next
                 continue
@@ -214,7 +226,7 @@ internal object BlockScanner {
     // Blockquote
     // =========================================================================================
 
-    private fun parseBlockquote(lines: List<String>, start: Int, end: Int): Pair<BlockNode, Int> {
+    private fun parseBlockquote(lines: List<String>, start: Int, end: Int, depth: Int): Pair<BlockNode, Int> {
         val inner = mutableListOf<String>()
         var i = start
         while (i < end) {
@@ -228,8 +240,14 @@ internal object BlockScanner {
             inner += m.groupValues[1]
             i++
         }
-        val children = scanLines(inner, 0, inner.size)
+        val children = scanLines(inner, 0, inner.size, depth + 1)
         return Blockquote(children) to i
+    }
+
+    private fun flattenToParagraph(lines: List<String>, start: Int, end: Int): List<BlockNode> {
+        val text = (start until end).joinToString("\n") { lines[it] }.trim()
+        if (text.isEmpty()) return emptyList()
+        return listOf(Paragraph(InlineTokenizer.tokenize(text)))
     }
 
     // =========================================================================================
@@ -245,6 +263,7 @@ internal object BlockScanner {
         start: Int,
         end: Int,
         isOrdered: Boolean,
+        depth: Int,
     ): Pair<BlockNode, Int> {
         val firstMatch = if (isOrdered) ORDERED_REGEX.matchEntire(lines[start])!! else BULLET_REGEX.matchEntire(lines[start])!!
         val listIndent = firstMatch.groupValues[1].length
@@ -303,7 +322,7 @@ internal object BlockScanner {
                 itemLines.removeAt(itemLines.lastIndex)
             }
 
-            val children = scanLines(itemLines, 0, itemLines.size)
+            val children = scanLines(itemLines, 0, itemLines.size, depth + 1)
             items += ListItem(children)
             i = j
         }

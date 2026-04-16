@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
@@ -222,12 +225,12 @@ private fun parseAlertSeverity(raw: String?): AlertSeverity? = when (raw) {
  *
  * Covers `options`, `headers`, `collectFrom`.
  */
-internal fun JsonObject.readStringList(key: String): List<String> {
-    val element = this[key] ?: return emptyList()
+internal fun JsonObject.readStringList(key: String): ImmutableList<String> {
+    val element = this[key] ?: return persistentListOf()
     return when (element) {
-        is JsonArray -> element.map { it.toStringLike() }
-        is JsonPrimitive -> if (element is JsonNull) emptyList() else listOf(element.content)
-        is JsonObject -> listOf(element.toStringLike())
+        is JsonArray -> element.map { it.toStringLike() }.toImmutableList()
+        is JsonPrimitive -> if (element is JsonNull) persistentListOf() else persistentListOf(element.content)
+        is JsonObject -> persistentListOf(element.toStringLike())
     }
 }
 
@@ -239,15 +242,15 @@ internal fun JsonObject.readStringList(key: String): List<String> {
  *
  * Covers `children` and `items`.
  */
-internal fun JsonObject.readNodeList(key: String): List<KaiUiNode> {
-    val array = this[key] as? JsonArray ?: return emptyList()
+internal fun JsonObject.readNodeList(key: String): ImmutableList<KaiUiNode> {
+    val array = this[key] as? JsonArray ?: return persistentListOf()
     return array.mapNotNull { element ->
         when (element) {
             is JsonObject -> parseNode(element)
             is JsonPrimitive -> if (element !is JsonNull && element.isString) TextNode(value = element.content) else null
             else -> null
         }
-    }
+    }.toImmutableList()
 }
 
 /**
@@ -257,23 +260,23 @@ internal fun JsonObject.readNodeList(key: String): List<KaiUiNode> {
  * - Array of primitives → each wrapped as a single-cell row
  * - Missing → `emptyList()`
  */
-internal fun JsonObject.readTableRows(key: String): List<List<String>> {
-    val array = this[key] as? JsonArray ?: return emptyList()
+internal fun JsonObject.readTableRows(key: String): ImmutableList<ImmutableList<String>> {
+    val array = this[key] as? JsonArray ?: return persistentListOf()
     return array.map { row ->
         when (row) {
-            is JsonArray -> row.map { it.toStringLike() }
-            is JsonObject -> row.values.map { it.toStringLike() }
-            is JsonPrimitive -> if (row is JsonNull) listOf("") else listOf(row.content)
+            is JsonArray -> row.map { it.toStringLike() }.toImmutableList()
+            is JsonObject -> row.values.map { it.toStringLike() }.toImmutableList()
+            is JsonPrimitive -> if (row is JsonNull) persistentListOf("") else persistentListOf(row.content)
         }
-    }
+    }.toImmutableList()
 }
 
 /**
  * Read `ChipGroupNode.chips`. Accepts bare strings (wrapped as `{label=s, value=s}`)
  * or full `{label, value}` objects.
  */
-internal fun JsonObject.readChipList(key: String): List<ChipItem> {
-    val array = this[key] as? JsonArray ?: return emptyList()
+internal fun JsonObject.readChipList(key: String): ImmutableList<ChipItem> {
+    val array = this[key] as? JsonArray ?: return persistentListOf()
     return array.mapNotNull { item ->
         when (item) {
             is JsonPrimitive -> if (item !is JsonNull && item.isString) {
@@ -290,19 +293,19 @@ internal fun JsonObject.readChipList(key: String): List<ChipItem> {
 
             else -> null
         }
-    }
+    }.toImmutableList()
 }
 
 /**
  * Read `TabsNode.tabs`. Accepts bare strings (wrapped with empty children) or
  * `{label, children}` objects.
  */
-internal fun JsonObject.readTabList(key: String): List<TabItem> {
-    val array = this[key] as? JsonArray ?: return emptyList()
+internal fun JsonObject.readTabList(key: String): ImmutableList<TabItem> {
+    val array = this[key] as? JsonArray ?: return persistentListOf()
     return array.mapNotNull { item ->
         when (item) {
             is JsonPrimitive -> if (item !is JsonNull && item.isString) {
-                TabItem(label = item.content, children = emptyList())
+                TabItem(label = item.content, children = persistentListOf())
             } else {
                 null
             }
@@ -314,7 +317,7 @@ internal fun JsonObject.readTabList(key: String): List<TabItem> {
 
             else -> null
         }
-    }
+    }.toImmutableList()
 }
 
 // =============================================================================================
@@ -335,7 +338,7 @@ private fun inferBareObject(obj: JsonObject): KaiUiNode? {
     if ("title" in obj && "subtitle" in obj) {
         return ColumnNode(
             id = obj.readId(),
-            children = listOf(
+            children = persistentListOf(
                 TextNode(value = obj.readString("title"), style = TextNodeStyle.TITLE),
                 TextNode(value = obj.readString("subtitle"), style = TextNodeStyle.CAPTION),
             ),

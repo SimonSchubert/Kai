@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
 import com.inspiredandroid.kai.data.SharedJson
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * Decodes the body of a `kai-ui` fenced JSON block into a [KaiUiNode].
@@ -47,7 +48,7 @@ object KaiUiParser {
         if (lines.size > 1 && lines.all { it.startsWith("{") }) {
             val children = lines.mapNotNull { tryParseLine(it) }
             return if (children.isNotEmpty()) {
-                UiBlockResult.Ui(ColumnNode(children = children), repaired)
+                UiBlockResult.Ui(ColumnNode(children = children.toImmutableList()), repaired)
             } else {
                 UiBlockResult.Error(repaired)
             }

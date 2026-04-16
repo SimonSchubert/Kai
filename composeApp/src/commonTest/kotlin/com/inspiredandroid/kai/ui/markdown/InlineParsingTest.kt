@@ -122,4 +122,34 @@ class InlineParsingTest {
     fun `inline code with special chars inside`() {
         assertEquals(listOf(InlineCode("a*b*c")), inlines("`a*b*c`"))
     }
+
+    @Test
+    fun `strong span wraps inline code`() {
+        val result = inlines("**before `code` after**")
+        val strong = result.single() as Strong
+        assertEquals(Text("before "), strong.children[0])
+        assertEquals(InlineCode("code"), strong.children[1])
+        assertEquals(Text(" after"), strong.children[2])
+    }
+
+    @Test
+    fun `strong span wraps multiple inline code spans`() {
+        val result = inlines("**a `b` c `d` e**")
+        val strong = result.single() as Strong
+        assertEquals(
+            listOf(Text("a "), InlineCode("b"), Text(" c "), InlineCode("d"), Text(" e")),
+            strong.children,
+        )
+    }
+
+    @Test
+    fun `emphasis asterisks inside inline code are not delimiters`() {
+        // The bold pair bridges the code spans; `*` inside code is ignored.
+        val result = inlines("**x `*not*` y**")
+        val strong = result.single() as Strong
+        assertEquals(
+            listOf(Text("x "), InlineCode("*not*"), Text(" y")),
+            strong.children,
+        )
+    }
 }

@@ -194,6 +194,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -218,6 +219,7 @@ import com.inspiredandroid.kai.ui.components.KaiChip
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
@@ -320,8 +322,8 @@ private const val DEFAULT_IMAGE_ASPECT_RATIO = 1.91f
 private fun RenderNode(
     node: KaiUiNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int = 0,
 ) {
@@ -364,10 +366,10 @@ private fun RenderNode(
 
 @Composable
 private fun RenderChildren(
-    children: List<KaiUiNode>,
+    children: ImmutableList<KaiUiNode>,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -380,8 +382,8 @@ private fun RenderChildren(
 private fun RenderColumn(
     node: ColumnNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -399,8 +401,8 @@ private fun RenderColumn(
 private fun RenderRow(
     node: RowNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -423,8 +425,8 @@ private fun RenderRow(
 private fun RenderCard(
     node: CardNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -466,8 +468,8 @@ private fun RenderText(node: TextNode) {
 private fun RenderButton(
     node: ButtonNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -575,7 +577,7 @@ private fun pulseModifier(active: Boolean): Modifier {
 private fun RenderTextInput(
     node: TextInputNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     KaiOutlinedTextField(
         value = formState[node.id] ?: "",
@@ -592,7 +594,7 @@ private fun RenderTextInput(
 private fun RenderCheckbox(
     node: CheckboxNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
     val toggle = { formState[node.id] = (!checked).toString() }
@@ -632,7 +634,7 @@ private fun RenderCheckbox(
 private fun RenderSelect(
     node: SelectNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val selected = formState[node.id] ?: ""
@@ -733,8 +735,8 @@ private fun RenderTable(node: TableNode) {
 private fun RenderList(
     node: ListNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -757,7 +759,7 @@ private fun RenderList(
 private fun RenderSwitch(
     node: SwitchNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     val checked = formState[node.id]?.toBooleanStrictOrNull() ?: false
     val toggle = { formState[node.id] = (!checked).toString() }
@@ -797,7 +799,7 @@ private fun RenderSwitch(
 private fun RenderSlider(
     node: SliderNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     val min = node.min ?: 0f
     val max = node.max ?: 100f
@@ -885,7 +887,7 @@ private fun formatSliderValue(value: Float, step: Float?): String {
 private fun RenderRadioGroup(
     node: RadioGroupNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     val selected = formState[node.id] ?: ""
     Column(
@@ -970,8 +972,8 @@ private fun RenderProgress(node: ProgressNode) {
 private fun RenderCountdown(
     node: CountdownNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
 ) {
     val targetMs = remember { Clock.System.now().toEpochMilliseconds() + node.seconds.toLong() * 1000L }
@@ -1110,7 +1112,7 @@ private fun AlertIcon(severity: AlertSeverity?, contentColor: Color, containerCo
 private fun RenderChipGroup(
     node: ChipGroupNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
+    formState: SnapshotStateMap<String, String>,
 ) {
     val isDisplayOnly = node.selection == "none"
     val isMulti = node.selection == "multi"
@@ -1364,8 +1366,8 @@ private fun RenderAvatar(node: AvatarNode) {
 private fun RenderBox(
     node: BoxNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -1406,8 +1408,8 @@ private fun RenderBox(
 private fun RenderTabs(
     node: TabsNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
@@ -1496,8 +1498,8 @@ private fun RenderTabs(
 private fun RenderAccordion(
     node: AccordionNode,
     isInteractive: Boolean,
-    formState: MutableMap<String, String>,
-    toggleState: MutableMap<String, Boolean>,
+    formState: SnapshotStateMap<String, String>,
+    toggleState: SnapshotStateMap<String, Boolean>,
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {

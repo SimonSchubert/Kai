@@ -1,6 +1,9 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
 import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -17,7 +20,7 @@ sealed interface KaiUiNode {
 @SerialName("column")
 data class ColumnNode(
     override val id: String? = null,
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
 ) : KaiUiNode
 
 @Immutable
@@ -25,7 +28,7 @@ data class ColumnNode(
 @SerialName("row")
 data class RowNode(
     override val id: String? = null,
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
 ) : KaiUiNode
 
 @Immutable
@@ -33,7 +36,7 @@ data class RowNode(
 @SerialName("card")
 data class CardNode(
     override val id: String? = null,
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
 ) : KaiUiNode
 
 @Immutable
@@ -107,7 +110,7 @@ data class CheckboxNode(
 data class SelectNode(
     override val id: String = "",
     val label: String? = null,
-    val options: List<String> = emptyList(),
+    @Contextual val options: ImmutableList<String> = persistentListOf(),
     val selected: String? = null,
 ) : KaiUiNode
 
@@ -140,7 +143,7 @@ data class SliderNode(
 data class RadioGroupNode(
     override val id: String = "",
     val label: String? = null,
-    val options: List<String> = emptyList(),
+    @Contextual val options: ImmutableList<String> = persistentListOf(),
     val selected: String? = null,
 ) : KaiUiNode
 
@@ -182,7 +185,7 @@ data class CountdownNode(
 @SerialName("chip_group")
 data class ChipGroupNode(
     override val id: String = "",
-    val chips: List<ChipItem> = emptyList(),
+    @Contextual val chips: ImmutableList<ChipItem> = persistentListOf(),
     /** "single" (default), "multi", or "none" for display-only tags. */
     val selection: String = "single",
 ) : KaiUiNode
@@ -222,7 +225,7 @@ data class CodeNode(
 @SerialName("box")
 data class BoxNode(
     override val id: String? = null,
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
     val contentAlignment: String? = null,
 ) : KaiUiNode
 
@@ -231,7 +234,7 @@ data class BoxNode(
 @SerialName("tabs")
 data class TabsNode(
     override val id: String? = null,
-    val tabs: List<TabItem> = emptyList(),
+    @Contextual val tabs: ImmutableList<TabItem> = persistentListOf(),
     val selectedIndex: Int? = null,
 ) : KaiUiNode
 
@@ -239,7 +242,7 @@ data class TabsNode(
 @Serializable
 data class TabItem(
     val label: String = "",
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
 )
 
 @Immutable
@@ -248,7 +251,7 @@ data class TabItem(
 data class AccordionNode(
     override val id: String? = null,
     val title: String = "",
-    val children: List<KaiUiNode> = emptyList(),
+    @Contextual val children: ImmutableList<KaiUiNode> = persistentListOf(),
     val expanded: Boolean? = null,
 ) : KaiUiNode
 
@@ -299,7 +302,7 @@ data class AvatarNode(
 @SerialName("list")
 data class ListNode(
     override val id: String? = null,
-    val items: List<KaiUiNode> = emptyList(),
+    @Contextual val items: ImmutableList<KaiUiNode> = persistentListOf(),
     val ordered: Boolean? = null,
 ) : KaiUiNode
 
@@ -308,8 +311,8 @@ data class ListNode(
 @SerialName("table")
 data class TableNode(
     override val id: String? = null,
-    val headers: List<String> = emptyList(),
-    val rows: List<List<String>> = emptyList(),
+    @Contextual val headers: ImmutableList<String> = persistentListOf(),
+    @Contextual val rows: ImmutableList<@Contextual ImmutableList<String>> = persistentListOf(),
 ) : KaiUiNode
 
 // --- Enums ---

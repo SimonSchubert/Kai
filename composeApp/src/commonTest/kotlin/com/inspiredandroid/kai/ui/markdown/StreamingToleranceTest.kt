@@ -59,4 +59,50 @@ class StreamingToleranceTest {
         val doc = parseMarkdown("| a | b |\n| - |")
         assertTrue(doc.blocks.isNotEmpty())
     }
+
+    @Test
+    fun `extremely deep blockquote does not crash`() {
+        val md = "> ".repeat(10_000) + "leaf"
+        val doc = parseMarkdown(md)
+        assertTrue(doc.blocks.isNotEmpty())
+    }
+
+    @Test
+    fun `deeply nested list does not crash`() {
+        val md = buildString {
+            for (i in 0 until 500) {
+                append(" ".repeat(i * 2))
+                append("- item\n")
+            }
+        }
+        val doc = parseMarkdown(md)
+        assertTrue(doc.blocks.isNotEmpty())
+    }
+
+    @Test
+    fun `long run of asterisks does not crash`() {
+        val doc = parseMarkdown("*".repeat(5_000))
+        assertTrue(doc.blocks.isNotEmpty())
+    }
+
+    @Test
+    fun `long run of bracket openers does not crash`() {
+        val doc = parseMarkdown("[".repeat(5_000))
+        assertTrue(doc.blocks.isNotEmpty())
+    }
+
+    @Test
+    fun `huge single paragraph falls back to plain text`() {
+        val big = "x".repeat(200_000)
+        val doc = parseMarkdown(big)
+        val para = doc.blocks.single() as Paragraph
+        assertEquals(listOf(Text(big)), para.inlines)
+    }
+
+    @Test
+    fun `deeply nested emphasis does not crash`() {
+        val md = "*".repeat(1_000) + "text" + "*".repeat(1_000)
+        val doc = parseMarkdown(md)
+        assertTrue(doc.blocks.isNotEmpty())
+    }
 }

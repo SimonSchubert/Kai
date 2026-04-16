@@ -10,4 +10,11 @@ package com.inspiredandroid.kai.ui.markdown
  * degrade to their nearest sensible rendering instead of throwing. The returned document is
  * always well-formed and renderable.
  */
-fun parseMarkdown(text: String): MarkdownDocument = MarkdownDocument(BlockScanner.scan(text))
+fun parseMarkdown(text: String): MarkdownDocument {
+    if (text.isEmpty()) return MarkdownDocument(emptyList())
+    return try {
+        MarkdownDocument(BlockScanner.scan(text))
+    } catch (_: Throwable) {
+        MarkdownDocument(listOf(Paragraph(listOf(Text(text)))))
+    }
+}
