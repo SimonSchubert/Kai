@@ -114,7 +114,7 @@ string|settings_mcp_add_header|SGVhZGVyIHRvZXZvZWdlbg==
 string|settings_mcp_add_server|TUNQLXNlcnZlciB0b2V2b2VnZW4=
 string|settings_mcp_add|VG9ldm9lZ2Vu
 string|settings_mcp_cancel|QW5udWxlcmVu
-string|settings_mcp_header_key|TmFtZQ==
+string|settings_mcp_header_key|TmFhbQ==
 string|settings_mcp_header_value|V2FhcmRl
 string|settings_mcp_no_tools|R2VlbiB0b29scyBnZXZvbmRlbg==
 string|settings_mcp_popular_servers|UG9wdWxhaXJlIHNlcnZlcnM=
