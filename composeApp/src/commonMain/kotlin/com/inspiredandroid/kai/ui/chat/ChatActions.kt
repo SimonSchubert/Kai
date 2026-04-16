@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.data.BranchDirection
 import io.github.vinceglb.filekit.PlatformFile
 
 @Immutable
@@ -25,4 +26,6 @@ data class ChatActions(
     val enterInteractiveMode: () -> Unit,
     val exitInteractiveMode: () -> Unit,
     val goBackInteractiveMode: () -> Unit,
+    val navigateBranch: (String, BranchDirection) -> Unit,
+    val editMessage: (String, String) -> Unit,
 )

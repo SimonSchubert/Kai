@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.testutil
 
+import com.inspiredandroid.kai.data.BranchDirection
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
@@ -263,6 +264,16 @@ class FakeDataRepository : DataRepository {
     override fun restoreCurrentConversation() {
         // No-op in tests
     }
+
+    override fun editMessage(messageId: String, newContent: String) {
+        // No-op in tests
+    }
+
+    override fun navigateBranch(messageId: String, direction: BranchDirection) {
+        // No-op in tests
+    }
+
+    override fun getBranchInfo(): Map<String, Pair<Int, Int>> = emptyMap()
 
     override fun getToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
 

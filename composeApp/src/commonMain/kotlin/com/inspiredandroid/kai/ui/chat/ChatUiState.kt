@@ -83,6 +83,7 @@ data class ChatUiState(
     val snackbarMessage: StringResource? = null,
     val pendingConversationDeletion: String? = null,
     val isInteractiveMode: Boolean = false,
+    val branchInfo: Map<String, Pair<Int, Int>> = emptyMap(),
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

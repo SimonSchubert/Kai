@@ -45,6 +45,8 @@ object ScreenshotTestData {
         enterInteractiveMode = { },
         exitInteractiveMode = { },
         goBackInteractiveMode = { },
+        navigateBranch = { _, _ -> },
+        editMessage = { _, _ -> },
     )
 
     val chatEmptyState = ChatUiState(

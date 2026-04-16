@@ -23,6 +23,7 @@ data class Conversation(
     val updatedAt: Long,
     val title: String = "",
     val type: String = TYPE_CHAT,
+    val branches: List<BranchData> = emptyList(),
 ) {
     companion object {
         const val TYPE_CHAT = "chat"
@@ -36,13 +37,18 @@ data class Conversation(
         val role: String,
         val content: String,
         val attachments: List<Attachment> = emptyList(),
-        // Legacy single-file fields — retained for reading old persisted conversations.
-        // New code writes only `attachments`; these remain null on newly saved messages.
         val mimeType: String? = null,
         val data: String? = null,
         val fileName: String? = null,
     )
 }
+
+@Serializable
+data class BranchData(
+    val anchorMessageId: String? = null,
+    val branches: List<List<Conversation.Message>>,
+    val activeIndex: Int,
+)
 
 @Serializable
 data class ConversationsData(
