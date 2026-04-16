@@ -1,5 +1,11 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -39,6 +45,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -210,7 +217,7 @@ fun QuestionInput(
                         )
                     }
                     if (isLoading) {
-                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel)
+                        TrailingIcon(icon = Res.drawable.ic_stop, onClick = cancel, isPulsing = true)
                     } else if (textState.text.isNotBlank()) {
                         TrailingIcon(icon = Res.drawable.ic_up, onClick = { submitQuestion() })
                     }
@@ -266,10 +273,38 @@ internal fun TrailingIcon(
     icon: org.jetbrains.compose.resources.DrawableResource = Res.drawable.ic_up,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isPulsing: Boolean = false,
 ) {
+    val pulseModifier = if (isPulsing) {
+        val infiniteTransition = rememberInfiniteTransition()
+        val pulseScale by infiniteTransition.animateFloat(
+            initialValue = 0.92f,
+            targetValue = 1.0f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+                repeatMode = RepeatMode.Reverse,
+            ),
+        )
+        val pulseAlpha by infiniteTransition.animateFloat(
+            initialValue = 0.7f,
+            targetValue = 1.0f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+                repeatMode = RepeatMode.Reverse,
+            ),
+        )
+        Modifier.graphicsLayer {
+            scaleX = pulseScale
+            scaleY = pulseScale
+            alpha = pulseAlpha
+        }
+    } else {
+        Modifier
+    }
     Box(
         modifier = modifier
             .size(42.dp)
+            .then(pulseModifier)
             .clip(CircleShape)
             .background(brush = gradientBrush, CircleShape)
             .handCursor()
