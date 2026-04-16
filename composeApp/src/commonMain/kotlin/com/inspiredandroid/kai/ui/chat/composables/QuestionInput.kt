@@ -304,7 +304,6 @@ internal fun TrailingIcon(
     Box(
         modifier = modifier
             .size(42.dp)
-            .then(pulseModifier)
             .clip(CircleShape)
             .background(brush = gradientBrush, CircleShape)
             .handCursor()
@@ -315,7 +314,7 @@ internal fun TrailingIcon(
     ) {
         Icon(
             vectorResource(icon),
-            modifier = Modifier.size(32.dp),
+            modifier = Modifier.size(32.dp).then(pulseModifier),
             contentDescription = null,
             tint = Color.White,
         )
