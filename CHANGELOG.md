@@ -1,3 +1,14 @@
+## v2.2.0 — 2026-04-16
+
+### Features
+- Add custom markdown parser
+- Preserve previous Kai UI output and allow editing
+
+### Improvements
+- Pulse animation on stop button
+- Add missing localizations
+- Add missing model info
+
 ## v2.1.5 — 2026-04-15
 
 ### Features

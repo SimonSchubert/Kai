@@ -1,0 +1,5 @@
+Add custom markdown parser
+Preserve previous Kai UI output and allow editing
+Pulse animation on stop button
+Add missing localizations
+Add missing model info
