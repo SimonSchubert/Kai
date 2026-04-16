@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-16
+**Last verified:** 2026-04-16 (unified markdown parser)
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -8,7 +8,7 @@ AI-generated interactive UI layouts rendered inline in chat messages. The AI pro
 
 ### Layout Blocks
 
-A `kai-ui` code fence inside an assistant message contains a JSON object describing a component tree. The parser splits messages into markdown segments and UI segments, rendered sequentially. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).
+A `kai-ui` code fence inside an assistant message contains a JSON object describing a component tree. The unified markdown parser treats kai-ui fences as first-class AST blocks, alongside headings, paragraphs, and other markdown; the renderer dispatches each block to its composable. Supports both single-object JSON and multi-line NDJSON (one JSON object per line, automatically wrapped in a column).
 
 ### Component Types
 
@@ -81,10 +81,12 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 |------|---------|
 | `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 29 node types, all @Immutable |
 | `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
-| `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Detects kai-ui fences, sanitizes malformed JSON, dispatches to the builders |
+| `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Sanitizes malformed JSON and decodes kai-ui fence bodies via `parseUiBlockBody` |
 | `composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt` | Tolerant field-by-field construction of KaiUiNode instances from JsonElement |
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
-| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — renders mixed markdown + UI in chat mode |
+| `composeApp/.../ui/markdown/MarkdownParser.kt` | Unified markdown parser; emits `KaiUiBlock` AST nodes for kai-ui fences |
+| `composeApp/.../ui/markdown/MarkdownRenderer.kt` | Compose renderer that dispatches each block (including kai-ui) to its composable |
+| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — runs the parser and filters kai-ui out of non-interactive history |
 | `composeApp/.../ui/chat/ChatScreen.kt` | Branches between chat mode and interactive mode |
 | `composeApp/.../ui/chat/composables/EmptyState.kt` | "Start Interactive UI" button |
 | `composeApp/.../ui/chat/ChatActions.kt` | submitUiCallback, enterInteractiveMode, exitInteractiveMode, goBackInteractiveMode |

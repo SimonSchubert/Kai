@@ -39,9 +39,10 @@ import com.inspiredandroid.kai.data.Attachment
 import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.decodeToImageBitmap
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_file
 import kotlinx.collections.immutable.ImmutableList
@@ -138,10 +139,10 @@ private fun SubmittedUiMessage(
     isPending: Boolean,
     onResubmit: ((event: String, data: Map<String, String>) -> Unit)?,
 ) {
-    val uiSegments = remember(submission.sourceContent) {
-        KaiUiParser.parse(submission.sourceContent).filterIsInstance<KaiUiParser.UiSegment>()
+    val uiBlocks = remember(submission.sourceContent) {
+        parseMarkdown(submission.sourceContent).blocks.filterIsInstance<KaiUiBlock>()
     }
-    if (uiSegments.isEmpty()) return
+    if (uiBlocks.isEmpty()) return
     var isEditing by remember(submission) { mutableStateOf(false) }
     // Unfreeze in place: the form becomes interactive and seeded with the user's previous
     // picks. The old exchange is popped only when the user re-clicks a form button, so the
@@ -155,9 +156,9 @@ private fun SubmittedUiMessage(
     }
     Box(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
         Column {
-            for (segment in uiSegments) {
+            for (block in uiBlocks) {
                 KaiUiRenderer(
-                    node = segment.node,
+                    node = block.node,
                     isInteractive = isEditing,
                     onCallback = { event, data ->
                         isEditing = false

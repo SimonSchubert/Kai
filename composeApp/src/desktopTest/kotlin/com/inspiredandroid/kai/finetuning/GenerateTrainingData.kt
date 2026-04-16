@@ -1,6 +1,8 @@
 package com.inspiredandroid.kai.finetuning
 
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.KaiUiError
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -205,9 +207,9 @@ class GenerateTrainingData {
             val (userMessage, mode) = promptMap[slug] ?: continue
 
             val raw = file.readText()
-            val segments = KaiUiParser.parse(raw)
-            val hasUi = segments.any { it is KaiUiParser.UiSegment }
-            val hasError = segments.any { it is KaiUiParser.ErrorSegment }
+            val blocks = parseMarkdown(raw).blocks
+            val hasUi = blocks.any { it is KaiUiBlock }
+            val hasError = blocks.any { it is KaiUiError }
 
             // Only include clean successes
             if (hasUi && !hasError) {
@@ -236,12 +238,11 @@ class GenerateTrainingData {
      * with no parse errors.
      */
     private fun validateKaiUi(response: String): Boolean {
+        val blocks = parseMarkdown(response).blocks
+        val hasUi = blocks.any { it is KaiUiBlock }
+        val hasError = blocks.any { it is KaiUiError }
         // Allow responses that don't contain kai-ui at all (mixed markdown-only for dynamic mode)
-        if (!KaiUiParser.containsUiBlocks(response)) return false
-
-        val segments = KaiUiParser.parse(response)
-        val hasUi = segments.any { it is KaiUiParser.UiSegment }
-        val hasError = segments.any { it is KaiUiParser.ErrorSegment }
+        if (!hasUi && !hasError) return false
         return hasUi && !hasError
     }
 

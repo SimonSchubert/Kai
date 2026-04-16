@@ -72,11 +72,10 @@ class GoldenTrainingScreenshotTest {
     }
 
     private fun Paparazzi.snapKaiUi(json: String, wrapInCard: Boolean = true) {
-        val segments = KaiUiParser.parse("```kai-ui\n$json\n```")
-        val uiSegment = segments.filterIsInstance<KaiUiParser.UiSegment>().first()
+        val ui = KaiUiParser.parseUiBlockBody(json) as KaiUiParser.UiBlockResult.Ui
         snap {
             KaiUiRenderer(
-                node = uiSegment.node,
+                node = ui.node,
                 isInteractive = true,
                 onCallback = { _, _ -> },
                 modifier = Modifier.padding(12.dp),

@@ -3,19 +3,19 @@ package com.inspiredandroid.kai.ui.dynamicui
 import com.inspiredandroid.kai.data.SharedJson
 
 /**
- * Parses assistant messages that contain `kai-ui` fenced JSON blocks into a list of
- * [MessageSegment]s the renderer can consume.
+ * Decodes the body of a `kai-ui` fenced JSON block into a [KaiUiNode].
  *
  * The parse pipeline runs each block through three stages:
- *   1. **Block extraction** — locate `kai-ui` fences in the message text
+ *   1. **Block extraction** — the markdown parser locates `kai-ui` fences and hands the raw
+ *      body to [parseUiBlockBody].
  *   2. **Syntax repair** — fix broken key syntax, trim mismatched braces, close truncated JSON
- *      so `parseToJsonElement` can succeed
+ *      so `parseToJsonElement` can succeed.
  *   3. **Direct build** — walk the resulting [kotlinx.serialization.json.JsonElement] tree via
  *      [parseNode] in `KaiUiNodeBuilders.kt`, constructing [KaiUiNode] instances field-by-field.
  *      Each reader tolerates common LLM mistakes locally, so missing or miscoerced fields fall
  *      back to their data-class defaults and the node still builds.
  *
- * Only stages 1 and the `parseToJsonElement` call in stage 3 can produce an [ErrorSegment];
+ * Only the `parseToJsonElement` call in stage 3 can produce a [UiBlockResult.Error];
  * everything downstream of that returns a best-effort node or a null that callers filter out.
  */
 object KaiUiParser {
@@ -24,91 +24,47 @@ object KaiUiParser {
     // Public API
     // =========================================================================================
 
-    sealed interface MessageSegment
-
-    data class MarkdownSegment(val content: String) : MessageSegment
-
-    data class UiSegment(val node: KaiUiNode, val rawJson: String) : MessageSegment
-
-    data class ErrorSegment(val rawJson: String) : MessageSegment
-
-    fun containsUiBlocks(message: String): Boolean = kaiUiBlockRegex.containsMatchIn(message) || kaiUiSplitBlockRegex.containsMatchIn(message)
-
-    fun stripUiBlocks(message: String): String = kaiUiSplitBlockRegex.replace(kaiUiBlockRegex.replace(message, ""), "").trim()
-
-    fun parse(message: String): List<MessageSegment> {
-        val segments = mutableListOf<MessageSegment>()
-        var lastIndex = 0
-
-        for (match in findAllUiBlockMatches(message)) {
-            val before = message.substring(lastIndex, match.range.first)
-            if (before.isNotBlank()) {
-                segments.add(MarkdownSegment(before))
-            }
-            parseBlock(match.groupValues[1].trim())?.let { segments.add(it) }
-            lastIndex = match.range.last + 1
-        }
-
-        val remaining = message.substring(lastIndex)
-        if (remaining.isNotBlank()) {
-            segments.add(MarkdownSegment(remaining))
-        }
-        return segments
-    }
-
-    // =========================================================================================
-    // Block extraction
-    // =========================================================================================
-
-    private val kaiUiBlockRegex = Regex("```kai-ui\\s*\\n?([\\s\\S]*?)\\n?```")
-
-    /** LLMs sometimes write "kai-ui" as plain text then a separate ```json block. */
-    private val kaiUiSplitBlockRegex = Regex("(?:^|\\n)\\s*kai-ui\\s*\\n\\s*```(?:json)?\\s*\\n([\\s\\S]*?)\\n?```")
-
-    /** Non-overlapping matches from both fence patterns, sorted by position. */
-    private fun findAllUiBlockMatches(message: String): List<MatchResult> {
-        val all = (kaiUiBlockRegex.findAll(message) + kaiUiSplitBlockRegex.findAll(message))
-            .sortedBy { it.range.first }
-            .toList()
-        val result = mutableListOf<MatchResult>()
-        var lastEnd = -1
-        for (match in all) {
-            if (match.range.first > lastEnd) {
-                result.add(match)
-                lastEnd = match.range.last
-            }
-        }
-        return result
+    /** Result of decoding a kai-ui fence body; consumed by the markdown parser. */
+    sealed interface UiBlockResult {
+        data class Ui(val node: KaiUiNode, val rawJson: String) : UiBlockResult
+        data class Error(val rawJson: String) : UiBlockResult
     }
 
     /**
-     * Parse the content of a single kai-ui fence into a segment, or `null` if the block's
-     * top-level type is unknown (silently dropped). Multi-line fences (NDJSON) are parsed
-     * line-by-line and wrapped in a column; a block that fails to decode at all becomes an
-     * [ErrorSegment].
+     * Decode the raw body of a kai-ui fence (everything between the opening and closing triple
+     * backticks). Returns either a decoded [KaiUiNode] or an [UiBlockResult.Error] carrying the
+     * repaired JSON so callers can display it as a code block.
+     *
+     * Supports two shapes:
+     *  - A single JSON object (e.g. `{"type":"column", ...}`)
+     *  - NDJSON: one object per line (wrapped in an implicit `ColumnNode` by callers that want
+     *    the historical behavior, but returned here as-is for per-node composition).
      */
-    private fun parseBlock(rawBlock: String): MessageSegment? {
+    fun parseUiBlockBody(rawBlock: String): UiBlockResult? {
         val repaired = fixJsonSyntax(rawBlock)
         val lines = repaired.lines().map { it.trim() }.filter { it.isNotEmpty() }
 
         if (lines.size > 1 && lines.all { it.startsWith("{") }) {
             val children = lines.mapNotNull { tryParseLine(it) }
             return if (children.isNotEmpty()) {
-                UiSegment(ColumnNode(children = children), repaired)
+                UiBlockResult.Ui(ColumnNode(children = children), repaired)
             } else {
-                ErrorSegment(repaired)
+                UiBlockResult.Error(repaired)
             }
         }
 
         val json = sanitizeJson(repaired)
         return try {
-            // Null result → unknown top-level node type → silently drop the block.
-            parseSingleNode(json)?.let { UiSegment(it, json) }
+            parseSingleNode(json)?.let { UiBlockResult.Ui(it, json) }
         } catch (e: Exception) {
             println("kai-ui parse error: ${e.message} | ${json.take(500)}")
-            ErrorSegment(json)
+            UiBlockResult.Error(json)
         }
     }
+
+    // =========================================================================================
+    // Internals
+    // =========================================================================================
 
     /** Try to parse a single NDJSON line, retrying with `sanitizeJson` on the first failure. */
     private fun tryParseLine(line: String): KaiUiNode? = runCatching { parseSingleNode(line) }.getOrNull()

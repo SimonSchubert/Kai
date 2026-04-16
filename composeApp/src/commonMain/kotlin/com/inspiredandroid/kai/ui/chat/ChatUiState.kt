@@ -112,8 +112,7 @@ data class History(
 }
 
 /** Latest assistant message that should render in the UI (non-empty content, not a thinking-only entry). */
-fun List<History>.lastRenderedAssistant(): History? =
-    lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
+fun List<History>.lastRenderedAssistant(): History? = lastOrNull { it.role == History.Role.ASSISTANT && it.content.isNotEmpty() && !it.isThinking }
 
 @Immutable
 data class ToolCallInfo(

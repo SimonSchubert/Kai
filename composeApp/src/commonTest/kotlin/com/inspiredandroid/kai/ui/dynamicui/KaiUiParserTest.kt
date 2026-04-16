@@ -1,5 +1,9 @@
 package com.inspiredandroid.kai.ui.dynamicui
 
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.KaiUiError
+import com.inspiredandroid.kai.ui.markdown.Paragraph
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -9,29 +13,37 @@ import kotlin.test.assertTrue
 
 class KaiUiParserTest {
 
+    private fun hasUiBlocks(message: String): Boolean = parseMarkdown(message).blocks.any { it is KaiUiBlock || it is KaiUiError }
+
+    private fun parseUi(json: String): KaiUiNode {
+        val result = KaiUiParser.parseUiBlockBody(json)
+        val ui = assertIs<KaiUiParser.UiBlockResult.Ui>(result)
+        return ui.node
+    }
+
     @Test
     fun `detects kai-ui blocks`() {
         val message = "Hello\n```kai-ui\n{\"type\":\"text\",\"value\":\"Hi\"}\n```\nBye"
-        assertTrue(KaiUiParser.containsUiBlocks(message))
+        assertTrue(hasUiBlocks(message))
     }
 
     @Test
     fun `no false positive on regular code blocks`() {
         val message = "```kotlin\nval x = 1\n```"
-        assertFalse(KaiUiParser.containsUiBlocks(message))
+        assertFalse(hasUiBlocks(message))
     }
 
     @Test
     fun `parses text node`() {
         val message = "Before\n```kai-ui\n{\"type\":\"text\",\"value\":\"Hello\"}\n```\nAfter"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(3, segments.size)
-        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
-        assertIs<KaiUiParser.UiSegment>(segments[1])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(3, blocks.size)
+        assertIs<Paragraph>(blocks[0])
+        assertIs<KaiUiBlock>(blocks[1])
+        assertIs<Paragraph>(blocks[2])
 
-        val uiSegment = segments[1] as KaiUiParser.UiSegment
-        val textNode = assertIs<TextNode>(uiSegment.node)
+        val uiBlock = blocks[1] as KaiUiBlock
+        val textNode = assertIs<TextNode>(uiBlock.node)
         assertEquals("Hello", textNode.value)
     }
 
@@ -46,11 +58,7 @@ class KaiUiParserTest {
               ]
             }
         """.trimIndent()
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         assertEquals(2, node.children.size)
         assertIs<TextNode>(node.children[0])
         assertIs<ButtonNode>(node.children[1])
@@ -59,9 +67,7 @@ class KaiUiParserTest {
     @Test
     fun `callback action with collectFrom`() {
         val json = """{"type":"button","label":"Submit","action":{"type":"callback","event":"submit","collectFrom":["name","email"]}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val button = (segments[0] as KaiUiParser.UiSegment).node as ButtonNode
+        val button = assertIs<ButtonNode>(parseUi(json))
         val action = button.action as CallbackAction
         assertEquals("submit", action.event)
         assertEquals(listOf("name", "email"), action.collectFrom)
@@ -70,29 +76,27 @@ class KaiUiParserTest {
     @Test
     fun `invalid json produces error segment`() {
         val message = "```kai-ui\n{invalid json}\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.ErrorSegment>(segments[0])
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(1, blocks.size)
+        assertIs<KaiUiError>(blocks[0])
     }
 
     @Test
     fun `multiple ui blocks in one message`() {
         val message = "First block:\n```kai-ui\n{\"type\":\"text\",\"value\":\"A\"}\n```\nMiddle text\n```kai-ui\n{\"type\":\"text\",\"value\":\"B\"}\n```\nEnd"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(5, segments.size)
-        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
-        assertIs<KaiUiParser.UiSegment>(segments[1])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
-        assertIs<KaiUiParser.UiSegment>(segments[3])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[4])
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(5, blocks.size)
+        assertIs<Paragraph>(blocks[0])
+        assertIs<KaiUiBlock>(blocks[1])
+        assertIs<Paragraph>(blocks[2])
+        assertIs<KaiUiBlock>(blocks[3])
+        assertIs<Paragraph>(blocks[4])
     }
 
     @Test
     fun `interactive nodes require id`() {
         val json = """{"type":"text_input","id":"name","label":"Name"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node as TextInputNode
+        val node = assertIs<TextInputNode>(parseUi(json))
         assertEquals("name", node.id)
         assertEquals("Name", node.label)
     }
@@ -100,9 +104,7 @@ class KaiUiParserTest {
     @Test
     fun `select node with options`() {
         val json = """{"type":"select","id":"color","label":"Color","options":["Red","Blue","Green"],"selected":"Blue"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node as SelectNode
+        val node = assertIs<SelectNode>(parseUi(json))
         assertEquals(listOf("Red", "Blue", "Green"), node.options)
         assertEquals("Blue", node.selected)
     }
@@ -110,9 +112,7 @@ class KaiUiParserTest {
     @Test
     fun `toggle action`() {
         val json = """{"type":"button","label":"Toggle","action":{"type":"toggle","targetId":"details"}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val button = (segments[0] as KaiUiParser.UiSegment).node as ButtonNode
+        val button = assertIs<ButtonNode>(parseUi(json))
         val toggle = assertIs<ToggleAction>(button.action)
         assertEquals("details", toggle.targetId)
     }
@@ -120,9 +120,7 @@ class KaiUiParserTest {
     @Test
     fun `open url action`() {
         val json = """{"type":"button","label":"Visit","action":{"type":"open_url","url":"https://example.com"}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val button = (segments[0] as KaiUiParser.UiSegment).node as ButtonNode
+        val button = assertIs<ButtonNode>(parseUi(json))
         val openUrl = assertIs<OpenUrlAction>(button.action)
         assertEquals("https://example.com", openUrl.url)
     }
@@ -130,33 +128,26 @@ class KaiUiParserTest {
     @Test
     fun `handles extra trailing braces from LLM`() {
         val json = """{"type":"text","value":"Hi"}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<TextNode>(node)
+        val node = assertIs<TextNode>(parseUi(json))
         assertEquals("Hi", node.value)
     }
 
     @Test
     fun `handles multiple extra trailing braces`() {
         val json = """{"type":"column","children":[{"type":"text","value":"A"}]}}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        assertIs<ColumnNode>((segments[0] as KaiUiParser.UiSegment).node)
+        assertIs<ColumnNode>(parseUi(json))
     }
 
     @Test
-    fun `detects kai-ui block without newlines around content`() {
-        val message = "```kai-ui{\"type\":\"text\",\"value\":\"Hi\"}```"
-        assertTrue(KaiUiParser.containsUiBlocks(message))
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<TextNode>(node)
+    fun `parses kai-ui block when body and closing fence share line with newline before body`() {
+        // The markdown parser requires the opening fence to end the line; the body must start on
+        // the next line. This is a well-formed CommonMark fenced block.
+        val message = "```kai-ui\n{\"type\":\"text\",\"value\":\"Hi\"}\n```"
+        assertTrue(hasUiBlocks(message))
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(1, blocks.size)
+        val uiBlock = assertIs<KaiUiBlock>(blocks[0])
+        assertIs<TextNode>(uiBlock.node)
     }
 
     @Test
@@ -168,13 +159,13 @@ class KaiUiParserTest {
             {"type":"column","children":[{"type":"button","label":"42","action":{"type":"callback","event":"answer","data":{"answer":"42"}},"variant":"filled"}]}
         """.trimIndent()
         val message = "Here's a quiz:\n```kai-ui\n$block\n```\nGood luck!"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(3, segments.size)
-        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
-        assertIs<KaiUiParser.UiSegment>(segments[1])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(3, blocks.size)
+        assertIs<Paragraph>(blocks[0])
+        assertIs<KaiUiBlock>(blocks[1])
+        assertIs<Paragraph>(blocks[2])
 
-        val column = (segments[1] as KaiUiParser.UiSegment).node
+        val column = (blocks[1] as KaiUiBlock).node
         assertIs<ColumnNode>(column)
         assertEquals(4, column.children.size)
         assertIs<TextNode>(column.children[0])
@@ -192,11 +183,7 @@ class KaiUiParserTest {
             {invalid json here}
             {"type":"text","value":"Good luck","style":"body"}
         """.trimIndent()
-        val message = "```kai-ui\n$block\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val column = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(column)
+        val column = assertIs<ColumnNode>(parseUi(block))
         // The invalid line is skipped, but the 3 valid lines parse
         assertEquals(3, column.children.size)
     }
@@ -211,13 +198,11 @@ class KaiUiParserTest {
             {"type":"column","children":[{"type":"button","label":"38","action":{"type":"callback","event":"answer_q1","data":{"answer":"38"}},"variant":"filled"},{"type":"button","label":"40","action":{"type":"callback","event":"answer_q1","data":{"answer":"40"}},"variant":"filled"},{"type":"button","label":"42","action":{"type":"callback","event":"answer_q1","data":{"answer":"42"}},"variant":"filled"},{"type":"button","label":"44","action":{"type":"callback","event":"answer_q1","data":{"answer":"44"}},"variant":"filled"}}]}
         """.trimIndent()
         val message = "Sure! Let's see how sharp you are today.\n\n```kai-ui\n$block\n```\n\nTake your shot!"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(3, segments.size)
-        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
-        assertIs<KaiUiParser.UiSegment>(segments[1])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[2])
+        val blocks = parseMarkdown(message).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        assertEquals(1, uiBlocks.size)
 
-        val column = (segments[1] as KaiUiParser.UiSegment).node
+        val column = uiBlocks[0].node
         assertIs<ColumnNode>(column)
         // sanitizeJson repairs the extra } so all 4 lines parse including buttons
         assertEquals(4, column.children.size)
@@ -244,10 +229,7 @@ class KaiUiParserTest {
                 {"type":"spacer","height":8}
             ]}
         ]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val column = assertIs<ColumnNode>((segments[0] as KaiUiParser.UiSegment).node)
+        val column = assertIs<ColumnNode>(parseUi(json))
         assertEquals(3, column.children.size)
         assertIs<TextNode>(column.children[0])
         assertIs<TextNode>(column.children[1])
@@ -261,12 +243,11 @@ class KaiUiParserTest {
         // Real-world kimi-k2.5 output: single column with buttons, extra } before ]}
         val json = """{"type":"column","children":[{"type":"button","label":"All roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"all"}},"variant":"filled"},{"type":"button","label":"Some roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"some"}},"variant":"filled"},{"type":"button","label":"No roses fade quickly","action":{"type":"callback","event":"answer_q2","data":{"answer":"none"}},"variant":"filled"},{"type":"button","label":"None of these follow","action":{"type":"callback","event":"answer_q2","data":{"answer":"none_follow"}},"variant":"filled"}}]}"""
         val message = "Which statement is necessarily true?\n\n```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(2, segments.size)
-        assertIs<KaiUiParser.MarkdownSegment>(segments[0])
-        assertIs<KaiUiParser.UiSegment>(segments[1])
+        val blocks = parseMarkdown(message).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        assertEquals(1, uiBlocks.size)
 
-        val column = (segments[1] as KaiUiParser.UiSegment).node
+        val column = uiBlocks[0].node
         assertIs<ColumnNode>(column)
         assertEquals(4, column.children.size)
         for (child in column.children) {
@@ -282,12 +263,7 @@ class KaiUiParserTest {
         // comma that separates it from the next button in the array. The first failure
         // is at offset 139 — `,{` inside button1 where a key is expected.
         val json = """{"type":"row","children":[{"type":"button","label":"Au","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Au"}},{"type":"button","label":"Ag","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Ag"}},{"type":"button","label":"Fe","action":{"type":"callback","event":"answer","data":{"question":1,"answer":"Fe"}}}}}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        val row = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<RowNode>(row)
+        val row = assertIs<RowNode>(parseUi(json))
         assertEquals(3, row.children.size)
         assertEquals("Au", (row.children[0] as ButtonNode).label)
         assertEquals("Ag", (row.children[1] as ButtonNode).label)
@@ -298,12 +274,7 @@ class KaiUiParserTest {
     fun `extra closing bracket inside nested structure is skipped`() {
         // Extra ] where } is expected — sanitizeJson should skip it
         val json = """{"type":"column","children":[{"type":"text","value":"A"},{"type":"text","value":"B"}]]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        val column = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(column)
+        val column = assertIs<ColumnNode>(parseUi(json))
         assertEquals(2, column.children.size)
     }
 
@@ -311,10 +282,7 @@ class KaiUiParserTest {
     fun `callback data with non-string values`() {
         // LLMs sometimes send booleans or numbers in the data map instead of strings
         val json = """{"type":"button","label":"Continue","action":{"type":"callback","event":"continue","data":{"continue":true,"count":42,"name":"test"}}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val button = (segments[0] as KaiUiParser.UiSegment).node as ButtonNode
+        val button = assertIs<ButtonNode>(parseUi(json))
         val action = button.action as CallbackAction
         assertEquals("continue", action.event)
         val data = action.dataAsStrings!!
@@ -326,12 +294,7 @@ class KaiUiParserTest {
     @Test
     fun `fixes equals sign instead of colon in key-value separator`() {
         val json = """{"type":"column","children=[{"type":"text","value":"Hello"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        val column = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(column)
+        val column = assertIs<ColumnNode>(parseUi(json))
         assertEquals(1, column.children.size)
         assertIs<TextNode>(column.children[0])
     }
@@ -340,12 +303,11 @@ class KaiUiParserTest {
     fun `parses complex nested kai-ui from kimi model`() {
         val json = """{"type":"column","children":[{"type":"text","value":"Wilderness Survival","style":"headline","bold":true},{"type":"text","value":"You wake up in a cold pine forest.","style":"body"},{"type":"divider"},{"type":"text","value":"Status","style":"title"},{"type":"row","children":[{"type":"card","children":[{"type":"text","value":"Health: 80/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Hunger: 30/100","style":"body"}]},{"type":"card","children":[{"type":"text","value":"Energy: 70/100","style":"body"}]}]},{"type":"text","value":"What do you want to do?","style":"title"},{"type":"column","children":[{"type":"button","label":"Follow river","action":{"type":"callback","event":"survival_choice","data":{"choice":"river"}},"variant":"filled"},{"type":"button","label":"Head to mountains","action":{"type":"callback","event":"survival_choice","data":{"choice":"mountains"}},"variant":"filled"},{"type":"button","label":"Stay & build camp here","action":{"type":"callback","event":"survival_choice","data":{"choice":"camp"}},"variant":"filled"}]}]}"""
         val message = "```kai-ui\n$json\n```\n\nType \"stop game\" anytime to quit."
-        assertTrue(KaiUiParser.containsUiBlocks(message))
-        val segments = KaiUiParser.parse(message)
-        assertEquals(2, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        assertIs<KaiUiParser.MarkdownSegment>(segments[1])
-        val column = (segments[0] as KaiUiParser.UiSegment).node
+        assertTrue(hasUiBlocks(message))
+        val blocks = parseMarkdown(message).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        assertEquals(1, uiBlocks.size)
+        val column = uiBlocks[0].node
         assertIs<ColumnNode>(column)
         assertEquals(7, column.children.size)
     }
@@ -355,10 +317,7 @@ class KaiUiParserTest {
     @Test
     fun `parses switch node`() {
         val json = """{"type":"switch","id":"dark_mode","label":"Dark Mode","checked":true}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<SwitchNode>(node)
+        val node = assertIs<SwitchNode>(parseUi(json))
         assertEquals("dark_mode", node.id)
         assertEquals("Dark Mode", node.label)
         assertEquals(true, node.checked)
@@ -367,10 +326,7 @@ class KaiUiParserTest {
     @Test
     fun `parses slider node`() {
         val json = """{"type":"slider","id":"volume","label":"Volume","value":75,"min":0,"max":100,"step":5}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<SliderNode>(node)
+        val node = assertIs<SliderNode>(parseUi(json))
         assertEquals("volume", node.id)
         assertEquals(75f, node.value)
         assertEquals(0f, node.min)
@@ -381,10 +337,7 @@ class KaiUiParserTest {
     @Test
     fun `parses radio_group node`() {
         val json = """{"type":"radio_group","id":"size","label":"Size","options":["S","M","L","XL"],"selected":"M"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<RadioGroupNode>(node)
+        val node = assertIs<RadioGroupNode>(parseUi(json))
         assertEquals(listOf("S", "M", "L", "XL"), node.options)
         assertEquals("M", node.selected)
     }
@@ -392,10 +345,7 @@ class KaiUiParserTest {
     @Test
     fun `parses progress node determinate`() {
         val json = """{"type":"progress","value":0.7,"label":"Uploading..."}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ProgressNode>(node)
+        val node = assertIs<ProgressNode>(parseUi(json))
         assertEquals(0.7f, node.value)
         assertEquals("Uploading...", node.label)
     }
@@ -403,20 +353,14 @@ class KaiUiParserTest {
     @Test
     fun `parses progress node indeterminate`() {
         val json = """{"type":"progress","label":"Loading..."}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ProgressNode>(node)
+        val node = assertIs<ProgressNode>(parseUi(json))
         assertEquals(null, node.value)
     }
 
     @Test
     fun `parses alert node`() {
         val json = """{"type":"alert","message":"File saved successfully","title":"Success","severity":"success"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<AlertNode>(node)
+        val node = assertIs<AlertNode>(parseUi(json))
         assertEquals("File saved successfully", node.message)
         assertEquals("Success", node.title)
         assertEquals(AlertSeverity.SUCCESS, node.severity)
@@ -425,10 +369,7 @@ class KaiUiParserTest {
     @Test
     fun `parses chip_group node`() {
         val json = """{"type":"chip_group","id":"tags","chips":[{"label":"Kotlin","value":"kotlin"},{"label":"Java","value":"java"}],"selection":"multi"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ChipGroupNode>(node)
+        val node = assertIs<ChipGroupNode>(parseUi(json))
         assertEquals(2, node.chips.size)
         assertEquals("Kotlin", node.chips[0].label)
         assertEquals("kotlin", node.chips[0].value)
@@ -439,23 +380,18 @@ class KaiUiParserTest {
     fun `migrates legacy multiSelect to selection`() {
         // Legacy kai-ui blocks in historical chat messages used multiSelect:Boolean.
         val multiJson = """{"type":"chip_group","id":"tags","chips":[{"label":"A"}],"multiSelect":true}"""
-        val multiNode = (KaiUiParser.parse("```kai-ui\n$multiJson\n```")[0] as KaiUiParser.UiSegment).node
-        assertIs<ChipGroupNode>(multiNode)
+        val multiNode = assertIs<ChipGroupNode>(parseUi(multiJson))
         assertEquals("multi", multiNode.selection)
 
         val singleJson = """{"type":"chip_group","id":"tags","chips":[{"label":"A"}],"multiSelect":false}"""
-        val singleNode = (KaiUiParser.parse("```kai-ui\n$singleJson\n```")[0] as KaiUiParser.UiSegment).node
-        assertIs<ChipGroupNode>(singleNode)
+        val singleNode = assertIs<ChipGroupNode>(parseUi(singleJson))
         assertEquals("single", singleNode.selection)
     }
 
     @Test
     fun `parses icon node`() {
         val json = """{"type":"icon","name":"star","size":32,"color":"primary"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<IconNode>(node)
+        val node = assertIs<IconNode>(parseUi(json))
         assertEquals("star", node.name)
         assertEquals(32, node.size)
         assertEquals("primary", node.color)
@@ -464,10 +400,7 @@ class KaiUiParserTest {
     @Test
     fun `parses code node`() {
         val json = """{"type":"code","code":"fun main() { println(\"Hello\") }","language":"kotlin"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<CodeNode>(node)
+        val node = assertIs<CodeNode>(parseUi(json))
         assertEquals("fun main() { println(\"Hello\") }", node.code)
         assertEquals("kotlin", node.language)
     }
@@ -475,10 +408,7 @@ class KaiUiParserTest {
     @Test
     fun `parses tabs node`() {
         val json = """{"type":"tabs","tabs":[{"label":"Tab 1","children":[{"type":"text","value":"Content 1"}]},{"label":"Tab 2","children":[{"type":"text","value":"Content 2"}]}],"selectedIndex":0}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<TabsNode>(node)
+        val node = assertIs<TabsNode>(parseUi(json))
         assertEquals(2, node.tabs.size)
         assertEquals("Tab 1", node.tabs[0].label)
         assertEquals(1, node.tabs[0].children.size)
@@ -488,31 +418,28 @@ class KaiUiParserTest {
     @Test
     fun `parses accordion node`() {
         val json = """{"type":"accordion","title":"More details","children":[{"type":"text","value":"Hidden content"}],"expanded":false}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<AccordionNode>(node)
+        val node = assertIs<AccordionNode>(parseUi(json))
         assertEquals("More details", node.title)
         assertEquals(false, node.expanded)
         assertEquals(1, node.children.size)
     }
 
     @Test
-    fun `skips unknown top-level node type`() {
+    fun `unknown top-level node type produces error block`() {
+        // Well-formed JSON but the type isn't one we render — shows up as a KaiUiError so the
+        // renderer can at least fall back to displaying the raw JSON instead of silently
+        // swallowing the assistant's response.
         val json = """{"type":"bottom_bar","buttons":[{"label":"Home","icon":"home"}]}"""
         val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertTrue(segments.none { it is KaiUiParser.ErrorSegment })
-        assertTrue(segments.none { it is KaiUiParser.UiSegment })
+        val blocks = parseMarkdown(message).blocks
+        assertEquals(1, blocks.size)
+        assertIs<KaiUiError>(blocks[0])
     }
 
     @Test
     fun `strips unknown child node from children`() {
         val json = """{"type":"column","children":[{"type":"text","value":"Keep"},{"type":"bottom_bar","buttons":[]}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         assertEquals(1, node.children.size)
         assertIs<TextNode>(node.children[0])
     }
@@ -520,10 +447,7 @@ class KaiUiParserTest {
     @Test
     fun `parses box node`() {
         val json = """{"type":"box","children":[{"type":"text","value":"Centered"}],"contentAlignment":"center"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<BoxNode>(node)
+        val node = assertIs<BoxNode>(parseUi(json))
         assertEquals("center", node.contentAlignment)
         assertEquals(1, node.children.size)
     }
@@ -531,40 +455,28 @@ class KaiUiParserTest {
     @Test
     fun `parses button with outlined variant`() {
         val json = """{"type":"button","label":"Cancel","variant":"outlined"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ButtonNode>(node)
+        val node = assertIs<ButtonNode>(parseUi(json))
         assertEquals(ButtonVariant.OUTLINED, node.variant)
     }
 
     @Test
     fun `parses button with text variant`() {
         val json = """{"type":"button","label":"Skip","variant":"text"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ButtonNode>(node)
+        val node = assertIs<ButtonNode>(parseUi(json))
         assertEquals(ButtonVariant.TEXT, node.variant)
     }
 
     @Test
     fun `parses button with tonal variant`() {
         val json = """{"type":"button","label":"Maybe","variant":"tonal"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ButtonNode>(node)
+        val node = assertIs<ButtonNode>(parseUi(json))
         assertEquals(ButtonVariant.TONAL, node.variant)
     }
 
     @Test
     fun `parses countdown node`() {
         val json = """{"type":"countdown","seconds":300,"label":"Time left"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<CountdownNode>(node)
+        val node = assertIs<CountdownNode>(parseUi(json))
         assertEquals(300, node.seconds)
         assertEquals("Time left", node.label)
         assertEquals(null, node.action)
@@ -573,22 +485,16 @@ class KaiUiParserTest {
     @Test
     fun `parses countdown node with action`() {
         val json = """{"type":"countdown","seconds":60,"label":"Hurry!","action":{"type":"callback","event":"timer_done"}}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<CountdownNode>(node)
+        val node = assertIs<CountdownNode>(parseUi(json))
         assertEquals(60, node.seconds)
-        assertIs<CallbackAction>(node.action)
-        assertEquals("timer_done", (node.action as CallbackAction).event)
+        val action = assertIs<CallbackAction>(node.action)
+        assertEquals("timer_done", action.event)
     }
 
     @Test
     fun `parses quote node`() {
         val json = """{"type":"quote","text":"Be the change.","source":"Gandhi"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<QuoteNode>(node)
+        val node = assertIs<QuoteNode>(parseUi(json))
         assertEquals("Be the change.", node.text)
         assertEquals("Gandhi", node.source)
     }
@@ -596,10 +502,7 @@ class KaiUiParserTest {
     @Test
     fun `parses quote node without source`() {
         val json = """{"type":"quote","text":"Hello world"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<QuoteNode>(node)
+        val node = assertIs<QuoteNode>(parseUi(json))
         assertEquals("Hello world", node.text)
         assertNull(node.source)
     }
@@ -607,10 +510,7 @@ class KaiUiParserTest {
     @Test
     fun `parses badge node`() {
         val json = """{"type":"badge","value":"3","color":"error"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<BadgeNode>(node)
+        val node = assertIs<BadgeNode>(parseUi(json))
         assertEquals("3", node.value)
         assertEquals("error", node.color)
     }
@@ -618,10 +518,7 @@ class KaiUiParserTest {
     @Test
     fun `parses stat node`() {
         val json = """{"type":"stat","value":"$1,234","label":"Revenue","description":"12% increase"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<StatNode>(node)
+        val node = assertIs<StatNode>(parseUi(json))
         assertEquals("$1,234", node.value)
         assertEquals("Revenue", node.label)
         assertEquals("12% increase", node.description)
@@ -630,10 +527,7 @@ class KaiUiParserTest {
     @Test
     fun `parses avatar node`() {
         val json = """{"type":"avatar","name":"John Doe","size":48}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<AvatarNode>(node)
+        val node = assertIs<AvatarNode>(parseUi(json))
         assertEquals("John Doe", node.name)
         assertNull(node.imageUrl)
         assertEquals(48, node.size)
@@ -642,10 +536,7 @@ class KaiUiParserTest {
     @Test
     fun `parses avatar node with image url`() {
         val json = """{"type":"avatar","name":"Jane","imageUrl":"https://example.com/photo.jpg"}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<AvatarNode>(node)
+        val node = assertIs<AvatarNode>(parseUi(json))
         assertEquals("Jane", node.name)
         assertEquals("https://example.com/photo.jpg", node.imageUrl)
     }
@@ -653,10 +544,7 @@ class KaiUiParserTest {
     @Test
     fun `infers text node from object with text field but no type`() {
         val json = """{"type":"column","children":[{"text":"Hello","icon":"check"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         val child = node.children[0]
         assertIs<TextNode>(child)
         assertEquals("Hello", child.value)
@@ -665,10 +553,7 @@ class KaiUiParserTest {
     @Test
     fun `infers column from object with title and subtitle but no type`() {
         val json = """{"type":"column","children":[{"title":"My Title","subtitle":"My Subtitle","icon":"settings"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         val child = node.children[0]
         assertIs<ColumnNode>(child)
         assertEquals(2, child.children.size)
@@ -683,10 +568,7 @@ class KaiUiParserTest {
     @Test
     fun `infers text node from object with title only but no type`() {
         val json = """{"type":"column","children":[{"title":"A Title"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         val child = node.children[0]
         assertIs<TextNode>(child)
         assertEquals("A Title", child.value)
@@ -695,10 +577,7 @@ class KaiUiParserTest {
     @Test
     fun `infers text node from object with label but no type`() {
         val json = """{"type":"column","children":[{"label":"Click me"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         val child = node.children[0]
         assertIs<TextNode>(child)
         assertEquals("Click me", child.value)
@@ -710,11 +589,7 @@ class KaiUiParserTest {
     fun `recovers truncated JSON mid-value in nested object`() {
         // Simulates LLM response cut off inside a deeply nested structure
         val json = """{"type":"column","children":[{"type":"text","value":"Complete"},{"type":"text","value":"Trun"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         // At least the first complete child should be recovered
         assertTrue(node.children.isNotEmpty())
         assertIs<TextNode>(node.children[0])
@@ -724,11 +599,7 @@ class KaiUiParserTest {
     @Test
     fun `recovers truncated JSON after comma`() {
         val json = """{"type":"column","children":[{"type":"text","value":"First"},"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         assertEquals(1, node.children.size)
         assertIs<TextNode>(node.children[0])
         assertEquals("First", (node.children[0] as TextNode).value)
@@ -737,33 +608,21 @@ class KaiUiParserTest {
     @Test
     fun `recovers truncated JSON mid-key`() {
         val json = """{"type":"column","children":[{"type":"text","value":"OK"}],"spa"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ColumnNode>(node)
+        val node = assertIs<ColumnNode>(parseUi(json))
         assertEquals(1, node.children.size)
     }
 
     @Test
     fun `flattens array value to string when primitive expected`() {
         val json = """{"type":"text","value":["line one","line two"]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<TextNode>(node)
+        val node = assertIs<TextNode>(parseUi(json))
         assertEquals("line one, line two", node.value)
     }
 
     @Test
     fun `parses list items with content field instead of type`() {
         val json = """{"type":"list","items":[{"content":"First item"},{"content":"Second item"}]}"""
-        val message = "```kai-ui\n$json\n```"
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        val node = (segments[0] as KaiUiParser.UiSegment).node
-        assertIs<ListNode>(node)
+        val node = assertIs<ListNode>(parseUi(json))
         assertEquals(2, node.items.size)
         val first = node.items[0]
         assertIs<TextNode>(first)
@@ -776,11 +635,11 @@ class KaiUiParserTest {
     @Test
     fun `detects kai-ui as plain text followed by json code block`() {
         val message = "kai-ui\n```json\n{\"type\":\"text\",\"value\":\"Hello\"}\n```"
-        assertTrue(KaiUiParser.containsUiBlocks(message))
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-        val node = (segments[0] as KaiUiParser.UiSegment).node
+        assertTrue(hasUiBlocks(message))
+        val blocks = parseMarkdown(message).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        assertEquals(1, uiBlocks.size)
+        val node = uiBlocks[0].node
         assertIs<TextNode>(node)
         assertEquals("Hello", node.value)
     }
@@ -788,80 +647,57 @@ class KaiUiParserTest {
     @Test
     fun `detects kai-ui as plain text followed by untagged code block`() {
         val message = "kai-ui\n```\n{\"type\":\"text\",\"value\":\"Hello\"}\n```"
-        assertTrue(KaiUiParser.containsUiBlocks(message))
-        val segments = KaiUiParser.parse(message)
-        assertEquals(1, segments.size)
-        assertIs<KaiUiParser.UiSegment>(segments[0])
-    }
-
-    @Test
-    fun `strips split kai-ui blocks`() {
-        val message = "Before\nkai-ui\n```json\n{\"type\":\"text\",\"value\":\"Hi\"}\n```\nAfter"
-        val stripped = KaiUiParser.stripUiBlocks(message)
-        assertFalse(stripped.contains("kai-ui"))
-        assertFalse(stripped.contains("\"type\""))
-        assertTrue(stripped.contains("Before"))
-        assertTrue(stripped.contains("After"))
+        assertTrue(hasUiBlocks(message))
+        val blocks = parseMarkdown(message).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        assertEquals(1, uiBlocks.size)
     }
 
     // --- Shape coercion: LLMs sometimes put objects or wrong-shaped lists where the data
     // model expects a plain string or a List<String>. These regressions pin the behaviour of
     // fixMissingTypes so the parser recovers instead of crashing the whole block.
 
-    private fun parseSingleNode(json: String): KaiUiNode {
-        val segments = KaiUiParser.parse("```kai-ui\n$json\n```")
-        val uiSegment = segments.filterIsInstance<KaiUiParser.UiSegment>().single()
-        return uiSegment.node
-    }
-
     @Test
     fun `coerces text value as object with nested text field`() {
-        val node = parseSingleNode("""{"type":"text","value":{"text":"hello"}}""")
-        val text = assertIs<TextNode>(node)
+        val text = assertIs<TextNode>(parseUi("""{"type":"text","value":{"text":"hello"}}"""))
         assertEquals("hello", text.value)
     }
 
     @Test
     fun `coerces button label as object with label field`() {
-        val node = parseSingleNode("""{"type":"button","label":{"label":"Click me"},"action":{"type":"callback","event":"tap"}}""")
-        val button = assertIs<ButtonNode>(node)
+        val button = assertIs<ButtonNode>(parseUi("""{"type":"button","label":{"label":"Click me"},"action":{"type":"callback","event":"tap"}}"""))
         assertEquals("Click me", button.label)
     }
 
     @Test
     fun `coerces select options as list of objects`() {
-        val node = parseSingleNode("""{"type":"select","id":"pick","options":[{"label":"Alpha","value":"a"},{"label":"Beta","value":"b"}]}""")
-        val select = assertIs<SelectNode>(node)
+        val select = assertIs<SelectNode>(parseUi("""{"type":"select","id":"pick","options":[{"label":"Alpha","value":"a"},{"label":"Beta","value":"b"}]}"""))
         assertEquals(listOf("a", "b"), select.options)
     }
 
     @Test
     fun `coerces radio group options as list of objects`() {
-        val node = parseSingleNode("""{"type":"radio_group","id":"pick","options":[{"label":"Yes","value":"y"},{"label":"No","value":"n"}]}""")
-        val radio = assertIs<RadioGroupNode>(node)
+        val radio = assertIs<RadioGroupNode>(parseUi("""{"type":"radio_group","id":"pick","options":[{"label":"Yes","value":"y"},{"label":"No","value":"n"}]}"""))
         assertEquals(listOf("y", "n"), radio.options)
     }
 
     @Test
     fun `coerces table rows as list of objects`() {
-        val node = parseSingleNode("""{"type":"table","headers":["col1","col2"],"rows":[{"col1":"1","col2":"2"},{"col1":"3","col2":"4"}]}""")
-        val table = assertIs<TableNode>(node)
+        val table = assertIs<TableNode>(parseUi("""{"type":"table","headers":["col1","col2"],"rows":[{"col1":"1","col2":"2"},{"col1":"3","col2":"4"}]}"""))
         assertEquals(listOf("col1", "col2"), table.headers)
         assertEquals(listOf(listOf("1", "2"), listOf("3", "4")), table.rows)
     }
 
     @Test
     fun `coerces table headers as list of objects`() {
-        val node = parseSingleNode("""{"type":"table","headers":[{"name":"Col A"},{"name":"Col B"}],"rows":[["a","b"]]}""")
-        val table = assertIs<TableNode>(node)
+        val table = assertIs<TableNode>(parseUi("""{"type":"table","headers":[{"name":"Col A"},{"name":"Col B"}],"rows":[["a","b"]]}"""))
         assertEquals(listOf("Col A", "Col B"), table.headers)
         assertEquals(listOf(listOf("a", "b")), table.rows)
     }
 
     @Test
     fun `coerces chip group chips as bare strings`() {
-        val node = parseSingleNode("""{"type":"chip_group","id":"tags","chips":["red","blue","green"]}""")
-        val chipGroup = assertIs<ChipGroupNode>(node)
+        val chipGroup = assertIs<ChipGroupNode>(parseUi("""{"type":"chip_group","id":"tags","chips":["red","blue","green"]}"""))
         assertEquals(3, chipGroup.chips.size)
         assertEquals("red", chipGroup.chips[0].label)
         assertEquals("red", chipGroup.chips[0].value)
@@ -870,8 +706,7 @@ class KaiUiParserTest {
 
     @Test
     fun `coerces quote text as object`() {
-        val node = parseSingleNode("""{"type":"quote","text":{"content":"Be kind"},"source":"anon"}""")
-        val quote = assertIs<QuoteNode>(node)
+        val quote = assertIs<QuoteNode>(parseUi("""{"type":"quote","text":{"content":"Be kind"},"source":"anon"}"""))
         assertEquals("Be kind", quote.text)
         assertEquals("anon", quote.source)
     }
@@ -879,14 +714,15 @@ class KaiUiParserTest {
     @Test
     fun `wraps untyped objects inside list items as text nodes`() {
         // Real-world kimi-k2.5 output: list items emitted as {"value":"..."} without a type field
-        val node = parseSingleNode(
-            """{"type":"list","items":[
+        val list = assertIs<ListNode>(
+            parseUi(
+                """{"type":"list","items":[
                 {"value":"AI employees as social creators"},
                 {"value":"Nostalgia platforms comeback"},
                 {"value":"Gut health micro-movements"}
             ]}""",
+            ),
         )
-        val list = assertIs<ListNode>(node)
         assertEquals(3, list.items.size)
         val first = assertIs<TextNode>(list.items[0])
         assertEquals("AI employees as social creators", first.value)
@@ -898,14 +734,15 @@ class KaiUiParserTest {
 
     @Test
     fun `wraps untyped objects inside children as text nodes`() {
-        val node = parseSingleNode(
-            """{"type":"column","children":[
+        val column = assertIs<ColumnNode>(
+            parseUi(
+                """{"type":"column","children":[
                 {"type":"text","value":"Header","style":"title"},
                 {"text":"Untyped object with text field"},
                 {"label":"Untyped object with label field"}
             ]}""",
+            ),
         )
-        val column = assertIs<ColumnNode>(node)
         assertEquals(3, column.children.size)
         assertEquals("Header", (column.children[0] as TextNode).value)
         assertEquals("Untyped object with text field", (column.children[1] as TextNode).value)
@@ -914,12 +751,13 @@ class KaiUiParserTest {
 
     @Test
     fun `preserves style fields when wrapping untyped object in children`() {
-        val node = parseSingleNode(
-            """{"type":"column","children":[
+        val column = assertIs<ColumnNode>(
+            parseUi(
+                """{"type":"column","children":[
                 {"value":"Styled text","style":"title","bold":true,"color":"primary"}
             ]}""",
+            ),
         )
-        val column = assertIs<ColumnNode>(node)
         val text = assertIs<TextNode>(column.children.single())
         assertEquals("Styled text", text.value)
         assertEquals(TextNodeStyle.TITLE, text.style)
@@ -929,53 +767,50 @@ class KaiUiParserTest {
 
     @Test
     fun `coerces bare string action to callback`() {
-        val node = parseSingleNode(
-            """{"type":"button","label":"Submit","action":"submit_form"}""",
+        val button = assertIs<ButtonNode>(
+            parseUi("""{"type":"button","label":"Submit","action":"submit_form"}"""),
         )
-        val button = assertIs<ButtonNode>(node)
         val callback = assertIs<CallbackAction>(button.action)
         assertEquals("submit_form", callback.event)
     }
 
     @Test
     fun `coerces untyped action object with event as callback`() {
-        val node = parseSingleNode(
-            """{"type":"button","label":"Go","action":{"event":"go_clicked","data":{"x":"1"}}}""",
+        val button = assertIs<ButtonNode>(
+            parseUi("""{"type":"button","label":"Go","action":{"event":"go_clicked","data":{"x":"1"}}}"""),
         )
-        val button = assertIs<ButtonNode>(node)
         val callback = assertIs<CallbackAction>(button.action)
         assertEquals("go_clicked", callback.event)
     }
 
     @Test
     fun `coerces untyped action object with url as open_url`() {
-        val node = parseSingleNode(
-            """{"type":"button","label":"Docs","action":{"url":"https://example.com"}}""",
+        val button = assertIs<ButtonNode>(
+            parseUi("""{"type":"button","label":"Docs","action":{"url":"https://example.com"}}"""),
         )
-        val button = assertIs<ButtonNode>(node)
         val action = assertIs<OpenUrlAction>(button.action)
         assertEquals("https://example.com", action.url)
     }
 
     @Test
     fun `coerces untyped action object with targetId as toggle`() {
-        val node = parseSingleNode(
-            """{"type":"button","label":"Reveal","action":{"targetId":"hidden_box"}}""",
+        val button = assertIs<ButtonNode>(
+            parseUi("""{"type":"button","label":"Reveal","action":{"targetId":"hidden_box"}}"""),
         )
-        val button = assertIs<ButtonNode>(node)
         val action = assertIs<ToggleAction>(button.action)
         assertEquals("hidden_box", action.targetId)
     }
 
     @Test
     fun `coerces chip label and value when sent as objects`() {
-        val node = parseSingleNode(
-            """{"type":"chip_group","id":"tags","chips":[
+        val chipGroup = assertIs<ChipGroupNode>(
+            parseUi(
+                """{"type":"chip_group","id":"tags","chips":[
                 {"label":{"text":"Kotlin"},"value":"kotlin"},
                 {"label":"Rust","value":{"content":"rust"}}
             ]}""",
+            ),
         )
-        val chipGroup = assertIs<ChipGroupNode>(node)
         assertEquals(2, chipGroup.chips.size)
         assertEquals("Kotlin", chipGroup.chips[0].label)
         assertEquals("kotlin", chipGroup.chips[0].value)
@@ -985,13 +820,14 @@ class KaiUiParserTest {
 
     @Test
     fun `coerces tab label when sent as object`() {
-        val node = parseSingleNode(
-            """{"type":"tabs","tabs":[
+        val tabs = assertIs<TabsNode>(
+            parseUi(
+                """{"type":"tabs","tabs":[
                 {"label":{"title":"Overview"},"children":[{"type":"text","value":"a"}]},
                 {"label":{"title":"Specs"},"children":[{"type":"text","value":"b"}]}
             ]}""",
+            ),
         )
-        val tabs = assertIs<TabsNode>(node)
         assertEquals(2, tabs.tabs.size)
         assertEquals("Overview", tabs.tabs[0].label)
         assertEquals("Specs", tabs.tabs[1].label)
@@ -999,15 +835,16 @@ class KaiUiParserTest {
 
     @Test
     fun `coerces string booleans for known boolean fields`() {
-        val node = parseSingleNode(
-            """{"type":"column","children":[
+        val column = assertIs<ColumnNode>(
+            parseUi(
+                """{"type":"column","children":[
                 {"type":"list","ordered":"true","items":[{"type":"text","value":"a"}]},
                 {"type":"accordion","title":"More","expanded":"yes","children":[]},
                 {"type":"checkbox","id":"c","label":"Agree","checked":"1"},
                 {"type":"switch","id":"s","label":"Dark","checked":"false"}
             ]}""",
+            ),
         )
-        val column = assertIs<ColumnNode>(node)
         assertEquals(true, (column.children[0] as ListNode).ordered)
         assertEquals(true, (column.children[1] as AccordionNode).expanded)
         assertEquals(true, (column.children[2] as CheckboxNode).checked)
@@ -1016,58 +853,52 @@ class KaiUiParserTest {
 
     @Test
     fun `coerces text node bold and italic as strings`() {
-        val node = parseSingleNode(
-            """{"type":"text","value":"Hello","bold":"true","italic":"no"}""",
+        val text = assertIs<TextNode>(
+            parseUi("""{"type":"text","value":"Hello","bold":"true","italic":"no"}"""),
         )
-        val text = assertIs<TextNode>(node)
         assertEquals(true, text.bold)
         assertEquals(false, text.italic)
     }
 
     @Test
     fun `migrates image src to url`() {
-        val node = parseSingleNode(
-            """{"type":"image","src":"https://example.com/a.jpg","alt":"photo"}""",
+        val image = assertIs<ImageNode>(
+            parseUi("""{"type":"image","src":"https://example.com/a.jpg","alt":"photo"}"""),
         )
-        val image = assertIs<ImageNode>(node)
         assertEquals("https://example.com/a.jpg", image.url)
         assertEquals("photo", image.alt)
     }
 
     @Test
     fun `parses image with aspectRatio`() {
-        val node = parseSingleNode(
-            """{"type":"image","url":"https://example.com/a.jpg","aspectRatio":1.78}""",
+        val image = assertIs<ImageNode>(
+            parseUi("""{"type":"image","url":"https://example.com/a.jpg","aspectRatio":1.78}"""),
         )
-        val image = assertIs<ImageNode>(node)
         assertEquals(1.78f, image.aspectRatio)
         assertNull(image.height)
     }
 
     @Test
     fun `parses image with snake_case aspect_ratio`() {
-        val node = parseSingleNode(
-            """{"type":"image","url":"https://example.com/a.jpg","aspect_ratio":1.5}""",
+        val image = assertIs<ImageNode>(
+            parseUi("""{"type":"image","url":"https://example.com/a.jpg","aspect_ratio":1.5}"""),
         )
-        val image = assertIs<ImageNode>(node)
         assertEquals(1.5f, image.aspectRatio)
     }
 
     @Test
     fun `parses image with integer aspectRatio`() {
-        val node = parseSingleNode(
-            """{"type":"image","url":"https://example.com/a.jpg","aspectRatio":2}""",
+        val image = assertIs<ImageNode>(
+            parseUi("""{"type":"image","url":"https://example.com/a.jpg","aspectRatio":2}"""),
         )
-        val image = assertIs<ImageNode>(node)
         assertEquals(2.0f, image.aspectRatio)
     }
 
     @Test
     fun `legacy image without aspectRatio has null`() {
-        val node = parseSingleNode(
-            """{"type":"image","url":"https://example.com/a.jpg","height":160}""",
+        val image = assertIs<ImageNode>(
+            parseUi("""{"type":"image","url":"https://example.com/a.jpg","height":160}"""),
         )
-        val image = assertIs<ImageNode>(node)
         assertEquals(160, image.height)
         assertNull(image.aspectRatio)
     }
@@ -1076,11 +907,12 @@ class KaiUiParserTest {
     fun `coerces nested objects in CallbackAction data to primitives`() {
         // Covered indirectly by the "non-composite + JsonObject → primitive" rule inside
         // the data object. Verifies recursion walks into data correctly.
-        val node = parseSingleNode(
-            """{"type":"button","label":"Submit","action":{"type":"callback","event":"submit",
+        val button = assertIs<ButtonNode>(
+            parseUi(
+                """{"type":"button","label":"Submit","action":{"type":"callback","event":"submit",
                 "data":{"user":{"name":"alice"},"tags":["a","b"]}}}""",
+            ),
         )
-        val button = assertIs<ButtonNode>(node)
         val callback = assertIs<CallbackAction>(button.action)
         val data = callback.data!!
         assertEquals("alice", data["user"]?.content)

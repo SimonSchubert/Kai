@@ -8,7 +8,9 @@ import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.GeminiChatRequestDto
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.KaiUiError
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonPrimitive
 import java.io.File
@@ -63,7 +65,7 @@ import kotlin.test.Test
  *   `ErrorSegment` or no `UiSegment` at all; contains raw JSON plus parser diagnostics
  *
  * The `.raw.txt` files are pure LLM output with no headers — safe to feed back
- * through `KaiUiParser.parse()` directly. See the `replay saved responses` test
+ * through `parseMarkdown()` directly. See the `replay saved responses` test
  * below for an offline re-parse harness.
  *
  * ## Iteration workflow
@@ -128,7 +130,7 @@ class KaiUiValidationTest {
      * Offline re-parse of responses saved by a previous run of the integration test.
      *
      * Walks every `.raw.txt` file under the report directory, feeds each file through
-     * `KaiUiParser.parse()`, and reports which ones still fail. Free, fast, and needs no
+     * `parseMarkdown()`, and reports which ones still fail. Free, fast, and needs no
      * API keys — use this while iterating on parser fixes or prompt tweaks.
      *
      * Skips silently if no saved responses are found. Set `KAI_REPLAY_STRICT=1` to make
@@ -160,10 +162,10 @@ class KaiUiValidationTest {
 
         for (file in rawFiles) {
             val raw = file.readText()
-            val segments = KaiUiParser.parse(raw)
-            val ui = segments.filterIsInstance<KaiUiParser.UiSegment>().size
-            val err = segments.filterIsInstance<KaiUiParser.ErrorSegment>().size
-            val hasFence = KaiUiParser.containsUiBlocks(raw)
+            val blocks = parseMarkdown(raw).blocks
+            val ui = blocks.filterIsInstance<KaiUiBlock>().size
+            val err = blocks.filterIsInstance<KaiUiError>().size
+            val hasFence = ui > 0 || err > 0
             val status = when {
                 !hasFence && ui == 0 && err == 0 -> "NO_UI"
                 err > 0 && ui == 0 -> "PARSE_ERROR"
@@ -402,16 +404,16 @@ class KaiUiValidationTest {
 
         File(providerDir, "${prompt.slug}.raw.txt").writeText(raw)
 
-        val segments = KaiUiParser.parse(raw)
-        val uiSegments = segments.filterIsInstance<KaiUiParser.UiSegment>()
-        val errorSegments = segments.filterIsInstance<KaiUiParser.ErrorSegment>()
-        val hasFence = KaiUiParser.containsUiBlocks(raw)
+        val blocks = parseMarkdown(raw).blocks
+        val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
+        val errorBlocks = blocks.filterIsInstance<KaiUiError>()
+        val hasFence = uiBlocks.isNotEmpty() || errorBlocks.isNotEmpty()
 
         val status = when {
-            !hasFence && uiSegments.isEmpty() && errorSegments.isEmpty() -> Status.NO_UI
-            errorSegments.isNotEmpty() && uiSegments.isEmpty() -> Status.PARSE_ERROR
-            errorSegments.isNotEmpty() -> Status.PARTIAL
-            uiSegments.isNotEmpty() -> Status.SUCCESS
+            !hasFence && uiBlocks.isEmpty() && errorBlocks.isEmpty() -> Status.NO_UI
+            errorBlocks.isNotEmpty() && uiBlocks.isEmpty() -> Status.PARSE_ERROR
+            errorBlocks.isNotEmpty() -> Status.PARTIAL
+            uiBlocks.isNotEmpty() -> Status.SUCCESS
             else -> Status.NO_UI
         }
 
@@ -422,16 +424,16 @@ class KaiUiValidationTest {
                     appendLine("# Status: $status")
                     appendLine("# Prompt: ${prompt.description}")
                     appendLine("# User message: ${prompt.userMessage}")
-                    appendLine("# UI segments: ${uiSegments.size}")
-                    appendLine("# Error segments: ${errorSegments.size}")
+                    appendLine("# UI blocks: ${uiBlocks.size}")
+                    appendLine("# Error blocks: ${errorBlocks.size}")
                     appendLine("# containsUiBlocks: $hasFence")
                     appendLine()
                     appendLine("## Raw response")
                     appendLine(raw)
-                    if (errorSegments.isNotEmpty()) {
+                    if (errorBlocks.isNotEmpty()) {
                         appendLine()
-                        appendLine("## Error segments (rawJson)")
-                        errorSegments.forEachIndexed { i, seg ->
+                        appendLine("## Error blocks (rawJson)")
+                        errorBlocks.forEachIndexed { i, seg ->
                             appendLine("### [$i]")
                             appendLine(seg.rawJson)
                         }
@@ -440,8 +442,8 @@ class KaiUiValidationTest {
             )
         }
 
-        val summary = "${uiSegments.size} ui, ${errorSegments.size} err, ${raw.length} chars"
-        return PromptResult(provider, prompt, status, summary, uiSegments.size, errorSegments.size, raw)
+        val summary = "${uiBlocks.size} ui, ${errorBlocks.size} err, ${raw.length} chars"
+        return PromptResult(provider, prompt, status, summary, uiBlocks.size, errorBlocks.size, raw)
     }
 
     private fun callApi(

@@ -5,35 +5,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
-import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
-import com.mikepenz.markdown.compose.components.MarkdownComponent
-import com.mikepenz.markdown.compose.components.markdownComponents
-import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeBlock
-import com.mikepenz.markdown.compose.elements.MarkdownHighlightedCodeFence
-import com.mikepenz.markdown.m3.Markdown
-import com.mikepenz.markdown.model.DefaultMarkdownTypography
-import com.mikepenz.markdown.model.MarkdownTypography
-import com.mikepenz.markdown.model.rememberMarkdownState
+import com.inspiredandroid.kai.ui.markdown.MarkdownContent
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
+import com.inspiredandroid.kai.ui.markdown.withoutKaiUi
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kai.composeapp.generated.resources.bot_message_flag_content_description
@@ -60,47 +45,21 @@ internal fun BotMessage(
     onUiCallback: ((event: String, data: Map<String, String>) -> Unit)? = null,
     pendingFrozen: FrozenSubmission? = null,
 ) {
-    val hasUiBlocks = remember(message) { KaiUiParser.containsUiBlocks(message) }
+    val document = remember(message) { parseMarkdown(message) }
+    val showKaiUi = isInteractive || pendingFrozen != null
+    val shown = remember(document, showKaiUi) {
+        if (showKaiUi) document else document.withoutKaiUi()
+    }
 
-    if (hasUiBlocks && (isInteractive || pendingFrozen != null)) {
-        // Keep the card rendered while a submission is pending so the layout doesn't
-        // collapse; the frozen snapshot highlights and pulses the pressed button.
-        val segments = remember(message) { KaiUiParser.parse(message) }
-        SelectionContainer {
-            androidx.compose.foundation.layout.Column(
-                Modifier.fillMaxWidth()
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-            ) {
-                for (segment in segments) {
-                    when (segment) {
-                        is KaiUiParser.MarkdownSegment -> MarkdownContent(segment.content)
-
-                        is KaiUiParser.UiSegment -> KaiUiRenderer(
-                            node = segment.node,
-                            isInteractive = isInteractive,
-                            onCallback = onUiCallback ?: { _, _ -> },
-                            frozen = pendingFrozen,
-                            modifier = Modifier.padding(vertical = 8.dp),
-                        )
-
-                        is KaiUiParser.ErrorSegment -> MarkdownContent("```json\n${segment.rawJson}\n```")
-                    }
-                }
-            }
-        }
-    } else {
-        val displayMessage = if (hasUiBlocks) {
-            remember(message) { KaiUiParser.stripUiBlocks(message) }
-        } else {
-            message
-        }
-        SelectionContainer {
-            MarkdownContent(
-                displayMessage,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-            )
-        }
+    SelectionContainer {
+        MarkdownContent(
+            document = shown,
+            isInteractive = isInteractive,
+            onUiCallback = onUiCallback ?: { _, _ -> },
+            frozen = pendingFrozen,
+            modifier = Modifier.fillMaxWidth()
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+        )
     }
     Row(Modifier.padding(horizontal = 8.dp)) {
         if (textToSpeech != null) {
@@ -133,8 +92,7 @@ internal fun BotMessage(
             iconResource = Res.drawable.ic_copy,
             contentDescription = stringResource(Res.string.bot_message_copy_content_description),
             onClick = {
-                val copied = if (hasUiBlocks) KaiUiParser.stripUiBlocks(message) else message
-                clipboardManager.setText(buildAnnotatedString { append(copied) })
+                clipboardManager.setText(buildAnnotatedString { append(message) })
             },
         )
         run {
@@ -156,60 +114,4 @@ internal fun BotMessage(
         }
         Spacer(Modifier.weight(1f))
     }
-}
-
-@Composable
-internal fun MarkdownContent(
-    content: String,
-    modifier: Modifier = Modifier,
-) {
-    val markdownState = rememberMarkdownState(content, immediate = true)
-    Markdown(
-        markdownState,
-        imageTransformer = Coil3ImageTransformerImpl,
-        components = markdownComponents(
-            codeBlock = highlightedCodeBlock,
-            codeFence = highlightedCodeFence,
-        ),
-        typography = smallerMarkdownTypography(),
-        modifier = modifier,
-    )
-}
-
-@Composable
-fun smallerMarkdownTypography(): MarkdownTypography {
-    val typography = MaterialTheme.typography
-    return remember(typography) {
-        DefaultMarkdownTypography(
-            h1 = typography.headlineSmall,
-            h2 = typography.titleLarge,
-            h3 = typography.titleMedium,
-            h4 = typography.titleSmall,
-            h5 = typography.bodyLarge,
-            h6 = typography.bodyMedium,
-            text = typography.bodyLarge,
-            code = typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
-            inlineCode = typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
-            quote = typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
-            paragraph = typography.bodyLarge,
-            ordered = typography.bodyLarge,
-            bullet = typography.bodyLarge,
-            list = typography.bodyLarge,
-            textLink = TextLinkStyles(
-                style = typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold,
-                    textDecoration = TextDecoration.Underline,
-                ).toSpanStyle(),
-            ),
-            table = typography.bodyLarge,
-        )
-    }
-}
-
-val highlightedCodeFence: MarkdownComponent = {
-    MarkdownHighlightedCodeFence(content = it.content, node = it.node, style = it.typography.code, showHeader = true)
-}
-
-val highlightedCodeBlock: MarkdownComponent = {
-    MarkdownHighlightedCodeBlock(content = it.content, node = it.node, style = it.typography.code, showHeader = true)
 }

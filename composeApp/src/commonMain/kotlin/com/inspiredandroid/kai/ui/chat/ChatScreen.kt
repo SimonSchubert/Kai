@@ -93,10 +93,11 @@ import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
 import kai.composeapp.generated.resources.ic_stop
@@ -367,10 +368,10 @@ private fun InteractiveModeContent(
                 transitionSpec = { fadeIn() togetherWith fadeOut() },
                 modifier = Modifier.fillMaxSize(),
             ) { _ ->
-                val segments = remember(lastAssistant.content) { KaiUiParser.parse(lastAssistant.content) }
-                val uiSegments = segments.filterIsInstance<KaiUiParser.UiSegment>()
+                val blocks = remember(lastAssistant.content) { parseMarkdown(lastAssistant.content).blocks }
+                val uiBlocks = blocks.filterIsInstance<KaiUiBlock>()
 
-                if (uiSegments.isNotEmpty()) {
+                if (uiBlocks.isNotEmpty()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -378,9 +379,9 @@ private fun InteractiveModeContent(
                             .padding(start = 12.dp, end = 12.dp, top = 8.dp, bottom = 8.dp + bottomPadding),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        for (segment in uiSegments) {
+                        for (block in uiBlocks) {
                             KaiUiRenderer(
-                                node = segment.node,
+                                node = block.node,
                                 isInteractive = !uiState.isLoading,
                                 onCallback = { event, data ->
                                     uiState.actions.submitUiCallback(event, data)

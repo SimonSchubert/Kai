@@ -20,6 +20,7 @@ import com.inspiredandroid.kai.ui.chat.ChatScreenContent
 import com.inspiredandroid.kai.ui.chat.ChatUiState
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser.UiBlockResult
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.dynamicui.LocalPreviewImages
 import kotlinx.collections.immutable.persistentListOf
@@ -73,11 +74,10 @@ class KaiUiScreenshotTest {
         colorScheme: ColorScheme = DarkColorScheme,
         wrapInCard: Boolean = true,
     ) {
-        val segments = KaiUiParser.parse("```kai-ui\n$json\n```")
-        val uiSegment = segments.filterIsInstance<KaiUiParser.UiSegment>().first()
+        val ui = KaiUiParser.parseUiBlockBody(json) as UiBlockResult.Ui
         snap(colorScheme) {
             KaiUiRenderer(
-                node = uiSegment.node,
+                node = ui.node,
                 isInteractive = true,
                 onCallback = { _, _ -> },
                 modifier = Modifier.padding(12.dp),
@@ -92,14 +92,13 @@ class KaiUiScreenshotTest {
         imageUrl: String = "preview://image",
         colorScheme: ColorScheme = DarkColorScheme,
     ) {
-        val node = KaiUiParser.parse("```kai-ui\n$json\n```")
-            .filterIsInstance<KaiUiParser.UiSegment>().first()
+        val ui = KaiUiParser.parseUiBlockBody(json) as UiBlockResult.Ui
         val bitmap = BitmapFactory.decodeStream(javaClass.getResourceAsStream(imageResource))
         val imageBitmap = bitmap.asImageBitmap()
         snap(colorScheme) {
             CompositionLocalProvider(LocalPreviewImages provides mapOf(imageUrl to imageBitmap)) {
                 KaiUiRenderer(
-                    node = node.node,
+                    node = ui.node,
                     isInteractive = true,
                     onCallback = { _, _ -> },
                     modifier = Modifier.padding(12.dp),

@@ -114,11 +114,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
 
-            implementation(libs.multiplatform.markdown.renderer)
-            implementation(libs.multiplatform.markdown.renderer.m3)
-            implementation(libs.multiplatform.markdown.renderer.coil3)
-            implementation(libs.multiplatform.markdown.renderer.code)
-
             implementation(libs.tts)
             implementation(libs.tts.compose)
 
@@ -132,6 +127,7 @@ kotlin {
             implementation(libs.filekit.core)
             implementation(libs.filekit.compose)
 
+            implementation(libs.coil.compose)
             implementation(libs.coil.svg)
             implementation(libs.coil.network.ktor3)
 

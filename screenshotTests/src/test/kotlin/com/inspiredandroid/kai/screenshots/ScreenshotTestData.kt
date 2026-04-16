@@ -42,7 +42,7 @@ object ScreenshotTestData {
         clearUnreadHeartbeat = {},
         undoDeleteConversation = { },
         submitUiCallback = { _, _ -> },
-        resubmitLastSubmission = { _, _ -> },
+        resubmit = { _, _, _ -> },
         enterInteractiveMode = { },
         exitInteractiveMode = { },
         goBackInteractiveMode = { },

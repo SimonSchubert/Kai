@@ -11,7 +11,9 @@ import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.network.toUiError
-import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
+import com.inspiredandroid.kai.ui.markdown.KaiUiError
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.extension
 import kai.composeapp.generated.resources.Res
@@ -186,14 +188,14 @@ class ChatViewModel(
             currentCoroutineContext().ensureActive()
             val lastAssistant = dataRepository.chatHistory.value.lastRenderedAssistant() ?: return
 
-            val segments = KaiUiParser.parse(lastAssistant.content)
-            val hasValidUi = segments.any { it is KaiUiParser.UiSegment }
+            val blocks = parseMarkdown(lastAssistant.content).blocks
+            val hasValidUi = blocks.any { it is KaiUiBlock }
             if (hasValidUi) return
 
             // Build error feedback for the AI
-            val errorSegment = segments.filterIsInstance<KaiUiParser.ErrorSegment>().firstOrNull()
-            val errorDetail = if (errorSegment != null) {
-                "JSON parse error in: ${errorSegment.rawJson.take(200)}"
+            val errorBlock = blocks.filterIsInstance<KaiUiError>().firstOrNull()
+            val errorDetail = if (errorBlock != null) {
+                "JSON parse error in: ${errorBlock.rawJson.take(200)}"
             } else {
                 "No kai-ui code fence found in your response."
             }
