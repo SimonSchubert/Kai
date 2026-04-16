@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">MCP সার্ভার যোগ করুন</string>
     <string name="settings_mcp_server_name">সার্ভারের নাম</string>
     <string name="settings_mcp_server_url">সার্ভার URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">নাম</string>
     <string name="settings_mcp_header_value">মান</string>
     <string name="settings_mcp_add_header">হেডার যোগ করুন</string>
     <string name="settings_mcp_add">যোগ করুন</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP সার্ভার</string>
     <string name="settings_import_section_conversations">কথোপকথন</string>
     <string name="settings_heartbeat_reset_confirm">এটি হার্টবিট প্রম্পটকে ডিফল্টে রিসেট করবে। আপনি কি নিশ্চিত?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">মডেল</string>
     <string name="settings_heartbeat_model_default">ডিফল্ট</string>
     <string name="settings_import_partial">%1$dটি বিভাগে ত্রুটি সহ সেটিংস আমদানি করা হয়েছে।</string>
     <string name="settings_model_search">মডেল খুঁজুন…</string>

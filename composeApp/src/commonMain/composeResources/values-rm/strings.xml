@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Agiuntar server MCP</string>
     <string name="settings_mcp_server_name">Num dal server</string>
     <string name="settings_mcp_server_url">URL dal server</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Num</string>
     <string name="settings_mcp_header_value">Valur</string>
     <string name="settings_mcp_add_header">Agiuntar header</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Agiuntar</string>
     <string name="settings_mcp_cancel">Annullar</string>
     <string name="settings_mcp_remove">Allontanar</string>
     <string name="settings_mcp_refresh">Actualisar</string>

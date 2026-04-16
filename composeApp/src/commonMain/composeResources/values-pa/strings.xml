@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">MCP ਸਰਵਰ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="settings_mcp_server_name">ਸਰਵਰ ਨਾਮ</string>
     <string name="settings_mcp_server_url">ਸਰਵਰ URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">ਨਾਮ</string>
     <string name="settings_mcp_header_value">ਮੁੱਲ</string>
     <string name="settings_mcp_add_header">ਹੈਡਰ ਜੋੜੋ</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">ਜੋੜੋ</string>
     <string name="settings_mcp_cancel">ਰੱਦ ਕਰੋ</string>
     <string name="settings_mcp_remove">ਹਟਾਓ</string>
     <string name="settings_mcp_refresh">ਤਾਜ਼ਾ ਕਰੋ</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP ਸਰਵਰ</string>
     <string name="settings_import_section_conversations">ਗੱਲਬਾਤ</string>
     <string name="settings_heartbeat_reset_confirm">ਇਹ ਹਾਰਟਬੀਟ ਪ੍ਰੋਂਪਟ ਨੂੰ ਡਿਫੌਲਟ ਤੇ ਰੀਸੈੱਟ ਕਰੇਗਾ। ਕੀ ਤੁਸੀਂ ਪੱਕੇ ਹੋ?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">ਮਾਡਲ</string>
     <string name="settings_heartbeat_model_default">ਮੂਲ</string>
     <string name="settings_import_partial">%1$d ਭਾਗ(ਾਂ) ਵਿੱਚ ਗਲਤੀਆਂ ਨਾਲ ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
     <string name="settings_model_search">ਮਾਡਲ ਖੋਜੋ…</string>

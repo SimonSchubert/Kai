@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">افزودن سرور MCP</string>
     <string name="settings_mcp_server_name">نام سرور</string>
     <string name="settings_mcp_server_url">URL سرور</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">نام</string>
     <string name="settings_mcp_header_value">مقدار</string>
     <string name="settings_mcp_add_header">افزودن سربرگ</string>
     <string name="settings_mcp_add">افزودن</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">سرورهای MCP</string>
     <string name="settings_import_section_conversations">مکالمات</string>
     <string name="settings_heartbeat_reset_confirm">این کار پیام ضربان قلب را به پیش‌فرض بازنشانی می‌کند. آیا مطمئن هستید؟</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">مدل</string>
     <string name="settings_heartbeat_model_default">پیش‌فرض</string>
     <string name="settings_import_partial">تنظیمات با %1$d بخش دارای خطا وارد شد.</string>
     <string name="settings_model_search">جستجوی مدل‌ها…</string>

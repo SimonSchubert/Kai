@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">MCP አገልጋይ ጨምር</string>
     <string name="settings_mcp_server_name">የአገልጋይ ስም</string>
     <string name="settings_mcp_server_url">የአገልጋይ URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">ስም</string>
     <string name="settings_mcp_header_value">ዋጋ</string>
     <string name="settings_mcp_add_header">ራስጌ ጨምር</string>
     <string name="settings_mcp_add">ጨምር</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">MCP አገልጋዮች</string>
     <string name="settings_import_section_conversations">ውይይቶች</string>
     <string name="settings_heartbeat_reset_confirm">ይህ የልብ ምት ጥያቄውን ወደ ነባሪ ይመልሳል። እርግጠኛ ነህ?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">ሞዴል</string>
     <string name="settings_heartbeat_model_default">ነባሪ</string>
     <string name="settings_import_partial">ቅንብሮች ከ%1$d ክፍል(ዎች) ስህተት ጋር ገብተዋል።</string>
     <string name="settings_model_search">ሞዴሎችን ፈልግ…</string>

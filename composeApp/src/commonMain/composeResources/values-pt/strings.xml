@@ -143,7 +143,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_mcp_add_server">Adicionar servidor MCP</string>
     <string name="settings_mcp_server_name">Nome do servidor</string>
     <string name="settings_mcp_server_url">URL do servidor</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nome</string>
     <string name="settings_mcp_header_value">Valor</string>
     <string name="settings_mcp_add_header">Adicionar cabeçalho</string>
     <string name="settings_mcp_add">Adicionar</string>
@@ -174,7 +174,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_import_section_mcp">Servidores MCP</string>
     <string name="settings_import_section_conversations">Conversas</string>
     <string name="settings_heartbeat_reset_confirm">Isso redefinirá o prompt de heartbeat para o padrão. Tem certeza?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modelo</string>
     <string name="settings_heartbeat_model_default">Padrão</string>
     <string name="settings_import_partial">Configurações importadas com %1$d seção(ões) com erros.</string>
     <string name="settings_model_search">Pesquisar modelos…</string>

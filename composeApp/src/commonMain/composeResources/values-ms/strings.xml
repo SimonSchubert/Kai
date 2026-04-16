@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Tambah Pelayan MCP</string>
     <string name="settings_mcp_server_name">Nama Pelayan</string>
     <string name="settings_mcp_server_url">URL Pelayan</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nama</string>
     <string name="settings_mcp_header_value">Nilai</string>
     <string name="settings_mcp_add_header">Tambah Pengepala</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Tambah</string>
     <string name="settings_mcp_cancel">Batal</string>
     <string name="settings_mcp_remove">Buang</string>
     <string name="settings_mcp_refresh">Muat semula</string>

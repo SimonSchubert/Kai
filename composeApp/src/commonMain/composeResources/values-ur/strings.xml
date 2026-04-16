@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">MCP سرور شامل کریں</string>
     <string name="settings_mcp_server_name">سرور کا نام</string>
     <string name="settings_mcp_server_url">سرور URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">نام</string>
     <string name="settings_mcp_header_value">قدر</string>
     <string name="settings_mcp_add_header">ہیڈر شامل کریں</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">شامل کریں</string>
     <string name="settings_mcp_cancel">منسوخ کریں</string>
     <string name="settings_mcp_remove">ہٹائیں</string>
     <string name="settings_mcp_refresh">تازہ کریں</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP سرورز</string>
     <string name="settings_import_section_conversations">بات چیت</string>
     <string name="settings_heartbeat_reset_confirm">یہ دل کی دھڑکن کے پرامپٹ کو ڈیفالٹ پر ری سیٹ کر دے گا۔ کیا آپ کو یقین ہے؟</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">ماڈل</string>
     <string name="settings_heartbeat_model_default">پہلے سے طے شدہ</string>
     <string name="settings_import_partial">%1$d سیکشن(ز) میں خرابیوں کے ساتھ ترتیبات درآمد کی گئیں۔</string>
     <string name="settings_model_search">ماڈلز تلاش کریں…</string>

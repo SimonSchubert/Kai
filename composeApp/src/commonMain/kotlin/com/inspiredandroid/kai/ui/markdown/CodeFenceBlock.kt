@@ -26,6 +26,9 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.bot_message_copy_content_description
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun CodeFenceBlock(
@@ -62,7 +65,7 @@ internal fun CodeFenceBlock(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.ContentCopy,
-                        contentDescription = "Copy code",
+                        contentDescription = stringResource(Res.string.bot_message_copy_content_description),
                         modifier = Modifier.size(16.dp),
                     )
                 }

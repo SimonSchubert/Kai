@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Tambah Server MCP</string>
     <string name="settings_mcp_server_name">Nama Server</string>
     <string name="settings_mcp_server_url">URL Server</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nama</string>
     <string name="settings_mcp_header_value">Nilai</string>
     <string name="settings_mcp_add_header">Tambah Header</string>
     <string name="settings_mcp_add">Tambah</string>

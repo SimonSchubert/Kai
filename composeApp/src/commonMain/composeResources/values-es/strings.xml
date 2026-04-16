@@ -143,7 +143,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_mcp_add_server">Añadir servidor MCP</string>
     <string name="settings_mcp_server_name">Nombre del servidor</string>
     <string name="settings_mcp_server_url">URL del servidor</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nombre</string>
     <string name="settings_mcp_header_value">Valor</string>
     <string name="settings_mcp_add_header">Añadir encabezado</string>
     <string name="settings_mcp_add">Añadir</string>
@@ -174,7 +174,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_import_section_mcp">Servidores MCP</string>
     <string name="settings_import_section_conversations">Conversaciones</string>
     <string name="settings_heartbeat_reset_confirm">Esto restablecerá el mensaje de latido al predeterminado. ¿Estás seguro?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modelo</string>
     <string name="settings_heartbeat_model_default">Predeterminado</string>
     <string name="settings_import_partial">Configuración importada con %1$d sección(es) con errores.</string>
     <string name="settings_model_search">Buscar modelos…</string>

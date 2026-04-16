@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">הוסף שרת MCP</string>
     <string name="settings_mcp_server_name">שם השרת</string>
     <string name="settings_mcp_server_url">URL של השרת</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">שם</string>
     <string name="settings_mcp_header_value">ערך</string>
     <string name="settings_mcp_add_header">הוסף כותרת</string>
     <string name="settings_mcp_add">הוסף</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">שרתי MCP</string>
     <string name="settings_import_section_conversations">שיחות</string>
     <string name="settings_heartbeat_reset_confirm">פעולה זו תאפס את הודעת פעימת הלב לברירת המחדל. האם אתה בטוח?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">מודל</string>
     <string name="settings_heartbeat_model_default">ברירת מחדל</string>
     <string name="settings_import_partial">ההגדרות יובאו עם %1$d קטע(ים) שהכילו שגיאות.</string>
     <string name="settings_model_search">חיפוש מודלים…</string>

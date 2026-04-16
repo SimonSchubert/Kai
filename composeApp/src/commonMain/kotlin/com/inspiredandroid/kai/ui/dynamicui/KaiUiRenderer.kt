@@ -216,7 +216,10 @@ import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiChip
 import com.inspiredandroid.kai.ui.handCursor
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
 
 val LocalPreviewImages = staticCompositionLocalOf<Map<String, ImageBitmap>> { emptyMap() }
@@ -511,7 +514,10 @@ private fun RenderButton(
     val buttonModifier = Modifier.handCursor().then(pulseModifier(showPulse))
     if (node.action is CopyToClipboardAction) {
         IconButton(onClick = onClick, enabled = enabled, modifier = buttonModifier) {
-            Icon(imageVector = Icons.Filled.ContentCopy, contentDescription = "Copy")
+            Icon(
+                imageVector = Icons.Filled.ContentCopy,
+                contentDescription = stringResource(Res.string.bot_message_copy_content_description),
+            )
         }
         return
     }

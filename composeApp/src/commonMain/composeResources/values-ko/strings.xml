@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">MCP 서버 추가</string>
     <string name="settings_mcp_server_name">서버 이름</string>
     <string name="settings_mcp_server_url">서버 URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">이름</string>
     <string name="settings_mcp_header_value">값</string>
     <string name="settings_mcp_add_header">헤더 추가</string>
     <string name="settings_mcp_add">추가</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">MCP 서버</string>
     <string name="settings_import_section_conversations">대화</string>
     <string name="settings_heartbeat_reset_confirm">하트비트 프롬프트를 기본값으로 재설정합니다. 계속하시겠습니까?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">모델</string>
     <string name="settings_heartbeat_model_default">기본값</string>
     <string name="settings_import_partial">%1$d개 섹션에 오류가 있는 상태로 설정을 가져왔습니다.</string>
     <string name="settings_model_search">모델 검색…</string>

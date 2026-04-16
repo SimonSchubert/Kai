@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">إضافة خادم MCP</string>
     <string name="settings_mcp_server_name">اسم الخادم</string>
     <string name="settings_mcp_server_url">URL الخادم</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">الاسم</string>
     <string name="settings_mcp_header_value">القيمة</string>
     <string name="settings_mcp_add_header">إضافة ترويسة</string>
     <string name="settings_mcp_add">إضافة</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">خوادم MCP</string>
     <string name="settings_import_section_conversations">المحادثات</string>
     <string name="settings_heartbeat_reset_confirm">سيؤدي هذا إلى إعادة تعيين رسالة نبض القلب إلى الافتراضية. هل أنت متأكد؟</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">النموذج</string>
     <string name="settings_heartbeat_model_default">الافتراضي</string>
     <string name="settings_import_partial">تم استيراد الإعدادات مع %1$d قسم/أقسام بها أخطاء.</string>
     <string name="settings_model_search">البحث عن النماذج…</string>

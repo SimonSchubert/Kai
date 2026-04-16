@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">MCP સર્વર ઉમેરો</string>
     <string name="settings_mcp_server_name">સર્વરનું નામ</string>
     <string name="settings_mcp_server_url">સર્વર URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">નામ</string>
     <string name="settings_mcp_header_value">મૂલ્ય</string>
     <string name="settings_mcp_add_header">હેડર ઉમેરો</string>
     <string name="settings_mcp_add">ઉમેરો</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP સર્વર્સ</string>
     <string name="settings_import_section_conversations">વાર્તાલાપ</string>
     <string name="settings_heartbeat_reset_confirm">આ હાર્ટબીટ પ્રોમ્પ્ટને ડિફોલ્ટ પર રીસેટ કરશે. શું તમે ખાતરી કરો છો?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">મોડેલ</string>
     <string name="settings_heartbeat_model_default">ડિફૉલ્ટ</string>
     <string name="settings_import_partial">%1$d વિભાગ(ઓ)માં ભૂલો સાથે સેટિંગ્સ આયાત કરવામાં આવી.</string>
     <string name="settings_model_search">મોડેલ શોધો…</string>

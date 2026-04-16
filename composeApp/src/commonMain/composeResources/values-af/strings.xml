@@ -143,7 +143,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_mcp_add_server">Voeg MCP-bediener by</string>
     <string name="settings_mcp_server_name">Bedienernaam</string>
     <string name="settings_mcp_server_url">Bediener-URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Naam</string>
     <string name="settings_mcp_header_value">Waarde</string>
     <string name="settings_mcp_add_header">Voeg kopskrif by</string>
     <string name="settings_mcp_add">Voeg by</string>

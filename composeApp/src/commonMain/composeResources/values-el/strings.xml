@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Προσθήκη διακομιστή MCP</string>
     <string name="settings_mcp_server_name">Όνομα διακομιστή</string>
     <string name="settings_mcp_server_url">URL διακομιστή</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Όνομα</string>
     <string name="settings_mcp_header_value">Τιμή</string>
     <string name="settings_mcp_add_header">Προσθήκη κεφαλίδας</string>
     <string name="settings_mcp_add">Προσθήκη</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">Διακομιστές MCP</string>
     <string name="settings_import_section_conversations">Συνομιλίες</string>
     <string name="settings_heartbeat_reset_confirm">Αυτό θα επαναφέρει το μήνυμα heartbeat στο προεπιλεγμένο. Είστε σίγουροι;</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Μοντέλο</string>
     <string name="settings_heartbeat_model_default">Προεπιλογή</string>
     <string name="settings_import_partial">Οι ρυθμίσεις εισήχθησαν με %1$d ενότητα(ες) που είχαν σφάλματα.</string>
     <string name="settings_model_search">Αναζήτηση μοντέλων…</string>

@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">新增 MCP 伺服器</string>
     <string name="settings_mcp_server_name">伺服器名稱</string>
     <string name="settings_mcp_server_url">伺服器 URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">名稱</string>
     <string name="settings_mcp_header_value">值</string>
     <string name="settings_mcp_add_header">新增標頭</string>
     <string name="settings_mcp_add">新增</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">MCP 伺服器</string>
     <string name="settings_import_section_conversations">對話</string>
     <string name="settings_heartbeat_reset_confirm">這將把心跳提示重設為預設值。您確定嗎？</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">模型</string>
     <string name="settings_heartbeat_model_default">預設</string>
     <string name="settings_import_partial">設定已匯入，其中 %1$d 個部分存在錯誤。</string>
     <string name="settings_model_search">搜尋模型…</string>

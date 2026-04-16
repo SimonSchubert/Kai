@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">MCP-kiszolgáló hozzáadása</string>
     <string name="settings_mcp_server_name">Kiszolgáló neve</string>
     <string name="settings_mcp_server_url">Kiszolgáló URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Név</string>
     <string name="settings_mcp_header_value">Érték</string>
     <string name="settings_mcp_add_header">Fejléc hozzáadása</string>
     <string name="settings_mcp_add">Hozzáadás</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP szerverek</string>
     <string name="settings_import_section_conversations">Beszélgetések</string>
     <string name="settings_heartbeat_reset_confirm">Ez visszaállítja a szívverés promptot az alapértelmezettre. Biztos vagy benne?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modell</string>
     <string name="settings_heartbeat_model_default">Alapértelmezett</string>
     <string name="settings_import_partial">Beállítások importálva %1$d hibás szakasszal.</string>
     <string name="settings_model_search">Modellek keresése…</string>

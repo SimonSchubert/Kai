@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Pridėti MCP serverį</string>
     <string name="settings_mcp_server_name">Serverio pavadinimas</string>
     <string name="settings_mcp_server_url">Serverio URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Pavadinimas</string>
     <string name="settings_mcp_header_value">Reikšmė</string>
     <string name="settings_mcp_add_header">Pridėti antraštę</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Pridėti</string>
     <string name="settings_mcp_cancel">Atšaukti</string>
     <string name="settings_mcp_remove">Pašalinti</string>
     <string name="settings_mcp_refresh">Atnaujinti</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP serveriai</string>
     <string name="settings_import_section_conversations">Pokalbiai</string>
     <string name="settings_heartbeat_reset_confirm">Tai atkurs širdies ritmo raginimą į numatytąjį. Ar esate tikri?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modelis</string>
     <string name="settings_heartbeat_model_default">Numatytasis</string>
     <string name="settings_import_partial">Nustatymai importuoti su %1$d sekcija(-omis), kuriose buvo klaidų.</string>
     <string name="settings_model_search">Ieškoti modelių…</string>

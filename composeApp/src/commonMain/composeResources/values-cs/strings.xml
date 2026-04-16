@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Přidat MCP server</string>
     <string name="settings_mcp_server_name">Název serveru</string>
     <string name="settings_mcp_server_url">URL serveru</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Název</string>
     <string name="settings_mcp_header_value">Hodnota</string>
     <string name="settings_mcp_add_header">Přidat hlavičku</string>
     <string name="settings_mcp_add">Přidat</string>

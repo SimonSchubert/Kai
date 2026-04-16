@@ -143,7 +143,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_mcp_add_server">MCP Sunucusu Ekle</string>
     <string name="settings_mcp_server_name">Sunucu Adı</string>
     <string name="settings_mcp_server_url">Sunucu URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Ad</string>
     <string name="settings_mcp_header_value">Değer</string>
     <string name="settings_mcp_add_header">Başlık ekle</string>
     <string name="settings_mcp_add">Ekle</string>

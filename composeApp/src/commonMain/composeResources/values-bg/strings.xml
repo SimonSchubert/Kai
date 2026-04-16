@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Добавяне на MCP сървър</string>
     <string name="settings_mcp_server_name">Име на сървъра</string>
     <string name="settings_mcp_server_url">URL на сървъра</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Име</string>
     <string name="settings_mcp_header_value">Стойност</string>
     <string name="settings_mcp_add_header">Добавяне на заглавие</string>
     <string name="settings_mcp_add">Добавяне</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP сървъри</string>
     <string name="settings_import_section_conversations">Разговори</string>
     <string name="settings_heartbeat_reset_confirm">Това ще нулира подканата за сърдечен ритъм до стандартната. Сигурни ли сте?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Модел</string>
     <string name="settings_heartbeat_model_default">По подразбиране</string>
     <string name="settings_import_partial">Настройките са импортирани с %1$d секция(и) с грешки.</string>
     <string name="settings_model_search">Търсене на модели…</string>

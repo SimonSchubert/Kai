@@ -143,7 +143,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_mcp_add_server">Aggiungi server MCP</string>
     <string name="settings_mcp_server_name">Nome del server</string>
     <string name="settings_mcp_server_url">URL del server</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nome</string>
     <string name="settings_mcp_header_value">Valore</string>
     <string name="settings_mcp_add_header">Aggiungi intestazione</string>
     <string name="settings_mcp_add">Aggiungi</string>
@@ -174,7 +174,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_import_section_mcp">Server MCP</string>
     <string name="settings_import_section_conversations">Conversazioni</string>
     <string name="settings_heartbeat_reset_confirm">Questo ripristinerà il prompt heartbeat al valore predefinito. Sei sicuro?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modello</string>
     <string name="settings_heartbeat_model_default">Predefinito</string>
     <string name="settings_import_partial">Impostazioni importate con %1$d sezione/i con errori.</string>
     <string name="settings_model_search">Cerca modelli…</string>

@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Dodaj MCP poslužitelj</string>
     <string name="settings_mcp_server_name">Naziv poslužitelja</string>
     <string name="settings_mcp_server_url">URL poslužitelja</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Naziv</string>
     <string name="settings_mcp_header_value">Vrijednost</string>
     <string name="settings_mcp_add_header">Dodaj zaglavlje</string>
     <string name="settings_mcp_add">Dodaj</string>

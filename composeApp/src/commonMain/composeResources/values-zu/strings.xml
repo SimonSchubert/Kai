@@ -98,7 +98,7 @@
     <string name="settings_email_empty">Awekho ama-akhawunti e-imeyili axhunyiwe. Sho "xhuma i-imeyili yami" engxoxweni ukuze uqale.</string>
     <string name="settings_email_remove">Susa i-akhawunti</string>
     <string name="settings_email_poll_interval">Hlola njalo ngemizuzu engu-%1$d</string>
-    <string name="settings_email_poll_never">Never</string>
+    <string name="settings_email_poll_never">Akuze</string>
     <string name="settings_add_service">Engeza isevisi</string>
     <string name="settings_free_fallback">Sebenzisa njengokungukuhlehla</string>
     <string name="service_free_fast">Mahhala Okukhulu</string>
@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Engeza iseva ye-MCP</string>
     <string name="settings_mcp_server_name">Igama leseva</string>
     <string name="settings_mcp_server_url">I-URL yeseva</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Igama</string>
     <string name="settings_mcp_header_value">Inani</string>
     <string name="settings_mcp_add_header">Engeza Isihloko</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Engeza</string>
     <string name="settings_mcp_cancel">Khansela</string>
     <string name="settings_mcp_remove">Susa</string>
     <string name="settings_mcp_refresh">Vuselela</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">Amaseva e-MCP</string>
     <string name="settings_import_section_conversations">Izingxoxo</string>
     <string name="settings_heartbeat_reset_confirm">Lokhu kuzosetha kabusha isikhumbuzi sokushaya kwenhliziyo kube okuzenzakalelayo. Uqinisekile?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Imodeli</string>
     <string name="settings_heartbeat_model_default">Okuzenzakalelayo</string>
     <string name="settings_import_partial">Izilungiselelo zingeniswe ngesigaba esingu-%1$d esineziphazamiso.</string>
     <string name="settings_model_search">Sesha amamodeli…</string>

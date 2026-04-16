@@ -143,7 +143,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_mcp_add_server">Ajouter un serveur MCP</string>
     <string name="settings_mcp_server_name">Nom du serveur</string>
     <string name="settings_mcp_server_url">URL du serveur</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nom</string>
     <string name="settings_mcp_header_value">Valeur</string>
     <string name="settings_mcp_add_header">Ajouter un en-tête</string>
     <string name="settings_mcp_add">Ajouter</string>
@@ -174,7 +174,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_section_mcp">Serveurs MCP</string>
     <string name="settings_import_section_conversations">Conversations</string>
     <string name="settings_heartbeat_reset_confirm">Cela réinitialisera l'invite de battement de cœur par défaut. Êtes-vous sûr ?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modèle</string>
     <string name="settings_heartbeat_model_default">Par défaut</string>
     <string name="settings_import_partial">Paramètres importés avec %1$d section(s) contenant des erreurs.</string>
     <string name="settings_model_search">Rechercher des modèles…</string>

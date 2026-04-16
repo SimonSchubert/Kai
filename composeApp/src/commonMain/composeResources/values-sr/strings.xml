@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Додај MCP сервер</string>
     <string name="settings_mcp_server_name">Име сервера</string>
     <string name="settings_mcp_server_url">URL сервера</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Име</string>
     <string name="settings_mcp_header_value">Вредност</string>
     <string name="settings_mcp_add_header">Додај заглавље</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Додај</string>
     <string name="settings_mcp_cancel">Откажи</string>
     <string name="settings_mcp_remove">Уклони</string>
     <string name="settings_mcp_refresh">Освежи</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP сервери</string>
     <string name="settings_import_section_conversations">Разговори</string>
     <string name="settings_heartbeat_reset_confirm">Ово ће ресетовати упит откуцаја срца на подразумевани. Да ли сте сигурни?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Модел</string>
     <string name="settings_heartbeat_model_default">Подразумевано</string>
     <string name="settings_import_partial">Подешавања увезена са %1$d одељком/одељцима са грешкама.</string>
     <string name="settings_model_search">Претражи моделе…</string>

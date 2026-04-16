@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Pievienot MCP serveri</string>
     <string name="settings_mcp_server_name">Servera nosaukums</string>
     <string name="settings_mcp_server_url">Servera URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nosaukums</string>
     <string name="settings_mcp_header_value">Vērtība</string>
     <string name="settings_mcp_add_header">Pievienot galveni</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Pievienot</string>
     <string name="settings_mcp_cancel">Atcelt</string>
     <string name="settings_mcp_remove">Noņemt</string>
     <string name="settings_mcp_refresh">Atsvaidzināt</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP serveri</string>
     <string name="settings_import_section_conversations">Sarunas</string>
     <string name="settings_heartbeat_reset_confirm">Tas atiestatīs sirdspukstu uzvedni uz noklusējumu. Vai esat pārliecināts?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modelis</string>
     <string name="settings_heartbeat_model_default">Noklusējuma</string>
     <string name="settings_import_partial">Iestatījumi importēti ar %1$d sadaļu(-ām) ar kļūdām.</string>
     <string name="settings_model_search">Meklēt modeļus…</string>

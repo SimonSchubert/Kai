@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Lisa MCP-server</string>
     <string name="settings_mcp_server_name">Serveri nimi</string>
     <string name="settings_mcp_server_url">Serveri URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nimi</string>
     <string name="settings_mcp_header_value">Väärtus</string>
     <string name="settings_mcp_add_header">Lisa päis</string>
     <string name="settings_mcp_add">Lisa</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP serverid</string>
     <string name="settings_import_section_conversations">Vestlused</string>
     <string name="settings_heartbeat_reset_confirm">See lähtestab südamelöögi viipa vaikeväärtusele. Kas oled kindel?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Mudel</string>
     <string name="settings_heartbeat_model_default">Vaikimisi</string>
     <string name="settings_import_partial">Seaded imporditud %1$d vigase jaotisega.</string>
     <string name="settings_model_search">Otsi mudeleid…</string>

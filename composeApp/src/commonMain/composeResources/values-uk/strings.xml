@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">Додати сервер MCP</string>
     <string name="settings_mcp_server_name">Назва сервера</string>
     <string name="settings_mcp_server_url">URL сервера</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Ім'я</string>
     <string name="settings_mcp_header_value">Значення</string>
     <string name="settings_mcp_add_header">Додати заголовок</string>
     <string name="settings_mcp_add">Додати</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">Сервери MCP</string>
     <string name="settings_import_section_conversations">Розмови</string>
     <string name="settings_heartbeat_reset_confirm">Це скине запит серцебиття до стандартного. Ви впевнені?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Модель</string>
     <string name="settings_heartbeat_model_default">За замовчуванням</string>
     <string name="settings_import_partial">Налаштування імпортовано з %1$d розділом(-ами) з помилками.</string>
     <string name="settings_model_search">Пошук моделей…</string>

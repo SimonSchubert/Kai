@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">Magdagdag ng MCP Server</string>
     <string name="settings_mcp_server_name">Pangalan ng Server</string>
     <string name="settings_mcp_server_url">URL ng Server</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Pangalan</string>
     <string name="settings_mcp_header_value">Halaga</string>
     <string name="settings_mcp_add_header">Magdagdag ng Header</string>
     <string name="settings_mcp_add">Idagdag</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">Mga MCP Server</string>
     <string name="settings_import_section_conversations">Mga Usapan</string>
     <string name="settings_heartbeat_reset_confirm">Ire-reset nito ang heartbeat prompt sa default. Sigurado ka ba?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modelo</string>
     <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Na-import ang mga setting na may %1$d na seksyon na may mga error.</string>
     <string name="settings_model_search">Maghanap ng mga modelo…</string>

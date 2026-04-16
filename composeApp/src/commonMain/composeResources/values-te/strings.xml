@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">MCP సర్వర్ జోడించు</string>
     <string name="settings_mcp_server_name">సర్వర్ పేరు</string>
     <string name="settings_mcp_server_url">సర్వర్ URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">పేరు</string>
     <string name="settings_mcp_header_value">విలువ</string>
     <string name="settings_mcp_add_header">హెడర్ జోడించు</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">జోడించు</string>
     <string name="settings_mcp_cancel">రద్దు చేయి</string>
     <string name="settings_mcp_remove">తొలగించు</string>
     <string name="settings_mcp_refresh">రిఫ్రెష్ చేయి</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP సర్వర్‌లు</string>
     <string name="settings_import_section_conversations">సంభాషణలు</string>
     <string name="settings_heartbeat_reset_confirm">ఇది హార్ట్‌బీట్ ప్రాంప్ట్‌ను డిఫాల్ట్‌కు రీసెట్ చేస్తుంది. మీరు ఖచ్చితంగా ఉన్నారా?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">మోడల్</string>
     <string name="settings_heartbeat_model_default">డిఫాల్ట్</string>
     <string name="settings_import_partial">%1$d విభాగం(లు) లోపాలతో సెట్టింగ్‌లు దిగుమతి చేయబడ్డాయి.</string>
     <string name="settings_model_search">మోడల్‌లను శోధించండి…</string>

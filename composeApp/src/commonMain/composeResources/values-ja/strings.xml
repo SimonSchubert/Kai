@@ -143,7 +143,7 @@
     <string name="settings_mcp_add_server">MCPサーバーを追加</string>
     <string name="settings_mcp_server_name">サーバー名</string>
     <string name="settings_mcp_server_url">サーバーURL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">名前</string>
     <string name="settings_mcp_header_value">値</string>
     <string name="settings_mcp_add_header">ヘッダーを追加</string>
     <string name="settings_mcp_add">追加</string>
@@ -174,7 +174,7 @@
     <string name="settings_import_section_mcp">MCPサーバー</string>
     <string name="settings_import_section_conversations">会話</string>
     <string name="settings_heartbeat_reset_confirm">ハートビートプロンプトをデフォルトにリセットします。よろしいですか？</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">モデル</string>
     <string name="settings_heartbeat_model_default">デフォルト</string>
     <string name="settings_import_partial">%1$d個のセクションにエラーがある状態で設定がインポートされました。</string>
     <string name="settings_model_search">モデルを検索…</string>

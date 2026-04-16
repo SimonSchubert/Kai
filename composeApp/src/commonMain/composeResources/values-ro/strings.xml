@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Adăugare server MCP</string>
     <string name="settings_mcp_server_name">Nume server</string>
     <string name="settings_mcp_server_url">URL server</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Nume</string>
     <string name="settings_mcp_header_value">Valoare</string>
     <string name="settings_mcp_add_header">Adaugă antet</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Adaugă</string>
     <string name="settings_mcp_cancel">Anulare</string>
     <string name="settings_mcp_remove">Eliminare</string>
     <string name="settings_mcp_refresh">Reîmprospătare</string>

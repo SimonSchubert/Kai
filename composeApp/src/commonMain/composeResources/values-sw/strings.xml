@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">Ongeza seva ya MCP</string>
     <string name="settings_mcp_server_name">Jina la seva</string>
     <string name="settings_mcp_server_url">URL ya seva</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Jina</string>
     <string name="settings_mcp_header_value">Thamani</string>
     <string name="settings_mcp_add_header">Ongeza Kichwa</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">Ongeza</string>
     <string name="settings_mcp_cancel">Ghairi</string>
     <string name="settings_mcp_remove">Ondoa</string>
     <string name="settings_mcp_refresh">Onyesha upya</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">Seva za MCP</string>
     <string name="settings_import_section_conversations">Mazungumzo</string>
     <string name="settings_heartbeat_reset_confirm">Hii itarejesha kidokezo cha mapigo ya moyo kuwa chaguo-msingi. Una uhakika?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Modeli</string>
     <string name="settings_heartbeat_model_default">Chaguo-msingi</string>
     <string name="settings_import_partial">Mipangilio imeagizwa na sehemu %1$d zenye makosa.</string>
     <string name="settings_model_search">Tafuta miundo…</string>

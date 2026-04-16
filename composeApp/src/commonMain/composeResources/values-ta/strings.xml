@@ -142,10 +142,10 @@
     <string name="settings_mcp_add_server">MCP சேவையகம் சேர்</string>
     <string name="settings_mcp_server_name">சேவையக பெயர்</string>
     <string name="settings_mcp_server_url">சேவையக URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">பெயர்</string>
     <string name="settings_mcp_header_value">மதிப்பு</string>
     <string name="settings_mcp_add_header">தலைப்பு சேர்</string>
-    <string name="settings_mcp_add">Add</string>
+    <string name="settings_mcp_add">சேர்</string>
     <string name="settings_mcp_cancel">ரத்துசெய்</string>
     <string name="settings_mcp_remove">அகற்று</string>
     <string name="settings_mcp_refresh">புதுப்பி</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP சேவையகங்கள்</string>
     <string name="settings_import_section_conversations">உரையாடல்கள்</string>
     <string name="settings_heartbeat_reset_confirm">இது இதயத்துடிப்பு அறிவுறுத்தலை இயல்புநிலைக்கு மீட்டமைக்கும். நீங்கள் உறுதியாக இருக்கிறீர்களா?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">மாடல்</string>
     <string name="settings_heartbeat_model_default">இயல்புநிலை</string>
     <string name="settings_import_partial">%1$d பிரிவு(கள்) பிழைகளுடன் அமைப்புகள் இறக்குமதி செய்யப்பட்டன.</string>
     <string name="settings_model_search">மாடல்களைத் தேடு…</string>

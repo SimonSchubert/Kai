@@ -142,7 +142,7 @@
     <string name="settings_mcp_add_server">MCP сервер қосу</string>
     <string name="settings_mcp_server_name">Сервер атауы</string>
     <string name="settings_mcp_server_url">Сервер URL</string>
-    <string name="settings_mcp_header_key">Name</string>
+    <string name="settings_mcp_header_key">Атауы</string>
     <string name="settings_mcp_header_value">Мән</string>
     <string name="settings_mcp_add_header">Тақырып қосу</string>
     <string name="settings_mcp_add">Қосу</string>
@@ -173,7 +173,7 @@
     <string name="settings_import_section_mcp">MCP серверлері</string>
     <string name="settings_import_section_conversations">Сұхбаттар</string>
     <string name="settings_heartbeat_reset_confirm">Бұл жүрек соғысы сұрауын әдепкіге қалпына келтіреді. Сенімдісіз бе?</string>
-    <string name="settings_heartbeat_model">Model</string>
+    <string name="settings_heartbeat_model">Модель</string>
     <string name="settings_heartbeat_model_default">Әдепкі</string>
     <string name="settings_import_partial">Параметрлер %1$d қателі бөлім(дер)мен импортталды.</string>
     <string name="settings_model_search">Модельдерді іздеу…</string>
