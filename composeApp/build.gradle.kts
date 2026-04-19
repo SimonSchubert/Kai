@@ -157,7 +157,10 @@ compose.desktop {
         mainClass = "com.inspiredandroid.kai.MainKt"
 
         buildTypes.release.proguard {
-            configurationFiles.from(project.file("proguard-rules.pro"))
+            configurationFiles.from(
+                project.file("proguard-rules.pro"),
+                project.file("proguard-desktop.pro"),
+            )
         }
 
         nativeDistributions {

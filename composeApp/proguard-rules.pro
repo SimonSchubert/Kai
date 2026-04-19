@@ -97,11 +97,16 @@
 -dontwarn org.freedesktop.dbus.**
 -dontwarn com.github.hypfvieh.**
 
-# kotlinx.coroutines — defensive on desktop. DebugProbesKt is a well-known
-# dontwarn target and the coroutines runtime uses reflection for
-# service-loader based CoroutineExceptionHandler discovery.
--keep class kotlinx.coroutines.** { volatile <fields>; }
+# kotlinx.coroutines — keep ALL members, not just volatile fields. Without
+# this, ProGuard's method-specialization optimizer rewrites builders like
+# async/launch into synthetic methods whose declared return type is the
+# concrete subtype (DeferredCoroutine) while the return instruction yields
+# the parent interface (Deferred); the JVM verifier rejects this with
+# "Bad return type ... async$<hash>". The explicit -optimizations line
+# disables that specialization family as a belt-and-braces safety net.
+-keep class kotlinx.coroutines.** { *; }
 -dontwarn kotlinx.coroutines.**
+-optimizations !method/specialization/*
 
 # ---- Desktop-release hardening (Windows/Linux/macOS) ----
 # The Compose Gradle plugin ships default-compose-desktop-rules.pro with only
@@ -178,18 +183,12 @@
 -keep class org.slf4j.** { *; }
 -dontwarn org.slf4j.**
 
-# Compose runtime / UI / material3 / foundation / animation — the plugin's
-# defaults only keep a few hotspots (SliderDefaults, SnapshotStateKt__DerivedStateKt).
-# Broad defensive keeps prevent future regressions when Compose adds new
-# reflective entry points; cost is low because the app references most of
-# these APIs anyway.
--keep class androidx.compose.runtime.** { *; }
--keep class androidx.compose.ui.** { *; }
--keep class androidx.compose.foundation.** { *; }
--keep class androidx.compose.animation.** { *; }
--keep class androidx.compose.material.** { *; }
--keep class androidx.compose.material3.** { *; }
--keep class org.jetbrains.compose.** { *; }
+# Compose runtime / UI is intentionally NOT broadly kept here — the Compose
+# Gradle plugin (desktop) and androidx.compose's consumer ProGuard rules
+# (Android R8) already ship targeted keeps for the reflective hotspots
+# (SliderDefaults, SnapshotStateKt__DerivedStateKt, etc.). Letting Compose
+# be the one package ProGuard is allowed to rewrite is what buys us the size
+# win on desktop (see proguard-desktop.pro's negative-match keep).
 -dontwarn androidx.compose.**
 -dontwarn org.jetbrains.compose.**
 -dontwarn androidx.annotation.**
