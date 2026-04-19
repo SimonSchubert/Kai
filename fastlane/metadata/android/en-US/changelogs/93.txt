@@ -1,0 +1,3 @@
+Add local Qwen 3 0.6B model
+Upgrade LiteRT
+Defensive desktop ProGuard rules
