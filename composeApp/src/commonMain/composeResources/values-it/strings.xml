@@ -235,6 +235,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="litert_download">Scarica</string>
     <string name="litert_cancel">Annulla</string>
     <string name="litert_tool_support">Gli strumenti di email, pianificazione attività e server MCP non sono disponibili</string>
+    <string name="litert_recommended">Consigliato</string>
     <string name="litert_performance_good">Buono</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Scarso</string>

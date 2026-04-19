@@ -235,6 +235,7 @@
     <string name="litert_download">다운로드</string>
     <string name="litert_cancel">취소</string>
     <string name="litert_tool_support">이메일, 작업 예약 및 MCP 서버 도구를 사용할 수 없습니다</string>
+    <string name="litert_recommended">추천</string>
     <string name="litert_performance_good">좋음</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">낮음</string>

@@ -235,6 +235,7 @@
     <string name="litert_download">አውርድ</string>
     <string name="litert_cancel">ሰርዝ</string>
     <string name="litert_tool_support">ኢሜል፣ ተግባር መርሐግብር እና MCP አገልጋይ መሣሪያዎች አይገኙም</string>
+    <string name="litert_recommended">የተመከረ</string>
     <string name="litert_performance_good">ጥሩ</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ደካማ</string>

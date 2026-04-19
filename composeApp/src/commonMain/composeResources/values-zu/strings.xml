@@ -234,6 +234,7 @@
     <string name="litert_download">Landa</string>
     <string name="litert_cancel">Khansela</string>
     <string name="litert_tool_support">Amathuluzi e-imeyili, ukuhlela imisebenzi, ne-MCP server awatholakali</string>
+    <string name="litert_recommended">Inconyiwe</string>
     <string name="litert_performance_good">Kuhle</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Kuphansi</string>

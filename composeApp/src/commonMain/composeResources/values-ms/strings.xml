@@ -234,6 +234,7 @@
     <string name="litert_download">Muat turun</string>
     <string name="litert_cancel">Batal</string>
     <string name="litert_tool_support">Alat e-mel, penjadualan tugas, dan pelayan MCP tidak tersedia</string>
+    <string name="litert_recommended">Disyorkan</string>
     <string name="litert_performance_good">Baik</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Lemah</string>

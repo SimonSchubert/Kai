@@ -234,6 +234,7 @@
     <string name="litert_download">Stáhnout</string>
     <string name="litert_cancel">Zrušit</string>
     <string name="litert_tool_support">Nástroje pro e-mail, plánování úloh a MCP servery nejsou k dispozici</string>
+    <string name="litert_recommended">Doporučeno</string>
     <string name="litert_performance_good">Dobré</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Slabé</string>

@@ -234,6 +234,7 @@
     <string name="litert_download">Laadi alla</string>
     <string name="litert_cancel">Tühista</string>
     <string name="litert_tool_support">E-posti, ülesannete ajastamise ja MCP serveri tööriistad pole saadaval</string>
+    <string name="litert_recommended">Soovitatud</string>
     <string name="litert_performance_good">Hea</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Nõrk</string>

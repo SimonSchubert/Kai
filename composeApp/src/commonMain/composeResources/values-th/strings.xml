@@ -234,6 +234,7 @@
     <string name="litert_download">ดาวน์โหลด</string>
     <string name="litert_cancel">ยกเลิก</string>
     <string name="litert_tool_support">เครื่องมืออีเมล การจัดตารางงาน และเครื่องมือเซิร์ฟเวอร์ MCP ไม่พร้อมใช้งาน</string>
+    <string name="litert_recommended">แนะนำ</string>
     <string name="litert_performance_good">ดี</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ต่ำ</string>

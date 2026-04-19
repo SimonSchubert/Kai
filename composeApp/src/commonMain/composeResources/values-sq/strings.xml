@@ -234,6 +234,7 @@
     <string name="litert_download">Shkarko</string>
     <string name="litert_cancel">Anulo</string>
     <string name="litert_tool_support">Veglat e email-it, planifikimit të detyrave dhe serverit MCP nuk janë në dispozicion</string>
+    <string name="litert_recommended">I rekomanduar</string>
     <string name="litert_performance_good">Mirë</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dobët</string>

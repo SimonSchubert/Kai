@@ -234,6 +234,7 @@
     <string name="litert_download">Λήψη</string>
     <string name="litert_cancel">Ακύρωση</string>
     <string name="litert_tool_support">Τα εργαλεία email, χρονοπρογραμματισμού εργασιών και διακομιστή MCP δεν είναι διαθέσιμα</string>
+    <string name="litert_recommended">Προτείνεται</string>
     <string name="litert_performance_good">Καλή</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Χαμηλή</string>

@@ -235,6 +235,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="litert_download">İndir</string>
     <string name="litert_cancel">İptal</string>
     <string name="litert_tool_support">E-posta, görev zamanlama ve MCP sunucu araçları kullanılamıyor</string>
+    <string name="litert_recommended">Önerilen</string>
     <string name="litert_performance_good">İyi</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Zayıf</string>

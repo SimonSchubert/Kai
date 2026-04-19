@@ -234,6 +234,7 @@
     <string name="litert_download">ડાઉનલોડ</string>
     <string name="litert_cancel">રદ કરો</string>
     <string name="litert_tool_support">ઇમેઇલ, કાર્ય શેડ્યુલિંગ અને MCP સર્વર ટૂલ્સ ઉપલબ્ધ નથી</string>
+    <string name="litert_recommended">ભલામણ કરેલ</string>
     <string name="litert_performance_good">સારું</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">નબળું</string>

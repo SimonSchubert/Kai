@@ -234,6 +234,7 @@
     <string name="litert_download">Спампаваць</string>
     <string name="litert_cancel">Скасаваць</string>
     <string name="litert_tool_support">Электронная пошта, планаванне задач і інструменты сервера MCP недаступныя</string>
+    <string name="litert_recommended">Рэкамендавана</string>
     <string name="litert_performance_good">Добра</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Дрэнна</string>

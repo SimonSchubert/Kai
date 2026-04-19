@@ -234,6 +234,7 @@
     <string name="litert_download">Преузми</string>
     <string name="litert_cancel">Откажи</string>
     <string name="litert_tool_support">Алати за е-пошту, заказивање задатака и MCP сервере нису доступни</string>
+    <string name="litert_recommended">Препоручено</string>
     <string name="litert_performance_good">Добро</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Лоше</string>

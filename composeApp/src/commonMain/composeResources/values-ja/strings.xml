@@ -235,6 +235,7 @@
     <string name="litert_download">ダウンロード</string>
     <string name="litert_cancel">キャンセル</string>
     <string name="litert_tool_support">メール、タスクスケジューリング、MCPサーバーツールは利用できません</string>
+    <string name="litert_recommended">推奨</string>
     <string name="litert_performance_good">良好</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">低い</string>

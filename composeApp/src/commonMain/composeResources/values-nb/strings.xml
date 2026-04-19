@@ -235,6 +235,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="litert_download">Last ned</string>
     <string name="litert_cancel">Avbryt</string>
     <string name="litert_tool_support">E-post, oppgaveplanlegging og MCP-serververktøy er ikke tilgjengelig</string>
+    <string name="litert_recommended">Anbefalt</string>
     <string name="litert_performance_good">God</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dårlig</string>

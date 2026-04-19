@@ -235,6 +235,7 @@
     <string name="litert_download">Скачать</string>
     <string name="litert_cancel">Отмена</string>
     <string name="litert_tool_support">Инструменты электронной почты, планирования задач и серверов MCP недоступны</string>
+    <string name="litert_recommended">Рекомендуется</string>
     <string name="litert_performance_good">Хорошо</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Плохо</string>

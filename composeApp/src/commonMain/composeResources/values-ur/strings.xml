@@ -234,6 +234,7 @@
     <string name="litert_download">ڈاؤن لوڈ</string>
     <string name="litert_cancel">منسوخ</string>
     <string name="litert_tool_support">ای میل، ٹاسک شیڈولنگ، اور MCP سرور ٹولز دستیاب نہیں ہیں</string>
+    <string name="litert_recommended">تجویز کردہ</string>
     <string name="litert_performance_good">اچھا</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">کمزور</string>

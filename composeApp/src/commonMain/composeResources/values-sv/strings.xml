@@ -235,6 +235,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="litert_download">Ladda ner</string>
     <string name="litert_cancel">Avbryt</string>
     <string name="litert_tool_support">E-post, uppgiftsschemaläggning och MCP-serververktyg är inte tillgängliga</string>
+    <string name="litert_recommended">Rekommenderas</string>
     <string name="litert_performance_good">Bra</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dålig</string>

@@ -153,6 +153,7 @@ import kai.composeapp.generated.resources.litert_on_device_description
 import kai.composeapp.generated.resources.litert_performance_good
 import kai.composeapp.generated.resources.litert_performance_ok
 import kai.composeapp.generated.resources.litert_performance_poor
+import kai.composeapp.generated.resources.litert_recommended
 import kai.composeapp.generated.resources.litert_tool_support
 import kai.composeapp.generated.resources.settings_add_service
 import kai.composeapp.generated.resources.settings_ai_mistakes_warning
@@ -1270,7 +1271,11 @@ private fun LiteRTSettings(
                     }
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = model.displayName,
+                            text = if (model.isRecommended) {
+                                "${model.displayName} (${stringResource(Res.string.litert_recommended)})"
+                            } else {
+                                model.displayName
+                            },
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onBackground,
                         )

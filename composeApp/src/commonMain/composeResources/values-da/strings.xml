@@ -235,6 +235,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="litert_download">Download</string>
     <string name="litert_cancel">Annuller</string>
     <string name="litert_tool_support">E-mail, opgaveplanlægning og MCP-serverværktøjer er ikke tilgængelige</string>
+    <string name="litert_recommended">Anbefalet</string>
     <string name="litert_performance_good">God</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Dårlig</string>

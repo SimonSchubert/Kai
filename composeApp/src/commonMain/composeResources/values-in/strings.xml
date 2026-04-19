@@ -234,6 +234,7 @@
     <string name="litert_download">Unduh</string>
     <string name="litert_cancel">Batal</string>
     <string name="litert_tool_support">Alat email, penjadwalan tugas, dan server MCP tidak tersedia</string>
+    <string name="litert_recommended">Direkomendasikan</string>
     <string name="litert_performance_good">Baik</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Buruk</string>

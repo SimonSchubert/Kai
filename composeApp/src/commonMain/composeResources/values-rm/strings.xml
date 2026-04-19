@@ -234,6 +234,7 @@
     <string name="litert_download">Telechargiar</string>
     <string name="litert_cancel">Annullar</string>
     <string name="litert_tool_support">Ils utensils per e-mail, planisaziun da gests e server MCP n'èn betg disponibels</string>
+    <string name="litert_recommended">Recumandà</string>
     <string name="litert_performance_good">Bun</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Nausch</string>

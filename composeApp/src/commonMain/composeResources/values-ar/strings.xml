@@ -235,6 +235,7 @@
     <string name="litert_download">تنزيل</string>
     <string name="litert_cancel">إلغاء</string>
     <string name="litert_tool_support">أدوات البريد الإلكتروني وجدولة المهام وخوادم MCP غير متاحة</string>
+    <string name="litert_recommended">موصى به</string>
     <string name="litert_performance_good">جيد</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ضعيف</string>

@@ -235,6 +235,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="litert_download">Lataa</string>
     <string name="litert_cancel">Peruuta</string>
     <string name="litert_tool_support">Sähköposti-, tehtävien ajastus- ja MCP-palvelintyökalut eivät ole käytettävissä</string>
+    <string name="litert_recommended">Suositeltu</string>
     <string name="litert_performance_good">Hyvä</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Heikko</string>

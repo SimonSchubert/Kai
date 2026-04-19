@@ -235,6 +235,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="litert_download">Descargar</string>
     <string name="litert_cancel">Cancelar</string>
     <string name="litert_tool_support">Las herramientas de correo, programación de tareas y servidores MCP no están disponibles</string>
+    <string name="litert_recommended">Recomendado</string>
     <string name="litert_performance_good">Bueno</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Bajo</string>

@@ -235,6 +235,7 @@
     <string name="litert_download">Завантажити</string>
     <string name="litert_cancel">Скасувати</string>
     <string name="litert_tool_support">Інструменти електронної пошти, планування завдань та серверів MCP недоступні</string>
+    <string name="litert_recommended">Рекомендовано</string>
     <string name="litert_performance_good">Добре</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Погано</string>

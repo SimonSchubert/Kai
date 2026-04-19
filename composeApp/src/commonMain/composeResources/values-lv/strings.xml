@@ -234,6 +234,7 @@
     <string name="litert_download">Lejupielādēt</string>
     <string name="litert_cancel">Atcelt</string>
     <string name="litert_tool_support">E-pasta, uzdevumu plānošanas un MCP servera rīki nav pieejami</string>
+    <string name="litert_recommended">Ieteicams</string>
     <string name="litert_performance_good">Laba</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Vāja</string>

@@ -234,6 +234,7 @@
     <string name="litert_download">பதிவிறக்கம்</string>
     <string name="litert_cancel">ரத்து</string>
     <string name="litert_tool_support">மின்னஞ்சல், பணி திட்டமிடல் மற்றும் MCP சேவையக கருவிகள் கிடைக்கவில்லை</string>
+    <string name="litert_recommended">பரிந்துரைக்கப்பட்டது</string>
     <string name="litert_performance_good">நல்லது</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">மோசம்</string>

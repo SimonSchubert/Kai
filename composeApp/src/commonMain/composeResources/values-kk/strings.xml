@@ -234,6 +234,7 @@
     <string name="litert_download">Жүктеу</string>
     <string name="litert_cancel">Бас тарту</string>
     <string name="litert_tool_support">Электрондық пошта, тапсырмаларды жоспарлау және MCP сервер құралдары қолжетімсіз</string>
+    <string name="litert_recommended">Ұсынылады</string>
     <string name="litert_performance_good">Жақсы</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Нашар</string>

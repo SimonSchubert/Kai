@@ -234,6 +234,7 @@
     <string name="litert_download">Изтегляне</string>
     <string name="litert_cancel">Отказ</string>
     <string name="litert_tool_support">Имейл, планиране на задачи и MCP сървърни инструменти не са налични</string>
+    <string name="litert_recommended">Препоръчано</string>
     <string name="litert_performance_good">Добро</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Слабо</string>

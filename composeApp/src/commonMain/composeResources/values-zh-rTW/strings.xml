@@ -235,6 +235,7 @@
     <string name="litert_download">下載</string>
     <string name="litert_cancel">取消</string>
     <string name="litert_tool_support">電子郵件、任務排程和 MCP 伺服器工具無法使用</string>
+    <string name="litert_recommended">推薦</string>
     <string name="litert_performance_good">良好</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">較差</string>

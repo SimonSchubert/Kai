@@ -39,6 +39,7 @@ val MODEL_CATALOG = listOf(
         defaultContextTokens = 4_096,
         maxContextTokens = 32_768,
         kvPerTokenBytes = 50_000,
+        isRecommended = true,
     ),
     LocalModel(
         id = "gemma-4-e4b-it",
@@ -50,6 +51,17 @@ val MODEL_CATALOG = listOf(
         defaultContextTokens = 4_096,
         maxContextTokens = 32_768,
         kvPerTokenBytes = 75_000,
+    ),
+    LocalModel(
+        id = "qwen3-0.6b",
+        displayName = "Qwen3 0.6B",
+        fileName = "Qwen3-0.6B.litertlm",
+        sizeBytes = 614_236_160L,
+        downloadUrl = "https://huggingface.co/litert-community/Qwen3-0.6B/resolve/main/Qwen3-0.6B.litertlm",
+        gpuMemoryMb = 300,
+        defaultContextTokens = 4_096,
+        maxContextTokens = 32_768,
+        kvPerTokenBytes = 35_000,
     ),
 )
 
@@ -195,7 +207,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             } catch (e: TimeoutCancellationException) {
                 throw InferenceTimeoutException()
             }
-            response.toString()
+            stripThinkBlocks(response.toString())
         } finally {
             scheduleIdleRelease()
         }
@@ -231,6 +243,10 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         return s.filter { !it.isSurrogate() }
     }
 
+    // Qwen3 emits a <think>…</think> block as part of its chat template; strip it before
+    // the user sees it. Safe for Gemma 4, which never emits these tags.
+    private fun stripThinkBlocks(s: String): String = THINK_BLOCK_REGEX.replace(s, "").trim()
+
     private fun scheduleIdleRelease() {
         idleReleaseJob?.cancel()
         idleReleaseJob = scope.launch {
@@ -244,6 +260,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         private const val INFERENCE_TIMEOUT_MS = 120_000L // 2 minutes
         private const val MIN_MEMORY_HEADROOM_BYTES = 512L * 1024 * 1024 // 512 MB
         private const val DOWNLOAD_SPACE_BUFFER_BYTES = 500L * 1024 * 1024 // 500 MB
+        private val THINK_BLOCK_REGEX = Regex("<think>.*?</think>", RegexOption.DOT_MATCHES_ALL)
     }
 
     override fun getDownloadedModels(): List<DownloadedModel> {

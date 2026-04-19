@@ -235,6 +235,7 @@
     <string name="litert_download">डाउनलोड</string>
     <string name="litert_cancel">रद्द करें</string>
     <string name="litert_tool_support">ईमेल, टास्क शेड्यूलिंग और MCP सर्वर टूल उपलब्ध नहीं हैं</string>
+    <string name="litert_recommended">अनुशंसित</string>
     <string name="litert_performance_good">अच्छा</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">कमज़ोर</string>

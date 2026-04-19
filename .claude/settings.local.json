@@ -7,7 +7,14 @@
       "Bash(./gradlew:*)",
       "mcp__plugin_context7_context7__resolve-library-id",
       "mcp__plugin_context7_context7__query-docs",
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git tag *)",
+      "Bash(git push *)",
+      "Bash(kotlin *)",
+      "Bash(gh release *)",
+      "WebFetch(domain:docs.gradle.org)"
     ]
   }
 }

@@ -234,6 +234,7 @@
     <string name="litert_download">Prenesi</string>
     <string name="litert_cancel">Prekliči</string>
     <string name="litert_tool_support">Orodja za e-pošto, načrtovanje opravil in strežnike MCP niso na voljo</string>
+    <string name="litert_recommended">Priporočeno</string>
     <string name="litert_performance_good">Dobro</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Slabo</string>

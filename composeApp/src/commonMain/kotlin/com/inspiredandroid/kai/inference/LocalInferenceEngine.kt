@@ -13,6 +13,7 @@ data class LocalModel(
     val defaultContextTokens: Int,
     val maxContextTokens: Int,
     val kvPerTokenBytes: Int,
+    val isRecommended: Boolean = false,
 )
 
 enum class DevicePerformance {

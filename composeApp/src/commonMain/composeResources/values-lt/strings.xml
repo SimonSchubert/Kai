@@ -234,6 +234,7 @@
     <string name="litert_download">Atsisiųsti</string>
     <string name="litert_cancel">Atšaukti</string>
     <string name="litert_tool_support">El. pašto, užduočių planavimo ir MCP serverio įrankiai negalimi</string>
+    <string name="litert_recommended">Rekomenduojama</string>
     <string name="litert_performance_good">Geras</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Silpnas</string>

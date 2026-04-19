@@ -234,6 +234,7 @@
     <string name="litert_download">ডাউনলোড</string>
     <string name="litert_cancel">বাতিল</string>
     <string name="litert_tool_support">ইমেল, টাস্ক শিডিউলিং এবং MCP সার্ভার টুল উপলব্ধ নয়</string>
+    <string name="litert_recommended">প্রস্তাবিত</string>
     <string name="litert_performance_good">ভালো</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">দুর্বল</string>

@@ -235,6 +235,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="litert_download">Downloaden</string>
     <string name="litert_cancel">Annuleren</string>
     <string name="litert_tool_support">E-mail, taakplanning en MCP-servertools zijn niet beschikbaar</string>
+    <string name="litert_recommended">Aanbevolen</string>
     <string name="litert_performance_good">Goed</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Slecht</string>

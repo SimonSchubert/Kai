@@ -235,6 +235,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="litert_download">Laai af</string>
     <string name="litert_cancel">Kanselleer</string>
     <string name="litert_tool_support">E-pos, taakskedulering en MCP-bediener-toestelle is nie beskikbaar nie</string>
+    <string name="litert_recommended">Aanbeveel</string>
     <string name="litert_performance_good">Goed</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Swak</string>

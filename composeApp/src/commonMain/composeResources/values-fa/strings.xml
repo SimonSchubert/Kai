@@ -234,6 +234,7 @@
     <string name="litert_download">دانلود</string>
     <string name="litert_cancel">لغو</string>
     <string name="litert_tool_support">ابزارهای ایمیل، زمان‌بندی وظایف و سرورهای MCP در دسترس نیستند</string>
+    <string name="litert_recommended">توصیه‌شده</string>
     <string name="litert_performance_good">خوب</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">ضعیف</string>

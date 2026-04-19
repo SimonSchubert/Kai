@@ -234,6 +234,7 @@
     <string name="litert_download">Letöltés</string>
     <string name="litert_cancel">Mégse</string>
     <string name="litert_tool_support">Az e-mail, feladatütemezés és MCP-szerver eszközök nem érhetők el</string>
+    <string name="litert_recommended">Ajánlott</string>
     <string name="litert_performance_good">Jó</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Gyenge</string>

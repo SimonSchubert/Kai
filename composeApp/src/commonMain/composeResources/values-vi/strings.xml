@@ -234,6 +234,7 @@
     <string name="litert_download">Tải xuống</string>
     <string name="litert_cancel">Hủy</string>
     <string name="litert_tool_support">Công cụ email, lập lịch tác vụ và máy chủ MCP không khả dụng</string>
+    <string name="litert_recommended">Khuyên dùng</string>
     <string name="litert_performance_good">Tốt</string>
     <string name="litert_performance_ok">OK</string>
     <string name="litert_performance_poor">Kém</string>
