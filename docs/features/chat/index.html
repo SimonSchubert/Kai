@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-04-14</p>
+<p><strong>Last verified:</strong> 2026-04-20</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1250,6 +1250,7 @@
 <li>Maximum size (after compression): 15 MB — rejected with a size error if exceeded</li>
 <li>Sent as <code>image_url</code> (OpenAI-compatible), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
 <li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
+<li>Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via Escape/back)</li>
 </ul>
 <h3 id="text-files">Text files</h3>
 <ul>
