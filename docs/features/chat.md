@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-04-14
+**Last verified:** 2026-04-20
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -69,6 +69,7 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 - Maximum size (after compression): 15 MB — rejected with a size error if exceeded
 - Sent as `image_url` (OpenAI-compatible), `image` block (Anthropic), or `inline_data` (Gemini)
 - Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
+- Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via Escape/back)
 
 ### Text files
 - Supports `.txt`, `.md`, `.json`, `.csv`, `.xml`, `.yaml`, `.html`, `.css`, `.js`, `.ts`, `.kt`, `.py`, `.rs`, `.go`, `.c`, `.cpp`, `.swift`, `.sh`, `.sql`, `.toml`, `.ini`, `.log`, `.gradle`, and more

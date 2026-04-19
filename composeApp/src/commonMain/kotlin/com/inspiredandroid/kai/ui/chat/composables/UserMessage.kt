@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.Attachment
@@ -64,6 +65,7 @@ internal fun UserMessage(
         SubmittedUiMessage(uiSubmission, isPendingSubmission, onResubmit)
         return
     }
+    var fullScreenImage by remember { mutableStateOf<ImageBitmap?>(null) }
     SelectionContainer {
         Row(Modifier.padding(16.dp)) {
             Spacer(Modifier.weight(1f))
@@ -92,7 +94,9 @@ internal fun UserMessage(
                             contentDescription = null,
                             modifier = Modifier
                                 .widthIn(max = 200.dp)
-                                .clip(RoundedCornerShape(8.dp)),
+                                .clip(RoundedCornerShape(8.dp))
+                                .handCursor()
+                                .clickable { fullScreenImage = imageBitmap },
                             contentScale = ContentScale.FillWidth,
                         )
                         Spacer(Modifier.height(8.dp))
@@ -130,6 +134,9 @@ internal fun UserMessage(
                 }
             }
         }
+    }
+    fullScreenImage?.let { bmp ->
+        FullScreenImageViewer(bitmap = bmp, onDismiss = { fullScreenImage = null })
     }
 }
 
