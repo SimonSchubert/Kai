@@ -33,12 +33,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.Attachment
 import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.decodeToImageBitmap
+import com.inspiredandroid.kai.ui.components.LocalShowFullScreenImage
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.handCursor
@@ -65,7 +65,7 @@ internal fun UserMessage(
         SubmittedUiMessage(uiSubmission, isPendingSubmission, onResubmit)
         return
     }
-    var fullScreenImage by remember { mutableStateOf<ImageBitmap?>(null) }
+    val showFullScreen = LocalShowFullScreenImage.current
     SelectionContainer {
         Row(Modifier.padding(16.dp)) {
             Spacer(Modifier.weight(1f))
@@ -96,7 +96,7 @@ internal fun UserMessage(
                                 .widthIn(max = 200.dp)
                                 .clip(RoundedCornerShape(8.dp))
                                 .handCursor()
-                                .clickable { fullScreenImage = imageBitmap },
+                                .clickable { showFullScreen(imageBitmap) },
                             contentScale = ContentScale.FillWidth,
                         )
                         Spacer(Modifier.height(8.dp))
@@ -134,9 +134,6 @@ internal fun UserMessage(
                 }
             }
         }
-    }
-    fullScreenImage?.let { bmp ->
-        FullScreenImageViewer(bitmap = bmp, onDismiss = { fullScreenImage = null })
     }
 }
 

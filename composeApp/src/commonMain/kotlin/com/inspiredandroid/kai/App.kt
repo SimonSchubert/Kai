@@ -43,6 +43,7 @@ import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
+import com.inspiredandroid.kai.ui.components.FullScreenImageHost
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
 import kai.composeapp.generated.resources.Res
@@ -144,74 +145,76 @@ private fun AppContent(
 
     CompositionLocalProvider(LocalDensity provides scaledDensity) {
         Theme(colorScheme = colorScheme) {
-            val chatViewModel: ChatViewModel = koinViewModel()
-            val showTabBar = !isMobilePlatform
-            val currentBackStackEntry by navController.currentBackStackEntryAsState()
-            val isHome = currentBackStackEntry?.destination?.route == "home"
+            FullScreenImageHost {
+                val chatViewModel: ChatViewModel = koinViewModel()
+                val showTabBar = !isMobilePlatform
+                val currentBackStackEntry by navController.currentBackStackEntryAsState()
+                val isHome = currentBackStackEntry?.destination?.route == "home"
 
-            val navigationTabBar: @Composable () -> Unit = {
-                val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
-                val count = 2
-                SingleChoiceSegmentedButtonRow {
-                    SegmentedButton(
-                        selected = isHome,
-                        onClick = {
-                            navController.navigate(Home) {
-                                popUpTo(Home) { inclusive = true }
-                                launchSingleTop = true
-                            }
-                        },
-                        shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        Text(stringResource(Res.string.tab_chat))
-                    }
-                    SegmentedButton(
-                        selected = !isHome,
-                        onClick = {
-                            navController.navigate(Settings) {
-                                popUpTo(Home)
-                                launchSingleTop = true
-                            }
-                        },
-                        shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        Text(stringResource(Res.string.tab_settings))
-                    }
-                }
-            }
-
-            NavHost(
-                navController,
-                startDestination = Home,
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
-            ) {
-                composable<Home> {
-                    ChatScreen(
-                        viewModel = chatViewModel,
-                        textToSpeech = textToSpeech,
-                        onNavigateToSettings = {
-                            navController.navigate(Settings)
-                        },
-                        navigationTabBar = if (showTabBar) navigationTabBar else null,
-                    )
-                }
-                composable<Settings> {
-                    if (showTabBar) {
-                        DisposableEffect(Unit) {
-                            onDispose {
-                                chatViewModel.refreshSettings()
-                            }
+                val navigationTabBar: @Composable () -> Unit = {
+                    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
+                    val count = 2
+                    SingleChoiceSegmentedButtonRow {
+                        SegmentedButton(
+                            selected = isHome,
+                            onClick = {
+                                navController.navigate(Home) {
+                                    popUpTo(Home) { inclusive = true }
+                                    launchSingleTop = true
+                                }
+                            },
+                            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) count - 1 else 0, count = count),
+                            modifier = Modifier.handCursor(),
+                        ) {
+                            Text(stringResource(Res.string.tab_chat))
+                        }
+                        SegmentedButton(
+                            selected = !isHome,
+                            onClick = {
+                                navController.navigate(Settings) {
+                                    popUpTo(Home)
+                                    launchSingleTop = true
+                                }
+                            },
+                            shape = SegmentedButtonDefaults.itemShape(index = if (isRtl) 0 else count - 1, count = count),
+                            modifier = Modifier.handCursor(),
+                        ) {
+                            Text(stringResource(Res.string.tab_settings))
                         }
                     }
-                    SettingsScreen(
-                        onNavigateBack = {
-                            chatViewModel.refreshSettings()
-                            navController.navigateUp()
-                        },
-                        navigationTabBar = if (showTabBar) navigationTabBar else null,
-                    )
+                }
+
+                NavHost(
+                    navController,
+                    startDestination = Home,
+                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                ) {
+                    composable<Home> {
+                        ChatScreen(
+                            viewModel = chatViewModel,
+                            textToSpeech = textToSpeech,
+                            onNavigateToSettings = {
+                                navController.navigate(Settings)
+                            },
+                            navigationTabBar = if (showTabBar) navigationTabBar else null,
+                        )
+                    }
+                    composable<Settings> {
+                        if (showTabBar) {
+                            DisposableEffect(Unit) {
+                                onDispose {
+                                    chatViewModel.refreshSettings()
+                                }
+                            }
+                        }
+                        SettingsScreen(
+                            onNavigateBack = {
+                                chatViewModel.refreshSettings()
+                                navController.navigateUp()
+                            },
+                            navigationTabBar = if (showTabBar) navigationTabBar else null,
+                        )
+                    }
                 }
             }
         }
