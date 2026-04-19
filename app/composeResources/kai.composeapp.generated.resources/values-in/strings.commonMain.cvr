@@ -44,6 +44,7 @@ string|litert_on_device_description|SmFsYW5rYW4gbW9kZWwgQUkgbGFuZ3N1bmcgZGkgcGVy
 string|litert_performance_good|QmFpaw==
 string|litert_performance_ok|T0s=
 string|litert_performance_poor|QnVydWs=
+string|litert_recommended|RGlyZWtvbWVuZGFzaWthbg==
 string|litert_tool_support|QWxhdCBlbWFpbCwgcGVuamFkd2FsYW4gdHVnYXMsIGRhbiBzZXJ2ZXIgTUNQIHRpZGFrIHRlcnNlZGlh
 string|model_sort_context|S29udGVrcw==
 string|model_sort_date|VGFuZ2dhbA==
