@@ -31,7 +31,7 @@ paparazzi = "2.0.0-alpha04"
 turbine = "1.2.1"
 bouncycastle = "1.84"
 reorderable = "3.0.0"
-litert-lm = "0.10.0"
+litert-lm = "0.10.2"
 materialIcons = "1.7.3"
 
 [libraries]
