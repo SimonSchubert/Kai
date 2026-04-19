@@ -56,12 +56,12 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
@@ -74,6 +74,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -126,7 +127,7 @@ fun ChatScreen(
     onNavigateToSettings: () -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     ChatScreenContent(
         uiState = uiState,
@@ -499,30 +500,34 @@ private fun ChatModeScreen(
                 var isDropping by remember {
                     mutableStateOf(false)
                 }
+                val addFile by rememberUpdatedState(uiState.actions.addFile)
+                val canAcceptDrop by rememberUpdatedState(uiState.supportedFileExtensions.isNotEmpty())
+                val shouldStartDragAndDrop = remember { { _: DragAndDropEvent -> canAcceptDrop } }
+                val dropTarget = remember {
+                    object : DragAndDropTarget {
+                        override fun onEntered(event: DragAndDropEvent) {
+                            super.onEntered(event)
+                            isDropping = true
+                        }
+                        override fun onExited(event: DragAndDropEvent) {
+                            super.onExited(event)
+                            isDropping = false
+                        }
+                        override fun onDrop(event: DragAndDropEvent): Boolean {
+                            val file = onDragAndDropEventDropped(event)
+                            if (file != null) addFile(file)
+                            isDropping = false
+                            return file != null
+                        }
+                    }
+                }
                 Column(
                     Modifier
                         .fillMaxSize()
                         .blur(radius = if (isDropping) 4.dp else 0.dp)
                         .dragAndDropTarget(
-                            shouldStartDragAndDrop = { uiState.supportedFileExtensions.isNotEmpty() },
-                            target = remember {
-                                object : DragAndDropTarget {
-                                    override fun onEntered(event: DragAndDropEvent) {
-                                        super.onEntered(event)
-                                        isDropping = true
-                                    }
-                                    override fun onExited(event: DragAndDropEvent) {
-                                        super.onExited(event)
-                                        isDropping = false
-                                    }
-                                    override fun onDrop(event: DragAndDropEvent): Boolean {
-                                        val file = onDragAndDropEventDropped(event)
-                                        if (file != null) uiState.actions.addFile(file)
-                                        isDropping = false
-                                        return file != null
-                                    }
-                                }
-                            },
+                            shouldStartDragAndDrop = shouldStartDragAndDrop,
+                            target = dropTarget,
                         ),
                 ) {
                     if (uiState.history.isEmpty()) {
@@ -745,10 +750,19 @@ private data class ExecutingToolsState(
 )
 
 @Composable
-private fun rememberExecutingTools(history: ImmutableList<History>): ExecutingToolsState = remember(history) {
-    val executing = history.filter { it.role == History.Role.TOOL_EXECUTING }
-    ExecutingToolsState(
-        tools = executing.map { it.id to (it.toolName ?: "tool") }.toImmutableList(),
-        isStatusOnly = executing.any { it.isStatusMessage },
-    )
+private fun rememberExecutingTools(history: ImmutableList<History>): ExecutingToolsState {
+    // Wrap the history parameter in State so derivedStateOf can observe it, then
+    // only recompute (and only emit) when the executing-tools subset actually changes.
+    // Streaming tokens mutate `history` on every frame but rarely change this derived slice.
+    val historyState = rememberUpdatedState(history)
+    val state by remember {
+        derivedStateOf {
+            val executing = historyState.value.filter { it.role == History.Role.TOOL_EXECUTING }
+            ExecutingToolsState(
+                tools = executing.map { it.id to (it.toolName ?: "tool") }.toImmutableList(),
+                isStatusOnly = executing.any { it.isStatusMessage },
+            )
+        }
+    }
+    return state
 }

@@ -71,7 +71,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
@@ -105,6 +104,7 @@ import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.Version
@@ -275,8 +275,8 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
-    val uiState by viewModel.state.collectAsState()
-    val sandboxState by sandboxViewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val sandboxState by sandboxViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.onScreenVisible()
@@ -284,6 +284,7 @@ fun SettingsScreen(
 
     SettingsScreenContent(
         uiState = uiState,
+        actions = viewModel.actions,
         sandboxState = sandboxState,
         onToggleSandbox = sandboxViewModel::onToggleSandbox,
         onSetupSandbox = sandboxViewModel::onSetupSandbox,
@@ -298,6 +299,7 @@ fun SettingsScreen(
 @Composable
 fun SettingsScreenContent(
     uiState: SettingsUiState,
+    actions: SettingsActions = SettingsActions.NoOp,
     sandboxState: SandboxUiState = SandboxUiState(),
     onToggleSandbox: (Boolean) -> Unit = {},
     onSetupSandbox: () -> Unit = {},
@@ -332,7 +334,7 @@ fun SettingsScreenContent(
             duration = SnackbarDuration.Short,
         )
         if (result == SnackbarResult.ActionPerformed) {
-            uiState.onUndoDelete()
+            actions.onUndoDelete()
         }
     }
 
@@ -384,7 +386,7 @@ fun SettingsScreenContent(
             SettingsTabSelector(
                 tabs = visibleTabs,
                 currentTab = filteredUiState.currentTab,
-                onSelectTab = filteredUiState.onSelectTab,
+                onSelectTab = actions.onSelectTab,
             )
 
             val isTerminalReady = filteredUiState.currentTab == SettingsTab.Sandbox && sandboxState.sandboxReady
@@ -423,11 +425,11 @@ fun SettingsScreenContent(
                         ) {
                             when (filteredUiState.currentTab) {
                                 SettingsTab.General -> {
-                                    GeneralContent(uiState = filteredUiState)
+                                    GeneralContent(uiState = filteredUiState, actions = actions)
                                 }
 
                                 SettingsTab.Services -> {
-                                    ServicesContent(uiState = filteredUiState)
+                                    ServicesContent(uiState = filteredUiState, actions = actions)
                                 }
 
                                 SettingsTab.Integrations -> {
@@ -437,15 +439,15 @@ fun SettingsScreenContent(
                                 SettingsTab.Tools -> {
                                     ToolsContent(
                                         tools = filteredUiState.tools,
-                                        onToggleTool = filteredUiState.onToggleTool,
+                                        onToggleTool = actions.onToggleTool,
                                         mcpServers = filteredUiState.mcpServers,
-                                        onAddMcpServer = filteredUiState.onAddMcpServer,
-                                        onRemoveMcpServer = filteredUiState.onRemoveMcpServer,
-                                        onToggleMcpServer = filteredUiState.onToggleMcpServer,
-                                        onRefreshMcpServer = filteredUiState.onRefreshMcpServer,
+                                        onAddMcpServer = actions.onAddMcpServer,
+                                        onRemoveMcpServer = actions.onRemoveMcpServer,
+                                        onToggleMcpServer = actions.onToggleMcpServer,
+                                        onRefreshMcpServer = actions.onRefreshMcpServer,
                                         showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
-                                        onShowAddMcpServerDialog = filteredUiState.onShowAddMcpServerDialog,
-                                        onAddPopularMcpServer = filteredUiState.onAddPopularMcpServer,
+                                        onShowAddMcpServerDialog = actions.onShowAddMcpServerDialog,
+                                        onAddPopularMcpServer = actions.onAddPopularMcpServer,
                                     )
                                 }
 
@@ -769,7 +771,7 @@ private fun SponsorList(
 }
 
 @Composable
-private fun ServicesContent(uiState: SettingsUiState) {
+private fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions) {
     var showAddServiceSheet by remember { mutableStateOf(false) }
 
     // Configured services list
@@ -779,7 +781,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
         onSettle = { fromIndex, toIndex ->
             val ids = entries.map { it.instanceId }.toMutableList()
             ids.add(toIndex, ids.removeAt(fromIndex))
-            uiState.onReorderServices(ids)
+            actions.onReorderServices(ids)
         },
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) { _, entry, isDragging ->
@@ -788,11 +790,11 @@ private fun ServicesContent(uiState: SettingsUiState) {
                 ConfiguredServiceCardContent(
                     entry = entry,
                     isExpanded = uiState.expandedServiceId == entry.instanceId,
-                    onExpand = { uiState.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
-                    onChangeApiKey = { apiKey -> uiState.onChangeApiKey(entry.instanceId, apiKey) },
-                    onChangeBaseUrl = { baseUrl -> uiState.onChangeBaseUrl(entry.instanceId, baseUrl) },
-                    onSelectModel = { modelId -> uiState.onSelectModel(entry.instanceId, modelId) },
-                    onRemove = { uiState.onRemoveService(entry.instanceId) },
+                    onExpand = { actions.onExpandService(if (uiState.expandedServiceId == entry.instanceId) null else entry.instanceId) },
+                    onChangeApiKey = { apiKey -> actions.onChangeApiKey(entry.instanceId, apiKey) },
+                    onChangeBaseUrl = { baseUrl -> actions.onChangeBaseUrl(entry.instanceId, baseUrl) },
+                    onSelectModel = { modelId -> actions.onSelectModel(entry.instanceId, modelId) },
+                    onRemove = { actions.onRemoveService(entry.instanceId) },
                     isDragging = isDragging,
                     dragHandleModifier = if (entries.size >= 2) Modifier.draggableHandle() else null,
                     localAvailableModels = uiState.localAvailableModels,
@@ -801,10 +803,10 @@ private fun ServicesContent(uiState: SettingsUiState) {
                     localDownloadingModelId = uiState.localDownloadingModelId,
                     localDownloadProgress = uiState.localDownloadProgress,
                     localDownloadError = uiState.localDownloadError,
-                    onDownloadLocalModel = uiState.onDownloadLocalModel,
-                    onCancelLocalModelDownload = uiState.onCancelLocalModelDownload,
-                    onDeleteLocalModel = uiState.onDeleteLocalModel,
-                    onChangeModelContextTokens = uiState.onChangeModelContextTokens,
+                    onDownloadLocalModel = actions.onDownloadLocalModel,
+                    onCancelLocalModelDownload = actions.onCancelLocalModelDownload,
+                    onDeleteLocalModel = actions.onDeleteLocalModel,
+                    onChangeModelContextTokens = actions.onChangeModelContextTokens,
                     modelContextTokens = uiState.modelContextTokens,
                 )
             }
@@ -823,7 +825,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
     FreeSettings(
         showFallbackToggle = entries.isNotEmpty(),
         isFreeFallbackEnabled = uiState.isFreeFallbackEnabled,
-        onToggleFreeFallback = uiState.onToggleFreeFallback,
+        onToggleFreeFallback = actions.onToggleFreeFallback,
         currentSponsors = uiState.currentSponsors,
         pastSponsors = uiState.pastSponsors,
     )
@@ -850,7 +852,7 @@ private fun ServicesContent(uiState: SettingsUiState) {
                         val isSpecial = service.isOnDevice || service is Service.OpenAICompatible
                         Surface(
                             onClick = {
-                                uiState.onAddService(service)
+                                actions.onAddService(service)
                                 showAddServiceSheet = false
                             },
                             modifier = Modifier.fillMaxWidth().handCursor(),
@@ -1528,7 +1530,7 @@ private fun SettingsCard(
 }
 
 @Composable
-private fun GeneralContent(uiState: SettingsUiState) {
+private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val useStaggered = maxWidth >= 600.dp
         if (useStaggered) {
@@ -1544,36 +1546,36 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         SettingsCard {
                             UiScaleSection(
                                 uiScale = uiState.uiScale,
-                                onChangeUiScale = uiState.onChangeUiScale,
+                                onChangeUiScale = actions.onChangeUiScale,
                             )
                         }
                     }
                     SettingsCard {
                         SoulEditor(
                             soulText = uiState.soulText,
-                            onSaveSoul = uiState.onSaveSoul,
+                            onSaveSoul = actions.onSaveSoul,
                         )
                     }
                     SettingsCard {
                         ScheduledTaskList(
                             tasks = uiState.scheduledTasks,
-                            onCancelTask = uiState.onCancelTask,
+                            onCancelTask = actions.onCancelTask,
                             isSchedulingEnabled = uiState.isSchedulingEnabled,
-                            onToggleScheduling = uiState.onToggleScheduling,
+                            onToggleScheduling = actions.onToggleScheduling,
                         )
                     }
                     SettingsCard {
                         DynamicUiToggle(
                             isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                            onToggleDynamicUi = uiState.onToggleDynamicUi,
+                            onToggleDynamicUi = actions.onToggleDynamicUi,
                         )
                     }
                     SettingsCard {
                         MemoryList(
                             memories = uiState.memories,
-                            onDeleteMemory = uiState.onDeleteMemory,
+                            onDeleteMemory = actions.onDeleteMemory,
                             isMemoryEnabled = uiState.isMemoryEnabled,
-                            onToggleMemory = uiState.onToggleMemory,
+                            onToggleMemory = actions.onToggleMemory,
                         )
                     }
                 }
@@ -1585,7 +1587,7 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         SettingsCard {
                             DaemonModeToggle(
                                 isDaemonEnabled = uiState.isDaemonEnabled,
-                                onToggleDaemon = uiState.onToggleDaemon,
+                                onToggleDaemon = actions.onToggleDaemon,
                             )
                         }
                     }
@@ -1599,11 +1601,11 @@ private fun GeneralContent(uiState: SettingsUiState) {
                             heartbeatLog = uiState.heartbeatLog,
                             heartbeatServiceEntries = uiState.heartbeatServiceEntries,
                             heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
-                            onToggleHeartbeat = uiState.onToggleHeartbeat,
-                            onChangeInterval = uiState.onChangeHeartbeatInterval,
-                            onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
-                            onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
-                            onChangeHeartbeatService = uiState.onChangeHeartbeatService,
+                            onToggleHeartbeat = actions.onToggleHeartbeat,
+                            onChangeInterval = actions.onChangeHeartbeatInterval,
+                            onChangeActiveHours = actions.onChangeHeartbeatActiveHours,
+                            onSaveHeartbeatPrompt = actions.onSaveHeartbeatPrompt,
+                            onChangeHeartbeatService = actions.onChangeHeartbeatService,
                         )
                     }
                     if (uiState.showEmailToggle) {
@@ -1612,16 +1614,16 @@ private fun GeneralContent(uiState: SettingsUiState) {
                                 isEmailEnabled = uiState.isEmailEnabled,
                                 emailAccounts = uiState.emailAccounts,
                                 pollIntervalMinutes = uiState.emailPollIntervalMinutes,
-                                onToggleEmail = uiState.onToggleEmail,
-                                onRemoveAccount = uiState.onRemoveEmailAccount,
-                                onChangePollInterval = uiState.onChangeEmailPollInterval,
+                                onToggleEmail = actions.onToggleEmail,
+                                onRemoveAccount = actions.onRemoveEmailAccount,
+                                onChangePollInterval = actions.onChangeEmailPollInterval,
                             )
                         }
                     }
                     SettingsCard {
                         ExportImportSection(
-                            onExportSettings = uiState.onExportSettings,
-                            onImportSettings = uiState.onImportSettings,
+                            onExportSettings = actions.onExportSettings,
+                            onImportSettings = actions.onImportSettings,
                         )
                     }
                 }
@@ -1632,7 +1634,7 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     SettingsCard {
                         UiScaleSection(
                             uiScale = uiState.uiScale,
-                            onChangeUiScale = uiState.onChangeUiScale,
+                            onChangeUiScale = actions.onChangeUiScale,
                         )
                     }
                 }
@@ -1640,36 +1642,36 @@ private fun GeneralContent(uiState: SettingsUiState) {
                     SettingsCard {
                         DaemonModeToggle(
                             isDaemonEnabled = uiState.isDaemonEnabled,
-                            onToggleDaemon = uiState.onToggleDaemon,
+                            onToggleDaemon = actions.onToggleDaemon,
                         )
                     }
                 }
                 SettingsCard {
                     SoulEditor(
                         soulText = uiState.soulText,
-                        onSaveSoul = uiState.onSaveSoul,
+                        onSaveSoul = actions.onSaveSoul,
                     )
                 }
                 SettingsCard {
                     DynamicUiToggle(
                         isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                        onToggleDynamicUi = uiState.onToggleDynamicUi,
+                        onToggleDynamicUi = actions.onToggleDynamicUi,
                     )
                 }
                 SettingsCard {
                     MemoryList(
                         memories = uiState.memories,
-                        onDeleteMemory = uiState.onDeleteMemory,
+                        onDeleteMemory = actions.onDeleteMemory,
                         isMemoryEnabled = uiState.isMemoryEnabled,
-                        onToggleMemory = uiState.onToggleMemory,
+                        onToggleMemory = actions.onToggleMemory,
                     )
                 }
                 SettingsCard {
                     ScheduledTaskList(
                         tasks = uiState.scheduledTasks,
-                        onCancelTask = uiState.onCancelTask,
+                        onCancelTask = actions.onCancelTask,
                         isSchedulingEnabled = uiState.isSchedulingEnabled,
-                        onToggleScheduling = uiState.onToggleScheduling,
+                        onToggleScheduling = actions.onToggleScheduling,
                     )
                 }
                 SettingsCard {
@@ -1682,11 +1684,11 @@ private fun GeneralContent(uiState: SettingsUiState) {
                         heartbeatLog = uiState.heartbeatLog,
                         heartbeatServiceEntries = uiState.heartbeatServiceEntries,
                         heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
-                        onToggleHeartbeat = uiState.onToggleHeartbeat,
-                        onChangeInterval = uiState.onChangeHeartbeatInterval,
-                        onChangeActiveHours = uiState.onChangeHeartbeatActiveHours,
-                        onSaveHeartbeatPrompt = uiState.onSaveHeartbeatPrompt,
-                        onChangeHeartbeatService = uiState.onChangeHeartbeatService,
+                        onToggleHeartbeat = actions.onToggleHeartbeat,
+                        onChangeInterval = actions.onChangeHeartbeatInterval,
+                        onChangeActiveHours = actions.onChangeHeartbeatActiveHours,
+                        onSaveHeartbeatPrompt = actions.onSaveHeartbeatPrompt,
+                        onChangeHeartbeatService = actions.onChangeHeartbeatService,
                     )
                 }
                 if (uiState.showEmailToggle) {
@@ -1695,16 +1697,16 @@ private fun GeneralContent(uiState: SettingsUiState) {
                             isEmailEnabled = uiState.isEmailEnabled,
                             emailAccounts = uiState.emailAccounts,
                             pollIntervalMinutes = uiState.emailPollIntervalMinutes,
-                            onToggleEmail = uiState.onToggleEmail,
-                            onRemoveAccount = uiState.onRemoveEmailAccount,
-                            onChangePollInterval = uiState.onChangeEmailPollInterval,
+                            onToggleEmail = actions.onToggleEmail,
+                            onRemoveAccount = actions.onRemoveEmailAccount,
+                            onChangePollInterval = actions.onChangeEmailPollInterval,
                         )
                     }
                 }
                 SettingsCard {
                     ExportImportSection(
-                        onExportSettings = uiState.onExportSettings,
-                        onImportSettings = uiState.onImportSettings,
+                        onExportSettings = actions.onExportSettings,
+                        onImportSettings = actions.onImportSettings,
                     )
                 }
             }
@@ -1716,7 +1718,7 @@ private fun GeneralContent(uiState: SettingsUiState) {
 private fun IntegrationsContent(
     splinterlandsViewModel: SplinterlandsViewModel = koinViewModel(),
 ) {
-    val splinterlandsState by splinterlandsViewModel.state.collectAsState()
+    val splinterlandsState by splinterlandsViewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { splinterlandsViewModel.onScreenVisible() }
 
     val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current

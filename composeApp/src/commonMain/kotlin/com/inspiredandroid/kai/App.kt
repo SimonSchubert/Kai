@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,6 +23,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -136,7 +136,7 @@ private fun AppContent(
     }
 
     val appSettingsForScale = koinInject<AppSettings>()
-    val uiScale by appSettingsForScale.uiScaleFlow.collectAsState()
+    val uiScale by appSettingsForScale.uiScaleFlow.collectAsStateWithLifecycle()
     val defaultDensity = LocalDensity.current
     val scaledDensity = remember(defaultDensity, uiScale) {
         Density(defaultDensity.density * uiScale, defaultDensity.fontScale)

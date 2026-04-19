@@ -74,7 +74,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertTrue(initialState.configuredServices.isEmpty())
 
-            initialState.onAddService(Service.Groq)
+            viewModel.actions.onAddService(Service.Groq)
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updatedState = awaitItem()
@@ -96,7 +96,7 @@ class SettingsViewModelTest {
             assertEquals(2, initialState.configuredServices.size)
 
             // Remove by instanceId (which equals serviceId for first instances)
-            initialState.onRemoveService("gemini")
+            viewModel.actions.onRemoveService("gemini")
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Deletion is deferred (undo snackbar), collect until actually removed
@@ -132,13 +132,13 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
 
-            initialState.onAddService(Service.OpenAI)
+            viewModel.actions.onAddService(Service.OpenAI)
             testDispatcher.scheduler.advanceUntilIdle()
             val afterFirst = awaitItem()
             assertEquals(1, afterFirst.configuredServices.size)
             assertEquals("openai", afterFirst.configuredServices[0].instanceId)
 
-            afterFirst.onAddService(Service.OpenAI)
+            viewModel.actions.onAddService(Service.OpenAI)
             testDispatcher.scheduler.advanceUntilIdle()
             val afterSecond = awaitItem()
             assertEquals(2, afterSecond.configuredServices.size)
@@ -169,7 +169,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertTrue(initialState.mcpServers.isEmpty())
 
-            initialState.onAddMcpServer("Test Server", "https://example.com/mcp", emptyMap())
+            viewModel.actions.onAddMcpServer("Test Server", "https://example.com/mcp", emptyMap())
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Dialog should close and server should appear
@@ -193,7 +193,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertEquals(1, initialState.mcpServers.size)
 
-            initialState.onRemoveMcpServer(initialState.mcpServers[0].id)
+            viewModel.actions.onRemoveMcpServer(initialState.mcpServers[0].id)
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Deletion is deferred (undo snackbar), collect until actually removed
@@ -213,7 +213,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertTrue(initialState.mcpServers[0].isEnabled)
 
-            initialState.onToggleMcpServer(config.id, false)
+            viewModel.actions.onToggleMcpServer(config.id, false)
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updates = cancelAndConsumeRemainingEvents()
@@ -232,11 +232,11 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertFalse(initialState.showAddMcpServerDialog)
 
-            initialState.onShowAddMcpServerDialog(true)
+            viewModel.actions.onShowAddMcpServerDialog(true)
             val showState = awaitItem()
             assertTrue(showState.showAddMcpServerDialog)
 
-            showState.onShowAddMcpServerDialog(false)
+            viewModel.actions.onShowAddMcpServerDialog(false)
             val hideState = awaitItem()
             assertFalse(hideState.showAddMcpServerDialog)
         }
@@ -247,9 +247,9 @@ class SettingsViewModelTest {
         val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, testDispatcher)
 
         viewModel.state.test {
-            val state = awaitItem()
+            awaitItem()
             // Toggle a tool - should not crash even with no MCP servers
-            state.onToggleTool("some_tool", false)
+            viewModel.actions.onToggleTool("some_tool", false)
             // No exception means success
             cancelAndIgnoreRemainingEvents()
         }
@@ -266,7 +266,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
 
             // Use instanceId instead of Service
-            initialState.onChangeApiKey("groqcloud", "new-api-key")
+            viewModel.actions.onChangeApiKey("groqcloud", "new-api-key")
 
             val updatedState = awaitItem()
             assertEquals("new-api-key", updatedState.configuredServices[0].apiKey)
@@ -283,7 +283,7 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertTrue(initialState.configuredServices.isEmpty())
 
-            initialState.onAddService(Service.Anthropic)
+            viewModel.actions.onAddService(Service.Anthropic)
             testDispatcher.scheduler.advanceUntilIdle()
 
             val updatedState = awaitItem()
@@ -308,7 +308,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onChangeApiKey("anthropic", "sk-test-123")
+            viewModel.actions.onChangeApiKey("anthropic", "sk-test-123")
             testDispatcher.scheduler.advanceUntilIdle()
 
             assertEquals("sk-test-123", fakeRepository.getInstanceApiKey("anthropic"))
@@ -325,7 +325,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onChangeApiKey("anthropic", "new-key")
+            viewModel.actions.onChangeApiKey("anthropic", "new-key")
             testDispatcher.scheduler.advanceUntilIdle()
 
             // Models should have been cleared
@@ -343,7 +343,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             val instanceId = initialState.configuredServices.first().instanceId
-            initialState.onChangeBaseUrl(instanceId, "https://custom.example.com/v1/")
+            viewModel.actions.onChangeBaseUrl(instanceId, "https://custom.example.com/v1/")
             testDispatcher.scheduler.advanceUntilIdle()
 
             assertEquals(
@@ -362,7 +362,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             val instanceId = initialState.configuredServices.first().instanceId
-            initialState.onChangeBaseUrl(instanceId, "https://x.example/v1")
+            viewModel.actions.onChangeBaseUrl(instanceId, "https://x.example/v1")
 
             val updatedState = awaitItem()
             assertEquals(ConnectionStatus.Unknown, updatedState.configuredServices.first().connectionStatus)
@@ -384,7 +384,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onSelectModel("gemini", "gemini-pro")
+            viewModel.actions.onSelectModel("gemini", "gemini-pro")
             testDispatcher.scheduler.advanceUntilIdle()
 
             val models = fakeRepository.getInstanceModels("gemini", Service.Gemini).value
@@ -405,14 +405,14 @@ class SettingsViewModelTest {
             val initialState = awaitItem()
             assertEquals(null, initialState.expandedServiceId)
 
-            initialState.onExpandService("openai")
+            viewModel.actions.onExpandService("openai")
             testDispatcher.scheduler.advanceUntilIdle()
 
             val expandedState = awaitItem()
             assertEquals("openai", expandedState.expandedServiceId)
 
             // Collapse
-            expandedState.onExpandService(null)
+            viewModel.actions.onExpandService(null)
             val collapsedState = awaitItem()
             assertEquals(null, collapsedState.expandedServiceId)
         }
@@ -426,7 +426,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onSelectTab(SettingsTab.Tools)
+            viewModel.actions.onSelectTab(SettingsTab.Tools)
             val updated = awaitItem()
             assertEquals(SettingsTab.Tools, updated.currentTab)
             cancelAndIgnoreRemainingEvents()
@@ -441,7 +441,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onSaveSoul("You are a helpful assistant.")
+            viewModel.actions.onSaveSoul("You are a helpful assistant.")
 
             val updated = awaitItem()
             assertEquals("You are a helpful assistant.", updated.soulText)
@@ -457,7 +457,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             assertTrue(initialState.isDynamicUiEnabled)
-            initialState.onToggleDynamicUi(false)
+            viewModel.actions.onToggleDynamicUi(false)
             val updated = awaitItem()
             assertFalse(updated.isDynamicUiEnabled)
             assertFalse(fakeRepository.isDynamicUiEnabled())
@@ -472,7 +472,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             assertTrue(initialState.isMemoryEnabled)
-            initialState.onToggleMemory(false)
+            viewModel.actions.onToggleMemory(false)
             val updated = awaitItem()
             assertFalse(updated.isMemoryEnabled)
             assertFalse(fakeRepository.isMemoryEnabled())
@@ -487,7 +487,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             assertTrue(initialState.isSchedulingEnabled)
-            initialState.onToggleScheduling(false)
+            viewModel.actions.onToggleScheduling(false)
             val updated = awaitItem()
             assertFalse(updated.isSchedulingEnabled)
             assertFalse(fakeRepository.isSchedulingEnabled())
@@ -502,7 +502,7 @@ class SettingsViewModelTest {
         viewModel.state.test {
             val initialState = awaitItem()
             assertTrue(initialState.isFreeFallbackEnabled)
-            initialState.onToggleFreeFallback(false)
+            viewModel.actions.onToggleFreeFallback(false)
             val updated = awaitItem()
             assertFalse(updated.isFreeFallbackEnabled)
             assertFalse(fakeRepository.isFreeFallbackEnabled())
@@ -516,7 +516,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onChangeUiScale(1.5f)
+            viewModel.actions.onChangeUiScale(1.5f)
             val updated = awaitItem()
             assertEquals(1.5f, updated.uiScale)
             assertEquals(1.5f, fakeRepository.getUiScale())
@@ -530,7 +530,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onChangeEmailPollInterval(30)
+            viewModel.actions.onChangeEmailPollInterval(30)
             val updated = awaitItem()
             assertEquals(30, updated.emailPollIntervalMinutes)
             assertEquals(30, fakeRepository.getEmailPollIntervalMinutes())
@@ -544,7 +544,7 @@ class SettingsViewModelTest {
 
         viewModel.state.test {
             val initialState = awaitItem()
-            initialState.onChangeHeartbeatInterval(45)
+            viewModel.actions.onChangeHeartbeatInterval(45)
             val updated = awaitItem()
             assertEquals(45, updated.heartbeatIntervalMinutes)
             cancelAndIgnoreRemainingEvents()

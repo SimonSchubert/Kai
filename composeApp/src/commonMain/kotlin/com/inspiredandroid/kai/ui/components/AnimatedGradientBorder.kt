@@ -7,8 +7,9 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -20,7 +21,9 @@ import com.inspiredandroid.kai.ui.gradientMagenta
 import com.inspiredandroid.kai.ui.gradientPurple
 import com.inspiredandroid.kai.ui.gradientViolet
 
-private val baseStops = listOf(0f to gradientPurple, 0.33f to gradientViolet, 0.66f to gradientMagenta)
+private const val STOP_A = 0f
+private const val STOP_B = 0.33f
+private const val STOP_C = 0.66f
 
 @Composable
 fun Modifier.animatedGradientBorder(
@@ -36,32 +39,77 @@ fun Modifier.animatedGradientBorder(
             animation = tween(durationMillis = 2000, easing = LinearEasing),
         ),
     )
-    return this.drawWithContent {
+    // Reuse the same color-stops array across frames; only the pair positions
+    // are mutated per frame so no allocations happen in the animated draw loop.
+    val colorStops = remember {
+        arrayOf(
+            0f to Color.Transparent,
+            0f to gradientPurple,
+            0f to gradientViolet,
+            0f to gradientMagenta,
+            1f to Color.Transparent,
+        )
+    }
+    return this.drawWithCache {
         val borderPx = borderWidth.toPx()
         val cr = CornerRadius(cornerRadius.toPx())
-        if (backgroundColor != null) {
-            drawRoundRect(color = backgroundColor, cornerRadius = cr)
+        val strokeStyle = Stroke(width = borderPx)
+        onDrawWithContent {
+            if (backgroundColor != null) {
+                drawRoundRect(color = backgroundColor, cornerRadius = cr)
+            }
+            drawContent()
+
+            // Shift the three base stops by `progress`, wrap into [0,1), then
+            // sort ascending. Three comparisons ≪ the previous list map+sort.
+            val p = progress
+            var posA = (STOP_A - p + 1f) % 1f
+            var posB = (STOP_B - p + 1f) % 1f
+            var posC = (STOP_C - p + 1f) % 1f
+            var colA = gradientPurple
+            var colB = gradientViolet
+            var colC = gradientMagenta
+            if (posA > posB) {
+                val tp = posA
+                posA = posB
+                posB = tp
+                val tc = colA
+                colA = colB
+                colB = tc
+            }
+            if (posB > posC) {
+                val tp = posB
+                posB = posC
+                posC = tp
+                val tc = colB
+                colB = colC
+                colC = tc
+            }
+            if (posA > posB) {
+                val tp = posA
+                posA = posB
+                posB = tp
+                val tc = colA
+                colA = colB
+                colB = tc
+            }
+
+            // Boundary color so the wrap-around at 0 and 1 matches seamlessly.
+            val wrapDist = 1f - posC + posA
+            val t = if (wrapDist > 0f) (1f - posC) / wrapDist else 0f
+            val boundary = lerp(colC, colA, t)
+
+            colorStops[0] = 0f to boundary
+            colorStops[1] = posA to colA
+            colorStops[2] = posB to colB
+            colorStops[3] = posC to colC
+            colorStops[4] = 1f to boundary
+
+            drawRoundRect(
+                brush = Brush.sweepGradient(colorStops = colorStops),
+                cornerRadius = cr,
+                style = strokeStyle,
+            )
         }
-        drawContent()
-        val shifted = baseStops.map { (pos, color) ->
-            ((pos - progress + 1f) % 1f) to color
-        }.sortedBy { it.first }
-        val last = shifted.last()
-        val first = shifted.first()
-        val wrapDist = 1f - last.first + first.first
-        val t = if (wrapDist > 0f) (1f - last.first) / wrapDist else 0f
-        val boundary = lerp(last.second, first.second, t)
-        val colorStops = arrayOf(
-            0f to boundary,
-            shifted[0].first to shifted[0].second,
-            shifted[1].first to shifted[1].second,
-            shifted[2].first to shifted[2].second,
-            1f to boundary,
-        )
-        drawRoundRect(
-            brush = Brush.sweepGradient(colorStops = colorStops),
-            cornerRadius = cr,
-            style = Stroke(width = borderPx),
-        )
     }
 }
