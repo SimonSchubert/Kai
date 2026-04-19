@@ -167,6 +167,7 @@ class GemmaLocalScreenshotTest {
 
 private val MODEL_E2B = MODEL_CATALOG.first { it.id == "gemma-4-e2b-it" }
 private val MODEL_E4B = MODEL_CATALOG.first { it.id == "gemma-4-e4b-it" }
+private val MODEL_QWEN3 = MODEL_CATALOG.first { it.id == "qwen3-0.6b" }
 
 /**
  * Mirrors the "Add service" ModalBottomSheet content in SettingsScreen. Production uses
@@ -282,7 +283,7 @@ private object GemmaLocalTestData {
                 ),
             ),
             expandedServiceId = LITERT_INSTANCE_ID,
-            localAvailableModels = persistentListOf(MODEL_E2B, MODEL_E4B),
+            localAvailableModels = persistentListOf(MODEL_E2B, MODEL_E4B, MODEL_QWEN3),
             // 8 GB keeps the Good/OK/Poor indicator in its middle bands across both models.
             totalDeviceMemoryBytes = 8L * 1024L * 1024L * 1024L,
             localFreeSpaceBytes = 24L * 1024L * 1024L * 1024L,
