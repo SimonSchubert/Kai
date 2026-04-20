@@ -271,6 +271,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                     TrailingIcon(
                         icon = Res.drawable.ic_stop,
                         onClick = { uiState.actions.cancel() },
+                        isPulsing = true,
                     )
                 } else {
                     CircleIconButton(
