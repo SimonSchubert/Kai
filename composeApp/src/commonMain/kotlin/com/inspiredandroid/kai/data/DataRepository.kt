@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.inference.EngineState
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
@@ -125,6 +126,10 @@ interface DataRepository {
     // UI Scale
     fun getUiScale(): Float
     fun setUiScale(scale: Float)
+
+    // Theme Mode
+    fun getThemeMode(): ThemeMode
+    fun setThemeMode(mode: ThemeMode)
 
     // Export/Import
     fun exportSettingsToJson(): String

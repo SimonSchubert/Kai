@@ -20,6 +20,7 @@ import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
@@ -460,6 +461,14 @@ class FakeDataRepository : DataRepository {
 
     override fun setUiScale(scale: Float) {
         uiScale = scale
+    }
+
+    private var themeMode: ThemeMode = ThemeMode.AUTO
+
+    override fun getThemeMode(): ThemeMode = themeMode
+
+    override fun setThemeMode(mode: ThemeMode) {
+        themeMode = mode
     }
 
     override fun exportSettingsToJson(): String = "{}"

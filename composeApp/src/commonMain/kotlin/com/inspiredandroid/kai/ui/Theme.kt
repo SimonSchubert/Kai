@@ -49,6 +49,15 @@ val DarkColorScheme = darkColorScheme(
     onSurface = Color(0xFFFFFFFF),
 )
 
+val OledColorScheme = darkColorScheme(
+    primary = Color(0xFFBB86FC),
+    onPrimary = Color(0xFF000000),
+    surface = Color(0xFF0A0A0A),
+    background = Color(0xFF000000),
+    onBackground = Color(0xFFFFFFFF),
+    onSurface = Color(0xFFFFFFFF),
+)
+
 val LightColorScheme = lightColorScheme(
     primary = darkPurple,
     onPrimary = Color(0xFFFFFFFF),

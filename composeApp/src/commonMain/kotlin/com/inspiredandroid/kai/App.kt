@@ -40,7 +40,9 @@ import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
 import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
+import com.inspiredandroid.kai.ui.OledColorScheme
 import com.inspiredandroid.kai.ui.Theme
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.ui.chat.ChatScreen
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.components.FullScreenImageHost
@@ -138,13 +140,24 @@ private fun AppContent(
 
     val appSettingsForScale = koinInject<AppSettings>()
     val uiScale by appSettingsForScale.uiScaleFlow.collectAsStateWithLifecycle()
+    val themeMode by appSettingsForScale.themeModeFlow.collectAsStateWithLifecycle()
     val defaultDensity = LocalDensity.current
     val scaledDensity = remember(defaultDensity, uiScale) {
         Density(defaultDensity.density * uiScale, defaultDensity.fontScale)
     }
 
+    val systemDarkMode = isSystemInDarkTheme()
+    val resolvedColorScheme = remember(themeMode, systemDarkMode) {
+        when (themeMode) {
+            ThemeMode.AUTO -> if (systemDarkMode) DarkColorScheme else LightColorScheme
+            ThemeMode.LIGHT -> LightColorScheme
+            ThemeMode.DARK -> DarkColorScheme
+            ThemeMode.OLED -> OledColorScheme
+        }
+    }
+
     CompositionLocalProvider(LocalDensity provides scaledDensity) {
-        Theme(colorScheme = colorScheme) {
+        Theme(colorScheme = resolvedColorScheme) {
             FullScreenImageHost {
                 val chatViewModel: ChatViewModel = koinViewModel()
                 val showTabBar = !isMobilePlatform

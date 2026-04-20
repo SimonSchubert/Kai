@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.defaultUiScale
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -505,6 +506,23 @@ class AppSettings(private val settings: Settings) {
     fun setUiScale(scale: Float) {
         settings.putFloat(KEY_UI_SCALE, scale)
         _uiScaleFlow.value = scale
+    }
+
+    // Theme Mode
+    private val _themeModeFlow = MutableStateFlow(
+        try {
+            ThemeMode.valueOf(settings.getString(KEY_THEME_MODE, ThemeMode.AUTO.name))
+        } catch (_: Exception) {
+            ThemeMode.AUTO
+        }
+    )
+    val themeModeFlow: StateFlow<ThemeMode> = _themeModeFlow
+
+    fun getThemeMode(): ThemeMode = _themeModeFlow.value
+
+    fun setThemeMode(mode: ThemeMode) {
+        settings.putString(KEY_THEME_MODE, mode.name)
+        _themeModeFlow.value = mode
     }
 
     // Email
@@ -1040,6 +1058,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_FREE_SERVICE_PRIMARY = "free_service_primary"
         const val KEY_SERVICES_MIGRATION_COMPLETE = "services_migration_complete_v1"
         const val KEY_UI_SCALE = "ui_scale"
+        const val KEY_THEME_MODE = "theme_mode"
         const val KEY_MCP_SERVERS = "mcp_servers"
         const val KEY_INSTANCE_MIGRATION_COMPLETE = "instance_migration_complete_v1"
         const val KEY_BASE_URL_V1_MIGRATION_COMPLETE = "base_url_v1_migration_complete"

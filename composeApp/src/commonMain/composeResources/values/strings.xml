@@ -163,6 +163,11 @@
     <string name="service_free_fast">Free Fast</string>
     <string name="service_free_expert">Free Expert</string>
     <string name="settings_ui_scale">UI Scale</string>
+    <string name="settings_theme_mode">Theme Mode</string>
+    <string name="settings_theme_mode_auto">Auto (System)</string>
+    <string name="settings_theme_mode_light">Light</string>
+    <string name="settings_theme_mode_dark">Dark</string>
+    <string name="settings_theme_mode_oled">OLED</string>
     <string name="settings_mcp_servers">MCP Servers</string>
     <string name="settings_mcp_servers_description">Connect to external tool servers using the Model Context Protocol.</string>
     <string name="settings_mcp_add_server">Add MCP Server</string>

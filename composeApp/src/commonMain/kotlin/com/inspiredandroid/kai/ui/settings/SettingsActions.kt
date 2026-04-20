@@ -5,6 +5,7 @@ import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.mcp.PopularMcpServer
+import com.inspiredandroid.kai.ui.ThemeMode
 
 @Immutable
 data class SettingsActions(
@@ -35,6 +36,7 @@ data class SettingsActions(
     val onChangeEmailPollInterval: (Int) -> Unit,
     val onToggleFreeFallback: (Boolean) -> Unit,
     val onChangeUiScale: (Float) -> Unit,
+    val onChangeThemeMode: (ThemeMode) -> Unit,
     val onAddMcpServer: (String, String, Map<String, String>) -> Unit,
     val onRemoveMcpServer: (String) -> Unit,
     val onToggleMcpServer: (String, Boolean) -> Unit,
@@ -78,6 +80,7 @@ data class SettingsActions(
             onChangeEmailPollInterval = {},
             onToggleFreeFallback = {},
             onChangeUiScale = {},
+            onChangeThemeMode = {},
             onAddMcpServer = { _, _, _ -> },
             onRemoveMcpServer = {},
             onToggleMcpServer = { _, _ -> },

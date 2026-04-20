@@ -132,6 +132,7 @@ import com.inspiredandroid.kai.ui.components.KaiSlider
 import com.inspiredandroid.kai.ui.components.SettingsListItem
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Replay
 import com.inspiredandroid.kai.ui.icons.Visibility
@@ -245,6 +246,11 @@ import kai.composeapp.generated.resources.settings_tab_tools
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_ui_scale
+import kai.composeapp.generated.resources.settings_theme_mode
+import kai.composeapp.generated.resources.settings_theme_mode_auto
+import kai.composeapp.generated.resources.settings_theme_mode_dark
+import kai.composeapp.generated.resources.settings_theme_mode_light
+import kai.composeapp.generated.resources.settings_theme_mode_oled
 import kai.composeapp.generated.resources.settings_version
 import kai.composeapp.generated.resources.snackbar_email_removed
 import kai.composeapp.generated.resources.snackbar_mcp_server_removed
@@ -1557,6 +1563,12 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                         }
                     }
                     SettingsCard {
+                        ThemeModeSection(
+                            themeMode = uiState.themeMode,
+                            onChangeThemeMode = actions.onChangeThemeMode,
+                        )
+                    }
+                    SettingsCard {
                         SoulEditor(
                             soulText = uiState.soulText,
                             onSaveSoul = actions.onSaveSoul,
@@ -1644,6 +1656,12 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                             onChangeUiScale = actions.onChangeUiScale,
                         )
                     }
+                }
+                SettingsCard {
+                    ThemeModeSection(
+                        themeMode = uiState.themeMode,
+                        onChangeThemeMode = actions.onChangeThemeMode,
+                    )
                 }
                 if (uiState.showDaemonToggle) {
                     SettingsCard {
@@ -2656,6 +2674,42 @@ private fun UiScaleSection(
             valueRange = 0.5f..2.0f,
             steps = steps,
         )
+    }
+}
+
+@Composable
+private fun ThemeModeSection(
+    themeMode: ThemeMode,
+    onChangeThemeMode: (ThemeMode) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = stringResource(Res.string.settings_theme_mode),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Spacer(Modifier.size(8.dp))
+        
+        val themeModes = listOf(
+            ThemeMode.AUTO to Res.string.settings_theme_mode_auto,
+            ThemeMode.LIGHT to Res.string.settings_theme_mode_light,
+            ThemeMode.DARK to Res.string.settings_theme_mode_dark,
+            ThemeMode.OLED to Res.string.settings_theme_mode_oled,
+        )
+        
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            themeModes.forEach { (mode, labelRes) ->
+                FilterChip(
+                    selected = themeMode == mode,
+                    onClick = { onChangeThemeMode(mode) },
+                    label = { Text(stringResource(labelRes)) },
+                    modifier = Modifier.handCursor(),
+                )
+            }
+        }
     }
 }
 

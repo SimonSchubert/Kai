@@ -38,6 +38,7 @@ import com.inspiredandroid.kai.ui.chat.toAnthropicContentBlocks
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
 import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
+import com.inspiredandroid.kai.ui.ThemeMode
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
@@ -1832,6 +1833,12 @@ class RemoteDataRepository(
 
     override fun setUiScale(scale: Float) {
         appSettings.setUiScale(scale)
+    }
+
+    override fun getThemeMode(): ThemeMode = appSettings.getThemeMode()
+
+    override fun setThemeMode(mode: ThemeMode) {
+        appSettings.setThemeMode(mode)
     }
 
     override fun exportSettingsToJson(): String {

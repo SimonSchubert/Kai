@@ -24,6 +24,7 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.platformName
+import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -88,6 +89,7 @@ class SettingsViewModel(
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         uiScale = dataRepository.getUiScale(),
         showUiScale = isDesktopPlatform,
+        themeMode = dataRepository.getThemeMode(),
         mcpServers = buildMcpServerEntries().toImmutableList(),
         localAvailableModels = dataRepository.getLocalAvailableModels().toImmutableList(),
         totalDeviceMemoryBytes = dataRepository.getTotalDeviceMemoryBytes(),
@@ -127,6 +129,7 @@ class SettingsViewModel(
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
         onToggleFreeFallback = ::onToggleFreeFallback,
         onChangeUiScale = ::onChangeUiScale,
+        onChangeThemeMode = ::onChangeThemeMode,
         onAddMcpServer = ::onAddMcpServer,
         onRemoveMcpServer = ::onRemoveMcpServer,
         onToggleMcpServer = ::onToggleMcpServer,
@@ -491,6 +494,11 @@ class SettingsViewModel(
     private fun onChangeUiScale(scale: Float) {
         dataRepository.setUiScale(scale)
         _state.update { it.copy(uiScale = scale) }
+    }
+
+    private fun onChangeThemeMode(mode: ThemeMode) {
+        dataRepository.setThemeMode(mode)
+        _state.update { it.copy(themeMode = mode) }
     }
 
     private fun onExportSettings(): String = dataRepository.exportSettingsToJson()
