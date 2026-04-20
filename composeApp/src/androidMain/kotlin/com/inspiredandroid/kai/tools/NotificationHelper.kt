@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.inspiredandroid.kai.shared.R
 import kai.composeapp.generated.resources.Res
@@ -31,18 +30,16 @@ class NotificationHelper(
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = runBlocking { getString(Res.string.notification_channel_name) }
-            val channelDescription = runBlocking { getString(Res.string.notification_channel_description) }
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                channelName,
-                NotificationManager.IMPORTANCE_DEFAULT,
-            ).apply {
-                description = channelDescription
-            }
-            notificationManager.createNotificationChannel(channel)
+        val channelName = runBlocking { getString(Res.string.notification_channel_name) }
+        val channelDescription = runBlocking { getString(Res.string.notification_channel_description) }
+        val channel = NotificationChannel(
+            CHANNEL_ID,
+            channelName,
+            NotificationManager.IMPORTANCE_DEFAULT,
+        ).apply {
+            description = channelDescription
         }
+        notificationManager.createNotificationChannel(channel)
     }
 
     suspend fun sendNotification(
