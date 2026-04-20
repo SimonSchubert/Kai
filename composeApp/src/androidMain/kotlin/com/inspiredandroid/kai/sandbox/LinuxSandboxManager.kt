@@ -127,7 +127,18 @@ class LinuxSandboxManager(private val context: Context) {
         downloader.writeResolvConf(rootfsDir)
 
         val executor = createProotExecutor()
-        executor.execute("apk update", timeoutSeconds = 60)
+        var updated = false
+        for (mirror in downloader.mirrors) {
+            downloader.writeRepositories(rootfsDir, mirror)
+            val result = executor.execute("apk update", timeoutSeconds = 60)
+            if (result["success"] as? Boolean == true) {
+                updated = true
+                break
+            }
+        }
+        if (!updated) {
+            throw IllegalStateException("apk update failed on all Alpine mirrors")
+        }
 
         _state.value = SandboxState.Ready
     }

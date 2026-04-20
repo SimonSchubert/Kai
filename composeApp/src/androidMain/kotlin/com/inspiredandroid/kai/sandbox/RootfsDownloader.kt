@@ -36,6 +36,8 @@ private const val TAR_PREFIX_OFFSET = 345
 
 class RootfsDownloader(private val httpClient: HttpClient) {
 
+    val mirrors: List<String> = ALPINE_MIRRORS
+
     fun getDownloadUrls(arch: String): List<String> = ALPINE_MIRRORS.map { base ->
         "$base/$ALPINE_BRANCH/releases/$arch/alpine-minirootfs-$ALPINE_VERSION-$arch.tar.gz"
     }
@@ -225,6 +227,14 @@ class RootfsDownloader(private val httpClient: HttpClient) {
         etcDir.mkdirs()
         File(etcDir, "resolv.conf").writeText(
             "nameserver 8.8.8.8\nnameserver 8.8.4.4\n",
+        )
+    }
+
+    fun writeRepositories(rootfsDir: File, mirrorBase: String) {
+        val apkDir = File(rootfsDir, "etc/apk")
+        apkDir.mkdirs()
+        File(apkDir, "repositories").writeText(
+            "$mirrorBase/$ALPINE_BRANCH/main\n$mirrorBase/$ALPINE_BRANCH/community\n",
         )
     }
 }

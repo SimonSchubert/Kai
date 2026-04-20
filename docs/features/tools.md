@@ -81,7 +81,7 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Setup flow:** The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).
 
-**Mirror fallback:** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable.
+**Mirror fallback:** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick `/etc/apk/repositories` during setup — `apk update` is retried against each mirror until one succeeds, so later `apk add` calls resolve through a reachable mirror.
 
 **Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under `linux-sandbox/`.
 
