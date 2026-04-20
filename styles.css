@@ -706,6 +706,7 @@ footer .impressum {
 .math-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
   gap: 24px;
   max-width: var(--max-width);
   margin: 0 auto;
@@ -731,9 +732,6 @@ footer .impressum {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 880 / 1956;
-  object-fit: cover;
-  object-position: top center;
   background: var(--bg-gradient);
 }
 
