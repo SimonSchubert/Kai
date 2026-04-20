@@ -731,9 +731,7 @@ footer .impressum {
 .math-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: top;
+  height: auto;
   background: var(--bg-gradient);
 }
 
