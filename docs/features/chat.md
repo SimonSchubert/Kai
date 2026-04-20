@@ -8,7 +8,7 @@ Kai's chat system manages the message history, conversation persistence, file at
 
 ### Conversation
 
-A persisted chat session containing an id (UUID), message list, timestamps (`createdAt`, `updatedAt`), a title, and a type (`chat` or `heartbeat`). Conversations are stored in an encrypted file and restored across app launches.
+A persisted chat session containing an id (UUID), message list, timestamps (`createdAt`, `updatedAt`), a title, and a type (`chat`, `heartbeat`, or `interactive`). Conversations are stored in an encrypted file and restored across app launches.
 
 ### History
 
@@ -35,7 +35,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 - A history icon appears in the top bar when saved conversations other than the current one exist
 - Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)
 - Each item shows the title and formatted date
-- The active conversation is highlighted with the primary color; interactive-mode conversations get an animated gradient border
+- Non-interactive conversations are outlined with a primary-colored border; interactive-mode conversations get an animated gradient border. The active conversation's title is rendered in the primary color (inactive titles use onBackground)
 - Tapping an item loads that conversation and dismisses the sheet
 - Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed
 - Deleting the active conversation clears the chat

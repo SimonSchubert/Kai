@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-16 (unified markdown parser)
+**Last verified:** 2026-04-20
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -79,7 +79,7 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 
 | File | Purpose |
 |------|---------|
-| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 29 node types, all @Immutable |
+| `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 28 node types, all @Immutable |
 | `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
 | `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Sanitizes malformed JSON and decodes kai-ui fence bodies via `parseUiBlockBody` |
 | `composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt` | Tolerant field-by-field construction of KaiUiNode instances from JsonElement |

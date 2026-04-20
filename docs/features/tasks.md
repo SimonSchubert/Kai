@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-20
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 

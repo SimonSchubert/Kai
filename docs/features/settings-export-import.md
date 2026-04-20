@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-20
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 

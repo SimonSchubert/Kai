@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-04-11
+**Last verified:** 2026-04-20
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 

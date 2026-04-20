@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-04-10
+**Last verified:** 2026-04-20
 
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
