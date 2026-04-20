@@ -2,9 +2,9 @@ package com.inspiredandroid.kai.screenshots
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import app.cash.paparazzi.DeviceConfig
 import app.cash.paparazzi.Paparazzi
+import com.android.ide.common.rendering.api.SessionParams
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -39,6 +40,9 @@ class MathScreenshotTest {
         deviceConfig = DeviceConfig.PIXEL_9A.copy(softButtons = false),
         showSystemUi = false,
         maxPercentDifference = 0.1,
+        // Shrink to content so the generated site/img/math-*.png fits the card;
+        // the outer Box uses fillMaxWidth to still span the device width.
+        renderingMode = SessionParams.RenderingMode.SHRINK,
     )
 
     @Before
@@ -218,11 +222,16 @@ class MathScreenshotTest {
     }
 }
 
+// PIXEL_9A is 1080 px wide at 420 dpi → 411.43 dp. Under RenderingMode.SHRINK both axes are
+// unbounded, so fillMaxWidth collapses to zero; we pin the Box to the real device width to
+// keep a consistent card width while SHRINK tightly trims the unused vertical space.
+private val DeviceWidth = 411.dp
+
 @Composable
 private fun MessageCanvas(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .width(DeviceWidth)
             .background(MaterialTheme.colorScheme.background),
     ) {
         Surface(

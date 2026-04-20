@@ -69,6 +69,12 @@ jobs:
       - name: Run updateScreenshots
         run: ./gradlew :screenshotTests:updateScreenshots --no-daemon --stacktrace
 
+      - name: Install cwebp
+        run: sudo apt-get update && sudo apt-get install -y webp
+
+      - name: Convert site images to WebP
+        run: ./scripts/convert-site-images-to-webp.sh
+
       - name: Run desktop tests
         run: ./gradlew :composeApp:desktopTest --no-daemon --stacktrace
 
@@ -93,6 +99,7 @@ jobs:
           echo "Please run the following commands locally and push the changes:"
           echo "  ./gradlew spotlessApply"
           echo "  ./gradlew :screenshotTests:updateScreenshots"
+          echo "  ./scripts/convert-site-images-to-webp.sh"
           exit 1
 
       - name: Commit and push changes
