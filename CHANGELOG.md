@@ -1,3 +1,21 @@
+## v2.3.0 — 2026-04-20
+
+### Features
+- Custom math formula rendering
+- Expandable and editable memories
+- Zoom and pan for attached images
+
+### Fixes
+- Hide thinking section on chat restart
+
+### Improvements
+- Add Alpine Linux package download mirrors
+- Pulse animation on interactive chat stop button
+- Add missing model info
+- Performance improvements
+- Replace ABI filter with runtime check
+- Remove unnecessary Android version checks
+
 ## v2.2.1 — 2026-04-20
 
 ### Features

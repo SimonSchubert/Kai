@@ -1,0 +1,7 @@
+Custom math formula rendering
+Expandable and editable memories
+Zoom and pan for attached images
+Fix thinking section on chat restart
+Alpine Linux download mirrors
+Polish stop button animation
+Performance improvements
