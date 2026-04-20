@@ -22,6 +22,15 @@ internal object InlineTokenizer {
     private val HARD_BREAK_REGEX = Regex(" {2,}\\n|\\\\\\n")
     private val EMOJI_SHORTCODE_REGEX = Regex(":([a-zA-Z0-9_+-]+):")
 
+    // Math delimiters. `$$…$$` and `\[…\]` are display-flavored but still accepted inline
+    // as a fallback; block-level versions are promoted to [DisplayMath] by [BlockScanner].
+    // `$…$` follows the KaTeX rule: opener not followed by whitespace, closer not preceded by
+    // whitespace, and closer not followed by a digit (avoids `$5 – $3` currency false positives).
+    private val MATH_DOUBLE_DOLLAR_REGEX = Regex("(?<!\\\\)\\$\\$([\\s\\S]+?)\\$\\$")
+    private val MATH_DOLLAR_REGEX = Regex("(?<!\\\\)(?<!\\$)\\$(?!\\s)((?:\\\\.|[^$\\n])+?)(?<!\\s)\\$(?!\\d)(?!\\$)")
+    private val MATH_PAREN_REGEX = Regex("\\\\\\(([\\s\\S]+?)\\\\\\)")
+    private val MATH_BRACKET_REGEX = Regex("\\\\\\[([\\s\\S]+?)\\\\\\]")
+
     private val STRONG_STAR_REGEX = Regex("(?<!\\\\)\\*\\*([\\s\\S]+?)\\*\\*")
     private val STRONG_UNDER_REGEX = Regex("(?<![A-Za-z0-9_\\\\])__([\\s\\S]+?)__(?![A-Za-z0-9_])")
     private val EMPH_STAR_REGEX = Regex("(?<!\\\\)\\*([\\s\\S]+?)\\*")
@@ -176,6 +185,22 @@ internal object InlineTokenizer {
         }
         for (m in HARD_BREAK_REGEX.findAll(text)) {
             all += m.range to LineBreak
+        }
+        // Streaming hot path: skip the four math scans when the text has no math sentinels.
+        val mayHaveMath = '$' in text || '\\' in text
+        if (mayHaveMath) {
+            for (m in MATH_DOUBLE_DOLLAR_REGEX.findAll(text)) {
+                all += m.range to InlineMath(m.groupValues[1].trim())
+            }
+            for (m in MATH_BRACKET_REGEX.findAll(text)) {
+                all += m.range to InlineMath(m.groupValues[1].trim())
+            }
+            for (m in MATH_DOLLAR_REGEX.findAll(text)) {
+                all += m.range to InlineMath(m.groupValues[1].trim())
+            }
+            for (m in MATH_PAREN_REGEX.findAll(text)) {
+                all += m.range to InlineMath(m.groupValues[1].trim())
+            }
         }
 
         all.sortWith(compareBy({ it.first.first }, { -(it.first.last - it.first.first) }))

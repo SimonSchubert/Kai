@@ -702,6 +702,64 @@ footer .impressum {
   line-height: 1.6;
 }
 
+/* Math gallery (latex-math page) */
+.math-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.math-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.math-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.math-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 880 / 1956;
+  object-fit: cover;
+  object-position: top center;
+  background: var(--bg-gradient);
+}
+
+.math-card figcaption {
+  padding: 20px 22px 24px;
+}
+
+.math-card figcaption h3 {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.math-card figcaption p {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.math-card figcaption code {
+  background: var(--code-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  color: var(--primary-light);
+}
+
 /* Feature card as a link */
 .feature-card-link {
   color: inherit;

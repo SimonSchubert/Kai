@@ -1,5 +1,7 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -16,6 +19,7 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
+import com.inspiredandroid.kai.ui.markdown.math.MathFormula
 
 /**
  * Render a parsed [MarkdownDocument] as a Compose layout. Each block becomes one child of the
@@ -100,6 +105,8 @@ private fun BlockRenderer(
 
         HorizontalRule -> HorizontalDivider(Modifier.padding(vertical = 8.dp))
 
+        is DisplayMath -> DisplayMathBlock(block)
+
         is KaiUiBlock -> KaiUiRenderer(
             node = block.node,
             isInteractive = isInteractive,
@@ -127,8 +134,8 @@ private fun HeadingBlock(block: Heading) {
         5 -> typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
         else -> typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
     }
-    Text(
-        text = block.inlines.toAnnotatedString(),
+    InlineContent(
+        inlines = block.inlines,
         style = style,
         modifier = Modifier.padding(vertical = 4.dp),
     )
@@ -145,11 +152,27 @@ private fun ParagraphBlock(block: Paragraph) {
         )
         return
     }
-    Text(
-        text = block.inlines.toAnnotatedString(),
+    InlineContent(
+        inlines = block.inlines,
         style = MaterialTheme.typography.bodyLarge,
         modifier = Modifier.padding(vertical = 2.dp),
     )
+}
+
+@Composable
+private fun DisplayMathBlock(block: DisplayMath) {
+    // Wrap in horizontal scroll so wide formulas overflow cleanly instead of squishing
+    // their children into a narrow column (KaTeX/MathJax use the same pattern).
+    val scroll = rememberScrollState()
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .horizontalScroll(scroll),
+        contentAlignment = Alignment.Center,
+    ) {
+        MathFormula(latex = block.latex, display = true)
+    }
 }
 
 @Composable
@@ -226,8 +249,8 @@ private fun TableBlock(block: Table) {
         if (block.headers.any { it.isNotEmpty() }) {
             Row {
                 block.headers.forEachIndexed { i, cell ->
-                    Text(
-                        text = cell.toAnnotatedString(),
+                    InlineContent(
+                        inlines = cell,
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = alignTextFor(block.alignments.getOrNull(i)),
                         modifier = Modifier.weight(1f).padding(4.dp),
@@ -239,8 +262,8 @@ private fun TableBlock(block: Table) {
         for (row in block.rows) {
             Row {
                 row.forEachIndexed { i, cell ->
-                    Text(
-                        text = cell.toAnnotatedString(),
+                    InlineContent(
+                        inlines = cell,
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = alignTextFor(block.alignments.getOrNull(i)),
                         modifier = Modifier.weight(1f).padding(4.dp),

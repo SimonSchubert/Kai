@@ -68,5 +68,11 @@ private fun AnnotatedString.Builder.appendInline(node: InlineNode, colors: Color
         is Image -> append(node.alt)
 
         LineBreak -> append('\n')
+
+        is InlineMath -> withStyle(SpanStyle(fontFamily = FontFamily.Monospace)) {
+            // Fallback path: if math reaches the AnnotatedString builder it means the caller
+            // didn't use [InlineContent]. Emit the raw LaTeX so nothing is lost.
+            append(node.latex)
+        }
     }
 }

@@ -119,6 +119,15 @@ tasks.register("updateScreenshots") {
                     "GemmaLocalScreenshotTest_gemmaLocal_select_dark" to "gemma-local-select.png",
                     "GemmaLocalScreenshotTest_gemmaLocal_chat_dark" to "gemma-local-chat.png",
                 ).forEach { (k, v) -> add(k to siteImgDir.resolve(v)) }
+
+                // /math/ landing-page screenshots → site/img/
+                mapOf(
+                    "MathScreenshotTest_math_algebra_light" to "math-algebra.png",
+                    "MathScreenshotTest_math_calculus_dark" to "math-calculus.png",
+                    "MathScreenshotTest_math_physics_dark" to "math-physics.png",
+                    "MathScreenshotTest_math_structures_light" to "math-structures.png",
+                    "MathScreenshotTest_math_notation_light" to "math-notation.png",
+                ).forEach { (k, v) -> add(k to siteImgDir.resolve(v)) }
             }
 
         val files = snapshotsDir.listFiles() ?: emptyArray()

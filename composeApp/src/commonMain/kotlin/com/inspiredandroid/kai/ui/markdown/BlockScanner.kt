@@ -20,6 +20,13 @@ import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
 internal object BlockScanner {
 
     private val FENCE_REGEX = Regex("""^(\s{0,3})(`{3,}|~{3,})\s*(.*?)\s*$""")
+    private val MATH_DISPLAY_INLINE_REGEX = Regex("""^\s*\$\$([\s\S]+?)\$\$\s*$""")
+    private val MATH_DISPLAY_BRACKET_INLINE_REGEX = Regex("""^\s*\\\[([\s\S]+?)\\\]\s*$""")
+    private val MATH_DISPLAY_DOLLAR_FENCE_REGEX = Regex("""^\s*\$\$\s*$""")
+    private val MATH_DISPLAY_BRACKET_OPEN_REGEX = Regex("""^\s*\\\[\s*$""")
+    private val MATH_DISPLAY_BRACKET_CLOSE_REGEX = Regex("""^\s*\\\]\s*$""")
+
+    private enum class MathFence { Dollars, Brackets }
     private val ATX_HEADING_REGEX = Regex("""^\s{0,3}(#{1,6})(?:\s+(.*?))?\s*#*\s*$""")
     private val SETEXT_H1_REGEX = Regex("""^\s{0,3}=+\s*$""")
     private val SETEXT_H2_REGEX = Regex("""^\s{0,3}-+\s*$""")
@@ -61,6 +68,26 @@ internal object BlockScanner {
             if (fenceMatch != null) {
                 val (block, next) = parseFence(lines, i, end, fenceMatch)
                 blocks += block
+                i = next
+                continue
+            }
+
+            val mathInline = MATH_DISPLAY_INLINE_REGEX.matchEntire(line)
+                ?: MATH_DISPLAY_BRACKET_INLINE_REGEX.matchEntire(line)
+            if (mathInline != null) {
+                blocks += DisplayMath(mathInline.groupValues[1].trim())
+                i++
+                continue
+            }
+            if (MATH_DISPLAY_DOLLAR_FENCE_REGEX.matchEntire(line) != null) {
+                val (math, next) = parseDisplayMath(lines, i, end, MathFence.Dollars)
+                blocks += math
+                i = next
+                continue
+            }
+            if (MATH_DISPLAY_BRACKET_OPEN_REGEX.matchEntire(line) != null) {
+                val (math, next) = parseDisplayMath(lines, i, end, MathFence.Brackets)
+                blocks += math
                 i = next
                 continue
             }
@@ -202,6 +229,29 @@ internal object BlockScanner {
         is KaiUiParser.UiBlockResult.Ui -> KaiUiBlock(result.node, result.rawJson)
         is KaiUiParser.UiBlockResult.Error -> KaiUiError(result.rawJson)
         null -> KaiUiError(body)
+    }
+
+    private fun parseDisplayMath(
+        lines: List<String>,
+        start: Int,
+        end: Int,
+        fence: MathFence,
+    ): Pair<BlockNode, Int> {
+        val closerRegex = when (fence) {
+            MathFence.Dollars -> MATH_DISPLAY_DOLLAR_FENCE_REGEX
+            MathFence.Brackets -> MATH_DISPLAY_BRACKET_CLOSE_REGEX
+        }
+        val bodyLines = mutableListOf<String>()
+        var i = start + 1
+        while (i < end) {
+            if (closerRegex.matchEntire(lines[i]) != null) {
+                return DisplayMath(bodyLines.joinToString("\n").trim()) to (i + 1)
+            }
+            bodyLines += lines[i]
+            i++
+        }
+        // Unclosed: tolerate for streaming — emit what we have.
+        return DisplayMath(bodyLines.joinToString("\n").trim()) to i
     }
 
     private fun tryParseKaiUiSplit(
@@ -435,6 +485,10 @@ internal object BlockScanner {
                 if (BLOCKQUOTE_REGEX.matchEntire(line) != null) break
                 if (isListOpener(line)) break
                 if (line.trim() == "kai-ui") break
+                if (MATH_DISPLAY_DOLLAR_FENCE_REGEX.matchEntire(line) != null) break
+                if (MATH_DISPLAY_BRACKET_OPEN_REGEX.matchEntire(line) != null) break
+                if (MATH_DISPLAY_INLINE_REGEX.matchEntire(line) != null) break
+                if (MATH_DISPLAY_BRACKET_INLINE_REGEX.matchEntire(line) != null) break
             }
             if (accum.isNotEmpty()) accum.append('\n')
             accum.append(line)

@@ -29,6 +29,7 @@ private fun blockToSpeakable(block: BlockNode): String = when (block) {
     is OrderedList -> block.items.joinToString("\n") { itemToSpeakable(it) }
     is Table -> tableToSpeakable(block)
     HorizontalRule -> ""
+    is DisplayMath -> block.latex
     is KaiUiBlock -> block.node.collectSpeakableText()
     is KaiUiError -> ""
 }
@@ -71,6 +72,7 @@ private fun appendInline(sb: StringBuilder, node: InlineNode) {
         is Link -> node.children.forEach { appendInline(sb, it) }
         is Image -> sb.append(node.alt)
         LineBreak -> sb.append(' ')
+        is InlineMath -> sb.append(node.latex)
     }
 }
 
@@ -92,6 +94,8 @@ private fun blockToPlain(block: BlockNode): String = when (block) {
     is Table -> tableToPlain(block)
 
     HorizontalRule -> ""
+
+    is DisplayMath -> block.latex
 
     is KaiUiBlock -> block.node.collectSpeakableText()
 

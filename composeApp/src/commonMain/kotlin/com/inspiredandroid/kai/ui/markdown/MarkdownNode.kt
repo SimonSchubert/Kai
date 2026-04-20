@@ -51,6 +51,9 @@ enum class ColumnAlign { LEFT, CENTER, RIGHT, NONE }
 data object HorizontalRule : BlockNode
 
 @Immutable
+data class DisplayMath(val latex: String) : BlockNode
+
+@Immutable
 data class KaiUiBlock(val node: KaiUiNode, val rawJson: String) : BlockNode
 
 @Immutable
@@ -82,3 +85,6 @@ data class Image(val src: String, val alt: String) : InlineNode
 
 @Immutable
 data object LineBreak : InlineNode
+
+@Immutable
+data class InlineMath(val latex: String) : InlineNode
