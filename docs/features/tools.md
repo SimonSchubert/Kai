@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-15
+**Last verified:** 2026-04-20
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -80,6 +80,8 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 - Network access (shares the host network stack)
 
 **Setup flow:** The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).
+
+**Mirror fallback:** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable.
 
 **Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under `linux-sandbox/`.
 

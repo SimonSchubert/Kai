@@ -4,16 +4,28 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.prepareGet
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.contentLength
+import io.ktor.http.isSuccess
 import io.ktor.utils.io.readAvailable
+import kotlinx.coroutines.CancellationException
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.IOException
 import java.util.zip.GZIPInputStream
 
 private const val ALPINE_VERSION = "3.21.3"
 private const val ALPINE_BRANCH = "v3.21"
 private const val BUFFER_SIZE = 8192
+
+private val ALPINE_MIRRORS = listOf(
+    "https://dl-cdn.alpinelinux.org/alpine",
+    "https://mirrors.edge.kernel.org/alpine",
+    "https://ftp.halifax.rwth-aachen.de/alpine",
+    "https://alpine.ethz.ch/alpine",
+    "https://mirror.csclub.uwaterloo.ca/alpine",
+    "https://mirrors.tuna.tsinghua.edu.cn/alpine",
+)
 private const val TAR_BLOCK_SIZE = 512
 private const val TAR_NAME_OFFSET = 0
 private const val TAR_MODE_OFFSET = 100
@@ -24,15 +36,41 @@ private const val TAR_PREFIX_OFFSET = 345
 
 class RootfsDownloader(private val httpClient: HttpClient) {
 
-    fun getDownloadUrl(arch: String): String = "https://dl-cdn.alpinelinux.org/alpine/$ALPINE_BRANCH/releases/$arch/alpine-minirootfs-$ALPINE_VERSION-$arch.tar.gz"
+    fun getDownloadUrls(arch: String): List<String> = ALPINE_MIRRORS.map { base ->
+        "$base/$ALPINE_BRANCH/releases/$arch/alpine-minirootfs-$ALPINE_VERSION-$arch.tar.gz"
+    }
 
     suspend fun download(
         arch: String,
         targetFile: File,
         onProgress: (Float) -> Unit,
     ) {
-        val url = getDownloadUrl(arch)
+        val urls = getDownloadUrls(arch)
+        var lastError: Exception? = null
+        for ((index, url) in urls.withIndex()) {
+            try {
+                downloadFrom(url, targetFile, onProgress)
+                return
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                lastError = e
+                if (targetFile.exists()) targetFile.delete()
+                if (index < urls.lastIndex) onProgress(0f)
+            }
+        }
+        throw IOException("All Alpine mirrors failed", lastError)
+    }
+
+    private suspend fun downloadFrom(
+        url: String,
+        targetFile: File,
+        onProgress: (Float) -> Unit,
+    ) {
         httpClient.prepareGet(url).execute { response ->
+            if (!response.status.isSuccess()) {
+                throw IOException("HTTP ${response.status.value} from $url")
+            }
             val totalBytes = response.contentLength() ?: -1L
             val channel = response.bodyAsChannel()
             val buffer = ByteArray(BUFFER_SIZE)
