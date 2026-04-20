@@ -106,21 +106,21 @@ Enable it in **Settings > Linux Sandbox**.
                             │ message
                             ▼
                ┌─────────────────────────┐
-               │          Chat           │
-               │                         │
-               │  prompt + memories      │
-               │        │                │
-               │        ▼                │
-               │    ┌────────┐           │
-               │    │   AI   │◀─┐        │
-               │    └───┬────┘  │        │
-               │        │   tool calls   │
-               │        │   & results    │
-               │        ▼      │        │
-               │    ┌────────┐ │        │
-               │    │ Tools  │─┘        │
-               │    └───┬────┘          │
-               │        │               │
+               │          Chat             │
+               │                           │
+               │  prompt + memories        │
+               │        │                  │
+               │        ▼                  │
+               │    ┌────────┐            │
+               │    │   AI   │◀─┐         │
+               │    └───┬────┘  │         │
+               │        │   tool calls     │
+               │        │   & results      │
+               │        ▼      │           │
+               │    ┌────────┐ │          │
+               │    │ Tools  │─┘           │
+               │    └───┬────┘            │
+               │        │                  │
                └────────┼───────────────┘
                         │ store / recall
                         ▼
