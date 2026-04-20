@@ -128,8 +128,14 @@ string|settings_mcp_servers|TUNQIOCumuCvh+CuteCviOCur+CuleCumeCvjeCuleCus+CvjQ==
 string|settings_mcp_status_connected|4K6H4K6j4K+I4K6V4K+N4K6V4K6q4K+N4K6q4K6f4K+N4K6f4K6k4K+B
 string|settings_mcp_status_connecting|4K6H4K6j4K+I4K6V4K+N4K6V4K6/4K6x4K6k4K+B4oCm
 string|settings_mcp_status_error|4K6H4K6j4K+I4K6q4K+N4K6q4K+BIOCupOCvi+CusuCvjeCuteCuvw==
+string|settings_memories_all_title|4K6F4K6p4K+I4K6k4K+N4K6k4K+BIOCuqOCuv+CuqeCviOCuteCvgeCuleCus+CvjQ==
+string|settings_memories_close|4K6u4K+C4K6f4K+B
 string|settings_memories_delete|4K6o4K6/4K6p4K+I4K614K6V4K6k4K+N4K6k4K+IIOCuqOCvgOCuleCvjeCuleCvgQ==
 string|settings_memories_description|4K6J4K6w4K+I4K6v4K6+4K6f4K6y4K+N4K6V4K6z4K6/4K6p4K+NIOCuquCvi+CupOCvgSBBSSDgrprgr4fgrq7grr/grqTgr43grqQg4K6o4K6/4K6p4K+I4K614K+B4K6V4K6z4K+NLiDgrofgrrXgr4gg4K6a4K+C4K604K6y4K+IIOCuteCutOCumeCvjeCulSDgrpLgrrXgr43grrXgr4rgrrDgr4Eg4K6a4K+G4K6v4K+N4K6k4K6/4K6v4K6/4K6y4K+B4K6u4K+NIOCumuCvh+CusOCvjeCuleCvjeCuleCuquCvjeCuquCun+CvgeCuleCuv+CuqeCvjeCuseCuqS4=
+string|settings_memories_edit_cancel|4K6w4K6k4K+N4K6k4K+B4K6a4K+G4K6v4K+N
+string|settings_memories_edit_save|4K6a4K+H4K6u4K6/
+string|settings_memories_edit_title|4K6o4K6/4K6p4K+I4K614K+IIOCupOCuv+CusOCvgeCupOCvjeCupOCvgQ==
+string|settings_memories_show_all|4K6F4K6p4K+I4K6k4K+N4K6k4K+I4K6v4K+B4K6u4K+NIOCuleCuvuCun+CvjeCun+CvgSAoJTEkZCk=
 string|settings_memories|4K6o4K6/4K6p4K+I4K614K+B4K6V4K6z4K+N
 string|settings_model_label|4K6u4K6+4K6f4K6y4K+N
 string|settings_model_search|4K6u4K6+4K6f4K6y4K+N4K6V4K6z4K+I4K6k4K+NIOCupOCvh+Cun+CvgeKApg==

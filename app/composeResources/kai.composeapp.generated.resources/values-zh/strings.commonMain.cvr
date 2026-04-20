@@ -128,8 +128,14 @@ string|settings_mcp_servers|TUNQIOacjeWKoeWZqA==
 string|settings_mcp_status_connected|5bey6L+e5o6l
 string|settings_mcp_status_connecting|6L+e5o6l5Lit4oCm
 string|settings_mcp_status_error|6L+e5o6l5aSx6LSl
+string|settings_memories_all_title|5omA5pyJ6K6w5b+G
+string|settings_memories_close|5YWz6Zet
 string|settings_memories_delete|5Yig6Zmk6K6w5b+G
 string|settings_memories_description|QUkg5Zyo5a+56K+d5pyf6Ze05a2Y5YKo55qE6K6w5b+G44CC6L+Z5Lqb6K6w5b+G5YyF5ZCr5Zyo5q+P5p2h5raI5oGv5Lit5Lul5o+Q5L6b5LiK5LiL5paH44CC
+string|settings_memories_edit_cancel|5Y+W5raI
+string|settings_memories_edit_save|5L+d5a2Y
+string|settings_memories_edit_title|57yW6L6R6K6w5b+G
+string|settings_memories_show_all|5pi+56S65YWo6YOoICglMSRkKQ==
 string|settings_memories|6K6w5b+G
 string|settings_model_label|5qih5Z6L
 string|settings_model_search|5pCc57Si5qih5Z6L4oCm
