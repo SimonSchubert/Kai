@@ -330,6 +330,12 @@ class RemoteDataRepository(
         modelsByInstance[instanceId]?.update { models ->
             models.map { it.copy(isSelected = it.id == modelId) }
         }
+        // Free the previously-loaded on-device model as soon as the user picks a new one.
+        // Deferring until the next chat would briefly hold both models' GPU buffers resident
+        // and the driver's lazy reclaim can push us past LMK thresholds on mid-range devices.
+        if (service.isOnDevice && localInferenceEngine?.currentModelId?.let { it != modelId } == true) {
+            localInferenceEngine.releaseInBackground()
+        }
     }
 
     override fun clearInstanceModels(instanceId: String, service: Service) {
@@ -459,7 +465,7 @@ class RemoteDataRepository(
         val storedContext = appSettings.getModelContextTokens(model.id)
         val contextTokens = if (storedContext > 0) storedContext else catalogModel?.defaultContextTokens ?: 0
 
-        val needsInit = engine.engineState.value != EngineState.READY
+        val needsInit = engine.engineState.value != EngineState.READY || engine.currentModelId != model.id
         if (needsInit) {
             val statusEntry = History(
                 role = History.Role.TOOL_EXECUTING,

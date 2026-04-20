@@ -27,9 +27,6 @@ android {
                 .get()
                 .toInt()
         versionName = libs.versions.appVersion.get()
-        ndk {
-            abiFilters += "arm64-v8a"
-        }
     }
 
     flavorDimensions += "distribution"

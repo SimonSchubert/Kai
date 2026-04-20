@@ -89,8 +89,17 @@ interface LocalInferenceEngine {
     val downloadProgress: StateFlow<Float?>
     val downloadError: StateFlow<DownloadError?>
 
+    val currentModelId: String?
+
     suspend fun initialize(model: DownloadedModel, contextTokens: Int = 0)
     suspend fun release()
+
+    /**
+     * Fire-and-forget release, run on the engine's own coroutine scope. Called from
+     * non-suspend contexts (e.g. Settings UI when the user picks a different model) so
+     * the GPU driver has time to reclaim memory before the next inference.
+     */
+    fun releaseInBackground()
 
     suspend fun chat(
         messages: List<InferenceMessage>,

@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-04-19
+**Last verified:** 2026-04-20
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -41,6 +41,7 @@ If the engine throws (e.g. the model does emit malformed tool-call syntax that t
 - **No image input** -- the `LocalInferenceEngine` interface only accepts text messages
 - **No dynamic UI** -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)
 - **Not available on iOS or web** -- LiteRT LM SDK supports Android and JVM only
+- **Requires a 64-bit device** -- the LiteRT-LM AAR only ships `arm64-v8a` and `x86_64` native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.
 
 ## Model Management
 

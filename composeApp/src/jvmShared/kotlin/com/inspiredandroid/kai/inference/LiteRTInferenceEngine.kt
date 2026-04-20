@@ -73,7 +73,8 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
     private var engine: Engine? = null
     private var conversation: com.google.ai.edge.litertlm.Conversation? = null
-    private var currentModelId: String? = null
+    override var currentModelId: String? = null
+        private set
     private var currentContextTokens: Int = 0
 
     private val _engineState = MutableStateFlow(EngineState.UNINITIALIZED)
@@ -99,12 +100,26 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     throw IllegalStateException("Model file missing or too small: ${model.filePath}")
                 }
 
+                // Release any currently-loaded engine before measuring available memory,
+                // otherwise its GPU/CPU working set counts against the headroom check and
+                // switching between models spuriously fails (e.g. Qwen -> Gemma 4).
+                val hadExistingEngine = engine != null
+                release()
+                _engineState.value = EngineState.INITIALIZING
+
+                if (hadExistingEngine) {
+                    // engine.close() returns before the OpenCL driver actually reclaims the
+                    // previous model's GPU buffers, so loading a second model on top would
+                    // briefly hold both resident and trip Android's LMK. Give the driver a
+                    // beat to drain before allocating ~GB of new GPU buffers.
+                    System.gc()
+                    delay(GPU_DRAIN_DELAY_MS)
+                }
+
                 val availMem = getAvailableMemoryBytes()
                 if (availMem < MIN_MEMORY_HEADROOM_BYTES) {
                     throw InsufficientMemoryException()
                 }
-
-                release()
 
                 fun initWithBackend(backend: Backend, maxTokens: Int?): Engine {
                     val config = EngineConfig(
@@ -162,6 +177,11 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
             currentModelId = null
             _engineState.value = EngineState.UNINITIALIZED
         }
+    }
+
+    override fun releaseInBackground() {
+        idleReleaseJob?.cancel()
+        idleReleaseJob = scope.launch { release() }
     }
 
     override suspend fun chat(
@@ -260,6 +280,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
         private const val INFERENCE_TIMEOUT_MS = 120_000L // 2 minutes
         private const val MIN_MEMORY_HEADROOM_BYTES = 512L * 1024 * 1024 // 512 MB
         private const val DOWNLOAD_SPACE_BUFFER_BYTES = 500L * 1024 * 1024 // 500 MB
+        private const val GPU_DRAIN_DELAY_MS = 750L
         private val THINK_BLOCK_REGEX = Regex("<think>.*?</think>", RegexOption.DOT_MATCHES_ALL)
     }
 
