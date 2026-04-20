@@ -1748,6 +1748,10 @@ class RemoteDataRepository(
         memoryStore.forget(key)
     }
 
+    override suspend fun updateMemoryContent(key: String, content: String) {
+        memoryStore.updateContent(key, content)
+    }
+
     override fun isSchedulingEnabled(): Boolean = appSettings.isSchedulingEnabled()
 
     override fun setSchedulingEnabled(enabled: Boolean) {

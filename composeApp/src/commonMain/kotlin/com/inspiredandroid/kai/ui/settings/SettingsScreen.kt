@@ -193,8 +193,14 @@ import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_cancel
 import kai.composeapp.generated.resources.settings_memories
+import kai.composeapp.generated.resources.settings_memories_all_title
+import kai.composeapp.generated.resources.settings_memories_close
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
+import kai.composeapp.generated.resources.settings_memories_edit_cancel
+import kai.composeapp.generated.resources.settings_memories_edit_save
+import kai.composeapp.generated.resources.settings_memories_edit_title
+import kai.composeapp.generated.resources.settings_memories_show_all
 import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -1574,6 +1580,7 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                         MemoryList(
                             memories = uiState.memories,
                             onDeleteMemory = actions.onDeleteMemory,
+                            onUpdateMemory = actions.onUpdateMemory,
                             isMemoryEnabled = uiState.isMemoryEnabled,
                             onToggleMemory = actions.onToggleMemory,
                         )
@@ -1662,6 +1669,7 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                     MemoryList(
                         memories = uiState.memories,
                         onDeleteMemory = actions.onDeleteMemory,
+                        onUpdateMemory = actions.onUpdateMemory,
                         isMemoryEnabled = uiState.isMemoryEnabled,
                         onToggleMemory = actions.onToggleMemory,
                     )
@@ -2389,9 +2397,18 @@ private fun SoulEditor(
 private fun MemoryList(
     memories: ImmutableList<MemoryEntry>,
     onDeleteMemory: (String) -> Unit,
+    onUpdateMemory: (String, String) -> Unit,
     isMemoryEnabled: Boolean,
     onToggleMemory: (Boolean) -> Unit,
 ) {
+    var showAllDialog by remember { mutableStateOf(false) }
+    var editingMemory by remember { mutableStateOf<MemoryEntry?>(null) }
+
+    val sortedMemories = remember(memories) {
+        memories.sortedByDescending { it.updatedAt }
+    }
+    val previewMemories = remember(sortedMemories) { sortedMemories.take(5) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         ToggleableHeadline(
             title = stringResource(Res.string.settings_memories),
@@ -2402,18 +2419,142 @@ private fun MemoryList(
         Spacer(Modifier.height(12.dp))
 
         if (isMemoryEnabled) {
-            memories.forEach { memory ->
+            previewMemories.forEach { memory ->
                 SettingsListItem(
                     title = memory.key,
                     subtitle = memory.content,
                     onDelete = { onDeleteMemory(memory.key) },
                     deleteContentDescription = stringResource(Res.string.settings_memories_delete),
                     subtitleMaxLines = 3,
+                    onClick = { editingMemory = memory },
                 )
                 Spacer(Modifier.height(8.dp))
             }
+            if (sortedMemories.size > previewMemories.size) {
+                OutlinedButton(
+                    onClick = { showAllDialog = true },
+                    modifier = Modifier.align(CenterHorizontally).handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_memories_show_all, sortedMemories.size))
+                }
+            }
         }
     }
+
+    if (showAllDialog) {
+        AllMemoriesDialog(
+            memories = sortedMemories,
+            onDismiss = { showAllDialog = false },
+            onDeleteMemory = onDeleteMemory,
+            onEditMemory = { editingMemory = it },
+        )
+    }
+
+    editingMemory?.let { memory ->
+        EditMemoryDialog(
+            memory = memory,
+            onDismiss = { editingMemory = null },
+            onSave = { newContent ->
+                onUpdateMemory(memory.key, newContent)
+                editingMemory = null
+            },
+        )
+    }
+}
+
+@Composable
+private fun AllMemoriesDialog(
+    memories: List<MemoryEntry>,
+    onDismiss: () -> Unit,
+    onDeleteMemory: (String) -> Unit,
+    onEditMemory: (MemoryEntry) -> Unit,
+) {
+    val deleteContentDescription = stringResource(Res.string.settings_memories_delete)
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.settings_memories_all_title)) },
+        text = {
+            val scrollState = rememberScrollState()
+            Box {
+                Column(
+                    modifier = Modifier.verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    memories.forEach { memory ->
+                        SettingsListItem(
+                            title = memory.key,
+                            subtitle = memory.content,
+                            onDelete = { onDeleteMemory(memory.key) },
+                            deleteContentDescription = deleteContentDescription,
+                            subtitleMaxLines = 3,
+                            onClick = { onEditMemory(memory) },
+                        )
+                    }
+                }
+                VerticalScrollbarForScroll(
+                    scrollState = scrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.handCursor(),
+            ) {
+                Text(stringResource(Res.string.settings_memories_close))
+            }
+        },
+    )
+}
+
+@Composable
+private fun EditMemoryDialog(
+    memory: MemoryEntry,
+    onDismiss: () -> Unit,
+    onSave: (String) -> Unit,
+) {
+    var content by remember(memory.key) { mutableStateOf(memory.content) }
+    val hasChanges = content != memory.content && content.isNotBlank()
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.settings_memories_edit_title)) },
+        text = {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = memory.key,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                Spacer(Modifier.height(8.dp))
+                KaiOutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = content,
+                    onValueChange = { content = it },
+                    minLines = 4,
+                    maxLines = 10,
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(
+                onClick = { onSave(content.trim()) },
+                enabled = hasChanges,
+                modifier = Modifier.handCursor(),
+            ) {
+                Text(stringResource(Res.string.settings_memories_edit_save))
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.handCursor(),
+            ) {
+                Text(stringResource(Res.string.settings_memories_edit_cancel))
+            }
+        },
+    )
 }
 
 @Composable

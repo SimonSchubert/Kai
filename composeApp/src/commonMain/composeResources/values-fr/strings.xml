@@ -61,6 +61,12 @@
     <string name="settings_memories">Souvenirs</string>
     <string name="settings_memories_description">Souvenirs stockés par l'IA lors des conversations. Ils sont inclus dans chaque message pour fournir du contexte.</string>
     <string name="settings_memories_delete">Supprimer le souvenir</string>
+    <string name="settings_memories_show_all">Tout afficher (%1$d)</string>
+    <string name="settings_memories_all_title">Tous les souvenirs</string>
+    <string name="settings_memories_edit_title">Modifier le souvenir</string>
+    <string name="settings_memories_edit_save">Enregistrer</string>
+    <string name="settings_memories_edit_cancel">Annuler</string>
+    <string name="settings_memories_close">Fermer</string>
     <string name="settings_soul">Âme</string>
     <string name="settings_soul_description">Définissez comment l'IA se comporte avec un prompt système. L'IA aura également accès à ses souvenirs stockés.</string>
     <string name="settings_soul_save">Enregistrer</string>

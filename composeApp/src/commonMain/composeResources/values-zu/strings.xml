@@ -61,6 +61,12 @@
     <string name="settings_memories">Izikhumbuzo</string>
     <string name="settings_memories_description">Izikhumbuzo ezilondolozwe i-AI ngesikhathi sezingxoxo. Lezi zifakiwe kuwo wonke umyalezo ukuze zinikezele imongo.</string>
     <string name="settings_memories_delete">Susa isikhumbuzo</string>
+    <string name="settings_memories_show_all">Bonisa konke (%1$d)</string>
+    <string name="settings_memories_all_title">Zonke izikhumbuzo</string>
+    <string name="settings_memories_edit_title">Hlela isikhumbuzo</string>
+    <string name="settings_memories_edit_save">Gcina</string>
+    <string name="settings_memories_edit_cancel">Khansela</string>
+    <string name="settings_memories_close">Vala</string>
     <string name="settings_soul">Umphefumulo</string>
     <string name="settings_soul_description">Chaza indlela i-AI esebenza ngayo ngesiphakamiso sesistimu. I-AI izoba nokufinyelela ezikhumbuzo zayo ezilondoloziwe.</string>
     <string name="settings_soul_save">Gcina</string>

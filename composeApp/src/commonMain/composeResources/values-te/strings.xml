@@ -61,6 +61,12 @@
     <string name="settings_memories">జ్ఞాపకాలు</string>
     <string name="settings_memories_description">సంభాషణల సమయంలో AI సేవ్ చేసిన జ్ఞాపకాలు. ఇవి సందర్భం అందించడానికి ప్రతి సందేశంలో చేర్చబడతాయి.</string>
     <string name="settings_memories_delete">జ్ఞాపకాన్ని తొలగించు</string>
+    <string name="settings_memories_show_all">అన్నీ చూపించు (%1$d)</string>
+    <string name="settings_memories_all_title">అన్ని జ్ఞాపకాలు</string>
+    <string name="settings_memories_edit_title">జ్ఞాపకాన్ని సవరించు</string>
+    <string name="settings_memories_edit_save">సేవ్ చేయి</string>
+    <string name="settings_memories_edit_cancel">రద్దు చేయి</string>
+    <string name="settings_memories_close">మూసివేయి</string>
     <string name="settings_soul">ఆత్మ</string>
     <string name="settings_soul_description">సిస్టమ్ ప్రాంప్ట్‌తో AI ఎలా వ్యవహరిస్తుందో నిర్వచించండి. AI తన సేవ్ చేసిన జ్ఞాపకాలను కూడా యాక్సెస్ చేయగలదు.</string>
     <string name="settings_soul_save">సేవ్ చేయి</string>

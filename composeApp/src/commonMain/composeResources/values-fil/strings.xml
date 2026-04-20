@@ -61,6 +61,12 @@
     <string name="settings_memories">Mga Alaala</string>
     <string name="settings_memories_description">Mga alaalang iniimbak ng AI sa panahon ng mga pag-uusap. Kasama ang mga ito sa bawat mensahe upang magbigay ng konteksto.</string>
     <string name="settings_memories_delete">Burahin ang alaala</string>
+    <string name="settings_memories_show_all">Ipakita lahat (%1$d)</string>
+    <string name="settings_memories_all_title">Lahat ng alaala</string>
+    <string name="settings_memories_edit_title">I-edit ang alaala</string>
+    <string name="settings_memories_edit_save">I-save</string>
+    <string name="settings_memories_edit_cancel">Kanselahin</string>
+    <string name="settings_memories_close">Isara</string>
     <string name="settings_soul">Kaluluwa</string>
     <string name="settings_soul_description">Tukuyin kung paano kumikilos ang AI gamit ang isang system prompt. Magkakaroon din ang AI ng access sa mga nakaimbak nitong alaala.</string>
     <string name="settings_soul_save">I-save</string>

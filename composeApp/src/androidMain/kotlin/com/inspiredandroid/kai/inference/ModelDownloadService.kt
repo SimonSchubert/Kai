@@ -19,7 +19,7 @@ class ModelDownloadService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
-        val notification = buildNotification(0)
+        val notification = buildNotification()
         try {
             startForeground(NOTIFICATION_ID, notification)
         } catch (_: Exception) {
@@ -41,11 +41,6 @@ class ModelDownloadService : Service() {
         super.onDestroy()
     }
 
-    fun updateProgress(progress: Int) {
-        val manager = getSystemService(NotificationManager::class.java)
-        manager.notify(NOTIFICATION_ID, buildNotification(progress))
-    }
-
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
             CHANNEL_ID,
@@ -57,7 +52,7 @@ class ModelDownloadService : Service() {
         getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
     }
 
-    private fun buildNotification(progress: Int): Notification {
+    private fun buildNotification(): Notification {
         val builder = Notification.Builder(this, CHANNEL_ID)
         val intent = packageManager.getLaunchIntentForPackage(packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -75,7 +70,7 @@ class ModelDownloadService : Service() {
             .setSmallIcon(android.R.drawable.stat_sys_download)
             .setContentIntent(pendingIntent)
             .setOngoing(true)
-            .setProgress(100, progress, progress == 0)
+            .setProgress(100, 0, true)
             .build()
     }
 }

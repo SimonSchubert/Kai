@@ -61,6 +61,12 @@
     <string name="settings_memories">الذكريات</string>
     <string name="settings_memories_description">الذكريات التي يخزنها الذكاء الاصطناعي أثناء المحادثات. يتم تضمينها في كل رسالة لتوفير السياق.</string>
     <string name="settings_memories_delete">حذف ذاكرة</string>
+    <string name="settings_memories_show_all">عرض الكل (%1$d)</string>
+    <string name="settings_memories_all_title">كل الذكريات</string>
+    <string name="settings_memories_edit_title">تعديل الذاكرة</string>
+    <string name="settings_memories_edit_save">حفظ</string>
+    <string name="settings_memories_edit_cancel">إلغاء</string>
+    <string name="settings_memories_close">إغلاق</string>
     <string name="settings_soul">الروح</string>
     <string name="settings_soul_description">حدد كيفية تصرف الذكاء الاصطناعي باستخدام موجه النظام. سيتمكن الذكاء الاصطناعي أيضاً من الوصول إلى ذكرياته المخزنة.</string>
     <string name="settings_soul_save">حفظ</string>

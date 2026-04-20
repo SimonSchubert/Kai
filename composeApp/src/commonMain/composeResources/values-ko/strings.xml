@@ -61,6 +61,12 @@
     <string name="settings_memories">기억들</string>
     <string name="settings_memories_description">대화 중 AI가 저장한 기억들입니다. 컨텍스트를 제공하기 위해 모든 메시지에 포함됩니다.</string>
     <string name="settings_memories_delete">기억 삭제</string>
+    <string name="settings_memories_show_all">모두 보기 (%1$d)</string>
+    <string name="settings_memories_all_title">모든 기억</string>
+    <string name="settings_memories_edit_title">기억 편집</string>
+    <string name="settings_memories_edit_save">저장</string>
+    <string name="settings_memories_edit_cancel">취소</string>
+    <string name="settings_memories_close">닫기</string>
     <string name="settings_soul">소울</string>
     <string name="settings_soul_description">시스템 프롬프트로 AI의 동작 방식을 정의합니다. AI는 저장된 기억에도 접근할 수 있습니다.</string>
     <string name="settings_soul_save">저장</string>

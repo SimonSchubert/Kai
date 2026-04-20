@@ -61,6 +61,12 @@
     <string name="settings_memories">Kumbukumbu</string>
     <string name="settings_memories_description">Kumbukumbu zilizohifadhiwa na AI wakati wa mazungumzo. Hizi zimejumuishwa katika kila ujumbe kutoa muktadha.</string>
     <string name="settings_memories_delete">Futa kumbukumbu</string>
+    <string name="settings_memories_show_all">Onyesha zote (%1$d)</string>
+    <string name="settings_memories_all_title">Kumbukumbu zote</string>
+    <string name="settings_memories_edit_title">Hariri kumbukumbu</string>
+    <string name="settings_memories_edit_save">Hifadhi</string>
+    <string name="settings_memories_edit_cancel">Ghairi</string>
+    <string name="settings_memories_close">Funga</string>
     <string name="settings_soul">Roho</string>
     <string name="settings_soul_description">Eleza jinsi AI inavyofanya kazi na amri ya mfumo. AI pia itakuwa na ufikiaji wa kumbukumbu zake zilizohifadhiwa.</string>
     <string name="settings_soul_save">Hifadhi</string>

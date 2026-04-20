@@ -61,6 +61,12 @@
     <string name="settings_memories">Emlékek</string>
     <string name="settings_memories_description">A mesterséges intelligencia által a beszélgetések során mentett emlékek. Ezeket minden üzenetbe belefoglalják a kontextus biztosítása érdekében.</string>
     <string name="settings_memories_delete">Emlékezet törlése</string>
+    <string name="settings_memories_show_all">Összes mutatása (%1$d)</string>
+    <string name="settings_memories_all_title">Összes emlék</string>
+    <string name="settings_memories_edit_title">Emlék szerkesztése</string>
+    <string name="settings_memories_edit_save">Mentés</string>
+    <string name="settings_memories_edit_cancel">Mégse</string>
+    <string name="settings_memories_close">Bezárás</string>
     <string name="settings_soul">Lélek</string>
     <string name="settings_soul_description">Határozza meg, hogyan viselkedik a mesterséges intelligencia egy rendszerparancs segítségével. A mesterséges intelligencia hozzáférhet a mentett emlékezeteihez is.</string>
     <string name="settings_soul_save">Mentés</string>

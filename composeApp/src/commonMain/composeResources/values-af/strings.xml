@@ -61,6 +61,12 @@
     <string name="settings_memories">Geheuens</string>
     <string name="settings_memories_description">Geheuens wat deur die KI tydens gesprekke gestoor is. Hierdie word in elke boodskap ingesluit om konteks te verskaf.</string>
     <string name="settings_memories_delete">Verwyder geheue</string>
+    <string name="settings_memories_show_all">Wys almal (%1$d)</string>
+    <string name="settings_memories_all_title">Alle geheuens</string>
+    <string name="settings_memories_edit_title">Wysig geheue</string>
+    <string name="settings_memories_edit_save">Stoor</string>
+    <string name="settings_memories_edit_cancel">Kanselleer</string>
+    <string name="settings_memories_close">Maak toe</string>
     <string name="settings_soul">Siel</string>
     <string name="settings_soul_description">Definieer hoe die KI optree met 'n stelselopdrag. Die KI sal ook toegang hê tot sy gestoorde geheuens.</string>
     <string name="settings_soul_save">Stoor</string>

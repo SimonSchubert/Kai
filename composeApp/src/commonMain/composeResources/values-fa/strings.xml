@@ -61,6 +61,12 @@
     <string name="settings_memories">خاطرات</string>
     <string name="settings_memories_description">خاطراتی که هوش مصنوعی در طول مکالمات ذخیره کرده است. اینها برای ارائه زمینه در هر پیام گنجانده می‌شوند.</string>
     <string name="settings_memories_delete">حذف خاطره</string>
+    <string name="settings_memories_show_all">نمایش همه (%1$d)</string>
+    <string name="settings_memories_all_title">همه خاطرات</string>
+    <string name="settings_memories_edit_title">ویرایش خاطره</string>
+    <string name="settings_memories_edit_save">ذخیره</string>
+    <string name="settings_memories_edit_cancel">لغو</string>
+    <string name="settings_memories_close">بستن</string>
     <string name="settings_soul">روح</string>
     <string name="settings_soul_description">تعریف کنید هوش مصنوعی با یک دستور سیستم چگونه رفتار کند. هوش مصنوعی همچنین به خاطرات ذخیره‌شده خود دسترسی خواهد داشت.</string>
     <string name="settings_soul_save">ذخیره</string>

@@ -61,6 +61,12 @@
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan AI selama percakapan. Ini disertakan di setiap pesan untuk memberikan konteks.</string>
     <string name="settings_memories_delete">Hapus kenangan</string>
+    <string name="settings_memories_show_all">Tampilkan semua (%1$d)</string>
+    <string name="settings_memories_all_title">Semua kenangan</string>
+    <string name="settings_memories_edit_title">Edit kenangan</string>
+    <string name="settings_memories_edit_save">Simpan</string>
+    <string name="settings_memories_edit_cancel">Batal</string>
+    <string name="settings_memories_close">Tutup</string>
     <string name="settings_soul">Jiwa</string>
     <string name="settings_soul_description">Tentukan bagaimana AI berperilaku dengan prompt sistem. AI juga akan memiliki akses ke kenangan yang tersimpan.</string>
     <string name="settings_soul_save">Simpan</string>

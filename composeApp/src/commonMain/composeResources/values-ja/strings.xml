@@ -61,6 +61,12 @@
     <string name="settings_memories">記憶</string>
     <string name="settings_memories_description">AIが会話中に保存した記憶です。すべてのメッセージにコンテキストとして含まれます。</string>
     <string name="settings_memories_delete">記憶を削除</string>
+    <string name="settings_memories_show_all">すべて表示 (%1$d)</string>
+    <string name="settings_memories_all_title">すべての記憶</string>
+    <string name="settings_memories_edit_title">記憶を編集</string>
+    <string name="settings_memories_edit_save">保存</string>
+    <string name="settings_memories_edit_cancel">キャンセル</string>
+    <string name="settings_memories_close">閉じる</string>
     <string name="settings_soul">ソウル</string>
     <string name="settings_soul_description">システムプロンプトでAIの振る舞いを定義します。AIは保存された記憶にもアクセスできます。</string>
     <string name="settings_soul_save">保存</string>

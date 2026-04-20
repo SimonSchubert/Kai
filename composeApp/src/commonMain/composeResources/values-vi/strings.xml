@@ -61,6 +61,12 @@
     <string name="settings_memories">Ký ức</string>
     <string name="settings_memories_description">Ký ức được AI lưu trong các cuộc trò chuyện. Chúng được đưa vào mỗi tin nhắn để cung cấp bối cảnh.</string>
     <string name="settings_memories_delete">Xóa ký ức</string>
+    <string name="settings_memories_show_all">Hiển thị tất cả (%1$d)</string>
+    <string name="settings_memories_all_title">Tất cả ký ức</string>
+    <string name="settings_memories_edit_title">Chỉnh sửa ký ức</string>
+    <string name="settings_memories_edit_save">Lưu</string>
+    <string name="settings_memories_edit_cancel">Hủy</string>
+    <string name="settings_memories_close">Đóng</string>
     <string name="settings_soul">Linh hồn</string>
     <string name="settings_soul_description">Xác định cách AI hoạt động với một lời nhắc hệ thống. AI cũng sẽ có quyền truy cập vào ký ức đã lưu của nó.</string>
     <string name="settings_soul_save">Lưu</string>

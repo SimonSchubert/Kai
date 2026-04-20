@@ -70,6 +70,17 @@ class MemoryStore(private val appSettings: AppSettings) {
         entry
     }
 
+    suspend fun updateContent(key: String, content: String): MemoryEntry? = mutex.withLock {
+        val memories = loadMemories()
+        val index = memories.indexOfFirst { it.key == key }
+        if (index < 0) return@withLock null
+        val now = Clock.System.now().toEpochMilliseconds()
+        val updated = memories[index].copy(content = content, updatedAt = now)
+        memories[index] = updated
+        saveMemories(memories)
+        updated
+    }
+
     suspend fun reinforceMemory(key: String): MemoryEntry? = mutex.withLock {
         val memories = loadMemories()
         val index = memories.indexOfFirst { it.key == key }

@@ -115,6 +115,12 @@
     <string name="settings_memories">Memories</string>
     <string name="settings_memories_description">Memories stored by the AI during conversations. These are included in every message to provide context.</string>
     <string name="settings_memories_delete">Delete memory</string>
+    <string name="settings_memories_show_all">Show all (%1$d)</string>
+    <string name="settings_memories_all_title">All memories</string>
+    <string name="settings_memories_edit_title">Edit memory</string>
+    <string name="settings_memories_edit_save">Save</string>
+    <string name="settings_memories_edit_cancel">Cancel</string>
+    <string name="settings_memories_close">Close</string>
     <string name="settings_scheduled_tasks">Scheduled Tasks</string>
     <string name="settings_scheduled_tasks_description">Tasks scheduled by the AI for future execution. Ask the AI to remind you or run something later to create scheduled tasks.</string>
     <string name="settings_scheduled_tasks_cancel">Cancel task</string>

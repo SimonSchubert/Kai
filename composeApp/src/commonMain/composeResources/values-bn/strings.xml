@@ -61,6 +61,12 @@
     <string name="settings_memories">স্মৃতিসমূহ</string>
     <string name="settings_memories_description">কথোপকথনের সময় AI কর্তৃক সংরক্ষিত স্মৃতি। প্রসঙ্গ প্রদানের জন্য এগুলি প্রতিটি বার্তায় অন্তর্ভুক্ত করা হয়।</string>
     <string name="settings_memories_delete">স্মৃতি মুছুন</string>
+    <string name="settings_memories_show_all">সব দেখান (%1$d)</string>
+    <string name="settings_memories_all_title">সব স্মৃতি</string>
+    <string name="settings_memories_edit_title">স্মৃতি সম্পাদনা</string>
+    <string name="settings_memories_edit_save">সংরক্ষণ করুন</string>
+    <string name="settings_memories_edit_cancel">বাতিল</string>
+    <string name="settings_memories_close">বন্ধ করুন</string>
     <string name="settings_soul">আত্মা</string>
     <string name="settings_soul_description">সিস্টেম প্রম্পটের মাধ্যমে AI কীভাবে আচরণ করবে তা নির্ধারণ করুন। AI তার সংরক্ষিত স্মৃতিতেও অ্যাক্সেস পাবে।</string>
     <string name="settings_soul_save">সংরক্ষণ করুন</string>

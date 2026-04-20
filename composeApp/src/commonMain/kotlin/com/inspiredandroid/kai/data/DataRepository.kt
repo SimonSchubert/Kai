@@ -79,6 +79,7 @@ interface DataRepository {
     fun setMemoryEnabled(enabled: Boolean)
     fun getMemories(): List<MemoryEntry>
     suspend fun deleteMemory(key: String)
+    suspend fun updateMemoryContent(key: String, content: String)
 
     // Scheduling management
     fun isSchedulingEnabled(): Boolean

@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,12 +30,14 @@ fun SettingsListItem(
     deleteContentDescription: String?,
     modifier: Modifier = Modifier,
     subtitleMaxLines: Int = 1,
+    onClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick).handCursor() else Modifier)
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

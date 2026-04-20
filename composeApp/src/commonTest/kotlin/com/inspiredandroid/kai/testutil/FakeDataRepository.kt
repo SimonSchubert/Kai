@@ -363,6 +363,13 @@ class FakeDataRepository : DataRepository {
         memories.removeAll { it.key == key }
     }
 
+    override suspend fun updateMemoryContent(key: String, content: String) {
+        val index = memories.indexOfFirst { it.key == key }
+        if (index >= 0) {
+            memories[index] = memories[index].copy(content = content)
+        }
+    }
+
     // Scheduling management
     private var schedulingEnabled = true
     private val scheduledTasks = mutableListOf<ScheduledTask>()

@@ -61,6 +61,12 @@
     <string name="settings_memories">Sjećanja</string>
     <string name="settings_memories_description">Sjećanja koja je AI pohranio tijekom razgovora. Uključena su u svaku poruku radi pružanja konteksta.</string>
     <string name="settings_memories_delete">Obriši sjećanje</string>
+    <string name="settings_memories_show_all">Prikaži sve (%1$d)</string>
+    <string name="settings_memories_all_title">Sva sjećanja</string>
+    <string name="settings_memories_edit_title">Uredi sjećanje</string>
+    <string name="settings_memories_edit_save">Spremi</string>
+    <string name="settings_memories_edit_cancel">Odustani</string>
+    <string name="settings_memories_close">Zatvori</string>
     <string name="settings_soul">Duša</string>
     <string name="settings_soul_description">Definirajte kako se AI ponaša s pomoću sistemskog prompta. AI će imati pristup i svojim pohranjenim sjećanjima.</string>
     <string name="settings_soul_save">Spremi</string>

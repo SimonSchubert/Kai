@@ -113,6 +113,7 @@ class SettingsViewModel(
         onToggleDynamicUi = ::onToggleDynamicUi,
         onToggleMemory = ::onToggleMemory,
         onDeleteMemory = ::onDeleteMemory,
+        onUpdateMemory = ::onUpdateMemory,
         onToggleScheduling = ::onToggleScheduling,
         onCancelTask = ::onCancelTask,
         onToggleDaemon = ::onToggleDaemon,
@@ -367,6 +368,13 @@ class SettingsViewModel(
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
             delay(4000)
             executeDeletion(PendingDeletion.Memory(key))
+        }
+    }
+
+    private fun onUpdateMemory(key: String, content: String) {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.updateMemoryContent(key, content)
+            _state.update { it.copy(memories = dataRepository.getMemories().toImmutableList()) }
         }
     }
 

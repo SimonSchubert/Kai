@@ -61,6 +61,12 @@
     <string name="settings_memories">Vzpomínky</string>
     <string name="settings_memories_description">Vzpomínky uložené AI během konverzací. Jsou zahrnuty v každé zprávě pro poskytnutí kontextu.</string>
     <string name="settings_memories_delete">Smazat vzpomínku</string>
+    <string name="settings_memories_show_all">Zobrazit vše (%1$d)</string>
+    <string name="settings_memories_all_title">Všechny vzpomínky</string>
+    <string name="settings_memories_edit_title">Upravit vzpomínku</string>
+    <string name="settings_memories_edit_save">Uložit</string>
+    <string name="settings_memories_edit_cancel">Zrušit</string>
+    <string name="settings_memories_close">Zavřít</string>
     <string name="settings_soul">Duše</string>
     <string name="settings_soul_description">Definujte, jak se AI chová pomocí systémového promptu. AI bude mít také přístup ke svým uloženým vzpomínkám.</string>
     <string name="settings_soul_save">Uložit</string>

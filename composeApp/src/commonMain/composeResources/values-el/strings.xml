@@ -61,6 +61,12 @@
     <string name="settings_memories">Αναμνήσεις</string>
     <string name="settings_memories_description">Αναμνήσεις που αποθηκεύτηκαν από την τεχνητή νοημοσύνη κατά τη διάρκεια συνομιλιών. Αυτές συμπεριλαμβάνονται σε κάθε μήνυμα για την παροχή πλαισίου.</string>
     <string name="settings_memories_delete">Διαγραφή ανάμνησης</string>
+    <string name="settings_memories_show_all">Εμφάνιση όλων (%1$d)</string>
+    <string name="settings_memories_all_title">Όλες οι αναμνήσεις</string>
+    <string name="settings_memories_edit_title">Επεξεργασία ανάμνησης</string>
+    <string name="settings_memories_edit_save">Αποθήκευση</string>
+    <string name="settings_memories_edit_cancel">Ακύρωση</string>
+    <string name="settings_memories_close">Κλείσιμο</string>
     <string name="settings_soul">Ψυχή</string>
     <string name="settings_soul_description">Ορίστε πώς συμπεριφέρεται η τεχνητή νοημοσύνη με ένα σύστημα prompt. Η τεχνητή νοημοσύνη θα έχει επίσης πρόσβαση στις αποθηκευμένες αναμνήσεις της.</string>
     <string name="settings_soul_save">Αποθήκευση</string>

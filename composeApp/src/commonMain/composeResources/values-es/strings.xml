@@ -61,6 +61,12 @@
     <string name="settings_memories">Memorias</string>
     <string name="settings_memories_description">Memorias almacenadas por la IA durante las conversaciones. Se incluyen en cada mensaje para proporcionar contexto.</string>
     <string name="settings_memories_delete">Eliminar memoria</string>
+    <string name="settings_memories_show_all">Mostrar todo (%1$d)</string>
+    <string name="settings_memories_all_title">Todas las memorias</string>
+    <string name="settings_memories_edit_title">Editar memoria</string>
+    <string name="settings_memories_edit_save">Guardar</string>
+    <string name="settings_memories_edit_cancel">Cancelar</string>
+    <string name="settings_memories_close">Cerrar</string>
     <string name="settings_soul">Alma</string>
     <string name="settings_soul_description">Define cómo se comporta la IA con un prompt de sistema. La IA también tendrá acceso a sus memorias almacenadas.</string>
     <string name="settings_soul_save">Guardar</string>

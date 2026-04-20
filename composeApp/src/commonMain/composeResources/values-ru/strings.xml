@@ -61,6 +61,12 @@
     <string name="settings_memories">Воспоминания</string>
     <string name="settings_memories_description">Воспоминания, сохранённые ИИ во время разговоров. Они включаются в каждое сообщение для обеспечения контекста.</string>
     <string name="settings_memories_delete">Удалить воспоминание</string>
+    <string name="settings_memories_show_all">Показать все (%1$d)</string>
+    <string name="settings_memories_all_title">Все воспоминания</string>
+    <string name="settings_memories_edit_title">Редактировать воспоминание</string>
+    <string name="settings_memories_edit_save">Сохранить</string>
+    <string name="settings_memories_edit_cancel">Отмена</string>
+    <string name="settings_memories_close">Закрыть</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Определите поведение ИИ с помощью системного промпта. ИИ также будет иметь доступ к своим сохранённым воспоминаниям.</string>
     <string name="settings_soul_save">Сохранить</string>

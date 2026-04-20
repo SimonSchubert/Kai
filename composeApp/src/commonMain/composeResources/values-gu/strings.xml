@@ -61,6 +61,12 @@
     <string name="settings_memories">યાદો</string>
     <string name="settings_memories_description">AI દ્વારા વાર્તાલાપ દરમ્યાન સ્ટોર કરેલ યાદો. સંદર્ભ પ્રદાન કરવા માટે આ દરેક સંદેશમાં સામેલ છે.</string>
     <string name="settings_memories_delete">યાદ ભૂંસો</string>
+    <string name="settings_memories_show_all">બધું બતાવો (%1$d)</string>
+    <string name="settings_memories_all_title">બધી યાદો</string>
+    <string name="settings_memories_edit_title">યાદ સંપાદિત કરો</string>
+    <string name="settings_memories_edit_save">સ્ટોર કરો</string>
+    <string name="settings_memories_edit_cancel">રદ કરો</string>
+    <string name="settings_memories_close">બંધ કરો</string>
     <string name="settings_soul">આત્મા</string>
     <string name="settings_soul_description">સિસ્ટમ પ્રોમ્પ્ટ સાથે AI કેવી રીતે વર્તે છે તે નક્કી કરો. AI ને તેની સ્ટોર કરેલ યાદોની ઍક્સેસ પણ રહેશે.</string>
     <string name="settings_soul_save">સ્ટોર કરો</string>

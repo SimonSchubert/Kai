@@ -61,6 +61,12 @@
     <string name="settings_memories">Erinnerungen</string>
     <string name="settings_memories_description">Erinnerungen, die die KI während Gesprächen gespeichert hat. Diese werden in jede Nachricht einbezogen, um Kontext bereitzustellen.</string>
     <string name="settings_memories_delete">Erinnerung löschen</string>
+    <string name="settings_memories_show_all">Alle anzeigen (%1$d)</string>
+    <string name="settings_memories_all_title">Alle Erinnerungen</string>
+    <string name="settings_memories_edit_title">Erinnerung bearbeiten</string>
+    <string name="settings_memories_edit_save">Speichern</string>
+    <string name="settings_memories_edit_cancel">Abbrechen</string>
+    <string name="settings_memories_close">Schließen</string>
     <string name="settings_soul">Seele</string>
     <string name="settings_soul_description">Definiere das Verhalten der KI mit einem Systembefehl. Die KI hat auch Zugriff auf ihre gespeicherten Erinnerungen.</string>
     <string name="settings_soul_save">Speichern</string>

@@ -61,6 +61,12 @@
     <string name="settings_memories">Mälestused</string>
     <string name="settings_memories_description">Mälestused, mille AI on vestluste ajal salvestanud. Need lisatakse igasse sõnumisse konteksti pakkumiseks.</string>
     <string name="settings_memories_delete">Kustuta mälestus</string>
+    <string name="settings_memories_show_all">Näita kõiki (%1$d)</string>
+    <string name="settings_memories_all_title">Kõik mälestused</string>
+    <string name="settings_memories_edit_title">Muuda mälestust</string>
+    <string name="settings_memories_edit_save">Salvesta</string>
+    <string name="settings_memories_edit_cancel">Tühista</string>
+    <string name="settings_memories_close">Sulge</string>
     <string name="settings_soul">Hing</string>
     <string name="settings_soul_description">Määrake, kuidas AI süsteemi promptiga käitub. AI-l on juurdepääs ka oma salvestatud mälestustele.</string>
     <string name="settings_soul_save">Salvesta</string>
