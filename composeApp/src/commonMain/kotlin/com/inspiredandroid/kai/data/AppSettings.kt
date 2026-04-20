@@ -514,7 +514,7 @@ class AppSettings(private val settings: Settings) {
             ThemeMode.valueOf(settings.getString(KEY_THEME_MODE, ThemeMode.AUTO.name))
         } catch (_: Exception) {
             ThemeMode.AUTO
-        }
+        },
     )
     val themeModeFlow: StateFlow<ThemeMode> = _themeModeFlow
 

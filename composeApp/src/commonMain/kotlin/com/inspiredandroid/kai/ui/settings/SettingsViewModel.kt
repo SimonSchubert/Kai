@@ -24,8 +24,8 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.platformName
-import com.inspiredandroid.kai.ui.ThemeMode
 import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.ui.ThemeMode
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
