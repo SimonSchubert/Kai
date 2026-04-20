@@ -1195,7 +1195,7 @@
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
-<p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code> or <code>heartbeat</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
+<p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code>, <code>heartbeat</code>, or <code>interactive</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
 <h3 id="history">History</h3>
 <p>The in-memory message list that drives the UI. Each entry has a role: USER, ASSISTANT, TOOL, or TOOL_EXECUTING. History is the source of truth during a session; it is written to a Conversation on save.</p>
 <h3 id="conversation-title">Conversation Title</h3>
@@ -1217,7 +1217,7 @@
 <li>A history icon appears in the top bar when saved conversations other than the current one exist</li>
 <li>Tapping it opens a bottom sheet listing all chat conversations sorted by last updated (newest first)</li>
 <li>Each item shows the title and formatted date</li>
-<li>The active conversation is highlighted with the primary color; interactive-mode conversations get an animated gradient border</li>
+<li>Non-interactive conversations are outlined with a primary-colored border; interactive-mode conversations get an animated gradient border. The active conversation's title is rendered in the primary color (inactive titles use onBackground)</li>
 <li>Tapping an item loads that conversation and dismisses the sheet</li>
 <li>Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed</li>
 <li>Deleting the active conversation clears the chat</li>
