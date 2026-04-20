@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LaTeX Math Rendering on Android &amp; Desktop — Offline, Native, No WebView | Kai</title>
+  <meta name="description" content="Kai renders LaTeX math formulas natively on Android, iOS, macOS, Windows, Linux, and Web — fractions, integrals, summations, matrices, Greek letters. No MathJax, no KaTeX, no WebView, fully offline.">
+  <meta name="keywords" content="LaTeX math rendering, KaTeX alternative, MathJax alternative, render LaTeX on Android, Compose Multiplatform math, on-device math formulas, AI chat with LaTeX, LaTeX in Kotlin, offline math rendering, LLM math formulas">
+  <meta name="author" content="Simon Schubert">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://kai9000.com/latex-math/">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta property="og:title" content="LaTeX Math Rendering on Android &amp; Desktop — Offline, Native, No WebView">
+  <meta property="og:description" content="Kai renders LaTeX math formulas natively on every platform — fractions, integrals, matrices, Greek letters. No MathJax, no KaTeX, no WebView.">
+  <meta property="og:image" content="https://kai9000.com/img/math-algebra.png">
+  <meta property="og:image:alt" content="Kai rendering the quadratic formula, summation identities, and the binomial theorem in LaTeX">
+  <meta property="og:image:width" content="880">
+  <meta property="og:image:height" content="1956">
+  <meta property="og:url" content="https://kai9000.com/latex-math/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kai 9000">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LaTeX Math Rendering on Android &amp; Desktop — Offline, Native, No WebView">
+  <meta name="twitter:description" content="Kai renders LaTeX math formulas natively on every platform. No MathJax, no KaTeX, no WebView.">
+  <meta name="twitter:image" content="https://kai9000.com/img/math-algebra.png">
+  <meta name="twitter:image:alt" content="Kai rendering the quadratic formula and summation identities in LaTeX">
+  <link rel="icon" href="../img/favicon.ico" sizes="32x32">
+  <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../img/icon.svg">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Kai 9000",
+    "description": "An open-source AI assistant that renders LaTeX math formulas natively on Android, iOS, macOS, Windows, Linux, and Web. Fully offline, no WebView, no MathJax.",
+    "url": "https://kai9000.com/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Android, iOS, Windows, macOS, Linux, Web",
+    "featureList": [
+      "Native LaTeX math rendering with no WebView",
+      "Inline math with $...$ and \\(...\\) delimiters",
+      "Display math with $$...$$ and \\[...\\] delimiters",
+      "Fractions, radicals, superscripts, and subscripts",
+      "Summations, integrals, products, and big operators with limits",
+      "Matrices, pmatrix, bmatrix, vmatrix, cases, aligned environments",
+      "Greek alphabet, set theory, arrows, binary and relation operators",
+      "Accents: hat, bar, vec, tilde, dot, overline, widehat",
+      "Styled text: mathbb, mathbf, mathcal, boldsymbol, mathrm",
+      "Streaming-safe parser with unterminated fence tolerance"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Simon Schubert",
+      "url": "https://github.com/SimonSchubert"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Kai 9000",
+        "item": "https://kai9000.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "LaTeX Math Rendering",
+        "item": "https://kai9000.com/latex-math/"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Kai use MathJax or KaTeX?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Kai has its own LaTeX parser and renderer written in Kotlin. It builds native Compose Multiplatform layouts directly, so there is no WebView, no JavaScript runtime, and no browser-based math engine in the loop."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which LaTeX delimiters does Kai support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Inline math uses $...$ or \\(...\\). Display math uses $$...$$ or \\[...\\]. The inline dollar form follows KaTeX conventions — no space directly after the opener or before the closer, and no digit right after the closer, so currency like $5 – $3 is not treated as math."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does math rendering work offline and on-device?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The parser and renderer run entirely on-device. Whether the model itself is local (Gemma 4 via LiteRT) or a cloud API (OpenAI, Gemini, Anthropic, and others), the math layout is produced locally with no network round-trip."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which LaTeX environments are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "matrix, pmatrix, bmatrix, Bmatrix, vmatrix, Vmatrix, cases, aligned, align, and their starred variants. Matrix delimiters scale automatically with row count."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if the LaTeX is malformed or still streaming?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The parser is tolerant by design. Unknown commands render as their literal \\name text. Unmatched braces close at end-of-input. Unterminated $$ or \\[ fences emit whatever content has arrived so far, so formulas look reasonable mid-stream while the model is still typing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the math layout selectable and copyable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Runs of inline atoms (letters, symbols, scripts, styled text) collapse into a single Text composable so selection and copy work natively. Structural atoms like fractions, radicals, and matrices render as their own composables for correct layout."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="page-nav">
+    <a href="/">&larr; Kai 9000</a>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner hero-inner-stacked">
+      <div class="hero-text hero-text-centered">
+        <h1>LaTeX Math, Rendered Natively on Your Device</h1>
+        <p class="tagline">Fractions, integrals, matrices, Greek letters — without a WebView.</p>
+        <p class="sub">Kai parses LaTeX straight from the model stream and typesets formulas with native Compose Multiplatform layouts. No MathJax, no KaTeX, no embedded browser — fully offline, fully themed, pixel-aligned with the rest of your chat on Android, iOS, macOS, Windows, Linux, and Web.</p>
+        <div class="hero-badges">
+          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.png" alt="Download on the App Store"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.png" alt="Get it on Google Play"></a>
+          <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.png" alt="Get it on F-Droid"></a>
+          <a href="/app/"><img src="../img/web_badge.png" alt="Use the Web App"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Why -->
+  <section id="why">
+    <div class="container">
+      <h2 class="section-title fade-in">Why a native LaTeX renderer?</h2>
+      <p class="section-desc fade-in">Most AI chat apps punt math rendering to MathJax in a WebView. Kai doesn't — and it shows.</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f680;</span>
+          <h3>Streaming-safe</h3>
+          <p>The parser tolerates half-typed formulas, unclosed <code>$$</code> fences, and unknown commands. Math looks sensible while the model is still generating, not only after it finishes.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f3a8;</span>
+          <h3>Themed and aligned</h3>
+          <p>Formulas inherit your Material 3 typography, content color, and dark-mode palette. Fractions line up with paragraph baselines. No iframe border, no color mismatch.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f50c;</span>
+          <h3>No WebView, no JS</h3>
+          <p>Everything runs in Kotlin and Compose. No MathJax runtime, no KaTeX bundle, no <code>WebView</code> hop — zero extra memory, zero extra roundtrips, works in airplane mode.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">&#x1f4f1;</span>
+          <h3>Every platform</h3>
+          <p>Android, iOS, macOS, Windows, Linux, and Web — the same Kotlin Multiplatform code path, so formulas render identically on your phone and your laptop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="examples">
+    <div class="container">
+      <h2 class="section-title fade-in">See it in action</h2>
+      <p class="section-desc fade-in">Five real conversations. Algebra, calculus, classic identities, physics, and linear algebra — all rendered on-device from a model's raw LaTeX output.</p>
+      <div class="math-gallery">
+        <figure class="math-card fade-in">
+          <img src="../img/math-algebra.png" alt="Screenshot of Kai rendering the quadratic formula x equals negative b plus or minus the square root of b squared minus four a c, all over two a, followed by summation identities for n natural numbers and their squares, and the binomial theorem" loading="lazy" width="880" height="1956">
+          <figcaption>
+            <h3>Algebra &amp; series</h3>
+            <p>Quadratic formula with a stretched square root, nested fractions, summation limits stacked above and below <code>&sum;</code>, and the binomial theorem with proper <code>\binom</code> delimiters.</p>
+          </figcaption>
+        </figure>
+        <figure class="math-card fade-in">
+          <img src="../img/math-calculus.png" alt="Screenshot of Kai rendering integration by parts of x squared times arctangent of x, with antiderivative F of x equals x cubed over three times arctan x minus x squared over six plus one sixth natural log of one plus x squared" loading="lazy" width="880" height="1956">
+          <figcaption>
+            <h3>Calculus</h3>
+            <p>Indefinite and definite integrals, integration by parts, and worked antiderivatives — including differentials <code>dx</code>, limits of integration as subscripts on <code>&int;</code>, and the function name <code>arctan</code> typeset upright.</p>
+          </figcaption>
+        </figure>
+        <figure class="math-card fade-in">
+          <img src="../img/math-notation.png" alt="Screenshot of Kai rendering Euler's identity e to the i pi plus one equals zero, the Pythagorean identity sin squared theta plus cos squared theta equals one, a sine limit, set inclusions from natural numbers to complex numbers using mathbb, vector accents for statistics and dot products, and the Greek alphabet from alpha to omega" loading="lazy" width="880" height="1956">
+          <figcaption>
+            <h3>Classic identities &amp; notation</h3>
+            <p>Euler's formula, the sine limit with <code>\lim</code>, <code>\mathbb</code> set inclusions <code>&#8469; &#8834; &#8484; &#8834; &#8474; &#8834; &#8477; &#8834; &#8450;</code>, accented vectors, and the full Greek alphabet.</p>
+          </figcaption>
+        </figure>
+        <figure class="math-card fade-in">
+          <img src="../img/math-physics.png" alt="Screenshot of Kai rendering Einstein's mass energy equivalence E equals m c squared, the time independent Schrödinger equation in one dimension with reduced Planck constant h-bar, and Gauss's law with the divergence of the electric field equals rho over epsilon zero" loading="lazy" width="880" height="1956">
+          <figcaption>
+            <h3>Physics equations</h3>
+            <p>Einstein's <code>E = mc&sup2;</code>, the Schrödinger equation with reduced Planck constant <code>&#8463;</code> and partial derivative <code>&part;</code>, and Gauss's law with the del operator <code>&nabla;</code> and a vector accent on <code>E</code>.</p>
+          </figcaption>
+        </figure>
+        <figure class="math-card fade-in">
+          <img src="../img/math-structures.png" alt="Screenshot of Kai rendering a two by two rotation matrix with cosine and sine of theta, the absolute value as a piecewise cases function, and the completing the square derivation on x squared plus six x plus five" loading="lazy" width="880" height="1956">
+          <figcaption>
+            <h3>Matrices &amp; piecewise</h3>
+            <p>A <code>pmatrix</code> rotation matrix with parentheses scaled to row count, an <code>|x|</code> absolute value as a left-aligned <code>cases</code> environment, and a multi-line <code>aligned</code> derivation with the equals signs kept in column.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supported features -->
+  <section id="supported">
+    <div class="container">
+      <h2 class="section-title fade-in">Supported LaTeX features</h2>
+      <p class="section-desc fade-in">Scoped to the subset of LaTeX that real LLM output actually uses — small enough to be fast, wide enough to cover what models emit.</p>
+      <div class="models-table-wrapper fade-in">
+        <table class="models-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>What works</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Delimiters</td>
+              <td>Inline <code>$…$</code> and <code>\(…\)</code>, display <code>$$…$$</code> and <code>\[…\]</code>, <code>\left</code> / <code>\right</code> stretching</td>
+              <td><code>\left( \frac{a}{b} \right)</code></td>
+            </tr>
+            <tr>
+              <td>Fractions &amp; radicals</td>
+              <td><code>\frac</code>, <code>\dfrac</code>, <code>\tfrac</code>, <code>\binom</code>, <code>\sqrt</code>, n-th roots</td>
+              <td><code>\sqrt[3]{x+1}</code></td>
+            </tr>
+            <tr>
+              <td>Scripts</td>
+              <td>Sub/superscripts, primes (<code>x'</code>, <code>x''</code>), stacked multi-level scripts</td>
+              <td><code>x_{i+1}^{2n}</code></td>
+            </tr>
+            <tr>
+              <td>Big operators</td>
+              <td><code>\sum</code>, <code>\prod</code>, <code>\coprod</code>, <code>\int</code>, <code>\iint</code>, <code>\iiint</code>, <code>\oint</code>, <code>\bigcup</code>, <code>\bigcap</code> — with display-mode limits above/below</td>
+              <td><code>\sum_{k=1}^{n} k^2</code></td>
+            </tr>
+            <tr>
+              <td>Matrices</td>
+              <td><code>matrix</code>, <code>pmatrix</code>, <code>bmatrix</code>, <code>Bmatrix</code>, <code>vmatrix</code>, <code>Vmatrix</code>, <code>cases</code>, <code>aligned</code> / <code>align</code></td>
+              <td><code>\begin{pmatrix}a &amp; b\\c &amp; d\end{pmatrix}</code></td>
+            </tr>
+            <tr>
+              <td>Accents</td>
+              <td><code>\hat</code>, <code>\bar</code>, <code>\vec</code>, <code>\tilde</code>, <code>\dot</code>, <code>\ddot</code>, widening variants <code>\overline</code>, <code>\widehat</code>, <code>\widetilde</code></td>
+              <td><code>\hat{p} = \bar{x} + \vec{v}</code></td>
+            </tr>
+            <tr>
+              <td>Text styles</td>
+              <td><code>\mathbf</code>, <code>\mathit</code>, <code>\mathrm</code>, <code>\mathbb</code>, <code>\mathcal</code>, <code>\boldsymbol</code>, <code>\text</code></td>
+              <td><code>\mathbb{R}^n</code></td>
+            </tr>
+            <tr>
+              <td>Functions</td>
+              <td>Upright names: <code>\sin</code>, <code>\cos</code>, <code>\tan</code>, <code>\log</code>, <code>\ln</code>, <code>\exp</code>, <code>\lim</code>, <code>\max</code>, <code>\min</code>, <code>\det</code>, <code>\gcd</code>, more</td>
+              <td><code>\lim_{x \to 0} \frac{\sin x}{x}</code></td>
+            </tr>
+            <tr>
+              <td>Symbols</td>
+              <td>Full Greek alphabet, <code>\infty</code>, <code>\partial</code>, <code>\nabla</code>, <code>\forall</code>, <code>\exists</code>, <code>\in</code>, <code>\subset</code>, <code>\leq</code>, <code>\geq</code>, arrows, and more</td>
+              <td><code>\forall \epsilon > 0</code></td>
+            </tr>
+            <tr>
+              <td>Spacing</td>
+              <td><code>\,</code>, <code>\:</code>, <code>\;</code>, <code>\!</code>, <code>\quad</code>, <code>\qquad</code></td>
+              <td><code>x \, dx</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-note fade-in">Unknown commands degrade to their literal <code>\name</code> text — nothing in the renderer crashes on malformed input. Unterminated display fences emit whatever arrived so far, which is why math looks readable mid-stream instead of snapping into place only at the end.</p>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works">
+    <div class="container">
+      <h2 class="section-title fade-in">How it works under the hood</h2>
+      <p class="section-desc fade-in">A small, self-contained pipeline — parser, atom tree, and Compose renderer.</p>
+      <div class="split-grid">
+        <div class="split-card fade-in">
+          <h3>What Kai does</h3>
+          <ul>
+            <li>Tokenize LaTeX into a math atom tree (fractions, scripts, big ops, delimiters, accents, matrices)</li>
+            <li>Map <code>\alpha</code>, <code>\sum</code>, <code>\leq</code>, and friends to Unicode glyphs</li>
+            <li>Render each atom with native Compose <code>Layout</code>, <code>Row</code>, and <code>Column</code> primitives</li>
+            <li>Collapse inline runs into a single <code>Text</code> for selection and copy</li>
+            <li>Wrap display math in a horizontal scroll container so wide formulas don't squish</li>
+          </ul>
+        </div>
+        <div class="split-card fade-in">
+          <h3>What Kai deliberately doesn't do</h3>
+          <ul>
+            <li>Embed a browser, MathJax, or a KaTeX bundle</li>
+            <li>Ship a full TeX engine — unknown commands render as <code>\name</code> literal text</li>
+            <li>Require a network roundtrip for rendering</li>
+            <li>Overfit to formulas from one platform — the same code runs on every target</li>
+          </ul>
+        </div>
+      </div>
+      <p class="section-note fade-in">The full source lives in <code>composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/markdown/math/</code> on <a href="https://github.com/SimonSchubert/Kai">GitHub</a>. It's under a permissive license — if you want LaTeX in your own Compose Multiplatform app, it's a short file to borrow.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <h2 class="section-title fade-in">LaTeX rendering FAQ</h2>
+      <div class="faq-list">
+        <details class="faq-item fade-in">
+          <summary>Does Kai use MathJax or KaTeX?</summary>
+          <p>No. Kai has its own LaTeX parser and renderer written in Kotlin. It builds native Compose Multiplatform layouts directly — no WebView, no JavaScript runtime, no browser-based math engine.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Which LaTeX delimiters does Kai support?</summary>
+          <p>Inline math uses <code>$…$</code> or <code>\(…\)</code>. Display math uses <code>$$…$$</code> or <code>\[…\]</code>. The inline dollar form follows KaTeX rules — no space directly after the opener or before the closer, and no digit right after the closer — so currency like <code>$5 – $3</code> won't be mistaken for a formula.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Does math rendering work offline?</summary>
+          <p>Yes. The parser and renderer run entirely on-device. Whether the model is local (Gemma 4 via <a href="/run-gemma-locally/">LiteRT</a>) or a cloud API, the math layout is produced locally with no network roundtrip.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Which LaTeX environments are supported?</summary>
+          <p><code>matrix</code>, <code>pmatrix</code>, <code>bmatrix</code>, <code>Bmatrix</code>, <code>vmatrix</code>, <code>Vmatrix</code>, <code>cases</code>, <code>aligned</code>, <code>align</code>, and their starred variants. Matrix delimiters scale automatically with row count.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>What happens with malformed or streaming LaTeX?</summary>
+          <p>The parser is tolerant by design. Unknown commands render as their literal <code>\name</code> text. Unmatched braces close at end-of-input. Unterminated <code>$$</code> or <code>\[</code> fences emit whatever has arrived so far — so formulas look reasonable mid-stream while the model is still typing.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Can I select and copy formulas?</summary>
+          <p>Yes. Inline runs (letters, symbols, scripts, styled text) collapse into a single <code>Text</code> composable, so selection and copy work natively. Structural atoms — fractions, radicals, and matrices — render as their own composables for correct layout.</p>
+        </details>
+        <details class="faq-item fade-in">
+          <summary>Does it work with on-device Gemma 4?</summary>
+          <p>Yes. Math rendering is independent of the model. If you're running <a href="/run-gemma-locally/">Gemma 4 locally</a> and the model emits LaTeX, Kai typesets it the same way as with any cloud provider.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="download" id="get-kai">
+    <div class="container">
+      <h2 class="section-title fade-in">Get Kai and try math rendering</h2>
+      <p class="section-desc fade-in">Free. Open-source. No account.</p>
+      <div class="badge-row fade-in">
+        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.png" alt="Download on the App Store"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.png" alt="Get it on Google Play"></a>
+        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.png" alt="Get it on F-Droid"></a>
+        <a href="/app/"><img src="../img/web_badge.png" alt="Use the Web App"></a>
+      </div>
+      <div class="cli-installs fade-in">
+        <div class="cli-card">
+          <div class="label">Homebrew (macOS)</div>
+          <code>brew install --cask simonschubert/tap/kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">Winget (Windows)</div>
+          <code>winget install SimonSchubert.Kai</code>
+        </div>
+        <div class="cli-card">
+          <div class="label">AUR (Arch Linux)</div>
+          <code>yay -S kai-bin</code>
+        </div>
+      </div>
+      <div class="download-footer fade-in">
+        <a href="https://github.com/SimonSchubert/Kai/releases">All downloads on GitHub Releases &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/run-gemma-locally/">Run Gemma Locally</a>
+      <a href="https://github.com/SimonSchubert/Kai">GitHub</a>
+      <a href="https://github.com/SimonSchubert/Kai/releases">Releases</a>
+    </div>
+    <p class="note">Kai is open-source software. Built with Kotlin Multiplatform &amp; Compose Multiplatform.</p>
+    <p class="impressum">Simon Schubert &middot; Parkstr. 43, 13585 Berlin &middot; simon@librem.one</p>
+  </footer>
+
+  <script>
+    const o = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => o.observe(el));
+  </script>
+</body>
+</html>
