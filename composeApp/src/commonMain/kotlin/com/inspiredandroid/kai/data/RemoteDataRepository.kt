@@ -1488,6 +1488,7 @@ class RemoteDataRepository(
                         content = h.content,
                         attachments = h.attachments,
                         uiSubmission = h.uiSubmission,
+                        isThinking = h.isThinking,
                     )
                 },
             createdAt = existingConversation?.createdAt ?: now,
@@ -1554,6 +1555,7 @@ class RemoteDataRepository(
                 content = m.content,
                 attachments = attachments,
                 uiSubmission = m.uiSubmission,
+                isThinking = m.isThinking,
             )
         }
     }

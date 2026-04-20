@@ -37,6 +37,7 @@ data class Conversation(
         val content: String,
         val attachments: List<Attachment> = emptyList(),
         val uiSubmission: UiSubmission? = null,
+        val isThinking: Boolean = false,
         // Legacy single-file fields — retained for reading old persisted conversations.
         // New code writes only `attachments`; these remain null on newly saved messages.
         val mimeType: String? = null,
