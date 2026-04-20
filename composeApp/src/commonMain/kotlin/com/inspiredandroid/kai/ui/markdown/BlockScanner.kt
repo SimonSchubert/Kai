@@ -187,6 +187,13 @@ internal object BlockScanner {
             return decodeKaiUi(body) to next
         }
 
+        if (info.equals("latex", ignoreCase = true) ||
+            info.equals("tex", ignoreCase = true) ||
+            info.equals("math", ignoreCase = true)
+        ) {
+            return DisplayMath(body.trim()) to next
+        }
+
         val language = info.takeIf { it.isNotEmpty() }
         return CodeFence(language, body, closed) to next
     }

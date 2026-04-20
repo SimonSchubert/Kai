@@ -96,6 +96,30 @@ class MathParsingTest {
     }
 
     @Test
+    fun `latex code fence renders as display math`() {
+        val doc = parseMarkdown("```latex\ne^{i\\pi} + 1 = 0\n```")
+        assertEquals(DisplayMath("e^{i\\pi} + 1 = 0"), doc.blocks.single())
+    }
+
+    @Test
+    fun `tex code fence renders as display math`() {
+        val doc = parseMarkdown("```tex\n\\int_0^1 x\\,dx\n```")
+        assertEquals(DisplayMath("\\int_0^1 x\\,dx"), doc.blocks.single())
+    }
+
+    @Test
+    fun `math code fence renders as display math`() {
+        val doc = parseMarkdown("```math\nx = 1\n```")
+        assertEquals(DisplayMath("x = 1"), doc.blocks.single())
+    }
+
+    @Test
+    fun `non-math code fence stays as code`() {
+        val doc = parseMarkdown("```kotlin\nval x = 1\n```")
+        assertTrue(doc.blocks.single() is CodeFence)
+    }
+
+    @Test
     fun `streaming unclosed display math yields empty-ish block`() {
         // Unclosed `$$` should not crash and should not swallow the rest of the document.
         val doc = parseMarkdown("\$\$\nx = 1")
