@@ -63,8 +63,10 @@ internal fun toolSummaryText(
 internal fun WaitingResponseRow(
     executingTools: ImmutableList<Pair<String, String>>,
     isStatusOnly: Boolean = false,
+    statusText: String? = null,
 ) {
-    val summary = toolSummaryText(executingTools)
+    val summary = statusText ?: toolSummaryText(executingTools)
+    val effectiveStatusOnly = isStatusOnly || statusText != null
     val waitingCd = stringResource(Res.string.waiting_content_description)
 
     Row(
@@ -86,7 +88,7 @@ internal fun WaitingResponseRow(
         ) {
             PulsingStatusIndicator(
                 toolSummary = summary,
-                isStatusOnly = isStatusOnly,
+                isStatusOnly = effectiveStatusOnly,
                 dotSize = 16.dp,
                 dotColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 textColor = MaterialTheme.colorScheme.onSurfaceVariant,

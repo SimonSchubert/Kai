@@ -89,6 +89,11 @@ class ChatViewModel(
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.connectEnabledMcpServers()
         }
+        viewModelScope.launch {
+            dataRepository.fallbackStatus.collect { status ->
+                _state.update { it.copy(fallbackStatus = status) }
+            }
+        }
         taskScheduler.start(viewModelScope) { _state.value.isLoading }
     }
 

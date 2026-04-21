@@ -91,6 +91,7 @@ import com.inspiredandroid.kai.ui.chat.composables.TopBar
 import com.inspiredandroid.kai.ui.chat.composables.TrailingIcon
 import com.inspiredandroid.kai.ui.chat.composables.UserMessage
 import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
+import com.inspiredandroid.kai.ui.chat.composables.uiErrorText
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
@@ -101,6 +102,7 @@ import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
+import kai.composeapp.generated.resources.fallback_service_failed
 import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.interactive_back_content_description
 import kai.composeapp.generated.resources.interactive_exit_content_description
@@ -591,6 +593,10 @@ private fun ChatModeScreen(
                         }
                         val executingToolsState = rememberExecutingTools(uiState.history)
 
+                        val fallbackStatusText = uiState.fallbackStatus?.let { status ->
+                            stringResource(Res.string.fallback_service_failed, status.serviceName, uiErrorText(status.errorReason))
+                        }
+
                         val showScrollToBottom by remember {
                             derivedStateOf {
                                 val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
@@ -674,6 +680,7 @@ private fun ChatModeScreen(
                                         WaitingResponseRow(
                                             executingTools = executingToolsState.tools,
                                             isStatusOnly = executingToolsState.isStatusOnly,
+                                            statusText = fallbackStatusText,
                                         )
                                     }
                                 }

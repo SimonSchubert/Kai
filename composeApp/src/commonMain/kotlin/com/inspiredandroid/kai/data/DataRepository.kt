@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface DataRepository {
     val chatHistory: StateFlow<List<History>>
     val currentConversationId: StateFlow<String?>
+    val fallbackStatus: StateFlow<FallbackStatus?>
 
     // Configured services management
     fun getConfiguredServiceInstances(): List<ServiceInstance>

@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.testutil
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.FallbackStatus
 import com.inspiredandroid.kai.data.FreeMode
 import com.inspiredandroid.kai.data.HeartbeatConfig
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -34,6 +35,7 @@ class FakeDataRepository : DataRepository {
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
     override val currentConversationId: MutableStateFlow<String?> = MutableStateFlow(null)
+    override val fallbackStatus: MutableStateFlow<FallbackStatus?> = MutableStateFlow(null)
 
     val askCalls = mutableListOf<Pair<String?, List<PlatformFile>>>()
     var clearHistoryCalls = 0

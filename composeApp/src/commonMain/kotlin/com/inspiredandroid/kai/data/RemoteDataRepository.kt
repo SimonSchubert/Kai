@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.network.UnsupportedFileTypeException
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
+import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.platformName
@@ -229,6 +230,9 @@ class RemoteDataRepository(
 
     private val _currentConversationId = MutableStateFlow<String?>(null)
     override val currentConversationId: StateFlow<String?> = _currentConversationId
+
+    private val _fallbackStatus = MutableStateFlow<FallbackStatus?>(null)
+    override val fallbackStatus: StateFlow<FallbackStatus?> = _fallbackStatus
 
     override val savedConversations: StateFlow<List<Conversation>> = conversationStorage.conversations
 
@@ -773,43 +777,49 @@ class RemoteDataRepository(
         var lastException: Exception? = null
         var fallbackServiceName: String? = null
 
-        for ((index, entry) in fallbackEntries.withIndex()) {
-            // Skip fallback services whose context window is too small for the current history
-            // On-device models handle their own context limits, so skip this check for them
-            if (!entry.service.isOnDevice) {
-                val creds = instanceCredentials(entry.instanceId, entry.service)
-                val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
-                if (historyChars > entryWindowChars) {
-                    lastException = ContextWindowExceededException()
+        try {
+            for ((index, entry) in fallbackEntries.withIndex()) {
+                // Skip fallback services whose context window is too small for the current history
+                // On-device models handle their own context limits, so skip this check for them
+                if (!entry.service.isOnDevice) {
+                    val creds = instanceCredentials(entry.instanceId, entry.service)
+                    val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
+                    if (historyChars > entryWindowChars) {
+                        lastException = ContextWindowExceededException()
+                        _fallbackStatus.value = FallbackStatus(entry.service.displayName, ContextWindowExceededException().toUiError())
+                        continue
+                    }
+                }
+
+                val responseText = try {
+                    retryApiCall {
+                        askWithService(entry.service, messages, systemPrompt, entry.instanceId)
+                    }
+                } catch (e: Exception) {
+                    if (e is kotlinx.coroutines.CancellationException) throw e
+                    if (isNonRetryableException(e)) throw e
+                    // On-device services should not silently fall back — surface the error
+                    if (entry.service.isOnDevice) throw e
+                    lastException = e
+                    _fallbackStatus.value = FallbackStatus(entry.service.displayName, e.toUiError())
                     continue
                 }
+                if (index > 0) {
+                    fallbackServiceName = entry.service.displayName
+                }
+                chatHistory.update {
+                    it.toMutableList().apply {
+                        add(History(role = History.Role.ASSISTANT, content = responseText, fallbackServiceName = fallbackServiceName))
+                    }
+                }
+                saveCurrentConversation()
+                return
             }
 
-            val responseText = try {
-                retryApiCall {
-                    askWithService(entry.service, messages, systemPrompt, entry.instanceId)
-                }
-            } catch (e: Exception) {
-                if (e is kotlinx.coroutines.CancellationException) throw e
-                if (isNonRetryableException(e)) throw e
-                // On-device services should not silently fall back — surface the error
-                if (entry.service.isOnDevice) throw e
-                lastException = e
-                continue
-            }
-            if (index > 0) {
-                fallbackServiceName = entry.service.displayName
-            }
-            chatHistory.update {
-                it.toMutableList().apply {
-                    add(History(role = History.Role.ASSISTANT, content = responseText, fallbackServiceName = fallbackServiceName))
-                }
-            }
-            saveCurrentConversation()
-            return
+            throw lastException ?: OpenAICompatibleEmptyResponseException()
+        } finally {
+            _fallbackStatus.value = null
         }
-
-        throw lastException ?: OpenAICompatibleEmptyResponseException()
     }
 
     private suspend fun handleOpenAICompatibleChatWithTools(

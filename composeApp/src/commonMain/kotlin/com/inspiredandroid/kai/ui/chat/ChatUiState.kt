@@ -4,6 +4,7 @@ package com.inspiredandroid.kai.ui.chat
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.Attachment
+import com.inspiredandroid.kai.data.FallbackStatus
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.UiSubmission
@@ -84,6 +85,7 @@ data class ChatUiState(
     val snackbarMessage: StringResource? = null,
     val pendingConversationDeletion: String? = null,
     val isInteractiveMode: Boolean = false,
+    val fallbackStatus: FallbackStatus? = null,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

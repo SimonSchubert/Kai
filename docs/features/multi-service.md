@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-21
 
 Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -39,6 +39,7 @@ A built-in service that requires no API key. Free is never shown in the service 
 5. Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain
 6. On failure, the next instance in the chain is tried; if all fail, the last error is shown
 7. If a fallback succeeds, the response indicates which service answered
+8. While the chain is being walked, the thinking indicator shows per-attempt status — the name of the service currently being tried, or the reason the previous one failed before moving on — so silent fallbacks are visible to the user
 
 ## API Formats
 

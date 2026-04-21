@@ -20,14 +20,17 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
+internal fun uiErrorText(error: UiError): String = when (error) {
+    is UiError.Resource -> stringResource(error.resource)
+    is UiError.Text -> error.message
+}
+
+@Composable
 internal fun ErrorMessage(
     error: UiError,
     retry: () -> Unit,
 ) {
-    val text = when (error) {
-        is UiError.Resource -> stringResource(error.resource)
-        is UiError.Text -> error.message
-    }
+    val text = uiErrorText(error)
     Column(
         modifier = Modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
