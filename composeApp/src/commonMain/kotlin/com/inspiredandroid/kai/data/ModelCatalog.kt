@@ -410,7 +410,8 @@ internal object ModelCatalog {
         // ==============================================================
         // Moonshot Kimi
         // ==============================================================
-        "kimi-k2.6" to CuratedModelInfo("Kimi K2.6", 256_000, "2026-04"),
+        "kimi-k2.6" to CuratedModelInfo("Kimi K2.6", 256_000, "2026-04", "1T"),
+        "kimi-k2-6" to CuratedModelInfo("Kimi K2.6", 256_000, "2026-04", "1T"),
         "kimi-k2.5" to CuratedModelInfo("Kimi K2.5", 256_000, "2025-10"),
         "kimi-k2-thinking" to CuratedModelInfo("Kimi K2 Thinking", 200_000, "2025-11"),
         "kimi-k2" to CuratedModelInfo("Kimi K2", 200_000, "2025-07"),
@@ -1306,12 +1307,12 @@ internal object ModelCatalog {
         "glm-4.7-flash" to 1399, "glm-4.6v" to 1408,
         "glm-4.6" to 1434, "glm-4.5" to 1410, "glm-4.5-air" to 1403, "glm-4-plus" to 1339,
         // --- Kimi ---
-        "kimi-k2.6" to 1445,
-        "kimi-k2.5" to 1440, "kimi-k2.5-thinking" to 1459, "kimi-k2.5-instant" to 1440,
-        "kimi-k2-thinking" to 1437, "kimi-k2-thinking-turbo" to 1437,
-        "kimi-k2" to 1420, "kimi-k2-instruct" to 1420, "kimi-k2:1t" to 1420,
-        "kimi-k2-0905" to 1421, "kimi-k2-0905-preview" to 1421, "kimi-k2-instruct-0905" to 1421,
-        "kimi-k2-0711" to 1420, "kimi-k2-0711-preview" to 1420,
+        "kimi-k2.6" to 1480, "kimi-k2-6" to 1480,
+        "kimi-k2.5" to 1459, "kimi-k2.5-thinking" to 1493, "kimi-k2.5-instant" to 1459,
+        "kimi-k2-thinking" to 1444, "kimi-k2-thinking-turbo" to 1444,
+        "kimi-k2" to 1396, "kimi-k2-instruct" to 1396, "kimi-k2:1t" to 1396,
+        "kimi-k2-0905" to 1396, "kimi-k2-0905-preview" to 1396, "kimi-k2-instruct-0905" to 1396,
+        "kimi-k2-0711" to 1381, "kimi-k2-0711-preview" to 1381,
         // --- MiniMax ---
         "minimax-m2.7" to 1402, "minimax-m2.5" to 1400, "minimax-m2.5:free" to 1400,
         "minimax-m2.1" to 1413, "minimax-m2" to 1374, "minimax-m1" to 1396,
