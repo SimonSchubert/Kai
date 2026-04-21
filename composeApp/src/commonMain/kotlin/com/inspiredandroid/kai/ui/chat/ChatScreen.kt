@@ -259,7 +259,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                     .padding(16.dp)
                     .height(56.dp)
                     .clip(RoundedCornerShape(28.dp))
-                    .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp))
+                    .background(MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(28.dp))
                     .border(
                         BorderStroke(2.dp, gradientBrush),
                         RoundedCornerShape(28.dp),

@@ -1317,6 +1317,7 @@ private fun RenderAvatar(node: AvatarNode) {
     if (node.imageUrl != null) {
         Surface(
             shape = androidx.compose.foundation.shape.CircleShape,
+            color = MaterialTheme.colorScheme.surfaceContainer,
             modifier = Modifier.size(sizeDp),
         ) {
             coil3.compose.AsyncImage(

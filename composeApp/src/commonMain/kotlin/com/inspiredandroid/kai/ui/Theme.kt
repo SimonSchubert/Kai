@@ -43,10 +43,17 @@ fun Modifier.handCursor() = pointerHoverIcon(PointerIcon.Hand, overrideDescendan
 val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     onPrimary = Color(0xFF000000),
-    surface = Color(0xFF1E1E1E),
-    background = Color(0xFF121212),
+    surface = Color(0xFF000000),
+    surfaceContainerLowest = Color(0xFF000000),
+    background = Color(0xFF000000),
     onBackground = Color(0xFFFFFFFF),
     onSurface = Color(0xFFFFFFFF),
+)
+
+fun ColorScheme.withBlackBackground(): ColorScheme = copy(
+    background = Color.Black,
+    surface = Color.Black,
+    surfaceContainerLowest = Color.Black,
 )
 
 val LightColorScheme = lightColorScheme(

@@ -863,6 +863,7 @@ private fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions) 
                             },
                             modifier = Modifier.fillMaxWidth().handCursor(),
                             shape = itemShape,
+                            color = MaterialTheme.colorScheme.surfaceContainer,
                         ) {
                             Row(
                                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),

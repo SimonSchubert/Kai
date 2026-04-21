@@ -180,7 +180,7 @@ private fun SubmittedUiMessage(
                     .padding(8.dp)
                     .size(28.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.surface)
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
                     .handCursor()
                     .clickable { isEditing = !isEditing },
                 contentAlignment = Alignment.Center,

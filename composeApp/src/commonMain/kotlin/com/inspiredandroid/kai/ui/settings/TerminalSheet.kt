@@ -99,7 +99,7 @@ private fun terminalColors(darkBackground: Boolean = false): TerminalColors {
     val colorScheme = MaterialTheme.colorScheme
     return TerminalColors(
         bg = colorScheme.background,
-        inputBg = colorScheme.surface,
+        inputBg = colorScheme.surfaceContainer,
         text = colorScheme.onBackground,
         prompt = colorScheme.primary,
         error = colorScheme.error,

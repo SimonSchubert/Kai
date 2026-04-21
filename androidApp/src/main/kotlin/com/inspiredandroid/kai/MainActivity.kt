@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
+import com.inspiredandroid.kai.ui.withBlackBackground
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.init
 import nl.marc_apps.tts.TextToSpeechEngine
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
             val colorScheme = when {
-                dynamicColor && isDarkTheme -> dynamicDarkColorScheme(LocalContext.current)
+                dynamicColor && isDarkTheme -> dynamicDarkColorScheme(LocalContext.current).withBlackBackground()
                 dynamicColor && !isDarkTheme -> dynamicLightColorScheme(LocalContext.current)
                 isDarkTheme -> DarkColorScheme
                 else -> LightColorScheme
