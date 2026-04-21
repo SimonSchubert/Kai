@@ -6,10 +6,15 @@
   <title>Kai 9000 — Open-Source AI Assistant</title>
   <meta name="description" content="An open-source AI powerhouse with persistent memory that runs locally on Android, iOS, Windows, Mac, Linux, and Web. Featuring Interactive UI where AI builds full screens, not just text.">
   <link rel="canonical" href="https://kai9000.com/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#1a1a2e">
   <meta property="og:title" content="Kai 9000 — Open-Source AI Assistant">
   <meta property="og:description" content="An open-source AI powerhouse with persistent memory that runs locally in your pocket.">
   <meta property="og:image" content="https://kai9000.com/img/preview.png">
+  <meta property="og:image:alt" content="Kai 9000 — an open-source AI assistant with persistent memory, on every platform">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:url" content="https://kai9000.com">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kai 9000">
@@ -18,6 +23,7 @@
   <meta name="twitter:title" content="Kai 9000 — Open-Source AI Assistant">
   <meta name="twitter:description" content="An open-source AI powerhouse with persistent memory that runs locally in your pocket.">
   <meta name="twitter:image" content="https://kai9000.com/img/preview.png">
+  <meta name="twitter:image:alt" content="Kai 9000 — an open-source AI assistant with persistent memory, on every platform">
   <link rel="icon" href="img/favicon.ico" sizes="32x32">
   <link rel="icon" href="img/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="img/icon.svg">
@@ -25,50 +31,97 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Kai 9000",
-    "description": "An open-source AI powerhouse with persistent memory that runs locally on Android, iOS, Windows, Mac, Linux, and Web.",
-    "url": "https://kai9000.com",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Android, iOS, Windows, macOS, Linux, Web",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "Simon Schubert"
-    }
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://kai9000.com/#website",
+        "url": "https://kai9000.com/",
+        "name": "Kai 9000",
+        "description": "Open-source AI assistant with persistent memory that runs locally on Android, iOS, Windows, Mac, Linux, and Web.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://kai9000.com/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://kai9000.com/#person",
+        "name": "Simon Schubert",
+        "url": "https://github.com/SimonSchubert",
+        "sameAs": [
+          "https://github.com/SimonSchubert",
+          "https://apps.apple.com/us/app/kai-ai/id6758148023",
+          "https://play.google.com/store/apps/details?id=com.inspiredandroid.kai",
+          "https://f-droid.org/en/packages/com.inspiredandroid.kai/"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://kai9000.com/#app",
+        "name": "Kai 9000",
+        "description": "An open-source AI powerhouse with persistent memory that runs locally on Android, iOS, Windows, Mac, Linux, and Web. Features an interactive UI where AI builds full screens, not just text.",
+        "url": "https://kai9000.com/",
+        "image": "https://kai9000.com/img/preview.png",
+        "screenshot": [
+          "https://kai9000.com/img/survival-dark.webp",
+          "https://kai9000.com/img/recipe-light.webp",
+          "https://kai9000.com/img/ecopulse-light.webp",
+          "https://kai9000.com/img/memories-dark.webp",
+          "https://kai9000.com/img/desktop-1.webp"
+        ],
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Android, iOS, Windows, macOS, Linux, Web",
+        "downloadUrl": "https://github.com/SimonSchubert/Kai/releases",
+        "softwareHelp": "https://github.com/SimonSchubert/Kai",
+        "featureList": [
+          "Persistent memory across conversations",
+          "Customizable system prompt (soul)",
+          "Autonomous heartbeat for background self-checks",
+          "Multiple AI providers with fallback chain",
+          "Tool execution: web search, notifications, calendar, shell, alarms",
+          "On-device Gemma 4 inference on Android and desktop",
+          "MCP server integration",
+          "Native LaTeX math rendering",
+          "Linux sandbox on Android",
+          "End-to-end encrypted conversation storage"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": { "@id": "https://kai9000.com/#person" }
+      }
+    ]
   }
   </script>
 </head>
 <body>
 
+  <main>
+
   <!-- Hero + Interactive UI Showcase -->
   <div class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <img src="img/logo_animation.svg" class="hero-mascot">
+        <img src="img/logo_animation.svg" class="hero-mascot" alt="Kai 9000 animated mascot logo" width="104" height="52">
         <h1>Kai 9000</h1>
         <p class="tagline">Open Source AI That Builds Screens, Not Just Text</p>
         <p class="sub">An open-source AI powerhouse that runs locally in your pocket. With persistent memory, a heartbeat, tool execution, and an interactive UI that generates full screens — not just chat bubbles.</p>
         <div class="hero-badges">
-          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.webp" alt="Download on the App Store"></a>
-          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.webp" alt="Get it on Google Play"></a>
+          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.webp" alt="Download Kai on the App Store" width="180" height="60"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.webp" alt="Get Kai on Google Play" width="203" height="60"></a>
         </div>
         <div class="github-badge">
-          <a href="https://github.com/SimonSchubert/Kai"><img src="https://img.shields.io/github/stars/SimonSchubert/Kai?style=social" alt="GitHub stars"></a>
+          <a href="https://github.com/SimonSchubert/Kai"><img src="https://img.shields.io/github/stars/SimonSchubert/Kai?style=social" alt="Star Kai on GitHub"></a>
         </div>
       </div>
       <div class="hero-phone">
         <div class="phone-carousel">
           <div class="phone-frame">
             <div class="carousel-slides">
-              <img src="img/survival-dark.webp" alt="Survival game with health stats, inventory, and choice buttons" class="carousel-slide active">
-              <img src="img/recipe-light.webp" alt="Recipe card with ingredients and action buttons" class="carousel-slide">
-              <img src="img/ecopulse-light.webp" alt="EcoPulse sustainable tech brainstorm with features and theme chips" class="carousel-slide">
-              <img src="img/memories-dark.webp" alt="Memory system showing facts Kai remembers" class="carousel-slide">
+              <img src="img/survival-dark.webp" alt="Kai generating a survival game screen with health stats, inventory, and choice buttons" class="carousel-slide active" width="445" height="1000" fetchpriority="high">
+              <img src="img/recipe-light.webp" alt="Kai generating a recipe card with ingredients and action buttons" class="carousel-slide" width="445" height="1000" loading="lazy">
+              <img src="img/ecopulse-light.webp" alt="Kai generating an EcoPulse sustainable tech brainstorm with features and theme chips" class="carousel-slide" width="445" height="1000" loading="lazy">
+              <img src="img/memories-dark.webp" alt="Kai memory system showing facts the assistant remembers" class="carousel-slide" width="445" height="1000" loading="lazy">
             </div>
           </div>
           <div class="carousel-label" id="carousel-label">Survival Game</div>
@@ -150,14 +203,14 @@
       <p class="section-desc fade-in">Android, iOS, Windows, Mac, Linux, and Web. Pick your platform.</p>
 
       <div class="desktop-preview fade-in">
-        <img src="img/desktop-1.webp" alt="Kai desktop app" loading="lazy">
+        <img src="img/desktop-1.webp" alt="Kai desktop app showing a chat conversation alongside a generated UI panel" loading="lazy" width="1736" height="1336">
       </div>
 
       <div class="badge-row fade-in">
-        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.webp" alt="Download on the App Store"></a>
-        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.webp" alt="Get it on Google Play"></a>
-        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="img/fdroid_badge.webp" alt="Get it on F-Droid"></a>
-        <a href="/app/"><img src="img/web_badge.webp" alt="Use the Web App"></a>
+        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="img/app_store_badge.webp" alt="Download Kai on the App Store" width="180" height="60" loading="lazy"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="img/play_store_badge.webp" alt="Get Kai on Google Play" width="203" height="60" loading="lazy"></a>
+        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="img/fdroid_badge.webp" alt="Get Kai on F-Droid" width="168" height="60" loading="lazy"></a>
+        <a href="/app/"><img src="img/web_badge.webp" alt="Use the Kai web app" width="207" height="62" loading="lazy"></a>
       </div>
 
       <div class="cli-installs fade-in">
@@ -181,10 +234,14 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer>
     <div class="footer-links">
       <a href="/docs/">Documentation</a>
+      <a href="/run-gemma-locally/">Run Gemma 4 locally on your device</a>
+      <a href="/latex-math/">Native LaTeX math rendering</a>
       <a href="https://github.com/SimonSchubert/Kai">GitHub</a>
       <a href="https://github.com/SimonSchubert/Kai/releases">Releases</a>
     </div>

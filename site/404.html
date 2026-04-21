@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found — Kai 9000</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="icon" href="/img/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/img/icon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .notfound {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-gradient) 100%);
+      text-align: center;
+    }
+    .notfound-inner { max-width: 560px; }
+    .notfound h1 {
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .notfound h2 { font-size: 1.5rem; margin-bottom: 16px; }
+    .notfound p { color: var(--text-secondary); margin-bottom: 28px; }
+    .notfound-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .notfound-links a {
+      color: var(--primary-light);
+      font-weight: 600;
+      padding: 12px 22px;
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      transition: border-color 0.2s ease;
+    }
+    .notfound-links a:hover { border-color: var(--primary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="notfound">
+    <div class="notfound-inner">
+      <h1>404</h1>
+      <h2>This page drifted out of context.</h2>
+      <p>The link you followed either no longer exists or was never here. Head back to the homepage and Kai will help from there.</p>
+      <div class="notfound-links">
+        <a href="/">Back to Kai 9000</a>
+        <a href="/run-gemma-locally/">Run Gemma 4 locally</a>
+        <a href="/latex-math/">LaTeX math rendering</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
