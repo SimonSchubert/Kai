@@ -1081,7 +1081,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-21</p>
 <p>Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1114,6 +1114,7 @@
 <li>Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain</li>
 <li>On failure, the next instance in the chain is tried; if all fail, the last error is shown</li>
 <li>If a fallback succeeds, the response indicates which service answered</li>
+<li>While the chain is being walked, the thinking indicator shows per-attempt status — the name of the service currently being tried, or the reason the previous one failed before moving on — so silent fallbacks are visible to the user</li>
 </ol>
 <h2 id="api-formats">API Formats</h2>
 <p>Most services use the <strong>OpenAI-compatible</strong> chat completions format. <strong>Gemini</strong> uses Google's native Generative Language API. <strong>Anthropic</strong> uses its own Messages API with <code>x-api-key</code> header authentication and a different request/response structure. <strong>LiteRT</strong> runs inference on-device using Google's LiteRT LM SDK -- no HTTP, no API key, fully offline.</p>
