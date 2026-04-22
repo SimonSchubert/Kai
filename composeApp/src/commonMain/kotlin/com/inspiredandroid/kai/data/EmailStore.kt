@@ -65,8 +65,7 @@ class EmailStore(private val appSettings: AppSettings) {
         appSettings.setEmailSyncStateJson(accountId, "")
     }
 
-    fun getAllSyncStates(): Map<String, EmailSyncState> =
-        getAccounts().associate { it.id to getSyncState(it.id) }
+    fun getAllSyncStates(): Map<String, EmailSyncState> = getAccounts().associate { it.id to getSyncState(it.id) }
 
     // Capped FIFO so a disabled or slow heartbeat can't let the buffer grow unbounded.
     fun getPending(): List<EmailMessage> {
