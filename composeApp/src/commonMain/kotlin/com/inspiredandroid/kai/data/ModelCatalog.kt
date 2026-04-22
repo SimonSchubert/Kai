@@ -493,6 +493,7 @@ internal object ModelCatalog {
         "nemotron-nano" to CuratedModelInfo("Nemotron Nano", 128_000, "2025-03", "8B"),
         "llama-3.1-nemotron-70b-instruct" to CuratedModelInfo("Nemotron 70B", 128_000, "2024-10", "70B"),
         "nemotron-4-340b-instruct" to CuratedModelInfo("Nemotron 4 340B", 4_096, "2024-06", "340B"),
+        "ai-synthetic-video-detector" to CuratedModelInfo("AI Synthetic Video Detector", 0, "2025-12"),
 
         // ==============================================================
         // NousResearch Hermes
@@ -660,12 +661,15 @@ internal object ModelCatalog {
         "o4-mini-high" to CuratedModelInfo("o4-mini (high)", 200_000, "2025-04"),
         "o3-deep-research" to CuratedModelInfo("o3 Deep Research", 200_000, "2025-06"),
         "o4-mini-deep-research" to CuratedModelInfo("o4-mini Deep Research", 200_000, "2025-06"),
+        "deep-research-preview-04-2026" to CuratedModelInfo("Deep Research (Preview)", 200_000, "2026-04"),
+        "deep-research-max-preview-04-2026" to CuratedModelInfo("Deep Research Max (Preview)", 200_000, "2026-04"),
 
         // ==============================================================
         // Anthropic — additional
         // ==============================================================
         "claude-opus-4.7" to CuratedModelInfo("Claude Opus 4.7", 1_000_000, "2026-04"),
         "claude-opus-4-7" to CuratedModelInfo("Claude Opus 4.7", 1_000_000, "2026-04"),
+        "claude-opus-latest" to CuratedModelInfo("Claude Opus (Latest)", 1_000_000, "2026-04"),
         "claude-opus-4.6" to CuratedModelInfo("Claude Opus 4.6", 200_000, "2025-12"),
         "claude-opus-4-6" to CuratedModelInfo("Claude Opus 4.6", 200_000, "2025-12"),
         "claude-opus-4.6-fast" to CuratedModelInfo("Claude Opus 4.6 Fast", 200_000, "2025-12"),
@@ -776,6 +780,7 @@ internal object ModelCatalog {
         "mistral-medium-2604" to CuratedModelInfo("Mistral Medium 3.5", 128_000, "2026-04"),
         "mistral-medium-3.5" to CuratedModelInfo("Mistral Medium 3.5", 128_000, "2026-04"),
         "mistral-medium-3-5" to CuratedModelInfo("Mistral Medium 3.5", 128_000, "2026-04"),
+        "mistral-medium-c21211-r0-75" to CuratedModelInfo("Mistral Medium 3.5", 128_000, "2026-04"),
         "mistral-medium-3-instruct" to CuratedModelInfo("Mistral Medium 3", 128_000, "2025-05"),
         "mistral-small-2603" to CuratedModelInfo("Mistral Small 4", 128_000, "2026-03"),
         "mistral-small-2506" to CuratedModelInfo("Mistral Small 3.2", 128_000, "2025-06"),
@@ -1064,6 +1069,7 @@ internal object ModelCatalog {
         "virtuoso-large" to CuratedModelInfo("Arcee Virtuoso Large", 128_000, "2025-03"),
         "coder-large" to CuratedModelInfo("Arcee Coder Large", 128_000, "2025-03"),
         "trinity-large-thinking" to CuratedModelInfo("Arcee Trinity Large Thinking", 256_000, "2025-11"),
+        "trinity-large-preview" to CuratedModelInfo("Arcee Trinity Large (Preview)", 256_000, "2025-10"),
         "trinity-large-preview:free" to CuratedModelInfo("Arcee Trinity Large (Preview)", 256_000, "2025-10"),
         "trinity-mini" to CuratedModelInfo("Arcee Trinity Mini", 128_000, "2025-11"),
         "dracarys-llama-3.1-70b-instruct" to CuratedModelInfo("Dracarys Llama 3.1", 128_000, "2024-09", "70B"),
@@ -1111,6 +1117,8 @@ internal object ModelCatalog {
         "mimo-v2-omni" to CuratedModelInfo("Mimo V2 Omni", 128_000, "2025-11"),
         "mimo-v2-pro" to CuratedModelInfo("Mimo V2 Pro", 128_000, "2025-11"),
         "mimo-v2-flash" to CuratedModelInfo("Mimo V2 Flash", 128_000, "2025-11"),
+        "mimo-v2.5" to CuratedModelInfo("Mimo V2.5", 128_000, "2026-04"),
+        "mimo-v2.5-pro" to CuratedModelInfo("Mimo V2.5 Pro", 128_000, "2026-04"),
         "kat-coder-pro-v2" to CuratedModelInfo("KAT Coder Pro v2", 128_000, "2025-11"),
         "longcat-flash-chat" to CuratedModelInfo("LongCat Flash", 128_000, "2025-09"),
 
@@ -1147,6 +1155,8 @@ internal object ModelCatalog {
         "aion-rp-llama-3.1-8b" to CuratedModelInfo("Aion RP Llama 3.1", 32_000, "2024-11", "8B"),
         "tongyi-deepresearch-30b-a3b" to CuratedModelInfo("Tongyi DeepResearch", 128_000, "2025-09", "30B"),
         "intellect-3" to CuratedModelInfo("Intellect 3", 128_000, "2025-11"),
+        "ling-2.6-flash:free" to CuratedModelInfo("Ling 2.6 Flash", 128_000, "2026-03"),
+        "pareto-code" to CuratedModelInfo("Pareto Code", 128_000, "2026-04"),
         "rnj-1:8b" to CuratedModelInfo("RNJ-1 8B", 32_000, "2025-10", "8B"),
         "rnj-1-instruct" to CuratedModelInfo("RNJ-1 Instruct", 32_000, "2025-10"),
         "morph-v3-large" to CuratedModelInfo("Morph V3 Large", 32_000, "2025-06"),
@@ -1185,14 +1195,16 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard (2026-04-20).
-    // To update: python3 tools/update_arena_scores.py
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard (2026-04-23).
+    // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
-        "claude-opus-4-7" to 1498, "claude-opus-4.7" to 1498,
-        "claude-opus-4-6" to 1497, "claude-opus-4.6" to 1497, "claude-opus-4.6-fast" to 1497,
-        "claude-opus-4-5" to 1473, "claude-opus-4.5" to 1473, "claude-opus-4-5-20251101" to 1473,
-        "claude-sonnet-4-6" to 1470, "claude-sonnet-4.6" to 1470,
+        "claude-opus-4-7" to 1494, "claude-opus-4.7" to 1494, "claude-opus-latest" to 1494,
+        "claude-opus-4-7-thinking" to 1503,
+        "claude-opus-4-6" to 1496, "claude-opus-4.6" to 1496, "claude-opus-4.6-fast" to 1496,
+        "claude-opus-4-6-thinking" to 1502,
+        "claude-opus-4-5" to 1472, "claude-opus-4.5" to 1472, "claude-opus-4-5-20251101" to 1472,
+        "claude-sonnet-4-6" to 1467, "claude-sonnet-4.6" to 1467,
         "claude-sonnet-4-5" to 1461, "claude-sonnet-4.5" to 1461, "claude-sonnet-4-5-20250929" to 1461,
         "claude-opus-4-1" to 1454, "claude-opus-4.1" to 1454, "claude-opus-4-1-20250805" to 1454,
         "claude-sonnet-4" to 1394, "claude-sonnet-4-20250514" to 1394,
@@ -1206,12 +1218,13 @@ internal object ModelCatalog {
         "claude-3-5-haiku-20241022" to 1345,
         "claude-3-opus" to 1341, "claude-3-opus-latest" to 1341, "claude-3-opus-20240229" to 1341,
         // --- OpenAI ---
-        "gpt-5.4" to 1472, "gpt-5.4-chat" to 1472,
+        "gpt-5.4" to 1469, "gpt-5.4-chat" to 1469,
         "gpt-5.3-chat" to 1463, "gpt-5.3-chat-latest" to 1463,
         "gpt-5.2" to 1447, "gpt-5.2-chat" to 1447, "gpt-5.2-pro" to 1448,
         "gpt-5.1" to 1445, "gpt-5.1-chat" to 1445,
         "gpt-5" to 1435, "gpt-5-2025-08-07" to 1435, "gpt-5-chat" to 1435, "gpt-5-mini" to 1466,
         "gpt-5.4-mini" to 1466, "gpt-5.4-nano" to 1399,
+        "deep-research-preview-04-2026" to 1450, "deep-research-max-preview-04-2026" to 1465,
         "gpt-4.1" to 1413, "gpt-4.1-2025-04-14" to 1413,
         "gpt-4.1-mini" to 1410, "gpt-4.1-mini-2025-04-14" to 1410,
         "gpt-4.1-nano" to 1343, "gpt-4.1-nano-2025-04-14" to 1343,
@@ -1231,11 +1244,11 @@ internal object ModelCatalog {
         "o1" to 1397, "o1-2024-12-17" to 1397, "o1-pro" to 1420,
         "o1-preview" to 1419, "o1-mini" to 1364, "o1-mini-2024-09-12" to 1364,
         // --- Google Gemini ---
-        "gemini-3.1-pro-preview" to 1492, "gemini-3.1-pro-preview-customtools" to 1492,
+        "gemini-3.1-pro-preview" to 1493, "gemini-3.1-pro-preview-customtools" to 1493,
         "gemini-3-pro" to 1486, "gemini-3-pro-preview" to 1486, "gemini-3-pro-latest" to 1486,
-        "gemini-3-flash" to 1477, "gemini-3-flash-preview" to 1477,
+        "gemini-3-flash" to 1474, "gemini-3-flash-preview" to 1474,
         "gemini-3.1-flash-lite-preview" to 1444,
-        "gemini-pro-latest" to 1486, "gemini-flash-latest" to 1477,
+        "gemini-pro-latest" to 1486, "gemini-flash-latest" to 1474,
         "gemini-2.5-pro" to 1455, "gemini-2.5-pro-latest" to 1455,
         "gemini-2.5-pro-preview-03-25" to 1455, "gemini-2.5-pro-preview-05-06" to 1455,
         "gemini-2.5-pro-preview-06-05" to 1455, "gemini-2.5-pro-exp-03-25" to 1455,
@@ -1250,8 +1263,8 @@ internal object ModelCatalog {
         "gemini-1.5-pro-001" to 1346,
         "gemini-1.5-flash" to 1326, "gemini-1.5-flash-latest" to 1326, "gemini-1.5-flash-002" to 1326,
         // --- xAI Grok ---
-        "grok-4.20" to 1485, "grok-4.20-multi-agent" to 1478,
-        "grok-4.1" to 1467, "grok-4.1-thinking" to 1474,
+        "grok-4.20" to 1482, "grok-4.20-multi-agent" to 1475,
+        "grok-4.1" to 1467, "grok-4.1-thinking" to 1471,
         "grok-4.1-fast" to 1439,
         "grok-4" to 1408, "grok-4-latest" to 1408, "grok-4-0709" to 1408,
         "grok-4-fast" to 1425, "grok-4-fast-reasoning" to 1404,
@@ -1276,7 +1289,7 @@ internal object ModelCatalog {
         "llama-3.1-70b" to 1275, "llama-3.1-70b-instruct" to 1275, "llama-3.1-70b-versatile" to 1275,
         "llama-3.1-8b" to 1185, "llama-3.1-8b-instruct" to 1185, "llama-3.1-8b-instant" to 1185,
         // --- Qwen ---
-        "qwen3.5-max-preview" to 1471,
+        "qwen3.5-max-preview" to 1468,
         "qwen3.5-397b-a17b" to 1452, "qwen3.5:397b" to 1452,
         "qwen3.5-122b-a10b" to 1423, "qwen3.5-27b" to 1403, "qwen3.5-35b-a3b" to 1372,
         "qwen3.5-flash" to 1393, "qwen3.5-flash-02-23" to 1393,
@@ -1300,13 +1313,14 @@ internal object ModelCatalog {
         "mistral-medium-latest" to 1407, "mistral-medium-3" to 1407, "mistral-medium-2505" to 1407,
         "mistral-medium-2508" to 1407, "mistral-medium-3.1" to 1407, "mistral-medium-3-instruct" to 1407,
         "mistral-medium-2604" to 1407, "mistral-medium-3.5" to 1407, "mistral-medium-3-5" to 1407,
+        "mistral-medium-c21211-r0-75" to 1407,
         "mistral-small-latest" to 1389, "mistral-small-2506" to 1389,
         "mistral-small-2503" to 1325, "mistral-small-3.1-24b-instruct-2503" to 1325,
         "magistral-medium-2506" to 1385,
         "mixtral-8x22b" to 1210, "mixtral-8x22b-instruct" to 1210,
         "mixtral-8x7b" to 1110, "mixtral-8x7b-instruct" to 1110,
         // --- GLM / Zhipu ---
-        "glm-5.1" to 1475, "glm-5" to 1465, "glm5" to 1465,
+        "glm-5.1" to 1470, "glm-5" to 1460, "glm5" to 1460,
         "glm-4.7" to 1449, "glm4.7" to 1449, "zai-glm-4.7" to 1449,
         "glm-4.7-flash" to 1399, "glm-4.6v" to 1408,
         "glm-4.6" to 1434, "glm-4.5" to 1410, "glm-4.5-air" to 1403, "glm-4-plus" to 1339,
@@ -1349,8 +1363,10 @@ internal object ModelCatalog {
         // --- Other ---
         "yi-lightning" to 1354, "mercury-2" to 1376,
         "step-3.5-flash" to 1423, "mimo-v2-pro" to 1453, "mimo-v2-flash" to 1424,
+        "mimo-v2.5" to 1455, "mimo-v2.5-pro" to 1465,
         "olmo-3.1-32b-instruct" to 1355, "olmo-3-32b-think" to 1355,
-        "intellect-3" to 1388, "trinity-large-preview:free" to 1405,
+        "intellect-3" to 1388, "trinity-large-preview" to 1405, "trinity-large-preview:free" to 1405,
+        "ling-2.6-flash:free" to 1380, "pareto-code" to 1395,
         "longcat-flash-chat" to 1396,
         "sonar-pro" to 1310, "sonar-reasoning-pro" to 1320,
         "sonar" to 1250,
