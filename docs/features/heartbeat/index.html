@@ -1069,8 +1069,8 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
-<p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
+<p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, newly arrived emails, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="heartbeat_1">Heartbeat</h3>
 <p>A silent, scheduled prompt sent to the AI during active hours. If nothing needs attention, the AI responds with "HEARTBEAT_OK" and the user sees nothing. If something requires follow-up, the response appears as an assistant message in the chat.</p>
@@ -1117,6 +1117,7 @@
 <li><strong>Previous heartbeat results</strong> — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")</li>
 <li><strong>Pending tasks</strong> — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)</li>
 <li><strong>Email status</strong> — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included</li>
+<li><strong>New emails</strong> — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run</li>
 <li><strong>Promotion candidates</strong> — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the <code>promote_learning</code> tool</li>
 </ol>
 <p>For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see <a href="../system-prompts/">system-prompts.md</a>.</p>

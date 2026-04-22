@@ -1003,7 +1003,7 @@
 
 
 <h1 id="daemon-mode">Daemon Mode</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
 <p>Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="daemon-controller">Daemon Controller</h3>
@@ -1042,7 +1042,7 @@
 </ul>
 <p>No wake locks or battery optimization exemptions are requested. The service relies on Android's standard process management with <code>START_STICKY</code> for restart behavior.</p>
 <h2 id="settings-ui">Settings UI</h2>
-<p>A toggle labeled "Daemon Mode" appears in settings only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference.</p>
+<p>A toggle labeled "Daemon Mode" appears in the General tab of settings, only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>

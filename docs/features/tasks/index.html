@@ -1093,7 +1093,7 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
@@ -1114,9 +1114,9 @@
 <h2 id="execution-rules">Execution Rules</h2>
 <ul>
 <li>Task execution is skipped if the app is currently processing another API call</li>
-<li>Task prompts are executed via <code>askWithTools</code>, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). The response is added as an assistant message without polluting the main chat history</li>
+<li>Task prompts are executed via <code>askWithTools</code>, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). When the response is non-blank it is appended to the heartbeat conversation (prefixed with the task description as a bold header) and the unread-heartbeat indicator is set, so scheduled output shares the same surface as heartbeat output without polluting the main chat history</li>
 <li>Results are stored as the <code>lastResult</code> on the task for audit purposes</li>
-<li>The scheduler also handles heartbeat checks and email polling in the same poll loop</li>
+<li>The scheduler also handles heartbeat checks and email polling in the same poll loop. Email polling fetches headers in batches of up to 50 per account per poll and buffers them for the next heartbeat to pick up; no AI call runs during email polling itself</li>
 </ul>
 <h2 id="failure-handling">Failure Handling</h2>
 <ul>
