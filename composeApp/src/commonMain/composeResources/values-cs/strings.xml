@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Odebrat účet</string>
     <string name="settings_email_poll_interval">Kontrolovat každých %1$d min.</string>
     <string name="settings_email_poll_never">Nikdy</string>
-    <string name="settings_email_queued">%1$d ve frontě pro heartbeat</string>
+    <string name="settings_email_queued">%1$d ve frontě pro srdeční tep</string>
     <string name="settings_email_last_poll">Poslední úspěšná kontrola %1$s</string>
     <string name="settings_email_poll_failed">Poslední kontrola selhala %1$s</string>
     <string name="settings_email_refresh">Obnovit účet</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Srdeční tep</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Toto je automatická sebekontrola. Zkontroluj své vzpomínky a nevyřízené úkoly. Pokud je vše v pořádku a nic nevyžaduje pozornost, odpověz přesně: HEARTBEAT_OK\nPokud něco vyžaduje pozornost (zastaralé vzpomínky, splatné úkoly, následná komunikace s uživatelem), postarej se o to.</string>
     <string name="settings_heartbeat_description">Periodické sebekontroly, které umožňují AI kontrolovat vzpomínky a úkoly bez vstupu uživatele. Spouští se každých %1$d minut v aktivních hodinách.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt pro Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt srdečního tepu</string>
     <string name="settings_heartbeat_recent">Nedávná aktivita</string>
     <string name="settings_remove_service">Odebrat</string>
     <string name="tool_memory_learn_description">Uložit kategorizované poznatky, řešení chyb nebo preference</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Posílit vzpomínku</string>
     <string name="tool_promote_learning_description">Povýšit posílený poznatek do systémového promptu</string>
     <string name="tool_promote_learning_name">Povýšit poznatek</string>
-    <string name="tool_trigger_heartbeat_description">Spustit heartbeat v dalším cyklu</string>
-    <string name="tool_trigger_heartbeat_name">Spustit Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Spustit srdeční tep v dalším cyklu</string>
+    <string name="tool_trigger_heartbeat_name">Spustit srdeční tep</string>
     <string name="tool_web_search_description">Vyhledat na webu aktuální informace</string>
     <string name="tool_open_url_name">Otevřít URL</string>
     <string name="tool_open_url_description">Otevřít URL nebo odkaz na zařízení</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Nástroje</string>
     <string name="settings_import_section_mcp">MCP servery</string>
     <string name="settings_import_section_conversations">Konverzace</string>
-    <string name="settings_heartbeat_reset_confirm">Tím se výzva heartbeat obnoví na výchozí. Jste si jisti?</string>
+    <string name="settings_heartbeat_reset_confirm">Tím se prompt srdečního tepu obnoví na výchozí. Jste si jisti?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Výchozí</string>
     <string name="settings_import_partial">Nastavení importováno s %1$d sekcí/sekcemi, které obsahovaly chyby.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Smazat konverzaci</string>
     <string name="chat_history_empty">Žádné uložené konverzace</string>
     <string name="chat_history_heartbeat_label">Srdeční tep</string>
-    <string name="heartbeat_banner_message">Heartbeat má co hlásit</string>
+    <string name="heartbeat_banner_message">Srdeční tep má co hlásit</string>
     <string name="heartbeat_banner_dismiss">Zavřít</string>
     <string name="scroll_to_bottom_content_description">Posunout dolů</string>
     <string name="conversation_untitled">Bez názvu</string>

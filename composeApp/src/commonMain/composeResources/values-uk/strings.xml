@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Видалити акаунт</string>
     <string name="settings_email_poll_interval">Перевіряти кожні %1$d хв.</string>
     <string name="settings_email_poll_never">Ніколи</string>
-    <string name="settings_email_queued">%1$d у черзі для heartbeat</string>
+    <string name="settings_email_queued">%1$d у черзі для серцебиття</string>
     <string name="settings_email_last_poll">Остання успішна перевірка %1$s</string>
     <string name="settings_email_poll_failed">Остання перевірка не вдалася %1$s</string>
     <string name="settings_email_refresh">Оновити обліковий запис</string>
@@ -116,11 +116,11 @@
     <string name="settings_free_fallback">Використовувати як запасний</string>
     <string name="service_free_fast">Безкоштовний швидкий</string>
     <string name="service_free_expert">Безкоштовний експерт</string>
-    <string name="settings_heartbeat">Пульс</string>
+    <string name="settings_heartbeat">Серцебиття</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Це автоматична самоперевірка. Перегляньте свої спогади та очікувані завдання. Якщо все гаразд і нічого не потребує уваги, відповідайте точно: HEARTBEAT_OK
 Якщо щось потребує уваги (застарілі спогади, прострочені завдання, запити користувача), займіться цим.</string>
     <string name="settings_heartbeat_description">Періодичні самоперевірки, що дозволяють ШІ переглядати спогади та завдання без введення користувача. Запускається кожні %1$d хвилин в активні години.</string>
-    <string name="settings_heartbeat_prompt_label">Промпт пульсу</string>
+    <string name="settings_heartbeat_prompt_label">Промпт серцебиття</string>
     <string name="settings_heartbeat_recent">Нещодавня активність</string>
     <string name="settings_remove_service">Видалити</string>
     <string name="tool_memory_learn_description">Зберегти категоризоване знання, вирішення помилки або вподобання</string>
@@ -133,8 +133,8 @@
     <string name="tool_memory_reinforce_name">Зміцнити пам'ять</string>
     <string name="tool_promote_learning_description">Просунути зміцнене знання до системного промпту</string>
     <string name="tool_promote_learning_name">Просунути знання</string>
-    <string name="tool_trigger_heartbeat_description">Запустити пульс у наступному циклі</string>
-    <string name="tool_trigger_heartbeat_name">Запустити пульс</string>
+    <string name="tool_trigger_heartbeat_description">Запустити серцебиття в наступному циклі</string>
+    <string name="tool_trigger_heartbeat_name">Запустити серцебиття</string>
     <string name="tool_web_search_description">Шукати в інтернеті актуальну інформацію</string>
     <string name="tool_open_url_name">Відкрити URL</string>
     <string name="tool_open_url_description">Відкрити URL або посилання на пристрої</string>
@@ -196,7 +196,7 @@
     <string name="chat_history_delete_content_description">Видалити розмову</string>
     <string name="chat_history_empty">Немає збережених розмов</string>
     <string name="chat_history_heartbeat_label">Серцебиття</string>
-    <string name="heartbeat_banner_message">Heartbeat має що повідомити</string>
+    <string name="heartbeat_banner_message">Серцебиття має що повідомити</string>
     <string name="heartbeat_banner_dismiss">Закрити</string>
     <string name="scroll_to_bottom_content_description">Прокрутити донизу</string>
     <string name="conversation_untitled">Без назви</string>

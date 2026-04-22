@@ -108,7 +108,7 @@
     <string name="settings_email_remove">መለያ ሰርዝ</string>
     <string name="settings_email_poll_interval">በእያንዳንዱ %1$d ደቂቃ ይፈልጋል</string>
     <string name="settings_email_poll_never">በፍጹም</string>
-    <string name="settings_email_queued">%1$d ለ heartbeat በተጠባባቂ</string>
+    <string name="settings_email_queued">%1$d ለየልብ ምት ይጠብቃል</string>
     <string name="settings_email_last_poll">የመጨረሻ የተሳካ ፍተሻ %1$s</string>
     <string name="settings_email_poll_failed">የመጨረሻ ፍተሻ አልተሳካም %1$s</string>
     <string name="settings_email_refresh">መለያን አድስ</string>
@@ -116,7 +116,7 @@
     <string name="settings_free_fallback">እንደ ተተኪ ተጠቀም</string>
     <string name="service_free_fast">ነጻ ፈጣን</string>
     <string name="service_free_expert">ነጻ ባለሙያ</string>
-    <string name="settings_heartbeat">ልብ ምት</string>
+    <string name="settings_heartbeat">የልብ ምት</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ይህ ራስ-ሰር ራስ-ምርመራ ነው። ትውስታዎችዎን እና በመጠባበቅ ላይ ያሉ ስራዎችን ይገምግሙ። ሁሉም ነገር ጥሩ ከሆነ እና ምንም ትኩረት ካልፈለገ በትክክል ይመልሱ: HEARTBEAT_OK
 አንድ ነገር ትኩረት ከፈለገ (ያረጁ ትውስታዎች፣ የተጠናቀቁ ስራዎች፣ የተጠቃሚ ክትትሎች) ያስተናግዱት።</string>
     <string name="settings_heartbeat_description">AI ያለ ተጠቃሚ ግብአት ትውስታዎችን እና ስራዎችን እንዲገመግም የሚያስችሉ ወቅታዊ ራስ-ምርመራዎች። በየ %1$d ደቂቃ በንቁ ሰዓታት ይሰራል።</string>
@@ -133,8 +133,8 @@
     <string name="tool_memory_reinforce_name">ትውስታ አጠናክር</string>
     <string name="tool_promote_learning_description">የተጠናከረ ትምህርት ወደ ስርዓት ጥያቄ አስተዋውቅ</string>
     <string name="tool_promote_learning_name">ትምህርት አስተዋውቅ</string>
-    <string name="tool_trigger_heartbeat_description">በሚቀጥለው ዙር ልብ ምት አነሳ</string>
-    <string name="tool_trigger_heartbeat_name">ልብ ምት አነሳ</string>
+    <string name="tool_trigger_heartbeat_description">በሚቀጥለው ዑደት ላይ የልብ ምት አስነሳ</string>
+    <string name="tool_trigger_heartbeat_name">የልብ ምት አስነሳ</string>
     <string name="tool_web_search_description">ለወቅታዊ መረጃ ድሩን ፈልግ</string>
     <string name="tool_open_url_name">URL ክፈት</string>
     <string name="tool_open_url_description">በመሳሪያው ላይ URL ወይም አገናኝ ይክፈቱ</string>

@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Fjern konto</string>
     <string name="settings_email_poll_interval">Hent hvert %1$d. minut</string>
     <string name="settings_email_poll_never">Aldrig</string>
-    <string name="settings_email_queued">%1$d i kø til heartbeat</string>
+    <string name="settings_email_queued">%1$d i kø til hjerteslag</string>
     <string name="settings_email_last_poll">Seneste vellykkede hentning %1$s</string>
     <string name="settings_email_poll_failed">Seneste hentning mislykkedes %1$s</string>
     <string name="settings_email_refresh">Opdater konto</string>
@@ -185,7 +185,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_import_section_tools">Værktøjer</string>
     <string name="settings_import_section_mcp">MCP-servere</string>
     <string name="settings_import_section_conversations">Samtaler</string>
-    <string name="settings_heartbeat_reset_confirm">Dette vil nulstille heartbeat-prompten til standard. Er du sikker?</string>
+    <string name="settings_heartbeat_reset_confirm">Dette vil nulstille hjerteslag-prompten til standard. Er du sikker?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Indstillinger importeret med %1$d sektion(er) der havde fejl.</string>
@@ -196,7 +196,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="chat_history_delete_content_description">Slet samtale</string>
     <string name="chat_history_empty">Ingen gemte samtaler</string>
     <string name="chat_history_heartbeat_label">Hjerteslag</string>
-    <string name="heartbeat_banner_message">Heartbeat har noget at rapportere</string>
+    <string name="heartbeat_banner_message">Hjerteslag har noget at rapportere</string>
     <string name="heartbeat_banner_dismiss">Afvis</string>
     <string name="scroll_to_bottom_content_description">Rul til bunden</string>
     <string name="conversation_untitled">Uden titel</string>

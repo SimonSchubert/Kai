@@ -108,7 +108,7 @@
     <string name="settings_email_remove">حذف حساب</string>
     <string name="settings_email_poll_interval">بررسی هر %1$d دقیقه</string>
     <string name="settings_email_poll_never">هرگز</string>
-    <string name="settings_email_queued">%1$d در صف heartbeat</string>
+    <string name="settings_email_queued">%1$d در انتظار ضربان قلب</string>
     <string name="settings_email_last_poll">آخرین بررسی موفق %1$s</string>
     <string name="settings_email_poll_failed">آخرین بررسی ناموفق %1$s</string>
     <string name="settings_email_refresh">بازخوانی حساب</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">ضربان قلب</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] این یک خودبررسی خودکار است. خاطرات و وظایف معلق خود را بررسی کن. اگر همه چیز خوب به نظر می‌رسد و چیزی نیاز به توجه ندارد، دقیقاً پاسخ بده: HEARTBEAT_OK\nاگر چیزی نیاز به توجه دارد (خاطرات قدیمی، وظایف سررسید شده، پیگیری‌های کاربر)، به آن رسیدگی کن.</string>
     <string name="settings_heartbeat_description">خودبررسی‌های دوره‌ای که به هوش مصنوعی اجازه می‌دهد خاطرات و وظایف را بدون ورودی کاربر بررسی کند. هر %1$d دقیقه در ساعات فعال اجرا می‌شود.</string>
-    <string name="settings_heartbeat_prompt_label">پرامپت Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">پرامپت ضربان قلب</string>
     <string name="settings_heartbeat_recent">فعالیت اخیر</string>
     <string name="settings_remove_service">حذف</string>
     <string name="tool_memory_learn_description">ذخیره یک آموخته دسته‌بندی‌شده، رفع خطا یا ترجیح</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">تقویت خاطره</string>
     <string name="tool_promote_learning_description">ارتقای یک آموخته تقویت‌شده به پرامپت سیستم</string>
     <string name="tool_promote_learning_name">ارتقای آموخته</string>
-    <string name="tool_trigger_heartbeat_description">فعال‌سازی heartbeat در چرخه بعدی</string>
-    <string name="tool_trigger_heartbeat_name">فعال‌سازی Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">فعال‌سازی ضربان قلب در چرخه بعد</string>
+    <string name="tool_trigger_heartbeat_name">فعال‌سازی ضربان قلب</string>
     <string name="tool_web_search_description">جستجو در وب برای اطلاعات به‌روز</string>
     <string name="tool_open_url_name">باز کردن URL</string>
     <string name="tool_open_url_description">باز کردن URL یا لینک در دستگاه</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">ابزارها</string>
     <string name="settings_import_section_mcp">سرورهای MCP</string>
     <string name="settings_import_section_conversations">مکالمات</string>
-    <string name="settings_heartbeat_reset_confirm">این کار پیام ضربان قلب را به پیش‌فرض بازنشانی می‌کند. آیا مطمئن هستید؟</string>
+    <string name="settings_heartbeat_reset_confirm">این کار پیام ضربان قلب را به پیش‌فرض بازمی‌گرداند. آیا مطمئن هستید؟</string>
     <string name="settings_heartbeat_model">مدل</string>
     <string name="settings_heartbeat_model_default">پیش‌فرض</string>
     <string name="settings_import_partial">تنظیمات با %1$d بخش دارای خطا وارد شد.</string>

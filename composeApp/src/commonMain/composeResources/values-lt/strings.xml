@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Pašalinti paskyrą</string>
     <string name="settings_email_poll_interval">Tikrinti kas %1$d minučių</string>
     <string name="settings_email_poll_never">Niekada</string>
-    <string name="settings_email_queued">%1$d laukia heartbeat</string>
+    <string name="settings_email_queued">%1$d širdies ritmo eilėje</string>
     <string name="settings_email_last_poll">Paskutinis sėkmingas tikrinimas %1$s</string>
     <string name="settings_email_poll_failed">Paskutinis tikrinimas nepavyko %1$s</string>
     <string name="settings_email_refresh">Atnaujinti paskyrą</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Širdies ritmas</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Tai automatinė savipatikra. Peržiūrėk savo prisiminimus ir laukiančias užduotis. Jei viskas gerai ir nieko nereikia dėmesio, atsakyk tiksliai: HEARTBEAT_OK\nJei kažkas reikalauja dėmesio (pasenę prisiminimai, terminuotos užduotys, vartotojo sekimai), pasirūpink tuo.</string>
     <string name="settings_heartbeat_description">Periodinės savipatikros, leidžiančios DI peržiūrėti prisiminimus ir užduotis be vartotojo įvesties. Vykdoma kas %1$d minučių aktyviomis valandomis.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat raginimas</string>
+    <string name="settings_heartbeat_prompt_label">Širdies ritmo raginimas</string>
     <string name="settings_heartbeat_recent">Naujausia veikla</string>
     <string name="settings_remove_service">Pašalinti</string>
     <string name="tool_memory_learn_description">Išsaugoti kategorizuotą mokymąsi, klaidos sprendimą ar nuostatą</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Sustiprinti prisiminimą</string>
     <string name="tool_promote_learning_description">Pakelti sustiprintą mokymąsi į sistemos raginimą</string>
     <string name="tool_promote_learning_name">Pakelti mokymąsi</string>
-    <string name="tool_trigger_heartbeat_description">Suaktyvinti heartbeat kitame cikle</string>
-    <string name="tool_trigger_heartbeat_name">Suaktyvinti Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Suaktyvinti širdies ritmą kitame cikle</string>
+    <string name="tool_trigger_heartbeat_name">Suaktyvinti širdies ritmą</string>
     <string name="tool_web_search_description">Ieškoti internete naujausios informacijos</string>
     <string name="tool_open_url_name">Atidaryti URL</string>
     <string name="tool_open_url_description">Atidaryti URL arba nuorodą įrenginyje</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Įrankiai</string>
     <string name="settings_import_section_mcp">MCP serveriai</string>
     <string name="settings_import_section_conversations">Pokalbiai</string>
-    <string name="settings_heartbeat_reset_confirm">Tai atkurs širdies ritmo raginimą į numatytąjį. Ar esate tikri?</string>
+    <string name="settings_heartbeat_reset_confirm">Tai atkurs širdies ritmo raginimą į numatytąjį. Ar tikrai?</string>
     <string name="settings_heartbeat_model">Modelis</string>
     <string name="settings_heartbeat_model_default">Numatytasis</string>
     <string name="settings_import_partial">Nustatymai importuoti su %1$d sekcija(-omis), kuriose buvo klaidų.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Ištrinti pokalbį</string>
     <string name="chat_history_empty">Nėra išsaugotų pokalbių</string>
     <string name="chat_history_heartbeat_label">Širdies ritmas</string>
-    <string name="heartbeat_banner_message">Heartbeat turi ką pranešti</string>
+    <string name="heartbeat_banner_message">Širdies ritmas turi ką pranešti</string>
     <string name="heartbeat_banner_dismiss">Atmesti</string>
     <string name="scroll_to_bottom_content_description">Slinkti į apačią</string>
     <string name="conversation_untitled">Be pavadinimo</string>

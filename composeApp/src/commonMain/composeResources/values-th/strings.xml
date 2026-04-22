@@ -108,7 +108,7 @@
     <string name="settings_email_remove">ลบบัญชี</string>
     <string name="settings_email_poll_interval">ตรวจสอบทุก %1$d นาที</string>
     <string name="settings_email_poll_never">ไม่ตรวจสอบ</string>
-    <string name="settings_email_queued">%1$d รอ heartbeat</string>
+    <string name="settings_email_queued">%1$d รอจังหวะหัวใจ</string>
     <string name="settings_email_last_poll">ตรวจสอบสำเร็จครั้งล่าสุด %1$s</string>
     <string name="settings_email_poll_failed">การตรวจสอบครั้งล่าสุดล้มเหลว %1$s</string>
     <string name="settings_email_refresh">รีเฟรชบัญชี</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">จังหวะหัวใจ</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] นี่คือการตรวจสอบตนเองอัตโนมัติ ตรวจสอบความทรงจำและงานที่รอดำเนินการ หากทุกอย่างเรียบร้อยและไม่มีอะไรต้องดูแล ให้ตอบด้วยคำว่า: HEARTBEAT_OK\nหากมีสิ่งที่ต้องดูแล (ความทรงจำเก่า งานที่ครบกำหนด การติดตามผู้ใช้) ให้จัดการ</string>
     <string name="settings_heartbeat_description">การตรวจสอบตนเองเป็นระยะที่ให้ AI ตรวจสอบความทรงจำและงานโดยไม่ต้องมีข้อมูลจากผู้ใช้ ทำงานทุก %1$d นาทีในช่วงเวลาที่ใช้งาน</string>
-    <string name="settings_heartbeat_prompt_label">พรอมต์ Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">พรอมต์จังหวะหัวใจ</string>
     <string name="settings_heartbeat_recent">กิจกรรมล่าสุด</string>
     <string name="settings_remove_service">ลบ</string>
     <string name="tool_memory_learn_description">บันทึกการเรียนรู้ที่จัดหมวดหมู่ การแก้ไขข้อผิดพลาด หรือการตั้งค่า</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">เสริมความทรงจำ</string>
     <string name="tool_promote_learning_description">เลื่อนขั้นการเรียนรู้ที่เสริมแล้วเข้าสู่พรอมต์ระบบ</string>
     <string name="tool_promote_learning_name">เลื่อนขั้นการเรียนรู้</string>
-    <string name="tool_trigger_heartbeat_description">เรียก heartbeat ในรอบถัดไป</string>
-    <string name="tool_trigger_heartbeat_name">เรียก Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">เรียกจังหวะหัวใจในรอบถัดไป</string>
+    <string name="tool_trigger_heartbeat_name">เรียกจังหวะหัวใจ</string>
     <string name="tool_web_search_description">ค้นหาข้อมูลปัจจุบันจากเว็บ</string>
     <string name="tool_open_url_name">เปิด URL</string>
     <string name="tool_open_url_description">เปิด URL หรือลิงก์บนอุปกรณ์</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">เครื่องมือ</string>
     <string name="settings_import_section_mcp">เซิร์ฟเวอร์ MCP</string>
     <string name="settings_import_section_conversations">การสนทนา</string>
-    <string name="settings_heartbeat_reset_confirm">การดำเนินการนี้จะรีเซ็ตข้อความ heartbeat เป็นค่าเริ่มต้น คุณแน่ใจหรือไม่?</string>
+    <string name="settings_heartbeat_reset_confirm">การดำเนินการนี้จะรีเซ็ตข้อความจังหวะหัวใจเป็นค่าเริ่มต้น คุณแน่ใจหรือไม่?</string>
     <string name="settings_heartbeat_model">โมเดล</string>
     <string name="settings_heartbeat_model_default">ค่าเริ่มต้น</string>
     <string name="settings_import_partial">นำเข้าการตั้งค่าแล้วโดยมี %1$d ส่วนที่มีข้อผิดพลาด</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">ลบการสนทนา</string>
     <string name="chat_history_empty">ไม่มีการสนทนาที่บันทึกไว้</string>
     <string name="chat_history_heartbeat_label">จังหวะหัวใจ</string>
-    <string name="heartbeat_banner_message">Heartbeat มีเรื่องรายงาน</string>
+    <string name="heartbeat_banner_message">จังหวะหัวใจมีเรื่องรายงาน</string>
     <string name="heartbeat_banner_dismiss">ปิด</string>
     <string name="scroll_to_bottom_content_description">เลื่อนไปด้านล่าง</string>
     <string name="conversation_untitled">ไม่มีชื่อ</string>

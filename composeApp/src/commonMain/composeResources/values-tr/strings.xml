@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Hesabı kaldır</string>
     <string name="settings_email_poll_interval">Her %1$d dakikada bir kontrol et</string>
     <string name="settings_email_poll_never">Hiçbir zaman</string>
-    <string name="settings_email_queued">Heartbeat için sırada %1$d</string>
+    <string name="settings_email_queued">Kalp atışı için sırada %1$d</string>
     <string name="settings_email_last_poll">Son başarılı kontrol %1$s</string>
     <string name="settings_email_poll_failed">Son kontrol başarısız %1$s</string>
     <string name="settings_email_refresh">Hesabı yenile</string>
@@ -116,7 +116,7 @@
     <string name="settings_free_fallback">Yedek olarak kullan</string>
     <string name="service_free_fast">Ücretsiz hızlı</string>
     <string name="service_free_expert">Ücretsiz uzman</string>
-    <string name="settings_heartbeat">Kalp Atışı</string>
+    <string name="settings_heartbeat">Kalp atışı</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Bu otomatik bir öz kontroldür. Anılarınızı ve bekleyen görevleri gözden geçirin. Her şey yolunda görünüyorsa ve hiçbir şey dikkat gerektirmiyorsa, tam olarak şunu yanıtlayın: HEARTBEAT_OK
 Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullanıcı takipleri), bununla ilgilenin.</string>
     <string name="settings_heartbeat_description">Yapay zekanın kullanıcı girişi olmadan anıları ve görevleri gözden geçirmesine olanak tanıyan periyodik öz kontroller. Aktif saatlerde her %1$d dakikada bir çalışır.</string>
@@ -196,7 +196,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="chat_history_delete_content_description">Sohbeti sil</string>
     <string name="chat_history_empty">Kayıtlı sohbet yok</string>
     <string name="chat_history_heartbeat_label">Kalp atışı</string>
-    <string name="heartbeat_banner_message">Heartbeat'in raporlayacak bir şeyi var</string>
+    <string name="heartbeat_banner_message">Kalp atışının raporlayacak bir şeyi var</string>
     <string name="heartbeat_banner_dismiss">Kapat</string>
     <string name="scroll_to_bottom_content_description">Alta kaydır</string>
     <string name="conversation_untitled">Başlıksız</string>

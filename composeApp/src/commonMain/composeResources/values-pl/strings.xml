@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Usuń konto</string>
     <string name="settings_email_poll_interval">Sprawdzaj co %1$d minut</string>
     <string name="settings_email_poll_never">Nigdy</string>
-    <string name="settings_email_queued">%1$d w kolejce do heartbeat</string>
+    <string name="settings_email_queued">%1$d w kolejce do pulsu</string>
     <string name="settings_email_last_poll">Ostatnie udane pobranie %1$s</string>
     <string name="settings_email_poll_failed">Ostatnie pobranie nieudane %1$s</string>
     <string name="settings_email_refresh">Odśwież konto</string>
@@ -185,7 +185,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_import_section_tools">Narzędzia</string>
     <string name="settings_import_section_mcp">Serwery MCP</string>
     <string name="settings_import_section_conversations">Konwersacje</string>
-    <string name="settings_heartbeat_reset_confirm">Spowoduje to zresetowanie monitu heartbeat do wartości domyślnej. Czy na pewno?</string>
+    <string name="settings_heartbeat_reset_confirm">Spowoduje to zresetowanie monitu pulsu do wartości domyślnej. Czy na pewno?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Domyślny</string>
     <string name="settings_import_partial">Ustawienia zaimportowane z %1$d sekcją(-ami) zawierającą(-ymi) błędy.</string>
@@ -196,7 +196,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="chat_history_delete_content_description">Usuń rozmowę</string>
     <string name="chat_history_empty">Brak zapisanych rozmów</string>
     <string name="chat_history_heartbeat_label">Puls</string>
-    <string name="heartbeat_banner_message">Heartbeat ma coś do zgłoszenia</string>
+    <string name="heartbeat_banner_message">Puls ma coś do zgłoszenia</string>
     <string name="heartbeat_banner_dismiss">Zamknij</string>
     <string name="scroll_to_bottom_content_description">Przewiń na dół</string>
     <string name="conversation_untitled">Bez tytułu</string>

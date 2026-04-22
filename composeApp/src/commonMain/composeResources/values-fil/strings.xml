@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Alisin ang account</string>
     <string name="settings_email_poll_interval">Mag-poll tuwing %1$d minuto</string>
     <string name="settings_email_poll_never">Hindi kailanman</string>
-    <string name="settings_email_queued">%1$d nakapila para sa heartbeat</string>
+    <string name="settings_email_queued">%1$d sa pila para sa tibok ng puso</string>
     <string name="settings_email_last_poll">Huling matagumpay na pagkuha %1$s</string>
     <string name="settings_email_poll_failed">Huling pagkuha ay nabigo %1$s</string>
     <string name="settings_email_refresh">I-refresh ang account</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Palakasin ang alaala</string>
     <string name="tool_promote_learning_description">I-promote ang pinalakas na kaalaman sa system prompt</string>
     <string name="tool_promote_learning_name">I-promote ang kaalaman</string>
-    <string name="tool_trigger_heartbeat_description">I-trigger ang heartbeat sa susunod na cycle</string>
-    <string name="tool_trigger_heartbeat_name">I-trigger ang Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">I-trigger ang isang tibok ng puso sa susunod na cycle</string>
+    <string name="tool_trigger_heartbeat_name">I-trigger ang Tibok ng Puso</string>
     <string name="tool_web_search_description">Maghanap sa web para sa kasalukuyang impormasyon</string>
     <string name="tool_open_url_name">Buksan ang URL</string>
     <string name="tool_open_url_description">Buksan ang isang URL o link sa device</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Mga Kasangkapan</string>
     <string name="settings_import_section_mcp">Mga MCP Server</string>
     <string name="settings_import_section_conversations">Mga Usapan</string>
-    <string name="settings_heartbeat_reset_confirm">Ire-reset nito ang heartbeat prompt sa default. Sigurado ka ba?</string>
+    <string name="settings_heartbeat_reset_confirm">Ire-reset nito ang prompt ng tibok ng puso sa default. Sigurado ka ba?</string>
     <string name="settings_heartbeat_model">Modelo</string>
     <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_import_partial">Na-import ang mga setting na may %1$d na seksyon na may mga error.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Burahin ang usapan</string>
     <string name="chat_history_empty">Walang naka-save na usapan</string>
     <string name="chat_history_heartbeat_label">Tibok ng Puso</string>
-    <string name="heartbeat_banner_message">May irereport ang Heartbeat</string>
+    <string name="heartbeat_banner_message">May irereport ang Tibok ng Puso</string>
     <string name="heartbeat_banner_dismiss">I-dismiss</string>
     <string name="scroll_to_bottom_content_description">Mag-scroll pababa</string>
     <string name="conversation_untitled">Walang pamagat</string>

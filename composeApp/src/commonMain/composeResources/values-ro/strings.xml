@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Eliminați contul</string>
     <string name="settings_email_poll_interval">Verificare la fiecare %1$d minute</string>
     <string name="settings_email_poll_never">Niciodată</string>
-    <string name="settings_email_queued">%1$d în așteptare pentru heartbeat</string>
+    <string name="settings_email_queued">%1$d în așteptare pentru ritm cardiac</string>
     <string name="settings_email_last_poll">Ultima verificare reușită %1$s</string>
     <string name="settings_email_poll_failed">Ultima verificare a eșuat %1$s</string>
     <string name="settings_email_refresh">Reîmprospătează contul</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Ritm cardiac</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Aceasta este o autoverificare automată. Verifică-ți amintirile și sarcinile în așteptare. Dacă totul arată bine și nimic nu necesită atenție, răspunde cu exact: HEARTBEAT_OK\nDacă ceva necesită atenție (amintiri vechi, sarcini scadente, urmăriri utilizator), ocupă-te de asta.</string>
     <string name="settings_heartbeat_description">Autoverificări periodice care permit IA să verifice amintirile și sarcinile fără input de la utilizator. Rulează la fiecare %1$d minute în orele active.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt ritm cardiac</string>
     <string name="settings_heartbeat_recent">Activitate recentă</string>
     <string name="settings_remove_service">Elimină</string>
     <string name="tool_memory_learn_description">Stochează o învățare categorizată, rezolvare de erori sau preferință</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Întărește amintire</string>
     <string name="tool_promote_learning_description">Promovează o învățare întărită în promptul de sistem</string>
     <string name="tool_promote_learning_name">Promovare învățare</string>
-    <string name="tool_trigger_heartbeat_description">Declanșează un heartbeat la următorul ciclu</string>
-    <string name="tool_trigger_heartbeat_name">Declanșare Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Declanșează un ritm cardiac în următorul ciclu</string>
+    <string name="tool_trigger_heartbeat_name">Declanșare ritm cardiac</string>
     <string name="tool_web_search_description">Caută pe web informații actuale</string>
     <string name="tool_open_url_name">Deschide URL</string>
     <string name="tool_open_url_description">Deschide un URL sau link pe dispozitiv</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Instrumente</string>
     <string name="settings_import_section_mcp">Servere MCP</string>
     <string name="settings_import_section_conversations">Conversații</string>
-    <string name="settings_heartbeat_reset_confirm">Aceasta va reseta promptul heartbeat la valoarea implicită. Ești sigur?</string>
+    <string name="settings_heartbeat_reset_confirm">Aceasta va reseta promptul ritmului cardiac la implicit. Ești sigur?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Implicit</string>
     <string name="settings_import_partial">Setări importate cu %1$d secțiune(i) cu erori.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Șterge conversația</string>
     <string name="chat_history_empty">Nicio conversație salvată</string>
     <string name="chat_history_heartbeat_label">Ritm cardiac</string>
-    <string name="heartbeat_banner_message">Heartbeat are ceva de raportat</string>
+    <string name="heartbeat_banner_message">Ritmul cardiac are ceva de raportat</string>
     <string name="heartbeat_banner_dismiss">Închide</string>
     <string name="scroll_to_bottom_content_description">Derulează în jos</string>
     <string name="conversation_untitled">Fără titlu</string>

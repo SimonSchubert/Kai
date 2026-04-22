@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Poista tili</string>
     <string name="settings_email_poll_interval">Hae %1$d minuutin välein</string>
     <string name="settings_email_poll_never">Ei koskaan</string>
-    <string name="settings_email_queued">%1$d jonossa heartbeatille</string>
+    <string name="settings_email_queued">%1$d sykkeen jonossa</string>
     <string name="settings_email_last_poll">Viimeinen onnistunut tarkistus %1$s</string>
     <string name="settings_email_poll_failed">Viimeinen tarkistus epäonnistui %1$s</string>
     <string name="settings_email_refresh">Päivitä tili</string>
@@ -133,7 +133,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_memory_reinforce_name">Vahvista muisti</string>
     <string name="tool_promote_learning_description">Ylennä vahvistettu oppiminen järjestelmäkehotteeseen</string>
     <string name="tool_promote_learning_name">Ylennä oppiminen</string>
-    <string name="tool_trigger_heartbeat_description">Laukaise syke seuraavassa jaksossa</string>
+    <string name="tool_trigger_heartbeat_description">Laukaise syke seuraavassa syklissä</string>
     <string name="tool_trigger_heartbeat_name">Laukaise syke</string>
     <string name="tool_web_search_description">Hae verkosta ajankohtaista tietoa</string>
     <string name="tool_open_url_name">Avaa URL</string>
@@ -185,7 +185,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import_section_tools">Työkalut</string>
     <string name="settings_import_section_mcp">MCP-palvelimet</string>
     <string name="settings_import_section_conversations">Keskustelut</string>
-    <string name="settings_heartbeat_reset_confirm">Tämä palauttaa sydämenlyöntikehoksen oletusarvoon. Oletko varma?</string>
+    <string name="settings_heartbeat_reset_confirm">Tämä palauttaa sykekehotteen oletukseen. Oletko varma?</string>
     <string name="settings_heartbeat_model">Malli</string>
     <string name="settings_heartbeat_model_default">Oletus</string>
     <string name="settings_import_partial">Asetukset tuotu, %1$d osiossa oli virheitä.</string>
@@ -196,7 +196,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="chat_history_delete_content_description">Poista keskustelu</string>
     <string name="chat_history_empty">Ei tallennettuja keskusteluja</string>
     <string name="chat_history_heartbeat_label">Syke</string>
-    <string name="heartbeat_banner_message">Heartbeat-tarkistuksessa havaittiin jotain</string>
+    <string name="heartbeat_banner_message">Sykkeellä on jotain raportoitavaa</string>
     <string name="heartbeat_banner_dismiss">Hylkää</string>
     <string name="scroll_to_bottom_content_description">Vieritä alas</string>
     <string name="conversation_untitled">Nimetön</string>

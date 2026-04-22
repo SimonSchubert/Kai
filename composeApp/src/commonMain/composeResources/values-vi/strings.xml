@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Xóa tài khoản</string>
     <string name="settings_email_poll_interval">Kiểm tra mỗi %1$d phút</string>
     <string name="settings_email_poll_never">Không bao giờ</string>
-    <string name="settings_email_queued">%1$d đang chờ heartbeat</string>
+    <string name="settings_email_queued">%1$d đang chờ cho nhịp tim</string>
     <string name="settings_email_last_poll">Lần kiểm tra thành công cuối %1$s</string>
     <string name="settings_email_poll_failed">Lần kiểm tra cuối thất bại %1$s</string>
     <string name="settings_email_refresh">Làm mới tài khoản</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Nhịp tim</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Đây là kiểm tra tự động. Xem lại bộ nhớ và các tác vụ đang chờ. Nếu mọi thứ ổn và không cần chú ý, hãy trả lời chính xác: HEARTBEAT_OK\nNếu có điều cần chú ý (bộ nhớ cũ, tác vụ đến hạn, theo dõi người dùng), hãy xử lý.</string>
     <string name="settings_heartbeat_description">Kiểm tra tự động định kỳ cho phép AI xem lại bộ nhớ và tác vụ mà không cần đầu vào từ người dùng. Chạy mỗi %1$d phút trong giờ hoạt động.</string>
-    <string name="settings_heartbeat_prompt_label">Lệnh Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Lệnh Nhịp tim</string>
     <string name="settings_heartbeat_recent">Hoạt động gần đây</string>
     <string name="settings_remove_service">Xóa</string>
     <string name="tool_memory_learn_description">Lưu trữ bài học được phân loại, giải pháp lỗi hoặc tùy chọn</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Củng cố bộ nhớ</string>
     <string name="tool_promote_learning_description">Thăng cấp bài học đã củng cố vào lệnh hệ thống</string>
     <string name="tool_promote_learning_name">Thăng cấp bài học</string>
-    <string name="tool_trigger_heartbeat_description">Kích hoạt heartbeat trong chu kỳ tiếp theo</string>
-    <string name="tool_trigger_heartbeat_name">Kích hoạt Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Kích hoạt nhịp tim ở chu kỳ tiếp theo</string>
+    <string name="tool_trigger_heartbeat_name">Kích hoạt Nhịp tim</string>
     <string name="tool_web_search_description">Tìm kiếm trên web để có thông tin hiện tại</string>
     <string name="tool_open_url_name">Mở URL</string>
     <string name="tool_open_url_description">Mở URL hoặc liên kết trên thiết bị</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Xóa cuộc trò chuyện</string>
     <string name="chat_history_empty">Không có cuộc trò chuyện đã lưu</string>
     <string name="chat_history_heartbeat_label">Nhịp tim</string>
-    <string name="heartbeat_banner_message">Heartbeat có điều cần báo cáo</string>
+    <string name="heartbeat_banner_message">Nhịp tim có điều cần báo cáo</string>
     <string name="heartbeat_banner_dismiss">Bỏ qua</string>
     <string name="scroll_to_bottom_content_description">Cuộn xuống cuối</string>
     <string name="conversation_untitled">Chưa đặt tên</string>

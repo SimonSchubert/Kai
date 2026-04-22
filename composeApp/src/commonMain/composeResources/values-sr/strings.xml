@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Уклони налог</string>
     <string name="settings_email_poll_interval">Провера сваких %1$d минута</string>
     <string name="settings_email_poll_never">Никад</string>
-    <string name="settings_email_queued">%1$d у реду за heartbeat</string>
+    <string name="settings_email_queued">%1$d у реду за откуцај срца</string>
     <string name="settings_email_last_poll">Последња успешна провера %1$s</string>
     <string name="settings_email_poll_failed">Последња провера неуспела %1$s</string>
     <string name="settings_email_refresh">Освежи налог</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Откуцај срца</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ово је аутоматска самопровера. Прегледај своја сећања и задатке на чекању. Ако је све у реду и ништа не захтева пажњу, одговори тачно са: HEARTBEAT_OK\nАко нешто захтева пажњу (застарела сећања, доспели задаци, корисничка праћења), реши то.</string>
     <string name="settings_heartbeat_description">Периодичне самопровере које омогућавају АИ-ју да прегледа сећања и задатке без корисничког уноса. Покреће се сваких %1$d минута током активних сати.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat промпт</string>
+    <string name="settings_heartbeat_prompt_label">Промпт откуцаја срца</string>
     <string name="settings_heartbeat_recent">Недавна активност</string>
     <string name="settings_remove_service">Уклони</string>
     <string name="tool_memory_learn_description">Сачувај категоризовано учење, решење грешке или преференцу</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Ојачај сећање</string>
     <string name="tool_promote_learning_description">Унапреди ојачано учење у системски промпт</string>
     <string name="tool_promote_learning_name">Унапреди учење</string>
-    <string name="tool_trigger_heartbeat_description">Покрени heartbeat у следећем циклусу</string>
-    <string name="tool_trigger_heartbeat_name">Покрени Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Покрени откуцај срца у следећем циклусу</string>
+    <string name="tool_trigger_heartbeat_name">Покрени откуцај срца</string>
     <string name="tool_web_search_description">Претражи веб за актуелне информације</string>
     <string name="tool_open_url_name">Отвори URL</string>
     <string name="tool_open_url_description">Отворите URL или линк на уређају</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Алати</string>
     <string name="settings_import_section_mcp">MCP сервери</string>
     <string name="settings_import_section_conversations">Разговори</string>
-    <string name="settings_heartbeat_reset_confirm">Ово ће ресетовати упит откуцаја срца на подразумевани. Да ли сте сигурни?</string>
+    <string name="settings_heartbeat_reset_confirm">Ово ће ресетовати упит откуцаја срца на подразумевано. Да ли сте сигурни?</string>
     <string name="settings_heartbeat_model">Модел</string>
     <string name="settings_heartbeat_model_default">Подразумевано</string>
     <string name="settings_import_partial">Подешавања увезена са %1$d одељком/одељцима са грешкама.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Обриши разговор</string>
     <string name="chat_history_empty">Нема сачуваних разговора</string>
     <string name="chat_history_heartbeat_label">Откуцај срца</string>
-    <string name="heartbeat_banner_message">Heartbeat има нешто да пријави</string>
+    <string name="heartbeat_banner_message">Откуцај срца има нешто да пријави</string>
     <string name="heartbeat_banner_dismiss">Одбаци</string>
     <string name="scroll_to_bottom_content_description">Скролуј на дно</string>
     <string name="conversation_untitled">Без наслова</string>

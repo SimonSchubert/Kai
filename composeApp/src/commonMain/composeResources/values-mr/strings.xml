@@ -108,7 +108,7 @@
     <string name="settings_email_remove">खाते काढा</string>
     <string name="settings_email_poll_interval">दर %1$d मिनिटांनी तपासा</string>
     <string name="settings_email_poll_never">कधीच नाही</string>
-    <string name="settings_email_queued">%1$d heartbeat साठी रांगेत</string>
+    <string name="settings_email_queued">%1$d हृदयस्पंदनासाठी रांगेत</string>
     <string name="settings_email_last_poll">शेवटची यशस्वी तपासणी %1$s</string>
     <string name="settings_email_poll_failed">शेवटची तपासणी अयशस्वी %1$s</string>
     <string name="settings_email_refresh">खाते रीफ्रेश करा</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">हृदयस्पंदन</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ही एक स्वयंचलित स्व-तपासणी आहे. तुमच्या आठवणी आणि प्रलंबित कार्ये तपासा. सर्व काही ठीक असल्यास आणि काहीही लक्ष देण्याची गरज नसल्यास, नेमके हे उत्तर द्या: HEARTBEAT_OK\nजर काहीतरी लक्ष देण्याची गरज असेल (जुन्या आठवणी, देय कार्ये, वापरकर्ता फॉलो-अप), त्यावर कार्यवाही करा.</string>
     <string name="settings_heartbeat_description">नियतकालिक स्व-तपासण्या ज्या AI ला वापरकर्ता इनपुटशिवाय आठवणी आणि कार्ये तपासू देतात. सक्रिय तासांमध्ये दर %1$d मिनिटांनी चालते.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat प्रॉम्प्ट</string>
+    <string name="settings_heartbeat_prompt_label">हृदयस्पंदन प्रॉम्प्ट</string>
     <string name="settings_heartbeat_recent">अलीकडील क्रियाकलाप</string>
     <string name="settings_remove_service">काढा</string>
     <string name="tool_memory_learn_description">वर्गीकृत शिकणे, त्रुटी निराकरण किंवा प्राधान्य साठवा</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">आठवण बळकट करा</string>
     <string name="tool_promote_learning_description">बळकट केलेले शिकणे सिस्टम प्रॉम्प्टमध्ये पदोन्नत करा</string>
     <string name="tool_promote_learning_name">शिकणे पदोन्नत करा</string>
-    <string name="tool_trigger_heartbeat_description">पुढच्या चक्रात heartbeat ट्रिगर करा</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat ट्रिगर करा</string>
+    <string name="tool_trigger_heartbeat_description">पुढील चक्रात हृदयस्पंदन ट्रिगर करा</string>
+    <string name="tool_trigger_heartbeat_name">हृदयस्पंदन ट्रिगर करा</string>
     <string name="tool_web_search_description">सध्याच्या माहितीसाठी वेबवर शोधा</string>
     <string name="tool_open_url_name">URL उघडा</string>
     <string name="tool_open_url_description">डिव्हाइसवर URL किंवा लिंक उघडा</string>
@@ -179,12 +179,12 @@
     <string name="settings_import_section_soul">आत्मा</string>
     <string name="settings_import_section_memory">स्मृती</string>
     <string name="settings_import_section_scheduling">शेड्यूलिंग</string>
-    <string name="settings_import_section_heartbeat">हार्टबीट</string>
+    <string name="settings_import_section_heartbeat">हृदयस्पंदन</string>
     <string name="settings_import_section_email">ईमेल</string>
     <string name="settings_import_section_tools">साधने</string>
     <string name="settings_import_section_mcp">MCP सर्व्हर</string>
     <string name="settings_import_section_conversations">संवाद</string>
-    <string name="settings_heartbeat_reset_confirm">हे हार्टबीट प्रॉम्प्ट डीफॉल्टवर रीसेट करेल. तुम्हाला खात्री आहे का?</string>
+    <string name="settings_heartbeat_reset_confirm">हे हृदयस्पंदन प्रॉम्प्ट डीफॉल्टवर रीसेट करेल. तुम्ही खात्री बाळगता का?</string>
     <string name="settings_heartbeat_model">मॉडेल</string>
     <string name="settings_heartbeat_model_default">डीफॉल्ट</string>
     <string name="settings_import_partial">%1$d विभाग(ांमध्ये) त्रुटींसह सेटिंग्ज आयात केल्या.</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">चॅट इतिहास</string>
     <string name="chat_history_delete_content_description">संभाषण हटवा</string>
     <string name="chat_history_empty">कोणतेही जतन केलेले संभाषण नाही</string>
-    <string name="chat_history_heartbeat_label">हार्टबीट</string>
-    <string name="heartbeat_banner_message">हार्टबीटकडे अहवाल देण्यासारखे काही आहे</string>
+    <string name="chat_history_heartbeat_label">हृदयस्पंदन</string>
+    <string name="heartbeat_banner_message">हृदयस्पंदनकडे अहवाल देण्यासारखे काही आहे</string>
     <string name="heartbeat_banner_dismiss">रद्द करा</string>
     <string name="scroll_to_bottom_content_description">तळाशी स्क्रोल करा</string>
     <string name="conversation_untitled">शीर्षकरहित</string>

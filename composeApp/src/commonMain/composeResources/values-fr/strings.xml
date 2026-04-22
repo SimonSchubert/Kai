@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Supprimer le compte</string>
     <string name="settings_email_poll_interval">Vérifier toutes les %1$d minutes</string>
     <string name="settings_email_poll_never">Jamais</string>
-    <string name="settings_email_queued">%1$d en attente pour le heartbeat</string>
+    <string name="settings_email_queued">%1$d en attente pour le battement de cœur</string>
     <string name="settings_email_last_poll">Dernière vérification réussie %1$s</string>
     <string name="settings_email_poll_failed">Dernière vérification échouée %1$s</string>
     <string name="settings_email_refresh">Actualiser le compte</string>
@@ -120,7 +120,7 @@
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ceci est une vérification automatique. Passez en revue vos souvenirs et tâches en attente. Si tout semble correct et rien ne nécessite d'attention, répondez exactement : HEARTBEAT_OK
 Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échues, suivis utilisateur), traitez-le.</string>
     <string name="settings_heartbeat_description">Vérifications périodiques permettant à l'IA de revoir les souvenirs et les tâches sans intervention de l'utilisateur. S'exécute toutes les %1$d minutes pendant les heures actives.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt de battement</string>
+    <string name="settings_heartbeat_prompt_label">Prompt de battement de cœur</string>
     <string name="settings_heartbeat_recent">Activité Récente</string>
     <string name="settings_remove_service">Supprimer</string>
     <string name="tool_memory_learn_description">Stocker un apprentissage catégorisé, une résolution d'erreur ou une préférence</string>
@@ -133,8 +133,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_memory_reinforce_name">Renforcer Mémoire</string>
     <string name="tool_promote_learning_description">Promouvoir un apprentissage renforcé vers le prompt système</string>
     <string name="tool_promote_learning_name">Promouvoir Apprentissage</string>
-    <string name="tool_trigger_heartbeat_description">Déclencher un battement au prochain cycle</string>
-    <string name="tool_trigger_heartbeat_name">Déclencher le battement</string>
+    <string name="tool_trigger_heartbeat_description">Déclencher un battement de cœur au prochain cycle</string>
+    <string name="tool_trigger_heartbeat_name">Déclencher un battement de cœur</string>
     <string name="tool_web_search_description">Rechercher sur le web des informations actuelles</string>
     <string name="tool_open_url_name">Ouvrir l'URL</string>
     <string name="tool_open_url_description">Ouvrir une URL ou un lien sur l'appareil</string>
@@ -180,7 +180,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_section_soul">Âme</string>
     <string name="settings_import_section_memory">Mémoire</string>
     <string name="settings_import_section_scheduling">Planification</string>
-    <string name="settings_import_section_heartbeat">Pulsation</string>
+    <string name="settings_import_section_heartbeat">Battement de cœur</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Outils</string>
     <string name="settings_import_section_mcp">Serveurs MCP</string>
@@ -195,8 +195,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="chat_history_title">Historique des discussions</string>
     <string name="chat_history_delete_content_description">Supprimer la conversation</string>
     <string name="chat_history_empty">Aucune conversation enregistrée</string>
-    <string name="chat_history_heartbeat_label">Pulsation</string>
-    <string name="heartbeat_banner_message">Heartbeat a quelque chose à signaler</string>
+    <string name="chat_history_heartbeat_label">Battement de cœur</string>
+    <string name="heartbeat_banner_message">Battement de cœur a quelque chose à signaler</string>
     <string name="heartbeat_banner_dismiss">Fermer</string>
     <string name="scroll_to_bottom_content_description">Défiler vers le bas</string>
     <string name="conversation_untitled">Sans titre</string>

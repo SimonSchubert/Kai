@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Fjern konto</string>
     <string name="settings_email_poll_interval">Hent hvert %1$d. minutt</string>
     <string name="settings_email_poll_never">Aldri</string>
-    <string name="settings_email_queued">%1$d i kø for heartbeat</string>
+    <string name="settings_email_queued">%1$d i kø for hjerteslag</string>
     <string name="settings_email_last_poll">Siste vellykkede henting %1$s</string>
     <string name="settings_email_poll_failed">Siste henting mislyktes %1$s</string>
     <string name="settings_email_refresh">Oppdater konto</string>
@@ -133,7 +133,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tool_memory_reinforce_name">Forsterk hukommelse</string>
     <string name="tool_promote_learning_description">Forfremme en forsterket lærdom til systemprompt</string>
     <string name="tool_promote_learning_name">Forfrem lærdom</string>
-    <string name="tool_trigger_heartbeat_description">Utløse et hjerteslag i neste syklus</string>
+    <string name="tool_trigger_heartbeat_description">Utløs et hjerteslag i neste syklus</string>
     <string name="tool_trigger_heartbeat_name">Utløs hjerteslag</string>
     <string name="tool_web_search_description">Søk på nettet etter aktuell informasjon</string>
     <string name="tool_open_url_name">Åpne URL</string>
@@ -185,7 +185,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_import_section_tools">Verktøy</string>
     <string name="settings_import_section_mcp">MCP-servere</string>
     <string name="settings_import_section_conversations">Samtaler</string>
-    <string name="settings_heartbeat_reset_confirm">Dette vil tilbakestille heartbeat-meldingen til standard. Er du sikker?</string>
+    <string name="settings_heartbeat_reset_confirm">Dette vil tilbakestille hjerteslag-meldingen til standard. Er du sikker?</string>
     <string name="settings_heartbeat_model">Modell</string>
     <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Innstillinger importert med %1$d seksjon(er) som hadde feil.</string>
@@ -196,7 +196,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="chat_history_delete_content_description">Slett samtale</string>
     <string name="chat_history_empty">Ingen lagrede samtaler</string>
     <string name="chat_history_heartbeat_label">Hjerteslag</string>
-    <string name="heartbeat_banner_message">Heartbeat har noe å rapportere</string>
+    <string name="heartbeat_banner_message">Hjerteslag har noe å rapportere</string>
     <string name="heartbeat_banner_dismiss">Avvis</string>
     <string name="scroll_to_bottom_content_description">Rull til bunnen</string>
     <string name="conversation_untitled">Uten tittel</string>

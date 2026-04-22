@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Noņemt kontu</string>
     <string name="settings_email_poll_interval">Aptaujāt ik pēc %1$d minūtēm</string>
     <string name="settings_email_poll_never">Nekad</string>
-    <string name="settings_email_queued">%1$d gaida heartbeat</string>
+    <string name="settings_email_queued">%1$d sirdspukstu rindā</string>
     <string name="settings_email_last_poll">Pēdējā veiksmīgā pārbaude %1$s</string>
     <string name="settings_email_poll_failed">Pēdējā pārbaude neizdevās %1$s</string>
     <string name="settings_email_refresh">Atsvaidzināt kontu</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Sirdspuksts</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Šī ir automātiska pašpārbaude. Pārskatiet savas atmiņas un neizpildītos uzdevumus. Ja viss ir kārtībā un nekas neprasa uzmanību, atbildiet precīzi ar: HEARTBEAT_OK\nJa kaut kas prasa uzmanību (novecojušas atmiņas, termiņa uzdevumi, lietotāju sekošanas), risiniet to.</string>
     <string name="settings_heartbeat_description">Periodiskas pašpārbaudes, kas ļauj AI pārskatīt atmiņas un uzdevumus bez lietotāja ievades. Darbojas ik pēc %1$d minūtēm aktīvajās stundās.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat uzvedne</string>
+    <string name="settings_heartbeat_prompt_label">Sirdspukstu uzvedne</string>
     <string name="settings_heartbeat_recent">Nesenā darbība</string>
     <string name="settings_remove_service">Noņemt</string>
     <string name="tool_memory_learn_description">Saglabāt kategorizētu mācību, kļūdas risinājumu vai preferenci</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Pastiprināt atmiņu</string>
     <string name="tool_promote_learning_description">Paaugstināt pastiprinātu mācību sistēmas uzvednē</string>
     <string name="tool_promote_learning_name">Paaugstināt mācību</string>
-    <string name="tool_trigger_heartbeat_description">Aktivizēt heartbeat nākamajā ciklā</string>
-    <string name="tool_trigger_heartbeat_name">Aktivizēt Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Aktivizēt sirdspukstu nākamajā ciklā</string>
+    <string name="tool_trigger_heartbeat_name">Aktivizēt sirdspukstu</string>
     <string name="tool_web_search_description">Meklēt tīmeklī aktuālu informāciju</string>
     <string name="tool_open_url_name">Atvērt URL</string>
     <string name="tool_open_url_description">Atvērt URL vai saiti ierīcē</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Rīki</string>
     <string name="settings_import_section_mcp">MCP serveri</string>
     <string name="settings_import_section_conversations">Sarunas</string>
-    <string name="settings_heartbeat_reset_confirm">Tas atiestatīs sirdspukstu uzvedni uz noklusējumu. Vai esat pārliecināts?</string>
+    <string name="settings_heartbeat_reset_confirm">Tas atiestatīs sirdspukstu uzvedni uz noklusējuma. Vai esat pārliecināts?</string>
     <string name="settings_heartbeat_model">Modelis</string>
     <string name="settings_heartbeat_model_default">Noklusējuma</string>
     <string name="settings_import_partial">Iestatījumi importēti ar %1$d sadaļu(-ām) ar kļūdām.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Dzēst sarunu</string>
     <string name="chat_history_empty">Nav saglabātu sarunu</string>
     <string name="chat_history_heartbeat_label">Sirdspuksts</string>
-    <string name="heartbeat_banner_message">Heartbeat ir ko ziņot</string>
+    <string name="heartbeat_banner_message">Sirdspukstam ir ko ziņot</string>
     <string name="heartbeat_banner_dismiss">Noraidīt</string>
     <string name="scroll_to_bottom_content_description">Ritināt uz leju</string>
     <string name="conversation_untitled">Bez nosaukuma</string>

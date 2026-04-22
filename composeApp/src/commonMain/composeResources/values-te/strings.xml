@@ -108,7 +108,7 @@
     <string name="settings_email_remove">ఖాతా తొలగించు</string>
     <string name="settings_email_poll_interval">ప్రతి %1$d నిమిషాలకు పోల్ చేయి</string>
     <string name="settings_email_poll_never">ఎప్పుడూ వద్దు</string>
-    <string name="settings_email_queued">%1$d heartbeat కోసం వేచి ఉంది</string>
+    <string name="settings_email_queued">%1$d హృదయ స్పందన కోసం వరుసలో</string>
     <string name="settings_email_last_poll">చివరి విజయవంతమైన తనిఖీ %1$s</string>
     <string name="settings_email_poll_failed">చివరి తనిఖీ విఫలమైంది %1$s</string>
     <string name="settings_email_refresh">ఖాతాను రిఫ్రెష్ చేయండి</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">హృదయ స్పందన</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ఇది ఆటోమేటిక్ స్వీయ తనిఖీ. మీ జ్ఞాపకాలు మరియు పెండింగ్ టాస్క్‌లను సమీక్షించండి. అంతా బాగున్నట్లయితే మరియు ఏదీ శ్రద్ధ అవసరం లేకపోతే, సరిగ్గా ఇలా సమాధానం ఇవ్వండి: HEARTBEAT_OK\nఏదైనా శ్రద్ధ అవసరమైతే (పాత జ్ఞాపకాలు, గడువు తీరిన టాస్క్‌లు, వినియోగదారు ఫాలో-అప్‌లు), దాన్ని పరిష్కరించండి.</string>
     <string name="settings_heartbeat_description">వినియోగదారు ఇన్‌పుట్ లేకుండా AI జ్ఞాపకాలు మరియు టాస్క్‌లను సమీక్షించడానికి అనుమతించే ఆవర్తన స్వీయ తనిఖీలు. సక్రియ గంటల్లో ప్రతి %1$d నిమిషాలకు అమలవుతుంది.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat ప్రాంప్ట్</string>
+    <string name="settings_heartbeat_prompt_label">హృదయ స్పందన ప్రాంప్ట్</string>
     <string name="settings_heartbeat_recent">ఇటీవలి కార్యకలాపం</string>
     <string name="settings_remove_service">తొలగించు</string>
     <string name="tool_memory_learn_description">వర్గీకరించబడిన అభ్యాసం, లోపం పరిష్కారం లేదా ప్రాధాన్యతను నిల్వ చేయి</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">జ్ఞాపకాన్ని బలపరుచు</string>
     <string name="tool_promote_learning_description">బలపరచబడిన అభ్యాసాన్ని సిస్టమ్ ప్రాంప్ట్‌లో ప్రమోట్ చేయి</string>
     <string name="tool_promote_learning_name">అభ్యాసాన్ని ప్రమోట్ చేయి</string>
-    <string name="tool_trigger_heartbeat_description">తదుపరి చక్రంలో heartbeat-ని ట్రిగ్గర్ చేయి</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat ట్రిగ్గర్ చేయి</string>
+    <string name="tool_trigger_heartbeat_description">తర్వాతి సైకిల్‌లో హృదయ స్పందనను ట్రిగ్గర్ చేయి</string>
+    <string name="tool_trigger_heartbeat_name">హృదయ స్పందన ట్రిగ్గర్ చేయి</string>
     <string name="tool_web_search_description">ప్రస్తుత సమాచారం కోసం వెబ్‌లో శోధించు</string>
     <string name="tool_open_url_name">URL తెరవండి</string>
     <string name="tool_open_url_description">పరికరంలో URL లేదా లింక్‌ను తెరవండి</string>
@@ -179,12 +179,12 @@
     <string name="settings_import_section_soul">ఆత్మ</string>
     <string name="settings_import_section_memory">జ్ఞాపకం</string>
     <string name="settings_import_section_scheduling">షెడ్యూలింగ్</string>
-    <string name="settings_import_section_heartbeat">హార్ట్‌బీట్</string>
+    <string name="settings_import_section_heartbeat">హృదయ స్పందన</string>
     <string name="settings_import_section_email">ఇమెయిల్</string>
     <string name="settings_import_section_tools">సాధనాలు</string>
     <string name="settings_import_section_mcp">MCP సర్వర్‌లు</string>
     <string name="settings_import_section_conversations">సంభాషణలు</string>
-    <string name="settings_heartbeat_reset_confirm">ఇది హార్ట్‌బీట్ ప్రాంప్ట్‌ను డిఫాల్ట్‌కు రీసెట్ చేస్తుంది. మీరు ఖచ్చితంగా ఉన్నారా?</string>
+    <string name="settings_heartbeat_reset_confirm">ఇది హృదయ స్పందన ప్రాంప్ట్‌ను డిఫాల్ట్‌కు రీసెట్ చేస్తుంది. మీరు ఖచ్చితంగా ఉన్నారా?</string>
     <string name="settings_heartbeat_model">మోడల్</string>
     <string name="settings_heartbeat_model_default">డిఫాల్ట్</string>
     <string name="settings_import_partial">%1$d విభాగం(లు) లోపాలతో సెట్టింగ్‌లు దిగుమతి చేయబడ్డాయి.</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">చాట్ చరిత్ర</string>
     <string name="chat_history_delete_content_description">సంభాషణ తొలగించు</string>
     <string name="chat_history_empty">సేవ్ చేసిన సంభాషణలు లేవు</string>
-    <string name="chat_history_heartbeat_label">హార్ట్‌బీట్</string>
-    <string name="heartbeat_banner_message">హార్ట్‌బీట్ నివేదించడానికి ఏదో ఉంది</string>
+    <string name="chat_history_heartbeat_label">హృదయ స్పందన</string>
+    <string name="heartbeat_banner_message">హృదయ స్పందనకు నివేదించడానికి ఏదో ఉంది</string>
     <string name="heartbeat_banner_dismiss">తీసివేయి</string>
     <string name="scroll_to_bottom_content_description">కిందికి స్క్రోల్ చేయి</string>
     <string name="conversation_untitled">శీర్షిక లేనిది</string>

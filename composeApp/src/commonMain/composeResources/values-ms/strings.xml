@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Buang akaun</string>
     <string name="settings_email_poll_interval">Semak setiap %1$d minit</string>
     <string name="settings_email_poll_never">Tidak pernah</string>
-    <string name="settings_email_queued">%1$d menunggu heartbeat</string>
+    <string name="settings_email_queued">%1$d dalam baris gilir untuk degupan jantung</string>
     <string name="settings_email_last_poll">Pengambilan berjaya terakhir %1$s</string>
     <string name="settings_email_poll_failed">Pengambilan terakhir gagal %1$s</string>
     <string name="settings_email_refresh">Segarkan akaun</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Degupan Jantung</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ini adalah semakan kendiri automatik. Semak ingatan dan tugas tertangguh anda. Jika semuanya baik dan tiada yang memerlukan perhatian, balas dengan tepat: HEARTBEAT_OK\nJika sesuatu memerlukan perhatian (ingatan lapuk, tugas tertunggak, susulan pengguna), tanganinya.</string>
     <string name="settings_heartbeat_description">Semakan kendiri berkala yang membolehkan AI menyemak ingatan dan tugas tanpa input pengguna. Berjalan setiap %1$d minit semasa waktu aktif.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt Degupan Jantung</string>
     <string name="settings_heartbeat_recent">Aktiviti Terkini</string>
     <string name="settings_remove_service">Buang</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran berkategori, penyelesaian ralat, atau keutamaan</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Kukuhkan Ingatan</string>
     <string name="tool_promote_learning_description">Naikkan pembelajaran yang dikukuhkan ke dalam prompt sistem</string>
     <string name="tool_promote_learning_name">Naikkan Pembelajaran</string>
-    <string name="tool_trigger_heartbeat_description">Cetuskan heartbeat pada kitaran seterusnya</string>
-    <string name="tool_trigger_heartbeat_name">Cetuskan Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Cetuskan degupan jantung pada kitaran seterusnya</string>
+    <string name="tool_trigger_heartbeat_name">Cetuskan Degupan Jantung</string>
     <string name="tool_web_search_description">Cari web untuk maklumat terkini</string>
     <string name="tool_open_url_name">Buka URL</string>
     <string name="tool_open_url_description">Buka URL atau pautan pada peranti</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Padam perbualan</string>
     <string name="chat_history_empty">Tiada perbualan tersimpan</string>
     <string name="chat_history_heartbeat_label">Degupan Jantung</string>
-    <string name="heartbeat_banner_message">Heartbeat ada sesuatu untuk dilaporkan</string>
+    <string name="heartbeat_banner_message">Degupan Jantung ada sesuatu untuk dilaporkan</string>
     <string name="heartbeat_banner_dismiss">Tutup</string>
     <string name="scroll_to_bottom_content_description">Tatal ke bawah</string>
     <string name="conversation_untitled">Tanpa tajuk</string>

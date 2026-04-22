@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Ondoa akaunti</string>
     <string name="settings_email_poll_interval">Chunguza kila dakika %1$d</string>
     <string name="settings_email_poll_never">Kamwe</string>
-    <string name="settings_email_queued">%1$d yanasubiri heartbeat</string>
+    <string name="settings_email_queued">%1$d kwenye foleni ya mapigo ya moyo</string>
     <string name="settings_email_last_poll">Uchunguzi wa mwisho uliofaulu %1$s</string>
     <string name="settings_email_poll_failed">Uchunguzi wa mwisho umeshindwa %1$s</string>
     <string name="settings_email_refresh">Onyesha upya akaunti</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Mapigo ya moyo</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Hii ni ukaguzi wa kiotomatiki. Kagua kumbukumbu zako na kazi zinazosubiri. Ikiwa kila kitu kiko sawa na hakuna kinachohitaji umakini, jibu kwa usahihi: HEARTBEAT_OK\nIkiwa kitu kinahitaji umakini (kumbukumbu za zamani, kazi zilizofika, ufuatiliaji wa mtumiaji), shughulikia.</string>
     <string name="settings_heartbeat_description">Ukaguzi wa kiotomatiki unaoruhusu AI kukagua kumbukumbu na kazi bila mchango wa mtumiaji. Inafanya kazi kila dakika %1$d wakati wa masaa ya shughuli.</string>
-    <string name="settings_heartbeat_prompt_label">Maelekezo ya Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Maelekezo ya Mapigo ya moyo</string>
     <string name="settings_heartbeat_recent">Shughuli za Hivi Karibuni</string>
     <string name="settings_remove_service">Ondoa</string>
     <string name="tool_memory_learn_description">Hifadhi mafunzo yaliyoainishwa, utatuzi wa hitilafu, au pendeleo</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Imarisha Kumbukumbu</string>
     <string name="tool_promote_learning_description">Pandisha mafunzo yaliyoimarishwa kwenye maelekezo ya mfumo</string>
     <string name="tool_promote_learning_name">Pandisha Mafunzo</string>
-    <string name="tool_trigger_heartbeat_description">Anzisha heartbeat katika mzunguko ujao</string>
-    <string name="tool_trigger_heartbeat_name">Anzisha Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Anzisha mapigo ya moyo katika mzunguko unaofuata</string>
+    <string name="tool_trigger_heartbeat_name">Anzisha mapigo ya moyo</string>
     <string name="tool_web_search_description">Tafuta mtandaoni kwa habari za sasa</string>
     <string name="tool_open_url_name">Fungua URL</string>
     <string name="tool_open_url_description">Fungua URL au kiungo kwenye kifaa</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Zana</string>
     <string name="settings_import_section_mcp">Seva za MCP</string>
     <string name="settings_import_section_conversations">Mazungumzo</string>
-    <string name="settings_heartbeat_reset_confirm">Hii itarejesha kidokezo cha mapigo ya moyo kuwa chaguo-msingi. Una uhakika?</string>
+    <string name="settings_heartbeat_reset_confirm">Hii itarejesha kidokezo cha mapigo ya moyo kuwa chaguomsingi. Una uhakika?</string>
     <string name="settings_heartbeat_model">Modeli</string>
     <string name="settings_heartbeat_model_default">Chaguo-msingi</string>
     <string name="settings_import_partial">Mipangilio imeagizwa na sehemu %1$d zenye makosa.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Futa mazungumzo</string>
     <string name="chat_history_empty">Hakuna mazungumzo yaliyohifadhiwa</string>
     <string name="chat_history_heartbeat_label">Mapigo ya moyo</string>
-    <string name="heartbeat_banner_message">Heartbeat ina jambo la kuripoti</string>
+    <string name="heartbeat_banner_message">Mapigo ya moyo yana jambo la kuripoti</string>
     <string name="heartbeat_banner_dismiss">Ondoa</string>
     <string name="scroll_to_bottom_content_description">Sogeza hadi chini</string>
     <string name="conversation_untitled">Bila jina</string>

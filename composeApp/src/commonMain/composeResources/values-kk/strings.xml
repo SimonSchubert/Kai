@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Тіркелгіні жою</string>
     <string name="settings_email_poll_interval">Әр %1$d минут сайын тексеру</string>
     <string name="settings_email_poll_never">Ешқашан</string>
-    <string name="settings_email_queued">%1$d heartbeat кезегінде</string>
+    <string name="settings_email_queued">%1$d жүрек соғысы кезегінде</string>
     <string name="settings_email_last_poll">Соңғы сәтті тексеру %1$s</string>
     <string name="settings_email_poll_failed">Соңғы тексеру сәтсіз %1$s</string>
     <string name="settings_email_refresh">Аккаунтты жаңарту</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Жүрек соғысы</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Бұл автоматты өзін-өзі тексеру. Естеліктеріңіз бен күтудегі тапсырмаларды қарап шығыңыз. Егер бәрі жақсы болса және ешнәрсе назар аударуды қажет етпесе, дәл осылай жауап беріңіз: HEARTBEAT_OK\nЕгер бірнәрсе назар аударуды қажет етсе (ескірген естеліктер, мерзімі келген тапсырмалар, пайдаланушы кейінгі әрекеттері), оны шешіңіз.</string>
     <string name="settings_heartbeat_description">AI-ға пайдаланушы енгізуінсіз естеліктер мен тапсырмаларды қарауға мүмкіндік беретін мерзімді өзін-өзі тексерулер. Белсенді сағаттарда әр %1$d минут сайын іске қосылады.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat промпты</string>
+    <string name="settings_heartbeat_prompt_label">Жүрек соғысы промпты</string>
     <string name="settings_heartbeat_recent">Соңғы белсенділік</string>
     <string name="settings_remove_service">Жою</string>
     <string name="tool_memory_learn_description">Санатталған білім, қате шешімі немесе таңдауды сақтау</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Естелікті күшейту</string>
     <string name="tool_promote_learning_description">Күшейтілген білімді жүйелік промптқа көтеру</string>
     <string name="tool_promote_learning_name">Білімді көтеру</string>
-    <string name="tool_trigger_heartbeat_description">Келесі циклде heartbeat іске қосу</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat іске қосу</string>
+    <string name="tool_trigger_heartbeat_description">Келесі циклде жүрек соғысын іске қосу</string>
+    <string name="tool_trigger_heartbeat_name">Жүрек соғысын іске қосу</string>
     <string name="tool_web_search_description">Ағымдағы ақпарат үшін вебті іздеу</string>
     <string name="tool_open_url_name">URL ашу</string>
     <string name="tool_open_url_description">Құрылғыда URL немесе сілтемені ашу</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Әңгімені жою</string>
     <string name="chat_history_empty">Сақталған әңгімелер жоқ</string>
     <string name="chat_history_heartbeat_label">Жүрек соғысы</string>
-    <string name="heartbeat_banner_message">Heartbeat хабарлайтын нәрсе бар</string>
+    <string name="heartbeat_banner_message">Жүрек соғысының хабарлайтыны бар</string>
     <string name="heartbeat_banner_dismiss">Жабу</string>
     <string name="scroll_to_bottom_content_description">Төменге жылжу</string>
     <string name="conversation_untitled">Атаусыз</string>

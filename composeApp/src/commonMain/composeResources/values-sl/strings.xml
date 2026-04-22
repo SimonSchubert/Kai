@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Odstrani račun</string>
     <string name="settings_email_poll_interval">Preverjanje vsakih %1$d minut</string>
     <string name="settings_email_poll_never">Nikoli</string>
-    <string name="settings_email_queued">%1$d v čakalni vrsti za heartbeat</string>
+    <string name="settings_email_queued">%1$d v čakalni vrsti za srčni utrip</string>
     <string name="settings_email_last_poll">Zadnje uspešno preverjanje %1$s</string>
     <string name="settings_email_poll_failed">Zadnje preverjanje neuspešno %1$s</string>
     <string name="settings_email_refresh">Osveži račun</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Srčni utrip</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] To je samodejno samopreverjanje. Preglej svoje spomine in čakajoče naloge. Če je vse v redu in nič ne zahteva pozornosti, odgovori natančno z: HEARTBEAT_OK\nČe nekaj zahteva pozornost (zastareli spomini, zapadle naloge, uporabniška spremljanja), se tega loti.</string>
     <string name="settings_heartbeat_description">Periodična samopreverjanja, ki UI omogočajo pregled spominov in nalog brez uporabniškega vnosa. Izvaja se vsakih %1$d minut med aktivnimi urami.</string>
-    <string name="settings_heartbeat_prompt_label">Poziv Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Poziv srčnega utripa</string>
     <string name="settings_heartbeat_recent">Nedavna dejavnost</string>
     <string name="settings_remove_service">Odstrani</string>
     <string name="tool_memory_learn_description">Shrani kategorizirano učenje, rešitev napake ali nastavitev</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Okrepi spomin</string>
     <string name="tool_promote_learning_description">Napreduj okrepljeno učenje v sistemski poziv</string>
     <string name="tool_promote_learning_name">Napreduj učenje</string>
-    <string name="tool_trigger_heartbeat_description">Sproži heartbeat v naslednjem ciklu</string>
-    <string name="tool_trigger_heartbeat_name">Sproži Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Sproži srčni utrip v naslednjem ciklu</string>
+    <string name="tool_trigger_heartbeat_name">Sproži srčni utrip</string>
     <string name="tool_web_search_description">Išči po spletu za aktualne informacije</string>
     <string name="tool_open_url_name">Odpri URL</string>
     <string name="tool_open_url_description">Odprite URL ali povezavo na napravi</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Izbriši pogovor</string>
     <string name="chat_history_empty">Ni shranjenih pogovorov</string>
     <string name="chat_history_heartbeat_label">Srčni utrip</string>
-    <string name="heartbeat_banner_message">Heartbeat ima kaj za poročanje</string>
+    <string name="heartbeat_banner_message">Srčni utrip ima kaj za poročanje</string>
     <string name="heartbeat_banner_dismiss">Opusti</string>
     <string name="scroll_to_bottom_content_description">Pomakni na dno</string>
     <string name="conversation_untitled">Brez naslova</string>

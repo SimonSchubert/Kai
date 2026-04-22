@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Stizzar conto</string>
     <string name="settings_email_poll_interval">Interrogar mintga %1$d minutas</string>
     <string name="settings_email_poll_never">Mai</string>
-    <string name="settings_email_queued">%1$d spetga il heartbeat</string>
+    <string name="settings_email_queued">%1$d en la colonna per la batacor</string>
     <string name="settings_email_last_poll">Ultima consultaziun reussida %1$s</string>
     <string name="settings_email_poll_failed">Ultima consultaziun ha fallì %1$s</string>
     <string name="settings_email_refresh">Actualisar conto</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Batacor</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Quai è in auto-controlla automatic. Controllescha tias regurdanzas e las incumbensas pendulantas. Sche tut è en urden e nagut basegna attenziun, respunda cun exact: HEARTBEAT_OK\nSche insatgitgei basegna attenziun (regurdanzas veglias, incumbensas scadidas, suandas d'utilisaders), fa quai ch'è necessari.</string>
     <string name="settings_heartbeat_description">Auto-controllas periodicas che permettan a l'IA da controllar regurdanzas ed incumbensas senza input da l'utilisader. Curra mintga %1$d minutas durant las uras activas.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt da Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt da batacor</string>
     <string name="settings_heartbeat_recent">Activitad recenta</string>
     <string name="settings_remove_service">Stizzar</string>
     <string name="tool_memory_learn_description">Memorisar in'emprendida categorisada, ina resoluziun d'errur u ina preferenza</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Rinforzar regurdanza</string>
     <string name="tool_promote_learning_description">Promover in'emprendida rinforzada en il prompt dal sistem</string>
     <string name="tool_promote_learning_name">Promover emprendida</string>
-    <string name="tool_trigger_heartbeat_description">Destainar in heartbeat en il proxim ciclus</string>
-    <string name="tool_trigger_heartbeat_name">Destainar Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Destainar in batacor en il proxim ciclus</string>
+    <string name="tool_trigger_heartbeat_name">Destainar batacor</string>
     <string name="tool_web_search_description">Tschertgar il web per infurmaziuns actualas</string>
     <string name="tool_open_url_name">Avrir URL</string>
     <string name="tool_open_url_description">Avrir in URL u in link sin l'apparat</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Utensils</string>
     <string name="settings_import_section_mcp">Servers MCP</string>
     <string name="settings_import_section_conversations">Conversaziuns</string>
-    <string name="settings_heartbeat_reset_confirm">Quai reinizialisescha il prompt dal battament dal cor al standard. Es ti segir?</string>
+    <string name="settings_heartbeat_reset_confirm">Quai reinizialisescha il prompt da la batacor al standard. Esas Vus segir?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Standard</string>
     <string name="settings_import_partial">Configuraziuns importadas cun %1$d secziun(s) cun errurs.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Stizzar la conversaziun</string>
     <string name="chat_history_empty">Naginas conversaziuns memorisadas</string>
     <string name="chat_history_heartbeat_label">Batacor</string>
-    <string name="heartbeat_banner_message">Heartbeat ha insatge da rapportar</string>
+    <string name="heartbeat_banner_message">La batacor ha insatge da rapportar</string>
     <string name="heartbeat_banner_dismiss">Serrar</string>
     <string name="scroll_to_bottom_content_description">Scrollar a la fin</string>
     <string name="conversation_untitled">Senza titel</string>

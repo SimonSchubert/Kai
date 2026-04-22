@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Susa i-akhawunti</string>
     <string name="settings_email_poll_interval">Hlola njalo ngemizuzu engu-%1$d</string>
     <string name="settings_email_poll_never">Akuze</string>
-    <string name="settings_email_queued">%1$d alindele i-heartbeat</string>
+    <string name="settings_email_queued">%1$d emugqeni wokushaya kwenhliziyo</string>
     <string name="settings_email_last_poll">Ukuhlola kokugcina okuphumelele %1$s</string>
     <string name="settings_email_poll_failed">Ukuhlola kokugcina kuhlulekile %1$s</string>
     <string name="settings_email_refresh">Vuselela i-akhawunti</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Ukushaya kwenhliziyo</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Lokhu ukuhlolwa kwezenzakalelayo. Buyekeza izinkumbulo zakho nemisebenzi esalindile. Uma konke kukuhle futhi akukho okudinga ukunakwa, phendula ngokuthe ngqo: HEARTBEAT_OK\nUma kukhona okudinga ukunakwa (izinkumbulo ezindala, imisebenzi esifikile, ukulandela komsebenzisi), kubhekane nakho.</string>
     <string name="settings_heartbeat_description">Ukuhlolwa kwezenzakalelayo okwesikhashana okuvumela i-AI ukuthi ibuyekeze izinkumbulo nemisebenzi ngaphandle kokufakwa komsebenzisi. Isebenza njalo ngemizuzu engu-%1$d ngamahora asebenzayo.</string>
-    <string name="settings_heartbeat_prompt_label">I-Prompt ye-Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">I-Prompt yokushaya kwenhliziyo</string>
     <string name="settings_heartbeat_recent">Umsebenzi Wamuva</string>
     <string name="settings_remove_service">Susa</string>
     <string name="tool_memory_learn_description">Gcina ukufunda okuhlukanisiwe, ukuxazululwa kwephutha, noma ukukhetha</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Qinisa Inkumbulo</string>
     <string name="tool_promote_learning_description">Phakamisa ukufunda okuqinisiwe ku-prompt yesistimu</string>
     <string name="tool_promote_learning_name">Phakamisa Ukufunda</string>
-    <string name="tool_trigger_heartbeat_description">Qalisa i-heartbeat esigabeni esilandelayo</string>
-    <string name="tool_trigger_heartbeat_name">Qalisa i-Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Qalisa ukushaya kwenhliziyo emjikelezweni olandelayo</string>
+    <string name="tool_trigger_heartbeat_name">Qalisa ukushaya kwenhliziyo</string>
     <string name="tool_web_search_description">Sesha iwebhu ukuthola ulwazi lwamanje</string>
     <string name="tool_open_url_name">Vula i-URL</string>
     <string name="tool_open_url_description">Vula i-URL noma isixhumanisi kudivayisi</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Susa ingxoxo</string>
     <string name="chat_history_empty">Azikho izingxoxo ezilondoloziwe</string>
     <string name="chat_history_heartbeat_label">Ukushaya kwenhliziyo</string>
-    <string name="heartbeat_banner_message">I-Heartbeat inokuthile okufanele ibike</string>
+    <string name="heartbeat_banner_message">Ukushaya kwenhliziyo kunokuthile okufanele kubikwe</string>
     <string name="heartbeat_banner_dismiss">Cashisa</string>
     <string name="scroll_to_bottom_content_description">Skrolela phansi</string>
     <string name="conversation_untitled">Ayinaso sihloko</string>

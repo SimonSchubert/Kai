@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Hiq llogarinë</string>
     <string name="settings_email_poll_interval">Kontrollo çdo %1$d minuta</string>
     <string name="settings_email_poll_never">Kurrë</string>
-    <string name="settings_email_queued">%1$d në pritje për heartbeat</string>
+    <string name="settings_email_queued">%1$d në radhë për rrahjet e zemrës</string>
     <string name="settings_email_last_poll">Kontrolli i fundit i suksesshëm %1$s</string>
     <string name="settings_email_poll_failed">Kontrolli i fundit dështoi %1$s</string>
     <string name="settings_email_refresh">Rifresko llogarinë</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Rrahjet e zemrës</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Kjo është një vetëkontroll automatik. Shqyrto kujtimet dhe detyrat në pritje. Nëse gjithçka duket mirë dhe asgjë nuk kërkon vëmendje, përgjigju me saktësisht: HEARTBEAT_OK\nNëse diçka kërkon vëmendje (kujtime të vjetruara, detyra të vonuara, ndjekje përdoruesi), merru me të.</string>
     <string name="settings_heartbeat_description">Vetëkontrolle periodike që lejojnë AI-n të shqyrtojë kujtimet dhe detyrat pa ndërhyrje të përdoruesit. Ekzekutohet çdo %1$d minuta gjatë orëve aktive.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt i rrahjeve të zemrës</string>
     <string name="settings_heartbeat_recent">Aktiviteti i fundit</string>
     <string name="settings_remove_service">Hiq</string>
     <string name="tool_memory_learn_description">Ruaj një mësim të kategorizuar, zgjidhje gabimi ose preferencë</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Përforco kujtim</string>
     <string name="tool_promote_learning_description">Promovo një mësim të përforcuar në prompt-in e sistemit</string>
     <string name="tool_promote_learning_name">Promovo mësim</string>
-    <string name="tool_trigger_heartbeat_description">Aktivizo një heartbeat në ciklin e ardhshëm</string>
-    <string name="tool_trigger_heartbeat_name">Aktivizo Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Aktivizo rrahjet e zemrës në ciklin tjetër</string>
+    <string name="tool_trigger_heartbeat_name">Aktivizo rrahjet e zemrës</string>
     <string name="tool_web_search_description">Kërko në ueb për informacione aktuale</string>
     <string name="tool_open_url_name">Hap URL</string>
     <string name="tool_open_url_description">Hap një URL ose lidhje në pajisje</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Mjetet</string>
     <string name="settings_import_section_mcp">Serverët MCP</string>
     <string name="settings_import_section_conversations">Biseda</string>
-    <string name="settings_heartbeat_reset_confirm">Kjo do të rivendosë mesazhin e rrahjeve të zemrës në parazgjedhje. Jeni i sigurt?</string>
+    <string name="settings_heartbeat_reset_confirm">Kjo do të rivendosë mesazhin e rrahjeve të zemrës në parazgjedhje. A jeni i sigurt?</string>
     <string name="settings_heartbeat_model">Modeli</string>
     <string name="settings_heartbeat_model_default">Parazgjedhur</string>
     <string name="settings_import_partial">Cilësimet u importuan me %1$d seksion(e) me gabime.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Fshi bisedën</string>
     <string name="chat_history_empty">Nuk ka biseda të ruajtura</string>
     <string name="chat_history_heartbeat_label">Rrahjet e zemrës</string>
-    <string name="heartbeat_banner_message">Heartbeat ka diçka për të raportuar</string>
+    <string name="heartbeat_banner_message">Rrahjet e zemrës kanë diçka për të raportuar</string>
     <string name="heartbeat_banner_dismiss">Hiq</string>
     <string name="scroll_to_bottom_content_description">Shko në fund</string>
     <string name="conversation_untitled">Pa titull</string>

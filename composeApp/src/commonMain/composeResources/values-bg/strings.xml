@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Премахни акаунт</string>
     <string name="settings_email_poll_interval">Проверявай на всеки %1$d мин.</string>
     <string name="settings_email_poll_never">Никога</string>
-    <string name="settings_email_queued">%1$d чакат heartbeat</string>
+    <string name="settings_email_queued">%1$d в опашка за сърцебиене</string>
     <string name="settings_email_last_poll">Последна успешна проверка %1$s</string>
     <string name="settings_email_poll_failed">Последна проверка неуспешна %1$s</string>
     <string name="settings_email_refresh">Опресни акаунта</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Сърцебиене</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Това е автоматична самопроверка. Прегледай спомените и чакащите задачи. Ако всичко изглежда наред и нищо не изисква внимание, отговори точно с: HEARTBEAT_OK\nАко нещо изисква внимание (остарели спомени, дължими задачи, последващи действия от потребителя), обърни му внимание.</string>
     <string name="settings_heartbeat_description">Периодични самопроверки, които позволяват на AI да преглежда спомени и задачи без потребителски вход. Изпълнява се на всеки %1$d минути в активните часове.</string>
-    <string name="settings_heartbeat_prompt_label">Промпт за Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Промпт за сърцебиене</string>
     <string name="settings_heartbeat_recent">Скорошна активност</string>
     <string name="settings_remove_service">Премахни</string>
     <string name="tool_memory_learn_description">Съхрани категоризирано знание, решение на грешка или предпочитание</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Подсили спомен</string>
     <string name="tool_promote_learning_description">Повиши подсилено знание в системния промпт</string>
     <string name="tool_promote_learning_name">Повиши знание</string>
-    <string name="tool_trigger_heartbeat_description">Задействай heartbeat в следващия цикъл</string>
-    <string name="tool_trigger_heartbeat_name">Задействай Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Задействай сърцебиене в следващия цикъл</string>
+    <string name="tool_trigger_heartbeat_name">Задействай сърцебиене</string>
     <string name="tool_web_search_description">Търсене в интернет за актуална информация</string>
     <string name="tool_open_url_name">Отвори URL</string>
     <string name="tool_open_url_description">Отворете URL или връзка на устройството</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Инструменти</string>
     <string name="settings_import_section_mcp">MCP сървъри</string>
     <string name="settings_import_section_conversations">Разговори</string>
-    <string name="settings_heartbeat_reset_confirm">Това ще нулира подканата за сърдечен ритъм до стандартната. Сигурни ли сте?</string>
+    <string name="settings_heartbeat_reset_confirm">Това ще нулира подканата за сърцебиене към стандартната. Сигурни ли сте?</string>
     <string name="settings_heartbeat_model">Модел</string>
     <string name="settings_heartbeat_model_default">По подразбиране</string>
     <string name="settings_import_partial">Настройките са импортирани с %1$d секция(и) с грешки.</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">История на чатовете</string>
     <string name="chat_history_delete_content_description">Изтриване на разговор</string>
     <string name="chat_history_empty">Няма запазени разговори</string>
-    <string name="chat_history_heartbeat_label">Пулс</string>
-    <string name="heartbeat_banner_message">Пулсът има какво да съобщи</string>
+    <string name="chat_history_heartbeat_label">Сърцебиене</string>
+    <string name="heartbeat_banner_message">Сърцебиенето има какво да съобщи</string>
     <string name="heartbeat_banner_dismiss">Отхвърляне</string>
     <string name="scroll_to_bottom_content_description">Превъртете надолу</string>
     <string name="conversation_untitled">Без заглавие</string>

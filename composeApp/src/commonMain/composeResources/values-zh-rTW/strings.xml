@@ -195,8 +195,8 @@
     <string name="chat_history_title">聊天記錄</string>
     <string name="chat_history_delete_content_description">刪除對話</string>
     <string name="chat_history_empty">沒有已儲存的對話</string>
-    <string name="chat_history_heartbeat_label">心跳檢測</string>
-    <string name="heartbeat_banner_message">心跳檢測有內容需要回報</string>
+    <string name="chat_history_heartbeat_label">心跳</string>
+    <string name="heartbeat_banner_message">心跳有內容需要回報</string>
     <string name="heartbeat_banner_dismiss">關閉</string>
     <string name="scroll_to_bottom_content_description">捲動到底部</string>
     <string name="conversation_untitled">未命名</string>

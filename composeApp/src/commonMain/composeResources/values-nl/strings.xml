@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Account verwijderen</string>
     <string name="settings_email_poll_interval">Elke %1$d minuten controleren</string>
     <string name="settings_email_poll_never">Nooit</string>
-    <string name="settings_email_queued">%1$d in wachtrij voor heartbeat</string>
+    <string name="settings_email_queued">%1$d in wachtrij voor hartslag</string>
     <string name="settings_email_last_poll">Laatst succesvol opgehaald %1$s</string>
     <string name="settings_email_poll_failed">Laatste ophaalpoging mislukt %1$s</string>
     <string name="settings_email_refresh">Account vernieuwen</string>
@@ -185,7 +185,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_import_section_tools">Hulpmiddelen</string>
     <string name="settings_import_section_mcp">MCP-servers</string>
     <string name="settings_import_section_conversations">Gesprekken</string>
-    <string name="settings_heartbeat_reset_confirm">Hiermee wordt de heartbeat-prompt teruggezet naar de standaard. Weet je het zeker?</string>
+    <string name="settings_heartbeat_reset_confirm">Hiermee wordt de hartslag-prompt teruggezet naar de standaard. Weet je het zeker?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Standaard</string>
     <string name="settings_import_partial">Instellingen geïmporteerd met %1$d sectie(s) met fouten.</string>
@@ -196,7 +196,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="chat_history_delete_content_description">Gesprek verwijderen</string>
     <string name="chat_history_empty">Geen opgeslagen gesprekken</string>
     <string name="chat_history_heartbeat_label">Hartslag</string>
-    <string name="heartbeat_banner_message">Heartbeat heeft iets te melden</string>
+    <string name="heartbeat_banner_message">Hartslag heeft iets te melden</string>
     <string name="heartbeat_banner_dismiss">Sluiten</string>
     <string name="scroll_to_bottom_content_description">Naar beneden scrollen</string>
     <string name="conversation_untitled">Naamloos</string>

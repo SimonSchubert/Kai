@@ -108,7 +108,7 @@
     <string name="settings_email_remove">إزالة الحساب</string>
     <string name="settings_email_poll_interval">الاستطلاع كل %1$d دقيقة</string>
     <string name="settings_email_poll_never">أبداً</string>
-    <string name="settings_email_queued">%1$d في انتظار heartbeat</string>
+    <string name="settings_email_queued">%1$d في انتظار نبض القلب</string>
     <string name="settings_email_last_poll">آخر استطلاع ناجح %1$s</string>
     <string name="settings_email_poll_failed">فشل آخر استطلاع %1$s</string>
     <string name="settings_email_refresh">تحديث الحساب</string>

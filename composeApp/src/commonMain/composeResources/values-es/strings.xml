@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Eliminar cuenta</string>
     <string name="settings_email_poll_interval">Consultar cada %1$d minutos</string>
     <string name="settings_email_poll_never">Nunca</string>
-    <string name="settings_email_queued">%1$d en espera para el heartbeat</string>
+    <string name="settings_email_queued">%1$d en espera para el latido</string>
     <string name="settings_email_last_poll">Última consulta exitosa %1$s</string>
     <string name="settings_email_poll_failed">Última consulta fallida %1$s</string>
     <string name="settings_email_refresh">Actualizar cuenta</string>
@@ -134,7 +134,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="tool_promote_learning_description">Promover un aprendizaje reforzado al prompt del sistema</string>
     <string name="tool_promote_learning_name">Promover Aprendizaje</string>
     <string name="tool_trigger_heartbeat_description">Activar un latido en el próximo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Activar Latido</string>
+    <string name="tool_trigger_heartbeat_name">Activar latido</string>
     <string name="tool_web_search_description">Buscar en la web información actual</string>
     <string name="tool_open_url_name">Abrir URL</string>
     <string name="tool_open_url_description">Abrir una URL o enlace en el dispositivo</string>
@@ -196,7 +196,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="chat_history_delete_content_description">Eliminar conversación</string>
     <string name="chat_history_empty">No hay conversaciones guardadas</string>
     <string name="chat_history_heartbeat_label">Latido</string>
-    <string name="heartbeat_banner_message">Heartbeat tiene algo que reportar</string>
+    <string name="heartbeat_banner_message">Latido tiene algo que reportar</string>
     <string name="heartbeat_banner_dismiss">Descartar</string>
     <string name="scroll_to_bottom_content_description">Desplazarse al final</string>
     <string name="conversation_untitled">Sin título</string>

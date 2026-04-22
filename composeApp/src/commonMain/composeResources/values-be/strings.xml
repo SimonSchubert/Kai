@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Выдаліць акаўнт</string>
     <string name="settings_email_poll_interval">Правяраць кожныя %1$d хв.</string>
     <string name="settings_email_poll_never">Ніколі</string>
-    <string name="settings_email_queued">%1$d у чарзе для heartbeat</string>
+    <string name="settings_email_queued">%1$d у чарзе для сэрцабіцця</string>
     <string name="settings_email_last_poll">Апошняя паспяховая праверка %1$s</string>
     <string name="settings_email_poll_failed">Апошняя праверка не ўдалася %1$s</string>
     <string name="settings_email_refresh">Абнавіць уліковы запіс</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Сэрцабіццё</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Гэта аўтаматычная самаправерка. Праглядзі свае ўспаміны і незавершаныя задачы. Калі ўсё ў парадку і нічога не патрабуе ўвагі, адкажы дакладна: HEARTBEAT_OK\nКалі нешта патрабуе ўвагі (састарэлыя ўспаміны, тэрміновыя задачы, зваротная сувязь ад карыстальніка), займіся гэтым.</string>
     <string name="settings_heartbeat_description">Перыядычныя самаправеркі, якія дазваляюць AI праглядаць успаміны і задачы без удзелу карыстальніка. Запускаецца кожныя %1$d хвілін у актыўныя гадзіны.</string>
-    <string name="settings_heartbeat_prompt_label">Промпт Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Промпт сэрцабіцця</string>
     <string name="settings_heartbeat_recent">Апошняя актыўнасць</string>
     <string name="settings_remove_service">Выдаліць</string>
     <string name="tool_memory_learn_description">Захаваць катэгарызаванае веданне, вырашэнне памылкі або перавагу</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Узмацніць успамін</string>
     <string name="tool_promote_learning_description">Павысіць узмоцненае веданне ў сістэмны промпт</string>
     <string name="tool_promote_learning_name">Павысіць веданне</string>
-    <string name="tool_trigger_heartbeat_description">Запусціць heartbeat у наступным цыкле</string>
-    <string name="tool_trigger_heartbeat_name">Запусціць Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Запусціць сэрцабіццё ў наступным цыкле</string>
+    <string name="tool_trigger_heartbeat_name">Запусціць сэрцабіццё</string>
     <string name="tool_web_search_description">Шукаць у інтэрнэце актуальную інфармацыю</string>
     <string name="tool_open_url_name">Адкрыць URL</string>
     <string name="tool_open_url_description">Адкрыць URL або спасылку на прыладзе</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Інструменты</string>
     <string name="settings_import_section_mcp">Серверы MCP</string>
     <string name="settings_import_section_conversations">Размовы</string>
-    <string name="settings_heartbeat_reset_confirm">Гэта скіне запыт біцця сэрца да стандартнага. Вы ўпэўнены?</string>
+    <string name="settings_heartbeat_reset_confirm">Гэта скіне запыт сэрцабіцця да стандартнага. Вы ўпэўнены?</string>
     <string name="settings_heartbeat_model">Мадэль</string>
     <string name="settings_heartbeat_model_default">Стандартна</string>
     <string name="settings_import_partial">Налады імпартаваны з %1$d секцыяй(ямі) з памылкамі.</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">Гісторыя чатаў</string>
     <string name="chat_history_delete_content_description">Выдаліць размову</string>
     <string name="chat_history_empty">Няма захаваных размоў</string>
-    <string name="chat_history_heartbeat_label">Пульс</string>
-    <string name="heartbeat_banner_message">Пульс мае пра што паведаміць</string>
+    <string name="chat_history_heartbeat_label">Сэрцабіццё</string>
+    <string name="heartbeat_banner_message">Сэрцабіццё мае пра што паведаміць</string>
     <string name="heartbeat_banner_dismiss">Адхіліць</string>
     <string name="scroll_to_bottom_content_description">Пракруціць уніз</string>
     <string name="conversation_untitled">Без назвы</string>

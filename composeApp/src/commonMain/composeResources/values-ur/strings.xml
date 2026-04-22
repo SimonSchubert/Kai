@@ -108,7 +108,7 @@
     <string name="settings_email_remove">اکاؤنٹ ہٹائیں</string>
     <string name="settings_email_poll_interval">ہر %1$d منٹ بعد چیک کریں</string>
     <string name="settings_email_poll_never">کبھی نہیں</string>
-    <string name="settings_email_queued">%1$d heartbeat کے لیے قطار میں</string>
+    <string name="settings_email_queued">%1$d دل کی دھڑکن کے لیے قطار میں</string>
     <string name="settings_email_last_poll">آخری کامیاب چیک %1$s</string>
     <string name="settings_email_poll_failed">آخری چیک ناکام %1$s</string>
     <string name="settings_email_refresh">اکاؤنٹ ریفریش کریں</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">دل کی دھڑکن</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] یہ ایک خودکار سیلف چیک ہے۔ اپنی یادداشتوں اور زیر التوا کاموں کا جائزہ لیں۔ اگر سب کچھ ٹھیک ہے اور کسی چیز پر توجہ کی ضرورت نہیں ہے تو بالکل اس طرح جواب دیں: HEARTBEAT_OK\nاگر کسی چیز پر توجہ کی ضرورت ہے (پرانی یادداشتیں، واجب الادا کام، صارف کے فالو اپ)، اسے حل کریں۔</string>
     <string name="settings_heartbeat_description">وقتاً فوقتاً سیلف چیک جو AI کو صارف کے ان پٹ کے بغیر یادداشتوں اور کاموں کا جائزہ لینے دیتے ہیں۔ فعال اوقات میں ہر %1$d منٹ بعد چلتا ہے۔</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat پرامپٹ</string>
+    <string name="settings_heartbeat_prompt_label">دل کی دھڑکن پرامپٹ</string>
     <string name="settings_heartbeat_recent">حالیہ سرگرمی</string>
     <string name="settings_remove_service">ہٹائیں</string>
     <string name="tool_memory_learn_description">زمرہ بند سیکھ، خرابی کا حل، یا ترجیح محفوظ کریں</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">یادداشت مضبوط کریں</string>
     <string name="tool_promote_learning_description">مضبوط شدہ سیکھ کو سسٹم پرامپٹ میں ترقی دیں</string>
     <string name="tool_promote_learning_name">سیکھ کو ترقی دیں</string>
-    <string name="tool_trigger_heartbeat_description">اگلے دور میں heartbeat شروع کریں</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat شروع کریں</string>
+    <string name="tool_trigger_heartbeat_description">اگلے سائیکل میں دل کی دھڑکن شروع کریں</string>
+    <string name="tool_trigger_heartbeat_name">دل کی دھڑکن شروع کریں</string>
     <string name="tool_web_search_description">موجودہ معلومات کے لیے ویب تلاش کریں</string>
     <string name="tool_open_url_name">URL کھولیں</string>
     <string name="tool_open_url_description">ڈیوائس پر URL یا لنک کھولیں</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">اوزار</string>
     <string name="settings_import_section_mcp">MCP سرورز</string>
     <string name="settings_import_section_conversations">بات چیت</string>
-    <string name="settings_heartbeat_reset_confirm">یہ دل کی دھڑکن کے پرامپٹ کو ڈیفالٹ پر ری سیٹ کر دے گا۔ کیا آپ کو یقین ہے؟</string>
+    <string name="settings_heartbeat_reset_confirm">یہ دل کی دھڑکن کے پرامپٹ کو ڈیفالٹ پر ری سیٹ کر دے گا۔ کیا آپ یقینی ہیں؟</string>
     <string name="settings_heartbeat_model">ماڈل</string>
     <string name="settings_heartbeat_model_default">پہلے سے طے شدہ</string>
     <string name="settings_import_partial">%1$d سیکشن(ز) میں خرابیوں کے ساتھ ترتیبات درآمد کی گئیں۔</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">چیٹ ہسٹری</string>
     <string name="chat_history_delete_content_description">بات چیت حذف کریں</string>
     <string name="chat_history_empty">کوئی محفوظ بات چیت نہیں</string>
-    <string name="chat_history_heartbeat_label">ہارٹ بیٹ</string>
-    <string name="heartbeat_banner_message">ہارٹ بیٹ کے پاس رپورٹ کرنے کے لیے کچھ ہے</string>
+    <string name="chat_history_heartbeat_label">دل کی دھڑکن</string>
+    <string name="heartbeat_banner_message">دل کی دھڑکن کے پاس رپورٹ کرنے کے لیے کچھ ہے</string>
     <string name="heartbeat_banner_dismiss">برخاست</string>
     <string name="scroll_to_bottom_content_description">نیچے سکرول کریں</string>
     <string name="conversation_untitled">بے عنوان</string>

@@ -108,7 +108,7 @@
     <string name="settings_email_remove">கணக்கை அகற்று</string>
     <string name="settings_email_poll_interval">ஒவ்வொரு %1$d நிமிடங்களுக்கும் சரிபார்க்கவும்</string>
     <string name="settings_email_poll_never">ஒருபோதும் இல்லை</string>
-    <string name="settings_email_queued">%1$d heartbeat-க்காக காத்திருக்கிறது</string>
+    <string name="settings_email_queued">%1$d இதயத்துடிப்பிற்காக வரிசையில்</string>
     <string name="settings_email_last_poll">கடைசி வெற்றிகரமான சரிபார்ப்பு %1$s</string>
     <string name="settings_email_poll_failed">கடைசி சரிபார்ப்பு தோல்வியடைந்தது %1$s</string>
     <string name="settings_email_refresh">கணக்கைப் புதுப்பிக்கவும்</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">இதயத்துடிப்பு</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] இது ஒரு தானியங்கி சுய சோதனை. உங்கள் நினைவுகளையும் நிலுவையில் உள்ள பணிகளையும் மதிப்பாய்வு செய்யுங்கள். எல்லாம் நன்றாக இருந்தால் மற்றும் எதுவும் கவனிக்க வேண்டியதில்லை என்றால், சரியாக பதிலளிக்கவும்: HEARTBEAT_OK\nஏதாவது கவனிக்க வேண்டியிருந்தால் (பழைய நினைவுகள், நிலுவை பணிகள், பயனர் தொடர்கள்), அதைக் கவனியுங்கள்.</string>
     <string name="settings_heartbeat_description">பயனர் உள்ளீடு இல்லாமல் AI நினைவுகளையும் பணிகளையும் மதிப்பாய்வு செய்ய அனுமதிக்கும் அவ்வப்போது சுய சோதனைகள். செயலில் உள்ள நேரங்களில் ஒவ்வொரு %1$d நிமிடங்களுக்கும் இயங்கும்.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat ப்ராம்ப்ட்</string>
+    <string name="settings_heartbeat_prompt_label">இதயத்துடிப்பு ப்ராம்ப்ட்</string>
     <string name="settings_heartbeat_recent">சமீபத்திய செயல்பாடு</string>
     <string name="settings_remove_service">அகற்று</string>
     <string name="tool_memory_learn_description">வகைப்படுத்தப்பட்ட கற்றல், பிழை தீர்வு அல்லது விருப்பத்தைச் சேமி</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">நினைவை வலுப்படுத்து</string>
     <string name="tool_promote_learning_description">வலுப்படுத்தப்பட்ட கற்றலை கணினி ப்ராம்ப்ட்டில் உயர்த்து</string>
     <string name="tool_promote_learning_name">கற்றலை உயர்த்து</string>
-    <string name="tool_trigger_heartbeat_description">அடுத்த சுழற்சியில் heartbeat-ஐ தூண்டு</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat தூண்டு</string>
+    <string name="tool_trigger_heartbeat_description">அடுத்த சுழற்சியில் இதயத்துடிப்பு தூண்டு</string>
+    <string name="tool_trigger_heartbeat_name">இதயத்துடிப்பு தூண்டு</string>
     <string name="tool_web_search_description">தற்போதைய தகவலுக்கு இணையத்தில் தேடு</string>
     <string name="tool_open_url_name">URL திற</string>
     <string name="tool_open_url_description">சாதனத்தில் URL அல்லது இணைப்பைத் திற</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">கருவிகள்</string>
     <string name="settings_import_section_mcp">MCP சேவையகங்கள்</string>
     <string name="settings_import_section_conversations">உரையாடல்கள்</string>
-    <string name="settings_heartbeat_reset_confirm">இது இதயத்துடிப்பு அறிவுறுத்தலை இயல்புநிலைக்கு மீட்டமைக்கும். நீங்கள் உறுதியாக இருக்கிறீர்களா?</string>
+    <string name="settings_heartbeat_reset_confirm">இது இதயத்துடிப்பு அறிவுறுத்தலை இயல்புநிலைக்கு மீட்டமைக்கும். நிச்சயமாகவா?</string>
     <string name="settings_heartbeat_model">மாடல்</string>
     <string name="settings_heartbeat_model_default">இயல்புநிலை</string>
     <string name="settings_import_partial">%1$d பிரிவு(கள்) பிழைகளுடன் அமைப்புகள் இறக்குமதி செய்யப்பட்டன.</string>

@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Rimuovi account</string>
     <string name="settings_email_poll_interval">Controlla ogni %1$d minuti</string>
     <string name="settings_email_poll_never">Mai</string>
-    <string name="settings_email_queued">%1$d in coda per l'heartbeat</string>
+    <string name="settings_email_queued">%1$d in coda per il battito cardiaco</string>
     <string name="settings_email_last_poll">Ultimo controllo riuscito %1$s</string>
     <string name="settings_email_poll_failed">Ultimo controllo fallito %1$s</string>
     <string name="settings_email_refresh">Aggiorna account</string>
@@ -120,7 +120,7 @@
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Questo è un controllo automatico. Rivedi i tuoi ricordi e le attività in sospeso. Se tutto sembra a posto e nulla richiede attenzione, rispondi esattamente: HEARTBEAT_OK
 Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up dell'utente), occupatene.</string>
     <string name="settings_heartbeat_description">Controlli periodici che permettono all'IA di rivedere ricordi e attività senza input dell'utente. Viene eseguito ogni %1$d minuti durante le ore attive.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt del battito</string>
+    <string name="settings_heartbeat_prompt_label">Prompt del battito cardiaco</string>
     <string name="settings_heartbeat_recent">Attività Recente</string>
     <string name="settings_remove_service">Rimuovi</string>
     <string name="tool_memory_learn_description">Memorizza un apprendimento categorizzato, una risoluzione di errore o una preferenza</string>
@@ -133,8 +133,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="tool_memory_reinforce_name">Rinforza Memoria</string>
     <string name="tool_promote_learning_description">Promuovi un apprendimento rinforzato nel prompt di sistema</string>
     <string name="tool_promote_learning_name">Promuovi Apprendimento</string>
-    <string name="tool_trigger_heartbeat_description">Attiva un battito al prossimo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Attiva Battito</string>
+    <string name="tool_trigger_heartbeat_description">Attiva un battito cardiaco al prossimo ciclo</string>
+    <string name="tool_trigger_heartbeat_name">Attiva battito cardiaco</string>
     <string name="tool_web_search_description">Cerca sul web informazioni attuali</string>
     <string name="tool_open_url_name">Apri URL</string>
     <string name="tool_open_url_description">Apri un URL o un link sul dispositivo</string>
@@ -180,12 +180,12 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_import_section_soul">Anima</string>
     <string name="settings_import_section_memory">Memoria</string>
     <string name="settings_import_section_scheduling">Pianificazione</string>
-    <string name="settings_import_section_heartbeat">Battito</string>
+    <string name="settings_import_section_heartbeat">Battito cardiaco</string>
     <string name="settings_import_section_email">E-mail</string>
     <string name="settings_import_section_tools">Strumenti</string>
     <string name="settings_import_section_mcp">Server MCP</string>
     <string name="settings_import_section_conversations">Conversazioni</string>
-    <string name="settings_heartbeat_reset_confirm">Questo ripristinerà il prompt heartbeat al valore predefinito. Sei sicuro?</string>
+    <string name="settings_heartbeat_reset_confirm">Questo ripristinerà il prompt del battito cardiaco al valore predefinito. Sei sicuro?</string>
     <string name="settings_heartbeat_model">Modello</string>
     <string name="settings_heartbeat_model_default">Predefinito</string>
     <string name="settings_import_partial">Impostazioni importate con %1$d sezione/i con errori.</string>
@@ -195,8 +195,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="chat_history_title">Cronologia chat</string>
     <string name="chat_history_delete_content_description">Elimina conversazione</string>
     <string name="chat_history_empty">Nessuna conversazione salvata</string>
-    <string name="chat_history_heartbeat_label">Battito</string>
-    <string name="heartbeat_banner_message">Heartbeat ha qualcosa da segnalare</string>
+    <string name="chat_history_heartbeat_label">Battito cardiaco</string>
+    <string name="heartbeat_banner_message">Battito cardiaco ha qualcosa da segnalare</string>
     <string name="heartbeat_banner_dismiss">Chiudi</string>
     <string name="scroll_to_bottom_content_description">Scorri in fondo</string>
     <string name="conversation_untitled">Senza titolo</string>

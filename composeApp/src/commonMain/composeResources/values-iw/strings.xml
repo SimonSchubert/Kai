@@ -108,7 +108,7 @@
     <string name="settings_email_remove">הסר חשבון</string>
     <string name="settings_email_poll_interval">בדיקה כל %1$d דקות</string>
     <string name="settings_email_poll_never">אף פעם</string>
-    <string name="settings_email_queued">%1$d בתור ל-heartbeat</string>
+    <string name="settings_email_queued">%1$d בתור לפעימת לב</string>
     <string name="settings_email_last_poll">בדיקה מוצלחת אחרונה %1$s</string>
     <string name="settings_email_poll_failed">הבדיקה האחרונה נכשלה %1$s</string>
     <string name="settings_email_refresh">רענן חשבון</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">פעימת לב</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] זוהי בדיקה עצמית אוטומטית. סקור את הזיכרונות והמשימות הממתינות שלך. אם הכל תקין ושום דבר לא דורש תשומת לב, השב בדיוק: HEARTBEAT_OK\nאם משהו דורש תשומת לב (זיכרונות מיושנים, משימות שהגיע מועדן, מעקבים של משתמשים), טפל בכך.</string>
     <string name="settings_heartbeat_description">בדיקות עצמיות תקופתיות המאפשרות לבינה המלאכותית לסקור זיכרונות ומשימות ללא קלט מהמשתמש. פועל כל %1$d דקות בשעות הפעילות.</string>
-    <string name="settings_heartbeat_prompt_label">פרומפט Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">פרומפט פעימת לב</string>
     <string name="settings_heartbeat_recent">פעילות אחרונה</string>
     <string name="settings_remove_service">הסר</string>
     <string name="tool_memory_learn_description">שמור למידה מסווגת, פתרון שגיאה או העדפה</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">חזק זיכרון</string>
     <string name="tool_promote_learning_description">קדם למידה מחוזקת לפרומפט המערכת</string>
     <string name="tool_promote_learning_name">קדם למידה</string>
-    <string name="tool_trigger_heartbeat_description">הפעל heartbeat במחזור הבא</string>
-    <string name="tool_trigger_heartbeat_name">הפעל Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">הפעל פעימת לב במחזור הבא</string>
+    <string name="tool_trigger_heartbeat_name">הפעל פעימת לב</string>
     <string name="tool_web_search_description">חפש באינטרנט מידע עדכני</string>
     <string name="tool_open_url_name">פתח URL</string>
     <string name="tool_open_url_description">פתח URL או קישור במכשיר</string>

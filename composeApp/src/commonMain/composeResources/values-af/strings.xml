@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Verwyder rekening</string>
     <string name="settings_email_poll_interval">Peul elke %1$d minute</string>
     <string name="settings_email_poll_never">Nooit</string>
-    <string name="settings_email_queued">%1$d wag vir heartbeat</string>
+    <string name="settings_email_queued">%1$d in tou vir hartklop</string>
     <string name="settings_email_last_poll">Laaste geslaagde nagaan %1$s</string>
     <string name="settings_email_poll_failed">Laaste nagaan het misluk %1$s</string>
     <string name="settings_email_refresh">Verfris rekening</string>
@@ -133,7 +133,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="tool_memory_reinforce_name">Versterk Geheue</string>
     <string name="tool_promote_learning_description">Bevorder 'n versterkte leerervaring na die stelselprompt</string>
     <string name="tool_promote_learning_name">Bevorder Leerervaring</string>
-    <string name="tool_trigger_heartbeat_description">Aktiveer 'n hartklop op die volgende siklus</string>
+    <string name="tool_trigger_heartbeat_description">Aktiveer 'n hartklop in die volgende siklus</string>
     <string name="tool_trigger_heartbeat_name">Aktiveer Hartklop</string>
     <string name="tool_web_search_description">Soek die web vir huidige inligting</string>
     <string name="tool_open_url_name">URL oopmaak</string>
@@ -185,7 +185,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import_section_tools">Gereedskap</string>
     <string name="settings_import_section_mcp">MCP-bedieners</string>
     <string name="settings_import_section_conversations">Gesprekke</string>
-    <string name="settings_heartbeat_reset_confirm">Dit sal die hartklopprompt na die verstek terugstel. Is jy seker?</string>
+    <string name="settings_heartbeat_reset_confirm">Dit sal die hartklop-opdrag na die verstek terugstel. Is jy seker?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Verstek</string>
     <string name="settings_import_partial">Instellings ingevoer met %1$d afdeling(e) wat foute gehad het.</string>

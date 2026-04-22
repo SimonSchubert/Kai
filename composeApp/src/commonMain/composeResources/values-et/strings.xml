@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Eemalda konto</string>
     <string name="settings_email_poll_interval">Küsitle iga %1$d minuti järel</string>
     <string name="settings_email_poll_never">Mitte kunagi</string>
-    <string name="settings_email_queued">%1$d heartbeati ootel</string>
+    <string name="settings_email_queued">%1$d südamelöögi ootel</string>
     <string name="settings_email_last_poll">Viimane edukas kontroll %1$s</string>
     <string name="settings_email_poll_failed">Viimane kontroll ebaõnnestus %1$s</string>
     <string name="settings_email_refresh">Värskenda kontot</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Südamelöök</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] See on automaatne enesekontroll. Vaata üle oma mälestused ja ootel ülesanded. Kui kõik on korras ja miski ei vaja tähelepanu, vasta täpselt: HEARTBEAT_OK\nKui miski vajab tähelepanu (aegunud mälestused, tähtaegsed ülesanded, kasutaja järelpärimised), tegele sellega.</string>
     <string name="settings_heartbeat_description">Perioodilised enesekontrollid, mis võimaldavad AI-l vaadata üle mälestused ja ülesanded ilma kasutaja sisendita. Käivitub iga %1$d minuti järel aktiivsetel tundidel.</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat-viip</string>
+    <string name="settings_heartbeat_prompt_label">Südamelöögi viip</string>
     <string name="settings_heartbeat_recent">Hiljutine tegevus</string>
     <string name="settings_remove_service">Eemalda</string>
     <string name="tool_memory_learn_description">Salvesta kategoriseeritud teadmine, veaparandus või eelistus</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Tugevda mälestust</string>
     <string name="tool_promote_learning_description">Edenda tugevdatud teadmine süsteemiviipa</string>
     <string name="tool_promote_learning_name">Edenda teadmist</string>
-    <string name="tool_trigger_heartbeat_description">Käivita heartbeat järgmises tsüklis</string>
-    <string name="tool_trigger_heartbeat_name">Käivita Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Käivita südamelöök järgmises tsüklis</string>
+    <string name="tool_trigger_heartbeat_name">Käivita südamelöök</string>
     <string name="tool_web_search_description">Otsi veebist ajakohast teavet</string>
     <string name="tool_open_url_name">Ava URL</string>
     <string name="tool_open_url_description">Ava URL või link seadmes</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Tööriistad</string>
     <string name="settings_import_section_mcp">MCP serverid</string>
     <string name="settings_import_section_conversations">Vestlused</string>
-    <string name="settings_heartbeat_reset_confirm">See lähtestab südamelöögi viipa vaikeväärtusele. Kas oled kindel?</string>
+    <string name="settings_heartbeat_reset_confirm">See lähtestab südamelöögi viipa vaikeväärtusele. Oled kindel?</string>
     <string name="settings_heartbeat_model">Mudel</string>
     <string name="settings_heartbeat_model_default">Vaikimisi</string>
     <string name="settings_import_partial">Seaded imporditud %1$d vigase jaotisega.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Kustuta vestlus</string>
     <string name="chat_history_empty">Salvestatud vestlusi pole</string>
     <string name="chat_history_heartbeat_label">Südamelöök</string>
-    <string name="heartbeat_banner_message">Heartbeat-il on midagi teatada</string>
+    <string name="heartbeat_banner_message">Südamelöögil on midagi teatada</string>
     <string name="heartbeat_banner_dismiss">Sulge</string>
     <string name="scroll_to_bottom_content_description">Keri alla</string>
     <string name="conversation_untitled">Pealkirjata</string>

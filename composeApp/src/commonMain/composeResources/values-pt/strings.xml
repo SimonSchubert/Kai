@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Remover conta</string>
     <string name="settings_email_poll_interval">Verificar a cada %1$d minutos</string>
     <string name="settings_email_poll_never">Nunca</string>
-    <string name="settings_email_queued">%1$d na fila do heartbeat</string>
+    <string name="settings_email_queued">%1$d na fila da pulsação</string>
     <string name="settings_email_last_poll">Última verificação bem-sucedida %1$s</string>
     <string name="settings_email_poll_failed">Última verificação falhou %1$s</string>
     <string name="settings_email_refresh">Atualizar conta</string>
@@ -120,7 +120,7 @@
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Esta é uma verificação automática. Revise suas memórias e tarefas pendentes. Se tudo estiver bem e nada precisar de atenção, responda exatamente: HEARTBEAT_OK
 Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acompanhamentos do usuário), trate disso.</string>
     <string name="settings_heartbeat_description">Verificações periódicas que permitem à IA revisar memórias e tarefas sem entrada do usuário. Executa a cada %1$d minutos durante horas ativas.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt de Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt de Pulsação</string>
     <string name="settings_heartbeat_recent">Atividade Recente</string>
     <string name="settings_remove_service">Remover</string>
     <string name="tool_memory_learn_description">Armazenar um aprendizado categorizado, resolução de erro ou preferência</string>
@@ -133,8 +133,8 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="tool_memory_reinforce_name">Reforçar Memória</string>
     <string name="tool_promote_learning_description">Promover um aprendizado reforçado para o prompt do sistema</string>
     <string name="tool_promote_learning_name">Promover Aprendizado</string>
-    <string name="tool_trigger_heartbeat_description">Acionar um heartbeat no próximo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Acionar Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Acionar uma pulsação no próximo ciclo</string>
+    <string name="tool_trigger_heartbeat_name">Acionar Pulsação</string>
     <string name="tool_web_search_description">Pesquisar na web por informações atuais</string>
     <string name="tool_open_url_name">Abrir URL</string>
     <string name="tool_open_url_description">Abrir um URL ou link no dispositivo</string>
@@ -185,7 +185,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_import_section_tools">Ferramentas</string>
     <string name="settings_import_section_mcp">Servidores MCP</string>
     <string name="settings_import_section_conversations">Conversas</string>
-    <string name="settings_heartbeat_reset_confirm">Isso redefinirá o prompt de heartbeat para o padrão. Tem certeza?</string>
+    <string name="settings_heartbeat_reset_confirm">Isso redefinirá o prompt de pulsação para o padrão. Tem certeza?</string>
     <string name="settings_heartbeat_model">Modelo</string>
     <string name="settings_heartbeat_model_default">Padrão</string>
     <string name="settings_import_partial">Configurações importadas com %1$d seção(ões) com erros.</string>
@@ -196,7 +196,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="chat_history_delete_content_description">Apagar conversa</string>
     <string name="chat_history_empty">Nenhuma conversa guardada</string>
     <string name="chat_history_heartbeat_label">Pulsação</string>
-    <string name="heartbeat_banner_message">Heartbeat tem algo a reportar</string>
+    <string name="heartbeat_banner_message">Pulsação tem algo a reportar</string>
     <string name="heartbeat_banner_dismiss">Fechar</string>
     <string name="scroll_to_bottom_content_description">Rolar para o final</string>
     <string name="conversation_untitled">Sem título</string>

@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Удалить аккаунт</string>
     <string name="settings_email_poll_interval">Проверять каждые %1$d мин.</string>
     <string name="settings_email_poll_never">Никогда</string>
-    <string name="settings_email_queued">%1$d в очереди для heartbeat</string>
+    <string name="settings_email_queued">%1$d в очереди для пульса</string>
     <string name="settings_email_last_poll">Последняя успешная проверка %1$s</string>
     <string name="settings_email_poll_failed">Последняя проверка не удалась %1$s</string>
     <string name="settings_email_refresh">Обновить аккаунт</string>
@@ -196,7 +196,7 @@
     <string name="chat_history_delete_content_description">Удалить разговор</string>
     <string name="chat_history_empty">Нет сохранённых разговоров</string>
     <string name="chat_history_heartbeat_label">Пульс</string>
-    <string name="heartbeat_banner_message">Heartbeat обнаружил что-то важное</string>
+    <string name="heartbeat_banner_message">Пульс обнаружил что-то важное</string>
     <string name="heartbeat_banner_dismiss">Закрыть</string>
     <string name="scroll_to_bottom_content_description">Прокрутить вниз</string>
     <string name="conversation_untitled">Без названия</string>

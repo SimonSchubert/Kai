@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Αφαίρεση λογαριασμού</string>
     <string name="settings_email_poll_interval">Έλεγχος κάθε %1$d λεπτά</string>
     <string name="settings_email_poll_never">Ποτέ</string>
-    <string name="settings_email_queued">%1$d σε αναμονή για heartbeat</string>
+    <string name="settings_email_queued">%1$d σε αναμονή για παλμό</string>
     <string name="settings_email_last_poll">Τελευταίος επιτυχής έλεγχος %1$s</string>
     <string name="settings_email_poll_failed">Τελευταίος έλεγχος απέτυχε %1$s</string>
     <string name="settings_email_refresh">Ανανέωση λογαριασμού</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Παλμός</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Αυτός είναι ένας αυτόματος αυτοέλεγχος. Εξέτασε τις αναμνήσεις και τις εκκρεμείς εργασίες σου. Αν όλα φαίνονται εντάξει και τίποτα δεν χρειάζεται προσοχή, απάντησε ακριβώς: HEARTBEAT_OK\nΑν κάτι χρειάζεται προσοχή (παλιές αναμνήσεις, εκκρεμείς εργασίες, ερωτήματα χρήστη), ασχολήσου με αυτό.</string>
     <string name="settings_heartbeat_description">Περιοδικοί αυτοέλεγχοι που επιτρέπουν στην AI να ελέγχει αναμνήσεις και εργασίες χωρίς είσοδο χρήστη. Εκτελείται κάθε %1$d λεπτά κατά τις ενεργές ώρες.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt παλμού</string>
     <string name="settings_heartbeat_recent">Πρόσφατη δραστηριότητα</string>
     <string name="settings_remove_service">Αφαίρεση</string>
     <string name="tool_memory_learn_description">Αποθήκευση κατηγοριοποιημένης γνώσης, επίλυσης σφάλματος ή προτίμησης</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Ενίσχυση ανάμνησης</string>
     <string name="tool_promote_learning_description">Προαγωγή ενισχυμένης γνώσης στο prompt συστήματος</string>
     <string name="tool_promote_learning_name">Προαγωγή γνώσης</string>
-    <string name="tool_trigger_heartbeat_description">Ενεργοποίηση heartbeat στον επόμενο κύκλο</string>
-    <string name="tool_trigger_heartbeat_name">Ενεργοποίηση Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Ενεργοποίηση παλμού στον επόμενο κύκλο</string>
+    <string name="tool_trigger_heartbeat_name">Ενεργοποίηση παλμού</string>
     <string name="tool_web_search_description">Αναζήτηση στο διαδίκτυο για τρέχουσες πληροφορίες</string>
     <string name="tool_open_url_name">Άνοιγμα URL</string>
     <string name="tool_open_url_description">Άνοιγμα URL ή συνδέσμου στη συσκευή</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Εργαλεία</string>
     <string name="settings_import_section_mcp">Διακομιστές MCP</string>
     <string name="settings_import_section_conversations">Συνομιλίες</string>
-    <string name="settings_heartbeat_reset_confirm">Αυτό θα επαναφέρει το μήνυμα heartbeat στο προεπιλεγμένο. Είστε σίγουροι;</string>
+    <string name="settings_heartbeat_reset_confirm">Αυτό θα επαναφέρει το μήνυμα παλμού στις προεπιλογές. Είστε σίγουροι;</string>
     <string name="settings_heartbeat_model">Μοντέλο</string>
     <string name="settings_heartbeat_model_default">Προεπιλογή</string>
     <string name="settings_import_partial">Οι ρυθμίσεις εισήχθησαν με %1$d ενότητα(ες) που είχαν σφάλματα.</string>

@@ -108,7 +108,7 @@
     <string name="settings_email_remove">ਖਾਤਾ ਹਟਾਓ</string>
     <string name="settings_email_poll_interval">ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੈੱਕ ਕਰੋ</string>
     <string name="settings_email_poll_never">ਕਦੇ ਨਹੀਂ</string>
-    <string name="settings_email_queued">%1$d heartbeat ਲਈ ਕਤਾਰ ਵਿੱਚ</string>
+    <string name="settings_email_queued">%1$d ਦਿਲ ਦੀ ਧੜਕਣ ਲਈ ਕਤਾਰ ਵਿੱਚ</string>
     <string name="settings_email_last_poll">ਆਖਰੀ ਸਫਲ ਚੈੱਕ %1$s</string>
     <string name="settings_email_poll_failed">ਆਖਰੀ ਚੈੱਕ ਅਸਫਲ %1$s</string>
     <string name="settings_email_refresh">ਖਾਤਾ ਰਿਫ੍ਰੈਸ਼ ਕਰੋ</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">ਦਿਲ ਦੀ ਧੜਕਣ</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] ਇਹ ਇੱਕ ਆਟੋਮੈਟਿਕ ਸਵੈ-ਜਾਂਚ ਹੈ। ਆਪਣੀਆਂ ਯਾਦਾਂ ਅਤੇ ਬਕਾਇਆ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰੋ। ਜੇ ਸਭ ਕੁਝ ਠੀਕ ਹੈ ਅਤੇ ਕਿਸੇ ਧਿਆਨ ਦੀ ਲੋੜ ਨਹੀਂ, ਤਾਂ ਬਿਲਕੁਲ ਇਹ ਜਵਾਬ ਦਿਓ: HEARTBEAT_OK\nਜੇ ਕਿਸੇ ਚੀਜ਼ ਨੂੰ ਧਿਆਨ ਦੀ ਲੋੜ ਹੈ (ਪੁਰਾਣੀਆਂ ਯਾਦਾਂ, ਬਕਾਇਆ ਕੰਮ, ਉਪਭੋਗਤਾ ਫਾਲੋ-ਅੱਪ), ਇਸ ਨੂੰ ਸੰਭਾਲੋ।</string>
     <string name="settings_heartbeat_description">ਸਮੇਂ-ਸਮੇਂ ਦੀਆਂ ਸਵੈ-ਜਾਂਚਾਂ ਜੋ AI ਨੂੰ ਉਪਭੋਗਤਾ ਇਨਪੁਟ ਤੋਂ ਬਿਨਾਂ ਯਾਦਾਂ ਅਤੇ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰਨ ਦਿੰਦੀਆਂ ਹਨ। ਸਰਗਰਮ ਘੰਟਿਆਂ ਦੌਰਾਨ ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੱਲਦੀਆਂ ਹਨ।</string>
-    <string name="settings_heartbeat_prompt_label">Heartbeat ਪ੍ਰੋਂਪਟ</string>
+    <string name="settings_heartbeat_prompt_label">ਦਿਲ ਦੀ ਧੜਕਣ ਪ੍ਰੋਂਪਟ</string>
     <string name="settings_heartbeat_recent">ਤਾਜ਼ਾ ਗਤੀਵਿਧੀ</string>
     <string name="settings_remove_service">ਹਟਾਓ</string>
     <string name="tool_memory_learn_description">ਵਰਗੀਕ੍ਰਿਤ ਸਿਖਲਾਈ, ਗਲਤੀ ਹੱਲ, ਜਾਂ ਤਰਜੀਹ ਸਟੋਰ ਕਰੋ</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">ਯਾਦ ਮਜ਼ਬੂਤ ਕਰੋ</string>
     <string name="tool_promote_learning_description">ਮਜ਼ਬੂਤ ਕੀਤੀ ਸਿਖਲਾਈ ਨੂੰ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਵਿੱਚ ਤਰੱਕੀ ਦਿਓ</string>
     <string name="tool_promote_learning_name">ਸਿਖਲਾਈ ਤਰੱਕੀ ਦਿਓ</string>
-    <string name="tool_trigger_heartbeat_description">ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ heartbeat ਟ੍ਰਿਗਰ ਕਰੋ</string>
-    <string name="tool_trigger_heartbeat_name">Heartbeat ਟ੍ਰਿਗਰ ਕਰੋ</string>
+    <string name="tool_trigger_heartbeat_description">ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ ਦਿਲ ਦੀ ਧੜਕਣ ਟ੍ਰਿਗਰ ਕਰੋ</string>
+    <string name="tool_trigger_heartbeat_name">ਦਿਲ ਦੀ ਧੜਕਣ ਟ੍ਰਿਗਰ ਕਰੋ</string>
     <string name="tool_web_search_description">ਮੌਜੂਦਾ ਜਾਣਕਾਰੀ ਲਈ ਵੈੱਬ ਖੋਜੋ</string>
     <string name="tool_open_url_name">URL ਖੋਲੋ</string>
     <string name="tool_open_url_description">ਡਿਵਾਈਸ ਤੇ URL ਜਾਂ ਲਿੰਕ ਖੋਲੋ</string>
@@ -179,12 +179,12 @@
     <string name="settings_import_section_soul">ਰੂਹ</string>
     <string name="settings_import_section_memory">ਯਾਦਦਾਸ਼ਤ</string>
     <string name="settings_import_section_scheduling">ਸਮਾਂ-ਸੂਚੀ</string>
-    <string name="settings_import_section_heartbeat">ਹਾਰਟਬੀਟ</string>
+    <string name="settings_import_section_heartbeat">ਦਿਲ ਦੀ ਧੜਕਣ</string>
     <string name="settings_import_section_email">ਈਮੇਲ</string>
     <string name="settings_import_section_tools">ਸੰਦ</string>
     <string name="settings_import_section_mcp">MCP ਸਰਵਰ</string>
     <string name="settings_import_section_conversations">ਗੱਲਬਾਤ</string>
-    <string name="settings_heartbeat_reset_confirm">ਇਹ ਹਾਰਟਬੀਟ ਪ੍ਰੋਂਪਟ ਨੂੰ ਡਿਫੌਲਟ ਤੇ ਰੀਸੈੱਟ ਕਰੇਗਾ। ਕੀ ਤੁਸੀਂ ਪੱਕੇ ਹੋ?</string>
+    <string name="settings_heartbeat_reset_confirm">ਇਹ ਦਿਲ ਦੀ ਧੜਕਣ ਪ੍ਰੋਂਪਟ ਨੂੰ ਡਿਫੌਲਟ ਤੇ ਰੀਸੈੱਟ ਕਰੇਗਾ. ਕੀ ਤੁਸੀਂ ਪੱਕੇ ਹੋ?</string>
     <string name="settings_heartbeat_model">ਮਾਡਲ</string>
     <string name="settings_heartbeat_model_default">ਮੂਲ</string>
     <string name="settings_import_partial">%1$d ਭਾਗ(ਾਂ) ਵਿੱਚ ਗਲਤੀਆਂ ਨਾਲ ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
@@ -194,8 +194,8 @@
     <string name="chat_history_title">ਚੈਟ ਇਤਿਹਾਸ</string>
     <string name="chat_history_delete_content_description">ਗੱਲਬਾਤ ਮਿਟਾਓ</string>
     <string name="chat_history_empty">ਕੋਈ ਸੁਰੱਖਿਅਤ ਗੱਲਬਾਤ ਨਹੀਂ</string>
-    <string name="chat_history_heartbeat_label">ਹਾਰਟਬੀਟ</string>
-    <string name="heartbeat_banner_message">ਹਾਰਟਬੀਟ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਹੈ</string>
+    <string name="chat_history_heartbeat_label">ਦਿਲ ਦੀ ਧੜਕਣ</string>
+    <string name="heartbeat_banner_message">ਦਿਲ ਦੀ ਧੜਕਣ ਕੋਲ ਰਿਪੋਰਟ ਕਰਨ ਲਈ ਕੁਝ ਹੈ</string>
     <string name="heartbeat_banner_dismiss">ਰੱਦ ਕਰੋ</string>
     <string name="scroll_to_bottom_content_description">ਹੇਠਾਂ ਸਕ੍ਰੋਲ ਕਰੋ</string>
     <string name="conversation_untitled">ਬਿਨਾਂ ਸਿਰਲੇਖ</string>

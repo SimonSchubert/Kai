@@ -108,7 +108,7 @@
     <string name="settings_email_remove">Hapus akun</string>
     <string name="settings_email_poll_interval">Periksa setiap %1$d menit</string>
     <string name="settings_email_poll_never">Jangan pernah</string>
-    <string name="settings_email_queued">%1$d menunggu heartbeat</string>
+    <string name="settings_email_queued">%1$d dalam antrean untuk detak jantung</string>
     <string name="settings_email_last_poll">Pengambilan sukses terakhir %1$s</string>
     <string name="settings_email_poll_failed">Pengambilan terakhir gagal %1$s</string>
     <string name="settings_email_refresh">Segarkan akun</string>
@@ -119,7 +119,7 @@
     <string name="settings_heartbeat">Detak Jantung</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] Ini adalah pemeriksaan mandiri otomatis. Tinjau memori dan tugas yang tertunda. Jika semuanya baik dan tidak ada yang perlu perhatian, jawab dengan tepat: HEARTBEAT_OK\nJika sesuatu memerlukan perhatian (memori usang, tugas jatuh tempo, tindak lanjut pengguna), tangani hal tersebut.</string>
     <string name="settings_heartbeat_description">Pemeriksaan mandiri berkala yang memungkinkan AI meninjau memori dan tugas tanpa masukan pengguna. Berjalan setiap %1$d menit selama jam aktif.</string>
-    <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
+    <string name="settings_heartbeat_prompt_label">Prompt Detak Jantung</string>
     <string name="settings_heartbeat_recent">Aktivitas Terkini</string>
     <string name="settings_remove_service">Hapus</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran terkategorisasi, resolusi kesalahan, atau preferensi</string>
@@ -132,8 +132,8 @@
     <string name="tool_memory_reinforce_name">Perkuat Memori</string>
     <string name="tool_promote_learning_description">Promosikan pembelajaran yang diperkuat ke prompt sistem</string>
     <string name="tool_promote_learning_name">Promosikan Pembelajaran</string>
-    <string name="tool_trigger_heartbeat_description">Picu heartbeat pada siklus berikutnya</string>
-    <string name="tool_trigger_heartbeat_name">Picu Heartbeat</string>
+    <string name="tool_trigger_heartbeat_description">Picu detak jantung pada siklus berikutnya</string>
+    <string name="tool_trigger_heartbeat_name">Picu Detak Jantung</string>
     <string name="tool_web_search_description">Cari informasi terkini di web</string>
     <string name="tool_open_url_name">Buka URL</string>
     <string name="tool_open_url_description">Buka URL atau tautan di perangkat</string>
@@ -184,7 +184,7 @@
     <string name="settings_import_section_tools">Alat</string>
     <string name="settings_import_section_mcp">Server MCP</string>
     <string name="settings_import_section_conversations">Percakapan</string>
-    <string name="settings_heartbeat_reset_confirm">Ini akan mereset prompt detak jantung ke default. Apakah Anda yakin?</string>
+    <string name="settings_heartbeat_reset_confirm">Ini akan mereset prompt detak jantung ke default. Anda yakin?</string>
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Bawaan</string>
     <string name="settings_import_partial">Pengaturan diimpor dengan %1$d bagian yang memiliki kesalahan.</string>
@@ -195,7 +195,7 @@
     <string name="chat_history_delete_content_description">Hapus percakapan</string>
     <string name="chat_history_empty">Tidak ada percakapan tersimpan</string>
     <string name="chat_history_heartbeat_label">Detak Jantung</string>
-    <string name="heartbeat_banner_message">Heartbeat punya sesuatu untuk dilaporkan</string>
+    <string name="heartbeat_banner_message">Detak Jantung punya sesuatu untuk dilaporkan</string>
     <string name="heartbeat_banner_dismiss">Tutup</string>
     <string name="scroll_to_bottom_content_description">Gulir ke bawah</string>
     <string name="conversation_untitled">Tanpa Judul</string>
