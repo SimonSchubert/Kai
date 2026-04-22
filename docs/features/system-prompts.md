@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-04-22
+**Last verified:** 2026-04-23
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -32,7 +32,7 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | `## Email Accounts` | when list non-empty (email enabled) | never | `emailAccounts` — connected address, unread count, last sync, or last sync error |
 | `## Scheduled Tasks` | when list non-empty | never | `pendingTasks` (time/cron only; heartbeat-trigger tasks live in the next section) |
 | `## Heartbeat Additions` | when list non-empty | never | `heartbeatAdditions` — standing `schedule_task(on_heartbeat=true)` entries the AI can see/reference/cancel |
-| `## Context` | always | always | `runtime` param (date, platform, model, provider) |
+| `## Context` | always | always | `runtime` param (local time with offset + IANA zone, UTC, platform, model, provider). Local time leads so the model anchors on the user's wall clock when computing relative times |
 | `## Dynamic UI` | when `uiMode = DYNAMIC_UI` | never | `uiMode` param |
 | `## Interactive UI Mode` | when `uiMode = INTERACTIVE_UI` | never | `uiMode` param |
 

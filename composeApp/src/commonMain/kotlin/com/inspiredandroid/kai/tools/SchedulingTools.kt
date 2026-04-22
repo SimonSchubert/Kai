@@ -17,18 +17,29 @@ import kai.composeapp.generated.resources.tool_schedule_task_name
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+@OptIn(ExperimentalTime::class)
 object SchedulingTools {
+
+    /**
+     * Reject execute_at instants more than this far in the past. A small slack covers
+     * round-trip latency between "now" on the AI side and "now" in the tool executor;
+     * larger gaps indicate a UTC/local sign flip that would otherwise either fire
+     * immediately or (after backoff) silently sit PENDING.
+     */
+    private const val PAST_INSTANT_SLACK_MS = 60_000L
 
     fun scheduleTaskTool(taskStore: TaskStore) = object : Tool {
         override val schema = ToolSchema(
             name = "schedule_task",
-            description = "Schedule a prompt to run later, recurring, or on every heartbeat. This is the ONLY way to run something after this turn — reminders, follow-ups, periodic updates, check-ins, standing heartbeat additions (greetings, always-summarise-emails): all go through this tool. Each run starts a fresh conversation, so embed the context the prompt needs. Exactly one trigger must be provided: execute_at (one-off at a datetime), cron (recurring on a schedule), or on_heartbeat=true (appended to every heartbeat self-check).",
+            description = "Schedule a prompt to run later, recurring, or on every heartbeat. This is the ONLY way to run something after this turn — reminders, follow-ups, periodic updates, check-ins, standing heartbeat additions (greetings, always-summarise-emails): all go through this tool. Each run starts a fresh conversation, so embed the context the prompt needs. Exactly one trigger must be provided: execute_at (one-off at a datetime), cron (recurring on a schedule), or on_heartbeat=true (appended to every heartbeat self-check). Schedule relative to the **Local time** shown in `## Context`, not UTC.",
             parameters = mapOf(
                 "description" to ParameterSchema(type = "string", description = "Human-readable description of the task", required = true),
                 "prompt" to ParameterSchema(type = "string", description = "For execute_at/cron: the full prompt sent to the AI when it fires. For on_heartbeat: the instruction appended to each heartbeat self-check (e.g. 'Greet the user warmly with a time-appropriate greeting.').", required = true),
-                "execute_at" to ParameterSchema(type = "string", description = "ISO 8601 datetime string for a one-off run (e.g. 2025-03-15T09:00:00)", required = false),
+                "execute_at" to ParameterSchema(type = "string", description = "ISO 8601 datetime for a one-off run. Either offset-qualified (e.g. '2025-03-15T09:00:00+02:00' or '2025-03-15T07:00:00Z') — interpreted as that exact instant — OR naive (e.g. '2025-03-15T09:00:00') — interpreted in the user's local timezone shown in `## Context`. Prefer offset-qualified to avoid ambiguity. Must be in the future.", required = false),
                 "cron" to ParameterSchema(type = "string", description = "Cron expression for recurring tasks (e.g. '0 9 * * 1' for every Monday at 9am)", required = false),
                 "on_heartbeat" to ParameterSchema(type = "boolean", description = "Set to true to run this prompt on every heartbeat self-check. Use for standing additions to heartbeat behaviour.", required = false),
             ),
@@ -58,11 +69,19 @@ object SchedulingTools {
             }
 
             val scheduledAtEpochMs = if (executeAt != null) {
-                try {
+                val parsed = try {
                     parseIso8601ToEpochMs(executeAt)
                 } catch (e: Exception) {
                     return mapOf("success" to false, "error" to "Invalid execute_at format: ${e.message}")
                 }
+                val nowMs = Clock.System.now().toEpochMilliseconds()
+                if (parsed < nowMs - PAST_INSTANT_SLACK_MS) {
+                    return mapOf(
+                        "success" to false,
+                        "error" to "execute_at ($executeAt) is in the past — check the Local time in Context and retry (use an offset-qualified value like 2025-03-15T09:00:00+02:00 to avoid UTC/local ambiguity)",
+                    )
+                }
+                parsed
             } else {
                 0L // cron and heartbeat tasks don't use this field at creation time
             }

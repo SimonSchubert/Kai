@@ -55,6 +55,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.offsetAt
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -1705,8 +1708,14 @@ class RemoteDataRepository(
                 ""
             }
         }
+        val now = Clock.System.now()
+        val timeZone = TimeZone.currentSystemDefault()
+        val localDateTime = now.toLocalDateTime(timeZone)
+        val offset = timeZone.offsetAt(now)
         val runtime = ChatPromptRuntimeContext(
-            nowIsoString = Clock.System.now().toString(),
+            nowLocalIsoWithOffset = "$localDateTime$offset",
+            timeZoneId = timeZone.id,
+            nowUtcIsoString = now.toString(),
             platform = platformName,
             modelId = modelId,
             providerName = service.displayName,

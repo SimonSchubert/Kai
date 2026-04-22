@@ -31,7 +31,12 @@ enum class SystemPromptVariant {
 
 /** Runtime state rendered into the `## Context` section. */
 internal data class ChatPromptRuntimeContext(
-    val nowIsoString: String,
+    /** Local-zoned ISO 8601 with explicit offset, e.g. `2026-04-22T22:32:39+02:00`. */
+    val nowLocalIsoWithOffset: String,
+    /** IANA zone id, e.g. `Europe/Berlin`. Rendered next to the local time for clarity. */
+    val timeZoneId: String,
+    /** UTC ISO 8601 with `Z` suffix — kept so the model can double-check the offset. */
+    val nowUtcIsoString: String,
     val platform: String,
     val modelId: String,
     val providerName: String,
@@ -273,8 +278,16 @@ private fun StringBuilder.appendScheduledTasksSection(pendingTasks: List<Schedul
 
 private fun StringBuilder.appendContextSection(runtime: ChatPromptRuntimeContext) {
     append("\n\n## Context\n")
-    append("- Date: ")
-    append(runtime.nowIsoString)
+    // Lead with local time so the model anchors on the user's wall clock when computing
+    // relative times ("in 3 minutes", "tomorrow at 9"). Tools that accept a naive datetime
+    // (e.g. `schedule_task`'s `execute_at`) interpret it in this zone.
+    append("- Local time: ")
+    append(runtime.nowLocalIsoWithOffset)
+    append(" (")
+    append(runtime.timeZoneId)
+    append(")\n")
+    append("- UTC: ")
+    append(runtime.nowUtcIsoString)
     append('\n')
     append("- Platform: ")
     append(runtime.platform)

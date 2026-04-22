@@ -16,7 +16,9 @@ import kotlin.test.assertTrue
 class ChatSystemPromptBuilderTest {
 
     private val runtime = ChatPromptRuntimeContext(
-        nowIsoString = "2026-04-11T00:00:00Z",
+        nowLocalIsoWithOffset = "2026-04-11T02:00:00+02:00",
+        timeZoneId = "Europe/Berlin",
+        nowUtcIsoString = "2026-04-11T00:00:00Z",
         platform = "Test",
         modelId = "test-model",
         providerName = "Test Provider",
@@ -86,7 +88,8 @@ class ChatSystemPromptBuilderTest {
         assertTrue("## Structured Learning" in out)
         assertTrue("## Automation" in out)
         assertTrue("## Context" in out)
-        assertTrue("- Date: 2026-04-11T00:00:00Z" in out)
+        assertTrue("- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)" in out)
+        assertTrue("- UTC: 2026-04-11T00:00:00Z" in out)
         assertTrue("- Platform: Test" in out)
         assertTrue("- Model: test-model" in out)
         assertTrue("- Provider: Test Provider" in out)
@@ -466,7 +469,8 @@ class ChatSystemPromptBuilderTest {
             Save user preferences with memory_store.
 
             ## Context
-            - Date: 2026-04-11T00:00:00Z
+            - Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)
+            - UTC: 2026-04-11T00:00:00Z
             - Platform: Test
             - Model: test-model
             - Provider: Test Provider

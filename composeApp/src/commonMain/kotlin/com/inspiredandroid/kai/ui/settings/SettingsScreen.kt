@@ -264,6 +264,7 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.jsonObject
 import org.jetbrains.compose.resources.StringResource
@@ -2585,9 +2586,11 @@ private fun ScheduledTaskList(
                     TaskTrigger.CRON -> "${task.status} - ${task.cron?.let { describeCron(it) } ?: "cron"}"
 
                     TaskTrigger.TIME -> {
-                        val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
-                            .toLocalDateTime(TimeZone.currentSystemDefault())
-                        "${task.status} - $scheduledTime"
+                        val instant = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
+                        val zone = TimeZone.currentSystemDefault()
+                        val scheduledTime = instant.toLocalDateTime(zone)
+                        val offset = zone.offsetAt(instant)
+                        "${task.status} - $scheduledTime $offset"
                     }
                 }
                 SettingsListItem(
