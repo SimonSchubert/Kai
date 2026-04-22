@@ -112,10 +112,10 @@ import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
-import com.inspiredandroid.kai.data.TaskTrigger
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
+import com.inspiredandroid.kai.data.TaskTrigger
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.inference.DevicePerformance
@@ -2581,7 +2581,9 @@ private fun ScheduledTaskList(
             tasks.forEach { task ->
                 val subtitle = when (task.trigger) {
                     TaskTrigger.HEARTBEAT -> "${task.status} - On every heartbeat"
+
                     TaskTrigger.CRON -> "${task.status} - ${task.cron?.let { describeCron(it) } ?: "cron"}"
+
                     TaskTrigger.TIME -> {
                         val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
                             .toLocalDateTime(TimeZone.currentSystemDefault())

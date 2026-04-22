@@ -55,7 +55,9 @@ class TaskStore(private val appSettings: AppSettings) {
         val tasks = loadTasks()
         val now = Clock.System.now()
         val effectiveScheduledAt = when (trigger) {
-            TaskTrigger.HEARTBEAT -> 0L // heartbeat tasks are not time-gated
+            TaskTrigger.HEARTBEAT -> 0L
+
+            // heartbeat tasks are not time-gated
             TaskTrigger.CRON -> if (scheduledAtEpochMs == 0L) {
                 try {
                     CronExpression(cron!!).nextAfter(now)?.toEpochMilliseconds() ?: now.toEpochMilliseconds()
@@ -65,6 +67,7 @@ class TaskStore(private val appSettings: AppSettings) {
             } else {
                 scheduledAtEpochMs
             }
+
             TaskTrigger.TIME -> scheduledAtEpochMs
         }
         val task = ScheduledTask(
@@ -87,12 +90,10 @@ class TaskStore(private val appSettings: AppSettings) {
      * All PENDING non-heartbeat tasks — what the user thinks of as "scheduled". Heartbeat-
      * triggered tasks are surfaced separately via [getPendingHeartbeatAdditions].
      */
-    fun getPendingTasks(): List<ScheduledTask> =
-        loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger != TaskTrigger.HEARTBEAT }
+    fun getPendingTasks(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger != TaskTrigger.HEARTBEAT }
 
     /** Standing additions to every heartbeat self-check. */
-    fun getPendingHeartbeatAdditions(): List<ScheduledTask> =
-        loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger == TaskTrigger.HEARTBEAT }
+    fun getPendingHeartbeatAdditions(): List<ScheduledTask> = loadTasks().filter { it.status == TaskStatus.PENDING && it.trigger == TaskTrigger.HEARTBEAT }
 
     /**
      * Both pending scheduled tasks and heartbeat additions from a single load. Hot-path
