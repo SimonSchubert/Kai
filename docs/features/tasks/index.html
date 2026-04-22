@@ -1159,7 +1159,7 @@
 
 
 <h1 id="tasks">Tasks</h1>
-<p><strong>Last verified:</strong> 2026-04-22</p>
+<p><strong>Last verified:</strong> 2026-04-23</p>
 <p>Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="task">Task</h3>
@@ -1227,6 +1227,8 @@
 <h3 id="schedule_task-validation">schedule_task Validation</h3>
 <ul>
 <li><strong>Exactly one</strong> of <code>execute_at</code> (ISO 8601), <code>cron</code>, or <code>on_heartbeat: true</code> must be provided — they are mutually exclusive</li>
+<li><code>execute_at</code> accepts offset-qualified (<code>2026-04-22T22:32:39+02:00</code>, <code>...Z</code>) or naive (<code>2026-04-22T22:32:39</code>) values. Naive values are interpreted in the user's local timezone, which is surfaced to the AI via the <code>## Context</code> block's <code>Local time</code> line. Offset-qualified form is preferred to avoid UTC/local ambiguity</li>
+<li>Past-dated <code>execute_at</code> values (more than a minute before now) are rejected at tool-call time with an error that points at the <code>Local time</code> context — most often this is a UTC/local sign flip that the model can correct on retry</li>
 <li>Returns the created task's id, description, trigger, scheduled time, and cron expression</li>
 </ul>
 <h3 id="heartbeat-triggered-tasks">Heartbeat-triggered tasks</h3>

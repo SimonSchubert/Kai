@@ -1172,7 +1172,7 @@
 </ul>
 <h3 id="interaction-flow">Interaction Flow</h3>
 <p>When a callback fires, the renderer collects input values and formats them as a <code>[UI Interaction]</code> user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button shows an inline circular spinner in place of its label; other buttons in the same layout become disabled.</p>
-<p>The resulting user message in the chat renders as a <strong>frozen snapshot</strong> of the form the user just submitted — the originating kai-ui is re-rendered non-interactively with the submitted values injected into the form fields, instead of showing a cryptic "Responded with: key: value" text. The text form is still what the AI receives; only the UI rendering changes. Snapshots are persisted with the conversation, so reloading a saved conversation preserves them. Messages saved before this feature shipped (or plain text submissions without an originating kai-ui) fall back to the normal text bubble.</p>
+<p>The originating assistant's kai-ui card stays in place across the exchange. While the submission is in flight the pressed button pulses; once the reply arrives the card settles into a frozen snapshot (prior values seeded, pressed button highlighted) with an edit pencil in the top-right corner. The user's submission does not produce a separate text bubble — the filled-in form on the assistant card already shows exactly what was sent. Clicking the pencil re-enables the form seeded with the previous picks; pressing any button then triggers a resubmit that truncates from that point and re-asks the AI. The text form ("Responded with: key: value") is still what the AI receives; only the visual representation differs. Snapshots persist with the conversation, so reloading preserves them.</p>
 <h3 id="layout-lifecycle">Layout Lifecycle</h3>
 <p>Only the latest assistant message's layouts are interactive. Older layouts become read-only with disabled buttons and inputs. Form state is local to each layout; cross-step state lives in conversation history.</p>
 <h3 id="error-handling">Error Handling</h3>
@@ -1232,7 +1232,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/composables/BotMessage.kt</code></td>
-<td>Integration point — runs the parser and renders past kai-ui read-only via <code>isInteractive = false</code></td>
+<td>Integration point — runs the parser, renders frozen/edit-enabled snapshots for paired user submissions, and renders past kai-ui read-only via <code>isInteractive = false</code></td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/ChatScreen.kt</code></td>
