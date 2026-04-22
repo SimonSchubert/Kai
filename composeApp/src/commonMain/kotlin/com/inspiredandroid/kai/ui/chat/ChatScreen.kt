@@ -77,6 +77,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.onDragAndDropEventDropped
 import com.inspiredandroid.kai.ui.chat.composables.BotMessage
@@ -172,6 +173,13 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
     val hasAssistantResponse = remember(uiState.history) {
         uiState.history.any { it.role == History.Role.ASSISTANT }
     }
+    // Interactive mode drives a tool-calling loop and emits kai-ui JSON, so the
+    // switcher only lists services/models capable of agentic flows.
+    val interactiveServices = remember(uiState.availableServices) {
+        uiState.availableServices
+            .filter { supportsAgenticFlows(it.serviceId, it.modelId) }
+            .toImmutableList()
+    }
     var inputExpanded by remember { mutableStateOf(true) }
     LaunchedEffect(hasAssistantResponse, uiState.history.size) {
         if (hasAssistantResponse) inputExpanded = false
@@ -243,7 +251,7 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         supportedFileExtensions = uiState.supportedFileExtensions,
                         isLoading = uiState.isLoading,
                         cancel = uiState.actions.cancel,
-                        availableServices = uiState.availableServices,
+                        availableServices = interactiveServices,
                         onSelectService = uiState.actions.selectService,
                     )
                 }
@@ -281,9 +289,9 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                         onClick = { inputExpanded = true },
                     )
                 }
-                if (uiState.availableServices.size > 1) {
+                if (interactiveServices.size > 1) {
                     ServiceSelector(
-                        services = uiState.availableServices,
+                        services = interactiveServices,
                         onSelectService = uiState.actions.selectService,
                     )
                 }

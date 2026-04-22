@@ -75,23 +75,6 @@ import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-private val limitedModels = listOf(
-    "llama3.2:1b",
-    "llama3.2:3b",
-    "llama3.1:8b",
-    "gemma2",
-    "gemma:2b",
-    "gemma:7b",
-    "gemma-4-e2b",
-    "gemma-4-e4b",
-    "phi3:mini",
-    "tinyllama",
-    "stablelm",
-    "codellama",
-    "deepseek-coder:1.3b",
-    "deepseek-coder:6.7b",
-)
-
 private const val MAX_TOOL_ITERATIONS = 15
 private const val MIN_TOOL_DISPLAY_MS = 2000L
 private const val MAX_REPEATED_TOOL_CALLS = 3
@@ -182,11 +165,6 @@ private fun estimateContextWindowTokens(modelId: String): Int {
 
         else -> DEFAULT_CONTEXT_WINDOW_TOKENS
     }
-}
-
-private fun supportsTools(modelId: String): Boolean {
-    val lower = modelId.lowercase()
-    return limitedModels.none { lower.startsWith(it) }
 }
 
 class RemoteDataRepository(

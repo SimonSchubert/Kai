@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-22
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -30,7 +30,7 @@ The allowlist (in `RemoteDataRepository.LOCAL_TOOL_ALLOWLIST`) currently exposes
 
 The system prompt for on-device runs is built directly from the `CHAT_LOCAL` variant of `buildChatSystemPrompt` — it contains only the sections a small Gemma can handle (soul + basic memory guidance + runtime Context block). Memory categories, scheduled tasks, Structured Learning guidance, and kai-ui sections are never composed in.
 
-Interactive UI mode is **not supported** on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device. Users who need interactive UI should switch to a remote service.
+Interactive UI mode is **not supported** on-device: the kai-ui component schema is too large and too structurally complex for 2-4B Gemma models to reliably produce valid kai-ui JSON. The "Start interactive mode" button in the chat empty-state is hidden when the primary service is on-device, and on-device services are also filtered out of the quick-switch service selector while Interactive Mode is active so a user already in Interactive Mode can't switch to them. Users who need interactive UI should switch to a remote service.
 
 See [system-prompts.md](system-prompts.md) and `ChatSystemPromptBuilderTest` for the full contract.
 

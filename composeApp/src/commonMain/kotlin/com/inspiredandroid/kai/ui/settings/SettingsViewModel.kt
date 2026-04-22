@@ -6,6 +6,7 @@ import com.inspiredandroid.kai.DaemonController
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.inference.LocalModel
@@ -76,7 +77,9 @@ class SettingsViewModel(
         heartbeatActiveHoursEnd = dataRepository.getHeartbeatConfig().activeHoursEnd,
         heartbeatPrompt = dataRepository.getHeartbeatPrompt(),
         heartbeatLog = dataRepository.getHeartbeatLog().toImmutableList(),
-        heartbeatServiceEntries = dataRepository.getServiceEntries().filter { !Service.fromId(it.serviceId).isOnDevice }.toImmutableList(),
+        heartbeatServiceEntries = dataRepository.getServiceEntries()
+            .filter { supportsAgenticFlows(it.serviceId, it.modelId) }
+            .toImmutableList(),
         heartbeatSelectedInstanceId = dataRepository.getHeartbeatInstanceId()?.takeIf { id ->
             dataRepository.getServiceEntries().any { it.instanceId == id }
         }.also { validId ->
