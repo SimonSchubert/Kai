@@ -583,22 +583,41 @@ private fun ChatModeScreen(
                         }
 
                         val lastAssistantId = remember(uiState.history) { uiState.history.lastRenderedAssistant()?.id }
-                        val lastUserId = remember(uiState.history) {
-                            uiState.history.lastOrNull { it.role == History.Role.USER }?.id
+                        // Pair every user submission with its originating assistant so the kai-ui
+                        // renders once (on the assistant side) with a frozen snapshot — never as a
+                        // separate user-side card. pressedEvent + values persist across the loading
+                        // transition; isPending is only set for the latest in-flight submission.
+                        val pairings = remember(uiState.history, uiState.isLoading) {
+                            val history = uiState.history
+                            val lastUserIdx = history.indexOfLast { it.role == History.Role.USER }
+                            val frozen = mutableMapOf<String, FrozenSubmission>()
+                            val userIdByAssistant = mutableMapOf<String, String>()
+                            for ((i, h) in history.withIndex()) {
+                                if (h.role != History.Role.USER) continue
+                                val sub = h.uiSubmission ?: continue
+                                val originId = (i - 1 downTo 0).firstNotNullOfOrNull { j ->
+                                    history[j].takeIf {
+                                        it.role == History.Role.ASSISTANT &&
+                                            it.content.isNotEmpty() && !it.isThinking &&
+                                            it.content == sub.sourceContent
+                                    }?.id
+                                } ?: (i - 1 downTo 0).firstNotNullOfOrNull { j ->
+                                    history[j].takeIf {
+                                        it.role == History.Role.ASSISTANT &&
+                                            it.content.isNotEmpty() && !it.isThinking
+                                    }?.id
+                                } ?: continue
+                                frozen[originId] = FrozenSubmission(
+                                    values = sub.values,
+                                    pressedEvent = sub.pressedEvent,
+                                    isPending = uiState.isLoading && i == lastUserIdx,
+                                )
+                                userIdByAssistant[originId] = h.id
+                            }
+                            frozen.toMap() to userIdByAssistant.toMap()
                         }
-                        // Freeze the bot's kai-ui in place while a submission is pending so the
-                        // layout doesn't shift on click. The user's SubmittedUiMessage is skipped
-                        // below to avoid rendering the same buttons twice.
-                        val pendingFrozen = remember(uiState.history, uiState.isLoading) {
-                            if (!uiState.isLoading) return@remember null
-                            val lastUser = uiState.history.lastOrNull { it.role == History.Role.USER }
-                            val submission = lastUser?.uiSubmission ?: return@remember null
-                            FrozenSubmission(
-                                values = submission.values,
-                                pressedEvent = submission.pressedEvent,
-                                isPending = true,
-                            )
-                        }
+                        val frozenByAssistantId = pairings.first
+                        val userIdByAssistantId = pairings.second
                         val executingToolsState = rememberExecutingTools(uiState.history)
 
                         val fallbackStatusText = uiState.fallbackStatus?.let { status ->
@@ -621,20 +640,12 @@ private fun ChatModeScreen(
                                 items(uiState.history, key = { it.id }, contentType = { it.role }) { history ->
                                     when (history.role) {
                                         History.Role.USER -> {
-                                            val isLastUser = history.id == lastUserId
-                                            // When the bot card above is showing the pending frozen state,
-                                            // skip this user entry — otherwise the buttons render twice.
-                                            if (!(isLastUser && pendingFrozen != null)) {
+                                            // Submissions are shown by the paired assistant's frozen kai-ui card
+                                            // above; the "Responded with: …" text bubble would be redundant.
+                                            if (history.uiSubmission == null) {
                                                 UserMessage(
                                                     message = history.content,
                                                     attachments = history.attachments,
-                                                    uiSubmission = history.uiSubmission,
-                                                    isPendingSubmission = uiState.isLoading && isLastUser,
-                                                    onResubmit = if (history.uiSubmission != null && !uiState.isLoading) {
-                                                        { event, data -> uiState.actions.resubmit(history.id, event, data) }
-                                                    } else {
-                                                        null
-                                                    },
                                                 )
                                             }
                                         }
@@ -644,6 +655,8 @@ private fun ChatModeScreen(
                                             // (i.e. the model only returned reasoning with no content)
                                             if (history.content.isNotEmpty() && !history.isThinking) {
                                                 val isLastAssistant = history.id == lastAssistantId
+                                                val frozen = frozenByAssistantId[history.id]
+                                                val pairedUserId = userIdByAssistantId[history.id]
                                                 BotMessage(
                                                     message = history.content,
                                                     textToSpeech = textToSpeech,
@@ -652,11 +665,16 @@ private fun ChatModeScreen(
                                                         uiState.actions.setIsSpeaking(it, history.id)
                                                     },
                                                     onRegenerate = if (isLastAssistant) uiState.actions.regenerate else null,
-                                                    isInteractive = isLastAssistant && !uiState.isLoading,
+                                                    isInteractive = isLastAssistant && !uiState.isLoading && frozen == null,
                                                     onUiCallback = { event, data ->
                                                         uiState.actions.submitUiCallback(event, data)
                                                     },
-                                                    pendingFrozen = if (isLastAssistant) pendingFrozen else null,
+                                                    frozen = frozen,
+                                                    onResubmit = if (pairedUserId != null && !uiState.isLoading) {
+                                                        { event, data -> uiState.actions.resubmit(pairedUserId, event, data) }
+                                                    } else {
+                                                        null
+                                                    },
                                                 )
                                                 if (history.fallbackServiceName != null) {
                                                     androidx.compose.material3.Text(
@@ -682,7 +700,7 @@ private fun ChatModeScreen(
                                 // pressed button's pulse already signals work in flight. Keep it for tool
                                 // activity so tool feedback isn't lost.
                                 val showWaitingRow = uiState.isLoading &&
-                                    (pendingFrozen == null || executingToolsState.tools.isNotEmpty())
+                                    (frozenByAssistantId.values.none { it.isPending } || executingToolsState.tools.isNotEmpty())
                                 if (showWaitingRow) {
                                     item(key = "loading") {
                                         WaitingResponseRow(

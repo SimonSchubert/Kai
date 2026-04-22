@@ -1,14 +1,29 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.buildAnnotatedString
@@ -16,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
+import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.markdown.MarkdownContent
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import kai.composeapp.generated.resources.Res
@@ -42,19 +58,53 @@ internal fun BotMessage(
     onRegenerate: (() -> Unit)? = null,
     isInteractive: Boolean = false,
     onUiCallback: ((event: String, data: Map<String, String>) -> Unit)? = null,
-    pendingFrozen: FrozenSubmission? = null,
+    frozen: FrozenSubmission? = null,
+    onResubmit: ((event: String, data: Map<String, String>) -> Unit)? = null,
 ) {
     val document = remember(message) { parseMarkdown(message) }
+    var isEditing by remember(frozen) { mutableStateOf(false) }
+    val effectiveFrozen = if (isEditing && frozen != null) frozen.copy(pressedEvent = null) else frozen
+    val effectiveInteractive = if (frozen != null) (onResubmit != null && isEditing) else isInteractive
+    val kaiUiCallback: (String, Map<String, String>) -> Unit = if (onResubmit != null) {
+        { event, data ->
+            isEditing = false
+            onResubmit(event, data)
+        }
+    } else {
+        onUiCallback ?: { _, _ -> }
+    }
 
-    SelectionContainer {
-        MarkdownContent(
-            document = document,
-            isInteractive = isInteractive,
-            onUiCallback = onUiCallback ?: { _, _ -> },
-            frozen = pendingFrozen,
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-        )
+    Box(modifier = Modifier.fillMaxWidth()) {
+        SelectionContainer {
+            MarkdownContent(
+                document = document,
+                isInteractive = effectiveInteractive,
+                onUiCallback = kaiUiCallback,
+                frozen = effectiveFrozen,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+            )
+        }
+        if (frozen != null && onResubmit != null) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(8.dp)
+                    .size(28.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surfaceContainer)
+                    .handCursor()
+                    .clickable { isEditing = !isEditing },
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector = if (isEditing) Icons.Default.Close else Icons.Default.Edit,
+                    contentDescription = if (isEditing) "Cancel edit" else "Edit submission",
+                    modifier = Modifier.size(16.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
     }
     Row(Modifier.padding(horizontal = 8.dp)) {
         if (textToSpeech != null) {

@@ -33,7 +33,7 @@ Buttons carry an action that fires on click (chip groups are form inputs, not ac
 
 When a callback fires, the renderer collects input values and formats them as a `[UI Interaction]` user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button shows an inline circular spinner in place of its label; other buttons in the same layout become disabled.
 
-The resulting user message in the chat renders as a **frozen snapshot** of the form the user just submitted — the originating kai-ui is re-rendered non-interactively with the submitted values injected into the form fields, instead of showing a cryptic "Responded with: key: value" text. The text form is still what the AI receives; only the UI rendering changes. Snapshots are persisted with the conversation, so reloading a saved conversation preserves them. Messages saved before this feature shipped (or plain text submissions without an originating kai-ui) fall back to the normal text bubble.
+The originating assistant's kai-ui card stays in place across the exchange. While the submission is in flight the pressed button pulses; once the reply arrives the card settles into a frozen snapshot (prior values seeded, pressed button highlighted) with an edit pencil in the top-right corner. The user's submission does not produce a separate text bubble — the filled-in form on the assistant card already shows exactly what was sent. Clicking the pencil re-enables the form seeded with the previous picks; pressing any button then triggers a resubmit that truncates from that point and re-asks the AI. The text form ("Responded with: key: value") is still what the AI receives; only the visual representation differs. Snapshots persist with the conversation, so reloading preserves them.
 
 ### Layout Lifecycle
 
@@ -86,7 +86,7 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
 | `composeApp/.../ui/markdown/MarkdownParser.kt` | Unified markdown parser; emits `KaiUiBlock` AST nodes for kai-ui fences |
 | `composeApp/.../ui/markdown/MarkdownRenderer.kt` | Compose renderer that dispatches each block (including kai-ui) to its composable |
-| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — runs the parser and renders past kai-ui read-only via `isInteractive = false` |
+| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — runs the parser, renders frozen/edit-enabled snapshots for paired user submissions, and renders past kai-ui read-only via `isInteractive = false` |
 | `composeApp/.../ui/chat/ChatScreen.kt` | Branches between chat mode and interactive mode |
 | `composeApp/.../ui/chat/composables/EmptyState.kt` | "Start Interactive UI" button |
 | `composeApp/.../ui/chat/ChatActions.kt` | submitUiCallback, enterInteractiveMode, exitInteractiveMode, goBackInteractiveMode |
