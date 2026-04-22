@@ -31,6 +31,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -94,7 +95,22 @@ class ChatViewModel(
                 _state.update { it.copy(fallbackStatus = status) }
             }
         }
-        taskScheduler.start(viewModelScope) { _state.value.isLoading }
+        taskScheduler.isLoadingCheck = { _state.value.isLoading }
+        taskScheduler.start()
+
+        viewModelScope.launch {
+            dataRepository.openHeartbeatRequested
+                .filter { it }
+                .collect {
+                    val heartbeatId = dataRepository.savedConversations.value
+                        .firstOrNull { it.type == Conversation.TYPE_HEARTBEAT }?.id
+                    if (heartbeatId != null) {
+                        loadConversation(heartbeatId)
+                        clearUnreadHeartbeat()
+                    }
+                    dataRepository.consumeOpenHeartbeatRequest()
+                }
+        }
     }
 
     val state = combine(
@@ -374,6 +390,12 @@ class ChatViewModel(
 
     override fun onCleared() {
         commitPendingConversationDeletion()
+        // The scheduler lives longer than this ViewModel (it's a singleton driving the
+        // Android foreground service). Reset the predicate so the daemon path keeps
+        // running without a stale reference to a dead state flow. The foreground-visible
+        // signal (`appInForeground`) is tracked separately via `ProcessLifecycleOwner`
+        // on Android — ViewModel lifecycle is too narrow (survives backgrounding).
+        taskScheduler.isLoadingCheck = { false }
         super.onCleared()
     }
 

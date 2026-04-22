@@ -150,6 +150,16 @@ interface DataRepository {
     val hasUnreadHeartbeat: StateFlow<Boolean>
     fun clearUnreadHeartbeat()
 
+    /**
+     * Pulse that fires when the user taps a heartbeat push notification while the app is
+     * not already on the heartbeat conversation. `true` means "load the heartbeat
+     * conversation now, then call [consumeOpenHeartbeatRequest]". Collected by
+     * `ChatViewModel` in its init block.
+     */
+    val openHeartbeatRequested: StateFlow<Boolean>
+    fun requestOpenHeartbeat()
+    fun consumeOpenHeartbeatRequest()
+
     // On-device inference (LiteRT)
     fun isLocalInferenceAvailable(): Boolean
     fun getLocalEngineState(): StateFlow<EngineState>?

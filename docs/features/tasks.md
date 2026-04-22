@@ -8,7 +8,17 @@ Kai's tasks feature enables the AI to schedule one-time or recurring actions for
 
 ### Task
 
-A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, a target execution time, and optionally a cron expression for recurrence. Tasks track their status (PENDING or COMPLETED), the result of their last execution, and a consecutive failure count for backoff.
+A scheduled action containing an id (UUID), a human-readable description, a prompt to execute, and a **trigger** that decides when it fires. Tasks track status (PENDING or COMPLETED), the result of their last execution, and a consecutive failure count for backoff.
+
+### Trigger
+
+How a task is dispatched. Stored as an enum `TaskTrigger` on every task:
+
+- **TIME** — fires once at `scheduledAtEpochMs`, then transitions to COMPLETED.
+- **CRON** — recurs on a cron expression; `scheduledAtEpochMs` holds the next fire time. Stays PENDING; the scheduler advances it after each run.
+- **HEARTBEAT** — a standing addition to every heartbeat self-check. Not picked up by the time-based poll loop; instead the prompt is appended to the heartbeat message under `## Heartbeat Additions`. Stays PENDING until the user (or AI) cancels it. `scheduledAtEpochMs`/`cron` are ignored.
+
+Legacy tasks stored before the `trigger` field existed are migrated on load: if `cron != null` they become `CRON`, otherwise `TIME`.
 
 ### Cron Expression
 
@@ -16,14 +26,15 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 
 ## Task Lifecycle
 
-1. The AI calls the `schedule_task` tool with a description, prompt, and either an execution time or cron expression (or both)
-2. A new task is created with a UUID and persisted to storage
+1. The AI calls the `schedule_task` tool with a description, prompt, and exactly one trigger: `execute_at`, `cron`, or `on_heartbeat: true`
+2. A new task is created with a UUID and a trigger (TIME/CRON/HEARTBEAT), and persisted to storage
 3. For cron-based tasks, the first execution time is computed from the cron expression
-4. The background scheduler polls every 60 seconds and checks for due tasks (execution time <= now)
+4. The background scheduler polls every 60 seconds and checks for due tasks (TIME/CRON with execution time <= now). HEARTBEAT tasks are not picked up here
 5. When due, the task's prompt is sent to the AI via `askWithTools` (with full tool access but without adding to chat history)
-6. For one-time tasks, the status is set to COMPLETED after execution
-7. For recurring tasks, the next execution time is computed from the cron expression and the task remains PENDING
-8. The execution result and timestamp are stored on the task
+6. TIME tasks: status is set to COMPLETED after execution
+7. CRON tasks: next execution time is computed from the cron expression and the task remains PENDING
+8. HEARTBEAT tasks: their prompts are appended to the heartbeat user message under `## Heartbeat Additions` during each heartbeat run; they never transition state on their own
+9. The execution result and timestamp are stored on the task
 
 ## Execution Rules
 
@@ -50,8 +61,12 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 
 ### schedule_task Validation
 
-- At least one of `execute_at` (ISO 8601) or `cron` must be provided
-- Returns the created task's id, description, scheduled time, and cron expression
+- **Exactly one** of `execute_at` (ISO 8601), `cron`, or `on_heartbeat: true` must be provided — they are mutually exclusive
+- Returns the created task's id, description, trigger, scheduled time, and cron expression
+
+### Heartbeat-triggered tasks
+
+Tasks created with `on_heartbeat: true` carry `trigger = HEARTBEAT`. Their prompts are appended to every heartbeat self-check under `## Heartbeat Additions`. They're the mechanism for standing heartbeat behaviour ("greet me on every heartbeat", "always summarise new emails") — the main heartbeat prompt stays untouched, and each addition is a cancellable first-class task visible via `list_tasks` and in the Scheduled Tasks UI. They stay PENDING until cancelled.
 
 ## Settings UI
 
@@ -76,9 +91,20 @@ Cron expressions are converted to readable descriptions in the UI:
 - All task operations are thread-safe via mutex synchronization
 - The scheduling enabled state is stored as a separate boolean setting
 
+## Scheduler Lifecycle
+
+The `TaskScheduler` owns a process-lifetime `CoroutineScope` (SupervisorJob on the background dispatcher) — it is **not** coupled to any caller's scope. Both the UI layer (`ChatViewModel.init`) and the Android foreground service (`DaemonService.onCreate`) call `TaskScheduler.start()`; the first call creates the loop, subsequent calls are idempotent no-ops. The loop only dies when the process dies.
+
+Consequences:
+
+- When the Activity is destroyed (user backgrounds the app, MIUI reclaims memory, etc.), the scheduler **keeps running** as long as the process is alive.
+- On Android, the `DaemonService` foreground notification is what keeps the process alive. If the user disables the daemon, the process can be killed and the scheduler dies with it — tasks will resume firing the next time the app is opened (past-due tasks are picked up immediately since `getDueTasks` uses `scheduledAtEpochMs <= now`).
+- Task execution is gated on an `isLoadingCheck` predicate supplied by the UI (so a foreground chat request doesn't race with a scheduled task). When the UI goes away, it resets the predicate back to `{ false }` so the daemon-only path keeps running unblocked.
+- Scheduled tasks fire independently of heartbeat state — heartbeat being off never prevents a scheduled task from running.
+
 ## Daemon Mode
 
-When daemon mode is active, the task scheduler continues running in the background even when the app is not in the foreground, ensuring scheduled tasks execute on time without user interaction.
+When daemon mode is active (Android foreground service), the app process is kept alive, so the scheduler scope keeps polling — tasks execute on time without user interaction. When daemon mode is off, the scheduler still runs whenever the app is open; missed tasks fire on the next open.
 
 ## Key Files
 
@@ -92,3 +118,4 @@ When daemon mode is active, the task scheduler continues running in the backgrou
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Persisted task JSON and scheduling toggle |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Scheduled tasks UI section |
 | `composeApp/src/commonMain/.../DaemonController.kt` | Background execution support |
+| `composeApp/src/androidMain/.../DaemonService.kt` | Android foreground service that keeps the process alive so the scheduler scope keeps polling |

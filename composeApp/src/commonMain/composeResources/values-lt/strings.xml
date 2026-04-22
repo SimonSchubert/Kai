@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d laukia heartbeat</string>
     <string name="settings_email_last_poll">Paskutinis sėkmingas tikrinimas %1$s</string>
     <string name="settings_email_poll_failed">Paskutinis tikrinimas nepavyko %1$s</string>
+    <string name="settings_email_refresh">Atnaujinti paskyrą</string>
     <string name="settings_add_service">Pridėti paslaugą</string>
     <string name="settings_free_fallback">Naudoti kaip atsarginį</string>
     <string name="service_free_fast">Nemokamas greitas</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat raginimas</string>
     <string name="settings_heartbeat_recent">Naujausia veikla</string>
     <string name="settings_remove_service">Pašalinti</string>
-    <string name="tool_configure_heartbeat_description">Konfigūruoti periodinės savipatikros elgseną</string>
-    <string name="tool_configure_heartbeat_name">Konfigūruoti Heartbeat</string>
     <string name="tool_memory_learn_description">Išsaugoti kategorizuotą mokymąsi, klaidos sprendimą ar nuostatą</string>
     <string name="tool_memory_store_name">Išsaugoti prisiminimą</string>
     <string name="tool_memory_store_description">Išsaugoti arba atnaujinti prisiminimą su aprašomuoju raktu</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Pokalbis</string>
     <string name="tab_settings">Nustatymai</string>
     <string name="fallback_answered_by">Atsakė %1$s (atsarginis)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervalas</string>
     <string name="settings_heartbeat_active_hours">Aktyvios valandos</string>
     <string name="settings_documentation">Dokumentacija</string>

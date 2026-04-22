@@ -188,3 +188,6 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
 }
+
+// Desktop has no system push-notification surface wired up; the in-app banner suffices.
+actual fun sendHeartbeatNotification(title: String, body: String) = Unit

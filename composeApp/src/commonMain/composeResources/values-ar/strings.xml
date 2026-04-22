@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d في انتظار heartbeat</string>
     <string name="settings_email_last_poll">آخر استطلاع ناجح %1$s</string>
     <string name="settings_email_poll_failed">فشل آخر استطلاع %1$s</string>
+    <string name="settings_email_refresh">تحديث الحساب</string>
     <string name="settings_add_service">إضافة خدمة</string>
     <string name="settings_free_fallback">استخدام كاحتياطي</string>
     <string name="service_free_fast">مجاني سريع</string>
@@ -122,8 +123,6 @@
     <string name="settings_heartbeat_prompt_label">موجه نبض القلب</string>
     <string name="settings_heartbeat_recent">النشاط الأخير</string>
     <string name="settings_remove_service">إزالة</string>
-    <string name="tool_configure_heartbeat_description">تكوين سلوك الفحص الذاتي الدوري</string>
-    <string name="tool_configure_heartbeat_name">تكوين نبض القلب</string>
     <string name="tool_memory_learn_description">تخزين تعلم مصنف أو حل خطأ أو تفضيل</string>
     <string name="tool_memory_store_name">حفظ ذاكرة</string>
     <string name="tool_memory_store_description">حفظ أو تحديث ذاكرة بمفتاح وصفي</string>
@@ -144,6 +143,7 @@
     <string name="tab_chat">محادثة</string>
     <string name="tab_settings">الإعدادات</string>
     <string name="fallback_answered_by">أجاب بواسطة %1$s (احتياطي)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">الفاصل الزمني</string>
     <string name="settings_heartbeat_active_hours">ساعات النشاط</string>
     <string name="settings_documentation">التوثيق</string>

@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d in wachtrij voor heartbeat</string>
     <string name="settings_email_last_poll">Laatst succesvol opgehaald %1$s</string>
     <string name="settings_email_poll_failed">Laatste ophaalpoging mislukt %1$s</string>
+    <string name="settings_email_refresh">Account vernieuwen</string>
     <string name="settings_add_service">Service toevoegen</string>
     <string name="settings_free_fallback">Gebruiken als terugval</string>
     <string name="service_free_fast">Gratis snel</string>
@@ -122,8 +123,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_heartbeat_prompt_label">Hartslag-prompt</string>
     <string name="settings_heartbeat_recent">Recente Activiteit</string>
     <string name="settings_remove_service">Verwijderen</string>
-    <string name="tool_configure_heartbeat_description">Periodiek zelfcontrolegedrag configureren</string>
-    <string name="tool_configure_heartbeat_name">Hartslag configureren</string>
     <string name="tool_memory_learn_description">Een gecategoriseerd leerresultaat, foutoplossing of voorkeur opslaan</string>
     <string name="tool_memory_store_name">Herinnering opslaan</string>
     <string name="tool_memory_store_description">Een herinnering opslaan of bijwerken met een beschrijvende sleutel</string>
@@ -144,6 +143,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Instellingen</string>
     <string name="fallback_answered_by">Beantwoord door %1$s (reserve)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Actieve uren</string>
     <string name="settings_documentation">Documentatie</string>

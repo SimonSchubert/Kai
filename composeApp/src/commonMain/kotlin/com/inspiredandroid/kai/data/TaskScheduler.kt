@@ -3,10 +3,17 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.sendHeartbeatNotification
+import com.inspiredandroid.kai.ui.markdown.parseMarkdown
+import com.inspiredandroid.kai.ui.markdown.toSpeakableText
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlin.concurrent.Volatile
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.min
 import kotlin.time.Clock
@@ -27,27 +34,65 @@ class TaskScheduler(
         const val POLL_INTERVAL_MS = 60_000L
         const val MAX_BACKOFF_MS = 3_600_000L // 1 hour
         const val HEARTBEAT_CONTEXT_COUNT = 3
+
+        /**
+         * Cap the notification body — Android's collapsed text cuts off around ~60
+         * chars anyway, and the expanded BigTextStyle view is capped to keep the
+         * notification panel tidy. The full response remains in the heartbeat
+         * conversation, which opens when the user taps the notification.
+         */
+        const val HEARTBEAT_NOTIFICATION_PREVIEW_CHARS = 240
     }
+
+    /**
+     * Process-lifetime scope. Decoupled from any caller's scope so scheduled tasks and
+     * heartbeats keep firing when a short-lived caller (e.g. `ChatViewModel.viewModelScope`)
+     * is cancelled — as long as the OS keeps the process alive (which on Android means
+     * `DaemonService` holding a foreground notification).
+     */
+    private val schedulerScope = CoroutineScope(
+        SupervisorJob() + backgroundDispatcher + CoroutineName("TaskScheduler"),
+    )
 
     private var activeJob: Job? = null
 
     /**
-     * Starts the scheduler loop in the given scope.
-     * [isLoading] is checked before executing a task to avoid concurrent API calls.
-     * Safe to call multiple times — only one loop will run at a time.
+     * Predicate the loop consults before executing a task, to avoid racing with an
+     * in-flight foreground API call. Assigned by the UI layer (`ChatViewModel`) while it
+     * is alive and reset to `{ false }` when it's cleared. Default = "nothing loading",
+     * which is the right answer for the daemon-only path.
      */
-    fun start(scope: CoroutineScope, isLoading: () -> Boolean = { false }) {
+    @Volatile
+    var isLoadingCheck: () -> Boolean = { false }
+
+    /**
+     * Whether the app is currently in the foreground (the user can see the in-app banner).
+     * On Android this mirrors `ProcessLifecycleOwner` — set true on the first Activity
+     * start, false when all activities stop. Other platforms leave it at the default
+     * false since their actuals for [sendHeartbeatNotification] are no-ops anyway.
+     *
+     * When a heartbeat produces a non-OK report and this is `false`, the scheduler
+     * escalates to a push notification instead of relying on the (invisible) banner.
+     */
+    @Volatile
+    var appInForeground: Boolean = false
+
+    /**
+     * Starts the scheduler loop on the internal long-lived scope. Idempotent — repeated
+     * calls (e.g. from both `DaemonService.onCreate` and `ChatViewModel.init`) return
+     * immediately if the loop is already running.
+     */
+    fun start() {
         if (!enabled || taskStore == null || appSettings == null) return
-        // If a loop is already running, don't start another
         if (activeJob?.isActive == true) return
-        activeJob = scope.launch(backgroundDispatcher) {
-            while (true) {
+        activeJob = schedulerScope.launch {
+            while (isActive) {
                 delay(POLL_INTERVAL_MS)
                 if (!appSettings.isSchedulingEnabled()) continue
 
                 val dueTasks = taskStore.getDueTasks()
                 for (task in dueTasks) {
-                    if (isLoading()) break
+                    if (isLoadingCheck()) break
 
                     try {
                         val response = dataRepository.askWithTools(task.prompt)
@@ -62,7 +107,7 @@ class TaskScheduler(
                 }
 
                 // Heartbeat check
-                if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
+                if (!isLoadingCheck() && heartbeatManager?.isHeartbeatDue() == true) {
                     val pendingEmails = emailStore?.getPending().orEmpty()
                     try {
                         val recentResponses = dataRepository.savedConversations.value
@@ -76,6 +121,23 @@ class TaskScheduler(
                         heartbeatManager.recordHeartbeat(success = true)
                         if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
                             dataRepository.addAssistantMessage(response)
+                            // Push-notify only when the user won't see the in-app banner.
+                            // Tapping the notification deep-links into the heartbeat
+                            // conversation via `EXTRA_OPEN_HEARTBEAT` (Android actual).
+                            // Strip markdown + kai-ui fences before sending to the tray —
+                            // the notification surface can't render them and raw fence
+                            // text (```kai-ui {...}```) is unreadable.
+                            if (!appInForeground) {
+                                val preview = truncateForNotification(
+                                    parseMarkdown(response).toSpeakableText(),
+                                )
+                                if (preview.isNotBlank()) {
+                                    sendHeartbeatNotification(
+                                        title = "Kai heartbeat",
+                                        body = preview,
+                                    )
+                                }
+                            }
                         }
                         // Only clear the snapshot we actually showed to the AI — emails that
                         // arrived during the call stay pending for the next heartbeat.
@@ -88,11 +150,27 @@ class TaskScheduler(
                 }
 
                 // Email polling
-                if (!isLoading() && isEmailSupported && appSettings.isEmailEnabled() && emailStore != null) {
-                    checkNewEmails(isLoading)
+                if (!isLoadingCheck() && isEmailSupported && appSettings.isEmailEnabled() && emailStore != null) {
+                    checkNewEmails { isLoadingCheck() }
                 }
             }
         }
+    }
+
+    /**
+     * Trims a heartbeat preview to fit a notification body: respects word boundaries
+     * when cutting and appends an ellipsis so the user knows more text exists in the
+     * conversation. Short inputs pass through unchanged.
+     */
+    private fun truncateForNotification(text: String): String {
+        val trimmed = text.trim()
+        if (trimmed.length <= HEARTBEAT_NOTIFICATION_PREVIEW_CHARS) return trimmed
+        val window = trimmed.substring(0, HEARTBEAT_NOTIFICATION_PREVIEW_CHARS)
+        val lastSpace = window.lastIndexOf(' ')
+        // Only prefer the word boundary if it's close to the cap; otherwise hard-cut —
+        // a word boundary 100 chars back would throw away half the preview.
+        val cut = if (lastSpace >= HEARTBEAT_NOTIFICATION_PREVIEW_CHARS - 40) lastSpace else window.length
+        return window.substring(0, cut).trimEnd().trimEnd(',', ';', ':') + "…"
     }
 
     private suspend fun checkNewEmails(isLoading: () -> Boolean) {

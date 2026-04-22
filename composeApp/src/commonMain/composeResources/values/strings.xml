@@ -85,8 +85,6 @@
     <string name="tool_cancel_task_description">Cancel a scheduled task</string>
     <string name="tool_list_tasks_name">List Tasks</string>
     <string name="tool_list_tasks_description">List all scheduled tasks</string>
-    <string name="tool_configure_heartbeat_name">Configure Heartbeat</string>
-    <string name="tool_configure_heartbeat_description">Configure periodic self-check behavior</string>
     <string name="tool_trigger_heartbeat_name">Trigger Heartbeat</string>
     <string name="tool_trigger_heartbeat_description">Trigger a heartbeat on next cycle</string>
     <string name="tool_promote_learning_name">Promote Learning</string>

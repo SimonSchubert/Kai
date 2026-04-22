@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d heartbeat کے لیے قطار میں</string>
     <string name="settings_email_last_poll">آخری کامیاب چیک %1$s</string>
     <string name="settings_email_poll_failed">آخری چیک ناکام %1$s</string>
+    <string name="settings_email_refresh">اکاؤنٹ ریفریش کریں</string>
     <string name="settings_add_service">سروس شامل کریں</string>
     <string name="settings_free_fallback">متبادل کے طور پر استعمال کریں</string>
     <string name="service_free_fast">مفت تیز</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat پرامپٹ</string>
     <string name="settings_heartbeat_recent">حالیہ سرگرمی</string>
     <string name="settings_remove_service">ہٹائیں</string>
-    <string name="tool_configure_heartbeat_description">وقتاً فوقتاً سیلف چیک کے رویے کو ترتیب دیں</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat ترتیب دیں</string>
     <string name="tool_memory_learn_description">زمرہ بند سیکھ، خرابی کا حل، یا ترجیح محفوظ کریں</string>
     <string name="tool_memory_store_name">یادداشت محفوظ کریں</string>
     <string name="tool_memory_store_description">وضاحتی کلید کے ساتھ یادداشت محفوظ یا اپ ڈیٹ کریں</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">چیٹ</string>
     <string name="tab_settings">ترتیبات</string>
     <string name="fallback_answered_by">%1$s نے جواب دیا (فال بیک)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">وقفہ</string>
     <string name="settings_heartbeat_active_hours">فعال اوقات</string>
     <string name="settings_documentation">دستاویزات</string>

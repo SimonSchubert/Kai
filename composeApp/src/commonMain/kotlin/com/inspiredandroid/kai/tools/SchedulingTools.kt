@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.TaskStore
+import com.inspiredandroid.kai.data.TaskTrigger
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -23,12 +24,13 @@ object SchedulingTools {
     fun scheduleTaskTool(taskStore: TaskStore) = object : Tool {
         override val schema = ToolSchema(
             name = "schedule_task",
-            description = "Schedule a task for future or recurring execution. Use this for reminders, delayed sends, or recurring jobs. When scheduling a reminder, write the prompt as the actual reminder text the user will see. Include recent context if appropriate. At least one of execute_at or cron must be provided.",
+            description = "Schedule a prompt to run later, recurring, or on every heartbeat. This is the ONLY way to run something after this turn — reminders, follow-ups, periodic updates, check-ins, standing heartbeat additions (greetings, always-summarise-emails): all go through this tool. Each run starts a fresh conversation, so embed the context the prompt needs. Exactly one trigger must be provided: execute_at (one-off at a datetime), cron (recurring on a schedule), or on_heartbeat=true (appended to every heartbeat self-check).",
             parameters = mapOf(
                 "description" to ParameterSchema(type = "string", description = "Human-readable description of the task", required = true),
-                "prompt" to ParameterSchema(type = "string", description = "The prompt to send to the AI when the task fires", required = true),
-                "execute_at" to ParameterSchema(type = "string", description = "ISO 8601 datetime string for when to execute (e.g. 2025-03-15T09:00:00)", required = false),
+                "prompt" to ParameterSchema(type = "string", description = "For execute_at/cron: the full prompt sent to the AI when it fires. For on_heartbeat: the instruction appended to each heartbeat self-check (e.g. 'Greet the user warmly with a time-appropriate greeting.').", required = true),
+                "execute_at" to ParameterSchema(type = "string", description = "ISO 8601 datetime string for a one-off run (e.g. 2025-03-15T09:00:00)", required = false),
                 "cron" to ParameterSchema(type = "string", description = "Cron expression for recurring tasks (e.g. '0 9 * * 1' for every Monday at 9am)", required = false),
+                "on_heartbeat" to ParameterSchema(type = "boolean", description = "Set to true to run this prompt on every heartbeat self-check. Use for standing additions to heartbeat behaviour.", required = false),
             ),
         )
 
@@ -39,9 +41,20 @@ object SchedulingTools {
                 ?: return mapOf("success" to false, "error" to "Missing prompt")
             val executeAt = args["execute_at"]?.toString()
             val cron = args["cron"]?.toString()
+            val onHeartbeat = args["on_heartbeat"] as? Boolean ?: false
 
-            if (executeAt == null && cron == null) {
-                return mapOf("success" to false, "error" to "At least one of execute_at or cron must be provided")
+            val triggerCount = listOf(executeAt != null, cron != null, onHeartbeat).count { it }
+            if (triggerCount == 0) {
+                return mapOf("success" to false, "error" to "Exactly one of execute_at, cron, or on_heartbeat must be provided")
+            }
+            if (triggerCount > 1) {
+                return mapOf("success" to false, "error" to "execute_at, cron, and on_heartbeat are mutually exclusive — pick one")
+            }
+
+            val trigger = when {
+                onHeartbeat -> TaskTrigger.HEARTBEAT
+                cron != null -> TaskTrigger.CRON
+                else -> TaskTrigger.TIME
             }
 
             val scheduledAtEpochMs = if (executeAt != null) {
@@ -51,7 +64,7 @@ object SchedulingTools {
                     return mapOf("success" to false, "error" to "Invalid execute_at format: ${e.message}")
                 }
             } else {
-                0L // Cron-only tasks use 0 as placeholder
+                0L // cron and heartbeat tasks don't use this field at creation time
             }
 
             val task = taskStore.addTask(
@@ -59,13 +72,15 @@ object SchedulingTools {
                 prompt = prompt,
                 scheduledAtEpochMs = scheduledAtEpochMs,
                 cron = cron,
+                trigger = trigger,
             )
 
             return mapOf(
                 "success" to true,
                 "task_id" to task.id,
                 "description" to task.description,
-                "scheduled_at" to (executeAt ?: "recurring"),
+                "trigger" to trigger.name,
+                "scheduled_at" to (executeAt ?: "n/a"),
                 "cron" to (cron ?: "none"),
             )
         }
@@ -125,6 +140,7 @@ object SchedulingTools {
                         "id" to task.id,
                         "description" to task.description,
                         "prompt" to task.prompt,
+                        "trigger" to task.trigger.name,
                         "scheduled_at_epoch_ms" to task.scheduledAtEpochMs,
                         "created_at_epoch_ms" to task.createdAtEpochMs,
                         "cron" to (task.cron ?: "none"),

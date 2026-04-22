@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d heartbeat માટે કતારમાં</string>
     <string name="settings_email_last_poll">છેલ્લી સફળ તપાસ %1$s</string>
     <string name="settings_email_poll_failed">છેલ્લી તપાસ નિષ્ફળ %1$s</string>
+    <string name="settings_email_refresh">એકાઉન્ટ રિફ્રેશ કરો</string>
     <string name="settings_add_service">સેવા ઉમેરો</string>
     <string name="settings_free_fallback">ફોલબેક તરીકે વાપરો</string>
     <string name="service_free_fast">મફત ઝડપી</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat પ્રોમ્પ્ટ</string>
     <string name="settings_heartbeat_recent">તાજેતરની પ્રવૃત્તિ</string>
     <string name="settings_remove_service">દૂર કરો</string>
-    <string name="tool_configure_heartbeat_description">સમયાંતરે સ્વ-તપાસ વર્તન ગોઠવો</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat ગોઠવો</string>
     <string name="tool_memory_learn_description">વર્ગીકૃત શીખ, ભૂલ ઉકેલ અથવા પસંદગી સંગ્રહો</string>
     <string name="tool_memory_store_name">યાદ સાચવો</string>
     <string name="tool_memory_store_description">વર્ણનાત્મક કી સાથે યાદ સાચવો અથવા અપડેટ કરો</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">ચેટ</string>
     <string name="tab_settings">સેટિંગ્સ</string>
     <string name="fallback_answered_by">%1$s દ્વારા જવાબ આપ્યો (ફોલબેક)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">અંતરાલ</string>
     <string name="settings_heartbeat_active_hours">સક્રિય કલાકો</string>
     <string name="settings_documentation">દસ્તાવેજીકરણ</string>

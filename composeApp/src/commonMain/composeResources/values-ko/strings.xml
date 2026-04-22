@@ -111,6 +111,7 @@
     <string name="settings_email_queued">하트비트 대기 %1$d개</string>
     <string name="settings_email_last_poll">마지막 성공 확인 %1$s</string>
     <string name="settings_email_poll_failed">마지막 확인 실패 %1$s</string>
+    <string name="settings_email_refresh">계정 새로고침</string>
     <string name="settings_add_service">서비스 추가</string>
     <string name="settings_free_fallback">대체로 사용</string>
     <string name="service_free_fast">무료 빠른</string>
@@ -122,8 +123,6 @@
     <string name="settings_heartbeat_prompt_label">하트비트 프롬프트</string>
     <string name="settings_heartbeat_recent">최근 활동</string>
     <string name="settings_remove_service">제거</string>
-    <string name="tool_configure_heartbeat_description">주기적 자가 점검 동작 구성</string>
-    <string name="tool_configure_heartbeat_name">하트비트 구성</string>
     <string name="tool_memory_learn_description">분류된 학습, 오류 해결 또는 선호도 저장</string>
     <string name="tool_memory_store_name">기억 저장</string>
     <string name="tool_memory_store_description">설명 키로 기억을 저장하거나 업데이트</string>
@@ -144,6 +143,7 @@
     <string name="tab_chat">채팅</string>
     <string name="tab_settings">설정</string>
     <string name="fallback_answered_by">%1$s이(가) 응답함 (대체)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">간격</string>
     <string name="settings_heartbeat_active_hours">활성 시간</string>
     <string name="settings_documentation">문서</string>

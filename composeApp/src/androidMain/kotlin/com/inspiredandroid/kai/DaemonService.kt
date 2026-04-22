@@ -9,10 +9,6 @@ import android.content.Intent
 import android.os.IBinder
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.shared.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
 import org.koin.android.ext.android.inject
 
 class DaemonService : Service() {
@@ -23,7 +19,6 @@ class DaemonService : Service() {
     }
 
     private val taskScheduler: TaskScheduler by inject()
-    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override fun onCreate() {
         super.onCreate()
@@ -32,11 +27,14 @@ class DaemonService : Service() {
         try {
             startForeground(NOTIFICATION_ID, notification)
         } catch (_: Exception) {
-            serviceScope.cancel()
             stopSelf()
             return
         }
-        taskScheduler.start(serviceScope)
+        // The scheduler owns its own long-lived scope; this foreground service's job is
+        // to keep the app process alive so that scope keeps running. START_STICKY (below)
+        // asks the OS to re-create us if we're killed, which will re-trigger onCreate and
+        // call start() again — idempotent no-op if the loop is already running.
+        taskScheduler.start()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int = START_STICKY
@@ -50,7 +48,6 @@ class DaemonService : Service() {
 
     override fun onDestroy() {
         stopForeground(STOP_FOREGROUND_REMOVE)
-        serviceScope.cancel()
         super.onDestroy()
     }
 

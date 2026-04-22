@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d heartbeat కోసం వేచి ఉంది</string>
     <string name="settings_email_last_poll">చివరి విజయవంతమైన తనిఖీ %1$s</string>
     <string name="settings_email_poll_failed">చివరి తనిఖీ విఫలమైంది %1$s</string>
+    <string name="settings_email_refresh">ఖాతాను రిఫ్రెష్ చేయండి</string>
     <string name="settings_add_service">సేవను జోడించు</string>
     <string name="settings_free_fallback">ఫాల్‌బ్యాక్‌గా ఉపయోగించు</string>
     <string name="service_free_fast">ఉచిత వేగం</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat ప్రాంప్ట్</string>
     <string name="settings_heartbeat_recent">ఇటీవలి కార్యకలాపం</string>
     <string name="settings_remove_service">తొలగించు</string>
-    <string name="tool_configure_heartbeat_description">ఆవర్తన స్వీయ తనిఖీ ప్రవర్తనను కాన్ఫిగర్ చేయి</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat కాన్ఫిగర్ చేయి</string>
     <string name="tool_memory_learn_description">వర్గీకరించబడిన అభ్యాసం, లోపం పరిష్కారం లేదా ప్రాధాన్యతను నిల్వ చేయి</string>
     <string name="tool_memory_store_name">జ్ఞాపకం భద్రపరచు</string>
     <string name="tool_memory_store_description">వివరణాత్మక కీతో జ్ఞాపకాన్ని భద్రపరచండి లేదా నవీకరించండి</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">చాట్</string>
     <string name="tab_settings">సెట్టింగ్‌లు</string>
     <string name="fallback_answered_by">%1$s ద్వారా సమాధానం ఇవ్వబడింది (ఫాల్‌బ్యాక్)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">విరామం</string>
     <string name="settings_heartbeat_active_hours">క్రియాశీల గంటలు</string>
     <string name="settings_documentation">డాక్యుమెంటేషన్</string>

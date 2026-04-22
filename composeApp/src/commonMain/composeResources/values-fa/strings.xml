@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d در صف heartbeat</string>
     <string name="settings_email_last_poll">آخرین بررسی موفق %1$s</string>
     <string name="settings_email_poll_failed">آخرین بررسی ناموفق %1$s</string>
+    <string name="settings_email_refresh">بازخوانی حساب</string>
     <string name="settings_add_service">افزودن سرویس</string>
     <string name="settings_free_fallback">استفاده به عنوان پشتیبان</string>
     <string name="service_free_fast">رایگان سریع</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">پرامپت Heartbeat</string>
     <string name="settings_heartbeat_recent">فعالیت اخیر</string>
     <string name="settings_remove_service">حذف</string>
-    <string name="tool_configure_heartbeat_description">پیکربندی رفتار خودبررسی دوره‌ای</string>
-    <string name="tool_configure_heartbeat_name">پیکربندی Heartbeat</string>
     <string name="tool_memory_learn_description">ذخیره یک آموخته دسته‌بندی‌شده، رفع خطا یا ترجیح</string>
     <string name="tool_memory_store_name">ذخیره خاطره</string>
     <string name="tool_memory_store_description">ذخیره یا به‌روزرسانی خاطره با یک کلید توصیفی</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">چت</string>
     <string name="tab_settings">تنظیمات</string>
     <string name="fallback_answered_by">پاسخ داده شده توسط %1$s (پشتیبان)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">فاصله زمانی</string>
     <string name="settings_heartbeat_active_hours">ساعات فعال</string>
     <string name="settings_documentation">مستندات</string>

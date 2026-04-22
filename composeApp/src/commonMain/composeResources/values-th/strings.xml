@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d รอ heartbeat</string>
     <string name="settings_email_last_poll">ตรวจสอบสำเร็จครั้งล่าสุด %1$s</string>
     <string name="settings_email_poll_failed">การตรวจสอบครั้งล่าสุดล้มเหลว %1$s</string>
+    <string name="settings_email_refresh">รีเฟรชบัญชี</string>
     <string name="settings_add_service">เพิ่มบริการ</string>
     <string name="settings_free_fallback">ใช้เป็นทางเลือกสำรอง</string>
     <string name="service_free_fast">ฟรีเร็ว</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">พรอมต์ Heartbeat</string>
     <string name="settings_heartbeat_recent">กิจกรรมล่าสุด</string>
     <string name="settings_remove_service">ลบ</string>
-    <string name="tool_configure_heartbeat_description">กำหนดค่าพฤติกรรมการตรวจสอบตนเองเป็นระยะ</string>
-    <string name="tool_configure_heartbeat_name">กำหนดค่า Heartbeat</string>
     <string name="tool_memory_learn_description">บันทึกการเรียนรู้ที่จัดหมวดหมู่ การแก้ไขข้อผิดพลาด หรือการตั้งค่า</string>
     <string name="tool_memory_store_name">บันทึกความทรงจำ</string>
     <string name="tool_memory_store_description">บันทึกหรืออัปเดตความทรงจำด้วยคีย์อธิบาย</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">แชท</string>
     <string name="tab_settings">การตั้งค่า</string>
     <string name="fallback_answered_by">ตอบโดย %1$s (สำรอง)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">ช่วงเวลา</string>
     <string name="settings_heartbeat_active_hours">ชั่วโมงที่ใช้งาน</string>
     <string name="settings_documentation">เอกสาร</string>

@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d σε αναμονή για heartbeat</string>
     <string name="settings_email_last_poll">Τελευταίος επιτυχής έλεγχος %1$s</string>
     <string name="settings_email_poll_failed">Τελευταίος έλεγχος απέτυχε %1$s</string>
+    <string name="settings_email_refresh">Ανανέωση λογαριασμού</string>
     <string name="settings_add_service">Προσθήκη υπηρεσίας</string>
     <string name="settings_free_fallback">Χρήση ως εφεδρικό</string>
     <string name="service_free_fast">Δωρεάν γρήγορο</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Πρόσφατη δραστηριότητα</string>
     <string name="settings_remove_service">Αφαίρεση</string>
-    <string name="tool_configure_heartbeat_description">Ρύθμιση συμπεριφοράς περιοδικού αυτοελέγχου</string>
-    <string name="tool_configure_heartbeat_name">Ρύθμιση Heartbeat</string>
     <string name="tool_memory_learn_description">Αποθήκευση κατηγοριοποιημένης γνώσης, επίλυσης σφάλματος ή προτίμησης</string>
     <string name="tool_memory_store_name">Αποθήκευση ανάμνησης</string>
     <string name="tool_memory_store_description">Αποθήκευση ή ενημέρωση ανάμνησης με περιγραφικό κλειδί</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Συνομιλία</string>
     <string name="tab_settings">Ρυθμίσεις</string>
     <string name="fallback_answered_by">Απάντηση από %1$s (εφεδρικό)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Διάστημα</string>
     <string name="settings_heartbeat_active_hours">Ενεργές Ώρες</string>
     <string name="settings_documentation">Τεκμηρίωση</string>

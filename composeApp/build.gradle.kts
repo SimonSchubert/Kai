@@ -83,6 +83,7 @@ kotlin {
         desktopMain.kotlin.srcDir("src/jvmShared/kotlin")
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.lifecycle.process)
             implementation(libs.spght.encryptedprefs)
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)

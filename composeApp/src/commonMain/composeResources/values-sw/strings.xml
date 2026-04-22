@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d yanasubiri heartbeat</string>
     <string name="settings_email_last_poll">Uchunguzi wa mwisho uliofaulu %1$s</string>
     <string name="settings_email_poll_failed">Uchunguzi wa mwisho umeshindwa %1$s</string>
+    <string name="settings_email_refresh">Onyesha upya akaunti</string>
     <string name="settings_add_service">Ongeza huduma</string>
     <string name="settings_free_fallback">Tumia kama mbadala</string>
     <string name="service_free_fast">Bure Haraka</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Maelekezo ya Heartbeat</string>
     <string name="settings_heartbeat_recent">Shughuli za Hivi Karibuni</string>
     <string name="settings_remove_service">Ondoa</string>
-    <string name="tool_configure_heartbeat_description">Sanidi tabia ya ukaguzi wa kiotomatiki</string>
-    <string name="tool_configure_heartbeat_name">Sanidi Heartbeat</string>
     <string name="tool_memory_learn_description">Hifadhi mafunzo yaliyoainishwa, utatuzi wa hitilafu, au pendeleo</string>
     <string name="tool_memory_store_name">Hifadhi Kumbukumbu</string>
     <string name="tool_memory_store_description">Hifadhi au sasisha kumbukumbu kwa ufunguo wa maelezo</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Mazungumzo</string>
     <string name="tab_settings">Mipangilio</string>
     <string name="fallback_answered_by">Imejibiwa na %1$s (mbadala)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Muda</string>
     <string name="settings_heartbeat_active_hours">Masaa ya Shughuli</string>
     <string name="settings_documentation">Nyaraka</string>

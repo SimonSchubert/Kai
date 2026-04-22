@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d בתור ל-heartbeat</string>
     <string name="settings_email_last_poll">בדיקה מוצלחת אחרונה %1$s</string>
     <string name="settings_email_poll_failed">הבדיקה האחרונה נכשלה %1$s</string>
+    <string name="settings_email_refresh">רענן חשבון</string>
     <string name="settings_add_service">הוסף שירות</string>
     <string name="settings_free_fallback">השתמש כחלופה</string>
     <string name="service_free_fast">חינם מהיר</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">פרומפט Heartbeat</string>
     <string name="settings_heartbeat_recent">פעילות אחרונה</string>
     <string name="settings_remove_service">הסר</string>
-    <string name="tool_configure_heartbeat_description">הגדר התנהגות בדיקה עצמית תקופתית</string>
-    <string name="tool_configure_heartbeat_name">הגדר Heartbeat</string>
     <string name="tool_memory_learn_description">שמור למידה מסווגת, פתרון שגיאה או העדפה</string>
     <string name="tool_memory_store_name">שמור זיכרון</string>
     <string name="tool_memory_store_description">שמור או עדכן זיכרון עם מפתח תיאורי</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">צ'אט</string>
     <string name="tab_settings">הגדרות</string>
     <string name="fallback_answered_by">נענה על ידי %1$s (חלופי)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">מרווח</string>
     <string name="settings_heartbeat_active_hours">שעות פעילות</string>
     <string name="settings_documentation">תיעוד</string>

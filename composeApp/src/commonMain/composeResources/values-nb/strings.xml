@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d i kø for heartbeat</string>
     <string name="settings_email_last_poll">Siste vellykkede henting %1$s</string>
     <string name="settings_email_poll_failed">Siste henting mislyktes %1$s</string>
+    <string name="settings_email_refresh">Oppdater konto</string>
     <string name="settings_add_service">Legg til tjeneste</string>
     <string name="settings_free_fallback">Bruk som reserve</string>
     <string name="service_free_fast">Gratis rask</string>
@@ -122,8 +123,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
     <string name="settings_heartbeat_recent">Nylig aktivitet</string>
     <string name="settings_remove_service">Fjern</string>
-    <string name="tool_configure_heartbeat_description">Konfigurer periodisk selvsjekk-atferd</string>
-    <string name="tool_configure_heartbeat_name">Konfigurer hjerteslag</string>
     <string name="tool_memory_learn_description">Lagre en kategorisert lærdom, feilløsning eller preferanse</string>
     <string name="tool_memory_store_name">Lagre minne</string>
     <string name="tool_memory_store_description">Lagre eller oppdatere et minne med en beskrivende nøkkel</string>
@@ -144,6 +143,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Innstillinger</string>
     <string name="fallback_answered_by">Besvart av %1$s (reserve)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive timer</string>
     <string name="settings_documentation">Dokumentasjon</string>

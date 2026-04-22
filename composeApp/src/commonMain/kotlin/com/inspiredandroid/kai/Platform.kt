@@ -56,3 +56,11 @@ expect fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit)
 expect fun decodeToImageBitmap(bytes: ByteArray): ImageBitmap?
 
 expect suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String)
+
+/**
+ * Fires a background push notification for a heartbeat that produced a non-trivial
+ * response. Tapping it should open Kai to the heartbeat conversation (see the
+ * Android actual's PendingIntent for the deep-link wiring). No-op on platforms
+ * without a system notification surface (desktop, iOS, web).
+ */
+expect fun sendHeartbeatNotification(title: String, body: String)

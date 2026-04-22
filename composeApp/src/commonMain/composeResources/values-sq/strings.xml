@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d në pritje për heartbeat</string>
     <string name="settings_email_last_poll">Kontrolli i fundit i suksesshëm %1$s</string>
     <string name="settings_email_poll_failed">Kontrolli i fundit dështoi %1$s</string>
+    <string name="settings_email_refresh">Rifresko llogarinë</string>
     <string name="settings_add_service">Shto shërbim</string>
     <string name="settings_free_fallback">Përdor si rezervë</string>
     <string name="service_free_fast">Falas i shpejtë</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Aktiviteti i fundit</string>
     <string name="settings_remove_service">Hiq</string>
-    <string name="tool_configure_heartbeat_description">Konfiguro sjelljen e vetëkontrollit periodik</string>
-    <string name="tool_configure_heartbeat_name">Konfiguro Heartbeat</string>
     <string name="tool_memory_learn_description">Ruaj një mësim të kategorizuar, zgjidhje gabimi ose preferencë</string>
     <string name="tool_memory_store_name">Ruaj kujtesë</string>
     <string name="tool_memory_store_description">Ruaj ose përditëso një kujtesë me një çelës përshkrues</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Bisedë</string>
     <string name="tab_settings">Cilësimet</string>
     <string name="fallback_answered_by">Përgjigjur nga %1$s (rezervë)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervali</string>
     <string name="settings_heartbeat_active_hours">Orët Aktive</string>
     <string name="settings_documentation">Dokumentacioni</string>

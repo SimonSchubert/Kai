@@ -1669,7 +1669,27 @@ class RemoteDataRepository(
         val memories = if (memoryEnabled) memoryStore.getAllMemories() else emptyList()
         val byCategory = memories.groupBy { it.category }
 
-        val pendingTasks = if (schedulingEnabled) taskStore.getPendingTasks() else emptyList()
+        val tasksSplit = if (schedulingEnabled) taskStore.getPendingTasksPartitioned() else PendingTaskPartition(emptyList(), emptyList())
+        val pendingTasks = tasksSplit.scheduled
+        val heartbeatAdditions = tasksSplit.heartbeatAdditions
+
+        // Surface connected email accounts so the AI knows they exist in regular chat,
+        // not just during heartbeats. Only the remote variant uses this — email tools
+        // aren't in the local allowlist. Gated on the email toggle: if the user has email
+        // off, the AI shouldn't reference the accounts.
+        val emailAccounts = if (variant == SystemPromptVariant.CHAT_REMOTE && appSettings.isEmailEnabled()) {
+            emailStore.getAccounts().map { account ->
+                val state = emailStore.getSyncState(account.id)
+                EmailAccountSummary(
+                    email = account.email,
+                    unreadCount = state.unreadCount,
+                    lastSyncEpochMs = state.lastSyncEpochMs,
+                    lastError = state.lastError,
+                )
+            }
+        } else {
+            emptyList()
+        }
 
         val service = currentService()
         // On-device services store the active model ID per-instance, not globally, so
@@ -1708,6 +1728,8 @@ class RemoteDataRepository(
             learningMemories = byCategory[MemoryCategory.LEARNING].orEmpty(),
             errorMemories = byCategory[MemoryCategory.ERROR].orEmpty(),
             pendingTasks = pendingTasks,
+            heartbeatAdditions = heartbeatAdditions,
+            emailAccounts = emailAccounts,
             runtime = runtime,
             uiMode = uiMode,
         ).ifEmpty { null }
@@ -1946,6 +1968,17 @@ class RemoteDataRepository(
 
     override fun clearUnreadHeartbeat() {
         _hasUnreadHeartbeat.value = false
+    }
+
+    private val _openHeartbeatRequested = MutableStateFlow(false)
+    override val openHeartbeatRequested: StateFlow<Boolean> = _openHeartbeatRequested
+
+    override fun requestOpenHeartbeat() {
+        _openHeartbeatRequested.value = true
+    }
+
+    override fun consumeOpenHeartbeatRequest() {
+        _openHeartbeatRequested.value = false
     }
 
     override suspend fun addAssistantMessage(content: String) {

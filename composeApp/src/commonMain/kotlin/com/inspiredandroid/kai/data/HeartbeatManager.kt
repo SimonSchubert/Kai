@@ -67,15 +67,18 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         pendingEmails: List<EmailMessage> = emptyList(),
     ): String {
         val customPrompt = appSettings.getHeartbeatPrompt()
-        val pendingTasks = taskStore.getPendingTasks()
+        val tasksSplit = taskStore.getPendingTasksPartitioned()
+        val pendingTasks = tasksSplit.scheduled
+        val heartbeatAdditions = tasksSplit.heartbeatAdditions
         val emailEnabled = emailStore != null && appSettings.isEmailEnabled()
         val accounts = if (emailEnabled) emailStore.getAccounts() else emptyList()
-        val emailAccounts: List<HeartbeatEmailStatus> = accounts.map { account ->
+        val emailAccounts: List<EmailAccountSummary> = accounts.map { account ->
             val syncState = emailStore!!.getSyncState(account.id)
-            HeartbeatEmailStatus(
+            EmailAccountSummary(
                 email = account.email,
                 unreadCount = syncState.unreadCount,
                 lastSyncEpochMs = syncState.lastSyncEpochMs,
+                lastError = syncState.lastError,
             )
         }
         val accountEmailById = accounts.associate { it.id to it.email }
@@ -101,6 +104,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         }
         return buildHeartbeatPrompt(
             customOrDefaultPrompt = customPrompt.ifEmpty { DEFAULT_HEARTBEAT_PROMPT },
+            heartbeatAdditions = heartbeatAdditions,
             recentResponses = recentResponses,
             pendingTasks = pendingTasks,
             emailAccounts = emailAccounts,
@@ -136,7 +140,8 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         const val DEFAULT_HEARTBEAT_PROMPT =
             "[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. " +
                 "If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\n" +
-                "If something needs attention (stale memories, due tasks, user follow-ups), address it."
+                "If something needs attention (stale memories, due tasks, user follow-ups), address it.\n" +
+                "You cannot enable, disable, or reschedule heartbeat — the schedule is a user setting."
     }
 
     fun markHeartbeatExecuted(config: HeartbeatConfig = getConfig()) {

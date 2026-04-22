@@ -29,13 +29,15 @@ class HeartbeatPromptBuilderTest {
 
     private fun build(
         customOrDefaultPrompt: String = "[TEST HEARTBEAT]",
+        heartbeatAdditions: List<ScheduledTask> = emptyList(),
         recentResponses: List<String> = emptyList(),
         pendingTasks: List<ScheduledTask> = emptyList(),
-        emailAccounts: List<HeartbeatEmailStatus> = emptyList(),
+        emailAccounts: List<EmailAccountSummary> = emptyList(),
         pendingEmails: List<HeartbeatPendingEmail> = emptyList(),
         promotionCandidates: List<HeartbeatPromotionCandidate> = emptyList(),
     ) = buildHeartbeatPrompt(
         customOrDefaultPrompt = customOrDefaultPrompt,
+        heartbeatAdditions = heartbeatAdditions,
         recentResponses = recentResponses,
         pendingTasks = pendingTasks,
         emailAccounts = emailAccounts,
@@ -47,6 +49,26 @@ class HeartbeatPromptBuilderTest {
     fun `default emits only the opening prompt and a trailing newline`() {
         val out = build(customOrDefaultPrompt = "[HEARTBEAT] check yourself")
         assertEquals("[HEARTBEAT] check yourself\n", out)
+    }
+
+    @Test
+    fun `includes Heartbeat Additions when list non-empty`() {
+        val out = build(
+            heartbeatAdditions = listOf(
+                task(id = "h1", description = "Greeting").copy(
+                    prompt = "Say hi warmly.",
+                    trigger = TaskTrigger.HEARTBEAT,
+                ),
+            ),
+        )
+        assertTrue("## Heartbeat Additions" in out)
+        assertTrue("- **Greeting** (id: h1): Say hi warmly." in out)
+    }
+
+    @Test
+    fun `omits Heartbeat Additions when list is empty`() {
+        val out = build()
+        assertFalse("## Heartbeat Additions" in out)
     }
 
     @Test
@@ -95,8 +117,8 @@ class HeartbeatPromptBuilderTest {
     fun `includes Email Status line per account with unread count`() {
         val out = build(
             emailAccounts = listOf(
-                HeartbeatEmailStatus(email = "me@example.com", unreadCount = 3, lastSyncEpochMs = 1000L),
-                HeartbeatEmailStatus(email = "work@example.com", unreadCount = 0, lastSyncEpochMs = 0L),
+                EmailAccountSummary(email = "me@example.com", unreadCount = 3, lastSyncEpochMs = 1000L),
+                EmailAccountSummary(email = "work@example.com", unreadCount = 0, lastSyncEpochMs = 0L),
             ),
         )
         assertTrue("## Email Status" in out)
@@ -110,7 +132,7 @@ class HeartbeatPromptBuilderTest {
     fun `Email Status omits last sync suffix when lastSync is zero`() {
         val out = build(
             emailAccounts = listOf(
-                HeartbeatEmailStatus(email = "me@example.com", unreadCount = 0, lastSyncEpochMs = 0L),
+                EmailAccountSummary(email = "me@example.com", unreadCount = 0, lastSyncEpochMs = 0L),
             ),
         )
         assertTrue("- **me@example.com**: 0 unread\n" in out)
@@ -191,7 +213,7 @@ class HeartbeatPromptBuilderTest {
             recentResponses = listOf("HEARTBEAT_OK"),
             pendingTasks = listOf(task(id = "t1", description = "First")),
             emailAccounts = listOf(
-                HeartbeatEmailStatus(email = "me@example.com", unreadCount = 2, lastSyncEpochMs = 0L),
+                EmailAccountSummary(email = "me@example.com", unreadCount = 2, lastSyncEpochMs = 0L),
             ),
             pendingEmails = listOf(
                 HeartbeatPendingEmail(

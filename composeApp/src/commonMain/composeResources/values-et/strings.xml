@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d heartbeati ootel</string>
     <string name="settings_email_last_poll">Viimane edukas kontroll %1$s</string>
     <string name="settings_email_poll_failed">Viimane kontroll ebaõnnestus %1$s</string>
+    <string name="settings_email_refresh">Värskenda kontot</string>
     <string name="settings_add_service">Lisa teenus</string>
     <string name="settings_free_fallback">Kasuta varuvarjandina</string>
     <string name="service_free_fast">Tasuta kiire</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat-viip</string>
     <string name="settings_heartbeat_recent">Hiljutine tegevus</string>
     <string name="settings_remove_service">Eemalda</string>
-    <string name="tool_configure_heartbeat_description">Seadista perioodilise enesekontrolli käitumist</string>
-    <string name="tool_configure_heartbeat_name">Seadista Heartbeat</string>
     <string name="tool_memory_learn_description">Salvesta kategoriseeritud teadmine, veaparandus või eelistus</string>
     <string name="tool_memory_store_name">Salvesta mälestus</string>
     <string name="tool_memory_store_description">Salvesta või uuenda mälestus kirjeldava võtmega</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Vestlus</string>
     <string name="tab_settings">Seaded</string>
     <string name="fallback_answered_by">Vastas %1$s (varuvariant)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiivsed tunnid</string>
     <string name="settings_documentation">Dokumentatsioon</string>

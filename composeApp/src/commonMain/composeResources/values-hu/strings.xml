@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d várakozik a heartbeatre</string>
     <string name="settings_email_last_poll">Utolsó sikeres lekérdezés %1$s</string>
     <string name="settings_email_poll_failed">Utolsó lekérdezés sikertelen %1$s</string>
+    <string name="settings_email_refresh">Fiók frissítése</string>
     <string name="settings_add_service">Szolgáltatás hozzáadása</string>
     <string name="settings_free_fallback">Tartalékként használ</string>
     <string name="service_free_fast">Ingyenes gyors</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
     <string name="settings_heartbeat_recent">Legutóbbi tevékenység</string>
     <string name="settings_remove_service">Eltávolítás</string>
-    <string name="tool_configure_heartbeat_description">Időszakos önellenőrzés viselkedésének beállítása</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat beállítása</string>
     <string name="tool_memory_learn_description">Kategorizált tanulság, hibajavítás vagy preferencia tárolása</string>
     <string name="tool_memory_store_name">Emlék mentése</string>
     <string name="tool_memory_store_description">Emlék mentése vagy frissítése leíró kulccsal</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Csevegés</string>
     <string name="tab_settings">Beállítások</string>
     <string name="fallback_answered_by">Válaszolta: %1$s (tartalék)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Időköz</string>
     <string name="settings_heartbeat_active_hours">Aktív órák</string>
     <string name="settings_documentation">Dokumentáció</string>

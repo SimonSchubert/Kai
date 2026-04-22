@@ -8,13 +8,6 @@ package com.inspiredandroid.kai.data
 
 import kotlin.time.Instant
 
-/** Email account status rendered into the `## Email Status` section. */
-internal data class HeartbeatEmailStatus(
-    val email: String,
-    val unreadCount: Int,
-    val lastSyncEpochMs: Long,
-)
-
 /** A pending (polled-but-not-yet-heartbeat-picked-up) email rendered into the `## New Emails` section. */
 internal data class HeartbeatPendingEmail(
     val accountEmail: String,
@@ -35,22 +28,38 @@ internal data class HeartbeatPromotionCandidate(
  * Composes the heartbeat prompt.
  *
  * @param customOrDefaultPrompt leading free text — custom user prompt or [HeartbeatManager.DEFAULT_HEARTBEAT_PROMPT]
+ * @param heartbeatAdditions tasks with trigger=HEARTBEAT; rendered as `## Heartbeat Additions` so their prompts run on every heartbeat. Empty list = section omitted
  * @param recentResponses last heartbeat responses to include for continuity; empty list = section omitted
- * @param pendingTasks tasks to include in the `## Pending Tasks` section; empty list = section omitted
+ * @param pendingTasks time/cron tasks to include in the `## Pending Tasks` section (heartbeat tasks belong to [heartbeatAdditions] instead); empty list = section omitted
  * @param emailAccounts email account statuses; empty list = section omitted
  * @param pendingEmails new emails polled since the last heartbeat pickup; empty list = section omitted
  * @param promotionCandidates memory promotion candidates; empty list = section omitted
  */
 internal fun buildHeartbeatPrompt(
     customOrDefaultPrompt: String,
+    heartbeatAdditions: List<ScheduledTask>,
     recentResponses: List<String>,
     pendingTasks: List<ScheduledTask>,
-    emailAccounts: List<HeartbeatEmailStatus>,
+    emailAccounts: List<EmailAccountSummary>,
     pendingEmails: List<HeartbeatPendingEmail>,
     promotionCandidates: List<HeartbeatPromotionCandidate>,
 ): String = buildString {
     append(customOrDefaultPrompt)
     append("\n")
+
+    if (heartbeatAdditions.isNotEmpty()) {
+        append("\n## Heartbeat Additions\n")
+        append("Standing instructions the user asked to run on every heartbeat. Address each in your response alongside the main self-check — if all are satisfied and nothing else needs attention, respond with your acknowledgement rather than HEARTBEAT_OK (the additions are the attention).\n")
+        for (addition in heartbeatAdditions) {
+            append("- **")
+            append(addition.description)
+            append("** (id: ")
+            append(addition.id)
+            append("): ")
+            append(addition.prompt)
+            append('\n')
+        }
+    }
 
     if (recentResponses.isNotEmpty()) {
         append("\n## Previous Heartbeat Results\n")

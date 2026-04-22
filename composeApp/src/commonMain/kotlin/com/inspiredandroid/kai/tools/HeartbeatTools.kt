@@ -8,8 +8,6 @@ import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
 import kai.composeapp.generated.resources.Res
-import kai.composeapp.generated.resources.tool_configure_heartbeat_description
-import kai.composeapp.generated.resources.tool_configure_heartbeat_name
 import kai.composeapp.generated.resources.tool_promote_learning_description
 import kai.composeapp.generated.resources.tool_promote_learning_name
 import kai.composeapp.generated.resources.tool_trigger_heartbeat_description
@@ -17,56 +15,22 @@ import kai.composeapp.generated.resources.tool_trigger_heartbeat_name
 
 object HeartbeatTools {
 
-    fun configureHeartbeatTool(heartbeatManager: HeartbeatManager) = object : Tool {
-        override val schema = ToolSchema(
-            name = "configure_heartbeat",
-            description = "Enable or disable periodic self-checks (heartbeat). Configure interval and active hours.",
-            parameters = mapOf(
-                "enabled" to ParameterSchema(type = "boolean", description = "Whether heartbeat is enabled", required = false),
-                "interval_minutes" to ParameterSchema(type = "integer", description = "Minutes between heartbeats (minimum 5)", required = false),
-                "active_hours_start" to ParameterSchema(type = "integer", description = "Start hour for active window (0-23)", required = false),
-                "active_hours_end" to ParameterSchema(type = "integer", description = "End hour for active window (0-23)", required = false),
-            ),
-        )
-
-        override suspend fun execute(args: Map<String, Any>): Any {
-            var config = heartbeatManager.getConfig()
-
-            (args["enabled"] as? Boolean)?.let { config = config.copy(enabled = it) }
-            (args["interval_minutes"] as? Number)?.toInt()?.let { minutes ->
-                if (minutes < 5) return mapOf("success" to false, "error" to "Interval must be at least 5 minutes")
-                config = config.copy(intervalMinutes = minutes)
-            }
-            (args["active_hours_start"] as? Number)?.toInt()?.let { hour ->
-                if (hour !in 0..23) return mapOf("success" to false, "error" to "active_hours_start must be 0-23")
-                config = config.copy(activeHoursStart = hour)
-            }
-            (args["active_hours_end"] as? Number)?.toInt()?.let { hour ->
-                if (hour !in 0..23) return mapOf("success" to false, "error" to "active_hours_end must be 0-23")
-                config = config.copy(activeHoursEnd = hour)
-            }
-
-            heartbeatManager.saveConfig(config)
-            return mapOf(
-                "success" to true,
-                "enabled" to config.enabled,
-                "interval_minutes" to config.intervalMinutes,
-                "active_hours_start" to config.activeHoursStart,
-                "active_hours_end" to config.activeHoursEnd,
-            )
-        }
-    }
-
     fun triggerHeartbeatTool(heartbeatManager: HeartbeatManager) = object : Tool {
         override val schema = ToolSchema(
             name = "trigger_heartbeat",
-            description = "Trigger a heartbeat on the next poll cycle by resetting the last heartbeat time.",
+            description = "Force an immediate heartbeat self-check on the next poll cycle. Only works if heartbeat is already enabled by the user (Settings → Agent → Heartbeat). Use sparingly — a regular chat response is almost always the right answer.",
             parameters = emptyMap(),
         )
 
         override suspend fun execute(args: Map<String, Any>): Any {
             val config = heartbeatManager.getConfig()
-            heartbeatManager.saveConfig(config.copy(lastHeartbeatEpochMs = 0L, enabled = true))
+            if (!config.enabled) {
+                return mapOf(
+                    "success" to false,
+                    "error" to "Heartbeat is disabled. The user must enable it in Settings → Agent → Heartbeat.",
+                )
+            }
+            heartbeatManager.saveConfig(config.copy(lastHeartbeatEpochMs = 0L))
             return mapOf("success" to true, "message" to "Heartbeat will trigger on next poll cycle")
         }
     }
@@ -112,14 +76,6 @@ object HeartbeatTools {
         }
     }
 
-    val configureHeartbeatToolInfo = ToolInfo(
-        id = "configure_heartbeat",
-        name = "Configure Heartbeat",
-        description = "Configure periodic self-check behavior",
-        nameRes = Res.string.tool_configure_heartbeat_name,
-        descriptionRes = Res.string.tool_configure_heartbeat_description,
-    )
-
     val triggerHeartbeatToolInfo = ToolInfo(
         id = "trigger_heartbeat",
         name = "Trigger Heartbeat",
@@ -136,10 +92,9 @@ object HeartbeatTools {
         descriptionRes = Res.string.tool_promote_learning_description,
     )
 
-    val heartbeatToolDefinitions = listOf(configureHeartbeatToolInfo, triggerHeartbeatToolInfo, promoteLearningToolInfo)
+    val heartbeatToolDefinitions = listOf(triggerHeartbeatToolInfo, promoteLearningToolInfo)
 
     fun getHeartbeatTools(heartbeatManager: HeartbeatManager, memoryStore: MemoryStore, appSettings: AppSettings): List<Tool> = listOf(
-        configureHeartbeatTool(heartbeatManager),
         triggerHeartbeatTool(heartbeatManager),
         promoteLearningTool(memoryStore, appSettings),
     )

@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d gaida heartbeat</string>
     <string name="settings_email_last_poll">Pēdējā veiksmīgā pārbaude %1$s</string>
     <string name="settings_email_poll_failed">Pēdējā pārbaude neizdevās %1$s</string>
+    <string name="settings_email_refresh">Atsvaidzināt kontu</string>
     <string name="settings_add_service">Pievienot pakalpojumu</string>
     <string name="settings_free_fallback">Izmantot kā rezervi</string>
     <string name="service_free_fast">Bezmaksas ātrs</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat uzvedne</string>
     <string name="settings_heartbeat_recent">Nesenā darbība</string>
     <string name="settings_remove_service">Noņemt</string>
-    <string name="tool_configure_heartbeat_description">Konfigurēt periodiskas pašpārbaudes uzvedību</string>
-    <string name="tool_configure_heartbeat_name">Konfigurēt Heartbeat</string>
     <string name="tool_memory_learn_description">Saglabāt kategorizētu mācību, kļūdas risinājumu vai preferenci</string>
     <string name="tool_memory_store_name">Saglabāt atmiņu</string>
     <string name="tool_memory_store_description">Saglabāt vai atjaunināt atmiņu ar aprakstošu atslēgu</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Tērzēšana</string>
     <string name="tab_settings">Iestatījumi</string>
     <string name="fallback_answered_by">Atbildēja %1$s (rezerves)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervāls</string>
     <string name="settings_heartbeat_active_hours">Aktīvās stundas</string>
     <string name="settings_documentation">Dokumentācija</string>

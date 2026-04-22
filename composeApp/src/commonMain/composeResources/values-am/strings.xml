@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d ለ heartbeat በተጠባባቂ</string>
     <string name="settings_email_last_poll">የመጨረሻ የተሳካ ፍተሻ %1$s</string>
     <string name="settings_email_poll_failed">የመጨረሻ ፍተሻ አልተሳካም %1$s</string>
+    <string name="settings_email_refresh">መለያን አድስ</string>
     <string name="settings_add_service">አገልግሎት ጨምር</string>
     <string name="settings_free_fallback">እንደ ተተኪ ተጠቀም</string>
     <string name="service_free_fast">ነጻ ፈጣን</string>
@@ -122,8 +123,6 @@
     <string name="settings_heartbeat_prompt_label">የልብ ምት ጥያቄ</string>
     <string name="settings_heartbeat_recent">የቅርብ ጊዜ እንቅስቃሴ</string>
     <string name="settings_remove_service">አስወግድ</string>
-    <string name="tool_configure_heartbeat_description">ወቅታዊ ራስ-ምርመራ ባህሪ አዋቅር</string>
-    <string name="tool_configure_heartbeat_name">ልብ ምት አዋቅር</string>
     <string name="tool_memory_learn_description">የተመደበ ትምህርት፣ የስህተት መፍትሄ ወይም ምርጫ ያከማቹ</string>
     <string name="tool_memory_store_name">ትውስታ አስቀምጥ</string>
     <string name="tool_memory_store_description">ገላጭ ቁልፍ ያለው ትውስታ አስቀምጥ ወይም አዘምን</string>
@@ -144,6 +143,7 @@
     <string name="tab_chat">ውይይት</string>
     <string name="tab_settings">ቅንብሮች</string>
     <string name="fallback_answered_by">%1$s መልስ ሰጥቷል (ተተኪ)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">ክፍተት</string>
     <string name="settings_heartbeat_active_hours">ንቁ ሰዓቶች</string>
     <string name="settings_documentation">ሰነድ</string>

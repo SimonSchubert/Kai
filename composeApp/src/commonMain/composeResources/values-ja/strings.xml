@@ -111,6 +111,7 @@
     <string name="settings_email_queued">ハートビート待機中 %1$d 件</string>
     <string name="settings_email_last_poll">最終取得成功 %1$s</string>
     <string name="settings_email_poll_failed">最終取得失敗 %1$s</string>
+    <string name="settings_email_refresh">アカウントを更新</string>
     <string name="settings_add_service">サービスを追加</string>
     <string name="settings_free_fallback">フォールバックとして使用</string>
     <string name="service_free_fast">無料 高速</string>
@@ -122,8 +123,6 @@
     <string name="settings_heartbeat_prompt_label">ハートビートプロンプト</string>
     <string name="settings_heartbeat_recent">最近のアクティビティ</string>
     <string name="settings_remove_service">削除</string>
-    <string name="tool_configure_heartbeat_description">定期的なセルフチェックの動作を設定</string>
-    <string name="tool_configure_heartbeat_name">ハートビートを設定</string>
     <string name="tool_memory_learn_description">分類された学習、エラー解決、または設定を保存</string>
     <string name="tool_memory_store_name">記憶を保存</string>
     <string name="tool_memory_store_description">説明的なキーで記憶を保存または更新</string>
@@ -144,6 +143,7 @@
     <string name="tab_chat">チャット</string>
     <string name="tab_settings">設定</string>
     <string name="fallback_answered_by">%1$s が回答（フォールバック）</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">間隔</string>
     <string name="settings_heartbeat_active_hours">アクティブ時間</string>
     <string name="settings_documentation">ドキュメント</string>

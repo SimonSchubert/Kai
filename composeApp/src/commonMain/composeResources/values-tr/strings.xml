@@ -111,6 +111,7 @@
     <string name="settings_email_queued">Heartbeat için sırada %1$d</string>
     <string name="settings_email_last_poll">Son başarılı kontrol %1$s</string>
     <string name="settings_email_poll_failed">Son kontrol başarısız %1$s</string>
+    <string name="settings_email_refresh">Hesabı yenile</string>
     <string name="settings_add_service">Hizmet ekle</string>
     <string name="settings_free_fallback">Yedek olarak kullan</string>
     <string name="service_free_fast">Ücretsiz hızlı</string>
@@ -122,8 +123,6 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_heartbeat_prompt_label">Kalp Atışı İstemi</string>
     <string name="settings_heartbeat_recent">Son Etkinlik</string>
     <string name="settings_remove_service">Kaldır</string>
-    <string name="tool_configure_heartbeat_description">Periyodik öz kontrol davranışını yapılandır</string>
-    <string name="tool_configure_heartbeat_name">Kalp Atışını Yapılandır</string>
     <string name="tool_memory_learn_description">Kategorize edilmiş bir öğrenme, hata çözümü veya tercih kaydet</string>
     <string name="tool_memory_store_name">Anı Kaydet</string>
     <string name="tool_memory_store_description">Açıklayıcı bir anahtarla anı kaydet veya güncelle</string>
@@ -144,6 +143,7 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="tab_chat">Sohbet</string>
     <string name="tab_settings">Ayarlar</string>
     <string name="fallback_answered_by">%1$s tarafından yanıtlandı (yedek)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Aralık</string>
     <string name="settings_heartbeat_active_hours">Aktif Saatler</string>
     <string name="settings_documentation">Dokümantasyon</string>

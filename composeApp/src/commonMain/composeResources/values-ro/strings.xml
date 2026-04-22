@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d în așteptare pentru heartbeat</string>
     <string name="settings_email_last_poll">Ultima verificare reușită %1$s</string>
     <string name="settings_email_poll_failed">Ultima verificare a eșuat %1$s</string>
+    <string name="settings_email_refresh">Reîmprospătează contul</string>
     <string name="settings_add_service">Adăugare serviciu</string>
     <string name="settings_free_fallback">Folosește ca rezervă</string>
     <string name="service_free_fast">Gratuit rapid</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Activitate recentă</string>
     <string name="settings_remove_service">Elimină</string>
-    <string name="tool_configure_heartbeat_description">Configurează comportamentul autoverificării periodice</string>
-    <string name="tool_configure_heartbeat_name">Configurare Heartbeat</string>
     <string name="tool_memory_learn_description">Stochează o învățare categorizată, rezolvare de erori sau preferință</string>
     <string name="tool_memory_store_name">Salvează amintire</string>
     <string name="tool_memory_store_description">Salvează sau actualizează o amintire cu o cheie descriptivă</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Setări</string>
     <string name="fallback_answered_by">Răspuns de %1$s (rezervă)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Ore active</string>
     <string name="settings_documentation">Documentație</string>

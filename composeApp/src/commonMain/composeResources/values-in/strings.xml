@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d menunggu heartbeat</string>
     <string name="settings_email_last_poll">Pengambilan sukses terakhir %1$s</string>
     <string name="settings_email_poll_failed">Pengambilan terakhir gagal %1$s</string>
+    <string name="settings_email_refresh">Segarkan akun</string>
     <string name="settings_add_service">Tambah layanan</string>
     <string name="settings_free_fallback">Gunakan sebagai cadangan</string>
     <string name="service_free_fast">Gratis Cepat</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Aktivitas Terkini</string>
     <string name="settings_remove_service">Hapus</string>
-    <string name="tool_configure_heartbeat_description">Konfigurasi perilaku pemeriksaan mandiri berkala</string>
-    <string name="tool_configure_heartbeat_name">Konfigurasi Heartbeat</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran terkategorisasi, resolusi kesalahan, atau preferensi</string>
     <string name="tool_memory_store_name">Simpan Memori</string>
     <string name="tool_memory_store_description">Simpan atau perbarui memori dengan kunci deskriptif</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Obrolan</string>
     <string name="tab_settings">Pengaturan</string>
     <string name="fallback_answered_by">Dijawab oleh %1$s (cadangan)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Jam Aktif</string>
     <string name="settings_documentation">Dokumentasi</string>

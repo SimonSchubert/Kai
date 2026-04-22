@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d nakapila para sa heartbeat</string>
     <string name="settings_email_last_poll">Huling matagumpay na pagkuha %1$s</string>
     <string name="settings_email_poll_failed">Huling pagkuha ay nabigo %1$s</string>
+    <string name="settings_email_refresh">I-refresh ang account</string>
     <string name="settings_add_service">Magdagdag ng serbisyo</string>
     <string name="settings_free_fallback">Gamitin bilang fallback</string>
     <string name="service_free_fast">Libreng Mabilis</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt ng Tibok ng Puso</string>
     <string name="settings_heartbeat_recent">Kamakailang Aktibidad</string>
     <string name="settings_remove_service">Alisin</string>
-    <string name="tool_configure_heartbeat_description">I-configure ang peryodikong self-check na gawi</string>
-    <string name="tool_configure_heartbeat_name">I-configure ang Heartbeat</string>
     <string name="tool_memory_learn_description">Mag-imbak ng kategorisadong kaalaman, resolusyon ng error, o kagustuhan</string>
     <string name="tool_memory_store_name">Mag-imbak ng Alaala</string>
     <string name="tool_memory_store_description">Mag-imbak o mag-update ng alaala gamit ang naglalarawang susi</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Mga Setting</string>
     <string name="fallback_answered_by">Sinagot ng %1$s (fallback)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Pagitan</string>
     <string name="settings_heartbeat_active_hours">Mga Aktibong Oras</string>
     <string name="settings_documentation">Dokumentasyon</string>

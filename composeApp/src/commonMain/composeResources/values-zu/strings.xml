@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d alindele i-heartbeat</string>
     <string name="settings_email_last_poll">Ukuhlola kokugcina okuphumelele %1$s</string>
     <string name="settings_email_poll_failed">Ukuhlola kokugcina kuhlulekile %1$s</string>
+    <string name="settings_email_refresh">Vuselela i-akhawunti</string>
     <string name="settings_add_service">Engeza isevisi</string>
     <string name="settings_free_fallback">Sebenzisa njengokungukuhlehla</string>
     <string name="service_free_fast">Mahhala Okukhulu</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">I-Prompt ye-Heartbeat</string>
     <string name="settings_heartbeat_recent">Umsebenzi Wamuva</string>
     <string name="settings_remove_service">Susa</string>
-    <string name="tool_configure_heartbeat_description">Lungiselela ukuziphatha kokuhlolwa kwezenzakalelayo</string>
-    <string name="tool_configure_heartbeat_name">Lungiselela i-Heartbeat</string>
     <string name="tool_memory_learn_description">Gcina ukufunda okuhlukanisiwe, ukuxazululwa kwephutha, noma ukukhetha</string>
     <string name="tool_memory_store_name">Gcina Inkumbulo</string>
     <string name="tool_memory_store_description">Gcina noma ubuyekeze inkumbulo ngokhiye ochazayo</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Ingxoxo</string>
     <string name="tab_settings">Izilungiselelo</string>
     <string name="fallback_answered_by">Kuphendulwe ngu-%1$s (okungukuhlehla)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Isikhathi</string>
     <string name="settings_heartbeat_active_hours">Amahora Asebenzayo</string>
     <string name="settings_documentation">Ukubhaliwe</string>

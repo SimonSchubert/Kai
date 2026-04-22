@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d w kolejce do heartbeat</string>
     <string name="settings_email_last_poll">Ostatnie udane pobranie %1$s</string>
     <string name="settings_email_poll_failed">Ostatnie pobranie nieudane %1$s</string>
+    <string name="settings_email_refresh">Odśwież konto</string>
     <string name="settings_add_service">Dodaj usługę</string>
     <string name="settings_free_fallback">Użyj jako zapasowy</string>
     <string name="service_free_fast">Darmowy szybki</string>
@@ -122,8 +123,6 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_heartbeat_prompt_label">Prompt pulsu</string>
     <string name="settings_heartbeat_recent">Ostatnia aktywność</string>
     <string name="settings_remove_service">Usuń</string>
-    <string name="tool_configure_heartbeat_description">Skonfiguruj zachowanie okresowej samokontroli</string>
-    <string name="tool_configure_heartbeat_name">Skonfiguruj puls</string>
     <string name="tool_memory_learn_description">Zapisz skategoryzowaną naukę, rozwiązanie błędu lub preferencję</string>
     <string name="tool_memory_store_name">Zapisz wspomnienie</string>
     <string name="tool_memory_store_description">Zapisz lub zaktualizuj wspomnienie z opisowym kluczem</string>
@@ -144,6 +143,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="tab_chat">Czat</string>
     <string name="tab_settings">Ustawienia</string>
     <string name="fallback_answered_by">Odpowiedziano przez %1$s (zapasowy)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interwał</string>
     <string name="settings_heartbeat_active_hours">Aktywne godziny</string>
     <string name="settings_documentation">Dokumentacja</string>

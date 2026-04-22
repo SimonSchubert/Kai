@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d heartbeat кезегінде</string>
     <string name="settings_email_last_poll">Соңғы сәтті тексеру %1$s</string>
     <string name="settings_email_poll_failed">Соңғы тексеру сәтсіз %1$s</string>
+    <string name="settings_email_refresh">Аккаунтты жаңарту</string>
     <string name="settings_add_service">Қызметті қосу</string>
     <string name="settings_free_fallback">Қосалқы ретінде пайдалану</string>
     <string name="service_free_fast">Тегін жылдам</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat промпты</string>
     <string name="settings_heartbeat_recent">Соңғы белсенділік</string>
     <string name="settings_remove_service">Жою</string>
-    <string name="tool_configure_heartbeat_description">Мерзімді өзін-өзі тексеру әрекетін теңшеу</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat теңшеу</string>
     <string name="tool_memory_learn_description">Санатталған білім, қате шешімі немесе таңдауды сақтау</string>
     <string name="tool_memory_store_name">Естелікті сақтау</string>
     <string name="tool_memory_store_description">Сипаттамалық кілтпен естелікті сақтау немесе жаңарту</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Чат</string>
     <string name="tab_settings">Параметрлер</string>
     <string name="fallback_answered_by">%1$s жауап берді (қосалқы)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Аралық</string>
     <string name="settings_heartbeat_active_hours">Белсенді сағаттар</string>
     <string name="settings_documentation">Құжаттама</string>

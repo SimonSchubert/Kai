@@ -181,3 +181,6 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
     file?.write(bytes)
 }
+
+// iOS notifications need a UNUserNotificationCenter pipeline that isn't wired up yet; stub for now.
+actual fun sendHeartbeatNotification(title: String, body: String) = Unit

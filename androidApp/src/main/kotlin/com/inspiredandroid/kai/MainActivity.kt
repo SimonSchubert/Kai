@@ -1,8 +1,10 @@
 package com.inspiredandroid.kai
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import com.inspiredandroid.kai.data.DataRepository
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -33,6 +35,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         FileKit.init(this)
         autoStartDaemon()
+        handleDeepLinkIntent(intent)
 
         val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
         setContent {
@@ -90,6 +93,22 @@ class MainActivity : ComponentActivity() {
         val daemonController: DaemonController = get()
         if (daemonController is AndroidDaemonController && daemonController.shouldAutoStart()) {
             daemonController.start()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleDeepLinkIntent(intent)
+    }
+
+    private fun handleDeepLinkIntent(intent: Intent?) {
+        if (intent?.getBooleanExtra(EXTRA_OPEN_HEARTBEAT, false) == true) {
+            val dataRepository: DataRepository = get()
+            dataRepository.requestOpenHeartbeat()
+            // Drop the extra so a configuration change (screen rotation) doesn't re-trigger
+            // the deep-link after ChatViewModel has already consumed it.
+            intent.removeExtra(EXTRA_OPEN_HEARTBEAT)
         }
     }
 }

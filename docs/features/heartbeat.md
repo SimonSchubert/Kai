@@ -2,6 +2,8 @@
 
 **Last verified:** 2026-04-22
 
+> Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
+
 Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, newly arrived emails, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
 ## Concepts
@@ -20,7 +22,7 @@ A mechanism for graduating well-established memories into the permanent soul/sys
 
 ## Configuration
 
-Heartbeat configuration is stored as a serialized JSON object in app settings. All values are configurable from both the settings UI and via the `configure_heartbeat` AI tool:
+Heartbeat configuration is stored as a serialized JSON object in app settings. Values are only editable from the settings UI — there is no AI tool that can flip them:
 
 - **Enabled**: true
 - **Interval**: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)
@@ -28,7 +30,7 @@ Heartbeat configuration is stored as a serialized JSON object in app settings. A
 - **Active hours end**: 22 (hour, 24h format; UI range slider covers 0–23)
 - **Model**: optional override for which service+model to use for heartbeats. When not set, the first configured service is used (default behavior). Useful for selecting a cheaper or faster model for background checks
 
-Validation rules enforced by the `configure_heartbeat` tool:
+UI validation rules:
 
 - Interval must be at least 5 minutes
 - Active hours must be in the range 0–23
@@ -45,6 +47,7 @@ Validation rules enforced by the `configure_heartbeat` tool:
 - If the AI response contains "HEARTBEAT_OK", nothing is shown to the user
 - Any other response is saved into a dedicated heartbeat conversation (type `heartbeat`) via `addAssistantMessage`
 - A dismissable banner appears at the top of the chat when the heartbeat has something to report
+- **Android push notification**: when the heartbeat produces a non-OK report *and* the app is not currently in the foreground, a push notification fires. Foreground state is tracked via `ProcessLifecycleOwner` in `KaiApplication` and mirrored to `TaskScheduler.appInForeground`. Tapping the notification launches/foregrounds the app and deep-links into the heartbeat conversation via the `EXTRA_OPEN_HEARTBEAT` intent extra; `ChatViewModel` consumes the signal through `DataRepository.openHeartbeatRequested` and calls `loadConversation` on the heartbeat conversation id. The notification uses a fixed id so a fresh report replaces the previous unread one instead of stacking. Desktop/iOS/web no-op (banner-only).
 - Tapping the banner loads the heartbeat conversation so the user can read the report and reply
 - The X button dismisses the banner without navigating
 - Heartbeat conversations are included in the chat history list with a "Heartbeat" label badge, and can also be accessed via the banner
@@ -99,9 +102,10 @@ The heartbeat section in settings contains:
 
 | Tool | Purpose |
 |---|---|
-| `configure_heartbeat` | Enable/disable heartbeat, set interval and active hours |
-| `trigger_heartbeat` | Force a heartbeat on the next poll cycle by resetting the last heartbeat time and enabling heartbeat |
+| `trigger_heartbeat` | Force a heartbeat on the next poll cycle by resetting the last heartbeat time. Only works when heartbeat is already enabled in settings — otherwise returns an error directing the user to Settings → Agent → Heartbeat |
 | `promote_learning` | Promote a reinforced memory into the soul/system prompt |
+
+Standing additions to heartbeat behaviour are created with `schedule_task(on_heartbeat=true)` — see [tasks.md](tasks.md#heartbeat-triggered-tasks). Those prompts are appended to the main heartbeat self-check, not replaced.
 
 ## Key Files
 
@@ -114,3 +118,6 @@ The heartbeat section in settings contains:
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Heartbeat conversation creation, unread flag management |
 | `composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt` | Dismissable notification banner UI |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Heartbeat settings UI section |
+| `composeApp/src/commonMain/.../Platform.kt` | `expect fun sendHeartbeatNotification` — push notification for background heartbeat reports |
+| `composeApp/src/androidMain/.../HeartbeatNotifier.android.kt` | Android actual + `EXTRA_OPEN_HEARTBEAT` deep-link constant |
+| `androidApp/src/main/kotlin/.../MainActivity.kt` | Reads `EXTRA_OPEN_HEARTBEAT` in `onCreate`/`onNewIntent` and calls `DataRepository.requestOpenHeartbeat` |

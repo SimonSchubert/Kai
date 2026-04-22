@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d jonossa heartbeatille</string>
     <string name="settings_email_last_poll">Viimeinen onnistunut tarkistus %1$s</string>
     <string name="settings_email_poll_failed">Viimeinen tarkistus epäonnistui %1$s</string>
+    <string name="settings_email_refresh">Päivitä tili</string>
     <string name="settings_add_service">Lisää palvelu</string>
     <string name="settings_free_fallback">Käytä varavaihtoehtona</string>
     <string name="service_free_fast">Ilmainen nopea</string>
@@ -122,8 +123,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_heartbeat_prompt_label">Sykekehote</string>
     <string name="settings_heartbeat_recent">Viimeaikainen toiminta</string>
     <string name="settings_remove_service">Poista</string>
-    <string name="tool_configure_heartbeat_description">Määritä jaksollinen itsetarkistuskäyttäytyminen</string>
-    <string name="tool_configure_heartbeat_name">Määritä syke</string>
     <string name="tool_memory_learn_description">Tallenna luokiteltu oppiminen, virheenratkaisu tai mieltymys</string>
     <string name="tool_memory_store_name">Tallenna muisto</string>
     <string name="tool_memory_store_description">Tallenna tai päivitä muisto kuvaavalla avaimella</string>
@@ -144,6 +143,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Asetukset</string>
     <string name="fallback_answered_by">Vastannut %1$s (varajärjestelmä)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Väli</string>
     <string name="settings_heartbeat_active_hours">Aktiiviset tunnit</string>
     <string name="settings_documentation">Dokumentaatio</string>

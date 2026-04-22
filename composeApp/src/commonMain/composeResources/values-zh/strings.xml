@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d 封待处理（心跳）</string>
     <string name="settings_email_last_poll">上次成功获取 %1$s</string>
     <string name="settings_email_poll_failed">上次获取失败 %1$s</string>
+    <string name="settings_email_refresh">刷新账户</string>
     <string name="settings_add_service">添加服务</string>
     <string name="settings_free_fallback">用作备选</string>
     <string name="service_free_fast">免费快速</string>
@@ -122,8 +123,6 @@
     <string name="settings_heartbeat_prompt_label">心跳提示词</string>
     <string name="settings_heartbeat_recent">最近活动</string>
     <string name="settings_remove_service">移除</string>
-    <string name="tool_configure_heartbeat_description">配置定期自检行为</string>
-    <string name="tool_configure_heartbeat_name">配置心跳</string>
     <string name="tool_memory_learn_description">存储分类学习、错误解决方案或偏好</string>
     <string name="tool_memory_store_name">存储记忆</string>
     <string name="tool_memory_store_description">使用描述性键名存储或更新一条记忆</string>
@@ -144,6 +143,7 @@
     <string name="tab_chat">聊天</string>
     <string name="tab_settings">设置</string>
     <string name="fallback_answered_by">由 %1$s 回答（备用）</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">间隔</string>
     <string name="settings_heartbeat_active_hours">活跃时段</string>
     <string name="settings_documentation">文档</string>

@@ -1,3 +1,5 @@
+@file:OptIn(kotlin.time.ExperimentalTime::class)
+
 // Pure builders for the chat system prompt. Every input is passed explicitly — no DI,
 // no suspend, no resource loading, no Clock — so tests can call `buildChatSystemPrompt`
 // directly with hand-crafted inputs. Section composition is controlled by
@@ -5,6 +7,8 @@
 // truth for where a section belongs. No post-hoc regex stripping.
 
 package com.inspiredandroid.kai.data
+
+import kotlin.time.Instant
 
 /**
  * Identifies which flavour of chat system prompt to build. Public because it's part of
@@ -37,6 +41,20 @@ internal data class ChatPromptRuntimeContext(
 internal enum class ChatPromptUiMode { NONE, DYNAMIC_UI, INTERACTIVE_UI }
 
 /**
+ * Shared shape for rendering a connected email account into a prompt section — used by
+ * both the chat `## Email Accounts` block and the heartbeat `## Email Status` block.
+ * Carries enough context for the AI to reason about account state (unread, last sync,
+ * last error). Message bodies/previews don't belong here; those are surfaced separately
+ * by the heartbeat's `## New Emails` section or fetched via the email-reading tools.
+ */
+internal data class EmailAccountSummary(
+    val email: String,
+    val unreadCount: Int,
+    val lastSyncEpochMs: Long,
+    val lastError: String? = null,
+)
+
+/**
  * Total character budget for the memory category sections (`## Your Memories`, etc.)
  * when building the `CHAT_LOCAL` variant. Memories are appended in order — general →
  * preferences → learnings → errors — and entries that would push the combined size
@@ -61,6 +79,22 @@ internal const val DEFAULT_STRUCTURED_LEARNING_SECTION =
         "Use memory_reinforce when a stored learning produced a good outcome."
 
 /**
+ * Teaches the model how the two automation mechanisms differ. Only composed into the
+ * `CHAT_REMOTE` variant — scheduling tools aren't in the local allowlist, and the
+ * heartbeat-is-user-controlled rule doesn't matter on-device. Placed before the
+ * Scheduled Tasks data dump so the guidance precedes any rendered tasks.
+ */
+internal const val DEFAULT_AUTOMATION_SECTION =
+    "## Automation\n" +
+        "Every form of \"run something without the user typing it\" goes through `schedule_task`. " +
+        "The tool has three mutually exclusive triggers:\n" +
+        "- `execute_at` — one-off at a specific datetime (reminders, \"check back at 3pm\").\n" +
+        "- `cron` — recurring on a schedule (\"every morning at 8\", \"every 15 minutes\").\n" +
+        "- `on_heartbeat: true` — appended to every heartbeat self-check. Use this when the user asks for *standing* heartbeat behaviour (e.g. \"greet me on every heartbeat\", \"always summarize new emails\", \"flag overdue tasks each check\"). These are `HEARTBEAT` trigger tasks and show up in `list_tasks` alongside time/cron tasks.\n" +
+        "Each scheduled or heartbeat run starts fresh, so embed any context the prompt needs. Use `list_tasks` / `cancel_task` to inspect or remove.\n" +
+        "Heartbeat itself (on/off toggle, interval, active hours) is user-controlled in Settings → Agent → Heartbeat — you cannot enable, disable, or reschedule it. If the user asks for recurring updates and heartbeat seems off, either schedule a cron task or tell them to enable Heartbeat in settings — never claim to have \"enabled\" or \"turned on\" heartbeat."
+
+/**
  * Composes the full chat system prompt for the given [variant].
  *
  * Returns an empty string when there is literally nothing to render (which the caller
@@ -76,6 +110,8 @@ internal fun buildChatSystemPrompt(
     learningMemories: List<MemoryEntry>,
     errorMemories: List<MemoryEntry>,
     pendingTasks: List<ScheduledTask>,
+    heartbeatAdditions: List<ScheduledTask>,
+    emailAccounts: List<EmailAccountSummary>,
     runtime: ChatPromptRuntimeContext,
     uiMode: ChatPromptUiMode,
 ): String = buildString {
@@ -107,9 +143,21 @@ internal fun buildChatSystemPrompt(
     remaining = appendMemoryCategorySection("Learnings", learningMemories, withHitCount = true, remaining)
     appendMemoryCategorySection("Known Issues & Resolutions", errorMemories, withHitCount = false, remaining)
 
-    // Scheduled Tasks stays remote-only — scheduling tools aren't in the local allowlist.
-    if (variant == SystemPromptVariant.CHAT_REMOTE && pendingTasks.isNotEmpty()) {
-        appendScheduledTasksSection(pendingTasks)
+    // Automation guidance + Email Accounts + Scheduled Tasks stay remote-only — the
+    // matching tools aren't in the local allowlist. The Automation section always renders
+    // so the AI knows what to reach for; the data dumps only render when non-empty.
+    if (variant == SystemPromptVariant.CHAT_REMOTE) {
+        if (isNotEmpty()) append("\n\n")
+        append(DEFAULT_AUTOMATION_SECTION)
+        if (emailAccounts.isNotEmpty()) {
+            appendEmailAccountsSection(emailAccounts)
+        }
+        if (pendingTasks.isNotEmpty()) {
+            appendScheduledTasksSection(pendingTasks)
+        }
+        if (heartbeatAdditions.isNotEmpty()) {
+            appendHeartbeatAdditionsSection(heartbeatAdditions)
+        }
     }
 
     appendContextSection(runtime)
@@ -163,6 +211,45 @@ private fun StringBuilder.appendMemoryCategorySection(
     }
     append(section)
     return (remainingBudget - section.length).coerceAtLeast(0)
+}
+
+private fun StringBuilder.appendEmailAccountsSection(accounts: List<EmailAccountSummary>) {
+    append("\n\n## Email Accounts\n")
+    append("The user has these email accounts connected. Use them via the existing email tools — ")
+    append("do NOT suggest adding, re-authenticating, or connecting a new account unless the user explicitly asks.\n")
+    append("**Sending policy**: before calling `compose_email` or `reply_email`, present the full draft (to, subject, body) in chat and get explicit confirmation (\"send it\" / \"looks good\" / \"yes\"). Never call the send tools on the same turn you draft — the user must have a chance to correct tone, recipients, or content first. If the user later says \"change X and send\", re-present the updated draft and confirm again.\n")
+    for (account in accounts) {
+        append("- **")
+        append(account.email)
+        append("**: ")
+        if (account.lastError != null) {
+            append("sync failing — ")
+            append(account.lastError)
+        } else {
+            append(account.unreadCount)
+            append(" unread")
+            if (account.lastSyncEpochMs > 0) {
+                append(" (last sync: ")
+                append(Instant.fromEpochMilliseconds(account.lastSyncEpochMs))
+                append(')')
+            }
+        }
+        append('\n')
+    }
+}
+
+private fun StringBuilder.appendHeartbeatAdditionsSection(additions: List<ScheduledTask>) {
+    append("\n\n## Heartbeat Additions\n")
+    append("Standing instructions the user has set to run on every heartbeat (trigger=HEARTBEAT). Don't duplicate these when the user asks for similar behaviour; cancel via `cancel_task` if they want one removed.\n")
+    for (t in additions) {
+        append("- **")
+        append(t.description)
+        append("** (id: ")
+        append(t.id)
+        append("): ")
+        append(t.prompt)
+        append('\n')
+    }
 }
 
 private fun StringBuilder.appendScheduledTasksSection(pendingTasks: List<ScheduledTask>) {

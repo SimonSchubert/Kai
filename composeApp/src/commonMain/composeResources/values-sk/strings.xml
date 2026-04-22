@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d vo fronte pre heartbeat</string>
     <string name="settings_email_last_poll">Posledná úspešná kontrola %1$s</string>
     <string name="settings_email_poll_failed">Posledná kontrola zlyhala %1$s</string>
+    <string name="settings_email_refresh">Obnoviť účet</string>
     <string name="settings_add_service">Pridať službu</string>
     <string name="settings_free_fallback">Použiť ako zálohu</string>
     <string name="service_free_fast">Zadarmo rýchly</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Prompt Heartbeat</string>
     <string name="settings_heartbeat_recent">Nedávna aktivita</string>
     <string name="settings_remove_service">Odstrániť</string>
-    <string name="tool_configure_heartbeat_description">Konfigurovať správanie periodickej sebakontroly</string>
-    <string name="tool_configure_heartbeat_name">Konfigurovať Heartbeat</string>
     <string name="tool_memory_learn_description">Uložiť kategorizované učenie, vyriešenie chyby alebo preferenciu</string>
     <string name="tool_memory_store_name">Uložiť spomienku</string>
     <string name="tool_memory_store_description">Uložiť alebo aktualizovať spomienku s popisným kľúčom</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Nastavenia</string>
     <string name="fallback_answered_by">Odpovedal %1$s (záložný)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktívne hodiny</string>
     <string name="settings_documentation">Dokumentácia</string>

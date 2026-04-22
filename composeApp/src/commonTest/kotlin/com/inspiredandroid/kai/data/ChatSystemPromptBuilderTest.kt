@@ -59,6 +59,8 @@ class ChatSystemPromptBuilderTest {
         learningMemories: List<MemoryEntry> = emptyList(),
         errorMemories: List<MemoryEntry> = emptyList(),
         pendingTasks: List<ScheduledTask> = emptyList(),
+        heartbeatAdditions: List<ScheduledTask> = emptyList(),
+        emailAccounts: List<EmailAccountSummary> = emptyList(),
         uiMode: ChatPromptUiMode = ChatPromptUiMode.NONE,
     ) = buildChatSystemPrompt(
         variant = variant,
@@ -69,6 +71,8 @@ class ChatSystemPromptBuilderTest {
         learningMemories = learningMemories,
         errorMemories = errorMemories,
         pendingTasks = pendingTasks,
+        heartbeatAdditions = heartbeatAdditions,
+        emailAccounts = emailAccounts,
         runtime = runtime,
         uiMode = uiMode,
     )
@@ -76,15 +80,29 @@ class ChatSystemPromptBuilderTest {
     // region CHAT_REMOTE — focused tests
 
     @Test
-    fun `CHAT_REMOTE default emits soul + Structured Learning + context`() {
+    fun `CHAT_REMOTE default emits soul + Structured Learning + Automation + context`() {
         val out = build(SystemPromptVariant.CHAT_REMOTE)
         assertTrue(out.startsWith("You are Kai."))
         assertTrue("## Structured Learning" in out)
+        assertTrue("## Automation" in out)
         assertTrue("## Context" in out)
         assertTrue("- Date: 2026-04-11T00:00:00Z" in out)
         assertTrue("- Platform: Test" in out)
         assertTrue("- Model: test-model" in out)
         assertTrue("- Provider: Test Provider" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE Automation section names schedule_task as the future-execution mechanism`() {
+        val out = build(SystemPromptVariant.CHAT_REMOTE)
+        assertTrue("## Automation" in out)
+        assertTrue("schedule_task" in out)
+        // The three triggers are named.
+        assertTrue("execute_at" in out)
+        assertTrue("cron" in out)
+        assertTrue("on_heartbeat" in out)
+        // Heartbeat toggle/schedule remain user-only.
+        assertTrue("user-controlled" in out)
     }
 
     @Test
@@ -155,6 +173,70 @@ class ChatSystemPromptBuilderTest {
     fun `CHAT_REMOTE omits Scheduled Tasks when list is empty`() {
         val out = build(variant = SystemPromptVariant.CHAT_REMOTE)
         assertFalse("## Scheduled Tasks" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE includes Email Accounts when list non-empty`() {
+        val out = build(
+            variant = SystemPromptVariant.CHAT_REMOTE,
+            emailAccounts = listOf(
+                EmailAccountSummary(
+                    email = "alice@example.com",
+                    unreadCount = 3,
+                    lastSyncEpochMs = 1_700_000_000_000L,
+                ),
+            ),
+        )
+        assertTrue("## Email Accounts" in out)
+        assertTrue("do NOT suggest adding" in out)
+        assertTrue("- **alice@example.com**: 3 unread" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE Email Accounts surfaces sync failures via lastError`() {
+        val out = build(
+            variant = SystemPromptVariant.CHAT_REMOTE,
+            emailAccounts = listOf(
+                EmailAccountSummary(
+                    email = "bob@example.com",
+                    unreadCount = 0,
+                    lastSyncEpochMs = 0L,
+                    lastError = "AUTHENTICATIONFAILED",
+                ),
+            ),
+        )
+        assertTrue("- **bob@example.com**: sync failing — AUTHENTICATIONFAILED" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE omits Email Accounts when list is empty`() {
+        val out = build(variant = SystemPromptVariant.CHAT_REMOTE)
+        assertFalse("## Email Accounts" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE includes Heartbeat Additions when list non-empty`() {
+        val out = build(
+            variant = SystemPromptVariant.CHAT_REMOTE,
+            heartbeatAdditions = listOf(
+                ScheduledTask(
+                    id = "h1",
+                    description = "Greeting",
+                    prompt = "Greet the user warmly.",
+                    scheduledAtEpochMs = 0L,
+                    createdAtEpochMs = 0L,
+                    trigger = TaskTrigger.HEARTBEAT,
+                ),
+            ),
+        )
+        assertTrue("## Heartbeat Additions" in out)
+        assertTrue("- **Greeting** (id: h1): Greet the user warmly." in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE omits Heartbeat Additions when list is empty`() {
+        val out = build(variant = SystemPromptVariant.CHAT_REMOTE)
+        assertFalse("## Heartbeat Additions" in out)
     }
 
     @Test
@@ -303,6 +385,47 @@ class ChatSystemPromptBuilderTest {
     }
 
     @Test
+    fun `CHAT_LOCAL omits Automation section`() {
+        val out = build(variant = SystemPromptVariant.CHAT_LOCAL)
+        assertFalse("## Automation" in out)
+        assertFalse("schedule_task" in out)
+    }
+
+    @Test
+    fun `CHAT_LOCAL omits Email Accounts regardless of input`() {
+        val out = build(
+            variant = SystemPromptVariant.CHAT_LOCAL,
+            emailAccounts = listOf(
+                EmailAccountSummary(
+                    email = "alice@example.com",
+                    unreadCount = 3,
+                    lastSyncEpochMs = 0L,
+                ),
+            ),
+        )
+        assertFalse("## Email Accounts" in out)
+        assertFalse("alice@example.com" in out)
+    }
+
+    @Test
+    fun `CHAT_LOCAL omits Heartbeat Additions regardless of input`() {
+        val out = build(
+            variant = SystemPromptVariant.CHAT_LOCAL,
+            heartbeatAdditions = listOf(
+                ScheduledTask(
+                    id = "h1",
+                    description = "Greeting",
+                    prompt = "Hi!",
+                    scheduledAtEpochMs = 0L,
+                    createdAtEpochMs = 0L,
+                    trigger = TaskTrigger.HEARTBEAT,
+                ),
+            ),
+        )
+        assertFalse("## Heartbeat Additions" in out)
+    }
+
+    @Test
     fun `CHAT_LOCAL omits Dynamic UI even when uiMode is DYNAMIC_UI`() {
         val out = build(
             variant = SystemPromptVariant.CHAT_LOCAL,
@@ -363,6 +486,23 @@ class ChatSystemPromptBuilderTest {
             learningMemories = listOf(memory("lesson", "body", category = MemoryCategory.LEARNING, hitCount = 3)),
             errorMemories = listOf(memory("issue", "resolution", category = MemoryCategory.ERROR)),
             pendingTasks = listOf(task(id = "t1", description = "First task")),
+            emailAccounts = listOf(
+                EmailAccountSummary(
+                    email = "alice@example.com",
+                    unreadCount = 1,
+                    lastSyncEpochMs = 0L,
+                ),
+            ),
+            heartbeatAdditions = listOf(
+                ScheduledTask(
+                    id = "h1",
+                    description = "Greeting",
+                    prompt = "Say hi",
+                    scheduledAtEpochMs = 0L,
+                    createdAtEpochMs = 0L,
+                    trigger = TaskTrigger.HEARTBEAT,
+                ),
+            ),
             uiMode = ChatPromptUiMode.NONE,
         )
         // Just assert the section headers are present in order — the full kai-ui sections
@@ -375,7 +515,10 @@ class ChatSystemPromptBuilderTest {
             "## User Preferences",
             "## Learnings",
             "## Known Issues & Resolutions",
+            "## Automation",
+            "## Email Accounts",
             "## Scheduled Tasks",
+            "## Heartbeat Additions",
             "## Context",
         )
         var lastIdx = -1

@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d für den Heartbeat in der Warteschlange</string>
     <string name="settings_email_last_poll">Letzter erfolgreicher Abruf %1$s</string>
     <string name="settings_email_poll_failed">Letzter Abruf fehlgeschlagen %1$s</string>
+    <string name="settings_email_refresh">Konto aktualisieren</string>
     <string name="settings_add_service">Dienst hinzufügen</string>
     <string name="settings_free_fallback">Als Fallback verwenden</string>
     <string name="service_free_fast">Gratis Schnell</string>
@@ -122,8 +123,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_heartbeat_prompt_label">Heartbeat-Prompt</string>
     <string name="settings_heartbeat_recent">Letzte Aktivität</string>
     <string name="settings_remove_service">Entfernen</string>
-    <string name="tool_configure_heartbeat_description">Periodisches Selbstprüfungsverhalten konfigurieren</string>
-    <string name="tool_configure_heartbeat_name">Heartbeat konfigurieren</string>
     <string name="tool_memory_learn_description">Ein kategorisiertes Lernergebnis, eine Fehlerbehebung oder eine Präferenz speichern</string>
     <string name="tool_memory_store_name">Erinnerung speichern</string>
     <string name="tool_memory_store_description">Eine Erinnerung mit einem beschreibenden Schlüssel speichern oder aktualisieren</string>
@@ -144,6 +143,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tab_chat">Chat</string>
     <string name="tab_settings">Einstellungen</string>
     <string name="fallback_answered_by">Beantwortet von %1$s (Ersatz)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive Stunden</string>
     <string name="settings_documentation">Dokumentation</string>

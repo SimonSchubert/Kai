@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d đang chờ heartbeat</string>
     <string name="settings_email_last_poll">Lần kiểm tra thành công cuối %1$s</string>
     <string name="settings_email_poll_failed">Lần kiểm tra cuối thất bại %1$s</string>
+    <string name="settings_email_refresh">Làm mới tài khoản</string>
     <string name="settings_add_service">Thêm dịch vụ</string>
     <string name="settings_free_fallback">Dùng làm dự phòng</string>
     <string name="service_free_fast">Miễn phí nhanh</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Lệnh Heartbeat</string>
     <string name="settings_heartbeat_recent">Hoạt động gần đây</string>
     <string name="settings_remove_service">Xóa</string>
-    <string name="tool_configure_heartbeat_description">Cấu hình hành vi kiểm tra tự động định kỳ</string>
-    <string name="tool_configure_heartbeat_name">Cấu hình Heartbeat</string>
     <string name="tool_memory_learn_description">Lưu trữ bài học được phân loại, giải pháp lỗi hoặc tùy chọn</string>
     <string name="tool_memory_store_name">Lưu ký ức</string>
     <string name="tool_memory_store_description">Lưu hoặc cập nhật ký ức với khóa mô tả</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Trò chuyện</string>
     <string name="tab_settings">Cài đặt</string>
     <string name="fallback_answered_by">Đã trả lời bởi %1$s (dự phòng)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Khoảng thời gian</string>
     <string name="settings_heartbeat_active_hours">Giờ hoạt động</string>
     <string name="settings_documentation">Tài liệu</string>

@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d чакат heartbeat</string>
     <string name="settings_email_last_poll">Последна успешна проверка %1$s</string>
     <string name="settings_email_poll_failed">Последна проверка неуспешна %1$s</string>
+    <string name="settings_email_refresh">Опресни акаунта</string>
     <string name="settings_add_service">Добавяне на услуга</string>
     <string name="settings_free_fallback">Използвай като резервен</string>
     <string name="service_free_fast">Безплатен бърз</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Промпт за Heartbeat</string>
     <string name="settings_heartbeat_recent">Скорошна активност</string>
     <string name="settings_remove_service">Премахни</string>
-    <string name="tool_configure_heartbeat_description">Конфигуриране на поведението при периодична самопроверка</string>
-    <string name="tool_configure_heartbeat_name">Конфигуриране на Heartbeat</string>
     <string name="tool_memory_learn_description">Съхрани категоризирано знание, решение на грешка или предпочитание</string>
     <string name="tool_memory_store_name">Запази спомен</string>
     <string name="tool_memory_store_description">Запази или актуализирай спомен с описателен ключ</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Чат</string>
     <string name="tab_settings">Настройки</string>
     <string name="fallback_answered_by">Отговорено от %1$s (резервен)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Интервал</string>
     <string name="settings_heartbeat_active_hours">Активни часове</string>
     <string name="settings_documentation">Документация</string>

@@ -112,6 +112,7 @@ import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
+import com.inspiredandroid.kai.data.TaskTrigger
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
@@ -1550,19 +1551,13 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        if (uiState.showUiScale) {
+        if (uiState.showDaemonToggle) {
             SettingsCard {
-                UiScaleSection(
-                    uiScale = uiState.uiScale,
-                    onChangeUiScale = actions.onChangeUiScale,
+                DaemonModeToggle(
+                    isDaemonEnabled = uiState.isDaemonEnabled,
+                    onToggleDaemon = actions.onToggleDaemon,
                 )
             }
-        }
-        SettingsCard {
-            OledModeToggle(
-                isOledModeEnabled = uiState.isOledModeEnabled,
-                onToggleOledMode = actions.onToggleOledMode,
-            )
         }
         SettingsCard {
             DynamicUiToggle(
@@ -1570,11 +1565,17 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                 onToggleDynamicUi = actions.onToggleDynamicUi,
             )
         }
-        if (uiState.showDaemonToggle) {
+        SettingsCard {
+            OledModeToggle(
+                isOledModeEnabled = uiState.isOledModeEnabled,
+                onToggleOledMode = actions.onToggleOledMode,
+            )
+        }
+        if (uiState.showUiScale) {
             SettingsCard {
-                DaemonModeToggle(
-                    isDaemonEnabled = uiState.isDaemonEnabled,
-                    onToggleDaemon = actions.onToggleDaemon,
+                UiScaleSection(
+                    uiScale = uiState.uiScale,
+                    onChangeUiScale = actions.onChangeUiScale,
                 )
             }
         }
@@ -2578,12 +2579,14 @@ private fun ScheduledTaskList(
 
         if (isSchedulingEnabled && tasks.isNotEmpty()) {
             tasks.forEach { task ->
-                val subtitle = if (task.cron != null) {
-                    "${task.status} - ${describeCron(task.cron)}"
-                } else {
-                    val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
-                        .toLocalDateTime(TimeZone.currentSystemDefault())
-                    "${task.status} - $scheduledTime"
+                val subtitle = when (task.trigger) {
+                    TaskTrigger.HEARTBEAT -> "${task.status} - On every heartbeat"
+                    TaskTrigger.CRON -> "${task.status} - ${task.cron?.let { describeCron(it) } ?: "cron"}"
+                    TaskTrigger.TIME -> {
+                        val scheduledTime = Instant.fromEpochMilliseconds(task.scheduledAtEpochMs)
+                            .toLocalDateTime(TimeZone.currentSystemDefault())
+                        "${task.status} - $scheduledTime"
+                    }
                 }
                 SettingsListItem(
                     title = task.description,

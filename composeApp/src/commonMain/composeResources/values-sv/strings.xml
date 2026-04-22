@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d i kö för heartbeat</string>
     <string name="settings_email_last_poll">Senaste lyckad kontroll %1$s</string>
     <string name="settings_email_poll_failed">Senaste kontroll misslyckades %1$s</string>
+    <string name="settings_email_refresh">Uppdatera konto</string>
     <string name="settings_add_service">Lägg till tjänst</string>
     <string name="settings_free_fallback">Använd som reserv</string>
     <string name="service_free_fast">Gratis snabb</string>
@@ -122,8 +123,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_heartbeat_prompt_label">Hjärtslagsprompt</string>
     <string name="settings_heartbeat_recent">Senaste aktivitet</string>
     <string name="settings_remove_service">Ta bort</string>
-    <string name="tool_configure_heartbeat_description">Konfigurera periodiskt självkontrollbeteende</string>
-    <string name="tool_configure_heartbeat_name">Konfigurera hjärtslag</string>
     <string name="tool_memory_learn_description">Lagra en kategoriserad lärdom, fellösning eller preferens</string>
     <string name="tool_memory_store_name">Spara minne</string>
     <string name="tool_memory_store_description">Spara eller uppdatera ett minne med en beskrivande nyckel</string>
@@ -144,6 +143,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tab_chat">Chatt</string>
     <string name="tab_settings">Inställningar</string>
     <string name="fallback_answered_by">Besvarad av %1$s (reserv)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiva timmar</string>
     <string name="settings_documentation">Dokumentation</string>

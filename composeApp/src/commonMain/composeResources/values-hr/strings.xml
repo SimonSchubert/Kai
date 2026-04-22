@@ -111,6 +111,7 @@
     <string name="settings_email_queued">%1$d u redu za heartbeat</string>
     <string name="settings_email_last_poll">Zadnja uspješna provjera %1$s</string>
     <string name="settings_email_poll_failed">Zadnja provjera neuspjela %1$s</string>
+    <string name="settings_email_refresh">Osvježi račun</string>
     <string name="settings_add_service">Dodaj uslugu</string>
     <string name="settings_free_fallback">Koristi kao zamjenu</string>
     <string name="service_free_fast">Besplatno brzo</string>
@@ -121,8 +122,6 @@
     <string name="settings_heartbeat_prompt_label">Heartbeat prompt</string>
     <string name="settings_heartbeat_recent">Nedavna aktivnost</string>
     <string name="settings_remove_service">Ukloni</string>
-    <string name="tool_configure_heartbeat_description">Konfiguriraj ponašanje periodične samoprovjere</string>
-    <string name="tool_configure_heartbeat_name">Konfiguriraj Heartbeat</string>
     <string name="tool_memory_learn_description">Pohrani kategorizirano učenje, rješenje pogreške ili preferenciju</string>
     <string name="tool_memory_store_name">Spremi sjećanje</string>
     <string name="tool_memory_store_description">Spremi ili ažuriraj sjećanje s opisnim ključem</string>
@@ -143,6 +142,7 @@
     <string name="tab_chat">Razgovor</string>
     <string name="tab_settings">Postavke</string>
     <string name="fallback_answered_by">Odgovorio %1$s (zamjena)</string>
+    <string name="fallback_service_failed">%1$s: %2$s</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktivni sati</string>
     <string name="settings_documentation">Dokumentacija</string>
