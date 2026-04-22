@@ -18,7 +18,6 @@ import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
 import com.inspiredandroid.kai.ui.markdown.MarkdownContent
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
-import com.inspiredandroid.kai.ui.markdown.withoutKaiUi
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kai.composeapp.generated.resources.bot_message_flag_content_description
@@ -46,14 +45,10 @@ internal fun BotMessage(
     pendingFrozen: FrozenSubmission? = null,
 ) {
     val document = remember(message) { parseMarkdown(message) }
-    val showKaiUi = isInteractive || pendingFrozen != null
-    val shown = remember(document, showKaiUi) {
-        if (showKaiUi) document else document.withoutKaiUi()
-    }
 
     SelectionContainer {
         MarkdownContent(
-            document = shown,
+            document = document,
             isInteractive = isInteractive,
             onUiCallback = onUiCallback ?: { _, _ -> },
             frozen = pendingFrozen,

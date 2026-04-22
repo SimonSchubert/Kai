@@ -42,5 +42,4 @@ internal fun supportsTools(modelId: String): Boolean {
  * If you're filtering a service/model picker for a background feature,
  * prefer this over checking either gate in isolation.
  */
-internal fun supportsAgenticFlows(serviceId: String, modelId: String): Boolean =
-    !Service.fromId(serviceId).isOnDevice && supportsTools(modelId)
+internal fun supportsAgenticFlows(serviceId: String, modelId: String): Boolean = !Service.fromId(serviceId).isOnDevice && supportsTools(modelId)

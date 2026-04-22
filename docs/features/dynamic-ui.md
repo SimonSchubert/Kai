@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-22
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -86,7 +86,7 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |
 | `composeApp/.../ui/markdown/MarkdownParser.kt` | Unified markdown parser; emits `KaiUiBlock` AST nodes for kai-ui fences |
 | `composeApp/.../ui/markdown/MarkdownRenderer.kt` | Compose renderer that dispatches each block (including kai-ui) to its composable |
-| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — runs the parser and filters kai-ui out of non-interactive history |
+| `composeApp/.../ui/chat/composables/BotMessage.kt` | Integration point — runs the parser and renders past kai-ui read-only via `isInteractive = false` |
 | `composeApp/.../ui/chat/ChatScreen.kt` | Branches between chat mode and interactive mode |
 | `composeApp/.../ui/chat/composables/EmptyState.kt` | "Start Interactive UI" button |
 | `composeApp/.../ui/chat/ChatActions.kt` | submitUiCallback, enterInteractiveMode, exitInteractiveMode, goBackInteractiveMode |

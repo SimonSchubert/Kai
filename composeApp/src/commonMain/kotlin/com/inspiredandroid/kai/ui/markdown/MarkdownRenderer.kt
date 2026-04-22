@@ -33,9 +33,8 @@ import com.inspiredandroid.kai.ui.markdown.math.MathFormula
  * Render a parsed [MarkdownDocument] as a Compose layout. Each block becomes one child of the
  * outer [Column]; inline content is rendered as [androidx.compose.ui.text.AnnotatedString].
  *
- * Kai-UI blocks dispatch to [KaiUiRenderer]; callers that shouldn't show forms (e.g. completed
- * historical messages) should filter them out via [MarkdownDocument.withoutKaiUi] before
- * passing the document here.
+ * Kai-UI blocks dispatch to [KaiUiRenderer]; pass `isInteractive = false` to render them as
+ * read-only (completed historical messages keep their layout but disable buttons/inputs).
  */
 @Composable
 fun MarkdownContent(
@@ -69,9 +68,6 @@ fun MarkdownContent(
     }
     MarkdownContent(doc, modifier, isInteractive, onUiCallback, frozen)
 }
-
-/** Remove kai-ui blocks so only prose is shown (used for historical, non-interactive messages). */
-fun MarkdownDocument.withoutKaiUi(): MarkdownDocument = MarkdownDocument(blocks.filter { it !is KaiUiBlock && it !is KaiUiError })
 
 @Composable
 private fun BlockRenderer(
