@@ -753,17 +753,19 @@
 
 
 <h1 id="appearance">Appearance</h1>
-<p><strong>Last verified:</strong> 2026-04-21</p>
-<p>Kai's theme follows the operating system's dark/light preference and has no in-app theme switcher. Dark mode uses pure-black (<code>#000000</code>) backgrounds on every platform — on OLED panels this saves power, and visually it reads as a modern "lights-out" aesthetic. Cards, dialogs, bottom sheets, and menus remain visually lifted because only the lowest surface tiers are flattened to black; container tiers keep their default Material 3 elevation.</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
+<p>Kai's theme follows the operating system's dark/light preference and has no in-app theme switcher. Dark mode defaults to a soft dark background (<code>#121212</code>) with slightly lighter surfaces (<code>#1E1E1E</code>). An opt-in <strong>OLED mode</strong> setting flattens the background and low surface tiers to pure black (<code>#000000</code>) for users who want to save power on OLED panels. Cards, dialogs, bottom sheets, and menus remain visually lifted in either mode because only the lowest surface tiers are affected; container tiers keep their default Material 3 elevation.</p>
 <h2 id="behavior">Behavior</h2>
 <ul>
-<li><strong>Light mode</strong>: unchanged Material 3 light scheme.</li>
-<li><strong>Dark mode</strong>: <code>background</code>, <code>surface</code>, and <code>surfaceContainerLowest</code> render pure black. <code>surfaceContainer</code>, <code>surfaceContainerHigh</code>, and <code>surfaceContainerHighest</code> retain their default Material 3 dark values so elevated components remain visible against the background. <code>onBackground</code> / <code>onSurface</code> stay white.</li>
-<li><strong>Material You (Android 12+)</strong>: wallpaper-derived accent colors (<code>primary</code>, <code>secondary</code>, <code>tertiary</code>) still apply. The pure-black override is layered on top of the dynamic scheme so accents and buttons continue to track the wallpaper.</li>
-<li><strong>System-following</strong>: <code>isSystemInDarkTheme()</code> decides between the two schemes. There is no setting to force dark or light mode inside Kai.</li>
+<li><strong>Light mode</strong>: unchanged Material 3 light scheme. The OLED toggle has no effect.</li>
+<li><strong>Dark mode (default)</strong>: <code>background</code> renders <code>#121212</code> and <code>surface</code> renders <code>#1E1E1E</code>. <code>surfaceContainer</code>, <code>surfaceContainerHigh</code>, and <code>surfaceContainerHighest</code> use their default Material 3 dark values so elevated components remain visible. <code>onBackground</code> / <code>onSurface</code> stay white.</li>
+<li><strong>Dark mode with OLED mode enabled</strong>: <code>background</code>, <code>surface</code>, and <code>surfaceContainerLowest</code> render pure black. The elevated <code>surfaceContainer*</code> tiers are unchanged so cards and menus stay visible against black.</li>
+<li><strong>Material You (Android 12+)</strong>: wallpaper-derived accent colors (<code>primary</code>, <code>secondary</code>, <code>tertiary</code>) always apply. When OLED mode is on, the black override is layered on top of the dynamic scheme so accents and buttons continue to track the wallpaper.</li>
+<li><strong>System-following</strong>: <code>isSystemInDarkTheme()</code> decides between light and dark schemes. There is no setting to force dark or light mode inside Kai.</li>
+<li><strong>Reactivity</strong>: toggling OLED mode in Settings recomposes the theme immediately without an app restart.</li>
 </ul>
 <h2 id="component-guidance">Component guidance</h2>
-<p>When adding new surfaces in dark mode, <strong>do not</strong> bind fills to <code>surface</code> if the element should stand out from the page background — it will be invisible. Use <code>surfaceContainer</code> (or higher) for anything that represents a raised card, pill, or control. <code>surface</code> is equivalent to the background in this theme and should only back elements that are meant to be flush with the page.</p>
+<p>When adding new surfaces in dark mode, <strong>do not</strong> bind fills to <code>surface</code> if the element should stand out from the page background with OLED mode on — in OLED mode <code>surface</code> becomes black and the element will be invisible against the background. Use <code>surfaceContainer</code> (or higher) for anything that represents a raised card, pill, or control.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -775,15 +777,27 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../ui/Theme.kt</code></td>
-<td><code>DarkColorScheme</code> / <code>LightColorScheme</code> constants; <code>withBlackBackground()</code> extension that flattens a dynamic dark scheme to pure black</td>
+<td><code>DarkColorScheme</code> / <code>LightColorScheme</code> constants; <code>withBlackBackground()</code> extension that flattens a dark scheme to pure black</td>
 </tr>
 <tr>
 <td><code>composeApp/.../App.kt</code></td>
-<td>Default <code>Theme</code> wrapper — picks <code>DarkColorScheme</code> or <code>LightColorScheme</code> via <code>isSystemInDarkTheme()</code></td>
+<td>Shared <code>AppContent</code> — observes <code>AppSettings.oledModeFlow</code> and applies <code>withBlackBackground()</code> when OLED mode is on and the system is in dark mode</td>
+</tr>
+<tr>
+<td><code>composeApp/.../data/AppSettings.kt</code></td>
+<td><code>oledModeFlow</code> / <code>isOledModeEnabled()</code> / <code>setOledModeEnabled()</code> — the persistent flag</td>
+</tr>
+<tr>
+<td><code>composeApp/.../ui/settings/SettingsScreen.kt</code></td>
+<td><code>OledModeToggle</code> in the General tab</td>
 </tr>
 <tr>
 <td><code>androidApp/.../MainActivity.kt</code></td>
-<td>Android entry — applies Material You via <code>dynamicDarkColorScheme(ctx).withBlackBackground()</code> on API 31+, falls back to <code>DarkColorScheme</code> otherwise</td>
+<td>Android entry — picks a base dynamic or static dark scheme. The OLED transform is applied downstream in <code>AppContent</code>.</td>
+</tr>
+<tr>
+<td><code>androidApp/.../res/values-night/styles.xml</code></td>
+<td>Pre-Compose window background set to <code>#FF121212</code> to match the default dark frame</td>
 </tr>
 <tr>
 <td><code>composeApp/.../iosMain/.../MainViewController.kt</code></td>
