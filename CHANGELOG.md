@@ -1,3 +1,16 @@
+## v2.3.2 — 2026-04-23
+
+### Fixes
+- Fix kai-ui rendering and restore issues
+
+### Improvements
+- Make OLED dark mode opt-in
+- Improve heartbeat, email polling, and task scheduling reliability
+- Prevent incompatible models from being used in interactive chat and automations
+- Align general grid UI
+- Align localizations
+- Upgrade dependencies
+
 ## v2.3.1 — 2026-04-22
 
 ### Features
