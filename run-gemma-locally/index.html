@@ -6,10 +6,15 @@
   <title>Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private | Kai</title>
   <meta name="description" content="Run Google Gemma 4 (E2B / E4B) locally on Android, macOS, Windows, or Linux with Kai. Fully offline, private, no API key, no cost. Step-by-step guide.">
   <link rel="canonical" href="https://kai9000.com/run-gemma-locally/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#1a1a2e">
   <meta property="og:title" content="Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private">
   <meta property="og:description" content="Step-by-step guide to running Google Gemma 4 locally on your phone or desktop with Kai. Offline, private, free, no API key.">
-  <meta property="og:image" content="https://kai9000.com/img/og-preview.png">
+  <meta property="og:image" content="https://kai9000.com/img/preview.png">
+  <meta property="og:image:alt" content="Kai 9000 running Gemma 4 locally on phone and desktop — fully offline, private, free">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:url" content="https://kai9000.com/run-gemma-locally/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Kai 9000">
@@ -17,7 +22,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Run Gemma 4 Locally on Android &amp; Desktop — Free, Offline, Private">
   <meta name="twitter:description" content="Step-by-step guide to running Google Gemma 4 locally on your phone or desktop with Kai. Offline, private, free, no API key.">
-  <meta name="twitter:image" content="https://kai9000.com/img/og-preview.png">
+  <meta name="twitter:image" content="https://kai9000.com/img/preview.png">
+  <meta name="twitter:image:alt" content="Kai 9000 running Gemma 4 locally on phone and desktop — fully offline, private, free">
   <link rel="icon" href="../img/favicon.ico" sizes="32x32">
   <link rel="icon" href="../img/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../img/icon.svg">
@@ -176,12 +182,34 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Kai 9000",
+        "item": "https://kai9000.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Run Gemma Locally",
+        "item": "https://kai9000.com/run-gemma-locally/"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
   <nav class="page-nav">
     <a href="/">&larr; Kai 9000</a>
   </nav>
+
+  <main>
 
   <!-- Hero -->
   <div class="hero">
@@ -191,10 +219,10 @@
         <p class="tagline">Google Gemma 4, fully offline, fully private — with Kai.</p>
         <p class="sub">Kai runs Google's Gemma 4 E2B and E4B models directly on your device using the LiteRT LM SDK. No API key, no cloud account, no monthly bill. Works on Android, macOS, Windows, and Linux.</p>
         <div class="hero-badges">
-          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.webp" alt="Download on the App Store"></a>
-          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.webp" alt="Get it on Google Play"></a>
-          <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.webp" alt="Get it on F-Droid"></a>
-          <a href="/app/"><img src="../img/web_badge.webp" alt="Use the Web App"></a>
+          <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.webp" alt="Download Kai on the App Store" width="180" height="60"></a>
+          <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.webp" alt="Get Kai on Google Play" width="203" height="60"></a>
+          <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.webp" alt="Get Kai on F-Droid" width="168" height="60"></a>
+          <a href="/app/"><img src="../img/web_badge.webp" alt="Use the Kai web app" width="207" height="62"></a>
         </div>
       </div>
     </div>
@@ -283,37 +311,37 @@
       <article class="howto-step fade-in" id="step-2">
         <h3>2. Open Settings and tap Add Service</h3>
         <p>Open Kai, go to Settings &rarr; Services, and tap <strong>Add Service</strong>. In the list that slides up, pick <strong>Local Model</strong> — it's pinned to the top next to OpenAI-Compatible API. Kai will set up an on-device service that runs Gemma 4 via Google's LiteRT SDK.</p>
-        <img src="../img/gemma-local-settings.webp" alt="Kai Add Service bottom sheet with Local Model (LiteRT) at the top of the provider list" loading="lazy">
+        <img src="../img/gemma-local-settings.webp" alt="Kai Add Service bottom sheet with Local Model (LiteRT) at the top of the provider list" loading="lazy" width="445" height="1000">
       </article>
 
       <article class="howto-step fade-in" id="step-3">
         <h3>3. Pick a model</h3>
         <p>You'll see three models: <strong>Gemma 4 E2B IT</strong> (2.58 GB, recommended), <strong>Gemma 4 E4B IT</strong> (3.65 GB), and <strong>Qwen3 0.6B</strong> (586 MB). Kai shows a Good / OK / Poor label on each one based on your device's RAM and the context size you pick. On an 8 GB+ machine, E4B's quality is usually worth the extra memory. Qwen3 0.6B is chat-only — it can't reliably call Kai's tools.</p>
-        <img src="../img/gemma-local-model-card.webp" alt="LiteRT settings card showing Gemma 4 E2B IT (recommended), Gemma 4 E4B IT, and Qwen3 0.6B with size and download buttons" loading="lazy">
+        <img src="../img/gemma-local-model-card.webp" alt="LiteRT settings card showing Gemma 4 E2B IT (recommended), Gemma 4 E4B IT, and Qwen3 0.6B with size and download buttons" loading="lazy" width="445" height="1000">
       </article>
 
       <article class="howto-step fade-in" id="step-4">
         <h3>4. Adjust the context size (optional)</h3>
         <p>Each model has a slider to set the context window from 4K to 32K tokens in 1K steps. Bigger is not always better — larger contexts use more GPU memory and push the performance indicator toward OK or Poor. The slider is available before you download, so you can preview the memory impact first.</p>
-        <img src="../img/gemma-local-context-slider.webp" alt="Context size slider ranging from 4K to 32K tokens with a performance indicator" loading="lazy">
+        <img src="../img/gemma-local-context-slider.webp" alt="Context size slider ranging from 4K to 32K tokens with a performance indicator" loading="lazy" width="445" height="1000">
       </article>
 
       <article class="howto-step fade-in" id="step-5">
         <h3>5. Download the model</h3>
         <p>Tap Download. Kai validates that there's enough disk space first, then streams the model from HuggingFace's <a href="https://huggingface.co/litert-community">litert-community</a> repo. On Android, downloads continue in a foreground notification if you leave the app. On desktop, downloads run in the background and you'll see progress in the settings card.</p>
-        <img src="../img/gemma-local-download.webp" alt="Gemma 4 model downloading with a progress percentage" loading="lazy">
+        <img src="../img/gemma-local-download.webp" alt="Gemma 4 model downloading with a progress percentage" loading="lazy" width="445" height="1000">
       </article>
 
       <article class="howto-step fade-in" id="step-6">
         <h3>6. Select it as the active model</h3>
         <p>Once the download finishes, tap the radio button next to the model to make it the active on-device model for new chats.</p>
-        <img src="../img/gemma-local-select.webp" alt="Gemma 4 model card with the active-model radio button selected" loading="lazy">
+        <img src="../img/gemma-local-select.webp" alt="Gemma 4 model card with the active-model radio button selected" loading="lazy" width="445" height="1000">
       </article>
 
       <article class="howto-step fade-in" id="step-7">
         <h3>7. Start chatting — fully offline</h3>
         <p>Open a new chat and send a message. The first message triggers engine initialization (~10 seconds) — you'll see an "Initializing Gemma 4" pulse. After that, replies stream directly from your GPU, with automatic CPU fallback if the GPU backend isn't available. The engine stays warm for 5 minutes of inactivity and then releases memory automatically.</p>
-        <img src="../img/gemma-local-chat.webp" alt="Kai chat running Gemma 4 locally with a streaming response" loading="lazy">
+        <img src="../img/gemma-local-chat.webp" alt="Kai chat running Gemma 4 locally with a streaming response" loading="lazy" width="445" height="1000">
       </article>
     </div>
   </section>
@@ -348,7 +376,7 @@
           </ul>
         </div>
       </div>
-      <p class="section-note fade-in">If you need any of the remote-only features, configure a cloud provider (OpenAI, Gemini, Anthropic, Groq, Mistral, DeepSeek, xAI) alongside Gemma 4 — Kai's fallback chain will use Gemma 4 locally and fall back to a cloud model only when a feature requires it.</p>
+      <p class="section-note fade-in">If you need any of the remote-only features, configure a cloud provider (OpenAI, Gemini, Anthropic, Groq, Mistral, DeepSeek, xAI) alongside Gemma 4 — Kai's fallback chain will use Gemma 4 locally and fall back to a cloud model only when a feature requires it. Math output still renders beautifully regardless of provider — see <a href="/latex-math/">native LaTeX math rendering on Android and desktop</a>.</p>
     </div>
   </section>
 
@@ -387,10 +415,10 @@
       <h2 class="section-title fade-in">Get Kai and try Gemma 4 locally</h2>
       <p class="section-desc fade-in">Free. Open-source. No account.</p>
       <div class="badge-row fade-in">
-        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.webp" alt="Download on the App Store"></a>
-        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.webp" alt="Get it on Google Play"></a>
-        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.webp" alt="Get it on F-Droid"></a>
-        <a href="/app/"><img src="../img/web_badge.webp" alt="Use the Web App"></a>
+        <a href="https://apps.apple.com/us/app/kai-ai/id6758148023"><img src="../img/app_store_badge.webp" alt="Download Kai on the App Store" width="180" height="60" loading="lazy"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.inspiredandroid.kai"><img src="../img/play_store_badge.webp" alt="Get Kai on Google Play" width="203" height="60" loading="lazy"></a>
+        <a href="https://f-droid.org/en/packages/com.inspiredandroid.kai/"><img src="../img/fdroid_badge.webp" alt="Get Kai on F-Droid" width="168" height="60" loading="lazy"></a>
+        <a href="/app/"><img src="../img/web_badge.webp" alt="Use the Kai web app" width="207" height="62" loading="lazy"></a>
       </div>
       <div class="cli-installs fade-in">
         <div class="cli-card">
@@ -411,6 +439,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer>

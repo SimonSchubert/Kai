@@ -125,6 +125,7 @@ a:hover {
 }
 
 .hero-badges img {
+  width: auto;
   height: 48px;
   transition: transform 0.15s ease;
 }
@@ -225,6 +226,7 @@ section {
 .carousel-slide {
   display: block;
   width: 100%;
+  height: auto;
   position: absolute;
   top: 0;
   left: 0;
@@ -253,23 +255,24 @@ section {
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: none;
   background: var(--text-muted);
+  background-clip: content-box;
+  padding: 8px;
   cursor: pointer;
-  padding: 0;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .dot.active {
-  background: var(--primary-light);
+  background-color: var(--primary-light);
   transform: scale(1.3);
 }
 
 .dot:hover {
-  background: var(--primary);
+  background-color: var(--primary);
 }
 
 /* ---- Features Grid ---- */
@@ -331,6 +334,7 @@ section {
 }
 
 .badge-row img {
+  width: auto;
   height: 44px;
 }
 
@@ -382,6 +386,7 @@ section {
 
 .desktop-preview img {
   width: 100%;
+  height: auto;
   display: block;
 }
 
