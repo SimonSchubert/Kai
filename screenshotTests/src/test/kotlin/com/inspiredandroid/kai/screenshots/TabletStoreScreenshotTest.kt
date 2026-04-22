@@ -156,9 +156,9 @@ class TabletStoreScreenshotTest(
     }
 
     @Test
-    fun settingsGeneral() {
+    fun settingsAgent() {
         snap("06", DarkColorScheme) {
-            SettingsScreenContent(uiState = ScreenshotTestData.settingsGeneral)
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsAgent)
         }
     }
 

@@ -102,10 +102,10 @@ class ScreenshotTest {
     }
 
     @Test
-    fun settingsGeneral_dark() {
+    fun settingsAgent_dark() {
         paparazzi.snap(DarkColorScheme) {
             SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsGeneral,
+                uiState = ScreenshotTestData.settingsAgent,
                 sandboxState = ScreenshotTestData.sandboxState,
             )
         }

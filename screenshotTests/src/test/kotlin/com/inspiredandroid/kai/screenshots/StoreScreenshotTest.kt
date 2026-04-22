@@ -162,10 +162,10 @@ class StoreScreenshotTest(
     }
 
     @Test
-    fun settingsGeneral() {
+    fun settingsAgent() {
         snap("06", DarkColorScheme) {
             SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsGeneral,
+                uiState = ScreenshotTestData.settingsAgent,
                 terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
             )
         }

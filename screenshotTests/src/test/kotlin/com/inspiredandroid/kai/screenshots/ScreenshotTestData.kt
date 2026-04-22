@@ -149,8 +149,8 @@ object ScreenshotTestData {
         availableServicesToAdd = persistentListOf(Service.OpenAI, Service.DeepSeek, Service.Mistral),
     )
 
-    val settingsGeneral = SettingsUiState(
-        currentTab = SettingsTab.General,
+    val settingsAgent = SettingsUiState(
+        currentTab = SettingsTab.Agent,
         soulText = "",
         isMemoryEnabled = true,
         memories = persistentListOf(
