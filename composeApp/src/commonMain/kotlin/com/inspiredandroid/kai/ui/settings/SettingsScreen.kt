@@ -1548,43 +1548,95 @@ private fun SettingsCard(
 
 @Composable
 private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        if (uiState.showDaemonToggle) {
-            SettingsCard {
-                DaemonModeToggle(
-                    isDaemonEnabled = uiState.isDaemonEnabled,
-                    onToggleDaemon = actions.onToggleDaemon,
-                )
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val useStaggered = maxWidth >= 600.dp
+        if (useStaggered) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    if (uiState.showDaemonToggle) {
+                        SettingsCard {
+                            DaemonModeToggle(
+                                isDaemonEnabled = uiState.isDaemonEnabled,
+                                onToggleDaemon = actions.onToggleDaemon,
+                            )
+                        }
+                    }
+                    SettingsCard {
+                        DynamicUiToggle(
+                            isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                            onToggleDynamicUi = actions.onToggleDynamicUi,
+                        )
+                    }
+                    SettingsCard {
+                        OledModeToggle(
+                            isOledModeEnabled = uiState.isOledModeEnabled,
+                            onToggleOledMode = actions.onToggleOledMode,
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    if (uiState.showUiScale) {
+                        SettingsCard {
+                            UiScaleSection(
+                                uiScale = uiState.uiScale,
+                                onChangeUiScale = actions.onChangeUiScale,
+                            )
+                        }
+                    }
+                    SettingsCard {
+                        ExportImportSection(
+                            onExportSettings = actions.onExportSettings,
+                            onImportSettings = actions.onImportSettings,
+                        )
+                    }
+                }
             }
-        }
-        SettingsCard {
-            DynamicUiToggle(
-                isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                onToggleDynamicUi = actions.onToggleDynamicUi,
-            )
-        }
-        SettingsCard {
-            OledModeToggle(
-                isOledModeEnabled = uiState.isOledModeEnabled,
-                onToggleOledMode = actions.onToggleOledMode,
-            )
-        }
-        if (uiState.showUiScale) {
-            SettingsCard {
-                UiScaleSection(
-                    uiScale = uiState.uiScale,
-                    onChangeUiScale = actions.onChangeUiScale,
-                )
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                if (uiState.showDaemonToggle) {
+                    SettingsCard {
+                        DaemonModeToggle(
+                            isDaemonEnabled = uiState.isDaemonEnabled,
+                            onToggleDaemon = actions.onToggleDaemon,
+                        )
+                    }
+                }
+                SettingsCard {
+                    DynamicUiToggle(
+                        isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                        onToggleDynamicUi = actions.onToggleDynamicUi,
+                    )
+                }
+                SettingsCard {
+                    OledModeToggle(
+                        isOledModeEnabled = uiState.isOledModeEnabled,
+                        onToggleOledMode = actions.onToggleOledMode,
+                    )
+                }
+                if (uiState.showUiScale) {
+                    SettingsCard {
+                        UiScaleSection(
+                            uiScale = uiState.uiScale,
+                            onChangeUiScale = actions.onChangeUiScale,
+                        )
+                    }
+                }
+                SettingsCard {
+                    ExportImportSection(
+                        onExportSettings = actions.onExportSettings,
+                        onImportSettings = actions.onImportSettings,
+                    )
+                }
             }
-        }
-        SettingsCard {
-            ExportImportSection(
-                onExportSettings = actions.onExportSettings,
-                onImportSettings = actions.onImportSettings,
-            )
         }
     }
 }
@@ -2656,7 +2708,7 @@ private fun UiScaleSection(
     onChangeUiScale: (Float) -> Unit,
 ) {
     var sliderValue by remember(uiScale) { mutableStateOf(uiScale) }
-    val steps = ((2.0f - 0.5f) / 0.1f).toInt() - 1 // 10% steps between 50% and 200%
+    val steps = 14 // 16 snap points from 50% to 200% in 10% increments (14 intermediate)
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -2670,7 +2722,7 @@ private fun UiScaleSection(
                 color = MaterialTheme.colorScheme.onBackground,
             )
             Text(
-                text = "${(sliderValue * 100).toInt()}%",
+                text = "${(sliderValue * 100).roundToInt()}%",
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
