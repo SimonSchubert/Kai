@@ -1070,6 +1070,9 @@
 
 <h1 id="heartbeat">Heartbeat</h1>
 <p><strong>Last verified:</strong> 2026-04-22</p>
+<blockquote>
+<p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
+</blockquote>
 <p>Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, newly arrived emails, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="heartbeat_1">Heartbeat</h3>
@@ -1079,7 +1082,7 @@
 <h3 id="promotion">Promotion</h3>
 <p>A mechanism for graduating well-established memories into the permanent soul/system prompt. Memories that have been reinforced 5 or more times become promotion candidates and are surfaced during heartbeat checks for the AI to evaluate.</p>
 <h2 id="configuration">Configuration</h2>
-<p>Heartbeat configuration is stored as a serialized JSON object in app settings. All values are configurable from both the settings UI and via the <code>configure_heartbeat</code> AI tool:</p>
+<p>Heartbeat configuration is stored as a serialized JSON object in app settings. Values are only editable from the settings UI — there is no AI tool that can flip them:</p>
 <ul>
 <li><strong>Enabled</strong>: true</li>
 <li><strong>Interval</strong>: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)</li>
@@ -1087,7 +1090,7 @@
 <li><strong>Active hours end</strong>: 22 (hour, 24h format; UI range slider covers 0–23)</li>
 <li><strong>Model</strong>: optional override for which service+model to use for heartbeats. When not set, the first configured service is used (default behavior). Useful for selecting a cheaper or faster model for background checks</li>
 </ul>
-<p>Validation rules enforced by the <code>configure_heartbeat</code> tool:</p>
+<p>UI validation rules:</p>
 <ul>
 <li>Interval must be at least 5 minutes</li>
 <li>Active hours must be in the range 0–23</li>
@@ -1104,6 +1107,7 @@
 <li>If the AI response contains "HEARTBEAT_OK", nothing is shown to the user</li>
 <li>Any other response is saved into a dedicated heartbeat conversation (type <code>heartbeat</code>) via <code>addAssistantMessage</code></li>
 <li>A dismissable banner appears at the top of the chat when the heartbeat has something to report</li>
+<li><strong>Android push notification</strong>: when the heartbeat produces a non-OK report <em>and</em> the app is not currently in the foreground, a push notification fires. Foreground state is tracked via <code>ProcessLifecycleOwner</code> in <code>KaiApplication</code> and mirrored to <code>TaskScheduler.appInForeground</code>. Tapping the notification launches/foregrounds the app and deep-links into the heartbeat conversation via the <code>EXTRA_OPEN_HEARTBEAT</code> intent extra; <code>ChatViewModel</code> consumes the signal through <code>DataRepository.openHeartbeatRequested</code> and calls <code>loadConversation</code> on the heartbeat conversation id. The notification uses a fixed id so a fresh report replaces the previous unread one instead of stacking. Desktop/iOS/web no-op (banner-only).</li>
 <li>Tapping the banner loads the heartbeat conversation so the user can read the report and reply</li>
 <li>The X button dismisses the banner without navigating</li>
 <li>Heartbeat conversations are included in the chat history list with a "Heartbeat" label badge, and can also be accessed via the banner</li>
@@ -1159,12 +1163,8 @@
 </thead>
 <tbody>
 <tr>
-<td><code>configure_heartbeat</code></td>
-<td>Enable/disable heartbeat, set interval and active hours</td>
-</tr>
-<tr>
 <td><code>trigger_heartbeat</code></td>
-<td>Force a heartbeat on the next poll cycle by resetting the last heartbeat time and enabling heartbeat</td>
+<td>Force a heartbeat on the next poll cycle by resetting the last heartbeat time. Only works when heartbeat is already enabled in settings — otherwise returns an error directing the user to Settings → Agent → Heartbeat</td>
 </tr>
 <tr>
 <td><code>promote_learning</code></td>
@@ -1172,6 +1172,7 @@
 </tr>
 </tbody>
 </table>
+<p>Standing additions to heartbeat behaviour are created with <code>schedule_task(on_heartbeat=true)</code> — see <a href="../tasks/#heartbeat-triggered-tasks">tasks.md</a>. Those prompts are appended to the main heartbeat self-check, not replaced.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -1208,6 +1209,18 @@
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
 <td>Heartbeat settings UI section</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../Platform.kt</code></td>
+<td><code>expect fun sendHeartbeatNotification</code> — push notification for background heartbeat reports</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../HeartbeatNotifier.android.kt</code></td>
+<td>Android actual + <code>EXTRA_OPEN_HEARTBEAT</code> deep-link constant</td>
+</tr>
+<tr>
+<td><code>androidApp/src/main/kotlin/.../MainActivity.kt</code></td>
+<td>Reads <code>EXTRA_OPEN_HEARTBEAT</code> in <code>onCreate</code>/<code>onNewIntent</code> and calls <code>DataRepository.requestOpenHeartbeat</code></td>
 </tr>
 </tbody>
 </table>

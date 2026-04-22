@@ -1147,7 +1147,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1232,7 +1232,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/composables/BotMessage.kt</code></td>
-<td>Integration point — runs the parser and filters kai-ui out of non-interactive history</td>
+<td>Integration point — runs the parser and renders past kai-ui read-only via <code>isInteractive = false</code></td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/chat/ChatScreen.kt</code></td>

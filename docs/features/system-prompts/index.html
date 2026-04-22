@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-22</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -870,10 +870,28 @@
 <td><code>errorMemories</code></td>
 </tr>
 <tr>
+<td><code>## Automation</code></td>
+<td style="text-align: center;">always (remote-only block)</td>
+<td style="text-align: center;">never</td>
+<td>baked into <code>DEFAULT_AUTOMATION_SECTION</code> constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through <code>schedule_task</code> with one of three triggers (<code>execute_at</code>, <code>cron</code>, <code>on_heartbeat</code>). Heartbeat schedule itself is user-controlled</td>
+</tr>
+<tr>
+<td><code>## Email Accounts</code></td>
+<td style="text-align: center;">when list non-empty (email enabled)</td>
+<td style="text-align: center;">never</td>
+<td><code>emailAccounts</code> — connected address, unread count, last sync, or last sync error</td>
+</tr>
+<tr>
 <td><code>## Scheduled Tasks</code></td>
 <td style="text-align: center;">when list non-empty</td>
 <td style="text-align: center;">never</td>
-<td><code>pendingTasks</code></td>
+<td><code>pendingTasks</code> (time/cron only; heartbeat-trigger tasks live in the next section)</td>
+</tr>
+<tr>
+<td><code>## Heartbeat Additions</code></td>
+<td style="text-align: center;">when list non-empty</td>
+<td style="text-align: center;">never</td>
+<td><code>heartbeatAdditions</code> — standing <code>schedule_task(on_heartbeat=true)</code> entries the AI can see/reference/cancel</td>
 </tr>
 <tr>
 <td><code>## Context</code></td>
@@ -899,7 +917,7 @@
 <p><strong>Why two variants:</strong></p>
 <ul>
 <li><code>CHAT_REMOTE</code> — full chat prompt for remote services. No limits.</li>
-<li><code>CHAT_LOCAL</code> — trimmed chat prompt for on-device LiteRT. Small Gemma models (2-4B params) can't coherently attend to the full remote prompt, so Structured Learning, Scheduled Tasks, and kai-ui sections are dropped, and memory sections are char-capped. The model still gets soul + basic memory guidance + memories (up to the cap) + runtime Context — memories matter because <code>memory_store</code> / <code>memory_forget</code> / <code>memory_reinforce</code> are all in the local tool allowlist, and a memory might have been learned via a remote model in an earlier turn.</li>
+<li><code>CHAT_LOCAL</code> — trimmed chat prompt for on-device LiteRT. Small Gemma models (2-4B params) can't coherently attend to the full remote prompt, so Structured Learning, Automation, Email Accounts, Scheduled Tasks, Heartbeat Additions, and kai-ui sections are dropped, and memory sections are char-capped. The model still gets soul + basic memory guidance + memories (up to the cap) + runtime Context — memories matter because <code>memory_store</code> / <code>memory_forget</code> / <code>memory_reinforce</code> are all in the local tool allowlist, and a memory might have been learned via a remote model in an earlier turn.</li>
 </ul>
 <p>Interactive UI mode is <strong>not</strong> available on on-device services — the kai-ui component schema is too large for small Gemma models to coherently attend to, and in practice the model can't produce valid kai-ui JSON. The "Start interactive mode" button in the empty-state UI is hidden when the primary service is on-device (see <code>ChatScreen.kt</code>). If you have LiteRT selected and need interactive UI mode, switch to a remote service first.</p>
 <h2 id="heartbeat-sections">Heartbeat sections</h2>
@@ -919,6 +937,10 @@
 <tr>
 <td><code>## Previous Heartbeat Results</code></td>
 <td><code>recentResponses</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## Heartbeat Additions</code></td>
+<td><code>heartbeatAdditions</code> non-empty — appended standing instructions from <code>schedule_task(on_heartbeat=true)</code> tasks</td>
 </tr>
 <tr>
 <td><code>## Pending Tasks</code> (with optional cron annotation)</td>
