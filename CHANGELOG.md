@@ -1,3 +1,16 @@
+## v2.3.1 — 2026-04-22
+
+### Features
+- Add LaTeX code block rendering
+
+### Improvements
+- Pure black backgrounds in dark mode for OLED power savings
+- Improve fallback status UI
+- Add Mistral 3.5 models to catalog
+- Update Kimi model catalog (add K2.6, refresh Arena scores)
+- Update free API endpoint
+- Upgrade dependencies
+
 ## v2.3.0 — 2026-04-20
 
 ### Features

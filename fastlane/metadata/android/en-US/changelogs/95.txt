@@ -1,0 +1,7 @@
+LaTeX code block rendering
+Pure black dark mode for OLED power savings
+Improve fallback status UI
+Add Mistral 3.5 models
+Update Kimi model catalog
+Update free API endpoint
+Upgrade dependencies
