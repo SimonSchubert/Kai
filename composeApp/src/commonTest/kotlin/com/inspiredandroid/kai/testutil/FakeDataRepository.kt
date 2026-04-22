@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.testutil
 import com.inspiredandroid.kai.data.Conversation
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.EmailSyncState
 import com.inspiredandroid.kai.data.FallbackStatus
 import com.inspiredandroid.kai.data.FreeMode
 import com.inspiredandroid.kai.data.HeartbeatConfig
@@ -336,10 +337,24 @@ class FakeDataRepository : DataRepository {
     // Memory management
     private var dynamicUiEnabled = true
 
+    override fun getPendingEmailCount(): Int = 0
+
+    override fun getEmailSyncStates(): Map<String, EmailSyncState> = emptyMap()
+
+    override suspend fun pollEmailAccount(accountId: String) {}
+
     override fun isDynamicUiEnabled(): Boolean = dynamicUiEnabled
 
     override fun setDynamicUiEnabled(enabled: Boolean) {
         dynamicUiEnabled = enabled
+    }
+
+    private var oledModeEnabled = false
+
+    override fun isOledModeEnabled(): Boolean = oledModeEnabled
+
+    override fun setOledModeEnabled(enabled: Boolean) {
+        oledModeEnabled = enabled
     }
 
     private var interactiveMode = false

@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Povolte nebo zaka\u017ete n\u00e1stroje AI, kter\u00e9 mohou prov\u00e1d\u011bt akce va\u0161\u00edm jm\u00e9nem.</string>
     <string name="settings_tools_none_available">Na t\u00e9to platform\u011b nejsou k dispozici \u017e\u00e1dn\u00e9 n\u00e1stroje.</string>
     <string name="settings_tab_general">Obecn\u00e9</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Slu\u017eby</string>
     <string name="settings_tab_tools">N\u00e1stroje</string>
     <string name="settings_tab_integrations">Integrace</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Hledat v e-mailech</string>
     <string name="tool_search_email_description">Hledat e-maily podle odesílatele, předmětu nebo data</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Připojte e-mailové účty pro čtení a odpovídání. V chatu řekněte „připojit můj e-mail" nebo přidejte účty zde. E-maily jsou kontrolovány na pozadí a tříděny pomocí AI.</string>
+    <string name="settings_email_description">Připojte e-mailové účty pro čtení a odpovídání. Řekněte v chatu „připoj můj e-mail". E-maily jsou kontrolovány na pozadí a zpracovávány heartbeatem.</string>
     <string name="settings_email_empty">Žádné připojené e-mailové účty. Řekněte „připojit můj e-mail" v chatu pro zahájení.</string>
     <string name="settings_email_remove">Odebrat účet</string>
     <string name="settings_email_poll_interval">Kontrolovat každých %1$d min.</string>
     <string name="settings_email_poll_never">Nikdy</string>
+    <string name="settings_email_queued">%1$d ve frontě pro heartbeat</string>
+    <string name="settings_email_last_poll">Poslední úspěšná kontrola %1$s</string>
+    <string name="settings_email_poll_failed">Poslední kontrola selhala %1$s</string>
     <string name="settings_add_service">Přidat službu</string>
     <string name="settings_free_fallback">Použít jako zálohu</string>
     <string name="service_free_fast">Zdarma rychlý</string>

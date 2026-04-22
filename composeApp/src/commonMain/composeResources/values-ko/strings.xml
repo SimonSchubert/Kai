@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">서비스를 사용함으로써 </string>
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="settings_tab_general">일반</string>
+    <string name="settings_tab_agent">에이전트</string>
     <string name="tool_set_alarm_name">알람 설정</string>
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
     <string name="tool_execute_shell_command_name">셸 명령 실행</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">이메일 검색</string>
     <string name="tool_search_email_description">발신자, 제목 또는 날짜로 이메일 검색</string>
     <string name="settings_email">이메일</string>
-    <string name="settings_email_description">이메일 읽기 및 답장을 위한 이메일 계정을 연결합니다. 채팅에서 "내 이메일 연결"이라고 하거나 여기서 계정을 추가하세요. 이메일은 백그라운드에서 주기적으로 확인되고 AI가 분류합니다.</string>
+    <string name="settings_email_description">이메일 읽기 및 답장을 위한 이메일 계정을 연결합니다. 채팅에서 "내 이메일 연결"이라고 말하세요. 이메일은 백그라운드에서 가져와 하트비트에서 처리됩니다.</string>
     <string name="settings_email_empty">연결된 이메일 계정이 없습니다. 채팅에서 "내 이메일 연결"이라고 하여 시작하세요.</string>
     <string name="settings_email_remove">계정 제거</string>
     <string name="settings_email_poll_interval">%1$d분마다 확인</string>
     <string name="settings_email_poll_never">안 함</string>
+    <string name="settings_email_queued">하트비트 대기 %1$d개</string>
+    <string name="settings_email_last_poll">마지막 성공 확인 %1$s</string>
+    <string name="settings_email_poll_failed">마지막 확인 실패 %1$s</string>
     <string name="settings_add_service">서비스 추가</string>
     <string name="settings_free_fallback">대체로 사용</string>
     <string name="service_free_fast">무료 빠른</string>

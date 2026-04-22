@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">சேவையைப் பயன்படுத்துவதன் மூலம், நீங்கள் ஒப்புக்கொள்கிறீர்கள் </string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
     <string name="settings_tab_general">பொது</string>
+    <string name="settings_tab_agent">முகவர்</string>
     <string name="tool_set_alarm_name">அலாரம் அமை</string>
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
     <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">மின்னஞ்சலை தேடு</string>
     <string name="tool_search_email_description">அனுப்பியவர், தலைப்பு அல்லது தேதி மூலம் மின்னஞ்சல்களை தேடு</string>
     <string name="settings_email">மின்னஞ்சல்</string>
-    <string name="settings_email_description">படிக்கவும் பதில் அனுப்பவும் மின்னஞ்சல் கணக்குகளை இணைக்கவும். "என் மின்னஞ்சலை இணை" என்று அரட்டையில் சொல்லவும் அல்லது இங்கே கணக்குகளை சேர்க்கவும். மின்னஞ்சல்கள் பின்னணியில் சேகரிக்கப்பட்டு AI ஆல் வகைப்படுத்தப்படும்.</string>
+    <string name="settings_email_description">படிக்க மற்றும் பதிலளிக்க மின்னஞ்சல் கணக்குகளை இணைக்கவும். அரட்டையில் "என் மின்னஞ்சலை இணை" என்று சொல்லவும். மின்னஞ்சல்கள் பின்னணியில் சரிபார்க்கப்பட்டு heartbeat மூலம் செயலாக்கப்படுகின்றன.</string>
     <string name="settings_email_empty">மின்னஞ்சல் கணக்குகள் எதுவும் இணைக்கப்படவில்லை. தொடங்க அரட்டையில் "என் மின்னஞ்சலை இணை" என்று சொல்லவும்.</string>
     <string name="settings_email_remove">கணக்கை அகற்று</string>
     <string name="settings_email_poll_interval">ஒவ்வொரு %1$d நிமிடங்களுக்கும் சரிபார்க்கவும்</string>
     <string name="settings_email_poll_never">ஒருபோதும் இல்லை</string>
+    <string name="settings_email_queued">%1$d heartbeat-க்காக காத்திருக்கிறது</string>
+    <string name="settings_email_last_poll">கடைசி வெற்றிகரமான சரிபார்ப்பு %1$s</string>
+    <string name="settings_email_poll_failed">கடைசி சரிபார்ப்பு தோல்வியடைந்தது %1$s</string>
     <string name="settings_add_service">சேவையைச் சேர்</string>
     <string name="settings_free_fallback">மாற்றாகப் பயன்படுத்து</string>
     <string name="service_free_fast">இலவச வேகம்</string>

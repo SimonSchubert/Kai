@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Dengan menggunakan layanan, Anda menyetujui </string>
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="settings_tab_general">Umum</string>
+    <string name="settings_tab_agent">Agen</string>
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
     <string name="tool_execute_shell_command_name">Jalankan perintah</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Cari Email</string>
     <string name="tool_search_email_description">Cari email berdasarkan pengirim, subjek, atau tanggal</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Hubungkan akun email untuk membaca dan membalas. Gunakan chat untuk mengatakan "hubungkan email saya" atau tambahkan akun di sini. Email diambil di latar belakang dan diurutkan oleh AI.</string>
+    <string name="settings_email_description">Hubungkan akun email untuk membaca dan membalas. Katakan "hubungkan email saya" di chat. Email diambil di latar belakang dan diproses oleh heartbeat.</string>
     <string name="settings_email_empty">Tidak ada akun email yang terhubung. Katakan "hubungkan email saya" di chat untuk memulai.</string>
     <string name="settings_email_remove">Hapus akun</string>
     <string name="settings_email_poll_interval">Periksa setiap %1$d menit</string>
     <string name="settings_email_poll_never">Jangan pernah</string>
+    <string name="settings_email_queued">%1$d menunggu heartbeat</string>
+    <string name="settings_email_last_poll">Pengambilan sukses terakhir %1$s</string>
+    <string name="settings_email_poll_failed">Pengambilan terakhir gagal %1$s</string>
     <string name="settings_add_service">Tambah layanan</string>
     <string name="settings_free_fallback">Gunakan sebagai cadangan</string>
     <string name="service_free_fast">Gratis Cepat</string>

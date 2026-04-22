@@ -10,6 +10,7 @@ import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
+import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.inference.createLocalInferenceEngine
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.Requests
@@ -51,6 +52,9 @@ val appModule = module {
     single<EmailStore> {
         EmailStore(get())
     }
+    single<EmailPoller> {
+        EmailPoller(get<EmailStore>())
+    }
     single<SplinterlandsStore> {
         SplinterlandsStore(get())
     }
@@ -73,6 +77,7 @@ val appModule = module {
             taskStore = get(),
             heartbeatManager = get(),
             emailStore = get(),
+            emailPoller = get(),
             mcpServerManager = get(),
             localInferenceEngine = createLocalInferenceEngine(),
         )
@@ -82,7 +87,7 @@ val appModule = module {
         SplinterlandsBattleRunner(get(), get(), get<DataRepository>(), get<DaemonController>())
     }
     single<TaskScheduler> {
-        TaskScheduler(get<DataRepository>(), get(), get(), get(), get())
+        TaskScheduler(get<DataRepository>(), get(), get(), get(), get(), get<EmailPoller>())
     }
     single<DaemonController> { createDaemonController() }
     single<SandboxController> { createSandboxController() }

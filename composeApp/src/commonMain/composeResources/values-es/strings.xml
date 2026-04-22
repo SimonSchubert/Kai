@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Al usar el servicio, aceptas la </string>
     <string name="privacy_policy">Política de privacidad</string>
     <string name="settings_tab_general">General</string>
+    <string name="settings_tab_agent">Agente</string>
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
     <string name="tool_execute_shell_command_name">Ejecutar comando</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Buscar correo</string>
     <string name="tool_search_email_description">Buscar correos por remitente, asunto o fecha</string>
     <string name="settings_email">Correo</string>
-    <string name="settings_email_description">Conecta cuentas de correo para leer y responder. Di «conecta mi correo» en el chat o agrega cuentas aquí. Los correos se consultan en segundo plano y son priorizados por la IA.</string>
+    <string name="settings_email_description">Conecta cuentas de correo para leer y responder. Di «conecta mi correo» en el chat. Los correos se consultan en segundo plano y los recoge el heartbeat.</string>
     <string name="settings_email_empty">No hay cuentas de correo conectadas. Di «conecta mi correo» en el chat para comenzar.</string>
     <string name="settings_email_remove">Eliminar cuenta</string>
     <string name="settings_email_poll_interval">Consultar cada %1$d minutos</string>
     <string name="settings_email_poll_never">Nunca</string>
+    <string name="settings_email_queued">%1$d en espera para el heartbeat</string>
+    <string name="settings_email_last_poll">Última consulta exitosa %1$s</string>
+    <string name="settings_email_poll_failed">Última consulta fallida %1$s</string>
     <string name="settings_add_service">Añadir servicio</string>
     <string name="settings_free_fallback">Usar como respaldo</string>
     <string name="service_free_fast">Gratis rápido</string>

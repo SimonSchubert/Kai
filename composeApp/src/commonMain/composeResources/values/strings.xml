@@ -51,6 +51,7 @@
     <string name="settings_tools_description">Enable or disable AI tools that can perform actions on your behalf.</string>
     <string name="settings_tools_none_available">No tools available on this platform.</string>
     <string name="settings_tab_general">General</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Services</string>
     <string name="settings_tab_tools">Tools</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
@@ -139,11 +140,15 @@
     <string name="settings_heartbeat_model">Model</string>
     <string name="settings_heartbeat_model_default">Default</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Connect email accounts for reading and replying. Use the chat to say "connect my email" or add accounts here. Emails are polled in the background and triaged by AI.</string>
+    <string name="settings_email_description">Connect email accounts for reading and replying. Use the chat to say "connect my email". Emails are polled in the background and picked up by the heartbeat.</string>
     <string name="settings_email_empty">No email accounts connected. Say "connect my email" in the chat to get started.</string>
     <string name="settings_email_remove">Remove account</string>
     <string name="settings_email_poll_interval">Poll every %1$d minutes</string>
     <string name="settings_email_poll_never">Never</string>
+    <string name="settings_email_queued">%1$d queued for heartbeat</string>
+    <string name="settings_email_last_poll">Last successful poll %1$s</string>
+    <string name="settings_email_poll_failed">Last poll failed %1$s</string>
+    <string name="settings_email_refresh">Refresh account</string>
     <string name="litert_on_device_description">Run AI models directly on your device. No API key or internet required.</string>
     <string name="litert_download">Download</string>
     <string name="litert_cancel">Cancel</string>

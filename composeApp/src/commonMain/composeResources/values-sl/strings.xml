@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Omogočite ali onemogočite orodja UI, ki lahko izvajajo dejanja v vašem imenu.</string>
     <string name="settings_tools_none_available">Na tej platformi ni na voljo nobenih orodij.</string>
     <string name="settings_tab_general">Splošno</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Storitve</string>
     <string name="settings_tab_tools">Orodja</string>
     <string name="settings_tab_integrations">Integracije</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Išči e-pošto</string>
     <string name="tool_search_email_description">Išči e-poštna sporočila po pošiljatelju, zadevi ali datumu</string>
     <string name="settings_email">E-pošta</string>
-    <string name="settings_email_description">Povežite e-poštne račune za branje in odgovarjanje. V klepetu recite »poveži mojo e-pošto« ali dodajte račune tukaj. E-pošta se preverja v ozadju in jo razvršča UI.</string>
+    <string name="settings_email_description">Povežite e-poštne račune za branje in odgovarjanje. V klepetu recite „poveži moj e-mail". E-pošta se preverja v ozadju in jo prevzame heartbeat.</string>
     <string name="settings_email_empty">Ni povezanih e-poštnih računov. V klepetu recite »poveži mojo e-pošto« za začetek.</string>
     <string name="settings_email_remove">Odstrani račun</string>
     <string name="settings_email_poll_interval">Preverjanje vsakih %1$d minut</string>
     <string name="settings_email_poll_never">Nikoli</string>
+    <string name="settings_email_queued">%1$d v čakalni vrsti za heartbeat</string>
+    <string name="settings_email_last_poll">Zadnje uspešno preverjanje %1$s</string>
+    <string name="settings_email_poll_failed">Zadnje preverjanje neuspešno %1$s</string>
     <string name="settings_add_service">Dodaj storitev</string>
     <string name="settings_free_fallback">Uporabi kot rezervo</string>
     <string name="service_free_fast">Brezplačno hitro</string>

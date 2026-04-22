@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Povoľte alebo zakážte AI nástroje, ktoré môžu vykonávať akcie vo vašom mene.</string>
     <string name="settings_tools_none_available">Na tejto platforme nie sú k dispozícii žiadne nástroje.</string>
     <string name="settings_tab_general">Všeobecné</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Služby</string>
     <string name="settings_tab_tools">Nástroje</string>
     <string name="settings_tab_integrations">Integrácie</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Hľadať v e-mailoch</string>
     <string name="tool_search_email_description">Hľadať e-maily podľa odosielateľa, predmetu alebo dátumu</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Pripojte e-mailové účty na čítanie a odpovedanie. V chate povedzte „pripojiť môj e-mail" alebo pridajte účty tu. E-maily sú kontrolované na pozadí a triedené pomocou AI.</string>
+    <string name="settings_email_description">Pripojte e-mailové účty pre čítanie a odpovedanie. Povedzte v chate „pripoj môj e-mail". E-maily sa kontrolujú na pozadí a spracováva ich heartbeat.</string>
     <string name="settings_email_empty">Žiadne pripojené e-mailové účty. Povedzte „pripojiť môj e-mail" v chate pre začatie.</string>
     <string name="settings_email_remove">Odstrániť účet</string>
     <string name="settings_email_poll_interval">Kontrolovať každých %1$d min.</string>
     <string name="settings_email_poll_never">Nikdy</string>
+    <string name="settings_email_queued">%1$d vo fronte pre heartbeat</string>
+    <string name="settings_email_last_poll">Posledná úspešná kontrola %1$s</string>
+    <string name="settings_email_poll_failed">Posledná kontrola zlyhala %1$s</string>
     <string name="settings_add_service">Pridať službu</string>
     <string name="settings_free_fallback">Použiť ako zálohu</string>
     <string name="service_free_fast">Zadarmo rýchly</string>

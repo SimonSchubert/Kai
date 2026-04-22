@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Luba või keela tehisintellekti tööriistad, mis saavad teie nimel toiminguid teha.</string>
     <string name="settings_tools_none_available">Sellel platvormil pole tööriistu saadaval.</string>
     <string name="settings_tab_general">Üldine</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Teenused</string>
     <string name="settings_tab_tools">Tööriistad</string>
     <string name="settings_tab_integrations">Integratsioonid</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Otsi e-postist</string>
     <string name="tool_search_email_description">Otsi e-kirju saatja, teema või kuupäeva järgi</string>
     <string name="settings_email">E-post</string>
-    <string name="settings_email_description">Ühenda e-posti kontod lugemiseks ja vastamiseks. Kasutage vestlust, öeldes "ühenda minu e-post", või lisage kontod siin. E-kirju küsitletakse taustal ja AI sorteerib need.</string>
+    <string name="settings_email_description">Ühenda e-posti kontod lugemiseks ja vastamiseks. Ütle vestluses „ühenda mu e-post". E-kirju kontrollitakse taustal ja heartbeat võtab need üles.</string>
     <string name="settings_email_empty">Ühtegi e-posti kontot pole ühendatud. Alustamiseks öelge vestluses "ühenda minu e-post".</string>
     <string name="settings_email_remove">Eemalda konto</string>
     <string name="settings_email_poll_interval">Küsitle iga %1$d minuti järel</string>
     <string name="settings_email_poll_never">Mitte kunagi</string>
+    <string name="settings_email_queued">%1$d heartbeati ootel</string>
+    <string name="settings_email_last_poll">Viimane edukas kontroll %1$s</string>
+    <string name="settings_email_poll_failed">Viimane kontroll ebaõnnestus %1$s</string>
     <string name="settings_add_service">Lisa teenus</string>
     <string name="settings_free_fallback">Kasuta varuvarjandina</string>
     <string name="service_free_fast">Tasuta kiire</string>

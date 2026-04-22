@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Aktivera eller inaktivera AI-verktyg som kan utföra åtgärder åt dig.</string>
     <string name="settings_tools_none_available">Inga verktyg tillgängliga på denna plattform.</string>
     <string name="settings_tab_general">Allmänt</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Tjänster</string>
     <string name="settings_tab_tools">Verktyg</string>
     <string name="settings_tab_integrations">Integrationer</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Sök i e-post</string>
     <string name="tool_search_email_description">Sök e-post efter avsändare, ämne eller datum</string>
     <string name="settings_email">E-post</string>
-    <string name="settings_email_description">Anslut e-postkonton för att läsa och svara. Använd chatten för att säga "anslut min e-post" eller lägg till konton här. E-post hämtas i bakgrunden och sorteras av AI.</string>
+    <string name="settings_email_description">Anslut e-postkonton för läsning och svar. Säg "anslut min e-post" i chatten. E-post kontrolleras i bakgrunden och tas om hand av heartbeat.</string>
     <string name="settings_email_empty">Inga e-postkonton anslutna. Säg "anslut min e-post" i chatten för att komma igång.</string>
     <string name="settings_email_remove">Ta bort konto</string>
     <string name="settings_email_poll_interval">Hämta var %1$d:e minut</string>
     <string name="settings_email_poll_never">Aldrig</string>
+    <string name="settings_email_queued">%1$d i kö för heartbeat</string>
+    <string name="settings_email_last_poll">Senaste lyckad kontroll %1$s</string>
+    <string name="settings_email_poll_failed">Senaste kontroll misslyckades %1$s</string>
     <string name="settings_add_service">Lägg till tjänst</string>
     <string name="settings_free_fallback">Använd som reserv</string>
     <string name="service_free_fast">Gratis snabb</string>

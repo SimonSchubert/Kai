@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">सेवा का उपयोग करके, आप सहमत होते हैं </string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="settings_tab_general">सामान्य</string>
+    <string name="settings_tab_agent">एजेंट</string>
     <string name="tool_set_alarm_name">अलार्म सेट करें</string>
     <string name="tool_set_alarm_description">डिवाइस पर अलार्म या काउंटडाउन टाइमर सेट करें</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चलाएँ</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ईमेल खोजें</string>
     <string name="tool_search_email_description">प्रेषक, विषय या तिथि से ईमेल खोजें</string>
     <string name="settings_email">ईमेल</string>
-    <string name="settings_email_description">पढ़ने और जवाब देने के लिए ईमेल खाते कनेक्ट करें। चैट में "मेरा ईमेल कनेक्ट करो" कहें या यहाँ खाते जोड़ें। ईमेल पृष्ठभूमि में जाँचे जाते हैं और AI द्वारा वर्गीकृत किए जाते हैं।</string>
+    <string name="settings_email_description">ईमेल खाते कनेक्ट करें पढ़ने और जवाब देने के लिए। चैट में कहें "मेरा ईमेल कनेक्ट करें"। ईमेल बैकग्राउंड में जांचे जाते हैं और heartbeat द्वारा संसाधित किए जाते हैं।</string>
     <string name="settings_email_empty">कोई ईमेल खाता कनेक्ट नहीं है। शुरू करने के लिए चैट में "मेरा ईमेल कनेक्ट करो" कहें।</string>
     <string name="settings_email_remove">खाता हटाएं</string>
     <string name="settings_email_poll_interval">हर %1$d मिनट में जाँचें</string>
     <string name="settings_email_poll_never">कभी नहीं</string>
+    <string name="settings_email_queued">%1$d heartbeat के लिए कतार में</string>
+    <string name="settings_email_last_poll">अंतिम सफल जांच %1$s</string>
+    <string name="settings_email_poll_failed">अंतिम जांच विफल %1$s</string>
     <string name="settings_add_service">सेवा जोड़ें</string>
     <string name="settings_free_fallback">फ़ॉलबैक के रूप में उपयोग करें</string>
     <string name="service_free_fast">मुफ़्त तेज़</string>

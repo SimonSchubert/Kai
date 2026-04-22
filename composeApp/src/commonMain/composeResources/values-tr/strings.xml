@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Hizmeti kullanarak </string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="settings_tab_general">Genel</string>
+    <string name="settings_tab_agent">Ajan</string>
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
     <string name="tool_execute_shell_command_name">Kabuk komutu çalıştır</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">E-postada Ara</string>
     <string name="tool_search_email_description">E-postaları gönderene, konuya veya tarihe göre ara</string>
     <string name="settings_email">E-posta</string>
-    <string name="settings_email_description">Okuma ve yanıtlama için e-posta hesapları bağlayın. "E-postamı bağla" demek için sohbeti kullanın veya buraya hesap ekleyin. E-postalar arka planda kontrol edilir ve yapay zeka tarafından sınıflandırılır.</string>
+    <string name="settings_email_description">Okuma ve yanıtlama için e-posta hesaplarını bağlayın. Sohbete "e-postamı bağla" yazın. E-postalar arka planda kontrol edilir ve heartbeat tarafından alınır.</string>
     <string name="settings_email_empty">Bağlı e-posta hesabı yok. Başlamak için sohbette "e-postamı bağla" deyin.</string>
     <string name="settings_email_remove">Hesabı kaldır</string>
     <string name="settings_email_poll_interval">Her %1$d dakikada bir kontrol et</string>
     <string name="settings_email_poll_never">Hiçbir zaman</string>
+    <string name="settings_email_queued">Heartbeat için sırada %1$d</string>
+    <string name="settings_email_last_poll">Son başarılı kontrol %1$s</string>
+    <string name="settings_email_poll_failed">Son kontrol başarısız %1$s</string>
     <string name="settings_add_service">Hizmet ekle</string>
     <string name="settings_free_fallback">Yedek olarak kullan</string>
     <string name="service_free_fast">Ücretsiz hızlı</string>

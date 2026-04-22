@@ -37,4 +37,6 @@ data class EmailSyncState(
     val lastSeenUid: Long = 0L,
     val lastSyncEpochMs: Long = 0L,
     val unreadCount: Int = 0,
+    val lastAttemptEpochMs: Long = 0L,
+    val lastError: String? = null,
 )

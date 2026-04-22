@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">సేవను ఉపయోగించడం ద్వారా, మీరు అంగీకరిస్తారు </string>
     <string name="privacy_policy">గోప్యతా విధానం</string>
     <string name="settings_tab_general">సాధారణ</string>
+    <string name="settings_tab_agent">ఏజెంట్</string>
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
     <string name="tool_execute_shell_command_name">షెల్ కమాండ్ అమలు చేయండి</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ఇమెయిల్ వెతుకు</string>
     <string name="tool_search_email_description">పంపినవారు, విషయం లేదా తేదీ ద్వారా ఇమెయిల్‌లను వెతుకు</string>
     <string name="settings_email">ఇమెయిల్</string>
-    <string name="settings_email_description">చదవడానికి మరియు రిప్లై చేయడానికి ఇమెయిల్ ఖాతాలను కనెక్ట్ చేయండి. చాట్‌లో "నా ఇమెయిల్ కనెక్ట్ చేయి" అని చెప్పండి లేదా ఇక్కడ ఖాతాలను జోడించండి. ఇమెయిల్‌లు నేపథ్యంలో పోల్ చేయబడి AI చేత వర్గీకరించబడతాయి.</string>
+    <string name="settings_email_description">చదవడానికి మరియు ప్రత్యుత్తరం ఇవ్వడానికి ఇమెయిల్ ఖాతాలను కనెక్ట్ చేయండి. చాట్‌లో "నా ఇమెయిల్‌ను కనెక్ట్ చేయి" అని చెప్పండి. ఇమెయిల్‌లు నేపథ్యంలో తనిఖీ చేయబడతాయి మరియు heartbeat ద్వారా ప్రాసెస్ చేయబడతాయి.</string>
     <string name="settings_email_empty">ఇమెయిల్ ఖాతాలు కనెక్ట్ కాలేదు. ప్రారంభించడానికి చాట్‌లో "నా ఇమెయిల్ కనెక్ట్ చేయి" అని చెప్పండి.</string>
     <string name="settings_email_remove">ఖాతా తొలగించు</string>
     <string name="settings_email_poll_interval">ప్రతి %1$d నిమిషాలకు పోల్ చేయి</string>
     <string name="settings_email_poll_never">ఎప్పుడూ వద్దు</string>
+    <string name="settings_email_queued">%1$d heartbeat కోసం వేచి ఉంది</string>
+    <string name="settings_email_last_poll">చివరి విజయవంతమైన తనిఖీ %1$s</string>
+    <string name="settings_email_poll_failed">చివరి తనిఖీ విఫలమైంది %1$s</string>
     <string name="settings_add_service">సేవను జోడించు</string>
     <string name="settings_free_fallback">ఫాల్‌బ్యాక్‌గా ఉపయోగించు</string>
     <string name="service_free_fast">ఉచిత వేగం</string>

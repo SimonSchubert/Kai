@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Ενεργοποιήστε ή απενεργοποιήστε εργαλεία τεχνητής νοημοσύνης που μπορούν να εκτελούν ενέργειες για λογαριασμό σας.</string>
     <string name="settings_tools_none_available">Δεν υπάρχουν διαθέσιμα εργαλεία σε αυτήν την πλατφόρμα.</string>
     <string name="settings_tab_general">Γενικά</string>
+    <string name="settings_tab_agent">Πράκτορας</string>
     <string name="settings_tab_services">Υπηρεσίες</string>
     <string name="settings_tab_tools">Εργαλεία</string>
     <string name="settings_tab_integrations">Ενσωματώσεις</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Αναζήτηση Email</string>
     <string name="tool_search_email_description">Αναζήτηση email κατά αποστολέα, θέμα ή ημερομηνία</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Συνδέστε λογαριασμούς email για ανάγνωση και απάντηση. Χρησιμοποιήστε τη συνομιλία για να πείτε «σύνδεσε το email μου» ή προσθέστε λογαριασμούς εδώ. Τα email ελέγχονται στο παρασκήνιο και ταξινομούνται από την τεχνητή νοημοσύνη.</string>
+    <string name="settings_email_description">Συνδέστε λογαριασμούς email για ανάγνωση και απάντηση. Πείτε «σύνδεση του email μου» στη συνομιλία. Τα email ανιχνεύονται στο παρασκήνιο και διαχειρίζονται από το heartbeat.</string>
     <string name="settings_email_empty">Δεν υπάρχουν συνδεδεμένοι λογαριασμοί email. Πείτε «σύνδεσε το email μου» στη συνομιλία για να ξεκινήσετε.</string>
     <string name="settings_email_remove">Αφαίρεση λογαριασμού</string>
     <string name="settings_email_poll_interval">Έλεγχος κάθε %1$d λεπτά</string>
     <string name="settings_email_poll_never">Ποτέ</string>
+    <string name="settings_email_queued">%1$d σε αναμονή για heartbeat</string>
+    <string name="settings_email_last_poll">Τελευταίος επιτυχής έλεγχος %1$s</string>
+    <string name="settings_email_poll_failed">Τελευταίος έλεγχος απέτυχε %1$s</string>
     <string name="settings_add_service">Προσθήκη υπηρεσίας</string>
     <string name="settings_free_fallback">Χρήση ως εφεδρικό</string>
     <string name="service_free_fast">Δωρεάν γρήγορο</string>

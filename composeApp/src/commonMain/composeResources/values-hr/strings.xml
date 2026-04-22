@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Omogućite ili onemogućite AI alate koji mogu izvršavati radnje u vaše ime.</string>
     <string name="settings_tools_none_available">Na ovoj platformi nema dostupnih alata.</string>
     <string name="settings_tab_general">Općenito</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Usluge</string>
     <string name="settings_tab_tools">Alati</string>
     <string name="settings_tab_integrations">Integracije</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Pretraži e-poštu</string>
     <string name="tool_search_email_description">Pretraži e-poruke po pošiljatelju, predmetu ili datumu</string>
     <string name="settings_email">E-pošta</string>
-    <string name="settings_email_description">Povežite račune e-pošte za čitanje i odgovaranje. Recite u chatu „poveži moju e-poštu" ili dodajte račune ovdje. E-poruke se dohvaćaju u pozadini i sortira ih AI.</string>
+    <string name="settings_email_description">Povežite e-mail račune za čitanje i odgovaranje. Recite u razgovoru „poveži moj e-mail". E-mail se provjerava u pozadini i preuzima ga heartbeat.</string>
     <string name="settings_email_empty">Nema povezanih računa e-pošte. Recite „poveži moju e-poštu" u chatu za početak.</string>
     <string name="settings_email_remove">Ukloni račun</string>
     <string name="settings_email_poll_interval">Provjeri svakih %1$d min.</string>
     <string name="settings_email_poll_never">Nikad</string>
+    <string name="settings_email_queued">%1$d u redu za heartbeat</string>
+    <string name="settings_email_last_poll">Zadnja uspješna provjera %1$s</string>
+    <string name="settings_email_poll_failed">Zadnja provjera neuspjela %1$s</string>
     <string name="settings_add_service">Dodaj uslugu</string>
     <string name="settings_free_fallback">Koristi kao zamjenu</string>
     <string name="service_free_fast">Besplatno brzo</string>

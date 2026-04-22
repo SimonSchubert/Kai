@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Activați sau dezactivați instrumentele AI care pot efectua acțiuni în numele dvs.</string>
     <string name="settings_tools_none_available">Niciun instrument disponibil pe această platformă.</string>
     <string name="settings_tab_general">General</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Servicii</string>
     <string name="settings_tab_tools">Instrumente</string>
     <string name="settings_tab_integrations">Integrări</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Caută email</string>
     <string name="tool_search_email_description">Căutați emailuri după expeditor, subiect sau dată</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Conectați conturi de email pentru citire și răspuns. Folosiți chat-ul pentru a spune „conectează emailul meu" sau adăugați conturi aici. Emailurile sunt verificate în fundal și sortate de IA.</string>
+    <string name="settings_email_description">Conectează conturi de e-mail pentru citire și răspuns. Spune „conectează e-mailul meu" în chat. E-mailurile sunt verificate în fundal și preluate de heartbeat.</string>
     <string name="settings_email_empty">Niciun cont de email conectat. Spuneți „conectează emailul meu" în chat pentru a începe.</string>
     <string name="settings_email_remove">Eliminați contul</string>
     <string name="settings_email_poll_interval">Verificare la fiecare %1$d minute</string>
     <string name="settings_email_poll_never">Niciodată</string>
+    <string name="settings_email_queued">%1$d în așteptare pentru heartbeat</string>
+    <string name="settings_email_last_poll">Ultima verificare reușită %1$s</string>
+    <string name="settings_email_poll_failed">Ultima verificare a eșuat %1$s</string>
     <string name="settings_add_service">Adăugare serviciu</string>
     <string name="settings_free_fallback">Folosește ca rezervă</string>
     <string name="service_free_fast">Gratuit rapid</string>

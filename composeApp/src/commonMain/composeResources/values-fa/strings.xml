@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">با استفاده از سرویس، شما با </string>
     <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
     <string name="settings_tab_general">عمومی</string>
+    <string name="settings_tab_agent">نماینده</string>
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
     <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">جستجوی ایمیل</string>
     <string name="tool_search_email_description">جستجوی ایمیل‌ها بر اساس فرستنده، موضوع یا تاریخ</string>
     <string name="settings_email">ایمیل</string>
-    <string name="settings_email_description">برای خواندن و پاسخ‌دادن، حساب‌های ایمیل را متصل کنید. در چت بگویید «ایمیلم را وصل کن» یا حساب‌ها را اینجا اضافه کنید. ایمیل‌ها در پس‌زمینه بررسی و توسط هوش مصنوعی دسته‌بندی می‌شوند.</string>
+    <string name="settings_email_description">برای خواندن و پاسخ‌گویی حساب‌های ایمیل را متصل کنید. در چت بگویید "ایمیل من را وصل کن". ایمیل‌ها در پس‌زمینه بررسی می‌شوند و توسط heartbeat پردازش می‌شوند.</string>
     <string name="settings_email_empty">هیچ حساب ایمیلی متصل نیست. برای شروع، در چت بگویید «ایمیلم را وصل کن».</string>
     <string name="settings_email_remove">حذف حساب</string>
     <string name="settings_email_poll_interval">بررسی هر %1$d دقیقه</string>
     <string name="settings_email_poll_never">هرگز</string>
+    <string name="settings_email_queued">%1$d در صف heartbeat</string>
+    <string name="settings_email_last_poll">آخرین بررسی موفق %1$s</string>
+    <string name="settings_email_poll_failed">آخرین بررسی ناموفق %1$s</string>
     <string name="settings_add_service">افزودن سرویس</string>
     <string name="settings_free_fallback">استفاده به عنوان پشتیبان</string>
     <string name="service_free_fast">رایگان سریع</string>

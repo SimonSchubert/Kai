@@ -126,6 +126,9 @@ interface DataRepository {
     suspend fun removeEmailAccount(id: String)
     fun getEmailPollIntervalMinutes(): Int
     fun setEmailPollIntervalMinutes(minutes: Int)
+    fun getPendingEmailCount(): Int
+    fun getEmailSyncStates(): Map<String, EmailSyncState>
+    suspend fun pollEmailAccount(accountId: String)
 
     // UI Scale
     fun getUiScale(): Float

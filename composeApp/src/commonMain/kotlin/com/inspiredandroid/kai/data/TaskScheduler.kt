@@ -1,6 +1,6 @@
 package com.inspiredandroid.kai.data
 
-import com.inspiredandroid.kai.email.ImapClient
+import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +19,7 @@ class TaskScheduler(
     private val appSettings: AppSettings? = null,
     private val heartbeatManager: HeartbeatManager? = null,
     private val emailStore: EmailStore? = null,
+    private val emailPoller: EmailPoller? = null,
     private val enabled: Boolean = true,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) {
@@ -50,6 +51,10 @@ class TaskScheduler(
 
                     try {
                         val response = dataRepository.askWithTools(task.prompt)
+                        if (response.isNotBlank()) {
+                            val header = task.description.ifBlank { "Scheduled task" }
+                            dataRepository.addAssistantMessage("**$header**\n\n$response")
+                        }
                         handleTaskCompletion(task)
                     } catch (e: Exception) {
                         handleTaskFailure(task, e.message)
@@ -58,18 +63,24 @@ class TaskScheduler(
 
                 // Heartbeat check
                 if (!isLoading() && heartbeatManager?.isHeartbeatDue() == true) {
+                    val pendingEmails = emailStore?.getPending().orEmpty()
                     try {
                         val recentResponses = dataRepository.savedConversations.value
                             .find { it.type == Conversation.TYPE_HEARTBEAT }
                             ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
                             ?.map { it.content }
                             ?: emptyList()
-                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses)
+                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses, pendingEmails)
                         val response = dataRepository.askWithTools(heartbeatPrompt, heartbeatManager.getConfig().heartbeatInstanceId)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
                         if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
                             dataRepository.addAssistantMessage(response)
+                        }
+                        // Only clear the snapshot we actually showed to the AI — emails that
+                        // arrived during the call stay pending for the next heartbeat.
+                        if (pendingEmails.isNotEmpty()) {
+                            emailStore?.removePending(pendingEmails)
                         }
                     } catch (e: Exception) {
                         heartbeatManager.recordHeartbeat(success = false, error = e.message ?: e.toString())
@@ -85,70 +96,20 @@ class TaskScheduler(
     }
 
     private suspend fun checkNewEmails(isLoading: () -> Boolean) {
-        if (emailStore == null || appSettings == null) return
+        if (emailStore == null || appSettings == null || emailPoller == null) return
         val pollMinutes = appSettings.getEmailPollIntervalMinutes()
         if (pollMinutes <= 0) return // 0 = never poll automatically
         val pollIntervalMs = pollMinutes * 60_000L
+        val now = Clock.System.now().toEpochMilliseconds()
 
         for (account in emailStore.getAccounts()) {
             if (isLoading()) break
             val syncState = emailStore.getSyncState(account.id)
-            val elapsed = Clock.System.now().toEpochMilliseconds() - syncState.lastSyncEpochMs
-            if (elapsed < pollIntervalMs) continue
-
-            try {
-                val password = emailStore.getPassword(account.id)
-                val imap = ImapClient(account.imapHost, account.imapPort)
-                try {
-                    imap.connect()
-                    imap.login(account.username.ifEmpty { account.email }, password)
-                    imap.selectInbox()
-                    val unseenUids = imap.searchUnseen()
-                    // Only process UIDs newer than what we've seen
-                    val newUids = unseenUids.filter { it > syncState.lastSeenUid }
-
-                    if (newUids.isNotEmpty()) {
-                        val messages = imap.fetchHeaders(newUids.takeLast(10), account.id)
-
-                        // Build triage prompt for AI to score relevance
-                        val triagePrompt = buildString {
-                            appendLine("[EMAIL_TRIAGE] New emails arrived for ${account.email}. Score each email's relevance from 1-5 based on the user's memories and preferences.")
-                            appendLine("Only surface emails rated 4-5 by adding a brief notification message. For lower-rated emails, respond with exactly: EMAIL_TRIAGE_OK")
-                            appendLine()
-                            for (msg in messages) {
-                                appendLine("- From: ${msg.from} | Subject: ${msg.subject} | Preview: ${msg.preview}")
-                            }
-                        }
-
-                        if (!isLoading()) {
-                            val response = dataRepository.askSilently(triagePrompt)
-                            if (response.isNotBlank() && "EMAIL_TRIAGE_OK" !in response) {
-                                dataRepository.addAssistantMessage(response)
-                            }
-                        }
-
-                        // Update sync state
-                        emailStore.updateSyncState(
-                            syncState.copy(
-                                lastSeenUid = newUids.max(),
-                                lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
-                                unreadCount = unseenUids.size,
-                            ),
-                        )
-                    } else {
-                        emailStore.updateSyncState(
-                            syncState.copy(
-                                lastSyncEpochMs = Clock.System.now().toEpochMilliseconds(),
-                                unreadCount = unseenUids.size,
-                            ),
-                        )
-                    }
-                } finally {
-                    imap.logout()
-                }
-            } catch (_: Exception) {
-                // Email check failed — skip and retry next cycle
-            }
+            // Rate-limit by last attempt (success or failure) so repeated failures back off
+            // at the configured poll interval instead of retrying every scheduler tick.
+            val lastActivityMs = maxOf(syncState.lastSyncEpochMs, syncState.lastAttemptEpochMs)
+            if (now - lastActivityMs < pollIntervalMs) continue
+            emailPoller.poll(account)
         }
     }
 

@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">સેવાનો ઉપયોગ કરીને, તમે સંમત થાઓ છો </string>
     <string name="privacy_policy">ગોપનીયતા નીતિ</string>
     <string name="settings_tab_general">સામાન્ય</string>
+    <string name="settings_tab_agent">એજન્ટ</string>
     <string name="tool_set_alarm_name">એલાર્મ સેટ કરો</string>
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
     <string name="tool_execute_shell_command_name">શેલ કમાન્ડ ચલાવો</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ઇમેઇલ શોધો</string>
     <string name="tool_search_email_description">મોકલનાર, વિષય અથવા તારીખ દ્વારા ઇમેઇલ શોધો</string>
     <string name="settings_email">ઇમેઇલ</string>
-    <string name="settings_email_description">વાંચવા અને જવાબ આપવા માટે ઇમેઇલ ખાતાઓ કનેક્ટ કરો. ચેટમાં "મારો ઇમેઇલ કનેક્ટ કરો" કહો અથવા અહીં ખાતાઓ ઉમેરો. ઇમેઇલ પૃષ્ઠભૂમિમાં તપાસવામાં આવે છે અને AI દ્વારા વર્ગીકૃત કરવામાં આવે છે.</string>
+    <string name="settings_email_description">વાંચવા અને જવાબ આપવા માટે ઇમેઇલ ખાતાઓ જોડો. ચેટમાં કહો "મારું ઇમેઇલ જોડો". ઇમેઇલ બેકગ્રાઉન્ડમાં તપાસવામાં આવે છે અને heartbeat દ્વારા પ્રક્રિયા કરવામાં આવે છે.</string>
     <string name="settings_email_empty">કોઈ ઇમેઇલ ખાતાઓ કનેક્ટ નથી. શરૂ કરવા માટે ચેટમાં "મારો ઇમેઇલ કનેક્ટ કરો" કહો.</string>
     <string name="settings_email_remove">ખાતું દૂર કરો</string>
     <string name="settings_email_poll_interval">દર %1$d મિનિટે તપાસો</string>
     <string name="settings_email_poll_never">ક્યારેય નહીં</string>
+    <string name="settings_email_queued">%1$d heartbeat માટે કતારમાં</string>
+    <string name="settings_email_last_poll">છેલ્લી સફળ તપાસ %1$s</string>
+    <string name="settings_email_poll_failed">છેલ્લી તપાસ નિષ્ફળ %1$s</string>
     <string name="settings_add_service">સેવા ઉમેરો</string>
     <string name="settings_free_fallback">ફોલબેક તરીકે વાપરો</string>
     <string name="service_free_fast">મફત ઝડપી</string>

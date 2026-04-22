@@ -1,3 +1,5 @@
+@file:OptIn(kotlin.time.ExperimentalTime::class)
+
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
@@ -36,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.EmailSyncState
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
@@ -47,8 +50,12 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_email
 import kai.composeapp.generated.resources.settings_email_description
 import kai.composeapp.generated.resources.settings_email_empty
+import kai.composeapp.generated.resources.settings_email_last_poll
+import kai.composeapp.generated.resources.settings_email_poll_failed
 import kai.composeapp.generated.resources.settings_email_poll_interval
 import kai.composeapp.generated.resources.settings_email_poll_never
+import kai.composeapp.generated.resources.settings_email_queued
+import kai.composeapp.generated.resources.settings_email_refresh
 import kai.composeapp.generated.resources.settings_email_remove
 import kai.composeapp.generated.resources.settings_heartbeat
 import kai.composeapp.generated.resources.settings_heartbeat_active_hours
@@ -64,11 +71,14 @@ import kai.composeapp.generated.resources.settings_soul_reset
 import kai.composeapp.generated.resources.settings_soul_reset_cancel
 import kai.composeapp.generated.resources.settings_soul_save
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import kotlin.math.roundToInt
+import kotlin.time.Clock
 import kotlin.time.Instant
 
 @Composable
@@ -440,9 +450,13 @@ internal fun EmailSection(
     isEmailEnabled: Boolean,
     emailAccounts: ImmutableList<EmailAccount>,
     pollIntervalMinutes: Int,
+    pendingCount: Int,
+    syncStates: ImmutableMap<String, EmailSyncState>,
+    refreshingAccountIds: ImmutableSet<String>,
     onToggleEmail: (Boolean) -> Unit,
     onRemoveAccount: (String) -> Unit,
     onChangePollInterval: (Int) -> Unit,
+    onRefreshAccount: (String) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         ToggleableHeadline(
@@ -462,6 +476,14 @@ internal fun EmailSection(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             } else {
+                if (pendingCount > 0) {
+                    Text(
+                        text = stringResource(Res.string.settings_email_queued, pendingCount),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                }
                 val emailPresets = listOf(0, 5, 15, 30, 60)
                 val neverLabel = stringResource(Res.string.settings_email_poll_never)
                 val initialEmailPos = emailPresets.indexOf(pollIntervalMinutes)
@@ -500,17 +522,53 @@ internal fun EmailSection(
 
                 Spacer(Modifier.height(12.dp))
 
+                val nowMs = remember(syncStates) { Clock.System.now().toEpochMilliseconds() }
                 for (account in emailAccounts) {
                     SettingsListItem(
                         title = account.email,
                         subtitle = "${account.imapHost}:${account.imapPort}",
                         onDelete = { onRemoveAccount(account.id) },
                         deleteContentDescription = stringResource(Res.string.settings_email_remove),
+                        onRefresh = { onRefreshAccount(account.id) },
+                        refreshContentDescription = stringResource(Res.string.settings_email_refresh),
+                        isRefreshing = account.id in refreshingAccountIds,
                     )
+                    val sync = syncStates[account.id]
+                    if (sync != null) {
+                        val failed = sync.lastError != null && sync.lastAttemptEpochMs > 0
+                        val timestampMs = if (failed) sync.lastAttemptEpochMs else sync.lastSyncEpochMs
+                        if (timestampMs > 0) {
+                            val relative = formatPollRelative(nowMs - timestampMs)
+                            val text = if (failed) {
+                                stringResource(Res.string.settings_email_poll_failed, relative)
+                            } else {
+                                stringResource(Res.string.settings_email_last_poll, relative)
+                            }
+                            Text(
+                                text = text,
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(start = 12.dp, top = 4.dp),
+                            )
+                        }
+                    }
                     Spacer(Modifier.height(8.dp))
                 }
             }
         }
+    }
+}
+
+private fun formatPollRelative(diffMs: Long): String {
+    val clamped = diffMs.coerceAtLeast(0L)
+    val minutes = clamped / 60_000L
+    val hours = minutes / 60L
+    val days = hours / 24L
+    return when {
+        minutes < 1L -> "just now"
+        minutes < 60L -> "${minutes}m ago"
+        hours < 24L -> "${hours}h ago"
+        else -> "${days}d ago"
     }
 }
 

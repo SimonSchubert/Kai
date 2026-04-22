@@ -38,6 +38,7 @@
     <string name="settings_tools_description">הפעל או השבת כלי בינה מלאכותית שיכולים לבצע פעולות בשמך.</string>
     <string name="settings_tools_none_available">אין כלים זמינים בפלטפורמה זו.</string>
     <string name="settings_tab_general">כללי</string>
+    <string name="settings_tab_agent">סוכן</string>
     <string name="settings_tab_services">שירותים</string>
     <string name="settings_tab_tools">כלים</string>
     <string name="settings_tab_integrations">אינטגרציות</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">חפש דוא"ל</string>
     <string name="tool_search_email_description">חפש הודעות לפי שולח, נושא או תאריך</string>
     <string name="settings_email">דוא"ל</string>
-    <string name="settings_email_description">חבר חשבונות דוא"ל לקריאה ומענה. השתמש בצ'אט ואמור "חבר את הדוא"ל שלי" או הוסף חשבונות כאן. הדוא"ל נבדק ברקע וממויין על ידי בינה מלאכותית.</string>
+    <string name="settings_email_description">חבר חשבונות דואר אלקטרוני לקריאה ולמענה. אמור בצ'אט "חבר את הדואר שלי". הדואר נבדק ברקע ומעובד על ידי heartbeat.</string>
     <string name="settings_email_empty">אין חשבונות דוא"ל מחוברים. אמור "חבר את הדוא"ל שלי" בצ'אט כדי להתחיל.</string>
     <string name="settings_email_remove">הסר חשבון</string>
     <string name="settings_email_poll_interval">בדיקה כל %1$d דקות</string>
     <string name="settings_email_poll_never">אף פעם</string>
+    <string name="settings_email_queued">%1$d בתור ל-heartbeat</string>
+    <string name="settings_email_last_poll">בדיקה מוצלחת אחרונה %1$s</string>
+    <string name="settings_email_poll_failed">הבדיקה האחרונה נכשלה %1$s</string>
     <string name="settings_add_service">הוסף שירות</string>
     <string name="settings_free_fallback">השתמש כחלופה</string>
     <string name="service_free_fast">חינם מהיר</string>

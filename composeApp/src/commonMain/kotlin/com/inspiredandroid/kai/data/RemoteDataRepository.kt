@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.compressImageBytes
+import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
@@ -197,6 +198,7 @@ class RemoteDataRepository(
     private val taskStore: TaskStore,
     private val heartbeatManager: HeartbeatManager,
     private val emailStore: EmailStore,
+    private val emailPoller: EmailPoller,
     private val mcpServerManager: McpServerManager,
     private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
@@ -1839,6 +1841,15 @@ class RemoteDataRepository(
     }
 
     override fun getEmailPollIntervalMinutes(): Int = appSettings.getEmailPollIntervalMinutes()
+
+    override fun getPendingEmailCount(): Int = emailStore.getPending().size
+
+    override fun getEmailSyncStates(): Map<String, EmailSyncState> = emailStore.getAllSyncStates()
+
+    override suspend fun pollEmailAccount(accountId: String) {
+        val account = emailStore.getAccount(accountId) ?: return
+        emailPoller.poll(account)
+    }
 
     override fun setEmailPollIntervalMinutes(minutes: Int) {
         appSettings.setEmailPollIntervalMinutes(minutes)

@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Utilizzando il servizio, accetti la </string>
     <string name="privacy_policy">Informativa sulla privacy</string>
     <string name="settings_tab_general">Generali</string>
+    <string name="settings_tab_agent">Agente</string>
     <string name="tool_set_alarm_name">Imposta sveglia</string>
     <string name="tool_set_alarm_description">Imposta una sveglia o un timer sul dispositivo</string>
     <string name="tool_execute_shell_command_name">Esegui comando</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Cerca e-mail</string>
     <string name="tool_search_email_description">Cerca e-mail per mittente, oggetto o data</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Connetti account e-mail per leggere e rispondere. Di' «connetti la mia e-mail» nella chat o aggiungi account qui. Le e-mail vengono controllate in background e classificate dall'IA.</string>
+    <string name="settings_email_description">Connetti account e-mail per leggere e rispondere. Di' «connetti la mia e-mail» nella chat. Le e-mail vengono controllate in background e raccolte dall'heartbeat.</string>
     <string name="settings_email_empty">Nessun account e-mail connesso. Di' «connetti la mia e-mail» nella chat per iniziare.</string>
     <string name="settings_email_remove">Rimuovi account</string>
     <string name="settings_email_poll_interval">Controlla ogni %1$d minuti</string>
     <string name="settings_email_poll_never">Mai</string>
+    <string name="settings_email_queued">%1$d in coda per l'heartbeat</string>
+    <string name="settings_email_last_poll">Ultimo controllo riuscito %1$s</string>
+    <string name="settings_email_poll_failed">Ultimo controllo fallito %1$s</string>
     <string name="settings_add_service">Aggiungi servizio</string>
     <string name="settings_free_fallback">Usa come riserva</string>
     <string name="service_free_fast">Gratuito veloce</string>

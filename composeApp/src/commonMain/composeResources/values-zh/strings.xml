@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">使用本服务即表示您同意</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="settings_tab_general">通用</string>
+    <string name="settings_tab_agent">代理</string>
     <string name="tool_set_alarm_name">设置闹钟</string>
     <string name="tool_set_alarm_description">在设备上设置闹钟或倒计时器</string>
     <string name="tool_execute_shell_command_name">执行命令</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">搜索邮件</string>
     <string name="tool_search_email_description">按发件人、主题或日期搜索邮件</string>
     <string name="settings_email">邮件</string>
-    <string name="settings_email_description">连接邮件账户以进行读取和回复。在聊天中说"连接我的邮件"或在此处添加账户。邮件将在后台定期检查并由 AI 自动整理。</string>
+    <string name="settings_email_description">连接邮件账户以进行读取和回复。在聊天中说"连接我的邮件"。邮件将在后台定期获取并由心跳处理。</string>
     <string name="settings_email_empty">未连接任何邮件账户。在聊天中说"连接我的邮件"即可开始。</string>
     <string name="settings_email_remove">移除账户</string>
     <string name="settings_email_poll_interval">每 %1$d 分钟检查一次</string>
     <string name="settings_email_poll_never">从不</string>
+    <string name="settings_email_queued">%1$d 封待处理（心跳）</string>
+    <string name="settings_email_last_poll">上次成功获取 %1$s</string>
+    <string name="settings_email_poll_failed">上次获取失败 %1$s</string>
     <string name="settings_add_service">添加服务</string>
     <string name="settings_free_fallback">用作备选</string>
     <string name="service_free_fast">免费快速</string>

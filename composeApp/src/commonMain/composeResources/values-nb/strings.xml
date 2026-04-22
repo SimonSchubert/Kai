@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Aktiver eller deaktiver AI-verktøy som kan utføre handlinger på dine vegne.</string>
     <string name="settings_tools_none_available">Ingen verktøy tilgjengelige på denne plattformen.</string>
     <string name="settings_tab_general">Generelt</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Tjenester</string>
     <string name="settings_tab_tools">Verktøy</string>
     <string name="settings_tab_integrations">Integrasjoner</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Søk i e-post</string>
     <string name="tool_search_email_description">Søk e-poster etter avsender, emne eller dato</string>
     <string name="settings_email">E-post</string>
-    <string name="settings_email_description">Koble til e-postkontoer for lesing og svar. Bruk chatten til å si "koble til e-posten min" eller legg til kontoer her. E-poster hentes i bakgrunnen og sorteres av AI.</string>
+    <string name="settings_email_description">Koble til e-postkontoer for lesing og svar. Si "koble til e-posten min" i chatten. E-post hentes i bakgrunnen og plukkes opp av heartbeat.</string>
     <string name="settings_email_empty">Ingen e-postkontoer tilkoblet. Si "koble til e-posten min" i chatten for å komme i gang.</string>
     <string name="settings_email_remove">Fjern konto</string>
     <string name="settings_email_poll_interval">Hent hvert %1$d. minutt</string>
     <string name="settings_email_poll_never">Aldri</string>
+    <string name="settings_email_queued">%1$d i kø for heartbeat</string>
+    <string name="settings_email_last_poll">Siste vellykkede henting %1$s</string>
+    <string name="settings_email_poll_failed">Siste henting mislyktes %1$s</string>
     <string name="settings_add_service">Legg til tjeneste</string>
     <string name="settings_free_fallback">Bruk som reserve</string>
     <string name="service_free_fast">Gratis rask</string>

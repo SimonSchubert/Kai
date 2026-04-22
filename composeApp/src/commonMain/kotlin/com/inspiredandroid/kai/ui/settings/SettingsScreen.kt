@@ -242,6 +242,7 @@ import kai.composeapp.generated.resources.settings_status_error_connection_faile
 import kai.composeapp.generated.resources.settings_status_error_invalid_key
 import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
+import kai.composeapp.generated.resources.settings_tab_agent
 import kai.composeapp.generated.resources.settings_tab_general
 import kai.composeapp.generated.resources.settings_tab_integrations
 import kai.composeapp.generated.resources.settings_tab_sandbox
@@ -439,6 +440,10 @@ fun SettingsScreenContent(
                                     GeneralContent(uiState = filteredUiState, actions = actions)
                                 }
 
+                                SettingsTab.Agent -> {
+                                    AgentContent(uiState = filteredUiState, actions = actions)
+                                }
+
                                 SettingsTab.Services -> {
                                     ServicesContent(uiState = filteredUiState, actions = actions)
                                 }
@@ -548,6 +553,7 @@ private fun SettingsTabSelector(
                     Text(
                         text = when (tab) {
                             SettingsTab.General -> stringResource(Res.string.settings_tab_general)
+                            SettingsTab.Agent -> stringResource(Res.string.settings_tab_agent)
                             SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
                             SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
                             SettingsTab.Sandbox -> stringResource(Res.string.settings_tab_sandbox)
@@ -1540,6 +1546,49 @@ private fun SettingsCard(
 
 @Composable
 private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        if (uiState.showUiScale) {
+            SettingsCard {
+                UiScaleSection(
+                    uiScale = uiState.uiScale,
+                    onChangeUiScale = actions.onChangeUiScale,
+                )
+            }
+        }
+        SettingsCard {
+            OledModeToggle(
+                isOledModeEnabled = uiState.isOledModeEnabled,
+                onToggleOledMode = actions.onToggleOledMode,
+            )
+        }
+        SettingsCard {
+            DynamicUiToggle(
+                isDynamicUiEnabled = uiState.isDynamicUiEnabled,
+                onToggleDynamicUi = actions.onToggleDynamicUi,
+            )
+        }
+        if (uiState.showDaemonToggle) {
+            SettingsCard {
+                DaemonModeToggle(
+                    isDaemonEnabled = uiState.isDaemonEnabled,
+                    onToggleDaemon = actions.onToggleDaemon,
+                )
+            }
+        }
+        SettingsCard {
+            ExportImportSection(
+                onExportSettings = actions.onExportSettings,
+                onImportSettings = actions.onImportSettings,
+            )
+        }
+    }
+}
+
+@Composable
+private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val useStaggered = maxWidth >= 600.dp
         if (useStaggered) {
@@ -1551,20 +1600,6 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    if (uiState.showUiScale) {
-                        SettingsCard {
-                            UiScaleSection(
-                                uiScale = uiState.uiScale,
-                                onChangeUiScale = actions.onChangeUiScale,
-                            )
-                        }
-                    }
-                    SettingsCard {
-                        OledModeToggle(
-                            isOledModeEnabled = uiState.isOledModeEnabled,
-                            onToggleOledMode = actions.onToggleOledMode,
-                        )
-                    }
                     SettingsCard {
                         SoulEditor(
                             soulText = uiState.soulText,
@@ -1577,12 +1612,6 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                             onCancelTask = actions.onCancelTask,
                             isSchedulingEnabled = uiState.isSchedulingEnabled,
                             onToggleScheduling = actions.onToggleScheduling,
-                        )
-                    }
-                    SettingsCard {
-                        DynamicUiToggle(
-                            isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                            onToggleDynamicUi = actions.onToggleDynamicUi,
                         )
                     }
                     SettingsCard {
@@ -1599,14 +1628,6 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
-                    if (uiState.showDaemonToggle) {
-                        SettingsCard {
-                            DaemonModeToggle(
-                                isDaemonEnabled = uiState.isDaemonEnabled,
-                                onToggleDaemon = actions.onToggleDaemon,
-                            )
-                        }
-                    }
                     SettingsCard {
                         HeartbeatSection(
                             isHeartbeatEnabled = uiState.isHeartbeatEnabled,
@@ -1630,54 +1651,24 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                                 isEmailEnabled = uiState.isEmailEnabled,
                                 emailAccounts = uiState.emailAccounts,
                                 pollIntervalMinutes = uiState.emailPollIntervalMinutes,
+                                pendingCount = uiState.emailPendingCount,
+                                syncStates = uiState.emailSyncStates,
+                                refreshingAccountIds = uiState.refreshingEmailAccountIds,
                                 onToggleEmail = actions.onToggleEmail,
                                 onRemoveAccount = actions.onRemoveEmailAccount,
                                 onChangePollInterval = actions.onChangeEmailPollInterval,
+                                onRefreshAccount = actions.onRefreshEmailAccount,
                             )
                         }
-                    }
-                    SettingsCard {
-                        ExportImportSection(
-                            onExportSettings = actions.onExportSettings,
-                            onImportSettings = actions.onImportSettings,
-                        )
                     }
                 }
             }
         } else {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                if (uiState.showUiScale) {
-                    SettingsCard {
-                        UiScaleSection(
-                            uiScale = uiState.uiScale,
-                            onChangeUiScale = actions.onChangeUiScale,
-                        )
-                    }
-                }
-                SettingsCard {
-                    OledModeToggle(
-                        isOledModeEnabled = uiState.isOledModeEnabled,
-                        onToggleOledMode = actions.onToggleOledMode,
-                    )
-                }
-                if (uiState.showDaemonToggle) {
-                    SettingsCard {
-                        DaemonModeToggle(
-                            isDaemonEnabled = uiState.isDaemonEnabled,
-                            onToggleDaemon = actions.onToggleDaemon,
-                        )
-                    }
-                }
                 SettingsCard {
                     SoulEditor(
                         soulText = uiState.soulText,
                         onSaveSoul = actions.onSaveSoul,
-                    )
-                }
-                SettingsCard {
-                    DynamicUiToggle(
-                        isDynamicUiEnabled = uiState.isDynamicUiEnabled,
-                        onToggleDynamicUi = actions.onToggleDynamicUi,
                     )
                 }
                 SettingsCard {
@@ -1720,17 +1711,15 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                             isEmailEnabled = uiState.isEmailEnabled,
                             emailAccounts = uiState.emailAccounts,
                             pollIntervalMinutes = uiState.emailPollIntervalMinutes,
+                            pendingCount = uiState.emailPendingCount,
+                            syncStates = uiState.emailSyncStates,
+                            refreshingAccountIds = uiState.refreshingEmailAccountIds,
                             onToggleEmail = actions.onToggleEmail,
                             onRemoveAccount = actions.onRemoveEmailAccount,
                             onChangePollInterval = actions.onChangeEmailPollInterval,
+                            onRefreshAccount = actions.onRefreshEmailAccount,
                         )
                     }
-                }
-                SettingsCard {
-                    ExportImportSection(
-                        onExportSettings = actions.onExportSettings,
-                        onImportSettings = actions.onImportSettings,
-                    )
                 }
             }
         }

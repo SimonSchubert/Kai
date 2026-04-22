@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Сіздің атыңыздан әрекеттер орындай алатын AI құралдарын қосыңыз немесе өшіріңіз.</string>
     <string name="settings_tools_none_available">Бұл платформада құралдар қолжетімсіз.</string>
     <string name="settings_tab_general">Жалпы</string>
+    <string name="settings_tab_agent">Агент</string>
     <string name="settings_tab_services">Қызметтер</string>
     <string name="settings_tab_tools">Құралдар</string>
     <string name="settings_tab_integrations">Интеграциялар</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Электрондық поштаны іздеу</string>
     <string name="tool_search_email_description">Жіберуші, тақырып немесе күні бойынша хаттарды іздеу</string>
     <string name="settings_email">Электрондық пошта</string>
-    <string name="settings_email_description">Оқу және жауап беру үшін электрондық пошта тіркелгілерін қосыңыз. Чатта "электрондық поштамды қос" деп айтыңыз немесе тіркелгілерді осында қосыңыз. Хаттар фонда тексеріледі және AI арқылы сұрыпталады.</string>
+    <string name="settings_email_description">Оқу мен жауап беру үшін электрондық пошта есептік жазбаларын қосыңыз. Чатта "менің поштамды қос" деп айтыңыз. Электрондық пошта фондық режимде тексеріледі және heartbeat арқылы өңделеді.</string>
     <string name="settings_email_empty">Электрондық пошта тіркелгілері қосылмаған. Бастау үшін чатта "электрондық поштамды қос" деп айтыңыз.</string>
     <string name="settings_email_remove">Тіркелгіні жою</string>
     <string name="settings_email_poll_interval">Әр %1$d минут сайын тексеру</string>
     <string name="settings_email_poll_never">Ешқашан</string>
+    <string name="settings_email_queued">%1$d heartbeat кезегінде</string>
+    <string name="settings_email_last_poll">Соңғы сәтті тексеру %1$s</string>
+    <string name="settings_email_poll_failed">Соңғы тексеру сәтсіз %1$s</string>
     <string name="settings_add_service">Қызметті қосу</string>
     <string name="settings_free_fallback">Қосалқы ретінде пайдалану</string>
     <string name="service_free_fast">Тегін жылдам</string>

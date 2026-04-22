@@ -15,6 +15,14 @@ internal data class HeartbeatEmailStatus(
     val lastSyncEpochMs: Long,
 )
 
+/** A pending (polled-but-not-yet-heartbeat-picked-up) email rendered into the `## New Emails` section. */
+internal data class HeartbeatPendingEmail(
+    val accountEmail: String,
+    val from: String,
+    val subject: String,
+    val preview: String,
+)
+
 /** Memory promotion candidate rendered into the `## Promotion Candidates` section. */
 internal data class HeartbeatPromotionCandidate(
     val key: String,
@@ -30,6 +38,7 @@ internal data class HeartbeatPromotionCandidate(
  * @param recentResponses last heartbeat responses to include for continuity; empty list = section omitted
  * @param pendingTasks tasks to include in the `## Pending Tasks` section; empty list = section omitted
  * @param emailAccounts email account statuses; empty list = section omitted
+ * @param pendingEmails new emails polled since the last heartbeat pickup; empty list = section omitted
  * @param promotionCandidates memory promotion candidates; empty list = section omitted
  */
 internal fun buildHeartbeatPrompt(
@@ -37,6 +46,7 @@ internal fun buildHeartbeatPrompt(
     recentResponses: List<String>,
     pendingTasks: List<ScheduledTask>,
     emailAccounts: List<HeartbeatEmailStatus>,
+    pendingEmails: List<HeartbeatPendingEmail>,
     promotionCandidates: List<HeartbeatPromotionCandidate>,
 ): String = buildString {
     append(customOrDefaultPrompt)
@@ -83,6 +93,25 @@ internal fun buildHeartbeatPrompt(
                 append(" (last sync: ")
                 append(Instant.fromEpochMilliseconds(account.lastSyncEpochMs))
                 append(")")
+            }
+            append('\n')
+        }
+    }
+
+    if (pendingEmails.isNotEmpty()) {
+        append("\n## New Emails\n")
+        append("These arrived since the last heartbeat. Summarise briefly; only flag items that genuinely need attention.\n")
+        for (msg in pendingEmails) {
+            append("- **")
+            append(msg.subject.ifBlank { "(no subject)" })
+            append("** — ")
+            append(msg.from)
+            append(" [")
+            append(msg.accountEmail)
+            append("]")
+            if (msg.preview.isNotBlank()) {
+                append(": ")
+                append(msg.preview)
             }
             append('\n')
         }

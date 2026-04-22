@@ -38,6 +38,7 @@
     <string name="settings_tools_description">I-enable o i-disable ang mga AI tool na maaaring magsagawa ng mga aksyon para sa iyo.</string>
     <string name="settings_tools_none_available">Walang available na mga tool sa platform na ito.</string>
     <string name="settings_tab_general">Pangkalahatan</string>
+    <string name="settings_tab_agent">Ahente</string>
     <string name="settings_tab_services">Mga Serbisyo</string>
     <string name="settings_tab_tools">Mga Tool</string>
     <string name="settings_tab_integrations">Mga Integrasyon</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Maghanap ng Email</string>
     <string name="tool_search_email_description">Maghanap ng mga email ayon sa nagpadala, paksa, o petsa</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Ikonekta ang mga email account para sa pagbabasa at pagsagot. Gamitin ang chat para sabihing "ikonekta ang aking email" o magdagdag ng mga account dito. Ang mga email ay ina-poll sa background at inuuri ng AI.</string>
+    <string name="settings_email_description">Ikonekta ang mga account ng email para sa pagbasa at pagsagot. Sabihin sa chat ang "ikonekta ang aking email". Ang mga email ay kinukuha sa background at pinoproseso ng heartbeat.</string>
     <string name="settings_email_empty">Walang nakakonektang email account. Sabihing "ikonekta ang aking email" sa chat para magsimula.</string>
     <string name="settings_email_remove">Alisin ang account</string>
     <string name="settings_email_poll_interval">Mag-poll tuwing %1$d minuto</string>
     <string name="settings_email_poll_never">Hindi kailanman</string>
+    <string name="settings_email_queued">%1$d nakapila para sa heartbeat</string>
+    <string name="settings_email_last_poll">Huling matagumpay na pagkuha %1$s</string>
+    <string name="settings_email_poll_failed">Huling pagkuha ay nabigo %1$s</string>
     <string name="settings_add_service">Magdagdag ng serbisyo</string>
     <string name="settings_free_fallback">Gamitin bilang fallback</string>
     <string name="service_free_fast">Libreng Mabilis</string>

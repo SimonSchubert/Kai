@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Використовуючи сервіс, ви погоджуєтесь з </string>
     <string name="privacy_policy">Політикою конфіденційності</string>
     <string name="settings_tab_general">Загальне</string>
+    <string name="settings_tab_agent">Агент</string>
     <string name="tool_set_alarm_name">Встановити будильник</string>
     <string name="tool_set_alarm_description">Встановити будильник або таймер зворотного відліку на пристрої</string>
     <string name="tool_execute_shell_command_name">Виконати команду</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Пошук по пошті</string>
     <string name="tool_search_email_description">Пошук листів за відправником, темою або датою</string>
     <string name="settings_email">Електронна пошта</string>
-    <string name="settings_email_description">Підключіть облікові записи електронної пошти для читання та відповіді. Напишіть у чаті «підключити мою пошту» або додайте акаунти тут. Пошта перевіряється у фоновому режимі та сортується ШІ.</string>
+    <string name="settings_email_description">Під'єднайте облікові записи електронної пошти для читання та відповіді. Напишіть у чат «під'єднай мою пошту». Пошта перевіряється у фоновому режимі та опрацьовується heartbeat.</string>
     <string name="settings_email_empty">Немає підключених облікових записів. Напишіть «підключити мою пошту» в чаті, щоб розпочати.</string>
     <string name="settings_email_remove">Видалити акаунт</string>
     <string name="settings_email_poll_interval">Перевіряти кожні %1$d хв.</string>
     <string name="settings_email_poll_never">Ніколи</string>
+    <string name="settings_email_queued">%1$d у черзі для heartbeat</string>
+    <string name="settings_email_last_poll">Остання успішна перевірка %1$s</string>
+    <string name="settings_email_poll_failed">Остання перевірка не вдалася %1$s</string>
     <string name="settings_add_service">Додати сервіс</string>
     <string name="settings_free_fallback">Використовувати як запасний</string>
     <string name="service_free_fast">Безкоштовний швидкий</string>

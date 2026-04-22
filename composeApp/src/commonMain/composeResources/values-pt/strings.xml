@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Ao usar o serviço, você concorda com a </string>
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="settings_tab_general">Geral</string>
+    <string name="settings_tab_agent">Agente</string>
     <string name="tool_set_alarm_name">Definir alarme</string>
     <string name="tool_set_alarm_description">Definir um alarme ou temporizador no dispositivo</string>
     <string name="tool_execute_shell_command_name">Executar comando</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Pesquisar e-mail</string>
     <string name="tool_search_email_description">Pesquisar e-mails por remetente, assunto ou data</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Conecte contas de e-mail para leitura e resposta. Diga «conectar meu e-mail» no chat ou adicione contas aqui. Os e-mails são verificados em segundo plano e triados pela IA.</string>
+    <string name="settings_email_description">Conecte contas de e-mail para ler e responder. Diga "conectar meu e-mail" no chat. Os e-mails são verificados em segundo plano e captados pelo heartbeat.</string>
     <string name="settings_email_empty">Nenhuma conta de e-mail conectada. Diga «conectar meu e-mail» no chat para começar.</string>
     <string name="settings_email_remove">Remover conta</string>
     <string name="settings_email_poll_interval">Verificar a cada %1$d minutos</string>
     <string name="settings_email_poll_never">Nunca</string>
+    <string name="settings_email_queued">%1$d na fila do heartbeat</string>
+    <string name="settings_email_last_poll">Última verificação bem-sucedida %1$s</string>
+    <string name="settings_email_poll_failed">Última verificação falhou %1$s</string>
     <string name="settings_add_service">Adicionar serviço</string>
     <string name="settings_free_fallback">Usar como reserva</string>
     <string name="service_free_fast">Grátis rápido</string>

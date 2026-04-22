@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Включете или изключете AI инструменти, които могат да извършват действия от ваше име.</string>
     <string name="settings_tools_none_available">Няма налични инструменти на тази платформа.</string>
     <string name="settings_tab_general">Общи</string>
+    <string name="settings_tab_agent">Агент</string>
     <string name="settings_tab_services">Услуги</string>
     <string name="settings_tab_tools">Инструменти</string>
     <string name="settings_tab_integrations">Интеграции</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Търси в имейли</string>
     <string name="tool_search_email_description">Търси имейли по подател, тема или дата</string>
     <string name="settings_email">Имейл</string>
-    <string name="settings_email_description">Свържете имейл акаунти за четене и отговор. Кажете в чата „свържи моя имейл" или добавете акаунти тук. Имейлите се проверяват във фонов режим и се сортират от AI.</string>
+    <string name="settings_email_description">Свържете имейл акаунти за четене и отговаряне. Кажете „свържи имейла ми" в чата. Имейлите се проверяват във фонов режим и се обработват от heartbeat.</string>
     <string name="settings_email_empty">Няма свързани имейл акаунти. Кажете „свържи моя имейл" в чата, за да започнете.</string>
     <string name="settings_email_remove">Премахни акаунт</string>
     <string name="settings_email_poll_interval">Проверявай на всеки %1$d мин.</string>
     <string name="settings_email_poll_never">Никога</string>
+    <string name="settings_email_queued">%1$d чакат heartbeat</string>
+    <string name="settings_email_last_poll">Последна успешна проверка %1$s</string>
+    <string name="settings_email_poll_failed">Последна проверка неуспешна %1$s</string>
     <string name="settings_add_service">Добавяне на услуга</string>
     <string name="settings_free_fallback">Използвай като резервен</string>
     <string name="service_free_fast">Безплатен бърз</string>

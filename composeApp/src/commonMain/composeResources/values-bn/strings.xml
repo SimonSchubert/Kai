@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">পরিষেবা ব্যবহার করে, আপনি সম্মত হচ্ছেন </string>
     <string name="privacy_policy">গোপনীয়তা নীতি</string>
     <string name="settings_tab_general">সাধারণ</string>
+    <string name="settings_tab_agent">এজেন্ট</string>
     <string name="tool_set_alarm_name">অ্যালার্ম সেট করুন</string>
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
     <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ইমেইল অনুসন্ধান করুন</string>
     <string name="tool_search_email_description">প্রেরক, বিষয় বা তারিখ অনুযায়ী ইমেইল অনুসন্ধান করুন</string>
     <string name="settings_email">ইমেইল</string>
-    <string name="settings_email_description">পড়া এবং উত্তর দেওয়ার জন্য ইমেইল অ্যাকাউন্ট সংযুক্ত করুন। চ্যাটে "আমার ইমেইল সংযুক্ত করো" বলুন বা এখানে অ্যাকাউন্ট যোগ করুন। ইমেইলগুলি ব্যাকগ্রাউন্ডে পোল করা হয় এবং AI দ্বারা বাছাই করা হয়।</string>
+    <string name="settings_email_description">পড়া এবং উত্তর দেওয়ার জন্য ইমেল অ্যাকাউন্ট সংযুক্ত করুন। চ্যাটে বলুন "আমার ইমেল সংযুক্ত করুন"। ইমেলগুলি পটভূমিতে পরীক্ষা করা হয় এবং heartbeat দ্বারা প্রক্রিয়া করা হয়।</string>
     <string name="settings_email_empty">কোনো ইমেইল অ্যাকাউন্ট সংযুক্ত নেই। শুরু করতে চ্যাটে "আমার ইমেইল সংযুক্ত করো" বলুন।</string>
     <string name="settings_email_remove">অ্যাকাউন্ট সরান</string>
     <string name="settings_email_poll_interval">প্রতি %1$d মিনিটে পোল করুন</string>
     <string name="settings_email_poll_never">কখনো না</string>
+    <string name="settings_email_queued">%1$d heartbeat-এর জন্য অপেক্ষমান</string>
+    <string name="settings_email_last_poll">শেষ সফল পরীক্ষা %1$s</string>
+    <string name="settings_email_poll_failed">শেষ পরীক্ষা ব্যর্থ %1$s</string>
     <string name="settings_add_service">পরিষেবা যোগ করুন</string>
     <string name="settings_free_fallback">ফলব্যাক হিসেবে ব্যবহার করুন</string>
     <string name="service_free_fast">ফ্রি ফাস্ট</string>

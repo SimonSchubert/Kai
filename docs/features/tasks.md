@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-22
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -28,9 +28,9 @@ A 5-field schedule format (`minute hour day-of-month month day-of-week`) used fo
 ## Execution Rules
 
 - Task execution is skipped if the app is currently processing another API call
-- Task prompts are executed via `askWithTools`, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). The response is added as an assistant message without polluting the main chat history
+- Task prompts are executed via `askWithTools`, which includes the full tool-calling loop so the AI can use available tools (e.g. send notifications, call MCP servers). When the response is non-blank it is appended to the heartbeat conversation (prefixed with the task description as a bold header) and the unread-heartbeat indicator is set, so scheduled output shares the same surface as heartbeat output without polluting the main chat history
 - Results are stored as the `lastResult` on the task for audit purposes
-- The scheduler also handles heartbeat checks and email polling in the same poll loop
+- The scheduler also handles heartbeat checks and email polling in the same poll loop. Email polling fetches headers in batches of up to 50 per account per poll and buffers them for the next heartbeat to pick up; no AI call runs during email polling itself
 
 ## Failure Handling
 

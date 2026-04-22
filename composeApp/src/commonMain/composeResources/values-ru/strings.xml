@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Используя сервис, вы соглашаетесь с </string>
     <string name="privacy_policy">Политикой конфиденциальности</string>
     <string name="settings_tab_general">Общие</string>
+    <string name="settings_tab_agent">Агент</string>
     <string name="tool_set_alarm_name">Установить будильник</string>
     <string name="tool_set_alarm_description">Установить будильник или таймер обратного отсчёта на устройстве</string>
     <string name="tool_execute_shell_command_name">Выполнить команду</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Поиск по почте</string>
     <string name="tool_search_email_description">Поиск писем по отправителю, теме или дате</string>
     <string name="settings_email">Электронная почта</string>
-    <string name="settings_email_description">Подключите учётные записи электронной почты для чтения и ответа. Напишите в чат «подключить мою почту» или добавьте аккаунты здесь. Почта проверяется в фоновом режиме и сортируется с помощью ИИ.</string>
+    <string name="settings_email_description">Подключите учётные записи электронной почты для чтения и ответа. Напишите в чат «подключить мою почту». Почта проверяется в фоновом режиме и обрабатывается heartbeat.</string>
     <string name="settings_email_empty">Нет подключённых учётных записей. Напишите «подключить мою почту» в чате, чтобы начать.</string>
     <string name="settings_email_remove">Удалить аккаунт</string>
     <string name="settings_email_poll_interval">Проверять каждые %1$d мин.</string>
     <string name="settings_email_poll_never">Никогда</string>
+    <string name="settings_email_queued">%1$d в очереди для heartbeat</string>
+    <string name="settings_email_last_poll">Последняя успешная проверка %1$s</string>
+    <string name="settings_email_poll_failed">Последняя проверка не удалась %1$s</string>
     <string name="settings_add_service">Добавить сервис</string>
     <string name="settings_free_fallback">Использовать как запасной</string>
     <string name="service_free_fast">Бесплатный быстрый</string>

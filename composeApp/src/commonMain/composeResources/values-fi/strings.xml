@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Ota k\u00e4ytt\u00f6\u00f6n tai poista k\u00e4yt\u00f6st\u00e4 teko\u00e4lyty\u00f6kalut, jotka voivat suorittaa toimintoja puolestasi.</string>
     <string name="settings_tools_none_available">T\u00e4ll\u00e4 alustalla ei ole ty\u00f6kaluja saatavilla.</string>
     <string name="settings_tab_general">Yleiset</string>
+    <string name="settings_tab_agent">Agentti</string>
     <string name="settings_tab_services">Palvelut</string>
     <string name="settings_tab_tools">Ty\u00f6kalut</string>
     <string name="settings_tab_integrations">Integraatiot</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Hae sähköpostia</string>
     <string name="tool_search_email_description">Hae sähköposteja lähettäjän, aiheen tai päivämäärän mukaan</string>
     <string name="settings_email">Sähköposti</string>
-    <string name="settings_email_description">Yhdistä sähköpostitilit lukemista ja vastaamisesta varten. Käytä chattia sanomalla "yhdistä sähköpostini" tai lisää tilit täällä. Sähköpostit haetaan taustalla ja tekoäly lajittelee ne.</string>
+    <string name="settings_email_description">Yhdistä sähköpostitilit lukemista ja vastaamista varten. Sano chatissa "yhdistä sähköposti". Sähköpostit haetaan taustalla ja heartbeat poimii ne käsittelyyn.</string>
     <string name="settings_email_empty">Ei yhdistettyjä sähköpostitilejä. Sano "yhdistä sähköpostini" chatissa päästäksesi alkuun.</string>
     <string name="settings_email_remove">Poista tili</string>
     <string name="settings_email_poll_interval">Hae %1$d minuutin välein</string>
     <string name="settings_email_poll_never">Ei koskaan</string>
+    <string name="settings_email_queued">%1$d jonossa heartbeatille</string>
+    <string name="settings_email_last_poll">Viimeinen onnistunut tarkistus %1$s</string>
+    <string name="settings_email_poll_failed">Viimeinen tarkistus epäonnistui %1$s</string>
     <string name="settings_add_service">Lisää palvelu</string>
     <string name="settings_free_fallback">Käytä varavaihtoehtona</string>
     <string name="service_free_fast">Ilmainen nopea</string>

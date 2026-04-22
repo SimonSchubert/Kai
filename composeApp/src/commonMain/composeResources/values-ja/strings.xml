@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">サービスを利用することで、</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="settings_tab_general">一般</string>
+    <string name="settings_tab_agent">エージェント</string>
     <string name="tool_set_alarm_name">アラームを設定</string>
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
     <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">メールを検索</string>
     <string name="tool_search_email_description">送信者、件名、または日付でメールを検索</string>
     <string name="settings_email">メール</string>
-    <string name="settings_email_description">メールの読み取りと返信のためにメールアカウントを接続します。チャットで「メールを接続して」と言うか、ここでアカウントを追加してください。メールはバックグラウンドで定期確認され、AIによって整理されます。</string>
+    <string name="settings_email_description">メールの読み取りと返信のためにメールアカウントを接続します。チャットで「メールを接続して」と言ってください。メールはバックグラウンドで取得され、ハートビートで処理されます。</string>
     <string name="settings_email_empty">メールアカウントが接続されていません。チャットで「メールを接続して」と言って始めてください。</string>
     <string name="settings_email_remove">アカウントを削除</string>
     <string name="settings_email_poll_interval">%1$d分ごとに確認</string>
     <string name="settings_email_poll_never">しない</string>
+    <string name="settings_email_queued">ハートビート待機中 %1$d 件</string>
+    <string name="settings_email_last_poll">最終取得成功 %1$s</string>
+    <string name="settings_email_poll_failed">最終取得失敗 %1$s</string>
     <string name="settings_add_service">サービスを追加</string>
     <string name="settings_free_fallback">フォールバックとして使用</string>
     <string name="service_free_fast">無料 高速</string>

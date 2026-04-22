@@ -1,8 +1,8 @@
 # Heartbeat
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-22
 
-Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
+Kai's heartbeat feature enables periodic automatic self-checks. The AI reviews pending tasks, email status, newly arrived emails, and learned memories on a configurable interval, surfacing anything that needs attention without requiring user interaction.
 
 ## Concepts
 
@@ -59,7 +59,8 @@ The heartbeat prompt is assembled by the pure function `buildHeartbeatPrompt` (i
 2. **Previous heartbeat results** — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")
 3. **Pending tasks** — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)
 4. **Email status** — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included
-5. **Promotion candidates** — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the `promote_learning` tool
+5. **New emails** — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run
+6. **Promotion candidates** — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the `promote_learning` tool
 
 For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see [system-prompts.md](system-prompts.md).
 

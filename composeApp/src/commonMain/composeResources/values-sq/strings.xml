@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Aktivizoni ose çaktivizoni mjetet e AI që mund të kryejnë veprime në emrin tuaj.</string>
     <string name="settings_tools_none_available">Nuk ka mjete të disponueshme në këtë platformë.</string>
     <string name="settings_tab_general">Të përgjithshme</string>
+    <string name="settings_tab_agent">Agjent</string>
     <string name="settings_tab_services">Shërbimet</string>
     <string name="settings_tab_tools">Mjetet</string>
     <string name="settings_tab_integrations">Integrimet</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Kërko email</string>
     <string name="tool_search_email_description">Kërkoni emaile sipas dërguesit, subjektit ose datës</string>
     <string name="settings_email">Email</string>
-    <string name="settings_email_description">Lidhni llogaritë e emailit për lexim dhe përgjigje. Përdorni chat-in për të thënë "lidh emailin tim" ose shtoni llogaritë këtu. Emailet kontrollohen në sfond dhe renditen nga AI.</string>
+    <string name="settings_email_description">Lidh llogaritë e email-it për lexim dhe përgjigje. Thuaj në chat "lidh email-in tim". Email-et kontrollohen në sfond dhe përpunohen nga heartbeat.</string>
     <string name="settings_email_empty">Nuk ka llogari emaili të lidhura. Thoni "lidh emailin tim" në chat për të filluar.</string>
     <string name="settings_email_remove">Hiq llogarinë</string>
     <string name="settings_email_poll_interval">Kontrollo çdo %1$d minuta</string>
     <string name="settings_email_poll_never">Kurrë</string>
+    <string name="settings_email_queued">%1$d në pritje për heartbeat</string>
+    <string name="settings_email_last_poll">Kontrolli i fundit i suksesshëm %1$s</string>
+    <string name="settings_email_poll_failed">Kontrolli i fundit dështoi %1$s</string>
     <string name="settings_add_service">Shto shërbim</string>
     <string name="settings_free_fallback">Përdor si rezervë</string>
     <string name="service_free_fast">Falas i shpejtë</string>

@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Iespējojiet vai atspējojiet AI rīkus, kas var veikt darbības jūsu vārdā.</string>
     <string name="settings_tools_none_available">Šajā platformā nav pieejamu rīku.</string>
     <string name="settings_tab_general">Vispārīgi</string>
+    <string name="settings_tab_agent">Aģents</string>
     <string name="settings_tab_services">Pakalpojumi</string>
     <string name="settings_tab_tools">Rīki</string>
     <string name="settings_tab_integrations">Integrācijas</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Meklēt e-pastā</string>
     <string name="tool_search_email_description">Meklēt e-pastus pēc sūtītāja, temata vai datuma</string>
     <string name="settings_email">E-pasts</string>
-    <string name="settings_email_description">Pievienojiet e-pasta kontus lasīšanai un atbildēšanai. Izmantojiet tērzēšanu un sakiet "pievienot manu e-pastu" vai pievienojiet kontus šeit. E-pasti tiek aptaujāti fonā un kārtoti ar AI.</string>
+    <string name="settings_email_description">Savienojiet e-pasta kontus lasīšanai un atbildēšanai. Tērzēšanā sakiet „savieno manu e-pastu". E-pasts tiek pārbaudīts fonā un to apstrādā heartbeat.</string>
     <string name="settings_email_empty">Nav pievienotu e-pasta kontu. Sakiet "pievienot manu e-pastu" tērzēšanā, lai sāktu.</string>
     <string name="settings_email_remove">Noņemt kontu</string>
     <string name="settings_email_poll_interval">Aptaujāt ik pēc %1$d minūtēm</string>
     <string name="settings_email_poll_never">Nekad</string>
+    <string name="settings_email_queued">%1$d gaida heartbeat</string>
+    <string name="settings_email_last_poll">Pēdējā veiksmīgā pārbaude %1$s</string>
+    <string name="settings_email_poll_failed">Pēdējā pārbaude neizdevās %1$s</string>
     <string name="settings_add_service">Pievienot pakalpojumu</string>
     <string name="settings_free_fallback">Izmantot kā rezervi</string>
     <string name="service_free_fast">Bezmaksas ātrs</string>

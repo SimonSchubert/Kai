@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Aktiveer of deaktiveer KI-gereedskap wat namens jou aksies kan uitvoer.</string>
     <string name="settings_tools_none_available">Geen gereedskap beskikbaar op hierdie platform nie.</string>
     <string name="settings_tab_general">Algemeen</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="settings_tab_services">Dienste</string>
     <string name="settings_tab_tools">Gereedskap</string>
     <string name="settings_tab_integrations">Integrasies</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Soek E-pos</string>
     <string name="tool_search_email_description">Soek e-posse volgens afstuurder, onderwerp of datum</string>
     <string name="settings_email">E-pos</string>
-    <string name="settings_email_description">Koppel e-posrekeninge vir lees en beantwoord. Gebruik die klets om "koppel my e-pos" te sê of voeg rekeninge hier by. E-posse word op die agtergrond gepeul en deur KI gesorteer.</string>
+    <string name="settings_email_description">Koppel e-posrekeninge vir lees en antwoord. Sê «koppel my e-pos» in die klets. E-posse word op die agtergrond opgehaal en deur die heartbeat opgetel.</string>
     <string name="settings_email_empty">Geen e-posrekeninge gekoppel nie. Sê "koppel my e-pos" in die klets om te begin.</string>
     <string name="settings_email_remove">Verwyder rekening</string>
     <string name="settings_email_poll_interval">Peul elke %1$d minute</string>
     <string name="settings_email_poll_never">Nooit</string>
+    <string name="settings_email_queued">%1$d wag vir heartbeat</string>
+    <string name="settings_email_last_poll">Laaste geslaagde nagaan %1$s</string>
+    <string name="settings_email_poll_failed">Laaste nagaan het misluk %1$s</string>
     <string name="settings_add_service">Voeg diens by</string>
     <string name="settings_free_fallback">Gebruik as terugval</string>
     <string name="service_free_fast">Gratis Vinnig</string>

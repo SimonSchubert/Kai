@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">سروس استعمال کرکے، آپ اتفاق کرتے ہیں </string>
     <string name="privacy_policy">رازداری کی پالیسی</string>
     <string name="settings_tab_general">عمومی</string>
+    <string name="settings_tab_agent">ایجنٹ</string>
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
     <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ای میل تلاش کریں</string>
     <string name="tool_search_email_description">بھیجنے والے، موضوع یا تاریخ کے مطابق ای میلز تلاش کریں</string>
     <string name="settings_email">ای میل</string>
-    <string name="settings_email_description">پڑھنے اور جواب دینے کے لیے ای میل اکاؤنٹس جوڑیں۔ چیٹ میں "میری ای میل جوڑیں" کہیں یا یہاں اکاؤنٹس شامل کریں۔ ای میلز پس منظر میں چیک کیے جاتے ہیں اور AI کے ذریعے ترتیب دیے جاتے ہیں۔</string>
+    <string name="settings_email_description">پڑھنے اور جواب دینے کے لیے ای میل اکاؤنٹس کنیکٹ کریں۔ چیٹ میں کہیں "میری ای میل کنیکٹ کریں"۔ ای میلز پس منظر میں چیک کی جاتی ہیں اور heartbeat کے ذریعے پراسیس کی جاتی ہیں۔</string>
     <string name="settings_email_empty">کوئی ای میل اکاؤنٹ جڑا نہیں ہے۔ شروع کرنے کے لیے چیٹ میں "میری ای میل جوڑیں" کہیں۔</string>
     <string name="settings_email_remove">اکاؤنٹ ہٹائیں</string>
     <string name="settings_email_poll_interval">ہر %1$d منٹ بعد چیک کریں</string>
     <string name="settings_email_poll_never">کبھی نہیں</string>
+    <string name="settings_email_queued">%1$d heartbeat کے لیے قطار میں</string>
+    <string name="settings_email_last_poll">آخری کامیاب چیک %1$s</string>
+    <string name="settings_email_poll_failed">آخری چیک ناکام %1$s</string>
     <string name="settings_add_service">سروس شامل کریں</string>
     <string name="settings_free_fallback">متبادل کے طور پر استعمال کریں</string>
     <string name="service_free_fast">مفت تیز</string>

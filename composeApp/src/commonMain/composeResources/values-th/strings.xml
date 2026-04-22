@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">การใช้บริการถือว่าคุณยอมรับ</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
     <string name="settings_tab_general">ทั่วไป</string>
+    <string name="settings_tab_agent">เอเจนต์</string>
     <string name="tool_set_alarm_name">ตั้งปลุก</string>
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
     <string name="tool_execute_shell_command_name">รันคำสั่งเชลล์</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ค้นหาอีเมล</string>
     <string name="tool_search_email_description">ค้นหาอีเมลตามผู้ส่ง หัวเรื่อง หรือวันที่</string>
     <string name="settings_email">อีเมล</string>
-    <string name="settings_email_description">เชื่อมต่อบัญชีอีเมลสำหรับการอ่านและตอบกลับ พูดว่า "เชื่อมต่ออีเมลของฉัน" ในแชทหรือเพิ่มบัญชีที่นี่ อีเมลจะถูกตรวจสอบในเบื้องหลังและจัดเรียงโดย AI</string>
+    <string name="settings_email_description">เชื่อมต่อบัญชีอีเมลเพื่ออ่านและตอบกลับ พูดในแชทว่า "เชื่อมต่ออีเมลของฉัน" อีเมลจะถูกตรวจสอบในพื้นหลังและประมวลผลโดย heartbeat</string>
     <string name="settings_email_empty">ไม่มีบัญชีอีเมลที่เชื่อมต่อ พูดว่า "เชื่อมต่ออีเมลของฉัน" ในแชทเพื่อเริ่มต้น</string>
     <string name="settings_email_remove">ลบบัญชี</string>
     <string name="settings_email_poll_interval">ตรวจสอบทุก %1$d นาที</string>
     <string name="settings_email_poll_never">ไม่ตรวจสอบ</string>
+    <string name="settings_email_queued">%1$d รอ heartbeat</string>
+    <string name="settings_email_last_poll">ตรวจสอบสำเร็จครั้งล่าสุด %1$s</string>
+    <string name="settings_email_poll_failed">การตรวจสอบครั้งล่าสุดล้มเหลว %1$s</string>
     <string name="settings_add_service">เพิ่มบริการ</string>
     <string name="settings_free_fallback">ใช้เป็นทางเลือกสำรอง</string>
     <string name="service_free_fast">ฟรีเร็ว</string>

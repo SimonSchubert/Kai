@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Door de service te gebruiken, gaat u akkoord met het </string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="settings_tab_general">Algemeen</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
     <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">E-mail zoeken</string>
     <string name="tool_search_email_description">E-mails zoeken op afzender, onderwerp of datum</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Verbind e-mailaccounts voor lezen en beantwoorden. Zeg «verbind mijn e-mail» in de chat of voeg accounts hier toe. E-mails worden op de achtergrond opgehaald en door de AI gesorteerd.</string>
+    <string name="settings_email_description">Verbind e-mailaccounts voor lezen en beantwoorden. Zeg «verbind mijn e-mail» in de chat. E-mails worden op de achtergrond opgehaald en opgepikt door de heartbeat.</string>
     <string name="settings_email_empty">Geen e-mailaccounts verbonden. Zeg «verbind mijn e-mail» in de chat om te beginnen.</string>
     <string name="settings_email_remove">Account verwijderen</string>
     <string name="settings_email_poll_interval">Elke %1$d minuten controleren</string>
     <string name="settings_email_poll_never">Nooit</string>
+    <string name="settings_email_queued">%1$d in wachtrij voor heartbeat</string>
+    <string name="settings_email_last_poll">Laatst succesvol opgehaald %1$s</string>
+    <string name="settings_email_poll_failed">Laatste ophaalpoging mislukt %1$s</string>
     <string name="settings_add_service">Service toevoegen</string>
     <string name="settings_free_fallback">Gebruiken als terugval</string>
     <string name="service_free_fast">Gratis snel</string>

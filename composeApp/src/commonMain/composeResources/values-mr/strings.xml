@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">सेवा वापरून, तुम्ही सहमत आहात </string>
     <string name="privacy_policy">गोपनीयता धोरण</string>
     <string name="settings_tab_general">सामान्य</string>
+    <string name="settings_tab_agent">एजंट</string>
     <string name="tool_set_alarm_name">अलार्म सेट करा</string>
     <string name="tool_set_alarm_description">डिव्हाइसवर अलार्म किंवा काउंटडाउन टायमर सेट करा</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चालवा</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ईमेल शोधा</string>
     <string name="tool_search_email_description">प्रेषक, विषय किंवा तारखेनुसार ईमेल शोधा</string>
     <string name="settings_email">ईमेल</string>
-    <string name="settings_email_description">वाचण्यासाठी आणि उत्तर देण्यासाठी ईमेल खाती जोडा. "माझा ईमेल कनेक्ट करा" असे चॅटमध्ये सांगा किंवा येथे खाती जोडा. ईमेल पार्श्वभूमीत तपासले जातात आणि AI द्वारे वर्गीकृत केले जातात.</string>
+    <string name="settings_email_description">वाचन आणि प्रत्युत्तरासाठी ईमेल खाती कनेक्ट करा. चॅटमध्ये म्हणा "माझे ईमेल कनेक्ट करा". ईमेल पार्श्वभूमीत तपासले जातात आणि heartbeat द्वारे प्रक्रिया केली जाते.</string>
     <string name="settings_email_empty">कोणतीही ईमेल खाती जोडलेली नाहीत. सुरू करण्यासाठी चॅटमध्ये "माझा ईमेल कनेक्ट करा" असे सांगा.</string>
     <string name="settings_email_remove">खाते काढा</string>
     <string name="settings_email_poll_interval">दर %1$d मिनिटांनी तपासा</string>
     <string name="settings_email_poll_never">कधीच नाही</string>
+    <string name="settings_email_queued">%1$d heartbeat साठी रांगेत</string>
+    <string name="settings_email_last_poll">शेवटची यशस्वी तपासणी %1$s</string>
+    <string name="settings_email_poll_failed">शेवटची तपासणी अयशस्वी %1$s</string>
     <string name="settings_add_service">सेवा जोडा</string>
     <string name="settings_free_fallback">फॉलबॅक म्हणून वापरा</string>
     <string name="service_free_fast">मोफत जलद</string>

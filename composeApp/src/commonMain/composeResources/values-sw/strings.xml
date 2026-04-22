@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">Kwa kutumia huduma, unakubali </string>
     <string name="privacy_policy">Sera ya Faragha</string>
     <string name="settings_tab_general">Jumla</string>
+    <string name="settings_tab_agent">Wakala</string>
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
     <string name="tool_execute_shell_command_name">Tekeleza amri</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Tafuta Barua Pepe</string>
     <string name="tool_search_email_description">Tafuta barua pepe kwa mtumaji, mada, au tarehe</string>
     <string name="settings_email">Barua Pepe</string>
-    <string name="settings_email_description">Unganisha akaunti za barua pepe kwa kusoma na kujibu. Tumia mazungumzo kusema "unganisha barua pepe yangu" au ongeza akaunti hapa. Barua pepe zinachunguzwa chinichini na kupangwa na AI.</string>
+    <string name="settings_email_description">Unganisha akaunti za barua pepe kwa kusoma na kujibu. Sema "unganisha barua pepe yangu" kwenye gumzo. Barua pepe huchunguzwa chinichini na kushughulikiwa na heartbeat.</string>
     <string name="settings_email_empty">Hakuna akaunti za barua pepe zilizounganishwa. Sema "unganisha barua pepe yangu" kwenye mazungumzo kuanza.</string>
     <string name="settings_email_remove">Ondoa akaunti</string>
     <string name="settings_email_poll_interval">Chunguza kila dakika %1$d</string>
     <string name="settings_email_poll_never">Kamwe</string>
+    <string name="settings_email_queued">%1$d yanasubiri heartbeat</string>
+    <string name="settings_email_last_poll">Uchunguzi wa mwisho uliofaulu %1$s</string>
+    <string name="settings_email_poll_failed">Uchunguzi wa mwisho umeshindwa %1$s</string>
     <string name="settings_add_service">Ongeza huduma</string>
     <string name="settings_free_fallback">Tumia kama mbadala</string>
     <string name="service_free_fast">Bure Haraka</string>

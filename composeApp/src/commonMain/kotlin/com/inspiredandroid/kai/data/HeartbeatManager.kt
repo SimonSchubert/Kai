@@ -62,22 +62,35 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         return elapsedMs >= intervalMs
     }
 
-    fun buildHeartbeatPrompt(recentResponses: List<String> = emptyList()): String {
+    fun buildHeartbeatPrompt(
+        recentResponses: List<String> = emptyList(),
+        pendingEmails: List<EmailMessage> = emptyList(),
+    ): String {
         val customPrompt = appSettings.getHeartbeatPrompt()
         val pendingTasks = taskStore.getPendingTasks()
-        val emailAccounts: List<HeartbeatEmailStatus> =
-            if (emailStore != null && appSettings.isEmailEnabled()) {
-                emailStore.getAccounts().map { account ->
-                    val syncState = emailStore.getSyncState(account.id)
-                    HeartbeatEmailStatus(
-                        email = account.email,
-                        unreadCount = syncState.unreadCount,
-                        lastSyncEpochMs = syncState.lastSyncEpochMs,
-                    )
-                }
-            } else {
-                emptyList()
+        val emailEnabled = emailStore != null && appSettings.isEmailEnabled()
+        val accounts = if (emailEnabled) emailStore.getAccounts() else emptyList()
+        val emailAccounts: List<HeartbeatEmailStatus> = accounts.map { account ->
+            val syncState = emailStore!!.getSyncState(account.id)
+            HeartbeatEmailStatus(
+                email = account.email,
+                unreadCount = syncState.unreadCount,
+                lastSyncEpochMs = syncState.lastSyncEpochMs,
+            )
+        }
+        val accountEmailById = accounts.associate { it.id to it.email }
+        val heartbeatPending: List<HeartbeatPendingEmail> = if (emailEnabled) {
+            pendingEmails.map { msg ->
+                HeartbeatPendingEmail(
+                    accountEmail = accountEmailById[msg.accountId] ?: msg.accountId,
+                    from = msg.from,
+                    subject = msg.subject,
+                    preview = msg.preview,
+                )
             }
+        } else {
+            emptyList()
+        }
         val promotionCandidates = memoryStore.getPromotionCandidates().map { entry ->
             HeartbeatPromotionCandidate(
                 key = entry.key,
@@ -91,6 +104,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
             recentResponses = recentResponses,
             pendingTasks = pendingTasks,
             emailAccounts = emailAccounts,
+            pendingEmails = heartbeatPending,
             promotionCandidates = promotionCandidates,
         )
     }

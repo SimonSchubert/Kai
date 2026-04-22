@@ -64,4 +64,35 @@ class EmailStore(private val appSettings: AppSettings) {
     private fun removeSyncState(accountId: String) {
         appSettings.setEmailSyncStateJson(accountId, "")
     }
+
+    fun getAllSyncStates(): Map<String, EmailSyncState> =
+        getAccounts().associate { it.id to getSyncState(it.id) }
+
+    // Capped FIFO so a disabled or slow heartbeat can't let the buffer grow unbounded.
+    fun getPending(): List<EmailMessage> {
+        val raw = appSettings.getEmailPendingJson()
+        if (raw.isEmpty()) return emptyList()
+        return try {
+            json.decodeFromString<List<EmailMessage>>(raw)
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun addPending(emails: List<EmailMessage>) = mutex.withLock {
+        if (emails.isEmpty()) return@withLock
+        val merged = (getPending() + emails).takeLast(MAX_PENDING)
+        appSettings.setEmailPendingJson(json.encodeToString(merged))
+    }
+
+    suspend fun removePending(emails: List<EmailMessage>) = mutex.withLock {
+        if (emails.isEmpty()) return@withLock
+        val keys = emails.map { it.accountId to it.uid }.toSet()
+        val remaining = getPending().filterNot { (it.accountId to it.uid) in keys }
+        appSettings.setEmailPendingJson(json.encodeToString(remaining))
+    }
+
+    companion object {
+        private const val MAX_PENDING = 100
+    }
 }

@@ -38,6 +38,7 @@
     <string name="settings_tools_description">AI eszközök engedélyezése vagy letiltása, amelyek a nevedben hajthatnak végre műveleteket.</string>
     <string name="settings_tools_none_available">Ezen a platformon nem érhetők el eszközök.</string>
     <string name="settings_tab_general">Általános</string>
+    <string name="settings_tab_agent">Ügynök</string>
     <string name="settings_tab_services">Szolgáltatások</string>
     <string name="settings_tab_tools">Eszközök</string>
     <string name="settings_tab_integrations">Integrációk</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">E-mail keresése</string>
     <string name="tool_search_email_description">E-mailek keresése feladó, tárgy vagy dátum szerint</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Csatlakoztass e-mail fiókokat olvasáshoz és válaszadáshoz. Használd a chatet, és mondd: „csatlakoztasd az e-mailem", vagy adj hozzá fiókokat itt. Az e-maileket a háttérben lekéri és az AI feldolgozza.</string>
+    <string name="settings_email_description">Csatlakoztass e-mail fiókokat olvasáshoz és válaszoláshoz. Mondd a csevegésben: „csatlakoztasd az e-mailem". Az e-maileket a háttérben lekérdezzük, és a heartbeat dolgozza fel.</string>
     <string name="settings_email_empty">Nincs csatlakoztatott e-mail fiók. Mondd a chatben: „csatlakoztasd az e-mailem" a kezdéshez.</string>
     <string name="settings_email_remove">Fiók eltávolítása</string>
     <string name="settings_email_poll_interval">Lekérdezés minden %1$d percben</string>
     <string name="settings_email_poll_never">Soha</string>
+    <string name="settings_email_queued">%1$d várakozik a heartbeatre</string>
+    <string name="settings_email_last_poll">Utolsó sikeres lekérdezés %1$s</string>
+    <string name="settings_email_poll_failed">Utolsó lekérdezés sikertelen %1$s</string>
     <string name="settings_add_service">Szolgáltatás hozzáadása</string>
     <string name="settings_free_fallback">Tartalékként használ</string>
     <string name="service_free_fast">Ingyenes gyors</string>

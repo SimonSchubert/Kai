@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">ਸੇਵਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ, ਤੁਸੀਂ ਸਹਿਮਤ ਹੋ </string>
     <string name="privacy_policy">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
     <string name="settings_tab_general">ਸਧਾਰਨ</string>
+    <string name="settings_tab_agent">ਏਜੰਟ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ 'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ਈਮੇਲ ਖੋਜੋ</string>
     <string name="tool_search_email_description">ਭੇਜਣ ਵਾਲੇ, ਵਿਸ਼ੇ ਜਾਂ ਤਾਰੀਖ਼ ਅਨੁਸਾਰ ਈਮੇਲ ਖੋਜੋ</string>
     <string name="settings_email">ਈਮੇਲ</string>
-    <string name="settings_email_description">ਪੜ੍ਹਨ ਅਤੇ ਜਵਾਬ ਦੇਣ ਲਈ ਈਮੇਲ ਖਾਤੇ ਜੋੜੋ। ਚੈਟ ਵਿੱਚ "ਮੇਰਾ ਈਮੇਲ ਕਨੈਕਟ ਕਰੋ" ਕਹੋ ਜਾਂ ਇੱਥੇ ਖਾਤੇ ਜੋੜੋ। ਈਮੇਲ ਪਿਛੋਕੜ ਵਿੱਚ ਚੈੱਕ ਕੀਤੇ ਜਾਂਦੇ ਹਨ ਅਤੇ AI ਦੁਆਰਾ ਵਰਗੀਕ੍ਰਿਤ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।</string>
+    <string name="settings_email_description">ਪੜ੍ਹਨ ਅਤੇ ਜਵਾਬ ਦੇਣ ਲਈ ਈਮੇਲ ਖਾਤੇ ਕਨੈਕਟ ਕਰੋ। ਚੈਟ ਵਿੱਚ ਕਹੋ "ਮੇਰਾ ਈਮੇਲ ਕਨੈਕਟ ਕਰੋ"। ਈਮੇਲ ਬੈਕਗਰਾਊਂਡ ਵਿੱਚ ਚੈੱਕ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ heartbeat ਦੁਆਰਾ ਪ੍ਰਕਿਰਿਆ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
     <string name="settings_email_empty">ਕੋਈ ਈਮੇਲ ਖਾਤੇ ਕਨੈਕਟ ਨਹੀਂ ਹਨ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਚੈਟ ਵਿੱਚ "ਮੇਰਾ ਈਮੇਲ ਕਨੈਕਟ ਕਰੋ" ਕਹੋ।</string>
     <string name="settings_email_remove">ਖਾਤਾ ਹਟਾਓ</string>
     <string name="settings_email_poll_interval">ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੈੱਕ ਕਰੋ</string>
     <string name="settings_email_poll_never">ਕਦੇ ਨਹੀਂ</string>
+    <string name="settings_email_queued">%1$d heartbeat ਲਈ ਕਤਾਰ ਵਿੱਚ</string>
+    <string name="settings_email_last_poll">ਆਖਰੀ ਸਫਲ ਚੈੱਕ %1$s</string>
+    <string name="settings_email_poll_failed">ਆਖਰੀ ਚੈੱਕ ਅਸਫਲ %1$s</string>
     <string name="settings_add_service">ਸੇਵਾ ਜੋੜੋ</string>
     <string name="settings_free_fallback">ਫਾਲਬੈਕ ਵਜੋਂ ਵਰਤੋ</string>
     <string name="service_free_fast">ਮੁਫ਼ਤ ਤੇਜ਼</string>

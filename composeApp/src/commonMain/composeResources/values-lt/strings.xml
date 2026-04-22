@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Įjunkite arba išjunkite AI įrankius, kurie gali atlikti veiksmus jūsų vardu.</string>
     <string name="settings_tools_none_available">Šioje platformoje nėra pasiekiamų įrankių.</string>
     <string name="settings_tab_general">Bendra</string>
+    <string name="settings_tab_agent">Agentas</string>
     <string name="settings_tab_services">Paslaugos</string>
     <string name="settings_tab_tools">Įrankiai</string>
     <string name="settings_tab_integrations">Integracijos</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Ieškoti el. pašte</string>
     <string name="tool_search_email_description">Ieškoti el. laiškų pagal siuntėją, temą arba datą</string>
     <string name="settings_email">El. paštas</string>
-    <string name="settings_email_description">Prijunkite el. pašto paskyras skaitymui ir atsakymui. Naudokite pokalbį ir pasakykite „prijungti mano el. paštą" arba pridėkite paskyras čia. El. laiškai tikrinami fone ir rūšiuojami AI.</string>
+    <string name="settings_email_description">Prijunkite el. pašto paskyras skaitymui ir atsakymui. Pokalbyje sakykite „prijunk mano el. paštą". El. paštas tikrinamas fone ir jį apdoroja heartbeat.</string>
     <string name="settings_email_empty">Nėra prijungtų el. pašto paskyrų. Pasakykite „prijungti mano el. paštą" pokalbyje, kad pradėtumėte.</string>
     <string name="settings_email_remove">Pašalinti paskyrą</string>
     <string name="settings_email_poll_interval">Tikrinti kas %1$d minučių</string>
     <string name="settings_email_poll_never">Niekada</string>
+    <string name="settings_email_queued">%1$d laukia heartbeat</string>
+    <string name="settings_email_last_poll">Paskutinis sėkmingas tikrinimas %1$s</string>
+    <string name="settings_email_poll_failed">Paskutinis tikrinimas nepavyko %1$s</string>
     <string name="settings_add_service">Pridėti paslaugą</string>
     <string name="settings_free_fallback">Naudoti kaip atsarginį</string>
     <string name="service_free_fast">Nemokamas greitas</string>

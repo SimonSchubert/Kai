@@ -38,6 +38,7 @@
     <string name="settings_tools_description">በእርስዎ ምትክ ድርጊቶችን ሊፈጽሙ የሚችሉ AI መሳሪያዎችን ያንቁ ወይም ያሰናክሉ።</string>
     <string name="settings_tools_none_available">በዚህ መድረክ ላይ ምንም መሳሪያዎች የሉም።</string>
     <string name="settings_tab_general">ጠቅላላ</string>
+    <string name="settings_tab_agent">ወኪል</string>
     <string name="settings_tab_services">አገልግሎቶች</string>
     <string name="settings_tab_tools">መሳሪያዎች</string>
     <string name="settings_tab_integrations">ውህደቶች</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">ኢሜይል ይፈልጉ</string>
     <string name="tool_search_email_description">ኢሜይሎችን በላኪ፣ በርዕስ ወይም በቀን ይፈልጉ</string>
     <string name="settings_email">ኢሜይል</string>
-    <string name="settings_email_description">ለማንበብ እና ለምላሽ የኢሜይል መለያዎችን ያያይዙ። "ኢሜይሌን አያይዝ" ለማለት ውይይቱን ይጠቀሙ ወይም እዚህ መለያዎችን ያክሉ። ኢሜይሎች ከበስተጀርባ ይፈለጋሉ እና በ AI ይለዩ።</string>
+    <string name="settings_email_description">ለማንበብ እና ለመመለስ የኢሜይል መለያዎችን ያገናኙ። በውይይቱ ውስጥ "ኢሜይሌን አገናኝ" ይበሉ። ኢሜይሎች በበስተጀርባ ይመረመራሉ እና በ heartbeat ይሰናዳሉ።</string>
     <string name="settings_email_empty">ምንም የኢሜይል መለያዎች አልተያያዙም። ለመጀመር በውይይቱ ውስጥ "ኢሜይሌን አያይዝ" ይበሉ።</string>
     <string name="settings_email_remove">መለያ ሰርዝ</string>
     <string name="settings_email_poll_interval">በእያንዳንዱ %1$d ደቂቃ ይፈልጋል</string>
     <string name="settings_email_poll_never">በፍጹም</string>
+    <string name="settings_email_queued">%1$d ለ heartbeat በተጠባባቂ</string>
+    <string name="settings_email_last_poll">የመጨረሻ የተሳካ ፍተሻ %1$s</string>
+    <string name="settings_email_poll_failed">የመጨረሻ ፍተሻ አልተሳካም %1$s</string>
     <string name="settings_add_service">አገልግሎት ጨምር</string>
     <string name="settings_free_fallback">እንደ ተተኪ ተጠቀም</string>
     <string name="service_free_fast">ነጻ ፈጣን</string>

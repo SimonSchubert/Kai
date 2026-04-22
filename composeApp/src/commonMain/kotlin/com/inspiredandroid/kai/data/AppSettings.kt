@@ -552,6 +552,12 @@ class AppSettings(private val settings: Settings) {
         settings.putInt(KEY_EMAIL_POLL_INTERVAL, minutes)
     }
 
+    fun getEmailPendingJson(): String = settings.getString(KEY_EMAIL_PENDING, "")
+
+    fun setEmailPendingJson(json: String) {
+        settings.putString(KEY_EMAIL_PENDING, json)
+    }
+
     // Local model context size
     fun getModelContextTokens(modelId: String): Int = settings.getInt("$KEY_MODEL_CONTEXT_PREFIX$modelId", 0)
 
@@ -1045,6 +1051,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_EMAIL_PASSWORD_PREFIX = "email_password_"
         const val KEY_EMAIL_SYNC_PREFIX = "email_sync_"
         const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
+        const val KEY_EMAIL_PENDING = "email_pending"
         const val KEY_CONFIGURED_SERVICES = "configured_services"
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
         const val KEY_FREE_MODE = "free_mode"

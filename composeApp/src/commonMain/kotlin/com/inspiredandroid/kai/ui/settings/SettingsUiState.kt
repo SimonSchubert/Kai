@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.EmailSyncState
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
@@ -13,8 +14,10 @@ import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.ImmutableSet
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.collections.immutable.persistentSetOf
 import org.jetbrains.compose.resources.StringResource
 
 @Immutable
@@ -41,6 +44,7 @@ enum class ConnectionStatus {
 
 enum class SettingsTab {
     General,
+    Agent,
     Services,
     Tools,
     Sandbox,
@@ -75,6 +79,9 @@ data class SettingsUiState(
     val showEmailToggle: Boolean = false,
     val emailAccounts: ImmutableList<EmailAccount> = persistentListOf(),
     val emailPollIntervalMinutes: Int = 15,
+    val emailPendingCount: Int = 0,
+    val emailSyncStates: ImmutableMap<String, EmailSyncState> = persistentMapOf(),
+    val refreshingEmailAccountIds: ImmutableSet<String> = persistentSetOf(),
     val isFreeFallbackEnabled: Boolean = true,
     val uiScale: Float = 1.0f,
     val showUiScale: Boolean = false,

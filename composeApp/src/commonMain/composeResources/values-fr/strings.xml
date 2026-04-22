@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">En utilisant le service, vous acceptez la </string>
     <string name="privacy_policy">Politique de confidentialité</string>
     <string name="settings_tab_general">Général</string>
+    <string name="settings_tab_agent">Agent</string>
     <string name="tool_set_alarm_name">Régler une alarme</string>
     <string name="tool_set_alarm_description">Régler une alarme ou un minuteur sur l&#39;appareil</string>
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Rechercher des e-mails</string>
     <string name="tool_search_email_description">Rechercher des e-mails par expéditeur, objet ou date</string>
     <string name="settings_email">E-mail</string>
-    <string name="settings_email_description">Connectez des comptes e-mail pour la lecture et les réponses. Dites « connecte mon e-mail » dans le chat ou ajoutez des comptes ici. Les e-mails sont récupérés en arrière-plan et triés par l'IA.</string>
+    <string name="settings_email_description">Connectez des comptes e-mail pour la lecture et les réponses. Dites « connecte mon e-mail » dans le chat. Les e-mails sont récupérés en arrière-plan et pris en charge par le heartbeat.</string>
     <string name="settings_email_empty">Aucun compte e-mail connecté. Dites « connecte mon e-mail » dans le chat pour commencer.</string>
     <string name="settings_email_remove">Supprimer le compte</string>
     <string name="settings_email_poll_interval">Vérifier toutes les %1$d minutes</string>
     <string name="settings_email_poll_never">Jamais</string>
+    <string name="settings_email_queued">%1$d en attente pour le heartbeat</string>
+    <string name="settings_email_last_poll">Dernière vérification réussie %1$s</string>
+    <string name="settings_email_poll_failed">Dernière vérification échouée %1$s</string>
     <string name="settings_add_service">Ajouter un service</string>
     <string name="settings_free_fallback">Utiliser comme secours</string>
     <string name="service_free_fast">Gratuit rapide</string>

@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,6 +33,9 @@ fun SettingsListItem(
     modifier: Modifier = Modifier,
     subtitleMaxLines: Int = 1,
     onClick: (() -> Unit)? = null,
+    onRefresh: (() -> Unit)? = null,
+    refreshContentDescription: String? = null,
+    isRefreshing: Boolean = false,
 ) {
     Row(
         modifier = modifier
@@ -52,6 +58,27 @@ fun SettingsListItem(
                 maxLines = subtitleMaxLines,
                 overflow = TextOverflow.Ellipsis,
             )
+        }
+        if (onRefresh != null) {
+            IconButton(
+                onClick = onRefresh,
+                enabled = !isRefreshing,
+                modifier = Modifier.handCursor(),
+            ) {
+                if (isRefreshing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = refreshContentDescription,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
         }
         IconButton(
             onClick = onDelete,

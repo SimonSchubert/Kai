@@ -52,6 +52,7 @@
     <string name="privacy_agree_prefix">باستخدام الخدمة، فإنك توافق على </string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="settings_tab_general">عام</string>
+    <string name="settings_tab_agent">العميل</string>
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
     <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">البحث في البريد الإلكتروني</string>
     <string name="tool_search_email_description">البحث في الرسائل حسب المرسل أو الموضوع أو التاريخ</string>
     <string name="settings_email">البريد الإلكتروني</string>
-    <string name="settings_email_description">ربط حسابات البريد الإلكتروني للقراءة والرد. استخدم المحادثة وقل "اربط بريدي الإلكتروني" أو أضف حسابات هنا. يتم استطلاع الرسائل في الخلفية وفرزها بواسطة الذكاء الاصطناعي.</string>
+    <string name="settings_email_description">اربط حسابات البريد الإلكتروني للقراءة والرد. قل "اربط بريدي الإلكتروني" في المحادثة. يتم استطلاع البريد الإلكتروني في الخلفية ومعالجته بواسطة heartbeat.</string>
     <string name="settings_email_empty">لا توجد حسابات بريد إلكتروني متصلة. قل "اربط بريدي الإلكتروني" في المحادثة للبدء.</string>
     <string name="settings_email_remove">إزالة الحساب</string>
     <string name="settings_email_poll_interval">الاستطلاع كل %1$d دقيقة</string>
     <string name="settings_email_poll_never">أبداً</string>
+    <string name="settings_email_queued">%1$d في انتظار heartbeat</string>
+    <string name="settings_email_last_poll">آخر استطلاع ناجح %1$s</string>
+    <string name="settings_email_poll_failed">فشل آخر استطلاع %1$s</string>
     <string name="settings_add_service">إضافة خدمة</string>
     <string name="settings_free_fallback">استخدام كاحتياطي</string>
     <string name="service_free_fast">مجاني سريع</string>

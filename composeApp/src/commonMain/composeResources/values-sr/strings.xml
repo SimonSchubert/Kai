@@ -38,6 +38,7 @@
     <string name="settings_tools_description">Омогућите или онемогућите АИ алатке које могу да извршавају радње у ваше име.</string>
     <string name="settings_tools_none_available">Нема доступних алатки на овој платформи.</string>
     <string name="settings_tab_general">Опште</string>
+    <string name="settings_tab_agent">Агент</string>
     <string name="settings_tab_services">Сервиси</string>
     <string name="settings_tab_tools">Алатке</string>
     <string name="settings_tab_integrations">Интеграције</string>
@@ -102,11 +103,14 @@
     <string name="tool_search_email_name">Претрага имејла</string>
     <string name="tool_search_email_description">Претражите имејлове по пошиљаоцу, теми или датуму</string>
     <string name="settings_email">Имејл</string>
-    <string name="settings_email_description">Повежите имејл налоге за читање и одговарање. Употребите чет да кажете „повежи мој имејл" или овде додајте налоге. Имејлови се прикупљају у позадини и сортира их АИ.</string>
+    <string name="settings_email_description">Повежите налоге е-поште за читање и одговарање. У ћаскању реците „повежи моју е-пошту". Е-пошта се проверава у позадини и преузима је heartbeat.</string>
     <string name="settings_email_empty">Нема повезаних имејл налога. Реците „повежи мој имејл" у чету да бисте почели.</string>
     <string name="settings_email_remove">Уклони налог</string>
     <string name="settings_email_poll_interval">Провера сваких %1$d минута</string>
     <string name="settings_email_poll_never">Никад</string>
+    <string name="settings_email_queued">%1$d у реду за heartbeat</string>
+    <string name="settings_email_last_poll">Последња успешна провера %1$s</string>
+    <string name="settings_email_poll_failed">Последња провера неуспела %1$s</string>
     <string name="settings_add_service">Додај сервис</string>
     <string name="settings_free_fallback">Користи као резерву</string>
     <string name="service_free_fast">Бесплатно брзо</string>

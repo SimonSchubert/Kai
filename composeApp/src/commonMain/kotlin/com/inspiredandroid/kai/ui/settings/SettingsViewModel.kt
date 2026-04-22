@@ -32,6 +32,7 @@ import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -86,6 +87,8 @@ class SettingsViewModel(
         showEmailToggle = isEmailSupported,
         emailAccounts = dataRepository.getEmailAccounts().toImmutableList(),
         emailPollIntervalMinutes = dataRepository.getEmailPollIntervalMinutes(),
+        emailPendingCount = dataRepository.getPendingEmailCount(),
+        emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         uiScale = dataRepository.getUiScale(),
         showUiScale = isDesktopPlatform,
@@ -127,6 +130,7 @@ class SettingsViewModel(
         onToggleEmail = ::onToggleEmail,
         onRemoveEmailAccount = ::onRemoveEmailAccount,
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
+        onRefreshEmailAccount = ::onRefreshEmailAccount,
         onToggleFreeFallback = ::onToggleFreeFallback,
         onChangeUiScale = ::onChangeUiScale,
         onAddMcpServer = ::onAddMcpServer,
@@ -454,6 +458,21 @@ class SettingsViewModel(
         _state.update { it.copy(emailPollIntervalMinutes = minutes) }
     }
 
+    private fun onRefreshEmailAccount(id: String) {
+        if (id in _state.value.refreshingEmailAccountIds) return
+        _state.update { it.copy(refreshingEmailAccountIds = (it.refreshingEmailAccountIds + id).toPersistentSet()) }
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.pollEmailAccount(id)
+            _state.update {
+                it.copy(
+                    refreshingEmailAccountIds = (it.refreshingEmailAccountIds - id).toPersistentSet(),
+                    emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
+                    emailPendingCount = dataRepository.getPendingEmailCount(),
+                )
+            }
+        }
+    }
+
     private fun onToggleFreeFallback(enabled: Boolean) {
         dataRepository.setFreeFallbackEnabled(enabled)
         _state.update { it.copy(isFreeFallbackEnabled = enabled) }
@@ -660,7 +679,14 @@ class SettingsViewModel(
 
             is PendingDeletion.EmailAccount -> {
                 dataRepository.removeEmailAccount(deletion.id)
-                _state.update { it.copy(emailAccounts = dataRepository.getEmailAccounts().toImmutableList(), pendingDeletion = null) }
+                _state.update {
+                    it.copy(
+                        emailAccounts = dataRepository.getEmailAccounts().toImmutableList(),
+                        emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
+                        emailPendingCount = dataRepository.getPendingEmailCount(),
+                        pendingDeletion = null,
+                    )
+                }
             }
 
             is PendingDeletion.Service -> {

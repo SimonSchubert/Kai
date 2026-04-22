@@ -32,12 +32,14 @@ class HeartbeatPromptBuilderTest {
         recentResponses: List<String> = emptyList(),
         pendingTasks: List<ScheduledTask> = emptyList(),
         emailAccounts: List<HeartbeatEmailStatus> = emptyList(),
+        pendingEmails: List<HeartbeatPendingEmail> = emptyList(),
         promotionCandidates: List<HeartbeatPromotionCandidate> = emptyList(),
     ) = buildHeartbeatPrompt(
         customOrDefaultPrompt = customOrDefaultPrompt,
         recentResponses = recentResponses,
         pendingTasks = pendingTasks,
         emailAccounts = emailAccounts,
+        pendingEmails = pendingEmails,
         promotionCandidates = promotionCandidates,
     )
 
@@ -122,6 +124,43 @@ class HeartbeatPromptBuilderTest {
     }
 
     @Test
+    fun `includes New Emails with subject from account and preview`() {
+        val out = build(
+            pendingEmails = listOf(
+                HeartbeatPendingEmail(
+                    accountEmail = "me@example.com",
+                    from = "boss@example.com",
+                    subject = "Urgent",
+                    preview = "Please review the doc.",
+                ),
+            ),
+        )
+        assertTrue("## New Emails" in out)
+        assertTrue("- **Urgent** — boss@example.com [me@example.com]: Please review the doc." in out)
+    }
+
+    @Test
+    fun `New Emails renders placeholder for blank subject and omits empty preview`() {
+        val out = build(
+            pendingEmails = listOf(
+                HeartbeatPendingEmail(
+                    accountEmail = "me@example.com",
+                    from = "sender@example.com",
+                    subject = "",
+                    preview = "",
+                ),
+            ),
+        )
+        assertTrue("- **(no subject)** — sender@example.com [me@example.com]\n" in out)
+    }
+
+    @Test
+    fun `omits New Emails when empty`() {
+        val out = build()
+        assertFalse("## New Emails" in out)
+    }
+
+    @Test
     fun `includes Promotion Candidates with hit count and category`() {
         val out = build(
             promotionCandidates = listOf(
@@ -154,6 +193,14 @@ class HeartbeatPromptBuilderTest {
             emailAccounts = listOf(
                 HeartbeatEmailStatus(email = "me@example.com", unreadCount = 2, lastSyncEpochMs = 0L),
             ),
+            pendingEmails = listOf(
+                HeartbeatPendingEmail(
+                    accountEmail = "me@example.com",
+                    from = "sender@example.com",
+                    subject = "Hi",
+                    preview = "hello",
+                ),
+            ),
             promotionCandidates = listOf(
                 HeartbeatPromotionCandidate(
                     key = "style",
@@ -172,6 +219,8 @@ class HeartbeatPromptBuilderTest {
             "- **First** (id: t1",
             "## Email Status",
             "- **me@example.com**: 2 unread",
+            "## New Emails",
+            "- **Hi** — sender@example.com [me@example.com]: hello",
             "## Promotion Candidates",
             "reinforced 5+ times",
             "- **style** (hits: 5, category: PREFERENCE): concise",
