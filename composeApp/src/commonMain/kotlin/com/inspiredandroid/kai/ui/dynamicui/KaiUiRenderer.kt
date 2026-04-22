@@ -217,6 +217,8 @@ import androidx.compose.ui.unit.sp
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiChip
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
 import kotlinx.collections.immutable.ImmutableList
@@ -277,7 +279,11 @@ fun KaiUiRenderer(
 
     CompositionLocalProvider(LocalFrozenSubmission provides frozen) {
         if (wrapInCard) {
-            Card(modifier = modifier.fillMaxWidth().wrapContentHeight()) {
+            Card(
+                modifier = modifier.fillMaxWidth().wrapContentHeight(),
+                colors = kaiAdaptiveCardColors(),
+                border = kaiAdaptiveCardBorder(),
+            ) {
                 Column(Modifier.padding(12.dp).wrapContentHeight()) {
                     RenderNode(
                         node = node,
@@ -430,7 +436,11 @@ private fun RenderCard(
     onCallback: (String, Map<String, String>) -> Unit,
     depth: Int,
 ) {
-    Card(Modifier.fillMaxWidth().wrapContentHeight()) {
+    Card(
+        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+        colors = kaiAdaptiveCardColors(),
+        border = kaiAdaptiveCardBorder(),
+    ) {
         Column(
             modifier = Modifier.padding(16.dp).wrapContentHeight(),
             verticalArrangement = Arrangement.spacedBy(8.dp),

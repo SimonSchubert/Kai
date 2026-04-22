@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Spustit příkaz shellu v linuxovém sandboxu</string>
     <string name="settings_dynamic_ui">Dynamické UI</string>
     <string name="settings_dynamic_ui_description">Umožnit AI vytvářet interaktivní prvky UI jako tlačítka, formuláře a karty v odpovědích. Změna se projeví v nových konverzacích.</string>
+    <string name="settings_oled_mode">Režim OLED</string>
+    <string name="settings_oled_mode_description">V tmavém režimu používat čistě černé pozadí pro úsporu energie na OLED displejích.</string>
     <string name="settings_memories">Vzpomínky</string>
     <string name="settings_memories_description">Vzpomínky uložené AI během konverzací. Jsou zahrnuty v každé zprávě pro poskytnutí kontextu.</string>
     <string name="settings_memories_delete">Smazat vzpomínku</string>

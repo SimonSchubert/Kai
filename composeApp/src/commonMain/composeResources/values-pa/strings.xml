@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux ਸੈਂਡਬਾਕਸ ਵਿੱਚ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="settings_dynamic_ui">ਡਾਇਨਾਮਿਕ UI</string>
     <string name="settings_dynamic_ui_description">AI ਨੂੰ ਜਵਾਬਾਂ ਵਿੱਚ ਬਟਨ, ਫਾਰਮ ਅਤੇ ਕਾਰਡ ਵਰਗੇ ਇੰਟਰੈਕਟਿਵ UI ਤੱਤ ਬਣਾਉਣ ਦੀ ਆਗਿਆ ਦਿਓ। ਤਬਦੀਲੀ ਨਵੀਆਂ ਗੱਲਬਾਤਾਂ 'ਤੇ ਲਾਗੂ ਹੁੰਦੀ ਹੈ।</string>
+    <string name="settings_oled_mode">OLED ਮੋਡ</string>
+    <string name="settings_oled_mode_description">OLED ਸਕ੍ਰੀਨਾਂ ਤੇ ਪਾਵਰ ਬਚਾਉਣ ਲਈ ਡਾਰਕ ਮੋਡ ਵਿੱਚ ਸ਼ੁੱਧ ਕਾਲੇ ਬੈਕਗ੍ਰਾਊਂਡ ਦੀ ਵਰਤੋਂ ਕਰੋ।</string>
     <string name="settings_memories">ਯਾਦਾਂ</string>
     <string name="settings_memories_description">AI ਦੁਆਰਾ ਗੱਲਬਾਤ ਦੌਰਾਨ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ। ਇਹ ਸੰਦਰਭ ਪ੍ਰਦਾਨ ਕਰਨ ਲਈ ਹਰ ਸੁਨੇਹੇ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ।</string>
     <string name="settings_memories_delete">ਯਾਦ ਮਿਟਾਓ</string>

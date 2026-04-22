@@ -2,10 +2,15 @@
 
 package com.inspiredandroid.kai.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,8 +26,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.input.VisualTransformation
@@ -43,9 +50,8 @@ fun Modifier.handCursor() = pointerHoverIcon(PointerIcon.Hand, overrideDescendan
 val DarkColorScheme = darkColorScheme(
     primary = Color(0xFFBB86FC),
     onPrimary = Color(0xFF000000),
-    surface = Color(0xFF000000),
-    surfaceContainerLowest = Color(0xFF000000),
-    background = Color(0xFF000000),
+    surface = Color(0xFF1E1E1E),
+    background = Color(0xFF121212),
     onBackground = Color(0xFFFFFFFF),
     onSurface = Color(0xFFFFFFFF),
 )
@@ -55,6 +61,42 @@ fun ColorScheme.withBlackBackground(): ColorScheme = copy(
     surface = Color.Black,
     surfaceContainerLowest = Color.Black,
 )
+
+val ColorScheme.isOledFlavor: Boolean get() = background == Color.Black
+
+@Composable
+fun kaiAdaptiveCardColors(): CardColors = CardDefaults.cardColors(
+    containerColor = if (MaterialTheme.colorScheme.isOledFlavor) {
+        Color.Transparent
+    } else {
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+    },
+)
+
+@Composable
+fun kaiAdaptiveCardBorder(): BorderStroke? = if (MaterialTheme.colorScheme.isOledFlavor) {
+    BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+} else {
+    null
+}
+
+@Composable
+fun Modifier.kaiAdaptiveCardSurface(shape: Shape = CardDefaults.shape): Modifier = this
+    .clip(shape)
+    .background(
+        if (MaterialTheme.colorScheme.isOledFlavor) {
+            Color.Transparent
+        } else {
+            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        },
+    )
+    .then(
+        if (MaterialTheme.colorScheme.isOledFlavor) {
+            Modifier.border(1.dp, MaterialTheme.colorScheme.outlineVariant, shape)
+        } else {
+            Modifier
+        },
+    )
 
 val LightColorScheme = lightColorScheme(
     primary = darkPurple,

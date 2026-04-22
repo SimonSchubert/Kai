@@ -136,6 +136,9 @@ import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Replay
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardSurface
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.readBytes
@@ -201,6 +204,8 @@ import kai.composeapp.generated.resources.settings_memories_edit_cancel
 import kai.composeapp.generated.resources.settings_memories_edit_save
 import kai.composeapp.generated.resources.settings_memories_edit_title
 import kai.composeapp.generated.resources.settings_memories_show_all
+import kai.composeapp.generated.resources.settings_oled_mode
+import kai.composeapp.generated.resources.settings_oled_mode_description
 import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -622,9 +627,8 @@ private fun FreeSettings(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
+        colors = kaiAdaptiveCardColors(),
+        border = kaiAdaptiveCardBorder(),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
@@ -936,8 +940,7 @@ private fun ConfiguredServiceCardContent(
 ) {
     Column(
         modifier = Modifier
-            .clip(CardDefaults.shape)
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            .kaiAdaptiveCardSurface()
             .fillMaxWidth()
             .clickable { onExpand() }
             .handCursor(),
@@ -1521,9 +1524,8 @@ private fun SettingsCard(
 ) {
     Card(
         modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
+        colors = kaiAdaptiveCardColors(),
+        border = kaiAdaptiveCardBorder(),
     ) {
         Column(
             modifier = Modifier
@@ -1556,6 +1558,12 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                                 onChangeUiScale = actions.onChangeUiScale,
                             )
                         }
+                    }
+                    SettingsCard {
+                        OledModeToggle(
+                            isOledModeEnabled = uiState.isOledModeEnabled,
+                            onToggleOledMode = actions.onToggleOledMode,
+                        )
                     }
                     SettingsCard {
                         SoulEditor(
@@ -1645,6 +1653,12 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                             onChangeUiScale = actions.onChangeUiScale,
                         )
                     }
+                }
+                SettingsCard {
+                    OledModeToggle(
+                        isOledModeEnabled = uiState.isOledModeEnabled,
+                        onToggleOledMode = actions.onToggleOledMode,
+                    )
                 }
                 if (uiState.showDaemonToggle) {
                     SettingsCard {
@@ -2257,9 +2271,8 @@ private fun ToolItem(
             .clip(CardDefaults.shape)
             .clickable { onToggle(!tool.isEnabled) }
             .handCursor(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
+        colors = kaiAdaptiveCardColors(),
+        border = kaiAdaptiveCardBorder(),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -2621,6 +2634,21 @@ private fun DynamicUiToggle(
             description = stringResource(Res.string.settings_dynamic_ui_description),
             checked = isDynamicUiEnabled,
             onCheckedChange = onToggleDynamicUi,
+        )
+    }
+}
+
+@Composable
+private fun OledModeToggle(
+    isOledModeEnabled: Boolean,
+    onToggleOledMode: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_oled_mode),
+            description = stringResource(Res.string.settings_oled_mode_description),
+            checked = isOledModeEnabled,
+            onCheckedChange = onToggleOledMode,
         )
     }
 }

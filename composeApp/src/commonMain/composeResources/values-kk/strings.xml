@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux құмсалғышта shell пәрменін орындау</string>
     <string name="settings_dynamic_ui">Динамикалық UI</string>
     <string name="settings_dynamic_ui_description">AI-ға жауаптарда түймелер, формалар және карталар сияқты интерактивті UI элементтерін жасауға рұқсат беріңіз. Өзгеріс жаңа сұхбаттарға қолданылады.</string>
+    <string name="settings_oled_mode">OLED режимі</string>
+    <string name="settings_oled_mode_description">OLED экрандарында қуатты үнемдеу үшін қараңғы режимде таза қара фондарды пайдаланыңыз.</string>
     <string name="settings_memories">Жадтар</string>
     <string name="settings_memories_description">AI сұхбаттар барысында сақтаған жадтар. Контекст беру үшін әр хабарламаға қосылады.</string>
     <string name="settings_memories_delete">Жадты жою</string>

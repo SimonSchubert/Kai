@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Exequir in cumond da shell en il sandbox da Linux</string>
     <string name="settings_dynamic_ui">UI dinamica</string>
     <string name="settings_dynamic_ui_description">Lubir l'IA da crear elements d'interfaccia interactivs sco buttuns, formulars e cartas en las respostas. La midada vala per conversaziuns novas.</string>
+    <string name="settings_oled_mode">Modus OLED</string>
+    <string name="settings_oled_mode_description">Utilisar funds negers purs en il modus stgir per sparagnar energia sin visualisaziuns OLED.</string>
     <string name="settings_memories">Memorias</string>
     <string name="settings_memories_description">Memorias memorisadas da l'IA durant las conversaziuns. Quellas vegnan inclidas en mintga messadi per dar context.</string>
     <string name="settings_memories_delete">Stizzar memoria</string>

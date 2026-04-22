@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux శాండ్‌బాక్స్‌లో షెల్ ఆదేశాన్ని అమలు చేయండి</string>
     <string name="settings_dynamic_ui">డైనమిక్ UI</string>
     <string name="settings_dynamic_ui_description">AI ప్రతిస్పందనల్లో బటన్లు, ఫారమ్‌లు మరియు కార్డులు వంటి ఇంటరాక్టివ్ UI ఎలిమెంట్లను సృష్టించడానికి అనుమతించండి. మార్పు కొత్త సంభాషణలకు వర్తిస్తుంది.</string>
+    <string name="settings_oled_mode">OLED మోడ్</string>
+    <string name="settings_oled_mode_description">OLED స్క్రీన్లపై శక్తిని ఆదా చేయడానికి డార్క్ మోడ్లో స్వచ్ఛమైన నలుపు బ్యాక్‌గ్రౌండ్‌లను ఉపయోగించండి.</string>
     <string name="settings_memories">జ్ఞాపకాలు</string>
     <string name="settings_memories_description">సంభాషణల సమయంలో AI సేవ్ చేసిన జ్ఞాపకాలు. ఇవి సందర్భం అందించడానికి ప్రతి సందేశంలో చేర్చబడతాయి.</string>
     <string name="settings_memories_delete">జ్ఞాపకాన్ని తొలగించు</string>

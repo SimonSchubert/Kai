@@ -56,6 +56,7 @@ data class SettingsUiState(
     val tools: ImmutableList<ToolInfo> = persistentListOf(),
     val soulText: String = "",
     val isDynamicUiEnabled: Boolean = true,
+    val isOledModeEnabled: Boolean = false,
     val isMemoryEnabled: Boolean = true,
     val memories: ImmutableList<MemoryEntry> = persistentListOf(),
     val isSchedulingEnabled: Boolean = true,

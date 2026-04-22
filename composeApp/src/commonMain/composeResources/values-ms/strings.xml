@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Jalankan arahan shell dalam kotak pasir Linux</string>
     <string name="settings_dynamic_ui">UI Dinamik</string>
     <string name="settings_dynamic_ui_description">Benarkan AI mencipta elemen UI interaktif seperti butang, borang dan kad dalam respons. Perubahan terpakai untuk perbualan baharu.</string>
+    <string name="settings_oled_mode">Mod OLED</string>
+    <string name="settings_oled_mode_description">Gunakan latar belakang hitam tulen dalam mod gelap untuk menjimatkan kuasa pada skrin OLED.</string>
     <string name="settings_memories">Kenangan</string>
     <string name="settings_memories_description">Kenangan yang disimpan oleh AI semasa perbualan. Ini disertakan dalam setiap mesej untuk menyediakan konteks.</string>
     <string name="settings_memories_delete">Padam kenangan</string>

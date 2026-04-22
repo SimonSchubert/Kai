@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
     <string name="settings_dynamic_ui">UI dynamique</string>
     <string name="settings_dynamic_ui_description">Permettre à l'IA de créer des éléments d'interface interactifs comme des boutons, des formulaires et des cartes dans les réponses. Le changement s'applique aux nouvelles conversations.</string>
+    <string name="settings_oled_mode">Mode OLED</string>
+    <string name="settings_oled_mode_description">Utiliser des arrière-plans noir pur en mode sombre pour économiser l'énergie sur les écrans OLED.</string>
     <string name="settings_memories">Souvenirs</string>
     <string name="settings_memories_description">Souvenirs stockés par l'IA lors des conversations. Ils sont inclus dans chaque message pour fournir du contexte.</string>
     <string name="settings_memories_delete">Supprimer le souvenir</string>

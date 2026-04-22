@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Выканаць каманду абалонкі ў пясочніцы Linux</string>
     <string name="settings_dynamic_ui">Дынамічны UI</string>
     <string name="settings_dynamic_ui_description">Дазволіць ІІ ствараць інтэрактыўныя элементы інтэрфейсу, такія як кнопкі, формы і карткі ў адказах. Змена дзейнічае для новых размоў.</string>
+    <string name="settings_oled_mode">Рэжым OLED</string>
+    <string name="settings_oled_mode_description">Выкарыстоўвайце чыста чорныя фоны ў цёмным рэжыме, каб зэканоміць энергію на OLED-экранах.</string>
     <string name="settings_memories">Успаміны</string>
     <string name="settings_memories_description">Успаміны, захаваныя AI падчас размоў. Яны ўключаюцца ў кожнае паведамленне для забеспячэння кантэксту.</string>
     <string name="settings_memories_delete">Выдаліць памяць</string>

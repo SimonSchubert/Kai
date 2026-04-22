@@ -47,6 +47,8 @@ import com.inspiredandroid.kai.mcp.popularMcpServers
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForScroll
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_arrow_drop_down
 import kai.composeapp.generated.resources.settings_mcp_add
@@ -137,9 +139,8 @@ private fun McpServerCard(
     Card(
         onClick = { expanded = !expanded },
         modifier = Modifier.fillMaxWidth().handCursor(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        ),
+        colors = kaiAdaptiveCardColors(),
+        border = kaiAdaptiveCardBorder(),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(

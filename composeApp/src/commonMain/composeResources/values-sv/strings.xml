@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Kör ett skalkommando i Linux-sandlådan</string>
     <string name="settings_dynamic_ui">Dynamiskt gränssnitt</string>
     <string name="settings_dynamic_ui_description">Tillåt AI att skapa interaktiva gränssnittselement som knappar, formulär och kort i svar. Ändringen gäller för nya konversationer.</string>
+    <string name="settings_oled_mode">OLED-läge</string>
+    <string name="settings_oled_mode_description">Använd rena svarta bakgrunder i mörkt läge för att spara ström på OLED-skärmar.</string>
     <string name="settings_memories">Minnen</string>
     <string name="settings_memories_description">Minnen sparade av AI under konversationer. Dessa inkluderas i varje meddelande för att ge sammanhang.</string>
     <string name="settings_memories_delete">Ta bort minne</string>

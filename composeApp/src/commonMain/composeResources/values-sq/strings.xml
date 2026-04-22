@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në sandbox-in Linux</string>
     <string name="settings_dynamic_ui">UI dinamike</string>
     <string name="settings_dynamic_ui_description">Lejo AI-në të krijojë elemente ndërfaqjeje interaktive si butona, formularë dhe kartela në përgjigje. Ndryshimi vlen për biseda të reja.</string>
+    <string name="settings_oled_mode">Modaliteti OLED</string>
+    <string name="settings_oled_mode_description">Përdorni sfonde të zeza të pastra në modalitetin e errët për të kursyer energji në ekranet OLED.</string>
     <string name="settings_memories">Kujtesa</string>
     <string name="settings_memories_description">Kujtesat e ruajtura nga AI gjatë bisedave. Këto përfshihen në çdo mesazh për të ofruar kontekst.</string>
     <string name="settings_memories_delete">Fshi kujtesën</string>

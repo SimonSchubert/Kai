@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
+import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.heartbeat_banner_dismiss
 import kai.composeapp.generated.resources.heartbeat_banner_message
@@ -45,9 +46,8 @@ internal fun HeartbeatBanner(
                 .padding(horizontal = 12.dp, vertical = 4.dp)
                 .handCursor()
                 .clickable { onTap() },
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-            ),
+            colors = kaiAdaptiveCardColors(),
+            border = kaiAdaptiveCardBorder(),
         ) {
             Row(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),

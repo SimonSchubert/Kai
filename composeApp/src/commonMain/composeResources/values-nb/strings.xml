@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Kjør en shell-kommando i Linux-sandkassen</string>
     <string name="settings_dynamic_ui">Dynamisk brukergrensesnitt</string>
     <string name="settings_dynamic_ui_description">Tillat AI å lage interaktive UI-elementer som knapper, skjemaer og kort i svar. Endringen gjelder for nye samtaler.</string>
+    <string name="settings_oled_mode">OLED-modus</string>
+    <string name="settings_oled_mode_description">Bruk rene svarte bakgrunner i mørk modus for å spare strøm på OLED-skjermer.</string>
     <string name="settings_memories">Minner</string>
     <string name="settings_memories_description">Minner lagret av AI under samtaler. Disse inkluderes i alle meldinger for å gi kontekst.</string>
     <string name="settings_memories_delete">Slett minne</string>

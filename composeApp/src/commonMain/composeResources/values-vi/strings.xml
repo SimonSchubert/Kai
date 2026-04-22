@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Thực thi lệnh shell trong hộp cát Linux</string>
     <string name="settings_dynamic_ui">Giao diện động</string>
     <string name="settings_dynamic_ui_description">Cho phép AI tạo các thành phần giao diện tương tác như nút, biểu mẫu và thẻ trong phản hồi. Thay đổi áp dụng cho các cuộc trò chuyện mới.</string>
+    <string name="settings_oled_mode">Chế độ OLED</string>
+    <string name="settings_oled_mode_description">Sử dụng nền đen thuần trong chế độ tối để tiết kiệm năng lượng trên màn hình OLED.</string>
     <string name="settings_memories">Ký ức</string>
     <string name="settings_memories_description">Ký ức được AI lưu trong các cuộc trò chuyện. Chúng được đưa vào mỗi tin nhắn để cung cấp bối cảnh.</string>
     <string name="settings_memories_delete">Xóa ký ức</string>

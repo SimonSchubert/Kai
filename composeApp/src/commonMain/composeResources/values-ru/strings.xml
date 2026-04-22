@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Выполнить команду оболочки в песочнице Linux</string>
     <string name="settings_dynamic_ui">Динамический интерфейс</string>
     <string name="settings_dynamic_ui_description">Разрешить ИИ создавать интерактивные элементы интерфейса, такие как кнопки, формы и карточки в ответах. Изменение применяется к новым разговорам.</string>
+    <string name="settings_oled_mode">Режим OLED</string>
+    <string name="settings_oled_mode_description">Использовать чисто чёрный фон в тёмном режиме для экономии энергии на OLED-экранах.</string>
     <string name="settings_memories">Воспоминания</string>
     <string name="settings_memories_description">Воспоминания, сохранённые ИИ во время разговоров. Они включаются в каждое сообщение для обеспечения контекста.</string>
     <string name="settings_memories_delete">Удалить воспоминание</string>

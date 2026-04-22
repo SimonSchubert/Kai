@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux सँडबॉक्समध्ये शेल कमांड चालवा</string>
     <string name="settings_dynamic_ui">डायनॅमिक UI</string>
     <string name="settings_dynamic_ui_description">AI ला प्रतिसादांमध्ये बटणे, फॉर्म आणि कार्ड यांसारखे परस्परसंवादी UI घटक तयार करू द्या. बदल नवीन संभाषणांना लागू होतो.</string>
+    <string name="settings_oled_mode">OLED मोड</string>
+    <string name="settings_oled_mode_description">OLED स्क्रीनवर वीज वाचवण्यासाठी गडद मोडमध्ये शुद्ध काळ्या पार्श्वभूमी वापरा.</string>
     <string name="settings_memories">आठवणी</string>
     <string name="settings_memories_description">AI ने संभाषणांदरम्यान जतन केलेल्या आठवणी. संदर्भ प्रदान करण्यासाठी या प्रत्येक संदेशात समाविष्ट आहेत.</string>
     <string name="settings_memories_delete">आठवण हटवा</string>

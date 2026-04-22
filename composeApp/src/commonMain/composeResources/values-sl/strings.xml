@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Zagnati ukaz lupine v peskovniku Linux</string>
     <string name="settings_dynamic_ui">Dinamični vmesnik</string>
     <string name="settings_dynamic_ui_description">Dovolite UI ustvarjati interaktivne elemente vmesnika, kot so gumbi, obrazci in kartice v odgovorih. Sprememba velja za nove pogovore.</string>
+    <string name="settings_oled_mode">Način OLED</string>
+    <string name="settings_oled_mode_description">Uporabljajte povsem črna ozadja v temnem načinu za varčevanje z energijo na OLED zaslonih.</string>
     <string name="settings_memories">Spomini</string>
     <string name="settings_memories_description">Spomini, ki jih je UI shranila med pogovori. Ti so vključeni v vsako sporočilo za zagotavljanje konteksta.</string>
     <string name="settings_memories_delete">Izbriši spomin</string>

@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Виконати команду оболонки в пісочниці Linux</string>
     <string name="settings_dynamic_ui">Динамічний інтерфейс</string>
     <string name="settings_dynamic_ui_description">Дозволити ШІ створювати інтерактивні елементи інтерфейсу, такі як кнопки, форми та картки у відповідях. Зміна застосовується до нових розмов.</string>
+    <string name="settings_oled_mode">Режим OLED</string>
+    <string name="settings_oled_mode_description">Використовуйте чисто чорний фон у темному режимі для економії енергії на OLED-екранах.</string>
     <string name="settings_memories">Спогади</string>
     <string name="settings_memories_description">Спогади, збережені ШІ під час розмов. Вони включаються в кожне повідомлення для надання контексту.</string>
     <string name="settings_memories_delete">Видалити спогад</string>

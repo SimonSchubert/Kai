@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">በLinux ሳንድቦክስ ውስጥ የshell ትዕዛዝ ያስኪዱ</string>
     <string name="settings_dynamic_ui">ተለዋዋጭ UI</string>
     <string name="settings_dynamic_ui_description">AI ምላሾች ውስጥ እንደ አዝራሮች፣ ቅጾች እና ካርዶች ያሉ መስተጋብራዊ የUI ንጥሎችን እንዲፈጥር ይፍቀዱ። ለውጡ ለአዲስ ውይይቶች ይሠራል።</string>
+    <string name="settings_oled_mode">OLED ሁነታ</string>
+    <string name="settings_oled_mode_description">በጨለማ ሁነታ በOLED ስክሪኖች ኃይል ለመቆጠብ ንጹሕ ጥቁር ዳራዎችን ይጠቀሙ።</string>
     <string name="settings_memories">ትውስታዎች</string>
     <string name="settings_memories_description">AI ውይይቶች ወቅት ያከማቻቸው ትውስታዎች። እነዚህ አውድ ለማቅረብ በእያንዳንዱ መልዕክት ውስጥ ይካተታሉ።</string>
     <string name="settings_memories_delete">ትውስታ ሰርዝ</string>

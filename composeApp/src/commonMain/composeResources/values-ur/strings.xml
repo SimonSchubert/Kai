@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux سینڈباکس میں شیل کمانڈ چلائیں</string>
     <string name="settings_dynamic_ui">متحرک UI</string>
     <string name="settings_dynamic_ui_description">AI کو جوابات میں بٹن، فارم اور کارڈ جیسے انٹرایکٹو UI عناصر بنانے کی اجازت دیں۔ تبدیلی نئی گفتگو پر لاگو ہوتی ہے۔</string>
+    <string name="settings_oled_mode">OLED موڈ</string>
+    <string name="settings_oled_mode_description">OLED اسکرینوں پر بجلی بچانے کے لیے ڈارک موڈ میں خالص سیاہ بیک گراؤنڈ استعمال کریں۔</string>
     <string name="settings_memories">یادیں</string>
     <string name="settings_memories_description">گفتگو کے دوران AI کی محفوظ کردہ یادیں۔ یہ سیاق و سباق فراہم کرنے کے لیے ہر پیغام میں شامل کی جاتی ہیں۔</string>
     <string name="settings_memories_delete">یاد حذف کریں</string>

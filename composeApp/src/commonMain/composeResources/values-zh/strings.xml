@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">在 Linux 沙盒中执行 Shell 命令</string>
     <string name="settings_dynamic_ui">动态界面</string>
     <string name="settings_dynamic_ui_description">允许AI在回复中创建交互式界面元素，如按钮、表单和卡片。更改适用于新对话。</string>
+    <string name="settings_oled_mode">OLED 模式</string>
+    <string name="settings_oled_mode_description">在深色模式下使用纯黑背景，以便在 OLED 屏幕上节省电量。</string>
     <string name="settings_memories">记忆</string>
     <string name="settings_memories_description">AI 在对话期间存储的记忆。这些记忆包含在每条消息中以提供上下文。</string>
     <string name="settings_memories_delete">删除记忆</string>

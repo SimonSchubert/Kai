@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye sanduku la mchanga la Linux</string>
     <string name="settings_dynamic_ui">UI Inayobadilika</string>
     <string name="settings_dynamic_ui_description">Ruhusu AI kuunda vipengele vya UI vinavyoshirikiana kama vitufe, fomu na kadi katika majibu. Mabadiliko yanatumika kwa mazungumzo mapya.</string>
+    <string name="settings_oled_mode">Hali ya OLED</string>
+    <string name="settings_oled_mode_description">Tumia mandharinyuma meusi safi katika hali ya giza ili kuhifadhi nishati kwenye skrini za OLED.</string>
     <string name="settings_memories">Kumbukumbu</string>
     <string name="settings_memories_description">Kumbukumbu zilizohifadhiwa na AI wakati wa mazungumzo. Hizi zimejumuishwa katika kila ujumbe kutoa muktadha.</string>
     <string name="settings_memories_delete">Futa kumbukumbu</string>

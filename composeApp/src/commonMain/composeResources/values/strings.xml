@@ -112,6 +112,8 @@
     <string name="tool_search_email_description">Search emails by sender, subject, or date</string>
     <string name="settings_dynamic_ui">Dynamic UI</string>
     <string name="settings_dynamic_ui_description">Allow the AI to create interactive UI elements like buttons, forms and cards inline in responses. Change applies to new conversations.</string>
+    <string name="settings_oled_mode">OLED mode</string>
+    <string name="settings_oled_mode_description">Use pure black backgrounds in dark mode to save power on OLED screens.</string>
     <string name="settings_memories">Memories</string>
     <string name="settings_memories_description">Memories stored by the AI during conversations. These are included in every message to provide context.</string>
     <string name="settings_memories_delete">Delete memory</string>

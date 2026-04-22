@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">اجرای دستور شل در جعبه شنی لینوکس</string>
     <string name="settings_dynamic_ui">رابط کاربری پویا</string>
     <string name="settings_dynamic_ui_description">اجازه دهید هوش مصنوعی عناصر رابط کاربری تعاملی مانند دکمه‌ها، فرم‌ها و کارت‌ها را در پاسخ‌ها ایجاد کند. تغییر برای مکالمات جدید اعمال می‌شود.</string>
+    <string name="settings_oled_mode">حالت OLED</string>
+    <string name="settings_oled_mode_description">از پس‌زمینه‌های کاملاً سیاه در حالت تاریک برای صرفه‌جویی در مصرف انرژی در صفحه‌نمایش‌های OLED استفاده کنید.</string>
     <string name="settings_memories">خاطرات</string>
     <string name="settings_memories_description">خاطراتی که هوش مصنوعی در طول مکالمات ذخیره کرده است. اینها برای ارائه زمینه در هر پیام گنجانده می‌شوند.</string>
     <string name="settings_memories_delete">حذف خاطره</string>

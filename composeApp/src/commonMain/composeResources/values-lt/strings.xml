@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą „Linux" smėlio dėžėje</string>
     <string name="settings_dynamic_ui">Dinaminė sąsaja</string>
     <string name="settings_dynamic_ui_description">Leisti DI kurti interaktyvius sąsajos elementus, tokius kaip mygtukai, formos ir kortelės atsakymuose. Pakeitimas taikomas naujiems pokalbiams.</string>
+    <string name="settings_oled_mode">OLED režimas</string>
+    <string name="settings_oled_mode_description">Naudoti gryną juodą foną tamsiuoju režimu, kad būtų taupoma energija OLED ekranuose.</string>
     <string name="settings_memories">Prisiminimai</string>
     <string name="settings_memories_description">AI pokalbių metu išsaugoti prisiminimai. Jie įtraukiami į kiekvieną žinutę kontekstui teikti.</string>
     <string name="settings_memories_delete">Ištrinti prisiminimą</string>

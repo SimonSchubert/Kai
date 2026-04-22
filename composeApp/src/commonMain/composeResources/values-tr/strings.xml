@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Linux korumalı alanında kabuk komutu çalıştır</string>
     <string name="settings_dynamic_ui">Dinamik Arayüz</string>
     <string name="settings_dynamic_ui_description">Yapay zekanın yanıtlarda düğmeler, formlar ve kartlar gibi etkileşimli arayüz öğeleri oluşturmasına izin verin. Değişiklik yeni konuşmalar için geçerlidir.</string>
+    <string name="settings_oled_mode">OLED modu</string>
+    <string name="settings_oled_mode_description">OLED ekranlarda enerji tasarrufu yapmak için karanlık modda saf siyah arka planlar kullanın.</string>
     <string name="settings_memories">Anılar</string>
     <string name="settings_memories_description">Konuşmalar sırasında AI tarafından kaydedilen anılar. Bağlam sağlamak için her mesaja dahil edilir.</string>
     <string name="settings_memories_delete">Anıyı sil</string>

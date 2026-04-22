@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Executar um comando shell no sandbox Linux</string>
     <string name="settings_dynamic_ui">UI dinâmica</string>
     <string name="settings_dynamic_ui_description">Permitir que a IA crie elementos de interface interativos como botões, formulários e cartões nas respostas. A alteração aplica-se a novas conversas.</string>
+    <string name="settings_oled_mode">Modo OLED</string>
+    <string name="settings_oled_mode_description">Use fundos pretos puros no modo escuro para economizar energia em telas OLED.</string>
     <string name="settings_memories">Memórias</string>
     <string name="settings_memories_description">Memórias armazenadas pela IA durante as conversas. Estas são incluídas em cada mensagem para fornecer contexto.</string>
     <string name="settings_memories_delete">Excluir memória</string>

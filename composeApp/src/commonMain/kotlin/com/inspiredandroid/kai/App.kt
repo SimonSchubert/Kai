@@ -18,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.intl.Locale
@@ -46,6 +47,7 @@ import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.components.FullScreenImageHost
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
+import com.inspiredandroid.kai.ui.withBlackBackground
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tab_chat
 import kai.composeapp.generated.resources.tab_settings
@@ -109,9 +111,10 @@ private fun AppContent(
     textToSpeech: TextToSpeechInstance?,
     onAppOpens: ((Int) -> Unit)?,
 ) {
+    val appSettings = koinInject<AppSettings>()
+
     // Track app opens after Koin is initialized
     onAppOpens?.let { callback ->
-        val appSettings = koinInject<AppSettings>()
         LaunchedEffect(Unit) {
             callback(appSettings.trackAppOpen())
         }
@@ -136,15 +139,21 @@ private fun AppContent(
         }
     }
 
-    val appSettingsForScale = koinInject<AppSettings>()
-    val uiScale by appSettingsForScale.uiScaleFlow.collectAsStateWithLifecycle()
+    val uiScale by appSettings.uiScaleFlow.collectAsStateWithLifecycle()
     val defaultDensity = LocalDensity.current
     val scaledDensity = remember(defaultDensity, uiScale) {
         Density(defaultDensity.density * uiScale, defaultDensity.fontScale)
     }
 
+    val oledMode by appSettings.oledModeFlow.collectAsStateWithLifecycle()
+    val effectiveColorScheme = if (oledMode && colorScheme.background.luminance() < 0.5f) {
+        colorScheme.withBlackBackground()
+    } else {
+        colorScheme
+    }
+
     CompositionLocalProvider(LocalDensity provides scaledDensity) {
-        Theme(colorScheme = colorScheme) {
+        Theme(colorScheme = effectiveColorScheme) {
             FullScreenImageHost {
                 val chatViewModel: ChatViewModel = koinViewModel()
                 val showTabBar = !isMobilePlatform

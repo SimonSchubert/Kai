@@ -58,6 +58,8 @@
     <string name="tool_execute_shell_command_description">Sebenzisa umyalo we-shell ku-Linux sandbox</string>
     <string name="settings_dynamic_ui">I-UI Eguquguqukayo</string>
     <string name="settings_dynamic_ui_description">Vumela i-AI ukuthi yakhe izinto ze-UI ezisebenzisanayo njengamabhatani, amafomu namakhadi ezimpendulweni. Ushintsho lusebenza ezingxoxweni ezintsha.</string>
+    <string name="settings_oled_mode">Imodi ye-OLED</string>
+    <string name="settings_oled_mode_description">Sebenzisa izingemuva ezimnyama ngokuphelele kumodi emnyama ukuze ulondoloze amandla ezikrini ze-OLED.</string>
     <string name="settings_memories">Izikhumbuzo</string>
     <string name="settings_memories_description">Izikhumbuzo ezilondolozwe i-AI ngesikhathi sezingxoxo. Lezi zifakiwe kuwo wonke umyalezo ukuze zinikezele imongo.</string>
     <string name="settings_memories_delete">Susa isikhumbuzo</string>
