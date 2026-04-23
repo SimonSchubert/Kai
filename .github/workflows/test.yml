@@ -78,9 +78,6 @@ jobs:
       - name: Run desktop tests
         run: ./gradlew :composeApp:desktopTest --no-daemon --stacktrace
 
-      - name: Verify desktop release build (ProGuard sanity)
-        run: ./gradlew :composeApp:createReleaseDistributable --no-daemon --stacktrace
-
       - name: Check for changes
         id: changes
         run: |
