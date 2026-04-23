@@ -1571,4 +1571,12 @@ internal object ModelCatalog {
         }
         return hit
     }
+
+    const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
+
+    /**
+     * Context window in tokens from the catalog, or [DEFAULT_CONTEXT_WINDOW_TOKENS]
+     * when the id is unknown (check the logcat miss to add it).
+     */
+    fun estimateContextWindow(modelId: String): Int = lookup(modelId)?.contextWindow?.toInt() ?: DEFAULT_CONTEXT_WINDOW_TOKENS
 }

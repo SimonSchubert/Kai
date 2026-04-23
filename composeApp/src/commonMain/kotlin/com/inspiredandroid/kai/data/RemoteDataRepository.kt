@@ -85,7 +85,6 @@ private const val MAX_REPEATED_TOOL_CALLS = 3
 private const val MAX_API_RETRIES = 2
 private const val MAX_HEARTBEAT_MESSAGES = 50
 private const val ESTIMATED_CHARS_PER_TOKEN = 4
-private const val DEFAULT_CONTEXT_WINDOW_TOKENS = 100_000
 private const val COMPACTION_THRESHOLD = 0.7 // Compact when history exceeds 70% of context window
 private const val COMPACTION_KEEP_RECENT = 4 // Number of recent user exchanges to keep verbatim
 
@@ -105,71 +104,6 @@ internal val LOCAL_TOOL_ALLOWLIST = setOf(
     "memory_reinforce",
     "execute_shell_command",
 )
-
-/**
- * Returns the estimated context window size in tokens for a given model ID.
- * Uses substring matching on the model ID to cover versioned variants (e.g. "gpt-4o-2024-08-06").
- * Falls back to [DEFAULT_CONTEXT_WINDOW_TOKENS] for unknown models.
- */
-private fun estimateContextWindowTokens(modelId: String): Int {
-    val id = modelId.lowercase()
-    return when {
-        // Gemini
-        "gemini-2.5" in id || "gemini-2.0" in id -> 1_000_000
-
-        "gemini-1.5-pro" in id -> 2_000_000
-
-        "gemini-1.5-flash" in id -> 1_000_000
-
-        "gemini" in id -> 32_000
-
-        // Anthropic
-        "claude-opus" in id || "claude-sonnet" in id -> 200_000
-
-        "claude-haiku" in id -> 200_000
-
-        "claude-3" in id || "claude-3.5" in id -> 200_000
-
-        "claude" in id -> 200_000
-
-        // OpenAI
-        "gpt-4o" in id -> 128_000
-
-        "gpt-4-turbo" in id -> 128_000
-
-        "gpt-4" in id -> 8_192
-
-        "gpt-3.5" in id -> 16_385
-
-        "o1" in id || "o3" in id || "o4" in id -> 200_000
-
-        // DeepSeek
-        "deepseek" in id -> 64_000
-
-        // Mistral
-        "mistral-large" in id -> 128_000
-
-        "mistral" in id -> 32_000
-
-        // xAI
-        "grok" in id -> 131_072
-
-        // Llama
-        "llama-3.3" in id || "llama-3.1" in id -> 128_000
-
-        "llama" in id -> 8_192
-
-        // Qwen
-        "qwen" in id -> 32_000
-
-        // Small/local models
-        "phi" in id -> 16_000
-
-        "gemma" in id -> 8_192
-
-        else -> DEFAULT_CONTEXT_WINDOW_TOKENS
-    }
-}
 
 class RemoteDataRepository(
     private val requests: Requests,
@@ -767,7 +701,7 @@ class RemoteDataRepository(
                 // On-device models handle their own context limits, so skip this check for them
                 if (!entry.service.isOnDevice) {
                     val creds = instanceCredentials(entry.instanceId, entry.service)
-                    val entryWindowChars = estimateContextWindowTokens(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
+                    val entryWindowChars = ModelCatalog.estimateContextWindow(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
                     if (historyChars > entryWindowChars) {
                         lastException = ContextWindowExceededException()
                         _fallbackStatus.value = FallbackStatus(entry.service.displayName, ContextWindowExceededException().toUiError())
@@ -814,7 +748,7 @@ class RemoteDataRepository(
         systemPrompt: String? = null,
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
-        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
         var currentMessages = trimMessagesForContext(
             buildOpenAIMessages(
                 messages.filter { it.role != History.Role.TOOL_EXECUTING },
@@ -904,7 +838,7 @@ class RemoteDataRepository(
     }
 
     private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null, history: MutableStateFlow<List<History>> = chatHistory): String {
-        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
 
@@ -1091,7 +1025,7 @@ class RemoteDataRepository(
         systemPrompt: String? = null,
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
-        val contextWindowTokens = estimateContextWindowTokens(credentials.modelId)
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
 
@@ -1332,7 +1266,7 @@ class RemoteDataRepository(
      */
     private fun trimMessagesForContext(
         messages: List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>,
-        contextWindowTokens: Int = DEFAULT_CONTEXT_WINDOW_TOKENS,
+        contextWindowTokens: Int = ModelCatalog.DEFAULT_CONTEXT_WINDOW_TOKENS,
     ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> {
         val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
         val totalChars = messages.sumOf { estimateMessageChars(it) }
@@ -1366,7 +1300,7 @@ class RemoteDataRepository(
     private fun trimHistoryForContext(
         history: List<History>,
         systemPromptChars: Int = 0,
-        contextWindowTokens: Int = DEFAULT_CONTEXT_WINDOW_TOKENS,
+        contextWindowTokens: Int = ModelCatalog.DEFAULT_CONTEXT_WINDOW_TOKENS,
     ): List<History> {
         val maxChars = contextWindowTokens * ESTIMATED_CHARS_PER_TOKEN
         val totalChars = history.sumOf { it.content.length } + systemPromptChars
@@ -1397,7 +1331,7 @@ class RemoteDataRepository(
         val firstInstance = getConfiguredServiceInstances().firstOrNull() ?: return
         val service = Service.fromId(firstInstance.serviceId)
         val modelId = appSettings.getSelectedModelId(service)
-        val contextWindowTokens = estimateContextWindowTokens(modelId)
+        val contextWindowTokens = ModelCatalog.estimateContextWindow(modelId)
 
         val history = chatHistory.value.filter { it.role != History.Role.TOOL_EXECUTING }
         val systemPromptChars = getActiveSystemPrompt()?.length ?: 0
