@@ -26,4 +26,6 @@ data class ChatActions(
     val enterInteractiveMode: () -> Unit,
     val exitInteractiveMode: () -> Unit,
     val goBackInteractiveMode: () -> Unit,
+    val sendSmsDraft: (String) -> Unit,
+    val discardSmsDraft: (String) -> Unit,
 )

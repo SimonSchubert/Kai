@@ -7,6 +7,8 @@ import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.SmsDraftStore
+import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
@@ -14,11 +16,16 @@ import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.inference.createLocalInferenceEngine
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.Requests
+import com.inspiredandroid.kai.sms.SmsPoller
+import com.inspiredandroid.kai.sms.SmsReader
+import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.splinterlands.SplinterlandsApi
 import com.inspiredandroid.kai.splinterlands.SplinterlandsBattleRunner
 import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.SmsPermissionController
+import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
@@ -29,6 +36,10 @@ import org.koin.dsl.module
 val appModule = module {
     single<CalendarPermissionController> { CalendarPermissionController() }
     single<NotificationPermissionController> { NotificationPermissionController() }
+    single<SmsPermissionController> { SmsPermissionController() }
+    single<SmsSendPermissionController> { SmsSendPermissionController() }
+    single<SmsReader> { SmsReader() }
+    single<SmsSender> { SmsSender() }
     single<AppSettings> {
         AppSettings(createSecureSettings()).also {
             it.runMigrations(createLegacySettings())
@@ -55,6 +66,15 @@ val appModule = module {
     single<EmailPoller> {
         EmailPoller(get<EmailStore>())
     }
+    single<SmsStore> {
+        SmsStore(get())
+    }
+    single<SmsPoller> {
+        SmsPoller(get<SmsStore>(), get<SmsReader>())
+    }
+    single<SmsDraftStore> {
+        SmsDraftStore(get())
+    }
     single<SplinterlandsStore> {
         SplinterlandsStore(get())
     }
@@ -78,6 +98,13 @@ val appModule = module {
             heartbeatManager = get(),
             emailStore = get(),
             emailPoller = get(),
+            smsStore = get(),
+            smsPoller = get(),
+            smsReader = get(),
+            smsPermissionController = get(),
+            smsSendPermissionController = get(),
+            smsSender = get(),
+            smsDraftStore = get(),
             mcpServerManager = get(),
             localInferenceEngine = createLocalInferenceEngine(),
         )
@@ -87,7 +114,16 @@ val appModule = module {
         SplinterlandsBattleRunner(get(), get(), get<DataRepository>(), get<DaemonController>())
     }
     single<TaskScheduler> {
-        TaskScheduler(get<DataRepository>(), get(), get(), get(), get(), get<EmailPoller>())
+        TaskScheduler(
+            get<DataRepository>(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get<EmailPoller>(),
+            get<SmsStore>(),
+            get<SmsPoller>(),
+        )
     }
     single<DaemonController> { createDaemonController() }
     single<SandboxController> { createSandboxController() }

@@ -23,6 +23,7 @@ enum class ImportSection {
     SCHEDULING,
     HEARTBEAT,
     EMAIL,
+    SMS,
     SPLINTERLANDS,
     TOOLS,
     MCP,
@@ -52,6 +53,9 @@ fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
     if (json["email_enabled"] != null || json["email_accounts"] != null) {
         val count = json["email_accounts"]?.jsonArray?.size
         sections[ImportSection.EMAIL] = count?.let { "$it" }
+    }
+    if (json["sms_enabled"] != null || json["sms_poll_interval"] != null || json["sms_send_enabled"] != null) {
+        sections[ImportSection.SMS] = null
     }
     if (json["splinterlands_enabled"] != null || json["splinterlands_account"] != null) {
         sections[ImportSection.SPLINTERLANDS] = null
@@ -558,6 +562,44 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_EMAIL_PENDING, json)
     }
 
+    // SMS (FOSS-only, Android-only — settings layer is platform-agnostic, feature gate
+    // is enforced by the READ_SMS permission being declared only in foss/AndroidManifest.xml)
+    fun isSmsEnabled(): Boolean = settings.getBoolean(KEY_SMS_ENABLED, false)
+
+    fun setSmsEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SMS_ENABLED, enabled)
+    }
+
+    fun getSmsPollIntervalMinutes(): Int = settings.getInt(KEY_SMS_POLL_INTERVAL, 15)
+
+    fun setSmsPollIntervalMinutes(minutes: Int) {
+        settings.putInt(KEY_SMS_POLL_INTERVAL, minutes)
+    }
+
+    fun getSmsPendingJson(): String = settings.getString(KEY_SMS_PENDING, "")
+
+    fun setSmsPendingJson(json: String) {
+        settings.putString(KEY_SMS_PENDING, json)
+    }
+
+    fun getSmsSyncStateJson(): String = settings.getString(KEY_SMS_SYNC_STATE, "")
+
+    fun setSmsSyncStateJson(json: String) {
+        settings.putString(KEY_SMS_SYNC_STATE, json)
+    }
+
+    fun isSmsSendEnabled(): Boolean = settings.getBoolean(KEY_SMS_SEND_ENABLED, false)
+
+    fun setSmsSendEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_SMS_SEND_ENABLED, enabled)
+    }
+
+    fun getSmsDraftsJson(): String = settings.getString(KEY_SMS_DRAFTS, "")
+
+    fun setSmsDraftsJson(json: String) {
+        settings.putString(KEY_SMS_DRAFTS, json)
+    }
+
     // Local model context size
     fun getModelContextTokens(modelId: String): Int = settings.getInt("$KEY_MODEL_CONTEXT_PREFIX$modelId", 0)
 
@@ -691,6 +733,11 @@ class AppSettings(private val settings: Settings) {
             }
         }
         map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
+
+        // SMS
+        map["sms_enabled"] = JsonPrimitive(isSmsEnabled())
+        map["sms_poll_interval"] = JsonPrimitive(getSmsPollIntervalMinutes())
+        map["sms_send_enabled"] = JsonPrimitive(isSmsSendEnabled())
 
         // Splinterlands
         map["splinterlands_enabled"] = JsonPrimitive(isSplinterlandsEnabled())
@@ -863,6 +910,21 @@ class AppSettings(private val settings: Settings) {
             setEmailEnabled(true)
             setEmailAccountsJson("")
             setEmailPollIntervalMinutes(15)
+        }
+
+        // SMS
+        if (ImportSection.SMS in sections) {
+            try {
+                setSmsEnabled(json["sms_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
+                setSmsPollIntervalMinutes(json["sms_poll_interval"]?.jsonPrimitive?.content?.toInt() ?: 15)
+                setSmsSendEnabled(json["sms_send_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
+            } catch (_: Exception) {
+                errors++
+            }
+        } else if (replace) {
+            setSmsEnabled(false)
+            setSmsPollIntervalMinutes(15)
+            setSmsSendEnabled(false)
         }
 
         // Splinterlands
@@ -1052,6 +1114,13 @@ class AppSettings(private val settings: Settings) {
         const val KEY_EMAIL_SYNC_PREFIX = "email_sync_"
         const val KEY_EMAIL_POLL_INTERVAL = "email_poll_interval"
         const val KEY_EMAIL_PENDING = "email_pending"
+
+        const val KEY_SMS_ENABLED = "sms_enabled"
+        const val KEY_SMS_POLL_INTERVAL = "sms_poll_interval"
+        const val KEY_SMS_PENDING = "sms_pending"
+        const val KEY_SMS_SYNC_STATE = "sms_sync_state"
+        const val KEY_SMS_SEND_ENABLED = "sms_send_enabled"
+        const val KEY_SMS_DRAFTS = "sms_drafts"
         const val KEY_CONFIGURED_SERVICES = "configured_services"
         const val KEY_FREE_FALLBACK_ENABLED = "free_fallback_enabled"
         const val KEY_FREE_MODE = "free_mode"

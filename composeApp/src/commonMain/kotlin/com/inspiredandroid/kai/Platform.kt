@@ -55,6 +55,13 @@ expect fun getPlatformToolDefinitions(): List<ToolInfo>
 
 expect val isEmailSupported: Boolean
 
+/**
+ * True only on the FOSS Android build. Gated on `READ_SMS` being declared in the
+ * merged manifest — the Play Store flavor doesn't declare it, so this returns
+ * false there, and the SMS feature is invisible in that build.
+ */
+expect val isSmsSupported: Boolean
+
 expect val isSplinterlandsSupported: Boolean
 
 expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray

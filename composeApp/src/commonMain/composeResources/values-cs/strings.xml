@@ -260,4 +260,35 @@
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Skóre</string>
     <string name="model_sort_context">Kontext</string>
+
+    <string name="tool_check_sms_name">Zkontrolovat SMS</string>
+    <string name="tool_check_sms_description">Zobrazit nedávné nepřečtené SMS zprávy</string>
+    <string name="tool_read_sms_name">Přečíst SMS</string>
+    <string name="tool_read_sms_description">Přečíst celý obsah SMS zprávy</string>
+    <string name="tool_search_sms_name">Hledat v SMS</string>
+    <string name="tool_search_sms_description">Hledat SMS podle odesílatele nebo textu</string>
+    <string name="tool_send_sms_name">Odeslat SMS</string>
+    <string name="tool_send_sms_description">Připravit SMS k revizi a odeslání uživatelem</string>
+    <string name="tool_reply_sms_name">Odpovědět na SMS</string>
+    <string name="tool_reply_sms_description">Připravit odpověď na SMS k revizi a odeslání uživatelem</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Příchozí SMS jsou kontrolovány na pozadí a zachyceny srdečním tepem.</string>
+    <string name="settings_sms_permission_required">Udělte oprávnění k SMS pro povolení této funkce.</string>
+    <string name="settings_sms_permission_button">Udělit oprávnění</string>
+    <string name="settings_sms_poll_interval">Kontrolovat každých %1$d min.</string>
+    <string name="settings_sms_queued">%1$d SMS ve frontě pro srdeční tep</string>
+    <string name="settings_sms_last_poll">Poslední úspěšná kontrola %1$s</string>
+    <string name="settings_sms_poll_failed">Poslední kontrola selhala %1$s</string>
+    <string name="settings_sms_refresh">Obnovit nyní</string>
+    <string name="settings_sms_read_label">Přečíst SMS</string>
+    <string name="settings_sms_send_label">Odeslat SMS</string>
+    <string name="settings_sms_send_description">Koncepty se zobrazí nad chatem k revizi před odesláním.</string>
+    <string name="settings_sms_send_permission_required">Udělte oprávnění k odesílání SMS pro povolení této funkce.</string>
+    <string name="sms_draft_banner_to">Pro %1$s</string>
+    <string name="sms_draft_banner_send">Odeslat</string>
+    <string name="sms_draft_banner_discard">Zahodit</string>
+    <string name="sms_draft_banner_sending">Odesílání…</string>
+    <string name="sms_draft_banner_sent">Odesláno</string>
+    <string name="sms_draft_banner_failed">Selhalo: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Zavřít</string>
 </resources>

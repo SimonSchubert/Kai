@@ -261,4 +261,35 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="model_sort_date">Päivämäärä</string>
     <string name="model_sort_score">Pisteet</string>
     <string name="model_sort_context">Konteksti</string>
+
+    <string name="tool_check_sms_name">Tarkista tekstiviestit</string>
+    <string name="tool_check_sms_description">Näytä viimeaikaiset lukemattomat tekstiviestit</string>
+    <string name="tool_read_sms_name">Lue tekstiviesti</string>
+    <string name="tool_read_sms_description">Lue tekstiviestin koko sisältö</string>
+    <string name="tool_search_sms_name">Etsi tekstiviestejä</string>
+    <string name="tool_search_sms_description">Hae tekstiviestejä lähettäjän tai tekstin mukaan</string>
+    <string name="tool_send_sms_name">Lähetä tekstiviesti</string>
+    <string name="tool_send_sms_description">Laadi tekstiviesti käyttäjän tarkistettavaksi ja lähetettäväksi</string>
+    <string name="tool_reply_sms_name">Vastaa tekstiviestiin</string>
+    <string name="tool_reply_sms_description">Laadi vastaus tekstiviestiin käyttäjän tarkistettavaksi ja lähetettäväksi</string>
+    <string name="settings_sms">Tekstiviestit</string>
+    <string name="settings_sms_description">Saapuvat tekstiviestit haetaan taustalla ja syke poimii ne.</string>
+    <string name="settings_sms_permission_required">Myönnä tekstiviestien käyttöoikeus ottaaksesi tämän ominaisuuden käyttöön.</string>
+    <string name="settings_sms_permission_button">Myönnä käyttöoikeus</string>
+    <string name="settings_sms_poll_interval">Hae %1$d minuutin välein</string>
+    <string name="settings_sms_queued">%1$d tekstiviestiä sykkeen jonossa</string>
+    <string name="settings_sms_last_poll">Viimeinen onnistunut tarkistus %1$s</string>
+    <string name="settings_sms_poll_failed">Viimeinen tarkistus epäonnistui %1$s</string>
+    <string name="settings_sms_refresh">Päivitä nyt</string>
+    <string name="settings_sms_read_label">Lue tekstiviestejä</string>
+    <string name="settings_sms_send_label">Lähetä tekstiviestejä</string>
+    <string name="settings_sms_send_description">Luonnokset näkyvät keskustelun yläpuolella tarkistettavaksi ennen lähettämistä.</string>
+    <string name="settings_sms_send_permission_required">Myönnä tekstiviestin lähettämisen käyttöoikeus ottaaksesi tämän ominaisuuden käyttöön.</string>
+    <string name="sms_draft_banner_to">Vastaanottaja %1$s</string>
+    <string name="sms_draft_banner_send">Lähetä</string>
+    <string name="sms_draft_banner_discard">Hylkää</string>
+    <string name="sms_draft_banner_sending">Lähetetään…</string>
+    <string name="sms_draft_banner_sent">Lähetetty</string>
+    <string name="sms_draft_banner_failed">Epäonnistui: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Sulje</string>
 </resources>

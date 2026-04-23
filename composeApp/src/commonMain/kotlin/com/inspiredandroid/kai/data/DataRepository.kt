@@ -130,6 +130,26 @@ interface DataRepository {
     fun getEmailSyncStates(): Map<String, EmailSyncState>
     suspend fun pollEmailAccount(accountId: String)
 
+    // SMS (FOSS-only on Android; other platforms return stub values).
+    // Read and send are independent opt-ins with separate runtime permissions.
+    fun isSmsEnabled(): Boolean
+    fun setSmsEnabled(enabled: Boolean)
+    fun getSmsPollIntervalMinutes(): Int
+    fun setSmsPollIntervalMinutes(minutes: Int)
+    fun getPendingSmsCount(): Int
+    fun getSmsSyncState(): SmsSyncState
+    fun hasSmsPermission(): Boolean
+    suspend fun requestSmsPermission(): Boolean
+    suspend fun pollSms()
+
+    fun isSmsSendEnabled(): Boolean
+    fun setSmsSendEnabled(enabled: Boolean)
+    fun hasSmsSendPermission(): Boolean
+    suspend fun requestSmsSendPermission(): Boolean
+    val smsDrafts: StateFlow<List<SmsDraft>>
+    suspend fun sendSmsDraft(draftId: String): Boolean
+    suspend fun discardSmsDraft(draftId: String)
+
     // UI Scale
     fun getUiScale(): Float
     fun setUiScale(scale: Float)

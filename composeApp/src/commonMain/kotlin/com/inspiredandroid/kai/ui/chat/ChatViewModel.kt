@@ -66,6 +66,8 @@ class ChatViewModel(
         enterInteractiveMode = ::enterInteractiveMode,
         exitInteractiveMode = ::exitInteractiveMode,
         goBackInteractiveMode = ::goBackInteractiveMode,
+        sendSmsDraft = ::sendSmsDraft,
+        discardSmsDraft = ::discardSmsDraft,
     )
     private val freeModeNames: Map<FreeMode, String> = FreeMode.entries.associateWith { "Free ${it.modelId.replaceFirstChar { c -> c.uppercase() }}" }
     private var currentJob: Job? = null
@@ -97,6 +99,12 @@ class ChatViewModel(
         }
         taskScheduler.isLoadingCheck = { _state.value.isLoading }
         taskScheduler.start()
+
+        viewModelScope.launch {
+            dataRepository.smsDrafts.collect { drafts ->
+                _state.update { it.copy(smsDrafts = drafts.toImmutableList()) }
+            }
+        }
 
         viewModelScope.launch {
             dataRepository.openHeartbeatRequested
@@ -401,6 +409,18 @@ class ChatViewModel(
 
     private fun clearUnreadHeartbeat() {
         dataRepository.clearUnreadHeartbeat()
+    }
+
+    private fun sendSmsDraft(draftId: String) {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.sendSmsDraft(draftId)
+        }
+    }
+
+    private fun discardSmsDraft(draftId: String) {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.discardSmsDraft(draftId)
+        }
     }
 
     private fun startNewChat() {

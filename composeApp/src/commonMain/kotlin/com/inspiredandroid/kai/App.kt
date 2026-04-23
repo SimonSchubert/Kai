@@ -39,6 +39,10 @@ import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
 import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
+import com.inspiredandroid.kai.tools.SetupSmsPermissionHandler
+import com.inspiredandroid.kai.tools.SetupSmsSendPermissionHandler
+import com.inspiredandroid.kai.tools.SmsPermissionController
+import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.DarkColorScheme
 import com.inspiredandroid.kai.ui.LightColorScheme
 import com.inspiredandroid.kai.ui.Theme
@@ -126,6 +130,12 @@ private fun AppContent(
 
     val notificationPermissionController = koinInject<NotificationPermissionController>()
     SetupNotificationPermissionHandler(notificationPermissionController)
+
+    val smsPermissionController = koinInject<SmsPermissionController>()
+    SetupSmsPermissionHandler(smsPermissionController)
+
+    val smsSendPermissionController = koinInject<SmsSendPermissionController>()
+    SetupSmsSendPermissionHandler(smsSendPermissionController)
 
     // Set TTS voice to match system language
     @OptIn(ExperimentalVoiceApi::class)

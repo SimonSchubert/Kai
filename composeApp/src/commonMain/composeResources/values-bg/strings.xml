@@ -260,4 +260,35 @@
     <string name="model_sort_date">Дата</string>
     <string name="model_sort_score">Резултат</string>
     <string name="model_sort_context">Контекст</string>
+
+    <string name="tool_check_sms_name">Провери SMS</string>
+    <string name="tool_check_sms_description">Покажи скорошни непрочетени SMS съобщения</string>
+    <string name="tool_read_sms_name">Прочети SMS</string>
+    <string name="tool_read_sms_description">Прочети пълното съдържание на SMS съобщение</string>
+    <string name="tool_search_sms_name">Търси в SMS</string>
+    <string name="tool_search_sms_description">Търси SMS съобщения по подател или текст</string>
+    <string name="tool_send_sms_name">Изпрати SMS</string>
+    <string name="tool_send_sms_description">Подготви SMS за преглед и изпращане от потребителя</string>
+    <string name="tool_reply_sms_name">Отговори на SMS</string>
+    <string name="tool_reply_sms_description">Подготви отговор на SMS за преглед и изпращане от потребителя</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Входящите SMS се проверяват на заден план и се поемат от сърцебиенето.</string>
+    <string name="settings_sms_permission_required">Предоставете разрешението за SMS, за да активирате тази функция.</string>
+    <string name="settings_sms_permission_button">Дай разрешение</string>
+    <string name="settings_sms_poll_interval">Проверявай на всеки %1$d мин.</string>
+    <string name="settings_sms_queued">%1$d SMS в опашка за сърцебиене</string>
+    <string name="settings_sms_last_poll">Последна успешна проверка %1$s</string>
+    <string name="settings_sms_poll_failed">Последна проверка неуспешна %1$s</string>
+    <string name="settings_sms_refresh">Обнови сега</string>
+    <string name="settings_sms_read_label">Прочети SMS</string>
+    <string name="settings_sms_send_label">Изпрати SMS</string>
+    <string name="settings_sms_send_description">Черновите се появяват над чата за преглед преди изпращане.</string>
+    <string name="settings_sms_send_permission_required">Предоставете разрешението за изпращане на SMS, за да активирате тази функция.</string>
+    <string name="sms_draft_banner_to">До %1$s</string>
+    <string name="sms_draft_banner_send">Изпрати</string>
+    <string name="sms_draft_banner_discard">Откажи</string>
+    <string name="sms_draft_banner_sending">Изпращане…</string>
+    <string name="sms_draft_banner_sent">Изпратено</string>
+    <string name="sms_draft_banner_failed">Неуспех: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Затвори</string>
 </resources>

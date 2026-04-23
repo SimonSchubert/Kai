@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      SMS read/send are opt-in, FOSS-only features. These permissions are intentionally
+      declared only in the `foss` product flavor so the Play Store variant never
+      requests them (Play policy restricts READ_SMS and SEND_SMS to default SMS
+      handlers). The SMS feature gates itself at runtime on READ_SMS being declared
+      in the merged manifest, so the Play variant never shows the feature at all.
+      Read and send are independent user opt-ins at runtime.
+    -->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+
+</manifest>

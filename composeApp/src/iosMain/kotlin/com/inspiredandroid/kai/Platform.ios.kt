@@ -56,6 +56,8 @@ actual val defaultUiScale: Float = 1.0f
 
 actual val isEmailSupported: Boolean = true
 
+actual val isSmsSupported: Boolean = false
+
 actual val isSplinterlandsSupported: Boolean = false
 
 @OptIn(kotlinx.cinterop.ExperimentalForeignApi::class, kotlinx.cinterop.BetaInteropApi::class)

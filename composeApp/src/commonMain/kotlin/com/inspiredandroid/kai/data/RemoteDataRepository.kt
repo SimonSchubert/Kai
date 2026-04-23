@@ -34,6 +34,12 @@ import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.sms.SmsPoller
+import com.inspiredandroid.kai.sms.SmsReader
+import com.inspiredandroid.kai.sms.SmsSendResult
+import com.inspiredandroid.kai.sms.SmsSender
+import com.inspiredandroid.kai.tools.SmsPermissionController
+import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
 import com.inspiredandroid.kai.ui.chat.toAnthropicContentBlocks
@@ -115,6 +121,13 @@ class RemoteDataRepository(
     private val heartbeatManager: HeartbeatManager,
     private val emailStore: EmailStore,
     private val emailPoller: EmailPoller,
+    private val smsStore: SmsStore,
+    private val smsPoller: SmsPoller,
+    private val smsReader: SmsReader,
+    private val smsPermissionController: SmsPermissionController,
+    private val smsSendPermissionController: SmsSendPermissionController,
+    private val smsSender: SmsSender,
+    private val smsDraftStore: SmsDraftStore,
     private val mcpServerManager: McpServerManager,
     private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
@@ -1797,6 +1810,65 @@ class RemoteDataRepository(
 
     override fun setEmailPollIntervalMinutes(minutes: Int) {
         appSettings.setEmailPollIntervalMinutes(minutes)
+    }
+
+    override fun isSmsEnabled(): Boolean = appSettings.isSmsEnabled()
+
+    override fun setSmsEnabled(enabled: Boolean) {
+        appSettings.setSmsEnabled(enabled)
+    }
+
+    override fun getSmsPollIntervalMinutes(): Int = appSettings.getSmsPollIntervalMinutes()
+
+    override fun setSmsPollIntervalMinutes(minutes: Int) {
+        appSettings.setSmsPollIntervalMinutes(minutes)
+    }
+
+    override fun getPendingSmsCount(): Int = smsStore.getPending().size
+
+    override fun getSmsSyncState(): SmsSyncState = smsStore.getSyncState()
+
+    override fun hasSmsPermission(): Boolean = smsReader.hasPermission()
+
+    override suspend fun requestSmsPermission(): Boolean = smsPermissionController.requestPermission()
+
+    override suspend fun pollSms() {
+        smsPoller.poll()
+    }
+
+    override fun isSmsSendEnabled(): Boolean = appSettings.isSmsSendEnabled()
+
+    override fun setSmsSendEnabled(enabled: Boolean) {
+        appSettings.setSmsSendEnabled(enabled)
+    }
+
+    override fun hasSmsSendPermission(): Boolean = smsSender.hasPermission()
+
+    override suspend fun requestSmsSendPermission(): Boolean = smsSendPermissionController.requestPermission()
+
+    override val smsDrafts: StateFlow<List<SmsDraft>> = smsDraftStore.drafts
+
+    // Flips the draft to SENDING, delegates to SmsSender, then updates to SENT/FAILED.
+    // Explicit user-triggered (never AI-triggered) — the banner is the gate.
+    override suspend fun sendSmsDraft(draftId: String): Boolean {
+        val draft = smsDraftStore.getDraft(draftId) ?: return false
+        if (draft.status != SmsDraftStatus.PENDING) return false
+        smsDraftStore.updateStatus(draftId, SmsDraftStatus.SENDING)
+        return when (val result = smsSender.send(draft.address, draft.body)) {
+            is SmsSendResult.Success -> {
+                smsDraftStore.updateStatus(draftId, SmsDraftStatus.SENT)
+                true
+            }
+
+            is SmsSendResult.Failure -> {
+                smsDraftStore.updateStatus(draftId, SmsDraftStatus.FAILED, result.message)
+                false
+            }
+        }
+    }
+
+    override suspend fun discardSmsDraft(draftId: String) {
+        smsDraftStore.removeDraft(draftId)
     }
 
     override fun getUiScale(): Float = appSettings.getUiScale()

@@ -15,12 +15,17 @@ import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
+import com.inspiredandroid.kai.data.SmsDraftStore
+import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
+import com.inspiredandroid.kai.sms.SmsReader
+import com.inspiredandroid.kai.sms.SmsSender
+import com.inspiredandroid.kai.sms.declaresReadSms
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.CalendarRepository
 import com.inspiredandroid.kai.tools.CalendarResult
@@ -33,6 +38,7 @@ import com.inspiredandroid.kai.tools.NotificationResult
 import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
+import com.inspiredandroid.kai.tools.SmsTools
 import com.inspiredandroid.kai.tools.WebSearchTool
 import com.russhwolf.settings.BuildConfig
 import com.russhwolf.settings.Settings
@@ -72,6 +78,15 @@ actual val currentPlatform: Platform = Platform.Mobile.Android
 actual val defaultUiScale: Float = 1.0f
 
 actual val isEmailSupported: Boolean = true
+
+// Evaluated lazily because we need the Koin-injected Context. Whether READ_SMS
+// is declared in the merged manifest is a build-time property (foss flavor adds
+// it, playStore does not), so caching the first result is safe for the process
+// lifetime.
+actual val isSmsSupported: Boolean by lazy {
+    val context: Context by inject(Context::class.java)
+    context.declaresReadSms()
+}
 
 actual val isSplinterlandsSupported: Boolean = true
 
@@ -139,29 +154,42 @@ actual fun createLegacySettings(): Settings? {
 }
 
 // Tool definitions for Android platform
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions + listOf(
-    ToolInfo(
-        id = "send_notification",
-        name = "Send Notification",
-        description = "Send a push notification to the device",
-        nameRes = Res.string.tool_send_notification_name,
-        descriptionRes = Res.string.tool_send_notification_description,
-    ),
-    ToolInfo(
-        id = "create_calendar_event",
-        name = "Create Calendar Event",
-        description = "Create a calendar event on the user's device",
-        nameRes = Res.string.tool_create_calendar_event_name,
-        descriptionRes = Res.string.tool_create_calendar_event_description,
-    ),
-    ToolInfo(
-        id = "set_alarm",
-        name = "Set Alarm",
-        description = "Set an alarm or countdown timer on the device",
-        nameRes = Res.string.tool_set_alarm_name,
-        descriptionRes = Res.string.tool_set_alarm_description,
-    ),
-)
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = buildList {
+    addAll(CommonTools.commonToolDefinitions)
+    add(
+        ToolInfo(
+            id = "send_notification",
+            name = "Send Notification",
+            description = "Send a push notification to the device",
+            nameRes = Res.string.tool_send_notification_name,
+            descriptionRes = Res.string.tool_send_notification_description,
+        ),
+    )
+    add(
+        ToolInfo(
+            id = "create_calendar_event",
+            name = "Create Calendar Event",
+            description = "Create a calendar event on the user's device",
+            nameRes = Res.string.tool_create_calendar_event_name,
+            descriptionRes = Res.string.tool_create_calendar_event_description,
+        ),
+    )
+    add(
+        ToolInfo(
+            id = "set_alarm",
+            name = "Set Alarm",
+            description = "Set an alarm or countdown timer on the device",
+            nameRes = Res.string.tool_set_alarm_name,
+            descriptionRes = Res.string.tool_set_alarm_description,
+        ),
+    )
+    // Only surface SMS tools in builds that can actually read SMS. The `foss` flavor
+    // declares READ_SMS; the `playStore` flavor does not. Settings UI iterates over
+    // these definitions, so this gate keeps SMS tools off the Play Store settings screen.
+    if (isSmsSupported) {
+        addAll(SmsTools.smsToolDefinitions)
+    }
+}
 
 actual fun getAvailableTools(): List<Tool> {
     val context: Context by inject(Context::class.java)
@@ -368,6 +396,30 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))
+        }
+
+        // SMS read tools: triple-gated. `isSmsSupported` is only true on FOSS builds
+        // (READ_SMS declared in merged manifest). `isSmsEnabled()` is the user toggle.
+        // `hasPermission()` catches runtime revocation.
+        val smsReaderForTools: SmsReader? = if (isSmsSupported) {
+            val smsReader: SmsReader by inject(SmsReader::class.java)
+            smsReader
+        } else {
+            null
+        }
+        if (smsReaderForTools != null && appSettings.isSmsEnabled() && smsReaderForTools.hasPermission()) {
+            val smsStore: SmsStore by inject(SmsStore::class.java)
+            addAll(SmsTools.getSmsReadTools(smsStore, smsReaderForTools))
+        }
+
+        // SMS send tools: independently gated on the Send toggle + SEND_SMS permission.
+        // These only *stage* drafts — actual sending is user-triggered via the review banner.
+        if (smsReaderForTools != null && appSettings.isSmsSendEnabled()) {
+            val smsSender: SmsSender by inject(SmsSender::class.java)
+            if (smsSender.hasPermission()) {
+                val smsDraftStore: SmsDraftStore by inject(SmsDraftStore::class.java)
+                addAll(SmsTools.getSmsSendTools(smsDraftStore, smsReaderForTools, smsSender))
+            }
         }
 
         val mcpServerManager: McpServerManager by inject(McpServerManager::class.java)

@@ -260,4 +260,35 @@
     <string name="model_sort_date">تاریخ</string>
     <string name="model_sort_score">امتیاز</string>
     <string name="model_sort_context">زمینه</string>
+
+    <string name="tool_check_sms_name">بررسی پیامک</string>
+    <string name="tool_check_sms_description">فهرست پیامک‌های اخیر خوانده‌نشده</string>
+    <string name="tool_read_sms_name">خواندن پیامک</string>
+    <string name="tool_read_sms_description">خواندن متن کامل یک پیامک</string>
+    <string name="tool_search_sms_name">جستجوی پیامک</string>
+    <string name="tool_search_sms_description">جستجوی پیامک‌ها بر اساس فرستنده یا متن</string>
+    <string name="tool_send_sms_name">ارسال پیامک</string>
+    <string name="tool_send_sms_description">پیش‌نویس پیامک برای بررسی و ارسال توسط کاربر</string>
+    <string name="tool_reply_sms_name">پاسخ به پیامک</string>
+    <string name="tool_reply_sms_description">پیش‌نویس پاسخ به پیامک برای بررسی و ارسال توسط کاربر</string>
+    <string name="settings_sms">پیامک</string>
+    <string name="settings_sms_description">پیامک‌های ورودی در پس‌زمینه بررسی می‌شوند و توسط ضربان قلب دریافت می‌شوند.</string>
+    <string name="settings_sms_permission_required">برای فعال‌سازی این قابلیت، مجوز پیامک را اعطا کنید.</string>
+    <string name="settings_sms_permission_button">اعطای مجوز</string>
+    <string name="settings_sms_poll_interval">بررسی هر %1$d دقیقه</string>
+    <string name="settings_sms_queued">%1$d پیامک در انتظار ضربان قلب</string>
+    <string name="settings_sms_last_poll">آخرین بررسی موفق %1$s</string>
+    <string name="settings_sms_poll_failed">آخرین بررسی ناموفق %1$s</string>
+    <string name="settings_sms_refresh">اکنون بازخوانی کن</string>
+    <string name="settings_sms_read_label">خواندن پیامک</string>
+    <string name="settings_sms_send_label">ارسال پیامک</string>
+    <string name="settings_sms_send_description">پیش‌نویس‌ها پیش از ارسال برای بررسی شما بالای گفتگو نمایش داده می‌شوند.</string>
+    <string name="settings_sms_send_permission_required">برای فعال‌سازی این قابلیت، مجوز ارسال پیامک را اعطا کنید.</string>
+    <string name="sms_draft_banner_to">به %1$s</string>
+    <string name="sms_draft_banner_send">ارسال</string>
+    <string name="sms_draft_banner_discard">صرف‌نظر</string>
+    <string name="sms_draft_banner_sending">در حال ارسال…</string>
+    <string name="sms_draft_banner_sent">ارسال شد</string>
+    <string name="sms_draft_banner_failed">ناموفق: %1$s</string>
+    <string name="sms_draft_banner_dismiss">بستن</string>
 </resources>

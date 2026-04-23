@@ -261,4 +261,35 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="model_sort_date">Fecha</string>
     <string name="model_sort_score">Puntuación</string>
     <string name="model_sort_context">Contexto</string>
+
+    <string name="tool_check_sms_name">Revisar SMS</string>
+    <string name="tool_check_sms_description">Mostrar los SMS recientes no leídos</string>
+    <string name="tool_read_sms_name">Leer SMS</string>
+    <string name="tool_read_sms_description">Leer el contenido completo de un SMS</string>
+    <string name="tool_search_sms_name">Buscar SMS</string>
+    <string name="tool_search_sms_description">Buscar SMS por remitente o texto</string>
+    <string name="tool_send_sms_name">Enviar SMS</string>
+    <string name="tool_send_sms_description">Redactar un SMS para que el usuario lo revise y envíe</string>
+    <string name="tool_reply_sms_name">Responder SMS</string>
+    <string name="tool_reply_sms_description">Redactar una respuesta a un SMS para que el usuario la revise y envíe</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Los SMS entrantes se consultan en segundo plano y los recoge el latido.</string>
+    <string name="settings_sms_permission_required">Otorga el permiso de SMS para activar esta función.</string>
+    <string name="settings_sms_permission_button">Otorgar permiso</string>
+    <string name="settings_sms_poll_interval">Consultar cada %1$d minutos</string>
+    <string name="settings_sms_queued">%1$d SMS en espera para el latido</string>
+    <string name="settings_sms_last_poll">Última consulta exitosa %1$s</string>
+    <string name="settings_sms_poll_failed">Última consulta fallida %1$s</string>
+    <string name="settings_sms_refresh">Actualizar ahora</string>
+    <string name="settings_sms_read_label">Leer SMS</string>
+    <string name="settings_sms_send_label">Enviar SMS</string>
+    <string name="settings_sms_send_description">Los borradores aparecen encima del chat para revisarlos antes de enviar.</string>
+    <string name="settings_sms_send_permission_required">Otorga el permiso de Enviar SMS para activar esta función.</string>
+    <string name="sms_draft_banner_to">Para %1$s</string>
+    <string name="sms_draft_banner_send">Enviar</string>
+    <string name="sms_draft_banner_discard">Descartar</string>
+    <string name="sms_draft_banner_sending">Enviando…</string>
+    <string name="sms_draft_banner_sent">Enviado</string>
+    <string name="sms_draft_banner_failed">Error: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Cerrar</string>
 </resources>

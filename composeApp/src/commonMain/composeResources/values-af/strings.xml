@@ -261,4 +261,35 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Telling</string>
     <string name="model_sort_context">Konteks</string>
+
+    <string name="tool_check_sms_name">Kontroleer SMS</string>
+    <string name="tool_check_sms_description">Lys onlangse ongelese SMS-boodskappe</string>
+    <string name="tool_read_sms_name">Lees SMS</string>
+    <string name="tool_read_sms_description">Lees die volledige inhoud van \'n SMS-boodskap</string>
+    <string name="tool_search_sms_name">Soek SMS</string>
+    <string name="tool_search_sms_description">Soek SMS-boodskappe volgens afstuurder of teks</string>
+    <string name="tool_send_sms_name">Stuur SMS</string>
+    <string name="tool_send_sms_description">Stel \'n SMS op vir die gebruiker om te hersien en te stuur</string>
+    <string name="tool_reply_sms_name">Beantwoord SMS</string>
+    <string name="tool_reply_sms_description">Stel \'n antwoord op \'n SMS op vir die gebruiker om te hersien en te stuur</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Inkomende SMS\'e word op die agtergrond opgehaal en deur die heartbeat opgetel.</string>
+    <string name="settings_sms_permission_required">Verleen die SMS-toestemming om hierdie kenmerk te aktiveer.</string>
+    <string name="settings_sms_permission_button">Verleen toestemming</string>
+    <string name="settings_sms_poll_interval">Peul elke %1$d minute</string>
+    <string name="settings_sms_queued">%1$d SMS in tou vir hartklop</string>
+    <string name="settings_sms_last_poll">Laaste geslaagde nagaan %1$s</string>
+    <string name="settings_sms_poll_failed">Laaste nagaan het misluk %1$s</string>
+    <string name="settings_sms_refresh">Verfris nou</string>
+    <string name="settings_sms_read_label">Lees SMS</string>
+    <string name="settings_sms_send_label">Stuur SMS</string>
+    <string name="settings_sms_send_description">Konsepte verskyn bo die klets vir jou hersiening voor stuur.</string>
+    <string name="settings_sms_send_permission_required">Verleen die Stuur SMS-toestemming om hierdie kenmerk te aktiveer.</string>
+    <string name="sms_draft_banner_to">Aan %1$s</string>
+    <string name="sms_draft_banner_send">Stuur</string>
+    <string name="sms_draft_banner_discard">Verwerp</string>
+    <string name="sms_draft_banner_sending">Stuur tans…</string>
+    <string name="sms_draft_banner_sent">Gestuur</string>
+    <string name="sms_draft_banner_failed">Misluk: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Sluit</string>
 </resources>

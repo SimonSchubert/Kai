@@ -260,4 +260,35 @@
     <string name="model_sort_date">Дата</string>
     <string name="model_sort_score">Бал</string>
     <string name="model_sort_context">Кантэкст</string>
+
+    <string name="tool_check_sms_name">Праверыць SMS</string>
+    <string name="tool_check_sms_description">Паказаць нядаўнія непрачытаныя SMS</string>
+    <string name="tool_read_sms_name">Прачытаць SMS</string>
+    <string name="tool_read_sms_description">Прачытаць поўны змест SMS-паведамлення</string>
+    <string name="tool_search_sms_name">Пошук SMS</string>
+    <string name="tool_search_sms_description">Пошук SMS па адпраўніку або тэксце</string>
+    <string name="tool_send_sms_name">Адправіць SMS</string>
+    <string name="tool_send_sms_description">Падрыхтаваць SMS для агляду і адпраўкі карыстальнікам</string>
+    <string name="tool_reply_sms_name">Адказаць на SMS</string>
+    <string name="tool_reply_sms_description">Падрыхтаваць адказ на SMS для агляду і адпраўкі карыстальнікам</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Уваходныя SMS правяраюцца ў фоне і падхопліваюцца сэрцабіццем.</string>
+    <string name="settings_sms_permission_required">Дайце дазвол на SMS, каб уключыць гэтую функцыю.</string>
+    <string name="settings_sms_permission_button">Даць дазвол</string>
+    <string name="settings_sms_poll_interval">Правяраць кожныя %1$d хв.</string>
+    <string name="settings_sms_queued">%1$d SMS у чарзе для сэрцабіцця</string>
+    <string name="settings_sms_last_poll">Апошняя паспяховая праверка %1$s</string>
+    <string name="settings_sms_poll_failed">Апошняя праверка не ўдалася %1$s</string>
+    <string name="settings_sms_refresh">Абнавіць зараз</string>
+    <string name="settings_sms_read_label">Прачытаць SMS</string>
+    <string name="settings_sms_send_label">Адправіць SMS</string>
+    <string name="settings_sms_send_description">Чарнавікі з\'яўляюцца над чатам для праверкі перад адпраўкай.</string>
+    <string name="settings_sms_send_permission_required">Дайце дазвол на адпраўку SMS, каб уключыць гэтую функцыю.</string>
+    <string name="sms_draft_banner_to">Каму %1$s</string>
+    <string name="sms_draft_banner_send">Адправіць</string>
+    <string name="sms_draft_banner_discard">Адхіліць</string>
+    <string name="sms_draft_banner_sending">Адпраўка…</string>
+    <string name="sms_draft_banner_sent">Адпраўлена</string>
+    <string name="sms_draft_banner_failed">Памылка: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Закрыць</string>
 </resources>

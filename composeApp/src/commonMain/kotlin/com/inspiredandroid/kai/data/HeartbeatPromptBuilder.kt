@@ -16,6 +16,13 @@ internal data class HeartbeatPendingEmail(
     val preview: String,
 )
 
+/** A pending (polled-but-not-yet-heartbeat-picked-up) SMS rendered into the `## New SMS` section. */
+internal data class HeartbeatPendingSms(
+    val id: Long,
+    val from: String,
+    val preview: String,
+)
+
 /** Memory promotion candidate rendered into the `## Promotion Candidates` section. */
 internal data class HeartbeatPromotionCandidate(
     val key: String,
@@ -33,6 +40,7 @@ internal data class HeartbeatPromotionCandidate(
  * @param pendingTasks time/cron tasks to include in the `## Pending Tasks` section (heartbeat tasks belong to [heartbeatAdditions] instead); empty list = section omitted
  * @param emailAccounts email account statuses; empty list = section omitted
  * @param pendingEmails new emails polled since the last heartbeat pickup; empty list = section omitted
+ * @param pendingSms new SMS polled since the last heartbeat pickup; empty list = section omitted
  * @param promotionCandidates memory promotion candidates; empty list = section omitted
  */
 internal fun buildHeartbeatPrompt(
@@ -42,6 +50,7 @@ internal fun buildHeartbeatPrompt(
     pendingTasks: List<ScheduledTask>,
     emailAccounts: List<EmailAccountSummary>,
     pendingEmails: List<HeartbeatPendingEmail>,
+    pendingSms: List<HeartbeatPendingSms>,
     promotionCandidates: List<HeartbeatPromotionCandidate>,
 ): String = buildString {
     append(customOrDefaultPrompt)
@@ -118,6 +127,23 @@ internal fun buildHeartbeatPrompt(
             append(" [")
             append(msg.accountEmail)
             append("]")
+            if (msg.preview.isNotBlank()) {
+                append(": ")
+                append(msg.preview)
+            }
+            append('\n')
+        }
+    }
+
+    if (pendingSms.isNotEmpty()) {
+        append("\n## New SMS\n")
+        append("These SMS arrived since the last heartbeat. Summarise briefly; only flag items that genuinely need attention.\n")
+        for (msg in pendingSms) {
+            append("- **")
+            append(msg.from.ifBlank { "(unknown sender)" })
+            append("** (id: ")
+            append(msg.id)
+            append(")")
             if (msg.preview.isNotBlank()) {
                 append(": ")
                 append(msg.preview)

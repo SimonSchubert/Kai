@@ -261,4 +261,35 @@
     <string name="model_sort_date">ቀን</string>
     <string name="model_sort_score">ነጥብ</string>
     <string name="model_sort_context">አውድ</string>
+
+    <string name="tool_check_sms_name">SMS ይፈትሹ</string>
+    <string name="tool_check_sms_description">የቅርብ ጊዜ ያልተነበቡ SMS መልዕክቶችን ይዘርዝሩ</string>
+    <string name="tool_read_sms_name">SMS ያንብቡ</string>
+    <string name="tool_read_sms_description">የSMS መልዕክት ሙሉ ይዘት ያንብቡ</string>
+    <string name="tool_search_sms_name">SMS ይፈልጉ</string>
+    <string name="tool_search_sms_description">SMS መልዕክቶችን በላኪ ወይም በጽሑፍ ይፈልጉ</string>
+    <string name="tool_send_sms_name">SMS ላክ</string>
+    <string name="tool_send_sms_description">ተጠቃሚ እንዲገመግም እና እንዲልክ SMS ረቂቅ ያድርጉ</string>
+    <string name="tool_reply_sms_name">ለSMS ምላሽ ይስጡ</string>
+    <string name="tool_reply_sms_description">ተጠቃሚ እንዲገመግም እና እንዲልክ ለSMS ምላሽ ረቂቅ ያድርጉ</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">የመጪ SMS በጀርባ ይፈለጋል እና በልብ ምት ይወሰዳል።</string>
+    <string name="settings_sms_permission_required">ይህንን ባህሪ ለማንቃት የSMS ፍቃድ ይስጡ።</string>
+    <string name="settings_sms_permission_button">ፍቃድ ይስጡ</string>
+    <string name="settings_sms_poll_interval">በእያንዳንዱ %1$d ደቂቃ ይፈልጋል</string>
+    <string name="settings_sms_queued">%1$d SMS ለየልብ ምት ይጠብቃል</string>
+    <string name="settings_sms_last_poll">የመጨረሻ የተሳካ ፍተሻ %1$s</string>
+    <string name="settings_sms_poll_failed">የመጨረሻ ፍተሻ አልተሳካም %1$s</string>
+    <string name="settings_sms_refresh">አሁን አድስ</string>
+    <string name="settings_sms_read_label">SMS ያንብቡ</string>
+    <string name="settings_sms_send_label">SMS ላክ</string>
+    <string name="settings_sms_send_description">ረቂቆች ከመላክዎ በፊት ለግምገማ ከውይይቱ በላይ ይታያሉ።</string>
+    <string name="settings_sms_send_permission_required">ይህንን ባህሪ ለማንቃት የSMS መላክ ፍቃድ ይስጡ።</string>
+    <string name="sms_draft_banner_to">ለ %1$s</string>
+    <string name="sms_draft_banner_send">ላክ</string>
+    <string name="sms_draft_banner_discard">ጣል</string>
+    <string name="sms_draft_banner_sending">በመላክ ላይ…</string>
+    <string name="sms_draft_banner_sent">ተልኳል</string>
+    <string name="sms_draft_banner_failed">አልተሳካም: %1$s</string>
+    <string name="sms_draft_banner_dismiss">ዝጋ</string>
 </resources>

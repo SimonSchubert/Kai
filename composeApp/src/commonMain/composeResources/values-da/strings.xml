@@ -261,4 +261,35 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="model_sort_date">Dato</string>
     <string name="model_sort_score">Score</string>
     <string name="model_sort_context">Kontekst</string>
+
+    <string name="tool_check_sms_name">Tjek SMS</string>
+    <string name="tool_check_sms_description">Vis seneste ulæste SMS-beskeder</string>
+    <string name="tool_read_sms_name">Læs SMS</string>
+    <string name="tool_read_sms_description">Læs hele indholdet af en SMS</string>
+    <string name="tool_search_sms_name">Søg i SMS</string>
+    <string name="tool_search_sms_description">Søg SMS-beskeder efter afsender eller tekst</string>
+    <string name="tool_send_sms_name">Send SMS</string>
+    <string name="tool_send_sms_description">Udkast en SMS til brugerens gennemsyn og afsendelse</string>
+    <string name="tool_reply_sms_name">Besvar SMS</string>
+    <string name="tool_reply_sms_description">Udkast et svar på en SMS til brugerens gennemsyn og afsendelse</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Indgående SMS hentes i baggrunden og opsamles af hjerteslaget.</string>
+    <string name="settings_sms_permission_required">Giv SMS-tilladelsen for at aktivere denne funktion.</string>
+    <string name="settings_sms_permission_button">Giv tilladelse</string>
+    <string name="settings_sms_poll_interval">Hent hvert %1$d. minut</string>
+    <string name="settings_sms_queued">%1$d SMS i kø til hjerteslag</string>
+    <string name="settings_sms_last_poll">Seneste vellykkede hentning %1$s</string>
+    <string name="settings_sms_poll_failed">Seneste hentning mislykkedes %1$s</string>
+    <string name="settings_sms_refresh">Opdater nu</string>
+    <string name="settings_sms_read_label">Læs SMS</string>
+    <string name="settings_sms_send_label">Send SMS</string>
+    <string name="settings_sms_send_description">Udkast vises over chatten til gennemsyn før afsendelse.</string>
+    <string name="settings_sms_send_permission_required">Giv tilladelsen Send SMS for at aktivere denne funktion.</string>
+    <string name="sms_draft_banner_to">Til %1$s</string>
+    <string name="sms_draft_banner_send">Send</string>
+    <string name="sms_draft_banner_discard">Kassér</string>
+    <string name="sms_draft_banner_sending">Sender…</string>
+    <string name="sms_draft_banner_sent">Sendt</string>
+    <string name="sms_draft_banner_failed">Mislykkedes: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Luk</string>
 </resources>

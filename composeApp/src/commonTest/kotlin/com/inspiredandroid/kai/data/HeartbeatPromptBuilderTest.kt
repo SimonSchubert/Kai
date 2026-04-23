@@ -34,6 +34,7 @@ class HeartbeatPromptBuilderTest {
         pendingTasks: List<ScheduledTask> = emptyList(),
         emailAccounts: List<EmailAccountSummary> = emptyList(),
         pendingEmails: List<HeartbeatPendingEmail> = emptyList(),
+        pendingSms: List<HeartbeatPendingSms> = emptyList(),
         promotionCandidates: List<HeartbeatPromotionCandidate> = emptyList(),
     ) = buildHeartbeatPrompt(
         customOrDefaultPrompt = customOrDefaultPrompt,
@@ -42,6 +43,7 @@ class HeartbeatPromptBuilderTest {
         pendingTasks = pendingTasks,
         emailAccounts = emailAccounts,
         pendingEmails = pendingEmails,
+        pendingSms = pendingSms,
         promotionCandidates = promotionCandidates,
     )
 
@@ -183,6 +185,35 @@ class HeartbeatPromptBuilderTest {
     }
 
     @Test
+    fun `includes New SMS with sender and preview`() {
+        val out = build(
+            pendingSms = listOf(
+                HeartbeatPendingSms(
+                    id = 42L,
+                    from = "+1234567890",
+                    preview = "Your verification code is 123456",
+                ),
+            ),
+        )
+        assertTrue("## New SMS" in out)
+        assertTrue("- **+1234567890** (id: 42): Your verification code is 123456" in out)
+    }
+
+    @Test
+    fun `New SMS renders placeholder for blank sender and omits empty preview`() {
+        val out = build(
+            pendingSms = listOf(HeartbeatPendingSms(id = 7L, from = "", preview = "")),
+        )
+        assertTrue("- **(unknown sender)** (id: 7)\n" in out)
+    }
+
+    @Test
+    fun `omits New SMS when empty`() {
+        val out = build()
+        assertFalse("## New SMS" in out)
+    }
+
+    @Test
     fun `includes Promotion Candidates with hit count and category`() {
         val out = build(
             promotionCandidates = listOf(
@@ -223,6 +254,9 @@ class HeartbeatPromptBuilderTest {
                     preview = "hello",
                 ),
             ),
+            pendingSms = listOf(
+                HeartbeatPendingSms(id = 99L, from = "+15551234", preview = "code 4242"),
+            ),
             promotionCandidates = listOf(
                 HeartbeatPromotionCandidate(
                     key = "style",
@@ -243,6 +277,8 @@ class HeartbeatPromptBuilderTest {
             "- **me@example.com**: 2 unread",
             "## New Emails",
             "- **Hi** — sender@example.com [me@example.com]: hello",
+            "## New SMS",
+            "- **+15551234** (id: 99): code 4242",
             "## Promotion Candidates",
             "reinforced 5+ times",
             "- **style** (hits: 5, category: PREFERENCE): concise",

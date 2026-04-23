@@ -228,6 +228,7 @@ import kai.composeapp.generated.resources.settings_scheduled_tasks
 import kai.composeapp.generated.resources.settings_scheduled_tasks_cancel
 import kai.composeapp.generated.resources.settings_scheduled_tasks_description
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
+import kai.composeapp.generated.resources.settings_sms
 import kai.composeapp.generated.resources.settings_soul
 import kai.composeapp.generated.resources.settings_soul_description
 import kai.composeapp.generated.resources.settings_soul_reset
@@ -1715,6 +1716,24 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                             )
                         }
                     }
+                    if (uiState.showSmsSection) {
+                        SettingsCard {
+                            SmsSection(
+                                isSmsEnabled = uiState.isSmsEnabled,
+                                permissionGranted = uiState.smsPermissionGranted,
+                                pollIntervalMinutes = uiState.smsPollIntervalMinutes,
+                                pendingCount = uiState.smsPendingCount,
+                                syncState = uiState.smsSyncState,
+                                isRefreshing = uiState.isRefreshingSms,
+                                isSmsSendEnabled = uiState.isSmsSendEnabled,
+                                sendPermissionGranted = uiState.smsSendPermissionGranted,
+                                onToggleSms = actions.onToggleSms,
+                                onChangePollInterval = actions.onChangeSmsPollInterval,
+                                onRefresh = actions.onRefreshSms,
+                                onToggleSmsSend = actions.onToggleSmsSend,
+                            )
+                        }
+                    }
                 }
             }
         } else {
@@ -1772,6 +1791,24 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                             onRemoveAccount = actions.onRemoveEmailAccount,
                             onChangePollInterval = actions.onChangeEmailPollInterval,
                             onRefreshAccount = actions.onRefreshEmailAccount,
+                        )
+                    }
+                }
+                if (uiState.showSmsSection) {
+                    SettingsCard {
+                        SmsSection(
+                            isSmsEnabled = uiState.isSmsEnabled,
+                            permissionGranted = uiState.smsPermissionGranted,
+                            pollIntervalMinutes = uiState.smsPollIntervalMinutes,
+                            pendingCount = uiState.smsPendingCount,
+                            syncState = uiState.smsSyncState,
+                            isRefreshing = uiState.isRefreshingSms,
+                            isSmsSendEnabled = uiState.isSmsSendEnabled,
+                            sendPermissionGranted = uiState.smsSendPermissionGranted,
+                            onToggleSms = actions.onToggleSms,
+                            onChangePollInterval = actions.onChangeSmsPollInterval,
+                            onRefresh = actions.onRefreshSms,
+                            onToggleSmsSend = actions.onToggleSmsSend,
                         )
                     }
                 }
@@ -2050,6 +2087,7 @@ private fun sectionDisplayName(section: ImportSection): String = when (section) 
     ImportSection.SCHEDULING -> stringResource(Res.string.settings_import_section_scheduling)
     ImportSection.HEARTBEAT -> stringResource(Res.string.settings_import_section_heartbeat)
     ImportSection.EMAIL -> stringResource(Res.string.settings_import_section_email)
+    ImportSection.SMS -> stringResource(Res.string.settings_sms)
     ImportSection.SPLINTERLANDS -> "Splinterlands"
     ImportSection.TOOLS -> stringResource(Res.string.settings_import_section_tools)
     ImportSection.MCP -> stringResource(Res.string.settings_import_section_mcp)

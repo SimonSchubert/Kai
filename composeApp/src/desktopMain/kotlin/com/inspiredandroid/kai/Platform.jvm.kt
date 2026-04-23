@@ -82,6 +82,8 @@ actual val defaultUiScale: Float = if (currentPlatform is Platform.Desktop.Linux
 
 actual val isEmailSupported: Boolean = true
 
+actual val isSmsSupported: Boolean = false
+
 actual val isSplinterlandsSupported: Boolean = true
 
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray {

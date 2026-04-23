@@ -13,6 +13,7 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.isSmsSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.AnthropicInvalidApiKeyException
@@ -92,6 +93,14 @@ class SettingsViewModel(
         emailPollIntervalMinutes = dataRepository.getEmailPollIntervalMinutes(),
         emailPendingCount = dataRepository.getPendingEmailCount(),
         emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
+        showSmsSection = isSmsSupported,
+        isSmsEnabled = dataRepository.isSmsEnabled(),
+        smsPermissionGranted = dataRepository.hasSmsPermission(),
+        smsPollIntervalMinutes = dataRepository.getSmsPollIntervalMinutes(),
+        smsPendingCount = dataRepository.getPendingSmsCount(),
+        smsSyncState = dataRepository.getSmsSyncState(),
+        isSmsSendEnabled = dataRepository.isSmsSendEnabled(),
+        smsSendPermissionGranted = dataRepository.hasSmsSendPermission(),
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         uiScale = dataRepository.getUiScale(),
         showUiScale = currentPlatform is Platform.Desktop,
@@ -134,6 +143,10 @@ class SettingsViewModel(
         onRemoveEmailAccount = ::onRemoveEmailAccount,
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
         onRefreshEmailAccount = ::onRefreshEmailAccount,
+        onToggleSms = ::onToggleSms,
+        onChangeSmsPollInterval = ::onChangeSmsPollInterval,
+        onRefreshSms = ::onRefreshSms,
+        onToggleSmsSend = ::onToggleSmsSend,
         onToggleFreeFallback = ::onToggleFreeFallback,
         onChangeUiScale = ::onChangeUiScale,
         onAddMcpServer = ::onAddMcpServer,
@@ -473,6 +486,65 @@ class SettingsViewModel(
                     emailPendingCount = dataRepository.getPendingEmailCount(),
                 )
             }
+        }
+    }
+
+    private fun onToggleSms(enabled: Boolean) {
+        if (enabled && !dataRepository.hasSmsPermission()) {
+            // Ask for the OS permission first; only flip the toggle on if it's granted.
+            viewModelScope.launch(backgroundDispatcher) {
+                val granted = dataRepository.requestSmsPermission()
+                _state.update { it.copy(smsPermissionGranted = granted, isSmsEnabled = granted) }
+                if (granted) {
+                    dataRepository.setSmsEnabled(true)
+                    // First poll seeds lastSeenId to the current inbox max, so the AI
+                    // isn't drowned in historical messages on opt-in.
+                    dataRepository.pollSms()
+                    _state.update {
+                        it.copy(
+                            smsSyncState = dataRepository.getSmsSyncState(),
+                            smsPendingCount = dataRepository.getPendingSmsCount(),
+                        )
+                    }
+                }
+            }
+        } else {
+            dataRepository.setSmsEnabled(enabled)
+            _state.update { it.copy(isSmsEnabled = enabled) }
+        }
+    }
+
+    private fun onChangeSmsPollInterval(minutes: Int) {
+        dataRepository.setSmsPollIntervalMinutes(minutes)
+        _state.update { it.copy(smsPollIntervalMinutes = minutes) }
+    }
+
+    private fun onRefreshSms() {
+        if (_state.value.isRefreshingSms) return
+        _state.update { it.copy(isRefreshingSms = true) }
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.pollSms()
+            _state.update {
+                it.copy(
+                    isRefreshingSms = false,
+                    smsSyncState = dataRepository.getSmsSyncState(),
+                    smsPendingCount = dataRepository.getPendingSmsCount(),
+                    smsPermissionGranted = dataRepository.hasSmsPermission(),
+                )
+            }
+        }
+    }
+
+    private fun onToggleSmsSend(enabled: Boolean) {
+        if (enabled && !dataRepository.hasSmsSendPermission()) {
+            viewModelScope.launch(backgroundDispatcher) {
+                val granted = dataRepository.requestSmsSendPermission()
+                _state.update { it.copy(smsSendPermissionGranted = granted, isSmsSendEnabled = granted) }
+                if (granted) dataRepository.setSmsSendEnabled(true)
+            }
+        } else {
+            dataRepository.setSmsSendEnabled(enabled)
+            _state.update { it.copy(isSmsSendEnabled = enabled) }
         }
     }
 

@@ -3,7 +3,9 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.isSmsSupported
 import com.inspiredandroid.kai.sendHeartbeatNotification
+import com.inspiredandroid.kai.sms.SmsPoller
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import com.inspiredandroid.kai.ui.markdown.toSpeakableText
 import kotlinx.coroutines.CoroutineName
@@ -27,6 +29,8 @@ class TaskScheduler(
     private val heartbeatManager: HeartbeatManager? = null,
     private val emailStore: EmailStore? = null,
     private val emailPoller: EmailPoller? = null,
+    private val smsStore: SmsStore? = null,
+    private val smsPoller: SmsPoller? = null,
     private val enabled: Boolean = true,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) {
@@ -109,13 +113,14 @@ class TaskScheduler(
                 // Heartbeat check
                 if (!isLoadingCheck() && heartbeatManager?.isHeartbeatDue() == true) {
                     val pendingEmails = emailStore?.getPending().orEmpty()
+                    val pendingSms = smsStore?.getPending().orEmpty()
                     try {
                         val recentResponses = dataRepository.savedConversations.value
                             .find { it.type == Conversation.TYPE_HEARTBEAT }
                             ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
                             ?.map { it.content }
                             ?: emptyList()
-                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses, pendingEmails)
+                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms)
                         val response = dataRepository.askWithTools(heartbeatPrompt, heartbeatManager.getConfig().heartbeatInstanceId)
                         heartbeatManager.markHeartbeatExecuted()
                         heartbeatManager.recordHeartbeat(success = true)
@@ -139,10 +144,13 @@ class TaskScheduler(
                                 }
                             }
                         }
-                        // Only clear the snapshot we actually showed to the AI — emails that
-                        // arrived during the call stay pending for the next heartbeat.
+                        // Only clear the snapshot we actually showed to the AI — messages
+                        // that arrived during the call stay pending for the next heartbeat.
                         if (pendingEmails.isNotEmpty()) {
                             emailStore?.removePending(pendingEmails)
+                        }
+                        if (pendingSms.isNotEmpty()) {
+                            smsStore?.removePending(pendingSms)
                         }
                     } catch (e: Exception) {
                         heartbeatManager.recordHeartbeat(success = false, error = e.message ?: e.toString())
@@ -152,6 +160,12 @@ class TaskScheduler(
                 // Email polling
                 if (!isLoadingCheck() && isEmailSupported && appSettings.isEmailEnabled() && emailStore != null) {
                     checkNewEmails { isLoadingCheck() }
+                }
+
+                // SMS polling — FOSS-only (gated on `isSmsSupported`, which is true only
+                // when READ_SMS is declared in the merged manifest).
+                if (!isLoadingCheck() && isSmsSupported && appSettings.isSmsEnabled() && smsStore != null && smsPoller != null) {
+                    checkNewSms()
                 }
             }
         }
@@ -189,6 +203,18 @@ class TaskScheduler(
             if (now - lastActivityMs < pollIntervalMs) continue
             emailPoller.poll(account)
         }
+    }
+
+    private suspend fun checkNewSms() {
+        if (smsStore == null || appSettings == null || smsPoller == null) return
+        val pollMinutes = appSettings.getSmsPollIntervalMinutes()
+        if (pollMinutes <= 0) return
+        val pollIntervalMs = pollMinutes * 60_000L
+        val now = Clock.System.now().toEpochMilliseconds()
+        val syncState = smsStore.getSyncState()
+        val lastActivityMs = maxOf(syncState.lastSyncEpochMs, syncState.lastAttemptEpochMs)
+        if (now - lastActivityMs < pollIntervalMs) return
+        smsPoller.poll()
     }
 
     private suspend fun handleTaskFailure(task: ScheduledTask, error: String? = null) {

@@ -86,6 +86,7 @@ import com.inspiredandroid.kai.ui.chat.composables.CircleIconButton
 import com.inspiredandroid.kai.ui.chat.composables.EmptyState
 import com.inspiredandroid.kai.ui.chat.composables.ErrorMessage
 import com.inspiredandroid.kai.ui.chat.composables.HeartbeatBanner
+import com.inspiredandroid.kai.ui.chat.composables.PendingSmsBanners
 import com.inspiredandroid.kai.ui.chat.composables.QuestionInput
 import com.inspiredandroid.kai.ui.chat.composables.ServiceSelector
 import com.inspiredandroid.kai.ui.chat.composables.TopBar
@@ -494,6 +495,12 @@ private fun ChatModeScreen(
                 onDismiss = {
                     uiState.actions.clearUnreadHeartbeat()
                 },
+            )
+
+            PendingSmsBanners(
+                drafts = uiState.smsDrafts,
+                onSend = uiState.actions.sendSmsDraft,
+                onDiscard = uiState.actions.discardSmsDraft,
             )
 
             uiState.warning?.let { warning ->

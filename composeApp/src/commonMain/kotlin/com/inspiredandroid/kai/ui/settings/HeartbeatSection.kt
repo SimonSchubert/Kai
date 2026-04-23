@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -41,6 +43,7 @@ import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.EmailSyncState
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiRangeSlider
 import com.inspiredandroid.kai.ui.components.KaiSlider
@@ -67,6 +70,18 @@ import kai.composeapp.generated.resources.settings_heartbeat_model_default
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
+import kai.composeapp.generated.resources.settings_sms_description
+import kai.composeapp.generated.resources.settings_sms_last_poll
+import kai.composeapp.generated.resources.settings_sms_permission_button
+import kai.composeapp.generated.resources.settings_sms_permission_required
+import kai.composeapp.generated.resources.settings_sms_poll_failed
+import kai.composeapp.generated.resources.settings_sms_poll_interval
+import kai.composeapp.generated.resources.settings_sms_queued
+import kai.composeapp.generated.resources.settings_sms_read_label
+import kai.composeapp.generated.resources.settings_sms_refresh
+import kai.composeapp.generated.resources.settings_sms_send_description
+import kai.composeapp.generated.resources.settings_sms_send_label
+import kai.composeapp.generated.resources.settings_sms_send_permission_required
 import kai.composeapp.generated.resources.settings_soul_reset
 import kai.composeapp.generated.resources.settings_soul_reset_cancel
 import kai.composeapp.generated.resources.settings_soul_save
@@ -556,6 +571,169 @@ internal fun EmailSection(
                 }
             }
         }
+    }
+}
+
+@Composable
+internal fun SmsSection(
+    isSmsEnabled: Boolean,
+    permissionGranted: Boolean,
+    pollIntervalMinutes: Int,
+    pendingCount: Int,
+    syncState: SmsSyncState,
+    isRefreshing: Boolean,
+    isSmsSendEnabled: Boolean,
+    sendPermissionGranted: Boolean,
+    onToggleSms: (Boolean) -> Unit,
+    onChangePollInterval: (Int) -> Unit,
+    onRefresh: () -> Unit,
+    onToggleSmsSend: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_sms_read_label),
+            description = stringResource(Res.string.settings_sms_description),
+            checked = isSmsEnabled,
+            onCheckedChange = onToggleSms,
+        )
+
+        if (isSmsEnabled) {
+            Spacer(Modifier.height(12.dp))
+
+            if (!permissionGranted) {
+                PermissionRequiredRow(
+                    message = stringResource(Res.string.settings_sms_permission_required),
+                    buttonLabel = stringResource(Res.string.settings_sms_permission_button),
+                    onGrant = { onToggleSms(true) },
+                )
+            } else {
+                if (pendingCount > 0) {
+                    Text(
+                        text = stringResource(Res.string.settings_sms_queued, pendingCount),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Spacer(Modifier.height(8.dp))
+                }
+
+                val smsPresets = listOf(0, 5, 15, 30, 60)
+                val neverLabel = stringResource(Res.string.settings_email_poll_never)
+                val initialSmsPos = smsPresets.indexOf(pollIntervalMinutes)
+                    .takeIf { it >= 0 }?.toFloat() ?: 0f
+                var smsSliderValue by remember(pollIntervalMinutes) {
+                    mutableStateOf(initialSmsPos)
+                }
+                val currentSmsMinutes = smsPresets[smsSliderValue.roundToInt()]
+                val smsDisplay = if (currentSmsMinutes == 0) neverLabel else "${currentSmsMinutes}m"
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.settings_sms_poll_interval, currentSmsMinutes),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                    Text(
+                        text = smsDisplay,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+                KaiSlider(
+                    value = smsSliderValue,
+                    onValueChange = { smsSliderValue = it },
+                    onValueChangeFinished = {
+                        onChangePollInterval(smsPresets[smsSliderValue.roundToInt()])
+                    },
+                    valueRange = 0f..(smsPresets.size - 1).toFloat(),
+                    steps = smsPresets.size - 2,
+                )
+
+                Spacer(Modifier.height(8.dp))
+
+                val nowMs = remember(syncState) { Clock.System.now().toEpochMilliseconds() }
+                val failed = syncState.lastError != null && syncState.lastAttemptEpochMs > 0
+                val timestampMs = if (failed) syncState.lastAttemptEpochMs else syncState.lastSyncEpochMs
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    if (timestampMs > 0) {
+                        val relative = formatPollRelative(nowMs - timestampMs)
+                        val text = if (failed) {
+                            stringResource(Res.string.settings_sms_poll_failed, relative)
+                        } else {
+                            stringResource(Res.string.settings_sms_last_poll, relative)
+                        }
+                        Text(
+                            text = text,
+                            style = MaterialTheme.typography.labelSmall,
+                            color = if (failed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    } else {
+                        Spacer(Modifier.width(1.dp))
+                    }
+                    IconButton(
+                        onClick = onRefresh,
+                        enabled = !isRefreshing,
+                        modifier = Modifier.handCursor(),
+                    ) {
+                        if (isRefreshing) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(18.dp),
+                                strokeWidth = 2.dp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = stringResource(Res.string.settings_sms_refresh),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_sms_send_label),
+            description = stringResource(Res.string.settings_sms_send_description),
+            checked = isSmsSendEnabled,
+            onCheckedChange = onToggleSmsSend,
+        )
+
+        if (isSmsSendEnabled && !sendPermissionGranted) {
+            Spacer(Modifier.height(8.dp))
+            PermissionRequiredRow(
+                message = stringResource(Res.string.settings_sms_send_permission_required),
+                buttonLabel = stringResource(Res.string.settings_sms_permission_button),
+                onGrant = { onToggleSmsSend(true) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun PermissionRequiredRow(
+    message: String,
+    buttonLabel: String,
+    onGrant: () -> Unit,
+) {
+    Text(
+        text = message,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(Modifier.height(8.dp))
+    OutlinedButton(onClick = onGrant) {
+        Text(buttonLabel)
     }
 }
 

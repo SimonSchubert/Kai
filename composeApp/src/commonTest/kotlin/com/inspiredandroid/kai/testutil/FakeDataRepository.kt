@@ -14,6 +14,8 @@ import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.ServiceInstance
+import com.inspiredandroid.kai.data.SmsDraft
+import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.data.SystemPromptVariant
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
@@ -477,6 +479,56 @@ class FakeDataRepository : DataRepository {
 
     override fun setEmailPollIntervalMinutes(minutes: Int) {
         emailPollIntervalMinutes = minutes
+    }
+
+    // SMS management
+    private var smsEnabled = false
+    private var smsPollIntervalMinutes = 15
+    private var smsPermissionGranted = false
+    private var smsSyncState = SmsSyncState()
+
+    override fun isSmsEnabled(): Boolean = smsEnabled
+
+    override fun setSmsEnabled(enabled: Boolean) {
+        smsEnabled = enabled
+    }
+
+    override fun getSmsPollIntervalMinutes(): Int = smsPollIntervalMinutes
+
+    override fun setSmsPollIntervalMinutes(minutes: Int) {
+        smsPollIntervalMinutes = minutes
+    }
+
+    override fun getPendingSmsCount(): Int = 0
+
+    override fun getSmsSyncState(): SmsSyncState = smsSyncState
+
+    override fun hasSmsPermission(): Boolean = smsPermissionGranted
+
+    override suspend fun requestSmsPermission(): Boolean {
+        smsPermissionGranted = true
+        return true
+    }
+
+    override suspend fun pollSms() {}
+
+    private var smsSendEnabled = false
+    private var smsSendPermissionGranted = false
+    private val _smsDrafts = kotlinx.coroutines.flow.MutableStateFlow(emptyList<SmsDraft>())
+
+    override fun isSmsSendEnabled(): Boolean = smsSendEnabled
+    override fun setSmsSendEnabled(enabled: Boolean) {
+        smsSendEnabled = enabled
+    }
+    override fun hasSmsSendPermission(): Boolean = smsSendPermissionGranted
+    override suspend fun requestSmsSendPermission(): Boolean {
+        smsSendPermissionGranted = true
+        return true
+    }
+    override val smsDrafts: kotlinx.coroutines.flow.StateFlow<List<SmsDraft>> = _smsDrafts
+    override suspend fun sendSmsDraft(draftId: String): Boolean = true
+    override suspend fun discardSmsDraft(draftId: String) {
+        _smsDrafts.value = _smsDrafts.value.filterNot { it.id == draftId }
     }
 
     private var uiScale: Float = 1.0f

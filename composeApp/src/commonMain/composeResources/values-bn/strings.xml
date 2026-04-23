@@ -260,4 +260,35 @@
     <string name="model_sort_date">তারিখ</string>
     <string name="model_sort_score">স্কোর</string>
     <string name="model_sort_context">প্রসঙ্গ</string>
+
+    <string name="tool_check_sms_name">SMS চেক করুন</string>
+    <string name="tool_check_sms_description">সাম্প্রতিক অপঠিত SMS বার্তা তালিকাভুক্ত করুন</string>
+    <string name="tool_read_sms_name">SMS পড়ুন</string>
+    <string name="tool_read_sms_description">একটি SMS বার্তার সম্পূর্ণ বিষয়বস্তু পড়ুন</string>
+    <string name="tool_search_sms_name">SMS অনুসন্ধান করুন</string>
+    <string name="tool_search_sms_description">প্রেরক বা পাঠ্য অনুযায়ী SMS বার্তা অনুসন্ধান করুন</string>
+    <string name="tool_send_sms_name">SMS পাঠান</string>
+    <string name="tool_send_sms_description">ব্যবহারকারীর পর্যালোচনা ও পাঠানোর জন্য একটি SMS খসড়া তৈরি করুন</string>
+    <string name="tool_reply_sms_name">SMS-এ উত্তর দিন</string>
+    <string name="tool_reply_sms_description">ব্যবহারকারীর পর্যালোচনা ও পাঠানোর জন্য একটি SMS উত্তরের খসড়া তৈরি করুন</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">আগত SMS পটভূমিতে পোল করা হয় এবং হৃৎস্পন্দন দ্বারা গ্রহণ করা হয়।</string>
+    <string name="settings_sms_permission_required">এই বৈশিষ্ট্যটি সক্রিয় করতে SMS অনুমতি প্রদান করুন।</string>
+    <string name="settings_sms_permission_button">অনুমতি দিন</string>
+    <string name="settings_sms_poll_interval">প্রতি %1$d মিনিটে পোল করুন</string>
+    <string name="settings_sms_queued">%1$d SMS হৃৎস্পন্দনের জন্য অপেক্ষমান</string>
+    <string name="settings_sms_last_poll">শেষ সফল পরীক্ষা %1$s</string>
+    <string name="settings_sms_poll_failed">শেষ পরীক্ষা ব্যর্থ %1$s</string>
+    <string name="settings_sms_refresh">এখন রিফ্রেশ করুন</string>
+    <string name="settings_sms_read_label">SMS পড়ুন</string>
+    <string name="settings_sms_send_label">SMS পাঠান</string>
+    <string name="settings_sms_send_description">পাঠানোর আগে পর্যালোচনার জন্য খসড়াগুলি চ্যাটের উপরে প্রদর্শিত হয়।</string>
+    <string name="settings_sms_send_permission_required">এই বৈশিষ্ট্যটি সক্রিয় করতে SMS পাঠানোর অনুমতি প্রদান করুন।</string>
+    <string name="sms_draft_banner_to">প্রাপক %1$s</string>
+    <string name="sms_draft_banner_send">পাঠান</string>
+    <string name="sms_draft_banner_discard">বাতিল করুন</string>
+    <string name="sms_draft_banner_sending">পাঠানো হচ্ছে…</string>
+    <string name="sms_draft_banner_sent">পাঠানো হয়েছে</string>
+    <string name="sms_draft_banner_failed">ব্যর্থ: %1$s</string>
+    <string name="sms_draft_banner_dismiss">বন্ধ করুন</string>
 </resources>

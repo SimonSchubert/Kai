@@ -27,7 +27,12 @@ data class HeartbeatConfig(
 )
 
 @OptIn(ExperimentalTime::class)
-class HeartbeatManager(private val appSettings: AppSettings, private val memoryStore: MemoryStore, private val taskStore: TaskStore, private val emailStore: EmailStore? = null) {
+class HeartbeatManager(
+    private val appSettings: AppSettings,
+    private val memoryStore: MemoryStore,
+    private val taskStore: TaskStore,
+    private val emailStore: EmailStore? = null,
+) {
 
     private val json = SharedJson
 
@@ -65,6 +70,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
     fun buildHeartbeatPrompt(
         recentResponses: List<String> = emptyList(),
         pendingEmails: List<EmailMessage> = emptyList(),
+        pendingSms: List<SmsMessage> = emptyList(),
     ): String {
         val customPrompt = appSettings.getHeartbeatPrompt()
         val tasksSplit = taskStore.getPendingTasksPartitioned()
@@ -94,6 +100,18 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
         } else {
             emptyList()
         }
+        val smsEnabled = appSettings.isSmsEnabled()
+        val heartbeatSms: List<HeartbeatPendingSms> = if (smsEnabled) {
+            pendingSms.map { msg ->
+                HeartbeatPendingSms(
+                    id = msg.id,
+                    from = msg.address,
+                    preview = msg.preview,
+                )
+            }
+        } else {
+            emptyList()
+        }
         val promotionCandidates = memoryStore.getPromotionCandidates().map { entry ->
             HeartbeatPromotionCandidate(
                 key = entry.key,
@@ -109,6 +127,7 @@ class HeartbeatManager(private val appSettings: AppSettings, private val memoryS
             pendingTasks = pendingTasks,
             emailAccounts = emailAccounts,
             pendingEmails = heartbeatPending,
+            pendingSms = heartbeatSms,
             promotionCandidates = promotionCandidates,
         )
     }

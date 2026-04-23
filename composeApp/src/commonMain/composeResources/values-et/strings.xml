@@ -260,4 +260,35 @@
     <string name="model_sort_date">Kuupäev</string>
     <string name="model_sort_score">Skoor</string>
     <string name="model_sort_context">Kontekst</string>
+
+    <string name="tool_check_sms_name">Kontrolli SMS-e</string>
+    <string name="tool_check_sms_description">Näita hiljutisi lugemata SMS-sõnumeid</string>
+    <string name="tool_read_sms_name">Loe SMS-i</string>
+    <string name="tool_read_sms_description">Loe SMS-sõnumi täisteksti</string>
+    <string name="tool_search_sms_name">Otsi SMS-e</string>
+    <string name="tool_search_sms_description">Otsi SMS-sõnumeid saatja või teksti järgi</string>
+    <string name="tool_send_sms_name">Saada SMS</string>
+    <string name="tool_send_sms_description">Koosta SMS kasutajale ülevaatamiseks ja saatmiseks</string>
+    <string name="tool_reply_sms_name">Vasta SMS-ile</string>
+    <string name="tool_reply_sms_description">Koosta vastus SMS-ile kasutajale ülevaatamiseks ja saatmiseks</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Sissetulevaid SMS-e küsitletakse taustal ja need võetakse üles südamelöögiga.</string>
+    <string name="settings_sms_permission_required">Anna SMS-i luba, et see funktsioon lubada.</string>
+    <string name="settings_sms_permission_button">Anna luba</string>
+    <string name="settings_sms_poll_interval">Küsitle iga %1$d minuti järel</string>
+    <string name="settings_sms_queued">%1$d SMS südamelöögi ootel</string>
+    <string name="settings_sms_last_poll">Viimane edukas kontroll %1$s</string>
+    <string name="settings_sms_poll_failed">Viimane kontroll ebaõnnestus %1$s</string>
+    <string name="settings_sms_refresh">Värskenda kohe</string>
+    <string name="settings_sms_read_label">Loe SMS-i</string>
+    <string name="settings_sms_send_label">Saada SMS</string>
+    <string name="settings_sms_send_description">Mustandid ilmuvad vestluse kohale ülevaatamiseks enne saatmist.</string>
+    <string name="settings_sms_send_permission_required">Anna SMS-i saatmise luba, et see funktsioon lubada.</string>
+    <string name="sms_draft_banner_to">Saaja %1$s</string>
+    <string name="sms_draft_banner_send">Saada</string>
+    <string name="sms_draft_banner_discard">Loobu</string>
+    <string name="sms_draft_banner_sending">Saatmine…</string>
+    <string name="sms_draft_banner_sent">Saadetud</string>
+    <string name="sms_draft_banner_failed">Ebaõnnestus: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Sulge</string>
 </resources>

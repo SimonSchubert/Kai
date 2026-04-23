@@ -260,4 +260,35 @@
     <string name="model_sort_date">Ημερομηνία</string>
     <string name="model_sort_score">Βαθμολογία</string>
     <string name="model_sort_context">Πλαίσιο</string>
+
+    <string name="tool_check_sms_name">Έλεγχος SMS</string>
+    <string name="tool_check_sms_description">Εμφάνιση πρόσφατων αδιάβαστων SMS</string>
+    <string name="tool_read_sms_name">Ανάγνωση SMS</string>
+    <string name="tool_read_sms_description">Ανάγνωση του πλήρους περιεχομένου ενός SMS</string>
+    <string name="tool_search_sms_name">Αναζήτηση SMS</string>
+    <string name="tool_search_sms_description">Αναζήτηση SMS κατά αποστολέα ή κείμενο</string>
+    <string name="tool_send_sms_name">Αποστολή SMS</string>
+    <string name="tool_send_sms_description">Σύνταξη SMS για έλεγχο και αποστολή από τον χρήστη</string>
+    <string name="tool_reply_sms_name">Απάντηση SMS</string>
+    <string name="tool_reply_sms_description">Σύνταξη απάντησης σε SMS για έλεγχο και αποστολή από τον χρήστη</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Τα εισερχόμενα SMS ελέγχονται στο παρασκήνιο και λαμβάνονται από τον παλμό.</string>
+    <string name="settings_sms_permission_required">Χορηγήστε την άδεια SMS για να ενεργοποιήσετε αυτή τη λειτουργία.</string>
+    <string name="settings_sms_permission_button">Χορήγηση άδειας</string>
+    <string name="settings_sms_poll_interval">Έλεγχος κάθε %1$d λεπτά</string>
+    <string name="settings_sms_queued">%1$d SMS σε αναμονή για παλμό</string>
+    <string name="settings_sms_last_poll">Τελευταίος επιτυχής έλεγχος %1$s</string>
+    <string name="settings_sms_poll_failed">Τελευταίος έλεγχος απέτυχε %1$s</string>
+    <string name="settings_sms_refresh">Ανανέωση τώρα</string>
+    <string name="settings_sms_read_label">Ανάγνωση SMS</string>
+    <string name="settings_sms_send_label">Αποστολή SMS</string>
+    <string name="settings_sms_send_description">Τα προσχέδια εμφανίζονται πάνω από τη συνομιλία για έλεγχο πριν την αποστολή.</string>
+    <string name="settings_sms_send_permission_required">Χορηγήστε την άδεια Αποστολή SMS για να ενεργοποιήσετε αυτή τη λειτουργία.</string>
+    <string name="sms_draft_banner_to">Προς %1$s</string>
+    <string name="sms_draft_banner_send">Αποστολή</string>
+    <string name="sms_draft_banner_discard">Απόρριψη</string>
+    <string name="sms_draft_banner_sending">Αποστολή…</string>
+    <string name="sms_draft_banner_sent">Εστάλη</string>
+    <string name="sms_draft_banner_failed">Απέτυχε: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Κλείσιμο</string>
 </resources>

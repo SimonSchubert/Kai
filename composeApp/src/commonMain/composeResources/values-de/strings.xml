@@ -261,4 +261,35 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="model_sort_date">Datum</string>
     <string name="model_sort_score">Bewertung</string>
     <string name="model_sort_context">Kontext</string>
+
+    <string name="tool_check_sms_name">SMS abrufen</string>
+    <string name="tool_check_sms_description">Kürzlich ungelesene SMS anzeigen</string>
+    <string name="tool_read_sms_name">SMS lesen</string>
+    <string name="tool_read_sms_description">Den vollständigen Inhalt einer SMS lesen</string>
+    <string name="tool_search_sms_name">SMS suchen</string>
+    <string name="tool_search_sms_description">SMS nach Absender oder Text suchen</string>
+    <string name="tool_send_sms_name">SMS senden</string>
+    <string name="tool_send_sms_description">Eine SMS für die Prüfung und den Versand durch den Nutzer entwerfen</string>
+    <string name="tool_reply_sms_name">SMS beantworten</string>
+    <string name="tool_reply_sms_description">Eine Antwort auf eine SMS für die Prüfung und den Versand durch den Nutzer entwerfen</string>
+    <string name="settings_sms">SMS</string>
+    <string name="settings_sms_description">Eingehende SMS werden im Hintergrund abgerufen und vom Herzschlag aufgenommen.</string>
+    <string name="settings_sms_permission_required">Erteile die SMS-Berechtigung, um diese Funktion zu aktivieren.</string>
+    <string name="settings_sms_permission_button">Berechtigung erteilen</string>
+    <string name="settings_sms_poll_interval">Alle %1$d Minuten abrufen</string>
+    <string name="settings_sms_queued">%1$d SMS für den Herzschlag in der Warteschlange</string>
+    <string name="settings_sms_last_poll">Letzter erfolgreicher Abruf %1$s</string>
+    <string name="settings_sms_poll_failed">Letzter Abruf fehlgeschlagen %1$s</string>
+    <string name="settings_sms_refresh">Jetzt aktualisieren</string>
+    <string name="settings_sms_read_label">SMS lesen</string>
+    <string name="settings_sms_send_label">SMS senden</string>
+    <string name="settings_sms_send_description">Entwürfe erscheinen über dem Chat zur Prüfung vor dem Senden.</string>
+    <string name="settings_sms_send_permission_required">Erteile die Berechtigung SMS senden, um diese Funktion zu aktivieren.</string>
+    <string name="sms_draft_banner_to">An %1$s</string>
+    <string name="sms_draft_banner_send">Senden</string>
+    <string name="sms_draft_banner_discard">Verwerfen</string>
+    <string name="sms_draft_banner_sending">Wird gesendet…</string>
+    <string name="sms_draft_banner_sent">Gesendet</string>
+    <string name="sms_draft_banner_failed">Fehlgeschlagen: %1$s</string>
+    <string name="sms_draft_banner_dismiss">Schließen</string>
 </resources>

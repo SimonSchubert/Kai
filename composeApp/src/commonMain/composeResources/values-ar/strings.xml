@@ -261,4 +261,35 @@
     <string name="model_sort_date">التاريخ</string>
     <string name="model_sort_score">النتيجة</string>
     <string name="model_sort_context">السياق</string>
+
+    <string name="tool_check_sms_name">التحقق من الرسائل القصيرة</string>
+    <string name="tool_check_sms_description">عرض الرسائل القصيرة الأخيرة غير المقروءة</string>
+    <string name="tool_read_sms_name">قراءة رسالة قصيرة</string>
+    <string name="tool_read_sms_description">قراءة المحتوى الكامل لرسالة قصيرة</string>
+    <string name="tool_search_sms_name">البحث في الرسائل القصيرة</string>
+    <string name="tool_search_sms_description">البحث في الرسائل القصيرة حسب المرسل أو النص</string>
+    <string name="tool_send_sms_name">إرسال رسالة قصيرة</string>
+    <string name="tool_send_sms_description">صياغة رسالة قصيرة ليراجعها المستخدم ويرسلها</string>
+    <string name="tool_reply_sms_name">الرد على رسالة قصيرة</string>
+    <string name="tool_reply_sms_description">صياغة رد على رسالة قصيرة ليراجعه المستخدم ويرسله</string>
+    <string name="settings_sms">الرسائل القصيرة</string>
+    <string name="settings_sms_description">يتم استطلاع الرسائل القصيرة الواردة في الخلفية والتقاطها بواسطة نبض القلب.</string>
+    <string name="settings_sms_permission_required">امنح إذن الرسائل القصيرة لتفعيل هذه الميزة.</string>
+    <string name="settings_sms_permission_button">منح الإذن</string>
+    <string name="settings_sms_poll_interval">الاستطلاع كل %1$d دقيقة</string>
+    <string name="settings_sms_queued">%1$d رسالة قصيرة في انتظار نبض القلب</string>
+    <string name="settings_sms_last_poll">آخر استطلاع ناجح %1$s</string>
+    <string name="settings_sms_poll_failed">فشل آخر استطلاع %1$s</string>
+    <string name="settings_sms_refresh">تحديث الآن</string>
+    <string name="settings_sms_read_label">قراءة الرسائل القصيرة</string>
+    <string name="settings_sms_send_label">إرسال الرسائل القصيرة</string>
+    <string name="settings_sms_send_description">تظهر المسودات فوق المحادثة للمراجعة قبل الإرسال.</string>
+    <string name="settings_sms_send_permission_required">امنح إذن إرسال الرسائل القصيرة لتفعيل هذه الميزة.</string>
+    <string name="sms_draft_banner_to">إلى %1$s</string>
+    <string name="sms_draft_banner_send">إرسال</string>
+    <string name="sms_draft_banner_discard">تجاهل</string>
+    <string name="sms_draft_banner_sending">جارٍ الإرسال…</string>
+    <string name="sms_draft_banner_sent">تم الإرسال</string>
+    <string name="sms_draft_banner_failed">فشل: %1$s</string>
+    <string name="sms_draft_banner_dismiss">إغلاق</string>
 </resources>

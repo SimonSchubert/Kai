@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.ServiceEntry
+import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
@@ -82,6 +83,15 @@ data class SettingsUiState(
     val emailPendingCount: Int = 0,
     val emailSyncStates: ImmutableMap<String, EmailSyncState> = persistentMapOf(),
     val refreshingEmailAccountIds: ImmutableSet<String> = persistentSetOf(),
+    val showSmsSection: Boolean = false,
+    val isSmsEnabled: Boolean = false,
+    val smsPermissionGranted: Boolean = false,
+    val smsPollIntervalMinutes: Int = 15,
+    val smsPendingCount: Int = 0,
+    val smsSyncState: SmsSyncState = SmsSyncState(),
+    val isRefreshingSms: Boolean = false,
+    val isSmsSendEnabled: Boolean = false,
+    val smsSendPermissionGranted: Boolean = false,
     val isFreeFallbackEnabled: Boolean = true,
     val uiScale: Float = 1.0f,
     val showUiScale: Boolean = false,
