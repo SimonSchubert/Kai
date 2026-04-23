@@ -46,6 +46,8 @@ object ScreenshotTestData {
         enterInteractiveMode = { },
         exitInteractiveMode = { },
         goBackInteractiveMode = { },
+        sendSmsDraft = {},
+        discardSmsDraft = {},
     )
 
     val chatEmptyState = ChatUiState(
