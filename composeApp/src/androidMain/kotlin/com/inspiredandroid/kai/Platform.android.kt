@@ -82,10 +82,15 @@ actual val isEmailSupported: Boolean = true
 // Evaluated lazily because we need the Koin-injected Context. Whether READ_SMS
 // is declared in the merged manifest is a build-time property (foss flavor adds
 // it, playStore does not), so caching the first result is safe for the process
-// lifetime.
+// lifetime. The try/catch guards screenshot / unit-test environments that may
+// call `getPlatformToolDefinitions()` before Koin has been started.
 actual val isSmsSupported: Boolean by lazy {
-    val context: Context by inject(Context::class.java)
-    context.declaresReadSms()
+    try {
+        val context: Context by inject(Context::class.java)
+        context.declaresReadSms()
+    } catch (_: Throwable) {
+        false
+    }
 }
 
 actual val isSplinterlandsSupported: Boolean = true
