@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.network
 
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.isDebugBuild
@@ -17,7 +18,6 @@ import com.inspiredandroid.kai.network.dtos.gemini.PropertySchema
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
-import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.network.tools.Tool
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpTimeout

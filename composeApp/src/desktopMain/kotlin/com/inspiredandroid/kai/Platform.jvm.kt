@@ -116,7 +116,6 @@ actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
     }
 }
 
-
 actual fun getAppFilesDirectory(): String {
     val userHome = System.getProperty("user.home")
     val kaiDir = File("$userHome/.kai")
@@ -183,5 +182,48 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     file?.write(bytes)
 }
 
-// Desktop has no system push-notification surface wired up; the in-app banner suffices.
-actual fun sendHeartbeatNotification(title: String, body: String) = Unit
+/**
+ * Posts a native OS notification. Each platform has its own surface:
+ *   - macOS: `osascript` invokes the user-facing Notification Center.
+ *   - Linux: `notify-send` (libnotify) is the freedesktop standard and ships in most distros.
+ *   - Windows: AWT [java.awt.SystemTray] briefly registers a tray icon to display a balloon
+ *     toast, then removes it so we don't leave a persistent tray entry.
+ * All paths swallow failures — if the OS hook is missing the in-app heartbeat banner still fires.
+ */
+actual fun sendHeartbeatNotification(title: String, body: String) {
+    try {
+        when (currentPlatform as Platform.Desktop) {
+            Platform.Desktop.Mac -> {
+                // AppleScript string literals: backslash and double-quote need escaping.
+                val safeTitle = title.replace("\\", "\\\\").replace("\"", "\\\"")
+                val safeBody = body.replace("\\", "\\\\").replace("\"", "\\\"")
+                ProcessBuilder("osascript", "-e", "display notification \"$safeBody\" with title \"$safeTitle\"")
+                    .start()
+            }
+
+            Platform.Desktop.Windows -> {
+                if (!java.awt.SystemTray.isSupported()) return
+                val tray = java.awt.SystemTray.getSystemTray()
+                // 1×1 transparent placeholder — Windows auto-supplies a fallback icon for the toast.
+                val image = java.awt.image.BufferedImage(16, 16, java.awt.image.BufferedImage.TYPE_INT_ARGB)
+                val trayIcon = java.awt.TrayIcon(image, "Kai")
+                trayIcon.isImageAutoSize = true
+                tray.add(trayIcon)
+                trayIcon.displayMessage(title, body, java.awt.TrayIcon.MessageType.INFO)
+                java.util.Timer(true).schedule(
+                    object : java.util.TimerTask() {
+                        override fun run() = tray.remove(trayIcon)
+                    },
+                    5_000,
+                )
+            }
+
+            Platform.Desktop.Linux -> {
+                // `--` terminator prevents a title or body starting with `-` from being parsed as a flag.
+                ProcessBuilder("notify-send", "--", title, body).start()
+            }
+        }
+    } catch (_: Exception) {
+        // notify-send missing, AWT headless, sandboxed osascript, etc. — fall back silently.
+    }
+}

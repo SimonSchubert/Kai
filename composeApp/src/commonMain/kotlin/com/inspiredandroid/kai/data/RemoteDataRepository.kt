@@ -3,6 +3,7 @@
 package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.compressImageBytes
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
@@ -32,7 +33,6 @@ import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
-import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
@@ -73,6 +73,7 @@ import org.jetbrains.compose.resources.getString
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
@@ -593,7 +594,7 @@ class RemoteDataRepository(
         }
         val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
         if (elapsed < MIN_TOOL_DISPLAY_MS) {
-            delay(MIN_TOOL_DISPLAY_MS - elapsed)
+            delay(MIN_TOOL_DISPLAY_MS.milliseconds - elapsed.milliseconds)
         }
         history.update { h ->
             buildList(h.size) {

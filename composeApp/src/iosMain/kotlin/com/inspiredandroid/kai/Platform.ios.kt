@@ -110,7 +110,6 @@ private fun NSData.toByteArray(): ByteArray {
     return result
 }
 
-
 actual fun getAppFilesDirectory(): String {
     val paths = platform.Foundation.NSSearchPathForDirectoriesInDomains(
         platform.Foundation.NSDocumentDirectory,
@@ -179,5 +178,36 @@ actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
     file?.write(bytes)
 }
 
-// iOS notifications need a UNUserNotificationCenter pipeline that isn't wired up yet; stub for now.
-actual fun sendHeartbeatNotification(title: String, body: String) = Unit
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+actual fun sendHeartbeatNotification(title: String, body: String) {
+    // The authorization completion runs asynchronously on a system queue, so it's outside the
+    // outer try/catch's scope and needs its own guard. Heartbeat delivery must never throw.
+    try {
+        val center = platform.UserNotifications.UNUserNotificationCenter.currentNotificationCenter()
+        val options = platform.UserNotifications.UNAuthorizationOptionAlert or
+            platform.UserNotifications.UNAuthorizationOptionSound or
+            platform.UserNotifications.UNAuthorizationOptionBadge
+        center.requestAuthorizationWithOptions(options) { granted, _ ->
+            if (!granted) return@requestAuthorizationWithOptions
+            try {
+                val content = platform.UserNotifications.UNMutableNotificationContent().apply {
+                    setTitle(title)
+                    setBody(body)
+                    setSound(platform.UserNotifications.UNNotificationSound.defaultSound())
+                }
+                // iOS rejects nil triggers for non-scheduled notifications and 0 for time-interval
+                // triggers, so use a tiny delay to fire effectively immediately.
+                val trigger = platform.UserNotifications.UNTimeIntervalNotificationTrigger
+                    .triggerWithTimeInterval(timeInterval = 0.1, repeats = false)
+                val request = platform.UserNotifications.UNNotificationRequest.requestWithIdentifier(
+                    identifier = platform.Foundation.NSUUID().UUIDString,
+                    content = content,
+                    trigger = trigger,
+                )
+                center.addNotificationRequest(request, null)
+            } catch (_: Throwable) {
+            }
+        }
+    } catch (_: Throwable) {
+    }
+}
