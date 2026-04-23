@@ -69,14 +69,16 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? {
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
-actual val isMobilePlatform: Boolean = false
-
-actual val isDesktopPlatform: Boolean = true
-
-actual val defaultUiScale: Float = run {
+actual val currentPlatform: Platform = run {
     val osName = System.getProperty("os.name", "").lowercase()
-    if ("linux" in osName) 1.1f else 1.0f
+    when {
+        "mac" in osName || "darwin" in osName -> Platform.Desktop.Mac
+        "win" in osName -> Platform.Desktop.Windows
+        else -> Platform.Desktop.Linux
+    }
 }
+
+actual val defaultUiScale: Float = if (currentPlatform is Platform.Desktop.Linux) 1.1f else 1.0f
 
 actual val isEmailSupported: Boolean = true
 
@@ -114,14 +116,6 @@ actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteA
     }
 }
 
-actual val platformName: String = run {
-    val osName = System.getProperty("os.name", "").lowercase()
-    when {
-        "mac" in osName || "darwin" in osName -> "macOS"
-        "win" in osName -> "Windows"
-        else -> "Linux"
-    }
-}
 
 actual fun getAppFilesDirectory(): String {
     val userHome = System.getProperty("user.home")

@@ -3,6 +3,8 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.DaemonController
+import com.inspiredandroid.kai.Platform
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
@@ -10,7 +12,6 @@ import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.inference.LocalModel
-import com.inspiredandroid.kai.isDesktopPlatform
 import com.inspiredandroid.kai.isEmailSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
@@ -24,7 +25,6 @@ import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
-import com.inspiredandroid.kai.platformName
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -70,7 +70,7 @@ class SettingsViewModel(
         isSchedulingEnabled = dataRepository.isSchedulingEnabled(),
         scheduledTasks = dataRepository.getScheduledTasks().toImmutableList(),
         isDaemonEnabled = dataRepository.isDaemonEnabled(),
-        showDaemonToggle = platformName == "Android",
+        showDaemonToggle = currentPlatform is Platform.Mobile.Android,
         isHeartbeatEnabled = dataRepository.getHeartbeatConfig().enabled,
         heartbeatIntervalMinutes = dataRepository.getHeartbeatConfig().intervalMinutes,
         heartbeatActiveHoursStart = dataRepository.getHeartbeatConfig().activeHoursStart,
@@ -94,7 +94,7 @@ class SettingsViewModel(
         emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         uiScale = dataRepository.getUiScale(),
-        showUiScale = isDesktopPlatform,
+        showUiScale = currentPlatform is Platform.Desktop,
         mcpServers = buildMcpServerEntries().toImmutableList(),
         localAvailableModels = dataRepository.getLocalAvailableModels().toImmutableList(),
         totalDeviceMemoryBytes = dataRepository.getTotalDeviceMemoryBytes(),

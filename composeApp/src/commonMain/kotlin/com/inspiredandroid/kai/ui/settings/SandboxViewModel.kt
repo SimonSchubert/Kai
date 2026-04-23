@@ -3,9 +3,10 @@ package com.inspiredandroid.kai.ui.settings
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
-import com.inspiredandroid.kai.platformName
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -32,7 +33,7 @@ class SandboxViewModel(
 
     private val _state = MutableStateFlow(
         SandboxUiState(
-            showSandbox = platformName == "Android",
+            showSandbox = currentPlatform is Platform.Mobile.Android,
             isSandboxEnabled = dataRepository.isSandboxEnabled(),
         ),
     )

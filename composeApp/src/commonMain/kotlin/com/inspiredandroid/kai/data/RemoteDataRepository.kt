@@ -32,8 +32,8 @@ import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.network.tools.ToolInfo
-import com.inspiredandroid.kai.platformName
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
 import com.inspiredandroid.kai.ui.chat.toAnthropicContentBlocks
@@ -1716,7 +1716,7 @@ class RemoteDataRepository(
             nowLocalIsoWithOffset = "$localDateTime$offset",
             timeZoneId = timeZone.id,
             nowUtcIsoString = now.toString(),
-            platform = platformName,
+            platform = currentPlatform.displayName,
             modelId = modelId,
             providerName = service.displayName,
         )

@@ -58,9 +58,10 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.Platform
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.imageExtensions
-import com.inspiredandroid.kai.isMobilePlatform
 import com.inspiredandroid.kai.ui.gradientBrush
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
@@ -175,7 +176,7 @@ fun QuestionInput(
                 )
                 .onPreviewKeyEvent { event ->
                     // Only handle hardware keyboard on desktop/web platforms
-                    if (!isMobilePlatform && event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyDown) {
+                    if (currentPlatform !is Platform.Mobile && event.key.keyCode == Key.Enter.keyCode && event.type == KeyEventType.KeyDown) {
                         if (event.isShiftPressed) {
                             // Shift+Enter -> manually insert newline
                             val currentText = textState.text
@@ -223,7 +224,7 @@ fun QuestionInput(
                     }
                 }
             },
-            keyboardActions = if (!isMobilePlatform) {
+            keyboardActions = if (currentPlatform !is Platform.Mobile) {
                 KeyboardActions(onSend = { submitQuestion() })
             } else {
                 KeyboardActions() // No keyboard send action on mobile
@@ -241,7 +242,7 @@ fun QuestionInput(
                 null
             },
             keyboardOptions = KeyboardOptions(
-                imeAction = if (isMobilePlatform) ImeAction.Default else ImeAction.Send,
+                imeAction = if (currentPlatform is Platform.Mobile) ImeAction.Default else ImeAction.Send,
             ),
         )
         LaunchedEffect(Unit) {

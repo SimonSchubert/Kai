@@ -50,9 +50,7 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = n
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBackIos
 
-actual val isMobilePlatform: Boolean = true
-
-actual val isDesktopPlatform: Boolean = false
+actual val currentPlatform: Platform = Platform.Mobile.Ios
 
 actual val defaultUiScale: Float = 1.0f
 
@@ -112,7 +110,6 @@ private fun NSData.toByteArray(): ByteArray {
     return result
 }
 
-actual val platformName: String = "iOS"
 
 actual fun getAppFilesDirectory(): String {
     val paths = platform.Foundation.NSSearchPathForDirectoriesInDomains(

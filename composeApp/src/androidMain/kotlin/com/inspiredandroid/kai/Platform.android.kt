@@ -67,13 +67,9 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = n
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
-actual val isMobilePlatform: Boolean = true
-
-actual val isDesktopPlatform: Boolean = false
+actual val currentPlatform: Platform = Platform.Mobile.Android
 
 actual val defaultUiScale: Float = 1.0f
-
-actual val platformName: String = "Android"
 
 actual val isEmailSupported: Boolean = true
 

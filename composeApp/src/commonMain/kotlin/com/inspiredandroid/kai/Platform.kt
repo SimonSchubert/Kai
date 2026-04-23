@@ -23,9 +23,22 @@ expect fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile?
 
 expect val BackIcon: ImageVector
 
-expect val isMobilePlatform: Boolean
+sealed class Platform(val displayName: String) {
+    sealed class Mobile(displayName: String) : Platform(displayName) {
+        data object Android : Mobile("Android")
+        data object Ios : Mobile("iOS")
+    }
 
-expect val isDesktopPlatform: Boolean
+    sealed class Desktop(displayName: String) : Platform(displayName) {
+        data object Mac : Desktop("macOS")
+        data object Windows : Desktop("Windows")
+        data object Linux : Desktop("Linux")
+    }
+
+    data object Web : Platform("Web")
+}
+
+expect val currentPlatform: Platform
 
 expect val defaultUiScale: Float
 
@@ -39,8 +52,6 @@ expect fun getAvailableTools(): List<Tool>
  * Unlike getAvailableTools(), this returns all tools regardless of enabled state.
  */
 expect fun getPlatformToolDefinitions(): List<ToolInfo>
-
-expect val platformName: String
 
 expect val isEmailSupported: Boolean
 
@@ -59,8 +70,8 @@ expect suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extensio
 
 /**
  * Fires a background push notification for a heartbeat that produced a non-trivial
- * response. Tapping it should open Kai to the heartbeat conversation (see the
- * Android actual's PendingIntent for the deep-link wiring). No-op on platforms
- * without a system notification surface (desktop, iOS, web).
+ * response. Android additionally wires a tap-to-open-heartbeat deep link via its
+ * PendingIntent; iOS/desktop just surface the message in the OS notification center
+ * without deep-linking back to the conversation. No-op on web.
  */
 expect fun sendHeartbeatNotification(title: String, body: String)

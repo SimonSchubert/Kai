@@ -39,9 +39,7 @@ actual fun onDragAndDropEventDropped(event: DragAndDropEvent): PlatformFile? = n
 
 actual val BackIcon: ImageVector = Icons.AutoMirrored.Filled.ArrowBack
 
-actual val isMobilePlatform: Boolean = false
-
-actual val isDesktopPlatform: Boolean = false
+actual val currentPlatform: Platform = Platform.Web
 
 actual val defaultUiScale: Float = 1.0f
 
@@ -50,8 +48,6 @@ actual val isEmailSupported: Boolean = false
 actual val isSplinterlandsSupported: Boolean = false
 
 actual suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray = bytes
-
-actual val platformName: String = "Web"
 
 actual fun getAppFilesDirectory(): String {
     // Web uses localStorage, return empty string as no file path is needed

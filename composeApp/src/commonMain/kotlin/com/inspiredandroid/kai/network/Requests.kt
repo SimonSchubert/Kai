@@ -17,8 +17,8 @@ import com.inspiredandroid.kai.network.dtos.gemini.PropertySchema
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatResponseDto
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleModelResponseDto
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.network.tools.Tool
-import com.inspiredandroid.kai.platformName
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
@@ -67,7 +67,7 @@ class Requests {
             )
         }
         install(UserAgent) {
-            agent = "Kai/${Version.appVersion} ($platformName)"
+            agent = "Kai/${Version.appVersion} (${currentPlatform.displayName})"
         }
         install(HttpTimeout) {
             requestTimeoutMillis = 60.seconds.inWholeMilliseconds
