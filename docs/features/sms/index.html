@@ -1,0 +1,1118 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Kai - AI Assistant App">
+      
+      
+      
+        <link rel="canonical" href="https://kai9000.com/docs/features/sms/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SMS - Kai Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sms" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kai Documentation" class="md-header__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kai Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SMS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kai Documentation" class="md-nav__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kai Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat & Conversations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heartbeat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heartbeat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daemon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encryption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings-export-import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings Export & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splinterlands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splinterlands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#availability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Availability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt-in-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opt-in flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opt-in flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Send
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polling-interval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polling interval
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sync state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pending-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pending queue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notifications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settings-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sms">SMS</h1>
+<p><strong>Last verified:</strong> 2026-04-23</p>
+<blockquote>
+<p>SMS is <strong>FOSS-only</strong> and <strong>Android-only</strong>. The Play Store variant of Kai does not declare <code>READ_SMS</code> or <code>SEND_SMS</code> and the feature is invisible there — no settings, no tools, no code path. Play Store's SMS/Call Log Permissions policy restricts both permissions to default SMS handlers, which Kai is not.</p>
+</blockquote>
+<p>Kai on the FOSS Android build can <strong>read</strong> incoming SMS messages and <strong>draft</strong> outgoing SMS for the user to review and send. Read and Send are independent user opt-ins: the user can let Kai read SMS without also letting it send, and vice versa. Sending is always gated by an explicit user tap in a review banner — the AI never sends directly.</p>
+<h2 id="availability">Availability</h2>
+<ul>
+<li><strong>FOSS Android build</strong>: fully available. Read and Send are separate opt-ins.</li>
+<li><strong>Play Store Android build</strong>: feature is invisible — neither <code>READ_SMS</code> nor <code>SEND_SMS</code> is declared in the Play flavor's merged manifest, the runtime support check returns false, the settings section is hidden, and the SMS tools are never registered.</li>
+<li><strong>iOS / desktop / web</strong>: unsupported. No-op stubs.</li>
+</ul>
+<p>The FOSS gate is purely manifest-based: the <code>foss</code> product flavor contributes <code>androidApp/src/foss/AndroidManifest.xml</code> declaring both <code>READ_SMS</code> and <code>SEND_SMS</code>, while the <code>playStore</code> flavor does not. At runtime the app queries <code>PackageManager.getPackageInfo(…, GET_PERMISSIONS).requestedPermissions</code> to decide whether to show the feature.</p>
+<h2 id="scope">Scope</h2>
+<ul>
+<li><strong>Read</strong>: list / read / search inbox SMS.</li>
+<li><strong>Send</strong> (including replies): AI drafts a message; user must tap Send in the review banner before anything is actually transmitted. The AI cannot bypass the banner — the <code>send_sms</code> / <code>reply_sms</code> tools only <em>stage</em> a draft; the actual <code>SmsManager.sendTextMessage</code> call is initiated by the tap handler in the UI.</li>
+<li><strong>SMS only.</strong> Multimedia/group messages (MMS) are out of scope.</li>
+<li><strong>Inbox only for reads.</strong> Sent, draft, and outbox rows are filtered out of polls.</li>
+<li><strong>No contacts lookup.</strong> Senders are shown as raw phone numbers. Adding contact-name resolution would require a separate <code>READ_CONTACTS</code> opt-in.</li>
+</ul>
+<h2 id="opt-in-flow">Opt-in flow</h2>
+<h3 id="read">Read</h3>
+<ol>
+<li>In <strong>Settings → Agent → SMS → "Read incoming SMS"</strong>, the user flips the toggle on.</li>
+<li>The app requests <code>READ_SMS</code> at runtime via the standard Android permission dialog.</li>
+<li>If the user grants it, the toggle stays on and a seed poll runs: the current maximum inbox <code>_id</code> is recorded as the "already seen" high-water mark so existing messages are not dumped into the heartbeat pending queue.</li>
+<li>From then on, each scheduler tick that satisfies the poll-interval gate calls the SMS poller, which reads all inbox rows with <code>_id</code> greater than the recorded high-water mark (capped at 50 per poll) and adds them to a capped FIFO pending queue (max 100 messages).</li>
+<li>On the next heartbeat, the queue snapshot is included in the prompt under <code>## New SMS</code>. After the heartbeat run, exactly that snapshot is removed from the queue — messages that arrived during the call survive to the next heartbeat.</li>
+</ol>
+<p>If the user later revokes <code>READ_SMS</code> from system settings, the next poll records <code>lastError = "Permission not granted"</code> and the read tools stop appearing in the AI's available-tools list until permission is re-granted.</p>
+<h3 id="send">Send</h3>
+<ol>
+<li>In <strong>Settings → Agent → SMS → "Send SMS on your behalf"</strong>, the user flips the toggle on.</li>
+<li>The app requests <code>SEND_SMS</code> at runtime.</li>
+<li>If granted, the <code>send_sms</code> and <code>reply_sms</code> tools become available to the AI.</li>
+<li>When the AI calls one of those tools, a <a href="../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/SmsModels.kt">SmsDraft</a> is written to the persistent <a href="../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/SmsDraftStore.kt">SmsDraftStore</a> — <strong>no SMS is sent</strong>. The tool result tells the AI the draft is waiting for user review.</li>
+<li>A <a href="../../composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/chat/composables/PendingSmsBanner.kt">PendingSmsBanner</a> appears at the top of the chat showing the draft's recipient and body, with <strong>Send</strong> and <strong>Discard</strong> buttons.</li>
+<li>Tapping <strong>Send</strong> transitions the draft to <code>SENDING</code> state, calls <code>SmsManager.sendTextMessage</code> (multipart-aware for long bodies), and updates the draft to <code>SENT</code> or <code>FAILED</code> in place. Tapping <strong>Discard</strong> removes the draft without sending.</li>
+<li>The draft store caps at 20 drafts to protect against runaway AI behavior.</li>
+</ol>
+<h2 id="polling-interval">Polling interval</h2>
+<p>Settings UI offers the same preset buckets as email: <strong>Never, 5m, 15m, 30m, 60m</strong>. Default is 15 minutes. Setting it to 0 (Never) disables automatic polling; the user can still hit "Refresh now" in settings to force a one-shot poll.</p>
+<p>Rate-limiting mirrors email: the scheduler compares <code>now - max(lastSync, lastAttempt)</code> against the interval, so a failing poll backs off at the configured interval instead of retrying every scheduler tick.</p>
+<h2 id="sync-state">Sync state</h2>
+<p>A single global sync state tracks:</p>
+<ul>
+<li><code>lastSeenId</code> — the largest inbox <code>_id</code> that has been pushed into pending. SMS rowids are globally monotonic in the system SMS database, so a single high-water mark is sufficient even with multiple SIMs.</li>
+<li><code>lastSyncEpochMs</code> — last successful poll.</li>
+<li><code>lastAttemptEpochMs</code> — last attempted poll (success or failure).</li>
+<li><code>unreadCount</code> — number of inbox rows fetched on the last poll that were not marked read by the system UI.</li>
+<li><code>lastError</code> — human-readable error from the last failed attempt, or null.</li>
+</ul>
+<h2 id="pending-queue">Pending queue</h2>
+<ul>
+<li>Capacity 100 (FIFO). Older messages are dropped if the queue fills before a heartbeat consumes it.</li>
+<li>Persisted in the encrypted app settings store alongside email pending.</li>
+<li>Stores <code>id</code>, <code>address</code> (phone number), <code>date</code>, and a truncated <code>preview</code> (≤200 chars). The full body is fetched on demand by the <code>read_sms</code> tool — this keeps the encrypted-prefs JSON small and avoids duplicating message bodies the system already stores.</li>
+</ul>
+<h2 id="ai-tools">AI Tools</h2>
+<p>Registered in <code>getAvailableTools()</code> on Android only. Read and send tools are independently gated.</p>
+<p><strong>Read tools</strong> (gated on <code>isSmsSupported &amp;&amp; isSmsEnabled &amp;&amp; hasReadPermission</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>check_sms</code></td>
+<td>List messages currently in the heartbeat pending queue. Returns <code>id</code>, <code>from</code>, <code>date</code>, <code>preview</code>, <code>is_read</code> for each.</td>
+</tr>
+<tr>
+<td><code>read_sms</code></td>
+<td>Fetch the full body of a single SMS by <code>id</code>.</td>
+</tr>
+<tr>
+<td><code>search_sms</code></td>
+<td>Full-text search over inbox <code>address</code> + <code>body</code>, newest first, capped at 20.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Send tools</strong> (gated on <code>isSmsSupported &amp;&amp; isSmsSendEnabled &amp;&amp; hasSendPermission</code>). Both <em>stage</em> drafts — neither sends directly:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>send_sms</code></td>
+<td>Draft an outgoing SMS to a phone number. Returns a <code>draft_id</code>.</td>
+</tr>
+<tr>
+<td><code>reply_sms</code></td>
+<td>Draft a reply to a received SMS by its <code>id</code> — sender looked up from the inbox. Returns a <code>draft_id</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notifications">Notifications</h2>
+<p>No SMS-specific push notification. New SMS surface via the existing heartbeat notification path: if the heartbeat produces a non-<code>HEARTBEAT_OK</code> response while the app is backgrounded, the standard heartbeat notification fires and deep-links into the heartbeat conversation.</p>
+<h2 id="settings-ui">Settings UI</h2>
+<p>The SMS section appears in <strong>Settings → Agent</strong> only when <code>isSmsSupported</code> is true (FOSS build). It contains two independent sub-toggles in one card:</p>
+<p><strong>Read incoming SMS</strong> (requires <code>READ_SMS</code>):</p>
+<ul>
+<li>Toggle — enabling it triggers the runtime permission request. If permission is denied, the toggle stays off.</li>
+<li>"Grant permission" button — shown when the toggle is on but permission has not been granted (or was revoked).</li>
+<li>Poll interval slider — Never / 5m / 15m / 30m / 60m.</li>
+<li>Queued count — number of SMS sitting in the pending queue waiting for the next heartbeat.</li>
+<li>Last poll status — "Last successful poll 5m ago" or "Last poll failed 1h ago" (with the error surfaced in the error color).</li>
+<li>Refresh icon — forces a one-shot poll (shows a spinner while polling).</li>
+</ul>
+<p><strong>Send SMS on your behalf</strong> (requires <code>SEND_SMS</code>):</p>
+<ul>
+<li>Toggle — enabling it triggers the runtime permission request. Gates the <code>send_sms</code> / <code>reply_sms</code> tool registration.</li>
+<li>"Grant permission" button — shown when the toggle is on but permission has not been granted (or was revoked).</li>
+</ul>
+<h2 id="key-files">Key Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>androidApp/src/foss/AndroidManifest.xml</code></td>
+<td>Declares <code>READ_SMS</code> and <code>SEND_SMS</code> in the FOSS flavor only</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SmsModels.kt</code></td>
+<td><code>SmsMessage</code>, <code>SmsSyncState</code>, <code>SmsDraft</code>, <code>SmsDraftStatus</code> data classes</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SmsStore.kt</code></td>
+<td>Pending inbox queue + sync state persistence</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/SmsDraftStore.kt</code></td>
+<td>Outgoing-draft persistence with status transitions</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../sms/SmsReader.kt</code></td>
+<td>Expect interface for inbox queries</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../sms/SmsReader.android.kt</code></td>
+<td>ContentResolver impl against <code>Telephony.Sms.CONTENT_URI</code></td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../sms/SmsSender.kt</code></td>
+<td>Expect interface for outgoing SMS send</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../sms/SmsSender.android.kt</code></td>
+<td><code>SmsManager.sendTextMessage</code> (multipart-aware)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../sms/SmsPoller.kt</code></td>
+<td>Fetch-since-lastSeenId + pending write</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/SmsTools.kt</code></td>
+<td><code>check_sms</code>, <code>read_sms</code>, <code>search_sms</code>, <code>send_sms</code>, <code>reply_sms</code> tool definitions</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/SmsPermissionController.kt</code></td>
+<td><code>READ_SMS</code> runtime permission</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../tools/SmsSendPermissionController.kt</code></td>
+<td><code>SEND_SMS</code> runtime permission</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../Platform.android.kt</code></td>
+<td><code>isSmsSupported</code> gate + conditional tool registration (split read/send)</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/TaskScheduler.kt</code></td>
+<td><code>checkNewSms</code> poll hook + heartbeat snapshot/remove lifecycle</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt</code></td>
+<td><code>## New SMS</code> section renderer</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/settings/HeartbeatSection.kt</code></td>
+<td><code>SmsSection</code> Compose UI with read + send sub-toggles</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/PendingSmsBanner.kt</code></td>
+<td>Top-of-chat review banner with Send/Discard buttons</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
