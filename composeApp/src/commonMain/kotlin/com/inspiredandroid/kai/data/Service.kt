@@ -319,6 +319,19 @@ sealed class Service(
         apiKeyUrlDisplay = "z.ai/manage-apikey/apikey-list",
     )
 
+    data object ZaiCodingPlan : Service(
+        id = "zai-coding-plan",
+        displayName = "Z.AI Coding Plan",
+        icon = Res.drawable.ic_service_zai,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "zai-coding-plan",
+        chatUrl = "https://api.z.ai/api/coding/paas/v4/chat/completions",
+        modelsUrl = "https://api.z.ai/api/coding/paas/v4/models",
+        apiKeyUrl = "https://z.ai/manage-apikey/apikey-list",
+        apiKeyUrlDisplay = "z.ai/manage-apikey/apikey-list",
+    )
+
     data object Minimax : Service(
         id = "minimax",
         displayName = "MiniMax",
@@ -421,7 +434,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
