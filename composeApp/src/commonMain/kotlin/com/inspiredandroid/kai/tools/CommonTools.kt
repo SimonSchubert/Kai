@@ -232,7 +232,13 @@ object CommonTools {
         descriptionRes = Res.string.tool_open_url_description,
     )
 
-    val commonToolDefinitions = listOf(WebSearchTool.toolInfo, localTimeToolInfo, ipLocationToolInfo, openUrlToolInfo) +
+    val commonToolDefinitions = listOf(
+        WebSearchTool.toolInfo,
+        localTimeToolInfo,
+        ipLocationToolInfo,
+        openUrlToolInfo,
+        FetchUrlTool.toolInfo,
+    ) +
         listOf(memoryStoreToolInfo, memoryForgetToolInfo, memoryLearnToolInfo, memoryReinforceToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
         HeartbeatTools.heartbeatToolDefinitions +
@@ -250,6 +256,9 @@ object CommonTools {
         }
         if (appSettings.isToolEnabled(openUrlTool.schema.name)) {
             add(openUrlTool)
+        }
+        if (appSettings.isToolEnabled(FetchUrlTool.schema.name)) {
+            add(FetchUrlTool)
         }
     }
 

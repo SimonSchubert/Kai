@@ -150,7 +150,7 @@ object EmailTools {
     fun checkEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
             name = "check_email",
-            description = "Check for unread emails. Returns a list of unread emails with sender, subject, date, and preview. If multiple accounts are connected, checks all of them.",
+            description = "List unread emails with sender, subject, date, and preview. Only returns messages that have not been marked seen — to find a previously-read email (including one you just read with read_email), use search_email with `from` / `subject` / `since`. If multiple accounts are connected, checks all of them.",
             parameters = mapOf(
                 "account_id" to ParameterSchema(type = "string", description = "Specific account ID to check (checks all if omitted)", required = false),
             ),
@@ -195,12 +195,20 @@ object EmailTools {
                 }
             }
 
-            return mapOf(
-                "success" to true,
-                "unread_count" to allEmails.size,
-                "emails" to allEmails,
-                "errors" to errors,
-            )
+            val accountsInfo = accounts.map { mapOf("account_id" to it.id, "email" to it.email) }
+            return buildMap {
+                put("success", true)
+                put("unread_count", allEmails.size)
+                put("emails", allEmails)
+                put("accounts", accountsInfo)
+                put("errors", errors)
+                if (allEmails.isEmpty()) {
+                    put(
+                        "hint",
+                        "No unread emails. To find a previously-read message (e.g. the user asked about a specific sender), call search_email with the account_id from `accounts` and a `from` / `subject` / `since` filter.",
+                    )
+                }
+            }
         }
     }
 
@@ -211,7 +219,7 @@ object EmailTools {
             parameters = mapOf(
                 "uid" to ParameterSchema(type = "integer", description = "The email UID from check_email results", required = true),
                 "account_id" to ParameterSchema(type = "string", description = "The account ID that owns this email", required = true),
-                "mark_read" to ParameterSchema(type = "boolean", description = "Whether to mark the email as read (default true)", required = false),
+                "mark_read" to ParameterSchema(type = "boolean", description = "Whether to mark the email as seen on the server (default false — reading is non-destructive). Set true only when the user has actually dealt with the email and wants it out of their unread list.", required = false),
             ),
         )
 
@@ -220,7 +228,7 @@ object EmailTools {
                 ?: return mapOf("success" to false, "error" to "Missing uid")
             val accountId = args["account_id"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing account_id")
-            val markRead = (args["mark_read"] as? Boolean) ?: true
+            val markRead = (args["mark_read"] as? Boolean) ?: false
 
             val account = emailStore.getAccount(accountId)
                 ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
@@ -230,16 +238,19 @@ object EmailTools {
                     val msg = imap.fetchBody(uid, account.id)
                     if (markRead) imap.markAsRead(uid)
                     if (msg != null) {
-                        mapOf(
-                            "success" to true,
-                            "uid" to msg.uid,
-                            "from" to msg.from,
-                            "to" to msg.to,
-                            "subject" to msg.subject,
-                            "date" to msg.date,
-                            "body" to msg.body,
-                            "message_id" to msg.messageId,
-                        )
+                        buildMap {
+                            put("success", true)
+                            put("uid", msg.uid)
+                            put("from", msg.from)
+                            put("to", msg.to)
+                            put("subject", msg.subject)
+                            put("date", msg.date)
+                            put("body", msg.body)
+                            put("message_id", msg.messageId)
+                            if (msg.bodyHtml.isNotEmpty()) put("body_html", msg.bodyHtml)
+                            if (msg.listUnsubscribe.isNotEmpty()) put("list_unsubscribe", msg.listUnsubscribe)
+                            if (msg.listUnsubscribePost.isNotEmpty()) put("list_unsubscribe_post", msg.listUnsubscribePost)
+                        }
                     } else {
                         mapOf("success" to false, "error" to "Email not found with UID $uid")
                     }
@@ -359,7 +370,7 @@ object EmailTools {
     fun searchEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
             name = "search_email",
-            description = "Search emails by sender, subject, or date. Returns matching email summaries.",
+            description = "Search emails by sender, subject, or date across the whole inbox (read and unread). Prefer this over check_email whenever the user mentions a specific sender, subject, or time range — e.g. \"unsubscribe from X\", \"the email from Alice last week\". Returns matching email summaries with an `is_read` flag.",
             parameters = mapOf(
                 "account_id" to ParameterSchema(type = "string", description = "Account ID to search in (required)", required = true),
                 "from" to ParameterSchema(type = "string", description = "Search by sender email/name", required = false),

@@ -79,6 +79,8 @@
     <string name="tool_open_url_description">Open a URL or link on the device</string>
     <string name="tool_web_search_name">Web Search</string>
     <string name="tool_web_search_description">Search the web for current information</string>
+    <string name="tool_fetch_url_name">Fetch URL</string>
+    <string name="tool_fetch_url_description">Fetch a URL and return the response body to the agent</string>
     <string name="tool_schedule_task_name">Schedule Task</string>
     <string name="tool_schedule_task_description">Schedule a task for future execution</string>
     <string name="tool_cancel_task_name">Cancel Task</string>

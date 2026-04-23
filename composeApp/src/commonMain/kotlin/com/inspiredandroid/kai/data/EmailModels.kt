@@ -27,8 +27,11 @@ data class EmailMessage(
     val date: String = "",
     val preview: String = "",
     val body: String = "",
+    val bodyHtml: String = "",
     val messageId: String = "",
     val isRead: Boolean = false,
+    val listUnsubscribe: String = "",
+    val listUnsubscribePost: String = "",
 )
 
 @Serializable
