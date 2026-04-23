@@ -32,7 +32,7 @@ class AppSettingsExportImportTest {
     }
 
     @Test
-    fun `export excludes daemon_enabled, app_opens, encryption_key`() {
+    fun `export excludes daemon_enabled app_opens and encryption_key`() {
         val settings = MapSettings()
         val appSettings = AppSettings(settings)
         appSettings.setDaemonEnabled(true)

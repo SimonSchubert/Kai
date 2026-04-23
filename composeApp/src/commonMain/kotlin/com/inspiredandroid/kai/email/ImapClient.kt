@@ -291,7 +291,9 @@ class ImapClient(
             val lowerPart = trimmed.lowercase()
             when {
                 lowerPart.contains("content-type: text/plain") && plain.isEmpty() -> plain = body
+
                 lowerPart.contains("content-type: text/html") && html.isEmpty() -> html = body
+
                 // First part with no explicit content-type is conventionally text/plain.
                 plain.isEmpty() && !lowerPart.contains("content-type:") && index == 1 -> plain = body
             }
