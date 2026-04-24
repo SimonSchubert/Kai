@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-04-20</p>
+<p><strong>Last verified:</strong> 2026-04-24</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1247,7 +1247,7 @@
 <ul>
 <li>Attach via file picker or drag-and-drop</li>
 <li>Compressed to JPEG and Base64-encoded</li>
-<li>Maximum size (after compression): 15 MB — rejected with a size error if exceeded</li>
+<li>Maximum raw input size: 50 MB; maximum size after compression: 15 MB — rejected with a size error if exceeded</li>
 <li>Sent as <code>image_url</code> (OpenAI-compatible), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
 <li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
 <li>Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via Escape/back)</li>
@@ -1271,7 +1271,7 @@
 <ul>
 <li>The attachment button is always shown (text files work with all models)</li>
 <li>Unsupported file types (e.g., <code>.zip</code>) show an error message</li>
-<li>Files exceeding the per-category size limit show a size error</li>
+<li>Files exceeding the per-category size limit show a size error; size is checked by stat before the file is read, so multi-gigabyte attachments are rejected without allocating memory for the full contents</li>
 <li>Long filenames in chips are truncated with an ellipsis while preserving the extension</li>
 <li>File attachments persist across conversation save/restore via an <code>attachments</code> list on each message; older conversations saved with a single-file schema are migrated on load</li>
 </ul>
