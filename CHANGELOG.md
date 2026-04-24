@@ -1,3 +1,21 @@
+## v2.3.3 — 2026-04-24
+
+### Features
+- Add SMS read and send support to FOSS build
+- Add iOS and desktop notifications support
+- Add Z.AI Coding Plan service
+
+### Fixes
+- Fix out-of-memory crash
+- Fix crash when deleting models
+- Fix crash when downloading models while offline
+
+### Improvements
+- Improve IMAP tool
+- Use existing catalog for model context window info
+- Upgrade Kotlin
+- Add missing models
+
 ## v2.3.2 — 2026-04-23
 
 ### Fixes

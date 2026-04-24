@@ -1,0 +1,8 @@
+Add SMS read and send to FOSS build
+Add iOS and desktop notifications
+Add Z.AI Coding Plan service
+Fix out-of-memory crash
+Fix model delete crash
+Fix model download when offline
+Improve IMAP tool
+Upgrade Kotlin and dependencies
