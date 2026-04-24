@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-04-23</p>
+<p><strong>Last verified:</strong> 2026-04-24</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -949,6 +949,14 @@
 <tr>
 <td><code>## Email Status</code> (per-account unread count + last sync)</td>
 <td><code>emailAccounts</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## New Emails</code> (unread header snapshots awaiting triage)</td>
+<td><code>pendingEmails</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## New SMS</code> (unread message snapshots awaiting triage)</td>
+<td><code>pendingSms</code> non-empty</td>
 </tr>
 <tr>
 <td><code>## Promotion Candidates</code> (with hit counts + category)</td>

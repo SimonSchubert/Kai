@@ -1001,7 +1001,7 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p>Last verified: 2026-04-20</p>
+<p>Last verified: 2026-04-24</p>
 <h2 id="overview">Overview</h2>
 <p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.</p>
 <h2 id="configuration">Configuration</h2>
@@ -1040,7 +1040,7 @@
 <li>Lists numbered summoners (S1, S2...) and monsters (M1, M2...) with stats</li>
 <li>Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check)</li>
 <li>Deduplicates cards by detail ID before prompting</li>
-<li>Expects JSON response with plain integer IDs: <code>{"summoner": &lt;number&gt;, "monsters": [&lt;number&gt;...], "mana_total": &lt;number&gt;}</code></li>
+<li>Expects JSON response with plain integer IDs: <code>{"summoner": &lt;number&gt;, "monsters": [&lt;number&gt;...]}</code></li>
 <li>All configured services are queried simultaneously with the same prompt via <code>async</code> coroutines</li>
 <li>Each response is validated independently; silent fixes (dedup, mana trim, color fix, gladiator fix, auto-fill) are applied per-service</li>
 <li>As soon as all higher-priority services have finished, the best valid result is selected immediately and remaining services are cancelled (e.g. if priority-0 returns a valid team first, it is used instantly without waiting for others)</li>

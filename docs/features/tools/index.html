@@ -1613,7 +1613,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-04-23</p>
+<p><strong>Last verified:</strong> 2026-04-24</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1657,7 +1657,7 @@
 </tr>
 <tr>
 <td><code>fetch_url</code></td>
-<td>Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response truncated at ~30K chars. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe).</td>
+<td>Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response is subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe).</td>
 <td>Enabled</td>
 </tr>
 </tbody>
