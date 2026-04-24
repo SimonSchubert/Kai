@@ -309,19 +309,21 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
     override fun startDownload(model: LocalModel) {
         cancelDownload()
-        startDownloadNotificationService()
         downloadJob = scope.launch {
             _downloadingModelId.value = model.id
             _downloadProgress.value = 0f
             _downloadError.value = null
-            val modelsDir = getModelStorageDirectory()
-            val modelDir = File(modelsDir, model.id)
-            modelDir.mkdirs()
-            val targetFile = File(modelDir, model.fileName)
-            val tempFile = File(modelDir, "${model.fileName}.tmp")
-            var lastNotifiedPercent = -1
+            var tempFile: File? = null
+            var notificationStarted = false
 
             try {
+                val modelsDir = getModelStorageDirectory()
+                val modelDir = File(modelsDir, model.id)
+                modelDir.mkdirs()
+                val targetFile = File(modelDir, model.fileName)
+                tempFile = File(modelDir, "${model.fileName}.tmp")
+                var lastNotifiedPercent = -1
+
                 val freeSpace = getFreeSpaceBytes()
                 if (freeSpace < model.sizeBytes + DOWNLOAD_SPACE_BUFFER_BYTES) {
                     _downloadError.value = DownloadError.NOT_ENOUGH_DISK_SPACE
@@ -340,6 +342,12 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     connection.disconnect()
                     throw IOException("Download failed: HTTP $responseCode")
                 }
+
+                // Only start the foreground service once we have a live connection.
+                // Starting it earlier risks ForegroundServiceDidNotStartInTimeException if
+                // the connect() above fails fast (e.g. offline) before the service can run.
+                startDownloadNotificationService()
+                notificationStarted = true
 
                 val contentLength = connection.contentLengthLong.takeIf { it > 0 } ?: model.sizeBytes
                 val buffer = ByteArray(65536)
@@ -374,14 +382,14 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     tempFile.copyTo(targetFile, overwrite = true)
                     tempFile.delete()
                 }
-            } catch (e: Exception) {
-                if (tempFile.exists()) tempFile.delete()
+            } catch (e: Throwable) {
+                if (tempFile?.exists() == true) tempFile.delete()
                 if (e is CancellationException) throw e
                 _downloadError.value = DownloadError.NETWORK_ERROR
             } finally {
                 _downloadingModelId.value = null
                 _downloadProgress.value = null
-                stopDownloadNotificationService()
+                if (notificationStarted) stopDownloadNotificationService()
             }
         }
     }
