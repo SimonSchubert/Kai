@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -170,12 +171,16 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
     override suspend fun release() {
         withContext(Dispatchers.IO) {
-            conversation?.close()
+            // Null before close so a concurrent release() sees null and skips —
+            // Conversation.close() / Engine.close() throw IllegalStateException on double-close.
+            val convToClose = conversation
+            val engineToClose = engine
             conversation = null
-            engine?.close()
             engine = null
             currentModelId = null
             _engineState.value = EngineState.UNINITIALIZED
+            runCatching { convToClose?.close() }
+            runCatching { engineToClose?.close() }
         }
     }
 
@@ -215,7 +220,9 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 // actually have tools, otherwise plain-text responses get parsed as FCs.
                 automaticToolCalling = toolProviders.isNotEmpty(),
             )
-            conversation?.close()
+            val prev = conversation
+            conversation = null
+            runCatching { prev?.close() }
             val conv = currentEngine.createConversation(config)
             conversation = conv
 
@@ -401,6 +408,9 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
     override suspend fun deleteModel(modelId: String) {
         withContext(Dispatchers.IO) {
+            // Wait for any in-flight idle release so its native teardown doesn't race with deleteRecursively().
+            idleReleaseJob?.cancelAndJoin()
+            idleReleaseJob = null
             if (currentModelId == modelId) {
                 release()
             }
