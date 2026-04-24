@@ -50,6 +50,7 @@ import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
 import io.github.vinceglb.filekit.name
 import io.github.vinceglb.filekit.readBytes
+import io.github.vinceglb.filekit.size
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
 import kotlinx.collections.immutable.persistentListOf
@@ -643,14 +644,23 @@ class RemoteDataRepository(
         // Process every attached file: classify, compress/encode, and build an Attachment.
         // readBytes() is suspend, so this happens before the StateFlow.update block.
         val attachments = files.map { file ->
-            val rawBytes = file.readBytes()
             val fileMimeType = file.mimeType()?.toString()
             val fileName = file.name
 
             val category = classifyFile(fileMimeType, fileName)
             if (category == FileCategory.UNSUPPORTED) throw UnsupportedFileTypeException()
-            if (category == FileCategory.TEXT && rawBytes.size > MAX_TEXT_FILE_BYTES) throw FileTooLargeException()
-            if (category == FileCategory.PDF && rawBytes.size > MAX_PDF_BYTES) throw FileTooLargeException()
+
+            // Reject oversized files by stat size before readBytes(), which would otherwise
+            // allocate a ByteArray large enough to OOM the process on multi-GB inputs.
+            val rawSizeLimit = when (category) {
+                FileCategory.TEXT -> MAX_TEXT_FILE_BYTES.toLong()
+                FileCategory.PDF -> MAX_PDF_BYTES.toLong()
+                FileCategory.IMAGE -> MAX_RAW_IMAGE_BYTES.toLong()
+                FileCategory.UNSUPPORTED -> 0L
+            }
+            if (file.size() > rawSizeLimit) throw FileTooLargeException()
+
+            val rawBytes = file.readBytes()
 
             when (category) {
                 FileCategory.IMAGE -> {

@@ -11,6 +11,11 @@ const val MAX_TEXT_FILE_BYTES = 100_000
 const val MAX_PDF_BYTES = 20_000_000
 const val MAX_IMAGE_BYTES = 15_000_000
 
+// Raw image input cap before compression — images typically shrink after compression,
+// so we allow larger raw files than MAX_IMAGE_BYTES while still preventing an OOM
+// from reading a multi-gigabyte file into memory.
+const val MAX_RAW_IMAGE_BYTES = 50_000_000
+
 private val textMimeTypes = setOf(
     "application/json",
     "application/xml",
