@@ -1,8 +1,8 @@
 # Multi-Service
 
-**Last verified:** 2026-04-21
+**Last verified:** 2026-04-24
 
-Kai supports 25 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 26 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -69,6 +69,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Venice AI | `venice` | Yes | OpenAI-compatible |
 | Moonshot AI | `moonshot` | Yes | OpenAI-compatible |
 | Z.AI | `zai` | Yes | OpenAI-compatible |
+| Z.AI Coding Plan | `zai-coding-plan` | Yes | OpenAI-compatible |
 | MiniMax | `minimax` | Yes | OpenAI-compatible |
 | AIHubMix | `aihubmix` | Yes | OpenAI-compatible |
 | Deep Infra | `deepinfra` | Yes | OpenAI-compatible |
@@ -101,7 +102,7 @@ The model picker modal shows each candidate as a card with consistent metadata r
 
 The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.
 
-The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by date (newest first).
+The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by score (highest first).
 
 Context window and release date come from two sources, merged by the mapping layer: whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`), and a bundled curated catalog of well-known models that fills gaps for providers whose API omits these fields (notably Gemini and Anthropic for context window). API data always wins over the catalog. Models not present in the catalog still render — their chips are simply hidden.
 

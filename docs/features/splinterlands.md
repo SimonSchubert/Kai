@@ -1,6 +1,6 @@
 # Splinterlands Auto-Battle
 
-Last verified: 2026-04-20
+Last verified: 2026-04-24
 
 ## Overview
 
@@ -47,7 +47,7 @@ The Stop button behavior depends on the current phase. Before a match is committ
 - Lists numbered summoners (S1, S2...) and monsters (M1, M2...) with stats
 - Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check)
 - Deduplicates cards by detail ID before prompting
-- Expects JSON response with plain integer IDs: `{"summoner": <number>, "monsters": [<number>...], "mana_total": <number>}`
+- Expects JSON response with plain integer IDs: `{"summoner": <number>, "monsters": [<number>...]}`
 - All configured services are queried simultaneously with the same prompt via `async` coroutines
 - Each response is validated independently; silent fixes (dedup, mana trim, color fix, gladiator fix, auto-fill) are applied per-service
 - As soon as all higher-priority services have finished, the best valid result is selected immediately and remaining services are cancelled (e.g. if priority-0 returns a valid team first, it is used instantly without waiting for others)

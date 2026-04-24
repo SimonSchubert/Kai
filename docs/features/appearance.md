@@ -1,6 +1,6 @@
 # Appearance
 
-**Last verified:** 2026-04-22
+**Last verified:** 2026-04-24
 
 Kai's theme follows the operating system's dark/light preference and has no in-app theme switcher. Dark mode defaults to a soft dark background (`#121212`) with slightly lighter surfaces (`#1E1E1E`). An opt-in **OLED mode** setting flattens the background and low surface tiers to pure black (`#000000`) for users who want to save power on OLED panels. Cards, dialogs, bottom sheets, and menus remain visually lifted in either mode because only the lowest surface tiers are affected; container tiers keep their default Material 3 elevation.
 

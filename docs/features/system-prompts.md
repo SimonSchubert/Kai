@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-04-23
+**Last verified:** 2026-04-24
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -56,6 +56,8 @@ Interactive UI mode is **not** available on on-device services — the kai-ui co
 | `## Heartbeat Additions` | `heartbeatAdditions` non-empty — appended standing instructions from `schedule_task(on_heartbeat=true)` tasks |
 | `## Pending Tasks` (with optional cron annotation) | `pendingTasks` non-empty |
 | `## Email Status` (per-account unread count + last sync) | `emailAccounts` non-empty |
+| `## New Emails` (unread header snapshots awaiting triage) | `pendingEmails` non-empty |
+| `## New SMS` (unread message snapshots awaiting triage) | `pendingSms` non-empty |
 | `## Promotion Candidates` (with hit counts + category) | `promotionCandidates` non-empty |
 
 ## How to add a new section

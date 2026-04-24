@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-24
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 

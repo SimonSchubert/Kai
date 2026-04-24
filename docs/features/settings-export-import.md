@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-04-20
+**Last verified:** 2026-04-24
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 
@@ -37,6 +37,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | MCP | MCP Servers | `mcp_servers` |
 | CONVERSATIONS | Conversations | `conversations` |
 | SPLINTERLANDS | Splinterlands | `splinterlands_enabled`, `splinterlands_account` |
+| SMS | SMS | `sms_enabled`, `sms_poll_interval`, `sms_send_enabled` |
 
 ## Settings Included
 
@@ -52,6 +53,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | MCP | `mcp_servers` |
 | Conversations | `conversations` (array of conversation objects with messages) |
 | Splinterlands | `splinterlands_enabled`, `splinterlands_account`, `splinterlands_instance_ids`, `splinterlands_battle_log` |
+| SMS | `sms_enabled`, `sms_poll_interval`, `sms_send_enabled`, `sms_pending`, `sms_sync_state`, `sms_drafts` |
 
 ## Excluded
 

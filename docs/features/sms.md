@@ -1,6 +1,6 @@
 # SMS
 
-**Last verified:** 2026-04-23
+**Last verified:** 2026-04-24
 
 > SMS is **FOSS-only** and **Android-only**. The Play Store variant of Kai does not declare `READ_SMS` or `SEND_SMS` and the feature is invisible there — no settings, no tools, no code path. Play Store's SMS/Call Log Permissions policy restricts both permissions to default SMS handlers, which Kai is not.
 

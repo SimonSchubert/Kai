@@ -75,7 +75,7 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 | Aspect | Android | Desktop |
 |--------|---------|---------|
 | Model storage | `context.filesDir/litert_models` | `~/.kai/litert_models` |
-| Memory check | `ActivityManager.getMemoryInfo()` | `OperatingSystemMXBean.freePhysicalMemorySize` |
+| Memory check | `ActivityManager.getMemoryInfo()` | Skipped — desktop OSes manage memory via swap and cache eviction |
 | Disk space | `StatFs.availableBytes` | `File.usableSpace` |
 | Download notification | Foreground service with notification | No notification (no OS restriction) |
 

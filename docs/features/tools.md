@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-23
+**Last verified:** 2026-04-24
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -32,7 +32,7 @@ The component that looks up a tool by name, parses JSON arguments into a typed m
 | `get_local_time` | Get the current local date and time | Enabled |
 | `get_location_from_ip` | Get estimated location from IP address | Enabled |
 | `open_url` | Open a URL, link, or local file on the device | Enabled |
-| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response truncated at ~30K chars. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
+| `fetch_url` | Fetch an http(s) URL and return the response body to the agent (GET, POST, HEAD). Blocks private/loopback hosts; response is subject to the global 20K tool-result truncation. Used for reading pages and acting on links from emails (e.g. RFC 8058 one-click unsubscribe). | Enabled |
 
 #### open_url platform behavior
 
