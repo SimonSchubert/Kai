@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">समय-समय पर आत्म-जाँच जो AI को उपयोगकर्ता इनपुट के बिना यादों और कार्यों की समीक्षा करने देती है। सक्रिय घंटों के दौरान हर %1$d मिनट में चलता है।</string>
     <string name="settings_heartbeat_prompt_label">धड़कन प्रॉम्प्ट</string>
     <string name="settings_heartbeat_recent">हाल की गतिविधि</string>
+    <string name="settings_heartbeat_refresh">धड़कन ट्रिगर करें</string>
     <string name="settings_remove_service">हटाएं</string>
     <string name="tool_memory_learn_description">श्रेणीबद्ध सीख, त्रुटि समाधान या प्राथमिकता संग्रहित करें</string>
     <string name="tool_memory_store_name">स्मृति सहेजें</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">स्मृति मजबूत करें</string>
     <string name="tool_promote_learning_description">मजबूत की गई सीख को सिस्टम प्रॉम्प्ट में बढ़ावा दें</string>
     <string name="tool_promote_learning_name">सीख बढ़ावा दें</string>
-    <string name="tool_trigger_heartbeat_description">अगले चक्र में धड़कन ट्रिगर करें</string>
-    <string name="tool_trigger_heartbeat_name">धड़कन ट्रिगर करें</string>
     <string name="tool_web_search_description">वर्तमान जानकारी के लिए वेब पर खोजें</string>
     <string name="tool_open_url_name">URL खोलें</string>
     <string name="tool_open_url_description">डिवाइस पर URL या लिंक खोलें</string>

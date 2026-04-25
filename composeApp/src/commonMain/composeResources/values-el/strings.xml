@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Περιοδικοί αυτοέλεγχοι που επιτρέπουν στην AI να ελέγχει αναμνήσεις και εργασίες χωρίς είσοδο χρήστη. Εκτελείται κάθε %1$d λεπτά κατά τις ενεργές ώρες.</string>
     <string name="settings_heartbeat_prompt_label">Prompt παλμού</string>
     <string name="settings_heartbeat_recent">Πρόσφατη δραστηριότητα</string>
+    <string name="settings_heartbeat_refresh">Ενεργοποίηση παλμού</string>
     <string name="settings_remove_service">Αφαίρεση</string>
     <string name="tool_memory_learn_description">Αποθήκευση κατηγοριοποιημένης γνώσης, επίλυσης σφάλματος ή προτίμησης</string>
     <string name="tool_memory_store_name">Αποθήκευση ανάμνησης</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Ενίσχυση ανάμνησης</string>
     <string name="tool_promote_learning_description">Προαγωγή ενισχυμένης γνώσης στο prompt συστήματος</string>
     <string name="tool_promote_learning_name">Προαγωγή γνώσης</string>
-    <string name="tool_trigger_heartbeat_description">Ενεργοποίηση παλμού στον επόμενο κύκλο</string>
-    <string name="tool_trigger_heartbeat_name">Ενεργοποίηση παλμού</string>
     <string name="tool_web_search_description">Αναζήτηση στο διαδίκτυο για τρέχουσες πληροφορίες</string>
     <string name="tool_open_url_name">Άνοιγμα URL</string>
     <string name="tool_open_url_description">Άνοιγμα URL ή συνδέσμου στη συσκευή</string>

@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Kiểm tra tự động định kỳ cho phép AI xem lại bộ nhớ và tác vụ mà không cần đầu vào từ người dùng. Chạy mỗi %1$d phút trong giờ hoạt động.</string>
     <string name="settings_heartbeat_prompt_label">Lệnh Nhịp tim</string>
     <string name="settings_heartbeat_recent">Hoạt động gần đây</string>
+    <string name="settings_heartbeat_refresh">Kích hoạt Nhịp tim</string>
     <string name="settings_remove_service">Xóa</string>
     <string name="tool_memory_learn_description">Lưu trữ bài học được phân loại, giải pháp lỗi hoặc tùy chọn</string>
     <string name="tool_memory_store_name">Lưu ký ức</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Củng cố bộ nhớ</string>
     <string name="tool_promote_learning_description">Thăng cấp bài học đã củng cố vào lệnh hệ thống</string>
     <string name="tool_promote_learning_name">Thăng cấp bài học</string>
-    <string name="tool_trigger_heartbeat_description">Kích hoạt nhịp tim ở chu kỳ tiếp theo</string>
-    <string name="tool_trigger_heartbeat_name">Kích hoạt Nhịp tim</string>
     <string name="tool_web_search_description">Tìm kiếm trên web để có thông tin hiện tại</string>
     <string name="tool_open_url_name">Mở URL</string>
     <string name="tool_open_url_description">Mở URL hoặc liên kết trên thiết bị</string>

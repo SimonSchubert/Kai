@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">בדיקות עצמיות תקופתיות המאפשרות לבינה המלאכותית לסקור זיכרונות ומשימות ללא קלט מהמשתמש. פועל כל %1$d דקות בשעות הפעילות.</string>
     <string name="settings_heartbeat_prompt_label">פרומפט פעימת לב</string>
     <string name="settings_heartbeat_recent">פעילות אחרונה</string>
+    <string name="settings_heartbeat_refresh">הפעל פעימת לב</string>
     <string name="settings_remove_service">הסר</string>
     <string name="tool_memory_learn_description">שמור למידה מסווגת, פתרון שגיאה או העדפה</string>
     <string name="tool_memory_store_name">שמור זיכרון</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">חזק זיכרון</string>
     <string name="tool_promote_learning_description">קדם למידה מחוזקת לפרומפט המערכת</string>
     <string name="tool_promote_learning_name">קדם למידה</string>
-    <string name="tool_trigger_heartbeat_description">הפעל פעימת לב במחזור הבא</string>
-    <string name="tool_trigger_heartbeat_name">הפעל פעימת לב</string>
     <string name="tool_web_search_description">חפש באינטרנט מידע עדכני</string>
     <string name="tool_open_url_name">פתח URL</string>
     <string name="tool_open_url_description">פתח URL או קישור במכשיר</string>

@@ -122,6 +122,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_heartbeat_description">Vérifications périodiques permettant à l'IA de revoir les souvenirs et les tâches sans intervention de l'utilisateur. S'exécute toutes les %1$d minutes pendant les heures actives.</string>
     <string name="settings_heartbeat_prompt_label">Prompt de battement de cœur</string>
     <string name="settings_heartbeat_recent">Activité Récente</string>
+    <string name="settings_heartbeat_refresh">Déclencher un battement de cœur</string>
     <string name="settings_remove_service">Supprimer</string>
     <string name="tool_memory_learn_description">Stocker un apprentissage catégorisé, une résolution d'erreur ou une préférence</string>
     <string name="tool_memory_store_name">Enregistrer un souvenir</string>
@@ -133,8 +134,6 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tool_memory_reinforce_name">Renforcer Mémoire</string>
     <string name="tool_promote_learning_description">Promouvoir un apprentissage renforcé vers le prompt système</string>
     <string name="tool_promote_learning_name">Promouvoir Apprentissage</string>
-    <string name="tool_trigger_heartbeat_description">Déclencher un battement de cœur au prochain cycle</string>
-    <string name="tool_trigger_heartbeat_name">Déclencher un battement de cœur</string>
     <string name="tool_web_search_description">Rechercher sur le web des informations actuelles</string>
     <string name="tool_open_url_name">Ouvrir l'URL</string>
     <string name="tool_open_url_description">Ouvrir une URL ou un lien sur l'appareil</string>

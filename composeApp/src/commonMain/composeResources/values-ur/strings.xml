@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">وقتاً فوقتاً سیلف چیک جو AI کو صارف کے ان پٹ کے بغیر یادداشتوں اور کاموں کا جائزہ لینے دیتے ہیں۔ فعال اوقات میں ہر %1$d منٹ بعد چلتا ہے۔</string>
     <string name="settings_heartbeat_prompt_label">دل کی دھڑکن پرامپٹ</string>
     <string name="settings_heartbeat_recent">حالیہ سرگرمی</string>
+    <string name="settings_heartbeat_refresh">دل کی دھڑکن شروع کریں</string>
     <string name="settings_remove_service">ہٹائیں</string>
     <string name="tool_memory_learn_description">زمرہ بند سیکھ، خرابی کا حل، یا ترجیح محفوظ کریں</string>
     <string name="tool_memory_store_name">یادداشت محفوظ کریں</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">یادداشت مضبوط کریں</string>
     <string name="tool_promote_learning_description">مضبوط شدہ سیکھ کو سسٹم پرامپٹ میں ترقی دیں</string>
     <string name="tool_promote_learning_name">سیکھ کو ترقی دیں</string>
-    <string name="tool_trigger_heartbeat_description">اگلے سائیکل میں دل کی دھڑکن شروع کریں</string>
-    <string name="tool_trigger_heartbeat_name">دل کی دھڑکن شروع کریں</string>
     <string name="tool_web_search_description">موجودہ معلومات کے لیے ویب تلاش کریں</string>
     <string name="tool_open_url_name">URL کھولیں</string>
     <string name="tool_open_url_description">ڈیوائس پر URL یا لنک کھولیں</string>

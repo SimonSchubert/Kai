@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">Периодические самопроверки, позволяющие ИИ просматривать воспоминания и задачи без ввода пользователя. Запускается каждые %1$d минут в активные часы.</string>
     <string name="settings_heartbeat_prompt_label">Промпт пульса</string>
     <string name="settings_heartbeat_recent">Недавняя активность</string>
+    <string name="settings_heartbeat_refresh">Запустить пульс</string>
     <string name="settings_remove_service">Удалить</string>
     <string name="tool_memory_learn_description">Сохранить категоризированное знание, решение ошибки или предпочтение</string>
     <string name="tool_memory_store_name">Сохранить запись</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">Укрепить память</string>
     <string name="tool_promote_learning_description">Продвинуть укреплённое знание в системный промпт</string>
     <string name="tool_promote_learning_name">Продвинуть знание</string>
-    <string name="tool_trigger_heartbeat_description">Запустить пульс в следующем цикле</string>
-    <string name="tool_trigger_heartbeat_name">Запустить пульс</string>
     <string name="tool_web_search_description">Искать в интернете актуальную информацию</string>
     <string name="tool_open_url_name">Открыть URL</string>
     <string name="tool_open_url_description">Открыть URL или ссылку на устройстве</string>

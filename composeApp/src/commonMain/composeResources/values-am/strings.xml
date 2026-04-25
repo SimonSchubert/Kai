@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">AI ያለ ተጠቃሚ ግብአት ትውስታዎችን እና ስራዎችን እንዲገመግም የሚያስችሉ ወቅታዊ ራስ-ምርመራዎች። በየ %1$d ደቂቃ በንቁ ሰዓታት ይሰራል።</string>
     <string name="settings_heartbeat_prompt_label">የልብ ምት ጥያቄ</string>
     <string name="settings_heartbeat_recent">የቅርብ ጊዜ እንቅስቃሴ</string>
+    <string name="settings_heartbeat_refresh">የልብ ምት አስነሳ</string>
     <string name="settings_remove_service">አስወግድ</string>
     <string name="tool_memory_learn_description">የተመደበ ትምህርት፣ የስህተት መፍትሄ ወይም ምርጫ ያከማቹ</string>
     <string name="tool_memory_store_name">ትውስታ አስቀምጥ</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">ትውስታ አጠናክር</string>
     <string name="tool_promote_learning_description">የተጠናከረ ትምህርት ወደ ስርዓት ጥያቄ አስተዋውቅ</string>
     <string name="tool_promote_learning_name">ትምህርት አስተዋውቅ</string>
-    <string name="tool_trigger_heartbeat_description">በሚቀጥለው ዑደት ላይ የልብ ምት አስነሳ</string>
-    <string name="tool_trigger_heartbeat_name">የልብ ምት አስነሳ</string>
     <string name="tool_web_search_description">ለወቅታዊ መረጃ ድሩን ፈልግ</string>
     <string name="tool_open_url_name">URL ክፈት</string>
     <string name="tool_open_url_description">በመሳሪያው ላይ URL ወይም አገናኝ ይክፈቱ</string>

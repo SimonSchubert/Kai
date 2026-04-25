@@ -122,6 +122,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_heartbeat_description">Jaksolliset itsetarkistukset, jotka antavat tekoälyn tarkistaa muistot ja tehtävät ilman käyttäjän syötettä. Suoritetaan %1$d minuutin välein aktiivisina tunteina.</string>
     <string name="settings_heartbeat_prompt_label">Sykekehote</string>
     <string name="settings_heartbeat_recent">Viimeaikainen toiminta</string>
+    <string name="settings_heartbeat_refresh">Laukaise syke</string>
     <string name="settings_remove_service">Poista</string>
     <string name="tool_memory_learn_description">Tallenna luokiteltu oppiminen, virheenratkaisu tai mieltymys</string>
     <string name="tool_memory_store_name">Tallenna muisto</string>
@@ -133,8 +134,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="tool_memory_reinforce_name">Vahvista muisti</string>
     <string name="tool_promote_learning_description">Ylennä vahvistettu oppiminen järjestelmäkehotteeseen</string>
     <string name="tool_promote_learning_name">Ylennä oppiminen</string>
-    <string name="tool_trigger_heartbeat_description">Laukaise syke seuraavassa syklissä</string>
-    <string name="tool_trigger_heartbeat_name">Laukaise syke</string>
     <string name="tool_web_search_description">Hae verkosta ajankohtaista tietoa</string>
     <string name="tool_open_url_name">Avaa URL</string>
     <string name="tool_open_url_description">Avaa URL tai linkki laitteella</string>

@@ -87,8 +87,6 @@
     <string name="tool_cancel_task_description">Cancel a scheduled task</string>
     <string name="tool_list_tasks_name">List Tasks</string>
     <string name="tool_list_tasks_description">List all scheduled tasks</string>
-    <string name="tool_trigger_heartbeat_name">Trigger Heartbeat</string>
-    <string name="tool_trigger_heartbeat_description">Trigger a heartbeat on next cycle</string>
     <string name="tool_promote_learning_name">Promote Learning</string>
     <string name="tool_promote_learning_description">Promote a reinforced learning into the system prompt</string>
     <string name="tool_memory_store_name">Store Memory</string>
@@ -145,6 +143,7 @@
     <string name="settings_heartbeat_active_hours">Active Hours</string>
     <string name="settings_heartbeat_prompt_label">Heartbeat Prompt</string>
     <string name="settings_heartbeat_recent">Recent Activity</string>
+    <string name="settings_heartbeat_refresh">Run heartbeat now</string>
     <string name="settings_heartbeat_reset_confirm">This will reset the heartbeat prompt to the default. Are you sure?</string>
     <string name="settings_heartbeat_default_prompt">[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\nIf something needs attention (stale memories, due tasks, user follow-ups), address it.</string>
     <string name="settings_heartbeat_model">Model</string>

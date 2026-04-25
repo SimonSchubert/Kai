@@ -122,6 +122,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_heartbeat_description">Periodische Selbstprüfungen, die der KI ermöglichen, Erinnerungen und Aufgaben ohne Benutzereingabe zu überprüfen. Läuft alle %1$d Minuten während aktiver Stunden.</string>
     <string name="settings_heartbeat_prompt_label">Herzschlag-Prompt</string>
     <string name="settings_heartbeat_recent">Letzte Aktivität</string>
+    <string name="settings_heartbeat_refresh">Herzschlag auslösen</string>
     <string name="settings_remove_service">Entfernen</string>
     <string name="tool_memory_learn_description">Ein kategorisiertes Lernergebnis, eine Fehlerbehebung oder eine Präferenz speichern</string>
     <string name="tool_memory_store_name">Erinnerung speichern</string>
@@ -133,8 +134,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tool_memory_reinforce_name">Erinnerung verstärken</string>
     <string name="tool_promote_learning_description">Ein verstärktes Lernergebnis in den Systemprompt befördern</string>
     <string name="tool_promote_learning_name">Lernergebnis befördern</string>
-    <string name="tool_trigger_heartbeat_description">Einen Herzschlag im nächsten Zyklus auslösen</string>
-    <string name="tool_trigger_heartbeat_name">Herzschlag auslösen</string>
     <string name="tool_web_search_description">Das Web nach aktuellen Informationen durchsuchen</string>
     <string name="tool_open_url_name">URL öffnen</string>
     <string name="tool_open_url_description">Eine URL oder einen Link auf dem Gerät öffnen</string>

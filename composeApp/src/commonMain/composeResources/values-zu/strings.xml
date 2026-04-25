@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Ukuhlolwa kwezenzakalelayo okwesikhashana okuvumela i-AI ukuthi ibuyekeze izinkumbulo nemisebenzi ngaphandle kokufakwa komsebenzisi. Isebenza njalo ngemizuzu engu-%1$d ngamahora asebenzayo.</string>
     <string name="settings_heartbeat_prompt_label">I-Prompt yokushaya kwenhliziyo</string>
     <string name="settings_heartbeat_recent">Umsebenzi Wamuva</string>
+    <string name="settings_heartbeat_refresh">Qalisa ukushaya kwenhliziyo</string>
     <string name="settings_remove_service">Susa</string>
     <string name="tool_memory_learn_description">Gcina ukufunda okuhlukanisiwe, ukuxazululwa kwephutha, noma ukukhetha</string>
     <string name="tool_memory_store_name">Gcina Inkumbulo</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Qinisa Inkumbulo</string>
     <string name="tool_promote_learning_description">Phakamisa ukufunda okuqinisiwe ku-prompt yesistimu</string>
     <string name="tool_promote_learning_name">Phakamisa Ukufunda</string>
-    <string name="tool_trigger_heartbeat_description">Qalisa ukushaya kwenhliziyo emjikelezweni olandelayo</string>
-    <string name="tool_trigger_heartbeat_name">Qalisa ukushaya kwenhliziyo</string>
     <string name="tool_web_search_description">Sesha iwebhu ukuthola ulwazi lwamanje</string>
     <string name="tool_open_url_name">Vula i-URL</string>
     <string name="tool_open_url_description">Vula i-URL noma isixhumanisi kudivayisi</string>

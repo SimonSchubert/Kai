@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">Періодичні самоперевірки, що дозволяють ШІ переглядати спогади та завдання без введення користувача. Запускається кожні %1$d хвилин в активні години.</string>
     <string name="settings_heartbeat_prompt_label">Промпт серцебиття</string>
     <string name="settings_heartbeat_recent">Нещодавня активність</string>
+    <string name="settings_heartbeat_refresh">Запустити серцебиття</string>
     <string name="settings_remove_service">Видалити</string>
     <string name="tool_memory_learn_description">Зберегти категоризоване знання, вирішення помилки або вподобання</string>
     <string name="tool_memory_store_name">Зберегти запис</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">Зміцнити пам'ять</string>
     <string name="tool_promote_learning_description">Просунути зміцнене знання до системного промпту</string>
     <string name="tool_promote_learning_name">Просунути знання</string>
-    <string name="tool_trigger_heartbeat_description">Запустити серцебиття в наступному циклі</string>
-    <string name="tool_trigger_heartbeat_name">Запустити серцебиття</string>
     <string name="tool_web_search_description">Шукати в інтернеті актуальну інформацію</string>
     <string name="tool_open_url_name">Відкрити URL</string>
     <string name="tool_open_url_description">Відкрити URL або посилання на пристрої</string>

@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Periodične samoprovjere koje omogućuju AI-ju pregled sjećanja i zadataka bez korisničkog unosa. Pokreće se svakih %1$d minuta tijekom aktivnih sati.</string>
     <string name="settings_heartbeat_prompt_label">Prompt otkucaja srca</string>
     <string name="settings_heartbeat_recent">Nedavna aktivnost</string>
+    <string name="settings_heartbeat_refresh">Pokreni otkucaj srca</string>
     <string name="settings_remove_service">Ukloni</string>
     <string name="tool_memory_learn_description">Pohrani kategorizirano učenje, rješenje pogreške ili preferenciju</string>
     <string name="tool_memory_store_name">Spremi sjećanje</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Pojačaj sjećanje</string>
     <string name="tool_promote_learning_description">Promoviraj pojačano učenje u sistemski prompt</string>
     <string name="tool_promote_learning_name">Promoviraj učenje</string>
-    <string name="tool_trigger_heartbeat_description">Pokreni otkucaj srca u sljedećem ciklusu</string>
-    <string name="tool_trigger_heartbeat_name">Pokreni otkucaj srca</string>
     <string name="tool_web_search_description">Pretraži web za trenutne informacije</string>
     <string name="tool_open_url_name">Otvori URL</string>
     <string name="tool_open_url_description">Otvorite URL ili poveznicu na uređaju</string>

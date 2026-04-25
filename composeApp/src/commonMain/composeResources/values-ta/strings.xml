@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">பயனர் உள்ளீடு இல்லாமல் AI நினைவுகளையும் பணிகளையும் மதிப்பாய்வு செய்ய அனுமதிக்கும் அவ்வப்போது சுய சோதனைகள். செயலில் உள்ள நேரங்களில் ஒவ்வொரு %1$d நிமிடங்களுக்கும் இயங்கும்.</string>
     <string name="settings_heartbeat_prompt_label">இதயத்துடிப்பு ப்ராம்ப்ட்</string>
     <string name="settings_heartbeat_recent">சமீபத்திய செயல்பாடு</string>
+    <string name="settings_heartbeat_refresh">இதயத்துடிப்பு தூண்டு</string>
     <string name="settings_remove_service">அகற்று</string>
     <string name="tool_memory_learn_description">வகைப்படுத்தப்பட்ட கற்றல், பிழை தீர்வு அல்லது விருப்பத்தைச் சேமி</string>
     <string name="tool_memory_store_name">நினைவகத்தை சேமி</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">நினைவை வலுப்படுத்து</string>
     <string name="tool_promote_learning_description">வலுப்படுத்தப்பட்ட கற்றலை கணினி ப்ராம்ப்ட்டில் உயர்த்து</string>
     <string name="tool_promote_learning_name">கற்றலை உயர்த்து</string>
-    <string name="tool_trigger_heartbeat_description">அடுத்த சுழற்சியில் இதயத்துடிப்பு தூண்டு</string>
-    <string name="tool_trigger_heartbeat_name">இதயத்துடிப்பு தூண்டு</string>
     <string name="tool_web_search_description">தற்போதைய தகவலுக்கு இணையத்தில் தேடு</string>
     <string name="tool_open_url_name">URL திற</string>
     <string name="tool_open_url_description">சாதனத்தில் URL அல்லது இணைப்பைத் திற</string>

@@ -122,6 +122,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_heartbeat_description">Periodiske selvtjek der lader AI gennemgå erindringer og opgaver uden brugerinput. Kører hver %1$d minut i aktive timer.</string>
     <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
     <string name="settings_heartbeat_recent">Seneste aktivitet</string>
+    <string name="settings_heartbeat_refresh">Udløs hjerteslag</string>
     <string name="settings_remove_service">Fjern</string>
     <string name="tool_memory_learn_description">Gem en kategoriseret lærdom, fejlløsning eller præference</string>
     <string name="tool_memory_store_name">Gem erindring</string>
@@ -133,8 +134,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="tool_memory_reinforce_name">Forstærk hukommelse</string>
     <string name="tool_promote_learning_description">Forfrem en forstærket lærdom til systemprompt</string>
     <string name="tool_promote_learning_name">Forfrem lærdom</string>
-    <string name="tool_trigger_heartbeat_description">Udløs et hjerteslag i næste cyklus</string>
-    <string name="tool_trigger_heartbeat_name">Udløs hjerteslag</string>
     <string name="tool_web_search_description">Søg på nettet efter aktuel information</string>
     <string name="tool_open_url_name">Åbn URL</string>
     <string name="tool_open_url_description">Åbn en URL eller et link på enheden</string>

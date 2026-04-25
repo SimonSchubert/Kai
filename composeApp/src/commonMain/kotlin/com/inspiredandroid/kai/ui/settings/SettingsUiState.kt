@@ -76,6 +76,7 @@ data class SettingsUiState(
     val heartbeatLog: ImmutableList<HeartbeatLogEntry> = persistentListOf(),
     val heartbeatServiceEntries: ImmutableList<ServiceEntry> = persistentListOf(),
     val heartbeatSelectedInstanceId: String? = null,
+    val isRefreshingHeartbeat: Boolean = false,
     val isEmailEnabled: Boolean = true,
     val showEmailToggle: Boolean = false,
     val emailAccounts: ImmutableList<EmailAccount> = persistentListOf(),

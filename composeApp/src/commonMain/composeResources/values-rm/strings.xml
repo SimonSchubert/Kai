@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Auto-controllas periodicas che permettan a l'IA da controllar regurdanzas ed incumbensas senza input da l'utilisader. Curra mintga %1$d minutas durant las uras activas.</string>
     <string name="settings_heartbeat_prompt_label">Prompt da batacor</string>
     <string name="settings_heartbeat_recent">Activitad recenta</string>
+    <string name="settings_heartbeat_refresh">Destainar batacor</string>
     <string name="settings_remove_service">Stizzar</string>
     <string name="tool_memory_learn_description">Memorisar in'emprendida categorisada, ina resoluziun d'errur u ina preferenza</string>
     <string name="tool_memory_store_name">Memorisar regurdanza</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Rinforzar regurdanza</string>
     <string name="tool_promote_learning_description">Promover in'emprendida rinforzada en il prompt dal sistem</string>
     <string name="tool_promote_learning_name">Promover emprendida</string>
-    <string name="tool_trigger_heartbeat_description">Destainar in batacor en il proxim ciclus</string>
-    <string name="tool_trigger_heartbeat_name">Destainar batacor</string>
     <string name="tool_web_search_description">Tschertgar il web per infurmaziuns actualas</string>
     <string name="tool_open_url_name">Avrir URL</string>
     <string name="tool_open_url_description">Avrir in URL u in link sin l'apparat</string>

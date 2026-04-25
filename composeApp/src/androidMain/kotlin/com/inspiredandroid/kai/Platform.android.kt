@@ -13,7 +13,6 @@ import androidx.core.graphics.scale
 import androidx.core.net.toUri
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
-import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.SmsDraftStore
 import com.inspiredandroid.kai.data.SmsStore
@@ -199,7 +198,6 @@ actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
-    val heartbeatManager: HeartbeatManager by inject(HeartbeatManager::class.java)
     val calendarPermissionController: CalendarPermissionController by inject(CalendarPermissionController::class.java)
     val calendarRepository = CalendarRepository(context, calendarPermissionController)
     val emailStore: EmailStore by inject(EmailStore::class.java)
@@ -210,7 +208,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
-            addAll(HeartbeatTools.getHeartbeatTools(heartbeatManager, memoryStore, appSettings))
+            addAll(HeartbeatTools.getHeartbeatTools(memoryStore, appSettings))
         }
         if (appSettings.isToolEnabled(CommonTools.localTimeTool.schema.name)) {
             add(CommonTools.localTimeTool)

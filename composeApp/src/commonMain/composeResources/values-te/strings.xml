@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">వినియోగదారు ఇన్‌పుట్ లేకుండా AI జ్ఞాపకాలు మరియు టాస్క్‌లను సమీక్షించడానికి అనుమతించే ఆవర్తన స్వీయ తనిఖీలు. సక్రియ గంటల్లో ప్రతి %1$d నిమిషాలకు అమలవుతుంది.</string>
     <string name="settings_heartbeat_prompt_label">హృదయ స్పందన ప్రాంప్ట్</string>
     <string name="settings_heartbeat_recent">ఇటీవలి కార్యకలాపం</string>
+    <string name="settings_heartbeat_refresh">హృదయ స్పందన ట్రిగ్గర్ చేయి</string>
     <string name="settings_remove_service">తొలగించు</string>
     <string name="tool_memory_learn_description">వర్గీకరించబడిన అభ్యాసం, లోపం పరిష్కారం లేదా ప్రాధాన్యతను నిల్వ చేయి</string>
     <string name="tool_memory_store_name">జ్ఞాపకం భద్రపరచు</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">జ్ఞాపకాన్ని బలపరుచు</string>
     <string name="tool_promote_learning_description">బలపరచబడిన అభ్యాసాన్ని సిస్టమ్ ప్రాంప్ట్‌లో ప్రమోట్ చేయి</string>
     <string name="tool_promote_learning_name">అభ్యాసాన్ని ప్రమోట్ చేయి</string>
-    <string name="tool_trigger_heartbeat_description">తర్వాతి సైకిల్‌లో హృదయ స్పందనను ట్రిగ్గర్ చేయి</string>
-    <string name="tool_trigger_heartbeat_name">హృదయ స్పందన ట్రిగ్గర్ చేయి</string>
     <string name="tool_web_search_description">ప్రస్తుత సమాచారం కోసం వెబ్‌లో శోధించు</string>
     <string name="tool_open_url_name">URL తెరవండి</string>
     <string name="tool_open_url_description">పరికరంలో URL లేదా లింక్‌ను తెరవండి</string>

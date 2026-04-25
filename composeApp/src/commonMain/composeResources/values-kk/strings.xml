@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">AI-ға пайдаланушы енгізуінсіз естеліктер мен тапсырмаларды қарауға мүмкіндік беретін мерзімді өзін-өзі тексерулер. Белсенді сағаттарда әр %1$d минут сайын іске қосылады.</string>
     <string name="settings_heartbeat_prompt_label">Жүрек соғысы промпты</string>
     <string name="settings_heartbeat_recent">Соңғы белсенділік</string>
+    <string name="settings_heartbeat_refresh">Жүрек соғысын іске қосу</string>
     <string name="settings_remove_service">Жою</string>
     <string name="tool_memory_learn_description">Санатталған білім, қате шешімі немесе таңдауды сақтау</string>
     <string name="tool_memory_store_name">Естелікті сақтау</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Естелікті күшейту</string>
     <string name="tool_promote_learning_description">Күшейтілген білімді жүйелік промптқа көтеру</string>
     <string name="tool_promote_learning_name">Білімді көтеру</string>
-    <string name="tool_trigger_heartbeat_description">Келесі циклде жүрек соғысын іске қосу</string>
-    <string name="tool_trigger_heartbeat_name">Жүрек соғысын іске қосу</string>
     <string name="tool_web_search_description">Ағымдағы ақпарат үшін вебті іздеу</string>
     <string name="tool_open_url_name">URL ашу</string>
     <string name="tool_open_url_description">Құрылғыда URL немесе сілтемені ашу</string>

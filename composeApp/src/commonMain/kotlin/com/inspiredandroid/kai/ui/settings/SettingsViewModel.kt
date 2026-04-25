@@ -8,6 +8,7 @@ import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
@@ -54,6 +55,7 @@ class SettingsViewModel(
     private val dataRepository: DataRepository,
     private val daemonController: DaemonController,
     private val notificationPermissionController: NotificationPermissionController,
+    private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) : ViewModel() {
 
@@ -141,6 +143,7 @@ class SettingsViewModel(
         onChangeHeartbeatActiveHours = ::onChangeHeartbeatActiveHours,
         onSaveHeartbeatPrompt = ::onSaveHeartbeatPrompt,
         onChangeHeartbeatService = ::onChangeHeartbeatService,
+        onRefreshHeartbeat = ::onRefreshHeartbeat,
         onToggleEmail = ::onToggleEmail,
         onRemoveEmailAccount = ::onRemoveEmailAccount,
         onChangeEmailPollInterval = ::onChangeEmailPollInterval,
@@ -455,6 +458,20 @@ class SettingsViewModel(
     private fun onChangeHeartbeatService(instanceId: String?) {
         dataRepository.setHeartbeatInstanceId(instanceId)
         _state.update { it.copy(heartbeatSelectedInstanceId = instanceId) }
+    }
+
+    private fun onRefreshHeartbeat() {
+        if (_state.value.isRefreshingHeartbeat) return
+        _state.update { it.copy(isRefreshingHeartbeat = true) }
+        viewModelScope.launch(backgroundDispatcher) {
+            taskScheduler.triggerHeartbeatNow()
+            _state.update {
+                it.copy(
+                    isRefreshingHeartbeat = false,
+                    heartbeatLog = dataRepository.getHeartbeatLog().toImmutableList(),
+                )
+            }
+        }
     }
 
     private fun onToggleEmail(enabled: Boolean) {

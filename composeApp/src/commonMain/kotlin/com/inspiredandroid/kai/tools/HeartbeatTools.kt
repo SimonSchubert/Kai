@@ -1,7 +1,6 @@
 package com.inspiredandroid.kai.tools
 
 import com.inspiredandroid.kai.data.AppSettings
-import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
@@ -10,30 +9,8 @@ import com.inspiredandroid.kai.network.tools.ToolSchema
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_promote_learning_description
 import kai.composeapp.generated.resources.tool_promote_learning_name
-import kai.composeapp.generated.resources.tool_trigger_heartbeat_description
-import kai.composeapp.generated.resources.tool_trigger_heartbeat_name
 
 object HeartbeatTools {
-
-    fun triggerHeartbeatTool(heartbeatManager: HeartbeatManager) = object : Tool {
-        override val schema = ToolSchema(
-            name = "trigger_heartbeat",
-            description = "Force an immediate heartbeat self-check on the next poll cycle. Only works if heartbeat is already enabled by the user (Settings → Agent → Heartbeat). Use sparingly — a regular chat response is almost always the right answer.",
-            parameters = emptyMap(),
-        )
-
-        override suspend fun execute(args: Map<String, Any>): Any {
-            val config = heartbeatManager.getConfig()
-            if (!config.enabled) {
-                return mapOf(
-                    "success" to false,
-                    "error" to "Heartbeat is disabled. The user must enable it in Settings → Agent → Heartbeat.",
-                )
-            }
-            heartbeatManager.saveConfig(config.copy(lastHeartbeatEpochMs = 0L))
-            return mapOf("success" to true, "message" to "Heartbeat will trigger on next poll cycle")
-        }
-    }
 
     fun promoteLearningTool(memoryStore: MemoryStore, appSettings: AppSettings) = object : Tool {
         override val schema = ToolSchema(
@@ -76,14 +53,6 @@ object HeartbeatTools {
         }
     }
 
-    val triggerHeartbeatToolInfo = ToolInfo(
-        id = "trigger_heartbeat",
-        name = "Trigger Heartbeat",
-        description = "Trigger a heartbeat on next cycle",
-        nameRes = Res.string.tool_trigger_heartbeat_name,
-        descriptionRes = Res.string.tool_trigger_heartbeat_description,
-    )
-
     val promoteLearningToolInfo = ToolInfo(
         id = "promote_learning",
         name = "Promote Learning",
@@ -92,10 +61,9 @@ object HeartbeatTools {
         descriptionRes = Res.string.tool_promote_learning_description,
     )
 
-    val heartbeatToolDefinitions = listOf(triggerHeartbeatToolInfo, promoteLearningToolInfo)
+    val heartbeatToolDefinitions = listOf(promoteLearningToolInfo)
 
-    fun getHeartbeatTools(heartbeatManager: HeartbeatManager, memoryStore: MemoryStore, appSettings: AppSettings): List<Tool> = listOf(
-        triggerHeartbeatTool(heartbeatManager),
+    fun getHeartbeatTools(memoryStore: MemoryStore, appSettings: AppSettings): List<Tool> = listOf(
         promoteLearningTool(memoryStore, appSettings),
     )
 }

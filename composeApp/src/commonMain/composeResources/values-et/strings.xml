@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Perioodilised enesekontrollid, mis võimaldavad AI-l vaadata üle mälestused ja ülesanded ilma kasutaja sisendita. Käivitub iga %1$d minuti järel aktiivsetel tundidel.</string>
     <string name="settings_heartbeat_prompt_label">Südamelöögi viip</string>
     <string name="settings_heartbeat_recent">Hiljutine tegevus</string>
+    <string name="settings_heartbeat_refresh">Käivita südamelöök</string>
     <string name="settings_remove_service">Eemalda</string>
     <string name="tool_memory_learn_description">Salvesta kategoriseeritud teadmine, veaparandus või eelistus</string>
     <string name="tool_memory_store_name">Salvesta mälestus</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Tugevda mälestust</string>
     <string name="tool_promote_learning_description">Edenda tugevdatud teadmine süsteemiviipa</string>
     <string name="tool_promote_learning_name">Edenda teadmist</string>
-    <string name="tool_trigger_heartbeat_description">Käivita südamelöök järgmises tsüklis</string>
-    <string name="tool_trigger_heartbeat_name">Käivita südamelöök</string>
     <string name="tool_web_search_description">Otsi veebist ajakohast teavet</string>
     <string name="tool_open_url_name">Ava URL</string>
     <string name="tool_open_url_description">Ava URL või link seadmes</string>

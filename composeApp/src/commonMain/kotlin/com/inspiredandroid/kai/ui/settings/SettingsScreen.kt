@@ -1694,11 +1694,13 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                             heartbeatLog = uiState.heartbeatLog,
                             heartbeatServiceEntries = uiState.heartbeatServiceEntries,
                             heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
+                            isRefreshing = uiState.isRefreshingHeartbeat,
                             onToggleHeartbeat = actions.onToggleHeartbeat,
                             onChangeInterval = actions.onChangeHeartbeatInterval,
                             onChangeActiveHours = actions.onChangeHeartbeatActiveHours,
                             onSaveHeartbeatPrompt = actions.onSaveHeartbeatPrompt,
                             onChangeHeartbeatService = actions.onChangeHeartbeatService,
+                            onRefresh = actions.onRefreshHeartbeat,
                         )
                     }
                     if (uiState.showEmailToggle) {
@@ -1772,11 +1774,13 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                         heartbeatLog = uiState.heartbeatLog,
                         heartbeatServiceEntries = uiState.heartbeatServiceEntries,
                         heartbeatSelectedInstanceId = uiState.heartbeatSelectedInstanceId,
+                        isRefreshing = uiState.isRefreshingHeartbeat,
                         onToggleHeartbeat = actions.onToggleHeartbeat,
                         onChangeInterval = actions.onChangeHeartbeatInterval,
                         onChangeActiveHours = actions.onChangeHeartbeatActiveHours,
                         onSaveHeartbeatPrompt = actions.onSaveHeartbeatPrompt,
                         onChangeHeartbeatService = actions.onChangeHeartbeatService,
+                        onRefresh = actions.onRefreshHeartbeat,
                     )
                 }
                 if (uiState.showEmailToggle) {

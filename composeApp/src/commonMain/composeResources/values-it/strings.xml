@@ -122,6 +122,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_heartbeat_description">Controlli periodici che permettono all'IA di rivedere ricordi e attività senza input dell'utente. Viene eseguito ogni %1$d minuti durante le ore attive.</string>
     <string name="settings_heartbeat_prompt_label">Prompt del battito cardiaco</string>
     <string name="settings_heartbeat_recent">Attività Recente</string>
+    <string name="settings_heartbeat_refresh">Attiva battito cardiaco</string>
     <string name="settings_remove_service">Rimuovi</string>
     <string name="tool_memory_learn_description">Memorizza un apprendimento categorizzato, una risoluzione di errore o una preferenza</string>
     <string name="tool_memory_store_name">Salva ricordo</string>
@@ -133,8 +134,6 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="tool_memory_reinforce_name">Rinforza Memoria</string>
     <string name="tool_promote_learning_description">Promuovi un apprendimento rinforzato nel prompt di sistema</string>
     <string name="tool_promote_learning_name">Promuovi Apprendimento</string>
-    <string name="tool_trigger_heartbeat_description">Attiva un battito cardiaco al prossimo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Attiva battito cardiaco</string>
     <string name="tool_web_search_description">Cerca sul web informazioni attuali</string>
     <string name="tool_open_url_name">Apri URL</string>
     <string name="tool_open_url_description">Apri un URL o un link sul dispositivo</string>

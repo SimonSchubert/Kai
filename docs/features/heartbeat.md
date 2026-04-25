@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-04-25
+**Last verified:** 2026-04-26
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -97,12 +97,12 @@ The heartbeat section in settings contains:
 - **Model picker** — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the first configured service. If the previously selected service is removed, heartbeat falls back to the default automatically
 - **Custom prompt editor** — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set
 - **Log display** — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp
+- **Manual refresh** — a refresh icon next to the "Recent Activity" label runs a heartbeat immediately, bypassing the active-hours window and the interval-due check. Only fires while heartbeat is enabled and scheduling is on; the icon shows a progress spinner during the call
 
 ## AI Tools
 
 | Tool | Purpose |
 |---|---|
-| `trigger_heartbeat` | Force a heartbeat on the next poll cycle by resetting the last heartbeat time. Only works when heartbeat is already enabled in settings — otherwise returns an error directing the user to Settings → Agent → Heartbeat |
 | `promote_learning` | Promote a reinforced memory into the soul/system prompt |
 
 Standing additions to heartbeat behaviour are created with `schedule_task(on_heartbeat=true)` — see [tasks.md](tasks.md#heartbeat-triggered-tasks). Those prompts are appended to the main heartbeat self-check, not replaced.

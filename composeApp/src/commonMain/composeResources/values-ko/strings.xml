@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">사용자 입력 없이 AI가 기억과 작업을 검토할 수 있는 주기적 자가 점검. 활동 시간 동안 %1$d분마다 실행됩니다.</string>
     <string name="settings_heartbeat_prompt_label">하트비트 프롬프트</string>
     <string name="settings_heartbeat_recent">최근 활동</string>
+    <string name="settings_heartbeat_refresh">하트비트 트리거</string>
     <string name="settings_remove_service">제거</string>
     <string name="tool_memory_learn_description">분류된 학습, 오류 해결 또는 선호도 저장</string>
     <string name="tool_memory_store_name">기억 저장</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">기억 강화</string>
     <string name="tool_promote_learning_description">강화된 학습을 시스템 프롬프트로 승격</string>
     <string name="tool_promote_learning_name">학습 승격</string>
-    <string name="tool_trigger_heartbeat_description">다음 주기에 하트비트 트리거</string>
-    <string name="tool_trigger_heartbeat_name">하트비트 트리거</string>
     <string name="tool_web_search_description">최신 정보를 웹에서 검색</string>
     <string name="tool_open_url_name">URL 열기</string>
     <string name="tool_open_url_description">기기에서 URL 또는 링크 열기</string>

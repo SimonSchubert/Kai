@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Vetëkontrolle periodike që lejojnë AI-n të shqyrtojë kujtimet dhe detyrat pa ndërhyrje të përdoruesit. Ekzekutohet çdo %1$d minuta gjatë orëve aktive.</string>
     <string name="settings_heartbeat_prompt_label">Prompt i rrahjeve të zemrës</string>
     <string name="settings_heartbeat_recent">Aktiviteti i fundit</string>
+    <string name="settings_heartbeat_refresh">Aktivizo rrahjet e zemrës</string>
     <string name="settings_remove_service">Hiq</string>
     <string name="tool_memory_learn_description">Ruaj një mësim të kategorizuar, zgjidhje gabimi ose preferencë</string>
     <string name="tool_memory_store_name">Ruaj kujtesë</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Përforco kujtim</string>
     <string name="tool_promote_learning_description">Promovo një mësim të përforcuar në prompt-in e sistemit</string>
     <string name="tool_promote_learning_name">Promovo mësim</string>
-    <string name="tool_trigger_heartbeat_description">Aktivizo rrahjet e zemrës në ciklin tjetër</string>
-    <string name="tool_trigger_heartbeat_name">Aktivizo rrahjet e zemrës</string>
     <string name="tool_web_search_description">Kërko në ueb për informacione aktuale</string>
     <string name="tool_open_url_name">Hap URL</string>
     <string name="tool_open_url_description">Hap një URL ose lidhje në pajisje</string>

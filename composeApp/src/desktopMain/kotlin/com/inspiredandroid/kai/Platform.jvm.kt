@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.EncryptedFileSettings
-import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.mcp.McpServerManager
@@ -137,7 +136,6 @@ actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
     val taskStore: TaskStore by inject(TaskStore::class.java)
-    val heartbeatManager: HeartbeatManager by inject(HeartbeatManager::class.java)
     val emailStore: EmailStore by inject(EmailStore::class.java)
     return buildList {
         addAll(CommonTools.getCommonTools(appSettings))
@@ -146,7 +144,7 @@ actual fun getAvailableTools(): List<Tool> {
         }
         if (appSettings.isSchedulingEnabled()) {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
-            addAll(HeartbeatTools.getHeartbeatTools(heartbeatManager, memoryStore, appSettings))
+            addAll(HeartbeatTools.getHeartbeatTools(memoryStore, appSettings))
         }
         if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
             add(ShellCommandTool)

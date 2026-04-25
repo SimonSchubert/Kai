@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
-import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.mcp.McpServerManager
@@ -69,7 +68,6 @@ private object WebKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
     val memoryStore: MemoryStore by inject()
     val taskStore: TaskStore by inject()
-    val heartbeatManager: HeartbeatManager by inject()
     val mcpServerManager: McpServerManager by inject()
 }
 
@@ -80,7 +78,7 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     }
     if (WebKoinHelper.appSettings.isSchedulingEnabled()) {
         addAll(SchedulingTools.getSchedulingTools(WebKoinHelper.taskStore))
-        addAll(HeartbeatTools.getHeartbeatTools(WebKoinHelper.heartbeatManager, WebKoinHelper.memoryStore, WebKoinHelper.appSettings))
+        addAll(HeartbeatTools.getHeartbeatTools(WebKoinHelper.memoryStore, WebKoinHelper.appSettings))
     }
     addAll(WebKoinHelper.mcpServerManager.getEnabledMcpTools())
 }

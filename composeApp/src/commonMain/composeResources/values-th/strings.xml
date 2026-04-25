@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">การตรวจสอบตนเองเป็นระยะที่ให้ AI ตรวจสอบความทรงจำและงานโดยไม่ต้องมีข้อมูลจากผู้ใช้ ทำงานทุก %1$d นาทีในช่วงเวลาที่ใช้งาน</string>
     <string name="settings_heartbeat_prompt_label">พรอมต์จังหวะหัวใจ</string>
     <string name="settings_heartbeat_recent">กิจกรรมล่าสุด</string>
+    <string name="settings_heartbeat_refresh">เรียกจังหวะหัวใจ</string>
     <string name="settings_remove_service">ลบ</string>
     <string name="tool_memory_learn_description">บันทึกการเรียนรู้ที่จัดหมวดหมู่ การแก้ไขข้อผิดพลาด หรือการตั้งค่า</string>
     <string name="tool_memory_store_name">บันทึกความทรงจำ</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">เสริมความทรงจำ</string>
     <string name="tool_promote_learning_description">เลื่อนขั้นการเรียนรู้ที่เสริมแล้วเข้าสู่พรอมต์ระบบ</string>
     <string name="tool_promote_learning_name">เลื่อนขั้นการเรียนรู้</string>
-    <string name="tool_trigger_heartbeat_description">เรียกจังหวะหัวใจในรอบถัดไป</string>
-    <string name="tool_trigger_heartbeat_name">เรียกจังหวะหัวใจ</string>
     <string name="tool_web_search_description">ค้นหาข้อมูลปัจจุบันจากเว็บ</string>
     <string name="tool_open_url_name">เปิด URL</string>
     <string name="tool_open_url_description">เปิด URL หรือลิงก์บนอุปกรณ์</string>

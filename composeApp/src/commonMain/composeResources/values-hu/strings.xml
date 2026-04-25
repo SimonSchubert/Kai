@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Időszakos önellenőrzések, amelyek lehetővé teszik az AI számára az emlékek és feladatok áttekintését felhasználói beavatkozás nélkül. Minden %1$d percben fut az aktív órákban.</string>
     <string name="settings_heartbeat_prompt_label">Szívverés prompt</string>
     <string name="settings_heartbeat_recent">Legutóbbi tevékenység</string>
+    <string name="settings_heartbeat_refresh">Szívverés indítása</string>
     <string name="settings_remove_service">Eltávolítás</string>
     <string name="tool_memory_learn_description">Kategorizált tanulság, hibajavítás vagy preferencia tárolása</string>
     <string name="tool_memory_store_name">Emlék mentése</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Emlék megerősítése</string>
     <string name="tool_promote_learning_description">Megerősített tanulság előléptetése a rendszerpromptba</string>
     <string name="tool_promote_learning_name">Tanulság előléptetése</string>
-    <string name="tool_trigger_heartbeat_description">Szívverés indítása a következő ciklusban</string>
-    <string name="tool_trigger_heartbeat_name">Szívverés indítása</string>
     <string name="tool_web_search_description">Keresés a weben aktuális információkért</string>
     <string name="tool_open_url_name">URL megnyitása</string>
     <string name="tool_open_url_description">URL vagy hivatkozás megnyitása az eszközön</string>

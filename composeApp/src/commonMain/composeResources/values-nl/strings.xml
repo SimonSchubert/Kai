@@ -122,6 +122,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_heartbeat_description">Periodieke zelfcontroles waarmee de AI herinneringen en taken kan bekijken zonder gebruikersinvoer. Wordt elke %1$d minuten uitgevoerd tijdens actieve uren.</string>
     <string name="settings_heartbeat_prompt_label">Hartslag-prompt</string>
     <string name="settings_heartbeat_recent">Recente Activiteit</string>
+    <string name="settings_heartbeat_refresh">Hartslag activeren</string>
     <string name="settings_remove_service">Verwijderen</string>
     <string name="tool_memory_learn_description">Een gecategoriseerd leerresultaat, foutoplossing of voorkeur opslaan</string>
     <string name="tool_memory_store_name">Herinnering opslaan</string>
@@ -133,8 +134,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tool_memory_reinforce_name">Geheugen versterken</string>
     <string name="tool_promote_learning_description">Een versterkt leerresultaat promoveren naar de systeemprompt</string>
     <string name="tool_promote_learning_name">Leerresultaat promoveren</string>
-    <string name="tool_trigger_heartbeat_description">Een hartslag activeren in de volgende cyclus</string>
-    <string name="tool_trigger_heartbeat_name">Hartslag activeren</string>
     <string name="tool_web_search_description">Het web doorzoeken naar actuele informatie</string>
     <string name="tool_open_url_name">URL openen</string>
     <string name="tool_open_url_description">Een URL of link openen op het apparaat</string>

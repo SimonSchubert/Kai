@@ -184,7 +184,7 @@ Tool availability is controlled at multiple levels:
 - **Feature-level gates** — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
 - **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
-- **Always-on** — memory tools have no individual toggle; they are on whenever memory is enabled
+- **Master-toggle-only** — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)
 
 The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.
 
@@ -198,7 +198,7 @@ The tools tab in settings displays a responsive grid of toggle cards:
 
 Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.
 
-Only individually toggleable tools appear in the grid. Always-on tools (memory) plus feature-gated groups whose only control is a master toggle (email, SMS) are not listed here — they appear and disappear with their feature switch in Settings → Agent.
+Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS) are not listed here — they appear and disappear with their feature switch.
 
 ## Chat UI
 

@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">સમયાંતરે સ્વ-તપાસ જે AI ને વપરાશકર્તાના ઇનપુટ વિના યાદો અને કાર્યોની સમીક્ષા કરવા દે છે. સક્રિય કલાકો દરમિયાન દર %1$d મિનિટે ચાલે છે.</string>
     <string name="settings_heartbeat_prompt_label">ધબકારા પ્રોમ્પ્ટ</string>
     <string name="settings_heartbeat_recent">તાજેતરની પ્રવૃત્તિ</string>
+    <string name="settings_heartbeat_refresh">ધબકારા ટ્રિગર કરો</string>
     <string name="settings_remove_service">દૂર કરો</string>
     <string name="tool_memory_learn_description">વર્ગીકૃત શીખ, ભૂલ ઉકેલ અથવા પસંદગી સંગ્રહો</string>
     <string name="tool_memory_store_name">યાદ સાચવો</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">યાદ મજબૂત કરો</string>
     <string name="tool_promote_learning_description">મજબૂત કરેલ શીખને સિસ્ટમ પ્રોમ્પ્ટમાં પ્રમોટ કરો</string>
     <string name="tool_promote_learning_name">શીખ પ્રમોટ કરો</string>
-    <string name="tool_trigger_heartbeat_description">આગલા ચક્રમાં ધબકારા ટ્રિગર કરો</string>
-    <string name="tool_trigger_heartbeat_name">ધબકારા ટ્રિગર કરો</string>
     <string name="tool_web_search_description">વર્તમાન માહિતી માટે વેબ શોધો</string>
     <string name="tool_open_url_name">URL ખોલો</string>
     <string name="tool_open_url_description">ઉપકરણ પર URL અથવા લિંક ખોલો</string>

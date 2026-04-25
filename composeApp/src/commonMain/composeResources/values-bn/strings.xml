@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">পর্যায়ক্রমিক আত্ম-পরীক্ষা যা AI-কে ব্যবহারকারীর ইনপুট ছাড়াই স্মৃতি এবং কাজ পর্যালোচনা করতে দেয়। সক্রিয় সময়ে প্রতি %1$d মিনিটে চলে।</string>
     <string name="settings_heartbeat_prompt_label">হৃৎস্পন্দন প্রম্পট</string>
     <string name="settings_heartbeat_recent">সাম্প্রতিক কার্যকলাপ</string>
+    <string name="settings_heartbeat_refresh">হৃৎস্পন্দন ট্রিগার করুন</string>
     <string name="settings_remove_service">সরান</string>
     <string name="tool_memory_learn_description">একটি শ্রেণীবদ্ধ শিক্ষা, ত্রুটি সমাধান, বা পছন্দ সংরক্ষণ করুন</string>
     <string name="tool_memory_store_name">স্মৃতি সংরক্ষণ</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">স্মৃতি শক্তিশালী করুন</string>
     <string name="tool_promote_learning_description">একটি শক্তিশালীকৃত শিক্ষাকে সিস্টেম প্রম্পটে উন্নীত করুন</string>
     <string name="tool_promote_learning_name">শিক্ষা উন্নীত করুন</string>
-    <string name="tool_trigger_heartbeat_description">পরবর্তী চক্রে হৃৎস্পন্দন ট্রিগার করুন</string>
-    <string name="tool_trigger_heartbeat_name">হৃৎস্পন্দন ট্রিগার করুন</string>
     <string name="tool_web_search_description">বর্তমান তথ্যের জন্য ওয়েবে অনুসন্ধান করুন</string>
     <string name="tool_open_url_name">URL খুলুন</string>
     <string name="tool_open_url_description">ডিভাইসে একটি URL বা লিঙ্ক খুলুন</string>

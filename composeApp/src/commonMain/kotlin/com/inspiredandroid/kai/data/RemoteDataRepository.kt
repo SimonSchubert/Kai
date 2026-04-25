@@ -38,6 +38,7 @@ import com.inspiredandroid.kai.sms.SmsPoller
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSendResult
 import com.inspiredandroid.kai.sms.SmsSender
+import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.History
@@ -1578,7 +1579,9 @@ class RemoteDataRepository(
     }
 
     // Tool management
-    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions().map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
+    override fun getToolDefinitions(): List<ToolInfo> = getPlatformToolDefinitions()
+        .filter { it.id !in CommonTools.masterToggleControlledToolIds }
+        .map { it.copy(isEnabled = appSettings.isToolEnabled(it.id, defaultEnabled = it.isEnabled)) }
 
     override fun setToolEnabled(toolId: String, enabled: Boolean) {
         appSettings.setToolEnabled(toolId, enabled)

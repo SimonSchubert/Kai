@@ -122,6 +122,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_heartbeat_description">Verificações periódicas que permitem à IA revisar memórias e tarefas sem entrada do usuário. Executa a cada %1$d minutos durante horas ativas.</string>
     <string name="settings_heartbeat_prompt_label">Prompt de Pulsação</string>
     <string name="settings_heartbeat_recent">Atividade Recente</string>
+    <string name="settings_heartbeat_refresh">Acionar Pulsação</string>
     <string name="settings_remove_service">Remover</string>
     <string name="tool_memory_learn_description">Armazenar um aprendizado categorizado, resolução de erro ou preferência</string>
     <string name="tool_memory_store_name">Guardar memória</string>
@@ -133,8 +134,6 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="tool_memory_reinforce_name">Reforçar Memória</string>
     <string name="tool_promote_learning_description">Promover um aprendizado reforçado para o prompt do sistema</string>
     <string name="tool_promote_learning_name">Promover Aprendizado</string>
-    <string name="tool_trigger_heartbeat_description">Acionar uma pulsação no próximo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Acionar Pulsação</string>
     <string name="tool_web_search_description">Pesquisar na web por informações atuais</string>
     <string name="tool_open_url_name">Abrir URL</string>
     <string name="tool_open_url_description">Abrir um URL ou link no dispositivo</string>

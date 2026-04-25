@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
-import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.mcp.McpServerManager
@@ -132,7 +131,6 @@ private object IosKoinHelper : KoinComponent {
     val appSettings: AppSettings by inject()
     val memoryStore: MemoryStore by inject()
     val taskStore: TaskStore by inject()
-    val heartbeatManager: HeartbeatManager by inject()
     val emailStore: EmailStore by inject()
     val mcpServerManager: McpServerManager by inject()
 }
@@ -144,7 +142,7 @@ actual fun getAvailableTools(): List<Tool> = buildList {
     }
     if (IosKoinHelper.appSettings.isSchedulingEnabled()) {
         addAll(SchedulingTools.getSchedulingTools(IosKoinHelper.taskStore))
-        addAll(HeartbeatTools.getHeartbeatTools(IosKoinHelper.heartbeatManager, IosKoinHelper.memoryStore, IosKoinHelper.appSettings))
+        addAll(HeartbeatTools.getHeartbeatTools(IosKoinHelper.memoryStore, IosKoinHelper.appSettings))
     }
     if (IosKoinHelper.appSettings.isEmailEnabled()) {
         addAll(EmailTools.getEmailTools(IosKoinHelper.emailStore))

@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Autoverificări periodice care permit IA să verifice amintirile și sarcinile fără input de la utilizator. Rulează la fiecare %1$d minute în orele active.</string>
     <string name="settings_heartbeat_prompt_label">Prompt ritm cardiac</string>
     <string name="settings_heartbeat_recent">Activitate recentă</string>
+    <string name="settings_heartbeat_refresh">Declanșare ritm cardiac</string>
     <string name="settings_remove_service">Elimină</string>
     <string name="tool_memory_learn_description">Stochează o învățare categorizată, rezolvare de erori sau preferință</string>
     <string name="tool_memory_store_name">Salvează amintire</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Întărește amintire</string>
     <string name="tool_promote_learning_description">Promovează o învățare întărită în promptul de sistem</string>
     <string name="tool_promote_learning_name">Promovare învățare</string>
-    <string name="tool_trigger_heartbeat_description">Declanșează un ritm cardiac în următorul ciclu</string>
-    <string name="tool_trigger_heartbeat_name">Declanșare ritm cardiac</string>
     <string name="tool_web_search_description">Caută pe web informații actuale</string>
     <string name="tool_open_url_name">Deschide URL</string>
     <string name="tool_open_url_description">Deschide un URL sau link pe dispozitiv</string>

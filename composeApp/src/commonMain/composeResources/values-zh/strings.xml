@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">定期自检，允许AI在无用户输入的情况下检查记忆和任务。在活跃时段每 %1$d 分钟运行一次。</string>
     <string name="settings_heartbeat_prompt_label">心跳提示词</string>
     <string name="settings_heartbeat_recent">最近活动</string>
+    <string name="settings_heartbeat_refresh">触发心跳</string>
     <string name="settings_remove_service">移除</string>
     <string name="tool_memory_learn_description">存储分类学习、错误解决方案或偏好</string>
     <string name="tool_memory_store_name">存储记忆</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">强化记忆</string>
     <string name="tool_promote_learning_description">将强化学习提升到系统提示词</string>
     <string name="tool_promote_learning_name">提升学习</string>
-    <string name="tool_trigger_heartbeat_description">在下一个周期触发心跳</string>
-    <string name="tool_trigger_heartbeat_name">触发心跳</string>
     <string name="tool_web_search_description">在网络上搜索当前信息</string>
     <string name="tool_open_url_name">打开链接</string>
     <string name="tool_open_url_description">在设备上打开 URL 或链接</string>

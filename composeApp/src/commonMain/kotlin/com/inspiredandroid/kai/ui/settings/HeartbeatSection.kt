@@ -15,11 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -47,6 +45,7 @@ import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
 import com.inspiredandroid.kai.ui.components.KaiRangeSlider
 import com.inspiredandroid.kai.ui.components.KaiSlider
+import com.inspiredandroid.kai.ui.components.RefreshIconButton
 import com.inspiredandroid.kai.ui.components.SettingsListItem
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
@@ -69,6 +68,7 @@ import kai.composeapp.generated.resources.settings_heartbeat_model
 import kai.composeapp.generated.resources.settings_heartbeat_model_default
 import kai.composeapp.generated.resources.settings_heartbeat_prompt_label
 import kai.composeapp.generated.resources.settings_heartbeat_recent
+import kai.composeapp.generated.resources.settings_heartbeat_refresh
 import kai.composeapp.generated.resources.settings_heartbeat_reset_confirm
 import kai.composeapp.generated.resources.settings_sms_description
 import kai.composeapp.generated.resources.settings_sms_last_poll
@@ -106,11 +106,13 @@ internal fun HeartbeatSection(
     heartbeatLog: ImmutableList<HeartbeatLogEntry>,
     heartbeatServiceEntries: ImmutableList<ServiceEntry>,
     heartbeatSelectedInstanceId: String?,
+    isRefreshing: Boolean,
     onToggleHeartbeat: (Boolean) -> Unit,
     onChangeInterval: (Int) -> Unit,
     onChangeActiveHours: (Int, Int) -> Unit,
     onSaveHeartbeatPrompt: (String) -> Unit,
     onChangeHeartbeatService: (String?) -> Unit,
+    onRefresh: () -> Unit,
 ) {
     val defaultPrompt = stringResource(Res.string.settings_heartbeat_default_prompt)
     val displayText = heartbeatPrompt.ifEmpty { defaultPrompt }
@@ -386,13 +388,24 @@ internal fun HeartbeatSection(
                 }
             }
 
-            if (heartbeatLog.isNotEmpty()) {
-                Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(16.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Text(
                     text = stringResource(Res.string.settings_heartbeat_recent),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
+                RefreshIconButton(
+                    onClick = onRefresh,
+                    isRefreshing = isRefreshing,
+                    contentDescription = stringResource(Res.string.settings_heartbeat_refresh),
+                )
+            }
+            if (heartbeatLog.isNotEmpty()) {
                 Spacer(Modifier.height(4.dp))
                 for (entry in heartbeatLog) {
                     Row(
@@ -677,25 +690,11 @@ internal fun SmsSection(
                     } else {
                         Spacer(Modifier.width(1.dp))
                     }
-                    IconButton(
+                    RefreshIconButton(
                         onClick = onRefresh,
-                        enabled = !isRefreshing,
-                        modifier = Modifier.handCursor(),
-                    ) {
-                        if (isRefreshing) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(18.dp),
-                                strokeWidth = 2.dp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.Refresh,
-                                contentDescription = stringResource(Res.string.settings_sms_refresh),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
+                        isRefreshing = isRefreshing,
+                        contentDescription = stringResource(Res.string.settings_sms_refresh),
+                    )
                 }
             }
         }

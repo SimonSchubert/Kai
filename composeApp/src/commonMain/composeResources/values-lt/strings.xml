@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Periodinės savipatikros, leidžiančios DI peržiūrėti prisiminimus ir užduotis be vartotojo įvesties. Vykdoma kas %1$d minučių aktyviomis valandomis.</string>
     <string name="settings_heartbeat_prompt_label">Širdies ritmo raginimas</string>
     <string name="settings_heartbeat_recent">Naujausia veikla</string>
+    <string name="settings_heartbeat_refresh">Suaktyvinti širdies ritmą</string>
     <string name="settings_remove_service">Pašalinti</string>
     <string name="tool_memory_learn_description">Išsaugoti kategorizuotą mokymąsi, klaidos sprendimą ar nuostatą</string>
     <string name="tool_memory_store_name">Išsaugoti prisiminimą</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Sustiprinti prisiminimą</string>
     <string name="tool_promote_learning_description">Pakelti sustiprintą mokymąsi į sistemos raginimą</string>
     <string name="tool_promote_learning_name">Pakelti mokymąsi</string>
-    <string name="tool_trigger_heartbeat_description">Suaktyvinti širdies ritmą kitame cikle</string>
-    <string name="tool_trigger_heartbeat_name">Suaktyvinti širdies ritmą</string>
     <string name="tool_web_search_description">Ieškoti internete naujausios informacijos</string>
     <string name="tool_open_url_name">Atidaryti URL</string>
     <string name="tool_open_url_description">Atidaryti URL arba nuorodą įrenginyje</string>

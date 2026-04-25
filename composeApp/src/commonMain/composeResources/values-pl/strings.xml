@@ -122,6 +122,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_heartbeat_description">Okresowe samokontrole pozwalające AI przeglądać wspomnienia i zadania bez udziału użytkownika. Uruchamiane co %1$d minut w aktywnych godzinach.</string>
     <string name="settings_heartbeat_prompt_label">Prompt pulsu</string>
     <string name="settings_heartbeat_recent">Ostatnia aktywność</string>
+    <string name="settings_heartbeat_refresh">Wyzwól puls</string>
     <string name="settings_remove_service">Usuń</string>
     <string name="tool_memory_learn_description">Zapisz skategoryzowaną naukę, rozwiązanie błędu lub preferencję</string>
     <string name="tool_memory_store_name">Zapisz wspomnienie</string>
@@ -133,8 +134,6 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="tool_memory_reinforce_name">Wzmocnij pamięć</string>
     <string name="tool_promote_learning_description">Promuj wzmocnioną naukę do promptu systemowego</string>
     <string name="tool_promote_learning_name">Promuj naukę</string>
-    <string name="tool_trigger_heartbeat_description">Wyzwól puls w następnym cyklu</string>
-    <string name="tool_trigger_heartbeat_name">Wyzwól puls</string>
     <string name="tool_web_search_description">Przeszukaj internet w poszukiwaniu aktualnych informacji</string>
     <string name="tool_open_url_name">Otwórz URL</string>
     <string name="tool_open_url_description">Otwórz URL lub link na urządzeniu</string>

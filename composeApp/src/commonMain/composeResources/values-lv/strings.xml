@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Periodiskas pašpārbaudes, kas ļauj AI pārskatīt atmiņas un uzdevumus bez lietotāja ievades. Darbojas ik pēc %1$d minūtēm aktīvajās stundās.</string>
     <string name="settings_heartbeat_prompt_label">Sirdspukstu uzvedne</string>
     <string name="settings_heartbeat_recent">Nesenā darbība</string>
+    <string name="settings_heartbeat_refresh">Aktivizēt sirdspukstu</string>
     <string name="settings_remove_service">Noņemt</string>
     <string name="tool_memory_learn_description">Saglabāt kategorizētu mācību, kļūdas risinājumu vai preferenci</string>
     <string name="tool_memory_store_name">Saglabāt atmiņu</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Pastiprināt atmiņu</string>
     <string name="tool_promote_learning_description">Paaugstināt pastiprinātu mācību sistēmas uzvednē</string>
     <string name="tool_promote_learning_name">Paaugstināt mācību</string>
-    <string name="tool_trigger_heartbeat_description">Aktivizēt sirdspukstu nākamajā ciklā</string>
-    <string name="tool_trigger_heartbeat_name">Aktivizēt sirdspukstu</string>
     <string name="tool_web_search_description">Meklēt tīmeklī aktuālu informāciju</string>
     <string name="tool_open_url_name">Atvērt URL</string>
     <string name="tool_open_url_description">Atvērt URL vai saiti ierīcē</string>

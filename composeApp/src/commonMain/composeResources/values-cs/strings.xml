@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Periodické sebekontroly, které umožňují AI kontrolovat vzpomínky a úkoly bez vstupu uživatele. Spouští se každých %1$d minut v aktivních hodinách.</string>
     <string name="settings_heartbeat_prompt_label">Prompt srdečního tepu</string>
     <string name="settings_heartbeat_recent">Nedávná aktivita</string>
+    <string name="settings_heartbeat_refresh">Spustit srdeční tep</string>
     <string name="settings_remove_service">Odebrat</string>
     <string name="tool_memory_learn_description">Uložit kategorizované poznatky, řešení chyb nebo preference</string>
     <string name="tool_memory_store_name">Uložit vzpomínku</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Posílit vzpomínku</string>
     <string name="tool_promote_learning_description">Povýšit posílený poznatek do systémového promptu</string>
     <string name="tool_promote_learning_name">Povýšit poznatek</string>
-    <string name="tool_trigger_heartbeat_description">Spustit srdeční tep v dalším cyklu</string>
-    <string name="tool_trigger_heartbeat_name">Spustit srdeční tep</string>
     <string name="tool_web_search_description">Vyhledat na webu aktuální informace</string>
     <string name="tool_open_url_name">Otevřít URL</string>
     <string name="tool_open_url_description">Otevřít URL nebo odkaz na zařízení</string>

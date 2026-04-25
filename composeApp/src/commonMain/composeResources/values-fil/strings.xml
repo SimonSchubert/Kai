@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Mga peryodikong self-check na nagpapahintulot sa AI na suriin ang mga alaala at gawain nang walang input mula sa user. Tumatakbo tuwing %1$d minuto sa mga aktibong oras.</string>
     <string name="settings_heartbeat_prompt_label">Prompt ng Tibok ng Puso</string>
     <string name="settings_heartbeat_recent">Kamakailang Aktibidad</string>
+    <string name="settings_heartbeat_refresh">I-trigger ang Tibok ng Puso</string>
     <string name="settings_remove_service">Alisin</string>
     <string name="tool_memory_learn_description">Mag-imbak ng kategorisadong kaalaman, resolusyon ng error, o kagustuhan</string>
     <string name="tool_memory_store_name">Mag-imbak ng Alaala</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Palakasin ang alaala</string>
     <string name="tool_promote_learning_description">I-promote ang pinalakas na kaalaman sa system prompt</string>
     <string name="tool_promote_learning_name">I-promote ang kaalaman</string>
-    <string name="tool_trigger_heartbeat_description">I-trigger ang isang tibok ng puso sa susunod na cycle</string>
-    <string name="tool_trigger_heartbeat_name">I-trigger ang Tibok ng Puso</string>
     <string name="tool_web_search_description">Maghanap sa web para sa kasalukuyang impormasyon</string>
     <string name="tool_open_url_name">Buksan ang URL</string>
     <string name="tool_open_url_description">Buksan ang isang URL o link sa device</string>

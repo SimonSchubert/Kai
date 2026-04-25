@@ -111,65 +111,8 @@ class TaskScheduler(
                     }
                 }
 
-                // Heartbeat check
                 if (!isLoadingCheck() && heartbeatManager?.isHeartbeatDue() == true) {
-                    val pendingEmails = emailStore?.getPending().orEmpty()
-                    val pendingSms = smsStore?.getPending().orEmpty()
-                    try {
-                        val recentResponses = dataRepository.savedConversations.value
-                            .find { it.type == Conversation.TYPE_HEARTBEAT }
-                            ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
-                            ?.map { it.content }
-                            ?: emptyList()
-                        val heartbeatPrompt = heartbeatManager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms)
-                        val response = dataRepository.askWithTools(heartbeatPrompt, heartbeatManager.getConfig().heartbeatInstanceId)
-                        heartbeatManager.markHeartbeatExecuted()
-                        heartbeatManager.recordHeartbeat(success = true)
-                        if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
-                            dataRepository.addAssistantMessage(response)
-                            // Push-notify only when the user won't see the in-app banner.
-                            // Tapping the notification deep-links into the heartbeat
-                            // conversation via `EXTRA_OPEN_HEARTBEAT` (Android actual).
-                            // Strip markdown + kai-ui fences before sending to the tray —
-                            // the notification surface can't render them and raw fence
-                            // text (```kai-ui {...}```) is unreadable.
-                            if (!appInForeground) {
-                                val preview = truncateForNotification(
-                                    parseMarkdown(response).toSpeakableText(),
-                                )
-                                if (preview.isNotBlank()) {
-                                    sendHeartbeatNotification(
-                                        title = "Kai heartbeat",
-                                        body = preview,
-                                    )
-                                }
-                            }
-                        }
-                        // Only clear the snapshot we actually showed to the AI — messages
-                        // that arrived during the call stay pending for the next heartbeat.
-                        if (pendingEmails.isNotEmpty()) {
-                            emailStore?.let { store ->
-                                store.removePending(pendingEmails)
-                                // Advance the per-account delivery watermark so the user's
-                                // next `check_email` call won't re-surface the same UIDs
-                                // the heartbeat just summarised.
-                                val maxUidByAccount = pendingEmails
-                                    .groupBy { it.accountId }
-                                    .mapValues { (_, msgs) -> msgs.maxOf { it.uid } }
-                                for ((accId, maxUid) in maxUidByAccount) {
-                                    val current = store.getSyncState(accId)
-                                    if (maxUid > current.lastSeenUid) {
-                                        store.updateSyncState(current.copy(lastSeenUid = maxUid))
-                                    }
-                                }
-                            }
-                        }
-                        if (pendingSms.isNotEmpty()) {
-                            smsStore?.removePending(pendingSms)
-                        }
-                    } catch (e: Exception) {
-                        heartbeatManager.recordHeartbeat(success = false, error = e.message ?: e.toString())
-                    }
+                    runHeartbeat()
                 }
 
                 // Email polling
@@ -184,6 +127,84 @@ class TaskScheduler(
                 }
             }
         }
+    }
+
+    /**
+     * Run one heartbeat cycle: build the prompt, call the AI, record the result, and
+     * surface any non-OK response (in-app message + push notification when backgrounded).
+     * Used by the scheduler loop's due-check and by [triggerHeartbeatNow] for user-pressed refresh.
+     */
+    private suspend fun runHeartbeat() {
+        val manager = heartbeatManager ?: return
+        val pendingEmails = emailStore?.getPending().orEmpty()
+        val pendingSms = smsStore?.getPending().orEmpty()
+        try {
+            val recentResponses = dataRepository.savedConversations.value
+                .find { it.type == Conversation.TYPE_HEARTBEAT }
+                ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
+                ?.map { it.content }
+                ?: emptyList()
+            val heartbeatPrompt = manager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms)
+            val response = dataRepository.askWithTools(heartbeatPrompt, manager.getConfig().heartbeatInstanceId)
+            manager.markHeartbeatExecuted()
+            manager.recordHeartbeat(success = true)
+            if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
+                dataRepository.addAssistantMessage(response)
+                // Push-notify only when the user won't see the in-app banner.
+                // Tapping the notification deep-links into the heartbeat
+                // conversation via `EXTRA_OPEN_HEARTBEAT` (Android actual).
+                // Strip markdown + kai-ui fences before sending to the tray —
+                // the notification surface can't render them and raw fence
+                // text (```kai-ui {...}```) is unreadable.
+                if (!appInForeground) {
+                    val preview = truncateForNotification(
+                        parseMarkdown(response).toSpeakableText(),
+                    )
+                    if (preview.isNotBlank()) {
+                        sendHeartbeatNotification(
+                            title = "Kai heartbeat",
+                            body = preview,
+                        )
+                    }
+                }
+            }
+            // Only clear the snapshot we actually showed to the AI — messages
+            // that arrived during the call stay pending for the next heartbeat.
+            if (pendingEmails.isNotEmpty()) {
+                emailStore?.let { store ->
+                    store.removePending(pendingEmails)
+                    // Advance the per-account delivery watermark so the user's
+                    // next `check_email` call won't re-surface the same UIDs
+                    // the heartbeat just summarised.
+                    val maxUidByAccount = pendingEmails
+                        .groupBy { it.accountId }
+                        .mapValues { (_, msgs) -> msgs.maxOf { it.uid } }
+                    for ((accId, maxUid) in maxUidByAccount) {
+                        val current = store.getSyncState(accId)
+                        if (maxUid > current.lastSeenUid) {
+                            store.updateSyncState(current.copy(lastSeenUid = maxUid))
+                        }
+                    }
+                }
+            }
+            if (pendingSms.isNotEmpty()) {
+                smsStore?.removePending(pendingSms)
+            }
+        } catch (e: Exception) {
+            manager.recordHeartbeat(success = false, error = e.message ?: e.toString())
+        }
+    }
+
+    /**
+     * User-pressed manual heartbeat (Settings → Agent → Heartbeat refresh icon). Bypasses
+     * the active-hours window and the interval-due check, but still requires heartbeat to
+     * be enabled and scheduling overall to be on. No-ops if either is off.
+     */
+    suspend fun triggerHeartbeatNow() {
+        val manager = heartbeatManager ?: return
+        if (appSettings?.isSchedulingEnabled() != true) return
+        if (!manager.getConfig().enabled) return
+        runHeartbeat()
     }
 
     /**

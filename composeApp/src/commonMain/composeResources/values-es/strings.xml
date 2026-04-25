@@ -122,6 +122,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_heartbeat_description">Autoverificaciones periódicas que permiten a la IA revisar memorias y tareas sin entrada del usuario. Se ejecuta cada %1$d minutos durante las horas activas.</string>
     <string name="settings_heartbeat_prompt_label">Prompt de Latido</string>
     <string name="settings_heartbeat_recent">Actividad Reciente</string>
+    <string name="settings_heartbeat_refresh">Activar latido</string>
     <string name="settings_remove_service">Eliminar</string>
     <string name="tool_memory_learn_description">Almacenar un aprendizaje categorizado, resolución de error o preferencia</string>
     <string name="tool_memory_store_name">Guardar recuerdo</string>
@@ -133,8 +134,6 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="tool_memory_reinforce_name">Reforzar Memoria</string>
     <string name="tool_promote_learning_description">Promover un aprendizaje reforzado al prompt del sistema</string>
     <string name="tool_promote_learning_name">Promover Aprendizaje</string>
-    <string name="tool_trigger_heartbeat_description">Activar un latido en el próximo ciclo</string>
-    <string name="tool_trigger_heartbeat_name">Activar latido</string>
     <string name="tool_web_search_description">Buscar en la web información actual</string>
     <string name="tool_open_url_name">Abrir URL</string>
     <string name="tool_open_url_description">Abrir una URL o enlace en el dispositivo</string>

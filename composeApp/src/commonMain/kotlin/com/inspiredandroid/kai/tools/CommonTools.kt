@@ -232,9 +232,6 @@ object CommonTools {
         descriptionRes = Res.string.tool_open_url_description,
     )
 
-    // Email and SMS tools are intentionally absent here: their availability is driven by
-    // the master toggles in Settings → Agent (isEmailEnabled / isSmsEnabled / isSmsSendEnabled),
-    // and per-tool toggles in the Tools tab were never consulted by `getAvailableTools()`.
     val commonToolDefinitions = listOf(
         WebSearchTool.toolInfo,
         localTimeToolInfo,
@@ -244,7 +241,24 @@ object CommonTools {
     ) +
         listOf(memoryStoreToolInfo, memoryForgetToolInfo, memoryLearnToolInfo, memoryReinforceToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
-        HeartbeatTools.heartbeatToolDefinitions
+        HeartbeatTools.heartbeatToolDefinitions +
+        EmailTools.emailToolDefinitions +
+        SmsTools.smsToolDefinitions
+
+    // Tool IDs gated by master toggles in Settings → Agent (isMemoryEnabled / isSchedulingEnabled /
+    // isEmailEnabled / isSmsEnabled / isSmsSendEnabled). They stay in `commonToolDefinitions` so the
+    // chat UI can resolve their display names, but the Tools tab filters them out — toggling them
+    // individually would have no effect, since `getAvailableTools()` only consults the master toggle
+    // (heartbeat tools are bundled with scheduling under the same switch).
+    val masterToggleControlledToolIds: Set<String> = setOf(
+        memoryStoreToolInfo.id,
+        memoryForgetToolInfo.id,
+        memoryLearnToolInfo.id,
+        memoryReinforceToolInfo.id,
+    ) + SchedulingTools.schedulingToolDefinitions.map { it.id }.toSet() +
+        HeartbeatTools.heartbeatToolDefinitions.map { it.id }.toSet() +
+        EmailTools.emailToolDefinitions.map { it.id }.toSet() +
+        SmsTools.smsToolDefinitions.map { it.id }.toSet()
 
     fun getCommonTools(appSettings: AppSettings): List<Tool> = buildList {
         if (appSettings.isToolEnabled(localTimeTool.schema.name)) {

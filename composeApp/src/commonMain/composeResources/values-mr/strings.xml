@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">नियतकालिक स्व-तपासण्या ज्या AI ला वापरकर्ता इनपुटशिवाय आठवणी आणि कार्ये तपासू देतात. सक्रिय तासांमध्ये दर %1$d मिनिटांनी चालते.</string>
     <string name="settings_heartbeat_prompt_label">हृदयस्पंदन प्रॉम्प्ट</string>
     <string name="settings_heartbeat_recent">अलीकडील क्रियाकलाप</string>
+    <string name="settings_heartbeat_refresh">हृदयस्पंदन ट्रिगर करा</string>
     <string name="settings_remove_service">काढा</string>
     <string name="tool_memory_learn_description">वर्गीकृत शिकणे, त्रुटी निराकरण किंवा प्राधान्य साठवा</string>
     <string name="tool_memory_store_name">स्मृती जतन करा</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">आठवण बळकट करा</string>
     <string name="tool_promote_learning_description">बळकट केलेले शिकणे सिस्टम प्रॉम्प्टमध्ये पदोन्नत करा</string>
     <string name="tool_promote_learning_name">शिकणे पदोन्नत करा</string>
-    <string name="tool_trigger_heartbeat_description">पुढील चक्रात हृदयस्पंदन ट्रिगर करा</string>
-    <string name="tool_trigger_heartbeat_name">हृदयस्पंदन ट्रिगर करा</string>
     <string name="tool_web_search_description">सध्याच्या माहितीसाठी वेबवर शोधा</string>
     <string name="tool_open_url_name">URL उघडा</string>
     <string name="tool_open_url_description">डिव्हाइसवर URL किंवा लिंक उघडा</string>

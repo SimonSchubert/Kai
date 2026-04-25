@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Периодични самопроверки, които позволяват на AI да преглежда спомени и задачи без потребителски вход. Изпълнява се на всеки %1$d минути в активните часове.</string>
     <string name="settings_heartbeat_prompt_label">Промпт за сърцебиене</string>
     <string name="settings_heartbeat_recent">Скорошна активност</string>
+    <string name="settings_heartbeat_refresh">Задействай сърцебиене</string>
     <string name="settings_remove_service">Премахни</string>
     <string name="tool_memory_learn_description">Съхрани категоризирано знание, решение на грешка или предпочитание</string>
     <string name="tool_memory_store_name">Запази спомен</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Подсили спомен</string>
     <string name="tool_promote_learning_description">Повиши подсилено знание в системния промпт</string>
     <string name="tool_promote_learning_name">Повиши знание</string>
-    <string name="tool_trigger_heartbeat_description">Задействай сърцебиене в следващия цикъл</string>
-    <string name="tool_trigger_heartbeat_name">Задействай сърцебиене</string>
     <string name="tool_web_search_description">Търсене в интернет за актуална информация</string>
     <string name="tool_open_url_name">Отвори URL</string>
     <string name="tool_open_url_description">Отворете URL или връзка на устройството</string>

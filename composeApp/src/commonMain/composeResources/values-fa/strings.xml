@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">خودبررسی‌های دوره‌ای که به هوش مصنوعی اجازه می‌دهد خاطرات و وظایف را بدون ورودی کاربر بررسی کند. هر %1$d دقیقه در ساعات فعال اجرا می‌شود.</string>
     <string name="settings_heartbeat_prompt_label">پرامپت ضربان قلب</string>
     <string name="settings_heartbeat_recent">فعالیت اخیر</string>
+    <string name="settings_heartbeat_refresh">فعال‌سازی ضربان قلب</string>
     <string name="settings_remove_service">حذف</string>
     <string name="tool_memory_learn_description">ذخیره یک آموخته دسته‌بندی‌شده، رفع خطا یا ترجیح</string>
     <string name="tool_memory_store_name">ذخیره خاطره</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">تقویت خاطره</string>
     <string name="tool_promote_learning_description">ارتقای یک آموخته تقویت‌شده به پرامپت سیستم</string>
     <string name="tool_promote_learning_name">ارتقای آموخته</string>
-    <string name="tool_trigger_heartbeat_description">فعال‌سازی ضربان قلب در چرخه بعد</string>
-    <string name="tool_trigger_heartbeat_name">فعال‌سازی ضربان قلب</string>
     <string name="tool_web_search_description">جستجو در وب برای اطلاعات به‌روز</string>
     <string name="tool_open_url_name">باز کردن URL</string>
     <string name="tool_open_url_description">باز کردن URL یا لینک در دستگاه</string>

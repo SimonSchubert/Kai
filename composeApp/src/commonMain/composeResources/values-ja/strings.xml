@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">ユーザー入力なしでAIが記憶とタスクを確認できる定期的なセルフチェック。アクティブ時間中に%1$d分ごとに実行されます。</string>
     <string name="settings_heartbeat_prompt_label">ハートビートプロンプト</string>
     <string name="settings_heartbeat_recent">最近のアクティビティ</string>
+    <string name="settings_heartbeat_refresh">ハートビートをトリガー</string>
     <string name="settings_remove_service">削除</string>
     <string name="tool_memory_learn_description">分類された学習、エラー解決、または設定を保存</string>
     <string name="tool_memory_store_name">記憶を保存</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">記憶を強化</string>
     <string name="tool_promote_learning_description">強化された学習をシステムプロンプトに昇格</string>
     <string name="tool_promote_learning_name">学習を昇格</string>
-    <string name="tool_trigger_heartbeat_description">次のサイクルでハートビートをトリガー</string>
-    <string name="tool_trigger_heartbeat_name">ハートビートをトリガー</string>
     <string name="tool_web_search_description">最新の情報をウェブで検索</string>
     <string name="tool_open_url_name">URLを開く</string>
     <string name="tool_open_url_description">デバイスでURLやリンクを開く</string>

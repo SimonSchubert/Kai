@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Semakan kendiri berkala yang membolehkan AI menyemak ingatan dan tugas tanpa input pengguna. Berjalan setiap %1$d minit semasa waktu aktif.</string>
     <string name="settings_heartbeat_prompt_label">Prompt Degupan Jantung</string>
     <string name="settings_heartbeat_recent">Aktiviti Terkini</string>
+    <string name="settings_heartbeat_refresh">Cetuskan Degupan Jantung</string>
     <string name="settings_remove_service">Buang</string>
     <string name="tool_memory_learn_description">Simpan pembelajaran berkategori, penyelesaian ralat, atau keutamaan</string>
     <string name="tool_memory_store_name">Simpan Memori</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Kukuhkan Ingatan</string>
     <string name="tool_promote_learning_description">Naikkan pembelajaran yang dikukuhkan ke dalam prompt sistem</string>
     <string name="tool_promote_learning_name">Naikkan Pembelajaran</string>
-    <string name="tool_trigger_heartbeat_description">Cetuskan degupan jantung pada kitaran seterusnya</string>
-    <string name="tool_trigger_heartbeat_name">Cetuskan Degupan Jantung</string>
     <string name="tool_web_search_description">Cari web untuk maklumat terkini</string>
     <string name="tool_open_url_name">Buka URL</string>
     <string name="tool_open_url_description">Buka URL atau pautan pada peranti</string>

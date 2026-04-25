@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Ukaguzi wa kiotomatiki unaoruhusu AI kukagua kumbukumbu na kazi bila mchango wa mtumiaji. Inafanya kazi kila dakika %1$d wakati wa masaa ya shughuli.</string>
     <string name="settings_heartbeat_prompt_label">Maelekezo ya Mapigo ya moyo</string>
     <string name="settings_heartbeat_recent">Shughuli za Hivi Karibuni</string>
+    <string name="settings_heartbeat_refresh">Anzisha mapigo ya moyo</string>
     <string name="settings_remove_service">Ondoa</string>
     <string name="tool_memory_learn_description">Hifadhi mafunzo yaliyoainishwa, utatuzi wa hitilafu, au pendeleo</string>
     <string name="tool_memory_store_name">Hifadhi Kumbukumbu</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Imarisha Kumbukumbu</string>
     <string name="tool_promote_learning_description">Pandisha mafunzo yaliyoimarishwa kwenye maelekezo ya mfumo</string>
     <string name="tool_promote_learning_name">Pandisha Mafunzo</string>
-    <string name="tool_trigger_heartbeat_description">Anzisha mapigo ya moyo katika mzunguko unaofuata</string>
-    <string name="tool_trigger_heartbeat_name">Anzisha mapigo ya moyo</string>
     <string name="tool_web_search_description">Tafuta mtandaoni kwa habari za sasa</string>
     <string name="tool_open_url_name">Fungua URL</string>
     <string name="tool_open_url_description">Fungua URL au kiungo kwenye kifaa</string>

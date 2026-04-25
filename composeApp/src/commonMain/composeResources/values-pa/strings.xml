@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">ਸਮੇਂ-ਸਮੇਂ ਦੀਆਂ ਸਵੈ-ਜਾਂਚਾਂ ਜੋ AI ਨੂੰ ਉਪਭੋਗਤਾ ਇਨਪੁਟ ਤੋਂ ਬਿਨਾਂ ਯਾਦਾਂ ਅਤੇ ਕੰਮਾਂ ਦੀ ਸਮੀਖਿਆ ਕਰਨ ਦਿੰਦੀਆਂ ਹਨ। ਸਰਗਰਮ ਘੰਟਿਆਂ ਦੌਰਾਨ ਹਰ %1$d ਮਿੰਟਾਂ ਬਾਅਦ ਚੱਲਦੀਆਂ ਹਨ।</string>
     <string name="settings_heartbeat_prompt_label">ਦਿਲ ਦੀ ਧੜਕਣ ਪ੍ਰੋਂਪਟ</string>
     <string name="settings_heartbeat_recent">ਤਾਜ਼ਾ ਗਤੀਵਿਧੀ</string>
+    <string name="settings_heartbeat_refresh">ਦਿਲ ਦੀ ਧੜਕਣ ਟ੍ਰਿਗਰ ਕਰੋ</string>
     <string name="settings_remove_service">ਹਟਾਓ</string>
     <string name="tool_memory_learn_description">ਵਰਗੀਕ੍ਰਿਤ ਸਿਖਲਾਈ, ਗਲਤੀ ਹੱਲ, ਜਾਂ ਤਰਜੀਹ ਸਟੋਰ ਕਰੋ</string>
     <string name="tool_memory_store_name">ਯਾਦ ਸੰਭਾਲੋ</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">ਯਾਦ ਮਜ਼ਬੂਤ ਕਰੋ</string>
     <string name="tool_promote_learning_description">ਮਜ਼ਬੂਤ ਕੀਤੀ ਸਿਖਲਾਈ ਨੂੰ ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਵਿੱਚ ਤਰੱਕੀ ਦਿਓ</string>
     <string name="tool_promote_learning_name">ਸਿਖਲਾਈ ਤਰੱਕੀ ਦਿਓ</string>
-    <string name="tool_trigger_heartbeat_description">ਅਗਲੇ ਚੱਕਰ ਵਿੱਚ ਦਿਲ ਦੀ ਧੜਕਣ ਟ੍ਰਿਗਰ ਕਰੋ</string>
-    <string name="tool_trigger_heartbeat_name">ਦਿਲ ਦੀ ਧੜਕਣ ਟ੍ਰਿਗਰ ਕਰੋ</string>
     <string name="tool_web_search_description">ਮੌਜੂਦਾ ਜਾਣਕਾਰੀ ਲਈ ਵੈੱਬ ਖੋਜੋ</string>
     <string name="tool_open_url_name">URL ਖੋਲੋ</string>
     <string name="tool_open_url_description">ਡਿਵਾਈਸ ਤੇ URL ਜਾਂ ਲਿੰਕ ਖੋਲੋ</string>

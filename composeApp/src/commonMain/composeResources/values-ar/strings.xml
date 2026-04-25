@@ -122,6 +122,7 @@
     <string name="settings_heartbeat_description">فحوصات ذاتية دورية تسمح للذكاء الاصطناعي بمراجعة الذكريات والمهام بدون إدخال المستخدم. تعمل كل %1$d دقيقة خلال الساعات النشطة.</string>
     <string name="settings_heartbeat_prompt_label">موجه نبض القلب</string>
     <string name="settings_heartbeat_recent">النشاط الأخير</string>
+    <string name="settings_heartbeat_refresh">تشغيل نبض القلب</string>
     <string name="settings_remove_service">إزالة</string>
     <string name="tool_memory_learn_description">تخزين تعلم مصنف أو حل خطأ أو تفضيل</string>
     <string name="tool_memory_store_name">حفظ ذاكرة</string>
@@ -133,8 +134,6 @@
     <string name="tool_memory_reinforce_name">تعزيز الذاكرة</string>
     <string name="tool_promote_learning_description">ترقية تعلم معزز إلى موجه النظام</string>
     <string name="tool_promote_learning_name">ترقية التعلم</string>
-    <string name="tool_trigger_heartbeat_description">تشغيل نبض القلب في الدورة التالية</string>
-    <string name="tool_trigger_heartbeat_name">تشغيل نبض القلب</string>
     <string name="tool_web_search_description">البحث في الويب عن معلومات حالية</string>
     <string name="tool_open_url_name">فتح رابط</string>
     <string name="tool_open_url_description">فتح رابط أو عنوان URL على الجهاز</string>

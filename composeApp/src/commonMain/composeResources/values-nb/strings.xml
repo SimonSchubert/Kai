@@ -122,6 +122,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_heartbeat_description">Periodiske selvsjekker som lar AI gjennomgå minner og oppgaver uten brukerinndata. Kjøres hvert %1$d minutt i aktive timer.</string>
     <string name="settings_heartbeat_prompt_label">Hjerteslag-prompt</string>
     <string name="settings_heartbeat_recent">Nylig aktivitet</string>
+    <string name="settings_heartbeat_refresh">Utløs hjerteslag</string>
     <string name="settings_remove_service">Fjern</string>
     <string name="tool_memory_learn_description">Lagre en kategorisert lærdom, feilløsning eller preferanse</string>
     <string name="tool_memory_store_name">Lagre minne</string>
@@ -133,8 +134,6 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tool_memory_reinforce_name">Forsterk hukommelse</string>
     <string name="tool_promote_learning_description">Forfremme en forsterket lærdom til systemprompt</string>
     <string name="tool_promote_learning_name">Forfrem lærdom</string>
-    <string name="tool_trigger_heartbeat_description">Utløs et hjerteslag i neste syklus</string>
-    <string name="tool_trigger_heartbeat_name">Utløs hjerteslag</string>
     <string name="tool_web_search_description">Søk på nettet etter aktuell informasjon</string>
     <string name="tool_open_url_name">Åpne URL</string>
     <string name="tool_open_url_description">Åpne en URL eller lenke på enheten</string>

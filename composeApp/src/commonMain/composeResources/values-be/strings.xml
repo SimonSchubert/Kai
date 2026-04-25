@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Перыядычныя самаправеркі, якія дазваляюць AI праглядаць успаміны і задачы без удзелу карыстальніка. Запускаецца кожныя %1$d хвілін у актыўныя гадзіны.</string>
     <string name="settings_heartbeat_prompt_label">Промпт сэрцабіцця</string>
     <string name="settings_heartbeat_recent">Апошняя актыўнасць</string>
+    <string name="settings_heartbeat_refresh">Запусціць сэрцабіццё</string>
     <string name="settings_remove_service">Выдаліць</string>
     <string name="tool_memory_learn_description">Захаваць катэгарызаванае веданне, вырашэнне памылкі або перавагу</string>
     <string name="tool_memory_store_name">Захаваць успамін</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Узмацніць успамін</string>
     <string name="tool_promote_learning_description">Павысіць узмоцненае веданне ў сістэмны промпт</string>
     <string name="tool_promote_learning_name">Павысіць веданне</string>
-    <string name="tool_trigger_heartbeat_description">Запусціць сэрцабіццё ў наступным цыкле</string>
-    <string name="tool_trigger_heartbeat_name">Запусціць сэрцабіццё</string>
     <string name="tool_web_search_description">Шукаць у інтэрнэце актуальную інфармацыю</string>
     <string name="tool_open_url_name">Адкрыць URL</string>
     <string name="tool_open_url_description">Адкрыць URL або спасылку на прыладзе</string>

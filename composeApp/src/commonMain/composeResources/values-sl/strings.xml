@@ -121,6 +121,7 @@
     <string name="settings_heartbeat_description">Periodična samopreverjanja, ki UI omogočajo pregled spominov in nalog brez uporabniškega vnosa. Izvaja se vsakih %1$d minut med aktivnimi urami.</string>
     <string name="settings_heartbeat_prompt_label">Poziv srčnega utripa</string>
     <string name="settings_heartbeat_recent">Nedavna dejavnost</string>
+    <string name="settings_heartbeat_refresh">Sproži srčni utrip</string>
     <string name="settings_remove_service">Odstrani</string>
     <string name="tool_memory_learn_description">Shrani kategorizirano učenje, rešitev napake ali nastavitev</string>
     <string name="tool_memory_store_name">Shrani spomin</string>
@@ -132,8 +133,6 @@
     <string name="tool_memory_reinforce_name">Okrepi spomin</string>
     <string name="tool_promote_learning_description">Napreduj okrepljeno učenje v sistemski poziv</string>
     <string name="tool_promote_learning_name">Napreduj učenje</string>
-    <string name="tool_trigger_heartbeat_description">Sproži srčni utrip v naslednjem ciklu</string>
-    <string name="tool_trigger_heartbeat_name">Sproži srčni utrip</string>
     <string name="tool_web_search_description">Išči po spletu za aktualne informacije</string>
     <string name="tool_open_url_name">Odpri URL</string>
     <string name="tool_open_url_description">Odprite URL ali povezavo na napravi</string>
