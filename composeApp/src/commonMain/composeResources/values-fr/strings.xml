@@ -241,7 +241,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="snackbar_service_removed">Service supprimé</string>
     <string name="snackbar_mcp_server_removed">Serveur MCP supprimé</string>
     <string name="snackbar_conversation_deleted">Conversation supprimée</string>
-    <string name="start_interactive_ui">Démarrer l\'UI interactive</string>
+    <string name="start_interactive_ui">Démarrer l'UI interactive</string>
     <string name="settings_reorder_content_description">Réorganiser</string>
     <string name="litert_on_device_description">Exécutez des modèles IA directement sur votre appareil. Aucune clé API ni internet requis.</string>
     <string name="litert_download">Télécharger</string>
@@ -255,7 +255,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="litert_free_space">%1$s disponible sur l'appareil</string>
     <string name="litert_no_model_warning">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>
     <string name="litert_error_no_model">Aucun modèle téléchargé. Allez dans les Paramètres pour télécharger un modèle.</string>
-    <string name="litert_error_inference_timeout">L\'inférence sur l\'appareil a expiré. Essayez un message plus court ou un modèle plus petit.</string>
+    <string name="litert_error_inference_timeout">L'inférence sur l'appareil a expiré. Essayez un message plus court ou un modèle plus petit.</string>
     <string name="litert_error_not_enough_disk_space">Espace disque insuffisant pour télécharger le modèle.</string>
     <string name="litert_error_insufficient_memory">Mémoire insuffisante pour charger le modèle. Fermez les autres applications et réessayez.</string>
     <string name="model_sort_date">Date</string>

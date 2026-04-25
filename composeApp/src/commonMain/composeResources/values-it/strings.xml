@@ -255,7 +255,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="litert_free_space">%1$s disponibile sul dispositivo</string>
     <string name="litert_no_model_warning">Nessun modello scaricato. Vai alle Impostazioni per scaricare un modello.</string>
     <string name="litert_error_no_model">Nessun modello scaricato. Vai alle Impostazioni per scaricare un modello.</string>
-    <string name="litert_error_inference_timeout">L\'inferenza sul dispositivo è scaduta. Prova un messaggio più breve o un modello più piccolo.</string>
+    <string name="litert_error_inference_timeout">L'inferenza sul dispositivo è scaduta. Prova un messaggio più breve o un modello più piccolo.</string>
     <string name="litert_error_not_enough_disk_space">Spazio su disco insufficiente per scaricare il modello.</string>
     <string name="litert_error_insufficient_memory">Memoria insufficiente per caricare il modello. Chiudi le altre app e riprova.</string>
     <string name="model_sort_date">Data</string>

@@ -236,7 +236,7 @@
     <string name="snackbar_undo">Revocar</string>
     <string name="snackbar_memory_deleted">Regurdanza stizzada</string>
     <string name="snackbar_task_cancelled">Incumbensa annullada</string>
-    <string name="snackbar_email_removed">Conto d\'e-mail allontanà</string>
+    <string name="snackbar_email_removed">Conto d'e-mail allontanà</string>
     <string name="snackbar_service_removed">Servetsch allontanà</string>
     <string name="snackbar_mcp_server_removed">Server MCP allontanà</string>
     <string name="snackbar_conversation_deleted">Conversaziun stizzada</string>
@@ -254,7 +254,7 @@
     <string name="litert_free_space">%1$s disponibel sin l'apparat</string>
     <string name="litert_no_model_warning">Nagin model telechargia. Va a las Configuraziuns per telechargiar in model.</string>
     <string name="litert_error_no_model">Nagin model telechargia. Va a las Configuraziuns per telechargiar in model.</string>
-    <string name="litert_error_inference_timeout">L\'inferenza sin l\'apparat è scadida. Emprova in messadi pli curt u in model pli pitschen.</string>
+    <string name="litert_error_inference_timeout">L'inferenza sin l'apparat è scadida. Emprova in messadi pli curt u in model pli pitschen.</string>
     <string name="litert_error_not_enough_disk_space">Betg avunda spazi sin il disc per telechargiar il model.</string>
     <string name="litert_error_insufficient_memory">Betg avunda memoria per chargiar il model. Serrai autras applicaziuns e emprova anc ina giada.</string>
     <string name="model_sort_date">Data</string>
@@ -263,13 +263,13 @@
     <string name="tool_check_sms_name">Controllar SMS</string>
     <string name="tool_check_sms_description">Mussar ils SMS recents betg legids</string>
     <string name="tool_read_sms_name">Legier SMS</string>
-    <string name="tool_read_sms_description">Legier il cuntegn cumplain d\'in messadi SMS</string>
+    <string name="tool_read_sms_description">Legier il cuntegn cumplain d'in messadi SMS</string>
     <string name="tool_search_sms_name">Tschertgar SMS</string>
     <string name="tool_search_sms_description">Tschertgar messadis SMS tenor spedider u text</string>
     <string name="tool_send_sms_name">Trametter SMS</string>
-    <string name="tool_send_sms_description">Preparar in SMS che l\'utilisader po controllar e trametter</string>
+    <string name="tool_send_sms_description">Preparar in SMS che l'utilisader po controllar e trametter</string>
     <string name="tool_reply_sms_name">Respunder SMS</string>
-    <string name="tool_reply_sms_description">Preparar ina resposta ad in SMS che l\'utilisader po controllar e trametter</string>
+    <string name="tool_reply_sms_description">Preparar ina resposta ad in SMS che l'utilisader po controllar e trametter</string>
     <string name="settings_sms">SMS</string>
     <string name="settings_sms_description">Ils SMS entrants vegnan consultads en il fund e tractads da heartbeat.</string>
     <string name="settings_sms_permission_required">Concedai il permiss SMS per activar questa funcziun.</string>

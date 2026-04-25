@@ -257,7 +257,7 @@
     <string name="litert_error_no_model">Модель не завантажено. Перейдіть до Налаштувань, щоб завантажити модель.</string>
     <string name="litert_error_inference_timeout">Час очікування виведення на пристрої вичерпано. Спробуйте коротше повідомлення або меншу модель.</string>
     <string name="litert_error_not_enough_disk_space">Недостатньо місця на диску для завантаження моделі.</string>
-    <string name="litert_error_insufficient_memory">Недостатньо пам\'яті для завантаження моделі. Закрийте інші програми та спробуйте знову.</string>
+    <string name="litert_error_insufficient_memory">Недостатньо пам'яті для завантаження моделі. Закрийте інші програми та спробуйте знову.</string>
     <string name="model_sort_date">Дата</string>
     <string name="model_sort_score">Оцінка</string>
     <string name="model_sort_context">Контекст</string>
@@ -282,7 +282,7 @@
     <string name="settings_sms_refresh">Оновити зараз</string>
     <string name="settings_sms_read_label">Прочитати SMS</string>
     <string name="settings_sms_send_label">Надіслати SMS</string>
-    <string name="settings_sms_send_description">Чернетки з\'являються над чатом для вашого перегляду перед надсиланням.</string>
+    <string name="settings_sms_send_description">Чернетки з'являються над чатом для вашого перегляду перед надсиланням.</string>
     <string name="settings_sms_send_permission_required">Надайте дозвіл на надсилання SMS, щоб увімкнути цю функцію.</string>
     <string name="sms_draft_banner_to">Кому: %1$s</string>
     <string name="sms_draft_banner_send">Надіслати</string>

@@ -282,7 +282,7 @@
     <string name="settings_sms_refresh">Абнавіць зараз</string>
     <string name="settings_sms_read_label">Прачытаць SMS</string>
     <string name="settings_sms_send_label">Адправіць SMS</string>
-    <string name="settings_sms_send_description">Чарнавікі з\'яўляюцца над чатам для праверкі перад адпраўкай.</string>
+    <string name="settings_sms_send_description">Чарнавікі з'яўляюцца над чатам для праверкі перад адпраўкай.</string>
     <string name="settings_sms_send_permission_required">Дайце дазвол на адпраўку SMS, каб уключыць гэтую функцыю.</string>
     <string name="sms_draft_banner_to">Каму %1$s</string>
     <string name="sms_draft_banner_send">Адправіць</string>
