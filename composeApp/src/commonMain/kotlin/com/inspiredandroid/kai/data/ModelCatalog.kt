@@ -648,6 +648,8 @@ internal object ModelCatalog {
         "gpt-5.4-mini" to CuratedModelInfo("GPT-5.4 mini", 400_000, "2026-02"),
         "gpt-5.4-nano" to CuratedModelInfo("GPT-5.4 nano", 400_000, "2026-02"),
         "gpt-5.4-pro" to CuratedModelInfo("GPT-5.4 Pro", 400_000, "2026-02"),
+        "gpt-5.5" to CuratedModelInfo("GPT-5.5", 400_000, "2026-04"),
+        "gpt-5.5-pro" to CuratedModelInfo("GPT-5.5 Pro", 400_000, "2026-04"),
         "gpt-audio" to CuratedModelInfo("GPT Audio", 128_000, "2025-09"),
         "gpt-audio-mini" to CuratedModelInfo("GPT Audio Mini", 128_000, "2025-09"),
         "gpt-4o-audio-preview" to CuratedModelInfo("GPT-4o Audio (Preview)", 128_000, "2024-10"),
@@ -735,6 +737,8 @@ internal object ModelCatalog {
         "deepseek-chat-v3.1" to CuratedModelInfo("DeepSeek Chat V3.1", 128_000, "2025-08", "671B"),
         "deepseek-chat-v3-0324" to CuratedModelInfo("DeepSeek Chat V3", 128_000, "2025-03", "671B"),
         "deepseek-r1t2-chimera" to CuratedModelInfo("DeepSeek R1T2 Chimera", 128_000, "2025-07", "671B"),
+        "deepseek-v4-flash" to CuratedModelInfo("DeepSeek V4 Flash", 128_000, "2026-04"),
+        "deepseek-v4-pro" to CuratedModelInfo("DeepSeek V4 Pro", 128_000, "2026-04"),
         "cogito-2.1:671b" to CuratedModelInfo("Cogito 2.1", 128_000, "2025-10", "671B"),
         "cogito-v2.1-671b" to CuratedModelInfo("Cogito 2.1", 128_000, "2025-10", "671B"),
 
@@ -1047,6 +1051,7 @@ internal object ModelCatalog {
         // Tencent Hunyuan — additional
         // ==============================================================
         "hunyuan-a13b-instruct" to CuratedModelInfo("Hunyuan A13B", 128_000, "2025-06", "13B"),
+        "hy3-preview:free" to CuratedModelInfo("Hunyuan 3 (Preview)", 256_000, "2026-04"),
 
         // ==============================================================
         // Inception Mercury
@@ -1156,6 +1161,7 @@ internal object ModelCatalog {
         "tongyi-deepresearch-30b-a3b" to CuratedModelInfo("Tongyi DeepResearch", 128_000, "2025-09", "30B"),
         "intellect-3" to CuratedModelInfo("Intellect 3", 128_000, "2025-11"),
         "ling-2.6-flash:free" to CuratedModelInfo("Ling 2.6 Flash", 128_000, "2026-03"),
+        "ling-2.6-1t:free" to CuratedModelInfo("Ling 2.6 1T", 128_000, "2026-03", "1T"),
         "pareto-code" to CuratedModelInfo("Pareto Code", 128_000, "2026-04"),
         "rnj-1:8b" to CuratedModelInfo("RNJ-1 8B", 32_000, "2025-10", "8B"),
         "rnj-1-instruct" to CuratedModelInfo("RNJ-1 Instruct", 32_000, "2025-10"),
