@@ -24,9 +24,20 @@ class EmailPoller(
                 // keeps oldest-first ordering — overflow past MAX_FETCH_PER_POLL is
                 // picked up on the next poll.
                 val unseenUids = imap.searchUnseen()
-                val newUids = unseenUids.filter { it > syncState.lastSeenUid }.take(MAX_FETCH_PER_POLL)
+                // lastSeenUid = highest UID already delivered to the user (via heartbeat
+                // or check_email). Anything ≤ that has been surfaced and shouldn't return
+                // to pending. Also skip UIDs already queued so back-to-back polls without
+                // a heartbeat in between don't duplicate.
+                val pendingUidsForAccount = emailStore.getPending()
+                    .asSequence()
+                    .filter { it.accountId == account.id }
+                    .map { it.uid }
+                    .toSet()
+                val newUids = unseenUids
+                    .filter { it > syncState.lastSeenUid && it !in pendingUidsForAccount }
+                    .take(MAX_FETCH_PER_POLL)
 
-                var updated = syncState.copy(
+                val updated = syncState.copy(
                     lastSyncEpochMs = attemptAt,
                     lastAttemptEpochMs = attemptAt,
                     unreadCount = unseenUids.size,
@@ -34,7 +45,6 @@ class EmailPoller(
                 )
                 if (newUids.isNotEmpty()) {
                     emailStore.addPending(imap.fetchHeaders(newUids, account.id))
-                    updated = updated.copy(lastSeenUid = newUids.max())
                 }
                 emailStore.updateSyncState(updated)
             } finally {

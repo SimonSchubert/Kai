@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-04-25
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -198,7 +198,7 @@ The tools tab in settings displays a responsive grid of toggle cards:
 
 Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.
 
-Only individually toggleable tools appear in the grid — always-on tools (memory) and feature-gated tool groups (scheduling, email) are controlled by their respective feature toggles elsewhere in settings.
+Only individually toggleable tools appear in the grid. Always-on tools (memory) plus feature-gated groups whose only control is a master toggle (email, SMS) are not listed here — they appear and disappear with their feature switch in Settings → Agent.
 
 ## Chat UI
 

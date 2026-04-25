@@ -232,6 +232,9 @@ object CommonTools {
         descriptionRes = Res.string.tool_open_url_description,
     )
 
+    // Email and SMS tools are intentionally absent here: their availability is driven by
+    // the master toggles in Settings → Agent (isEmailEnabled / isSmsEnabled / isSmsSendEnabled),
+    // and per-tool toggles in the Tools tab were never consulted by `getAvailableTools()`.
     val commonToolDefinitions = listOf(
         WebSearchTool.toolInfo,
         localTimeToolInfo,
@@ -241,8 +244,7 @@ object CommonTools {
     ) +
         listOf(memoryStoreToolInfo, memoryForgetToolInfo, memoryLearnToolInfo, memoryReinforceToolInfo) +
         SchedulingTools.schedulingToolDefinitions +
-        HeartbeatTools.heartbeatToolDefinitions +
-        EmailTools.emailToolDefinitions
+        HeartbeatTools.heartbeatToolDefinitions
 
     fun getCommonTools(appSettings: AppSettings): List<Tool> = buildList {
         if (appSettings.isToolEnabled(localTimeTool.schema.name)) {

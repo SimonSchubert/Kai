@@ -150,7 +150,7 @@ object EmailTools {
     fun checkEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
             name = "check_email",
-            description = "List unread emails with sender, subject, date, and preview. Only returns messages that have not been marked seen — to find a previously-read email (including one you just read with read_email), use search_email with `from` / `subject` / `since`. If multiple accounts are connected, checks all of them.",
+            description = "List emails that have arrived since the last time Kai surfaced new mail to the user. Kai tracks delivery internally and ignores the provider's read flag, so an email shows up here at most once whether it was first seen via heartbeat or a previous check_email. To find an email that's already been surfaced (or any older message), use search_email with `from` / `subject` / `since`. If multiple accounts are connected, checks all of them.",
             parameters = mapOf(
                 "account_id" to ParameterSchema(type = "string", description = "Specific account ID to check (checks all if omitted)", required = false),
             ),
@@ -170,12 +170,18 @@ object EmailTools {
 
             val allEmails = mutableListOf<Map<String, Any?>>()
             val errors = mutableListOf<String>()
+            val deliveredByAccount = mutableMapOf<String, MutableList<Long>>()
 
             for (account in accounts) {
                 try {
+                    val syncState = emailStore.getSyncState(account.id)
                     withImapSession(account, emailStore) { imap ->
                         val unseenUids = imap.searchUnseen()
-                        val messages = imap.fetchHeaders(unseenUids.takeLast(20), account.id)
+                        val newUids = unseenUids
+                            .filter { it > syncState.lastSeenUid }
+                            .takeLast(20)
+                        if (newUids.isEmpty()) return@withImapSession
+                        val messages = imap.fetchHeaders(newUids, account.id)
                         for (msg in messages) {
                             allEmails.add(
                                 mapOf(
@@ -188,10 +194,27 @@ object EmailTools {
                                     "preview" to msg.preview,
                                 ),
                             )
+                            deliveredByAccount.getOrPut(account.id) { mutableListOf() }.add(msg.uid)
                         }
                     }
                 } catch (e: Exception) {
                     errors.add("${account.email}: ${e.message}")
+                }
+            }
+
+            // Advance per-account watermark and drop the just-surfaced UIDs from pending so
+            // the next heartbeat doesn't repeat them.
+            for ((accId, uids) in deliveredByAccount) {
+                val maxUid = uids.max()
+                val current = emailStore.getSyncState(accId)
+                if (maxUid > current.lastSeenUid) {
+                    emailStore.updateSyncState(current.copy(lastSeenUid = maxUid))
+                }
+                val deliveredUidSet = uids.toSet()
+                val pendingToDrop = emailStore.getPending()
+                    .filter { it.accountId == accId && it.uid in deliveredUidSet }
+                if (pendingToDrop.isNotEmpty()) {
+                    emailStore.removePending(pendingToDrop)
                 }
             }
 
@@ -205,7 +228,7 @@ object EmailTools {
                 if (allEmails.isEmpty()) {
                     put(
                         "hint",
-                        "No unread emails. To find a previously-read message (e.g. the user asked about a specific sender), call search_email with the account_id from `accounts` and a `from` / `subject` / `since` filter.",
+                        "No new emails since the last delivery. To find a message Kai has already surfaced (or any older email), call search_email with the account_id from `accounts` and a `from` / `subject` / `since` filter.",
                     )
                 }
             }

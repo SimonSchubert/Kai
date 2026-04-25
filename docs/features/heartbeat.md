@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-04-25
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -62,7 +62,7 @@ The heartbeat prompt is assembled by the pure function `buildHeartbeatPrompt` (i
 2. **Previous heartbeat results** — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")
 3. **Pending tasks** — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)
 4. **Email status** — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included
-5. **New emails** — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run
+5. **New emails** — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run. After consumption the heartbeat also advances each account's delivery watermark, so a follow-up `check_email` call from the user won't re-surface the same messages — Kai tracks read/unread internally and ignores the provider's `\Seen` flag
 6. **Promotion candidates** — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the `promote_learning` tool
 
 For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see [system-prompts.md](system-prompts.md).

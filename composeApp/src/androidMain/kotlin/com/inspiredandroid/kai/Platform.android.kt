@@ -188,12 +188,10 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = buildList {
             descriptionRes = Res.string.tool_set_alarm_description,
         ),
     )
-    // Only surface SMS tools in builds that can actually read SMS. The `foss` flavor
-    // declares READ_SMS; the `playStore` flavor does not. Settings UI iterates over
-    // these definitions, so this gate keeps SMS tools off the Play Store settings screen.
-    if (isSmsSupported) {
-        addAll(SmsTools.smsToolDefinitions)
-    }
+    // SMS tools are intentionally absent here: availability is driven by the Agent-tab
+    // master toggles (isSmsEnabled / isSmsSendEnabled) plus the FOSS-only `isSmsSupported`
+    // check in `getAvailableTools()`. Listing per-tool toggles in the Tools tab was dead
+    // UI — `getAvailableTools()` never consulted them.
 }
 
 actual fun getAvailableTools(): List<Tool> {

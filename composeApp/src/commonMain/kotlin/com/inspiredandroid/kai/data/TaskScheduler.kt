@@ -148,7 +148,21 @@ class TaskScheduler(
                         // Only clear the snapshot we actually showed to the AI — messages
                         // that arrived during the call stay pending for the next heartbeat.
                         if (pendingEmails.isNotEmpty()) {
-                            emailStore?.removePending(pendingEmails)
+                            emailStore?.let { store ->
+                                store.removePending(pendingEmails)
+                                // Advance the per-account delivery watermark so the user's
+                                // next `check_email` call won't re-surface the same UIDs
+                                // the heartbeat just summarised.
+                                val maxUidByAccount = pendingEmails
+                                    .groupBy { it.accountId }
+                                    .mapValues { (_, msgs) -> msgs.maxOf { it.uid } }
+                                for ((accId, maxUid) in maxUidByAccount) {
+                                    val current = store.getSyncState(accId)
+                                    if (maxUid > current.lastSeenUid) {
+                                        store.updateSyncState(current.copy(lastSeenUid = maxUid))
+                                    }
+                                }
+                            }
                         }
                         if (pendingSms.isNotEmpty()) {
                             smsStore?.removePending(pendingSms)
