@@ -1014,6 +1014,7 @@ private fun RenderCountdown(
                             is OpenUrlAction -> {}
 
                             is CopyToClipboardAction -> {}
+
                             null -> {}
                         }
                     } catch (_: Exception) {}

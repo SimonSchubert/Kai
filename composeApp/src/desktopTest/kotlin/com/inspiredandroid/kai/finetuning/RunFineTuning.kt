@@ -23,10 +23,10 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.test.Test
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Orchestrates a Mistral fine-tuning job: uploads training data, creates a job,
