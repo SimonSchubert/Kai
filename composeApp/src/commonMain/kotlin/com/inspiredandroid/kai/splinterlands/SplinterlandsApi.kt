@@ -17,6 +17,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 
 class SplinterlandsApi {
@@ -71,7 +72,7 @@ class SplinterlandsApi {
                     val lastRewardTime = obj["last_reward_time"]?.jsonPrimitive?.contentOrNull ?: ""
                     if (lastRewardTime.isNotBlank()) {
                         try {
-                            val lastMs = kotlinx.datetime.Instant.parse(lastRewardTime).toEpochMilliseconds()
+                            val lastMs = kotlin.time.Instant.parse(lastRewardTime).toEpochMilliseconds()
                             val nowMs = Clock.System.now().toEpochMilliseconds()
                             val elapsedSec = (nowMs - lastMs) / 1000.0
                             return (balance + elapsedSec / 3600.0).toInt().coerceAtMost(50)
@@ -103,7 +104,7 @@ class SplinterlandsApi {
             if (match != null && match["opponent"]?.jsonPrimitive?.contentOrNull?.isNotBlank() == true) {
                 return match
             }
-            delay(intervalMs)
+            delay(intervalMs.milliseconds)
         }
         throw RuntimeException("No match found within ${timeoutMs / 1000}s")
     }
@@ -119,14 +120,14 @@ class SplinterlandsApi {
             val text = resp.bodyAsText()
             val trimmed = text.trim()
             if (trimmed.isEmpty() || !trimmed.startsWith("{")) {
-                delay(intervalMs)
+                delay(intervalMs.milliseconds)
                 continue
             }
             val data = json.parseToJsonElement(trimmed)
             if (data is JsonObject && data["winner"]?.jsonPrimitive?.content?.isNotBlank() == true) {
                 return data.jsonObject
             }
-            delay(intervalMs)
+            delay(intervalMs.milliseconds)
         }
         throw RuntimeException("Battle result not available within ${timeoutMs / 1000}s")
     }

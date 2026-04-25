@@ -69,6 +69,7 @@ import com.inspiredandroid.kai.ui.icons.VisibilityOff
 import kai.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 import sh.calvin.reorderable.ReorderableColumn
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 internal fun SplinterlandsSection(
@@ -939,7 +940,7 @@ private fun SplinterlandsCountdown(deadlineMs: Long) {
         if (deadlineMs > 0L) {
             while (true) {
                 remaining = ((deadlineMs - kotlin.time.Clock.System.now().toEpochMilliseconds()) / 1000).coerceAtLeast(0L)
-                kotlinx.coroutines.delay(1000)
+                kotlinx.coroutines.delay(1.seconds)
             }
         }
     }

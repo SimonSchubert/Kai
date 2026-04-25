@@ -28,6 +28,7 @@ import java.io.File
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.time.Duration.Companion.milliseconds
 
 val MODEL_CATALOG = listOf(
     LocalModel(
@@ -114,7 +115,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                     // briefly hold both resident and trip Android's LMK. Give the driver a
                     // beat to drain before allocating ~GB of new GPU buffers.
                     System.gc()
-                    delay(GPU_DRAIN_DELAY_MS)
+                    delay(GPU_DRAIN_DELAY_MS.milliseconds)
                 }
 
                 val availMem = getAvailableMemoryBytes()
@@ -277,7 +278,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private fun scheduleIdleRelease() {
         idleReleaseJob?.cancel()
         idleReleaseJob = scope.launch {
-            delay(IDLE_RELEASE_MS)
+            delay(IDLE_RELEASE_MS.milliseconds)
             release()
         }
     }

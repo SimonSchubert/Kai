@@ -49,6 +49,7 @@ import kai.composeapp.generated.resources.waiting_working
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 internal fun toolSummaryText(
@@ -135,7 +136,7 @@ internal fun PulsingStatusIndicator(
     var index by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(3000)
+            delay(3.seconds)
             index = (index + 1) % waitingTexts.size
         }
     }

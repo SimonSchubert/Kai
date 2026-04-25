@@ -37,6 +37,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration.Companion.seconds
 
 class ChatViewModel(
     private val dataRepository: DataRepository,
@@ -374,7 +375,7 @@ class ChatViewModel(
         commitPendingConversationDeletion()
         _state.update { it.copy(pendingConversationDeletion = id) }
         pendingConversationDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             dataRepository.deleteConversation(id)
             _state.update { it.copy(pendingConversationDeletion = null) }
         }

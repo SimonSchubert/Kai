@@ -23,6 +23,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.test.Test
@@ -318,7 +319,7 @@ class RunFineTuning {
                 "FAILED", "CANCELLED" -> return job
             }
 
-            delay(pollIntervalSeconds * 1000)
+            delay(pollIntervalSeconds.seconds)
         }
     }
 

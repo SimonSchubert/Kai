@@ -23,6 +23,8 @@ import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
 private const val APP_VERSION = "splinterlands/0.7.176"
@@ -178,12 +180,12 @@ class SplinterlandsBattleRunner(
                     updateStatus(accountId) { it.copy(phase = BattlePhase.Error, isRunning = false, errorMessage = "Too many consecutive errors") }
                     return
                 }
-                delay(10_000)
+                delay(10.seconds)
                 continue
             }
 
             updatePhase(accountId, BattlePhase.Idle)
-            delay(SLEEP_BETWEEN_BATTLES_MS)
+            delay(SLEEP_BETWEEN_BATTLES_MS.milliseconds)
         }
     }
 
@@ -271,7 +273,7 @@ class SplinterlandsBattleRunner(
         val expirationStr = matchInfo["submit_expiration_date"]?.jsonPrimitive?.contentOrNull
         val teamDeadlineMs = if (expirationStr != null) {
             try {
-                kotlinx.datetime.Instant.parse(expirationStr).toEpochMilliseconds() - 10_000
+                kotlin.time.Instant.parse(expirationStr).toEpochMilliseconds() - 10_000
             } catch (_: Exception) {
                 Clock.System.now().toEpochMilliseconds() + TEAM_DEADLINE_MS
             }

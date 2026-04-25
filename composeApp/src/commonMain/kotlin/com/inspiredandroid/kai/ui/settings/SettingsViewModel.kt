@@ -47,6 +47,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class SettingsViewModel(
     private val dataRepository: DataRepository,
@@ -291,7 +293,7 @@ class SettingsViewModel(
             )
         }
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             executeDeletion(PendingDeletion.Service(instanceId))
         }
     }
@@ -393,7 +395,7 @@ class SettingsViewModel(
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.Memory(key)) }
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             executeDeletion(PendingDeletion.Memory(key))
         }
     }
@@ -414,7 +416,7 @@ class SettingsViewModel(
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.Task(id)) }
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             executeDeletion(PendingDeletion.Task(id))
         }
     }
@@ -464,7 +466,7 @@ class SettingsViewModel(
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.EmailAccount(id)) }
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             executeDeletion(PendingDeletion.EmailAccount(id))
         }
     }
@@ -671,7 +673,7 @@ class SettingsViewModel(
         commitPendingDeletion()
         _state.update { it.copy(pendingDeletion = PendingDeletion.McpServer(serverId)) }
         pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
-            delay(4000)
+            delay(4.seconds)
             executeDeletion(PendingDeletion.McpServer(serverId))
         }
     }
@@ -820,7 +822,7 @@ class SettingsViewModel(
     private fun checkConnectionDebounced(instanceId: String, service: Service) {
         connectionCheckJobs[instanceId]?.cancel()
         connectionCheckJobs[instanceId] = viewModelScope.launch {
-            delay(800)
+            delay(800.milliseconds)
             checkConnection(instanceId, service)
         }
     }

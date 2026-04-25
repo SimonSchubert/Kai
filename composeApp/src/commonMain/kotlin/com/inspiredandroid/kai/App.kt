@@ -63,6 +63,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.dsl.koinConfiguration
 
 @Serializable
 @SerialName("home")
@@ -99,7 +100,7 @@ fun App(
         AppContent(navController, colorScheme, textToSpeech, onAppOpens)
     } else {
         KoinApplication(
-            application = {
+            configuration = koinConfiguration {
                 modules(appModule)
             },
         ) {

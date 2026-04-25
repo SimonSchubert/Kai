@@ -81,6 +81,7 @@ import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
@@ -1228,7 +1229,7 @@ class RemoteDataRepository(
         }
         val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
         if (elapsed < MIN_TOOL_DISPLAY_MS) {
-            delay(MIN_TOOL_DISPLAY_MS - elapsed)
+            delay((MIN_TOOL_DISPLAY_MS - elapsed).milliseconds)
         }
 
         // Remove all TOOL_EXECUTING indicators
@@ -1254,7 +1255,7 @@ class RemoteDataRepository(
                 if (isNonRetryableException(e)) throw e
                 lastException = e
                 if (attempt < MAX_API_RETRIES) {
-                    delay(1000L * (attempt + 1))
+                    delay((attempt + 1).seconds)
                 }
             }
         }

@@ -66,6 +66,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Duration.Companion.milliseconds
 
 internal val TerminalDarkBg = Color(0xFF1E1E1E)
 
@@ -403,7 +404,7 @@ private suspend fun drainStreamedLines(
             pruneOutput(outputLines)
         }
         if (closed) break
-        delay(STREAM_FLUSH_INTERVAL_MS)
+        delay(STREAM_FLUSH_INTERVAL_MS.milliseconds)
     }
 }
 

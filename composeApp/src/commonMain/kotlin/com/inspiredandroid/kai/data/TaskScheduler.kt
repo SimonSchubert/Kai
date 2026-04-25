@@ -19,6 +19,7 @@ import kotlin.concurrent.Volatile
 import kotlin.coroutines.CoroutineContext
 import kotlin.math.min
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
@@ -91,7 +92,7 @@ class TaskScheduler(
         if (activeJob?.isActive == true) return
         activeJob = schedulerScope.launch {
             while (isActive) {
-                delay(POLL_INTERVAL_MS)
+                delay(POLL_INTERVAL_MS.milliseconds)
                 if (!appSettings.isSchedulingEnabled()) continue
 
                 val dueTasks = taskStore.getDueTasks()

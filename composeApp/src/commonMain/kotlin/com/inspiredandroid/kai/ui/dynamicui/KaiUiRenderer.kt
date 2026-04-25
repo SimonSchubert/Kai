@@ -225,6 +225,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.seconds
 
 val LocalPreviewImages = staticCompositionLocalOf<Map<String, ImageBitmap>> { emptyMap() }
 
@@ -999,31 +1000,28 @@ private fun RenderCountdown(
                 if (!expired) {
                     expired = true
                     node.id?.let { formState[it] = "0" }
-                    if (node.action != null) {
-                        try {
-                            when (val action = node.action) {
-                                is CallbackAction -> {
-                                    val data = collectFormData(action, formState)
-                                    currentOnCallback(action.event, data)
-                                }
-
-                                is ToggleAction -> {
-                                    toggleState[action.targetId] = !(toggleState[action.targetId] ?: true)
-                                }
-
-                                is OpenUrlAction -> {}
-
-                                is CopyToClipboardAction -> {}
-
-                                null -> {}
+                    try {
+                        when (val action = node.action) {
+                            is CallbackAction -> {
+                                val data = collectFormData(action, formState)
+                                currentOnCallback(action.event, data)
                             }
-                        } catch (_: Exception) {}
-                    }
+
+                            is ToggleAction -> {
+                                toggleState[action.targetId] = !(toggleState[action.targetId] ?: true)
+                            }
+
+                            is OpenUrlAction -> {}
+
+                            is CopyToClipboardAction -> {}
+                            null -> {}
+                        }
+                    } catch (_: Exception) {}
                 }
                 break
             }
             node.id?.let { formState[it] = diff.toString() }
-            delay(1000L)
+            delay(1.seconds)
         }
     }
 
