@@ -98,6 +98,7 @@ string|settings_heartbeat_model_default|6buY6K6k
 string|settings_heartbeat_model|5qih5Z6L
 string|settings_heartbeat_prompt_label|5b+D6Lez5o+Q56S66K+N
 string|settings_heartbeat_recent|5pyA6L+R5rS75Yqo
+string|settings_heartbeat_refresh|6Kem5Y+R5b+D6Lez
 string|settings_heartbeat_reset_confirm|6L+Z5bCG5oqK5b+D6Lez5o+Q56S66YeN572u5Li66buY6K6k5YC844CC5oKo56Gu5a6a5ZCX77yf
 string|settings_heartbeat|5b+D6Lez
 string|settings_import_error|5a+85YWl5aSx6LSl44CC5paH5Lu25qC85byP5peg5pWI44CC
@@ -280,8 +281,6 @@ string|tool_set_alarm_description|5Zyo6K6+5aSH5LiK6K6+572u6Ze56ZKf5oiW5YCS6K6h5p
 string|tool_set_alarm_name|6K6+572u6Ze56ZKf
 string|tool_setup_email_description|6L+e5o6l6YKu5Lu26LSm5oi35Lul6L+b6KGM6K+75Y+W5ZKM5Y+R6YCB
 string|tool_setup_email_name|6K6+572u6YKu5Lu2
-string|tool_trigger_heartbeat_description|5Zyo5LiL5LiA5Liq5ZGo5pyf6Kem5Y+R5b+D6Lez
-string|tool_trigger_heartbeat_name|6Kem5Y+R5b+D6Lez
 string|tool_web_search_description|5Zyo572R57uc5LiK5pCc57Si5b2T5YmN5L+h5oGv
 string|tool_web_search_name|572R6aG15pCc57Si
 string|tools_count|JTEkZCDkuKrlt6Xlhbc=

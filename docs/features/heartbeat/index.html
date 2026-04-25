@@ -1069,7 +1069,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-04-25</p>
+<p><strong>Last verified:</strong> 2026-04-26</p>
 <blockquote>
 <p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
 </blockquote>
@@ -1152,6 +1152,7 @@
 <li><strong>Model picker</strong> — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the first configured service. If the previously selected service is removed, heartbeat falls back to the default automatically</li>
 <li><strong>Custom prompt editor</strong> — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set</li>
 <li><strong>Log display</strong> — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp</li>
+<li><strong>Manual refresh</strong> — a refresh icon next to the "Recent Activity" label runs a heartbeat immediately, bypassing the active-hours window and the interval-due check. Only fires while heartbeat is enabled and scheduling is on; the icon shows a progress spinner during the call</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
 <table>
@@ -1162,10 +1163,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>trigger_heartbeat</code></td>
-<td>Force a heartbeat on the next poll cycle by resetting the last heartbeat time. Only works when heartbeat is already enabled in settings — otherwise returns an error directing the user to Settings → Agent → Heartbeat</td>
-</tr>
 <tr>
 <td><code>promote_learning</code></td>
 <td>Promote a reinforced memory into the soul/system prompt</td>

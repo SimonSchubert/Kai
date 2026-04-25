@@ -1875,7 +1875,7 @@
 <li><strong>Feature-level gates</strong> — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled</li>
 <li><strong>Per-tool toggles</strong> — individual tools can be enabled or disabled in settings, persisted with a <code>tool_enabled_</code> key prefix</li>
 <li><strong>Default state</strong> — most tools default to enabled; <code>execute_shell_command</code> defaults to disabled</li>
-<li><strong>Always-on</strong> — memory tools have no individual toggle; they are on whenever memory is enabled</li>
+<li><strong>Master-toggle-only</strong> — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)</li>
 </ul>
 <p>The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.</p>
 <h2 id="settings-ui">Settings UI</h2>
@@ -1886,7 +1886,7 @@
 <li>1 column on narrow screens</li>
 </ul>
 <p>Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.</p>
-<p>Only individually toggleable tools appear in the grid. Always-on tools (memory) plus feature-gated groups whose only control is a master toggle (email, SMS) are not listed here — they appear and disappear with their feature switch in Settings → Agent.</p>
+<p>Only individually toggleable tools appear in the grid. Tools whose only control is a master toggle in Settings → Agent (memory, scheduling, heartbeat, email, SMS) are not listed here — they appear and disappear with their feature switch.</p>
 <h2 id="chat-ui">Chat UI</h2>
 <h3 id="shared-pulsing-status-indicator">Shared pulsing status indicator</h3>
 <p>The standard chat uses a <code>PulsingStatusIndicator</code> composable that shows:
