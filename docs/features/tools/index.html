@@ -1613,7 +1613,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-04-25</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1886,7 +1886,7 @@
 <li>1 column on narrow screens</li>
 </ul>
 <p>Each card shows the tool name, a short description, and a toggle switch. Clicking anywhere on the card toggles the tool. Cards use a semi-transparent surface variant background.</p>
-<p>Only individually toggleable tools appear in the grid — always-on tools (memory) and feature-gated tool groups (scheduling, email) are controlled by their respective feature toggles elsewhere in settings.</p>
+<p>Only individually toggleable tools appear in the grid. Always-on tools (memory) plus feature-gated groups whose only control is a master toggle (email, SMS) are not listed here — they appear and disappear with their feature switch in Settings → Agent.</p>
 <h2 id="chat-ui">Chat UI</h2>
 <h3 id="shared-pulsing-status-indicator">Shared pulsing status indicator</h3>
 <p>The standard chat uses a <code>PulsingStatusIndicator</code> composable that shows:

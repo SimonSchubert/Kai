@@ -1069,7 +1069,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-04-25</p>
 <blockquote>
 <p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
 </blockquote>
@@ -1121,7 +1121,7 @@
 <li><strong>Previous heartbeat results</strong> — the last 3 responses from the heartbeat conversation, so the AI can track trends, avoid repeating notifications, and detect persistent issues (e.g. "email still unread since last check")</li>
 <li><strong>Pending tasks</strong> — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)</li>
 <li><strong>Email status</strong> — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included</li>
-<li><strong>New emails</strong> — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run</li>
+<li><strong>New emails</strong> — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run. After consumption the heartbeat also advances each account's delivery watermark, so a follow-up <code>check_email</code> call from the user won't re-surface the same messages — Kai tracks read/unread internally and ignores the provider's <code>\Seen</code> flag</li>
 <li><strong>Promotion candidates</strong> — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the <code>promote_learning</code> tool</li>
 </ol>
 <p>For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see <a href="../system-prompts/">system-prompts.md</a>.</p>
