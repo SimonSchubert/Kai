@@ -617,6 +617,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#open-file-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open File (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#shell-command-parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1332,6 +1343,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#open-file-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open File (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#shell-command-parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1613,7 +1635,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-04-25</p>
+<p><strong>Last verified:</strong> 2026-04-27</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1732,6 +1754,11 @@
 <td>Execute a shell command on the device</td>
 <td>Disabled</td>
 </tr>
+<tr>
+<td><code>open_file</code></td>
+<td>Open a file from the sandbox in an Android app (browser, image viewer, etc.)</td>
+<td>Enabled</td>
+</tr>
 </tbody>
 </table>
 <h4 id="linux-sandbox-android">Linux Sandbox (Android)</h4>
@@ -1744,8 +1771,11 @@
 </ul>
 <p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).</p>
 <p><strong>Mirror fallback:</strong> The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick <code>/etc/apk/repositories</code> during setup — <code>apk update</code> is retried against each mirror until one succeeds, so later <code>apk add</code> calls resolve through a reachable mirror.</p>
-<p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under <code>linux-sandbox/</code>.</p>
+<p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under <code>linux-sandbox/</code>. The sandbox <code>/root</code> (home) is bind-mounted from the externally-visible app directory at <code>Android/data/com.inspiredandroid.kai/files/sandbox-home/</code> so files produced by the agent can be opened in Android apps via FileProvider Intents (<code>open_file</code>). On first run after upgrade, content from the legacy internal home is migrated automatically.</p>
 <p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.</p>
+<h4 id="open-file-android">Open File (Android)</h4>
+<p>The <code>open_file</code> tool fires an <code>ACTION_VIEW</code> Intent for a single file at <code>path</code> (relative to <code>/root</code>). Browser opens HTML, image viewer opens PNG/JPG, PDF viewer opens PDF, etc. Uses the existing FileProvider declared in the main manifest. Path is rejected if it contains a leading slash or <code>..</code> segments; the resolved path is canonicalized and verified to stay under the sandbox home root before the Intent is fired.</p>
+<p><code>open_file</code> operates on a single file. FileProvider grants access only to the specific URI in the Intent, so it does not work for multi-file content (e.g. an HTML page that loads sibling <code>styles.css</code> / <code>script.js</code>). For HTML, write self-contained files with inline CSS and JavaScript; the shell and <code>open_file</code> tool descriptions tell the agent to do this.</p>
 <h4 id="shell-command-parameters">Shell command parameters</h4>
 <p>Both platforms support these parameters:</p>
 <table>
@@ -1973,6 +2003,14 @@
 <tr>
 <td><code>composeApp/src/androidMain/.../tools/ProcessManagerTool.kt</code></td>
 <td>Android process management tool</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/.../tools/OpenFileTool.kt</code></td>
+<td>Open sandbox file in an Android app via FileProvider Intent</td>
+</tr>
+<tr>
+<td><code>androidApp/src/main/res/xml/file_paths.xml</code></td>
+<td>FileProvider path config (includes <code>sandbox-home/</code>)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../SandboxController.kt</code></td>

@@ -937,14 +937,25 @@
 
 
 <h1 id="settings-export-import">Settings Export / Import</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-04-26</p>
 <p>Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under <strong>Settings &gt; General</strong> at the bottom of the page.</p>
 <h2 id="behavior">Behavior</h2>
 <h3 id="export">Export</h3>
 <ul>
-<li>Tapping <strong>Export</strong> opens a native file-save dialog.</li>
-<li>The exported file (<code>kai-settings.json</code>) contains every user-configurable setting except those listed under <strong>Excluded</strong> below.</li>
-<li>The JSON includes a <code>"version": 1</code> field for forward-compatibility.</li>
+<li>Tapping <strong>Export</strong> opens an <strong>Export Preview Dialog</strong> that lists each settings section currently holding real user data, with item counts where applicable (e.g. "Services (2)", "Memory (5)"). All sections are checked by default; the user can untick any section to leave it out of the file.</li>
+<li>A section is only listed when it actually has data. Pure feature-toggle flags (e.g. SMS turned off, Splinterlands without a configured account, an empty MCP server list) do not appear in the dialog. Specifically:</li>
+<li>SERVICES — only if at least one service is configured</li>
+<li>SOUL — only if soul text is non-empty</li>
+<li>MEMORY / SCHEDULING / CONVERSATIONS — only if at least one entry exists</li>
+<li>HEARTBEAT — only if a custom prompt, config, or log entries exist</li>
+<li>EMAIL — only if at least one account is configured</li>
+<li>SMS — only if SMS receive or send is enabled</li>
+<li>SPLINTERLANDS — only if an account is configured</li>
+<li>MCP — only if at least one server is configured</li>
+<li>TOOLS — only if at least one tool override is recorded</li>
+<li>Confirming the dialog opens a native file-save dialog and writes <code>kai-settings.json</code> containing only the selected sections (plus a <code>"version": 1</code> field for forward-compatibility).</li>
+<li>Cancelling the dialog discards the export without writing a file.</li>
+<li>Sections listed under <strong>Excluded</strong> below are never exported.</li>
 </ul>
 <h3 id="import">Import</h3>
 <ul>
@@ -1100,19 +1111,19 @@
 <tbody>
 <tr>
 <td><code>composeApp/.../data/AppSettings.kt</code></td>
-<td><code>ImportSection</code> enum, <code>detectImportSections()</code>, <code>exportToJson()</code> / <code>importFromJson()</code> core logic, <code>sanitizeScheduledTasks()</code> / <code>sanitizeMemories()</code> default-filling helpers</td>
+<td><code>ImportSection</code> enum, <code>detectImportSections()</code> / <code>detectExportableSections()</code> (the latter only flags sections with real user data), <code>exportToJson()</code> / <code>importFromJson()</code> core logic (both accept <code>Set&lt;ImportSection&gt;</code> for selective filtering), <code>sanitizeScheduledTasks()</code> / <code>sanitizeMemories()</code> default-filling helpers</td>
 </tr>
 <tr>
 <td><code>composeApp/.../data/DataRepository.kt</code></td>
-<td>Interface methods</td>
+<td>Interface methods (<code>exportSettingsToJson(sections)</code>, <code>getExportPreview()</code>, <code>importSettingsFromJson(...)</code>)</td>
 </tr>
 <tr>
 <td><code>composeApp/.../data/RemoteDataRepository.kt</code></td>
-<td>Wires AppSettings to platform tool IDs, serializes JSON</td>
+<td>Wires AppSettings to platform tool IDs, serializes JSON, runs <code>detectImportSections</code> over a full export to drive the export preview</td>
 </tr>
 <tr>
-<td><code>composeApp/.../ui/settings/SettingsUiState.kt</code></td>
-<td>Callbacks (<code>onExportSettings</code>, <code>onImportSettings</code>)</td>
+<td><code>composeApp/.../ui/settings/SettingsActions.kt</code></td>
+<td>Callbacks (<code>onExportSettings</code>, <code>onPrepareExport</code>, <code>onImportSettings</code>)</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/settings/SettingsViewModel.kt</code></td>
@@ -1120,7 +1131,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/settings/SettingsScreen.kt</code></td>
-<td>Export/Import card with FileKit dialogs, <code>ImportPreviewDialog</code></td>
+<td>Export/Import card with FileKit dialogs, <code>ExportPreviewDialog</code>, <code>ImportPreviewDialog</code></td>
 </tr>
 <tr>
 <td><code>composeApp/.../testutil/FakeDataRepository.kt</code></td>
