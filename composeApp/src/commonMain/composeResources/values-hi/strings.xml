@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">याद संपादित करें</string>
     <string name="settings_memories_edit_save">सहेजें</string>
     <string name="settings_memories_edit_cancel">रद्द करें</string>
-    <string name="settings_memories_close">बंद करें</string>
     <string name="settings_soul">आत्मा</string>
     <string name="settings_soul_description">सिस्टम प्रॉम्प्ट के साथ AI कैसे व्यवहार करता है इसे परिभाषित करें। AI को अपनी सहेजी गई यादों तक भी पहुंच होगी।</string>
     <string name="settings_soul_save">सहेजें</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">AI सूचनाएं</string>
     <string name="notification_channel_description">AI सहायक द्वारा भेजी गई सूचनाएं</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux सैंडबॉक्स</string>
     <string name="settings_sandbox_description">एक Linux वातावरण इंस्टॉल करें ताकि AI आपकी ओर से शेल कमांड, स्क्रिप्ट और टूल चला सके। ऐप के अंदर सुरक्षित रूप से चलता है। ~3 MB डाउनलोड।</string>
     <string name="settings_sandbox_install">इंस्टॉल करें</string>
     <string name="settings_sandbox_install_packages">बेसिक पैकेज इंस्टॉल करें</string>
-    <string name="settings_sandbox_open_terminal">टर्मिनल खोलें</string>
     <string name="settings_sandbox_uninstall">अनइंस्टॉल करें</string>
     <string name="settings_sandbox_uninstall_confirm">Linux सैंडबॉक्स का सारा डेटा खो जाएगा। क्या आप वाकई अनइंस्टॉल करना चाहते हैं?</string>
     <string name="settings_sandbox_cancel">रद्द करें</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">भेजा गया</string>
     <string name="sms_draft_banner_failed">विफल: %1$s</string>
     <string name="sms_draft_banner_dismiss">बंद करें</string>
+    <string name="litert_error_download_incomplete">डाउनलोड अधूरा है। कृपया पुनः प्रयास करें।</string>
+    <string name="litert_error_network">डाउनलोड विफल। अपना नेटवर्क कनेक्शन जाँचें और पुनः प्रयास करें।</string>
+    <string name="settings_task_details_consecutive_failures">लगातार विफलताएँ</string>
+    <string name="settings_task_details_created">निर्मित</string>
+    <string name="settings_task_details_last_result">अंतिम परिणाम</string>
+    <string name="settings_task_details_next_run">अगला रन</string>
+    <string name="settings_task_details_no_heartbeat_runs">अभी तक कोई धड़कन रन रिकॉर्ड नहीं हुआ है।</string>
+    <string name="settings_task_details_no_runs">अभी तक कोई रन रिकॉर्ड नहीं हुआ है।</string>
+    <string name="settings_task_details_on_every_heartbeat">हर धड़कन पर</string>
+    <string name="settings_task_details_schedule">शेड्यूल</string>
+    <string name="settings_task_details_scheduled_for">के लिए शेड्यूल किया गया</string>
+    <string name="settings_task_details_status">स्थिति</string>
+    <string name="settings_task_details_trigger">ट्रिगर</string>
+    <string name="tool_fetch_url_description">एक URL प्राप्त करें और प्रतिक्रिया बॉडी एजेंट को लौटाएँ</string>
+    <string name="tool_fetch_url_name">URL प्राप्त करें</string>
 </resources>

@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Uredi spomin</string>
     <string name="settings_memories_edit_save">Shrani</string>
     <string name="settings_memories_edit_cancel">Prekliči</string>
-    <string name="settings_memories_close">Zapri</string>
     <string name="settings_soul">Duša</string>
     <string name="settings_soul_description">Določite, kako se UI obnaša s sistemskim pozivom. UI bo imela tudi dostop do svojih shranjenih spominov.</string>
     <string name="settings_soul_save">Shrani</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Obvestila UI</string>
     <string name="notification_channel_description">Obvestila, ki jih pošlje pomočnik z umetno inteligenco</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Peskovnik Linux</string>
     <string name="settings_sandbox_description">Namestite okolje Linux, da bo UI lahko v vašem imenu izvajal ukaze lupine, skripte in orodja. Deluje varno znotraj aplikacije. ~3 MB prenos.</string>
     <string name="settings_sandbox_install">Namesti</string>
     <string name="settings_sandbox_install_packages">Namesti osnovne pakete</string>
-    <string name="settings_sandbox_open_terminal">Odpri terminal</string>
     <string name="settings_sandbox_uninstall">Odstrani</string>
     <string name="settings_sandbox_uninstall_confirm">Vsi podatki v peskovniku Linux bodo izgubljeni. Ali ste prepričani, da želite odstraniti?</string>
     <string name="settings_sandbox_cancel">Prekliči</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Poslano</string>
     <string name="sms_draft_banner_failed">Neuspešno: %1$s</string>
     <string name="sms_draft_banner_dismiss">Opusti</string>
+    <string name="litert_error_download_incomplete">Prenos ni dokončan. Poskusite znova.</string>
+    <string name="litert_error_network">Prenos ni uspel. Preverite omrežno povezavo in poskusite znova.</string>
+    <string name="settings_task_details_consecutive_failures">Zaporedne napake</string>
+    <string name="settings_task_details_created">Ustvarjeno</string>
+    <string name="settings_task_details_last_result">Zadnji rezultat</string>
+    <string name="settings_task_details_next_run">Naslednji zagon</string>
+    <string name="settings_task_details_no_heartbeat_runs">Zagonov srčnega utripa še ni zabeleženih.</string>
+    <string name="settings_task_details_no_runs">Zagonov še ni zabeleženih.</string>
+    <string name="settings_task_details_on_every_heartbeat">Ob vsakem srčnem utripu</string>
+    <string name="settings_task_details_schedule">Urnik</string>
+    <string name="settings_task_details_scheduled_for">Načrtovano za</string>
+    <string name="settings_task_details_status">Stanje</string>
+    <string name="settings_task_details_trigger">Sprožilec</string>
+    <string name="tool_fetch_url_description">Pridobi URL in vrni telo odgovora agentu</string>
+    <string name="tool_fetch_url_name">Pridobi URL</string>
 </resources>

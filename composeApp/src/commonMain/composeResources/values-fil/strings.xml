@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">I-edit ang alaala</string>
     <string name="settings_memories_edit_save">I-save</string>
     <string name="settings_memories_edit_cancel">Kanselahin</string>
-    <string name="settings_memories_close">Isara</string>
     <string name="settings_soul">Kaluluwa</string>
     <string name="settings_soul_description">Tukuyin kung paano kumikilos ang AI gamit ang isang system prompt. Magkakaroon din ang AI ng access sa mga nakaimbak nitong alaala.</string>
     <string name="settings_soul_save">I-save</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Mga Notification ng AI</string>
     <string name="notification_channel_description">Mga notification na ipinadala ng AI assistant</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux Sandbox</string>
     <string name="settings_sandbox_description">Mag-install ng Linux environment para makapag-run ang AI ng mga shell command, script, at tool para sa iyo. Ligtas na tumatakbo sa loob ng app. ~3 MB na download.</string>
     <string name="settings_sandbox_install">I-install</string>
     <string name="settings_sandbox_install_packages">I-install ang mga pangunahing package</string>
-    <string name="settings_sandbox_open_terminal">Buksan ang terminal</string>
     <string name="settings_sandbox_uninstall">I-uninstall</string>
     <string name="settings_sandbox_uninstall_confirm">Mawawala ang lahat ng data sa Linux sandbox. Sigurado ka bang gusto mong i-uninstall?</string>
     <string name="settings_sandbox_cancel">Kanselahin</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Naipadala</string>
     <string name="sms_draft_banner_failed">Nabigo: %1$s</string>
     <string name="sms_draft_banner_dismiss">I-dismiss</string>
+    <string name="litert_error_download_incomplete">Hindi kumpleto ang pag-download. Subukang muli.</string>
+    <string name="litert_error_network">Nabigo ang pag-download. Suriin ang iyong koneksyon sa network at subukang muli.</string>
+    <string name="settings_task_details_consecutive_failures">Magkakasunod na pagkabigo</string>
+    <string name="settings_task_details_created">Nilikha</string>
+    <string name="settings_task_details_last_result">Huling resulta</string>
+    <string name="settings_task_details_next_run">Susunod na pagtakbo</string>
+    <string name="settings_task_details_no_heartbeat_runs">Wala pang naitalang pagtakbo ng tibok ng puso.</string>
+    <string name="settings_task_details_no_runs">Wala pang naitalang pagtakbo.</string>
+    <string name="settings_task_details_on_every_heartbeat">Sa bawat tibok ng puso</string>
+    <string name="settings_task_details_schedule">Iskedyul</string>
+    <string name="settings_task_details_scheduled_for">Naka-schedule para sa</string>
+    <string name="settings_task_details_status">Katayuan</string>
+    <string name="settings_task_details_trigger">Trigger</string>
+    <string name="tool_fetch_url_description">Kunin ang isang URL at ibalik ang response body sa agent</string>
+    <string name="tool_fetch_url_name">Kunin ang URL</string>
 </resources>

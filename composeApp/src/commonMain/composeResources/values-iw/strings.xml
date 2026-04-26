@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">ערוך זיכרון</string>
     <string name="settings_memories_edit_save">שמור</string>
     <string name="settings_memories_edit_cancel">ביטול</string>
-    <string name="settings_memories_close">סגור</string>
     <string name="settings_soul">נשמה</string>
     <string name="settings_soul_description">הגדר כיצד הבינה המלאכותית מתנהגת עם הנחיית מערכת. לבינה המלאכותית תהיה גם גישה לזיכרונות השמורים שלה.</string>
     <string name="settings_soul_save">שמור</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">התראות AI</string>
     <string name="notification_channel_description">התראות שנשלחו על ידי עוזר AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">ארגז חול Linux</string>
     <string name="settings_sandbox_description">התקן סביבת Linux כדי שה-AI יוכל להריץ פקודות מעטפת, סקריפטים וכלים בשמך. פועל בצורה מאובטחת בתוך האפליקציה. ~3 MB להורדה.</string>
     <string name="settings_sandbox_install">התקנה</string>
     <string name="settings_sandbox_install_packages">התקנת חבילות בסיסיות</string>
-    <string name="settings_sandbox_open_terminal">פתיחת מסוף</string>
     <string name="settings_sandbox_uninstall">הסרה</string>
     <string name="settings_sandbox_uninstall_confirm">כל הנתונים בסביבת החול של Linux יאבדו. האם אתה בטוח שברצונך להסיר?</string>
     <string name="settings_sandbox_cancel">ביטול</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">נשלח</string>
     <string name="sms_draft_banner_failed">נכשל: %1$s</string>
     <string name="sms_draft_banner_dismiss">סגור</string>
+    <string name="litert_error_download_incomplete">ההורדה לא הושלמה. נסה שוב.</string>
+    <string name="litert_error_network">ההורדה נכשלה. בדוק את חיבור הרשת ונסה שוב.</string>
+    <string name="settings_task_details_consecutive_failures">כשלים רצופים</string>
+    <string name="settings_task_details_created">נוצר</string>
+    <string name="settings_task_details_last_result">תוצאה אחרונה</string>
+    <string name="settings_task_details_next_run">הרצה הבאה</string>
+    <string name="settings_task_details_no_heartbeat_runs">עדיין לא תועדו הרצות פעימת לב.</string>
+    <string name="settings_task_details_no_runs">עדיין לא תועדו הרצות.</string>
+    <string name="settings_task_details_on_every_heartbeat">בכל פעימת לב</string>
+    <string name="settings_task_details_schedule">תזמון</string>
+    <string name="settings_task_details_scheduled_for">מתוזמן ל-</string>
+    <string name="settings_task_details_status">סטטוס</string>
+    <string name="settings_task_details_trigger">טריגר</string>
+    <string name="tool_fetch_url_description">משוך URL והחזר את גוף התגובה לסוכן</string>
+    <string name="tool_fetch_url_name">משיכת URL</string>
 </resources>

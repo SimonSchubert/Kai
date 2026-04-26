@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Modifica ricordo</string>
     <string name="settings_memories_edit_save">Salva</string>
     <string name="settings_memories_edit_cancel">Annulla</string>
-    <string name="settings_memories_close">Chiudi</string>
     <string name="settings_soul">Anima</string>
     <string name="settings_soul_description">Definisci come si comporta l'IA con un prompt di sistema. L'IA avrà anche accesso ai suoi ricordi salvati.</string>
     <string name="settings_soul_save">Salva</string>
@@ -211,11 +210,9 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="notification_channel_name">Notifiche AI</string>
     <string name="notification_channel_description">Notifiche inviate dall'assistente AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox Linux</string>
     <string name="settings_sandbox_description">Installa un ambiente Linux in modo che l'IA possa eseguire comandi shell, script e strumenti per tuo conto. Funziona in modo sicuro all'interno dell'app. ~3 MB da scaricare.</string>
     <string name="settings_sandbox_install">Installa</string>
     <string name="settings_sandbox_install_packages">Installa pacchetti di base</string>
-    <string name="settings_sandbox_open_terminal">Apri terminale</string>
     <string name="settings_sandbox_uninstall">Disinstalla</string>
     <string name="settings_sandbox_uninstall_confirm">Tutti i dati nella sandbox Linux andranno persi. Sei sicuro di voler disinstallare?</string>
     <string name="settings_sandbox_cancel">Annulla</string>
@@ -290,4 +287,19 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="sms_draft_banner_sent">Inviato</string>
     <string name="sms_draft_banner_failed">Non riuscito: %1$s</string>
     <string name="sms_draft_banner_dismiss">Chiudi</string>
+    <string name="litert_error_download_incomplete">Download incompleto. Riprova.</string>
+    <string name="litert_error_network">Download non riuscito. Controlla la connessione di rete e riprova.</string>
+    <string name="settings_task_details_consecutive_failures">Errori consecutivi</string>
+    <string name="settings_task_details_created">Creata</string>
+    <string name="settings_task_details_last_result">Ultimo risultato</string>
+    <string name="settings_task_details_next_run">Prossima esecuzione</string>
+    <string name="settings_task_details_no_heartbeat_runs">Nessuna esecuzione del battito cardiaco registrata.</string>
+    <string name="settings_task_details_no_runs">Nessuna esecuzione registrata.</string>
+    <string name="settings_task_details_on_every_heartbeat">A ogni battito cardiaco</string>
+    <string name="settings_task_details_schedule">Pianificazione</string>
+    <string name="settings_task_details_scheduled_for">Pianificata per</string>
+    <string name="settings_task_details_status">Stato</string>
+    <string name="settings_task_details_trigger">Attivatore</string>
+    <string name="tool_fetch_url_description">Recupera un URL e restituisci il corpo della risposta all\'agente</string>
+    <string name="tool_fetch_url_name">Recupera URL</string>
 </resources>

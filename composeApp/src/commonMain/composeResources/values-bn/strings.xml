@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">স্মৃতি সম্পাদনা</string>
     <string name="settings_memories_edit_save">সংরক্ষণ করুন</string>
     <string name="settings_memories_edit_cancel">বাতিল</string>
-    <string name="settings_memories_close">বন্ধ করুন</string>
     <string name="settings_soul">আত্মা</string>
     <string name="settings_soul_description">সিস্টেম প্রম্পটের মাধ্যমে AI কীভাবে আচরণ করবে তা নির্ধারণ করুন। AI তার সংরক্ষিত স্মৃতিতেও অ্যাক্সেস পাবে।</string>
     <string name="settings_soul_save">সংরক্ষণ করুন</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI বিজ্ঞপ্তি</string>
     <string name="notification_channel_description">AI সহকারী দ্বারা প্রেরিত বিজ্ঞপ্তি</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux স্যান্ডবক্স</string>
     <string name="settings_sandbox_description">একটি Linux পরিবেশ ইনস্টল করুন যাতে AI আপনার পক্ষে শেল কমান্ড, স্ক্রিপ্ট এবং টুল চালাতে পারে। অ্যাপের ভিতরে নিরাপদে চলে। ~3 MB ডাউনলোড।</string>
     <string name="settings_sandbox_install">ইনস্টল করুন</string>
     <string name="settings_sandbox_install_packages">বেসিক প্যাকেজ ইনস্টল করুন</string>
-    <string name="settings_sandbox_open_terminal">টার্মিনাল খুলুন</string>
     <string name="settings_sandbox_uninstall">আনইনস্টল করুন</string>
     <string name="settings_sandbox_uninstall_confirm">Linux স্যান্ডবক্সের সমস্ত ডেটা হারিয়ে যাবে। আপনি কি নিশ্চিত আনইনস্টল করতে চান?</string>
     <string name="settings_sandbox_cancel">বাতিল</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">পাঠানো হয়েছে</string>
     <string name="sms_draft_banner_failed">ব্যর্থ: %1$s</string>
     <string name="sms_draft_banner_dismiss">বন্ধ করুন</string>
+    <string name="litert_error_download_incomplete">ডাউনলোড অসম্পূর্ণ। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
+    <string name="litert_error_network">ডাউনলোড ব্যর্থ হয়েছে। আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</string>
+    <string name="settings_task_details_consecutive_failures">পরপর ব্যর্থতা</string>
+    <string name="settings_task_details_created">তৈরি হয়েছে</string>
+    <string name="settings_task_details_last_result">শেষ ফলাফল</string>
+    <string name="settings_task_details_next_run">পরবর্তী রান</string>
+    <string name="settings_task_details_no_heartbeat_runs">এখনও কোনও হৃৎস্পন্দন রান নথিভুক্ত হয়নি।</string>
+    <string name="settings_task_details_no_runs">এখনও কোনও রান নথিভুক্ত হয়নি।</string>
+    <string name="settings_task_details_on_every_heartbeat">প্রতিটি হৃৎস্পন্দনে</string>
+    <string name="settings_task_details_schedule">সময়সূচী</string>
+    <string name="settings_task_details_scheduled_for">নির্ধারিত</string>
+    <string name="settings_task_details_status">স্থিতি</string>
+    <string name="settings_task_details_trigger">ট্রিগার</string>
+    <string name="tool_fetch_url_description">একটি URL আনুন এবং প্রতিক্রিয়া বডি এজেন্টে ফেরত দিন</string>
+    <string name="tool_fetch_url_name">URL আনুন</string>
 </resources>

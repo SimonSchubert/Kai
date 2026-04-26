@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Redaguoti prisiminimą</string>
     <string name="settings_memories_edit_save">Išsaugoti</string>
     <string name="settings_memories_edit_cancel">Atšaukti</string>
-    <string name="settings_memories_close">Uždaryti</string>
     <string name="settings_soul">Siela</string>
     <string name="settings_soul_description">Nustatykite, kaip AI elgiasi naudodamas sistemos nurodymą. AI taip pat turės prieigą prie savo išsaugotų prisiminimų.</string>
     <string name="settings_soul_save">Išsaugoti</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">DI pranešimai</string>
     <string name="notification_channel_description">Pranešimai, siunčiami DI asistento</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">„Linux" smėlio dėžė</string>
     <string name="settings_sandbox_description">Įdiekite Linux aplinką, kad DI galėtų vykdyti apvalkalo komandas, scenarijus ir įrankius jūsų vardu. Veikia saugiai programėlės viduje. ~3 MB atsisiuntimas.</string>
     <string name="settings_sandbox_install">Įdiegti</string>
     <string name="settings_sandbox_install_packages">Įdiegti pagrindinius paketus</string>
-    <string name="settings_sandbox_open_terminal">Atidaryti terminalą</string>
     <string name="settings_sandbox_uninstall">Pašalinti</string>
     <string name="settings_sandbox_uninstall_confirm">Visi duomenys Linux smėlio dėžėje bus prarasti. Ar tikrai norite pašalinti?</string>
     <string name="settings_sandbox_cancel">Atšaukti</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Išsiųsta</string>
     <string name="sms_draft_banner_failed">Nepavyko: %1$s</string>
     <string name="sms_draft_banner_dismiss">Uždaryti</string>
+    <string name="litert_error_download_incomplete">Atsisiuntimas nebaigtas. Bandykite dar kartą.</string>
+    <string name="litert_error_network">Atsisiųsti nepavyko. Patikrinkite tinklo ryšį ir bandykite dar kartą.</string>
+    <string name="settings_task_details_consecutive_failures">Nesėkmių iš eilės</string>
+    <string name="settings_task_details_created">Sukurta</string>
+    <string name="settings_task_details_last_result">Paskutinis rezultatas</string>
+    <string name="settings_task_details_next_run">Kitas paleidimas</string>
+    <string name="settings_task_details_no_heartbeat_runs">Širdies ritmo paleidimų dar nėra.</string>
+    <string name="settings_task_details_no_runs">Paleidimų dar nėra.</string>
+    <string name="settings_task_details_on_every_heartbeat">Su kiekvienu širdies ritmu</string>
+    <string name="settings_task_details_schedule">Tvarkaraštis</string>
+    <string name="settings_task_details_scheduled_for">Suplanuota</string>
+    <string name="settings_task_details_status">Būsena</string>
+    <string name="settings_task_details_trigger">Aktyviklis</string>
+    <string name="tool_fetch_url_description">Gauti URL ir grąžinti atsakymo turinį agentui</string>
+    <string name="tool_fetch_url_name">Gauti URL</string>
 </resources>

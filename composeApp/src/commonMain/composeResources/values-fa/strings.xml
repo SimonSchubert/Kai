@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">ویرایش خاطره</string>
     <string name="settings_memories_edit_save">ذخیره</string>
     <string name="settings_memories_edit_cancel">لغو</string>
-    <string name="settings_memories_close">بستن</string>
     <string name="settings_soul">روح</string>
     <string name="settings_soul_description">تعریف کنید هوش مصنوعی با یک دستور سیستم چگونه رفتار کند. هوش مصنوعی همچنین به خاطرات ذخیره‌شده خود دسترسی خواهد داشت.</string>
     <string name="settings_soul_save">ذخیره</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">اعلان‌های هوش مصنوعی</string>
     <string name="notification_channel_description">اعلان‌های ارسال‌شده توسط دستیار هوش مصنوعی</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">جعبه شنی لینوکس</string>
     <string name="settings_sandbox_description">یک محیط لینوکس نصب کنید تا هوش مصنوعی بتواند از طرف شما دستورات شل، اسکریپت‌ها و ابزارها را اجرا کند. به‌صورت امن درون برنامه اجرا می‌شود. ~۳ مگابایت دانلود.</string>
     <string name="settings_sandbox_install">نصب</string>
     <string name="settings_sandbox_install_packages">نصب بسته‌های پایه</string>
-    <string name="settings_sandbox_open_terminal">باز کردن ترمینال</string>
     <string name="settings_sandbox_uninstall">حذف</string>
     <string name="settings_sandbox_uninstall_confirm">تمام داده‌ها در جعبه شنی لینوکس از بین خواهند رفت. آیا مطمئن هستید که می‌خواهید حذف کنید؟</string>
     <string name="settings_sandbox_cancel">لغو</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">ارسال شد</string>
     <string name="sms_draft_banner_failed">ناموفق: %1$s</string>
     <string name="sms_draft_banner_dismiss">بستن</string>
+    <string name="litert_error_download_incomplete">دانلود ناقص است. لطفاً دوباره تلاش کنید.</string>
+    <string name="litert_error_network">دانلود ناموفق بود. اتصال شبکه را بررسی کرده و دوباره تلاش کنید.</string>
+    <string name="settings_task_details_consecutive_failures">شکست‌های متوالی</string>
+    <string name="settings_task_details_created">ایجاد شد</string>
+    <string name="settings_task_details_last_result">آخرین نتیجه</string>
+    <string name="settings_task_details_next_run">اجرای بعدی</string>
+    <string name="settings_task_details_no_heartbeat_runs">هنوز هیچ اجرای ضربان قلبی ثبت نشده است.</string>
+    <string name="settings_task_details_no_runs">هنوز هیچ اجرایی ثبت نشده است.</string>
+    <string name="settings_task_details_on_every_heartbeat">در هر ضربان قلب</string>
+    <string name="settings_task_details_schedule">زمان‌بندی</string>
+    <string name="settings_task_details_scheduled_for">زمان‌بندی‌شده برای</string>
+    <string name="settings_task_details_status">وضعیت</string>
+    <string name="settings_task_details_trigger">محرک</string>
+    <string name="tool_fetch_url_description">یک URL را واکشی کرده و بدنه پاسخ را به عامل برمی‌گرداند</string>
+    <string name="tool_fetch_url_name">واکشی URL</string>
 </resources>

@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Rediģēt atmiņu</string>
     <string name="settings_memories_edit_save">Saglabāt</string>
     <string name="settings_memories_edit_cancel">Atcelt</string>
-    <string name="settings_memories_close">Aizvērt</string>
     <string name="settings_soul">Dvēsele</string>
     <string name="settings_soul_description">Nosakiet, kā AI uzvedas ar sistēmas uzvedni. AI arī varēs piekļūt savām saglabātajām atmiņām.</string>
     <string name="settings_soul_save">Saglabāt</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">MI paziņojumi</string>
     <string name="notification_channel_description">Paziņojumi, ko nosūta MI asistents</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux smilškaste</string>
     <string name="settings_sandbox_description">Instalējiet Linux vidi, lai MI varētu jūsu vārdā palaist čaulas komandas, skriptus un rīkus. Darbojas droši lietotnes iekšienē. ~3 MB lejupielāde.</string>
     <string name="settings_sandbox_install">Instalēt</string>
     <string name="settings_sandbox_install_packages">Instalēt pamata pakotnes</string>
-    <string name="settings_sandbox_open_terminal">Atvērt termināli</string>
     <string name="settings_sandbox_uninstall">Atinstalēt</string>
     <string name="settings_sandbox_uninstall_confirm">Visi dati Linux smilškastē tiks zaudēti. Vai tiešām vēlaties atinstalēt?</string>
     <string name="settings_sandbox_cancel">Atcelt</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Nosūtīts</string>
     <string name="sms_draft_banner_failed">Neizdevās: %1$s</string>
     <string name="sms_draft_banner_dismiss">Aizvērt</string>
+    <string name="litert_error_download_incomplete">Lejupielāde nav pabeigta. Mēģiniet vēlreiz.</string>
+    <string name="litert_error_network">Lejupielāde neizdevās. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</string>
+    <string name="settings_task_details_consecutive_failures">Secīgas neveiksmes</string>
+    <string name="settings_task_details_created">Izveidots</string>
+    <string name="settings_task_details_last_result">Pēdējais rezultāts</string>
+    <string name="settings_task_details_next_run">Nākamā palaišana</string>
+    <string name="settings_task_details_no_heartbeat_runs">Sirdspukstu palaišanas vēl nav reģistrētas.</string>
+    <string name="settings_task_details_no_runs">Palaišanas vēl nav reģistrētas.</string>
+    <string name="settings_task_details_on_every_heartbeat">Pie katra sirdspuksta</string>
+    <string name="settings_task_details_schedule">Grafiks</string>
+    <string name="settings_task_details_scheduled_for">Plānots uz</string>
+    <string name="settings_task_details_status">Statuss</string>
+    <string name="settings_task_details_trigger">Aktivizētājs</string>
+    <string name="tool_fetch_url_description">Iegūt URL un atgriezt atbildes saturu aģentam</string>
+    <string name="tool_fetch_url_name">Iegūt URL</string>
 </resources>

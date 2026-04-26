@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Anıyı düzenle</string>
     <string name="settings_memories_edit_save">Kaydet</string>
     <string name="settings_memories_edit_cancel">İptal</string>
-    <string name="settings_memories_close">Kapat</string>
     <string name="settings_soul">Ruh</string>
     <string name="settings_soul_description">AI'nın bir sistem komutuyla nasıl davranacağını tanımlayın. AI ayrıca kayıtlı anılarına da erişebilecek.</string>
     <string name="settings_soul_save">Kaydet</string>
@@ -211,11 +210,9 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="notification_channel_name">AI Bildirimleri</string>
     <string name="notification_channel_description">AI asistan tarafından gönderilen bildirimler</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux Korumalı Alan</string>
     <string name="settings_sandbox_description">Yapay zekanın sizin adınıza kabuk komutları, betikler ve araçlar çalıştırabilmesi için bir Linux ortamı kurun. Uygulama içinde güvenli şekilde çalışır. ~3 MB indirme.</string>
     <string name="settings_sandbox_install">Kur</string>
     <string name="settings_sandbox_install_packages">Temel paketleri kur</string>
-    <string name="settings_sandbox_open_terminal">Terminali aç</string>
     <string name="settings_sandbox_uninstall">Kaldır</string>
     <string name="settings_sandbox_uninstall_confirm">Linux sandbox'taki tüm veriler kaybolacak. Kaldırmak istediğinizden emin misiniz?</string>
     <string name="settings_sandbox_cancel">İptal</string>
@@ -290,4 +287,19 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="sms_draft_banner_sent">Gönderildi</string>
     <string name="sms_draft_banner_failed">Başarısız: %1$s</string>
     <string name="sms_draft_banner_dismiss">Kapat</string>
+    <string name="litert_error_download_incomplete">İndirme tamamlanmadı. Lütfen tekrar deneyin.</string>
+    <string name="litert_error_network">İndirme başarısız oldu. Ağ bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="settings_task_details_consecutive_failures">Ardışık başarısızlıklar</string>
+    <string name="settings_task_details_created">Oluşturuldu</string>
+    <string name="settings_task_details_last_result">Son sonuç</string>
+    <string name="settings_task_details_next_run">Sonraki çalıştırma</string>
+    <string name="settings_task_details_no_heartbeat_runs">Henüz kayıtlı kalp atışı çalıştırması yok.</string>
+    <string name="settings_task_details_no_runs">Henüz kayıtlı çalıştırma yok.</string>
+    <string name="settings_task_details_on_every_heartbeat">Her kalp atışında</string>
+    <string name="settings_task_details_schedule">Zamanlama</string>
+    <string name="settings_task_details_scheduled_for">Zamanlanma tarihi</string>
+    <string name="settings_task_details_status">Durum</string>
+    <string name="settings_task_details_trigger">Tetikleyici</string>
+    <string name="tool_fetch_url_description">Bir URL'yi getir ve yanıt gövdesini ajana döndür</string>
+    <string name="tool_fetch_url_name">URL Getir</string>
 </resources>

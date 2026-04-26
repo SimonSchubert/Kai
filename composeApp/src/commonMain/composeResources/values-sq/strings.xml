@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Ndrysho kujtesën</string>
     <string name="settings_memories_edit_save">Ruaj</string>
     <string name="settings_memories_edit_cancel">Anulo</string>
-    <string name="settings_memories_close">Mbyll</string>
     <string name="settings_soul">Shpirt</string>
     <string name="settings_soul_description">Përcaktoni si sillet AI me një kërkesë sistemi. AI do të ketë gjithashtu qasje në kujtesat e saj të ruajtura.</string>
     <string name="settings_soul_save">Ruaj</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Njoftimet e AI</string>
     <string name="notification_channel_description">Njoftimet e dërguara nga asistenti AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox Linux</string>
     <string name="settings_sandbox_description">Instaloni një mjedis Linux në mënyrë që IA të mund të ekzekutojë komanda shell, skripte dhe mjete në emrin tuaj. Ekzekutohet në mënyrë të sigurt brenda aplikacionit. ~3 MB shkarkim.</string>
     <string name="settings_sandbox_install">Instalo</string>
     <string name="settings_sandbox_install_packages">Instalo paketat bazë</string>
-    <string name="settings_sandbox_open_terminal">Hap terminalin</string>
     <string name="settings_sandbox_uninstall">Çinstalo</string>
     <string name="settings_sandbox_uninstall_confirm">Të gjitha të dhënat në sandbox-in Linux do të humbasin. A jeni i sigurt që dëshironi ta çinstaloni?</string>
     <string name="settings_sandbox_cancel">Anulo</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">U dërgua</string>
     <string name="sms_draft_banner_failed">Dështoi: %1$s</string>
     <string name="sms_draft_banner_dismiss">Hiq</string>
+    <string name="litert_error_download_incomplete">Shkarkimi i paplotë. Ju lutemi provoni përsëri.</string>
+    <string name="litert_error_network">Shkarkimi dështoi. Kontrolloni lidhjen e rrjetit dhe provoni përsëri.</string>
+    <string name="settings_task_details_consecutive_failures">Dështime të njëpasnjëshme</string>
+    <string name="settings_task_details_created">U krijua</string>
+    <string name="settings_task_details_last_result">Rezultati i fundit</string>
+    <string name="settings_task_details_next_run">Ekzekutimi tjetër</string>
+    <string name="settings_task_details_no_heartbeat_runs">Ende nuk janë regjistruar ekzekutime të rrahjeve të zemrës.</string>
+    <string name="settings_task_details_no_runs">Ende nuk janë regjistruar ekzekutime.</string>
+    <string name="settings_task_details_on_every_heartbeat">Në çdo rrahje zemre</string>
+    <string name="settings_task_details_schedule">Programi</string>
+    <string name="settings_task_details_scheduled_for">Programuar për</string>
+    <string name="settings_task_details_status">Statusi</string>
+    <string name="settings_task_details_trigger">Nxitësi</string>
+    <string name="tool_fetch_url_description">Merr një URL dhe kthen trupin e përgjigjes te agjenti</string>
+    <string name="tool_fetch_url_name">Merr URL</string>
 </resources>

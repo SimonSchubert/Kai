@@ -24,9 +24,23 @@ data class ScheduledTask(
     val status: TaskStatus = TaskStatus.PENDING,
     val lastResult: String? = null,
     val consecutiveFailures: Int = 0,
+    /**
+     * Most recent execution outcomes, newest first, capped to the last few runs. Surfaced
+     * in the task details sheet so users can see why a task isn't producing notifications.
+     * Empty for HEARTBEAT-trigger tasks — those share the heartbeat-wide log instead.
+     */
+    val recentExecutions: List<TaskExecutionLogEntry> = emptyList(),
 ) {
     val scheduledAt: Instant get() = Instant.fromEpochMilliseconds(scheduledAtEpochMs)
 }
+
+@Immutable
+@Serializable
+data class TaskExecutionLogEntry(
+    val timestampEpochMs: Long,
+    val success: Boolean,
+    val message: String? = null,
+)
 
 @Serializable
 enum class TaskStatus { PENDING, COMPLETED }

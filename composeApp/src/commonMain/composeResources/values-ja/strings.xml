@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">記憶を編集</string>
     <string name="settings_memories_edit_save">保存</string>
     <string name="settings_memories_edit_cancel">キャンセル</string>
-    <string name="settings_memories_close">閉じる</string>
     <string name="settings_soul">ソウル</string>
     <string name="settings_soul_description">システムプロンプトでAIの振る舞いを定義します。AIは保存された記憶にもアクセスできます。</string>
     <string name="settings_soul_save">保存</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">AI通知</string>
     <string name="notification_channel_description">AIアシスタントから送信された通知</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linuxサンドボックス</string>
     <string name="settings_sandbox_description">Linux環境をインストールすると、AIがあなたの代わりにシェルコマンド、スクリプト、ツールを実行できます。アプリ内で安全に動作します。約3 MBのダウンロード。</string>
     <string name="settings_sandbox_install">インストール</string>
     <string name="settings_sandbox_install_packages">基本パッケージをインストール</string>
-    <string name="settings_sandbox_open_terminal">ターミナルを開く</string>
     <string name="settings_sandbox_uninstall">アンインストール</string>
     <string name="settings_sandbox_uninstall_confirm">Linuxサンドボックス内のすべてのデータが失われます。本当にアンインストールしますか？</string>
     <string name="settings_sandbox_cancel">キャンセル</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">送信済み</string>
     <string name="sms_draft_banner_failed">失敗: %1$s</string>
     <string name="sms_draft_banner_dismiss">閉じる</string>
+    <string name="litert_error_download_incomplete">ダウンロードが不完全です。もう一度お試しください。</string>
+    <string name="litert_error_network">ダウンロードに失敗しました。ネットワーク接続を確認してもう一度お試しください。</string>
+    <string name="settings_task_details_consecutive_failures">連続失敗回数</string>
+    <string name="settings_task_details_created">作成日</string>
+    <string name="settings_task_details_last_result">最終結果</string>
+    <string name="settings_task_details_next_run">次回実行</string>
+    <string name="settings_task_details_no_heartbeat_runs">ハートビート実行はまだ記録されていません。</string>
+    <string name="settings_task_details_no_runs">実行はまだ記録されていません。</string>
+    <string name="settings_task_details_on_every_heartbeat">ハートビートごと</string>
+    <string name="settings_task_details_schedule">スケジュール</string>
+    <string name="settings_task_details_scheduled_for">予定日時</string>
+    <string name="settings_task_details_status">ステータス</string>
+    <string name="settings_task_details_trigger">トリガー</string>
+    <string name="tool_fetch_url_description">URLを取得し、レスポンスボディをエージェントに返します</string>
+    <string name="tool_fetch_url_name">URL取得</string>
 </resources>

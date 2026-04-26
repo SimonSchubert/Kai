@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Editează amintirea</string>
     <string name="settings_memories_edit_save">Salvează</string>
     <string name="settings_memories_edit_cancel">Anulează</string>
-    <string name="settings_memories_close">Închide</string>
     <string name="settings_soul">Suflet</string>
     <string name="settings_soul_description">Definește cum se comportă IA cu un prompt de sistem. IA va avea și acces la amintirile sale salvate.</string>
     <string name="settings_soul_save">Salvează</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Notificări AI</string>
     <string name="notification_channel_description">Notificări trimise de asistentul AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox Linux</string>
     <string name="settings_sandbox_description">Instalează un mediu Linux pentru ca AI-ul să poată rula comenzi shell, scripturi și instrumente în numele tău. Rulează în siguranță în interiorul aplicației. ~3 MB descărcare.</string>
     <string name="settings_sandbox_install">Instalare</string>
     <string name="settings_sandbox_install_packages">Instalare pachete de bază</string>
-    <string name="settings_sandbox_open_terminal">Deschide terminalul</string>
     <string name="settings_sandbox_uninstall">Dezinstalare</string>
     <string name="settings_sandbox_uninstall_confirm">Toate datele din sandbox-ul Linux vor fi pierdute. Sigur doriți să dezinstalați?</string>
     <string name="settings_sandbox_cancel">Anulare</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Trimis</string>
     <string name="sms_draft_banner_failed">Eșuat: %1$s</string>
     <string name="sms_draft_banner_dismiss">Închide</string>
+    <string name="litert_error_download_incomplete">Descărcare incompletă. Vă rugăm să încercați din nou.</string>
+    <string name="litert_error_network">Descărcarea a eșuat. Verificați conexiunea la rețea și încercați din nou.</string>
+    <string name="settings_task_details_consecutive_failures">Eșecuri consecutive</string>
+    <string name="settings_task_details_created">Creată</string>
+    <string name="settings_task_details_last_result">Ultimul rezultat</string>
+    <string name="settings_task_details_next_run">Următoarea rulare</string>
+    <string name="settings_task_details_no_heartbeat_runs">Încă nu există rulări de ritm cardiac înregistrate.</string>
+    <string name="settings_task_details_no_runs">Încă nu există rulări înregistrate.</string>
+    <string name="settings_task_details_on_every_heartbeat">La fiecare ritm cardiac</string>
+    <string name="settings_task_details_schedule">Program</string>
+    <string name="settings_task_details_scheduled_for">Programată pentru</string>
+    <string name="settings_task_details_status">Stare</string>
+    <string name="settings_task_details_trigger">Declanșator</string>
+    <string name="tool_fetch_url_description">Preia un URL și returnează corpul răspunsului către agent</string>
+    <string name="tool_fetch_url_name">Preia URL</string>
 </resources>

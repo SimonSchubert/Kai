@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">ਯਾਦ ਸੰਪਾਦਿਤ ਕਰੋ</string>
     <string name="settings_memories_edit_save">ਸੇਵ ਕਰੋ</string>
     <string name="settings_memories_edit_cancel">ਰੱਦ ਕਰੋ</string>
-    <string name="settings_memories_close">ਬੰਦ ਕਰੋ</string>
     <string name="settings_soul">ਰੂਹ</string>
     <string name="settings_soul_description">ਸਿਸਟਮ ਪ੍ਰੋਂਪਟ ਨਾਲ AI ਕਿਵੇਂ ਵਿਹਾਰ ਕਰਦਾ ਹੈ ਇਹ ਪਰਿਭਾਸ਼ਿਤ ਕਰੋ। AI ਨੂੰ ਆਪਣੀਆਂ ਸਟੋਰ ਕੀਤੀਆਂ ਯਾਦਾਂ ਤੱਕ ਵੀ ਪਹੁੰਚ ਹੋਵੇਗੀ।</string>
     <string name="settings_soul_save">ਸੇਵ ਕਰੋ</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI ਸੂਚਨਾਵਾਂ</string>
     <string name="notification_channel_description">AI ਸਹਾਇਕ ਦੁਆਰਾ ਭੇਜੀਆਂ ਸੂਚਨਾਵਾਂ</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux ਸੈਂਡਬਾਕਸ</string>
     <string name="settings_sandbox_description">ਇੱਕ Linux ਵਾਤਾਵਰਨ ਇੰਸਟਾਲ ਕਰੋ ਤਾਂ ਜੋ AI ਤੁਹਾਡੀ ਤਰਫ਼ੋਂ ਸ਼ੈੱਲ ਕਮਾਂਡਾਂ, ਸਕ੍ਰਿਪਟਾਂ ਅਤੇ ਟੂਲ ਚਲਾ ਸਕੇ। ਐਪ ਦੇ ਅੰਦਰ ਸੁਰੱਖਿਅਤ ਢੰਗ ਨਾਲ ਚੱਲਦਾ ਹੈ। ~3 MB ਡਾਊਨਲੋਡ।</string>
     <string name="settings_sandbox_install">ਇੰਸਟਾਲ ਕਰੋ</string>
     <string name="settings_sandbox_install_packages">ਮੁੱਢਲੇ ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰੋ</string>
-    <string name="settings_sandbox_open_terminal">ਟਰਮੀਨਲ ਖੋਲ੍ਹੋ</string>
     <string name="settings_sandbox_uninstall">ਅਣਇੰਸਟਾਲ ਕਰੋ</string>
     <string name="settings_sandbox_uninstall_confirm">Linux ਸੈਂਡਬਾਕਸ ਦਾ ਸਾਰਾ ਡਾਟਾ ਗੁਆਚ ਜਾਵੇਗਾ। ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ 'ਤੇ ਅਣਇੰਸਟਾਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
     <string name="settings_sandbox_cancel">ਰੱਦ ਕਰੋ</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">ਭੇਜਿਆ ਗਿਆ</string>
     <string name="sms_draft_banner_failed">ਅਸਫਲ: %1$s</string>
     <string name="sms_draft_banner_dismiss">ਰੱਦ ਕਰੋ</string>
+    <string name="litert_error_download_incomplete">ਡਾਊਨਲੋਡ ਅਧੂਰਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="litert_error_network">ਡਾਊਨਲੋਡ ਅਸਫਲ ਹੋਇਆ। ਆਪਣਾ ਨੈੱਟਵਰਕ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="settings_task_details_consecutive_failures">ਲਗਾਤਾਰ ਅਸਫਲਤਾਵਾਂ</string>
+    <string name="settings_task_details_created">ਬਣਾਇਆ ਗਿਆ</string>
+    <string name="settings_task_details_last_result">ਆਖਰੀ ਨਤੀਜਾ</string>
+    <string name="settings_task_details_next_run">ਅਗਲਾ ਰਨ</string>
+    <string name="settings_task_details_no_heartbeat_runs">ਅਜੇ ਤੱਕ ਕੋਈ ਦਿਲ ਦੀ ਧੜਕਣ ਰਨ ਰਿਕਾਰਡ ਨਹੀਂ ਹੋਇਆ।</string>
+    <string name="settings_task_details_no_runs">ਅਜੇ ਤੱਕ ਕੋਈ ਰਨ ਰਿਕਾਰਡ ਨਹੀਂ ਹੋਇਆ।</string>
+    <string name="settings_task_details_on_every_heartbeat">ਹਰ ਦਿਲ ਦੀ ਧੜਕਣ \'ਤੇ</string>
+    <string name="settings_task_details_schedule">ਸਮਾਂ-ਸਾਰਣੀ</string>
+    <string name="settings_task_details_scheduled_for">ਲਈ ਨਿਯਤ</string>
+    <string name="settings_task_details_status">ਸਥਿਤੀ</string>
+    <string name="settings_task_details_trigger">ਟਰਿਗਰ</string>
+    <string name="tool_fetch_url_description">ਇੱਕ URL ਲਿਆਓ ਅਤੇ ਜਵਾਬ ਬਾਡੀ ਏਜੰਟ ਨੂੰ ਵਾਪਸ ਕਰੋ</string>
+    <string name="tool_fetch_url_name">URL ਲਿਆਓ</string>
 </resources>

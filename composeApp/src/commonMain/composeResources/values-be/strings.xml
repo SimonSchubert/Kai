@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Рэдагаваць успамін</string>
     <string name="settings_memories_edit_save">Захаваць</string>
     <string name="settings_memories_edit_cancel">Скасаваць</string>
-    <string name="settings_memories_close">Закрыць</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Вызначце паводзіны AI з дапамогай сістэмнага падказу. AI таксама будзе мець доступ да сваіх захаваных успамінаў.</string>
     <string name="settings_soul_save">Захаваць</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Апавяшчэнні AI</string>
     <string name="notification_channel_description">Апавяшчэнні, адпраўленыя AI-памочнікам</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Пясочніца Linux</string>
     <string name="settings_sandbox_description">Усталюйце асяроддзе Linux, каб ШІ мог выконваць каманды абалонкі, скрыпты і інструменты ад вашага імя. Працуе бяспечна ўнутры праграмы. ~3 МБ спампоўка.</string>
     <string name="settings_sandbox_install">Усталяваць</string>
     <string name="settings_sandbox_install_packages">Усталяваць базавыя пакеты</string>
-    <string name="settings_sandbox_open_terminal">Адкрыць тэрмінал</string>
     <string name="settings_sandbox_uninstall">Выдаліць</string>
     <string name="settings_sandbox_uninstall_confirm">Усе даныя ў пясочніцы Linux будуць страчаны. Вы ўпэўнены, што жадаеце выдаліць?</string>
     <string name="settings_sandbox_cancel">Скасаваць</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Адпраўлена</string>
     <string name="sms_draft_banner_failed">Памылка: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрыць</string>
+    <string name="litert_error_download_incomplete">Спампоўка не завершана. Паспрабуйце яшчэ раз.</string>
+    <string name="litert_error_network">Спампоўка не атрымалася. Праверце падключэнне да сеткі і паспрабуйце зноў.</string>
+    <string name="settings_task_details_consecutive_failures">Збояў запар</string>
+    <string name="settings_task_details_created">Створана</string>
+    <string name="settings_task_details_last_result">Апошні вынік</string>
+    <string name="settings_task_details_next_run">Наступны запуск</string>
+    <string name="settings_task_details_no_heartbeat_runs">Запускаў сэрцабіцця яшчэ няма.</string>
+    <string name="settings_task_details_no_runs">Запускаў яшчэ няма.</string>
+    <string name="settings_task_details_on_every_heartbeat">Пры кожным сэрцабіцці</string>
+    <string name="settings_task_details_schedule">Расклад</string>
+    <string name="settings_task_details_scheduled_for">Запланавана на</string>
+    <string name="settings_task_details_status">Статус</string>
+    <string name="settings_task_details_trigger">Трыгер</string>
+    <string name="tool_fetch_url_description">Атрымаць URL і вярнуць цела адказу агенту</string>
+    <string name="tool_fetch_url_name">Атрымаць URL</string>
 </resources>

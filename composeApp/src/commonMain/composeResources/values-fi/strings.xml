@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Muokkaa muistoa</string>
     <string name="settings_memories_edit_save">Tallenna</string>
     <string name="settings_memories_edit_cancel">Peruuta</string>
-    <string name="settings_memories_close">Sulje</string>
     <string name="settings_soul">Sielu</string>
     <string name="settings_soul_description">Määritä, miten tekoäly käyttäytyy järjestelmäpromptilla. Tekoälyllä on myös pääsy tallennettuihin muistoihinsa.</string>
     <string name="settings_soul_save">Tallenna</string>
@@ -211,11 +210,9 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="notification_channel_name">Tekoäly-ilmoitukset</string>
     <string name="notification_channel_description">Tekoälyavustajan lähettämät ilmoitukset</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-hiekkalaatikko</string>
     <string name="settings_sandbox_description">Asenna Linux-ympäristö, jotta tekoäly voi suorittaa komentorivikomentoja, skriptejä ja työkaluja puolestasi. Toimii turvallisesti sovelluksen sisällä. ~3 Mt lataus.</string>
     <string name="settings_sandbox_install">Asenna</string>
     <string name="settings_sandbox_install_packages">Asenna peruspaketit</string>
-    <string name="settings_sandbox_open_terminal">Avaa terminaali</string>
     <string name="settings_sandbox_uninstall">Poista asennus</string>
     <string name="settings_sandbox_uninstall_confirm">Kaikki Linux-hiekkalaatikon tiedot menetetään. Haluatko varmasti poistaa asennuksen?</string>
     <string name="settings_sandbox_cancel">Peruuta</string>
@@ -291,4 +288,19 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sms_draft_banner_sent">Lähetetty</string>
     <string name="sms_draft_banner_failed">Epäonnistui: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sulje</string>
+    <string name="litert_error_download_incomplete">Lataus jäi kesken. Yritä uudelleen.</string>
+    <string name="litert_error_network">Lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <string name="settings_task_details_consecutive_failures">Peräkkäiset epäonnistumiset</string>
+    <string name="settings_task_details_created">Luotu</string>
+    <string name="settings_task_details_last_result">Viimeisin tulos</string>
+    <string name="settings_task_details_next_run">Seuraava suoritus</string>
+    <string name="settings_task_details_no_heartbeat_runs">Sykkeen suorituksia ei ole vielä tallennettu.</string>
+    <string name="settings_task_details_no_runs">Suorituksia ei ole vielä tallennettu.</string>
+    <string name="settings_task_details_on_every_heartbeat">Joka sykkeellä</string>
+    <string name="settings_task_details_schedule">Aikataulu</string>
+    <string name="settings_task_details_scheduled_for">Ajoitettu ajankohtaan</string>
+    <string name="settings_task_details_status">Tila</string>
+    <string name="settings_task_details_trigger">Laukaisin</string>
+    <string name="tool_fetch_url_description">Hae URL ja palauta vastauksen runko agentille</string>
+    <string name="tool_fetch_url_name">Hae URL</string>
 </resources>

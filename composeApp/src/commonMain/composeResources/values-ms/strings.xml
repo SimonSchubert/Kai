@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Edit kenangan</string>
     <string name="settings_memories_edit_save">Simpan</string>
     <string name="settings_memories_edit_cancel">Batal</string>
-    <string name="settings_memories_close">Tutup</string>
     <string name="settings_soul">Jiwa</string>
     <string name="settings_soul_description">Tentukan cara AI berkelakuan dengan gesaan sistem. AI juga akan mempunyai akses kepada kenangan tersimpannya.</string>
     <string name="settings_soul_save">Simpan</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Pemberitahuan AI</string>
     <string name="notification_channel_description">Pemberitahuan yang dihantar oleh pembantu AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Kotak pasir Linux</string>
     <string name="settings_sandbox_description">Pasang persekitaran Linux supaya AI boleh menjalankan arahan shell, skrip dan alatan bagi pihak anda. Berjalan dengan selamat di dalam apl. ~3 MB muat turun.</string>
     <string name="settings_sandbox_install">Pasang</string>
     <string name="settings_sandbox_install_packages">Pasang pakej asas</string>
-    <string name="settings_sandbox_open_terminal">Buka terminal</string>
     <string name="settings_sandbox_uninstall">Nyahpasang</string>
     <string name="settings_sandbox_uninstall_confirm">Semua data dalam sandbox Linux akan hilang. Adakah anda pasti mahu menyahpasang?</string>
     <string name="settings_sandbox_cancel">Batal</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Dihantar</string>
     <string name="sms_draft_banner_failed">Gagal: %1$s</string>
     <string name="sms_draft_banner_dismiss">Tutup</string>
+    <string name="litert_error_download_incomplete">Muat turun tidak lengkap. Sila cuba lagi.</string>
+    <string name="litert_error_network">Muat turun gagal. Semak sambungan rangkaian anda dan cuba lagi.</string>
+    <string name="settings_task_details_consecutive_failures">Kegagalan berturut-turut</string>
+    <string name="settings_task_details_created">Dicipta</string>
+    <string name="settings_task_details_last_result">Keputusan terakhir</string>
+    <string name="settings_task_details_next_run">Pelaksanaan seterusnya</string>
+    <string name="settings_task_details_no_heartbeat_runs">Belum ada pelaksanaan degupan jantung yang direkodkan.</string>
+    <string name="settings_task_details_no_runs">Belum ada pelaksanaan yang direkodkan.</string>
+    <string name="settings_task_details_on_every_heartbeat">Pada setiap degupan jantung</string>
+    <string name="settings_task_details_schedule">Jadual</string>
+    <string name="settings_task_details_scheduled_for">Dijadualkan untuk</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Pencetus</string>
+    <string name="tool_fetch_url_description">Ambil URL dan pulangkan badan respons kepada ejen</string>
+    <string name="tool_fetch_url_name">Ambil URL</string>
 </resources>

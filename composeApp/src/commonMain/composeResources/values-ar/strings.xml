@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">تعديل الذاكرة</string>
     <string name="settings_memories_edit_save">حفظ</string>
     <string name="settings_memories_edit_cancel">إلغاء</string>
-    <string name="settings_memories_close">إغلاق</string>
     <string name="settings_soul">الروح</string>
     <string name="settings_soul_description">حدد كيفية تصرف الذكاء الاصطناعي باستخدام موجه النظام. سيتمكن الذكاء الاصطناعي أيضاً من الوصول إلى ذكرياته المخزنة.</string>
     <string name="settings_soul_save">حفظ</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">إشعارات الذكاء الاصطناعي</string>
     <string name="notification_channel_description">إشعارات مرسلة من مساعد الذكاء الاصطناعي</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">صندوق رمل Linux</string>
     <string name="settings_sandbox_description">ثبّت بيئة Linux ليتمكّن الذكاء الاصطناعي من تشغيل أوامر الطرفية والنصوص البرمجية والأدوات نيابةً عنك. يعمل بأمان داخل التطبيق. ~3 ميغابايت للتنزيل.</string>
     <string name="settings_sandbox_install">تثبيت</string>
     <string name="settings_sandbox_install_packages">تثبيت الحزم الأساسية</string>
-    <string name="settings_sandbox_open_terminal">فتح الطرفية</string>
     <string name="settings_sandbox_uninstall">إزالة التثبيت</string>
     <string name="settings_sandbox_uninstall_confirm">ستُفقد جميع البيانات في بيئة Linux المحمية. هل أنت متأكد من رغبتك في إزالة التثبيت؟</string>
     <string name="settings_sandbox_cancel">إلغاء</string>
@@ -291,4 +288,19 @@
     <string name="sms_draft_banner_sent">تم الإرسال</string>
     <string name="sms_draft_banner_failed">فشل: %1$s</string>
     <string name="sms_draft_banner_dismiss">إغلاق</string>
+    <string name="litert_error_download_incomplete">التنزيل غير مكتمل. يرجى المحاولة مرة أخرى.</string>
+    <string name="litert_error_network">فشل التنزيل. تحقق من اتصال الشبكة وحاول مرة أخرى.</string>
+    <string name="settings_task_details_consecutive_failures">إخفاقات متتالية</string>
+    <string name="settings_task_details_created">تم الإنشاء</string>
+    <string name="settings_task_details_last_result">آخر نتيجة</string>
+    <string name="settings_task_details_next_run">التشغيل التالي</string>
+    <string name="settings_task_details_no_heartbeat_runs">لم يتم تسجيل أي تشغيل لنبض القلب بعد.</string>
+    <string name="settings_task_details_no_runs">لم يتم تسجيل أي تشغيل بعد.</string>
+    <string name="settings_task_details_on_every_heartbeat">عند كل نبضة قلب</string>
+    <string name="settings_task_details_schedule">الجدول</string>
+    <string name="settings_task_details_scheduled_for">مجدول لـ</string>
+    <string name="settings_task_details_status">الحالة</string>
+    <string name="settings_task_details_trigger">المشغّل</string>
+    <string name="tool_fetch_url_description">جلب عنوان URL وإرجاع نص الاستجابة إلى الوكيل</string>
+    <string name="tool_fetch_url_name">جلب عنوان URL</string>
 </resources>

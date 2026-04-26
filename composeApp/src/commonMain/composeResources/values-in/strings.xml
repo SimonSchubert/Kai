@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Edit kenangan</string>
     <string name="settings_memories_edit_save">Simpan</string>
     <string name="settings_memories_edit_cancel">Batal</string>
-    <string name="settings_memories_close">Tutup</string>
     <string name="settings_soul">Jiwa</string>
     <string name="settings_soul_description">Tentukan bagaimana AI berperilaku dengan prompt sistem. AI juga akan memiliki akses ke kenangan yang tersimpan.</string>
     <string name="settings_soul_save">Simpan</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Notifikasi AI</string>
     <string name="notification_channel_description">Notifikasi yang dikirim oleh asisten AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox Linux</string>
     <string name="settings_sandbox_description">Instal lingkungan Linux agar AI dapat menjalankan perintah shell, skrip, dan alat atas nama Anda. Berjalan dengan aman di dalam aplikasi. ~3 MB unduhan.</string>
     <string name="settings_sandbox_install">Pasang</string>
     <string name="settings_sandbox_install_packages">Pasang paket dasar</string>
-    <string name="settings_sandbox_open_terminal">Buka terminal</string>
     <string name="settings_sandbox_uninstall">Hapus</string>
     <string name="settings_sandbox_uninstall_confirm">Semua data di sandbox Linux akan hilang. Apakah Anda yakin ingin menghapus?</string>
     <string name="settings_sandbox_cancel">Batal</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Terkirim</string>
     <string name="sms_draft_banner_failed">Gagal: %1$s</string>
     <string name="sms_draft_banner_dismiss">Tutup</string>
+    <string name="litert_error_download_incomplete">Unduhan tidak lengkap. Silakan coba lagi.</string>
+    <string name="litert_error_network">Unduhan gagal. Periksa koneksi jaringan Anda dan coba lagi.</string>
+    <string name="settings_task_details_consecutive_failures">Kegagalan berturut-turut</string>
+    <string name="settings_task_details_created">Dibuat</string>
+    <string name="settings_task_details_last_result">Hasil terakhir</string>
+    <string name="settings_task_details_next_run">Eksekusi berikutnya</string>
+    <string name="settings_task_details_no_heartbeat_runs">Belum ada eksekusi detak jantung yang tercatat.</string>
+    <string name="settings_task_details_no_runs">Belum ada eksekusi yang tercatat.</string>
+    <string name="settings_task_details_on_every_heartbeat">Pada setiap detak jantung</string>
+    <string name="settings_task_details_schedule">Jadwal</string>
+    <string name="settings_task_details_scheduled_for">Dijadwalkan untuk</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Pemicu</string>
+    <string name="tool_fetch_url_description">Ambil URL dan kembalikan body respons ke agen</string>
+    <string name="tool_fetch_url_name">Ambil URL</string>
 </resources>

@@ -1,6 +1,6 @@
 # Tasks
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-04-26
 
 Kai's tasks feature enables the AI to schedule one-time or recurring actions for future execution. Tasks are created through AI tools, stored persistently, and executed automatically by a background scheduler that polls on a fixed interval.
 
@@ -76,6 +76,7 @@ The scheduled tasks section in settings provides:
 
 - **Feature toggle** — enables or disables the scheduling feature globally; when disabled, no tasks execute and scheduling tools are unavailable to the AI
 - **Task list** — each task shows its description, status (PENDING or COMPLETED), and either a formatted execution time or a human-readable cron description
+- **Tap a task** — opens a details sheet with the schedule, status, consecutive failure count, and a recent-activity log showing the last few runs (timestamp + OK/FAIL + reason). For HEARTBEAT-trigger tasks the activity list is sourced from the heartbeat-wide log instead, since they don't fire on their own schedule
 - **Delete button** — available on all tasks to remove them; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the task is permanently cancelled
 
 ### Cron Description
@@ -101,6 +102,7 @@ Consequences:
 
 - When the Activity is destroyed (user backgrounds the app, MIUI reclaims memory, etc.), the scheduler **keeps running** as long as the process is alive.
 - On Android, the `DaemonService` foreground notification is what keeps the process alive. If the user disables the daemon, the process can be killed and the scheduler dies with it — tasks will resume firing the next time the app is opened (past-due tasks are picked up immediately since `getDueTasks` uses `scheduledAtEpochMs <= now`).
+- Aggressive OEM battery managers (MIUI, EMUI/Huawei) sometimes kill the foreground service while the activity is still alive in the background. To recover sooner, `MainActivity.onStart` re-asserts the daemon on every foreground bring-up (idempotent when the service is already running), so the user only has to swipe back into the app rather than fully relaunch it.
 - Task execution is gated on an `isLoadingCheck` predicate supplied by the UI (so a foreground chat request doesn't race with a scheduled task). When the UI goes away, it resets the predicate back to `{ false }` so the daemon-only path keeps running unblocked.
 - Scheduled tasks fire independently of heartbeat state — heartbeat being off never prevents a scheduled task from running.
 

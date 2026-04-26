@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">編輯記憶</string>
     <string name="settings_memories_edit_save">儲存</string>
     <string name="settings_memories_edit_cancel">取消</string>
-    <string name="settings_memories_close">關閉</string>
     <string name="settings_soul">靈魂</string>
     <string name="settings_soul_description">使用系統提示定義 AI 的行為方式。AI 也將存取其儲存的記憶。</string>
     <string name="settings_soul_save">儲存</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">AI 通知</string>
     <string name="notification_channel_description">由 AI 助理傳送的通知</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux 沙盒</string>
     <string name="settings_sandbox_description">安裝 Linux 環境，讓 AI 可以代您執行 shell 指令、腳本和工具。在應用程式內安全執行。約 3 MB 下載。</string>
     <string name="settings_sandbox_install">安裝</string>
     <string name="settings_sandbox_install_packages">安裝基本套件</string>
-    <string name="settings_sandbox_open_terminal">開啟終端機</string>
     <string name="settings_sandbox_uninstall">解除安裝</string>
     <string name="settings_sandbox_uninstall_confirm">Linux 沙盒中的所有資料將會遺失。確定要解除安裝嗎？</string>
     <string name="settings_sandbox_cancel">取消</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">已傳送</string>
     <string name="sms_draft_banner_failed">失敗：%1$s</string>
     <string name="sms_draft_banner_dismiss">關閉</string>
+    <string name="litert_error_download_incomplete">下載未完成。請重試。</string>
+    <string name="litert_error_network">下載失敗。請檢查您的網路連線後重試。</string>
+    <string name="settings_task_details_consecutive_failures">連續失敗次數</string>
+    <string name="settings_task_details_created">建立時間</string>
+    <string name="settings_task_details_last_result">上次結果</string>
+    <string name="settings_task_details_next_run">下次執行</string>
+    <string name="settings_task_details_no_heartbeat_runs">尚未記錄任何心跳執行。</string>
+    <string name="settings_task_details_no_runs">尚未記錄任何執行。</string>
+    <string name="settings_task_details_on_every_heartbeat">每次心跳</string>
+    <string name="settings_task_details_schedule">排程</string>
+    <string name="settings_task_details_scheduled_for">排程於</string>
+    <string name="settings_task_details_status">狀態</string>
+    <string name="settings_task_details_trigger">觸發器</string>
+    <string name="tool_fetch_url_description">取得一個 URL 並將回應內容返回給代理</string>
+    <string name="tool_fetch_url_name">取得 URL</string>
 </resources>

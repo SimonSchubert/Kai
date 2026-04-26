@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Modifier le souvenir</string>
     <string name="settings_memories_edit_save">Enregistrer</string>
     <string name="settings_memories_edit_cancel">Annuler</string>
-    <string name="settings_memories_close">Fermer</string>
     <string name="settings_soul">Âme</string>
     <string name="settings_soul_description">Définissez comment l'IA se comporte avec un prompt système. L'IA aura également accès à ses souvenirs stockés.</string>
     <string name="settings_soul_save">Enregistrer</string>
@@ -211,11 +210,9 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="notification_channel_name">Notifications IA</string>
     <string name="notification_channel_description">Notifications envoyées par l'assistant IA</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Bac à sable Linux</string>
     <string name="settings_sandbox_description">Installez un environnement Linux pour que l'IA puisse exécuter des commandes shell, des scripts et des outils en votre nom. S'exécute en toute sécurité dans l'application. ~3 Mo à télécharger.</string>
     <string name="settings_sandbox_install">Installer</string>
     <string name="settings_sandbox_install_packages">Installer les paquets de base</string>
-    <string name="settings_sandbox_open_terminal">Ouvrir le terminal</string>
     <string name="settings_sandbox_uninstall">Désinstaller</string>
     <string name="settings_sandbox_uninstall_confirm">Toutes les données du bac à sable Linux seront perdues. Êtes-vous sûr de vouloir désinstaller ?</string>
     <string name="settings_sandbox_cancel">Annuler</string>
@@ -290,4 +287,19 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="sms_draft_banner_sent">Envoyé</string>
     <string name="sms_draft_banner_failed">Échec : %1$s</string>
     <string name="sms_draft_banner_dismiss">Fermer</string>
+    <string name="litert_error_download_incomplete">Téléchargement incomplet. Veuillez réessayer.</string>
+    <string name="litert_error_network">Échec du téléchargement. Vérifiez votre connexion réseau et réessayez.</string>
+    <string name="settings_task_details_consecutive_failures">Échecs consécutifs</string>
+    <string name="settings_task_details_created">Créée</string>
+    <string name="settings_task_details_last_result">Dernier résultat</string>
+    <string name="settings_task_details_next_run">Prochaine exécution</string>
+    <string name="settings_task_details_no_heartbeat_runs">Aucune exécution de battement de cœur enregistrée pour le moment.</string>
+    <string name="settings_task_details_no_runs">Aucune exécution enregistrée pour le moment.</string>
+    <string name="settings_task_details_on_every_heartbeat">À chaque battement de cœur</string>
+    <string name="settings_task_details_schedule">Planification</string>
+    <string name="settings_task_details_scheduled_for">Planifiée pour</string>
+    <string name="settings_task_details_status">Statut</string>
+    <string name="settings_task_details_trigger">Déclencheur</string>
+    <string name="tool_fetch_url_description">Récupérer une URL et renvoyer le corps de la réponse à l\'agent</string>
+    <string name="tool_fetch_url_name">Récupérer une URL</string>
 </resources>

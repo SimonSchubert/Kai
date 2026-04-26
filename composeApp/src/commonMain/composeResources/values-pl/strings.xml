@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Edytuj wspomnienie</string>
     <string name="settings_memories_edit_save">Zapisz</string>
     <string name="settings_memories_edit_cancel">Anuluj</string>
-    <string name="settings_memories_close">Zamknij</string>
     <string name="settings_soul">Dusza</string>
     <string name="settings_soul_description">Określ, jak AI zachowuje się za pomocą systemowego polecenia. AI będzie miało również dostęp do swoich zapisanych wspomnień.</string>
     <string name="settings_soul_save">Zapisz</string>
@@ -211,11 +210,9 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="notification_channel_name">Powiadomienia AI</string>
     <string name="notification_channel_description">Powiadomienia wysyłane przez asystenta AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Piaskownica Linux</string>
     <string name="settings_sandbox_description">Zainstaluj środowisko Linux, aby AI mogło uruchamiać polecenia powłoki, skrypty i narzędzia w Twoim imieniu. Działa bezpiecznie wewnątrz aplikacji. ~3 MB do pobrania.</string>
     <string name="settings_sandbox_install">Zainstaluj</string>
     <string name="settings_sandbox_install_packages">Zainstaluj podstawowe pakiety</string>
-    <string name="settings_sandbox_open_terminal">Otwórz terminal</string>
     <string name="settings_sandbox_uninstall">Odinstaluj</string>
     <string name="settings_sandbox_uninstall_confirm">Wszystkie dane w piaskownicy Linux zostaną utracone. Czy na pewno chcesz odinstalować?</string>
     <string name="settings_sandbox_cancel">Anuluj</string>
@@ -290,4 +287,19 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="sms_draft_banner_sent">Wysłano</string>
     <string name="sms_draft_banner_failed">Nie udało się: %1$s</string>
     <string name="sms_draft_banner_dismiss">Zamknij</string>
+    <string name="litert_error_download_incomplete">Pobieranie niekompletne. Spróbuj ponownie.</string>
+    <string name="litert_error_network">Pobieranie nie powiodło się. Sprawdź połączenie sieciowe i spróbuj ponownie.</string>
+    <string name="settings_task_details_consecutive_failures">Kolejne niepowodzenia</string>
+    <string name="settings_task_details_created">Utworzono</string>
+    <string name="settings_task_details_last_result">Ostatni wynik</string>
+    <string name="settings_task_details_next_run">Następne uruchomienie</string>
+    <string name="settings_task_details_no_heartbeat_runs">Brak zarejestrowanych uruchomień pulsu.</string>
+    <string name="settings_task_details_no_runs">Brak zarejestrowanych uruchomień.</string>
+    <string name="settings_task_details_on_every_heartbeat">Przy każdym pulsie</string>
+    <string name="settings_task_details_schedule">Harmonogram</string>
+    <string name="settings_task_details_scheduled_for">Zaplanowano na</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Wyzwalacz</string>
+    <string name="tool_fetch_url_description">Pobierz adres URL i zwróć treść odpowiedzi do agenta</string>
+    <string name="tool_fetch_url_name">Pobierz URL</string>
 </resources>

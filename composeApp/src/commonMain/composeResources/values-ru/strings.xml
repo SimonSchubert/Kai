@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Редактировать воспоминание</string>
     <string name="settings_memories_edit_save">Сохранить</string>
     <string name="settings_memories_edit_cancel">Отмена</string>
-    <string name="settings_memories_close">Закрыть</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Определите поведение ИИ с помощью системного промпта. ИИ также будет иметь доступ к своим сохранённым воспоминаниям.</string>
     <string name="settings_soul_save">Сохранить</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">Уведомления ИИ</string>
     <string name="notification_channel_description">Уведомления, отправленные ИИ-ассистентом</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Песочница Linux</string>
     <string name="settings_sandbox_description">Установите среду Linux, чтобы ИИ мог выполнять команды оболочки, скрипты и инструменты от вашего имени. Работает безопасно внутри приложения. ~3 МБ загрузка.</string>
     <string name="settings_sandbox_install">Установить</string>
     <string name="settings_sandbox_install_packages">Установить базовые пакеты</string>
-    <string name="settings_sandbox_open_terminal">Открыть терминал</string>
     <string name="settings_sandbox_uninstall">Удалить</string>
     <string name="settings_sandbox_uninstall_confirm">Все данные в песочнице Linux будут потеряны. Вы уверены, что хотите удалить?</string>
     <string name="settings_sandbox_cancel">Отмена</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Отправлено</string>
     <string name="sms_draft_banner_failed">Ошибка: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрыть</string>
+    <string name="litert_error_download_incomplete">Загрузка не завершена. Попробуйте ещё раз.</string>
+    <string name="litert_error_network">Загрузка не удалась. Проверьте подключение к сети и повторите попытку.</string>
+    <string name="settings_task_details_consecutive_failures">Сбоев подряд</string>
+    <string name="settings_task_details_created">Создано</string>
+    <string name="settings_task_details_last_result">Последний результат</string>
+    <string name="settings_task_details_next_run">Следующий запуск</string>
+    <string name="settings_task_details_no_heartbeat_runs">Запусков пульса пока нет.</string>
+    <string name="settings_task_details_no_runs">Запусков пока нет.</string>
+    <string name="settings_task_details_on_every_heartbeat">При каждом пульсе</string>
+    <string name="settings_task_details_schedule">Расписание</string>
+    <string name="settings_task_details_scheduled_for">Запланировано на</string>
+    <string name="settings_task_details_status">Статус</string>
+    <string name="settings_task_details_trigger">Триггер</string>
+    <string name="tool_fetch_url_description">Загрузить URL и вернуть тело ответа агенту</string>
+    <string name="tool_fetch_url_name">Загрузить URL</string>
 </resources>

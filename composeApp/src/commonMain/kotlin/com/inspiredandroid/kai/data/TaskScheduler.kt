@@ -40,6 +40,9 @@ class TaskScheduler(
         const val MAX_BACKOFF_MS = 3_600_000L // 1 hour
         const val HEARTBEAT_CONTEXT_COUNT = 3
 
+        /** Per-task execution log size — surfaced in the task details sheet. */
+        const val MAX_TASK_LOG_ENTRIES = 10
+
         /**
          * Cap the notification body — Android's collapsed text cuts off around ~60
          * chars anyway, and the expanded BigTextStyle view is capped to keep the
@@ -107,7 +110,7 @@ class TaskScheduler(
                         }
                         handleTaskCompletion(task)
                     } catch (e: Exception) {
-                        handleTaskFailure(task, e.message)
+                        handleTaskFailure(task, formatException(e))
                     }
                 }
 
@@ -253,10 +256,32 @@ class TaskScheduler(
         smsPoller.poll()
     }
 
+    /**
+     * Format an exception for the task log. Plain `e.message` collapses too much detail —
+     * it's often null (NPE, IllegalStateException-no-arg) or terse ("401"), leaving the
+     * user with "unknown error" or a number. Prepending the type name keeps the failure
+     * useful for filing an issue.
+     */
+    private fun formatException(e: Exception): String {
+        val type = e::class.simpleName ?: "Exception"
+        val msg = e.message?.takeIf { it.isNotBlank() } ?: return type
+        return "$type: $msg"
+    }
+
+    private fun appendExecution(task: ScheduledTask, success: Boolean, message: String?): List<TaskExecutionLogEntry> {
+        val entry = TaskExecutionLogEntry(
+            timestampEpochMs = Clock.System.now().toEpochMilliseconds(),
+            success = success,
+            message = message,
+        )
+        return (listOf(entry) + task.recentExecutions).take(MAX_TASK_LOG_ENTRIES)
+    }
+
     private suspend fun handleTaskFailure(task: ScheduledTask, error: String? = null) {
         val now = Clock.System.now()
         val failures = task.consecutiveFailures + 1
         val reason = error ?: "unknown error"
+        val log = appendExecution(task, success = false, message = reason)
 
         if (task.cron != null) {
             // Cron task failed — advance to the next scheduled time instead of retrying every cycle
@@ -271,6 +296,7 @@ class TaskScheduler(
                         scheduledAtEpochMs = nextExecution.toEpochMilliseconds(),
                         lastResult = "Failed at $now: $reason (next retry at $nextExecution)",
                         consecutiveFailures = failures,
+                        recentExecutions = log,
                     ),
                 )
             } else {
@@ -279,6 +305,7 @@ class TaskScheduler(
                         status = TaskStatus.COMPLETED,
                         lastResult = "Failed at $now: $reason (no next schedule)",
                         consecutiveFailures = failures,
+                        recentExecutions = log,
                     ),
                 )
             }
@@ -290,6 +317,7 @@ class TaskScheduler(
                     scheduledAtEpochMs = now.toEpochMilliseconds() + backoffMs,
                     lastResult = "Failed at $now: $reason (retry after ${backoffMs / 1000}s backoff)",
                     consecutiveFailures = failures,
+                    recentExecutions = log,
                 ),
             )
         }
@@ -297,6 +325,7 @@ class TaskScheduler(
 
     private suspend fun handleTaskCompletion(task: ScheduledTask) {
         val now = Clock.System.now()
+        val log = appendExecution(task, success = true, message = null)
         if (task.cron != null) {
             // Recurring task — compute next execution time
             val nextExecution = try {
@@ -309,6 +338,7 @@ class TaskScheduler(
                         status = TaskStatus.PENDING,
                         lastResult = "Executed at $now (next schedule computation failed, will retry)",
                         consecutiveFailures = 0,
+                        recentExecutions = log,
                     ),
                 )
                 return
@@ -320,6 +350,7 @@ class TaskScheduler(
                         lastResult = "Executed at $now",
                         status = TaskStatus.PENDING,
                         consecutiveFailures = 0,
+                        recentExecutions = log,
                     ),
                 )
             } else {
@@ -329,6 +360,7 @@ class TaskScheduler(
                         status = TaskStatus.COMPLETED,
                         lastResult = "Executed at $now (no next schedule)",
                         consecutiveFailures = 0,
+                        recentExecutions = log,
                     ),
                 )
             }
@@ -339,6 +371,7 @@ class TaskScheduler(
                     status = TaskStatus.COMPLETED,
                     lastResult = "Executed at $now",
                     consecutiveFailures = 0,
+                    recentExecutions = log,
                 ),
             )
         }

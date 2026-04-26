@@ -34,7 +34,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         FileKit.init(this)
-        autoStartDaemon()
         handleDeepLinkIntent(intent)
 
         val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
@@ -87,6 +86,17 @@ class MainActivity : ComponentActivity() {
                 },
             )
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Re-assert the daemon every time the activity is brought to the foreground.
+        // `onCreate`-only is not enough: aggressive OEM battery managers (MIUI,
+        // EMUI/Huawei) sometimes kill the foreground service while the activity
+        // is still alive in the background — without this, the user has to fully
+        // close and reopen the app for scheduling to resume. `startForegroundService`
+        // is idempotent when the service is already up.
+        autoStartDaemon()
     }
 
     private fun autoStartDaemon() {

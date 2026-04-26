@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Muuda mälestust</string>
     <string name="settings_memories_edit_save">Salvesta</string>
     <string name="settings_memories_edit_cancel">Tühista</string>
-    <string name="settings_memories_close">Sulge</string>
     <string name="settings_soul">Hing</string>
     <string name="settings_soul_description">Määrake, kuidas AI süsteemi promptiga käitub. AI-l on juurdepääs ka oma salvestatud mälestustele.</string>
     <string name="settings_soul_save">Salvesta</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI teavitused</string>
     <string name="notification_channel_description">AI assistendi saadetud teavitused</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linuxi liivakast</string>
     <string name="settings_sandbox_description">Paigalda Linuxi keskkond, et tehisintellekt saaks sinu nimel käivitada käsuridu, skripte ja tööriistu. Töötab turvaliselt rakenduse sees. ~3 MB allalaadimine.</string>
     <string name="settings_sandbox_install">Paigalda</string>
     <string name="settings_sandbox_install_packages">Paigalda põhipaketid</string>
-    <string name="settings_sandbox_open_terminal">Ava terminal</string>
     <string name="settings_sandbox_uninstall">Eemalda</string>
     <string name="settings_sandbox_uninstall_confirm">Kõik andmed Linuxi liivakastis lähevad kaotsi. Kas soovite kindlasti eemaldada?</string>
     <string name="settings_sandbox_cancel">Tühista</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Saadetud</string>
     <string name="sms_draft_banner_failed">Ebaõnnestus: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sulge</string>
+    <string name="litert_error_download_incomplete">Allalaadimine ei õnnestunud lõpetada. Palun proovi uuesti.</string>
+    <string name="litert_error_network">Allalaadimine ebaõnnestus. Kontrolli võrguühendust ja proovi uuesti.</string>
+    <string name="settings_task_details_consecutive_failures">Järjestikused ebaõnnestumised</string>
+    <string name="settings_task_details_created">Loodud</string>
+    <string name="settings_task_details_last_result">Viimane tulemus</string>
+    <string name="settings_task_details_next_run">Järgmine käivitus</string>
+    <string name="settings_task_details_no_heartbeat_runs">Südamelöögi käivitusi pole veel salvestatud.</string>
+    <string name="settings_task_details_no_runs">Käivitusi pole veel salvestatud.</string>
+    <string name="settings_task_details_on_every_heartbeat">Igal südamelöögil</string>
+    <string name="settings_task_details_schedule">Ajakava</string>
+    <string name="settings_task_details_scheduled_for">Ajastatud kuupäevale</string>
+    <string name="settings_task_details_status">Olek</string>
+    <string name="settings_task_details_trigger">Vallandaja</string>
+    <string name="tool_fetch_url_description">Tõmba URL ja tagasta vastuse keha agendile</string>
+    <string name="tool_fetch_url_name">Tõmba URL</string>
 </resources>

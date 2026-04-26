@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Редагувати спогад</string>
     <string name="settings_memories_edit_save">Зберегти</string>
     <string name="settings_memories_edit_cancel">Скасувати</string>
-    <string name="settings_memories_close">Закрити</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Визначте поведінку ШІ за допомогою системного запиту. ШІ також матиме доступ до своїх збережених спогадів.</string>
     <string name="settings_soul_save">Зберегти</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">Сповіщення ШІ</string>
     <string name="notification_channel_description">Сповіщення, надіслані ШІ-помічником</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Пісочниця Linux</string>
     <string name="settings_sandbox_description">Встановіть середовище Linux, щоб ШІ міг виконувати команди оболонки, скрипти та інструменти від вашого імені. Працює безпечно всередині додатка. ~3 МБ завантаження.</string>
     <string name="settings_sandbox_install">Встановити</string>
     <string name="settings_sandbox_install_packages">Встановити базові пакети</string>
-    <string name="settings_sandbox_open_terminal">Відкрити термінал</string>
     <string name="settings_sandbox_uninstall">Видалити</string>
     <string name="settings_sandbox_uninstall_confirm">Усі дані в пісочниці Linux буде втрачено. Ви впевнені, що хочете видалити?</string>
     <string name="settings_sandbox_cancel">Скасувати</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Надіслано</string>
     <string name="sms_draft_banner_failed">Не вдалося: %1$s</string>
     <string name="sms_draft_banner_dismiss">Закрити</string>
+    <string name="litert_error_download_incomplete">Завантаження не завершено. Спробуйте ще раз.</string>
+    <string name="litert_error_network">Не вдалося завантажити. Перевірте мережеве з\'єднання та спробуйте ще раз.</string>
+    <string name="settings_task_details_consecutive_failures">Послідовні збої</string>
+    <string name="settings_task_details_created">Створено</string>
+    <string name="settings_task_details_last_result">Останній результат</string>
+    <string name="settings_task_details_next_run">Наступний запуск</string>
+    <string name="settings_task_details_no_heartbeat_runs">Запусків серцебиття ще не зареєстровано.</string>
+    <string name="settings_task_details_no_runs">Запусків ще не зареєстровано.</string>
+    <string name="settings_task_details_on_every_heartbeat">При кожному серцебитті</string>
+    <string name="settings_task_details_schedule">Розклад</string>
+    <string name="settings_task_details_scheduled_for">Заплановано на</string>
+    <string name="settings_task_details_status">Статус</string>
+    <string name="settings_task_details_trigger">Тригер</string>
+    <string name="tool_fetch_url_description">Отримати URL і повернути тіло відповіді агенту</string>
+    <string name="tool_fetch_url_name">Отримати URL</string>
 </resources>

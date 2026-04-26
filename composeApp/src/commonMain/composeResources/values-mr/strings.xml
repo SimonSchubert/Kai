@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">आठवण संपादित करा</string>
     <string name="settings_memories_edit_save">जतन करा</string>
     <string name="settings_memories_edit_cancel">रद्द करा</string>
-    <string name="settings_memories_close">बंद करा</string>
     <string name="settings_soul">आत्मा</string>
     <string name="settings_soul_description">सिस्टम प्रॉम्प्टसह AI कसे वागते ते परिभाषित करा. AI ला त्याच्या जतन केलेल्या आठवणींमध्ये प्रवेश देखील असेल.</string>
     <string name="settings_soul_save">जतन करा</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI सूचना</string>
     <string name="notification_channel_description">AI सहाय्यकाने पाठवलेल्या सूचना</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux सँडबॉक्स</string>
     <string name="settings_sandbox_description">Linux वातावरण स्थापित करा जेणेकरून AI तुमच्या वतीने शेल कमांड, स्क्रिप्ट आणि साधने चालवू शकेल. अ‍ॅपमध्ये सुरक्षितपणे चालते. ~3 MB डाउनलोड.</string>
     <string name="settings_sandbox_install">स्थापित करा</string>
     <string name="settings_sandbox_install_packages">मूलभूत पॅकेज स्थापित करा</string>
-    <string name="settings_sandbox_open_terminal">टर्मिनल उघडा</string>
     <string name="settings_sandbox_uninstall">काढून टाका</string>
     <string name="settings_sandbox_uninstall_confirm">Linux सँडबॉक्समधील सर्व डेटा गमावला जाईल. तुम्हाला खात्री आहे की तुम्ही काढून टाकू इच्छिता?</string>
     <string name="settings_sandbox_cancel">रद्द करा</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">पाठवले</string>
     <string name="sms_draft_banner_failed">अयशस्वी: %1$s</string>
     <string name="sms_draft_banner_dismiss">रद्द करा</string>
+    <string name="litert_error_download_incomplete">डाउनलोड अपूर्ण आहे. कृपया पुन्हा प्रयत्न करा.</string>
+    <string name="litert_error_network">डाउनलोड अयशस्वी झाले. आपले नेटवर्क कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
+    <string name="settings_task_details_consecutive_failures">सलग अपयश</string>
+    <string name="settings_task_details_created">तयार केले</string>
+    <string name="settings_task_details_last_result">शेवटचा निकाल</string>
+    <string name="settings_task_details_next_run">पुढील रन</string>
+    <string name="settings_task_details_no_heartbeat_runs">अद्याप कोणतेही हृदयस्पंदन रन नोंदवलेले नाहीत.</string>
+    <string name="settings_task_details_no_runs">अद्याप कोणतेही रन नोंदवलेले नाहीत.</string>
+    <string name="settings_task_details_on_every_heartbeat">प्रत्येक हृदयस्पंदनावर</string>
+    <string name="settings_task_details_schedule">वेळापत्रक</string>
+    <string name="settings_task_details_scheduled_for">यासाठी नियोजित</string>
+    <string name="settings_task_details_status">स्थिती</string>
+    <string name="settings_task_details_trigger">ट्रिगर</string>
+    <string name="tool_fetch_url_description">URL आणा आणि प्रतिसाद बॉडी एजंटला परत करा</string>
+    <string name="tool_fetch_url_name">URL आणा</string>
 </resources>

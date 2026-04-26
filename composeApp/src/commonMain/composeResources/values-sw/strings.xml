@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Hariri kumbukumbu</string>
     <string name="settings_memories_edit_save">Hifadhi</string>
     <string name="settings_memories_edit_cancel">Ghairi</string>
-    <string name="settings_memories_close">Funga</string>
     <string name="settings_soul">Roho</string>
     <string name="settings_soul_description">Eleza jinsi AI inavyofanya kazi na amri ya mfumo. AI pia itakuwa na ufikiaji wa kumbukumbu zake zilizohifadhiwa.</string>
     <string name="settings_soul_save">Hifadhi</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Arifa za AI</string>
     <string name="notification_channel_description">Arifa zilizotumwa na msaidizi wa AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sanduku la mchanga la Linux</string>
     <string name="settings_sandbox_description">Sakinisha mazingira ya Linux ili AI iweze kuendesha amri za shell, hati na zana kwa niaba yako. Inafanya kazi kwa usalama ndani ya programu. ~3 MB ya kupakua.</string>
     <string name="settings_sandbox_install">Sakinisha</string>
     <string name="settings_sandbox_install_packages">Sakinisha vifurushi vya msingi</string>
-    <string name="settings_sandbox_open_terminal">Fungua terminal</string>
     <string name="settings_sandbox_uninstall">Ondoa</string>
     <string name="settings_sandbox_uninstall_confirm">Data zote katika sandbox ya Linux zitapotea. Una uhakika unataka kuondoa?</string>
     <string name="settings_sandbox_cancel">Ghairi</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Imetumwa</string>
     <string name="sms_draft_banner_failed">Imeshindwa: %1$s</string>
     <string name="sms_draft_banner_dismiss">Ondoa</string>
+    <string name="litert_error_download_incomplete">Upakuaji haukukamilika. Tafadhali jaribu tena.</string>
+    <string name="litert_error_network">Upakuaji umeshindwa. Angalia muunganisho wako wa mtandao na ujaribu tena.</string>
+    <string name="settings_task_details_consecutive_failures">Mfululizo wa kushindwa</string>
+    <string name="settings_task_details_created">Imeundwa</string>
+    <string name="settings_task_details_last_result">Matokeo ya mwisho</string>
+    <string name="settings_task_details_next_run">Utekelezaji ujao</string>
+    <string name="settings_task_details_no_heartbeat_runs">Hakuna utekelezaji wa mapigo ya moyo uliorekodiwa bado.</string>
+    <string name="settings_task_details_no_runs">Hakuna utekelezaji uliorekodiwa bado.</string>
+    <string name="settings_task_details_on_every_heartbeat">Kwa kila mapigo ya moyo</string>
+    <string name="settings_task_details_schedule">Ratiba</string>
+    <string name="settings_task_details_scheduled_for">Imeratibiwa kwa</string>
+    <string name="settings_task_details_status">Hali</string>
+    <string name="settings_task_details_trigger">Kichocheo</string>
+    <string name="tool_fetch_url_description">Leta URL na urejeshe mwili wa jibu kwa wakala</string>
+    <string name="tool_fetch_url_name">Leta URL</string>
 </resources>

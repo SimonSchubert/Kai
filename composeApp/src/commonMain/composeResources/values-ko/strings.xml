@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">기억 편집</string>
     <string name="settings_memories_edit_save">저장</string>
     <string name="settings_memories_edit_cancel">취소</string>
-    <string name="settings_memories_close">닫기</string>
     <string name="settings_soul">소울</string>
     <string name="settings_soul_description">시스템 프롬프트로 AI의 동작 방식을 정의합니다. AI는 저장된 기억에도 접근할 수 있습니다.</string>
     <string name="settings_soul_save">저장</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">AI 알림</string>
     <string name="notification_channel_description">AI 어시스턴트가 보낸 알림</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux 샌드박스</string>
     <string name="settings_sandbox_description">AI가 사용자를 대신하여 셸 명령, 스크립트 및 도구를 실행할 수 있도록 Linux 환경을 설치합니다. 앱 내에서 안전하게 실행됩니다. ~3 MB 다운로드.</string>
     <string name="settings_sandbox_install">설치</string>
     <string name="settings_sandbox_install_packages">기본 패키지 설치</string>
-    <string name="settings_sandbox_open_terminal">터미널 열기</string>
     <string name="settings_sandbox_uninstall">제거</string>
     <string name="settings_sandbox_uninstall_confirm">Linux 샌드박스의 모든 데이터가 손실됩니다. 정말 제거하시겠습니까?</string>
     <string name="settings_sandbox_cancel">취소</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">보냄</string>
     <string name="sms_draft_banner_failed">실패: %1$s</string>
     <string name="sms_draft_banner_dismiss">닫기</string>
+    <string name="litert_error_download_incomplete">다운로드가 완료되지 않았습니다. 다시 시도해 주세요.</string>
+    <string name="litert_error_network">다운로드에 실패했습니다. 네트워크 연결을 확인하고 다시 시도해 주세요.</string>
+    <string name="settings_task_details_consecutive_failures">연속 실패 횟수</string>
+    <string name="settings_task_details_created">생성됨</string>
+    <string name="settings_task_details_last_result">마지막 결과</string>
+    <string name="settings_task_details_next_run">다음 실행</string>
+    <string name="settings_task_details_no_heartbeat_runs">아직 기록된 하트비트 실행이 없습니다.</string>
+    <string name="settings_task_details_no_runs">아직 기록된 실행이 없습니다.</string>
+    <string name="settings_task_details_on_every_heartbeat">하트비트마다</string>
+    <string name="settings_task_details_schedule">일정</string>
+    <string name="settings_task_details_scheduled_for">예약 시간</string>
+    <string name="settings_task_details_status">상태</string>
+    <string name="settings_task_details_trigger">트리거</string>
+    <string name="tool_fetch_url_description">URL을 가져와서 응답 본문을 에이전트에 반환합니다</string>
+    <string name="tool_fetch_url_name">URL 가져오기</string>
 </resources>

@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Rediger hukommelse</string>
     <string name="settings_memories_edit_save">Gem</string>
     <string name="settings_memories_edit_cancel">Annuller</string>
-    <string name="settings_memories_close">Luk</string>
     <string name="settings_soul">Sjæl</string>
     <string name="settings_soul_description">Definer hvordan AI opfører sig med en systemprompt. AI vil også have adgang til sine gemte hukommelser.</string>
     <string name="settings_soul_save">Gem</string>
@@ -211,11 +210,9 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="notification_channel_name">AI-notifikationer</string>
     <string name="notification_channel_description">Notifikationer sendt af AI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-sandkasse</string>
     <string name="settings_sandbox_description">Installér et Linux-miljø, så AI'en kan køre shell-kommandoer, scripts og værktøjer på dine vegne. Kører sikkert inde i appen. ~3 MB download.</string>
     <string name="settings_sandbox_install">Installér</string>
     <string name="settings_sandbox_install_packages">Installér basispakker</string>
-    <string name="settings_sandbox_open_terminal">Åbn terminal</string>
     <string name="settings_sandbox_uninstall">Afinstallér</string>
     <string name="settings_sandbox_uninstall_confirm">Alle data i Linux-sandkassen vil gå tabt. Er du sikker på, at du vil afinstallere?</string>
     <string name="settings_sandbox_cancel">Annullér</string>
@@ -291,4 +288,19 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="sms_draft_banner_sent">Sendt</string>
     <string name="sms_draft_banner_failed">Mislykkedes: %1$s</string>
     <string name="sms_draft_banner_dismiss">Luk</string>
+    <string name="litert_error_download_incomplete">Download er ufuldstændig. Prøv venligst igen.</string>
+    <string name="litert_error_network">Download mislykkedes. Tjek din netværksforbindelse og prøv igen.</string>
+    <string name="settings_task_details_consecutive_failures">Fejl i træk</string>
+    <string name="settings_task_details_created">Oprettet</string>
+    <string name="settings_task_details_last_result">Seneste resultat</string>
+    <string name="settings_task_details_next_run">Næste kørsel</string>
+    <string name="settings_task_details_no_heartbeat_runs">Ingen hjerteslag-kørsler registreret endnu.</string>
+    <string name="settings_task_details_no_runs">Ingen kørsler registreret endnu.</string>
+    <string name="settings_task_details_on_every_heartbeat">Ved hvert hjerteslag</string>
+    <string name="settings_task_details_schedule">Tidsplan</string>
+    <string name="settings_task_details_scheduled_for">Planlagt til</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Udløser</string>
+    <string name="tool_fetch_url_description">Hent en URL og returnér svaret til agenten</string>
+    <string name="tool_fetch_url_name">Hent URL</string>
 </resources>

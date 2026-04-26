@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Жадты өңдеу</string>
     <string name="settings_memories_edit_save">Сақтау</string>
     <string name="settings_memories_edit_cancel">Болдырмау</string>
-    <string name="settings_memories_close">Жабу</string>
     <string name="settings_soul">Жан</string>
     <string name="settings_soul_description">Жүйелік нұсқаулықпен AI қалай әрекет ететінін анықтаңыз. AI сақталған жадтарына да қол жеткізе алады.</string>
     <string name="settings_soul_save">Сақтау</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI хабарландырулары</string>
     <string name="notification_channel_description">AI көмекшісі жіберген хабарландырулар</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux құмсалғыш</string>
     <string name="settings_sandbox_description">AI сіздің атыңыздан shell командаларын, скрипттерді және құралдарды іске қоса алуы үшін Linux ортасын орнатыңыз. Қолданба ішінде қауіпсіз жұмыс істейді. ~3 МБ жүктеу.</string>
     <string name="settings_sandbox_install">Орнату</string>
     <string name="settings_sandbox_install_packages">Негізгі пакеттерді орнату</string>
-    <string name="settings_sandbox_open_terminal">Терминалды ашу</string>
     <string name="settings_sandbox_uninstall">Жою</string>
     <string name="settings_sandbox_uninstall_confirm">Linux құм жәшігіндегі барлық деректер жоғалады. Жоюды қалайтыныңызға сенімдісіз бе?</string>
     <string name="settings_sandbox_cancel">Бас тарту</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Жіберілді</string>
     <string name="sms_draft_banner_failed">Сәтсіз: %1$s</string>
     <string name="sms_draft_banner_dismiss">Жабу</string>
+    <string name="litert_error_download_incomplete">Жүктеу аяқталмады. Қайталап көріңіз.</string>
+    <string name="litert_error_network">Жүктеу сәтсіз болды. Желі қосылымын тексеріп, қайталап көріңіз.</string>
+    <string name="settings_task_details_consecutive_failures">Қатарынан сәтсіздіктер</string>
+    <string name="settings_task_details_created">Жасалды</string>
+    <string name="settings_task_details_last_result">Соңғы нәтиже</string>
+    <string name="settings_task_details_next_run">Келесі іске қосу</string>
+    <string name="settings_task_details_no_heartbeat_runs">Әзірге жүрек соғысы іске қосулары тіркелмеген.</string>
+    <string name="settings_task_details_no_runs">Әзірге іске қосулар тіркелмеген.</string>
+    <string name="settings_task_details_on_every_heartbeat">Әрбір жүрек соғысында</string>
+    <string name="settings_task_details_schedule">Кесте</string>
+    <string name="settings_task_details_scheduled_for">Жоспарланған уақыт</string>
+    <string name="settings_task_details_status">Күй</string>
+    <string name="settings_task_details_trigger">Іске қосқыш</string>
+    <string name="tool_fetch_url_description">URL мекенжайын алып, жауап денесін агентке қайтару</string>
+    <string name="tool_fetch_url_name">URL алу</string>
 </resources>

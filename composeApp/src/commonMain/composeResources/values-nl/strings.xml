@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Herinnering bewerken</string>
     <string name="settings_memories_edit_save">Opslaan</string>
     <string name="settings_memories_edit_cancel">Annuleren</string>
-    <string name="settings_memories_close">Sluiten</string>
     <string name="settings_soul">Ziel</string>
     <string name="settings_soul_description">Bepaal hoe de AI zich gedraagt met een systeemprompt. De AI heeft ook toegang tot zijn opgeslagen herinneringen.</string>
     <string name="settings_soul_save">Opslaan</string>
@@ -211,11 +210,9 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="notification_channel_name">AI-meldingen</string>
     <string name="notification_channel_description">Meldingen verzonden door AI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-sandbox</string>
     <string name="settings_sandbox_description">Installeer een Linux-omgeving zodat de AI shell-opdrachten, scripts en tools namens jou kan uitvoeren. Draait veilig binnen de app. ~3 MB download.</string>
     <string name="settings_sandbox_install">Installeren</string>
     <string name="settings_sandbox_install_packages">Basispakketten installeren</string>
-    <string name="settings_sandbox_open_terminal">Terminal openen</string>
     <string name="settings_sandbox_uninstall">Verwijderen</string>
     <string name="settings_sandbox_uninstall_confirm">Alle gegevens in de Linux-sandbox gaan verloren. Weet u zeker dat u wilt verwijderen?</string>
     <string name="settings_sandbox_cancel">Annuleren</string>
@@ -290,4 +287,19 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sms_draft_banner_sent">Verzonden</string>
     <string name="sms_draft_banner_failed">Mislukt: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sluiten</string>
+    <string name="litert_error_download_incomplete">Download onvolledig. Probeer het opnieuw.</string>
+    <string name="litert_error_network">Download mislukt. Controleer je netwerkverbinding en probeer het opnieuw.</string>
+    <string name="settings_task_details_consecutive_failures">Opeenvolgende mislukkingen</string>
+    <string name="settings_task_details_created">Aangemaakt</string>
+    <string name="settings_task_details_last_result">Laatste resultaat</string>
+    <string name="settings_task_details_next_run">Volgende uitvoering</string>
+    <string name="settings_task_details_no_heartbeat_runs">Nog geen hartslag-uitvoeringen geregistreerd.</string>
+    <string name="settings_task_details_no_runs">Nog geen uitvoeringen geregistreerd.</string>
+    <string name="settings_task_details_on_every_heartbeat">Bij elke hartslag</string>
+    <string name="settings_task_details_schedule">Planning</string>
+    <string name="settings_task_details_scheduled_for">Gepland voor</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Trigger</string>
+    <string name="tool_fetch_url_description">Een URL ophalen en de responstekst teruggeven aan de agent</string>
+    <string name="tool_fetch_url_name">URL ophalen</string>
 </resources>

@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Redigera minne</string>
     <string name="settings_memories_edit_save">Spara</string>
     <string name="settings_memories_edit_cancel">Avbryt</string>
-    <string name="settings_memories_close">Stäng</string>
     <string name="settings_soul">Själ</string>
     <string name="settings_soul_description">Definiera hur AI beter sig med en systemprompt. AI kommer också ha tillgång till sina sparade minnen.</string>
     <string name="settings_soul_save">Spara</string>
@@ -211,11 +210,9 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="notification_channel_name">AI-aviseringar</string>
     <string name="notification_channel_description">Aviseringar skickade av AI-assistenten</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-sandlåda</string>
     <string name="settings_sandbox_description">Installera en Linux-miljö så att AI:n kan köra skalkommandon, skript och verktyg åt dig. Körs säkert inuti appen. ~3 MB nedladdning.</string>
     <string name="settings_sandbox_install">Installera</string>
     <string name="settings_sandbox_install_packages">Installera grundpaket</string>
-    <string name="settings_sandbox_open_terminal">Öppna terminal</string>
     <string name="settings_sandbox_uninstall">Avinstallera</string>
     <string name="settings_sandbox_uninstall_confirm">All data i Linux-sandlådan kommer att förloras. Är du säker på att du vill avinstallera?</string>
     <string name="settings_sandbox_cancel">Avbryt</string>
@@ -290,4 +287,19 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sms_draft_banner_sent">Skickat</string>
     <string name="sms_draft_banner_failed">Misslyckades: %1$s</string>
     <string name="sms_draft_banner_dismiss">Avfärda</string>
+    <string name="litert_error_download_incomplete">Nedladdningen är ofullständig. Försök igen.</string>
+    <string name="litert_error_network">Nedladdningen misslyckades. Kontrollera din nätverksanslutning och försök igen.</string>
+    <string name="settings_task_details_consecutive_failures">Fel i rad</string>
+    <string name="settings_task_details_created">Skapad</string>
+    <string name="settings_task_details_last_result">Senaste resultat</string>
+    <string name="settings_task_details_next_run">Nästa körning</string>
+    <string name="settings_task_details_no_heartbeat_runs">Inga hjärtslagskörningar registrerade ännu.</string>
+    <string name="settings_task_details_no_runs">Inga körningar registrerade ännu.</string>
+    <string name="settings_task_details_on_every_heartbeat">Vid varje hjärtslag</string>
+    <string name="settings_task_details_schedule">Schema</string>
+    <string name="settings_task_details_scheduled_for">Schemalagd till</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Utlösare</string>
+    <string name="tool_fetch_url_description">Hämta en URL och returnera svarstexten till agenten</string>
+    <string name="tool_fetch_url_name">Hämta URL</string>
 </resources>

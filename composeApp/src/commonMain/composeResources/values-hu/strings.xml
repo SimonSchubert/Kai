@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Emlék szerkesztése</string>
     <string name="settings_memories_edit_save">Mentés</string>
     <string name="settings_memories_edit_cancel">Mégse</string>
-    <string name="settings_memories_close">Bezárás</string>
     <string name="settings_soul">Lélek</string>
     <string name="settings_soul_description">Határozza meg, hogyan viselkedik a mesterséges intelligencia egy rendszerparancs segítségével. A mesterséges intelligencia hozzáférhet a mentett emlékezeteihez is.</string>
     <string name="settings_soul_save">Mentés</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI-értesítések</string>
     <string name="notification_channel_description">Az AI-asszisztens által küldött értesítések</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux homokozó</string>
     <string name="settings_sandbox_description">Telepítsen egy Linux környezetet, hogy az AI az Ön nevében futtasson parancsokat, szkripteket és eszközöket. Biztonságosan fut az alkalmazáson belül. ~3 MB letöltés.</string>
     <string name="settings_sandbox_install">Telepítés</string>
     <string name="settings_sandbox_install_packages">Alapcsomagok telepítése</string>
-    <string name="settings_sandbox_open_terminal">Terminál megnyitása</string>
     <string name="settings_sandbox_uninstall">Eltávolítás</string>
     <string name="settings_sandbox_uninstall_confirm">A Linux sandbox összes adata elvész. Biztosan el szeretné távolítani?</string>
     <string name="settings_sandbox_cancel">Mégse</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Elküldve</string>
     <string name="sms_draft_banner_failed">Sikertelen: %1$s</string>
     <string name="sms_draft_banner_dismiss">Bezárás</string>
+    <string name="litert_error_download_incomplete">A letöltés nem fejeződött be. Próbáld újra.</string>
+    <string name="litert_error_network">A letöltés sikertelen. Ellenőrizd a hálózati kapcsolatot, és próbáld újra.</string>
+    <string name="settings_task_details_consecutive_failures">Egymást követő hibák</string>
+    <string name="settings_task_details_created">Létrehozva</string>
+    <string name="settings_task_details_last_result">Utolsó eredmény</string>
+    <string name="settings_task_details_next_run">Következő futás</string>
+    <string name="settings_task_details_no_heartbeat_runs">Még nincs rögzített szívverés futás.</string>
+    <string name="settings_task_details_no_runs">Még nincs rögzített futás.</string>
+    <string name="settings_task_details_on_every_heartbeat">Minden szívverésnél</string>
+    <string name="settings_task_details_schedule">Ütemezés</string>
+    <string name="settings_task_details_scheduled_for">Ütemezett időpont</string>
+    <string name="settings_task_details_status">Állapot</string>
+    <string name="settings_task_details_trigger">Kiváltó</string>
+    <string name="tool_fetch_url_description">URL lekérése és a válasz törzsének visszaadása az ügynöknek</string>
+    <string name="tool_fetch_url_name">URL lekérése</string>
 </resources>

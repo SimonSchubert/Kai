@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Upraviť spomienku</string>
     <string name="settings_memories_edit_save">Uložiť</string>
     <string name="settings_memories_edit_cancel">Zrušiť</string>
-    <string name="settings_memories_close">Zavrieť</string>
     <string name="settings_soul">Duša</string>
     <string name="settings_soul_description">Definujte, ako sa AI správa pomocou systémovej výzvy. AI bude mať tiež prístup k svojim uloženým spomienkam.</string>
     <string name="settings_soul_save">Uložiť</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Upozornenia AI</string>
     <string name="notification_channel_description">Upozornenia odoslané AI asistentom</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linuxový sandbox</string>
     <string name="settings_sandbox_description">Nainštalujte prostredie Linux, aby AI mohla vo vašom mene spúšťať príkazy shellu, skripty a nástroje. Beží bezpečne vnútri aplikácie. ~3 MB na stiahnutie.</string>
     <string name="settings_sandbox_install">Nainštalovať</string>
     <string name="settings_sandbox_install_packages">Nainštalovať základné balíky</string>
-    <string name="settings_sandbox_open_terminal">Otvoriť terminál</string>
     <string name="settings_sandbox_uninstall">Odinštalovať</string>
     <string name="settings_sandbox_uninstall_confirm">Všetky údaje v sandboxe Linuxu budú stratené. Naozaj chcete odinštalovať?</string>
     <string name="settings_sandbox_cancel">Zrušiť</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Odoslané</string>
     <string name="sms_draft_banner_failed">Zlyhalo: %1$s</string>
     <string name="sms_draft_banner_dismiss">Zavrieť</string>
+    <string name="litert_error_download_incomplete">Sťahovanie nedokončené. Skúste to znova.</string>
+    <string name="litert_error_network">Sťahovanie zlyhalo. Skontrolujte sieťové pripojenie a skúste to znova.</string>
+    <string name="settings_task_details_consecutive_failures">Zlyhania po sebe</string>
+    <string name="settings_task_details_created">Vytvorené</string>
+    <string name="settings_task_details_last_result">Posledný výsledok</string>
+    <string name="settings_task_details_next_run">Ďalšie spustenie</string>
+    <string name="settings_task_details_no_heartbeat_runs">Zatiaľ neboli zaznamenané žiadne spustenia tepu srdca.</string>
+    <string name="settings_task_details_no_runs">Zatiaľ neboli zaznamenané žiadne spustenia.</string>
+    <string name="settings_task_details_on_every_heartbeat">Pri každom tepe srdca</string>
+    <string name="settings_task_details_schedule">Plán</string>
+    <string name="settings_task_details_scheduled_for">Naplánované na</string>
+    <string name="settings_task_details_status">Stav</string>
+    <string name="settings_task_details_trigger">Spúšťač</string>
+    <string name="tool_fetch_url_description">Načítaj URL a vráť telo odpovede agentovi</string>
+    <string name="tool_fetch_url_name">Načítať URL</string>
 </resources>

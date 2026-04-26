@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">แก้ไขความทรงจำ</string>
     <string name="settings_memories_edit_save">บันทึก</string>
     <string name="settings_memories_edit_cancel">ยกเลิก</string>
-    <string name="settings_memories_close">ปิด</string>
     <string name="settings_soul">จิตวิญญาณ</string>
     <string name="settings_soul_description">กำหนดว่า AI ทำงานอย่างไรด้วยพร้อมต์ระบบ AI จะมีสิทธิ์เข้าถึงความทรงจำที่บันทึกไว้ด้วย</string>
     <string name="settings_soul_save">บันทึก</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">การแจ้งเตือน AI</string>
     <string name="notification_channel_description">การแจ้งเตือนที่ส่งโดยผู้ช่วย AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">แซนด์บ็อกซ์ Linux</string>
     <string name="settings_sandbox_description">ติดตั้งสภาพแวดล้อม Linux เพื่อให้ AI สามารถเรียกใช้คำสั่ง shell สคริปต์ และเครื่องมือในนามของคุณ ทำงานอย่างปลอดภัยภายในแอป ดาวน์โหลด ~3 MB</string>
     <string name="settings_sandbox_install">ติดตั้ง</string>
     <string name="settings_sandbox_install_packages">ติดตั้งแพ็กเกจพื้นฐาน</string>
-    <string name="settings_sandbox_open_terminal">เปิดเทอร์มินัล</string>
     <string name="settings_sandbox_uninstall">ถอนการติดตั้ง</string>
     <string name="settings_sandbox_uninstall_confirm">ข้อมูลทั้งหมดใน Linux sandbox จะสูญหาย คุณแน่ใจหรือไม่ว่าต้องการถอนการติดตั้ง?</string>
     <string name="settings_sandbox_cancel">ยกเลิก</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">ส่งแล้ว</string>
     <string name="sms_draft_banner_failed">ล้มเหลว: %1$s</string>
     <string name="sms_draft_banner_dismiss">ปิด</string>
+    <string name="litert_error_download_incomplete">ดาวน์โหลดไม่สมบูรณ์ โปรดลองอีกครั้ง</string>
+    <string name="litert_error_network">ดาวน์โหลดล้มเหลว ตรวจสอบการเชื่อมต่อเครือข่ายของคุณแล้วลองอีกครั้ง</string>
+    <string name="settings_task_details_consecutive_failures">ความล้มเหลวต่อเนื่อง</string>
+    <string name="settings_task_details_created">สร้างเมื่อ</string>
+    <string name="settings_task_details_last_result">ผลลัพธ์ล่าสุด</string>
+    <string name="settings_task_details_next_run">รันถัดไป</string>
+    <string name="settings_task_details_no_heartbeat_runs">ยังไม่มีการบันทึกการรันจังหวะหัวใจ</string>
+    <string name="settings_task_details_no_runs">ยังไม่มีการบันทึกการรัน</string>
+    <string name="settings_task_details_on_every_heartbeat">ทุกจังหวะหัวใจ</string>
+    <string name="settings_task_details_schedule">กำหนดการ</string>
+    <string name="settings_task_details_scheduled_for">กำหนดไว้สำหรับ</string>
+    <string name="settings_task_details_status">สถานะ</string>
+    <string name="settings_task_details_trigger">ทริกเกอร์</string>
+    <string name="tool_fetch_url_description">ดึง URL และส่งคืนเนื้อหาการตอบกลับให้กับเอเจนต์</string>
+    <string name="tool_fetch_url_name">ดึง URL</string>
 </resources>

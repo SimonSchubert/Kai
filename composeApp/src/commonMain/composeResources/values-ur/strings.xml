@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">یاد میں ترمیم کریں</string>
     <string name="settings_memories_edit_save">محفوظ کریں</string>
     <string name="settings_memories_edit_cancel">منسوخ کریں</string>
-    <string name="settings_memories_close">بند کریں</string>
     <string name="settings_soul">روح</string>
     <string name="settings_soul_description">سسٹم پرامپٹ کے ساتھ AI کے رویے کی وضاحت کریں۔ AI کو اپنی محفوظ یادوں تک بھی رسائی حاصل ہوگی۔</string>
     <string name="settings_soul_save">محفوظ کریں</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI اطلاعات</string>
     <string name="notification_channel_description">AI اسسٹنٹ کی طرف سے بھیجی گئی اطلاعات</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux سینڈباکس</string>
     <string name="settings_sandbox_description">ایک Linux ماحول انسٹال کریں تاکہ AI آپ کی جانب سے شیل کمانڈز، اسکرپٹس اور ٹولز چلا سکے۔ ایپ کے اندر محفوظ طریقے سے چلتا ہے۔ ~3 MB ڈاؤن لوڈ۔</string>
     <string name="settings_sandbox_install">انسٹال کریں</string>
     <string name="settings_sandbox_install_packages">بنیادی پیکیجز انسٹال کریں</string>
-    <string name="settings_sandbox_open_terminal">ٹرمینل کھولیں</string>
     <string name="settings_sandbox_uninstall">ان انسٹال کریں</string>
     <string name="settings_sandbox_uninstall_confirm">Linux سینڈباکس میں موجود تمام ڈیٹا ضائع ہو جائے گا۔ کیا آپ واقعی ان انسٹال کرنا چاہتے ہیں؟</string>
     <string name="settings_sandbox_cancel">منسوخ</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">بھیج دیا گیا</string>
     <string name="sms_draft_banner_failed">ناکام: %1$s</string>
     <string name="sms_draft_banner_dismiss">برخاست کریں</string>
+    <string name="litert_error_download_incomplete">ڈاؤن لوڈ نامکمل ہے۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="litert_error_network">ڈاؤن لوڈ ناکام ہو گیا۔ اپنا نیٹ ورک کنکشن چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="settings_task_details_consecutive_failures">مسلسل ناکامیاں</string>
+    <string name="settings_task_details_created">بنایا گیا</string>
+    <string name="settings_task_details_last_result">آخری نتیجہ</string>
+    <string name="settings_task_details_next_run">اگلا رن</string>
+    <string name="settings_task_details_no_heartbeat_runs">ابھی تک کوئی دل کی دھڑکن رن ریکارڈ نہیں ہوا۔</string>
+    <string name="settings_task_details_no_runs">ابھی تک کوئی رن ریکارڈ نہیں ہوا۔</string>
+    <string name="settings_task_details_on_every_heartbeat">ہر دل کی دھڑکن پر</string>
+    <string name="settings_task_details_schedule">شیڈول</string>
+    <string name="settings_task_details_scheduled_for">کے لیے شیڈول</string>
+    <string name="settings_task_details_status">حالت</string>
+    <string name="settings_task_details_trigger">ٹرگر</string>
+    <string name="tool_fetch_url_description">URL حاصل کریں اور ریسپانس باڈی ایجنٹ کو واپس کریں</string>
+    <string name="tool_fetch_url_name">URL حاصل کریں</string>
 </resources>

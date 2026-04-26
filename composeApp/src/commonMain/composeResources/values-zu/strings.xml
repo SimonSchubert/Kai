@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Hlela isikhumbuzo</string>
     <string name="settings_memories_edit_save">Gcina</string>
     <string name="settings_memories_edit_cancel">Khansela</string>
-    <string name="settings_memories_close">Vala</string>
     <string name="settings_soul">Umphefumulo</string>
     <string name="settings_soul_description">Chaza indlela i-AI esebenza ngayo ngesiphakamiso sesistimu. I-AI izoba nokufinyelela ezikhumbuzo zayo ezilondoloziwe.</string>
     <string name="settings_soul_save">Gcina</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Izaziso ze-AI</string>
     <string name="notification_channel_description">Izaziso ezithunyelwe umsizi we-AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">I-Linux Sandbox</string>
     <string name="settings_sandbox_description">Faka imvelo ye-Linux ukuze i-AI ikwazi ukusebenzisa imiyalo ye-shell, amaskripthi namathuluzi egameni lakho. Isebenza ngokuphepha ngaphakathi kohlelo lokusebenza. ~3 MB ukudawuniloda.</string>
     <string name="settings_sandbox_install">Faka</string>
     <string name="settings_sandbox_install_packages">Faka amaphakheji ayisisekelo</string>
-    <string name="settings_sandbox_open_terminal">Vula itheminali</string>
     <string name="settings_sandbox_uninstall">Khipha</string>
     <string name="settings_sandbox_uninstall_confirm">Yonke idatha ku-Linux sandbox izolahleka. Uqinisekile ukuthi ufuna ukukhipha?</string>
     <string name="settings_sandbox_cancel">Khansela</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Kuthunyelwe</string>
     <string name="sms_draft_banner_failed">Kuhlulekile: %1$s</string>
     <string name="sms_draft_banner_dismiss">Cashisa</string>
+    <string name="litert_error_download_incomplete">Ukulanda akuphelelanga. Sicela uzame futhi.</string>
+    <string name="litert_error_network">Ukulanda kuhlulekile. Hlola uxhumano lwakho lwenethiwekhi bese uzama futhi.</string>
+    <string name="settings_task_details_consecutive_failures">Ukwehluleka okulandelanayo</string>
+    <string name="settings_task_details_created">Kudaliwe</string>
+    <string name="settings_task_details_last_result">Umphumela wokugcina</string>
+    <string name="settings_task_details_next_run">Ukusebenza okulandelayo</string>
+    <string name="settings_task_details_no_heartbeat_runs">Akukabikho kusebenza kokushaya kwenhliziyo okuqoshiwe okwamanje.</string>
+    <string name="settings_task_details_no_runs">Akukabikho kusebenza okuqoshiwe okwamanje.</string>
+    <string name="settings_task_details_on_every_heartbeat">Kukho konke ukushaya kwenhliziyo</string>
+    <string name="settings_task_details_schedule">Ishejuli</string>
+    <string name="settings_task_details_scheduled_for">Kuhleliwe ku-</string>
+    <string name="settings_task_details_status">Isimo</string>
+    <string name="settings_task_details_trigger">Isiqalisi</string>
+    <string name="tool_fetch_url_description">Landa i-URL futhi ubuyisele umzimba wempendulo ku-ejenti</string>
+    <string name="tool_fetch_url_name">Landa i-URL</string>
 </resources>

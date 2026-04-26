@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Επεξεργασία ανάμνησης</string>
     <string name="settings_memories_edit_save">Αποθήκευση</string>
     <string name="settings_memories_edit_cancel">Ακύρωση</string>
-    <string name="settings_memories_close">Κλείσιμο</string>
     <string name="settings_soul">Ψυχή</string>
     <string name="settings_soul_description">Ορίστε πώς συμπεριφέρεται η τεχνητή νοημοσύνη με ένα σύστημα prompt. Η τεχνητή νοημοσύνη θα έχει επίσης πρόσβαση στις αποθηκευμένες αναμνήσεις της.</string>
     <string name="settings_soul_save">Αποθήκευση</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Ειδοποιήσεις AI</string>
     <string name="notification_channel_description">Ειδοποιήσεις που αποστέλλονται από τον βοηθό AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Περιβάλλον Linux</string>
     <string name="settings_sandbox_description">Εγκαταστήστε ένα περιβάλλον Linux ώστε η AI να μπορεί να εκτελεί εντολές κελύφους, σενάρια και εργαλεία για λογαριασμό σας. Εκτελείται με ασφάλεια μέσα στην εφαρμογή. ~3 MB λήψη.</string>
     <string name="settings_sandbox_install">Εγκατάσταση</string>
     <string name="settings_sandbox_install_packages">Εγκατάσταση βασικών πακέτων</string>
-    <string name="settings_sandbox_open_terminal">Άνοιγμα τερματικού</string>
     <string name="settings_sandbox_uninstall">Απεγκατάσταση</string>
     <string name="settings_sandbox_uninstall_confirm">Όλα τα δεδομένα στο sandbox Linux θα χαθούν. Είστε βέβαιοι ότι θέλετε να απεγκαταστήσετε;</string>
     <string name="settings_sandbox_cancel">Ακύρωση</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Εστάλη</string>
     <string name="sms_draft_banner_failed">Απέτυχε: %1$s</string>
     <string name="sms_draft_banner_dismiss">Κλείσιμο</string>
+    <string name="litert_error_download_incomplete">Η λήψη δεν ολοκληρώθηκε. Δοκιμάστε ξανά.</string>
+    <string name="litert_error_network">Η λήψη απέτυχε. Ελέγξτε τη σύνδεση δικτύου και δοκιμάστε ξανά.</string>
+    <string name="settings_task_details_consecutive_failures">Διαδοχικές αποτυχίες</string>
+    <string name="settings_task_details_created">Δημιουργήθηκε</string>
+    <string name="settings_task_details_last_result">Τελευταίο αποτέλεσμα</string>
+    <string name="settings_task_details_next_run">Επόμενη εκτέλεση</string>
+    <string name="settings_task_details_no_heartbeat_runs">Δεν έχουν καταγραφεί ακόμη εκτελέσεις παλμού.</string>
+    <string name="settings_task_details_no_runs">Δεν έχουν καταγραφεί ακόμη εκτελέσεις.</string>
+    <string name="settings_task_details_on_every_heartbeat">Σε κάθε παλμό</string>
+    <string name="settings_task_details_schedule">Προγραμματισμός</string>
+    <string name="settings_task_details_scheduled_for">Προγραμματισμένο για</string>
+    <string name="settings_task_details_status">Κατάσταση</string>
+    <string name="settings_task_details_trigger">Έναυσμα</string>
+    <string name="tool_fetch_url_description">Ανάκτηση μιας διεύθυνσης URL και επιστροφή του σώματος της απάντησης στον πράκτορα</string>
+    <string name="tool_fetch_url_name">Ανάκτηση URL</string>
 </resources>

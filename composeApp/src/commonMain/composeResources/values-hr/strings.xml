@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Uredi sjećanje</string>
     <string name="settings_memories_edit_save">Spremi</string>
     <string name="settings_memories_edit_cancel">Odustani</string>
-    <string name="settings_memories_close">Zatvori</string>
     <string name="settings_soul">Duša</string>
     <string name="settings_soul_description">Definirajte kako se AI ponaša s pomoću sistemskog prompta. AI će imati pristup i svojim pohranjenim sjećanjima.</string>
     <string name="settings_soul_save">Spremi</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI obavijesti</string>
     <string name="notification_channel_description">Obavijesti koje šalje AI asistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux sandučić</string>
     <string name="settings_sandbox_description">Instalirajte Linux okruženje kako bi AI mogao pokretati naredbe ljuske, skripte i alate u vaše ime. Radi sigurno unutar aplikacije. ~3 MB preuzimanje.</string>
     <string name="settings_sandbox_install">Instaliraj</string>
     <string name="settings_sandbox_install_packages">Instaliraj osnovne pakete</string>
-    <string name="settings_sandbox_open_terminal">Otvori terminal</string>
     <string name="settings_sandbox_uninstall">Deinstaliraj</string>
     <string name="settings_sandbox_uninstall_confirm">Svi podaci u Linux sandboxu bit će izgubljeni. Jeste li sigurni da želite deinstalirati?</string>
     <string name="settings_sandbox_cancel">Odustani</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Poslano</string>
     <string name="sms_draft_banner_failed">Neuspjelo: %1$s</string>
     <string name="sms_draft_banner_dismiss">Zatvori</string>
+    <string name="litert_error_download_incomplete">Preuzimanje nije dovršeno. Pokušajte ponovno.</string>
+    <string name="litert_error_network">Preuzimanje nije uspjelo. Provjerite mrežnu vezu i pokušajte ponovno.</string>
+    <string name="settings_task_details_consecutive_failures">Uzastopni neuspjesi</string>
+    <string name="settings_task_details_created">Stvoreno</string>
+    <string name="settings_task_details_last_result">Posljednji rezultat</string>
+    <string name="settings_task_details_next_run">Sljedeće pokretanje</string>
+    <string name="settings_task_details_no_heartbeat_runs">Još nema zabilježenih pokretanja otkucaja srca.</string>
+    <string name="settings_task_details_no_runs">Još nema zabilježenih pokretanja.</string>
+    <string name="settings_task_details_on_every_heartbeat">Pri svakom otkucaju srca</string>
+    <string name="settings_task_details_schedule">Raspored</string>
+    <string name="settings_task_details_scheduled_for">Zakazano za</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Okidač</string>
+    <string name="tool_fetch_url_description">Dohvati URL i vrati tijelo odgovora agentu</string>
+    <string name="tool_fetch_url_name">Dohvati URL</string>
 </resources>

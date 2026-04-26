@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">ትውስታ አርትዕ</string>
     <string name="settings_memories_edit_save">አስቀምጥ</string>
     <string name="settings_memories_edit_cancel">ሰርዝ</string>
-    <string name="settings_memories_close">ዝጋ</string>
     <string name="settings_soul">ነፍስ</string>
     <string name="settings_soul_description">AI እንዴት እንደሚሠራ በስርዓት ፕሮምፕት ይወስኑ። AI ያከማቻቸው ትውስታዎቹንም ማግኘት ይችላል።</string>
     <string name="settings_soul_save">አስቀምጥ</string>
@@ -211,11 +210,9 @@
     <string name="notification_channel_name">የ AI ማሳወቂያዎች</string>
     <string name="notification_channel_description">በ AI ረዳት የተላኩ ማሳወቂያዎች</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">የLinux ሳንድቦክስ</string>
     <string name="settings_sandbox_description">AI በእርስዎ ምትክ የሼል ትዕዛዞችን፣ ስክሪፕቶችን እና መሳሪያዎችን ማሄድ እንዲችል የLinux አካባቢ ይጫኑ። በመተግበሪያው ውስጥ በአስተማማኝ ሁኔታ ይሰራል። ~3 MB ማውረድ።</string>
     <string name="settings_sandbox_install">ጫን</string>
     <string name="settings_sandbox_install_packages">መሠረታዊ ፓኬጆችን ጫን</string>
-    <string name="settings_sandbox_open_terminal">ተርሚናል ክፈት</string>
     <string name="settings_sandbox_uninstall">አራግፍ</string>
     <string name="settings_sandbox_uninstall_confirm">በLinux sandbox ውስጥ ያሉ ሁሉም ውሂቦች ይጠፋሉ። እርግጠኛ ነዎት ማራገፍ ይፈልጋሉ?</string>
     <string name="settings_sandbox_cancel">ይቅር</string>
@@ -291,4 +288,19 @@
     <string name="sms_draft_banner_sent">ተልኳል</string>
     <string name="sms_draft_banner_failed">አልተሳካም: %1$s</string>
     <string name="sms_draft_banner_dismiss">ዝጋ</string>
+    <string name="litert_error_download_incomplete">ማውረድ አልተጠናቀቀም። እባክዎ እንደገና ይሞክሩ።</string>
+    <string name="litert_error_network">ማውረድ አልተሳካም። የአውታረ መረብ ግንኙነትዎን ይፈትሹ እና እንደገና ይሞክሩ።</string>
+    <string name="settings_task_details_consecutive_failures">ተከታታይ ውድቀቶች</string>
+    <string name="settings_task_details_created">ተፈጠረ</string>
+    <string name="settings_task_details_last_result">የመጨረሻ ውጤት</string>
+    <string name="settings_task_details_next_run">ቀጣይ አሂድ</string>
+    <string name="settings_task_details_no_heartbeat_runs">እስካሁን የተመዘገበ የልብ ምት አሂድ የለም።</string>
+    <string name="settings_task_details_no_runs">እስካሁን የተመዘገበ አሂድ የለም።</string>
+    <string name="settings_task_details_on_every_heartbeat">በእያንዳንዱ የልብ ምት</string>
+    <string name="settings_task_details_schedule">መርሃ ግብር</string>
+    <string name="settings_task_details_scheduled_for">የተያዘ ለ</string>
+    <string name="settings_task_details_status">ሁኔታ</string>
+    <string name="settings_task_details_trigger">አስነሺ</string>
+    <string name="tool_fetch_url_description">URL ያምጡ እና የምላሽ አካልን ለወኪሉ ይመልሱ</string>
+    <string name="tool_fetch_url_name">URL አምጣ</string>
 </resources>

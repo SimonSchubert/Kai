@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Editar memoria</string>
     <string name="settings_memories_edit_save">Guardar</string>
     <string name="settings_memories_edit_cancel">Cancelar</string>
-    <string name="settings_memories_close">Cerrar</string>
     <string name="settings_soul">Alma</string>
     <string name="settings_soul_description">Define cómo se comporta la IA con un prompt de sistema. La IA también tendrá acceso a sus memorias almacenadas.</string>
     <string name="settings_soul_save">Guardar</string>
@@ -211,11 +210,9 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="notification_channel_name">Notificaciones de IA</string>
     <string name="notification_channel_description">Notificaciones enviadas por el asistente de IA</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox de Linux</string>
     <string name="settings_sandbox_description">Instala un entorno Linux para que la IA pueda ejecutar comandos de shell, scripts y herramientas en tu nombre. Se ejecuta de forma segura dentro de la app. ~3 MB de descarga.</string>
     <string name="settings_sandbox_install">Instalar</string>
     <string name="settings_sandbox_install_packages">Instalar paquetes básicos</string>
-    <string name="settings_sandbox_open_terminal">Abrir terminal</string>
     <string name="settings_sandbox_uninstall">Desinstalar</string>
     <string name="settings_sandbox_uninstall_confirm">Se perderán todos los datos del sandbox de Linux. ¿Estás seguro de que quieres desinstalar?</string>
     <string name="settings_sandbox_cancel">Cancelar</string>
@@ -291,4 +288,19 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="sms_draft_banner_sent">Enviado</string>
     <string name="sms_draft_banner_failed">Error: %1$s</string>
     <string name="sms_draft_banner_dismiss">Cerrar</string>
+    <string name="litert_error_download_incomplete">Descarga incompleta. Inténtalo de nuevo.</string>
+    <string name="litert_error_network">Error al descargar. Comprueba tu conexión de red e inténtalo de nuevo.</string>
+    <string name="settings_task_details_consecutive_failures">Fallos consecutivos</string>
+    <string name="settings_task_details_created">Creada</string>
+    <string name="settings_task_details_last_result">Último resultado</string>
+    <string name="settings_task_details_next_run">Próxima ejecución</string>
+    <string name="settings_task_details_no_heartbeat_runs">Aún no se han registrado ejecuciones de latido.</string>
+    <string name="settings_task_details_no_runs">Aún no se han registrado ejecuciones.</string>
+    <string name="settings_task_details_on_every_heartbeat">En cada latido</string>
+    <string name="settings_task_details_schedule">Programación</string>
+    <string name="settings_task_details_scheduled_for">Programada para</string>
+    <string name="settings_task_details_status">Estado</string>
+    <string name="settings_task_details_trigger">Activador</string>
+    <string name="tool_fetch_url_description">Obtener una URL y devolver el cuerpo de la respuesta al agente</string>
+    <string name="tool_fetch_url_name">Obtener URL</string>
 </resources>

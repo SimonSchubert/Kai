@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Редактиране на спомен</string>
     <string name="settings_memories_edit_save">Запази</string>
     <string name="settings_memories_edit_cancel">Отказ</string>
-    <string name="settings_memories_close">Затвори</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Определете как се държи AI чрез системен промпт. AI ще има достъп и до своите запазени спомени.</string>
     <string name="settings_soul_save">Запази</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI известия</string>
     <string name="notification_channel_description">Известия, изпратени от AI асистент</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux пясъчник</string>
     <string name="settings_sandbox_description">Инсталирайте Linux среда, за да може ИИ да изпълнява команди, скриптове и инструменти от ваше име. Работи сигурно вътре в приложението. ~3 MB за изтегляне.</string>
     <string name="settings_sandbox_install">Инсталиране</string>
     <string name="settings_sandbox_install_packages">Инсталиране на основни пакети</string>
-    <string name="settings_sandbox_open_terminal">Отваряне на терминал</string>
     <string name="settings_sandbox_uninstall">Деинсталиране</string>
     <string name="settings_sandbox_uninstall_confirm">Всички данни в Linux пясъчника ще бъдат загубени. Сигурни ли сте, че искате да деинсталирате?</string>
     <string name="settings_sandbox_cancel">Отказ</string>
@@ -290,4 +287,19 @@
     <string name="sms_draft_banner_sent">Изпратено</string>
     <string name="sms_draft_banner_failed">Неуспех: %1$s</string>
     <string name="sms_draft_banner_dismiss">Затвори</string>
+    <string name="litert_error_download_incomplete">Изтеглянето е непълно. Опитайте отново.</string>
+    <string name="litert_error_network">Изтеглянето е неуспешно. Проверете мрежовата връзка и опитайте отново.</string>
+    <string name="settings_task_details_consecutive_failures">Последователни неуспехи</string>
+    <string name="settings_task_details_created">Създадено</string>
+    <string name="settings_task_details_last_result">Последен резултат</string>
+    <string name="settings_task_details_next_run">Следващо изпълнение</string>
+    <string name="settings_task_details_no_heartbeat_runs">Все още няма записани изпълнения на сърцебиене.</string>
+    <string name="settings_task_details_no_runs">Все още няма записани изпълнения.</string>
+    <string name="settings_task_details_on_every_heartbeat">При всяко сърцебиене</string>
+    <string name="settings_task_details_schedule">График</string>
+    <string name="settings_task_details_scheduled_for">Планирано за</string>
+    <string name="settings_task_details_status">Състояние</string>
+    <string name="settings_task_details_trigger">Тригер</string>
+    <string name="tool_fetch_url_description">Извлечи URL и върни тялото на отговора към агента</string>
+    <string name="tool_fetch_url_name">Извлечи URL</string>
 </resources>

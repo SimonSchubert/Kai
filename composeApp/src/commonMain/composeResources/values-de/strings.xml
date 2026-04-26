@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Erinnerung bearbeiten</string>
     <string name="settings_memories_edit_save">Speichern</string>
     <string name="settings_memories_edit_cancel">Abbrechen</string>
-    <string name="settings_memories_close">Schließen</string>
     <string name="settings_soul">Seele</string>
     <string name="settings_soul_description">Definiere das Verhalten der KI mit einem Systembefehl. Die KI hat auch Zugriff auf ihre gespeicherten Erinnerungen.</string>
     <string name="settings_soul_save">Speichern</string>
@@ -211,11 +210,9 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="notification_channel_name">KI-Benachrichtigungen</string>
     <string name="notification_channel_description">Benachrichtigungen vom KI-Assistenten</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-Sandbox</string>
     <string name="settings_sandbox_description">Installiere eine Linux-Umgebung, damit die KI Shell-Befehle, Skripte und Tools in deinem Namen ausführen kann. Läuft sicher innerhalb der App. ~3 MB Download.</string>
     <string name="settings_sandbox_install">Installieren</string>
     <string name="settings_sandbox_install_packages">Basispakete installieren</string>
-    <string name="settings_sandbox_open_terminal">Terminal öffnen</string>
     <string name="settings_sandbox_uninstall">Deinstallieren</string>
     <string name="settings_sandbox_uninstall_confirm">Alle Daten in der Linux-Sandbox gehen verloren. Möchtest du wirklich deinstallieren?</string>
     <string name="settings_sandbox_cancel">Abbrechen</string>
@@ -291,4 +288,19 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sms_draft_banner_sent">Gesendet</string>
     <string name="sms_draft_banner_failed">Fehlgeschlagen: %1$s</string>
     <string name="sms_draft_banner_dismiss">Schließen</string>
+    <string name="litert_error_download_incomplete">Download unvollständig. Bitte versuche es erneut.</string>
+    <string name="litert_error_network">Download fehlgeschlagen. Überprüfe deine Netzwerkverbindung und versuche es erneut.</string>
+    <string name="settings_task_details_consecutive_failures">Aufeinanderfolgende Fehler</string>
+    <string name="settings_task_details_created">Erstellt</string>
+    <string name="settings_task_details_last_result">Letztes Ergebnis</string>
+    <string name="settings_task_details_next_run">Nächste Ausführung</string>
+    <string name="settings_task_details_no_heartbeat_runs">Noch keine Herzschlag-Ausführungen aufgezeichnet.</string>
+    <string name="settings_task_details_no_runs">Noch keine Ausführungen aufgezeichnet.</string>
+    <string name="settings_task_details_on_every_heartbeat">Bei jedem Herzschlag</string>
+    <string name="settings_task_details_schedule">Zeitplan</string>
+    <string name="settings_task_details_scheduled_for">Geplant für</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Auslöser</string>
+    <string name="tool_fetch_url_description">Eine URL abrufen und den Antwortinhalt an den Agenten zurückgeben</string>
+    <string name="tool_fetch_url_name">URL abrufen</string>
 </resources>

@@ -46,6 +46,19 @@ class TaskStoreMigrationTest {
     }
 
     @Test
+    fun `legacy task without recentExecutions field decodes to empty list`() = runTest {
+        val settings = freshSettings()
+        settings.setScheduledTasksJson(
+            """[{"id":"t1","description":"Old","prompt":"Do thing","scheduledAtEpochMs":1700000000000,"createdAtEpochMs":0,"cron":null,"trigger":"TIME","status":"PENDING","lastResult":null,"consecutiveFailures":0}]""",
+        )
+        val store = TaskStore(settings)
+
+        val tasks = store.getAllTasks()
+        assertEquals(1, tasks.size)
+        assertEquals(emptyList(), tasks[0].recentExecutions)
+    }
+
+    @Test
     fun `legacy one-shot task without trigger field stays TIME`() = runTest {
         val settings = freshSettings()
         settings.setScheduledTasksJson(

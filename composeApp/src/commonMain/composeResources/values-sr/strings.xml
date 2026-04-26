@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Уреди успомену</string>
     <string name="settings_memories_edit_save">Сачувај</string>
     <string name="settings_memories_edit_cancel">Откажи</string>
-    <string name="settings_memories_close">Затвори</string>
     <string name="settings_soul">Душа</string>
     <string name="settings_soul_description">Дефинишите како се АИ понаша са системским упитом. АИ ће такође имати приступ својим сачуваним успоменама.</string>
     <string name="settings_soul_save">Сачувај</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI обавештења</string>
     <string name="notification_channel_description">Обавештења послата од стране AI асистента</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux sandbox</string>
     <string name="settings_sandbox_description">Инсталирајте Linux окружење како би АИ могао да покреће команде љуске, скрипте и алате у ваше име. Ради безбедно унутар апликације. ~3 MB преузимање.</string>
     <string name="settings_sandbox_install">Инсталирај</string>
     <string name="settings_sandbox_install_packages">Инсталирај основне пакете</string>
-    <string name="settings_sandbox_open_terminal">Отвори терминал</string>
     <string name="settings_sandbox_uninstall">Деинсталирај</string>
     <string name="settings_sandbox_uninstall_confirm">Сви подаци у Linux sandbox-у биће изгубљени. Да ли сте сигурни да желите да деинсталирате?</string>
     <string name="settings_sandbox_cancel">Откажи</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Послато</string>
     <string name="sms_draft_banner_failed">Неуспело: %1$s</string>
     <string name="sms_draft_banner_dismiss">Затвори</string>
+    <string name="litert_error_download_incomplete">Преузимање није завршено. Покушајте поново.</string>
+    <string name="litert_error_network">Преузимање није успело. Проверите мрежну везу и покушајте поново.</string>
+    <string name="settings_task_details_consecutive_failures">Узастопни неуспеси</string>
+    <string name="settings_task_details_created">Креирано</string>
+    <string name="settings_task_details_last_result">Последњи резултат</string>
+    <string name="settings_task_details_next_run">Следеће покретање</string>
+    <string name="settings_task_details_no_heartbeat_runs">Још нема забележених покретања откуцаја срца.</string>
+    <string name="settings_task_details_no_runs">Још нема забележених покретања.</string>
+    <string name="settings_task_details_on_every_heartbeat">При сваком откуцају срца</string>
+    <string name="settings_task_details_schedule">Распоред</string>
+    <string name="settings_task_details_scheduled_for">Заказано за</string>
+    <string name="settings_task_details_status">Статус</string>
+    <string name="settings_task_details_trigger">Окидач</string>
+    <string name="tool_fetch_url_description">Преузми URL и врати тело одговора агенту</string>
+    <string name="tool_fetch_url_name">Преузми URL</string>
 </resources>

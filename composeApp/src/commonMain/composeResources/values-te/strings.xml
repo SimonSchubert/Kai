@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">జ్ఞాపకాన్ని సవరించు</string>
     <string name="settings_memories_edit_save">సేవ్ చేయి</string>
     <string name="settings_memories_edit_cancel">రద్దు చేయి</string>
-    <string name="settings_memories_close">మూసివేయి</string>
     <string name="settings_soul">ఆత్మ</string>
     <string name="settings_soul_description">సిస్టమ్ ప్రాంప్ట్‌తో AI ఎలా వ్యవహరిస్తుందో నిర్వచించండి. AI తన సేవ్ చేసిన జ్ఞాపకాలను కూడా యాక్సెస్ చేయగలదు.</string>
     <string name="settings_soul_save">సేవ్ చేయి</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI నోటిఫికేషన్లు</string>
     <string name="notification_channel_description">AI అసిస్టెంట్ పంపిన నోటిఫికేషన్లు</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux శాండ్‌బాక్స్</string>
     <string name="settings_sandbox_description">AI మీ తరపున షెల్ కమాండ్‌లు, స్క్రిప్ట్‌లు మరియు టూల్స్ అమలు చేయడానికి Linux వాతావరణాన్ని ఇన్‌స్టాల్ చేయండి. యాప్ లోపల సురక్షితంగా నడుస్తుంది. ~3 MB డౌన్‌లోడ్.</string>
     <string name="settings_sandbox_install">ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_install_packages">ప్రాథమిక ప్యాకేజీలను ఇన్‌స్టాల్ చేయండి</string>
-    <string name="settings_sandbox_open_terminal">టెర్మినల్ తెరవండి</string>
     <string name="settings_sandbox_uninstall">అన్‌ఇన్‌స్టాల్ చేయండి</string>
     <string name="settings_sandbox_uninstall_confirm">Linux శాండ్‌బాక్స్‌లోని మొత్తం డేటా కోల్పోతారు. మీరు ఖచ్చితంగా అన్‌ఇన్‌స్టాల్ చేయాలనుకుంటున్నారా?</string>
     <string name="settings_sandbox_cancel">రద్దు</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">పంపబడింది</string>
     <string name="sms_draft_banner_failed">విఫలమైంది: %1$s</string>
     <string name="sms_draft_banner_dismiss">మూసివేయి</string>
+    <string name="litert_error_download_incomplete">డౌన్‌లోడ్ అసంపూర్ణం. దయచేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="litert_error_network">డౌన్‌లోడ్ విఫలమైంది. మీ నెట్‌వర్క్ కనెక్షన్‌ని తనిఖీ చేసి మళ్ళీ ప్రయత్నించండి.</string>
+    <string name="settings_task_details_consecutive_failures">వరుస వైఫల్యాలు</string>
+    <string name="settings_task_details_created">సృష్టించబడింది</string>
+    <string name="settings_task_details_last_result">చివరి ఫలితం</string>
+    <string name="settings_task_details_next_run">తదుపరి రన్</string>
+    <string name="settings_task_details_no_heartbeat_runs">ఇంకా ఎటువంటి హృదయ స్పందన రన్‌లు నమోదు చేయబడలేదు.</string>
+    <string name="settings_task_details_no_runs">ఇంకా ఎటువంటి రన్‌లు నమోదు చేయబడలేదు.</string>
+    <string name="settings_task_details_on_every_heartbeat">ప్రతి హృదయ స్పందనలో</string>
+    <string name="settings_task_details_schedule">షెడ్యూల్</string>
+    <string name="settings_task_details_scheduled_for">కోసం షెడ్యూల్ చేయబడింది</string>
+    <string name="settings_task_details_status">స్థితి</string>
+    <string name="settings_task_details_trigger">ట్రిగ్గర్</string>
+    <string name="tool_fetch_url_description">ఒక URLని తీసుకొని ప్రతిస్పందన బాడీని ఏజెంట్‌కు తిరిగి ఇవ్వండి</string>
+    <string name="tool_fetch_url_name">URL తీసుకురండి</string>
 </resources>

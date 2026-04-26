@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Modifitgar memoria</string>
     <string name="settings_memories_edit_save">Memorisar</string>
     <string name="settings_memories_edit_cancel">Annullar</string>
-    <string name="settings_memories_close">Serrar</string>
     <string name="settings_soul">Olma</string>
     <string name="settings_soul_description">Definescha co l'IA sa cumporta cun in prompt da sistem. L'IA avrà er access a sias memorias memorisadas.</string>
     <string name="settings_soul_save">Memorisar</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Notificaziuns da IA</string>
     <string name="notification_channel_description">Notificaziuns tramessas da l'assistent da IA</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Sandbox da Linux</string>
     <string name="settings_sandbox_description">Installai in ambient Linux per che l'IA possia exequir cumonds da shell, scripts ed utensils en tes num. Funcziuna segir en l'app. ~3 MB download.</string>
     <string name="settings_sandbox_install">Installar</string>
     <string name="settings_sandbox_install_packages">Installar pachets da basa</string>
-    <string name="settings_sandbox_open_terminal">Avrir il terminal</string>
     <string name="settings_sandbox_uninstall">Deinstallar</string>
     <string name="settings_sandbox_uninstall_confirm">Tut las datas en il sandbox da Linux van a ir a perder. Es ti segir che ti vuls deinstallar?</string>
     <string name="settings_sandbox_cancel">Interrumper</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Tramess</string>
     <string name="sms_draft_banner_failed">Betg reussì: %1$s</string>
     <string name="sms_draft_banner_dismiss">Serrar</string>
+    <string name="litert_error_download_incomplete">Telechargiada incumpletta. Empruvai p.pl. anc ina giada.</string>
+    <string name="litert_error_network">La telechargiada è fallida. Controllai Vossa connexiun da rait ed empruvai anc ina giada.</string>
+    <string name="settings_task_details_consecutive_failures">Sbagls consecutivs</string>
+    <string name="settings_task_details_created">Creà</string>
+    <string name="settings_task_details_last_result">Ultim resultat</string>
+    <string name="settings_task_details_next_run">Proxima execuziun</string>
+    <string name="settings_task_details_no_heartbeat_runs">Anc naginas execuziuns da batacor registradas.</string>
+    <string name="settings_task_details_no_runs">Anc naginas execuziuns registradas.</string>
+    <string name="settings_task_details_on_every_heartbeat">Tar mintga batacor</string>
+    <string name="settings_task_details_schedule">Plan</string>
+    <string name="settings_task_details_scheduled_for">Planisà per</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Decleneder</string>
+    <string name="tool_fetch_url_description">Retschaiver in URL e returnar il corp da la resposta a l\'agent</string>
+    <string name="tool_fetch_url_name">Retschaiver URL</string>
 </resources>

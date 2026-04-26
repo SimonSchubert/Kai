@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Chỉnh sửa ký ức</string>
     <string name="settings_memories_edit_save">Lưu</string>
     <string name="settings_memories_edit_cancel">Hủy</string>
-    <string name="settings_memories_close">Đóng</string>
     <string name="settings_soul">Linh hồn</string>
     <string name="settings_soul_description">Xác định cách AI hoạt động với một lời nhắc hệ thống. AI cũng sẽ có quyền truy cập vào ký ức đã lưu của nó.</string>
     <string name="settings_soul_save">Lưu</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">Thông báo AI</string>
     <string name="notification_channel_description">Thông báo được gửi bởi trợ lý AI</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Hộp cát Linux</string>
     <string name="settings_sandbox_description">Cài đặt môi trường Linux để AI có thể chạy các lệnh shell, tập lệnh và công cụ thay mặt bạn. Chạy an toàn bên trong ứng dụng. ~3 MB tải xuống.</string>
     <string name="settings_sandbox_install">Cài đặt</string>
     <string name="settings_sandbox_install_packages">Cài đặt gói cơ bản</string>
-    <string name="settings_sandbox_open_terminal">Mở terminal</string>
     <string name="settings_sandbox_uninstall">Gỡ cài đặt</string>
     <string name="settings_sandbox_uninstall_confirm">Tất cả dữ liệu trong sandbox Linux sẽ bị mất. Bạn có chắc chắn muốn gỡ cài đặt không?</string>
     <string name="settings_sandbox_cancel">Hủy</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">Đã gửi</string>
     <string name="sms_draft_banner_failed">Thất bại: %1$s</string>
     <string name="sms_draft_banner_dismiss">Đóng</string>
+    <string name="litert_error_download_incomplete">Tải xuống chưa hoàn tất. Vui lòng thử lại.</string>
+    <string name="litert_error_network">Tải xuống thất bại. Kiểm tra kết nối mạng và thử lại.</string>
+    <string name="settings_task_details_consecutive_failures">Số lần thất bại liên tiếp</string>
+    <string name="settings_task_details_created">Đã tạo</string>
+    <string name="settings_task_details_last_result">Kết quả gần nhất</string>
+    <string name="settings_task_details_next_run">Lần chạy tiếp theo</string>
+    <string name="settings_task_details_no_heartbeat_runs">Chưa có lần chạy nhịp tim nào được ghi nhận.</string>
+    <string name="settings_task_details_no_runs">Chưa có lần chạy nào được ghi nhận.</string>
+    <string name="settings_task_details_on_every_heartbeat">Mỗi nhịp tim</string>
+    <string name="settings_task_details_schedule">Lịch</string>
+    <string name="settings_task_details_scheduled_for">Đã lên lịch lúc</string>
+    <string name="settings_task_details_status">Trạng thái</string>
+    <string name="settings_task_details_trigger">Kích hoạt</string>
+    <string name="tool_fetch_url_description">Lấy một URL và trả về nội dung phản hồi cho tác nhân</string>
+    <string name="tool_fetch_url_name">Lấy URL</string>
 </resources>

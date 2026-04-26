@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Wysig geheue</string>
     <string name="settings_memories_edit_save">Stoor</string>
     <string name="settings_memories_edit_cancel">Kanselleer</string>
-    <string name="settings_memories_close">Maak toe</string>
     <string name="settings_soul">Siel</string>
     <string name="settings_soul_description">Definieer hoe die KI optree met 'n stelselopdrag. Die KI sal ook toegang hê tot sy gestoorde geheuens.</string>
     <string name="settings_soul_save">Stoor</string>
@@ -211,11 +210,9 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="notification_channel_name">KI-kennisgewings</string>
     <string name="notification_channel_description">Kennisgewings gestuur deur KI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-sandbox</string>
     <string name="settings_sandbox_description">Installeer 'n Linux-omgewing sodat die KI dopbevele, skrifte en gereedskap namens jou kan uitvoer. Dit werk veilig binne die toep. ~3 MB aflaai.</string>
     <string name="settings_sandbox_install">Installeer</string>
     <string name="settings_sandbox_install_packages">Installeer basispakkette</string>
-    <string name="settings_sandbox_open_terminal">Maak terminaal oop</string>
     <string name="settings_sandbox_uninstall">Deïnstalleer</string>
     <string name="settings_sandbox_uninstall_confirm">Alle data in die Linux-sandbox sal verlore gaan. Is jy seker jy wil deïnstalleer?</string>
     <string name="settings_sandbox_cancel">Kanselleer</string>
@@ -291,4 +288,19 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sms_draft_banner_sent">Gestuur</string>
     <string name="sms_draft_banner_failed">Misluk: %1$s</string>
     <string name="sms_draft_banner_dismiss">Sluit</string>
+    <string name="litert_error_download_incomplete">Aflaai onvolledig. Probeer asseblief weer.</string>
+    <string name="litert_error_network">Aflaai het misluk. Kontroleer jou netwerkverbinding en probeer weer.</string>
+    <string name="settings_task_details_consecutive_failures">Opeenvolgende mislukkings</string>
+    <string name="settings_task_details_created">Geskep</string>
+    <string name="settings_task_details_last_result">Laaste resultaat</string>
+    <string name="settings_task_details_next_run">Volgende uitvoering</string>
+    <string name="settings_task_details_no_heartbeat_runs">Nog geen hartklop-uitvoerings opgeneem nie.</string>
+    <string name="settings_task_details_no_runs">Nog geen uitvoerings opgeneem nie.</string>
+    <string name="settings_task_details_on_every_heartbeat">By elke hartklop</string>
+    <string name="settings_task_details_schedule">Skedule</string>
+    <string name="settings_task_details_scheduled_for">Geskeduleer vir</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Sneller</string>
+    <string name="tool_fetch_url_description">Haal \'n URL op en gee die antwoordliggaam terug aan die agent</string>
+    <string name="tool_fetch_url_name">Haal URL op</string>
 </resources>

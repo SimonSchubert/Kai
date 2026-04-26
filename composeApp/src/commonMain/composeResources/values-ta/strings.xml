@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">நினைவை திருத்து</string>
     <string name="settings_memories_edit_save">சேமி</string>
     <string name="settings_memories_edit_cancel">ரத்துசெய்</string>
-    <string name="settings_memories_close">மூடு</string>
     <string name="settings_soul">ஆன்மா</string>
     <string name="settings_soul_description">AI ஒரு கணினி வழிகாட்டலுடன் எவ்வாறு செயல்படுகிறது என்பதை வரையறுக்கவும். AI அதன் சேமிக்கப்பட்ட நினைவுகளையும் அணுகும்.</string>
     <string name="settings_soul_save">சேமி</string>
@@ -210,11 +209,9 @@
     <string name="notification_channel_name">AI அறிவிப்புகள்</string>
     <string name="notification_channel_description">AI உதவியாளரால் அனுப்பப்பட்ட அறிவிப்புகள்</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux சாண்ட்பாக்ஸ்</string>
     <string name="settings_sandbox_description">AI உங்கள் சார்பாக ஷெல் கட்டளைகள், ஸ்கிரிப்ட்கள் மற்றும் கருவிகளை இயக்க Linux சூழலை நிறுவுங்கள். பயன்பாட்டிற்குள் பாதுகாப்பாக இயங்குகிறது. ~3 MB பதிவிறக்கம்.</string>
     <string name="settings_sandbox_install">நிறுவு</string>
     <string name="settings_sandbox_install_packages">அடிப்படை தொகுப்புகளை நிறுவு</string>
-    <string name="settings_sandbox_open_terminal">முனையத்தைத் திற</string>
     <string name="settings_sandbox_uninstall">நீக்கு</string>
     <string name="settings_sandbox_uninstall_confirm">Linux சாண்ட்பாக்ஸில் உள்ள அனைத்து தரவுகளும் இழக்கப்படும். நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
     <string name="settings_sandbox_cancel">ரத்து</string>
@@ -289,4 +286,19 @@
     <string name="sms_draft_banner_sent">அனுப்பப்பட்டது</string>
     <string name="sms_draft_banner_failed">தோல்வி: %1$s</string>
     <string name="sms_draft_banner_dismiss">விலக்கு</string>
+    <string name="litert_error_download_incomplete">பதிவிறக்கம் முழுமையடையவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="litert_error_network">பதிவிறக்கம் தோல்வியடைந்தது. உங்கள் நெட்வொர்க் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="settings_task_details_consecutive_failures">தொடர்ச்சியான தோல்விகள்</string>
+    <string name="settings_task_details_created">உருவாக்கப்பட்டது</string>
+    <string name="settings_task_details_last_result">கடைசி முடிவு</string>
+    <string name="settings_task_details_next_run">அடுத்த இயக்கம்</string>
+    <string name="settings_task_details_no_heartbeat_runs">இதயத்துடிப்பு இயக்கங்கள் இன்னும் பதிவாகவில்லை.</string>
+    <string name="settings_task_details_no_runs">இயக்கங்கள் இன்னும் பதிவாகவில்லை.</string>
+    <string name="settings_task_details_on_every_heartbeat">ஒவ்வொரு இதயத்துடிப்பிலும்</string>
+    <string name="settings_task_details_schedule">அட்டவணை</string>
+    <string name="settings_task_details_scheduled_for">இதற்கு திட்டமிடப்பட்டது</string>
+    <string name="settings_task_details_status">நிலை</string>
+    <string name="settings_task_details_trigger">தூண்டுதல்</string>
+    <string name="tool_fetch_url_description">ஒரு URL-ஐ பெற்று பதில் உள்ளடக்கத்தை முகவருக்கு திருப்பி அனுப்பவும்</string>
+    <string name="tool_fetch_url_name">URL பெறு</string>
 </resources>

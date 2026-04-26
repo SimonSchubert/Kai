@@ -69,7 +69,6 @@
     <string name="settings_memories_edit_title">Rediger minne</string>
     <string name="settings_memories_edit_save">Lagre</string>
     <string name="settings_memories_edit_cancel">Avbryt</string>
-    <string name="settings_memories_close">Lukk</string>
     <string name="settings_soul">Sjel</string>
     <string name="settings_soul_description">Definer hvordan AI oppfører seg med en systemprompt. AI vil også ha tilgang til sine lagrede minner.</string>
     <string name="settings_soul_save">Lagre</string>
@@ -211,11 +210,9 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="notification_channel_name">AI-varsler</string>
     <string name="notification_channel_description">Varsler sendt av AI-assistent</string>
     <string name="settings_tab_sandbox">Linux Sandbox</string>
-    <string name="settings_sandbox_title">Linux-sandkasse</string>
     <string name="settings_sandbox_description">Installer et Linux-miljø slik at AI-en kan kjøre skallkommandoer, skript og verktøy på dine vegne. Kjører sikkert inne i appen. ~3 MB nedlasting.</string>
     <string name="settings_sandbox_install">Installer</string>
     <string name="settings_sandbox_install_packages">Installer grunnleggende pakker</string>
-    <string name="settings_sandbox_open_terminal">Åpne terminal</string>
     <string name="settings_sandbox_uninstall">Avinstaller</string>
     <string name="settings_sandbox_uninstall_confirm">Alle data i Linux-sandkassen vil gå tapt. Er du sikker på at du vil avinstallere?</string>
     <string name="settings_sandbox_cancel">Avbryt</string>
@@ -290,4 +287,19 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="sms_draft_banner_sent">Sendt</string>
     <string name="sms_draft_banner_failed">Mislyktes: %1$s</string>
     <string name="sms_draft_banner_dismiss">Avvis</string>
+    <string name="litert_error_download_incomplete">Nedlasting ufullstendig. Prøv igjen.</string>
+    <string name="litert_error_network">Nedlasting mislyktes. Sjekk nettverkstilkoblingen og prøv igjen.</string>
+    <string name="settings_task_details_consecutive_failures">Feil på rad</string>
+    <string name="settings_task_details_created">Opprettet</string>
+    <string name="settings_task_details_last_result">Siste resultat</string>
+    <string name="settings_task_details_next_run">Neste kjøring</string>
+    <string name="settings_task_details_no_heartbeat_runs">Ingen hjerteslag-kjøringer registrert ennå.</string>
+    <string name="settings_task_details_no_runs">Ingen kjøringer registrert ennå.</string>
+    <string name="settings_task_details_on_every_heartbeat">Ved hvert hjerteslag</string>
+    <string name="settings_task_details_schedule">Tidsplan</string>
+    <string name="settings_task_details_scheduled_for">Planlagt til</string>
+    <string name="settings_task_details_status">Status</string>
+    <string name="settings_task_details_trigger">Utløser</string>
+    <string name="tool_fetch_url_description">Hent en URL og returner svarteksten til agenten</string>
+    <string name="tool_fetch_url_name">Hent URL</string>
 </resources>

@@ -109,6 +109,7 @@ import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
+import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.ScheduledTask
@@ -180,6 +181,7 @@ import kai.composeapp.generated.resources.settings_export_import_title
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
+import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_import
 import kai.composeapp.generated.resources.settings_import_error
 import kai.composeapp.generated.resources.settings_import_partial
@@ -199,7 +201,6 @@ import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_cancel
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_all_title
-import kai.composeapp.generated.resources.settings_memories_close
 import kai.composeapp.generated.resources.settings_memories_delete
 import kai.composeapp.generated.resources.settings_memories_description
 import kai.composeapp.generated.resources.settings_memories_edit_cancel
@@ -221,8 +222,6 @@ import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_disk_usage
 import kai.composeapp.generated.resources.settings_sandbox_install
 import kai.composeapp.generated.resources.settings_sandbox_install_packages
-import kai.composeapp.generated.resources.settings_sandbox_open_terminal
-import kai.composeapp.generated.resources.settings_sandbox_title
 import kai.composeapp.generated.resources.settings_sandbox_uninstall
 import kai.composeapp.generated.resources.settings_sandbox_uninstall_confirm
 import kai.composeapp.generated.resources.settings_scheduled_tasks
@@ -251,6 +250,17 @@ import kai.composeapp.generated.resources.settings_tab_integrations
 import kai.composeapp.generated.resources.settings_tab_sandbox
 import kai.composeapp.generated.resources.settings_tab_services
 import kai.composeapp.generated.resources.settings_tab_tools
+import kai.composeapp.generated.resources.settings_task_details_consecutive_failures
+import kai.composeapp.generated.resources.settings_task_details_created
+import kai.composeapp.generated.resources.settings_task_details_last_result
+import kai.composeapp.generated.resources.settings_task_details_next_run
+import kai.composeapp.generated.resources.settings_task_details_no_heartbeat_runs
+import kai.composeapp.generated.resources.settings_task_details_no_runs
+import kai.composeapp.generated.resources.settings_task_details_on_every_heartbeat
+import kai.composeapp.generated.resources.settings_task_details_schedule
+import kai.composeapp.generated.resources.settings_task_details_scheduled_for
+import kai.composeapp.generated.resources.settings_task_details_status
+import kai.composeapp.generated.resources.settings_task_details_trigger
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_ui_scale
@@ -1665,6 +1675,7 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                     SettingsCard {
                         ScheduledTaskList(
                             tasks = uiState.scheduledTasks,
+                            heartbeatLog = uiState.heartbeatLog,
                             onCancelTask = actions.onCancelTask,
                             isSchedulingEnabled = uiState.isSchedulingEnabled,
                             onToggleScheduling = actions.onToggleScheduling,
@@ -1759,6 +1770,7 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                 SettingsCard {
                     ScheduledTaskList(
                         tasks = uiState.scheduledTasks,
+                        heartbeatLog = uiState.heartbeatLog,
                         onCancelTask = actions.onCancelTask,
                         isSchedulingEnabled = uiState.isSchedulingEnabled,
                         onToggleScheduling = actions.onToggleScheduling,
@@ -2542,7 +2554,7 @@ private fun MemoryList(
     }
 
     if (showAllDialog) {
-        AllMemoriesDialog(
+        AllMemoriesSheet(
             memories = sortedMemories,
             onDismiss = { showAllDialog = false },
             onDeleteMemory = onDeleteMemory,
@@ -2551,7 +2563,7 @@ private fun MemoryList(
     }
 
     editingMemory?.let { memory ->
-        EditMemoryDialog(
+        EditMemorySheet(
             memory = memory,
             onDismiss = { editingMemory = null },
             onSave = { newContent ->
@@ -2562,54 +2574,50 @@ private fun MemoryList(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AllMemoriesDialog(
+private fun AllMemoriesSheet(
     memories: List<MemoryEntry>,
     onDismiss: () -> Unit,
     onDeleteMemory: (String) -> Unit,
     onEditMemory: (MemoryEntry) -> Unit,
 ) {
     val deleteContentDescription = stringResource(Res.string.settings_memories_delete)
-    AlertDialog(
+    ModalBottomSheet(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(Res.string.settings_memories_all_title)) },
-        text = {
-            val scrollState = rememberScrollState()
-            Box {
-                Column(
-                    modifier = Modifier.verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    memories.forEach { memory ->
-                        SettingsListItem(
-                            title = memory.key,
-                            subtitle = memory.content,
-                            onDelete = { onDeleteMemory(memory.key) },
-                            deleteContentDescription = deleteContentDescription,
-                            subtitleMaxLines = 3,
-                            onClick = { onEditMemory(memory) },
-                        )
-                    }
-                }
-                VerticalScrollbarForScroll(
-                    scrollState = scrollState,
-                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_memories_all_title),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(12.dp))
+            memories.forEach { memory ->
+                SettingsListItem(
+                    title = memory.key,
+                    subtitle = memory.content,
+                    onDelete = { onDeleteMemory(memory.key) },
+                    deleteContentDescription = deleteContentDescription,
+                    subtitleMaxLines = 3,
+                    onClick = { onEditMemory(memory) },
                 )
+                Spacer(Modifier.height(8.dp))
             }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = onDismiss,
-                modifier = Modifier.handCursor(),
-            ) {
-                Text(stringResource(Res.string.settings_memories_close))
-            }
-        },
-    )
+            Spacer(Modifier.height(8.dp))
+        }
+    }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun EditMemoryDialog(
+private fun EditMemorySheet(
     memory: MemoryEntry,
     onDismiss: () -> Unit,
     onSave: (String) -> Unit,
@@ -2617,53 +2625,70 @@ private fun EditMemoryDialog(
     var content by remember(memory.key) { mutableStateOf(memory.content) }
     val hasChanges = content != memory.content && content.isNotBlank()
 
-    AlertDialog(
+    ModalBottomSheet(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(Res.string.settings_memories_edit_title)) },
-        text = {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = memory.key,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Spacer(Modifier.height(8.dp))
-                KaiOutlinedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    value = content,
-                    onValueChange = { content = it },
-                    minLines = 4,
-                    maxLines = 10,
-                )
-            }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = { onSave(content.trim()) },
-                enabled = hasChanges,
-                modifier = Modifier.handCursor(),
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+        ) {
+            Text(
+                text = stringResource(Res.string.settings_memories_edit_title),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(12.dp))
+            Text(
+                text = memory.key,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(8.dp))
+            KaiOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = content,
+                onValueChange = { content = it },
+                minLines = 4,
+                maxLines = 10,
+            )
+            Spacer(Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
             ) {
-                Text(stringResource(Res.string.settings_memories_edit_save))
+                TextButton(
+                    onClick = onDismiss,
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_memories_edit_cancel))
+                }
+                Spacer(Modifier.width(8.dp))
+                TextButton(
+                    onClick = { onSave(content.trim()) },
+                    enabled = hasChanges,
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_memories_edit_save))
+                }
             }
-        },
-        dismissButton = {
-            TextButton(
-                onClick = onDismiss,
-                modifier = Modifier.handCursor(),
-            ) {
-                Text(stringResource(Res.string.settings_memories_edit_cancel))
-            }
-        },
-    )
+            Spacer(Modifier.height(8.dp))
+        }
+    }
 }
 
 @Composable
 private fun ScheduledTaskList(
     tasks: ImmutableList<ScheduledTask>,
+    heartbeatLog: ImmutableList<HeartbeatLogEntry>,
     onCancelTask: (String) -> Unit,
     isSchedulingEnabled: Boolean,
     onToggleScheduling: (Boolean) -> Unit,
 ) {
+    var selectedTaskId by remember { mutableStateOf<String?>(null) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         ToggleableHeadline(
             title = stringResource(Res.string.settings_scheduled_tasks),
@@ -2673,10 +2698,11 @@ private fun ScheduledTaskList(
         )
         Spacer(Modifier.height(12.dp))
 
+        val onEveryHeartbeat = stringResource(Res.string.settings_task_details_on_every_heartbeat)
         if (isSchedulingEnabled && tasks.isNotEmpty()) {
             tasks.forEach { task ->
                 val subtitle = when (task.trigger) {
-                    TaskTrigger.HEARTBEAT -> "${task.status} - On every heartbeat"
+                    TaskTrigger.HEARTBEAT -> "${task.status} - $onEveryHeartbeat"
 
                     TaskTrigger.CRON -> "${task.status} - ${task.cron?.let { describeCron(it) } ?: "cron"}"
 
@@ -2691,6 +2717,7 @@ private fun ScheduledTaskList(
                 SettingsListItem(
                     title = task.description,
                     subtitle = subtitle,
+                    onClick = { selectedTaskId = task.id },
                     onDelete = { onCancelTask(task.id) },
                     deleteContentDescription = stringResource(Res.string.settings_scheduled_tasks_cancel),
                 )
@@ -2698,6 +2725,198 @@ private fun ScheduledTaskList(
             }
         }
     }
+
+    val selectedTask = selectedTaskId?.let { id -> tasks.firstOrNull { it.id == id } }
+    if (selectedTask != null) {
+        TaskDetailsSheet(
+            task = selectedTask,
+            heartbeatLog = heartbeatLog,
+            onDismiss = { selectedTaskId = null },
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TaskDetailsSheet(
+    task: ScheduledTask,
+    heartbeatLog: ImmutableList<HeartbeatLogEntry>,
+    onDismiss: () -> Unit,
+) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+        ) {
+            Text(
+                text = task.description,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(12.dp))
+
+            TaskDetailRow(
+                label = stringResource(Res.string.settings_task_details_trigger),
+                value = task.trigger.name,
+            )
+            TaskDetailRow(
+                label = stringResource(Res.string.settings_task_details_status),
+                value = task.status.name,
+            )
+            when (task.trigger) {
+                TaskTrigger.TIME -> TaskDetailRow(
+                    label = stringResource(Res.string.settings_task_details_scheduled_for),
+                    value = formatTaskInstant(task.scheduledAtEpochMs),
+                )
+
+                TaskTrigger.CRON -> {
+                    TaskDetailRow(
+                        label = stringResource(Res.string.settings_task_details_schedule),
+                        value = task.cron?.let { describeCron(it) } ?: "cron",
+                    )
+                    TaskDetailRow(
+                        label = stringResource(Res.string.settings_task_details_next_run),
+                        value = formatTaskInstant(task.scheduledAtEpochMs),
+                    )
+                }
+
+                TaskTrigger.HEARTBEAT -> TaskDetailRow(
+                    label = stringResource(Res.string.settings_task_details_schedule),
+                    value = stringResource(Res.string.settings_task_details_on_every_heartbeat),
+                )
+            }
+            TaskDetailRow(
+                label = stringResource(Res.string.settings_task_details_created),
+                value = formatTaskInstant(task.createdAtEpochMs),
+            )
+            if (task.consecutiveFailures > 0) {
+                TaskDetailRow(
+                    label = stringResource(Res.string.settings_task_details_consecutive_failures),
+                    value = task.consecutiveFailures.toString(),
+                )
+            }
+            // The scheduler stores its retry/backoff phrasing in `lastResult` ("Failed at ...:
+            // ... (retry after 120s backoff)"). Surface it so the user can see what the
+            // scheduler is going to do next, not just what already happened.
+            task.lastResult?.takeIf { it.isNotBlank() }?.let { result ->
+                TaskDetailRow(
+                    label = stringResource(Res.string.settings_task_details_last_result),
+                    value = result,
+                )
+            }
+
+            Spacer(Modifier.height(16.dp))
+            Text(
+                text = stringResource(Res.string.settings_heartbeat_recent),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Spacer(Modifier.height(4.dp))
+
+            if (task.trigger == TaskTrigger.HEARTBEAT) {
+                // Heartbeat additions don't carry their own log — they fire as part of every
+                // heartbeat run, so the heartbeat-wide log is the right surface.
+                if (heartbeatLog.isEmpty()) {
+                    EmptyLogText(stringResource(Res.string.settings_task_details_no_heartbeat_runs))
+                } else {
+                    heartbeatLog.forEach { entry ->
+                        ExecutionLogRow(
+                            success = entry.success,
+                            timestampEpochMs = entry.timestampEpochMs,
+                            message = entry.error,
+                        )
+                    }
+                }
+            } else {
+                if (task.recentExecutions.isEmpty()) {
+                    EmptyLogText(stringResource(Res.string.settings_task_details_no_runs))
+                } else {
+                    task.recentExecutions.forEach { entry ->
+                        ExecutionLogRow(
+                            success = entry.success,
+                            timestampEpochMs = entry.timestampEpochMs,
+                            message = entry.message,
+                        )
+                    }
+                }
+            }
+            Spacer(Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+private fun TaskDetailRow(label: String, value: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.width(140.dp),
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+}
+
+@Composable
+private fun ExecutionLogRow(success: Boolean, timestampEpochMs: Long, message: String?) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Text(
+            text = if (success) "OK" else "FAIL",
+            style = MaterialTheme.typography.labelSmall,
+            color = if (success) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+            modifier = Modifier.width(36.dp),
+        )
+        Column {
+            Text(
+                text = formatTaskInstant(timestampEpochMs),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (!message.isNullOrBlank()) {
+                Text(
+                    text = message,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = if (success) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.error,
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmptyLogText(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
+private fun formatTaskInstant(epochMs: Long): String {
+    if (epochMs <= 0L) return "—"
+    val instant = Instant.fromEpochMilliseconds(epochMs)
+    val zone = TimeZone.currentSystemDefault()
+    val local = instant.toLocalDateTime(zone)
+    val month = local.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }
+    val minute = local.minute.toString().padStart(2, '0')
+    return "${local.day} $month ${local.year} ${local.hour}:$minute"
 }
 
 @Composable
