@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Ejen</string>
     <string name="tool_set_alarm_name">Tetapkan Penggera</string>
     <string name="tool_set_alarm_description">Tetapkan penggera atau pemasa undur pada peranti</string>
+    <string name="tool_open_file_name">Buka Fail</string>
+    <string name="tool_open_file_description">Buka fail sandbox dalam aplikasi Android lalai anda</string>
     <string name="tool_execute_shell_command_name">Jalankan arahan</string>
     <string name="tool_execute_shell_command_description">Jalankan arahan shell dalam kotak pasir Linux</string>
     <string name="settings_dynamic_ui">UI Dinamik</string>

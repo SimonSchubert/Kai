@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Пайдаланушының құрылғысында күнтізбе оқиғасын жасау</string>
     <string name="tool_set_alarm_name">Оятқыш орнату</string>
     <string name="tool_set_alarm_description">Құрылғыда оятқыш немесе кері санақ таймерін орнату</string>
+    <string name="tool_open_file_name">Файлды ашу</string>
+    <string name="tool_open_file_description">Құм жәшігі файлдарын әдепкі Android қолданбасында ашу</string>
     <string name="tool_execute_shell_command_name">Shell пәрменін орындау</string>
     <string name="tool_execute_shell_command_description">Linux құмсалғышта shell пәрменін орындау</string>
     <string name="settings_dynamic_ui">Динамикалық UI</string>

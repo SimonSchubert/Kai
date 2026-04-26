@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Gumawa ng calendar event sa device ng gumagamit</string>
     <string name="tool_set_alarm_name">Mag-set ng Alarm</string>
     <string name="tool_set_alarm_description">Mag-set ng alarm o countdown timer sa device</string>
+    <string name="tool_open_file_name">Buksan ang File</string>
+    <string name="tool_open_file_description">Buksan ang mga file ng sandbox sa iyong default Android app</string>
     <string name="tool_execute_shell_command_name">Magpatakbo ng utos</string>
     <string name="tool_execute_shell_command_description">Mag-execute ng shell command sa Linux sandbox</string>
     <string name="settings_dynamic_ui">Dynamic na UI</string>

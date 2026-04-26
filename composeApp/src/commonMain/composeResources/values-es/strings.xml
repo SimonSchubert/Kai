@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Agente</string>
     <string name="tool_set_alarm_name">Configurar alarma</string>
     <string name="tool_set_alarm_description">Configurar una alarma o temporizador en el dispositivo</string>
+    <string name="tool_open_file_name">Abrir archivo</string>
+    <string name="tool_open_file_description">Abrir archivos del sandbox en tu aplicación predeterminada de Android</string>
     <string name="tool_execute_shell_command_name">Ejecutar comando</string>
     <string name="tool_execute_shell_command_description">Ejecutar un comando shell en el sandbox de Linux</string>
     <string name="settings_dynamic_ui">UI dinámica</string>

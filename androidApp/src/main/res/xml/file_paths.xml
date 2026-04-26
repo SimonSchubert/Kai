@@ -3,4 +3,5 @@
     <external-path name="external" path="." />
     <files-path name="files" path="." />
     <cache-path name="cache" path="." />
+    <external-files-path name="kai_home" path="sandbox-home/" />
 </paths>

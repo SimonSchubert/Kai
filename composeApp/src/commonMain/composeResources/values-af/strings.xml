@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Skep 'n kalendergebeurtenis op die gebruiker se toestel</string>
     <string name="tool_set_alarm_name">Stel Alarm</string>
     <string name="tool_set_alarm_description">Stel 'n alarm of afteltydhouer op die toestel</string>
+    <string name="tool_open_file_name">Maak Lêer Oop</string>
+    <string name="tool_open_file_description">Maak sandbox-lêers in jou verstek Android-toepassing oop</string>
     <string name="tool_execute_shell_command_name">Voer skelopdrag uit</string>
     <string name="tool_execute_shell_command_description">Voer 'n dopopdrag uit in die Linux-sandbox</string>
     <string name="settings_dynamic_ui">Dinamiese UI</string>

@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">エージェント</string>
     <string name="tool_set_alarm_name">アラームを設定</string>
     <string name="tool_set_alarm_description">デバイスにアラームまたはカウントダウンタイマーを設定</string>
+    <string name="tool_open_file_name">ファイルを開く</string>
+    <string name="tool_open_file_description">サンドボックスのファイルをデフォルトの Android アプリで開きます</string>
     <string name="tool_execute_shell_command_name">シェルコマンドを実行</string>
     <string name="tool_execute_shell_command_description">Linuxサンドボックスでシェルコマンドを実行する</string>
     <string name="settings_dynamic_ui">ダイナミックUI</string>

@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Creează un eveniment în calendarul dispozitivului utilizatorului</string>
     <string name="tool_set_alarm_name">Setează alarma</string>
     <string name="tool_set_alarm_description">Setează o alarmă sau un cronometru pe dispozitiv</string>
+    <string name="tool_open_file_name">Deschide fișierul</string>
+    <string name="tool_open_file_description">Deschide fișierele sandbox în aplicația Android implicită</string>
     <string name="tool_execute_shell_command_name">Execută comandă</string>
     <string name="tool_execute_shell_command_description">Executarea unei comenzi shell în sandbox-ul Linux</string>
     <string name="settings_dynamic_ui">Interfață dinamică</string>

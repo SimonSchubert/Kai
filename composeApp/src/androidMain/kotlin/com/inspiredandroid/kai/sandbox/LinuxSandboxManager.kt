@@ -25,7 +25,34 @@ class LinuxSandboxManager(private val context: Context) {
         get() = File(context.filesDir, "linux-sandbox")
 
     val rootfsPath: String get() = File(sandboxDir, "rootfs").absolutePath
-    val homePath: String get() = File(sandboxDir, "home").absolutePath
+
+    // Sandbox /root is bind-mounted from externally-visible app storage so files
+    // produced by the agent can be opened via FileProvider Intents. Computed
+    // lazily on first access; mkdirs and the one-time legacy-home migration run
+    // once per process, then the cached path is reused for every shell call.
+    val homePath: String by lazy {
+        val external = context.getExternalFilesDir(null)
+        val target = if (external != null) {
+            File(external, "sandbox-home")
+        } else {
+            File(sandboxDir, "home")
+        }
+        target.mkdirs()
+        val legacy = File(sandboxDir, "home")
+        val newHomeIsEmpty = target.listFiles().isNullOrEmpty()
+        if (legacy.isDirectory && legacy.absolutePath != target.absolutePath && newHomeIsEmpty) {
+            try {
+                legacy.listFiles()?.forEach { entry ->
+                    val dest = File(target, entry.name)
+                    if (!dest.exists()) entry.copyRecursively(dest, overwrite = false)
+                }
+            } catch (e: Exception) {
+                android.util.Log.w("LinuxSandbox", "Legacy home migration failed: ${e.message}")
+            }
+        }
+        target.absolutePath
+    }
+
     val tmpPath: String get() = File(sandboxDir, "tmp").absolutePath
 
     // Run proot directly from nativeLibraryDir where Android grants execute permission
@@ -96,9 +123,9 @@ class LinuxSandboxManager(private val context: Context) {
             )
         }
 
-        // Create directories
+        // Create directories. `homePath` getter creates the externally-visible
+        // sandbox-home dir on access, so we only need to ensure sandboxDir + tmp.
         sandboxDir.mkdirs()
-        File(sandboxDir, "home").mkdirs()
         File(sandboxDir, "tmp").mkdirs()
 
         // Copy libtalloc with correct soname (Android strips .so.2 suffix in jniLibs)

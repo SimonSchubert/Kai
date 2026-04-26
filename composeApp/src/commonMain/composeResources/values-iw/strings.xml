@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">צור אירוע ביומן במכשיר של המשתמש</string>
     <string name="tool_set_alarm_name">הגדר התראה</string>
     <string name="tool_set_alarm_description">הגדר שעון מעורר או טיימר ספירה לאחור במכשיר</string>
+    <string name="tool_open_file_name">פתיחת קובץ</string>
+    <string name="tool_open_file_description">פתיחת קובצי ארגז חול ביישום ברירת המחדל של Android</string>
     <string name="tool_execute_shell_command_name">הפעל פקודת מעטפת</string>
     <string name="tool_execute_shell_command_description">הפעלת פקודת מעטפת בארגז חול Linux</string>
     <string name="settings_dynamic_ui">ממשק משתמש דינמי</string>

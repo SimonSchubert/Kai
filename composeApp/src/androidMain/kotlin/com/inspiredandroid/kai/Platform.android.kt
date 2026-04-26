@@ -34,6 +34,7 @@ import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.OpenFileTool
 import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
@@ -54,6 +55,8 @@ import io.ktor.client.engine.android.Android
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_create_calendar_event_description
 import kai.composeapp.generated.resources.tool_create_calendar_event_name
+import kai.composeapp.generated.resources.tool_open_file_description
+import kai.composeapp.generated.resources.tool_open_file_name
 import kai.composeapp.generated.resources.tool_send_notification_description
 import kai.composeapp.generated.resources.tool_send_notification_name
 import kai.composeapp.generated.resources.tool_set_alarm_description
@@ -185,6 +188,15 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = buildList {
             description = "Set an alarm or countdown timer on the device",
             nameRes = Res.string.tool_set_alarm_name,
             descriptionRes = Res.string.tool_set_alarm_description,
+        ),
+    )
+    add(
+        ToolInfo(
+            id = "open_file",
+            name = "Open File",
+            description = "Open sandbox files in your default Android app",
+            nameRes = Res.string.tool_open_file_name,
+            descriptionRes = Res.string.tool_open_file_description,
         ),
     )
     // SMS tools are intentionally absent here: availability is driven by the Agent-tab
@@ -388,6 +400,10 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isToolEnabled(CommonTools.openUrlTool.schema.name)) {
             add(CommonTools.openUrlTool)
+        }
+
+        if (appSettings.isToolEnabled(OpenFileTool.schema.name)) {
+            add(OpenFileTool)
         }
 
         if (appSettings.isSandboxEnabled()) {

@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">에이전트</string>
     <string name="tool_set_alarm_name">알람 설정</string>
     <string name="tool_set_alarm_description">기기에 알람 또는 카운트다운 타이머 설정</string>
+    <string name="tool_open_file_name">파일 열기</string>
+    <string name="tool_open_file_description">샌드박스 파일을 기본 Android 앱에서 엽니다</string>
     <string name="tool_execute_shell_command_name">셸 명령 실행</string>
     <string name="tool_execute_shell_command_description">Linux 샌드박스에서 셸 명령어를 실행</string>
     <string name="settings_dynamic_ui">다이내믹 UI</string>

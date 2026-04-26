@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Ustvari koledarski dogodek na uporabnikovi napravi</string>
     <string name="tool_set_alarm_name">Nastavi alarm</string>
     <string name="tool_set_alarm_description">Nastavi alarm ali odštevalnik na napravi</string>
+    <string name="tool_open_file_name">Odpri datoteko</string>
+    <string name="tool_open_file_description">Odprite datoteke peskovnika v privzeti aplikaciji Android</string>
     <string name="tool_execute_shell_command_name">Zaženi ukaz</string>
     <string name="tool_execute_shell_command_description">Zagnati ukaz lupine v peskovniku Linux</string>
     <string name="settings_dynamic_ui">Dinamični vmesnik</string>

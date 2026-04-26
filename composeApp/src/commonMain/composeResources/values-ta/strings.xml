@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">முகவர்</string>
     <string name="tool_set_alarm_name">அலாரம் அமை</string>
     <string name="tool_set_alarm_description">சாதனத்தில் அலாரம் அல்லது கவுண்ட்டவுன் டைமர் அமை</string>
+    <string name="tool_open_file_name">கோப்பைத் திற</string>
+    <string name="tool_open_file_description">உங்கள் இயல்புநிலை Android பயன்பாட்டில் சாண்ட்பாக்ஸ் கோப்புகளைத் திறக்கவும்</string>
     <string name="tool_execute_shell_command_name">ஷெல் கட்டளையை இயக்கு</string>
     <string name="tool_execute_shell_command_description">Linux சாண்ட்பாக்ஸில் ஷெல் கட்டளையை இயக்கு</string>
     <string name="settings_dynamic_ui">டைனமிக் UI</string>

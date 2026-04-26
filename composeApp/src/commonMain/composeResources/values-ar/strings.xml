@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">العميل</string>
     <string name="tool_set_alarm_name">ضبط المنبه</string>
     <string name="tool_set_alarm_description">ضبط منبه أو مؤقت تنازلي على الجهاز</string>
+    <string name="tool_open_file_name">فتح الملف</string>
+    <string name="tool_open_file_description">افتح ملفات الحاوية في تطبيق Android الافتراضي</string>
     <string name="tool_execute_shell_command_name">تنفيذ أمر طرفية</string>
     <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية في صندوق رمل Linux</string>
     <string name="settings_dynamic_ui">واجهة مستخدم ديناميكية</string>

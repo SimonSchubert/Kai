@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Izveidot kalendāra notikumu lietotāja ierīcē</string>
     <string name="tool_set_alarm_name">Iestatīt modinātāju</string>
     <string name="tool_set_alarm_description">Iestatīt modinātāju vai atpakaļskaitīšanas taimeri ierīcē</string>
+    <string name="tool_open_file_name">Atvērt failu</string>
+    <string name="tool_open_file_description">Atvērt smilšu kastes failus noklusējuma Android lietotnē</string>
     <string name="tool_execute_shell_command_name">Izpildīt komandu</string>
     <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu Linux smilškastē</string>
     <string name="settings_dynamic_ui">Dinamiskā lietotāja saskarne</string>

@@ -73,6 +73,8 @@
     <string name="tool_create_calendar_event_description">Create a calendar event on the user's device</string>
     <string name="tool_set_alarm_name">Set Alarm</string>
     <string name="tool_set_alarm_description">Set an alarm or countdown timer on the device</string>
+    <string name="tool_open_file_name">Open File</string>
+    <string name="tool_open_file_description">Open sandbox files in your default Android app</string>
     <string name="tool_execute_shell_command_name">Execute Shell Command</string>
     <string name="tool_execute_shell_command_description">Execute a shell command in the Linux sandbox</string>
     <string name="tool_open_url_name">Open URL</string>

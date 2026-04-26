@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">એજન્ટ</string>
     <string name="tool_set_alarm_name">એલાર્મ સેટ કરો</string>
     <string name="tool_set_alarm_description">ઉપકરણ પર એલાર્મ અથવા કાઉન્ટડાઉન ટાઈમર સેટ કરો</string>
+    <string name="tool_open_file_name">ફાઇલ ખોલો</string>
+    <string name="tool_open_file_description">તમારી ડિફોલ્ટ Android ઍપમાં સેન્ડબોક્સ ફાઇલો ખોલો</string>
     <string name="tool_execute_shell_command_name">શેલ કમાન્ડ ચલાવો</string>
     <string name="tool_execute_shell_command_description">Linux સેન્ડબોક્સમાં શેલ કમાન્ડ ચલાવો</string>
     <string name="settings_dynamic_ui">ડાયનેમિક UI</string>

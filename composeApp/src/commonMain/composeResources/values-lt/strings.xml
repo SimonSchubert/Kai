@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Sukurti kalendoriaus įvykį vartotojo įrenginyje</string>
     <string name="tool_set_alarm_name">Nustatyti žadintuvą</string>
     <string name="tool_set_alarm_description">Nustatyti žadintuvą arba atgalinį laikmatį įrenginyje</string>
+    <string name="tool_open_file_name">Atidaryti failą</string>
+    <string name="tool_open_file_description">Atidaryti smėlio dėžės failus numatytojoje Android programoje</string>
     <string name="tool_execute_shell_command_name">Vykdyti komandą</string>
     <string name="tool_execute_shell_command_description">Vykdyti apvalkalo komandą „Linux" smėlio dėžėje</string>
     <string name="settings_dynamic_ui">Dinaminė sąsaja</string>

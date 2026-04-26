@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">በተጠቃሚው መሳሪያ ላይ የቀን መቁጠሪያ ክስተት ይፍጠሩ</string>
     <string name="tool_set_alarm_name">ማንቂያ አዘጋጅ</string>
     <string name="tool_set_alarm_description">በመሳሪያው ላይ ማንቂያ ወይም የቆጠራ ሰዓት ቆጣሪ ያዘጋጁ</string>
+    <string name="tool_open_file_name">ፋይል ክፈት</string>
+    <string name="tool_open_file_description">በነባሪ Android መተግበሪያዎ ውስጥ የሳንድቦክስ ፋይሎችን ክፈት</string>
     <string name="tool_execute_shell_command_name">የሼል ትዕዛዝ አስፈጽም</string>
     <string name="tool_execute_shell_command_description">በLinux ሳንድቦክስ ውስጥ የshell ትዕዛዝ ያስኪዱ</string>
     <string name="settings_dynamic_ui">ተለዋዋጭ UI</string>

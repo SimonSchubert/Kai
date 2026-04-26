@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Skapa en kalenderhändelse på användarens enhet</string>
     <string name="tool_set_alarm_name">Ställ alarm</string>
     <string name="tool_set_alarm_description">Ställ ett alarm eller en nedräkningstimer på enheten</string>
+    <string name="tool_open_file_name">Öppna fil</string>
+    <string name="tool_open_file_description">Öppna sandbox-filer i din standard Android-app</string>
     <string name="tool_execute_shell_command_name">Kör kommando</string>
     <string name="tool_execute_shell_command_description">Kör ett skalkommando i Linux-sandlådan</string>
     <string name="settings_dynamic_ui">Dynamiskt gränssnitt</string>

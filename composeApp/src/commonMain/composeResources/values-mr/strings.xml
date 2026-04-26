@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">एजंट</string>
     <string name="tool_set_alarm_name">अलार्म सेट करा</string>
     <string name="tool_set_alarm_description">डिव्हाइसवर अलार्म किंवा काउंटडाउन टायमर सेट करा</string>
+    <string name="tool_open_file_name">फाइल उघडा</string>
+    <string name="tool_open_file_description">तुमच्या डीफॉल्ट Android अ‍ॅपमध्ये सँडबॉक्स फायली उघडा</string>
     <string name="tool_execute_shell_command_name">शेल कमांड चालवा</string>
     <string name="tool_execute_shell_command_description">Linux सँडबॉक्समध्ये शेल कमांड चालवा</string>
     <string name="settings_dynamic_ui">डायनॅमिक UI</string>

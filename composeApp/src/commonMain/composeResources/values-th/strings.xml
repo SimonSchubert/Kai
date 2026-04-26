@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">เอเจนต์</string>
     <string name="tool_set_alarm_name">ตั้งปลุก</string>
     <string name="tool_set_alarm_description">ตั้งปลุกหรือตั้งเวลานับถอยหลังบนอุปกรณ์</string>
+    <string name="tool_open_file_name">เปิดไฟล์</string>
+    <string name="tool_open_file_description">เปิดไฟล์แซนด์บ็อกซ์ในแอป Android เริ่มต้นของคุณ</string>
     <string name="tool_execute_shell_command_name">รันคำสั่งเชลล์</string>
     <string name="tool_execute_shell_command_description">เรียกใช้คำสั่ง shell ในแซนด์บ็อกซ์ Linux</string>
     <string name="settings_dynamic_ui">UI แบบไดนามิก</string>

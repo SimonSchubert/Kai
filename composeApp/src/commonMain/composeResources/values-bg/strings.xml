@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Създайте събитие в календара на устройството на потребителя</string>
     <string name="tool_set_alarm_name">Задай аларма</string>
     <string name="tool_set_alarm_description">Задайте аларма или таймер за обратно броене на устройството</string>
+    <string name="tool_open_file_name">Отвори файл</string>
+    <string name="tool_open_file_description">Отвори файловете на пясъчника в стандартното Android приложение</string>
     <string name="tool_execute_shell_command_name">Изпълни команда</string>
     <string name="tool_execute_shell_command_description">Изпълнение на shell команда в Linux пясъчника</string>
     <string name="settings_dynamic_ui">Динамичен UI</string>

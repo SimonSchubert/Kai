@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Δημιουργία συμβάντος ημερολογίου στη συσκευή του χρήστη</string>
     <string name="tool_set_alarm_name">Ρύθμιση Ξυπνητηριού</string>
     <string name="tool_set_alarm_description">Ρύθμιση ξυπνητηριού ή χρονομέτρου αντίστροφης μέτρησης στη συσκευή</string>
+    <string name="tool_open_file_name">Άνοιγμα αρχείου</string>
+    <string name="tool_open_file_description">Άνοιγμα αρχείων sandbox στην προεπιλεγμένη εφαρμογή Android</string>
     <string name="tool_execute_shell_command_name">Εκτέλεση εντολής</string>
     <string name="tool_execute_shell_command_description">Εκτέλεση εντολής κελύφους στο περιβάλλον Linux</string>
     <string name="settings_dynamic_ui">Δυναμικό UI</string>

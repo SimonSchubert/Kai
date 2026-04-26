@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">ਏਜੰਟ</string>
     <string name="tool_set_alarm_name">ਅਲਾਰਮ ਸੈੱਟ ਕਰੋ</string>
     <string name="tool_set_alarm_description">ਡਿਵਾਈਸ 'ਤੇ ਅਲਾਰਮ ਜਾਂ ਕਾਊਂਟਡਾਊਨ ਟਾਈਮਰ ਸੈੱਟ ਕਰੋ</string>
+    <string name="tool_open_file_name">ਫਾਈਲ ਖੋਲ੍ਹੋ</string>
+    <string name="tool_open_file_description">ਆਪਣੀ ਡਿਫੌਲਟ Android ਐਪ ਵਿੱਚ ਸੈਂਡਬਾਕਸ ਫਾਈਲਾਂ ਖੋਲ੍ਹੋ</string>
     <string name="tool_execute_shell_command_name">ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="tool_execute_shell_command_description">Linux ਸੈਂਡਬਾਕਸ ਵਿੱਚ ਸ਼ੈੱਲ ਕਮਾਂਡ ਚਲਾਓ</string>
     <string name="settings_dynamic_ui">ਡਾਇਨਾਮਿਕ UI</string>

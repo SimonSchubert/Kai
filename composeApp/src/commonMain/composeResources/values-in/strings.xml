@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Agen</string>
     <string name="tool_set_alarm_name">Setel Alarm</string>
     <string name="tool_set_alarm_description">Setel alarm atau timer hitung mundur di perangkat</string>
+    <string name="tool_open_file_name">Buka File</string>
+    <string name="tool_open_file_description">Buka file sandbox di aplikasi Android default Anda</string>
     <string name="tool_execute_shell_command_name">Jalankan perintah</string>
     <string name="tool_execute_shell_command_description">Jalankan perintah shell di sandbox Linux</string>
     <string name="settings_dynamic_ui">UI Dinamis</string>

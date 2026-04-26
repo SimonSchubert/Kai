@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">এজেন্ট</string>
     <string name="tool_set_alarm_name">অ্যালার্ম সেট করুন</string>
     <string name="tool_set_alarm_description">ডিভাইসে অ্যালার্ম বা কাউন্টডাউন টাইমার সেট করুন</string>
+    <string name="tool_open_file_name">ফাইল খুলুন</string>
+    <string name="tool_open_file_description">আপনার ডিফল্ট অ্যান্ড্রয়েড অ্যাপে স্যান্ডবক্স ফাইল খুলুন</string>
     <string name="tool_execute_shell_command_name">শেল কমান্ড চালান</string>
     <string name="tool_execute_shell_command_description">Linux স্যান্ডবক্সে শেল কমান্ড চালান</string>
     <string name="settings_dynamic_ui">ডায়নামিক UI</string>

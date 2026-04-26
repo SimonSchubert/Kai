@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Dala umcimbi wekhalenda edivaysini yomsebenzisi</string>
     <string name="tool_set_alarm_name">Setha i-alamu</string>
     <string name="tool_set_alarm_description">Setha i-alamu noma isibali sesikhathi edivaysini</string>
+    <string name="tool_open_file_name">Vula Ifayela</string>
+    <string name="tool_open_file_description">Vula amafayela e-sandbox kuhlelo lwakho lwe-Android oluzenzakalelayo</string>
     <string name="tool_execute_shell_command_name">Sebenzisa umyalo</string>
     <string name="tool_execute_shell_command_description">Sebenzisa umyalo we-shell ku-Linux sandbox</string>
     <string name="settings_dynamic_ui">I-UI Eguquguqukayo</string>

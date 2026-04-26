@@ -22,7 +22,9 @@ Output is limited to 15000 characters per stream; for large output, pipe through
 Default timeout: 30s, max: 60s.
 Set background=true to run long-lived processes. Use the manage_process tool to check on them.
 Install packages with: apk add <package>
-Common packages: python3, py3-pip, nodejs, git, curl, wget, jq, bash, gcc, make"""
+Common packages: python3, py3-pip, nodejs, git, curl, wget, jq, bash, gcc, make
+
+To show a file you produced in /root to the user, call open_file with the path relative to /root (e.g. open_file path="page.html"). File needs to be self-contained."""
 
 object ShellCommandTool : Tool {
     private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)

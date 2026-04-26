@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Loo kalendrisündmus kasutaja seadmes</string>
     <string name="tool_set_alarm_name">Seadista äratus</string>
     <string name="tool_set_alarm_description">Seadista äratus või taimer seadmes</string>
+    <string name="tool_open_file_name">Ava fail</string>
+    <string name="tool_open_file_description">Ava liivakasti failid oma Androidi vaikerakenduses</string>
     <string name="tool_execute_shell_command_name">Käivita käsk</string>
     <string name="tool_execute_shell_command_description">Käivita shellikäsk Linuxi liivakastis</string>
     <string name="settings_dynamic_ui">Dünaamiline UI</string>

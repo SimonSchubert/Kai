@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Ajan</string>
     <string name="tool_set_alarm_name">Alarm Kur</string>
     <string name="tool_set_alarm_description">Cihazda alarm veya geri sayım sayacı kur</string>
+    <string name="tool_open_file_name">Dosyayı Aç</string>
+    <string name="tool_open_file_description">Sandbox dosyalarını varsayılan Android uygulamanızda açın</string>
     <string name="tool_execute_shell_command_name">Kabuk komutu çalıştır</string>
     <string name="tool_execute_shell_command_description">Linux korumalı alanında kabuk komutu çalıştır</string>
     <string name="settings_dynamic_ui">Dinamik Arayüz</string>

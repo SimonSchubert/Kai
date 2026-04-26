@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Agent</string>
     <string name="tool_set_alarm_name">Wekker instellen</string>
     <string name="tool_set_alarm_description">Een wekker of afteltimer instellen op het apparaat</string>
+    <string name="tool_open_file_name">Bestand openen</string>
+    <string name="tool_open_file_description">Sandbox-bestanden openen in je standaard Android-app</string>
     <string name="tool_execute_shell_command_name">Opdracht uitvoeren</string>
     <string name="tool_execute_shell_command_description">Een shell-opdracht uitvoeren in de Linux-sandbox</string>
     <string name="settings_dynamic_ui">Dynamische UI</string>

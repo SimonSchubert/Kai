@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Агент</string>
     <string name="tool_set_alarm_name">Встановити будильник</string>
     <string name="tool_set_alarm_description">Встановити будильник або таймер зворотного відліку на пристрої</string>
+    <string name="tool_open_file_name">Відкрити файл</string>
+    <string name="tool_open_file_description">Відкрити файли пісочниці у стандартному додатку Android</string>
     <string name="tool_execute_shell_command_name">Виконати команду</string>
     <string name="tool_execute_shell_command_description">Виконати команду оболонки в пісочниці Linux</string>
     <string name="settings_dynamic_ui">Динамічний інтерфейс</string>

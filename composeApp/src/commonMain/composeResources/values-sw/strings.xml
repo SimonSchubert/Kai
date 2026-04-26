@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Wakala</string>
     <string name="tool_set_alarm_name">Weka Kengele</string>
     <string name="tool_set_alarm_description">Weka kengele au kipima muda cha kuhesabu kwenye kifaa</string>
+    <string name="tool_open_file_name">Fungua Faili</string>
+    <string name="tool_open_file_description">Fungua faili za sandbox kwenye programu yako chaguo-msingi ya Android</string>
     <string name="tool_execute_shell_command_name">Tekeleza amri</string>
     <string name="tool_execute_shell_command_description">Tekeleza amri ya shell kwenye sanduku la mchanga la Linux</string>
     <string name="settings_dynamic_ui">UI Inayobadilika</string>

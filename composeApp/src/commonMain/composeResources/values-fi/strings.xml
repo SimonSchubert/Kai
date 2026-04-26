@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Luo kalenteritapahtuma k\u00e4ytt\u00e4j\u00e4n laitteelle</string>
     <string name="tool_set_alarm_name">Aseta h\u00e4lytys</string>
     <string name="tool_set_alarm_description">Aseta h\u00e4lytys tai ajastin laitteelle</string>
+    <string name="tool_open_file_name">Avaa tiedosto</string>
+    <string name="tool_open_file_description">Avaa hiekkalaatikon tiedostot Androidin oletussovelluksessa</string>
     <string name="tool_execute_shell_command_name">Suorita komento</string>
     <string name="tool_execute_shell_command_description">Suorita komentorivikomento Linux-hiekkalaatikossa</string>
     <string name="settings_dynamic_ui">Dynaaminen käyttöliittymä</string>

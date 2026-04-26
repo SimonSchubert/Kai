@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">ఏజెంట్</string>
     <string name="tool_set_alarm_name">అలారం సెట్ చేయి</string>
     <string name="tool_set_alarm_description">పరికరంలో అలారం లేదా కౌంట్‌డౌన్ టైమర్ సెట్ చేయి</string>
+    <string name="tool_open_file_name">ఫైల్‌ను తెరవండి</string>
+    <string name="tool_open_file_description">మీ డిఫాల్ట్ Android యాప్‌లో శాండ్‌బాక్స్ ఫైల్‌లను తెరవండి</string>
     <string name="tool_execute_shell_command_name">షెల్ కమాండ్ అమలు చేయండి</string>
     <string name="tool_execute_shell_command_description">Linux శాండ్‌బాక్స్‌లో షెల్ ఆదేశాన్ని అమలు చేయండి</string>
     <string name="settings_dynamic_ui">డైనమిక్ UI</string>

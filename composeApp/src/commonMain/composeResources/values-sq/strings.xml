@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Krijo një ngjarje kalendari në pajisjen e përdoruesit</string>
     <string name="tool_set_alarm_name">Vendos alarm</string>
     <string name="tool_set_alarm_description">Vendos një alarm ose kohëmatës në pajisje</string>
+    <string name="tool_open_file_name">Hap skedarin</string>
+    <string name="tool_open_file_description">Hapni skedarët e sandbox në aplikacionin tuaj Android të paracaktuar</string>
     <string name="tool_execute_shell_command_name">Ekzekuto komandën</string>
     <string name="tool_execute_shell_command_description">Ekzekuto një komandë shell në sandbox-in Linux</string>
     <string name="settings_dynamic_ui">UI dinamike</string>

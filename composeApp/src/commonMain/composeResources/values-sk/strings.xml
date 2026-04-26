@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Vytvoriť udalosť v kalendári na zariadení používateľa</string>
     <string name="tool_set_alarm_name">Nastaviť budík</string>
     <string name="tool_set_alarm_description">Nastaviť budík alebo odpočítavací časovač na zariadení</string>
+    <string name="tool_open_file_name">Otvoriť súbor</string>
+    <string name="tool_open_file_description">Otvoriť súbory sandboxu v predvolenej aplikácii Android</string>
     <string name="tool_execute_shell_command_name">Spustiť príkaz</string>
     <string name="tool_execute_shell_command_description">Spustiť príkaz shellu v linuxovom sandboxe</string>
     <string name="settings_dynamic_ui">Dynamické rozhranie</string>

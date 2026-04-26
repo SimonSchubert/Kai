@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Crear in eveniment da chalender sin l'apparat da l'utilisader</string>
     <string name="tool_set_alarm_name">Metter ina sveglia</string>
     <string name="tool_set_alarm_description">Metter ina sveglia u in countdown timer sin l'apparat</string>
+    <string name="tool_open_file_name">Avrir datoteca</string>
+    <string name="tool_open_file_description">Avrir datotecas dal sandbox en tia applicaziun Android predefinida</string>
     <string name="tool_execute_shell_command_name">Exequir cumand</string>
     <string name="tool_execute_shell_command_description">Exequir in cumond da shell en il sandbox da Linux</string>
     <string name="settings_dynamic_ui">UI dinamica</string>

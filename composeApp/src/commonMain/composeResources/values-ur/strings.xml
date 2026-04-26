@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">ایجنٹ</string>
     <string name="tool_set_alarm_name">الارم سیٹ کریں</string>
     <string name="tool_set_alarm_description">ڈیوائس پر الارم یا الٹی گنتی ٹائمر سیٹ کریں</string>
+    <string name="tool_open_file_name">فائل کھولیں</string>
+    <string name="tool_open_file_description">اپنی ڈیفالٹ Android ایپ میں سینڈ باکس فائلیں کھولیں</string>
     <string name="tool_execute_shell_command_name">شیل کمانڈ چلائیں</string>
     <string name="tool_execute_shell_command_description">Linux سینڈباکس میں شیل کمانڈ چلائیں</string>
     <string name="settings_dynamic_ui">متحرک UI</string>

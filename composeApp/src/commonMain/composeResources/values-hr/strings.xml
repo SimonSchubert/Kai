@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Stvorite događaj u kalendaru na korisnikovom uređaju</string>
     <string name="tool_set_alarm_name">Postavi alarm</string>
     <string name="tool_set_alarm_description">Postavite alarm ili odbrojavanje na uređaju</string>
+    <string name="tool_open_file_name">Otvori datoteku</string>
+    <string name="tool_open_file_description">Otvorite datoteke pješčanika u zadanoj Android aplikaciji</string>
     <string name="tool_execute_shell_command_name">Izvrši naredbu</string>
     <string name="tool_execute_shell_command_description">Izvršiti naredbu ljuske u Linux sandučiću</string>
     <string name="settings_dynamic_ui">Dinamičko korisničko sučelje</string>

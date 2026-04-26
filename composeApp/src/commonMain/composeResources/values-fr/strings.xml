@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Agent</string>
     <string name="tool_set_alarm_name">Régler une alarme</string>
     <string name="tool_set_alarm_description">Régler une alarme ou un minuteur sur l&#39;appareil</string>
+    <string name="tool_open_file_name">Ouvrir le fichier</string>
+    <string name="tool_open_file_description">Ouvrir les fichiers du bac à sable dans votre application Android par défaut</string>
     <string name="tool_execute_shell_command_name">Exécuter une commande</string>
     <string name="tool_execute_shell_command_description">Exécuter une commande shell dans le bac à sable Linux</string>
     <string name="settings_dynamic_ui">UI dynamique</string>

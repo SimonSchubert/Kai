@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">Agent</string>
     <string name="tool_set_alarm_name">Wecker stellen</string>
     <string name="tool_set_alarm_description">Einen Wecker oder Countdown-Timer auf dem Gerät einstellen</string>
+    <string name="tool_open_file_name">Datei öffnen</string>
+    <string name="tool_open_file_description">Sandbox-Dateien in deiner Standard-Android-App öffnen</string>
     <string name="tool_execute_shell_command_name">Shell-Befehl ausführen</string>
     <string name="tool_execute_shell_command_description">Einen Shell-Befehl in der Linux-Sandbox ausführen</string>
     <string name="settings_dynamic_ui">Dynamische UI</string>

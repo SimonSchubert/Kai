@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">نماینده</string>
     <string name="tool_set_alarm_name">تنظیم زنگ هشدار</string>
     <string name="tool_set_alarm_description">تنظیم زنگ هشدار یا تایمر شمارش معکوس روی دستگاه</string>
+    <string name="tool_open_file_name">باز کردن فایل</string>
+    <string name="tool_open_file_description">فایل‌های سندباکس را در برنامه پیش‌فرض اندروید باز کنید</string>
     <string name="tool_execute_shell_command_name">اجرای فرمان شل</string>
     <string name="tool_execute_shell_command_description">اجرای دستور شل در جعبه شنی لینوکس</string>
     <string name="settings_dynamic_ui">رابط کاربری پویا</string>

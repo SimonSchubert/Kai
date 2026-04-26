@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-04-25
+**Last verified:** 2026-04-27
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -70,6 +70,7 @@ Email tools are available when the email feature is enabled and accounts are con
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
 | `execute_shell_command` | Execute a shell command on the device | Disabled |
+| `open_file` | Open a file from the sandbox in an Android app (browser, image viewer, etc.) | Enabled |
 
 #### Linux Sandbox (Android)
 
@@ -84,9 +85,15 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Mirror fallback:** The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick `/etc/apk/repositories` during setup — `apk update` is retried against each mirror until one succeeds, so later `apk add` calls resolve through a reachable mirror.
 
-**Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The sandbox files live in the app's external files directory under `linux-sandbox/`.
+**Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under `linux-sandbox/`. The sandbox `/root` (home) is bind-mounted from the externally-visible app directory at `Android/data/com.inspiredandroid.kai/files/sandbox-home/` so files produced by the agent can be opened in Android apps via FileProvider Intents (`open_file`). On first run after upgrade, content from the legacy internal home is migrated automatically.
 
 **Settings:** The sandbox section appears in Settings > Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.
+
+#### Open File (Android)
+
+The `open_file` tool fires an `ACTION_VIEW` Intent for a single file at `path` (relative to `/root`). Browser opens HTML, image viewer opens PNG/JPG, PDF viewer opens PDF, etc. Uses the existing FileProvider declared in the main manifest. Path is rejected if it contains a leading slash or `..` segments; the resolved path is canonicalized and verified to stay under the sandbox home root before the Intent is fired.
+
+`open_file` operates on a single file. FileProvider grants access only to the specific URI in the Intent, so it does not work for multi-file content (e.g. an HTML page that loads sibling `styles.css` / `script.js`). For HTML, write self-contained files with inline CSS and JavaScript; the shell and `open_file` tool descriptions tell the agent to do this.
 
 #### Shell command parameters
 
@@ -248,6 +255,8 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/desktopMain/.../tools/ProcessManagerTool.kt` | Desktop process management tool |
 | `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking |
 | `composeApp/src/androidMain/.../tools/ProcessManagerTool.kt` | Android process management tool |
+| `composeApp/src/androidMain/.../tools/OpenFileTool.kt` | Open sandbox file in an Android app via FileProvider Intent |
+| `androidApp/src/main/res/xml/file_paths.xml` | FileProvider path config (includes `sandbox-home/`) |
 | `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |

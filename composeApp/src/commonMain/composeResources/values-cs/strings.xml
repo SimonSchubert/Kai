@@ -55,6 +55,8 @@
     <string name="tool_create_calendar_event_description">Vytvo\u0159it ud\u00e1lost v kalend\u00e1\u0159i na za\u0159\u00edzen\u00ed u\u017eivatele</string>
     <string name="tool_set_alarm_name">Nastavit bud\u00edk</string>
     <string name="tool_set_alarm_description">Nastavit bud\u00edk nebo odpo\u010d\u00edtavac\u00ed \u010dasova\u010d na za\u0159\u00edzen\u00ed</string>
+    <string name="tool_open_file_name">Otevřít soubor</string>
+    <string name="tool_open_file_description">Otevřít soubory sandboxu ve výchozí aplikaci Android</string>
     <string name="tool_execute_shell_command_name">Spustit příkaz</string>
     <string name="tool_execute_shell_command_description">Spustit příkaz shellu v linuxovém sandboxu</string>
     <string name="settings_dynamic_ui">Dynamické UI</string>

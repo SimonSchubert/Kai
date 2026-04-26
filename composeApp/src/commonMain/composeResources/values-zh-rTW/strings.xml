@@ -55,6 +55,8 @@
     <string name="settings_tab_agent">代理程式</string>
     <string name="tool_set_alarm_name">設定鬧鐘</string>
     <string name="tool_set_alarm_description">在裝置上設定鬧鐘或倒數計時器</string>
+    <string name="tool_open_file_name">開啟檔案</string>
+    <string name="tool_open_file_description">在您的預設 Android 應用程式中開啟沙盒檔案</string>
     <string name="tool_execute_shell_command_name">執行命令</string>
     <string name="tool_execute_shell_command_description">在 Linux 沙盒中執行 Shell 指令</string>
     <string name="settings_dynamic_ui">動態介面</string>
