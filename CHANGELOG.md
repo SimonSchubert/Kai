@@ -1,3 +1,18 @@
+## v2.3.4 — 2026-04-26
+
+### Fixes
+- Fix calendar event time zone issue
+- Fix conversation restore ANR
+- Fix iOS quick toggle hidden behind soft keyboard
+- Fix escape character handling
+
+### Improvements
+- Add scheduled task details
+- Simplify memory, schedule, and heartbeat tool toggles
+- Improve email polling and simplify email/SMS tool UI
+- Add missing model info
+- Migrate deprecated APIs
+
 ## v2.3.3 — 2026-04-24
 
 ### Features

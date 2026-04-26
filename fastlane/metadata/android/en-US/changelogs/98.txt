@@ -1,0 +1,9 @@
+Add scheduled task details
+Simplify memory, schedule, and heartbeat tool toggles
+Improve email polling
+Simplify email and SMS tool UI
+Fix calendar event time zone
+Fix conversation restore ANR
+Fix iOS quick toggle below keyboard
+Add missing model info
+Migrate deprecated APIs
