@@ -172,6 +172,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_import_success">Inställningar importerades.</string>
     <string name="settings_import_error">Importen misslyckades. Filformatet är ogiltigt.</string>
     <string name="settings_import_preview_title">Importera inställningar</string>
+    <string name="settings_export_preview_title">Exportera inställningar</string>
     <string name="settings_import_replace_all">Ersätt alla befintliga inställningar</string>
     <string name="settings_import_replace_all_description">Omarkerade sektioner återställs till standardvärden.</string>
     <string name="settings_import_section_services">Tjänster</string>

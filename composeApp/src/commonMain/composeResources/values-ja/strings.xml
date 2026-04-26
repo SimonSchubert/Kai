@@ -172,6 +172,7 @@
     <string name="settings_import_success">設定のインポートに成功しました。</string>
     <string name="settings_import_error">インポートに失敗しました。ファイル形式が無効です。</string>
     <string name="settings_import_preview_title">設定をインポート</string>
+    <string name="settings_export_preview_title">設定をエクスポート</string>
     <string name="settings_import_replace_all">既存の設定をすべて置換</string>
     <string name="settings_import_replace_all_description">未選択のセクションはデフォルトにリセットされます。</string>
     <string name="settings_import_section_services">サービス</string>

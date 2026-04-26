@@ -171,6 +171,7 @@
     <string name="settings_import_success">Đã nhập cài đặt thành công.</string>
     <string name="settings_import_error">Nhập thất bại. Định dạng tệp không hợp lệ.</string>
     <string name="settings_import_preview_title">Nhập cài đặt</string>
+    <string name="settings_export_preview_title">Xuất cài đặt</string>
     <string name="settings_import_replace_all">Thay thế tất cả cài đặt hiện có</string>
     <string name="settings_import_replace_all_description">Các mục không được chọn sẽ được đặt lại về mặc định.</string>
     <string name="settings_import_section_services">Dịch vụ</string>

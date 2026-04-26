@@ -178,6 +178,7 @@ import kai.composeapp.generated.resources.settings_dynamic_ui_description
 import kai.composeapp.generated.resources.settings_export
 import kai.composeapp.generated.resources.settings_export_import_description
 import kai.composeapp.generated.resources.settings_export_import_title
+import kai.composeapp.generated.resources.settings_export_preview_title
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
@@ -1607,6 +1608,7 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                     SettingsCard {
                         ExportImportSection(
                             onExportSettings = actions.onExportSettings,
+                            onPrepareExport = actions.onPrepareExport,
                             onImportSettings = actions.onImportSettings,
                         )
                     }
@@ -1645,6 +1647,7 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                 SettingsCard {
                     ExportImportSection(
                         onExportSettings = actions.onExportSettings,
+                        onPrepareExport = actions.onPrepareExport,
                         onImportSettings = actions.onImportSettings,
                     )
                 }
@@ -1891,13 +1894,15 @@ private fun IntegrationsContent(
 
 @Composable
 private fun ExportImportSection(
-    onExportSettings: () -> String,
+    onExportSettings: (Set<ImportSection>) -> String,
+    onPrepareExport: () -> Map<ImportSection, String?>,
     onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult,
 ) {
     val isPreview = LocalInspectionMode.current
     val scope = rememberCoroutineScope()
     var importResult by remember { mutableStateOf<ImportResult?>(null) }
     var importPreview by remember { mutableStateOf<Pair<String, Map<ImportSection, String?>>?>(null) }
+    var exportPreview by remember { mutableStateOf<Map<ImportSection, String?>?>(null) }
 
     val filePickerLauncher = if (!isPreview) {
         rememberFilePickerLauncher(
@@ -1932,6 +1937,24 @@ private fun ExportImportSection(
         )
     }
 
+    exportPreview?.let { sectionDetails ->
+        ExportPreviewDialog(
+            sectionDetails = sectionDetails,
+            onConfirm = { selectedSections ->
+                val json = onExportSettings(selectedSections)
+                exportPreview = null
+                scope.launch {
+                    saveFileToDevice(
+                        bytes = json.encodeToByteArray(),
+                        baseName = "kai-settings",
+                        extension = "json",
+                    )
+                }
+            },
+            onDismiss = { exportPreview = null },
+        )
+    }
+
     Text(
         text = stringResource(Res.string.settings_export_import_title),
         style = MaterialTheme.typography.titleMedium,
@@ -1948,14 +1971,7 @@ private fun ExportImportSection(
         OutlinedButton(
             onClick = {
                 importResult = null
-                val json = onExportSettings()
-                scope.launch {
-                    saveFileToDevice(
-                        bytes = json.encodeToByteArray(),
-                        baseName = "kai-settings",
-                        extension = "json",
-                    )
-                }
+                exportPreview = onPrepareExport()
             },
             modifier = Modifier.handCursor(),
         ) {
@@ -2083,6 +2099,87 @@ private fun ImportPreviewDialog(
                 modifier = Modifier.handCursor(),
             ) {
                 Text(stringResource(Res.string.settings_import))
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.handCursor(),
+            ) {
+                Text(stringResource(Res.string.settings_mcp_cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun ExportPreviewDialog(
+    sectionDetails: Map<ImportSection, String?>,
+    onConfirm: (Set<ImportSection>) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var selectedSections by remember { mutableStateOf(sectionDetails.keys) }
+    val sortedEntries = remember(sectionDetails) { sectionDetails.entries.sortedBy { it.key } }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(stringResource(Res.string.settings_export_preview_title))
+        },
+        text = {
+            val exportScrollState = rememberScrollState()
+            Box {
+                Column(modifier = Modifier.verticalScroll(exportScrollState)) {
+                    for ((section, count) in sortedEntries) {
+                        Row(
+                            verticalAlignment = CenterVertically,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    selectedSections = if (section in selectedSections) {
+                                        selectedSections - section
+                                    } else {
+                                        selectedSections + section
+                                    }
+                                }
+                                .handCursor()
+                                .padding(vertical = 4.dp),
+                        ) {
+                            Checkbox(
+                                checked = section in selectedSections,
+                                onCheckedChange = { checked ->
+                                    selectedSections = if (checked) selectedSections + section else selectedSections - section
+                                },
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(
+                                text = sectionDisplayName(section),
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            if (count != null) {
+                                Spacer(Modifier.width(4.dp))
+                                Text(
+                                    text = "($count)",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                        }
+                    }
+                }
+                VerticalScrollbarForScroll(
+                    scrollState = exportScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = { onConfirm(selectedSections) },
+                enabled = selectedSections.isNotEmpty(),
+                modifier = Modifier.handCursor(),
+            ) {
+                Text(stringResource(Res.string.settings_export))
             }
         },
         dismissButton = {

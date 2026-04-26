@@ -171,6 +171,7 @@
     <string name="settings_import_success">Iestatījumi veiksmīgi importēti.</string>
     <string name="settings_import_error">Importēšana neizdevās. Faila formāts nav derīgs.</string>
     <string name="settings_import_preview_title">Importēt iestatījumus</string>
+    <string name="settings_export_preview_title">Eksportēt iestatījumus</string>
     <string name="settings_import_replace_all">Aizstāt visus esošos iestatījumus</string>
     <string name="settings_import_replace_all_description">Neatlasītās sadaļas tiks atiestatītas uz noklusējuma vērtībām.</string>
     <string name="settings_import_section_services">Pakalpojumi</string>

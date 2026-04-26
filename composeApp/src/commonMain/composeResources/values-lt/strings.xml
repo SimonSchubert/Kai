@@ -171,6 +171,7 @@
     <string name="settings_import_success">Nustatymai sėkmingai importuoti.</string>
     <string name="settings_import_error">Importas nepavyko. Failo formatas netinkamas.</string>
     <string name="settings_import_preview_title">Importuoti nustatymus</string>
+    <string name="settings_export_preview_title">Eksportuoti nustatymus</string>
     <string name="settings_import_replace_all">Pakeisti visus esamus nustatymus</string>
     <string name="settings_import_replace_all_description">Nepažymėtos skiltys bus atstatytos į numatytąsias reikšmes.</string>
     <string name="settings_import_section_services">Paslaugos</string>

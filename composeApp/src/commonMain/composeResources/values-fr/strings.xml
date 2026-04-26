@@ -172,6 +172,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_import_success">Paramètres importés avec succès.</string>
     <string name="settings_import_error">L'importation a échoué. Le format du fichier est invalide.</string>
     <string name="settings_import_preview_title">Importer les paramètres</string>
+    <string name="settings_export_preview_title">Exporter les paramètres</string>
     <string name="settings_import_replace_all">Remplacer tous les paramètres existants</string>
     <string name="settings_import_replace_all_description">Les sections non sélectionnées seront réinitialisées aux valeurs par défaut.</string>
     <string name="settings_import_section_services">Services</string>

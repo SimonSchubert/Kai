@@ -171,6 +171,7 @@
     <string name="settings_import_success">ترتیبات کامیابی سے درآمد ہو گئیں۔</string>
     <string name="settings_import_error">درآمد ناکام۔ فائل فارمیٹ غلط ہے۔</string>
     <string name="settings_import_preview_title">ترتیبات درآمد کریں</string>
+    <string name="settings_export_preview_title">ترتیبات برآمد کریں</string>
     <string name="settings_import_replace_all">تمام موجودہ ترتیبات کو تبدیل کریں</string>
     <string name="settings_import_replace_all_description">غیر منتخب حصے ڈیفالٹ پر ری سیٹ ہو جائیں گے۔</string>
     <string name="settings_import_section_services">خدمات</string>

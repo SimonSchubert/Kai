@@ -171,6 +171,7 @@
     <string name="settings_import_success">સેટિંગ્સ સફળતાપૂર્વક આયાત કરવામાં આવી.</string>
     <string name="settings_import_error">આયાત નિષ્ફળ. ફાઇલ ફોર્મેટ અમાન્ય છે.</string>
     <string name="settings_import_preview_title">સેટિંગ્સ આયાત કરો</string>
+    <string name="settings_export_preview_title">સેટિંગ્સ નિકાસ કરો</string>
     <string name="settings_import_replace_all">બધી હાલની સેટિંગ્સ બદલો</string>
     <string name="settings_import_replace_all_description">પસંદ ન કરેલા વિભાગો ડિફૉલ્ટ પર રીસેટ થશે.</string>
     <string name="settings_import_section_services">સેવાઓ</string>

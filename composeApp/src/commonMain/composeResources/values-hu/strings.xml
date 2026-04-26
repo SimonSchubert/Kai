@@ -171,6 +171,7 @@
     <string name="settings_import_success">Beállítások sikeresen importálva.</string>
     <string name="settings_import_error">Az importálás sikertelen. A fájlformátum érvénytelen.</string>
     <string name="settings_import_preview_title">Beállítások importálása</string>
+    <string name="settings_export_preview_title">Beállítások exportálása</string>
     <string name="settings_import_replace_all">Összes meglévő beállítás cseréje</string>
     <string name="settings_import_replace_all_description">A nem kijelölt szakaszok visszaállnak az alapértékekre.</string>
     <string name="settings_import_section_services">Szolgáltatások</string>

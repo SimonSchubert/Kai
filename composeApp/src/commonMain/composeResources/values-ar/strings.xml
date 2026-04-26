@@ -172,6 +172,7 @@
     <string name="settings_import_success">تم استيراد الإعدادات بنجاح.</string>
     <string name="settings_import_error">فشل الاستيراد. تنسيق الملف غير صالح.</string>
     <string name="settings_import_preview_title">استيراد الإعدادات</string>
+    <string name="settings_export_preview_title">تصدير الإعدادات</string>
     <string name="settings_import_replace_all">استبدال جميع الإعدادات الحالية</string>
     <string name="settings_import_replace_all_description">سيتم إعادة تعيين الأقسام غير المحددة إلى القيم الافتراضية.</string>
     <string name="settings_import_section_services">الخدمات</string>

@@ -171,6 +171,7 @@
     <string name="settings_import_success">ਸੈਟਿੰਗਾਂ ਸਫਲਤਾਪੂਰਵਕ ਆਯਾਤ ਕੀਤੀਆਂ ਗਈਆਂ।</string>
     <string name="settings_import_error">ਆਯਾਤ ਅਸਫਲ। ਫਾਈਲ ਫਾਰਮੈਟ ਅਵੈਧ ਹੈ।</string>
     <string name="settings_import_preview_title">ਸੈਟਿੰਗਾਂ ਆਯਾਤ ਕਰੋ</string>
+    <string name="settings_export_preview_title">ਸੈਟਿੰਗਾਂ ਨਿਰਯਾਤ ਕਰੋ</string>
     <string name="settings_import_replace_all">ਸਾਰੀਆਂ ਮੌਜੂਦਾ ਸੈਟਿੰਗਾਂ ਬਦਲੋ</string>
     <string name="settings_import_replace_all_description">ਅਣਚੁਣੇ ਭਾਗ ਡਿਫ਼ੌਲਟ ਤੇ ਰੀਸੈੱਟ ਹੋ ਜਾਣਗੇ।</string>
     <string name="settings_import_section_services">ਸੇਵਾਵਾਂ</string>

@@ -171,6 +171,7 @@
     <string name="settings_import_success">Matagumpay na na-import ang mga setting.</string>
     <string name="settings_import_error">Nabigo ang pag-import. Hindi wasto ang format ng file.</string>
     <string name="settings_import_preview_title">I-import ang mga setting</string>
+    <string name="settings_export_preview_title">I-export ang mga setting</string>
     <string name="settings_import_replace_all">Palitan ang lahat ng kasalukuyang setting</string>
     <string name="settings_import_replace_all_description">Ang mga hindi napiling seksyon ay ire-reset sa mga default.</string>
     <string name="settings_import_section_services">Mga Serbisyo</string>

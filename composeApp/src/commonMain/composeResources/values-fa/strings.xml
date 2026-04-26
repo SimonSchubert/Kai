@@ -171,6 +171,7 @@
     <string name="settings_import_success">تنظیمات با موفقیت وارد شد.</string>
     <string name="settings_import_error">واردات ناموفق بود. فرمت فایل نامعتبر است.</string>
     <string name="settings_import_preview_title">وارد کردن تنظیمات</string>
+    <string name="settings_export_preview_title">صادر کردن تنظیمات</string>
     <string name="settings_import_replace_all">جایگزینی همه تنظیمات موجود</string>
     <string name="settings_import_replace_all_description">بخش‌های انتخاب‌نشده به مقادیر پیش‌فرض بازنشانی می‌شوند.</string>
     <string name="settings_import_section_services">سرویس‌ها</string>

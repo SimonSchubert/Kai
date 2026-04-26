@@ -171,6 +171,7 @@
     <string name="settings_import_success">ההגדרות יובאו בהצלחה.</string>
     <string name="settings_import_error">הייבוא נכשל. פורמט הקובץ אינו תקין.</string>
     <string name="settings_import_preview_title">ייבוא הגדרות</string>
+    <string name="settings_export_preview_title">ייצוא הגדרות</string>
     <string name="settings_import_replace_all">החלף את כל ההגדרות הקיימות</string>
     <string name="settings_import_replace_all_description">מקטעים שלא נבחרו יאופסו לברירות מחדל.</string>
     <string name="settings_import_section_services">שירותים</string>

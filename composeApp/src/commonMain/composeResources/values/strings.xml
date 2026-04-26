@@ -246,6 +246,7 @@
     <string name="settings_import_partial">Settings imported with %1$d section(s) that had errors.</string>
     <string name="settings_import_error">Import failed. The file format is invalid.</string>
     <string name="settings_import_preview_title">Import Settings</string>
+    <string name="settings_export_preview_title">Export Settings</string>
     <string name="settings_import_replace_all">Replace all existing settings</string>
     <string name="settings_import_replace_all_description">Unselected sections will be reset to defaults.</string>
     <string name="settings_import_section_services">Services</string>

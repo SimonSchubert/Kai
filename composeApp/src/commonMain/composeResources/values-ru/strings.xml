@@ -172,6 +172,7 @@
     <string name="settings_import_success">Настройки успешно импортированы.</string>
     <string name="settings_import_error">Ошибка импорта. Неверный формат файла.</string>
     <string name="settings_import_preview_title">Импорт настроек</string>
+    <string name="settings_export_preview_title">Экспорт настроек</string>
     <string name="settings_import_replace_all">Заменить все существующие настройки</string>
     <string name="settings_import_replace_all_description">Невыбранные разделы будут сброшены к значениям по умолчанию.</string>
     <string name="settings_import_section_services">Сервисы</string>

@@ -171,6 +171,7 @@
     <string name="settings_import_success">Налады паспяхова імпартаваны.</string>
     <string name="settings_import_error">Памылка імпарту. Няправільны фармат файла.</string>
     <string name="settings_import_preview_title">Імпарт налад</string>
+    <string name="settings_export_preview_title">Экспарт налад</string>
     <string name="settings_import_replace_all">Замяніць усе існуючыя налады</string>
     <string name="settings_import_replace_all_description">Невыбраныя раздзелы будуць скінуты да прадвызначаных значэнняў.</string>
     <string name="settings_import_section_services">Сэрвісы</string>

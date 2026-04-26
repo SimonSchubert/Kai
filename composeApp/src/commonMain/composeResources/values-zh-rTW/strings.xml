@@ -172,6 +172,7 @@
     <string name="settings_import_success">設定匯入成功。</string>
     <string name="settings_import_error">匯入失敗。檔案格式無效。</string>
     <string name="settings_import_preview_title">匯入設定</string>
+    <string name="settings_export_preview_title">匯出設定</string>
     <string name="settings_import_replace_all">取代所有現有設定</string>
     <string name="settings_import_replace_all_description">未選取的區段將重設為預設值。</string>
     <string name="settings_import_section_services">服務</string>

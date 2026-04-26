@@ -52,7 +52,8 @@ data class SettingsActions(
     val onCancelLocalModelDownload: () -> Unit,
     val onDeleteLocalModel: (String) -> Unit,
     val onChangeModelContextTokens: (String, Int) -> Unit,
-    val onExportSettings: () -> String,
+    val onExportSettings: (Set<ImportSection>) -> String,
+    val onPrepareExport: () -> Map<ImportSection, String?>,
     val onImportSettings: (ByteArray, Set<ImportSection>, Boolean) -> ImportResult,
     val onUndoDelete: () -> Unit,
 ) {
@@ -102,7 +103,8 @@ data class SettingsActions(
             onCancelLocalModelDownload = {},
             onDeleteLocalModel = {},
             onChangeModelContextTokens = { _, _ -> },
-            onExportSettings = { "" },
+            onExportSettings = { _ -> "" },
+            onPrepareExport = { emptyMap() },
             onImportSettings = { _, _, _ -> ImportResult.Failure },
             onUndoDelete = {},
         )

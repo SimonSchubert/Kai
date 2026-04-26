@@ -172,6 +172,7 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_import_success">Configurações importadas com sucesso.</string>
     <string name="settings_import_error">Falha na importação. O formato do arquivo é inválido.</string>
     <string name="settings_import_preview_title">Importar configurações</string>
+    <string name="settings_export_preview_title">Exportar configurações</string>
     <string name="settings_import_replace_all">Substituir todas as configurações existentes</string>
     <string name="settings_import_replace_all_description">As seções não selecionadas serão redefinidas para os padrões.</string>
     <string name="settings_import_section_services">Serviços</string>

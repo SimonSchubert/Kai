@@ -30,6 +30,80 @@ enum class ImportSection {
     CONVERSATIONS,
 }
 
+/**
+ * Stricter than [detectImportSections]: only includes sections that contain actual user data,
+ * skipping ones that exist purely because of default feature-toggle flags (e.g. `sms_enabled = false`,
+ * `splinterlands_enabled = false`, `mcp_servers = []`). Used to drive the Export preview dialog.
+ */
+fun detectExportableSections(json: JsonObject): Map<ImportSection, String?> {
+    val sections = mutableMapOf<ImportSection, String?>()
+
+    val configured = json["configured_services"]?.jsonArray
+    if (configured != null && configured.isNotEmpty()) {
+        sections[ImportSection.SERVICES] = "${configured.size}"
+    }
+
+    if (json["soul_text"] != null) {
+        sections[ImportSection.SOUL] = null
+    }
+
+    val memories = json["agent_memories"]?.jsonArray
+    if (memories != null && memories.isNotEmpty()) {
+        sections[ImportSection.MEMORY] = "${memories.size}"
+    }
+
+    val tasks = json["scheduled_tasks"]?.jsonArray
+    if (tasks != null && tasks.isNotEmpty()) {
+        sections[ImportSection.SCHEDULING] = "${tasks.size}"
+    }
+
+    val heartbeatHasPrompt = json["heartbeat_prompt"] != null
+    val heartbeatHasConfig = json["heartbeat_config"] != null
+    val heartbeatHasLog = json["heartbeat_log"]?.jsonArray?.isNotEmpty() == true
+    if (heartbeatHasPrompt || heartbeatHasConfig || heartbeatHasLog) {
+        sections[ImportSection.HEARTBEAT] = null
+    }
+
+    val emails = json["email_accounts"]?.jsonArray
+    if (emails != null && emails.isNotEmpty()) {
+        sections[ImportSection.EMAIL] = "${emails.size}"
+    }
+
+    val smsEnabled = json["sms_enabled"]?.jsonPrimitive?.content?.toBoolean() == true
+    val smsSendEnabled = json["sms_send_enabled"]?.jsonPrimitive?.content?.toBoolean() == true
+    if (smsEnabled || smsSendEnabled) {
+        sections[ImportSection.SMS] = null
+    }
+
+    if (json["splinterlands_account"] != null) {
+        sections[ImportSection.SPLINTERLANDS] = null
+    }
+
+    val toolOverrides = json["tool_overrides"]?.jsonObject
+    if (toolOverrides != null && toolOverrides.isNotEmpty()) {
+        val enabled = toolOverrides.count { (_, v) ->
+            try {
+                v.jsonPrimitive.content.toBoolean()
+            } catch (_: Exception) {
+                false
+            }
+        }
+        sections[ImportSection.TOOLS] = "$enabled"
+    }
+
+    val mcp = json["mcp_servers"]?.jsonArray
+    if (mcp != null && mcp.isNotEmpty()) {
+        sections[ImportSection.MCP] = "${mcp.size}"
+    }
+
+    val conversations = json["conversations"]?.jsonArray
+    if (conversations != null && conversations.isNotEmpty()) {
+        sections[ImportSection.CONVERSATIONS] = "${conversations.size}"
+    }
+
+    return sections
+}
+
 fun detectImportSections(json: JsonObject): Map<ImportSection, String?> {
     val sections = mutableMapOf<ImportSection, String?>()
     if (json["configured_services"] != null || json["current_service_id"] != null || json["free_fallback_enabled"] != null || json["instance_settings"] != null) {
@@ -647,136 +721,147 @@ class AppSettings(private val settings: Settings) {
         settings.putString(KEY_SPLINTERLANDS_BATTLE_LOG, json)
     }
 
-    fun exportToJson(toolIds: List<String>): JsonObject {
+    fun exportToJson(
+        toolIds: List<String>,
+        sections: Set<ImportSection> = ImportSection.entries.toSet(),
+    ): JsonObject {
         val map = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
         map["version"] = JsonPrimitive(1)
 
-        // Services
-        val configuredJson = settings.getString(KEY_CONFIGURED_SERVICES, "")
-        if (configuredJson.isNotBlank()) {
-            map["configured_services"] = Json.parseToJsonElement(configuredJson)
-        }
-        map["current_service_id"] = JsonPrimitive(settings.getString(KEY_CURRENT_SERVICE_ID, Service.Free.id))
-        map["free_fallback_enabled"] = JsonPrimitive(isFreeFallbackEnabled())
+        if (ImportSection.SERVICES in sections) {
+            val configuredJson = settings.getString(KEY_CONFIGURED_SERVICES, "")
+            if (configuredJson.isNotBlank()) {
+                map["configured_services"] = Json.parseToJsonElement(configuredJson)
+            }
+            map["current_service_id"] = JsonPrimitive(settings.getString(KEY_CURRENT_SERVICE_ID, Service.Free.id))
+            map["free_fallback_enabled"] = JsonPrimitive(isFreeFallbackEnabled())
 
-        // Per-instance settings
-        val instances = getConfiguredServiceInstances()
-        if (instances.isNotEmpty()) {
-            val instanceSettings = kotlinx.serialization.json.JsonArray(
-                instances.map { instance ->
-                    JsonObject(
-                        buildMap {
-                            put("instanceId", JsonPrimitive(instance.instanceId))
-                            val apiKey = getInstanceApiKey(instance.instanceId)
-                            if (apiKey.isNotBlank()) put("api_key", JsonPrimitive(apiKey))
-                            val modelId = getInstanceModelId(instance.instanceId)
-                            if (modelId.isNotBlank()) put("model_id", JsonPrimitive(modelId))
-                            val baseUrl = getInstanceBaseUrl(instance.instanceId)
-                            if (baseUrl.isNotBlank()) put("base_url", JsonPrimitive(baseUrl))
-                        },
-                    )
-                },
-            )
-            map["instance_settings"] = instanceSettings
-        }
-
-        // Soul
-        val soul = getSoulText()
-        if (soul.isNotBlank()) map["soul_text"] = JsonPrimitive(soul)
-
-        // Memory
-        map["memory_enabled"] = JsonPrimitive(isMemoryEnabled())
-        val memoriesJson = getMemoriesJson()
-        if (memoriesJson.isNotBlank() && memoriesJson != "[]") {
-            map["agent_memories"] = Json.parseToJsonElement(memoriesJson)
-        }
-
-        // Scheduling
-        map["scheduling_enabled"] = JsonPrimitive(isSchedulingEnabled())
-        val tasksJson = getScheduledTasksJson()
-        if (tasksJson.isNotBlank() && tasksJson != "[]") {
-            map["scheduled_tasks"] = Json.parseToJsonElement(tasksJson)
-        }
-
-        // Heartbeat
-        val heartbeatConfig = getHeartbeatConfigJson()
-        if (heartbeatConfig.isNotBlank()) {
-            map["heartbeat_config"] = Json.parseToJsonElement(heartbeatConfig)
-        }
-        val heartbeatPrompt = getHeartbeatPrompt()
-        if (heartbeatPrompt.isNotBlank()) map["heartbeat_prompt"] = JsonPrimitive(heartbeatPrompt)
-        val heartbeatLog = getHeartbeatLogJson()
-        if (heartbeatLog.isNotBlank()) {
-            map["heartbeat_log"] = Json.parseToJsonElement(heartbeatLog)
-        }
-
-        // Email
-        map["email_enabled"] = JsonPrimitive(isEmailEnabled())
-        val emailAccountsJson = getEmailAccountsJson()
-        if (emailAccountsJson.isNotBlank()) {
-            map["email_accounts"] = Json.parseToJsonElement(emailAccountsJson)
-            // Export per-account passwords and sync state
-            try {
-                val accounts = Json.parseToJsonElement(emailAccountsJson).jsonArray
-                val passwords = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
-                val syncStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
-                for (account in accounts) {
-                    val id = account.jsonObject["id"]?.jsonPrimitive?.content ?: continue
-                    val password = getEmailPassword(id)
-                    if (password.isNotBlank()) passwords[id] = JsonPrimitive(password)
-                    val syncState = getEmailSyncStateJson(id)
-                    if (syncState.isNotBlank()) syncStates[id] = Json.parseToJsonElement(syncState)
-                }
-                if (passwords.isNotEmpty()) map["email_passwords"] = JsonObject(passwords)
-                if (syncStates.isNotEmpty()) map["email_sync_states"] = JsonObject(syncStates)
-            } catch (_: Exception) {
+            val instances = getConfiguredServiceInstances()
+            if (instances.isNotEmpty()) {
+                val instanceSettings = kotlinx.serialization.json.JsonArray(
+                    instances.map { instance ->
+                        JsonObject(
+                            buildMap {
+                                put("instanceId", JsonPrimitive(instance.instanceId))
+                                val apiKey = getInstanceApiKey(instance.instanceId)
+                                if (apiKey.isNotBlank()) put("api_key", JsonPrimitive(apiKey))
+                                val modelId = getInstanceModelId(instance.instanceId)
+                                if (modelId.isNotBlank()) put("model_id", JsonPrimitive(modelId))
+                                val baseUrl = getInstanceBaseUrl(instance.instanceId)
+                                if (baseUrl.isNotBlank()) put("base_url", JsonPrimitive(baseUrl))
+                            },
+                        )
+                    },
+                )
+                map["instance_settings"] = instanceSettings
             }
         }
-        map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
 
-        // SMS
-        map["sms_enabled"] = JsonPrimitive(isSmsEnabled())
-        map["sms_poll_interval"] = JsonPrimitive(getSmsPollIntervalMinutes())
-        map["sms_send_enabled"] = JsonPrimitive(isSmsSendEnabled())
-
-        // Splinterlands
-        map["splinterlands_enabled"] = JsonPrimitive(isSplinterlandsEnabled())
-        val splinterlandsAccountJson = getSplinterlandsAccountJson()
-        if (splinterlandsAccountJson.isNotBlank()) {
-            map["splinterlands_account"] = Json.parseToJsonElement(splinterlandsAccountJson)
-        }
-        val splinterlandsInstanceIdsJson = getSplinterlandsInstanceIdsJson()
-        if (splinterlandsInstanceIdsJson.isNotBlank()) {
-            map["splinterlands_instance_ids"] = Json.parseToJsonElement(splinterlandsInstanceIdsJson)
-        }
-        val splinterlandsBattleLogJson = getSplinterlandsBattleLogJson()
-        if (splinterlandsBattleLogJson.isNotBlank()) {
-            map["splinterlands_battle_log"] = Json.parseToJsonElement(splinterlandsBattleLogJson)
+        if (ImportSection.SOUL in sections) {
+            val soul = getSoulText()
+            if (soul.isNotBlank()) map["soul_text"] = JsonPrimitive(soul)
         }
 
-        // Tools — export enabled state for all known tools
-        val toolStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
-        for (toolId in toolIds) {
-            toolStates[toolId] = JsonPrimitive(isToolEnabled(toolId))
-        }
-        if (toolStates.isNotEmpty()) map["tool_overrides"] = JsonObject(toolStates)
-
-        // MCP
-        val mcpJson = getMcpServersJson()
-        if (mcpJson.isNotBlank()) {
-            map["mcp_servers"] = Json.parseToJsonElement(mcpJson)
+        if (ImportSection.MEMORY in sections) {
+            map["memory_enabled"] = JsonPrimitive(isMemoryEnabled())
+            val memoriesJson = getMemoriesJson()
+            if (memoriesJson.isNotBlank() && memoriesJson != "[]") {
+                map["agent_memories"] = Json.parseToJsonElement(memoriesJson)
+            }
         }
 
-        // Conversations
-        val conversationsJson = getConversationsJson()
-        if (!conversationsJson.isNullOrBlank()) {
-            try {
-                val convData = SharedJson.decodeFromString<ConversationsData>(conversationsJson)
-                if (convData.conversations.isNotEmpty()) {
-                    map["conversations"] = Json.parseToJsonElement(SharedJson.encodeToString(convData.conversations))
+        if (ImportSection.SCHEDULING in sections) {
+            map["scheduling_enabled"] = JsonPrimitive(isSchedulingEnabled())
+            val tasksJson = getScheduledTasksJson()
+            if (tasksJson.isNotBlank() && tasksJson != "[]") {
+                map["scheduled_tasks"] = Json.parseToJsonElement(tasksJson)
+            }
+        }
+
+        if (ImportSection.HEARTBEAT in sections) {
+            val heartbeatConfig = getHeartbeatConfigJson()
+            if (heartbeatConfig.isNotBlank()) {
+                map["heartbeat_config"] = Json.parseToJsonElement(heartbeatConfig)
+            }
+            val heartbeatPrompt = getHeartbeatPrompt()
+            if (heartbeatPrompt.isNotBlank()) map["heartbeat_prompt"] = JsonPrimitive(heartbeatPrompt)
+            val heartbeatLog = getHeartbeatLogJson()
+            if (heartbeatLog.isNotBlank()) {
+                map["heartbeat_log"] = Json.parseToJsonElement(heartbeatLog)
+            }
+        }
+
+        if (ImportSection.EMAIL in sections) {
+            map["email_enabled"] = JsonPrimitive(isEmailEnabled())
+            val emailAccountsJson = getEmailAccountsJson()
+            if (emailAccountsJson.isNotBlank()) {
+                map["email_accounts"] = Json.parseToJsonElement(emailAccountsJson)
+                try {
+                    val accounts = Json.parseToJsonElement(emailAccountsJson).jsonArray
+                    val passwords = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+                    val syncStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+                    for (account in accounts) {
+                        val id = account.jsonObject["id"]?.jsonPrimitive?.content ?: continue
+                        val password = getEmailPassword(id)
+                        if (password.isNotBlank()) passwords[id] = JsonPrimitive(password)
+                        val syncState = getEmailSyncStateJson(id)
+                        if (syncState.isNotBlank()) syncStates[id] = Json.parseToJsonElement(syncState)
+                    }
+                    if (passwords.isNotEmpty()) map["email_passwords"] = JsonObject(passwords)
+                    if (syncStates.isNotEmpty()) map["email_sync_states"] = JsonObject(syncStates)
+                } catch (_: Exception) {
                 }
-            } catch (_: Exception) {
-                // Skip if conversations JSON is malformed
+            }
+            map["email_poll_interval"] = JsonPrimitive(getEmailPollIntervalMinutes())
+        }
+
+        if (ImportSection.SMS in sections) {
+            map["sms_enabled"] = JsonPrimitive(isSmsEnabled())
+            map["sms_poll_interval"] = JsonPrimitive(getSmsPollIntervalMinutes())
+            map["sms_send_enabled"] = JsonPrimitive(isSmsSendEnabled())
+        }
+
+        if (ImportSection.SPLINTERLANDS in sections) {
+            map["splinterlands_enabled"] = JsonPrimitive(isSplinterlandsEnabled())
+            val splinterlandsAccountJson = getSplinterlandsAccountJson()
+            if (splinterlandsAccountJson.isNotBlank()) {
+                map["splinterlands_account"] = Json.parseToJsonElement(splinterlandsAccountJson)
+            }
+            val splinterlandsInstanceIdsJson = getSplinterlandsInstanceIdsJson()
+            if (splinterlandsInstanceIdsJson.isNotBlank()) {
+                map["splinterlands_instance_ids"] = Json.parseToJsonElement(splinterlandsInstanceIdsJson)
+            }
+            val splinterlandsBattleLogJson = getSplinterlandsBattleLogJson()
+            if (splinterlandsBattleLogJson.isNotBlank()) {
+                map["splinterlands_battle_log"] = Json.parseToJsonElement(splinterlandsBattleLogJson)
+            }
+        }
+
+        if (ImportSection.TOOLS in sections) {
+            val toolStates = mutableMapOf<String, kotlinx.serialization.json.JsonElement>()
+            for (toolId in toolIds) {
+                toolStates[toolId] = JsonPrimitive(isToolEnabled(toolId))
+            }
+            if (toolStates.isNotEmpty()) map["tool_overrides"] = JsonObject(toolStates)
+        }
+
+        if (ImportSection.MCP in sections) {
+            val mcpJson = getMcpServersJson()
+            if (mcpJson.isNotBlank()) {
+                map["mcp_servers"] = Json.parseToJsonElement(mcpJson)
+            }
+        }
+
+        if (ImportSection.CONVERSATIONS in sections) {
+            val conversationsJson = getConversationsJson()
+            if (!conversationsJson.isNullOrBlank()) {
+                try {
+                    val convData = SharedJson.decodeFromString<ConversationsData>(conversationsJson)
+                    if (convData.conversations.isNotEmpty()) {
+                        map["conversations"] = Json.parseToJsonElement(SharedJson.encodeToString(convData.conversations))
+                    }
+                } catch (_: Exception) {
+                }
             }
         }
 

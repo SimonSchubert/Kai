@@ -172,6 +172,7 @@
     <string name="settings_import_success">सेटिंग्स सफलतापूर्वक आयात की गईं।</string>
     <string name="settings_import_error">आयात विफल। फ़ाइल प्रारूप अमान्य है।</string>
     <string name="settings_import_preview_title">सेटिंग्स आयात करें</string>
+    <string name="settings_export_preview_title">सेटिंग्स निर्यात करें</string>
     <string name="settings_import_replace_all">सभी मौजूदा सेटिंग्स बदलें</string>
     <string name="settings_import_replace_all_description">अचयनित अनुभाग डिफ़ॉल्ट पर रीसेट हो जाएंगे।</string>
     <string name="settings_import_section_services">सेवाएं</string>

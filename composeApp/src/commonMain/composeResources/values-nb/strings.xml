@@ -172,6 +172,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppfÃ
     <string name="settings_import_success">Innstillinger importert.</string>
     <string name="settings_import_error">Importen mislyktes. Filformatet er ugyldig.</string>
     <string name="settings_import_preview_title">Importer innstillinger</string>
+    <string name="settings_export_preview_title">Eksporter innstillinger</string>
     <string name="settings_import_replace_all">Erstatt alle eksisterende innstillinger</string>
     <string name="settings_import_replace_all_description">Ikke-valgte seksjoner tilbakestilles til standardverdier.</string>
     <string name="settings_import_section_services">Tjenester</string>

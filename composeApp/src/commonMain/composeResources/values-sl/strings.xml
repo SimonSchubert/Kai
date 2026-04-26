@@ -171,6 +171,7 @@
     <string name="settings_import_success">Nastavitve uspešno uvožene.</string>
     <string name="settings_import_error">Uvoz ni uspel. Oblika datoteke ni veljavna.</string>
     <string name="settings_import_preview_title">Uvozi nastavitve</string>
+    <string name="settings_export_preview_title">Izvozi nastavitve</string>
     <string name="settings_import_replace_all">Zamenjaj vse obstoječe nastavitve</string>
     <string name="settings_import_replace_all_description">Neizbrani razdelki bodo ponastavljeni na privzete vrednosti.</string>
     <string name="settings_import_section_services">Storitve</string>

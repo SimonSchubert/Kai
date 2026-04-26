@@ -171,6 +171,7 @@
     <string name="settings_import_success">Pengaturan berhasil diimpor.</string>
     <string name="settings_import_error">Impor gagal. Format file tidak valid.</string>
     <string name="settings_import_preview_title">Impor pengaturan</string>
+    <string name="settings_export_preview_title">Ekspor pengaturan</string>
     <string name="settings_import_replace_all">Ganti semua pengaturan yang ada</string>
     <string name="settings_import_replace_all_description">Bagian yang tidak dipilih akan direset ke default.</string>
     <string name="settings_import_section_services">Layanan</string>

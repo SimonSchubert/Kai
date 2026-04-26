@@ -171,6 +171,7 @@
     <string name="settings_import_success">Seaded edukalt imporditud.</string>
     <string name="settings_import_error">Import ebaõnnestus. Failivorming on vigane.</string>
     <string name="settings_import_preview_title">Impordi seaded</string>
+    <string name="settings_export_preview_title">Ekspordi seaded</string>
     <string name="settings_import_replace_all">Asenda kõik olemasolevad seaded</string>
     <string name="settings_import_replace_all_description">Valimata jaotised lähtestatakse vaikeväärtustele.</string>
     <string name="settings_import_section_services">Teenused</string>

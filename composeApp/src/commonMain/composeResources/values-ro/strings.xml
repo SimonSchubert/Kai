@@ -171,6 +171,7 @@
     <string name="settings_import_success">Setările au fost importate cu succes.</string>
     <string name="settings_import_error">Importul a eșuat. Formatul fișierului este invalid.</string>
     <string name="settings_import_preview_title">Importă setările</string>
+    <string name="settings_export_preview_title">Exportă setările</string>
     <string name="settings_import_replace_all">Înlocuiește toate setările existente</string>
     <string name="settings_import_replace_all_description">Secțiunile neselectate vor fi resetate la valorile implicite.</string>
     <string name="settings_import_section_services">Servicii</string>

@@ -171,6 +171,7 @@
     <string name="settings_import_success">Nastavenia úspešne importované.</string>
     <string name="settings_import_error">Import zlyhal. Formát súboru je neplatný.</string>
     <string name="settings_import_preview_title">Importovať nastavenia</string>
+    <string name="settings_export_preview_title">Exportovať nastavenia</string>
     <string name="settings_import_replace_all">Nahradiť všetky existujúce nastavenia</string>
     <string name="settings_import_replace_all_description">Nevybrané sekcie budú obnovené na predvolené hodnoty.</string>
     <string name="settings_import_section_services">Služby</string>

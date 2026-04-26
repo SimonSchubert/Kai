@@ -171,6 +171,7 @@
     <string name="settings_import_success">Nastavení úspěšně importována.</string>
     <string name="settings_import_error">Import selhal. Formát souboru je neplatný.</string>
     <string name="settings_import_preview_title">Importovat nastavení</string>
+    <string name="settings_export_preview_title">Exportovat nastavení</string>
     <string name="settings_import_replace_all">Nahradit všechna stávající nastavení</string>
     <string name="settings_import_replace_all_description">Nevybrané sekce budou obnoveny na výchozí hodnoty.</string>
     <string name="settings_import_section_services">Služby</string>

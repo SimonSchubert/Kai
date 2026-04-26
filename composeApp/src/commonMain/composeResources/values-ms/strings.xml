@@ -171,6 +171,7 @@
     <string name="settings_import_success">Tetapan berjaya diimport.</string>
     <string name="settings_import_error">Import gagal. Format fail tidak sah.</string>
     <string name="settings_import_preview_title">Import tetapan</string>
+    <string name="settings_export_preview_title">Eksport tetapan</string>
     <string name="settings_import_replace_all">Ganti semua tetapan sedia ada</string>
     <string name="settings_import_replace_all_description">Bahagian yang tidak dipilih akan ditetapkan semula kepada lalai.</string>
     <string name="settings_import_section_services">Perkhidmatan</string>

@@ -171,6 +171,7 @@
     <string name="settings_import_success">Izilungiselelo zingeniswe ngempumelelo.</string>
     <string name="settings_import_error">Ukungenisa kuhlulekile. Ifomethi yefayela ayilungile.</string>
     <string name="settings_import_preview_title">Ngenisa izilungiselelo</string>
+    <string name="settings_export_preview_title">Khipha izilungiselelo</string>
     <string name="settings_import_replace_all">Shintsha zonke izilungiselelo ezikhona</string>
     <string name="settings_import_replace_all_description">Izigaba ezingakhethiwe zizosethwa kabusha zibe yizilungiselelo ezimisiwe.</string>
     <string name="settings_import_section_services">Izinsizakalo</string>

@@ -1891,10 +1891,16 @@ class RemoteDataRepository(
         appSettings.setUiScale(scale)
     }
 
-    override fun exportSettingsToJson(): String {
+    override fun exportSettingsToJson(sections: Set<ImportSection>): String {
+        val toolIds = getPlatformToolDefinitions().map { it.id }
+        val jsonObject = appSettings.exportToJson(toolIds, sections)
+        return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
+    }
+
+    override fun getExportPreview(): Map<ImportSection, String?> {
         val toolIds = getPlatformToolDefinitions().map { it.id }
         val jsonObject = appSettings.exportToJson(toolIds)
-        return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
+        return detectExportableSections(jsonObject)
     }
 
     override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int {

@@ -171,6 +171,7 @@
     <string name="settings_import_success">Настройките са импортирани успешно.</string>
     <string name="settings_import_error">Импортирането не успя. Форматът на файла е невалиден.</string>
     <string name="settings_import_preview_title">Импортиране на настройки</string>
+    <string name="settings_export_preview_title">Експортиране на настройки</string>
     <string name="settings_import_replace_all">Замяна на всички съществуващи настройки</string>
     <string name="settings_import_replace_all_description">Неизбраните секции ще бъдат нулирани до стойности по подразбиране.</string>
     <string name="settings_import_section_services">Услуги</string>

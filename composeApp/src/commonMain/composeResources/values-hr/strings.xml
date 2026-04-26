@@ -171,6 +171,7 @@
     <string name="settings_import_success">Postavke uspješno uvezene.</string>
     <string name="settings_import_error">Uvoz nije uspio. Format datoteke je nevažeći.</string>
     <string name="settings_import_preview_title">Uvezi postavke</string>
+    <string name="settings_export_preview_title">Izvezi postavke</string>
     <string name="settings_import_replace_all">Zamijeni sve postojeće postavke</string>
     <string name="settings_import_replace_all_description">Neodabrani odjeljci bit će vraćeni na zadane vrijednosti.</string>
     <string name="settings_import_section_services">Usluge</string>

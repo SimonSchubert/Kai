@@ -540,7 +540,9 @@ class FakeDataRepository : DataRepository {
         uiScale = scale
     }
 
-    override fun exportSettingsToJson(): String = "{}"
+    override fun exportSettingsToJson(sections: Set<ImportSection>): String = "{}"
+
+    override fun getExportPreview(): Map<ImportSection, String?> = emptyMap()
 
     override fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int = 0
 

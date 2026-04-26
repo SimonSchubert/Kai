@@ -171,6 +171,7 @@
     <string name="settings_import_success">Подешавања успешно увезена.</string>
     <string name="settings_import_error">Увоз није успео. Формат датотеке је неважећи.</string>
     <string name="settings_import_preview_title">Увези подешавања</string>
+    <string name="settings_export_preview_title">Извези подешавања</string>
     <string name="settings_import_replace_all">Замени сва постојећа подешавања</string>
     <string name="settings_import_replace_all_description">Неизабрани одељци биће враћени на подразумеване вредности.</string>
     <string name="settings_import_section_services">Сервиси</string>

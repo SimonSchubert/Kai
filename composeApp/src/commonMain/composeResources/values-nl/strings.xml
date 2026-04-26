@@ -172,6 +172,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_import_success">Instellingen succesvol geïmporteerd.</string>
     <string name="settings_import_error">Import mislukt. Het bestandsformaat is ongeldig.</string>
     <string name="settings_import_preview_title">Instellingen importeren</string>
+    <string name="settings_export_preview_title">Instellingen exporteren</string>
     <string name="settings_import_replace_all">Alle bestaande instellingen vervangen</string>
     <string name="settings_import_replace_all_description">Niet-geselecteerde secties worden teruggezet naar standaardwaarden.</string>
     <string name="settings_import_section_services">Diensten</string>

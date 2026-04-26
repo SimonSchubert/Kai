@@ -172,6 +172,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_import_success">Instellings suksesvol ingevoer.</string>
     <string name="settings_import_error">Invoer het misluk. Die lêerformaat is ongeldig.</string>
     <string name="settings_import_preview_title">Voer instellings in</string>
+    <string name="settings_export_preview_title">Voer instellings uit</string>
     <string name="settings_import_replace_all">Vervang alle bestaande instellings</string>
     <string name="settings_import_replace_all_description">Ongeselekteerde afdelings sal na verstekwaardes teruggestel word.</string>
     <string name="settings_import_section_services">Dienste</string>

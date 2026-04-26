@@ -172,6 +172,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_import_success">Asetukset tuotu onnistuneesti.</string>
     <string name="settings_import_error">Tuonti epäonnistui. Tiedostomuoto on virheellinen.</string>
     <string name="settings_import_preview_title">Tuo asetukset</string>
+    <string name="settings_export_preview_title">Vie asetukset</string>
     <string name="settings_import_replace_all">Korvaa kaikki nykyiset asetukset</string>
     <string name="settings_import_replace_all_description">Valitsemattomat osiot palautetaan oletusarvoihin.</string>
     <string name="settings_import_section_services">Palvelut</string>

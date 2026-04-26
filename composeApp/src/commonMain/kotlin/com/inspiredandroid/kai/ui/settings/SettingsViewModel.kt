@@ -165,6 +165,7 @@ class SettingsViewModel(
         onDeleteLocalModel = ::onDeleteLocalModel,
         onChangeModelContextTokens = ::onChangeModelContextTokens,
         onExportSettings = ::onExportSettings,
+        onPrepareExport = ::onPrepareExport,
         onImportSettings = ::onImportSettings,
         onUndoDelete = ::onUndoDelete,
     )
@@ -613,7 +614,9 @@ class SettingsViewModel(
         _state.update { it.copy(uiScale = scale) }
     }
 
-    private fun onExportSettings(): String = dataRepository.exportSettingsToJson()
+    private fun onExportSettings(sections: Set<ImportSection>): String = dataRepository.exportSettingsToJson(sections)
+
+    private fun onPrepareExport(): Map<ImportSection, String?> = dataRepository.getExportPreview()
 
     private fun onImportSettings(bytes: ByteArray, sections: Set<ImportSection>, replace: Boolean): ImportResult = try {
         val currentTab = _state.value.currentTab

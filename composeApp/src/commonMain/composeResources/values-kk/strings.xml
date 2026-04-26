@@ -171,6 +171,7 @@
     <string name="settings_import_success">Параметрлер сәтті импортталды.</string>
     <string name="settings_import_error">Импорт сәтсіз аяқталды. Файл пішімі жарамсыз.</string>
     <string name="settings_import_preview_title">Параметрлерді импорттау</string>
+    <string name="settings_export_preview_title">Параметрлерді экспорттау</string>
     <string name="settings_import_replace_all">Барлық бар параметрлерді ауыстыру</string>
     <string name="settings_import_replace_all_description">Таңдалмаған бөлімдер әдепкі мәндерге қалпына келтіріледі.</string>
     <string name="settings_import_section_services">Қызметтер</string>

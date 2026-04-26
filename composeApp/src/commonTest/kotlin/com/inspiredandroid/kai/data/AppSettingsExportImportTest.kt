@@ -811,4 +811,87 @@ class AppSettingsExportImportTest {
 
         assertEquals("", appSettings.getConversationsJson())
     }
+
+    @Test
+    fun `detectExportableSections is empty for fresh settings`() {
+        val appSettings = createAppSettings()
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        // Tools is the only section that always has data on a fresh install (default tool states).
+        assertEquals(setOf(ImportSection.TOOLS), sections.keys)
+    }
+
+    @Test
+    fun `detectExportableSections hides SMS when toggles are off`() {
+        val appSettings = createAppSettings()
+        // SMS defaults: all flags false. exportToJson still writes them, but detection should ignore.
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertFalse(ImportSection.SMS in sections)
+    }
+
+    @Test
+    fun `detectExportableSections shows SMS when receive is enabled`() {
+        val appSettings = createAppSettings()
+        appSettings.setSmsEnabled(true)
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertTrue(ImportSection.SMS in sections)
+    }
+
+    @Test
+    fun `detectExportableSections hides Splinterlands without account`() {
+        val appSettings = createAppSettings()
+        appSettings.setSplinterlandsEnabled(true)
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertFalse(ImportSection.SPLINTERLANDS in sections)
+    }
+
+    @Test
+    fun `detectExportableSections shows Splinterlands when account is configured`() {
+        val appSettings = createAppSettings()
+        appSettings.setSplinterlandsAccountJson("""{"username":"alice"}""")
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertTrue(ImportSection.SPLINTERLANDS in sections)
+    }
+
+    @Test
+    fun `detectExportableSections hides MCP when server list is empty`() {
+        val appSettings = createAppSettings()
+        appSettings.setMcpServersJson("[]")
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertFalse(ImportSection.MCP in sections)
+    }
+
+    @Test
+    fun `detectExportableSections shows MCP with count when servers exist`() {
+        val appSettings = createAppSettings()
+        appSettings.setMcpServersJson("""[{"id":"a","name":"A","url":"http://x"},{"id":"b","name":"B","url":"http://y"}]""")
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertEquals("2", sections[ImportSection.MCP])
+    }
+
+    @Test
+    fun `detectExportableSections hides Memory and Scheduling when arrays are empty`() {
+        val appSettings = createAppSettings()
+        appSettings.setMemoryEnabled(true)
+        appSettings.setSchedulingEnabled(true)
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertFalse(ImportSection.MEMORY in sections)
+        assertFalse(ImportSection.SCHEDULING in sections)
+    }
+
+    @Test
+    fun `detectExportableSections shows Memory with count when memories exist`() {
+        val appSettings = createAppSettings()
+        appSettings.setMemoriesJson("""[{"key":"k1","value":"v1","category":"GENERAL"}]""")
+        val json = appSettings.exportToJson(toolIds)
+        val sections = detectExportableSections(json)
+        assertEquals("1", sections[ImportSection.MEMORY])
+    }
 }

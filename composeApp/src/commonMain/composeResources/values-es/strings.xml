@@ -172,6 +172,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_import_success">Configuración importada correctamente.</string>
     <string name="settings_import_error">Error al importar. El formato del archivo no es válido.</string>
     <string name="settings_import_preview_title">Importar ajustes</string>
+    <string name="settings_export_preview_title">Exportar ajustes</string>
     <string name="settings_import_replace_all">Reemplazar todos los ajustes existentes</string>
     <string name="settings_import_replace_all_description">Las secciones no seleccionadas se restablecerán a los valores predeterminados.</string>
     <string name="settings_import_section_services">Servicios</string>

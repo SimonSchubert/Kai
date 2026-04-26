@@ -171,6 +171,7 @@
     <string name="settings_import_success">Configuraziuns importadas cun success.</string>
     <string name="settings_import_error">L'import n'è betg reussì. Il format da la datoteca n'è betg valid.</string>
     <string name="settings_import_preview_title">Importar configuraziuns</string>
+    <string name="settings_export_preview_title">Exportar configuraziuns</string>
     <string name="settings_import_replace_all">Remplazzar tut las configuraziuns existentas</string>
     <string name="settings_import_replace_all_description">Secziuns betg selecziunadas vegnan restituidas als valurs predefinids.</string>
     <string name="settings_import_section_services">Servetschs</string>

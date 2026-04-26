@@ -172,6 +172,7 @@
     <string name="settings_import_success">Налаштування успішно імпортовано.</string>
     <string name="settings_import_error">Помилка імпорту. Недійсний формат файлу.</string>
     <string name="settings_import_preview_title">Імпорт налаштувань</string>
+    <string name="settings_export_preview_title">Експорт налаштувань</string>
     <string name="settings_import_replace_all">Замінити всі наявні налаштування</string>
     <string name="settings_import_replace_all_description">Невибрані розділи будуть скинуті до значень за замовчуванням.</string>
     <string name="settings_import_section_services">Сервіси</string>

@@ -172,6 +172,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_import_success">Indstillinger importeret.</string>
     <string name="settings_import_error">Import mislykkedes. Filformatet er ugyldigt.</string>
     <string name="settings_import_preview_title">Importér indstillinger</string>
+    <string name="settings_export_preview_title">Exportér indstillinger</string>
     <string name="settings_import_replace_all">Erstat alle eksisterende indstillinger</string>
     <string name="settings_import_replace_all_description">Ikke-valgte sektioner nulstilles til standardværdier.</string>
     <string name="settings_import_section_services">Tjenester</string>

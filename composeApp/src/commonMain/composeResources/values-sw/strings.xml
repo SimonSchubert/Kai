@@ -171,6 +171,7 @@
     <string name="settings_import_success">Mipangilio imeingizwa kwa mafanikio.</string>
     <string name="settings_import_error">Kuingiza kumeshindwa. Muundo wa faili si sahihi.</string>
     <string name="settings_import_preview_title">Ingiza mipangilio</string>
+    <string name="settings_export_preview_title">Hamisha mipangilio</string>
     <string name="settings_import_replace_all">Badilisha mipangilio yote iliyopo</string>
     <string name="settings_import_replace_all_description">Sehemu ambazo hazijachaguliwa zitarejeshwa kwa chaguomsingi.</string>
     <string name="settings_import_section_services">Huduma</string>

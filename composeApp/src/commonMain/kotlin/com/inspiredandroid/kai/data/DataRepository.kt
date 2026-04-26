@@ -155,7 +155,8 @@ interface DataRepository {
     fun setUiScale(scale: Float)
 
     // Export/Import
-    fun exportSettingsToJson(): String
+    fun exportSettingsToJson(sections: Set<ImportSection> = ImportSection.entries.toSet()): String
+    fun getExportPreview(): Map<ImportSection, String?>
     fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int
 
     // Background ask with tools (no chat history update, supports tool-calling loop)
