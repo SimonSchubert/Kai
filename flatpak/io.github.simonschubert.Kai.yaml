@@ -38,8 +38,8 @@ modules:
 
     sources:
       - type: file
-        url: https://github.com/SimonSchubert/Kai/releases/download/v2.3.3/Kai-2.3.3-linux-x86_64.tar.gz
-        sha256: f2f25b46748d1b9f6afb1b82187e952c439b55c742b2e613436faf840fa24632
+        url: https://github.com/SimonSchubert/Kai/releases/download/v2.3.4/Kai-2.3.4-linux-x86_64.tar.gz
+        sha256: 9e47bf0307d0ec675ba99f4d96c9b6678b5f85ab91f36326ef5abb527c1f07e9
         dest-filename: Kai-linux-x86_64.tar.gz
         x-checker-data:
           type: json
