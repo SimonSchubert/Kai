@@ -267,8 +267,8 @@ actual fun getAvailableTools(): List<Tool> {
                         "Create a calendar event on the user's device",
                         mapOf(
                             "title" to ParameterSchema("string", "Event title", true),
-                            "start_time" to ParameterSchema("string", "Start time in ISO 8601 format (e.g., 2024-03-15T14:30:00)", true),
-                            "end_time" to ParameterSchema("string", "End time in ISO 8601 format. Defaults to 1 hour after start", false),
+                            "start_time" to ParameterSchema("string", "Start time as ISO 8601, e.g. '2024-03-15T14:30:00+02:00'. Naive (no offset) is treated as user's local time.", true),
+                            "end_time" to ParameterSchema("string", "End time, same format as start_time. Defaults to 1 hour after start.", false),
                             "description" to ParameterSchema("string", "Event notes or description", false),
                             "location" to ParameterSchema("string", "Event location", false),
                             "all_day" to ParameterSchema("boolean", "Whether this is an all-day event", false),

@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import java.time.Instant
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -96,12 +97,9 @@ class CalendarRepository(
         val timeZone = TimeZone.getDefault().id
 
         try {
-            val startDateTime = parseIsoDateTime(startTimeIso)
-            startMillis = startDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
-
+            startMillis = parseIsoDateTimeToEpochMs(startTimeIso)
             endMillis = if (endTimeIso != null) {
-                val endDateTime = parseIsoDateTime(endTimeIso)
-                endDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                parseIsoDateTimeToEpochMs(endTimeIso)
             } else {
                 // Default to 1 hour after start
                 startMillis + 60 * 60 * 1000
@@ -150,31 +148,37 @@ class CalendarRepository(
         context.contentResolver.insert(CalendarContract.Reminders.CONTENT_URI, reminderValues)
     }
 
-    private fun parseIsoDateTime(isoString: String): LocalDateTime {
-        // Try various ISO 8601 formats
+    private fun parseIsoDateTimeToEpochMs(isoString: String): Long {
+        val trimmed = isoString.trim()
+
+        // Offset-qualified inputs (e.g. "2024-03-15T14:30:00+02:00" or "...Z") must
+        // be converted directly to an instant. Going through LocalDateTime.parse with
+        // a relaxed formatter silently drops the offset and re-anchors to system zone,
+        // which surfaces as an off-by-N-hours bug whenever the AI sends an offset that
+        // differs from the device's local offset.
+        try {
+            return OffsetDateTime.parse(trimmed).toInstant().toEpochMilli()
+        } catch (_: DateTimeParseException) {
+        }
+        try {
+            return Instant.parse(trimmed).toEpochMilli()
+        } catch (_: DateTimeParseException) {
+        }
+
+        // Naive inputs: interpret in the device's current zone.
         val formatters = listOf(
             DateTimeFormatter.ISO_LOCAL_DATE_TIME,
-            DateTimeFormatter.ISO_DATE_TIME,
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
         )
-
         for (formatter in formatters) {
             try {
-                return LocalDateTime.parse(isoString.trim(), formatter)
+                val ldt = LocalDateTime.parse(trimmed, formatter)
+                return ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
             } catch (_: DateTimeParseException) {
-                // Try next formatter
             }
-        }
-
-        // If all else fails, try parsing as Instant (for formats with timezone like 2024-03-15T14:30:00Z)
-        try {
-            val instant = Instant.parse(isoString.trim())
-            return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-        } catch (_: DateTimeParseException) {
-            // Fall through to throw
         }
 
         throw DateTimeParseException("Unable to parse date: $isoString", isoString, 0)
