@@ -88,6 +88,7 @@ data class ChatUiState(
     val pendingConversationDeletion: String? = null,
     val isInteractiveMode: Boolean = false,
     val fallbackStatus: FallbackStatus? = null,
+    val isRestoring: Boolean = true,
 ) {
     val heartbeatConversationId: String?
         get() = savedConversations.firstOrNull { it.isHeartbeat }?.id

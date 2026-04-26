@@ -81,14 +81,17 @@ class ChatViewModel(
     )
 
     init {
-        // Synchronous restore so the first composition has the correct interactive mode.
-        // Property initializers and init blocks run in declaration order; the `state`
-        // property below captures `_state.value` as its initial value, so updating
-        // _state here ensures no flash between ChatModeScreen and InteractiveModeScreen.
         updateAvailableServices()
-        dataRepository.loadConversations()
-        dataRepository.restoreCurrentConversation()
-        presetInteractiveModeForCurrentConversation()
+
+        // Keep restoreCurrentConversation off the main thread; see issue #197 (large persisted
+        // tool outputs caused ANRs when JSON-decoded synchronously during VM construction).
+        // ChatScreen gates the interactive-mode branch on !isRestoring to avoid a flash.
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.loadConversations()
+            dataRepository.restoreCurrentConversation()
+            presetInteractiveModeForCurrentConversation()
+            _state.update { it.copy(isRestoring = false) }
+        }
 
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.connectEnabledMcpServers()
@@ -470,14 +473,15 @@ class ChatViewModel(
 
     fun refreshSettings() {
         updateAvailableServices()
-        dataRepository.restoreCurrentConversation()
-        presetInteractiveModeForCurrentConversation()
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.restoreCurrentConversation()
+            presetInteractiveModeForCurrentConversation()
+        }
     }
 
     /**
      * Resolves the interactive mode flag from the currently-loaded conversation, or — when
      * there is no loaded conversation (new empty chat) — falls back to the persisted flag.
-     * Runs synchronously so the first composition already has the correct mode.
      */
     private fun presetInteractiveModeForCurrentConversation() {
         val currentId = dataRepository.currentConversationId.value

@@ -148,7 +148,7 @@ fun ChatScreenContent(
     onNavigateToSettings: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
 ) {
-    if (uiState.isInteractiveMode) {
+    if (uiState.isInteractiveMode && !uiState.isRestoring) {
         InteractiveModeScreen(uiState = uiState)
     } else {
         ChatModeScreen(

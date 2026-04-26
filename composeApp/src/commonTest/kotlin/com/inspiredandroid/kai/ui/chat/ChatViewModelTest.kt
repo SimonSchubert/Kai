@@ -53,6 +53,25 @@ class ChatViewModelTest {
     }
 
     @Test
+    fun `restore runs off the main thread and flips isRestoring`() = runTest {
+        // Isolated paused dispatcher so the launched restore coroutine doesn't run synchronously.
+        val backgroundDispatcher = StandardTestDispatcher()
+        val noOpScheduler = TaskScheduler(fakeRepository, enabled = false)
+        val viewModel = ChatViewModel(fakeRepository, noOpScheduler, backgroundDispatcher)
+
+        viewModel.state.test {
+            // Restore hasn't run yet — initial state still has isRestoring=true.
+            assertTrue(awaitItem().isRestoring)
+
+            backgroundDispatcher.scheduler.advanceUntilIdle()
+            testDispatcher.scheduler.advanceUntilIdle()
+
+            assertFalse(awaitItem().isRestoring)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun `initial state reflects isUsingSharedKey from repository`() = runTest {
         fakeRepository.setCurrentService(Service.Free)
         val viewModel = createViewModel()
