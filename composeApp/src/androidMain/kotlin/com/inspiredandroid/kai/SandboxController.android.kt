@@ -237,6 +237,54 @@ class AndroidSandboxController : SandboxController {
         val result = openFileWithIntent(context, file)
         if (result.success) Result.success(Unit) else Result.failure(IllegalStateException(result.error ?: "Open failed"))
     }
+
+    override suspend fun deleteEntry(path: String, recursive: Boolean): Boolean = withContext(Dispatchers.IO) {
+        val file = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext false
+        if (!file.exists()) return@withContext false
+        // Refuse to delete the sandbox roots themselves.
+        val canonical = file.canonicalPath
+        if (canonical == File(sandboxManager.homePath).canonicalPath) return@withContext false
+        if (canonical == File(sandboxManager.rootfsPath).canonicalPath) return@withContext false
+        when {
+            file.isDirectory && !recursive -> {
+                val empty = file.list()?.isEmpty() != false
+                if (empty) file.delete() else false
+            }
+
+            file.isDirectory -> file.deleteRecursively()
+
+            else -> file.delete()
+        }
+    }
+
+    override suspend fun renameEntry(path: String, newName: String): Result<String> = withContext(Dispatchers.IO) {
+        if (newName.isBlank() || newName.contains('/') || newName.contains('\\') ||
+            newName == "." || newName == ".."
+        ) {
+            return@withContext Result.failure(IllegalArgumentException("Invalid name"))
+        }
+        val src = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext Result.failure(IllegalArgumentException("Invalid path"))
+        if (!src.exists()) return@withContext Result.failure(IllegalArgumentException("Not found"))
+        val canonical = src.canonicalPath
+        if (canonical == File(sandboxManager.homePath).canonicalPath) {
+            return@withContext Result.failure(IllegalArgumentException("Cannot rename sandbox root"))
+        }
+        if (canonical == File(sandboxManager.rootfsPath).canonicalPath) {
+            return@withContext Result.failure(IllegalArgumentException("Cannot rename sandbox root"))
+        }
+        val parentSandbox = path.substringBeforeLast('/', "")
+        val newSandboxPath = if (parentSandbox.isEmpty()) "/$newName" else "$parentSandbox/$newName"
+        val dest = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, newSandboxPath)
+            ?: return@withContext Result.failure(IllegalArgumentException("Invalid destination"))
+        if (dest.exists()) return@withContext Result.failure(IllegalStateException("collision"))
+        if (src.renameTo(dest)) {
+            Result.success(newSandboxPath)
+        } else {
+            Result.failure(IllegalStateException("rename failed"))
+        }
+    }
 }
 
 private fun File.toEntry(parent: String): SandboxFileEntry = SandboxFileEntry(

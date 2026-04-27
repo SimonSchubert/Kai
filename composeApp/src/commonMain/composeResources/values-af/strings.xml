@@ -306,4 +306,24 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_task_details_trigger">Sneller</string>
     <string name="tool_fetch_url_description">Haal \'n URL op en gee die antwoordliggaam terug aan die agent</string>
     <string name="tool_fetch_url_name">Haal URL op</string>
+    <string name="sandbox_files_action_open_external">Maak oop met app</string>
+    <string name="sandbox_files_action_rename">Hernoem</string>
+    <string name="sandbox_files_action_delete">Vee uit</string>
+    <string name="sandbox_files_action_more">Meer aksies</string>
+    <string name="sandbox_files_editor_open_externally">Maak ekstern oop</string>
+    <string name="sandbox_files_dialog_cancel">Kanselleer</string>
+    <string name="sandbox_files_delete_title">Vee %1$s uit?</string>
+    <string name="sandbox_files_delete_message_file">Hierdie lêer sal permanent uitgevee word.</string>
+    <string name="sandbox_files_delete_message_directory">Hierdie gids en al sy inhoud sal permanent uitgevee word.</string>
+    <string name="sandbox_files_delete_confirm">Vee uit</string>
+    <string name="sandbox_files_delete_failed">Uitvee het misluk</string>
+    <string name="sandbox_files_delete_success">Uitgevee</string>
+    <string name="sandbox_files_rename_title">Hernoem</string>
+    <string name="sandbox_files_rename_label">Nuwe naam</string>
+    <string name="sandbox_files_rename_confirm">Hernoem</string>
+    <string name="sandbox_files_rename_error_invalid">Naam kan nie / bevat of leeg wees nie</string>
+    <string name="sandbox_files_rename_error_collision">\'n Lêer met daardie naam bestaan reeds</string>
+    <string name="sandbox_files_rename_failed">Hernoem het misluk</string>
+    <string name="sandbox_files_rename_success">Hernoem</string>
+    <string name="sandbox_files_editor_closed_after_delete">Lêer is uitgevee</string>
 </resources>

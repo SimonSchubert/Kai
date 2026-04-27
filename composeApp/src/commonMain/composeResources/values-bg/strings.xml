@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">Тригер</string>
     <string name="tool_fetch_url_description">Извлечи URL и върни тялото на отговора към агента</string>
     <string name="tool_fetch_url_name">Извлечи URL</string>
+    <string name="sandbox_files_action_open_external">Отвори с приложение</string>
+    <string name="sandbox_files_action_rename">Преименуване</string>
+    <string name="sandbox_files_action_delete">Изтриване</string>
+    <string name="sandbox_files_action_more">Още действия</string>
+    <string name="sandbox_files_editor_open_externally">Отвори външно</string>
+    <string name="sandbox_files_dialog_cancel">Отказ</string>
+    <string name="sandbox_files_delete_title">Изтриване на %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Този файл ще бъде изтрит безвъзвратно.</string>
+    <string name="sandbox_files_delete_message_directory">Тази папка и цялото ѝ съдържание ще бъдат изтрити безвъзвратно.</string>
+    <string name="sandbox_files_delete_confirm">Изтрий</string>
+    <string name="sandbox_files_delete_failed">Изтриването неуспешно</string>
+    <string name="sandbox_files_delete_success">Изтрито</string>
+    <string name="sandbox_files_rename_title">Преименуване</string>
+    <string name="sandbox_files_rename_label">Ново име</string>
+    <string name="sandbox_files_rename_confirm">Преименуване</string>
+    <string name="sandbox_files_rename_error_invalid">Името не може да съдържа / или да е празно</string>
+    <string name="sandbox_files_rename_error_collision">Файл с това име вече съществува</string>
+    <string name="sandbox_files_rename_failed">Преименуването неуспешно</string>
+    <string name="sandbox_files_rename_success">Преименувано</string>
+    <string name="sandbox_files_editor_closed_after_delete">Файлът беше изтрит</string>
 </resources>

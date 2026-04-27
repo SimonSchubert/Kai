@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">ਟਰਿਗਰ</string>
     <string name="tool_fetch_url_description">ਇੱਕ URL ਲਿਆਓ ਅਤੇ ਜਵਾਬ ਬਾਡੀ ਏਜੰਟ ਨੂੰ ਵਾਪਸ ਕਰੋ</string>
     <string name="tool_fetch_url_name">URL ਲਿਆਓ</string>
+    <string name="sandbox_files_action_open_external">ਐਪ ਨਾਲ ਖੋਲ੍ਹੋ</string>
+    <string name="sandbox_files_action_rename">ਨਾਮ ਬਦਲੋ</string>
+    <string name="sandbox_files_action_delete">ਮਿਟਾਓ</string>
+    <string name="sandbox_files_action_more">ਹੋਰ ਕਾਰਵਾਈਆਂ</string>
+    <string name="sandbox_files_editor_open_externally">ਬਾਹਰੀ ਤੌਰ ਤੇ ਖੋਲ੍ਹੋ</string>
+    <string name="sandbox_files_dialog_cancel">ਰੱਦ ਕਰੋ</string>
+    <string name="sandbox_files_delete_title">%1$s ਨੂੰ ਮਿਟਾਉਣਾ ਹੈ?</string>
+    <string name="sandbox_files_delete_message_file">ਇਹ ਫਾਈਲ ਪੱਕੇ ਤੌਰ ਤੇ ਮਿਟਾ ਦਿੱਤੀ ਜਾਵੇਗੀ.</string>
+    <string name="sandbox_files_delete_message_directory">ਇਹ ਫੋਲਡਰ ਅਤੇ ਇਸ ਦੀ ਸਾਰੀ ਸਮੱਗਰੀ ਪੱਕੇ ਤੌਰ ਤੇ ਮਿਟਾ ਦਿੱਤੀ ਜਾਵੇਗੀ.</string>
+    <string name="sandbox_files_delete_confirm">ਮਿਟਾਓ</string>
+    <string name="sandbox_files_delete_failed">ਮਿਟਾਉਣ ਵਿੱਚ ਅਸਫਲ</string>
+    <string name="sandbox_files_delete_success">ਮਿਟਾਇਆ</string>
+    <string name="sandbox_files_rename_title">ਨਾਮ ਬਦਲੋ</string>
+    <string name="sandbox_files_rename_label">ਨਵਾਂ ਨਾਮ</string>
+    <string name="sandbox_files_rename_confirm">ਨਾਮ ਬਦਲੋ</string>
+    <string name="sandbox_files_rename_error_invalid">ਨਾਮ ਵਿੱਚ / ਨਹੀਂ ਹੋ ਸਕਦਾ ਜਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ</string>
+    <string name="sandbox_files_rename_error_collision">ਇਸ ਨਾਮ ਦੀ ਫਾਈਲ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ</string>
+    <string name="sandbox_files_rename_failed">ਨਾਮ ਬਦਲਣ ਵਿੱਚ ਅਸਫਲ</string>
+    <string name="sandbox_files_rename_success">ਨਾਮ ਬਦਲਿਆ</string>
+    <string name="sandbox_files_editor_closed_after_delete">ਫਾਈਲ ਮਿਟਾ ਦਿੱਤੀ ਗਈ</string>
 </resources>

@@ -305,4 +305,24 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="settings_task_details_trigger">Tetikleyici</string>
     <string name="tool_fetch_url_description">Bir URL'yi getir ve yanıt gövdesini ajana döndür</string>
     <string name="tool_fetch_url_name">URL Getir</string>
+    <string name="sandbox_files_action_open_external">Uygulamayla aç</string>
+    <string name="sandbox_files_action_rename">Yeniden adlandır</string>
+    <string name="sandbox_files_action_delete">Sil</string>
+    <string name="sandbox_files_action_more">Daha fazla işlem</string>
+    <string name="sandbox_files_editor_open_externally">Harici aç</string>
+    <string name="sandbox_files_dialog_cancel">İptal</string>
+    <string name="sandbox_files_delete_title">%1$s silinsin mi?</string>
+    <string name="sandbox_files_delete_message_file">Bu dosya kalıcı olarak silinecek.</string>
+    <string name="sandbox_files_delete_message_directory">Bu klasör ve tüm içeriği kalıcı olarak silinecek.</string>
+    <string name="sandbox_files_delete_confirm">Sil</string>
+    <string name="sandbox_files_delete_failed">Silme başarısız</string>
+    <string name="sandbox_files_delete_success">Silindi</string>
+    <string name="sandbox_files_rename_title">Yeniden adlandır</string>
+    <string name="sandbox_files_rename_label">Yeni ad</string>
+    <string name="sandbox_files_rename_confirm">Yeniden adlandır</string>
+    <string name="sandbox_files_rename_error_invalid">Ad / içeremez ve boş olamaz</string>
+    <string name="sandbox_files_rename_error_collision">Bu adda bir dosya zaten var</string>
+    <string name="sandbox_files_rename_failed">Yeniden adlandırma başarısız</string>
+    <string name="sandbox_files_rename_success">Yeniden adlandırıldı</string>
+    <string name="sandbox_files_editor_closed_after_delete">Dosya silindi</string>
 </resources>

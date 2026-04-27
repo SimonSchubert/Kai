@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">Vallandaja</string>
     <string name="tool_fetch_url_description">Tõmba URL ja tagasta vastuse keha agendile</string>
     <string name="tool_fetch_url_name">Tõmba URL</string>
+    <string name="sandbox_files_action_open_external">Ava rakendusega</string>
+    <string name="sandbox_files_action_rename">Nimeta ümber</string>
+    <string name="sandbox_files_action_delete">Kustuta</string>
+    <string name="sandbox_files_action_more">Rohkem toiminguid</string>
+    <string name="sandbox_files_editor_open_externally">Ava väliselt</string>
+    <string name="sandbox_files_dialog_cancel">Tühista</string>
+    <string name="sandbox_files_delete_title">Kustutada %1$s?</string>
+    <string name="sandbox_files_delete_message_file">See fail kustutatakse jäädavalt.</string>
+    <string name="sandbox_files_delete_message_directory">See kaust ja kogu selle sisu kustutatakse jäädavalt.</string>
+    <string name="sandbox_files_delete_confirm">Kustuta</string>
+    <string name="sandbox_files_delete_failed">Kustutamine ebaõnnestus</string>
+    <string name="sandbox_files_delete_success">Kustutatud</string>
+    <string name="sandbox_files_rename_title">Nimeta ümber</string>
+    <string name="sandbox_files_rename_label">Uus nimi</string>
+    <string name="sandbox_files_rename_confirm">Nimeta ümber</string>
+    <string name="sandbox_files_rename_error_invalid">Nimi ei tohi sisaldada märki / ega olla tühi</string>
+    <string name="sandbox_files_rename_error_collision">Selle nimega fail on juba olemas</string>
+    <string name="sandbox_files_rename_failed">Ümbernimetamine ebaõnnestus</string>
+    <string name="sandbox_files_rename_success">Ümber nimetatud</string>
+    <string name="sandbox_files_editor_closed_after_delete">Fail kustutati</string>
 </resources>

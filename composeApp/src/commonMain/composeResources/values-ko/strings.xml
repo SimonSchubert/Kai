@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">트리거</string>
     <string name="tool_fetch_url_description">URL을 가져와서 응답 본문을 에이전트에 반환합니다</string>
     <string name="tool_fetch_url_name">URL 가져오기</string>
+    <string name="sandbox_files_action_open_external">앱으로 열기</string>
+    <string name="sandbox_files_action_rename">이름 바꾸기</string>
+    <string name="sandbox_files_action_delete">삭제</string>
+    <string name="sandbox_files_action_more">추가 작업</string>
+    <string name="sandbox_files_editor_open_externally">외부에서 열기</string>
+    <string name="sandbox_files_dialog_cancel">취소</string>
+    <string name="sandbox_files_delete_title">%1$s을(를) 삭제할까요?</string>
+    <string name="sandbox_files_delete_message_file">이 파일이 영구적으로 삭제됩니다.</string>
+    <string name="sandbox_files_delete_message_directory">이 폴더와 모든 내용이 영구적으로 삭제됩니다.</string>
+    <string name="sandbox_files_delete_confirm">삭제</string>
+    <string name="sandbox_files_delete_failed">삭제 실패</string>
+    <string name="sandbox_files_delete_success">삭제됨</string>
+    <string name="sandbox_files_rename_title">이름 바꾸기</string>
+    <string name="sandbox_files_rename_label">새 이름</string>
+    <string name="sandbox_files_rename_confirm">변경</string>
+    <string name="sandbox_files_rename_error_invalid">이름에 /가 포함되거나 비어 있을 수 없습니다</string>
+    <string name="sandbox_files_rename_error_collision">같은 이름의 파일이 이미 있습니다</string>
+    <string name="sandbox_files_rename_failed">이름 변경 실패</string>
+    <string name="sandbox_files_rename_success">이름이 변경되었습니다</string>
+    <string name="sandbox_files_editor_closed_after_delete">파일이 삭제되었습니다</string>
 </resources>

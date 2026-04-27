@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">Триггер</string>
     <string name="tool_fetch_url_description">Загрузить URL и вернуть тело ответа агенту</string>
     <string name="tool_fetch_url_name">Загрузить URL</string>
+    <string name="sandbox_files_action_open_external">Открыть в приложении</string>
+    <string name="sandbox_files_action_rename">Переименовать</string>
+    <string name="sandbox_files_action_delete">Удалить</string>
+    <string name="sandbox_files_action_more">Дополнительные действия</string>
+    <string name="sandbox_files_editor_open_externally">Открыть внешне</string>
+    <string name="sandbox_files_dialog_cancel">Отмена</string>
+    <string name="sandbox_files_delete_title">Удалить %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Этот файл будет удалён навсегда.</string>
+    <string name="sandbox_files_delete_message_directory">Эта папка и всё её содержимое будут удалены навсегда.</string>
+    <string name="sandbox_files_delete_confirm">Удалить</string>
+    <string name="sandbox_files_delete_failed">Не удалось удалить</string>
+    <string name="sandbox_files_delete_success">Удалено</string>
+    <string name="sandbox_files_rename_title">Переименовать</string>
+    <string name="sandbox_files_rename_label">Новое имя</string>
+    <string name="sandbox_files_rename_confirm">Переименовать</string>
+    <string name="sandbox_files_rename_error_invalid">Имя не может содержать / или быть пустым</string>
+    <string name="sandbox_files_rename_error_collision">Файл с таким именем уже существует</string>
+    <string name="sandbox_files_rename_failed">Не удалось переименовать</string>
+    <string name="sandbox_files_rename_success">Переименовано</string>
+    <string name="sandbox_files_editor_closed_after_delete">Файл удалён</string>
 </resources>

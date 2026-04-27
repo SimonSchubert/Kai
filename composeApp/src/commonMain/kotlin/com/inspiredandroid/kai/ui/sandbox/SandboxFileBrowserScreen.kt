@@ -19,9 +19,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 import androidx.compose.material.icons.filled.Folder
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Snackbar
@@ -34,7 +39,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,10 +55,26 @@ import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.sandbox_files_action_delete
+import kai.composeapp.generated.resources.sandbox_files_action_more
+import kai.composeapp.generated.resources.sandbox_files_action_open_external
+import kai.composeapp.generated.resources.sandbox_files_action_rename
+import kai.composeapp.generated.resources.sandbox_files_delete_confirm
+import kai.composeapp.generated.resources.sandbox_files_delete_message_directory
+import kai.composeapp.generated.resources.sandbox_files_delete_message_file
+import kai.composeapp.generated.resources.sandbox_files_delete_title
+import kai.composeapp.generated.resources.sandbox_files_dialog_cancel
+import kai.composeapp.generated.resources.sandbox_files_editor_open_externally
+import kai.composeapp.generated.resources.sandbox_files_rename_confirm
+import kai.composeapp.generated.resources.sandbox_files_rename_label
+import kai.composeapp.generated.resources.sandbox_files_rename_title
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 private const val DEFAULT_INITIAL_PATH = "/root"
+private const val ROOT_HOME_PATH = "/root"
 
 @Composable
 fun SandboxFilesContent(
@@ -78,17 +101,23 @@ fun SandboxFilesContent(
                 currentPath = state.currentPath,
                 editor = state.editor,
                 onNavigateTo = viewModel::navigateTo,
-                onSave = viewModel::save,
             )
             val editor = state.editor
             if (editor == null) {
-                FileList(state = state, onOpen = viewModel::openEntry)
+                FileList(
+                    state = state,
+                    onOpen = viewModel::openEntry,
+                    onOpenExternal = viewModel::openInExternalApp,
+                    onRename = viewModel::requestRename,
+                    onDelete = viewModel::requestDelete,
+                )
             } else {
                 EditorBody(
                     editor = editor,
                     onChange = viewModel::updateEditorContent,
                     onOpenExternal = viewModel::openInExternalApp,
                     onLoadAsText = viewModel::loadAsText,
+                    onSave = viewModel::save,
                 )
             }
         }
@@ -97,6 +126,23 @@ fun SandboxFilesContent(
             modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp),
         ) { Snackbar(snackbarData = it) }
     }
+
+    state.pendingDelete?.let { entry ->
+        DeleteConfirmDialog(
+            entry = entry,
+            onConfirm = viewModel::confirmDelete,
+            onDismiss = viewModel::cancelDelete,
+        )
+    }
+
+    state.renaming?.let { rename ->
+        RenameDialog(
+            state = rename,
+            onValueChange = viewModel::updateRenameInput,
+            onConfirm = viewModel::confirmRename,
+            onDismiss = viewModel::cancelRename,
+        )
+    }
 }
 
 @Composable
@@ -104,12 +150,10 @@ private fun PathBar(
     currentPath: String,
     editor: EditorState?,
     onNavigateTo: (String) -> Unit,
-    onSave: () -> Unit,
 ) {
     val editorPath = (editor as? EditorState.Loaded)?.path
         ?: (editor as? EditorState.Binary)?.path
     val editorFileName = remember(editorPath) { editorPath?.substringAfterLast('/') }
-    val saveDirty = (editor as? EditorState.Loaded)?.dirty == true
 
     val segments = remember(currentPath) {
         val parts = currentPath.split("/").filter { it.isNotEmpty() }
@@ -163,15 +207,6 @@ private fun PathBar(
                     )
                 }
             }
-            if (editor is EditorState.Loaded) {
-                TextButton(
-                    onClick = onSave,
-                    enabled = saveDirty,
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Text("Save")
-                }
-            }
         }
     }
 }
@@ -190,6 +225,9 @@ private fun Separator() {
 private fun FileList(
     state: FileBrowserUiState,
     onOpen: (SandboxFileEntry) -> Unit,
+    onOpenExternal: (String) -> Unit,
+    onRename: (SandboxFileEntry) -> Unit,
+    onDelete: (SandboxFileEntry) -> Unit,
 ) {
     if (state.loading && state.entries.isEmpty()) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -219,48 +257,127 @@ private fun FileList(
         contentPadding = PaddingValues(vertical = 8.dp),
     ) {
         items(state.entries, key = { it.path }) { entry ->
-            FileRow(entry = entry, onClick = { onOpen(entry) })
+            FileRow(
+                entry = entry,
+                onClick = { onOpen(entry) },
+                onOpenExternal = { onOpenExternal(entry.path) },
+                onRename = { onRename(entry) },
+                onDelete = { onDelete(entry) },
+            )
         }
     }
 }
 
 @Composable
-private fun FileRow(entry: SandboxFileEntry, onClick: () -> Unit) {
+private fun FileRow(
+    entry: SandboxFileEntry,
+    onClick: () -> Unit,
+    onOpenExternal: () -> Unit,
+    onRename: () -> Unit,
+    onDelete: () -> Unit,
+) {
     Card(
         colors = kaiAdaptiveCardColors(),
         border = kaiAdaptiveCardBorder(),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = onClick)
-                .handCursor()
-                .padding(horizontal = 12.dp, vertical = 10.dp),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = if (entry.isDirectory) Icons.Filled.Folder else Icons.AutoMirrored.Filled.InsertDriveFile,
-                contentDescription = null,
-                tint = if (entry.isDirectory) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-            Spacer(Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = entry.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable(onClick = onClick)
+                    .handCursor()
+                    .padding(start = 12.dp, top = 10.dp, bottom = 10.dp, end = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    imageVector = if (entry.isDirectory) Icons.Filled.Folder else Icons.AutoMirrored.Filled.InsertDriveFile,
+                    contentDescription = null,
+                    tint = if (entry.isDirectory) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                if (!entry.isDirectory) {
+                Spacer(Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = formatFileSize(entry.sizeBytes),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        text = entry.name,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
                     )
+                    if (!entry.isDirectory) {
+                        Text(
+                            text = formatFileSize(entry.sizeBytes),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                 }
             }
+            if (entry.path != ROOT_HOME_PATH) {
+                FileRowMenu(
+                    isDirectory = entry.isDirectory,
+                    onOpenExternal = onOpenExternal,
+                    onRename = onRename,
+                    onDelete = onDelete,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun FileRowMenu(
+    isDirectory: Boolean,
+    onOpenExternal: () -> Unit,
+    onRename: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Box {
+        IconButton(
+            onClick = { expanded = true },
+            modifier = Modifier.handCursor().padding(end = 4.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                contentDescription = stringResource(Res.string.sandbox_files_action_more),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            if (!isDirectory) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(Res.string.sandbox_files_action_open_external)) },
+                    onClick = {
+                        expanded = false
+                        onOpenExternal()
+                    },
+                    modifier = Modifier.handCursor(),
+                )
+            }
+            DropdownMenuItem(
+                text = { Text(stringResource(Res.string.sandbox_files_action_rename)) },
+                onClick = {
+                    expanded = false
+                    onRename()
+                },
+                modifier = Modifier.handCursor(),
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(Res.string.sandbox_files_action_delete)) },
+                onClick = {
+                    expanded = false
+                    onDelete()
+                },
+                modifier = Modifier.handCursor(),
+            )
         }
     }
 }
@@ -271,6 +388,7 @@ private fun EditorBody(
     onChange: (String) -> Unit,
     onOpenExternal: (String) -> Unit,
     onLoadAsText: (String) -> Unit,
+    onSave: () -> Unit,
 ) {
     when (editor) {
         EditorState.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -303,21 +421,102 @@ private fun EditorBody(
             Text(editor.message, color = MaterialTheme.colorScheme.error)
         }
 
-        is EditorState.Loaded -> Surface(
+        is EditorState.Loaded -> Column(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 8.dp),
-            shape = RoundedCornerShape(8.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
         ) {
             OutlinedTextField(
                 value = editor.current,
                 onValueChange = onChange,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxWidth().weight(1f),
                 textStyle = TextStyle(fontFamily = FontFamily.Monospace),
+                shape = RoundedCornerShape(8.dp),
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                 ),
             )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                TextButton(
+                    onClick = { onOpenExternal(editor.path) },
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.sandbox_files_editor_open_externally))
+                }
+                TextButton(
+                    onClick = onSave,
+                    enabled = editor.dirty,
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text("Save")
+                }
+            }
         }
     }
+}
+
+@Composable
+private fun DeleteConfirmDialog(
+    entry: SandboxFileEntry,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.sandbox_files_delete_title, entry.name)) },
+        text = {
+            val messageRes = if (entry.isDirectory) {
+                Res.string.sandbox_files_delete_message_directory
+            } else {
+                Res.string.sandbox_files_delete_message_file
+            }
+            Text(stringResource(messageRes))
+        },
+        confirmButton = {
+            TextButton(onClick = onConfirm, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.sandbox_files_delete_confirm))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.sandbox_files_dialog_cancel))
+            }
+        },
+    )
+}
+
+@Composable
+private fun RenameDialog(
+    state: RenameState,
+    onValueChange: (String) -> Unit,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.sandbox_files_rename_title)) },
+        text = {
+            OutlinedTextField(
+                value = state.input,
+                onValueChange = onValueChange,
+                singleLine = true,
+                label = { Text(stringResource(Res.string.sandbox_files_rename_label)) },
+                isError = state.error != null,
+                supportingText = state.error?.let { res -> { Text(stringResource(res)) } },
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onConfirm, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.sandbox_files_rename_confirm))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, modifier = Modifier.handCursor()) {
+                Text(stringResource(Res.string.sandbox_files_dialog_cancel))
+            }
+        },
+    )
 }

@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">トリガー</string>
     <string name="tool_fetch_url_description">URLを取得し、レスポンスボディをエージェントに返します</string>
     <string name="tool_fetch_url_name">URL取得</string>
+    <string name="sandbox_files_action_open_external">アプリで開く</string>
+    <string name="sandbox_files_action_rename">名前を変更</string>
+    <string name="sandbox_files_action_delete">削除</string>
+    <string name="sandbox_files_action_more">その他の操作</string>
+    <string name="sandbox_files_editor_open_externally">外部で開く</string>
+    <string name="sandbox_files_dialog_cancel">キャンセル</string>
+    <string name="sandbox_files_delete_title">%1$s を削除しますか？</string>
+    <string name="sandbox_files_delete_message_file">このファイルは完全に削除されます。</string>
+    <string name="sandbox_files_delete_message_directory">このフォルダーとその中身はすべて完全に削除されます。</string>
+    <string name="sandbox_files_delete_confirm">削除</string>
+    <string name="sandbox_files_delete_failed">削除に失敗しました</string>
+    <string name="sandbox_files_delete_success">削除しました</string>
+    <string name="sandbox_files_rename_title">名前を変更</string>
+    <string name="sandbox_files_rename_label">新しい名前</string>
+    <string name="sandbox_files_rename_confirm">変更</string>
+    <string name="sandbox_files_rename_error_invalid">名前に / を含めることはできず、空にもできません</string>
+    <string name="sandbox_files_rename_error_collision">その名前のファイルは既に存在します</string>
+    <string name="sandbox_files_rename_failed">名前の変更に失敗しました</string>
+    <string name="sandbox_files_rename_success">名前を変更しました</string>
+    <string name="sandbox_files_editor_closed_after_delete">ファイルが削除されました</string>
 </resources>

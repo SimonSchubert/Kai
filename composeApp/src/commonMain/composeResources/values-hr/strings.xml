@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Okidač</string>
     <string name="tool_fetch_url_description">Dohvati URL i vrati tijelo odgovora agentu</string>
     <string name="tool_fetch_url_name">Dohvati URL</string>
+    <string name="sandbox_files_action_open_external">Otvori s aplikacijom</string>
+    <string name="sandbox_files_action_rename">Preimenuj</string>
+    <string name="sandbox_files_action_delete">Izbriši</string>
+    <string name="sandbox_files_action_more">Više radnji</string>
+    <string name="sandbox_files_editor_open_externally">Otvori izvan aplikacije</string>
+    <string name="sandbox_files_dialog_cancel">Odustani</string>
+    <string name="sandbox_files_delete_title">Izbrisati %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Ova će datoteka biti trajno izbrisana.</string>
+    <string name="sandbox_files_delete_message_directory">Ova mapa i sav njezin sadržaj bit će trajno izbrisani.</string>
+    <string name="sandbox_files_delete_confirm">Izbriši</string>
+    <string name="sandbox_files_delete_failed">Brisanje nije uspjelo</string>
+    <string name="sandbox_files_delete_success">Izbrisano</string>
+    <string name="sandbox_files_rename_title">Preimenuj</string>
+    <string name="sandbox_files_rename_label">Novi naziv</string>
+    <string name="sandbox_files_rename_confirm">Preimenuj</string>
+    <string name="sandbox_files_rename_error_invalid">Naziv ne može sadržavati / ili biti prazan</string>
+    <string name="sandbox_files_rename_error_collision">Datoteka s tim nazivom već postoji</string>
+    <string name="sandbox_files_rename_failed">Preimenovanje nije uspjelo</string>
+    <string name="sandbox_files_rename_success">Preimenovano</string>
+    <string name="sandbox_files_editor_closed_after_delete">Datoteka je izbrisana</string>
 </resources>

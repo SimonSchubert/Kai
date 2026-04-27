@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Aktivizētājs</string>
     <string name="tool_fetch_url_description">Iegūt URL un atgriezt atbildes saturu aģentam</string>
     <string name="tool_fetch_url_name">Iegūt URL</string>
+    <string name="sandbox_files_action_open_external">Atvērt ar lietotni</string>
+    <string name="sandbox_files_action_rename">Pārdēvēt</string>
+    <string name="sandbox_files_action_delete">Dzēst</string>
+    <string name="sandbox_files_action_more">Vairāk darbību</string>
+    <string name="sandbox_files_editor_open_externally">Atvērt ārēji</string>
+    <string name="sandbox_files_dialog_cancel">Atcelt</string>
+    <string name="sandbox_files_delete_title">Dzēst %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Šis fails tiks neatgriezeniski dzēsts.</string>
+    <string name="sandbox_files_delete_message_directory">Šī mape un viss tās saturs tiks neatgriezeniski dzēsti.</string>
+    <string name="sandbox_files_delete_confirm">Dzēst</string>
+    <string name="sandbox_files_delete_failed">Dzēšana neizdevās</string>
+    <string name="sandbox_files_delete_success">Dzēsts</string>
+    <string name="sandbox_files_rename_title">Pārdēvēt</string>
+    <string name="sandbox_files_rename_label">Jauns nosaukums</string>
+    <string name="sandbox_files_rename_confirm">Pārdēvēt</string>
+    <string name="sandbox_files_rename_error_invalid">Nosaukums nevar saturēt / vai būt tukšs</string>
+    <string name="sandbox_files_rename_error_collision">Fails ar šādu nosaukumu jau pastāv</string>
+    <string name="sandbox_files_rename_failed">Pārdēvēšana neizdevās</string>
+    <string name="sandbox_files_rename_success">Pārdēvēts</string>
+    <string name="sandbox_files_editor_closed_after_delete">Fails tika dzēsts</string>
 </resources>

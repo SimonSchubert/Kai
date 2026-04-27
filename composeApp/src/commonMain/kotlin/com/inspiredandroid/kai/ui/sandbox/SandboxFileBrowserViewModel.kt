@@ -6,7 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.sandbox_files_delete_failed
+import kai.composeapp.generated.resources.sandbox_files_delete_success
+import kai.composeapp.generated.resources.sandbox_files_editor_closed_after_delete
 import kai.composeapp.generated.resources.sandbox_files_open_failed
+import kai.composeapp.generated.resources.sandbox_files_rename_error_collision
+import kai.composeapp.generated.resources.sandbox_files_rename_error_invalid
+import kai.composeapp.generated.resources.sandbox_files_rename_failed
+import kai.composeapp.generated.resources.sandbox_files_rename_success
 import kai.composeapp.generated.resources.sandbox_files_save_failed
 import kai.composeapp.generated.resources.sandbox_files_save_success
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +40,13 @@ sealed interface EditorState {
 }
 
 @Immutable
+data class RenameState(
+    val originalEntry: SandboxFileEntry,
+    val input: String,
+    val error: StringResource? = null,
+)
+
+@Immutable
 data class FileBrowserUiState(
     val currentPath: String = "/",
     val entries: List<SandboxFileEntry> = emptyList(),
@@ -40,6 +54,8 @@ data class FileBrowserUiState(
     val error: String? = null,
     val editor: EditorState? = null,
     val snackbarMessage: StringResource? = null,
+    val pendingDelete: SandboxFileEntry? = null,
+    val renaming: RenameState? = null,
 )
 
 class SandboxFileBrowserViewModel(
@@ -62,10 +78,13 @@ class SandboxFileBrowserViewModel(
             return
         }
         _state.update { it.copy(currentPath = normalized, loading = true, error = null, editor = null) }
-        viewModelScope.launch {
-            val entries = sandboxController.listDirectory(normalized)
-            _state.update { it.copy(entries = entries, loading = false) }
-        }
+        viewModelScope.launch { refreshCurrent() }
+    }
+
+    private suspend fun refreshCurrent() {
+        val path = _state.value.currentPath
+        val entries = sandboxController.listDirectory(path)
+        _state.update { it.copy(entries = entries, loading = false) }
     }
 
     fun openEntry(entry: SandboxFileEntry) {
@@ -141,8 +160,127 @@ class SandboxFileBrowserViewModel(
         }
     }
 
+    fun requestDelete(entry: SandboxFileEntry) {
+        _state.update { it.copy(pendingDelete = entry) }
+    }
+
+    fun cancelDelete() {
+        _state.update { it.copy(pendingDelete = null) }
+    }
+
+    fun confirmDelete() {
+        val entry = _state.value.pendingDelete ?: return
+        _state.update { it.copy(pendingDelete = null) }
+        viewModelScope.launch {
+            val ok = sandboxController.deleteEntry(entry.path, recursive = entry.isDirectory)
+            if (ok) {
+                val editor = _state.value.editor
+                val editorPath = editorPathOf(editor)
+                val editorClosed = editorPath != null && editorPath == entry.path
+                val snackbar = if (editorClosed) {
+                    Res.string.sandbox_files_editor_closed_after_delete
+                } else {
+                    Res.string.sandbox_files_delete_success
+                }
+                _state.update {
+                    it.copy(
+                        editor = if (editorClosed) null else it.editor,
+                        snackbarMessage = snackbar,
+                    )
+                }
+                refreshCurrent()
+            } else {
+                _state.update { it.copy(snackbarMessage = Res.string.sandbox_files_delete_failed) }
+            }
+        }
+    }
+
+    fun requestRename(entry: SandboxFileEntry) {
+        _state.update { it.copy(renaming = RenameState(originalEntry = entry, input = entry.name)) }
+    }
+
+    fun updateRenameInput(value: String) {
+        _state.update { state ->
+            val rename = state.renaming ?: return@update state
+            state.copy(renaming = rename.copy(input = value, error = null))
+        }
+    }
+
+    fun cancelRename() {
+        _state.update { it.copy(renaming = null) }
+    }
+
+    fun confirmRename() {
+        val rename = _state.value.renaming ?: return
+        val entry = rename.originalEntry
+        val newName = rename.input.trim()
+        if (newName.isEmpty() || newName == entry.name ||
+            newName.contains('/') || newName.contains('\\') ||
+            newName == "." || newName == ".."
+        ) {
+            if (newName == entry.name) {
+                _state.update { it.copy(renaming = null) }
+            } else {
+                _state.update {
+                    it.copy(renaming = rename.copy(error = Res.string.sandbox_files_rename_error_invalid))
+                }
+            }
+            return
+        }
+        viewModelScope.launch {
+            val result = sandboxController.renameEntry(entry.path, newName)
+            result.fold(
+                onSuccess = { newPath ->
+                    val editor = _state.value.editor
+                    val updatedEditor = if (editor is EditorState.Loaded && editor.path == entry.path) {
+                        editor.copy(path = newPath)
+                    } else if (editor is EditorState.Binary && editor.path == entry.path) {
+                        EditorState.Binary(newPath)
+                    } else {
+                        editor
+                    }
+                    _state.update {
+                        it.copy(
+                            renaming = null,
+                            editor = updatedEditor,
+                            snackbarMessage = Res.string.sandbox_files_rename_success,
+                        )
+                    }
+                    refreshCurrent()
+                },
+                onFailure = { e ->
+                    val message = e.message
+                    val errorRes = when {
+                        message == "collision" -> Res.string.sandbox_files_rename_error_collision
+                        e is IllegalArgumentException -> Res.string.sandbox_files_rename_error_invalid
+                        else -> null
+                    }
+                    if (errorRes != null) {
+                        _state.update {
+                            it.copy(renaming = rename.copy(error = errorRes))
+                        }
+                    } else {
+                        _state.update {
+                            it.copy(
+                                renaming = null,
+                                snackbarMessage = Res.string.sandbox_files_rename_failed,
+                            )
+                        }
+                    }
+                },
+            )
+        }
+    }
+
     fun consumeSnackbar() {
         _state.update { it.copy(snackbarMessage = null) }
+    }
+
+    private fun editorPathOf(editor: EditorState?): String? = when (editor) {
+        is EditorState.Loaded -> editor.path
+        is EditorState.Binary -> editor.path
+        is EditorState.Error -> editor.path
+        else -> null
     }
 
     private fun normalize(path: String): String {

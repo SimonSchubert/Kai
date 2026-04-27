@@ -305,4 +305,24 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_task_details_trigger">Trigger</string>
     <string name="tool_fetch_url_description">Een URL ophalen en de responstekst teruggeven aan de agent</string>
     <string name="tool_fetch_url_name">URL ophalen</string>
+    <string name="sandbox_files_action_open_external">Openen met app</string>
+    <string name="sandbox_files_action_rename">Hernoemen</string>
+    <string name="sandbox_files_action_delete">Verwijderen</string>
+    <string name="sandbox_files_action_more">Meer acties</string>
+    <string name="sandbox_files_editor_open_externally">Extern openen</string>
+    <string name="sandbox_files_dialog_cancel">Annuleren</string>
+    <string name="sandbox_files_delete_title">%1$s verwijderen?</string>
+    <string name="sandbox_files_delete_message_file">Dit bestand wordt permanent verwijderd.</string>
+    <string name="sandbox_files_delete_message_directory">Deze map en alle inhoud worden permanent verwijderd.</string>
+    <string name="sandbox_files_delete_confirm">Verwijderen</string>
+    <string name="sandbox_files_delete_failed">Verwijderen mislukt</string>
+    <string name="sandbox_files_delete_success">Verwijderd</string>
+    <string name="sandbox_files_rename_title">Hernoemen</string>
+    <string name="sandbox_files_rename_label">Nieuwe naam</string>
+    <string name="sandbox_files_rename_confirm">Hernoemen</string>
+    <string name="sandbox_files_rename_error_invalid">Naam mag geen / bevatten en niet leeg zijn</string>
+    <string name="sandbox_files_rename_error_collision">Er bestaat al een bestand met die naam</string>
+    <string name="sandbox_files_rename_failed">Hernoemen mislukt</string>
+    <string name="sandbox_files_rename_success">Hernoemd</string>
+    <string name="sandbox_files_editor_closed_after_delete">Bestand is verwijderd</string>
 </resources>

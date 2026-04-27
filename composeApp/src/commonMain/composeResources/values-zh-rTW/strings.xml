@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">觸發器</string>
     <string name="tool_fetch_url_description">取得一個 URL 並將回應內容返回給代理</string>
     <string name="tool_fetch_url_name">取得 URL</string>
+    <string name="sandbox_files_action_open_external">用應用程式開啟</string>
+    <string name="sandbox_files_action_rename">重新命名</string>
+    <string name="sandbox_files_action_delete">刪除</string>
+    <string name="sandbox_files_action_more">更多操作</string>
+    <string name="sandbox_files_editor_open_externally">於外部開啟</string>
+    <string name="sandbox_files_dialog_cancel">取消</string>
+    <string name="sandbox_files_delete_title">刪除 %1$s？</string>
+    <string name="sandbox_files_delete_message_file">此檔案將被永久刪除。</string>
+    <string name="sandbox_files_delete_message_directory">此資料夾及其所有內容將被永久刪除。</string>
+    <string name="sandbox_files_delete_confirm">刪除</string>
+    <string name="sandbox_files_delete_failed">刪除失敗</string>
+    <string name="sandbox_files_delete_success">已刪除</string>
+    <string name="sandbox_files_rename_title">重新命名</string>
+    <string name="sandbox_files_rename_label">新名稱</string>
+    <string name="sandbox_files_rename_confirm">重新命名</string>
+    <string name="sandbox_files_rename_error_invalid">名稱不可包含 / 或為空</string>
+    <string name="sandbox_files_rename_error_collision">已存在同名檔案</string>
+    <string name="sandbox_files_rename_failed">重新命名失敗</string>
+    <string name="sandbox_files_rename_success">已重新命名</string>
+    <string name="sandbox_files_editor_closed_after_delete">檔案已刪除</string>
 </resources>

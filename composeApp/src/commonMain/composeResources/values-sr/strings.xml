@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Окидач</string>
     <string name="tool_fetch_url_description">Преузми URL и врати тело одговора агенту</string>
     <string name="tool_fetch_url_name">Преузми URL</string>
+    <string name="sandbox_files_action_open_external">Отвори у апликацији</string>
+    <string name="sandbox_files_action_rename">Преименуј</string>
+    <string name="sandbox_files_action_delete">Обриши</string>
+    <string name="sandbox_files_action_more">Више радњи</string>
+    <string name="sandbox_files_editor_open_externally">Отвори споља</string>
+    <string name="sandbox_files_dialog_cancel">Откажи</string>
+    <string name="sandbox_files_delete_title">Обрисати %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Ова датотека ће бити трајно обрисана.</string>
+    <string name="sandbox_files_delete_message_directory">Ова фасцикла и сав њен садржај биће трајно обрисани.</string>
+    <string name="sandbox_files_delete_confirm">Обриши</string>
+    <string name="sandbox_files_delete_failed">Брисање није успело</string>
+    <string name="sandbox_files_delete_success">Обрисано</string>
+    <string name="sandbox_files_rename_title">Преименуј</string>
+    <string name="sandbox_files_rename_label">Ново име</string>
+    <string name="sandbox_files_rename_confirm">Преименуј</string>
+    <string name="sandbox_files_rename_error_invalid">Име не може да садржи / или буде празно</string>
+    <string name="sandbox_files_rename_error_collision">Датотека са тим именом већ постоји</string>
+    <string name="sandbox_files_rename_failed">Преименовање није успело</string>
+    <string name="sandbox_files_rename_success">Преименовано</string>
+    <string name="sandbox_files_editor_closed_after_delete">Датотека је обрисана</string>
 </resources>

@@ -306,4 +306,24 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_task_details_trigger">Laukaisin</string>
     <string name="tool_fetch_url_description">Hae URL ja palauta vastauksen runko agentille</string>
     <string name="tool_fetch_url_name">Hae URL</string>
+    <string name="sandbox_files_action_open_external">Avaa sovelluksessa</string>
+    <string name="sandbox_files_action_rename">Nimeä uudelleen</string>
+    <string name="sandbox_files_action_delete">Poista</string>
+    <string name="sandbox_files_action_more">Lisää toimintoja</string>
+    <string name="sandbox_files_editor_open_externally">Avaa ulkoisesti</string>
+    <string name="sandbox_files_dialog_cancel">Peruuta</string>
+    <string name="sandbox_files_delete_title">Poistetaanko %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Tämä tiedosto poistetaan pysyvästi.</string>
+    <string name="sandbox_files_delete_message_directory">Tämä kansio ja kaikki sen sisältö poistetaan pysyvästi.</string>
+    <string name="sandbox_files_delete_confirm">Poista</string>
+    <string name="sandbox_files_delete_failed">Poisto epäonnistui</string>
+    <string name="sandbox_files_delete_success">Poistettu</string>
+    <string name="sandbox_files_rename_title">Nimeä uudelleen</string>
+    <string name="sandbox_files_rename_label">Uusi nimi</string>
+    <string name="sandbox_files_rename_confirm">Nimeä uudelleen</string>
+    <string name="sandbox_files_rename_error_invalid">Nimi ei saa sisältää merkkiä / eikä olla tyhjä</string>
+    <string name="sandbox_files_rename_error_collision">Tämänniminen tiedosto on jo olemassa</string>
+    <string name="sandbox_files_rename_failed">Nimeäminen epäonnistui</string>
+    <string name="sandbox_files_rename_success">Nimetty uudelleen</string>
+    <string name="sandbox_files_editor_closed_after_delete">Tiedosto poistettiin</string>
 </resources>

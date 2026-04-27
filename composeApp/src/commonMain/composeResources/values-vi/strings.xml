@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Kích hoạt</string>
     <string name="tool_fetch_url_description">Lấy một URL và trả về nội dung phản hồi cho tác nhân</string>
     <string name="tool_fetch_url_name">Lấy URL</string>
+    <string name="sandbox_files_action_open_external">Mở bằng ứng dụng</string>
+    <string name="sandbox_files_action_rename">Đổi tên</string>
+    <string name="sandbox_files_action_delete">Xóa</string>
+    <string name="sandbox_files_action_more">Thêm thao tác</string>
+    <string name="sandbox_files_editor_open_externally">Mở bên ngoài</string>
+    <string name="sandbox_files_dialog_cancel">Hủy</string>
+    <string name="sandbox_files_delete_title">Xóa %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Tệp này sẽ bị xóa vĩnh viễn.</string>
+    <string name="sandbox_files_delete_message_directory">Thư mục này và toàn bộ nội dung sẽ bị xóa vĩnh viễn.</string>
+    <string name="sandbox_files_delete_confirm">Xóa</string>
+    <string name="sandbox_files_delete_failed">Xóa thất bại</string>
+    <string name="sandbox_files_delete_success">Đã xóa</string>
+    <string name="sandbox_files_rename_title">Đổi tên</string>
+    <string name="sandbox_files_rename_label">Tên mới</string>
+    <string name="sandbox_files_rename_confirm">Đổi tên</string>
+    <string name="sandbox_files_rename_error_invalid">Tên không được chứa / hoặc để trống</string>
+    <string name="sandbox_files_rename_error_collision">Đã tồn tại tệp cùng tên</string>
+    <string name="sandbox_files_rename_failed">Đổi tên thất bại</string>
+    <string name="sandbox_files_rename_success">Đã đổi tên</string>
+    <string name="sandbox_files_editor_closed_after_delete">Tệp đã bị xóa</string>
 </resources>

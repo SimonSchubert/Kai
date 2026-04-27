@@ -52,6 +52,8 @@ interface SandboxController {
     suspend fun readTextFile(path: String, maxBytes: Int = 512_000): String?
     suspend fun writeTextFile(path: String, content: String): Boolean
     suspend fun openFile(path: String): Result<Unit>
+    suspend fun deleteEntry(path: String, recursive: Boolean): Boolean
+    suspend fun renameEntry(path: String, newName: String): Result<String>
 }
 
 expect fun createSandboxController(): SandboxController

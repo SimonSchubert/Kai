@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Trigger</string>
     <string name="tool_fetch_url_description">Kunin ang isang URL at ibalik ang response body sa agent</string>
     <string name="tool_fetch_url_name">Kunin ang URL</string>
+    <string name="sandbox_files_action_open_external">Buksan sa app</string>
+    <string name="sandbox_files_action_rename">Palitan ang pangalan</string>
+    <string name="sandbox_files_action_delete">Tanggalin</string>
+    <string name="sandbox_files_action_more">Higit pang aksyon</string>
+    <string name="sandbox_files_editor_open_externally">Buksan sa labas</string>
+    <string name="sandbox_files_dialog_cancel">Kanselahin</string>
+    <string name="sandbox_files_delete_title">Tanggalin ang %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Permanenteng tatanggalin ang file na ito.</string>
+    <string name="sandbox_files_delete_message_directory">Permanenteng tatanggalin ang folder na ito at lahat ng nilalaman nito.</string>
+    <string name="sandbox_files_delete_confirm">Tanggalin</string>
+    <string name="sandbox_files_delete_failed">Hindi nagawa ang pagtanggal</string>
+    <string name="sandbox_files_delete_success">Tinanggal</string>
+    <string name="sandbox_files_rename_title">Palitan ang pangalan</string>
+    <string name="sandbox_files_rename_label">Bagong pangalan</string>
+    <string name="sandbox_files_rename_confirm">Palitan</string>
+    <string name="sandbox_files_rename_error_invalid">Hindi maaaring may / o walang laman ang pangalan</string>
+    <string name="sandbox_files_rename_error_collision">May file na nang ganitong pangalan</string>
+    <string name="sandbox_files_rename_failed">Hindi nagawa ang pagpapalit ng pangalan</string>
+    <string name="sandbox_files_rename_success">Pinalitan ang pangalan</string>
+    <string name="sandbox_files_editor_closed_after_delete">Tinanggal ang file</string>
 </resources>

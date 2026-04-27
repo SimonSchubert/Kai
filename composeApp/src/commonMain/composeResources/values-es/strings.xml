@@ -306,4 +306,24 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_task_details_trigger">Activador</string>
     <string name="tool_fetch_url_description">Obtener una URL y devolver el cuerpo de la respuesta al agente</string>
     <string name="tool_fetch_url_name">Obtener URL</string>
+    <string name="sandbox_files_action_open_external">Abrir con app</string>
+    <string name="sandbox_files_action_rename">Renombrar</string>
+    <string name="sandbox_files_action_delete">Eliminar</string>
+    <string name="sandbox_files_action_more">Más acciones</string>
+    <string name="sandbox_files_editor_open_externally">Abrir externamente</string>
+    <string name="sandbox_files_dialog_cancel">Cancelar</string>
+    <string name="sandbox_files_delete_title">¿Eliminar %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Este archivo se eliminará permanentemente.</string>
+    <string name="sandbox_files_delete_message_directory">Esta carpeta y todo su contenido se eliminarán permanentemente.</string>
+    <string name="sandbox_files_delete_confirm">Eliminar</string>
+    <string name="sandbox_files_delete_failed">Error al eliminar</string>
+    <string name="sandbox_files_delete_success">Eliminado</string>
+    <string name="sandbox_files_rename_title">Renombrar</string>
+    <string name="sandbox_files_rename_label">Nuevo nombre</string>
+    <string name="sandbox_files_rename_confirm">Renombrar</string>
+    <string name="sandbox_files_rename_error_invalid">El nombre no puede contener / ni estar vacío</string>
+    <string name="sandbox_files_rename_error_collision">Ya existe un archivo con ese nombre</string>
+    <string name="sandbox_files_rename_failed">Error al renombrar</string>
+    <string name="sandbox_files_rename_success">Renombrado</string>
+    <string name="sandbox_files_editor_closed_after_delete">Archivo eliminado</string>
 </resources>

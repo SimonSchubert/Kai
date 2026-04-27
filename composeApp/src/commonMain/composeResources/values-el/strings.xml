@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">Έναυσμα</string>
     <string name="tool_fetch_url_description">Ανάκτηση μιας διεύθυνσης URL και επιστροφή του σώματος της απάντησης στον πράκτορα</string>
     <string name="tool_fetch_url_name">Ανάκτηση URL</string>
+    <string name="sandbox_files_action_open_external">Άνοιγμα με εφαρμογή</string>
+    <string name="sandbox_files_action_rename">Μετονομασία</string>
+    <string name="sandbox_files_action_delete">Διαγραφή</string>
+    <string name="sandbox_files_action_more">Περισσότερες ενέργειες</string>
+    <string name="sandbox_files_editor_open_externally">Άνοιγμα εξωτερικά</string>
+    <string name="sandbox_files_dialog_cancel">Ακύρωση</string>
+    <string name="sandbox_files_delete_title">Διαγραφή %1$s;</string>
+    <string name="sandbox_files_delete_message_file">Αυτό το αρχείο θα διαγραφεί οριστικά.</string>
+    <string name="sandbox_files_delete_message_directory">Αυτός ο φάκελος και όλο το περιεχόμενό του θα διαγραφούν οριστικά.</string>
+    <string name="sandbox_files_delete_confirm">Διαγραφή</string>
+    <string name="sandbox_files_delete_failed">Η διαγραφή απέτυχε</string>
+    <string name="sandbox_files_delete_success">Διαγράφηκε</string>
+    <string name="sandbox_files_rename_title">Μετονομασία</string>
+    <string name="sandbox_files_rename_label">Νέο όνομα</string>
+    <string name="sandbox_files_rename_confirm">Μετονομασία</string>
+    <string name="sandbox_files_rename_error_invalid">Το όνομα δεν μπορεί να περιέχει / ή να είναι κενό</string>
+    <string name="sandbox_files_rename_error_collision">Υπάρχει ήδη αρχείο με αυτό το όνομα</string>
+    <string name="sandbox_files_rename_failed">Η μετονομασία απέτυχε</string>
+    <string name="sandbox_files_rename_success">Μετονομάστηκε</string>
+    <string name="sandbox_files_editor_closed_after_delete">Το αρχείο διαγράφηκε</string>
 </resources>

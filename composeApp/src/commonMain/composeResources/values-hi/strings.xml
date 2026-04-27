@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">ट्रिगर</string>
     <string name="tool_fetch_url_description">एक URL प्राप्त करें और प्रतिक्रिया बॉडी एजेंट को लौटाएँ</string>
     <string name="tool_fetch_url_name">URL प्राप्त करें</string>
+    <string name="sandbox_files_action_open_external">ऐप से खोलें</string>
+    <string name="sandbox_files_action_rename">नाम बदलें</string>
+    <string name="sandbox_files_action_delete">हटाएं</string>
+    <string name="sandbox_files_action_more">और कार्रवाइयां</string>
+    <string name="sandbox_files_editor_open_externally">बाहर खोलें</string>
+    <string name="sandbox_files_dialog_cancel">रद्द करें</string>
+    <string name="sandbox_files_delete_title">%1$s हटाएं?</string>
+    <string name="sandbox_files_delete_message_file">यह फ़ाइल स्थायी रूप से हट जाएगी.</string>
+    <string name="sandbox_files_delete_message_directory">यह फ़ोल्डर और इसकी पूरी सामग्री स्थायी रूप से हट जाएगी.</string>
+    <string name="sandbox_files_delete_confirm">हटाएं</string>
+    <string name="sandbox_files_delete_failed">हटाना विफल हुआ</string>
+    <string name="sandbox_files_delete_success">हटा दिया गया</string>
+    <string name="sandbox_files_rename_title">नाम बदलें</string>
+    <string name="sandbox_files_rename_label">नया नाम</string>
+    <string name="sandbox_files_rename_confirm">नाम बदलें</string>
+    <string name="sandbox_files_rename_error_invalid">नाम में / नहीं हो सकता और खाली नहीं हो सकता</string>
+    <string name="sandbox_files_rename_error_collision">इस नाम की फ़ाइल पहले से मौजूद है</string>
+    <string name="sandbox_files_rename_failed">नाम बदलना विफल हुआ</string>
+    <string name="sandbox_files_rename_success">नाम बदला गया</string>
+    <string name="sandbox_files_editor_closed_after_delete">फ़ाइल हटा दी गई</string>
 </resources>

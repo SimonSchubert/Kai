@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Declanșator</string>
     <string name="tool_fetch_url_description">Preia un URL și returnează corpul răspunsului către agent</string>
     <string name="tool_fetch_url_name">Preia URL</string>
+    <string name="sandbox_files_action_open_external">Deschide cu aplicația</string>
+    <string name="sandbox_files_action_rename">Redenumește</string>
+    <string name="sandbox_files_action_delete">Șterge</string>
+    <string name="sandbox_files_action_more">Mai multe acțiuni</string>
+    <string name="sandbox_files_editor_open_externally">Deschide extern</string>
+    <string name="sandbox_files_dialog_cancel">Anulează</string>
+    <string name="sandbox_files_delete_title">Ștergi %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Acest fișier va fi șters definitiv.</string>
+    <string name="sandbox_files_delete_message_directory">Acest folder și tot conținutul său vor fi șterse definitiv.</string>
+    <string name="sandbox_files_delete_confirm">Șterge</string>
+    <string name="sandbox_files_delete_failed">Ștergerea a eșuat</string>
+    <string name="sandbox_files_delete_success">Șters</string>
+    <string name="sandbox_files_rename_title">Redenumește</string>
+    <string name="sandbox_files_rename_label">Nume nou</string>
+    <string name="sandbox_files_rename_confirm">Redenumește</string>
+    <string name="sandbox_files_rename_error_invalid">Numele nu poate conține / sau fi gol</string>
+    <string name="sandbox_files_rename_error_collision">Un fișier cu acest nume există deja</string>
+    <string name="sandbox_files_rename_failed">Redenumirea a eșuat</string>
+    <string name="sandbox_files_rename_success">Redenumit</string>
+    <string name="sandbox_files_editor_closed_after_delete">Fișierul a fost șters</string>
 </resources>

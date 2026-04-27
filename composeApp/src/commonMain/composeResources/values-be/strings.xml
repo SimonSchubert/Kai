@@ -305,4 +305,24 @@
     <string name="settings_task_details_trigger">Трыгер</string>
     <string name="tool_fetch_url_description">Атрымаць URL і вярнуць цела адказу агенту</string>
     <string name="tool_fetch_url_name">Атрымаць URL</string>
+    <string name="sandbox_files_action_open_external">Адкрыць у праграме</string>
+    <string name="sandbox_files_action_rename">Перайменаваць</string>
+    <string name="sandbox_files_action_delete">Выдаліць</string>
+    <string name="sandbox_files_action_more">Больш дзеянняў</string>
+    <string name="sandbox_files_editor_open_externally">Адкрыць звонку</string>
+    <string name="sandbox_files_dialog_cancel">Скасаваць</string>
+    <string name="sandbox_files_delete_title">Выдаліць %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Гэты файл будзе выдалены назаўсёды.</string>
+    <string name="sandbox_files_delete_message_directory">Гэта папка і ўвесь яе змест будуць выдалены назаўсёды.</string>
+    <string name="sandbox_files_delete_confirm">Выдаліць</string>
+    <string name="sandbox_files_delete_failed">Не атрымалася выдаліць</string>
+    <string name="sandbox_files_delete_success">Выдалена</string>
+    <string name="sandbox_files_rename_title">Перайменаваць</string>
+    <string name="sandbox_files_rename_label">Новая назва</string>
+    <string name="sandbox_files_rename_confirm">Перайменаваць</string>
+    <string name="sandbox_files_rename_error_invalid">Назва не можа змяшчаць / ці быць пустой</string>
+    <string name="sandbox_files_rename_error_collision">Файл з такой назвай ужо існуе</string>
+    <string name="sandbox_files_rename_failed">Не атрымалася перайменаваць</string>
+    <string name="sandbox_files_rename_success">Перайменавана</string>
+    <string name="sandbox_files_editor_closed_after_delete">Файл выдалены</string>
 </resources>

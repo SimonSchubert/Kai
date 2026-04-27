@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Pencetus</string>
     <string name="tool_fetch_url_description">Ambil URL dan pulangkan badan respons kepada ejen</string>
     <string name="tool_fetch_url_name">Ambil URL</string>
+    <string name="sandbox_files_action_open_external">Buka dengan aplikasi</string>
+    <string name="sandbox_files_action_rename">Namakan semula</string>
+    <string name="sandbox_files_action_delete">Padam</string>
+    <string name="sandbox_files_action_more">Tindakan lain</string>
+    <string name="sandbox_files_editor_open_externally">Buka secara luaran</string>
+    <string name="sandbox_files_dialog_cancel">Batal</string>
+    <string name="sandbox_files_delete_title">Padam %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Fail ini akan dipadamkan secara kekal.</string>
+    <string name="sandbox_files_delete_message_directory">Folder ini dan semua kandungannya akan dipadamkan secara kekal.</string>
+    <string name="sandbox_files_delete_confirm">Padam</string>
+    <string name="sandbox_files_delete_failed">Pemadaman gagal</string>
+    <string name="sandbox_files_delete_success">Dipadam</string>
+    <string name="sandbox_files_rename_title">Namakan semula</string>
+    <string name="sandbox_files_rename_label">Nama baharu</string>
+    <string name="sandbox_files_rename_confirm">Namakan semula</string>
+    <string name="sandbox_files_rename_error_invalid">Nama tidak boleh mengandungi / atau kosong</string>
+    <string name="sandbox_files_rename_error_collision">Fail dengan nama itu sudah wujud</string>
+    <string name="sandbox_files_rename_failed">Penamaan semula gagal</string>
+    <string name="sandbox_files_rename_success">Dinamakan semula</string>
+    <string name="sandbox_files_editor_closed_after_delete">Fail telah dipadamkan</string>
 </resources>

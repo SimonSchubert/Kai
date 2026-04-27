@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Decleneder</string>
     <string name="tool_fetch_url_description">Retschaiver in URL e returnar il corp da la resposta a l\'agent</string>
     <string name="tool_fetch_url_name">Retschaiver URL</string>
+    <string name="sandbox_files_action_open_external">Avrir cun app</string>
+    <string name="sandbox_files_action_rename">Renomnar</string>
+    <string name="sandbox_files_action_delete">Stizzar</string>
+    <string name="sandbox_files_action_more">Pli acziuns</string>
+    <string name="sandbox_files_editor_open_externally">Avrir externamain</string>
+    <string name="sandbox_files_dialog_cancel">Interrumper</string>
+    <string name="sandbox_files_delete_title">Stizzar %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Questa datoteca vegn stizzada permanentamain.</string>
+    <string name="sandbox_files_delete_message_directory">Questa cartonera e tut ses cuntegn vegnan stizzads permanentamain.</string>
+    <string name="sandbox_files_delete_confirm">Stizzar</string>
+    <string name="sandbox_files_delete_failed">Stizzar n\'è betg reussì</string>
+    <string name="sandbox_files_delete_success">Stizzà</string>
+    <string name="sandbox_files_rename_title">Renomnar</string>
+    <string name="sandbox_files_rename_label">Num nov</string>
+    <string name="sandbox_files_rename_confirm">Renomnar</string>
+    <string name="sandbox_files_rename_error_invalid">Il num na po betg cuntegnair / u esser vid</string>
+    <string name="sandbox_files_rename_error_collision">Ina datoteca cun quest num exista gia</string>
+    <string name="sandbox_files_rename_failed">Renomnar n\'è betg reussì</string>
+    <string name="sandbox_files_rename_success">Renomnà</string>
+    <string name="sandbox_files_editor_closed_after_delete">La datoteca è vegnida stizzada</string>
 </resources>

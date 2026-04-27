@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Aktyviklis</string>
     <string name="tool_fetch_url_description">Gauti URL ir grąžinti atsakymo turinį agentui</string>
     <string name="tool_fetch_url_name">Gauti URL</string>
+    <string name="sandbox_files_action_open_external">Atidaryti programa</string>
+    <string name="sandbox_files_action_rename">Pervadinti</string>
+    <string name="sandbox_files_action_delete">Ištrinti</string>
+    <string name="sandbox_files_action_more">Daugiau veiksmų</string>
+    <string name="sandbox_files_editor_open_externally">Atidaryti išorėje</string>
+    <string name="sandbox_files_dialog_cancel">Atšaukti</string>
+    <string name="sandbox_files_delete_title">Ištrinti %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Šis failas bus visam laikui ištrintas.</string>
+    <string name="sandbox_files_delete_message_directory">Šis aplankas ir visas jo turinys bus visam laikui ištrinti.</string>
+    <string name="sandbox_files_delete_confirm">Ištrinti</string>
+    <string name="sandbox_files_delete_failed">Nepavyko ištrinti</string>
+    <string name="sandbox_files_delete_success">Ištrinta</string>
+    <string name="sandbox_files_rename_title">Pervadinti</string>
+    <string name="sandbox_files_rename_label">Naujas pavadinimas</string>
+    <string name="sandbox_files_rename_confirm">Pervadinti</string>
+    <string name="sandbox_files_rename_error_invalid">Pavadinimas negali turėti / arba būti tuščias</string>
+    <string name="sandbox_files_rename_error_collision">Failas tokiu pavadinimu jau yra</string>
+    <string name="sandbox_files_rename_failed">Nepavyko pervadinti</string>
+    <string name="sandbox_files_rename_success">Pervadinta</string>
+    <string name="sandbox_files_editor_closed_after_delete">Failas ištrintas</string>
 </resources>

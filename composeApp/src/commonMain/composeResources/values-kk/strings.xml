@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Іске қосқыш</string>
     <string name="tool_fetch_url_description">URL мекенжайын алып, жауап денесін агентке қайтару</string>
     <string name="tool_fetch_url_name">URL алу</string>
+    <string name="sandbox_files_action_open_external">Қолданбада ашу</string>
+    <string name="sandbox_files_action_rename">Атауын өзгерту</string>
+    <string name="sandbox_files_action_delete">Жою</string>
+    <string name="sandbox_files_action_more">Қосымша әрекеттер</string>
+    <string name="sandbox_files_editor_open_externally">Сыртта ашу</string>
+    <string name="sandbox_files_dialog_cancel">Бас тарту</string>
+    <string name="sandbox_files_delete_title">%1$s жойылсын ба?</string>
+    <string name="sandbox_files_delete_message_file">Бұл файл біржола жойылады.</string>
+    <string name="sandbox_files_delete_message_directory">Бұл қалта және оның барлық мазмұны біржола жойылады.</string>
+    <string name="sandbox_files_delete_confirm">Жою</string>
+    <string name="sandbox_files_delete_failed">Жою сәтсіз</string>
+    <string name="sandbox_files_delete_success">Жойылды</string>
+    <string name="sandbox_files_rename_title">Атауын өзгерту</string>
+    <string name="sandbox_files_rename_label">Жаңа атау</string>
+    <string name="sandbox_files_rename_confirm">Атауын өзгерту</string>
+    <string name="sandbox_files_rename_error_invalid">Атау / таңбасын қамти алмайды немесе бос бола алмайды</string>
+    <string name="sandbox_files_rename_error_collision">Осы атаумен файл бұрыннан бар</string>
+    <string name="sandbox_files_rename_failed">Атауын өзгерту сәтсіз</string>
+    <string name="sandbox_files_rename_success">Атауы өзгертілді</string>
+    <string name="sandbox_files_editor_closed_after_delete">Файл жойылды</string>
 </resources>

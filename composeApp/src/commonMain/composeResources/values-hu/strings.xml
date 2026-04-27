@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">Kiváltó</string>
     <string name="tool_fetch_url_description">URL lekérése és a válasz törzsének visszaadása az ügynöknek</string>
     <string name="tool_fetch_url_name">URL lekérése</string>
+    <string name="sandbox_files_action_open_external">Megnyitás alkalmazással</string>
+    <string name="sandbox_files_action_rename">Átnevezés</string>
+    <string name="sandbox_files_action_delete">Törlés</string>
+    <string name="sandbox_files_action_more">További műveletek</string>
+    <string name="sandbox_files_editor_open_externally">Megnyitás külsőleg</string>
+    <string name="sandbox_files_dialog_cancel">Mégse</string>
+    <string name="sandbox_files_delete_title">Törli a(z) %1$s elemet?</string>
+    <string name="sandbox_files_delete_message_file">A fájl véglegesen törlődik.</string>
+    <string name="sandbox_files_delete_message_directory">A mappa és teljes tartalma véglegesen törlődik.</string>
+    <string name="sandbox_files_delete_confirm">Törlés</string>
+    <string name="sandbox_files_delete_failed">A törlés sikertelen</string>
+    <string name="sandbox_files_delete_success">Törölve</string>
+    <string name="sandbox_files_rename_title">Átnevezés</string>
+    <string name="sandbox_files_rename_label">Új név</string>
+    <string name="sandbox_files_rename_confirm">Átnevezés</string>
+    <string name="sandbox_files_rename_error_invalid">A név nem tartalmazhat / karaktert és nem lehet üres</string>
+    <string name="sandbox_files_rename_error_collision">Már létezik fájl ezzel a névvel</string>
+    <string name="sandbox_files_rename_failed">Az átnevezés sikertelen</string>
+    <string name="sandbox_files_rename_success">Átnevezve</string>
+    <string name="sandbox_files_editor_closed_after_delete">A fájl törölve lett</string>
 </resources>

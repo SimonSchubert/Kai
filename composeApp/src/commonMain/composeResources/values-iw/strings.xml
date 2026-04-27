@@ -304,4 +304,24 @@
     <string name="settings_task_details_trigger">טריגר</string>
     <string name="tool_fetch_url_description">משוך URL והחזר את גוף התגובה לסוכן</string>
     <string name="tool_fetch_url_name">משיכת URL</string>
+    <string name="sandbox_files_action_open_external">פתח באפליקציה</string>
+    <string name="sandbox_files_action_rename">שנה שם</string>
+    <string name="sandbox_files_action_delete">מחק</string>
+    <string name="sandbox_files_action_more">פעולות נוספות</string>
+    <string name="sandbox_files_editor_open_externally">פתח חיצונית</string>
+    <string name="sandbox_files_dialog_cancel">ביטול</string>
+    <string name="sandbox_files_delete_title">למחוק את %1$s?</string>
+    <string name="sandbox_files_delete_message_file">קובץ זה יימחק לצמיתות.</string>
+    <string name="sandbox_files_delete_message_directory">תיקייה זו וכל תכולתה יימחקו לצמיתות.</string>
+    <string name="sandbox_files_delete_confirm">מחק</string>
+    <string name="sandbox_files_delete_failed">המחיקה נכשלה</string>
+    <string name="sandbox_files_delete_success">נמחק</string>
+    <string name="sandbox_files_rename_title">שנה שם</string>
+    <string name="sandbox_files_rename_label">שם חדש</string>
+    <string name="sandbox_files_rename_confirm">שנה שם</string>
+    <string name="sandbox_files_rename_error_invalid">השם לא יכול להכיל / או להיות ריק</string>
+    <string name="sandbox_files_rename_error_collision">קובץ בשם זה כבר קיים</string>
+    <string name="sandbox_files_rename_failed">שינוי השם נכשל</string>
+    <string name="sandbox_files_rename_success">השם שונה</string>
+    <string name="sandbox_files_editor_closed_after_delete">הקובץ נמחק</string>
 </resources>

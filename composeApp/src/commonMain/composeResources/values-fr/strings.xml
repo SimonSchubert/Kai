@@ -305,4 +305,24 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_task_details_trigger">Déclencheur</string>
     <string name="tool_fetch_url_description">Récupérer une URL et renvoyer le corps de la réponse à l\'agent</string>
     <string name="tool_fetch_url_name">Récupérer une URL</string>
+    <string name="sandbox_files_action_open_external">Ouvrir avec une app</string>
+    <string name="sandbox_files_action_rename">Renommer</string>
+    <string name="sandbox_files_action_delete">Supprimer</string>
+    <string name="sandbox_files_action_more">Plus d\'actions</string>
+    <string name="sandbox_files_editor_open_externally">Ouvrir en externe</string>
+    <string name="sandbox_files_dialog_cancel">Annuler</string>
+    <string name="sandbox_files_delete_title">Supprimer %1$s ?</string>
+    <string name="sandbox_files_delete_message_file">Ce fichier sera définitivement supprimé.</string>
+    <string name="sandbox_files_delete_message_directory">Ce dossier et tout son contenu seront définitivement supprimés.</string>
+    <string name="sandbox_files_delete_confirm">Supprimer</string>
+    <string name="sandbox_files_delete_failed">Échec de la suppression</string>
+    <string name="sandbox_files_delete_success">Supprimé</string>
+    <string name="sandbox_files_rename_title">Renommer</string>
+    <string name="sandbox_files_rename_label">Nouveau nom</string>
+    <string name="sandbox_files_rename_confirm">Renommer</string>
+    <string name="sandbox_files_rename_error_invalid">Le nom ne peut pas contenir / ni être vide</string>
+    <string name="sandbox_files_rename_error_collision">Un fichier portant ce nom existe déjà</string>
+    <string name="sandbox_files_rename_failed">Échec du renommage</string>
+    <string name="sandbox_files_rename_success">Renommé</string>
+    <string name="sandbox_files_editor_closed_after_delete">Fichier supprimé</string>
 </resources>

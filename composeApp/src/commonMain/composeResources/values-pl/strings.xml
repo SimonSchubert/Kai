@@ -305,4 +305,24 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_task_details_trigger">Wyzwalacz</string>
     <string name="tool_fetch_url_description">Pobierz adres URL i zwróć treść odpowiedzi do agenta</string>
     <string name="tool_fetch_url_name">Pobierz URL</string>
+    <string name="sandbox_files_action_open_external">Otwórz w aplikacji</string>
+    <string name="sandbox_files_action_rename">Zmień nazwę</string>
+    <string name="sandbox_files_action_delete">Usuń</string>
+    <string name="sandbox_files_action_more">Więcej akcji</string>
+    <string name="sandbox_files_editor_open_externally">Otwórz zewnętrznie</string>
+    <string name="sandbox_files_dialog_cancel">Anuluj</string>
+    <string name="sandbox_files_delete_title">Usunąć %1$s?</string>
+    <string name="sandbox_files_delete_message_file">Ten plik zostanie trwale usunięty.</string>
+    <string name="sandbox_files_delete_message_directory">Ten folder i cała jego zawartość zostaną trwale usunięte.</string>
+    <string name="sandbox_files_delete_confirm">Usuń</string>
+    <string name="sandbox_files_delete_failed">Usuwanie nie powiodło się</string>
+    <string name="sandbox_files_delete_success">Usunięto</string>
+    <string name="sandbox_files_rename_title">Zmień nazwę</string>
+    <string name="sandbox_files_rename_label">Nowa nazwa</string>
+    <string name="sandbox_files_rename_confirm">Zmień nazwę</string>
+    <string name="sandbox_files_rename_error_invalid">Nazwa nie może zawierać / ani być pusta</string>
+    <string name="sandbox_files_rename_error_collision">Plik o tej nazwie już istnieje</string>
+    <string name="sandbox_files_rename_failed">Zmiana nazwy nie powiodła się</string>
+    <string name="sandbox_files_rename_success">Zmieniono nazwę</string>
+    <string name="sandbox_files_editor_closed_after_delete">Plik został usunięty</string>
 </resources>
