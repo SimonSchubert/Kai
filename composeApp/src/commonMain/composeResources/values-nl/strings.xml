@@ -325,4 +325,20 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sandbox_files_rename_failed">Hernoemen mislukt</string>
     <string name="sandbox_files_rename_success">Hernoemd</string>
     <string name="sandbox_files_editor_closed_after_delete">Bestand is verwijderd</string>
+    <string name="sandbox_packages_search_hint">Pakketten zoeken</string>
+    <string name="sandbox_packages_action_install">Installeren</string>
+    <string name="sandbox_packages_action_uninstall">Verwijderen</string>
+    <string name="sandbox_packages_action_upgrade">Pakketten bijwerken</string>
+    <string name="sandbox_packages_action_clear_search">Zoekopdracht wissen</string>
+    <string name="sandbox_packages_empty_installed">Geen pakketten geïnstalleerd</string>
+    <string name="sandbox_packages_empty_results">Geen overeenkomende pakketten</string>
+    <string name="sandbox_packages_uninstall_title">%1$s verwijderen?</string>
+    <string name="sandbox_packages_uninstall_message">Hiermee wordt het pakket uit de sandbox verwijderd.</string>
+    <string name="sandbox_packages_uninstall_confirm">Verwijderen</string>
+    <string name="sandbox_packages_install_success">%1$s geïnstalleerd</string>
+    <string name="sandbox_packages_install_failed">Installatie mislukt: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s verwijderd</string>
+    <string name="sandbox_packages_uninstall_failed">Verwijderen mislukt: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakketten bijgewerkt</string>
+    <string name="sandbox_packages_upgrade_failed">Bijwerken mislukt: %1$s</string>
 </resources>

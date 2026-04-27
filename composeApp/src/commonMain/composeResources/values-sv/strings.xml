@@ -325,4 +325,20 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sandbox_files_rename_failed">Namnbyte misslyckades</string>
     <string name="sandbox_files_rename_success">Namnändrat</string>
     <string name="sandbox_files_editor_closed_after_delete">Filen togs bort</string>
+    <string name="sandbox_packages_search_hint">Sök paket</string>
+    <string name="sandbox_packages_action_install">Installera</string>
+    <string name="sandbox_packages_action_uninstall">Avinstallera</string>
+    <string name="sandbox_packages_action_upgrade">Uppdatera paket</string>
+    <string name="sandbox_packages_action_clear_search">Rensa sökning</string>
+    <string name="sandbox_packages_empty_installed">Inga paket installerade</string>
+    <string name="sandbox_packages_empty_results">Inga matchande paket</string>
+    <string name="sandbox_packages_uninstall_title">Avinstallera %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Detta tar bort paketet från sandlådan.</string>
+    <string name="sandbox_packages_uninstall_confirm">Avinstallera</string>
+    <string name="sandbox_packages_install_success">%1$s installerat</string>
+    <string name="sandbox_packages_install_failed">Installation misslyckades: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s avinstallerat</string>
+    <string name="sandbox_packages_uninstall_failed">Avinstallation misslyckades: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paket uppdaterade</string>
+    <string name="sandbox_packages_upgrade_failed">Uppdatering misslyckades: %1$s</string>
 </resources>

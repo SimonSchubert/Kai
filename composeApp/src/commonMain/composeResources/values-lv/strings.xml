@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Pārdēvēšana neizdevās</string>
     <string name="sandbox_files_rename_success">Pārdēvēts</string>
     <string name="sandbox_files_editor_closed_after_delete">Fails tika dzēsts</string>
+    <string name="sandbox_packages_search_hint">Meklēt pakotnes</string>
+    <string name="sandbox_packages_action_install">Instalēt</string>
+    <string name="sandbox_packages_action_uninstall">Atinstalēt</string>
+    <string name="sandbox_packages_action_upgrade">Atjaunināt pakotnes</string>
+    <string name="sandbox_packages_action_clear_search">Notīrīt meklēšanu</string>
+    <string name="sandbox_packages_empty_installed">Nav instalētu pakotņu</string>
+    <string name="sandbox_packages_empty_results">Nav atbilstošu pakotņu</string>
+    <string name="sandbox_packages_uninstall_title">Atinstalēt %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Šī pakotne tiks noņemta no smilškastes.</string>
+    <string name="sandbox_packages_uninstall_confirm">Atinstalēt</string>
+    <string name="sandbox_packages_install_success">%1$s instalēta</string>
+    <string name="sandbox_packages_install_failed">Instalēšana neizdevās: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s atinstalēta</string>
+    <string name="sandbox_packages_uninstall_failed">Atinstalēšana neizdevās: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakotnes atjauninātas</string>
+    <string name="sandbox_packages_upgrade_failed">Atjaunināšana neizdevās: %1$s</string>
 </resources>

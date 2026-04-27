@@ -325,4 +325,20 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="sandbox_files_rename_failed">Endring av navn mislyktes</string>
     <string name="sandbox_files_rename_success">Navn endret</string>
     <string name="sandbox_files_editor_closed_after_delete">Filen ble slettet</string>
+    <string name="sandbox_packages_search_hint">Søk i pakker</string>
+    <string name="sandbox_packages_action_install">Installer</string>
+    <string name="sandbox_packages_action_uninstall">Avinstaller</string>
+    <string name="sandbox_packages_action_upgrade">Oppgrader pakker</string>
+    <string name="sandbox_packages_action_clear_search">Tøm søk</string>
+    <string name="sandbox_packages_empty_installed">Ingen pakker installert</string>
+    <string name="sandbox_packages_empty_results">Ingen pakker samsvarer</string>
+    <string name="sandbox_packages_uninstall_title">Avinstallere %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Dette fjerner pakken fra sandkassen.</string>
+    <string name="sandbox_packages_uninstall_confirm">Avinstaller</string>
+    <string name="sandbox_packages_install_success">%1$s installert</string>
+    <string name="sandbox_packages_install_failed">Installasjon mislyktes: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s avinstallert</string>
+    <string name="sandbox_packages_uninstall_failed">Avinstallasjon mislyktes: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakker oppgradert</string>
+    <string name="sandbox_packages_upgrade_failed">Oppgradering mislyktes: %1$s</string>
 </resources>

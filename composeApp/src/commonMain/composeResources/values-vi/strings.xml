@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Đổi tên thất bại</string>
     <string name="sandbox_files_rename_success">Đã đổi tên</string>
     <string name="sandbox_files_editor_closed_after_delete">Tệp đã bị xóa</string>
+    <string name="sandbox_packages_search_hint">Tìm gói</string>
+    <string name="sandbox_packages_action_install">Cài đặt</string>
+    <string name="sandbox_packages_action_uninstall">Gỡ cài đặt</string>
+    <string name="sandbox_packages_action_upgrade">Nâng cấp gói</string>
+    <string name="sandbox_packages_action_clear_search">Xóa tìm kiếm</string>
+    <string name="sandbox_packages_empty_installed">Chưa cài đặt gói nào</string>
+    <string name="sandbox_packages_empty_results">Không có gói phù hợp</string>
+    <string name="sandbox_packages_uninstall_title">Gỡ cài đặt %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Thao tác này sẽ xóa gói khỏi sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Gỡ cài đặt</string>
+    <string name="sandbox_packages_install_success">Đã cài đặt %1$s</string>
+    <string name="sandbox_packages_install_failed">Cài đặt thất bại: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Đã gỡ cài đặt %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Gỡ cài đặt thất bại: %1$s</string>
+    <string name="sandbox_packages_upgraded">Đã nâng cấp gói</string>
+    <string name="sandbox_packages_upgrade_failed">Nâng cấp thất bại: %1$s</string>
 </resources>

@@ -326,4 +326,20 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sandbox_files_rename_failed">Hernoem het misluk</string>
     <string name="sandbox_files_rename_success">Hernoem</string>
     <string name="sandbox_files_editor_closed_after_delete">Lêer is uitgevee</string>
+    <string name="sandbox_packages_search_hint">Soek pakkette</string>
+    <string name="sandbox_packages_action_install">Installeer</string>
+    <string name="sandbox_packages_action_uninstall">Verwyder</string>
+    <string name="sandbox_packages_action_upgrade">Pakkette opdateer</string>
+    <string name="sandbox_packages_action_clear_search">Maak soektog skoon</string>
+    <string name="sandbox_packages_empty_installed">Geen pakkette geïnstalleer nie</string>
+    <string name="sandbox_packages_empty_results">Geen ooreenstemmende pakkette nie</string>
+    <string name="sandbox_packages_uninstall_title">Verwyder %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Dit verwyder die pakket uit die sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Verwyder</string>
+    <string name="sandbox_packages_install_success">%1$s geïnstalleer</string>
+    <string name="sandbox_packages_install_failed">Installasie het misluk: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s verwyder</string>
+    <string name="sandbox_packages_uninstall_failed">Verwydering het misluk: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakkette opgedateer</string>
+    <string name="sandbox_packages_upgrade_failed">Opdatering het misluk: %1$s</string>
 </resources>

@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Preimenovanje ni uspelo</string>
     <string name="sandbox_files_rename_success">Preimenovano</string>
     <string name="sandbox_files_editor_closed_after_delete">Datoteka je bila izbrisana</string>
+    <string name="sandbox_packages_search_hint">Iskanje paketov</string>
+    <string name="sandbox_packages_action_install">Namesti</string>
+    <string name="sandbox_packages_action_uninstall">Odstrani</string>
+    <string name="sandbox_packages_action_upgrade">Posodobi pakete</string>
+    <string name="sandbox_packages_action_clear_search">Počisti iskanje</string>
+    <string name="sandbox_packages_empty_installed">Ni nameščenih paketov</string>
+    <string name="sandbox_packages_empty_results">Ni ustreznih paketov</string>
+    <string name="sandbox_packages_uninstall_title">Odstranim %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">S tem se paket odstrani iz peskovnika.</string>
+    <string name="sandbox_packages_uninstall_confirm">Odstrani</string>
+    <string name="sandbox_packages_install_success">Nameščeno: %1$s</string>
+    <string name="sandbox_packages_install_failed">Namestitev ni uspela: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Odstranjeno: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Odstranjevanje ni uspelo: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paketi posodobljeni</string>
+    <string name="sandbox_packages_upgrade_failed">Posodobitev ni uspela: %1$s</string>
 </resources>

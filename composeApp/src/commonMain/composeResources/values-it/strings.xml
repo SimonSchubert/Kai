@@ -325,4 +325,20 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="sandbox_files_rename_failed">Rinomina non riuscita</string>
     <string name="sandbox_files_rename_success">Rinominato</string>
     <string name="sandbox_files_editor_closed_after_delete">File eliminato</string>
+    <string name="sandbox_packages_search_hint">Cerca pacchetti</string>
+    <string name="sandbox_packages_action_install">Installa</string>
+    <string name="sandbox_packages_action_uninstall">Disinstalla</string>
+    <string name="sandbox_packages_action_upgrade">Aggiorna pacchetti</string>
+    <string name="sandbox_packages_action_clear_search">Cancella ricerca</string>
+    <string name="sandbox_packages_empty_installed">Nessun pacchetto installato</string>
+    <string name="sandbox_packages_empty_results">Nessun pacchetto corrispondente</string>
+    <string name="sandbox_packages_uninstall_title">Disinstallare %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Il pacchetto verrà rimosso dalla sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Disinstalla</string>
+    <string name="sandbox_packages_install_success">%1$s installato</string>
+    <string name="sandbox_packages_install_failed">Installazione non riuscita: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s disinstallato</string>
+    <string name="sandbox_packages_uninstall_failed">Disinstallazione non riuscita: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pacchetti aggiornati</string>
+    <string name="sandbox_packages_upgrade_failed">Aggiornamento non riuscito: %1$s</string>
 </resources>

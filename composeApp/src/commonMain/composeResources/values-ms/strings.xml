@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Penamaan semula gagal</string>
     <string name="sandbox_files_rename_success">Dinamakan semula</string>
     <string name="sandbox_files_editor_closed_after_delete">Fail telah dipadamkan</string>
+    <string name="sandbox_packages_search_hint">Cari pakej</string>
+    <string name="sandbox_packages_action_install">Pasang</string>
+    <string name="sandbox_packages_action_uninstall">Nyahpasang</string>
+    <string name="sandbox_packages_action_upgrade">Naik taraf pakej</string>
+    <string name="sandbox_packages_action_clear_search">Kosongkan carian</string>
+    <string name="sandbox_packages_empty_installed">Tiada pakej dipasang</string>
+    <string name="sandbox_packages_empty_results">Tiada pakej sepadan</string>
+    <string name="sandbox_packages_uninstall_title">Nyahpasang %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Pakej ini akan dialih keluar daripada kotak pasir.</string>
+    <string name="sandbox_packages_uninstall_confirm">Nyahpasang</string>
+    <string name="sandbox_packages_install_success">%1$s dipasang</string>
+    <string name="sandbox_packages_install_failed">Pemasangan gagal: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s dinyahpasang</string>
+    <string name="sandbox_packages_uninstall_failed">Penyahpasangan gagal: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakej dinaik taraf</string>
+    <string name="sandbox_packages_upgrade_failed">Naik taraf gagal: %1$s</string>
 </resources>

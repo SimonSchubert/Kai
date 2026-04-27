@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">नाम बदलना विफल हुआ</string>
     <string name="sandbox_files_rename_success">नाम बदला गया</string>
     <string name="sandbox_files_editor_closed_after_delete">फ़ाइल हटा दी गई</string>
+    <string name="sandbox_packages_search_hint">पैकेज खोजें</string>
+    <string name="sandbox_packages_action_install">इंस्टॉल करें</string>
+    <string name="sandbox_packages_action_uninstall">अनइंस्टॉल करें</string>
+    <string name="sandbox_packages_action_upgrade">पैकेज अपग्रेड करें</string>
+    <string name="sandbox_packages_action_clear_search">खोज साफ़ करें</string>
+    <string name="sandbox_packages_empty_installed">कोई पैकेज इंस्टॉल नहीं है</string>
+    <string name="sandbox_packages_empty_results">कोई मेल खाता पैकेज नहीं</string>
+    <string name="sandbox_packages_uninstall_title">%1$s अनइंस्टॉल करें?</string>
+    <string name="sandbox_packages_uninstall_message">यह पैकेज को सैंडबॉक्स से हटा देगा.</string>
+    <string name="sandbox_packages_uninstall_confirm">अनइंस्टॉल करें</string>
+    <string name="sandbox_packages_install_success">%1$s इंस्टॉल हुआ</string>
+    <string name="sandbox_packages_install_failed">इंस्टॉल विफल हुआ: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s अनइंस्टॉल हुआ</string>
+    <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल विफल हुआ: %1$s</string>
+    <string name="sandbox_packages_upgraded">पैकेज अपग्रेड हुए</string>
+    <string name="sandbox_packages_upgrade_failed">अपग्रेड विफल हुआ: %1$s</string>
 </resources>

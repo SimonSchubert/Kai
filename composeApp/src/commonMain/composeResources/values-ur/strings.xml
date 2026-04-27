@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">نام تبدیل کرنا ناکام</string>
     <string name="sandbox_files_rename_success">نام تبدیل ہو گیا</string>
     <string name="sandbox_files_editor_closed_after_delete">فائل حذف کر دی گئی</string>
+    <string name="sandbox_packages_search_hint">پیکجز تلاش کریں</string>
+    <string name="sandbox_packages_action_install">انسٹال کریں</string>
+    <string name="sandbox_packages_action_uninstall">ان انسٹال کریں</string>
+    <string name="sandbox_packages_action_upgrade">پیکجز اپ گریڈ کریں</string>
+    <string name="sandbox_packages_action_clear_search">تلاش صاف کریں</string>
+    <string name="sandbox_packages_empty_installed">کوئی پیکج انسٹال نہیں ہے</string>
+    <string name="sandbox_packages_empty_results">کوئی مماثل پیکج نہیں</string>
+    <string name="sandbox_packages_uninstall_title">%1$s ان انسٹال کریں؟</string>
+    <string name="sandbox_packages_uninstall_message">یہ پیکج کو سینڈ باکس سے ہٹا دے گا۔</string>
+    <string name="sandbox_packages_uninstall_confirm">ان انسٹال کریں</string>
+    <string name="sandbox_packages_install_success">%1$s انسٹال ہو گیا</string>
+    <string name="sandbox_packages_install_failed">انسٹال ناکام: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s ان انسٹال ہو گیا</string>
+    <string name="sandbox_packages_uninstall_failed">ان انسٹال ناکام: %1$s</string>
+    <string name="sandbox_packages_upgraded">پیکجز اپ گریڈ ہو گئے</string>
+    <string name="sandbox_packages_upgrade_failed">اپ گریڈ ناکام: %1$s</string>
 </resources>

@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Η μετονομασία απέτυχε</string>
     <string name="sandbox_files_rename_success">Μετονομάστηκε</string>
     <string name="sandbox_files_editor_closed_after_delete">Το αρχείο διαγράφηκε</string>
+    <string name="sandbox_packages_search_hint">Αναζήτηση πακέτων</string>
+    <string name="sandbox_packages_action_install">Εγκατάσταση</string>
+    <string name="sandbox_packages_action_uninstall">Απεγκατάσταση</string>
+    <string name="sandbox_packages_action_upgrade">Ενημέρωση πακέτων</string>
+    <string name="sandbox_packages_action_clear_search">Καθαρισμός αναζήτησης</string>
+    <string name="sandbox_packages_empty_installed">Δεν έχουν εγκατασταθεί πακέτα</string>
+    <string name="sandbox_packages_empty_results">Δεν βρέθηκαν αντίστοιχα πακέτα</string>
+    <string name="sandbox_packages_uninstall_title">Απεγκατάσταση %1$s;</string>
+    <string name="sandbox_packages_uninstall_message">Το πακέτο θα αφαιρεθεί από το sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Απεγκατάσταση</string>
+    <string name="sandbox_packages_install_success">Εγκαταστάθηκε το %1$s</string>
+    <string name="sandbox_packages_install_failed">Η εγκατάσταση απέτυχε: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Απεγκαταστάθηκε το %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Η απεγκατάσταση απέτυχε: %1$s</string>
+    <string name="sandbox_packages_upgraded">Τα πακέτα ενημερώθηκαν</string>
+    <string name="sandbox_packages_upgrade_failed">Η ενημέρωση απέτυχε: %1$s</string>
 </resources>

@@ -326,4 +326,20 @@
     <string name="sandbox_files_rename_failed">ስም መቀየር አልተሳካም</string>
     <string name="sandbox_files_rename_success">ስም ተቀይሯል</string>
     <string name="sandbox_files_editor_closed_after_delete">ፋይሉ ተሰርዟል</string>
+    <string name="sandbox_packages_search_hint">ጥቅሎችን ፈልግ</string>
+    <string name="sandbox_packages_action_install">ጫን</string>
+    <string name="sandbox_packages_action_uninstall">አራግፍ</string>
+    <string name="sandbox_packages_action_upgrade">ጥቅሎችን አሻሽል</string>
+    <string name="sandbox_packages_action_clear_search">ፍለጋን አጽዳ</string>
+    <string name="sandbox_packages_empty_installed">ምንም ጥቅሎች አልተጫኑም</string>
+    <string name="sandbox_packages_empty_results">ተዛማጅ ጥቅሎች የሉም</string>
+    <string name="sandbox_packages_uninstall_title">%1$s ይራገፍ?</string>
+    <string name="sandbox_packages_uninstall_message">ይህ ጥቅሉን ከሳንድቦክሱ ያስወግዳል።</string>
+    <string name="sandbox_packages_uninstall_confirm">አራግፍ</string>
+    <string name="sandbox_packages_install_success">%1$s ተጫነ</string>
+    <string name="sandbox_packages_install_failed">መጫን አልተሳካም: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s ተራገፈ</string>
+    <string name="sandbox_packages_uninstall_failed">ማራገፍ አልተሳካም: %1$s</string>
+    <string name="sandbox_packages_upgraded">ጥቅሎች ተሻሽለዋል</string>
+    <string name="sandbox_packages_upgrade_failed">ማሻሻል አልተሳካም: %1$s</string>
 </resources>

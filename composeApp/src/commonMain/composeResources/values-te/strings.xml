@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">పేరు మార్చడం విఫలమైంది</string>
     <string name="sandbox_files_rename_success">పేరు మార్చబడింది</string>
     <string name="sandbox_files_editor_closed_after_delete">ఫైల్ తొలగించబడింది</string>
+    <string name="sandbox_packages_search_hint">ప్యాకేజీలను శోధించండి</string>
+    <string name="sandbox_packages_action_install">ఇన్‌స్టాల్ చేయి</string>
+    <string name="sandbox_packages_action_uninstall">అన్‌ఇన్‌స్టాల్ చేయి</string>
+    <string name="sandbox_packages_action_upgrade">ప్యాకేజీలను అప్‌గ్రేడ్ చేయి</string>
+    <string name="sandbox_packages_action_clear_search">శోధనను క్లియర్ చేయి</string>
+    <string name="sandbox_packages_empty_installed">ఏ ప్యాకేజీలు ఇన్‌స్టాల్ చేయబడలేదు</string>
+    <string name="sandbox_packages_empty_results">సరిపోలే ప్యాకేజీలు లేవు</string>
+    <string name="sandbox_packages_uninstall_title">%1$sని అన్‌ఇన్‌స్టాల్ చేయాలా?</string>
+    <string name="sandbox_packages_uninstall_message">ఇది శాండ్‌బాక్స్ నుండి ప్యాకేజీని తీసివేస్తుంది.</string>
+    <string name="sandbox_packages_uninstall_confirm">అన్‌ఇన్‌స్టాల్ చేయి</string>
+    <string name="sandbox_packages_install_success">%1$s ఇన్‌స్టాల్ చేయబడింది</string>
+    <string name="sandbox_packages_install_failed">ఇన్‌స్టాల్ విఫలమైంది: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s అన్‌ఇన్‌స్టాల్ చేయబడింది</string>
+    <string name="sandbox_packages_uninstall_failed">అన్‌ఇన్‌స్టాల్ విఫలమైంది: %1$s</string>
+    <string name="sandbox_packages_upgraded">ప్యాకేజీలు అప్‌గ్రేడ్ చేయబడ్డాయి</string>
+    <string name="sandbox_packages_upgrade_failed">అప్‌గ్రేడ్ విఫలమైంది: %1$s</string>
 </resources>

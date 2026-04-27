@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">重新命名失敗</string>
     <string name="sandbox_files_rename_success">已重新命名</string>
     <string name="sandbox_files_editor_closed_after_delete">檔案已刪除</string>
+    <string name="sandbox_packages_search_hint">搜尋套件</string>
+    <string name="sandbox_packages_action_install">安裝</string>
+    <string name="sandbox_packages_action_uninstall">解除安裝</string>
+    <string name="sandbox_packages_action_upgrade">升級套件</string>
+    <string name="sandbox_packages_action_clear_search">清除搜尋</string>
+    <string name="sandbox_packages_empty_installed">未安裝任何套件</string>
+    <string name="sandbox_packages_empty_results">沒有相符的套件</string>
+    <string name="sandbox_packages_uninstall_title">解除安裝 %1$s？</string>
+    <string name="sandbox_packages_uninstall_message">此操作將從沙箱中移除該套件。</string>
+    <string name="sandbox_packages_uninstall_confirm">解除安裝</string>
+    <string name="sandbox_packages_install_success">已安裝 %1$s</string>
+    <string name="sandbox_packages_install_failed">安裝失敗：%1$s</string>
+    <string name="sandbox_packages_uninstall_success">已解除安裝 %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">解除安裝失敗：%1$s</string>
+    <string name="sandbox_packages_upgraded">套件已升級</string>
+    <string name="sandbox_packages_upgrade_failed">升級失敗：%1$s</string>
 </resources>

@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Redenumirea a eșuat</string>
     <string name="sandbox_files_rename_success">Redenumit</string>
     <string name="sandbox_files_editor_closed_after_delete">Fișierul a fost șters</string>
+    <string name="sandbox_packages_search_hint">Caută pachete</string>
+    <string name="sandbox_packages_action_install">Instalează</string>
+    <string name="sandbox_packages_action_uninstall">Dezinstalează</string>
+    <string name="sandbox_packages_action_upgrade">Actualizează pachetele</string>
+    <string name="sandbox_packages_action_clear_search">Șterge căutarea</string>
+    <string name="sandbox_packages_empty_installed">Niciun pachet instalat</string>
+    <string name="sandbox_packages_empty_results">Niciun pachet corespunzător</string>
+    <string name="sandbox_packages_uninstall_title">Dezinstalezi %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Aceasta elimină pachetul din sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Dezinstalează</string>
+    <string name="sandbox_packages_install_success">%1$s instalat</string>
+    <string name="sandbox_packages_install_failed">Instalarea a eșuat: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s dezinstalat</string>
+    <string name="sandbox_packages_uninstall_failed">Dezinstalarea a eșuat: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pachete actualizate</string>
+    <string name="sandbox_packages_upgrade_failed">Actualizarea a eșuat: %1$s</string>
 </resources>

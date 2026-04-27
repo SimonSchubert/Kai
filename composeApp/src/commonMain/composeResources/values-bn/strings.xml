@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">নাম পরিবর্তন ব্যর্থ</string>
     <string name="sandbox_files_rename_success">নাম পরিবর্তিত</string>
     <string name="sandbox_files_editor_closed_after_delete">ফাইল মুছে ফেলা হয়েছে</string>
+    <string name="sandbox_packages_search_hint">প্যাকেজ অনুসন্ধান করুন</string>
+    <string name="sandbox_packages_action_install">ইনস্টল</string>
+    <string name="sandbox_packages_action_uninstall">আনইনস্টল</string>
+    <string name="sandbox_packages_action_upgrade">প্যাকেজ আপগ্রেড করুন</string>
+    <string name="sandbox_packages_action_clear_search">অনুসন্ধান মুছুন</string>
+    <string name="sandbox_packages_empty_installed">কোনো প্যাকেজ ইনস্টল করা নেই</string>
+    <string name="sandbox_packages_empty_results">কোনো মিলে যাওয়া প্যাকেজ নেই</string>
+    <string name="sandbox_packages_uninstall_title">%1$s আনইনস্টল করবেন?</string>
+    <string name="sandbox_packages_uninstall_message">এটি স্যান্ডবক্স থেকে প্যাকেজটি সরিয়ে দেবে।</string>
+    <string name="sandbox_packages_uninstall_confirm">আনইনস্টল</string>
+    <string name="sandbox_packages_install_success">%1$s ইনস্টল হয়েছে</string>
+    <string name="sandbox_packages_install_failed">ইনস্টল ব্যর্থ: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s আনইনস্টল হয়েছে</string>
+    <string name="sandbox_packages_uninstall_failed">আনইনস্টল ব্যর্থ: %1$s</string>
+    <string name="sandbox_packages_upgraded">প্যাকেজ আপগ্রেড হয়েছে</string>
+    <string name="sandbox_packages_upgrade_failed">আপগ্রেড ব্যর্থ: %1$s</string>
 </resources>

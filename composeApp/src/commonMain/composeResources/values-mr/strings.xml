@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">नाव बदलणे अयशस्वी</string>
     <string name="sandbox_files_rename_success">नाव बदलले</string>
     <string name="sandbox_files_editor_closed_after_delete">फाइल हटवली गेली</string>
+    <string name="sandbox_packages_search_hint">पॅकेजेस शोधा</string>
+    <string name="sandbox_packages_action_install">स्थापित करा</string>
+    <string name="sandbox_packages_action_uninstall">अनइंस्टॉल करा</string>
+    <string name="sandbox_packages_action_upgrade">पॅकेजेस अपग्रेड करा</string>
+    <string name="sandbox_packages_action_clear_search">शोध साफ करा</string>
+    <string name="sandbox_packages_empty_installed">कोणतीही पॅकेजेस स्थापित नाहीत</string>
+    <string name="sandbox_packages_empty_results">जुळणारी पॅकेजेस नाहीत</string>
+    <string name="sandbox_packages_uninstall_title">%1$s अनइंस्टॉल करायचे?</string>
+    <string name="sandbox_packages_uninstall_message">हे पॅकेज सँडबॉक्समधून काढून टाकले जाईल.</string>
+    <string name="sandbox_packages_uninstall_confirm">अनइंस्टॉल करा</string>
+    <string name="sandbox_packages_install_success">%1$s स्थापित केले</string>
+    <string name="sandbox_packages_install_failed">स्थापना अयशस्वी: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s अनइंस्टॉल केले</string>
+    <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल अयशस्वी: %1$s</string>
+    <string name="sandbox_packages_upgraded">पॅकेजेस अपग्रेड केली</string>
+    <string name="sandbox_packages_upgrade_failed">अपग्रेड अयशस्वी: %1$s</string>
 </resources>

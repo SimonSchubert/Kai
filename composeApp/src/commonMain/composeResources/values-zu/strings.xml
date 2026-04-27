@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Ukuqanjwa kabusha kwehlulekile</string>
     <string name="sandbox_files_rename_success">Iqanjwe kabusha</string>
     <string name="sandbox_files_editor_closed_after_delete">Ifayela lisusiwe</string>
+    <string name="sandbox_packages_search_hint">Sesha amaphakheji</string>
+    <string name="sandbox_packages_action_install">Faka</string>
+    <string name="sandbox_packages_action_uninstall">Khipha</string>
+    <string name="sandbox_packages_action_upgrade">Thuthukisa amaphakheji</string>
+    <string name="sandbox_packages_action_clear_search">Susa usesho</string>
+    <string name="sandbox_packages_empty_installed">Awekho amaphakheji afakiwe</string>
+    <string name="sandbox_packages_empty_results">Awekho amaphakheji afanayo</string>
+    <string name="sandbox_packages_uninstall_title">Khipha i-%1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Lokhu kususa iphakheji ku-sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Khipha</string>
+    <string name="sandbox_packages_install_success">I-%1$s ifakiwe</string>
+    <string name="sandbox_packages_install_failed">Ukufaka kuhlulekile: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">I-%1$s ikhishiwe</string>
+    <string name="sandbox_packages_uninstall_failed">Ukukhipha kuhlulekile: %1$s</string>
+    <string name="sandbox_packages_upgraded">Amaphakheji athuthukisiwe</string>
+    <string name="sandbox_packages_upgrade_failed">Ukuthuthukisa kuhlulekile: %1$s</string>
 </resources>

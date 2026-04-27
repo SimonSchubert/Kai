@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">பெயர் மாற்ற முடியவில்லை</string>
     <string name="sandbox_files_rename_success">பெயர் மாற்றப்பட்டது</string>
     <string name="sandbox_files_editor_closed_after_delete">கோப்பு நீக்கப்பட்டது</string>
+    <string name="sandbox_packages_search_hint">தொகுப்புகளைத் தேடு</string>
+    <string name="sandbox_packages_action_install">நிறுவு</string>
+    <string name="sandbox_packages_action_uninstall">நிறுவல் நீக்கு</string>
+    <string name="sandbox_packages_action_upgrade">தொகுப்புகளை மேம்படுத்து</string>
+    <string name="sandbox_packages_action_clear_search">தேடலை அழி</string>
+    <string name="sandbox_packages_empty_installed">தொகுப்புகள் எதுவும் நிறுவப்படவில்லை</string>
+    <string name="sandbox_packages_empty_results">பொருந்தும் தொகுப்புகள் இல்லை</string>
+    <string name="sandbox_packages_uninstall_title">%1$s ஐ நிறுவல் நீக்கவா?</string>
+    <string name="sandbox_packages_uninstall_message">இது சாண்ட்பாக்ஸிலிருந்து தொகுப்பை அகற்றும்.</string>
+    <string name="sandbox_packages_uninstall_confirm">நிறுவல் நீக்கு</string>
+    <string name="sandbox_packages_install_success">%1$s நிறுவப்பட்டது</string>
+    <string name="sandbox_packages_install_failed">நிறுவல் தோல்வியடைந்தது: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s நிறுவல் நீக்கப்பட்டது</string>
+    <string name="sandbox_packages_uninstall_failed">நிறுவல் நீக்கம் தோல்வியடைந்தது: %1$s</string>
+    <string name="sandbox_packages_upgraded">தொகுப்புகள் மேம்படுத்தப்பட்டன</string>
+    <string name="sandbox_packages_upgrade_failed">மேம்படுத்தல் தோல்வியடைந்தது: %1$s</string>
 </resources>

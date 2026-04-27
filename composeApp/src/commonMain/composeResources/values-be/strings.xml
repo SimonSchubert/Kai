@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Не атрымалася перайменаваць</string>
     <string name="sandbox_files_rename_success">Перайменавана</string>
     <string name="sandbox_files_editor_closed_after_delete">Файл выдалены</string>
+    <string name="sandbox_packages_search_hint">Пошук пакетаў</string>
+    <string name="sandbox_packages_action_install">Усталяваць</string>
+    <string name="sandbox_packages_action_uninstall">Выдаліць</string>
+    <string name="sandbox_packages_action_upgrade">Абнавіць пакеты</string>
+    <string name="sandbox_packages_action_clear_search">Ачысціць пошук</string>
+    <string name="sandbox_packages_empty_installed">Няма ўсталяваных пакетаў</string>
+    <string name="sandbox_packages_empty_results">Няма адпаведных пакетаў</string>
+    <string name="sandbox_packages_uninstall_title">Выдаліць %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Гэта выдаліць пакет з пясочніцы.</string>
+    <string name="sandbox_packages_uninstall_confirm">Выдаліць</string>
+    <string name="sandbox_packages_install_success">%1$s усталяваны</string>
+    <string name="sandbox_packages_install_failed">Не атрымалася ўсталяваць: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s выдалены</string>
+    <string name="sandbox_packages_uninstall_failed">Не атрымалася выдаліць: %1$s</string>
+    <string name="sandbox_packages_upgraded">Пакеты абноўлены</string>
+    <string name="sandbox_packages_upgrade_failed">Не атрымалася абнавіць: %1$s</string>
 </resources>

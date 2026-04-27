@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Атауын өзгерту сәтсіз</string>
     <string name="sandbox_files_rename_success">Атауы өзгертілді</string>
     <string name="sandbox_files_editor_closed_after_delete">Файл жойылды</string>
+    <string name="sandbox_packages_search_hint">Дестелерді іздеу</string>
+    <string name="sandbox_packages_action_install">Орнату</string>
+    <string name="sandbox_packages_action_uninstall">Жою</string>
+    <string name="sandbox_packages_action_upgrade">Дестелерді жаңарту</string>
+    <string name="sandbox_packages_action_clear_search">Іздеуді тазалау</string>
+    <string name="sandbox_packages_empty_installed">Орнатылған дестелер жоқ</string>
+    <string name="sandbox_packages_empty_results">Сәйкес дестелер жоқ</string>
+    <string name="sandbox_packages_uninstall_title">%1$s жойылсын ба?</string>
+    <string name="sandbox_packages_uninstall_message">Бұл әрекет дестені құм жәшігінен жояды.</string>
+    <string name="sandbox_packages_uninstall_confirm">Жою</string>
+    <string name="sandbox_packages_install_success">%1$s орнатылды</string>
+    <string name="sandbox_packages_install_failed">Орнату сәтсіз: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s жойылды</string>
+    <string name="sandbox_packages_uninstall_failed">Жою сәтсіз: %1$s</string>
+    <string name="sandbox_packages_upgraded">Дестелер жаңартылды</string>
+    <string name="sandbox_packages_upgrade_failed">Жаңарту сәтсіз: %1$s</string>
 </resources>

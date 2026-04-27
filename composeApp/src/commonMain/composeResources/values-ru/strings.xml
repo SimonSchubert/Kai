@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Не удалось переименовать</string>
     <string name="sandbox_files_rename_success">Переименовано</string>
     <string name="sandbox_files_editor_closed_after_delete">Файл удалён</string>
+    <string name="sandbox_packages_search_hint">Поиск пакетов</string>
+    <string name="sandbox_packages_action_install">Установить</string>
+    <string name="sandbox_packages_action_uninstall">Удалить</string>
+    <string name="sandbox_packages_action_upgrade">Обновить пакеты</string>
+    <string name="sandbox_packages_action_clear_search">Очистить поиск</string>
+    <string name="sandbox_packages_empty_installed">Нет установленных пакетов</string>
+    <string name="sandbox_packages_empty_results">Нет подходящих пакетов</string>
+    <string name="sandbox_packages_uninstall_title">Удалить %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Пакет будет удалён из песочницы.</string>
+    <string name="sandbox_packages_uninstall_confirm">Удалить</string>
+    <string name="sandbox_packages_install_success">Установлено: %1$s</string>
+    <string name="sandbox_packages_install_failed">Не удалось установить: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Удалено: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Не удалось удалить: %1$s</string>
+    <string name="sandbox_packages_upgraded">Пакеты обновлены</string>
+    <string name="sandbox_packages_upgrade_failed">Не удалось обновить: %1$s</string>
 </resources>

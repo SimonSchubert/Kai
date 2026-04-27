@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Premenovanie zlyhalo</string>
     <string name="sandbox_files_rename_success">Premenované</string>
     <string name="sandbox_files_editor_closed_after_delete">Súbor bol odstránený</string>
+    <string name="sandbox_packages_search_hint">Hľadať balíky</string>
+    <string name="sandbox_packages_action_install">Nainštalovať</string>
+    <string name="sandbox_packages_action_uninstall">Odinštalovať</string>
+    <string name="sandbox_packages_action_upgrade">Aktualizovať balíky</string>
+    <string name="sandbox_packages_action_clear_search">Vymazať hľadanie</string>
+    <string name="sandbox_packages_empty_installed">Žiadne nainštalované balíky</string>
+    <string name="sandbox_packages_empty_results">Žiadne zodpovedajúce balíky</string>
+    <string name="sandbox_packages_uninstall_title">Odinštalovať %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Týmto sa balík odstráni zo sandboxu.</string>
+    <string name="sandbox_packages_uninstall_confirm">Odinštalovať</string>
+    <string name="sandbox_packages_install_success">Nainštalované: %1$s</string>
+    <string name="sandbox_packages_install_failed">Inštalácia zlyhala: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Odinštalované: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Odinštalovanie zlyhalo: %1$s</string>
+    <string name="sandbox_packages_upgraded">Balíky aktualizované</string>
+    <string name="sandbox_packages_upgrade_failed">Aktualizácia zlyhala: %1$s</string>
 </resources>

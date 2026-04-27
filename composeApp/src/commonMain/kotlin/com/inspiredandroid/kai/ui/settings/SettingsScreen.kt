@@ -224,7 +224,6 @@ import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_disk_usage
 import kai.composeapp.generated.resources.settings_sandbox_install
 import kai.composeapp.generated.resources.settings_sandbox_install_packages
-import kai.composeapp.generated.resources.settings_sandbox_packages_placeholder
 import kai.composeapp.generated.resources.settings_sandbox_subtab_files
 import kai.composeapp.generated.resources.settings_sandbox_subtab_packages
 import kai.composeapp.generated.resources.settings_sandbox_subtab_terminal

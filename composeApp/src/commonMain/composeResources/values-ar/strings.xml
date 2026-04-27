@@ -326,4 +326,20 @@
     <string name="sandbox_files_rename_failed">فشل إعادة التسمية</string>
     <string name="sandbox_files_rename_success">تمت إعادة التسمية</string>
     <string name="sandbox_files_editor_closed_after_delete">تم حذف الملف</string>
+    <string name="sandbox_packages_search_hint">ابحث في الحزم</string>
+    <string name="sandbox_packages_action_install">تثبيت</string>
+    <string name="sandbox_packages_action_uninstall">إزالة</string>
+    <string name="sandbox_packages_action_upgrade">تحديث الحزم</string>
+    <string name="sandbox_packages_action_clear_search">مسح البحث</string>
+    <string name="sandbox_packages_empty_installed">لا توجد حزم مثبتة</string>
+    <string name="sandbox_packages_empty_results">لا توجد حزم مطابقة</string>
+    <string name="sandbox_packages_uninstall_title">إزالة %1$s؟</string>
+    <string name="sandbox_packages_uninstall_message">سيؤدي هذا إلى إزالة الحزمة من الصندوق المعزول.</string>
+    <string name="sandbox_packages_uninstall_confirm">إزالة</string>
+    <string name="sandbox_packages_install_success">تم تثبيت %1$s</string>
+    <string name="sandbox_packages_install_failed">فشل التثبيت: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">تمت إزالة %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">فشلت الإزالة: %1$s</string>
+    <string name="sandbox_packages_upgraded">تم تحديث الحزم</string>
+    <string name="sandbox_packages_upgrade_failed">فشل التحديث: %1$s</string>
 </resources>

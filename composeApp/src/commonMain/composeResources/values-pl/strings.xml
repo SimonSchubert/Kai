@@ -325,4 +325,20 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="sandbox_files_rename_failed">Zmiana nazwy nie powiodła się</string>
     <string name="sandbox_files_rename_success">Zmieniono nazwę</string>
     <string name="sandbox_files_editor_closed_after_delete">Plik został usunięty</string>
+    <string name="sandbox_packages_search_hint">Szukaj pakietów</string>
+    <string name="sandbox_packages_action_install">Zainstaluj</string>
+    <string name="sandbox_packages_action_uninstall">Odinstaluj</string>
+    <string name="sandbox_packages_action_upgrade">Zaktualizuj pakiety</string>
+    <string name="sandbox_packages_action_clear_search">Wyczyść wyszukiwanie</string>
+    <string name="sandbox_packages_empty_installed">Brak zainstalowanych pakietów</string>
+    <string name="sandbox_packages_empty_results">Brak pasujących pakietów</string>
+    <string name="sandbox_packages_uninstall_title">Odinstalować %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Spowoduje to usunięcie pakietu z piaskownicy.</string>
+    <string name="sandbox_packages_uninstall_confirm">Odinstaluj</string>
+    <string name="sandbox_packages_install_success">Zainstalowano %1$s</string>
+    <string name="sandbox_packages_install_failed">Instalacja nie powiodła się: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Odinstalowano %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Odinstalowanie nie powiodło się: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakiety zaktualizowane</string>
+    <string name="sandbox_packages_upgrade_failed">Aktualizacja nie powiodła się: %1$s</string>
 </resources>

@@ -325,4 +325,20 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="sandbox_files_rename_failed">Échec du renommage</string>
     <string name="sandbox_files_rename_success">Renommé</string>
     <string name="sandbox_files_editor_closed_after_delete">Fichier supprimé</string>
+    <string name="sandbox_packages_search_hint">Rechercher des paquets</string>
+    <string name="sandbox_packages_action_install">Installer</string>
+    <string name="sandbox_packages_action_uninstall">Désinstaller</string>
+    <string name="sandbox_packages_action_upgrade">Mettre à jour les paquets</string>
+    <string name="sandbox_packages_action_clear_search">Effacer la recherche</string>
+    <string name="sandbox_packages_empty_installed">Aucun paquet installé</string>
+    <string name="sandbox_packages_empty_results">Aucun paquet correspondant</string>
+    <string name="sandbox_packages_uninstall_title">Désinstaller %1$s ?</string>
+    <string name="sandbox_packages_uninstall_message">Le paquet sera retiré du bac à sable.</string>
+    <string name="sandbox_packages_uninstall_confirm">Désinstaller</string>
+    <string name="sandbox_packages_install_success">%1$s installé</string>
+    <string name="sandbox_packages_install_failed">Échec de l\'installation : %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s désinstallé</string>
+    <string name="sandbox_packages_uninstall_failed">Échec de la désinstallation : %1$s</string>
+    <string name="sandbox_packages_upgraded">Paquets mis à jour</string>
+    <string name="sandbox_packages_upgrade_failed">Échec de la mise à jour : %1$s</string>
 </resources>

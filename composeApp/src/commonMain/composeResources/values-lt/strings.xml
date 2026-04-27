@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Nepavyko pervadinti</string>
     <string name="sandbox_files_rename_success">Pervadinta</string>
     <string name="sandbox_files_editor_closed_after_delete">Failas ištrintas</string>
+    <string name="sandbox_packages_search_hint">Ieškoti paketų</string>
+    <string name="sandbox_packages_action_install">Įdiegti</string>
+    <string name="sandbox_packages_action_uninstall">Pašalinti</string>
+    <string name="sandbox_packages_action_upgrade">Atnaujinti paketus</string>
+    <string name="sandbox_packages_action_clear_search">Išvalyti paiešką</string>
+    <string name="sandbox_packages_empty_installed">Nėra įdiegtų paketų</string>
+    <string name="sandbox_packages_empty_results">Atitinkančių paketų nerasta</string>
+    <string name="sandbox_packages_uninstall_title">Pašalinti %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Šis paketas bus pašalintas iš smėlio dėžės.</string>
+    <string name="sandbox_packages_uninstall_confirm">Pašalinti</string>
+    <string name="sandbox_packages_install_success">%1$s įdiegtas</string>
+    <string name="sandbox_packages_install_failed">Nepavyko įdiegti: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s pašalintas</string>
+    <string name="sandbox_packages_uninstall_failed">Nepavyko pašalinti: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paketai atnaujinti</string>
+    <string name="sandbox_packages_upgrade_failed">Nepavyko atnaujinti: %1$s</string>
 </resources>

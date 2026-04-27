@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">重命名失败</string>
     <string name="sandbox_files_rename_success">已重命名</string>
     <string name="sandbox_files_editor_closed_after_delete">文件已删除</string>
+    <string name="sandbox_packages_search_hint">搜索软件包</string>
+    <string name="sandbox_packages_action_install">安装</string>
+    <string name="sandbox_packages_action_uninstall">卸载</string>
+    <string name="sandbox_packages_action_upgrade">升级软件包</string>
+    <string name="sandbox_packages_action_clear_search">清除搜索</string>
+    <string name="sandbox_packages_empty_installed">未安装任何软件包</string>
+    <string name="sandbox_packages_empty_results">没有匹配的软件包</string>
+    <string name="sandbox_packages_uninstall_title">卸载 %1$s？</string>
+    <string name="sandbox_packages_uninstall_message">此操作将从沙盒中移除该软件包。</string>
+    <string name="sandbox_packages_uninstall_confirm">卸载</string>
+    <string name="sandbox_packages_install_success">已安装 %1$s</string>
+    <string name="sandbox_packages_install_failed">安装失败：%1$s</string>
+    <string name="sandbox_packages_uninstall_success">已卸载 %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">卸载失败：%1$s</string>
+    <string name="sandbox_packages_upgraded">软件包已升级</string>
+    <string name="sandbox_packages_upgrade_failed">升级失败：%1$s</string>
 </resources>

@@ -121,9 +121,9 @@ class AndroidSandboxController : SandboxController {
         sandboxManager.installPackages()
     }
 
-    override suspend fun executeCommand(command: String): String {
+    override suspend fun executeCommand(command: String): String = withContext(Dispatchers.IO) {
         val state = sandboxManager.state.value
-        if (state !is SandboxState.Ready) return SANDBOX_NOT_READY
+        if (state !is SandboxState.Ready) return@withContext SANDBOX_NOT_READY
 
         val executor = sandboxManager.createProotExecutor()
         val result = executor.execute(command, timeoutSeconds = 30)
@@ -133,7 +133,7 @@ class AndroidSandboxController : SandboxController {
         val exitCode = result["exit_code"] as? Int
         val error = result["error"] as? String
 
-        return buildString {
+        buildString {
             if (stdout.isNotEmpty()) append(stdout)
             if (stderr.isNotEmpty()) {
                 if (isNotEmpty()) append("\n")

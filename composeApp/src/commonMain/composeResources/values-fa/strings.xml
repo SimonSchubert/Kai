@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">تغییر نام ناموفق</string>
     <string name="sandbox_files_rename_success">نام تغییر کرد</string>
     <string name="sandbox_files_editor_closed_after_delete">پرونده حذف شد</string>
+    <string name="sandbox_packages_search_hint">جستجوی بسته‌ها</string>
+    <string name="sandbox_packages_action_install">نصب</string>
+    <string name="sandbox_packages_action_uninstall">حذف نصب</string>
+    <string name="sandbox_packages_action_upgrade">ارتقاء بسته‌ها</string>
+    <string name="sandbox_packages_action_clear_search">پاک کردن جستجو</string>
+    <string name="sandbox_packages_empty_installed">هیچ بسته‌ای نصب نشده است</string>
+    <string name="sandbox_packages_empty_results">بسته‌ای مطابقت ندارد</string>
+    <string name="sandbox_packages_uninstall_title">حذف نصب %1$s؟</string>
+    <string name="sandbox_packages_uninstall_message">این کار بسته را از سندباکس حذف می‌کند.</string>
+    <string name="sandbox_packages_uninstall_confirm">حذف نصب</string>
+    <string name="sandbox_packages_install_success">%1$s نصب شد</string>
+    <string name="sandbox_packages_install_failed">نصب ناموفق: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s حذف نصب شد</string>
+    <string name="sandbox_packages_uninstall_failed">حذف نصب ناموفق: %1$s</string>
+    <string name="sandbox_packages_upgraded">بسته‌ها ارتقاء یافتند</string>
+    <string name="sandbox_packages_upgrade_failed">ارتقاء ناموفق: %1$s</string>
 </resources>

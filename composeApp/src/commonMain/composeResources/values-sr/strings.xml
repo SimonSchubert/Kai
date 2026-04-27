@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Преименовање није успело</string>
     <string name="sandbox_files_rename_success">Преименовано</string>
     <string name="sandbox_files_editor_closed_after_delete">Датотека је обрисана</string>
+    <string name="sandbox_packages_search_hint">Претражи пакете</string>
+    <string name="sandbox_packages_action_install">Инсталирај</string>
+    <string name="sandbox_packages_action_uninstall">Деинсталирај</string>
+    <string name="sandbox_packages_action_upgrade">Ажурирај пакете</string>
+    <string name="sandbox_packages_action_clear_search">Обриши претрагу</string>
+    <string name="sandbox_packages_empty_installed">Нема инсталираних пакета</string>
+    <string name="sandbox_packages_empty_results">Нема одговарајућих пакета</string>
+    <string name="sandbox_packages_uninstall_title">Деинсталирати %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Ово уклања пакет из sandbox-а.</string>
+    <string name="sandbox_packages_uninstall_confirm">Деинсталирај</string>
+    <string name="sandbox_packages_install_success">Инсталирано: %1$s</string>
+    <string name="sandbox_packages_install_failed">Инсталација није успела: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Деинсталирано: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Деинсталација није успела: %1$s</string>
+    <string name="sandbox_packages_upgraded">Пакети ажурирани</string>
+    <string name="sandbox_packages_upgrade_failed">Ажурирање није успело: %1$s</string>
 </resources>

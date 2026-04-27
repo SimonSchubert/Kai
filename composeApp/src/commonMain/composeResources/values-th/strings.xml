@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">เปลี่ยนชื่อไม่สำเร็จ</string>
     <string name="sandbox_files_rename_success">เปลี่ยนชื่อแล้ว</string>
     <string name="sandbox_files_editor_closed_after_delete">ไฟล์ถูกลบแล้ว</string>
+    <string name="sandbox_packages_search_hint">ค้นหาแพ็กเกจ</string>
+    <string name="sandbox_packages_action_install">ติดตั้ง</string>
+    <string name="sandbox_packages_action_uninstall">ถอนการติดตั้ง</string>
+    <string name="sandbox_packages_action_upgrade">อัปเกรดแพ็กเกจ</string>
+    <string name="sandbox_packages_action_clear_search">ล้างการค้นหา</string>
+    <string name="sandbox_packages_empty_installed">ยังไม่มีแพ็กเกจที่ติดตั้ง</string>
+    <string name="sandbox_packages_empty_results">ไม่พบแพ็กเกจที่ตรงกัน</string>
+    <string name="sandbox_packages_uninstall_title">ถอนการติดตั้ง %1$s ใช่ไหม?</string>
+    <string name="sandbox_packages_uninstall_message">การดำเนินการนี้จะลบแพ็กเกจออกจากแซนด์บ็อกซ์</string>
+    <string name="sandbox_packages_uninstall_confirm">ถอนการติดตั้ง</string>
+    <string name="sandbox_packages_install_success">ติดตั้ง %1$s แล้ว</string>
+    <string name="sandbox_packages_install_failed">ติดตั้งไม่สำเร็จ: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">ถอนการติดตั้ง %1$s แล้ว</string>
+    <string name="sandbox_packages_uninstall_failed">ถอนการติดตั้งไม่สำเร็จ: %1$s</string>
+    <string name="sandbox_packages_upgraded">อัปเกรดแพ็กเกจแล้ว</string>
+    <string name="sandbox_packages_upgrade_failed">อัปเกรดไม่สำเร็จ: %1$s</string>
 </resources>

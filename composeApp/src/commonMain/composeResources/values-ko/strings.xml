@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">이름 변경 실패</string>
     <string name="sandbox_files_rename_success">이름이 변경되었습니다</string>
     <string name="sandbox_files_editor_closed_after_delete">파일이 삭제되었습니다</string>
+    <string name="sandbox_packages_search_hint">패키지 검색</string>
+    <string name="sandbox_packages_action_install">설치</string>
+    <string name="sandbox_packages_action_uninstall">제거</string>
+    <string name="sandbox_packages_action_upgrade">패키지 업그레이드</string>
+    <string name="sandbox_packages_action_clear_search">검색 지우기</string>
+    <string name="sandbox_packages_empty_installed">설치된 패키지가 없습니다</string>
+    <string name="sandbox_packages_empty_results">일치하는 패키지가 없습니다</string>
+    <string name="sandbox_packages_uninstall_title">%1$s을(를) 제거할까요?</string>
+    <string name="sandbox_packages_uninstall_message">샌드박스에서 이 패키지가 제거됩니다.</string>
+    <string name="sandbox_packages_uninstall_confirm">제거</string>
+    <string name="sandbox_packages_install_success">%1$s 설치됨</string>
+    <string name="sandbox_packages_install_failed">설치 실패: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s 제거됨</string>
+    <string name="sandbox_packages_uninstall_failed">제거 실패: %1$s</string>
+    <string name="sandbox_packages_upgraded">패키지가 업그레이드되었습니다</string>
+    <string name="sandbox_packages_upgrade_failed">업그레이드 실패: %1$s</string>
 </resources>

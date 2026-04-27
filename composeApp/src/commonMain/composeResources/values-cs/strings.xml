@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Přejmenování selhalo</string>
     <string name="sandbox_files_rename_success">Přejmenováno</string>
     <string name="sandbox_files_editor_closed_after_delete">Soubor byl odstraněn</string>
+    <string name="sandbox_packages_search_hint">Hledat balíčky</string>
+    <string name="sandbox_packages_action_install">Nainstalovat</string>
+    <string name="sandbox_packages_action_uninstall">Odinstalovat</string>
+    <string name="sandbox_packages_action_upgrade">Aktualizovat balíčky</string>
+    <string name="sandbox_packages_action_clear_search">Vymazat hledání</string>
+    <string name="sandbox_packages_empty_installed">Žádné nainstalované balíčky</string>
+    <string name="sandbox_packages_empty_results">Žádné odpovídající balíčky</string>
+    <string name="sandbox_packages_uninstall_title">Odinstalovat %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Tím bude balíček odstraněn ze sandboxu.</string>
+    <string name="sandbox_packages_uninstall_confirm">Odinstalovat</string>
+    <string name="sandbox_packages_install_success">%1$s nainstalován</string>
+    <string name="sandbox_packages_install_failed">Instalace selhala: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s odinstalován</string>
+    <string name="sandbox_packages_uninstall_failed">Odinstalace selhala: %1$s</string>
+    <string name="sandbox_packages_upgraded">Balíčky aktualizovány</string>
+    <string name="sandbox_packages_upgrade_failed">Aktualizace selhala: %1$s</string>
 </resources>

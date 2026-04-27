@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Hindi nagawa ang pagpapalit ng pangalan</string>
     <string name="sandbox_files_rename_success">Pinalitan ang pangalan</string>
     <string name="sandbox_files_editor_closed_after_delete">Tinanggal ang file</string>
+    <string name="sandbox_packages_search_hint">Maghanap ng mga package</string>
+    <string name="sandbox_packages_action_install">I-install</string>
+    <string name="sandbox_packages_action_uninstall">I-uninstall</string>
+    <string name="sandbox_packages_action_upgrade">I-upgrade ang mga package</string>
+    <string name="sandbox_packages_action_clear_search">I-clear ang paghahanap</string>
+    <string name="sandbox_packages_empty_installed">Walang naka-install na package</string>
+    <string name="sandbox_packages_empty_results">Walang tumutugmang package</string>
+    <string name="sandbox_packages_uninstall_title">I-uninstall ang %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Aalisin nito ang package mula sa sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">I-uninstall</string>
+    <string name="sandbox_packages_install_success">Na-install ang %1$s</string>
+    <string name="sandbox_packages_install_failed">Hindi nagawa ang pag-install: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Na-uninstall ang %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Hindi nagawa ang pag-uninstall: %1$s</string>
+    <string name="sandbox_packages_upgraded">Na-upgrade ang mga package</string>
+    <string name="sandbox_packages_upgrade_failed">Hindi nagawa ang pag-upgrade: %1$s</string>
 </resources>

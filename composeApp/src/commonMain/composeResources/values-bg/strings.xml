@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Преименуването неуспешно</string>
     <string name="sandbox_files_rename_success">Преименувано</string>
     <string name="sandbox_files_editor_closed_after_delete">Файлът беше изтрит</string>
+    <string name="sandbox_packages_search_hint">Търсене на пакети</string>
+    <string name="sandbox_packages_action_install">Инсталиране</string>
+    <string name="sandbox_packages_action_uninstall">Деинсталиране</string>
+    <string name="sandbox_packages_action_upgrade">Обновяване на пакетите</string>
+    <string name="sandbox_packages_action_clear_search">Изчистване на търсенето</string>
+    <string name="sandbox_packages_empty_installed">Няма инсталирани пакети</string>
+    <string name="sandbox_packages_empty_results">Няма съответстващи пакети</string>
+    <string name="sandbox_packages_uninstall_title">Деинсталиране на %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Това ще премахне пакета от пясъчника.</string>
+    <string name="sandbox_packages_uninstall_confirm">Деинсталирай</string>
+    <string name="sandbox_packages_install_success">%1$s е инсталиран</string>
+    <string name="sandbox_packages_install_failed">Инсталирането неуспешно: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s е деинсталиран</string>
+    <string name="sandbox_packages_uninstall_failed">Деинсталирането неуспешно: %1$s</string>
+    <string name="sandbox_packages_upgraded">Пакетите са обновени</string>
+    <string name="sandbox_packages_upgrade_failed">Обновяването неуспешно: %1$s</string>
 </resources>

@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Preimenovanje nije uspjelo</string>
     <string name="sandbox_files_rename_success">Preimenovano</string>
     <string name="sandbox_files_editor_closed_after_delete">Datoteka je izbrisana</string>
+    <string name="sandbox_packages_search_hint">Pretraži pakete</string>
+    <string name="sandbox_packages_action_install">Instaliraj</string>
+    <string name="sandbox_packages_action_uninstall">Deinstaliraj</string>
+    <string name="sandbox_packages_action_upgrade">Nadogradi pakete</string>
+    <string name="sandbox_packages_action_clear_search">Obriši pretragu</string>
+    <string name="sandbox_packages_empty_installed">Nema instaliranih paketa</string>
+    <string name="sandbox_packages_empty_results">Nema odgovarajućih paketa</string>
+    <string name="sandbox_packages_uninstall_title">Deinstalirati %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Ovo uklanja paket iz sandboxa.</string>
+    <string name="sandbox_packages_uninstall_confirm">Deinstaliraj</string>
+    <string name="sandbox_packages_install_success">Instalirano: %1$s</string>
+    <string name="sandbox_packages_install_failed">Instalacija nije uspjela: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Deinstalirano: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Deinstalacija nije uspjela: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paketi nadograđeni</string>
+    <string name="sandbox_packages_upgrade_failed">Nadogradnja nije uspjela: %1$s</string>
 </resources>

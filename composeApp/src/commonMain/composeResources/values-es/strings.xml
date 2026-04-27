@@ -326,4 +326,20 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="sandbox_files_rename_failed">Error al renombrar</string>
     <string name="sandbox_files_rename_success">Renombrado</string>
     <string name="sandbox_files_editor_closed_after_delete">Archivo eliminado</string>
+    <string name="sandbox_packages_search_hint">Buscar paquetes</string>
+    <string name="sandbox_packages_action_install">Instalar</string>
+    <string name="sandbox_packages_action_uninstall">Desinstalar</string>
+    <string name="sandbox_packages_action_upgrade">Actualizar paquetes</string>
+    <string name="sandbox_packages_action_clear_search">Borrar búsqueda</string>
+    <string name="sandbox_packages_empty_installed">No hay paquetes instalados</string>
+    <string name="sandbox_packages_empty_results">No hay paquetes coincidentes</string>
+    <string name="sandbox_packages_uninstall_title">¿Desinstalar %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Esto eliminará el paquete del sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Desinstalar</string>
+    <string name="sandbox_packages_install_success">%1$s instalado</string>
+    <string name="sandbox_packages_install_failed">Error al instalar: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s desinstalado</string>
+    <string name="sandbox_packages_uninstall_failed">Error al desinstalar: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paquetes actualizados</string>
+    <string name="sandbox_packages_upgrade_failed">Error al actualizar: %1$s</string>
 </resources>

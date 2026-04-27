@@ -326,4 +326,20 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sandbox_files_rename_failed">Nimeäminen epäonnistui</string>
     <string name="sandbox_files_rename_success">Nimetty uudelleen</string>
     <string name="sandbox_files_editor_closed_after_delete">Tiedosto poistettiin</string>
+    <string name="sandbox_packages_search_hint">Hae paketteja</string>
+    <string name="sandbox_packages_action_install">Asenna</string>
+    <string name="sandbox_packages_action_uninstall">Poista</string>
+    <string name="sandbox_packages_action_upgrade">Päivitä paketit</string>
+    <string name="sandbox_packages_action_clear_search">Tyhjennä haku</string>
+    <string name="sandbox_packages_empty_installed">Ei asennettuja paketteja</string>
+    <string name="sandbox_packages_empty_results">Ei vastaavia paketteja</string>
+    <string name="sandbox_packages_uninstall_title">Poistetaanko %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Tämä poistaa paketin hiekkalaatikosta.</string>
+    <string name="sandbox_packages_uninstall_confirm">Poista</string>
+    <string name="sandbox_packages_install_success">Asennettu: %1$s</string>
+    <string name="sandbox_packages_install_failed">Asennus epäonnistui: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Poistettu: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Poisto epäonnistui: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paketit päivitetty</string>
+    <string name="sandbox_packages_upgrade_failed">Päivitys epäonnistui: %1$s</string>
 </resources>

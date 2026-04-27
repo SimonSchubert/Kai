@@ -326,4 +326,20 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="sandbox_files_rename_failed">Omdøbning mislykkedes</string>
     <string name="sandbox_files_rename_success">Omdøbt</string>
     <string name="sandbox_files_editor_closed_after_delete">Filen blev slettet</string>
+    <string name="sandbox_packages_search_hint">Søg pakker</string>
+    <string name="sandbox_packages_action_install">Installér</string>
+    <string name="sandbox_packages_action_uninstall">Afinstallér</string>
+    <string name="sandbox_packages_action_upgrade">Opdater pakker</string>
+    <string name="sandbox_packages_action_clear_search">Ryd søgning</string>
+    <string name="sandbox_packages_empty_installed">Ingen pakker installeret</string>
+    <string name="sandbox_packages_empty_results">Ingen matchende pakker</string>
+    <string name="sandbox_packages_uninstall_title">Afinstallér %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Dette fjerner pakken fra sandkassen.</string>
+    <string name="sandbox_packages_uninstall_confirm">Afinstallér</string>
+    <string name="sandbox_packages_install_success">%1$s installeret</string>
+    <string name="sandbox_packages_install_failed">Installation mislykkedes: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s afinstalleret</string>
+    <string name="sandbox_packages_uninstall_failed">Afinstallation mislykkedes: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakker opdateret</string>
+    <string name="sandbox_packages_upgrade_failed">Opdatering mislykkedes: %1$s</string>
 </resources>

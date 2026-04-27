@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Gagal mengganti nama</string>
     <string name="sandbox_files_rename_success">Nama diganti</string>
     <string name="sandbox_files_editor_closed_after_delete">File telah dihapus</string>
+    <string name="sandbox_packages_search_hint">Cari paket</string>
+    <string name="sandbox_packages_action_install">Instal</string>
+    <string name="sandbox_packages_action_uninstall">Uninstal</string>
+    <string name="sandbox_packages_action_upgrade">Tingkatkan paket</string>
+    <string name="sandbox_packages_action_clear_search">Hapus pencarian</string>
+    <string name="sandbox_packages_empty_installed">Tidak ada paket terinstal</string>
+    <string name="sandbox_packages_empty_results">Tidak ada paket yang cocok</string>
+    <string name="sandbox_packages_uninstall_title">Uninstal %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Tindakan ini menghapus paket dari sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Uninstal</string>
+    <string name="sandbox_packages_install_success">%1$s terinstal</string>
+    <string name="sandbox_packages_install_failed">Gagal menginstal: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s diuninstal</string>
+    <string name="sandbox_packages_uninstall_failed">Gagal menguninstal: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paket telah ditingkatkan</string>
+    <string name="sandbox_packages_upgrade_failed">Gagal meningkatkan: %1$s</string>
 </resources>

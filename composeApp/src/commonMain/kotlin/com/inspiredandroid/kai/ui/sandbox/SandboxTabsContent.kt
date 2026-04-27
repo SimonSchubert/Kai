@@ -41,7 +41,6 @@ import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_install
-import kai.composeapp.generated.resources.settings_sandbox_packages_placeholder
 import kai.composeapp.generated.resources.settings_sandbox_subtab_files
 import kai.composeapp.generated.resources.settings_sandbox_subtab_packages
 import kai.composeapp.generated.resources.settings_sandbox_subtab_terminal
@@ -88,7 +87,9 @@ internal fun SandboxTabsContent(
                         modifier = Modifier.fillMaxSize(),
                     )
 
-                    SandboxSubTab.Packages -> PackagesPlaceholder()
+                    SandboxSubTab.Packages -> SandboxPackagesContent(
+                        modifier = Modifier.fillMaxSize(),
+                    )
                 }
             }
         }
@@ -168,21 +169,6 @@ private fun SandboxSubTabSelector(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun PackagesPlaceholder() {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(Res.string.settings_sandbox_packages_placeholder),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
     }
 }
 

@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">שינוי השם נכשל</string>
     <string name="sandbox_files_rename_success">השם שונה</string>
     <string name="sandbox_files_editor_closed_after_delete">הקובץ נמחק</string>
+    <string name="sandbox_packages_search_hint">חיפוש חבילות</string>
+    <string name="sandbox_packages_action_install">התקן</string>
+    <string name="sandbox_packages_action_uninstall">הסר התקנה</string>
+    <string name="sandbox_packages_action_upgrade">עדכן חבילות</string>
+    <string name="sandbox_packages_action_clear_search">נקה חיפוש</string>
+    <string name="sandbox_packages_empty_installed">אין חבילות מותקנות</string>
+    <string name="sandbox_packages_empty_results">אין חבילות תואמות</string>
+    <string name="sandbox_packages_uninstall_title">להסיר את ההתקנה של %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">פעולה זו תסיר את החבילה מארגז החול.</string>
+    <string name="sandbox_packages_uninstall_confirm">הסר התקנה</string>
+    <string name="sandbox_packages_install_success">%1$s הותקן</string>
+    <string name="sandbox_packages_install_failed">ההתקנה נכשלה: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">ההתקנה של %1$s הוסרה</string>
+    <string name="sandbox_packages_uninstall_failed">הסרת ההתקנה נכשלה: %1$s</string>
+    <string name="sandbox_packages_upgraded">החבילות עודכנו</string>
+    <string name="sandbox_packages_upgrade_failed">העדכון נכשל: %1$s</string>
 </resources>

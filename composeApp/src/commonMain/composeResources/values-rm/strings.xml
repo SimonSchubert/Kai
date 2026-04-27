@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">Renomnar n\'è betg reussì</string>
     <string name="sandbox_files_rename_success">Renomnà</string>
     <string name="sandbox_files_editor_closed_after_delete">La datoteca è vegnida stizzada</string>
+    <string name="sandbox_packages_search_hint">Tschertgar packets</string>
+    <string name="sandbox_packages_action_install">Installar</string>
+    <string name="sandbox_packages_action_uninstall">Disinstallar</string>
+    <string name="sandbox_packages_action_upgrade">Actualisar ils packets</string>
+    <string name="sandbox_packages_action_clear_search">Stizzar la tschertga</string>
+    <string name="sandbox_packages_empty_installed">Nagins packets installads</string>
+    <string name="sandbox_packages_empty_results">Nagins packets correspundents</string>
+    <string name="sandbox_packages_uninstall_title">Disinstallar %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">Quai allontanescha il packet dal sandbox.</string>
+    <string name="sandbox_packages_uninstall_confirm">Disinstallar</string>
+    <string name="sandbox_packages_install_success">%1$s installà</string>
+    <string name="sandbox_packages_install_failed">Installaziun n\'è betg reussida: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s disinstallà</string>
+    <string name="sandbox_packages_uninstall_failed">Disinstallaziun n\'è betg reussida: %1$s</string>
+    <string name="sandbox_packages_upgraded">Packets actualisads</string>
+    <string name="sandbox_packages_upgrade_failed">Actualisaziun n\'è betg reussida: %1$s</string>
 </resources>

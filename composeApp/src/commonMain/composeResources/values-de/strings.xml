@@ -326,4 +326,20 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sandbox_files_rename_failed">Umbenennen fehlgeschlagen</string>
     <string name="sandbox_files_rename_success">Umbenannt</string>
     <string name="sandbox_files_editor_closed_after_delete">Datei wurde gelöscht</string>
+    <string name="sandbox_packages_search_hint">Pakete suchen</string>
+    <string name="sandbox_packages_action_install">Installieren</string>
+    <string name="sandbox_packages_action_uninstall">Deinstallieren</string>
+    <string name="sandbox_packages_action_upgrade">Pakete aktualisieren</string>
+    <string name="sandbox_packages_action_clear_search">Suche löschen</string>
+    <string name="sandbox_packages_empty_installed">Keine Pakete installiert</string>
+    <string name="sandbox_packages_empty_results">Keine passenden Pakete</string>
+    <string name="sandbox_packages_uninstall_title">%1$s deinstallieren?</string>
+    <string name="sandbox_packages_uninstall_message">Das Paket wird aus der Sandbox entfernt.</string>
+    <string name="sandbox_packages_uninstall_confirm">Deinstallieren</string>
+    <string name="sandbox_packages_install_success">%1$s installiert</string>
+    <string name="sandbox_packages_install_failed">Installation fehlgeschlagen: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s deinstalliert</string>
+    <string name="sandbox_packages_uninstall_failed">Deinstallation fehlgeschlagen: %1$s</string>
+    <string name="sandbox_packages_upgraded">Pakete aktualisiert</string>
+    <string name="sandbox_packages_upgrade_failed">Aktualisierung fehlgeschlagen: %1$s</string>
 </resources>

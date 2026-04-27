@@ -324,4 +324,20 @@
     <string name="sandbox_files_rename_failed">નામ બદલવામાં નિષ્ફળ</string>
     <string name="sandbox_files_rename_success">નામ બદલાયું</string>
     <string name="sandbox_files_editor_closed_after_delete">ફાઇલ કાઢી નાખવામાં આવી</string>
+    <string name="sandbox_packages_search_hint">પેકેજ શોધો</string>
+    <string name="sandbox_packages_action_install">ઇન્સ્ટોલ કરો</string>
+    <string name="sandbox_packages_action_uninstall">અનઇન્સ્ટોલ કરો</string>
+    <string name="sandbox_packages_action_upgrade">પેકેજ અપગ્રેડ કરો</string>
+    <string name="sandbox_packages_action_clear_search">શોધ સાફ કરો</string>
+    <string name="sandbox_packages_empty_installed">કોઈ પેકેજ ઇન્સ્ટોલ નથી</string>
+    <string name="sandbox_packages_empty_results">કોઈ મેળ ખાતું પેકેજ નથી</string>
+    <string name="sandbox_packages_uninstall_title">%1$s અનઇન્સ્ટોલ કરવું?</string>
+    <string name="sandbox_packages_uninstall_message">આ પેકેજને સેન્ડબોક્સમાંથી દૂર કરશે.</string>
+    <string name="sandbox_packages_uninstall_confirm">અનઇન્સ્ટોલ કરો</string>
+    <string name="sandbox_packages_install_success">%1$s ઇન્સ્ટોલ થયું</string>
+    <string name="sandbox_packages_install_failed">ઇન્સ્ટોલ નિષ્ફળ: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">%1$s અનઇન્સ્ટોલ થયું</string>
+    <string name="sandbox_packages_uninstall_failed">અનઇન્સ્ટોલ નિષ્ફળ: %1$s</string>
+    <string name="sandbox_packages_upgraded">પેકેજ અપગ્રેડ થયા</string>
+    <string name="sandbox_packages_upgrade_failed">અપગ્રેડ નિષ્ફળ: %1$s</string>
 </resources>

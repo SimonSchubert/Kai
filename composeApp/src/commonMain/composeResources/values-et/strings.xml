@@ -325,4 +325,20 @@
     <string name="sandbox_files_rename_failed">Ümbernimetamine ebaõnnestus</string>
     <string name="sandbox_files_rename_success">Ümber nimetatud</string>
     <string name="sandbox_files_editor_closed_after_delete">Fail kustutati</string>
+    <string name="sandbox_packages_search_hint">Otsi pakette</string>
+    <string name="sandbox_packages_action_install">Paigalda</string>
+    <string name="sandbox_packages_action_uninstall">Eemalda</string>
+    <string name="sandbox_packages_action_upgrade">Uuenda paketid</string>
+    <string name="sandbox_packages_action_clear_search">Tühjenda otsing</string>
+    <string name="sandbox_packages_empty_installed">Ühtegi paketti pole paigaldatud</string>
+    <string name="sandbox_packages_empty_results">Sobivaid pakette ei leitud</string>
+    <string name="sandbox_packages_uninstall_title">Eemaldada %1$s?</string>
+    <string name="sandbox_packages_uninstall_message">See eemaldab paketi liivakastist.</string>
+    <string name="sandbox_packages_uninstall_confirm">Eemalda</string>
+    <string name="sandbox_packages_install_success">Paigaldatud: %1$s</string>
+    <string name="sandbox_packages_install_failed">Paigaldamine ebaõnnestus: %1$s</string>
+    <string name="sandbox_packages_uninstall_success">Eemaldatud: %1$s</string>
+    <string name="sandbox_packages_uninstall_failed">Eemaldamine ebaõnnestus: %1$s</string>
+    <string name="sandbox_packages_upgraded">Paketid uuendatud</string>
+    <string name="sandbox_packages_upgrade_failed">Uuendamine ebaõnnestus: %1$s</string>
 </resources>
