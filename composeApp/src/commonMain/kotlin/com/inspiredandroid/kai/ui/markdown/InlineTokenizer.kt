@@ -18,6 +18,7 @@ internal object InlineTokenizer {
 
     private val CODE_REGEX = Regex("(?<!\\\\)(`+)([\\s\\S]+?)\\1")
     private val IMAGE_REGEX = Regex("(?<!\\\\)!\\[([^\\]]*)\\]\\(([^)]*)\\)")
+
     // The inner alternation must not let `[^\[\]]` consume `\` — otherwise `\X` has two ways
     // to match (one `\\.` iteration vs. two `[^…]` iterations), producing exponential
     // backtracking on Android's ICU regex engine when the surrounding `](url)` doesn't close.
