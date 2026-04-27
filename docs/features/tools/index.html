@@ -1772,7 +1772,8 @@
 <p><strong>Setup flow:</strong> The sandbox requires a one-time setup that downloads the Alpine Linux minirootfs (~3 MB). Proot is bundled in the APK as a native library. After setup, users can optionally install Python (~25 MB additional).</p>
 <p><strong>Mirror fallback:</strong> The downloader tries the primary Alpine CDN first, then falls back through a list of official mirrors (kernel.org, RWTH Aachen, ETH Zürich, Waterloo, Tsinghua) so setup succeeds in regions where the primary CDN is unreachable. The same mirror list is also used to pick <code>/etc/apk/repositories</code> during setup — <code>apk update</code> is retried against each mirror until one succeeds, so later <code>apk add</code> calls resolve through a reachable mirror.</p>
 <p><strong>Architecture:</strong> Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under <code>linux-sandbox/</code>. The sandbox <code>/root</code> (home) is bind-mounted from the externally-visible app directory at <code>Android/data/com.inspiredandroid.kai/files/sandbox-home/</code> so files produced by the agent can be opened in Android apps via FileProvider Intents (<code>open_file</code>). On first run after upgrade, content from the legacy internal home is migrated automatically.</p>
-<p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.</p>
+<p><strong>Settings:</strong> The sandbox section appears in Settings &gt; Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is <strong>not</strong> in Settings — it lives behind the chat-bar shortcut.</p>
+<p><strong>Chat-bar toggle:</strong> A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping <strong>+</strong> or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — <strong>Terminal</strong> (interactive shell, default), <strong>Files</strong> (built-in file browser starting at <code>/root</code> — tap files to open in the user's default Android app via the same FileProvider/Intent path as <code>open_file</code>, or fall back to a built-in editable text editor with a Save action), and <strong>Packages</strong> (placeholder for future package-manager UI). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.</p>
 <h4 id="open-file-android">Open File (Android)</h4>
 <p>The <code>open_file</code> tool fires an <code>ACTION_VIEW</code> Intent for a single file at <code>path</code> (relative to <code>/root</code>). Browser opens HTML, image viewer opens PNG/JPG, PDF viewer opens PDF, etc. Uses the existing FileProvider declared in the main manifest. Path is rejected if it contains a leading slash or <code>..</code> segments; the resolved path is canonicalized and verified to stay under the sandbox home root before the Intent is fired.</p>
 <p><code>open_file</code> operates on a single file. FileProvider grants access only to the specific URI in the Intent, so it does not work for multi-file content (e.g. an HTML page that loads sibling <code>styles.css</code> / <code>script.js</code>). For HTML, write self-contained files with inline CSS and JavaScript; the shell and <code>open_file</code> tool descriptions tell the agent to do this.</p>
@@ -2009,12 +2010,28 @@
 <td>Open sandbox file in an Android app via FileProvider Intent</td>
 </tr>
 <tr>
+<td><code>composeApp/src/androidMain/.../sandbox/SandboxFiles.kt</code></td>
+<td>Path translation, FileProvider open helper shared with the file browser</td>
+</tr>
+<tr>
 <td><code>androidApp/src/main/res/xml/file_paths.xml</code></td>
 <td>FileProvider path config (includes <code>sandbox-home/</code>)</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../SandboxController.kt</code></td>
 <td>Cross-platform sandbox interface</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/sandbox/SandboxTabsContent.kt</code></td>
+<td>Terminal/Files/Packages sub-tab UI rendered inline inside the chat screen body</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt</code></td>
+<td>User-facing file browser UI for the Alpine sandbox</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserViewModel.kt</code></td>
+<td>State for browsing and editing sandbox files</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
