@@ -290,6 +290,14 @@
     <string name="settings_sandbox_description">Install a Linux environment so the AI can run shell commands, scripts, and tools on your behalf. Runs securely inside the app. ~3 MB download.</string>
     <string name="settings_sandbox_install">Install</string>
     <string name="settings_sandbox_install_packages">Install Basic Packages</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Files</string>
+    <string name="settings_sandbox_subtab_packages">Packages</string>
+    <string name="settings_sandbox_packages_placeholder">Package manager UI coming soon.</string>
+    <string name="sandbox_content_description">Open Linux sandbox</string>
+    <string name="sandbox_files_save_success">Saved</string>
+    <string name="sandbox_files_save_failed">Save failed</string>
+    <string name="sandbox_files_open_failed">Could not open externally</string>
     <string name="settings_sandbox_uninstall">Uninstall</string>
     <string name="settings_sandbox_uninstall_confirm">All data in the Linux sandbox will be lost. Are you sure you want to uninstall?</string>
     <string name="settings_sandbox_cancel">Cancel</string>

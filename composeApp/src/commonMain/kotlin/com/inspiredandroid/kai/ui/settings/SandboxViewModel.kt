@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.DataRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,10 +32,17 @@ class SandboxViewModel(
     private val sandboxController: SandboxController,
 ) : ViewModel() {
 
+    // Seed synchronously from the controller's current status so the first
+    // composition doesn't briefly render the install UI when the sandbox is
+    // already ready. The controller mirrors LinuxSandboxManager's synchronous
+    // installation check, so reading status.value here returns the real state.
     private val _state = MutableStateFlow(
-        SandboxUiState(
-            showSandbox = currentPlatform is Platform.Mobile.Android,
-            isSandboxEnabled = dataRepository.isSandboxEnabled(),
+        applyStatus(
+            sandboxController.status.value,
+            SandboxUiState(
+                showSandbox = currentPlatform is Platform.Mobile.Android,
+                isSandboxEnabled = dataRepository.isSandboxEnabled(),
+            ),
         ),
     )
 
@@ -43,21 +51,21 @@ class SandboxViewModel(
     init {
         viewModelScope.launch {
             sandboxController.status.collect { sandboxStatus ->
-                _state.update {
-                    it.copy(
-                        sandboxInstalled = sandboxStatus.installed,
-                        sandboxReady = sandboxStatus.ready,
-                        sandboxProgress = sandboxStatus.progress,
-                        sandboxStatusText = sandboxStatus.statusText,
-                        sandboxDiskUsageMB = sandboxStatus.diskUsageMB,
-                        sandboxPackagesInstalled = sandboxStatus.packagesInstalled,
-                        isWorking = sandboxStatus.working,
-                        hasError = sandboxStatus.error,
-                    )
-                }
+                _state.update { applyStatus(sandboxStatus, it) }
             }
         }
     }
+
+    private fun applyStatus(status: SandboxStatus, base: SandboxUiState): SandboxUiState = base.copy(
+        sandboxInstalled = status.installed,
+        sandboxReady = status.ready,
+        sandboxProgress = status.progress,
+        sandboxStatusText = status.statusText,
+        sandboxDiskUsageMB = status.diskUsageMB,
+        sandboxPackagesInstalled = status.packagesInstalled,
+        isWorking = status.working,
+        hasError = status.error,
+    )
 
     fun onToggleSandbox(enabled: Boolean) {
         dataRepository.setSandboxEnabled(enabled)

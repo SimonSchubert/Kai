@@ -1,8 +1,11 @@
 package com.inspiredandroid.kai
 
+import android.content.Context
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
 import com.inspiredandroid.kai.sandbox.ProotHandle
 import com.inspiredandroid.kai.sandbox.SandboxState
+import com.inspiredandroid.kai.sandbox.openFileWithIntent
+import com.inspiredandroid.kai.sandbox.resolveSandboxAbsolute
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,12 +14,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
+import java.io.File
+import java.io.IOException
 
 actual fun createSandboxController(): SandboxController = AndroidSandboxController()
 
 class AndroidSandboxController : SandboxController {
 
     private val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
+    private val context: Context by inject(Context::class.java)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     private var cachedDiskUsageMB = 0L
@@ -25,6 +31,27 @@ class AndroidSandboxController : SandboxController {
     override val status: StateFlow<SandboxStatus> = _status
 
     init {
+        // Synchronously seed the status from the manager's current state so the
+        // first observer doesn't briefly see "not installed" before the launched
+        // collector below catches up. Skip the disk-usage walk in this fast path —
+        // it iterates the rootfs and could block the calling thread (often main,
+        // since Koin singletons are created lazily on first injection from
+        // Composables). The launched collect immediately re-emits the same state
+        // and fills in disk usage on Dispatchers.IO.
+        val initial = sandboxManager.state.value
+        _status.value = if (initial is SandboxState.Ready) {
+            SandboxStatus(
+                installed = true,
+                ready = true,
+                statusText = "Ready",
+                packagesInstalled = sandboxManager.arePackagesInstalled(),
+            )
+        } else {
+            mapState(initial)
+        }
+        // Leave previousState null so the launched collect's first mapState(Ready)
+        // computes disk usage on IO.
+
         scope.launch {
             sandboxManager.state.collect { state ->
                 _status.value = mapState(state)
@@ -142,7 +169,83 @@ class AndroidSandboxController : SandboxController {
         }
         return ProotCommandHandle(handle)
     }
+
+    override suspend fun listDirectory(path: String): List<SandboxFileEntry> = withContext(Dispatchers.IO) {
+        val dir = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext emptyList()
+        if (!dir.isDirectory) return@withContext emptyList()
+
+        val normalized = if (path.endsWith("/")) path.dropLast(1) else path
+        val isRoot = normalized.isEmpty() || normalized == "/"
+
+        val children = dir.listFiles().orEmpty()
+            .filterNot { isRoot && it.name == "root" }
+            .map { it.toEntry(parent = if (isRoot) "" else normalized) }
+            .toMutableList()
+
+        if (isRoot) {
+            val home = File(sandboxManager.homePath)
+            if (home.isDirectory) {
+                children.add(
+                    SandboxFileEntry(
+                        name = "root",
+                        path = "/root",
+                        isDirectory = true,
+                        sizeBytes = 0,
+                        lastModifiedMs = home.lastModified(),
+                    ),
+                )
+            }
+        }
+        children.sortedWith(
+            compareByDescending<SandboxFileEntry> { it.isDirectory }
+                .thenBy { it.name.lowercase() },
+        )
+    }
+
+    override suspend fun readTextFile(path: String, maxBytes: Int): String? = withContext(Dispatchers.IO) {
+        val file = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext null
+        if (!file.isFile) return@withContext null
+        if (file.length() > maxBytes) return@withContext null
+        val bytes = try {
+            file.readBytes()
+        } catch (e: IOException) {
+            return@withContext null
+        }
+        if (bytes.any { it == 0.toByte() }) return@withContext null
+        bytes.toString(Charsets.UTF_8)
+    }
+
+    override suspend fun writeTextFile(path: String, content: String): Boolean = withContext(Dispatchers.IO) {
+        val file = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext false
+        if (file.exists() && !file.isFile) return@withContext false
+        try {
+            file.parentFile?.mkdirs()
+            file.writeBytes(content.toByteArray(Charsets.UTF_8))
+            true
+        } catch (e: IOException) {
+            false
+        }
+    }
+
+    override suspend fun openFile(path: String): Result<Unit> = withContext(Dispatchers.IO) {
+        val file = resolveSandboxAbsolute(sandboxManager.rootfsPath, sandboxManager.homePath, path)
+            ?: return@withContext Result.failure(IllegalArgumentException("Invalid path: $path"))
+        if (!file.isFile) return@withContext Result.failure(IllegalArgumentException("Not a file: $path"))
+        val result = openFileWithIntent(context, file)
+        if (result.success) Result.success(Unit) else Result.failure(IllegalStateException(result.error ?: "Open failed"))
+    }
 }
+
+private fun File.toEntry(parent: String): SandboxFileEntry = SandboxFileEntry(
+    name = name,
+    path = if (parent.isEmpty()) "/$name" else "$parent/$name",
+    isDirectory = isDirectory,
+    sizeBytes = if (isFile) length() else 0,
+    lastModifiedMs = lastModified(),
+)
 
 private const val SANDBOX_NOT_READY = "Sandbox is not ready"
 

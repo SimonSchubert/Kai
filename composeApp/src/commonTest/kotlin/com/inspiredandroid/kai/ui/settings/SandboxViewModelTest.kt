@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.NoOpCommandHandle
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
 import com.inspiredandroid.kai.testutil.FakeDataRepository
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +58,11 @@ class SandboxViewModelTest {
             onStdout: (String) -> Unit,
             onStderr: (String) -> Unit,
         ): CommandHandle = NoOpCommandHandle
+
+        override suspend fun listDirectory(path: String): List<SandboxFileEntry> = emptyList()
+        override suspend fun readTextFile(path: String, maxBytes: Int): String? = null
+        override suspend fun writeTextFile(path: String, content: String): Boolean = false
+        override suspend fun openFile(path: String): Result<Unit> = Result.failure(UnsupportedOperationException())
     }
 
     @BeforeTest

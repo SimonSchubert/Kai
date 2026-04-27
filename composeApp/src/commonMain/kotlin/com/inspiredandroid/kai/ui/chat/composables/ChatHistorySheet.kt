@@ -70,6 +70,7 @@ internal fun ChatHistorySheet(
     currentConversationId: String?,
     actions: ChatActions,
     onDismiss: () -> Unit,
+    onConversationSelected: () -> Unit = {},
 ) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -120,6 +121,7 @@ internal fun ChatHistorySheet(
                                     .fillMaxWidth()
                                     .handCursor()
                                     .clickable {
+                                        onConversationSelected()
                                         actions.loadConversation(conversation.id)
                                         onDismiss()
                                     }

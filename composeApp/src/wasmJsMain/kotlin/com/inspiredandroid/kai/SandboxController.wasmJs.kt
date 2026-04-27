@@ -17,4 +17,9 @@ class NoOpSandboxController : SandboxController {
         onStdout: (String) -> Unit,
         onStderr: (String) -> Unit,
     ): CommandHandle = NoOpCommandHandle
+
+    override suspend fun listDirectory(path: String): List<SandboxFileEntry> = emptyList()
+    override suspend fun readTextFile(path: String, maxBytes: Int): String? = null
+    override suspend fun writeTextFile(path: String, content: String): Boolean = false
+    override suspend fun openFile(path: String): Result<Unit> = Result.failure(UnsupportedOperationException("Sandbox file browser is Android-only"))
 }

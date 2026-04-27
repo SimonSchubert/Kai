@@ -87,7 +87,9 @@ When the Linux Sandbox is set up and enabled, `execute_shell_command` routes com
 
 **Architecture:** Proot is a user-space chroot implementation that intercepts syscalls via ptrace. No root access is required. The Alpine rootfs and tmp directory live in the app's internal files directory under `linux-sandbox/`. The sandbox `/root` (home) is bind-mounted from the externally-visible app directory at `Android/data/com.inspiredandroid.kai/files/sandbox-home/` so files produced by the agent can be opened in Android apps via FileProvider Intents (`open_file`). On first run after upgrade, content from the legacy internal home is migrated automatically.
 
-**Settings:** The sandbox section appears in Settings > Tools on Android. Users can set up, reset, install Python, and toggle whether shell commands use the sandbox or the native Android shell.
+**Settings:** The sandbox section appears in Settings > Linux Sandbox on Android and contains a single Alpine Linux card with the install / install-basic-packages / uninstall actions and the "use sandbox vs native shell" toggle. Day-to-day usage (terminal, file browser, packages) is **not** in Settings — it lives behind the chat-bar shortcut.
+
+**Chat-bar toggle:** A terminal icon next to the new-chat button in the chat top bar (Android only) toggles the chat body between the conversation view and the inline sandbox view — no navigation, no separate screen. The icon adopts a primary-tinted "selected" pill while the sandbox is open, and the message-input bar is hidden so the terminal/file browser have full vertical space. The other top-bar buttons (settings, history, +, TTS) stay visible and operational; tapping **+** or selecting a saved chat from the history sheet auto-collapses the sandbox view so the user lands on the chat they just chose. When the sandbox is ready the inline view hosts three sub-tabs — **Terminal** (interactive shell, default), **Files** (built-in file browser starting at `/root` — tap files to open in the user's default Android app via the same FileProvider/Intent path as `open_file`, or fall back to a built-in editable text editor with a Save action), and **Packages** (placeholder for future package-manager UI). When the sandbox isn't installed yet, the inline view shows the install button so users don't have to dive into Settings before they can start.
 
 #### Open File (Android)
 
@@ -256,8 +258,12 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/androidMain/.../tools/ProcessManager.kt` | Android background process tracking |
 | `composeApp/src/androidMain/.../tools/ProcessManagerTool.kt` | Android process management tool |
 | `composeApp/src/androidMain/.../tools/OpenFileTool.kt` | Open sandbox file in an Android app via FileProvider Intent |
+| `composeApp/src/androidMain/.../sandbox/SandboxFiles.kt` | Path translation, FileProvider open helper shared with the file browser |
 | `androidApp/src/main/res/xml/file_paths.xml` | FileProvider path config (includes `sandbox-home/`) |
 | `composeApp/src/commonMain/.../SandboxController.kt` | Cross-platform sandbox interface |
+| `composeApp/src/commonMain/.../ui/sandbox/SandboxTabsContent.kt` | Terminal/Files/Packages sub-tab UI rendered inline inside the chat screen body |
+| `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserScreen.kt` | User-facing file browser UI for the Alpine sandbox |
+| `composeApp/src/commonMain/.../ui/sandbox/SandboxFileBrowserViewModel.kt` | State for browsing and editing sandbox files |
 | `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | ToolsContent, ToolItem, LinuxSandboxSection composables |
 | `composeApp/src/commonMain/.../ui/chat/composables/ToolMessage.kt` | Executing/completed UI indicators |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Tool enabled state persistence |

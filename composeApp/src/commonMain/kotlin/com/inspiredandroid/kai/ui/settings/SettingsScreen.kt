@@ -141,6 +141,7 @@ import com.inspiredandroid.kai.ui.icons.VisibilityOff
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardSurface
+import com.inspiredandroid.kai.ui.sandbox.SandboxProgressRow
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.readBytes
@@ -223,6 +224,10 @@ import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_disk_usage
 import kai.composeapp.generated.resources.settings_sandbox_install
 import kai.composeapp.generated.resources.settings_sandbox_install_packages
+import kai.composeapp.generated.resources.settings_sandbox_packages_placeholder
+import kai.composeapp.generated.resources.settings_sandbox_subtab_files
+import kai.composeapp.generated.resources.settings_sandbox_subtab_packages
+import kai.composeapp.generated.resources.settings_sandbox_subtab_terminal
 import kai.composeapp.generated.resources.settings_sandbox_uninstall
 import kai.composeapp.generated.resources.settings_sandbox_uninstall_confirm
 import kai.composeapp.generated.resources.settings_scheduled_tasks
@@ -416,98 +421,77 @@ fun SettingsScreenContent(
                 onSelectTab = actions.onSelectTab,
             )
 
-            val isTerminalReady = filteredUiState.currentTab == SettingsTab.Sandbox && sandboxState.sandboxReady
-
             val settingsScrollState = rememberScrollState()
             Box(Modifier.weight(1f).fillMaxWidth()) {
-                if (isTerminalReady) {
-                    // Terminal fills entire space with its own internal scroll
-                    Column(
-                        Modifier.fillMaxSize().padding(horizontal = 16.dp),
-                        horizontalAlignment = CenterHorizontally,
-                    ) {
-                        TerminalTabContent(
-                            sandboxState = sandboxState,
-                            onToggleSandbox = onToggleSandbox,
-                            onResetSandbox = onResetSandbox,
-                            onInstallPackages = onInstallPackages,
-                            previewLines = terminalPreviewLines,
-                            modifier = Modifier.fillMaxSize(),
-                        )
+                Column(
+                    Modifier.fillMaxWidth().verticalScroll(settingsScrollState),
+                    horizontalAlignment = CenterHorizontally,
+                ) {
+                    Spacer(Modifier.height(16.dp))
+
+                    val maxContentWidth = when (filteredUiState.currentTab) {
+                        SettingsTab.Services -> 500.dp
+                        else -> 900.dp
                     }
-                } else {
                     Column(
-                        Modifier.fillMaxWidth().verticalScroll(settingsScrollState),
+                        Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
                         horizontalAlignment = CenterHorizontally,
                     ) {
-                        Spacer(Modifier.height(16.dp))
-
-                        val maxContentWidth = when (filteredUiState.currentTab) {
-                            SettingsTab.Services -> 500.dp
-                            else -> 900.dp
-                        }
-                        Column(
-                            Modifier.widthIn(max = maxContentWidth).fillMaxWidth().padding(horizontal = 16.dp),
-                            horizontalAlignment = CenterHorizontally,
-                        ) {
-                            when (filteredUiState.currentTab) {
-                                SettingsTab.General -> {
-                                    GeneralContent(uiState = filteredUiState, actions = actions)
-                                }
-
-                                SettingsTab.Agent -> {
-                                    AgentContent(uiState = filteredUiState, actions = actions)
-                                }
-
-                                SettingsTab.Services -> {
-                                    ServicesContent(uiState = filteredUiState, actions = actions)
-                                }
-
-                                SettingsTab.Integrations -> {
-                                    IntegrationsContent()
-                                }
-
-                                SettingsTab.Tools -> {
-                                    ToolsContent(
-                                        tools = filteredUiState.tools,
-                                        onToggleTool = actions.onToggleTool,
-                                        mcpServers = filteredUiState.mcpServers,
-                                        onAddMcpServer = actions.onAddMcpServer,
-                                        onRemoveMcpServer = actions.onRemoveMcpServer,
-                                        onToggleMcpServer = actions.onToggleMcpServer,
-                                        onRefreshMcpServer = actions.onRefreshMcpServer,
-                                        showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
-                                        onShowAddMcpServerDialog = actions.onShowAddMcpServerDialog,
-                                        onAddPopularMcpServer = actions.onAddPopularMcpServer,
-                                    )
-                                }
-
-                                SettingsTab.Sandbox -> {
-                                    // Not-ready state (install UI) - scrollable
-                                    TerminalTabContent(
-                                        sandboxState = sandboxState,
-                                        onToggleSandbox = onToggleSandbox,
-                                        onSetupSandbox = onSetupSandbox,
-                                        onCancelSandbox = onCancelSandbox,
-                                        onResetSandbox = onResetSandbox,
-                                        onInstallPackages = onInstallPackages,
-                                        previewLines = terminalPreviewLines,
-                                    )
-                                }
+                        when (filteredUiState.currentTab) {
+                            SettingsTab.General -> {
+                                GeneralContent(uiState = filteredUiState, actions = actions)
                             }
 
-                            Spacer(Modifier.height(16.dp))
+                            SettingsTab.Agent -> {
+                                AgentContent(uiState = filteredUiState, actions = actions)
+                            }
+
+                            SettingsTab.Services -> {
+                                ServicesContent(uiState = filteredUiState, actions = actions)
+                            }
+
+                            SettingsTab.Integrations -> {
+                                IntegrationsContent()
+                            }
+
+                            SettingsTab.Tools -> {
+                                ToolsContent(
+                                    tools = filteredUiState.tools,
+                                    onToggleTool = actions.onToggleTool,
+                                    mcpServers = filteredUiState.mcpServers,
+                                    onAddMcpServer = actions.onAddMcpServer,
+                                    onRemoveMcpServer = actions.onRemoveMcpServer,
+                                    onToggleMcpServer = actions.onToggleMcpServer,
+                                    onRefreshMcpServer = actions.onRefreshMcpServer,
+                                    showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
+                                    onShowAddMcpServerDialog = actions.onShowAddMcpServerDialog,
+                                    onAddPopularMcpServer = actions.onAddPopularMcpServer,
+                                )
+                            }
+
+                            SettingsTab.Sandbox -> {
+                                SandboxSettingsCard(
+                                    sandboxState = sandboxState,
+                                    onToggleSandbox = onToggleSandbox,
+                                    onSetupSandbox = onSetupSandbox,
+                                    onCancelSandbox = onCancelSandbox,
+                                    onResetSandbox = onResetSandbox,
+                                    onInstallPackages = onInstallPackages,
+                                )
+                            }
                         }
 
-                        Spacer(Modifier.weight(1f))
-
-                        BottomInfo()
+                        Spacer(Modifier.height(16.dp))
                     }
-                    VerticalScrollbarForScroll(
-                        scrollState = settingsScrollState,
-                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
-                    )
+
+                    Spacer(Modifier.weight(1f))
+
+                    BottomInfo()
                 }
+                VerticalScrollbarForScroll(
+                    scrollState = settingsScrollState,
+                    modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                )
             }
         }
         SnackbarHost(
@@ -533,6 +517,115 @@ private fun TopBar(onNavigateBack: () -> Unit) {
             )
         }
         Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun SandboxSettingsCard(
+    sandboxState: SandboxUiState,
+    onToggleSandbox: (Boolean) -> Unit,
+    onSetupSandbox: () -> Unit,
+    onCancelSandbox: () -> Unit,
+    onResetSandbox: () -> Unit,
+    onInstallPackages: () -> Unit,
+) {
+    var showResetDialog by remember { mutableStateOf(false) }
+    SettingsCard {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "Alpine Linux",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                )
+                if (sandboxState.sandboxReady) {
+                    if (sandboxState.sandboxDiskUsageMB > 0) {
+                        Text(
+                            text = stringResource(Res.string.settings_sandbox_disk_usage, sandboxState.sandboxDiskUsageMB),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                } else {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(Res.string.settings_sandbox_description),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+            }
+            if (sandboxState.sandboxReady) {
+                Switch(
+                    checked = sandboxState.isSandboxEnabled,
+                    onCheckedChange = onToggleSandbox,
+                )
+            }
+        }
+
+        if (sandboxState.sandboxProgress != null) {
+            SandboxProgressRow(sandboxState.sandboxProgress, sandboxState.sandboxStatusText, onCancelSandbox)
+        } else if (sandboxState.isWorking) {
+            SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
+        } else if (sandboxState.hasError) {
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = sandboxState.sandboxStatusText,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+            )
+        }
+
+        if (!sandboxState.isWorking) {
+            Spacer(Modifier.height(8.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (!sandboxState.sandboxReady) {
+                    Button(onClick = onSetupSandbox, modifier = Modifier.handCursor()) {
+                        Text(stringResource(Res.string.settings_sandbox_install))
+                    }
+                } else {
+                    if (!sandboxState.sandboxPackagesInstalled) {
+                        OutlinedButton(onClick = onInstallPackages, modifier = Modifier.handCursor()) {
+                            Text(stringResource(Res.string.settings_sandbox_install_packages))
+                        }
+                    }
+                    OutlinedButton(onClick = { showResetDialog = true }, modifier = Modifier.handCursor()) {
+                        Text(stringResource(Res.string.settings_sandbox_uninstall))
+                    }
+                }
+            }
+        }
+    }
+
+    if (showResetDialog) {
+        AlertDialog(
+            onDismissRequest = { showResetDialog = false },
+            title = { Text(stringResource(Res.string.settings_sandbox_uninstall)) },
+            text = { Text(stringResource(Res.string.settings_sandbox_uninstall_confirm)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showResetDialog = false
+                        onResetSandbox()
+                    },
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_sandbox_uninstall))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showResetDialog = false },
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_sandbox_cancel))
+                }
+            },
+        )
     }
 }
 
@@ -1537,7 +1630,7 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
 }
 
 @Composable
-private fun SettingsCard(
+internal fun SettingsCard(
     modifier: Modifier = Modifier,
     innerPadding: Boolean = true,
     onClick: (() -> Unit)? = null,
@@ -2281,176 +2374,6 @@ private fun ToolsContent(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun TerminalTabContent(
-    sandboxState: SandboxUiState,
-    onToggleSandbox: (Boolean) -> Unit,
-    onSetupSandbox: () -> Unit = {},
-    onCancelSandbox: () -> Unit = {},
-    onResetSandbox: () -> Unit,
-    onInstallPackages: () -> Unit,
-    previewLines: List<TerminalLine> = emptyList(),
-    modifier: Modifier = Modifier,
-) {
-    if (sandboxState.sandboxReady) {
-        val isPreview = LocalInspectionMode.current
-        val sandboxController: SandboxController? = if (!isPreview) koinInject() else null
-        var showResetDialog by remember { mutableStateOf(false) }
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            SettingsCard {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "Alpine Linux",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                        if (sandboxState.sandboxDiskUsageMB > 0) {
-                            Text(
-                                text = stringResource(Res.string.settings_sandbox_disk_usage, sandboxState.sandboxDiskUsageMB),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    }
-                    Switch(
-                        checked = sandboxState.isSandboxEnabled,
-                        onCheckedChange = onToggleSandbox,
-                    )
-                }
-
-                if (sandboxState.isWorking) {
-                    SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
-                }
-
-                Spacer(Modifier.height(4.dp))
-
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (!sandboxState.sandboxPackagesInstalled && !sandboxState.isWorking) {
-                        OutlinedButton(onClick = onInstallPackages, modifier = Modifier.handCursor()) {
-                            Text(stringResource(Res.string.settings_sandbox_install_packages))
-                        }
-                    }
-                    OutlinedButton(onClick = { showResetDialog = true }, modifier = Modifier.handCursor()) {
-                        Text(stringResource(Res.string.settings_sandbox_uninstall))
-                    }
-                }
-            }
-
-            if (showResetDialog) {
-                AlertDialog(
-                    onDismissRequest = { showResetDialog = false },
-                    title = { Text(stringResource(Res.string.settings_sandbox_uninstall)) },
-                    text = { Text(stringResource(Res.string.settings_sandbox_uninstall_confirm)) },
-                    confirmButton = {
-                        TextButton(
-                            onClick = {
-                                showResetDialog = false
-                                onResetSandbox()
-                            },
-                            modifier = Modifier.handCursor(),
-                        ) {
-                            Text(stringResource(Res.string.settings_sandbox_uninstall))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(
-                            onClick = { showResetDialog = false },
-                            modifier = Modifier.handCursor(),
-                        ) {
-                            Text(stringResource(Res.string.settings_sandbox_cancel))
-                        }
-                    },
-                )
-            }
-
-            Surface(
-                modifier = Modifier.fillMaxWidth().weight(1f),
-                shape = RoundedCornerShape(12.dp),
-                color = TerminalDarkBg,
-                tonalElevation = 2.dp,
-            ) {
-                TerminalContent(
-                    sandboxController = sandboxController,
-                    modifier = Modifier.fillMaxSize(),
-                    darkBackground = true,
-                    initialLines = previewLines,
-                )
-            }
-        }
-    } else {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            SettingsCard {
-                Text(
-                    text = "Alpine Linux",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-
-                Spacer(Modifier.height(4.dp))
-
-                Text(
-                    text = stringResource(Res.string.settings_sandbox_description),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-
-                if (sandboxState.sandboxProgress != null) {
-                    SandboxProgressRow(sandboxState.sandboxProgress, sandboxState.sandboxStatusText, onCancelSandbox)
-                } else if (sandboxState.isWorking) {
-                    SandboxProgressRow(null, sandboxState.sandboxStatusText, onCancelSandbox)
-                } else if (sandboxState.hasError) {
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = sandboxState.sandboxStatusText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error,
-                    )
-                }
-
-                if (!sandboxState.isWorking) {
-                    Spacer(Modifier.height(8.dp))
-                    Button(onClick = onSetupSandbox, modifier = Modifier.handCursor()) {
-                        Text(stringResource(Res.string.settings_sandbox_install))
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun SandboxProgressRow(progress: Float?, statusText: String, onCancel: () -> Unit) {
-    Spacer(Modifier.height(8.dp))
-    if (progress != null) {
-        LinearProgressIndicator(progress = { progress }, modifier = Modifier.fillMaxWidth())
-    } else {
-        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-    }
-    Spacer(Modifier.height(4.dp))
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = CenterVertically,
-    ) {
-        Text(
-            text = statusText,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        TextButton(onClick = onCancel, modifier = Modifier.handCursor()) {
-            Text(stringResource(Res.string.settings_sandbox_cancel))
         }
     }
 }

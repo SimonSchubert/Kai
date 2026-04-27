@@ -27,6 +27,14 @@ internal object NoOpCommandHandle : CommandHandle {
     override suspend fun awaitExit(): Int = -1
 }
 
+data class SandboxFileEntry(
+    val name: String,
+    val path: String,
+    val isDirectory: Boolean,
+    val sizeBytes: Long,
+    val lastModifiedMs: Long,
+)
+
 interface SandboxController {
     val status: StateFlow<SandboxStatus>
     fun setup()
@@ -39,6 +47,11 @@ interface SandboxController {
         onStdout: (String) -> Unit,
         onStderr: (String) -> Unit,
     ): CommandHandle
+
+    suspend fun listDirectory(path: String): List<SandboxFileEntry>
+    suspend fun readTextFile(path: String, maxBytes: Int = 512_000): String?
+    suspend fun writeTextFile(path: String, content: String): Boolean
+    suspend fun openFile(path: String): Result<Unit>
 }
 
 expect fun createSandboxController(): SandboxController
