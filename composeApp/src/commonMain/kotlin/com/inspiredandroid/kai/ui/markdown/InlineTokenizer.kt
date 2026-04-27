@@ -18,7 +18,10 @@ internal object InlineTokenizer {
 
     private val CODE_REGEX = Regex("(?<!\\\\)(`+)([\\s\\S]+?)\\1")
     private val IMAGE_REGEX = Regex("(?<!\\\\)!\\[([^\\]]*)\\]\\(([^)]*)\\)")
-    private val LINK_REGEX = Regex("(?<!\\\\)\\[((?:\\\\.|[^\\[\\]])*)\\]\\(([^)]*)\\)")
+    // The inner alternation must not let `[^\[\]]` consume `\` — otherwise `\X` has two ways
+    // to match (one `\\.` iteration vs. two `[^…]` iterations), producing exponential
+    // backtracking on Android's ICU regex engine when the surrounding `](url)` doesn't close.
+    private val LINK_REGEX = Regex("(?<!\\\\)\\[((?:\\\\.|[^\\\\\\[\\]])*)\\]\\(([^)]*)\\)")
     private val HARD_BREAK_REGEX = Regex(" {2,}\\n|\\\\\\n")
     private val EMOJI_SHORTCODE_REGEX = Regex(":([a-zA-Z0-9_+-]+):")
 
@@ -27,7 +30,7 @@ internal object InlineTokenizer {
     // `$…$` follows the KaTeX rule: opener not followed by whitespace, closer not preceded by
     // whitespace, and closer not followed by a digit (avoids `$5 – $3` currency false positives).
     private val MATH_DOUBLE_DOLLAR_REGEX = Regex("(?<!\\\\)\\$\\$([\\s\\S]+?)\\$\\$")
-    private val MATH_DOLLAR_REGEX = Regex("(?<!\\\\)(?<!\\$)\\$(?!\\s)((?:\\\\.|[^$\\n])+?)(?<!\\s)\\$(?!\\d)(?!\\$)")
+    private val MATH_DOLLAR_REGEX = Regex("(?<!\\\\)(?<!\\$)\\$(?!\\s)((?:\\\\.|[^\\\\$\\n])+?)(?<!\\s)\\$(?!\\d)(?!\\$)")
     private val MATH_PAREN_REGEX = Regex("\\\\\\(([\\s\\S]+?)\\\\\\)")
     private val MATH_BRACKET_REGEX = Regex("\\\\\\[([\\s\\S]+?)\\\\\\]")
 

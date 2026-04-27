@@ -152,4 +152,15 @@ class InlineParsingTest {
             strong.children,
         )
     }
+
+    @Test
+    fun `pathological backslash run does not hang the parser`() {
+        // Regression: the previous LINK_REGEX inner group `(?:\\.|[^\[\]])*` allowed `\X` to
+        // match either as one `\\.` or as two `[^…]` iterations. On Android's ICU regex,
+        // this produced exponential backtracking when the input had many `\X` pairs and no
+        // closing `](url)`. The test runner's timeout catches a hang.
+        val pathological = "[start " + "\\X".repeat(60) + " end]not-a-paren"
+        val result = parseMarkdown(pathological)
+        assertTrue(result.blocks.isNotEmpty())
+    }
 }
