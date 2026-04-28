@@ -39,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -268,14 +269,16 @@ fun TerminalContent(
             }
         }
 
-        LaunchedEffect(outputLines.size, isRunning) {
-            val lastIndex = outputLines.lastIndex + if (isRunning) 1 else 0
-            if (lastIndex < 0) return@LaunchedEffect
-            val layout = listState.layoutInfo
-            val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
-            // Don't yank the user back if they've scrolled up to read older output.
-            if (lastVisible >= layout.totalItemsCount - 2) {
-                listState.scrollToItem(lastIndex)
+        LaunchedEffect(listState, isRunning) {
+            snapshotFlow { outputLines.size }.collect { size ->
+                val lastIndex = size - 1 + if (isRunning) 1 else 0
+                if (lastIndex < 0) return@collect
+                val layout = listState.layoutInfo
+                val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
+                // Don't yank the user back if they've scrolled up to read older output.
+                if (lastVisible >= layout.totalItemsCount - 2) {
+                    listState.scrollToItem(lastIndex)
+                }
             }
         }
 
