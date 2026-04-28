@@ -516,6 +516,7 @@ private fun ChatModeScreen(
                 onTap = {
                     uiState.heartbeatConversationId?.let { uiState.actions.loadConversation(it) }
                     uiState.actions.clearUnreadHeartbeat()
+                    isSandboxOpen = false
                 },
                 onDismiss = {
                     uiState.actions.clearUnreadHeartbeat()
