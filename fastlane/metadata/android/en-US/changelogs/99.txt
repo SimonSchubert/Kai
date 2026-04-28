@@ -1,0 +1,7 @@
+Linux sandbox file browser with file and folder actions
+Linux sandbox package manager
+Open files from the Linux sandbox
+Themed icon support
+Section selection dialog for exports
+Persist Linux sandbox UI state during the session
+Fix markdown regex parsing

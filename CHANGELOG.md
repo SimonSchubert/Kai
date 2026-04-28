@@ -1,3 +1,18 @@
+## v2.4.0 — 2026-04-28
+
+### Features
+- Linux sandbox file browser with file and folder actions
+- Linux sandbox package manager
+- Open files from the Linux sandbox
+- Themed icon support
+- Section selection dialog for exports
+
+### Fixes
+- Fix markdown regex parsing
+
+### Improvements
+- Persist Linux sandbox UI state during the session
+
 ## v2.3.4 — 2026-04-26
 
 ### Fixes
