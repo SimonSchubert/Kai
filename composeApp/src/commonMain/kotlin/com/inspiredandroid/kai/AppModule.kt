@@ -6,8 +6,8 @@ import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
-import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.NotificationStore
+import com.inspiredandroid.kai.data.RemoteDataRepository
 import com.inspiredandroid.kai.data.SmsDraftStore
 import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskScheduler

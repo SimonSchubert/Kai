@@ -1894,8 +1894,7 @@ class RemoteDataRepository(
         appSettings.setNotificationsEnabled(enabled)
     }
 
-    override fun isNotificationListenerAccessGranted(): Boolean =
-        notificationListenerController.isAccessGranted()
+    override fun isNotificationListenerAccessGranted(): Boolean = notificationListenerController.isAccessGranted()
 
     override fun openNotificationListenerSettings() {
         notificationListenerController.openAccessSettings()
