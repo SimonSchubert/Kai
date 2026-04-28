@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Penyahpasangan gagal: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakej dinaik taraf</string>
     <string name="sandbox_packages_upgrade_failed">Naik taraf gagal: %1$s</string>
+    <string name="tool_check_notifications_name">Semak pemberitahuan</string>
+    <string name="tool_check_notifications_description">Senaraikan pemberitahuan terkini yang belum dibaca</string>
+    <string name="tool_read_notification_name">Baca pemberitahuan</string>
+    <string name="tool_read_notification_description">Baca keseluruhan kandungan pemberitahuan</string>
+    <string name="tool_search_notifications_name">Cari pemberitahuan</string>
+    <string name="tool_search_notifications_description">Cari pemberitahuan mengikut apl atau teks</string>
+    <string name="settings_notifications_label">Baca pemberitahuan</string>
+    <string name="settings_notifications_description">Pemberitahuan masuk dikumpulkan di latar belakang dan diambil oleh heartbeat. Pilih aplikasi mana yang Kai boleh baca dalam tetapan akses pemberitahuan sistem.</string>
+    <string name="settings_notifications_access_required">Akses pemberitahuan belum diberikan. Ketik di bawah untuk mendayakan Kai dalam tetapan sistem.</string>
+    <string name="settings_notifications_access_button">Buka akses pemberitahuan</string>
+    <string name="settings_notifications_manage_apps">Urus aplikasi</string>
+    <string name="settings_notifications_listener_bound">Pendengar aktif</string>
+    <string name="settings_notifications_listener_disconnected">Pendengar tidak aktif — semak akses pemberitahuan</string>
+    <string name="settings_notifications_queued">%1$d pemberitahuan dalam baris untuk heartbeat seterusnya</string>
+    <string name="settings_notifications_clear_queue">Kosongkan baris</string>
 </resources>

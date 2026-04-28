@@ -341,4 +341,19 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="sandbox_packages_uninstall_failed">Disinstallazione non riuscita: %1$s</string>
     <string name="sandbox_packages_upgraded">Pacchetti aggiornati</string>
     <string name="sandbox_packages_upgrade_failed">Aggiornamento non riuscito: %1$s</string>
+    <string name="tool_check_notifications_name">Controlla notifiche</string>
+    <string name="tool_check_notifications_description">Elenca le notifiche recenti non lette</string>
+    <string name="tool_read_notification_name">Leggi notifica</string>
+    <string name="tool_read_notification_description">Leggi il contenuto completo di una notifica</string>
+    <string name="tool_search_notifications_name">Cerca notifiche</string>
+    <string name="tool_search_notifications_description">Cerca notifiche per app o testo</string>
+    <string name="settings_notifications_label">Leggi notifiche</string>
+    <string name="settings_notifications_description">Le notifiche in arrivo vengono raccolte in background e raccolte dall\'heartbeat. Scegli quali app Kai può leggere nelle impostazioni di accesso alle notifiche del sistema.</string>
+    <string name="settings_notifications_access_required">L\'accesso alle notifiche non è stato concesso. Tocca qui sotto per attivare Kai nelle impostazioni di sistema.</string>
+    <string name="settings_notifications_access_button">Apri accesso alle notifiche</string>
+    <string name="settings_notifications_manage_apps">Gestisci app</string>
+    <string name="settings_notifications_listener_bound">Listener attivo</string>
+    <string name="settings_notifications_listener_disconnected">Listener non attivo — controlla l\'accesso alle notifiche</string>
+    <string name="settings_notifications_queued">%1$d notifiche in coda per il prossimo heartbeat</string>
+    <string name="settings_notifications_clear_queue">Svuota coda</string>
 </resources>

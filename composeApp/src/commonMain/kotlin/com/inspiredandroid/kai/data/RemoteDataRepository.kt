@@ -39,6 +39,7 @@ import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSendResult
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.tools.CommonTools
+import com.inspiredandroid.kai.tools.NotificationListenerController
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.History
@@ -131,6 +132,8 @@ class RemoteDataRepository(
     private val smsSendPermissionController: SmsSendPermissionController,
     private val smsSender: SmsSender,
     private val smsDraftStore: SmsDraftStore,
+    private val notificationStore: NotificationStore,
+    private val notificationListenerController: NotificationListenerController,
     private val mcpServerManager: McpServerManager,
     private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
@@ -1883,6 +1886,27 @@ class RemoteDataRepository(
 
     override suspend fun discardSmsDraft(draftId: String) {
         smsDraftStore.removeDraft(draftId)
+    }
+
+    override fun isNotificationsEnabled(): Boolean = appSettings.isNotificationsEnabled()
+
+    override fun setNotificationsEnabled(enabled: Boolean) {
+        appSettings.setNotificationsEnabled(enabled)
+    }
+
+    override fun isNotificationListenerAccessGranted(): Boolean =
+        notificationListenerController.isAccessGranted()
+
+    override fun openNotificationListenerSettings() {
+        notificationListenerController.openAccessSettings()
+    }
+
+    override fun getPendingNotificationCount(): Int = notificationStore.getPending().size
+
+    override fun getNotificationSyncState(): NotificationSyncState = notificationStore.getSyncState()
+
+    override suspend fun clearPendingNotifications() {
+        notificationStore.clearPending()
     }
 
     override fun getUiScale(): Float = appSettings.getUiScale()

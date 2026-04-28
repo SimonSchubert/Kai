@@ -342,4 +342,19 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="sandbox_packages_uninstall_failed">Afinstallation mislykkedes: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakker opdateret</string>
     <string name="sandbox_packages_upgrade_failed">Opdatering mislykkedes: %1$s</string>
+    <string name="tool_check_notifications_name">Tjek notifikationer</string>
+    <string name="tool_check_notifications_description">Vis nyligt ulæste notifikationer</string>
+    <string name="tool_read_notification_name">Læs notifikation</string>
+    <string name="tool_read_notification_description">Læs hele indholdet af en notifikation</string>
+    <string name="tool_search_notifications_name">Søg i notifikationer</string>
+    <string name="tool_search_notifications_description">Søg i notifikationer efter app eller tekst</string>
+    <string name="settings_notifications_label">Læs notifikationer</string>
+    <string name="settings_notifications_description">Indgående notifikationer indsamles i baggrunden og opsamles af hjerteslaget. Vælg hvilke apps Kai må læse i systemets notifikationsadgangsindstillinger.</string>
+    <string name="settings_notifications_access_required">Notifikationsadgang er ikke givet. Tryk nedenfor for at aktivere Kai i systemets indstillinger.</string>
+    <string name="settings_notifications_access_button">Åbn notifikationsadgang</string>
+    <string name="settings_notifications_manage_apps">Administrer apps</string>
+    <string name="settings_notifications_listener_bound">Lytter aktiv</string>
+    <string name="settings_notifications_listener_disconnected">Lytter inaktiv — tjek notifikationsadgang</string>
+    <string name="settings_notifications_queued">%1$d notifikationer i kø til næste hjerteslag</string>
+    <string name="settings_notifications_clear_queue">Ryd kø</string>
 </resources>

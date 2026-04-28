@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Odinštalovanie zlyhalo: %1$s</string>
     <string name="sandbox_packages_upgraded">Balíky aktualizované</string>
     <string name="sandbox_packages_upgrade_failed">Aktualizácia zlyhala: %1$s</string>
+    <string name="tool_check_notifications_name">Skontrolovať upozornenia</string>
+    <string name="tool_check_notifications_description">Zoznam nedávnych neprečítaných upozornení</string>
+    <string name="tool_read_notification_name">Prečítať upozornenie</string>
+    <string name="tool_read_notification_description">Prečítať celý obsah upozornenia</string>
+    <string name="tool_search_notifications_name">Hľadať v upozorneniach</string>
+    <string name="tool_search_notifications_description">Hľadať upozornenia podľa aplikácie alebo textu</string>
+    <string name="settings_notifications_label">Čítať upozornenia</string>
+    <string name="settings_notifications_description">Prichádzajúce upozornenia sa zhromažďujú na pozadí a zachytáva ich heartbeat. V systémových nastaveniach prístupu k upozorneniam vyber, ktoré aplikácie môže Kai čítať.</string>
+    <string name="settings_notifications_access_required">Prístup k upozorneniam nebol udelený. Klepnutím nižšie povoľ Kai v nastaveniach systému.</string>
+    <string name="settings_notifications_access_button">Otvoriť prístup k upozorneniam</string>
+    <string name="settings_notifications_manage_apps">Spravovať aplikácie</string>
+    <string name="settings_notifications_listener_bound">Poslucháč aktívny</string>
+    <string name="settings_notifications_listener_disconnected">Poslucháč neaktívny — skontroluj prístup k upozorneniam</string>
+    <string name="settings_notifications_queued">%1$d upozornení v rade na ďalší heartbeat</string>
+    <string name="settings_notifications_clear_queue">Vyčistiť rad</string>
 </resources>

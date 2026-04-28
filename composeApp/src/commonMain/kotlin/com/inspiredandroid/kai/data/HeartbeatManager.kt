@@ -71,6 +71,7 @@ class HeartbeatManager(
         recentResponses: List<String> = emptyList(),
         pendingEmails: List<EmailMessage> = emptyList(),
         pendingSms: List<SmsMessage> = emptyList(),
+        pendingNotifications: List<NotificationRecord> = emptyList(),
     ): String {
         val customPrompt = appSettings.getHeartbeatPrompt()
         val tasksSplit = taskStore.getPendingTasksPartitioned()
@@ -112,6 +113,25 @@ class HeartbeatManager(
         } else {
             emptyList()
         }
+        val notificationsEnabled = appSettings.isNotificationsEnabled()
+        // Cap the heartbeat snapshot so a flurry of group-chat pings can't blow out the
+        // prompt. Newest first; the rest stay in the pending queue and will surface on
+        // subsequent heartbeats (or via `check_notifications` on demand).
+        val heartbeatNotifications: List<HeartbeatPendingNotification> = if (notificationsEnabled) {
+            pendingNotifications
+                .sortedByDescending { it.postedAtEpochMs }
+                .take(MAX_NOTIFICATIONS_IN_PROMPT)
+                .map { record ->
+                    HeartbeatPendingNotification(
+                        id = record.id,
+                        appLabel = record.appLabel,
+                        title = record.title,
+                        preview = record.preview,
+                    )
+                }
+        } else {
+            emptyList()
+        }
         val promotionCandidates = memoryStore.getPromotionCandidates().map { entry ->
             HeartbeatPromotionCandidate(
                 key = entry.key,
@@ -128,6 +148,7 @@ class HeartbeatManager(
             emailAccounts = emailAccounts,
             pendingEmails = heartbeatPending,
             pendingSms = heartbeatSms,
+            pendingNotifications = heartbeatNotifications,
             promotionCandidates = promotionCandidates,
         )
     }
@@ -156,6 +177,7 @@ class HeartbeatManager(
 
     companion object {
         private const val MAX_LOG_ENTRIES = 5
+        private const val MAX_NOTIFICATIONS_IN_PROMPT = 20
         const val DEFAULT_HEARTBEAT_PROMPT =
             "[HEARTBEAT] This is an automatic self-check. Review your memories and pending tasks. " +
                 "If everything looks good and nothing needs attention, respond with exactly: HEARTBEAT_OK\n" +

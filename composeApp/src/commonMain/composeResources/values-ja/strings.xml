@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">アンインストールに失敗しました: %1$s</string>
     <string name="sandbox_packages_upgraded">パッケージを更新しました</string>
     <string name="sandbox_packages_upgrade_failed">更新に失敗しました: %1$s</string>
+    <string name="tool_check_notifications_name">通知を確認</string>
+    <string name="tool_check_notifications_description">最近の未読通知を一覧表示</string>
+    <string name="tool_read_notification_name">通知を読む</string>
+    <string name="tool_read_notification_description">通知の本文全体を読む</string>
+    <string name="tool_search_notifications_name">通知を検索</string>
+    <string name="tool_search_notifications_description">アプリまたはテキストで通知を検索</string>
+    <string name="settings_notifications_label">通知を読む</string>
+    <string name="settings_notifications_description">受信通知はバックグラウンドで収集され、ハートビートで処理されます。Kaiがどのアプリの通知を読めるかは、システムの通知アクセス設定で選択してください。</string>
+    <string name="settings_notifications_access_required">通知アクセスが許可されていません。下をタップしてシステム設定でKaiを有効にしてください。</string>
+    <string name="settings_notifications_access_button">通知アクセスを開く</string>
+    <string name="settings_notifications_manage_apps">アプリを管理</string>
+    <string name="settings_notifications_listener_bound">リスナー有効</string>
+    <string name="settings_notifications_listener_disconnected">リスナー無効 — 通知アクセスを確認</string>
+    <string name="settings_notifications_queued">次のハートビート向けに%1$d件の通知が待機中</string>
+    <string name="settings_notifications_clear_queue">キューをクリア</string>
 </resources>

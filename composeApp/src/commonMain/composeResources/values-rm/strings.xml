@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Disinstallaziun n\'è betg reussida: %1$s</string>
     <string name="sandbox_packages_upgraded">Packets actualisads</string>
     <string name="sandbox_packages_upgrade_failed">Actualisaziun n\'è betg reussida: %1$s</string>
+    <string name="tool_check_notifications_name">Controllar las communicaziuns</string>
+    <string name="tool_check_notifications_description">Glista da communicaziuns recentas betg legidas</string>
+    <string name="tool_read_notification_name">Leger ina communicaziun</string>
+    <string name="tool_read_notification_description">Leger il cuntegn cumplet d\'ina communicaziun</string>
+    <string name="tool_search_notifications_name">Tschertgar communicaziuns</string>
+    <string name="tool_search_notifications_description">Tschertgar communicaziuns tenor app u text</string>
+    <string name="settings_notifications_label">Leger las communicaziuns</string>
+    <string name="settings_notifications_description">Las communicaziuns entrantas vegnan rimnadas en il fund e survegnan pussadas dal heartbeat. Tscherna en las configuraziuns dal sistem per l\'access a las communicaziuns las apps che Kai dastga leger.</string>
+    <string name="settings_notifications_access_required">L\'access a las communicaziuns n\'è betg concedì. Tutga sutvart per activar Kai en las configuraziuns dal sistem.</string>
+    <string name="settings_notifications_access_button">Avrir l\'access a las communicaziuns</string>
+    <string name="settings_notifications_manage_apps">Administrar las apps</string>
+    <string name="settings_notifications_listener_bound">Listener activ</string>
+    <string name="settings_notifications_listener_disconnected">Listener inactiv — controllai l\'access a las communicaziuns</string>
+    <string name="settings_notifications_queued">%1$d communicaziuns en la lingia per il proxim heartbeat</string>
+    <string name="settings_notifications_clear_queue">Svidar la lingia</string>
 </resources>

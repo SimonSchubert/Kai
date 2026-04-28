@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Nepavyko pašalinti: %1$s</string>
     <string name="sandbox_packages_upgraded">Paketai atnaujinti</string>
     <string name="sandbox_packages_upgrade_failed">Nepavyko atnaujinti: %1$s</string>
+    <string name="tool_check_notifications_name">Patikrinti pranešimus</string>
+    <string name="tool_check_notifications_description">Naujausių neperskaitytų pranešimų sąrašas</string>
+    <string name="tool_read_notification_name">Skaityti pranešimą</string>
+    <string name="tool_read_notification_description">Skaityti visą pranešimo turinį</string>
+    <string name="tool_search_notifications_name">Ieškoti pranešimų</string>
+    <string name="tool_search_notifications_description">Ieškoti pranešimų pagal programą ar tekstą</string>
+    <string name="settings_notifications_label">Skaityti pranešimus</string>
+    <string name="settings_notifications_description">Įeinantys pranešimai renkami fone, juos paima heartbeat. Sistemos pranešimų prieigos nustatymuose pasirink, kurias programas Kai gali skaityti.</string>
+    <string name="settings_notifications_access_required">Pranešimų prieiga nesuteikta. Bakstelėk žemiau, kad įjungtum Kai sistemos nustatymuose.</string>
+    <string name="settings_notifications_access_button">Atverti pranešimų prieigą</string>
+    <string name="settings_notifications_manage_apps">Tvarkyti programas</string>
+    <string name="settings_notifications_listener_bound">Klausytojas aktyvus</string>
+    <string name="settings_notifications_listener_disconnected">Klausytojas neaktyvus — patikrink pranešimų prieigą</string>
+    <string name="settings_notifications_queued">%1$d pranešimų eilėje kitam heartbeat</string>
+    <string name="settings_notifications_clear_queue">Išvalyti eilę</string>
 </resources>

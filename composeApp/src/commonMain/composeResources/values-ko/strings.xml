@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">제거 실패: %1$s</string>
     <string name="sandbox_packages_upgraded">패키지가 업그레이드되었습니다</string>
     <string name="sandbox_packages_upgrade_failed">업그레이드 실패: %1$s</string>
+    <string name="tool_check_notifications_name">알림 확인</string>
+    <string name="tool_check_notifications_description">최근에 읽지 않은 알림 목록</string>
+    <string name="tool_read_notification_name">알림 읽기</string>
+    <string name="tool_read_notification_description">알림의 전체 내용 읽기</string>
+    <string name="tool_search_notifications_name">알림 검색</string>
+    <string name="tool_search_notifications_description">앱 또는 텍스트로 알림 검색</string>
+    <string name="settings_notifications_label">알림 읽기</string>
+    <string name="settings_notifications_description">수신 알림은 백그라운드에서 수집되어 하트비트가 처리합니다. 시스템 알림 액세스 설정에서 Kai가 읽을 수 있는 앱을 선택하세요.</string>
+    <string name="settings_notifications_access_required">알림 액세스가 허용되지 않았습니다. 아래를 눌러 시스템 설정에서 Kai를 활성화하세요.</string>
+    <string name="settings_notifications_access_button">알림 액세스 열기</string>
+    <string name="settings_notifications_manage_apps">앱 관리</string>
+    <string name="settings_notifications_listener_bound">리스너 활성</string>
+    <string name="settings_notifications_listener_disconnected">리스너 비활성 — 알림 액세스를 확인하세요</string>
+    <string name="settings_notifications_queued">다음 하트비트용 알림 %1$d개 대기 중</string>
+    <string name="settings_notifications_clear_queue">대기열 지우기</string>
 </resources>

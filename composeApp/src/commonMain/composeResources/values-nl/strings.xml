@@ -341,4 +341,19 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sandbox_packages_uninstall_failed">Verwijderen mislukt: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakketten bijgewerkt</string>
     <string name="sandbox_packages_upgrade_failed">Bijwerken mislukt: %1$s</string>
+    <string name="tool_check_notifications_name">Meldingen controleren</string>
+    <string name="tool_check_notifications_description">Lijst met recente ongelezen meldingen</string>
+    <string name="tool_read_notification_name">Melding lezen</string>
+    <string name="tool_read_notification_description">De volledige inhoud van een melding lezen</string>
+    <string name="tool_search_notifications_name">Meldingen zoeken</string>
+    <string name="tool_search_notifications_description">Meldingen zoeken op app of tekst</string>
+    <string name="settings_notifications_label">Meldingen lezen</string>
+    <string name="settings_notifications_description">Inkomende meldingen worden op de achtergrond verzameld en door de heartbeat opgepikt. Kies in de systeeminstellingen voor meldingstoegang welke apps Kai mag lezen.</string>
+    <string name="settings_notifications_access_required">Meldingstoegang is niet verleend. Tik hieronder om Kai in de systeeminstellingen in te schakelen.</string>
+    <string name="settings_notifications_access_button">Meldingstoegang openen</string>
+    <string name="settings_notifications_manage_apps">Apps beheren</string>
+    <string name="settings_notifications_listener_bound">Listener actief</string>
+    <string name="settings_notifications_listener_disconnected">Listener inactief — controleer meldingstoegang</string>
+    <string name="settings_notifications_queued">%1$d meldingen in wachtrij voor volgende heartbeat</string>
+    <string name="settings_notifications_clear_queue">Wachtrij wissen</string>
 </resources>

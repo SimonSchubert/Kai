@@ -7,6 +7,7 @@ import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.HeartbeatManager
 import com.inspiredandroid.kai.data.MemoryStore
 import com.inspiredandroid.kai.data.RemoteDataRepository
+import com.inspiredandroid.kai.data.NotificationStore
 import com.inspiredandroid.kai.data.SmsDraftStore
 import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskScheduler
@@ -16,6 +17,7 @@ import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.inference.createLocalInferenceEngine
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.Requests
+import com.inspiredandroid.kai.notifications.NotificationReader
 import com.inspiredandroid.kai.sms.SmsPoller
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSender
@@ -23,6 +25,7 @@ import com.inspiredandroid.kai.splinterlands.SplinterlandsApi
 import com.inspiredandroid.kai.splinterlands.SplinterlandsBattleRunner
 import com.inspiredandroid.kai.splinterlands.SplinterlandsStore
 import com.inspiredandroid.kai.tools.CalendarPermissionController
+import com.inspiredandroid.kai.tools.NotificationListenerController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsSendPermissionController
@@ -43,6 +46,8 @@ val appModule = module {
     single<SmsSendPermissionController> { SmsSendPermissionController() }
     single<SmsReader> { SmsReader() }
     single<SmsSender> { SmsSender() }
+    single<NotificationListenerController> { NotificationListenerController() }
+    single<NotificationReader> { NotificationReader() }
     single<AppSettings> {
         AppSettings(createSecureSettings()).also {
             it.runMigrations(createLegacySettings())
@@ -78,6 +83,9 @@ val appModule = module {
     single<SmsDraftStore> {
         SmsDraftStore(get())
     }
+    single<NotificationStore> {
+        NotificationStore(get())
+    }
     single<SplinterlandsStore> {
         SplinterlandsStore(get())
     }
@@ -108,6 +116,8 @@ val appModule = module {
             smsSendPermissionController = get(),
             smsSender = get(),
             smsDraftStore = get(),
+            notificationStore = get(),
+            notificationListenerController = get(),
             mcpServerManager = get(),
             localInferenceEngine = createLocalInferenceEngine(),
         )
@@ -126,6 +136,7 @@ val appModule = module {
             get<EmailPoller>(),
             get<SmsStore>(),
             get<SmsPoller>(),
+            get<NotificationStore>(),
         )
     }
     single<DaemonController> { createDaemonController() }

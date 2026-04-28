@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Жою сәтсіз: %1$s</string>
     <string name="sandbox_packages_upgraded">Дестелер жаңартылды</string>
     <string name="sandbox_packages_upgrade_failed">Жаңарту сәтсіз: %1$s</string>
+    <string name="tool_check_notifications_name">Хабарландыруларды тексеру</string>
+    <string name="tool_check_notifications_description">Жақында оқылмаған хабарландырулар тізімі</string>
+    <string name="tool_read_notification_name">Хабарландыруды оқу</string>
+    <string name="tool_read_notification_description">Хабарландырудың толық мазмұнын оқу</string>
+    <string name="tool_search_notifications_name">Хабарландыруларды іздеу</string>
+    <string name="tool_search_notifications_description">Қолданба немесе мәтін бойынша хабарландыруларды іздеу</string>
+    <string name="settings_notifications_label">Хабарландыруларды оқу</string>
+    <string name="settings_notifications_description">Кіріс хабарландырулар фонда жиналып, heartbeat арқылы өңделеді. Kai оқи алатын қолданбаларды жүйенің хабарландыру қол жеткізу параметрлерінен таңдаңыз.</string>
+    <string name="settings_notifications_access_required">Хабарландыру қол жеткізуі берілмеген. Kai-ды жүйелік параметрлерден қосу үшін төмендегіні түртіңіз.</string>
+    <string name="settings_notifications_access_button">Хабарландыру қол жеткізуін ашу</string>
+    <string name="settings_notifications_manage_apps">Қолданбаларды басқару</string>
+    <string name="settings_notifications_listener_bound">Тыңдағыш белсенді</string>
+    <string name="settings_notifications_listener_disconnected">Тыңдағыш белсенді емес — хабарландыру қол жеткізуін тексеріңіз</string>
+    <string name="settings_notifications_queued">Келесі heartbeat үшін %1$d хабарландыру кезекте</string>
+    <string name="settings_notifications_clear_queue">Кезекті тазалау</string>
 </resources>

@@ -341,4 +341,19 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="sandbox_packages_uninstall_failed">Odinstalowanie nie powiodło się: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakiety zaktualizowane</string>
     <string name="sandbox_packages_upgrade_failed">Aktualizacja nie powiodła się: %1$s</string>
+    <string name="tool_check_notifications_name">Sprawdź powiadomienia</string>
+    <string name="tool_check_notifications_description">Lista ostatnich nieprzeczytanych powiadomień</string>
+    <string name="tool_read_notification_name">Przeczytaj powiadomienie</string>
+    <string name="tool_read_notification_description">Przeczytaj pełną treść powiadomienia</string>
+    <string name="tool_search_notifications_name">Szukaj powiadomień</string>
+    <string name="tool_search_notifications_description">Szukaj powiadomień według aplikacji lub tekstu</string>
+    <string name="settings_notifications_label">Czytaj powiadomienia</string>
+    <string name="settings_notifications_description">Przychodzące powiadomienia są zbierane w tle i odbierane przez heartbeat. W systemowych ustawieniach dostępu do powiadomień wybierz, które aplikacje może czytać Kai.</string>
+    <string name="settings_notifications_access_required">Dostęp do powiadomień nie został przyznany. Stuknij poniżej, aby włączyć Kai w ustawieniach systemowych.</string>
+    <string name="settings_notifications_access_button">Otwórz dostęp do powiadomień</string>
+    <string name="settings_notifications_manage_apps">Zarządzaj aplikacjami</string>
+    <string name="settings_notifications_listener_bound">Listener aktywny</string>
+    <string name="settings_notifications_listener_disconnected">Listener nieaktywny — sprawdź dostęp do powiadomień</string>
+    <string name="settings_notifications_queued">%1$d powiadomień w kolejce do kolejnego heartbeat</string>
+    <string name="settings_notifications_clear_queue">Wyczyść kolejkę</string>
 </resources>

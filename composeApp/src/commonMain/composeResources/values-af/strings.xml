@@ -342,4 +342,19 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sandbox_packages_uninstall_failed">Verwydering het misluk: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakkette opgedateer</string>
     <string name="sandbox_packages_upgrade_failed">Opdatering het misluk: %1$s</string>
+    <string name="tool_check_notifications_name">Kennisgewings nagaan</string>
+    <string name="tool_check_notifications_description">Lys onlangse ongeleeste kennisgewings</string>
+    <string name="tool_read_notification_name">Kennisgewing lees</string>
+    <string name="tool_read_notification_description">Lees die volledige inhoud van \'n kennisgewing</string>
+    <string name="tool_search_notifications_name">Kennisgewings soek</string>
+    <string name="tool_search_notifications_description">Soek kennisgewings volgens program of teks</string>
+    <string name="settings_notifications_label">Kennisgewings lees</string>
+    <string name="settings_notifications_description">Inkomende kennisgewings word op die agtergrond ingesamel en deur die heartbeat opgepik. Kies in stelselinstellings watter programme Kai mag lees.</string>
+    <string name="settings_notifications_access_required">Kennisgewingtoegang is nie toegestaan nie. Tik hieronder om Kai onder stelselinstellings te aktiveer.</string>
+    <string name="settings_notifications_access_button">Maak kennisgewingtoegang oop</string>
+    <string name="settings_notifications_manage_apps">Programme bestuur</string>
+    <string name="settings_notifications_listener_bound">Luisteraar aktief</string>
+    <string name="settings_notifications_listener_disconnected">Luisteraar onaktief — gaan kennisgewingtoegang na</string>
+    <string name="settings_notifications_queued">%1$d kennisgewings in tou vir volgende heartbeat</string>
+    <string name="settings_notifications_clear_queue">Tou skoonmaak</string>
 </resources>

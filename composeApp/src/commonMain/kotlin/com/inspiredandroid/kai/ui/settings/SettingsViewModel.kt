@@ -14,6 +14,7 @@ import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
 import com.inspiredandroid.kai.inference.LocalModel
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.isNotificationsSupported
 import com.inspiredandroid.kai.isSmsSupported
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
@@ -105,6 +106,11 @@ class SettingsViewModel(
         smsSyncState = dataRepository.getSmsSyncState(),
         isSmsSendEnabled = dataRepository.isSmsSendEnabled(),
         smsSendPermissionGranted = dataRepository.hasSmsSendPermission(),
+        showNotificationsSection = isNotificationsSupported,
+        isNotificationsEnabled = dataRepository.isNotificationsEnabled(),
+        notificationListenerAccessGranted = dataRepository.isNotificationListenerAccessGranted(),
+        notificationListenerBound = dataRepository.getNotificationSyncState().listenerBound,
+        notificationPendingCount = dataRepository.getPendingNotificationCount(),
         isFreeFallbackEnabled = dataRepository.isFreeFallbackEnabled(),
         uiScale = dataRepository.getUiScale(),
         showUiScale = currentPlatform is Platform.Desktop,
@@ -152,6 +158,9 @@ class SettingsViewModel(
         onChangeSmsPollInterval = ::onChangeSmsPollInterval,
         onRefreshSms = ::onRefreshSms,
         onToggleSmsSend = ::onToggleSmsSend,
+        onToggleNotifications = ::onToggleNotifications,
+        onOpenNotificationListenerSettings = ::onOpenNotificationListenerSettings,
+        onClearPendingNotifications = ::onClearPendingNotifications,
         onToggleFreeFallback = ::onToggleFreeFallback,
         onChangeUiScale = ::onChangeUiScale,
         onAddMcpServer = ::onAddMcpServer,
@@ -213,6 +222,17 @@ class SettingsViewModel(
             checkAllConnections()
             connectEnabledMcpServers()
             fetchSponsors()
+        }
+        // Re-read notification listener state every time the screen becomes visible:
+        // the user may have toggled access in system settings while we were backgrounded.
+        if (isNotificationsSupported) {
+            _state.update {
+                it.copy(
+                    notificationListenerAccessGranted = dataRepository.isNotificationListenerAccessGranted(),
+                    notificationListenerBound = dataRepository.getNotificationSyncState().listenerBound,
+                    notificationPendingCount = dataRepository.getPendingNotificationCount(),
+                )
+            }
         }
     }
 
@@ -565,6 +585,34 @@ class SettingsViewModel(
         } else {
             dataRepository.setSmsSendEnabled(enabled)
             _state.update { it.copy(isSmsSendEnabled = enabled) }
+        }
+    }
+
+    private fun onToggleNotifications(enabled: Boolean) {
+        // Listener access is granted via system Settings, not a runtime permission
+        // dialog. Set the toggle, then if access is missing, deep-link the user out
+        // so they can enable Kai there. The toggle reflects the user's *intent*; the
+        // listener still drops everything until access is granted.
+        dataRepository.setNotificationsEnabled(enabled)
+        _state.update {
+            it.copy(
+                isNotificationsEnabled = enabled,
+                notificationListenerAccessGranted = dataRepository.isNotificationListenerAccessGranted(),
+            )
+        }
+        if (enabled && !dataRepository.isNotificationListenerAccessGranted()) {
+            dataRepository.openNotificationListenerSettings()
+        }
+    }
+
+    private fun onOpenNotificationListenerSettings() {
+        dataRepository.openNotificationListenerSettings()
+    }
+
+    private fun onClearPendingNotifications() {
+        viewModelScope.launch(backgroundDispatcher) {
+            dataRepository.clearPendingNotifications()
+            _state.update { it.copy(notificationPendingCount = 0) }
         }
     }
 

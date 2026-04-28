@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Odinstalace selhala: %1$s</string>
     <string name="sandbox_packages_upgraded">Balíčky aktualizovány</string>
     <string name="sandbox_packages_upgrade_failed">Aktualizace selhala: %1$s</string>
+    <string name="tool_check_notifications_name">Zkontrolovat oznámení</string>
+    <string name="tool_check_notifications_description">Seznam nedávných nepřečtených oznámení</string>
+    <string name="tool_read_notification_name">Přečíst oznámení</string>
+    <string name="tool_read_notification_description">Přečíst celý obsah oznámení</string>
+    <string name="tool_search_notifications_name">Hledat v oznámeních</string>
+    <string name="tool_search_notifications_description">Hledat oznámení podle aplikace nebo textu</string>
+    <string name="settings_notifications_label">Číst oznámení</string>
+    <string name="settings_notifications_description">Příchozí oznámení jsou shromažďována na pozadí a zachycena srdečním tepem. V systémovém nastavení přístupu k oznámením vyberte, které aplikace může Kai číst.</string>
+    <string name="settings_notifications_access_required">Přístup k oznámením nebyl udělen. Klepnutím níže povolte Kai v nastavení systému.</string>
+    <string name="settings_notifications_access_button">Otevřít přístup k oznámením</string>
+    <string name="settings_notifications_manage_apps">Spravovat aplikace</string>
+    <string name="settings_notifications_listener_bound">Posluchač aktivní</string>
+    <string name="settings_notifications_listener_disconnected">Posluchač neaktivní — zkontrolujte přístup k oznámením</string>
+    <string name="settings_notifications_queued">%1$d oznámení ve frontě na další srdeční tep</string>
+    <string name="settings_notifications_clear_queue">Vyčistit frontu</string>
 </resources>

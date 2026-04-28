@@ -532,6 +532,20 @@ class FakeDataRepository : DataRepository {
         _smsDrafts.value = _smsDrafts.value.filterNot { it.id == draftId }
     }
 
+    private var notificationsEnabled = false
+    private var notificationListenerAccessGranted = false
+
+    override fun isNotificationsEnabled(): Boolean = notificationsEnabled
+    override fun setNotificationsEnabled(enabled: Boolean) {
+        notificationsEnabled = enabled
+    }
+    override fun isNotificationListenerAccessGranted(): Boolean = notificationListenerAccessGranted
+    override fun openNotificationListenerSettings() {}
+    override fun getPendingNotificationCount(): Int = 0
+    override fun getNotificationSyncState(): com.inspiredandroid.kai.data.NotificationSyncState =
+        com.inspiredandroid.kai.data.NotificationSyncState()
+    override suspend fun clearPendingNotifications() {}
+
     private var uiScale: Float = 1.0f
 
     override fun getUiScale(): Float = uiScale

@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">நிறுவல் நீக்கம் தோல்வியடைந்தது: %1$s</string>
     <string name="sandbox_packages_upgraded">தொகுப்புகள் மேம்படுத்தப்பட்டன</string>
     <string name="sandbox_packages_upgrade_failed">மேம்படுத்தல் தோல்வியடைந்தது: %1$s</string>
+    <string name="tool_check_notifications_name">அறிவிப்புகளைச் சரிபார்க்கவும்</string>
+    <string name="tool_check_notifications_description">சமீபத்திய படிக்கப்படாத அறிவிப்புகளின் பட்டியல்</string>
+    <string name="tool_read_notification_name">அறிவிப்பைப் படிக்கவும்</string>
+    <string name="tool_read_notification_description">அறிவிப்பின் முழு உள்ளடக்கத்தைப் படிக்கவும்</string>
+    <string name="tool_search_notifications_name">அறிவிப்புகளைத் தேடவும்</string>
+    <string name="tool_search_notifications_description">செயலி அல்லது உரை மூலம் அறிவிப்புகளைத் தேடவும்</string>
+    <string name="settings_notifications_label">அறிவிப்புகளைப் படிக்கவும்</string>
+    <string name="settings_notifications_description">வரும் அறிவிப்புகள் பின்னணியில் சேகரிக்கப்பட்டு heartbeat இலிருந்து எடுக்கப்படுகின்றன. கணினி அறிவிப்பு அணுகல் அமைப்புகளில் Kai எந்தச் செயலிகளைப் படிக்க முடியும் என்பதைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="settings_notifications_access_required">அறிவிப்பு அணுகல் வழங்கப்படவில்லை. கணினி அமைப்புகளில் Kai-ஐ இயக்க கீழே தட்டவும்.</string>
+    <string name="settings_notifications_access_button">அறிவிப்பு அணுகலைத் திற</string>
+    <string name="settings_notifications_manage_apps">செயலிகளை நிர்வகிக்கவும்</string>
+    <string name="settings_notifications_listener_bound">கேட்பவர் செயலில் உள்ளார்</string>
+    <string name="settings_notifications_listener_disconnected">கேட்பவர் செயலில் இல்லை — அறிவிப்பு அணுகலைச் சரிபார்க்கவும்</string>
+    <string name="settings_notifications_queued">அடுத்த heartbeat-க்கு %1$d அறிவிப்புகள் வரிசையில் உள்ளன</string>
+    <string name="settings_notifications_clear_queue">வரிசையை அழிக்கவும்</string>
 </resources>

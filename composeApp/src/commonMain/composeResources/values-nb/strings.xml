@@ -341,4 +341,19 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="sandbox_packages_uninstall_failed">Avinstallasjon mislyktes: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakker oppgradert</string>
     <string name="sandbox_packages_upgrade_failed">Oppgradering mislyktes: %1$s</string>
+    <string name="tool_check_notifications_name">Sjekk varslinger</string>
+    <string name="tool_check_notifications_description">Liste over nylig uleste varslinger</string>
+    <string name="tool_read_notification_name">Les varsling</string>
+    <string name="tool_read_notification_description">Les hele innholdet i en varsling</string>
+    <string name="tool_search_notifications_name">Søk i varslinger</string>
+    <string name="tool_search_notifications_description">Søk i varslinger etter app eller tekst</string>
+    <string name="settings_notifications_label">Les varslinger</string>
+    <string name="settings_notifications_description">Innkommende varslinger samles inn i bakgrunnen og plukkes opp av heartbeat. Velg hvilke apper Kai kan lese i systemets innstillinger for varslingstilgang.</string>
+    <string name="settings_notifications_access_required">Varslingstilgang er ikke gitt. Trykk under for å aktivere Kai i systeminnstillingene.</string>
+    <string name="settings_notifications_access_button">Åpne varslingstilgang</string>
+    <string name="settings_notifications_manage_apps">Administrer apper</string>
+    <string name="settings_notifications_listener_bound">Lytter aktiv</string>
+    <string name="settings_notifications_listener_disconnected">Lytter inaktiv — sjekk varslingstilgang</string>
+    <string name="settings_notifications_queued">%1$d varslinger i kø til neste heartbeat</string>
+    <string name="settings_notifications_clear_queue">Tøm kø</string>
 </resources>

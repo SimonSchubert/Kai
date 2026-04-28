@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Η απεγκατάσταση απέτυχε: %1$s</string>
     <string name="sandbox_packages_upgraded">Τα πακέτα ενημερώθηκαν</string>
     <string name="sandbox_packages_upgrade_failed">Η ενημέρωση απέτυχε: %1$s</string>
+    <string name="tool_check_notifications_name">Έλεγχος ειδοποιήσεων</string>
+    <string name="tool_check_notifications_description">Λίστα πρόσφατων μη αναγνωσμένων ειδοποιήσεων</string>
+    <string name="tool_read_notification_name">Ανάγνωση ειδοποίησης</string>
+    <string name="tool_read_notification_description">Ανάγνωση του πλήρους περιεχομένου μιας ειδοποίησης</string>
+    <string name="tool_search_notifications_name">Αναζήτηση ειδοποιήσεων</string>
+    <string name="tool_search_notifications_description">Αναζήτηση ειδοποιήσεων με βάση εφαρμογή ή κείμενο</string>
+    <string name="settings_notifications_label">Ανάγνωση ειδοποιήσεων</string>
+    <string name="settings_notifications_description">Οι εισερχόμενες ειδοποιήσεις συλλέγονται στο παρασκήνιο και λαμβάνονται από τον παλμό. Επιλέξτε ποιες εφαρμογές μπορεί να διαβάζει το Kai από τις ρυθμίσεις πρόσβασης σε ειδοποιήσεις του συστήματος.</string>
+    <string name="settings_notifications_access_required">Δεν έχει δοθεί πρόσβαση στις ειδοποιήσεις. Πατήστε παρακάτω για ενεργοποίηση του Kai στις ρυθμίσεις συστήματος.</string>
+    <string name="settings_notifications_access_button">Άνοιγμα πρόσβασης ειδοποιήσεων</string>
+    <string name="settings_notifications_manage_apps">Διαχείριση εφαρμογών</string>
+    <string name="settings_notifications_listener_bound">Ακροατής ενεργός</string>
+    <string name="settings_notifications_listener_disconnected">Ακροατής ανενεργός — ελέγξτε την πρόσβαση ειδοποιήσεων</string>
+    <string name="settings_notifications_queued">%1$d ειδοποιήσεις σε αναμονή για τον επόμενο παλμό</string>
+    <string name="settings_notifications_clear_queue">Εκκαθάριση ουράς</string>
 </resources>

@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">הסרת ההתקנה נכשלה: %1$s</string>
     <string name="sandbox_packages_upgraded">החבילות עודכנו</string>
     <string name="sandbox_packages_upgrade_failed">העדכון נכשל: %1$s</string>
+    <string name="tool_check_notifications_name">בדיקת התראות</string>
+    <string name="tool_check_notifications_description">רשימה של התראות אחרונות שלא נקראו</string>
+    <string name="tool_read_notification_name">קריאת התראה</string>
+    <string name="tool_read_notification_description">קרא את התוכן המלא של התראה</string>
+    <string name="tool_search_notifications_name">חיפוש התראות</string>
+    <string name="tool_search_notifications_description">חיפוש התראות לפי אפליקציה או טקסט</string>
+    <string name="settings_notifications_label">קריאת התראות</string>
+    <string name="settings_notifications_description">התראות נכנסות נאספות ברקע ונאספות על ידי הלב הפועם. בחר באילו אפליקציות Kai רשאי לקרוא בהגדרות גישת ההתראות של המערכת.</string>
+    <string name="settings_notifications_access_required">גישת התראות לא הוענקה. הקש למטה כדי להפעיל את Kai בהגדרות המערכת.</string>
+    <string name="settings_notifications_access_button">פתח גישת התראות</string>
+    <string name="settings_notifications_manage_apps">ניהול אפליקציות</string>
+    <string name="settings_notifications_listener_bound">מאזין פעיל</string>
+    <string name="settings_notifications_listener_disconnected">מאזין לא פעיל — בדוק את גישת ההתראות</string>
+    <string name="settings_notifications_queued">%1$d התראות בתור לפעימה הבאה</string>
+    <string name="settings_notifications_clear_queue">ניקוי תור</string>
 </resources>

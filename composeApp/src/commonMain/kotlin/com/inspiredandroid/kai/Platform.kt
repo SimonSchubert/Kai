@@ -62,6 +62,14 @@ expect val isEmailSupported: Boolean
  */
 expect val isSmsSupported: Boolean
 
+/**
+ * True only on the FOSS Android build. Gated on `KaiNotificationListenerService`
+ * being declared in the merged manifest — the Play Store flavor doesn't declare
+ * it, so this returns false there, and the notification-reading feature is
+ * invisible in that build.
+ */
+expect val isNotificationsSupported: Boolean
+
 expect val isSplinterlandsSupported: Boolean
 
 expect suspend fun compressImageBytes(bytes: ByteArray, mimeType: String): ByteArray

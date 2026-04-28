@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Не удалось удалить: %1$s</string>
     <string name="sandbox_packages_upgraded">Пакеты обновлены</string>
     <string name="sandbox_packages_upgrade_failed">Не удалось обновить: %1$s</string>
+    <string name="tool_check_notifications_name">Проверить уведомления</string>
+    <string name="tool_check_notifications_description">Список недавних непрочитанных уведомлений</string>
+    <string name="tool_read_notification_name">Прочитать уведомление</string>
+    <string name="tool_read_notification_description">Прочитать полное содержимое уведомления</string>
+    <string name="tool_search_notifications_name">Поиск уведомлений</string>
+    <string name="tool_search_notifications_description">Поиск уведомлений по приложению или тексту</string>
+    <string name="settings_notifications_label">Чтение уведомлений</string>
+    <string name="settings_notifications_description">Входящие уведомления собираются в фоновом режиме и обрабатываются heartbeat. В системных настройках доступа к уведомлениям выберите, какие приложения может читать Kai.</string>
+    <string name="settings_notifications_access_required">Доступ к уведомлениям не предоставлен. Нажмите ниже, чтобы включить Kai в системных настройках.</string>
+    <string name="settings_notifications_access_button">Открыть доступ к уведомлениям</string>
+    <string name="settings_notifications_manage_apps">Управление приложениями</string>
+    <string name="settings_notifications_listener_bound">Listener активен</string>
+    <string name="settings_notifications_listener_disconnected">Listener неактивен — проверьте доступ к уведомлениям</string>
+    <string name="settings_notifications_queued">%1$d уведомлений в очереди для следующего heartbeat</string>
+    <string name="settings_notifications_clear_queue">Очистить очередь</string>
 </resources>

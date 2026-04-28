@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Не вдалося видалити: %1$s</string>
     <string name="sandbox_packages_upgraded">Пакети оновлено</string>
     <string name="sandbox_packages_upgrade_failed">Не вдалося оновити: %1$s</string>
+    <string name="tool_check_notifications_name">Перевірити сповіщення</string>
+    <string name="tool_check_notifications_description">Список нещодавніх непрочитаних сповіщень</string>
+    <string name="tool_read_notification_name">Прочитати сповіщення</string>
+    <string name="tool_read_notification_description">Прочитати повний вміст сповіщення</string>
+    <string name="tool_search_notifications_name">Пошук сповіщень</string>
+    <string name="tool_search_notifications_description">Пошук сповіщень за програмою або текстом</string>
+    <string name="settings_notifications_label">Читати сповіщення</string>
+    <string name="settings_notifications_description">Вхідні сповіщення збираються у фоновому режимі та опрацьовуються heartbeat. У системних налаштуваннях доступу до сповіщень виберіть, які додатки може читати Kai.</string>
+    <string name="settings_notifications_access_required">Доступ до сповіщень не надано. Натисніть нижче, щоб увімкнути Kai у системних налаштуваннях.</string>
+    <string name="settings_notifications_access_button">Відкрити доступ до сповіщень</string>
+    <string name="settings_notifications_manage_apps">Керувати програмами</string>
+    <string name="settings_notifications_listener_bound">Listener активний</string>
+    <string name="settings_notifications_listener_disconnected">Listener неактивний — перевірте доступ до сповіщень</string>
+    <string name="settings_notifications_queued">%1$d сповіщень у черзі для наступного heartbeat</string>
+    <string name="settings_notifications_clear_queue">Очистити чергу</string>
 </resources>

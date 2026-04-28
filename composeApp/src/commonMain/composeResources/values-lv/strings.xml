@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Atinstalēšana neizdevās: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakotnes atjauninātas</string>
     <string name="sandbox_packages_upgrade_failed">Atjaunināšana neizdevās: %1$s</string>
+    <string name="tool_check_notifications_name">Pārbaudīt paziņojumus</string>
+    <string name="tool_check_notifications_description">Nesen nelasītu paziņojumu saraksts</string>
+    <string name="tool_read_notification_name">Lasīt paziņojumu</string>
+    <string name="tool_read_notification_description">Lasīt paziņojuma pilnu saturu</string>
+    <string name="tool_search_notifications_name">Meklēt paziņojumus</string>
+    <string name="tool_search_notifications_description">Meklēt paziņojumus pēc lietotnes vai teksta</string>
+    <string name="settings_notifications_label">Lasīt paziņojumus</string>
+    <string name="settings_notifications_description">Ienākošie paziņojumi tiek vākti fonā, un tos paņem heartbeat. Sistēmas paziņojumu piekļuves iestatījumos izvēlies, kuras lietotnes Kai var lasīt.</string>
+    <string name="settings_notifications_access_required">Piekļuve paziņojumiem nav piešķirta. Pieskaries zemāk, lai aktivizētu Kai sistēmas iestatījumos.</string>
+    <string name="settings_notifications_access_button">Atvērt paziņojumu piekļuvi</string>
+    <string name="settings_notifications_manage_apps">Pārvaldīt lietotnes</string>
+    <string name="settings_notifications_listener_bound">Klausītājs aktīvs</string>
+    <string name="settings_notifications_listener_disconnected">Klausītājs neaktīvs — pārbaudi paziņojumu piekļuvi</string>
+    <string name="settings_notifications_queued">%1$d paziņojumi rindā nākamajam heartbeat</string>
+    <string name="settings_notifications_clear_queue">Notīrīt rindu</string>
 </resources>

@@ -23,6 +23,14 @@ internal data class HeartbeatPendingSms(
     val preview: String,
 )
 
+/** A pending (captured-but-not-yet-heartbeat-picked-up) notification rendered into the `## New Notifications` section. */
+internal data class HeartbeatPendingNotification(
+    val id: String,
+    val appLabel: String,
+    val title: String,
+    val preview: String,
+)
+
 /** Memory promotion candidate rendered into the `## Promotion Candidates` section. */
 internal data class HeartbeatPromotionCandidate(
     val key: String,
@@ -41,6 +49,7 @@ internal data class HeartbeatPromotionCandidate(
  * @param emailAccounts email account statuses; empty list = section omitted
  * @param pendingEmails new emails polled since the last heartbeat pickup; empty list = section omitted
  * @param pendingSms new SMS polled since the last heartbeat pickup; empty list = section omitted
+ * @param pendingNotifications new notifications captured since the last heartbeat pickup; empty list = section omitted
  * @param promotionCandidates memory promotion candidates; empty list = section omitted
  */
 internal fun buildHeartbeatPrompt(
@@ -51,6 +60,7 @@ internal fun buildHeartbeatPrompt(
     emailAccounts: List<EmailAccountSummary>,
     pendingEmails: List<HeartbeatPendingEmail>,
     pendingSms: List<HeartbeatPendingSms>,
+    pendingNotifications: List<HeartbeatPendingNotification>,
     promotionCandidates: List<HeartbeatPromotionCandidate>,
 ): String = buildString {
     append(customOrDefaultPrompt)
@@ -147,6 +157,28 @@ internal fun buildHeartbeatPrompt(
             if (msg.preview.isNotBlank()) {
                 append(": ")
                 append(msg.preview)
+            }
+            append('\n')
+        }
+    }
+
+    if (pendingNotifications.isNotEmpty()) {
+        append("\n## New Notifications\n")
+        append("These notifications arrived since the last heartbeat. Summarise briefly; only flag items that genuinely need attention.\n")
+        for (notif in pendingNotifications) {
+            append("- **")
+            append(notif.appLabel.ifBlank { "(unknown app)" })
+            append("**")
+            if (notif.title.isNotBlank()) {
+                append(" — ")
+                append(notif.title)
+            }
+            append(" (id: ")
+            append(notif.id)
+            append(")")
+            if (notif.preview.isNotBlank()) {
+                append(": ")
+                append(notif.preview)
             }
             append('\n')
         }

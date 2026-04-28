@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Çinstalimi dështoi: %1$s</string>
     <string name="sandbox_packages_upgraded">Paketat u përditësuan</string>
     <string name="sandbox_packages_upgrade_failed">Përditësimi dështoi: %1$s</string>
+    <string name="tool_check_notifications_name">Kontrollo njoftimet</string>
+    <string name="tool_check_notifications_description">Listo njoftimet e fundit të palexuara</string>
+    <string name="tool_read_notification_name">Lexo njoftimin</string>
+    <string name="tool_read_notification_description">Lexo përmbajtjen e plotë të një njoftimi</string>
+    <string name="tool_search_notifications_name">Kërko njoftime</string>
+    <string name="tool_search_notifications_description">Kërko njoftime sipas aplikacionit ose tekstit</string>
+    <string name="settings_notifications_label">Lexo njoftimet</string>
+    <string name="settings_notifications_description">Njoftimet hyrëse mblidhen në sfond dhe merren nga heartbeat. Zgjidh në cilësimet e sistemit për qasjen ndaj njoftimeve se cilat aplikacione mund të lexohen nga Kai.</string>
+    <string name="settings_notifications_access_required">Qasja për njoftimet nuk është dhënë. Trokit më poshtë për të aktivizuar Kai në cilësimet e sistemit.</string>
+    <string name="settings_notifications_access_button">Hap qasjen e njoftimeve</string>
+    <string name="settings_notifications_manage_apps">Menaxho aplikacionet</string>
+    <string name="settings_notifications_listener_bound">Dëgjuesi aktiv</string>
+    <string name="settings_notifications_listener_disconnected">Dëgjuesi joaktiv — kontrollo qasjen e njoftimeve</string>
+    <string name="settings_notifications_queued">%1$d njoftime në radhë për heartbeat-in tjetër</string>
+    <string name="settings_notifications_clear_queue">Pastro radhën</string>
 </resources>

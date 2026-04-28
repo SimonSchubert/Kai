@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">解除安裝失敗：%1$s</string>
     <string name="sandbox_packages_upgraded">套件已升級</string>
     <string name="sandbox_packages_upgrade_failed">升級失敗：%1$s</string>
+    <string name="tool_check_notifications_name">檢查通知</string>
+    <string name="tool_check_notifications_description">列出最近未讀的通知</string>
+    <string name="tool_read_notification_name">閱讀通知</string>
+    <string name="tool_read_notification_description">閱讀通知的完整內容</string>
+    <string name="tool_search_notifications_name">搜尋通知</string>
+    <string name="tool_search_notifications_description">依應用程式或文字搜尋通知</string>
+    <string name="settings_notifications_label">閱讀通知</string>
+    <string name="settings_notifications_description">傳入的通知會在背景收集並由心跳處理。請在系統的通知存取權限設定中選擇 Kai 可以讀取哪些應用程式的通知。</string>
+    <string name="settings_notifications_access_required">尚未授予通知存取權限。點選下方在系統設定中啟用 Kai。</string>
+    <string name="settings_notifications_access_button">開啟通知存取權限</string>
+    <string name="settings_notifications_manage_apps">管理應用程式</string>
+    <string name="settings_notifications_listener_bound">監聽器已啟用</string>
+    <string name="settings_notifications_listener_disconnected">監聽器未啟用 — 檢查通知存取權限</string>
+    <string name="settings_notifications_queued">%1$d 則通知排隊等待下一次心跳</string>
+    <string name="settings_notifications_clear_queue">清空佇列</string>
 </resources>

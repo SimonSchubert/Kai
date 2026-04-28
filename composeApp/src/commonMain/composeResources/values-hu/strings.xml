@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Az eltávolítás sikertelen: %1$s</string>
     <string name="sandbox_packages_upgraded">Csomagok frissítve</string>
     <string name="sandbox_packages_upgrade_failed">A frissítés sikertelen: %1$s</string>
+    <string name="tool_check_notifications_name">Értesítések ellenőrzése</string>
+    <string name="tool_check_notifications_description">A legutóbbi olvasatlan értesítések listája</string>
+    <string name="tool_read_notification_name">Értesítés olvasása</string>
+    <string name="tool_read_notification_description">Az értesítés teljes tartalmának olvasása</string>
+    <string name="tool_search_notifications_name">Értesítések keresése</string>
+    <string name="tool_search_notifications_description">Értesítések keresése alkalmazás vagy szöveg szerint</string>
+    <string name="settings_notifications_label">Értesítések olvasása</string>
+    <string name="settings_notifications_description">A bejövő értesítéseket a háttérben gyűjtjük be, és a heartbeat dolgozza fel. A rendszer értesítéshozzáférési beállításaiban válaszd ki, mely alkalmazásokat olvashatja a Kai.</string>
+    <string name="settings_notifications_access_required">Az értesítéshozzáférés nincs engedélyezve. Koppints alább a Kai engedélyezéséhez a rendszerbeállításokban.</string>
+    <string name="settings_notifications_access_button">Értesítéshozzáférés megnyitása</string>
+    <string name="settings_notifications_manage_apps">Alkalmazások kezelése</string>
+    <string name="settings_notifications_listener_bound">Figyelő aktív</string>
+    <string name="settings_notifications_listener_disconnected">Figyelő inaktív — ellenőrizd az értesítéshozzáférést</string>
+    <string name="settings_notifications_queued">%1$d értesítés vár a következő heartbeatre</string>
+    <string name="settings_notifications_clear_queue">Sor ürítése</string>
 </resources>

@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">ਅਣਇੰਸਟਾਲ ਅਸਫਲ: %1$s</string>
     <string name="sandbox_packages_upgraded">ਪੈਕੇਜ ਅੱਪਗ੍ਰੇਡ ਹੋਏ</string>
     <string name="sandbox_packages_upgrade_failed">ਅੱਪਗ੍ਰੇਡ ਅਸਫਲ: %1$s</string>
+    <string name="tool_check_notifications_name">ਸੂਚਨਾਵਾਂ ਦੀ ਜਾਂਚ ਕਰੋ</string>
+    <string name="tool_check_notifications_description">ਹਾਲੀਆ ਨਾ ਪੜ੍ਹੀਆਂ ਸੂਚਨਾਵਾਂ ਦੀ ਸੂਚੀ</string>
+    <string name="tool_read_notification_name">ਸੂਚਨਾ ਪੜ੍ਹੋ</string>
+    <string name="tool_read_notification_description">ਸੂਚਨਾ ਦਾ ਪੂਰਾ ਸਮਗ੍ਰੀ ਪੜ੍ਹੋ</string>
+    <string name="tool_search_notifications_name">ਸੂਚਨਾਵਾਂ ਖੋਜੋ</string>
+    <string name="tool_search_notifications_description">ਐਪ ਜਾਂ ਟੈਕਸਟ ਅਨੁਸਾਰ ਸੂਚਨਾਵਾਂ ਖੋਜੋ</string>
+    <string name="settings_notifications_label">ਸੂਚਨਾਵਾਂ ਪੜ੍ਹੋ</string>
+    <string name="settings_notifications_description">ਆਉਣ ਵਾਲੀਆਂ ਸੂਚਨਾਵਾਂ ਬੈਕਗ੍ਰਾਊਂਡ ਵਿੱਚ ਇਕੱਠੀਆਂ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ heartbeat ਵੱਲੋਂ ਲਈਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਸਿਸਟਮ ਦੀਆਂ ਸੂਚਨਾ ਪਹੁੰਚ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਚੁਣੋ ਕਿ Kai ਕਿਹੜੇ ਐਪ ਪੜ੍ਹ ਸਕਦਾ ਹੈ।</string>
+    <string name="settings_notifications_access_required">ਸੂਚਨਾ ਪਹੁੰਚ ਨਹੀਂ ਦਿੱਤੀ ਗਈ। ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ Kai ਚਾਲੂ ਕਰਨ ਲਈ ਹੇਠਾਂ ਟੈਪ ਕਰੋ।</string>
+    <string name="settings_notifications_access_button">ਸੂਚਨਾ ਪਹੁੰਚ ਖੋਲ੍ਹੋ</string>
+    <string name="settings_notifications_manage_apps">ਐਪ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
+    <string name="settings_notifications_listener_bound">ਸੁਣਨ ਵਾਲਾ ਸਰਗਰਮ</string>
+    <string name="settings_notifications_listener_disconnected">ਸੁਣਨ ਵਾਲਾ ਨਾ-ਸਰਗਰਮ — ਸੂਚਨਾ ਪਹੁੰਚ ਜਾਂਚੋ</string>
+    <string name="settings_notifications_queued">ਅਗਲੇ heartbeat ਲਈ %1$d ਸੂਚਨਾਵਾਂ ਕਤਾਰ ਵਿੱਚ</string>
+    <string name="settings_notifications_clear_queue">ਕਤਾਰ ਸਾਫ਼ ਕਰੋ</string>
 </resources>

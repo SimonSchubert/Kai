@@ -341,4 +341,19 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sandbox_packages_uninstall_failed">Avinstallation misslyckades: %1$s</string>
     <string name="sandbox_packages_upgraded">Paket uppdaterade</string>
     <string name="sandbox_packages_upgrade_failed">Uppdatering misslyckades: %1$s</string>
+    <string name="tool_check_notifications_name">Kontrollera aviseringar</string>
+    <string name="tool_check_notifications_description">Lista nyligen olästa aviseringar</string>
+    <string name="tool_read_notification_name">Läs avisering</string>
+    <string name="tool_read_notification_description">Läs hela innehållet i en avisering</string>
+    <string name="tool_search_notifications_name">Sök i aviseringar</string>
+    <string name="tool_search_notifications_description">Sök i aviseringar efter app eller text</string>
+    <string name="settings_notifications_label">Läs aviseringar</string>
+    <string name="settings_notifications_description">Inkommande aviseringar samlas in i bakgrunden och plockas upp av heartbeat. I systemets aviseringsåtkomstinställningar väljer du vilka appar Kai får läsa.</string>
+    <string name="settings_notifications_access_required">Aviseringsåtkomst har inte beviljats. Tryck nedan för att aktivera Kai i systeminställningarna.</string>
+    <string name="settings_notifications_access_button">Öppna aviseringsåtkomst</string>
+    <string name="settings_notifications_manage_apps">Hantera appar</string>
+    <string name="settings_notifications_listener_bound">Lyssnare aktiv</string>
+    <string name="settings_notifications_listener_disconnected">Lyssnare inaktiv — kontrollera aviseringsåtkomst</string>
+    <string name="settings_notifications_queued">%1$d aviseringar i kö till nästa heartbeat</string>
+    <string name="settings_notifications_clear_queue">Rensa kö</string>
 </resources>

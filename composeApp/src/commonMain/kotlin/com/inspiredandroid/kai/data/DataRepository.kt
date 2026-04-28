@@ -150,6 +150,16 @@ interface DataRepository {
     suspend fun sendSmsDraft(draftId: String): Boolean
     suspend fun discardSmsDraft(draftId: String)
 
+    // Notifications (FOSS-only on Android; other platforms return stub values).
+    // Per-app filtering is delegated to the system Notification Access "Apps" picker.
+    fun isNotificationsEnabled(): Boolean
+    fun setNotificationsEnabled(enabled: Boolean)
+    fun isNotificationListenerAccessGranted(): Boolean
+    fun openNotificationListenerSettings()
+    fun getPendingNotificationCount(): Int
+    fun getNotificationSyncState(): NotificationSyncState
+    suspend fun clearPendingNotifications()
+
     // UI Scale
     fun getUiScale(): Float
     fun setUiScale(scale: Float)

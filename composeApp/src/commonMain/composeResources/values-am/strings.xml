@@ -342,4 +342,19 @@
     <string name="sandbox_packages_uninstall_failed">ማራገፍ አልተሳካም: %1$s</string>
     <string name="sandbox_packages_upgraded">ጥቅሎች ተሻሽለዋል</string>
     <string name="sandbox_packages_upgrade_failed">ማሻሻል አልተሳካም: %1$s</string>
+    <string name="tool_check_notifications_name">ማሳወቂያዎችን ፈትሽ</string>
+    <string name="tool_check_notifications_description">የቅርብ ጊዜ ያልተነበቡ ማሳወቂያዎችን ዘርዝር</string>
+    <string name="tool_read_notification_name">ማሳወቂያ አንብብ</string>
+    <string name="tool_read_notification_description">የማሳወቂያውን ሙሉ ይዘት አንብብ</string>
+    <string name="tool_search_notifications_name">ማሳወቂያዎችን ፈልግ</string>
+    <string name="tool_search_notifications_description">ማሳወቂያዎችን በመተግበሪያ ወይም በጽሑፍ ፈልግ</string>
+    <string name="settings_notifications_label">ማሳወቂያዎችን አንብብ</string>
+    <string name="settings_notifications_description">የሚገቡ ማሳወቂያዎች በከባቢ ይነሱና በheartbeat ይጨበጣሉ። Kai ሊያነበው የሚችለውን መተግበሪያ በስርዓት ቅንብሮች ይምረጡ።</string>
+    <string name="settings_notifications_access_required">የማሳወቂያ ድርሻ አልተሰጠም። Kaiን በስርዓት ቅንብሮች ለማንቃት ከታች ይንኩ።</string>
+    <string name="settings_notifications_access_button">የማሳወቂያ ድርሻ ክፈት</string>
+    <string name="settings_notifications_manage_apps">መተግበሪያዎችን ያስተዳድሩ</string>
+    <string name="settings_notifications_listener_bound">አድማጭ ንቁ ነው</string>
+    <string name="settings_notifications_listener_disconnected">አድማጭ ቆሟል — የማሳወቂያ ድርሻን ይፈትሹ</string>
+    <string name="settings_notifications_queued">%1$d ማሳወቂያዎች ለቀጣዩ heartbeat ተራ ይዘዋል</string>
+    <string name="settings_notifications_clear_queue">ተራ አጽዳ</string>
 </resources>

@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Kuondoa kumeshindwa: %1$s</string>
     <string name="sandbox_packages_upgraded">Paketi zimesasishwa</string>
     <string name="sandbox_packages_upgrade_failed">Usasishaji umeshindwa: %1$s</string>
+    <string name="tool_check_notifications_name">Angalia arifa</string>
+    <string name="tool_check_notifications_description">Orodha ya arifa za hivi karibuni ambazo hazijasomwa</string>
+    <string name="tool_read_notification_name">Soma arifa</string>
+    <string name="tool_read_notification_description">Soma maudhui yote ya arifa</string>
+    <string name="tool_search_notifications_name">Tafuta arifa</string>
+    <string name="tool_search_notifications_description">Tafuta arifa kwa programu au maandishi</string>
+    <string name="settings_notifications_label">Soma arifa</string>
+    <string name="settings_notifications_description">Arifa zinazoingia hukusanywa nyuma kwenye historia na huchukuliwa na heartbeat. Chagua programu zipi Kai inaweza kusoma katika mipangilio ya ufikiaji wa arifa za mfumo.</string>
+    <string name="settings_notifications_access_required">Ufikiaji wa arifa haujatolewa. Gusa hapa chini ili kuwezesha Kai katika mipangilio ya mfumo.</string>
+    <string name="settings_notifications_access_button">Fungua ufikiaji wa arifa</string>
+    <string name="settings_notifications_manage_apps">Simamia programu</string>
+    <string name="settings_notifications_listener_bound">Msikilizaji yuko hai</string>
+    <string name="settings_notifications_listener_disconnected">Msikilizaji hajafanya kazi — angalia ufikiaji wa arifa</string>
+    <string name="settings_notifications_queued">Arifa %1$d zinasubiri kwa heartbeat ifuatayo</string>
+    <string name="settings_notifications_clear_queue">Futa foleni</string>
 </resources>

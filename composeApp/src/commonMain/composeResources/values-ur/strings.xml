@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">ان انسٹال ناکام: %1$s</string>
     <string name="sandbox_packages_upgraded">پیکجز اپ گریڈ ہو گئے</string>
     <string name="sandbox_packages_upgrade_failed">اپ گریڈ ناکام: %1$s</string>
+    <string name="tool_check_notifications_name">اطلاعات چیک کریں</string>
+    <string name="tool_check_notifications_description">حال ہی کی نہ پڑھی گئی اطلاعات کی فہرست</string>
+    <string name="tool_read_notification_name">اطلاع پڑھیں</string>
+    <string name="tool_read_notification_description">اطلاع کا مکمل متن پڑھیں</string>
+    <string name="tool_search_notifications_name">اطلاعات تلاش کریں</string>
+    <string name="tool_search_notifications_description">ایپ یا متن کے لحاظ سے اطلاعات تلاش کریں</string>
+    <string name="settings_notifications_label">اطلاعات پڑھیں</string>
+    <string name="settings_notifications_description">آنے والی اطلاعات پس منظر میں جمع کی جاتی ہیں اور heartbeat انہیں اٹھاتا ہے۔ سسٹم کی اطلاع رسائی ترتیبات میں منتخب کریں کہ Kai کن ایپس کو پڑھ سکتا ہے۔</string>
+    <string name="settings_notifications_access_required">اطلاع رسائی نہیں دی گئی۔ سسٹم ترتیبات میں Kai کو فعال کرنے کے لیے نیچے ٹیپ کریں۔</string>
+    <string name="settings_notifications_access_button">اطلاع رسائی کھولیں</string>
+    <string name="settings_notifications_manage_apps">ایپس کا انتظام کریں</string>
+    <string name="settings_notifications_listener_bound">سننے والا فعال ہے</string>
+    <string name="settings_notifications_listener_disconnected">سننے والا غیر فعال ہے — اطلاع رسائی چیک کریں</string>
+    <string name="settings_notifications_queued">اگلے heartbeat کے لیے %1$d اطلاعات قطار میں</string>
+    <string name="settings_notifications_clear_queue">قطار صاف کریں</string>
 </resources>

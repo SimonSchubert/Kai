@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Hindi nagawa ang pag-uninstall: %1$s</string>
     <string name="sandbox_packages_upgraded">Na-upgrade ang mga package</string>
     <string name="sandbox_packages_upgrade_failed">Hindi nagawa ang pag-upgrade: %1$s</string>
+    <string name="tool_check_notifications_name">Tingnan ang mga notification</string>
+    <string name="tool_check_notifications_description">Ilista ang mga kamakailang hindi pa nababasang notification</string>
+    <string name="tool_read_notification_name">Basahin ang notification</string>
+    <string name="tool_read_notification_description">Basahin ang buong nilalaman ng isang notification</string>
+    <string name="tool_search_notifications_name">Maghanap ng mga notification</string>
+    <string name="tool_search_notifications_description">Maghanap ng mga notification ayon sa app o teksto</string>
+    <string name="settings_notifications_label">Basahin ang mga notification</string>
+    <string name="settings_notifications_description">Ang mga papasok na notification ay nakukuha sa background at kinukuha ng heartbeat. Pumili sa system na Notification access settings kung aling mga app ang maaaring basahin ng Kai.</string>
+    <string name="settings_notifications_access_required">Hindi pa naipagkakaloob ang access sa notification. I-tap sa ibaba upang paganahin ang Kai sa system settings.</string>
+    <string name="settings_notifications_access_button">Buksan ang notification access</string>
+    <string name="settings_notifications_manage_apps">Pamahalaan ang mga app</string>
+    <string name="settings_notifications_listener_bound">Aktibo ang listener</string>
+    <string name="settings_notifications_listener_disconnected">Hindi aktibo ang listener — suriin ang notification access</string>
+    <string name="settings_notifications_queued">%1$d notification sa pila para sa susunod na heartbeat</string>
+    <string name="settings_notifications_clear_queue">I-clear ang pila</string>
 </resources>

@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल विफल हुआ: %1$s</string>
     <string name="sandbox_packages_upgraded">पैकेज अपग्रेड हुए</string>
     <string name="sandbox_packages_upgrade_failed">अपग्रेड विफल हुआ: %1$s</string>
+    <string name="tool_check_notifications_name">सूचनाएँ जाँचें</string>
+    <string name="tool_check_notifications_description">हाल की बिना पढ़ी सूचनाओं की सूची</string>
+    <string name="tool_read_notification_name">सूचना पढ़ें</string>
+    <string name="tool_read_notification_description">सूचना की पूरी सामग्री पढ़ें</string>
+    <string name="tool_search_notifications_name">सूचनाएँ खोजें</string>
+    <string name="tool_search_notifications_description">ऐप या पाठ के अनुसार सूचनाएँ खोजें</string>
+    <string name="settings_notifications_label">सूचनाएँ पढ़ें</string>
+    <string name="settings_notifications_description">आने वाली सूचनाएँ बैकग्राउंड में एकत्र की जाती हैं और heartbeat द्वारा ली जाती हैं। सिस्टम सूचना एक्सेस सेटिंग्स में चुनें कि Kai कौन-से ऐप पढ़ सकता है।</string>
+    <string name="settings_notifications_access_required">सूचना एक्सेस नहीं दी गई है। सिस्टम सेटिंग्स में Kai सक्रिय करने के लिए नीचे टैप करें।</string>
+    <string name="settings_notifications_access_button">सूचना एक्सेस खोलें</string>
+    <string name="settings_notifications_manage_apps">ऐप प्रबंधित करें</string>
+    <string name="settings_notifications_listener_bound">लिसनर सक्रिय</string>
+    <string name="settings_notifications_listener_disconnected">लिसनर निष्क्रिय — सूचना एक्सेस जाँचें</string>
+    <string name="settings_notifications_queued">अगले heartbeat के लिए %1$d सूचनाएँ क़तार में</string>
+    <string name="settings_notifications_clear_queue">क़तार साफ़ करें</string>
 </resources>

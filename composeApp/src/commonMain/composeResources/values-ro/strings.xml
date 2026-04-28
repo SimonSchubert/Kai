@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Dezinstalarea a eșuat: %1$s</string>
     <string name="sandbox_packages_upgraded">Pachete actualizate</string>
     <string name="sandbox_packages_upgrade_failed">Actualizarea a eșuat: %1$s</string>
+    <string name="tool_check_notifications_name">Verifică notificările</string>
+    <string name="tool_check_notifications_description">Listează notificările recente necitite</string>
+    <string name="tool_read_notification_name">Citește notificarea</string>
+    <string name="tool_read_notification_description">Citește conținutul complet al unei notificări</string>
+    <string name="tool_search_notifications_name">Caută notificări</string>
+    <string name="tool_search_notifications_description">Caută notificări după aplicație sau text</string>
+    <string name="settings_notifications_label">Citește notificările</string>
+    <string name="settings_notifications_description">Notificările primite sunt colectate în fundal și preluate de heartbeat. Alege ce aplicații poate citi Kai din setările de acces la notificări ale sistemului.</string>
+    <string name="settings_notifications_access_required">Accesul la notificări nu a fost acordat. Atinge mai jos pentru a activa Kai din setările sistemului.</string>
+    <string name="settings_notifications_access_button">Deschide accesul la notificări</string>
+    <string name="settings_notifications_manage_apps">Gestionează aplicațiile</string>
+    <string name="settings_notifications_listener_bound">Ascultător activ</string>
+    <string name="settings_notifications_listener_disconnected">Ascultător inactiv — verifică accesul la notificări</string>
+    <string name="settings_notifications_queued">%1$d notificări în coadă pentru următorul heartbeat</string>
+    <string name="settings_notifications_clear_queue">Golește coada</string>
 </resources>

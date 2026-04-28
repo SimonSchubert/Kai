@@ -342,4 +342,19 @@
     <string name="sandbox_packages_uninstall_failed">فشلت الإزالة: %1$s</string>
     <string name="sandbox_packages_upgraded">تم تحديث الحزم</string>
     <string name="sandbox_packages_upgrade_failed">فشل التحديث: %1$s</string>
+    <string name="tool_check_notifications_name">التحقق من الإشعارات</string>
+    <string name="tool_check_notifications_description">عرض الإشعارات الأخيرة غير المقروءة</string>
+    <string name="tool_read_notification_name">قراءة الإشعار</string>
+    <string name="tool_read_notification_description">قراءة المحتوى الكامل للإشعار</string>
+    <string name="tool_search_notifications_name">البحث في الإشعارات</string>
+    <string name="tool_search_notifications_description">البحث في الإشعارات حسب التطبيق أو النص</string>
+    <string name="settings_notifications_label">قراءة الإشعارات</string>
+    <string name="settings_notifications_description">تُجمع الإشعارات الواردة في الخلفية ويلتقطها heartbeat. اختر التطبيقات التي يمكن لـ Kai قراءتها من إعدادات وصول الإشعارات في النظام.</string>
+    <string name="settings_notifications_access_required">لم يتم منح الوصول إلى الإشعارات. اضغط أدناه لتفعيل Kai من إعدادات النظام.</string>
+    <string name="settings_notifications_access_button">فتح وصول الإشعارات</string>
+    <string name="settings_notifications_manage_apps">إدارة التطبيقات</string>
+    <string name="settings_notifications_listener_bound">المستمع نشط</string>
+    <string name="settings_notifications_listener_disconnected">المستمع غير نشط — تحقق من وصول الإشعارات</string>
+    <string name="settings_notifications_queued">%1$d إشعار في قائمة الانتظار للـ heartbeat التالي</string>
+    <string name="settings_notifications_clear_queue">مسح القائمة</string>
 </resources>

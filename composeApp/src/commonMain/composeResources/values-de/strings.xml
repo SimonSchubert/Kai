@@ -342,4 +342,19 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sandbox_packages_uninstall_failed">Deinstallation fehlgeschlagen: %1$s</string>
     <string name="sandbox_packages_upgraded">Pakete aktualisiert</string>
     <string name="sandbox_packages_upgrade_failed">Aktualisierung fehlgeschlagen: %1$s</string>
+    <string name="tool_check_notifications_name">Benachrichtigungen prüfen</string>
+    <string name="tool_check_notifications_description">Liste der zuletzt ungelesenen Benachrichtigungen</string>
+    <string name="tool_read_notification_name">Benachrichtigung lesen</string>
+    <string name="tool_read_notification_description">Den vollständigen Inhalt einer Benachrichtigung lesen</string>
+    <string name="tool_search_notifications_name">Benachrichtigungen suchen</string>
+    <string name="tool_search_notifications_description">Benachrichtigungen nach App oder Text durchsuchen</string>
+    <string name="settings_notifications_label">Benachrichtigungen lesen</string>
+    <string name="settings_notifications_description">Eingehende Benachrichtigungen werden im Hintergrund erfasst und vom Herzschlag aufgenommen. Wähle in den Systemeinstellungen für den Benachrichtigungszugriff aus, welche Apps Kai lesen darf.</string>
+    <string name="settings_notifications_access_required">Benachrichtigungszugriff wurde nicht gewährt. Tippe unten, um Kai in den Systemeinstellungen zu aktivieren.</string>
+    <string name="settings_notifications_access_button">Benachrichtigungszugriff öffnen</string>
+    <string name="settings_notifications_manage_apps">Apps verwalten</string>
+    <string name="settings_notifications_listener_bound">Listener aktiv</string>
+    <string name="settings_notifications_listener_disconnected">Listener inaktiv — Benachrichtigungszugriff prüfen</string>
+    <string name="settings_notifications_queued">%1$d Benachrichtigungen für den nächsten Herzschlag in der Warteschlange</string>
+    <string name="settings_notifications_clear_queue">Warteschlange leeren</string>
 </resources>

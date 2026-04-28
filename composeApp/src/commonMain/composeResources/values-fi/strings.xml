@@ -342,4 +342,19 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sandbox_packages_uninstall_failed">Poisto epäonnistui: %1$s</string>
     <string name="sandbox_packages_upgraded">Paketit päivitetty</string>
     <string name="sandbox_packages_upgrade_failed">Päivitys epäonnistui: %1$s</string>
+    <string name="tool_check_notifications_name">Tarkista ilmoitukset</string>
+    <string name="tool_check_notifications_description">Luettelo viimeaikaisista lukemattomista ilmoituksista</string>
+    <string name="tool_read_notification_name">Lue ilmoitus</string>
+    <string name="tool_read_notification_description">Lue ilmoituksen koko sisältö</string>
+    <string name="tool_search_notifications_name">Etsi ilmoituksia</string>
+    <string name="tool_search_notifications_description">Etsi ilmoituksia sovelluksen tai tekstin mukaan</string>
+    <string name="settings_notifications_label">Lue ilmoituksia</string>
+    <string name="settings_notifications_description">Saapuvat ilmoitukset kerätään taustalla ja syke poimii ne. Valitse järjestelmän ilmoitusten käyttöoikeusasetuksista, mitä sovelluksia Kai voi lukea.</string>
+    <string name="settings_notifications_access_required">Ilmoitusten käyttöoikeutta ei ole myönnetty. Napauta alta ottaaksesi Kain käyttöön järjestelmäasetuksissa.</string>
+    <string name="settings_notifications_access_button">Avaa ilmoitusten käyttöoikeus</string>
+    <string name="settings_notifications_manage_apps">Hallinnoi sovelluksia</string>
+    <string name="settings_notifications_listener_bound">Kuuntelija aktiivinen</string>
+    <string name="settings_notifications_listener_disconnected">Kuuntelija ei aktiivinen — tarkista ilmoitusten käyttöoikeus</string>
+    <string name="settings_notifications_queued">%1$d ilmoitusta jonossa seuraavaa sykettä varten</string>
+    <string name="settings_notifications_clear_queue">Tyhjennä jono</string>
 </resources>

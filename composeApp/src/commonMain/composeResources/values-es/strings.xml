@@ -342,4 +342,19 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="sandbox_packages_uninstall_failed">Error al desinstalar: %1$s</string>
     <string name="sandbox_packages_upgraded">Paquetes actualizados</string>
     <string name="sandbox_packages_upgrade_failed">Error al actualizar: %1$s</string>
+    <string name="tool_check_notifications_name">Revisar notificaciones</string>
+    <string name="tool_check_notifications_description">Lista de notificaciones recientes no leídas</string>
+    <string name="tool_read_notification_name">Leer notificación</string>
+    <string name="tool_read_notification_description">Leer el contenido completo de una notificación</string>
+    <string name="tool_search_notifications_name">Buscar notificaciones</string>
+    <string name="tool_search_notifications_description">Buscar notificaciones por aplicación o texto</string>
+    <string name="settings_notifications_label">Leer notificaciones</string>
+    <string name="settings_notifications_description">Las notificaciones entrantes se recogen en segundo plano y las captura el latido. Elige qué aplicaciones puede leer Kai en los ajustes de acceso a notificaciones del sistema.</string>
+    <string name="settings_notifications_access_required">No se ha concedido acceso a notificaciones. Toca abajo para activar Kai en los ajustes del sistema.</string>
+    <string name="settings_notifications_access_button">Abrir acceso a notificaciones</string>
+    <string name="settings_notifications_manage_apps">Administrar aplicaciones</string>
+    <string name="settings_notifications_listener_bound">Listener activo</string>
+    <string name="settings_notifications_listener_disconnected">Listener inactivo: comprueba el acceso a notificaciones</string>
+    <string name="settings_notifications_queued">%1$d notificaciones en cola para el próximo latido</string>
+    <string name="settings_notifications_clear_queue">Limpiar cola</string>
 </resources>

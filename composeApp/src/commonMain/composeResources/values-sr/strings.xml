@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Деинсталација није успела: %1$s</string>
     <string name="sandbox_packages_upgraded">Пакети ажурирани</string>
     <string name="sandbox_packages_upgrade_failed">Ажурирање није успело: %1$s</string>
+    <string name="tool_check_notifications_name">Провери обавештења</string>
+    <string name="tool_check_notifications_description">Списак скорашњих непрочитаних обавештења</string>
+    <string name="tool_read_notification_name">Прочитај обавештење</string>
+    <string name="tool_read_notification_description">Прочитај цео садржај обавештења</string>
+    <string name="tool_search_notifications_name">Претражи обавештења</string>
+    <string name="tool_search_notifications_description">Претражи обавештења по апликацији или тексту</string>
+    <string name="settings_notifications_label">Читај обавештења</string>
+    <string name="settings_notifications_description">Долазна обавештења се прикупљају у позадини, а преузима их heartbeat. У системским подешавањима приступа обавештењима изабери које апликације Kai може да чита.</string>
+    <string name="settings_notifications_access_required">Приступ обавештењима није дозвољен. Додирни испод да би омогућио Kai у системским подешавањима.</string>
+    <string name="settings_notifications_access_button">Отвори приступ обавештењима</string>
+    <string name="settings_notifications_manage_apps">Управљај апликацијама</string>
+    <string name="settings_notifications_listener_bound">Слушалац активан</string>
+    <string name="settings_notifications_listener_disconnected">Слушалац неактиван — провери приступ обавештењима</string>
+    <string name="settings_notifications_queued">%1$d обавештења у реду за следећи heartbeat</string>
+    <string name="settings_notifications_clear_queue">Очисти ред</string>
 </resources>

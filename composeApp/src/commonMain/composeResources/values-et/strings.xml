@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Eemaldamine ebaõnnestus: %1$s</string>
     <string name="sandbox_packages_upgraded">Paketid uuendatud</string>
     <string name="sandbox_packages_upgrade_failed">Uuendamine ebaõnnestus: %1$s</string>
+    <string name="tool_check_notifications_name">Kontrolli teavitusi</string>
+    <string name="tool_check_notifications_description">Hiljutiste lugemata teavituste loend</string>
+    <string name="tool_read_notification_name">Loe teavitust</string>
+    <string name="tool_read_notification_description">Loe teavituse täielikku sisu</string>
+    <string name="tool_search_notifications_name">Otsi teavitusi</string>
+    <string name="tool_search_notifications_description">Otsi teavitusi rakenduse või teksti järgi</string>
+    <string name="settings_notifications_label">Loe teavitusi</string>
+    <string name="settings_notifications_description">Sissetulevaid teavitusi kogutakse taustal ja need kogub heartbeat. Vali süsteemi teavituste juurdepääsu seadetes, milliseid rakendusi Kai lugeda võib.</string>
+    <string name="settings_notifications_access_required">Teavituste juurdepääsu pole antud. Puuduta allpool, et lubada Kai süsteemi seadetes.</string>
+    <string name="settings_notifications_access_button">Ava teavituste juurdepääs</string>
+    <string name="settings_notifications_manage_apps">Halda rakendusi</string>
+    <string name="settings_notifications_listener_bound">Kuulaja aktiivne</string>
+    <string name="settings_notifications_listener_disconnected">Kuulaja mitteaktiivne — kontrolli teavituste juurdepääsu</string>
+    <string name="settings_notifications_queued">%1$d teavitust järgmise heartbeat\'i järjekorras</string>
+    <string name="settings_notifications_clear_queue">Tühjenda järjekord</string>
 </resources>

@@ -341,4 +341,19 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="sandbox_packages_uninstall_failed">Falha na desinstalação: %1$s</string>
     <string name="sandbox_packages_upgraded">Pacotes atualizados</string>
     <string name="sandbox_packages_upgrade_failed">Falha na atualização: %1$s</string>
+    <string name="tool_check_notifications_name">Verificar notificações</string>
+    <string name="tool_check_notifications_description">Listar notificações recentes não lidas</string>
+    <string name="tool_read_notification_name">Ler notificação</string>
+    <string name="tool_read_notification_description">Ler o conteúdo completo de uma notificação</string>
+    <string name="tool_search_notifications_name">Pesquisar notificações</string>
+    <string name="tool_search_notifications_description">Pesquisar notificações por aplicativo ou texto</string>
+    <string name="settings_notifications_label">Ler notificações</string>
+    <string name="settings_notifications_description">Notificações recebidas são coletadas em segundo plano e captadas pelo heartbeat. Escolha quais aplicativos Kai pode ler nas configurações de acesso a notificações do sistema.</string>
+    <string name="settings_notifications_access_required">O acesso a notificações não foi concedido. Toque abaixo para ativar Kai nas configurações do sistema.</string>
+    <string name="settings_notifications_access_button">Abrir acesso a notificações</string>
+    <string name="settings_notifications_manage_apps">Gerenciar aplicativos</string>
+    <string name="settings_notifications_listener_bound">Listener ativo</string>
+    <string name="settings_notifications_listener_disconnected">Listener inativo — verifique o acesso a notificações</string>
+    <string name="settings_notifications_queued">%1$d notificações na fila para o próximo heartbeat</string>
+    <string name="settings_notifications_clear_queue">Limpar fila</string>
 </resources>

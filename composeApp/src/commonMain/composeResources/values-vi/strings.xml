@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">Gỡ cài đặt thất bại: %1$s</string>
     <string name="sandbox_packages_upgraded">Đã nâng cấp gói</string>
     <string name="sandbox_packages_upgrade_failed">Nâng cấp thất bại: %1$s</string>
+    <string name="tool_check_notifications_name">Kiểm tra thông báo</string>
+    <string name="tool_check_notifications_description">Liệt kê các thông báo chưa đọc gần đây</string>
+    <string name="tool_read_notification_name">Đọc thông báo</string>
+    <string name="tool_read_notification_description">Đọc toàn bộ nội dung của một thông báo</string>
+    <string name="tool_search_notifications_name">Tìm kiếm thông báo</string>
+    <string name="tool_search_notifications_description">Tìm kiếm thông báo theo ứng dụng hoặc văn bản</string>
+    <string name="settings_notifications_label">Đọc thông báo</string>
+    <string name="settings_notifications_description">Thông báo đến được thu thập ở chế độ nền và được heartbeat tiếp nhận. Chọn ứng dụng nào Kai có thể đọc trong cài đặt truy cập thông báo của hệ thống.</string>
+    <string name="settings_notifications_access_required">Quyền truy cập thông báo chưa được cấp. Nhấn bên dưới để bật Kai trong cài đặt hệ thống.</string>
+    <string name="settings_notifications_access_button">Mở quyền truy cập thông báo</string>
+    <string name="settings_notifications_manage_apps">Quản lý ứng dụng</string>
+    <string name="settings_notifications_listener_bound">Trình nghe đang hoạt động</string>
+    <string name="settings_notifications_listener_disconnected">Trình nghe không hoạt động — kiểm tra quyền truy cập thông báo</string>
+    <string name="settings_notifications_queued">%1$d thông báo đang chờ cho heartbeat tiếp theo</string>
+    <string name="settings_notifications_clear_queue">Xóa hàng đợi</string>
 </resources>

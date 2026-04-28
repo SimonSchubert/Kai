@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">Не атрымалася выдаліць: %1$s</string>
     <string name="sandbox_packages_upgraded">Пакеты абноўлены</string>
     <string name="sandbox_packages_upgrade_failed">Не атрымалася абнавіць: %1$s</string>
+    <string name="tool_check_notifications_name">Праверыць апавяшчэнні</string>
+    <string name="tool_check_notifications_description">Спіс нядаўніх непрачытаных апавяшчэнняў</string>
+    <string name="tool_read_notification_name">Прачытаць апавяшчэнне</string>
+    <string name="tool_read_notification_description">Прачытаць поўны змест апавяшчэння</string>
+    <string name="tool_search_notifications_name">Пошук апавяшчэнняў</string>
+    <string name="tool_search_notifications_description">Пошук апавяшчэнняў па дадатку або тэксце</string>
+    <string name="settings_notifications_label">Чытанне апавяшчэнняў</string>
+    <string name="settings_notifications_description">Уваходныя апавяшчэнні збіраюцца ў фоне і апрацоўваюцца heartbeat. Абярыце прыкладанні, якія можа чытаць Kai, у сістэмных наладах доступу да апавяшчэнняў.</string>
+    <string name="settings_notifications_access_required">Доступ да апавяшчэнняў не нададзены. Націсніце ніжэй, каб уключыць Kai у сістэмных наладах.</string>
+    <string name="settings_notifications_access_button">Адкрыць доступ да апавяшчэнняў</string>
+    <string name="settings_notifications_manage_apps">Кіраванне прыкладаннямі</string>
+    <string name="settings_notifications_listener_bound">Слухач актыўны</string>
+    <string name="settings_notifications_listener_disconnected">Слухач неактыўны — праверце доступ да апавяшчэнняў</string>
+    <string name="settings_notifications_queued">%1$d апавяшчэнняў у чарзе на наступны heartbeat</string>
+    <string name="settings_notifications_clear_queue">Ачысціць чаргу</string>
 </resources>

@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">حذف نصب ناموفق: %1$s</string>
     <string name="sandbox_packages_upgraded">بسته‌ها ارتقاء یافتند</string>
     <string name="sandbox_packages_upgrade_failed">ارتقاء ناموفق: %1$s</string>
+    <string name="tool_check_notifications_name">بررسی اعلان‌ها</string>
+    <string name="tool_check_notifications_description">فهرست اعلان‌های اخیر خوانده‌نشده</string>
+    <string name="tool_read_notification_name">خواندن اعلان</string>
+    <string name="tool_read_notification_description">خواندن محتوای کامل یک اعلان</string>
+    <string name="tool_search_notifications_name">جستجوی اعلان‌ها</string>
+    <string name="tool_search_notifications_description">جستجوی اعلان‌ها بر اساس برنامه یا متن</string>
+    <string name="settings_notifications_label">خواندن اعلان‌ها</string>
+    <string name="settings_notifications_description">اعلان‌های ورودی در پس‌زمینه گردآوری می‌شوند و توسط heartbeat برداشت می‌شوند. در تنظیمات دسترسی به اعلان‌های سیستم انتخاب کنید Kai چه برنامه‌هایی را بخواند.</string>
+    <string name="settings_notifications_access_required">دسترسی به اعلان‌ها داده نشده است. برای فعال‌سازی Kai در تنظیمات سیستم، روی گزینه زیر ضربه بزنید.</string>
+    <string name="settings_notifications_access_button">باز کردن دسترسی اعلان‌ها</string>
+    <string name="settings_notifications_manage_apps">مدیریت برنامه‌ها</string>
+    <string name="settings_notifications_listener_bound">شنونده فعال</string>
+    <string name="settings_notifications_listener_disconnected">شنونده غیرفعال — دسترسی اعلان‌ها را بررسی کنید</string>
+    <string name="settings_notifications_queued">%1$d اعلان در صف heartbeat بعدی</string>
+    <string name="settings_notifications_clear_queue">پاک‌سازی صف</string>
 </resources>

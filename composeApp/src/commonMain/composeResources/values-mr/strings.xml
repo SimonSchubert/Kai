@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल अयशस्वी: %1$s</string>
     <string name="sandbox_packages_upgraded">पॅकेजेस अपग्रेड केली</string>
     <string name="sandbox_packages_upgrade_failed">अपग्रेड अयशस्वी: %1$s</string>
+    <string name="tool_check_notifications_name">सूचना तपासा</string>
+    <string name="tool_check_notifications_description">अलीकडील न वाचलेल्या सूचनांची सूची</string>
+    <string name="tool_read_notification_name">सूचना वाचा</string>
+    <string name="tool_read_notification_description">सूचनेचा संपूर्ण मजकूर वाचा</string>
+    <string name="tool_search_notifications_name">सूचना शोधा</string>
+    <string name="tool_search_notifications_description">अॅप किंवा मजकूरानुसार सूचना शोधा</string>
+    <string name="settings_notifications_label">सूचना वाचा</string>
+    <string name="settings_notifications_description">येणाऱ्या सूचना पार्श्वभूमीत गोळा केल्या जातात आणि heartbeat द्वारे घेतल्या जातात. प्रणालीच्या सूचना प्रवेश सेटिंग्जमध्ये Kai कोणते अॅप वाचू शकेल ते निवडा.</string>
+    <string name="settings_notifications_access_required">सूचना प्रवेश दिलेला नाही. प्रणाली सेटिंग्जमध्ये Kai सक्षम करण्यासाठी खाली टॅप करा.</string>
+    <string name="settings_notifications_access_button">सूचना प्रवेश उघडा</string>
+    <string name="settings_notifications_manage_apps">अॅप्स व्यवस्थापित करा</string>
+    <string name="settings_notifications_listener_bound">श्रोता सक्रिय</string>
+    <string name="settings_notifications_listener_disconnected">श्रोता निष्क्रिय — सूचना प्रवेश तपासा</string>
+    <string name="settings_notifications_queued">पुढील heartbeat साठी %1$d सूचना रांगेत</string>
+    <string name="settings_notifications_clear_queue">रांग साफ करा</string>
 </resources>

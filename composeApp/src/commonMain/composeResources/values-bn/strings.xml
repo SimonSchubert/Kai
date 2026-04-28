@@ -341,4 +341,19 @@
     <string name="sandbox_packages_uninstall_failed">আনইনস্টল ব্যর্থ: %1$s</string>
     <string name="sandbox_packages_upgraded">প্যাকেজ আপগ্রেড হয়েছে</string>
     <string name="sandbox_packages_upgrade_failed">আপগ্রেড ব্যর্থ: %1$s</string>
+    <string name="tool_check_notifications_name">বিজ্ঞপ্তি চেক করুন</string>
+    <string name="tool_check_notifications_description">সাম্প্রতিক অপঠিত বিজ্ঞপ্তি তালিকাভুক্ত করুন</string>
+    <string name="tool_read_notification_name">বিজ্ঞপ্তি পড়ুন</string>
+    <string name="tool_read_notification_description">বিজ্ঞপ্তির সম্পূর্ণ সামগ্রী পড়ুন</string>
+    <string name="tool_search_notifications_name">বিজ্ঞপ্তি অনুসন্ধান করুন</string>
+    <string name="tool_search_notifications_description">অ্যাপ বা লেখা অনুসারে বিজ্ঞপ্তি অনুসন্ধান করুন</string>
+    <string name="settings_notifications_label">বিজ্ঞপ্তি পড়ুন</string>
+    <string name="settings_notifications_description">ইনকামিং বিজ্ঞপ্তি ব্যাকগ্রাউন্ডে সংগ্রহ করা হয় এবং heartbeat দ্বারা গ্রহণ করা হয়। সিস্টেমের বিজ্ঞপ্তি অ্যাক্সেস সেটিংসে Kai কোন অ্যাপ পড়তে পারবে তা বেছে নিন।</string>
+    <string name="settings_notifications_access_required">বিজ্ঞপ্তি অ্যাক্সেস দেওয়া হয়নি। সিস্টেম সেটিংসে Kai সক্রিয় করতে নিচে ট্যাপ করুন।</string>
+    <string name="settings_notifications_access_button">বিজ্ঞপ্তি অ্যাক্সেস খুলুন</string>
+    <string name="settings_notifications_manage_apps">অ্যাপ পরিচালনা</string>
+    <string name="settings_notifications_listener_bound">শ্রোতা সক্রিয়</string>
+    <string name="settings_notifications_listener_disconnected">শ্রোতা নিষ্ক্রিয় — বিজ্ঞপ্তি অ্যাক্সেস পরীক্ষা করুন</string>
+    <string name="settings_notifications_queued">পরবর্তী heartbeat-এর জন্য %1$d বিজ্ঞপ্তি সারিতে</string>
+    <string name="settings_notifications_clear_queue">সারি পরিষ্কার করুন</string>
 </resources>

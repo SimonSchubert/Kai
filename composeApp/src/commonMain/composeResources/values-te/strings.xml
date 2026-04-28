@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">అన్‌ఇన్‌స్టాల్ విఫలమైంది: %1$s</string>
     <string name="sandbox_packages_upgraded">ప్యాకేజీలు అప్‌గ్రేడ్ చేయబడ్డాయి</string>
     <string name="sandbox_packages_upgrade_failed">అప్‌గ్రేడ్ విఫలమైంది: %1$s</string>
+    <string name="tool_check_notifications_name">నోటిఫికేషన్లను తనిఖీ చేయండి</string>
+    <string name="tool_check_notifications_description">ఇటీవలి చదవని నోటిఫికేషన్ల జాబితా</string>
+    <string name="tool_read_notification_name">నోటిఫికేషన్ చదవండి</string>
+    <string name="tool_read_notification_description">నోటిఫికేషన్ యొక్క పూర్తి విషయాన్ని చదవండి</string>
+    <string name="tool_search_notifications_name">నోటిఫికేషన్లను శోధించండి</string>
+    <string name="tool_search_notifications_description">యాప్ లేదా టెక్స్ట్ ఆధారంగా నోటిఫికేషన్లను శోధించండి</string>
+    <string name="settings_notifications_label">నోటిఫికేషన్లను చదవండి</string>
+    <string name="settings_notifications_description">వచ్చే నోటిఫికేషన్లు బ్యాక్‌గ్రౌండ్‌లో సేకరించబడతాయి మరియు heartbeat వాటిని తీసుకుంటుంది. సిస్టమ్ నోటిఫికేషన్ యాక్సెస్ సెట్టింగ్‌లలో Kai ఏ యాప్‌లను చదవగలదో ఎంచుకోండి.</string>
+    <string name="settings_notifications_access_required">నోటిఫికేషన్ యాక్సెస్ ఇవ్వబడలేదు. సిస్టమ్ సెట్టింగ్‌లలో Kai ని ప్రారంభించడానికి దిగువన నొక్కండి.</string>
+    <string name="settings_notifications_access_button">నోటిఫికేషన్ యాక్సెస్ తెరవండి</string>
+    <string name="settings_notifications_manage_apps">యాప్‌లను నిర్వహించండి</string>
+    <string name="settings_notifications_listener_bound">శ్రోత యాక్టివ్‌గా ఉంది</string>
+    <string name="settings_notifications_listener_disconnected">శ్రోత యాక్టివ్‌గా లేదు — నోటిఫికేషన్ యాక్సెస్‌ను తనిఖీ చేయండి</string>
+    <string name="settings_notifications_queued">తరువాతి heartbeat కోసం %1$d నోటిఫికేషన్లు క్యూలో ఉన్నాయి</string>
+    <string name="settings_notifications_clear_queue">క్యూ క్లియర్ చేయండి</string>
 </resources>

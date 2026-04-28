@@ -340,4 +340,19 @@
     <string name="sandbox_packages_uninstall_failed">અનઇન્સ્ટોલ નિષ્ફળ: %1$s</string>
     <string name="sandbox_packages_upgraded">પેકેજ અપગ્રેડ થયા</string>
     <string name="sandbox_packages_upgrade_failed">અપગ્રેડ નિષ્ફળ: %1$s</string>
+    <string name="tool_check_notifications_name">સૂચનાઓ તપાસો</string>
+    <string name="tool_check_notifications_description">તાજેતરની વાંચ્યા વગરની સૂચનાઓની યાદી</string>
+    <string name="tool_read_notification_name">સૂચના વાંચો</string>
+    <string name="tool_read_notification_description">સૂચનાનું સંપૂર્ણ સમાવિષ્ટ વાંચો</string>
+    <string name="tool_search_notifications_name">સૂચનાઓ શોધો</string>
+    <string name="tool_search_notifications_description">એપ્લિકેશન અથવા ટેક્સ્ટ દ્વારા સૂચનાઓ શોધો</string>
+    <string name="settings_notifications_label">સૂચનાઓ વાંચો</string>
+    <string name="settings_notifications_description">આવનારી સૂચનાઓ બેકગ્રાઉન્ડમાં એકત્ર કરવામાં આવે છે અને heartbeat દ્વારા લેવામાં આવે છે. સિસ્ટમની સૂચના ઍક્સેસ સેટિંગ્સમાં Kai કઈ એપ વાંચી શકે તે પસંદ કરો.</string>
+    <string name="settings_notifications_access_required">સૂચના ઍક્સેસ આપવામાં આવ્યું નથી. સિસ્ટમ સેટિંગ્સમાં Kai સક્રિય કરવા માટે નીચે ટેપ કરો.</string>
+    <string name="settings_notifications_access_button">સૂચના ઍક્સેસ ખોલો</string>
+    <string name="settings_notifications_manage_apps">એપ્સ વ્યવસ્થાપિત કરો</string>
+    <string name="settings_notifications_listener_bound">શ્રોતા સક્રિય</string>
+    <string name="settings_notifications_listener_disconnected">શ્રોતા નિષ્ક્રિય — સૂચના ઍક્સેસ તપાસો</string>
+    <string name="settings_notifications_queued">%1$d સૂચનાઓ આગામી heartbeat માટે કતારમાં</string>
+    <string name="settings_notifications_clear_queue">કતાર સાફ કરો</string>
 </resources>

@@ -309,8 +309,15 @@ fun SettingsScreen(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val sandboxState by sandboxViewModel.state.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
-        viewModel.onScreenVisible()
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    androidx.compose.runtime.DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                viewModel.onScreenVisible()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     SettingsScreenContent(
@@ -1843,6 +1850,19 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                             )
                         }
                     }
+                    if (uiState.showNotificationsSection) {
+                        SettingsCard {
+                            NotificationsSection(
+                                isEnabled = uiState.isNotificationsEnabled,
+                                accessGranted = uiState.notificationListenerAccessGranted,
+                                listenerBound = uiState.notificationListenerBound,
+                                pendingCount = uiState.notificationPendingCount,
+                                onToggle = actions.onToggleNotifications,
+                                onOpenAccessSettings = actions.onOpenNotificationListenerSettings,
+                                onClearPending = actions.onClearPendingNotifications,
+                            )
+                        }
+                    }
                 }
             }
         } else {
@@ -1921,6 +1941,19 @@ private fun AgentContent(uiState: SettingsUiState, actions: SettingsActions) {
                             onChangePollInterval = actions.onChangeSmsPollInterval,
                             onRefresh = actions.onRefreshSms,
                             onToggleSmsSend = actions.onToggleSmsSend,
+                        )
+                    }
+                }
+                if (uiState.showNotificationsSection) {
+                    SettingsCard {
+                        NotificationsSection(
+                            isEnabled = uiState.isNotificationsEnabled,
+                            accessGranted = uiState.notificationListenerAccessGranted,
+                            listenerBound = uiState.notificationListenerBound,
+                            pendingCount = uiState.notificationPendingCount,
+                            onToggle = actions.onToggleNotifications,
+                            onOpenAccessSettings = actions.onOpenNotificationListenerSettings,
+                            onClearPending = actions.onClearPendingNotifications,
                         )
                     }
                 }

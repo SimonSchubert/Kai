@@ -14,6 +14,7 @@ import androidx.core.net.toUri
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.EmailStore
 import com.inspiredandroid.kai.data.MemoryStore
+import com.inspiredandroid.kai.data.NotificationStore
 import com.inspiredandroid.kai.data.SmsDraftStore
 import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskStore
@@ -22,6 +23,8 @@ import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
+import com.inspiredandroid.kai.notifications.NotificationReader
+import com.inspiredandroid.kai.notifications.declaresNotificationListener
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.sms.declaresReadSms
@@ -34,6 +37,7 @@ import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.NotificationResult
+import com.inspiredandroid.kai.tools.NotificationTools
 import com.inspiredandroid.kai.tools.OpenFileTool
 import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
@@ -90,6 +94,17 @@ actual val isSmsSupported: Boolean by lazy {
     try {
         val context: Context by inject(Context::class.java)
         context.declaresReadSms()
+    } catch (_: Throwable) {
+        false
+    }
+}
+
+// Same lazy pattern as `isSmsSupported`: probe the merged manifest for the listener
+// service. Foss flavor declares it, playStore does not.
+actual val isNotificationsSupported: Boolean by lazy {
+    try {
+        val context: Context by inject(Context::class.java)
+        context.declaresNotificationListener()
     } catch (_: Throwable) {
         false
     }
@@ -436,6 +451,17 @@ actual fun getAvailableTools(): List<Tool> {
             if (smsSender.hasPermission()) {
                 val smsDraftStore: SmsDraftStore by inject(SmsDraftStore::class.java)
                 addAll(SmsTools.getSmsSendTools(smsDraftStore, smsReaderForTools, smsSender))
+            }
+        }
+
+        // Notification tools: triple-gated. `isNotificationsSupported` is FOSS-only
+        // (listener service declared in merged manifest). `isNotificationsEnabled()`
+        // is the user toggle. `hasAccess()` catches system-level revocation.
+        if (isNotificationsSupported && appSettings.isNotificationsEnabled()) {
+            val notificationReader: NotificationReader by inject(NotificationReader::class.java)
+            if (notificationReader.hasAccess()) {
+                val notificationStore: NotificationStore by inject(NotificationStore::class.java)
+                addAll(NotificationTools.getNotificationTools(notificationStore, notificationReader))
             }
         }
 

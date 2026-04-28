@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.isEmailSupported
+import com.inspiredandroid.kai.isNotificationsSupported
 import com.inspiredandroid.kai.isSmsSupported
 import com.inspiredandroid.kai.sendHeartbeatNotification
 import com.inspiredandroid.kai.sms.SmsPoller
@@ -32,6 +33,7 @@ class TaskScheduler(
     private val emailPoller: EmailPoller? = null,
     private val smsStore: SmsStore? = null,
     private val smsPoller: SmsPoller? = null,
+    private val notificationStore: NotificationStore? = null,
     private val enabled: Boolean = true,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
 ) {
@@ -141,13 +143,14 @@ class TaskScheduler(
         val manager = heartbeatManager ?: return
         val pendingEmails = emailStore?.getPending().orEmpty()
         val pendingSms = smsStore?.getPending().orEmpty()
+        val pendingNotifications = notificationStore?.getPending().orEmpty()
         try {
             val recentResponses = dataRepository.savedConversations.value
                 .find { it.type == Conversation.TYPE_HEARTBEAT }
                 ?.messages?.takeLast(HEARTBEAT_CONTEXT_COUNT)
                 ?.map { it.content }
                 ?: emptyList()
-            val heartbeatPrompt = manager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms)
+            val heartbeatPrompt = manager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms, pendingNotifications)
             val response = dataRepository.askWithTools(heartbeatPrompt, manager.getConfig().heartbeatInstanceId)
             manager.markHeartbeatExecuted()
             manager.recordHeartbeat(success = true)
@@ -193,6 +196,11 @@ class TaskScheduler(
             if (pendingSms.isNotEmpty()) {
                 smsStore?.removePending(pendingSms)
             }
+            if (pendingNotifications.isNotEmpty()) {
+                notificationStore?.removePending(pendingNotifications)
+            }
+            // Sweep retention bounds opportunistically after each heartbeat run.
+            notificationStore?.sweep()
         } catch (e: Exception) {
             manager.recordHeartbeat(success = false, error = e.message ?: e.toString())
         }
