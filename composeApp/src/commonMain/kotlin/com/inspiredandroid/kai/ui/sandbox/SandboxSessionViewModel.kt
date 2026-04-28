@@ -22,6 +22,8 @@ private const val STREAM_BUFFER_CAPACITY = 256
 private const val STREAM_FLUSH_INTERVAL_MS = 32L
 private const val STREAM_FLUSH_BATCH_MAX = 200
 
+private const val DEFAULT_WORKING_DIR = "/root"
+
 class SandboxSessionViewModel(
     private val sandboxController: SandboxController,
 ) : ViewModel() {
@@ -39,6 +41,8 @@ class SandboxSessionViewModel(
 
     private val _activeHandle = MutableStateFlow<CommandHandle?>(null)
     val activeHandle = _activeHandle.asStateFlow()
+
+    private var currentWorkingDir: String = DEFAULT_WORKING_DIR
 
     internal fun selectTab(tab: SandboxSubTab) {
         selectedTabState.value = tab
@@ -78,13 +82,21 @@ class SandboxSessionViewModel(
             onBufferOverflow = BufferOverflow.DROP_OLDEST,
         )
 
+        val cwdMarker = "__KAI_CWD_${randomMarkerSuffix()}__:"
+        val wrapped = wrapCommandForCwdTracking(command, currentWorkingDir, cwdMarker)
+        val onCwdLine: (String) -> Unit = { line -> currentWorkingDir = line }
+
         var handle: CommandHandle? = null
         try {
             coroutineScope {
                 val drainJob = launch { drainStreamedLines(channel, outputLines) }
                 val h = sandboxController.executeCommandStreaming(
-                    command = command,
-                    onStdout = { line -> channel.trySend(TerminalLine.Output(line)) },
+                    command = wrapped,
+                    onStdout = { line ->
+                        if (!handleCwdMarker(line, cwdMarker, onCwdLine)) {
+                            channel.trySend(TerminalLine.Output(line))
+                        }
+                    },
                     onStderr = { line -> channel.trySend(TerminalLine.Error(line)) },
                 )
                 handle = h
@@ -147,3 +159,29 @@ private fun pruneOutput(outputLines: MutableList<TerminalLine>) {
         outputLines.subList(0, excess).clear()
     }
 }
+
+internal fun wrapCommandForCwdTracking(
+    userCommand: String,
+    workingDir: String,
+    marker: String,
+): String {
+    val quotedCwd = shellSingleQuote(workingDir)
+    val quotedFallback = shellSingleQuote(DEFAULT_WORKING_DIR)
+    val quotedMarker = shellSingleQuote(marker)
+    return "cd $quotedCwd 2>/dev/null || cd $quotedFallback; { $userCommand\n}; __kai_st=\$?; printf '%s%s\\n' $quotedMarker \"\$(pwd)\"; exit \$__kai_st"
+}
+
+internal fun handleCwdMarker(
+    line: String,
+    marker: String,
+    onCwd: (String) -> Unit,
+): Boolean {
+    if (!line.startsWith(marker)) return false
+    val cwd = line.substring(marker.length)
+    if (cwd.startsWith("/")) onCwd(cwd)
+    return true
+}
+
+private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
+
+private fun randomMarkerSuffix(): String = (0 until 16).map { "0123456789abcdef".random() }.joinToString("")
