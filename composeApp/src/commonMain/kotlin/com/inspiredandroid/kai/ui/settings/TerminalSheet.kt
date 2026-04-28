@@ -50,9 +50,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.ui.handCursor
+import com.inspiredandroid.kai.ui.sandbox.SandboxSessionViewModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.terminal_help_text
 import kai.composeapp.generated.resources.terminal_input_placeholder
@@ -115,42 +117,66 @@ fun TerminalContent(
     showHeader: Boolean = false,
     darkBackground: Boolean = false,
     initialLines: List<TerminalLine> = emptyList(),
+    sessionViewModel: SandboxSessionViewModel? = null,
 ) {
     val scope = rememberCoroutineScope()
     val listState = rememberLazyListState()
-    val outputLines = remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
-    var inputText by remember { mutableStateOf("") }
-    var isRunning by remember { mutableStateOf(false) }
-    var activeHandle by remember { mutableStateOf<CommandHandle?>(null) }
+
+    val sessionInputText = sessionViewModel?.inputText?.collectAsStateWithLifecycle()?.value
+    val sessionIsRunning = sessionViewModel?.isRunning?.collectAsStateWithLifecycle()?.value
+    val sessionActiveHandle = sessionViewModel?.activeHandle?.collectAsStateWithLifecycle()?.value
+
+    val outputLines = sessionViewModel?.outputLines
+        ?: remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
+    var localInputText by remember { mutableStateOf("") }
+    val inputText: String = sessionInputText ?: localInputText
+    val setInputText: (String) -> Unit = sessionViewModel?.let { vm ->
+        { vm.setInputText(it) }
+    } ?: { localInputText = it }
+    var localIsRunning by remember { mutableStateOf(false) }
+    val isRunning: Boolean = sessionIsRunning ?: localIsRunning
+    var localActiveHandle by remember { mutableStateOf<CommandHandle?>(null) }
+    val activeHandle: CommandHandle? = sessionActiveHandle ?: localActiveHandle
+
     val colors = terminalColors(darkBackground)
     val focusRequester = remember { FocusRequester() }
     val canSubmit = sandboxController != null && inputText.isNotBlank()
     val canCancel = isRunning && activeHandle != null && inputText.isBlank()
     val isInputEnabled = sandboxController != null
     val submitInput = {
-        val controller = sandboxController
-        val running = isRunning
-        val handle = activeHandle
-        if (controller != null && inputText.isNotBlank()) {
-            val line = inputText
-            inputText = ""
-            if (running && handle != null) {
-                outputLines.add(TerminalLine.Output(line))
-                scope.launch { handle.writeInput(line) }
-            } else if (!running) {
-                scope.launch {
-                    runCommand(
-                        command = line.trim(),
-                        outputLines = outputLines,
-                        sandboxController = controller,
-                        setRunning = { isRunning = it },
-                        setHandle = { activeHandle = it },
-                    )
+        if (sessionViewModel != null) {
+            sessionViewModel.submit()
+        } else {
+            val controller = sandboxController
+            val running = localIsRunning
+            val handle = localActiveHandle
+            if (controller != null && localInputText.isNotBlank()) {
+                val line = localInputText
+                localInputText = ""
+                if (running && handle != null) {
+                    outputLines.add(TerminalLine.Output(line))
+                    scope.launch { handle.writeInput(line) }
+                } else if (!running) {
+                    scope.launch {
+                        runCommand(
+                            command = line.trim(),
+                            outputLines = outputLines,
+                            sandboxController = controller,
+                            setRunning = { localIsRunning = it },
+                            setHandle = { localActiveHandle = it },
+                        )
+                    }
                 }
             }
         }
     }
-    val cancelRunning: () -> Unit = { activeHandle?.cancel() }
+    val cancelRunning: () -> Unit = {
+        if (sessionViewModel != null) {
+            sessionViewModel.cancelRunning()
+        } else {
+            localActiveHandle?.cancel()
+        }
+    }
 
     LaunchedEffect(Unit) {
         if (sandboxController != null) {
@@ -270,7 +296,7 @@ fun TerminalContent(
             Spacer(Modifier.width(8.dp))
             TextField(
                 value = inputText,
-                onValueChange = { inputText = it },
+                onValueChange = setInputText,
                 modifier = Modifier.weight(1f).then(
                     if (sandboxController != null) Modifier.focusRequester(focusRequester) else Modifier,
                 ),

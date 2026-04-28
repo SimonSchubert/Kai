@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SandboxUiState
@@ -46,6 +47,7 @@ import kai.composeapp.generated.resources.settings_sandbox_subtab_packages
 import kai.composeapp.generated.resources.settings_sandbox_subtab_terminal
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 internal enum class SandboxSubTab { Terminal, Files, Packages }
 
@@ -60,12 +62,17 @@ internal fun SandboxTabsContent(
     if (sandboxState.sandboxReady) {
         val isPreview = LocalInspectionMode.current
         val sandboxController: SandboxController? = if (!isPreview) koinInject() else null
-        var subTab by remember { mutableStateOf(SandboxSubTab.Terminal) }
+        val sessionViewModel: SandboxSessionViewModel? = if (!isPreview) koinViewModel() else null
+        var localSubTab by remember { mutableStateOf(SandboxSubTab.Terminal) }
+        val subTab = sessionViewModel?.selectedTab?.collectAsStateWithLifecycle()?.value ?: localSubTab
+        val onSelectTab: (SandboxSubTab) -> Unit = sessionViewModel?.let { vm ->
+            { vm.selectTab(it) }
+        } ?: { localSubTab = it }
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            SandboxSubTabSelector(currentTab = subTab, onSelectTab = { subTab = it })
+            SandboxSubTabSelector(currentTab = subTab, onSelectTab = onSelectTab)
 
             Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 when (subTab) {
@@ -80,6 +87,7 @@ internal fun SandboxTabsContent(
                             modifier = Modifier.fillMaxSize(),
                             darkBackground = true,
                             initialLines = previewLines,
+                            sessionViewModel = sessionViewModel,
                         )
                     }
 

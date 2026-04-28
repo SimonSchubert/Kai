@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.ChatViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxFileBrowserViewModel
 import com.inspiredandroid.kai.ui.sandbox.SandboxPackagesViewModel
+import com.inspiredandroid.kai.ui.sandbox.SandboxSessionViewModel
 import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import com.inspiredandroid.kai.ui.settings.SettingsViewModel
 import com.inspiredandroid.kai.ui.settings.SplinterlandsViewModel
@@ -133,6 +134,7 @@ val appModule = module {
     viewModel { SandboxViewModel(get<DataRepository>(), get<SandboxController>()) }
     viewModel { SandboxFileBrowserViewModel(get<SandboxController>()) }
     viewModel { SandboxPackagesViewModel(get<SandboxController>()) }
+    viewModel { SandboxSessionViewModel(get<SandboxController>()) }
     viewModel { SplinterlandsViewModel(get<DataRepository>(), get(), get(), get<SplinterlandsApi>()) }
     viewModel { ChatViewModel(get<DataRepository>(), get<TaskScheduler>()) }
 }
