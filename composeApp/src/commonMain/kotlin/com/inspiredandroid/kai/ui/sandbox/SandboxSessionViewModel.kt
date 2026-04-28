@@ -26,8 +26,8 @@ class SandboxSessionViewModel(
     private val sandboxController: SandboxController,
 ) : ViewModel() {
 
-    private val _selectedTab = MutableStateFlow(SandboxSubTab.Terminal)
-    internal val selectedTab = _selectedTab.asStateFlow()
+    private val selectedTabState = MutableStateFlow(SandboxSubTab.Terminal)
+    internal val selectedTab = selectedTabState.asStateFlow()
 
     private val _inputText = MutableStateFlow("")
     val inputText = _inputText.asStateFlow()
@@ -41,7 +41,7 @@ class SandboxSessionViewModel(
     val activeHandle = _activeHandle.asStateFlow()
 
     internal fun selectTab(tab: SandboxSubTab) {
-        _selectedTab.value = tab
+        selectedTabState.value = tab
     }
 
     fun setInputText(text: String) {
