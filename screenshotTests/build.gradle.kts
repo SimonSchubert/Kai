@@ -56,6 +56,11 @@ tasks.matching { it.name.contains("preparePaparazzi") }.configureEach {
     dependsOn(":composeApp:copyAndroidMainComposeResourcesToAndroidAssets")
 }
 
+// Paparazzi 2.0.0-alpha04's HTML reporter calls a Gradle internal API removed in 9.4
+tasks.withType<Test>().configureEach {
+    reports.html.required.set(false)
+}
+
 // Only run store screenshot tests when generating store screenshots
 tasks.matching { it.name == "testDebugUnitTest" }.configureEach {
     val task = this as Test
