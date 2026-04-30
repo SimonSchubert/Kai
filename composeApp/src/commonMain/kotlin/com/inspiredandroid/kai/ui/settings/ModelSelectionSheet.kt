@@ -16,14 +16,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -41,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.formatContextWindow
 import com.inspiredandroid.kai.formatReleaseDate
 import com.inspiredandroid.kai.ui.KaiOutlinedTextField
+import com.inspiredandroid.kai.ui.components.KaiSearchField
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForGrid
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
@@ -113,14 +113,10 @@ internal fun ModelSelection(
                     }
                 }
                 if (models.size > 6) {
-                    KaiOutlinedTextField(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
-                        value = searchQuery,
-                        onValueChange = { searchQuery = it },
-                        placeholder = {
-                            Text(stringResource(Res.string.settings_model_search))
-                        },
-                        singleLine = true,
+                    KaiSearchField(
+                        query = searchQuery,
+                        onQueryChange = { searchQuery = it },
+                        placeholder = stringResource(Res.string.settings_model_search),
                     )
                 }
                 var sortOption by remember { mutableStateOf(ModelSortOption.Score) }
@@ -132,28 +128,12 @@ internal fun ModelSelection(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     ModelSortOption.entries.forEach { option ->
-                        val isSelected = sortOption == option
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = if (isSelected) {
-                                MaterialTheme.colorScheme.secondaryContainer
-                            } else {
-                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                            },
-                            modifier = Modifier.handCursor(),
+                        FilterChip(
+                            selected = sortOption == option,
                             onClick = { sortOption = option },
-                        ) {
-                            Text(
-                                text = stringResource(option.labelRes),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = if (isSelected) {
-                                    MaterialTheme.colorScheme.onSecondaryContainer
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                            )
-                        }
+                            label = { Text(stringResource(option.labelRes)) },
+                            modifier = Modifier.handCursor(),
+                        )
                     }
                 }
                 val gridState = rememberLazyGridState()
@@ -208,14 +188,26 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
     val detailText = listOfNotNull(releaseText, model.parameterCount, contextText)
         .joinToString("  ·  ").ifEmpty { null }
 
+    val primaryColor = if (isSelected) {
+        MaterialTheme.colorScheme.onPrimaryContainer
+    } else {
+        MaterialTheme.colorScheme.onSurface
+    }
+    val secondaryColor = if (isSelected) {
+        MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+    } else {
+        MaterialTheme.colorScheme.onSurfaceVariant
+    }
     Card(
         modifier = Modifier.handCursor().clip(CardDefaults.shape).clickable { onClick() },
         shape = CardDefaults.shape,
-        colors = if (isSelected) {
-            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
-        } else {
-            CardDefaults.cardColors()
-        },
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.surfaceContainerHigh
+            },
+        ),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -226,11 +218,7 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    color = if (isSelected) {
-                        MaterialTheme.colorScheme.onPrimaryContainer
-                    } else {
-                        MaterialTheme.colorScheme.onBackground
-                    },
+                    color = primaryColor,
                     modifier = Modifier.weight(1f),
                 )
                 model.arenaScore?.let { score ->
@@ -248,7 +236,7 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                    color = secondaryColor,
                 )
             }
             detailText?.let {
@@ -256,7 +244,7 @@ private fun ModelCard(model: SettingsModel, isSelected: Boolean, onClick: () -> 
                 Text(
                     text = it,
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+                    color = secondaryColor,
                 )
             }
         }

@@ -3,7 +3,6 @@ package com.inspiredandroid.kai.ui.sandbox
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,24 +12,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Inventory2
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,9 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.inspiredandroid.kai.ui.components.KaiSearchField
 import com.inspiredandroid.kai.ui.handCursor
-import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
-import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_dialog_cancel
 import kai.composeapp.generated.resources.sandbox_packages_action_clear_search
@@ -85,9 +77,11 @@ fun SandboxPackagesContent(
 
     Box(modifier = modifier) {
         Column(Modifier.fillMaxSize()) {
-            SearchRow(
+            KaiSearchField(
                 query = state.searchQuery,
                 onQueryChange = viewModel::updateSearchQuery,
+                placeholder = stringResource(Res.string.sandbox_packages_search_hint),
+                clearContentDescription = stringResource(Res.string.sandbox_packages_action_clear_search),
             )
             UpgradeRow(
                 upgrading = state.upgrading,
@@ -117,39 +111,6 @@ fun SandboxPackagesContent(
             onDismiss = viewModel::cancelUninstall,
         )
     }
-}
-
-@Composable
-private fun SearchRow(
-    query: String,
-    onQueryChange: (String) -> Unit,
-) {
-    OutlinedTextField(
-        value = query,
-        onValueChange = onQueryChange,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
-        singleLine = true,
-        placeholder = { Text(stringResource(Res.string.sandbox_packages_search_hint)) },
-        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
-        trailingIcon = {
-            if (query.isNotEmpty()) {
-                IconButton(
-                    onClick = { onQueryChange("") },
-                    modifier = Modifier.handCursor(),
-                ) {
-                    Icon(
-                        Icons.Filled.Clear,
-                        contentDescription = stringResource(Res.string.sandbox_packages_action_clear_search),
-                    )
-                }
-            }
-        },
-        shape = RoundedCornerShape(8.dp),
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-        ),
-    )
 }
 
 @Composable
@@ -210,11 +171,7 @@ private fun PackagesList(
         }
         return
     }
-    LazyColumn(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(vertical = 8.dp),
-    ) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(entries, key = { "${it.name}@${it.version}" }) { entry ->
             PackageRow(
                 entry = entry,
@@ -235,53 +192,44 @@ private fun PackageRow(
     onInstall: (PackageEntry) -> Unit,
     onUninstall: (PackageEntry) -> Unit,
 ) {
-    Card(
-        colors = kaiAdaptiveCardColors(),
-        border = kaiAdaptiveCardBorder(),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(start = 12.dp, end = 8.dp, top = 8.dp, bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+    ListItem(
+        headlineContent = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = entry.name,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f, fill = false),
+                )
+                if (entry.version.isNotEmpty()) {
+                    Spacer(Modifier.width(8.dp))
+                    Text(
+                        text = entry.version,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        },
+        supportingContent = entry.description?.takeIf { it.isNotEmpty() }?.let {
+            {
+                Text(
+                    text = it,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        },
+        leadingContent = {
             Icon(
                 imageVector = Icons.Filled.Inventory2,
                 contentDescription = null,
                 tint = if (installed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Spacer(Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = entry.name,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false),
-                    )
-                    if (entry.version.isNotEmpty()) {
-                        Spacer(Modifier.width(8.dp))
-                        Text(
-                            text = entry.version,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    }
-                }
-                if (!entry.description.isNullOrEmpty()) {
-                    Text(
-                        text = entry.description,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
-            }
-            Spacer(Modifier.width(8.dp))
+        },
+        trailingContent = {
             Box(
                 modifier = Modifier.size(width = ActionSlotWidth, height = ActionSlotHeight),
                 contentAlignment = Alignment.Center,
@@ -301,8 +249,8 @@ private fun PackageRow(
                     }
                 }
             }
-        }
-    }
+        },
+    )
 }
 
 @Composable
