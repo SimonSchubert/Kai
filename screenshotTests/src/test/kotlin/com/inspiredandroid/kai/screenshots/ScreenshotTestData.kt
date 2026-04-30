@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.screenshots
 
+import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.MemoryEntry
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.getPlatformToolDefinitions
@@ -14,7 +15,6 @@ import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import com.inspiredandroid.kai.ui.settings.SettingsTab
 import com.inspiredandroid.kai.ui.settings.SettingsUiState
-import com.inspiredandroid.kai.TerminalLine
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.json.Json
