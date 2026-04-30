@@ -54,6 +54,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxSessions
+import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.sandbox.SandboxSessionViewModel
 import kai.composeapp.generated.resources.Res
@@ -126,9 +128,20 @@ fun TerminalContent(
     val sessionInputText = sessionViewModel?.inputText?.collectAsStateWithLifecycle()?.value
     val sessionIsRunning = sessionViewModel?.isRunning?.collectAsStateWithLifecycle()?.value
     val sessionActiveHandle = sessionViewModel?.activeHandle?.collectAsStateWithLifecycle()?.value
+    // Reading selectedSessionId here — even though we don't use the value
+    // directly — forces this composable to recompose when the user picks a
+    // different chip. Without it, switching between two idle sessions doesn't
+    // change inputText/isRunning/activeHandle, so Compose wouldn't re-evaluate
+    // the outputLines property getter and we'd keep rendering the previous
+    // session's transcript.
+    val selectedSessionId = sessionViewModel?.selectedSessionId?.collectAsStateWithLifecycle()?.value
 
-    val outputLines = sessionViewModel?.outputLines
-        ?: remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
+    val outputLines = if (sessionViewModel != null) {
+        @Suppress("UNUSED_EXPRESSION") selectedSessionId
+        sessionViewModel.outputLines
+    } else {
+        remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
+    }
     var localInputText by remember { mutableStateOf("") }
     val inputText: String = sessionInputText ?: localInputText
     val setInputText: (String) -> Unit = sessionViewModel?.let { vm ->
@@ -269,7 +282,9 @@ fun TerminalContent(
             }
         }
 
-        LaunchedEffect(listState, isRunning) {
+        // Re-key the auto-scroll on outputLines so switching sessions detaches
+        // from the previous session's list and starts following the new one.
+        LaunchedEffect(listState, isRunning, outputLines) {
             snapshotFlow { outputLines.size }.collect { size ->
                 val lastIndex = size - 1 + if (isRunning) 1 else 0
                 if (lastIndex < 0) return@collect
@@ -388,6 +403,7 @@ private suspend fun runCommand(
                 command = command,
                 onStdout = { line -> channel.trySend(TerminalLine.Output(line)) },
                 onStderr = { line -> channel.trySend(TerminalLine.Error(line)) },
+                sessionId = SandboxSessions.TERMINAL,
             )
             handle = h
             setHandle(h)
@@ -444,8 +460,3 @@ private fun pruneOutput(outputLines: MutableList<TerminalLine>) {
     }
 }
 
-sealed interface TerminalLine {
-    data class Command(val text: String) : TerminalLine
-    data class Output(val text: String) : TerminalLine
-    data class Error(val text: String) : TerminalLine
-}

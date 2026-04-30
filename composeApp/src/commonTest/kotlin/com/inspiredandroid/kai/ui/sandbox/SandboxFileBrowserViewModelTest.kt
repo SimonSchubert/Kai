@@ -36,6 +36,7 @@ class SandboxFileBrowserViewModelTest {
 
     private class FakeFileBrowserController : SandboxController {
         override val status = MutableStateFlow(SandboxStatus())
+        override val sessions = MutableStateFlow<List<String>>(emptyList())
 
         val entriesByPath = mutableMapOf<String, MutableList<SandboxFileEntry>>()
         val files = mutableMapOf<String, String>() // path -> text content
@@ -49,11 +50,12 @@ class SandboxFileBrowserViewModelTest {
         override fun cancel() {}
         override fun reset() {}
         override fun installPackages() {}
-        override suspend fun executeCommand(command: String): String = ""
+        override suspend fun executeCommand(command: String, sessionId: String): String = ""
         override suspend fun executeCommandStreaming(
             command: String,
             onStdout: (String) -> Unit,
             onStderr: (String) -> Unit,
+            sessionId: String,
         ): CommandHandle = NoOpCommandHandle
 
         override suspend fun listDirectory(path: String): List<SandboxFileEntry> = entriesByPath[path]?.toList().orEmpty()

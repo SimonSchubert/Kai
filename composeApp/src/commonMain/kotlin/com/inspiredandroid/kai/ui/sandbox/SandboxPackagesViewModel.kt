@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxSessions
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_packages_install_failed
 import kai.composeapp.generated.resources.sandbox_packages_install_success
@@ -77,7 +78,7 @@ class SandboxPackagesViewModel(
 
     private suspend fun loadInstalled(): List<PackageEntry> {
         val cmd = "apk info -v | sort"
-        val output = sandboxController.executeCommand(cmd)
+        val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("loadInstalled", cmd, output)
         return parseInfoLines(output)
     }
@@ -107,7 +108,7 @@ class SandboxPackagesViewModel(
 
     private suspend fun runSearch(query: String) {
         val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_RESULT_LIMIT"
-        val output = sandboxController.executeCommand(cmd)
+        val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
         val results = parseSearchLines(output)
         _state.update {
@@ -240,6 +241,7 @@ class SandboxPackagesViewModel(
             command = cmd,
             onStdout = { stdoutChannel.trySend(it) },
             onStderr = { stderrChannel.trySend(it) },
+            sessionId = SandboxSessions.SYSTEM,
         )
         val exit = handle.awaitExit()
         stdoutChannel.close()

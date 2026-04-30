@@ -2,6 +2,7 @@
 
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.email.EmailPoller
@@ -135,6 +136,7 @@ class RemoteDataRepository(
     private val notificationStore: NotificationStore,
     private val notificationListenerController: NotificationListenerController,
     private val mcpServerManager: McpServerManager,
+    private val sandboxController: SandboxController,
     private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
 
@@ -540,7 +542,7 @@ class RemoteDataRepository(
         }
         val startTime = Clock.System.now().toEpochMilliseconds()
         val result = try {
-            toolExecutor.executeTool(name, arguments)
+            toolExecutor.executeTool(name, arguments, _currentConversationId.value)
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             """{"success": false, "error": "${e.message ?: "Tool execution failed"}"}"""
@@ -646,6 +648,16 @@ class RemoteDataRepository(
     }
 
     override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
+        // Allocate a conversation id immediately for fresh chats. Without this,
+        // the very first tool call lands here with _currentConversationId.value
+        // still null, so per-conversation routing (e.g. the sandbox shell)
+        // falls through to a shared default — which both makes the new chat
+        // invisible in the Terminal session picker and lets unrelated callers
+        // collide on the same shell mutex. Persistence is deferred to the
+        // existing saveCurrentConversation() flow that runs after the response.
+        if (_currentConversationId.value == null) {
+            setCurrentConversationId(Uuid.random().toString())
+        }
         // Process every attached file: classify, compress/encode, and build an Attachment.
         // readBytes() is suspend, so this happens before the StateFlow.update block.
         val attachments = files.map { file ->
@@ -1221,12 +1233,15 @@ class RemoteDataRepository(
             }
         }
 
-        // Execute all tools concurrently, ensuring indicators show for at least 2 seconds
+        // Execute all tools concurrently, ensuring indicators show for at least 2 seconds.
+        // Snapshot the conversation id once so all parallel tool calls in this batch
+        // see a stable value even if the user switches conversations mid-flight.
+        val conversationIdSnapshot = _currentConversationId.value
         val startTime = Clock.System.now().toEpochMilliseconds()
         val results = coroutineScope {
             toolCalls.map { (callId, name, arguments) ->
                 async {
-                    val result = toolExecutor.executeTool(name, arguments)
+                    val result = toolExecutor.executeTool(name, arguments, conversationIdSnapshot)
                     Triple(callId, name, result)
                 }
             }.awaitAll()
@@ -1522,6 +1537,10 @@ class RemoteDataRepository(
             chatHistory.value = emptyList()
         }
         conversationStorage.deleteConversation(id)
+        // Drop the per-conversation shell session so a future conversation reusing
+        // this id (very unlikely — random uuids) doesn't inherit stale state, and
+        // memory is freed.
+        sandboxController.closeSession(id)
     }
 
     override fun regenerate() {

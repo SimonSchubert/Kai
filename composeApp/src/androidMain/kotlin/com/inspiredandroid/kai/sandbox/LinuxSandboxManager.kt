@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.sandbox
 
 import android.content.Context
 import android.os.Build
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.TerminalLine
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import kotlinx.coroutines.CoroutineScope
@@ -188,9 +190,58 @@ class LinuxSandboxManager(private val context: Context) {
         tmpPath = tmpPath,
     )
 
+    // One bash session per logical caller (chat conversation, terminal scratch,
+    // package-manager UI, etc.). Lazily created on first access; tracked here so
+    // the sandbox-level `reset()` and per-conversation deletion can tear them
+    // down. Live during the app process only — not persisted.
+    private val shells = mutableMapOf<String, SessionShell>()
+    private val _sessions = MutableStateFlow<List<String>>(emptyList())
+    val sessions: StateFlow<List<String>> = _sessions
+
+    fun shellFor(sessionId: String): SessionShell = synchronized(shells) {
+        shells[sessionId]?.let { return it }
+        val inner = PersistentSandboxShell(createProotExecutor(), tmpPath)
+        val wrapper = SessionShell(sessionId, inner)
+        shells[sessionId] = wrapper
+        _sessions.value = shells.keys.toList()
+        wrapper
+    }
+
+    fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> =
+        shellFor(sessionId).transcript
+
+    fun clearTranscript(sessionId: String) {
+        synchronized(shells) { shells[sessionId] }?.transcript?.clear()
+    }
+
+    fun closeShell(sessionId: String) {
+        val removed = synchronized(shells) {
+            val s = shells.remove(sessionId)
+            _sessions.value = shells.keys.toList()
+            s
+        }
+        removed?.reset()
+    }
+
+    private fun closeAllShells() {
+        val all = synchronized(shells) {
+            val snapshot = shells.values.toList()
+            shells.clear()
+            _sessions.value = emptyList()
+            snapshot
+        }
+        all.forEach { it.reset() }
+    }
+
     fun installPackages() {
         if (currentJob?.isActive == true) return
-        val packages = listOf("bash", "curl", "wget", "git", "jq", "python3", "py3-pip", "nodejs")
+        val packages = listOf(
+            "bash", "curl", "wget", "git", "jq", "python3", "py3-pip", "nodejs",
+            // Remote-server tooling (issue #214). apk add is idempotent so
+            // existing installs that bump into this list pay nothing for the
+            // already-present ones.
+            "openssh-client", "lftp", "rsync",
+        )
         currentJob = scope.launch {
             try {
                 val executor = createProotExecutor()
@@ -223,6 +274,7 @@ class LinuxSandboxManager(private val context: Context) {
 
     fun reset() {
         scope.launch {
+            closeAllShells()
             sandboxDir.deleteRecursively()
             _state.value = SandboxState.NotInstalled
         }
@@ -235,6 +287,10 @@ class LinuxSandboxManager(private val context: Context) {
 
     fun arePackagesInstalled(): Boolean {
         if (_state.value !is SandboxState.Ready) return false
-        return File(rootfsPath, "usr/bin/python3").exists()
+        // Both checks must pass: existing installs that predate the SSH bundle
+        // will report not-installed and re-prompt, picking up the new packages
+        // on the next install run (apk skips already-installed ones).
+        return File(rootfsPath, "usr/bin/python3").exists() &&
+            File(rootfsPath, "usr/bin/ssh").exists()
     }
 }

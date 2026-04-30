@@ -37,7 +37,7 @@ import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SettingsCard
 import com.inspiredandroid.kai.ui.settings.TerminalContent
 import com.inspiredandroid.kai.ui.settings.TerminalDarkBg
-import com.inspiredandroid.kai.ui.settings.TerminalLine
+import com.inspiredandroid.kai.TerminalLine
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kai.composeapp.generated.resources.settings_sandbox_description
@@ -76,19 +76,24 @@ internal fun SandboxTabsContent(
 
             Box(modifier = Modifier.fillMaxWidth().weight(1f)) {
                 when (subTab) {
-                    SandboxSubTab.Terminal -> Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        shape = RoundedCornerShape(12.dp),
-                        color = TerminalDarkBg,
-                        tonalElevation = 2.dp,
-                    ) {
-                        TerminalContent(
-                            sandboxController = sandboxController,
-                            modifier = Modifier.fillMaxSize(),
-                            darkBackground = true,
-                            initialLines = previewLines,
-                            sessionViewModel = sessionViewModel,
-                        )
+                    SandboxSubTab.Terminal -> Column(modifier = Modifier.fillMaxSize()) {
+                        if (sessionViewModel != null) {
+                            SessionChipRow(viewModel = sessionViewModel)
+                        }
+                        Surface(
+                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            shape = RoundedCornerShape(12.dp),
+                            color = TerminalDarkBg,
+                            tonalElevation = 2.dp,
+                        ) {
+                            TerminalContent(
+                                sandboxController = sandboxController,
+                                modifier = Modifier.fillMaxSize(),
+                                darkBackground = true,
+                                initialLines = previewLines,
+                                sessionViewModel = sessionViewModel,
+                            )
+                        }
                     }
 
                     SandboxSubTab.Files -> SandboxFilesContent(
@@ -137,6 +142,48 @@ internal fun SandboxTabsContent(
                         Text(stringResource(Res.string.settings_sandbox_install))
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SessionChipRow(viewModel: SandboxSessionViewModel) {
+    val tabs = viewModel.visibleSessions.collectAsStateWithLifecycle().value
+    val selectedId = viewModel.selectedSessionId.collectAsStateWithLifecycle().value
+    if (tabs.size <= 1) return // Nothing to switch between — keep the UI quiet.
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
+            .padding(horizontal = 4.dp, vertical = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        tabs.forEach { tab ->
+            val isSelected = tab.id == selectedId
+            Surface(
+                modifier = Modifier
+                    .handCursor()
+                    .clip(RoundedCornerShape(50))
+                    .clickable { viewModel.selectSession(tab.id) },
+                shape = RoundedCornerShape(50),
+                color = if (isSelected) {
+                    MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)
+                } else {
+                    Color.Transparent
+                },
+            ) {
+                Text(
+                    text = tab.label,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                    color = if (isSelected) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    style = MaterialTheme.typography.labelMedium,
+                    maxLines = 1,
+                )
             }
         }
     }

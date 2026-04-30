@@ -1,18 +1,21 @@
 package com.inspiredandroid.kai
 
 import android.content.Context
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
-import com.inspiredandroid.kai.sandbox.ProotHandle
+import com.inspiredandroid.kai.sandbox.SessionShell
 import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sandbox.openFileWithIntent
 import com.inspiredandroid.kai.sandbox.resolveSandboxAbsolute
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicBoolean
 import org.koin.java.KoinJavaComponent.inject
 import java.io.File
 import java.io.IOException
@@ -29,6 +32,7 @@ class AndroidSandboxController : SandboxController {
     private var previousState: SandboxState? = null
     private val _status = MutableStateFlow(SandboxStatus())
     override val status: StateFlow<SandboxStatus> = _status
+    override val sessions: StateFlow<List<String>> = sandboxManager.sessions
 
     init {
         // Synchronously seed the status from the manager's current state so the
@@ -121,12 +125,22 @@ class AndroidSandboxController : SandboxController {
         sandboxManager.installPackages()
     }
 
-    override suspend fun executeCommand(command: String): String = withContext(Dispatchers.IO) {
+    override fun closeSession(sessionId: String) {
+        sandboxManager.closeShell(sessionId)
+    }
+
+    override fun transcriptFor(sessionId: String): SnapshotStateList<com.inspiredandroid.kai.TerminalLine> =
+        sandboxManager.transcriptFor(sessionId)
+
+    override fun clearTranscript(sessionId: String) {
+        sandboxManager.clearTranscript(sessionId)
+    }
+
+    override suspend fun executeCommand(command: String, sessionId: String): String = withContext(Dispatchers.IO) {
         val state = sandboxManager.state.value
         if (state !is SandboxState.Ready) return@withContext SANDBOX_NOT_READY
 
-        val executor = sandboxManager.createProotExecutor()
-        val result = executor.execute(command, timeoutSeconds = 30)
+        val result = sandboxManager.shellFor(sessionId).run(command, timeoutSeconds = 30)
 
         val stdout = result["stdout"] as? String ?: ""
         val stderr = result["stderr"] as? String ?: ""
@@ -153,21 +167,32 @@ class AndroidSandboxController : SandboxController {
         command: String,
         onStdout: (String) -> Unit,
         onStderr: (String) -> Unit,
+        sessionId: String,
     ): CommandHandle {
         val state = sandboxManager.state.value
         if (state !is SandboxState.Ready) {
             onStderr(SANDBOX_NOT_READY)
             return NoOpCommandHandle
         }
-        val executor = sandboxManager.createProotExecutor()
-        val handle = withContext(Dispatchers.IO) {
-            executor.executeStreaming(
-                command = command,
-                onStdout = onStdout,
-                onStderr = onStderr,
-            )
+        val shell = sandboxManager.shellFor(sessionId)
+        val deferred = CompletableDeferred<Map<String, Any>>()
+        val cancelled = AtomicBoolean(false)
+        // No implicit timeout in the streaming path — UI cancel + process exit
+        // are the real "done" signals. The persistent shell still recovers
+        // from a wedged shell via reset() on the next call.
+        val streamingTimeoutSeconds = 24L * 60 * 60
+        scope.launch {
+            runCatching {
+                shell.run(
+                    command = command,
+                    timeoutSeconds = streamingTimeoutSeconds,
+                    onStdout = onStdout,
+                    onStderr = onStderr,
+                )
+            }.onSuccess { deferred.complete(it) }
+                .onFailure { deferred.complete(mapOf("exit_code" to -1)) }
         }
-        return ProotCommandHandle(handle)
+        return PersistentCommandHandle(shell, deferred, cancelled)
     }
 
     override suspend fun listDirectory(path: String): List<SandboxFileEntry> = withContext(Dispatchers.IO) {
@@ -297,11 +322,18 @@ private fun File.toEntry(parent: String): SandboxFileEntry = SandboxFileEntry(
 
 private const val SANDBOX_NOT_READY = "Sandbox is not ready"
 
-private class ProotCommandHandle(private val handle: ProotHandle) : CommandHandle {
-    override fun cancel() = handle.cancel()
-    override fun isCancelled(): Boolean = handle.isCancelled()
-    override suspend fun writeInput(line: String) {
-        withContext(Dispatchers.IO) { handle.writeInput(line) }
+private class PersistentCommandHandle(
+    private val shell: SessionShell,
+    private val result: CompletableDeferred<Map<String, Any>>,
+    private val cancelled: AtomicBoolean,
+) : CommandHandle {
+    override fun cancel() {
+        cancelled.set(true)
+        shell.cancelForeground()
     }
-    override suspend fun awaitExit(): Int = withContext(Dispatchers.IO) { handle.awaitExit() }
+    override fun isCancelled(): Boolean = cancelled.get()
+    override suspend fun writeInput(line: String) {
+        withContext(Dispatchers.IO) { shell.writeInput(line) }
+    }
+    override suspend fun awaitExit(): Int = (result.await()["exit_code"] as? Int) ?: -1
 }

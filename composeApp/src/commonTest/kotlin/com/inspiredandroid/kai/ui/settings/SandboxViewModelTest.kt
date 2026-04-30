@@ -30,6 +30,7 @@ class SandboxViewModelTest {
 
     private class FakeSandboxController : SandboxController {
         override val status = MutableStateFlow(SandboxStatus())
+        override val sessions = MutableStateFlow<List<String>>(emptyList())
         var setupCalls = 0
         var cancelCalls = 0
         var resetCalls = 0
@@ -51,12 +52,13 @@ class SandboxViewModelTest {
             installPackagesCalls++
         }
 
-        override suspend fun executeCommand(command: String): String = ""
+        override suspend fun executeCommand(command: String, sessionId: String): String = ""
 
         override suspend fun executeCommandStreaming(
             command: String,
             onStdout: (String) -> Unit,
             onStderr: (String) -> Unit,
+            sessionId: String,
         ): CommandHandle = NoOpCommandHandle
 
         override suspend fun listDirectory(path: String): List<SandboxFileEntry> = emptyList()

@@ -4,6 +4,7 @@ import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
 import com.inspiredandroid.kai.smartTruncate
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -34,7 +35,11 @@ class ToolExecutor {
         else -> element.toString()
     }
 
-    suspend fun executeTool(name: String, arguments: String): String {
+    suspend fun executeTool(
+        name: String,
+        arguments: String,
+        conversationId: String? = null,
+    ): String {
         val tools = getAvailableTools()
         val tool = tools.find { it.schema.name == name }
             ?: return """{"success": false, "error": "Unknown tool: $name"}"""
@@ -47,7 +52,11 @@ class ToolExecutor {
 
         return try {
             val result = withTimeout(tool.timeout) {
-                tool.execute(args)
+                if (conversationId != null) {
+                    withContext(ConversationIdElement(conversationId)) { tool.execute(args) }
+                } else {
+                    tool.execute(args)
+                }
             }
             val resultString = when (result) {
                 is Map<*, *> -> {

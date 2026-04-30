@@ -1,40 +1,61 @@
 package com.inspiredandroid.kai.ui.sandbox
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.SandboxController
-import com.inspiredandroid.kai.ui.settings.TerminalLine
+import com.inspiredandroid.kai.SandboxSessions
+import com.inspiredandroid.kai.TerminalLine
+import com.inspiredandroid.kai.data.DataRepository
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.milliseconds
 
-private const val MAX_OUTPUT_LINES = 500
-private const val STREAM_BUFFER_CAPACITY = 256
-private const val STREAM_FLUSH_INTERVAL_MS = 32L
-private const val STREAM_FLUSH_BATCH_MAX = 200
-
-private const val DEFAULT_WORKING_DIR = "/root"
+data class SessionTab(
+    val id: String,
+    val label: String,
+    val isTerminal: Boolean,
+)
 
 class SandboxSessionViewModel(
     private val sandboxController: SandboxController,
+    private val dataRepository: DataRepository,
 ) : ViewModel() {
+
+    /**
+     * Per-session UI state held entirely in the VM. The output buffer lives on
+     * the manager (see [SandboxController.transcriptFor]) so commands the agent
+     * runs through the chat tool show up here too.
+     */
+    private class SessionState {
+        var inputText: String = ""
+        var isRunning: Boolean = false
+        var activeHandle: CommandHandle? = null
+    }
+
+    private val statesMap = mutableMapOf<String, SessionState>()
+
+    /** Stable monotonic numbers for chat-shell chip labels. Never reused. */
+    private val sessionNumbers = mutableMapOf<String, Int>()
+    private var nextSessionNumber = 1
 
     private val selectedTabState = MutableStateFlow(SandboxSubTab.Terminal)
     internal val selectedTab = selectedTabState.asStateFlow()
 
+    private val _selectedSessionId = MutableStateFlow(SandboxSessions.TERMINAL)
+    val selectedSessionId = _selectedSessionId.asStateFlow()
+
+    private val _visibleSessions = MutableStateFlow<List<SessionTab>>(
+        listOf(SessionTab(SandboxSessions.TERMINAL, "Terminal", isTerminal = true)),
+    )
+    val visibleSessions = _visibleSessions.asStateFlow()
+
     private val _inputText = MutableStateFlow("")
     val inputText = _inputText.asStateFlow()
-
-    val outputLines: SnapshotStateList<TerminalLine> = mutableStateListOf()
 
     private val _isRunning = MutableStateFlow(false)
     val isRunning = _isRunning.asStateFlow()
@@ -42,146 +63,136 @@ class SandboxSessionViewModel(
     private val _activeHandle = MutableStateFlow<CommandHandle?>(null)
     val activeHandle = _activeHandle.asStateFlow()
 
-    private var currentWorkingDir: String = DEFAULT_WORKING_DIR
+    val outputLines: SnapshotStateList<TerminalLine>
+        get() = sandboxController.transcriptFor(_selectedSessionId.value)
+
+    init {
+        sessionState(SandboxSessions.TERMINAL)
+
+        // First open from a chat: bias the initial selection toward that chat's
+        // shell so the user sees the same state the agent is operating on.
+        val initialChatId = dataRepository.currentConversationId.value
+        if (initialChatId != null) selectSession(initialChatId)
+
+        viewModelScope.launch {
+            combine(
+                sandboxController.sessions,
+                dataRepository.savedConversations,
+            ) { activeIds, conversations ->
+                buildVisibleSessions(activeIds, conversations)
+            }.collect { tabs ->
+                _visibleSessions.value = tabs
+                if (tabs.none { it.id == _selectedSessionId.value }) {
+                    selectSession(SandboxSessions.TERMINAL)
+                }
+            }
+        }
+    }
+
+    private fun buildVisibleSessions(
+        activeIds: List<String>,
+        conversations: List<com.inspiredandroid.kai.data.Conversation>,
+    ): List<SessionTab> {
+        val terminal = SessionTab(SandboxSessions.TERMINAL, "Terminal", isTerminal = true)
+        val chatTabs = activeIds
+            .filter {
+                it != SandboxSessions.TERMINAL &&
+                    it != SandboxSessions.SYSTEM &&
+                    it != SandboxSessions.DEFAULT
+            }
+            .map { id -> SessionTab(id = id, label = "#${numberFor(id)}", isTerminal = false) }
+        return listOf(terminal) + chatTabs
+    }
+
+    private fun numberFor(id: String): Int =
+        sessionNumbers.getOrPut(id) { nextSessionNumber++ }
+
+    private fun sessionState(id: String): SessionState =
+        statesMap.getOrPut(id) { SessionState() }
 
     internal fun selectTab(tab: SandboxSubTab) {
         selectedTabState.value = tab
     }
 
+    fun selectSession(id: String) {
+        // Save the live flow values into the *previous* session before switching,
+        // so input the user typed doesn't get lost.
+        val prev = sessionState(_selectedSessionId.value)
+        prev.inputText = _inputText.value
+
+        val target = sessionState(id)
+        _selectedSessionId.value = id
+        _inputText.value = target.inputText
+        _isRunning.value = target.isRunning
+        _activeHandle.value = target.activeHandle
+    }
+
     fun setInputText(text: String) {
         _inputText.value = text
+        sessionState(_selectedSessionId.value).inputText = text
     }
 
     fun submit() {
+        val sid = _selectedSessionId.value
+        val s = sessionState(sid)
         val line = _inputText.value
         if (line.isBlank()) return
         _inputText.value = ""
-        val handle = _activeHandle.value
-        if (_isRunning.value && handle != null) {
-            outputLines.add(TerminalLine.Output(line))
+        s.inputText = ""
+        if (s.isRunning && s.activeHandle != null) {
+            // Echo what the user typed so they can see they were heard. The
+            // shell will swallow the line as stdin to the foreground command,
+            // so it won't otherwise appear in the transcript.
+            sandboxController.transcriptFor(sid).add(TerminalLine.Output(line))
+            val handle = s.activeHandle ?: return
             viewModelScope.launch { handle.writeInput(line) }
-        } else if (!_isRunning.value) {
-            viewModelScope.launch { runCommand(line.trim()) }
+        } else if (!s.isRunning) {
+            viewModelScope.launch { runCommand(sid, s, line.trim()) }
         }
     }
 
     fun cancelRunning() {
-        _activeHandle.value?.cancel()
+        sessionState(_selectedSessionId.value).activeHandle?.cancel()
     }
 
-    private suspend fun runCommand(command: String) {
+    private suspend fun runCommand(sessionId: String, s: SessionState, command: String) {
         if (command == "clear") {
-            outputLines.clear()
+            sandboxController.clearTranscript(sessionId)
             return
         }
-        outputLines.add(TerminalLine.Command(command))
-        _isRunning.value = true
+        s.isRunning = true
+        if (sessionId == _selectedSessionId.value) _isRunning.value = true
 
-        val channel = Channel<TerminalLine>(
-            capacity = STREAM_BUFFER_CAPACITY,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST,
-        )
-
-        val cwdMarker = "__KAI_CWD_${randomMarkerSuffix()}__:"
-        val wrapped = wrapCommandForCwdTracking(command, currentWorkingDir, cwdMarker)
-        val onCwdLine: (String) -> Unit = { line -> currentWorkingDir = line }
-
-        var handle: CommandHandle? = null
         try {
             coroutineScope {
-                val drainJob = launch { drainStreamedLines(channel, outputLines) }
-                val h = sandboxController.executeCommandStreaming(
-                    command = wrapped,
-                    onStdout = { line ->
-                        if (!handleCwdMarker(line, cwdMarker, onCwdLine)) {
-                            channel.trySend(TerminalLine.Output(line))
-                        }
-                    },
-                    onStderr = { line -> channel.trySend(TerminalLine.Error(line)) },
+                val handle = sandboxController.executeCommandStreaming(
+                    command = command,
+                    onStdout = { /* transcript is populated by the shell wrapper */ },
+                    onStderr = { /* transcript is populated by the shell wrapper */ },
+                    sessionId = sessionId,
                 )
-                handle = h
-                _activeHandle.value = h
-                try {
-                    h.awaitExit()
-                } finally {
-                    channel.close()
-                    drainJob.join()
+                s.activeHandle = handle
+                if (sessionId == _selectedSessionId.value) _activeHandle.value = handle
+                handle.awaitExit()
+                if (handle.isCancelled()) {
+                    sandboxController.transcriptFor(sessionId).add(TerminalLine.Output("^C"))
                 }
-            }
-            if (handle?.isCancelled() == true) {
-                outputLines.add(TerminalLine.Output("^C"))
             }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            outputLines.add(TerminalLine.Error(e.message ?: "Command failed"))
+            sandboxController.transcriptFor(sessionId)
+                .add(TerminalLine.Error(e.message ?: "Command failed"))
         } finally {
-            _activeHandle.value = null
-            pruneOutput(outputLines)
-            _isRunning.value = false
+            s.activeHandle = null
+            if (sessionId == _selectedSessionId.value) _activeHandle.value = null
+            s.isRunning = false
+            if (sessionId == _selectedSessionId.value) _isRunning.value = false
         }
     }
 
     override fun onCleared() {
-        _activeHandle.value?.cancel()
+        statesMap.values.forEach { it.activeHandle?.cancel() }
         super.onCleared()
     }
 }
-
-private suspend fun drainStreamedLines(
-    channel: Channel<TerminalLine>,
-    outputLines: MutableList<TerminalLine>,
-) {
-    while (true) {
-        val batch = ArrayList<TerminalLine>(STREAM_FLUSH_BATCH_MAX)
-        var closed = false
-        while (batch.size < STREAM_FLUSH_BATCH_MAX) {
-            val result = channel.tryReceive()
-            if (result.isSuccess) {
-                batch.add(result.getOrThrow())
-            } else {
-                if (result.isClosed) closed = true
-                break
-            }
-        }
-        if (batch.isNotEmpty()) {
-            outputLines.addAll(batch)
-            pruneOutput(outputLines)
-        }
-        if (closed) break
-        delay(STREAM_FLUSH_INTERVAL_MS.milliseconds)
-    }
-}
-
-private fun pruneOutput(outputLines: MutableList<TerminalLine>) {
-    val excess = outputLines.size - MAX_OUTPUT_LINES
-    if (excess > 0) {
-        outputLines.subList(0, excess).clear()
-    }
-}
-
-internal fun wrapCommandForCwdTracking(
-    userCommand: String,
-    workingDir: String,
-    marker: String,
-): String {
-    val quotedCwd = shellSingleQuote(workingDir)
-    val quotedFallback = shellSingleQuote(DEFAULT_WORKING_DIR)
-    val quotedMarker = shellSingleQuote(marker)
-    return "cd $quotedCwd 2>/dev/null || cd $quotedFallback; { $userCommand\n}; __kai_st=\$?; printf '%s%s\\n' $quotedMarker \"\$(pwd)\"; exit \$__kai_st"
-}
-
-internal fun handleCwdMarker(
-    line: String,
-    marker: String,
-    onCwd: (String) -> Unit,
-): Boolean {
-    if (!line.startsWith(marker)) return false
-    val cwd = line.substring(marker.length)
-    if (cwd.startsWith("/")) onCwd(cwd)
-    return true
-}
-
-private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
-
-private fun randomMarkerSuffix(): String = (0 until 16).map { "0123456789abcdef".random() }.joinToString("")
