@@ -207,8 +207,7 @@ class LinuxSandboxManager(private val context: Context) {
         wrapper
     }
 
-    fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> =
-        shellFor(sessionId).transcript
+    fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> = shellFor(sessionId).transcript
 
     fun clearTranscript(sessionId: String) {
         synchronized(shells) { shells[sessionId] }?.transcript?.clear()

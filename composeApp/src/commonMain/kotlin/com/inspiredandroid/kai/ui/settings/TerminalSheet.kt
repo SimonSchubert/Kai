@@ -137,7 +137,8 @@ fun TerminalContent(
     val selectedSessionId = sessionViewModel?.selectedSessionId?.collectAsStateWithLifecycle()?.value
 
     val outputLines = if (sessionViewModel != null) {
-        @Suppress("UNUSED_EXPRESSION") selectedSessionId
+        @Suppress("UNUSED_EXPRESSION")
+        selectedSessionId
         sessionViewModel.outputLines
     } else {
         remember { mutableStateListOf<TerminalLine>().apply { addAll(initialLines) } }
@@ -459,4 +460,3 @@ private fun pruneOutput(outputLines: MutableList<TerminalLine>) {
         outputLines.subList(0, excess).clear()
     }
 }
-

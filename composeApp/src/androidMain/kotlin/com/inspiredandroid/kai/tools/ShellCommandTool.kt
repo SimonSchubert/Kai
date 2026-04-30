@@ -105,8 +105,7 @@ object ShellCommandTool : Tool {
         )
     }
 
-    private fun shellSingleQuote(value: String): String =
-        "'" + value.replace("'", "'\\''") + "'"
+    private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
 
     val toolInfo = ToolInfo(
         id = "execute_shell_command",

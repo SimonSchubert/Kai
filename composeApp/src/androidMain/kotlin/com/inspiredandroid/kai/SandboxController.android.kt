@@ -3,22 +3,22 @@ package com.inspiredandroid.kai
 import android.content.Context
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
-import com.inspiredandroid.kai.sandbox.SessionShell
 import com.inspiredandroid.kai.sandbox.SandboxState
+import com.inspiredandroid.kai.sandbox.SessionShell
 import com.inspiredandroid.kai.sandbox.openFileWithIntent
 import com.inspiredandroid.kai.sandbox.resolveSandboxAbsolute
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.atomic.AtomicBoolean
 import org.koin.java.KoinJavaComponent.inject
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.atomic.AtomicBoolean
 
 actual fun createSandboxController(): SandboxController = AndroidSandboxController()
 
@@ -129,8 +129,7 @@ class AndroidSandboxController : SandboxController {
         sandboxManager.closeShell(sessionId)
     }
 
-    override fun transcriptFor(sessionId: String): SnapshotStateList<com.inspiredandroid.kai.TerminalLine> =
-        sandboxManager.transcriptFor(sessionId)
+    override fun transcriptFor(sessionId: String): SnapshotStateList<com.inspiredandroid.kai.TerminalLine> = sandboxManager.transcriptFor(sessionId)
 
     override fun clearTranscript(sessionId: String) {
         sandboxManager.clearTranscript(sessionId)

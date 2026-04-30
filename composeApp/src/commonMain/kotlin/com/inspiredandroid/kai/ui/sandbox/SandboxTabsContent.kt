@@ -32,12 +32,12 @@ import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SettingsCard
 import com.inspiredandroid.kai.ui.settings.TerminalContent
 import com.inspiredandroid.kai.ui.settings.TerminalDarkBg
-import com.inspiredandroid.kai.TerminalLine
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kai.composeapp.generated.resources.settings_sandbox_description

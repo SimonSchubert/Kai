@@ -20,10 +20,11 @@ private const val MAX_OUTPUT_LENGTH = 15_000
 // escapes for portability across bash/busybox printf.
 private const val RS = ""
 private const val US = ""
+
 // Marker emitted once at shell startup so we know bash's pid before any user
 // command has finished. Without this, cancel on the first command had nothing
 // to signal (bashPid was null, set only from the sentinel of a completed run).
-private const val PID_PROBE_PREFIX = "${RS}KAIBASHPID${US}"
+private const val PID_PROBE_PREFIX = "${RS}KAIBASHPID$US"
 
 class PersistentSandboxShell(
     private val executor: ProotExecutor,
@@ -33,6 +34,7 @@ class PersistentSandboxShell(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     @Volatile private var handle: ProotHandle? = null
+
     @Volatile private var bashPid: Int? = null
     private var watchdog: Job? = null
     private val currentSink = AtomicReference<CommandSink?>(null)
@@ -284,5 +286,4 @@ private fun appendBounded(buf: StringBuilder, line: String) {
     buf.append(line)
 }
 
-private fun randomNonce(): String =
-    (0 until 16).map { "0123456789abcdef".random() }.joinToString("")
+private fun randomNonce(): String = (0 until 16).map { "0123456789abcdef".random() }.joinToString("")

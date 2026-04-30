@@ -104,11 +104,9 @@ class SandboxSessionViewModel(
         return listOf(terminal) + chatTabs
     }
 
-    private fun numberFor(id: String): Int =
-        sessionNumbers.getOrPut(id) { nextSessionNumber++ }
+    private fun numberFor(id: String): Int = sessionNumbers.getOrPut(id) { nextSessionNumber++ }
 
-    private fun sessionState(id: String): SessionState =
-        statesMap.getOrPut(id) { SessionState() }
+    private fun sessionState(id: String): SessionState = statesMap.getOrPut(id) { SessionState() }
 
     internal fun selectTab(tab: SandboxSubTab) {
         selectedTabState.value = tab
