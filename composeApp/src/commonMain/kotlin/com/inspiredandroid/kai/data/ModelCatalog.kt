@@ -784,6 +784,7 @@ internal object ModelCatalog {
         "grok-4.20-beta1" to CuratedModelInfo("Grok 4.20 Beta 1", 256_000, "2026-03"),
         "grok-4.20-beta-0309-reasoning" to CuratedModelInfo("Grok 4.20 Beta Reasoning", 256_000, "2026-03"),
         "grok-4.20-multi-agent-beta-0309" to CuratedModelInfo("Grok 4.20 Multi-Agent Beta", 256_000, "2026-03"),
+        "grok-4.3" to CuratedModelInfo("Grok 4.3", 256_000, "2026-04"),
         "grok-4-1-fast-reasoning" to CuratedModelInfo("Grok 4.1 Fast Reasoning", 2_000_000, "2025-10"),
         "grok-4-fast-chat" to CuratedModelInfo("Grok 4 Fast Chat", 2_000_000, "2025-09"),
         "grok-3-preview-02-24" to CuratedModelInfo("Grok 3 (Preview)", 131_072, "2025-02"),
@@ -1052,6 +1053,7 @@ internal object ModelCatalog {
         "granite-3.3-8b-instruct" to CuratedModelInfo("Granite 3.3 8B", 128_000, "2025-04", "8B"),
         "granite-3.0-3b-a800m-instruct" to CuratedModelInfo("Granite 3.0 3B MoE", 4_096, "2024-10", "3B"),
         "granite-4.0-h-micro" to CuratedModelInfo("Granite 4.0 Micro", 128_000, "2025-10", "3B"),
+        "granite-4.1-8b" to CuratedModelInfo("Granite 4.1 8B", 128_000, "2026-04", "8B"),
         "granite-34b-code-instruct" to CuratedModelInfo("Granite 34B Code", 8_192, "2024-05", "34B"),
         "granite-8b-code-instruct" to CuratedModelInfo("Granite 8B Code", 4_096, "2024-05", "8B"),
         "granite-guardian-3.0-8b" to CuratedModelInfo("Granite Guardian 3.0", 8_192, "2024-10", "8B"),
@@ -1080,6 +1082,7 @@ internal object ModelCatalog {
         "bodybuilder" to CuratedModelInfo("OpenRouter Bodybuilder"),
         "router" to CuratedModelInfo("Switchpoint Router"),
         "elephant-alpha" to CuratedModelInfo("Elephant Alpha", 200_000, "2026-04"),
+        "owl-alpha" to CuratedModelInfo("Owl Alpha", 200_000, "2026-04"),
 
         // ==============================================================
         // Baidu Ernie — additional
@@ -1271,7 +1274,7 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard (2026-04-23).
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard (2026-05-01).
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
@@ -1356,6 +1359,7 @@ internal object ModelCatalog {
         "grok-4.20" to 1479, "grok-4.20-multi-agent" to 1475,
         "grok-4.20-beta1" to 1479, "grok-4.20-beta-0309-reasoning" to 1477,
         "grok-4.20-multi-agent-beta-0309" to 1475,
+        "grok-4.3" to 1470,
         "grok-4.1" to 1460, "grok-4.1-thinking" to 1469,
         "grok-4.1-fast" to 1432, "grok-4-1-fast-reasoning" to 1432,
         "grok-4" to 1410, "grok-4-latest" to 1410, "grok-4-0709" to 1410,
@@ -1515,7 +1519,7 @@ internal object ModelCatalog {
         "ernie-4.0" to 1180, "ernie-4.0-turbo" to 1200, "ernie-4.5" to 1275, "ernie-4.5-21b-a3b" to 1250,
         "ernie-4.5-21b-a3b-thinking" to 1260, "ernie-4.5-300b-a47b" to 1300, "ernie-4.5-turbo" to 1275,
         "ernie-4.5-vl-28b-a3b" to 1240, "ernie-4.5-vl-424b-a47b" to 1290, "ernie-x1" to 1290,
-        "elephant-alpha" to 1380, "eurollm-9b-instruct" to 1100, "falcon3-7b-instruct" to 1120, "free" to 1300, "fuyu-8b" to 1050,
+        "elephant-alpha" to 1380, "eurollm-9b-instruct" to 1100, "falcon3-7b-instruct" to 1120, "free" to 1300, "fuyu-8b" to 1050, "owl-alpha" to 1380,
         "gemini-1.5-flash-001" to 1326, "gemini-1.5-flash-8b" to 1195, "gemini-1.5-flash-8b-001" to 1195, "gemini-1.5-flash-8b-latest" to 1195,
         "gemini-2.0-flash-exp" to 1310, "gemini-2.0-flash-lite-preview" to 1384, "gemini-2.0-flash-lite-preview-02-05" to 1384,
         "gemini-2.0-flash-thinking-exp-1219" to 1355, "gemini-2.5-computer-use-preview-10-2025" to 1400,
@@ -1540,7 +1544,7 @@ internal object ModelCatalog {
         "gpt-audio" to 1350, "gpt-audio-mini" to 1320,
         "granite-3.0-2b-instruct" to 1130, "granite-3.0-3b-a800m-instruct" to 1140, "granite-3.0-8b-instruct" to 1200,
         "granite-3.1-2b-instruct" to 1150, "granite-3.1-8b-instruct" to 1220, "granite-3.3-8b-instruct" to 1250,
-        "granite-34b-code-instruct" to 1180, "granite-4.0-h-micro" to 1260, "granite-8b-code-instruct" to 1120,
+        "granite-34b-code-instruct" to 1180, "granite-4.0-h-micro" to 1260, "granite-4.1-8b" to 1270, "granite-8b-code-instruct" to 1120,
         "grok-2-vision" to 1280, "grok-2-vision-1212" to 1280, "grok-3-fast" to 1393, "grok-3-mini-fast" to 1370,
         "grok-4-fast-non-reasoning" to 1407, "grok-beta" to 1290, "grok-code-fast-1" to 1380, "grok-vision-beta" to 1220,
         "hermes-2-pro-llama-3-8b" to 1150, "hermes-3-llama-3.1-405b" to 1350, "hermes-3-llama-3.1-405b:free" to 1350,
