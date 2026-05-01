@@ -1,0 +1,9 @@
+Persistent terminal sessions in conversations
+Notification read integration
+Show package upgrade details in Linux sandbox
+Show byte size for small files
+Material 3 search inputs
+Update model catalog and scores
+Upgrade SDKs
+Fix Linux sandbox initialization
+Fix Linux sandbox cd command

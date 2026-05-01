@@ -1,3 +1,20 @@
+## v2.4.1 — 2026-05-02
+
+### Features
+- Persistent terminal sessions in conversations
+- Notification read integration
+
+### Fixes
+- Fix Linux sandbox initialization
+- Fix Linux sandbox cd command
+
+### Improvements
+- Show detailed package upgrade info in Linux sandbox
+- Show byte size for files smaller than 1 KB
+- Material 3 search inputs
+- Update model catalog and scores
+- Upgrade SDKs
+
 ## v2.4.0 — 2026-04-28
 
 ### Features
