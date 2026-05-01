@@ -356,4 +356,15 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_notifications_listener_disconnected">Lyssnare inaktiv — kontrollera aviseringsåtkomst</string>
     <string name="settings_notifications_queued">%1$d aviseringar i kö till nästa heartbeat</string>
     <string name="settings_notifications_clear_queue">Rensa kö</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Filer</string>
+    <string name="settings_sandbox_subtab_packages">Paket</string>
+    <string name="sandbox_session_chip_session">Session</string>
+    <string name="sandbox_session_chip_temporary">Tillfälligt</string>
+    <string name="sandbox_packages_upgrade_count">Uppgraderade %1$s paket</string>
+    <string name="sandbox_packages_up_to_date">Alla paket är uppdaterade</string>
+    <string name="sandbox_content_description">Öppna Linux-sandlåda</string>
+    <string name="sandbox_files_save_success">Sparat</string>
+    <string name="sandbox_files_save_failed">Sparandet misslyckades</string>
+    <string name="sandbox_files_open_failed">Kunde inte öppna externt</string>
 </resources>

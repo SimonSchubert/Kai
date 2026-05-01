@@ -357,4 +357,15 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_notifications_listener_disconnected">Kuuntelija ei aktiivinen — tarkista ilmoitusten käyttöoikeus</string>
     <string name="settings_notifications_queued">%1$d ilmoitusta jonossa seuraavaa sykettä varten</string>
     <string name="settings_notifications_clear_queue">Tyhjennä jono</string>
+    <string name="settings_sandbox_subtab_terminal">Pääte</string>
+    <string name="settings_sandbox_subtab_files">Tiedostot</string>
+    <string name="settings_sandbox_subtab_packages">Paketit</string>
+    <string name="sandbox_session_chip_session">Istunto</string>
+    <string name="sandbox_session_chip_temporary">Tilapäinen</string>
+    <string name="sandbox_packages_upgrade_count">Päivitetty %1$s pakettia</string>
+    <string name="sandbox_packages_up_to_date">Kaikki paketit ovat ajan tasalla</string>
+    <string name="sandbox_content_description">Avaa Linux-hiekkalaatikko</string>
+    <string name="sandbox_files_save_success">Tallennettu</string>
+    <string name="sandbox_files_save_failed">Tallennus epäonnistui</string>
+    <string name="sandbox_files_open_failed">Ei voitu avata ulkoisesti</string>
 </resources>

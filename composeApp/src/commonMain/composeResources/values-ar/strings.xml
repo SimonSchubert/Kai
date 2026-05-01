@@ -357,4 +357,15 @@
     <string name="settings_notifications_listener_disconnected">المستمع غير نشط — تحقق من وصول الإشعارات</string>
     <string name="settings_notifications_queued">%1$d إشعار في قائمة الانتظار للـ heartbeat التالي</string>
     <string name="settings_notifications_clear_queue">مسح القائمة</string>
+    <string name="settings_sandbox_subtab_terminal">الطرفية</string>
+    <string name="settings_sandbox_subtab_files">الملفات</string>
+    <string name="settings_sandbox_subtab_packages">الحزم</string>
+    <string name="sandbox_session_chip_session">الجلسة</string>
+    <string name="sandbox_session_chip_temporary">مؤقت</string>
+    <string name="sandbox_packages_upgrade_count">تمت ترقية %1$s حزمة</string>
+    <string name="sandbox_packages_up_to_date">جميع الحزم محدّثة</string>
+    <string name="sandbox_content_description">فتح صندوق Linux</string>
+    <string name="sandbox_files_save_success">تم الحفظ</string>
+    <string name="sandbox_files_save_failed">فشل الحفظ</string>
+    <string name="sandbox_files_open_failed">تعذر الفتح خارجيًا</string>
 </resources>

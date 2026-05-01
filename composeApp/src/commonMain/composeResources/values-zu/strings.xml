@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Umlaleli awusebenzi — hlola ukufinyelela kwezaziso</string>
     <string name="settings_notifications_queued">Izaziso ezingu-%1$d zilindile i-heartbeat elandelayo</string>
     <string name="settings_notifications_clear_queue">Sula ulayini</string>
+    <string name="settings_sandbox_subtab_terminal">Itheminali</string>
+    <string name="settings_sandbox_subtab_files">Amafayela</string>
+    <string name="settings_sandbox_subtab_packages">Amaphakheji</string>
+    <string name="sandbox_session_chip_session">Iseshini</string>
+    <string name="sandbox_session_chip_temporary">Okwesikhashana</string>
+    <string name="sandbox_packages_upgrade_count">Kuthuthukiswe amaphakheji angu-%1$s</string>
+    <string name="sandbox_packages_up_to_date">Wonke amaphakheji asesimweni esisha</string>
+    <string name="sandbox_content_description">Vula i-Linux sandbox</string>
+    <string name="sandbox_files_save_success">Kulondoloziwe</string>
+    <string name="sandbox_files_save_failed">Ukulondoloza kuhlulekile</string>
+    <string name="sandbox_files_open_failed">Akukwazanga ukuvulwa ngaphandle</string>
 </resources>

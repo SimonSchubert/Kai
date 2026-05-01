@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Dëgjuesi joaktiv — kontrollo qasjen e njoftimeve</string>
     <string name="settings_notifications_queued">%1$d njoftime në radhë për heartbeat-in tjetër</string>
     <string name="settings_notifications_clear_queue">Pastro radhën</string>
+    <string name="settings_sandbox_subtab_terminal">Terminali</string>
+    <string name="settings_sandbox_subtab_files">Skedarët</string>
+    <string name="settings_sandbox_subtab_packages">Paketat</string>
+    <string name="sandbox_session_chip_session">Sesioni</string>
+    <string name="sandbox_session_chip_temporary">I përkohshëm</string>
+    <string name="sandbox_packages_upgrade_count">U përditësuan %1$s paketa</string>
+    <string name="sandbox_packages_up_to_date">Të gjitha paketat janë të përditësuara</string>
+    <string name="sandbox_content_description">Hap sandboksin e Linux</string>
+    <string name="sandbox_files_save_success">U ruajt</string>
+    <string name="sandbox_files_save_failed">Ruajtja dështoi</string>
+    <string name="sandbox_files_open_failed">Nuk u hap dot nga jashtë</string>
 </resources>

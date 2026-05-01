@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">監聽器未啟用 — 檢查通知存取權限</string>
     <string name="settings_notifications_queued">%1$d 則通知排隊等待下一次心跳</string>
     <string name="settings_notifications_clear_queue">清空佇列</string>
+    <string name="settings_sandbox_subtab_terminal">終端機</string>
+    <string name="settings_sandbox_subtab_files">檔案</string>
+    <string name="settings_sandbox_subtab_packages">套件</string>
+    <string name="sandbox_session_chip_session">工作階段</string>
+    <string name="sandbox_session_chip_temporary">暫時</string>
+    <string name="sandbox_packages_upgrade_count">已升級 %1$s 個套件</string>
+    <string name="sandbox_packages_up_to_date">所有套件都是最新的</string>
+    <string name="sandbox_content_description">開啟 Linux 沙箱</string>
+    <string name="sandbox_files_save_success">已儲存</string>
+    <string name="sandbox_files_save_failed">儲存失敗</string>
+    <string name="sandbox_files_open_failed">無法以外部方式開啟</string>
 </resources>

@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Msikilizaji hajafanya kazi — angalia ufikiaji wa arifa</string>
     <string name="settings_notifications_queued">Arifa %1$d zinasubiri kwa heartbeat ifuatayo</string>
     <string name="settings_notifications_clear_queue">Futa foleni</string>
+    <string name="settings_sandbox_subtab_terminal">Termini</string>
+    <string name="settings_sandbox_subtab_files">Faili</string>
+    <string name="settings_sandbox_subtab_packages">Vifurushi</string>
+    <string name="sandbox_session_chip_session">Kipindi</string>
+    <string name="sandbox_session_chip_temporary">Muda mfupi</string>
+    <string name="sandbox_packages_upgrade_count">Vifurushi %1$s vimepandishwa hadhi</string>
+    <string name="sandbox_packages_up_to_date">Vifurushi vyote vipo sasa</string>
+    <string name="sandbox_content_description">Fungua sanduku la Linux</string>
+    <string name="sandbox_files_save_success">Imehifadhiwa</string>
+    <string name="sandbox_files_save_failed">Kuhifadhi kumeshindwa</string>
+    <string name="sandbox_files_open_failed">Haikuweza kufungua nje</string>
 </resources>

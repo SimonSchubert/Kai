@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">监听器未激活 — 检查通知访问权限</string>
     <string name="settings_notifications_queued">%1$d 条通知排队等待下一次心跳</string>
     <string name="settings_notifications_clear_queue">清空队列</string>
+    <string name="settings_sandbox_subtab_terminal">终端</string>
+    <string name="settings_sandbox_subtab_files">文件</string>
+    <string name="settings_sandbox_subtab_packages">软件包</string>
+    <string name="sandbox_session_chip_session">会话</string>
+    <string name="sandbox_session_chip_temporary">临时</string>
+    <string name="sandbox_packages_upgrade_count">已升级 %1$s 个软件包</string>
+    <string name="sandbox_packages_up_to_date">所有软件包都是最新的</string>
+    <string name="sandbox_content_description">打开 Linux 沙盒</string>
+    <string name="sandbox_files_save_success">已保存</string>
+    <string name="sandbox_files_save_failed">保存失败</string>
+    <string name="sandbox_files_open_failed">无法在外部打开</string>
 </resources>

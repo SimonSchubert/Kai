@@ -356,4 +356,15 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_notifications_listener_disconnected">Listener non attivo — controlla l\'accesso alle notifiche</string>
     <string name="settings_notifications_queued">%1$d notifiche in coda per il prossimo heartbeat</string>
     <string name="settings_notifications_clear_queue">Svuota coda</string>
+    <string name="settings_sandbox_subtab_terminal">Terminale</string>
+    <string name="settings_sandbox_subtab_files">File</string>
+    <string name="settings_sandbox_subtab_packages">Pacchetti</string>
+    <string name="sandbox_session_chip_session">Sessione</string>
+    <string name="sandbox_session_chip_temporary">Temporaneo</string>
+    <string name="sandbox_packages_upgrade_count">Aggiornati %1$s pacchetti</string>
+    <string name="sandbox_packages_up_to_date">Tutti i pacchetti sono aggiornati</string>
+    <string name="sandbox_content_description">Apri sandbox Linux</string>
+    <string name="sandbox_files_save_success">Salvato</string>
+    <string name="sandbox_files_save_failed">Salvataggio non riuscito</string>
+    <string name="sandbox_files_open_failed">Impossibile aprire esternamente</string>
 </resources>

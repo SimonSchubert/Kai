@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Figyelő inaktív — ellenőrizd az értesítéshozzáférést</string>
     <string name="settings_notifications_queued">%1$d értesítés vár a következő heartbeatre</string>
     <string name="settings_notifications_clear_queue">Sor ürítése</string>
+    <string name="settings_sandbox_subtab_terminal">Terminál</string>
+    <string name="settings_sandbox_subtab_files">Fájlok</string>
+    <string name="settings_sandbox_subtab_packages">Csomagok</string>
+    <string name="sandbox_session_chip_session">Munkamenet</string>
+    <string name="sandbox_session_chip_temporary">Ideiglenes</string>
+    <string name="sandbox_packages_upgrade_count">%1$s csomag frissítve</string>
+    <string name="sandbox_packages_up_to_date">Minden csomag naprakész</string>
+    <string name="sandbox_content_description">Linux sandbox megnyitása</string>
+    <string name="sandbox_files_save_success">Mentve</string>
+    <string name="sandbox_files_save_failed">A mentés sikertelen</string>
+    <string name="sandbox_files_open_failed">Nem sikerült külsőleg megnyitni</string>
 </resources>

@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">سننے والا غیر فعال ہے — اطلاع رسائی چیک کریں</string>
     <string name="settings_notifications_queued">اگلے heartbeat کے لیے %1$d اطلاعات قطار میں</string>
     <string name="settings_notifications_clear_queue">قطار صاف کریں</string>
+    <string name="settings_sandbox_subtab_terminal">ٹرمینل</string>
+    <string name="settings_sandbox_subtab_files">فائلیں</string>
+    <string name="settings_sandbox_subtab_packages">پیکجز</string>
+    <string name="sandbox_session_chip_session">سیشن</string>
+    <string name="sandbox_session_chip_temporary">عارضی</string>
+    <string name="sandbox_packages_upgrade_count">%1$s پیکجز اپ گریڈ ہو گئے</string>
+    <string name="sandbox_packages_up_to_date">تمام پیکجز اپ ٹو ڈیٹ ہیں</string>
+    <string name="sandbox_content_description">Linux سینڈ باکس کھولیں</string>
+    <string name="sandbox_files_save_success">محفوظ ہو گیا</string>
+    <string name="sandbox_files_save_failed">محفوظ کرنا ناکام</string>
+    <string name="sandbox_files_open_failed">بیرونی طور پر نہیں کھولا جا سکا</string>
 </resources>

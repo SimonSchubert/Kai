@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">लिसनर निष्क्रिय — सूचना एक्सेस जाँचें</string>
     <string name="settings_notifications_queued">अगले heartbeat के लिए %1$d सूचनाएँ क़तार में</string>
     <string name="settings_notifications_clear_queue">क़तार साफ़ करें</string>
+    <string name="settings_sandbox_subtab_terminal">टर्मिनल</string>
+    <string name="settings_sandbox_subtab_files">फ़ाइलें</string>
+    <string name="settings_sandbox_subtab_packages">पैकेज</string>
+    <string name="sandbox_session_chip_session">सत्र</string>
+    <string name="sandbox_session_chip_temporary">अस्थायी</string>
+    <string name="sandbox_packages_upgrade_count">%1$s पैकेज अपग्रेड किए गए</string>
+    <string name="sandbox_packages_up_to_date">सभी पैकेज अप टू डेट हैं</string>
+    <string name="sandbox_content_description">Linux सैंडबॉक्स खोलें</string>
+    <string name="sandbox_files_save_success">सहेजा गया</string>
+    <string name="sandbox_files_save_failed">सहेजना विफल</string>
+    <string name="sandbox_files_open_failed">बाहरी रूप से नहीं खोला जा सका</string>
 </resources>

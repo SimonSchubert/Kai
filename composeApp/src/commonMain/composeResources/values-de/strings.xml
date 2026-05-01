@@ -357,4 +357,15 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_notifications_listener_disconnected">Listener inaktiv — Benachrichtigungszugriff prüfen</string>
     <string name="settings_notifications_queued">%1$d Benachrichtigungen für den nächsten Herzschlag in der Warteschlange</string>
     <string name="settings_notifications_clear_queue">Warteschlange leeren</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Dateien</string>
+    <string name="settings_sandbox_subtab_packages">Pakete</string>
+    <string name="sandbox_session_chip_session">Sitzung</string>
+    <string name="sandbox_session_chip_temporary">Temporär</string>
+    <string name="sandbox_packages_upgrade_count">%1$s Pakete aktualisiert</string>
+    <string name="sandbox_packages_up_to_date">Alle Pakete aktuell</string>
+    <string name="sandbox_content_description">Linux-Sandbox öffnen</string>
+    <string name="sandbox_files_save_success">Gespeichert</string>
+    <string name="sandbox_files_save_failed">Speichern fehlgeschlagen</string>
+    <string name="sandbox_files_open_failed">Konnte nicht extern geöffnet werden</string>
 </resources>

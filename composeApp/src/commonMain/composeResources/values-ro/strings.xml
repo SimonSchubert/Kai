@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Ascultător inactiv — verifică accesul la notificări</string>
     <string name="settings_notifications_queued">%1$d notificări în coadă pentru următorul heartbeat</string>
     <string name="settings_notifications_clear_queue">Golește coada</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Fișiere</string>
+    <string name="settings_sandbox_subtab_packages">Pachete</string>
+    <string name="sandbox_session_chip_session">Sesiune</string>
+    <string name="sandbox_session_chip_temporary">Temporar</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pachete actualizate</string>
+    <string name="sandbox_packages_up_to_date">Toate pachetele sunt la zi</string>
+    <string name="sandbox_content_description">Deschide sandbox Linux</string>
+    <string name="sandbox_files_save_success">Salvat</string>
+    <string name="sandbox_files_save_failed">Salvarea a eșuat</string>
+    <string name="sandbox_files_open_failed">Nu se poate deschide extern</string>
 </resources>

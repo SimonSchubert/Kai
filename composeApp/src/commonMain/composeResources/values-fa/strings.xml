@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">شنونده غیرفعال — دسترسی اعلان‌ها را بررسی کنید</string>
     <string name="settings_notifications_queued">%1$d اعلان در صف heartbeat بعدی</string>
     <string name="settings_notifications_clear_queue">پاک‌سازی صف</string>
+    <string name="settings_sandbox_subtab_terminal">پایانه</string>
+    <string name="settings_sandbox_subtab_files">فایل‌ها</string>
+    <string name="settings_sandbox_subtab_packages">بسته‌ها</string>
+    <string name="sandbox_session_chip_session">جلسه</string>
+    <string name="sandbox_session_chip_temporary">موقت</string>
+    <string name="sandbox_packages_upgrade_count">%1$s بسته به‌روزرسانی شد</string>
+    <string name="sandbox_packages_up_to_date">همه بسته‌ها به‌روز هستند</string>
+    <string name="sandbox_content_description">باز کردن سندباکس لینوکس</string>
+    <string name="sandbox_files_save_success">ذخیره شد</string>
+    <string name="sandbox_files_save_failed">ذخیره ناموفق بود</string>
+    <string name="sandbox_files_open_failed">امکان باز کردن خارجی نیست</string>
 </resources>

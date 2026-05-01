@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Listener неактивний — перевірте доступ до сповіщень</string>
     <string name="settings_notifications_queued">%1$d сповіщень у черзі для наступного heartbeat</string>
     <string name="settings_notifications_clear_queue">Очистити чергу</string>
+    <string name="settings_sandbox_subtab_terminal">Термінал</string>
+    <string name="settings_sandbox_subtab_files">Файли</string>
+    <string name="settings_sandbox_subtab_packages">Пакунки</string>
+    <string name="sandbox_session_chip_session">Сесія</string>
+    <string name="sandbox_session_chip_temporary">Тимчасово</string>
+    <string name="sandbox_packages_upgrade_count">Оновлено %1$s пакунків</string>
+    <string name="sandbox_packages_up_to_date">Усі пакунки актуальні</string>
+    <string name="sandbox_content_description">Відкрити пісочницю Linux</string>
+    <string name="sandbox_files_save_success">Збережено</string>
+    <string name="sandbox_files_save_failed">Не вдалося зберегти</string>
+    <string name="sandbox_files_open_failed">Не вдалося відкрити зовні</string>
 </resources>

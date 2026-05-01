@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Poslušalec neaktiven — preveri dostop do obvestil</string>
     <string name="settings_notifications_queued">%1$d obvestil v vrsti za naslednji heartbeat</string>
     <string name="settings_notifications_clear_queue">Počisti vrsto</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Datoteke</string>
+    <string name="settings_sandbox_subtab_packages">Paketi</string>
+    <string name="sandbox_session_chip_session">Seja</string>
+    <string name="sandbox_session_chip_temporary">Začasno</string>
+    <string name="sandbox_packages_upgrade_count">Posodobljeno %1$s paketov</string>
+    <string name="sandbox_packages_up_to_date">Vsi paketi so posodobljeni</string>
+    <string name="sandbox_content_description">Odpri peskovnik Linux</string>
+    <string name="sandbox_files_save_success">Shranjeno</string>
+    <string name="sandbox_files_save_failed">Shranjevanje ni uspelo</string>
+    <string name="sandbox_files_open_failed">Ni bilo mogoče odpreti zunanje</string>
 </resources>

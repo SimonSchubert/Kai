@@ -357,4 +357,15 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_notifications_listener_disconnected">Luisteraar onaktief — gaan kennisgewingtoegang na</string>
     <string name="settings_notifications_queued">%1$d kennisgewings in tou vir volgende heartbeat</string>
     <string name="settings_notifications_clear_queue">Tou skoonmaak</string>
+    <string name="settings_sandbox_subtab_terminal">Terminaal</string>
+    <string name="settings_sandbox_subtab_files">Lêers</string>
+    <string name="settings_sandbox_subtab_packages">Pakkette</string>
+    <string name="sandbox_session_chip_session">Sessie</string>
+    <string name="sandbox_session_chip_temporary">Tydelik</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pakkette opgegradeer</string>
+    <string name="sandbox_packages_up_to_date">Alle pakkette is op datum</string>
+    <string name="sandbox_content_description">Open Linux-sandbox</string>
+    <string name="sandbox_files_save_success">Gestoor</string>
+    <string name="sandbox_files_save_failed">Stoor het misluk</string>
+    <string name="sandbox_files_open_failed">Kon nie ekstern oopmaak nie</string>
 </resources>

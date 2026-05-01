@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Listener inactiv — controllai l\'access a las communicaziuns</string>
     <string name="settings_notifications_queued">%1$d communicaziuns en la lingia per il proxim heartbeat</string>
     <string name="settings_notifications_clear_queue">Svidar la lingia</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Datotecas</string>
+    <string name="settings_sandbox_subtab_packages">Pachets</string>
+    <string name="sandbox_session_chip_session">Sessiun</string>
+    <string name="sandbox_session_chip_temporary">Temporar</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pachets actualisads</string>
+    <string name="sandbox_packages_up_to_date">Tut ils pachets èn actuals</string>
+    <string name="sandbox_content_description">Avrir il sandbox da Linux</string>
+    <string name="sandbox_files_save_success">Memorisà</string>
+    <string name="sandbox_files_save_failed">Memorisar n'ha betg reussì</string>
+    <string name="sandbox_files_open_failed">Impussibel d'avrir externamain</string>
 </resources>

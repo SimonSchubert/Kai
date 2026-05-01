@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Slušatelj neaktivan — provjerite pristup obavijestima</string>
     <string name="settings_notifications_queued">%1$d obavijesti u redu za sljedeći heartbeat</string>
     <string name="settings_notifications_clear_queue">Očisti red</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Datoteke</string>
+    <string name="settings_sandbox_subtab_packages">Paketi</string>
+    <string name="sandbox_session_chip_session">Sesija</string>
+    <string name="sandbox_session_chip_temporary">Privremeno</string>
+    <string name="sandbox_packages_upgrade_count">Nadograđeno %1$s paketa</string>
+    <string name="sandbox_packages_up_to_date">Svi paketi su ažurirani</string>
+    <string name="sandbox_content_description">Otvori Linux sandbox</string>
+    <string name="sandbox_files_save_success">Spremljeno</string>
+    <string name="sandbox_files_save_failed">Spremanje nije uspjelo</string>
+    <string name="sandbox_files_open_failed">Ne mogu otvoriti eksterno</string>
 </resources>

@@ -356,4 +356,15 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_notifications_listener_disconnected">Lytter inaktiv — sjekk varslingstilgang</string>
     <string name="settings_notifications_queued">%1$d varslinger i kø til neste heartbeat</string>
     <string name="settings_notifications_clear_queue">Tøm kø</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Filer</string>
+    <string name="settings_sandbox_subtab_packages">Pakker</string>
+    <string name="sandbox_session_chip_session">Økt</string>
+    <string name="sandbox_session_chip_temporary">Midlertidig</string>
+    <string name="sandbox_packages_upgrade_count">Oppgraderte %1$s pakker</string>
+    <string name="sandbox_packages_up_to_date">Alle pakker er oppdatert</string>
+    <string name="sandbox_content_description">Åpne Linux-sandkasse</string>
+    <string name="sandbox_files_save_success">Lagret</string>
+    <string name="sandbox_files_save_failed">Lagring mislyktes</string>
+    <string name="sandbox_files_open_failed">Kunne ikke åpne eksternt</string>
 </resources>

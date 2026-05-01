@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">શ્રોતા નિષ્ક્રિય — સૂચના ઍક્સેસ તપાસો</string>
     <string name="settings_notifications_queued">%1$d સૂચનાઓ આગામી heartbeat માટે કતારમાં</string>
     <string name="settings_notifications_clear_queue">કતાર સાફ કરો</string>
+    <string name="settings_sandbox_subtab_terminal">ટર્મિનલ</string>
+    <string name="settings_sandbox_subtab_files">ફાઇલો</string>
+    <string name="settings_sandbox_subtab_packages">પેકેજો</string>
+    <string name="sandbox_session_chip_session">સત્ર</string>
+    <string name="sandbox_session_chip_temporary">કામચલાઉ</string>
+    <string name="sandbox_packages_upgrade_count">%1$s પેકેજો અપગ્રેડ થયા</string>
+    <string name="sandbox_packages_up_to_date">બધા પેકેજો અપ ટુ ડેટ છે</string>
+    <string name="sandbox_content_description">Linux સેન્ડબોક્સ ખોલો</string>
+    <string name="sandbox_files_save_success">સાચવ્યું</string>
+    <string name="sandbox_files_save_failed">સાચવવામાં નિષ્ફળ</string>
+    <string name="sandbox_files_open_failed">બાહ્ય રીતે ખોલી શકાયું નથી</string>
 </resources>

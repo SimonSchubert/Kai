@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">リスナー無効 — 通知アクセスを確認</string>
     <string name="settings_notifications_queued">次のハートビート向けに%1$d件の通知が待機中</string>
     <string name="settings_notifications_clear_queue">キューをクリア</string>
+    <string name="settings_sandbox_subtab_terminal">ターミナル</string>
+    <string name="settings_sandbox_subtab_files">ファイル</string>
+    <string name="settings_sandbox_subtab_packages">パッケージ</string>
+    <string name="sandbox_session_chip_session">セッション</string>
+    <string name="sandbox_session_chip_temporary">一時</string>
+    <string name="sandbox_packages_upgrade_count">%1$s 個のパッケージをアップグレードしました</string>
+    <string name="sandbox_packages_up_to_date">すべてのパッケージは最新です</string>
+    <string name="sandbox_content_description">Linux サンドボックスを開く</string>
+    <string name="sandbox_files_save_success">保存しました</string>
+    <string name="sandbox_files_save_failed">保存に失敗しました</string>
+    <string name="sandbox_files_open_failed">外部で開けませんでした</string>
 </resources>

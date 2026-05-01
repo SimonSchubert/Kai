@@ -357,4 +357,15 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_notifications_listener_disconnected">Listener inactivo: comprueba el acceso a notificaciones</string>
     <string name="settings_notifications_queued">%1$d notificaciones en cola para el próximo latido</string>
     <string name="settings_notifications_clear_queue">Limpiar cola</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Archivos</string>
+    <string name="settings_sandbox_subtab_packages">Paquetes</string>
+    <string name="sandbox_session_chip_session">Sesión</string>
+    <string name="sandbox_session_chip_temporary">Temporal</string>
+    <string name="sandbox_packages_upgrade_count">Se actualizaron %1$s paquetes</string>
+    <string name="sandbox_packages_up_to_date">Todos los paquetes están al día</string>
+    <string name="sandbox_content_description">Abrir sandbox de Linux</string>
+    <string name="sandbox_files_save_success">Guardado</string>
+    <string name="sandbox_files_save_failed">Error al guardar</string>
+    <string name="sandbox_files_open_failed">No se pudo abrir externamente</string>
 </resources>

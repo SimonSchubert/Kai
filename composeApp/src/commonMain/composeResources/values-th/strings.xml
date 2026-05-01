@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">ตัวฟังไม่ทำงาน — ตรวจสอบการเข้าถึงการแจ้งเตือน</string>
     <string name="settings_notifications_queued">การแจ้งเตือน %1$d รายการรอ heartbeat ครั้งถัดไป</string>
     <string name="settings_notifications_clear_queue">ล้างคิว</string>
+    <string name="settings_sandbox_subtab_terminal">เทอร์มินัล</string>
+    <string name="settings_sandbox_subtab_files">ไฟล์</string>
+    <string name="settings_sandbox_subtab_packages">แพ็กเกจ</string>
+    <string name="sandbox_session_chip_session">เซสชัน</string>
+    <string name="sandbox_session_chip_temporary">ชั่วคราว</string>
+    <string name="sandbox_packages_upgrade_count">อัปเกรด %1$s แพ็กเกจ</string>
+    <string name="sandbox_packages_up_to_date">แพ็กเกจทั้งหมดเป็นเวอร์ชันล่าสุด</string>
+    <string name="sandbox_content_description">เปิดแซนด์บ็อกซ์ Linux</string>
+    <string name="sandbox_files_save_success">บันทึกแล้ว</string>
+    <string name="sandbox_files_save_failed">บันทึกล้มเหลว</string>
+    <string name="sandbox_files_open_failed">ไม่สามารถเปิดภายนอกได้</string>
 </resources>

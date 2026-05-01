@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Posluchač neaktivní — zkontrolujte přístup k oznámením</string>
     <string name="settings_notifications_queued">%1$d oznámení ve frontě na další srdeční tep</string>
     <string name="settings_notifications_clear_queue">Vyčistit frontu</string>
+    <string name="settings_sandbox_subtab_terminal">Terminál</string>
+    <string name="settings_sandbox_subtab_files">Soubory</string>
+    <string name="settings_sandbox_subtab_packages">Balíčky</string>
+    <string name="sandbox_session_chip_session">Relace</string>
+    <string name="sandbox_session_chip_temporary">Dočasné</string>
+    <string name="sandbox_packages_upgrade_count">Aktualizováno %1$s balíčků</string>
+    <string name="sandbox_packages_up_to_date">Všechny balíčky jsou aktuální</string>
+    <string name="sandbox_content_description">Otevřít sandbox Linuxu</string>
+    <string name="sandbox_files_save_success">Uloženo</string>
+    <string name="sandbox_files_save_failed">Uložení selhalo</string>
+    <string name="sandbox_files_open_failed">Nelze otevřít externě</string>
 </resources>

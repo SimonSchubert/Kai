@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">ਸੁਣਨ ਵਾਲਾ ਨਾ-ਸਰਗਰਮ — ਸੂਚਨਾ ਪਹੁੰਚ ਜਾਂਚੋ</string>
     <string name="settings_notifications_queued">ਅਗਲੇ heartbeat ਲਈ %1$d ਸੂਚਨਾਵਾਂ ਕਤਾਰ ਵਿੱਚ</string>
     <string name="settings_notifications_clear_queue">ਕਤਾਰ ਸਾਫ਼ ਕਰੋ</string>
+    <string name="settings_sandbox_subtab_terminal">ਟਰਮੀਨਲ</string>
+    <string name="settings_sandbox_subtab_files">ਫਾਈਲਾਂ</string>
+    <string name="settings_sandbox_subtab_packages">ਪੈਕੇਜ</string>
+    <string name="sandbox_session_chip_session">ਸੈਸ਼ਨ</string>
+    <string name="sandbox_session_chip_temporary">ਅਸਥਾਈ</string>
+    <string name="sandbox_packages_upgrade_count">%1$s ਪੈਕੇਜ ਅੱਪਗ੍ਰੇਡ ਕੀਤੇ</string>
+    <string name="sandbox_packages_up_to_date">ਸਾਰੇ ਪੈਕੇਜ ਅੱਪ ਟੂ ਡੇਟ ਹਨ</string>
+    <string name="sandbox_content_description">Linux ਸੈਂਡਬਾਕਸ ਖੋਲ੍ਹੋ</string>
+    <string name="sandbox_files_save_success">ਸੰਭਾਲਿਆ</string>
+    <string name="sandbox_files_save_failed">ਸੰਭਾਲਣਾ ਅਸਫ਼ਲ</string>
+    <string name="sandbox_files_open_failed">ਬਾਹਰੀ ਤੌਰ ਤੇ ਨਹੀਂ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਿਆ</string>
 </resources>

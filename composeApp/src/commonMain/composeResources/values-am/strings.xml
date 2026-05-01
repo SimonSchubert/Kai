@@ -357,4 +357,15 @@
     <string name="settings_notifications_listener_disconnected">አድማጭ ቆሟል — የማሳወቂያ ድርሻን ይፈትሹ</string>
     <string name="settings_notifications_queued">%1$d ማሳወቂያዎች ለቀጣዩ heartbeat ተራ ይዘዋል</string>
     <string name="settings_notifications_clear_queue">ተራ አጽዳ</string>
+    <string name="settings_sandbox_subtab_terminal">ተርሚናል</string>
+    <string name="settings_sandbox_subtab_files">ፋይሎች</string>
+    <string name="settings_sandbox_subtab_packages">ጥቅሎች</string>
+    <string name="sandbox_session_chip_session">ክፍለ-ጊዜ</string>
+    <string name="sandbox_session_chip_temporary">ጊዜያዊ</string>
+    <string name="sandbox_packages_upgrade_count">%1$s ጥቅሎች ተሻሽለዋል</string>
+    <string name="sandbox_packages_up_to_date">ሁሉም ጥቅሎች ወቅታዊ ናቸው</string>
+    <string name="sandbox_content_description">የሊኑክስ ሳንድቦክስ ክፈት</string>
+    <string name="sandbox_files_save_success">ተቀምጧል</string>
+    <string name="sandbox_files_save_failed">ማስቀመጥ አልተሳካም</string>
+    <string name="sandbox_files_open_failed">በውጭ መክፈት አልተቻለም</string>
 </resources>

@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">श्रोता निष्क्रिय — सूचना प्रवेश तपासा</string>
     <string name="settings_notifications_queued">पुढील heartbeat साठी %1$d सूचना रांगेत</string>
     <string name="settings_notifications_clear_queue">रांग साफ करा</string>
+    <string name="settings_sandbox_subtab_terminal">टर्मिनल</string>
+    <string name="settings_sandbox_subtab_files">फायली</string>
+    <string name="settings_sandbox_subtab_packages">पॅकेजेस</string>
+    <string name="sandbox_session_chip_session">सत्र</string>
+    <string name="sandbox_session_chip_temporary">तात्पुरते</string>
+    <string name="sandbox_packages_upgrade_count">%1$s पॅकेजेस अपग्रेड केले</string>
+    <string name="sandbox_packages_up_to_date">सर्व पॅकेजेस अद्ययावत आहेत</string>
+    <string name="sandbox_content_description">Linux सॅंडबॉक्स उघडा</string>
+    <string name="sandbox_files_save_success">जतन केले</string>
+    <string name="sandbox_files_save_failed">जतन अयशस्वी</string>
+    <string name="sandbox_files_open_failed">बाहेरून उघडता आले नाही</string>
 </resources>

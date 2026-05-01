@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Hindi aktibo ang listener — suriin ang notification access</string>
     <string name="settings_notifications_queued">%1$d notification sa pila para sa susunod na heartbeat</string>
     <string name="settings_notifications_clear_queue">I-clear ang pila</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Mga File</string>
+    <string name="settings_sandbox_subtab_packages">Mga Pakete</string>
+    <string name="sandbox_session_chip_session">Sesyon</string>
+    <string name="sandbox_session_chip_temporary">Pansamantala</string>
+    <string name="sandbox_packages_upgrade_count">Na-upgrade ang %1$s na pakete</string>
+    <string name="sandbox_packages_up_to_date">Pinakabago lahat ng pakete</string>
+    <string name="sandbox_content_description">Buksan ang Linux sandbox</string>
+    <string name="sandbox_files_save_success">Na-save</string>
+    <string name="sandbox_files_save_failed">Hindi na-save</string>
+    <string name="sandbox_files_open_failed">Hindi mabuksan nang panlabas</string>
 </resources>

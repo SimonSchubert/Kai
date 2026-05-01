@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Слушателят е неактивен — проверете достъпа до известия</string>
     <string name="settings_notifications_queued">%1$d известия чакат за следващия heartbeat</string>
     <string name="settings_notifications_clear_queue">Изчисти опашката</string>
+    <string name="settings_sandbox_subtab_terminal">Терминал</string>
+    <string name="settings_sandbox_subtab_files">Файлове</string>
+    <string name="settings_sandbox_subtab_packages">Пакети</string>
+    <string name="sandbox_session_chip_session">Сесия</string>
+    <string name="sandbox_session_chip_temporary">Временно</string>
+    <string name="sandbox_packages_upgrade_count">Обновени са %1$s пакета</string>
+    <string name="sandbox_packages_up_to_date">Всички пакети са актуални</string>
+    <string name="sandbox_content_description">Отваряне на Linux пясъчник</string>
+    <string name="sandbox_files_save_success">Запазено</string>
+    <string name="sandbox_files_save_failed">Грешка при запазване</string>
+    <string name="sandbox_files_open_failed">Не може да се отвори външно</string>
 </resources>

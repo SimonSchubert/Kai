@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Klausītājs neaktīvs — pārbaudi paziņojumu piekļuvi</string>
     <string name="settings_notifications_queued">%1$d paziņojumi rindā nākamajam heartbeat</string>
     <string name="settings_notifications_clear_queue">Notīrīt rindu</string>
+    <string name="settings_sandbox_subtab_terminal">Termināls</string>
+    <string name="settings_sandbox_subtab_files">Faili</string>
+    <string name="settings_sandbox_subtab_packages">Pakotnes</string>
+    <string name="sandbox_session_chip_session">Sesija</string>
+    <string name="sandbox_session_chip_temporary">Pagaidu</string>
+    <string name="sandbox_packages_upgrade_count">Atjauninātas %1$s pakotnes</string>
+    <string name="sandbox_packages_up_to_date">Visas pakotnes ir atjauninātas</string>
+    <string name="sandbox_content_description">Atvērt Linux smilškasti</string>
+    <string name="sandbox_files_save_success">Saglabāts</string>
+    <string name="sandbox_files_save_failed">Saglabāšana neizdevās</string>
+    <string name="sandbox_files_open_failed">Nevarēja atvērt ārēji</string>
 </resources>

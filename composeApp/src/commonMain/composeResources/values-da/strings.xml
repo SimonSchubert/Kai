@@ -357,4 +357,15 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_notifications_listener_disconnected">Lytter inaktiv — tjek notifikationsadgang</string>
     <string name="settings_notifications_queued">%1$d notifikationer i kø til næste hjerteslag</string>
     <string name="settings_notifications_clear_queue">Ryd kø</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Filer</string>
+    <string name="settings_sandbox_subtab_packages">Pakker</string>
+    <string name="sandbox_session_chip_session">Session</string>
+    <string name="sandbox_session_chip_temporary">Midlertidig</string>
+    <string name="sandbox_packages_upgrade_count">Opgraderede %1$s pakker</string>
+    <string name="sandbox_packages_up_to_date">Alle pakker er opdaterede</string>
+    <string name="sandbox_content_description">Åbn Linux-sandkasse</string>
+    <string name="sandbox_files_save_success">Gemt</string>
+    <string name="sandbox_files_save_failed">Kunne ikke gemme</string>
+    <string name="sandbox_files_open_failed">Kunne ikke åbne eksternt</string>
 </resources>

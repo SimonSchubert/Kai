@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">শ্রোতা নিষ্ক্রিয় — বিজ্ঞপ্তি অ্যাক্সেস পরীক্ষা করুন</string>
     <string name="settings_notifications_queued">পরবর্তী heartbeat-এর জন্য %1$d বিজ্ঞপ্তি সারিতে</string>
     <string name="settings_notifications_clear_queue">সারি পরিষ্কার করুন</string>
+    <string name="settings_sandbox_subtab_terminal">টার্মিনাল</string>
+    <string name="settings_sandbox_subtab_files">ফাইল</string>
+    <string name="settings_sandbox_subtab_packages">প্যাকেজ</string>
+    <string name="sandbox_session_chip_session">সেশন</string>
+    <string name="sandbox_session_chip_temporary">অস্থায়ী</string>
+    <string name="sandbox_packages_upgrade_count">%1$s প্যাকেজ আপগ্রেড হয়েছে</string>
+    <string name="sandbox_packages_up_to_date">সব প্যাকেজ আপ টু ডেট</string>
+    <string name="sandbox_content_description">Linux স্যান্ডবক্স খুলুন</string>
+    <string name="sandbox_files_save_success">সংরক্ষিত</string>
+    <string name="sandbox_files_save_failed">সংরক্ষণ ব্যর্থ</string>
+    <string name="sandbox_files_open_failed">বাহ্যিকভাবে খোলা যায়নি</string>
 </resources>

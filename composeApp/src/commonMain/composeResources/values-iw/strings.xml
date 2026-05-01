@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">מאזין לא פעיל — בדוק את גישת ההתראות</string>
     <string name="settings_notifications_queued">%1$d התראות בתור לפעימה הבאה</string>
     <string name="settings_notifications_clear_queue">ניקוי תור</string>
+    <string name="settings_sandbox_subtab_terminal">מסוף</string>
+    <string name="settings_sandbox_subtab_files">קבצים</string>
+    <string name="settings_sandbox_subtab_packages">חבילות</string>
+    <string name="sandbox_session_chip_session">מושב</string>
+    <string name="sandbox_session_chip_temporary">זמני</string>
+    <string name="sandbox_packages_upgrade_count">%1$s חבילות שודרגו</string>
+    <string name="sandbox_packages_up_to_date">כל החבילות מעודכנות</string>
+    <string name="sandbox_content_description">פתח ארגז חול של Linux</string>
+    <string name="sandbox_files_save_success">נשמר</string>
+    <string name="sandbox_files_save_failed">השמירה נכשלה</string>
+    <string name="sandbox_files_open_failed">לא ניתן לפתוח חיצונית</string>
 </resources>

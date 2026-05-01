@@ -356,4 +356,15 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="settings_notifications_listener_disconnected">Listener inativo — verifique o acesso a notificações</string>
     <string name="settings_notifications_queued">%1$d notificações na fila para o próximo heartbeat</string>
     <string name="settings_notifications_clear_queue">Limpar fila</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Arquivos</string>
+    <string name="settings_sandbox_subtab_packages">Pacotes</string>
+    <string name="sandbox_session_chip_session">Sessão</string>
+    <string name="sandbox_session_chip_temporary">Temporário</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pacotes atualizados</string>
+    <string name="sandbox_packages_up_to_date">Todos os pacotes atualizados</string>
+    <string name="sandbox_content_description">Abrir sandbox Linux</string>
+    <string name="sandbox_files_save_success">Salvo</string>
+    <string name="sandbox_files_save_failed">Falha ao salvar</string>
+    <string name="sandbox_files_open_failed">Não foi possível abrir externamente</string>
 </resources>

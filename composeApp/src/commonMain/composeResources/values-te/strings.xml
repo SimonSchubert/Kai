@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">శ్రోత యాక్టివ్‌గా లేదు — నోటిఫికేషన్ యాక్సెస్‌ను తనిఖీ చేయండి</string>
     <string name="settings_notifications_queued">తరువాతి heartbeat కోసం %1$d నోటిఫికేషన్లు క్యూలో ఉన్నాయి</string>
     <string name="settings_notifications_clear_queue">క్యూ క్లియర్ చేయండి</string>
+    <string name="settings_sandbox_subtab_terminal">టర్మినల్</string>
+    <string name="settings_sandbox_subtab_files">ఫైళ్లు</string>
+    <string name="settings_sandbox_subtab_packages">ప్యాకేజీలు</string>
+    <string name="sandbox_session_chip_session">సెషన్</string>
+    <string name="sandbox_session_chip_temporary">తాత్కాలికం</string>
+    <string name="sandbox_packages_upgrade_count">%1$s ప్యాకేజీలు అప్‌గ్రేడ్ చేయబడ్డాయి</string>
+    <string name="sandbox_packages_up_to_date">అన్ని ప్యాకేజీలు తాజాగా ఉన్నాయి</string>
+    <string name="sandbox_content_description">Linux శాండ్‌బాక్స్ తెరవండి</string>
+    <string name="sandbox_files_save_success">సేవ్ చేయబడింది</string>
+    <string name="sandbox_files_save_failed">సేవ్ విఫలమైంది</string>
+    <string name="sandbox_files_open_failed">బాహ్యంగా తెరవలేకపోయాము</string>
 </resources>

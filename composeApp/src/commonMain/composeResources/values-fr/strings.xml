@@ -356,4 +356,15 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_notifications_listener_disconnected">Écouteur inactif — vérifiez l\'accès aux notifications</string>
     <string name="settings_notifications_queued">%1$d notifications en attente pour le prochain heartbeat</string>
     <string name="settings_notifications_clear_queue">Vider la file</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Fichiers</string>
+    <string name="settings_sandbox_subtab_packages">Paquets</string>
+    <string name="sandbox_session_chip_session">Session</string>
+    <string name="sandbox_session_chip_temporary">Temporaire</string>
+    <string name="sandbox_packages_upgrade_count">%1$s paquets mis à niveau</string>
+    <string name="sandbox_packages_up_to_date">Tous les paquets sont à jour</string>
+    <string name="sandbox_content_description">Ouvrir le bac à sable Linux</string>
+    <string name="sandbox_files_save_success">Enregistré</string>
+    <string name="sandbox_files_save_failed">Échec de l'enregistrement</string>
+    <string name="sandbox_files_open_failed">Impossible d'ouvrir à l'extérieur</string>
 </resources>

@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Тыңдағыш белсенді емес — хабарландыру қол жеткізуін тексеріңіз</string>
     <string name="settings_notifications_queued">Келесі heartbeat үшін %1$d хабарландыру кезекте</string>
     <string name="settings_notifications_clear_queue">Кезекті тазалау</string>
+    <string name="settings_sandbox_subtab_terminal">Терминал</string>
+    <string name="settings_sandbox_subtab_files">Файлдар</string>
+    <string name="settings_sandbox_subtab_packages">Пакеттер</string>
+    <string name="sandbox_session_chip_session">Сессия</string>
+    <string name="sandbox_session_chip_temporary">Уақытша</string>
+    <string name="sandbox_packages_upgrade_count">%1$s пакет жаңартылды</string>
+    <string name="sandbox_packages_up_to_date">Барлық пакеттер жаңа</string>
+    <string name="sandbox_content_description">Linux құмсалғышын ашу</string>
+    <string name="sandbox_files_save_success">Сақталды</string>
+    <string name="sandbox_files_save_failed">Сақтау сәтсіз аяқталды</string>
+    <string name="sandbox_files_open_failed">Сыртқы ашу мүмкін болмады</string>
 </resources>

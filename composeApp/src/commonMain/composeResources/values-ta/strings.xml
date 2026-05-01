@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">கேட்பவர் செயலில் இல்லை — அறிவிப்பு அணுகலைச் சரிபார்க்கவும்</string>
     <string name="settings_notifications_queued">அடுத்த heartbeat-க்கு %1$d அறிவிப்புகள் வரிசையில் உள்ளன</string>
     <string name="settings_notifications_clear_queue">வரிசையை அழிக்கவும்</string>
+    <string name="settings_sandbox_subtab_terminal">டெர்மினல்</string>
+    <string name="settings_sandbox_subtab_files">கோப்புகள்</string>
+    <string name="settings_sandbox_subtab_packages">தொகுப்புகள்</string>
+    <string name="sandbox_session_chip_session">அமர்வு</string>
+    <string name="sandbox_session_chip_temporary">தற்காலிகம்</string>
+    <string name="sandbox_packages_upgrade_count">%1$s தொகுப்புகள் மேம்படுத்தப்பட்டன</string>
+    <string name="sandbox_packages_up_to_date">அனைத்து தொகுப்புகளும் புதுப்பித்தவை</string>
+    <string name="sandbox_content_description">Linux சாண்ட்பாக்ஸ் திற</string>
+    <string name="sandbox_files_save_success">சேமிக்கப்பட்டது</string>
+    <string name="sandbox_files_save_failed">சேமிப்பு தோல்வி</string>
+    <string name="sandbox_files_open_failed">வெளியில் திறக்க முடியவில்லை</string>
 </resources>

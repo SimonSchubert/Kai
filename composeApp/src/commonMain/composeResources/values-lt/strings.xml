@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Klausytojas neaktyvus — patikrink pranešimų prieigą</string>
     <string name="settings_notifications_queued">%1$d pranešimų eilėje kitam heartbeat</string>
     <string name="settings_notifications_clear_queue">Išvalyti eilę</string>
+    <string name="settings_sandbox_subtab_terminal">Terminalas</string>
+    <string name="settings_sandbox_subtab_files">Failai</string>
+    <string name="settings_sandbox_subtab_packages">Paketai</string>
+    <string name="sandbox_session_chip_session">Sesija</string>
+    <string name="sandbox_session_chip_temporary">Laikinas</string>
+    <string name="sandbox_packages_upgrade_count">Atnaujinta %1$s paketų</string>
+    <string name="sandbox_packages_up_to_date">Visi paketai atnaujinti</string>
+    <string name="sandbox_content_description">Atidaryti Linux smėlio dėžę</string>
+    <string name="sandbox_files_save_success">Išsaugota</string>
+    <string name="sandbox_files_save_failed">Išsaugoti nepavyko</string>
+    <string name="sandbox_files_open_failed">Nepavyko atidaryti išoriškai</string>
 </resources>

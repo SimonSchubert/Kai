@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Trình nghe không hoạt động — kiểm tra quyền truy cập thông báo</string>
     <string name="settings_notifications_queued">%1$d thông báo đang chờ cho heartbeat tiếp theo</string>
     <string name="settings_notifications_clear_queue">Xóa hàng đợi</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Tệp</string>
+    <string name="settings_sandbox_subtab_packages">Gói</string>
+    <string name="sandbox_session_chip_session">Phiên</string>
+    <string name="sandbox_session_chip_temporary">Tạm thời</string>
+    <string name="sandbox_packages_upgrade_count">Đã nâng cấp %1$s gói</string>
+    <string name="sandbox_packages_up_to_date">Tất cả các gói đã cập nhật</string>
+    <string name="sandbox_content_description">Mở sandbox Linux</string>
+    <string name="sandbox_files_save_success">Đã lưu</string>
+    <string name="sandbox_files_save_failed">Lưu thất bại</string>
+    <string name="sandbox_files_open_failed">Không thể mở bên ngoài</string>
 </resources>

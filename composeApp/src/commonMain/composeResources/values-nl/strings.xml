@@ -356,4 +356,15 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_notifications_listener_disconnected">Listener inactief — controleer meldingstoegang</string>
     <string name="settings_notifications_queued">%1$d meldingen in wachtrij voor volgende heartbeat</string>
     <string name="settings_notifications_clear_queue">Wachtrij wissen</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Bestanden</string>
+    <string name="settings_sandbox_subtab_packages">Pakketten</string>
+    <string name="sandbox_session_chip_session">Sessie</string>
+    <string name="sandbox_session_chip_temporary">Tijdelijk</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pakketten bijgewerkt</string>
+    <string name="sandbox_packages_up_to_date">Alle pakketten zijn up-to-date</string>
+    <string name="sandbox_content_description">Linux-sandbox openen</string>
+    <string name="sandbox_files_save_success">Opgeslagen</string>
+    <string name="sandbox_files_save_failed">Opslaan mislukt</string>
+    <string name="sandbox_files_open_failed">Kon niet extern openen</string>
 </resources>

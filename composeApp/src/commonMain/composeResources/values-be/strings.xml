@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Слухач неактыўны — праверце доступ да апавяшчэнняў</string>
     <string name="settings_notifications_queued">%1$d апавяшчэнняў у чарзе на наступны heartbeat</string>
     <string name="settings_notifications_clear_queue">Ачысціць чаргу</string>
+    <string name="settings_sandbox_subtab_terminal">Тэрмінал</string>
+    <string name="settings_sandbox_subtab_files">Файлы</string>
+    <string name="settings_sandbox_subtab_packages">Пакеты</string>
+    <string name="sandbox_session_chip_session">Сесія</string>
+    <string name="sandbox_session_chip_temporary">Часовы</string>
+    <string name="sandbox_packages_upgrade_count">Абноўлена пакетаў: %1$s</string>
+    <string name="sandbox_packages_up_to_date">Усе пакеты актуальныя</string>
+    <string name="sandbox_content_description">Адкрыць пясочніцу Linux</string>
+    <string name="sandbox_files_save_success">Захавана</string>
+    <string name="sandbox_files_save_failed">Не ўдалося захаваць</string>
+    <string name="sandbox_files_open_failed">Не ўдалося адкрыць звонку</string>
 </resources>

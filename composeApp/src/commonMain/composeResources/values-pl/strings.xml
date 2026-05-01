@@ -356,4 +356,15 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_notifications_listener_disconnected">Listener nieaktywny — sprawdź dostęp do powiadomień</string>
     <string name="settings_notifications_queued">%1$d powiadomień w kolejce do kolejnego heartbeat</string>
     <string name="settings_notifications_clear_queue">Wyczyść kolejkę</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Pliki</string>
+    <string name="settings_sandbox_subtab_packages">Pakiety</string>
+    <string name="sandbox_session_chip_session">Sesja</string>
+    <string name="sandbox_session_chip_temporary">Tymczasowe</string>
+    <string name="sandbox_packages_upgrade_count">Zaktualizowano %1$s pakietów</string>
+    <string name="sandbox_packages_up_to_date">Wszystkie pakiety są aktualne</string>
+    <string name="sandbox_content_description">Otwórz piaskownicę Linux</string>
+    <string name="sandbox_files_save_success">Zapisano</string>
+    <string name="sandbox_files_save_failed">Nie udało się zapisać</string>
+    <string name="sandbox_files_open_failed">Nie można otworzyć zewnętrznie</string>
 </resources>

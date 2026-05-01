@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">리스너 비활성 — 알림 액세스를 확인하세요</string>
     <string name="settings_notifications_queued">다음 하트비트용 알림 %1$d개 대기 중</string>
     <string name="settings_notifications_clear_queue">대기열 지우기</string>
+    <string name="settings_sandbox_subtab_terminal">터미널</string>
+    <string name="settings_sandbox_subtab_files">파일</string>
+    <string name="settings_sandbox_subtab_packages">패키지</string>
+    <string name="sandbox_session_chip_session">세션</string>
+    <string name="sandbox_session_chip_temporary">임시</string>
+    <string name="sandbox_packages_upgrade_count">패키지 %1$s개 업그레이드됨</string>
+    <string name="sandbox_packages_up_to_date">모든 패키지가 최신 상태입니다</string>
+    <string name="sandbox_content_description">Linux 샌드박스 열기</string>
+    <string name="sandbox_files_save_success">저장됨</string>
+    <string name="sandbox_files_save_failed">저장 실패</string>
+    <string name="sandbox_files_open_failed">외부에서 열 수 없습니다</string>
 </resources>

@@ -355,4 +355,15 @@
     <string name="settings_notifications_listener_disconnected">Pendengar tidak aktif — semak akses pemberitahuan</string>
     <string name="settings_notifications_queued">%1$d pemberitahuan dalam baris untuk heartbeat seterusnya</string>
     <string name="settings_notifications_clear_queue">Kosongkan baris</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Fail</string>
+    <string name="settings_sandbox_subtab_packages">Pakej</string>
+    <string name="sandbox_session_chip_session">Sesi</string>
+    <string name="sandbox_session_chip_temporary">Sementara</string>
+    <string name="sandbox_packages_upgrade_count">%1$s pakej dinaik taraf</string>
+    <string name="sandbox_packages_up_to_date">Semua pakej terkini</string>
+    <string name="sandbox_content_description">Buka sandbox Linux</string>
+    <string name="sandbox_files_save_success">Disimpan</string>
+    <string name="sandbox_files_save_failed">Gagal menyimpan</string>
+    <string name="sandbox_files_open_failed">Tidak boleh dibuka secara luaran</string>
 </resources>

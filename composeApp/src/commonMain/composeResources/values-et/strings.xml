@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Kuulaja mitteaktiivne — kontrolli teavituste juurdepääsu</string>
     <string name="settings_notifications_queued">%1$d teavitust järgmise heartbeat\'i järjekorras</string>
     <string name="settings_notifications_clear_queue">Tühjenda järjekord</string>
+    <string name="settings_sandbox_subtab_terminal">Terminal</string>
+    <string name="settings_sandbox_subtab_files">Failid</string>
+    <string name="settings_sandbox_subtab_packages">Paketid</string>
+    <string name="sandbox_session_chip_session">Seanss</string>
+    <string name="sandbox_session_chip_temporary">Ajutine</string>
+    <string name="sandbox_packages_upgrade_count">Uuendati %1$s paketti</string>
+    <string name="sandbox_packages_up_to_date">Kõik paketid on ajakohased</string>
+    <string name="sandbox_content_description">Ava Linuxi liivakast</string>
+    <string name="sandbox_files_save_success">Salvestatud</string>
+    <string name="sandbox_files_save_failed">Salvestamine ebaõnnestus</string>
+    <string name="sandbox_files_open_failed">Ei õnnestunud väliselt avada</string>
 </resources>

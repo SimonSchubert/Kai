@@ -356,4 +356,15 @@
     <string name="settings_notifications_listener_disconnected">Ακροατής ανενεργός — ελέγξτε την πρόσβαση ειδοποιήσεων</string>
     <string name="settings_notifications_queued">%1$d ειδοποιήσεις σε αναμονή για τον επόμενο παλμό</string>
     <string name="settings_notifications_clear_queue">Εκκαθάριση ουράς</string>
+    <string name="settings_sandbox_subtab_terminal">Τερματικό</string>
+    <string name="settings_sandbox_subtab_files">Αρχεία</string>
+    <string name="settings_sandbox_subtab_packages">Πακέτα</string>
+    <string name="sandbox_session_chip_session">Συνεδρία</string>
+    <string name="sandbox_session_chip_temporary">Προσωρινό</string>
+    <string name="sandbox_packages_upgrade_count">Αναβαθμίστηκαν %1$s πακέτα</string>
+    <string name="sandbox_packages_up_to_date">Όλα τα πακέτα είναι ενημερωμένα</string>
+    <string name="sandbox_content_description">Άνοιγμα Linux sandbox</string>
+    <string name="sandbox_files_save_success">Αποθηκεύτηκε</string>
+    <string name="sandbox_files_save_failed">Η αποθήκευση απέτυχε</string>
+    <string name="sandbox_files_open_failed">Δεν ήταν δυνατό το εξωτερικό άνοιγμα</string>
 </resources>
