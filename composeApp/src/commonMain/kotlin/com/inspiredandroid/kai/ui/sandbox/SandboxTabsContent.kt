@@ -39,6 +39,8 @@ import com.inspiredandroid.kai.ui.settings.SettingsCard
 import com.inspiredandroid.kai.ui.settings.TerminalContent
 import com.inspiredandroid.kai.ui.settings.TerminalDarkBg
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.sandbox_session_chip_session
+import kai.composeapp.generated.resources.sandbox_session_chip_temporary
 import kai.composeapp.generated.resources.settings_sandbox_cancel
 import kai.composeapp.generated.resources.settings_sandbox_description
 import kai.composeapp.generated.resources.settings_sandbox_install
@@ -81,7 +83,8 @@ internal fun SandboxTabsContent(
                             SessionChipRow(viewModel = sessionViewModel)
                         }
                         Surface(
-                            modifier = Modifier.fillMaxWidth().weight(1f),
+                            modifier = Modifier.fillMaxWidth()
+                                .padding(bottom = 6.dp).weight(1f),
                             shape = RoundedCornerShape(12.dp),
                             color = TerminalDarkBg,
                             tonalElevation = 2.dp,
@@ -174,7 +177,13 @@ private fun SessionChipRow(viewModel: SandboxSessionViewModel) {
                 },
             ) {
                 Text(
-                    text = tab.label,
+                    text = stringResource(
+                        if (tab.isTerminal) {
+                            Res.string.sandbox_session_chip_temporary
+                        } else {
+                            Res.string.sandbox_session_chip_session
+                        },
+                    ),
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                     color = if (isSelected) {
                         MaterialTheme.colorScheme.primary

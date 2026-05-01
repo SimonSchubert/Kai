@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.sandbox
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.inspiredandroid.kai.TerminalLine
 
@@ -16,8 +17,12 @@ private const val MAX_TRANSCRIPT_LINES = 500
 class SessionShell(
     val sessionId: String,
     private val inner: PersistentSandboxShell,
+    initialLines: List<TerminalLine> = emptyList(),
+    private val onChange: ((List<TerminalLine>) -> Unit)? = null,
 ) {
-    val transcript: SnapshotStateList<TerminalLine> = mutableStateListOf()
+    val transcript: SnapshotStateList<TerminalLine> = mutableStateListOf<TerminalLine>().apply {
+        addAll(initialLines)
+    }
 
     /**
      * Run a single command in the persistent shell.
@@ -35,18 +40,22 @@ class SessionShell(
         onStderr: ((String) -> Unit)? = null,
     ): Map<String, Any> {
         appendBounded(TerminalLine.Command(displayCommand))
-        return inner.run(
-            command = command,
-            timeoutSeconds = timeoutSeconds,
-            onStdout = { line ->
-                appendBounded(TerminalLine.Output(line))
-                onStdout?.invoke(line)
-            },
-            onStderr = { line ->
-                appendBounded(TerminalLine.Error(line))
-                onStderr?.invoke(line)
-            },
-        )
+        try {
+            return inner.run(
+                command = command,
+                timeoutSeconds = timeoutSeconds,
+                onStdout = { line ->
+                    appendBounded(TerminalLine.Output(line))
+                    onStdout?.invoke(line)
+                },
+                onStderr = { line ->
+                    appendBounded(TerminalLine.Error(line))
+                    onStderr?.invoke(line)
+                },
+            )
+        } finally {
+            onChange?.invoke(transcript.toList())
+        }
     }
 
     fun writeInput(line: String) = inner.writeInput(line)
@@ -56,8 +65,13 @@ class SessionShell(
     fun reset() = inner.reset()
 
     private fun appendBounded(line: TerminalLine) {
-        transcript.add(line)
-        val excess = transcript.size - MAX_TRANSCRIPT_LINES
-        if (excess > 0) transcript.subList(0, excess).clear()
+        // Add+trim must commit as a single snapshot. Otherwise a LazyColumn
+        // measure pass can capture size=N+1 then read index N after the trim
+        // shrunk the list — IndexOutOfBoundsException under heavy bursts.
+        Snapshot.withMutableSnapshot {
+            transcript.add(line)
+            val excess = transcript.size - MAX_TRANSCRIPT_LINES
+            if (excess > 0) transcript.subList(0, excess).clear()
+        }
     }
 }

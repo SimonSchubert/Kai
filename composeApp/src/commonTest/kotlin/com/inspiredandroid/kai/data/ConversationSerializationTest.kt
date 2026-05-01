@@ -1,10 +1,12 @@
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.TerminalLine
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class ConversationSerializationTest {
 
@@ -389,6 +391,47 @@ class ConversationSerializationTest {
         assertEquals("legacybase64", m.data)
         assertEquals("old.jpg", m.fileName)
         assertEquals(0, m.attachments.size)
+    }
+
+    @Test
+    fun `round trip shell transcript with all line variants`() {
+        val original = Conversation(
+            id = "conv-shell",
+            messages = emptyList(),
+            createdAt = 1L,
+            updatedAt = 2L,
+            shellTranscript = listOf(
+                TerminalLine.Command("ls -la"),
+                TerminalLine.Output("total 0"),
+                TerminalLine.Output("drwxr-xr-x 2 root root 40 Jan 1 00:00 ."),
+                TerminalLine.Error("ls: cannot access /missing: No such file or directory"),
+            ),
+        )
+
+        val jsonString = json.encodeToString(original)
+        val decoded = json.decodeFromString<Conversation>(jsonString)
+
+        assertEquals(original, decoded)
+        assertEquals(4, decoded.shellTranscript.size)
+        assertTrue(decoded.shellTranscript[0] is TerminalLine.Command)
+        assertTrue(decoded.shellTranscript[1] is TerminalLine.Output)
+        assertTrue(decoded.shellTranscript[3] is TerminalLine.Error)
+    }
+
+    @Test
+    fun `legacy conversation without shell transcript loads with empty list`() {
+        val jsonString = """
+            {
+                "id": "conv-old",
+                "messages": [],
+                "createdAt": 1000,
+                "updatedAt": 2000
+            }
+        """.trimIndent()
+
+        val conversation = json.decodeFromString<Conversation>(jsonString)
+
+        assertEquals(0, conversation.shellTranscript.size)
     }
 
     @Test

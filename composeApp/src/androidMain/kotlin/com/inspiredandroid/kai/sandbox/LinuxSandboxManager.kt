@@ -3,20 +3,28 @@ package com.inspiredandroid.kai.sandbox
 import android.content.Context
 import android.os.Build
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.SandboxSessions
 import com.inspiredandroid.kai.TerminalLine
+import com.inspiredandroid.kai.data.ConversationStorage
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
-class LinuxSandboxManager(private val context: Context) {
+private const val TRANSCRIPT_SAVE_DEBOUNCE_MS = 500L
+
+class LinuxSandboxManager(
+    private val context: Context,
+    private val conversationStorage: ConversationStorage,
+) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var currentJob: Job? = null
@@ -198,13 +206,41 @@ class LinuxSandboxManager(private val context: Context) {
     private val _sessions = MutableStateFlow<List<String>>(emptyList())
     val sessions: StateFlow<List<String>> = _sessions
 
+    // Debounce per-session transcript writes. A burst of commands (e.g. a
+    // 1000-iteration loop) would otherwise re-serialize the entire conversations
+    // JSON and rewrite SharedPreferences once per command.
+    private val pendingSaves = mutableMapOf<String, Job>()
+
     fun shellFor(sessionId: String): SessionShell = synchronized(shells) {
         shells[sessionId]?.let { return it }
         val inner = PersistentSandboxShell(createProotExecutor(), tmpPath)
-        val wrapper = SessionShell(sessionId, inner)
+        val persistable = SandboxSessions.isPersistable(sessionId)
+        val initialLines = if (persistable) {
+            conversationStorage.conversations.value
+                .firstOrNull { it.id == sessionId }?.shellTranscript.orEmpty()
+        } else {
+            emptyList()
+        }
+        val onChange: ((List<TerminalLine>) -> Unit)? = if (persistable) {
+            { lines -> scheduleTranscriptSave(sessionId, lines) }
+        } else {
+            null
+        }
+        val wrapper = SessionShell(sessionId, inner, initialLines, onChange)
         shells[sessionId] = wrapper
         _sessions.value = shells.keys.toList()
         wrapper
+    }
+
+    private fun scheduleTranscriptSave(sessionId: String, lines: List<TerminalLine>) {
+        synchronized(pendingSaves) {
+            pendingSaves[sessionId]?.cancel()
+            pendingSaves[sessionId] = scope.launch {
+                delay(TRANSCRIPT_SAVE_DEBOUNCE_MS)
+                conversationStorage.updateShellTranscript(sessionId, lines)
+                synchronized(pendingSaves) { pendingSaves.remove(sessionId) }
+            }
+        }
     }
 
     fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> = shellFor(sessionId).transcript

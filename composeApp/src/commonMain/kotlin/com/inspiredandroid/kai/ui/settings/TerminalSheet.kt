@@ -199,6 +199,15 @@ fun TerminalContent(
         }
     }
 
+    // Jump to the tail whenever the session changes. The size-based auto-scroll
+    // below covers per-append scrolling — keying this effect on outputLines too
+    // would re-fire on every line and thrash listState during heavy bursts.
+    val scrollPulse = sessionViewModel?.scrollToEndPulse?.collectAsStateWithLifecycle()?.value
+    LaunchedEffect(scrollPulse) {
+        val size = outputLines.size
+        if (size > 0) listState.scrollToItem(size - 1)
+    }
+
     Column(
         modifier = modifier
             .then(if (showHeader) Modifier.background(colors.bg) else Modifier)

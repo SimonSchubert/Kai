@@ -12,12 +12,11 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 data class SessionTab(
     val id: String,
-    val label: String,
+    /** True for the standalone scratch shell ("Temporary"); false for a chat-bound shell ("Session"). */
     val isTerminal: Boolean,
 )
 
@@ -39,10 +38,6 @@ class SandboxSessionViewModel(
 
     private val statesMap = mutableMapOf<String, SessionState>()
 
-    /** Stable monotonic numbers for chat-shell chip labels. Never reused. */
-    private val sessionNumbers = mutableMapOf<String, Int>()
-    private var nextSessionNumber = 1
-
     private val selectedTabState = MutableStateFlow(SandboxSubTab.Terminal)
     internal val selectedTab = selectedTabState.asStateFlow()
 
@@ -50,9 +45,13 @@ class SandboxSessionViewModel(
     val selectedSessionId = _selectedSessionId.asStateFlow()
 
     private val _visibleSessions = MutableStateFlow<List<SessionTab>>(
-        listOf(SessionTab(SandboxSessions.TERMINAL, "Terminal", isTerminal = true)),
+        listOf(SessionTab(SandboxSessions.TERMINAL, isTerminal = true)),
     )
     val visibleSessions = _visibleSessions.asStateFlow()
+
+    /** Pulse that fires when a session is (re)selected — used by the terminal UI to jump to the tail. */
+    private val _scrollToEndPulse = MutableStateFlow(0L)
+    val scrollToEndPulse = _scrollToEndPulse.asStateFlow()
 
     private val _inputText = MutableStateFlow("")
     val inputText = _inputText.asStateFlow()
@@ -75,36 +74,30 @@ class SandboxSessionViewModel(
         if (initialChatId != null) selectSession(initialChatId)
 
         viewModelScope.launch {
-            combine(
-                sandboxController.sessions,
-                dataRepository.savedConversations,
-            ) { activeIds, conversations ->
-                buildVisibleSessions(activeIds, conversations)
-            }.collect { tabs ->
+            dataRepository.currentConversationId.collect { currentChatId ->
+                val tabs = buildVisibleSessions(currentChatId)
                 _visibleSessions.value = tabs
-                if (tabs.none { it.id == _selectedSessionId.value }) {
+                if (currentChatId != null && currentChatId.isNotBlank()) {
+                    // Terminal follows the active chat. Users who want the
+                    // scratch tab can pick Temporary explicitly.
+                    if (_selectedSessionId.value != currentChatId) {
+                        selectSession(currentChatId)
+                    }
+                } else if (tabs.none { it.id == _selectedSessionId.value }) {
                     selectSession(SandboxSessions.TERMINAL)
                 }
             }
         }
     }
 
-    private fun buildVisibleSessions(
-        activeIds: List<String>,
-        conversations: List<com.inspiredandroid.kai.data.Conversation>,
-    ): List<SessionTab> {
-        val terminal = SessionTab(SandboxSessions.TERMINAL, "Terminal", isTerminal = true)
-        val chatTabs = activeIds
-            .filter {
-                it != SandboxSessions.TERMINAL &&
-                    it != SandboxSessions.SYSTEM &&
-                    it != SandboxSessions.DEFAULT
-            }
-            .map { id -> SessionTab(id = id, label = "#${numberFor(id)}", isTerminal = false) }
-        return listOf(terminal) + chatTabs
+    private fun buildVisibleSessions(currentChatId: String?): List<SessionTab> {
+        val temporaryTab = SessionTab(SandboxSessions.TERMINAL, isTerminal = true)
+        val sessionTab = currentChatId?.takeIf { it.isNotBlank() }
+            ?.let { SessionTab(it, isTerminal = false) }
+        // Session first so the user's chat shell is the dominant entry; scratch
+        // is offered alongside.
+        return listOfNotNull(sessionTab, temporaryTab)
     }
-
-    private fun numberFor(id: String): Int = sessionNumbers.getOrPut(id) { nextSessionNumber++ }
 
     private fun sessionState(id: String): SessionState = statesMap.getOrPut(id) { SessionState() }
 
@@ -123,6 +116,7 @@ class SandboxSessionViewModel(
         _inputText.value = target.inputText
         _isRunning.value = target.isRunning
         _activeHandle.value = target.activeHandle
+        _scrollToEndPulse.value = _scrollToEndPulse.value + 1
     }
 
     fun setInputText(text: String) {

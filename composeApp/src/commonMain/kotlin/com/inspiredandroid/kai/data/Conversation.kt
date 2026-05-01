@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data
 
 import androidx.compose.runtime.Immutable
+import com.inspiredandroid.kai.TerminalLine
 import kotlinx.serialization.Serializable
 
 /**
@@ -23,6 +24,7 @@ data class Conversation(
     val updatedAt: Long,
     val title: String = "",
     val type: String = TYPE_CHAT,
+    val shellTranscript: List<TerminalLine> = emptyList(),
 ) {
     companion object {
         const val TYPE_CHAT = "chat"

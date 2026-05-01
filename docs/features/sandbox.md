@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-04-30
+**Last verified:** 2026-05-01
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -18,9 +18,11 @@ So `cd /tmp` followed by `pwd` in the same chat returns `/tmp`. The assistant do
 
 A shell is created lazily on first use and lives for the duration of the app process. When a conversation is deleted, its shell is closed. Sandbox reset closes every live shell.
 
+The bash *process* itself dies with the app — cwd and exported env do not survive. The visible *transcript* of the current chat's session is persisted (capped at roughly 10,000 characters of trimmed output — about a screen and a half of scrollback), so re-opening an old chat after a restart still shows the tail of what was on screen, even though running another command starts a fresh shell.
+
 ### Terminal tab session picker
 
-The in-app Terminal tab shows a chip row at the top whenever more than one shell is live. Each chip is one session: "Terminal" for the user's scratch shell, plus one chip per chat conversation that has used the shell tool, labelled with the conversation's title. Tapping a chip switches the visible terminal to that session — the running command (if any), output buffer, and input field swap to that shell while everything else keeps running in the background. The picker is in-memory only; chips disappear when the app process dies.
+The in-app Terminal tab shows two chips at the top whenever a chat is open: **Session** for the current chat's shell, and **Temporary** for the user's scratch shell. **Session** sits first and is auto-selected when opening the terminal from a chat, so the user immediately sees what the agent is operating on; the visible terminal also scrolls to the most recent output (including any transcript restored from disk). **Temporary** drops to the standalone scratch shell that isn't tied to any chat — its transcript is in-memory only and clears when the app process dies. With no chat active, only the **Temporary** chip is shown (and the chip row collapses entirely when there's nothing to switch between).
 
 The agent's shell tool, `apk` operations from the Packages tab, and the Terminal scratch session each route to a distinct shell. A long-running `apk install` in the Packages UI no longer blocks the chat tool from running.
 
@@ -59,7 +61,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 - **No PTY → fullscreen TUIs do not work.** `vim`, `less`, `nano`, anything ncurses-based, `cbonsai` in animated mode, and any `ssh -t host fullscreen-cmd` will either refuse to start ("inappropriate ioctl for device" / "stdout is not a tty") or spam escape codes that don't render. Use the non-interactive variants: `cat`/redirected editors, `ssh user@host 'remote-cmd'` without `-t`. A proper PTY layer was prototyped and reverted — the build-out tradeoffs (terminal emulator complexity, IME interaction, scrollback) didn't pencil out for v1.
 - **Process inspectors (`top`, `htop`) cannot see system-wide processes.** Android's `/proc` mount is `hidepid=2`, so `/proc/<pid>/` for processes owned by other UIDs is not visible. `proot` rewrites paths but can't bypass kernel UID enforcement. There is no fix without root. For workload monitoring inside the sandbox itself, use `ps`, `ps -p $$`, or `cat /proc/self/status`.
 - **Subprocess stdout buffering.** `python3` / `node` / etc. fully buffer stdout when stdin is a pipe — output looks "stuck" until the buffer fills or the process exits. Use `python3 -u` or `stdbuf -o0 <cmd>` for interactive testing.
-- **App backgrounding can end the session.** When Android kills the app process to reclaim memory, every `proot` (and therefore every bash) dies with it. On the next foreground use shells restart cleanly per conversation, but cwd, exported env, and any open SSH/SFTP connections are gone. There is no foreground service holding sessions alive — the tradeoff for not asking for that permission.
+- **App backgrounding can end the session.** When Android kills the app process to reclaim memory, every `proot` (and therefore every bash) dies with it. On the next foreground use shells restart cleanly per conversation, but cwd, exported env, and any open SSH/SFTP connections are gone. The visible transcript of each chat's shell is persisted (trimmed tail) so the user still sees what was on screen, but live shell *state* is not. There is no foreground service holding sessions alive — the tradeoff for not asking for that permission.
 - **Memory cost of multiple sessions.** Each live shell is a `proot+bash` pair (tens of MB resident). Running many concurrent chats with shell-tool usage will accumulate sessions. There is no soft cap yet — closing a conversation drops its shell, sandbox reset drops them all.
 - **Cancel without a PTY is best-effort.** A child that ignores `SIGINT`/`SIGTERM` forces a session reset; the user loses session state for that one command.
 - **Stray output from backgrounded jobs** (`sleep 60 &` then "Done" later) can attach itself to whatever command is running when the kernel finally reports the exit. Matches normal terminal behavior.
@@ -69,7 +71,9 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 
 | File | Purpose |
 | --- | --- |
-| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/LinuxSandboxManager.kt` | Owns the rootfs lifecycle, the proot binary path, the package-install list, and the session-keyed map of live persistent shells. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/LinuxSandboxManager.kt` | Owns the rootfs lifecycle, the proot binary path, the package-install list, and the session-keyed map of live persistent shells. Seeds new per-chat shells from the conversation's persisted transcript and pipes transcript snapshots back to `ConversationStorage` after each command. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/SessionShell.kt` | Per-session facade over `PersistentSandboxShell`. Carries the live in-memory transcript, accepts an `initialLines` seed for restart restoration, and fires an `onChange` callback after each command so the manager can persist the tail. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationStorage.kt` | Conversation persistence. `updateShellTranscript(id, lines)` trims to ~10,000 chars total and writes the tail back into the conversation JSON. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/PersistentSandboxShell.kt` | Long-lived bash, sentinel-based command framing, graduated `SIGINT`/`SIGTERM`/`SIGKILL` cancel, self-healing on shell death. One instance per session id. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationIdContext.kt` | `ConversationIdElement` coroutine-context element that threads the active conversation id from the chat layer down into tool execution without polluting `Tool.execute(args)`. |
