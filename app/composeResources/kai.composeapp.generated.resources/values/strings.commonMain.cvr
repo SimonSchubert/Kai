@@ -98,6 +98,8 @@ string|sandbox_packages_uninstall_success|VW5pbnN0YWxsZWQgJTEkcw==
 string|sandbox_packages_uninstall_title|VW5pbnN0YWxsICUxJHM/
 string|sandbox_packages_upgrade_failed|VXBncmFkZSBmYWlsZWQ6ICUxJHM=
 string|sandbox_packages_upgraded|UGFja2FnZXMgdXBncmFkZWQ=
+string|sandbox_session_chip_session|U2Vzc2lvbg==
+string|sandbox_session_chip_temporary|VGVtcG9yYXJ5
 string|scroll_to_bottom_content_description|U2Nyb2xsIHRvIGJvdHRvbQ==
 string|service_free_expert|RnJlZSBFeHBlcnQ=
 string|service_free_fast|RnJlZSBGYXN0
