@@ -10,8 +10,9 @@ import kai.composeapp.generated.resources.sandbox_packages_install_failed
 import kai.composeapp.generated.resources.sandbox_packages_install_success
 import kai.composeapp.generated.resources.sandbox_packages_uninstall_failed
 import kai.composeapp.generated.resources.sandbox_packages_uninstall_success
+import kai.composeapp.generated.resources.sandbox_packages_up_to_date
+import kai.composeapp.generated.resources.sandbox_packages_upgrade_count
 import kai.composeapp.generated.resources.sandbox_packages_upgrade_failed
-import kai.composeapp.generated.resources.sandbox_packages_upgraded
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -52,6 +53,8 @@ private const val ERROR_SUMMARY_MAX_CHARS = 200
 private const val LOG_TAG = "SandboxPackages"
 
 private val ALPINE_REVISION_SUFFIX = Regex("-r\\d+$")
+
+private val UPGRADE_PROGRESS_LINE = Regex("""^\(\d+/\d+\)\s+Upgrading\s""")
 
 class SandboxPackagesViewModel(
     private val sandboxController: SandboxController,
@@ -201,10 +204,15 @@ class SandboxPackagesViewModel(
             val upgradeResult = runAndCapture("apk upgrade")
             applyInstalled(loadInstalled())
             _state.update {
-                val msg = if (!upgradeResult.hasApkErrors()) {
-                    SnackbarMessage(Res.string.sandbox_packages_upgraded)
-                } else {
+                val msg = if (upgradeResult.hasApkErrors()) {
                     SnackbarMessage(Res.string.sandbox_packages_upgrade_failed, upgradeResult.errorSummary())
+                } else {
+                    val count = countUpgradedPackages(upgradeResult.stdout)
+                    if (count == 0) {
+                        SnackbarMessage(Res.string.sandbox_packages_up_to_date)
+                    } else {
+                        SnackbarMessage(Res.string.sandbox_packages_upgrade_count, count.toString())
+                    }
                 }
                 it.copy(upgrading = false, snackbarMessage = msg)
             }
@@ -269,6 +277,11 @@ class SandboxPackagesViewModel(
             if (line.isNotEmpty()) println("$LOG_TAG [$label] $line")
         }
     }
+
+    // apk upgrade emits one progress line per package: `(N/M) Upgrading <pkg> (...)`.
+    // No matches → nothing was actually upgraded (e.g. system already up to date).
+    private fun countUpgradedPackages(stdout: String): Int = stdout.lineSequence()
+        .count { UPGRADE_PROGRESS_LINE.containsMatchIn(it) }
 
     private fun parseInfoLines(raw: String): List<PackageEntry> = raw.lineSequence()
         .map { it.trim() }
