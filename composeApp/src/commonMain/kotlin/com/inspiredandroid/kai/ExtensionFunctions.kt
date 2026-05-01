@@ -48,7 +48,8 @@ fun formatReleaseDate(iso: String): String {
 fun formatFileSize(bytes: Long): String = when {
     bytes >= 1_000_000_000 -> "${(bytes / 100_000_000).toDouble() / 10} GB"
     bytes >= 1_000_000 -> "${bytes / 1_000_000} MB"
-    else -> "${bytes / 1_000} KB"
+    bytes >= 1_000 -> "${bytes / 1_000} KB"
+    else -> "$bytes B"
 }
 
 fun String.smartTruncate(maxLength: Int): String {
