@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.java.KoinJavaComponent.inject
+import kotlin.time.Duration.Companion.seconds
 
 actual class CalendarPermissionController actual constructor() {
     private val context: Context by inject(Context::class.java)
@@ -44,7 +45,7 @@ actual class CalendarPermissionController actual constructor() {
         permissionResultFlow.value = null
         _permissionRequested.value = true
 
-        val result = withTimeoutOrNull(60_000L) {
+        val result = withTimeoutOrNull(60.seconds) {
             permissionResultFlow.first { it != null }
         }
 

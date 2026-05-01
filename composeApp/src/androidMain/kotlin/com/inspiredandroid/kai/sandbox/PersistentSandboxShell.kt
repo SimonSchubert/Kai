@@ -6,12 +6,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
 import java.io.File
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 private const val MAX_OUTPUT_LENGTH = 15_000
 
@@ -86,12 +89,12 @@ class PersistentSandboxShell(
             "printf '\\n\\036%s\\037%d\\037%d\\037%s\\036\\n' '$nonce' \"\$__kai_st\" \"\$\$\" \"\$PWD\" >&2"
         handle?.writeInput(line)
 
-        val result = withTimeoutOrNull(timeoutSeconds * 1000) { sink.done.await() }
+        val result = withTimeoutOrNull(timeoutSeconds.seconds) { sink.done.await() }
         if (result == null) {
             // Hung command. Try a graduated cancel; if that doesn't shake it
             // loose within a short grace, reset the shell.
             cancelForeground()
-            val recovered = withTimeoutOrNull(2_000) { sink.done.await() }
+            val recovered = withTimeoutOrNull(2.seconds) { sink.done.await() }
             currentSink.set(null)
             if (recovered == null) {
                 reset()
@@ -134,7 +137,7 @@ class PersistentSandboxShell(
         scope.launch {
             for (signal in listOf("INT", "TERM", "KILL")) {
                 sendSignalToChildren(pid, signal)
-                kotlinx.coroutines.delay(500)
+                delay(500.milliseconds)
                 // Stop escalating as soon as the in-flight command finishes
                 // (sentinel arrived) or there's no in-flight command anymore.
                 val done = currentSink.get()?.done?.isCompleted

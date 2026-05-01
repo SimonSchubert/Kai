@@ -229,7 +229,7 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
 
             val lastMessage = sanitizeForLiteRt(messages[lastUserIndex].content) ?: ""
             val response = try {
-                withTimeout(INFERENCE_TIMEOUT_MS) {
+                withTimeout(INFERENCE_TIMEOUT_MS.milliseconds) {
                     conv.sendMessage(lastMessage)
                 }
             } catch (e: TimeoutCancellationException) {

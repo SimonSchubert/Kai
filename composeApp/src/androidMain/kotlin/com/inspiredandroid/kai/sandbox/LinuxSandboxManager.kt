@@ -18,8 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
+import kotlin.time.Duration.Companion.milliseconds
 
-private const val TRANSCRIPT_SAVE_DEBOUNCE_MS = 500L
+private val TRANSCRIPT_SAVE_DEBOUNCE = 500.milliseconds
 
 class LinuxSandboxManager(
     private val context: Context,
@@ -236,9 +237,12 @@ class LinuxSandboxManager(
         synchronized(pendingSaves) {
             pendingSaves[sessionId]?.cancel()
             pendingSaves[sessionId] = scope.launch {
-                delay(TRANSCRIPT_SAVE_DEBOUNCE_MS)
-                conversationStorage.updateShellTranscript(sessionId, lines)
-                synchronized(pendingSaves) { pendingSaves.remove(sessionId) }
+                try {
+                    delay(TRANSCRIPT_SAVE_DEBOUNCE)
+                    conversationStorage.updateShellTranscript(sessionId, lines)
+                } finally {
+                    synchronized(pendingSaves) { pendingSaves.remove(sessionId) }
+                }
             }
         }
     }

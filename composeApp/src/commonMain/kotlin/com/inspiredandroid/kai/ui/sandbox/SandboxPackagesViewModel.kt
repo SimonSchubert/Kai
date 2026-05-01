@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.StringResource
+import kotlin.time.Duration.Companion.milliseconds
 
 @Immutable
 data class PackageEntry(
@@ -100,7 +101,7 @@ class SandboxPackagesViewModel(
             return
         }
         searchJob = viewModelScope.launch {
-            delay(SEARCH_DEBOUNCE_MS)
+            delay(SEARCH_DEBOUNCE_MS.milliseconds)
             _state.update { it.copy(searching = true) }
             runSearch(query)
         }
