@@ -58,7 +58,18 @@ class AndroidSandboxController : SandboxController {
 
         scope.launch {
             sandboxManager.state.collect { state ->
-                _status.value = mapState(state)
+                // Guard the mapping: if anything inside (e.g. disk-usage walk)
+                // throws, we'd lose the collector and the UI would freeze on
+                // its current status until process restart.
+                try {
+                    _status.value = mapState(state)
+                } catch (e: Throwable) {
+                    android.util.Log.e("SandboxController", "mapState failed for $state", e)
+                    _status.value = SandboxStatus(
+                        error = true,
+                        statusText = "Sandbox status error: ${e.message ?: e::class.simpleName}",
+                    )
+                }
                 previousState = state
             }
         }

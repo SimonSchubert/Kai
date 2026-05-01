@@ -320,8 +320,36 @@ class LinuxSandboxManager(
     }
 
     fun getDiskUsageMB(): Long {
-        if (!sandboxDir.exists()) return 0
-        return sandboxDir.walkTopDown().sumOf { it.length() } / (1024 * 1024)
+        if (!sandboxDir.isDirectory) return 0
+        // Manual stack walk instead of walkTopDown(): the latter throws an
+        // AssertionError if a child entry transitions from directory→non-directory
+        // between the iterator's isDirectory check and DirectoryState construction.
+        // The rootfs can contain unix sockets / FIFOs / broken symlinks (e.g. from
+        // user-run programs like node), and concurrent install activity also races
+        // the walk. We skip bad entries and keep going.
+        var total = 0L
+        val stack = ArrayDeque<File>()
+        stack.addLast(sandboxDir)
+        while (stack.isNotEmpty()) {
+            val dir = stack.removeLast()
+            val children = try {
+                dir.listFiles()
+            } catch (_: Throwable) {
+                null
+            } ?: continue
+            for (child in children) {
+                try {
+                    when {
+                        child.isDirectory -> stack.addLast(child)
+                        child.isFile -> total += child.length()
+                        // skip sockets, FIFOs, broken symlinks
+                    }
+                } catch (_: Throwable) {
+                    // skip transient/inaccessible entry, keep iterating
+                }
+            }
+        }
+        return total / (1024 * 1024)
     }
 
     fun arePackagesInstalled(): Boolean {
