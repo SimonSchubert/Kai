@@ -30,6 +30,13 @@ enum class ImportSection {
     CONVERSATIONS,
 }
 
+enum class ThemeMode {
+    System,
+    Light,
+    Dark,
+    OledBlack,
+}
+
 /**
  * Stricter than [detectImportSections]: only includes sections that contain actual user data,
  * skipping ones that exist purely because of default feature-toggle flags (e.g. `sms_enabled = false`,
@@ -526,14 +533,27 @@ class AppSettings(private val settings: Settings) {
         settings.putBoolean(KEY_DYNAMIC_UI_ENABLED, enabled)
     }
 
-    private val _oledModeFlow = MutableStateFlow(settings.getBoolean(KEY_OLED_MODE_ENABLED, false))
-    val oledModeFlow: StateFlow<Boolean> = _oledModeFlow
+    private val _themeModeFlow = MutableStateFlow(loadInitialThemeMode())
+    val themeModeFlow: StateFlow<ThemeMode> = _themeModeFlow
 
-    fun isOledModeEnabled(): Boolean = _oledModeFlow.value
+    fun getThemeMode(): ThemeMode = _themeModeFlow.value
 
-    fun setOledModeEnabled(enabled: Boolean) {
-        settings.putBoolean(KEY_OLED_MODE_ENABLED, enabled)
-        _oledModeFlow.value = enabled
+    fun setThemeMode(mode: ThemeMode) {
+        settings.putString(KEY_THEME_MODE, mode.name)
+        _themeModeFlow.value = mode
+    }
+
+    private fun loadInitialThemeMode(): ThemeMode {
+        val raw = settings.getString(KEY_THEME_MODE, "")
+        if (raw.isNotEmpty()) {
+            return try {
+                ThemeMode.valueOf(raw)
+            } catch (_: IllegalArgumentException) {
+                ThemeMode.System
+            }
+        }
+        // Migrate the legacy boolean OLED toggle: true → OledBlack, false → System.
+        return if (settings.getBoolean(KEY_OLED_MODE_ENABLED, false)) ThemeMode.OledBlack else ThemeMode.System
     }
 
     // Daemon mode
@@ -1214,6 +1234,7 @@ class AppSettings(private val settings: Settings) {
         const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
         const val KEY_DYNAMIC_UI_ENABLED = "dynamic_ui_enabled"
         const val KEY_OLED_MODE_ENABLED = "oled_mode_enabled"
+        const val KEY_THEME_MODE = "theme_mode"
         const val KEY_DAEMON_ENABLED = "daemon_enabled"
         const val KEY_HEARTBEAT_CONFIG = "heartbeat_config"
         const val KEY_HEARTBEAT_PROMPT = "heartbeat_prompt"

@@ -92,9 +92,9 @@ interface DataRepository {
     fun isDynamicUiEnabled(): Boolean
     fun setDynamicUiEnabled(enabled: Boolean)
 
-    // OLED mode
-    fun isOledModeEnabled(): Boolean
-    fun setOledModeEnabled(enabled: Boolean)
+    // Theme mode
+    fun getThemeMode(): ThemeMode
+    fun setThemeMode(mode: ThemeMode)
 
     // Interactive mode
     fun setInteractiveMode(enabled: Boolean)

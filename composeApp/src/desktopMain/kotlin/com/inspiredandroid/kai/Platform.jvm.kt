@@ -77,7 +77,16 @@ actual val currentPlatform: Platform = run {
     }
 }
 
-actual val defaultUiScale: Float = if (currentPlatform is Platform.Desktop.Linux) 1.1f else 1.0f
+actual val defaultUiScale: Float = run {
+    val base = if (currentPlatform is Platform.Desktop.Linux) 1.1f else 1.0f
+    if (currentPlatform !is Platform.Desktop.Linux) return@run base
+    // On Wayland/X11 Java's HiDPI auto-detection often fails; fall back to GDK env vars
+    // so HiDPI users get a reasonable default before they touch the slider.
+    val gdkScale = System.getenv("GDK_SCALE")?.toFloatOrNull()
+    val gdkDpiScale = System.getenv("GDK_DPI_SCALE")?.toFloatOrNull()
+    val envFactor = (gdkScale ?: 1f) * (gdkDpiScale ?: 1f)
+    base * envFactor.coerceIn(0.5f, 4f)
+}
 
 actual val isEmailSupported: Boolean = true
 

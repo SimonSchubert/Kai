@@ -1278,7 +1278,7 @@ internal object ModelCatalog {
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
-        "claude-opus-4-7" to 1495, "claude-opus-4.7" to 1495, "claude-opus-latest" to 1495,
+        "claude-opus-4-7" to 1491, "claude-opus-4.7" to 1491, "claude-opus-latest" to 1491,
         "claude-opus-4-7-thinking" to 1503,
         "claude-opus-4-6" to 1497, "claude-opus-4.6" to 1497, "claude-opus-4.6-fast" to 1497,
         "claude-opus-4-6-thinking" to 1502,
@@ -1357,7 +1357,7 @@ internal object ModelCatalog {
         "gemini-1.5-flash" to 1326, "gemini-1.5-flash-latest" to 1326, "gemini-1.5-flash-002" to 1326,
         // --- xAI Grok ---
         "grok-4.20" to 1479, "grok-4.20-multi-agent" to 1475,
-        "grok-4.20-beta1" to 1479, "grok-4.20-beta-0309-reasoning" to 1477,
+        "grok-4.20-beta1" to 1480, "grok-4.20-beta-0309-reasoning" to 1477,
         "grok-4.20-multi-agent-beta-0309" to 1475,
         "grok-4.3" to 1470,
         "grok-4.1" to 1460, "grok-4.1-thinking" to 1469,
@@ -1468,7 +1468,7 @@ internal object ModelCatalog {
         "ernie-5.0" to 1451, "ernie-5.0-0110" to 1451,
         "ernie-5.0-preview-1203" to 1449, "ernie-5.0-preview-1022" to 1419,
         // --- Other ---
-        "muse-spark" to 1489, "mai-1-preview" to 1392,
+        "muse-spark" to 1491, "mai-1-preview" to 1392,
         "dola-seed-2.0-pro" to 1460,
         "yi-lightning" to 1328, "mercury-2" to 1346,
         "step-3.5-flash" to 1391, "step-3" to 1348, "step-2-16k-exp-202412" to 1334,

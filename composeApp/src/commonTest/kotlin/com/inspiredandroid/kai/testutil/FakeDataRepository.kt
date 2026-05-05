@@ -17,6 +17,7 @@ import com.inspiredandroid.kai.data.ServiceInstance
 import com.inspiredandroid.kai.data.SmsDraft
 import com.inspiredandroid.kai.data.SmsSyncState
 import com.inspiredandroid.kai.data.SystemPromptVariant
+import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.inference.DownloadError
 import com.inspiredandroid.kai.inference.DownloadedModel
 import com.inspiredandroid.kai.inference.EngineState
@@ -352,12 +353,12 @@ class FakeDataRepository : DataRepository {
         dynamicUiEnabled = enabled
     }
 
-    private var oledModeEnabled = false
+    private var themeMode: ThemeMode = ThemeMode.System
 
-    override fun isOledModeEnabled(): Boolean = oledModeEnabled
+    override fun getThemeMode(): ThemeMode = themeMode
 
-    override fun setOledModeEnabled(enabled: Boolean) {
-        oledModeEnabled = enabled
+    override fun setThemeMode(mode: ThemeMode) {
+        themeMode = mode
     }
 
     private var interactiveMode = false

@@ -9,6 +9,7 @@ import com.inspiredandroid.kai.data.DataRepository
 import com.inspiredandroid.kai.data.ImportSection
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.TaskScheduler
+import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
 import com.inspiredandroid.kai.httpClient
@@ -70,7 +71,7 @@ class SettingsViewModel(
         tools = dataRepository.getToolDefinitions().toImmutableList(),
         soulText = dataRepository.getSoulText(),
         isDynamicUiEnabled = dataRepository.isDynamicUiEnabled(),
-        isOledModeEnabled = dataRepository.isOledModeEnabled(),
+        themeMode = dataRepository.getThemeMode(),
         isMemoryEnabled = dataRepository.isMemoryEnabled(),
         memories = dataRepository.getMemories().toImmutableList(),
         isSchedulingEnabled = dataRepository.isSchedulingEnabled(),
@@ -137,7 +138,7 @@ class SettingsViewModel(
         onToggleTool = ::onToggleTool,
         onSaveSoul = ::onSaveSoul,
         onToggleDynamicUi = ::onToggleDynamicUi,
-        onToggleOledMode = ::onToggleOledMode,
+        onChangeThemeMode = ::onChangeThemeMode,
         onToggleMemory = ::onToggleMemory,
         onDeleteMemory = ::onDeleteMemory,
         onUpdateMemory = ::onUpdateMemory,
@@ -405,9 +406,9 @@ class SettingsViewModel(
         _state.update { it.copy(isDynamicUiEnabled = enabled) }
     }
 
-    private fun onToggleOledMode(enabled: Boolean) {
-        dataRepository.setOledModeEnabled(enabled)
-        _state.update { it.copy(isOledModeEnabled = enabled) }
+    private fun onChangeThemeMode(mode: ThemeMode) {
+        dataRepository.setThemeMode(mode)
+        _state.update { it.copy(themeMode = mode) }
     }
 
     private fun onToggleMemory(enabled: Boolean) {

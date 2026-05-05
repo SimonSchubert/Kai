@@ -46,6 +46,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -56,9 +58,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.SegmentedButton
-import androidx.compose.material3.SegmentedButtonDefaults
-import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -118,6 +117,7 @@ import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.TaskStatus
 import com.inspiredandroid.kai.data.TaskTrigger
+import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.data.detectImportSections
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.inference.DevicePerformance
@@ -210,8 +210,6 @@ import kai.composeapp.generated.resources.settings_memories_edit_cancel
 import kai.composeapp.generated.resources.settings_memories_edit_save
 import kai.composeapp.generated.resources.settings_memories_edit_title
 import kai.composeapp.generated.resources.settings_memories_show_all
-import kai.composeapp.generated.resources.settings_oled_mode
-import kai.composeapp.generated.resources.settings_oled_mode_description
 import kai.composeapp.generated.resources.settings_open_github_issue
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
@@ -267,6 +265,12 @@ import kai.composeapp.generated.resources.settings_task_details_schedule
 import kai.composeapp.generated.resources.settings_task_details_scheduled_for
 import kai.composeapp.generated.resources.settings_task_details_status
 import kai.composeapp.generated.resources.settings_task_details_trigger
+import kai.composeapp.generated.resources.settings_theme
+import kai.composeapp.generated.resources.settings_theme_dark
+import kai.composeapp.generated.resources.settings_theme_description
+import kai.composeapp.generated.resources.settings_theme_light
+import kai.composeapp.generated.resources.settings_theme_oled
+import kai.composeapp.generated.resources.settings_theme_system
 import kai.composeapp.generated.resources.settings_tools_description
 import kai.composeapp.generated.resources.settings_tools_none_available
 import kai.composeapp.generated.resources.settings_ui_scale
@@ -1687,9 +1691,9 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                         )
                     }
                     SettingsCard {
-                        OledModeToggle(
-                            isOledModeEnabled = uiState.isOledModeEnabled,
-                            onToggleOledMode = actions.onToggleOledMode,
+                        ThemeModePicker(
+                            themeMode = uiState.themeMode,
+                            onChangeThemeMode = actions.onChangeThemeMode,
                         )
                     }
                 }
@@ -1731,9 +1735,9 @@ private fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) {
                     )
                 }
                 SettingsCard {
-                    OledModeToggle(
-                        isOledModeEnabled = uiState.isOledModeEnabled,
-                        onToggleOledMode = actions.onToggleOledMode,
+                    ThemeModePicker(
+                        themeMode = uiState.themeMode,
+                        onChangeThemeMode = actions.onChangeThemeMode,
                     )
                 }
                 if (uiState.showUiScale) {
@@ -3003,17 +3007,88 @@ private fun DynamicUiToggle(
 }
 
 @Composable
-private fun OledModeToggle(
-    isOledModeEnabled: Boolean,
-    onToggleOledMode: (Boolean) -> Unit,
+private fun ThemeModePicker(
+    themeMode: ThemeMode,
+    onChangeThemeMode: (ThemeMode) -> Unit,
 ) {
+    val options = listOf(
+        ThemeMode.System to stringResource(Res.string.settings_theme_system),
+        ThemeMode.Light to stringResource(Res.string.settings_theme_light),
+        ThemeMode.Dark to stringResource(Res.string.settings_theme_dark),
+        ThemeMode.OledBlack to stringResource(Res.string.settings_theme_oled),
+    )
+    val selectedLabel = options.first { it.first == themeMode }.second
+    var expanded by remember { mutableStateOf(false) }
+
     Column(modifier = Modifier.fillMaxWidth()) {
-        ToggleableHeadline(
-            title = stringResource(Res.string.settings_oled_mode),
-            description = stringResource(Res.string.settings_oled_mode_description),
-            checked = isOledModeEnabled,
-            onCheckedChange = onToggleOledMode,
+        Text(
+            text = stringResource(Res.string.settings_theme),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground,
         )
+        Text(
+            text = stringResource(Res.string.settings_theme_description),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
+        )
+        Box(modifier = Modifier.fillMaxWidth()) {
+            OutlinedButton(
+                onClick = { expanded = true },
+                modifier = Modifier.fillMaxWidth().handCursor(),
+            ) {
+                Text(
+                    text = selectedLabel,
+                    modifier = Modifier.weight(1f),
+                )
+                Spacer(Modifier.width(8.dp))
+                Icon(
+                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                options.forEach { (mode, label) ->
+                    val isSelected = mode == themeMode
+                    DropdownMenuItem(
+                        text = {
+                            Text(
+                                text = label,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if (isSelected) {
+                                    MaterialTheme.colorScheme.onPrimaryContainer
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface
+                                },
+                            )
+                        },
+                        onClick = {
+                            expanded = false
+                            onChangeThemeMode(mode)
+                        },
+                        modifier = Modifier
+                            .handCursor()
+                            .then(
+                                if (isSelected) {
+                                    Modifier
+                                        .padding(horizontal = 4.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.primaryContainer,
+                                            shape = RoundedCornerShape(12.dp),
+                                        )
+                                } else {
+                                    Modifier
+                                },
+                            ),
+                    )
+                }
+            }
+        }
     }
 }
 

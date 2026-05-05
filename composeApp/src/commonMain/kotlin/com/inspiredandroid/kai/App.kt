@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.intl.Locale
@@ -35,6 +34,7 @@ import coil3.compose.setSingletonImageLoaderFactory
 import coil3.network.ktor3.KtorNetworkFetcherFactory
 import coil3.svg.SvgDecoder
 import com.inspiredandroid.kai.data.AppSettings
+import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.tools.CalendarPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
@@ -76,11 +76,8 @@ object Settings
 @Composable
 fun App(
     navController: NavHostController,
-    colorScheme: ColorScheme = if (isSystemInDarkTheme()) {
-        DarkColorScheme
-    } else {
-        LightColorScheme
-    },
+    lightColorScheme: ColorScheme = LightColorScheme,
+    darkColorScheme: ColorScheme = DarkColorScheme,
     textToSpeech: TextToSpeechInstance? = null,
     isKoinStarted: Boolean = false,
     onAppOpens: ((Int) -> Unit)? = null,
@@ -97,14 +94,14 @@ fun App(
     // Reuse global Koin if already started (Android Application class),
     // otherwise create a new instance (iOS, Desktop, Wasm).
     if (isKoinStarted) {
-        AppContent(navController, colorScheme, textToSpeech, onAppOpens)
+        AppContent(navController, lightColorScheme, darkColorScheme, textToSpeech, onAppOpens)
     } else {
         KoinApplication(
             configuration = koinConfiguration {
                 modules(appModule)
             },
         ) {
-            AppContent(navController, colorScheme, textToSpeech, onAppOpens)
+            AppContent(navController, lightColorScheme, darkColorScheme, textToSpeech, onAppOpens)
         }
     }
 }
@@ -112,7 +109,8 @@ fun App(
 @Composable
 private fun AppContent(
     navController: NavHostController,
-    colorScheme: ColorScheme,
+    lightColorScheme: ColorScheme,
+    darkColorScheme: ColorScheme,
     textToSpeech: TextToSpeechInstance?,
     onAppOpens: ((Int) -> Unit)?,
 ) {
@@ -156,11 +154,13 @@ private fun AppContent(
         Density(defaultDensity.density * uiScale, defaultDensity.fontScale)
     }
 
-    val oledMode by appSettings.oledModeFlow.collectAsStateWithLifecycle()
-    val effectiveColorScheme = if (oledMode && colorScheme.background.luminance() < 0.5f) {
-        colorScheme.withBlackBackground()
-    } else {
-        colorScheme
+    val themeMode by appSettings.themeModeFlow.collectAsStateWithLifecycle()
+    val systemInDark = isSystemInDarkTheme()
+    val effectiveColorScheme = when (themeMode) {
+        ThemeMode.System -> if (systemInDark) darkColorScheme else lightColorScheme
+        ThemeMode.Light -> lightColorScheme
+        ThemeMode.Dark -> darkColorScheme
+        ThemeMode.OledBlack -> darkColorScheme.withBlackBackground()
     }
 
     CompositionLocalProvider(LocalDensity provides scaledDensity) {

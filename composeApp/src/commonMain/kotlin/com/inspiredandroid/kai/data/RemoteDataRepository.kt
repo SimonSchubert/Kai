@@ -1734,10 +1734,10 @@ class RemoteDataRepository(
         appSettings.setDynamicUiEnabled(enabled)
     }
 
-    override fun isOledModeEnabled(): Boolean = appSettings.isOledModeEnabled()
+    override fun getThemeMode(): ThemeMode = appSettings.getThemeMode()
 
-    override fun setOledModeEnabled(enabled: Boolean) {
-        appSettings.setOledModeEnabled(enabled)
+    override fun setThemeMode(mode: ThemeMode) {
+        appSettings.setThemeMode(mode)
     }
 
     private var interactiveModeFlag = appSettings.getCurrentInteractiveMode()
