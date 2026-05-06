@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -870,8 +871,9 @@ private fun SponsorList(
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
     Spacer(Modifier.height(8.dp))
-    Row(
+    FlowRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         sponsors.forEach { sponsor ->
             Column(
@@ -3033,21 +3035,27 @@ private fun ThemeModePicker(
             modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
         )
         Box(modifier = Modifier.fillMaxWidth()) {
-            OutlinedButton(
-                onClick = { expanded = true },
-                modifier = Modifier.fillMaxWidth().handCursor(),
-            ) {
-                Text(
-                    text = selectedLabel,
-                    modifier = Modifier.weight(1f),
-                )
-                Spacer(Modifier.width(8.dp))
-                Icon(
-                    imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
+            KaiOutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = selectedLabel,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = {
+                    Icon(
+                        modifier = Modifier.handCursor(),
+                        imageVector = vectorResource(Res.drawable.ic_arrow_drop_down),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onBackground,
+                    )
+                },
+            )
+            // Transparent overlay to capture clicks reliably on all platforms
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .handCursor()
+                    .clickable { expanded = true },
+            )
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
