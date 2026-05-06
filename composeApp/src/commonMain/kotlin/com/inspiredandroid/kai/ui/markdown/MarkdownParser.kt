@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
+
 /**
  * Parse markdown text into a [MarkdownDocument].
  *
@@ -11,10 +14,10 @@ package com.inspiredandroid.kai.ui.markdown
  * always well-formed and renderable.
  */
 fun parseMarkdown(text: String): MarkdownDocument {
-    if (text.isEmpty()) return MarkdownDocument(emptyList())
+    if (text.isEmpty()) return MarkdownDocument(persistentListOf())
     return try {
-        MarkdownDocument(BlockScanner.scan(text))
+        MarkdownDocument(BlockScanner.scan(text).toImmutableList())
     } catch (_: Throwable) {
-        MarkdownDocument(listOf(Paragraph(listOf(Text(text)))))
+        MarkdownDocument(persistentListOf(Paragraph(persistentListOf(Text(text)))))
     }
 }

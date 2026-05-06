@@ -1,5 +1,9 @@
 package com.inspiredandroid.kai.ui.markdown.math
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
+
 /**
  * Parses a LaTeX math fragment into a [MathAtom] tree. Robust to malformed input:
  * - Unknown commands render as literal `\name` text.
@@ -36,11 +40,11 @@ internal object MathParser {
     )
 
     fun parse(latex: String): MathAtom {
-        if (latex.isBlank()) return Group(emptyList())
+        if (latex.isBlank()) return Group(persistentListOf())
         return try {
             val parser = ParserState(latex)
             val atoms = parser.parseSequence(stopAtBrace = false)
-            if (atoms.size == 1) atoms[0] else Group(atoms)
+            if (atoms.size == 1) atoms[0] else Group(atoms.toImmutableList())
         } catch (_: Throwable) {
             // Absolute-last-resort fallback: raw text. Should be rare.
             Sym(latex, SymKind.ORDINARY)
@@ -100,18 +104,18 @@ internal object MathParser {
                             while (i < len && src[i] == '\'') i++
                             val primes = "′".repeat(i - start)
                             val primeAtom = Sym(primes, SymKind.ORDINARY)
-                            sup = if (sup == null) primeAtom else Group(listOf(sup, primeAtom))
+                            sup = if (sup == null) primeAtom else Group(persistentListOf(sup, primeAtom))
                         }
 
                         '_', '^' -> {
                             val isSup = ch == '^'
                             i++
                             skipWhitespace()
-                            val arg = parseAtom() ?: Group(emptyList())
+                            val arg = parseAtom() ?: Group(persistentListOf())
                             if (isSup) {
-                                sup = if (sup == null) arg else Group(listOf(sup, arg))
+                                sup = if (sup == null) arg else Group(persistentListOf(sup, arg))
                             } else {
-                                sub = if (sub == null) arg else Group(listOf(sub, arg))
+                                sub = if (sub == null) arg else Group(persistentListOf(sub, arg))
                             }
                         }
 
@@ -136,7 +140,7 @@ internal object MathParser {
         private fun mergeOptional(a: MathAtom?, b: MathAtom?): MathAtom? = when {
             a == null -> b
             b == null -> a
-            else -> Group(listOf(a, b))
+            else -> Group(persistentListOf(a, b))
         }
 
         private fun parseAtom(): MathAtom? {
@@ -148,7 +152,7 @@ internal object MathParser {
                     i++
                     val inner = parseSequence(stopAtBrace = true)
                     if (i < len && src[i] == '}') i++
-                    Group(inner)
+                    Group(inner.toImmutableList())
                 }
 
                 c == '}' -> null
@@ -280,7 +284,7 @@ internal object MathParser {
                     } else {
                         ""
                     }
-                    Delim(leftDelim, rightDelim, Group(inner))
+                    Delim(leftDelim, rightDelim, Group(inner.toImmutableList()))
                 }
 
                 "right" -> {
@@ -304,14 +308,14 @@ internal object MathParser {
 
                 "text", "textrm", "textbf", "textit" -> {
                     val content = readVerbatimGroup()
-                    Styled(MathStyle.TEXT, listOf(Sym(content, SymKind.ORDINARY)))
+                    Styled(MathStyle.TEXT, persistentListOf(Sym(content, SymKind.ORDINARY)))
                 }
 
                 "pmod" -> {
                     // \pmod{n} renders as " (mod n)".
                     val arg = parseRequiredGroup()
                     Group(
-                        listOf(
+                        persistentListOf(
                             Space(0.5f),
                             Sym("(", SymKind.OPEN),
                             Sym("mod", SymKind.FUNCTION),
@@ -350,7 +354,7 @@ internal object MathParser {
                 "end" -> {
                     // Orphan `\end{…}` — eat the arg, emit nothing.
                     readVerbatimGroup()
-                    Group(emptyList())
+                    Group(persistentListOf())
                 }
 
                 else -> MathSymbols.lookup(name)
@@ -360,37 +364,37 @@ internal object MathParser {
 
         private fun parseRequiredGroup(): MathAtom {
             skipWhitespace()
-            if (i >= len) return Group(emptyList())
+            if (i >= len) return Group(persistentListOf())
             if (src[i] == '{') {
                 i++
                 val inner = parseSequence(stopAtBrace = true)
                 if (i < len && src[i] == '}') i++
-                return if (inner.size == 1) inner[0] else Group(inner)
+                return if (inner.size == 1) inner[0] else Group(inner.toImmutableList())
             }
             // Single token (e.g. `\frac 1 2`)
-            return parseAtom() ?: Group(emptyList())
+            return parseAtom() ?: Group(persistentListOf())
         }
 
         private fun parseEnvironment(envName: String): MathAtom {
             val spec = MATRIX_ENVIRONMENTS[envName] ?: run {
                 // Unknown environment — swallow body up to the matching \end{envName}.
                 skipToEnd(envName)
-                return Group(emptyList())
+                return Group(persistentListOf())
             }
             return parseMatrixBody(envName, spec.delim, spec.align)
         }
 
         private fun parseMatrixBody(envName: String, delim: MatrixDelim, align: MatrixAlign): Matrix {
-            val rows = mutableListOf<List<MathAtom>>()
+            val rows = mutableListOf<ImmutableList<MathAtom>>()
             var row = mutableListOf<MathAtom>()
             var cell = mutableListOf<MathAtom>()
             fun finishCell() {
-                row += if (cell.size == 1) cell[0] else Group(cell.toList())
+                row += if (cell.size == 1) cell[0] else Group(cell.toImmutableList())
                 cell = mutableListOf()
             }
             fun finishRow() {
                 finishCell()
-                rows += row.toList()
+                rows += row.toImmutableList()
                 row = mutableListOf()
             }
             while (i < len) {
@@ -420,7 +424,7 @@ internal object MathParser {
             if (rows.isNotEmpty() && rows.last().all { it is Group && it.atoms.isEmpty() }) {
                 rows.removeAt(rows.lastIndex)
             }
-            return Matrix(rows, delim, align)
+            return Matrix(rows.toImmutableList(), delim, align)
         }
 
         private fun skipToEnd(envName: String) {
@@ -493,9 +497,9 @@ internal object MathParser {
             return if (c == '.') "" else c.toString()
         }
 
-        private fun groupAsList(atom: MathAtom): List<MathAtom> = when (atom) {
+        private fun groupAsList(atom: MathAtom): ImmutableList<MathAtom> = when (atom) {
             is Group -> atom.atoms
-            else -> listOf(atom)
+            else -> persistentListOf(atom)
         }
 
         private fun peekCommandName(): String {

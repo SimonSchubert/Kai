@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.ui.markdown.math
 
 import androidx.compose.runtime.Immutable
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * Minimal LaTeX math AST. Deliberately scoped to the subset of commands that show up in
@@ -44,7 +45,7 @@ enum class SymKind {
 }
 
 @Immutable
-data class Group(val atoms: List<MathAtom>) : MathAtom
+data class Group(val atoms: ImmutableList<MathAtom>) : MathAtom
 
 @Immutable
 data class Frac(val num: MathAtom, val den: MathAtom, val drawBar: Boolean = true) : MathAtom
@@ -74,7 +75,7 @@ data class LargeOp(
 data class Delim(val left: String, val right: String, val content: MathAtom) : MathAtom
 
 @Immutable
-data class Styled(val style: MathStyle, val atoms: List<MathAtom>) : MathAtom
+data class Styled(val style: MathStyle, val atoms: ImmutableList<MathAtom>) : MathAtom
 
 /**
  * `\hat{x}`, `\bar{x}`, `\vec{v}`, `\tilde{y}`, `\dot{x}`, `\ddot{x}` — single-glyph accent
@@ -102,7 +103,7 @@ enum class AccentKind {
  */
 @Immutable
 data class Matrix(
-    val rows: List<List<MathAtom>>,
+    val rows: ImmutableList<ImmutableList<MathAtom>>,
     val delim: MatrixDelim,
     val alignMode: MatrixAlign = MatrixAlign.CENTERED,
 ) : MathAtom

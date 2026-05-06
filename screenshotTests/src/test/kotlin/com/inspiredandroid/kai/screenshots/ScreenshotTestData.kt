@@ -219,7 +219,7 @@ object ScreenshotTestData {
             "\u001B[100m   \u001B[101m   \u001B[102m   \u001B[103m   \u001B[104m   " +
             "\u001B[105m   \u001B[106m   \u001B[107m   \u001B[0m"
 
-    val sandboxTerminalLines = listOf(
+    val sandboxTerminalLines = persistentListOf(
         TerminalLine.Command("fastfetch"),
         TerminalLine.Output(fastfetchOutput),
     )

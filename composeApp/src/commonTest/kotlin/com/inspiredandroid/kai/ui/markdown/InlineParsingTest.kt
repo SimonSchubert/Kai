@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -18,27 +19,27 @@ class InlineParsingTest {
 
     @Test
     fun `strong with double asterisks`() {
-        assertEquals(listOf(Strong(listOf(Text("bold")))), inlines("**bold**"))
+        assertEquals(listOf(Strong(persistentListOf(Text("bold")))), inlines("**bold**"))
     }
 
     @Test
     fun `strong with double underscores`() {
-        assertEquals(listOf(Strong(listOf(Text("bold")))), inlines("__bold__"))
+        assertEquals(listOf(Strong(persistentListOf(Text("bold")))), inlines("__bold__"))
     }
 
     @Test
     fun `emphasis with single asterisk`() {
-        assertEquals(listOf(Emphasis(listOf(Text("italic")))), inlines("*italic*"))
+        assertEquals(listOf(Emphasis(persistentListOf(Text("italic")))), inlines("*italic*"))
     }
 
     @Test
     fun `emphasis with single underscore`() {
-        assertEquals(listOf(Emphasis(listOf(Text("italic")))), inlines("_italic_"))
+        assertEquals(listOf(Emphasis(persistentListOf(Text("italic")))), inlines("_italic_"))
     }
 
     @Test
     fun `strike with tildes`() {
-        assertEquals(listOf(Strike(listOf(Text("gone")))), inlines("~~gone~~"))
+        assertEquals(listOf(Strike(persistentListOf(Text("gone")))), inlines("~~gone~~"))
     }
 
     @Test
@@ -51,7 +52,7 @@ class InlineParsingTest {
         val result = inlines("[click here](https://example.com)")
         val link = result.single() as Link
         assertEquals("https://example.com", link.href)
-        assertEquals(listOf(Text("click here")), link.children)
+        assertEquals(persistentListOf(Text("click here")), link.children)
     }
 
     @Test

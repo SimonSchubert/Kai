@@ -1,6 +1,9 @@
 package com.inspiredandroid.kai.ui.markdown
 
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiParser
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * Line-based block splitter. Scans raw markdown text into a list of [BlockNode]s.
@@ -41,13 +44,13 @@ internal object BlockScanner {
     private const val MAX_BLOCK_DEPTH = 32
     private const val MAX_LINE_REGEX_LEN = 10_000
 
-    fun scan(text: String): List<BlockNode> {
+    fun scan(text: String): ImmutableList<BlockNode> {
         val normalized = text.replace("\r\n", "\n").replace("\r", "\n")
         val lines = normalized.split("\n")
         return scanLines(lines, 0, lines.size, 0)
     }
 
-    private fun scanLines(lines: List<String>, start: Int, end: Int, depth: Int): List<BlockNode> {
+    private fun scanLines(lines: List<String>, start: Int, end: Int, depth: Int): ImmutableList<BlockNode> {
         if (depth >= MAX_BLOCK_DEPTH) return flattenToParagraph(lines, start, end)
         val blocks = mutableListOf<BlockNode>()
         var i = start
@@ -163,7 +166,7 @@ internal object BlockScanner {
             blocks += paragraph
             i = next
         }
-        return blocks
+        return blocks.toImmutableList()
     }
 
     // =========================================================================================
@@ -301,10 +304,10 @@ internal object BlockScanner {
         return Blockquote(children) to i
     }
 
-    private fun flattenToParagraph(lines: List<String>, start: Int, end: Int): List<BlockNode> {
+    private fun flattenToParagraph(lines: List<String>, start: Int, end: Int): ImmutableList<BlockNode> {
         val text = (start until end).joinToString("\n") { lines[it] }.trim()
-        if (text.isEmpty()) return emptyList()
-        return listOf(Paragraph(InlineTokenizer.tokenize(text)))
+        if (text.isEmpty()) return persistentListOf()
+        return persistentListOf(Paragraph(InlineTokenizer.tokenize(text)))
     }
 
     // =========================================================================================
@@ -385,7 +388,8 @@ internal object BlockScanner {
         }
 
         val tight = !sawBlankBetweenItems
-        val listBlock = if (isOrdered) OrderedList(startNum, items, tight) else BulletList(items, tight)
+        val immutableItems = items.toImmutableList()
+        val listBlock = if (isOrdered) OrderedList(startNum, immutableItems, tight) else BulletList(immutableItems, tight)
         return listBlock to i
     }
 
@@ -429,8 +433,8 @@ internal object BlockScanner {
             }
         }
 
-        val headers = headerCells.map { InlineTokenizer.tokenize(it.trim()) }
-        val rows = mutableListOf<List<List<InlineNode>>>()
+        val headers = headerCells.map { InlineTokenizer.tokenize(it.trim()) }.toImmutableList()
+        val rows = mutableListOf<ImmutableList<ImmutableList<InlineNode>>>()
         var i = start + 2
         while (i < end) {
             val l = lines[i]
@@ -442,10 +446,10 @@ internal object BlockScanner {
             } else {
                 cells.take(headers.size)
             }
-            rows += padded.map { InlineTokenizer.tokenize(it.trim()) }
+            rows += padded.map { InlineTokenizer.tokenize(it.trim()) }.toImmutableList()
             i++
         }
-        return Table(headers, alignments, rows) to i
+        return Table(headers, alignments.toImmutableList(), rows.toImmutableList()) to i
     }
 
     private fun splitRow(line: String): List<String> {

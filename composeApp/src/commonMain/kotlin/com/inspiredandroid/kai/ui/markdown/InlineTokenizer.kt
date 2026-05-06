@@ -1,5 +1,9 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
+
 /**
  * Inline markdown tokenizer. Produces a flat list of [InlineNode]s from a string.
  *
@@ -41,7 +45,7 @@ internal object InlineTokenizer {
     private val EMPH_UNDER_REGEX = Regex("(?<![A-Za-z0-9_\\\\])_([\\s\\S]+?)_(?![A-Za-z0-9_])")
     private val STRIKE_REGEX = Regex("(?<!\\\\)~~([\\s\\S]+?)~~")
 
-    private val EMPHASIS_PATTERNS: List<Pair<Regex, (List<InlineNode>) -> InlineNode>> = listOf(
+    private val EMPHASIS_PATTERNS: List<Pair<Regex, (ImmutableList<InlineNode>) -> InlineNode>> = listOf(
         STRONG_STAR_REGEX to { children -> Strong(children) },
         STRONG_UNDER_REGEX to { children -> Strong(children) },
         EMPH_STAR_REGEX to { children -> Emphasis(children) },
@@ -49,7 +53,7 @@ internal object InlineTokenizer {
         STRIKE_REGEX to { children -> Strike(children) },
     )
 
-    private const val ATOMIC_MASK = '\u0001'
+    private const val ATOMIC_MASK = ''
 
     private const val MAX_INLINE_DEPTH = 16
     private const val MAX_INLINE_INPUT = 100_000
@@ -60,14 +64,14 @@ internal object InlineTokenizer {
         '.', '<', '>', '{', '}', '"', '\'', '|',
     )
 
-    fun tokenize(text: String): List<InlineNode> {
-        if (text.isEmpty()) return emptyList()
-        if (text.length > MAX_INLINE_INPUT) return listOf(Text(text))
-        if (hasPathologicalRun(text)) return listOf(Text(text))
+    fun tokenize(text: String): ImmutableList<InlineNode> {
+        if (text.isEmpty()) return persistentListOf()
+        if (text.length > MAX_INLINE_INPUT) return persistentListOf(Text(text))
+        if (hasPathologicalRun(text)) return persistentListOf(Text(text))
         return try {
             parse(text, 0)
         } catch (_: Throwable) {
-            listOf(Text(text))
+            persistentListOf(Text(text))
         }
     }
 
@@ -86,11 +90,11 @@ internal object InlineTokenizer {
         return false
     }
 
-    private fun parse(text: String, depth: Int): List<InlineNode> {
-        if (depth >= MAX_INLINE_DEPTH) return listOf(Text(text))
+    private fun parse(text: String, depth: Int): ImmutableList<InlineNode> {
+        if (depth >= MAX_INLINE_DEPTH) return persistentListOf(Text(text))
         val atomics = findAtomics(text, depth)
         val masked = if (atomics.isEmpty()) text else buildMasked(text, atomics)
-        return mergeAdjacentText(parseRange(text, masked, atomics, 0, text.length, depth))
+        return mergeAdjacentText(parseRange(text, masked, atomics, 0, text.length, depth)).toImmutableList()
     }
 
     private fun buildMasked(text: String, atomics: List<Pair<IntRange, InlineNode>>): String {
@@ -117,7 +121,7 @@ internal object InlineTokenizer {
         while (cursor < end) {
             val segment = masked.substring(cursor, end)
             var bestMatch: MatchResult? = null
-            var bestWrap: ((List<InlineNode>) -> InlineNode)? = null
+            var bestWrap: ((ImmutableList<InlineNode>) -> InlineNode)? = null
             for ((regex, wrapper) in EMPHASIS_PATTERNS) {
                 val m = regex.find(segment) ?: continue
                 if (bestMatch == null || m.range.first < bestMatch.range.first) {
@@ -139,7 +143,7 @@ internal object InlineTokenizer {
                 result += emitTextAndAtomics(text, atomics, cursor, matchStart)
             }
             result += bestWrap!!(
-                mergeAdjacentText(parseRange(text, masked, atomics, innerStart, innerEnd, depth + 1)),
+                mergeAdjacentText(parseRange(text, masked, atomics, innerStart, innerEnd, depth + 1)).toImmutableList(),
             )
             cursor = matchEnd
         }

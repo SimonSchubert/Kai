@@ -28,6 +28,7 @@ import coil3.compose.AsyncImage
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.markdown.math.MathFormula
+import kotlinx.collections.immutable.persistentListOf
 
 /**
  * Render a parsed [MarkdownDocument] as a Compose layout. Each block becomes one child of the
@@ -63,7 +64,7 @@ fun MarkdownContent(
 ) {
     val doc = remember(content) {
         runCatching { parseMarkdown(content) }.getOrElse {
-            MarkdownDocument(listOf(Paragraph(listOf(com.inspiredandroid.kai.ui.markdown.Text(content)))))
+            MarkdownDocument(persistentListOf(Paragraph(persistentListOf(com.inspiredandroid.kai.ui.markdown.Text(content)))))
         }
     }
     MarkdownContent(doc, modifier, isInteractive, onUiCallback, frozen)

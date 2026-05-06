@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -19,21 +20,21 @@ class StreamingToleranceTest {
     fun `unclosed emphasis yields literal text`() {
         val doc = parseMarkdown("this is *partial")
         val para = doc.blocks.single() as Paragraph
-        assertEquals(listOf(Text("this is *partial")), para.inlines)
+        assertEquals(persistentListOf(Text("this is *partial")), para.inlines)
     }
 
     @Test
     fun `partial link yields literal text`() {
         val doc = parseMarkdown("before [foo")
         val para = doc.blocks.single() as Paragraph
-        assertEquals(listOf(Text("before [foo")), para.inlines)
+        assertEquals(persistentListOf(Text("before [foo")), para.inlines)
     }
 
     @Test
     fun `partial image yields literal text`() {
         val doc = parseMarkdown("before ![alt")
         val para = doc.blocks.single() as Paragraph
-        assertEquals(listOf(Text("before ![alt")), para.inlines)
+        assertEquals(persistentListOf(Text("before ![alt")), para.inlines)
     }
 
     @Test
@@ -96,7 +97,7 @@ class StreamingToleranceTest {
         val big = "x".repeat(200_000)
         val doc = parseMarkdown(big)
         val para = doc.blocks.single() as Paragraph
-        assertEquals(listOf(Text(big)), para.inlines)
+        assertEquals(persistentListOf(Text(big)), para.inlines)
     }
 
     @Test

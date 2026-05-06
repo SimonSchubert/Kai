@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.ui.markdown.math
 
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -18,7 +19,7 @@ class MathAtomParserTest {
     @Test
     fun `empty input gives empty group`() {
         val result = parse("")
-        assertEquals(Group(emptyList()), result)
+        assertEquals(Group(persistentListOf()), result)
     }
 
     @Test

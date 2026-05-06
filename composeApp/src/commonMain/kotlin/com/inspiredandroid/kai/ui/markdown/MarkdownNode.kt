@@ -2,18 +2,19 @@ package com.inspiredandroid.kai.ui.markdown
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiNode
+import kotlinx.collections.immutable.ImmutableList
 
 @Immutable
-data class MarkdownDocument(val blocks: List<BlockNode>)
+data class MarkdownDocument(val blocks: ImmutableList<BlockNode>)
 
 @Immutable
 sealed interface BlockNode
 
 @Immutable
-data class Heading(val level: Int, val inlines: List<InlineNode>) : BlockNode
+data class Heading(val level: Int, val inlines: ImmutableList<InlineNode>) : BlockNode
 
 @Immutable
-data class Paragraph(val inlines: List<InlineNode>) : BlockNode
+data class Paragraph(val inlines: ImmutableList<InlineNode>) : BlockNode
 
 @Immutable
 data class CodeFence(
@@ -23,26 +24,26 @@ data class CodeFence(
 ) : BlockNode
 
 @Immutable
-data class Blockquote(val children: List<BlockNode>) : BlockNode
+data class Blockquote(val children: ImmutableList<BlockNode>) : BlockNode
 
 @Immutable
-data class BulletList(val items: List<ListItem>, val tight: Boolean) : BlockNode
+data class BulletList(val items: ImmutableList<ListItem>, val tight: Boolean) : BlockNode
 
 @Immutable
 data class OrderedList(
     val start: Int,
-    val items: List<ListItem>,
+    val items: ImmutableList<ListItem>,
     val tight: Boolean,
 ) : BlockNode
 
 @Immutable
-data class ListItem(val children: List<BlockNode>)
+data class ListItem(val children: ImmutableList<BlockNode>)
 
 @Immutable
 data class Table(
-    val headers: List<List<InlineNode>>,
-    val alignments: List<ColumnAlign>,
-    val rows: List<List<List<InlineNode>>>,
+    val headers: ImmutableList<ImmutableList<InlineNode>>,
+    val alignments: ImmutableList<ColumnAlign>,
+    val rows: ImmutableList<ImmutableList<ImmutableList<InlineNode>>>,
 ) : BlockNode
 
 enum class ColumnAlign { LEFT, CENTER, RIGHT, NONE }
@@ -66,19 +67,19 @@ sealed interface InlineNode
 data class Text(val value: String) : InlineNode
 
 @Immutable
-data class Emphasis(val children: List<InlineNode>) : InlineNode
+data class Emphasis(val children: ImmutableList<InlineNode>) : InlineNode
 
 @Immutable
-data class Strong(val children: List<InlineNode>) : InlineNode
+data class Strong(val children: ImmutableList<InlineNode>) : InlineNode
 
 @Immutable
-data class Strike(val children: List<InlineNode>) : InlineNode
+data class Strike(val children: ImmutableList<InlineNode>) : InlineNode
 
 @Immutable
 data class InlineCode(val code: String) : InlineNode
 
 @Immutable
-data class Link(val href: String, val children: List<InlineNode>) : InlineNode
+data class Link(val href: String, val children: ImmutableList<InlineNode>) : InlineNode
 
 @Immutable
 data class Image(val src: String, val alt: String) : InlineNode

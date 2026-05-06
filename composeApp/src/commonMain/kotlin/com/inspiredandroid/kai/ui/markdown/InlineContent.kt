@@ -12,6 +12,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import com.inspiredandroid.kai.ui.markdown.math.MathFormula
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * Render a list of [InlineNode]s. When no [InlineMath] is present this delegates to a plain
@@ -23,7 +24,7 @@ import com.inspiredandroid.kai.ui.markdown.math.MathFormula
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 internal fun InlineContent(
-    inlines: List<InlineNode>,
+    inlines: ImmutableList<InlineNode>,
     style: TextStyle,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Unspecified,

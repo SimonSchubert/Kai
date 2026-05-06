@@ -1,5 +1,6 @@
 package com.inspiredandroid.kai.ui.markdown
 
+import kotlinx.collections.immutable.persistentListOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -14,7 +15,7 @@ class BlockParsingTest {
             val doc = parseMarkdown("$hashes Title")
             val heading = doc.blocks.single() as Heading
             assertEquals(level, heading.level)
-            assertEquals(listOf(Text("Title")), heading.inlines)
+            assertEquals(persistentListOf(Text("Title")), heading.inlines)
         }
     }
 
@@ -29,9 +30,9 @@ class BlockParsingTest {
     @Test
     fun `setext h1 and h2`() {
         val h1 = parseMarkdown("Title\n===")
-        assertEquals(Heading(1, listOf(Text("Title"))), h1.blocks.single())
+        assertEquals(Heading(1, persistentListOf(Text("Title"))), h1.blocks.single())
         val h2 = parseMarkdown("Title\n---")
-        assertEquals(Heading(2, listOf(Text("Title"))), h2.blocks.single())
+        assertEquals(Heading(2, persistentListOf(Text("Title"))), h2.blocks.single())
     }
 
     @Test

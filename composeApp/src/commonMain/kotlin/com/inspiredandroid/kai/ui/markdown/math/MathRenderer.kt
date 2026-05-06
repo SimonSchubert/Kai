@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 
 // Typographic ratios relative to the current base font size. Picked visually; not TeX-exact.
 private const val SCRIPT_SCALE = 0.7f
@@ -46,7 +49,7 @@ private val MATRIX_ROW_GAP = 4.dp
 private val SCRIPT_FONT_SIZE = 12.sp
 
 /** Reused sentinel for absent matrix cells — avoids allocating a new empty Group per recomposition. */
-private val EMPTY_MATRIX_CELL: MathAtom = Group(emptyList())
+private val EMPTY_MATRIX_CELL: MathAtom = Group(persistentListOf())
 
 /** Glyphs for narrow accents. Widening accents (BAR, OVERLINE, WIDEHAT, WIDETILDE) render as a drawn line. */
 private val ACCENT_GLYPHS = mapOf(
@@ -109,7 +112,7 @@ private fun AtomRenderer(
  */
 @Composable
 private fun GroupRenderer(
-    atoms: List<MathAtom>,
+    atoms: ImmutableList<MathAtom>,
     display: Boolean,
     baseSize: TextUnit,
     color: Color,
@@ -137,7 +140,7 @@ private fun GroupRenderer(
 }
 
 private sealed interface Segment
-private data class RunSegment(val atoms: List<MathAtom>) : Segment
+private data class RunSegment(val atoms: ImmutableList<MathAtom>) : Segment
 private data class ComplexSegment(val atom: MathAtom) : Segment
 
 private fun splitIntoSegments(atoms: List<MathAtom>, display: Boolean): List<Segment> {
@@ -148,13 +151,13 @@ private fun splitIntoSegments(atoms: List<MathAtom>, display: Boolean): List<Seg
             run += a
         } else {
             if (run.isNotEmpty()) {
-                out += RunSegment(run.toList())
+                out += RunSegment(run.toImmutableList())
                 run.clear()
             }
             out += ComplexSegment(a)
         }
     }
-    if (run.isNotEmpty()) out += RunSegment(run.toList())
+    if (run.isNotEmpty()) out += RunSegment(run.toImmutableList())
     return out
 }
 
@@ -182,7 +185,7 @@ private fun isScriptContentInlineRenderable(atom: MathAtom): Boolean = when (ato
 }
 
 @Composable
-private fun InlineRun(atoms: List<MathAtom>, baseSize: TextUnit, color: Color) {
+private fun InlineRun(atoms: ImmutableList<MathAtom>, baseSize: TextUnit, color: Color) {
     val style = MaterialTheme.typography.bodyLarge
     val annotated = buildAnnotatedString {
         for (a in atoms) appendAtomInline(a, color)
