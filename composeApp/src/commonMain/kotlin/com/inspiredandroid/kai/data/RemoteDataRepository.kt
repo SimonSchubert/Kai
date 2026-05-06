@@ -838,6 +838,7 @@ class RemoteDataRepository(
                             toolCalls = toolCalls.map { tc ->
                                 ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
                             }.toImmutableList(),
+                            reasoningContent = message.effectiveReasoning,
                         ),
                     )
                 }
@@ -919,11 +920,7 @@ class RemoteDataRepository(
             // Include thoughtSignature from the Part (required for Gemini 3 models)
             val toolCallInfos = partsWithFunctionCalls.map { part ->
                 val fc = part.functionCall!!
-                val argsJson = fc.args?.let { args ->
-                    args.entries.joinToString(", ", "{", "}") { (k, v) ->
-                        "\"$k\": ${toolExecutor.formatJsonElement(v)}"
-                    }
-                } ?: "{}"
+                val argsJson = fc.args?.let { JsonObject(it).toString() } ?: "{}"
                 ToolCallInfo(
                     id = "gemini-${Uuid.random()}",
                     name = fc.name,

@@ -107,6 +107,9 @@ data class History(
     val isStatusMessage: Boolean = false,
     val fallbackServiceName: String? = null,
     val uiSubmission: UiSubmission? = null,
+    // Preserved from a tool-call assistant turn so it can be round-tripped
+    // back to providers (e.g. DeepSeek) that require it on the next request.
+    val reasoningContent: String? = null,
 ) {
     enum class Role {
         USER,
@@ -166,9 +169,13 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
 
     History.Role.ASSISTANT -> {
         if (toolCalls != null) {
+            // When isThinking is true, History.content actually holds the reasoning text
+            // (the provider returned no real content). Don't send it as `content`; it will
+            // be carried by reasoning_content instead.
+            val realContent = if (isThinking || content.isEmpty()) null else JsonPrimitive(content)
             OpenAICompatibleChatRequestDto.Message(
                 role = "assistant",
-                content = if (content.isEmpty()) null else JsonPrimitive(content),
+                content = realContent,
                 tool_calls = toolCalls.map { tc ->
                     OpenAICompatibleChatRequestDto.ToolCall(
                         id = tc.id,
@@ -178,6 +185,7 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
                         ),
                     )
                 },
+                reasoningContent = reasoningContent,
             )
         } else {
             OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))
