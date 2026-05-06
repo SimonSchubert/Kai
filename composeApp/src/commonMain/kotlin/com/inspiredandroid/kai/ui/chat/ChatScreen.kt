@@ -491,6 +491,13 @@ private fun ChatModeScreen(
         if (pendingId != null) uiState.savedConversations.filter { it.id != pendingId }.toImmutableList() else uiState.savedConversations
     }
 
+    val historyState = rememberUpdatedState(uiState.history)
+    val isShellExecuting by remember {
+        derivedStateOf {
+            historyState.value.any { it.role == History.Role.TOOL_EXECUTING && it.content == "execute_shell_command" }
+        }
+    }
+
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).navigationBarsPadding().statusBarsPadding().imePadding()) {
         Column(Modifier.fillMaxSize()) {
             TopBar(
@@ -503,6 +510,7 @@ private fun ChatModeScreen(
                 onNavigateToSettings = onNavigateToSettings,
                 isSandboxAvailable = isSandboxAvailable,
                 isSandboxOpen = isSandboxOpen,
+                isShellExecuting = isShellExecuting,
                 onToggleSandbox = { isSandboxOpen = !isSandboxOpen },
                 onShowHistory = {
                     keyboardController?.hide()

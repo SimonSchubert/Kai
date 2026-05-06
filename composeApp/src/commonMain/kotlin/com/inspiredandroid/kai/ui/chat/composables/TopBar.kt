@@ -1,5 +1,8 @@
 package com.inspiredandroid.kai.ui.chat.composables
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +16,8 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -44,6 +49,7 @@ internal fun TopBar(
     onNavigateToSettings: () -> Unit,
     isSandboxAvailable: Boolean,
     isSandboxOpen: Boolean,
+    isShellExecuting: Boolean,
     onToggleSandbox: () -> Unit,
     onShowHistory: () -> Unit,
     navigationTabBar: (@Composable () -> Unit)? = null,
@@ -53,7 +59,7 @@ internal fun TopBar(
             modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 64.dp),
         ) {
             Row(modifier = Modifier.align(Alignment.CenterStart)) {
-                LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory, isSandboxAvailable, isSandboxOpen, onToggleSandbox)
+                LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory, isSandboxAvailable, isSandboxOpen, isShellExecuting, onToggleSandbox)
             }
             Box(modifier = Modifier.align(Alignment.Center)) {
                 navigationTabBar()
@@ -66,7 +72,7 @@ internal fun TopBar(
         }
     } else {
         Row {
-            LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory, isSandboxAvailable, isSandboxOpen, onToggleSandbox)
+            LeadingButtons(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions, isChatHistoryEmpty, hasSavedConversations, onShowHistory, isSandboxAvailable, isSandboxOpen, isShellExecuting, onToggleSandbox)
             Spacer(Modifier.weight(1f))
             if (textToSpeech != null) {
                 SpeechToggleButton(textToSpeech, isSpeechOutputEnabled, isSpeaking, actions)
@@ -96,6 +102,7 @@ private fun LeadingButtons(
     onShowHistory: () -> Unit,
     isSandboxAvailable: Boolean,
     isSandboxOpen: Boolean,
+    isShellExecuting: Boolean,
     onToggleSandbox: () -> Unit,
 ) {
     if (hasSavedConversations) {
@@ -129,12 +136,26 @@ private fun LeadingButtons(
         }
     }
     if (isSandboxAvailable) {
+        val flashAlpha = remember { Animatable(0f) }
+        LaunchedEffect(isShellExecuting) {
+            if (isShellExecuting) {
+                flashAlpha.snapTo(0.4f)
+                flashAlpha.animateTo(
+                    targetValue = 0f,
+                    animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing),
+                )
+            }
+        }
+        val primary = MaterialTheme.colorScheme.primary
+        val checkedContainer = primary.copy(alpha = 0.2f)
+        val flashContainer = primary.copy(alpha = flashAlpha.value)
         IconToggleButton(
             checked = isSandboxOpen,
             onCheckedChange = { onToggleSandbox() },
             modifier = Modifier.handCursor(),
             colors = IconButtonDefaults.iconToggleButtonColors(
-                checkedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
+                containerColor = flashContainer,
+                checkedContainerColor = if (flashAlpha.value > 0f) flashContainer else checkedContainer,
                 checkedContentColor = MaterialTheme.colorScheme.primary,
             ),
         ) {
