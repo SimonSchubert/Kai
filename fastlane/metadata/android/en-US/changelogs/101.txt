@@ -1,0 +1,9 @@
+Theme switcher and native desktop UI scale
+Linux sandbox icon flash on shell execution
+Fix DeepSeek tool execution
+Fix sponsors display
+Improve Ollama error handling
+Compose performance improvements
+Add missing localizations
+Upgrade LiteRT
+Upgrade SDKs

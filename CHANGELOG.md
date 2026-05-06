@@ -1,3 +1,20 @@
+## v2.5.0 — 2026-05-06
+
+### Features
+- Theme switcher and native desktop UI scale settings
+- Linux sandbox icon flash on shell execution
+
+### Fixes
+- Fix DeepSeek tool execution
+- Fix sponsors display
+
+### Improvements
+- Improve Ollama error handling
+- Compose performance improvements
+- Add missing localizations
+- Upgrade LiteRT
+- Upgrade SDKs
+
 ## v2.4.1 — 2026-05-02
 
 ### Features
