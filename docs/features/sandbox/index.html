@@ -847,7 +847,7 @@
 
 
 <h1 id="linux-sandbox">Linux Sandbox</h1>
-<p><strong>Last verified:</strong> 2026-05-01</p>
+<p><strong>Last verified:</strong> 2026-05-06</p>
 <p>Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space <code>proot</code> runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.</p>
 <p>The sandbox is <strong>Android-only</strong>. iOS, desktop, and web stubs return "not ready" for every operation.</p>
 <h2 id="concepts">Concepts</h2>
@@ -878,6 +878,7 @@
 <li><strong>Network access</strong>: outbound IP works (DNS is configured against <code>8.8.8.8</code> / <code>8.8.4.4</code>). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.</li>
 <li><strong>File visibility</strong>: <code>/root</code> lives at app-external storage so files the agent produces can be opened with <code>open_file</code> via Android's <code>FileProvider</code>. The rest of the filesystem (<code>/etc</code>, <code>/usr</code>, <code>/var</code>, etc.) is the Alpine rootfs and lives in app-internal storage.</li>
 <li><strong>Limits</strong>: each shell call's stdout and stderr are individually capped at 15 000 characters; pipe through <code>head</code> / <code>tail</code> / <code>grep</code> for larger output. The default per-call timeout is 30 s and the maximum is 60 s.</li>
+<li><strong>Active-shell indicator</strong>: each time a chat starts running a shell command via the agent's shell tool, the rounded background of the sandbox icon button in the chat top bar flashes once in the primary color (snap on, ~800ms fade out) so the user can see at a glance that the assistant kicked off a sandbox command.</li>
 </ul>
 <h2 id="limitations">Limitations</h2>
 <ul>
