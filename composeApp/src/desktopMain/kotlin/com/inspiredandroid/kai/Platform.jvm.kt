@@ -189,7 +189,7 @@ actual fun PlatformBackHandler(enabled: Boolean, onBack: () -> Unit) {
 }
 
 actual suspend fun saveFileToDevice(bytes: ByteArray, baseName: String, extension: String) {
-    val file = FileKit.openFileSaver(suggestedName = baseName, extension = extension)
+    val file = FileKit.openFileSaver(suggestedName = baseName, defaultExtension = extension)
     file?.write(bytes)
 }
 
