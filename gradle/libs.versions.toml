@@ -1,5 +1,5 @@
 [versions]
-agp = "9.2.0"
+agp = "9.2.1"
 appVersion = "2.4.1"
 android-versionCode = "100"
 android-compileSdk = "36"

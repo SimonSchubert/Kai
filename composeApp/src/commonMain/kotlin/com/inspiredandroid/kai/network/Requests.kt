@@ -41,6 +41,7 @@ import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -379,6 +380,8 @@ class Requests {
         credentials: ServiceCredentials,
         response: HttpResponse,
     ): Nothing {
+        val responseBody = response.bodyAsText()
+        val parsedMessage = parseOpenAICompatibleErrorMessage(responseBody)
         when (response.status.value) {
             401 -> throw OpenAICompatibleInvalidApiKeyException()
 
@@ -391,17 +394,31 @@ class Requests {
             429 -> throw OpenAICompatibleRateLimitExceededException()
 
             else -> {
-                val responseBody = response.bodyAsText()
-                if (responseBody.contains("credit", ignoreCase = true) ||
-                    responseBody.contains("exhausted", ignoreCase = true) ||
-                    responseBody.contains("spending limit", ignoreCase = true) ||
-                    responseBody.contains("quota", ignoreCase = true)
+                val haystack = parsedMessage ?: responseBody
+                if (haystack.contains("credit", ignoreCase = true) ||
+                    haystack.contains("exhausted", ignoreCase = true) ||
+                    haystack.contains("spending limit", ignoreCase = true) ||
+                    haystack.contains("quota", ignoreCase = true) ||
+                    haystack.contains("subscription", ignoreCase = true) ||
+                    haystack.contains("upgrade", ignoreCase = true)
                 ) {
                     throw OpenAICompatibleQuotaExhaustedException()
                 }
-                throw OpenAICompatibleGenericException("${service.displayName} request failed: ${response.status}")
+                val detail = parsedMessage ?: "${response.status}"
+                throw OpenAICompatibleGenericException("${service.displayName}: $detail")
             }
         }
+    }
+
+    private fun parseOpenAICompatibleErrorMessage(responseBody: String): String? = try {
+        val error = anthropicJson.parseToJsonElement(responseBody).jsonObject["error"]
+        when {
+            error == null -> null
+            error is JsonPrimitive -> error.content.takeIf { it.isNotBlank() }
+            else -> error.jsonObject["message"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+        }
+    } catch (_: Exception) {
+        null
     }
 
     private fun Tool.toRequestTool(): OpenAICompatibleChatRequestDto.Tool = OpenAICompatibleChatRequestDto.Tool(
