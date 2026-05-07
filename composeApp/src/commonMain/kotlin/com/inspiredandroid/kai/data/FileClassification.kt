@@ -7,7 +7,7 @@ enum class FileCategory {
     UNSUPPORTED,
 }
 
-const val MAX_TEXT_FILE_BYTES = 100_000
+const val MAX_TEXT_FILE_BYTES = 200_000
 const val MAX_PDF_BYTES = 20_000_000
 const val MAX_IMAGE_BYTES = 15_000_000
 
@@ -34,7 +34,7 @@ private val textExtensions = setOf(
     "py", "rb", "rs", "go", "c", "h", "cpp", "hpp",
     "swift", "sh", "bash", "zsh", "sql", "graphql",
     "toml", "ini", "cfg", "conf", "log", "properties",
-    "gradle", "tsx", "jsx",
+    "gradle", "tsx", "jsx", "gsc",
 )
 
 internal val imageExtensions = setOf(

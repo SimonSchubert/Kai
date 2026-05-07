@@ -73,7 +73,7 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 
 ### Text files
 - Supports `.txt`, `.md`, `.json`, `.csv`, `.xml`, `.yaml`, `.html`, `.css`, `.js`, `.ts`, `.kt`, `.py`, `.rs`, `.go`, `.c`, `.cpp`, `.swift`, `.sh`, `.sql`, `.toml`, `.ini`, `.log`, `.gradle`, and more
-- Maximum size: 100 KB per file
+- Maximum size: 200 KB per file
 - Content is decoded at send time and concatenated into the user message with a filename header per file
 - Works with all providers (content is inlined as text)
 - Shown as a filename chip in the user message bubble
