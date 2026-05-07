@@ -12,6 +12,8 @@ internal val LIMITED_MODELS = listOf(
     "gemma2",
     "gemma:2b",
     "gemma:7b",
+    "gemma3",
+    "gemma-3",
     "gemma-4-e2b",
     "gemma-4-e4b",
     "phi3:mini",
