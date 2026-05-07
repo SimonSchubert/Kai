@@ -295,14 +295,14 @@ fun TerminalContent(
         // Re-key the auto-scroll on outputLines so switching sessions detaches
         // from the previous session's list and starts following the new one.
         LaunchedEffect(listState, isRunning, outputLines) {
-            snapshotFlow { outputLines.size }.collect { size ->
-                val lastIndex = size - 1 + if (isRunning) 1 else 0
-                if (lastIndex < 0) return@collect
+            snapshotFlow { outputLines.size }.collect {
                 val layout = listState.layoutInfo
+                val total = layout.totalItemsCount
+                if (total == 0) return@collect
                 val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
                 // Don't yank the user back if they've scrolled up to read older output.
-                if (lastVisible >= layout.totalItemsCount - 2) {
-                    listState.scrollToItem(lastIndex)
+                if (lastVisible >= total - 2) {
+                    listState.scrollToItem(total - 1)
                 }
             }
         }
