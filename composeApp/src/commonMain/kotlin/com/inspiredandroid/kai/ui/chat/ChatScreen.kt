@@ -49,10 +49,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -116,8 +114,6 @@ import kai.composeapp.generated.resources.interactive_ui_parsing_failed
 import kai.composeapp.generated.resources.interactive_welcome_subtitle
 import kai.composeapp.generated.resources.interactive_welcome_title
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
-import kai.composeapp.generated.resources.snackbar_conversation_deleted
-import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
@@ -464,26 +460,10 @@ private fun ChatModeScreen(
         }
     }
 
-    val conversationDeletedMsg = stringResource(Res.string.snackbar_conversation_deleted)
-    val undoLabel = stringResource(Res.string.snackbar_undo)
-
     LaunchedEffect(uiState.snackbarMessage) {
         val resource = uiState.snackbarMessage ?: return@LaunchedEffect
         snackbarHostState.showSnackbar(getString(resource))
         uiState.actions.clearSnackbar()
-    }
-
-    LaunchedEffect(uiState.pendingConversationDeletion) {
-        val pendingId = uiState.pendingConversationDeletion ?: return@LaunchedEffect
-        snackbarHostState.currentSnackbarData?.dismiss()
-        val result = snackbarHostState.showSnackbar(
-            message = conversationDeletedMsg,
-            actionLabel = undoLabel,
-            duration = SnackbarDuration.Short,
-        )
-        if (result == SnackbarResult.ActionPerformed) {
-            uiState.actions.undoDeleteConversation()
-        }
     }
 
     val filteredConversations = remember(uiState.savedConversations, uiState.pendingConversationDeletion) {
@@ -829,6 +809,7 @@ private fun ChatModeScreen(
         ChatHistorySheet(
             conversations = filteredConversations,
             currentConversationId = uiState.currentConversationId,
+            pendingConversationDeletion = uiState.pendingConversationDeletion,
             actions = uiState.actions,
             onDismiss = { showHistorySheet = false },
             onConversationSelected = { isSandboxOpen = false },

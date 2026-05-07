@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-07
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -37,7 +37,7 @@ Auto-derived from the first user message when a conversation is saved for the fi
 - Each item shows the title and formatted date
 - Non-interactive conversations are outlined with a primary-colored border; interactive-mode conversations get an animated gradient border. The active conversation's title is rendered in the primary color (inactive titles use onBackground)
 - Tapping an item loads that conversation and dismisses the sheet
-- Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed
+- Each item has a delete button that defers deletion with a snackbar "Undo" option (~4 seconds) before the conversation is permanently removed. The snackbar appears inside the history sheet so it remains visible while the sheet is open, and the sheet stays open so multiple conversations can be deleted in sequence
 - Deleting the active conversation clears the chat
 - Heartbeat conversations are included in the history list with a "Heartbeat" label badge, and can also be accessed via the heartbeat banner
 
