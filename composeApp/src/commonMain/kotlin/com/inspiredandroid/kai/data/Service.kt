@@ -240,7 +240,7 @@ sealed class Service(
         defaultModel = "LongCat-Flash-Lite",
         settingsKeyPrefix = "longcat",
         chatUrl = "https://api.longcat.chat/openai/v1/chat/completions",
-        modelsUrl = null,
+        modelsUrl = "https://api.longcat.chat/openai/v1/models",
         defaultModels = listOf(
             ModelDefinition(id = "LongCat-Flash-Chat", subtitle = "LongCat"),
             ModelDefinition(id = "LongCat-Flash-Thinking", subtitle = "LongCat"),
