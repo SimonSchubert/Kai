@@ -1,0 +1,7 @@
+Fix terminal auto-scroll crash
+Update model catalog
+Add LongCat dynamic model endpoint
+Add Ollama Gemma4 to no-tool list
+Support .gsc files and 200KB uploads
+Show history delete undo inside modal
+Upgrade dependencies

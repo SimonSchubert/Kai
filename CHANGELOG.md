@@ -1,3 +1,16 @@
+## v2.5.1 — 2026-05-13
+
+### Fixes
+- Fix terminal auto-scroll crash
+
+### Improvements
+- Update model catalog
+- Add dynamic model endpoint for LongCat service
+- Add Ollama Gemma4 to no-tool model list
+- Support .gsc files and increase upload size limit to 200KB
+- Show history delete undo inside modal
+- Upgrade dependencies (coroutines, datetime, and others)
+
 ## v2.5.0 — 2026-05-06
 
 ### Features
