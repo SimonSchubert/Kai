@@ -76,6 +76,7 @@ class SandboxFileBrowserViewModelTest {
             return deleteResult
         }
 
+        @OptIn(kotlin.experimental.ExperimentalNativeApi::class)
         override suspend fun renameEntry(path: String, newName: String): Result<String> {
             lastRenameCall = path to newName
             val override = renameResult
