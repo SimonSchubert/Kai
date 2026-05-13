@@ -12,7 +12,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 import androidx.navigation.ExperimentalBrowserHistoryApi
 import androidx.navigation.bindToBrowserNavigation
-import androidx.navigation.bindToNavigation
 import androidx.navigation.compose.rememberNavController
 import kotlinx.browser.document
 import kotlinx.browser.window
