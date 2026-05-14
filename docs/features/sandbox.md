@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-05-06
+**Last verified:** 2026-05-14
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -31,6 +31,16 @@ The agent's shell tool, `apk` operations from the Packages tab, and the Terminal
 The first-run install pulls a fixed set of packages: `bash`, `curl`, `wget`, `git`, `jq`, `python3` (with pip), `nodejs`, plus remote-server tooling — `openssh-client` (provides `ssh`/`scp`/`sftp`), `lftp` (FTP and FTPS), and `rsync`. Anything else is one `apk add` away.
 
 `~/.ssh` is part of `/root`, which is bind-mounted to durable app storage, so SSH keys, `known_hosts`, and SSH config survive restarts.
+
+### SSH host configuration
+
+After the package install completes, Kai seeds `~/.ssh/config` with a `Host *` defaults block: server keepalive (`ServerAliveInterval 30`, `ServerAliveCountMax 3`) so long-lived ssh tunnels and sftp sessions don't get killed by NAT timeouts, and `StrictHostKeyChecking accept-new` so the first connection to a host writes its key into `known_hosts` automatically without a `yes/no` prompt this shell can't answer (subsequent connections still reject *changed* keys — sane TOFU). The seeding step is idempotent and only writes if the defaults block is missing.
+
+The agent has a dedicated **Configure SSH Host** tool that registers a named host alias (alias, hostname, optional user/port/identity file) by upserting a `Host` block into `~/.ssh/config`, optionally appending a line to `~/.ssh/known_hosts`. After registration, the agent drives ssh through the regular shell tool — `ssh myalias 'remote-cmd'`, `scp file myalias:`, etc. — with no flags. The tool never writes or uploads private keys; the user has to place those under `~/.ssh` separately. Repeated calls for the same alias replace the prior block in place, so configuration stays clean.
+
+Password-only remotes are reachable too but openssh inside the sandbox can't answer interactive password prompts on its own (no PTY; ssh reads from `/dev/tty`, not stdin). The documented path is `apk add sshpass` once, then invoke as `sshpass -p '<password>' ssh <alias>` (or `-f <password-file>` to keep the password off the command line). The host alias config still applies — sshpass only supplies the password and fakes a PTY internally. Both tool descriptions point the agent at this pattern so it surfaces during normal SSH workflows.
+
+**No connection multiplexing.** openssh's ControlMaster feature is intentionally not enabled. The mux protocol creates its control socket via the `link()` syscall (atomic create-or-fail), and Android's kernel-level `protected_hardlinks` policy plus SELinux for the `untrusted_app` domain refuses `link()` from app processes regardless of file ownership or mode. `proot` can't translate around it because the check enforces against the real Android uid. The verified symptom when ControlMaster was tried: `muxserver_listen: link mux listener … Permission denied` on every ssh invocation. Each ssh call therefore does a full TCP+auth handshake; there is no held-connection optimization in this sandbox. The alias config alone still removes per-call flag repetition, which is the real ergonomics win.
 
 ### One-shot escape hatch
 
@@ -82,6 +92,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/RootfsDownloader.kt` | Downloads Alpine rootfs, extracts the tarball, writes `resolv.conf` and `repositories`. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/SandboxController.android.kt` | Routes `executeCommand` and `executeCommandStreaming` through the persistent shell; one-shot fallbacks live alongside. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ShellCommandTool.kt` | The `execute_shell_command` tool the assistant calls. Description, `fresh` flag, env/working-dir wrapping. |
+| `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/SshConfigureHostTool.kt` | The `ssh_configure_host` tool. Validates inputs, calls the config manager, returns an example invocation for the LLM. |
+| `composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/sandbox/SshConfigManager.kt` | Pure-JVM writer for `~/.ssh/config` and `~/.ssh/known_hosts`. Owns the `# kai:<marker>:start/end` blocks (defaults + per-host) for idempotent upsert, file-mode lockdown, and the relative-to-`~/.ssh` identity-file resolution. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt` / `ProcessManagerTool.kt` | Background-job lifecycle: detached one-shot proot, in-memory session table, status/kill controls. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxSessionViewModel.kt` | Terminal-tab ViewModel: line buffer, run/cancel state, stream draining. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/settings/TerminalSheet.kt` | Visible terminal UI with command echo, color-coded streams, and an interactive input row. |

@@ -43,6 +43,7 @@ import com.inspiredandroid.kai.tools.ProcessManagerTool
 import com.inspiredandroid.kai.tools.SchedulingTools
 import com.inspiredandroid.kai.tools.ShellCommandTool
 import com.inspiredandroid.kai.tools.SmsTools
+import com.inspiredandroid.kai.tools.SshConfigureHostTool
 import com.inspiredandroid.kai.tools.WebSearchTool
 import com.russhwolf.settings.BuildConfig
 import com.russhwolf.settings.Settings
@@ -424,6 +425,7 @@ actual fun getAvailableTools(): List<Tool> {
         if (appSettings.isSandboxEnabled()) {
             add(ShellCommandTool)
             add(ProcessManagerTool)
+            add(SshConfigureHostTool)
         }
 
         if (appSettings.isEmailEnabled()) {
