@@ -3,6 +3,9 @@ package com.inspiredandroid.kai.mcp
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolSchema
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
@@ -28,15 +31,7 @@ class McpTool(
     override suspend fun execute(args: Map<String, Any>): Any {
         val jsonArgs = buildJsonObject {
             for ((key, value) in args) {
-                when (value) {
-                    is String -> put(key, JsonPrimitive(value))
-                    is Boolean -> put(key, JsonPrimitive(value))
-                    is Int -> put(key, JsonPrimitive(value))
-                    is Long -> put(key, JsonPrimitive(value))
-                    is Double -> put(key, JsonPrimitive(value))
-                    is Number -> put(key, JsonPrimitive(value.toDouble()))
-                    else -> put(key, JsonPrimitive(value.toString()))
-                }
+                put(key, anyToJsonElement(value))
             }
         }
         return try {
@@ -45,6 +40,21 @@ class McpTool(
         } catch (e: Exception) {
             mapOf("success" to false, "error" to (e.message ?: "MCP tool call failed"))
         }
+    }
+
+    private fun anyToJsonElement(value: Any?): JsonElement = when (value) {
+        null -> JsonNull
+        is String -> JsonPrimitive(value)
+        is Boolean -> JsonPrimitive(value)
+        is Int -> JsonPrimitive(value)
+        is Long -> JsonPrimitive(value)
+        is Double -> JsonPrimitive(value)
+        is Number -> JsonPrimitive(value)
+        is Map<*, *> -> JsonObject(
+            value.entries.associate { (k, v) -> k.toString() to anyToJsonElement(v) },
+        )
+        is List<*> -> JsonArray(value.map { anyToJsonElement(it) })
+        else -> JsonPrimitive(value.toString())
     }
 
     companion object {

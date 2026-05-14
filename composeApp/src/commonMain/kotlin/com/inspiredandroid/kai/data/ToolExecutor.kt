@@ -106,14 +106,20 @@ class ToolExecutor {
     }
 
     private fun JsonObject.toMap(): Map<String, Any> = entries.associate { (key, value) ->
-        key to when (value) {
-            is JsonPrimitive if value.isString -> value.content
-            is JsonPrimitive if value.booleanOrNull != null -> value.boolean
-            is JsonPrimitive if value.intOrNull != null -> value.int
-            is JsonPrimitive if value.doubleOrNull != null -> value.double
-            is JsonObject -> value.toMap()
-            else -> value.toString()
+        key to jsonElementToAny(value)
+    }
+
+    private fun jsonElementToAny(element: JsonElement): Any = when (element) {
+        JsonNull -> "null"
+        is JsonPrimitive -> when {
+            element.isString -> element.content
+            element.booleanOrNull != null -> element.boolean
+            element.intOrNull != null -> element.int
+            element.doubleOrNull != null -> element.double
+            else -> element.content
         }
+        is JsonObject -> element.entries.associate { (k, v) -> k to jsonElementToAny(v) }
+        is JsonArray -> element.map { jsonElementToAny(it) }
     }
 
     suspend fun getToolDisplayName(toolId: String): String {
