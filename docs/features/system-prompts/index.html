@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -832,6 +832,24 @@
 <td style="text-align: center;">always</td>
 <td style="text-align: center;">always</td>
 <td><code>soul</code> param (non-empty)</td>
+</tr>
+<tr>
+<td>Honesty rule</td>
+<td style="text-align: center;">always</td>
+<td style="text-align: center;">always</td>
+<td>baked into <code>DEFAULT_HONESTY_RULE</code> constant — one inline sentence ("Do not fabricate tool outputs, file contents, citations, or completed work"). Guards observed regressions where models invented tool output and where kai-ui button labels implied operations the callback couldn't perform. No <code>##</code> header — one sentence doesn't earn a section</td>
+</tr>
+<tr>
+<td><code>## Tool Use</code></td>
+<td style="text-align: center;">always</td>
+<td style="text-align: center;">always</td>
+<td>baked into <code>DEFAULT_TOOL_USE_SECTION</code> constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Always rendered (both variants) so soul customization can't drop it</td>
+</tr>
+<tr>
+<td><code>## When to Act</code></td>
+<td style="text-align: center;">always</td>
+<td style="text-align: center;">always</td>
+<td>baked into <code>DEFAULT_ACTING_SECTION</code> constant — caps clarifying questions at one, only when genuinely blocked; demands recovery after a failed first attempt; mandates seeing work through to a usable result. Always rendered (both variants), same rationale as above</td>
 </tr>
 <tr>
 <td>Memory instructions (basic)</td>

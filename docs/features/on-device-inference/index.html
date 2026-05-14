@@ -819,7 +819,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -878,6 +878,7 @@
 <li><strong>No dynamic UI</strong> -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)</li>
 <li><strong>Not available on iOS or web</strong> -- LiteRT LM SDK supports Android and JVM only</li>
 <li><strong>Requires a 64-bit device</strong> -- the LiteRT-LM AAR only ships <code>arm64-v8a</code> and <code>x86_64</code> native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.</li>
+<li><strong>Requires AVX2 on x86_64 Linux</strong> -- the LiteRT native binary is compiled with AVX2+ instructions, so older CPUs (e.g. Intel Ivy Bridge / 3rd-gen Core) would SIGILL on model load. On Linux desktop, the engine probes <code>/proc/cpuinfo</code> for the <code>avx2</code> flag and hides the LiteRT service card when missing. Remote services are unaffected.</li>
 </ul>
 <h2 id="model-management">Model Management</h2>
 <p>Users manage models through the LiteRT service card in Settings:</p>
