@@ -40,8 +40,10 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -141,7 +143,8 @@ class Requests {
                 setBody(
                     GeminiChatRequestDto(
                         contents = messages,
-                        tools = tools.map { it.toGeminiTool() }.ifEmpty { null },
+                        tools = tools.mapNotNull { runCatching { it.toGeminiTool() }.getOrNull() }
+                            .ifEmpty { null },
                         systemInstruction = systemContent,
                     ),
                 )
@@ -198,7 +201,8 @@ class Requests {
                     OpenAICompatibleChatRequestDto(
                         messages = messages,
                         model = model,
-                        tools = tools.map { it.toRequestTool() }.ifEmpty { null },
+                        tools = tools.mapNotNull { runCatching { it.toRequestTool() }.getOrNull() }
+                            .ifEmpty { null },
                     ),
                 )
             }
@@ -212,7 +216,7 @@ class Requests {
     } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
         Result.failure(OpenAICompatibleConnectionException())
     } catch (e: Exception) {
-        Result.failure(OpenAICompatibleConnectionException())
+        Result.failure(mapOpenAICompatibleException(e))
     }
 
     suspend fun getOpenAICompatibleModels(
@@ -315,7 +319,8 @@ class Requests {
                         messages = messages,
                         max_tokens = 8192,
                         system = systemInstruction,
-                        tools = tools.map { it.toAnthropicTool() }.ifEmpty { null },
+                        tools = tools.mapNotNull { runCatching { it.toAnthropicTool() }.getOrNull() }
+                            .ifEmpty { null },
                     ),
                 )
             }
@@ -410,6 +415,29 @@ class Requests {
         }
     }
 
+    // Distinguish genuine network/I/O failures (preserve the "Cannot connect to
+    // server" UX and the settings-screen ErrorConnectionFailed status) from
+    // client-side exceptions (schema/serialization bugs, etc.) which would
+    // otherwise be silently misclassified as connection failures.
+    private fun mapOpenAICompatibleException(e: Exception): OpenAICompatibleApiException {
+        val name = e::class.simpleName.orEmpty()
+        val looksLikeNetworkFailure = name.endsWith("IOException") ||
+            name.contains("Timeout", ignoreCase = true) ||
+            name.contains("ConnectException", ignoreCase = true) ||
+            name.contains("UnknownHost", ignoreCase = true) ||
+            name.contains("NoRoute", ignoreCase = true) ||
+            name.contains("SocketException", ignoreCase = true) ||
+            name.contains("Unresolved", ignoreCase = true)
+        return if (looksLikeNetworkFailure) {
+            OpenAICompatibleConnectionException()
+        } else {
+            OpenAICompatibleGenericException(
+                e.message?.takeIf { it.isNotBlank() } ?: "Unexpected error: $name",
+                e,
+            )
+        }
+    }
+
     private fun parseOpenAICompatibleErrorMessage(responseBody: String): String? = try {
         val error = anthropicJson.parseToJsonElement(responseBody).jsonObject["error"]
         when {
@@ -479,61 +507,75 @@ private val DEFAULT_OPENAI_STRING_ITEMS = OpenAICompatibleChatRequestDto.Propert
 private val DEFAULT_ANTHROPIC_STRING_ITEMS = AnthropicChatRequestDto.PropertySchema(type = "string")
 private val DEFAULT_GEMINI_STRING_ITEMS = PropertySchema(type = "string")
 
+// JSON Schema dialects vary: `type` may be a string or an array (e.g.
+// ["string","null"]); enum/required entries may be non-string primitives;
+// nested objects may be malformed. MCP tool servers (especially proxies like
+// litellm /toolset/<category>/mcp) emit any of these shapes, so the converters
+// fall back to safe defaults instead of throwing — a throw here would bubble
+// to setBody() and surface as a misleading "Cannot connect to server" error.
+
+private fun JsonObject.schemaType(): String = when (val t = this["type"]) {
+    is JsonPrimitive -> t.contentOrNull ?: "string"
+    is JsonArray -> t.asSequence()
+        .mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
+        .firstOrNull { it != "null" }
+        ?: "string"
+    else -> "string"
+}
+
+private fun JsonObject.schemaString(key: String): String? =
+    (this[key] as? JsonPrimitive)?.contentOrNull
+
+private fun JsonObject.schemaStringList(key: String): List<String>? =
+    (this[key] as? JsonArray)?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
+        ?.takeIf { it.isNotEmpty() }
+
+private fun JsonObject.schemaObjectMap(key: String): Map<String, JsonObject>? =
+    (this[key] as? JsonObject)?.mapNotNull { (k, v) -> (v as? JsonObject)?.let { k to it } }
+        ?.toMap()
+        ?.takeIf { it.isNotEmpty() }
+
 private fun JsonObject.toOpenAIPropertySchema(): OpenAICompatibleChatRequestDto.PropertySchema {
-    val type = this["type"]?.jsonPrimitive?.content ?: "string"
-    val description = this["description"]?.jsonPrimitive?.content
-    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
-    val items = this["items"]?.jsonObject?.toOpenAIPropertySchema()
-    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
-        v.jsonObject.toOpenAIPropertySchema()
-    }
-    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
-    val additionalProperties = this["additionalProperties"]?.jsonPrimitive?.content?.toBooleanStrictOrNull()
+    val type = schemaType()
+    val items = (this["items"] as? JsonObject)?.toOpenAIPropertySchema()
+    val properties = schemaObjectMap("properties")?.mapValues { it.value.toOpenAIPropertySchema() }
+    val additionalProperties = (this["additionalProperties"] as? JsonPrimitive)
+        ?.contentOrNull?.toBooleanStrictOrNull()
     return OpenAICompatibleChatRequestDto.PropertySchema(
         type = type,
-        description = description,
-        enum = enumValues,
+        description = schemaString("description"),
+        enum = schemaStringList("enum"),
         items = items ?: if (type == "array") DEFAULT_OPENAI_STRING_ITEMS else null,
         properties = properties,
-        required = required,
+        required = schemaStringList("required"),
         additionalProperties = additionalProperties,
     )
 }
 
 private fun JsonObject.toAnthropicPropertySchema(): AnthropicChatRequestDto.PropertySchema {
-    val type = this["type"]?.jsonPrimitive?.content ?: "string"
-    val description = this["description"]?.jsonPrimitive?.content
-    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
-    val items = this["items"]?.jsonObject?.toAnthropicPropertySchema()
-    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
-        v.jsonObject.toAnthropicPropertySchema()
-    }
-    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val type = schemaType()
+    val items = (this["items"] as? JsonObject)?.toAnthropicPropertySchema()
+    val properties = schemaObjectMap("properties")?.mapValues { it.value.toAnthropicPropertySchema() }
     return AnthropicChatRequestDto.PropertySchema(
         type = type,
-        description = description,
-        enum = enumValues,
+        description = schemaString("description"),
+        enum = schemaStringList("enum"),
         items = items ?: if (type == "array") DEFAULT_ANTHROPIC_STRING_ITEMS else null,
         properties = properties,
-        required = required,
+        required = schemaStringList("required"),
     )
 }
 
 private fun JsonObject.toGeminiPropertySchema(): PropertySchema {
-    val type = this["type"]?.jsonPrimitive?.content ?: "string"
-    val description = this["description"]?.jsonPrimitive?.content
-    val enumValues = this["enum"]?.jsonArray?.map { it.jsonPrimitive.content }
-    val items = this["items"]?.jsonObject?.toGeminiPropertySchema()
-    val properties = this["properties"]?.jsonObject?.mapValues { (_, v) ->
-        v.jsonObject.toGeminiPropertySchema()
-    }
-    val required = this["required"]?.jsonArray?.map { it.jsonPrimitive.content }
+    val type = schemaType()
+    val items = (this["items"] as? JsonObject)?.toGeminiPropertySchema()
+    val properties = schemaObjectMap("properties")?.mapValues { it.value.toGeminiPropertySchema() }
     return PropertySchema(
         type = type,
-        description = description,
-        enum = enumValues,
+        description = schemaString("description"),
+        enum = schemaStringList("enum"),
         items = items ?: if (type == "array") DEFAULT_GEMINI_STRING_ITEMS else null,
         properties = properties,
-        required = required,
+        required = schemaStringList("required"),
     )
 }
