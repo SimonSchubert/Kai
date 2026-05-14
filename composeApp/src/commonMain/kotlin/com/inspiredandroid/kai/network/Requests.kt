@@ -516,24 +516,23 @@ private val DEFAULT_GEMINI_STRING_ITEMS = PropertySchema(type = "string")
 
 private fun JsonObject.schemaType(): String = when (val t = this["type"]) {
     is JsonPrimitive -> t.contentOrNull ?: "string"
+
     is JsonArray -> t.asSequence()
         .mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
         .firstOrNull { it != "null" }
         ?: "string"
+
     else -> "string"
 }
 
-private fun JsonObject.schemaString(key: String): String? =
-    (this[key] as? JsonPrimitive)?.contentOrNull
+private fun JsonObject.schemaString(key: String): String? = (this[key] as? JsonPrimitive)?.contentOrNull
 
-private fun JsonObject.schemaStringList(key: String): List<String>? =
-    (this[key] as? JsonArray)?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
-        ?.takeIf { it.isNotEmpty() }
+private fun JsonObject.schemaStringList(key: String): List<String>? = (this[key] as? JsonArray)?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
+    ?.takeIf { it.isNotEmpty() }
 
-private fun JsonObject.schemaObjectMap(key: String): Map<String, JsonObject>? =
-    (this[key] as? JsonObject)?.mapNotNull { (k, v) -> (v as? JsonObject)?.let { k to it } }
-        ?.toMap()
-        ?.takeIf { it.isNotEmpty() }
+private fun JsonObject.schemaObjectMap(key: String): Map<String, JsonObject>? = (this[key] as? JsonObject)?.mapNotNull { (k, v) -> (v as? JsonObject)?.let { k to it } }
+    ?.toMap()
+    ?.takeIf { it.isNotEmpty() }
 
 private fun JsonObject.toOpenAIPropertySchema(): OpenAICompatibleChatRequestDto.PropertySchema {
     val type = schemaType()
