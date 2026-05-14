@@ -69,6 +69,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Duration.Companion.milliseconds
@@ -294,15 +295,25 @@ fun TerminalContent(
 
         // Re-key the auto-scroll on outputLines so switching sessions detaches
         // from the previous session's list and starts following the new one.
+        // conflate() drops intermediate emissions while scrollToItem is in flight
+        // — under heavy output, the per-line measure pass contends with the
+        // background snapshot writer (proot stdio reader) on Compose's snapshot
+        // locks, and queuing a scroll per emission can ANR the main thread.
         LaunchedEffect(listState, isRunning, outputLines) {
-            snapshotFlow { outputLines.size }.collect {
+            snapshotFlow { outputLines.size }.conflate().collect { size ->
+                if (size == 0) return@collect
                 val layout = listState.layoutInfo
                 val total = layout.totalItemsCount
                 if (total == 0) return@collect
                 val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
                 // Don't yank the user back if they've scrolled up to read older output.
                 if (lastVisible >= total - 2) {
-                    listState.scrollToItem(total - 1)
+                    // Target the output line index, not total - 1: layoutInfo is
+                    // from the previous measure pass and can point past the current
+                    // interval list right after isRunning toggles off (trailing
+                    // progress item gone) or after a session swap, which crashes
+                    // inside MutableIntervalList.get during forceRemeasure.
+                    listState.scrollToItem(size - 1)
                 }
             }
         }
