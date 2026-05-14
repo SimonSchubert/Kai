@@ -17,7 +17,7 @@ class KaiUiBlockIntegrationTest {
         """.trimIndent()
         val block = parseMarkdown(md).blocks.single()
         assertTrue(block is KaiUiBlock)
-        val alert = (block as KaiUiBlock).node as AlertNode
+        val alert = block.node as AlertNode
         assertEquals("Heads up", alert.title)
         assertEquals("Hello", alert.message)
     }
@@ -43,7 +43,7 @@ class KaiUiBlockIntegrationTest {
         """.trimIndent()
         val block = parseMarkdown(md).blocks.single()
         assertTrue(block is KaiUiBlock)
-        val col = (block as KaiUiBlock).node as ColumnNode
+        val col = block.node as ColumnNode
         assertEquals(2, col.children.size)
     }
 

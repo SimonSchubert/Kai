@@ -28,6 +28,7 @@ kotlin {
         androidResources {
             enable = true
         }
+        withHostTest {}
     }
 
     listOf(

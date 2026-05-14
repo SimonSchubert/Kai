@@ -127,7 +127,7 @@ class BlockParsingTest {
         val first = outer.items[0]
         val nested = first.children.firstOrNull { it is BulletList } as? BulletList
         assertNotNull(nested)
-        assertEquals(2, nested!!.items.size)
+        assertEquals(2, nested.items.size)
     }
 
     @Test

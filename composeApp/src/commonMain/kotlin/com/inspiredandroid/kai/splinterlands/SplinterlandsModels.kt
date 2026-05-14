@@ -7,8 +7,6 @@ import kotlinx.serialization.Serializable
 data class SplinterlandsAccount(
     val id: String = "",
     val username: String,
-    @Deprecated("Use SplinterlandsStore.getInstanceId() instead")
-    val instanceId: String = "",
 )
 
 @Immutable
