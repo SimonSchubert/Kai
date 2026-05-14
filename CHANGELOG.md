@@ -1,3 +1,24 @@
+## v2.6.0 — 2026-05-15
+
+### Features
+- Allow user-installed certificates
+- Desktop AVX2+ CPU compatibility check
+
+### Fixes
+- Fix MCP tools serializing array and object arguments as strings
+- Fix settings crash on Android 8.0
+- Fix potential terminal sheet crashes
+- Surface real errors from OpenAI-compatible chat
+
+### Improvements
+- Tolerate non-standard MCP tool schemas
+- Improve SSH Alpine integration (requires re-installing Alpine)
+- Add honesty, tool-use, and acting sections to chat system prompt
+- Make chat input persistent between screen changes
+- Upgrade Compose Multiplatform and SDKs
+- Update model catalog
+- Remove iOS x64 target and deprecated APIs
+
 ## v2.5.1 — 2026-05-13
 
 ### Fixes

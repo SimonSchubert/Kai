@@ -1,0 +1,12 @@
+Allow user-installed certificates
+Desktop AVX2+ CPU check
+Fix MCP array/object argument serialization
+Fix settings crash on Android 8.0
+Fix terminal sheet crashes
+Surface real OpenAI-compatible chat errors
+Tolerate non-standard MCP tool schemas
+Improve SSH Alpine integration
+Expand chat system prompt
+Persistent chat input between screens
+Upgrade Compose Multiplatform and SDKs
+Update model catalog
