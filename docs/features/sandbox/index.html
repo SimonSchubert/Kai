@@ -748,6 +748,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ssh-host-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH host configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#one-shot-escape-hatch" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -847,7 +858,7 @@
 
 
 <h1 id="linux-sandbox">Linux Sandbox</h1>
-<p><strong>Last verified:</strong> 2026-05-06</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space <code>proot</code> runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.</p>
 <p>The sandbox is <strong>Android-only</strong>. iOS, desktop, and web stubs return "not ready" for every operation.</p>
 <h2 id="concepts">Concepts</h2>
@@ -863,6 +874,11 @@
 <h3 id="pre-installed-tooling">Pre-installed tooling</h3>
 <p>The first-run install pulls a fixed set of packages: <code>bash</code>, <code>curl</code>, <code>wget</code>, <code>git</code>, <code>jq</code>, <code>python3</code> (with pip), <code>nodejs</code>, plus remote-server tooling — <code>openssh-client</code> (provides <code>ssh</code>/<code>scp</code>/<code>sftp</code>), <code>lftp</code> (FTP and FTPS), and <code>rsync</code>. Anything else is one <code>apk add</code> away.</p>
 <p><code>~/.ssh</code> is part of <code>/root</code>, which is bind-mounted to durable app storage, so SSH keys, <code>known_hosts</code>, and SSH config survive restarts.</p>
+<h3 id="ssh-host-configuration">SSH host configuration</h3>
+<p>After the package install completes, Kai seeds <code>~/.ssh/config</code> with a <code>Host *</code> defaults block: server keepalive (<code>ServerAliveInterval 30</code>, <code>ServerAliveCountMax 3</code>) so long-lived ssh tunnels and sftp sessions don't get killed by NAT timeouts, and <code>StrictHostKeyChecking accept-new</code> so the first connection to a host writes its key into <code>known_hosts</code> automatically without a <code>yes/no</code> prompt this shell can't answer (subsequent connections still reject <em>changed</em> keys — sane TOFU). The seeding step is idempotent and only writes if the defaults block is missing.</p>
+<p>The agent has a dedicated <strong>Configure SSH Host</strong> tool that registers a named host alias (alias, hostname, optional user/port/identity file) by upserting a <code>Host</code> block into <code>~/.ssh/config</code>, optionally appending a line to <code>~/.ssh/known_hosts</code>. After registration, the agent drives ssh through the regular shell tool — <code>ssh myalias 'remote-cmd'</code>, <code>scp file myalias:</code>, etc. — with no flags. The tool never writes or uploads private keys; the user has to place those under <code>~/.ssh</code> separately. Repeated calls for the same alias replace the prior block in place, so configuration stays clean.</p>
+<p>Password-only remotes are reachable too but openssh inside the sandbox can't answer interactive password prompts on its own (no PTY; ssh reads from <code>/dev/tty</code>, not stdin). The documented path is <code>apk add sshpass</code> once, then invoke as <code>sshpass -p '&lt;password&gt;' ssh &lt;alias&gt;</code> (or <code>-f &lt;password-file&gt;</code> to keep the password off the command line). The host alias config still applies — sshpass only supplies the password and fakes a PTY internally. Both tool descriptions point the agent at this pattern so it surfaces during normal SSH workflows.</p>
+<p><strong>No connection multiplexing.</strong> openssh's ControlMaster feature is intentionally not enabled. The mux protocol creates its control socket via the <code>link()</code> syscall (atomic create-or-fail), and Android's kernel-level <code>protected_hardlinks</code> policy plus SELinux for the <code>untrusted_app</code> domain refuses <code>link()</code> from app processes regardless of file ownership or mode. <code>proot</code> can't translate around it because the check enforces against the real Android uid. The verified symptom when ControlMaster was tried: <code>muxserver_listen: link mux listener … Permission denied</code> on every ssh invocation. Each ssh call therefore does a full TCP+auth handshake; there is no held-connection optimization in this sandbox. The alias config alone still removes per-call flag repetition, which is the real ergonomics win.</p>
 <h3 id="one-shot-escape-hatch">One-shot escape hatch</h3>
 <p>The assistant's shell tool accepts a <code>fresh: true</code> argument that runs the command in a brand-new short-lived <code>proot</code> instead of the persistent shell. State changes in that one-shot shell are discarded when it exits. The persistent session is the default; <code>fresh</code> is only there for the rare case where isolation matters.</p>
 <h3 id="background-processes">Background processes</h3>
@@ -939,6 +955,14 @@
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ShellCommandTool.kt</code></td>
 <td>The <code>execute_shell_command</code> tool the assistant calls. Description, <code>fresh</code> flag, env/working-dir wrapping.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/SshConfigureHostTool.kt</code></td>
+<td>The <code>ssh_configure_host</code> tool. Validates inputs, calls the config manager, returns an example invocation for the LLM.</td>
+</tr>
+<tr>
+<td><code>composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/sandbox/SshConfigManager.kt</code></td>
+<td>Pure-JVM writer for <code>~/.ssh/config</code> and <code>~/.ssh/known_hosts</code>. Owns the <code># kai:&lt;marker&gt;:start/end</code> blocks (defaults + per-host) for idempotent upsert, file-mode lockdown, and the relative-to-<code>~/.ssh</code> identity-file resolution.</td>
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt</code> / <code>ProcessManagerTool.kt</code></td>
