@@ -2,8 +2,7 @@ package com.inspiredandroid.kai.inference
 
 import java.io.File
 
-actual fun createLocalInferenceEngine(): LocalInferenceEngine? =
-    if (isLiteRtSupported()) LiteRTInferenceEngine() else null
+actual fun createLocalInferenceEngine(): LocalInferenceEngine? = if (isLiteRtSupported()) LiteRTInferenceEngine() else null
 
 /**
  * LiteRT's native binary is compiled with AVX2+ instructions and SIGILLs the JVM on
