@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -22,6 +22,9 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | Section | `CHAT_REMOTE` | `CHAT_LOCAL` | Gating input |
 |---|:-:|:-:|---|
 | Soul | always | always | `soul` param (non-empty) |
+| Honesty rule | always | always | baked into `DEFAULT_HONESTY_RULE` constant — one inline sentence ("Do not fabricate tool outputs, file contents, citations, or completed work"). Guards observed regressions where models invented tool output and where kai-ui button labels implied operations the callback couldn't perform. No `##` header — one sentence doesn't earn a section |
+| `## Tool Use` | always | always | baked into `DEFAULT_TOOL_USE_SECTION` constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Always rendered (both variants) so soul customization can't drop it |
+| `## When to Act` | always | always | baked into `DEFAULT_ACTING_SECTION` constant — caps clarifying questions at one, only when genuinely blocked; demands recovery after a failed first attempt; mandates seeing work through to a usable result. Always rendered (both variants), same rationale as above |
 | Memory instructions (basic) | when provided | when provided | `memoryInstructions` param |
 | `## Structured Learning` | always (remote-only block) | never | baked into `DEFAULT_STRUCTURED_LEARNING_SECTION` constant |
 | `## Your Memories` | when list non-empty | when list non-empty (budget-capped) | `generalMemories` |

@@ -70,6 +70,41 @@ internal data class EmailAccountSummary(
 private const val LOCAL_MEMORY_BUDGET_CHARS = 2_000
 
 /**
+ * One-line honesty guard composed into every chat variant. Targets the two observed
+ * failure modes: (1) the model inventing tool outputs / file contents instead of
+ * admitting a tool returned nothing readable, and (2) kai-ui buttons whose labels
+ * imply operations the callback can't actually perform (downloads, exports, etc.).
+ * No header — a single sentence doesn't earn a `##` section.
+ */
+internal const val DEFAULT_HONESTY_RULE =
+    "Do not fabricate tool outputs, file contents, citations, or completed work."
+
+/**
+ * Universal tool-use policy composed into every chat variant. Lives as its own constant
+ * (not in the soul string) so it survives user customization of the soul — the same
+ * reasoning as [DEFAULT_HONESTY_RULE]. Has a `##` header because it's three sentences
+ * of addressable policy, not a single inline rule.
+ */
+internal const val DEFAULT_TOOL_USE_SECTION =
+    "## Tool Use\n" +
+        "Use tools to verify work and resolve ambiguity. " +
+        "Don't ask the user for lookups you can do yourself. " +
+        "Check for a tool before saying a capability is unavailable. " +
+        "Summarize noisy output and state any uncertainty — don't dump raw logs."
+
+/**
+ * Universal acting-vs-clarifying policy composed into every chat variant. Caps the
+ * model's tendency to ask multiple clarifying questions and to give up after the first
+ * failed attempt. Constant rather than soul-embedded so soul customization can't drop it.
+ */
+internal const val DEFAULT_ACTING_SECTION =
+    "## When to Act\n" +
+        "Take the most reasonable interpretation and proceed. " +
+        "Ask at most one clarifying question, only when genuinely blocked. " +
+        "If a first attempt fails, try another approach or explain the blocker. " +
+        "See work through to a usable result."
+
+/**
  * Advanced memory guidance — references `memory_learn` (not in `LOCAL_TOOL_ALLOWLIST`)
  * and `memory_reinforce`. Only composed into the `CHAT_REMOTE` variant; the on-device
  * variant omits it entirely because small Gemma models can't reliably call
@@ -121,6 +156,16 @@ internal fun buildChatSystemPrompt(
     uiMode: ChatPromptUiMode,
 ): String = buildString {
     append(soul)
+
+    if (isNotEmpty()) append("\n\n")
+    append(DEFAULT_HONESTY_RULE)
+
+    // Tool-use + when-to-act policies always render in both variants. They're behavioral
+    // fundamentals that survive soul customization, same rationale as the honesty rule.
+    if (isNotEmpty()) append("\n\n")
+    append(DEFAULT_TOOL_USE_SECTION)
+    if (isNotEmpty()) append("\n\n")
+    append(DEFAULT_ACTING_SECTION)
 
     if (!memoryInstructions.isNullOrEmpty()) {
         if (isNotEmpty()) append("\n\n")

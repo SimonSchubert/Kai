@@ -109,6 +109,37 @@ class ChatSystemPromptBuilderTest {
     }
 
     @Test
+    fun `honesty rule is composed into both variants`() {
+        // Guards observed regressions: models inventing tool outputs / file contents and
+        // kai-ui buttons whose labels imply operations the callback can't perform.
+        val remote = build(SystemPromptVariant.CHAT_REMOTE)
+        val local = build(SystemPromptVariant.CHAT_LOCAL)
+        for (out in listOf(remote, local)) {
+            assertTrue(DEFAULT_HONESTY_RULE in out)
+        }
+    }
+
+    @Test
+    fun `Tool Use section is composed into both variants`() {
+        val remote = build(SystemPromptVariant.CHAT_REMOTE)
+        val local = build(SystemPromptVariant.CHAT_LOCAL)
+        for (out in listOf(remote, local)) {
+            assertTrue("## Tool Use" in out)
+            assertTrue("capability is unavailable" in out)
+        }
+    }
+
+    @Test
+    fun `When to Act section is composed into both variants`() {
+        val remote = build(SystemPromptVariant.CHAT_REMOTE)
+        val local = build(SystemPromptVariant.CHAT_LOCAL)
+        for (out in listOf(remote, local)) {
+            assertTrue("## When to Act" in out)
+            assertTrue("at most one clarifying question" in out)
+        }
+    }
+
+    @Test
     fun `CHAT_REMOTE includes memory instructions when provided`() {
         val out = build(
             variant = SystemPromptVariant.CHAT_REMOTE,
@@ -463,19 +494,17 @@ class ChatSystemPromptBuilderTest {
             pendingTasks = listOf(task(description = "ignored task")),
             uiMode = ChatPromptUiMode.DYNAMIC_UI,
         )
-        val expected = """
-            You are Kai, a helpful assistant.
-
-            Save user preferences with memory_store.
-
-            ## Context
-            - Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)
-            - UTC: 2026-04-11T00:00:00Z
-            - Platform: Test
-            - Model: test-model
-            - Provider: Test Provider
-
-        """.trimIndent()
+        val expected = "You are Kai, a helpful assistant.\n\n" +
+            DEFAULT_HONESTY_RULE + "\n\n" +
+            DEFAULT_TOOL_USE_SECTION + "\n\n" +
+            DEFAULT_ACTING_SECTION + "\n\n" +
+            "Save user preferences with memory_store.\n\n" +
+            "## Context\n" +
+            "- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)\n" +
+            "- UTC: 2026-04-11T00:00:00Z\n" +
+            "- Platform: Test\n" +
+            "- Model: test-model\n" +
+            "- Provider: Test Provider\n"
         assertEquals(expected, out)
     }
 
@@ -513,6 +542,9 @@ class ChatSystemPromptBuilderTest {
         // are verified by separate DYNAMIC_UI / INTERACTIVE_UI tests.
         val headerOrder = listOf(
             "You are Kai.",
+            DEFAULT_HONESTY_RULE,
+            "## Tool Use",
+            "## When to Act",
             "Basic memory guidance.",
             "## Structured Learning",
             "## Your Memories",
