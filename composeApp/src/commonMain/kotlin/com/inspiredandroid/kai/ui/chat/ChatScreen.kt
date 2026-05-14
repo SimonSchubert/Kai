@@ -72,6 +72,7 @@ import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
@@ -189,6 +190,9 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
         if (hasAssistantResponse) inputExpanded = false
     }
     val showFullInput = inputExpanded && !uiState.isLoading
+    var questionInputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
 
     Box(
         Modifier
@@ -253,6 +257,8 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                             uiState.actions.ask(it)
                         },
                         supportedFileExtensions = uiState.supportedFileExtensions,
+                        textState = questionInputText,
+                        onTextStateChange = { questionInputText = it },
                         isLoading = uiState.isLoading,
                         cancel = uiState.actions.cancel,
                         availableServices = interactiveServices,
@@ -444,6 +450,11 @@ private fun ChatModeScreen(
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
     var isSandboxOpen by rememberSaveable { mutableStateOf(false) }
+    // Hoisted here so the draft survives toggling the sandbox/terminal view, which
+    // removes QuestionInput from composition and would otherwise drop the text.
+    var questionInputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
     val keyboardController = LocalSoftwareKeyboardController.current
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -790,6 +801,8 @@ private fun ChatModeScreen(
                     removeFile = uiState.actions.removeFile,
                     ask = uiState.actions.ask,
                     supportedFileExtensions = uiState.supportedFileExtensions,
+                    textState = questionInputText,
+                    onTextStateChange = { questionInputText = it },
                     isLoading = uiState.isLoading,
                     cancel = uiState.actions.cancel,
                     availableServices = uiState.availableServices,

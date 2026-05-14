@@ -35,10 +35,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -91,6 +88,8 @@ fun QuestionInput(
     removeFile: (PlatformFile) -> Unit,
     ask: (String) -> Unit,
     supportedFileExtensions: ImmutableList<String>,
+    textState: TextFieldValue,
+    onTextStateChange: (TextFieldValue) -> Unit,
     isLoading: Boolean = false,
     cancel: () -> Unit = {},
     availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
@@ -136,13 +135,11 @@ fun QuestionInput(
             }
         }
 
-        var textState by rememberSaveable(stateSaver = TextFieldValue.Saver) { mutableStateOf(TextFieldValue("")) }
-
         fun submitQuestion() {
             val text = textState.text
             if (text.isNotBlank()) {
                 ask(text.trim())
-                textState = TextFieldValue("")
+                onTextStateChange(TextFieldValue(""))
             }
         }
 
@@ -160,9 +157,7 @@ fun QuestionInput(
         val focusRequester = remember { FocusRequester() }
         TextField(
             value = textState,
-            onValueChange = {
-                textState = it
-            },
+            onValueChange = onTextStateChange,
             modifier = Modifier
                 .focusRequester(focusRequester)
                 .padding(16.dp)
@@ -185,9 +180,11 @@ fun QuestionInput(
                             val end = maxOf(selection.start, selection.end).coerceIn(0, currentText.length)
 
                             val newText = currentText.replaceRange(start, end, "\n")
-                            textState = TextFieldValue(
-                                text = newText,
-                                selection = TextRange(start + 1),
+                            onTextStateChange(
+                                TextFieldValue(
+                                    text = newText,
+                                    selection = TextRange(start + 1),
+                                ),
                             )
                             return@onPreviewKeyEvent true
                         } else {
