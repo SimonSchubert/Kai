@@ -44,16 +44,25 @@ class McpTool(
 
     private fun anyToJsonElement(value: Any?): JsonElement = when (value) {
         null -> JsonNull
+
         is String -> JsonPrimitive(value)
+
         is Boolean -> JsonPrimitive(value)
+
         is Int -> JsonPrimitive(value)
+
         is Long -> JsonPrimitive(value)
+
         is Double -> JsonPrimitive(value)
+
         is Number -> JsonPrimitive(value)
+
         is Map<*, *> -> JsonObject(
             value.entries.associate { (k, v) -> k.toString() to anyToJsonElement(v) },
         )
+
         is List<*> -> JsonArray(value.map { anyToJsonElement(it) })
+
         else -> JsonPrimitive(value.toString())
     }
 
