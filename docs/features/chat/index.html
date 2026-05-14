@@ -1191,7 +1191,7 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-05-07</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
@@ -1207,10 +1207,11 @@
 <li>"New Chat" clears history, unsets the current conversation pointer, and persists the empty state — so an unused new chat survives an app restart</li>
 <li>A new conversation ID (UUID) is generated on first successful save (after the first assistant response) and immediately becomes the persisted current pointer</li>
 <li>Conversations are saved after each assistant response</li>
-<li>Only the most recent 20 exchanges are persisted per conversation</li>
+<li>Only the most recent 20 exchanges are persisted per chat conversation; heartbeat conversations have a separate, larger cap of 50 messages so longer automation runs are not truncated as aggressively</li>
 <li>Multiple conversations are persisted — starting a new chat preserves previous conversations</li>
 <li>Conversations are service-independent — switching services does not affect which conversation is loaded</li>
 <li>Interactive vs normal chat mode is persisted alongside the current pointer, so an empty interactive chat also survives a restart</li>
+<li>On the first launch after upgrading from a build that did not persist the current-conversation pointer, a one-time migration pins the most recently updated conversation as the current pointer so the user resumes where they left off</li>
 </ul>
 <h2 id="chat-history">Chat History</h2>
 <ul>
@@ -1250,7 +1251,7 @@
 <li>Maximum raw input size: 50 MB; maximum size after compression: 15 MB — rejected with a size error if exceeded</li>
 <li>Sent as <code>image_url</code> (OpenAI-compatible), <code>image</code> block (Anthropic), or <code>inline_data</code> (Gemini)</li>
 <li>Shown as a preview thumbnail (max 200dp wide) inside the user message bubble</li>
-<li>Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via Escape/back)</li>
+<li>Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via the Android back button or by tapping the backdrop; desktop has no keyboard shortcut for dismissal)</li>
 </ul>
 <h3 id="text-files">Text files</h3>
 <ul>
@@ -1269,7 +1270,7 @@
 </ul>
 <h3 id="general-behavior">General behavior</h3>
 <ul>
-<li>The attachment button is always shown (text files work with all models)</li>
+<li>The attachment button is shown whenever the active service supports file attachments (text files work with all remote models); it is hidden when the active service runs on-device, since on-device services do not support attachments</li>
 <li>Unsupported file types (e.g., <code>.zip</code>) show an error message</li>
 <li>Files exceeding the per-category size limit show a size error; size is checked by stat before the file is read, so multi-gigabyte attachments are rejected without allocating memory for the full contents</li>
 <li>Long filenames in chips are truncated with an ellipsis while preserving the extension</li>
@@ -1286,13 +1287,14 @@
 <li>Conversations are persisted through the platform's secure settings store (see <a href="../encryption/">encryption.md</a>)</li>
 <li>The full conversation list is serialized as <code>ConversationsData</code> (versioned, currently v2)</li>
 <li>Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended</li>
+<li>Each conversation also retains a rolling tail of its sandbox shell transcript (last ~10,000 characters) so that follow-up commands in a resumed conversation see the prior shell context</li>
 <li>Older builds stored conversations in an encrypted <code>conversations.enc</code> file (XOR with a 32-byte random key); on first load that file is decrypted and migrated into secure settings, then deleted</li>
 </ul>
 <h2 id="ui-elements">UI Elements</h2>
 <ul>
-<li><strong>Top bar</strong>: New Chat, Chat History, TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
+<li><strong>Top bar</strong>: New Chat, Chat History, a Sandbox toggle (Android only, shown between History and TTS when the sandbox feature is available on the device), TTS toggle, Settings (on mobile; on non-mobile, Settings is in the navigation tab bar)</li>
 <li><strong>Scroll to bottom</strong>: a small floating action button (down arrow) appears when the user has scrolled up past the latest messages; tapping it animates back to the bottom</li>
-<li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry</li>
+<li><strong>Messages</strong>: user (right-aligned, with optional image preview), assistant (Markdown-rendered + action buttons), tool executing (spinner), loading indicator, error with retry. When the fallback chain answered with an alternate service rather than the user's selected one, a small "Answered by …" label is shown under the assistant message naming the service that produced the response</li>
 <li><strong>Input</strong>: text field, send/stop button, attachment button, file chip</li>
 <li><strong>Empty state</strong>: animated logo + welcome message</li>
 <li><strong>Drag-and-drop</strong>: supported for file attachments</li>

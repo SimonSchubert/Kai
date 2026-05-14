@@ -1047,7 +1047,7 @@
 
 
 <h1 id="mcp-servers">MCP Servers</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai supports external tool servers via the <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="mcp-server">MCP Server</h3>
@@ -1060,9 +1060,10 @@
 <p>In the Tools tab of settings, the "MCP Servers" section appears above native tools. Users can:</p>
 <ul>
 <li>Tap "Add MCP Server" to open a bottom sheet</li>
-<li>Enter a name, URL, and optional authorization header manually</li>
+<li>Enter a name, URL, and any number of custom headers manually (e.g., <code>Authorization</code>, plus additional vendor-specific headers); rows can be added or removed individually</li>
 <li>Or pick from the popular servers list for one-tap setup</li>
 </ul>
+<p>MCP server configurations are included in the settings export/import feature, so the full set of servers (and their headers) can be moved between devices.</p>
 <h2 id="connection-flow">Connection Flow</h2>
 <p>When a server is added or enabled:</p>
 <ol>
@@ -1073,7 +1074,7 @@
 <li>Registers discovered tools with their metadata (name, description, input schema)</li>
 <li>The server appears as connected (green dot) in settings</li>
 </ol>
-<p>On app startup, all enabled MCP servers are automatically reconnected in the background in parallel. Connection state is protected by a mutex to prevent data races from concurrent connections. Individual server failures do not block other servers from connecting.</p>
+<p>When the chat screen first opens, all enabled MCP servers are reconnected in the background in parallel. The same reconnection sweep is re-triggered whenever the settings tab becomes visible, so newly enabled servers (or servers that failed previously) come back online without restarting the app. Connection state is protected by a mutex to prevent data races from concurrent connections, and individual server failures do not block other servers from connecting.</p>
 <h2 id="server-management">Server Management</h2>
 <p>Each server card in settings shows:</p>
 <ul>
@@ -1136,8 +1137,12 @@
 <td>Curated list of verified MCP endpoints</td>
 </tr>
 <tr>
+<td><code>composeApp/src/commonMain/.../ui/settings/McpSection.kt</code></td>
+<td>MCP server card UI, add-server bottom sheet with multi-header editor</td>
+</tr>
+<tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt</code></td>
-<td>McpServersSection, McpServerCard composables</td>
+<td>Hosts the MCP section inside the Tools tab content</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt</code></td>

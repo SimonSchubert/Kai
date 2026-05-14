@@ -639,6 +639,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#persistent-bash-session-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent bash session (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#process-management" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1365,6 +1376,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#persistent-bash-session-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent bash session (Android)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#process-management" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1756,7 +1778,7 @@
 </tr>
 <tr>
 <td><code>ssh_configure_host</code></td>
-<td>Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use <code>ssh &lt;alias&gt;</code> with multiplexing. Rides along whenever the sandbox is enabled.</td>
+<td>Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use <code>ssh &lt;alias&gt;</code>. Rides along whenever the sandbox is enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the <code>link()</code> syscall OpenSSH uses for control sockets, so every <code>ssh</code> call does a full TCP and authentication handshake.</td>
 <td>Disabled</td>
 </tr>
 <tr>
@@ -1818,9 +1840,16 @@
 <td>boolean</td>
 <td>Run in background and return a session_id immediately</td>
 </tr>
+<tr>
+<td><code>fresh</code></td>
+<td>boolean (Android only)</td>
+<td>Run this command in a one-shot proot invocation isolated from the conversation's persistent bash session</td>
+</tr>
 </tbody>
 </table>
 <p>When <code>background=true</code>, the command starts asynchronously and returns a <code>session_id</code>. The AI then uses the <code>manage_process</code> tool to check status, retrieve output, or terminate the process.</p>
+<h4 id="persistent-bash-session-android">Persistent bash session (Android)</h4>
+<p>On Android, each conversation gets its own persistent bash session inside the Linux sandbox. This is the default execution mode for <code>execute_shell_command</code>: <code>cd</code>, environment variable exports, shell functions, and other in-shell state carry across calls within the same conversation, so the AI can build up working context the same way a human terminal user does. Passing <code>fresh: true</code> opts out of the persistent session for a single call — that command runs in a one-shot proot invocation with no shared state, useful when the AI wants a clean environment without disturbing the ongoing session.</p>
 <p>The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.</p>
 <p>On desktop, dangerous environment variables (PATH, LD_PRELOAD, LD_LIBRARY_PATH, DYLD_INSERT_LIBRARIES, DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH) cannot be overridden via the <code>env</code> parameter.</p>
 <h4 id="process-management">Process management</h4>
@@ -1912,6 +1941,7 @@
 <li><strong>Per-tool toggles</strong> — individual tools can be enabled or disabled in settings, persisted with a <code>tool_enabled_</code> key prefix</li>
 <li><strong>Default state</strong> — most tools default to enabled; <code>execute_shell_command</code> defaults to disabled</li>
 <li><strong>Master-toggle-only</strong> — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)</li>
+<li><strong>On-device (LiteRT) allowlist</strong> — when the active model is an on-device LiteRT model, only a small allowlist of tools is exposed regardless of which other tools are enabled. The current allowlist is: <code>get_local_time</code>, <code>get_location_from_ip</code>, <code>web_search</code>, <code>open_url</code>, <code>memory_store</code>, <code>memory_forget</code>, <code>memory_reinforce</code>, and <code>execute_shell_command</code>. Memory tools beyond the three listed, email tools, scheduling tools, and heartbeat tools are not surfaced to local models even when their master switches are on.</li>
 </ul>
 <p>The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.</p>
 <h2 id="settings-ui">Settings UI</h2>

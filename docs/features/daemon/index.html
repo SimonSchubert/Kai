@@ -1003,7 +1003,7 @@
 
 
 <h1 id="daemon-mode">Daemon Mode</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="daemon-controller">Daemon Controller</h3>
@@ -1014,18 +1014,20 @@
 <ol>
 <li>When daemon mode is enabled in settings, the foreground service is started</li>
 <li>The service creates a notification channel and displays a persistent "Daemon is running" notification</li>
-<li>A coroutine scope is created and the task scheduler is started within it</li>
+<li>The service starts the task scheduler, which owns its own process-lifetime scope</li>
 <li>The service returns <code>START_STICKY</code>, so Android restarts it if the system kills it</li>
-<li>When daemon mode is disabled, the service is stopped and the coroutine scope is cancelled</li>
+<li>When daemon mode is disabled, the service stops itself and removes the foreground notification</li>
+<li>On Android 12+, starting the service can silently fail with a <code>ForegroundServiceStartNotAllowedException</code> when the app isn't in the foreground; this is caught and ignored so the daemon can be retried later (e.g. on next app launch)</li>
 </ol>
 <h2 id="auto-start">Auto-Start</h2>
-<p>On app launch, if daemon mode was previously enabled (persisted in settings), the service is automatically started. This ensures the daemon survives app restarts without requiring the user to re-enable it.</p>
+<p>Every time the main activity is brought to the foreground, if daemon mode is enabled in settings, the service is (re)started. This runs on app launch as well as on every subsequent return to the foreground, so the daemon recovers from situations where OEM battery managers or aggressive task killers have terminated the service while the app was in the background.</p>
 <h2 id="background-work">Background Work</h2>
-<p>The daemon's task scheduler polls every 60 seconds and handles three types of background work:</p>
+<p>The daemon's task scheduler polls every 60 seconds and handles four types of background work:</p>
 <ul>
 <li><strong>Scheduled tasks</strong> — executes due tasks by sending their prompts through the AI pipeline</li>
 <li><strong>Heartbeat checks</strong> — periodic self-checks during active hours (see heartbeat doc)</li>
 <li><strong>Email polling</strong> — fetches new emails from configured accounts on a configurable interval</li>
+<li><strong>SMS polling</strong> — checks for new incoming SMS messages on a configurable interval</li>
 </ul>
 <h2 id="notification">Notification</h2>
 <ul>
@@ -1042,7 +1044,7 @@
 </ul>
 <p>No wake locks or battery optimization exemptions are requested. The service relies on Android's standard process management with <code>START_STICKY</code> for restart behavior.</p>
 <h2 id="settings-ui">Settings UI</h2>
-<p>A toggle labeled "Daemon Mode" appears in the General tab of settings, only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference.</p>
+<p>A toggle labeled "Daemon Mode" appears in the General tab of settings, only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference. On Android 13+, turning the toggle on also requests the notification permission, since the foreground service's persistent notification cannot be displayed without it.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
 <thead>
@@ -1062,11 +1064,11 @@
 </tr>
 <tr>
 <td><code>composeApp/src/androidMain/.../DaemonService.kt</code></td>
-<td>Android foreground service, notification, coroutine scope</td>
+<td>Android foreground service, notification, task scheduler startup</td>
 </tr>
 <tr>
-<td><code>androidApp/src/main/.../KaiApplication.kt</code></td>
-<td>Auto-start on app launch</td>
+<td><code>androidApp/src/main/.../MainActivity.kt</code></td>
+<td>Auto-start (and recovery) on every foreground transition via <code>onStart</code></td>
 </tr>
 <tr>
 <td><code>androidApp/src/main/AndroidManifest.xml</code></td>

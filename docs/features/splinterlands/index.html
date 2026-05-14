@@ -1001,23 +1001,25 @@
 
 
 <h1 id="splinterlands-auto-battle">Splinterlands Auto-Battle</h1>
-<p>Last verified: 2026-04-24</p>
+<p>Last verified: 2026-05-14</p>
 <h2 id="overview">Overview</h2>
-<p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.</p>
+<p>Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy. If every configured LLM service fails, a local scoring-based picker takes over (ruleset-aware monster scoring, top-3 tank trials per summoner, combined summoner + team scoring to choose the best overall lineup).</p>
+<p>The entire Splinterlands integration has a master enable/disable toggle in the settings section header; when disabled, accounts and services remain saved but the feature is hidden from the UI and no battles run.</p>
 <h2 id="configuration">Configuration</h2>
 <p>Users configure the feature in <strong>Settings &gt; Integrations &gt; Splinterlands</strong>:</p>
 <p>Multiple accounts can be added, each with independent battle controls. Settings:</p>
 <ul>
 <li><strong>Hive Username</strong> -- the Splinterlands account name</li>
 <li><strong>Posting Key</strong> -- WIF-encoded Hive posting key (stored per-account, never exported by default)</li>
-<li><strong>LLM Services</strong> -- one or more configured service instances in priority order. All services are queried in parallel; the first valid response by priority wins. Services can be added, removed, and reordered via the service list UI.</li>
+<li><strong>LLM Services</strong> -- one or more configured service instances in priority order, shared globally across all accounts (a single team-picking service list, not per-account). All services are queried in parallel; the first valid response by priority wins. Services can be added, removed, and reordered via the service list UI.</li>
 </ul>
+<p>The Add Account form includes explanatory text noting that the posting key is stored securely on the device, is never sent to the LLM, and is used only to sign battle transactions on the Hive blockchain. Removing an account requires confirming a dialog before it is deleted.</p>
 <p>The Start button is disabled when no services are configured.</p>
 <h2 id="battle-flow">Battle Flow</h2>
 <ol>
 <li>Login with posting key to get JWT</li>
 <li>Fetch card details (full game card database)</li>
-<li>Check REWARD_ENERGY balance; stop if zero</li>
+<li>Check the account's ECR (energy) token balance; stop if zero</li>
 <li>Check for outstanding match (resume if found, including waiting for result if team already submitted)</li>
 <li>Sign and submit <code>sm_find_match</code> custom_json operation</li>
 <li>Poll for opponent (3s interval, 180s timeout)</li>
@@ -1025,7 +1027,7 @@
 <li>Build LLM prompt with available summoners, monsters, rulesets, and mana cap</li>
 <li>Query all configured services in parallel; parse and validate each response independently</li>
 <li>Pick the first valid result by priority order; apply silent fixes per-service if needed</li>
-<li>Fall back to simple greedy picker if all services fail</li>
+<li>Fall back to the local scoring-based picker if all services fail</li>
 <li>Generate team hash (MD5) and secret</li>
 <li>Sign and submit <code>sm_submit_team</code> custom_json operation</li>
 <li>Poll for battle result (5s interval, 120s timeout)</li>
@@ -1038,7 +1040,7 @@
 <ul>
 <li>System prompt includes full game rules reference (abilities, rulesets, combat mechanics)</li>
 <li>Lists numbered summoners (S1, S2...) and monsters (M1, M2...) with stats</li>
-<li>Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check)</li>
+<li>Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check only; gladiators are otherwise excluded)</li>
 <li>Deduplicates cards by detail ID before prompting</li>
 <li>Expects JSON response with plain integer IDs: <code>{"summoner": &lt;number&gt;, "monsters": [&lt;number&gt;...]}</code></li>
 <li>All configured services are queried simultaneously with the same prompt via <code>async</code> coroutines</li>
@@ -1059,13 +1061,14 @@
 <li>For each summoner: tries top 3 tank candidates, fills backline by score-per-mana ratio, picks the best overall team across all summoners</li>
 <li>Dragon summoners: try each ally color, pick best scoring combination</li>
 <li>Super Sneak: moves the second-tankiest monster to last position (targeted by all enemy Sneaks)</li>
+<li>Gladiators are also kept available when the "Are You Not Entertained" ruleset is active (in addition to Conscript), unlike the LLM picker which only relies on Conscript</li>
 </ul>
 <h3 id="ruleset-filters-category-a-card-selection">Ruleset Filters (Category A -- card selection)</h3>
 <p>Rarity, attack type, mana cost, color, and stat threshold filters applied before team picking.</p>
 <h2 id="ui">UI</h2>
 <p>The service list shows configured LLM services in priority order with:
 - Priority number, service icon (from DrawableResource), name, and model
-- Up/down arrow buttons for reordering
+- A drag handle on each row for reordering services within the priority list
 - Trash icon button to remove a service
 - "Add Service" / "Add Another Service" dropdown button filtered to exclude already-added services</p>
 <p>The account row shows avatar (loaded via Coil), username, energy, W/L stats, and start/stop controls. The Start button is disabled when no services are configured. While a battle is running, additional details appear below the player row:</p>
@@ -1077,7 +1080,7 @@
 <li><strong>Countdown timer</strong>: live countdown from team deadline to 0:00 (turns red below 30s)</li>
 </ul>
 <p>The opponent name is extracted from the battle result (<code>player_1</code>/<code>player_2</code> fields) for accurate display; during match-finding, the match queue's <code>opponent_player</code> field is tried first.</p>
-<p>A <strong>Model Rankings</strong> table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending. The top-ranked model row is highlighted. Win rates are color-coded: green for 60%+, red for below 40%.</p>
+<p>A <strong>Model Rankings</strong> table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, red for below 40%.</p>
 <p>Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.</p>
 <h2 id="platform-support">Platform Support</h2>
 <ul>

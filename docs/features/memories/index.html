@@ -1047,7 +1047,7 @@
 
 
 <h1 id="memories">Memories</h1>
-<p><strong>Last verified:</strong> 2026-04-24</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <p>Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="memory">Memory</h3>
@@ -1087,6 +1087,7 @@
 <li>Learning memories under "Learnings" with reinforcement count shown</li>
 <li>Error memories under "Known Issues &amp; Resolutions"</li>
 </ul>
+<p>For on-device (local) chat, the injected memory section is budgeted to a maximum of 2,000 characters. Entries are appended in category order until the budget is reached; if no entries fit, the header is dropped entirely. Remote chat has no such cap and includes all memories.</p>
 <h2 id="default-instructions">Default Instructions</h2>
 <p>Built-in memory instructions guide the AI to:</p>
 <ul>
@@ -1102,8 +1103,8 @@
 <li><strong>Toggle</strong> — enables or disables the memory feature with a switch</li>
 <li><strong>Description</strong> — explains that memories are included in every message for context</li>
 <li><strong>Memory list</strong> — the five most recently updated memories are shown inline; each entry displays the key (bold) and content (max 3 lines, truncated with ellipsis)</li>
-<li><strong>Show all button</strong> — appears when more than five memories exist; opens a modal dialog listing every memory</li>
-<li><strong>Edit memory</strong> — tapping any memory row (inline or inside the modal) opens an edit dialog that lets the user modify the memory content. The key is shown but not editable. Saving updates the memory's content and timestamp</li>
+<li><strong>Show all button</strong> — appears when more than five memories exist; opens a modal bottom sheet listing every memory</li>
+<li><strong>Edit memory</strong> — tapping any memory row (inline or inside the bottom sheet) opens an edit bottom sheet that lets the user modify the memory content. The key is shown but not editable. Saving updates the memory's content and timestamp</li>
 <li><strong>Delete button</strong> — per-memory trash icon to remove individual memories; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the memory is permanently removed</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
@@ -1121,7 +1122,7 @@
 </tr>
 <tr>
 <td><code>memory_learn</code></td>
-<td>Store categorized memories with optional source tracking (Learning, Error, or Preference)</td>
+<td>Store categorized memories with optional source tracking (Learning, Error, or Preference). Rejects the General category at runtime and suggests using <code>memory_store</code> instead</td>
 </tr>
 <tr>
 <td><code>memory_forget</code></td>

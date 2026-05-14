@@ -897,7 +897,7 @@
 <td><code>## Email Accounts</code></td>
 <td style="text-align: center;">when list non-empty (email enabled)</td>
 <td style="text-align: center;">never</td>
-<td><code>emailAccounts</code> — connected address, unread count, last sync, or last sync error</td>
+<td><code>emailAccounts</code> — connected address, unread count, last sync, or last sync error. The section also embeds a multi-sentence "Sending policy" rule instructing the model to draft a message and confirm with the user before invoking <code>compose_email</code> or <code>reply_email</code>, so the per-account summary is not the only payload</td>
 </tr>
 <tr>
 <td><code>## Scheduled Tasks</code></td>
@@ -953,12 +953,12 @@
 <td><code>customOrDefaultPrompt</code> (custom or <code>DEFAULT_HEARTBEAT_PROMPT</code>)</td>
 </tr>
 <tr>
-<td><code>## Previous Heartbeat Results</code></td>
-<td><code>recentResponses</code> non-empty</td>
-</tr>
-<tr>
 <td><code>## Heartbeat Additions</code></td>
 <td><code>heartbeatAdditions</code> non-empty — appended standing instructions from <code>schedule_task(on_heartbeat=true)</code> tasks</td>
+</tr>
+<tr>
+<td><code>## Previous Heartbeat Results</code></td>
+<td><code>recentResponses</code> non-empty</td>
 </tr>
 <tr>
 <td><code>## Pending Tasks</code> (with optional cron annotation)</td>
@@ -975,6 +975,10 @@
 <tr>
 <td><code>## New SMS</code> (unread message snapshots awaiting triage)</td>
 <td><code>pendingSms</code> non-empty</td>
+</tr>
+<tr>
+<td><code>## New Notifications</code> (captured Android notifications awaiting triage, newest first by post time, capped at 20)</td>
+<td><code>pendingNotifications</code> non-empty</td>
 </tr>
 <tr>
 <td><code>## Promotion Candidates</code> (with hit counts + category)</td>

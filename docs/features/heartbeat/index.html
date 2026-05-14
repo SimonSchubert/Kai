@@ -1069,7 +1069,7 @@
 
 
 <h1 id="heartbeat">Heartbeat</h1>
-<p><strong>Last verified:</strong> 2026-04-26</p>
+<p><strong>Last verified:</strong> 2026-05-14</p>
 <blockquote>
 <p>Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise <em>what happens on each heartbeat</em>, the AI creates heartbeat-triggered scheduled tasks via <code>schedule_task</code> with <code>on_heartbeat: true</code> — these are <code>HEARTBEAT</code>-trigger tasks (see <a href="../tasks/">tasks.md</a>) and their prompts are appended to every heartbeat run under <code>## Heartbeat Additions</code>. Each addition is a first-class task the user can see, edit, and cancel.</p>
 </blockquote>
@@ -1098,16 +1098,17 @@
 <h2 id="execution-flow">Execution Flow</h2>
 <ol>
 <li>The task scheduler polls every 60 seconds</li>
-<li>On each poll, it checks: is heartbeat enabled? Is the current hour within active hours? Has the configured interval elapsed since the last heartbeat?</li>
+<li>On each poll, it checks: is the overall scheduling-enabled toggle on (the tasks setting that gates all scheduled work)? Is heartbeat enabled? Is the current hour within active hours? Has the configured interval elapsed since the last heartbeat?</li>
 <li>If all conditions are met and no other API call is in progress, a heartbeat prompt is built and sent via <code>askWithTools</code> (which includes the full tool-calling loop)</li>
 <li>The last heartbeat timestamp is updated and a log entry is recorded</li>
 </ol>
+<p>When the overall scheduling-enabled toggle is off, heartbeats do not run regardless of the heartbeat toggle, interval, or active hours.</p>
 <h2 id="response-handling">Response Handling</h2>
 <ul>
 <li>If the AI response contains "HEARTBEAT_OK", nothing is shown to the user</li>
 <li>Any other response is saved into a dedicated heartbeat conversation (type <code>heartbeat</code>) via <code>addAssistantMessage</code></li>
 <li>A dismissable banner appears at the top of the chat when the heartbeat has something to report</li>
-<li><strong>Android push notification</strong>: when the heartbeat produces a non-OK report <em>and</em> the app is not currently in the foreground, a push notification fires. Foreground state is tracked via <code>ProcessLifecycleOwner</code> in <code>KaiApplication</code> and mirrored to <code>TaskScheduler.appInForeground</code>. Tapping the notification launches/foregrounds the app and deep-links into the heartbeat conversation via the <code>EXTRA_OPEN_HEARTBEAT</code> intent extra; <code>ChatViewModel</code> consumes the signal through <code>DataRepository.openHeartbeatRequested</code> and calls <code>loadConversation</code> on the heartbeat conversation id. The notification uses a fixed id so a fresh report replaces the previous unread one instead of stacking. Desktop/iOS/web no-op (banner-only).</li>
+<li><strong>Android push notification</strong>: when the heartbeat produces a non-OK report <em>and</em> the app is not currently in the foreground, a push notification fires. Foreground state is tracked via <code>ProcessLifecycleOwner</code> in <code>KaiApplication</code> and mirrored to <code>TaskScheduler.appInForeground</code>. Tapping the notification launches/foregrounds the app and deep-links into the heartbeat conversation via the <code>EXTRA_OPEN_HEARTBEAT</code> intent extra; <code>ChatViewModel</code> consumes the signal through <code>DataRepository.openHeartbeatRequested</code> and calls <code>loadConversation</code> on the heartbeat conversation id. The notification uses a fixed id so a fresh report replaces the previous unread one instead of stacking. The notification body is the heartbeat response with markdown formatting stripped and truncated to 240 characters at a word boundary (so the preview never breaks mid-word or shows raw markdown syntax). Desktop/iOS/web no-op (banner-only).</li>
 <li>Tapping the banner loads the heartbeat conversation so the user can read the report and reply</li>
 <li>The X button dismisses the banner without navigating</li>
 <li>Heartbeat conversations are included in the chat history list with a "Heartbeat" label badge, and can also be accessed via the banner</li>
@@ -1122,6 +1123,8 @@
 <li><strong>Pending tasks</strong> — all tasks with status PENDING are listed with their description, id, scheduled time, and cron expression (if recurring)</li>
 <li><strong>Email status</strong> — if email is enabled and accounts exist, each account's email address, unread count, and last sync time are included</li>
 <li><strong>New emails</strong> — headers (subject, from, preview) for emails polled since the last heartbeat pickup. Emails are fetched in the background by the email poll loop and buffered in a pending queue (capped at 100, FIFO). The heartbeat consumes the queue: everything the heartbeat saw is removed from the queue after a successful run, while emails that arrive during the heartbeat call remain for the next run. After consumption the heartbeat also advances each account's delivery watermark, so a follow-up <code>check_email</code> call from the user won't re-surface the same messages — Kai tracks read/unread internally and ignores the provider's <code>\Seen</code> flag</li>
+<li><strong>New SMS</strong> — SMS messages received since the last heartbeat. Consumed analogously to emails: buffered as they arrive, surfaced once under <code>## New SMS</code>, and cleared from the pending queue after a successful run so the next heartbeat only sees newer arrivals</li>
+<li><strong>New notifications</strong> — Android notifications captured since the last heartbeat, capped at 20 newest-first. Consumed analogously to emails: buffered as they arrive, surfaced once under <code>## New Notifications</code>, and cleared from the pending queue after a successful run so the next heartbeat only sees newer arrivals</li>
 <li><strong>Promotion candidates</strong> — memories with 5 or more hits are listed with their key, hit count, category, and content, along with a suggestion to use the <code>promote_learning</code> tool</li>
 </ol>
 <p>For the full contract of every prompt variation in Kai (chat remote/local, heartbeat, Splinterlands) see <a href="../system-prompts/">system-prompts.md</a>.</p>
@@ -1150,9 +1153,10 @@
 <li><strong>Interval slider</strong> — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label</li>
 <li><strong>Active hours range slider</strong> — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours)</li>
 <li><strong>Model picker</strong> — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the first configured service. If the previously selected service is removed, heartbeat falls back to the default automatically</li>
-<li><strong>Custom prompt editor</strong> — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set</li>
+<li><strong>Custom prompt editor</strong> — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set. A character counter (X/4000) is displayed in the editor as the user types</li>
+<li><strong>Reset to default</strong> — when a custom heartbeat prompt is set, a reset button appears in the custom-prompt section header. Tapping it opens a confirmation dialog; confirming clears the custom prompt and restores the default</li>
 <li><strong>Log display</strong> — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp</li>
-<li><strong>Manual refresh</strong> — a refresh icon next to the "Recent Activity" label runs a heartbeat immediately, bypassing the active-hours window and the interval-due check. Only fires while heartbeat is enabled and scheduling is on; the icon shows a progress spinner during the call</li>
+<li><strong>Manual refresh</strong> — a refresh icon next to the "Recent" label runs a heartbeat immediately, bypassing the active-hours window and the interval-due check. Only fires while heartbeat is enabled and scheduling is on; the icon shows a progress spinner during the call</li>
 </ul>
 <h2 id="ai-tools">AI Tools</h2>
 <table>
