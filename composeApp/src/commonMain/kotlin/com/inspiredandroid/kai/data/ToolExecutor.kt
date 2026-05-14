@@ -111,6 +111,7 @@ class ToolExecutor {
 
     private fun jsonElementToAny(element: JsonElement): Any = when (element) {
         JsonNull -> "null"
+
         is JsonPrimitive -> when {
             element.isString -> element.content
             element.booleanOrNull != null -> element.boolean
@@ -118,7 +119,9 @@ class ToolExecutor {
             element.doubleOrNull != null -> element.double
             else -> element.content
         }
+
         is JsonObject -> element.entries.associate { (k, v) -> k to jsonElementToAny(v) }
+
         is JsonArray -> element.map { jsonElementToAny(it) }
     }
 
