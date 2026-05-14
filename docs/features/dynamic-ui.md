@@ -1,8 +1,8 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
-AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Change applies to new conversations. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
+AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
 ## Concepts
 
@@ -31,7 +31,7 @@ Buttons carry an action that fires on click (chip groups are form inputs, not ac
 
 ### Interaction Flow
 
-When a callback fires, the renderer collects input values and formats them as a `[UI Interaction]` user message. The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button shows an inline circular spinner in place of its label; other buttons in the same layout become disabled.
+When a callback fires, the renderer collects input values and formats them as a user message of the form `Pressed: <event>` or `Responded with: <key: value>` (no special prefix). The AI receives the event name and form data in conversation history and can respond with new UI, text, or tool calls. While the callback is in flight, the clicked button keeps its label visible and pulses (a subtle scale and alpha animation); other buttons in the same assistant message become non-interactive until the response arrives.
 
 The originating assistant's kai-ui card stays in place across the exchange. While the submission is in flight the pressed button pulses; once the reply arrives the card settles into a frozen snapshot (prior values seeded, pressed button highlighted) with an edit pencil in the top-right corner. The user's submission does not produce a separate text bubble — the filled-in form on the assistant card already shows exactly what was sent. Clicking the pencil re-enables the form seeded with the previous picks; pressing any button then triggers a resubmit that truncates from that point and re-asks the AI. The text form ("Responded with: key: value") is still what the AI receives; only the visual representation differs. Snapshots persist with the conversation, so reloading preserves them.
 
@@ -41,7 +41,7 @@ Only the latest assistant message's layouts are interactive. Older layouts becom
 
 ### Error Handling
 
-Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, `"key="` typos, and missing closing braces between sibling objects in an array — e.g. when the LLM writes `,{` where a key was expected), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in `children` or `items` are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS strips `kai-ui` blocks entirely.
+Errors are absorbed as locally as possible so a single bad field never kills a whole block. The parser first repairs common JSON syntax mistakes (extra trailing braces/brackets via stack-based brace matching, truncated mid-stream responses, `"key="` typos, and missing closing braces between sibling objects in an array — e.g. when the LLM writes `,{` where a key was expected), then walks the resulting tree field-by-field. Each field reader tolerates the wrong value type (objects where a string was expected, bare strings where an object list was expected, string booleans, numeric strings) and falls back to the data-class default if nothing can be salvaged — the node still builds, the offending field is simply missing from the rendered UI. Unknown node types in `children` or `items` are silently dropped. Only JSON so malformed that the syntax repair can't produce a parseable tree falls back to rendering as a code block. Individual malformed lines in multi-line NDJSON are skipped while valid lines still render. TTS walks the kai-ui tree and reads out the human-readable labels it finds — text, button labels, alert messages, and similar — while skipping non-speakable elements like code blocks, icons, and dividers.
 
 ### Settings
 

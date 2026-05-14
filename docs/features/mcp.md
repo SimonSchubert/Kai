@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -23,8 +23,10 @@ A curated list of 10 verified free MCP endpoints that require no API key. Displa
 In the Tools tab of settings, the "MCP Servers" section appears above native tools. Users can:
 
 - Tap "Add MCP Server" to open a bottom sheet
-- Enter a name, URL, and optional authorization header manually
+- Enter a name, URL, and any number of custom headers manually (e.g., `Authorization`, plus additional vendor-specific headers); rows can be added or removed individually
 - Or pick from the popular servers list for one-tap setup
+
+MCP server configurations are included in the settings export/import feature, so the full set of servers (and their headers) can be moved between devices.
 
 ## Connection Flow
 
@@ -37,7 +39,7 @@ When a server is added or enabled:
 5. Registers discovered tools with their metadata (name, description, input schema)
 6. The server appears as connected (green dot) in settings
 
-On app startup, all enabled MCP servers are automatically reconnected in the background in parallel. Connection state is protected by a mutex to prevent data races from concurrent connections. Individual server failures do not block other servers from connecting.
+When the chat screen first opens, all enabled MCP servers are reconnected in the background in parallel. The same reconnection sweep is re-triggered whenever the settings tab becomes visible, so newly enabled servers (or servers that failed previously) come back online without restarting the app. Connection state is protected by a mutex to prevent data races from concurrent connections, and individual server failures do not block other servers from connecting.
 
 ## Server Management
 
@@ -85,7 +87,8 @@ Tool calls to MCP servers go through the same execution pipeline as native tools
 | `composeApp/src/commonMain/.../mcp/McpServerConfig.kt` | Server configuration data model |
 | `composeApp/src/commonMain/.../mcp/McpModels.kt` | JSON-RPC DTOs and MCP-specific models |
 | `composeApp/src/commonMain/.../mcp/PopularMcpServers.kt` | Curated list of verified MCP endpoints |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | McpServersSection, McpServerCard composables |
+| `composeApp/src/commonMain/.../ui/settings/McpSection.kt` | MCP server card UI, add-server bottom sheet with multi-header editor |
+| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Hosts the MCP section inside the Tools tab content |
 | `composeApp/src/commonMain/.../ui/settings/SettingsViewModel.kt` | MCP connection management and UI state |
 | `composeApp/src/commonMain/.../ui/settings/SettingsUiState.kt` | McpServerUiState, McpConnectionStatus |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | MCP server config persistence |

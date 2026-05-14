@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
 Kai supports 26 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -40,6 +40,9 @@ A built-in service that requires no API key. Free is never shown in the service 
 6. On failure, the next instance in the chain is tried; if all fail, the last error is shown
 7. If a fallback succeeds, the response indicates which service answered
 8. While the chain is being walked, the thinking indicator shows per-attempt status — the name of the service currently being tried, or the reason the previous one failed before moving on — so silent fallbacks are visible to the user
+9. Entries whose context window can't fit the current chat history are skipped during the walk
+10. On-device (Local Model) failures are not silently absorbed — they short-circuit the fallback chain so the user sees the actual error rather than being quietly bumped to a cloud service
+11. Certain non-retryable errors (notably Anthropic's "insufficient credits" and quota-exhausted responses from OpenAI-compatible providers) bypass both the per-service retry loop and the fallback chain — the error surfaces immediately
 
 ## API Formats
 
@@ -63,7 +66,7 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | NVIDIA | `nvidia` | Yes | OpenAI-compatible |
 | Cerebras | `cerebras` | Yes | OpenAI-compatible |
 | Ollama Cloud | `ollamacloud` | Yes | OpenAI-compatible |
-| LongCat | `longcat` | Yes | OpenAI-compatible (hardcoded models, no `/models` endpoint) |
+| LongCat | `longcat` | Yes | OpenAI-compatible (ships with a curated default model list; also exposes a `/models` endpoint used during validation) |
 | Together AI | `together` | Yes | OpenAI-compatible |
 | Hugging Face | `huggingface` | Yes | OpenAI-compatible |
 | Venice AI | `venice` | Yes | OpenAI-compatible |
@@ -77,11 +80,11 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | OpenCode | `opencode` | Yes | OpenAI-compatible |
 | Public AI | `publicai` | Yes | OpenAI-compatible |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
-| LiteRT (On-Device) | `litert` | No | On-device (LiteRT LM) |
+| Local Model | `litert` | No | On-device (LiteRT LM) |
 
 ## Connection Validation
 
-When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. Most services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services each call their respective models endpoint. Services without a models endpoint (e.g. LongCat) skip the fetch and show as "connected" immediately; the real API key validation happens on first chat. On a successful connection, the available model list is refreshed.
+When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, or **connection failed**. Validation also runs for all services when the settings screen opens. Services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services (including LongCat) each call their respective models endpoint. On a successful connection, the available model list is refreshed.
 
 ## Model Selection
 
@@ -97,18 +100,23 @@ The model picker modal shows each candidate as a card with consistent metadata r
 
 - **Title** (top left) — a human-readable display name from the curated catalog or the provider's API; falls back to the raw model id only when no display name is available
 - **Arena score** (top right) — LMArena Elo rating as colored text, gradient from green (>= 1400) through lime/yellow to orange (< 1250)
-- **Detail chips** (middle) — parameter count and context window (`200K ctx` / `1M ctx`) as neutral chips
-- **Release date** (bottom left) — month and year in muted text, e.g. `Mar 2025`
+- **Detail line** (below the title) — release date, parameter count, and context window joined into a single muted line separated by ` · ` (e.g. `Mar 2025 · 70B · 200K ctx`); any missing field is simply omitted from the line
 
 The card representing the currently selected model is highlighted with a filled accent background so users can identify their current choice at a glance when reopening the picker.
 
-The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip sorts by that field descending; tapping the active chip toggles ascending/descending. Default sort is by score (highest first).
+The modal includes sort chips (Date, Score, Ctx) below the search field. Tapping a chip switches which field is active; all sorts are descending (highest or most recent first), with no ascending option. Default sort is by score.
 
-Context window and release date come from two sources, merged by the mapping layer: whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`), and a bundled curated catalog of well-known models that fills gaps for providers whose API omits these fields (notably Gemini and Anthropic for context window). API data always wins over the catalog. Models not present in the catalog still render — their chips are simply hidden.
+Context window and release date come from two sources, merged by the mapping layer: a bundled curated catalog of well-known models, and whatever the provider's own models endpoint returns (e.g. OpenAI-compat `context_window` and `created`, Anthropic `created_at`). The curated catalog wins; provider-supplied values are used only as a fallback when the catalog has no entry for that model. The catalog is hand-maintained to correct inconsistencies in what providers report. Models not present in the catalog still render — they just use whatever the API provided, and any unknown fields are hidden.
 
 ## Chat Screen Service Toggle
 
-When two or more non-Free service instances are configured, a circular service icon button appears to the right of the chat input, next to the send/stop button. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing all configured services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. Selecting a different service reorders the configured list so the chosen service becomes first (primary). The existing fallback chain picks up the new order automatically. The button is hidden when fewer than two services are configured.
+The chat screen builds an "interactive services" list that includes two distinct Free entries — **Free FAST** and **Free EXPERT** — followed by every configured non-Free service whose currently selected model supports tool use (agentic flows). When this list contains more than one entry, a circular service icon button appears to the right of the chat input, next to the send/stop button. Because the two Free modes alone already count as two entries, the toggle can appear even when no non-Free services are configured. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing the eligible services with their icons, names, and model IDs; the current primary is highlighted with a primary container background.
+
+Selecting a non-Free entry reorders the configured list so the chosen service becomes first (primary). Selecting a Free entry (FAST or EXPERT) instead flips an "is Free primary" flag and records the chosen Free mode — Free can be promoted to primary independently of the configured fallback order, without rearranging the non-Free chain. The fallback chain picks up the new state automatically. The fallback walker also skips any entry whose context window can't fit the current chat history, so very long conversations may transparently move past services that would otherwise be eligible.
+
+## Attachments
+
+Image attachments are broadly supported across cloud services. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
 
 ## Settings UI
 

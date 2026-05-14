@@ -1,6 +1,6 @@
 # Appearance
 
-**Last verified:** 2026-05-05
+**Last verified:** 2026-05-14
 
 Kai has a four-way theme picker — **System**, **Light**, **Dark**, and **OLED** — exposed in Settings on every platform. The default is System, which follows the operating system's dark/light preference. The other three force a specific theme regardless of system state. Dark uses a soft dark background (`#121212`) with slightly lighter surfaces (`#1E1E1E`); OLED flattens the background and the lowest surface tier to pure black (`#000000`) for users who want to save power on OLED panels.
 
@@ -28,7 +28,7 @@ When adding new surfaces in dark mode, **do not** bind fills to `surface` if the
 | `composeApp/.../ui/Theme.kt` | `DarkColorScheme` / `LightColorScheme` constants; `withBlackBackground()` extension that flattens a dark scheme to pure black |
 | `composeApp/.../data/AppSettings.kt` | `ThemeMode` enum; `themeModeFlow` / `getThemeMode()` / `setThemeMode()` — the persistent setting, with one-time migration from the legacy OLED boolean |
 | `composeApp/.../App.kt` | Shared `AppContent` — observes `themeModeFlow`, picks `lightColorScheme` / `darkColorScheme` / `darkColorScheme.withBlackBackground()` based on the selected mode |
-| `composeApp/.../ui/settings/SettingsScreen.kt` | `ThemeModePicker` segmented-button row in the General tab |
+| `composeApp/.../ui/settings/SettingsScreen.kt` | Theme mode dropdown in the General tab |
 | `androidApp/.../MainActivity.kt` | Android entry — supplies dynamic-color light/dark schemes; the resolved `isDarkTheme` (from `themeMode` + system) drives the system-bar style |
 | `androidApp/.../res/values-night/styles.xml` | Pre-Compose window background set to `#FF121212` to match the default dark frame |
 | `composeApp/.../iosMain/.../MainViewController.kt` | iOS entry — uses common `App` defaults |

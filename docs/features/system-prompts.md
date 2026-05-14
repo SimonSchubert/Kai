@@ -32,7 +32,7 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | `## Learnings` | when list non-empty | when list non-empty (budget-capped) | `learningMemories` (reinforcement count rendered) |
 | `## Known Issues & Resolutions` | when list non-empty | when list non-empty (budget-capped) | `errorMemories` |
 | `## Automation` | always (remote-only block) | never | baked into `DEFAULT_AUTOMATION_SECTION` constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through `schedule_task` with one of three triggers (`execute_at`, `cron`, `on_heartbeat`). Heartbeat schedule itself is user-controlled |
-| `## Email Accounts` | when list non-empty (email enabled) | never | `emailAccounts` — connected address, unread count, last sync, or last sync error |
+| `## Email Accounts` | when list non-empty (email enabled) | never | `emailAccounts` — connected address, unread count, last sync, or last sync error. The section also embeds a multi-sentence "Sending policy" rule instructing the model to draft a message and confirm with the user before invoking `compose_email` or `reply_email`, so the per-account summary is not the only payload |
 | `## Scheduled Tasks` | when list non-empty | never | `pendingTasks` (time/cron only; heartbeat-trigger tasks live in the next section) |
 | `## Heartbeat Additions` | when list non-empty | never | `heartbeatAdditions` — standing `schedule_task(on_heartbeat=true)` entries the AI can see/reference/cancel |
 | `## Context` | always | always | `runtime` param (local time with offset + IANA zone, UTC, platform, model, provider). Local time leads so the model anchors on the user's wall clock when computing relative times |
@@ -55,12 +55,13 @@ Interactive UI mode is **not** available on on-device services — the kai-ui co
 | Section | Gating input |
 |---|---|
 | Opening prompt | `customOrDefaultPrompt` (custom or `DEFAULT_HEARTBEAT_PROMPT`) |
-| `## Previous Heartbeat Results` | `recentResponses` non-empty |
 | `## Heartbeat Additions` | `heartbeatAdditions` non-empty — appended standing instructions from `schedule_task(on_heartbeat=true)` tasks |
+| `## Previous Heartbeat Results` | `recentResponses` non-empty |
 | `## Pending Tasks` (with optional cron annotation) | `pendingTasks` non-empty |
 | `## Email Status` (per-account unread count + last sync) | `emailAccounts` non-empty |
 | `## New Emails` (unread header snapshots awaiting triage) | `pendingEmails` non-empty |
 | `## New SMS` (unread message snapshots awaiting triage) | `pendingSms` non-empty |
+| `## New Notifications` (captured Android notifications awaiting triage, newest first by post time, capped at 20) | `pendingNotifications` non-empty |
 | `## Promotion Candidates` (with hit counts + category) | `promotionCandidates` non-empty |
 
 ## How to add a new section

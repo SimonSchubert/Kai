@@ -1,6 +1,6 @@
 # Daemon Mode
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
 Kai's daemon mode keeps the app running in the background on Android so that scheduled tasks, heartbeat checks, and email polling continue to execute even when the app is not in the foreground. On other platforms (desktop, iOS, web), daemon mode is a no-op.
 
@@ -18,21 +18,23 @@ An Android service that runs with a persistent notification, preventing the syst
 
 1. When daemon mode is enabled in settings, the foreground service is started
 2. The service creates a notification channel and displays a persistent "Daemon is running" notification
-3. A coroutine scope is created and the task scheduler is started within it
+3. The service starts the task scheduler, which owns its own process-lifetime scope
 4. The service returns `START_STICKY`, so Android restarts it if the system kills it
-5. When daemon mode is disabled, the service is stopped and the coroutine scope is cancelled
+5. When daemon mode is disabled, the service stops itself and removes the foreground notification
+6. On Android 12+, starting the service can silently fail with a `ForegroundServiceStartNotAllowedException` when the app isn't in the foreground; this is caught and ignored so the daemon can be retried later (e.g. on next app launch)
 
 ## Auto-Start
 
-On app launch, if daemon mode was previously enabled (persisted in settings), the service is automatically started. This ensures the daemon survives app restarts without requiring the user to re-enable it.
+Every time the main activity is brought to the foreground, if daemon mode is enabled in settings, the service is (re)started. This runs on app launch as well as on every subsequent return to the foreground, so the daemon recovers from situations where OEM battery managers or aggressive task killers have terminated the service while the app was in the background.
 
 ## Background Work
 
-The daemon's task scheduler polls every 60 seconds and handles three types of background work:
+The daemon's task scheduler polls every 60 seconds and handles four types of background work:
 
 - **Scheduled tasks** — executes due tasks by sending their prompts through the AI pipeline
 - **Heartbeat checks** — periodic self-checks during active hours (see heartbeat doc)
 - **Email polling** — fetches new emails from configured accounts on a configurable interval
+- **SMS polling** — checks for new incoming SMS messages on a configurable interval
 
 
 
@@ -54,7 +56,7 @@ No wake locks or battery optimization exemptions are requested. The service reli
 
 ## Settings UI
 
-A toggle labeled "Daemon Mode" appears in the General tab of settings, only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference.
+A toggle labeled "Daemon Mode" appears in the General tab of settings, only on Android. The description reads: "Keep Kai 9000 running in the background so scheduled tasks execute even when the app is not in the foreground." Toggling it starts or stops the foreground service and persists the preference. On Android 13+, turning the toggle on also requests the notification permission, since the foreground service's persistent notification cannot be displayed without it.
 
 ## Key Files
 
@@ -62,8 +64,8 @@ A toggle labeled "Daemon Mode" appears in the General tab of settings, only on A
 |---|---|
 | `composeApp/src/commonMain/.../DaemonController.kt` | Platform-independent interface |
 | `composeApp/src/androidMain/.../DaemonController.android.kt` | Android implementation, start/stop/auto-start logic |
-| `composeApp/src/androidMain/.../DaemonService.kt` | Android foreground service, notification, coroutine scope |
-| `androidApp/src/main/.../KaiApplication.kt` | Auto-start on app launch |
+| `composeApp/src/androidMain/.../DaemonService.kt` | Android foreground service, notification, task scheduler startup |
+| `androidApp/src/main/.../MainActivity.kt` | Auto-start (and recovery) on every foreground transition via `onStart` |
 | `androidApp/src/main/AndroidManifest.xml` | Service declaration and permissions |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Background poll loop started by the service |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Daemon enabled state persistence |

@@ -1,6 +1,6 @@
 # Memories
 
-**Last verified:** 2026-04-24
+**Last verified:** 2026-05-14
 
 Kai's memory system allows the AI to learn and retain information across conversations. Memories are stored persistently, injected into every system prompt for context, and can be reinforced over time. Well-established memories can be promoted into permanent behavior via the heartbeat feature.
 
@@ -51,6 +51,8 @@ When memory is enabled, all memories are retrieved and grouped by category in th
 - Learning memories under "Learnings" with reinforcement count shown
 - Error memories under "Known Issues & Resolutions"
 
+For on-device (local) chat, the injected memory section is budgeted to a maximum of 2,000 characters. Entries are appended in category order until the budget is reached; if no entries fit, the header is dropped entirely. Remote chat has no such cap and includes all memories.
+
 ## Default Instructions
 
 Built-in memory instructions guide the AI to:
@@ -68,8 +70,8 @@ The memories section in settings contains:
 - **Toggle** — enables or disables the memory feature with a switch
 - **Description** — explains that memories are included in every message for context
 - **Memory list** — the five most recently updated memories are shown inline; each entry displays the key (bold) and content (max 3 lines, truncated with ellipsis)
-- **Show all button** — appears when more than five memories exist; opens a modal dialog listing every memory
-- **Edit memory** — tapping any memory row (inline or inside the modal) opens an edit dialog that lets the user modify the memory content. The key is shown but not editable. Saving updates the memory's content and timestamp
+- **Show all button** — appears when more than five memories exist; opens a modal bottom sheet listing every memory
+- **Edit memory** — tapping any memory row (inline or inside the bottom sheet) opens an edit bottom sheet that lets the user modify the memory content. The key is shown but not editable. Saving updates the memory's content and timestamp
 - **Delete button** — per-memory trash icon to remove individual memories; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the memory is permanently removed
 
 ## AI Tools
@@ -77,7 +79,7 @@ The memories section in settings contains:
 | Tool | Purpose |
 |---|---|
 | `memory_store` | Store general key-value memories (General category) |
-| `memory_learn` | Store categorized memories with optional source tracking (Learning, Error, or Preference) |
+| `memory_learn` | Store categorized memories with optional source tracking (Learning, Error, or Preference). Rejects the General category at runtime and suggests using `memory_store` instead |
 | `memory_forget` | Remove a memory by key |
 | `memory_reinforce` | Increment a memory's hit count |
 | `promote_learning` | Graduate a reinforced memory into the soul/system prompt (via heartbeat) |

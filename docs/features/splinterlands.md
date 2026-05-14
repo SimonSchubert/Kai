@@ -1,10 +1,12 @@
 # Splinterlands Auto-Battle
 
-Last verified: 2026-04-24
+Last verified: 2026-05-14
 
 ## Overview
 
-Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy.
+Kai can automatically play Wild Ranked Splinterlands battles. The feature uses one or more LLM services to pick teams based on match constraints (mana cap, rulesets, inactive splinters), submits them via the Hive blockchain, and plays continuously until the player hits Stop or runs out of energy. If every configured LLM service fails, a local scoring-based picker takes over (ruleset-aware monster scoring, top-3 tank trials per summoner, combined summoner + team scoring to choose the best overall lineup).
+
+The entire Splinterlands integration has a master enable/disable toggle in the settings section header; when disabled, accounts and services remain saved but the feature is hidden from the UI and no battles run.
 
 ## Configuration
 
@@ -14,7 +16,9 @@ Multiple accounts can be added, each with independent battle controls. Settings:
 
 - **Hive Username** -- the Splinterlands account name
 - **Posting Key** -- WIF-encoded Hive posting key (stored per-account, never exported by default)
-- **LLM Services** -- one or more configured service instances in priority order. All services are queried in parallel; the first valid response by priority wins. Services can be added, removed, and reordered via the service list UI.
+- **LLM Services** -- one or more configured service instances in priority order, shared globally across all accounts (a single team-picking service list, not per-account). All services are queried in parallel; the first valid response by priority wins. Services can be added, removed, and reordered via the service list UI.
+
+The Add Account form includes explanatory text noting that the posting key is stored securely on the device, is never sent to the LLM, and is used only to sign battle transactions on the Hive blockchain. Removing an account requires confirming a dialog before it is deleted.
 
 The Start button is disabled when no services are configured.
 
@@ -22,7 +26,7 @@ The Start button is disabled when no services are configured.
 
 1. Login with posting key to get JWT
 2. Fetch card details (full game card database)
-3. Check REWARD_ENERGY balance; stop if zero
+3. Check the account's ECR (energy) token balance; stop if zero
 4. Check for outstanding match (resume if found, including waiting for result if team already submitted)
 5. Sign and submit `sm_find_match` custom_json operation
 6. Poll for opponent (3s interval, 180s timeout)
@@ -30,7 +34,7 @@ The Start button is disabled when no services are configured.
 8. Build LLM prompt with available summoners, monsters, rulesets, and mana cap
 9. Query all configured services in parallel; parse and validate each response independently
 10. Pick the first valid result by priority order; apply silent fixes per-service if needed
-11. Fall back to simple greedy picker if all services fail
+11. Fall back to the local scoring-based picker if all services fail
 12. Generate team hash (MD5) and secret
 13. Sign and submit `sm_submit_team` custom_json operation
 14. Poll for battle result (5s interval, 120s timeout)
@@ -45,7 +49,7 @@ The Stop button behavior depends on the current phase. Before a match is committ
 ### Parallel LLM Picker
 - System prompt includes full game rules reference (abilities, rulesets, combat mechanics)
 - Lists numbered summoners (S1, S2...) and monsters (M1, M2...) with stats
-- Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check)
+- Pre-filters cards by inactive splinters, ruleset restrictions, and gladiator eligibility (Conscript check only; gladiators are otherwise excluded)
 - Deduplicates cards by detail ID before prompting
 - Expects JSON response with plain integer IDs: `{"summoner": <number>, "monsters": [<number>...]}`
 - All configured services are queried simultaneously with the same prompt via `async` coroutines
@@ -65,6 +69,7 @@ The Stop button behavior depends on the current phase. Before a match is committ
 - For each summoner: tries top 3 tank candidates, fills backline by score-per-mana ratio, picks the best overall team across all summoners
 - Dragon summoners: try each ally color, pick best scoring combination
 - Super Sneak: moves the second-tankiest monster to last position (targeted by all enemy Sneaks)
+- Gladiators are also kept available when the "Are You Not Entertained" ruleset is active (in addition to Conscript), unlike the LLM picker which only relies on Conscript
 
 ### Ruleset Filters (Category A -- card selection)
 Rarity, attack type, mana cost, color, and stat threshold filters applied before team picking.
@@ -73,7 +78,7 @@ Rarity, attack type, mana cost, color, and stat threshold filters applied before
 
 The service list shows configured LLM services in priority order with:
 - Priority number, service icon (from DrawableResource), name, and model
-- Up/down arrow buttons for reordering
+- A drag handle on each row for reordering services within the priority list
 - Trash icon button to remove a service
 - "Add Service" / "Add Another Service" dropdown button filtered to exclude already-added services
 
@@ -87,7 +92,7 @@ The account row shows avatar (loaded via Coil), username, energy, W/L stats, and
 
 The opponent name is extracted from the battle result (`player_1`/`player_2` fields) for accurate display; during match-finding, the match queue's `opponent_player` field is tried first.
 
-A **Model Rankings** table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending. The top-ranked model row is highlighted. Win rates are color-coded: green for 60%+, red for below 40%.
+A **Model Rankings** table appears above the battle log when there is battle data. It groups battles by model name (and separately tracks the fallback auto picker), showing wins, losses, and win rate percentage for each. Models are sorted by win rate descending and each row is prefixed with its rank number; all rows render identically (no special highlight for the top entry). Win rates are color-coded: green for 60%+, red for below 40%.
 
 Recent Battles log shows up to 500 entries (5 visible by default, expandable): Victory/Defeat badge, opponent name, relative timestamp ("just now", "5 min", "2 hours"), account name, mana, rulesets, and the model name that picked the team. Clicking a battle log entry with activity opens a dialog showing the full activity log. A "View Battle" link opens the Splinterlands battle page. The Add Account form appears below the battle log.
 

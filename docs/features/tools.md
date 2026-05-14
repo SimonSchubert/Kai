@@ -70,7 +70,7 @@ Email tools are available when the email feature is enabled and accounts are con
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
 | `execute_shell_command` | Execute a shell command on the device | Disabled |
-| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>` with multiplexing. Rides along whenever the sandbox is enabled. | Disabled |
+| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>`. Rides along whenever the sandbox is enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the `link()` syscall OpenSSH uses for control sockets, so every `ssh` call does a full TCP and authentication handshake. | Disabled |
 | `open_file` | Open a file from the sandbox in an Android app (browser, image viewer, etc.) | Enabled |
 
 #### Linux Sandbox (Android)
@@ -109,8 +109,13 @@ Both platforms support these parameters:
 | `working_dir` | string | Working directory for the command |
 | `env` | object | Environment variables to set as key-value pairs |
 | `background` | boolean | Run in background and return a session_id immediately |
+| `fresh` | boolean (Android only) | Run this command in a one-shot proot invocation isolated from the conversation's persistent bash session |
 
 When `background=true`, the command starts asynchronously and returns a `session_id`. The AI then uses the `manage_process` tool to check status, retrieve output, or terminate the process.
+
+#### Persistent bash session (Android)
+
+On Android, each conversation gets its own persistent bash session inside the Linux sandbox. This is the default execution mode for `execute_shell_command`: `cd`, environment variable exports, shell functions, and other in-shell state carry across calls within the same conversation, so the AI can build up working context the same way a human terminal user does. Passing `fresh: true` opts out of the persistent session for a single call — that command runs in a one-shot proot invocation with no shared state, useful when the AI wants a clean environment without disturbing the ongoing session.
 
 The desktop tool dynamically includes the detected OS (macOS/Linux/Windows) and shell in its description so the AI knows the execution context.
 
@@ -195,6 +200,7 @@ Tool availability is controlled at multiple levels:
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
 - **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
 - **Master-toggle-only** — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)
+- **On-device (LiteRT) allowlist** — when the active model is an on-device LiteRT model, only a small allowlist of tools is exposed regardless of which other tools are enabled. The current allowlist is: `get_local_time`, `get_location_from_ip`, `web_search`, `open_url`, `memory_store`, `memory_forget`, `memory_reinforce`, and `execute_shell_command`. Memory tools beyond the three listed, email tools, scheduling tools, and heartbeat tools are not surfaced to local models even when their master switches are on.
 
 The platform layer assembles the final list of available tools by checking all gates and per-tool settings, and only enabled tools are sent to the AI provider.
 

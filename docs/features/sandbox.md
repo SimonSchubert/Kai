@@ -4,7 +4,7 @@
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
-The sandbox is **Android-only**. iOS, desktop, and web stubs return "not ready" for every operation.
+The sandbox is **Android-only**. iOS, desktop, and web have no-op stubs — sandbox operations are simply unavailable on those platforms.
 
 ## Concepts
 
@@ -18,7 +18,7 @@ So `cd /tmp` followed by `pwd` in the same chat returns `/tmp`. The assistant do
 
 A shell is created lazily on first use and lives for the duration of the app process. When a conversation is deleted, its shell is closed. Sandbox reset closes every live shell.
 
-The bash *process* itself dies with the app — cwd and exported env do not survive. The visible *transcript* of the current chat's session is persisted (capped at roughly 10,000 characters of trimmed output — about a screen and a half of scrollback), so re-opening an old chat after a restart still shows the tail of what was on screen, even though running another command starts a fresh shell.
+The bash *process* itself dies with the app — cwd and exported env do not survive. The visible *transcript* of the current chat's session is kept in memory with a hard cap of 500 lines per session, and persisted to the conversation (capped at roughly 10,000 characters of trimmed output — about a screen and a half of scrollback) so re-opening an old chat after a restart still shows the tail of what was on screen, even though running another command starts a fresh shell. Persistence is debounced (~500 ms) so rapid output bursts coalesce into a single write rather than thrashing storage.
 
 ### Terminal tab session picker
 
@@ -60,7 +60,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 
 ## Behavior
 
-- **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (≈3 MB). After extraction, `apk update` runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.
+- **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, `apk update` runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.
 - **State across the app**: each chat conversation has its own shell, and the Terminal tab has another. Files in `/root` and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.
 - **Network access**: outbound IP works (DNS is configured against `8.8.8.8` / `8.8.4.4`). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.
 - **File visibility**: `/root` lives at app-external storage so files the agent produces can be opened with `open_file` via Android's `FileProvider`. The rest of the filesystem (`/etc`, `/usr`, `/var`, etc.) is the Alpine rootfs and lives in app-internal storage.
@@ -76,7 +76,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 - **Memory cost of multiple sessions.** Each live shell is a `proot+bash` pair (tens of MB resident). Running many concurrent chats with shell-tool usage will accumulate sessions. There is no soft cap yet — closing a conversation drops its shell, sandbox reset drops them all.
 - **Cancel without a PTY is best-effort.** A child that ignores `SIGINT`/`SIGTERM` forces a session reset; the user loses session state for that one command.
 - **Stray output from backgrounded jobs** (`sleep 60 &` then "Done" later) can attach itself to whatever command is running when the kernel finally reports the exit. Matches normal terminal behavior.
-- **iOS / desktop / web**: no sandbox. Calls return "not ready" until those platforms get their own runtime.
+- **iOS / desktop / web**: no sandbox. Stubs are no-ops — calls return empty results (or are simply unsupported) until those platforms get their own runtime.
 
 ## Key Files
 
