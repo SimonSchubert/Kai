@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.provider.Settings
 import com.inspiredandroid.kai.notifications.declaresNotificationListener
 import org.koin.java.KoinJavaComponent.inject
@@ -19,13 +20,15 @@ actual class NotificationListenerController actual constructor() {
 
     actual fun isAccessGranted(): Boolean {
         if (!supported) return false
+        // isNotificationListenerAccessGranted(ComponentName) is API 27+; minSdk is 26.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) return false
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
             ?: return false
         return try {
             nm.isNotificationListenerAccessGranted(
                 ComponentName(context, NOTIFICATION_LISTENER_FQN),
             )
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
             false
         }
     }
