@@ -107,7 +107,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
 import com.inspiredandroid.kai.SandboxController
-import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.Version
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
@@ -352,7 +351,6 @@ fun SettingsScreenContent(
     onInstallPackages: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
     navigationTabBar: (@Composable () -> Unit)? = null,
-    terminalPreviewLines: ImmutableList<TerminalLine> = persistentListOf(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val undoLabel = stringResource(Res.string.snackbar_undo)

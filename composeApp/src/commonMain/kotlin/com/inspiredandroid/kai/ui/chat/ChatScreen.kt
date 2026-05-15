@@ -71,11 +71,13 @@ import androidx.compose.ui.draganddrop.DragAndDropEvent
 import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
+import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.data.supportsAgenticFlows
 import com.inspiredandroid.kai.getBackgroundDispatcher
@@ -103,6 +105,7 @@ import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
 import com.inspiredandroid.kai.ui.sandbox.SandboxTabsContent
+import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
@@ -116,6 +119,7 @@ import kai.composeapp.generated.resources.interactive_welcome_subtitle
 import kai.composeapp.generated.resources.interactive_welcome_title
 import kai.composeapp.generated.resources.scroll_to_bottom_content_description
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
@@ -150,6 +154,9 @@ fun ChatScreenContent(
     onNavigateToSettings: () -> Unit = {},
     isSandboxAvailable: Boolean = false,
     navigationTabBar: (@Composable () -> Unit)? = null,
+    initialSandboxOpen: Boolean = false,
+    previewSandboxState: SandboxUiState? = null,
+    previewSandboxLines: ImmutableList<TerminalLine> = persistentListOf(),
 ) {
     if (uiState.isInteractiveMode && !uiState.isRestoring) {
         InteractiveModeScreen(uiState = uiState)
@@ -160,6 +167,9 @@ fun ChatScreenContent(
             onNavigateToSettings = onNavigateToSettings,
             isSandboxAvailable = isSandboxAvailable,
             navigationTabBar = navigationTabBar,
+            initialSandboxOpen = initialSandboxOpen,
+            previewSandboxState = previewSandboxState,
+            previewSandboxLines = previewSandboxLines,
         )
     }
 }
@@ -447,9 +457,12 @@ private fun ChatModeScreen(
     onNavigateToSettings: () -> Unit,
     isSandboxAvailable: Boolean,
     navigationTabBar: (@Composable () -> Unit)?,
+    initialSandboxOpen: Boolean = false,
+    previewSandboxState: SandboxUiState? = null,
+    previewSandboxLines: ImmutableList<TerminalLine> = persistentListOf(),
 ) {
     var showHistorySheet by remember { mutableStateOf(false) }
-    var isSandboxOpen by rememberSaveable { mutableStateOf(false) }
+    var isSandboxOpen by rememberSaveable { mutableStateOf(initialSandboxOpen) }
     // Hoisted here so the draft survives toggling the sandbox/terminal view, which
     // removes QuestionInput from composition and would otherwise drop the text.
     var questionInputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
@@ -540,12 +553,15 @@ private fun ChatModeScreen(
             }
 
             if (isSandboxOpen) {
-                val sandboxViewModel = koinViewModel<SandboxViewModel>()
-                val sandboxState by sandboxViewModel.state.collectAsStateWithLifecycle()
+                val isPreview = LocalInspectionMode.current
+                val sandboxViewModel = if (!isPreview) koinViewModel<SandboxViewModel>() else null
+                val liveState = sandboxViewModel?.state?.collectAsStateWithLifecycle()?.value
+                val sandboxState = liveState ?: previewSandboxState ?: SandboxUiState()
                 SandboxTabsContent(
                     sandboxState = sandboxState,
-                    onSetupSandbox = sandboxViewModel::onSetupSandbox,
-                    onCancelSandbox = sandboxViewModel::onCancelSandbox,
+                    onSetupSandbox = sandboxViewModel?.let { { it.onSetupSandbox() } } ?: {},
+                    onCancelSandbox = sandboxViewModel?.let { { it.onCancelSandbox() } } ?: {},
+                    previewLines = previewSandboxLines,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth()

@@ -144,40 +144,33 @@ class StoreScreenshotTest(
     @Test
     fun settingsFree() {
         snap("04", DarkColorScheme) {
-            SettingsScreenContent(
-                uiState = ScreenshotTestData.freeConnected,
-                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
-            )
+            SettingsScreenContent(uiState = ScreenshotTestData.freeConnected)
         }
     }
 
     @Test
     fun settingsTools() {
         snap("05", LightColorScheme) {
-            SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsTools,
-                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
-            )
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsTools)
         }
     }
 
     @Test
     fun settingsAgent() {
         snap("06", DarkColorScheme) {
-            SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsAgent,
-                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
-            )
+            SettingsScreenContent(uiState = ScreenshotTestData.settingsAgent)
         }
     }
 
     @Test
     fun settingsSandbox() {
         snap("07", DarkColorScheme) {
-            SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsSandbox,
-                sandboxState = ScreenshotTestData.sandboxState,
-                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            ChatScreenContent(
+                uiState = ScreenshotTestData.chatEmptyState,
+                isSandboxAvailable = true,
+                initialSandboxOpen = true,
+                previewSandboxState = ScreenshotTestData.sandboxState,
+                previewSandboxLines = ScreenshotTestData.sandboxTerminalLines,
             )
         }
     }

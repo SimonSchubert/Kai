@@ -165,10 +165,12 @@ class TabletStoreScreenshotTest(
     @Test
     fun settingsSandbox() {
         snap("07", DarkColorScheme) {
-            SettingsScreenContent(
-                uiState = ScreenshotTestData.settingsSandbox,
-                sandboxState = ScreenshotTestData.sandboxState,
-                terminalPreviewLines = ScreenshotTestData.sandboxTerminalLines,
+            ChatScreenContent(
+                uiState = ScreenshotTestData.chatEmptyState,
+                isSandboxAvailable = true,
+                initialSandboxOpen = true,
+                previewSandboxState = ScreenshotTestData.sandboxState,
+                previewSandboxLines = ScreenshotTestData.sandboxTerminalLines,
             )
         }
     }
