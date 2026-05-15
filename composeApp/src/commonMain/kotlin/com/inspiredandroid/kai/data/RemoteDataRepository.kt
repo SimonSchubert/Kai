@@ -116,6 +116,21 @@ internal val LOCAL_TOOL_ALLOWLIST = setOf(
     "execute_shell_command",
 )
 
+private data class LoopChatResult(
+    val textContent: String,
+    val reasoningContent: String? = null,
+    val isThinkingContent: Boolean = false,
+    val toolCalls: List<ToolCallInfo>,
+)
+
+private enum class BailoutReason { LIMIT_REACHED, REPEATING }
+
+private interface ToolLoopStrategy {
+    suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult
+    suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String
+    fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = history
+}
+
 class RemoteDataRepository(
     private val requests: Requests,
     private val appSettings: AppSettings,
@@ -783,204 +798,92 @@ class RemoteDataRepository(
     private suspend fun handleOpenAICompatibleChatWithTools(
         service: Service,
         credentials: ServiceCredentials,
-        messages: List<History>,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
         tools: List<Tool>,
         systemPrompt: String? = null,
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
-        var currentMessages = trimMessagesForContext(
-            buildOpenAIMessages(
-                messages.filter { it.role != History.Role.TOOL_EXECUTING },
-                systemPrompt,
-            ),
-            contextWindowTokens,
-        )
-
-        var iteration = 0
-        val recentSignatures = mutableListOf<String>()
-
-        // Loop until AI returns a final response (no more tool calls)
-        while (true) {
-            iteration++
-
-            // Bail out if too many iterations
-            if (iteration > MAX_TOOL_ITERATIONS) {
-                return makeFinalCallWithoutTools(service, credentials, currentMessages)
-            }
-
-            val response = retryApiCall {
-                requests.openAICompatibleChat(service, credentials, currentMessages, tools).getOrThrow()
-            }
-            val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
-
-            val toolCalls = message.toolCalls
-            if (toolCalls.isNullOrEmpty()) {
-                // No more tool calls - return the final response
-                return message.effectiveContent ?: ""
-            }
-
-            // Check for repetition
-            val signatures = toolCalls.map { "${it.function.name}:${it.function.arguments.hashCode()}" }
-            if (isRepeatingToolCalls(recentSignatures, signatures)) {
-                return makeFinalCallWithoutTools(service, credentials, currentMessages)
-            }
-            recentSignatures.addAll(signatures)
-
-            // Add assistant message with tool calls to history
-            history.update {
-                it.toMutableList().apply {
-                    add(
-                        History(
-                            role = History.Role.ASSISTANT,
-                            content = message.effectiveContent ?: "",
-                            isThinking = message.isContentFromReasoning,
-                            toolCalls = toolCalls.map { tc ->
-                                ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
-                            }.toImmutableList(),
-                            reasoningContent = message.effectiveReasoning,
-                        ),
-                    )
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val msgs = trimMessagesForContext(buildOpenAIMessages(history, systemPrompt), contextWindowTokens)
+                val response = retryApiCall {
+                    requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
-            }
-
-            // Execute all tool calls in parallel
-            val toolResults = executeToolCallsInParallel(toolCalls.map { Triple(it.id, it.function.name, it.function.arguments) })
-
-            // Add all tool results to history
-            history.update { h ->
-                buildList(h.size + toolResults.size) {
-                    // Remove any TOOL_EXECUTING entries
-                    for (entry in h) {
-                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
-                    }
-                    for ((callId, name, result) in toolResults) {
-                        add(
-                            History(
-                                role = History.Role.TOOL,
-                                content = result,
-                                toolCallId = callId,
-                                toolName = name,
-                            ),
-                        )
-                    }
+                val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
+                val calls = message.toolCalls.orEmpty().map { tc ->
+                    ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
                 }
+                return LoopChatResult(
+                    textContent = message.effectiveContent ?: "",
+                    reasoningContent = message.effectiveReasoning,
+                    isThinkingContent = message.isContentFromReasoning,
+                    toolCalls = calls,
+                )
             }
 
-            // Update messages for next iteration with context trimming
-            currentMessages = trimMessagesForContext(
-                buildOpenAIMessages(
-                    history.value.filter { it.role != History.Role.TOOL_EXECUTING },
-                    systemPrompt,
-                ),
-                contextWindowTokens,
-            )
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
+                val msgs = trimMessagesForContext(buildOpenAIMessages(history, systemPrompt), contextWindowTokens)
+                return makeFinalCallWithoutTools(service, credentials, msgs)
+            }
         }
+        return runToolLoop(strategy, systemPrompt, history)
     }
 
-    private suspend fun handleGeminiChatWithTools(credentials: ServiceCredentials, messages: List<History>, tools: List<Tool>, systemPrompt: String? = null, history: MutableStateFlow<List<History>> = chatHistory): String {
+    private suspend fun handleGeminiChatWithTools(
+        credentials: ServiceCredentials,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
+        tools: List<Tool>,
+        systemPrompt: String? = null,
+        history: MutableStateFlow<List<History>> = chatHistory,
+    ): String {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
-        var iteration = 0
-        val recentSignatures = mutableListOf<String>()
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val geminiMessages = history.map { it.toGeminiMessageDto() }
+                val response = retryApiCall {
+                    requests.geminiChat(
+                        credentials = credentials,
+                        messages = geminiMessages,
+                        tools = tools,
+                        systemInstruction = systemPrompt,
+                    ).getOrThrow()
+                }
+                val parts = response.candidates.firstOrNull()?.content?.parts.orEmpty()
+                val partsWithFunctionCalls = parts.filter { it.functionCall != null }
+                val toolCallInfos = partsWithFunctionCalls.map { part ->
+                    val fc = part.functionCall!!
+                    val argsJson = fc.args?.let { JsonObject(it).toString() } ?: "{}"
+                    ToolCallInfo(
+                        id = "gemini-${Uuid.random()}",
+                        name = fc.name,
+                        arguments = argsJson,
+                        thoughtSignature = part.thoughtSignature,
+                    )
+                }
+                val textContent = parts.filterNot { it.isThought }.mapNotNull { it.text }.joinToString("\n")
+                return LoopChatResult(textContent = textContent, toolCalls = toolCallInfos)
+            }
 
-        // Loop until AI returns a final response (no more function calls)
-        while (true) {
-            iteration++
-
-            if (iteration > MAX_TOOL_ITERATIONS) {
-                // Bail out: make a final Gemini call without tools
-                val currentMessages = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
-                val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
+                val prefix = when (reason) {
+                    BailoutReason.LIMIT_REACHED -> "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered."
+                    BailoutReason.REPEATING -> "You are repeating the same tool calls. Please respond with the best answer you have so far."
+                }
+                val geminiMessages = history.map { it.toGeminiMessageDto() }
                 val bailoutResponse = retryApiCall {
                     requests.geminiChat(
                         credentials = credentials,
                         messages = geminiMessages,
-                        systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
+                        systemInstruction = "$prefix $systemPrompt",
                     ).getOrThrow()
                 }
                 return bailoutResponse.extractText()
             }
 
-            val currentMessages = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
-            val geminiMessages = currentMessages.map { it.toGeminiMessageDto() }
-
-            val response = retryApiCall {
-                requests.geminiChat(credentials = credentials, messages = geminiMessages, tools = tools, systemInstruction = systemPrompt).getOrThrow()
-            }
-            val parts = response.candidates.firstOrNull()?.content?.parts ?: return ""
-
-            // Check for function calls in the response (parts that have functionCall)
-            val partsWithFunctionCalls = parts.filter { it.functionCall != null }
-            if (partsWithFunctionCalls.isEmpty()) {
-                // No function calls - return the text response (skip thought parts)
-                return parts.filterNot { it.isThought }.joinToString("\n") { it.text ?: "" }
-            }
-
-            // Convert Gemini function calls to ToolCallInfo with synthetic IDs
-            // Include thoughtSignature from the Part (required for Gemini 3 models)
-            val toolCallInfos = partsWithFunctionCalls.map { part ->
-                val fc = part.functionCall!!
-                val argsJson = fc.args?.let { JsonObject(it).toString() } ?: "{}"
-                ToolCallInfo(
-                    id = "gemini-${Uuid.random()}",
-                    name = fc.name,
-                    arguments = argsJson,
-                    thoughtSignature = part.thoughtSignature,
-                )
-            }
-
-            // Check for repetition
-            val signatures = toolCallInfos.map { "${it.name}:${it.arguments.hashCode()}" }
-            if (isRepeatingToolCalls(recentSignatures, signatures)) {
-                val bailoutMessages = currentMessages.map { it.toGeminiMessageDto() }
-                val bailoutResponse = retryApiCall {
-                    requests.geminiChat(
-                        credentials = credentials,
-                        messages = bailoutMessages,
-                        systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
-                    ).getOrThrow()
-                }
-                return bailoutResponse.extractText()
-            }
-            recentSignatures.addAll(signatures)
-
-            // Add assistant message with tool calls to history (skip thought parts)
-            val textContent = parts.filterNot { it.isThought }.mapNotNull { it.text }.joinToString("\n")
-            history.update {
-                it.toMutableList().apply {
-                    add(
-                        History(
-                            role = History.Role.ASSISTANT,
-                            content = textContent,
-                            toolCalls = toolCallInfos.toImmutableList(),
-                        ),
-                    )
-                }
-            }
-
-            // Execute all tool calls in parallel
-            val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
-
-            // Add all tool results to history and trim to fit context window
-            history.update { h ->
-                val updated = buildList(h.size + toolResults.size) {
-                    for (entry in h) {
-                        if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
-                    }
-                    for ((callId, name, result) in toolResults) {
-                        add(
-                            History(
-                                role = History.Role.TOOL,
-                                content = result,
-                                toolCallId = callId,
-                                toolName = name,
-                            ),
-                        )
-                    }
-                }
-                trimHistoryForContext(updated, systemPrompt?.length ?: 0, contextWindowTokens)
-            }
+            override fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = trimHistoryForContext(history, systemPrompt?.length ?: 0, contextWindowTokens)
         }
+        return runToolLoop(strategy, systemPrompt, history)
     }
 
     private fun buildOpenAIMessages(
@@ -1057,105 +960,113 @@ class RemoteDataRepository(
 
     private suspend fun handleAnthropicChatWithTools(
         credentials: ServiceCredentials,
-        messages: List<History>,
+        @Suppress("UNUSED_PARAMETER") messages: List<History>,
         tools: List<Tool>,
         systemPrompt: String? = null,
         history: MutableStateFlow<List<History>> = chatHistory,
     ): String {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val strategy = object : ToolLoopStrategy {
+            override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
+                val msgs = buildAnthropicMessages(history)
+                val response = retryApiCall {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = msgs,
+                        tools = tools,
+                        systemInstruction = systemPrompt,
+                    ).getOrThrow()
+                }
+                val toolUseBlocks = response.content.filter { it.type == "tool_use" }
+                val toolCallInfos = toolUseBlocks.map { block ->
+                    val argsJson = block.input?.toString() ?: "{}"
+                    ToolCallInfo(
+                        id = block.id ?: "anthropic-${Uuid.random()}",
+                        name = block.name ?: "unknown",
+                        arguments = argsJson,
+                    )
+                }
+                val textContent = response.content.filter { it.type == "text" }.mapNotNull { it.text }.joinToString("\n")
+                return LoopChatResult(textContent = textContent, toolCalls = toolCallInfos)
+            }
+
+            override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
+                val prefix = when (reason) {
+                    BailoutReason.LIMIT_REACHED -> "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered."
+                    BailoutReason.REPEATING -> "You are repeating the same tool calls. Please respond with the best answer you have so far."
+                }
+                val bailoutResponse = retryApiCall {
+                    requests.anthropicChat(
+                        credentials = credentials,
+                        messages = buildAnthropicMessages(history),
+                        systemInstruction = "$prefix $systemPrompt",
+                    ).getOrThrow()
+                }
+                return bailoutResponse.extractText()
+            }
+
+            override fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = trimHistoryForContext(history, systemPrompt?.length ?: 0, contextWindowTokens)
+        }
+        return runToolLoop(strategy, systemPrompt, history)
+    }
+
+    private suspend fun runToolLoop(
+        strategy: ToolLoopStrategy,
+        systemPrompt: String?,
+        history: MutableStateFlow<List<History>>,
+    ): String {
         var iteration = 0
         val recentSignatures = mutableListOf<String>()
-
         while (true) {
             iteration++
-
-            val currentMessages = buildAnthropicMessages(
-                history.value.filter { it.role != History.Role.TOOL_EXECUTING },
-            )
-
+            val visible = history.value.filter { it.role != History.Role.TOOL_EXECUTING }
             if (iteration > MAX_TOOL_ITERATIONS) {
-                val bailoutResponse = retryApiCall {
-                    requests.anthropicChat(
-                        credentials = credentials,
-                        messages = currentMessages,
-                        systemInstruction = "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered. $systemPrompt",
-                    ).getOrThrow()
-                }
-                return bailoutResponse.extractText()
+                return strategy.bailout(visible, systemPrompt, BailoutReason.LIMIT_REACHED)
             }
+            val result = strategy.chat(visible, systemPrompt)
+            if (result.toolCalls.isEmpty()) return result.textContent
 
-            val response = retryApiCall {
-                requests.anthropicChat(
-                    credentials = credentials,
-                    messages = currentMessages,
-                    tools = tools,
-                    systemInstruction = systemPrompt,
-                ).getOrThrow()
-            }
-
-            val toolUseBlocks = response.content.filter { it.type == "tool_use" }
-            if (toolUseBlocks.isEmpty()) {
-                return response.extractText()
-            }
-
-            val toolCallInfos = toolUseBlocks.map { block ->
-                val argsJson = block.input?.toString() ?: "{}"
-                ToolCallInfo(
-                    id = block.id ?: "anthropic-${Uuid.random()}",
-                    name = block.name ?: "unknown",
-                    arguments = argsJson,
-                )
-            }
-
-            // Check for repetition
-            val signatures = toolCallInfos.map { "${it.name}:${it.arguments.hashCode()}" }
+            val signatures = result.toolCalls.map { "${it.name}:${it.arguments.hashCode()}" }
             if (isRepeatingToolCalls(recentSignatures, signatures)) {
-                val bailoutResponse = retryApiCall {
-                    requests.anthropicChat(
-                        credentials = credentials,
-                        messages = currentMessages,
-                        systemInstruction = "You are repeating the same tool calls. Please respond with the best answer you have so far. $systemPrompt",
-                    ).getOrThrow()
-                }
-                return bailoutResponse.extractText()
+                return strategy.bailout(visible, systemPrompt, BailoutReason.REPEATING)
             }
             recentSignatures.addAll(signatures)
 
-            // Add assistant message with tool calls to history
-            val textContent = response.content.filter { it.type == "text" }.mapNotNull { it.text }.joinToString("\n")
             history.update {
                 it.toMutableList().apply {
                     add(
                         History(
                             role = History.Role.ASSISTANT,
-                            content = textContent,
-                            toolCalls = toolCallInfos.toImmutableList(),
+                            content = result.textContent,
+                            isThinking = result.isThinkingContent,
+                            toolCalls = result.toolCalls.toImmutableList(),
+                            reasoningContent = result.reasoningContent,
                         ),
                     )
                 }
             }
 
-            // Execute all tool calls in parallel
-            val toolResults = executeToolCallsInParallel(toolCallInfos.map { Triple(it.id, it.name, it.arguments) })
+            val toolResults = executeToolCallsInParallel(
+                result.toolCalls.map { Triple(it.id, it.name, it.arguments) },
+            )
 
-            // Add all tool results to history and trim to fit context window
             history.update { h ->
-                val updated = buildList(h.size + toolResults.size) {
+                val merged = buildList(h.size + toolResults.size) {
                     for (entry in h) {
                         if (entry.role != History.Role.TOOL_EXECUTING) add(entry)
                     }
-                    for ((callId, name, result) in toolResults) {
+                    for ((callId, name, content) in toolResults) {
                         add(
                             History(
                                 role = History.Role.TOOL,
-                                content = result,
+                                content = content,
                                 toolCallId = callId,
                                 toolName = name,
                             ),
                         )
                     }
                 }
-                trimHistoryForContext(updated, systemPrompt?.length ?: 0, contextWindowTokens)
+                strategy.trimAfterToolResults(merged, systemPrompt)
             }
         }
     }

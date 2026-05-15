@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.data
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.serializer
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -23,32 +25,20 @@ class NotificationStore(private val appSettings: AppSettings) {
 
     private val json = SharedJson
     private val mutex = Mutex()
+    private val pendingQueue = PendingQueue<NotificationRecord, String>(
+        readJson = appSettings::getNotificationsPendingJson,
+        writeJson = appSettings::setNotificationsPendingJson,
+        serializer = ListSerializer(serializer<NotificationRecord>()),
+        keyOf = { it.id },
+    )
 
-    fun getPending(): List<NotificationRecord> {
-        val raw = appSettings.getNotificationsPendingJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<NotificationRecord>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
+    fun getPending(): List<NotificationRecord> = pendingQueue.get()
 
-    suspend fun addPending(record: NotificationRecord) = mutex.withLock {
-        val merged = (getPending() + record).takeLast(MAX_PENDING)
-        appSettings.setNotificationsPendingJson(json.encodeToString(merged))
-    }
+    suspend fun addPending(record: NotificationRecord) = pendingQueue.add(listOf(record))
 
-    suspend fun removePending(records: List<NotificationRecord>) = mutex.withLock {
-        if (records.isEmpty()) return@withLock
-        val ids = records.map { it.id }.toSet()
-        val remaining = getPending().filterNot { it.id in ids }
-        appSettings.setNotificationsPendingJson(json.encodeToString(remaining))
-    }
+    suspend fun removePending(records: List<NotificationRecord>) = pendingQueue.remove(records)
 
-    suspend fun clearPending() = mutex.withLock {
-        appSettings.setNotificationsPendingJson("")
-    }
+    suspend fun clearPending() = pendingQueue.clear()
 
     fun getStore(): List<NotificationRecord> {
         val raw = appSettings.getNotificationsStoreJson()
@@ -100,7 +90,6 @@ class NotificationStore(private val appSettings: AppSettings) {
     }
 
     companion object {
-        private const val MAX_PENDING = 100
         private const val MAX_PER_PACKAGE = 50
         private const val MAX_AGE_MS = 24L * 60L * 60L * 1000L
     }

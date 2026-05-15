@@ -2,11 +2,19 @@ package com.inspiredandroid.kai.data
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.serializer
 
 class SmsStore(private val appSettings: AppSettings) {
 
     private val json = SharedJson
     private val mutex = Mutex()
+    private val pendingQueue = PendingQueue<SmsMessage, Long>(
+        readJson = appSettings::getSmsPendingJson,
+        writeJson = appSettings::setSmsPendingJson,
+        serializer = ListSerializer(serializer<SmsMessage>()),
+        keyOf = { it.id },
+    )
 
     fun getSyncState(): SmsSyncState {
         val raw = appSettings.getSmsSyncStateJson()
@@ -22,31 +30,9 @@ class SmsStore(private val appSettings: AppSettings) {
         appSettings.setSmsSyncStateJson(json.encodeToString(state))
     }
 
-    fun getPending(): List<SmsMessage> {
-        val raw = appSettings.getSmsPendingJson()
-        if (raw.isEmpty()) return emptyList()
-        return try {
-            json.decodeFromString<List<SmsMessage>>(raw)
-        } catch (_: Exception) {
-            emptyList()
-        }
-    }
+    fun getPending(): List<SmsMessage> = pendingQueue.get()
 
-    suspend fun addPending(messages: List<SmsMessage>) = mutex.withLock {
-        if (messages.isEmpty()) return@withLock
-        // Capped FIFO so a disabled or slow heartbeat can't let the buffer grow unbounded.
-        val merged = (getPending() + messages).takeLast(MAX_PENDING)
-        appSettings.setSmsPendingJson(json.encodeToString(merged))
-    }
+    suspend fun addPending(messages: List<SmsMessage>) = pendingQueue.add(messages)
 
-    suspend fun removePending(messages: List<SmsMessage>) = mutex.withLock {
-        if (messages.isEmpty()) return@withLock
-        val ids = messages.map { it.id }.toSet()
-        val remaining = getPending().filterNot { it.id in ids }
-        appSettings.setSmsPendingJson(json.encodeToString(remaining))
-    }
-
-    companion object {
-        private const val MAX_PENDING = 100
-    }
+    suspend fun removePending(messages: List<SmsMessage>) = pendingQueue.remove(messages)
 }
