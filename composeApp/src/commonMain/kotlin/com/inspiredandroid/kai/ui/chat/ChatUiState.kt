@@ -5,6 +5,7 @@ package com.inspiredandroid.kai.ui.chat
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.data.Attachment
 import com.inspiredandroid.kai.data.FallbackStatus
+import com.inspiredandroid.kai.data.ReasoningRequestMode
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.SharedJson
 import com.inspiredandroid.kai.data.SmsDraft
@@ -130,7 +131,9 @@ data class ToolCallInfo(
     val thoughtSignature: String? = null,
 )
 
-fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (role) {
+fun History.toGroqMessageDto(
+    reasoningMode: ReasoningRequestMode = ReasoningRequestMode.NONE,
+): OpenAICompatibleChatRequestDto.Message = when (role) {
     History.Role.USER -> {
         val split = attachments.splitForMessage()
         // Images become image_url parts; PDFs are dropped (OpenAI-compatible has no native PDF
@@ -173,6 +176,10 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
             // (the provider returned no real content). Don't send it as `content`; it will
             // be carried by reasoning_content instead.
             val realContent = if (isThinking || content.isEmpty()) null else JsonPrimitive(content)
+            val emittedReasoning = when (reasoningMode) {
+                ReasoningRequestMode.REASONING_CONTENT -> reasoningContent
+                ReasoningRequestMode.NONE -> null
+            }
             OpenAICompatibleChatRequestDto.Message(
                 role = "assistant",
                 content = realContent,
@@ -185,7 +192,7 @@ fun History.toGroqMessageDto(): OpenAICompatibleChatRequestDto.Message = when (r
                         ),
                     )
                 },
-                reasoningContent = reasoningContent,
+                reasoningContent = emittedReasoning,
             )
         } else {
             OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))

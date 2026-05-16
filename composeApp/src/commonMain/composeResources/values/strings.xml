@@ -138,6 +138,8 @@
     <string name="settings_notifications_clear_queue">Clear queue</string>
     <string name="settings_dynamic_ui">Dynamic UI</string>
     <string name="settings_dynamic_ui_description">Allow the AI to create interactive UI elements like buttons, forms and cards inline in responses. Change applies to new conversations.</string>
+    <string name="bot_message_thinking_label">Thinking</string>
+    <string name="bot_message_thinking_expand_content_description">Expand or collapse thinking</string>
     <string name="settings_oled_mode">OLED mode</string>
     <string name="settings_oled_mode_description">Use pure black backgrounds in dark mode to save power on OLED screens.</string>
     <string name="settings_theme">Theme</string>

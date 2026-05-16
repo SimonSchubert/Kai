@@ -16,9 +16,10 @@ data class OpenAICompatibleChatRequestDto(
         val content: JsonElement? = null, // String or array of content parts (for vision)
         val tool_calls: List<ToolCall>? = null,
         val tool_call_id: String? = null, // Required for "tool" role messages
-        // DeepSeek requires the prior turn's reasoning_content to be passed back
-        // when that turn produced tool_calls. Other OpenAI-compatible providers
-        // ignore this field, so it's safe to include when populated.
+        // Echoed back on assistant turns that produced tool_calls for providers
+        // that require it (Fireworks, LongCat, MiniMax, Moonshot/Kimi thinking,
+        // Venice, Z.AI/GLM thinking, OpenCode Zen, OpenRouter). Groq/DeepSeek/
+        // Cerebras strict-reject it, so emission is gated by Service.reasoningRequestMode.
         @SerialName("reasoning_content")
         val reasoningContent: String? = null,
     )

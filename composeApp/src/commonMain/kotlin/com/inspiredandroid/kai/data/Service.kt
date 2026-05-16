@@ -47,6 +47,31 @@ data class ModelDefinition(
     val descriptionRes: StringResource? = null,
 )
 
+/**
+ * How a service handles a `reasoning_content` field on outgoing assistant messages.
+ *
+ * Default is [NONE] so any new provider is safe by default — Groq, DeepSeek and
+ * Cerebras all return HTTP 400 when they see this field, so opt-in is the correct
+ * posture. See `docs/features/reasoning.md` for the authoritative per-provider matrix.
+ */
+enum class ReasoningRequestMode {
+    /** Strip the field before sending. Safe default. */
+    NONE,
+
+    /**
+     * Echo `reasoning_content` back on assistant turns that previously produced
+     * `tool_calls`. Truly required by Z.AI Coding Plan, OpenCode Zen (DeepSeek
+     * route), and Moonshot kimi-k2.6 with `thinking.keep="all"`. Accepted as a
+     * documented field by Fireworks, Z.AI standard, and OpenRouter (as an alias
+     * for `reasoning`). Tolerated as an unknown field by LongCat, Venice, MiniMax.
+     *
+     * See `docs/features/reasoning.md` for the authoritative per-provider matrix
+     * and known fidelity gaps (`reasoning_details`, `<think>`-in-content, paired
+     * flags like `clear_thinking` and `reasoning_history`).
+     */
+    REASONING_CONTENT,
+}
+
 sealed class Service(
     val id: String,
     val displayName: String,
@@ -66,6 +91,7 @@ sealed class Service(
     val apiKeyUrlDisplay: String? = null,
     val isOnDevice: Boolean = false,
     val supportsPdf: Boolean = false,
+    val reasoningRequestMode: ReasoningRequestMode = ReasoningRequestMode.NONE,
 ) {
     data object Free : Service(
         id = "free",
@@ -120,6 +146,7 @@ sealed class Service(
         apiKeyUrl = "https://openrouter.ai/settings/keys",
         apiKeyUrlDisplay = "openrouter.ai/settings/keys",
         supportsPdf = true,
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Nvidia : Service(
@@ -250,6 +277,7 @@ sealed class Service(
         ),
         apiKeyUrl = "https://longcat.chat/platform",
         apiKeyUrlDisplay = "longcat.chat/platform",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Together : Service(
@@ -291,6 +319,7 @@ sealed class Service(
         modelsUrl = "https://api.venice.ai/api/v1/models",
         apiKeyUrl = "https://venice.ai/settings/api",
         apiKeyUrlDisplay = "venice.ai/settings/api",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Moonshot : Service(
@@ -304,6 +333,7 @@ sealed class Service(
         modelsUrl = "https://api.moonshot.cn/v1/models",
         apiKeyUrl = "https://platform.moonshot.cn/console/api-keys",
         apiKeyUrlDisplay = "platform.moonshot.cn/console/api-keys",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Zai : Service(
@@ -317,6 +347,7 @@ sealed class Service(
         modelsUrl = "https://api.z.ai/api/paas/v4/models",
         apiKeyUrl = "https://z.ai/manage-apikey/apikey-list",
         apiKeyUrlDisplay = "z.ai/manage-apikey/apikey-list",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object ZaiCodingPlan : Service(
@@ -330,6 +361,7 @@ sealed class Service(
         modelsUrl = "https://api.z.ai/api/coding/paas/v4/models",
         apiKeyUrl = "https://z.ai/manage-apikey/apikey-list",
         apiKeyUrlDisplay = "z.ai/manage-apikey/apikey-list",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Minimax : Service(
@@ -343,6 +375,7 @@ sealed class Service(
         modelsUrl = "https://api.minimax.io/v1/models",
         apiKeyUrl = "https://platform.minimax.io",
         apiKeyUrlDisplay = "platform.minimax.io",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object AiHubMix : Service(
@@ -382,6 +415,7 @@ sealed class Service(
         modelsUrl = "https://api.fireworks.ai/inference/v1/models",
         apiKeyUrl = "https://app.fireworks.ai/settings/users/api-keys",
         apiKeyUrlDisplay = "app.fireworks.ai/settings/users/api-keys",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object OpenCode : Service(
@@ -395,6 +429,7 @@ sealed class Service(
         modelsUrl = "https://opencode.ai/zen/v1/models",
         apiKeyUrl = "https://opencode.ai/docs/zen/",
         apiKeyUrlDisplay = "opencode.ai/docs/zen",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object PublicAI : Service(

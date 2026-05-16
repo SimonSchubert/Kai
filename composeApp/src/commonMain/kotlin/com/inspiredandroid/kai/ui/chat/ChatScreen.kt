@@ -685,6 +685,66 @@ private fun ChatModeScreen(
                                 stringResource(Res.string.fallback_service_failed, status.serviceName, uiErrorText(status.errorReason))
                             }
 
+                            // Group every reasoning segment in a response (intermediate tool-call /
+                            // thinking-only turns plus the final answer's own reasoning) under the
+                            // answer-bearing assistant message, so each response shows a single
+                            // collapsible "Thinking" section instead of N standalone ones.
+                            val (reasoningSegmentsByAssistantId, suppressedThinkingIds) = remember(uiState.history) {
+                                val byAnswerId = mutableMapOf<String, List<String>>()
+                                val suppressed = mutableSetOf<String>()
+                                val pending = mutableListOf<String>()
+                                val pendingThinkingIds = mutableListOf<String>()
+                                for (entry in uiState.history) {
+                                    when {
+                                        entry.role == History.Role.USER -> {
+                                            pending.clear()
+                                            pendingThinkingIds.clear()
+                                        }
+
+                                        entry.role == History.Role.ASSISTANT &&
+                                            entry.isThinking &&
+                                            entry.content.isNotEmpty() -> {
+                                            pending.add(entry.content)
+                                            pendingThinkingIds.add(entry.id)
+                                        }
+
+                                        entry.role == History.Role.ASSISTANT &&
+                                            !entry.isThinking &&
+                                            entry.content.isNotEmpty() -> {
+                                            val combined = buildList {
+                                                addAll(pending)
+                                                entry.reasoningContent?.takeIf { it.isNotBlank() }?.let { add(it) }
+                                            }
+                                            if (combined.isNotEmpty()) byAnswerId[entry.id] = combined
+                                            suppressed.addAll(pendingThinkingIds)
+                                            pending.clear()
+                                            pendingThinkingIds.clear()
+                                        }
+
+                                        entry.role == History.Role.ASSISTANT &&
+                                            entry.toolCalls != null -> {
+                                            // Assistant turn with tool calls but no answer text yet —
+                                            // capture its reasoning, attach to the eventual answer.
+                                            entry.reasoningContent
+                                                ?.takeIf { it.isNotBlank() }
+                                                ?.let { pending.add(it) }
+                                        }
+                                    }
+                                }
+                                // In-flight: the user is still waiting for the answer but earlier
+                                // thinking turns are already in history. Collapse them into the most
+                                // recent thinking entry so the user sees ONE growing Thinking section
+                                // instead of a separate bubble per tool-loop iteration.
+                                if (pendingThinkingIds.isNotEmpty()) {
+                                    val lastId = pendingThinkingIds.last()
+                                    byAnswerId[lastId] = pending.toList()
+                                    for (i in 0 until pendingThinkingIds.size - 1) {
+                                        suppressed.add(pendingThinkingIds[i])
+                                    }
+                                }
+                                byAnswerId to suppressed
+                            }
+
                             val showScrollToBottom by remember {
                                 derivedStateOf {
                                     val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()
@@ -712,8 +772,6 @@ private fun ChatModeScreen(
                                             }
 
                                             History.Role.ASSISTANT -> {
-                                                // Skip thinking messages unless it's the last assistant message
-                                                // (i.e. the model only returned reasoning with no content)
                                                 if (history.content.isNotEmpty() && !history.isThinking) {
                                                     val isLastAssistant = history.id == lastAssistantId
                                                     val frozen = frozenByAssistantId[history.id]
@@ -736,6 +794,7 @@ private fun ChatModeScreen(
                                                         } else {
                                                             null
                                                         },
+                                                        reasoningSegments = reasoningSegmentsByAssistantId[history.id].orEmpty(),
                                                     )
                                                     if (history.fallbackServiceName != null) {
                                                         androidx.compose.material3.Text(
@@ -745,6 +804,21 @@ private fun ChatModeScreen(
                                                             modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
                                                         )
                                                     }
+                                                } else if (history.isThinking &&
+                                                    history.content.isNotEmpty() &&
+                                                    history.id !in suppressedThinkingIds
+                                                ) {
+                                                    // Thinking-only turn still in flight — render as a standalone
+                                                    // reasoning bubble. The precomputation above has already gathered
+                                                    // every earlier thinking segment in this cycle under this id.
+                                                    BotMessage(
+                                                        message = "",
+                                                        textToSpeech = null,
+                                                        isSpeaking = false,
+                                                        setIsSpeaking = {},
+                                                        reasoningSegments = reasoningSegmentsByAssistantId[history.id]
+                                                            ?: listOf(history.content),
+                                                    )
                                                 }
                                             }
 

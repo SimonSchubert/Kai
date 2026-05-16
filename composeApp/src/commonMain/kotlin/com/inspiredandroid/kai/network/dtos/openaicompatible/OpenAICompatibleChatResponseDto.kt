@@ -42,6 +42,21 @@ data class OpenAICompatibleChatResponseDto(
             /** True when the effective content comes from reasoning rather than [content]. */
             val isContentFromReasoning: Boolean
                 get() = content.isNullOrBlank() && !effectiveReasoning.isNullOrBlank()
+
+            /**
+             * Reasoning trace with the answer text trimmed off if the provider appended it.
+             * LongCat (flash thinking) and a few others stream the final answer as the tail of
+             * `reasoning_content`, then return the same text in `content` — without this, the
+             * "Thinking" section duplicates the answer rendered below it.
+             */
+            fun reasoningTraceFor(answer: String?): String? {
+                val reasoning = effectiveReasoning ?: return null
+                if (answer.isNullOrBlank() || isContentFromReasoning) return reasoning
+                val trimmedReasoning = reasoning.trimEnd()
+                val trimmedAnswer = answer.trim()
+                if (!trimmedReasoning.endsWith(trimmedAnswer)) return reasoning
+                return trimmedReasoning.removeSuffix(trimmedAnswer).trimEnd().takeIf { it.isNotBlank() }
+            }
         }
     }
 

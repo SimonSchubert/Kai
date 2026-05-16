@@ -2,6 +2,8 @@ package com.inspiredandroid.kai.data
 
 import androidx.compose.runtime.Immutable
 import com.inspiredandroid.kai.TerminalLine
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 
 /**
@@ -32,6 +34,7 @@ data class Conversation(
         const val TYPE_INTERACTIVE = "interactive"
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Serializable
     data class Message(
         val id: String,
@@ -40,6 +43,9 @@ data class Conversation(
         val attachments: List<Attachment> = emptyList(),
         val uiSubmission: UiSubmission? = null,
         val isThinking: Boolean = false,
+        // Most messages have no reasoning trace; skip the null to keep the persisted blob lean.
+        @EncodeDefault(EncodeDefault.Mode.NEVER)
+        val reasoningContent: String? = null,
         // Legacy single-file fields — retained for reading old persisted conversations.
         // New code writes only `attachments`; these remain null on newly saved messages.
         val mimeType: String? = null,
