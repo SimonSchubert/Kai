@@ -122,7 +122,9 @@ import kai.composeapp.generated.resources.settings_status_error_invalid_key
 import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentMapOf
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import sh.calvin.reorderable.ReorderableColumn
@@ -448,7 +450,7 @@ private fun ConfiguredServiceCardContent(
     onCancelLocalModelDownload: () -> Unit = {},
     onDeleteLocalModel: (String) -> Unit = {},
     onChangeModelContextTokens: (String, Int) -> Unit = { _, _ -> },
-    modelContextTokens: Map<String, Int> = emptyMap(),
+    modelContextTokens: ImmutableMap<String, Int> = persistentMapOf(),
 ) {
     Column(
         modifier = Modifier
@@ -743,7 +745,7 @@ private fun LiteRTSettings(
     onCancelDownload: () -> Unit,
     onDeleteModel: (String) -> Unit,
     onChangeModelContextTokens: (String, Int) -> Unit,
-    modelContextTokens: Map<String, Int>,
+    modelContextTokens: ImmutableMap<String, Int>,
 ) {
     val downloadedIds = remember(downloadedModels) { downloadedModels.map { it.id }.toSet() }
 

@@ -67,6 +67,8 @@ import com.inspiredandroid.kai.ui.icons.DragIndicator
 import com.inspiredandroid.kai.ui.icons.Visibility
 import com.inspiredandroid.kai.ui.icons.VisibilityOff
 import kai.composeapp.generated.resources.Res
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
 import sh.calvin.reorderable.ReorderableColumn
 import kotlin.time.Duration.Companion.seconds
@@ -74,11 +76,11 @@ import kotlin.time.Duration.Companion.seconds
 @Composable
 internal fun SplinterlandsSection(
     isEnabled: Boolean,
-    accounts: List<SplinterlandsAccountUiState>,
-    instanceIds: List<String>,
+    accounts: ImmutableList<SplinterlandsAccountUiState>,
+    instanceIds: ImmutableList<String>,
     addStatus: SplinterlandsAddStatus,
-    battleLog: List<BattleLogEntry>,
-    availableServices: List<com.inspiredandroid.kai.data.ServiceEntry>,
+    battleLog: ImmutableList<BattleLogEntry>,
+    availableServices: ImmutableList<com.inspiredandroid.kai.data.ServiceEntry>,
     onToggle: (Boolean) -> Unit,
     onTestAndAddAccount: (String, String) -> Unit,
     onRemoveAccount: (String) -> Unit,
@@ -110,7 +112,7 @@ internal fun SplinterlandsSection(
             )
 
             // Model Rankings (below services)
-            val modelStats = remember(battleLog) { computeModelStats(battleLog) }
+            val modelStats = remember(battleLog) { computeModelStats(battleLog).toImmutableList() }
             if (modelStats.isNotEmpty()) {
                 Spacer(Modifier.height(12.dp))
                 SplinterlandsModelRankings(modelStats)
@@ -182,8 +184,8 @@ internal fun SplinterlandsSection(
 
 @Composable
 private fun SplinterlandsServiceList(
-    instanceIds: List<String>,
-    availableServices: List<com.inspiredandroid.kai.data.ServiceEntry>,
+    instanceIds: ImmutableList<String>,
+    availableServices: ImmutableList<com.inspiredandroid.kai.data.ServiceEntry>,
     onAddService: (String) -> Unit,
     onRemoveService: (String) -> Unit,
     onReorderServices: (List<String>) -> Unit,
@@ -326,7 +328,7 @@ private fun SplinterlandsServiceList(
 }
 
 @Composable
-private fun SplinterlandsModelRankings(modelStats: List<ModelStats>) {
+private fun SplinterlandsModelRankings(modelStats: ImmutableList<ModelStats>) {
     Text(
         text = "Model Rankings",
         style = MaterialTheme.typography.labelMedium,

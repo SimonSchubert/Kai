@@ -39,6 +39,8 @@ import com.inspiredandroid.kai.ui.settings.SettingsCard
 import com.inspiredandroid.kai.ui.settings.TerminalContent
 import com.inspiredandroid.kai.ui.settings.TerminalDarkBg
 import kai.composeapp.generated.resources.Res
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kai.composeapp.generated.resources.sandbox_session_chip_session
 import kai.composeapp.generated.resources.sandbox_session_chip_temporary
 import kai.composeapp.generated.resources.settings_sandbox_cancel
@@ -58,7 +60,7 @@ internal fun SandboxTabsContent(
     sandboxState: SandboxUiState,
     onSetupSandbox: () -> Unit = {},
     onCancelSandbox: () -> Unit = {},
-    previewLines: List<TerminalLine> = emptyList(),
+    previewLines: ImmutableList<TerminalLine> = persistentListOf(),
     modifier: Modifier = Modifier,
 ) {
     if (sandboxState.sandboxReady) {

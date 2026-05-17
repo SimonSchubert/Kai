@@ -690,7 +690,7 @@ private fun ChatModeScreen(
                             // answer-bearing assistant message, so each response shows a single
                             // collapsible "Thinking" section instead of N standalone ones.
                             val (reasoningSegmentsByAssistantId, suppressedThinkingIds) = remember(uiState.history) {
-                                val byAnswerId = mutableMapOf<String, List<String>>()
+                                val byAnswerId = mutableMapOf<String, ImmutableList<String>>()
                                 val suppressed = mutableSetOf<String>()
                                 val pending = mutableListOf<String>()
                                 val pendingThinkingIds = mutableListOf<String>()
@@ -715,7 +715,7 @@ private fun ChatModeScreen(
                                                 addAll(pending)
                                                 entry.reasoningContent?.takeIf { it.isNotBlank() }?.let { add(it) }
                                             }
-                                            if (combined.isNotEmpty()) byAnswerId[entry.id] = combined
+                                            if (combined.isNotEmpty()) byAnswerId[entry.id] = combined.toImmutableList()
                                             suppressed.addAll(pendingThinkingIds)
                                             pending.clear()
                                             pendingThinkingIds.clear()
@@ -737,7 +737,7 @@ private fun ChatModeScreen(
                                 // instead of a separate bubble per tool-loop iteration.
                                 if (pendingThinkingIds.isNotEmpty()) {
                                     val lastId = pendingThinkingIds.last()
-                                    byAnswerId[lastId] = pending.toList()
+                                    byAnswerId[lastId] = pending.toImmutableList()
                                     for (i in 0 until pendingThinkingIds.size - 1) {
                                         suppressed.add(pendingThinkingIds[i])
                                     }
@@ -794,7 +794,7 @@ private fun ChatModeScreen(
                                                         } else {
                                                             null
                                                         },
-                                                        reasoningSegments = reasoningSegmentsByAssistantId[history.id].orEmpty(),
+                                                        reasoningSegments = reasoningSegmentsByAssistantId[history.id] ?: persistentListOf(),
                                                     )
                                                     if (history.fallbackServiceName != null) {
                                                         androidx.compose.material3.Text(
@@ -817,7 +817,7 @@ private fun ChatModeScreen(
                                                         isSpeaking = false,
                                                         setIsSpeaking = {},
                                                         reasoningSegments = reasoningSegmentsByAssistantId[history.id]
-                                                            ?: listOf(history.content),
+                                                            ?: persistentListOf(history.content),
                                                     )
                                                 }
                                             }

@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.ui.components.KaiSearchField
 import com.inspiredandroid.kai.ui.handCursor
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_files_dialog_cancel
 import kai.composeapp.generated.resources.sandbox_packages_action_clear_search
@@ -142,9 +144,9 @@ private fun UpgradeRow(
 
 @Composable
 private fun PackagesList(
-    entries: List<PackageEntry>,
-    installedNames: Set<String>,
-    mutating: Set<String>,
+    entries: ImmutableList<PackageEntry>,
+    installedNames: ImmutableSet<String>,
+    mutating: ImmutableSet<String>,
     isLoading: Boolean,
     isSearching: Boolean,
     onInstall: (PackageEntry) -> Unit,

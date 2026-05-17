@@ -13,6 +13,12 @@ import kai.composeapp.generated.resources.sandbox_packages_uninstall_success
 import kai.composeapp.generated.resources.sandbox_packages_up_to_date
 import kai.composeapp.generated.resources.sandbox_packages_upgrade_count
 import kai.composeapp.generated.resources.sandbox_packages_upgrade_failed
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toImmutableList
+import kotlinx.collections.immutable.toImmutableSet
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -32,13 +38,13 @@ data class PackageEntry(
 
 @Immutable
 data class PackagesUiState(
-    val installed: List<PackageEntry> = emptyList(),
-    val installedNames: Set<String> = emptySet(),
+    val installed: ImmutableList<PackageEntry> = persistentListOf(),
+    val installedNames: ImmutableSet<String> = persistentSetOf(),
     val searchQuery: String = "",
-    val searchResults: List<PackageEntry> = emptyList(),
+    val searchResults: ImmutableList<PackageEntry> = persistentListOf(),
     val loadingInstalled: Boolean = false,
     val searching: Boolean = false,
-    val mutating: Set<String> = emptySet(),
+    val mutating: ImmutableSet<String> = persistentSetOf(),
     val pendingUninstall: PackageEntry? = null,
     val upgrading: Boolean = false,
     val snackbarMessage: SnackbarMessage? = null,
@@ -90,8 +96,8 @@ class SandboxPackagesViewModel(
     private fun applyInstalled(parsed: List<PackageEntry>) {
         _state.update {
             it.copy(
-                installed = parsed,
-                installedNames = parsed.mapTo(mutableSetOf()) { p -> p.name },
+                installed = parsed.toImmutableList(),
+                installedNames = parsed.mapTo(mutableSetOf()) { p -> p.name }.toImmutableSet(),
             )
         }
     }
@@ -100,7 +106,7 @@ class SandboxPackagesViewModel(
         searchJob?.cancel()
         _state.update { it.copy(searchQuery = query) }
         if (query.isBlank()) {
-            _state.update { it.copy(searchResults = emptyList(), searching = false) }
+            _state.update { it.copy(searchResults = persistentListOf(), searching = false) }
             return
         }
         searchJob = viewModelScope.launch {
@@ -114,7 +120,7 @@ class SandboxPackagesViewModel(
         val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_RESULT_LIMIT"
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
-        val results = parseSearchLines(output)
+        val results = parseSearchLines(output).toImmutableList()
         _state.update {
             if (it.searchQuery == query) {
                 it.copy(searchResults = results, searching = false)
@@ -227,7 +233,7 @@ class SandboxPackagesViewModel(
         _state.update {
             val next = it.mutating.toMutableSet()
             if (mutating) next.add(name) else next.remove(name)
-            it.copy(mutating = next)
+            it.copy(mutating = next.toImmutableSet())
         }
     }
 

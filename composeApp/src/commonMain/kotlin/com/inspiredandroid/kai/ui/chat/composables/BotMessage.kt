@@ -59,6 +59,9 @@ import kai.composeapp.generated.resources.ic_flag
 import kai.composeapp.generated.resources.ic_refresh
 import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.ic_volume_up
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import nl.marc_apps.tts.TextToSpeechInstance
 import nl.marc_apps.tts.errors.TextToSpeechSynthesisInterruptedError
@@ -75,7 +78,7 @@ internal fun BotMessage(
     onUiCallback: ((event: String, data: Map<String, String>) -> Unit)? = null,
     frozen: FrozenSubmission? = null,
     onResubmit: ((event: String, data: Map<String, String>) -> Unit)? = null,
-    reasoningSegments: List<String> = emptyList(),
+    reasoningSegments: ImmutableList<String> = persistentListOf(),
 ) {
     val document = remember(message) { parseMarkdown(message) }
     var isEditing by remember(frozen) { mutableStateOf(false) }
@@ -92,7 +95,9 @@ internal fun BotMessage(
 
     Box(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            val nonBlankSegments = reasoningSegments.filter { it.isNotBlank() }
+            val nonBlankSegments = remember(reasoningSegments) {
+                reasoningSegments.filter { it.isNotBlank() }.toImmutableList()
+            }
             if (nonBlankSegments.isNotEmpty()) {
                 ReasoningBlockquote(
                     segments = nonBlankSegments,
@@ -195,7 +200,7 @@ internal fun BotMessage(
 
 @Composable
 private fun ReasoningBlockquote(
-    segments: List<String>,
+    segments: ImmutableList<String>,
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }

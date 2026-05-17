@@ -77,6 +77,7 @@ import kai.composeapp.generated.resources.settings_task_details_scheduled_for
 import kai.composeapp.generated.resources.settings_task_details_status
 import kai.composeapp.generated.resources.settings_task_details_trigger
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
@@ -408,9 +409,9 @@ private fun MemoryList(
     var editingMemory by remember { mutableStateOf<MemoryEntry?>(null) }
 
     val sortedMemories = remember(memories) {
-        memories.sortedByDescending { it.updatedAt }
+        memories.sortedByDescending { it.updatedAt }.toImmutableList()
     }
-    val previewMemories = remember(sortedMemories) { sortedMemories.take(5) }
+    val previewMemories = remember(sortedMemories) { sortedMemories.take(5).toImmutableList() }
 
     Column(modifier = Modifier.fillMaxWidth()) {
         ToggleableHeadline(
@@ -467,7 +468,7 @@ private fun MemoryList(
 
 @Composable
 private fun AllMemoriesSheet(
-    memories: List<MemoryEntry>,
+    memories: ImmutableList<MemoryEntry>,
     onDismiss: () -> Unit,
     onDeleteMemory: (String) -> Unit,
     onEditMemory: (MemoryEntry) -> Unit,

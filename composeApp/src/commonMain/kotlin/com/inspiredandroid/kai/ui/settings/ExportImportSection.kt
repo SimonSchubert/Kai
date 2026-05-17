@@ -64,6 +64,8 @@ import kai.composeapp.generated.resources.settings_import_section_tools
 import kai.composeapp.generated.resources.settings_import_success
 import kai.composeapp.generated.resources.settings_mcp_cancel
 import kai.composeapp.generated.resources.settings_sms
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.jsonObject
 import org.jetbrains.compose.resources.stringResource
@@ -77,8 +79,8 @@ internal fun ExportImportSection(
     val isPreview = LocalInspectionMode.current
     val scope = rememberCoroutineScope()
     var importResult by remember { mutableStateOf<ImportResult?>(null) }
-    var importPreview by remember { mutableStateOf<Pair<String, Map<ImportSection, String?>>?>(null) }
-    var exportPreview by remember { mutableStateOf<Map<ImportSection, String?>?>(null) }
+    var importPreview by remember { mutableStateOf<Pair<String, ImmutableMap<ImportSection, String?>>?>(null) }
+    var exportPreview by remember { mutableStateOf<ImmutableMap<ImportSection, String?>?>(null) }
 
     val filePickerLauncher = if (!isPreview) {
         rememberFilePickerLauncher(
@@ -90,7 +92,7 @@ internal fun ExportImportSection(
                     try {
                         val jsonString = bytes.decodeToString()
                         val jsonObject = SharedJson.parseToJsonElement(jsonString).jsonObject
-                        val detectedSections = detectImportSections(jsonObject)
+                        val detectedSections = detectImportSections(jsonObject).toImmutableMap()
                         importPreview = jsonString to detectedSections
                     } catch (_: Exception) {
                         importResult = ImportResult.Failure
@@ -147,7 +149,7 @@ internal fun ExportImportSection(
         OutlinedButton(
             onClick = {
                 importResult = null
-                exportPreview = onPrepareExport()
+                exportPreview = onPrepareExport().toImmutableMap()
             },
             modifier = Modifier.handCursor(),
         ) {
@@ -180,12 +182,12 @@ internal fun ExportImportSection(
 
 @Composable
 private fun ImportPreviewDialog(
-    sectionDetails: Map<ImportSection, String?>,
+    sectionDetails: ImmutableMap<ImportSection, String?>,
     onConfirm: (Set<ImportSection>, Boolean) -> Unit,
     onDismiss: () -> Unit,
 ) {
     var replace by remember { mutableStateOf(true) }
-    var selectedSections by remember { mutableStateOf(sectionDetails.keys) }
+    var selectedSections by remember { mutableStateOf<Set<ImportSection>>(sectionDetails.keys) }
     val sortedEntries = remember(sectionDetails) { sectionDetails.entries.sortedBy { it.key } }
 
     AlertDialog(
@@ -290,11 +292,11 @@ private fun ImportPreviewDialog(
 
 @Composable
 private fun ExportPreviewDialog(
-    sectionDetails: Map<ImportSection, String?>,
+    sectionDetails: ImmutableMap<ImportSection, String?>,
     onConfirm: (Set<ImportSection>) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    var selectedSections by remember { mutableStateOf(sectionDetails.keys) }
+    var selectedSections by remember { mutableStateOf<Set<ImportSection>>(sectionDetails.keys) }
     val sortedEntries = remember(sectionDetails) { sectionDetails.entries.sortedBy { it.key } }
 
     AlertDialog(

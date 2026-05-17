@@ -65,7 +65,12 @@ import kai.composeapp.generated.resources.sandbox_files_delete_message_directory
 import kai.composeapp.generated.resources.sandbox_files_delete_message_file
 import kai.composeapp.generated.resources.sandbox_files_delete_title
 import kai.composeapp.generated.resources.sandbox_files_dialog_cancel
+import kai.composeapp.generated.resources.sandbox_files_editor_binary_warning
+import kai.composeapp.generated.resources.sandbox_files_editor_force_open_as_text
 import kai.composeapp.generated.resources.sandbox_files_editor_open_externally
+import kai.composeapp.generated.resources.sandbox_files_editor_open_in_app
+import kai.composeapp.generated.resources.sandbox_files_editor_save
+import kai.composeapp.generated.resources.sandbox_files_empty_directory
 import kai.composeapp.generated.resources.sandbox_files_rename_confirm
 import kai.composeapp.generated.resources.sandbox_files_rename_label
 import kai.composeapp.generated.resources.sandbox_files_rename_title
@@ -244,7 +249,7 @@ private fun FileList(
     if (state.entries.isEmpty()) {
         Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) {
             Text(
-                "Empty directory",
+                stringResource(Res.string.sandbox_files_empty_directory),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium,
             )
@@ -402,16 +407,16 @@ private fun EditorBody(
         ) {
             Spacer(Modifier.weight(1f))
             Text(
-                "Binary or too large to preview as text.",
+                stringResource(Res.string.sandbox_files_editor_binary_warning),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = { onOpenExternal(editor.path) }, modifier = Modifier.handCursor()) {
-                    Text("Open in app")
+                    Text(stringResource(Res.string.sandbox_files_editor_open_in_app))
                 }
                 TextButton(onClick = { onLoadAsText(editor.path) }, modifier = Modifier.handCursor()) {
-                    Text("Force open as text")
+                    Text(stringResource(Res.string.sandbox_files_editor_force_open_as_text))
                 }
             }
             Spacer(Modifier.weight(1f))
@@ -450,7 +455,7 @@ private fun EditorBody(
                     enabled = editor.dirty,
                     modifier = Modifier.handCursor(),
                 ) {
-                    Text("Save")
+                    Text(stringResource(Res.string.sandbox_files_editor_save))
                 }
             }
         }

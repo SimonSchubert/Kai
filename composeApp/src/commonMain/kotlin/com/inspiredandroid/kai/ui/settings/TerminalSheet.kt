@@ -64,6 +64,8 @@ import kai.composeapp.generated.resources.terminal_input_placeholder
 import kai.composeapp.generated.resources.terminal_run_content_description
 import kai.composeapp.generated.resources.terminal_stop_content_description
 import kai.composeapp.generated.resources.terminal_title
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
@@ -120,7 +122,7 @@ fun TerminalContent(
     modifier: Modifier = Modifier,
     showHeader: Boolean = false,
     darkBackground: Boolean = false,
-    initialLines: List<TerminalLine> = emptyList(),
+    initialLines: ImmutableList<TerminalLine> = persistentListOf(),
     sessionViewModel: SandboxSessionViewModel? = null,
 ) {
     val scope = rememberCoroutineScope()

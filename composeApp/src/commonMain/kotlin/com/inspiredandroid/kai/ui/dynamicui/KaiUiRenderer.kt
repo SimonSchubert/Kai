@@ -221,6 +221,8 @@ import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.bot_message_copy_content_description
+import kai.composeapp.generated.resources.kai_ui_code_copy
+import kai.composeapp.generated.resources.kai_ui_render_failed
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.stringResource
@@ -270,7 +272,7 @@ fun KaiUiRenderer(
 
     if (hasError) {
         Text(
-            text = "Failed to render UI",
+            text = stringResource(Res.string.kai_ui_render_failed),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.error,
             modifier = modifier,
@@ -1226,7 +1228,7 @@ private fun RenderCode(node: CodeNode) {
             ) {
                 Icon(
                     imageVector = Icons.Filled.ContentCopy,
-                    contentDescription = "Copy",
+                    contentDescription = stringResource(Res.string.kai_ui_code_copy),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(16.dp),
                 )
