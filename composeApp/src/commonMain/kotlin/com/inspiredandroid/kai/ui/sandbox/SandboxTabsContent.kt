@@ -39,8 +39,6 @@ import com.inspiredandroid.kai.ui.settings.SettingsCard
 import com.inspiredandroid.kai.ui.settings.TerminalContent
 import com.inspiredandroid.kai.ui.settings.TerminalDarkBg
 import kai.composeapp.generated.resources.Res
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kai.composeapp.generated.resources.sandbox_session_chip_session
 import kai.composeapp.generated.resources.sandbox_session_chip_temporary
 import kai.composeapp.generated.resources.settings_sandbox_cancel
@@ -49,6 +47,8 @@ import kai.composeapp.generated.resources.settings_sandbox_install
 import kai.composeapp.generated.resources.settings_sandbox_subtab_files
 import kai.composeapp.generated.resources.settings_sandbox_subtab_packages
 import kai.composeapp.generated.resources.settings_sandbox_subtab_terminal
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
