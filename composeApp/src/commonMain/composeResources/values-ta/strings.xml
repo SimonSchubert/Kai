@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">நிறுவல் தோல்வியடைந்தது: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s நிறுவல் நீக்கப்பட்டது</string>
     <string name="sandbox_packages_uninstall_failed">நிறுவல் நீக்கம் தோல்வியடைந்தது: %1$s</string>
-    <string name="sandbox_packages_upgraded">தொகுப்புகள் மேம்படுத்தப்பட்டன</string>
     <string name="sandbox_packages_upgrade_failed">மேம்படுத்தல் தோல்வியடைந்தது: %1$s</string>
     <string name="tool_check_notifications_name">அறிவிப்புகளைச் சரிபார்க்கவும்</string>
     <string name="tool_check_notifications_description">சமீபத்திய படிக்கப்படாத அறிவிப்புகளின் பட்டியல்</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">சேமிக்கப்பட்டது</string>
     <string name="sandbox_files_save_failed">சேமிப்பு தோல்வி</string>
     <string name="sandbox_files_open_failed">வெளியில் திறக்க முடியவில்லை</string>
+    <string name="sandbox_files_empty_directory">காலி கோப்பகம்</string>
+    <string name="sandbox_files_editor_binary_warning">பைனரி அல்லது உரையாக முன்னோட்டம் காண்பிக்க மிகப்பெரியது.</string>
+    <string name="sandbox_files_editor_open_in_app">பயன்பாட்டில் திற</string>
+    <string name="sandbox_files_editor_force_open_as_text">உரையாக கட்டாயமாக திற</string>
+    <string name="sandbox_files_editor_save">சேமி</string>
+    <string name="kai_ui_render_failed">இடைமுகத்தை வரைய முடியவில்லை</string>
+    <string name="kai_ui_code_copy">நகலெடு</string>
+    <string name="image_viewer_close">மூடு</string>
+    <string name="bot_message_thinking_label">சிந்தித்தல்</string>
+    <string name="bot_message_thinking_expand_content_description">சிந்தனையை விரிவாக்கு அல்லது சுருக்கு</string>
+    <string name="settings_theme">தீம்</string>
+    <string name="settings_theme_description">கணினி இயல்புநிலை, ஒளி, இருள் அல்லது தூய கருப்பு OLED ஆகியவற்றுக்கு இடையே தேர்வு செய்யவும்.</string>
+    <string name="settings_theme_system">கணினி</string>
+    <string name="settings_theme_light">ஒளி</string>
+    <string name="settings_theme_dark">இருள்</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

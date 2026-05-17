@@ -340,7 +340,6 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="sandbox_packages_install_failed">Installation mislykkedes: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s afinstalleret</string>
     <string name="sandbox_packages_uninstall_failed">Afinstallation mislykkedes: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakker opdateret</string>
     <string name="sandbox_packages_upgrade_failed">Opdatering mislykkedes: %1$s</string>
     <string name="tool_check_notifications_name">Tjek notifikationer</string>
     <string name="tool_check_notifications_description">Vis nyligt ulæste notifikationer</string>
@@ -368,4 +367,20 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="sandbox_files_save_success">Gemt</string>
     <string name="sandbox_files_save_failed">Kunne ikke gemme</string>
     <string name="sandbox_files_open_failed">Kunne ikke åbne eksternt</string>
+    <string name="sandbox_files_empty_directory">Tom mappe</string>
+    <string name="sandbox_files_editor_binary_warning">Binær eller for stor til at forhåndsvise som tekst.</string>
+    <string name="sandbox_files_editor_open_in_app">Åbn med app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Tving åbning som tekst</string>
+    <string name="sandbox_files_editor_save">Gem</string>
+    <string name="kai_ui_render_failed">Kunne ikke gengive UI</string>
+    <string name="kai_ui_code_copy">Kopier</string>
+    <string name="image_viewer_close">Luk</string>
+    <string name="bot_message_thinking_label">Tænker</string>
+    <string name="bot_message_thinking_expand_content_description">Udvid eller fold tænkning sammen</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Vælg mellem systemets standard, lys, mørk eller helt sort OLED.</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Lys</string>
+    <string name="settings_theme_dark">Mørk</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

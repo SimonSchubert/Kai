@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">ההתקנה נכשלה: %1$s</string>
     <string name="sandbox_packages_uninstall_success">ההתקנה של %1$s הוסרה</string>
     <string name="sandbox_packages_uninstall_failed">הסרת ההתקנה נכשלה: %1$s</string>
-    <string name="sandbox_packages_upgraded">החבילות עודכנו</string>
     <string name="sandbox_packages_upgrade_failed">העדכון נכשל: %1$s</string>
     <string name="tool_check_notifications_name">בדיקת התראות</string>
     <string name="tool_check_notifications_description">רשימה של התראות אחרונות שלא נקראו</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">נשמר</string>
     <string name="sandbox_files_save_failed">השמירה נכשלה</string>
     <string name="sandbox_files_open_failed">לא ניתן לפתוח חיצונית</string>
+    <string name="sandbox_files_empty_directory">תיקייה ריקה</string>
+    <string name="sandbox_files_editor_binary_warning">בינארי או גדול מדי להצגה מקדימה כטקסט.</string>
+    <string name="sandbox_files_editor_open_in_app">פתח באפליקציה</string>
+    <string name="sandbox_files_editor_force_open_as_text">אלץ פתיחה כטקסט</string>
+    <string name="sandbox_files_editor_save">שמור</string>
+    <string name="kai_ui_render_failed">הצגת ממשק המשתמש נכשלה</string>
+    <string name="kai_ui_code_copy">העתק</string>
+    <string name="image_viewer_close">סגור</string>
+    <string name="bot_message_thinking_label">חושב</string>
+    <string name="bot_message_thinking_expand_content_description">הרחב או כווץ את המחשבה</string>
+    <string name="settings_theme">ערכת נושא</string>
+    <string name="settings_theme_description">בחר בין ברירת מחדל של המערכת, בהיר, כהה או OLED שחור לחלוטין.</string>
+    <string name="settings_theme_system">מערכת</string>
+    <string name="settings_theme_light">בהיר</string>
+    <string name="settings_theme_dark">כהה</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Instalēšana neizdevās: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s atinstalēta</string>
     <string name="sandbox_packages_uninstall_failed">Atinstalēšana neizdevās: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakotnes atjauninātas</string>
     <string name="sandbox_packages_upgrade_failed">Atjaunināšana neizdevās: %1$s</string>
     <string name="tool_check_notifications_name">Pārbaudīt paziņojumus</string>
     <string name="tool_check_notifications_description">Nesen nelasītu paziņojumu saraksts</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Saglabāts</string>
     <string name="sandbox_files_save_failed">Saglabāšana neizdevās</string>
     <string name="sandbox_files_open_failed">Nevarēja atvērt ārēji</string>
+    <string name="sandbox_files_empty_directory">Tukša mape</string>
+    <string name="sandbox_files_editor_binary_warning">Binārs vai pārāk liels, lai priekšskatītu kā tekstu.</string>
+    <string name="sandbox_files_editor_open_in_app">Atvērt lietotnē</string>
+    <string name="sandbox_files_editor_force_open_as_text">Piespiedu kārtā atvērt kā tekstu</string>
+    <string name="sandbox_files_editor_save">Saglabāt</string>
+    <string name="kai_ui_render_failed">Neizdevās renderēt saskarni</string>
+    <string name="kai_ui_code_copy">Kopēt</string>
+    <string name="image_viewer_close">Aizvērt</string>
+    <string name="bot_message_thinking_label">Domāšana</string>
+    <string name="bot_message_thinking_expand_content_description">Izvērst vai sakļaut domāšanu</string>
+    <string name="settings_theme">Motīvs</string>
+    <string name="settings_theme_description">Izvēlieties starp sistēmas noklusējumu, gaišu, tumšu vai tīri melnu OLED.</string>
+    <string name="settings_theme_system">Sistēma</string>
+    <string name="settings_theme_light">Gaišs</string>
+    <string name="settings_theme_dark">Tumšs</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

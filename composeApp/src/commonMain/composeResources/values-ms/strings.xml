@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Pemasangan gagal: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s dinyahpasang</string>
     <string name="sandbox_packages_uninstall_failed">Penyahpasangan gagal: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakej dinaik taraf</string>
     <string name="sandbox_packages_upgrade_failed">Naik taraf gagal: %1$s</string>
     <string name="tool_check_notifications_name">Semak pemberitahuan</string>
     <string name="tool_check_notifications_description">Senaraikan pemberitahuan terkini yang belum dibaca</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Disimpan</string>
     <string name="sandbox_files_save_failed">Gagal menyimpan</string>
     <string name="sandbox_files_open_failed">Tidak boleh dibuka secara luaran</string>
+    <string name="sandbox_files_empty_directory">Direktori kosong</string>
+    <string name="sandbox_files_editor_binary_warning">Binari atau terlalu besar untuk dipratonton sebagai teks.</string>
+    <string name="sandbox_files_editor_open_in_app">Buka dalam aplikasi</string>
+    <string name="sandbox_files_editor_force_open_as_text">Paksa buka sebagai teks</string>
+    <string name="sandbox_files_editor_save">Simpan</string>
+    <string name="kai_ui_render_failed">Gagal memaparkan UI</string>
+    <string name="kai_ui_code_copy">Salin</string>
+    <string name="image_viewer_close">Tutup</string>
+    <string name="bot_message_thinking_label">Berfikir</string>
+    <string name="bot_message_thinking_expand_content_description">Kembangkan atau runtuhkan pemikiran</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Pilih antara lalai sistem, cerah, gelap atau OLED hitam tulen.</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Cerah</string>
+    <string name="settings_theme_dark">Gelap</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

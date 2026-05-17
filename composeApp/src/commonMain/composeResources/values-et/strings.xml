@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">Paigaldamine ebaõnnestus: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Eemaldatud: %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Eemaldamine ebaõnnestus: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketid uuendatud</string>
     <string name="sandbox_packages_upgrade_failed">Uuendamine ebaõnnestus: %1$s</string>
     <string name="tool_check_notifications_name">Kontrolli teavitusi</string>
     <string name="tool_check_notifications_description">Hiljutiste lugemata teavituste loend</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">Salvestatud</string>
     <string name="sandbox_files_save_failed">Salvestamine ebaõnnestus</string>
     <string name="sandbox_files_open_failed">Ei õnnestunud väliselt avada</string>
+    <string name="sandbox_files_empty_directory">Tühi kataloog</string>
+    <string name="sandbox_files_editor_binary_warning">Kahendfail või liiga suur tekstina eelvaateks.</string>
+    <string name="sandbox_files_editor_open_in_app">Ava rakenduses</string>
+    <string name="sandbox_files_editor_force_open_as_text">Sundi avama tekstina</string>
+    <string name="sandbox_files_editor_save">Salvesta</string>
+    <string name="kai_ui_render_failed">Liidese kuvamine ebaõnnestus</string>
+    <string name="kai_ui_code_copy">Kopeeri</string>
+    <string name="image_viewer_close">Sulge</string>
+    <string name="bot_message_thinking_label">Mõtleb</string>
+    <string name="bot_message_thinking_expand_content_description">Laienda või ahenda mõtlemist</string>
+    <string name="settings_theme">Teema</string>
+    <string name="settings_theme_description">Vali süsteemi vaikeväärtuse, hele, tume või puhta musta OLED-i vahel.</string>
+    <string name="settings_theme_system">Süsteem</string>
+    <string name="settings_theme_light">Hele</string>
+    <string name="settings_theme_dark">Tume</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

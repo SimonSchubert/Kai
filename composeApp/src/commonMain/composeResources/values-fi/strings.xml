@@ -340,7 +340,6 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sandbox_packages_install_failed">Asennus epäonnistui: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Poistettu: %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Poisto epäonnistui: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketit päivitetty</string>
     <string name="sandbox_packages_upgrade_failed">Päivitys epäonnistui: %1$s</string>
     <string name="tool_check_notifications_name">Tarkista ilmoitukset</string>
     <string name="tool_check_notifications_description">Luettelo viimeaikaisista lukemattomista ilmoituksista</string>
@@ -368,4 +367,20 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="sandbox_files_save_success">Tallennettu</string>
     <string name="sandbox_files_save_failed">Tallennus epäonnistui</string>
     <string name="sandbox_files_open_failed">Ei voitu avata ulkoisesti</string>
+    <string name="sandbox_files_empty_directory">Tyhjä hakemisto</string>
+    <string name="sandbox_files_editor_binary_warning">Binaaritiedosto tai liian suuri esikatseltavaksi tekstinä.</string>
+    <string name="sandbox_files_editor_open_in_app">Avaa sovelluksessa</string>
+    <string name="sandbox_files_editor_force_open_as_text">Pakota avaaminen tekstinä</string>
+    <string name="sandbox_files_editor_save">Tallenna</string>
+    <string name="kai_ui_render_failed">Käyttöliittymän renderöinti epäonnistui</string>
+    <string name="kai_ui_code_copy">Kopioi</string>
+    <string name="image_viewer_close">Sulje</string>
+    <string name="bot_message_thinking_label">Ajattelee</string>
+    <string name="bot_message_thinking_expand_content_description">Laajenna tai supista ajattelu</string>
+    <string name="settings_theme">Teema</string>
+    <string name="settings_theme_description">Valitse järjestelmän oletuksen, vaalean, tumman tai puhtaan mustan OLED-tilan välillä.</string>
+    <string name="settings_theme_system">Järjestelmä</string>
+    <string name="settings_theme_light">Vaalea</string>
+    <string name="settings_theme_dark">Tumma</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

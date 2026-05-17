@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Cài đặt thất bại: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Đã gỡ cài đặt %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Gỡ cài đặt thất bại: %1$s</string>
-    <string name="sandbox_packages_upgraded">Đã nâng cấp gói</string>
     <string name="sandbox_packages_upgrade_failed">Nâng cấp thất bại: %1$s</string>
     <string name="tool_check_notifications_name">Kiểm tra thông báo</string>
     <string name="tool_check_notifications_description">Liệt kê các thông báo chưa đọc gần đây</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Đã lưu</string>
     <string name="sandbox_files_save_failed">Lưu thất bại</string>
     <string name="sandbox_files_open_failed">Không thể mở bên ngoài</string>
+    <string name="sandbox_files_empty_directory">Thư mục trống</string>
+    <string name="sandbox_files_editor_binary_warning">Tệp nhị phân hoặc quá lớn để xem trước dưới dạng văn bản.</string>
+    <string name="sandbox_files_editor_open_in_app">Mở trong ứng dụng</string>
+    <string name="sandbox_files_editor_force_open_as_text">Buộc mở dưới dạng văn bản</string>
+    <string name="sandbox_files_editor_save">Lưu</string>
+    <string name="kai_ui_render_failed">Không thể hiển thị giao diện</string>
+    <string name="kai_ui_code_copy">Sao chép</string>
+    <string name="image_viewer_close">Đóng</string>
+    <string name="bot_message_thinking_label">Suy nghĩ</string>
+    <string name="bot_message_thinking_expand_content_description">Mở rộng hoặc thu gọn suy nghĩ</string>
+    <string name="settings_theme">Chủ đề</string>
+    <string name="settings_theme_description">Chọn giữa mặc định hệ thống, sáng, tối hoặc OLED đen thuần.</string>
+    <string name="settings_theme_system">Hệ thống</string>
+    <string name="settings_theme_light">Sáng</string>
+    <string name="settings_theme_dark">Tối</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

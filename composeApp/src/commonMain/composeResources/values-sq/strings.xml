@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Instalimi dështoi: %1$s</string>
     <string name="sandbox_packages_uninstall_success">U çinstalua %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Çinstalimi dështoi: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketat u përditësuan</string>
     <string name="sandbox_packages_upgrade_failed">Përditësimi dështoi: %1$s</string>
     <string name="tool_check_notifications_name">Kontrollo njoftimet</string>
     <string name="tool_check_notifications_description">Listo njoftimet e fundit të palexuara</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">U ruajt</string>
     <string name="sandbox_files_save_failed">Ruajtja dështoi</string>
     <string name="sandbox_files_open_failed">Nuk u hap dot nga jashtë</string>
+    <string name="sandbox_files_empty_directory">Drejtori bosh</string>
+    <string name="sandbox_files_editor_binary_warning">Binar ose tepër i madh për t\'u parashikuar si tekst.</string>
+    <string name="sandbox_files_editor_open_in_app">Hap në aplikacion</string>
+    <string name="sandbox_files_editor_force_open_as_text">Detyro hapjen si tekst</string>
+    <string name="sandbox_files_editor_save">Ruaj</string>
+    <string name="kai_ui_render_failed">Dështoi vizatimi i ndërfaqes</string>
+    <string name="kai_ui_code_copy">Kopjo</string>
+    <string name="image_viewer_close">Mbyll</string>
+    <string name="bot_message_thinking_label">Të menduarit</string>
+    <string name="bot_message_thinking_expand_content_description">Zgjero ose mbledh të menduarit</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Zgjidh ndërmjet të parazgjedhurës së sistemit, e ndritshme, e errët ose e zezë e pastër OLED.</string>
+    <string name="settings_theme_system">Sistemi</string>
+    <string name="settings_theme_light">E ndritshme</string>
+    <string name="settings_theme_dark">E errët</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

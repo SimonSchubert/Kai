@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">Не атрымалася ўсталяваць: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s выдалены</string>
     <string name="sandbox_packages_uninstall_failed">Не атрымалася выдаліць: %1$s</string>
-    <string name="sandbox_packages_upgraded">Пакеты абноўлены</string>
     <string name="sandbox_packages_upgrade_failed">Не атрымалася абнавіць: %1$s</string>
     <string name="tool_check_notifications_name">Праверыць апавяшчэнні</string>
     <string name="tool_check_notifications_description">Спіс нядаўніх непрачытаных апавяшчэнняў</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">Захавана</string>
     <string name="sandbox_files_save_failed">Не ўдалося захаваць</string>
     <string name="sandbox_files_open_failed">Не ўдалося адкрыць звонку</string>
+    <string name="sandbox_files_empty_directory">Пусты каталог</string>
+    <string name="sandbox_files_editor_binary_warning">Бінарны або занадта вялікі для папярэдняга прагляду як тэкст.</string>
+    <string name="sandbox_files_editor_open_in_app">Адкрыць у праграме</string>
+    <string name="sandbox_files_editor_force_open_as_text">Прымусова адкрыць як тэкст</string>
+    <string name="sandbox_files_editor_save">Захаваць</string>
+    <string name="kai_ui_render_failed">Не ўдалося адлюстраваць інтэрфейс</string>
+    <string name="kai_ui_code_copy">Капіяваць</string>
+    <string name="image_viewer_close">Закрыць</string>
+    <string name="bot_message_thinking_label">Разважае</string>
+    <string name="bot_message_thinking_expand_content_description">Разгарнуць або згарнуць разважанні</string>
+    <string name="settings_theme">Тэма</string>
+    <string name="settings_theme_description">Выберыце сістэмную, светлую, цёмную або чыста-чорную OLED.</string>
+    <string name="settings_theme_system">Сістэмная</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Цёмная</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

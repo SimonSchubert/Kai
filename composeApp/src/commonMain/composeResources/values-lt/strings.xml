@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Nepavyko įdiegti: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s pašalintas</string>
     <string name="sandbox_packages_uninstall_failed">Nepavyko pašalinti: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketai atnaujinti</string>
     <string name="sandbox_packages_upgrade_failed">Nepavyko atnaujinti: %1$s</string>
     <string name="tool_check_notifications_name">Patikrinti pranešimus</string>
     <string name="tool_check_notifications_description">Naujausių neperskaitytų pranešimų sąrašas</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Išsaugota</string>
     <string name="sandbox_files_save_failed">Išsaugoti nepavyko</string>
     <string name="sandbox_files_open_failed">Nepavyko atidaryti išoriškai</string>
+    <string name="sandbox_files_empty_directory">Tuščias katalogas</string>
+    <string name="sandbox_files_editor_binary_warning">Dvejetainis arba per didelis, kad būtų peržiūrėtas kaip tekstas.</string>
+    <string name="sandbox_files_editor_open_in_app">Atidaryti programoje</string>
+    <string name="sandbox_files_editor_force_open_as_text">Priverstinai atidaryti kaip tekstą</string>
+    <string name="sandbox_files_editor_save">Išsaugoti</string>
+    <string name="kai_ui_render_failed">Nepavyko atvaizduoti UI</string>
+    <string name="kai_ui_code_copy">Kopijuoti</string>
+    <string name="image_viewer_close">Uždaryti</string>
+    <string name="bot_message_thinking_label">Mąstymas</string>
+    <string name="bot_message_thinking_expand_content_description">Išplėsti arba sutraukti mąstymą</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Pasirinkite sistemos numatytąją, šviesią, tamsią arba grynai juodą OLED.</string>
+    <string name="settings_theme_system">Sistema</string>
+    <string name="settings_theme_light">Šviesi</string>
+    <string name="settings_theme_dark">Tamsi</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

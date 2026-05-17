@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Namestitev ni uspela: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Odstranjeno: %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Odstranjevanje ni uspelo: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketi posodobljeni</string>
     <string name="sandbox_packages_upgrade_failed">Posodobitev ni uspela: %1$s</string>
     <string name="tool_check_notifications_name">Preveri obvestila</string>
     <string name="tool_check_notifications_description">Seznam nedavnih neprebranih obvestil</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Shranjeno</string>
     <string name="sandbox_files_save_failed">Shranjevanje ni uspelo</string>
     <string name="sandbox_files_open_failed">Ni bilo mogoče odpreti zunanje</string>
+    <string name="sandbox_files_empty_directory">Prazna mapa</string>
+    <string name="sandbox_files_editor_binary_warning">Dvojiška datoteka ali prevelika za predogled kot besedilo.</string>
+    <string name="sandbox_files_editor_open_in_app">Odpri v aplikaciji</string>
+    <string name="sandbox_files_editor_force_open_as_text">Vsili odpiranje kot besedilo</string>
+    <string name="sandbox_files_editor_save">Shrani</string>
+    <string name="kai_ui_render_failed">Upodabljanje vmesnika ni uspelo</string>
+    <string name="kai_ui_code_copy">Kopiraj</string>
+    <string name="image_viewer_close">Zapri</string>
+    <string name="bot_message_thinking_label">Razmišljanje</string>
+    <string name="bot_message_thinking_expand_content_description">Razširi ali strni razmišljanje</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Izberi med privzeto sistemsko, svetlo, temno ali povsem črno OLED.</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Svetla</string>
+    <string name="settings_theme_dark">Temna</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

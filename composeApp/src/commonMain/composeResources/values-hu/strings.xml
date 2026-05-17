@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">A telepítés sikertelen: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s eltávolítva</string>
     <string name="sandbox_packages_uninstall_failed">Az eltávolítás sikertelen: %1$s</string>
-    <string name="sandbox_packages_upgraded">Csomagok frissítve</string>
     <string name="sandbox_packages_upgrade_failed">A frissítés sikertelen: %1$s</string>
     <string name="tool_check_notifications_name">Értesítések ellenőrzése</string>
     <string name="tool_check_notifications_description">A legutóbbi olvasatlan értesítések listája</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Mentve</string>
     <string name="sandbox_files_save_failed">A mentés sikertelen</string>
     <string name="sandbox_files_open_failed">Nem sikerült külsőleg megnyitni</string>
+    <string name="sandbox_files_empty_directory">Üres mappa</string>
+    <string name="sandbox_files_editor_binary_warning">Bináris vagy túl nagy a szöveges előnézethez.</string>
+    <string name="sandbox_files_editor_open_in_app">Megnyitás alkalmazásban</string>
+    <string name="sandbox_files_editor_force_open_as_text">Megnyitás szövegként kényszerítve</string>
+    <string name="sandbox_files_editor_save">Mentés</string>
+    <string name="kai_ui_render_failed">A felhasználói felület megjelenítése sikertelen</string>
+    <string name="kai_ui_code_copy">Másolás</string>
+    <string name="image_viewer_close">Bezárás</string>
+    <string name="bot_message_thinking_label">Gondolkodás</string>
+    <string name="bot_message_thinking_expand_content_description">Gondolkodás kibontása vagy összecsukása</string>
+    <string name="settings_theme">Téma</string>
+    <string name="settings_theme_description">Válassz a rendszer alapértelmezett, világos, sötét vagy tisztán fekete OLED közül.</string>
+    <string name="settings_theme_system">Rendszer</string>
+    <string name="settings_theme_light">Világos</string>
+    <string name="settings_theme_dark">Sötét</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Hindi nagawa ang pag-install: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Na-uninstall ang %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Hindi nagawa ang pag-uninstall: %1$s</string>
-    <string name="sandbox_packages_upgraded">Na-upgrade ang mga package</string>
     <string name="sandbox_packages_upgrade_failed">Hindi nagawa ang pag-upgrade: %1$s</string>
     <string name="tool_check_notifications_name">Tingnan ang mga notification</string>
     <string name="tool_check_notifications_description">Ilista ang mga kamakailang hindi pa nababasang notification</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Na-save</string>
     <string name="sandbox_files_save_failed">Hindi na-save</string>
     <string name="sandbox_files_open_failed">Hindi mabuksan nang panlabas</string>
+    <string name="sandbox_files_empty_directory">Walang laman na direktoryo</string>
+    <string name="sandbox_files_editor_binary_warning">Binary o masyadong malaki para i-preview bilang teksto.</string>
+    <string name="sandbox_files_editor_open_in_app">Buksan sa app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Pilitin buksan bilang teksto</string>
+    <string name="sandbox_files_editor_save">I-save</string>
+    <string name="kai_ui_render_failed">Nabigong i-render ang UI</string>
+    <string name="kai_ui_code_copy">Kopyahin</string>
+    <string name="image_viewer_close">Isara</string>
+    <string name="bot_message_thinking_label">Nag-iisip</string>
+    <string name="bot_message_thinking_expand_content_description">Palawakin o i-collapse ang pag-iisip</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Pumili sa pagitan ng default ng system, light, dark, o pure-black OLED.</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

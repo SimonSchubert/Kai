@@ -340,7 +340,6 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sandbox_packages_install_failed">Installasie het misluk: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s verwyder</string>
     <string name="sandbox_packages_uninstall_failed">Verwydering het misluk: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakkette opgedateer</string>
     <string name="sandbox_packages_upgrade_failed">Opdatering het misluk: %1$s</string>
     <string name="tool_check_notifications_name">Kennisgewings nagaan</string>
     <string name="tool_check_notifications_description">Lys onlangse ongeleeste kennisgewings</string>
@@ -368,4 +367,20 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="sandbox_files_save_success">Gestoor</string>
     <string name="sandbox_files_save_failed">Stoor het misluk</string>
     <string name="sandbox_files_open_failed">Kon nie ekstern oopmaak nie</string>
+    <string name="sandbox_files_empty_directory">Leë gids</string>
+    <string name="sandbox_files_editor_binary_warning">Binêr of te groot om as teks voor te skou.</string>
+    <string name="sandbox_files_editor_open_in_app">Maak in app oop</string>
+    <string name="sandbox_files_editor_force_open_as_text">Forseer oopmaak as teks</string>
+    <string name="sandbox_files_editor_save">Stoor</string>
+    <string name="kai_ui_render_failed">Kon nie UI weergee nie</string>
+    <string name="kai_ui_code_copy">Kopieer</string>
+    <string name="image_viewer_close">Maak toe</string>
+    <string name="bot_message_thinking_label">Dink</string>
+    <string name="bot_message_thinking_expand_content_description">Brei denke uit of vou in</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Kies tussen stelselverstek, lig, donker, of suiwer-swart OLED.</string>
+    <string name="settings_theme_system">Stelsel</string>
+    <string name="settings_theme_light">Lig</string>
+    <string name="settings_theme_dark">Donker</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

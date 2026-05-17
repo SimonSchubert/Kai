@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">安装失败：%1$s</string>
     <string name="sandbox_packages_uninstall_success">已卸载 %1$s</string>
     <string name="sandbox_packages_uninstall_failed">卸载失败：%1$s</string>
-    <string name="sandbox_packages_upgraded">软件包已升级</string>
     <string name="sandbox_packages_upgrade_failed">升级失败：%1$s</string>
     <string name="tool_check_notifications_name">检查通知</string>
     <string name="tool_check_notifications_description">列出最近未读的通知</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">已保存</string>
     <string name="sandbox_files_save_failed">保存失败</string>
     <string name="sandbox_files_open_failed">无法在外部打开</string>
+    <string name="sandbox_files_empty_directory">空目录</string>
+    <string name="sandbox_files_editor_binary_warning">二进制文件或太大，无法以文本形式预览。</string>
+    <string name="sandbox_files_editor_open_in_app">在应用中打开</string>
+    <string name="sandbox_files_editor_force_open_as_text">强制以文本打开</string>
+    <string name="sandbox_files_editor_save">保存</string>
+    <string name="kai_ui_render_failed">无法渲染界面</string>
+    <string name="kai_ui_code_copy">复制</string>
+    <string name="image_viewer_close">关闭</string>
+    <string name="bot_message_thinking_label">思考</string>
+    <string name="bot_message_thinking_expand_content_description">展开或收起思考</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_theme_description">在系统默认、浅色、深色或纯黑 OLED 之间选择。</string>
+    <string name="settings_theme_system">系统</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

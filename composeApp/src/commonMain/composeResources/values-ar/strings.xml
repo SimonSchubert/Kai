@@ -340,7 +340,6 @@
     <string name="sandbox_packages_install_failed">فشل التثبيت: %1$s</string>
     <string name="sandbox_packages_uninstall_success">تمت إزالة %1$s</string>
     <string name="sandbox_packages_uninstall_failed">فشلت الإزالة: %1$s</string>
-    <string name="sandbox_packages_upgraded">تم تحديث الحزم</string>
     <string name="sandbox_packages_upgrade_failed">فشل التحديث: %1$s</string>
     <string name="tool_check_notifications_name">التحقق من الإشعارات</string>
     <string name="tool_check_notifications_description">عرض الإشعارات الأخيرة غير المقروءة</string>
@@ -368,4 +367,20 @@
     <string name="sandbox_files_save_success">تم الحفظ</string>
     <string name="sandbox_files_save_failed">فشل الحفظ</string>
     <string name="sandbox_files_open_failed">تعذر الفتح خارجيًا</string>
+    <string name="sandbox_files_empty_directory">مجلد فارغ</string>
+    <string name="sandbox_files_editor_binary_warning">ثنائي أو كبير جدًا لمعاينته كنص.</string>
+    <string name="sandbox_files_editor_open_in_app">فتح في تطبيق</string>
+    <string name="sandbox_files_editor_force_open_as_text">إجبار الفتح كنص</string>
+    <string name="sandbox_files_editor_save">حفظ</string>
+    <string name="kai_ui_render_failed">فشل عرض واجهة المستخدم</string>
+    <string name="kai_ui_code_copy">نسخ</string>
+    <string name="image_viewer_close">إغلاق</string>
+    <string name="bot_message_thinking_label">يفكر</string>
+    <string name="bot_message_thinking_expand_content_description">توسيع أو طي التفكير</string>
+    <string name="settings_theme">السمة</string>
+    <string name="settings_theme_description">اختر بين افتراضي النظام أو الفاتح أو الداكن أو OLED أسود نقي.</string>
+    <string name="settings_theme_system">النظام</string>
+    <string name="settings_theme_light">فاتح</string>
+    <string name="settings_theme_dark">داكن</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

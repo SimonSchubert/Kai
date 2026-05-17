@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Kusakinisha kumeshindwa: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s imeondolewa</string>
     <string name="sandbox_packages_uninstall_failed">Kuondoa kumeshindwa: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paketi zimesasishwa</string>
     <string name="sandbox_packages_upgrade_failed">Usasishaji umeshindwa: %1$s</string>
     <string name="tool_check_notifications_name">Angalia arifa</string>
     <string name="tool_check_notifications_description">Orodha ya arifa za hivi karibuni ambazo hazijasomwa</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Imehifadhiwa</string>
     <string name="sandbox_files_save_failed">Kuhifadhi kumeshindwa</string>
     <string name="sandbox_files_open_failed">Haikuweza kufungua nje</string>
+    <string name="sandbox_files_empty_directory">Saraka tupu</string>
+    <string name="sandbox_files_editor_binary_warning">Faili la binary au kubwa mno kuonyeshwa kama maandishi.</string>
+    <string name="sandbox_files_editor_open_in_app">Fungua katika programu</string>
+    <string name="sandbox_files_editor_force_open_as_text">Lazimisha kufungua kama maandishi</string>
+    <string name="sandbox_files_editor_save">Hifadhi</string>
+    <string name="kai_ui_render_failed">Imeshindwa kuonyesha kiolesura</string>
+    <string name="kai_ui_code_copy">Nakili</string>
+    <string name="image_viewer_close">Funga</string>
+    <string name="bot_message_thinking_label">Kufikiri</string>
+    <string name="bot_message_thinking_expand_content_description">Panua au kunja kufikiri</string>
+    <string name="settings_theme">Mandhari</string>
+    <string name="settings_theme_description">Chagua kati ya chaguo-msingi la mfumo, nyepesi, nyeusi au nyeusi safi ya OLED.</string>
+    <string name="settings_theme_system">Mfumo</string>
+    <string name="settings_theme_light">Nyepesi</string>
+    <string name="settings_theme_dark">Nyeusi</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Орнату сәтсіз: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s жойылды</string>
     <string name="sandbox_packages_uninstall_failed">Жою сәтсіз: %1$s</string>
-    <string name="sandbox_packages_upgraded">Дестелер жаңартылды</string>
     <string name="sandbox_packages_upgrade_failed">Жаңарту сәтсіз: %1$s</string>
     <string name="tool_check_notifications_name">Хабарландыруларды тексеру</string>
     <string name="tool_check_notifications_description">Жақында оқылмаған хабарландырулар тізімі</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Сақталды</string>
     <string name="sandbox_files_save_failed">Сақтау сәтсіз аяқталды</string>
     <string name="sandbox_files_open_failed">Сыртқы ашу мүмкін болмады</string>
+    <string name="sandbox_files_empty_directory">Бос каталог</string>
+    <string name="sandbox_files_editor_binary_warning">Екілік немесе мәтін ретінде алдын ала қарау үшін тым үлкен.</string>
+    <string name="sandbox_files_editor_open_in_app">Қолданбада ашу</string>
+    <string name="sandbox_files_editor_force_open_as_text">Мәтін ретінде ашуды мәжбүрлеу</string>
+    <string name="sandbox_files_editor_save">Сақтау</string>
+    <string name="kai_ui_render_failed">UI көрсету сәтсіз аяқталды</string>
+    <string name="kai_ui_code_copy">Көшіру</string>
+    <string name="image_viewer_close">Жабу</string>
+    <string name="bot_message_thinking_label">Ойлану</string>
+    <string name="bot_message_thinking_expand_content_description">Ойлануды кеңейту немесе жию</string>
+    <string name="settings_theme">Тақырып</string>
+    <string name="settings_theme_description">Жүйенің әдепкісі, ашық, қара немесе таза қара OLED арасынан таңдаңыз.</string>
+    <string name="settings_theme_system">Жүйе</string>
+    <string name="settings_theme_light">Ашық</string>
+    <string name="settings_theme_dark">Қара</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

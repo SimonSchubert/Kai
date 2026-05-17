@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Instalarea a eșuat: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s dezinstalat</string>
     <string name="sandbox_packages_uninstall_failed">Dezinstalarea a eșuat: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pachete actualizate</string>
     <string name="sandbox_packages_upgrade_failed">Actualizarea a eșuat: %1$s</string>
     <string name="tool_check_notifications_name">Verifică notificările</string>
     <string name="tool_check_notifications_description">Listează notificările recente necitite</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Salvat</string>
     <string name="sandbox_files_save_failed">Salvarea a eșuat</string>
     <string name="sandbox_files_open_failed">Nu se poate deschide extern</string>
+    <string name="sandbox_files_empty_directory">Director gol</string>
+    <string name="sandbox_files_editor_binary_warning">Binar sau prea mare pentru a fi previzualizat ca text.</string>
+    <string name="sandbox_files_editor_open_in_app">Deschide în aplicație</string>
+    <string name="sandbox_files_editor_force_open_as_text">Forțează deschiderea ca text</string>
+    <string name="sandbox_files_editor_save">Salvează</string>
+    <string name="kai_ui_render_failed">Randarea interfeței a eșuat</string>
+    <string name="kai_ui_code_copy">Copiază</string>
+    <string name="image_viewer_close">Închide</string>
+    <string name="bot_message_thinking_label">Gândire</string>
+    <string name="bot_message_thinking_expand_content_description">Extinde sau restrânge gândirea</string>
+    <string name="settings_theme">Temă</string>
+    <string name="settings_theme_description">Alege între implicit de sistem, luminos, întunecat sau negru pur OLED.</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Luminos</string>
+    <string name="settings_theme_dark">Întunecat</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

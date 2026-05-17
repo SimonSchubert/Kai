@@ -340,7 +340,6 @@
     <string name="sandbox_packages_install_failed">መጫን አልተሳካም: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s ተራገፈ</string>
     <string name="sandbox_packages_uninstall_failed">ማራገፍ አልተሳካም: %1$s</string>
-    <string name="sandbox_packages_upgraded">ጥቅሎች ተሻሽለዋል</string>
     <string name="sandbox_packages_upgrade_failed">ማሻሻል አልተሳካም: %1$s</string>
     <string name="tool_check_notifications_name">ማሳወቂያዎችን ፈትሽ</string>
     <string name="tool_check_notifications_description">የቅርብ ጊዜ ያልተነበቡ ማሳወቂያዎችን ዘርዝር</string>
@@ -368,4 +367,20 @@
     <string name="sandbox_files_save_success">ተቀምጧል</string>
     <string name="sandbox_files_save_failed">ማስቀመጥ አልተሳካም</string>
     <string name="sandbox_files_open_failed">በውጭ መክፈት አልተቻለም</string>
+    <string name="sandbox_files_empty_directory">ባዶ ማውጫ</string>
+    <string name="sandbox_files_editor_binary_warning">ሁለትዮሽ ወይም እንደ ጽሑፍ ለመቅረብ በጣም ትልቅ ነው።</string>
+    <string name="sandbox_files_editor_open_in_app">በመተግበሪያ ክፈት</string>
+    <string name="sandbox_files_editor_force_open_as_text">እንደ ጽሑፍ ለመክፈት አስገድድ</string>
+    <string name="sandbox_files_editor_save">አስቀምጥ</string>
+    <string name="kai_ui_render_failed">UI ማስተላለፍ አልተቻለም</string>
+    <string name="kai_ui_code_copy">ቅዳ</string>
+    <string name="image_viewer_close">ዝጋ</string>
+    <string name="bot_message_thinking_label">ማሰብ</string>
+    <string name="bot_message_thinking_expand_content_description">ማሰብን ዘርጋ ወይም አጥፋ</string>
+    <string name="settings_theme">ገጽታ</string>
+    <string name="settings_theme_description">በስርዓት ነባሪ፣ ብርሃን፣ ጨለማ ወይም ንጹህ-ጥቁር OLED መካከል ይምረጡ።</string>
+    <string name="settings_theme_system">ስርዓት</string>
+    <string name="settings_theme_light">ብርሃን</string>
+    <string name="settings_theme_dark">ጨለማ</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">Instalace selhala: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s odinstalován</string>
     <string name="sandbox_packages_uninstall_failed">Odinstalace selhala: %1$s</string>
-    <string name="sandbox_packages_upgraded">Balíčky aktualizovány</string>
     <string name="sandbox_packages_upgrade_failed">Aktualizace selhala: %1$s</string>
     <string name="tool_check_notifications_name">Zkontrolovat oznámení</string>
     <string name="tool_check_notifications_description">Seznam nedávných nepřečtených oznámení</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">Uloženo</string>
     <string name="sandbox_files_save_failed">Uložení selhalo</string>
     <string name="sandbox_files_open_failed">Nelze otevřít externě</string>
+    <string name="sandbox_files_empty_directory">Prázdný adresář</string>
+    <string name="sandbox_files_editor_binary_warning">Binární nebo příliš velké pro náhled jako text.</string>
+    <string name="sandbox_files_editor_open_in_app">Otevřít v aplikaci</string>
+    <string name="sandbox_files_editor_force_open_as_text">Vynutit otevření jako text</string>
+    <string name="sandbox_files_editor_save">Uložit</string>
+    <string name="kai_ui_render_failed">Vykreslení UI selhalo</string>
+    <string name="kai_ui_code_copy">Kopírovat</string>
+    <string name="image_viewer_close">Zavřít</string>
+    <string name="bot_message_thinking_label">Přemýšlí</string>
+    <string name="bot_message_thinking_expand_content_description">Rozbalit nebo sbalit přemýšlení</string>
+    <string name="settings_theme">Motiv</string>
+    <string name="settings_theme_description">Vyberte mezi výchozím systému, světlým, tmavým nebo čistě černým OLED.</string>
+    <string name="settings_theme_system">Systémový</string>
+    <string name="settings_theme_light">Světlý</string>
+    <string name="settings_theme_dark">Tmavý</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

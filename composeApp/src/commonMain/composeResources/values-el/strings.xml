@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">Η εγκατάσταση απέτυχε: %1$s</string>
     <string name="sandbox_packages_uninstall_success">Απεγκαταστάθηκε το %1$s</string>
     <string name="sandbox_packages_uninstall_failed">Η απεγκατάσταση απέτυχε: %1$s</string>
-    <string name="sandbox_packages_upgraded">Τα πακέτα ενημερώθηκαν</string>
     <string name="sandbox_packages_upgrade_failed">Η ενημέρωση απέτυχε: %1$s</string>
     <string name="tool_check_notifications_name">Έλεγχος ειδοποιήσεων</string>
     <string name="tool_check_notifications_description">Λίστα πρόσφατων μη αναγνωσμένων ειδοποιήσεων</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">Αποθηκεύτηκε</string>
     <string name="sandbox_files_save_failed">Η αποθήκευση απέτυχε</string>
     <string name="sandbox_files_open_failed">Δεν ήταν δυνατό το εξωτερικό άνοιγμα</string>
+    <string name="sandbox_files_empty_directory">Κενός κατάλογος</string>
+    <string name="sandbox_files_editor_binary_warning">Δυαδικό ή πολύ μεγάλο για προεπισκόπηση ως κείμενο.</string>
+    <string name="sandbox_files_editor_open_in_app">Άνοιγμα σε εφαρμογή</string>
+    <string name="sandbox_files_editor_force_open_as_text">Εξαναγκασμός ανοίγματος ως κείμενο</string>
+    <string name="sandbox_files_editor_save">Αποθήκευση</string>
+    <string name="kai_ui_render_failed">Αποτυχία απόδοσης UI</string>
+    <string name="kai_ui_code_copy">Αντιγραφή</string>
+    <string name="image_viewer_close">Κλείσιμο</string>
+    <string name="bot_message_thinking_label">Σκέψη</string>
+    <string name="bot_message_thinking_expand_content_description">Ανάπτυξη ή σύμπτυξη σκέψης</string>
+    <string name="settings_theme">Θέμα</string>
+    <string name="settings_theme_description">Επιλέξτε ανάμεσα σε προεπιλογή συστήματος, ανοιχτό, σκούρο ή καθαρό μαύρο OLED.</string>
+    <string name="settings_theme_system">Σύστημα</string>
+    <string name="settings_theme_light">Ανοιχτό</string>
+    <string name="settings_theme_dark">Σκούρο</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

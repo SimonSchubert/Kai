@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">ਇੰਸਟਾਲ ਅਸਫਲ: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s ਅਣਇੰਸਟਾਲ ਹੋਇਆ</string>
     <string name="sandbox_packages_uninstall_failed">ਅਣਇੰਸਟਾਲ ਅਸਫਲ: %1$s</string>
-    <string name="sandbox_packages_upgraded">ਪੈਕੇਜ ਅੱਪਗ੍ਰੇਡ ਹੋਏ</string>
     <string name="sandbox_packages_upgrade_failed">ਅੱਪਗ੍ਰੇਡ ਅਸਫਲ: %1$s</string>
     <string name="tool_check_notifications_name">ਸੂਚਨਾਵਾਂ ਦੀ ਜਾਂਚ ਕਰੋ</string>
     <string name="tool_check_notifications_description">ਹਾਲੀਆ ਨਾ ਪੜ੍ਹੀਆਂ ਸੂਚਨਾਵਾਂ ਦੀ ਸੂਚੀ</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">ਸੰਭਾਲਿਆ</string>
     <string name="sandbox_files_save_failed">ਸੰਭਾਲਣਾ ਅਸਫ਼ਲ</string>
     <string name="sandbox_files_open_failed">ਬਾਹਰੀ ਤੌਰ ਤੇ ਨਹੀਂ ਖੋਲ੍ਹਿਆ ਜਾ ਸਕਿਆ</string>
+    <string name="sandbox_files_empty_directory">ਖਾਲੀ ਡਾਇਰੈਕਟਰੀ</string>
+    <string name="sandbox_files_editor_binary_warning">ਬਾਇਨਰੀ ਜਾਂ ਟੈਕਸਟ ਵਜੋਂ ਝਲਕ ਵੇਖਣ ਲਈ ਬਹੁਤ ਵੱਡੀ ਹੈ।</string>
+    <string name="sandbox_files_editor_open_in_app">ਐਪ ਵਿੱਚ ਖੋਲ੍ਹੋ</string>
+    <string name="sandbox_files_editor_force_open_as_text">ਟੈਕਸਟ ਵਜੋਂ ਜ਼ਬਰਦਸਤੀ ਖੋਲ੍ਹੋ</string>
+    <string name="sandbox_files_editor_save">ਸੇਵ ਕਰੋ</string>
+    <string name="kai_ui_render_failed">UI ਰੈਂਡਰ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ</string>
+    <string name="kai_ui_code_copy">ਕਾਪੀ</string>
+    <string name="image_viewer_close">ਬੰਦ ਕਰੋ</string>
+    <string name="bot_message_thinking_label">ਸੋਚ ਰਿਹਾ ਹੈ</string>
+    <string name="bot_message_thinking_expand_content_description">ਸੋਚ ਨੂੰ ਵਿਸਤਾਰ ਜਾਂ ਸਮੇਟੋ</string>
+    <string name="settings_theme">ਥੀਮ</string>
+    <string name="settings_theme_description">ਸਿਸਟਮ ਡਿਫੌਲਟ, ਹਲਕਾ, ਗੂੜ੍ਹਾ, ਜਾਂ ਸ਼ੁੱਧ-ਕਾਲਾ OLED ਵਿੱਚੋਂ ਚੁਣੋ।</string>
+    <string name="settings_theme_system">ਸਿਸਟਮ</string>
+    <string name="settings_theme_light">ਹਲਕਾ</string>
+    <string name="settings_theme_dark">ਗੂੜ੍ਹਾ</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

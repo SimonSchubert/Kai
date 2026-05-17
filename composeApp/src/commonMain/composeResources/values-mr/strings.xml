@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">स्थापना अयशस्वी: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s अनइंस्टॉल केले</string>
     <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल अयशस्वी: %1$s</string>
-    <string name="sandbox_packages_upgraded">पॅकेजेस अपग्रेड केली</string>
     <string name="sandbox_packages_upgrade_failed">अपग्रेड अयशस्वी: %1$s</string>
     <string name="tool_check_notifications_name">सूचना तपासा</string>
     <string name="tool_check_notifications_description">अलीकडील न वाचलेल्या सूचनांची सूची</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">जतन केले</string>
     <string name="sandbox_files_save_failed">जतन अयशस्वी</string>
     <string name="sandbox_files_open_failed">बाहेरून उघडता आले नाही</string>
+    <string name="sandbox_files_empty_directory">रिकामी निर्देशिका</string>
+    <string name="sandbox_files_editor_binary_warning">बायनरी किंवा मजकूर म्हणून पूर्वावलोकन करण्यासाठी खूप मोठी आहे.</string>
+    <string name="sandbox_files_editor_open_in_app">अॅपमध्ये उघडा</string>
+    <string name="sandbox_files_editor_force_open_as_text">मजकूर म्हणून जबरदस्तीने उघडा</string>
+    <string name="sandbox_files_editor_save">जतन करा</string>
+    <string name="kai_ui_render_failed">UI रेंडर करण्यात अयशस्वी</string>
+    <string name="kai_ui_code_copy">कॉपी</string>
+    <string name="image_viewer_close">बंद करा</string>
+    <string name="bot_message_thinking_label">विचार</string>
+    <string name="bot_message_thinking_expand_content_description">विचार विस्तृत करा किंवा कोलॅप्स करा</string>
+    <string name="settings_theme">थीम</string>
+    <string name="settings_theme_description">सिस्टम डीफॉल्ट, उजळ, गडद किंवा शुद्ध-काळा OLED यापैकी निवडा.</string>
+    <string name="settings_theme_system">सिस्टम</string>
+    <string name="settings_theme_light">उजळ</string>
+    <string name="settings_theme_dark">गडद</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

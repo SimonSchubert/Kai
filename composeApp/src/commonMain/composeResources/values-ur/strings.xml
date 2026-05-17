@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">انسٹال ناکام: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s ان انسٹال ہو گیا</string>
     <string name="sandbox_packages_uninstall_failed">ان انسٹال ناکام: %1$s</string>
-    <string name="sandbox_packages_upgraded">پیکجز اپ گریڈ ہو گئے</string>
     <string name="sandbox_packages_upgrade_failed">اپ گریڈ ناکام: %1$s</string>
     <string name="tool_check_notifications_name">اطلاعات چیک کریں</string>
     <string name="tool_check_notifications_description">حال ہی کی نہ پڑھی گئی اطلاعات کی فہرست</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">محفوظ ہو گیا</string>
     <string name="sandbox_files_save_failed">محفوظ کرنا ناکام</string>
     <string name="sandbox_files_open_failed">بیرونی طور پر نہیں کھولا جا سکا</string>
+    <string name="sandbox_files_empty_directory">خالی ڈائریکٹری</string>
+    <string name="sandbox_files_editor_binary_warning">بائنری یا متن کے طور پر پیش نظارہ کرنے کے لیے بہت بڑا۔</string>
+    <string name="sandbox_files_editor_open_in_app">ایپ میں کھولیں</string>
+    <string name="sandbox_files_editor_force_open_as_text">متن کے طور پر زبردستی کھولیں</string>
+    <string name="sandbox_files_editor_save">محفوظ کریں</string>
+    <string name="kai_ui_render_failed">UI رینڈر کرنے میں ناکامی</string>
+    <string name="kai_ui_code_copy">کاپی</string>
+    <string name="image_viewer_close">بند کریں</string>
+    <string name="bot_message_thinking_label">سوچ رہا ہے</string>
+    <string name="bot_message_thinking_expand_content_description">سوچ کو پھیلائیں یا سکیڑیں</string>
+    <string name="settings_theme">تھیم</string>
+    <string name="settings_theme_description">سسٹم ڈیفالٹ، ہلکی، گہری، یا خالص سیاہ OLED میں سے انتخاب کریں۔</string>
+    <string name="settings_theme_system">سسٹم</string>
+    <string name="settings_theme_light">ہلکی</string>
+    <string name="settings_theme_dark">گہری</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

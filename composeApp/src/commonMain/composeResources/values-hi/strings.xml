@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">इंस्टॉल विफल हुआ: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s अनइंस्टॉल हुआ</string>
     <string name="sandbox_packages_uninstall_failed">अनइंस्टॉल विफल हुआ: %1$s</string>
-    <string name="sandbox_packages_upgraded">पैकेज अपग्रेड हुए</string>
     <string name="sandbox_packages_upgrade_failed">अपग्रेड विफल हुआ: %1$s</string>
     <string name="tool_check_notifications_name">सूचनाएँ जाँचें</string>
     <string name="tool_check_notifications_description">हाल की बिना पढ़ी सूचनाओं की सूची</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">सहेजा गया</string>
     <string name="sandbox_files_save_failed">सहेजना विफल</string>
     <string name="sandbox_files_open_failed">बाहरी रूप से नहीं खोला जा सका</string>
+    <string name="sandbox_files_empty_directory">खाली निर्देशिका</string>
+    <string name="sandbox_files_editor_binary_warning">बाइनरी या टेक्स्ट के रूप में पूर्वावलोकन के लिए बहुत बड़ा।</string>
+    <string name="sandbox_files_editor_open_in_app">ऐप में खोलें</string>
+    <string name="sandbox_files_editor_force_open_as_text">टेक्स्ट के रूप में खोलने के लिए बाध्य करें</string>
+    <string name="sandbox_files_editor_save">सहेजें</string>
+    <string name="kai_ui_render_failed">UI रेंडर करने में विफल</string>
+    <string name="kai_ui_code_copy">कॉपी करें</string>
+    <string name="image_viewer_close">बंद करें</string>
+    <string name="bot_message_thinking_label">सोच रहा है</string>
+    <string name="bot_message_thinking_expand_content_description">सोच विस्तृत करें या संक्षिप्त करें</string>
+    <string name="settings_theme">थीम</string>
+    <string name="settings_theme_description">सिस्टम डिफ़ॉल्ट, लाइट, डार्क या प्योर-ब्लैक OLED में से चुनें।</string>
+    <string name="settings_theme_system">सिस्टम</string>
+    <string name="settings_theme_light">लाइट</string>
+    <string name="settings_theme_dark">डार्क</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

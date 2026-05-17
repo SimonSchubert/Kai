@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">インストールに失敗しました: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s をアンインストールしました</string>
     <string name="sandbox_packages_uninstall_failed">アンインストールに失敗しました: %1$s</string>
-    <string name="sandbox_packages_upgraded">パッケージを更新しました</string>
     <string name="sandbox_packages_upgrade_failed">更新に失敗しました: %1$s</string>
     <string name="tool_check_notifications_name">通知を確認</string>
     <string name="tool_check_notifications_description">最近の未読通知を一覧表示</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">保存しました</string>
     <string name="sandbox_files_save_failed">保存に失敗しました</string>
     <string name="sandbox_files_open_failed">外部で開けませんでした</string>
+    <string name="sandbox_files_empty_directory">空のディレクトリ</string>
+    <string name="sandbox_files_editor_binary_warning">バイナリまたはサイズが大きすぎてテキストとしてプレビューできません。</string>
+    <string name="sandbox_files_editor_open_in_app">アプリで開く</string>
+    <string name="sandbox_files_editor_force_open_as_text">強制的にテキストとして開く</string>
+    <string name="sandbox_files_editor_save">保存</string>
+    <string name="kai_ui_render_failed">UIの描画に失敗しました</string>
+    <string name="kai_ui_code_copy">コピー</string>
+    <string name="image_viewer_close">閉じる</string>
+    <string name="bot_message_thinking_label">思考</string>
+    <string name="bot_message_thinking_expand_content_description">思考の展開または折りたたみ</string>
+    <string name="settings_theme">テーマ</string>
+    <string name="settings_theme_description">システムのデフォルト、ライト、ダーク、または純黒OLEDから選択します。</string>
+    <string name="settings_theme_system">システム</string>
+    <string name="settings_theme_light">ライト</string>
+    <string name="settings_theme_dark">ダーク</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">نصب ناموفق: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s حذف نصب شد</string>
     <string name="sandbox_packages_uninstall_failed">حذف نصب ناموفق: %1$s</string>
-    <string name="sandbox_packages_upgraded">بسته‌ها ارتقاء یافتند</string>
     <string name="sandbox_packages_upgrade_failed">ارتقاء ناموفق: %1$s</string>
     <string name="tool_check_notifications_name">بررسی اعلان‌ها</string>
     <string name="tool_check_notifications_description">فهرست اعلان‌های اخیر خوانده‌نشده</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">ذخیره شد</string>
     <string name="sandbox_files_save_failed">ذخیره ناموفق بود</string>
     <string name="sandbox_files_open_failed">امکان باز کردن خارجی نیست</string>
+    <string name="sandbox_files_empty_directory">پوشه خالی</string>
+    <string name="sandbox_files_editor_binary_warning">باینری یا بسیار بزرگ برای پیش‌نمایش به‌صورت متن.</string>
+    <string name="sandbox_files_editor_open_in_app">باز کردن در برنامه</string>
+    <string name="sandbox_files_editor_force_open_as_text">باز کردن اجباری به‌صورت متن</string>
+    <string name="sandbox_files_editor_save">ذخیره</string>
+    <string name="kai_ui_render_failed">نمایش رابط کاربری ناموفق بود</string>
+    <string name="kai_ui_code_copy">کپی</string>
+    <string name="image_viewer_close">بستن</string>
+    <string name="bot_message_thinking_label">در حال فکر کردن</string>
+    <string name="bot_message_thinking_expand_content_description">گسترش یا جمع کردن تفکر</string>
+    <string name="settings_theme">پوسته</string>
+    <string name="settings_theme_description">بین پیش‌فرض سیستم، روشن، تیره یا سیاه خالص OLED انتخاب کنید.</string>
+    <string name="settings_theme_system">سیستم</string>
+    <string name="settings_theme_light">روشن</string>
+    <string name="settings_theme_dark">تیره</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

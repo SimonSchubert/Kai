@@ -340,7 +340,6 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sandbox_packages_install_failed">Installation fehlgeschlagen: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s deinstalliert</string>
     <string name="sandbox_packages_uninstall_failed">Deinstallation fehlgeschlagen: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakete aktualisiert</string>
     <string name="sandbox_packages_upgrade_failed">Aktualisierung fehlgeschlagen: %1$s</string>
     <string name="tool_check_notifications_name">Benachrichtigungen prüfen</string>
     <string name="tool_check_notifications_description">Liste der zuletzt ungelesenen Benachrichtigungen</string>
@@ -368,4 +367,20 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="sandbox_files_save_success">Gespeichert</string>
     <string name="sandbox_files_save_failed">Speichern fehlgeschlagen</string>
     <string name="sandbox_files_open_failed">Konnte nicht extern geöffnet werden</string>
+    <string name="sandbox_files_empty_directory">Leeres Verzeichnis</string>
+    <string name="sandbox_files_editor_binary_warning">Binär oder zu groß für die Textvorschau.</string>
+    <string name="sandbox_files_editor_open_in_app">Mit App öffnen</string>
+    <string name="sandbox_files_editor_force_open_as_text">Als Text öffnen erzwingen</string>
+    <string name="sandbox_files_editor_save">Speichern</string>
+    <string name="kai_ui_render_failed">UI konnte nicht gerendert werden</string>
+    <string name="kai_ui_code_copy">Kopieren</string>
+    <string name="image_viewer_close">Schließen</string>
+    <string name="bot_message_thinking_label">Überlegt</string>
+    <string name="bot_message_thinking_expand_content_description">Überlegung ein- oder ausklappen</string>
+    <string name="settings_theme">Design</string>
+    <string name="settings_theme_description">Wähle zwischen Systemstandard, hell, dunkel oder reinschwarzem OLED.</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Hell</string>
+    <string name="settings_theme_dark">Dunkel</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

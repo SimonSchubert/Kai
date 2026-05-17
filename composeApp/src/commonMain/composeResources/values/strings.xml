@@ -359,6 +359,14 @@
     <string name="sandbox_files_rename_failed">Rename failed</string>
     <string name="sandbox_files_rename_success">Renamed</string>
     <string name="sandbox_files_editor_closed_after_delete">File was deleted</string>
+    <string name="sandbox_files_empty_directory">Empty directory</string>
+    <string name="sandbox_files_editor_binary_warning">Binary or too large to preview as text.</string>
+    <string name="sandbox_files_editor_open_in_app">Open in app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Force open as text</string>
+    <string name="sandbox_files_editor_save">Save</string>
+    <string name="kai_ui_render_failed">Failed to render UI</string>
+    <string name="kai_ui_code_copy">Copy</string>
+    <string name="image_viewer_close">Close</string>
     <string name="settings_sandbox_uninstall">Uninstall</string>
     <string name="settings_sandbox_uninstall_confirm">All data in the Linux sandbox will be lost. Are you sure you want to uninstall?</string>
     <string name="settings_sandbox_cancel">Cancel</string>

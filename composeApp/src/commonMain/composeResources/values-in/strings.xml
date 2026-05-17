@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Gagal menginstal: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s diuninstal</string>
     <string name="sandbox_packages_uninstall_failed">Gagal menguninstal: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paket telah ditingkatkan</string>
     <string name="sandbox_packages_upgrade_failed">Gagal meningkatkan: %1$s</string>
     <string name="tool_check_notifications_name">Periksa notifikasi</string>
     <string name="tool_check_notifications_description">Daftar notifikasi terbaru yang belum dibaca</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Tersimpan</string>
     <string name="sandbox_files_save_failed">Gagal menyimpan</string>
     <string name="sandbox_files_open_failed">Tidak dapat membuka secara eksternal</string>
+    <string name="sandbox_files_empty_directory">Direktori kosong</string>
+    <string name="sandbox_files_editor_binary_warning">Biner atau terlalu besar untuk dipratinjau sebagai teks.</string>
+    <string name="sandbox_files_editor_open_in_app">Buka di aplikasi</string>
+    <string name="sandbox_files_editor_force_open_as_text">Paksa buka sebagai teks</string>
+    <string name="sandbox_files_editor_save">Simpan</string>
+    <string name="kai_ui_render_failed">Gagal merender UI</string>
+    <string name="kai_ui_code_copy">Salin</string>
+    <string name="image_viewer_close">Tutup</string>
+    <string name="bot_message_thinking_label">Berpikir</string>
+    <string name="bot_message_thinking_expand_content_description">Perluas atau ciutkan pemikiran</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Pilih antara default sistem, terang, gelap, atau OLED hitam murni.</string>
+    <string name="settings_theme_system">Sistem</string>
+    <string name="settings_theme_light">Terang</string>
+    <string name="settings_theme_dark">Gelap</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

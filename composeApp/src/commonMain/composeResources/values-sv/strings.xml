@@ -339,7 +339,6 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sandbox_packages_install_failed">Installation misslyckades: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s avinstallerat</string>
     <string name="sandbox_packages_uninstall_failed">Avinstallation misslyckades: %1$s</string>
-    <string name="sandbox_packages_upgraded">Paket uppdaterade</string>
     <string name="sandbox_packages_upgrade_failed">Uppdatering misslyckades: %1$s</string>
     <string name="tool_check_notifications_name">Kontrollera aviseringar</string>
     <string name="tool_check_notifications_description">Lista nyligen olästa aviseringar</string>
@@ -367,4 +366,20 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="sandbox_files_save_success">Sparat</string>
     <string name="sandbox_files_save_failed">Sparandet misslyckades</string>
     <string name="sandbox_files_open_failed">Kunde inte öppna externt</string>
+    <string name="sandbox_files_empty_directory">Tom katalog</string>
+    <string name="sandbox_files_editor_binary_warning">Binärt eller för stort för att förhandsgranskas som text.</string>
+    <string name="sandbox_files_editor_open_in_app">Öppna i app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Tvinga öppning som text</string>
+    <string name="sandbox_files_editor_save">Spara</string>
+    <string name="kai_ui_render_failed">Det gick inte att rendera gränssnittet</string>
+    <string name="kai_ui_code_copy">Kopiera</string>
+    <string name="image_viewer_close">Stäng</string>
+    <string name="bot_message_thinking_label">Tänker</string>
+    <string name="bot_message_thinking_expand_content_description">Expandera eller fäll ihop tänkandet</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Välj mellan systemstandard, ljust, mörkt eller helsvart OLED.</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Ljust</string>
+    <string name="settings_theme_dark">Mörkt</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

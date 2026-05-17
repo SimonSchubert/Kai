@@ -339,7 +339,6 @@
     <string name="sandbox_packages_install_failed">설치 실패: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s 제거됨</string>
     <string name="sandbox_packages_uninstall_failed">제거 실패: %1$s</string>
-    <string name="sandbox_packages_upgraded">패키지가 업그레이드되었습니다</string>
     <string name="sandbox_packages_upgrade_failed">업그레이드 실패: %1$s</string>
     <string name="tool_check_notifications_name">알림 확인</string>
     <string name="tool_check_notifications_description">최근에 읽지 않은 알림 목록</string>
@@ -367,4 +366,20 @@
     <string name="sandbox_files_save_success">저장됨</string>
     <string name="sandbox_files_save_failed">저장 실패</string>
     <string name="sandbox_files_open_failed">외부에서 열 수 없습니다</string>
+    <string name="sandbox_files_empty_directory">빈 디렉터리</string>
+    <string name="sandbox_files_editor_binary_warning">바이너리이거나 텍스트로 미리 보기에 너무 큽니다.</string>
+    <string name="sandbox_files_editor_open_in_app">앱에서 열기</string>
+    <string name="sandbox_files_editor_force_open_as_text">강제로 텍스트로 열기</string>
+    <string name="sandbox_files_editor_save">저장</string>
+    <string name="kai_ui_render_failed">UI 렌더링에 실패했습니다</string>
+    <string name="kai_ui_code_copy">복사</string>
+    <string name="image_viewer_close">닫기</string>
+    <string name="bot_message_thinking_label">생각 중</string>
+    <string name="bot_message_thinking_expand_content_description">생각 펼치기 또는 접기</string>
+    <string name="settings_theme">테마</string>
+    <string name="settings_theme_description">시스템 기본값, 밝게, 어둡게 또는 순수 검정 OLED 중에서 선택하세요.</string>
+    <string name="settings_theme_system">시스템</string>
+    <string name="settings_theme_light">밝게</string>
+    <string name="settings_theme_dark">어둡게</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

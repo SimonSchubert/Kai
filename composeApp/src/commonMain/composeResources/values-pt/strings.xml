@@ -339,7 +339,6 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="sandbox_packages_install_failed">Falha na instalação: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s desinstalado</string>
     <string name="sandbox_packages_uninstall_failed">Falha na desinstalação: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pacotes atualizados</string>
     <string name="sandbox_packages_upgrade_failed">Falha na atualização: %1$s</string>
     <string name="tool_check_notifications_name">Verificar notificações</string>
     <string name="tool_check_notifications_description">Listar notificações recentes não lidas</string>
@@ -367,4 +366,20 @@ Se algo precisar de atenção (memórias desatualizadas, tarefas vencidas, acomp
     <string name="sandbox_files_save_success">Salvo</string>
     <string name="sandbox_files_save_failed">Falha ao salvar</string>
     <string name="sandbox_files_open_failed">Não foi possível abrir externamente</string>
+    <string name="sandbox_files_empty_directory">Diretório vazio</string>
+    <string name="sandbox_files_editor_binary_warning">Binário ou muito grande para visualizar como texto.</string>
+    <string name="sandbox_files_editor_open_in_app">Abrir no app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Forçar abertura como texto</string>
+    <string name="sandbox_files_editor_save">Salvar</string>
+    <string name="kai_ui_render_failed">Falha ao renderizar a interface</string>
+    <string name="kai_ui_code_copy">Copiar</string>
+    <string name="image_viewer_close">Fechar</string>
+    <string name="bot_message_thinking_label">Pensando</string>
+    <string name="bot_message_thinking_expand_content_description">Expandir ou recolher pensamento</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_theme_description">Escolha entre padrão do sistema, claro, escuro ou OLED preto puro.</string>
+    <string name="settings_theme_system">Sistema</string>
+    <string name="settings_theme_light">Claro</string>
+    <string name="settings_theme_dark">Escuro</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

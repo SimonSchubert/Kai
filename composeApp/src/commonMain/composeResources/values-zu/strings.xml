@@ -338,7 +338,6 @@
     <string name="sandbox_packages_install_failed">Ukufaka kuhlulekile: %1$s</string>
     <string name="sandbox_packages_uninstall_success">I-%1$s ikhishiwe</string>
     <string name="sandbox_packages_uninstall_failed">Ukukhipha kuhlulekile: %1$s</string>
-    <string name="sandbox_packages_upgraded">Amaphakheji athuthukisiwe</string>
     <string name="sandbox_packages_upgrade_failed">Ukuthuthukisa kuhlulekile: %1$s</string>
     <string name="tool_check_notifications_name">Hlola izaziso</string>
     <string name="tool_check_notifications_description">Uhlu lwezaziso zakamuva ezingafundwanga</string>
@@ -366,4 +365,20 @@
     <string name="sandbox_files_save_success">Kulondoloziwe</string>
     <string name="sandbox_files_save_failed">Ukulondoloza kuhlulekile</string>
     <string name="sandbox_files_open_failed">Akukwazanga ukuvulwa ngaphandle</string>
+    <string name="sandbox_files_empty_directory">Idayirektri engenalutho</string>
+    <string name="sandbox_files_editor_binary_warning">Ifayela le-binary noma likhulu kakhulu ukulibukela njengombhalo.</string>
+    <string name="sandbox_files_editor_open_in_app">Vula kuhlelo lokusebenza</string>
+    <string name="sandbox_files_editor_force_open_as_text">Phoqelela ukuvula njengombhalo</string>
+    <string name="sandbox_files_editor_save">Gcina</string>
+    <string name="kai_ui_render_failed">Yehlulekile ukukhipha i-UI</string>
+    <string name="kai_ui_code_copy">Kopisha</string>
+    <string name="image_viewer_close">Vala</string>
+    <string name="bot_message_thinking_label">Ukucabanga</string>
+    <string name="bot_message_thinking_expand_content_description">Nweba noma goqa ukucabanga</string>
+    <string name="settings_theme">Indikimba</string>
+    <string name="settings_theme_description">Khetha phakathi kokuzenzakalelayo kwesistimu, okukhanyayo, okumnyama, noma i-OLED emnyama ngokuphelele.</string>
+    <string name="settings_theme_system">Isistimu</string>
+    <string name="settings_theme_light">Okukhanyayo</string>
+    <string name="settings_theme_dark">Okumnyama</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>

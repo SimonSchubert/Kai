@@ -339,7 +339,6 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sandbox_packages_install_failed">Installatie mislukt: %1$s</string>
     <string name="sandbox_packages_uninstall_success">%1$s verwijderd</string>
     <string name="sandbox_packages_uninstall_failed">Verwijderen mislukt: %1$s</string>
-    <string name="sandbox_packages_upgraded">Pakketten bijgewerkt</string>
     <string name="sandbox_packages_upgrade_failed">Bijwerken mislukt: %1$s</string>
     <string name="tool_check_notifications_name">Meldingen controleren</string>
     <string name="tool_check_notifications_description">Lijst met recente ongelezen meldingen</string>
@@ -367,4 +366,20 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="sandbox_files_save_success">Opgeslagen</string>
     <string name="sandbox_files_save_failed">Opslaan mislukt</string>
     <string name="sandbox_files_open_failed">Kon niet extern openen</string>
+    <string name="sandbox_files_empty_directory">Lege map</string>
+    <string name="sandbox_files_editor_binary_warning">Binair of te groot om als tekst te bekijken.</string>
+    <string name="sandbox_files_editor_open_in_app">Openen in app</string>
+    <string name="sandbox_files_editor_force_open_as_text">Geforceerd openen als tekst</string>
+    <string name="sandbox_files_editor_save">Opslaan</string>
+    <string name="kai_ui_render_failed">Kan UI niet renderen</string>
+    <string name="kai_ui_code_copy">Kopiëren</string>
+    <string name="image_viewer_close">Sluiten</string>
+    <string name="bot_message_thinking_label">Denken</string>
+    <string name="bot_message_thinking_expand_content_description">Denken uitvouwen of inklappen</string>
+    <string name="settings_theme">Thema</string>
+    <string name="settings_theme_description">Kies tussen systeemstandaard, licht, donker of zuiver zwart OLED.</string>
+    <string name="settings_theme_system">Systeem</string>
+    <string name="settings_theme_light">Licht</string>
+    <string name="settings_theme_dark">Donker</string>
+    <string name="settings_theme_oled">OLED</string>
 </resources>
