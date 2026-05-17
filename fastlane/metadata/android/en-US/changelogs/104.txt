@@ -1,0 +1,4 @@
+Collapsable reasoning content UI
+Improve UI performance
+Add missing localizations
+Upgrade dependencies

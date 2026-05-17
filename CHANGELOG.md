@@ -1,3 +1,14 @@
+## v2.6.1 — 2026-05-17
+
+### Features
+- Collapsable reasoning content UI with cleaned-up handling across services
+
+### Improvements
+- Improve UI performance
+- Add missing localizations
+- Upgrade dependencies
+- Internal code cleanup
+
 ## v2.6.0 — 2026-05-15
 
 ### Features
