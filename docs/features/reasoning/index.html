@@ -1,0 +1,1036 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for Kai - AI Assistant App">
+      
+      
+      
+        <link rel="canonical" href="https://kai9000.com/docs/features/reasoning/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Reasoning Content Handling - Kai Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reasoning-content-handling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kai Documentation" class="md-header__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kai Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reasoning Content Handling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kai Documentation" class="md-nav__button md-logo" aria-label="Kai Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Kai Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Features
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Features
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chat & Conversations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multi-Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCP Servers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dynamic-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dynamic UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../memories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../heartbeat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Heartbeat
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../daemon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daemon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encryption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Encryption
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../settings-export-import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings Export & Import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splinterlands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Splinterlands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-per-provider-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why per-provider handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outgoing-assistant-message-behavior-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outgoing assistant-message behavior matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-kai-does-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Kai does today
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#display-in-chat-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Display in chat UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#known-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known gaps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="reasoning-content-handling">Reasoning Content Handling</h1>
+<p><strong>Last verified:</strong> 2026-05-17</p>
+<p>Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: <strong>wire-side</strong> (whether to echo the trace back to the provider on the next request) and <strong>display-side</strong> (whether to show it to the user in the chat UI). When a turn also contains <code>tool_calls</code>, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.</p>
+<h2 id="why-per-provider-handling">Why per-provider handling</h2>
+<p>OpenAI's chat-completions schema has no standardized place for prior-turn reasoning, so each provider invented their own. The result is three sources of variation:</p>
+<ul>
+<li><strong>Field name</strong> — <code>reasoning_content</code> (DeepSeek lineage), <code>reasoning</code> (OpenRouter/Cerebras lineage), <code>reasoning_details[]</code> (preserves thought signatures for Anthropic/Gemini via OpenRouter), or embedded <code>&lt;think&gt;...&lt;/think&gt;</code> tags inside <code>content</code> (MiniMax M2 native, older Magistral).</li>
+<li><strong>Whether echoing back is required</strong> — some providers reconstruct internal state from it (Z.AI Coding Plan, OpenCode Zen via DeepSeek route, Kimi <code>k2.6</code> with <code>thinking.keep="all"</code>); others accept it as a no-op; others reject any unknown field outright.</li>
+<li><strong>Paired flags</strong> — preservation sometimes requires an additional request flag (Z.AI <code>clear_thinking: false</code>, Fireworks <code>reasoning_history: "preserved"</code>).</li>
+</ul>
+<h2 id="outgoing-assistant-message-behavior-matrix">Outgoing assistant-message behavior matrix</h2>
+<p>Behavior of each provider when an <code>assistant</code>-role message with prior <code>tool_calls</code> carries a <code>reasoning_content</code> field.</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Status</th>
+<th>Wire field expected</th>
+<th>Notes</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Groq</td>
+<td><strong>Rejected</strong></td>
+<td>n/a — strip on send</td>
+<td>Strict schema validator: <code>400 ('messages.N': property 'reasoning_content' is unsupported)</code> on any unknown assistant-message field</td>
+<td><a href="https://console.groq.com/docs/reasoning">console.groq.com/docs/reasoning</a></td>
+</tr>
+<tr>
+<td>DeepSeek</td>
+<td><strong>Rejected</strong></td>
+<td>n/a — strip on send</td>
+<td>Reasoner model rejects <code>reasoning_content</code> on input and does not support function calling at all</td>
+<td><a href="https://api-docs.deepseek.com/guides/reasoning_model">api-docs.deepseek.com/guides/reasoning_model</a></td>
+</tr>
+<tr>
+<td>Cerebras</td>
+<td><strong>Rejected (wrong field)</strong></td>
+<td><code>reasoning</code> (not <code>reasoning_content</code>)</td>
+<td>GLM-4.7 multi-step returns 400 when sent <code>reasoning_content</code>; expects <code>reasoning</code>. Kai sends neither (mode = <code>NONE</code>)</td>
+<td><a href="https://inference-docs.cerebras.ai/api-reference/chat-completions">inference-docs.cerebras.ai/api-reference/chat-completions</a></td>
+</tr>
+<tr>
+<td>Z.AI Coding Plan</td>
+<td><strong>Required</strong></td>
+<td><code>reasoning_content</code></td>
+<td>Preserved Thinking is on by default on <code>/api/coding/paas/v4</code>; dropping the field breaks reasoning coherence</td>
+<td><a href="https://docs.z.ai/guides/capabilities/thinking-mode">docs.z.ai/guides/capabilities/thinking-mode</a></td>
+</tr>
+<tr>
+<td>OpenCode Zen (DeepSeek route)</td>
+<td><strong>Required</strong></td>
+<td><code>reasoning_content</code></td>
+<td>Pass-through gateway. When routing to DeepSeek-V4 Pro thinking, once any assistant message carries reasoning, all subsequent assistant messages must</td>
+<td><a href="https://opencode.ai/docs/zen/">opencode.ai/docs/zen/</a></td>
+</tr>
+<tr>
+<td>Moonshot / Kimi</td>
+<td><strong>Required for <code>kimi-k2.6</code> with <code>thinking.keep="all"</code></strong></td>
+<td><code>reasoning_content</code></td>
+<td>Only that specific model + flag combination requires the echo. Other Kimi thinking models accept it as a no-op. Kai does not currently set <code>thinking.keep</code></td>
+<td><a href="https://platform.kimi.com/docs/api/chat">platform.kimi.com/docs/api/chat</a></td>
+</tr>
+<tr>
+<td>Fireworks AI</td>
+<td><strong>Accepted (documented)</strong></td>
+<td><code>reasoning_content</code></td>
+<td>Officially supported field on <code>ChatMessage</code>. Full preservation also requires <code>reasoning_history: "preserved"</code> on the request — Kai does not set this</td>
+<td><a href="https://docs.fireworks.ai/api-reference/post-chatcompletions">docs.fireworks.ai/api-reference/post-chatcompletions</a></td>
+</tr>
+<tr>
+<td>Z.AI standard</td>
+<td><strong>Accepted (documented, inert without flag)</strong></td>
+<td><code>reasoning_content</code></td>
+<td>Preserved Thinking is opt-in on <code>/api/paas/v4</code>; without <code>clear_thinking: false</code> (which Kai does not send) the echo is ignored</td>
+<td><a href="https://docs.z.ai/guides/capabilities/thinking-mode">docs.z.ai/guides/capabilities/thinking-mode</a></td>
+</tr>
+<tr>
+<td>OpenRouter</td>
+<td><strong>Accepted (alias)</strong></td>
+<td>Canonical <code>reasoning</code>; <code>reasoning_content</code> is a documented alias. Anthropic/Gemini-via-OR need <code>reasoning_details[]</code> with thought signatures, which Kai does not send</td>
+<td><a href="https://openrouter.ai/docs/guides/best-practices/reasoning-tokens">openrouter.ai/docs/guides/best-practices/reasoning-tokens</a></td>
+<td></td>
+</tr>
+<tr>
+<td>LongCat</td>
+<td><strong>Tolerated (undocumented)</strong></td>
+<td>Schema documents <code>role</code> + <code>content</code> only; field is passed through silently</td>
+<td><a href="https://longcat.chat/platform/docs/APIDocs.html">longcat.chat/platform/docs/APIDocs.html</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Venice AI</td>
+<td><strong>Tolerated (undocumented)</strong></td>
+<td>Pass-through policy: "Request fields not listed may be passed through but are not validated"</td>
+<td><a href="https://docs.venice.ai">docs.venice.ai</a></td>
+<td></td>
+</tr>
+<tr>
+<td>MiniMax M2</td>
+<td><strong>Tolerated but wrong mechanism</strong></td>
+<td>Native mode expects <code>&lt;think&gt;...&lt;/think&gt;</code> inside <code>content</code>; split mode expects <code>reasoning_details</code>. Top-level <code>reasoning_content</code> is undocumented and likely ignored</td>
+<td><a href="https://platform.minimax.io/docs/guides/text-m2-function-call">platform.minimax.io/docs/guides/text-m2-function-call</a></td>
+<td></td>
+</tr>
+<tr>
+<td>xAI, NVIDIA, Mistral, Ollama Cloud, Together, HuggingFace, DeepInfra, AIHubMix, Public AI, OpenAI, Free, OpenAI-Compatible API</td>
+<td><strong>Accepted (silent ignore)</strong></td>
+<td>Either documented or behave as permissive OpenAI-compatible proxies that drop unknown fields</td>
+<td>(per-provider docs)</td>
+<td></td>
+</tr>
+<tr>
+<td>Anthropic, Gemini, LiteRT</td>
+<td>Out of scope</td>
+<td>These use entirely separate request DTOs (Anthropic Messages API, Gemini Generative Language API, on-device LiteRT). Reasoning is handled inside those code paths, not via <code>reasoning_content</code>.</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-kai-does-today">What Kai does today</h2>
+<p>Kai gates the field on <code>Service.reasoningRequestMode</code> (<code>NONE</code> or <code>REASONING_CONTENT</code>). When <code>REASONING_CONTENT</code> is set and the prior assistant turn carried <code>tool_calls</code>, Kai emits the field on the next request.</p>
+<p>Services currently set to <code>REASONING_CONTENT</code>: OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.</p>
+<p>All other services use the default <code>NONE</code> (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.</p>
+<p>The chain-of-thought is preserved on <code>History.reasoningContent</code> regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.</p>
+<h2 id="display-in-chat-ui">Display in chat UI</h2>
+<p>The chain-of-thought is always rendered when present. Each assistant bubble with reasoning content prepends a collapsible "Thinking" section above the answer: collapsed by default, the first line of the most recent reasoning segment shown as a preview; expanded reveals the full trace in a dim blockquote. Thinking-only turns (where the model returned reasoning but no answer, typically as a precursor to a tool call) surface as standalone reasoning bubbles while in flight; once the answer arrives, they're absorbed into the answer's grouped section so a multi-tool response shows a single "Thinking" disclosure rather than several.</p>
+<p>Reasoning is only visible on messages captured after persistence support landed, and only on the OpenAI-compatible path. Old conversations saved before persistence appear unchanged.</p>
+<h2 id="known-gaps">Known gaps</h2>
+<p>Documented here so future work has a starting point. None of these are bugs today; they are fidelity improvements:</p>
+<ul>
+<li><strong>OpenRouter <code>reasoning_details[]</code></strong> — needed to preserve thought signatures for Anthropic and Gemini models routed via OpenRouter. Without them, those models lose continuity across tool calls.</li>
+<li><strong>MiniMax M2 native mode</strong> — should embed <code>&lt;think&gt;...&lt;/think&gt;</code> inside <code>content</code> rather than (or in addition to) sending a top-level field; currently the field is silently ignored.</li>
+<li><strong>MiniMax M2 split mode</strong> — alternative path uses <code>reasoning_details</code> instead.</li>
+<li><strong>Z.AI standard <code>clear_thinking: false</code></strong> — without this paired request flag, Preserved Thinking is off and our echo is a no-op.</li>
+<li><strong>Fireworks <code>reasoning_history: "preserved"</code></strong> — without this paired request flag, Fireworks does not actually preserve reasoning across turns.</li>
+<li><strong>Cerebras <code>reasoning</code> field</strong> — Cerebras uses <code>reasoning</code>, not <code>reasoning_content</code>. Mode is currently <code>NONE</code> because we have no <code>reasoning</code> field on the request DTO. Adding it would unlock GLM-4.7 multi-step on Cerebras.</li>
+<li><strong>Per-model dispatch</strong> — <code>reasoningRequestMode</code> is per-service. Moonshot is set to <code>REASONING_CONTENT</code> because of Kimi <code>k2.6</code>, but the flag is inert for older Kimi thinking models. Per-model precision would tighten this.</li>
+</ul>
+<p>Adding any of these means either widening <code>ReasoningRequestMode</code> (new enum values), adding fields to <code>OpenAICompatibleChatRequestDto</code>, adding paired-flag plumbing on the request side, or moving to a per-model handler. None of these have been done because the current binary dispatch covers all known live-broken cases.</p>
+<h2 id="key-files">Key Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/Service.kt</code></td>
+<td><code>ReasoningRequestMode</code> enum + per-service mode assignment</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/ChatUiState.kt</code></td>
+<td><code>History.toGroqMessageDto()</code> — gates emission of <code>reasoning_content</code> based on mode</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/RemoteDataRepository.kt</code></td>
+<td><code>buildOpenAIMessages()</code> — passes <code>Service.reasoningRequestMode</code> into the DTO mapper</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatRequestDto.kt</code></td>
+<td>Request DTO with <code>@SerialName("reasoning_content")</code> on assistant messages</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../network/dtos/openaicompatible/OpenAICompatibleChatResponseDto.kt</code></td>
+<td>Response DTO; reads <code>reasoning_content</code> and <code>reasoning</code> and normalizes to <code>effectiveReasoning</code></td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonTest/.../ui/chat/ToGroqMessageDtoReasoningTest.kt</code></td>
+<td>Guards the per-mode emission behavior</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/Conversation.kt</code></td>
+<td><code>Conversation.Message.reasoningContent</code> — persisted reasoning trace for round-tripping across app restarts</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/composables/BotMessage.kt</code></td>
+<td>Renders the dim-blockquote reasoning section above the answer when <code>reasoningContent</code> is supplied</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../ui/chat/ChatScreen.kt</code></td>
+<td>Groups all reasoning segments in a response under the answer-bearing assistant message; renders standalone thinking-only bubbles for in-flight turns</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
