@@ -5,6 +5,8 @@ package com.inspiredandroid.kai.data
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.compressImageBytes
 import com.inspiredandroid.kai.currentPlatform
+import com.inspiredandroid.kai.data.providers.buildAnthropicMessages
+import com.inspiredandroid.kai.data.providers.buildOpenAIMessages
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.getAvailableTools
@@ -901,79 +903,6 @@ class RemoteDataRepository(
             override fun trimAfterToolResults(history: List<History>, systemPrompt: String?): List<History> = trimHistoryForContext(history, systemPrompt?.length ?: 0, contextWindowTokens)
         }
         return runToolLoop(strategy, systemPrompt, history)
-    }
-
-    private fun buildOpenAIMessages(
-        service: Service,
-        messages: List<History>,
-        systemPrompt: String?,
-    ): List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message> = buildList {
-        if (!systemPrompt.isNullOrEmpty()) {
-            add(
-                com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message(
-                    role = "system",
-                    content = JsonPrimitive(systemPrompt),
-                ),
-            )
-        }
-        addAll(
-            messages.map { it.toGroqMessageDto(service.reasoningRequestMode) }
-                .filter { msg ->
-                    // Drop tool messages that lost their tool_call_id (from conversation reload)
-                    if (msg.role == "tool" && msg.tool_call_id == null) return@filter false
-                    // Drop assistant messages that had tool_calls but lost them (empty content, no tool_calls)
-                    if (msg.role == "assistant" && msg.content == null && msg.tool_calls.isNullOrEmpty()) return@filter false
-                    true
-                },
-        )
-    }
-
-    private fun buildAnthropicMessages(
-        messages: List<History>,
-    ): List<AnthropicChatRequestDto.Message> = buildList {
-        var pendingToolResults = mutableListOf<JsonElement>()
-
-        for (msg in messages) {
-            when (msg.role) {
-                History.Role.TOOL_EXECUTING -> { /* skip */ }
-
-                History.Role.TOOL -> {
-                    // Accumulate tool results; they'll be merged into a single user message
-                    val blocks = msg.toAnthropicContentBlocks()
-                    if (blocks is JsonArray) {
-                        pendingToolResults.addAll(blocks)
-                    }
-                }
-
-                else -> {
-                    // Flush any pending tool results as a single user message before the next message
-                    if (pendingToolResults.isNotEmpty()) {
-                        add(
-                            AnthropicChatRequestDto.Message(
-                                role = "user",
-                                content = JsonArray(pendingToolResults),
-                            ),
-                        )
-                        pendingToolResults = mutableListOf()
-                    }
-                    add(
-                        AnthropicChatRequestDto.Message(
-                            role = if (msg.role == History.Role.ASSISTANT) "assistant" else "user",
-                            content = msg.toAnthropicContentBlocks(),
-                        ),
-                    )
-                }
-            }
-        }
-        // Flush any trailing tool results
-        if (pendingToolResults.isNotEmpty()) {
-            add(
-                AnthropicChatRequestDto.Message(
-                    role = "user",
-                    content = JsonArray(pendingToolResults),
-                ),
-            )
-        }
     }
 
     private suspend fun handleAnthropicChatWithTools(

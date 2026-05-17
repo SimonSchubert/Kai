@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.splinterlands
 
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.SharedJson
+import com.inspiredandroid.kai.data.getInstanceModelId
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 

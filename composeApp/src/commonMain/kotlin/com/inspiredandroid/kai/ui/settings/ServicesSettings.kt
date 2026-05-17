@@ -598,16 +598,11 @@ private fun ServiceSettings(
     connectionStatus: ConnectionStatus,
     testTag: String? = null,
 ) {
-    KaiClearableTextField(
-        modifier = Modifier.let { if (testTag != null) it.testTag(testTag) else it },
-        value = apiKey,
-        onValueChange = onChangeApiKey,
-        label = {
-            Text(
-                stringResource(Res.string.settings_api_key_label),
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        },
+    ApiKeyField(
+        apiKey = apiKey,
+        onChangeApiKey = onChangeApiKey,
+        labelText = stringResource(Res.string.settings_api_key_label),
+        testTag = testTag,
     )
 
     Spacer(Modifier.height(8.dp))
@@ -676,15 +671,10 @@ private fun OpenAICompatibleSettings(
 
     Spacer(Modifier.height(8.dp))
 
-    KaiClearableTextField(
-        value = apiKey,
-        onValueChange = onChangeApiKey,
-        label = {
-            Text(
-                stringResource(Res.string.settings_api_key_optional_label),
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        },
+    ApiKeyField(
+        apiKey = apiKey,
+        onChangeApiKey = onChangeApiKey,
+        labelText = stringResource(Res.string.settings_api_key_optional_label),
         singleLine = true,
     )
 
@@ -1027,4 +1017,26 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
             }
         }
     }
+}
+
+@Composable
+private fun ApiKeyField(
+    apiKey: String,
+    onChangeApiKey: (String) -> Unit,
+    labelText: String,
+    testTag: String? = null,
+    singleLine: Boolean = false,
+) {
+    KaiClearableTextField(
+        modifier = if (testTag != null) Modifier.testTag(testTag) else Modifier,
+        value = apiKey,
+        onValueChange = onChangeApiKey,
+        label = {
+            Text(
+                labelText,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        },
+        singleLine = singleLine,
+    )
 }

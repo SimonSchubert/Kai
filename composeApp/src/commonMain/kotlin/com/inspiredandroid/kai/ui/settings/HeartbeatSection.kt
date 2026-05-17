@@ -156,43 +156,15 @@ internal fun HeartbeatSection(
         if (isHeartbeatEnabled) {
             Spacer(Modifier.height(12.dp))
 
-            val intervalPresets = listOf(5, 10, 15, 30, 45, 60, 120, 240)
-            val initialSliderPos = intervalPresets.indexOf(heartbeatIntervalMinutes)
-                .takeIf { it >= 0 }?.toFloat() ?: 2f
-            var intervalSliderValue by remember(heartbeatIntervalMinutes) {
-                mutableStateOf(initialSliderPos)
-            }
-            val currentPresetMinutes = intervalPresets[intervalSliderValue.roundToInt()]
-            val intervalDisplay = if (currentPresetMinutes < 60) {
-                "${currentPresetMinutes}m"
-            } else {
-                "${currentPresetMinutes / 60}h"
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(Res.string.settings_heartbeat_interval),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-                Text(
-                    text = intervalDisplay,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
-            }
-            KaiSlider(
-                value = intervalSliderValue,
-                onValueChange = { intervalSliderValue = it },
-                onValueChangeFinished = {
-                    onChangeInterval(intervalPresets[intervalSliderValue.roundToInt()])
+            PresetSlider(
+                currentValue = heartbeatIntervalMinutes,
+                presets = listOf(5, 10, 15, 30, 45, 60, 120, 240),
+                fallbackIndex = 2,
+                label = { stringResource(Res.string.settings_heartbeat_interval) },
+                formatValue = { minutes ->
+                    if (minutes < 60) "${minutes}m" else "${minutes / 60}h"
                 },
-                valueRange = 0f..(intervalPresets.size - 1).toFloat(),
-                steps = intervalPresets.size - 2,
+                onValueChanged = onChangeInterval,
             )
 
             Spacer(Modifier.height(12.dp))
@@ -521,40 +493,14 @@ internal fun EmailSection(
                     )
                     Spacer(Modifier.height(8.dp))
                 }
-                val emailPresets = listOf(0, 5, 15, 30, 60)
                 val neverLabel = stringResource(Res.string.settings_email_poll_never)
-                val initialEmailPos = emailPresets.indexOf(pollIntervalMinutes)
-                    .takeIf { it >= 0 }?.toFloat() ?: 0f
-                var emailSliderValue by remember(pollIntervalMinutes) {
-                    mutableStateOf(initialEmailPos)
-                }
-                val currentEmailMinutes = emailPresets[emailSliderValue.roundToInt()]
-                val emailDisplay = if (currentEmailMinutes == 0) neverLabel else "${currentEmailMinutes}m"
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.settings_email_poll_interval, currentEmailMinutes),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = emailDisplay,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                }
-                KaiSlider(
-                    value = emailSliderValue,
-                    onValueChange = { emailSliderValue = it },
-                    onValueChangeFinished = {
-                        onChangePollInterval(emailPresets[emailSliderValue.roundToInt()])
-                    },
-                    valueRange = 0f..(emailPresets.size - 1).toFloat(),
-                    steps = emailPresets.size - 2,
+                PresetSlider(
+                    currentValue = pollIntervalMinutes,
+                    presets = listOf(0, 5, 15, 30, 60),
+                    fallbackIndex = 0,
+                    label = { minutes -> stringResource(Res.string.settings_email_poll_interval, minutes) },
+                    formatValue = { minutes -> if (minutes == 0) neverLabel else "${minutes}m" },
+                    onValueChanged = onChangePollInterval,
                 )
 
                 Spacer(Modifier.height(12.dp))
@@ -638,40 +584,14 @@ internal fun SmsSection(
                     Spacer(Modifier.height(8.dp))
                 }
 
-                val smsPresets = listOf(0, 5, 15, 30, 60)
                 val neverLabel = stringResource(Res.string.settings_email_poll_never)
-                val initialSmsPos = smsPresets.indexOf(pollIntervalMinutes)
-                    .takeIf { it >= 0 }?.toFloat() ?: 0f
-                var smsSliderValue by remember(pollIntervalMinutes) {
-                    mutableStateOf(initialSmsPos)
-                }
-                val currentSmsMinutes = smsPresets[smsSliderValue.roundToInt()]
-                val smsDisplay = if (currentSmsMinutes == 0) neverLabel else "${currentSmsMinutes}m"
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = stringResource(Res.string.settings_sms_poll_interval, currentSmsMinutes),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                    Text(
-                        text = smsDisplay,
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                }
-                KaiSlider(
-                    value = smsSliderValue,
-                    onValueChange = { smsSliderValue = it },
-                    onValueChangeFinished = {
-                        onChangePollInterval(smsPresets[smsSliderValue.roundToInt()])
-                    },
-                    valueRange = 0f..(smsPresets.size - 1).toFloat(),
-                    steps = smsPresets.size - 2,
+                PresetSlider(
+                    currentValue = pollIntervalMinutes,
+                    presets = listOf(0, 5, 15, 30, 60),
+                    fallbackIndex = 0,
+                    label = { minutes -> stringResource(Res.string.settings_sms_poll_interval, minutes) },
+                    formatValue = { minutes -> if (minutes == 0) neverLabel else "${minutes}m" },
+                    onValueChanged = onChangePollInterval,
                 )
 
                 Spacer(Modifier.height(8.dp))
@@ -886,4 +806,44 @@ private fun dayName(day: String): String? = when (day) {
     "SAT" -> "Sat"
     "SUN" -> "Sun"
     else -> null
+}
+
+@Composable
+private fun PresetSlider(
+    currentValue: Int,
+    presets: List<Int>,
+    fallbackIndex: Int,
+    label: @Composable (Int) -> String,
+    formatValue: @Composable (Int) -> String,
+    onValueChanged: (Int) -> Unit,
+) {
+    val initialPos = presets.indexOf(currentValue).takeIf { it >= 0 }?.toFloat() ?: fallbackIndex.toFloat()
+    var sliderValue by remember(currentValue) { mutableStateOf(initialPos) }
+    val currentPreset = presets[sliderValue.roundToInt()]
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = label(currentPreset),
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+        Text(
+            text = formatValue(currentPreset),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onBackground,
+        )
+    }
+    KaiSlider(
+        value = sliderValue,
+        onValueChange = { sliderValue = it },
+        onValueChangeFinished = {
+            onValueChanged(presets[sliderValue.roundToInt()])
+        },
+        valueRange = 0f..(presets.size - 1).toFloat(),
+        steps = presets.size - 2,
+    )
 }
