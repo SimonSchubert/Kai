@@ -11,6 +11,10 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
 }
 
+composeCompiler {
+    stabilityConfigurationFiles.add(project.layout.projectDirectory.file("compose_stability.conf"))
+}
+
 kotlin {
     androidLibrary {
         namespace = "com.inspiredandroid.kai.shared"

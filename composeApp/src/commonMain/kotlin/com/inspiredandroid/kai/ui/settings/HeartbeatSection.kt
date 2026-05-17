@@ -97,6 +97,7 @@ import kai.composeapp.generated.resources.settings_soul_save
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
@@ -158,7 +159,7 @@ internal fun HeartbeatSection(
 
             PresetSlider(
                 currentValue = heartbeatIntervalMinutes,
-                presets = listOf(5, 10, 15, 30, 45, 60, 120, 240),
+                presets = persistentListOf(5, 10, 15, 30, 45, 60, 120, 240),
                 fallbackIndex = 2,
                 label = { stringResource(Res.string.settings_heartbeat_interval) },
                 formatValue = { minutes ->
@@ -496,7 +497,7 @@ internal fun EmailSection(
                 val neverLabel = stringResource(Res.string.settings_email_poll_never)
                 PresetSlider(
                     currentValue = pollIntervalMinutes,
-                    presets = listOf(0, 5, 15, 30, 60),
+                    presets = persistentListOf(0, 5, 15, 30, 60),
                     fallbackIndex = 0,
                     label = { minutes -> stringResource(Res.string.settings_email_poll_interval, minutes) },
                     formatValue = { minutes -> if (minutes == 0) neverLabel else "${minutes}m" },
@@ -587,7 +588,7 @@ internal fun SmsSection(
                 val neverLabel = stringResource(Res.string.settings_email_poll_never)
                 PresetSlider(
                     currentValue = pollIntervalMinutes,
-                    presets = listOf(0, 5, 15, 30, 60),
+                    presets = persistentListOf(0, 5, 15, 30, 60),
                     fallbackIndex = 0,
                     label = { minutes -> stringResource(Res.string.settings_sms_poll_interval, minutes) },
                     formatValue = { minutes -> if (minutes == 0) neverLabel else "${minutes}m" },
@@ -811,7 +812,7 @@ private fun dayName(day: String): String? = when (day) {
 @Composable
 private fun PresetSlider(
     currentValue: Int,
-    presets: List<Int>,
+    presets: ImmutableList<Int>,
     fallbackIndex: Int,
     label: @Composable (Int) -> String,
     formatValue: @Composable (Int) -> String,
