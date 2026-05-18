@@ -34,6 +34,7 @@ import com.inspiredandroid.kai.network.UnsupportedFileTypeException
 import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
+import com.inspiredandroid.kai.network.dtos.openaicompatible.extractInlineToolCalls
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
@@ -829,10 +830,23 @@ class RemoteDataRepository(
                     requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
                 val message = response.choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
-                val calls = message.toolCalls.orEmpty().map { tc ->
+                var calls = message.toolCalls.orEmpty().map { tc ->
                     ToolCallInfo(id = tc.id, name = tc.function.name, arguments = tc.function.arguments)
                 }
-                val textContent = message.effectiveContent ?: ""
+                var textContent = message.effectiveContent ?: ""
+                if (calls.isEmpty() && textContent.contains("<tool_call>")) {
+                    val extracted = extractInlineToolCalls(textContent, tools)
+                    if (extracted.calls.isNotEmpty()) {
+                        textContent = extracted.cleanedText
+                        calls = extracted.calls.map {
+                            ToolCallInfo(
+                                id = "inline-${Uuid.random()}",
+                                name = it.name,
+                                arguments = it.arguments,
+                            )
+                        }
+                    }
+                }
                 return LoopChatResult(
                     textContent = textContent,
                     reasoningContent = message.reasoningTraceFor(textContent),
