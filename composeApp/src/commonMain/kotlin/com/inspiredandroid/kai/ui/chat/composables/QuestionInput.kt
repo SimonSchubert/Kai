@@ -51,6 +51,7 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
@@ -242,8 +243,9 @@ fun QuestionInput(
                 imeAction = if (currentPlatform is Platform.Mobile) ImeAction.Default else ImeAction.Send,
             ),
         )
+        val inInspection = LocalInspectionMode.current
         LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
+            if (!inInspection) focusRequester.requestFocus()
         }
     }
 }
