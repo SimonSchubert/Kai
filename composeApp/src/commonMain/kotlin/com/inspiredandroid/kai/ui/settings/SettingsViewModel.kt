@@ -815,12 +815,12 @@ class SettingsViewModel(
         when (deletion) {
             is PendingDeletion.Memory -> {
                 dataRepository.deleteMemory(deletion.key)
-                _state.update { it.copy(memories = dataRepository.getMemories().toImmutableList(), pendingDeletion = null) }
+                _state.update { it.copy(memories = dataRepository.getMemories().toImmutableList()) }
             }
 
             is PendingDeletion.Task -> {
                 dataRepository.cancelScheduledTask(deletion.id)
-                _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks().toImmutableList(), pendingDeletion = null) }
+                _state.update { it.copy(scheduledTasks = dataRepository.getScheduledTasks().toImmutableList()) }
             }
 
             is PendingDeletion.EmailAccount -> {
@@ -830,7 +830,6 @@ class SettingsViewModel(
                         emailAccounts = dataRepository.getEmailAccounts().toImmutableList(),
                         emailSyncStates = dataRepository.getEmailSyncStates().toImmutableMap(),
                         emailPendingCount = dataRepository.getPendingEmailCount(),
-                        pendingDeletion = null,
                     )
                 }
             }
@@ -850,15 +849,17 @@ class SettingsViewModel(
                         _state.update { it.copy(localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes()) }
                     }
                 }
-                _state.update { it.copy(pendingDeletion = null) }
                 refreshServiceList()
             }
 
             is PendingDeletion.McpServer -> {
                 dataRepository.removeMcpServer(deletion.serverId)
-                _state.update { it.copy(pendingDeletion = null) }
                 refreshMcpServers()
             }
+        }
+        // Guard against a stale async deletion clobbering a newer pending one from a rapid second Remove click.
+        _state.update { state ->
+            if (state.pendingDeletion == deletion) state.copy(pendingDeletion = null) else state
         }
     }
 

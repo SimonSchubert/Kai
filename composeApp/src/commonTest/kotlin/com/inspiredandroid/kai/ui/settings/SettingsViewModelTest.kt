@@ -112,6 +112,37 @@ class SettingsViewModelTest {
     }
 
     @Test
+    fun `rapid onRemoveService keeps the new pendingDeletion after the previous commits`() = runTest {
+        fakeRepository.setConfiguredServices(Service.Gemini, Service.OpenAI, Service.Groq)
+        val viewModel = SettingsViewModel(fakeRepository, fakeDaemonController, fakeNotificationPermissionController, noOpScheduler, testDispatcher)
+
+        viewModel.state.test {
+            assertEquals(3, awaitItem().configuredServices.size)
+
+            // First remove: Gemini becomes pending.
+            viewModel.actions.onRemoveService("gemini")
+            testDispatcher.scheduler.runCurrent()
+
+            // Second remove fires before the 4s undo timeout: commits Gemini immediately and queues OpenAI.
+            viewModel.actions.onRemoveService("openai")
+            testDispatcher.scheduler.runCurrent()
+
+            // Let the committed (now-stale) executeDeletion for Gemini finish without advancing the 4s delay for OpenAI.
+            testDispatcher.scheduler.runCurrent()
+
+            val afterCommit = cancelAndConsumeRemainingEvents()
+                .filterIsInstance<app.cash.turbine.Event.Item<SettingsUiState>>()
+                .last().value
+
+            // Gemini is gone, OpenAI is still pending so its snackbar stays visible.
+            assertEquals(2, afterCommit.configuredServices.size)
+            assertEquals(Service.OpenAI, afterCommit.configuredServices[0].service)
+            assertEquals(Service.Groq, afterCommit.configuredServices[1].service)
+            assertEquals(PendingDeletion.Service("openai"), afterCommit.pendingDeletion)
+        }
+    }
+
+    @Test
     fun `availableServicesToAdd contains all non-Free services`() = runTest {
         fakeRepository.setConfiguredServices(Service.Gemini)
 
