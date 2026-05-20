@@ -1,3 +1,3 @@
 package com.inspiredandroid.kai.inference
 
-actual fun createLocalInferenceEngine(): LocalInferenceEngine? = null
+actual fun createLocalInferenceEngine(): LocalInferenceEngine? = IosLiteRTInferenceEngine()

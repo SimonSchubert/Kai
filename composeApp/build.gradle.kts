@@ -41,8 +41,14 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
-            binaryOption("bundleId", "com.inspiredandroid.kai")
+            // Dynamic so LiteRT-LM's `-Xlinker -all_load` (in its Package.swift) doesn't
+            // sweep up ComposeApp's static archive too and trip thousands of duplicate
+            // symbols at link time. Each framework gets its own link context.
+            isStatic = false
+            // Must differ from the iosApp bundle identifier — iOS refuses to install a
+            // .app whose embedded framework shares its parent's identifier (MIInstaller
+            // error 57 / DuplicateIdentifier).
+            binaryOption("bundleId", "com.inspiredandroid.kai.composeapp")
         }
     }
 

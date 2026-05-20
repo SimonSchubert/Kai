@@ -317,7 +317,7 @@ sealed class Service(
         settingsKeyPrefix = "venice",
         chatUrl = "https://api.venice.ai/api/v1/chat/completions",
         modelsUrl = "https://api.venice.ai/api/v1/models",
-        apiKeyUrl = "https://venice.ai/settings/api",
+        apiKeyUrl = "https://venice.ai/settings/api?ref=DsZFKZ",
         apiKeyUrlDisplay = "venice.ai/settings/api",
         reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
