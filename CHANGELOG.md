@@ -1,3 +1,20 @@
+## v2.6.2 — 2026-05-21
+
+### Features
+- Parse inline tool calls
+
+### Fixes
+- Fix multiple service deletes in a row
+- Fix DeepSeek thinking-mode tool calls returning reasoning_content error
+- Improve fallback error handling
+
+### Improvements
+- Improve model sorting
+- Update model catalog
+- Upgrade SDKs and LiteRT
+- Compose performance improvements
+- Internal code cleanup
+
 ## v2.6.1 — 2026-05-17
 
 ### Features
