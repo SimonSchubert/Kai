@@ -120,8 +120,20 @@ internal fun ModelSelection(
                     )
                 }
                 var sortOption by remember { mutableStateOf(ModelSortOption.Score) }
-                val sortedModels = remember(filteredModels, sortOption) {
-                    filteredModels.sortedWith(sortOption.comparator)
+                val sortedModels = remember(filteredModels, sortOption, searchQuery) {
+                    val base = filteredModels.sortedWith(sortOption.comparator)
+                    if (searchQuery.isBlank()) {
+                        base
+                    } else {
+                        base.sortedBy { model ->
+                            val name = model.displayName ?: model.id
+                            when {
+                                name.contains(searchQuery, ignoreCase = true) -> 0
+                                model.subtitle.contains(searchQuery, ignoreCase = true) -> 1
+                                else -> 2
+                            }
+                        }
+                    }
                 }
                 Row(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
