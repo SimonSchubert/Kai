@@ -786,7 +786,7 @@
 
 
 <h1 id="reasoning-content-handling">Reasoning Content Handling</h1>
-<p><strong>Last verified:</strong> 2026-05-17</p>
+<p><strong>Last verified:</strong> 2026-05-20</p>
 <p>Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: <strong>wire-side</strong> (whether to echo the trace back to the provider on the next request) and <strong>display-side</strong> (whether to show it to the user in the chat UI). When a turn also contains <code>tool_calls</code>, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.</p>
 <h2 id="why-per-provider-handling">Why per-provider handling</h2>
 <p>OpenAI's chat-completions schema has no standardized place for prior-turn reasoning, so each provider invented their own. The result is three sources of variation:</p>
@@ -817,10 +817,10 @@
 </tr>
 <tr>
 <td>DeepSeek</td>
-<td><strong>Rejected</strong></td>
-<td>n/a — strip on send</td>
-<td>Reasoner model rejects <code>reasoning_content</code> on input and does not support function calling at all</td>
-<td><a href="https://api-docs.deepseek.com/guides/reasoning_model">api-docs.deepseek.com/guides/reasoning_model</a></td>
+<td><strong>Required</strong></td>
+<td><code>reasoning_content</code></td>
+<td>Thinking-mode models (deepseek-chat, deepseek-v3.2, deepseek-v4-pro) return 400 (<code>The reasoning_content in the thinking mode must be passed back to the API</code>) if the field is missing on a follow-up turn after tool_calls. The legacy <code>deepseek-reasoner</code> doesn't expose tools so the gate <code>if (toolCalls != null)</code> keeps it unaffected</td>
+<td><a href="https://api-docs.deepseek.com/guides/thinking_mode">api-docs.deepseek.com/guides/thinking_mode</a></td>
 </tr>
 <tr>
 <td>Cerebras</td>
@@ -910,7 +910,7 @@
 </table>
 <h2 id="what-kai-does-today">What Kai does today</h2>
 <p>Kai gates the field on <code>Service.reasoningRequestMode</code> (<code>NONE</code> or <code>REASONING_CONTENT</code>). When <code>REASONING_CONTENT</code> is set and the prior assistant turn carried <code>tool_calls</code>, Kai emits the field on the next request.</p>
-<p>Services currently set to <code>REASONING_CONTENT</code>: OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.</p>
+<p>Services currently set to <code>REASONING_CONTENT</code>: DeepSeek, OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.</p>
 <p>All other services use the default <code>NONE</code> (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.</p>
 <p>The chain-of-thought is preserved on <code>History.reasoningContent</code> regardless of the wire-side decision so the UI can render thinking traces independently of what gets transmitted on the next request. This applies to assistant turns received over the OpenAI-compatible path; the Anthropic and Gemini paths have their own thinking handling and do not currently populate this field. Capture happens going forward — conversations saved before the persistence support was added will not retroactively gain reasoning content on reload.</p>
 <h2 id="display-in-chat-ui">Display in chat UI</h2>
