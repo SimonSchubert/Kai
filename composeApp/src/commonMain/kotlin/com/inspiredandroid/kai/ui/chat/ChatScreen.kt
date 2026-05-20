@@ -110,6 +110,7 @@ import com.inspiredandroid.kai.ui.settings.SandboxViewModel
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.fallback_answered_by
 import kai.composeapp.generated.resources.fallback_service_failed
+import kai.composeapp.generated.resources.fallback_trying_next
 import kai.composeapp.generated.resources.ic_stop
 import kai.composeapp.generated.resources.interactive_back_content_description
 import kai.composeapp.generated.resources.interactive_exit_content_description
@@ -682,7 +683,9 @@ private fun ChatModeScreen(
                             val executingToolsState = rememberExecutingTools(uiState.history)
 
                             val fallbackStatusText = uiState.fallbackStatus?.let { status ->
-                                stringResource(Res.string.fallback_service_failed, status.serviceName, uiErrorText(status.errorReason))
+                                val failed = stringResource(Res.string.fallback_service_failed, status.serviceName, uiErrorText(status.errorReason))
+                                val next = status.nextServiceName?.let { stringResource(Res.string.fallback_trying_next, it) }
+                                if (next != null) "$failed\n$next" else failed
                             }
 
                             // Group every reasoning segment in a response (intermediate tool-call /

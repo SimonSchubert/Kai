@@ -144,6 +144,8 @@
     <string name="tab_settings">الإعدادات</string>
     <string name="fallback_answered_by">أجاب بواسطة %1$s (احتياطي)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">جارٍ تجربة %1$s…</string>
+    <string name="error_all_services_failed">فشلت جميع الخدمات.</string>
     <string name="settings_heartbeat_interval">الفاصل الزمني</string>
     <string name="settings_heartbeat_active_hours">ساعات النشاط</string>
     <string name="settings_documentation">التوثيق</string>

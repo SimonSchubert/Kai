@@ -143,6 +143,8 @@
     <string name="tab_settings">Ρυθμίσεις</string>
     <string name="fallback_answered_by">Απάντηση από %1$s (εφεδρικό)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Δοκιμή %1$s…</string>
+    <string name="error_all_services_failed">Όλες οι υπηρεσίες απέτυχαν.</string>
     <string name="settings_heartbeat_interval">Διάστημα</string>
     <string name="settings_heartbeat_active_hours">Ενεργές Ώρες</string>
     <string name="settings_documentation">Τεκμηρίωση</string>

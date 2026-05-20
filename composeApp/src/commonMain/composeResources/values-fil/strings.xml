@@ -143,6 +143,8 @@
     <string name="tab_settings">Mga Setting</string>
     <string name="fallback_answered_by">Sinagot ng %1$s (fallback)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Sinusubukan ang %1$s…</string>
+    <string name="error_all_services_failed">Nabigo ang lahat ng serbisyo.</string>
     <string name="settings_heartbeat_interval">Pagitan</string>
     <string name="settings_heartbeat_active_hours">Mga Aktibong Oras</string>
     <string name="settings_documentation">Dokumentasyon</string>

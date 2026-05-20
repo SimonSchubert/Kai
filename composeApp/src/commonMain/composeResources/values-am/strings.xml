@@ -144,6 +144,8 @@
     <string name="tab_settings">ቅንብሮች</string>
     <string name="fallback_answered_by">%1$s መልስ ሰጥቷል (ተተኪ)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s እየሞከረ ነው…</string>
+    <string name="error_all_services_failed">ሁሉም አገልግሎቶች አልተሳኩም።</string>
     <string name="settings_heartbeat_interval">ክፍተት</string>
     <string name="settings_heartbeat_active_hours">ንቁ ሰዓቶች</string>
     <string name="settings_documentation">ሰነድ</string>

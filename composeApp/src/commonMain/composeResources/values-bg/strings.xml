@@ -143,6 +143,8 @@
     <string name="tab_settings">Настройки</string>
     <string name="fallback_answered_by">Отговорено от %1$s (резервен)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Опитване на %1$s…</string>
+    <string name="error_all_services_failed">Всички услуги се провалиха.</string>
     <string name="settings_heartbeat_interval">Интервал</string>
     <string name="settings_heartbeat_active_hours">Активни часове</string>
     <string name="settings_documentation">Документация</string>

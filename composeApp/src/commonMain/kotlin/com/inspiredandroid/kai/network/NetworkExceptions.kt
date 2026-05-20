@@ -4,6 +4,7 @@ import com.inspiredandroid.kai.inference.InferenceTimeoutException
 import com.inspiredandroid.kai.inference.InsufficientMemoryException
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_all_services_failed
 import kai.composeapp.generated.resources.error_context_window_exceeded
 import kai.composeapp.generated.resources.error_empty_response
 import kai.composeapp.generated.resources.error_file_too_large
@@ -50,6 +51,7 @@ class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException()
 class ContextWindowExceededException : ApiException(null)
 class UnsupportedFileTypeException : ApiException(null)
 class FileTooLargeException : ApiException(null)
+class AllServicesFailedException : ApiException(null)
 
 sealed interface UiError {
     data class Resource(val resource: StringResource) : UiError
@@ -60,6 +62,7 @@ fun Exception.toUiError(): UiError = when (this) {
     is UnsupportedFileTypeException -> UiError.Resource(Res.string.error_unsupported_file_type)
     is FileTooLargeException -> UiError.Resource(Res.string.error_file_too_large)
     is ContextWindowExceededException -> UiError.Resource(Res.string.error_context_window_exceeded)
+    is AllServicesFailedException -> UiError.Resource(Res.string.error_all_services_failed)
     is OpenAICompatibleRequestTooLargeException -> UiError.Resource(Res.string.error_image_too_large)
     is GeminiInvalidApiKeyException, is OpenAICompatibleInvalidApiKeyException, is AnthropicInvalidApiKeyException -> UiError.Resource(Res.string.error_invalid_api_key)
     is GeminiRateLimitExceededException, is OpenAICompatibleRateLimitExceededException, is AnthropicRateLimitExceededException -> UiError.Resource(Res.string.error_rate_limit_exceeded)

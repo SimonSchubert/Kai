@@ -144,6 +144,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="tab_settings">Einstellungen</string>
     <string name="fallback_answered_by">Beantwortet von %1$s (Ersatz)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Versuche %1$s…</string>
+    <string name="error_all_services_failed">Alle Dienste sind fehlgeschlagen.</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive Stunden</string>
     <string name="settings_documentation">Dokumentation</string>

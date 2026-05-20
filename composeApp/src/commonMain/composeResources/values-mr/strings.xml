@@ -143,6 +143,8 @@
     <string name="tab_settings">सेटिंग्ज</string>
     <string name="fallback_answered_by">%1$s ने उत्तर दिले (फॉलबॅक)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s प्रयत्न करत आहे…</string>
+    <string name="error_all_services_failed">सर्व सेवा अयशस्वी झाल्या.</string>
     <string name="settings_heartbeat_interval">मध्यांतर</string>
     <string name="settings_heartbeat_active_hours">सक्रिय तास</string>
     <string name="settings_documentation">दस्तऐवजीकरण</string>

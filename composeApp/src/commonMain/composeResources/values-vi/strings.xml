@@ -143,6 +143,8 @@
     <string name="tab_settings">Cài đặt</string>
     <string name="fallback_answered_by">Đã trả lời bởi %1$s (dự phòng)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Đang thử %1$s…</string>
+    <string name="error_all_services_failed">Tất cả dịch vụ đều thất bại.</string>
     <string name="settings_heartbeat_interval">Khoảng thời gian</string>
     <string name="settings_heartbeat_active_hours">Giờ hoạt động</string>
     <string name="settings_documentation">Tài liệu</string>

@@ -144,6 +144,8 @@
     <string name="tab_settings">设置</string>
     <string name="fallback_answered_by">由 %1$s 回答（备用）</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">正在尝试 %1$s…</string>
+    <string name="error_all_services_failed">所有服务均失败。</string>
     <string name="settings_heartbeat_interval">间隔</string>
     <string name="settings_heartbeat_active_hours">活跃时段</string>
     <string name="settings_documentation">文档</string>

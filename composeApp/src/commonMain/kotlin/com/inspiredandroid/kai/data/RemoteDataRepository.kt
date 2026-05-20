@@ -22,6 +22,7 @@ import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import com.inspiredandroid.kai.inference.getTotalMemoryBytes
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
+import com.inspiredandroid.kai.network.AllServicesFailedException
 import com.inspiredandroid.kai.network.AnthropicGenericException
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.ContextWindowExceededException
@@ -771,7 +772,11 @@ class RemoteDataRepository(
                     val entryWindowChars = ModelCatalog.estimateContextWindow(creds.modelId) * ESTIMATED_CHARS_PER_TOKEN
                     if (historyChars > entryWindowChars) {
                         lastException = ContextWindowExceededException()
-                        _fallbackStatus.value = FallbackStatus(entry.service.displayName, ContextWindowExceededException().toUiError())
+                        _fallbackStatus.value = FallbackStatus(
+                            serviceName = entry.service.displayName,
+                            errorReason = ContextWindowExceededException().toUiError(),
+                            nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                        )
                         continue
                     }
                 }
@@ -782,11 +787,14 @@ class RemoteDataRepository(
                     }
                 } catch (e: Exception) {
                     if (e is kotlinx.coroutines.CancellationException) throw e
-                    if (isNonRetryableException(e)) throw e
                     // On-device services should not silently fall back — surface the error
                     if (entry.service.isOnDevice) throw e
                     lastException = e
-                    _fallbackStatus.value = FallbackStatus(entry.service.displayName, e.toUiError())
+                    _fallbackStatus.value = FallbackStatus(
+                        serviceName = entry.service.displayName,
+                        errorReason = e.toUiError(),
+                        nextServiceName = fallbackEntries.getOrNull(index + 1)?.service?.displayName,
+                    )
                     continue
                 }
                 if (index > 0) {
@@ -808,7 +816,11 @@ class RemoteDataRepository(
                 return
             }
 
-            throw lastException ?: OpenAICompatibleEmptyResponseException()
+            throw if (fallbackEntries.size > 1 && lastException != null) {
+                AllServicesFailedException()
+            } else {
+                lastException ?: OpenAICompatibleEmptyResponseException()
+            }
         } finally {
             _fallbackStatus.value = null
         }

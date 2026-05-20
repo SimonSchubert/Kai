@@ -143,6 +143,8 @@
     <string name="tab_settings">הגדרות</string>
     <string name="fallback_answered_by">נענה על ידי %1$s (חלופי)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">מנסה את %1$s…</string>
+    <string name="error_all_services_failed">כל השירותים נכשלו.</string>
     <string name="settings_heartbeat_interval">מרווח</string>
     <string name="settings_heartbeat_active_hours">שעות פעילות</string>
     <string name="settings_documentation">תיעוד</string>

@@ -143,6 +143,8 @@
     <string name="tab_settings">Параметрлер</string>
     <string name="fallback_answered_by">%1$s жауап берді (қосалқы)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s әрекеті…</string>
+    <string name="error_all_services_failed">Барлық қызметтер сәтсіз аяқталды.</string>
     <string name="settings_heartbeat_interval">Аралық</string>
     <string name="settings_heartbeat_active_hours">Белсенді сағаттар</string>
     <string name="settings_documentation">Құжаттама</string>

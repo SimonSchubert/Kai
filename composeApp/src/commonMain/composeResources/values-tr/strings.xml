@@ -144,6 +144,8 @@ Bir şey dikkat gerektiriyorsa (eski anılar, vadesi geçmiş görevler, kullan�
     <string name="tab_settings">Ayarlar</string>
     <string name="fallback_answered_by">%1$s tarafından yanıtlandı (yedek)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s deneniyor…</string>
+    <string name="error_all_services_failed">Tüm hizmetler başarısız oldu.</string>
     <string name="settings_heartbeat_interval">Aralık</string>
     <string name="settings_heartbeat_active_hours">Aktif Saatler</string>
     <string name="settings_documentation">Dokümantasyon</string>

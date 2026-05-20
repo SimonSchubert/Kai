@@ -143,6 +143,8 @@
     <string name="tab_settings">Mipangilio</string>
     <string name="fallback_answered_by">Imejibiwa na %1$s (mbadala)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Inajaribu %1$s…</string>
+    <string name="error_all_services_failed">Huduma zote zimeshindwa.</string>
     <string name="settings_heartbeat_interval">Muda</string>
     <string name="settings_heartbeat_active_hours">Masaa ya Shughuli</string>
     <string name="settings_documentation">Nyaraka</string>

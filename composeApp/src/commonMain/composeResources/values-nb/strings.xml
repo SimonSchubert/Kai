@@ -144,6 +144,8 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="tab_settings">Innstillinger</string>
     <string name="fallback_answered_by">Besvart av %1$s (reserve)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Prøver %1$s…</string>
+    <string name="error_all_services_failed">Alle tjenester mislyktes.</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktive timer</string>
     <string name="settings_documentation">Dokumentasjon</string>

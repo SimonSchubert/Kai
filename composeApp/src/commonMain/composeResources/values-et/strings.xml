@@ -143,6 +143,8 @@
     <string name="tab_settings">Seaded</string>
     <string name="fallback_answered_by">Vastas %1$s (varuvariant)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Proovin %1$s…</string>
+    <string name="error_all_services_failed">Kõik teenused ebaõnnestusid.</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiivsed tunnid</string>
     <string name="settings_documentation">Dokumentatsioon</string>

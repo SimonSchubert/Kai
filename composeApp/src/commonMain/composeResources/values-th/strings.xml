@@ -143,6 +143,8 @@
     <string name="tab_settings">การตั้งค่า</string>
     <string name="fallback_answered_by">ตอบโดย %1$s (สำรอง)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">กำลังลอง %1$s…</string>
+    <string name="error_all_services_failed">บริการทั้งหมดล้มเหลว</string>
     <string name="settings_heartbeat_interval">ช่วงเวลา</string>
     <string name="settings_heartbeat_active_hours">ชั่วโมงที่ใช้งาน</string>
     <string name="settings_documentation">เอกสาร</string>

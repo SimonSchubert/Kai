@@ -257,6 +257,8 @@
     <string name="tab_settings">Settings</string>
     <string name="fallback_answered_by">Answered by %1$s (fallback)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Trying %1$s…</string>
+    <string name="error_all_services_failed">All services failed.</string>
     <string name="settings_soul">Soul</string>
     <string name="settings_soul_description">Define how the AI behaves with a system prompt. The AI will also have access to its stored memories.</string>
     <string name="settings_soul_save">Save</string>

@@ -143,6 +143,8 @@
     <string name="tab_settings">Beállítások</string>
     <string name="fallback_answered_by">Válaszolta: %1$s (tartalék)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s próbálása…</string>
+    <string name="error_all_services_failed">Minden szolgáltatás sikertelen volt.</string>
     <string name="settings_heartbeat_interval">Időköz</string>
     <string name="settings_heartbeat_active_hours">Aktív órák</string>
     <string name="settings_documentation">Dokumentáció</string>

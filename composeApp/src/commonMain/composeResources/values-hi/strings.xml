@@ -144,6 +144,8 @@
     <string name="tab_settings">सेटिंग्स</string>
     <string name="fallback_answered_by">%1$s द्वारा उत्तर दिया गया (फ़ॉलबैक)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s आज़माया जा रहा है…</string>
+    <string name="error_all_services_failed">सभी सेवाएँ विफल हो गईं।</string>
     <string name="settings_heartbeat_interval">अंतराल</string>
     <string name="settings_heartbeat_active_hours">सक्रिय घंटे</string>
     <string name="settings_documentation">दस्तावेज़ीकरण</string>

@@ -144,6 +144,8 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="tab_settings">Instellingen</string>
     <string name="fallback_answered_by">Beantwoord door %1$s (reserve)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Probeert %1$s…</string>
+    <string name="error_all_services_failed">Alle diensten zijn mislukt.</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Actieve uren</string>
     <string name="settings_documentation">Documentatie</string>

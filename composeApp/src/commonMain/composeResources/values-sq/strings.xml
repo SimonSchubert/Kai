@@ -143,6 +143,8 @@
     <string name="tab_settings">Cilësimet</string>
     <string name="fallback_answered_by">Përgjigjur nga %1$s (rezervë)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Po provoj %1$s…</string>
+    <string name="error_all_services_failed">Të gjitha shërbimet dështuan.</string>
     <string name="settings_heartbeat_interval">Intervali</string>
     <string name="settings_heartbeat_active_hours">Orët Aktive</string>
     <string name="settings_documentation">Dokumentacioni</string>

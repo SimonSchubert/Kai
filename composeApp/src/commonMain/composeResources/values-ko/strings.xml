@@ -144,6 +144,8 @@
     <string name="tab_settings">설정</string>
     <string name="fallback_answered_by">%1$s이(가) 응답함 (대체)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s 시도 중…</string>
+    <string name="error_all_services_failed">모든 서비스가 실패했습니다.</string>
     <string name="settings_heartbeat_interval">간격</string>
     <string name="settings_heartbeat_active_hours">활성 시간</string>
     <string name="settings_documentation">문서</string>

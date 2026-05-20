@@ -144,6 +144,8 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="tab_settings">Inställningar</string>
     <string name="fallback_answered_by">Besvarad av %1$s (reserv)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Försöker %1$s…</string>
+    <string name="error_all_services_failed">Alla tjänster misslyckades.</string>
     <string name="settings_heartbeat_interval">Intervall</string>
     <string name="settings_heartbeat_active_hours">Aktiva timmar</string>
     <string name="settings_documentation">Dokumentation</string>

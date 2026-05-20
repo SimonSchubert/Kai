@@ -144,6 +144,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="tab_settings">Paramètres</string>
     <string name="fallback_answered_by">Répondu par %1$s (secours)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Essai de %1$s…</string>
+    <string name="error_all_services_failed">Tous les services ont échoué.</string>
     <string name="settings_heartbeat_interval">Intervalle</string>
     <string name="settings_heartbeat_active_hours">Heures Actives</string>
     <string name="settings_documentation">Documentation</string>

@@ -143,6 +143,8 @@
     <string name="tab_settings">அமைப்புகள்</string>
     <string name="fallback_answered_by">%1$s மூலம் பதிலளிக்கப்பட்டது (மாற்று)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">%1$s முயற்சிக்கப்படுகிறது…</string>
+    <string name="error_all_services_failed">அனைத்து சேவைகளும் தோல்வியடைந்தன.</string>
     <string name="settings_heartbeat_interval">இடைவெளி</string>
     <string name="settings_heartbeat_active_hours">செயலில் உள்ள நேரம்</string>
     <string name="settings_documentation">ஆவணமாக்கம்</string>

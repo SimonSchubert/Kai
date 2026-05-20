@@ -143,6 +143,8 @@
     <string name="tab_settings">Nastavitve</string>
     <string name="fallback_answered_by">Odgovoril %1$s (nadomestni)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Poskušam %1$s…</string>
+    <string name="error_all_services_failed">Vse storitve niso uspele.</string>
     <string name="settings_heartbeat_interval">Interval</string>
     <string name="settings_heartbeat_active_hours">Aktivne ure</string>
     <string name="settings_documentation">Dokumentacija</string>

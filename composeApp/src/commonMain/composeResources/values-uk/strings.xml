@@ -144,6 +144,8 @@
     <string name="tab_settings">Налаштування</string>
     <string name="fallback_answered_by">Відповів %1$s (резервний)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Пробую %1$s…</string>
+    <string name="error_all_services_failed">Усі сервіси не вдалися.</string>
     <string name="settings_heartbeat_interval">Інтервал</string>
     <string name="settings_heartbeat_active_hours">Активні години</string>
     <string name="settings_documentation">Документація</string>

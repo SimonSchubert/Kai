@@ -143,6 +143,8 @@
     <string name="tab_settings">تنظیمات</string>
     <string name="fallback_answered_by">پاسخ داده شده توسط %1$s (پشتیبان)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">در حال تلاش با %1$s…</string>
+    <string name="error_all_services_failed">همه سرویس‌ها ناموفق بودند.</string>
     <string name="settings_heartbeat_interval">فاصله زمانی</string>
     <string name="settings_heartbeat_active_hours">ساعات فعال</string>
     <string name="settings_documentation">مستندات</string>

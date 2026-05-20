@@ -143,6 +143,8 @@
     <string name="tab_settings">Izilungiselelo</string>
     <string name="fallback_answered_by">Kuphendulwe ngu-%1$s (okungukuhlehla)</string>
     <string name="fallback_service_failed">%1$s: %2$s</string>
+    <string name="fallback_trying_next">Izama %1$s…</string>
+    <string name="error_all_services_failed">Zonke izinsizakalo zihlulekile.</string>
     <string name="settings_heartbeat_interval">Isikhathi</string>
     <string name="settings_heartbeat_active_hours">Amahora Asebenzayo</string>
     <string name="settings_documentation">Ukubhaliwe</string>
