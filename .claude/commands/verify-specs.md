@@ -1,3 +1,6 @@
+---
+description: Verify codebase conforms with feature specs in docs/features/. Args: optional feature name to scope to a single spec.
+---
 # Verify Specs
 
 Verify that the codebase conforms with the feature specs in `docs/features/`.

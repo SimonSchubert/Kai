@@ -1,3 +1,6 @@
+---
+description: Update LMArena Elo scores and model catalog in ModelCatalog.kt.
+---
 Update the LMArena Elo scores and model catalog in `ModelCatalog.kt`.
 
 ## 1. Fetch the latest LMArena leaderboard

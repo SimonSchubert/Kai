@@ -1,3 +1,6 @@
+---
+description: Perform a release for Kai. Args: bump type — patch (default), minor, or major.
+---
 Perform a release for Kai. Bump type argument: $ARGUMENTS (default: patch).
 
 Follow these steps exactly:

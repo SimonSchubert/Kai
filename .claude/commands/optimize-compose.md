@@ -1,3 +1,6 @@
+---
+description: Scan Compose UI code for performance issues and fix them. Args: blank = recently changed files, 'all' = entire project, or a file/dir path.
+---
 # Optimize Compose
 
 Scan Compose UI code for performance issues and fix them. Checks stability annotations, recomposition triggers, and Compose best practices against this project's established patterns.
