@@ -50,9 +50,9 @@ data class ModelDefinition(
 /**
  * How a service handles a `reasoning_content` field on outgoing assistant messages.
  *
- * Default is [NONE] so any new provider is safe by default — Groq, DeepSeek and
- * Cerebras all return HTTP 400 when they see this field, so opt-in is the correct
- * posture. See `docs/features/reasoning.md` for the authoritative per-provider matrix.
+ * Default is [NONE] so any new provider is safe by default — Groq and Cerebras
+ * return HTTP 400 when they see this field, so opt-in is the correct posture.
+ * See `docs/features/reasoning.md` for the authoritative per-provider matrix.
  */
 enum class ReasoningRequestMode {
     /** Strip the field before sending. Safe default. */
@@ -218,6 +218,7 @@ sealed class Service(
         modelsUrl = "https://api.deepseek.com/models",
         apiKeyUrl = "https://platform.deepseek.com/api_keys",
         apiKeyUrlDisplay = "platform.deepseek.com/api_keys",
+        reasoningRequestMode = ReasoningRequestMode.REASONING_CONTENT,
     )
 
     data object Mistral : Service(

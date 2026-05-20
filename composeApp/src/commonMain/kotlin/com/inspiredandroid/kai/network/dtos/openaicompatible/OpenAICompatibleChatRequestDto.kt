@@ -17,9 +17,10 @@ data class OpenAICompatibleChatRequestDto(
         val tool_calls: List<ToolCall>? = null,
         val tool_call_id: String? = null, // Required for "tool" role messages
         // Echoed back on assistant turns that produced tool_calls for providers
-        // that require it (Fireworks, LongCat, MiniMax, Moonshot/Kimi thinking,
-        // Venice, Z.AI/GLM thinking, OpenCode Zen, OpenRouter). Groq/DeepSeek/
-        // Cerebras strict-reject it, so emission is gated by Service.reasoningRequestMode.
+        // that require it (DeepSeek thinking, Fireworks, LongCat, MiniMax,
+        // Moonshot/Kimi thinking, Venice, Z.AI/GLM thinking, OpenCode Zen,
+        // OpenRouter). Groq/Cerebras strict-reject it, so emission is gated by
+        // Service.reasoningRequestMode.
         @SerialName("reasoning_content")
         val reasoningContent: String? = null,
     )

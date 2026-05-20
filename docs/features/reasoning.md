@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-05-17
+**Last verified:** 2026-05-20
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 
@@ -19,7 +19,7 @@ Behavior of each provider when an `assistant`-role message with prior `tool_call
 | Provider | Status | Wire field expected | Notes | Source |
 |---|---|---|---|---|
 | Groq | **Rejected** | n/a — strip on send | Strict schema validator: `400 ('messages.N': property 'reasoning_content' is unsupported)` on any unknown assistant-message field | [console.groq.com/docs/reasoning](https://console.groq.com/docs/reasoning) |
-| DeepSeek | **Rejected** | n/a — strip on send | Reasoner model rejects `reasoning_content` on input and does not support function calling at all | [api-docs.deepseek.com/guides/reasoning_model](https://api-docs.deepseek.com/guides/reasoning_model) |
+| DeepSeek | **Required** | `reasoning_content` | Thinking-mode models (deepseek-chat, deepseek-v3.2, deepseek-v4-pro) return 400 (`The reasoning_content in the thinking mode must be passed back to the API`) if the field is missing on a follow-up turn after tool_calls. The legacy `deepseek-reasoner` doesn't expose tools so the gate `if (toolCalls != null)` keeps it unaffected | [api-docs.deepseek.com/guides/thinking_mode](https://api-docs.deepseek.com/guides/thinking_mode) |
 | Cerebras | **Rejected (wrong field)** | `reasoning` (not `reasoning_content`) | GLM-4.7 multi-step returns 400 when sent `reasoning_content`; expects `reasoning`. Kai sends neither (mode = `NONE`) | [inference-docs.cerebras.ai/api-reference/chat-completions](https://inference-docs.cerebras.ai/api-reference/chat-completions) |
 | Z.AI Coding Plan | **Required** | `reasoning_content` | Preserved Thinking is on by default on `/api/coding/paas/v4`; dropping the field breaks reasoning coherence | [docs.z.ai/guides/capabilities/thinking-mode](https://docs.z.ai/guides/capabilities/thinking-mode) |
 | OpenCode Zen (DeepSeek route) | **Required** | `reasoning_content` | Pass-through gateway. When routing to DeepSeek-V4 Pro thinking, once any assistant message carries reasoning, all subsequent assistant messages must | [opencode.ai/docs/zen/](https://opencode.ai/docs/zen/) |
@@ -37,7 +37,7 @@ Behavior of each provider when an `assistant`-role message with prior `tool_call
 
 Kai gates the field on `Service.reasoningRequestMode` (`NONE` or `REASONING_CONTENT`). When `REASONING_CONTENT` is set and the prior assistant turn carried `tool_calls`, Kai emits the field on the next request.
 
-Services currently set to `REASONING_CONTENT`: OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.
+Services currently set to `REASONING_CONTENT`: DeepSeek, OpenRouter, LongCat, Venice, Moonshot, Z.AI, Z.AI Coding Plan, MiniMax, Fireworks, OpenCode.
 
 All other services use the default `NONE` (the field is stripped on send). This is the safe default — any service we don't yet have evidence about will not regress.
 
