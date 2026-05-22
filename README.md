@@ -16,11 +16,10 @@ An **open-source AI assistant with persistent memory** that runs on **Android, i
 <div align="center">
 <br>
 
-**⚡ Featured provider — [Atlas Cloud](https://www.atlascloud.ai)**
+**Sponsor: [Atlas Cloud](https://www.atlascloud.ai)**
 
 <a href="https://www.atlascloud.ai"><img src="https://www.atlascloud.ai/logo.svg" height="36" alt="Atlas Cloud"></a>
 
-Full-modal AI platform — 300+ chat, image, video & audio models behind one OpenAI-compatible API.
 
 </div>
 
