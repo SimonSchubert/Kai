@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.data
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.ic_service_aihubmix
 import kai.composeapp.generated.resources.ic_service_anthropic
+import kai.composeapp.generated.resources.ic_service_atlascloud
 import kai.composeapp.generated.resources.ic_service_cerebras
 import kai.composeapp.generated.resources.ic_service_deepinfra
 import kai.composeapp.generated.resources.ic_service_deepseek
@@ -102,6 +103,19 @@ sealed class Service(
         settingsKeyPrefix = "",
         chatUrl = "https://api.kai9000.com/chat/completions",
         modelsUrl = null,
+    )
+
+    data object AtlasCloud : Service(
+        id = "atlascloud",
+        displayName = "Atlas Cloud",
+        icon = Res.drawable.ic_service_atlascloud,
+        requiresApiKey = true,
+        defaultModel = null,
+        settingsKeyPrefix = "atlascloud",
+        chatUrl = "https://api.atlascloud.ai/v1/chat/completions",
+        modelsUrl = "https://api.atlascloud.ai/v1/models",
+        apiKeyUrl = "https://www.atlascloud.ai/console/api-keys",
+        apiKeyUrlDisplay = "atlascloud.ai/console/api-keys",
     )
 
     data object Groq : Service(
@@ -470,7 +484,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
