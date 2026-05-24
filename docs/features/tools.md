@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-05-24
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -180,6 +180,12 @@ Tool results longer than 20,000 characters are truncated with a note indicating 
 
 Between tool loop iterations, the message history is trimmed to fit within the model's context window. All three providers (OpenAI-compatible, Gemini, Anthropic) perform inter-iteration trimming. Context window sizes are estimated per model (e.g. Gemini 2.5 = 1M tokens, Claude = 200K, GPT-4o = 128K, small local models = 8–32K) and oldest messages are dropped first while preserving the system prompt.
 
+Trimming preserves the tool-call pairing required by strict OpenAI-compatible providers (e.g. DeepSeek via OpenCode Zen): an assistant turn that requested tool calls is dropped together with the tool responses that answer it, never split. A trailing tool result is never kept without the assistant message that requested it.
+
+### Tool-call message sanitization (OpenAI-compatible)
+
+Strict OpenAI-compatible providers reject a request when an assistant message carrying `tool_calls` is not immediately followed by one tool response per `tool_call_id`, or when a tool response has no preceding `tool_calls` (HTTP 400). Before every OpenAI-compatible request, the outgoing message list is sanitized to enforce this invariant: each assistant tool-call turn is paired with the tool responses that follow it, any tool call left unanswered (e.g. by an interrupted run or aggressive trimming) is stripped, orphan tool responses are dropped, and an assistant turn left with neither text nor tool calls is removed. Gemini and Anthropic use their own native serialization and are unaffected by this pass.
+
 ### Context window overflow protection
 
 When the fallback chain is active, each fallback service is checked before use. If the current conversation exceeds a fallback model's estimated context window, that service is skipped. If no service in the chain has a large enough window, an error message is shown to the user.
@@ -253,7 +259,8 @@ The interactive-mode top bar shows only the static title — loading is surfaced
 | `composeApp/src/commonMain/.../network/tools/Tool.kt` | Tool interface, ToolSchema, ParameterSchema |
 | `composeApp/src/commonMain/.../network/tools/ToolInfo.kt` | Display metadata for settings |
 | `composeApp/src/commonMain/.../data/ToolExecutor.kt` | Execution, JSON parsing, timeout, truncation |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Tool loop (Gemini + OpenAI), parallel execution |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Tool loop (Gemini + OpenAI), parallel execution, context trimming |
+| `composeApp/src/commonMain/.../data/providers/OpenAIMessages.kt` | OpenAI-compatible message building + tool-call pairing sanitization |
 | `composeApp/src/commonMain/.../tools/CommonTools.kt` | Common tool implementations |
 | `composeApp/src/commonMain/.../Platform.kt` | Platform expect declarations for available tools |
 | `composeApp/src/androidMain/.../Platform.android.kt` | Android-specific tool implementations |

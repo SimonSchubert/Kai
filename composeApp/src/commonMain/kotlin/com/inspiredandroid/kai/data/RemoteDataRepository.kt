@@ -1208,14 +1208,35 @@ class RemoteDataRepository(
         val systemChars = systemMessages.sumOf { estimateMessageChars(it) }
         val availableChars = maxChars - systemChars
 
-        // Keep messages from the end until we exceed the budget
+        // Group each assistant tool-call turn together with the tool responses that follow it so
+        // trimming never strands one without the other. Strict OpenAI-compatible providers (e.g.
+        // DeepSeek via OpenCode Zen) reject an assistant `tool_calls` message that isn't followed
+        // by its tool responses, and a `tool` message without a preceding `tool_calls`.
+        val groups = mutableListOf<List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>>()
+        var index = 0
+        while (index < nonSystemMessages.size) {
+            val msg = nonSystemMessages[index]
+            if (msg.role == "assistant" && !msg.tool_calls.isNullOrEmpty()) {
+                var end = index + 1
+                while (end < nonSystemMessages.size && nonSystemMessages[end].role == "tool") {
+                    end++
+                }
+                groups.add(nonSystemMessages.subList(index, end).toList())
+                index = end
+            } else {
+                groups.add(listOf(msg))
+                index++
+            }
+        }
+
+        // Keep whole groups from the end until we exceed the budget.
         val kept = mutableListOf<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>()
         var usedChars = 0
-        for (msg in nonSystemMessages.reversed()) {
-            val msgChars = estimateMessageChars(msg)
-            if (usedChars + msgChars > availableChars) break
-            kept.add(0, msg)
-            usedChars += msgChars
+        for (group in groups.asReversed()) {
+            val groupChars = group.sumOf { estimateMessageChars(it) }
+            if (usedChars + groupChars > availableChars) break
+            kept.addAll(0, group)
+            usedChars += groupChars
         }
 
         return systemMessages + kept
