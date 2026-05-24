@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-05-14</p>
+<p><strong>Last verified:</strong> 2026-05-24</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -841,9 +841,9 @@
 </tr>
 <tr>
 <td><code>## Tool Use</code></td>
-<td style="text-align: center;">always</td>
-<td style="text-align: center;">always</td>
-<td>baked into <code>DEFAULT_TOOL_USE_SECTION</code> constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Always rendered (both variants) so soul customization can't drop it</td>
+<td style="text-align: center;">when tools available</td>
+<td style="text-align: center;">when tools available</td>
+<td>baked into <code>DEFAULT_TOOL_USE_SECTION</code> constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Gated on <code>hasTools</code>: with every tool disabled (or a model that doesn't support tool calls) the section is dropped rather than telling the model to use tools it doesn't have. Soul customization still can't drop it while tools exist</td>
 </tr>
 <tr>
 <td><code>## When to Act</code></td>
@@ -859,9 +859,9 @@
 </tr>
 <tr>
 <td><code>## Structured Learning</code></td>
-<td style="text-align: center;">always (remote-only block)</td>
+<td style="text-align: center;">when memory enabled (remote-only)</td>
 <td style="text-align: center;">never</td>
-<td>baked into <code>DEFAULT_STRUCTURED_LEARNING_SECTION</code> constant</td>
+<td>baked into <code>DEFAULT_STRUCTURED_LEARNING_SECTION</code> constant. Gated on <code>memoryEnabled</code> — it references <code>memory_learn</code> / <code>memory_reinforce</code>, which are absent when memory is off</td>
 </tr>
 <tr>
 <td><code>## Your Memories</code></td>
@@ -889,9 +889,9 @@
 </tr>
 <tr>
 <td><code>## Automation</code></td>
-<td style="text-align: center;">always (remote-only block)</td>
+<td style="text-align: center;">when scheduling enabled (remote-only)</td>
 <td style="text-align: center;">never</td>
-<td>baked into <code>DEFAULT_AUTOMATION_SECTION</code> constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through <code>schedule_task</code> with one of three triggers (<code>execute_at</code>, <code>cron</code>, <code>on_heartbeat</code>). Heartbeat schedule itself is user-controlled</td>
+<td>baked into <code>DEFAULT_AUTOMATION_SECTION</code> constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through <code>schedule_task</code> with one of three triggers (<code>execute_at</code>, <code>cron</code>, <code>on_heartbeat</code>). Heartbeat schedule itself is user-controlled. Gated on <code>schedulingEnabled</code> — it references <code>schedule_task</code> / <code>list_tasks</code> / <code>cancel_task</code>, which are absent when scheduling is off</td>
 </tr>
 <tr>
 <td><code>## Email Accounts</code></td>

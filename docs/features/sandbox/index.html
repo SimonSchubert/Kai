@@ -858,7 +858,7 @@
 
 
 <h1 id="linux-sandbox">Linux Sandbox</h1>
-<p><strong>Last verified:</strong> 2026-05-14</p>
+<p><strong>Last verified:</strong> 2026-05-24</p>
 <p>Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space <code>proot</code> runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.</p>
 <p>The sandbox is <strong>Android-only</strong>. iOS, desktop, and web have no-op stubs — sandbox operations are simply unavailable on those platforms.</p>
 <h2 id="concepts">Concepts</h2>
@@ -889,6 +889,7 @@
 <p>The shell session can break — the user types <code>exit</code>, a command crashes bash, the framing channel desyncs, or a per-call timeout expires with the shell still wedged. In every case the next command lazily starts a new shell. Working directory and exported env are lost in that one event; the system stays usable.</p>
 <h2 id="behavior">Behavior</h2>
 <ul>
+<li><strong>Tool availability follows install state</strong>: the assistant's sandbox tools (shell command, <code>manage_process</code>, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) <em>and</em> the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the Alpine Linux card's switch is the on/off control.</li>
 <li><strong>First run</strong>: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, <code>apk update</code> runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.</li>
 <li><strong>State across the app</strong>: each chat conversation has its own shell, and the Terminal tab has another. Files in <code>/root</code> and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.</li>
 <li><strong>Network access</strong>: outbound IP works (DNS is configured against <code>8.8.8.8</code> / <code>8.8.4.4</code>). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.</li>
