@@ -1,3 +1,14 @@
+## v2.6.3 — 2026-05-24
+
+### Fixes
+- Fixed quick service toggle not scaling properly with many services
+- Fixed content serialization issue
+- Fixed dynamic system prompt builder incorrectly handling deactivated tools and agent settings
+- Strip orphaned tool calls left over from prior interruptions
+
+### Improvements
+- Updated model catalog
+
 ## v2.6.2 — 2026-05-21
 
 ### Features
