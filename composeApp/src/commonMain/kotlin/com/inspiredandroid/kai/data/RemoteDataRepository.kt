@@ -1621,9 +1621,20 @@ class RemoteDataRepository(
             else -> ChatPromptUiMode.NONE
         }
 
+        // Tool-use guidance is only worth sending when the model is actually given tools.
+        // Mirror the tool list the request will carry: remote uses the full set (when the
+        // model supports tools), local uses the allowlist-filtered set.
+        val hasTools = when (variant) {
+            SystemPromptVariant.CHAT_REMOTE -> !isLimited && getAvailableTools().isNotEmpty()
+            SystemPromptVariant.CHAT_LOCAL -> getLocalSafeTools().isNotEmpty()
+        }
+
         return buildChatSystemPrompt(
             variant = variant,
             soul = soul,
+            hasTools = hasTools,
+            memoryEnabled = memoryEnabled,
+            schedulingEnabled = schedulingEnabled,
             memoryInstructions = memoryInstructions,
             generalMemories = byCategory[MemoryCategory.GENERAL].orEmpty(),
             preferenceMemories = byCategory[MemoryCategory.PREFERENCE].orEmpty(),

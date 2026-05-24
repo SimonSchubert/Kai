@@ -25,6 +25,8 @@ import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
 import com.inspiredandroid.kai.notifications.NotificationReader
 import com.inspiredandroid.kai.notifications.declaresNotificationListener
+import com.inspiredandroid.kai.sandbox.LinuxSandboxManager
+import com.inspiredandroid.kai.sandbox.SandboxState
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSender
 import com.inspiredandroid.kai.sms.declaresReadSms
@@ -423,9 +425,12 @@ actual fun getAvailableTools(): List<Tool> {
         }
 
         if (appSettings.isSandboxEnabled()) {
-            add(ShellCommandTool)
-            add(ProcessManagerTool)
-            add(SshConfigureHostTool)
+            val sandboxManager: LinuxSandboxManager by inject(LinuxSandboxManager::class.java)
+            if (sandboxManager.state.value is SandboxState.Ready) {
+                add(ShellCommandTool)
+                add(ProcessManagerTool)
+                add(SshConfigureHostTool)
+            }
         }
 
         if (appSettings.isEmailEnabled()) {

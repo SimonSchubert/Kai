@@ -144,6 +144,9 @@ internal const val DEFAULT_AUTOMATION_SECTION =
 internal fun buildChatSystemPrompt(
     variant: SystemPromptVariant,
     soul: String,
+    hasTools: Boolean,
+    memoryEnabled: Boolean,
+    schedulingEnabled: Boolean,
     memoryInstructions: String?,
     generalMemories: List<MemoryEntry>,
     preferenceMemories: List<MemoryEntry>,
@@ -160,10 +163,14 @@ internal fun buildChatSystemPrompt(
     if (isNotEmpty()) append("\n\n")
     append(DEFAULT_HONESTY_RULE)
 
-    // Tool-use + when-to-act policies always render in both variants. They're behavioral
-    // fundamentals that survive soul customization, same rationale as the honesty rule.
-    if (isNotEmpty()) append("\n\n")
-    append(DEFAULT_TOOL_USE_SECTION)
+    // Tool-use policy only renders when the model is actually being given tools. With every
+    // tool disabled (or a model that doesn't support tool calls) "use tools to verify work"
+    // is noise that misleads the model. When-to-act is a general behavioral fundamental and
+    // renders regardless, same rationale as the honesty rule.
+    if (hasTools) {
+        if (isNotEmpty()) append("\n\n")
+        append(DEFAULT_TOOL_USE_SECTION)
+    }
     if (isNotEmpty()) append("\n\n")
     append(DEFAULT_ACTING_SECTION)
 
@@ -172,8 +179,10 @@ internal fun buildChatSystemPrompt(
         append(memoryInstructions)
     }
 
-    // Structured Learning is remote-only — references memory_learn, not in the local allowlist.
-    if (variant == SystemPromptVariant.CHAT_REMOTE) {
+    // Structured Learning references memory_learn / memory_reinforce, so it only makes sense
+    // when memory is enabled (those tools are absent otherwise). Remote-only — memory_learn
+    // isn't in the local allowlist.
+    if (variant == SystemPromptVariant.CHAT_REMOTE && memoryEnabled) {
         if (isNotEmpty()) append("\n\n")
         append(DEFAULT_STRUCTURED_LEARNING_SECTION)
     }
@@ -194,11 +203,15 @@ internal fun buildChatSystemPrompt(
     appendMemoryCategorySection("Known Issues & Resolutions", errorMemories, withHitCount = false, remaining)
 
     // Automation guidance + Email Accounts + Scheduled Tasks stay remote-only — the
-    // matching tools aren't in the local allowlist. The Automation section always renders
-    // so the AI knows what to reach for; the data dumps only render when non-empty.
+    // matching tools aren't in the local allowlist. The Automation guidance references
+    // schedule_task / list_tasks / cancel_task, so it only renders when scheduling is
+    // enabled (those tools are absent otherwise). Email Accounts is independent of
+    // scheduling; the data dumps only render when non-empty.
     if (variant == SystemPromptVariant.CHAT_REMOTE) {
-        if (isNotEmpty()) append("\n\n")
-        append(DEFAULT_AUTOMATION_SECTION)
+        if (schedulingEnabled) {
+            if (isNotEmpty()) append("\n\n")
+            append(DEFAULT_AUTOMATION_SECTION)
+        }
         if (emailAccounts.isNotEmpty()) {
             appendEmailAccountsSection(emailAccounts)
         }

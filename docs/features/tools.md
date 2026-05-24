@@ -70,7 +70,7 @@ Email tools are available when the email feature is enabled and accounts are con
 | `create_calendar_event` | Create a calendar event on the device | Enabled |
 | `set_alarm` | Set an alarm or countdown timer | Enabled |
 | `execute_shell_command` | Execute a shell command on the device | Disabled |
-| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>`. Rides along whenever the sandbox is enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the `link()` syscall OpenSSH uses for control sockets, so every `ssh` call does a full TCP and authentication handshake. | Disabled |
+| `ssh_configure_host` | Register a named SSH host alias for the Linux sandbox so subsequent shell calls can use `ssh <alias>`. Rides along whenever the sandbox is installed and enabled. SSH multiplexing (ControlMaster) is intentionally not enabled — Android blocks the `link()` syscall OpenSSH uses for control sockets, so every `ssh` call does a full TCP and authentication handshake. | Disabled |
 | `open_file` | Open a file from the sandbox in an Android app (browser, image viewer, etc.) | Enabled |
 
 #### Linux Sandbox (Android)
@@ -203,6 +203,7 @@ See [mcp.md](mcp.md) for the full MCP feature spec.
 Tool availability is controlled at multiple levels:
 
 - **Feature-level gates** — memory tools require memory enabled, scheduling/heartbeat tools require scheduling enabled, email tools require email enabled
+- **Sandbox install gate (Android)** — `execute_shell_command`, `manage_process`, and `ssh_configure_host` are surfaced only when the Linux sandbox is actually installed (Ready) *and* the sandbox toggle is on. Until the sandbox is installed these tools are not sent to the model at all; the sandbox toggle itself is hidden until install completes, so there is no state in which they ride along without a working sandbox behind them
 - **Per-tool toggles** — individual tools can be enabled or disabled in settings, persisted with a `tool_enabled_` key prefix
 - **Default state** — most tools default to enabled; `execute_shell_command` defaults to disabled
 - **Master-toggle-only** — memory, scheduling, and heartbeat tools have no individual per-tool toggle; they are on whenever their master switch in Settings → Agent is on (heartbeat is bundled with the scheduling switch)

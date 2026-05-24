@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-05-24
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -23,15 +23,15 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 |---|:-:|:-:|---|
 | Soul | always | always | `soul` param (non-empty) |
 | Honesty rule | always | always | baked into `DEFAULT_HONESTY_RULE` constant — one inline sentence ("Do not fabricate tool outputs, file contents, citations, or completed work"). Guards observed regressions where models invented tool output and where kai-ui button labels implied operations the callback couldn't perform. No `##` header — one sentence doesn't earn a section |
-| `## Tool Use` | always | always | baked into `DEFAULT_TOOL_USE_SECTION` constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Always rendered (both variants) so soul customization can't drop it |
+| `## Tool Use` | when tools available | when tools available | baked into `DEFAULT_TOOL_USE_SECTION` constant — tells the model to reach for tools to resolve ambiguity, check tool availability before declaring a capability unavailable, prefer self-lookup over asking the user, and extract signal from noisy output. Gated on `hasTools`: with every tool disabled (or a model that doesn't support tool calls) the section is dropped rather than telling the model to use tools it doesn't have. Soul customization still can't drop it while tools exist |
 | `## When to Act` | always | always | baked into `DEFAULT_ACTING_SECTION` constant — caps clarifying questions at one, only when genuinely blocked; demands recovery after a failed first attempt; mandates seeing work through to a usable result. Always rendered (both variants), same rationale as above |
 | Memory instructions (basic) | when provided | when provided | `memoryInstructions` param |
-| `## Structured Learning` | always (remote-only block) | never | baked into `DEFAULT_STRUCTURED_LEARNING_SECTION` constant |
+| `## Structured Learning` | when memory enabled (remote-only) | never | baked into `DEFAULT_STRUCTURED_LEARNING_SECTION` constant. Gated on `memoryEnabled` — it references `memory_learn` / `memory_reinforce`, which are absent when memory is off |
 | `## Your Memories` | when list non-empty | when list non-empty (budget-capped) | `generalMemories` |
 | `## User Preferences` | when list non-empty | when list non-empty (budget-capped) | `preferenceMemories` |
 | `## Learnings` | when list non-empty | when list non-empty (budget-capped) | `learningMemories` (reinforcement count rendered) |
 | `## Known Issues & Resolutions` | when list non-empty | when list non-empty (budget-capped) | `errorMemories` |
-| `## Automation` | always (remote-only block) | never | baked into `DEFAULT_AUTOMATION_SECTION` constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through `schedule_task` with one of three triggers (`execute_at`, `cron`, `on_heartbeat`). Heartbeat schedule itself is user-controlled |
+| `## Automation` | when scheduling enabled (remote-only) | never | baked into `DEFAULT_AUTOMATION_SECTION` constant — teaches the AI that all future/recurring/heartbeat-standing behaviour goes through `schedule_task` with one of three triggers (`execute_at`, `cron`, `on_heartbeat`). Heartbeat schedule itself is user-controlled. Gated on `schedulingEnabled` — it references `schedule_task` / `list_tasks` / `cancel_task`, which are absent when scheduling is off |
 | `## Email Accounts` | when list non-empty (email enabled) | never | `emailAccounts` — connected address, unread count, last sync, or last sync error. The section also embeds a multi-sentence "Sending policy" rule instructing the model to draft a message and confirm with the user before invoking `compose_email` or `reply_email`, so the per-account summary is not the only payload |
 | `## Scheduled Tasks` | when list non-empty | never | `pendingTasks` (time/cron only; heartbeat-trigger tasks live in the next section) |
 | `## Heartbeat Additions` | when list non-empty | never | `heartbeatAdditions` — standing `schedule_task(on_heartbeat=true)` entries the AI can see/reference/cancel |
