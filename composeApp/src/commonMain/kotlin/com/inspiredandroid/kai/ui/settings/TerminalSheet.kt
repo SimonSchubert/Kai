@@ -3,6 +3,8 @@
 package com.inspiredandroid.kai.ui.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -45,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
@@ -156,6 +159,14 @@ fun TerminalContent(
     var localActiveHandle by remember { mutableStateOf<CommandHandle?>(null) }
     val activeHandle: CommandHandle? = sessionActiveHandle ?: localActiveHandle
 
+    // While the user is touching the output area we pause two things that
+    // would otherwise unregister selectables mid-drag and crash SelectionManager
+    // ("NoSuchElementException: Cannot find value for key …" inside
+    // getSelectionLayout's LongIntMap): bounded-trim pruning and the
+    // scroll-to-tail effect (off-screen items get disposed by LazyColumn).
+    // Appends to the end are safe because they don't invalidate existing ids.
+    val isInteractingWithOutput = remember { mutableStateOf(false) }
+
     val colors = terminalColors(darkBackground)
     val focusRequester = remember { FocusRequester() }
     val canSubmit = sandboxController != null && inputText.isNotBlank()
@@ -182,6 +193,7 @@ fun TerminalContent(
                             sandboxController = controller,
                             setRunning = { localIsRunning = it },
                             setHandle = { localActiveHandle = it },
+                            shouldPrune = { !isInteractingWithOutput.value },
                         )
                     }
                 }
@@ -211,6 +223,21 @@ fun TerminalContent(
         if (size > 0) listState.scrollToItem(size - 1)
     }
 
+    // Mirror the touch flag onto the session shell so streaming-side
+    // bounded-trim pauses too (the rendered list IS the shell's transcript in
+    // session mode). On release, run a catch-up prune for the local
+    // non-session list since drainStreamedLines's prune was suppressed.
+    LaunchedEffect(isInteractingWithOutput.value, selectedSessionId, sandboxController) {
+        val sid = selectedSessionId
+        if (sandboxController != null && sid != null) {
+            sandboxController.setTranscriptInteractive(sid, isInteractingWithOutput.value)
+        }
+        if (!isInteractingWithOutput.value && sessionViewModel == null) {
+            val excess = outputLines.size - MAX_OUTPUT_LINES
+            if (excess > 0) outputLines.subList(0, excess).clear()
+        }
+    }
+
     Column(
         modifier = modifier
             .then(if (showHeader) Modifier.background(colors.bg) else Modifier)
@@ -238,7 +265,30 @@ fun TerminalContent(
         }
 
         SelectionContainer(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .pointerInput(Unit) {
+                    awaitEachGesture {
+                        // requireUnconsumed=false: don't fight SelectionContainer's
+                        // own long-press detector. We never consume the change so
+                        // the inner gesture detectors still receive everything.
+                        awaitFirstDown(requireUnconsumed = false)
+                        isInteractingWithOutput.value = true
+                        try {
+                            // Can't use waitForUpOrCancellation(): it treats
+                            // consumption as cancellation, and SelectionContainer's
+                            // long-press drag observer consumes move events — we'd
+                            // flip the flag back to false mid-drag. Loop on raw
+                            // pointer events until no pointer is pressed.
+                            while (true) {
+                                val event = awaitPointerEvent()
+                                if (event.changes.none { it.pressed }) break
+                            }
+                        } finally {
+                            isInteractingWithOutput.value = false
+                        }
+                    }
+                },
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -304,6 +354,10 @@ fun TerminalContent(
         LaunchedEffect(listState, isRunning, outputLines) {
             snapshotFlow { outputLines.size }.conflate().collect { size ->
                 if (size == 0) return@collect
+                // While the user is dragging to select, scrolling to the tail
+                // disposes off-screen Texts and unregisters their selectables,
+                // crashing SelectionManager mid-drag.
+                if (isInteractingWithOutput.value) return@collect
                 val layout = listState.layoutInfo
                 val total = layout.totalItemsCount
                 if (total == 0) return@collect
@@ -402,6 +456,7 @@ private suspend fun runCommand(
     sandboxController: SandboxController,
     setRunning: (Boolean) -> Unit,
     setHandle: (CommandHandle?) -> Unit,
+    shouldPrune: () -> Boolean = { true },
 ) {
     if (command == "clear") {
         outputLines.clear()
@@ -421,7 +476,7 @@ private suspend fun runCommand(
     var handle: CommandHandle? = null
     try {
         coroutineScope {
-            val drainJob = launch { drainStreamedLines(channel, outputLines) }
+            val drainJob = launch { drainStreamedLines(channel, outputLines, shouldPrune) }
             val h = sandboxController.executeCommandStreaming(
                 command = command,
                 onStdout = { line -> channel.trySend(TerminalLine.Output(line)) },
@@ -446,7 +501,7 @@ private suspend fun runCommand(
         outputLines.add(TerminalLine.Error(e.message ?: "Command failed"))
     } finally {
         setHandle(null)
-        pruneOutput(outputLines)
+        if (shouldPrune()) pruneOutput(outputLines)
         setRunning(false)
     }
 }
@@ -454,6 +509,7 @@ private suspend fun runCommand(
 private suspend fun drainStreamedLines(
     channel: Channel<TerminalLine>,
     outputLines: MutableList<TerminalLine>,
+    shouldPrune: () -> Boolean = { true },
 ) {
     while (true) {
         val batch = ArrayList<TerminalLine>(STREAM_FLUSH_BATCH_MAX)
@@ -469,7 +525,7 @@ private suspend fun drainStreamedLines(
         }
         if (batch.isNotEmpty()) {
             outputLines.addAll(batch)
-            pruneOutput(outputLines)
+            if (shouldPrune()) pruneOutput(outputLines)
         }
         if (closed) break
         delay(STREAM_FLUSH_INTERVAL_MS.milliseconds)

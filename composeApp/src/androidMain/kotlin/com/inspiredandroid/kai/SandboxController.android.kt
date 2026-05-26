@@ -146,6 +146,10 @@ class AndroidSandboxController : SandboxController {
         sandboxManager.clearTranscript(sessionId)
     }
 
+    override fun setTranscriptInteractive(sessionId: String, interacting: Boolean) {
+        sandboxManager.setSessionInteractive(sessionId, interacting)
+    }
+
     override suspend fun executeCommand(command: String, sessionId: String): String = withContext(Dispatchers.IO) {
         val state = sandboxManager.state.value
         if (state !is SandboxState.Ready) return@withContext SANDBOX_NOT_READY

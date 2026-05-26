@@ -64,14 +64,37 @@ class SessionShell(
 
     fun reset() = inner.reset()
 
+    @Volatile
+    private var prunePaused: Boolean = false
+
+    /**
+     * While paused, [appendBounded] still adds new lines but skips the
+     * bounded-trim. Pausing during a drag-select prevents
+     * SelectionManager from crashing on a selectable id whose Text was
+     * pruned mid-drag. Unpause runs a catch-up trim so memory stays
+     * bounded once the gesture ends.
+     */
+    fun setPrunePaused(value: Boolean) {
+        val wasPaused = prunePaused
+        prunePaused = value
+        if (wasPaused && !value) {
+            Snapshot.withMutableSnapshot {
+                val excess = transcript.size - MAX_TRANSCRIPT_LINES
+                if (excess > 0) transcript.subList(0, excess).clear()
+            }
+        }
+    }
+
     private fun appendBounded(line: TerminalLine) {
         // Add+trim must commit as a single snapshot. Otherwise a LazyColumn
         // measure pass can capture size=N+1 then read index N after the trim
         // shrunk the list — IndexOutOfBoundsException under heavy bursts.
         Snapshot.withMutableSnapshot {
             transcript.add(line)
-            val excess = transcript.size - MAX_TRANSCRIPT_LINES
-            if (excess > 0) transcript.subList(0, excess).clear()
+            if (!prunePaused) {
+                val excess = transcript.size - MAX_TRANSCRIPT_LINES
+                if (excess > 0) transcript.subList(0, excess).clear()
+            }
         }
     }
 }
