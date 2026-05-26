@@ -1591,7 +1591,7 @@ internal object ModelCatalog {
         "gpt-audio" to 1350, "gpt-audio-mini" to 1320,
         "granite-3.0-2b-instruct" to 1130, "granite-3.0-3b-a800m-instruct" to 1140, "granite-3.0-8b-instruct" to 1200,
         "granite-3.1-2b-instruct" to 1150, "granite-3.1-8b-instruct" to 1220, "granite-3.3-8b-instruct" to 1250,
-        "granite-34b-code-instruct" to 1180, "granite-4.0-h-micro" to 1260, "granite-4.1-8b" to 1270, "granite-8b-code-instruct" to 1120,
+        "granite-34b-code-instruct" to 1180, "granite-4.0-h-micro" to 1260, "granite-4.1-8b" to 1311, "granite-8b-code-instruct" to 1120,
         "grok-2-vision" to 1280, "grok-2-vision-1212" to 1280, "grok-3-fast" to 1393, "grok-3-mini-fast" to 1370,
         "grok-4-fast-non-reasoning" to 1407, "grok-beta" to 1290, "grok-code-fast-1" to 1380, "grok-vision-beta" to 1220,
         "hermes-2-pro-llama-3-8b" to 1150, "hermes-3-llama-3.1-405b" to 1350, "hermes-3-llama-3.1-405b:free" to 1350,
