@@ -69,6 +69,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
@@ -567,8 +568,12 @@ class RemoteDataRepository(
             }
         }
         val startTime = Clock.System.now().toEpochMilliseconds()
+        // Prefer an explicit coroutine-context conversation id (set by askWithTools
+        // for heartbeat / scheduled runs) over the globally active chat id, so those
+        // background runs don't leak shell commands into whatever chat is open.
+        val conversationIdForTool = currentConversationIdOrNull() ?: _currentConversationId.value
         val result = try {
-            toolExecutor.executeTool(name, arguments, _currentConversationId.value)
+            toolExecutor.executeTool(name, arguments, conversationIdForTool)
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             """{"success": false, "error": "${e.message ?: "Tool execution failed"}"}"""
@@ -1122,7 +1127,10 @@ class RemoteDataRepository(
         // Execute all tools concurrently, ensuring indicators show for at least 2 seconds.
         // Snapshot the conversation id once so all parallel tool calls in this batch
         // see a stable value even if the user switches conversations mid-flight.
-        val conversationIdSnapshot = _currentConversationId.value
+        // Prefer an explicit coroutine-context id (set by askWithTools for heartbeat /
+        // scheduled runs) over the globally active chat id, so background runs don't
+        // leak shell commands into the chat the user is currently viewing.
+        val conversationIdSnapshot = currentConversationIdOrNull() ?: _currentConversationId.value
         val startTime = Clock.System.now().toEpochMilliseconds()
         val results = coroutineScope {
             toolCalls.map { (callId, name, arguments) ->
@@ -1871,7 +1879,7 @@ class RemoteDataRepository(
         return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
     }
 
-    override suspend fun askWithTools(prompt: String, instanceId: String?): String {
+    override suspend fun askWithTools(prompt: String, instanceId: String?, conversationIdOverride: String?): String {
         // Selection: explicit instance > first remote > first on-device. The simple-tool
         // allowlist works at any context size, so on-device is always eligible for fallback.
         val instances = getConfiguredServiceInstances()
@@ -1884,7 +1892,18 @@ class RemoteDataRepository(
         val systemPrompt = getActiveSystemPrompt()
         // Use a local history to avoid polluting the current conversation's chatHistory
         val localHistory = MutableStateFlow(messages)
-        return askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+        // When a conversation override is set (heartbeat / scheduled tasks), bind any
+        // tool calls in this run to that conversation's sandbox session via the
+        // coroutine context — otherwise tool dispatch would inherit `_currentConversationId`
+        // (the chat the user is viewing), routing the heartbeat's shell commands into
+        // that chat's persistent bash session.
+        return if (conversationIdOverride != null) {
+            withContext(ConversationIdElement(conversationIdOverride)) {
+                askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+            }
+        } else {
+            askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+        }
     }
 
     override suspend fun askSilently(question: String): String {
@@ -1983,7 +2002,7 @@ class RemoteDataRepository(
         val now = Clock.System.now().toEpochMilliseconds()
 
         val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
-        val heartbeatId = existing?.id ?: Uuid.random().toString()
+        val heartbeatId = existing?.id ?: getOrCreateHeartbeatConversationId()
 
         val newMessage = Conversation.Message(
             id = Uuid.random().toString(),
@@ -2003,6 +2022,23 @@ class RemoteDataRepository(
 
         _hasUnreadHeartbeat.value = true
         conversationStorage.saveConversation(conversation)
+    }
+
+    override suspend fun getOrCreateHeartbeatConversationId(): String {
+        val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
+        if (existing != null) return existing.id
+        val now = Clock.System.now().toEpochMilliseconds()
+        val id = Uuid.random().toString()
+        conversationStorage.saveConversation(
+            Conversation(
+                id = id,
+                messages = emptyList(),
+                createdAt = now,
+                updatedAt = now,
+                type = Conversation.TYPE_HEARTBEAT,
+            ),
+        )
+        return id
     }
 
     private fun deriveTitle(history: List<History>): String {

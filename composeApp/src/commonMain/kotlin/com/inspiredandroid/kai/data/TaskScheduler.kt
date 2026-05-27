@@ -105,7 +105,12 @@ class TaskScheduler(
                     if (isLoadingCheck()) break
 
                     try {
-                        val response = dataRepository.askWithTools(task.prompt)
+                        // Bind tool calls to the heartbeat conversation's sandbox session
+                        // — the scheduled-task result also lands in that conversation
+                        // (see `addAssistantMessage`), so routing its shell commands
+                        // there too keeps shell state coherent with the visible output.
+                        val taskConversationId = dataRepository.getOrCreateHeartbeatConversationId()
+                        val response = dataRepository.askWithTools(task.prompt, conversationIdOverride = taskConversationId)
                         if (response.isNotBlank()) {
                             val header = task.description.ifBlank { "Scheduled task" }
                             dataRepository.addAssistantMessage("**$header**\n\n$response")
@@ -151,7 +156,16 @@ class TaskScheduler(
                 ?.map { it.content }
                 ?: emptyList()
             val heartbeatPrompt = manager.buildHeartbeatPrompt(recentResponses, pendingEmails, pendingSms, pendingNotifications)
-            val response = dataRepository.askWithTools(heartbeatPrompt, manager.getConfig().heartbeatInstanceId)
+            // Resolve the heartbeat conversation id BEFORE the AI starts emitting
+            // tool calls, so any execute_shell_command call binds to the heartbeat's
+            // own persistent bash session rather than the chat the user happens to
+            // be viewing right now.
+            val heartbeatConversationId = dataRepository.getOrCreateHeartbeatConversationId()
+            val response = dataRepository.askWithTools(
+                prompt = heartbeatPrompt,
+                instanceId = manager.getConfig().heartbeatInstanceId,
+                conversationIdOverride = heartbeatConversationId,
+            )
             manager.markHeartbeatExecuted()
             manager.recordHeartbeat(success = true)
             if (response.isNotBlank() && "HEARTBEAT_OK" !in response) {
