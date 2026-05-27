@@ -172,8 +172,8 @@ internal fun HeartbeatSection(
 
             var activeStart by remember(activeHoursStart) { mutableStateOf(activeHoursStart.toFloat()) }
             var activeEnd by remember(activeHoursEnd) { mutableStateOf(activeHoursEnd.toFloat()) }
-            val startDisplay = "${activeStart.roundToInt()}:00"
-            val endDisplay = "${activeEnd.roundToInt()}:00"
+            val startDisplay = "${activeStart.roundToInt() % 24}:00"
+            val endDisplay = "${activeEnd.roundToInt() % 24}:00"
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -200,8 +200,8 @@ internal fun HeartbeatSection(
                 onValueChangeFinished = {
                     onChangeActiveHours(activeStart.roundToInt(), activeEnd.roundToInt())
                 },
-                valueRange = 0f..23f,
-                steps = 22,
+                valueRange = 0f..24f,
+                steps = 23,
             )
 
             if (heartbeatServiceEntries.size > 1) {

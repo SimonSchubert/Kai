@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-05-28
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -27,13 +27,13 @@ Heartbeat configuration is stored as a serialized JSON object in app settings. V
 - **Enabled**: true
 - **Interval**: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)
 - **Active hours start**: 8 (hour, 24h format; UI range slider covers 0–23)
-- **Active hours end**: 22 (hour, 24h format; UI range slider covers 0–23)
+- **Active hours end**: 22 (hour, 24h format; UI range slider covers 0–24, where 24 renders as 0:00 and means end-of-day)
 - **Model**: optional override for which service+model to use for heartbeats. When not set, the first configured service is used (default behavior). Useful for selecting a cheaper or faster model for background checks
 
 UI validation rules:
 
 - Interval must be at least 5 minutes
-- Active hours must be in the range 0–23
+- Active hours start must be 0–23; end must be 0–24 (24 = midnight next day = full-day coverage)
 
 ## Execution Flow
 
@@ -97,7 +97,7 @@ The heartbeat section in settings contains:
 - **Toggle** — enables or disables heartbeat with a switch
 - **Interval display** — shows the current interval in minutes in the section description
 - **Interval slider** — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label
-- **Active hours range slider** — a dual-thumb range slider spanning 0–23 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours)
+- **Active hours range slider** — a dual-thumb range slider spanning 0–24 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours); the upper-bound value 24 renders as 0:00 to indicate full-day coverage
 - **Model picker** — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the first configured service. If the previously selected service is removed, heartbeat falls back to the default automatically
 - **Custom prompt editor** — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set. A character counter (X/4000) is displayed in the editor as the user types
 - **Reset to default** — when a custom heartbeat prompt is set, a reset button appears in the custom-prompt section header. Tapping it opens a confirmation dialog; confirming clears the custom prompt and restores the default
