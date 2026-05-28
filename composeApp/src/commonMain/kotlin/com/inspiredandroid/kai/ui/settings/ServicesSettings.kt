@@ -373,7 +373,7 @@ internal fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions)
                             bottomStart = if (isLast) 12.dp else 0.dp,
                             bottomEnd = if (isLast) 12.dp else 0.dp,
                         )
-                        val isSpecial = service.isOnDevice || service is Service.OpenAICompatible
+                        val isSpecial = service.isOnDevice || service is Service.OpenAICompatible || service is Service.AtlasCloud
                         Surface(
                             onClick = {
                                 actions.onAddService(service)
