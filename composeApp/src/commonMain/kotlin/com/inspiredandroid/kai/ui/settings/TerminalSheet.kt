@@ -364,12 +364,14 @@ fun TerminalContent(
                 val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
                 // Don't yank the user back if they've scrolled up to read older output.
                 if (lastVisible >= total - 2) {
-                    // Target the output line index, not total - 1: layoutInfo is
-                    // from the previous measure pass and can point past the current
-                    // interval list right after isRunning toggles off (trailing
-                    // progress item gone) or after a session swap, which crashes
-                    // inside MutableIntervalList.get during forceRemeasure.
-                    listState.scrollToItem(size - 1)
+                    // `size` and `total` can disagree across the composition/measure
+                    // boundary: `size` leads when state has been written but the list
+                    // hasn't recomposed yet (interval list smaller than `size`);
+                    // `total` leads when layoutInfo is stale from a previous measure
+                    // (spinner just disappeared, session swap). Either direction
+                    // crashes inside MutableIntervalList.get during forceRemeasure.
+                    // The smaller of the two is an index that exists in both views.
+                    listState.scrollToItem(minOf(size, total) - 1)
                 }
             }
         }
