@@ -1104,7 +1104,7 @@
 
 <h1 id="multi-service">Multi-Service</h1>
 <p><strong>Last verified:</strong> 2026-05-28</p>
-<p>Kai supports 26 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
+<p>Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
 <p>A supported LLM provider. Each service is defined by:</p>
@@ -1159,6 +1159,12 @@
 <td>Free</td>
 <td><code>free</code></td>
 <td>No</td>
+<td>OpenAI-compatible</td>
+</tr>
+<tr>
+<td><strong>Atlas Cloud</strong></td>
+<td><code>atlascloud</code></td>
+<td>Yes</td>
 <td>OpenAI-compatible</td>
 </tr>
 <tr>
@@ -1344,7 +1350,7 @@
 <p>Image attachments are broadly supported across cloud services. The built-in <strong>Free</strong> tier is the one cloud exception — its proxy fans out to a chain that includes text-only fallback models, so images are not offered when Free is the active service. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.</p>
 <h2 id="settings-ui">Settings UI</h2>
 <p>Users manage services through the settings screen:
-- <strong>Add</strong> — pick from the list of available services (can add the same service multiple times); the OpenAI-Compatible API and the on-device Local Model are pinned to the top of the picker, with the remaining providers sorted alphabetically
+- <strong>Add</strong> — pick from the list of available services (can add the same service multiple times); the OpenAI-Compatible API and the on-device Local Model are pinned to the top of the picker, followed by the highlighted featured provider Atlas Cloud, with the remaining providers sorted alphabetically
 - <strong>Remove</strong> — delete an instance and its stored credentials; deletion is deferred with a snackbar "Undo" option (~4 seconds) before the service is permanently removed
 - <strong>Reorder</strong> — drag to change priority (first = primary, rest = fallbacks)
 - <strong>Configure</strong> — per-instance API key, model selection, base URL (OpenAI-Compatible only)
