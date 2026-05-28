@@ -3,15 +3,19 @@ package com.inspiredandroid.kai.ui.chat.composables
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -74,25 +78,33 @@ internal fun ServiceSelector(
                 properties = PopupProperties(focusable = false),
                 popupPositionProvider = remember(spacingPx) { AnchorAbovePositionProvider(spacingPx) },
             ) {
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    tonalElevation = 3.dp,
-                    shadowElevation = 8.dp,
-                ) {
-                    Column(modifier = Modifier.padding(vertical = 4.dp)) {
-                        services.forEach { entry ->
-                            val isCurrent = entry.instanceId == current.instanceId
-                            ServiceMenuItem(
-                                entry = entry,
-                                isCurrent = isCurrent,
-                                onClick = {
-                                    expanded = false
-                                    if (!isCurrent) {
-                                        onSelectService(entry.instanceId)
-                                    }
-                                },
-                            )
+                BoxWithConstraints {
+                    val maxMenuHeight = maxHeight - 24.dp // keep a margin from screen edges
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        color = MaterialTheme.colorScheme.surface,
+                        tonalElevation = 3.dp,
+                        shadowElevation = 8.dp,
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .heightIn(max = maxMenuHeight)
+                                .verticalScroll(rememberScrollState())
+                                .padding(vertical = 4.dp),
+                        ) {
+                            services.forEach { entry ->
+                                val isCurrent = entry.instanceId == current.instanceId
+                                ServiceMenuItem(
+                                    entry = entry,
+                                    isCurrent = isCurrent,
+                                    onClick = {
+                                        expanded = false
+                                        if (!isCurrent) {
+                                            onSelectService(entry.instanceId)
+                                        }
+                                    },
+                                )
+                            }
                         }
                     }
                 }

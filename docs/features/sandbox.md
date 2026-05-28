@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-05-24
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -60,6 +60,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 
 ## Behavior
 
+- **Tool availability follows install state**: the assistant's sandbox tools (shell command, `manage_process`, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) *and* the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the Alpine Linux card's switch is the on/off control.
 - **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, `apk update` runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.
 - **State across the app**: each chat conversation has its own shell, and the Terminal tab has another. Files in `/root` and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.
 - **Network access**: outbound IP works (DNS is configured against `8.8.8.8` / `8.8.4.4`). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.

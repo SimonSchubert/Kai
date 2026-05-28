@@ -55,6 +55,9 @@ class ChatSystemPromptBuilderTest {
     private fun build(
         variant: SystemPromptVariant,
         soul: String = "You are Kai.",
+        hasTools: Boolean = true,
+        memoryEnabled: Boolean = true,
+        schedulingEnabled: Boolean = true,
         memoryInstructions: String? = null,
         generalMemories: List<MemoryEntry> = emptyList(),
         preferenceMemories: List<MemoryEntry> = emptyList(),
@@ -67,6 +70,9 @@ class ChatSystemPromptBuilderTest {
     ) = buildChatSystemPrompt(
         variant = variant,
         soul = soul,
+        hasTools = hasTools,
+        memoryEnabled = memoryEnabled,
+        schedulingEnabled = schedulingEnabled,
         memoryInstructions = memoryInstructions,
         generalMemories = generalMemories,
         preferenceMemories = preferenceMemories,
@@ -137,6 +143,71 @@ class ChatSystemPromptBuilderTest {
             assertTrue("## When to Act" in out)
             assertTrue("at most one clarifying question" in out)
         }
+    }
+
+    @Test
+    fun `Tool Use section is omitted when no tools are available`() {
+        val remote = build(SystemPromptVariant.CHAT_REMOTE, hasTools = false)
+        val local = build(SystemPromptVariant.CHAT_LOCAL, hasTools = false)
+        for (out in listOf(remote, local)) {
+            assertFalse("## Tool Use" in out)
+            // When-to-act is a general fundamental and still renders.
+            assertTrue("## When to Act" in out)
+        }
+    }
+
+    @Test
+    fun `CHAT_REMOTE omits Structured Learning when memory is disabled`() {
+        val out = build(SystemPromptVariant.CHAT_REMOTE, memoryEnabled = false)
+        assertFalse("## Structured Learning" in out)
+        assertFalse("memory_learn" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE omits Automation when scheduling is disabled`() {
+        val out = build(SystemPromptVariant.CHAT_REMOTE, schedulingEnabled = false)
+        assertFalse("## Automation" in out)
+        assertFalse("schedule_task" in out)
+    }
+
+    @Test
+    fun `CHAT_REMOTE Email Accounts still render when scheduling is disabled`() {
+        // Email Accounts is independent of scheduling — disabling scheduling drops the
+        // Automation guidance but must not drop connected-account context.
+        val out = build(
+            variant = SystemPromptVariant.CHAT_REMOTE,
+            schedulingEnabled = false,
+            emailAccounts = listOf(
+                EmailAccountSummary(email = "alice@example.com", unreadCount = 1, lastSyncEpochMs = 0L),
+            ),
+        )
+        assertFalse("## Automation" in out)
+        assertTrue("## Email Accounts" in out)
+        assertTrue("alice@example.com" in out)
+    }
+
+    @Test
+    fun `golden CHAT_REMOTE with everything deactivated is soul + honesty + when-to-act + context`() {
+        // The fully-deactivated config the user reported: no tools, no memory, no scheduling.
+        // The prompt must collapse to the behavioral fundamentals plus runtime context —
+        // no Tool Use, Structured Learning, or Automation guidance referencing absent tools.
+        val out = build(
+            variant = SystemPromptVariant.CHAT_REMOTE,
+            soul = "You're a personal assistant.",
+            hasTools = false,
+            memoryEnabled = false,
+            schedulingEnabled = false,
+        )
+        val expected = "You're a personal assistant.\n\n" +
+            DEFAULT_HONESTY_RULE + "\n\n" +
+            DEFAULT_ACTING_SECTION + "\n\n" +
+            "## Context\n" +
+            "- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)\n" +
+            "- UTC: 2026-04-11T00:00:00Z\n" +
+            "- Platform: Test\n" +
+            "- Model: test-model\n" +
+            "- Provider: Test Provider\n"
+        assertEquals(expected, out)
     }
 
     @Test

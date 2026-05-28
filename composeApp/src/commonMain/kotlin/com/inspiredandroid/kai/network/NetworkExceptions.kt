@@ -5,6 +5,8 @@ import com.inspiredandroid.kai.inference.InsufficientMemoryException
 import com.inspiredandroid.kai.inference.NoModelDownloadedException
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.error_all_services_failed
+import kai.composeapp.generated.resources.error_bad_request
+import kai.composeapp.generated.resources.error_content_moderation
 import kai.composeapp.generated.resources.error_context_window_exceeded
 import kai.composeapp.generated.resources.error_empty_response
 import kai.composeapp.generated.resources.error_file_too_large
@@ -13,8 +15,10 @@ import kai.composeapp.generated.resources.error_insufficient_credits
 import kai.composeapp.generated.resources.error_invalid_api_key
 import kai.composeapp.generated.resources.error_openai_compatible_connection
 import kai.composeapp.generated.resources.error_openai_compatible_model_not_found
+import kai.composeapp.generated.resources.error_provider_error
 import kai.composeapp.generated.resources.error_quota_exhausted
 import kai.composeapp.generated.resources.error_rate_limit_exceeded
+import kai.composeapp.generated.resources.error_service_unavailable
 import kai.composeapp.generated.resources.error_unknown
 import kai.composeapp.generated.resources.error_unsupported_file_type
 import kai.composeapp.generated.resources.litert_error_inference_timeout
@@ -47,6 +51,11 @@ class OpenAICompatibleConnectionException : OpenAICompatibleApiException()
 class OpenAICompatibleModelNotFoundException : OpenAICompatibleApiException()
 class OpenAICompatibleEmptyResponseException : OpenAICompatibleApiException()
 class OpenAICompatibleRequestTooLargeException : OpenAICompatibleApiException()
+class OpenAICompatibleContentModerationException(detail: String? = null) : OpenAICompatibleApiException(detail)
+class OpenAICompatibleProviderErrorException(detail: String? = null) : OpenAICompatibleApiException(detail)
+class OpenAICompatibleServiceUnavailableException : OpenAICompatibleApiException()
+class OpenAICompatibleTimeoutException : OpenAICompatibleApiException()
+class OpenAICompatibleBadRequestException(detail: String? = null) : OpenAICompatibleApiException(detail)
 
 class ContextWindowExceededException : ApiException(null)
 class UnsupportedFileTypeException : ApiException(null)
@@ -56,6 +65,7 @@ class AllServicesFailedException : ApiException(null)
 sealed interface UiError {
     data class Resource(val resource: StringResource) : UiError
     data class Text(val message: String) : UiError
+    data class ResourceWithDetail(val resource: StringResource, val detail: String) : UiError
 }
 
 fun Exception.toUiError(): UiError = when (this) {
@@ -72,6 +82,17 @@ fun Exception.toUiError(): UiError = when (this) {
     is OpenAICompatibleConnectionException -> UiError.Resource(Res.string.error_openai_compatible_connection)
     is OpenAICompatibleModelNotFoundException -> UiError.Resource(Res.string.error_openai_compatible_model_not_found)
     is OpenAICompatibleEmptyResponseException -> UiError.Resource(Res.string.error_empty_response)
+    is OpenAICompatibleTimeoutException -> UiError.Resource(Res.string.error_openai_compatible_connection)
+    is OpenAICompatibleServiceUnavailableException -> UiError.Resource(Res.string.error_service_unavailable)
+    is OpenAICompatibleContentModerationException -> message?.takeIf { it.isNotBlank() }
+        ?.let { UiError.ResourceWithDetail(Res.string.error_content_moderation, it) }
+        ?: UiError.Resource(Res.string.error_content_moderation)
+    is OpenAICompatibleProviderErrorException -> message?.takeIf { it.isNotBlank() }
+        ?.let { UiError.ResourceWithDetail(Res.string.error_provider_error, it) }
+        ?: UiError.Resource(Res.string.error_provider_error)
+    is OpenAICompatibleBadRequestException -> message?.takeIf { it.isNotBlank() }
+        ?.let { UiError.ResourceWithDetail(Res.string.error_bad_request, it) }
+        ?: UiError.Resource(Res.string.error_bad_request)
     is InsufficientMemoryException -> UiError.Resource(Res.string.litert_error_insufficient_memory)
     is InferenceTimeoutException -> UiError.Resource(Res.string.litert_error_inference_timeout)
     is NoModelDownloadedException -> UiError.Resource(Res.string.litert_error_no_model)

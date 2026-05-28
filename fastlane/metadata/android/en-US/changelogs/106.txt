@@ -1,0 +1,5 @@
+Fix quick service toggle scalability
+Fix content serialization
+Fix dynamic system prompt builder for deactivated tools and agent settings
+Strip orphaned tool calls from prior interruptions
+Update model catalog

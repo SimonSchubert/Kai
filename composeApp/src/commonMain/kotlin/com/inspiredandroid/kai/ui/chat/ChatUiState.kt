@@ -133,12 +133,19 @@ data class ToolCallInfo(
 
 fun History.toGroqMessageDto(
     reasoningMode: ReasoningRequestMode = ReasoningRequestMode.NONE,
+    supportsImages: Boolean = true,
 ): OpenAICompatibleChatRequestDto.Message = when (role) {
     History.Role.USER -> {
         val split = attachments.splitForMessage()
         // Images become image_url parts; PDFs are dropped (OpenAI-compatible has no native PDF
         // support, matching the prior behavior). Text files get merged into the text prefix.
-        val imageAttachments = split.binaries.filter { it.mimeType.startsWith("image/") }
+        // When the target service can't accept content-parts (e.g. the kai9000 proxy whose
+        // Groq fallback uses text-only models), drop images and emit a plain string.
+        val imageAttachments = if (supportsImages) {
+            split.binaries.filter { it.mimeType.startsWith("image/") }
+        } else {
+            emptyList()
+        }
         val fullText = "${split.textPrefix}$content"
         val messageContent: JsonElement = if (imageAttachments.isEmpty()) {
             JsonPrimitive(fullText)

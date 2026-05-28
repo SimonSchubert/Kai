@@ -23,6 +23,7 @@ import org.jetbrains.compose.resources.vectorResource
 internal fun uiErrorText(error: UiError): String = when (error) {
     is UiError.Resource -> stringResource(error.resource)
     is UiError.Text -> error.message
+    is UiError.ResourceWithDetail -> "${stringResource(error.resource)}: ${error.detail}"
 }
 
 @Composable

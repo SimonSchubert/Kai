@@ -86,6 +86,15 @@ interface SandboxController {
     /** Wipe the transcript for [sessionId]. Idempotent. */
     fun clearTranscript(sessionId: String) {}
 
+    /**
+     * Pause/resume bounded-trim on [sessionId]'s transcript. Set to true while
+     * the user is dragging to select text in the LazyColumn rendering this
+     * transcript — pruning lines mid-drag unregisters their selectables and
+     * crashes SelectionManager on its next lookup. Resuming runs a catch-up
+     * trim so the transcript settles back to its cap.
+     */
+    fun setTranscriptInteractive(sessionId: String, interacting: Boolean) {}
+
     suspend fun listDirectory(path: String): List<SandboxFileEntry>
     suspend fun readTextFile(path: String, maxBytes: Int = 512_000): String?
     suspend fun writeTextFile(path: String, content: String): Boolean

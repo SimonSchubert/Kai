@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-05-28
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -69,6 +69,7 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 - Compressed to JPEG and Base64-encoded
 - Maximum raw input size: 50 MB; maximum size after compression: 15 MB — rejected with a size error if exceeded
 - Sent as `image_url` (OpenAI-compatible), `image` block (Anthropic), or `inline_data` (Gemini)
+- Not offered on the built-in Free service — its proxy fans out to text-only fallback models that reject multimodal content
 - Shown as a preview thumbnail (max 200dp wide) inside the user message bubble
 - Clicking the thumbnail opens a full-screen viewer with pinch-to-zoom, double-tap to toggle zoom, pan when zoomed, and a close button in the top-right (also dismissable via the Android back button or by tapping the backdrop; desktop has no keyboard shortcut for dismissal)
 

@@ -69,6 +69,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
@@ -567,8 +568,12 @@ class RemoteDataRepository(
             }
         }
         val startTime = Clock.System.now().toEpochMilliseconds()
+        // Prefer an explicit coroutine-context conversation id (set by askWithTools
+        // for heartbeat / scheduled runs) over the globally active chat id, so those
+        // background runs don't leak shell commands into whatever chat is open.
+        val conversationIdForTool = currentConversationIdOrNull() ?: _currentConversationId.value
         val result = try {
-            toolExecutor.executeTool(name, arguments, _currentConversationId.value)
+            toolExecutor.executeTool(name, arguments, conversationIdForTool)
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             """{"success": false, "error": "${e.message ?: "Tool execution failed"}"}"""
@@ -638,7 +643,9 @@ class RemoteDataRepository(
                 if (tools.isNotEmpty()) {
                     handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt, history)
                 } else {
-                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt)
+                    // No tools on this request — strip any historic tool_calls so Groq's strict
+                    // validator doesn't see calls to tools we no longer declare.
+                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, declaredToolNames = emptySet())
                     val message = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
                         .choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
                     val content = message.effectiveContent ?: throw OpenAICompatibleEmptyResponseException()
@@ -835,9 +842,10 @@ class RemoteDataRepository(
         history: MutableStateFlow<List<History>> = chatHistory,
     ): AssistantTurn {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val declaredToolNames = tools.map { it.schema.name }.toSet()
         val strategy = object : ToolLoopStrategy {
             override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt), contextWindowTokens)
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames), contextWindowTokens)
                 val response = retryApiCall {
                     requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
@@ -868,7 +876,8 @@ class RemoteDataRepository(
             }
 
             override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt), contextWindowTokens)
+                // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames = emptySet()), contextWindowTokens)
                 return makeFinalCallWithoutTools(service, credentials, msgs)
             }
         }
@@ -1122,7 +1131,10 @@ class RemoteDataRepository(
         // Execute all tools concurrently, ensuring indicators show for at least 2 seconds.
         // Snapshot the conversation id once so all parallel tool calls in this batch
         // see a stable value even if the user switches conversations mid-flight.
-        val conversationIdSnapshot = _currentConversationId.value
+        // Prefer an explicit coroutine-context id (set by askWithTools for heartbeat /
+        // scheduled runs) over the globally active chat id, so background runs don't
+        // leak shell commands into the chat the user is currently viewing.
+        val conversationIdSnapshot = currentConversationIdOrNull() ?: _currentConversationId.value
         val startTime = Clock.System.now().toEpochMilliseconds()
         val results = coroutineScope {
             toolCalls.map { (callId, name, arguments) ->
@@ -1208,14 +1220,35 @@ class RemoteDataRepository(
         val systemChars = systemMessages.sumOf { estimateMessageChars(it) }
         val availableChars = maxChars - systemChars
 
-        // Keep messages from the end until we exceed the budget
+        // Group each assistant tool-call turn together with the tool responses that follow it so
+        // trimming never strands one without the other. Strict OpenAI-compatible providers (e.g.
+        // DeepSeek via OpenCode Zen) reject an assistant `tool_calls` message that isn't followed
+        // by its tool responses, and a `tool` message without a preceding `tool_calls`.
+        val groups = mutableListOf<List<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>>()
+        var index = 0
+        while (index < nonSystemMessages.size) {
+            val msg = nonSystemMessages[index]
+            if (msg.role == "assistant" && !msg.tool_calls.isNullOrEmpty()) {
+                var end = index + 1
+                while (end < nonSystemMessages.size && nonSystemMessages[end].role == "tool") {
+                    end++
+                }
+                groups.add(nonSystemMessages.subList(index, end).toList())
+                index = end
+            } else {
+                groups.add(listOf(msg))
+                index++
+            }
+        }
+
+        // Keep whole groups from the end until we exceed the budget.
         val kept = mutableListOf<com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto.Message>()
         var usedChars = 0
-        for (msg in nonSystemMessages.reversed()) {
-            val msgChars = estimateMessageChars(msg)
-            if (usedChars + msgChars > availableChars) break
-            kept.add(0, msg)
-            usedChars += msgChars
+        for (group in groups.asReversed()) {
+            val groupChars = group.sumOf { estimateMessageChars(it) }
+            if (usedChars + groupChars > availableChars) break
+            kept.addAll(0, group)
+            usedChars += groupChars
         }
 
         return systemMessages + kept
@@ -1369,7 +1402,8 @@ class RemoteDataRepository(
     override fun supportedFileExtensions(): List<String> {
         val service = currentService()
         if (service.isOnDevice) return emptyList()
-        return if (service.supportsPdf) supportedFileExtensions + "pdf" else supportedFileExtensions
+        val base = if (service.supportsImages) supportedFileExtensions else supportedFileExtensions - imageExtensions
+        return if (service.supportsPdf) base + "pdf" else base
     }
 
     override fun currentService(): Service {
@@ -1600,9 +1634,20 @@ class RemoteDataRepository(
             else -> ChatPromptUiMode.NONE
         }
 
+        // Tool-use guidance is only worth sending when the model is actually given tools.
+        // Mirror the tool list the request will carry: remote uses the full set (when the
+        // model supports tools), local uses the allowlist-filtered set.
+        val hasTools = when (variant) {
+            SystemPromptVariant.CHAT_REMOTE -> !isLimited && getAvailableTools().isNotEmpty()
+            SystemPromptVariant.CHAT_LOCAL -> getLocalSafeTools().isNotEmpty()
+        }
+
         return buildChatSystemPrompt(
             variant = variant,
             soul = soul,
+            hasTools = hasTools,
+            memoryEnabled = memoryEnabled,
+            schedulingEnabled = schedulingEnabled,
             memoryInstructions = memoryInstructions,
             generalMemories = byCategory[MemoryCategory.GENERAL].orEmpty(),
             preferenceMemories = byCategory[MemoryCategory.PREFERENCE].orEmpty(),
@@ -1839,7 +1884,7 @@ class RemoteDataRepository(
         return appSettings.importFromJson(jsonObject, toolIds, sections, replace)
     }
 
-    override suspend fun askWithTools(prompt: String, instanceId: String?): String {
+    override suspend fun askWithTools(prompt: String, instanceId: String?, conversationIdOverride: String?): String {
         // Selection: explicit instance > first remote > first on-device. The simple-tool
         // allowlist works at any context size, so on-device is always eligible for fallback.
         val instances = getConfiguredServiceInstances()
@@ -1852,7 +1897,18 @@ class RemoteDataRepository(
         val systemPrompt = getActiveSystemPrompt()
         // Use a local history to avoid polluting the current conversation's chatHistory
         val localHistory = MutableStateFlow(messages)
-        return askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+        // When a conversation override is set (heartbeat / scheduled tasks), bind any
+        // tool calls in this run to that conversation's sandbox session via the
+        // coroutine context — otherwise tool dispatch would inherit `_currentConversationId`
+        // (the chat the user is viewing), routing the heartbeat's shell commands into
+        // that chat's persistent bash session.
+        return if (conversationIdOverride != null) {
+            withContext(ConversationIdElement(conversationIdOverride)) {
+                askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+            }
+        } else {
+            askWithService(service, messages, systemPrompt, targetInstance.instanceId, localHistory).content
+        }
     }
 
     override suspend fun askSilently(question: String): String {
@@ -1951,7 +2007,7 @@ class RemoteDataRepository(
         val now = Clock.System.now().toEpochMilliseconds()
 
         val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
-        val heartbeatId = existing?.id ?: Uuid.random().toString()
+        val heartbeatId = existing?.id ?: getOrCreateHeartbeatConversationId()
 
         val newMessage = Conversation.Message(
             id = Uuid.random().toString(),
@@ -1971,6 +2027,23 @@ class RemoteDataRepository(
 
         _hasUnreadHeartbeat.value = true
         conversationStorage.saveConversation(conversation)
+    }
+
+    override suspend fun getOrCreateHeartbeatConversationId(): String {
+        val existing = savedConversations.value.find { it.type == Conversation.TYPE_HEARTBEAT }
+        if (existing != null) return existing.id
+        val now = Clock.System.now().toEpochMilliseconds()
+        val id = Uuid.random().toString()
+        conversationStorage.saveConversation(
+            Conversation(
+                id = id,
+                messages = emptyList(),
+                createdAt = now,
+                updatedAt = now,
+                type = Conversation.TYPE_HEARTBEAT,
+            ),
+        )
+        return id
     }
 
     private fun deriveTitle(history: List<History>): String {

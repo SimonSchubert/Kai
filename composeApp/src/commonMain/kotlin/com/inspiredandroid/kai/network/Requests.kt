@@ -386,20 +386,36 @@ class Requests {
         response: HttpResponse,
     ): Nothing {
         val responseBody = response.bodyAsText()
-        val parsedMessage = parseOpenAICompatibleErrorMessage(responseBody)
+        val parsed = parseOpenAICompatibleErrorDetail(responseBody)
+        val moderationDetail = parsed.moderationDetail()
         when (response.status.value) {
+            400 -> {
+                if (parsed.looksLikeContentPolicyViolation()) {
+                    throw OpenAICompatibleContentModerationException(moderationDetail)
+                }
+                throw OpenAICompatibleBadRequestException(parsed.message)
+            }
+
             401 -> throw OpenAICompatibleInvalidApiKeyException()
 
             402 -> throw OpenAICompatibleQuotaExhaustedException()
 
+            403 -> throw OpenAICompatibleContentModerationException(moderationDetail)
+
             404 -> throw OpenAICompatibleModelNotFoundException()
+
+            408, 504 -> throw OpenAICompatibleTimeoutException()
 
             413 -> throw OpenAICompatibleRequestTooLargeException()
 
             429 -> throw OpenAICompatibleRateLimitExceededException()
 
+            500, 502 -> throw OpenAICompatibleProviderErrorException(parsed.message)
+
+            503 -> throw OpenAICompatibleServiceUnavailableException()
+
             else -> {
-                val haystack = parsedMessage ?: responseBody
+                val haystack = parsed.message ?: responseBody
                 if (haystack.contains("credit", ignoreCase = true) ||
                     haystack.contains("exhausted", ignoreCase = true) ||
                     haystack.contains("spending limit", ignoreCase = true) ||
@@ -409,7 +425,7 @@ class Requests {
                 ) {
                     throw OpenAICompatibleQuotaExhaustedException()
                 }
-                val detail = parsedMessage ?: "${response.status}"
+                val detail = parsed.message ?: "${response.status}"
                 throw OpenAICompatibleGenericException("${service.displayName}: $detail")
             }
         }
@@ -438,15 +454,54 @@ class Requests {
         }
     }
 
-    private fun parseOpenAICompatibleErrorMessage(responseBody: String): String? = try {
+    private data class OpenAICompatibleErrorDetail(
+        val message: String?,
+        val code: String?,
+        val type: String?,
+        val reasons: List<String>,
+    ) {
+        fun looksLikeContentPolicyViolation(): Boolean {
+            if (code?.equals("content_policy_violation", ignoreCase = true) == true) return true
+            if (type?.contains("content_filter", ignoreCase = true) == true) return true
+            if (type?.contains("content_policy", ignoreCase = true) == true) return true
+            val msg = message ?: return false
+            return msg.contains("content policy", ignoreCase = true) ||
+                msg.contains("moderation", ignoreCase = true) ||
+                msg.contains("flagged", ignoreCase = true)
+        }
+
+        fun moderationDetail(): String? {
+            val reasonText = reasons.takeIf { it.isNotEmpty() }
+                ?.joinToString(", ")
+                ?.let { "flagged for '$it'" }
+            return reasonText ?: message
+        }
+    }
+
+    private fun parseOpenAICompatibleErrorDetail(responseBody: String): OpenAICompatibleErrorDetail = try {
         val error = anthropicJson.parseToJsonElement(responseBody).jsonObject["error"]
         when {
-            error == null -> null
-            error is JsonPrimitive -> error.content.takeIf { it.isNotBlank() }
-            else -> error.jsonObject["message"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+            error == null -> OpenAICompatibleErrorDetail(null, null, null, emptyList())
+            error is JsonPrimitive -> OpenAICompatibleErrorDetail(
+                message = error.content.takeIf { it.isNotBlank() },
+                code = null,
+                type = null,
+                reasons = emptyList(),
+            )
+
+            else -> {
+                val obj = error.jsonObject
+                val message = obj["message"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+                val code = (obj["code"] as? JsonPrimitive)?.contentOrNull?.takeIf { it.isNotBlank() }
+                val type = (obj["type"] as? JsonPrimitive)?.contentOrNull?.takeIf { it.isNotBlank() }
+                val reasons = (obj["metadata"] as? JsonObject)?.get("reasons")?.let { it as? JsonArray }
+                    ?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull?.takeIf { s -> s.isNotBlank() } }
+                    .orEmpty()
+                OpenAICompatibleErrorDetail(message, code, type, reasons)
+            }
         }
     } catch (_: Exception) {
-        null
+        OpenAICompatibleErrorDetail(null, null, null, emptyList())
     }
 
     private fun Tool.toRequestTool(): OpenAICompatibleChatRequestDto.Tool = OpenAICompatibleChatRequestDto.Tool(

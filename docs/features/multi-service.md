@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-05-22
+**Last verified:** 2026-05-28
 
 Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -111,13 +111,13 @@ Context window and release date come from two sources, merged by the mapping lay
 
 ## Chat Screen Service Toggle
 
-The chat screen builds an "interactive services" list that includes two distinct Free entries — **Free FAST** and **Free EXPERT** — followed by every configured non-Free service whose currently selected model supports tool use (agentic flows). When this list contains more than one entry, a circular service icon button appears to the right of the chat input, next to the send/stop button. Because the two Free modes alone already count as two entries, the toggle can appear even when no non-Free services are configured. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing the eligible services with their icons, names, and model IDs; the current primary is highlighted with a primary container background.
+The chat screen builds an "interactive services" list that includes two distinct Free entries — **Free FAST** and **Free EXPERT** — followed by every configured non-Free service whose currently selected model supports tool use (agentic flows). When this list contains more than one entry, a circular service icon button appears to the right of the chat input, next to the send/stop button. Because the two Free modes alone already count as two entries, the toggle can appear even when no non-Free services are configured. The icon represents the current primary service (each service has its own simplified vector icon). Tapping it opens a dropdown listing the eligible services with their icons, names, and model IDs; the current primary is highlighted with a primary container background. The dropdown is height-capped to the screen and becomes scrollable when the eligible list is long enough to overflow, so every entry stays reachable.
 
 Selecting a non-Free entry reorders the configured list so the chosen service becomes first (primary). Selecting a Free entry (FAST or EXPERT) instead flips an "is Free primary" flag and records the chosen Free mode — Free can be promoted to primary independently of the configured fallback order, without rearranging the non-Free chain. The fallback chain picks up the new state automatically. The fallback walker also skips any entry whose context window can't fit the current chat history, so very long conversations may transparently move past services that would otherwise be eligible.
 
 ## Attachments
 
-Image attachments are broadly supported across cloud services. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
+Image attachments are broadly supported across cloud services. The built-in **Free** tier is the one cloud exception — its proxy fans out to a chain that includes text-only fallback models, so images are not offered when Free is the active service. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
 
 ## Settings UI
 

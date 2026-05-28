@@ -249,6 +249,15 @@ class LinuxSandboxManager(
 
     fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> = shellFor(sessionId).transcript
 
+    /**
+     * Toggle prune-pause on an existing session shell. Does NOT create a shell
+     * — if there's no shell for [sessionId] yet there's no transcript to gate.
+     */
+    fun setSessionInteractive(sessionId: String, interacting: Boolean) {
+        val shell = synchronized(shells) { shells[sessionId] } ?: return
+        shell.setPrunePaused(interacting)
+    }
+
     fun clearTranscript(sessionId: String) {
         synchronized(shells) { shells[sessionId] }?.transcript?.clear()
     }

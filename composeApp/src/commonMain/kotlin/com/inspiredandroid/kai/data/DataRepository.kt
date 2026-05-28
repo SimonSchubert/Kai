@@ -169,13 +169,25 @@ interface DataRepository {
     fun getExportPreview(): Map<ImportSection, String?>
     fun importSettingsFromJson(json: String, sections: Set<ImportSection>, replace: Boolean): Int
 
-    // Background ask with tools (no chat history update, supports tool-calling loop)
-    suspend fun askWithTools(prompt: String, instanceId: String? = null): String
+    // Background ask with tools (no chat history update, supports tool-calling loop).
+    // When `conversationIdOverride` is set, tool calls during this run route to that
+    // conversation's sandbox session instead of inheriting the active chat's id —
+    // used by the heartbeat / scheduled tasks so their shell commands don't land
+    // in the user's currently-viewed chat shell.
+    suspend fun askWithTools(prompt: String, instanceId: String? = null, conversationIdOverride: String? = null): String
 
     // Silent ask (no tools, no chat history update)
     suspend fun askSilently(question: String): String
     suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long = 0L): String
     suspend fun addAssistantMessage(content: String)
+
+    /**
+     * Resolve the persistent heartbeat conversation's id, creating an empty
+     * [Conversation] with [Conversation.TYPE_HEARTBEAT] if none exists yet.
+     * Used by the scheduler to bind the heartbeat / scheduled-task tool calls
+     * to a stable sandbox session before the AI starts emitting tool calls.
+     */
+    suspend fun getOrCreateHeartbeatConversationId(): String
 
     // Heartbeat notification
     val hasUnreadHeartbeat: StateFlow<Boolean>

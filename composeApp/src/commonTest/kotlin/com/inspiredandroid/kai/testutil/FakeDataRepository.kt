@@ -442,10 +442,11 @@ class FakeDataRepository : DataRepository {
     override fun getHeartbeatInstanceId(): String? = null
     override fun setHeartbeatInstanceId(instanceId: String?) {}
 
-    override suspend fun askWithTools(prompt: String, instanceId: String?): String = ""
+    override suspend fun askWithTools(prompt: String, instanceId: String?, conversationIdOverride: String?): String = ""
     override suspend fun askSilently(question: String): String = ""
     override suspend fun askSilentlyWithInstance(instanceId: String, prompt: String, timeoutMs: Long): String = ""
     override suspend fun addAssistantMessage(content: String) {}
+    override suspend fun getOrCreateHeartbeatConversationId(): String = "fake-heartbeat-conversation"
 
     override val hasUnreadHeartbeat: MutableStateFlow<Boolean> = MutableStateFlow(false)
     override fun clearUnreadHeartbeat() {

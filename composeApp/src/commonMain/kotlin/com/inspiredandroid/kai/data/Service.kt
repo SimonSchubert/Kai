@@ -92,6 +92,7 @@ sealed class Service(
     val apiKeyUrlDisplay: String? = null,
     val isOnDevice: Boolean = false,
     val supportsPdf: Boolean = false,
+    val supportsImages: Boolean = true,
     val reasoningRequestMode: ReasoningRequestMode = ReasoningRequestMode.NONE,
 ) {
     data object Free : Service(
@@ -103,6 +104,10 @@ sealed class Service(
         settingsKeyPrefix = "",
         chatUrl = "https://api.kai9000.com/chat/completions",
         modelsUrl = null,
+        // The kai9000 proxy fans out to a Mistral → Groq → OpenRouter chain. The Groq
+        // fallback uses text-only models (gpt-oss-20b/120b) that reject content-parts
+        // payloads, so images can't be promised reliably on this path.
+        supportsImages = false,
     )
 
     data object AtlasCloud : Service(
