@@ -60,4 +60,43 @@ class UiErrorTest {
         assertIs<UiError.Text>(error)
         assertEquals("Connection timed out", error.message)
     }
+
+    @Test
+    fun `ContentModeration with detail maps to ResourceWithDetail`() {
+        val error = OpenAICompatibleContentModerationException("flagged for 'illicit, violent'").toUiError()
+        assertIs<UiError.ResourceWithDetail>(error)
+        assertEquals("flagged for 'illicit, violent'", error.detail)
+    }
+
+    @Test
+    fun `ContentModeration without detail maps to Resource`() {
+        val error = OpenAICompatibleContentModerationException().toUiError()
+        assertIs<UiError.Resource>(error)
+    }
+
+    @Test
+    fun `ProviderError with detail maps to ResourceWithDetail`() {
+        val error = OpenAICompatibleProviderErrorException("upstream model failed").toUiError()
+        assertIs<UiError.ResourceWithDetail>(error)
+        assertEquals("upstream model failed", error.detail)
+    }
+
+    @Test
+    fun `ServiceUnavailable maps to Resource`() {
+        val error = OpenAICompatibleServiceUnavailableException().toUiError()
+        assertIs<UiError.Resource>(error)
+    }
+
+    @Test
+    fun `Timeout maps to Resource`() {
+        val error = OpenAICompatibleTimeoutException().toUiError()
+        assertIs<UiError.Resource>(error)
+    }
+
+    @Test
+    fun `BadRequest with detail maps to ResourceWithDetail`() {
+        val error = OpenAICompatibleBadRequestException("invalid model parameter").toUiError()
+        assertIs<UiError.ResourceWithDetail>(error)
+        assertEquals("invalid model parameter", error.detail)
+    }
 }
