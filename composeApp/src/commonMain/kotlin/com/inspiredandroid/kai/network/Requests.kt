@@ -482,6 +482,7 @@ class Requests {
         val error = anthropicJson.parseToJsonElement(responseBody).jsonObject["error"]
         when {
             error == null -> OpenAICompatibleErrorDetail(null, null, null, emptyList())
+
             error is JsonPrimitive -> OpenAICompatibleErrorDetail(
                 message = error.content.takeIf { it.isNotBlank() },
                 code = null,
