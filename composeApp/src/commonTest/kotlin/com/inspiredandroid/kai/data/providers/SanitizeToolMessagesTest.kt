@@ -133,4 +133,71 @@ class SanitizeToolMessagesTest {
         assertEquals(4, result.size)
         assertEquals(listOf("call_1"), result[1].tool_calls?.map { it.id })
     }
+
+    @Test
+    fun `tool_call to a tool not in declaredToolNames is dropped along with its response`() {
+        // Repros Bug B: the user disabled `search` between turns, so the assistant's prior
+        // tool_call to it is orphan relative to the current request's tools array.
+        val input = listOf(
+            user("hi"),
+            assistantWithCalls("checking", "call_1"),
+            toolResult("call_1"),
+            user("anything else?"),
+        )
+
+        val result = sanitizeToolMessages(input, declaredToolNames = setOf("calculator"))
+
+        // The assistant turn keeps its text but loses tool_calls; the tool response is dropped.
+        assertEquals(3, result.size)
+        assertEquals("assistant", result[1].role)
+        assertNull(result[1].tool_calls)
+        assertEquals(JsonPrimitive("checking"), result[1].content)
+        assertTrue(result.none { it.role == "tool" })
+    }
+
+    @Test
+    fun `tool_call whose name is in declaredToolNames is preserved`() {
+        val input = listOf(
+            user("hi"),
+            assistantWithCalls(null, "call_1"),
+            toolResult("call_1"),
+        )
+
+        val result = sanitizeToolMessages(input, declaredToolNames = setOf("search"))
+
+        assertEquals(3, result.size)
+        assertEquals(listOf("call_1"), result[1].tool_calls?.map { it.id })
+        assertEquals("call_1", result[2].tool_call_id)
+    }
+
+    @Test
+    fun `empty declaredToolNames strips every historic tool_call`() {
+        val input = listOf(
+            user("hi"),
+            assistantWithCalls("text", "call_1"),
+            toolResult("call_1"),
+        )
+
+        val result = sanitizeToolMessages(input, declaredToolNames = emptySet())
+
+        // Tool_calls and the paired response are gone; assistant text survives.
+        assertEquals(2, result.size)
+        assertNull(result[1].tool_calls)
+        assertEquals(JsonPrimitive("text"), result[1].content)
+    }
+
+    @Test
+    fun `null declaredToolNames preserves historic tool_calls regardless of name`() {
+        // Legacy behavior: callers that don't supply a set get pairing checks only.
+        val input = listOf(
+            user("hi"),
+            assistantWithCalls(null, "call_1"),
+            toolResult("call_1"),
+        )
+
+        val result = sanitizeToolMessages(input, declaredToolNames = null)
+
+        assertEquals(3, result.size)
+        assertEquals(listOf("call_1"), result[1].tool_calls?.map { it.id })
+    }
 }

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-05-24
+**Last verified:** 2026-05-28
 
 Kai supports 26 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -116,7 +116,7 @@ Selecting a non-Free entry reorders the configured list so the chosen service be
 
 ## Attachments
 
-Image attachments are broadly supported across cloud services. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
+Image attachments are broadly supported across cloud services. The built-in **Free** tier is the one cloud exception — its proxy fans out to a chain that includes text-only fallback models, so images are not offered when Free is the active service. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
 
 ## Settings UI
 

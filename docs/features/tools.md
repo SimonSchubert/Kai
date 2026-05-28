@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-05-24
+**Last verified:** 2026-05-28
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -184,7 +184,7 @@ Trimming preserves the tool-call pairing required by strict OpenAI-compatible pr
 
 ### Tool-call message sanitization (OpenAI-compatible)
 
-Strict OpenAI-compatible providers reject a request when an assistant message carrying `tool_calls` is not immediately followed by one tool response per `tool_call_id`, or when a tool response has no preceding `tool_calls` (HTTP 400). Before every OpenAI-compatible request, the outgoing message list is sanitized to enforce this invariant: each assistant tool-call turn is paired with the tool responses that follow it, any tool call left unanswered (e.g. by an interrupted run or aggressive trimming) is stripped, orphan tool responses are dropped, and an assistant turn left with neither text nor tool calls is removed. Gemini and Anthropic use their own native serialization and are unaffected by this pass.
+Strict OpenAI-compatible providers reject a request when an assistant message carrying `tool_calls` is not immediately followed by one tool response per `tool_call_id`, when a tool response has no preceding `tool_calls`, or when a `tool_calls` entry references a tool that is not also declared in the request's `tools[]` array (HTTP 400). Before every OpenAI-compatible request, the outgoing message list is sanitized to enforce these invariants: each assistant tool-call turn is paired with the tool responses that follow it, any tool call referencing a tool not declared on the current request (e.g. because the user toggled the tool off mid-conversation, or the request makes a final tools-less bailout call) is stripped along with its paired response, any tool call left unanswered (e.g. by an interrupted run or aggressive trimming) is stripped, orphan tool responses are dropped, and an assistant turn left with neither text nor tool calls is removed. Gemini and Anthropic use their own native serialization and are unaffected by this pass.
 
 ### Context window overflow protection
 

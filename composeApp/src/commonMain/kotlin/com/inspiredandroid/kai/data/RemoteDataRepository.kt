@@ -643,7 +643,9 @@ class RemoteDataRepository(
                 if (tools.isNotEmpty()) {
                     handleOpenAICompatibleChatWithTools(service, creds, messages, tools, systemPrompt, history)
                 } else {
-                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt)
+                    // No tools on this request — strip any historic tool_calls so Groq's strict
+                    // validator doesn't see calls to tools we no longer declare.
+                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, declaredToolNames = emptySet())
                     val message = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
                         .choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
                     val content = message.effectiveContent ?: throw OpenAICompatibleEmptyResponseException()
@@ -840,9 +842,10 @@ class RemoteDataRepository(
         history: MutableStateFlow<List<History>> = chatHistory,
     ): AssistantTurn {
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
+        val declaredToolNames = tools.map { it.schema.name }.toSet()
         val strategy = object : ToolLoopStrategy {
             override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt), contextWindowTokens)
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames), contextWindowTokens)
                 val response = retryApiCall {
                     requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
@@ -873,7 +876,8 @@ class RemoteDataRepository(
             }
 
             override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt), contextWindowTokens)
+                // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames = emptySet()), contextWindowTokens)
                 return makeFinalCallWithoutTools(service, credentials, msgs)
             }
         }
@@ -1398,7 +1402,8 @@ class RemoteDataRepository(
     override fun supportedFileExtensions(): List<String> {
         val service = currentService()
         if (service.isOnDevice) return emptyList()
-        return if (service.supportsPdf) supportedFileExtensions + "pdf" else supportedFileExtensions
+        val base = if (service.supportsImages) supportedFileExtensions else supportedFileExtensions - imageExtensions
+        return if (service.supportsPdf) base + "pdf" else base
     }
 
     override fun currentService(): Service {
