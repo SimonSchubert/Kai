@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
    <uses-permission android:name="android.permission.INTERNET"/>
    <uses-permission android:name="android.permission.READ_CALENDAR"/>
    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
@@ -51,6 +53,7 @@
             android:foregroundServiceType="dataSync" />
         <uses-native-library android:name="libvndksupport.so" android:required="false"/>
         <uses-native-library android:name="libOpenCL.so" android:required="false"/>
+            <service android:name="com.inspiredandroid.kai.tools.FloatingBrowserService" android:exported="false" />
     </application>
 
 </manifest>

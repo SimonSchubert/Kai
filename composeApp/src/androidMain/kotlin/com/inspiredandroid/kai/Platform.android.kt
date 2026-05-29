@@ -72,6 +72,8 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.java.KoinJavaComponent.inject
 import kotlin.coroutines.CoroutineContext
 
+import com.inspiredandroid.kai.tools.BrowserToolsAndroid
+import com.inspiredandroid.kai.tools.BrowserTools
 actual fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient = HttpClient(Android) {
     config(this)
 }
@@ -180,6 +182,7 @@ actual fun createLegacySettings(): Settings? {
 
 // Tool definitions for Android platform
 actual fun getPlatformToolDefinitions(): List<ToolInfo> = buildList {
+    addAll(BrowserTools.browserToolDefinitions)
     addAll(CommonTools.commonToolDefinitions)
     add(
         ToolInfo(
@@ -224,6 +227,7 @@ actual fun getPlatformToolDefinitions(): List<ToolInfo> = buildList {
 }
 
 actual fun getAvailableTools(): List<Tool> {
+    val browserTools: List<Tool> = BrowserToolsAndroid.androidBrowserTools
     val context: Context by inject(Context::class.java)
     val appSettings: AppSettings by inject(AppSettings::class.java)
     val memoryStore: MemoryStore by inject(MemoryStore::class.java)
@@ -233,6 +237,11 @@ actual fun getAvailableTools(): List<Tool> {
     val emailStore: EmailStore by inject(EmailStore::class.java)
 
     return buildList {
+
+        if (appSettings.isToolEnabled(BrowserTools.browsePageToolInfo.id)) {
+            addAll(BrowserToolsAndroid.androidBrowserTools)
+        }
+
         if (appSettings.isMemoryEnabled()) {
             addAll(CommonTools.getMemoryTools(memoryStore))
         }

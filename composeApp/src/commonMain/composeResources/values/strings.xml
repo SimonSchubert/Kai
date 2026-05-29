@@ -387,4 +387,19 @@
     <string name="model_sort_date">Date</string>
     <string name="model_sort_score">Score</string>
     <string name="model_sort_context">Context</string>
+    <string name="tool_browse_page_name">Browse Page</string>
+    <string name="tool_browse_page_description">Open a URL in the browser</string>
+    <string name="tool_get_page_text_name">Get Page Text</string>
+    <string name="tool_get_page_text_description">Read all text on the current page</string>
+    <string name="tool_click_element_name">Click Element</string>
+    <string name="tool_click_element_description">Click an element on the page</string>
+    <string name="tool_fill_form_name">Fill Form</string>
+    <string name="tool_fill_form_description">Fill a form field</string>
+    <string name="tool_capture_screenshot_name">Capture Screenshot</string>
+    <string name="tool_capture_screenshot_description">Take a screenshot of the page</string>
+    <string name="tool_execute_script_name">Execute Script</string>
+    <string name="tool_execute_script_description">Run JavaScript on the page</string>
+    <string name="browser_close">Close</string>
+    <string name="browser_minimize">Minimize</string>
+    <string name="browser_maximize">Maximize</string>
 </resources>
