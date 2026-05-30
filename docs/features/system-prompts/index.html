@@ -775,7 +775,7 @@
 
 
 <h1 id="system-prompts">System Prompts</h1>
-<p><strong>Last verified:</strong> 2026-05-24</p>
+<p><strong>Last verified:</strong> 2026-05-30</p>
 <p>Kai has several distinct prompt-construction paths. Each one is built by a <strong>pure function</strong> with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.</p>
 <h2 id="paths">Paths</h2>
 <table>
@@ -910,6 +910,12 @@
 <td style="text-align: center;">when list non-empty</td>
 <td style="text-align: center;">never</td>
 <td><code>heartbeatAdditions</code> — standing <code>schedule_task(on_heartbeat=true)</code> entries the AI can see/reference/cancel</td>
+</tr>
+<tr>
+<td><code>## Active skill: &lt;name&gt;</code></td>
+<td style="text-align: center;">when activated</td>
+<td style="text-align: center;">when activated</td>
+<td><code>activeSkill</code> param — non-null only when the user prefixed the current turn's message with <code>/&lt;skill-id&gt;</code> matching an installed, enabled skill. Emits the skill's instruction body plus a list of any bundled files (available at <code>~/skills/&lt;id&gt;/</code> in the sandbox). Zero bytes on every other turn. See <a href="../skills/">skills.md</a></td>
 </tr>
 <tr>
 <td><code>## Context</code></td>
