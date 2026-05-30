@@ -39,6 +39,10 @@ import com.inspiredandroid.kai.network.dtos.openaicompatible.extractInlineToolCa
 import com.inspiredandroid.kai.network.toUiError
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.skills.RegistrySkillEntry
+import com.inspiredandroid.kai.skills.SkillManager
+import com.inspiredandroid.kai.skills.SkillManifest
+import com.inspiredandroid.kai.skills.SkillSource
 import com.inspiredandroid.kai.sms.SmsPoller
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSendResult
@@ -163,6 +167,7 @@ class RemoteDataRepository(
     private val notificationStore: NotificationStore,
     private val notificationListenerController: NotificationListenerController,
     private val mcpServerManager: McpServerManager,
+    private val skillManager: SkillManager,
     private val sandboxController: SandboxController,
     private val localInferenceEngine: LocalInferenceEngine? = null,
 ) : DataRepository {
@@ -682,7 +687,23 @@ class RemoteDataRepository(
         }
     }
 
-    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
+    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?, activeSkillId: String?) {
+        // The active skill (if any) is consumed for this single turn only — stored in a
+        // field rather than a parameter on getActiveSystemPrompt so the existing internal
+        // callers (heartbeat, askWithTools, etc.) don't all need a new parameter. The
+        // skill's files already live in the sandbox at ~/skills/<id>/, so nothing is
+        // materialized here.
+        pendingActiveSkillId = activeSkillId?.takeIf { skillManager.getSkill(it) != null }
+        try {
+            askInternal(question, files, uiSubmission)
+        } finally {
+            pendingActiveSkillId = null
+        }
+    }
+
+    private var pendingActiveSkillId: String? = null
+
+    private suspend fun askInternal(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
         // Allocate a conversation id immediately for fresh chats. Without this,
         // the very first tool call lands here with _currentConversationId.value
         // still null, so per-conversation routing (e.g. the sandbox shell)
@@ -1557,6 +1578,19 @@ class RemoteDataRepository(
         mcpServerManager.connectEnabledServers()
     }
 
+    // Skills
+    override fun getInstalledSkills(): List<SkillManifest> = skillManager.getInstalled()
+
+    override suspend fun uninstallSkill(id: String) {
+        skillManager.uninstall(id)
+    }
+
+    override suspend fun browseSkillMarketplaces(): Result<List<RegistrySkillEntry>> = skillManager.browseMarketplaces()
+
+    override suspend fun installBrowsedSkill(entry: RegistrySkillEntry): Result<SkillManifest> = skillManager.installFromRegistryEntry(entry)
+
+    override suspend fun installGitHubSkill(owner: String, repo: String, ref: String, path: String): Result<SkillManifest> = skillManager.installFromGitHub(owner, repo, ref, path)
+
     // Soul (system prompt)
     override fun getSoulText(): String = appSettings.getSoulText()
 
@@ -1642,6 +1676,8 @@ class RemoteDataRepository(
             SystemPromptVariant.CHAT_LOCAL -> getLocalSafeTools().isNotEmpty()
         }
 
+        val activeSkill = pendingActiveSkillId?.let { skillManager.getSkill(it) }
+
         return buildChatSystemPrompt(
             variant = variant,
             soul = soul,
@@ -1658,6 +1694,7 @@ class RemoteDataRepository(
             emailAccounts = emailAccounts,
             runtime = runtime,
             uiMode = uiMode,
+            activeSkill = activeSkill,
         ).ifEmpty { null }
     }
 

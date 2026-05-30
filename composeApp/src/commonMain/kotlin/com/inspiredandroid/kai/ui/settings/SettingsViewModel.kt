@@ -29,6 +29,7 @@ import com.inspiredandroid.kai.network.OpenAICompatibleInvalidApiKeyException
 import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
+import com.inspiredandroid.kai.skills.parseGitHubSkillUrl
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -116,6 +117,7 @@ class SettingsViewModel(
         uiScale = dataRepository.getUiScale(),
         showUiScale = currentPlatform is Platform.Desktop,
         mcpServers = buildMcpServerEntries().toImmutableList(),
+        skills = dataRepository.getInstalledSkills().toImmutableList(),
         localAvailableModels = dataRepository.getLocalAvailableModels().toImmutableList(),
         totalDeviceMemoryBytes = dataRepository.getTotalDeviceMemoryBytes(),
         localFreeSpaceBytes = dataRepository.getLocalFreeSpaceBytes(),
@@ -170,6 +172,10 @@ class SettingsViewModel(
         onRefreshMcpServer = ::onRefreshMcpServer,
         onShowAddMcpServerDialog = ::onShowAddMcpServerDialog,
         onAddPopularMcpServer = ::onAddPopularMcpServer,
+        onUninstallSkill = ::onUninstallSkill,
+        onShowAddSkillDialog = ::onShowAddSkillDialog,
+        onInstallGitHubSkill = ::onInstallGitHubSkill,
+        onInstallBrowsedSkill = ::onInstallBrowsedSkill,
         onDownloadLocalModel = ::onDownloadLocalModel,
         onCancelLocalModelDownload = ::onCancelLocalModelDownload,
         onDeleteLocalModel = ::onDeleteLocalModel,
@@ -780,6 +786,83 @@ class SettingsViewModel(
         onAddMcpServer(server.name, server.url, emptyMap())
     }
 
+    // Skills ---------------------------------------------------------------
+
+    private fun refreshSkills() {
+        _state.update { it.copy(skills = dataRepository.getInstalledSkills().toImmutableList()) }
+    }
+
+    private fun onUninstallSkill(id: String) {
+        commitPendingDeletion()
+        _state.update { it.copy(pendingDeletion = PendingDeletion.Skill(id)) }
+        pendingDeleteJob = viewModelScope.launch(backgroundDispatcher) {
+            delay(4.seconds)
+            executeDeletion(PendingDeletion.Skill(id))
+        }
+    }
+
+    private fun onShowAddSkillDialog(show: Boolean) {
+        _state.update {
+            it.copy(
+                showAddSkillDialog = show,
+                skillInstallError = null,
+                // Lazily fetch the marketplaces the first time the dialog opens.
+                browseSkillsFailed = if (show) it.browseSkillsFailed else false,
+            )
+        }
+        if (show && _state.value.browsableSkills.isEmpty() && !_state.value.isBrowsingSkills) {
+            browseSkillMarketplaces()
+        }
+    }
+
+    private fun browseSkillMarketplaces() {
+        _state.update { it.copy(isBrowsingSkills = true, browseSkillsFailed = false) }
+        viewModelScope.launch(backgroundDispatcher) {
+            val result = dataRepository.browseSkillMarketplaces()
+            _state.update { state ->
+                state.copy(
+                    isBrowsingSkills = false,
+                    browsableSkills = result.getOrNull().orEmpty().toImmutableList(),
+                    browseSkillsFailed = result.isFailure,
+                )
+            }
+        }
+    }
+
+    private fun onInstallGitHubSkill(input: String) {
+        val source = parseGitHubSkillUrl(input)
+        if (source == null) {
+            _state.update { it.copy(skillInstallError = "Unrecognized GitHub repo or URL.") }
+            return
+        }
+        runSkillInstall { dataRepository.installGitHubSkill(source.owner, source.repo, source.ref, source.path) }
+    }
+
+    private fun onInstallBrowsedSkill(entry: com.inspiredandroid.kai.skills.RegistrySkillEntry) {
+        runSkillInstall { dataRepository.installBrowsedSkill(entry) }
+    }
+
+    private inline fun runSkillInstall(crossinline install: suspend () -> Result<com.inspiredandroid.kai.skills.SkillManifest>) {
+        _state.update { it.copy(isInstallingSkill = true, skillInstallError = null) }
+        viewModelScope.launch(backgroundDispatcher) {
+            val result = install()
+            result.fold(
+                onSuccess = {
+                    refreshSkills()
+                    _state.update { it.copy(isInstallingSkill = false, showAddSkillDialog = false) }
+                },
+                onFailure = { error ->
+                    _state.update {
+                        it.copy(
+                            isInstallingSkill = false,
+                            skillInstallError = error.message ?: "Unknown error",
+                        )
+                    }
+                },
+            )
+        }
+    }
+
     private suspend fun connectMcpServerWithStatus(serverId: String) {
         updateMcpConnectionStatus(serverId, McpConnectionStatus.Connecting)
         val result = dataRepository.connectMcpServer(serverId)
@@ -864,6 +947,11 @@ class SettingsViewModel(
             is PendingDeletion.McpServer -> {
                 dataRepository.removeMcpServer(deletion.serverId)
                 refreshMcpServers()
+            }
+
+            is PendingDeletion.Skill -> {
+                dataRepository.uninstallSkill(deletion.id)
+                refreshSkills()
             }
         }
         // Guard against a stale async deletion clobbering a newer pending one from a rapid second Remove click.

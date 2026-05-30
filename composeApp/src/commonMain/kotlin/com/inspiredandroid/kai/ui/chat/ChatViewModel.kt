@@ -151,6 +151,7 @@ class ChatViewModel(
             savedConversations = summaries.toImmutableList(),
             currentConversationId = conversationId,
             hasUnreadHeartbeat = hasUnreadHeartbeat,
+            installedSkills = dataRepository.getInstalledSkills().toImmutableList(),
         )
     }.distinctUntilChanged().stateIn(
         scope = viewModelScope,
@@ -183,6 +184,8 @@ class ChatViewModel(
         // Capture files before launching coroutine to avoid race with files being cleared
         val files = _state.value.files
 
+        val (strippedQuestion, activeSkillId) = parseSkillInvocation(question)
+
         currentJob = viewModelScope.launch(backgroundDispatcher) {
             _state.update {
                 it.copy(
@@ -192,7 +195,7 @@ class ChatViewModel(
                 )
             }
             try {
-                dataRepository.ask(question, files, uiSubmission)
+                dataRepository.ask(strippedQuestion, files, uiSubmission, activeSkillId)
 
                 // Auto-retry in interactive mode if the response has no valid kai-ui
                 if (_state.value.isInteractiveMode) {
@@ -244,6 +247,26 @@ class ChatViewModel(
         _state.update {
             it.copy(error = null)
         }
+    }
+
+    /**
+     * If [text] begins with `/<skill-id>`, look up the skill among the currently-
+     * installed-and-enabled skills and return its id alongside the verbatim user
+     * text. The text is sent unchanged so the conversation visibly reflects what
+     * the user typed; the skill's instructions in the system prompt tell the model
+     * how to parse the args after the slash command. Falls through with null skill
+     * id when no match — slash commands are opt-in.
+     */
+    private fun parseSkillInvocation(text: String?): Pair<String?, String?> {
+        if (text == null) return null to null
+        val trimmed = text.trimStart()
+        if (!trimmed.startsWith('/')) return text to null
+        val firstSpace = trimmed.indexOfFirst { it.isWhitespace() }
+        val rawId = if (firstSpace < 0) trimmed.substring(1) else trimmed.substring(1, firstSpace)
+        if (rawId.isEmpty()) return text to null
+        val skill = dataRepository.getInstalledSkills().firstOrNull { it.id.equals(rawId, ignoreCase = true) }
+            ?: return text to null
+        return text to skill.id
     }
 
     private fun setIsSpeaking(isSpeaking: Boolean, contentId: String) {

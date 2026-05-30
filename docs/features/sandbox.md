@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-05-24
+**Last verified:** 2026-05-30
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -65,6 +65,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 - **State across the app**: each chat conversation has its own shell, and the Terminal tab has another. Files in `/root` and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.
 - **Network access**: outbound IP works (DNS is configured against `8.8.8.8` / `8.8.4.4`). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.
 - **File visibility**: `/root` lives at app-external storage so files the agent produces can be opened with `open_file` via Android's `FileProvider`. The rest of the filesystem (`/etc`, `/usr`, `/var`, etc.) is the Alpine rootfs and lives in app-internal storage.
+- **Installed skills live here**: skills (see [skills.md](skills.md)) are stored as folders under `~/skills/<id>/` in the sandbox home — the sandbox is their single source of truth, which is why the Skills UI is Android-only and requires the sandbox to be installed first.
+- **Tapping a sandbox-file link in chat**: when the model links to a sandbox file (e.g. a `file:///root/out.gif` markdown link), tapping it opens the file through the same `FileProvider` path rather than the platform URL handler. Handing a raw `file://` URI to Android's `startActivity` throws `FileUriExposedException`, so a global URI handler intercepts `file:` and absolute-path links and routes them to `open_file`; all other links (http/https/…) pass through unchanged.
 - **Limits**: each shell call's stdout and stderr are individually capped at 15 000 characters; pipe through `head` / `tail` / `grep` for larger output. The default per-call timeout is 30 s and the maximum is 60 s.
 - **Active-shell indicator**: each time a chat starts running a shell command via the agent's shell tool, the rounded background of the sandbox icon button in the chat top bar flashes once in the primary color (snap on, ~800ms fade out) so the user can see at a glance that the assistant kicked off a sandbox command.
 
@@ -88,6 +90,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationStorage.kt` | Conversation persistence. `updateShellTranscript(id, lines)` trims to ~10,000 chars total and writes the tail back into the conversation JSON. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/PersistentSandboxShell.kt` | Long-lived bash, sentinel-based command framing, graduated `SIGINT`/`SIGTERM`/`SIGKILL` cancel, self-healing on shell death. One instance per session id. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/SandboxUriHandler.kt` | `UriHandler` provided over `LocalUriHandler` in `App.kt`; routes `file:`/absolute-path links to `SandboxController.openFile`, delegates the rest to the platform handler. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationIdContext.kt` | `ConversationIdElement` coroutine-context element that threads the active conversation id from the chat layer down into tool execution without polluting `Tool.execute(args)`. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/ProotExecutor.kt` | Low-level proot invocation — stream readers, stdin pipe, timeout-bounded one-shot execution. Used by the persistent shell, by package install, and by background jobs. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/RootfsDownloader.kt` | Downloads Alpine rootfs, extracts the tarball, writes `resolv.conf` and `repositories`. |

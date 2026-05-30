@@ -185,8 +185,14 @@ class FakeDataRepository : DataRepository {
         instanceModels.getOrPut(instanceId) { MutableStateFlow(emptyList()) }.value = models
     }
 
-    override suspend fun ask(question: String?, files: List<PlatformFile>, uiSubmission: com.inspiredandroid.kai.data.UiSubmission?) {
+    override suspend fun ask(
+        question: String?,
+        files: List<PlatformFile>,
+        uiSubmission: com.inspiredandroid.kai.data.UiSubmission?,
+        activeSkillId: String?,
+    ) {
         askCalls.add(question to files)
+        lastActiveSkillId = activeSkillId
         askGate?.await()
         askException?.let { throw it }
         if (question != null) {
@@ -322,6 +328,15 @@ class FakeDataRepository : DataRepository {
     override fun getMcpToolsForServer(serverId: String): List<ToolInfo> = mcpTools[serverId] ?: emptyList()
 
     override fun isMcpServerConnected(serverId: String): Boolean = serverId in mcpConnected
+
+    var lastActiveSkillId: String? = null
+    var skills: List<com.inspiredandroid.kai.skills.SkillManifest> = emptyList()
+
+    override fun getInstalledSkills(): List<com.inspiredandroid.kai.skills.SkillManifest> = skills
+    override suspend fun uninstallSkill(id: String) {}
+    override suspend fun browseSkillMarketplaces(): Result<List<com.inspiredandroid.kai.skills.RegistrySkillEntry>> = Result.success(emptyList())
+    override suspend fun installBrowsedSkill(entry: com.inspiredandroid.kai.skills.RegistrySkillEntry): Result<com.inspiredandroid.kai.skills.SkillManifest> = Result.failure(NotImplementedError())
+    override suspend fun installGitHubSkill(owner: String, repo: String, ref: String, path: String): Result<com.inspiredandroid.kai.skills.SkillManifest> = Result.failure(NotImplementedError())
 
     override suspend fun connectEnabledMcpServers() {
         mcpServers.filter { it.isEnabled }.forEach { mcpConnected.add(it.id) }

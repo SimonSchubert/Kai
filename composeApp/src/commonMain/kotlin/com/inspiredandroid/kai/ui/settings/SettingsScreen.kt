@@ -279,6 +279,7 @@ import kai.composeapp.generated.resources.snackbar_email_removed
 import kai.composeapp.generated.resources.snackbar_mcp_server_removed
 import kai.composeapp.generated.resources.snackbar_memory_deleted
 import kai.composeapp.generated.resources.snackbar_service_removed
+import kai.composeapp.generated.resources.snackbar_skill_removed
 import kai.composeapp.generated.resources.snackbar_task_cancelled
 import kai.composeapp.generated.resources.snackbar_undo
 import kotlinx.collections.immutable.ImmutableList
@@ -359,6 +360,7 @@ fun SettingsScreenContent(
     val emailRemovedMsg = stringResource(Res.string.snackbar_email_removed)
     val serviceRemovedMsg = stringResource(Res.string.snackbar_service_removed)
     val mcpServerRemovedMsg = stringResource(Res.string.snackbar_mcp_server_removed)
+    val skillRemovedMsg = stringResource(Res.string.snackbar_skill_removed)
 
     LaunchedEffect(uiState.pendingDeletion) {
         val deletion = uiState.pendingDeletion ?: return@LaunchedEffect
@@ -369,6 +371,7 @@ fun SettingsScreenContent(
             is PendingDeletion.EmailAccount -> emailRemovedMsg
             is PendingDeletion.Service -> serviceRemovedMsg
             is PendingDeletion.McpServer -> mcpServerRemovedMsg
+            is PendingDeletion.Skill -> skillRemovedMsg
         }
         val result = snackbarHostState.showSnackbar(
             message = message,
@@ -396,14 +399,18 @@ fun SettingsScreenContent(
     val filteredMcpServers = remember(uiState.mcpServers, pendingDeletion) {
         if (pendingDeletion is PendingDeletion.McpServer) uiState.mcpServers.filter { it.id != pendingDeletion.serverId }.toImmutableList() else uiState.mcpServers
     }
+    val filteredSkills = remember(uiState.skills, pendingDeletion) {
+        if (pendingDeletion is PendingDeletion.Skill) uiState.skills.filter { it.id != pendingDeletion.id }.toImmutableList() else uiState.skills
+    }
 
-    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers) {
+    val filteredUiState = remember(uiState, filteredMemories, filteredTasks, filteredEmailAccounts, filteredServices, filteredMcpServers, filteredSkills) {
         uiState.copy(
             memories = filteredMemories,
             scheduledTasks = filteredTasks,
             emailAccounts = filteredEmailAccounts,
             configuredServices = filteredServices,
             mcpServers = filteredMcpServers,
+            skills = filteredSkills,
         )
     }
 
@@ -476,6 +483,20 @@ fun SettingsScreenContent(
                                     showAddMcpServerDialog = filteredUiState.showAddMcpServerDialog,
                                     onShowAddMcpServerDialog = actions.onShowAddMcpServerDialog,
                                     onAddPopularMcpServer = actions.onAddPopularMcpServer,
+                                    skills = filteredUiState.skills,
+                                    onUninstallSkill = actions.onUninstallSkill,
+                                    showAddSkillDialog = filteredUiState.showAddSkillDialog,
+                                    onShowAddSkillDialog = actions.onShowAddSkillDialog,
+                                    onInstallGitHubSkill = actions.onInstallGitHubSkill,
+                                    onInstallBrowsedSkill = actions.onInstallBrowsedSkill,
+                                    isInstallingSkill = filteredUiState.isInstallingSkill,
+                                    skillInstallError = filteredUiState.skillInstallError,
+                                    browsableSkills = filteredUiState.browsableSkills,
+                                    isBrowsingSkills = filteredUiState.isBrowsingSkills,
+                                    browseSkillsFailed = filteredUiState.browseSkillsFailed,
+                                    showSkills = sandboxState.showSandbox,
+                                    isSandboxInstalled = sandboxState.sandboxInstalled,
+                                    onNavigateToSandbox = { actions.onSelectTab(SettingsTab.Sandbox) },
                                 )
                             }
 

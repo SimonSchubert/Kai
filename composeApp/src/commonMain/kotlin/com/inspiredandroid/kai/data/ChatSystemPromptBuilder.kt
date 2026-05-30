@@ -8,6 +8,7 @@
 
 package com.inspiredandroid.kai.data
 
+import com.inspiredandroid.kai.skills.SkillManifest
 import kotlin.time.Instant
 
 /**
@@ -157,6 +158,7 @@ internal fun buildChatSystemPrompt(
     emailAccounts: List<EmailAccountSummary>,
     runtime: ChatPromptRuntimeContext,
     uiMode: ChatPromptUiMode,
+    activeSkill: SkillManifest? = null,
 ): String = buildString {
     append(soul)
 
@@ -223,6 +225,10 @@ internal fun buildChatSystemPrompt(
         }
     }
 
+    if (activeSkill != null) {
+        appendActiveSkillSection(activeSkill)
+    }
+
     appendContextSection(runtime)
 
     if (variant == SystemPromptVariant.CHAT_REMOTE) {
@@ -230,6 +236,31 @@ internal fun buildChatSystemPrompt(
             ChatPromptUiMode.DYNAMIC_UI -> appendDynamicUiSection()
             ChatPromptUiMode.INTERACTIVE_UI -> appendInteractiveUiSection()
             ChatPromptUiMode.NONE -> {}
+        }
+    }
+}
+
+/**
+ * Active skill block. Only emitted when the user prefixed the current turn's
+ * message with `/skill-id`, so the body stays out of the prompt on every other
+ * turn — matches the lean-prompt rule of "disabled features add zero bytes."
+ *
+ * On Android, the skill's bundled files live at `~/skills/<id>/` inside the
+ * Linux sandbox, accessible via the existing `execute_shell_command` tool.
+ */
+private fun StringBuilder.appendActiveSkillSection(skill: SkillManifest) {
+    append("\n\n## Active skill: ")
+    append(skill.displayName)
+    append('\n')
+    append(skill.body.trim())
+    if (skill.bundledFilePaths.isNotEmpty()) {
+        append("\n\nBundled files (available at `~/skills/")
+        append(skill.id)
+        append("/` in the Linux sandbox):\n")
+        for (path in skill.bundledFilePaths.sorted()) {
+            append("- ")
+            append(path)
+            append('\n')
         }
     }
 }

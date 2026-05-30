@@ -24,6 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.inspiredandroid.kai.mcp.PopularMcpServer
 import com.inspiredandroid.kai.network.tools.ToolInfo
+import com.inspiredandroid.kai.skills.RegistrySkillEntry
+import com.inspiredandroid.kai.skills.SkillManifest
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardBorder
 import com.inspiredandroid.kai.ui.kaiAdaptiveCardColors
@@ -45,6 +47,20 @@ internal fun ToolsContent(
     showAddMcpServerDialog: Boolean,
     onShowAddMcpServerDialog: (Boolean) -> Unit,
     onAddPopularMcpServer: (PopularMcpServer) -> Unit,
+    skills: ImmutableList<SkillManifest>,
+    onUninstallSkill: (String) -> Unit,
+    showAddSkillDialog: Boolean,
+    onShowAddSkillDialog: (Boolean) -> Unit,
+    onInstallGitHubSkill: (String) -> Unit,
+    onInstallBrowsedSkill: (RegistrySkillEntry) -> Unit,
+    isInstallingSkill: Boolean,
+    skillInstallError: String?,
+    browsableSkills: ImmutableList<RegistrySkillEntry>,
+    isBrowsingSkills: Boolean,
+    browseSkillsFailed: Boolean,
+    showSkills: Boolean,
+    isSandboxInstalled: Boolean,
+    onNavigateToSandbox: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         // MCP Servers section
@@ -59,6 +75,26 @@ internal fun ToolsContent(
             onShowAddDialog = onShowAddMcpServerDialog,
             onAddPopularMcpServer = onAddPopularMcpServer,
         )
+
+        // Skills section — sandbox-backed, so Android only.
+        if (showSkills) {
+            Spacer(Modifier.height(24.dp))
+            SkillsSection(
+                skills = skills,
+                onUninstallSkill = onUninstallSkill,
+                showAddDialog = showAddSkillDialog,
+                onShowAddDialog = onShowAddSkillDialog,
+                onInstallGitHub = onInstallGitHubSkill,
+                onInstallBrowsed = onInstallBrowsedSkill,
+                isInstalling = isInstallingSkill,
+                installError = skillInstallError,
+                browsableSkills = browsableSkills,
+                isBrowsing = isBrowsingSkills,
+                browseFailed = browseSkillsFailed,
+                isSandboxInstalled = isSandboxInstalled,
+                onNavigateToSandbox = onNavigateToSandbox,
+            )
+        }
 
         Spacer(Modifier.height(24.dp))
 

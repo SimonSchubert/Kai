@@ -60,6 +60,7 @@ import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.imageExtensions
+import com.inspiredandroid.kai.skills.SkillManifest
 import com.inspiredandroid.kai.ui.gradientBrush
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.outlineTextFieldColors
@@ -95,9 +96,39 @@ fun QuestionInput(
     cancel: () -> Unit = {},
     availableServices: ImmutableList<ServiceEntry> = persistentListOf(),
     onSelectService: (String) -> Unit = {},
+    installedSkills: ImmutableList<SkillManifest> = persistentListOf(),
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
+        // Slash autocomplete: shown when the user is typing the first token and it starts
+        // with `/`. Selecting an entry rewrites the first token to the canonical skill id
+        // so the ViewModel can match it at send time.
+        if (installedSkills.isNotEmpty()) {
+            val slashQuery = remember(textState.text, textState.selection) {
+                detectSlashQuery(textState.text, textState.selection.start)
+            }
+            if (slashQuery != null) {
+                SkillAutocomplete(
+                    skills = installedSkills,
+                    query = slashQuery,
+                    onSelect = { skill ->
+                        val text = textState.text
+                        val firstSpace = text.indexOfFirst { it.isWhitespace() }
+                        val rest = if (firstSpace < 0) "" else text.substring(firstSpace)
+                        val newText = "/${skill.id}$rest"
+                        val cursor = ("/" + skill.id + " ").length
+                        onTextStateChange(
+                            TextFieldValue(
+                                text = if (rest.isEmpty()) "/${skill.id} " else newText,
+                                selection = TextRange(cursor.coerceAtMost(if (rest.isEmpty()) cursor else newText.length)),
+                            ),
+                        )
+                    },
+                )
+                Spacer(Modifier.padding(top = 4.dp))
+            }
+        }
+
         if (files.isNotEmpty()) {
             FlowRow(
                 modifier = Modifier
@@ -248,6 +279,22 @@ fun QuestionInput(
             if (!inInspection) focusRequester.requestFocus()
         }
     }
+}
+
+/**
+ * Returns the slash-command query string the user is currently typing, or null if
+ * the cursor isn't inside a leading `/<token>`. Examples:
+ *  - `"/su"` cursor at 3 → `"su"`
+ *  - `"/summarize https://…"` cursor at 4 → `"sum"`
+ *  - `"hello /foo"` (slash not at start) → `null`
+ *  - `"/foo bar"` cursor at 6 → `null` (cursor past first space)
+ */
+internal fun detectSlashQuery(text: String, cursor: Int): String? {
+    if (!text.startsWith('/')) return null
+    val firstSpace = text.indexOfFirst { it.isWhitespace() }
+    val tokenEnd = if (firstSpace < 0) text.length else firstSpace
+    if (cursor > tokenEnd) return null
+    return text.substring(1, tokenEnd).lowercase()
 }
 
 /**
