@@ -23,7 +23,6 @@ import com.inspiredandroid.kai.inference.getTotalMemoryBytes
 import com.inspiredandroid.kai.mcp.McpServerConfig
 import com.inspiredandroid.kai.mcp.McpServerManager
 import com.inspiredandroid.kai.network.AllServicesFailedException
-import com.inspiredandroid.kai.network.AnthropicGenericException
 import com.inspiredandroid.kai.network.AnthropicInsufficientCreditsException
 import com.inspiredandroid.kai.network.ContextWindowExceededException
 import com.inspiredandroid.kai.network.FileTooLargeException
@@ -32,7 +31,6 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.Requests
 import com.inspiredandroid.kai.network.ServiceCredentials
 import com.inspiredandroid.kai.network.UnsupportedFileTypeException
-import com.inspiredandroid.kai.network.dtos.anthropic.AnthropicChatRequestDto
 import com.inspiredandroid.kai.network.dtos.anthropic.extractText
 import com.inspiredandroid.kai.network.dtos.gemini.extractText
 import com.inspiredandroid.kai.network.dtos.openaicompatible.extractInlineToolCalls
@@ -42,7 +40,6 @@ import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.skills.RegistrySkillEntry
 import com.inspiredandroid.kai.skills.SkillManager
 import com.inspiredandroid.kai.skills.SkillManifest
-import com.inspiredandroid.kai.skills.SkillSource
 import com.inspiredandroid.kai.sms.SmsPoller
 import com.inspiredandroid.kai.sms.SmsReader
 import com.inspiredandroid.kai.sms.SmsSendResult
@@ -53,9 +50,7 @@ import com.inspiredandroid.kai.tools.SmsPermissionController
 import com.inspiredandroid.kai.tools.SmsSendPermissionController
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.ToolCallInfo
-import com.inspiredandroid.kai.ui.chat.toAnthropicContentBlocks
 import com.inspiredandroid.kai.ui.chat.toGeminiMessageDto
-import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
 import com.inspiredandroid.kai.ui.settings.SettingsModel
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.mimeType
@@ -79,7 +74,6 @@ import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.add
@@ -95,7 +89,6 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -702,7 +695,7 @@ class RemoteDataRepository(
             // The create-skill flow writes a new /root/skills/<id>/SKILL.md via
             // execute_shell_command; rescan so it shows up in the slash menu and Settings
             // without a restart. Cheap (one listDirectory) and only runs on those turns.
-            if (resolvedSkillId == CREATE_SKILL_ID) {
+            if (resolvedSkillId == createSkillId) {
                 skillManager.load()
             }
         }
@@ -711,7 +704,7 @@ class RemoteDataRepository(
     private var pendingActiveSkillId: String? = null
 
     /** Built-in skill id; matches the bundled SKILL.md under composeResources. */
-    private val CREATE_SKILL_ID = "create-skill"
+    private val createSkillId = "create-skill"
 
     private suspend fun askInternal(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
         // Allocate a conversation id immediately for fresh chats. Without this,
