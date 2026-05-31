@@ -1,3 +1,22 @@
+## v2.7.0 — 2026-05-31
+
+### Features
+- Introduce Skills — packaged, reusable instructions the assistant can load on demand via the Linux sandbox, plus a built-in "create-skill" workflow to author your own
+- Add Atlas Cloud as a featured provider
+
+### Fixes
+- Fix text selection in chat list
+- Fix heartbeat active hours slider ranges
+- Fix heartbeat Linux sandbox running in current conversation
+- Fix terminal scroll out of bounds
+- Fix OpenAI-compatible model loading when only the default URL is set
+
+### Improvements
+- Upgrade dependencies
+- Update model catalog and scores
+- Improve free endpoint DTO sanitization
+- Extend API error mapping
+
 ## v2.6.3 — 2026-05-24
 
 ### Fixes

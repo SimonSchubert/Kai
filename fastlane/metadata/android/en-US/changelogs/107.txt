@@ -1,0 +1,12 @@
+Introduce Skills - packaged instructions the assistant can load on demand
+Built-in create-skill workflow to author your own skills
+Add Atlas Cloud as featured provider
+Fix text selection in chat list
+Fix heartbeat active hours slider ranges
+Fix heartbeat Linux sandbox running in current conversation
+Fix terminal scroll bounds
+Fix OpenAI-compatible model loading with default URL
+Update model catalog and scores
+Sanitize free endpoint responses
+Expand API error mapping
+Upgrade dependencies
