@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Добавяне на умение</string>
     <string name="settings_skills_none">Все още няма инсталирани умения.</string>
     <string name="settings_skills_remove">Премахни</string>
+    <string name="settings_skills_builtin">Вграден</string>
     <string name="settings_skills_needs_sandbox">Уменията работят в Linux пясъчника. Инсталирайте го първо, за да добавите умения.</string>
     <string name="settings_skills_setup_sandbox">Настройка на пясъчника</string>
     <string name="settings_skills_add_github">Инсталиране от GitHub</string>

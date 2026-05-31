@@ -393,6 +393,7 @@
     <string name="settings_skills_add">添加技能</string>
     <string name="settings_skills_none">尚未安装任何技能。</string>
     <string name="settings_skills_remove">移除</string>
+    <string name="settings_skills_builtin">内置</string>
     <string name="settings_skills_needs_sandbox">技能在 Linux 沙盒中运行。请先安装沙盒再添加技能。</string>
     <string name="settings_skills_setup_sandbox">设置沙盒</string>
     <string name="settings_skills_add_github">从 GitHub 安装</string>

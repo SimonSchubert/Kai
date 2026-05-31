@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Добавить навык</string>
     <string name="settings_skills_none">Навыки ещё не установлены.</string>
     <string name="settings_skills_remove">Удалить</string>
+    <string name="settings_skills_builtin">Встроенный</string>
     <string name="settings_skills_needs_sandbox">Навыки работают в песочнице Linux. Сначала установите её, чтобы добавлять навыки.</string>
     <string name="settings_skills_setup_sandbox">Настроить песочницу</string>
     <string name="settings_skills_add_github">Установить с GitHub</string>

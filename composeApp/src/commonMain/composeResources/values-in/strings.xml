@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Tambah Keterampilan</string>
     <string name="settings_skills_none">Belum ada keterampilan yang terinstal.</string>
     <string name="settings_skills_remove">Hapus</string>
+    <string name="settings_skills_builtin">Bawaan</string>
     <string name="settings_skills_needs_sandbox">Keterampilan berjalan di sandbox Linux. Instal terlebih dahulu untuk menambah keterampilan.</string>
     <string name="settings_skills_setup_sandbox">Siapkan sandbox</string>
     <string name="settings_skills_add_github">Instal dari GitHub</string>

@@ -394,6 +394,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_skills_add">Voeg Vaardigheid by</string>
     <string name="settings_skills_none">Geen vaardighede nog geïnstalleer nie.</string>
     <string name="settings_skills_remove">Verwyder</string>
+    <string name="settings_skills_builtin">Ingebou</string>
     <string name="settings_skills_needs_sandbox">Vaardighede loop in die Linux-sandbox. Installeer dit eers om vaardighede by te voeg.</string>
     <string name="settings_skills_setup_sandbox">Stel sandbox op</string>
     <string name="settings_skills_add_github">Installeer vanaf GitHub</string>

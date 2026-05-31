@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Thêm kỹ năng</string>
     <string name="settings_skills_none">Chưa có kỹ năng nào được cài đặt.</string>
     <string name="settings_skills_remove">Xóa</string>
+    <string name="settings_skills_builtin">Tích hợp</string>
     <string name="settings_skills_needs_sandbox">Kỹ năng chạy trong hộp cát Linux. Cài đặt nó trước để thêm kỹ năng.</string>
     <string name="settings_skills_setup_sandbox">Thiết lập hộp cát</string>
     <string name="settings_skills_add_github">Cài đặt từ GitHub</string>

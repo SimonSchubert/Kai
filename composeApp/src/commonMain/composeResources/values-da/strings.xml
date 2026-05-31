@@ -394,6 +394,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_skills_add">Tilføj færdighed</string>
     <string name="settings_skills_none">Ingen færdigheder installeret endnu.</string>
     <string name="settings_skills_remove">Fjern</string>
+    <string name="settings_skills_builtin">Indbygget</string>
     <string name="settings_skills_needs_sandbox">Færdigheder kører i Linux-sandkassen. Installér den først for at tilføje færdigheder.</string>
     <string name="settings_skills_setup_sandbox">Opsæt sandkasse</string>
     <string name="settings_skills_add_github">Installér fra GitHub</string>

@@ -393,6 +393,7 @@
     <string name="settings_skills_add">スキルを追加</string>
     <string name="settings_skills_none">スキルはまだインストールされていません。</string>
     <string name="settings_skills_remove">削除</string>
+    <string name="settings_skills_builtin">組み込み</string>
     <string name="settings_skills_needs_sandbox">スキルはLinuxサンドボックスで実行されます。先にインストールしてからスキルを追加してください。</string>
     <string name="settings_skills_setup_sandbox">サンドボックスをセットアップ</string>
     <string name="settings_skills_add_github">GitHubからインストール</string>

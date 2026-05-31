@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Додати навичку</string>
     <string name="settings_skills_none">Навички ще не встановлено.</string>
     <string name="settings_skills_remove">Видалити</string>
+    <string name="settings_skills_builtin">Вбудований</string>
     <string name="settings_skills_needs_sandbox">Навички виконуються в пісочниці Linux. Спочатку встановіть її, щоб додавати навички.</string>
     <string name="settings_skills_setup_sandbox">Налаштувати пісочницю</string>
     <string name="settings_skills_add_github">Встановити з GitHub</string>

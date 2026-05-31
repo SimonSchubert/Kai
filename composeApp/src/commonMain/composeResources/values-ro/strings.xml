@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Adaugă abilitate</string>
     <string name="settings_skills_none">Nicio abilitate instalată încă.</string>
     <string name="settings_skills_remove">Elimină</string>
+    <string name="settings_skills_builtin">Inclus</string>
     <string name="settings_skills_needs_sandbox">Abilitățile rulează în sandbox-ul Linux. Instalați-l mai întâi pentru a adăuga abilități.</string>
     <string name="settings_skills_setup_sandbox">Configurare sandbox</string>
     <string name="settings_skills_add_github">Instalare din GitHub</string>

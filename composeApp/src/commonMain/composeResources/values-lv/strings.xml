@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Pievienot prasmi</string>
     <string name="settings_skills_none">Vēl nav instalētu prasmju.</string>
     <string name="settings_skills_remove">Noņemt</string>
+    <string name="settings_skills_builtin">Iebūvēts</string>
     <string name="settings_skills_needs_sandbox">Prasmes darbojas Linux smilškastē. Vispirms instalējiet to, lai pievienotu prasmes.</string>
     <string name="settings_skills_setup_sandbox">Iestatīt smilškasti</string>
     <string name="settings_skills_add_github">Instalēt no GitHub</string>

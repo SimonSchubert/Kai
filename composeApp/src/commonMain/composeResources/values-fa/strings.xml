@@ -393,6 +393,7 @@
     <string name="settings_skills_add">افزودن مهارت</string>
     <string name="settings_skills_none">هنوز هیچ مهارتی نصب نشده است.</string>
     <string name="settings_skills_remove">حذف</string>
+    <string name="settings_skills_builtin">داخلی</string>
     <string name="settings_skills_needs_sandbox">مهارت‌ها در جعبه شنی Linux اجرا می‌شوند. ابتدا آن را نصب کنید تا مهارت اضافه کنید.</string>
     <string name="settings_skills_setup_sandbox">راه‌اندازی سندباکس</string>
     <string name="settings_skills_add_github">نصب از GitHub</string>

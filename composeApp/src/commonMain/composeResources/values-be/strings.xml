@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Дадаць навык</string>
     <string name="settings_skills_none">Навыкі яшчэ не ўсталяваны.</string>
     <string name="settings_skills_remove">Выдаліць</string>
+    <string name="settings_skills_builtin">Убудаваны</string>
     <string name="settings_skills_needs_sandbox">Навыкі запускаюцца ў пясочніцы Linux. Спачатку ўсталюйце яе, каб дадаваць навыкі.</string>
     <string name="settings_skills_setup_sandbox">Наладзіць пясочніцу</string>
     <string name="settings_skills_add_github">Усталяваць з GitHub</string>

@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Přidat dovednost</string>
     <string name="settings_skills_none">Zatím nejsou nainstalovány žádné dovednosti.</string>
     <string name="settings_skills_remove">Odebrat</string>
+    <string name="settings_skills_builtin">Vestavěný</string>
     <string name="settings_skills_needs_sandbox">Dovednosti běží v sandboxu Linuxu. Nejprve jej nainstalujte, abyste mohli přidávat dovednosti.</string>
     <string name="settings_skills_setup_sandbox">Nastavit sandbox</string>
     <string name="settings_skills_add_github">Nainstalovat z GitHub</string>

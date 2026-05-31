@@ -693,15 +693,25 @@ class RemoteDataRepository(
         // callers (heartbeat, askWithTools, etc.) don't all need a new parameter. The
         // skill's files already live in the sandbox at ~/skills/<id>/, so nothing is
         // materialized here.
-        pendingActiveSkillId = activeSkillId?.takeIf { skillManager.getSkill(it) != null }
+        val resolvedSkillId = activeSkillId?.takeIf { skillManager.getSkill(it) != null }
+        pendingActiveSkillId = resolvedSkillId
         try {
             askInternal(question, files, uiSubmission)
         } finally {
             pendingActiveSkillId = null
+            // The create-skill flow writes a new /root/skills/<id>/SKILL.md via
+            // execute_shell_command; rescan so it shows up in the slash menu and Settings
+            // without a restart. Cheap (one listDirectory) and only runs on those turns.
+            if (resolvedSkillId == CREATE_SKILL_ID) {
+                skillManager.load()
+            }
         }
     }
 
     private var pendingActiveSkillId: String? = null
+
+    /** Built-in skill id; matches the bundled SKILL.md under composeResources. */
+    private val CREATE_SKILL_ID = "create-skill"
 
     private suspend fun askInternal(question: String?, files: List<PlatformFile>, uiSubmission: UiSubmission?) {
         // Allocate a conversation id immediately for fresh chats. Without this,

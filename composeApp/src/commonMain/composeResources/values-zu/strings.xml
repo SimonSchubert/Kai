@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Engeza Ikhono</string>
     <string name="settings_skills_none">Awekho amakhono afakiwe okwamanje.</string>
     <string name="settings_skills_remove">Susa</string>
+    <string name="settings_skills_builtin">Akhelwe ngaphakathi</string>
     <string name="settings_skills_needs_sandbox">Amakhono asebenza ku-Linux sandbox. Faka kuqala ukuze ungeze amakhono.</string>
     <string name="settings_skills_setup_sandbox">Lungiselela i-sandbox</string>
     <string name="settings_skills_add_github">Faka kusuka ku-GitHub</string>

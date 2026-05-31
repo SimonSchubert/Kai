@@ -393,6 +393,7 @@
     <string name="settings_skills_add">দক্ষতা যোগ করুন</string>
     <string name="settings_skills_none">এখনো কোনো দক্ষতা ইনস্টল করা হয়নি।</string>
     <string name="settings_skills_remove">সরান</string>
+    <string name="settings_skills_builtin">অন্তর্নির্মিত</string>
     <string name="settings_skills_needs_sandbox">দক্ষতা Linux স্যান্ডবক্সে চলে। দক্ষতা যোগ করতে প্রথমে এটি ইনস্টল করুন।</string>
     <string name="settings_skills_setup_sandbox">স্যান্ডবক্স সেটআপ করুন</string>
     <string name="settings_skills_add_github">GitHub থেকে ইনস্টল করুন</string>

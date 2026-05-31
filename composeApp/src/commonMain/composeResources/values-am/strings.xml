@@ -394,6 +394,7 @@
     <string name="settings_skills_add">ክህሎት ጨምር</string>
     <string name="settings_skills_none">እስካሁን ምንም ክህሎቶች አልተጫኑም።</string>
     <string name="settings_skills_remove">አስወግድ</string>
+    <string name="settings_skills_builtin">ውስጠ-የተሰራ</string>
     <string name="settings_skills_needs_sandbox">ክህሎቶች በLinux ሳንድቦክስ ውስጥ ይሰራሉ። ክህሎቶችን ለመጨመር መጀመሪያ ይጫኑ።</string>
     <string name="settings_skills_setup_sandbox">ሳንድቦክስ አዘጋጅ</string>
     <string name="settings_skills_add_github">ከGitHub ጫን</string>

@@ -394,6 +394,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_skills_add">Añadir skill</string>
     <string name="settings_skills_none">Aún no hay skills instalados.</string>
     <string name="settings_skills_remove">Eliminar</string>
+    <string name="settings_skills_builtin">Integrada</string>
     <string name="settings_skills_needs_sandbox">Los skills se ejecutan en el sandbox de Linux. Instálalo primero para añadir skills.</string>
     <string name="settings_skills_setup_sandbox">Configurar sandbox</string>
     <string name="settings_skills_add_github">Instalar desde GitHub</string>

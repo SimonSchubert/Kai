@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Dodaj spretnost</string>
     <string name="settings_skills_none">Še ni nameščenih spretnosti.</string>
     <string name="settings_skills_remove">Odstrani</string>
+    <string name="settings_skills_builtin">Vgrajeno</string>
     <string name="settings_skills_needs_sandbox">Spretnosti se izvajajo v peskovniku Linux. Najprej ga namestite, da boste lahko dodajali spretnosti.</string>
     <string name="settings_skills_setup_sandbox">Nastavi peskovnik</string>
     <string name="settings_skills_add_github">Namesti z GitHub</string>

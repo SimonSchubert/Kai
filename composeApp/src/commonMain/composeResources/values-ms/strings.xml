@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Tambah Kemahiran</string>
     <string name="settings_skills_none">Tiada kemahiran dipasang lagi.</string>
     <string name="settings_skills_remove">Buang</string>
+    <string name="settings_skills_builtin">Terbina dalam</string>
     <string name="settings_skills_needs_sandbox">Kemahiran dijalankan dalam kotak pasir Linux. Pasangnya dahulu untuk menambah kemahiran.</string>
     <string name="settings_skills_setup_sandbox">Sediakan kotak pasir</string>
     <string name="settings_skills_add_github">Pasang dari GitHub</string>

@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Agiuntar abilitad</string>
     <string name="settings_skills_none">Naginas abilitads installadas anc.</string>
     <string name="settings_skills_remove">Allontanar</string>
+    <string name="settings_skills_builtin">Integrà</string>
     <string name="settings_skills_needs_sandbox">Las abilitads vegnan exequidas en il sandbox da Linux. Installai-lo emprim per agiuntar abilitads.</string>
     <string name="settings_skills_setup_sandbox">Configurar il sandbox</string>
     <string name="settings_skills_add_github">Installar da GitHub</string>

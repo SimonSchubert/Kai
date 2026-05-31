@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Προσθήκη δεξιότητας</string>
     <string name="settings_skills_none">Δεν έχουν εγκατασταθεί δεξιότητες ακόμη.</string>
     <string name="settings_skills_remove">Αφαίρεση</string>
+    <string name="settings_skills_builtin">Ενσωματωμένο</string>
     <string name="settings_skills_needs_sandbox">Οι δεξιότητες εκτελούνται στο περιβάλλον Linux. Εγκαταστήστε το πρώτα για να προσθέσετε δεξιότητες.</string>
     <string name="settings_skills_setup_sandbox">Ρύθμιση sandbox</string>
     <string name="settings_skills_add_github">Εγκατάσταση από GitHub</string>

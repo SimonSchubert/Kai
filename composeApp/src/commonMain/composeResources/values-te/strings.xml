@@ -392,6 +392,7 @@
     <string name="settings_skills_add">స్కిల్ జోడించు</string>
     <string name="settings_skills_none">ఇంకా స్కిల్స్ ఏవీ ఇన్‌స్టాల్ చేయబడలేదు.</string>
     <string name="settings_skills_remove">తొలగించు</string>
+    <string name="settings_skills_builtin">అంతర్నిర్మిత</string>
     <string name="settings_skills_needs_sandbox">స్కిల్స్ Linux శాండ్‌బాక్స్‌లో రన్ అవుతాయి. స్కిల్స్ జోడించడానికి ముందు దాన్ని ఇన్‌స్టాల్ చేయండి.</string>
     <string name="settings_skills_setup_sandbox">శాండ్‌బాక్స్ సెటప్ చేయి</string>
     <string name="settings_skills_add_github">GitHub నుండి ఇన్‌స్టాల్ చేయి</string>

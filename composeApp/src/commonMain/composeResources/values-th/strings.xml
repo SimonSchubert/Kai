@@ -392,6 +392,7 @@
     <string name="settings_skills_add">เพิ่มทักษะ</string>
     <string name="settings_skills_none">ยังไม่มีทักษะที่ติดตั้ง</string>
     <string name="settings_skills_remove">ลบ</string>
+    <string name="settings_skills_builtin">ในตัว</string>
     <string name="settings_skills_needs_sandbox">ทักษะทำงานใน Linux sandbox ติดตั้งก่อนเพื่อเพิ่มทักษะ</string>
     <string name="settings_skills_setup_sandbox">ตั้งค่า sandbox</string>
     <string name="settings_skills_add_github">ติดตั้งจาก GitHub</string>

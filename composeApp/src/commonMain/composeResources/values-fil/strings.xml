@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Magdagdag ng Skill</string>
     <string name="settings_skills_none">Wala pang naka-install na mga skill.</string>
     <string name="settings_skills_remove">Alisin</string>
+    <string name="settings_skills_builtin">Nakapaloob</string>
     <string name="settings_skills_needs_sandbox">Tumatakbo ang mga skill sa Linux sandbox. I-install muna ito para makapagdagdag ng mga skill.</string>
     <string name="settings_skills_setup_sandbox">I-setup ang sandbox</string>
     <string name="settings_skills_add_github">I-install mula sa GitHub</string>

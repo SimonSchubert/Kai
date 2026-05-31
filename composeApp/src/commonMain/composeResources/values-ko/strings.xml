@@ -393,6 +393,7 @@
     <string name="settings_skills_add">스킬 추가</string>
     <string name="settings_skills_none">설치된 스킬이 없습니다.</string>
     <string name="settings_skills_remove">제거</string>
+    <string name="settings_skills_builtin">내장</string>
     <string name="settings_skills_needs_sandbox">스킬은 Linux 샌드박스에서 실행됩니다. 스킬을 추가하려면 먼저 설치하세요.</string>
     <string name="settings_skills_setup_sandbox">샌드박스 설정</string>
     <string name="settings_skills_add_github">GitHub에서 설치</string>

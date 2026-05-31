@@ -392,6 +392,7 @@
     <string name="settings_skills_add">திறன் சேர்</string>
     <string name="settings_skills_none">இன்னும் திறன்கள் எதுவும் நிறுவப்படவில்லை.</string>
     <string name="settings_skills_remove">அகற்று</string>
+    <string name="settings_skills_builtin">உள்ளமைந்தது</string>
     <string name="settings_skills_needs_sandbox">திறன்கள் Linux சாண்ட்பாக்ஸில் இயங்குகின்றன. திறன்களை சேர்க்க முதலில் அதை நிறுவுங்கள்.</string>
     <string name="settings_skills_setup_sandbox">சாண்ட்பாக்ஸ் அமை</string>
     <string name="settings_skills_add_github">GitHub-இலிருந்து நிறுவு</string>

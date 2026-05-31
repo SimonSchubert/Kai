@@ -52,6 +52,7 @@ import kai.composeapp.generated.resources.settings_skills_add_github
 import kai.composeapp.generated.resources.settings_skills_browse
 import kai.composeapp.generated.resources.settings_skills_browse_failed
 import kai.composeapp.generated.resources.settings_skills_browse_loading
+import kai.composeapp.generated.resources.settings_skills_builtin
 import kai.composeapp.generated.resources.settings_skills_cancel
 import kai.composeapp.generated.resources.settings_skills_description
 import kai.composeapp.generated.resources.settings_skills_github_hint
@@ -170,11 +171,22 @@ private fun SkillCard(
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "/${skill.id}",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "/${skill.id}",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.weight(1f, fill = false),
+                    )
+                    if (skill.isBuiltIn) {
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(Res.string.settings_skills_builtin),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
                 Text(
                     text = skill.description,
                     style = MaterialTheme.typography.bodySmall,
@@ -183,7 +195,8 @@ private fun SkillCard(
                 )
             }
 
-            if (expanded) {
+            // Built-in skills ship in the app and cannot be uninstalled — hide the remove action for them.
+            if (expanded && !skill.isBuiltIn) {
                 Spacer(Modifier.height(8.dp))
 
                 TextButton(onClick = onRemove, modifier = Modifier.handCursor()) {

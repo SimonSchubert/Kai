@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Készség hozzáadása</string>
     <string name="settings_skills_none">Még nincs telepített készség.</string>
     <string name="settings_skills_remove">Eltávolítás</string>
+    <string name="settings_skills_builtin">Beépített</string>
     <string name="settings_skills_needs_sandbox">A készségek a Linux homokozóban futnak. Először telepítsd azt a készségek hozzáadásához.</string>
     <string name="settings_skills_setup_sandbox">Homokozó beállítása</string>
     <string name="settings_skills_add_github">Telepítés GitHub-ról</string>

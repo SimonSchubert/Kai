@@ -394,6 +394,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="settings_skills_add">Lisää taito</string>
     <string name="settings_skills_none">Taitoja ei ole vielä asennettu.</string>
     <string name="settings_skills_remove">Poista</string>
+    <string name="settings_skills_builtin">Sisäänrakennettu</string>
     <string name="settings_skills_needs_sandbox">Taidot toimivat Linux-hiekkalaatikossa. Asenna se ensin lisätäksesi taitoja.</string>
     <string name="settings_skills_setup_sandbox">Asenna hiekkalaatikko</string>
     <string name="settings_skills_add_github">Asenna GitHubista</string>

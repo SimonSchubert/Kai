@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Pridėti įgūdį</string>
     <string name="settings_skills_none">Įgūdžių dar nėra įdiegta.</string>
     <string name="settings_skills_remove">Pašalinti</string>
+    <string name="settings_skills_builtin">Integruotas</string>
     <string name="settings_skills_needs_sandbox">Įgūdžiai veikia Linux smėlio dėžėje. Pirmiausia įdiekite ją, kad galėtumėte pridėti įgūdžių.</string>
     <string name="settings_skills_setup_sandbox">Nustatyti smėlio dėžę</string>
     <string name="settings_skills_add_github">Įdiegti iš GitHub</string>

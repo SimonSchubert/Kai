@@ -393,6 +393,7 @@ Om något behöver uppmärksamhet (föråldrade minnen, förfallna uppgifter, an
     <string name="settings_skills_add">Lägg till färdighet</string>
     <string name="settings_skills_none">Inga färdigheter installerade ännu.</string>
     <string name="settings_skills_remove">Ta bort</string>
+    <string name="settings_skills_builtin">Inbyggd</string>
     <string name="settings_skills_needs_sandbox">Färdigheter körs i Linux-sandlådan. Installera den först för att lägga till färdigheter.</string>
     <string name="settings_skills_setup_sandbox">Konfigurera sandlåda</string>
     <string name="settings_skills_add_github">Installera från GitHub</string>

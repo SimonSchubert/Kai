@@ -393,6 +393,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_skills_add">Aggiungi competenza</string>
     <string name="settings_skills_none">Nessuna competenza installata.</string>
     <string name="settings_skills_remove">Rimuovi</string>
+    <string name="settings_skills_builtin">Integrata</string>
     <string name="settings_skills_needs_sandbox">Le competenze vengono eseguite nella sandbox Linux. Installala prima di aggiungere competenze.</string>
     <string name="settings_skills_setup_sandbox">Configura sandbox</string>
     <string name="settings_skills_add_github">Installa da GitHub</string>

@@ -392,6 +392,7 @@
     <string name="settings_skills_add">הוסף כישור</string>
     <string name="settings_skills_none">אין כישורים מותקנים עדיין.</string>
     <string name="settings_skills_remove">הסר</string>
+    <string name="settings_skills_builtin">מובנה</string>
     <string name="settings_skills_needs_sandbox">כישורים פועלים בסביבת החול של Linux. התקן אותה תחילה כדי להוסיף כישורים.</string>
     <string name="settings_skills_setup_sandbox">הגדר סביבת חול</string>
     <string name="settings_skills_add_github">התקן מ-GitHub</string>

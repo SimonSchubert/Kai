@@ -394,6 +394,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_skills_add">Skill hinzufügen</string>
     <string name="settings_skills_none">Noch keine Skills installiert.</string>
     <string name="settings_skills_remove">Entfernen</string>
+    <string name="settings_skills_builtin">Integriert</string>
     <string name="settings_skills_needs_sandbox">Skills laufen in der Linux-Sandbox. Installiere sie zuerst, um Skills hinzuzufügen.</string>
     <string name="settings_skills_setup_sandbox">Sandbox einrichten</string>
     <string name="settings_skills_add_github">Von GitHub installieren</string>

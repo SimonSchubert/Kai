@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Lisa oskus</string>
     <string name="settings_skills_none">Oskusi pole veel installitud.</string>
     <string name="settings_skills_remove">Eemalda</string>
+    <string name="settings_skills_builtin">Sisseehitatud</string>
     <string name="settings_skills_needs_sandbox">Oskused töötavad Linuxi liivakastis. Installeerida see kõigepealt oskuste lisamiseks.</string>
     <string name="settings_skills_setup_sandbox">Seadista liivakast</string>
     <string name="settings_skills_add_github">Installi GitHubist</string>

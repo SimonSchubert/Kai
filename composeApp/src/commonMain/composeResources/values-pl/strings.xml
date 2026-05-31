@@ -393,6 +393,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="settings_skills_add">Dodaj umiejętność</string>
     <string name="settings_skills_none">Nie zainstalowano jeszcze żadnych umiejętności.</string>
     <string name="settings_skills_remove">Usuń</string>
+    <string name="settings_skills_builtin">Wbudowana</string>
     <string name="settings_skills_needs_sandbox">Umiejętności działają w piaskownicy Linux. Najpierw ją zainstaluj, aby dodawać umiejętności.</string>
     <string name="settings_skills_setup_sandbox">Skonfiguruj piaskownicę</string>
     <string name="settings_skills_add_github">Zainstaluj z GitHub</string>

@@ -393,6 +393,7 @@
     <string name="settings_skills_add">Skill जोड़ें</string>
     <string name="settings_skills_none">अभी तक कोई skill इंस्टॉल नहीं।</string>
     <string name="settings_skills_remove">हटाएं</string>
+    <string name="settings_skills_builtin">अंतर्निहित</string>
     <string name="settings_skills_needs_sandbox">Skills Linux सैंडबॉक्स में चलती हैं। Skills जोड़ने के लिए पहले इसे इंस्टॉल करें।</string>
     <string name="settings_skills_setup_sandbox">Sandbox सेटअप करें</string>
     <string name="settings_skills_add_github">GitHub से इंस्टॉल करें</string>

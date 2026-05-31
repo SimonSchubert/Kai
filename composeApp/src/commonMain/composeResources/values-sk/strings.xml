@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Pridať zručnosť</string>
     <string name="settings_skills_none">Zatiaľ nie sú nainštalované žiadne zručnosti.</string>
     <string name="settings_skills_remove">Odstrániť</string>
+    <string name="settings_skills_builtin">Vstavané</string>
     <string name="settings_skills_needs_sandbox">Zručnosti bežia v linuxovom sandboxe. Najskôr ho nainštalujte, aby ste mohli pridávať zručnosti.</string>
     <string name="settings_skills_setup_sandbox">Nastaviť sandbox</string>
     <string name="settings_skills_add_github">Inštalovať z GitHub</string>

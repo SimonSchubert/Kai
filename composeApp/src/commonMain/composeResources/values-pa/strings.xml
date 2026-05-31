@@ -392,6 +392,7 @@
     <string name="settings_skills_add">ਕੁਸ਼ਲਤਾ ਜੋੜੋ</string>
     <string name="settings_skills_none">ਅਜੇ ਕੋਈ ਕੁਸ਼ਲਤਾਵਾਂ ਇੰਸਟਾਲ ਨਹੀਂ ਹਨ।</string>
     <string name="settings_skills_remove">ਹਟਾਓ</string>
+    <string name="settings_skills_builtin">ਬਿਲਟ-ਇਨ</string>
     <string name="settings_skills_needs_sandbox">ਕੁਸ਼ਲਤਾਵਾਂ Linux ਸੈਂਡਬਾਕਸ ਵਿੱਚ ਚੱਲਦੀਆਂ ਹਨ। ਕੁਸ਼ਲਤਾਵਾਂ ਜੋੜਨ ਲਈ ਪਹਿਲਾਂ ਇਸਨੂੰ ਇੰਸਟਾਲ ਕਰੋ।</string>
     <string name="settings_skills_setup_sandbox">ਸੈਂਡਬਾਕਸ ਸੈੱਟਅੱਪ ਕਰੋ</string>
     <string name="settings_skills_add_github">GitHub ਤੋਂ ਇੰਸਟਾਲ ਕਰੋ</string>

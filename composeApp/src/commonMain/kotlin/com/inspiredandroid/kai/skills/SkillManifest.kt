@@ -7,6 +7,10 @@ package com.inspiredandroid.kai.skills
  * other files. [bundledFilePaths] are surfaced in the system prompt so the model
  * knows what's available at `~/skills/<id>/`; their contents already live in the
  * sandbox and are read there via `execute_shell_command`.
+ *
+ * [isBuiltIn] marks skills that ship inside the app (loaded from compose resources
+ * rather than the sandbox). They are always available when the sandbox is up,
+ * cannot be uninstalled, and update with each app release.
  */
 data class SkillManifest(
     val id: String,
@@ -14,6 +18,7 @@ data class SkillManifest(
     val description: String,
     val body: String,
     val bundledFilePaths: List<String> = emptyList(),
+    val isBuiltIn: Boolean = false,
 )
 
 /** Where a skill is downloaded from when installing into the sandbox. */

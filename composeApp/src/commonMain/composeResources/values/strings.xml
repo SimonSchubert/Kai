@@ -258,6 +258,7 @@
     <string name="settings_skills_add">Add Skill</string>
     <string name="settings_skills_none">No skills installed yet.</string>
     <string name="settings_skills_remove">Remove</string>
+    <string name="settings_skills_builtin">Built-in</string>
     <string name="settings_skills_needs_sandbox">Skills run in the Linux sandbox. Install it first to add skills.</string>
     <string name="settings_skills_setup_sandbox">Set up sandbox</string>
     <string name="settings_skills_add_github">Install from GitHub</string>

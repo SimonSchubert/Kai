@@ -393,6 +393,7 @@ Hvis noe trenger oppmerksomhet (utdaterte minner, forfalte oppgaver, brukeroppf�
     <string name="settings_skills_add">Legg til ferdighet</string>
     <string name="settings_skills_none">Ingen ferdigheter installert ennå.</string>
     <string name="settings_skills_remove">Fjern</string>
+    <string name="settings_skills_builtin">Innebygd</string>
     <string name="settings_skills_needs_sandbox">Ferdigheter kjøres i Linux-sandkassen. Installer den først for å legge til ferdigheter.</string>
     <string name="settings_skills_setup_sandbox">Konfigurer sandkasse</string>
     <string name="settings_skills_add_github">Installer fra GitHub</string>

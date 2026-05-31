@@ -2,6 +2,7 @@ package com.inspiredandroid.kai.skills
 
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import kai.composeapp.generated.resources.Res
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,15 +13,17 @@ import kotlinx.coroutines.sync.withLock
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Manages the user's installed skills, which live entirely in the Linux sandbox:
- * each skill is a folder at `~/skills/<id>/` containing its `SKILL.md` (and any
- * bundled files). The sandbox filesystem is the single source of truth; this class
- * just keeps an in-memory cache of what's there so synchronous callers
- * ([getInstalled], [getSkill]) stay cheap.
+ * Manages the user's skills. Most skills live in the Linux sandbox at `~/skills/<id>/`
+ * (each is a folder containing `SKILL.md` plus any bundled files); a small set of
+ * "built-in" skills ships inside the app as compose resources and is merged into the
+ * same in-memory cache so synchronous callers ([getInstalled], [getSkill]) stay cheap.
+ * On id collision the sandbox copy wins, so users can override a built-in.
  *
  * The cache is (re)loaded after every install/uninstall and whenever the sandbox
- * becomes installed. On platforms without a sandbox the file ops are no-ops, so the
- * cache is simply always empty — skills never appear off-Android.
+ * becomes installed — built-ins are loaded then too, gated on sandbox availability
+ * because they only make sense when their `execute_shell_command` writes can land.
+ * On platforms without a sandbox the file ops are no-ops and `load()` never runs, so
+ * no skills (built-in or otherwise) appear off-Android.
  */
 class SkillManager(
     private val sandboxController: SandboxController,
@@ -80,7 +83,7 @@ class SkillManager(
     /** Reads every `~/skills/<id>/` folder back into the in-memory cache. */
     suspend fun load() {
         val skills = mutex.withLock {
-            sandboxController.listDirectory(SKILLS_DIR)
+            val sandboxSkills = sandboxController.listDirectory(SKILLS_DIR)
                 .filter { it.isDirectory }
                 .mapNotNull { dir ->
                     val base = "$SKILLS_DIR/${dir.name}"
@@ -99,14 +102,45 @@ class SkillManager(
                         bundledFilePaths = files,
                     )
                 }
-                .sortedBy { it.id }
+            // Sandbox-installed skills win on id collision so power users can override a built-in.
+            val sandboxIds = sandboxSkills.mapTo(mutableSetOf()) { it.id }
+            val builtIns = loadBuiltInSkills().filter { it.id !in sandboxIds }
+            (builtIns + sandboxSkills).sortedBy { it.id }
         }
         _skills.value = skills
+    }
+
+    /**
+     * Reads bundled SKILL.md files shipped in compose resources. They appear alongside
+     * sandbox-installed skills, can be invoked as `/<id>` from chat, and cannot be
+     * uninstalled. Updates flow with each app release — nothing is persisted to the
+     * sandbox. A built-in whose resource read or frontmatter parse fails is silently
+     * dropped (no user-facing failure for a missing/broken bundled asset).
+     */
+    private suspend fun loadBuiltInSkills(): List<SkillManifest> = BUILT_IN_SKILL_IDS.mapNotNull { id ->
+        val bytes = runCatching { Res.readBytes("files/skills/$id/SKILL.md") }.getOrNull()
+            ?: return@mapNotNull null
+        val parsed = SkillFrontmatterParser.parse(bytes.decodeToString()) as? SkillFrontmatterParser.Result.Ok
+            ?: return@mapNotNull null
+        SkillManifest(
+            id = parsed.id,
+            displayName = SkillFrontmatterParser.displayName(parsed.id),
+            description = parsed.description,
+            body = parsed.body,
+            isBuiltIn = true,
+        )
     }
 
     companion object {
         /** Absolute sandbox path of the skills folder (`~/skills`, home = `/root`). */
         const val SKILLS_DIR = "/root/skills"
+
+        /**
+         * Ids of skills bundled in compose resources at
+         * `composeResources/files/skills/<id>/SKILL.md`. Hardcoded so the asset path is
+         * explicit at compile time and we don't need a resource directory listing.
+         */
+        private val BUILT_IN_SKILL_IDS = listOf("create-skill")
     }
 }
 

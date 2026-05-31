@@ -392,6 +392,7 @@
     <string name="settings_skills_add">कौशल्य जोडा</string>
     <string name="settings_skills_none">अद्याप कोणतीही कौशल्ये स्थापित नाहीत.</string>
     <string name="settings_skills_remove">काढा</string>
+    <string name="settings_skills_builtin">अंगभूत</string>
     <string name="settings_skills_needs_sandbox">कौशल्ये Linux सँडबॉक्समध्ये चालतात. कौशल्ये जोडण्यासाठी आधी ते स्थापित करा.</string>
     <string name="settings_skills_setup_sandbox">सँडबॉक्स सेटअप करा</string>
     <string name="settings_skills_add_github">GitHub वरून स्थापित करा</string>

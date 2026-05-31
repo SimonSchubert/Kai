@@ -392,6 +392,7 @@
     <string name="settings_skills_add">مہارت شامل کریں</string>
     <string name="settings_skills_none">ابھی تک کوئی مہارت انسٹال نہیں ہے۔</string>
     <string name="settings_skills_remove">ہٹائیں</string>
+    <string name="settings_skills_builtin">بلٹ ان</string>
     <string name="settings_skills_needs_sandbox">مہارتیں Linux سینڈ باکس میں چلتی ہیں۔ مہارتیں شامل کرنے کے لیے پہلے اسے انسٹال کریں۔</string>
     <string name="settings_skills_setup_sandbox">سینڈ باکس سیٹ اپ کریں</string>
     <string name="settings_skills_add_github">GitHub سے انسٹال کریں</string>

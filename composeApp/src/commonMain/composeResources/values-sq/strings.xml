@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Shto aftësi</string>
     <string name="settings_skills_none">Ende nuk janë instaluar aftësi.</string>
     <string name="settings_skills_remove">Hiq</string>
+    <string name="settings_skills_builtin">I integruar</string>
     <string name="settings_skills_needs_sandbox">Aftësitë ekzekutohen në sandbox-in Linux. Instalojeni fillimisht për të shtuar aftësi.</string>
     <string name="settings_skills_setup_sandbox">Konfiguro sandbox-in</string>
     <string name="settings_skills_add_github">Instalo nga GitHub</string>

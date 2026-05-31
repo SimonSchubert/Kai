@@ -393,6 +393,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_skills_add">Ajouter une compétence</string>
     <string name="settings_skills_none">Aucune compétence installée pour l\'instant.</string>
     <string name="settings_skills_remove">Supprimer</string>
+    <string name="settings_skills_builtin">Intégrée</string>
     <string name="settings_skills_needs_sandbox">Les compétences s\'exécutent dans le bac à sable Linux. Installez-le d\'abord pour ajouter des compétences.</string>
     <string name="settings_skills_setup_sandbox">Configurer le bac à sable</string>
     <string name="settings_skills_add_github">Installer depuis GitHub</string>

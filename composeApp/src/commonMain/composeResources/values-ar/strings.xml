@@ -394,6 +394,7 @@
     <string name="settings_skills_add">إضافة مهارة</string>
     <string name="settings_skills_none">لم يتم تثبيت أي مهارات بعد.</string>
     <string name="settings_skills_remove">إزالة</string>
+    <string name="settings_skills_builtin">مدمج</string>
     <string name="settings_skills_needs_sandbox">تعمل المهارات في بيئة Linux المحمية. ثبّتها أولًا لإضافة المهارات.</string>
     <string name="settings_skills_setup_sandbox">إعداد بيئة الحماية</string>
     <string name="settings_skills_add_github">تثبيت من GitHub</string>

@@ -393,6 +393,7 @@ Als iets aandacht nodig heeft (verouderde herinneringen, verlopen taken, gebruik
     <string name="settings_skills_add">Vaardigheid toevoegen</string>
     <string name="settings_skills_none">Nog geen vaardigheden geïnstalleerd.</string>
     <string name="settings_skills_remove">Verwijderen</string>
+    <string name="settings_skills_builtin">Ingebouwd</string>
     <string name="settings_skills_needs_sandbox">Vaardigheden draaien in de Linux-sandbox. Installeer deze eerst om vaardigheden toe te voegen.</string>
     <string name="settings_skills_setup_sandbox">Sandbox instellen</string>
     <string name="settings_skills_add_github">Installeren vanuit GitHub</string>

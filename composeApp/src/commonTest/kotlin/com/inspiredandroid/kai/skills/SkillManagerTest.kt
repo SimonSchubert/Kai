@@ -25,11 +25,13 @@ class SkillManagerTest {
 
         mgr.load()
 
-        val skills = mgr.getInstalled()
-        assertEquals(1, skills.size)
-        assertEquals("foo", skills[0].id)
-        assertEquals("Body of foo.", skills[0].body.trim())
-        assertEquals(listOf("helper.py"), skills[0].bundledFilePaths)
+        // The built-in `create-skill` ships in compose resources and is always loaded too;
+        // filter it out so this test asserts only on what landed from the sandbox.
+        val sandboxSkills = mgr.getInstalled().filterNot { it.isBuiltIn }
+        assertEquals(1, sandboxSkills.size)
+        assertEquals("foo", sandboxSkills[0].id)
+        assertEquals("Body of foo.", sandboxSkills[0].body.trim())
+        assertEquals(listOf("helper.py"), sandboxSkills[0].bundledFilePaths)
     }
 
     @Test
@@ -40,7 +42,7 @@ class SkillManagerTest {
 
         mgr.load()
 
-        assertTrue(mgr.getInstalled().isEmpty())
+        assertTrue(mgr.getInstalled().none { !it.isBuiltIn })
     }
 
     @Test
@@ -85,7 +87,7 @@ class SkillManagerTest {
 
         mgr.uninstall("bar")
 
-        assertTrue(mgr.getInstalled().isEmpty())
+        assertTrue(mgr.getInstalled().none { !it.isBuiltIn })
         assertTrue(sandbox.files.keys.none { it.startsWith("/root/skills/bar/") })
     }
 }

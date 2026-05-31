@@ -392,6 +392,7 @@
     <string name="settings_skills_add">Додај вештину</string>
     <string name="settings_skills_none">Још нема инсталираних вештина.</string>
     <string name="settings_skills_remove">Уклони</string>
+    <string name="settings_skills_builtin">Уграђено</string>
     <string name="settings_skills_needs_sandbox">Вештине се покрећу у Linux sandbox-у. Прво га инсталирајте да бисте могли да додајете вештине.</string>
     <string name="settings_skills_setup_sandbox">Подеси sandbox</string>
     <string name="settings_skills_add_github">Инсталирај са GitHub-а</string>
