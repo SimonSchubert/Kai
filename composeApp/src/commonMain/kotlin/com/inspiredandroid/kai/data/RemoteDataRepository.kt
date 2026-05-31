@@ -194,7 +194,7 @@ class RemoteDataRepository(
         } else {
             appSettings.getInstanceModelId(instanceId).ifEmpty { appSettings.getSelectedModelId(service) }
         },
-        baseUrl = appSettings.getInstanceBaseUrl(instanceId).ifEmpty { appSettings.getBaseUrl(service) },
+        baseUrl = getInstanceBaseUrl(instanceId, service),
     )
 
     override val chatHistory: MutableStateFlow<List<History>> = MutableStateFlow(emptyList())
