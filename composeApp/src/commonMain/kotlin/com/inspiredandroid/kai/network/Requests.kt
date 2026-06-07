@@ -32,8 +32,10 @@ import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
+import io.ktor.client.request.preparePost
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
@@ -219,6 +221,55 @@ class Requests {
         Result.failure(mapOpenAICompatibleException(e))
     }
 
+    /**
+     * Streaming variant of [openAICompatibleChat]. Sends `stream: true` and reads
+     * the SSE response incrementally, calling [onEvent] for each token / tool-call /
+     * completion event. The call suspends until the stream ends or an error occurs.
+     */
+    suspend fun streamingOpenAICompatibleChat(
+        service: Service,
+        credentials: ServiceCredentials,
+        messages: List<OpenAICompatibleChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+        customHeaders: Map<String, String> = emptyMap(),
+        onEvent: suspend (StreamEvent) -> Unit,
+    ) {
+        val apiKey = getApiKeyOrThrow(service, credentials)
+        val model = credentials.modelId.ifEmpty { null }
+        val url = resolveUrl(service, credentials, service.chatUrl)
+
+        try {
+            defaultClient.preparePost(url) {
+                contentType(ContentType.Application.Json)
+                apiKey?.let { bearerAuth(it) }
+                customHeaders.forEach { (k, v) -> header(k, v) }
+                setBody(
+                    OpenAICompatibleChatRequestDto(
+                        messages = messages,
+                        model = model,
+                        tools = tools.mapNotNull { runCatching { it.toRequestTool() }.getOrNull() }
+                            .ifEmpty { null },
+                        stream = true,
+                    ),
+                )
+            }.execute { response ->
+                if (!response.status.isSuccess()) {
+                    handleOpenAICompatibleError(service, credentials, response)
+                }
+                val parser = OpenAICompatibleStreamParser(onEvent)
+                SseParser(response.bodyAsChannel()) { _, data ->
+                    parser.onData(data)
+                }.parse()
+            }
+        } catch (e: OpenAICompatibleApiException) {
+            onEvent(StreamEvent.Error(e))
+        } catch (e: io.ktor.client.plugins.HttpRequestTimeoutException) {
+            onEvent(StreamEvent.Error(OpenAICompatibleConnectionException()))
+        } catch (e: Exception) {
+            onEvent(StreamEvent.Error(mapOpenAICompatibleException(e)))
+        }
+    }
+
     suspend fun getOpenAICompatibleModels(
         service: Service,
         credentials: ServiceCredentials,
@@ -335,6 +386,53 @@ class Requests {
         Result.failure(e)
     } catch (e: Exception) {
         Result.failure(AnthropicGenericException("Anthropic: ${e.message}", e))
+    }
+
+    /**
+     * Streaming variant of [anthropicChat]. Sends `stream: true` and reads the SSE
+     * response incrementally, calling [onEvent] for each token / tool-call /
+     * completion event. The call suspends until the stream ends or an error occurs.
+     */
+    suspend fun streamingAnthropicChat(
+        credentials: ServiceCredentials,
+        messages: List<AnthropicChatRequestDto.Message>,
+        tools: List<Tool> = emptyList(),
+        systemInstruction: String? = null,
+        onEvent: suspend (StreamEvent) -> Unit,
+    ) {
+        val apiKey = credentials.apiKey.ifEmpty { throw AnthropicInvalidApiKeyException() }
+
+        try {
+            defaultClient.preparePost(Service.Anthropic.chatUrl) {
+                contentType(ContentType.Application.Json)
+                header("x-api-key", apiKey)
+                header("anthropic-version", "2023-06-01")
+                setBody(
+                    AnthropicChatRequestDto(
+                        model = credentials.modelId,
+                        messages = messages,
+                        max_tokens = 8192,
+                        system = systemInstruction,
+                        tools = tools.mapNotNull { runCatching { it.toAnthropicTool() }.getOrNull() }
+                            .ifEmpty { null },
+                        stream = true,
+                    ),
+                )
+            }.execute { response ->
+                if (!response.status.isSuccess()) {
+                    val responseBody = response.bodyAsText()
+                    throwAnthropicError(response.status.value, responseBody)
+                }
+                val parser = AnthropicStreamParser(onEvent)
+                SseParser(response.bodyAsChannel()) { event, data ->
+                    parser.onEvent(event, data)
+                }.parse()
+            }
+        } catch (e: AnthropicApiException) {
+            onEvent(StreamEvent.Error(e))
+        } catch (e: Exception) {
+            onEvent(StreamEvent.Error(AnthropicGenericException("Anthropic: ${e.message}", e)))
+        }
     }
 
     private fun throwAnthropicError(statusCode: Int, responseBody: String): Nothing {

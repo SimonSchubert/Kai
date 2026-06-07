@@ -9,6 +9,7 @@ data class OpenAICompatibleChatRequestDto(
     val messages: List<Message>,
     val model: String? = null,
     val tools: List<Tool>? = null,
+    val stream: Boolean? = null,
 ) {
     @Serializable
     data class Message(
