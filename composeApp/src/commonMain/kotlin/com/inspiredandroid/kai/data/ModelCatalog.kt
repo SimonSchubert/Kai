@@ -1327,7 +1327,7 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-11).
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-13).
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
@@ -1389,7 +1389,7 @@ internal object ModelCatalog {
         "gpt-4-turbo" to 1324, "gpt-4-turbo-2024-04-09" to 1324,
         "gpt-4.1-nano" to 1322, "gpt-4.1-nano-2025-04-14" to 1322,
         "gpt-4o-mini" to 1318, "gpt-4o-mini-2024-07-18" to 1318, "gpt-oss-20b" to 1318, "gpt-oss-20b:free" to 1318, "gpt-oss:20b" to 1318,
-        "gpt-4-0125-preview" to 1312, "gpt-4-1106-preview" to 1312, "gpt-4-turbo-preview" to 1312,
+        "gpt-4-0125-preview" to 1313, "gpt-4-1106-preview" to 1312, "gpt-4-turbo-preview" to 1313,
         "gpt-4" to 1286, "gpt-4-0314" to 1286,
         "gpt-4-0613" to 1275,
         "gpt-3.5-turbo-0125" to 1224,
@@ -1426,7 +1426,7 @@ internal object ModelCatalog {
         "grok-4-fast-reasoning" to 1404,
         "grok-3-mini" to 1362,
         "grok-3-mini-beta" to 1357,
-        "grok-2" to 1308, "grok-2-2024-08-13" to 1308,
+        "grok-2" to 1336, "grok-2-2024-08-13" to 1336,
         // --- DeepSeek ---
         "deepseek-v4-pro" to 1457, "deepseek-v4-pro-thinking" to 1457, "deepseek-v4-pro-thinking:free" to 1457, "deepseek-v4-pro:free" to 1457,
         "deepseek-v4-flash-thinking" to 1436, "deepseek-v4-flash-thinking:free" to 1436,
@@ -1579,7 +1579,7 @@ internal object ModelCatalog {
         "amazon-nova-experimental-chat-11-10" to 1367,
         "intellect-3" to 1357,
         "hunyuan-turbos-20250226" to 1349,
-        "amazon-nova-experimental-chat-10-09" to 1348, "amazon-nova-experimental-chat-10-20" to 1348, "step-3" to 1348,
+        "amazon-nova-experimental-chat-10-09" to 1348, "amazon-nova-experimental-chat-10-20" to 1350, "step-3" to 1348,
         "ling-flash-2.0" to 1346, "mercury-2" to 1346,
         "hunyuan-turbo-0110" to 1341,
         "nova-2-lite" to 1337, "nova-2-lite-v1" to 1337,
@@ -1661,7 +1661,7 @@ internal object ModelCatalog {
         "nemotron-3-nano:30b" to 1317, "sonar-pro-search" to 1315, "gemini-2.0-flash-exp" to 1310, "gemini-robotics-er-1.6-preview" to 1310, "glm-4-airx" to 1310, "glm-4v-plus" to 1310,
         "hunyuan-a13b-instruct" to 1310, "jamba-1.6-large" to 1310, "kimi-k1.5" to 1310, "l3.3-euryale-70b" to 1310, "labs-mistral-small-creative" to 1310, "llama-3.2-90b-vision" to 1310,
         "llama-3.2-90b-vision-instruct" to 1310, "mistral-small-creative" to 1310, "qwen3-30b-a3b-thinking-2507" to 1310, "seed-oss-36b-instruct" to 1310, "sonar-pro" to 1310, "trinity-mini" to 1310,
-        "gemini-1.5-flash-latest" to 1309, "grok-2-latest" to 1308, "magistral-medium-latest" to 1304, "mistral-small-2503" to 1303, "ernie-4.5-300b-a47b" to 1300, "free" to 1300,
+        "gemini-1.5-flash-latest" to 1309, "grok-2-latest" to 1336, "magistral-medium-latest" to 1304, "mistral-small-2503" to 1303, "ernie-4.5-300b-a47b" to 1300, "free" to 1300,
         "gemini-robotics-er-1.5-preview" to 1300, "glm-4-32b" to 1300, "glm-4-air" to 1300, "hermes-3-llama-3.1-70b" to 1300, "mercury-coder" to 1300, "morph-v3-large" to 1300,
         "perceptron-mk1" to 1300, "qwen2.5-vl-72b-instruct" to 1300, "router" to 1300, "deepseek-r1-distill-llama-70b" to 1295, "deepseek-r1-distill-llama-8b" to 1295, "glm-4-long" to 1295,
         "ernie-4.5-vl-424b-a47b" to 1290, "ernie-x1" to 1290, "grok-beta" to 1290, "minimax-01" to 1290, "minimax-text-01" to 1290, "ministral-14b-2512" to 1290,
