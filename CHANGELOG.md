@@ -1,3 +1,9 @@
+## v2.7.1 — 2026-06-15
+
+### Improvements
+- Upgrade dependencies
+- Update model catalog
+
 ## v2.7.0 — 2026-05-31
 
 ### Features
