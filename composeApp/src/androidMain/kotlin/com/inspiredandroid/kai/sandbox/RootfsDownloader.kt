@@ -139,9 +139,9 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             if (firstEntry) {
                 firstEntry = false
                 val firstSegment = fullName.substringBefore('/')
-                if (firstSegment.startsWith("kali-") && fullName.contains('/')) {
+                if (firstSegment.startsWith("kali-")) {
                     topLevelPrefix = "$firstSegment/"
-                    if (fullName == topLevelPrefix) {
+                    if (fullName == firstSegment || fullName == topLevelPrefix) {
                         // Skip this directory entry itself
                         if (size > 0) skipBytes(inputStream, alignToBlock(size))
                         continue
