@@ -138,11 +138,10 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             // Detect top-level directory prefix on the very first entry
             if (firstEntry) {
                 firstEntry = false
-                if (typeFlag.toInt().toChar() in listOf('5', 'D')) {
-                    // This is a directory — treat its name as the strippable prefix
-                    val stripped = fullName.trimEnd('/')
-                    if (!stripped.contains('/') && stripped.isNotEmpty()) {
-                        topLevelPrefix = "$stripped/"
+                val firstSegment = fullName.substringBefore('/')
+                if (firstSegment.startsWith("kali-") && fullName.contains('/')) {
+                    topLevelPrefix = "$firstSegment/"
+                    if (fullName == topLevelPrefix) {
                         // Skip this directory entry itself
                         if (size > 0) skipBytes(inputStream, alignToBlock(size))
                         continue
@@ -162,10 +161,8 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             }
 
             val outFile = File(targetDir, effectiveName)
-            val targetDirPath = targetDir.toPath().normalize()
-            val outFilePath = outFile.toPath().normalize()
 
-            if (!outFilePath.startsWith(targetDirPath)) {
+            if (!outFile.canonicalPath.startsWith(targetDir.canonicalPath + File.separator)) {
                 skipBytes(inputStream, alignToBlock(size))
                 continue
             }

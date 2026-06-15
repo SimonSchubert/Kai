@@ -307,7 +307,7 @@ class SandboxPackagesViewModel(
         .distinctBy { it.name }
         .toList()
 
-    private fun parseInfoLines(raw: String): List<PackageEntry> = parseDpkgLines(raw)
+
 
     private fun parseSearchLines(raw: String): List<PackageEntry> = raw.lineSequence()
         .map { it.trim() }

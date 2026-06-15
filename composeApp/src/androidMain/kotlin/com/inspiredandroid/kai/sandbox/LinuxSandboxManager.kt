@@ -67,7 +67,9 @@ class LinuxSandboxManager(
     val tmpPath: String get() = File(sandboxDir, "tmp").absolutePath
 
     // Run proot directly from nativeLibraryDir where Android grants execute permission
-    val prootPath: String get() = File(context.applicationInfo.nativeLibraryDir, "libproot.so").absolutePath
+    private var lastUpdateWarning: String? = null
+
+    private val prootPath = File(nativeLibDir, "libproot.so").absolutePath
     val nativeLibDir: String get() = context.applicationInfo.nativeLibraryDir
 
     private val downloader = RootfsDownloader(HttpClient(Android))
@@ -80,7 +82,7 @@ class LinuxSandboxManager(
         val rootfs = File(sandboxDir, "rootfs")
         val proot = File(prootPath)
         if (rootfs.isDirectory && proot.exists() && proot.canExecute()) {
-            _state.value = SandboxState.Ready()
+            _state.value = SandboxState.Ready(warning = lastUpdateWarning)
         }
     }
 
@@ -116,7 +118,7 @@ class LinuxSandboxManager(
         // Determine correct state based on what exists
         val rootfs = File(sandboxDir, "rootfs")
         if (rootfs.isDirectory && File(prootPath).exists()) {
-            _state.value = SandboxState.Ready()
+            _state.value = SandboxState.Ready(warning = lastUpdateWarning)
         } else {
             _state.value = SandboxState.NotInstalled
         }
@@ -173,8 +175,9 @@ class LinuxSandboxManager(
             updateWarning = "apt-get update failed: ${updateResult["stderr"]} ${updateResult["stdout"]}".take(200)
             android.util.Log.w("LinuxSandbox", updateWarning)
         }
+        lastUpdateWarning = updateWarning
 
-        _state.value = SandboxState.Ready(warning = updateWarning)
+        _state.value = SandboxState.Ready(warning = lastUpdateWarning)
     }
 
     private fun copyLibtalloc() {
@@ -289,22 +292,20 @@ class LinuxSandboxManager(
         currentJob = scope.launch {
             try {
                 val executor = createProotExecutor()
-                for (pkg in packages) {
-                    ensureActive()
-                    _state.value = SandboxState.Installing("Installing $pkg...")
-                    val result = executor.execute("DEBIAN_FRONTEND=noninteractive apt-get install -y $pkg", timeoutSeconds = 180)
-                    ensureActive()
-                    val success = result["success"] as? Boolean ?: false
-                    if (!success) {
-                        val stderr = result["stderr"] as? String ?: ""
-                        val stdout = result["stdout"] as? String ?: ""
-                        val error = result["error"] as? String ?: ""
-                        val timedOut = result["timed_out"] as? Boolean ?: false
-                        val exitCode = result["exit_code"] as? Int ?: -1
-                        android.util.Log.e("LinuxSandbox", "Failed to install $pkg: exit=$exitCode timedOut=$timedOut error=$error stdout=$stdout stderr=$stderr")
-                        _state.value = SandboxState.Error("Failed to install $pkg: ${stderr.ifEmpty { error }.ifEmpty { stdout }.take(200)}")
-                        return@launch
-                    }
+                val packagesStr = packages.joinToString(" ")
+                _state.value = SandboxState.Installing("Installing packages...")
+                val result = executor.execute("DEBIAN_FRONTEND=noninteractive apt-get install -y $packagesStr", timeoutSeconds = 300)
+                ensureActive()
+                val success = result["success"] as? Boolean ?: false
+                if (!success) {
+                    val stderr = result["stderr"] as? String ?: ""
+                    val stdout = result["stdout"] as? String ?: ""
+                    val error = result["error"] as? String ?: ""
+                    val timedOut = result["timed_out"] as? Boolean ?: false
+                    val exitCode = result["exit_code"] as? Int ?: -1
+                    android.util.Log.e("LinuxSandbox", "Failed to install packages: exit=$exitCode timedOut=$timedOut error=$error stdout=$stdout stderr=$stderr")
+                    _state.value = SandboxState.Error("Failed to install packages: ${stderr.ifEmpty { error }.ifEmpty { stdout }.take(200)}")
+                    return@launch
                 }
                 // Seed ~/.ssh/config with ControlMaster + keepalive defaults so any
                 // manual `ssh user@host` from now on multiplexes. Idempotent —
@@ -313,9 +314,9 @@ class LinuxSandboxManager(
                 // without the held-connection optimization.
                 runCatching { SshConfigManager(java.io.File(homePath)).ensureDefaults() }
                     .onFailure { android.util.Log.w("LinuxSandbox", "ssh defaults seed failed: ${it.message}") }
-                _state.value = SandboxState.Ready()
+                _state.value = SandboxState.Ready(warning = lastUpdateWarning)
             } catch (_: kotlinx.coroutines.CancellationException) {
-                _state.value = SandboxState.Ready()
+                _state.value = SandboxState.Ready(warning = lastUpdateWarning)
             } catch (e: Exception) {
                 android.util.Log.e("LinuxSandbox", "Package install exception", e)
                 _state.value = SandboxState.Error("Install failed: ${e.message}")
