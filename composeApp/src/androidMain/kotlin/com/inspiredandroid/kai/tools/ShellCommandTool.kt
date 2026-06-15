@@ -13,7 +13,7 @@ import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
 import org.koin.java.KoinJavaComponent.inject
 
-private const val TOOL_DESCRIPTION = """Execute a shell command in an Alpine Linux sandbox and return stdout, stderr, exit code, and current working directory. The environment is a full Alpine Linux system running via proot.
+private const val TOOL_DESCRIPTION = """Execute a shell command in a Kali Linux sandbox and return stdout, stderr, exit code, and current working directory. The environment is a full Kali Linux system running via proot.
 
 Shell session is PERSISTENT across calls within THIS conversation: cwd, exported environment variables, and any in-shell state carry from one call to the next, just like a normal terminal. So "cd /tmp" in one call, then "pwd" in the next, returns "/tmp". You do NOT need to chain "cd dir && command" unless you want directory changes to be one-shot. Other conversations and the in-app Terminal tab each have their own isolated shells; the rootfs and /root are still shared on disk, so files persist across all of them.
 
@@ -23,7 +23,7 @@ For SSH workflows: prefer the ssh_configure_host tool once per remote — it wri
 
 Note: SSH multiplexing (ControlMaster) is intentionally NOT enabled — Android's kernel-level link() restriction prevents openssh from creating its control socket inside this sandbox. Each ssh call does a full TCP+auth handshake. That is the correct, expected behavior here; do not try to force it back on with -o ControlMaster=auto or by writing your own ControlPath — it will produce a muxserver_listen Permission denied error.
 
-Password-only servers (no key auth): this shell can't answer interactive password prompts directly (no PTY, ssh reads from /dev/tty). Heredoc stdin will NOT deliver a password. Install sshpass once with `apk add sshpass`, then drive the connection as `sshpass -p '<password>' ssh <alias> '<remote-cmd>'` — or `sshpass -f <password-file> ssh <alias>` to keep the password off the command line. sshpass fakes a PTY internally, which is the only path that actually works.
+Password-only servers (no key auth): this shell can't answer interactive password prompts directly (no PTY, ssh reads from /dev/tty). Heredoc stdin will NOT deliver a password. Install sshpass once with `apt install sshpass`, then drive the connection as `sshpass -p '<password>' ssh <alias> '<remote-cmd>'` — or `sshpass -f <password-file> ssh <alias>` to keep the password off the command line. sshpass fakes a PTY internally, which is the only path that actually works.
 
 Limits and behavior:
 - Output is capped at 15000 characters per stream; for large output, pipe through head/tail.
@@ -32,7 +32,7 @@ Limits and behavior:
 - Set background=true to run a long-lived process detached from the shell (writes to its own session_id). Use manage_process to check on it.
 - Set fresh=true to run in a one-shot isolated shell that doesn't share state with the persistent session. Useful when you specifically want isolation; rarely needed.
 
-Install extra packages with: apk add <package>
+Install extra packages with: apt install <package>
 
 To show a file you produced in /root to the user, call open_file with the path relative to /root (e.g. open_file path="page.html"). File needs to be self-contained."""
 

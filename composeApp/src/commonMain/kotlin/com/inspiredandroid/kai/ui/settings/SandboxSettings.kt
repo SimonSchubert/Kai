@@ -51,7 +51,7 @@ internal fun SandboxSettingsCard(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "Alpine Linux",
+                    text = "Kali Linux",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )

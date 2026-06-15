@@ -90,7 +90,7 @@ class LinuxSandboxManager(
             abi.startsWith("arm64") -> "aarch64"
             abi.startsWith("armeabi") -> "armhf"
             abi.startsWith("x86_64") -> "x86_64"
-            abi.startsWith("x86") -> "x86"
+            abi.startsWith("x86") -> "i386"
             else -> "aarch64"
         }
     }
@@ -164,18 +164,14 @@ class LinuxSandboxManager(
         downloader.makeWritable(rootfsDir)
         downloader.writeResolvConf(rootfsDir)
 
+        // Kali rootfs ships its own /etc/apt/sources.list; just run apt-get update.
         val executor = createProotExecutor()
-        var updated = false
-        for (mirror in downloader.mirrors) {
-            downloader.writeRepositories(rootfsDir, mirror)
-            val result = executor.execute("apk update", timeoutSeconds = 60)
-            if (result["success"] as? Boolean == true) {
-                updated = true
-                break
-            }
-        }
-        if (!updated) {
-            throw IllegalStateException("apk update failed on all Alpine mirrors")
+        _state.value = SandboxState.Installing("Updating package lists...")
+        val updateResult = executor.execute("apt-get update -y", timeoutSeconds = 120)
+        if (updateResult["success"] as? Boolean != true) {
+            // Non-fatal — apt-get update may partially succeed on first run.
+            android.util.Log.w("LinuxSandbox", "apt-get update returned non-zero, continuing: " +
+                "${updateResult["stderr"]} ${updateResult["stdout"]}")
         }
 
         _state.value = SandboxState.Ready
@@ -284,8 +280,8 @@ class LinuxSandboxManager(
     fun installPackages() {
         if (currentJob?.isActive == true) return
         val packages = listOf(
-            "bash", "curl", "wget", "git", "jq", "python3", "py3-pip", "nodejs",
-            // Remote-server tooling (issue #214). apk add is idempotent so
+            "bash", "curl", "wget", "git", "jq", "python3", "python3-pip", "nodejs",
+            // Remote-server tooling (issue #214). apt-get install is idempotent so
             // existing installs that bump into this list pay nothing for the
             // already-present ones.
             "openssh-client", "lftp", "rsync",
@@ -296,7 +292,7 @@ class LinuxSandboxManager(
                 for (pkg in packages) {
                     ensureActive()
                     _state.value = SandboxState.Installing("Installing $pkg...")
-                    val result = executor.execute("apk add --no-cache $pkg", timeoutSeconds = 120)
+                    val result = executor.execute("apt-get install -y $pkg", timeoutSeconds = 180)
                     ensureActive()
                     val success = result["success"] as? Boolean ?: false
                     if (!success) {

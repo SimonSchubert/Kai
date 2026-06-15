@@ -7,25 +7,26 @@ import io.ktor.http.contentLength
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.readAvailable
 import kotlinx.coroutines.CancellationException
+import org.tukaani.xz.XZInputStream
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.zip.GZIPInputStream
 
-private const val ALPINE_VERSION = "3.21.3"
-private const val ALPINE_BRANCH = "v3.21"
+// Kali NetHunter minimal rootfs — hosted on kali.download (official CDN)
+private const val KALI_BASE_URL = "https://kali.download/nethunter-images/current/rootfs"
+private const val KALI_VARIANT = "full"
 private const val BUFFER_SIZE = 8192
 
-private val ALPINE_MIRRORS = listOf(
-    "https://dl-cdn.alpinelinux.org/alpine",
-    "https://mirrors.edge.kernel.org/alpine",
-    "https://ftp.halifax.rwth-aachen.de/alpine",
-    "https://alpine.ethz.ch/alpine",
-    "https://mirror.csclub.uwaterloo.ca/alpine",
-    "https://mirrors.tuna.tsinghua.edu.cn/alpine",
+// Maps Android/Linux arch names → Kali rootfs arch suffixes
+private val KALI_ARCH_MAP = mapOf(
+    "aarch64" to "arm64",
+    "armhf" to "armhf",
+    "x86_64" to "amd64",
+    "x86" to "i386",
 )
+
 private const val TAR_BLOCK_SIZE = 512
 private const val TAR_NAME_OFFSET = 0
 private const val TAR_MODE_OFFSET = 100
@@ -36,10 +37,13 @@ private const val TAR_PREFIX_OFFSET = 345
 
 class RootfsDownloader(private val httpClient: HttpClient) {
 
-    val mirrors: List<String> = ALPINE_MIRRORS
+    /** Single-entry list kept for compatibility with LinuxSandboxManager mirror iteration. */
+    val mirrors: List<String> = listOf(KALI_BASE_URL)
 
-    fun getDownloadUrls(arch: String): List<String> = ALPINE_MIRRORS.map { base ->
-        "$base/$ALPINE_BRANCH/releases/$arch/alpine-minirootfs-$ALPINE_VERSION-$arch.tar.gz"
+    fun getDownloadUrls(arch: String): List<String> {
+        val kaliArch = KALI_ARCH_MAP[arch] ?: arch
+        val filename = "kali-nethunter-rootfs-$KALI_VARIANT-$kaliArch.tar.xz"
+        return listOf("$KALI_BASE_URL/$filename")
     }
 
     suspend fun download(
@@ -61,7 +65,7 @@ class RootfsDownloader(private val httpClient: HttpClient) {
                 if (index < urls.lastIndex) onProgress(0f)
             }
         }
-        throw IOException("All Alpine mirrors failed", lastError)
+        throw IOException("Kali rootfs download failed", lastError)
     }
 
     private suspend fun downloadFrom(
@@ -92,16 +96,26 @@ class RootfsDownloader(private val httpClient: HttpClient) {
         }
     }
 
+    /**
+     * Extracts a .tar.xz file (Kali NetHunter rootfs format).
+     * Kali tarballs may have a top-level directory prefix (e.g. `kali-arm64/`);
+     * that prefix is stripped so extraction always lands flat in [targetDir].
+     */
     fun extractTarGz(tarGzFile: File, targetDir: File) {
         targetDir.mkdirs()
-        GZIPInputStream(BufferedInputStream(FileInputStream(tarGzFile))).use { gzipStream ->
-            extractTar(gzipStream, targetDir)
+        XZInputStream(BufferedInputStream(FileInputStream(tarGzFile))).use { xzStream ->
+            extractTar(xzStream, targetDir)
         }
     }
 
     private fun extractTar(inputStream: java.io.InputStream, targetDir: File) {
         val headerBuffer = ByteArray(TAR_BLOCK_SIZE)
         val dataBuffer = ByteArray(BUFFER_SIZE)
+
+        // Detect and strip a single top-level directory prefix (e.g. "kali-arm64/").
+        // We do a two-pass approach: first entry tells us the prefix if it's a directory.
+        var topLevelPrefix: String? = null
+        var firstEntry = true
 
         while (true) {
             val headerBytesRead = readFully(inputStream, headerBuffer)
@@ -121,7 +135,33 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             val typeFlag = headerBuffer[TAR_TYPE_OFFSET]
             val linkName = readTarString(headerBuffer, TAR_LINK_OFFSET, 100)
 
-            val outFile = File(targetDir, fullName)
+            // Detect top-level directory prefix on the very first entry
+            if (firstEntry) {
+                firstEntry = false
+                if (typeFlag.toInt().toChar() in listOf('5', 'D')) {
+                    // This is a directory — treat its name as the strippable prefix
+                    val stripped = fullName.trimEnd('/')
+                    if (!stripped.contains('/') && stripped.isNotEmpty()) {
+                        topLevelPrefix = "$stripped/"
+                        // Skip this directory entry itself
+                        if (size > 0) skipBytes(inputStream, alignToBlock(size))
+                        continue
+                    }
+                }
+            }
+
+            // Strip the top-level prefix from all paths
+            val effectiveName = if (topLevelPrefix != null && fullName.startsWith(topLevelPrefix)) {
+                fullName.removePrefix(topLevelPrefix)
+            } else {
+                fullName
+            }
+            if (effectiveName.isEmpty() || effectiveName == "./") {
+                if (size > 0) skipBytes(inputStream, alignToBlock(size))
+                continue
+            }
+
+            val outFile = File(targetDir, effectiveName)
 
             if (!outFile.canonicalPath.startsWith(targetDir.canonicalPath)) {
                 skipBytes(inputStream, alignToBlock(size))
@@ -230,11 +270,16 @@ class RootfsDownloader(private val httpClient: HttpClient) {
         )
     }
 
-    fun writeRepositories(rootfsDir: File, mirrorBase: String) {
-        val apkDir = File(rootfsDir, "etc/apk")
-        apkDir.mkdirs()
-        File(apkDir, "repositories").writeText(
-            "$mirrorBase/$ALPINE_BRANCH/main\n$mirrorBase/$ALPINE_BRANCH/community\n",
+    /**
+     * Writes Kali's apt sources list.
+     * [mirrorBase] is unused (Kali has a single official mirror) but kept for API
+     * compatibility with LinuxSandboxManager's mirror-retry loop.
+     */
+    fun writeRepositories(rootfsDir: File, @Suppress("UNUSED_PARAMETER") mirrorBase: String) {
+        val aptDir = File(rootfsDir, "etc/apt")
+        aptDir.mkdirs()
+        File(aptDir, "sources.list").writeText(
+            "deb https://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware\n",
         )
     }
 }

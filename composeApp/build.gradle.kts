@@ -100,6 +100,7 @@ kotlin {
             implementation(libs.material)
             implementation(libs.bouncycastle.provider)
             implementation(libs.litert.lm)
+            implementation("org.tukaani:xz:1.9")
         }
         commonMain.dependencies {
             implementation(libs.compose.material3)

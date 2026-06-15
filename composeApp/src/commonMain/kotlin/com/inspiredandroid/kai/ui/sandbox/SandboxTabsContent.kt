@@ -115,7 +115,7 @@ internal fun SandboxTabsContent(
         Column(modifier = modifier.fillMaxWidth()) {
             SettingsCard {
                 Text(
-                    text = "Alpine Linux",
+                    text = "Kali Linux",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )

@@ -58,9 +58,7 @@ private const val SEARCH_RESULT_LIMIT = 200
 private const val ERROR_SUMMARY_MAX_CHARS = 200
 private const val LOG_TAG = "SandboxPackages"
 
-private val ALPINE_REVISION_SUFFIX = Regex("-r\\d+$")
-
-private val UPGRADE_PROGRESS_LINE = Regex("""^\(\d+/\d+\)\s+Upgrading\s""")
+private val UPGRADE_PROGRESS_LINE = Regex("""^Get:\d+\s""")
 
 class SandboxPackagesViewModel(
     private val sandboxController: SandboxController,
@@ -87,10 +85,10 @@ class SandboxPackagesViewModel(
     }
 
     private suspend fun loadInstalled(): List<PackageEntry> {
-        val cmd = "apk info -v | sort"
+        val cmd = "dpkg-query -W -f='\${Package}\t\${Version}\t\${binary:Summary}\n' | sort"
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("loadInstalled", cmd, output)
-        return parseInfoLines(output)
+        return parseDpkgLines(output)
     }
 
     private fun applyInstalled(parsed: List<PackageEntry>) {
@@ -117,7 +115,7 @@ class SandboxPackagesViewModel(
     }
 
     private suspend fun runSearch(query: String) {
-        val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_RESULT_LIMIT"
+        val cmd = "apt-cache search ${shellQuote(query)} | sort | head -n $SEARCH_RESULT_LIMIT"
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
         val results = parseSearchLines(output).toImmutableList()
@@ -133,7 +131,7 @@ class SandboxPackagesViewModel(
     fun install(pkg: PackageEntry) {
         mutateInstalled(
             pkg = pkg,
-            cmd = "apk add --no-cache ${shellQuote(pkg.name)}",
+            cmd = "apt-get install -y ${shellQuote(pkg.name)}",
             successWhenInstalled = true,
             successRes = Res.string.sandbox_packages_install_success,
             failureRes = Res.string.sandbox_packages_install_failed,
@@ -153,7 +151,7 @@ class SandboxPackagesViewModel(
         _state.update { it.copy(pendingUninstall = null) }
         mutateInstalled(
             pkg = pkg,
-            cmd = "apk del ${shellQuote(pkg.name)}",
+            cmd = "apt-get remove -y ${shellQuote(pkg.name)}",
             successWhenInstalled = false,
             successRes = Res.string.sandbox_packages_uninstall_success,
             failureRes = Res.string.sandbox_packages_uninstall_failed,
@@ -191,11 +189,8 @@ class SandboxPackagesViewModel(
         if (_state.value.upgrading) return
         _state.update { it.copy(upgrading = true) }
         viewModelScope.launch {
-            // apk's exit code is polluted by cumulative DB error count under PRoot.
-            // Real apk failures are prefixed with "ERROR:" — the lowercase "errors"
-            // in the summary line is just a cumulative count, not a per-run failure.
-            val updateResult = runAndCapture("apk update")
-            if (updateResult.hasApkErrors()) {
+            val updateResult = runAndCapture("apt-get update -y")
+            if (updateResult.hasAptErrors()) {
                 _state.update {
                     it.copy(
                         upgrading = false,
@@ -207,10 +202,10 @@ class SandboxPackagesViewModel(
                 }
                 return@launch
             }
-            val upgradeResult = runAndCapture("apk upgrade")
+            val upgradeResult = runAndCapture("apt-get upgrade -y")
             applyInstalled(loadInstalled())
             _state.update {
-                val msg = if (upgradeResult.hasApkErrors()) {
+                val msg = if (upgradeResult.hasAptErrors()) {
                     SnackbarMessage(Res.string.sandbox_packages_upgrade_failed, upgradeResult.errorSummary())
                 } else {
                     val count = countUpgradedPackages(upgradeResult.stdout)
@@ -245,8 +240,8 @@ class SandboxPackagesViewModel(
             return tail.take(ERROR_SUMMARY_MAX_CHARS)
         }
 
-        fun hasApkErrors(): Boolean = stdout.lineSequence().any { it.startsWith("ERROR:") } ||
-            stderr.lineSequence().any { it.startsWith("ERROR:") }
+        fun hasAptErrors(): Boolean = stdout.lineSequence().any { it.startsWith("E:") } ||
+            stderr.lineSequence().any { it.startsWith("E:") }
     }
 
     private suspend fun runAndCapture(cmd: String): CommandResult {
@@ -284,53 +279,44 @@ class SandboxPackagesViewModel(
         }
     }
 
-    // apk upgrade emits one progress line per package: `(N/M) Upgrading <pkg> (...)`.
-    // No matches → nothing was actually upgraded (e.g. system already up to date).
+    // apt-get upgrade emits "Get:N <url>" lines for each package being fetched.
+    // Counting those gives the number of upgraded packages.
     private fun countUpgradedPackages(stdout: String): Int = stdout.lineSequence()
         .count { UPGRADE_PROGRESS_LINE.containsMatchIn(it) }
 
-    private fun parseInfoLines(raw: String): List<PackageEntry> = raw.lineSequence()
+    /**
+     * Parses dpkg-query output: `name\tversion\tsummary`
+     */
+    private fun parseDpkgLines(raw: String): List<PackageEntry> = raw.lineSequence()
         .map { it.trim() }
-        .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("ERROR:") }
-        .mapNotNull { line -> parseNameVersion(line)?.let { PackageEntry(it.first, it.second) } }
-        .distinctBy { "${it.name}@${it.version}" }
+        .filter { it.isNotEmpty() && !it.startsWith("dpkg-query:") }
+        .mapNotNull { line ->
+            val parts = line.split('\t')
+            if (parts.size < 2) return@mapNotNull null
+            val name = parts[0].trim()
+            val version = parts[1].trim()
+            val description = parts.getOrNull(2)?.trim()?.takeIf { it.isNotEmpty() }
+            if (name.isEmpty()) null else PackageEntry(name, version, description)
+        }
+        .distinctBy { it.name }
         .toList()
+
+    private fun parseInfoLines(raw: String): List<PackageEntry> = parseDpkgLines(raw)
 
     private fun parseSearchLines(raw: String): List<PackageEntry> = raw.lineSequence()
         .map { it.trim() }
-        .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("ERROR:") }
+        .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("E:") }
         .mapNotNull { line ->
+            // apt-cache search format: "name - description"
             val sepIdx = line.indexOf(" - ")
-            val nameVer = if (sepIdx >= 0) line.substring(0, sepIdx) else line
-            val description = if (sepIdx >= 0) line.substring(sepIdx + 3).trim() else null
-            parseNameVersion(nameVer)?.let { (n, v) -> PackageEntry(n, v, description?.takeIf { it.isNotEmpty() }) }
+            if (sepIdx < 0) return@mapNotNull null
+            val name = line.substring(0, sepIdx).trim()
+            val description = line.substring(sepIdx + 3).trim().takeIf { it.isNotEmpty() }
+            if (name.isEmpty()) null else PackageEntry(name, "", description)
         }
-        .distinctBy { "${it.name}@${it.version}" }
+        .distinctBy { it.name }
         .toList()
 
-    // Alpine package idents are `<name>-<version>-r<rev>`, but names themselves
-    // can contain hyphen-digit segments (e.g. `webkit2gtk-4.1`, `glib-2.0`).
-    // Strategy: peel off the trailing `-r<digits>` revision, then split at the
-    // *last* `-<digit>` boundary — that's the version, anything before it is name.
-    private fun parseNameVersion(s: String): Pair<String, String>? {
-        if (s.isEmpty()) return null
-        val revision = ALPINE_REVISION_SUFFIX.find(s)?.value.orEmpty()
-        val withoutRev = if (revision.isNotEmpty()) s.dropLast(revision.length) else s
-        var splitAt = -1
-        for (i in withoutRev.length - 1 downTo 1) {
-            if (withoutRev[i - 1] == '-' && withoutRev[i].isDigit()) {
-                splitAt = i - 1
-                break
-            }
-        }
-        if (splitAt < 0) {
-            return if (revision.isNotEmpty()) withoutRev to revision.trimStart('-') else s to ""
-        }
-        val name = withoutRev.substring(0, splitAt)
-        val version = withoutRev.substring(splitAt + 1) + revision
-        if (name.isEmpty()) return null
-        return name to version
-    }
 
     private fun shellQuote(s: String): String = "'" + s.replace("'", "'\\''") + "'"
 }
