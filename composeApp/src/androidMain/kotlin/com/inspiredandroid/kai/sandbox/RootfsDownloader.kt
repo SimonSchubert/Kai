@@ -173,12 +173,10 @@ class RootfsDownloader(private val httpClient: HttpClient) {
                 '2' -> {
                     outFile.parentFile?.mkdirs()
                     try {
-                        if (outFile.exists()) outFile.delete()
-                        java.nio.file.Files.createSymbolicLink(
-                            outFile.toPath(),
-                            java.nio.file.Paths.get(linkName),
-                        )
-                    } catch (_: Exception) {
+                        outFile.delete()
+                        android.system.Os.symlink(linkName, outFile.absolutePath)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
                 }
 
