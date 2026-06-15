@@ -162,8 +162,10 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             }
 
             val outFile = File(targetDir, effectiveName)
+            val targetDirPath = targetDir.toPath().normalize()
+            val outFilePath = outFile.toPath().normalize()
 
-            if (!outFile.canonicalPath.startsWith(targetDir.canonicalPath + File.separator)) {
+            if (!outFilePath.startsWith(targetDirPath)) {
                 skipBytes(inputStream, alignToBlock(size))
                 continue
             }

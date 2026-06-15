@@ -80,7 +80,7 @@ class LinuxSandboxManager(
         val rootfs = File(sandboxDir, "rootfs")
         val proot = File(prootPath)
         if (rootfs.isDirectory && proot.exists() && proot.canExecute()) {
-            _state.value = SandboxState.Ready
+            _state.value = SandboxState.Ready()
         }
     }
 
@@ -116,7 +116,7 @@ class LinuxSandboxManager(
         // Determine correct state based on what exists
         val rootfs = File(sandboxDir, "rootfs")
         if (rootfs.isDirectory && File(prootPath).exists()) {
-            _state.value = SandboxState.Ready
+            _state.value = SandboxState.Ready()
         } else {
             _state.value = SandboxState.NotInstalled
         }
@@ -167,12 +167,14 @@ class LinuxSandboxManager(
         // Kali rootfs ships its own /etc/apt/sources.list; just run apt-get update.
         val executor = createProotExecutor()
         _state.value = SandboxState.Installing("Updating package lists...")
+        var updateWarning: String? = null
         val updateResult = executor.execute("DEBIAN_FRONTEND=noninteractive apt-get update -y", timeoutSeconds = 120)
         if (updateResult["success"] as? Boolean != true) {
-            throw IllegalStateException("apt-get update failed: ${updateResult["stderr"]} ${updateResult["stdout"]}")
+            updateWarning = "apt-get update failed: ${updateResult["stderr"]} ${updateResult["stdout"]}".take(200)
+            android.util.Log.w("LinuxSandbox", updateWarning)
         }
 
-        _state.value = SandboxState.Ready
+        _state.value = SandboxState.Ready(warning = updateWarning)
     }
 
     private fun copyLibtalloc() {
@@ -311,9 +313,9 @@ class LinuxSandboxManager(
                 // without the held-connection optimization.
                 runCatching { SshConfigManager(java.io.File(homePath)).ensureDefaults() }
                     .onFailure { android.util.Log.w("LinuxSandbox", "ssh defaults seed failed: ${it.message}") }
-                _state.value = SandboxState.Ready
+                _state.value = SandboxState.Ready()
             } catch (_: kotlinx.coroutines.CancellationException) {
-                _state.value = SandboxState.Ready
+                _state.value = SandboxState.Ready()
             } catch (e: Exception) {
                 android.util.Log.e("LinuxSandbox", "Package install exception", e)
                 _state.value = SandboxState.Error("Install failed: ${e.message}")

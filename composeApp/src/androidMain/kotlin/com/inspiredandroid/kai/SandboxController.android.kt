@@ -47,7 +47,7 @@ class AndroidSandboxController : SandboxController {
             SandboxStatus(
                 installed = true,
                 ready = true,
-                statusText = "Ready",
+                statusText = if (initial.warning != null) "Ready (Update failed)" else "Ready",
                 packagesInstalled = sandboxManager.arePackagesInstalled(),
             )
         } else {
@@ -108,7 +108,7 @@ class AndroidSandboxController : SandboxController {
             SandboxStatus(
                 installed = true,
                 ready = true,
-                statusText = "Ready",
+                statusText = if (state.warning != null) "Ready (Update failed)" else "Ready",
                 diskUsageMB = cachedDiskUsageMB,
                 packagesInstalled = sandboxManager.arePackagesInstalled(),
             )
