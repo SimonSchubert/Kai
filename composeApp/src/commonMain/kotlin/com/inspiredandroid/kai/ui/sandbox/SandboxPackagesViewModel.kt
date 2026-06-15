@@ -58,7 +58,7 @@ private const val SEARCH_RESULT_LIMIT = 200
 private const val ERROR_SUMMARY_MAX_CHARS = 200
 private const val LOG_TAG = "SandboxPackages"
 
-private val UPGRADE_PROGRESS_LINE = Regex("""^Get:\d+\s""")
+private val UPGRADE_SUMMARY_REGEX = Regex("""(\d+)\s+upgraded""")
 
 class SandboxPackagesViewModel(
     private val sandboxController: SandboxController,
@@ -115,7 +115,7 @@ class SandboxPackagesViewModel(
     }
 
     private suspend fun runSearch(query: String) {
-        val cmd = "apt-cache search ${shellQuote(query)} | sort | head -n $SEARCH_RESULT_LIMIT"
+        val cmd = "apt-cache search ${shellQuote(query)} | head -n $SEARCH_RESULT_LIMIT"
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
         val results = parseSearchLines(output).toImmutableList()
@@ -131,7 +131,7 @@ class SandboxPackagesViewModel(
     fun install(pkg: PackageEntry) {
         mutateInstalled(
             pkg = pkg,
-            cmd = "apt-get install -y ${shellQuote(pkg.name)}",
+            cmd = "DEBIAN_FRONTEND=noninteractive apt-get install -y ${shellQuote(pkg.name)}",
             successWhenInstalled = true,
             successRes = Res.string.sandbox_packages_install_success,
             failureRes = Res.string.sandbox_packages_install_failed,
@@ -151,7 +151,7 @@ class SandboxPackagesViewModel(
         _state.update { it.copy(pendingUninstall = null) }
         mutateInstalled(
             pkg = pkg,
-            cmd = "apt-get remove -y ${shellQuote(pkg.name)}",
+            cmd = "DEBIAN_FRONTEND=noninteractive apt-get remove -y ${shellQuote(pkg.name)}",
             successWhenInstalled = false,
             successRes = Res.string.sandbox_packages_uninstall_success,
             failureRes = Res.string.sandbox_packages_uninstall_failed,
@@ -189,7 +189,7 @@ class SandboxPackagesViewModel(
         if (_state.value.upgrading) return
         _state.update { it.copy(upgrading = true) }
         viewModelScope.launch {
-            val updateResult = runAndCapture("apt-get update -y")
+            val updateResult = runAndCapture("DEBIAN_FRONTEND=noninteractive apt-get update -y")
             if (updateResult.hasAptErrors()) {
                 _state.update {
                     it.copy(
@@ -202,7 +202,7 @@ class SandboxPackagesViewModel(
                 }
                 return@launch
             }
-            val upgradeResult = runAndCapture("apt-get upgrade -y")
+            val upgradeResult = runAndCapture("DEBIAN_FRONTEND=noninteractive apt-get upgrade -y")
             applyInstalled(loadInstalled())
             _state.update {
                 val msg = if (upgradeResult.hasAptErrors()) {
@@ -240,8 +240,12 @@ class SandboxPackagesViewModel(
             return tail.take(ERROR_SUMMARY_MAX_CHARS)
         }
 
-        fun hasAptErrors(): Boolean = stdout.lineSequence().any { it.startsWith("E:") } ||
-            stderr.lineSequence().any { it.startsWith("E:") }
+        fun hasAptErrors(): Boolean {
+            if (exit != 0) return true
+            val errorPrefixes = listOf("E:", "Err:", "dpkg:")
+            return stdout.lineSequence().any { line -> errorPrefixes.any { line.startsWith(it) } } ||
+                stderr.lineSequence().any { line -> errorPrefixes.any { line.startsWith(it) } }
+        }
     }
 
     private suspend fun runAndCapture(cmd: String): CommandResult {
@@ -279,10 +283,12 @@ class SandboxPackagesViewModel(
         }
     }
 
-    // apt-get upgrade emits "Get:N <url>" lines for each package being fetched.
-    // Counting those gives the number of upgraded packages.
-    private fun countUpgradedPackages(stdout: String): Int = stdout.lineSequence()
-        .count { UPGRADE_PROGRESS_LINE.containsMatchIn(it) }
+    // apt-get emits a summary line like "12 upgraded, 2 newly installed, 0 to remove and 0 not upgraded."
+    // We parse the "X upgraded" part to report back to the user.
+    private fun countUpgradedPackages(stdout: String): Int {
+        val match = UPGRADE_SUMMARY_REGEX.find(stdout)
+        return match?.groupValues?.get(1)?.toIntOrNull() ?: 0
+    }
 
     /**
      * Parses dpkg-query output: `name\tversion\tsummary`

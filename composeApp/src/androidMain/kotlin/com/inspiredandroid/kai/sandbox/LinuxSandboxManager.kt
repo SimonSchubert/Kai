@@ -145,17 +145,17 @@ class LinuxSandboxManager(
         // Download rootfs
         val rootfsDir = File(sandboxDir, "rootfs")
         if (!rootfsDir.isDirectory) {
-            val tarGzFile = File(sandboxDir, "rootfs.tar.gz")
+            val tarXzFile = File(sandboxDir, "rootfs.tar.xz")
             try {
                 _state.value = SandboxState.Downloading(0f)
-                downloader.download(arch, tarGzFile) { progress ->
+                downloader.download(arch, tarXzFile) { progress ->
                     _state.value = SandboxState.Downloading(progress)
                 }
 
                 _state.value = SandboxState.Extracting
-                downloader.extractTarGz(tarGzFile, rootfsDir)
+                downloader.extractTarXz(tarXzFile, rootfsDir)
             } finally {
-                tarGzFile.delete()
+                tarXzFile.delete()
             }
         }
 
@@ -167,11 +167,9 @@ class LinuxSandboxManager(
         // Kali rootfs ships its own /etc/apt/sources.list; just run apt-get update.
         val executor = createProotExecutor()
         _state.value = SandboxState.Installing("Updating package lists...")
-        val updateResult = executor.execute("apt-get update -y", timeoutSeconds = 120)
+        val updateResult = executor.execute("DEBIAN_FRONTEND=noninteractive apt-get update -y", timeoutSeconds = 120)
         if (updateResult["success"] as? Boolean != true) {
-            // Non-fatal — apt-get update may partially succeed on first run.
-            android.util.Log.w("LinuxSandbox", "apt-get update returned non-zero, continuing: " +
-                "${updateResult["stderr"]} ${updateResult["stdout"]}")
+            throw IllegalStateException("apt-get update failed: ${updateResult["stderr"]} ${updateResult["stdout"]}")
         }
 
         _state.value = SandboxState.Ready
@@ -292,7 +290,7 @@ class LinuxSandboxManager(
                 for (pkg in packages) {
                     ensureActive()
                     _state.value = SandboxState.Installing("Installing $pkg...")
-                    val result = executor.execute("apt-get install -y $pkg", timeoutSeconds = 180)
+                    val result = executor.execute("DEBIAN_FRONTEND=noninteractive apt-get install -y $pkg", timeoutSeconds = 180)
                     ensureActive()
                     val success = result["success"] as? Boolean ?: false
                     if (!success) {

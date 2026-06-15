@@ -14,7 +14,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
-// Kali NetHunter minimal rootfs — hosted on kali.download (official CDN)
+// Kali NetHunter full rootfs — hosted on kali.download (official CDN)
 private const val KALI_BASE_URL = "https://kali.download/nethunter-images/current/rootfs"
 private const val KALI_VARIANT = "full"
 private const val BUFFER_SIZE = 8192
@@ -101,9 +101,9 @@ class RootfsDownloader(private val httpClient: HttpClient) {
      * Kali tarballs may have a top-level directory prefix (e.g. `kali-arm64/`);
      * that prefix is stripped so extraction always lands flat in [targetDir].
      */
-    fun extractTarGz(tarGzFile: File, targetDir: File) {
+    fun extractTarXz(tarXzFile: File, targetDir: File) {
         targetDir.mkdirs()
-        XZInputStream(BufferedInputStream(FileInputStream(tarGzFile))).use { xzStream ->
+        XZInputStream(BufferedInputStream(FileInputStream(tarXzFile))).use { xzStream ->
             extractTar(xzStream, targetDir)
         }
     }
@@ -163,7 +163,7 @@ class RootfsDownloader(private val httpClient: HttpClient) {
 
             val outFile = File(targetDir, effectiveName)
 
-            if (!outFile.canonicalPath.startsWith(targetDir.canonicalPath)) {
+            if (!outFile.canonicalPath.startsWith(targetDir.canonicalPath + File.separator)) {
                 skipBytes(inputStream, alignToBlock(size))
                 continue
             }
