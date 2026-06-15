@@ -116,6 +116,8 @@ class RootfsDownloader(private val httpClient: HttpClient) {
         // We do a two-pass approach: first entry tells us the prefix if it's a directory.
         var topLevelPrefix: String? = null
         var firstEntry = true
+        var nextLongName: String? = null
+        var nextLongLink: String? = null
 
         while (true) {
             val headerBytesRead = readFully(inputStream, headerBuffer)
@@ -125,7 +127,10 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             if (name.isEmpty()) break
 
             val prefix = readTarString(headerBuffer, TAR_PREFIX_OFFSET, 155)
-            val fullName = if (prefix.isNotEmpty()) "$prefix/$name" else name
+            val parsedName = if (prefix.isNotEmpty()) "$prefix/$name" else name
+
+            val fullName = nextLongName ?: parsedName
+            nextLongName = null // Consume it
 
             val sizeStr = readTarString(headerBuffer, TAR_SIZE_OFFSET, 12)
             val size = if (sizeStr.isNotEmpty()) sizeStr.toLong(8) else 0L
@@ -133,7 +138,28 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             val modeStr = readTarString(headerBuffer, TAR_MODE_OFFSET, 8)
             val mode = if (modeStr.isNotEmpty()) modeStr.toInt(8) else 0
             val typeFlag = headerBuffer[TAR_TYPE_OFFSET]
-            val linkName = readTarString(headerBuffer, TAR_LINK_OFFSET, 100)
+            
+            val parsedLinkName = readTarString(headerBuffer, TAR_LINK_OFFSET, 100)
+            val linkName = nextLongLink ?: parsedLinkName
+            nextLongLink = null // Consume it
+
+            if (typeFlag.toInt().toChar() == 'L') {
+                val nameBytes = ByteArray(size.toInt())
+                readFully(inputStream, nameBytes)
+                nextLongName = String(nameBytes, Charsets.US_ASCII).trimEnd('\u0000')
+                val padding = alignToBlock(size) - size
+                if (padding > 0) skipBytes(inputStream, padding)
+                continue
+            }
+
+            if (typeFlag.toInt().toChar() == 'K') {
+                val linkBytes = ByteArray(size.toInt())
+                readFully(inputStream, linkBytes)
+                nextLongLink = String(linkBytes, Charsets.US_ASCII).trimEnd('\u0000')
+                val padding = alignToBlock(size) - size
+                if (padding > 0) skipBytes(inputStream, padding)
+                continue
+            }
 
             // Detect top-level directory prefix on the very first entry
             if (firstEntry) {
