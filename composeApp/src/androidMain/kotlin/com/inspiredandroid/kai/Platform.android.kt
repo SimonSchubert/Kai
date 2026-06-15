@@ -35,6 +35,7 @@ import com.inspiredandroid.kai.tools.CalendarRepository
 import com.inspiredandroid.kai.tools.CalendarResult
 import com.inspiredandroid.kai.tools.CommonTools
 import com.inspiredandroid.kai.tools.EmailTools
+import com.inspiredandroid.kai.tools.FetchUrlTool
 import com.inspiredandroid.kai.tools.HeartbeatTools
 import com.inspiredandroid.kai.tools.NotificationHelper
 import com.inspiredandroid.kai.tools.NotificationPermissionController
@@ -418,6 +419,10 @@ actual fun getAvailableTools(): List<Tool> {
 
         if (appSettings.isToolEnabled(CommonTools.openUrlTool.schema.name)) {
             add(CommonTools.openUrlTool)
+        }
+
+        if (appSettings.isToolEnabled(FetchUrlTool.schema.name)) {
+            add(FetchUrlTool)
         }
 
         if (appSettings.isToolEnabled(OpenFileTool.schema.name)) {
