@@ -1225,6 +1225,7 @@ internal object ModelCatalog {
         "mimo-v2-omni" to CuratedModelInfo("Mimo V2 Omni", 128_000, "2025-11"),
         "mimo-v2-pro" to CuratedModelInfo("Mimo V2 Pro", 128_000, "2025-11"),
         "mimo-v2-flash" to CuratedModelInfo("Mimo V2 Flash", 128_000, "2025-11"),
+        "mimo-v2-flash-thinking" to CuratedModelInfo("Mimo V2 Flash Thinking", 128_000, "2025-11"),
         "mimo-v2.5" to CuratedModelInfo("Mimo V2.5", 128_000, "2026-04"),
         "mimo-v2.5-pro" to CuratedModelInfo("Mimo V2.5 Pro", 128_000, "2026-04"),
         "kat-coder-pro-v2" to CuratedModelInfo("KAT Coder Pro v2", 128_000, "2025-11"),
@@ -1327,7 +1328,7 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-13).
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-15).
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
@@ -1514,7 +1515,7 @@ internal object ModelCatalog {
         "glm-4.5-air" to 1373, "glm-4.5-air:free" to 1373,
         "glm-4.7-flash" to 1368,
         "glm-4.5v" to 1353,
-        "glm-4-plus" to 1319, "glm-4-plus-0111" to 1319,
+        "glm-4-plus" to 1319, "glm-4-plus-0111" to 1343,
         "chatglm3-6b" to 1055,
         // --- Kimi ---
         "kimi-k2-6" to 1462, "kimi-k2.6" to 1462,
@@ -1538,8 +1539,8 @@ internal object ModelCatalog {
         // --- Cohere ---
         "command-a" to 1354, "command-a-03-2025" to 1354,
         "c4ai-aya-expanse-32b" to 1267,
-        "command-r-plus" to 1261, "command-r-plus-08-2024" to 1261,
-        "command-r" to 1226, "command-r-08-2024" to 1226,
+        "command-r-plus" to 1261, "command-r-plus-08-2024" to 1276,
+        "command-r" to 1226, "command-r-08-2024" to 1250,
         "c4ai-aya-expanse-8b" to 1223,
         // --- Gemma ---
         "gemma-4-31b" to 1451, "gemma-4-31b-it" to 1451, "gemma-4-31b-it:free" to 1451, "gemma4:31b" to 1451,
@@ -1572,7 +1573,7 @@ internal object ModelCatalog {
         "longcat-flash-chat" to 1401,
         "hunyuan-vision-1.5-thinking" to 1396, "step-3.5-flash" to 1396,
         "amazon-nova-experimental-chat-12-10" to 1395,
-        "hunyuan-t1-20250711" to 1387, "mimo-v2-flash" to 1387,
+        "hunyuan-t1-20250711" to 1387, "mimo-v2-flash-thinking" to 1387, "mimo-v2-flash" to 1393,
         "hunyuan-turbos-20250416" to 1382,
         "trinity-large-preview" to 1379, "trinity-large-preview:free" to 1379,
         "trinity-large-thinking" to 1369, "trinity-large-thinking:free" to 1369,
