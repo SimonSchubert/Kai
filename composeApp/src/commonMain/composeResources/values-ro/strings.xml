@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Executarea unei comenzi shell în sandbox-ul Linux</string>
     <string name="settings_dynamic_ui">Interfață dinamică</string>
     <string name="settings_dynamic_ui_description">Permiteți AI-ului să creeze elemente de interfață interactive precum butoane, formulare și carduri în răspunsuri. Modificarea se aplică conversațiilor noi.</string>
+    <string name="settings_stable_system_prompt">Prompt de sistem stabil</string>
+    <string name="settings_stable_system_prompt_description">Refolosește același prompt de sistem pe parcursul unui dialog, astfel încât serverul LLM să își poată păstra memoria cache a promptului (mai rapid, mai ieftin). Dezactivarea îl reconstruiește la fiecare tur cu marcaje temporale live și starea curentă. Modificarea se aplică conversațiilor noi.</string>
     <string name="settings_oled_mode">Mod OLED</string>
     <string name="settings_oled_mode_description">Folosește fundaluri negre pure în modul întunecat pentru a economisi energia pe ecranele OLED.</string>
     <string name="settings_memories">Amintiri</string>

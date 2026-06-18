@@ -56,6 +56,7 @@ fun AppSettings.exportToJson(
     if (ImportSection.SOUL in sections) {
         val soul = getSoulText()
         if (soul.isNotBlank()) map["soul_text"] = JsonPrimitive(soul)
+        map["stable_system_prompt_enabled"] = JsonPrimitive(isStableSystemPromptEnabled())
     }
 
     if (ImportSection.MEMORY in sections) {
@@ -218,11 +219,13 @@ fun AppSettings.importFromJson(
     if (ImportSection.SOUL in sections) {
         try {
             setSoulText(json["soul_text"]?.jsonPrimitive?.content ?: "")
+            setStableSystemPromptEnabled(json["stable_system_prompt_enabled"]?.jsonPrimitive?.content?.toBoolean() ?: false)
         } catch (_: Exception) {
             errors++
         }
     } else if (replace) {
         setSoulText("")
+        setStableSystemPromptEnabled(false)
     }
 
     if (ImportSection.MEMORY in sections) {

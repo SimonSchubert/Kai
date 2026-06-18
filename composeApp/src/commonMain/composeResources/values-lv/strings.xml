@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Izpildīt čaulas komandu Linux smilškastē</string>
     <string name="settings_dynamic_ui">Dinamiskā lietotāja saskarne</string>
     <string name="settings_dynamic_ui_description">Ļaut MI izveidot interaktīvus saskarnes elementus, piemēram, pogas, veidlapas un kartītes atbildēs. Izmaiņas attiecas uz jaunām sarunām.</string>
+    <string name="settings_stable_system_prompt">Stabils sistēmas uzvedinājums</string>
+    <string name="settings_stable_system_prompt_description">Atkārtoti izmantot to pašu sistēmas uzvedinājumu sarunas gājienos, lai LLM serveris varētu saglabāt savu uzvedinājumu kešatmiņu (ātrāk, lētāk). Atspējojot, tas tiek atjaunots katrā gājienā ar tiešraides laikspiedoliem un pašreizējo stāvokli. Izmaiņas attiecas uz jaunām sarunām.</string>
     <string name="settings_oled_mode">OLED režīms</string>
     <string name="settings_oled_mode_description">Izmantot tīri melnus fonus tumšajā režīmā, lai ietaupītu enerģiju OLED ekrānos.</string>
     <string name="settings_memories">Atmiņas</string>

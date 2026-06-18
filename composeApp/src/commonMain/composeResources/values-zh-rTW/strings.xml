@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">在 Linux 沙盒中執行 Shell 指令</string>
     <string name="settings_dynamic_ui">動態介面</string>
     <string name="settings_dynamic_ui_description">允許AI在回覆中建立互動式介面元素，如按鈕、表單和卡片。變更適用於新對話。</string>
+    <string name="settings_stable_system_prompt">穩定的系統提示詞</string>
+    <string name="settings_stable_system_prompt_description">在對話的各輪中重複使用相同的系統提示詞，以便 LLM 伺服器能保留其提示詞快取（更快、更便宜）。停用後每輪都會以即時時間戳記和目前狀態重新建構。變更適用於新對話。</string>
     <string name="settings_oled_mode">OLED 模式</string>
     <string name="settings_oled_mode_description">在深色模式下使用純黑背景，以便在 OLED 螢幕上節省電量。</string>
     <string name="settings_memories">記憶</string>

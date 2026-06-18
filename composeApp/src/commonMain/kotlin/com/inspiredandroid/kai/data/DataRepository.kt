@@ -106,6 +106,10 @@ interface DataRepository {
     fun isDynamicUiEnabled(): Boolean
     fun setDynamicUiEnabled(enabled: Boolean)
 
+    // Stable system prompt
+    fun isStableSystemPromptEnabled(): Boolean
+    fun setStableSystemPromptEnabled(enabled: Boolean)
+
     // Theme mode
     fun getThemeMode(): ThemeMode
     fun setThemeMode(mode: ThemeMode)

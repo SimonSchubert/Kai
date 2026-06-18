@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Linuxサンドボックスでシェルコマンドを実行する</string>
     <string name="settings_dynamic_ui">ダイナミックUI</string>
     <string name="settings_dynamic_ui_description">AIが応答にボタン、フォーム、カードなどのインタラクティブなUI要素を作成できるようにします。変更は新しい会話に適用されます。</string>
+    <string name="settings_stable_system_prompt">安定したシステムプロンプト</string>
+    <string name="settings_stable_system_prompt_description">会話のターン間で同じシステムプロンプトを再利用し、LLMサーバーがプロンプトキャッシュを保持できるようにします（高速、低コスト）。無効にすると、毎ターンライブのタイムスタンプと現在の状態で再構築されます。変更は新しい会話に適用されます。</string>
     <string name="settings_oled_mode">OLEDモード</string>
     <string name="settings_oled_mode_description">ダークモードで純粋な黒の背景を使用して、OLED画面の電力を節約します。</string>
     <string name="settings_memories">記憶</string>

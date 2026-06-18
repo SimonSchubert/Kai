@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Ejecutar un comando shell en el sandbox de Linux</string>
     <string name="settings_dynamic_ui">UI dinámica</string>
     <string name="settings_dynamic_ui_description">Permitir a la IA crear elementos de interfaz interactivos como botones, formularios y tarjetas en las respuestas. El cambio se aplica a las conversaciones nuevas.</string>
+    <string name="settings_stable_system_prompt">Prompt del sistema estable</string>
+    <string name="settings_stable_system_prompt_description">Reutilizar el mismo prompt del sistema en los turnos de una conversación para que el servidor LLM pueda mantener su caché de prompts (más rápido, más barato). Al desactivarlo se reconstruye en cada turno con marcas de tiempo en vivo y estado actual. El cambio se aplica a conversaciones nuevas.</string>
     <string name="settings_oled_mode">Modo OLED</string>
     <string name="settings_oled_mode_description">Usar fondos negros puros en modo oscuro para ahorrar energía en pantallas OLED.</string>
     <string name="settings_memories">Memorias</string>

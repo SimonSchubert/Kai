@@ -285,6 +285,15 @@ class AppSettings(internal val settings: Settings) {
         settings.putBoolean(KEY_DYNAMIC_UI_ENABLED, enabled)
     }
 
+    // Stable system prompt — keeps the system prompt identical across turns in the same
+    // conversation so prefix-caching providers (llama.cpp, vLLM, OpenAI, Anthropic, …)
+    // can reuse their KV/prompt cache instead of rebuilding every turn.
+    fun isStableSystemPromptEnabled(): Boolean = settings.getBoolean(KEY_STABLE_SYSTEM_PROMPT_ENABLED, false)
+
+    fun setStableSystemPromptEnabled(enabled: Boolean) {
+        settings.putBoolean(KEY_STABLE_SYSTEM_PROMPT_ENABLED, enabled)
+    }
+
     private val _themeModeFlow = MutableStateFlow(loadInitialThemeMode())
     val themeModeFlow: StateFlow<ThemeMode> = _themeModeFlow
 
@@ -537,6 +546,7 @@ class AppSettings(internal val settings: Settings) {
         const val KEY_SCHEDULED_TASKS = "scheduled_tasks"
         const val KEY_SCHEDULING_ENABLED = "scheduling_enabled"
         const val KEY_DYNAMIC_UI_ENABLED = "dynamic_ui_enabled"
+        const val KEY_STABLE_SYSTEM_PROMPT_ENABLED = "stable_system_prompt_enabled"
         const val KEY_OLED_MODE_ENABLED = "oled_mode_enabled"
         const val KEY_THEME_MODE = "theme_mode"
         const val KEY_DAEMON_ENABLED = "daemon_enabled"

@@ -368,6 +368,14 @@ class FakeDataRepository : DataRepository {
         dynamicUiEnabled = enabled
     }
 
+    private var stableSystemPromptEnabled = false
+
+    override fun isStableSystemPromptEnabled(): Boolean = stableSystemPromptEnabled
+
+    override fun setStableSystemPromptEnabled(enabled: Boolean) {
+        stableSystemPromptEnabled = enabled
+    }
+
     private var themeMode: ThemeMode = ThemeMode.System
 
     override fun getThemeMode(): ThemeMode = themeMode

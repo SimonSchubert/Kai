@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Kör ett skalkommando i Linux-sandlådan</string>
     <string name="settings_dynamic_ui">Dynamiskt gränssnitt</string>
     <string name="settings_dynamic_ui_description">Tillåt AI att skapa interaktiva gränssnittselement som knappar, formulär och kort i svar. Ändringen gäller för nya konversationer.</string>
+    <string name="settings_stable_system_prompt">Stabil system-prompt</string>
+    <string name="settings_stable_system_prompt_description">Återanvänd samma system-prompt över turerna i en konversation så att LLM-servern kan behålla sin prompt-cache (snabbare, billigare). Inaktivering bygger om den varje tur med live-tidsstämplar och aktuellt tillstånd. Ändringen gäller för nya konversationer.</string>
     <string name="settings_oled_mode">OLED-läge</string>
     <string name="settings_oled_mode_description">Använd rena svarta bakgrunder i mörkt läge för att spara ström på OLED-skärmar.</string>
     <string name="settings_memories">Minnen</string>

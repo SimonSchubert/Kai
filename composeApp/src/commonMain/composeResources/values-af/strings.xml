@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Voer 'n dopopdrag uit in die Linux-sandbox</string>
     <string name="settings_dynamic_ui">Dinamiese UI</string>
     <string name="settings_dynamic_ui_description">Laat die KI toe om interaktiewe UI-elemente soos knoppies, vorms en kaarte in antwoorde te skep. Verandering geld vir nuwe gesprekke.</string>
+    <string name="settings_stable_system_prompt">Stabiele stelselprompt</string>
+    <string name="settings_stable_system_prompt_description">Hergebruik dieselfde stelselprompt oor beurte in 'n gesprek sodat die LLM-bediener sy promptkas kan hou (vinniger, goedkoper). Deaktivering herbou dit elke beurt met lewende tydstempels en huidige toestand. Verandering geld vir nuwe gesprekke.</string>
     <string name="settings_oled_mode">OLED-modus</string>
     <string name="settings_oled_mode_description">Gebruik suiwer swart agtergronde in donker modus om krag op OLED-skerms te bespaar.</string>
     <string name="settings_memories">Geheuens</string>
