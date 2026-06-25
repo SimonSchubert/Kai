@@ -43,10 +43,12 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
 import kotlin.time.Duration.Companion.seconds
 
 data class ServiceCredentials(
@@ -186,9 +188,10 @@ class Requests {
         val apiKey = getApiKeyOrThrow(service, credentials)
         val model = credentials.modelId.ifEmpty { null }
         val url = resolveUrl(service, credentials, service.chatUrl)
+        val effectiveTimeoutMs = requestTimeoutMs ?: if (service == Service.OpenAICompatible) 120.seconds.inWholeMilliseconds else null
         val response: HttpResponse =
             defaultClient.post(url) {
-                requestTimeoutMs?.let {
+                effectiveTimeoutMs?.let {
                     timeout {
                         requestTimeoutMillis = it
                         socketTimeoutMillis = it
@@ -313,12 +316,23 @@ class Requests {
                 contentType(ContentType.Application.Json)
                 header("x-api-key", apiKey)
                 header("anthropic-version", "2023-06-01")
+                header("anthropic-beta", "prompt-caching-2024-07-31")
                 setBody(
                     AnthropicChatRequestDto(
                         model = credentials.modelId,
                         messages = messages,
                         max_tokens = 8192,
-                        system = systemInstruction,
+                        system = systemInstruction?.let { text ->
+                            JsonArray(
+                                listOf(
+                                    buildJsonObject {
+                                        put("type", "text")
+                                        put("text", text)
+                                        put("cache_control", buildJsonObject { put("type", "ephemeral") })
+                                    },
+                                ),
+                            )
+                        },
                         tools = tools.mapNotNull { runCatching { it.toAnthropicTool() }.getOrNull() }
                             .ifEmpty { null },
                     ),

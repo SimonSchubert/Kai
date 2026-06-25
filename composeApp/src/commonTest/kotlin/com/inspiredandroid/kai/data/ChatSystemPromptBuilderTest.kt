@@ -16,9 +16,7 @@ import kotlin.test.assertTrue
 class ChatSystemPromptBuilderTest {
 
     private val runtime = ChatPromptRuntimeContext(
-        nowLocalIsoWithOffset = "2026-04-11T02:00:00+02:00",
         timeZoneId = "Europe/Berlin",
-        nowUtcIsoString = "2026-04-11T00:00:00Z",
         platform = "Test",
         modelId = "test-model",
         providerName = "Test Provider",
@@ -128,8 +126,7 @@ class ChatSystemPromptBuilderTest {
         assertTrue("## Structured Learning" in out)
         assertTrue("## Automation" in out)
         assertTrue("## Context" in out)
-        assertTrue("- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)" in out)
-        assertTrue("- UTC: 2026-04-11T00:00:00Z" in out)
+        assertTrue("- Timezone: Europe/Berlin" in out)
         assertTrue("- Platform: Test" in out)
         assertTrue("- Model: test-model" in out)
         assertTrue("- Provider: Test Provider" in out)
@@ -236,8 +233,7 @@ class ChatSystemPromptBuilderTest {
             DEFAULT_HONESTY_RULE + "\n\n" +
             DEFAULT_ACTING_SECTION + "\n\n" +
             "## Context\n" +
-            "- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)\n" +
-            "- UTC: 2026-04-11T00:00:00Z\n" +
+            "- Timezone: Europe/Berlin\n" +
             "- Platform: Test\n" +
             "- Model: test-model\n" +
             "- Provider: Test Provider\n"
@@ -605,8 +601,7 @@ class ChatSystemPromptBuilderTest {
             DEFAULT_ACTING_SECTION + "\n\n" +
             "Save user preferences with memory_store.\n\n" +
             "## Context\n" +
-            "- Local time: 2026-04-11T02:00:00+02:00 (Europe/Berlin)\n" +
-            "- UTC: 2026-04-11T00:00:00Z\n" +
+            "- Timezone: Europe/Berlin\n" +
             "- Platform: Test\n" +
             "- Model: test-model\n" +
             "- Provider: Test Provider\n"

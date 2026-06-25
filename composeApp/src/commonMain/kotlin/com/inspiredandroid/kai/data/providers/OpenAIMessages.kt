@@ -25,9 +25,16 @@ internal fun buildOpenAIMessages(
             ),
         )
     }
+    val lastUserIndex = messages.indexOfLast { it.role == History.Role.USER }
     addAll(
         sanitizeToolMessages(
-            messages.map { it.toGroqMessageDto(service.reasoningRequestMode, supportsImages) },
+            messages.mapIndexed { index, msg ->
+                msg.toGroqMessageDto(
+                    reasoningMode = service.reasoningRequestMode,
+                    supportsImages = service.supportsImages,
+                    addTimestamp = msg.role == History.Role.USER && index == lastUserIndex,
+                )
+            },
             declaredToolNames,
         ),
     )
