@@ -70,8 +70,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.offsetAt
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
@@ -621,7 +619,10 @@ class RemoteDataRepository(
                 if (tools.isNotEmpty()) {
                     handleGeminiChatWithTools(creds, messages, tools, systemPrompt, history)
                 } else {
-                    val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                    val lastUserIndex = messages.indexOfLast { it.role == History.Role.USER }
+                    val geminiMessages = messages.mapIndexed { index, msg ->
+                        msg.toGeminiMessageDto(addTimestamp = (msg.role == History.Role.USER && index == lastUserIndex))
+                    }
                     val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
                     AssistantTurn(response.extractText())
                 }
@@ -918,7 +919,10 @@ class RemoteDataRepository(
         val contextWindowTokens = ModelCatalog.estimateContextWindow(credentials.modelId)
         val strategy = object : ToolLoopStrategy {
             override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
-                val geminiMessages = history.map { it.toGeminiMessageDto() }
+                val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+                val geminiMessages = history.mapIndexed { index, msg ->
+                    msg.toGeminiMessageDto(addTimestamp = msg.role == History.Role.USER && index == lastUserIndex)
+                }
                 val response = retryApiCall {
                     requests.geminiChat(
                         credentials = credentials,
@@ -948,7 +952,10 @@ class RemoteDataRepository(
                     BailoutReason.LIMIT_REACHED -> "You have reached the tool call limit. Please respond with the best answer you have so far based on the information gathered."
                     BailoutReason.REPEATING -> "You are repeating the same tool calls. Please respond with the best answer you have so far."
                 }
-                val geminiMessages = history.map { it.toGeminiMessageDto() }
+                val lastUserIndex = history.indexOfLast { it.role == History.Role.USER }
+                val geminiMessages = history.mapIndexed { index, msg ->
+                    msg.toGeminiMessageDto(addTimestamp = msg.role == History.Role.USER && index == lastUserIndex)
+                }
                 val bailoutResponse = retryApiCall {
                     requests.geminiChat(
                         credentials = credentials,
@@ -1651,14 +1658,9 @@ class RemoteDataRepository(
                 ""
             }
         }
-        val now = Clock.System.now()
         val timeZone = TimeZone.currentSystemDefault()
-        val localDateTime = now.toLocalDateTime(timeZone)
-        val offset = timeZone.offsetAt(now)
         val runtime = ChatPromptRuntimeContext(
-            nowLocalIsoWithOffset = "$localDateTime$offset",
             timeZoneId = timeZone.id,
-            nowUtcIsoString = now.toString(),
             platform = currentPlatform.displayName,
             modelId = modelId,
             providerName = service.displayName,
@@ -1970,7 +1972,10 @@ class RemoteDataRepository(
 
         val responseText = when (service) {
             Service.Gemini -> {
-                val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                val lastUserIndex = messages.indexOfLast { it.role == History.Role.USER }
+                val geminiMessages = messages.mapIndexed { index, msg ->
+                    msg.toGeminiMessageDto(addTimestamp = (msg.role == History.Role.USER && index == lastUserIndex))
+                }
                 val response = requests.geminiChat(creds, geminiMessages, systemInstruction = systemPrompt).getOrThrow()
                 response.extractText()
             }
@@ -2006,7 +2011,10 @@ class RemoteDataRepository(
 
         return when (service) {
             Service.Gemini -> {
-                val geminiMessages = messages.map { it.toGeminiMessageDto() }
+                val lastUserIndex = messages.indexOfLast { it.role == History.Role.USER }
+                val geminiMessages = messages.mapIndexed { index, msg ->
+                    msg.toGeminiMessageDto(addTimestamp = (msg.role == History.Role.USER && index == lastUserIndex))
+                }
                 val response = requests.geminiChat(creds, geminiMessages, requestTimeoutMs = reqTimeout).getOrThrow()
                 response.extractText()
             }

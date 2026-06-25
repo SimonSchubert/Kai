@@ -17,6 +17,8 @@ import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -26,6 +28,7 @@ import kotlinx.serialization.json.put
 import org.jetbrains.compose.resources.StringResource
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.time.Clock
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -56,6 +59,36 @@ private fun List<Attachment>.splitForMessage(): AttachmentSplit {
         }
     }
     return AttachmentSplit(prefix.toString(), binaries)
+}
+
+/**
+ * Returns a human-readable local-time string to prepend to outgoing user messages,
+ * giving the model accurate time context on every turn without invalidating the
+ * system prompt prefix cache.
+ *
+ * Format example: "2:58 PM (April 25, 2026)"
+ *
+ * Uses the device's configured timezone via TimeZone.currentSystemDefault().
+ * Timezone abbreviations (EDT/EST) are omitted because kotlinx.datetime does not
+ * expose them in a cross-platform way; the date/time itself is unambiguous.
+ */
+private fun getLocalTimeString(): String {
+    val now = Clock.System.now()
+    val zone = TimeZone.currentSystemDefault()
+    val local = now.toLocalDateTime(zone)
+
+    val hour12 = when {
+        local.hour == 0 -> 12
+        local.hour <= 12 -> local.hour
+        else -> local.hour - 12
+    }
+    val amPm = if (local.hour < 12) "AM" else "PM"
+    val minute = local.minute.toString().padStart(2, '0')
+    val monthName = local.month.name
+        .lowercase()
+        .replaceFirstChar { it.uppercase() }
+
+    return "$hour12:$minute $amPm ($monthName ${local.day}, ${local.year})"
 }
 
 @Immutable
@@ -135,6 +168,7 @@ data class ToolCallInfo(
 fun History.toGroqMessageDto(
     reasoningMode: ReasoningRequestMode = ReasoningRequestMode.NONE,
     supportsImages: Boolean = true,
+    addTimestamp: Boolean = false,
 ): OpenAICompatibleChatRequestDto.Message = when (role) {
     History.Role.USER -> {
         val split = attachments.splitForMessage()
@@ -147,7 +181,8 @@ fun History.toGroqMessageDto(
         } else {
             emptyList()
         }
-        val fullText = "${split.textPrefix}$content"
+        val timestampStr = if (addTimestamp) "[System Time: ${getLocalTimeString()}]\n\n" else ""
+        val fullText = "${split.textPrefix}$timestampStr$content"
         val messageContent: JsonElement = if (imageAttachments.isEmpty()) {
             JsonPrimitive(fullText)
         } else {
@@ -216,13 +251,22 @@ fun History.toGroqMessageDto(
     History.Role.TOOL_EXECUTING -> OpenAICompatibleChatRequestDto.Message(role = "assistant", content = JsonPrimitive(content))
 }
 
-fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
+fun History.toAnthropicContentBlocks(addCacheBreakpoint: Boolean = false, addTimestamp: Boolean = false): JsonElement = when (role) {
     History.Role.USER -> {
         val split = attachments.splitForMessage()
-        val fullText = "${split.textPrefix}$content"
-        if (split.binaries.isEmpty()) {
+        val timestampStr = if (addTimestamp) "[System Time: ${getLocalTimeString()}]\n\n" else ""
+        val fullText = "${split.textPrefix}$timestampStr$content"
+        if (split.binaries.isEmpty() && !addCacheBreakpoint) {
+            // No attachments, no cache marker: keep original compact form
             JsonPrimitive(fullText)
         } else {
+            val textBlock = buildJsonObject {
+                put("type", "text")
+                put("text", fullText)
+                if (addCacheBreakpoint) {
+                    put("cache_control", buildJsonObject { put("type", "ephemeral") })
+                }
+            }
             JsonArray(
                 buildList {
                     for (att in split.binaries) {
@@ -256,12 +300,7 @@ fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
                             )
                         }
                     }
-                    add(
-                        buildJsonObject {
-                            put("type", "text")
-                            put("text", fullText)
-                        },
-                    )
+                    add(textBlock)
                 },
             )
         }
@@ -269,6 +308,12 @@ fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
 
     History.Role.ASSISTANT -> {
         if (toolCalls != null) {
+            // TODO: If Anthropic extended thinking is ever enabled (anthropic-beta:
+            //  interleaved-thinking-2025-05-14 + a `thinking` param in the request),
+            //  thinking blocks MUST be echoed back verbatim in subsequent messages.
+            //  Add {"type":"thinking","thinking":...,"signature":...} blocks here
+            //  (sourced from History.reasoningContent) before the text/tool_use blocks,
+            //  otherwise Anthropic will reject tool-loop continuations with an API error.
             JsonArray(
                 buildList {
                     if (content.isNotEmpty()) {
@@ -313,7 +358,7 @@ fun History.toAnthropicContentBlocks(): JsonElement = when (role) {
 
 private val geminiJsonParser = SharedJson
 
-fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
+fun History.toGeminiMessageDto(addTimestamp: Boolean = false): GeminiChatRequestDto.Content {
     // Gemini uses "user" for tool responses (functionResponse), not "tool"
     val geminiRole = when (role) {
         History.Role.USER -> "user"
@@ -389,7 +434,8 @@ fun History.toGeminiMessageDto(): GeminiChatRequestDto.Content {
                             ),
                         )
                     }
-                    add(GeminiChatRequestDto.Part(text = "${split.textPrefix}$content"))
+                    val timestampStr = if (addTimestamp) "[System Time: ${getLocalTimeString()}]\n\n" else ""
+                    add(GeminiChatRequestDto.Part(text = "${split.textPrefix}$timestampStr$content"))
                 }
             }
         },
