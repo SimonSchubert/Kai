@@ -307,8 +307,6 @@ class SandboxPackagesViewModel(
         .distinctBy { it.name }
         .toList()
 
-
-
     private fun parseSearchLines(raw: String): List<PackageEntry> = raw.lineSequence()
         .map { it.trim() }
         .filter { it.isNotEmpty() && !it.startsWith("WARNING:") && !it.startsWith("E:") }
@@ -322,7 +320,6 @@ class SandboxPackagesViewModel(
         }
         .distinctBy { it.name }
         .toList()
-
 
     private fun shellQuote(s: String): String = "'" + s.replace("'", "'\\''") + "'"
 }

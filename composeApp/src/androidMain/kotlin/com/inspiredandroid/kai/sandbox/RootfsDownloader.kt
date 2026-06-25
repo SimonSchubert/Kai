@@ -138,7 +138,7 @@ class RootfsDownloader(private val httpClient: HttpClient) {
             val modeStr = readTarString(headerBuffer, TAR_MODE_OFFSET, 8)
             val mode = if (modeStr.isNotEmpty()) modeStr.toInt(8) else 0
             val typeFlag = headerBuffer[TAR_TYPE_OFFSET]
-            
+
             val parsedLinkName = readTarString(headerBuffer, TAR_LINK_OFFSET, 100)
             val linkName = nextLongLink ?: parsedLinkName
             nextLongLink = null // Consume it
