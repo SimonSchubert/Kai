@@ -84,7 +84,7 @@ Kai 9000's Interactive UI lets the AI generate full interactive screens — quiz
 
 On Android, Kai includes a built-in Linux environment that the AI can use to execute shell commands, run scripts, and operate tools on your behalf. This turns Kai from a chat-only assistant into one that can take real action — installing packages, processing data, running Python scripts, and more.
 
-- **Powered by Alpine Linux** — A lightweight ~3 MB download sets up a full Linux userland via [proot](https://proot-me.github.io/), no root required
+- **Powered by Kali Linux** — A full Linux userland sets up via [proot](https://proot-me.github.io/), no root required
 - **Optional packages** — One tap installs bash, curl, wget, git, jq, python3, pip, and Node.js
 - **Interactive terminal** — A built-in terminal lets you run commands manually alongside the AI
 - **Secure** — Everything runs sandboxed inside the app with no access to the host system
