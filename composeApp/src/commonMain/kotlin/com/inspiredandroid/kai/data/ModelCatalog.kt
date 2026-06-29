@@ -827,7 +827,9 @@ internal object ModelCatalog {
         "glm-5" to CuratedModelInfo("GLM-5", 200_000, "2026-02"),
         "glm5" to CuratedModelInfo("GLM-5", 200_000, "2026-02"),
         "glm-5.1" to CuratedModelInfo("GLM-5.1", 200_000, "2026-03"),
-        "glm-5.2-max" to CuratedModelInfo("GLM-5.2 Max", 200_000, "2026-06"),
+        "glm-5.2" to CuratedModelInfo("GLM-5.2", 1_000_000, "2026-06"),
+        "glm5.2" to CuratedModelInfo("GLM-5.2", 1_000_000, "2026-06"),
+        "glm-5.2-max" to CuratedModelInfo("GLM-5.2 Max", 1_000_000, "2026-06"),
         "glm-5-turbo" to CuratedModelInfo("GLM-5 Turbo", 128_000, "2026-02"),
         "glm-5v-turbo" to CuratedModelInfo("GLM-5V Turbo", 64_000, "2026-02"),
         "glm-4.7" to CuratedModelInfo("GLM-4.7", 200_000, "2025-12"),
@@ -1336,7 +1338,7 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-25).
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-29).
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
@@ -1372,7 +1374,7 @@ internal object ModelCatalog {
         "gpt-5.4-high" to 1478,
         "gpt-5.2-chat-latest-20260210" to 1476,
         "gpt-5.5" to 1475,
-        "gpt-5.5-instant" to 1473,
+        "gpt-5.5-instant" to 1472,
         "gpt-5.4" to 1467,
         "gpt-5.1-high" to 1455,
         "gpt-5.3-chat-latest" to 1449, "gpt-5.4-mini-high" to 1449,
@@ -1520,7 +1522,7 @@ internal object ModelCatalog {
         "mistral-7b-instruct" to 1109, "mistral-7b-instruct-v0.1" to 1109,
         // --- GLM / Zhipu ---
         "glm-5.1" to 1473,
-        "glm-5.2-max" to 1470,
+        "glm-5.2" to 1470, "glm-5.2-max" to 1470, "glm5.2" to 1470,
         "glm-5" to 1458, "glm5" to 1458,
         "glm-4.7" to 1442, "glm4.7" to 1442, "zai-glm-4.7" to 1442,
         "glm-4.6" to 1425,
@@ -1542,7 +1544,7 @@ internal object ModelCatalog {
         "minimax-m3" to 1447,
         "minimax-m2.7" to 1417,
         "minimax-m2.5" to 1391, "minimax-m2.5:free" to 1391,
-        "minimax-m2.1-preview" to 1385,
+        "minimax-m2.1-preview" to 1384,
         "minimax-m1" to 1364,
         "minimax-m2" to 1346,
         // --- NVIDIA Nemotron ---
@@ -1577,7 +1579,7 @@ internal object ModelCatalog {
         "muse-spark" to 1487,
         "mimo-v2.5-pro" to 1466,
         "dola-seed-2.0-pro" to 1455,
-        "mimo-v2-pro" to 1449,
+        "mimo-v2-pro" to 1448,
         "longcat-flash-chat-2602-exp" to 1436,
         "mimo-v2.5" to 1434,
         "mimo-v2-omni" to 1431,
@@ -1586,10 +1588,10 @@ internal object ModelCatalog {
         "hunyuan-hy3-preview" to 1413, "hy3-preview" to 1413, "hy3-preview:free" to 1413,
         "longcat-flash-chat" to 1401,
         "hunyuan-vision-1.5-thinking" to 1396, "step-3.5-flash" to 1395,
-        "amazon-nova-experimental-chat-12-10" to 1395,
+        "amazon-nova-experimental-chat-12-10" to 1394,
         "hunyuan-t1-20250711" to 1387, "mimo-v2-flash-thinking" to 1387, "mimo-v2-flash" to 1393,
         "hunyuan-turbos-20250416" to 1382,
-        "trinity-large-preview" to 1379, "trinity-large-preview:free" to 1379,
+        "trinity-large-preview" to 1378, "trinity-large-preview:free" to 1378,
         "trinity-large-thinking" to 1369, "trinity-large-thinking:free" to 1369,
         "amazon-nova-experimental-chat-11-10" to 1367,
         "intellect-3" to 1356,
@@ -1702,7 +1704,7 @@ internal object ModelCatalog {
         "mistral-small-2501" to 1389, "mistral-small-3" to 1389,
         "qwen3-coder" to 1388, "qwen3-coder:free" to 1388,
         "claude-3-7-sonnet-latest" to 1387,
-        "magistral-medium-2509" to 1385, "minimax-m2.1" to 1385,
+        "magistral-medium-2509" to 1385, "minimax-m2.1" to 1384,
         "cobuddy:free" to 1380, "command-a-vision-07-2025" to 1380, "devstral-2-123b-instruct-2512" to 1380, "devstral-2512" to 1380,
         "devstral-2:123b" to 1380, "devstral-latest" to 1380, "elephant-alpha" to 1380, "grok-code-fast-1" to 1380, "hermes-4-405b" to 1380, "ling-2.6-1t" to 1380,
         "ling-2.6-1t:free" to 1380, "ling-2.6-flash" to 1380, "ling-2.6-flash:free" to 1380, "nemotron-3-nano-omni-30b-a3b-reasoning" to 1380, "nemotron-3-nano-omni-30b-a3b-reasoning:free" to 1380, "owl-alpha" to 1380,
