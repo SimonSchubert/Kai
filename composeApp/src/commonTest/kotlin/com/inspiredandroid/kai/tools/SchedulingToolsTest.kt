@@ -68,7 +68,7 @@ class SchedulingToolsTest {
         assertEquals(false, result["success"])
         val error = result["error"]?.toString().orEmpty()
         assertTrue("in the past" in error, "error should mention past: $error")
-        assertTrue("Local time" in error, "error should point at Local time: $error")
+        assertTrue("current time" in error, "error should point at current time: $error")
     }
 
     @Test
@@ -98,6 +98,6 @@ class SchedulingToolsTest {
         val schema = SchedulingTools.scheduleTaskTool(freshStore()).schema
         val executeAtDesc = schema.parameters["execute_at"]?.description.orEmpty()
         assertTrue("local timezone" in executeAtDesc, "execute_at should explain local-vs-offset: $executeAtDesc")
-        assertTrue("Local time" in schema.description, "top-level description should reference Local time: ${schema.description}")
+        assertTrue("current time" in schema.description, "top-level description should reference current time: ${schema.description}")
     }
 }
