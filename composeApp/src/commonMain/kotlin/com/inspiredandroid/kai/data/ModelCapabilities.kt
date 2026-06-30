@@ -31,6 +31,67 @@ internal fun supportsTools(modelId: String): Boolean {
 }
 
 /**
+ * GLM / Zhipu text model ids (normalized: any `provider/` prefix stripped, lower-cased) that
+ * DON'T accept image input even though Z.AI's service does — Z.AI serves these text models next
+ * to the multimodal GLM-V variants. Sending image content-parts to them returns a hard 400 that
+ * then poisons every later turn in the chat (the image stays in history), so we strip images.
+ *
+ * Exact match only: the vision variants (glm-4.6v, glm-4v-plus, …) share a prefix with the text
+ * ones (glm-4.6, glm-4), so prefix matching would wrongly flag them as text-only. DeepSeek, which
+ * has no vision models at all, is matched by family prefix in [modelSupportsImages] instead.
+ */
+internal val TEXT_ONLY_IMAGE_MODELS: Set<String> = setOf(
+    // GLM / Zhipu text models. The -v / v-plus variants are multimodal and are
+    // deliberately left out so images still reach them.
+    "glm-4.6",
+    "glm-4.6-air",
+    "glm-4.5",
+    "glm-4.5-air",
+    "glm-4.5-air:free",
+    "glm-4.5-x",
+    "glm-4-plus",
+    "glm-4-plus-0111",
+    "glm-4-air",
+    "glm-4-airx",
+    "glm-4-long",
+    "glm-4-flash",
+    "glm-4-32b",
+    "glm-z1-airx",
+    "glm-z1-air",
+    "glm-z1-flash",
+    "glm-5",
+    "glm5",
+    "glm-5.1",
+    "glm-5.2",
+    "glm5.2",
+    "glm-5.2-max",
+    "glm-5-turbo",
+    "glm-4.7",
+    "glm4.7",
+    "zai-glm-4.7",
+    "glm-4.7-flash",
+    "chatglm3-6b",
+)
+
+/**
+ * True if the model accepts image input. Defaults to `true` for unknown models — most modern
+ * flagship models are multimodal, and stripping images from a model that supports them is a
+ * worse failure than leaving the rare unknown text-only model to reject them.
+ *
+ * DeepSeek is matched by family prefix: its chat API has no vision models at all, so this also
+ * covers DeepSeek reached through an aggregator and any future DeepSeek id. GLM is matched
+ * exactly via [TEXT_ONLY_IMAGE_MODELS] because its vision variants share a prefix with the text ones.
+ */
+internal fun modelSupportsImages(modelId: String): Boolean {
+    val key = modelId.substringAfterLast('/').lowercase()
+    // DeepSeek's chat models are all text-only; the lone vision family is DeepSeek-VL, which
+    // carries "vl" in the id. Match the text family by prefix so this also covers DeepSeek via
+    // aggregators and future ids, while leaving DeepSeek-VL recognised as multimodal.
+    if (key.startsWith("deepseek") && !key.contains("vl")) return false
+    return key !in TEXT_ONLY_IMAGE_MODELS
+}
+
+/**
  * True if a service+model combo is suitable for autonomous/agentic flows —
  * heartbeat, interactive mode, and any future background feature that runs a
  * tool-calling loop without the user present to course-correct.

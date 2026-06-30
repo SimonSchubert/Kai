@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-05-28
+**Last verified:** 2026-06-30
 
 Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -117,7 +117,7 @@ Selecting a non-Free entry reorders the configured list so the chosen service be
 
 ## Attachments
 
-Image attachments are broadly supported across cloud services. The built-in **Free** tier is the one cloud exception — its proxy fans out to a chain that includes text-only fallback models, so images are not offered when Free is the active service. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
+Image attachments are broadly supported across cloud services, gated on **two levels**. The built-in **Free** tier is text-only at the service level — its proxy fans out to a chain that includes text-only fallback models, so it never accepts images regardless of the nominal model. Beyond that, image support is **per-model**: **DeepSeek** has no vision models, so images are dropped for it everywhere (including when it's reached through an aggregator), and services that host both text-only and vision models in one catalog (e.g. **Z.AI**, where the text GLM models sit next to the multimodal GLM-V variants) accept images only when the selected model is vision-capable. When the active service or model can't take images, images are dropped from the request — and the file picker stops offering image types — so a turn that includes an image still goes through as text. Unknown models are assumed image-capable, since most modern flagship models are multimodal. PDF attachments are advertised only by services with native document support — currently Anthropic, Gemini, OpenAI, and OpenRouter — and only those services accept PDFs in a chat turn. The on-device Local Model hides file attachment affordances entirely; users running purely locally don't see attachment buttons.
 
 ## Settings UI
 

@@ -57,7 +57,7 @@ class BuildOpenAIMessagesPairingTest {
             History(role = History.Role.USER, content = "try to make tool_calls"),
         )
 
-        val messages = buildOpenAIMessages(Service.OpenCode, history, systemPrompt = "be helpful")
+        val messages = buildOpenAIMessages(Service.OpenCode, history, systemPrompt = "be helpful", modelId = "test-model")
 
         assertNoDanglingToolCalls(messages)
         // The dangling tool_calls are stripped; the assistant text survives.
@@ -82,7 +82,7 @@ class BuildOpenAIMessagesPairingTest {
             History(role = History.Role.ASSISTANT, content = "Done, pushed to your device."),
         )
 
-        val messages = buildOpenAIMessages(Service.OpenCode, history, systemPrompt = null)
+        val messages = buildOpenAIMessages(Service.OpenCode, history, systemPrompt = null, modelId = "test-model")
 
         assertNoDanglingToolCalls(messages)
         val toolCallTurn = messages.single { it.role == "assistant" && !it.tool_calls.isNullOrEmpty() }

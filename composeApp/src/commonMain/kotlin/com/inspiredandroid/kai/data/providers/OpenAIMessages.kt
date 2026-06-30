@@ -1,6 +1,7 @@
 package com.inspiredandroid.kai.data.providers
 
 import com.inspiredandroid.kai.data.Service
+import com.inspiredandroid.kai.data.modelSupportsImages
 import com.inspiredandroid.kai.network.dtos.openaicompatible.OpenAICompatibleChatRequestDto
 import com.inspiredandroid.kai.ui.chat.History
 import com.inspiredandroid.kai.ui.chat.toGroqMessageDto
@@ -10,8 +11,12 @@ internal fun buildOpenAIMessages(
     service: Service,
     messages: List<History>,
     systemPrompt: String?,
+    modelId: String,
     declaredToolNames: Set<String>? = null,
 ): List<OpenAICompatibleChatRequestDto.Message> = buildList {
+    // Images go through only when both the service and the specific model accept them.
+    // Mixed services (e.g. Z.AI) host text-only and vision models side by side.
+    val supportsImages = service.supportsImages && modelSupportsImages(modelId)
     if (!systemPrompt.isNullOrEmpty()) {
         add(
             OpenAICompatibleChatRequestDto.Message(
@@ -22,7 +27,7 @@ internal fun buildOpenAIMessages(
     }
     addAll(
         sanitizeToolMessages(
-            messages.map { it.toGroqMessageDto(service.reasoningRequestMode, service.supportsImages) },
+            messages.map { it.toGroqMessageDto(service.reasoningRequestMode, supportsImages) },
             declaredToolNames,
         ),
     )

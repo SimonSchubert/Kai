@@ -643,7 +643,7 @@ class RemoteDataRepository(
                 } else {
                     // No tools on this request — strip any historic tool_calls so Groq's strict
                     // validator doesn't see calls to tools we no longer declare.
-                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, declaredToolNames = emptySet())
+                    val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, creds.modelId, declaredToolNames = emptySet())
                     val message = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
                         .choices.firstOrNull()?.message ?: throw OpenAICompatibleEmptyResponseException()
                     val content = message.effectiveContent ?: throw OpenAICompatibleEmptyResponseException()
@@ -869,7 +869,7 @@ class RemoteDataRepository(
         val declaredToolNames = tools.map { it.schema.name }.toSet()
         val strategy = object : ToolLoopStrategy {
             override suspend fun chat(history: List<History>, systemPrompt: String?): LoopChatResult {
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames), contextWindowTokens)
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames), contextWindowTokens)
                 val response = retryApiCall {
                     requests.openAICompatibleChat(service, credentials, msgs, tools).getOrThrow()
                 }
@@ -901,7 +901,7 @@ class RemoteDataRepository(
 
             override suspend fun bailout(history: List<History>, systemPrompt: String?, reason: BailoutReason): String {
                 // Bailout sends no tools — strip historic tool_calls to satisfy strict validators.
-                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, declaredToolNames = emptySet()), contextWindowTokens)
+                val msgs = trimMessagesForContext(buildOpenAIMessages(service, history, systemPrompt, credentials.modelId, declaredToolNames = emptySet()), contextWindowTokens)
                 return makeFinalCallWithoutTools(service, credentials, msgs)
             }
         }
@@ -1426,7 +1426,10 @@ class RemoteDataRepository(
     override fun supportedFileExtensions(): List<String> {
         val service = currentService()
         if (service.isOnDevice) return emptyList()
-        val base = if (service.supportsImages) supportedFileExtensions else supportedFileExtensions - imageExtensions
+        // Images are offered only when both the service and the active model accept them —
+        // mixed services (e.g. Z.AI) pair text-only models with multimodal ones.
+        val imagesSupported = service.supportsImages && modelSupportsImages(currentModelId())
+        val base = if (imagesSupported) supportedFileExtensions else supportedFileExtensions - imageExtensions
         return if (service.supportsPdf) base + "pdf" else base
     }
 
@@ -1434,6 +1437,13 @@ class RemoteDataRepository(
         if (appSettings.isFreeServicePrimary()) return Service.Free
         val instances = getConfiguredServiceInstances()
         return instances.firstOrNull()?.let { Service.fromId(it.serviceId) } ?: Service.Free
+    }
+
+    /** Model id of the active (first configured, non-Free) instance, or "" when none. */
+    private fun currentModelId(): String {
+        val instance = getConfiguredServiceInstances().firstOrNull() ?: return ""
+        val service = Service.fromId(instance.serviceId)
+        return appSettings.getInstanceModelId(instance.instanceId).ifEmpty { appSettings.getSelectedModelId(service) }
     }
 
     private fun setCurrentConversationId(id: String?) {
@@ -1982,7 +1992,7 @@ class RemoteDataRepository(
             }
 
             else -> {
-                val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt)
+                val openAIMessages = buildOpenAIMessages(service, messages, systemPrompt, creds.modelId)
                 val response = requests.openAICompatibleChat(service, creds, openAIMessages).getOrThrow()
                 response.choices.firstOrNull()?.message?.effectiveContent ?: ""
             }
@@ -2018,7 +2028,7 @@ class RemoteDataRepository(
             }
 
             else -> {
-                val openAIMessages = buildOpenAIMessages(service, messages, null)
+                val openAIMessages = buildOpenAIMessages(service, messages, null, creds.modelId)
                 val response = requests.openAICompatibleChat(service, creds, openAIMessages, requestTimeoutMs = reqTimeout).getOrThrow()
                 response.choices.firstOrNull()?.message?.effectiveContent ?: ""
             }
