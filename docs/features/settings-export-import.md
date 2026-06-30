@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-06-30
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 
@@ -82,7 +82,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | `composeApp/.../data/DataRepository.kt` | Interface methods (`exportSettingsToJson(sections)`, `getExportPreview()`, `importSettingsFromJson(...)`) |
 | `composeApp/.../data/RemoteDataRepository.kt` | Wires AppSettings to platform tool IDs, serializes JSON, runs `detectImportSections` over a full export to drive the export preview |
 | `composeApp/.../ui/settings/SettingsActions.kt` | Callbacks (`onExportSettings`, `onPrepareExport`, `onImportSettings`) |
-| `composeApp/.../ui/settings/SettingsViewModel.kt` | Delegates to repository, rebuilds UI state after import |
+| `composeApp/.../ui/settings/SettingsViewModel.kt` | Delegates to repository, rebuilds UI state after import, and reloads conversations so imported chats appear without a restart |
 | `composeApp/.../ui/settings/SettingsScreen.kt` | Export/Import card with FileKit dialogs, `ExportPreviewDialog`, `ImportPreviewDialog` |
 | `composeApp/.../testutil/FakeDataRepository.kt` | Test stubs |
 | `composeApp/.../data/AppSettingsExportImportTest.kt` | Unit tests including v1 snapshot test |

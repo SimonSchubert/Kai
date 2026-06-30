@@ -685,6 +685,10 @@ class SettingsViewModel(
     private fun onImportSettings(bytes: ByteArray, sections: Set<ImportSection>, replace: Boolean): ImportResult = try {
         val currentTab = _state.value.currentTab
         val errors = dataRepository.importSettingsFromJson(bytes.decodeToString(), sections, replace)
+        // Import writes conversations to settings, but the chat list reads them from
+        // ConversationStorage's in-memory flow — refresh it so imported chats appear
+        // without an app restart.
+        dataRepository.loadConversations()
         _state.value = buildFullState().copy(currentTab = currentTab)
         checkAllConnections()
         connectEnabledMcpServers()
