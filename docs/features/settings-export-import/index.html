@@ -937,7 +937,7 @@
 
 
 <h1 id="settings-export-import">Settings Export / Import</h1>
-<p><strong>Last verified:</strong> 2026-05-14</p>
+<p><strong>Last verified:</strong> 2026-06-30</p>
 <p>Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under <strong>Settings &gt; General</strong> at the bottom of the page.</p>
 <h2 id="behavior">Behavior</h2>
 <h3 id="export">Export</h3>
@@ -1127,7 +1127,7 @@
 </tr>
 <tr>
 <td><code>composeApp/.../ui/settings/SettingsViewModel.kt</code></td>
-<td>Delegates to repository, rebuilds UI state after import</td>
+<td>Delegates to repository, rebuilds UI state after import, and reloads conversations so imported chats appear without a restart</td>
 </tr>
 <tr>
 <td><code>composeApp/.../ui/settings/SettingsScreen.kt</code></td>
