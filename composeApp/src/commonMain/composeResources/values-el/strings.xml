@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Εκτέλεση εντολής κελύφους στο περιβάλλον Linux</string>
     <string name="settings_dynamic_ui">Δυναμικό UI</string>
     <string name="settings_dynamic_ui_description">Επιτρέψτε στην AI να δημιουργεί διαδραστικά στοιχεία UI όπως κουμπιά, φόρμες και κάρτες στις απαντήσεις. Η αλλαγή ισχύει για νέες συνομιλίες.</string>
+    <string name="settings_stable_system_prompt">Σταθερή προτροπή συστήματος</string>
+    <string name="settings_stable_system_prompt_description">Επαναχρήση της ίδιας προτροπής συστήματος σε όλες τις σειρές μιας συνομιλίας ώστε ο διακομιστής LLM να διατηρεί την προσωρινή μνήμη προτροπής (πιο γρήγορο, πιο φθηνό). Η απενεργοποίηση την ανακατασκευάζει κάθε σειρά με ζωντανές χρονοσφραγίδες και τρέχουσα κατάσταση. Η αλλαγή ισχύει για νέες συνομιλίες.</string>
     <string name="settings_oled_mode">Λειτουργία OLED</string>
     <string name="settings_oled_mode_description">Χρήση καθαρού μαύρου φόντου σε σκοτεινή λειτουργία για εξοικονόμηση ενέργειας σε οθόνες OLED.</string>
     <string name="settings_memories">Αναμνήσεις</string>

@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Jalankan perintah shell di sandbox Linux</string>
     <string name="settings_dynamic_ui">UI Dinamis</string>
     <string name="settings_dynamic_ui_description">Izinkan AI membuat elemen UI interaktif seperti tombol, formulir, dan kartu dalam respons. Perubahan berlaku untuk percakapan baru.</string>
+    <string name="settings_stable_system_prompt">Prompt sistem stabil</string>
+    <string name="settings_stable_system_prompt_description">Gunakan kembali prompt sistem yang sama di seluruh percakapan agar server LLM dapat menyimpan cache prompt-nya (lebih cepat, lebih murah). Menonaktifkan akan membangunnya ulang setiap giliran dengan stempel waktu langsung dan status saat ini. Perubahan berlaku untuk percakapan baru.</string>
     <string name="settings_oled_mode">Mode OLED</string>
     <string name="settings_oled_mode_description">Gunakan latar belakang hitam murni di mode gelap untuk menghemat daya di layar OLED.</string>
     <string name="settings_memories">Kenangan</string>

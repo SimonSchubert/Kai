@@ -33,6 +33,8 @@ import kai.composeapp.generated.resources.settings_daemon_mode
 import kai.composeapp.generated.resources.settings_daemon_mode_description
 import kai.composeapp.generated.resources.settings_dynamic_ui
 import kai.composeapp.generated.resources.settings_dynamic_ui_description
+import kai.composeapp.generated.resources.settings_stable_system_prompt
+import kai.composeapp.generated.resources.settings_stable_system_prompt_description
 import kai.composeapp.generated.resources.settings_theme
 import kai.composeapp.generated.resources.settings_theme_dark
 import kai.composeapp.generated.resources.settings_theme_description
@@ -69,6 +71,12 @@ internal fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) 
                         DynamicUiToggle(
                             isDynamicUiEnabled = uiState.isDynamicUiEnabled,
                             onToggleDynamicUi = actions.onToggleDynamicUi,
+                        )
+                    }
+                    SettingsCard {
+                        StableSystemPromptToggle(
+                            isStableSystemPromptEnabled = uiState.isStableSystemPromptEnabled,
+                            onToggleStableSystemPrompt = actions.onToggleStableSystemPrompt,
                         )
                     }
                     SettingsCard {
@@ -113,6 +121,12 @@ internal fun GeneralContent(uiState: SettingsUiState, actions: SettingsActions) 
                     DynamicUiToggle(
                         isDynamicUiEnabled = uiState.isDynamicUiEnabled,
                         onToggleDynamicUi = actions.onToggleDynamicUi,
+                    )
+                }
+                SettingsCard {
+                    StableSystemPromptToggle(
+                        isStableSystemPromptEnabled = uiState.isStableSystemPromptEnabled,
+                        onToggleStableSystemPrompt = actions.onToggleStableSystemPrompt,
                     )
                 }
                 SettingsCard {
@@ -167,6 +181,21 @@ private fun DynamicUiToggle(
             description = stringResource(Res.string.settings_dynamic_ui_description),
             checked = isDynamicUiEnabled,
             onCheckedChange = onToggleDynamicUi,
+        )
+    }
+}
+
+@Composable
+private fun StableSystemPromptToggle(
+    isStableSystemPromptEnabled: Boolean,
+    onToggleStableSystemPrompt: (Boolean) -> Unit,
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ToggleableHeadline(
+            title = stringResource(Res.string.settings_stable_system_prompt),
+            description = stringResource(Res.string.settings_stable_system_prompt_description),
+            checked = isStableSystemPromptEnabled,
+            onCheckedChange = onToggleStableSystemPrompt,
         )
     }
 }

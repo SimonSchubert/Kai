@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Mag-execute ng shell command sa Linux sandbox</string>
     <string name="settings_dynamic_ui">Dynamic na UI</string>
     <string name="settings_dynamic_ui_description">Payagan ang AI na gumawa ng mga interactive na elemento ng UI tulad ng mga button, form at card sa mga tugon. Ang pagbabago ay nalalapat sa mga bagong pag-uusap.</string>
+    <string name="settings_stable_system_prompt">Matatag na system prompt</string>
+    <string name="settings_stable_system_prompt_description">Gamiting muli ang parehong system prompt sa mga turn ng isang usapan upang mapanatili ng LLM server ang prompt cache nito (mas mabilis, mas mura). Kapag pinatay, ito ay muling itinatayo sa bawat turn na may live na timestamps at kasalukuyang estado. Ang pagbabago ay nalalapat sa mga bagong usapan.</string>
     <string name="settings_oled_mode">OLED mode</string>
     <string name="settings_oled_mode_description">Gumamit ng purong itim na background sa dark mode upang makatipid ng lakas sa mga OLED screen.</string>
     <string name="settings_memories">Mga Alaala</string>

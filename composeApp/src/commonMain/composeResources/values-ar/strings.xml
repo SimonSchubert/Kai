@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">تنفيذ أمر طرفية في صندوق رمل Linux</string>
     <string name="settings_dynamic_ui">واجهة مستخدم ديناميكية</string>
     <string name="settings_dynamic_ui_description">السماح للذكاء الاصطناعي بإنشاء عناصر واجهة مستخدم تفاعلية مثل الأزرار والنماذج والبطاقات ضمن الردود. يسري التغيير على المحادثات الجديدة.</string>
+    <string name="settings_stable_system_prompt">موجه نظام ثابت</string>
+    <string name="settings_stable_system_prompt_description">إعادة استخدام نفس موجه النظام عبر أدوار المحادثة ليتمكن خادم النموذج اللغوي من الاحتفاظ بذاكرة التخزين المؤقت للموجه (أسرع وأرخص). يؤدي التعطيل إلى إعادة بنائه كل دور بختمات زمنية مباشرة وحالة حالية. يسري التغيير على المحادثات الجديدة.</string>
     <string name="settings_oled_mode">وضع OLED</string>
     <string name="settings_oled_mode_description">استخدم خلفيات سوداء نقية في الوضع الداكن لتوفير الطاقة على شاشات OLED.</string>
     <string name="settings_memories">الذكريات</string>

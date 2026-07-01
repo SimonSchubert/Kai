@@ -61,6 +61,8 @@
     <string name="tool_execute_shell_command_description">Linux سینڈباکس میں شیل کمانڈ چلائیں</string>
     <string name="settings_dynamic_ui">متحرک UI</string>
     <string name="settings_dynamic_ui_description">AI کو جوابات میں بٹن، فارم اور کارڈ جیسے انٹرایکٹو UI عناصر بنانے کی اجازت دیں۔ تبدیلی نئی گفتگو پر لاگو ہوتی ہے۔</string>
+    <string name="settings_stable_system_prompt">مستحکم سسٹم پرامپٹ</string>
+    <string name="settings_stable_system_prompt_description">ایک گفتگو کے موڑ پر ایک ہی سسٹم پرامپٹ کو دوبارہ استعمال کریں تاکہ LLM سرور اپنا پرامپٹ کیشے برقرار رکھ سکے (تیز، سستا)۔ غیر فعال کرنے سے یہ ہر موڑ پر لائیو ٹائم اسٹیمپس اور موجودہ حالت کے ساتھ دوبارہ تعمیر ہوتا ہے۔ تبدیلی نئی گفتگو پر لاگو ہوتی ہے۔</string>
     <string name="settings_oled_mode">OLED موڈ</string>
     <string name="settings_oled_mode_description">OLED اسکرینوں پر بجلی بچانے کے لیے ڈارک موڈ میں خالص سیاہ بیک گراؤنڈ استعمال کریں۔</string>
     <string name="settings_memories">یادیں</string>

@@ -72,6 +72,7 @@ class SettingsViewModel(
         tools = dataRepository.getToolDefinitions().toImmutableList(),
         soulText = dataRepository.getSoulText(),
         isDynamicUiEnabled = dataRepository.isDynamicUiEnabled(),
+        isStableSystemPromptEnabled = dataRepository.isStableSystemPromptEnabled(),
         themeMode = dataRepository.getThemeMode(),
         isMemoryEnabled = dataRepository.isMemoryEnabled(),
         memories = dataRepository.getMemories().toImmutableList(),
@@ -140,6 +141,7 @@ class SettingsViewModel(
         onToggleTool = ::onToggleTool,
         onSaveSoul = ::onSaveSoul,
         onToggleDynamicUi = ::onToggleDynamicUi,
+        onToggleStableSystemPrompt = ::onToggleStableSystemPrompt,
         onChangeThemeMode = ::onChangeThemeMode,
         onToggleMemory = ::onToggleMemory,
         onDeleteMemory = ::onDeleteMemory,
@@ -419,6 +421,11 @@ class SettingsViewModel(
     private fun onToggleDynamicUi(enabled: Boolean) {
         dataRepository.setDynamicUiEnabled(enabled)
         _state.update { it.copy(isDynamicUiEnabled = enabled) }
+    }
+
+    private fun onToggleStableSystemPrompt(enabled: Boolean) {
+        dataRepository.setStableSystemPromptEnabled(enabled)
+        _state.update { it.copy(isStableSystemPromptEnabled = enabled) }
     }
 
     private fun onChangeThemeMode(mode: ThemeMode) {
