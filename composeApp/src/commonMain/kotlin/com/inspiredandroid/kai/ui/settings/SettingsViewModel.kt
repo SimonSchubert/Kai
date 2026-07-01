@@ -36,6 +36,9 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.error_unknown
+import kai.composeapp.generated.resources.error_unrecognized_github_repo
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
 import kotlinx.collections.immutable.toPersistentSet
@@ -50,6 +53,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.getString
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -836,7 +840,9 @@ class SettingsViewModel(
     private fun onInstallGitHubSkill(input: String) {
         val source = parseGitHubSkillUrl(input)
         if (source == null) {
-            _state.update { it.copy(skillInstallError = "Unrecognized GitHub repo or URL.") }
+            viewModelScope.launch(backgroundDispatcher) {
+                _state.update { it.copy(skillInstallError = getString(Res.string.error_unrecognized_github_repo)) }
+            }
             return
         }
         runSkillInstall { dataRepository.installGitHubSkill(source.owner, source.repo, source.ref, source.path) }
@@ -856,10 +862,11 @@ class SettingsViewModel(
                     _state.update { it.copy(isInstallingSkill = false, showAddSkillDialog = false) }
                 },
                 onFailure = { error ->
+                    val message = error.message ?: getString(Res.string.error_unknown)
                     _state.update {
                         it.copy(
                             isInstallingSkill = false,
-                            skillInstallError = error.message ?: "Unknown error",
+                            skillInstallError = message,
                         )
                     }
                 },

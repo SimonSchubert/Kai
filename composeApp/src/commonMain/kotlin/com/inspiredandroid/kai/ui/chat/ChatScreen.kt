@@ -98,6 +98,7 @@ import com.inspiredandroid.kai.ui.chat.composables.WaitingResponseRow
 import com.inspiredandroid.kai.ui.chat.composables.uiErrorText
 import com.inspiredandroid.kai.ui.components.LogoAnimation
 import com.inspiredandroid.kai.ui.components.VerticalScrollbarForList
+import com.inspiredandroid.kai.ui.components.animatedGradientBorder
 import com.inspiredandroid.kai.ui.dynamicui.FrozenSubmission
 import com.inspiredandroid.kai.ui.dynamicui.KaiUiRenderer
 import com.inspiredandroid.kai.ui.dynamicui.toSpeakableText
@@ -278,6 +279,16 @@ private fun InteractiveModeScreen(uiState: ChatUiState) {
                     )
                 }
             }
+        }
+
+        // Animated gradient frame signals the AI is working, mirroring the
+        // "Start Interactive UI" button's border on the empty state.
+        if (uiState.isLoading) {
+            Box(
+                Modifier
+                    .matchParentSize()
+                    .animatedGradientBorder(cornerRadius = 28.dp),
+            )
         }
 
         // Collapsed pill floats over content at the bottom-end

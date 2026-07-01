@@ -1338,7 +1338,7 @@ internal object ModelCatalog {
         "orpheus-arabic-saudi" to CuratedModelInfo("Orpheus Arabic", 0, "2025-03"),
     )
 
-    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-06-29).
+    // LMArena Elo scores scraped from https://arena.ai/leaderboard/text (2026-07-01).
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
@@ -1374,7 +1374,7 @@ internal object ModelCatalog {
         "gpt-5.4-high" to 1478,
         "gpt-5.2-chat-latest-20260210" to 1476,
         "gpt-5.5" to 1475,
-        "gpt-5.5-instant" to 1472,
+        "gpt-5.5-instant" to 1473,
         "gpt-5.4" to 1467,
         "gpt-5.1-high" to 1455,
         "gpt-5.3-chat-latest" to 1449, "gpt-5.4-mini-high" to 1449,
@@ -1544,7 +1544,7 @@ internal object ModelCatalog {
         "minimax-m3" to 1447,
         "minimax-m2.7" to 1417,
         "minimax-m2.5" to 1391, "minimax-m2.5:free" to 1391,
-        "minimax-m2.1-preview" to 1384,
+        "minimax-m2.1-preview" to 1385,
         "minimax-m1" to 1364,
         "minimax-m2" to 1346,
         // --- NVIDIA Nemotron ---
@@ -1579,7 +1579,7 @@ internal object ModelCatalog {
         "muse-spark" to 1487,
         "mimo-v2.5-pro" to 1466,
         "dola-seed-2.0-pro" to 1455,
-        "mimo-v2-pro" to 1448,
+        "mimo-v2-pro" to 1449,
         "longcat-flash-chat-2602-exp" to 1436,
         "mimo-v2.5" to 1434,
         "mimo-v2-omni" to 1431,
@@ -1588,10 +1588,10 @@ internal object ModelCatalog {
         "hunyuan-hy3-preview" to 1413, "hy3-preview" to 1413, "hy3-preview:free" to 1413,
         "longcat-flash-chat" to 1401,
         "hunyuan-vision-1.5-thinking" to 1396, "step-3.5-flash" to 1395,
-        "amazon-nova-experimental-chat-12-10" to 1394,
+        "amazon-nova-experimental-chat-12-10" to 1395,
         "hunyuan-t1-20250711" to 1387, "mimo-v2-flash-thinking" to 1387, "mimo-v2-flash" to 1393,
         "hunyuan-turbos-20250416" to 1382,
-        "trinity-large-preview" to 1378, "trinity-large-preview:free" to 1378,
+        "trinity-large-preview" to 1379, "trinity-large-preview:free" to 1379,
         "trinity-large-thinking" to 1369, "trinity-large-thinking:free" to 1369,
         "amazon-nova-experimental-chat-11-10" to 1367,
         "intellect-3" to 1356,
@@ -1704,7 +1704,7 @@ internal object ModelCatalog {
         "mistral-small-2501" to 1389, "mistral-small-3" to 1389,
         "qwen3-coder" to 1388, "qwen3-coder:free" to 1388,
         "claude-3-7-sonnet-latest" to 1387,
-        "magistral-medium-2509" to 1385, "minimax-m2.1" to 1384,
+        "magistral-medium-2509" to 1385, "minimax-m2.1" to 1385,
         "cobuddy:free" to 1380, "command-a-vision-07-2025" to 1380, "devstral-2-123b-instruct-2512" to 1380, "devstral-2512" to 1380,
         "devstral-2:123b" to 1380, "devstral-latest" to 1380, "elephant-alpha" to 1380, "grok-code-fast-1" to 1380, "hermes-4-405b" to 1380, "ling-2.6-1t" to 1380,
         "ling-2.6-1t:free" to 1380, "ling-2.6-flash" to 1380, "ling-2.6-flash:free" to 1380, "nemotron-3-nano-omni-30b-a3b-reasoning" to 1380, "nemotron-3-nano-omni-30b-a3b-reasoning:free" to 1380, "owl-alpha" to 1380,

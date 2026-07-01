@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-07-01
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -58,6 +58,10 @@ Users click "Start Interactive UI" on the empty chat state. This enters interact
 ### Screen Navigation
 
 Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.
+
+### Loading Frame
+
+While an interactive-mode response is in flight, an animated gradient frame (the same rotating purple/violet/magenta border used by the "Start Interactive UI" button) is drawn around the whole screen edge to signal the AI is working. It disappears once the response arrives.
 
 ### Back Button
 

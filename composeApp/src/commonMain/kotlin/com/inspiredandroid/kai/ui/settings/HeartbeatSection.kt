@@ -49,6 +49,8 @@ import com.inspiredandroid.kai.ui.components.RefreshIconButton
 import com.inspiredandroid.kai.ui.components.SettingsListItem
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
+import kai.composeapp.generated.resources.execution_log_status_fail
+import kai.composeapp.generated.resources.execution_log_status_ok
 import kai.composeapp.generated.resources.settings_email
 import kai.composeapp.generated.resources.settings_email_description
 import kai.composeapp.generated.resources.settings_email_empty
@@ -395,7 +397,11 @@ internal fun HeartbeatSection(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
-                            text = if (entry.success) "OK" else "FAIL",
+                            text = if (entry.success) {
+                                stringResource(Res.string.execution_log_status_ok)
+                            } else {
+                                stringResource(Res.string.execution_log_status_fail)
+                            },
                             style = MaterialTheme.typography.labelSmall,
                             color = if (entry.success) {
                                 MaterialTheme.colorScheme.primary

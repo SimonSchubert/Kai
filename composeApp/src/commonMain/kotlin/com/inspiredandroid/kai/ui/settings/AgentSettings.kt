@@ -47,6 +47,8 @@ import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.icons.Replay
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.default_soul
+import kai.composeapp.generated.resources.execution_log_status_fail
+import kai.composeapp.generated.resources.execution_log_status_ok
 import kai.composeapp.generated.resources.settings_heartbeat_recent
 import kai.composeapp.generated.resources.settings_memories
 import kai.composeapp.generated.resources.settings_memories_all_title
@@ -765,7 +767,7 @@ private fun ExecutionLogRow(success: Boolean, timestampEpochMs: Long, message: S
         verticalAlignment = Alignment.Top,
     ) {
         Text(
-            text = if (success) "OK" else "FAIL",
+            text = if (success) stringResource(Res.string.execution_log_status_ok) else stringResource(Res.string.execution_log_status_fail),
             style = MaterialTheme.typography.labelSmall,
             color = if (success) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
             modifier = Modifier.width(36.dp),

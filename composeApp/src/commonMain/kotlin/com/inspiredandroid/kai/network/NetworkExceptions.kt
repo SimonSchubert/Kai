@@ -117,7 +117,8 @@ fun Exception.toUiError(): UiError = when (this) {
 
     is NoModelDownloadedException -> UiError.Resource(Res.string.litert_error_no_model)
 
-    is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException -> UiError.Text(message ?: "An unexpected error occurred.")
+    is GeminiGenericException, is OpenAICompatibleGenericException, is AnthropicGenericException, is GenericNetworkException ->
+        if (!message.isNullOrBlank()) UiError.Text(message!!) else UiError.Resource(Res.string.error_unknown)
 
     else -> if (!message.isNullOrBlank()) UiError.Text(message!!) else UiError.Resource(Res.string.error_unknown)
 }
