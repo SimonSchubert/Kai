@@ -644,6 +644,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loading-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#back-button" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1070,6 +1081,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#loading-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading Frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#back-button" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1147,7 +1169,7 @@
 
 
 <h1 id="dynamic-ui-kai-ui">Dynamic UI (kai-ui)</h1>
-<p><strong>Last verified:</strong> 2026-05-14</p>
+<p><strong>Last verified:</strong> 2026-07-01</p>
 <p>AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in <code>kai-ui</code> code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="layout-blocks">Layout Blocks</h3>
@@ -1185,6 +1207,8 @@
 <p>Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI.</p>
 <h3 id="screen-navigation">Screen Navigation</h3>
 <p>Each AI response replaces the previous screen entirely. Only the latest assistant message's kai-ui renders, taking the full available space. A top bar provides back and exit buttons.</p>
+<h3 id="loading-frame">Loading Frame</h3>
+<p>While an interactive-mode response is in flight, an animated gradient frame (the same rotating purple/violet/magenta border used by the "Start Interactive UI" button) is drawn around the whole screen edge to signal the AI is working. It disappears once the response arrives.</p>
 <h3 id="back-button">Back Button</h3>
 <p>The back button removes the last exchange (user message + assistant response) from conversation history, making the previous assistant response the active screen again. When only one exchange remains, pressing back clears the history and returns to the initial prompt input — interactive mode stays active. To leave interactive mode entirely, the user uses the exit button in the top bar.</p>
 <h3 id="auto-retry-on-parse-failure">Auto-Retry on Parse Failure</h3>
