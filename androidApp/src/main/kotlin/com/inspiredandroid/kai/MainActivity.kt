@@ -129,6 +129,13 @@ class MainActivity : ComponentActivity() {
             // the deep-link after ChatViewModel has already consumed it.
             intent.removeExtra(EXTRA_OPEN_HEARTBEAT)
         }
+        if (intent?.action == Intent.ACTION_ASSIST) {
+            val dataRepository: DataRepository = get()
+            dataRepository.requestOpenAssist()
+            // Clear the action so a configuration change doesn't re-trigger a fresh
+            // chat after ChatViewModel has already consumed the request.
+            intent.action = null
+        }
     }
 }
 

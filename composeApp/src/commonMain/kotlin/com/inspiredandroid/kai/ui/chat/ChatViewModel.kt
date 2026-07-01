@@ -123,6 +123,15 @@ class ChatViewModel(
                     dataRepository.consumeOpenHeartbeatRequest()
                 }
         }
+
+        viewModelScope.launch {
+            dataRepository.openAssistRequested
+                .filter { it }
+                .collect {
+                    startNewChat()
+                    dataRepository.consumeOpenAssistRequest()
+                }
+        }
     }
 
     val state = combine(

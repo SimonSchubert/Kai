@@ -217,6 +217,16 @@ interface DataRepository {
     fun requestOpenHeartbeat()
     fun consumeOpenHeartbeatRequest()
 
+    /**
+     * Pulse that fires when the app is launched via the Android assist gesture
+     * (long-press home / power button) with `ACTION_ASSIST`. `true` means "start a
+     * fresh chat now, then call [consumeOpenAssistRequest]". Collected by
+     * `ChatViewModel` in its init block.
+     */
+    val openAssistRequested: StateFlow<Boolean>
+    fun requestOpenAssist()
+    fun consumeOpenAssistRequest()
+
     // On-device inference (LiteRT)
     fun isLocalInferenceAvailable(): Boolean
     fun getLocalEngineState(): StateFlow<EngineState>?

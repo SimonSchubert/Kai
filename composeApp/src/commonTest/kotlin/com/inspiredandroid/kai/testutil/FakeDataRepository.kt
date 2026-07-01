@@ -476,6 +476,14 @@ class FakeDataRepository : DataRepository {
         openHeartbeatRequested.value = false
     }
 
+    override val openAssistRequested: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    override fun requestOpenAssist() {
+        openAssistRequested.value = true
+    }
+    override fun consumeOpenAssistRequest() {
+        openAssistRequested.value = false
+    }
+
     // Email management
     private var emailEnabled = true
     private val emailAccounts = mutableListOf<EmailAccount>()
