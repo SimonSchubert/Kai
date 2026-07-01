@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">Järgmine käivitus</string>
     <string name="settings_task_details_no_heartbeat_runs">Südamelöögi käivitusi pole veel salvestatud.</string>
     <string name="settings_task_details_no_runs">Käivitusi pole veel salvestatud.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Igal südamelöögil</string>
     <string name="settings_task_details_schedule">Ajakava</string>
     <string name="settings_task_details_scheduled_for">Ajastatud kuupäevale</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">Installi GitHubist</string>
     <string name="settings_skills_github_url">GitHub repo või kausta URL</string>
     <string name="settings_skills_github_hint">nt. anthropics/skills/skills/pdf või täielik github.com URL</string>
+    <string name="error_unrecognized_github_repo">Tundmatu GitHubi hoidla või URL.</string>
     <string name="settings_skills_install">Installi</string>
     <string name="settings_skills_cancel">Tühista</string>
     <string name="settings_skills_installing">Installimine…</string>

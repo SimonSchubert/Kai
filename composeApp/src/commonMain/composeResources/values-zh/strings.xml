@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">下次运行</string>
     <string name="settings_task_details_no_heartbeat_runs">尚未记录任何心跳运行。</string>
     <string name="settings_task_details_no_runs">尚未记录任何运行。</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">每次心跳</string>
     <string name="settings_task_details_schedule">计划</string>
     <string name="settings_task_details_scheduled_for">计划于</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">从 GitHub 安装</string>
     <string name="settings_skills_github_url">GitHub 仓库或文件夹 URL</string>
     <string name="settings_skills_github_hint">例如：anthropics/skills/skills/pdf 或完整的 github.com URL</string>
+    <string name="error_unrecognized_github_repo">无法识别的 GitHub 仓库或 URL。</string>
     <string name="settings_skills_install">安装</string>
     <string name="settings_skills_cancel">取消</string>
     <string name="settings_skills_installing">安装中…</string>

@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">తదుపరి రన్</string>
     <string name="settings_task_details_no_heartbeat_runs">ఇంకా ఎటువంటి హృదయ స్పందన రన్‌లు నమోదు చేయబడలేదు.</string>
     <string name="settings_task_details_no_runs">ఇంకా ఎటువంటి రన్‌లు నమోదు చేయబడలేదు.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">ప్రతి హృదయ స్పందనలో</string>
     <string name="settings_task_details_schedule">షెడ్యూల్</string>
     <string name="settings_task_details_scheduled_for">కోసం షెడ్యూల్ చేయబడింది</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">GitHub నుండి ఇన్‌స్టాల్ చేయి</string>
     <string name="settings_skills_github_url">GitHub రెపో లేదా ఫోల్డర్ URL</string>
     <string name="settings_skills_github_hint">ఉదా. anthropics/skills/skills/pdf లేదా పూర్తి github.com URL</string>
+    <string name="error_unrecognized_github_repo">గుర్తించని GitHub రిపో లేదా URL.</string>
     <string name="settings_skills_install">ఇన్‌స్టాల్ చేయి</string>
     <string name="settings_skills_cancel">రద్దు చేయి</string>
     <string name="settings_skills_installing">ఇన్‌స్టాల్ చేస్తోంది…</string>

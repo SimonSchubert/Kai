@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Naslednji zagon</string>
     <string name="settings_task_details_no_heartbeat_runs">Zagonov srčnega utripa še ni zabeleženih.</string>
     <string name="settings_task_details_no_runs">Zagonov še ni zabeleženih.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Ob vsakem srčnem utripu</string>
     <string name="settings_task_details_schedule">Urnik</string>
     <string name="settings_task_details_scheduled_for">Načrtovano za</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Namesti z GitHub</string>
     <string name="settings_skills_github_url">URL repozitorija ali mape GitHub</string>
     <string name="settings_skills_github_hint">npr. anthropics/skills/skills/pdf ali celoten URL github.com</string>
+    <string name="error_unrecognized_github_repo">Neprepoznano GitHub skladišče ali URL.</string>
     <string name="settings_skills_install">Namesti</string>
     <string name="settings_skills_cancel">Prekliči</string>
     <string name="settings_skills_installing">Nameščanje…</string>

@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Ďalšie spustenie</string>
     <string name="settings_task_details_no_heartbeat_runs">Zatiaľ neboli zaznamenané žiadne spustenia tepu srdca.</string>
     <string name="settings_task_details_no_runs">Zatiaľ neboli zaznamenané žiadne spustenia.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Pri každom tepe srdca</string>
     <string name="settings_task_details_schedule">Plán</string>
     <string name="settings_task_details_scheduled_for">Naplánované na</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Inštalovať z GitHub</string>
     <string name="settings_skills_github_url">URL repozitára alebo priečinka na GitHub</string>
     <string name="settings_skills_github_hint">napr. anthropics/skills/skills/pdf alebo úplná URL github.com</string>
+    <string name="error_unrecognized_github_repo">Nerozpoznaný repozitár GitHub alebo URL.</string>
     <string name="settings_skills_install">Nainštalovať</string>
     <string name="settings_skills_cancel">Zrušiť</string>
     <string name="settings_skills_installing">Inštaluje sa…</string>

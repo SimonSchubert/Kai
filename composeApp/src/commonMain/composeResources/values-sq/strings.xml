@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Ekzekutimi tjetër</string>
     <string name="settings_task_details_no_heartbeat_runs">Ende nuk janë regjistruar ekzekutime të rrahjeve të zemrës.</string>
     <string name="settings_task_details_no_runs">Ende nuk janë regjistruar ekzekutime.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Në çdo rrahje zemre</string>
     <string name="settings_task_details_schedule">Programi</string>
     <string name="settings_task_details_scheduled_for">Programuar për</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Instalo nga GitHub</string>
     <string name="settings_skills_github_url">URL e depozitës ose dosjes GitHub</string>
     <string name="settings_skills_github_hint">p.sh. anthropics/skills/skills/pdf ose një URL e plotë github.com</string>
+    <string name="error_unrecognized_github_repo">Depo ose URL e panjohur e GitHub.</string>
     <string name="settings_skills_install">Instalo</string>
     <string name="settings_skills_cancel">Anulo</string>
     <string name="settings_skills_installing">Po instalohet…</string>

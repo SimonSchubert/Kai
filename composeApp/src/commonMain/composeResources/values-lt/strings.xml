@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Kitas paleidimas</string>
     <string name="settings_task_details_no_heartbeat_runs">Širdies ritmo paleidimų dar nėra.</string>
     <string name="settings_task_details_no_runs">Paleidimų dar nėra.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Su kiekvienu širdies ritmu</string>
     <string name="settings_task_details_schedule">Tvarkaraštis</string>
     <string name="settings_task_details_scheduled_for">Suplanuota</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Įdiegti iš GitHub</string>
     <string name="settings_skills_github_url">GitHub saugyklos arba aplanko URL</string>
     <string name="settings_skills_github_hint">pvz. anthropics/skills/skills/pdf arba visas github.com URL</string>
+    <string name="error_unrecognized_github_repo">Neatpažinta „GitHub“ saugykla arba URL.</string>
     <string name="settings_skills_install">Įdiegti</string>
     <string name="settings_skills_cancel">Atšaukti</string>
     <string name="settings_skills_installing">Diegiama…</string>

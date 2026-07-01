@@ -301,6 +301,8 @@
     <string name="settings_task_details_next_run">التشغيل التالي</string>
     <string name="settings_task_details_no_heartbeat_runs">لم يتم تسجيل أي تشغيل لنبض القلب بعد.</string>
     <string name="settings_task_details_no_runs">لم يتم تسجيل أي تشغيل بعد.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">عند كل نبضة قلب</string>
     <string name="settings_task_details_schedule">الجدول</string>
     <string name="settings_task_details_scheduled_for">مجدول لـ</string>
@@ -400,6 +402,7 @@
     <string name="settings_skills_add_github">تثبيت من GitHub</string>
     <string name="settings_skills_github_url">رابط مستودع GitHub أو مجلد</string>
     <string name="settings_skills_github_hint">مثل anthropics/skills/skills/pdf أو رابط github.com كامل</string>
+    <string name="error_unrecognized_github_repo">مستودع GitHub أو رابط URL غير معروف.</string>
     <string name="settings_skills_install">تثبيت</string>
     <string name="settings_skills_cancel">إلغاء</string>
     <string name="settings_skills_installing">جارٍ التثبيت…</string>

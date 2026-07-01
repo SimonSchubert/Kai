@@ -301,6 +301,8 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_task_details_next_run">Næste kørsel</string>
     <string name="settings_task_details_no_heartbeat_runs">Ingen hjerteslag-kørsler registreret endnu.</string>
     <string name="settings_task_details_no_runs">Ingen kørsler registreret endnu.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Ved hvert hjerteslag</string>
     <string name="settings_task_details_schedule">Tidsplan</string>
     <string name="settings_task_details_scheduled_for">Planlagt til</string>
@@ -400,6 +402,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="settings_skills_add_github">Installér fra GitHub</string>
     <string name="settings_skills_github_url">GitHub-repo eller mappe-URL</string>
     <string name="settings_skills_github_hint">f.eks. anthropics/skills/skills/pdf eller en fuld github.com URL</string>
+    <string name="error_unrecognized_github_repo">Ukendt GitHub-repo eller URL.</string>
     <string name="settings_skills_install">Installér</string>
     <string name="settings_skills_cancel">Annuller</string>
     <string name="settings_skills_installing">Installerer…</string>

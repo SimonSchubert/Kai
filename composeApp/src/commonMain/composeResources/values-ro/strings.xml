@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Următoarea rulare</string>
     <string name="settings_task_details_no_heartbeat_runs">Încă nu există rulări de ritm cardiac înregistrate.</string>
     <string name="settings_task_details_no_runs">Încă nu există rulări înregistrate.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">La fiecare ritm cardiac</string>
     <string name="settings_task_details_schedule">Program</string>
     <string name="settings_task_details_scheduled_for">Programată pentru</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Instalare din GitHub</string>
     <string name="settings_skills_github_url">URL repository sau folder GitHub</string>
     <string name="settings_skills_github_hint">ex. anthropics/skills/skills/pdf sau un URL complet github.com</string>
+    <string name="error_unrecognized_github_repo">Depozit GitHub sau URL nerecunoscut.</string>
     <string name="settings_skills_install">Instalează</string>
     <string name="settings_skills_cancel">Anulează</string>
     <string name="settings_skills_installing">Se instalează…</string>

@@ -301,6 +301,8 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_task_details_next_run">Nächste Ausführung</string>
     <string name="settings_task_details_no_heartbeat_runs">Noch keine Herzschlag-Ausführungen aufgezeichnet.</string>
     <string name="settings_task_details_no_runs">Noch keine Ausführungen aufgezeichnet.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Bei jedem Herzschlag</string>
     <string name="settings_task_details_schedule">Zeitplan</string>
     <string name="settings_task_details_scheduled_for">Geplant für</string>
@@ -400,6 +402,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="settings_skills_add_github">Von GitHub installieren</string>
     <string name="settings_skills_github_url">GitHub-Repo oder Ordner-URL</string>
     <string name="settings_skills_github_hint">z.B. anthropics/skills/skills/pdf oder eine vollständige github.com URL</string>
+    <string name="error_unrecognized_github_repo">Unbekanntes GitHub-Repo oder URL.</string>
     <string name="settings_skills_install">Installieren</string>
     <string name="settings_skills_cancel">Abbrechen</string>
     <string name="settings_skills_installing">Wird installiert…</string>

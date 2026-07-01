@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Ukusebenza okulandelayo</string>
     <string name="settings_task_details_no_heartbeat_runs">Akukabikho kusebenza kokushaya kwenhliziyo okuqoshiwe okwamanje.</string>
     <string name="settings_task_details_no_runs">Akukabikho kusebenza okuqoshiwe okwamanje.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Kukho konke ukushaya kwenhliziyo</string>
     <string name="settings_task_details_schedule">Ishejuli</string>
     <string name="settings_task_details_scheduled_for">Kuhleliwe ku-</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Faka kusuka ku-GitHub</string>
     <string name="settings_skills_github_url">I-URL ye-GitHub repo noma ifolda</string>
     <string name="settings_skills_github_hint">isb. anthropics/skills/skills/pdf noma i-URL ephelele ya-github.com</string>
+    <string name="error_unrecognized_github_repo">I-GitHub repo noma i-URL engaziwa.</string>
     <string name="settings_skills_install">Faka</string>
     <string name="settings_skills_cancel">Khansela</string>
     <string name="settings_skills_installing">Kuyafakwa…</string>

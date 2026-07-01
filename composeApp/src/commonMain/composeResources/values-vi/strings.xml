@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Lần chạy tiếp theo</string>
     <string name="settings_task_details_no_heartbeat_runs">Chưa có lần chạy nhịp tim nào được ghi nhận.</string>
     <string name="settings_task_details_no_runs">Chưa có lần chạy nào được ghi nhận.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Mỗi nhịp tim</string>
     <string name="settings_task_details_schedule">Lịch</string>
     <string name="settings_task_details_scheduled_for">Đã lên lịch lúc</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Cài đặt từ GitHub</string>
     <string name="settings_skills_github_url">URL repo hoặc thư mục GitHub</string>
     <string name="settings_skills_github_hint">ví dụ: anthropics/skills/skills/pdf hoặc URL github.com đầy đủ</string>
+    <string name="error_unrecognized_github_repo">Không nhận dạng được kho GitHub hoặc URL.</string>
     <string name="settings_skills_install">Cài đặt</string>
     <string name="settings_skills_cancel">Hủy</string>
     <string name="settings_skills_installing">Đang cài đặt…</string>

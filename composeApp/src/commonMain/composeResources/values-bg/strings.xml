@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">Следващо изпълнение</string>
     <string name="settings_task_details_no_heartbeat_runs">Все още няма записани изпълнения на сърцебиене.</string>
     <string name="settings_task_details_no_runs">Все още няма записани изпълнения.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">При всяко сърцебиене</string>
     <string name="settings_task_details_schedule">График</string>
     <string name="settings_task_details_scheduled_for">Планирано за</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">Инсталиране от GitHub</string>
     <string name="settings_skills_github_url">URL на хранилище или папка в GitHub</string>
     <string name="settings_skills_github_hint">напр. anthropics/skills/skills/pdf или пълен URL на github.com</string>
+    <string name="error_unrecognized_github_repo">Неразпознато GitHub хранилище или URL.</string>
     <string name="settings_skills_install">Инсталиране</string>
     <string name="settings_skills_cancel">Отказ</string>
     <string name="settings_skills_installing">Инсталиране…</string>

@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Utekelezaji ujao</string>
     <string name="settings_task_details_no_heartbeat_runs">Hakuna utekelezaji wa mapigo ya moyo uliorekodiwa bado.</string>
     <string name="settings_task_details_no_runs">Hakuna utekelezaji uliorekodiwa bado.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Kwa kila mapigo ya moyo</string>
     <string name="settings_task_details_schedule">Ratiba</string>
     <string name="settings_task_details_scheduled_for">Imeratibiwa kwa</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Sakinisha kutoka GitHub</string>
     <string name="settings_skills_github_url">URL ya repo au folda ya GitHub</string>
     <string name="settings_skills_github_hint">mfano anthropics/skills/skills/pdf au URL kamili ya github.com</string>
+    <string name="error_unrecognized_github_repo">Hifadhi ya GitHub au URL isiyotambulika.</string>
     <string name="settings_skills_install">Sakinisha</string>
     <string name="settings_skills_cancel">Ghairi</string>
     <string name="settings_skills_installing">Inasanikisha…</string>

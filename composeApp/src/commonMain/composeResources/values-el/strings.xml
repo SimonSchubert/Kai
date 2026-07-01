@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">Επόμενη εκτέλεση</string>
     <string name="settings_task_details_no_heartbeat_runs">Δεν έχουν καταγραφεί ακόμη εκτελέσεις παλμού.</string>
     <string name="settings_task_details_no_runs">Δεν έχουν καταγραφεί ακόμη εκτελέσεις.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Σε κάθε παλμό</string>
     <string name="settings_task_details_schedule">Προγραμματισμός</string>
     <string name="settings_task_details_scheduled_for">Προγραμματισμένο για</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">Εγκατάσταση από GitHub</string>
     <string name="settings_skills_github_url">URL αποθετηρίου ή φακέλου GitHub</string>
     <string name="settings_skills_github_hint">π.χ. anthropics/skills/skills/pdf ή πλήρες URL github.com</string>
+    <string name="error_unrecognized_github_repo">Μη αναγνωρίσιμο αποθετήριο GitHub ή URL.</string>
     <string name="settings_skills_install">Εγκατάσταση</string>
     <string name="settings_skills_cancel">Ακύρωση</string>
     <string name="settings_skills_installing">Εγκατάσταση…</string>

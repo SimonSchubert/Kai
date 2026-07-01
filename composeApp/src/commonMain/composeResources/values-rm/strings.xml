@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Proxima execuziun</string>
     <string name="settings_task_details_no_heartbeat_runs">Anc naginas execuziuns da batacor registradas.</string>
     <string name="settings_task_details_no_runs">Anc naginas execuziuns registradas.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Tar mintga batacor</string>
     <string name="settings_task_details_schedule">Plan</string>
     <string name="settings_task_details_scheduled_for">Planisà per</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Installar da GitHub</string>
     <string name="settings_skills_github_url">URL dal deposit u da la cartella GitHub</string>
     <string name="settings_skills_github_hint">p.ex. anthropics/skills/skills/pdf u in URL cumplet da github.com</string>
+    <string name="error_unrecognized_github_repo">Repository GitHub u URL betg renconuschì.</string>
     <string name="settings_skills_install">Installar</string>
     <string name="settings_skills_cancel">Annullar</string>
     <string name="settings_skills_installing">Installaziun…</string>

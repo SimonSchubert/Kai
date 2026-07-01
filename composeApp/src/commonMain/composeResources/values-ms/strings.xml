@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Pelaksanaan seterusnya</string>
     <string name="settings_task_details_no_heartbeat_runs">Belum ada pelaksanaan degupan jantung yang direkodkan.</string>
     <string name="settings_task_details_no_runs">Belum ada pelaksanaan yang direkodkan.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Pada setiap degupan jantung</string>
     <string name="settings_task_details_schedule">Jadual</string>
     <string name="settings_task_details_scheduled_for">Dijadualkan untuk</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Pasang dari GitHub</string>
     <string name="settings_skills_github_url">URL repo atau folder GitHub</string>
     <string name="settings_skills_github_hint">cth. anthropics/skills/skills/pdf atau URL github.com penuh</string>
+    <string name="error_unrecognized_github_repo">Repo GitHub atau URL tidak dikenali.</string>
     <string name="settings_skills_install">Pasang</string>
     <string name="settings_skills_cancel">Batal</string>
     <string name="settings_skills_installing">Memasang…</string>

@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Следеће покретање</string>
     <string name="settings_task_details_no_heartbeat_runs">Још нема забележених покретања откуцаја срца.</string>
     <string name="settings_task_details_no_runs">Још нема забележених покретања.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">При сваком откуцају срца</string>
     <string name="settings_task_details_schedule">Распоред</string>
     <string name="settings_task_details_scheduled_for">Заказано за</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">Инсталирај са GitHub-а</string>
     <string name="settings_skills_github_url">URL репозиторијума или фасцикле на GitHub-у</string>
     <string name="settings_skills_github_hint">нпр. anthropics/skills/skills/pdf или потпуни github.com URL</string>
+    <string name="error_unrecognized_github_repo">Непрепознат GitHub репозиторијум или URL.</string>
     <string name="settings_skills_install">Инсталирај</string>
     <string name="settings_skills_cancel">Откажи</string>
     <string name="settings_skills_installing">Инсталација…</string>

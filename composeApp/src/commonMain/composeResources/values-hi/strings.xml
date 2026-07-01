@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">अगला रन</string>
     <string name="settings_task_details_no_heartbeat_runs">अभी तक कोई धड़कन रन रिकॉर्ड नहीं हुआ है।</string>
     <string name="settings_task_details_no_runs">अभी तक कोई रन रिकॉर्ड नहीं हुआ है।</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">हर धड़कन पर</string>
     <string name="settings_task_details_schedule">शेड्यूल</string>
     <string name="settings_task_details_scheduled_for">के लिए शेड्यूल किया गया</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">GitHub से इंस्टॉल करें</string>
     <string name="settings_skills_github_url">GitHub repo या फ़ोल्डर URL</string>
     <string name="settings_skills_github_hint">जैसे anthropics/skills/skills/pdf या पूरा github.com URL</string>
+    <string name="error_unrecognized_github_repo">अपरिचित GitHub रिपो या URL।</string>
     <string name="settings_skills_install">इंस्टॉल करें</string>
     <string name="settings_skills_cancel">रद्द करें</string>
     <string name="settings_skills_installing">इंस्टॉल हो रहा है…</string>

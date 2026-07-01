@@ -300,6 +300,8 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_task_details_next_run">Prochaine exécution</string>
     <string name="settings_task_details_no_heartbeat_runs">Aucune exécution de battement de cœur enregistrée pour le moment.</string>
     <string name="settings_task_details_no_runs">Aucune exécution enregistrée pour le moment.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">À chaque battement de cœur</string>
     <string name="settings_task_details_schedule">Planification</string>
     <string name="settings_task_details_scheduled_for">Planifiée pour</string>
@@ -399,6 +401,7 @@ Si quelque chose nécessite de l'attention (souvenirs obsolètes, tâches échue
     <string name="settings_skills_add_github">Installer depuis GitHub</string>
     <string name="settings_skills_github_url">Dépôt ou dossier GitHub URL</string>
     <string name="settings_skills_github_hint">ex. anthropics/skills/skills/pdf ou une URL github.com complète</string>
+    <string name="error_unrecognized_github_repo">Dépôt GitHub ou URL non reconnu.</string>
     <string name="settings_skills_install">Installer</string>
     <string name="settings_skills_cancel">Annuler</string>
     <string name="settings_skills_installing">Installation…</string>

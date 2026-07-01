@@ -300,6 +300,8 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_task_details_next_run">Prossima esecuzione</string>
     <string name="settings_task_details_no_heartbeat_runs">Nessuna esecuzione del battito cardiaco registrata.</string>
     <string name="settings_task_details_no_runs">Nessuna esecuzione registrata.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">A ogni battito cardiaco</string>
     <string name="settings_task_details_schedule">Pianificazione</string>
     <string name="settings_task_details_scheduled_for">Pianificata per</string>
@@ -399,6 +401,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="settings_skills_add_github">Installa da GitHub</string>
     <string name="settings_skills_github_url">URL del repository o cartella GitHub</string>
     <string name="settings_skills_github_hint">es. anthropics/skills/skills/pdf oppure un URL completo github.com</string>
+    <string name="error_unrecognized_github_repo">Repository GitHub o URL non riconosciuto.</string>
     <string name="settings_skills_install">Installa</string>
     <string name="settings_skills_cancel">Annulla</string>
     <string name="settings_skills_installing">Installazione in corso…</string>

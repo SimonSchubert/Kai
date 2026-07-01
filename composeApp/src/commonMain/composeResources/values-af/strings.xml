@@ -301,6 +301,8 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_task_details_next_run">Volgende uitvoering</string>
     <string name="settings_task_details_no_heartbeat_runs">Nog geen hartklop-uitvoerings opgeneem nie.</string>
     <string name="settings_task_details_no_runs">Nog geen uitvoerings opgeneem nie.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">By elke hartklop</string>
     <string name="settings_task_details_schedule">Skedule</string>
     <string name="settings_task_details_scheduled_for">Geskeduleer vir</string>
@@ -400,6 +402,7 @@ As iets aandag nodig het (verouderde herinneringe, verskuldigde take, gebruiker-
     <string name="settings_skills_add_github">Installeer vanaf GitHub</string>
     <string name="settings_skills_github_url">GitHub-opslagplek of gids-URL</string>
     <string name="settings_skills_github_hint">bv. anthropics/skills/skills/pdf of \'n volledige github.com URL</string>
+    <string name="error_unrecognized_github_repo">Onherkende GitHub-repo of URL.</string>
     <string name="settings_skills_install">Installeer</string>
     <string name="settings_skills_cancel">Kanselleer</string>
     <string name="settings_skills_installing">Installeer…</string>

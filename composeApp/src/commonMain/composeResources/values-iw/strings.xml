@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">הרצה הבאה</string>
     <string name="settings_task_details_no_heartbeat_runs">עדיין לא תועדו הרצות פעימת לב.</string>
     <string name="settings_task_details_no_runs">עדיין לא תועדו הרצות.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">בכל פעימת לב</string>
     <string name="settings_task_details_schedule">תזמון</string>
     <string name="settings_task_details_scheduled_for">מתוזמן ל-</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">התקן מ-GitHub</string>
     <string name="settings_skills_github_url">כתובת מאגר או תיקייה ב-GitHub</string>
     <string name="settings_skills_github_hint">למשל anthropics/skills/skills/pdf או כתובת github.com מלאה</string>
+    <string name="error_unrecognized_github_repo">מאגר GitHub או כתובת URL לא מזוהים.</string>
     <string name="settings_skills_install">התקן</string>
     <string name="settings_skills_cancel">ביטול</string>
     <string name="settings_skills_installing">מתקין…</string>

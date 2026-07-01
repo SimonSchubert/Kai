@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">다음 실행</string>
     <string name="settings_task_details_no_heartbeat_runs">아직 기록된 하트비트 실행이 없습니다.</string>
     <string name="settings_task_details_no_runs">아직 기록된 실행이 없습니다.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">하트비트마다</string>
     <string name="settings_task_details_schedule">일정</string>
     <string name="settings_task_details_scheduled_for">예약 시간</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">GitHub에서 설치</string>
     <string name="settings_skills_github_url">GitHub 저장소 또는 폴더 URL</string>
     <string name="settings_skills_github_hint">예: anthropics/skills/skills/pdf 또는 전체 github.com URL</string>
+    <string name="error_unrecognized_github_repo">인식할 수 없는 GitHub 저장소 또는 URL입니다.</string>
     <string name="settings_skills_install">설치</string>
     <string name="settings_skills_cancel">취소</string>
     <string name="settings_skills_installing">설치 중…</string>

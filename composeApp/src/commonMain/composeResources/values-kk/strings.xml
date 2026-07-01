@@ -299,6 +299,8 @@
     <string name="settings_task_details_next_run">Келесі іске қосу</string>
     <string name="settings_task_details_no_heartbeat_runs">Әзірге жүрек соғысы іске қосулары тіркелмеген.</string>
     <string name="settings_task_details_no_runs">Әзірге іске қосулар тіркелмеген.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Әрбір жүрек соғысында</string>
     <string name="settings_task_details_schedule">Кесте</string>
     <string name="settings_task_details_scheduled_for">Жоспарланған уақыт</string>
@@ -398,6 +400,7 @@
     <string name="settings_skills_add_github">GitHub-тан орнату</string>
     <string name="settings_skills_github_url">GitHub репозиторийі немесе қалта URL</string>
     <string name="settings_skills_github_hint">мысалы anthropics/skills/skills/pdf немесе толық github.com URL</string>
+    <string name="error_unrecognized_github_repo">Танылмаған GitHub репозиторийі немесе URL мекенжайы.</string>
     <string name="settings_skills_install">Орнату</string>
     <string name="settings_skills_cancel">Бас тарту</string>
     <string name="settings_skills_installing">Орнатылуда…</string>

@@ -301,6 +301,8 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_task_details_next_run">Próxima ejecución</string>
     <string name="settings_task_details_no_heartbeat_runs">Aún no se han registrado ejecuciones de latido.</string>
     <string name="settings_task_details_no_runs">Aún no se han registrado ejecuciones.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">En cada latido</string>
     <string name="settings_task_details_schedule">Programación</string>
     <string name="settings_task_details_scheduled_for">Programada para</string>
@@ -400,6 +402,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="settings_skills_add_github">Instalar desde GitHub</string>
     <string name="settings_skills_github_url">URL de repositorio o carpeta de GitHub</string>
     <string name="settings_skills_github_hint">p. ej. anthropics/skills/skills/pdf o una URL completa de github.com</string>
+    <string name="error_unrecognized_github_repo">Repositorio de GitHub o URL no reconocido.</string>
     <string name="settings_skills_install">Instalar</string>
     <string name="settings_skills_cancel">Cancelar</string>
     <string name="settings_skills_installing">Instalando…</string>

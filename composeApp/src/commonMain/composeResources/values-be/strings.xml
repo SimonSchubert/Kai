@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">Наступны запуск</string>
     <string name="settings_task_details_no_heartbeat_runs">Запускаў сэрцабіцця яшчэ няма.</string>
     <string name="settings_task_details_no_runs">Запускаў яшчэ няма.</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">Пры кожным сэрцабіцці</string>
     <string name="settings_task_details_schedule">Расклад</string>
     <string name="settings_task_details_scheduled_for">Запланавана на</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">Усталяваць з GitHub</string>
     <string name="settings_skills_github_url">URL рэпазіторыя або папкі GitHub</string>
     <string name="settings_skills_github_hint">напр. anthropics/skills/skills/pdf або поўны URL github.com</string>
+    <string name="error_unrecognized_github_repo">Нераспазнаны рэпазіторый GitHub або URL.</string>
     <string name="settings_skills_install">Усталяваць</string>
     <string name="settings_skills_cancel">Скасаваць</string>
     <string name="settings_skills_installing">Усталёўка…</string>

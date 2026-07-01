@@ -300,6 +300,8 @@
     <string name="settings_task_details_next_run">次回実行</string>
     <string name="settings_task_details_no_heartbeat_runs">ハートビート実行はまだ記録されていません。</string>
     <string name="settings_task_details_no_runs">実行はまだ記録されていません。</string>
+    <string name="execution_log_status_ok">OK</string>
+    <string name="execution_log_status_fail">FAIL</string>
     <string name="settings_task_details_on_every_heartbeat">ハートビートごと</string>
     <string name="settings_task_details_schedule">スケジュール</string>
     <string name="settings_task_details_scheduled_for">予定日時</string>
@@ -399,6 +401,7 @@
     <string name="settings_skills_add_github">GitHubからインストール</string>
     <string name="settings_skills_github_url">GitHubリポジトリまたはフォルダのURL</string>
     <string name="settings_skills_github_hint">例: anthropics/skills/skills/pdf または完全な github.com URL</string>
+    <string name="error_unrecognized_github_repo">認識できないGitHubリポジトリまたはURLです。</string>
     <string name="settings_skills_install">インストール</string>
     <string name="settings_skills_cancel">キャンセル</string>
     <string name="settings_skills_installing">インストール中…</string>
