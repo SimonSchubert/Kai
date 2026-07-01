@@ -1,3 +1,20 @@
+## v2.8.0 — 2026-07-01
+
+### Features
+- Add per-model image-capability gating so text-only models no longer offer image input
+- Add Android assist-gesture launch support
+
+### Fixes
+- Reload conversations after importing settings
+- Restore the Fetch URL tool in the Android tool list
+
+### Improvements
+- Group sponsored sections in the UI
+- More prominent interactive loading animation
+- Update model catalog (including DeepSeek V4 1M context window)
+- Additional localizations
+- Upgrade dependencies
+
 ## v2.7.1 — 2026-06-15
 
 ### Improvements

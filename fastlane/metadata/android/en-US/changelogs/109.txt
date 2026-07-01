@@ -1,0 +1,9 @@
+Add per-model image-capability gating for text-only models
+Add Android assist-gesture launch
+Reload conversations after settings import
+Restore Fetch URL tool in Android tool list
+Group sponsored sections
+More prominent interactive loading animation
+Update model catalog (DeepSeek V4 1M context)
+Additional localizations
+Upgrade dependencies
