@@ -283,6 +283,7 @@ string|settings_soul_save|U2FsdmE=
 string|settings_soul|QW5pbWE=
 string|settings_sponsors_monthly|U3BvbnNvciBtZW5zaWxp
 string|settings_sponsors_past|U3BvbnNvciBwcmVjZWRlbnRp
+string|settings_sponsors|U3BvbnNvcg==
 string|settings_status_checking|VmVyaWZpY2EgY29ubmVzc2lvbmUuLi4=
 string|settings_status_connected|Q29ubmVzc28=
 string|settings_status_error_connection_failed|Q29ubmVzc2lvbmUgZmFsbGl0YQ==
