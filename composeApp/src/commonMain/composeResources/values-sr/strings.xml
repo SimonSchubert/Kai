@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Изађи из интерактивног режима</string>
     <string name="interactive_ui_parsing_failed">Рашчлањивање корисничког интерфејса није успело, покушавам поново…</string>
+    <string name="settings_sponsors">Спонзори</string>
     <string name="settings_sponsors_monthly">Месечни спонзори</string>
     <string name="settings_sponsors_past">Претходни спонзори</string>
     <string name="snackbar_undo">Опозови</string>

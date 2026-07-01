@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ইন্টারেক্টিভ মোড থেকে বের হন</string>
     <string name="interactive_ui_parsing_failed">UI পার্সিং ব্যর্থ, আবার চেষ্টা করা হচ্ছে…</string>
+    <string name="settings_sponsors">স্পনসর</string>
     <string name="settings_sponsors_monthly">মাসিক স্পনসর</string>
     <string name="settings_sponsors_past">পূর্ববর্তী স্পনসর</string>
     <string name="snackbar_undo">পূর্বাবস্থায় ফেরান</string>

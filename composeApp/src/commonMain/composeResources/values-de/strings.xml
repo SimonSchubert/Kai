@@ -233,6 +233,7 @@ Wenn etwas Aufmerksamkeit erfordert (veraltete Erinnerungen, fällige Aufgaben, 
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Interaktiven Modus verlassen</string>
     <string name="interactive_ui_parsing_failed">UI-Analyse fehlgeschlagen, erneuter Versuch…</string>
+    <string name="settings_sponsors">Sponsoren</string>
     <string name="settings_sponsors_monthly">Monatliche Sponsoren</string>
     <string name="settings_sponsors_past">Frühere Sponsoren</string>
     <string name="snackbar_undo">Rückgängig</string>

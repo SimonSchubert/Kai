@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Ukončit interaktivní režim</string>
     <string name="interactive_ui_parsing_failed">Parsování UI selhalo, zkouším znovu…</string>
+    <string name="settings_sponsors">Sponzoři</string>
     <string name="settings_sponsors_monthly">Měsíční sponzoři</string>
     <string name="settings_sponsors_past">Předchozí sponzoři</string>
     <string name="snackbar_undo">Zpět</string>

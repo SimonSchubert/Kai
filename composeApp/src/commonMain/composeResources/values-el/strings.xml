@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Έξοδος από τη διαδραστική λειτουργία</string>
     <string name="interactive_ui_parsing_failed">Η ανάλυση UI απέτυχε, νέα προσπάθεια…</string>
+    <string name="settings_sponsors">Χορηγοί</string>
     <string name="settings_sponsors_monthly">Μηνιαίοι χορηγοί</string>
     <string name="settings_sponsors_past">Προηγούμενοι χορηγοί</string>
     <string name="snackbar_undo">Αναίρεση</string>

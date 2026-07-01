@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Интерактивті режимнен шығу</string>
     <string name="interactive_ui_parsing_failed">UI талдауы сәтсіз аяқталды, қайта әрекет жасалуда…</string>
+    <string name="settings_sponsors">Демеушілер</string>
     <string name="settings_sponsors_monthly">Ай сайынғы демеушілер</string>
     <string name="settings_sponsors_past">Бұрынғы демеушілер</string>
     <string name="snackbar_undo">Болдырмау</string>

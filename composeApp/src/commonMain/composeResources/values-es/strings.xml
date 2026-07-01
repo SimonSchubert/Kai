@@ -233,6 +233,7 @@ Si algo necesita atención (memorias obsoletas, tareas vencidas, seguimientos de
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Salir del modo interactivo</string>
     <string name="interactive_ui_parsing_failed">Error al analizar la UI, reintentando…</string>
+    <string name="settings_sponsors">Patrocinadores</string>
     <string name="settings_sponsors_monthly">Patrocinadores mensuales</string>
     <string name="settings_sponsors_past">Patrocinadores anteriores</string>
     <string name="snackbar_undo">Deshacer</string>

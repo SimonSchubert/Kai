@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Išeiti iš interaktyvaus režimo</string>
     <string name="interactive_ui_parsing_failed">UI analizė nepavyko, bandoma iš naujo…</string>
+    <string name="settings_sponsors">Rėmėjai</string>
     <string name="settings_sponsors_monthly">Mėnesiniai rėmėjai</string>
     <string name="settings_sponsors_past">Ankstesni rėmėjai</string>
     <string name="snackbar_undo">Anuliuoti</string>

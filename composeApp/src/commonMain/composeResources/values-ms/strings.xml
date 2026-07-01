@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Keluar daripada mod interaktif</string>
     <string name="interactive_ui_parsing_failed">Penghuraian UI gagal, mencuba semula…</string>
+    <string name="settings_sponsors">Penaja</string>
     <string name="settings_sponsors_monthly">Penaja Bulanan</string>
     <string name="settings_sponsors_past">Penaja Terdahulu</string>
     <string name="snackbar_undo">Buat asal</string>

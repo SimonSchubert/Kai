@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Izađi iz interaktivnog načina</string>
     <string name="interactive_ui_parsing_failed">Raščlamba korisničkog sučelja nije uspjela, pokušavam ponovo…</string>
+    <string name="settings_sponsors">Sponzori</string>
     <string name="settings_sponsors_monthly">Mjesečni sponzori</string>
     <string name="settings_sponsors_past">Prethodni sponzori</string>
     <string name="snackbar_undo">Poništi</string>

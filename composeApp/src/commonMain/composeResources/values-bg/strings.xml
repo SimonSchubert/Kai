@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Изход от интерактивен режим</string>
     <string name="interactive_ui_parsing_failed">Анализът на UI се провали, нов опит…</string>
+    <string name="settings_sponsors">Спонсори</string>
     <string name="settings_sponsors_monthly">Месечни спонсори</string>
     <string name="settings_sponsors_past">Предишни спонсори</string>
     <string name="snackbar_undo">Отмяна</string>

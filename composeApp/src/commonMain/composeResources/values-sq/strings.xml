@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Dil nga mënyra ndërvepruese</string>
     <string name="interactive_ui_parsing_failed">Analizimi i UI dështoi, po provohet përsëri…</string>
+    <string name="settings_sponsors">Sponsorë</string>
     <string name="settings_sponsors_monthly">Sponsorë mujorë</string>
     <string name="settings_sponsors_past">Sponsorë të mëparshëm</string>
     <string name="snackbar_undo">Zhbëj</string>

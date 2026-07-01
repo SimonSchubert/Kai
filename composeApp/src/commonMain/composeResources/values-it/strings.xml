@@ -233,6 +233,7 @@ Se qualcosa richiede attenzione (ricordi obsoleti, attività scadute, follow-up 
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Esci dalla modalità interattiva</string>
     <string name="interactive_ui_parsing_failed">Analisi dell'interfaccia non riuscita, nuovo tentativo…</string>
+    <string name="settings_sponsors">Sponsor</string>
     <string name="settings_sponsors_monthly">Sponsor mensili</string>
     <string name="settings_sponsors_past">Sponsor precedenti</string>
     <string name="snackbar_undo">Annulla</string>

@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Phuma kumodi yokuxhumana</string>
     <string name="interactive_ui_parsing_failed">Ukuhlaziya kwe-UI kuhlulekile, kuzanywa futhi…</string>
+    <string name="settings_sponsors">Abaxhasi</string>
     <string name="settings_sponsors_monthly">Abaxhasi Banyanga Zonke Izinyanga</string>
     <string name="settings_sponsors_past">Abaxhasi Bangaphambili</string>
     <string name="snackbar_undo">Hlehlisa</string>

@@ -233,6 +233,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">退出互動模式</string>
     <string name="interactive_ui_parsing_failed">UI 解析失敗，正在重試…</string>
+    <string name="settings_sponsors">贊助者</string>
     <string name="settings_sponsors_monthly">每月贊助者</string>
     <string name="settings_sponsors_past">先前贊助者</string>
     <string name="snackbar_undo">復原</string>

@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ออกจากโหมดอินเทอร์แอคทีฟ</string>
     <string name="interactive_ui_parsing_failed">วิเคราะห์ UI ล้มเหลว กำลังลองใหม่…</string>
+    <string name="settings_sponsors">ผู้สนับสนุน</string>
     <string name="settings_sponsors_monthly">ผู้สนับสนุนรายเดือน</string>
     <string name="settings_sponsors_past">ผู้สนับสนุนก่อนหน้า</string>
     <string name="snackbar_undo">เลิกทำ</string>

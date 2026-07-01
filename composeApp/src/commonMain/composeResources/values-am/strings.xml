@@ -233,6 +233,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">መስተጋብር ሁነታን ውጣ</string>
     <string name="interactive_ui_parsing_failed">UI ትንተና አልተሳካም፣ እንደገና በመሞከር ላይ…</string>
+    <string name="settings_sponsors">ስፖንሰሮች</string>
     <string name="settings_sponsors_monthly">ወርሃዊ ስፖንሰሮች</string>
     <string name="settings_sponsors_past">ቀድሞ ስፖንሰሮች</string>
     <string name="snackbar_undo">ቀልብስ</string>

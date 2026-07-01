@@ -233,6 +233,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">인터랙티브 모드 종료</string>
     <string name="interactive_ui_parsing_failed">UI 파싱 실패, 다시 시도 중…</string>
+    <string name="settings_sponsors">후원자</string>
     <string name="settings_sponsors_monthly">월간 후원자</string>
     <string name="settings_sponsors_past">이전 후원자</string>
     <string name="snackbar_undo">실행 취소</string>

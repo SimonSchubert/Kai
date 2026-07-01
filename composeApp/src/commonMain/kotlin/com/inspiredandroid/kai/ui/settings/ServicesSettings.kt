@@ -112,8 +112,7 @@ import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollam
 import kai.composeapp.generated.resources.settings_remove_service
 import kai.composeapp.generated.resources.settings_reorder_content_description
 import kai.composeapp.generated.resources.settings_sign_in_copy_api_key_from
-import kai.composeapp.generated.resources.settings_sponsors_monthly
-import kai.composeapp.generated.resources.settings_sponsors_past
+import kai.composeapp.generated.resources.settings_sponsors
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
@@ -125,6 +124,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import sh.calvin.reorderable.ReorderableColumn
@@ -197,23 +197,19 @@ internal fun FreeSettings(
                 Text(stringResource(Res.string.settings_become_sponsor))
             }
 
-            if (currentSponsors.isNotEmpty()) {
-                Spacer(Modifier.height(16.dp))
-                HorizontalDivider(thickness = 0.5.dp)
-                Spacer(Modifier.height(16.dp))
-                SponsorList(
-                    title = stringResource(Res.string.settings_sponsors_monthly),
-                    sponsors = currentSponsors,
-                )
+            val allSponsors = remember(currentSponsors, pastSponsors) {
+                val activeUsernames = currentSponsors.map { it.username }.toSet()
+                (currentSponsors + pastSponsors.filter { it.username !in activeUsernames })
+                    .toImmutableList()
             }
 
-            if (pastSponsors.isNotEmpty()) {
+            if (allSponsors.isNotEmpty()) {
                 Spacer(Modifier.height(16.dp))
                 HorizontalDivider(thickness = 0.5.dp)
                 Spacer(Modifier.height(16.dp))
                 SponsorList(
-                    title = stringResource(Res.string.settings_sponsors_past),
-                    sponsors = pastSponsors,
+                    title = stringResource(Res.string.settings_sponsors),
+                    sponsors = allSponsors,
                 )
             }
 

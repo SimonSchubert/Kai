@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Keluar dari mode interaktif</string>
     <string name="interactive_ui_parsing_failed">Penguraian UI gagal, mencoba lagi…</string>
+    <string name="settings_sponsors">Sponsor</string>
     <string name="settings_sponsors_monthly">Sponsor Bulanan</string>
     <string name="settings_sponsors_past">Sponsor Sebelumnya</string>
     <string name="snackbar_undo">Urungkan</string>

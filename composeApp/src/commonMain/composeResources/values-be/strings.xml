@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Выйсці з інтэрактыўнага рэжыму</string>
     <string name="interactive_ui_parsing_failed">Не ўдалося разабраць UI, паўторная спроба…</string>
+    <string name="settings_sponsors">Спонсары</string>
     <string name="settings_sponsors_monthly">Штомесячныя спонсары</string>
     <string name="settings_sponsors_past">Папярэднія спонсары</string>
     <string name="snackbar_undo">Адмяніць</string>

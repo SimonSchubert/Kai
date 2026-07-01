@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">ఇంటరాక్టివ్ మోడ్ నుండి నిష్క్రమించు</string>
     <string name="interactive_ui_parsing_failed">UI పార్సింగ్ విఫలమైంది, మళ్ళీ ప్రయత్నిస్తోంది…</string>
+    <string name="settings_sponsors">స్పాన్సర్లు</string>
     <string name="settings_sponsors_monthly">నెలవారీ స్పాన్సర్లు</string>
     <string name="settings_sponsors_past">మునుపటి స్పాన్సర్లు</string>
     <string name="snackbar_undo">రద్దు చేయి</string>

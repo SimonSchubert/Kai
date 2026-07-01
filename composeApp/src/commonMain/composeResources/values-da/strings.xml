@@ -233,6 +233,7 @@ Hvis noget kræver opmærksomhed (forældede erindringer, forfaldne opgaver, bru
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Forlad interaktiv tilstand</string>
     <string name="interactive_ui_parsing_failed">UI-analyse mislykkedes, prøver igen…</string>
+    <string name="settings_sponsors">Sponsorer</string>
     <string name="settings_sponsors_monthly">Månedlige sponsorer</string>
     <string name="settings_sponsors_past">Tidligere sponsorer</string>
     <string name="snackbar_undo">Fortryd</string>

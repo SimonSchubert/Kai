@@ -239,8 +239,6 @@ import kai.composeapp.generated.resources.settings_soul_reset
 import kai.composeapp.generated.resources.settings_soul_reset_cancel
 import kai.composeapp.generated.resources.settings_soul_reset_confirm
 import kai.composeapp.generated.resources.settings_soul_save
-import kai.composeapp.generated.resources.settings_sponsors_monthly
-import kai.composeapp.generated.resources.settings_sponsors_past
 import kai.composeapp.generated.resources.settings_status_checking
 import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error

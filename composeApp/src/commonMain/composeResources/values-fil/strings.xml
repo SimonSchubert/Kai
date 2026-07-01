@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Lumabas sa interactive mode</string>
     <string name="interactive_ui_parsing_failed">Nabigo ang pag-parse ng UI, sinusubukan muli…</string>
+    <string name="settings_sponsors">Mga sponsor</string>
     <string name="settings_sponsors_monthly">Buwanang mga sponsor</string>
     <string name="settings_sponsors_past">Mga nakaraang sponsor</string>
     <string name="snackbar_undo">I-undo</string>

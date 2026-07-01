@@ -233,6 +233,7 @@ Jeśli coś wymaga uwagi (przestarzałe wspomnienia, zaległe zadania, dalsze dz
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Wyjdź z trybu interaktywnego</string>
     <string name="interactive_ui_parsing_failed">Analiza UI nie powiodła się, ponawiam próbę…</string>
+    <string name="settings_sponsors">Sponsorzy</string>
     <string name="settings_sponsors_monthly">Miesięczni sponsorzy</string>
     <string name="settings_sponsors_past">Poprzedni sponsorzy</string>
     <string name="snackbar_undo">Cofnij</string>

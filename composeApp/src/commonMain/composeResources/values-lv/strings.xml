@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Iziet no interaktīvā režīma</string>
     <string name="interactive_ui_parsing_failed">UI analīze neizdevās, mēģinu vēlreiz…</string>
+    <string name="settings_sponsors">Sponsori</string>
     <string name="settings_sponsors_monthly">Ikmēneša sponsori</string>
     <string name="settings_sponsors_past">Iepriekšējie sponsori</string>
     <string name="snackbar_undo">Atsaukt</string>

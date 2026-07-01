@@ -232,6 +232,7 @@
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Thoát chế độ tương tác</string>
     <string name="interactive_ui_parsing_failed">Phân tích UI thất bại, đang thử lại…</string>
+    <string name="settings_sponsors">Nhà tài trợ</string>
     <string name="settings_sponsors_monthly">Nhà tài trợ hàng tháng</string>
     <string name="settings_sponsors_past">Nhà tài trợ trước đây</string>
     <string name="snackbar_undo">Hoàn tác</string>

@@ -233,6 +233,7 @@ Jos jokin vaatii huomiota (vanhentuneet muistot, erääntyneet tehtävät, käyt
     <string name="interactive_title">Kai 9000</string>
     <string name="interactive_exit_content_description">Poistu vuorovaikutustilasta</string>
     <string name="interactive_ui_parsing_failed">Käyttöliittymän jäsennys epäonnistui, yritetään uudelleen…</string>
+    <string name="settings_sponsors">Sponsorit</string>
     <string name="settings_sponsors_monthly">Kuukausittaiset sponsorit</string>
     <string name="settings_sponsors_past">Aiemmat sponsorit</string>
     <string name="snackbar_undo">Kumoa</string>
