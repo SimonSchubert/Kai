@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Serviciu daemon Kai 9000</string>
+    <string name="daemon_channel_description">Menține Kai 9000 în funcțiune pentru executarea sarcinilor programate</string>
+    <string name="daemon_notification_text">Daemonul rulează</string>
+    <string name="download_channel_name">Descărcări de modele</string>
+    <string name="download_channel_description">Afișează progresul în timpul descărcării modelelor de IA</string>
+    <string name="download_notification_text">Se descarcă modelul…</string>
+</resources>

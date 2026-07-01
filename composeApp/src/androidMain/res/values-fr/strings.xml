@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Service démon Kai 9000</string>
+    <string name="daemon_channel_description">Maintient Kai 9000 actif pour l\'exécution des tâches planifiées</string>
+    <string name="daemon_notification_text">Le démon est en cours d\'exécution</string>
+    <string name="download_channel_name">Téléchargements de modèles</string>
+    <string name="download_channel_description">Affiche la progression du téléchargement des modèles d\'IA</string>
+    <string name="download_notification_text">Téléchargement du modèle…</string>
+</resources>

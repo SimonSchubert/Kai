@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 -taustapalvelu</string>
+    <string name="daemon_channel_description">Pitää Kai 9000:n käynnissä ajoitettujen tehtävien suorittamista varten</string>
+    <string name="daemon_notification_text">Taustapalvelu on käynnissä</string>
+    <string name="download_channel_name">Mallien lataukset</string>
+    <string name="download_channel_description">Näyttää edistymisen tekoälymallien latauksen aikana</string>
+    <string name="download_notification_text">Ladataan mallia…</string>
+</resources>

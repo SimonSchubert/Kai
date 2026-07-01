@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Servetsch daemon da Kai 9000</string>
+    <string name="daemon_channel_description">Tegna Kai 9000 en funcziun per exequir incumbensas planisadas</string>
+    <string name="daemon_notification_text">Il daemon è en funcziun</string>
+    <string name="download_channel_name">Telechargiadas da models</string>
+    <string name="download_channel_description">Mussa il progress durant che telechargiar models d\'AI</string>
+    <string name="download_notification_text">Telechargiar model…</string>
+</resources>

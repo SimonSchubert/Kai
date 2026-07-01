@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">سرویس پس‌زمینه Kai 9000</string>
+    <string name="daemon_channel_description">Kai 9000 را برای اجرای وظایف زمان‌بندی‌شده در پس‌زمینه فعال نگه می‌دارد</string>
+    <string name="daemon_notification_text">سرویس پس‌زمینه در حال اجراست</string>
+    <string name="download_channel_name">دانلود مدل‌ها</string>
+    <string name="download_channel_description">پیشرفت را هنگام دانلود مدل‌های هوش مصنوعی نشان می‌دهد</string>
+    <string name="download_notification_text">در حال دانلود مدل…</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 డీమన్ సేవ</string>
+    <string name="daemon_channel_description">షెడ్యూల్ చేసిన టాస్క్‌లను అమలు చేయడానికి Kai 9000ని నడుస్తూ ఉంచుతుంది</string>
+    <string name="daemon_notification_text">డీమన్ నడుస్తోంది</string>
+    <string name="download_channel_name">మోడల్ డౌన్‌లోడ్‌లు</string>
+    <string name="download_channel_description">AI మోడల్‌లను డౌన్‌లోడ్ చేసేటప్పుడు పురోగతిని చూపిస్తుంది</string>
+    <string name="download_notification_text">మోడల్ డౌన్‌లోడ్ అవుతోంది…</string>
+</resources>

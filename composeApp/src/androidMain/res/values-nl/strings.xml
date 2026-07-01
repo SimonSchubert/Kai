@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000-daemonservice</string>
+    <string name="daemon_channel_description">Houdt Kai 9000 actief voor het uitvoeren van geplande taken</string>
+    <string name="daemon_notification_text">Daemon is actief</string>
+    <string name="download_channel_name">Modeldownloads</string>
+    <string name="download_channel_description">Toont voortgang tijdens het downloaden van AI-modellen</string>
+    <string name="download_notification_text">Model downloaden…</string>
+</resources>

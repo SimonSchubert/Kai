@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Storitev demona Kai 9000</string>
+    <string name="daemon_channel_description">Ohranja Kai 9000 delujoč za izvajanje načrtovanih opravil</string>
+    <string name="daemon_notification_text">Demon se izvaja</string>
+    <string name="download_channel_name">Prenosi modelov</string>
+    <string name="download_channel_description">Prikazuje napredek med prenosom modelov UI</string>
+    <string name="download_notification_text">Prenašanje modela…</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 டீமன் சேவை</string>
+    <string name="daemon_channel_description">திட்டமிட்ட பணிகளை இயக்க Kai 9000-ஐ இயக்கத்தில் வைத்திருக்கும்</string>
+    <string name="daemon_notification_text">டீமன் இயங்குகிறது</string>
+    <string name="download_channel_name">மாடல் பதிவிறக்கங்கள்</string>
+    <string name="download_channel_description">AI மாடல்களைப் பதிவிறக்கும்போது முன்னேற்றத்தைக் காட்டுகிறது</string>
+    <string name="download_notification_text">மாடல் பதிவிறக்கப்படுகிறது…</string>
+</resources>

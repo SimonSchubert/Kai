@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Фонова услуга на Kai 9000</string>
+    <string name="daemon_channel_description">Поддържа Kai 9000 работещ за изпълнение на планирани задачи</string>
+    <string name="daemon_notification_text">Фоновата услуга работи</string>
+    <string name="download_channel_name">Изтегляния на модели</string>
+    <string name="download_channel_description">Показва напредъка при изтегляне на AI модели</string>
+    <string name="download_notification_text">Изтегляне на модел…</string>
+</resources>

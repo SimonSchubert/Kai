@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 ડેમન સેવા</string>
+    <string name="daemon_channel_description">શેડ્યૂલ કરેલ કાર્યોના અમલ માટે Kai 9000ને ચાલુ રાખે છે</string>
+    <string name="daemon_notification_text">ડેમન ચાલી રહ્યું છે</string>
+    <string name="download_channel_name">મોડેલ ડાઉનલોડ્સ</string>
+    <string name="download_channel_description">AI મોડેલ ડાઉનલોડ કરતી વખતે પ્રગતિ બતાવે છે</string>
+    <string name="download_notification_text">મોડેલ ડાઉનલોડ થઈ રહ્યું છે…</string>
+</resources>

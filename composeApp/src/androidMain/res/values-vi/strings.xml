@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Dịch vụ nền của Kai 9000</string>
+    <string name="daemon_channel_description">Giữ cho Kai 9000 chạy để thực thi các tác vụ đã lên lịch</string>
+    <string name="daemon_notification_text">Dịch vụ nền đang chạy</string>
+    <string name="download_channel_name">Tải xuống mô hình</string>
+    <string name="download_channel_description">Hiển thị tiến trình khi tải xuống mô hình AI</string>
+    <string name="download_notification_text">Đang tải xuống mô hình…</string>
+</resources>

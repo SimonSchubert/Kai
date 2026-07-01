@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 daemon қызметі</string>
+    <string name="daemon_channel_description">Жоспарланған тапсырмаларды орындау үшін Kai 9000-ды іске қосулы ұстайды</string>
+    <string name="daemon_notification_text">Daemon жұмыс істеп тұр</string>
+    <string name="download_channel_name">Модель жүктеулері</string>
+    <string name="download_channel_description">AI модельдерін жүктеу кезінде прогресті көрсетеді</string>
+    <string name="download_notification_text">Модель жүктелуде…</string>
+</resources>

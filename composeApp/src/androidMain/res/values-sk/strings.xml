@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Služba démona Kai 9000</string>
+    <string name="daemon_channel_description">Udržuje Kai 9000 spustený na vykonávanie naplánovaných úloh</string>
+    <string name="daemon_notification_text">Démon beží</string>
+    <string name="download_channel_name">Sťahovanie modelov</string>
+    <string name="download_channel_description">Zobrazuje priebeh počas sťahovania AI modelov</string>
+    <string name="download_notification_text">Sťahovanie modelu…</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 后台服务</string>
+    <string name="daemon_channel_description">使 Kai 9000 保持运行以执行计划任务</string>
+    <string name="daemon_notification_text">后台服务正在运行</string>
+    <string name="download_channel_name">模型下载</string>
+    <string name="download_channel_description">下载 AI 模型时显示进度</string>
+    <string name="download_notification_text">正在下载模型…</string>
+</resources>

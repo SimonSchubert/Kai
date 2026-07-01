@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Serviço daemon do Kai 9000</string>
+    <string name="daemon_channel_description">Mantém o Kai 9000 em execução para a execução de tarefas agendadas</string>
+    <string name="daemon_notification_text">O daemon está em execução</string>
+    <string name="download_channel_name">Downloads de modelos</string>
+    <string name="download_channel_description">Mostra o progresso ao baixar modelos de IA</string>
+    <string name="download_notification_text">Baixando modelo…</string>
+</resources>

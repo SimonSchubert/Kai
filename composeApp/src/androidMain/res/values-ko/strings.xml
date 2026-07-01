@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 데몬 서비스</string>
+    <string name="daemon_channel_description">예약된 작업 실행을 위해 Kai 9000을 계속 실행합니다</string>
+    <string name="daemon_notification_text">데몬이 실행 중입니다</string>
+    <string name="download_channel_name">모델 다운로드</string>
+    <string name="download_channel_description">AI 모델을 다운로드하는 동안 진행 상황을 표시합니다</string>
+    <string name="download_notification_text">모델 다운로드 중…</string>
+</resources>

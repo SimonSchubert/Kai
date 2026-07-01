@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000-daemondiens</string>
+    <string name="daemon_channel_description">Hou Kai 9000 aan die gang vir geskeduleerde taakuitvoering</string>
+    <string name="daemon_notification_text">Daemon loop tans</string>
+    <string name="download_channel_name">Modelaflaaie</string>
+    <string name="download_channel_description">Wys vordering tydens aflaai van KI-modelle</string>
+    <string name="download_notification_text">Laai model af…</string>
+</resources>

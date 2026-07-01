@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 dæmontjeneste</string>
+    <string name="daemon_channel_description">Holder Kai 9000 kørende til udførelse af planlagte opgaver</string>
+    <string name="daemon_notification_text">Dæmonen kører</string>
+    <string name="download_channel_name">Modeldownloads</string>
+    <string name="download_channel_description">Viser fremskridt under download af AI-modeller</string>
+    <string name="download_notification_text">Downloader model…</string>
+</resources>

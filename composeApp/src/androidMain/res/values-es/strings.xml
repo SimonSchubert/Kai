@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Servicio Demonio de Kai 9000</string>
+    <string name="daemon_channel_description">Mantiene Kai 9000 en ejecución para la ejecución de tareas programadas</string>
+    <string name="daemon_notification_text">El demonio se está ejecutando</string>
+    <string name="download_channel_name">Descargas de modelos</string>
+    <string name="download_channel_description">Muestra el progreso al descargar modelos de IA</string>
+    <string name="download_notification_text">Descargando modelo…</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Фоновая служба Kai 9000</string>
+    <string name="daemon_channel_description">Поддерживает работу Kai 9000 для выполнения запланированных задач</string>
+    <string name="daemon_notification_text">Фоновая служба работает</string>
+    <string name="download_channel_name">Загрузки моделей</string>
+    <string name="download_channel_description">Показывает прогресс при загрузке моделей ИИ</string>
+    <string name="download_notification_text">Загрузка модели…</string>
+</resources>

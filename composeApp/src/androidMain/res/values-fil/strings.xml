@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 Daemon Service</string>
+    <string name="daemon_channel_description">Pinapanatiling tumatakbo ang Kai 9000 para sa pagsasagawa ng mga naka-schedule na gawain</string>
+    <string name="daemon_notification_text">Tumatakbo ang daemon</string>
+    <string name="download_channel_name">Mga Pag-download ng Modelo</string>
+    <string name="download_channel_description">Nagpapakita ng progreso habang nagda-download ng mga modelo ng AI</string>
+    <string name="download_notification_text">Dina-download ang modelo…</string>
+</resources>

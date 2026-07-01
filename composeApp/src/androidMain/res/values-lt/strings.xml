@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 daemon paslauga</string>
+    <string name="daemon_channel_description">Palaiko Kai 9000 veikiantį, kad būtų vykdomos suplanuotos užduotys</string>
+    <string name="daemon_notification_text">Daemon veikia</string>
+    <string name="download_channel_name">Modelių atsisiuntimai</string>
+    <string name="download_channel_description">Rodo pažangą atsisiunčiant AI modelius</string>
+    <string name="download_notification_text">Atsisiunčiamas modelis…</string>
+</resources>

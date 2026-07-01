@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Shërbimi daemon i Kai 9000</string>
+    <string name="daemon_channel_description">Mban Kai 9000 në punë për ekzekutimin e detyrave të programuara</string>
+    <string name="daemon_notification_text">Daemon-i po funksionon</string>
+    <string name="download_channel_name">Shkarkimet e modeleve</string>
+    <string name="download_channel_description">Shfaq progresin gjatë shkarkimit të modeleve AI</string>
+    <string name="download_notification_text">Duke shkarkuar modelin…</string>
+</resources>

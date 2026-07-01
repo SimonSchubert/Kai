@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 Arka Plan Hizmeti</string>
+    <string name="daemon_channel_description">Zamanlanmış görevlerin yürütülmesi için Kai 9000\'i çalışır durumda tutar</string>
+    <string name="daemon_notification_text">Arka plan hizmeti çalışıyor</string>
+    <string name="download_channel_name">Model İndirmeleri</string>
+    <string name="download_channel_description">Yapay zeka modelleri indirilirken ilerlemeyi gösterir</string>
+    <string name="download_notification_text">Model indiriliyor…</string>
+</resources>

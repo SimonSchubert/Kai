@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 デーモンサービス</string>
+    <string name="daemon_channel_description">スケジュールされたタスクの実行のためにKai 9000をバックグラウンドで実行し続けます</string>
+    <string name="daemon_notification_text">デーモンは実行中です</string>
+    <string name="download_channel_name">モデルのダウンロード</string>
+    <string name="download_channel_description">AIモデルのダウンロード中に進行状況を表示します</string>
+    <string name="download_notification_text">モデルをダウンロード中…</string>
+</resources>

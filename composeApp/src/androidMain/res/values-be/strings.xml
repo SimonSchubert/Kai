@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Служба дэмана Kai 9000</string>
+    <string name="daemon_channel_description">Трымае Kai 9000 запушчаным для выканання запланаваных задач</string>
+    <string name="daemon_notification_text">Дэман працуе</string>
+    <string name="download_channel_name">Спампоўкі мадэляў</string>
+    <string name="download_channel_description">Паказвае прагрэс падчас спампоўкі мадэляў AI</string>
+    <string name="download_notification_text">Спампоўка мадэлі…</string>
+</resources>

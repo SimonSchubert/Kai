@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 taustateenus</string>
+    <string name="daemon_channel_description">Hoiab Kai 9000 taustal töötamas ajastatud ülesannete täitmiseks</string>
+    <string name="daemon_notification_text">Taustateenus töötab</string>
+    <string name="download_channel_name">Mudelite allalaadimised</string>
+    <string name="download_channel_description">Kuvab edenemist tehisintellekti mudelite allalaadimisel</string>
+    <string name="download_notification_text">Mudeli allalaadimine…</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Υπηρεσία daemon Kai 9000</string>
+    <string name="daemon_channel_description">Διατηρεί το Kai 9000 σε λειτουργία για την εκτέλεση προγραμματισμένων εργασιών</string>
+    <string name="daemon_notification_text">Το daemon εκτελείται</string>
+    <string name="download_channel_name">Λήψεις μοντέλων</string>
+    <string name="download_channel_description">Εμφανίζει την πρόοδο κατά τη λήψη μοντέλων AI</string>
+    <string name="download_notification_text">Λήψη μοντέλου…</string>
+</resources>

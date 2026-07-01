@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Позадински сервис Kai 9000</string>
+    <string name="daemon_channel_description">Одржава Kai 9000 покренутим за извршавање заказаних задатака</string>
+    <string name="daemon_notification_text">Демон је покренут</string>
+    <string name="download_channel_name">Преузимања модела</string>
+    <string name="download_channel_description">Приказује напредак током преузимања АИ модела</string>
+    <string name="download_notification_text">Преузимање модела…</string>
+</resources>

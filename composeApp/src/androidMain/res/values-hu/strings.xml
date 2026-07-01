@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 daemon szolgáltatás</string>
+    <string name="daemon_channel_description">Futva tartja a Kai 9000-t az ütemezett feladatok végrehajtásához</string>
+    <string name="daemon_notification_text">A daemon fut</string>
+    <string name="download_channel_name">Modell letöltések</string>
+    <string name="download_channel_description">Az MI-modellek letöltése közben megjeleníti a folyamatot</string>
+    <string name="download_notification_text">Modell letöltése…</string>
+</resources>

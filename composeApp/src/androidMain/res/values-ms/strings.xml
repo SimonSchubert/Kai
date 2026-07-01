@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Perkhidmatan Daemon Kai 9000</string>
+    <string name="daemon_channel_description">Mengekalkan Kai 9000 berjalan untuk pelaksanaan tugas berjadual</string>
+    <string name="daemon_notification_text">Daemon sedang berjalan</string>
+    <string name="download_channel_name">Muat Turun Model</string>
+    <string name="download_channel_description">Menunjukkan kemajuan semasa memuat turun model AI</string>
+    <string name="download_notification_text">Memuat turun model…</string>
+</resources>

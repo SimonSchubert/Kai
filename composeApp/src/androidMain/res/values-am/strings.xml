@@ -1,0 +1,8 @@
+<resources>
+    <string name="daemon_channel_name">Kai 9000 ዳይሞን አገልግሎት</string>
+    <string name="daemon_channel_description">የተያዙ ተግባራት አፈጻጸም እንዲኖር Kai 9000ን በስተጀርባ ያሮጣል</string>
+    <string name="daemon_notification_text">ዳይሞን በሥራ ላይ ነው</string>
+    <string name="download_channel_name">የሞዴል ውርዶች</string>
+    <string name="download_channel_description">የAI ሞዴሎችን በማውረድ ሂደት እድገትን ያሳያል</string>
+    <string name="download_notification_text">ሞዴል በማውረድ ላይ…</string>
+</resources>
