@@ -76,7 +76,7 @@ Kai is built with Kotlin Multiplatform and Compose Multiplatform. It connects to
 
 | Service | API Type |
 |---|---|
-| **[Atlas Cloud](https://www.atlascloud.ai)** | OpenAI-compatible |
+| **[Atlas Cloud](https://www.atlascloud.ai?utm_source=github&utm_medium=link&utm_campaign=Kai)** | OpenAI-compatible |
 | [OpenAI](https://openai.com) | OpenAI-compatible |
 | [Gemini](https://aistudio.google.com) | Gemini native |
 | [DeepSeek](https://www.deepseek.com) | OpenAI-compatible |
