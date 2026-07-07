@@ -31,8 +31,8 @@ This means desktop's environment is conceptually different from Android's: not a
 ## Scope
 
 - **In scope:** desktop/Flatpak sandbox environment using micromamba + conda-forge, matching Android's setup UX (install rootfs-equivalent → install packages, same two-step flow)
-- **Also works for:** the non-Flatpak desktop build (plain Linux binary/tarball), since none of this relies on Flatpak-specific mechanisms — micromamba works identically unsandboxed
-- **Out of scope:** changing anything about the Android implementation; a Debian-environment option (raised as a possible future idea in GH issue #109, not pursued here)
+- **Also works for, as an interim measure:** the non-Flatpak desktop build (plain Linux binary/tarball). This implementation doesn't branch on Flatpak-vs-not, so non-Flatpak desktop gets micromamba too for now, purely as a side effect of there being one code path. See Roadmap below — non-Flatpak desktop can do meaningfully better than this, but that's deliberately sequenced as follow-up work, not bundled into this pass.
+- **Out of scope:** changing anything about the Android implementation; a Debian-environment option (raised as a possible future idea in GH issue #109, not pursued here); non-Flatpak bwrap+Alpine parity (see Roadmap)
 
 ## Architecture
 
@@ -74,3 +74,21 @@ Default package set, mirroring Android's `LinuxSandboxManager.installPackages()`
 - The core mechanism risk was retired via direct empirical spikes (see Spike findings above), run twice independently: once via scripted throwaway Flatpak apps, once via Kai's own live installed app and chat agent
 - Unit tests for the new desktop manager's path resolution and download logic
 - End-to-end manual verification via `/verify` once implementation exists: install flow, package install, run commands through the terminal UI
+
+## Roadmap: non-Flatpak desktop Alpine parity (deliberately deferred)
+
+Standalone `bwrap` (i.e. **not** nested inside Flatpak's own sandbox) gives the non-Flatpak desktop build genuine Android-level parity — real Alpine, real `apk`, real network — and is arguably a cleaner mechanism than Android's own proot (real kernel namespace isolation instead of ptrace tracing). This was empirically confirmed, not just theorized:
+
+- Downloaded a real Alpine minirootfs (same version/URL pattern as Android's `RootfsDownloader`)
+- `bwrap --unshare-user --unshare-pid --unshare-uts --unshare-cgroup --uid 0 --gid 0 --bind $ROOTFS / --dev /dev --proc /proc --bind /sys /sys -- /bin/sh` dropped into a real chroot: `whoami` → `root`, `/etc/os-release` confirmed genuine Alpine
+- `apk update && apk add --no-cache jq` succeeded against the real Alpine mirrors, and the installed `jq` binary executed correctly
+
+This works because the failure modes documented above (blocked `ptrace`, blocked nested namespace creation) are specifically about a sandbox *nested inside Flatpak's own bwrap sandbox*. A non-Flatpak process has no outer sandbox to be nested inside — it's just a normal Linux process calling `bwrap` the same way Flatpak itself already does on every desktop this app runs on.
+
+**Why this is deferred rather than built now:** sequencing decision — get Flatpak micromamba shipped and solid first; only take on the added complexity of a second, better desktop mechanism once that's proven in practice.
+
+**Sketch of the eventual work** (not a committed design — to be brainstormed properly when picked up):
+- Reuse `RootfsDownloader` as-is (already pure JVM, already in the right shape — see Components table above)
+- New `bwrap`-based executor, structurally parallel to `ProotExecutor` but using bind-mount/chroot flags instead of ptrace
+- Flatpak-environment detection (e.g. `FLATPAK_ID` env var or presence of `/.flatpak-info`) in `SandboxController.jvm.kt`, branching to the bwrap-based manager when not running inside Flatpak, falling back to the micromamba manager from this spec when running inside Flatpak
+- Whether bundling a `bwrap` binary is needed or whether requiring a system-installed one (near-universal on modern desktop Linux, since Flatpak itself depends on it) is acceptable, is an open question for that future design pass
