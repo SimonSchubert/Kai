@@ -704,6 +704,7 @@ internal object ModelCatalog {
         // ==============================================================
         "claude-opus-4-8" to CuratedModelInfo("Claude Opus 4.8", 1_000_000, "2026-06"),
         "claude-fable-5" to CuratedModelInfo("Claude Fable 5", 1_000_000, "2026-06"),
+        "claude-fable-latest" to CuratedModelInfo("Claude Fable 5 (Latest)", 1_000_000, "2026-06"),
         "claude-opus-4.8" to CuratedModelInfo("Claude Opus 4.8", 1_000_000, "2026-06"),
         "claude-opus-4-8-thinking" to CuratedModelInfo("Claude Opus 4.8 Thinking", 1_000_000, "2026-06"),
         "claude-opus-4.7" to CuratedModelInfo("Claude Opus 4.7", 1_000_000, "2026-04"),
@@ -790,6 +791,7 @@ internal object ModelCatalog {
         "deepseek-r1t2-chimera" to CuratedModelInfo("DeepSeek R1T2 Chimera", 128_000, "2025-07", "671B"),
         "deepseek-v4-flash" to CuratedModelInfo("DeepSeek V4 Flash", 1_000_000, "2026-04"),
         "deepseek-v4-flash:free" to CuratedModelInfo("DeepSeek V4 Flash", 1_000_000, "2026-04"),
+        "deepseek-v4-flash-free" to CuratedModelInfo("DeepSeek V4 Flash", 1_000_000, "2026-04"),
         "deepseek-v4-flash-thinking" to CuratedModelInfo("DeepSeek V4 Flash Thinking", 1_000_000, "2026-04"),
         "deepseek-v4-flash-thinking:free" to CuratedModelInfo("DeepSeek V4 Flash Thinking", 1_000_000, "2026-04"),
         "deepseek-v4-pro" to CuratedModelInfo("DeepSeek V4 Pro", 1_000_000, "2026-04"),
@@ -1035,6 +1037,8 @@ internal object ModelCatalog {
         // ==============================================================
         "nemotron-3-ultra" to CuratedModelInfo("Nemotron 3 Ultra", 128_000, "2025-10", "550B"),
         "nemotron-3-ultra-550b-a55b" to CuratedModelInfo("Nemotron 3 Ultra", 128_000, "2025-10", "550B"),
+        "nemotron-3-ultra-free" to CuratedModelInfo("Nemotron 3 Ultra", 128_000, "2025-10", "550B"),
+        "nemotron-3-ultra-550b-a55b:free" to CuratedModelInfo("Nemotron 3 Ultra", 128_000, "2025-10", "550B"),
         "nvidia-nemotron-3-ultra-550b-a55b-nvfp4" to CuratedModelInfo("Nemotron 3 Ultra", 128_000, "2025-10", "550B"),
         "nemotron-3-super" to CuratedModelInfo("Nemotron 3 Super", 128_000, "2025-10", "120B"),
         "nemotron-3-nano:30b" to CuratedModelInfo("Nemotron 3 Nano", 128_000, "2025-10", "30B"),
@@ -1237,6 +1241,7 @@ internal object ModelCatalog {
         "mimo-v2-flash-thinking" to CuratedModelInfo("Mimo V2 Flash Thinking", 128_000, "2025-11"),
         "mimo-v2.5" to CuratedModelInfo("Mimo V2.5", 128_000, "2026-04"),
         "mimo-v2.5-pro" to CuratedModelInfo("Mimo V2.5 Pro", 128_000, "2026-04"),
+        "mimo-v2.5-free" to CuratedModelInfo("Mimo V2.5", 128_000, "2026-04"),
         "kat-coder-pro-v2" to CuratedModelInfo("KAT Coder Pro v2", 128_000, "2025-11"),
         "longcat-flash-chat" to CuratedModelInfo("LongCat Flash", 128_000, "2025-09"),
         "longcat-flash-chat-2602-exp" to CuratedModelInfo("LongCat Flash (Exp)", 128_000, "2026-02"),
@@ -1342,7 +1347,7 @@ internal object ModelCatalog {
     // To update: run the `update-model-catalog` skill.
     private val arenaScores: Map<String, Int> = mapOf(
         // --- Anthropic ---
-        "claude-fable-5" to 1509,
+        "claude-fable-5" to 1509, "claude-fable-latest" to 1509,
         "claude-opus-4-6-thinking" to 1504,
         "claude-opus-4-7-thinking" to 1502,
         "claude-opus-4-6" to 1499, "claude-opus-4.6" to 1499,
@@ -1443,7 +1448,7 @@ internal object ModelCatalog {
         "deepseek-v4-pro" to 1457, "deepseek-v4-pro:free" to 1457,
         "deepseek-v4-pro-thinking" to 1457, "deepseek-v4-pro-thinking:free" to 1457,
         "deepseek-v4-flash-thinking" to 1437, "deepseek-v4-flash-thinking:free" to 1437,
-        "deepseek-v4-flash" to 1435, "deepseek-v4-flash:free" to 1435,
+        "deepseek-v4-flash" to 1435, "deepseek-v4-flash:free" to 1435, "deepseek-v4-flash-free" to 1435,
         "deepseek-v3-2" to 1425, "deepseek-v3.2" to 1425, "deepseek-v3.2-exp-thinking" to 1425,
         "deepseek-v3.2-exp" to 1423, "deepseek-v3.2-thinking" to 1423,
         "deepseek-r1-0528" to 1422,
@@ -1548,7 +1553,7 @@ internal object ModelCatalog {
         "minimax-m1" to 1364,
         "minimax-m2" to 1346,
         // --- NVIDIA Nemotron ---
-        "nemotron-3-ultra" to 1416, "nemotron-3-ultra-550b-a55b" to 1416, "nvidia-nemotron-3-ultra-550b-a55b-nvfp4" to 1420,
+        "nemotron-3-ultra" to 1416, "nemotron-3-ultra-550b-a55b" to 1416, "nvidia-nemotron-3-ultra-550b-a55b-nvfp4" to 1420, "nemotron-3-ultra-free" to 1416, "nemotron-3-ultra-550b-a55b:free" to 1420,
         "nemotron-3-super" to 1362, "nemotron-3-super-120b-a12b" to 1362, "nemotron-3-super-120b-a12b:free" to 1362, "nvidia-nemotron-3-super-120b-a12b" to 1362,
         "nemotron-ultra" to 1347,
         "nemotron-4-340b-instruct" to 1276,
@@ -1581,7 +1586,7 @@ internal object ModelCatalog {
         "dola-seed-2.0-pro" to 1455,
         "mimo-v2-pro" to 1449,
         "longcat-flash-chat-2602-exp" to 1436,
-        "mimo-v2.5" to 1434,
+        "mimo-v2.5" to 1434, "mimo-v2.5-free" to 1434,
         "mimo-v2-omni" to 1431,
         "amazon-nova-experimental-chat-26-02-10" to 1427,
         "amazon-nova-experimental-chat-26-01-10" to 1416,
