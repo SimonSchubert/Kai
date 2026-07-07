@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-07-07
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -14,6 +14,7 @@ Models are downloaded from HuggingFace's litert-community and stored locally on 
 |-------|------|---------------------|-----------------|-------------|--------------|
 | Gemma 4 E2B IT | 2.58 GB | 676 MB | 4K tokens | 32K tokens | ✅ reliable |
 | Gemma 4 E4B IT | 3.65 GB | 710 MB | 4K tokens | 32K tokens | ✅ reliable |
+| Gemma 4 12B IT | 6.55 GB | 1600 MB | 8K tokens | 32K tokens | ✅ reliable |
 | Qwen3 0.6B | 586 MB | 300 MB | 4K tokens | 32K tokens | ⚠️ chat-only in practice |
 
 Models are `.litertlm` files from the [litert-community](https://huggingface.co/litert-community) organization on HuggingFace.
@@ -53,7 +54,7 @@ Users manage models through the LiteRT service card in Settings:
 - **Delete** -- trash icon removes the downloaded model file
 - **Cancel** -- active downloads can be cancelled
 - **Error display** -- download failures (network, disk space, incomplete) are shown inline in the settings UI
-- **Context size slider** -- each model has a slider to adjust context size (4K–32K tokens in 1K steps); available before download so users can preview performance impact
+- **Context size slider** -- each model has a slider to adjust context size (starting at the model's default up to 32K tokens in 1K steps); available before download so users can preview performance impact. Gemma 4 12B defaults to 8K (higher than the 4K default used for the smaller E2B/E4B models).
 - **Performance indicator** -- each model shows a Good/OK/Poor label based on total device RAM vs estimated resident memory at the selected context size. The estimate sums the model file size (proxy for resident weights after mmap/PLE), a per-model baseline for GPU/KV working memory, and a per-token KV cache cost that scales with context. Thresholds: Good >= 2.5x, OK >= 1.85x, Poor < 1.85x of total device RAM -- the extra headroom over 1x accounts for OS reservation and GPU-driver overhead.
 - **Free space** -- available device storage is shown below the model list
 
