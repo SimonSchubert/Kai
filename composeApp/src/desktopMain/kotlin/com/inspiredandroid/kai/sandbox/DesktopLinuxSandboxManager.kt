@@ -85,11 +85,18 @@ class DesktopLinuxSandboxManager(
                 for (pkg in DEFAULT_PACKAGES) {
                     ensureActive()
                     _state.value = SandboxState.Installing("Installing $pkg...")
-                    val process = ProcessBuilder(
+                    val processBuilder = ProcessBuilder(
                         layout.binaryFile.absolutePath,
                         "install", "-y", "-p", layout.rootPrefix.absolutePath,
                         "-c", "conda-forge", pkg,
-                    ).redirectErrorStream(true).start()
+                    ).redirectErrorStream(true)
+                    // Without MAMBA_ROOT_PREFIX, micromamba has to guess where its own
+                    // root lives (package cache, base-env bootstrap) independently of
+                    // the -p target — and can fail during config load before it ever
+                    // gets to resolving the package. Same env var DesktopPersistentShell
+                    // already sets for the interactive shell case.
+                    processBuilder.environment()["MAMBA_ROOT_PREFIX"] = layout.rootPrefix.absolutePath
+                    val process = processBuilder.start()
                     val finished = process.waitFor(120, TimeUnit.SECONDS)
                     ensureActive()
                     if (!finished) {
@@ -99,7 +106,7 @@ class DesktopLinuxSandboxManager(
                     }
                     if (process.exitValue() != 0) {
                         val output = process.inputStream.bufferedReader().readText()
-                        _state.value = SandboxState.Error("Failed to install $pkg: ${output.take(200)}")
+                        _state.value = SandboxState.Error("Failed to install $pkg: ${output.take(500)}")
                         return@launch
                     }
                 }
