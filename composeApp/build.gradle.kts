@@ -152,6 +152,11 @@ kotlin {
             implementation(libs.slf4j.nop)
             implementation(libs.litert.lm.jvm)
         }
+        val desktopTest by getting {
+            dependencies {
+                implementation(libs.ktor.client.mock)
+            }
+        }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.ktor.network)
