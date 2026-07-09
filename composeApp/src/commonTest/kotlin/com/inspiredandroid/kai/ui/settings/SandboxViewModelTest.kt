@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.ui.settings
 import app.cash.turbine.test
 import com.inspiredandroid.kai.CommandHandle
 import com.inspiredandroid.kai.NoOpCommandHandle
+import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.SandboxFileEntry
 import com.inspiredandroid.kai.SandboxStatus
@@ -180,5 +181,35 @@ class SandboxViewModelTest {
             assertTrue(updated.hasError)
             assertEquals("Failed", updated.sandboxStatusText)
         }
+    }
+
+    @Test
+    fun showsOnAndroid() {
+        assertTrue(shouldShowSandboxTab(Platform.Mobile.Android))
+    }
+
+    @Test
+    fun showsOnDesktopLinux() {
+        assertTrue(shouldShowSandboxTab(Platform.Desktop.Linux))
+    }
+
+    @Test
+    fun hiddenOnIos() {
+        assertFalse(shouldShowSandboxTab(Platform.Mobile.Ios))
+    }
+
+    @Test
+    fun hiddenOnDesktopMac() {
+        assertFalse(shouldShowSandboxTab(Platform.Desktop.Mac))
+    }
+
+    @Test
+    fun hiddenOnDesktopWindows() {
+        assertFalse(shouldShowSandboxTab(Platform.Desktop.Windows))
+    }
+
+    @Test
+    fun hiddenOnWeb() {
+        assertFalse(shouldShowSandboxTab(Platform.Web))
     }
 }
