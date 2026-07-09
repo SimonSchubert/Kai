@@ -49,7 +49,7 @@ class DesktopLinuxSandboxManagerTest {
     }
 
     @Test
-    fun setupDownloadsBinaryAndReachesReady() = kotlinx.coroutines.test.runTest {
+    fun setupDownloadsBinaryAndReachesReady() = kotlinx.coroutines.runBlocking {
         val manager = managerWithFakeDownload()
         manager.setup()
         // setup() launches on its own scope; poll briefly for completion.
@@ -64,7 +64,7 @@ class DesktopLinuxSandboxManagerTest {
     }
 
     @Test
-    fun resetDeletesEverythingAndReturnsToNotInstalled() = kotlinx.coroutines.test.runTest {
+    fun resetDeletesEverythingAndReturnsToNotInstalled() = kotlinx.coroutines.runBlocking {
         val manager = managerWithFakeDownload()
         manager.setup()
         var attempts = 0
