@@ -96,8 +96,12 @@ class DesktopSandboxController : SandboxController {
     override fun installPackages() = sandboxManager.installPackages()
 
     override fun closeSession(sessionId: String) {
-        shells.remove(sessionId)?.reset()
-        _sessions.value = shells.keys.toList()
+        val removed = synchronized(shells) {
+            val s = shells.remove(sessionId)
+            _sessions.value = shells.keys.toList()
+            s
+        }
+        removed?.reset()
     }
 
     override fun transcriptFor(sessionId: String): SnapshotStateList<TerminalLine> = shellFor(sessionId).transcript
@@ -110,7 +114,8 @@ class DesktopSandboxController : SandboxController {
         shells[sessionId]?.setPrunePaused(interacting)
     }
 
-    private fun shellFor(sessionId: String): DesktopSessionShell = shells.getOrPut(sessionId) {
+    private fun shellFor(sessionId: String): DesktopSessionShell = synchronized(shells) {
+        shells[sessionId]?.let { return@synchronized it }
         val persistable = SandboxSessions.isPersistable(sessionId)
         val initialLines = if (persistable) {
             conversationStorage.conversations.value
@@ -123,8 +128,10 @@ class DesktopSandboxController : SandboxController {
         } else {
             null
         }
-        _sessions.value = shells.keys.toList() + sessionId
-        DesktopSessionShell(sessionId, DesktopPersistentShell(sandboxManager.layout), initialLines, onChange)
+        val wrapper = DesktopSessionShell(sessionId, DesktopPersistentShell(sandboxManager.layout), initialLines, onChange)
+        shells[sessionId] = wrapper
+        _sessions.value = shells.keys.toList()
+        wrapper
     }
 
     private fun scheduleTranscriptSave(sessionId: String, lines: List<TerminalLine>) {
