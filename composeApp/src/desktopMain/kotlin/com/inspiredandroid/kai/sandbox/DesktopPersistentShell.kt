@@ -19,20 +19,26 @@ import kotlin.time.Duration.Companion.seconds
 private const val MAX_OUTPUT_LENGTH = 15_000
 private const val RS = ""
 private const val US = ""
-private const val PID_PROBE_PREFIX = "$RS" + "KAIDESKTOPPID$US"
 
 /**
  * A persistent, non-chroot bash shell with micromamba's installed environment
  * on PATH. Structurally the same sentinel-based command-boundary protocol as
  * Android's PersistentSandboxShell, without any chroot/proot layer — desktop
  * has no separate fake root, so this is just an ordinary shell with env vars set.
+ *
+ * Known limitation: [cancelForeground] kills the shell process itself but,
+ * unlike Android's PersistentSandboxShell, does not signal the foreground
+ * command's children — a long-running child (rsync, python, curl) reparents
+ * to init and keeps running after cancel. Android solves this with a pid
+ * probe + pgrep/kill escalation; desktop doesn't implement that yet. This
+ * matters more here, not less, since this shell runs fully unsandboxed
+ * (no chroot boundary) on non-Flatpak desktop builds.
  */
 class DesktopPersistentShell(private val layout: MicromambaLayout) {
     private val mutex = Mutex()
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     @Volatile private var process: Process? = null
-    @Volatile private var shellPid: Long? = null
     private var watchdog: Job? = null
     private val currentSink = AtomicReference<CommandSink?>(null)
 
@@ -96,7 +102,6 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
         watchdog = null
         process?.destroyForcibly()
         process = null
-        shellPid = null
         currentSink.getAndSet(null)?.done?.complete(Result(exitCode = -1, cwd = "", shellDied = true))
     }
 
