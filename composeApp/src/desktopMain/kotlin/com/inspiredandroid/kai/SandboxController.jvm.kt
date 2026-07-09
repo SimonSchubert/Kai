@@ -51,8 +51,26 @@ class DesktopSandboxController : SandboxController {
     override val status: StateFlow<SandboxStatus> = _status
 
     init {
+        // Synchronously seed the status from the manager's current state so the
+        // first observer doesn't briefly see "not installed" before the launched
+        // collector below catches up. Skip the disk-usage walk in this fast path —
+        // it iterates the installed environment and could block the calling
+        // thread (often main, since Koin singletons are created lazily on first
+        // injection from Composables). The launched collect immediately re-emits
+        // the same state and fills in disk usage on Dispatchers.IO.
         val initial = sandboxManager.state.value
-        _status.value = mapState(initial)
+        _status.value = if (initial is SandboxState.Ready) {
+            SandboxStatus(
+                installed = true,
+                ready = true,
+                statusText = "Ready",
+                packagesInstalled = sandboxManager.arePackagesInstalled(),
+            )
+        } else {
+            mapState(initial)
+        }
+        // Leave previousState null so the launched collect's first mapState(Ready)
+        // computes disk usage on IO.
         scope.launch {
             sandboxManager.state.collect { state ->
                 _status.value = mapState(state)
