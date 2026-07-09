@@ -58,8 +58,8 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
         val sink = CommandSink(nonce, onStdout = onStdout, onStderr = onStderr)
         currentSink.set(sink)
 
-        val line = "$command; __kai_st=$?; " +
-            "printf '\\n\\036%s\\037%d\\037%s\\036\\n' '$nonce' \"$__kai_st\" \"$PWD\" >&2"
+        val line = "$command; __kai_st=\$?; " +
+            "printf '\\n\\036%s\\037%d\\037%s\\036\\n' '$nonce' \"\$__kai_st\" \"\$PWD\" >&2"
         writeLine(line)
 
         val result = withTimeoutOrNull(timeoutSeconds.seconds) { sink.done.await() }
