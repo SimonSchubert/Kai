@@ -1,10 +1,12 @@
 # Linux Sandbox
 
-**Last verified:** 2026-05-30
+**Last verified:** 2026-07-09
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
-The sandbox is **Android-only**. iOS, desktop, and web have no-op stubs — sandbox operations are simply unavailable on those platforms.
+On **desktop Linux** (both the Flatpak build and the plain unsandboxed build), the same idea ships under the "Dev Tools" label in Settings, backed by a `micromamba`/conda-forge install instead of Alpine — see [Desktop Linux ("Dev Tools")](#desktop-linux-dev-tools) below for what's the same and what's different.
+
+iOS and web still have no-op stubs — sandbox operations are simply unavailable on those platforms.
 
 ## Concepts
 
@@ -58,7 +60,20 @@ Hitting **Cancel** in the Terminal — or any cancel signal coming from the chat
 
 The shell session can break — the user types `exit`, a command crashes bash, the framing channel desyncs, or a per-call timeout expires with the shell still wedged. In every case the next command lazily starts a new shell. Working directory and exported env are lost in that one event; the system stays usable.
 
+### Desktop Linux ("Dev Tools")
+
+Desktop Linux gets the same shell-tool experience — persistent per-session shells, a Terminal tab, transcript history that survives reopening a chat — under the "Dev Tools" label instead of "Linux Sandbox"/"Alpine Linux" in the UI, since there's no Alpine involved on this platform. The underlying mechanism is different in a few load-bearing ways:
+
+- **No chroot, no proot.** Android's sandbox runs commands inside a contained Alpine rootfs the app controls end to end. Desktop has no such boundary: the shell is an ordinary `bash` process with the installed environment's `bin/` prepended to `PATH`, running directly against the real filesystem with the real user's permissions. The assistant's shell tool has genuine, unconfined access to the machine on this platform — there is no filesystem or process isolation layer to fall back on if something goes wrong. (A namespace-isolated alternative for the non-Flatpak build, closer to Android's model, is planned but not yet built — see the design spec's Roadmap.)
+- **`micromamba`/conda-forge instead of Alpine/`apk`.** First run downloads a small, architecture-matched `micromamba` release archive to `~/.kai/linux-sandbox/micromamba/bin/micromamba`, extracts it, then installs the same baseline toolset via `micromamba install -c conda-forge`: `git`, `curl`, `wget`, `jq`, `python`, `nodejs`, `openssh`, `lftp`, `rsync`. `~/.kai/linux-sandbox/micromamba/root/` is the installed-environment prefix (conda-forge's equivalent of Alpine's rootfs) — everything under it, including future `micromamba install` runs the assistant does, persists there across restarts.
+- **Same transcript model, independent implementation.** Desktop mirrors Android's per-session transcript behavior (500-line in-memory cap, persisted tail on the owning conversation, debounced writes) with its own implementation rather than shared code, since there's no proot layer to unify around.
+- **No PTY**, same as Android — fullscreen TUIs (`vim`, `less`, ncurses apps) don't work here either.
+- **Cancel is coarser than Android's.** Cancelling kills the shell process itself, restarting a fresh one on the next command — but unlike Android, it does not currently signal a running command's *children*, so a long-lived child process (e.g. an `rsync` or a `python` script) that was still running when cancelled keeps running in the background rather than stopping.
+- **Flatpak vs. non-Flatpak:** both get the identical `micromamba` path described above (the non-Flatpak build doesn't yet have anything better — see Roadmap in the design spec). Inside Flatpak, the app's own `~/.kai` persistence (`--persist=.kai`) keeps the install durable across app updates.
+
 ## Behavior
+
+The following bullets describe Android's Alpine/`proot` mechanics specifically; desktop's equivalent flow is in [Desktop Linux ("Dev Tools")](#desktop-linux-dev-tools) above — both platforms gate the assistant's sandbox tools on install state the same way (not sent to the model until the sandbox reports Ready).
 
 - **Tool availability follows install state**: the assistant's sandbox tools (shell command, `manage_process`, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) *and* the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the Alpine Linux card's switch is the on/off control.
 - **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, `apk update` runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.
@@ -79,7 +94,9 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 - **Memory cost of multiple sessions.** Each live shell is a `proot+bash` pair (tens of MB resident). Running many concurrent chats with shell-tool usage will accumulate sessions. There is no soft cap yet — closing a conversation drops its shell, sandbox reset drops them all.
 - **Cancel without a PTY is best-effort.** A child that ignores `SIGINT`/`SIGTERM` forces a session reset; the user loses session state for that one command.
 - **Stray output from backgrounded jobs** (`sleep 60 &` then "Done" later) can attach itself to whatever command is running when the kernel finally reports the exit. Matches normal terminal behavior.
-- **iOS / desktop / web**: no sandbox. Stubs are no-ops — calls return empty results (or are simply unsupported) until those platforms get their own runtime.
+- **Desktop has no filesystem/process isolation.** Unlike Android's contained Alpine rootfs, the desktop shell runs directly against the real machine with no chroot boundary — the assistant's shell tool has real, unconfined access there. See [Desktop Linux ("Dev Tools")](#desktop-linux-dev-tools) above.
+- **Desktop cancel doesn't stop a command's children.** Killing the shell process on cancel doesn't signal children the command may have spawned (Android's cancel does, via a pid-probe + signal escalation); a long-running child process cancelled mid-command keeps running.
+- **iOS / web**: no sandbox. Stubs are no-ops — calls return empty results (or are simply unsupported) until those platforms get their own runtime.
 
 ## Key Files
 
@@ -101,4 +118,11 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/tools/ProcessManager.kt` / `ProcessManagerTool.kt` | Background-job lifecycle: detached one-shot proot, in-memory session table, status/kill controls. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxSessionViewModel.kt` | Terminal-tab ViewModel: line buffer, run/cancel state, stream draining. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/settings/TerminalSheet.kt` | Visible terminal UI with command echo, color-coded streams, and an interactive input row. |
-| `composeApp/src/iosMain/kotlin/com/inspiredandroid/kai/SandboxController.ios.kt`, `desktopMain/.../SandboxController.jvm.kt`, `wasmJsMain/.../SandboxController.wasmJs.kt` | NoOp stubs for non-Android platforms. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/SandboxController.jvm.kt` | Desktop's real implementation (replaces the old NoOp stub). Wires the install/package state machine, the persistent shell, and per-session transcript persistence into the common `SandboxController` interface. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/sandbox/DesktopLinuxSandboxManager.kt` | Desktop's install/package state machine: downloads and extracts the `micromamba` release archive, installs the baseline package set via `micromamba install`, tracks disk usage. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/sandbox/MicromambaDownloader.kt` | Downloads the `micromamba` release archive over HTTP and extracts `bin/micromamba` from it via the system `tar`. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/sandbox/MicromambaPaths.kt` | Architecture-to-download-URL mapping and the on-disk layout (`bin/micromamba`, `root/`) under `~/.kai/linux-sandbox/micromamba/`. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/sandbox/DesktopPersistentShell.kt` | Desktop's persistent shell: an unconfined `bash` process with the installed environment's `bin/` on `PATH`. Same sentinel-based command-framing protocol as Android's `PersistentSandboxShell`, no chroot/proot layer. |
+| `composeApp/src/desktopMain/kotlin/com/inspiredandroid/kai/sandbox/DesktopSessionShell.kt` | Desktop's per-session transcript facade over `DesktopPersistentShell` — same role as Android's `SessionShell`, independent implementation. |
+| `composeApp/src/jvmShared/kotlin/com/inspiredandroid/kai/sandbox/SandboxState.kt` | Shared install-state sealed interface (`NotInstalled`/`Downloading`/`Extracting`/`Installing`/`Ready`/`Error`) used by both Android's and desktop's managers. |
+| `composeApp/src/iosMain/kotlin/com/inspiredandroid/kai/SandboxController.ios.kt`, `wasmJsMain/.../SandboxController.wasmJs.kt` | NoOp stubs for iOS and web. |
