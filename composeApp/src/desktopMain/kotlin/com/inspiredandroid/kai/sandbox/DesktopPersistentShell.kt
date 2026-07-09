@@ -151,6 +151,10 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
     }
 
     private fun dispatchStderr(line: String) {
+        // Suppress blank stderr lines. Sentinel emission prepends \n to flush
+        // any partial line ahead of it, which produces a stray empty line when
+        // there's nothing to flush.
+        if (line.isEmpty()) return
         val sink = currentSink.get() ?: return
         if (line.length >= 2 && line.startsWith(RS) && line.endsWith(RS)) {
             val payload = line.substring(1, line.length - 1)
