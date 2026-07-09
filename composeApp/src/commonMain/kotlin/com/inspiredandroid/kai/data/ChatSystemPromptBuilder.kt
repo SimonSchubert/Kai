@@ -1,5 +1,3 @@
-@file:OptIn(kotlin.time.ExperimentalTime::class)
-
 // Pure builders for the chat system prompt. Every input is passed explicitly — no DI,
 // no suspend, no resource loading, no Clock — so tests can call `buildChatSystemPrompt`
 // directly with hand-crafted inputs. Section composition is controlled by
@@ -32,12 +30,8 @@ enum class SystemPromptVariant {
 
 /** Runtime state rendered into the `## Context` section. */
 internal data class ChatPromptRuntimeContext(
-    /** Local-zoned ISO 8601 with explicit offset, e.g. `2026-04-22T22:32:39+02:00`. */
-    val nowLocalIsoWithOffset: String,
-    /** IANA zone id, e.g. `Europe/Berlin`. Rendered next to the local time for clarity. */
+    /** IANA zone id, e.g. `Europe/Berlin`. Used by schedule_task to interpret naive datetimes. */
     val timeZoneId: String,
-    /** UTC ISO 8601 with `Z` suffix — kept so the model can double-check the offset. */
-    val nowUtcIsoString: String,
     val platform: String,
     val modelId: String,
     val providerName: String,
@@ -322,11 +316,9 @@ private fun StringBuilder.appendEmailAccountsSection(accounts: List<EmailAccount
         } else {
             append(account.unreadCount)
             append(" unread")
-            if (account.lastSyncEpochMs > 0) {
-                append(" (last sync: ")
-                append(Instant.fromEpochMilliseconds(account.lastSyncEpochMs))
-                append(')')
-            }
+            // lastSyncEpochMs is intentionally omitted here: an absolute timestamp in the
+            // system prompt would change on every email sync and bust the prompt-cache
+            // breakpoint. The AI can call email tools for fresh sync status if needed.
         }
         append('\n')
     }
@@ -367,16 +359,12 @@ private fun StringBuilder.appendScheduledTasksSection(pendingTasks: List<Schedul
 
 private fun StringBuilder.appendContextSection(runtime: ChatPromptRuntimeContext) {
     append("\n\n## Context\n")
-    // Lead with local time so the model anchors on the user's wall clock when computing
-    // relative times ("in 3 minutes", "tomorrow at 9"). Tools that accept a naive datetime
-    // (e.g. `schedule_task`'s `execute_at`) interpret it in this zone.
-    append("- Local time: ")
-    append(runtime.nowLocalIsoWithOffset)
-    append(" (")
+    // The timezone is stable (only changes if the user changes their device zone) and is
+    // needed so schedule_task can interpret naive datetimes in the user's local zone.
+    // The actual current time is prepended to each user message instead, so it never
+    // busts the system prompt prefix cache.
+    append("- Timezone: ")
     append(runtime.timeZoneId)
-    append(")\n")
-    append("- UTC: ")
-    append(runtime.nowUtcIsoString)
     append('\n')
     append("- Platform: ")
     append(runtime.platform)

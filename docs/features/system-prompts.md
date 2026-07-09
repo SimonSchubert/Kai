@@ -1,6 +1,6 @@
 # System Prompts
 
-**Last verified:** 2026-05-30
+**Last verified:** 2026-06-24
 
 Kai has several distinct prompt-construction paths. Each one is built by a **pure function** with explicit inputs (no DI, no suspend, no resource loading, no clocks) and is covered by a unit-test suite so future edits don't silently break unrelated variations.
 
@@ -36,7 +36,7 @@ The on-device tool allowlist (`LOCAL_TOOL_ALLOWLIST` in `RemoteDataRepository.kt
 | `## Scheduled Tasks` | when list non-empty | never | `pendingTasks` (time/cron only; heartbeat-trigger tasks live in the next section) |
 | `## Heartbeat Additions` | when list non-empty | never | `heartbeatAdditions` — standing `schedule_task(on_heartbeat=true)` entries the AI can see/reference/cancel |
 | `## Active skill: <name>` | when activated | when activated | `activeSkill` param — non-null only when the user prefixed the current turn's message with `/<skill-id>` matching an installed, enabled skill. Emits the skill's instruction body plus a list of any bundled files (available at `~/skills/<id>/` in the sandbox). Zero bytes on every other turn. See [skills.md](skills.md) |
-| `## Context` | always | always | `runtime` param (local time with offset + IANA zone, UTC, platform, model, provider). Local time leads so the model anchors on the user's wall clock when computing relative times |
+| `## Context` | always | always | `runtime` param (IANA zone, platform, model, provider). The current date/time is deliberately left out here — it's prepended to the latest user message instead, so this section stays identical turn to turn and providers can cache it. The timezone alone is kept since tools that accept naive datetimes still need it |
 | `## Dynamic UI` | when `uiMode = DYNAMIC_UI` | never | `uiMode` param |
 | `## Interactive UI Mode` | when `uiMode = INTERACTIVE_UI` | never | `uiMode` param |
 
