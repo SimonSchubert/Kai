@@ -1,15 +1,46 @@
 package com.inspiredandroid.kai.tools
 
+import com.inspiredandroid.kai.sandbox.DesktopPersistentShell
+import com.inspiredandroid.kai.sandbox.DesktopSessionShell
+import com.inspiredandroid.kai.sandbox.MicromambaLayout
+import java.io.File
+import java.nio.file.Files
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class ProcessManagerTest {
 
+    private lateinit var baseDir: File
+    private val shells = mutableMapOf<String, DesktopSessionShell>()
+    private val closedSessions = mutableListOf<String>()
+
+    private fun shellFor(sessionId: String): DesktopSessionShell = shells.getOrPut(sessionId) {
+        DesktopSessionShell(sessionId, DesktopPersistentShell(MicromambaLayout(baseDir)))
+    }
+
+    private fun closeSession(sessionId: String) {
+        closedSessions.add(sessionId)
+        shells.remove(sessionId)?.reset()
+    }
+
+    @BeforeTest
+    fun setUp() {
+        baseDir = Files.createTempDirectory("process-manager-test").toFile()
+    }
+
+    @AfterTest
+    fun tearDown() {
+        shells.values.forEach { it.reset() }
+        baseDir.deleteRecursively()
+    }
+
     @Test
     fun startBackgroundReturnsSessionId() {
         val pm = ProcessManager()
-        val result = pm.startBackground("echo hello", 10, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "echo hello", 10)
         assertEquals(true, result["success"])
         assertTrue((result["session_id"] as String).startsWith("bg-"))
         assertEquals("running", result["status"])
@@ -18,7 +49,7 @@ class ProcessManagerTest {
     @Test
     fun listShowsRunningAndFinished() {
         val pm = ProcessManager()
-        pm.startBackground("echo fast", 10, null, emptyMap())
+        pm.startBackground(::shellFor, ::closeSession, "echo fast", 10)
         Thread.sleep(500) // let it finish
         val list = pm.list()
         assertEquals(1, list["total"])
@@ -27,7 +58,7 @@ class ProcessManagerTest {
     @Test
     fun logReturnsOutput() {
         val pm = ProcessManager()
-        val result = pm.startBackground("echo hello_world", 10, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "echo hello_world", 10)
         val sessionId = result["session_id"] as String
         Thread.sleep(500) // let it finish
         val log = pm.log(sessionId, 0, 200)
@@ -39,7 +70,7 @@ class ProcessManagerTest {
     @Test
     fun logWithOffsetAndLimit() {
         val pm = ProcessManager()
-        val result = pm.startBackground("seq 1 20", 10, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "seq 1 20", 10)
         val sessionId = result["session_id"] as String
         Thread.sleep(500)
         val log = pm.log(sessionId, 5, 3)
@@ -53,20 +84,21 @@ class ProcessManagerTest {
     @Test
     fun killTerminatesRunningProcess() {
         val pm = ProcessManager()
-        val result = pm.startBackground("sleep 60", 120, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "sleep 60", 120)
         val sessionId = result["session_id"] as String
         Thread.sleep(200)
-        val killResult = pm.kill(sessionId)
+        val killResult = pm.kill(::closeSession, sessionId)
         assertEquals(true, killResult["success"])
+        assertTrue(sessionId in closedSessions)
     }
 
     @Test
     fun killAlreadyFinishedProcess() {
         val pm = ProcessManager()
-        val result = pm.startBackground("echo done", 10, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "echo done", 10)
         val sessionId = result["session_id"] as String
         Thread.sleep(500)
-        val killResult = pm.kill(sessionId)
+        val killResult = pm.kill(::closeSession, sessionId)
         assertEquals(true, killResult["success"])
         assertTrue((killResult["message"] as String).contains("already finished"))
     }
@@ -74,10 +106,10 @@ class ProcessManagerTest {
     @Test
     fun removeSession() {
         val pm = ProcessManager()
-        val result = pm.startBackground("echo bye", 10, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "echo bye", 10)
         val sessionId = result["session_id"] as String
         Thread.sleep(500)
-        val removeResult = pm.remove(sessionId)
+        val removeResult = pm.remove(::closeSession, sessionId)
         assertEquals(true, removeResult["success"])
         // After removal, list should be empty
         val list = pm.list()
@@ -89,16 +121,19 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val log = pm.log("nonexistent", 0, 200)
         assertEquals(false, log["success"])
-        val kill = pm.kill("nonexistent")
+        val kill = pm.kill(::closeSession, "nonexistent")
         assertEquals(false, kill["success"])
-        val remove = pm.remove("nonexistent")
+        val remove = pm.remove(::closeSession, "nonexistent")
         assertEquals(false, remove["success"])
     }
 
     @Test
     fun envVariablesArePassedThrough() {
+        // ShellCommandTool bakes env into the command string before calling
+        // startBackground (see shellSingleQuote/prefix); ProcessManager itself
+        // just needs to run whatever command string it's given.
         val pm = ProcessManager()
-        val result = pm.startBackground("echo \$MY_TEST_VAR", 10, null, mapOf("MY_TEST_VAR" to "test_value_123"))
+        val result = pm.startBackground(::shellFor, ::closeSession, "MY_TEST_VAR=test_value_123 sh -c 'echo \$MY_TEST_VAR'", 10)
         val sessionId = result["session_id"] as String
         Thread.sleep(500)
         val log = pm.log(sessionId, 0, 200)
@@ -108,7 +143,7 @@ class ProcessManagerTest {
     @Test
     fun backgroundProcessTimesOut() {
         val pm = ProcessManager()
-        val result = pm.startBackground("sleep 60", 1, null, emptyMap())
+        val result = pm.startBackground(::shellFor, ::closeSession, "sleep 60", 1)
         val sessionId = result["session_id"] as String
         Thread.sleep(2000) // wait for 1s timeout + buffer
         val log = pm.log(sessionId, 0, 200)

@@ -1,12 +1,17 @@
 package com.inspiredandroid.kai.tools
 
+import com.inspiredandroid.kai.DesktopSandboxController
+import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
 import kotlin.time.Duration.Companion.seconds
+import org.koin.java.KoinJavaComponent.inject
 
 object ProcessManagerTool : Tool {
+
+    private val sandboxController: SandboxController by inject(SandboxController::class.java)
 
     internal val processManager = ProcessManager()
 
@@ -46,13 +51,17 @@ Actions:
             "kill" -> {
                 val sessionId = args["session_id"] as? String
                     ?: return mapOf("success" to false, "error" to "session_id is required for kill")
-                processManager.kill(sessionId)
+                val controller = sandboxController as? DesktopSandboxController
+                    ?: return mapOf("success" to false, "error" to "Sandbox controller unavailable")
+                processManager.kill(controller::closeSession, sessionId)
             }
 
             "remove" -> {
                 val sessionId = args["session_id"] as? String
                     ?: return mapOf("success" to false, "error" to "session_id is required for remove")
-                processManager.remove(sessionId)
+                val controller = sandboxController as? DesktopSandboxController
+                    ?: return mapOf("success" to false, "error" to "Sandbox controller unavailable")
+                processManager.remove(controller::closeSession, sessionId)
             }
 
             else -> mapOf("success" to false, "error" to "Unknown action: $action. Use: list, log, kill, remove")

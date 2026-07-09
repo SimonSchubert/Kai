@@ -157,9 +157,12 @@ actual fun getAvailableTools(): List<Tool> {
             addAll(SchedulingTools.getSchedulingTools(taskStore))
             addAll(HeartbeatTools.getHeartbeatTools(memoryStore, appSettings))
         }
-        if (appSettings.isToolEnabled(ShellCommandTool.schema.name, defaultEnabled = false)) {
-            add(ShellCommandTool)
-            add(ProcessManagerTool)
+        if (appSettings.isSandboxEnabled()) {
+            val sandboxController: SandboxController by inject(SandboxController::class.java)
+            if (sandboxController.status.value.ready) {
+                add(ShellCommandTool)
+                add(ProcessManagerTool)
+            }
         }
         if (appSettings.isEmailEnabled()) {
             addAll(EmailTools.getEmailTools(emailStore))

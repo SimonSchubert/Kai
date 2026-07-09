@@ -132,7 +132,10 @@ class DesktopSandboxController : SandboxController {
         shells[sessionId]?.setPrunePaused(interacting)
     }
 
-    private fun shellFor(sessionId: String): DesktopSessionShell = synchronized(shells) {
+    /** Widened from private so ShellCommandTool/ProcessManager (desktop's LLM-facing tools) can
+     *  reuse the same session-shell machinery as the Terminal UI, instead of running raw host
+     *  processes. See docs/features/sandbox.md for why this exists. */
+    internal fun shellFor(sessionId: String): DesktopSessionShell = synchronized(shells) {
         shells[sessionId]?.let { return@synchronized it }
         val persistable = SandboxSessions.isPersistable(sessionId)
         val initialLines = if (persistable) {

@@ -1,12 +1,10 @@
 package com.inspiredandroid.kai.tools
 
-import java.io.File
+import com.inspiredandroid.kai.sandbox.DesktopSessionShell
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
-
-private const val MAX_OUTPUT_LENGTH = 30_000
+import kotlinx.coroutines.runBlocking
 
 class ProcessManager {
 
@@ -14,9 +12,8 @@ class ProcessManager {
         val id: String,
         val command: String,
         val startTime: Long,
-        val process: Process,
-        val stdoutBuffer: StringBuilder = StringBuilder(),
-        val stderrBuffer: StringBuilder = StringBuilder(),
+        @Volatile var stdout: String = "",
+        @Volatile var stderr: String = "",
         @Volatile var finished: Boolean = false,
         @Volatile var exitCode: Int? = null,
         @Volatile var timedOut: Boolean = false,
@@ -25,69 +22,38 @@ class ProcessManager {
     private val sessions = ConcurrentHashMap<String, Session>()
     private val nextId = AtomicInteger(1)
 
+    /**
+     * [command] is expected to already have working_dir/env baked in as a shell prefix
+     * (see ShellCommandTool) — this just needs a plain command string to run.
+     *
+     * Runs in its own dedicated sandbox session (distinct from any conversation's
+     * persistent shell), so a long background job never blocks that conversation's
+     * foreground commands via the per-session mutex in DesktopPersistentShell.
+     *
+     * Takes [shellFor]/[closeSession] as functions rather than a DesktopSandboxController
+     * directly, so this class stays testable without constructing the full controller
+     * (whose constructor does Koin lookups).
+     */
     fun startBackground(
+        shellFor: (String) -> DesktopSessionShell,
+        closeSession: (String) -> Unit,
         command: String,
         timeoutSeconds: Long,
-        workingDir: File?,
-        envMap: Map<String, String>,
     ): Map<String, Any> {
         val sessionId = "bg-${nextId.getAndIncrement()}"
-
-        val isWindows = System.getProperty("os.name").lowercase().contains("win")
-        val processBuilder = if (isWindows) {
-            ProcessBuilder("cmd", "/c", command)
-        } else {
-            ProcessBuilder("sh", "-c", command)
-        }
-
-        processBuilder.redirectErrorStream(false)
-        if (workingDir != null && workingDir.isDirectory) {
-            processBuilder.directory(workingDir)
-        }
-        if (envMap.isNotEmpty()) {
-            processBuilder.environment().putAll(envMap)
-        }
-
-        val process = processBuilder.start()
-        val session = Session(
-            id = sessionId,
-            command = command,
-            startTime = System.currentTimeMillis(),
-            process = process,
-        )
+        val session = Session(id = sessionId, command = command, startTime = System.currentTimeMillis())
         sessions[sessionId] = session
 
-        // Drain stdout/stderr in background threads with bounded buffers
         CompletableFuture.runAsync {
-            process.inputStream.bufferedReader().forEachLine { line ->
-                synchronized(session.stdoutBuffer) {
-                    if (session.stdoutBuffer.length < MAX_OUTPUT_LENGTH) {
-                        session.stdoutBuffer.appendLine(line)
-                    }
-                }
+            runBlocking {
+                val result = shellFor(sessionId).run(command = command, timeoutSeconds = timeoutSeconds)
+                session.stdout = result["stdout"] as? String ?: ""
+                session.stderr = result["stderr"] as? String ?: ""
+                session.exitCode = result["exit_code"] as? Int ?: -1
+                session.timedOut = result["timed_out"] as? Boolean ?: false
+                session.finished = true
+                closeSession(sessionId)
             }
-        }
-        CompletableFuture.runAsync {
-            process.errorStream.bufferedReader().forEachLine { line ->
-                synchronized(session.stderrBuffer) {
-                    if (session.stderrBuffer.length < MAX_OUTPUT_LENGTH) {
-                        session.stderrBuffer.appendLine(line)
-                    }
-                }
-            }
-        }
-
-        // Monitor for completion/timeout
-        CompletableFuture.runAsync {
-            val completed = process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
-            if (!completed) {
-                process.destroyForcibly()
-                session.timedOut = true
-                session.exitCode = -1
-            } else {
-                session.exitCode = process.exitValue()
-            }
-            session.finished = true
         }
 
         return mapOf(
@@ -112,10 +78,7 @@ class ProcessManager {
         val session = sessions[sessionId]
             ?: return mapOf("success" to false, "error" to "Unknown session: $sessionId")
 
-        val stdout = synchronized(session.stdoutBuffer) { session.stdoutBuffer.toString() }
-        val stderr = synchronized(session.stderrBuffer) { session.stderrBuffer.toString() }
-
-        val stdoutLines = stdout.lines()
+        val stdoutLines = session.stdout.lines()
         val sliced = stdoutLines.drop(offset).take(limit).joinToString("\n")
 
         return mapOf(
@@ -124,14 +87,14 @@ class ProcessManager {
             "status" to if (session.finished) "finished" else "running",
             "exit_code" to (session.exitCode ?: -1),
             "stdout" to sliced,
-            "stderr" to stderr.takeLast(2000),
+            "stderr" to session.stderr.takeLast(2000),
             "total_stdout_lines" to stdoutLines.size,
             "offset" to offset,
             "timed_out" to session.timedOut,
         )
     }
 
-    fun kill(sessionId: String): Map<String, Any> {
+    fun kill(closeSession: (String) -> Unit, sessionId: String): Map<String, Any> {
         val session = sessions[sessionId]
             ?: return mapOf("success" to false, "error" to "Unknown session: $sessionId")
 
@@ -139,19 +102,18 @@ class ProcessManager {
             return mapOf("success" to true, "message" to "Process already finished", "exit_code" to (session.exitCode ?: -1))
         }
 
-        session.process.destroyForcibly()
+        closeSession(sessionId)
         session.finished = true
         session.exitCode = -1
+        session.timedOut = true
         return mapOf("success" to true, "message" to "Process killed")
     }
 
-    fun remove(sessionId: String): Map<String, Any> {
+    fun remove(closeSession: (String) -> Unit, sessionId: String): Map<String, Any> {
         val session = sessions.remove(sessionId)
             ?: return mapOf("success" to false, "error" to "Unknown session: $sessionId")
 
-        if (!session.finished) {
-            session.process.destroyForcibly()
-        }
+        if (!session.finished) closeSession(sessionId)
         return mapOf("success" to true, "message" to "Session removed")
     }
 
@@ -162,6 +124,6 @@ class ProcessManager {
         "exit_code" to (exitCode ?: -1),
         "duration_seconds" to ((System.currentTimeMillis() - startTime) / 1000),
         "timed_out" to timedOut,
-        "stdout_length" to stdoutBuffer.length,
+        "stdout_length" to stdout.length,
     )
 }
