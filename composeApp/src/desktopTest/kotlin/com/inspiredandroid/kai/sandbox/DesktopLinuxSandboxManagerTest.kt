@@ -8,6 +8,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
 import java.io.File
 import java.nio.file.Files
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.delay
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -20,23 +21,32 @@ import kotlin.test.assertTrue
 class DesktopLinuxSandboxManagerTest {
 
     private lateinit var baseDir: File
+    private lateinit var stagingDir: File
 
     @BeforeTest
     fun setUp() {
         baseDir = Files.createTempDirectory("desktop-sandbox-manager-test").toFile()
+        stagingDir = Files.createTempDirectory("desktop-sandbox-manager-test-staging").toFile()
     }
 
     @AfterTest
     fun tearDown() {
         baseDir.deleteRecursively()
+        stagingDir.deleteRecursively()
     }
 
-    private fun managerWithFakeDownload(bytes: ByteArray = byteArrayOf(1, 2, 3, 4)): DesktopLinuxSandboxManager {
+    // Serves a real .tar.bz2 archive (built via the system tar, same shape as
+    // the real micromamba release) so setup() exercises real download +
+    // real extraction, not just byte-copying. Using arbitrary bytes here
+    // previously hid a Critical bug: the downloaded archive was never
+    // extracted, so the "binary" on disk was actually a compressed tarball.
+    private fun managerWithFakeDownload(echoText: String = "fake-micromamba"): DesktopLinuxSandboxManager {
+        val archiveBytes = buildFakeMicromambaArchive(stagingDir, echoText)
         val engine = MockEngine {
             respond(
-                content = bytes,
+                content = archiveBytes,
                 status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentLength, bytes.size.toString()),
+                headers = headersOf(HttpHeaders.ContentLength, archiveBytes.size.toString()),
             )
         }
         return DesktopLinuxSandboxManager(baseDir, MicromambaDownloader(HttpClient(engine)))
@@ -49,8 +59,8 @@ class DesktopLinuxSandboxManagerTest {
     }
 
     @Test
-    fun setupDownloadsBinaryAndReachesReady() = kotlinx.coroutines.runBlocking {
-        val manager = managerWithFakeDownload()
+    fun setupDownloadsExtractsAndReachesReadyWithARealRunnableBinary() = kotlinx.coroutines.runBlocking {
+        val manager = managerWithFakeDownload(echoText = "hello-from-setup")
         manager.setup()
         // setup() launches on its own scope; poll briefly for completion.
         var attempts = 0
@@ -61,6 +71,19 @@ class DesktopLinuxSandboxManagerTest {
         assertIs<SandboxState.Ready>(manager.state.value)
         assertTrue(manager.layout.binaryFile.exists())
         assertTrue(manager.layout.binaryFile.canExecute())
+
+        // The whole point of this test: the file at binaryFile must actually
+        // run, not just exist with the executable bit set. A copied-but-not-
+        // extracted .tar.bz2 would pass exists()/canExecute() and fail here.
+        val process = ProcessBuilder(manager.layout.binaryFile.absolutePath).redirectErrorStream(true).start()
+        val finished = process.waitFor(10, TimeUnit.SECONDS)
+        val output = process.inputStream.bufferedReader().readText()
+        assertTrue(finished, "extracted binary did not exit within timeout")
+        assertEquals(0, process.exitValue())
+        assertTrue(output.contains("hello-from-setup"), "unexpected output: $output")
+
+        // The intermediate archive must not be left behind next to the binary.
+        assertFalse(File(baseDir, "micromamba-download.tar.bz2").exists())
     }
 
     @Test

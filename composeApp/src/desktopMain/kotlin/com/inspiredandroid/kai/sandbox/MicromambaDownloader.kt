@@ -9,11 +9,19 @@ import io.ktor.utils.io.readAvailable
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 private const val BUFFER_SIZE = 8192
+private const val EXTRACT_TIMEOUT_SECONDS = 60L
 
 class MicromambaDownloader(private val httpClient: HttpClient) {
 
+    /**
+     * Downloads bytes from the micromamba release URL to [targetFile]. The
+     * response body is the release archive itself (a `.tar.bz2`), not a raw
+     * executable — callers that need a runnable binary must follow this with
+     * [extractBinary].
+     */
     suspend fun download(targetFile: File, onProgress: (Float) -> Unit) {
         val url = micromambaDownloadUrl()
         httpClient.prepareGet(url).execute { response ->
@@ -43,6 +51,37 @@ class MicromambaDownloader(private val httpClient: HttpClient) {
                 throw e
             }
         }
-        targetFile.setExecutable(true, false)
+    }
+
+    /**
+     * Extracts the `bin/micromamba` executable from [archiveFile] (a
+     * `.tar.bz2` release archive, as fetched by [download]) into [baseDir],
+     * landing at `baseDir/bin/micromamba` — the same path
+     * [MicromambaLayout.binaryFile] resolves to. Shells out to the system
+     * `tar`, matching the release's own documented install one-liner
+     * (`curl -Ls <url> | tar -xvj bin/micromamba`) rather than adding a
+     * bzip2-capable archive library dependency.
+     */
+    fun extractBinary(archiveFile: File, baseDir: File) {
+        baseDir.mkdirs()
+        val process = ProcessBuilder(
+            "tar", "-xjf", archiveFile.absolutePath,
+            "-C", baseDir.absolutePath,
+            "bin/micromamba",
+        ).redirectErrorStream(true).start()
+        val finished = process.waitFor(EXTRACT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+        if (!finished) {
+            process.destroyForcibly()
+            throw IOException("Timed out extracting micromamba archive")
+        }
+        if (process.exitValue() != 0) {
+            val output = process.inputStream.bufferedReader().readText()
+            throw IOException("Failed to extract micromamba archive: ${output.take(500)}")
+        }
+        val binaryFile = File(baseDir, "bin/micromamba")
+        if (!binaryFile.exists()) {
+            throw IOException("Extraction succeeded but bin/micromamba was not found in the archive")
+        }
+        binaryFile.setExecutable(true, false)
     }
 }

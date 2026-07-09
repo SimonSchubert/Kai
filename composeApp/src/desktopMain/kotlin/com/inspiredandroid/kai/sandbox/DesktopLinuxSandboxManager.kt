@@ -36,17 +36,26 @@ class DesktopLinuxSandboxManager(
     fun setup() {
         if (currentJob?.isActive == true) return
         currentJob = scope.launch {
+            val archiveFile = File(baseDir, "micromamba-download.tar.bz2")
             try {
                 _state.value = SandboxState.Downloading(0f)
-                downloader.download(layout.binaryFile) { progress ->
+                downloader.download(archiveFile) { progress ->
                     _state.value = SandboxState.Downloading(progress)
                 }
+                _state.value = SandboxState.Extracting
+                downloader.extractBinary(archiveFile, baseDir)
                 layout.rootPrefix.mkdirs()
                 _state.value = SandboxState.Ready
             } catch (e: kotlinx.coroutines.CancellationException) {
-                _state.value = if (layout.binaryFile.exists()) SandboxState.Ready else SandboxState.NotInstalled
+                _state.value = if (layout.binaryFile.exists() && layout.binaryFile.canExecute()) {
+                    SandboxState.Ready
+                } else {
+                    SandboxState.NotInstalled
+                }
             } catch (e: Exception) {
                 _state.value = SandboxState.Error(e.message ?: "Setup failed")
+            } finally {
+                archiveFile.delete()
             }
         }
     }
