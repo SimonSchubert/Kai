@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.encodeToString
@@ -61,7 +63,16 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
     private fun requireBridge(): LiteRTSwiftBridge = LiteRTBridgeRegistry.bridge
         ?: throw IllegalStateException("LiteRTSwiftBridge not installed. iosApp must call KaiLiteRTBridgeInstaller.install().")
 
+    // Serializes initialization. The Swift-side load is not interruptible, so a cancelled
+    // init keeps running; without the lock, a follow-up ask would see state != READY and
+    // start a second concurrent load.
+    private val initMutex = Mutex()
+
     override suspend fun initialize(model: DownloadedModel, contextTokens: Int) {
+        initMutex.withLock { initializeLocked(model, contextTokens) }
+    }
+
+    private suspend fun initializeLocked(model: DownloadedModel, contextTokens: Int) {
         idleReleaseJob?.cancel()
         if (currentModelId == model.id && currentContextTokens == contextTokens && _engineState.value == EngineState.READY) return
 
@@ -86,6 +97,11 @@ class IosLiteRTInferenceEngine : LocalInferenceEngine {
             currentModelId = model.id
             currentContextTokens = contextTokens
             _engineState.value = EngineState.READY
+        } catch (e: CancellationException) {
+            // User stop, not an engine failure — the old engine was already released
+            // above, so UNINITIALIZED reflects reality and the next ask re-inits cleanly.
+            _engineState.value = EngineState.UNINITIALIZED
+            throw e
         } catch (e: Throwable) {
             _engineState.value = EngineState.ERROR
             throw e

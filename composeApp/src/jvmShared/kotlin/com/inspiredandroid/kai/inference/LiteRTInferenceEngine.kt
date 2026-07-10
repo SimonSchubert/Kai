@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import java.io.File
@@ -54,7 +56,16 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
     private val _downloadError = MutableStateFlow<DownloadError?>(null)
     override val downloadError: StateFlow<DownloadError?> = _downloadError
 
+    // Serializes initialization. The native load is not interruptible, so a cancelled
+    // init keeps running on its IO thread; without the lock, a follow-up ask would see
+    // state != READY and start a second concurrent load of a multi-GB model.
+    private val initMutex = Mutex()
+
     override suspend fun initialize(model: DownloadedModel, contextTokens: Int) {
+        initMutex.withLock { initializeLocked(model, contextTokens) }
+    }
+
+    private suspend fun initializeLocked(model: DownloadedModel, contextTokens: Int) {
         withContext(Dispatchers.IO) {
             idleReleaseJob?.cancel()
             if (currentModelId == model.id && currentContextTokens == contextTokens && _engineState.value == EngineState.READY) return@withContext
@@ -126,6 +137,13 @@ class LiteRTInferenceEngine : LocalInferenceEngine {
                 currentModelId = model.id
                 currentContextTokens = contextTokens
                 _engineState.value = EngineState.READY
+            } catch (e: CancellationException) {
+                // User stop, not an engine failure — reflect the actual state instead of
+                // ERROR. Cancellation lands at a suspension point (release/delay): READY
+                // if an engine is still loaded, UNINITIALIZED after it was released. If
+                // the native load itself finished, the success path above already ran.
+                _engineState.value = if (engine != null) EngineState.READY else EngineState.UNINITIALIZED
+                throw e
             } catch (e: Exception) {
                 _engineState.value = EngineState.ERROR
                 throw e

@@ -1,6 +1,6 @@
 # Multi-Service
 
-**Last verified:** 2026-07-01
+**Last verified:** 2026-07-10
 
 Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
@@ -36,13 +36,14 @@ A built-in service that requires no API key. Free is never shown in the service 
 2. Only instances with valid API keys are considered
 3. If no instances are configured, the Free tier is used as the only service
 4. If instances exist and "Use as fallback" is enabled (default), the Free tier is appended as the last resort
-5. Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain
+5. Each individual API request retries up to 2 times with increasing delays before the service is considered failed. During a tool-use loop, each request inside the loop retries independently — a failure mid-loop never replays the loop (and its tool executions) from the start. On-device (Local Model) attempts are not retried, since their failures are deterministic rather than transient
 6. On failure, the next instance in the chain is tried; if all fail, the last error is shown
 7. If a fallback succeeds, the response indicates which service answered
 8. While the chain is being walked, the thinking indicator shows per-attempt status — the name of the service currently being tried, or the reason the previous one failed before moving on — so silent fallbacks are visible to the user
 9. Entries whose context window can't fit the current chat history are skipped during the walk
 10. On-device (Local Model) failures are not silently absorbed — they short-circuit the fallback chain so the user sees the actual error rather than being quietly bumped to a cloud service
-11. Certain non-retryable errors (notably Anthropic's "insufficient credits" and quota-exhausted responses from OpenAI-compatible providers) bypass both the per-service retry loop and the fallback chain — the error surfaces immediately
+11. On-device entries are also never used as fallback targets: a local model is only tried when it is the primary (first) service in the chain. A cloud-service failure never silently starts a local model load
+12. Certain non-retryable errors (notably Anthropic's "insufficient credits" and quota-exhausted responses from OpenAI-compatible providers) bypass both the per-service retry loop and the fallback chain — the error surfaces immediately
 
 ## API Formats
 

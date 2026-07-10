@@ -1,6 +1,6 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-07-07
+**Last verified:** 2026-07-10
 
 Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
 
@@ -71,6 +71,7 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 5. **Inference timeout** -- individual inference calls are capped at 2 minutes
 6. **Auto-release** -- released after 5 minutes of inactivity to free memory (always re-armed, even on errors)
 7. **Status indicator** -- the chat shows "Initializing {model name}" with a pulsing dot during engine load
+8. **Stop during load** -- the native model load cannot be interrupted; pressing stop cancels the message, and the load finishes in the background without marking the engine as failed. A follow-up message waits for the in-flight load instead of starting a second one
 
 ## Platform Differences
 

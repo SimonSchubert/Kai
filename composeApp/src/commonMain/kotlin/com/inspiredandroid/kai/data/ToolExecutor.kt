@@ -2,7 +2,9 @@ package com.inspiredandroid.kai.data
 
 import com.inspiredandroid.kai.getAvailableTools
 import com.inspiredandroid.kai.getPlatformToolDefinitions
+import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.smartTruncate
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
@@ -24,7 +26,9 @@ import org.jetbrains.compose.resources.getString
 
 private const val MAX_TOOL_RESULT_LENGTH = 20_000
 
-class ToolExecutor {
+class ToolExecutor(
+    private val toolsProvider: () -> List<Tool> = { getAvailableTools() },
+) {
 
     private val jsonParser = Json { ignoreUnknownKeys = true }
 
@@ -40,7 +44,7 @@ class ToolExecutor {
         arguments: String,
         conversationId: String? = null,
     ): String {
-        val tools = getAvailableTools()
+        val tools = toolsProvider()
         val tool = tools.find { it.schema.name == name }
             ?: return """{"success": false, "error": "Unknown tool: $name"}"""
 
@@ -75,6 +79,10 @@ class ToolExecutor {
             truncateResult(resultString)
         } catch (e: TimeoutCancellationException) {
             """{"success": false, "error": "Tool '$name' timed out after ${tool.timeout}"}"""
+        } catch (e: CancellationException) {
+            // Cooperative cancellation (user pressed stop) must propagate, not become a
+            // fake tool result the loop would keep reasoning about.
+            throw e
         } catch (e: Exception) {
             """{"success": false, "error": "Tool execution failed: ${e.message}"}"""
         }
