@@ -26,6 +26,20 @@ class ProcessManagerTest {
         shells.remove(sessionId)?.reset()
     }
 
+    // Background jobs spawn a real bash process (shell startup + a sentinel
+    // round-trip); a fixed sleep here was flaky under load — poll for the
+    // session actually finishing instead, same lesson already learned for
+    // Tasks 5/6's tests (see progress ledger).
+    private fun waitUntilFinished(pm: ProcessManager, sessionId: String, timeoutMs: Long = 5000) {
+        val deadline = System.currentTimeMillis() + timeoutMs
+        while (System.currentTimeMillis() < deadline) {
+            val log = pm.log(sessionId, 0, 1)
+            if (log["status"] == "finished") return
+            Thread.sleep(20)
+        }
+        error("Session $sessionId did not finish within ${timeoutMs}ms")
+    }
+
     @BeforeTest
     fun setUp() {
         baseDir = Files.createTempDirectory("process-manager-test").toFile()
@@ -49,8 +63,8 @@ class ProcessManagerTest {
     @Test
     fun listShowsRunningAndFinished() {
         val pm = ProcessManager()
-        pm.startBackground(::shellFor, ::closeSession, "echo fast", 10)
-        Thread.sleep(500) // let it finish
+        val result = pm.startBackground(::shellFor, ::closeSession, "echo fast", 10)
+        waitUntilFinished(pm, result["session_id"] as String)
         val list = pm.list()
         assertEquals(1, list["total"])
     }
@@ -60,7 +74,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "echo hello_world", 10)
         val sessionId = result["session_id"] as String
-        Thread.sleep(500) // let it finish
+        waitUntilFinished(pm, sessionId)
         val log = pm.log(sessionId, 0, 200)
         assertEquals(true, log["success"])
         assertTrue((log["stdout"] as String).contains("hello_world"))
@@ -72,7 +86,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "seq 1 20", 10)
         val sessionId = result["session_id"] as String
-        Thread.sleep(500)
+        waitUntilFinished(pm, sessionId)
         val log = pm.log(sessionId, 5, 3)
         assertEquals(true, log["success"])
         assertEquals(5, log["offset"])
@@ -86,6 +100,8 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "sleep 60", 120)
         val sessionId = result["session_id"] as String
+        // Not waiting for finish here — this deliberately kills mid-flight.
+        // Just give the bash process a moment to actually start executing.
         Thread.sleep(200)
         val killResult = pm.kill(::closeSession, sessionId)
         assertEquals(true, killResult["success"])
@@ -97,7 +113,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "echo done", 10)
         val sessionId = result["session_id"] as String
-        Thread.sleep(500)
+        waitUntilFinished(pm, sessionId)
         val killResult = pm.kill(::closeSession, sessionId)
         assertEquals(true, killResult["success"])
         assertTrue((killResult["message"] as String).contains("already finished"))
@@ -108,7 +124,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "echo bye", 10)
         val sessionId = result["session_id"] as String
-        Thread.sleep(500)
+        waitUntilFinished(pm, sessionId)
         val removeResult = pm.remove(::closeSession, sessionId)
         assertEquals(true, removeResult["success"])
         // After removal, list should be empty
@@ -135,7 +151,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "MY_TEST_VAR=test_value_123 sh -c 'echo \$MY_TEST_VAR'", 10)
         val sessionId = result["session_id"] as String
-        Thread.sleep(500)
+        waitUntilFinished(pm, sessionId)
         val log = pm.log(sessionId, 0, 200)
         assertTrue((log["stdout"] as String).contains("test_value_123"))
     }
@@ -145,7 +161,7 @@ class ProcessManagerTest {
         val pm = ProcessManager()
         val result = pm.startBackground(::shellFor, ::closeSession, "sleep 60", 1)
         val sessionId = result["session_id"] as String
-        Thread.sleep(2000) // wait for 1s timeout + buffer
+        waitUntilFinished(pm, sessionId, timeoutMs = 8000)
         val log = pm.log(sessionId, 0, 200)
         assertEquals(true, log["timed_out"])
         assertEquals("finished", log["status"])

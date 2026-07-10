@@ -42,6 +42,17 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
     private var watchdog: Job? = null
     private val currentSink = AtomicReference<CommandSink?>(null)
 
+    /**
+     * The sentinel arrives on stderr, but stdout is drained by a separate
+     * thread/pipe with no ordering guarantee relative to stderr — completing
+     * as soon as the stderr sentinel is seen let a command's trailing stdout
+     * lines lose the race and never make it into [stdoutBuf] (confirmed by a
+     * flaky test: a fast 20-line `seq` command intermittently returned only
+     * 1-2 lines). [run] now emits a second, stdout-side end marker after the
+     * command; ordering *within* the stdout pipe is guaranteed, so seeing
+     * that marker means every real stdout line before it has already been
+     * dispatched. Completion waits for both markers, whichever arrives last.
+     */
     private class CommandSink(
         val nonce: String,
         val stdoutBuf: StringBuilder = StringBuilder(),
@@ -49,7 +60,27 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
         val onStdout: ((String) -> Unit)? = null,
         val onStderr: ((String) -> Unit)? = null,
         val done: CompletableDeferred<Result> = CompletableDeferred(),
-    )
+    ) {
+        private val completionLock = Any()
+
+        @Volatile private var stdoutMarkerSeen = false
+
+        @Volatile private var pendingResult: Result? = null
+
+        fun stdoutMarkerArrived() {
+            synchronized(completionLock) {
+                stdoutMarkerSeen = true
+                pendingResult?.let { done.complete(it) }
+            }
+        }
+
+        fun stderrResultArrived(result: Result) {
+            synchronized(completionLock) {
+                pendingResult = result
+                if (stdoutMarkerSeen) done.complete(result)
+            }
+        }
+    }
 
     private data class Result(val exitCode: Int, val cwd: String, val shellDied: Boolean = false)
 
@@ -65,6 +96,7 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
         currentSink.set(sink)
 
         val line = "$command; __kai_st=\$?; " +
+            "printf '\\n\\036%s\\036\\n' '$nonce'; " +
             "printf '\\n\\036%s\\037%d\\037%s\\036\\n' '$nonce' \"\$__kai_st\" \"\$PWD\" >&2"
         writeLine(line)
 
@@ -150,7 +182,19 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
     }
 
     private fun dispatchStdout(line: String) {
+        // Suppress blank stdout lines for the same reason as stderr below —
+        // the stdout-side end marker's leading \n flushes any partial line
+        // ahead of it, producing a stray empty line when there's nothing to
+        // flush.
+        if (line.isEmpty()) return
         val sink = currentSink.get() ?: return
+        if (line.length >= 2 && line.startsWith(RS) && line.endsWith(RS)) {
+            val payload = line.substring(1, line.length - 1)
+            if (payload == sink.nonce) {
+                sink.stdoutMarkerArrived()
+                return
+            }
+        }
         appendBounded(sink.stdoutBuf, line)
         sink.onStdout?.invoke(line)
     }
@@ -167,7 +211,7 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
             if (parts.size == 3 && parts[0] == sink.nonce) {
                 val exit = parts[1].toIntOrNull() ?: -1
                 val cwd = parts[2]
-                sink.done.complete(Result(exitCode = exit, cwd = cwd))
+                sink.stderrResultArrived(Result(exitCode = exit, cwd = cwd))
                 return
             }
         }
