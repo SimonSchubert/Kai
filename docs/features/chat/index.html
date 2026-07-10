@@ -1191,11 +1191,11 @@
 
 
 <h1 id="chat-conversations">Chat &amp; Conversations</h1>
-<p><strong>Last verified:</strong> 2026-05-28</p>
+<p><strong>Last verified:</strong> 2026-07-10</p>
 <p>Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="conversation">Conversation</h3>
-<p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code>, <code>heartbeat</code>, or <code>interactive</code>). Conversations are stored in an encrypted file and restored across app launches.</p>
+<p>A persisted chat session containing an id (UUID), message list, timestamps (<code>createdAt</code>, <code>updatedAt</code>), a title, and a type (<code>chat</code>, <code>heartbeat</code>, or <code>interactive</code>). Conversations are stored in a local database (browser builds use the settings store) and restored across app launches.</p>
 <h3 id="history">History</h3>
 <p>The in-memory message list that drives the UI. Each entry has a role: USER, ASSISTANT, TOOL, or TOOL_EXECUTING. History is the source of truth during a session; it is written to a Conversation on save.</p>
 <h3 id="conversation-title">Conversation Title</h3>
@@ -1285,11 +1285,12 @@
 </ul>
 <h2 id="conversation-storage">Conversation Storage</h2>
 <ul>
-<li>Conversations are persisted through the platform's secure settings store (see <a href="../encryption/">encryption.md</a>)</li>
-<li>The full conversation list is serialized as <code>ConversationsData</code> (versioned, currently v2)</li>
-<li>Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended</li>
-<li>Each conversation also retains a rolling tail of its sandbox shell transcript (last ~10,000 characters) so that follow-up commands in a resumed conversation see the prior shell context</li>
-<li>Older builds stored conversations in an encrypted <code>conversations.enc</code> file (XOR with a 32-byte random key); on first load that file is decrypted and migrated into secure settings, then deleted</li>
+<li>On Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage: one row per conversation plus one row per message, so saving a turn writes only the affected conversation instead of re-serializing the whole history</li>
+<li>The browser build has no persistent database and keeps the full conversation list as a JSON blob in the settings store (see <a href="../encryption/">encryption.md</a>)</li>
+<li>Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended; the list loads ordered by creation time</li>
+<li>Each conversation also retains a rolling tail of its sandbox shell transcript (last ~10,000 characters) so that follow-up commands in a resumed conversation see the prior shell context; transcript updates write only that field</li>
+<li>Migration chain, run once on first load: the legacy encrypted <code>conversations.enc</code> file (XOR with a 32-byte random key) migrates into the settings-store blob; a settings-store blob found on a database-capable platform is imported into the database and removed. Settings import reuses the same path — imported conversations are staged in the settings store and absorbed into the database on the next load, replacing its content</li>
+<li>The database structure is versioned and lives on user devices: any future change to its tables or columns requires an accompanying migration step so existing installs upgrade in place (message contents are stored as JSON and tolerate unknown fields, so message-level additions do not need one)</li>
 </ul>
 <h2 id="ui-elements">UI Elements</h2>
 <ul>
@@ -1316,7 +1317,15 @@
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/ConversationStorage.kt</code></td>
-<td>Serialization, settings-backed persistence, legacy migration</td>
+<td>In-memory conversation flow, transcript trimming, legacy migration</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/.../data/ConversationPersistence.kt</code></td>
+<td>SQL and settings-blob persistence backends, staged-import handling</td>
+</tr>
+<tr>
+<td><code>composeApp/src/commonMain/sqldelight/com/inspiredandroid/kai/db/conversation.sq</code></td>
+<td>Conversation and message table schema and queries</td>
 </tr>
 <tr>
 <td><code>composeApp/src/commonMain/.../data/FileClassification.kt</code></td>

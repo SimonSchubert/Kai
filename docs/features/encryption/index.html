@@ -959,14 +959,14 @@
 
 
 <h1 id="encryption-secure-storage">Encryption &amp; Secure Storage</h1>
-<p><strong>Last verified:</strong> 2026-05-14</p>
-<p>All sensitive data (API keys, email passwords, conversation history) is stored through a platform-specific <code>Settings</code> implementation selected by <code>createSecureSettings()</code>. Each platform uses the strongest available mechanism.</p>
+<p><strong>Last verified:</strong> 2026-07-10</p>
+<p>All sensitive settings (API keys, email passwords) are stored through a platform-specific <code>Settings</code> implementation selected by <code>createSecureSettings()</code>. Each platform uses the strongest available mechanism.</p>
 <h2 id="sensitive-data">Sensitive Data</h2>
 <p>The following data is stored in secure settings:
 - Service API keys (per-instance)
 - Email account passwords
-- Conversation history (may contain user messages with file attachments)
-- Encryption key for legacy conversation migration</p>
+- Encryption key for legacy conversation migration
+- Conversation history on the browser build only — on Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage (unencrypted at the application layer; protected by the OS app sandbox and any platform full-disk/file-based encryption). See <a href="../chat/">chat.md</a> for the storage layout and migration chain.</p>
 <h2 id="platform-implementations">Platform Implementations</h2>
 <h3 id="android">Android</h3>
 <ul>
@@ -1004,13 +1004,14 @@
 <li><strong>Size limit:</strong> ~5 MB total (browser-dependent)</li>
 </ul>
 <h2 id="legacy-conversation-storage">Legacy Conversation Storage</h2>
-<p>Prior to the current Settings-based storage, conversations were stored in an encrypted file (<code>conversations.enc</code>) using XOR encryption with a 32-byte random key. This is migrated automatically on first load:</p>
+<p>Prior to the current database-backed storage, conversations were stored in an encrypted file (<code>conversations.enc</code>) using XOR encryption with a 32-byte random key, and later as a JSON blob in secure settings. Both are migrated automatically on first load:</p>
 <ol>
 <li>Read <code>conversations.enc</code> from the app files directory</li>
 <li>Decrypt using XOR with the key from <code>encryption_key</code> in settings</li>
-<li>Persist to current Settings-based storage</li>
+<li>Persist to the current conversation storage (database, or settings blob on the browser build)</li>
 <li>Delete the legacy file</li>
 </ol>
+<p>On database-capable platforms, a conversation blob found in secure settings is likewise imported into the database and removed from settings on first load.</p>
 <p>The XOR encryption key is retained in settings for any devices that haven't migrated yet.</p>
 <h2 id="key-files">Key Files</h2>
 <table>
