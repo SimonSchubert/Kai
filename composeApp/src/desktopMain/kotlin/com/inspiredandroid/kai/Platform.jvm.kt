@@ -141,7 +141,12 @@ actual fun createSecureSettings(): Settings = EncryptedFileSettings()
 
 actual fun createLegacySettings(): Settings? = null // Same storage location, no migration needed
 
-actual fun getPlatformToolDefinitions(): List<ToolInfo> = listOf(ShellCommandTool.toolInfo, ProcessManagerTool.toolInfo) + CommonTools.commonToolDefinitions
+// ShellCommandTool/ProcessManagerTool are intentionally absent here: availability is driven
+// by the Dev Tools sandbox master toggle (isSandboxEnabled() + status.ready in
+// getAvailableTools() below), not a standalone Tools-tab switch — matching Android's
+// equivalent exclusion for its own sandbox-gated tools. A separate toggle here would look
+// actionable but do nothing, since getAvailableTools() no longer reads it for these two tools.
+actual fun getPlatformToolDefinitions(): List<ToolInfo> = CommonTools.commonToolDefinitions
 
 actual fun getAvailableTools(): List<Tool> {
     val appSettings: AppSettings by inject(AppSettings::class.java)
