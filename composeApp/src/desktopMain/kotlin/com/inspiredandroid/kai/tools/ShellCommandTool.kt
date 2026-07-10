@@ -41,6 +41,29 @@ private val blockedPatterns = listOf(
 
 private fun isBlocked(command: String): Boolean = blockedPatterns.any { it.containsMatchIn(command) }
 
+private val validEnvKeyRegex = Regex("^[A-Za-z_][A-Za-z0-9_]*$")
+
+private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
+
+/**
+ * Builds a `cd <dir> && FOO=bar ...` prefix for [ShellCommandTool.execute]. The env
+ * variable *name* must stay unquoted -- bash only recognizes `NAME=value` as an
+ * assignment word when NAME itself is unquoted; quoting it (as an earlier version of
+ * this code did) makes bash treat the whole thing as a command name instead, e.g.
+ * `'FOO'='hello'` fails with "FOO=hello: command not found" rather than assigning FOO.
+ * Names are validated against shell-identifier syntax so an unquoted, LLM-supplied key
+ * can't inject extra shell syntax.
+ */
+internal fun buildCommandPrefix(workingDir: String?, env: Map<String, String>): String = buildString {
+    if (workingDir != null) {
+        append("cd ").append(shellSingleQuote(workingDir)).append(" && ")
+    }
+    env.forEach { (k, v) ->
+        require(validEnvKeyRegex.matches(k)) { "Invalid env variable name: $k" }
+        append(k).append('=').append(shellSingleQuote(v)).append(' ')
+    }
+}
+
 private const val TOOL_DESCRIPTION = """Execute a shell command in the Dev Tools sandbox and return stdout, stderr, and exit code.
 
 Shell session is PERSISTENT across calls within THIS conversation: cwd, exported environment variables, and any in-shell state carry from one call to the next, just like a normal terminal. So "cd /tmp" in one call, then "pwd" in the next, returns "/tmp". You do NOT need to chain "cd dir && command" unless you want directory changes to be one-shot. Other conversations and the in-app Terminal tab each have their own isolated shells.
@@ -116,13 +139,10 @@ object ShellCommandTool : Tool {
         // Apply working_dir/env as a per-command prefix (cd ... && FOO=bar cmd) so
         // they don't bleed into the session's own state. cd is intentionally
         // persistent: the LLM is told that's the case in the tool description.
-        val prefix = buildString {
-            if (workingDir != null) {
-                append("cd ").append(shellSingleQuote(workingDir)).append(" && ")
-            }
-            envMap.forEach { (k, v) ->
-                append(shellSingleQuote(k)).append('=').append(shellSingleQuote(v)).append(' ')
-            }
+        val prefix = try {
+            buildCommandPrefix(workingDir, envMap)
+        } catch (e: IllegalArgumentException) {
+            return mapOf("success" to false, "error" to e.message)
         }
         val wrapped = if (prefix.isEmpty()) command else "$prefix$command"
 
@@ -151,8 +171,6 @@ object ShellCommandTool : Tool {
             if (fresh) controller.closeSession(sessionId)
         }
     }
-
-    private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
 
     val toolInfo = ToolInfo(
         id = "execute_shell_command",
