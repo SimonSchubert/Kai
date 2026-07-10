@@ -1679,7 +1679,7 @@
 
 
 <h1 id="tools">Tools</h1>
-<p><strong>Last verified:</strong> 2026-05-28</p>
+<p><strong>Last verified:</strong> 2026-07-10</p>
 <p>Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="tool">Tool</h3>
@@ -1938,6 +1938,7 @@
 <li>The AI may respond with more tool calls — repeat from step 1</li>
 <li>When the AI responds with no tool calls, the final text is returned to the user</li>
 </ol>
+<p>Pressing stop cancels in-flight tool executions and removes the executing indicators from the chat; a cancelled tool is not reported to the AI as a failed result.</p>
 <p>The loop supports OpenAI-compatible, Gemini, and Anthropic provider formats, with provider-specific serialization of tool calls and results.</p>
 <h2 id="safety-guards">Safety Guards</h2>
 <h3 id="iteration-limit">Iteration limit</h3>

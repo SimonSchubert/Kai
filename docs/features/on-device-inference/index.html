@@ -819,7 +819,7 @@
 
 
 <h1 id="on-device-inference-litert">On-Device Inference (LiteRT)</h1>
-<p><strong>Last verified:</strong> 2026-07-07</p>
+<p><strong>Last verified:</strong> 2026-07-10</p>
 <p>Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.</p>
@@ -911,6 +911,7 @@
 <li><strong>Inference timeout</strong> -- individual inference calls are capped at 2 minutes</li>
 <li><strong>Auto-release</strong> -- released after 5 minutes of inactivity to free memory (always re-armed, even on errors)</li>
 <li><strong>Status indicator</strong> -- the chat shows "Initializing {model name}" with a pulsing dot during engine load</li>
+<li><strong>Stop during load</strong> -- the native model load cannot be interrupted; pressing stop cancels the message, and the load finishes in the background without marking the engine as failed. A follow-up message waits for the in-flight load instead of starting a second one</li>
 </ol>
 <h2 id="platform-differences">Platform Differences</h2>
 <table>

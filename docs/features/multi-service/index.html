@@ -1103,7 +1103,7 @@
 
 
 <h1 id="multi-service">Multi-Service</h1>
-<p><strong>Last verified:</strong> 2026-07-01</p>
+<p><strong>Last verified:</strong> 2026-07-10</p>
 <p>Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: <strong>OpenAI-compatible</strong> (most services), <strong>Gemini native</strong>, or <strong>Anthropic native</strong> -- plus <strong>LiteRT on-device</strong> for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.</p>
 <h2 id="concepts">Concepts</h2>
 <h3 id="service">Service</h3>
@@ -1133,12 +1133,13 @@
 <li>Only instances with valid API keys are considered</li>
 <li>If no instances are configured, the Free tier is used as the only service</li>
 <li>If instances exist and "Use as fallback" is enabled (default), the Free tier is appended as the last resort</li>
-<li>Each service attempt retries up to 2 times with increasing delays before moving to the next service in the chain</li>
+<li>Each individual API request retries up to 2 times with increasing delays before the service is considered failed. During a tool-use loop, each request inside the loop retries independently — a failure mid-loop never replays the loop (and its tool executions) from the start. On-device (Local Model) attempts are not retried, since their failures are deterministic rather than transient</li>
 <li>On failure, the next instance in the chain is tried; if all fail, the last error is shown</li>
 <li>If a fallback succeeds, the response indicates which service answered</li>
 <li>While the chain is being walked, the thinking indicator shows per-attempt status — the name of the service currently being tried, or the reason the previous one failed before moving on — so silent fallbacks are visible to the user</li>
 <li>Entries whose context window can't fit the current chat history are skipped during the walk</li>
 <li>On-device (Local Model) failures are not silently absorbed — they short-circuit the fallback chain so the user sees the actual error rather than being quietly bumped to a cloud service</li>
+<li>On-device entries are also never used as fallback targets: a local model is only tried when it is the primary (first) service in the chain. A cloud-service failure never silently starts a local model load</li>
 <li>Certain non-retryable errors (notably Anthropic's "insufficient credits" and quota-exhausted responses from OpenAI-compatible providers) bypass both the per-service retry loop and the fallback chain — the error surfaces immediately</li>
 </ol>
 <h2 id="api-formats">API Formats</h2>
