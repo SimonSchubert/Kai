@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-05-28
+**Last verified:** 2026-07-10
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -8,7 +8,7 @@ Kai's chat system manages the message history, conversation persistence, file at
 
 ### Conversation
 
-A persisted chat session containing an id (UUID), message list, timestamps (`createdAt`, `updatedAt`), a title, and a type (`chat`, `heartbeat`, or `interactive`). Conversations are stored in an encrypted file and restored across app launches.
+A persisted chat session containing an id (UUID), message list, timestamps (`createdAt`, `updatedAt`), a title, and a type (`chat`, `heartbeat`, or `interactive`). Conversations are stored in a local database (browser builds use the settings store) and restored across app launches.
 
 ### History
 
@@ -101,11 +101,12 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 
 ## Conversation Storage
 
-- Conversations are persisted through the platform's secure settings store (see [encryption.md](encryption.md))
-- The full conversation list is serialized as `ConversationsData` (versioned, currently v2)
-- Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended
-- Each conversation also retains a rolling tail of its sandbox shell transcript (last ~10,000 characters) so that follow-up commands in a resumed conversation see the prior shell context
-- Older builds stored conversations in an encrypted `conversations.enc` file (XOR with a 32-byte random key); on first load that file is decrypted and migrated into secure settings, then deleted
+- On Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage: one row per conversation plus one row per message, so saving a turn writes only the affected conversation instead of re-serializing the whole history
+- The browser build has no persistent database and keeps the full conversation list as a JSON blob in the settings store (see [encryption.md](encryption.md))
+- Conversations are upserted — updating a conversation replaces the existing entry by ID, new conversations are appended; the list loads ordered by creation time
+- Each conversation also retains a rolling tail of its sandbox shell transcript (last ~10,000 characters) so that follow-up commands in a resumed conversation see the prior shell context; transcript updates write only that field
+- Migration chain, run once on first load: the legacy encrypted `conversations.enc` file (XOR with a 32-byte random key) migrates into the settings-store blob; a settings-store blob found on a database-capable platform is imported into the database and removed. Settings import reuses the same path — imported conversations are staged in the settings store and absorbed into the database on the next load, replacing its content
+- The database structure is versioned and lives on user devices: any future change to its tables or columns requires an accompanying migration step so existing installs upgrade in place (message contents are stored as JSON and tolerate unknown fields, so message-level additions do not need one)
 
 ## UI Elements
 
@@ -122,7 +123,9 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 | File | Purpose |
 |---|---|
 | `composeApp/src/commonMain/.../data/Conversation.kt` | Conversation and message data classes, type constants |
-| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | Serialization, settings-backed persistence, legacy migration |
+| `composeApp/src/commonMain/.../data/ConversationStorage.kt` | In-memory conversation flow, transcript trimming, legacy migration |
+| `composeApp/src/commonMain/.../data/ConversationPersistence.kt` | SQL and settings-blob persistence backends, staged-import handling |
+| `composeApp/src/commonMain/sqldelight/com/inspiredandroid/kai/db/conversation.sq` | Conversation and message table schema and queries |
 | `composeApp/src/commonMain/.../data/FileClassification.kt` | File category enum, MIME/extension classifier, size constants, file exceptions |
 | `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | History management, conversation save/restore/delete, title derivation, message sending |
 | `composeApp/src/commonMain/.../ui/chat/ChatViewModel.kt` | Chat UI state, send/retry/regenerate/cancel/loadConversation/deleteConversation actions |

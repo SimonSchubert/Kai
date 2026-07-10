@@ -1,0 +1,53 @@
+-- IMPORTANT: This schema ships to user devices (SQLite user_version 1). Any
+-- structural change here — adding/removing/renaming columns or tables — MUST
+-- come with a numbered .sqm migration file next to this one (1.sqm, 2.sqm, …)
+-- so existing installs upgrade in place. Editing the CREATE TABLE alone only
+-- affects fresh installs; existing databases keep the old structure and the
+-- generated queries will fail against them. Message *content* is not affected:
+-- it is stored as JSON with ignoreUnknownKeys, so fields can evolve freely
+-- inside messageJson/shellTranscriptJson without a schema migration.
+
+CREATE TABLE conversationEntity (
+    id TEXT NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    type TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    updatedAt INTEGER NOT NULL,
+    shellTranscriptJson TEXT NOT NULL
+);
+
+CREATE TABLE messageEntity (
+    conversationId TEXT NOT NULL,
+    orderIndex INTEGER NOT NULL,
+    messageJson TEXT NOT NULL,
+    PRIMARY KEY (conversationId, orderIndex)
+);
+
+selectAllConversations:
+SELECT * FROM conversationEntity ORDER BY createdAt, id;
+
+selectAllMessages:
+SELECT * FROM messageEntity ORDER BY conversationId, orderIndex;
+
+upsertConversation:
+INSERT OR REPLACE INTO conversationEntity (id, title, type, createdAt, updatedAt, shellTranscriptJson)
+VALUES (?, ?, ?, ?, ?, ?);
+
+updateShellTranscript:
+UPDATE conversationEntity SET shellTranscriptJson = ? WHERE id = ?;
+
+deleteConversation:
+DELETE FROM conversationEntity WHERE id = ?;
+
+insertMessage:
+INSERT INTO messageEntity (conversationId, orderIndex, messageJson)
+VALUES (?, ?, ?);
+
+deleteMessages:
+DELETE FROM messageEntity WHERE conversationId = ?;
+
+deleteAllConversations:
+DELETE FROM conversationEntity;
+
+deleteAllMessages:
+DELETE FROM messageEntity;

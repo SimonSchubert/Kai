@@ -20,6 +20,7 @@ import kotlin.uuid.Uuid
 fun AppSettings.exportToJson(
     toolIds: List<String>,
     sections: Set<ImportSection> = ImportSection.entries.toSet(),
+    conversations: List<Conversation> = emptyList(),
 ): JsonObject {
     val map = mutableMapOf<String, JsonElement>()
     map["version"] = JsonPrimitive(1)
@@ -148,16 +149,10 @@ fun AppSettings.exportToJson(
         }
     }
 
-    if (ImportSection.CONVERSATIONS in sections) {
-        val conversationsJson = getConversationsJson()
-        if (!conversationsJson.isNullOrBlank()) {
-            try {
-                val convData = SharedJson.decodeFromString<ConversationsData>(conversationsJson)
-                if (convData.conversations.isNotEmpty()) {
-                    map["conversations"] = Json.parseToJsonElement(SharedJson.encodeToString(convData.conversations))
-                }
-            } catch (_: Exception) {
-            }
+    if (ImportSection.CONVERSATIONS in sections && conversations.isNotEmpty()) {
+        try {
+            map["conversations"] = Json.parseToJsonElement(SharedJson.encodeToString(conversations))
+        } catch (_: Exception) {
         }
     }
 

@@ -32,6 +32,7 @@ turbine = "1.2.1"
 bouncycastle = "1.84"
 reorderable = "3.1.0"
 litert-lm = "0.14.0"
+sqldelight = "2.3.2"
 materialIcons = "1.7.3"
 
 [libraries]
@@ -89,6 +90,10 @@ bouncycastle-provider = { module = "org.bouncycastle:bcprov-jdk18on", version.re
 reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 litert-lm = { module = "com.google.ai.edge.litertlm:litertlm-android", version.ref = "litert-lm" }
 litert-lm-jvm = { module = "com.google.ai.edge.litertlm:litertlm-jvm", version.ref = "litert-lm" }
+sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqldelight" }
+sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -100,3 +105,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 androidMultiplatformLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 paparazzi = { id = "app.cash.paparazzi", version.ref = "paparazzi" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }

@@ -13,6 +13,7 @@ import com.inspiredandroid.kai.data.SmsStore
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.TaskStore
 import com.inspiredandroid.kai.data.ToolExecutor
+import com.inspiredandroid.kai.data.createConversationPersistence
 import com.inspiredandroid.kai.data.runMigrations
 import com.inspiredandroid.kai.email.EmailPoller
 import com.inspiredandroid.kai.inference.createLocalInferenceEngine
@@ -59,7 +60,7 @@ val appModule = module {
         Requests()
     }
     single<ConversationStorage> {
-        ConversationStorage(get())
+        ConversationStorage(get(), createConversationPersistence(get()))
     }
     single<ToolExecutor> {
         ToolExecutor()

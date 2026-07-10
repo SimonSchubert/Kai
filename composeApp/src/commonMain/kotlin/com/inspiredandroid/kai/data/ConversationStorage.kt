@@ -5,33 +5,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 expect fun readLegacyConversationFile(): ByteArray?
 expect fun deleteLegacyConversationFile()
 
 private const val MAX_SHELL_TRANSCRIPT_CHARS = 10_000
 
-class ConversationStorage(private val appSettings: AppSettings) {
+class ConversationStorage(
+    private val appSettings: AppSettings,
+    private val persistence: ConversationPersistence,
+) {
     private val mutableConversations = MutableStateFlow<List<Conversation>>(emptyList())
     val conversations: StateFlow<List<Conversation>> = mutableConversations.asStateFlow()
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        encodeDefaults = true
-    }
-
     fun loadConversations() {
-        val data = appSettings.getConversationsJson()
-        if (data != null) {
-            mutableConversations.value = deserialize(data)
-        } else {
+        val loaded = persistence.loadAll()
+        mutableConversations.value = loaded
+        if (loaded.isEmpty()) {
             migrateLegacy()
         }
     }
 
     fun saveConversation(conversation: Conversation) {
+        var saved = conversation
         mutableConversations.update { current ->
             val index = current.indexOfFirst { it.id == conversation.id }
             if (index >= 0) {
@@ -43,12 +39,13 @@ class ConversationStorage(private val appSettings: AppSettings) {
                 } else {
                     conversation
                 }
+                saved = merged
                 current.toMutableList().apply { set(index, merged) }
             } else {
                 current + conversation
             }
         }
-        persist()
+        persistence.save(saved, mutableConversations.value)
     }
 
     /**
@@ -60,7 +57,7 @@ class ConversationStorage(private val appSettings: AppSettings) {
      */
     fun updateShellTranscript(conversationId: String, lines: List<TerminalLine>) {
         val trimmed = trimToCharLimit(lines, MAX_SHELL_TRANSCRIPT_CHARS)
-        var changed = false
+        var changed: Conversation? = null
         mutableConversations.update { current ->
             val idx = current.indexOfFirst { it.id == conversationId }
             if (idx < 0) {
@@ -68,11 +65,12 @@ class ConversationStorage(private val appSettings: AppSettings) {
             } else if (current[idx].shellTranscript == trimmed) {
                 current
             } else {
-                changed = true
-                current.toMutableList().apply { set(idx, current[idx].copy(shellTranscript = trimmed)) }
+                val updated = current[idx].copy(shellTranscript = trimmed)
+                changed = updated
+                current.toMutableList().apply { set(idx, updated) }
             }
         }
-        if (changed) persist()
+        changed?.let { persistence.saveShellTranscript(it, mutableConversations.value) }
     }
 
     private fun trimToCharLimit(lines: List<TerminalLine>, limit: Int): List<TerminalLine> {
@@ -101,18 +99,7 @@ class ConversationStorage(private val appSettings: AppSettings) {
         mutableConversations.update { current ->
             current.filter { it.id != id }
         }
-        persist()
-    }
-
-    private fun persist() {
-        val data = json.encodeToString(ConversationsData(conversations = mutableConversations.value))
-        appSettings.setConversationsJson(data)
-    }
-
-    private fun deserialize(data: String): List<Conversation> = try {
-        json.decodeFromString<ConversationsData>(data).conversations
-    } catch (_: Exception) {
-        emptyList()
+        persistence.delete(id, mutableConversations.value)
     }
 
     private fun migrateLegacy() {
@@ -122,9 +109,13 @@ class ConversationStorage(private val appSettings: AppSettings) {
         for (i in legacyData.indices) {
             decrypted[i] = (legacyData[i].toInt() xor key[i % key.size].toInt()).toByte()
         }
-        val conversations = deserialize(decrypted.decodeToString())
+        val conversations = try {
+            ConversationJson.decodeFromString<ConversationsData>(decrypted.decodeToString()).conversations
+        } catch (_: Exception) {
+            emptyList()
+        }
         mutableConversations.value = conversations
-        persist()
+        persistence.replaceAll(conversations)
         deleteLegacyConversationFile()
     }
 }

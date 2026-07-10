@@ -688,20 +688,17 @@ class AppSettingsExportImportTest {
     @Test
     fun `export includes conversations when present`() {
         val appSettings = createAppSettings()
-        val convData = ConversationsData(
-            conversations = listOf(
-                Conversation(
-                    id = "conv1",
-                    messages = listOf(Conversation.Message(id = "msg1", role = "user", content = "Hello")),
-                    createdAt = 1000L,
-                    updatedAt = 2000L,
-                    title = "Test chat",
-                ),
+        val storedConversations = listOf(
+            Conversation(
+                id = "conv1",
+                messages = listOf(Conversation.Message(id = "msg1", role = "user", content = "Hello")),
+                createdAt = 1000L,
+                updatedAt = 2000L,
+                title = "Test chat",
             ),
         )
-        appSettings.setConversationsJson(SharedJson.encodeToString(convData))
 
-        val json = appSettings.exportToJson(toolIds)
+        val json = appSettings.exportToJson(toolIds, conversations = storedConversations)
 
         assertTrue(json.containsKey("conversations"))
         val conversations = json["conversations"]!!.jsonArray
@@ -742,9 +739,7 @@ class AppSettingsExportImportTest {
                 ),
             ),
         )
-        appSettings.setConversationsJson(SharedJson.encodeToString(convData))
-
-        val exported = appSettings.exportToJson(toolIds)
+        val exported = appSettings.exportToJson(toolIds, conversations = convData.conversations)
 
         val target = createAppSettings()
         target.importFromJson(exported, toolIds)

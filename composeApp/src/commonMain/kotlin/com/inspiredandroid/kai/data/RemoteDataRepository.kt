@@ -1936,13 +1936,13 @@ class RemoteDataRepository(
 
     override fun exportSettingsToJson(sections: Set<ImportSection>): String {
         val toolIds = getPlatformToolDefinitions().map { it.id }
-        val jsonObject = appSettings.exportToJson(toolIds, sections)
+        val jsonObject = appSettings.exportToJson(toolIds, sections, conversationStorage.conversations.value)
         return prettyJson.encodeToString(JsonObject.serializer(), jsonObject)
     }
 
     override fun getExportPreview(): Map<ImportSection, String?> {
         val toolIds = getPlatformToolDefinitions().map { it.id }
-        val jsonObject = appSettings.exportToJson(toolIds)
+        val jsonObject = appSettings.exportToJson(toolIds, conversations = conversationStorage.conversations.value)
         return detectExportableSections(jsonObject)
     }
 

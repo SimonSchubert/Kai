@@ -1,16 +1,16 @@
 # Encryption & Secure Storage
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-07-10
 
-All sensitive data (API keys, email passwords, conversation history) is stored through a platform-specific `Settings` implementation selected by `createSecureSettings()`. Each platform uses the strongest available mechanism.
+All sensitive settings (API keys, email passwords) are stored through a platform-specific `Settings` implementation selected by `createSecureSettings()`. Each platform uses the strongest available mechanism.
 
 ## Sensitive Data
 
 The following data is stored in secure settings:
 - Service API keys (per-instance)
 - Email account passwords
-- Conversation history (may contain user messages with file attachments)
 - Encryption key for legacy conversation migration
+- Conversation history on the browser build only — on Android, iOS, and desktop, conversations live in a local SQLite database in app-private storage (unencrypted at the application layer; protected by the OS app sandbox and any platform full-disk/file-based encryption). See [chat.md](chat.md) for the storage layout and migration chain.
 
 ## Platform Implementations
 
@@ -47,12 +47,14 @@ The following data is stored in secure settings:
 
 ## Legacy Conversation Storage
 
-Prior to the current Settings-based storage, conversations were stored in an encrypted file (`conversations.enc`) using XOR encryption with a 32-byte random key. This is migrated automatically on first load:
+Prior to the current database-backed storage, conversations were stored in an encrypted file (`conversations.enc`) using XOR encryption with a 32-byte random key, and later as a JSON blob in secure settings. Both are migrated automatically on first load:
 
 1. Read `conversations.enc` from the app files directory
 2. Decrypt using XOR with the key from `encryption_key` in settings
-3. Persist to current Settings-based storage
+3. Persist to the current conversation storage (database, or settings blob on the browser build)
 4. Delete the legacy file
+
+On database-capable platforms, a conversation blob found in secure settings is likewise imported into the database and removed from settings on first load.
 
 The XOR encryption key is retained in settings for any devices that haven't migrated yet.
 

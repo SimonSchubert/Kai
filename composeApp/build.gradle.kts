@@ -9,6 +9,19 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.sqldelight)
+}
+
+sqldelight {
+    databases {
+        create("KaiDatabase") {
+            packageName.set("com.inspiredandroid.kai.db")
+            // The schema lives on user devices — structural changes need a
+            // numbered .sqm migration file (see conversation.sq header).
+            // This makes the build verify that migrations reproduce the schema.
+            verifyMigrations.set(true)
+        }
+    }
 }
 
 composeCompiler {
@@ -100,6 +113,7 @@ kotlin {
             implementation(libs.material)
             implementation(libs.bouncycastle.provider)
             implementation(libs.litert.lm)
+            implementation(libs.sqldelight.android.driver)
         }
         commonMain.dependencies {
             implementation(libs.compose.material3)
@@ -143,6 +157,8 @@ kotlin {
             implementation(libs.coil.network.ktor3)
 
             implementation(libs.reorderable)
+
+            implementation(libs.sqldelight.runtime)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -151,11 +167,13 @@ kotlin {
             implementation(libs.bouncycastle.provider)
             implementation(libs.slf4j.nop)
             implementation(libs.litert.lm.jvm)
+            implementation(libs.sqldelight.sqlite.driver)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.ktor.network)
             implementation(libs.ktor.network.tls)
+            implementation(libs.sqldelight.native.driver)
         }
         wasmJsMain.dependencies {
             implementation(libs.ktor.client.js)
