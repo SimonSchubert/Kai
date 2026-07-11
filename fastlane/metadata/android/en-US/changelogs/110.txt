@@ -1,0 +1,5 @@
+Migrate conversations to SQL storage
+Add Gemma 4 12B local model and catalog updates
+Fix Android 17 local network permission request
+Improve service and tool calling
+Upgrade dependencies

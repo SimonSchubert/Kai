@@ -1,3 +1,18 @@
+## v2.8.1 — 2026-07-11
+
+### Features
+- Migrate conversations to SQL storage
+- Add Gemma 4 12B local model and missing catalog entries
+
+### Fixes
+- Fix Android 17 local network permission request
+
+### Improvements
+- Improve service and tool calling
+- Add Atlas Cloud UTM tracking
+- Update model catalog
+- Upgrade dependencies
+
 ## v2.8.0 — 2026-07-01
 
 ### Features
