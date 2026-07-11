@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Kuota habis</string>
     <string name="settings_status_error_rate_limited">Batas kecepatan tercapai</string>
     <string name="settings_status_error_connection_failed">Koneksi gagal</string>
+    <string name="settings_status_error_local_network">Akses jaringan lokal ditolak. Izinkan di pengaturan sistem untuk menjangkau server di jaringan Anda.</string>
+    <string name="settings_open_app_settings">Buka pengaturan</string>
+    <string name="error_local_network_permission">Akses jaringan lokal diperlukan untuk menjangkau server Anda. Izinkan di pengaturan sistem lalu coba lagi.</string>
     <string name="settings_openai_compatible_setup_ollama">Siapkan instans Ollama lokal Anda:</string>
     <string name="settings_openai_compatible_or_other_service">atau layanan kompatibel lainnya:</string>
     <string name="settings_openai_compatible_providers">penyedia</string>

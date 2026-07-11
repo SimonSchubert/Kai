@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">ኮታ ተሟጧል</string>
     <string name="settings_status_error_rate_limited">ተጠቀሙበት ገደብ ተደርሷል</string>
     <string name="settings_status_error_connection_failed">ግንኙነት አልተሳካም</string>
+    <string name="settings_status_error_local_network">የአካባቢ አውታረ መረብ መዳረሻ ተከልክሏል። በአውታረ መረብዎ ላይ ያሉ አገልጋዮችን ለመድረስ በስርዓት ቅንብሮች ውስጥ ይፍቀዱት።</string>
+    <string name="settings_open_app_settings">ቅንብሮችን ክፈት</string>
+    <string name="error_local_network_permission">አገልጋይዎን ለመድረስ የአካባቢ አውታረ መረብ መዳረሻ ያስፈልጋል። በስርዓት ቅንብሮች ውስጥ ይፍቀዱት እና እንደገና ይሞክሩ።</string>
     <string name="error_openai_compatible_connection">ከአገልጋዩ ጋር መገናኘት አልተቻለም። አገልጋዩ እየሰራ መሆኑን ያረጋግጡ።</string>
     <string name="error_openai_compatible_model_not_found">ሞዴል አልተገኘም። እባክዎ የተለየ ሞዴል ይምረጡ።</string>
     <string name="settings_openai_compatible_setup_ollama">የአካባቢ Ollama ምሳሌዎን ያዘጋጁ:</string>

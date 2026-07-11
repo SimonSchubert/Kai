@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvota je izčrpana</string>
     <string name="settings_status_error_rate_limited">Omejitev zahtev dosežena</string>
     <string name="settings_status_error_connection_failed">Povezava ni uspela</string>
+    <string name="settings_status_error_local_network">Dostop do lokalnega omrežja je bil zavrnjen. Dovolite ga v sistemskih nastavitvah, da dosežete strežnike v svojem omrežju.</string>
+    <string name="settings_open_app_settings">Odpri nastavitve</string>
+    <string name="error_local_network_permission">Za dostop do vašega strežnika je potreben dostop do lokalnega omrežja. Dovolite ga v sistemskih nastavitvah in poskusite znova.</string>
     <string name="error_openai_compatible_connection">Ni mogoče vzpostaviti povezave s strežnikom. Prepričajte se, da strežnik deluje.</string>
     <string name="error_openai_compatible_model_not_found">Model ni najden. Izberite drug model.</string>
     <string name="settings_openai_compatible_setup_ollama">Nastavite svojo lokalno instanco Ollama:</string>

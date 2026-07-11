@@ -10,7 +10,10 @@ import com.inspiredandroid.kai.data.ServiceEntry
 import com.inspiredandroid.kai.data.TaskScheduler
 import com.inspiredandroid.kai.data.UiSubmission
 import com.inspiredandroid.kai.getBackgroundDispatcher
+import com.inspiredandroid.kai.network.UiError
 import com.inspiredandroid.kai.network.toUiError
+import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
+import com.inspiredandroid.kai.tools.isLocalNetworkUrl
 import com.inspiredandroid.kai.ui.markdown.KaiUiBlock
 import com.inspiredandroid.kai.ui.markdown.KaiUiError
 import com.inspiredandroid.kai.ui.markdown.parseMarkdown
@@ -18,6 +21,7 @@ import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.extension
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.conversation_untitled
+import kai.composeapp.generated.resources.error_local_network_permission
 import kai.composeapp.generated.resources.error_unsupported_file_type
 import kai.composeapp.generated.resources.litert_no_model_warning
 import kotlinx.collections.immutable.persistentListOf
@@ -43,6 +47,7 @@ class ChatViewModel(
     private val dataRepository: DataRepository,
     private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
+    private val localNetworkPermissionController: LocalNetworkPermissionController = LocalNetworkPermissionController(),
 ) : ViewModel() {
 
     private val actions = ChatActions(
@@ -203,6 +208,17 @@ class ChatViewModel(
                     files = persistentListOf(),
                 )
             }
+            // Android 17+ blocks LAN traffic without the local network permission — without
+            // asking first, requests to self-hosted servers silently never leave the device.
+            if (!ensureLocalNetworkPermission()) {
+                _state.update {
+                    it.copy(
+                        error = UiError.Resource(Res.string.error_local_network_permission),
+                        isLoading = false,
+                    )
+                }
+                return@launch
+            }
             try {
                 dataRepository.ask(strippedQuestion, files, uiSubmission, activeSkillId)
 
@@ -226,6 +242,17 @@ class ChatViewModel(
                 }
             }
         }
+    }
+
+    /**
+     * True unless the active service points at a local network host and the user
+     * denied the local network permission. Cheap no-op on non-Android platforms.
+     */
+    private suspend fun ensureLocalNetworkPermission(): Boolean {
+        val instance = dataRepository.getConfiguredServiceInstances().firstOrNull() ?: return true
+        val baseUrl = dataRepository.getInstanceBaseUrl(instance.instanceId, Service.fromId(instance.serviceId))
+        if (!isLocalNetworkUrl(baseUrl)) return true
+        return localNetworkPermissionController.requestPermission()
     }
 
     private suspend fun retryIfNoValidKaiUi(maxRetries: Int = 2) {

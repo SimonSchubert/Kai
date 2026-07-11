@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvota iscrpljena</string>
     <string name="settings_status_error_rate_limited">Ograničenje zahtjeva</string>
     <string name="settings_status_error_connection_failed">Veza nije uspjela</string>
+    <string name="settings_status_error_local_network">Pristup lokalnoj mreži je odbijen. Dopustite ga u postavkama sustava kako biste dosegnuli poslužitelje na svojoj mreži.</string>
+    <string name="settings_open_app_settings">Otvori postavke</string>
+    <string name="error_local_network_permission">Za pristup vašem poslužitelju potreban je pristup lokalnoj mreži. Dopustite ga u postavkama sustava i pokušajte ponovno.</string>
     <string name="error_openai_compatible_connection">Nije moguće spojiti se na poslužitelj. Provjerite radi li poslužitelj.</string>
     <string name="error_openai_compatible_model_not_found">Model nije pronađen. Odaberite drugi model.</string>
     <string name="settings_openai_compatible_setup_ollama">Postavite svoju lokalnu Ollama instancu:</string>

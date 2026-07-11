@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Limit wyczerpany</string>
     <string name="settings_status_error_rate_limited">Limit żądań osiągnięty</string>
     <string name="settings_status_error_connection_failed">Połączenie nieudane</string>
+    <string name="settings_status_error_local_network">Odmówiono dostępu do sieci lokalnej. Zezwól na niego w ustawieniach systemu, aby łączyć się z serwerami w Twojej sieci.</string>
+    <string name="settings_open_app_settings">Otwórz ustawienia</string>
+    <string name="error_local_network_permission">Do połączenia z Twoim serwerem wymagany jest dostęp do sieci lokalnej. Zezwól na niego w ustawieniach systemu i spróbuj ponownie.</string>
     <string name="settings_openai_compatible_setup_ollama">Skonfiguruj swoją lokalną instancję Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">lub inną kompatybilną usługę:</string>
     <string name="settings_openai_compatible_providers">dostawcy</string>

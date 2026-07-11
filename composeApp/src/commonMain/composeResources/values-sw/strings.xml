@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Kiwango kimeisha</string>
     <string name="settings_status_error_rate_limited">Kikomo cha kiwango kimefikiwa</string>
     <string name="settings_status_error_connection_failed">Muunganisho umeshindwa</string>
+    <string name="settings_status_error_local_network">Ufikiaji wa mtandao wa karibu umekataliwa. Uruhusu katika mipangilio ya mfumo ili kufikia seva kwenye mtandao wako.</string>
+    <string name="settings_open_app_settings">Fungua mipangilio</string>
+    <string name="error_local_network_permission">Ufikiaji wa mtandao wa karibu unahitajika ili kufikia seva yako. Uruhusu katika mipangilio ya mfumo kisha ujaribu tena.</string>
     <string name="settings_openai_compatible_setup_ollama">Weka mfumo wako wa ndani wa Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">au huduma nyingine yoyote inayooana:</string>
     <string name="settings_openai_compatible_providers">watoa huduma</string>

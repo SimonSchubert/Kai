@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Naubos na ang quota</string>
     <string name="settings_status_error_rate_limited">Na-rate limit</string>
     <string name="settings_status_error_connection_failed">Nabigo ang koneksyon</string>
+    <string name="settings_status_error_local_network">Tinanggihan ang access sa lokal na network. Payagan ito sa mga setting ng system para maabot ang mga server sa iyong network.</string>
+    <string name="settings_open_app_settings">Buksan ang mga setting</string>
+    <string name="error_local_network_permission">Kailangan ng access sa lokal na network para maabot ang iyong server. Payagan ito sa mga setting ng system at subukang muli.</string>
     <string name="error_openai_compatible_connection">Hindi makakonekta sa server. Siguraduhing tumatakbo ang server.</string>
     <string name="error_openai_compatible_model_not_found">Hindi nahanap ang modelo. Pumili ng ibang modelo.</string>
     <string name="settings_openai_compatible_setup_ollama">I-setup ang iyong lokal na Ollama instance:</string>

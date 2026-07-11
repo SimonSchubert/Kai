@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Isilinganiso siphelile</string>
     <string name="settings_status_error_rate_limited">Umkhawulo wezicelo ufinyelelwe</string>
     <string name="settings_status_error_connection_failed">Ukuxhumana kuhlulekile</string>
+    <string name="settings_status_error_local_network">Ukufinyelela kwenethiwekhi yendawo kunqatshiwe. Kuvumele kuzilungiselelo zesistimu ukuze ufinyelele amaseva kunethiwekhi yakho.</string>
+    <string name="settings_open_app_settings">Vula izilungiselelo</string>
+    <string name="error_local_network_permission">Ukufinyelela kwenethiwekhi yendawo kuyadingeka ukuze ufinyelele iseva yakho. Kuvumele kuzilungiselelo zesistimu bese uzama futhi.</string>
     <string name="error_openai_compatible_connection">Ayikwazi ukuxhumana neseva. Qiniseka ukuthi iseva iyasebenza.</string>
     <string name="error_openai_compatible_model_not_found">Imodeli ayitholakali. Sicela ukhethe imodeli ehlukile.</string>
     <string name="settings_openai_compatible_setup_ollama">Lungiselela isibonelo sakho sendawo se-Ollama:</string>

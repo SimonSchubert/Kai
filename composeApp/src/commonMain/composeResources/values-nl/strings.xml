@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Quotum uitgeput</string>
     <string name="settings_status_error_rate_limited">Aanvraaglimiet bereikt</string>
     <string name="settings_status_error_connection_failed">Verbinding mislukt</string>
+    <string name="settings_status_error_local_network">Toegang tot het lokale netwerk geweigerd. Sta dit toe in de systeeminstellingen om servers op uw netwerk te bereiken.</string>
+    <string name="settings_open_app_settings">Instellingen openen</string>
+    <string name="error_local_network_permission">Toegang tot het lokale netwerk is vereist om uw server te bereiken. Sta dit toe in de systeeminstellingen en probeer het opnieuw.</string>
     <string name="settings_openai_compatible_setup_ollama">Stel uw lokale Ollama-instantie in:</string>
     <string name="settings_openai_compatible_or_other_service">of een andere compatibele service:</string>
     <string name="settings_openai_compatible_providers">aanbieders</string>

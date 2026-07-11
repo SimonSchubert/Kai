@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">కోటా అయిపోయింది</string>
     <string name="settings_status_error_rate_limited">రేట్ పరిమితి చేరుకుంది</string>
     <string name="settings_status_error_connection_failed">కనెక్షన్ విఫలమైంది</string>
+    <string name="settings_status_error_local_network">లోకల్ నెట్‌వర్క్ యాక్సెస్ నిరాకరించబడింది. మీ నెట్‌వర్క్‌లోని సర్వర్‌లను చేరుకోవడానికి సిస్టమ్ సెట్టింగ్‌లలో దాన్ని అనుమతించండి.</string>
+    <string name="settings_open_app_settings">సెట్టింగ్‌లను తెరవండి</string>
+    <string name="error_local_network_permission">మీ సర్వర్‌ను చేరుకోవడానికి లోకల్ నెట్‌వర్క్ యాక్సెస్ అవసరం. సిస్టమ్ సెట్టింగ్‌లలో దాన్ని అనుమతించి మళ్లీ ప్రయత్నించండి.</string>
     <string name="settings_openai_compatible_setup_ollama">మీ స్థానిక Ollama ఇన్‌స్టెన్స్‌ను సెటప్ చేయండి:</string>
     <string name="settings_openai_compatible_or_other_service">లేదా ఇతర అనుకూల సేవ:</string>
     <string name="settings_openai_compatible_providers">ప్రొవైడర్లు</string>

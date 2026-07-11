@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">クォータ超過</string>
     <string name="settings_status_error_rate_limited">レート制限中</string>
     <string name="settings_status_error_connection_failed">接続失敗</string>
+    <string name="settings_status_error_local_network">ローカルネットワークへのアクセスが拒否されました。ネットワーク上のサーバーに接続するには、システム設定で許可してください。</string>
+    <string name="settings_open_app_settings">設定を開く</string>
+    <string name="error_local_network_permission">サーバーに接続するにはローカルネットワークへのアクセスが必要です。システム設定で許可してから、もう一度お試しください。</string>
     <string name="settings_openai_compatible_setup_ollama">ローカルのOllamaインスタンスをセットアップ：</string>
     <string name="settings_openai_compatible_or_other_service">または他の互換サービス：</string>
     <string name="settings_openai_compatible_providers">プロバイダー</string>

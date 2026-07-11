@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Квота исчерпана</string>
     <string name="settings_status_error_rate_limited">Превышен лимит запросов</string>
     <string name="settings_status_error_connection_failed">Ошибка подключения</string>
+    <string name="settings_status_error_local_network">Доступ к локальной сети запрещён. Разрешите его в системных настройках, чтобы обращаться к серверам в вашей сети.</string>
+    <string name="settings_open_app_settings">Открыть настройки</string>
+    <string name="error_local_network_permission">Для подключения к вашему серверу требуется доступ к локальной сети. Разрешите его в системных настройках и попробуйте снова.</string>
     <string name="settings_openai_compatible_setup_ollama">Настройте локальный экземпляр Ollama:</string>
     <string name="settings_openai_compatible_or_other_service">или любой другой совместимый сервис:</string>
     <string name="settings_openai_compatible_providers">провайдеры</string>

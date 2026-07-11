@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Квота је исцрпљена</string>
     <string name="settings_status_error_rate_limited">Ограничење захтева достигнуто</string>
     <string name="settings_status_error_connection_failed">Повезивање није успело</string>
+    <string name="settings_status_error_local_network">Приступ локалној мрежи је одбијен. Дозволите га у системским подешавањима да бисте приступили серверима на својој мрежи.</string>
+    <string name="settings_open_app_settings">Отвори подешавања</string>
+    <string name="error_local_network_permission">За приступ вашем серверу потребан је приступ локалној мрежи. Дозволите га у системским подешавањима и покушајте поново.</string>
     <string name="error_openai_compatible_connection">Није могуће повезати се са сервером. Проверите да ли сервер ради.</string>
     <string name="error_openai_compatible_model_not_found">Модел није пронађен. Изаберите други модел.</string>
     <string name="settings_openai_compatible_setup_ollama">Подесите своју локалну Ollama инстанцу:</string>

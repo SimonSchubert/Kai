@@ -37,8 +37,10 @@ import coil3.svg.SvgDecoder
 import com.inspiredandroid.kai.data.AppSettings
 import com.inspiredandroid.kai.data.ThemeMode
 import com.inspiredandroid.kai.tools.CalendarPermissionController
+import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
 import com.inspiredandroid.kai.tools.SetupCalendarPermissionHandler
+import com.inspiredandroid.kai.tools.SetupLocalNetworkPermissionHandler
 import com.inspiredandroid.kai.tools.SetupNotificationPermissionHandler
 import com.inspiredandroid.kai.tools.SetupSmsPermissionHandler
 import com.inspiredandroid.kai.tools.SetupSmsSendPermissionHandler
@@ -131,6 +133,9 @@ private fun AppContent(
 
     val notificationPermissionController = koinInject<NotificationPermissionController>()
     SetupNotificationPermissionHandler(notificationPermissionController)
+
+    val localNetworkPermissionController = koinInject<LocalNetworkPermissionController>()
+    SetupLocalNetworkPermissionHandler(localNetworkPermissionController)
 
     val smsPermissionController = koinInject<SmsPermissionController>()
     SetupSmsPermissionHandler(smsPermissionController)

@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Квота таусылды</string>
     <string name="settings_status_error_rate_limited">Сұрау лимиті шектелді</string>
     <string name="settings_status_error_connection_failed">Қосылым сәтсіз</string>
+    <string name="settings_status_error_local_network">Жергілікті желіге кіру рұқсаты қабылданбады. Желіңіздегі серверлерге қосылу үшін жүйе параметрлерінде рұқсат етіңіз.</string>
+    <string name="settings_open_app_settings">Параметрлерді ашу</string>
+    <string name="error_local_network_permission">Серверіңізге қосылу үшін жергілікті желіге кіру рұқсаты қажет. Жүйе параметрлерінде рұқсат етіп, қайталап көріңіз.</string>
     <string name="error_openai_compatible_connection">Серверге қосылу мүмкін емес. Сервердің жұмыс істеп тұрғанына көз жеткізіңіз.</string>
     <string name="error_openai_compatible_model_not_found">Модель табылмады. Басқа модельді таңдаңыз.</string>
     <string name="settings_openai_compatible_setup_ollama">Жергілікті Ollama нұсқаңызды орнатыңыз:</string>

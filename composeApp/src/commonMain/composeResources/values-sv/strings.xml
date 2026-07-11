@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvoten är förbrukad</string>
     <string name="settings_status_error_rate_limited">Hastighetsbegränsad</string>
     <string name="settings_status_error_connection_failed">Anslutningen misslyckades</string>
+    <string name="settings_status_error_local_network">Åtkomst till lokalt nätverk nekades. Tillåt den i systeminställningarna för att nå servrar på ditt nätverk.</string>
+    <string name="settings_open_app_settings">Öppna inställningar</string>
+    <string name="error_local_network_permission">Åtkomst till lokalt nätverk krävs för att nå din server. Tillåt den i systeminställningarna och försök igen.</string>
     <string name="error_openai_compatible_connection">Kan inte ansluta till servern. Se till att servern körs.</string>
     <string name="error_openai_compatible_model_not_found">Modellen hittades inte. Välj en annan modell.</string>
     <string name="settings_openai_compatible_setup_ollama">Konfigurera din lokala Ollama-instans:</string>

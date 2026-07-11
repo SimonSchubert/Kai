@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvóta kimerült</string>
     <string name="settings_status_error_rate_limited">Kérési limit elérve</string>
     <string name="settings_status_error_connection_failed">Sikertelen kapcsolódás</string>
+    <string name="settings_status_error_local_network">A helyi hálózati hozzáférés megtagadva. Engedélyezze a rendszerbeállításokban, hogy elérje a hálózatán lévő szervereket.</string>
+    <string name="settings_open_app_settings">Beállítások megnyitása</string>
+    <string name="error_local_network_permission">A szerver eléréséhez helyi hálózati hozzáférés szükséges. Engedélyezze a rendszerbeállításokban, majd próbálja újra.</string>
     <string name="error_openai_compatible_connection">Nem lehet csatlakozni a szerverhez. Győződj meg róla, hogy a szerver fut.</string>
     <string name="error_openai_compatible_model_not_found">A modell nem található. Kérlek, válassz egy másik modellt.</string>
     <string name="settings_openai_compatible_setup_ollama">Állítsd be a helyi Ollama példányodat:</string>

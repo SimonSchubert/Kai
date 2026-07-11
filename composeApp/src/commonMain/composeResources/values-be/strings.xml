@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Квота вычарпана</string>
     <string name="settings_status_error_rate_limited">Ліміт запытаў дасягнуты</string>
     <string name="settings_status_error_connection_failed">Злучэнне не ўдалося</string>
+    <string name="settings_status_error_local_network">Доступ да лакальнай сеткі забаронены. Дазвольце яго ў сістэмных наладах, каб звяртацца да сервераў у вашай сетцы.</string>
+    <string name="settings_open_app_settings">Адкрыць налады</string>
+    <string name="error_local_network_permission">Для доступу да вашага сервера патрэбны доступ да лакальнай сеткі. Дазвольце яго ў сістэмных наладах і паспрабуйце зноў.</string>
     <string name="error_openai_compatible_connection">Немагчыма злучыцца з серверам. Упэўніцеся, што сервер працуе.</string>
     <string name="error_openai_compatible_model_not_found">Мадэль не знойдзена. Калі ласка, абярыце іншую мадэль.</string>
     <string name="settings_openai_compatible_setup_ollama">Наладзьце свой лакальны экзэмпляр Ollama:</string>

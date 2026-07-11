@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Kontingent erschöpft</string>
     <string name="settings_status_error_rate_limited">Rate-Limit erreicht</string>
     <string name="settings_status_error_connection_failed">Verbindung fehlgeschlagen</string>
+    <string name="settings_status_error_local_network">Zugriff auf das lokale Netzwerk verweigert. Erlaube ihn in den Systemeinstellungen, um Server in deinem Netzwerk zu erreichen.</string>
+    <string name="settings_open_app_settings">Einstellungen öffnen</string>
+    <string name="error_local_network_permission">Für die Verbindung zu deinem Server ist Zugriff auf das lokale Netzwerk erforderlich. Erlaube ihn in den Systemeinstellungen und versuche es erneut.</string>
     <string name="settings_openai_compatible_setup_ollama">Richte deine lokale Ollama-Instanz ein:</string>
     <string name="settings_openai_compatible_or_other_service">oder einen anderen kompatiblen Dienst:</string>
     <string name="settings_openai_compatible_providers">Anbieter</string>

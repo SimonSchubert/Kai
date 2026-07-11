@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Cota esgotada</string>
     <string name="settings_status_error_rate_limited">Limite de taxa atingido</string>
     <string name="settings_status_error_connection_failed">Conexão falhou</string>
+    <string name="settings_status_error_local_network">Acesso à rede local negado. Permita-o nas configurações do sistema para acessar servidores na sua rede.</string>
+    <string name="settings_open_app_settings">Abrir configurações</string>
+    <string name="error_local_network_permission">O acesso à rede local é necessário para acessar seu servidor. Permita-o nas configurações do sistema e tente novamente.</string>
     <string name="settings_openai_compatible_setup_ollama">Configure sua instância Ollama local:</string>
     <string name="settings_openai_compatible_or_other_service">ou qualquer outro serviço compatível:</string>
     <string name="settings_openai_compatible_providers">provedores</string>

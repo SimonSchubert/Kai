@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Cotă epuizată</string>
     <string name="settings_status_error_rate_limited">Limită de utilizare atinsă</string>
     <string name="settings_status_error_connection_failed">Conexiunea a eșuat</string>
+    <string name="settings_status_error_local_network">Accesul la rețeaua locală a fost refuzat. Permiteți-l în setările sistemului pentru a accesa serverele din rețeaua dvs.</string>
+    <string name="settings_open_app_settings">Deschide setările</string>
+    <string name="error_local_network_permission">Accesul la rețeaua locală este necesar pentru a ajunge la serverul dvs. Permiteți-l în setările sistemului și încercați din nou.</string>
     <string name="error_openai_compatible_connection">Nu se poate conecta la server. Asigurați-vă că serverul este pornit.</string>
     <string name="error_openai_compatible_model_not_found">Modelul nu a fost găsit. Vă rugăm să selectați un alt model.</string>
     <string name="settings_openai_compatible_setup_ollama">Configurați instanța locală Ollama:</string>

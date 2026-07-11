@@ -30,7 +30,9 @@ import com.inspiredandroid.kai.network.OpenAICompatibleQuotaExhaustedException
 import com.inspiredandroid.kai.network.OpenAICompatibleRateLimitExceededException
 import com.inspiredandroid.kai.network.dtos.SponsorsResponseDto
 import com.inspiredandroid.kai.skills.parseGitHubSkillUrl
+import com.inspiredandroid.kai.tools.LocalNetworkPermissionController
 import com.inspiredandroid.kai.tools.NotificationPermissionController
+import com.inspiredandroid.kai.tools.isLocalNetworkUrl
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
@@ -64,6 +66,7 @@ class SettingsViewModel(
     private val notificationPermissionController: NotificationPermissionController,
     private val taskScheduler: TaskScheduler,
     private val backgroundDispatcher: CoroutineContext = getBackgroundDispatcher(),
+    private val localNetworkPermissionController: LocalNetworkPermissionController = LocalNetworkPermissionController(),
 ) : ViewModel() {
 
     private var connectionCheckJobs: MutableMap<String, Job> = mutableMapOf()
@@ -167,6 +170,8 @@ class SettingsViewModel(
         onToggleSmsSend = ::onToggleSmsSend,
         onToggleNotifications = ::onToggleNotifications,
         onOpenNotificationListenerSettings = ::onOpenNotificationListenerSettings,
+        onOpenAppPermissionSettings = ::onOpenAppPermissionSettings,
+        onRecheckLocalNetworkPermission = ::onRecheckLocalNetworkPermission,
         onClearPendingNotifications = ::onClearPendingNotifications,
         onToggleFreeFallback = ::onToggleFreeFallback,
         onChangeUiScale = ::onChangeUiScale,
@@ -629,6 +634,21 @@ class SettingsViewModel(
         dataRepository.openNotificationListenerSettings()
     }
 
+    private fun onOpenAppPermissionSettings() {
+        localNetworkPermissionController.openAppSettings()
+    }
+
+    /**
+     * Called when the app resumes while a connection sits in the local-network-denied state.
+     * Re-validates only if the permission is now granted — never re-prompts, so a user who
+     * denied and stayed on the screen isn't nagged with another dialog.
+     */
+    private fun onRecheckLocalNetworkPermission(instanceId: String) {
+        if (!localNetworkPermissionController.hasPermission()) return
+        val instance = dataRepository.getConfiguredServiceInstances().firstOrNull { it.instanceId == instanceId } ?: return
+        validateConnectionWithStatus(instanceId, Service.fromId(instance.serviceId))
+    }
+
     private fun onClearPendingNotifications() {
         viewModelScope.launch(backgroundDispatcher) {
             dataRepository.clearPendingNotifications()
@@ -1038,6 +1058,13 @@ class SettingsViewModel(
     private fun validateConnectionWithStatus(instanceId: String, service: Service) {
         updateConnectionStatus(instanceId, ConnectionStatus.Checking)
         viewModelScope.launch(backgroundDispatcher) {
+            // Android 17+ blocks LAN traffic without the local network permission, so ask
+            // before probing — otherwise the check fails with a misleading connection error.
+            val baseUrl = dataRepository.getInstanceBaseUrl(instanceId, service)
+            if (isLocalNetworkUrl(baseUrl) && !localNetworkPermissionController.requestPermission()) {
+                updateConnectionStatus(instanceId, ConnectionStatus.ErrorLocalNetworkDenied)
+                return@launch
+            }
             try {
                 dataRepository.validateConnection(service, instanceId)
                 if (service.isOnDevice && dataRepository.getLocalDownloadedModels().isEmpty()) {

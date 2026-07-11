@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">ਕੋਟਾ ਖਤਮ</string>
     <string name="settings_status_error_rate_limited">ਦਰ ਸੀਮਾ ਪਾਰ</string>
     <string name="settings_status_error_connection_failed">ਕਨੈਕਸ਼ਨ ਅਸਫਲ</string>
+    <string name="settings_status_error_local_network">ਲੋਕਲ ਨੈੱਟਵਰਕ ਪਹੁੰਚ ਤੋਂ ਇਨਕਾਰ ਕੀਤਾ ਗਿਆ। ਆਪਣੇ ਨੈੱਟਵਰਕ ਦੇ ਸਰਵਰਾਂ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਇਸਦੀ ਇਜਾਜ਼ਤ ਦਿਓ।</string>
+    <string name="settings_open_app_settings">ਸੈਟਿੰਗਾਂ ਖੋਲ੍ਹੋ</string>
+    <string name="error_local_network_permission">ਤੁਹਾਡੇ ਸਰਵਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਲੋਕਲ ਨੈੱਟਵਰਕ ਪਹੁੰਚ ਦੀ ਲੋੜ ਹੈ। ਸਿਸਟਮ ਸੈਟਿੰਗਾਂ ਵਿੱਚ ਇਸਦੀ ਇਜਾਜ਼ਤ ਦਿਓ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="settings_openai_compatible_setup_ollama">ਆਪਣਾ ਸਥਾਨਕ Ollama ਇੰਸਟੈਂਸ ਸੈਟਅੱਪ ਕਰੋ:</string>
     <string name="settings_openai_compatible_or_other_service">ਜਾਂ ਕੋਈ ਹੋਰ ਅਨੁਕੂਲ ਸੇਵਾ:</string>
     <string name="settings_openai_compatible_providers">ਪ੍ਰਦਾਤਾ</string>

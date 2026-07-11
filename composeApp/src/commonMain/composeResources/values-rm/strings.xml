@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Quota esaurida</string>
     <string name="settings_status_error_rate_limited">Limit da dumondas cuntanschì</string>
     <string name="settings_status_error_connection_failed">Connexiun betg reussida</string>
+    <string name="settings_status_error_local_network">L'access a la rait locala è vegnì refusà. Permettai el en ils parameters dal sistem per cuntanscher servers en vossa rait.</string>
+    <string name="settings_open_app_settings">Avrir ils parameters</string>
+    <string name="error_local_network_permission">L'access a la rait locala è necessari per cuntanscher voss server. Permettai el en ils parameters dal sistem ed empruvai anc ina giada.</string>
     <string name="error_openai_compatible_connection">Impussibel da connectar al server. Assicurai che il server funcziuna.</string>
     <string name="error_openai_compatible_model_not_found">Model betg chattà. Tschernai in auter model.</string>
     <string name="settings_openai_compatible_setup_ollama">Configurai Vossa instanza locala da Ollama:</string>

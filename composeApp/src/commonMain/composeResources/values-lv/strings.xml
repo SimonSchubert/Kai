@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvota izsmelts</string>
     <string name="settings_status_error_rate_limited">Pieprasījumu limits sasniegts</string>
     <string name="settings_status_error_connection_failed">Savienojums neizdevās</string>
+    <string name="settings_status_error_local_network">Piekļuve vietējam tīklam liegta. Atļaujiet to sistēmas iestatījumos, lai sasniegtu serverus savā tīklā.</string>
+    <string name="settings_open_app_settings">Atvērt iestatījumus</string>
+    <string name="error_local_network_permission">Lai sasniegtu jūsu serveri, nepieciešama piekļuve vietējam tīklam. Atļaujiet to sistēmas iestatījumos un mēģiniet vēlreiz.</string>
     <string name="error_openai_compatible_connection">Nevar izveidot savienojumu ar serveri. Pārliecinieties, ka serveris darbojas.</string>
     <string name="error_openai_compatible_model_not_found">Modelis nav atrasts. Lūdzu, izvēlieties citu modeli.</string>
     <string name="settings_openai_compatible_setup_ollama">Iestatiet savu lokālo Ollama instanci:</string>

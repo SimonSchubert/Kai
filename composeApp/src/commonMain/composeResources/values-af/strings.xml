@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kwota uitgeput</string>
     <string name="settings_status_error_rate_limited">Tariefbeperk</string>
     <string name="settings_status_error_connection_failed">Verbinding het misluk</string>
+    <string name="settings_status_error_local_network">Toegang tot die plaaslike netwerk is geweier. Laat dit in die stelselinstellings toe om bedieners op jou netwerk te bereik.</string>
+    <string name="settings_open_app_settings">Maak instellings oop</string>
+    <string name="error_local_network_permission">Toegang tot die plaaslike netwerk is nodig om jou bediener te bereik. Laat dit in die stelselinstellings toe en probeer weer.</string>
     <string name="error_openai_compatible_connection">Kan nie aan bediener verbind nie. Maak seker die bediener loop.</string>
     <string name="error_openai_compatible_model_not_found">Model nie gevind nie. Kies asseblief 'n ander model.</string>
     <string name="settings_openai_compatible_setup_ollama">Stel jou plaaslike Ollama-instansie op:</string>

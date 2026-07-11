@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">配额已用完</string>
     <string name="settings_status_error_rate_limited">达到速率限制</string>
     <string name="settings_status_error_connection_failed">连接失败</string>
+    <string name="settings_status_error_local_network">本地网络访问被拒绝。请在系统设置中允许，以访问您网络中的服务器。</string>
+    <string name="settings_open_app_settings">打开设置</string>
+    <string name="error_local_network_permission">需要本地网络访问权限才能连接到您的服务器。请在系统设置中允许后重试。</string>
     <string name="settings_openai_compatible_setup_ollama">设置您的本地 Ollama 实例：</string>
     <string name="settings_openai_compatible_or_other_service">或其他兼容服务：</string>
     <string name="settings_openai_compatible_providers">提供商</string>

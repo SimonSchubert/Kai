@@ -64,6 +64,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.inspiredandroid.kai.data.Service
 import com.inspiredandroid.kai.formatFileSize
 import com.inspiredandroid.kai.inference.DevicePerformance
@@ -106,6 +107,7 @@ import kai.composeapp.generated.resources.settings_contact_sponsorship
 import kai.composeapp.generated.resources.settings_free_fallback
 import kai.composeapp.generated.resources.settings_free_tier_description
 import kai.composeapp.generated.resources.settings_free_tier_title
+import kai.composeapp.generated.resources.settings_open_app_settings
 import kai.composeapp.generated.resources.settings_openai_compatible_or_other_service
 import kai.composeapp.generated.resources.settings_openai_compatible_providers
 import kai.composeapp.generated.resources.settings_openai_compatible_setup_ollama
@@ -118,6 +120,7 @@ import kai.composeapp.generated.resources.settings_status_connected
 import kai.composeapp.generated.resources.settings_status_error
 import kai.composeapp.generated.resources.settings_status_error_connection_failed
 import kai.composeapp.generated.resources.settings_status_error_invalid_key
+import kai.composeapp.generated.resources.settings_status_error_local_network
 import kai.composeapp.generated.resources.settings_status_error_quota_exhausted
 import kai.composeapp.generated.resources.settings_status_error_rate_limited
 import kotlinx.collections.immutable.ImmutableList
@@ -328,6 +331,8 @@ internal fun ServicesContent(uiState: SettingsUiState, actions: SettingsActions)
                     onDeleteLocalModel = actions.onDeleteLocalModel,
                     onChangeModelContextTokens = actions.onChangeModelContextTokens,
                     modelContextTokens = uiState.modelContextTokens,
+                    onOpenAppPermissionSettings = actions.onOpenAppPermissionSettings,
+                    onRecheckLocalNetworkPermission = { actions.onRecheckLocalNetworkPermission(entry.instanceId) },
                 )
             }
         }
@@ -447,7 +452,17 @@ private fun ConfiguredServiceCardContent(
     onDeleteLocalModel: (String) -> Unit = {},
     onChangeModelContextTokens: (String, Int) -> Unit = { _, _ -> },
     modelContextTokens: ImmutableMap<String, Int> = persistentMapOf(),
+    onOpenAppPermissionSettings: () -> Unit = {},
+    onRecheckLocalNetworkPermission: () -> Unit = {},
 ) {
+    // Clear a stale denied status when the user returns from granting the permission in
+    // system settings; the recheck never re-prompts, so this is a no-op while still denied.
+    if (entry.connectionStatus == ConnectionStatus.ErrorLocalNetworkDenied) {
+        LifecycleResumeEffect(entry.instanceId) {
+            onRecheckLocalNetworkPermission()
+            onPauseOrDispose { }
+        }
+    }
     Column(
         modifier = Modifier
             .kaiAdaptiveCardSurface()
@@ -545,6 +560,7 @@ private fun ConfiguredServiceCardContent(
                         models = entry.models,
                         onSelectModel = onSelectModel,
                         connectionStatus = entry.connectionStatus,
+                        onOpenAppPermissionSettings = onOpenAppPermissionSettings,
                     )
                 } else {
                     ServiceSettings(
@@ -556,6 +572,7 @@ private fun ConfiguredServiceCardContent(
                         models = entry.models,
                         onSelectModel = onSelectModel,
                         connectionStatus = entry.connectionStatus,
+                        onOpenAppPermissionSettings = onOpenAppPermissionSettings,
                     )
                 }
 
@@ -593,6 +610,7 @@ private fun ServiceSettings(
     onSelectModel: (String) -> Unit,
     connectionStatus: ConnectionStatus,
     testTag: String? = null,
+    onOpenAppPermissionSettings: () -> Unit = {},
 ) {
     ApiKeyField(
         apiKey = apiKey,
@@ -603,7 +621,7 @@ private fun ServiceSettings(
 
     Spacer(Modifier.height(8.dp))
 
-    ConnectionStatusIndicator(connectionStatus)
+    ConnectionStatusIndicator(connectionStatus, onOpenAppPermissionSettings)
 
     Spacer(Modifier.height(8.dp))
 
@@ -644,6 +662,7 @@ private fun OpenAICompatibleSettings(
     models: ImmutableList<SettingsModel>,
     onSelectModel: (String) -> Unit,
     connectionStatus: ConnectionStatus,
+    onOpenAppPermissionSettings: () -> Unit = {},
 ) {
     KaiClearableTextField(
         value = baseUrl,
@@ -676,7 +695,7 @@ private fun OpenAICompatibleSettings(
 
     Spacer(Modifier.height(8.dp))
 
-    ConnectionStatusIndicator(connectionStatus)
+    ConnectionStatusIndicator(connectionStatus, onOpenAppPermissionSettings)
 
     Spacer(Modifier.height(8.dp))
 
@@ -919,7 +938,7 @@ private fun DevicePerformanceLabel(performance: DevicePerformance) {
 }
 
 @Composable
-private fun ConnectionStatusIndicator(status: ConnectionStatus) {
+private fun ConnectionStatusIndicator(status: ConnectionStatus, onOpenAppPermissionSettings: () -> Unit = {}) {
     when (status) {
         ConnectionStatus.Unknown -> return
 
@@ -986,12 +1005,14 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
         ConnectionStatus.ErrorInvalidKey,
         ConnectionStatus.ErrorRateLimited,
         ConnectionStatus.ErrorConnectionFailed,
+        ConnectionStatus.ErrorLocalNetworkDenied,
         ConnectionStatus.Error,
         -> {
             val errorMessage = when (status) {
                 ConnectionStatus.ErrorInvalidKey -> stringResource(Res.string.settings_status_error_invalid_key)
                 ConnectionStatus.ErrorRateLimited -> stringResource(Res.string.settings_status_error_rate_limited)
                 ConnectionStatus.ErrorConnectionFailed -> stringResource(Res.string.settings_status_error_connection_failed)
+                ConnectionStatus.ErrorLocalNetworkDenied -> stringResource(Res.string.settings_status_error_local_network)
                 else -> stringResource(Res.string.settings_status_error)
             }
             Row(
@@ -1010,6 +1031,14 @@ private fun ConnectionStatusIndicator(status: ConnectionStatus) {
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error,
                 )
+            }
+            if (status == ConnectionStatus.ErrorLocalNetworkDenied) {
+                TextButton(
+                    onClick = onOpenAppPermissionSettings,
+                    modifier = Modifier.handCursor(),
+                ) {
+                    Text(stringResource(Res.string.settings_open_app_settings))
+                }
             }
         }
     }

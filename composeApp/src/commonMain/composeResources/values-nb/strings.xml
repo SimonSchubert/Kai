@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvote oppbrukt</string>
     <string name="settings_status_error_rate_limited">Hastighetsbegrenset</string>
     <string name="settings_status_error_connection_failed">Tilkobling mislyktes</string>
+    <string name="settings_status_error_local_network">Tilgang til lokalt nettverk avslått. Tillat det i systeminnstillingene for å nå servere på nettverket ditt.</string>
+    <string name="settings_open_app_settings">Åpne innstillinger</string>
+    <string name="error_local_network_permission">Tilgang til lokalt nettverk kreves for å nå serveren din. Tillat det i systeminnstillingene og prøv igjen.</string>
     <string name="error_openai_compatible_connection">Kan ikke koble til serveren. Sørg for at serveren kjører.</string>
     <string name="error_openai_compatible_model_not_found">Modell ikke funnet. Velg en annen modell.</string>
     <string name="settings_openai_compatible_setup_ollama">Sett opp din lokale Ollama-instans:</string>

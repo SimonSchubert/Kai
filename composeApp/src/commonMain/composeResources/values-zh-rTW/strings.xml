@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">配額已用完</string>
     <string name="settings_status_error_rate_limited">達到速率限制</string>
     <string name="settings_status_error_connection_failed">連線失敗</string>
+    <string name="settings_status_error_local_network">本機網路存取遭拒。請在系統設定中允許，以存取您網路上的伺服器。</string>
+    <string name="settings_open_app_settings">開啟設定</string>
+    <string name="error_local_network_permission">需要本機網路存取權限才能連線到您的伺服器。請在系統設定中允許後再試一次。</string>
     <string name="settings_openai_compatible_setup_ollama">設定您的本機 Ollama 執行個體：</string>
     <string name="settings_openai_compatible_or_other_service">或其他相容服務：</string>
     <string name="settings_openai_compatible_providers">提供者</string>

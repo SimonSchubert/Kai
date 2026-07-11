@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvoot ammendunud</string>
     <string name="settings_status_error_rate_limited">Päringute limiit ületatud</string>
     <string name="settings_status_error_connection_failed">Ühendus ebaõnnestus</string>
+    <string name="settings_status_error_local_network">Juurdepääs kohalikule võrgule keelati. Luba see süsteemi seadetes, et pääseda ligi sinu võrgus olevatele serveritele.</string>
+    <string name="settings_open_app_settings">Ava seaded</string>
+    <string name="error_local_network_permission">Sinu serverile ligipääsuks on vaja juurdepääsu kohalikule võrgule. Luba see süsteemi seadetes ja proovi uuesti.</string>
     <string name="error_openai_compatible_connection">Serveriga ei saa ühendust. Veenduge, et server töötab.</string>
     <string name="error_openai_compatible_model_not_found">Mudelit ei leitud. Valige teine mudel.</string>
     <string name="settings_openai_compatible_setup_ollama">Seadistage oma kohalik Ollama instants:</string>

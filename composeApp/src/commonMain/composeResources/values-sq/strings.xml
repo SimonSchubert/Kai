@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kuota u shterua</string>
     <string name="settings_status_error_rate_limited">Kufiri i kërkesave u arrit</string>
     <string name="settings_status_error_connection_failed">Lidhja dështoi</string>
+    <string name="settings_status_error_local_network">Qasja në rrjetin lokal u refuzua. Lejojeni në cilësimet e sistemit për të arritur serverët në rrjetin tuaj.</string>
+    <string name="settings_open_app_settings">Hap cilësimet</string>
+    <string name="error_local_network_permission">Qasja në rrjetin lokal kërkohet për të arritur serverin tuaj. Lejojeni në cilësimet e sistemit dhe provoni përsëri.</string>
     <string name="error_openai_compatible_connection">Nuk mund të lidhet me serverin. Sigurohuni që serveri është duke punuar.</string>
     <string name="error_openai_compatible_model_not_found">Modeli nuk u gjet. Ju lutemi zgjidhni një model tjetër.</string>
     <string name="settings_openai_compatible_setup_ollama">Konfiguroni instancën tuaj lokale Ollama:</string>

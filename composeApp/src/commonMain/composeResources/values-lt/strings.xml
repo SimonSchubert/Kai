@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvota išnaudota</string>
     <string name="settings_status_error_rate_limited">Užklausų limitas pasiektas</string>
     <string name="settings_status_error_connection_failed">Ryšys nepavyko</string>
+    <string name="settings_status_error_local_network">Prieiga prie vietinio tinklo atmesta. Leiskite ją sistemos nustatymuose, kad pasiektumėte serverius savo tinkle.</string>
+    <string name="settings_open_app_settings">Atidaryti nustatymus</string>
+    <string name="error_local_network_permission">Norint pasiekti jūsų serverį, reikalinga prieiga prie vietinio tinklo. Leiskite ją sistemos nustatymuose ir bandykite dar kartą.</string>
     <string name="error_openai_compatible_connection">Nepavyksta prisijungti prie serverio. Įsitikinkite, kad serveris veikia.</string>
     <string name="error_openai_compatible_model_not_found">Modelis nerastas. Pasirinkite kitą modelį.</string>
     <string name="settings_openai_compatible_setup_ollama">Nustatykite savo vietinę Ollama instanciją:</string>

@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Квотата е изчерпана</string>
     <string name="settings_status_error_rate_limited">Лимитът е достигнат</string>
     <string name="settings_status_error_connection_failed">Връзката е неуспешна</string>
+    <string name="settings_status_error_local_network">Достъпът до локалната мрежа е отказан. Разрешете го в системните настройки, за да достигате сървъри във вашата мрежа.</string>
+    <string name="settings_open_app_settings">Отвори настройките</string>
+    <string name="error_local_network_permission">Необходим е достъп до локалната мрежа, за да достигнете вашия сървър. Разрешете го в системните настройки и опитайте отново.</string>
     <string name="error_openai_compatible_connection">Не може да се свърже със сървъра. Уверете се, че сървърът работи.</string>
     <string name="error_openai_compatible_model_not_found">Моделът не е намерен. Моля, изберете друг модел.</string>
     <string name="settings_openai_compatible_setup_ollama">Настройте локалната си Ollama инстанция:</string>

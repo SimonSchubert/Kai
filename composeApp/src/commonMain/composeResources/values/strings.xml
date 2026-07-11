@@ -36,6 +36,9 @@
     <string name="settings_status_error_quota_exhausted">Quota exhausted</string>
     <string name="settings_status_error_rate_limited">Rate limited</string>
     <string name="settings_status_error_connection_failed">Connection failed</string>
+    <string name="settings_status_error_local_network">Local network access denied. Allow it in system settings to reach servers on your network.</string>
+    <string name="settings_open_app_settings">Open settings</string>
+    <string name="error_local_network_permission">Local network access is required to reach your server. Allow it in system settings and try again.</string>
     <string name="error_openai_compatible_connection">Cannot connect to server. Make sure the server is running.</string>
     <string name="error_openai_compatible_model_not_found">Model not found. Please select a different model.</string>
     <string name="settings_openai_compatible_setup_ollama">Setup your local Ollama instance:</string>

@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kiinti\u00f6 k\u00e4ytetty loppuun</string>
     <string name="settings_status_error_rate_limited">Pyynt\u00f6raja ylitetty</string>
     <string name="settings_status_error_connection_failed">Yhteys ep\u00e4onnistui</string>
+    <string name="settings_status_error_local_network">Pääsy paikalliseen verkkoon estettiin. Salli se järjestelmäasetuksissa tavoittaaksesi verkkosi palvelimet.</string>
+    <string name="settings_open_app_settings">Avaa asetukset</string>
+    <string name="error_local_network_permission">Palvelimesi tavoittamiseen tarvitaan pääsy paikalliseen verkkoon. Salli se järjestelmäasetuksissa ja yritä uudelleen.</string>
     <string name="error_openai_compatible_connection">Palvelimeen ei saada yhteytt\u00e4. Varmista, ett\u00e4 palvelin on k\u00e4ynniss\u00e4.</string>
     <string name="error_openai_compatible_model_not_found">Mallia ei l\u00f6ytynyt. Valitse toinen malli.</string>
     <string name="settings_openai_compatible_setup_ollama">M\u00e4\u00e4rit\u00e4 paikallinen Ollama-instanssisi:</string>

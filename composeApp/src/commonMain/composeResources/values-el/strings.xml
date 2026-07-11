@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Εξάντληση ορίου</string>
     <string name="settings_status_error_rate_limited">Περιορισμός αιτημάτων</string>
     <string name="settings_status_error_connection_failed">Η σύνδεση απέτυχε</string>
+    <string name="settings_status_error_local_network">Η πρόσβαση στο τοπικό δίκτυο απορρίφθηκε. Επιτρέψτε την στις ρυθμίσεις συστήματος για να έχετε πρόσβαση σε διακομιστές στο δίκτυό σας.</string>
+    <string name="settings_open_app_settings">Άνοιγμα ρυθμίσεων</string>
+    <string name="error_local_network_permission">Απαιτείται πρόσβαση στο τοπικό δίκτυο για να συνδεθείτε στον διακομιστή σας. Επιτρέψτε την στις ρυθμίσεις συστήματος και δοκιμάστε ξανά.</string>
     <string name="error_openai_compatible_connection">Δεν είναι δυνατή η σύνδεση στον διακομιστή. Βεβαιωθείτε ότι ο διακομιστής εκτελείται.</string>
     <string name="error_openai_compatible_model_not_found">Το μοντέλο δεν βρέθηκε. Επιλέξτε ένα διαφορετικό μοντέλο.</string>
     <string name="settings_openai_compatible_setup_ollama">Ρυθμίστε την τοπική σας εγκατάσταση Ollama:</string>

@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kvóta vyčerpaná</string>
     <string name="settings_status_error_rate_limited">Limit požiadaviek prekročený</string>
     <string name="settings_status_error_connection_failed">Pripojenie zlyhalo</string>
+    <string name="settings_status_error_local_network">Prístup k miestnej sieti bol zamietnutý. Povoľte ho v systémových nastaveniach, aby ste sa dostali k serverom vo vašej sieti.</string>
+    <string name="settings_open_app_settings">Otvoriť nastavenia</string>
+    <string name="error_local_network_permission">Na pripojenie k vášmu serveru je potrebný prístup k miestnej sieti. Povoľte ho v systémových nastaveniach a skúste to znova.</string>
     <string name="error_openai_compatible_connection">Nedá sa pripojiť k serveru. Uistite sa, že server beží.</string>
     <string name="error_openai_compatible_model_not_found">Model sa nenašiel. Vyberte iný model.</string>
     <string name="settings_openai_compatible_setup_ollama">Nastavte svoju lokálnu inštanciu Ollama:</string>

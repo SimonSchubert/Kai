@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Đã hết hạn mức</string>
     <string name="settings_status_error_rate_limited">Đạt giới hạn tốc độ</string>
     <string name="settings_status_error_connection_failed">Kết nối thất bại</string>
+    <string name="settings_status_error_local_network">Quyền truy cập mạng cục bộ bị từ chối. Hãy cho phép trong cài đặt hệ thống để kết nối với các máy chủ trong mạng của bạn.</string>
+    <string name="settings_open_app_settings">Mở cài đặt</string>
+    <string name="error_local_network_permission">Cần quyền truy cập mạng cục bộ để kết nối với máy chủ của bạn. Hãy cho phép trong cài đặt hệ thống và thử lại.</string>
     <string name="settings_openai_compatible_setup_ollama">Thiết lập phiên bản Ollama cục bộ của bạn:</string>
     <string name="settings_openai_compatible_or_other_service">hoặc bất kỳ dịch vụ tương thích nào khác:</string>
     <string name="settings_openai_compatible_providers">nhà cung cấp</string>

@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">Quota épuisé</string>
     <string name="settings_status_error_rate_limited">Limite de taux atteinte</string>
     <string name="settings_status_error_connection_failed">Connexion échouée</string>
+    <string name="settings_status_error_local_network">Accès au réseau local refusé. Autorisez-le dans les réglages système pour atteindre les serveurs de votre réseau.</string>
+    <string name="settings_open_app_settings">Ouvrir les réglages</string>
+    <string name="error_local_network_permission">L'accès au réseau local est requis pour atteindre votre serveur. Autorisez-le dans les réglages système et réessayez.</string>
     <string name="settings_openai_compatible_setup_ollama">Configurez votre instance Ollama locale :</string>
     <string name="settings_openai_compatible_or_other_service">ou tout autre service compatible :</string>
     <string name="settings_openai_compatible_providers">fournisseurs</string>

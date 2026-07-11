@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">কোটা শেষ</string>
     <string name="settings_status_error_rate_limited">রেট সীমায় পৌঁছেছে</string>
     <string name="settings_status_error_connection_failed">সংযোগ ব্যর্থ</string>
+    <string name="settings_status_error_local_network">লোকাল নেটওয়ার্ক অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে। আপনার নেটওয়ার্কের সার্ভারে পৌঁছাতে সিস্টেম সেটিংসে এটি অনুমতি দিন।</string>
+    <string name="settings_open_app_settings">সেটিংস খুলুন</string>
+    <string name="error_local_network_permission">আপনার সার্ভারে পৌঁছাতে লোকাল নেটওয়ার্ক অ্যাক্সেস প্রয়োজন। সিস্টেম সেটিংসে এটি অনুমতি দিন এবং আবার চেষ্টা করুন।</string>
     <string name="settings_openai_compatible_setup_ollama">আপনার স্থানীয় Ollama ইন্সট্যান্স সেটআপ করুন:</string>
     <string name="settings_openai_compatible_or_other_service">অথবা অন্য কোনো সামঞ্জস্যপূর্ণ সেবা:</string>
     <string name="settings_openai_compatible_providers">প্রদানকারী</string>

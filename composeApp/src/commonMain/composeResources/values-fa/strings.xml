@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">سهمیه تمام شد</string>
     <string name="settings_status_error_rate_limited">به حد نرخ رسید</string>
     <string name="settings_status_error_connection_failed">اتصال ناموفق</string>
+    <string name="settings_status_error_local_network">دسترسی به شبکه محلی رد شد. برای دسترسی به سرورهای شبکه خود، آن را در تنظیمات سیستم مجاز کنید.</string>
+    <string name="settings_open_app_settings">باز کردن تنظیمات</string>
+    <string name="error_local_network_permission">برای دسترسی به سرور خود به دسترسی شبکه محلی نیاز است. آن را در تنظیمات سیستم مجاز کنید و دوباره تلاش کنید.</string>
     <string name="settings_openai_compatible_setup_ollama">نمونه محلی Ollama خود را راه‌اندازی کنید:</string>
     <string name="settings_openai_compatible_or_other_service">یا هر سرویس سازگار دیگری:</string>
     <string name="settings_openai_compatible_providers">ارائه‌دهندگان</string>

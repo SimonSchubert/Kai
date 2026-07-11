@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">โควต้าหมด</string>
     <string name="settings_status_error_rate_limited">ถึงขีดจำกัดอัตรา</string>
     <string name="settings_status_error_connection_failed">การเชื่อมต่อล้มเหลว</string>
+    <string name="settings_status_error_local_network">การเข้าถึงเครือข่ายท้องถิ่นถูกปฏิเสธ อนุญาตในการตั้งค่าระบบเพื่อเข้าถึงเซิร์ฟเวอร์ในเครือข่ายของคุณ</string>
+    <string name="settings_open_app_settings">เปิดการตั้งค่า</string>
+    <string name="error_local_network_permission">ต้องมีการเข้าถึงเครือข่ายท้องถิ่นเพื่อเชื่อมต่อกับเซิร์ฟเวอร์ของคุณ อนุญาตในการตั้งค่าระบบแล้วลองอีกครั้ง</string>
     <string name="settings_openai_compatible_setup_ollama">ตั้งค่า Ollama ในเครื่องของคุณ:</string>
     <string name="settings_openai_compatible_or_other_service">หรือบริการที่เข้ากันได้อื่นๆ:</string>
     <string name="settings_openai_compatible_providers">ผู้ให้บริการ</string>

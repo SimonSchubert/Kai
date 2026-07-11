@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">نفدت الحصة</string>
     <string name="settings_status_error_rate_limited">تم الوصول لحد المعدل</string>
     <string name="settings_status_error_connection_failed">فشل الاتصال</string>
+    <string name="settings_status_error_local_network">تم رفض الوصول إلى الشبكة المحلية. اسمح به في إعدادات النظام للوصول إلى الخوادم على شبكتك.</string>
+    <string name="settings_open_app_settings">فتح الإعدادات</string>
+    <string name="error_local_network_permission">الوصول إلى الشبكة المحلية مطلوب للوصول إلى الخادم. اسمح به في إعدادات النظام وحاول مرة أخرى.</string>
     <string name="settings_openai_compatible_setup_ollama">قم بإعداد نسخة Ollama المحلية الخاصة بك:</string>
     <string name="settings_openai_compatible_or_other_service">أو أي خدمة متوافقة أخرى:</string>
     <string name="settings_openai_compatible_providers">المزودون</string>

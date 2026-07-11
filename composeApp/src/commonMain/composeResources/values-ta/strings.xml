@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">ஒதுக்கீடு தீர்ந்தது</string>
     <string name="settings_status_error_rate_limited">விகித வரம்பு எட்டப்பட்டது</string>
     <string name="settings_status_error_connection_failed">இணைப்பு தோல்வி</string>
+    <string name="settings_status_error_local_network">லோக்கல் நெட்வொர்க் அணுகல் மறுக்கப்பட்டது. உங்கள் நெட்வொர்க்கில் உள்ள சேவையகங்களை அணுக, சிஸ்டம் அமைப்புகளில் அதை அனுமதிக்கவும்.</string>
+    <string name="settings_open_app_settings">அமைப்புகளைத் திற</string>
+    <string name="error_local_network_permission">உங்கள் சேவையகத்தை அணுக லோக்கல் நெட்வொர்க் அணுகல் தேவை. சிஸ்டம் அமைப்புகளில் அதை அனுமதித்து மீண்டும் முயற்சிக்கவும்.</string>
     <string name="settings_openai_compatible_setup_ollama">உங்கள் உள்ளூர் Ollama நிகழ்வை அமைக்கவும்:</string>
     <string name="settings_openai_compatible_or_other_service">அல்லது வேறு இணக்கமான சேவை:</string>
     <string name="settings_openai_compatible_providers">வழங்குநர்கள்</string>

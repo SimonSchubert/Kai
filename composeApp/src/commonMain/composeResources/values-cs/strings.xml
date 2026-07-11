@@ -29,6 +29,9 @@
     <string name="settings_status_error_quota_exhausted">Kv\u00f3ta vy\u010derp\u00e1na</string>
     <string name="settings_status_error_rate_limited">Limit po\u017eadavk\u016f p\u0159ekro\u010den</string>
     <string name="settings_status_error_connection_failed">P\u0159ipojen\u00ed selhalo</string>
+    <string name="settings_status_error_local_network">Přístup k místní síti byl odepřen. Povolte jej v systémovém nastavení, abyste se dostali k serverům ve vaší síti.</string>
+    <string name="settings_open_app_settings">Otevřít nastavení</string>
+    <string name="error_local_network_permission">Pro připojení k vašemu serveru je vyžadován přístup k místní síti. Povolte jej v systémovém nastavení a zkuste to znovu.</string>
     <string name="error_openai_compatible_connection">Nelze se p\u0159ipojit k serveru. Ujist\u011bte se, \u017ee server b\u011b\u017e\u00ed.</string>
     <string name="error_openai_compatible_model_not_found">Model nenalezen. Vyberte pros\u00edm jin\u00fd model.</string>
     <string name="settings_openai_compatible_setup_ollama">Nastavte svou lok\u00e1ln\u00ed instanci Ollama:</string>

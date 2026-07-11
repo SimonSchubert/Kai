@@ -25,6 +25,9 @@
     <string name="settings_status_error_quota_exhausted">कोटा समाप्त</string>
     <string name="settings_status_error_rate_limited">दर सीमा पर पहुंचे</string>
     <string name="settings_status_error_connection_failed">कनेक्शन विफल</string>
+    <string name="settings_status_error_local_network">लोकल नेटवर्क एक्सेस अस्वीकृत। अपने नेटवर्क के सर्वर तक पहुंचने के लिए सिस्टम सेटिंग्स में इसे अनुमति दें।</string>
+    <string name="settings_open_app_settings">सेटिंग्स खोलें</string>
+    <string name="error_local_network_permission">आपके सर्वर तक पहुंचने के लिए लोकल नेटवर्क एक्सेस आवश्यक है। सिस्टम सेटिंग्स में इसे अनुमति दें और फिर से प्रयास करें।</string>
     <string name="settings_openai_compatible_setup_ollama">अपना स्थानीय Ollama इंस्टेंस सेटअप करें:</string>
     <string name="settings_openai_compatible_or_other_service">या कोई अन्य संगत सेवा:</string>
     <string name="settings_openai_compatible_providers">प्रदाता</string>
