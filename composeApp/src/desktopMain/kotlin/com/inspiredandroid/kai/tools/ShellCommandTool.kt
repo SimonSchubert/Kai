@@ -46,22 +46,39 @@ private val validEnvKeyRegex = Regex("^[A-Za-z_][A-Za-z0-9_]*$")
 private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
 
 /**
- * Builds a `cd <dir> && FOO=bar ...` prefix for [ShellCommandTool.execute]. The env
- * variable *name* must stay unquoted -- bash only recognizes `NAME=value` as an
- * assignment word when NAME itself is unquoted; quoting it (as an earlier version of
- * this code did) makes bash treat the whole thing as a command name instead, e.g.
- * `'FOO'='hello'` fails with "FOO=hello: command not found" rather than assigning FOO.
- * Names are validated against shell-identifier syntax so an unquoted, LLM-supplied key
- * can't inject extra shell syntax.
+ * Wraps [command] with `cd <dir> && ...` and/or env vars for [ShellCommandTool.execute].
+ *
+ * env vars are applied via a *nested* `bash -c` invocation (`FOO='bar' bash -c
+ * '<command>'`), not a same-line prefix (`FOO='bar' <command>`). A same-line prefix
+ * exports FOO into the executed command's real process environment -- which a
+ * subprocess like `printenv` or `python` correctly reads -- but does NOT make `$FOO`
+ * visible if the command itself references it via shell expansion (e.g. `echo $FOO`):
+ * bash expands `$FOO` while parsing the command line, before the preceding assignment
+ * takes effect, so it sees the OLD value (unset). Running the command inside a child
+ * `bash -c` instead means `$FOO` is expanded by *that* shell, after it has already
+ * inherited FOO from its real environment -- so both `echo $FOO` and `printenv FOO`
+ * see it correctly. `cd` is intentionally kept outside this wrapping (applied directly
+ * to the persistent shell, not the child) since it's documented to persist across calls.
+ *
+ * The env variable *name* must stay unquoted in the prefix -- bash only recognizes
+ * `NAME=value` as an assignment word when NAME itself is unquoted; quoting it (as an
+ * earlier version of this code did) makes bash treat the whole thing as a command name
+ * instead, e.g. `'FOO'='hello'` fails with "FOO=hello: command not found" rather than
+ * assigning FOO. Names are validated against shell-identifier syntax so an unquoted,
+ * LLM-supplied key can't inject extra shell syntax.
  */
-internal fun buildCommandPrefix(workingDir: String?, env: Map<String, String>): String = buildString {
-    if (workingDir != null) {
-        append("cd ").append(shellSingleQuote(workingDir)).append(" && ")
+internal fun buildWrappedCommand(command: String, workingDir: String?, env: Map<String, String>): String {
+    val cdPrefix = if (workingDir != null) "cd " + shellSingleQuote(workingDir) + " && " else ""
+    val commandPart = if (env.isEmpty()) {
+        command
+    } else {
+        val envPrefix = env.entries.joinToString(" ") { (k, v) ->
+            require(validEnvKeyRegex.matches(k)) { "Invalid env variable name: $k" }
+            "$k=${shellSingleQuote(v)}"
+        }
+        "$envPrefix bash -c ${shellSingleQuote(command)}"
     }
-    env.forEach { (k, v) ->
-        require(validEnvKeyRegex.matches(k)) { "Invalid env variable name: $k" }
-        append(k).append('=').append(shellSingleQuote(v)).append(' ')
-    }
+    return cdPrefix + commandPart
 }
 
 private const val TOOL_DESCRIPTION = """Execute a shell command in the Dev Tools sandbox and return stdout, stderr, and exit code.
@@ -139,12 +156,11 @@ object ShellCommandTool : Tool {
         // Apply working_dir/env as a per-command prefix (cd ... && FOO=bar cmd) so
         // they don't bleed into the session's own state. cd is intentionally
         // persistent: the LLM is told that's the case in the tool description.
-        val prefix = try {
-            buildCommandPrefix(workingDir, envMap)
+        val wrapped = try {
+            buildWrappedCommand(command, workingDir, envMap)
         } catch (e: IllegalArgumentException) {
             return mapOf("success" to false, "error" to e.message)
         }
-        val wrapped = if (prefix.isEmpty()) command else "$prefix$command"
 
         if (background) {
             return ProcessManagerTool.processManager.startBackground(
