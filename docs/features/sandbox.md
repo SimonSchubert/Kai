@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-07-10
+**Last verified:** 2026-07-12
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
