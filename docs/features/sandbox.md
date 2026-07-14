@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-07-12
+**Last verified:** 2026-07-14
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -97,6 +97,7 @@ The following bullets describe Android's Alpine/`proot` mechanics specifically; 
 - **Stray output from backgrounded jobs** (`sleep 60 &` then "Done" later) can attach itself to whatever command is running when the kernel finally reports the exit. Matches normal terminal behavior.
 - **Desktop has no filesystem/process isolation.** Unlike Android's contained Alpine rootfs, the desktop shell runs directly against the real machine with no chroot boundary — the assistant's shell tool has real, unconfined access there. See [Desktop Linux ("Dev Tools")](#desktop-linux-dev-tools) above.
 - **Desktop cancel doesn't stop a command's children.** Killing the shell process on cancel doesn't signal children the command may have spawned (Android's cancel does, via a pid-probe + signal escalation); a long-running child process cancelled mid-command keeps running.
+- **Desktop's Packages tab doesn't work yet.** `SandboxPackagesViewModel` (shared `commonMain` code) hardcodes Alpine's `apk` for list/search/install/uninstall/update/upgrade — desktop's sandbox has no `apk`, so every operation in the Packages UI fails with `apk: command not found`. Package management on desktop currently has to go through the shell tool or Terminal directly (`micromamba install -y -p <prefix> -c conda-forge <package>`). A real fix needs `micromamba`-native list/search/install/upgrade semantics, which differ enough from `apk`'s (no cached local package-info listing, search always hits the network, etc.) that this is tracked as separate follow-up work, not a quick patch.
 - **iOS / web**: no sandbox. Stubs are no-ops — calls return empty results (or are simply unsupported) until those platforms get their own runtime.
 
 ## Key Files
