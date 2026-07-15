@@ -1,6 +1,9 @@
 package com.inspiredandroid.kai.sandbox
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import java.io.File
 import java.nio.file.Files
 import kotlin.test.AfterTest
@@ -8,6 +11,8 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 class DesktopPersistentShellTest {
 
@@ -55,5 +60,21 @@ class DesktopPersistentShellTest {
         val result = shell.run("echo \$PATH", timeoutSeconds = 10)
         val stdout = result["stdout"] as String
         assertTrue(stdout.contains(File(baseDir, "root/bin").absolutePath))
+    }
+
+    @Test
+    fun cancelForegroundKillsChildProcessWithoutResettingShell() = runBlocking {
+        val pending = async { shell.run("sleep 30", timeoutSeconds = 20) }
+        delay(300.milliseconds) // let `sleep` actually start as bash's child
+        shell.cancelForeground()
+
+        val result = withTimeout(5.seconds) { pending.await() }
+        assertEquals(false, result["success"])
+        assertEquals(false, result["shell_died"]) // child was signaled, not the shell reset
+        assertEquals(130, result["exit_code"]) // 128 + SIGINT
+
+        // Shell itself must still be alive and usable after the cancel.
+        val next = shell.run("echo still-alive", timeoutSeconds = 10)
+        assertEquals("still-alive", next["stdout"])
     }
 }

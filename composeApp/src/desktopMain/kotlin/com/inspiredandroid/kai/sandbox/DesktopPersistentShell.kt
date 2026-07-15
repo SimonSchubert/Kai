@@ -26,13 +26,13 @@ private const val US = ""
  * Android's PersistentSandboxShell, without any chroot/proot layer — desktop
  * has no separate fake root, so this is just an ordinary shell with env vars set.
  *
- * Known limitation: [cancelForeground] kills the shell process itself but,
- * unlike Android's PersistentSandboxShell, does not signal the foreground
- * command's children — a long-running child (rsync, python, curl) reparents
- * to init and keeps running after cancel. Android solves this with a pid
- * probe + pgrep/kill escalation; desktop doesn't implement that yet. This
- * matters more here, not less, since this shell runs fully unsandboxed
- * (no chroot boundary) on non-Flatpak desktop builds.
+ * [cancelForeground] escalates SIGINT/SIGTERM/SIGKILL to the foreground
+ * command's children before falling back to killing the shell itself —
+ * mirroring Android's PersistentSandboxShell. Desktop's bash is a real JVM
+ * child [Process] rather than one reached through a proot layer, so
+ * [ProcessHandle.descendants] finds the pids directly; no pgrep/sibling-proot
+ * trick needed. [ProcessHandle] itself only exposes SIGTERM/SIGKILL
+ * (destroy/destroyForcibly), so SIGINT still goes through the `kill` binary.
  */
 class DesktopPersistentShell(private val layout: MicromambaLayout) {
     private val mutex = Mutex()
@@ -125,8 +125,41 @@ class DesktopPersistentShell(private val layout: MicromambaLayout) {
         )
     }
 
+    /**
+     * Best-effort interrupt of the foreground command without killing the
+     * shell itself. Falls back to a full reset if the process isn't known yet
+     * or if even SIGKILL doesn't free the foreground.
+     */
     fun cancelForeground() {
-        reset()
+        val bash = process
+        if (bash == null) {
+            reset()
+            return
+        }
+        scope.launch {
+            for (signal in listOf("INT", "TERM", "KILL")) {
+                signalChildren(bash, signal)
+                delay(500.milliseconds)
+                // Stop escalating as soon as the in-flight command finishes
+                // (sentinel arrived) or there's no in-flight command anymore.
+                val done = currentSink.get()?.done?.isCompleted
+                if (done == null || done == true) return@launch
+            }
+            // Even SIGKILL didn't free us — the shell itself must be wedged.
+            reset()
+        }
+    }
+
+    /** Signal every descendant of the persistent bash (not bash itself). */
+    private fun signalChildren(bash: Process, signal: String) {
+        val pids = bash.toHandle().descendants().map { it.pid() }.toList()
+        if (pids.isEmpty()) return
+        runCatching {
+            ProcessBuilder(listOf("kill", "-$signal") + pids.map(Long::toString))
+                .redirectErrorStream(true)
+                .start()
+                .waitFor()
+        }
     }
 
     fun reset() {
