@@ -1,7 +1,5 @@
 package com.inspiredandroid.kai.sandbox
 
-import java.io.File
-import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -10,6 +8,8 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
+import java.util.concurrent.TimeUnit
 
 private val DEFAULT_PACKAGES = listOf(
     "git", "curl", "wget", "jq", "python", "nodejs", "openssh", "lftp", "rsync",
@@ -87,8 +87,13 @@ class DesktopLinuxSandboxManager(
                     _state.value = SandboxState.Installing("Installing $pkg...")
                     val processBuilder = ProcessBuilder(
                         layout.binaryFile.absolutePath,
-                        "install", "-y", "-p", layout.rootPrefix.absolutePath,
-                        "-c", "conda-forge", pkg,
+                        "install",
+                        "-y",
+                        "-p",
+                        layout.rootPrefix.absolutePath,
+                        "-c",
+                        "conda-forge",
+                        pkg,
                     ).redirectErrorStream(true)
                     // Without MAMBA_ROOT_PREFIX, micromamba has to guess where its own
                     // root lives (package cache, base-env bootstrap) independently of
@@ -132,7 +137,11 @@ class DesktopLinuxSandboxManager(
         stack.addLast(baseDir)
         while (stack.isNotEmpty()) {
             val dir = stack.removeLast()
-            val children = try { dir.listFiles() } catch (_: Throwable) { null } ?: continue
+            val children = try {
+                dir.listFiles()
+            } catch (_: Throwable) {
+                null
+            } ?: continue
             for (child in children) {
                 try {
                     when {

@@ -6,10 +6,10 @@ import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
+import kotlinx.coroutines.test.runTest
 import java.io.File
 import java.nio.file.Files
 import java.util.concurrent.TimeUnit
-import kotlinx.coroutines.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -26,8 +26,11 @@ fun buildFakeMicromambaArchive(stagingDir: File, echoText: String = "fake-microm
     fakeBinary.setExecutable(true, false)
     val archiveFile = File(stagingDir, "fake-micromamba.tar.bz2")
     val process = ProcessBuilder(
-        "tar", "-cjf", archiveFile.absolutePath,
-        "-C", stagingDir.absolutePath,
+        "tar",
+        "-cjf",
+        archiveFile.absolutePath,
+        "-C",
+        stagingDir.absolutePath,
         "bin/micromamba",
     ).redirectErrorStream(true).start()
     check(process.waitFor(30, TimeUnit.SECONDS) && process.exitValue() == 0) {
@@ -112,8 +115,11 @@ class MicromambaDownloaderTest {
         val otherFile = File(stagingDir, "not-micromamba.txt").apply { writeText("nope") }
         val archiveFile = File(targetDir, "empty.tar.bz2")
         val process = ProcessBuilder(
-            "tar", "-cjf", archiveFile.absolutePath,
-            "-C", stagingDir.absolutePath,
+            "tar",
+            "-cjf",
+            archiveFile.absolutePath,
+            "-C",
+            stagingDir.absolutePath,
             otherFile.name,
         ).start()
         check(process.waitFor(10, TimeUnit.SECONDS) && process.exitValue() == 0)

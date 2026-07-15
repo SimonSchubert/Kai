@@ -9,10 +9,6 @@ import com.inspiredandroid.kai.sandbox.MicromambaDownloader
 import com.inspiredandroid.kai.sandbox.SandboxState
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
-import java.io.File
-import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +20,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.java.KoinJavaComponent.inject
+import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration.Companion.milliseconds
 
 actual fun createSandboxController(): SandboxController = DesktopSandboxController()
 
@@ -81,18 +81,22 @@ class DesktopSandboxController : SandboxController {
 
     private fun mapState(state: SandboxState): SandboxStatus = when (state) {
         is SandboxState.NotInstalled -> SandboxStatus(statusText = "Not installed")
+
         is SandboxState.Downloading -> SandboxStatus(
             working = true,
             progress = state.progress,
             statusText = "Downloading micromamba...",
         )
+
         is SandboxState.Extracting -> SandboxStatus(working = true, statusText = "Extracting...")
+
         is SandboxState.Installing -> SandboxStatus(
             installed = sandboxManager.layout.binaryFile.exists(),
             working = true,
             statusText = state.detail.ifEmpty { "Installing..." },
             diskUsageMB = cachedDiskUsageMB,
         )
+
         is SandboxState.Ready -> {
             if (previousState !is SandboxState.Ready) {
                 cachedDiskUsageMB = sandboxManager.getDiskUsageMB()
@@ -105,6 +109,7 @@ class DesktopSandboxController : SandboxController {
                 packagesInstalled = sandboxManager.arePackagesInstalled(),
             )
         }
+
         is SandboxState.Error -> SandboxStatus(error = true, statusText = "Error: ${state.message}")
     }
 
@@ -216,9 +221,7 @@ class DesktopSandboxController : SandboxController {
     override suspend fun listDirectory(path: String): List<SandboxFileEntry> = emptyList()
     override suspend fun readTextFile(path: String, maxBytes: Int): String? = null
     override suspend fun writeTextFile(path: String, content: String): Boolean = false
-    override suspend fun openFile(path: String): Result<Unit> =
-        Result.failure(UnsupportedOperationException("Sandbox file browser not yet implemented for desktop"))
+    override suspend fun openFile(path: String): Result<Unit> = Result.failure(UnsupportedOperationException("Sandbox file browser not yet implemented for desktop"))
     override suspend fun deleteEntry(path: String, recursive: Boolean): Boolean = false
-    override suspend fun renameEntry(path: String, newName: String): Result<String> =
-        Result.failure(UnsupportedOperationException("Sandbox file browser not yet implemented for desktop"))
+    override suspend fun renameEntry(path: String, newName: String): Result<String> = Result.failure(UnsupportedOperationException("Sandbox file browser not yet implemented for desktop"))
 }

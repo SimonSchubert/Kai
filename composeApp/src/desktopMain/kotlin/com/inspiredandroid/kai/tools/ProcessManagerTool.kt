@@ -6,8 +6,8 @@ import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
-import kotlin.time.Duration.Companion.seconds
 import org.koin.java.KoinJavaComponent.inject
+import kotlin.time.Duration.Companion.seconds
 
 object ProcessManagerTool : Tool {
 

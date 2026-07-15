@@ -8,11 +8,11 @@ import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
-import java.util.UUID
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
 import org.koin.java.KoinJavaComponent.inject
+import java.util.UUID
 
 private const val DEFAULT_TIMEOUT_SECONDS = 30L
 private const val MAX_TIMEOUT_SECONDS = 120L

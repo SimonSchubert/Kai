@@ -1,8 +1,8 @@
 package com.inspiredandroid.kai.sandbox
 
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.nio.file.Files
-import kotlinx.coroutines.runBlocking
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

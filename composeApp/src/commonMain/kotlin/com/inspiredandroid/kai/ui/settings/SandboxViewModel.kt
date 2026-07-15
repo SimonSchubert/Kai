@@ -13,8 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-fun shouldShowSandboxTab(platform: Platform): Boolean =
-    platform is Platform.Mobile.Android || platform is Platform.Desktop.Linux
+fun shouldShowSandboxTab(platform: Platform): Boolean = platform is Platform.Mobile.Android || platform is Platform.Desktop.Linux
 
 @Immutable
 data class SandboxUiState(

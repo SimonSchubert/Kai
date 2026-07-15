@@ -65,8 +65,11 @@ class MicromambaDownloader(private val httpClient: HttpClient) {
     fun extractBinary(archiveFile: File, baseDir: File) {
         baseDir.mkdirs()
         val process = ProcessBuilder(
-            "tar", "-xjf", archiveFile.absolutePath,
-            "-C", baseDir.absolutePath,
+            "tar",
+            "-xjf",
+            archiveFile.absolutePath,
+            "-C",
+            baseDir.absolutePath,
             "bin/micromamba",
         ).redirectErrorStream(true).start()
         val finished = process.waitFor(EXTRACT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
