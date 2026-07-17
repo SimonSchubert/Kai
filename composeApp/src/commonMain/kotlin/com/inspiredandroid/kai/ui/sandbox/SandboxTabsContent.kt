@@ -31,8 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.TerminalLine
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.settings.SandboxUiState
 import com.inspiredandroid.kai.ui.settings.SettingsCard
@@ -114,8 +116,9 @@ internal fun SandboxTabsContent(
     } else {
         Column(modifier = modifier.fillMaxWidth()) {
             SettingsCard {
+                val isDesktopLinux = currentPlatform is Platform.Desktop.Linux
                 Text(
-                    text = "Alpine Linux",
+                    text = if (isDesktopLinux) "Dev Tools" else "Alpine Linux",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -123,7 +126,11 @@ internal fun SandboxTabsContent(
                 Spacer(Modifier.height(4.dp))
 
                 Text(
-                    text = stringResource(Res.string.settings_sandbox_description),
+                    text = if (isDesktopLinux) {
+                        "Install dev tools (git, python, node, and more) so the AI can run shell commands, scripts, and tools on your behalf."
+                    } else {
+                        stringResource(Res.string.settings_sandbox_description)
+                    },
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

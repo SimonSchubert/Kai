@@ -55,6 +55,7 @@ import com.inspiredandroid.kai.ui.components.FullScreenImageHost
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.rememberSandboxAwareUriHandler
 import com.inspiredandroid.kai.ui.settings.SettingsScreen
+import com.inspiredandroid.kai.ui.settings.shouldShowSandboxTab
 import com.inspiredandroid.kai.ui.withBlackBackground
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tab_chat
@@ -229,7 +230,7 @@ private fun AppContent(
                             onNavigateToSettings = {
                                 navController.navigate(Settings)
                             },
-                            isSandboxAvailable = currentPlatform is Platform.Mobile.Android,
+                            isSandboxAvailable = shouldShowSandboxTab(currentPlatform),
                             navigationTabBar = if (showTabBar) navigationTabBar else null,
                         )
                     }

@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+fun shouldShowSandboxTab(platform: Platform): Boolean = platform is Platform.Mobile.Android || platform is Platform.Desktop.Linux
+
 @Immutable
 data class SandboxUiState(
     val showSandbox: Boolean = false,
@@ -40,7 +42,7 @@ class SandboxViewModel(
         applyStatus(
             sandboxController.status.value,
             SandboxUiState(
-                showSandbox = currentPlatform is Platform.Mobile.Android,
+                showSandbox = shouldShowSandboxTab(currentPlatform),
                 isSandboxEnabled = dataRepository.isSandboxEnabled(),
             ),
         ),

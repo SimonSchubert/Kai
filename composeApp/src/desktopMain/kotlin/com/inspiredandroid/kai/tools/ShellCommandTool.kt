@@ -1,22 +1,26 @@
 package com.inspiredandroid.kai.tools
 
+import com.inspiredandroid.kai.DesktopSandboxController
+import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxSessions
+import com.inspiredandroid.kai.data.currentConversationIdOrNull
 import com.inspiredandroid.kai.network.tools.ParameterSchema
 import com.inspiredandroid.kai.network.tools.Tool
 import com.inspiredandroid.kai.network.tools.ToolInfo
 import com.inspiredandroid.kai.network.tools.ToolSchema
-import com.inspiredandroid.kai.smartTruncate
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.tool_execute_shell_command_description
 import kai.composeapp.generated.resources.tool_execute_shell_command_name
-import java.io.BufferedReader
-import java.io.File
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.TimeUnit
+import org.koin.java.KoinJavaComponent.inject
+import java.util.UUID
 
-private const val MAX_OUTPUT_LENGTH = 30_000
 private const val DEFAULT_TIMEOUT_SECONDS = 30L
 private const val MAX_TIMEOUT_SECONDS = 120L
 
+// Retained from before this tool routed through the sandbox: desktop's shell has no
+// chroot/namespace boundary (unlike Android's), so this blocklist is the only guard
+// against a handful of unambiguously destructive commands. Not a security boundary —
+// a backstop against obvious mistakes.
 private val blockedPatterns = listOf(
     Regex("""rm\s+-[^\s]*r[^\s]*\s+/(?:\s|$)"""), // rm -rf /
     Regex("""rm\s+-[^\s]*r[^\s]*\s+/\*"""), // rm -rf /*
@@ -35,58 +39,92 @@ private val blockedPatterns = listOf(
     Regex("""format\s+[A-Za-z]:"""), // Windows format C:
 )
 
-private val BLOCKED_ENV_VARS = setOf(
-    "PATH",
-    "LD_PRELOAD",
-    "LD_LIBRARY_PATH",
-    "DYLD_INSERT_LIBRARIES",
-    "DYLD_LIBRARY_PATH",
-    "DYLD_FRAMEWORK_PATH",
-)
-
 private fun isBlocked(command: String): Boolean = blockedPatterns.any { it.containsMatchIn(command) }
 
-private fun readBounded(reader: BufferedReader): String {
-    val sb = StringBuilder()
-    val buf = CharArray(8192)
-    var read: Int
-    while (reader.read(buf).also { read = it } != -1) {
-        sb.append(buf, 0, read)
-        if (sb.length >= MAX_OUTPUT_LENGTH) break
+private val validEnvKeyRegex = Regex("^[A-Za-z_][A-Za-z0-9_]*$")
+
+private fun shellSingleQuote(value: String): String = "'" + value.replace("'", "'\\''") + "'"
+
+/**
+ * Wraps [command] with `cd <dir> && ...` and/or env vars for [ShellCommandTool.execute].
+ *
+ * env vars are applied via a *nested* `bash -c` invocation (`FOO='bar' bash -c
+ * '<command>'`), not a same-line prefix (`FOO='bar' <command>`). A same-line prefix
+ * exports FOO into the executed command's real process environment -- which a
+ * subprocess like `printenv` or `python` correctly reads -- but does NOT make `$FOO`
+ * visible if the command itself references it via shell expansion (e.g. `echo $FOO`):
+ * bash expands `$FOO` while parsing the command line, before the preceding assignment
+ * takes effect, so it sees the OLD value (unset). Running the command inside a child
+ * `bash -c` instead means `$FOO` is expanded by *that* shell, after it has already
+ * inherited FOO from its real environment -- so both `echo $FOO` and `printenv FOO`
+ * see it correctly. `cd` is intentionally kept outside this wrapping (applied directly
+ * to the persistent shell, not the child) since it's documented to persist across calls.
+ *
+ * The env variable *name* must stay unquoted in the prefix -- bash only recognizes
+ * `NAME=value` as an assignment word when NAME itself is unquoted; quoting it (as an
+ * earlier version of this code did) makes bash treat the whole thing as a command name
+ * instead, e.g. `'FOO'='hello'` fails with "FOO=hello: command not found" rather than
+ * assigning FOO. Names are validated against shell-identifier syntax so an unquoted,
+ * LLM-supplied key can't inject extra shell syntax.
+ */
+internal fun buildWrappedCommand(command: String, workingDir: String?, env: Map<String, String>): String {
+    val cdPrefix = if (workingDir != null) "cd " + shellSingleQuote(workingDir) + " && " else ""
+    val commandPart = if (env.isEmpty()) {
+        command
+    } else {
+        val envPrefix = env.entries.joinToString(" ") { (k, v) ->
+            require(validEnvKeyRegex.matches(k)) { "Invalid env variable name: $k" }
+            "$k=${shellSingleQuote(v)}"
+        }
+        "$envPrefix bash -c ${shellSingleQuote(command)}"
     }
-    // Drain remaining to unblock the process even if we stop collecting
-    if (sb.length >= MAX_OUTPUT_LENGTH) {
-        while (reader.read(buf) != -1) { /* discard */ }
-    }
-    return sb.toString()
+    return cdPrefix + commandPart
 }
 
-private fun buildDescription(): String {
-    val osName = System.getProperty("os.name", "").lowercase()
-    val platform = when {
-        "mac" in osName || "darwin" in osName -> "macOS"
-        "win" in osName -> "Windows"
-        else -> "Linux"
-    }
-    val shell = if ("win" in osName) "cmd.exe" else "sh"
-    return """Execute a shell command on the host machine ($platform, shell: $shell) and return stdout, stderr, and exit code.
-Each command runs in a fresh shell — use "cd dir && command" for directory changes.
-Output is limited to ${MAX_OUTPUT_LENGTH} characters per stream; for large output, pipe through head/tail.
-Default timeout: ${DEFAULT_TIMEOUT_SECONDS}s, max: ${MAX_TIMEOUT_SECONDS}s.
-Use for file operations, system info, running scripts, installing packages, etc.
-Set background=true to run long-lived processes (servers, builds). Use the manage_process tool to check on them."""
-}
+private const val TOOL_DESCRIPTION = """Execute a shell command in the Dev Tools sandbox and return stdout, stderr, and exit code.
+
+Shell session is PERSISTENT across calls within THIS conversation: cwd, exported environment variables, and any in-shell state carry from one call to the next, just like a normal terminal. So "cd /tmp" in one call, then "pwd" in the next, returns "/tmp". You do NOT need to chain "cd dir && command" unless you want directory changes to be one-shot. Other conversations and the in-app Terminal tab each have their own isolated shells.
+
+Pre-installed: git, curl, wget, jq, python, nodejs, plus remote-server tools — ssh, scp, sftp (openssh), lftp (FTP/FTPS), rsync. Use them directly. Install extra packages via the Dev Tools Packages UI or `micromamba install -y -p <prefix> -c conda-forge <package>`.
+
+Note: unlike Android's sandbox, this shell has no chroot or namespace boundary — commands run directly against the real machine with real filesystem access. Be conservative with destructive operations.
+
+Limits and behavior:
+- Output is capped at 15000 characters per stream; for large output, pipe through head/tail.
+- Default timeout: ${DEFAULT_TIMEOUT_SECONDS}s, max: ${MAX_TIMEOUT_SECONDS}s.
+- Fullscreen TUIs (top, htop, vim, less, nano, anything ncurses) WILL NOT WORK — no PTY.
+- Set background=true to run a long-lived process detached from the shell (writes to its own session_id). Use manage_process to check on it.
+- Set fresh=true to run in a one-shot isolated shell that doesn't share state with the persistent session."""
 
 object ShellCommandTool : Tool {
+    private val sandboxController: SandboxController by inject(SandboxController::class.java)
+
     override val schema = ToolSchema(
         name = "execute_shell_command",
-        description = buildDescription(),
+        description = TOOL_DESCRIPTION,
         parameters = mapOf(
             "command" to ParameterSchema("string", "The shell command to execute", true),
             "timeout" to ParameterSchema("integer", "Timeout in seconds (default $DEFAULT_TIMEOUT_SECONDS, max $MAX_TIMEOUT_SECONDS)", false),
-            "working_dir" to ParameterSchema("string", "Working directory for the command", false),
-            "env" to ParameterSchema("object", "Environment variables to set (key-value pairs). Cannot override PATH or LD_PRELOAD.", false),
-            "background" to ParameterSchema("boolean", "Run in background and return immediately with a session_id. Use manage_process tool to check status.", false),
+            "working_dir" to ParameterSchema(
+                "string",
+                "If set, run the command starting in this directory (cd <dir> && <command>). The cd persists for subsequent calls — same as if the user had run cd themselves.",
+                false,
+            ),
+            "env" to ParameterSchema(
+                "object",
+                "Per-command environment variable overrides. Scoped to this call only; does not persist (use 'export' inside the command if you want persistence).",
+                false,
+            ),
+            "background" to ParameterSchema(
+                "boolean",
+                "Run detached as a background job. Returns a session_id; use manage_process to check status. Does not share the persistent shell.",
+                false,
+            ),
+            "fresh" to ParameterSchema(
+                "boolean",
+                "If true, run in a one-shot isolated shell that does not share state with the persistent session. Default false.",
+                false,
+            ),
         ),
     )
 
@@ -99,83 +137,61 @@ object ShellCommandTool : Tool {
             return mapOf("success" to false, "error" to "Command is blocked for safety reasons")
         }
 
+        if (!sandboxController.status.value.ready) {
+            return mapOf("success" to false, "error" to "Dev Tools sandbox is not installed. Set it up in Settings > Dev Tools.")
+        }
+        val controller = sandboxController as? DesktopSandboxController
+            ?: return mapOf("success" to false, "error" to "Sandbox controller unavailable")
+
         val timeoutSeconds = ((args["timeout"] as? Number)?.toLong() ?: DEFAULT_TIMEOUT_SECONDS)
             .coerceIn(1, MAX_TIMEOUT_SECONDS)
-
-        val workingDir = (args["working_dir"] as? String)?.let { File(it) }
+        val workingDir = args["working_dir"] as? String
 
         val envMap = (args["env"] as? Map<String, Any>)
             ?.mapValues { it.value.toString() }
-            ?.filterKeys { it.uppercase() !in BLOCKED_ENV_VARS }
             ?: emptyMap()
 
         val background = args["background"] as? Boolean ?: false
-        if (background) {
-            return ProcessManagerTool.processManager.startBackground(command, timeoutSeconds, workingDir, envMap)
+
+        // Apply working_dir/env as a per-command prefix (cd ... && FOO=bar cmd) so
+        // they don't bleed into the session's own state. cd is intentionally
+        // persistent: the LLM is told that's the case in the tool description.
+        val wrapped = try {
+            buildWrappedCommand(command, workingDir, envMap)
+        } catch (e: IllegalArgumentException) {
+            return mapOf("success" to false, "error" to e.message)
         }
 
+        if (background) {
+            return ProcessManagerTool.processManager.startBackground(
+                controller::shellFor,
+                controller::closeSession,
+                wrapped,
+                timeoutSeconds,
+            )
+        }
+
+        val fresh = args["fresh"] as? Boolean ?: false
+        val sessionId = if (fresh) "fresh-${UUID.randomUUID()}" else currentConversationIdOrNull() ?: SandboxSessions.DEFAULT
+
         return try {
-            val isWindows = System.getProperty("os.name").lowercase().contains("win")
-            val processBuilder = if (isWindows) {
-                ProcessBuilder("cmd", "/c", command)
-            } else {
-                ProcessBuilder("sh", "-c", command)
-            }
-
-            processBuilder.redirectErrorStream(false)
-            if (workingDir != null && workingDir.isDirectory) {
-                processBuilder.directory(workingDir)
-            }
-            if (envMap.isNotEmpty()) {
-                processBuilder.environment().putAll(envMap)
-            }
-
-            val process = processBuilder.start()
-
-            // Drain stdout/stderr concurrently to avoid pipe buffer deadlock
-            val stdoutFuture = CompletableFuture.supplyAsync {
-                readBounded(process.inputStream.bufferedReader())
-            }
-            val stderrFuture = CompletableFuture.supplyAsync {
-                readBounded(process.errorStream.bufferedReader())
-            }
-
-            val completed = process.waitFor(timeoutSeconds, TimeUnit.SECONDS)
-
-            if (!completed) {
-                process.destroyForcibly()
-                return mapOf(
-                    "success" to false,
-                    "stdout" to stdoutFuture.get(1, TimeUnit.SECONDS).smartTruncate(MAX_OUTPUT_LENGTH),
-                    "stderr" to stderrFuture.get(1, TimeUnit.SECONDS).smartTruncate(MAX_OUTPUT_LENGTH),
-                    "exit_code" to -1,
-                    "timed_out" to true,
-                )
-            }
-
-            val stdout = stdoutFuture.get().smartTruncate(MAX_OUTPUT_LENGTH)
-            val stderr = stderrFuture.get().smartTruncate(MAX_OUTPUT_LENGTH)
-            val exitCode = process.exitValue()
-
-            mapOf(
-                "success" to (exitCode == 0),
-                "stdout" to stdout,
-                "stderr" to stderr,
-                "exit_code" to exitCode,
-                "timed_out" to false,
+            controller.shellFor(sessionId).run(
+                command = wrapped,
+                timeoutSeconds = timeoutSeconds,
+                displayCommand = command,
             )
-        } catch (e: Exception) {
-            mapOf(
-                "success" to false,
-                "error" to (e.message ?: "Failed to execute command"),
-            )
+        } finally {
+            // Fresh sessions are one-shot by contract; drop the shell (and its
+            // bash process) immediately rather than leaking it for the app's
+            // lifetime under a UUID nobody will ever address again.
+            if (fresh) controller.closeSession(sessionId)
         }
     }
 
     val toolInfo = ToolInfo(
         id = "execute_shell_command",
         name = "Execute Shell Command",
-        description = "Execute a shell command on the device",
+        description = "Execute a shell command in the Dev Tools sandbox",
         nameRes = Res.string.tool_execute_shell_command_name,
         descriptionRes = Res.string.tool_execute_shell_command_description,
         isEnabled = false,

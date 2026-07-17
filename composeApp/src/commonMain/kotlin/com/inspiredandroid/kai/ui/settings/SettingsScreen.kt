@@ -106,8 +106,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.inspiredandroid.kai.BackIcon
+import com.inspiredandroid.kai.Platform
 import com.inspiredandroid.kai.SandboxController
 import com.inspiredandroid.kai.Version
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.data.EmailAccount
 import com.inspiredandroid.kai.data.HeartbeatLogEntry
 import com.inspiredandroid.kai.data.ImportSection
@@ -581,10 +583,19 @@ private fun SettingsTabSelector(
                     Text(
                         text = when (tab) {
                             SettingsTab.General -> stringResource(Res.string.settings_tab_general)
+
                             SettingsTab.Agent -> stringResource(Res.string.settings_tab_agent)
+
                             SettingsTab.Services -> stringResource(Res.string.settings_tab_services)
+
                             SettingsTab.Tools -> stringResource(Res.string.settings_tab_tools)
-                            SettingsTab.Sandbox -> stringResource(Res.string.settings_tab_sandbox)
+
+                            SettingsTab.Sandbox -> if (currentPlatform is Platform.Desktop.Linux) {
+                                "Dev Tools"
+                            } else {
+                                stringResource(Res.string.settings_tab_sandbox)
+                            }
+
                             SettingsTab.Integrations -> stringResource(Res.string.settings_tab_integrations)
                         },
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

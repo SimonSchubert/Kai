@@ -169,6 +169,11 @@ kotlin {
             implementation(libs.litert.lm.jvm)
             implementation(libs.sqldelight.sqlite.driver)
         }
+        val desktopTest by getting {
+            dependencies {
+                implementation(libs.ktor.client.mock)
+            }
+        }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
             implementation(libs.ktor.network)

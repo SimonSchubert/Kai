@@ -21,6 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.inspiredandroid.kai.Platform
+import com.inspiredandroid.kai.currentPlatform
 import com.inspiredandroid.kai.ui.handCursor
 import com.inspiredandroid.kai.ui.sandbox.SandboxProgressRow
 import kai.composeapp.generated.resources.Res
@@ -50,8 +52,9 @@ internal fun SandboxSettingsCard(
             verticalAlignment = CenterVertically,
         ) {
             Column(modifier = Modifier.weight(1f)) {
+                val isDesktopLinux = currentPlatform is Platform.Desktop.Linux
                 Text(
-                    text = "Alpine Linux",
+                    text = if (isDesktopLinux) "Dev Tools" else "Alpine Linux",
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground,
                 )
@@ -66,7 +69,11 @@ internal fun SandboxSettingsCard(
                 } else {
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = stringResource(Res.string.settings_sandbox_description),
+                        text = if (isDesktopLinux) {
+                            "Install dev tools (git, python, node, and more) so the AI can run shell commands, scripts, and tools on your behalf."
+                        } else {
+                            stringResource(Res.string.settings_sandbox_description)
+                        },
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
