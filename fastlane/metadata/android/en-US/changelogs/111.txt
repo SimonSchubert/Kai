@@ -1,0 +1,8 @@
+Save copies of sent emails to the IMAP Sent folder
+Resolve email tool accounts by id, address, or single account
+Fix heartbeat CompletionHandlerException
+Add java.sql to desktop jlink runtime modules
+Increase chat request timeout to 180 seconds
+Auto-install bash during Alpine Linux install
+Update model catalog
+Upgrade dependencies

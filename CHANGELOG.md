@@ -1,3 +1,19 @@
+## v2.8.2 — 2026-07-18
+
+### Features
+- Save copies of sent emails to the IMAP Sent folder
+- Resolve email tool accounts by id, address, or single account
+
+### Fixes
+- Fix heartbeat CompletionHandlerException
+- Add java.sql to desktop jlink runtime modules
+
+### Improvements
+- Increase chat request timeout to 180 seconds
+- Auto-install bash package during Alpine Linux install
+- Update model catalog (Kimi K3, Inkling, Elo scores)
+- Upgrade dependencies
+
 ## v2.8.1 — 2026-07-11
 
 ### Features
