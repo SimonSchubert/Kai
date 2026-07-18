@@ -75,6 +75,38 @@ object EmailTools {
         }
     }
 
+    /**
+     * Resolve the account referenced by a tool call. Accepts the account id or
+     * the account's email address; falls back to the only configured account
+     * when the argument is missing.
+     */
+    private fun resolveAccount(emailStore: EmailStore, rawAccountId: String?): EmailAccount? {
+        val accounts = emailStore.getAccounts()
+        if (rawAccountId.isNullOrBlank()) return accounts.singleOrNull()
+        return accounts.find { it.id == rawAccountId }
+            ?: accounts.find { it.email.equals(rawAccountId, ignoreCase = true) }
+    }
+
+    /**
+     * Error result that lists the connected accounts so the model can correct
+     * a wrong or stale account reference in its next call.
+     */
+    private fun accountNotFoundError(emailStore: EmailStore, rawAccountId: String?): Map<String, Any> {
+        val accounts = emailStore.getAccounts()
+        val error = when {
+            accounts.isEmpty() -> "No email accounts configured. Use setup_email first."
+            rawAccountId.isNullOrBlank() -> "Multiple accounts are connected — specify which one via account_id or email address."
+            else -> "Account not found: $rawAccountId"
+        }
+        return buildMap {
+            put("success", false)
+            put("error", error)
+            if (accounts.isNotEmpty()) {
+                put("connected_accounts", accounts.map { mapOf("account_id" to it.id, "email" to it.email) })
+            }
+        }
+    }
+
     private suspend fun <T> withImapSession(
         account: EmailAccount,
         emailStore: EmailStore,
@@ -209,7 +241,7 @@ object EmailTools {
         override suspend fun execute(args: Map<String, Any>): Any {
             val accountId = args["account_id"]?.toString()
             val accounts = if (accountId != null) {
-                listOfNotNull(emailStore.getAccount(accountId))
+                listOfNotNull(resolveAccount(emailStore, accountId))
             } else {
                 emailStore.getAccounts()
             }
@@ -291,7 +323,7 @@ object EmailTools {
             description = "Read the full body of a specific email by its UID. Use check_email first to get the UID.",
             parameters = mapOf(
                 "uid" to ParameterSchema(type = "integer", description = "The email UID from check_email results", required = true),
-                "account_id" to ParameterSchema(type = "string", description = "The account ID that owns this email", required = true),
+                "account_id" to ParameterSchema(type = "string", description = "The account that owns this email — account ID or email address. May be omitted when only one account is connected.", required = false),
                 "mark_read" to ParameterSchema(type = "boolean", description = "Whether to mark the email as seen on the server (default false — reading is non-destructive). Set true only when the user has actually dealt with the email and wants it out of their unread list.", required = false),
             ),
         )
@@ -300,11 +332,10 @@ object EmailTools {
             val uid = (args["uid"] as? Number)?.toLong()
                 ?: return mapOf("success" to false, "error" to "Missing uid")
             val accountId = args["account_id"]?.toString()
-                ?: return mapOf("success" to false, "error" to "Missing account_id")
             val markRead = (args["mark_read"] as? Boolean) ?: false
 
-            val account = emailStore.getAccount(accountId)
-                ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
+            val account = resolveAccount(emailStore, accountId)
+                ?: return accountNotFoundError(emailStore, accountId)
 
             return try {
                 withImapSession(account, emailStore) { imap ->
@@ -339,7 +370,7 @@ object EmailTools {
             name = "reply_email",
             description = "Reply to an email. Uses SMTP with proper In-Reply-To threading. Use read_email first to get the message_id for threading. A copy of the sent message is saved to the account's Sent folder automatically.",
             parameters = mapOf(
-                "account_id" to ParameterSchema(type = "string", description = "The account ID to send from", required = true),
+                "account_id" to ParameterSchema(type = "string", description = "The account to send from — account ID or email address. May be omitted when only one account is connected.", required = false),
                 "to" to ParameterSchema(type = "string", description = "Recipient email address", required = true),
                 "subject" to ParameterSchema(type = "string", description = "Email subject (typically 'Re: original subject')", required = true),
                 "body" to ParameterSchema(type = "string", description = "Reply body text", required = true),
@@ -349,7 +380,6 @@ object EmailTools {
 
         override suspend fun execute(args: Map<String, Any>): Any {
             val accountId = args["account_id"]?.toString()
-                ?: return mapOf("success" to false, "error" to "Missing account_id")
             val to = args["to"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing to")
             val subject = args["subject"]?.toString()
@@ -358,8 +388,8 @@ object EmailTools {
                 ?: return mapOf("success" to false, "error" to "Missing body")
             val inReplyTo = args["in_reply_to"]?.toString()
 
-            val account = emailStore.getAccount(accountId)
-                ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
+            val account = resolveAccount(emailStore, accountId)
+                ?: return accountNotFoundError(emailStore, accountId)
 
             return try {
                 withSmtpSession(account, emailStore) { smtp, from ->
@@ -399,7 +429,7 @@ object EmailTools {
             name = "compose_email",
             description = "Compose and send a new email. Use this when the user wants to write a fresh email to someone (not a reply to an existing thread). A copy of the sent message is saved to the account's Sent folder automatically.",
             parameters = mapOf(
-                "account_id" to ParameterSchema(type = "string", description = "The account ID to send from. Use check_email or search_email to find account IDs if needed.", required = true),
+                "account_id" to ParameterSchema(type = "string", description = "The account to send from — account ID or email address. May be omitted when only one account is connected.", required = false),
                 "to" to ParameterSchema(type = "string", description = "Recipient email address", required = true),
                 "subject" to ParameterSchema(type = "string", description = "Email subject line", required = true),
                 "body" to ParameterSchema(type = "string", description = "Email body text", required = true),
@@ -408,7 +438,6 @@ object EmailTools {
 
         override suspend fun execute(args: Map<String, Any>): Any {
             val accountId = args["account_id"]?.toString()
-                ?: return mapOf("success" to false, "error" to "Missing account_id")
             val to = args["to"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing to")
             val subject = args["subject"]?.toString()
@@ -416,8 +445,8 @@ object EmailTools {
             val body = args["body"]?.toString()
                 ?: return mapOf("success" to false, "error" to "Missing body")
 
-            val account = emailStore.getAccount(accountId)
-                ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
+            val account = resolveAccount(emailStore, accountId)
+                ?: return accountNotFoundError(emailStore, accountId)
 
             return try {
                 withSmtpSession(account, emailStore) { smtp, from ->
@@ -457,7 +486,7 @@ object EmailTools {
             name = "search_email",
             description = "Search emails by sender, subject, or date across the whole inbox (read and unread). Prefer this over check_email whenever the user mentions a specific sender, subject, or time range — e.g. \"unsubscribe from X\", \"the email from Alice last week\". Returns matching email summaries with an `is_read` flag.",
             parameters = mapOf(
-                "account_id" to ParameterSchema(type = "string", description = "Account ID to search in (required)", required = true),
+                "account_id" to ParameterSchema(type = "string", description = "Account to search in — account ID or email address. May be omitted when only one account is connected.", required = false),
                 "from" to ParameterSchema(type = "string", description = "Search by sender email/name", required = false),
                 "subject" to ParameterSchema(type = "string", description = "Search by subject text", required = false),
                 "since" to ParameterSchema(type = "string", description = "Search emails since date (format: 01-Jan-2025)", required = false),
@@ -466,7 +495,6 @@ object EmailTools {
 
         override suspend fun execute(args: Map<String, Any>): Any {
             val accountId = args["account_id"]?.toString()
-                ?: return mapOf("success" to false, "error" to "Missing account_id")
             val fromQuery = args["from"]?.toString()
             val subjectQuery = args["subject"]?.toString()
             val sinceDate = args["since"]?.toString()
@@ -475,8 +503,8 @@ object EmailTools {
                 return mapOf("success" to false, "error" to "At least one search criteria required (from, subject, or since)")
             }
 
-            val account = emailStore.getAccount(accountId)
-                ?: return mapOf("success" to false, "error" to "Account not found: $accountId")
+            val account = resolveAccount(emailStore, accountId)
+                ?: return accountNotFoundError(emailStore, accountId)
 
             return try {
                 withImapSession(account, emailStore) { imap ->

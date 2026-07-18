@@ -62,6 +62,8 @@ Scheduling tools and heartbeat tools are available when the scheduling feature i
 
 Email tools are available when the email feature is enabled and accounts are configured.
 
+Tools that operate on a specific account accept either the internal account ID or the account's email address, and the account reference can be omitted entirely when only one account is connected. When a reference doesn't match any connected account, the error lists the connected accounts so the assistant can correct itself instead of concluding that no account is set up.
+
 After a reply or a newly composed email is sent, a copy of the outgoing message is saved to the account's Sent folder on the mail server so sent mail stays auditable from any mail client. The folder is resolved in order: the folder configured during account setup, the Sent mailbox the server itself advertises (which also covers localized folder names), then common Sent folder names. If none exists — typical for freshly created mailboxes — the folder is created and the copy saved there. Gmail accounts are skipped because Gmail stores sent messages itself. Saving the copy is best-effort — if it fails, the send still succeeds and the tool result carries a warning instead.
 
 ### Platform-specific (Android)
