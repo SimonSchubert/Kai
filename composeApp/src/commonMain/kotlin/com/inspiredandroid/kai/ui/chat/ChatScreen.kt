@@ -636,7 +636,7 @@ private fun ChatModeScreen(
                                 // Capture history at effect start to prevent race conditions
                                 val history = uiState.history
                                 if (history.isNotEmpty()) {
-                                    listState.scrollToItem(history.lastIndex)
+                                    listState.requestScrollToItem(history.lastIndex)
                                     val lastMessage = history.last()
                                     if (uiState.isSpeechOutputEnabled && lastMessage.role == History.Role.ASSISTANT) {
                                         componentScope.launch(getBackgroundDispatcher()) {

@@ -55,9 +55,11 @@ data class PackagesUiState(
 data class SnackbarMessage(val resource: StringResource, val arg: String? = null)
 
 private const val SEARCH_DEBOUNCE_MS = 300L
+
 /** How many apk hits to pull before ranking — high enough that prefix matches
  *  aren't lost to alphabetical `head` truncation of description hits. */
 private const val SEARCH_FETCH_LIMIT = 2000
+
 /** Max packages shown in the Packages search list after ranking. */
 private const val SEARCH_RESULT_LIMIT = 200
 private const val ERROR_SUMMARY_MAX_CHARS = 200

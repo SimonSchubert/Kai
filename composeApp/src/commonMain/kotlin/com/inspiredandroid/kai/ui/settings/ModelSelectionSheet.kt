@@ -150,7 +150,7 @@ internal fun ModelSelection(
                 }
                 val gridState = rememberLazyGridState()
                 LaunchedEffect(sortOption) {
-                    gridState.scrollToItem(0)
+                    gridState.requestScrollToItem(0)
                 }
                 Box {
                     LazyVerticalGrid(

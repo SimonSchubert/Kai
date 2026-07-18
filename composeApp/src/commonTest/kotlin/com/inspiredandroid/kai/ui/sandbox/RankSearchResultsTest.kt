@@ -5,8 +5,7 @@ import kotlin.test.assertEquals
 
 class RankSearchResultsTest {
 
-    private fun pkg(name: String, description: String? = null) =
-        PackageEntry(name = name, version = "1.0.0-r0", description = description)
+    private fun pkg(name: String, description: String? = null) = PackageEntry(name = name, version = "1.0.0-r0", description = description)
 
     @Test
     fun `name prefix matches rank above description-only matches`() {

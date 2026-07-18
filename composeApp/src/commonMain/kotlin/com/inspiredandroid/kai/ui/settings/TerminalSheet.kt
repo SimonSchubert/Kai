@@ -220,7 +220,7 @@ fun TerminalContent(
     val scrollPulse = sessionViewModel?.scrollToEndPulse?.collectAsStateWithLifecycle()?.value
     LaunchedEffect(scrollPulse) {
         val size = outputLines.size
-        if (size > 0) listState.scrollToItem(size - 1)
+        if (size > 0) listState.requestScrollToItem(size - 1)
     }
 
     // Mirror the touch flag onto the session shell so streaming-side
@@ -347,10 +347,6 @@ fun TerminalContent(
 
         // Re-key the auto-scroll on outputLines so switching sessions detaches
         // from the previous session's list and starts following the new one.
-        // conflate() drops intermediate emissions while scrollToItem is in flight
-        // — under heavy output, the per-line measure pass contends with the
-        // background snapshot writer (proot stdio reader) on Compose's snapshot
-        // locks, and queuing a scroll per emission can ANR the main thread.
         LaunchedEffect(listState, isRunning, outputLines) {
             snapshotFlow { outputLines.size }.conflate().collect { size ->
                 if (size == 0) return@collect
@@ -364,14 +360,15 @@ fun TerminalContent(
                 val lastVisible = layout.visibleItemsInfo.lastOrNull()?.index ?: -1
                 // Don't yank the user back if they've scrolled up to read older output.
                 if (lastVisible >= total - 2) {
-                    // `size` and `total` can disagree across the composition/measure
-                    // boundary: `size` leads when state has been written but the list
-                    // hasn't recomposed yet (interval list smaller than `size`);
-                    // `total` leads when layoutInfo is stale from a previous measure
-                    // (spinner just disappeared, session swap). Either direction
-                    // crashes inside MutableIntervalList.get during forceRemeasure.
-                    // The smaller of the two is an index that exists in both views.
-                    listState.scrollToItem(minOf(size, total) - 1)
+                    // The transcript is committed from a background thread (proot
+                    // stdio reader), so any index computed here can be stale by
+                    // measure time — clamping alone can't close that window.
+                    // requestScrollToItem (unlike scrollToItem) doesn't force a
+                    // synchronous remeasure with the raw index pinned; it defers
+                    // to the next frame, after composition has re-synced the
+                    // list's item count with the data. It also doesn't suspend,
+                    // so heavy bursts no longer queue blocking scrolls.
+                    listState.requestScrollToItem(minOf(size, total) - 1)
                 }
             }
         }
