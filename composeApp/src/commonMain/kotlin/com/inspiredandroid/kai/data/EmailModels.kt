@@ -15,6 +15,7 @@ data class EmailAccount(
     val smtpPort: Int = 587,
     val username: String = "",
     val useStartTls: Boolean = true,
+    val sentFolder: String = "",
 )
 
 @Serializable

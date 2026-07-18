@@ -27,6 +27,54 @@ import kotlin.uuid.Uuid
 
 object EmailTools {
 
+    // Common Sent mailbox names across providers; tried in order when the
+    // account has no explicit sent folder configured.
+    private val sentFolderCandidates = listOf("Sent", "Sent Messages", "Sent Items", "INBOX.Sent")
+
+    /**
+     * Best-effort copy of an outgoing message to the account's Sent folder so
+     * sent mail stays auditable from any mail client. Returns the folder the
+     * copy landed in, or null when no folder accepted it.
+     */
+    private suspend fun saveCopyToSentFolder(
+        account: EmailAccount,
+        emailStore: EmailStore,
+        rawMessage: String,
+    ): String? {
+        // Gmail already stores SMTP-sent messages in its Sent folder; appending would duplicate them.
+        if (account.smtpHost.equals("smtp.gmail.com", ignoreCase = true)) return "[Gmail]/Sent Mail"
+        return try {
+            val imap = ImapClient(account.imapHost, account.imapPort)
+            try {
+                imap.connect()
+                imap.login(account.username.ifEmpty { account.email }, emailStore.getPassword(account.id))
+                // Prefer the configured folder, then the server-advertised
+                // SPECIAL-USE \Sent mailbox, then common folder names.
+                val specialUse = try {
+                    imap.findSentMailbox()
+                } catch (_: Exception) {
+                    null
+                }
+                val candidates = (listOf(account.sentFolder, specialUse.orEmpty()) + sentFolderCandidates)
+                    .filter { it.isNotEmpty() }
+                    .distinct()
+                val saved = candidates.firstOrNull { imap.appendToMailbox(it, rawMessage) }
+                if (saved != null) {
+                    saved
+                } else {
+                    // No folder accepted the copy (fresh mailboxes often have no
+                    // Sent folder at all) — create the preferred one and retry.
+                    val fallback = account.sentFolder.ifEmpty { "Sent" }
+                    if (imap.createMailbox(fallback) && imap.appendToMailbox(fallback, rawMessage)) fallback else null
+                }
+            } finally {
+                imap.logout()
+            }
+        } catch (_: Exception) {
+            null
+        }
+    }
+
     private suspend fun <T> withImapSession(
         account: EmailAccount,
         emailStore: EmailStore,
@@ -80,6 +128,7 @@ object EmailTools {
                 "smtp_host" to ParameterSchema(type = "string", description = "SMTP server hostname (auto-detected if omitted)", required = false),
                 "smtp_port" to ParameterSchema(type = "integer", description = "SMTP port (default 587)", required = false),
                 "display_name" to ParameterSchema(type = "string", description = "Display name for outgoing emails", required = false),
+                "sent_folder" to ParameterSchema(type = "string", description = "IMAP folder for storing copies of sent emails (common Sent folder names are auto-detected if omitted)", required = false),
             ),
         )
 
@@ -125,6 +174,7 @@ object EmailTools {
                     smtpPort = smtpPort,
                     username = email,
                     useStartTls = detected?.useStartTls ?: true,
+                    sentFolder = args["sent_folder"]?.toString() ?: "",
                 )
                 emailStore.addAccount(account)
                 emailStore.setPassword(accountId, password)
@@ -287,7 +337,7 @@ object EmailTools {
     fun replyEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
             name = "reply_email",
-            description = "Reply to an email. Uses SMTP with proper In-Reply-To threading. Use read_email first to get the message_id for threading.",
+            description = "Reply to an email. Uses SMTP with proper In-Reply-To threading. Use read_email first to get the message_id for threading. A copy of the sent message is saved to the account's Sent folder automatically.",
             parameters = mapOf(
                 "account_id" to ParameterSchema(type = "string", description = "The account ID to send from", required = true),
                 "to" to ParameterSchema(type = "string", description = "Recipient email address", required = true),
@@ -313,21 +363,27 @@ object EmailTools {
 
             return try {
                 withSmtpSession(account, emailStore) { smtp, from ->
-                    val success = smtp.sendReply(
+                    val rawMessage = smtp.sendReply(
                         from = account.email,
                         to = to,
                         subject = subject,
                         body = body,
                         inReplyTo = inReplyTo,
                     )
-                    if (success) {
-                        mapOf(
-                            "success" to true,
-                            "message" to "Reply sent successfully to $to",
-                            "from" to from,
-                            "to" to to,
-                            "subject" to subject,
-                        )
+                    if (rawMessage != null) {
+                        val sentFolder = saveCopyToSentFolder(account, emailStore, rawMessage)
+                        buildMap<String, Any> {
+                            put("success", true)
+                            put("message", "Reply sent successfully to $to")
+                            put("from", from)
+                            put("to", to)
+                            put("subject", subject)
+                            if (sentFolder != null) {
+                                put("saved_to_sent_folder", sentFolder)
+                            } else {
+                                put("warning", "Could not save a copy to the Sent folder")
+                            }
+                        }
                     } else {
                         mapOf("success" to false, "error" to "SMTP server rejected the message")
                     }
@@ -341,7 +397,7 @@ object EmailTools {
     fun composeEmailTool(emailStore: EmailStore) = object : Tool {
         override val schema = ToolSchema(
             name = "compose_email",
-            description = "Compose and send a new email. Use this when the user wants to write a fresh email to someone (not a reply to an existing thread).",
+            description = "Compose and send a new email. Use this when the user wants to write a fresh email to someone (not a reply to an existing thread). A copy of the sent message is saved to the account's Sent folder automatically.",
             parameters = mapOf(
                 "account_id" to ParameterSchema(type = "string", description = "The account ID to send from. Use check_email or search_email to find account IDs if needed.", required = true),
                 "to" to ParameterSchema(type = "string", description = "Recipient email address", required = true),
@@ -365,21 +421,27 @@ object EmailTools {
 
             return try {
                 withSmtpSession(account, emailStore) { smtp, from ->
-                    val success = smtp.sendReply(
+                    val rawMessage = smtp.sendReply(
                         from = account.email,
                         to = to,
                         subject = subject,
                         body = body,
                         inReplyTo = null,
                     )
-                    if (success) {
-                        mapOf(
-                            "success" to true,
-                            "message" to "Email sent successfully to $to",
-                            "from" to from,
-                            "to" to to,
-                            "subject" to subject,
-                        )
+                    if (rawMessage != null) {
+                        val sentFolder = saveCopyToSentFolder(account, emailStore, rawMessage)
+                        buildMap<String, Any> {
+                            put("success", true)
+                            put("message", "Email sent successfully to $to")
+                            put("from", from)
+                            put("to", to)
+                            put("subject", subject)
+                            if (sentFolder != null) {
+                                put("saved_to_sent_folder", sentFolder)
+                            } else {
+                                put("warning", "Could not save a copy to the Sent folder")
+                            }
+                        }
                     } else {
                         mapOf("success" to false, "error" to "SMTP server rejected the message")
                     }

@@ -1,6 +1,6 @@
 # Tools
 
-**Last verified:** 2026-07-10
+**Last verified:** 2026-07-18
 
 Kai's tools feature allows the AI to execute external functions during conversations — web search, notifications, calendar events, shell commands, memory operations, and more. Tools are defined with a schema, executed with safety guards, and managed through per-tool toggles in settings.
 
@@ -61,6 +61,8 @@ Scheduling tools and heartbeat tools are available when the scheduling feature i
 ### Email
 
 Email tools are available when the email feature is enabled and accounts are configured.
+
+After a reply or a newly composed email is sent, a copy of the outgoing message is saved to the account's Sent folder on the mail server so sent mail stays auditable from any mail client. The folder is resolved in order: the folder configured during account setup, the Sent mailbox the server itself advertises (which also covers localized folder names), then common Sent folder names. If none exists — typical for freshly created mailboxes — the folder is created and the copy saved there. Gmail accounts are skipped because Gmail stores sent messages itself. Saving the copy is best-effort — if it fails, the send still succeeds and the tool result carries a warning instead.
 
 ### Platform-specific (Android)
 

@@ -1,7 +1,12 @@
 package com.inspiredandroid.kai.email
 
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.offsetAt
+import kotlinx.datetime.toLocalDateTime
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlin.math.abs
+import kotlin.time.Clock
 
 /**
  * Minimal SMTP client for sending email replies.
@@ -60,13 +65,17 @@ class SmtpClient(
         }
     }
 
+    /**
+     * Sends the message and returns its raw RFC 5322 form on success (so callers
+     * can store a copy in the Sent folder), or null if the server rejected it.
+     */
     suspend fun sendReply(
         from: String,
         to: String,
         subject: String,
         body: String,
         inReplyTo: String? = null,
-    ): Boolean {
+    ): String? {
         writeLine("MAIL FROM:<$from>")
         var response = readResponse()
         if (!response.startsWith("250")) throw Exception("MAIL FROM failed: $response")
@@ -81,6 +90,7 @@ class SmtpClient(
 
         // Build email headers + body
         val headers = buildString {
+            appendLine("Date: ${rfc5322Date()}")
             appendLine("From: $from")
             appendLine("To: $to")
             appendLine("Subject: $subject")
@@ -103,8 +113,24 @@ class SmtpClient(
         // End with <CRLF>.<CRLF>
         writeLine(".")
         response = readResponse()
-        return response.startsWith("250")
+        return if (response.startsWith("250")) fullMessage else null
     }
+
+    private fun rfc5322Date(): String {
+        val now = Clock.System.now()
+        val timeZone = TimeZone.currentSystemDefault()
+        val dateTime = now.toLocalDateTime(timeZone)
+        val offsetSeconds = timeZone.offsetAt(now).totalSeconds
+        val offsetSign = if (offsetSeconds < 0) "-" else "+"
+        val offsetMinutes = abs(offsetSeconds) / 60
+        val offset = "$offsetSign${pad2(offsetMinutes / 60)}${pad2(offsetMinutes % 60)}"
+        val dayName = dateTime.dayOfWeek.name.take(3).lowercase().replaceFirstChar { it.uppercase() }
+        val monthName = dateTime.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }
+        return "$dayName, ${dateTime.day} $monthName ${dateTime.year} " +
+            "${pad2(dateTime.hour)}:${pad2(dateTime.minute)}:${pad2(dateTime.second)} $offset"
+    }
+
+    private fun pad2(value: Int): String = value.toString().padStart(2, '0')
 
     suspend fun quit() {
         try {

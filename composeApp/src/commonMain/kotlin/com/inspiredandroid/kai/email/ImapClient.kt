@@ -12,6 +12,7 @@ import kotlin.io.encoding.ExperimentalEncodingApi
  * Uses tagged commands (e.g., "A001 LOGIN ...") per IMAP spec.
  */
 private val imapExistsRegex = Regex("\\* (\\d+) EXISTS")
+private val imapListResponseRegex = Regex("^\\* LIST \\(([^)]*)\\) (.*)$")
 private val imapTaggedResponseRegex = Regex("^A\\d+ (OK|NO|BAD) .*")
 private val mimeBoundaryRegex = Regex("^--([\\w'()+,-./:=? ]+)\\s*$", RegexOption.MULTILINE)
 private val transferEncodingRegex = Regex("content-transfer-encoding:\\s*([\\w-]+)", RegexOption.IGNORE_CASE)
@@ -100,6 +101,80 @@ class ImapClient(
         conn.writeLine("$tag FETCH $uid (BODY.PEEK[HEADER.FIELDS (FROM TO SUBJECT DATE MESSAGE-ID LIST-UNSUBSCRIBE LIST-UNSUBSCRIBE-POST)] BODY[TEXT])")
         val response = readUntilTaggedOrGreeting(tag)
         return parseEmailFromFetch(uid, accountId, response)
+    }
+
+    /**
+     * Find the server's designated Sent mailbox via the SPECIAL-USE \Sent
+     * attribute (RFC 6154). Returns null when the server doesn't advertise one.
+     */
+    suspend fun findSentMailbox(): String? {
+        val conn = connection ?: throw IllegalStateException("Not connected")
+        val tag = nextTag()
+        conn.writeLine("$tag LIST \"\" \"*\"")
+        val response = readUntilTaggedOrGreeting(tag)
+        for (line in response.lines()) {
+            val match = imapListResponseRegex.find(line) ?: continue
+            val attributes = match.groupValues[1].split(" ")
+            if (attributes.any { it.equals("\\Sent", ignoreCase = true) }) {
+                return parseListMailboxName(match.groupValues[2])
+            }
+        }
+        return null
+    }
+
+    /**
+     * Extract the mailbox name from the remainder of a LIST response after the
+     * attribute list, e.g. `"/" "Sent Messages"` or `NIL Sent`.
+     */
+    private fun parseListMailboxName(afterAttributes: String): String? {
+        val trimmed = afterAttributes.trim()
+        // Skip the hierarchy delimiter token (quoted single char or NIL).
+        val name = if (trimmed.startsWith("\"")) {
+            trimmed.drop(1).substringAfter("\" ", "").trim()
+        } else {
+            trimmed.substringAfter(" ", "").trim()
+        }
+        if (name.isEmpty()) return null
+        return if (name.startsWith("\"")) {
+            name.removeSurrounding("\"").replace("\\\"", "\"").replace("\\\\", "\\")
+        } else {
+            name
+        }
+    }
+
+    suspend fun createMailbox(mailbox: String): Boolean {
+        val conn = connection ?: throw IllegalStateException("Not connected")
+        val tag = nextTag()
+        conn.writeLine("$tag CREATE \"${escapeQuoted(mailbox)}\"")
+        val response = readUntilTaggedOrGreeting(tag)
+        return response.lines().any { it.startsWith("$tag OK") }
+    }
+
+    /**
+     * Append a raw RFC 5322 message to a mailbox (e.g. the Sent folder) via IMAP APPEND.
+     * Returns false when the server rejects the mailbox or the message.
+     */
+    suspend fun appendToMailbox(mailbox: String, message: String): Boolean {
+        val conn = connection ?: throw IllegalStateException("Not connected")
+        val tag = nextTag()
+        val lines = message.replace("\r\n", "\n").trimEnd('\n').lines()
+        // Literal size counts CRLF line endings but no trailing CRLF — the final
+        // writeLine's CRLF terminates the APPEND command itself.
+        val literalSize = lines.sumOf { it.encodeToByteArray().size + 2 } - 2
+        conn.writeLine("$tag APPEND \"${escapeQuoted(mailbox)}\" (\\Seen) {$literalSize}")
+        // Wait for the "+" continuation before sending the literal; a tagged
+        // response instead means the mailbox was rejected (e.g. doesn't exist).
+        var line = conn.readLine()
+        var guard = 0
+        while (!line.startsWith("+") && !line.startsWith("$tag ") && guard++ < 100) {
+            line = conn.readLine()
+        }
+        if (!line.startsWith("+")) return false
+        for (messageLine in lines) {
+            conn.writeLine(messageLine)
+        }
+        val response = readUntilTaggedOrGreeting(tag)
+        return response.lines().any { it.startsWith("$tag OK") }
     }
 
     suspend fun markAsRead(uid: Long) {
