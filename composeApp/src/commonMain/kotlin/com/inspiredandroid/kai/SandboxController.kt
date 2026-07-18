@@ -37,6 +37,16 @@ data class SandboxFileEntry(
     val lastModifiedMs: Long,
 )
 
+/**
+ * Packages the sandbox's own infrastructure depends on. `bash` backs every
+ * persistent shell session (`PersistentSandboxShell` execs it directly), so
+ * removing it would break the sandbox for every chat and the Terminal tab.
+ * These install first and the Packages UI must never offer to uninstall them.
+ */
+object SandboxRequiredPackages {
+    val NAMES: Set<String> = setOf("bash")
+}
+
 /** Sentinel ids for shell sessions that aren't tied to a specific chat. */
 object SandboxSessions {
     /** Default scratch session — used when no caller-specific id is available. */

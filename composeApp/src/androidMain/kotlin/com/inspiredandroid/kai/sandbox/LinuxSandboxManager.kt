@@ -3,6 +3,7 @@ package com.inspiredandroid.kai.sandbox
 import android.content.Context
 import android.os.Build
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.inspiredandroid.kai.SandboxRequiredPackages
 import com.inspiredandroid.kai.SandboxSessions
 import com.inspiredandroid.kai.TerminalLine
 import com.inspiredandroid.kai.data.ConversationStorage
@@ -100,6 +101,11 @@ class LinuxSandboxManager(
         currentJob = scope.launch {
             try {
                 setupInternal()
+                // bash is required infrastructure, not a convenience package —
+                // every persistent shell session execs it directly — so it
+                // installs automatically here, no user action needed. Everything
+                // else stays opt-in behind the "Install Packages" button.
+                installRequiredPackagesInternal()
             } catch (e: kotlinx.coroutines.CancellationException) {
                 checkExistingInstallation()
             } catch (e: Exception) {
@@ -177,8 +183,6 @@ class LinuxSandboxManager(
         if (!updated) {
             throw IllegalStateException("apk update failed on all Alpine mirrors")
         }
-
-        _state.value = SandboxState.Ready
     }
 
     private fun copyLibtalloc() {
@@ -283,41 +287,9 @@ class LinuxSandboxManager(
 
     fun installPackages() {
         if (currentJob?.isActive == true) return
-        val packages = listOf(
-            "bash", "curl", "wget", "git", "jq", "python3", "py3-pip", "nodejs",
-            // Remote-server tooling (issue #214). apk add is idempotent so
-            // existing installs that bump into this list pay nothing for the
-            // already-present ones.
-            "openssh-client", "lftp", "rsync",
-        )
         currentJob = scope.launch {
             try {
-                val executor = createProotExecutor()
-                for (pkg in packages) {
-                    ensureActive()
-                    _state.value = SandboxState.Installing("Installing $pkg...")
-                    val result = executor.execute("apk add --no-cache $pkg", timeoutSeconds = 120)
-                    ensureActive()
-                    val success = result["success"] as? Boolean ?: false
-                    if (!success) {
-                        val stderr = result["stderr"] as? String ?: ""
-                        val stdout = result["stdout"] as? String ?: ""
-                        val error = result["error"] as? String ?: ""
-                        val timedOut = result["timed_out"] as? Boolean ?: false
-                        val exitCode = result["exit_code"] as? Int ?: -1
-                        android.util.Log.e("LinuxSandbox", "Failed to install $pkg: exit=$exitCode timedOut=$timedOut error=$error stdout=$stdout stderr=$stderr")
-                        _state.value = SandboxState.Error("Failed to install $pkg: ${stderr.ifEmpty { error }.ifEmpty { stdout }.take(200)}")
-                        return@launch
-                    }
-                }
-                // Seed ~/.ssh/config with ControlMaster + keepalive defaults so any
-                // manual `ssh user@host` from now on multiplexes. Idempotent —
-                // skips when the kai:defaults block is already present. Failures
-                // here are non-fatal: openssh works without the defaults, just
-                // without the held-connection optimization.
-                runCatching { SshConfigManager(java.io.File(homePath)).ensureDefaults() }
-                    .onFailure { android.util.Log.w("LinuxSandbox", "ssh defaults seed failed: ${it.message}") }
-                _state.value = SandboxState.Ready
+                installOptionalPackagesInternal()
             } catch (_: kotlinx.coroutines.CancellationException) {
                 _state.value = SandboxState.Ready
             } catch (e: Exception) {
@@ -325,6 +297,60 @@ class LinuxSandboxManager(
                 _state.value = SandboxState.Error("Install failed: ${e.message}")
             }
         }
+    }
+
+    // Runs `apk add --no-cache` for each package in order, bailing out (and
+    // setting an Error state) on the first failure. Returns whether every
+    // package installed successfully.
+    private suspend fun CoroutineScope.installApkPackages(packages: List<String>): Boolean {
+        val executor = createProotExecutor()
+        for (pkg in packages) {
+            ensureActive()
+            _state.value = SandboxState.Installing("Installing $pkg...")
+            val result = executor.execute("apk add --no-cache $pkg", timeoutSeconds = 120)
+            ensureActive()
+            val success = result["success"] as? Boolean ?: false
+            if (!success) {
+                val stderr = result["stderr"] as? String ?: ""
+                val stdout = result["stdout"] as? String ?: ""
+                val error = result["error"] as? String ?: ""
+                val timedOut = result["timed_out"] as? Boolean ?: false
+                val exitCode = result["exit_code"] as? Int ?: -1
+                android.util.Log.e("LinuxSandbox", "Failed to install $pkg: exit=$exitCode timedOut=$timedOut error=$error stdout=$stdout stderr=$stderr")
+                _state.value = SandboxState.Error("Failed to install $pkg: ${stderr.ifEmpty { error }.ifEmpty { stdout }.take(200)}")
+                return false
+            }
+        }
+        return true
+    }
+
+    // Called inline from setup()'s job — no separate user action. bash backs
+    // every persistent shell session (PersistentSandboxShell execs it
+    // directly), so a fresh sandbox must not be left "Ready" without it.
+    private suspend fun CoroutineScope.installRequiredPackagesInternal() {
+        if (!installApkPackages(SandboxRequiredPackages.NAMES.toList())) return
+        _state.value = SandboxState.Ready
+    }
+
+    // Only runs when the user taps "Install Packages" in Settings. bash is
+    // already guaranteed present by setup() before this can ever be reached.
+    private suspend fun CoroutineScope.installOptionalPackagesInternal() {
+        val optionalPackages = listOf(
+            "curl", "wget", "git", "jq", "python3", "py3-pip", "nodejs",
+            // Remote-server tooling (issue #214). apk add is idempotent so
+            // existing installs that bump into this list pay nothing for the
+            // already-present ones.
+            "openssh-client", "lftp", "rsync",
+        )
+        if (!installApkPackages(optionalPackages)) return
+        // Seed ~/.ssh/config with ControlMaster + keepalive defaults so any
+        // manual `ssh user@host` from now on multiplexes. Idempotent —
+        // skips when the kai:defaults block is already present. Failures
+        // here are non-fatal: openssh works without the defaults, just
+        // without the held-connection optimization.
+        runCatching { SshConfigManager(java.io.File(homePath)).ensureDefaults() }
+            .onFailure { android.util.Log.w("LinuxSandbox", "ssh defaults seed failed: ${it.message}") }
+        _state.value = SandboxState.Ready
     }
 
     fun reset() {

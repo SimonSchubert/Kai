@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.inspiredandroid.kai.SandboxRequiredPackages
 import com.inspiredandroid.kai.ui.components.KaiSearchField
 import com.inspiredandroid.kai.ui.handCursor
 import kai.composeapp.generated.resources.Res
@@ -242,8 +243,10 @@ private fun PackageRow(
                         strokeWidth = 2.dp,
                     )
                 } else if (installed) {
-                    TextButton(onClick = { onUninstall(entry) }, modifier = Modifier.handCursor()) {
-                        Text(stringResource(Res.string.sandbox_packages_action_uninstall))
+                    if (entry.name !in SandboxRequiredPackages.NAMES) {
+                        TextButton(onClick = { onUninstall(entry) }, modifier = Modifier.handCursor()) {
+                            Text(stringResource(Res.string.sandbox_packages_action_uninstall))
+                        }
                     }
                 } else {
                     TextButton(onClick = { onInstall(entry) }, modifier = Modifier.handCursor()) {

@@ -1,6 +1,6 @@
 # Linux Sandbox
 
-**Last verified:** 2026-05-30
+**Last verified:** 2026-07-18
 
 Kai ships a self-contained Alpine Linux environment on Android so the assistant — and the user, via the in-app Terminal — can run real shell commands. The agent can install packages, write and run scripts, hit the network, and reach external servers over SSH/SFTP/FTP. The sandbox runs the user-space `proot` runtime against an Alpine 3.21 minirootfs extracted into the app's private storage; no root or system access is required.
 
@@ -28,7 +28,7 @@ The agent's shell tool, `apk` operations from the Packages tab, and the Terminal
 
 ### Pre-installed tooling
 
-The first-run install pulls a fixed set of packages: `bash`, `curl`, `wget`, `git`, `jq`, `python3` (with pip), `nodejs`, plus remote-server tooling — `openssh-client` (provides `ssh`/`scp`/`sftp`), `lftp` (FTP and FTPS), and `rsync`. Anything else is one `apk add` away.
+Packages split into two tiers. **Required:** `bash` — every persistent shell session (the agent's shell tool, the Terminal tab, the Packages tab's own commands) is literally an `exec bash` process, so the sandbox cannot function without it. It installs automatically at the end of first-run setup; there's no separate step and no way to opt out. **Optional:** `curl`, `wget`, `git`, `jq`, `python3` (with pip), `nodejs`, plus remote-server tooling — `openssh-client` (provides `ssh`/`scp`/`sftp`), `lftp` (FTP and FTPS), and `rsync`. These install only when the user taps **Install Packages** in Settings — a deliberate, separate action, never automatic. Anything beyond this fixed set is one `apk add` away via the Packages tab. The Packages tab lets the user uninstall any optional package but never offers to uninstall bash — it has no uninstall action in that list.
 
 `~/.ssh` is part of `/root`, which is bind-mounted to durable app storage, so SSH keys, `known_hosts`, and SSH config survive restarts.
 
@@ -61,7 +61,7 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 ## Behavior
 
 - **Tool availability follows install state**: the assistant's sandbox tools (shell command, `manage_process`, and the SSH-host config tool) are advertised to the model only when the sandbox is actually installed (Ready) *and* the sandbox toggle is on. Before the sandbox is installed they are not sent at all — there is no point offering tools that can only return "not installed," and the enable/disable toggle is itself hidden until install completes. Once installed, the Alpine Linux card's switch is the on/off control.
-- **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, `apk update` runs against a list of mirrors, then the package set above is installed. The whole flow surfaces progress in the Settings sheet.
+- **First run**: Settings → Tools → Linux Sandbox kicks off a download of the Alpine minirootfs (a few MB — ~3.5 MB for aarch64, varies by architecture). After extraction, `apk update` runs against a list of mirrors, then the required package (`bash`) installs automatically — no further action needed. The sandbox reaches Ready at that point, with the optional package set not yet installed; the Settings card shows a separate **Install Packages** button for those until the user taps it. The whole flow surfaces progress in the Settings sheet.
 - **State across the app**: each chat conversation has its own shell, and the Terminal tab has another. Files in `/root` and the rest of the rootfs are shared between them; live shell state (cwd, exports) is not. The Packages UI uses a separate "system" shell so its operations don't interfere with chats.
 - **Network access**: outbound IP works (DNS is configured against `8.8.8.8` / `8.8.4.4`). SSH/SFTP/FTP/HTTP all work; the user's Wi-Fi/mobile-data permission applies as normal.
 - **File visibility**: `/root` lives at app-external storage so files the agent produces can be opened with `open_file` via Android's `FileProvider`. The rest of the filesystem (`/etc`, `/usr`, `/var`, etc.) is the Alpine rootfs and lives in app-internal storage.
@@ -89,7 +89,8 @@ The shell session can break — the user types `exit`, a command crashes bash, t
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/SessionShell.kt` | Per-session facade over `PersistentSandboxShell`. Carries the live in-memory transcript, accepts an `initialLines` seed for restart restoration, and fires an `onChange` callback after each command so the manager can persist the tail. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationStorage.kt` | Conversation persistence. `updateShellTranscript(id, lines)` trims to ~10,000 chars total and writes the tail back into the conversation JSON. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/PersistentSandboxShell.kt` | Long-lived bash, sentinel-based command framing, graduated `SIGINT`/`SIGTERM`/`SIGKILL` cancel, self-healing on shell death. One instance per session id. |
-| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/SandboxController.kt` | Common surface; `executeCommand{,Streaming}` take a `sessionId`. `SandboxSessions` defines the well-known ids: `DEFAULT`, `SYSTEM`, `TERMINAL`. `SandboxRequiredPackages` names the packages (currently just `bash`) that install first and can never be uninstalled through the Packages UI. |
+| `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/sandbox/SandboxPackagesViewModel.kt` / `SandboxPackagesScreen.kt` | Packages tab: lists installed packages, search/install/uninstall/upgrade via `apk`. Gates uninstall against `SandboxRequiredPackages` — required packages get no uninstall action. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/ui/SandboxUriHandler.kt` | `UriHandler` provided over `LocalUriHandler` in `App.kt`; routes `file:`/absolute-path links to `SandboxController.openFile`, delegates the rest to the platform handler. |
 | `composeApp/src/commonMain/kotlin/com/inspiredandroid/kai/data/ConversationIdContext.kt` | `ConversationIdElement` coroutine-context element that threads the active conversation id from the chat layer down into tool execution without polluting `Tool.execute(args)`. |
 | `composeApp/src/androidMain/kotlin/com/inspiredandroid/kai/sandbox/ProotExecutor.kt` | Low-level proot invocation — stream readers, stdin pipe, timeout-bounded one-shot execution. Used by the persistent shell, by package install, and by background jobs. |

@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inspiredandroid.kai.SandboxController
+import com.inspiredandroid.kai.SandboxRequiredPackages
 import com.inspiredandroid.kai.SandboxSessions
 import kai.composeapp.generated.resources.Res
 import kai.composeapp.generated.resources.sandbox_packages_install_failed
@@ -141,6 +142,10 @@ class SandboxPackagesViewModel(
     }
 
     fun requestUninstall(pkg: PackageEntry) {
+        // bash and friends back the sandbox's own shell sessions (see
+        // SandboxRequiredPackages) — never offer to remove them, this is the
+        // only entry point that sets pendingUninstall.
+        if (pkg.name in SandboxRequiredPackages.NAMES) return
         _state.update { it.copy(pendingUninstall = pkg) }
     }
 
