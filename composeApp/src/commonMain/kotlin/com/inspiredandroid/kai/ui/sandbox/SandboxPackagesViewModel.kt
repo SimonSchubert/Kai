@@ -55,9 +55,40 @@ data class PackagesUiState(
 data class SnackbarMessage(val resource: StringResource, val arg: String? = null)
 
 private const val SEARCH_DEBOUNCE_MS = 300L
+/** How many apk hits to pull before ranking — high enough that prefix matches
+ *  aren't lost to alphabetical `head` truncation of description hits. */
+private const val SEARCH_FETCH_LIMIT = 2000
+/** Max packages shown in the Packages search list after ranking. */
 private const val SEARCH_RESULT_LIMIT = 200
 private const val ERROR_SUMMARY_MAX_CHARS = 200
 private const val LOG_TAG = "SandboxPackages"
+
+/**
+ * Ranks package search hits so the list matches what a user expects when typing
+ * a name fragment (e.g. "fast" → every package whose name *starts with* "fast"
+ * before anything that only mentions "fast" in the description).
+ *
+ * Priority (then alphabetical by name within a tier):
+ * 0 exact name · 1 name prefix · 2 name segment prefix (`foo-fast…` / `foo_fast…`)
+ * · 3 name contains · 4 description contains · 5 everything else
+ */
+internal fun rankSearchResults(results: List<PackageEntry>, query: String): List<PackageEntry> {
+    val q = query.trim().lowercase()
+    if (q.isEmpty() || results.isEmpty()) return results
+    return results.sortedWith(
+        compareBy<PackageEntry> { entry ->
+            val name = entry.name.lowercase()
+            when {
+                name == q -> 0
+                name.startsWith(q) -> 1
+                name.contains("-$q") || name.contains("_$q") -> 2
+                name.contains(q) -> 3
+                entry.description?.lowercase()?.contains(q) == true -> 4
+                else -> 5
+            }
+        }.thenBy { it.name.lowercase() },
+    )
+}
 
 private val ALPINE_REVISION_SUFFIX = Regex("-r\\d+$")
 
@@ -118,10 +149,15 @@ class SandboxPackagesViewModel(
     }
 
     private suspend fun runSearch(query: String) {
-        val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_RESULT_LIMIT"
+        // Fetch a large alphabetical pool, then re-rank so name-prefix hits surface
+        // first — apk returns matches (name + description) A–Z, so a bare `head`
+        // would bury "fast*" under earlier description hits like "abseil-…".
+        val cmd = "apk search -v ${shellQuote(query)} | head -n $SEARCH_FETCH_LIMIT"
         val output = sandboxController.executeCommand(cmd, SandboxSessions.SYSTEM)
         log("runSearch($query)", cmd, output)
-        val results = parseSearchLines(output).toImmutableList()
+        val results = rankSearchResults(parseSearchLines(output), query)
+            .take(SEARCH_RESULT_LIMIT)
+            .toImmutableList()
         _state.update {
             if (it.searchQuery == query) {
                 it.copy(searchResults = results, searching = false)
