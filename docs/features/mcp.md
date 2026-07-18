@@ -1,6 +1,6 @@
 # MCP Servers
 
-**Last verified:** 2026-05-14
+**Last verified:** 2026-07-18
 
 Kai supports external tool servers via the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP). Users can connect to remote MCP servers using Streamable HTTP transport and use their tools alongside native tools.
 
@@ -39,7 +39,7 @@ When a server is added or enabled:
 5. Registers discovered tools with their metadata (name, description, input schema)
 6. The server appears as connected (green dot) in settings
 
-When the chat screen first opens, all enabled MCP servers are reconnected in the background in parallel. The same reconnection sweep is re-triggered whenever the settings tab becomes visible, so newly enabled servers (or servers that failed previously) come back online without restarting the app. Connection state is protected by a mutex to prevent data races from concurrent connections, and individual server failures do not block other servers from connecting.
+When the chat screen first opens, all enabled MCP servers are reconnected in the background in parallel. The first time the settings screen becomes visible in a session, the same connect sweep runs once (alongside connection validation for services); later returns to settings do not automatically re-connect failed servers. Servers also reconnect when the user enables a server, taps refresh, or imports MCP settings. Connection state is protected by a mutex to prevent data races from concurrent connections, and individual server failures do not block other servers from connecting.
 
 ## Server Management
 

@@ -1,6 +1,6 @@
 # Reasoning Content Handling
 
-**Last verified:** 2026-05-20
+**Last verified:** 2026-07-18
 
 Reasoning-capable models (DeepSeek R1, GLM thinking, Qwen thinking, Kimi thinking, Magistral, gpt-oss, etc.) return their chain-of-thought separately from the final answer. Kai handles reasoning along two axes: **wire-side** (whether to echo the trace back to the provider on the next request) and **display-side** (whether to show it to the user in the chat UI). When a turn also contains `tool_calls`, some providers require the chain-of-thought to be echoed back to preserve reasoning continuity across the tool round-trip — and others strictly reject the same field. This page documents what each provider does, what Kai sends, and where we trade fidelity for simplicity.
 

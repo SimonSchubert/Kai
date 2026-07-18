@@ -1,6 +1,6 @@
 # Heartbeat
 
-**Last verified:** 2026-05-28
+**Last verified:** 2026-07-18
 
 > Heartbeat is user-controlled (on/off toggle, interval, active hours live in the settings UI). The AI cannot enable, disable, or reschedule it. To customise *what happens on each heartbeat*, the AI creates heartbeat-triggered scheduled tasks via `schedule_task` with `on_heartbeat: true` — these are `HEARTBEAT`-trigger tasks (see [tasks.md](tasks.md)) and their prompts are appended to every heartbeat run under `## Heartbeat Additions`. Each addition is a first-class task the user can see, edit, and cancel.
 
@@ -28,7 +28,7 @@ Heartbeat configuration is stored as a serialized JSON object in app settings. V
 - **Interval**: 30 minutes between heartbeats (UI slider offers 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h)
 - **Active hours start**: 8 (hour, 24h format; UI range slider covers 0–23)
 - **Active hours end**: 22 (hour, 24h format; UI range slider covers 0–24, where 24 renders as 0:00 and means end-of-day)
-- **Model**: optional override for which service+model to use for heartbeats. When not set, the first configured service is used (default behavior). Useful for selecting a cheaper or faster model for background checks
+- **Model**: optional override for which service+model to use for heartbeats. When not set, the default path prefers the first configured **remote** service, then falls back to the first on-device (LiteRT) instance if no remote is configured. Useful for selecting a cheaper or faster model for background checks
 
 UI validation rules:
 
@@ -98,7 +98,7 @@ The heartbeat section in settings contains:
 - **Interval display** — shows the current interval in minutes in the section description
 - **Interval slider** — a snap-to-preset slider with positions for 5m, 10m, 15m, 30m, 45m, 1h, 2h, 4h. Displays the formatted value (e.g. "15m", "2h") next to the label
 - **Active hours range slider** — a dual-thumb range slider spanning 0–24 (24-hour clock). Displays "H:00 – H:00" next to the label (unpadded hours); the upper-bound value 24 renders as 0:00 to indicate full-day coverage
-- **Model picker** — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the first configured service. If the previously selected service is removed, heartbeat falls back to the default automatically
+- **Model picker** — a dropdown button showing the selected service+model, or "Default" when no override is set. Opens a dropdown menu listing all configured services with their icons and model IDs. Selecting "Default" clears the override and uses the remote-first default above. If the previously selected service is removed, heartbeat falls back to that default automatically
 - **Custom prompt editor** — a text field (max 4000 characters) for editing the heartbeat prompt, with a save button that appears when changes are detected. Shows the default prompt text when no custom prompt is set. A character counter (X/4000) is displayed in the editor as the user types
 - **Reset to default** — when a custom heartbeat prompt is set, a reset button appears in the custom-prompt section header. Tapping it opens a confirmation dialog; confirming clears the custom prompt and restores the default
 - **Log display** — when log entries exist, shows a "Recent" label followed by each entry with an OK/FAIL indicator and timestamp
@@ -116,13 +116,16 @@ Standing additions to heartbeat behaviour are created with `schedule_task(on_hea
 
 | File | Purpose |
 |---|---|
-| `composeApp/src/commonMain/.../data/HeartbeatManager.kt` | Config, prompt building, log management |
+| `composeApp/src/commonMain/.../data/HeartbeatManager.kt` | Config, log management, wrapper that gathers inputs for the pure prompt builder |
+| `composeApp/src/commonMain/.../data/HeartbeatPromptBuilder.kt` | Pure heartbeat prompt assembly (sections, caps) |
 | `composeApp/src/commonMain/.../tools/HeartbeatTools.kt` | AI tool definitions for heartbeat and promotion |
 | `composeApp/src/commonMain/.../data/TaskScheduler.kt` | Poll loop that triggers heartbeat checks |
 | `composeApp/src/commonMain/.../data/AppSettings.kt` | Persisted heartbeat config, prompt, and log storage |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Heartbeat conversation creation, unread flag management |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Heartbeat conversation creation, unread flag management; default model selection for `askWithTools` |
 | `composeApp/src/commonMain/.../ui/chat/composables/HeartbeatBanner.kt` | Dismissable notification banner UI |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Heartbeat settings UI section |
+| `composeApp/src/commonMain/.../ui/settings/HeartbeatSection.kt` | Heartbeat settings UI section |
+| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Hosts the Agent tab that includes the heartbeat section |
 | `composeApp/src/commonMain/.../Platform.kt` | `expect fun sendHeartbeatNotification` — push notification for background heartbeat reports |
 | `composeApp/src/androidMain/.../HeartbeatNotifier.android.kt` | Android actual + `EXTRA_OPEN_HEARTBEAT` deep-link constant |
 | `androidApp/src/main/kotlin/.../MainActivity.kt` | Reads `EXTRA_OPEN_HEARTBEAT` in `onCreate`/`onNewIntent` and calls `DataRepository.requestOpenHeartbeat` |
+| `androidApp/src/main/kotlin/.../KaiApplication.kt` | Tracks foreground via `ProcessLifecycleOwner` and mirrors it to `TaskScheduler.appInForeground` |

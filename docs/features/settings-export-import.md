@@ -1,6 +1,6 @@
 # Settings Export / Import
 
-**Last verified:** 2026-06-30
+**Last verified:** 2026-07-18
 
 Users can backup and restore all Kai settings via a human-readable JSON file. The feature is available under **Settings > General** at the bottom of the page.
 
@@ -17,7 +17,7 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
   - SMS — only if SMS receive or send is enabled
   - SPLINTERLANDS — only if an account is configured
   - MCP — only if at least one server is configured
-  - TOOLS — only if at least one tool override is recorded
+  - TOOLS — when a full export includes `tool_overrides`. The exporter writes the current enabled flag for every platform tool id (not only user-changed overrides), so Tools almost always appears whenever any tools exist on the platform
 - Confirming the dialog opens a native file-save dialog and writes `kai-settings.json` containing only the selected sections (plus a `"version": 1` field for forward-compatibility).
 - Cancelling the dialog discards the export without writing a file.
 - Sections listed under **Excluded** below are never exported.
@@ -60,11 +60,11 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 | Scheduling | `scheduling_enabled`, `scheduled_tasks` |
 | Heartbeat | `heartbeat_config`, `heartbeat_prompt`, `heartbeat_log` |
 | Email | `email_enabled`, `email_accounts`, per-account passwords and sync state, `email_poll_interval` |
-| Tools | Per-tool `tool_enabled_*` overrides |
+| Tools | Per-tool enabled flags under `tool_overrides` (current value for every known platform tool id) |
 | MCP | `mcp_servers` |
 | Conversations | `conversations` (array of conversation objects with messages) |
 | Splinterlands | `splinterlands_enabled`, `splinterlands_account`, `splinterlands_instance_ids`, `splinterlands_battle_log` |
-| SMS | `sms_enabled`, `sms_poll_interval`, `sms_send_enabled`, `sms_pending`, `sms_sync_state`, `sms_drafts` |
+| SMS | `sms_enabled`, `sms_poll_interval`, `sms_send_enabled` only (pending queue, sync state, and drafts are **not** included in export/import) |
 
 ## Excluded
 
@@ -78,11 +78,13 @@ Users can backup and restore all Kai settings via a human-readable JSON file. Th
 
 | File | Role |
 |------|------|
-| `composeApp/.../data/AppSettings.kt` | `ImportSection` enum, `detectImportSections()` / `detectExportableSections()` (the latter only flags sections with real user data), `exportToJson()` / `importFromJson()` core logic (both accept `Set<ImportSection>` for selective filtering), `sanitizeScheduledTasks()` / `sanitizeMemories()` default-filling helpers |
+| `composeApp/.../data/AppSettings.kt` | `ImportSection` enum, `detectImportSections()` / `detectExportableSections()` |
+| `composeApp/.../data/AppSettingsImportExport.kt` | `exportToJson()` / `importFromJson()` core logic (selective `Set<ImportSection>`), `sanitizeScheduledTasks()` / `sanitizeMemories()` helpers |
 | `composeApp/.../data/DataRepository.kt` | Interface methods (`exportSettingsToJson(sections)`, `getExportPreview()`, `importSettingsFromJson(...)`) |
-| `composeApp/.../data/RemoteDataRepository.kt` | Wires AppSettings to platform tool IDs, serializes JSON, runs `detectImportSections` over a full export to drive the export preview |
+| `composeApp/.../data/RemoteDataRepository.kt` | Wires AppSettings to platform tool IDs, serializes JSON, runs `detectExportableSections` over a full export to drive the export preview |
 | `composeApp/.../ui/settings/SettingsActions.kt` | Callbacks (`onExportSettings`, `onPrepareExport`, `onImportSettings`) |
 | `composeApp/.../ui/settings/SettingsViewModel.kt` | Delegates to repository, rebuilds UI state after import, and reloads conversations so imported chats appear without a restart |
-| `composeApp/.../ui/settings/SettingsScreen.kt` | Export/Import card with FileKit dialogs, `ExportPreviewDialog`, `ImportPreviewDialog` |
+| `composeApp/.../ui/settings/GeneralSettings.kt` | Hosts the Export/Import card in the General tab |
+| `composeApp/.../ui/settings/ExportImportSection.kt` | Export/Import card with FileKit dialogs, `ExportPreviewDialog`, `ImportPreviewDialog` |
 | `composeApp/.../testutil/FakeDataRepository.kt` | Test stubs |
 | `composeApp/.../data/AppSettingsExportImportTest.kt` | Unit tests including v1 snapshot test |

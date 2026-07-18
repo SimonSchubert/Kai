@@ -1,6 +1,6 @@
 # Encryption & Secure Storage
 
-**Last verified:** 2026-07-10
+**Last verified:** 2026-07-18
 
 All sensitive settings (API keys, email passwords) are stored through a platform-specific `Settings` implementation selected by `createSecureSettings()`. Each platform uses the strongest available mechanism.
 

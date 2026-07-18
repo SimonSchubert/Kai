@@ -1,12 +1,12 @@
 # On-Device Inference (LiteRT)
 
-**Last verified:** 2026-07-10
+**Last verified:** 2026-07-18
 
-Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on Android and Desktop (macOS, Linux, Windows).
+Kai can run AI models directly on the user's device using Google's LiteRT LM SDK. This enables fully offline, private inference with no API key, no internet connection, and no cost. Available on **Android**, **Desktop** (macOS, Linux, Windows), and **iOS**.
 
 ## How It Works
 
-Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.
+Models are downloaded from HuggingFace's litert-community and stored locally on the device. When the user sends a message, the model runs entirely on-device using GPU acceleration (with CPU fallback where the platform supports it). The engine initializes on first use (~10 seconds) and stays loaded for 5 minutes of inactivity before automatically releasing memory.
 
 ## Available Models
 
@@ -14,8 +14,8 @@ Models are downloaded from HuggingFace's litert-community and stored locally on 
 |-------|------|---------------------|-----------------|-------------|--------------|
 | Gemma 4 E2B IT | 2.58 GB | 676 MB | 4K tokens | 32K tokens | ✅ reliable |
 | Gemma 4 E4B IT | 3.65 GB | 710 MB | 4K tokens | 32K tokens | ✅ reliable |
-| Gemma 4 12B IT | 6.55 GB | 1600 MB | 8K tokens | 32K tokens | ✅ reliable |
-| Qwen3 0.6B | 586 MB | 300 MB | 4K tokens | 32K tokens | ⚠️ chat-only in practice |
+| Gemma 4 12B IT | ~6.55 GB | 4000 MB | 8K tokens | 32K tokens | ✅ reliable |
+| Qwen3 0.6B | ~586 MiB (614 MB file) | 300 MB | 4K tokens | 32K tokens | ⚠️ chat-only in practice |
 
 Models are `.litertlm` files from the [litert-community](https://huggingface.co/litert-community) organization on HuggingFace.
 
@@ -41,8 +41,8 @@ If the engine throws (e.g. the model does emit malformed tool-call syntax that t
 
 - **No image input** -- the `LocalInferenceEngine` interface only accepts text messages
 - **No dynamic UI** -- kai-ui prompts are skipped for on-device runs (the schema is too large for the native template parser)
-- **Not available on iOS or web** -- LiteRT LM SDK supports Android and JVM only
-- **Requires a 64-bit device** -- the LiteRT-LM AAR only ships `arm64-v8a` and `x86_64` native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.
+- **Not available on web** -- the WASM build returns no local engine. iOS uses a platform-specific LiteRT bridge rather than the Android/JVM AAR.
+- **Requires a 64-bit device (Android)** -- the LiteRT-LM AAR only ships `arm64-v8a` and `x86_64` native libraries. On pure 32-bit devices (armeabi-v7a), the LiteRT service card is hidden; the app still works with remote services.
 - **Requires AVX2 on x86_64 Linux** -- the LiteRT native binary is compiled with AVX2+ instructions, so older CPUs (e.g. Intel Ivy Bridge / 3rd-gen Core) would SIGILL on model load. On Linux desktop, the engine probes `/proc/cpuinfo` for the `avx2` flag and hides the LiteRT service card when missing. Remote services are unaffected.
 
 ## Model Management
@@ -65,8 +65,8 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 ## Engine Lifecycle
 
 1. **Lazy initialization** -- the engine loads only when the first message is sent
-2. **GPU-first** -- attempts GPU backend, falls back to CPU if unavailable
-3. **Memory check** -- verifies sufficient RAM (model size + 512 MB headroom) before loading
+2. **GPU-first** -- attempts GPU backend, falls back to CPU if unavailable (where the platform supports both)
+3. **Memory check (Android/JVM path)** -- refuses to load when available memory is below a fixed **512 MB** headroom floor (not model-size + headroom). Desktop skips the check and reports effectively unlimited available memory so the OS swap/cache path is trusted
 4. **Persistent across messages** -- stays loaded for the duration of the conversation
 5. **Inference timeout** -- individual inference calls are capped at 2 minutes
 6. **Auto-release** -- released after 5 minutes of inactivity to free memory (always re-armed, even on errors)
@@ -75,12 +75,12 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 
 ## Platform Differences
 
-| Aspect | Android | Desktop |
-|--------|---------|---------|
-| Model storage | `context.filesDir/litert_models` | `~/.kai/litert_models` |
-| Memory check | `ActivityManager.getMemoryInfo()` | Skipped — desktop OSes manage memory via swap and cache eviction |
-| Disk space | `StatFs.availableBytes` | `File.usableSpace` |
-| Download notification | Foreground service with notification | No notification (no OS restriction) |
+| Aspect | Android | Desktop | iOS |
+|--------|---------|---------|-----|
+| Model storage | `context.filesDir/litert_models` | `~/.kai/litert_models` | App sandbox path via the iOS LiteRT bridge |
+| Memory check | `ActivityManager.getMemoryInfo()` vs 512 MB floor | Skipped — desktop OSes manage memory via swap and cache eviction | Platform bridge |
+| Disk space | `StatFs.availableBytes` | `File.usableSpace` | Platform bridge |
+| Download notification | Foreground service with notification | No notification (no OS restriction) | Platform bridge |
 
 ## Fallback Behavior
 
@@ -94,11 +94,14 @@ When the last LiteRT service instance is removed, all downloaded models are auto
 |------|---------|
 | `composeApp/src/commonMain/.../data/Service.kt` | `Service.LiteRT` definition with `isOnDevice = true` |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngine.kt` | Platform-agnostic interface for on-device inference |
+| `composeApp/src/commonMain/.../inference/LocalModelCatalog.kt` | Bundled model list (sizes, GPU baselines, context defaults) |
 | `composeApp/src/commonMain/.../inference/InferencePlatform.kt` | `expect` declarations for platform-specific operations |
 | `composeApp/src/commonMain/.../inference/LocalInferenceEngineProvider.kt` | `expect` factory, returns `null` on unsupported platforms |
 | `composeApp/src/jvmShared/.../inference/LiteRTInferenceEngine.kt` | Shared Android+Desktop implementation wrapping LiteRT LM SDK |
 | `composeApp/src/androidMain/.../inference/InferencePlatform.android.kt` | Android platform implementations (storage, memory, notifications) |
 | `composeApp/src/desktopMain/.../inference/InferencePlatform.jvm.kt` | Desktop platform implementations (storage, memory) |
+| `composeApp/src/iosMain/.../inference/IosLiteRTInferenceEngine.kt` | iOS LiteRT engine implementation |
+| `composeApp/src/iosMain/.../inference/LocalInferenceEngineProvider.ios.kt` | iOS factory wiring |
 | `composeApp/src/androidMain/.../inference/ModelDownloadService.kt` | Android foreground service for background downloads |
-| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Inference dispatch, engine initialization status |
-| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | `LiteRTSettings` composable for model management |
+| `composeApp/src/commonMain/.../data/RemoteDataRepository.kt` | Inference dispatch, engine initialization status, local tool allowlist |
+| `composeApp/src/commonMain/.../ui/settings/SettingsScreen.kt` | Hosts service settings including LiteRT model management |

@@ -1,6 +1,6 @@
 # Dynamic UI (kai-ui)
 
-**Last verified:** 2026-07-01
+**Last verified:** 2026-07-18
 
 AI-generated interactive UI layouts rendered inline in chat messages. The AI produces JSON-based layout definitions wrapped in `kai-ui` code fences. Compose renders them natively with support for forms, buttons, and multi-step flows. Enabled by default; users can disable it in Settings, which removes the instructions from the system prompt. Because the system prompt is rebuilt per request, toggling the setting takes effect on the next message in any conversation. Parsing and rendering stay active regardless so existing messages with kai-ui blocks always render.
 
@@ -53,7 +53,7 @@ A dedicated full-screen mode where the AI produces complete screen layouts via k
 
 ### Entering Interactive Mode
 
-Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI.
+Users click "Start Interactive UI" on the empty chat state. This enters interactive mode with a text input where they describe what they want (e.g., "Build me a quiz app"). The first message goes to the AI with an enhanced system prompt, and the AI responds with a full-screen UI. The button is hidden when the primary service is on-device (LiteRT), because small local models cannot reliably produce kai-ui JSON; on-device services are also filtered out of the interactive-mode service selector.
 
 ### Screen Navigation
 
@@ -84,7 +84,7 @@ In interactive mode, the system prompt instructs the AI to respond ONLY with a s
 | File | Purpose |
 |------|---------|
 | `composeApp/.../ui/dynamicui/KaiUiNode.kt` | Serializable component tree model — 28 node types, all @Immutable |
-| `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url) |
+| `composeApp/.../ui/dynamicui/UiAction.kt` | Action types (callback, toggle, open_url, copy_to_clipboard) |
 | `composeApp/.../ui/dynamicui/KaiUiParser.kt` | Sanitizes malformed JSON and decodes kai-ui fence bodies via `parseUiBlockBody` |
 | `composeApp/.../ui/dynamicui/KaiUiNodeBuilders.kt` | Tolerant field-by-field construction of KaiUiNode instances from JsonElement |
 | `composeApp/.../ui/dynamicui/KaiUiRenderer.kt` | Recursive Compose renderer for the component tree, wrapInCard option |

@@ -1,6 +1,6 @@
 # Chat & Conversations
 
-**Last verified:** 2026-07-10
+**Last verified:** 2026-07-18
 
 Kai's chat system manages the message history, conversation persistence, file attachments, and speech output. Conversations are service-independent — switching providers does not affect which conversation is loaded or restored. Multiple conversations are persisted and browsable via a history sheet.
 
@@ -83,7 +83,8 @@ Multiple files can be attached to a single prompt. Each file is added one at a t
 ### PDFs
 - Base64-encoded without compression
 - Maximum size: 20 MB — rejected with a size error if exceeded
-- Sent as `document` block (Anthropic) or `inline_data` (Gemini); OpenAI-compatible providers have no native PDF support, so PDFs are not offered as an attachment type on those services
+- PDF attachments are advertised only by services with native document support: Anthropic, Gemini, OpenAI, and OpenRouter. The file picker offers PDF on those services only
+- Sent as a `document` block (Anthropic) or `inline_data` (Gemini). On the OpenAI-compatible wire path (OpenAI, OpenRouter, and other OpenAI-compatible services), PDF binaries are currently dropped from the request body — only image parts are encoded as `image_url` — so a PDF attach on OpenAI/OpenRouter is accepted by the UI but not transmitted to the model
 - Shown as a filename chip in the user message bubble
 
 ### General behavior
