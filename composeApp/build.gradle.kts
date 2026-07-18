@@ -206,7 +206,9 @@ compose.desktop {
             }
             linux {
                 iconFile.set(project.file("icon.png"))
-                modules("jdk.security.auth")
+                // Applies to the shared jlink runtime image for every platform, not just Linux —
+                // java.sql is required since the SQLDelight/SQLite migration (9d6ceec9).
+                modules("jdk.security.auth", "java.sql")
             }
         }
     }
