@@ -73,7 +73,7 @@ class Requests {
             agent = "Kai/${Version.appVersion} (${currentPlatform.displayName})"
         }
         install(HttpTimeout) {
-            requestTimeoutMillis = 60.seconds.inWholeMilliseconds
+            requestTimeoutMillis = 180.seconds.inWholeMilliseconds
         }
         install(Logging) {
             if (isDebugBuild) {
