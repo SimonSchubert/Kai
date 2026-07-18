@@ -22,6 +22,9 @@ internal val LIMITED_MODELS = listOf(
     "codellama",
     "deepseek-coder:1.3b",
     "deepseek-coder:6.7b",
+    // Perplexity Sonar models use built-in web search, not OpenAI tool/function calling.
+    // Sending a tools[] array is rejected (or silently ignored), so treat them as text-only.
+    "sonar",
 )
 
 /** True if the model can handle tool_use / tool_result round-trips. */

@@ -36,6 +36,7 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
+import io.ktor.http.content.TextContent
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
@@ -258,6 +259,30 @@ class Requests {
                 401, 403 -> throw OpenAICompatibleInvalidApiKeyException()
                 else -> throw OpenAICompatibleGenericException("Failed to validate OpenRouter API key: ${response.status}")
             }
+        }
+    } catch (e: OpenAICompatibleApiException) {
+        Result.failure(e)
+    } catch (e: Exception) {
+        Result.failure(OpenAICompatibleConnectionException())
+    }
+
+    /**
+     * Perplexity Sonar has no authenticated models endpoint, so key checks go through the
+     * chat completions URL with an intentionally incomplete body. Auth is evaluated first:
+     * invalid keys return 401/403; a valid key typically yields 400/422 on the empty messages
+     * array — which we treat as connected without spending tokens on a real completion.
+     */
+    suspend fun validatePerplexityApiKey(credentials: ServiceCredentials): Result<Unit> = try {
+        val apiKey = credentials.apiKey.ifEmpty { throw OpenAICompatibleInvalidApiKeyException() }
+        val response: HttpResponse = defaultClient.post(Service.Perplexity.chatUrl) {
+            bearerAuth(apiKey)
+            // TextContent avoids ContentNegotiation re-encoding a raw String as a JSON string.
+            setBody(TextContent("""{"model":"sonar","messages":[]}""", ContentType.Application.Json))
+        }
+        when (response.status.value) {
+            401, 403 -> throw OpenAICompatibleInvalidApiKeyException()
+            in 200..499 -> Result.success(Unit)
+            else -> throw OpenAICompatibleGenericException("Failed to validate Perplexity API key: ${response.status}")
         }
     } catch (e: OpenAICompatibleApiException) {
         Result.failure(e)

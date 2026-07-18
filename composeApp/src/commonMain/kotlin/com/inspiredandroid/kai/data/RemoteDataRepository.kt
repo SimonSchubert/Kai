@@ -329,6 +329,12 @@ class RemoteDataRepository(
                 fetchInstanceModels(service, instanceId)
             }
 
+            Service.Perplexity -> {
+                // No Sonar `/models` list — validate the key, then load the curated defaults.
+                requests.validatePerplexityApiKey(creds).getOrThrow()
+                fetchInstanceModels(service, instanceId)
+            }
+
             else -> fetchInstanceModels(service, instanceId)
         }
     }

@@ -2,7 +2,7 @@
 
 **Last verified:** 2026-07-18
 
-Kai supports 27 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
+Kai supports 28 LLM providers (plus a built-in Free tier). Each provider uses one of three API formats: **OpenAI-compatible** (most services), **Gemini native**, or **Anthropic native** -- plus **LiteRT on-device** for local inference. Users can configure multiple service instances, reorder them, and Kai automatically falls back through the chain on failure.
 
 ## Concepts
 
@@ -81,12 +81,13 @@ The **OpenAI-Compatible API** service supports a custom base URL, defaulting to 
 | Fireworks AI | `fireworksai` | Yes | OpenAI-compatible |
 | OpenCode | `opencode` | Yes | OpenAI-compatible |
 | Public AI | `publicai` | Yes | OpenAI-compatible |
+| Perplexity | `perplexity` | Yes | OpenAI-compatible (Sonar; ships with a curated default model list — no authenticated `/models` endpoint for Sonar; connection validation probes the chat endpoint with an incomplete body to check the API key) |
 | OpenAI-Compatible API | `openai-compatible` | No (optional) | OpenAI-compatible |
 | Local Model | `litert` | No | On-device (LiteRT LM) |
 
 ## Connection Validation
 
-When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, **connection failed**, or **local network access denied**. Validation also runs for all services when the settings screen opens. Services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services (including LongCat) each call their respective models endpoint. On a successful connection, the available model list is refreshed.
+When the user enters or changes an API key (or base URL), the app validates the connection after an 800 ms debounce and shows a status indicator: **checking**, **connected**, **invalid key**, **quota exhausted**, **rate limited**, **connection failed**, or **local network access denied**. Validation also runs for all services when the settings screen opens. Services validate by fetching their model list — Gemini, Anthropic, and OpenAI-compatible services (including LongCat) each call their respective models endpoint. **Perplexity** is an exception: Sonar has no authenticated models list, so validation probes the chat endpoint with an incomplete body to verify the API key, then loads the curated Sonar model list. On a successful connection, the available model list is refreshed.
 
 ### Local Network Servers (Android)
 
@@ -94,7 +95,7 @@ Android 17+ blocks all traffic to local network hosts unless the user grants the
 
 ## Model Selection
 
-When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — first checking for a per-service default model (e.g. LongCat defaults to "LongCat-Flash-Lite"), then preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
+When a connection is validated and models are fetched, the app auto-selects a model if none is chosen — first checking for a per-service default model (e.g. LongCat defaults to "LongCat-Flash-Lite", Perplexity defaults to "sonar-pro"), then preferring "kimi-k2.5" if available, otherwise the first model in the list. Services filter their model lists:
 - OpenAI shows only chat-oriented models (prefix filter)
 - GroqCloud shows only models marked as active
 - Together AI filters by `type == "chat"` to exclude non-chat models (embedding, code, etc.)

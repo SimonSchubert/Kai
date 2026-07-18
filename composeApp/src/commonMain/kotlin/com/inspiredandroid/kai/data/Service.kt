@@ -24,6 +24,7 @@ import kai.composeapp.generated.resources.ic_service_openai
 import kai.composeapp.generated.resources.ic_service_openai_compatible
 import kai.composeapp.generated.resources.ic_service_opencode
 import kai.composeapp.generated.resources.ic_service_openrouter
+import kai.composeapp.generated.resources.ic_service_perplexity
 import kai.composeapp.generated.resources.ic_service_publicai
 import kai.composeapp.generated.resources.ic_service_together
 import kai.composeapp.generated.resources.ic_service_venice
@@ -465,6 +466,27 @@ sealed class Service(
         apiKeyUrlDisplay = "platform.publicai.co",
     )
 
+    // Sonar chat-completions path. No authenticated /models list for Sonar (public /v1/models
+    // is Agent API only), so the picker uses defaultModels; key validation is special-cased.
+    data object Perplexity : Service(
+        id = "perplexity",
+        displayName = "Perplexity",
+        icon = Res.drawable.ic_service_perplexity,
+        requiresApiKey = true,
+        defaultModel = "sonar-pro",
+        settingsKeyPrefix = "perplexity",
+        chatUrl = "https://api.perplexity.ai/chat/completions",
+        modelsUrl = null,
+        defaultModels = listOf(
+            ModelDefinition(id = "sonar", subtitle = "Perplexity"),
+            ModelDefinition(id = "sonar-pro", subtitle = "Perplexity"),
+            ModelDefinition(id = "sonar-reasoning-pro", subtitle = "Perplexity"),
+            ModelDefinition(id = "sonar-deep-research", subtitle = "Perplexity"),
+        ),
+        apiKeyUrl = "https://console.perplexity.ai",
+        apiKeyUrlDisplay = "console.perplexity.ai",
+    )
+
     data object OpenAICompatible : Service(
         id = "openai-compatible",
         displayName = "OpenAI-Compatible API",
@@ -489,7 +511,7 @@ sealed class Service(
     )
 
     companion object {
-        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, OpenAICompatible, LiteRT)
+        val all: List<Service> get() = listOf(Free, AtlasCloud, Gemini, Anthropic, OpenAI, DeepSeek, Mistral, XAI, OpenRouter, Groq, Nvidia, Cerebras, OllamaCloud, LongCat, Together, HuggingFace, Venice, Moonshot, Zai, ZaiCodingPlan, Minimax, AiHubMix, DeepInfra, FireworksAI, OpenCode, PublicAI, Perplexity, OpenAICompatible, LiteRT)
 
         const val DEFAULT_OPENAI_COMPATIBLE_BASE_URL = "http://localhost:11434/v1"
 
