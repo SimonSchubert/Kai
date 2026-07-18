@@ -14,8 +14,11 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.zip.GZIPInputStream
 
-private const val ALPINE_VERSION = "3.21.3"
-private const val ALPINE_BRANCH = "v3.21"
+// Cap at 3.22: Alpine 3.23+ ships apk-tools 3, which uses execveat() in a way
+// proot does not support, so `apk update` fails under the sandbox runtime.
+// See termux/proot-distro#532 / #595.
+private const val ALPINE_VERSION = "3.22.5"
+private const val ALPINE_BRANCH = "v3.22"
 private const val BUFFER_SIZE = 8192
 
 private val ALPINE_MIRRORS = listOf(

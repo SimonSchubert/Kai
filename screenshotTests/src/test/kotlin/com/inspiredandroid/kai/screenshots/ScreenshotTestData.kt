@@ -206,7 +206,7 @@ object ScreenshotTestData {
             "      :dddddddddddddddddddddddddd:\n" +
             "       .hddddddddddddddddddddddh.root@localhost\n" +
             "--------------\n" +
-            "OS: Alpine Linux v3.21 aarch64\n" +
+            "OS: Alpine Linux v3.22 aarch64\n" +
             "Kernel: Linux 6.1.145-android14-11-gfa1d6308d1fe-ab14691759\n" +
             "Uptime: 3 days, 12 hours, 51 mins\n" +
             "Packages: 65 (apk)\n" +
